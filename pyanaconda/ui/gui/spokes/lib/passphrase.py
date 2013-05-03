@@ -19,25 +19,20 @@
 # Red Hat Author(s): David Lehman <dlehman@redhat.com>
 #
 
-from gi.repository import Gtk
-from gi.repository import Gdk
+# pylint: disable-msg=E0611
+from gi.repository import Gtk, Gdk
 
 import gettext
 import pwquality
 
 from pyanaconda.ui.gui import GUIObject
 
-from pyanaconda import keyboard
 from pyanaconda.i18n import _, N_, P_
 
 __all__ = ["PassphraseDialog"]
 
-warning_label_template = N_("Warning: Your current keyboard layout is <b>%s</b>."
-                            "If you change your keyboard layout, you may not be "
-                            "able to decrypt your disks after install.")
-
 ERROR_WEAK = N_("You have provided a weak passphrase: %s")
-ERROR_NOT_MATCHING = N_("Passphrases do not match.") 
+ERROR_NOT_MATCHING = N_("Passphrases do not match.")
 
 class PassphraseDialog(GUIObject):
     builderObjects = ["passphrase_dialog"]
@@ -46,7 +41,6 @@ class PassphraseDialog(GUIObject):
 
     def refresh(self):
         super(GUIObject, self).refresh()
-        self._warning_label = self.builder.get_object("passphrase_warning_label")
 
         # disable input methods for the passphrase Entry widgets and make sure
         # the focus change mask is enabled
@@ -75,12 +69,6 @@ class PassphraseDialog(GUIObject):
         self._pwq = pwquality.PWQSettings()
         self._pwq.read_config()
 
-        # update the warning label with the currently selected keymap
-        xkl_wrapper = keyboard.XklWrapper.get_instance()
-        keymap_name = xkl_wrapper.get_current_layout_name()
-        warning_label_text = _(warning_label_template) % keymap_name
-        self._warning_label.set_markup(warning_label_text)
-
         # initialize with the previously set passphrase
         self.passphrase = self.data.autopart.passphrase
 
@@ -95,6 +83,7 @@ class PassphraseDialog(GUIObject):
 
     def run(self):
         self.refresh()
+        self.window.show_all()
         rc = self.window.run()
         self.window.destroy()
         return rc

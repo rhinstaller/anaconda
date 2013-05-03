@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <interface>
+  <!-- interface-requires AnacondaWidgets 1.0 -->
   <!-- interface-requires gtk+ 3.0 -->
   <object class="GtkDialog" id="passphrase_dialog">
     <property name="can_focus">False</property>
@@ -190,7 +191,19 @@
               </packing>
             </child>
             <child>
-              <placeholder/>
+              <object class="AnacondaLayoutIndicator" id="AnacondaLayoutIndicator1">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="has_tooltip">True</property>
+                <property name="halign">center</property>
+                <property name="label_width">4</property>
+              </object>
+              <packing>
+                <property name="left_attach">0</property>
+                <property name="top_attach">1</property>
+                <property name="width">1</property>
+                <property name="height">1</property>
+              </packing>
             </child>
           </object>
           <packing>
@@ -220,7 +233,7 @@
               <object class="GtkLabel" id="passphrase_warning_label">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
-                <property name="label" translatable="yes">keymap warning label</property>
+                <property name="label" translatable="yes">Warning: You won't be able to switch between keyboard layouts (from the default one) when you decrypt your disks after install.</property>
                 <property name="use_markup">True</property>
                 <property name="wrap">True</property>
               </object>
