@@ -86,6 +86,15 @@ class ThreadManager(object):
 
         self.raise_error(name)
 
+    def wait_all(self):
+        """Wait for all threads to exit and if there was an error re-raise it.
+        """
+        for name in self._objs.keys():
+            if self.get(name) == threading.current_thread():
+                continue
+            log.debug("Waiting for thread %s to exit" % name)
+            self.wait(name)
+
     def set_error(self, name, *exc_info):
         """Set the error data for a thread
 
@@ -115,6 +124,24 @@ class ThreadManager(object):
 
         cur_thread = threading.current_thread()
         return cur_thread is self._main_thread
+
+    @property
+    def running(self):
+        """ Return the number of running threads.
+
+            :returns: number of running threads
+            :rtype:   int
+        """
+        return len(self._objs)
+
+    @property
+    def names(self):
+        """ Return the names of the running threads.
+
+            :returns: list of thread names
+            :rtype:   list of strings
+        """
+        return self._objs.keys()
 
 class AnacondaThread(threading.Thread):
     """A threading.Thread subclass that exists only for a couple purposes:

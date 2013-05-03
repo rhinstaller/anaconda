@@ -20,7 +20,7 @@
 # Red Hat Author(s): Chris Lumens <clumens@redhat.com>
 #
 
-from pyanaconda.constants import ROOT_PATH
+from pyanaconda.constants import ROOT_PATH, THREAD_PAYLOAD
 from blivet import turnOnFilesystems
 from pyanaconda.bootloader import writeBootLoader
 from pyanaconda.progress import progress_report, progressQ
@@ -28,6 +28,9 @@ from pyanaconda.users import createLuserConf, getPassAlgo, Users
 from pyanaconda import flags
 from pyanaconda import timezone
 from pyanaconda.i18n import _
+from pyanaconda.threads import threadMgr
+import logging
+log = logging.getLogger("anaconda")
 
 def _writeKS(ksdata):
     import os
@@ -107,6 +110,12 @@ def doInstall(storage, payload, ksdata, instClass):
             len(storage.devicetree.findActions(type="resize", object="format"))
     steps += 5  # pre setup phase, packages setup, packages, bootloader, post install
     progressQ.send_init(steps)
+
+    # This should be the only thread running, wait for the others to finish if not.
+    if threadMgr.running > 1:
+        with progress_report(_("Waiting for %s threads to finish") % (threadMgr.running-1)):
+            map(log.debug, ("Thread %s is running" % n for n in threadMgr.names))
+            threadMgr.wait_all()
 
     with progress_report(_("Setting up the installation environment")):
         ksdata.addons.setup(storage, ksdata, instClass)
