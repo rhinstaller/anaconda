@@ -522,5 +522,8 @@ class GraphicalExceptionHandlingIface(meh.ui.gui.GraphicalIntf):
         window_group = Gtk.WindowGroup()
         window_group.add_window(exc_window.main_window)
 
+        # the busy cursor may be set
+        unbusyCursor()
+
         return exc_window
 
