@@ -102,6 +102,20 @@ def enlightbox(mainWindow, dialog):
     yield
     lightbox.destroy()
 
+def busyCursor():
+    window = Gdk.get_default_root_window()
+    window.set_cursor(Gdk.Cursor(Gdk.CursorType.WATCH))
+
+def unbusyCursor():
+    window = Gdk.get_default_root_window()
+    window.set_cursor(Gdk.Cursor(Gdk.CursorType.ARROW))
+
+@contextmanager
+def busied_cursor():
+    busyCursor()
+    yield
+    unbusyCursor()
+
 def setViewportBackground(vp, color="@theme_bg_color"):
     """Set the background color of the GtkViewport vp to be the same as the
        overall UI background.  This should not be called for every viewport,
