@@ -437,8 +437,6 @@
                         <property name="can_focus">True</property>
                         <property name="visibility">False</property>
                         <property name="invisible_char">●</property>
-                        <signal name="focus-in-event" handler="on_password_focused" swapped="no"/>
-                        <signal name="focus-out-event" handler="on_password_unfocused" swapped="no"/>
                       </object>
                       <packing>
                         <property name="left_attach">1</property>
@@ -1151,8 +1149,6 @@
                             <property name="invisible_char">●</property>
                             <property name="invisible_char_set">True</property>
                             <signal name="changed" handler="on_repoProxy_changed" swapped="no"/>
-                            <signal name="focus-in-event" handler="on_password_focused" swapped="no"/>
-                            <signal name="focus-out-event" handler="on_password_unfocused" swapped="no"/>
                           </object>
                           <packing>
                             <property name="left_attach">1</property>

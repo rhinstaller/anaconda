@@ -141,7 +141,7 @@ class PassphraseDialog(GUIObject):
         if sensitive:
             self._confirm_entry.grab_focus()
 
-        return False
+        return True
 
     def on_confirm_changed(self, entry):
         if not self._save_button.get_sensitive() and \

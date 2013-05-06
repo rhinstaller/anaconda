@@ -173,8 +173,6 @@
                         <property name="visibility">False</property>
                         <property name="invisible_char">●</property>
                         <signal name="changed" handler="_checkPassword" swapped="no"/>
-                        <signal name="focus-in-event" handler="on_password_focused" swapped="no"/>
-                        <signal name="focus-out-event" handler="on_password_unfocused" swapped="no"/>
                       </object>
                       <packing>
                         <property name="left_attach">1</property>
@@ -190,8 +188,6 @@
                         <property name="visibility">False</property>
                         <property name="invisible_char">●</property>
                         <signal name="changed" handler="_checkPassword" swapped="no"/>
-                        <signal name="focus-in-event" handler="on_password_focused" swapped="no"/>
-                        <signal name="focus-out-event" handler="on_password_unfocused" swapped="no"/>
                       </object>
                       <packing>
                         <property name="left_attach">1</property>
