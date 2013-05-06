@@ -78,7 +78,9 @@ class TUISpoke(TUIObject, tui.Widget, Spoke):
             key = "x"
             completed = self.completed
 
-        c = tui.CheckboxWidget(key = key, completed = completed,
+        # always set completed = True here; otherwise key value won't be
+        # displayed if completed (spoke value from above) is False
+        c = tui.CheckboxWidget(key = key, completed = True,
                                title = self.title, text = self.status)
         c.render(width)
         self.draw(c)
