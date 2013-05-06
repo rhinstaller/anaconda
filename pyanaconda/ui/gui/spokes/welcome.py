@@ -187,7 +187,7 @@ class LanguageMixIn(object):
             else:
                 lang = self.language.preferred_translation.short_name
 
-            itr = self._selectLanguage(store, lang)
+            itr = self._selectLanguage(lang)
 
         # store is the filtered store, and itr is an iter on it.  We need to
         # convert to an iter on the underlying store.
@@ -235,8 +235,7 @@ class LanguageMixIn(object):
         self.window.retranslate(lang)
 
     def refresh(self, displayArea):
-        store = self.builder.get_object("languageStore")
-        self._selectLanguage(store, self.data.lang.lang)
+        self._selectLanguage(self.data.lang.lang)
 
         # Rip the label and language selection window
         # from where it is right now and add it to this
@@ -279,9 +278,11 @@ class LanguageMixIn(object):
         else:
             return False
 
-    def _selectLanguage(self, store, language):
+    def _selectLanguage(self, language):
+        treeview = self.builder.get_object(self._viewName)
+        selection = treeview.get_selection()
+        store = treeview.get_model()
         itr = store.get_iter_first()
-
         # store[itr][3] is True if this row is a separator in the view, so we
         # want to skip those.
         while itr and not store[itr][3] and language not in expand_langs(store[itr][2]):
@@ -291,11 +292,24 @@ class LanguageMixIn(object):
         if not itr:
             return
 
-        treeview = self.builder.get_object(self._viewName)
-        selection = treeview.get_selection()
         selection.select_iter(itr)
         path = store.get_path(itr)
-        treeview.scroll_to_cell(path)
+        # row_align=0.5 tells GTK to move the cell to the middle of the
+        # treeview viewport (0.0 should align it with the top, 1.0 with bottom)
+        # If the cell is the uppermost one, it should align it with the top
+        # of the viewport.
+        #
+        # Unfortunately, this does not work as expected due to a bug in GTK.
+        # So currently if the cell is the upper most one, it will sort of
+        # align it with the top of the viewport, leaving about 30% of
+        # it hidden. If the target cell is not the upper most one,
+        # it seems to just scroll the treeview a bit, leaving the
+        # target cell well out of the viewport.
+        #
+        # In short, once that GTK bug is fixed, row_align=0.5 should work
+        # correctly for showing both upper most cells and all other cells
+        # in the tree view.
+        treeview.scroll_to_cell(path, use_align=True, row_align=0.5)
 
         return itr
 
