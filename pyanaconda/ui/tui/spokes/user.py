@@ -65,16 +65,26 @@ class UserSpoke(FirstbootSpokeMixIn, EditTUISpoke):
 
     @property
     def completed(self):
-        return len(self.data.user.userList) > 0
+        """ Verify a user is created; verify pw is set if option checked. """
+        if len(self.data.user.userList) > 0:
+            if self.args._use_password and not bool(self.args.password or self.args.isCrypted):
+                return False
+            else:
+                return True
+        else:
+            return False
 
     @property
     def mandatory(self):
-        return (not self.data.rootpw.password) or self.data.rootpw.lock
+        """ Only mandatory if root account is disabled. """
+        return not bool(self.data.rootpw.password) or self.data.rootpw.lock
 
     @property
     def status(self):
         if len(self.data.user.userList) == 0:
             return _("No user will be created")
+        elif self.args._use_password and not bool(self.args.password or self.args.isCrypted):
+            return _("You must set a password")
         elif "wheel" in self.data.user.userList[0].groups:
             return _("Administrator %s will be created") % self.data.user.userList[0].name
         else:
