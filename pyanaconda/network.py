@@ -769,6 +769,9 @@ def wait_for_connecting_NM():
     """If NM is in connecting state, wait for connection.
     Return value: NM has got connection."""
 
+    if nm.nm_is_connected:
+        return True
+
     if nm.nm_is_connecting():
         log.debug("waiting for connecting NM (dhcp?)")
     else:
@@ -888,8 +891,29 @@ def networkInitialize(ksdata):
         hostname = getHostname()
         update_hostname_data(ksdata, hostname)
 
+def _get_ntp_servers_from_dhcp(ksdata):
+    """Check if some NTP servers were returned from DHCP and set them
+    to ksdata (if not NTP servers were specified in the kickstart)"""
+    ntp_servers = nm.nm_ntp_servers_from_dhcp()
+    log.info("got %d NTP servers from DHCP" % len(ntp_servers))
+    hostnames = []
+    for server_address in ntp_servers:
+        try:
+            hostname = socket.gethostbyaddr(server_address)[0]
+        except socket.error:
+            # getting hostname failed, just use the address returned from DHCP
+            log.debug("getting NTP server hostname failed for address: %s"
+                      % server_address)
+            hostname = server_address
+        hostnames.append(hostname)
+    # check if some NTP servers were specified from kickstart
+    if not ksdata.timezone.ntpservers:
+        # no NTP servers were specified, add those from DHCP
+        ksdata.timezone.ntpservers = hostnames
+
 def wait_for_connecting_NM_thread(ksdata):
     # connection (e.g. auto default dhcp) is activated by NM service
     if wait_for_connecting_NM():
         hostname = getHostname()
         update_hostname_data(ksdata, hostname)
+        _get_ntp_servers_from_dhcp(ksdata)

@@ -24,7 +24,7 @@ from gi.repository import NetworkManager
 import struct
 import socket
 
-from pyanaconda.constants import DEFAULT_DBUS_TIMEOUT
+DEFAULT_DBUS_TIMEOUT = 30
 
 device_type_interfaces = {
     NetworkManager.DeviceType.ETHERNET: "org.freedesktop.NetworkManager.Device.Wired",
@@ -262,6 +262,38 @@ def nm_device_ip_addresses(name, version=4):
         retval.append(addr_str)
 
     return retval
+
+def nm_ntp_servers_from_dhcp():
+    """Return a list of NTP servers that were specified the reply of the
+       DHCP server or empty list if no NTP servers were returned.
+       The return_hostnames  parameter specifies if the NTP server IP
+       addresses from the DHCP reply should be converted to hostnames.
+    """
+    ntp_servers = []
+    # get paths for all actively connected interfaces
+    active_devices = nm_activated_devices()
+    for device in active_devices:
+        # harvest NTP server addresses from DHCPv4
+        dhcp4_path = nm_device_property(device, "Dhcp4Config")
+        dhcp4_proxy = _get_proxy(object_path=dhcp4_path,
+                interface_name="org.freedesktop.NetworkManager.DHCP4Config")
+        options = dhcp4_proxy.get_cached_property("Options")
+        if options and 'ntp_servers' in options.unpack():
+            # NTP server addresses returned by DHCP are whitespace delimited
+            ntp_servers_string = options.unpack()["ntp_servers"] 
+            for ip in ntp_servers_string.split(" "):
+                ntp_servers.append(ip)
+
+        # harvest NTP servers from DHCPv6
+        dhcp6_path = nm_device_property(device, "Dhcp6Config")
+        dhcp6_proxy = _get_proxy(object_path=dhcp6_path,
+                interface_name="org.freedesktop.NetworkManager.DHCP6Config")
+        options = dhcp6_proxy.get_cached_property("Options")
+        if options is not None:
+            # NTP server addresses returned by DHCP are whitespace delimited
+            for ip in options.unpack().split(" "):
+                ntp_servers.append(ip)
+    return ntp_servers
 
 def _device_settings(name):
     """Return object path of device setting
