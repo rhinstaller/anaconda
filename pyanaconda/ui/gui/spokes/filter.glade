@@ -348,8 +348,6 @@
                               <object class="GtkTreeViewColumn" id="searchWWIDCol">
                                 <property name="title" translatable="yes">WWID</property>
                                 <property name="clickable">True</property>
-                                <property name="sort_indicator">True</property>
-                                <property name="sort_column_id">10</property>
                                 <child>
                                   <object class="GtkCellRendererText" id="searchWWIDRenderer"/>
                                   <attributes>
@@ -364,8 +362,6 @@
                               <object class="GtkTreeViewColumn" id="searchCapacityCol">
                                 <property name="title" translatable="yes">Capacity</property>
                                 <property name="clickable">True</property>
-                                <property name="sort_indicator">True</property>
-                                <property name="sort_column_id">6</property>
                                 <child>
                                   <object class="GtkCellRendererText" id="searchCapacityRenderer"/>
                                   <attributes>
@@ -380,8 +376,6 @@
                               <object class="GtkTreeViewColumn" id="searchInterconnectCol">
                                 <property name="title" translatable="yes">Interconnect</property>
                                 <property name="clickable">True</property>
-                                <property name="sort_indicator">True</property>
-                                <property name="sort_column_id">8</property>
                                 <child>
                                   <object class="GtkCellRendererText" id="searchInterconnectRenderer"/>
                                   <attributes>
@@ -396,8 +390,6 @@
                               <object class="GtkTreeViewColumn" id="searchModelCol">
                                 <property name="title" translatable="yes">Model</property>
                                 <property name="clickable">True</property>
-                                <property name="sort_indicator">True</property>
-                                <property name="sort_column_id">5</property>
                                 <child>
                                   <object class="GtkCellRendererText" id="searchModelRenderer"/>
                                   <attributes>
@@ -412,8 +404,6 @@
                               <object class="GtkTreeViewColumn" id="searchLUNCol">
                                 <property name="title" translatable="yes">LUN</property>
                                 <property name="clickable">True</property>
-                                <property name="sort_indicator">True</property>
-                                <property name="sort_column_id">14</property>
                                 <child>
                                   <object class="GtkCellRendererText" id="searchLUNRenderer"/>
                                   <attributes>
@@ -428,8 +418,6 @@
                               <object class="GtkTreeViewColumn" id="searchPortCol">
                                 <property name="title" translatable="yes">Port</property>
                                 <property name="clickable">True</property>
-                                <property name="sort_indicator">True</property>
-                                <property name="sort_column_id">12</property>
                                 <child>
                                   <object class="GtkCellRendererText" id="searchPortRenderer"/>
                                   <attributes>
@@ -444,8 +432,6 @@
                               <object class="GtkTreeViewColumn" id="searchTargetRenderer2">
                                 <property name="title" translatable="yes">Target</property>
                                 <property name="clickable">True</property>
-                                <property name="sort_indicator">True</property>
-                                <property name="sort_column_id">13</property>
                                 <child>
                                   <object class="GtkCellRendererText" id="searchTargetRenderer"/>
                                   <attributes>
@@ -460,8 +446,6 @@
                               <object class="GtkTreeViewColumn" id="searchVendorCol">
                                 <property name="title" translatable="yes">Vendor</property>
                                 <property name="clickable">True</property>
-                                <property name="sort_indicator">True</property>
-                                <property name="sort_column_id">7</property>
                                 <child>
                                   <object class="GtkCellRendererText" id="searchVendorRenderer"/>
                                   <attributes>
@@ -747,8 +731,6 @@
                               <object class="GtkTreeViewColumn" id="multipathWWIDCol">
                                 <property name="title" translatable="yes">WWID</property>
                                 <property name="clickable">True</property>
-                                <property name="sort_indicator">True</property>
-                                <property name="sort_column_id">10</property>
                                 <child>
                                   <object class="GtkCellRendererText" id="multipathWWIDRenderer"/>
                                   <attributes>
@@ -763,8 +745,6 @@
                               <object class="GtkTreeViewColumn" id="multipathCapacityCol">
                                 <property name="title" translatable="yes">Capacity</property>
                                 <property name="clickable">True</property>
-                                <property name="sort_indicator">True</property>
-                                <property name="sort_column_id">6</property>
                                 <child>
                                   <object class="GtkCellRendererText" id="multipathCapacityRenderer"/>
                                   <attributes>
@@ -779,8 +759,6 @@
                               <object class="GtkTreeViewColumn" id="multipathVendorCol">
                                 <property name="title" translatable="yes">Vendor</property>
                                 <property name="clickable">True</property>
-                                <property name="sort_indicator">True</property>
-                                <property name="sort_column_id">7</property>
                                 <child>
                                   <object class="GtkCellRendererText" id="multipathVendorRenderer"/>
                                   <attributes>
@@ -796,8 +774,6 @@
                               <object class="GtkTreeViewColumn" id="multipathInterconnectCol">
                                 <property name="title" translatable="yes">Interconnect</property>
                                 <property name="clickable">True</property>
-                                <property name="sort_indicator">True</property>
-                                <property name="sort_column_id">8</property>
                                 <child>
                                   <object class="GtkCellRendererText" id="multipathInterconnectRenderer"/>
                                   <attributes>
@@ -812,8 +788,6 @@
                               <object class="GtkTreeViewColumn" id="multipathPathsCol">
                                 <property name="title" translatable="yes">Paths</property>
                                 <property name="clickable">True</property>
-                                <property name="sort_indicator">True</property>
-                                <property name="sort_column_id">11</property>
                                 <child>
                                   <object class="GtkCellRendererText" id="multipathPathsRenderer"/>
                                   <attributes>
@@ -1106,8 +1080,6 @@
                               <object class="GtkTreeViewColumn" id="otherIDCol">
                                 <property name="title" translatable="yes">Identifier</property>
                                 <property name="clickable">True</property>
-                                <property name="sort_indicator">True</property>
-                                <property name="sort_column_id">10</property>
                                 <child>
                                   <object class="GtkCellRendererText" id="otherIDRenderer"/>
                                   <attributes>
@@ -1122,8 +1094,6 @@
                               <object class="GtkTreeViewColumn" id="otherCapacityCol">
                                 <property name="title" translatable="yes">Capacity</property>
                                 <property name="clickable">True</property>
-                                <property name="sort_indicator">True</property>
-                                <property name="sort_column_id">6</property>
                                 <child>
                                   <object class="GtkCellRendererText" id="otherCapacityRenderer"/>
                                   <attributes>
@@ -1138,8 +1108,6 @@
                               <object class="GtkTreeViewColumn" id="otherVendorCol">
                                 <property name="title" translatable="yes">Vendor</property>
                                 <property name="clickable">True</property>
-                                <property name="sort_indicator">True</property>
-                                <property name="sort_column_id">7</property>
                                 <child>
                                   <object class="GtkCellRendererText" id="otherVendorRenderer"/>
                                   <attributes>
@@ -1155,8 +1123,6 @@
                               <object class="GtkTreeViewColumn" id="otherInterconnectCol">
                                 <property name="title" translatable="yes">Interconnect</property>
                                 <property name="clickable">True</property>
-                                <property name="sort_indicator">True</property>
-                                <property name="sort_column_id">8</property>
                                 <child>
                                   <object class="GtkCellRendererText" id="otherInterconnectRenderer"/>
                                   <attributes>
@@ -1375,8 +1341,6 @@
                               <object class="GtkTreeViewColumn" id="zCCWCol">
                                 <property name="title" translatable="yes">CCW</property>
                                 <property name="clickable">True</property>
-                                <property name="sort_indicator">True</property>
-                                <property name="sort_column_id">15</property>
                                 <child>
                                   <object class="GtkCellRendererText" id="zCCWRenderer"/>
                                   <attributes>
@@ -1391,8 +1355,6 @@
                               <object class="GtkTreeViewColumn" id="zTypeCol">
                                 <property name="title" translatable="yes">Type</property>
                                 <property name="clickable">True</property>
-                                <property name="sort_indicator">True</property>
-                                <property name="sort_column_id">4</property>
                                 <child>
                                   <object class="GtkCellRendererText" id="zTypeRenderer"/>
                                   <attributes>
@@ -1407,8 +1369,6 @@
                               <object class="GtkTreeViewColumn" id="zCapacityCol">
                                 <property name="title" translatable="yes">Capacity</property>
                                 <property name="clickable">True</property>
-                                <property name="sort_indicator">True</property>
-                                <property name="sort_column_id">6</property>
                                 <child>
                                   <object class="GtkCellRendererText" id="zCapacityRenderer"/>
                                   <attributes>
@@ -1423,8 +1383,6 @@
                               <object class="GtkTreeViewColumn" id="zWWPNCol">
                                 <property name="title" translatable="yes">WWPN</property>
                                 <property name="clickable">True</property>
-                                <property name="sort_indicator">True</property>
-                                <property name="sort_column_id">10</property>
                                 <child>
                                   <object class="GtkCellRendererText" id="zWWPNRenderer"/>
                                   <attributes>
@@ -1439,8 +1397,6 @@
                               <object class="GtkTreeViewColumn" id="zLUNCol">
                                 <property name="title" translatable="yes">LUN</property>
                                 <property name="clickable">True</property>
-                                <property name="sort_indicator">True</property>
-                                <property name="sort_column_id">14</property>
                                 <child>
                                   <object class="GtkCellRendererText" id="zLUNRenderer"/>
                                   <attributes>
