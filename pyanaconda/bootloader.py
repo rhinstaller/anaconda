@@ -216,7 +216,6 @@ class TbootLinuxBootLoaderImage(LinuxBootLoaderImage):
 class BootLoader(object):
     name = "Generic Bootloader"
     packages = []
-    obsoletes = []
     config_file = None
     config_file_mode = 0600
     can_dual_boot = False
@@ -1336,7 +1335,6 @@ class GRUB2(GRUB):
     """
     name = "GRUB2"
     packages = ["grub2"]
-    obsoletes = ["grub"]
     _config_file = "grub.cfg"
     _config_dir = "grub2"
     config_file_mode = 0600
