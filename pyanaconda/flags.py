@@ -66,6 +66,7 @@ class Flags(object):
         self.dirInstall = False
         self.askmethod = False
         self.eject = True
+        self.extlinux = False
         self.gpt = False
         self.leavebootorder = False
         self.testing = False
@@ -87,6 +88,9 @@ class Flags(object):
 
         if not selinux.is_selinux_enabled():
             self.selinux = 0
+
+        if "extlinux" in self.cmdline:
+            self.extlinux = True
 
         if "gpt" in self.cmdline:
             self.gpt = True

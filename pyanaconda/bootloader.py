@@ -2210,7 +2210,10 @@ bootloader_by_platform = {platform.X86: GRUB2,
 
 def get_bootloader():
     platform_name = platform.platform.__class__.__name__
-    cls = bootloader_by_platform.get(platform.platform.__class__, BootLoader)
+    if flags.extlinux:
+        cls = EXTLINUX
+    else:
+        cls = bootloader_by_platform.get(platform.platform.__class__, BootLoader)
     log.info("bootloader %s on %s platform" % (cls.__name__, platform_name))
     return cls()
 
