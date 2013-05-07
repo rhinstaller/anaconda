@@ -93,81 +93,70 @@
                 <property name="can_focus">True</property>
                 <property name="shadow_type">in</property>
                 <child>
-                  <object class="GtkViewport" id="viewport2">
+                  <object class="GtkTreeView" id="disk_tree_view">
                     <property name="visible">True</property>
-                    <property name="can_focus">False</property>
+                    <property name="can_focus">True</property>
+                    <property name="model">disk_store</property>
                     <child>
-                      <object class="GtkTreeView" id="disk_tree_view">
-                        <property name="visible">True</property>
-                        <property name="can_focus">True</property>
-                        <property name="model">disk_store</property>
-                        <child internal-child="selection">
-                          <object class="GtkTreeSelection" id="disk_selection">
-                            <signal name="changed" handler="on_selection_changed" swapped="no"/>
-                          </object>
-                        </child>
+                      <object class="GtkTreeViewColumn" id="boot_column">
+                        <property name="title" translatable="yes">Boot</property>
                         <child>
-                          <object class="GtkTreeViewColumn" id="boot_column">
-                            <property name="title" translatable="yes">Boot</property>
-                            <child>
-                              <object class="GtkCellRendererPixbuf" id="boot_renderer">
-                                <property name="stock_id">gtk-apply</property>
-                              </object>
-                              <attributes>
-                                <attribute name="visible">0</attribute>
-                              </attributes>
-                            </child>
+                          <object class="GtkCellRendererPixbuf" id="boot_renderer">
+                            <property name="stock_id">gtk-apply</property>
                           </object>
+                          <attributes>
+                            <attribute name="visible">0</attribute>
+                          </attributes>
                         </child>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkTreeViewColumn" id="description_column">
+                        <property name="spacing">6</property>
+                        <property name="title" translatable="yes">Description</property>
+                        <property name="clickable">True</property>
                         <child>
-                          <object class="GtkTreeViewColumn" id="description_column">
-                            <property name="spacing">6</property>
-                            <property name="title" translatable="yes">Description</property>
-                            <property name="clickable">True</property>
-                            <child>
-                              <object class="GtkCellRendererText" id="description_renderer"/>
-                              <attributes>
-                                <attribute name="text">1</attribute>
-                              </attributes>
-                            </child>
-                          </object>
+                          <object class="GtkCellRendererText" id="description_renderer"/>
+                          <attributes>
+                            <attribute name="text">1</attribute>
+                          </attributes>
                         </child>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkTreeViewColumn" id="name_column">
+                        <property name="spacing">6</property>
+                        <property name="title" translatable="yes">Name</property>
                         <child>
-                          <object class="GtkTreeViewColumn" id="name_column">
-                            <property name="spacing">6</property>
-                            <property name="title" translatable="yes">Name</property>
-                            <child>
-                              <object class="GtkCellRendererText" id="name_renderer"/>
-                              <attributes>
-                                <attribute name="text">4</attribute>
-                              </attributes>
-                            </child>
-                          </object>
+                          <object class="GtkCellRendererText" id="name_renderer"/>
+                          <attributes>
+                            <attribute name="text">4</attribute>
+                          </attributes>
                         </child>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkTreeViewColumn" id="capacity_column">
+                        <property name="spacing">6</property>
+                        <property name="title" translatable="yes">Capacity</property>
+                        <property name="clickable">True</property>
                         <child>
-                          <object class="GtkTreeViewColumn" id="capacity_column">
-                            <property name="spacing">6</property>
-                            <property name="title" translatable="yes">Capacity</property>
-                            <property name="clickable">True</property>
-                            <child>
-                              <object class="GtkCellRendererText" id="capacity_renderer"/>
-                              <attributes>
-                                <attribute name="text">2</attribute>
-                              </attributes>
-                            </child>
-                          </object>
+                          <object class="GtkCellRendererText" id="capacity_renderer"/>
+                          <attributes>
+                            <attribute name="text">2</attribute>
+                          </attributes>
                         </child>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkTreeViewColumn" id="free_column">
+                        <property name="spacing">6</property>
+                        <property name="title" translatable="yes">Free</property>
                         <child>
-                          <object class="GtkTreeViewColumn" id="free_column">
-                            <property name="spacing">6</property>
-                            <property name="title" translatable="yes">Free</property>
-                            <child>
-                              <object class="GtkCellRendererText" id="free_renderer"/>
-                              <attributes>
-                                <attribute name="text">3</attribute>
-                              </attributes>
-                            </child>
-                          </object>
+                          <object class="GtkCellRendererText" id="free_renderer"/>
+                          <attributes>
+                            <attribute name="text">3</attribute>
+                          </attributes>
                         </child>
                       </object>
                     </child>
