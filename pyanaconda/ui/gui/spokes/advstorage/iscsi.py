@@ -438,13 +438,3 @@ class ISCSIDialog(GUIObject):
             credentials = loginMap[page](self.builder)
 
         self._loginButton.set_sensitive(credentials_valid(credentials))
-
-    ##
-    ## GLOBAL SIGNAL HANDLERS
-    ##
-
-    def on_password_focused(self, entry, event, *args):
-        entry.set_visibility(True)
-
-    def on_password_unfocused(self, entry, event, *args):
-        entry.set_visibility(False)
