@@ -32,10 +32,10 @@ from blivet.errors import StorageError
 from pyanaconda.flags import flags
 from pyanaconda.kickstart import doKickstartStorage
 from pyanaconda.threads import threadMgr, AnacondaThread
-from pyanaconda import constants
+from pyanaconda.constants import THREAD_STORAGE, THREAD_STORAGE_WATCHER
 from pyanaconda.i18n import _, P_
 
-from pykickstart.constants import *
+from pykickstart.constants import CLEARPART_TYPE_ALL, CLEARPART_TYPE_LINUX, CLEARPART_TYPE_NONE
 
 import logging
 log = logging.getLogger("anaconda")
@@ -46,10 +46,14 @@ CLEARALL = _("Use All Space")
 CLEARLINUX = _("Replace Existing Linux system(s)")
 CLEARNONE = _("Use Free Space")
 
-parttypes = {CLEARALL: CLEARPART_TYPE_ALL, CLEARLINUX: CLEARPART_TYPE_LINUX,
+PARTTYPES = {CLEARALL: CLEARPART_TYPE_ALL, CLEARLINUX: CLEARPART_TYPE_LINUX,
              CLEARNONE: CLEARPART_TYPE_NONE}
 
 class StorageSpoke(NormalTUISpoke):
+    """
+    Storage spoke where users proceed to customize storage features such
+    as disk selection, partitioning, and fs type.
+    """
     title = _("Install Destination")
     category = "destination"
 
@@ -79,7 +83,7 @@ class StorageSpoke(NormalTUISpoke):
     def ready(self):
         # By default, the storage spoke is not ready.  We have to wait until
         # storageInitialize is done.
-        return self._ready and not threadMgr.get(constants.THREAD_STORAGE_WATCHER)
+        return self._ready and not threadMgr.get(THREAD_STORAGE_WATCHER)
 
     @property
     def mandatory(self):
@@ -147,9 +151,12 @@ class StorageSpoke(NormalTUISpoke):
                       count) % (count, str(Size(spec="%s MB" % capacity)), free))
 
         if len(self.disks) == 0:
-            summary = _("No disks detected.  Please shut down the computer, connect at least one disk, and restart to complete installation.")
+            summary = _("No disks detected.  Please shut down the computer, \
+                         connect at least one disk, and restart to complete \
+                         installation.")
         elif count == 0:
-            summary = (_("No disks selected; please select at least one disk to install to."))
+            summary = (_("No disks selected; please select at least one disk \
+                          to install to."))
 
         # Append storage errors to the summary
         if self.errors:
@@ -165,7 +172,7 @@ class StorageSpoke(NormalTUISpoke):
         # Join the initialization thread to block on it
         # This print is foul.  Need a better message display
         print(_("Probing storage..."))
-        threadMgr.wait(constants.THREAD_STORAGE_WATCHER)
+        threadMgr.wait(THREAD_STORAGE_WATCHER)
 
         # synchronize our local data store with the global ksdata
         # Commment out because there is no way to select a disk right
@@ -270,17 +277,19 @@ class StorageSpoke(NormalTUISpoke):
     def initialize(self):
         NormalTUISpoke.initialize(self)
 
-        threadMgr.add(AnacondaThread(name=constants.THREAD_STORAGE_WATCHER,
+        threadMgr.add(AnacondaThread(name=THREAD_STORAGE_WATCHER,
                                      target=self._initialize))
 
         self.selected_disks = self.data.ignoredisk.onlyuse[:]
         # Probably need something here to track which disks are selected?
 
     def _initialize(self):
-        # Secondary initialize so wait for the storage thread
-        # to complete before populating our disk list
+        """
+        Secondary initialize so wait for the storage thread to complete before
+        populating our disk list
+        """
 
-        threadMgr.wait(constants.THREAD_STORAGE)
+        threadMgr.wait(THREAD_STORAGE)
 
         self.disks = sorted(getDisks(self.storage.devicetree),
                             key=lambda d: d.name)
@@ -289,12 +298,14 @@ class StorageSpoke(NormalTUISpoke):
         self._ready = True
 
 class AutoPartSpoke(NormalTUISpoke):
+    """ Autopartitioning options are presented here. """
     title = _("Autopartitioning Options")
     category = "destination"
 
     def __init__(self, app, data, storage, payload, instclass):
         NormalTUISpoke.__init__(self, app, data, storage, payload, instclass)
         self.clearPartType = self.data.clearpart.type
+        self.parttypelist = sorted(PARTTYPES.keys())
 
     @property
     def indirect(self):
@@ -313,14 +324,14 @@ class AutoPartSpoke(NormalTUISpoke):
             # Default to clearing everything.
             self.clearPartType = CLEARPART_TYPE_ALL
 
-        self.parttypelist = sorted(parttypes.keys())
         for parttype in self.parttypelist:
             c = CheckboxWidget(title="%i) %s" % (self.parttypelist.index(parttype) + 1,
                                                  parttype),
-                               completed=(parttypes[parttype] == self.clearPartType))
+                               completed=(PARTTYPES[parttype] == self.clearPartType))
             self._window += [c, ""]
 
-        message = _("Installation requires partitioning of your hard drive.  Select what space to use for the install target.")
+        message = _("Installation requires partitioning of your hard drive.  \
+                     Select what space to use for the install target.")
 
         self._window += [TextWidget(message), ""]
 
@@ -343,7 +354,7 @@ class AutoPartSpoke(NormalTUISpoke):
 
         try:
             number = int(key)
-            self.clearPartType = parttypes[self.parttypelist[number -1]]
+            self.clearPartType = PARTTYPES[self.parttypelist[number -1]]
             self.apply()
             self.close()
             return False
@@ -371,9 +382,9 @@ class PartitionSchemeSpoke(NormalTUISpoke):
         NormalTUISpoke.refresh(self, args)
 
         schemelist = self.partschemes.keys()
-        for scheme in schemelist:
-            box = CheckboxWidget(title="%i) %s" %(schemelist.index(scheme) \
-                                 + 1, scheme), completed=(schemelist.index(scheme) \
+        for sch in schemelist:
+            box = CheckboxWidget(title="%i) %s" %(schemelist.index(sch) \
+                                 + 1, sch), completed=(schemelist.index(sch) \
                                  + 1 == self._selection))
             self._window += [box, ""]
 
