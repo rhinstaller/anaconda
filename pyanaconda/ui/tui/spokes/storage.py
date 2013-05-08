@@ -26,7 +26,7 @@ from pyanaconda.ui.lib.disks import getDisks
 from pyanaconda.ui.tui.spokes import NormalTUISpoke
 from pyanaconda.ui.tui.simpleline import TextWidget, CheckboxWidget
 
-from pykickstart.constants import AUTOPART_TYPE_LVM
+from pykickstart.constants import AUTOPART_TYPE_LVM, AUTOPART_TYPE_BTRFS, AUTOPART_TYPE_PLAIN
 from blivet.size import Size
 from blivet.errors import StorageError
 from pyanaconda.flags import flags
@@ -216,7 +216,8 @@ class StorageSpoke(NormalTUISpoke):
         self.data.ignoredisk.onlyuse = self.selected_disks[:]
         self.data.clearpart.drives = self.selected_disks[:]
 
-        self.data.autopart.type = AUTOPART_TYPE_LVM
+        if self.data.autopart.type is None:
+            self.data.autopart.type = AUTOPART_TYPE_LVM
 
         if self.autopart:
             self.clearPartType = CLEARPART_TYPE_ALL
@@ -333,6 +334,9 @@ class AutoPartSpoke(NormalTUISpoke):
         """Grab the choice and update things"""
 
         if key == "c":
+            newspoke = PartitionSchemeSpoke(self.app, self.data, self.storage,
+                                            self.payload, self.instclass)
+            self.app.switch_screen_modal(newspoke)
             self.apply()
             self.close()
             return False
@@ -346,3 +350,61 @@ class AutoPartSpoke(NormalTUISpoke):
 
         except (ValueError, KeyError, IndexError):
             return key
+
+class PartitionSchemeSpoke(NormalTUISpoke):
+    """ SPoke to select what partitioning scheme to use on disk(s). """
+    title = _("Partition Scheme Options")
+    category = "destination"
+
+    _selection = None
+
+    def __init__(self, app, data, storage, payload, instclass):
+        NormalTUISpoke.__init__(self, app, data, storage, payload, instclass)
+        self.partschemes = {"Standard Partition": AUTOPART_TYPE_PLAIN,
+                        "BTRFS": AUTOPART_TYPE_BTRFS, "LVM": AUTOPART_TYPE_LVM}
+
+    @property
+    def indirect(self):
+        return True
+
+    def refresh(self, args=None):
+        NormalTUISpoke.refresh(self, args)
+
+        schemelist = self.partschemes.keys()
+        for scheme in schemelist:
+            box = CheckboxWidget(title="%i) %s" %(schemelist.index(scheme) \
+                                 + 1, scheme), completed=(schemelist.index(scheme) \
+                                 + 1 == self._selection))
+            self._window += [box, ""]
+
+        message = _("Select a partition scheme configuration.")
+        self._window += [TextWidget(message), ""]
+        return True
+
+    def input(self, args, key):
+        """ Grab the choice and update things. """
+
+        if key == "c" and self._selection:
+            self.apply()
+            self.close()
+            return None
+
+        try:
+            keyid = int(key)
+            if keyid in range(0, 4):
+                self._selection = keyid
+            return None
+        except (ValueError, IndexError, KeyError):
+            return key
+
+    def apply(self):
+        """ Apply our selections. """
+
+        schemelist = self.partschemes.keys()
+        try:
+            self.data.autopart.type = schemelist[self._selection - 1]
+        except IndexError:
+            # we shouldn't ever see this, but just in case, don't crash.
+            # when autopart.type is detected as None in AutoPartSpoke.apply(),
+            # it'll automatically just be set to LVM
+            pass
