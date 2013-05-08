@@ -1577,6 +1577,9 @@ class GRUB2(GRUB):
            and self.stage2_device.type == "partition":
             return ret
 
+        if not self.stage1_disk:
+            return False
+
         # If the first partition starts too low show an error.
         parts = self.stage1_disk.format.partedDisk.partitions
         for p in parts:
