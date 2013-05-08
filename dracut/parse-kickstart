@@ -140,6 +140,11 @@ class DisplayMode(commands.displaymode.FC3_DisplayMode):
         elif self.displayMode == DISPLAY_MODE_GRAPHICAL:
             return "inst.graphical"
 
+class Bootloader(commands.bootloader.F19_Bootloader):
+    def dracut_args(self, args, lineno, obj):
+        if self.extlinux:
+            return "extlinux"
+
 # TODO: keymap, lang... device? selinux?
 
 dracutCmds = {
@@ -154,6 +159,7 @@ dracutCmds = {
     'cmdline': DisplayMode,
     'graphical': DisplayMode,
     'text': DisplayMode,
+    'bootloader': Bootloader,
 }
 handlerclass = returnClassForVersion()
 class DracutHandler(handlerclass):
