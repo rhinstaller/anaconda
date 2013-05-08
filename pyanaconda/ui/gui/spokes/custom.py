@@ -170,7 +170,7 @@ def ui_storage_logger():
 
 def populate_mountpoint_store(store, used_mountpoints):
     # sure, add whatever you want to this list. this is just a start.
-    paths = ["/", "/boot", "/home", "/usr", "/var",
+    paths = ["/", "/boot", "/boot/efi", "/home", "/usr", "/var",
              "swap", "biosboot", "prepboot"]
     for path in paths:
         if path not in used_mountpoints:
