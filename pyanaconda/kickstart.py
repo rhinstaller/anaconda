@@ -239,7 +239,7 @@ class AutoPart(commands.autopart.F18_AutoPart):
 
         doAutoPartition(storage, ksdata)
 
-class Bootloader(commands.bootloader.F18_Bootloader):
+class Bootloader(commands.bootloader.F19_Bootloader):
     def execute(self, storage, ksdata, instClass):
         if self.location == "none":
             location = None
