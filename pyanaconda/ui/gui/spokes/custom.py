@@ -73,7 +73,6 @@ from pyanaconda.ui.gui.spokes.lib.accordion import *
 from pyanaconda.ui.gui.spokes.lib.refresh import RefreshDialog
 from pyanaconda.ui.gui.spokes.lib.summary import ActionSummaryDialog
 from pyanaconda.ui.gui.utils import setViewportBackground, gtk_action_wait, enlightbox, fancy_set_sensitive
-from pyanaconda.ui.gui.utils import busied_cursor
 from pyanaconda.ui.gui.categories.storage import StorageCategory
 
 from gi.repository import Gtk
@@ -2709,11 +2708,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
 
     def on_apply_clicked(self, button):
         """ call _save_right_side, then, perhaps, populate_right_side. """
-
-        # may take a while
-        with busied_cursor():
-            self._save_right_side(self._current_selector)
-
+        self._save_right_side(self._current_selector)
         self._applyButton.set_sensitive(False)
 
     def on_unlock_clicked(self, button):
