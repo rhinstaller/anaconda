@@ -50,6 +50,8 @@ LOCALED_SERVICE = "org.freedesktop.locale1"
 LOCALED_OBJECT_PATH = "/org/freedesktop/locale1"
 LOCALED_IFACE = "org.freedesktop.locale1"
 
+DEFAULT_VC_FONT = "latarcyrheb-sun16"
+
 class KeyboardConfigError(Exception):
     """Exception class for keyboard configuration related problems"""
 
@@ -189,6 +191,10 @@ def write_keyboard_config(keyboard, root, convert=True):
         try:
             with open(os.path.join(vcconf_dir, vcconf_file), "w") as fobj:
                 fobj.write('KEYMAP="%s"\n' % keyboard.vc_keymap)
+
+                # systemd now defaults to a font that cannot display non-ascii
+                # characters, so we have to tell it to use a better one
+                fobj.write('FONT="%s"\n' % DEFAULT_VC_FONT)
         except IOError as ioerr:
             errors.append("Cannot write vconsole configuration file")
 
@@ -208,6 +214,7 @@ def dracut_setup_args(keyboard):
 
     args = set()
     args.add("vconsole.keymap=%s" % keyboard.vc_keymap)
+    args.add("vconsole.font=%s" % DEFAULT_VC_FONT)
 
     return args
 
