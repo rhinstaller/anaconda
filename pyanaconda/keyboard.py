@@ -170,8 +170,12 @@ def write_keyboard_config(keyboard, root, convert=True):
                 errors.append("Cannot create directory xorg.conf.d")
 
             # copy the file to the chroot
-            shutil.copy2(xconf_file_path,
-                         os.path.normpath(root + "/" + xconf_file_path))
+            try:
+                shutil.copy2(xconf_file_path,
+                             os.path.normpath(root + "/" + xconf_file_path))
+            except IOError as ioerr:
+                # The file may not exist (eg. text install) so don't raise
+                pass
 
             # restore the original values
             localed_wrapper.set_layouts(layouts_variants,
@@ -699,9 +703,9 @@ class LocaledWrapper(object):
         if variants:
             variants = variants[0].split(",")
 
-            # if there are more layouts than variants, empty strings should be appended
-            diff = len(layouts) - len(variants)
-            variants.extend(diff * [""])
+        # if there are more layouts than variants, empty strings should be appended
+        diff = len(layouts) - len(variants)
+        variants.extend(diff * [""])
 
         # map can be used with multiple lists and works like zipWith (Haskell)
         return map(_join_layout_variant, layouts, variants)
@@ -757,20 +761,7 @@ class LocaledWrapper(object):
 
         self.set_keymap(keymap, convert=True)
 
-        layouts_str, variants_str = self.layouts_variants
-
-        layouts = layouts_str.split(",")
-        variants = variants_str.split(",")
-
-        # if there are less variants than layouts, empty strings need to be
-        # appended
-        diff = len(layouts) - len(variants)
-        variants = variants + diff * [""]
-
-        layouts_variants = []
-        layouts_variants.extend(map(_join_layout_variant, layouts, variants))
-
-        return ",".join(layouts_variants)
+        return ",".join(self.layouts_variants)
 
     def set_layouts(self, layouts_variants, options=None, convert=False):
         """

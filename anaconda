@@ -903,7 +903,7 @@ if __name__ == "__main__":
         if not ksdata.keyboard.keyboard:
             ksdata.keyboard.keyboard = opts.keymap
 
-    if ksdata.keyboard.keyboard:
+    if ksdata.keyboard.keyboard and can_touch_runtime_system("activate keyboard"):
         keyboard.activate_keyboard(ksdata.keyboard)
 
     # Some post-install parts of anaconda are implemented as kickstart
