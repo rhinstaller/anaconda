@@ -383,7 +383,7 @@ class XklWrapper(object):
         #'grp' means that we want layout (group) switching options
         self.configreg.foreach_option('grp', self._get_switch_option, None)
 
-    def _get_variant(self, c_reg, item, subitem, lang):
+    def _get_lang_variant(self, c_reg, item, subitem, lang):
         if subitem:
             name = item_str(item.name) + " (" + item_str(subitem.name) + ")"
             description = item_str(subitem.description)
@@ -393,21 +393,39 @@ class XklWrapper(object):
 
         #if this layout has already been added for some other language,
         #do not add it again (would result in duplicates in our lists)
-        if lang and name not in self.name_to_show_str:
-            self.name_to_show_str[name] = "%s (%s)" % (lang.encode("utf-8"),
+        if name not in self.name_to_show_str:
+            if lang:
+                self.name_to_show_str[name] = "%s (%s)" % (lang.encode("utf-8"),
                                                     description.encode("utf-8"))
+            else:
+                self.name_to_show_str[name] = "%s" % description.encode("utf-8")
+
             self._variants_list.append(_Layout(name, description))
-        elif lang is None:
-            #if lang is None, we are iterating over countries not languages
-            #and should just append the layout to the list
-            self._variants_list.append(_Layout(name, description))
+
+    def _get_country_variant(self, c_reg, item, subitem, country):
+        if subitem:
+            name = item_str(item.name) + " (" + item_str(subitem.name) + ")"
+            description = item_str(subitem.description)
+        else:
+            name = item_str(item.name)
+            description = item_str(item.description)
+
+        # if the layout was not added with any language, add it with a country
+        if name not in self.name_to_show_str:
+            if country:
+                self.name_to_show_str[name] = "%s (%s)" % (country.encode("utf-8"),
+                                                    description.encode("utf-8"))
+            else:
+                self.name_to_show_str[name] = "%s" % description.encode("utf-8")
+
+        self._variants_list.append(_Layout(name, description))
 
     def _get_language_variants(self, c_reg, item, user_data=None):
         #helper "global" variable
         self._variants_list = list()
         lang_name, lang_desc = item_str(item.name), item_str(item.description)
 
-        c_reg.foreach_language_variant(lang_name, self._get_variant, lang_desc)
+        c_reg.foreach_language_variant(lang_name, self._get_lang_variant, lang_desc)
 
         self._language_keyboard_variants[lang_desc] = self._variants_list
 
@@ -416,7 +434,8 @@ class XklWrapper(object):
         self._variants_list = list()
         country_name, country_desc = item_str(item.name), item_str(item.description)
 
-        c_reg.foreach_country_variant(country_name, self._get_variant, None)
+        c_reg.foreach_country_variant(country_name, self._get_country_variant,
+                                      country_desc)
 
         self._country_keyboard_variants[country_name] = self._variants_list
 
