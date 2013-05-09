@@ -119,7 +119,7 @@ Requires: anaconda-yum-plugins
 Requires: libselinux-python >= %{libselinuxver}
 Requires: kbd
 Requires: chrony
-Requires: rdate
+Requires: ntpdate
 Requires: rsync
 Requires: hostname
 %ifnarch s390 s390x

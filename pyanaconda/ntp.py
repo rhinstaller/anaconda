@@ -44,7 +44,7 @@ class NTPconfigError(Exception):
 
 def ntp_server_working(server):
     """
-    Runs rdate to try to connect to the $server (timeout may take some time).
+    Runs ntpdate to try to connect to the $server (timeout may take some time).
 
     :return: True if the given server is reachable and working, False otherwise
 
@@ -54,7 +54,7 @@ def ntp_server_working(server):
     #       thread-safe and hangs if this function is called from threads.
     #       By using tee (and block-buffered pipes) it is also much slower.
     #we just need to know the exit status
-    retc = os.system("rdate -p %s &>/dev/null" % server)
+    retc = os.system("ntpdate -q %s &>/dev/null" % server)
 
     return retc == 0
 
@@ -164,7 +164,7 @@ def one_time_sync(server, callback=None):
 
     """
 
-    ret = iutil.execWithRedirect("rdate", ["-s", server])
+    ret = iutil.execWithRedirect("ntpdate", [server])
 
     success = ret == 0
 
