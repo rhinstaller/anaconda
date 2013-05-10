@@ -847,12 +847,17 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
 
         return None
 
-    def _do_refresh(self, mountpointToShow=None):
-        # block mountpoint selector signal handler for now
-        self._initialized = False
+    def _clear_current_selector(self):
+        """ If something is selected, deselect it
+        """
         if self._current_selector:
             self._current_selector.set_chosen(False)
             self._current_selector = None
+
+    def _do_refresh(self, mountpointToShow=None):
+        # block mountpoint selector signal handler for now
+        self._initialized = False
+        self._clear_current_selector()
 
         # Make sure we start with a clean slate.
         self._accordion.removeAllPages()
@@ -2052,7 +2057,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
 
         log.debug("show first mountpoint: %s" % page.pageTitle)
         if not page.members:
-            self._current_selector = None
+            self._clear_current_selector()
             return
 
         if not mountpoint:
@@ -2321,7 +2326,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         if nb_page == NOTEBOOK_DETAILS_PAGE:
             self._save_right_side(self._current_selector)
 
-        self._current_selector.set_chosen(False)
+        self._clear_current_selector()
 
     def on_selector_clicked(self, selector):
         if not self._initialized:
@@ -2397,7 +2402,6 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         log.debug("page clicked: %s" % page.pageTitle)
         if self._current_selector:
             self._save_current_selector()
-            self._current_selector = None
 
         self._show_mountpoint(page=page, mountpoint=mountpointToShow)
 
@@ -2748,7 +2752,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
 
         self._devices = self.__storage.devices
         self._unused_devices = None     # why do we cache this?
-        self._current_selector = None
+        self._clear_current_selector()
         self._do_refresh()
 
     def on_value_changed(self, *args):
