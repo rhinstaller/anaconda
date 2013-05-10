@@ -1776,7 +1776,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
             if _type == device_type:
                 self._device_name_dict[_type] = device_name
                 continue
-            elif _type not in (DEVICE_TYPE_LVM, DEVICE_TYPE_MD):
+            elif _type not in (DEVICE_TYPE_LVM, DEVICE_TYPE_MD, DEVICE_TYPE_BTRFS):
                 continue
 
             swap = (device.format.type == "swap")
