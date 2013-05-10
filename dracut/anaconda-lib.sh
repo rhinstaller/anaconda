@@ -203,7 +203,7 @@ run_kickstart() {
 
     # replay udev events to trigger actions
     if [ "$do_disk" ]; then
-        . $hookdir/pre-udev/*repo-genrules.sh
+        . $hookdir/pre-trigger/*repo-genrules.sh
         udevadm control --reload
         udevadm trigger --action=change --subsystem-match=block
     fi

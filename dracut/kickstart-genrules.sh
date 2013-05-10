@@ -1,6 +1,8 @@
 #!/bin/sh
 # generate udev rules for fetching kickstarts.
 
+. /lib/anaconda-lib.sh
+
 case "${kickstart%%:*}" in
     http|https|ftp|nfs)
         # handled by fetch-kickstart-net in the online hook

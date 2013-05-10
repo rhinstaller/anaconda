@@ -1,6 +1,8 @@
 #!/bin/sh
 # generate udev rules for fetching updates
 
+. /lib/anaconda-lib.sh
+
 updates=$anac_updates
 [ -n "$updates" ] || return
 case $updates in
