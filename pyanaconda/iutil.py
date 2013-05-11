@@ -85,6 +85,7 @@ def _run_program(argv, root='/', stdin=None, stdout=None, env_prune=None):
                     program_log.info(line)
                     if stdout:
                         stdout.write(line)
+                        stdout.write("\n")
 
         except OSError as e:
             program_log.error("Error running %s: %s" % (argv[0], e.strerror))
