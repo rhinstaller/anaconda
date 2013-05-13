@@ -75,7 +75,8 @@ from pyanaconda.ui.gui.spokes.lib.summary import ActionSummaryDialog
 from pyanaconda.ui.gui.utils import setViewportBackground, gtk_action_wait, enlightbox, fancy_set_sensitive
 from pyanaconda.ui.gui.categories.storage import StorageCategory
 
-from gi.repository import Gtk
+# pylint: disable-msg=E0611
+from gi.repository import Gdk, Gtk
 
 import logging
 log = logging.getLogger("anaconda")
@@ -1813,6 +1814,15 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
     ###
     ### SIGNAL HANDLERS
     ###
+
+    def on_key_pressed(self, window, event, *args):
+        # Handle any keyboard events.  Right now this is just delete for
+        # removing an existing mountpoint, but it could include more later.
+        if not event or event and event.type != Gdk.EventType.KEY_RELEASE:
+            return
+
+        if event.keyval == Gdk.KEY_Delete:
+            self._removeButton.emit("clicked")
 
     def on_back_clicked(self, button):
         # First, save anything from the currently displayed mountpoint.
