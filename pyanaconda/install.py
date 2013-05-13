@@ -52,13 +52,7 @@ def _writeKS(ksdata):
 def doConfiguration(storage, payload, ksdata, instClass):
     from pyanaconda.kickstart import runPostScripts
 
-    step_count = 5
-    # if a realm was discovered,
-    # increment the counter as the
-    # real joining step will be executed
-    if ksdata.realm.discovered:
-        step_count = 6
-    progressQ.send_init(step_count)
+    progressQ.send_init(5)
 
     # Now run the execute methods of ksdata that require an installed system
     # to be present first.
@@ -88,11 +82,7 @@ def doConfiguration(storage, payload, ksdata, instClass):
     with progress_report(_("Configuring addons")):
         ksdata.addons.execute(storage, ksdata, instClass, u)
         ksdata.configured_spokes.execute(storage, ksdata, instClass, u)
-
-    if ksdata.realm.discovered:
-        with progress_report(_("Joining realm: %s") % ksdata.realm.discovered):
-            ksdata.realm.execute(storage, ksdata, instClass)
-
+        
     with progress_report(_("Running post-installation scripts")):
         runPostScripts(ksdata.scripts)
 
@@ -118,9 +108,7 @@ def doInstall(storage, payload, ksdata, instClass):
     # those are the ones that take the most time.
     steps = len(storage.devicetree.findActions(type="create", object="format")) + \
             len(storage.devicetree.findActions(type="resize", object="format"))
-    steps += 6
-    # pre setup phase, packages setup, packages, bootloader, realmd,
-    # post install
+    steps += 5  # pre setup phase, packages setup, packages, bootloader, post install
     progressQ.send_init(steps)
 
     # This should be the only thread running, wait for the others to finish if not.
@@ -141,16 +129,10 @@ def doInstall(storage, payload, ksdata, instClass):
 
     # Do packaging.
 
-    # Discover information about realms to join,
-    # to determine additional packages
-    if ksdata.realm.join_realm:
-        with progress_report(_("Discovering realm to join")):
-            ksdata.realm.setup()
-
     # anaconda requires storage packages in order to make sure the target
     # system is bootable and configurable, and some other packages in order
     # to finish setting up the system.
-    packages = storage.packages + ["authconfig", "firewalld"] + ksdata.realm.packages
+    packages = storage.packages + ["authconfig", "firewalld"]
     payload.preInstall(packages=packages, groups=payload.languageGroups())
     payload.install()
 

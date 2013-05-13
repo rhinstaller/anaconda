@@ -37,7 +37,6 @@ import iutil
 import os
 import os.path
 import tempfile
-import subprocess
 import flags as flags_module
 from flags import flags
 from constants import *
@@ -368,81 +367,6 @@ class BTRFSData(commands.btrfs.F17_BTRFSData):
                                        parents=members)
 
             storage.createDevice(request)
-
-
-class Realm(commands.realm.F19_Realm):
-    def __init__(self, *args):
-        commands.realm.F19_Realm.__init__(self, *args)
-        self.packages = []
-        self.discovered = ""
-
-    def setup(self):
-        if not self.join_realm:
-            return
-
-        try:
-            argv = ["realm", "discover", "--verbose"] + \
-                    self.discover_options + [self.join_realm]
-            proc = subprocess.Popen(argv, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-            output, stderr = proc.communicate()
-            # might contain useful information for users who use
-            # use the realm kickstart command
-            log.info("Realm discover stderr:\n%s" % stderr)
-        except OSError as msg:
-            # TODO: A lousy way of propagating what will usually be
-            # 'no such realm'
-            log.error("Error running realm %s: %s", argv, msg)
-            return
-
-        # Now parse the output for the required software. First line is the
-        # realm name, and following lines are information as "name: value"
-        self.packages = ["realmd"]
-        self.discovered = ""
-
-        lines = output.split("\n")
-        if not lines:
-            return
-        self.discovered = lines.pop(0).strip()
-        log.info("Realm discovered: %s" % self.discovered)
-        for line in lines:
-            parts = line.split(":", 1)
-            if len(parts) == 2 and parts[0].strip() == "required-package":
-                self.packages.append(parts[1].strip())
-
-        log.info("Realm %s needs packages %s" %
-                 (self.discovered, ", ".join(self.packages)))
-
-    def execute(self, *args):
-        if not self.discovered:
-            return
-        for arg in self.join_args:
-            if arg.startswith("--no-password") or arg.startswith("--one-time-password"):
-                pw_args = []
-                break
-        else:
-            # no explicit password arg using implicit --no-password
-            pw_args = ["--no-password"]
-
-        argv = ["realm", "join", "--install", ROOT_PATH, "--verbose"] + \
-               pw_args + self.join_args
-        rc = -1
-        try:
-            proc = subprocess.Popen(argv, stdout=subprocess.PIPE,
-                                    stderr=subprocess.PIPE)
-            output, stderr = proc.communicate()
-            # might contain useful information for users who use
-            # use the realm kickstart command
-            log.info("Realm join stderr:\n%s" % stderr)
-            rc = proc.returncode
-        except OSError as msg:
-            log.error("Error running %s: %s", argv, msg)
-
-        if rc != 0:
-            log.error("Command failure: %s: %d", argv, rc)
-            return
-
-        log.info("Joined realm %s", self.join_realm)
-
 
 class ClearPart(commands.clearpart.F17_ClearPart):
     def parse(self, args):
@@ -1448,7 +1372,6 @@ commandMap = {
         "part": Partition,
         "partition": Partition,
         "raid": Raid,
-        "realm": Realm,
         "rootpw": RootPw,
         "selinux": SELinux,
         "services": Services,
