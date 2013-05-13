@@ -41,19 +41,21 @@ log = logging.getLogger("anaconda")
 
 __all__ = ["WelcomeLanguageSpoke"]
 
-class LanguageMixIn(object):
-    builderObjects = ["languageStore", "languageStoreFilter"]
+class WelcomeLanguageSpoke(StandaloneSpoke):
+    mainWidgetName = "welcomeWindow"
+    uiFile = "spokes/welcome.glade"
+    builderObjects = ["languageStore", "languageStoreFilter", "welcomeWindow", "betaWarnDialog"]
 
-    def __init__(self, labelName = "welcomeLabel",
-                 viewName = "languageView", selectionName = "languageViewSelection"):
+    preForHub = SummaryHub
+    priority = 0
+
+    def __init__(self, *args, **kwargs):
+        StandaloneSpoke.__init__(self, *args, **kwargs)
         self._xklwrapper = keyboard.XklWrapper.get_instance()
         self._origStrings = {}
-        self._labelName = labelName
-        self._viewName = viewName
-        self._selectionName = selectionName
 
     def apply(self):
-        selected = self.builder.get_object(self._selectionName)
+        selected = self.builder.get_object("languageViewSelection")
         (store, itr) = selected.get_selected()
 
         lang = store[itr][2]
@@ -144,8 +146,8 @@ class LanguageMixIn(object):
         store = self.builder.get_object("languageStore")
         self._languageStoreFilter = self.builder.get_object("languageStoreFilter")
         self._languageEntry = self.builder.get_object("languageEntry")
-        self._selection = self.builder.get_object(self._selectionName)
-        self._view = self.builder.get_object(self._viewName)
+        self._selection = self.builder.get_object("languageViewSelection")
+        self._view = self.builder.get_object("languageView")
 
         # We need to tell the view whether something is a separator or not.
         self._view.set_row_separator_func(self._row_is_separator, None)
@@ -221,7 +223,7 @@ class LanguageMixIn(object):
 
         # The welcome label is special - it has text that needs to be
         # substituted.
-        welcomeLabel = self.builder.get_object(self._labelName)
+        welcomeLabel = self.builder.get_object("welcomeLabel")
 
         if not welcomeLabel in self._origStrings:
             self._origStrings[welcomeLabel] = welcomeLabel.get_label()
@@ -234,7 +236,7 @@ class LanguageMixIn(object):
         self.window.set_property("distribution", distributionText().upper())
         self.window.retranslate(lang)
 
-    def refresh(self, displayArea):
+    def refresh(self):
         self._selectLanguage(self.data.lang.lang)
 
         # Rip the label and language selection window
@@ -247,7 +249,7 @@ class LanguageMixIn(object):
         langAlign = self.builder.get_object("languageAlignment")
         langAlign.get_parent().remove(langAlign)
 
-        content = self.builder.get_object(displayArea)
+        content = self.builder.get_object("welcomeWindowContentBox")
         content.pack_start(child = langLabel, fill = True, expand = False, padding = 0)
         content.pack_start(child = langAlign, fill = True, expand = True, padding = 0)
 
@@ -279,7 +281,7 @@ class LanguageMixIn(object):
             return False
 
     def _selectLanguage(self, language):
-        treeview = self.builder.get_object(self._viewName)
+        treeview = self.builder.get_object("languageView")
         selection = treeview.get_selection()
         store = treeview.get_model()
         itr = store.get_iter_first()
@@ -331,26 +333,6 @@ class LanguageMixIn(object):
 
     def on_entry_changed(self, *args):
         self._languageStoreFilter.refilter()
-
-class WelcomeLanguageSpoke(LanguageMixIn, StandaloneSpoke):
-    mainWidgetName = "welcomeWindow"
-    uiFile = "spokes/welcome.glade"
-    builderObjects = LanguageMixIn.builderObjects + [mainWidgetName, "betaWarnDialog"]
-
-    preForHub = SummaryHub
-    priority = 0
-
-    def __init__(self, *args):
-        StandaloneSpoke.__init__(self, *args)
-        LanguageMixIn.__init__(self)
-
-    def refresh(self):
-        StandaloneSpoke.refresh(self)
-        LanguageMixIn.refresh(self, "welcomeWindowContentBox")
-
-    def initialize(self):
-        LanguageMixIn.initialize(self)
-        StandaloneSpoke.initialize(self)
 
     # Override the default in StandaloneSpoke so we can display the beta
     # warning dialog first.
