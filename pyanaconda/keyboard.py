@@ -524,21 +524,6 @@ class XklWrapper(object):
             else:
                 return language_layouts[0].name
 
-    def get_current_layout_name(self):
-        """
-        Get current activated X layout's name
-
-        :return: current activated X layout's name (e.g. "Czech (qwerty)")
-
-        """
-
-        self._engine.start_listen(Xkl.EngineListenModes.TRACK_KEYBOARD_STATE)
-        state = self._engine.get_current_state()
-        groups_names = self._engine.get_groups_names()
-        self._engine.stop_listen(Xkl.EngineListenModes.TRACK_KEYBOARD_STATE)
-
-        return groups_names[state.group]
-
     def activate_default_layout(self):
         """
         Activates default layout (the first one in the list of configured
