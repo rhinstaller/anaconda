@@ -70,7 +70,7 @@
                     <property name="halign">start</property>
                     <property name="label" translatable="yes">Select additional language support to be installed</property>
                     <attributes>
-                      <attribute name="font-desc" value="Cantarell 12"/>
+                      <attribute name="font-desc" value="Cantarell 14"/>
                       <attribute name="weight" value="normal"/>
                       <attribute name="scale" value="1"/>
                     </attributes>
@@ -129,7 +129,9 @@
                                 <property name="title" translatable="yes">column</property>
                                 <property name="expand">True</property>
                                 <child>
-                                  <object class="GtkCellRendererText" id="nativeNameRenderer"/>
+                                  <object class="GtkCellRendererText" id="nativeNameRenderer">
+                                    <property name="font">Cantarell 12</property>
+                                  </object>
                                   <attributes>
                                     <attribute name="markup">0</attribute>
                                   </attributes>
@@ -141,7 +143,10 @@
                                 <property name="title" translatable="yes">column</property>
                                 <property name="expand">True</property>
                                 <child>
-                                  <object class="GtkCellRendererText" id="englishNameRenderer"/>
+                                  <object class="GtkCellRendererText" id="englishNameRenderer">
+                                    <property name="font">Cantarell Italic 14</property>
+                                    <property name="foreground">gray</property>
+                                  </object>
                                   <attributes>
                                     <attribute name="markup">1</attribute>
                                   </attributes>
