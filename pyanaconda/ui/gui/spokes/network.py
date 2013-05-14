@@ -33,7 +33,7 @@
 
 from gi.repository import Gtk, AnacondaWidgets
 
-from pyanaconda.flags import flags
+from pyanaconda import flags
 from pyanaconda.i18n import _, N_, P_
 from pyanaconda import constants
 from pyanaconda.ui.communication import hubQ
@@ -1170,7 +1170,7 @@ class NetworkSpoke(NormalSpoke):
 
     @property
     def showable(self):
-        return not (flags.livecdInstall or flags.imageInstall)
+        return flags.can_touch_runtime_system("allow network configuration")
 
     def initialize(self):
         NormalSpoke.initialize(self)
@@ -1257,7 +1257,8 @@ class NetworkStandaloneSpoke(StandaloneSpoke):
 
     @property
     def completed(self):
-        return len(self.network_control_box.activated_connections()) > 0
+        return (not flags.can_touch_runtime_system("require network connection")
+                or len(self.network_control_box.activated_connections()) > 0)
 
     def initialize(self):
         StandaloneSpoke.initialize(self)
