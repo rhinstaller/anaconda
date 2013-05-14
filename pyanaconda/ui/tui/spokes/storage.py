@@ -367,7 +367,8 @@ class PartitionSchemeSpoke(NormalTUISpoke):
     title = _("Partition Scheme Options")
     category = "destination"
 
-    _selection = None
+    # set default FS to LVM, for consistency with graphical behavior
+    _selection = 2
 
     def __init__(self, app, data, storage, payload, instclass):
         NormalTUISpoke.__init__(self, app, data, storage, payload, instclass)
