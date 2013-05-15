@@ -99,6 +99,12 @@ class Hub(GUIObject, common.Hub):
     def _runSpoke(self, action):
         from gi.repository import Gtk
 
+        # This duplicates code in widgets/src/BaseWindow.c, but we want to make sure
+        # maximize gets called every time a spoke is displayed to prevent the 25%
+        # UI from showing up.
+        action.window.maximize()
+        action.window.set_property("expand", True)
+
         action.refresh()
 
         action.window.set_beta(self.window.get_beta())
