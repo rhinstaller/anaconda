@@ -2275,6 +2275,8 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
 
             # until there's a setter for btrfs volume name 
             container._name = self._device_container_name
+            if container.format.type == "btrfs":
+                container.format.label = self._device_container_name
 
         container_exists = getattr(container, "exists", False)
         container_combo = self.builder.get_object("containerCombo")
