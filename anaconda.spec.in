@@ -253,6 +253,18 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Wed May 15 2013 Brian C. Lane <bcl@redhat.com> - 19.27-1
+- Partial fix for screen resize problems (#869364) (clumens)
+- Remove an extra call to page clicked handler from refresh. (#959722)
+  (dlehman)
+- Always run through the full storage spoke. (#960732) (dlehman)
+- Update apply button as appropriate after invoking dialogs. (#960254)
+  (dlehman)
+- Don't allow setting btrfs subvolumes' size. (#959723) (dlehman)
+- Drop btrfs-specific raid level "single" for non-btrfs. (#959688) (dlehman)
+- Update btrfs volume label when changing volume name. (#959727) (dlehman)
+- Don't allow setting labels for btrfs subvolumes. (#960601) (dlehman)
+
 * Wed May 15 2013 Brian C. Lane <bcl@redhat.com> - 19.26-1
 - Pressing Delete on custom part should remove the selected mountpoint.
   (clumens)
