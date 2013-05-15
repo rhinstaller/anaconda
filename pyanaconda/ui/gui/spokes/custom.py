@@ -1242,6 +1242,9 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         changed_container_encrypted = (container_encrypted != old_container_encrypted)
 
         container_raid_level = self._device_container_raid_level
+        if container_raid_level == "single" and device_type != DEVICE_TYPE_BTRFS:
+            container_raid_level = None
+
         log.debug("old container raid level: %s" % old_container_raid_level)
         log.debug("new container raid level: %s" % container_raid_level)
         changed_container_raid_level = (old_container_raid_level != container_raid_level)
