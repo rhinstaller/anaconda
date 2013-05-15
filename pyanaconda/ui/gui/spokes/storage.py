@@ -334,8 +334,6 @@ class StorageSpoke(NormalSpoke, StorageChecker):
         self.clearPartType = CLEARPART_TYPE_NONE
 
         self._previous_autopart = False
-        self._initial_selected_disks = []
-        self._initial_bootloader_disk = None
 
         self._last_clicked_overview = None
         self._cur_clicked_overview = None
@@ -410,15 +408,6 @@ class StorageSpoke(NormalSpoke, StorageChecker):
         finally:
             self._ready = True
             hubQ.send_ready(self.__class__.__name__, True)
-
-    @property
-    def changed(self):
-        disksChanged = set(self._initial_selected_disks) != set(self.selected_disks)
-        bootloaderChanged = not bool(self.data.bootloader.bootDrive) or \
-                            self._initial_bootloader_disk != self.data.bootloader.bootDrive
-        autopartChanged = self.autopart != self.data.autopart.autopart
-
-        return disksChanged or bootloaderChanged or autopartChanged
 
     @property
     def completed(self):
@@ -572,12 +561,6 @@ class StorageSpoke(NormalSpoke, StorageChecker):
             overview.set_chosen(name in self.selected_disks)
 
         self._update_summary()
-
-        # This list is used to determine if anything has changed in storage
-        # configuration since the user entered the spoke.  If not, we shouldn't
-        # do anything when Done is clicked.
-        self._initial_selected_disks = self.selected_disks[:]
-        self._initial_bootloader_disk = self.data.bootloader.bootDrive
 
         if self.errors:
             self.set_warning(_("Error checking storage configuration.  Click for details."))
@@ -766,10 +749,9 @@ class StorageSpoke(NormalSpoke, StorageChecker):
         return True
 
     def on_back_clicked(self, button):
-        # Did the user change anything?  If not, this method is a no-op.
-        if not self.changed and self.autopart:
-            NormalSpoke.on_back_clicked(self, button)
-            return
+        # We can't exit early if it looks like nothing has changed because the
+        # user might want to change settings presented in the dialogs shown from
+        # within this method.
 
         # Remove all non-existing devices if autopart was active when we last
         # refreshed.
