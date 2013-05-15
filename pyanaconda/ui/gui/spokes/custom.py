@@ -1652,12 +1652,6 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
             self._labelEntry.set_tooltip_text(_("This file system does not support labels."))
 
         self._sizeEntry.set_text(Size(spec="%d MB" % device.size).humanReadable(max_places=None))
-        fancy_set_sensitive(self._sizeEntry, device.resizable or not device.exists)
-
-        if self._sizeEntry.get_sensitive():
-            self._sizeEntry.props.has_tooltip = False
-        else:
-            self._sizeEntry.set_tooltip_text(_("This file system may not be resized."))
 
         self._reformatCheckbox.set_active(not device.format.exists)
         fancy_set_sensitive(self._reformatCheckbox, not device.protected and
@@ -1807,6 +1801,19 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
 
         # you can't encrypt a btrfs subvolume -- only the volume/container
         fancy_set_sensitive(self._encryptCheckbox, device_type != DEVICE_TYPE_BTRFS)
+
+        # The size entry is only sensitive for resizable existing devices and
+        # new devices that are not btrfs subvolumes.
+        # Do this after the device type combo is set since
+        # on_device_type_changed doesn't account for device existence.
+        fancy_set_sensitive(self._sizeEntry, device.resizable or (not device.exists and device.format.type != "btrfs"))
+
+        if self._sizeEntry.get_sensitive():
+            self._sizeEntry.props.has_tooltip = False
+        elif device.format.type == "btrfs":
+            self._sizeEntry.set_tooltip_text(_("The space available to this mountpoint can be changed by modifying the volume below."))
+        else:
+            self._sizeEntry.set_tooltip_text(_("This file system may not be resized."))
 
         self._populate_raid(raid_level)
         self._populate_container(device=use_dev)
@@ -2650,6 +2657,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
 
         fancy_set_sensitive(self._nameEntry, new_type in (DEVICE_TYPE_BTRFS, DEVICE_TYPE_LVM, DEVICE_TYPE_MD))
         self._nameEntry.set_text(self._device_name_dict[new_type])
+        fancy_set_sensitive(self._sizeEntry, new_type != DEVICE_TYPE_BTRFS)
 
         # begin btrfs magic
         model = self._fsCombo.get_model()
