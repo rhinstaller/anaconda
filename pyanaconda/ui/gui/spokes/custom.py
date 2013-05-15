@@ -1635,12 +1635,12 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         self._mountPointEntry.set_text(getattr(device.format, "mountpoint", "") or "")
         fancy_set_sensitive(self._mountPointEntry, device.format.mountable)
 
-        # FIXME: Make sure you cannot set a label for specific btrfs subvols
         self._labelEntry.set_text(getattr(device.format, "label", "") or "")
         # We could label existing formats that have a labelFsProg if we added an
         # ActionLabelFormat class.
         can_label = (hasattr(device.format, "label") and
-                     not device.format.exists)
+                     not device.format.exists and
+                     device.format.type != "btrfs")
         fancy_set_sensitive(self._labelEntry, can_label)
 
         if hasattr(device.format, "label"):
@@ -2505,7 +2505,8 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         label_active = active
         if active:
             fmt = getFormat(self._fsCombo.get_active_text())
-            label_active = active and hasattr(fmt, "label")
+            label_active = (active and hasattr(fmt, "label") and
+                            fmt.type != "btrfs")
 
         fancy_set_sensitive(self._labelEntry, label_active)
 
@@ -2519,8 +2520,10 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         log.debug("fs type changed: %s" % new_type)
         fmt = getFormat(new_type)
         # FIXME: can't set a label on an existing format as of now
-        fancy_set_sensitive(self._labelEntry, self._reformatCheckbox.get_active() and
-                                              hasattr(fmt, "label"))
+        label_active = (self._reformatCheckbox.get_active() and
+                        hasattr(fmt, "label") and
+                        fmt.type != "btrfs")
+        fancy_set_sensitive(self._labelEntry, label_active)
         fancy_set_sensitive(self._mountPointEntry, fmt.mountable)
 
     def _populate_container(self, device=None):
