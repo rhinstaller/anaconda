@@ -960,7 +960,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         self._initialized = True
         firstPage = self._accordion.allPages[0]
         self._accordion.expandPage(firstPage.pageTitle)
-        self.on_page_clicked(firstPage, mountpointToShow=mountpointToShow)
+        self._show_mountpoint(page=firstPage, mountpoint=mountpointToShow)
 
         self._applyButton.set_sensitive(False)
 
@@ -2359,7 +2359,8 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
             return
 
         # Take care of the previously chosen selector.
-        if self._current_selector and self._initialized:
+        if self._current_selector and self._initialized and \
+           self._current_selector != selector:
             self._save_current_selector()
             log.debug("new selector: %s" % selector._device)
 
