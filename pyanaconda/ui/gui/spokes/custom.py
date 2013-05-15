@@ -74,7 +74,8 @@ from pyanaconda.ui.gui.spokes.lib.passphrase import PassphraseDialog
 from pyanaconda.ui.gui.spokes.lib.accordion import selectorFromDevice, Accordion, Page, CreateNewPage, UnknownPage
 from pyanaconda.ui.gui.spokes.lib.refresh import RefreshDialog
 from pyanaconda.ui.gui.spokes.lib.summary import ActionSummaryDialog
-from pyanaconda.ui.gui.utils import setViewportBackground, gtk_action_wait, enlightbox, fancy_set_sensitive, ignoreEscape
+from pyanaconda.ui.gui.utils import setViewportBackground, gtk_action_wait, enlightbox, fancy_set_sensitive, ignoreEscape,\
+        really_hide, really_show
 from pyanaconda.ui.gui.categories.system import SystemCategory
 from pyanaconda.ui.lib.disks import size_str
 
@@ -221,22 +222,6 @@ def validate_mountpoint(mountpoint, used_mountpoints, strict=True):
         valid = MOUNTPOINT_INVALID
 
     return valid
-
-def really_hide(widget):
-    """Some widgets need to be both hidden, and have no_show_all set on them
-       to prevent them from being shown later when the screen is redrawn.
-       This method takes care of that.
-    """
-    widget.set_no_show_all(True)
-    widget.hide()
-
-def really_show(widget):
-    """Some widgets need to have no_show_all unset before they can also be
-       shown, so they are displayed later when the screen is redrawn.  This
-       method takes care of that.
-    """
-    widget.set_no_show_all(False)
-    widget.show()
 
 def selectedRaidLevel(raidLevelCombo):
     """Interpret the selection of a RAID level combo box."""

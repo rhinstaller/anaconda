@@ -137,3 +137,19 @@ def fancy_set_sensitive(widget, value):
     widget.set_sensitive(value)
     for w in widget.list_mnemonic_labels():
         w.set_sensitive(value)
+
+def really_hide(widget):
+    """Some widgets need to be both hidden, and have no_show_all set on them
+       to prevent them from being shown later when the screen is redrawn.
+       This method takes care of that.
+    """
+    widget.set_no_show_all(True)
+    widget.hide()
+
+def really_show(widget):
+    """Some widgets need to have no_show_all unset before they can also be
+       shown, so they are displayed later when the screen is redrawn.  This
+       method takes care of that.
+    """
+    widget.set_no_show_all(False)
+    widget.show()
