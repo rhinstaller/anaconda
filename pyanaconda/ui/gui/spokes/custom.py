@@ -2194,6 +2194,9 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
             self.window.show_all()
             return
 
+        if set(disks) != self._device_disks:
+            self._applyButton.set_sensitive(True)
+
         self._device_disks = disks
         self._populate_raid(self._get_raid_level())
 
@@ -2250,7 +2253,8 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         if (set(disks) != set(self._device_disks) or
             name != container_name or
             dialog.raid_level != self._device_container_raid_level or
-            dialog.encrypted != self._device_container_encrypted):
+            dialog.encrypted != self._device_container_encrypted or
+            dialog.size_policy != self._device_container_size):
             self._applyButton.set_sensitive(True)
 
         log.debug("new container raid level: %s" % dialog.raid_level)
