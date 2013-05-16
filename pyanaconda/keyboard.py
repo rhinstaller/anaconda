@@ -366,7 +366,20 @@ class XklWrapper(object):
         if diff > 0:
             self._rec.set_variants(self._rec.variants + (diff * [""]))
             if not self._rec.activate(self._engine):
-                raise XklWrapperError("Failed to initialize layouts")
+                # failed to activate layouts given e.g. by a kickstart (may be
+                # invalid)
+                lay_var_str = ",".join(map(_join_layout_variant,
+                                           self._rec.layouts,
+                                           self._rec.variants))
+                log.error("Failed to activate layouts: '%s', "
+                          "falling back to default 'us'" % lay_var_str)
+                self._rec.set_layouts(["us"])
+                self._rec.set_variants([""])
+
+                if not self._rec.activate(self._engine):
+                    # failed to activate even the default "us" layout, something
+                    # is really wrong
+                    raise XklWrapperError("Failed to initialize layouts")
 
         #needed also for Gkbd.KeyboardDrawingDialog
         self.configreg = Xkl.ConfigRegistry.get_instance(self._engine)

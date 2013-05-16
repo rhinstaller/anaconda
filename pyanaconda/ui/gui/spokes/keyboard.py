@@ -31,6 +31,9 @@ from pyanaconda import keyboard
 from pyanaconda import flags
 from pyanaconda.i18n import _, N_
 
+import logging
+log = logging.getLogger("anaconda")
+
 __all__ = ["KeyboardSpoke"]
 
 # %s will be replaced by key combination like Alt+Shift
@@ -348,9 +351,12 @@ class KeyboardSpoke(NormalSpoke):
         self._refresh_switching_info()
 
     def _addLayout(self, store, name):
-        store.append([name])
+        # first try to add the layout
         if flags.can_touch_runtime_system("add runtime X layout"):
             self._xkl_wrapper.add_layout(name)
+
+        # valid layout, append it to the store
+        store.append([name])
 
     def _removeLayout(self, store, itr):
         """
@@ -536,11 +542,23 @@ class KeyboardSpoke(NormalSpoke):
         self._refresh_switching_info()
 
     def _add_data_layouts(self):
-        if self.data.keyboard.x_layouts:
-            for layout in self.data.keyboard.x_layouts:
-                self._addLayout(self._store, layout)
-        else:
+        if not self.data.keyboard.x_layouts:
+            # nothing specified, just add the default 'us'
             self._addLayout(self._store, "us")
+            return
+
+        valid_layouts = []
+        for layout in self.data.keyboard.x_layouts:
+            try:
+                self._addLayout(self._store, layout)
+                valid_layouts += layout
+            except keyboard.XklWrapperError as xklerr:
+                log.error("Failed to add layout '%s'" % layout)
+
+        if not valid_layouts:
+            log.error("No valid layout given, falling back to default 'us'")
+            self._addLayout(self._store, "us")
+            self.data.keyboard.x_layouts = ["us"]
 
     def _flush_layouts_to_X(self):
         layouts_list = list()
