@@ -457,9 +457,7 @@ class XklWrapper(object):
     def get_available_layouts(self):
         """A generator yielding layouts (no need to store them as a bunch)"""
 
-        for lang_desc, variants in sorted(self._language_keyboard_variants.items()):
-            for layout in variants:
-                yield layout.name
+        return self.name_to_show_str.iterkeys()
 
     def get_switching_options(self):
         """Method returning list of available layout switching options"""
