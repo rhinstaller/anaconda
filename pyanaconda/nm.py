@@ -24,7 +24,7 @@ from gi.repository import NetworkManager
 import struct
 import socket
 
-DEFAULT_DBUS_TIMEOUT = 30
+from pyanaconda.constants import DEFAULT_DBUS_TIMEOUT
 
 device_type_interfaces = {
     NetworkManager.DeviceType.ETHERNET: "org.freedesktop.NetworkManager.Device.Wired",
