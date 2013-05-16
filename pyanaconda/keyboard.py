@@ -37,6 +37,7 @@ import os
 import shutil
 
 from pyanaconda import iutil
+from pyanaconda import flags
 from pyanaconda.safe_dbus import dbus_call_safe_sync, dbus_get_property_safe_sync
 from pyanaconda.safe_dbus import DBUS_SYSTEM_BUS_ADDR, DBusPropertyError
 
@@ -363,7 +364,7 @@ class XklWrapper(object):
         #variants lists to have the same length. Add "" padding to variants.
         #See docstring of the add_layout method for details.
         diff = len(self._rec.layouts) - len(self._rec.variants)
-        if diff > 0:
+        if diff > 0 and flags.can_touch_runtime_system("activate layouts"):
             self._rec.set_variants(self._rec.variants + (diff * [""]))
             if not self._rec.activate(self._engine):
                 # failed to activate layouts given e.g. by a kickstart (may be
