@@ -412,7 +412,7 @@ class PartitionSchemeSpoke(NormalTUISpoke):
     def apply(self):
         """ Apply our selections. """
 
-        schemelist = self.partschemes.keys()
+        schemelist = self.partschemes.values()
         try:
             self.data.autopart.type = schemelist[self._selection - 1]
         except IndexError:
