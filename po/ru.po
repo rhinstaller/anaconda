@@ -6129,6 +6129,23 @@ msgstr ""
 "    o каталог на этом сервере, в котором содержится\n"
 "      %s для вашей архитектуры\n"
 
+#: ../loader2/net.c:76
+#, c-format
+msgid ""
+"Please enter the following information:\n"
+"\n"
+"    o the name or IP number of your NFS server\n"
+"    o the directory on that server containing\n"
+"      %s for your architecture\n"
+"    o optionally, parameters for the NFS mount\n"
+msgstr ""
+"Введите следующую информацию:\n"
+"\n"
+"    o имя или адрес IP вашего сервера NFS\n"
+"    o каталог на этом сервере, в котором содержится\n"
+"      %s для вашей архитектуры\n"
+"    o параметры монтирования NFS (необязательно)\n"
+
 #: ../loader2/net.c:104
 msgid "Prefix must be between 1 and 32 for IPv4 networks or between 1 and 128 for IPv6 networks"
 msgstr "Значение префикса должно быть в диапазоне от 1 до 32 для сетей IPv4 или от 1 до 128 для сетей IPv6."
@@ -6300,6 +6317,11 @@ msgstr "Имя сервера NFS:"
 #, c-format
 msgid "%s directory:"
 msgstr "Каталог %s:"
+
+#: ../loader2/nfsinstall.c:54
+#, c-format
+msgid "NFS mount options (optional):"
+msgstr "Опции монтирования NFS (необязательно)"
 
 #: ../loader2/nfsinstall.c:55
 msgid "NFS"
