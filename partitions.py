@@ -1066,7 +1066,7 @@ class Partitions:
                 if not ok:
                     errors.append(_("You must create a /boot/efi partition of "
                                     "type FAT and a size of 50 megabytes."))
-            else:
+            elif self.autoClearPartType != CLEARPART_TYPE_ALL:
                 # mactel checks
                 bootreqs = self.getBootableRequest() or []
                 for br in getBaseReqs(bootreqs):

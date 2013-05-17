@@ -279,23 +279,27 @@ archLabels = {'i386': ['msdos', 'gpt'],
               'ppc': ['msdos', 'mac', 'amiga', 'gpt'],
               'x86_64': ['msdos', 'gpt']}
 
+def needGPTLabel(dev, label):
+    """ Return gpt label if disk is msdos and size is > 2TiB"""
+    if label.name == 'msdos' and \
+            dev.length > (2L**41) / dev.sector_size and \
+            'gpt' in archLabels[rhpl.getArch()]:
+        label = parted.disk_type_get('gpt')
+    return label
+
 def labelDisk(deviceFile, forceLabelType=None):
     dev = parted.PedDevice.get(deviceFile)
-    label = getDefaultDiskType()
 
     if not forceLabelType is None:
         label = forceLabelType
     else:
-        if label.name == 'msdos' and \
-                dev.length > (2L**41) / dev.sector_size and \
-                'gpt' in archLabels[rhpl.getArch()]:
-            label = parted.disk_type_get('gpt')
+        label = needGPTLabel(dev, getDefaultDiskType())
 
     # remove metadata from partitions
     try:
         disk = parted.PedDisk.new(dev)
     except parted.error, msg:
-        log.debug("parted error: %s" % (msg,))
+        log.debug("labelDisk parted error: %s" % (msg,))
     else:    
         part = disk.next_partition()
         while part:
@@ -308,6 +312,7 @@ def labelDisk(deviceFile, forceLabelType=None):
             lvm.pvremove("/dev/%s" % (device,))
             part = disk.next_partition(part)
 
+    log.info("Creating new %s disklabel on %s" % (label.name, deviceFile))
     disk = dev.disk_new_fresh(label)
     disk.commit()
     return disk
@@ -1202,6 +1207,7 @@ class DiskSet:
         log.info("Reinitializing label for drive %s" % (drive,))
 
         deviceFile = isys.makeDevInode(drive, "/dev/" + drive)
+        dev = parted.PedDevice.get(deviceFile)
 
         try:
             try:
@@ -1211,12 +1217,11 @@ class DiskSet:
                     if self.dasdFmt(drive):
                         raise LabelError, drive
 
-                    dev = parted.PedDevice.get(deviceFile)
                     disk = parted.PedDisk.new(dev)
                 else:
                     disk = labelDisk(deviceFile)
             except parted.error, msg:
-                log.debug("parted error: %s" % (msg,))
+                log.debug("_labelDevice parted error: %s" % (msg,))
                 raise
         except:
             self._removeDisk(drive)
@@ -1298,7 +1303,7 @@ class DiskSet:
                     dev = parted.PedDevice.get(deviceFile)
                     disk = None
             except parted.error, msg:
-                log.debug("parted error: %s" % (msg,))
+                log.debug("openDevices parted error: %s" % (msg,))
                 self._removeDisk(drive, disk)
                 continue
 

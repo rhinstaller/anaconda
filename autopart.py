@@ -24,6 +24,7 @@ from anaconda_log import logger, logFile
 import cryptodev
 from partitioning import *
 import partedUtils
+from partedUtils import needGPTLabel, getDefaultDiskType
 import partRequests
 from constants import *
 from partErrors import *
@@ -1203,8 +1204,15 @@ def doClearPartAction(anaconda, partitions, diskset):
             partitions.removeRequest(old)
             partitions.addDelete(delete)
             deletePart(diskset, delete)
-            continue
-    
+
+        if linuxOnly == 0 and disk.get_primary_partition_count() == 0:
+            # The disk is empty and we are clearing all partitions, so relabel it
+            dev = disk.dev
+            label = needGPTLabel(dev, getDefaultDiskType())
+            log.info("Disk %s is empty, creating new %s disklabel on it" % (drive, label.name))
+            new_disk = dev.disk_new_fresh(label)
+            diskset.disks[drive] = new_disk
+
 def doAutoPartition(anaconda):
     instClass = anaconda.id.instClass
     diskset = anaconda.id.diskset
