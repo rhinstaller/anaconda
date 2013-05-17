@@ -540,16 +540,22 @@ class StorageSpoke(NormalSpoke, StorageChecker):
 
         self._previous_autopart = self.autopart
 
-        # First, remove all non-button children of the advanced box.
-        for child in self.advancedOverviews:
+        # First, remove all non-button children.
+        for child in self.localOverviews + self.advancedOverviews:
             child.destroy()
+
+        # Then deal with local disks, which are really easy.  They need to be
+        # handled here instead of refresh to take into account the user pressing
+        # the rescan button on custom partitioning.
+        for disk in filter(isLocalDisk, self.disks):
+            self._add_disk_overview(disk, self.local_disks_box)
 
         # Advanced disks are different.  Because there can potentially be a lot
         # of them, we do not display them in the box by default.  Instead, only
         # those selected in the filter UI are displayed.  This means refresh
         # needs to know to create and destroy overviews as appropriate.
         for name in self.data.ignoredisk.onlyuse:
-            obj = self.storage.devicetree.getDeviceByName(name)
+            obj = self.storage.devicetree.getDeviceByName(name, hidden=True)
             if isLocalDisk(obj):
                 continue
 
@@ -646,11 +652,6 @@ class StorageSpoke(NormalSpoke, StorageChecker):
         # if there's only one disk, select it by default
         if len(self.disks) == 1 and not self.selected_disks:
             self._applyDiskSelection([self.disks[0].name])
-
-        # Don't handle specialized devices here.  They are handled by refresh,
-        # given that they can come and go by visiting the filter spoke.
-        for disk in filter(isLocalDisk, self.disks):
-            self._add_disk_overview(disk, self.local_disks_box)
 
         self._ready = True
         hubQ.send_ready(self.__class__.__name__, False)
