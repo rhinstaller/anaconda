@@ -104,7 +104,7 @@ warn_renamed_arg "kssendsn" "inst.ks.sendsn"
 
 # Ignore self-signed SSL certs
 warn_renamed_arg "noverifyssl" "inst.noverifyssl"
-if $(getargbool 0 noverifyssl inst.noverifyssl); then
+if getargbool 0 noverifyssl inst.noverifyssl; then
     # Tell dracut to use curl --insecure
     echo "rd.noverifyssl" >> /etc/cmdline.d/75-anaconda-options.conf
 fi
