@@ -750,9 +750,20 @@ def usedByRootOnISCSI(iface, storage):
 
     return False
 
+def write_sysconfig_network(rootpath, overwrite=False):
+
+    cfgfile = os.path.normpath(rootpath + networkConfFile)
+    if (os.path.isfile(cfgfile) and not overwrite):
+        return False
+
+    with open(cfgfile, "w") as f:
+        f.write("# Created by anaconda\n")
+    return True
+
 def write_network_config(storage, ksdata, instClass, rootpath):
     write_hostname(rootpath, ksdata, overwrite=flags.livecdInstall)
     set_hostname(ksdata.network.hostname)
+    write_sysconfig_network(rootpath, overwrite=flags.livecdInstall)
     disableIPV6(rootpath)
     if not flags.imageInstall:
         copyIfcfgFiles(rootpath)
