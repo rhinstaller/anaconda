@@ -67,7 +67,8 @@ def getDisks(devicetree, fake=False):
         disks.append(FakeDisk("sdc", size=8000, free=2100, removable=True,
                               vendor="SanDisk", model="Cruzer", serial="00003"))
 
-    return disks
+    # Remove duplicate names from the list.
+    return sorted(list(set(disks)), key=lambda d: d.name)
 
 def isLocalDisk(disk):
     return not isinstance(disk, MultipathDevice) and not isinstance(disk, iScsiDiskDevice)
