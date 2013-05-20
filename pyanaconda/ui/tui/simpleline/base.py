@@ -33,6 +33,7 @@ from pyanaconda.i18n import _, N_
 
 RAW_INPUT_LOCK = threading.Lock()
 
+
 def send_exception(queue, ex):
     queue.put((hubQ.HUB_CODE_EXCEPTION, [ex]))
 
@@ -191,7 +192,10 @@ class App(object):
         :type args: anything
         """
 
-        self._screens.append((ui, args, self.NOP))
+        # poll a screen's "ready" status before scheduling it to show
+        if ui.ready:
+            self._screens.append((ui, args, self.NOP))
+
         self.redraw()
 
     def switch_screen_modal(self, ui, args = None):
@@ -443,6 +447,11 @@ class App(object):
                 send_exception(self.queue, sys.exc_info())
                 return False
 
+        # global refresh command
+        if self._screens and (key == _('r')):
+            self._do_redraw()
+            return True
+
         # global close command
         if self._screens and (key == _('c')):
             self.close_screen()
@@ -558,7 +567,7 @@ class UIScreen(object):
                  to skip further input processing
         :rtype: unicode|None
         """
-        return _(u"  Please make your choice from above ['q' to quit | 'c' to continue]: ")
+        return _(u"  Please make your choice from above ['q' to quit | 'c' to continue |\n  'r' to refresh]: ")
 
     @property
     def app(self):
