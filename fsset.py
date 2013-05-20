@@ -1317,6 +1317,7 @@ class FileSystemSet:
         self.volumesCreated = 0
         self.anaconda = anaconda
         self.unknownFSlines = list()
+        self.noautoLines = list()
 
     def isActive(self):
         return self.mountcount != 0
@@ -1432,7 +1433,10 @@ class FileSystemSet:
         new = FileSystemSet(self.anaconda)
         for entry in self.entries:
             new.add (entry)
+
+        new.noautoLines = self.noautoLines[:]
         new.unknownFSlines = self.unknownFSlines[:]
+
         return new
 
     def extend (self, fsset):
@@ -1445,6 +1449,7 @@ class FileSystemSet:
         for entry in fsset.entries:
             self.add(entry)
 
+        self.noautoLines.extend(fsset.noautoLines)
         self.unknownFSlines.extend(fsset.unknownFSlines)
 
     def fstab (self):
@@ -1474,6 +1479,10 @@ class FileSystemSet:
                                           entry.fsystem.getName(),
                                           options, entry.fsck,
                                           entry.order)
+
+        # append the lines with 'noauto' option (should not cause any harm during boot)
+        for line in self.noautoLines:
+            fstab += line
 
         # append commented out lines with unknown (not supported) filesystems
         for line in self.unknownFSlines:
@@ -2971,7 +2980,10 @@ def readFstab (anaconda):
             fields.append(0)                        
         elif len(fields) > 6:
             continue
-	if string.find(fields[3], "noauto") != -1: continue
+
+	if string.find(fields[3], "noauto") != -1:
+            fsset.noautoLines.append(line)
+            continue
 
         # shenanigans to handle ext3,ext2 format in fstab
         fstotry = fields[2]
