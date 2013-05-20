@@ -97,6 +97,11 @@
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
                     <property name="model">disk_store</property>
+                    <child internal-child="selection">
+                        <object class="GtkTreeSelection" id="disk_selection">
+                            <signal name="changed" handler="on_selection_changed" swapped="no"/>
+                        </object>
+                    </child>
                     <child>
                       <object class="GtkTreeViewColumn" id="boot_column">
                         <property name="title" translatable="yes">Boot</property>
