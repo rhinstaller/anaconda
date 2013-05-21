@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.1.2.259
+Version: 11.1.2.260
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -128,6 +128,16 @@ fi
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+
+* Tue May 21 2013 Radek Vykydal <rvykydal@redhat.com> 11.1.2-260-1
+- Generate new anaconda.pot file (vpodzime)
+  Resolves: rhbz#907574
+- Relabel the disk when using autopart all (vpodzime)
+  Resolves: rhbz#758881
+- Store and write out 'noauto' fstab lines (vpodzime)
+  Resolves: rhbz#873644
+- Just log warning if cannot show it (vpodzime)
+  Resolves: rhbz#767260
 
 * Tue Nov 14 2012 Radek Vykydal <rvykydal@redhat.com> 11.1.2.259-1
 - Revert 5737408dd5293e5d003d552d3ea919c01417d9d4 targeting gfs support (vpodzime)
