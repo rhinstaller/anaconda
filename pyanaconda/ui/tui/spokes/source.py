@@ -19,6 +19,7 @@
 # Red Hat Author(s): Samantha N. Bueno <sbueno@redhat.com>
 #
 
+from pyanaconda.flags import flags
 from pyanaconda.ui.tui.spokes import EditTUISpoke
 from pyanaconda.ui.tui.spokes import EditTUISpokeEntry as Entry
 from pyanaconda.ui.tui.simpleline import CheckboxWidget, TextWidget
@@ -49,7 +50,6 @@ class SourceSpoke(EditTUISpoke):
 
     def __init__(self, app, data, storage, payload, instclass):
         EditTUISpoke.__init__(self, app, data, storage, payload, instclass)
-        self.data.method.url = ""
         self._ready = False
         self.errors = []
 
@@ -65,23 +65,27 @@ class SourceSpoke(EditTUISpoke):
         threadMgr.wait(THREAD_PAYLOAD)
         self._ready = True
 
-    @property
-    def status(self):
-        if self.errors:
-            return _("Error setting up software source")
-        elif not self._ready:
-            return _("Processing...")
-        elif self.data.method.method == "url":
+    def _repo_status(self):
+        """ Return a string describing repo url or lack of one. """
+        if self.data.method.method == "url":
             return self.data.method.url or self.data.method.mirrorlist
         elif self.payload.baseRepo:
             return _("Closest mirror")
         else:
             return _("Nothing selected")
 
+    @property
+    def status(self):
+        if self.errors:
+            return _("Error setting up software source")
+        elif not self._ready:
+            return _("Processing...")
+        else:
+            return self._repo_status()
+
     def _update_summary(self):
         """ Update screen with a summary. Show errors if there are any. """
-        repostr = (_("Repo URL set to: "))
-        summary = repostr + self.data.method.url
+        summary = (_("Repo URL set to: %s") % self._repo_status())
 
         if self.errors:
             summary = summary + "\n" + "\n".join(self.errors)
@@ -90,10 +94,10 @@ class SourceSpoke(EditTUISpoke):
 
     @property
     def completed(self):
-        if not self.errors and self.ready:
-            return True
-        else:
+        if flags.automatedInstall and (not self.data.method.method or not self.payload.baseRepo):
             return False
+        else:
+            return not self.errors and self.ready
 
     def refresh(self, args=None):
         EditTUISpoke.refresh(self, args)
@@ -116,16 +120,18 @@ class SourceSpoke(EditTUISpoke):
         """ Handle the input; this decides the repo protocol. """
         if key == "c" and self._selection == 1:
             # closest mirror
+            self.data.method.method = None
             self.apply()
 
         if key == "c" and self._selection in range(2, 5):
-            self.apply()
+            self.data.method.method = "url"
+
             # want to kick off new spoke asking to specify repo
             newspoke = SpecifyRepoSpoke(self.app, self.data, self.storage,
                                         self.payload, self.instclass, self._selection)
             self.app.switch_screen_modal(newspoke)
-            threadMgr.add(AnacondaThread(name=THREAD_PAYLOAD_MD,
-                                         target=self.getRepoMetadata))
+            self.apply()
+
         try:
             num = int(key)
             if num in range(1, 5):
@@ -163,12 +169,8 @@ class SourceSpoke(EditTUISpoke):
 
     def apply(self):
         """ Execute the selections made. """
-        if self._selection == 1:
-            self.data.method.method = None
-        elif self._selection in range(2, 5):
-            self.data.method.method = "url"
-        return
-
+        threadMgr.add(AnacondaThread(name=THREAD_PAYLOAD_MD,
+                                     target=self.getRepoMetadata))
 
 class SpecifyRepoSpoke(EditTUISpoke):
     """ Specify the repo URL here if closest mirror not selected. """
