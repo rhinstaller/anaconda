@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: anaconda 19.27\n"
+"Project-Id-Version: anaconda 19.28\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
-"POT-Creation-Date: 2013-05-16 08:51-0700\n"
+"POT-Creation-Date: 2013-05-21 16:15-0700\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -587,11 +587,11 @@ msgstr ""
 msgid "Installation"
 msgstr ""
 
-#: pyanaconda/ui/tui/hubs/summary.py:37
+#: pyanaconda/ui/tui/hubs/summary.py:38
 msgid "Starting automated install"
 msgstr ""
 
-#: pyanaconda/ui/tui/hubs/summary.py:58
+#: pyanaconda/ui/tui/hubs/summary.py:59
 msgid "Can't have a question in command line mode!"
 msgstr ""
 
@@ -600,7 +600,7 @@ msgid "Default HUB title"
 msgstr ""
 
 #: pyanaconda/ui/tui/hubs/__init__.py:108
-#: pyanaconda/ui/tui/simpleline/base.py:447
+#: pyanaconda/ui/tui/simpleline/base.py:456
 msgid "c"
 msgstr ""
 
@@ -632,16 +632,22 @@ msgstr ""
 msgid "no"
 msgstr ""
 
-#: pyanaconda/ui/tui/simpleline/base.py:85
+#: pyanaconda/ui/tui/simpleline/base.py:86
 msgid "Do you really want to quit?"
 msgstr ""
 
-#: pyanaconda/ui/tui/simpleline/base.py:452
+#: pyanaconda/ui/tui/simpleline/base.py:451
+msgid "r"
+msgstr ""
+
+#: pyanaconda/ui/tui/simpleline/base.py:461
 msgid "q"
 msgstr ""
 
-#: pyanaconda/ui/tui/simpleline/base.py:561
-msgid "  Please make your choice from above ['q' to quit | 'c' to continue]: "
+#: pyanaconda/ui/tui/simpleline/base.py:570
+msgid ""
+"  Please make your choice from above ['q' to quit | 'c' to continue |\n"
+"  'r' to refresh]: "
 msgstr ""
 
 #: pyanaconda/ui/tui/spokes/askvnc.py:29
@@ -1317,20 +1323,20 @@ msgstr ""
 msgid "_INSTALLATION DESTINATION"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/keyboard.py:37
+#: pyanaconda/ui/gui/spokes/keyboard.py:40
 #, python-format
 msgid "%s to switch layouts."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/keyboard.py:259
+#: pyanaconda/ui/gui/spokes/keyboard.py:262
 msgid "_KEYBOARD"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/keyboard.py:319
+#: pyanaconda/ui/gui/spokes/keyboard.py:322
 msgid "Testing layouts configuration not available."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/keyboard.py:373
+#: pyanaconda/ui/gui/spokes/keyboard.py:379
 msgid "Layout switching not configured."
 msgstr ""
 
@@ -1927,7 +1933,7 @@ msgid "_Do not install bootloader"
 msgstr ""
 
 #: pyanaconda/ui/gui/spokes/lib/cart.py:186
-#: pyanaconda/ui/gui/spokes/lib/cart.glade:179
+#: pyanaconda/ui/gui/spokes/lib/cart.glade:184
 msgid "_Set as Boot Device"
 msgstr ""
 
@@ -2151,7 +2157,7 @@ msgstr ""
 #: pyanaconda/ui/gui/spokes/filter.glade:1373
 #: pyanaconda/ui/gui/spokes/custom.glade:492
 #: pyanaconda/ui/gui/spokes/custom.glade:2032
-#: pyanaconda/ui/gui/spokes/lib/cart.glade:141
+#: pyanaconda/ui/gui/spokes/lib/cart.glade:146
 msgid "Capacity"
 msgstr ""
 
@@ -2565,7 +2571,7 @@ msgstr ""
 
 #: pyanaconda/ui/gui/spokes/keyboard.glade:121
 #: pyanaconda/ui/gui/spokes/source.glade:989
-#: pyanaconda/ui/gui/spokes/lib/cart.glade:129
+#: pyanaconda/ui/gui/spokes/lib/cart.glade:134
 #: pyanaconda/ui/gui/spokes/lib/resize.glade:158
 msgid "Name"
 msgstr ""
@@ -3014,7 +3020,7 @@ msgstr ""
 
 #: pyanaconda/ui/gui/spokes/custom.glade:505
 #: pyanaconda/ui/gui/spokes/custom.glade:2045
-#: pyanaconda/ui/gui/spokes/lib/cart.glade:154
+#: pyanaconda/ui/gui/spokes/lib/cart.glade:159
 msgid "Free"
 msgstr ""
 
@@ -3339,19 +3345,19 @@ msgstr ""
 msgid "_Close"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/lib/cart.glade:102
+#: pyanaconda/ui/gui/spokes/lib/cart.glade:107
 msgid "Boot"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/lib/cart.glade:116
+#: pyanaconda/ui/gui/spokes/lib/cart.glade:121
 msgid "Description"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/lib/cart.glade:196
+#: pyanaconda/ui/gui/spokes/lib/cart.glade:201
 msgid "_Remove"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/lib/cart.glade:224
+#: pyanaconda/ui/gui/spokes/lib/cart.glade:229
 msgid "Disk summary goes here"
 msgstr ""
 

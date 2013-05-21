@@ -253,6 +253,22 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue May 21 2013 Brian C. Lane <bcl@redhat.com> - 19.29-1
+- Handle empty text in simpleline (bcl)
+- Fixup TUI source to work with kickstart (bcl)
+- Add missing disk_selection XML (#962012,#962631) (bcl)
+- Add ability for users to specify an installation source repo in text UI.
+  (sbueno+anaconda)
+- Add the ability to select software in text UI. (sbueno+anaconda)
+- Add 'refresh' option in TUI; lock users out of threads that aren't ready
+  (sbueno+anaconda)
+- Add 'software' category to TUI summary hub (sbueno+anaconda)
+- Only try to activate layouts if runtime system can be changed (vpodzime)
+- Be more defensive in handling layouts from kickstart (#963103) (vpodzime)
+- Return all layouts the XklWrapper knows about (#883555) (vpodzime)
+- Fix issue where FS selection not applied in text UI. (#964069)
+  (sbueno+anaconda)
+
 * Thu May 16 2013 Brian C. Lane <bcl@redhat.com> - 19.28-1
 - Remove testing leftover (#963503) (rvykydal)
 
