@@ -711,6 +711,8 @@ class Widget(object):
            :param block: when printing newline, start at column col (True) or at column 0 (False)
            :type block: boolean
            """
+        if not text:
+            return
 
         if row is None:
             row = self._cursor[0]
