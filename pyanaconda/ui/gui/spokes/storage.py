@@ -639,8 +639,6 @@ class StorageSpoke(NormalSpoke, StorageChecker):
         overview.connect("focus-in-event", self._on_disk_focus_in)
         overview.show_all()
 
-        self._update_summary()
-
     def _initialize(self):
         hubQ.send_message(self.__class__.__name__, _("Probing storage..."))
 
