@@ -941,11 +941,17 @@ class SourceSpoke(NormalSpoke):
 
     def on_noUpdatesCheckbox_toggled(self, *args):
         """ Toggle the enable state of the updates repo
+
+            Before final release this will also toggle the updates-testing repo
         """
         if self._noUpdatesCheckbox.get_active():
             self.payload.disableRepo("updates")
+            if not constants.isFinal:
+                self.payload.disableRepo("updates-testing")
         else:
             self.payload.enableRepo("updates")
+            if not constants.isFinal:
+                self.payload.enableRepo("updates-testing")
 
     def on_addRepo_clicked(self, button):
         """ Add a new repository
