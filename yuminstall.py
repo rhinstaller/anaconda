@@ -1265,7 +1265,7 @@ class YumBackend(AnacondaBackend):
     def selectAnacondaNeeds(self):
         for pkg in ['authconfig', 'chkconfig', 'mkinitrd', 'rhpl',
                     'system-config-securitylevel-tui']:
-            self.selectPackage("%s.%s" % (pkg, rpmUtils.arch.canonArch))
+            self.selectPackage("%s.%s" % (pkg, rpmUtils.arch.getBaseArch()))
 
     def doPostSelection(self, anaconda):
         # Only solve dependencies on the way through the installer, not the way back.
