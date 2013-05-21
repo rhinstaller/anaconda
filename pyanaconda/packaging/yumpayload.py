@@ -535,7 +535,6 @@ reposdir=%s
                     self.disableRepo(repo.id)
                 elif self.data.method.method and \
                      repo.id != BASE_REPO_NAME and \
-                     repo.id != "updates" and \
                      repo.id not in (r.name for r in self.data.repo.dataList()):
                     # if a method/repo was given, disable all default repos
                     self.disableRepo(repo.id)
