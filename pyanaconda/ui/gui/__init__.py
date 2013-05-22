@@ -370,9 +370,10 @@ class GraphicalUserInterface(UserInterface):
         self._currentAction.window.set_beta(not self._isFinal)
         self._currentAction.window.set_property("distribution", self._distributionText().upper())
 
-        # Set fonts app-wide, where possible
+        # Set some program-wide settings.
         settings = Gtk.Settings.get_default()
         settings.set_property("gtk-font-name", "Cantarell")
+        settings.set_property("gtk-icon-theme-name", "gnome")
 
         self._currentAction.window.show_all()
 
