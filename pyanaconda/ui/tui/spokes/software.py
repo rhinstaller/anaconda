@@ -134,15 +134,14 @@ class SoftwareSpoke(NormalTUISpoke):
 
     def input(self, args, key):
         """ Handle the input; this chooses the desktop environment. """
-        if key.lower() == "c" and self._selection - 1 in range(len(self.payload.environments)):
+        if key.lower() == "c" and self._selection in range(len(self.payload.environments)):
             self.apply()
-            return False
 
         try:
             keyid = int(key) - 1
             if keyid in range(len(self.payload.environments)):
                 self._selection = keyid
-            return False
+            return None
         except (ValueError, IndexError):
             return key
 
@@ -158,19 +157,17 @@ class SoftwareSpoke(NormalTUISpoke):
         """ Apply our selections """
         self._apply()
         self.data.packages.seen = True
+        threadMgr.add(AnacondaThread(name=THREAD_CHECK_SOFTWARE,
+                                     target=self.checkSoftwareSelection))
 
     def _apply(self):
         """ Private apply. """
-        try:
-            self.environment = self.payload.environments[self._selection]
-            self.data.packages.seen = True
-        except IndexError:
+        self.environment = self.payload.environments[self._selection]
+        if not self.environment:
             return
 
         self.payload.selectEnvironment(self.environment)
         self._origEnv = self.environment
-        threadMgr.add(AnacondaThread(name=THREAD_CHECK_SOFTWARE,
-                                     target=self.checkSoftwareSelection))
 
     def checkSoftwareSelection(self):
         """ Depsolving """
