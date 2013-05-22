@@ -447,9 +447,6 @@ class ContainerDialog(GUIObject):
             fancy_set_sensitive(self.sizeCombo, False)
             self.sizeEntry.set_sensitive(False)
 
-    def on_cancel_clicked(self, button):
-        self.window.destroy()
-
     def _get_disk_by_id(self, disk_id):
         for disk in self._disks:
             if disk.id == disk_id:
@@ -2236,6 +2233,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
 
         with enlightbox(self.window, dialog.window):
             rc = dialog.run()
+            dialog.window.destroy()
 
         if rc == 0:
             return
