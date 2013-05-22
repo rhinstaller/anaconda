@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.1.2.260
+Version: 11.1.2.261
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -128,6 +128,10 @@ fi
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+
+* Wed May 22 2013 Radek Vykydal <rvykydal@redhat.com> 11.1.2-261-1
+- Fix issue where arch detected incorrectly (sbueno)
+  Resolves: rhbz##908959
 
 * Tue May 21 2013 Radek Vykydal <rvykydal@redhat.com> 11.1.2-260-1
 - Generate new anaconda.pot file (vpodzime)
