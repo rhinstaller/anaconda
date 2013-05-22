@@ -151,12 +151,9 @@ class StorageSpoke(NormalTUISpoke):
                       count) % (count, str(Size(spec="%s MB" % capacity)), free))
 
         if len(self.disks) == 0:
-            summary = _("No disks detected.  Please shut down the computer, \
-                         connect at least one disk, and restart to complete \
-                         installation.")
+            summary = _("No disks detected.  Please shut down the computer, connect at least one disk, and restart to complete installation.")
         elif count == 0:
-            summary = (_("No disks selected; please select at least one disk \
-                          to install to."))
+            summary = (_("No disks selected; please select at least one disk to install to."))
 
         # Append storage errors to the summary
         if self.errors:
@@ -330,8 +327,7 @@ class AutoPartSpoke(NormalTUISpoke):
                                completed=(PARTTYPES[parttype] == self.clearPartType))
             self._window += [c, ""]
 
-        message = _("Installation requires partitioning of your hard drive.  \
-                     Select what space to use for the install target.")
+        message = _("Installation requires partitioning of your hard drive. Select what space to use for the install target.")
 
         self._window += [TextWidget(message), ""]
 
