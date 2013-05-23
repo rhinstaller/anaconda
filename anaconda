@@ -337,7 +337,7 @@ def setupLoggingFromOpts(opts):
         anaconda_log.setHandlersLevel(storage_log, level)
 
     if opts.syslog:
-        anaconda_log.logger.remote_syslog = opts.syslog
+        anaconda_log.logger.updateRemote(opts.syslog)
 
 def gtk_warning(title, reason):
     import gtk
