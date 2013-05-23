@@ -380,7 +380,9 @@ class Payload(object):
             files = glob.glob(ROOT_PATH + "/boot/vmlinuz-*")
             files.extend(glob.glob(ROOT_PATH + "/boot/efi/EFI/redhat/vmlinuz-*"))
             # strip off everything up to and including vmlinuz- to get versions
-            versions = [f.split("/")[-1][8:] for f in files if os.path.isfile(f)]
+            # Ignore rescue kernels
+            versions = [f.split("/")[-1][8:] for f in files if os.path.isfile(f) \
+                        and "-rescue-" not in f]
             versions.sort(cmp=cmpfunc)
             log.debug("kernel versions: %s" % versions)
             self._kernelVersionList = versions
