@@ -253,6 +253,15 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Thu May 23 2013 Brian C. Lane <bcl@redhat.com> - 19.30-1
+- Fix software selection in text UI. (#965974) (sbueno+anaconda)
+- Don't call _update_summary from within _add_disk_overview. (clumens)
+- getDisks should not return a list that has duplicates in it. (clumens)
+- Fix the rescan button (#929299). (clumens)
+- Let checkbox disable updates-testing (#962522) (bcl)
+- disable updates when method is set in ks (#952791) (bcl)
+- Fix string formatting on text UI storage spoke. (#965460) (sbueno+anaconda)
+
 * Tue May 21 2013 Brian C. Lane <bcl@redhat.com> - 19.29-1
 - Handle empty text in simpleline (bcl)
 - Fixup TUI source to work with kickstart (bcl)
