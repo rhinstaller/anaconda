@@ -74,6 +74,7 @@ from pyanaconda.ui.gui.spokes.lib.refresh import RefreshDialog
 from pyanaconda.ui.gui.spokes.lib.summary import ActionSummaryDialog
 from pyanaconda.ui.gui.utils import setViewportBackground, gtk_action_wait, enlightbox, fancy_set_sensitive
 from pyanaconda.ui.gui.categories.storage import StorageCategory
+from pyanaconda.ui.lib.disks import size_str
 
 # pylint: disable-msg=E0611
 from gi.repository import Gdk, Gtk
@@ -1404,7 +1405,9 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
                         log.debug("target size: %s" % device.targetSize)
 
                         # update the selector's size property
-                        selectorFromDevice(device, selector=selector)
+                        for s in self._accordion.allSelectors:
+                            if s._device == device:
+                                s.size = size_str(device.size)
 
                 # update size props of all btrfs devices' selectors
                 self._update_selectors()
