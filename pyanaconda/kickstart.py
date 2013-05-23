@@ -216,7 +216,7 @@ class Authconfig(commands.authconfig.FC3_Authconfig):
         except RuntimeError as msg:
             log.error("Error running /usr/sbin/authconfig %s: %s", args, msg)
 
-class AutoPart(commands.autopart.F18_AutoPart):
+class AutoPart(commands.autopart.F20_AutoPart):
     def execute(self, storage, ksdata, instClass):
         from blivet.partitioning import doAutoPartition
 
@@ -630,7 +630,7 @@ class Lang(commands.lang.F19_Lang):
     def execute(self, *args, **kwargs):
         localization.write_language_configuration(self, ROOT_PATH)
 
-class LogVol(commands.logvol.F18_LogVol):
+class LogVol(commands.logvol.F20_LogVol):
     def execute(self, storage, ksdata, instClass):
         for l in self.lvList:
             l.execute(storage, ksdata, instClass)
@@ -638,7 +638,7 @@ class LogVol(commands.logvol.F18_LogVol):
         if self.lvList:
             growLVM(storage)
 
-class LogVolData(commands.logvol.F18_LogVolData):
+class LogVolData(commands.logvol.F20_LogVolData):
     def execute(self, storage, ksdata, instClass):
         devicetree = storage.devicetree
 
@@ -659,6 +659,10 @@ class LogVolData(commands.logvol.F18_LogVolData):
             else:
                 type = storage.defaultFSType
 
+        if self.thin_pool:
+            self.mountpoint = ""
+            type = None
+
         # Sanity check mountpoint
         if self.mountpoint != "" and self.mountpoint[0] != '/':
             raise KickstartValueError, formatErrorMsg(self.lineno, msg="The mount point \"%s\" is not valid." % (self.mountpoint,))
@@ -667,6 +671,16 @@ class LogVolData(commands.logvol.F18_LogVolData):
         vg = devicetree.getDeviceByName(vgname)
         if not vg:
             raise KickstartValueError, formatErrorMsg(self.lineno, msg="No volume group exists with the name \"%s\".  Specify volume groups before logical volumes." % self.vgname)
+
+        pool = None
+        if self.thin_volume:
+            pool = devicetree.getDeviceByName("%s-%s" % (vg.name, self.pool_name))
+            if not pool:
+                err = formatErrorMsg(self.lineno,
+                                     msg="No thin pool exists with the name "
+                                         "\"%s\". Specify thin pools before "
+                                         "thin volumes." % self.pool_name)
+                raise KickstartValueError(err)
 
         # If this specifies an existing request that we should not format,
         # quit here after setting up enough information to mount it later.
@@ -721,7 +735,7 @@ class LogVolData(commands.logvol.F18_LogVolData):
                            label=self.label,
                            fsprofile=self.fsprofile,
                            mountopts=self.fsopts)
-        if not format.type:
+        if not format.type and not self.thin_pool:
             raise KickstartValueError, formatErrorMsg(self.lineno, msg="The \"%s\" filesystem type is not supported." % type)
 
         # If we were given a pre-existing LV to create a filesystem on, we need
@@ -753,13 +767,27 @@ class LogVolData(commands.logvol.F18_LogVolData):
             except KeyError:
                 pass
 
+            if self.thin_volume:
+                parents = [pool]
+            else:
+                parents = [vg]
+
+            if self.thin_pool:
+                pool_args = { "metadatasize": self.metadata_size,
+                              "chunksize": self.chunk_size / 1024.0 }
+            else:
+                pool_args = {}
+
             request = storage.newLV(format=format,
                                     name=self.name,
-                                    parents=[vg],
+                                    parents=parents,
                                     size=self.size,
+                                    thin_pool=self.thin_pool,
+                                    thin_volume=self.thin_volume,
                                     grow=self.grow,
                                     maxsize=self.maxSizeMB,
-                                    percent=self.percent)
+                                    percent=self.percent,
+                                    **pool_args)
 
             storage.createDevice(request)
 

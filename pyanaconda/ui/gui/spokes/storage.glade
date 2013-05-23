@@ -186,11 +186,12 @@
                   <object class="GtkComboBoxText" id="options1_combo">
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
-                    <property name="active">2</property>
+                    <property name="active">3</property>
                     <items>
                       <item translatable="yes">Standard Partition</item>
                       <item translatable="yes">BTRFS</item>
                       <item translatable="yes">LVM</item>
+                      <item translatable="yes">LVM Thin Provisioning</item>
                     </items>
                     <signal name="changed" handler="on_type_changed" swapped="no"/>
                   </object>
@@ -485,11 +486,12 @@
                   <object class="GtkComboBoxText" id="options2_combo">
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
-                    <property name="active">2</property>
+                    <property name="active">3</property>
                     <items>
                       <item translatable="yes">Standard Partition</item>
                       <item translatable="yes">BTRFS</item>
                       <item translatable="yes">LVM</item>
+                      <item translatable="yes">LVM Thin Provisioning</item>
                     </items>
                     <signal name="changed" handler="on_type_changed" swapped="no"/>
                   </object>

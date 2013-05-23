@@ -1059,6 +1059,7 @@ use.  Try something else?</property>
                                           <item translatable="yes">BTRFS</item>
                                           <item translatable="yes">LVM</item>
                                           <item translatable="yes">RAID</item>
+                                          <item translatable="yes">LVM Thin Provisioning</item>
                                         </items>
                                         <signal name="changed" handler="on_device_type_changed" swapped="no"/>
                                         <signal name="changed" handler="on_value_changed" swapped="no"/>

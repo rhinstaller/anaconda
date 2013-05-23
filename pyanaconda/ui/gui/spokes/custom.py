@@ -26,6 +26,7 @@
 # - Device descriptions, suggested sizes, etc. should be moved out into a support file.
 # - Tabbing behavior in the accordion is weird.
 # - Implement striping and mirroring for LVM.
+# - Activating reformat should always enable resize for existing devices.
 
 from contextlib import contextmanager
 import re
@@ -49,6 +50,7 @@ from blivet.devicefactory import DEVICE_TYPE_BTRFS
 from blivet.devicefactory import DEVICE_TYPE_PARTITION
 from blivet.devicefactory import DEVICE_TYPE_MD
 from blivet.devicefactory import DEVICE_TYPE_DISK
+from blivet.devicefactory import DEVICE_TYPE_LVM_THINP
 from blivet.devicefactory import get_raid_level
 from blivet.devicefactory import SIZE_POLICY_AUTO
 from blivet.devicefactory import SIZE_POLICY_MAX
@@ -115,6 +117,7 @@ empty_name_msg = N_("Please enter a valid name.")
 invalid_name_msg = N_("That name is invalid. Try something else?")
 
 container_type_names = {DEVICE_TYPE_LVM: lvm_container_name,
+                        DEVICE_TYPE_LVM_THINP: lvm_container_name,
                         DEVICE_TYPE_BTRFS: btrfs_container_name}
 
 MOUNTPOINT_OK = 0
@@ -128,6 +131,7 @@ mountpoint_validation_msgs = {MOUNTPOINT_OK: "",
                               MOUNTPOINT_EMPTY: empty_mountpoint_msg}
 
 DEVICE_TEXT_LVM = N_("LVM")
+DEVICE_TEXT_LVM_THINP = N_("LVM Thin Provisioning")
 DEVICE_TEXT_MD = N_("RAID")
 DEVICE_TEXT_PARTITION = N_("Standard Partition")
 DEVICE_TEXT_BTRFS = N_("BTRFS")
@@ -136,7 +140,8 @@ DEVICE_TEXT_DISK = N_("Disk")
 device_text_map = {DEVICE_TYPE_LVM: DEVICE_TEXT_LVM,
                    DEVICE_TYPE_MD: DEVICE_TEXT_MD,
                    DEVICE_TYPE_PARTITION: DEVICE_TEXT_PARTITION,
-                   DEVICE_TYPE_BTRFS: DEVICE_TEXT_BTRFS}
+                   DEVICE_TYPE_BTRFS: DEVICE_TEXT_BTRFS,
+                   DEVICE_TYPE_LVM_THINP: DEVICE_TEXT_LVM_THINP}
 
 partition_only_format_types = ["efi", "hfs+", "prepboot", "biosboot",
                                "appleboot"]
@@ -537,7 +542,7 @@ class ContainerDialog(GUIObject):
 
     def _raid_level_visible(self, model, itr, user_data):
         # This is weird because for lvm's container-wide raid we use md.
-        if self.device_type == DEVICE_TYPE_LVM:
+        if self.device_type in (DEVICE_TYPE_LVM, DEVICE_TYPE_LVM_THINP):
             return model[itr][4]
         elif self.device_type == DEVICE_TYPE_BTRFS:
             return model[itr][3]
@@ -562,7 +567,7 @@ class ContainerDialog(GUIObject):
         raid_label = self.builder.get_object("containerRaidLevelLabel")
         raid_combo = self.builder.get_object("containerRaidLevelCombo")
 
-        if self.device_type not in [DEVICE_TYPE_LVM, DEVICE_TYPE_BTRFS]:
+        if self.device_type not in [DEVICE_TYPE_LVM, DEVICE_TYPE_BTRFS, DEVICE_TYPE_LVM_THINP]:
             map(really_hide, [raid_label, raid_combo])
             return
 
@@ -622,6 +627,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         self._device_container_size = SIZE_POLICY_AUTO
         self._device_name_dict = {DEVICE_TYPE_LVM: None,
                                   DEVICE_TYPE_MD: None,
+                                  DEVICE_TYPE_LVM_THINP: None,
                                   DEVICE_TYPE_PARTITION: "",
                                   DEVICE_TYPE_BTRFS: "",
                                   DEVICE_TYPE_DISK: ""}
@@ -1601,6 +1607,8 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
             device_type = DEVICE_TYPE_BTRFS
         elif device_type_text == _(DEVICE_TEXT_DISK):
             device_type = DEVICE_TYPE_DISK
+        elif device_type_text == _(DEVICE_TEXT_LVM_THINP):
+            device_type = DEVICE_TYPE_LVM_THINP
         else:
             log.error("unknown device type: '%s'" % device_type_text)
 
@@ -1766,6 +1774,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         btrfs_pos = None
         partition_pos = None
         lvm_pos = None
+        thinp_pos = None
         for idx, itr in enumerate(self._typeCombo.get_model()):
             if itr[0] == _(DEVICE_TEXT_BTRFS):
                 btrfs_pos = idx
@@ -1777,12 +1786,15 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
                 lvm_pos = idx
             elif itr[0] == _(DEVICE_TEXT_DISK):
                 disk_pos = idx
+            elif itr[0] == _(DEVICE_TEXT_LVM_THINP):
+                thinp_pos = idx
 
         device_type = devicefactory.get_device_type(device)
         raid_level = devicefactory.get_raid_level(device)
         type_index_map = {DEVICE_TYPE_PARTITION: partition_pos,
                           DEVICE_TYPE_BTRFS: btrfs_pos,
                           DEVICE_TYPE_LVM: lvm_pos,
+                          DEVICE_TYPE_LVM_THINP: thinp_pos,
                           DEVICE_TYPE_MD: md_pos,
                           DEVICE_TYPE_DISK: disk_pos}
 
@@ -1790,7 +1802,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
             if _type == device_type:
                 self._device_name_dict[_type] = device_name
                 continue
-            elif _type not in (DEVICE_TYPE_LVM, DEVICE_TYPE_MD, DEVICE_TYPE_BTRFS):
+            elif _type not in (DEVICE_TYPE_LVM, DEVICE_TYPE_MD, DEVICE_TYPE_BTRFS, DEVICE_TYPE_LVM_THINP):
                 continue
 
             swap = (device.format.type == "swap")
@@ -1816,7 +1828,9 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         # FIXME: device raid should be mutually exclusive with container raid
 
         # you can't encrypt a btrfs subvolume -- only the volume/container
-        fancy_set_sensitive(self._encryptCheckbox, device_type != DEVICE_TYPE_BTRFS)
+        # XXX CHECKME: encryption of thin logical volumes is not supported at this time
+        if device_type in [DEVICE_TYPE_BTRFS, DEVICE_TYPE_LVM_THINP]:
+            fancy_set_sensitive(self._encryptCheckbox, False)
 
         # The size entry is only sensitive for resizable existing devices and
         # new devices that are not btrfs subvolumes.
@@ -1930,6 +1944,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
             mountpoint = None
 
         device_type_from_autopart = {AUTOPART_TYPE_LVM: DEVICE_TYPE_LVM,
+                                     AUTOPART_TYPE_LVM_THINP: DEVICE_TYPE_LVM_THINP,
                                      AUTOPART_TYPE_PLAIN: DEVICE_TYPE_PARTITION,
                                      AUTOPART_TYPE_BTRFS: DEVICE_TYPE_BTRFS}
         device_type = device_type_from_autopart[self.data.autopart.type]
@@ -1937,6 +1952,14 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
             ((mountpoint and mountpoint.startswith("/boot")) or
              fstype in partition_only_format_types)):
             device_type = DEVICE_TYPE_PARTITION
+
+        # we shouldn't create swap on a thinly provisioned volume
+        if fstype == "swap" and device_type == DEVICE_TYPE_LVM_THINP:
+            device_type = DEVICE_TYPE_LVM
+
+        # encryption of thinly provisioned volumes isn't supported
+        if encrypted and device_type == DEVICE_TYPE_LVM_THINP:
+            encrypted = False
 
         # some devices should never be encrypted
         if ((mountpoint and mountpoint.startswith("/boot")) or
@@ -2057,7 +2080,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         container = None
         if hasattr(device, "vg"):
             container = device.vg
-            device_type = DEVICE_TYPE_LVM
+            device_type = devicefactory.get_device_type(device)
         elif hasattr(device, "volume"):
             container = device.volume
             device_type = DEVICE_TYPE_BTRFS
@@ -2189,8 +2212,8 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         if device.exists:
             return
 
-        if self._get_current_device_type() == DEVICE_TYPE_LVM:
-            # LVM disk set management happens through VG edit on RHS
+        if self._get_current_device_type() in (DEVICE_TYPE_LVM, DEVICE_TYPE_LVM_THINP, DEVICE_TYPE_BTRFS):
+            # disk set management happens through container edit on RHS
             return
 
         self.clear_errors()
@@ -2439,7 +2462,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         self._applyButton.set_sensitive(False)
         self._configButton.set_sensitive(not selector._device.exists and
                                          not selector._device.protected and
-                                         devicefactory.get_device_type(selector._device) != DEVICE_TYPE_LVM)
+                                         devicefactory.get_device_type(selector._device) in (DEVICE_TYPE_PARTITION, DEVICE_TYPE_MD))
         self._removeButton.set_sensitive(not selector._device.protected)
         return True
 
@@ -2578,7 +2601,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         container_combo = self.builder.get_object("containerCombo")
         container_label = self.builder.get_object("containerLabel")
         container_size_policy = SIZE_POLICY_AUTO
-        if device_type in (DEVICE_TYPE_LVM, DEVICE_TYPE_BTRFS):
+        if device_type in (DEVICE_TYPE_LVM, DEVICE_TYPE_BTRFS, DEVICE_TYPE_LVM_THINP):
             # set up the vg widgets and then bail out
             if devicefactory.get_device_type(device) == device_type:
                 _device = device
@@ -2597,10 +2620,10 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
             container_type_text = container_type_names[device_type]
             container_label.set_text(container_type_text.title())
             container_combo.remove_all()
-            if device_type == DEVICE_TYPE_LVM:
-                containers = self.__storage.vgs
-            else:
+            if device_type == DEVICE_TYPE_BTRFS:
                 containers = self.__storage.btrfsVolumes
+            else:
+                containers = self.__storage.vgs
 
             default_seen = False
             for c in containers:
@@ -2671,7 +2694,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
 
         # lvm uses the RHS to set disk set. no foolish minds here.
         exists = self._current_selector and self._current_selector._device.exists
-        self._configButton.set_sensitive(not exists and new_type != DEVICE_TYPE_LVM)
+        self._configButton.set_sensitive(not exists and new_type not in (DEVICE_TYPE_LVM, DEVICE_TYPE_LVM_THINP, DEVICE_TYPE_BTRFS))
 
         # this has to be done before calling populate_raid since it will need
         # the raid level combo to contain the relevant raid levels for the new
@@ -2681,7 +2704,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         self._populate_raid(raid_level)
         self._populate_container()
 
-        fancy_set_sensitive(self._nameEntry, new_type in (DEVICE_TYPE_BTRFS, DEVICE_TYPE_LVM, DEVICE_TYPE_MD))
+        fancy_set_sensitive(self._nameEntry, new_type in (DEVICE_TYPE_BTRFS, DEVICE_TYPE_LVM, DEVICE_TYPE_MD, DEVICE_TYPE_LVM_THINP))
         self._nameEntry.set_text(self._device_name_dict[new_type])
         fancy_set_sensitive(self._sizeEntry, new_type != DEVICE_TYPE_BTRFS)
 
