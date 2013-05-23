@@ -1118,7 +1118,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         fs_type_short = getFormat(fs_type).type
         changed_fs_type = (old_fs_type != fs_type_short)
         log.debug("old fs type: %s" % old_fs_type)
-        log.debug("new fs type: %s" % fs_type)
+        log.debug("new fs type: %s" % fs_type_short)
 
         # ENCRYPTION
         old_encrypted = isinstance(device, LUKSDevice)
@@ -1144,7 +1144,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
 
         old_mountpoint = getattr(device.format, "mountpoint", "") or ""
         log.debug("old mountpoint: %s" % old_mountpoint)
-        log.debug("new mountpoint: %s" % mountpoint)
+        log.debug("new mountpoint: %s" % (mountpoint or ""))
         if mountpoint is not None and (reformat or
                                        mountpoint != old_mountpoint):
             mountpoints = self.__storage.mountpoints.copy()
@@ -1158,6 +1158,10 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
                 self.window.show_all()
                 self._populate_right_side(selector)
                 return
+
+        if not old_mountpoint:
+            # prevent false positives below when "" != None
+            old_mountpoint = None
 
         changed_mountpoint = (old_mountpoint != mountpoint)
 
