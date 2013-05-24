@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 11.1.2.261
+Version: 11.1.2.262
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -128,6 +128,10 @@ fi
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+
+* Fri May 24 2013 Radek Vykydal <rvykydal@redhat.com> 11.1.2-262-1
+- Include librt.so in initrd for s390 (rvykydal)
+  Resolves: rhbz#966123
 
 * Wed May 22 2013 Radek Vykydal <rvykydal@redhat.com> 11.1.2-261-1
 - Fix issue where arch detected incorrectly (sbueno)
