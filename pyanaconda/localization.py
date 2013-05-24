@@ -300,7 +300,12 @@ def write_language_configuration(lang, root):
     try:
         fpath = os.path.normpath(root + LOCALE_CONF_FILE_PATH)
         with open(fpath, "w") as fobj:
-            fobj.write('LANG="%s"\n' % lang.lang)
+            # FIXME:  Remove this annoying hack once python-babel includes the
+            # right information.
+            if lang.lang == "ia":
+                fobj.write('LANG="ia_FR.UTF-8"\n')
+            else:
+                fobj.write('LANG="%s"\n' % lang.lang)
 
     except IOError as ioerr:
         msg = "Cannot write language configuration file: %s" % ioerr.strerror
