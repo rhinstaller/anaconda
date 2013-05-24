@@ -24,8 +24,6 @@
 # - move callback connection to initialize?
 # - Automatically reconnecting wifi after failure
 #   https://bugzilla.redhat.com/show_bug.cgi?id=712778#c1
-# - secrets agent - use nm_applet?
-#   see we_dont_have_nm_applet_as_secrets_agent
 # - callback on NM_CLIENT_ACTIVE_CONNECTIONS
 # - support connection to hidden network (ap-other)
 # - NMClient.CLIENT_WIRELESS_ENABLED callback (hw switch?) - test
@@ -41,17 +39,19 @@ from pyanaconda.ui.gui import GUIObject
 from pyanaconda.ui.gui.spokes import NormalSpoke, StandaloneSpoke
 from pyanaconda.ui.gui.categories.software import SoftwareCategory
 from pyanaconda.ui.gui.hubs.summary import SummaryHub
-from pyanaconda.ui.gui.utils import gtk_call_once
+from pyanaconda.ui.gui.utils import gtk_call_once, enlightbox
 
 from pyanaconda import network
 from pyanaconda.nm import nm_activated_devices, nm_device_setting_value
 
 from gi.repository import GLib, GObject, Pango, Gio, NetworkManager, NMClient
 import dbus
+import dbus.service
 import socket
 import subprocess
 import struct
 import time
+import string
 from dbus.mainloop.glib import DBusGMainLoop
 dbus.mainloop.glib.DBusGMainLoop(set_as_default=True)
 
@@ -69,6 +69,11 @@ NM_802_11_AP_FLAGS_PRIVACY = 0x1
 NM_802_11_AP_SEC_NONE = 0x0
 NM_802_11_AP_SEC_KEY_MGMT_802_1X = 0x200
 DBUS_PROPS_IFACE = "org.freedesktop.DBus.Properties"
+SECRET_AGENT_IFACE = 'org.freedesktop.NetworkManager.SecretAgent'
+AGENT_MANAGER_IFACE = 'org.freedesktop.NetworkManager.AgentManager'
+AGENT_MANAGER_PATH = "/org/freedesktop/NetworkManager/AgentManager"
+
+
 
 def getNMObjProperty(object, nm_iface_suffix, property):
     props_iface = dbus.Interface(object, DBUS_PROPS_IFACE)
@@ -117,10 +122,6 @@ configuration_of_disconnected_devices_allowed = True
 # it is not in gnome-control-center but it makes sense
 # for installer
 # https://bugzilla.redhat.com/show_bug.cgi?id=704119
-
-we_dont_have_nm_applet_as_secrets_agent = True
-# so we have to disconnect from former ap before trying
-# to connect to new one bound to fail due to no secrets
 
 __all__ = ["NetworkSpoke", "NetworkStandaloneSpoke"]
 
@@ -405,12 +406,6 @@ class NetworkControlBox(object):
             return
 
         log.info("network: access point changed: %s" % ssid_target)
-
-        if we_dont_have_nm_applet_as_secrets_agent:
-            if self.find_active_connection_for_device(device):
-                # TODO we should pass callback and block until really disconnected?
-                # or is wireless reconnection stuff solved in NM? TEST!
-                device.disconnect(None, None)
 
         con = self.find_connection_for_device(device, ssid_target)
         if con:
@@ -964,13 +959,10 @@ class NetworkControlBox(object):
         for ap in access_points:
             ssid = ap.get_ssid()
             if ssid in strongest_aps:
-                #print "DBG: found %s duplicate" % ssid
                 if ap.get_strength() > strongest_aps[ssid].get_strength():
                     strongest_aps[ssid] = ap
-                    #print "DBG: ...stronger"
             else:
                 strongest_aps[ssid] = ap
-                #print "DBG: adding %s ap" % ssid
 
         return strongest_aps.values()
 
@@ -1079,6 +1071,188 @@ class NetworkControlBox(object):
     def hostname(self, value):
         self.entry_hostname.set_text(value)
 
+
+class SecretAgentDialog(GUIObject):
+    builderObjects = ["secret_agent_dialog"]
+    mainWidgetName = "secret_agent_dialog"
+    uiFile = "spokes/network.glade"
+
+    def __init__(self, *args, **kwargs):
+        self._content = kwargs.pop('content', {})
+        GUIObject.__init__(self, *args, **kwargs)
+        img = self.builder.get_object("image_password_dialog")
+        img.set_from_icon_name("dialog-password-symbolic", Gtk.IconSize.DIALOG)
+        self.builder.get_object("label_message").set_text(self._content['message'])
+        self.builder.get_object("label_title").set_use_markup(True)
+        self.builder.get_object("label_title").set_markup("<b>%s</b>" % self._content['title'])
+        self._connect_button = self.builder.get_object("connect_button")
+
+    def initialize(self):
+        self._entries = {}
+        grid = Gtk.Grid()
+        grid.set_row_spacing(6)
+        grid.set_column_spacing(6)
+
+        for row, secret in enumerate(self._content['secrets']):
+            label = Gtk.Label(secret['label'])
+            label.set_halign(Gtk.Align.START)
+            entry = Gtk.Entry()
+            entry.set_visibility(False)
+            entry.set_hexpand(True)
+            self._validate(entry, secret)
+            entry.connect("changed", self._validate, secret)
+            entry.connect("activate", self._password_entered_cb)
+            self._entries[secret['key']] = entry
+            label.set_use_underline(True)
+            label.set_mnemonic_widget(entry)
+            grid.attach(label, 0, row, 1, 1)
+            grid.attach(entry, 1, row, 1, 1)
+
+        self.builder.get_object("password_box").add(grid)
+
+    def run(self):
+        self.initialize()
+        self.window.show_all()
+        rc = self.window.run()
+        for secret in self._content['secrets']:
+            secret['value'] = self._entries[secret['key']].get_text()
+        self.window.destroy()
+        return rc
+
+    @property
+    def valid(self):
+        return all(secret['valid'] for secret in self._content['secrets'])
+
+    def _validate(self, entry, secret):
+        secret['value'] = entry.get_text()
+        if secret['validate']:
+            secret['valid'] = secret['validate'](secret)
+        else:
+            secret['valid'] = len(secret['value']) > 0
+        self._update_connect_button()
+
+    def _password_entered_cb(self, entry):
+        if self._connect_button.get_sensitive() and self.valid:
+            self.window.response(1)
+
+    def _update_connect_button(self):
+        self._connect_button.set_sensitive(self.valid)
+
+secret_agent = None
+
+class NotAuthorizedException(dbus.DBusException):
+    _dbus_error_name = SECRET_AGENT_IFACE + '.NotAuthorized'
+
+class SecretAgent(dbus.service.Object):
+    def __init__(self, spoke):
+        self._bus = dbus.SystemBus()
+        self.spoke = spoke
+        dbus.service.Object.__init__(self, self._bus, "/org/freedesktop/NetworkManager/SecretAgent")
+
+    @dbus.service.method(SECRET_AGENT_IFACE,
+                         in_signature='a{sa{sv}}osasb',
+                         out_signature='a{sa{sv}}',
+                         sender_keyword='sender')
+    def GetSecrets(self, connection_hash, connection_path, setting_name, hints, request_new, sender=None):
+        if not sender:
+            raise NotAuthorizedException("Internal error: couldn't get sender")
+        uid = self._bus.get_unix_user(sender)
+        if uid != 0:
+            raise NotAuthorizedException("UID %d not authorized" % uid)
+
+        log.debug("Secrets requested path '%s' setting '%s' hints '%s' new %d"
+                  % (connection_path, setting_name, str(hints), request_new))
+
+        content = self._get_content(setting_name, connection_hash)
+        dialog = SecretAgentDialog(self.spoke.data, content=content)
+        with enlightbox(self.spoke.window, dialog.window):
+            rc = dialog.run()
+
+        secrets = dbus.Dictionary()
+        if rc == 1:
+            for secret in content['secrets']:
+                secrets[secret['key']] = secret['value']
+
+        settings = dbus.Dictionary({setting_name: secrets})
+
+        return settings
+
+    def _get_content(self, setting_name, connection_hash):
+        content = {}
+        connection_type = connection_hash['connection']['type']
+        if connection_type == "802-11-wireless":
+            content['title'] = _("Authentication required by wireless network")
+            content['message'] = _("Passwords or encryption keys are required to access\n"
+                                   "the wireless network '%(network_id)s'.") \
+                                   % {'network_id':str(connection_hash['connection']['id'])}
+            content['secrets'] = self._get_wireless_secrets(connection_hash[setting_name])
+        else:
+            log.info("Connection type %s not supported by secret agent" % connection_type)
+
+        return content
+
+    def _get_wireless_secrets(self, original_secrets):
+        secrets = []
+        key_mgmt = original_secrets['key-mgmt']
+        if key_mgmt in ['wpa-none', 'wpa-psk']:
+            secrets.append({'label'     : _('_Password:'),
+                            'key'      : 'psk',
+                            'value'    : original_secrets.get('psk', ''),
+                            'validate' : self._validate_wpapsk,
+                            'password' : True})
+        # static WEP
+        elif key_mgmt == 'none':
+            key_idx = str(original_secrets.get('wep_tx_keyidx', '0'))
+            secrets.append({'label'     : _('_Key:'),
+                            'key'      : 'wep-key%s' % key_idx,
+                            'value'    : original_secrets.get('wep-key%s' % key_idx, ''),
+                            'wep_key_type': original_secrets.get('wep-key-type', ''),
+                            'validate' : self._validate_staticwep,
+                            'password' : True})
+        else:
+            log.info("Unsupported wireless key management: %s" % key_mgmt)
+
+        return secrets
+
+    def _validate_wpapsk(self, secret):
+        value = secret['value']
+        if len(value) == 64:
+            # must be composed of hexadecimal digits only
+            return all(c in string.hexdigits for c in value)
+        else:
+            return 8 <= len(value) <= 63
+
+    def _validate_staticwep(self, secret):
+        value = secret['value']
+        if secret['wep_key_type'] == NetworkManager.WepKeyType.KEY:
+            if len(value) in (10, 26):
+                return all(c in string.hexdigits for c in value)
+            elif len(value) in (5, 13):
+                return all(c in string.letters for c in value)
+            else:
+                return False
+        elif secret['wep_key_type'] == NetworkManager.WepKeyType.PASSPHRASE:
+            return 0 <= len(value) <= 64
+        else:
+            return True
+
+def register_secret_agent(spoke):
+
+    if not flags.can_touch_runtime_system("register anaconda secret agent"):
+        return False
+
+    global secret_agent
+    if not secret_agent:
+        secret_agent = SecretAgent(spoke)
+        bus = dbus.SystemBus()
+        proxy = bus.get_object(NM_SERVICE, AGENT_MANAGER_PATH)
+        proxy.Register("anaconda", dbus_interface=AGENT_MANAGER_IFACE)
+    else:
+        secret_agent.spoke = spoke
+
+    return True
+
+
 class NetworkSpoke(NormalSpoke):
     builderObjects = ["networkWindow", "liststore_wireless_network", "liststore_devices", "add_device_dialog", "liststore_add_device"]
     mainWidgetName = "networkWindow"
@@ -1112,7 +1286,7 @@ class NetworkSpoke(NormalSpoke):
     @property
     def mandatory(self):
         return self.data.method.method in ("url", "nfs")
-    
+
     @property
     def status(self):
         """ A short string describing which devices are connected. """
@@ -1172,6 +1346,7 @@ class NetworkSpoke(NormalSpoke):
         return msg
 
     def initialize(self):
+        register_secret_agent(self)
         NormalSpoke.initialize(self)
         self.network_control_box.initialize()
         if not flags.can_touch_runtime_system("hide hint to use network configuration in DE"):
@@ -1267,6 +1442,7 @@ class NetworkStandaloneSpoke(StandaloneSpoke):
                 or len(self.network_control_box.activated_connections()) > 0)
 
     def initialize(self):
+        register_secret_agent(self)
         StandaloneSpoke.initialize(self)
         self.network_control_box.initialize()
 
