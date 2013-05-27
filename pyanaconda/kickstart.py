@@ -1636,7 +1636,8 @@ def runTracebackScripts(scripts):
 def doKickstartStorage(storage, ksdata, instClass):
     """ Setup storage state from the kickstart data """
     ksdata.clearpart.execute(storage, ksdata, instClass)
-    if not [d for d in storage.disks if not d.format.hidden]:
+    if not any(d for d in storage.disks
+               if not d.format.hidden and not d.protected):
         return
     ksdata.bootloader.execute(storage, ksdata, instClass)
     ksdata.autopart.execute(storage, ksdata, instClass)
