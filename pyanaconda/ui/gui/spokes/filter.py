@@ -203,7 +203,7 @@ class SearchPage(FilterPage):
 
     def visible_func(self, model, itr, *args):
         obj = DiskStoreRow._make(model[itr])
-        device = self.storage.devicetree.getDeviceByName(obj.name)
+        device = self.storage.devicetree.getDeviceByName(obj.name, hidden=True)
         return self._filter_func(device)
 
 class MultipathPage(FilterPage):
@@ -270,7 +270,7 @@ class MultipathPage(FilterPage):
             return False
 
         obj = DiskStoreRow._make(model[itr])
-        device = self.storage.devicetree.getDeviceByName(obj.name)
+        device = self.storage.devicetree.getDeviceByName(obj.name, hidden=True)
         return self.ismember(device) and self._filter_func(device)
 
 class OtherPage(FilterPage):
@@ -357,7 +357,7 @@ class OtherPage(FilterPage):
 
     def visible_func(self, model, itr, *args):
         obj = DiskStoreRow._make(model[itr])
-        device = self.storage.devicetree.getDeviceByName(obj.name)
+        device = self.storage.devicetree.getDeviceByName(obj.name, hidden=True)
         return self.ismember(device) and self._filter_func(device)
 
 class RaidPage(FilterPage):
@@ -374,7 +374,7 @@ class RaidPage(FilterPage):
             return False
 
         obj = DiskStoreRow._make(model[itr])
-        device = self.storage.devicetree.getDeviceByName(obj.name)
+        device = self.storage.devicetree.getDeviceByName(obj.name, hidden=True)
         return self.ismember(device)
 
 class ZPage(FilterPage):
@@ -394,7 +394,7 @@ class ZPage(FilterPage):
 
     def visible_func(self, model, itr, *args):
         obj = DiskStoreRow._make(model[itr])
-        device = self.storage.devicetree.getDeviceByName(obj.name)
+        device = self.storage.devicetree.getDeviceByName(obj.name, hidden=True)
         return self.ismember(device)
 
 class FilterSpoke(NormalSpoke):
