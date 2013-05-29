@@ -260,6 +260,15 @@ def pvlist():
     for line in scanout.split("\n"):
         try:
             (dev, vg, size) = line.strip().split(':')
+            # the lvm tool returns path to cciss pvs,
+            # which is delimited by !, example:
+            # /dev/cciss!c0d0p1
+            # but everywhere else Anaconda uses a slash delimited paths
+            # the above example should hterefore look like this:
+            # /dev/cciss/c0d0p1
+            # replacing cciss! with cciss/ in the device name
+            # returned by pvlist fixes this inconsistency
+            dev = dev.replace("cciss!", "cciss/")
             size = long(math.floor(long(size) / (1024 * 1024)))
         except:
             continue
