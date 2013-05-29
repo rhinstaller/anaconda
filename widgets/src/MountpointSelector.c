@@ -142,31 +142,6 @@ GtkWidget *anaconda_mountpoint_selector_new() {
     return g_object_new(ANACONDA_TYPE_MOUNTPOINT_SELECTOR, NULL);
 }
 
-static gchar *find_pixmap(const gchar *file) {
-    const gchar *envvar;
-    gchar **paths, **iterator = NULL;
-
-    envvar = g_getenv("PIXMAPPATH");
-    if (!envvar)
-       envvar = g_strdup("/usr/share/anaconda/pixmaps");
-
-    paths = g_strsplit(envvar, ":", 0);
-    iterator = paths;
-
-    while (*iterator != NULL) {
-        gchar *path = g_strjoin("/", *iterator, file, NULL);
-
-        if (!g_access(path, R_OK))
-           return path;
-
-        g_free(path);
-        iterator++;
-    }
-
-    g_strfreev(paths);
-    return NULL;
-}
-
 static void format_mountpoint_label(AnacondaMountpointSelector *widget, const char *value) {
     char *markup;
 
@@ -192,8 +167,6 @@ static void format_name_label(AnacondaMountpointSelector *widget, const char *va
 }
 
 static void anaconda_mountpoint_selector_init(AnacondaMountpointSelector *mountpoint) {
-    gchar *pixmap_path;
-
     mountpoint->priv = G_TYPE_INSTANCE_GET_PRIVATE(mountpoint,
                                                    ANACONDA_TYPE_MOUNTPOINT_SELECTOR,
                                                    AnacondaMountpointSelectorPrivate);
@@ -215,14 +188,12 @@ static void anaconda_mountpoint_selector_init(AnacondaMountpointSelector *mountp
     gtk_grid_set_column_spacing(GTK_GRID(mountpoint->priv->grid), 12);
     gtk_widget_set_margin_left(GTK_WIDGET(mountpoint->priv->grid), 30);
 
-    /* Create the icon.  We don't need to check if find_pixmap returned NULL
-     * since gtk_image_new_from_file will just display a broken image icon in
-     * that case.  That's good enough error notification.
+    /* Create the icon.  We don't need to check if it returned NULL since
+     * gtk_image_new_from_file will just display a broken image icon in that
+     * case.  That's good enough error notification.
      */
-    pixmap_path = find_pixmap("right-arrow-icon.png");
-    mountpoint->priv->arrow = gtk_image_new_from_file(pixmap_path);
+    mountpoint->priv->arrow = gtk_image_new_from_file("/usr/share/anaconda/pixmaps/right-arrow-icon.png");
     gtk_widget_set_no_show_all(GTK_WIDGET(mountpoint->priv->arrow), TRUE);
-    g_free(pixmap_path);
 
     /* Set some properties. */
     mountpoint->priv->chosen = FALSE;
