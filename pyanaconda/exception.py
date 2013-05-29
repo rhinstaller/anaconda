@@ -30,13 +30,13 @@ import os
 import shutil
 import signal
 import time
-from flags import flags
 import kickstart
 import blivet.errors
 from pyanaconda.ui.communication import hubQ
 from pyanaconda.constants import ROOT_PATH, THREAD_EXCEPTION_HANDLING_TEST
 from pyanaconda.threads import threadMgr
 from pyanaconda.i18n import _
+from pyanaconda import flags
 
 # pylint: disable-msg=E0611
 from gi.repository import GLib
@@ -155,7 +155,8 @@ class AnacondaExceptionHandler(ExceptionHandler):
             pass
 
     def runDebug(self, exc_info):
-        if self._intf_tty_num != 1:
+        if flags.can_touch_runtime_system("switch console") \
+                and self._intf_tty_num != 1:
             iutil.vtActivate(1)
 
         pidfl = "/tmp/vncshell.pid"
@@ -186,7 +187,8 @@ class AnacondaExceptionHandler(ExceptionHandler):
         import pdb
         pdb.post_mortem(exc_info.stack)
 
-        if self._intf_tty_num != 1:
+        if flags.can_touch_runtime_system("switch console") \
+                and self._intf_tty_num != 1:
             iutil.vtActivate(self._intf_tty_num)
 
 def initExceptionHandling(anaconda):
@@ -194,7 +196,7 @@ def initExceptionHandling(anaconda):
                  "/tmp/program.log", "/tmp/storage.log", "/tmp/ifcfg.log",
                  "/tmp/yum.log", ROOT_PATH + "/root/install.log",
                  "/proc/cmdline" ]
-    if flags.livecdInstall:
+    if flags.flags.livecdInstall:
         fileList.extend(["/var/log/messages"])
     else:
         fileList.extend(["/tmp/syslog"])
