@@ -1045,9 +1045,13 @@ class Raid(commands.raid.F18_Raid):
 class RaidData(commands.raid.F18_RaidData):
     def execute(self, storage, ksdata, instClass):
         raidmems = []
-        devicename = "md%d" % self.device
-
         devicetree = storage.devicetree
+        devicename = self.device
+        if self.preexist:
+            device = devicetree.resolveDevice(devicename)
+            if device:
+                devicename = device.name
+
         kwargs = {}
 
         storage.doAutoPart = False
