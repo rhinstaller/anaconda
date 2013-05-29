@@ -253,6 +253,12 @@ class Payload(object):
     def environmentSelected(self, environmentid):
         raise NotImplementedError()
 
+    def environmentHasOption(self, environmentid, grpid):
+        raise NotImplementedError()
+
+    def environmentOptionIsDefault(self, environmentid, grpid):
+        raise NotImplementedError()
+
     def environmentDescription(self, environmentid):
         raise NotImplementedError()
 
