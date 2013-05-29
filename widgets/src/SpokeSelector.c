@@ -208,7 +208,7 @@ static void set_icon(AnacondaSpokeSelector *widget, const char *icon_name) {
             return;
         }
 
-        emblem_icon = g_icon_new_for_string("dialog-warning-symbolic", &err);
+        emblem_icon = g_icon_new_for_string("/usr/share/anaconda/pixmaps/dialog-warning-symbolic.svg", &err);
         if (!emblem_icon) {
             fprintf(stderr, "could not create emblem: %s\n", err->message);
             g_error_free(err);
