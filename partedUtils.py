@@ -1095,7 +1095,8 @@ class DiskSet:
                     "-F",
                     "-f",
                     "/tmp/%s" % drive]
-        
+        log.debug(" ".join(argList))
+
         fd = os.open("/dev/null", os.O_RDWR | os.O_CREAT | os.O_APPEND)
         p = os.pipe()
         childpid = os.fork()
@@ -1207,7 +1208,6 @@ class DiskSet:
         log.info("Reinitializing label for drive %s" % (drive,))
 
         deviceFile = isys.makeDevInode(drive, "/dev/" + drive)
-        dev = parted.PedDevice.get(deviceFile)
 
         try:
             try:
@@ -1217,6 +1217,7 @@ class DiskSet:
                     if self.dasdFmt(drive):
                         raise LabelError, drive
 
+                    dev = parted.PedDevice.get(deviceFile)
                     disk = parted.PedDisk.new(dev)
                 else:
                     disk = labelDisk(deviceFile)

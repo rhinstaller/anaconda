@@ -1205,7 +1205,9 @@ def doClearPartAction(anaconda, partitions, diskset):
             partitions.addDelete(delete)
             deletePart(diskset, delete)
 
-        if linuxOnly == 0 and disk.get_primary_partition_count() == 0:
+        # s390 reports msdos as default, but doesn't use it or gpt, so skip this
+        if rhpl.getArch() not in ['s390', 's390x'] and \
+          linuxOnly == 0 and disk.get_primary_partition_count() == 0:
             # The disk is empty and we are clearing all partitions, so relabel it
             dev = disk.dev
             label = needGPTLabel(dev, getDefaultDiskType())
