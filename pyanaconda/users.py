@@ -184,6 +184,7 @@ class Users:
         if not childpid:
             if not root in ["","/"]:
                 os.chroot(root)
+                os.chdir("/")
                 del(os.environ["LIBUSER_CONF"])
 
             self.admin = libuser.admin()
@@ -249,6 +250,7 @@ class Users:
         if not childpid:
             if not root in ["","/"]:
                 os.chroot(root)
+                os.chdir("/")
                 del(os.environ["LIBUSER_CONF"])
 
             self.admin = libuser.admin()
@@ -331,6 +333,7 @@ class Users:
         if not childpid:
             if not root in ["","/"]:
                 os.chroot(root)
+                os.chdir("/")
                 del(os.environ["LIBUSER_CONF"])
 
             self.admin = libuser.admin()
