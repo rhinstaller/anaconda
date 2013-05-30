@@ -141,6 +141,8 @@ def run_yum_transaction(release, arch, yum_conf, install_root, ts_file, script_l
             print("ERROR: PackageSackError: %s" % e)
         except YumRPMTransError as e:
             print("ERROR: YumRPMTransError: %s" % e)
+            for error in e.errors:
+                print("ERROR:    %s" % error[0])
         except YumBaseError as e:
             print("ERROR: YumBaseError: %s" % e)
             for error in e.errors:
