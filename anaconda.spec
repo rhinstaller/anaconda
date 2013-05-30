@@ -1,6 +1,6 @@
 Name: anaconda
 Version: 11.1.2.263
-Release: 1
+Release: 2
 License: GPL
 Summary: Graphical system installer
 Group: Applications/System
@@ -124,9 +124,12 @@ fi
 /usr/lib/anaconda-runtime
 /usr/share/xml/comps
 
+%triggerun -- anaconda < 8.0-1
+/sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
+
 %changelog
 
-* Thu May 30 2013 Radek Vykydal <rvykydal@redhat.com> 11.1.2-263-1
+* Thu May 30 2013 Radek Vykydal <rvykydal@redhat.com> 11.1.2-263-2
 - Fix LVM reuse failing on HP CCISS Hardware (mkolman)
   Resolves: rhbz#751351
 - Skip relabeling empty disks on s390 (bcl)
