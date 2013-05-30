@@ -33,6 +33,8 @@ class InstallClass(BaseInstallClass):
     bootloaderTimeoutDefault = 5
     bootloaderExtraArgs = []
 
+    ignoredPackages = ["ntfsprogs"]
+
     _l10n_domain = "comps"
 
     efi_dir = "redhat"
