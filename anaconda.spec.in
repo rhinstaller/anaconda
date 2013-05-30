@@ -253,6 +253,9 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Wed May 29 2013 Brian C. Lane <bcl@redhat.com> - 19.30.1-1
+-  ()
+
 * Thu May 23 2013 Brian C. Lane <bcl@redhat.com> - 19.30-1
 - Fix software selection in text UI. (#965974) (sbueno+anaconda)
 - Don't call _update_summary from within _add_disk_overview. (clumens)
