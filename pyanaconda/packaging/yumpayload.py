@@ -875,6 +875,25 @@ reposdir=%s
             except RepoMDError:
                 log.error("failed to get groups for repo %s" % yumrepo.id)
 
+    def _replaceVars(self, url):
+        """ Replace url variables with their values
+
+            :param url: url string to do replacement on
+            :type url:  string
+            :returns:   string with variables substituted
+            :rtype:     string or None
+
+            Currently supports $releasever and $basearch
+        """
+        if not url:
+            return url
+
+        with _yum_lock:
+            url = url.replace("$releasever", self._yum.conf.yumvar['releasever'])
+        url = url.replace("$basearch", blivet.arch.getArch())
+
+        return url
+
     def _addYumRepo(self, name, baseurl, mirrorlist=None, proxyurl=None, **kwargs):
         """ Add a yum repo to the YumBase instance. """
         from yum.Errors import RepoError
@@ -907,6 +926,10 @@ reposdir=%s
                 log.error("Failed to parse proxy for _addYumRepo %s: %s" \
                           % (proxyurl, e))
 
+        if baseurl:
+            baseurl = self._replaceVars(baseurl)
+        if mirrorlist:
+            mirrorlist = self._replaceVars(mirrorlist)
         log.debug("adding yum repo %s with baseurl %s and mirrorlist %s"
                     % (name, baseurl, mirrorlist))
         with _yum_lock:
