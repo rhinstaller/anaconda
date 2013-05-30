@@ -46,6 +46,13 @@ class BaseInstallClass(object):
     name = "base"
     bootloaderTimeoutDefault = None
     bootloaderExtraArgs = []
+
+    # Anaconda flags several packages to be installed based on the configuration
+    # of the system -- things like fs utilities, bootloader, &c. This is a list
+    # of packages that we should not try to install using the aforementioned
+    # mechanism.
+    ignoredPackages = []
+
     _l10n_domain = None
 
     # The default filesystem type to use.  If None, we will use whatever

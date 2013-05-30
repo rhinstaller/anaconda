@@ -151,6 +151,9 @@ def doInstall(storage, payload, ksdata, instClass):
     # system is bootable and configurable, and some other packages in order
     # to finish setting up the system.
     packages = storage.packages + ["authconfig", "firewalld"] + ksdata.realm.packages
+
+    # don't try to install packages from the install class' ignored list
+    packages = [p for p in packages if p not in instClass.ignoredPackages]
     payload.preInstall(packages=packages, groups=payload.languageGroups())
     payload.install()
 
