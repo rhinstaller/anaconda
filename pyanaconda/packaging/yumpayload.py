@@ -1607,7 +1607,8 @@ reposdir=%s
             log.error("Error running anaconda-yum: %s" % e)
             exn = PayloadInstallError(str(e))
             if errorHandler.cb(exn) == ERROR_RAISE:
-                raise exn
+                progressQ.send_quit(1)
+                sys.exit(1)
         finally:
             # log the contents of the scriptlet logfile if any
             if os.path.exists(script_log):
@@ -1621,7 +1622,8 @@ reposdir=%s
         if install_errors:
             exn = PayloadInstallError("\n".join(install_errors))
             if errorHandler.cb(exn) == ERROR_RAISE:
-                raise exn
+                progressQ.send_quit(1)
+                sys.exit(1)
 
     def writeMultiLibConfig(self):
         if not self.data.packages.multiLib:
