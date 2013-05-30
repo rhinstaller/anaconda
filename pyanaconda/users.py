@@ -285,8 +285,26 @@ class Users:
                 if kwargs.get("gecos", False):
                     userEnt.set(libuser.GECOS, kwargs["gecos"])
 
-                self.admin.addUser(userEnt, mkmailspool=kwargs.get("mkmailspool", True))
+                # need to create home directory for the user or does it already exist?
+                # userEnt.get returns lists (usually with a single item)
+                mk_homedir = not os.path.exists(userEnt.get(libuser.HOMEDIRECTORY)[0])
+
+                self.admin.addUser(userEnt, mkmailspool=kwargs.get("mkmailspool", True),
+                                   mkhomedir=mk_homedir)
                 self.admin.addGroup(groupEnt)
+
+                if not mk_homedir:
+                    stats = os.stat(userEnt.get(libuser.HOMEDIRECTORY)[0])
+                    orig_uid = stats.st_uid
+                    orig_gid = stats.st_gid
+
+                    log.info("Home directory for the user %s already existed, "
+                             "fixing the owner." % user_name)
+                    # home directory already existed, change owner of it properly
+                    iutil.chown_dir_tree(userEnt.get(libuser.HOMEDIRECTORY)[0],
+                                         userEnt.get(libuser.UIDNUMBER)[0],
+                                         groupEnt.get(libuser.GIDNUMBER)[0],
+                                         orig_uid, orig_gid)
 
                 pw = kwargs.get("password", False)
                 if pw:
