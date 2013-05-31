@@ -58,6 +58,8 @@ class ResizeDialog(GUIObject):
         self._actionStore = self.builder.get_object("actionStore")
         self._diskStore = self.builder.get_object("diskStore")
 
+        self._selection = self.builder.get_object("diskView-selection")
+
         self._view = self.builder.get_object("diskView")
         self._diskStore = self.builder.get_object("diskStore")
         self._reclaimable_label = self.builder.get_object("reclaimableSpaceLabel")
@@ -317,18 +319,18 @@ class ResizeDialog(GUIObject):
         return False
 
     def on_preserve_clicked(self, button):
-        self._actionChanged(PRESERVE)
+        (model, itr) = self._selection.get_selected()
+        self._actionChanged(itr, PRESERVE)
 
     def on_shrink_clicked(self, button):
-        self._actionChanged(SHRINK)
+        (model, itr) = self._selection.get_selected()
+        self._actionChanged(itr, SHRINK)
 
     def on_delete_clicked(self, button):
-        self._actionChanged(DELETE)
+        (model, itr) = self._selection.get_selected()
+        self._actionChanged(itr, DELETE)
 
-    def _actionChanged(self, newAction):
-        selection = self.builder.get_object("diskView-selection")
-        (model, itr) = selection.get_selected()
-
+    def _actionChanged(self, itr, newAction):
         if not itr:
             return
 
@@ -340,7 +342,7 @@ class ResizeDialog(GUIObject):
         # it contains.
         device = self.storage.devicetree.getDeviceByID(selectedRow[DEVICE_ID_COL])
         if device.isDisk and device.partitioned:
-            partItr = model.iter_children(itr)
+            partItr = self._diskStore.iter_children(itr)
             while partItr:
                 self._diskStore[partItr][ACTION_COL] = _(newAction)
 
@@ -352,7 +354,7 @@ class ResizeDialog(GUIObject):
                     part = self.storage.devicetree.getDeviceByID(self._diskStore[partItr][DEVICE_ID_COL])
                     self._diskStore[partItr][EDITABLE_COL] = not part.protected
 
-                partItr = model.iter_next(partItr)
+                partItr = self._diskStore.iter_next(partItr)
 
         # And then we're keeping a running tally of how much space the user
         # has selected to reclaim, so reflect that in the UI.
@@ -386,6 +388,27 @@ class ResizeDialog(GUIObject):
     def on_resize_clicked(self, *args):
         self._diskStore.foreach(self._scheduleActions, None)
 
+    def on_delete_all_clicked(self, button, *args):
+        if button.get_label() == _("Delete _all"):
+            action = DELETE
+            button.set_label(_("Preserve _all"))
+        else:
+            action = PRESERVE
+            button.set_label(_("Delete _all"))
+
+        itr = self._diskStore.get_iter_first()
+        while itr:
+            if not self._diskStore[itr][EDITABLE_COL]:
+                itr = self._diskStore.iter_next(itr)
+                continue
+
+            (ident, ) = self._diskStore.get(itr, DEVICE_ID_COL) 
+            device = self.storage.devicetree.getDeviceByID(ident)
+            if device.isDisk:
+                self._actionChanged(itr, action)
+
+            itr = self._diskStore.iter_next(itr)
+
     def on_row_clicked(self, view, path, column):
         # This handles when the user clicks on a row in the view.  We use it
         # only for expanding/collapsing disk headers.
@@ -408,8 +431,7 @@ class ResizeDialog(GUIObject):
         self._update_action_buttons(self._diskStore[itr])
 
     def on_resize_value_changed(self, rng):
-        selection = self.builder.get_object("diskView-selection")
-        (model, itr) = selection.get_selected()
+        (model, itr) = self._selection.get_selected()
 
         # Update the target size in the store.
         model[itr][RESIZE_TARGET_COL] = rng.get_value()

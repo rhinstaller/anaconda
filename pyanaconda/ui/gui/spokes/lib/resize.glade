@@ -53,13 +53,13 @@
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
-                <property name="halign">end</property>
                 <property name="use_stock">True</property>
               </object>
               <packing>
                 <property name="expand">False</property>
                 <property name="fill">True</property>
                 <property name="position">0</property>
+                <property name="non_homogeneous">True</property>
               </packing>
             </child>
             <child>
@@ -69,14 +69,14 @@
                 <property name="sensitive">False</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
-                <property name="halign">end</property>
                 <property name="use_underline">True</property>
                 <signal name="clicked" handler="on_resize_clicked" swapped="no"/>
               </object>
               <packing>
                 <property name="expand">False</property>
                 <property name="fill">True</property>
-                <property name="position">1</property>
+                <property name="position">2</property>
+                <property name="non_homogeneous">True</property>
               </packing>
             </child>
           </object>
@@ -213,6 +213,7 @@
               <object class="GtkBox" id="box2">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
+                <property name="margin_top">6</property>
                 <child>
                   <object class="GtkButton" id="preserveButton">
                     <property name="label" translatable="yes">_Preserve</property>
@@ -247,7 +248,7 @@
                 </child>
                 <child>
                   <object class="GtkButton" id="shrinkButton">
-                    <property name="label" translatable="yes">_Shrink to</property>
+                    <property name="label" translatable="yes">_Shrink</property>
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
                     <property name="receives_default">True</property>
@@ -262,20 +263,18 @@
                   </packing>
                 </child>
                 <child>
-                  <object class="GtkScale" id="resizeSlider">
+                  <object class="GtkButton" id="deleteAllButton">
+                    <property name="label" translatable="yes">Delete _all</property>
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
-                    <property name="margin_left">12</property>
-                    <property name="margin_right">12</property>
-                    <property name="adjustment">resizeAdjustment</property>
-                    <property name="round_digits">1</property>
-                    <property name="digits">0</property>
-                    <signal name="format-value" handler="resize_slider_format" swapped="no"/>
-                    <signal name="value-changed" handler="on_resize_value_changed" swapped="no"/>
+                    <property name="receives_default">True</property>
+                    <property name="use_underline">True</property>
+                    <signal name="clicked" handler="on_delete_all_clicked" swapped="no"/>
                   </object>
                   <packing>
-                    <property name="expand">True</property>
+                    <property name="expand">False</property>
                     <property name="fill">True</property>
+                    <property name="pack_type">end</property>
                     <property name="position">3</property>
                   </packing>
                 </child>
@@ -284,6 +283,23 @@
                 <property name="expand">False</property>
                 <property name="fill">True</property>
                 <property name="position">3</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkScale" id="resizeSlider">
+                <property name="can_focus">True</property>
+                <property name="no_show_all">True</property>
+                <property name="margin_bottom">12</property>
+                <property name="adjustment">resizeAdjustment</property>
+                <property name="round_digits">0</property>
+                <property name="digits">0</property>
+                <signal name="format-value" handler="resize_slider_format" swapped="no"/>
+                <signal name="value-changed" handler="on_resize_value_changed" swapped="no"/>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">True</property>
+                <property name="position">4</property>
               </packing>
             </child>
             <child>
@@ -298,7 +314,7 @@
               <packing>
                 <property name="expand">False</property>
                 <property name="fill">True</property>
-                <property name="position">4</property>
+                <property name="position">5</property>
               </packing>
             </child>
             <child>
@@ -313,7 +329,7 @@
               <packing>
                 <property name="expand">False</property>
                 <property name="fill">True</property>
-                <property name="position">5</property>
+                <property name="position">6</property>
               </packing>
             </child>
             <child>
@@ -328,7 +344,7 @@
               <packing>
                 <property name="expand">False</property>
                 <property name="fill">True</property>
-                <property name="position">6</property>
+                <property name="position">7</property>
               </packing>
             </child>
           </object>
@@ -342,7 +358,7 @@
     </child>
     <action-widgets>
       <action-widget response="0">cancelButton</action-widget>
-      <action-widget response="1">resizeButton</action-widget>
+      <action-widget response="2">resizeButton</action-widget>
     </action-widgets>
   </object>
 </interface>
