@@ -263,12 +263,26 @@ updates available for you.</property>
                 <property name="orientation">vertical</property>
                 <property name="spacing">6</property>
                 <child>
+                  <object class="GtkLabel" id="live_hint_label">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="halign">start</property>
+                    <property name="label" translatable="yes">Please use the live desktop environment's tools for customizing your network configuration.  You can set the hostname here.</property>
+                    <property name="ellipsize">start</property>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">True</property>
+                    <property name="position">0</property>
+                  </packing>
+                </child>
+                <child>
                   <object class="GtkVBox" id="networkControlBox_vbox">
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
                     <property name="spacing">12</property>
                     <child>
-                      <object class="GtkVBox" id="vbox2">
+                      <object class="GtkVBox" id="network_config_vbox">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
                         <property name="spacing">3</property>
@@ -2478,7 +2492,7 @@ updates available for you.</property>
                   <packing>
                     <property name="expand">False</property>
                     <property name="fill">True</property>
-                    <property name="position">0</property>
+                    <property name="position">1</property>
                   </packing>
                 </child>
               </object>
