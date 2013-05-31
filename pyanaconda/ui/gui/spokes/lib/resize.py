@@ -21,7 +21,8 @@
 
 from __future__ import division
 
-from gi.repository import Gtk
+# pylint: disable-msg=E0611
+from gi.repository import Gdk, Gtk
 
 from pyanaconda.i18n import _, N_, P_
 from pyanaconda.ui.lib.disks import size_str
@@ -290,6 +291,15 @@ class ResizeDialog(GUIObject):
         return rc
 
     # Signal handlers.
+    def on_key_pressed(self, window, event, *args):
+        # Handle any keyboard events.  Right now this is just delete for
+        # removing a partition, but it could include more later.
+        if not event or event and event.type != Gdk.EventType.KEY_RELEASE:
+            return
+
+        if event.keyval == Gdk.KEY_Delete and self._deleteButton.get_sensitive():
+            self._deleteButton.emit("clicked")
+
     def _sumReclaimableSpace(self, model, path, itr, *args):
         (editable, action, ident, targetSize) = model.get(itr, EDITABLE_COL, ACTION_COL, DEVICE_ID_COL, RESIZE_TARGET_COL)
 
