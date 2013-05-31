@@ -357,8 +357,10 @@ class NetworkControlBox(object):
             if dev_type == NetworkManager.DeviceType.ETHERNET:
                 dev_name = device.get_iface()
             elif dev_type == NetworkManager.DeviceType.WIFI:
-                dev_name = device.get_iface()
-                dev_info = device.get_active_access_point().get_ssid()
+                ap = device.get_active_access_point()
+                if ap:
+                    dev_name = device.get_iface()
+                    dev_info = ap.get_ssid()
             elif dev_type == NetworkManager.DeviceType.BOND:
                 dev_name = device.get_iface()
                 dev_info = [d.get_iface() for d in device.get_slaves()]
@@ -1104,7 +1106,8 @@ class NetworkSpoke(NormalSpoke):
     @property
     def completed(self):
         # TODO: check also if source requires updates when implemented
-        return len(self.network_control_box.activated_connections()) > 0
+        return (not flags.can_touch_runtime_system("require network connection")
+                or len(self.network_control_box.activated_connections()) > 0)
 
     @property
     def mandatory(self):
@@ -1168,13 +1171,16 @@ class NetworkSpoke(NormalSpoke):
 
         return msg
 
-    @property
-    def showable(self):
-        return flags.can_touch_runtime_system("allow network configuration")
-
     def initialize(self):
         NormalSpoke.initialize(self)
         self.network_control_box.initialize()
+        if not flags.can_touch_runtime_system("hide hint to use network configuration in DE"):
+            self.builder.get_object("network_config_vbox").set_no_show_all(True)
+            self.builder.get_object("network_config_vbox").hide()
+        else:
+            self.builder.get_object("live_hint_label").set_no_show_all(True)
+            self.builder.get_object("live_hint_label").hide()
+
         if not self.data.network.seen:
             _update_network_data(self.data, self.network_control_box)
 
