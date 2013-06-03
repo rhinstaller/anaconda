@@ -315,27 +315,14 @@ class UserSpoke(FirstbootSpokeMixIn, NormalSpoke):
         to the passwords entered by the user. It is called by
         the changed Gtk event handler.
         """
-        if self.pw.get_text() == "":
-            strength = -2
-        elif self.pw.get_text() != self.confirm.get_text():
-            strength = -1
-        else:
-            try:
-                strength = self._pwq.check(self.pw.get_text(), None, None)
-                _pwq_error = None
-            except pwquality.PWQError as (e, msg):
-                _pwq_error = msg
-                strength = 0
+        try:
+            strength = self._pwq.check(self.pw.get_text(), None, None)
+            _pwq_error = None
+        except pwquality.PWQError as (e, msg):
+            _pwq_error = msg
+            strength = 0
 
-        if strength == -1:
-            val = 0
-            text = _("Mismatch!")
-            self._error = _("The passwords do not match!")
-        elif strength == -2:
-            val = 0
-            text = _("Empty!")
-            self._error = _("The password is empty!")
-        elif strength < 50:
+        if strength < 50:
             val = 1
             text = _("Weak")
             self._error = _("The password you have provided is weak")
@@ -356,6 +343,13 @@ class UserSpoke(FirstbootSpokeMixIn, NormalSpoke):
             val = 4
             text = _("Strong")
             self._error = False
+
+        if not self.pw.get_text():
+            val = 0
+            text = _("Empty")
+            self._error = _("The password is empty.")
+        elif self.confirm.get_text() and self.pw.get_text() != self.confirm.get_text():
+            self._error = _("The passwords do not match.")
 
         self.pw_bar.set_value(val)
         self.pw_label.set_text(text)
