@@ -329,7 +329,7 @@ class WelcomeLanguageSpoke(StandaloneSpoke):
 
     def on_clear_icon_clicked(self, entry, icon_pos, event):
         if icon_pos == Gtk.EntryIconPosition.SECONDARY:
-            entry.set_text(entry.get_placeholder_text())
+            entry.set_text("")
 
     def on_entry_changed(self, *args):
         self._languageStoreFilter.refilter()
