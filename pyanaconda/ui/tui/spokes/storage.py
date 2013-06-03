@@ -22,7 +22,7 @@
 # which has the same license and authored by David Lehman <dlehman@redhat.com>
 #
 
-from pyanaconda.ui.lib.disks import getDisks
+from pyanaconda.ui.lib.disks import getDisks, size_str
 from pyanaconda.ui.tui.spokes import NormalTUISpoke
 from pyanaconda.ui.tui.simpleline import TextWidget, CheckboxWidget
 
@@ -181,8 +181,9 @@ class StorageSpoke(NormalTUISpoke):
 
         # loop through the disks and present them.
         for disk in self.disks:
-            c = CheckboxWidget(title="%i) %s" % (self.disks.index(disk) + 1,
-                                                 disk.name),
+            size = size_str(disk.size)
+            c = CheckboxWidget(title="%i) %s: %s (%s)" % (self.disks.index(disk) + 1,
+                                                 disk.model, size, disk.name),
                                completed=(disk.name in self.selected_disks))
             self._window += [c, ""]
 
