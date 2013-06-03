@@ -28,7 +28,8 @@ from pwquality import PWQError
 from pyanaconda.ui.gui.spokes import NormalSpoke
 from pyanaconda.ui.gui.categories.user_settings import UserSettingsCategory
 from pyanaconda.ui.common import FirstbootSpokeMixIn
-#from _isys import isCapsLockEnabled
+
+import pwquality
 
 __all__ = ["PasswordSpoke"]
 
@@ -62,9 +63,17 @@ class PasswordSpoke(FirstbootSpokeMixIn, NormalSpoke):
             self.pw.set_placeholder_text(_("The password was set by kickstart."))
             self.confirm.set_placeholder_text(_("The password was set by kickstart."))
 
+        # set up passphrase quality checker
+        self._pwq = pwquality.PWQSettings()
+        self._pwq.read_config()
+
+        self.pw_bar = self.builder.get_object("password_bar")
+        self.pw_label = self.builder.get_object("password_label")
+
     def refresh(self):
 #        self.setCapsLockLabel()
         self.pw.grab_focus()
+        self._checkPassword()
 
 # Caps lock detection isn't hooked up right now
 #    def setCapsLockLabel(self):
@@ -106,6 +115,55 @@ class PasswordSpoke(FirstbootSpokeMixIn, NormalSpoke):
     @property
     def completed(self):
         return bool(self.data.rootpw.password or self.data.rootpw.lock)
+
+    def _checkPassword(self, editable = None, data = None):
+        """This method updates the password indicators according
+        to the passwords entered by the user. It is called by
+        the changed Gtk event handler.
+        """
+        try:
+            strength = self._pwq.check(self.pw.get_text(), None, None)
+            _pwq_error = None
+        except pwquality.PWQError as (e, msg):
+            _pwq_error = msg
+            strength = 0
+
+        if strength < 50:
+            val = 1
+            text = _("Weak")
+            self._error = _("The password you have provided is weak")
+            if _pwq_error:
+                self._error += ": %s. " % _pwq_error
+            else:
+                self._error += ". "
+            self._error += _("You will have to press Done twice to confirm it.")
+        elif strength < 75:
+            val = 2
+            text = _("Fair")
+            self._error = False
+        elif strength < 90:
+            val = 3
+            text = _("Good")
+            self._error = False
+        else:
+            val = 4
+            text = _("Strong")
+            self._error = False
+
+        if not self.pw.get_text():
+            val = 0
+            text = _("Empty")
+            self._error = _("The password is empty.")
+        elif self.confirm.get_text() and self.pw.get_text() != self.confirm.get_text():
+            self._error = _("The passwords do not match.")
+
+        self.pw_bar.set_value(val)
+        self.pw_label.set_text(text)
+
+        self.clear_info()
+        if self._error:
+            self.set_warning(self._error)
+            self.window.show_all()
 
     def _validatePassword(self):
         # Do various steps to validate the password
