@@ -253,6 +253,15 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Mon Jun 03 2013 Brian C. Lane <bcl@redhat.com> - 19.30.2-1
+- Add some more details to disk list in storage spoke. (#965592)
+  (sbueno+anaconda)
+- After handling a transaction error, quit instead of doing a traceback.
+  (clumens)
+- Print transaction errors in anaconda-yum so they are displayed in the UI.
+  (clumens)
+- Add variable substitution to repo urls (#967531) (bcl)
+
 * Wed May 29 2013 Brian C. Lane <bcl@redhat.com> - 19.30.1-1
 -  ()
 

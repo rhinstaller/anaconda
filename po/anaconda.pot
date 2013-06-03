@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: anaconda 19.30.0\n"
+"Project-Id-Version: anaconda 19.30.1\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
-"POT-Creation-Date: 2013-05-29 17:33-0700\n"
+"POT-Creation-Date: 2013-06-03 14:02-0700\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -220,7 +220,7 @@ msgid "Discovering realm to join"
 msgstr ""
 
 #: pyanaconda/install.py:160 pyanaconda/packaging/livepayload.py:144
-#: pyanaconda/packaging/yumpayload.py:1538
+#: pyanaconda/packaging/yumpayload.py:1561
 msgid "Performing post-installation setup tasks"
 msgstr ""
 
@@ -552,19 +552,19 @@ msgstr ""
 msgid "Checking image checksum"
 msgstr ""
 
-#: pyanaconda/packaging/yumpayload.py:1455
+#: pyanaconda/packaging/yumpayload.py:1478
 msgid "Starting package installation process"
 msgstr ""
 
-#: pyanaconda/packaging/yumpayload.py:1518
+#: pyanaconda/packaging/yumpayload.py:1541
 msgid "You need more space on the following file systems:\n"
 msgstr ""
 
-#: pyanaconda/packaging/yumpayload.py:1536
+#: pyanaconda/packaging/yumpayload.py:1559
 msgid "Preparing transaction from installation source"
 msgstr ""
 
-#: pyanaconda/packaging/yumpayload.py:1537
+#: pyanaconda/packaging/yumpayload.py:1560
 msgid "Installing"
 msgstr ""
 
@@ -779,35 +779,35 @@ msgstr ""
 msgid "Probing storage..."
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/storage.py:250
+#: pyanaconda/ui/tui/spokes/storage.py:251
 msgid "Generating updated storage configuration"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/storage.py:255
+#: pyanaconda/ui/tui/spokes/storage.py:256
 #, python-format
 msgid "storage configuration failed: %s"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/storage.py:264
+#: pyanaconda/ui/tui/spokes/storage.py:265
 #: pyanaconda/ui/gui/spokes/storage.py:296
 msgid "Checking storage configuration..."
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/storage.py:299
+#: pyanaconda/ui/tui/spokes/storage.py:300
 msgid "Autopartitioning Options"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/storage.py:330
+#: pyanaconda/ui/tui/spokes/storage.py:331
 msgid ""
 "Installation requires partitioning of your hard drive. Select what space to "
 "use for the install target."
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/storage.py:363
+#: pyanaconda/ui/tui/spokes/storage.py:364
 msgid "Partition Scheme Options"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/storage.py:388
+#: pyanaconda/ui/tui/spokes/storage.py:389
 msgid "Select a partition scheme configuration."
 msgstr ""
 
