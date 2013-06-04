@@ -689,7 +689,7 @@ def disableIPV6(rootpath):
     cfgfile = os.path.normpath(rootpath + ipv6ConfFile)
     if ('noipv6' in flags.cmdline
         and all(nm.nm_device_setting_value(dev, "ipv6", "method") == "ignore"
-                for dev in nm.nm_devices())):
+                for dev in nm.nm_devices() if nm.nm_device_type_is_ethernet(dev))):
         log.info('Disabling ipv6 on target system')
         with open(cfgfile, "a") as f:
             f.write("# Anaconda disabling ipv6 (noipv6 option)\n")
