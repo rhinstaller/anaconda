@@ -230,6 +230,9 @@ class Users:
            lock      -- Is the new account locked by default?  Defaults to
                         False.
            password  -- The password.  See isCrypted for how this is interpreted.
+                        If the password is "" then the account is created
+                        with a blank password. If None or False the account will
+                        be left in its initial state (locked)
            root      -- The directory of the system to create the new user
                         in.  homedir will be interpreted relative to this.
                         Defaults to /mnt/sysimage.
@@ -283,16 +286,22 @@ class Users:
                 self.admin.addUser(userEnt, mkmailspool=kwargs.get("mkmailspool", True))
                 self.admin.addGroup(groupEnt)
 
-                if kwargs.get("password", False):
+                pw = kwargs.get("password", False)
+                if pw:
                     if kwargs.get("isCrypted", False):
                         password = kwargs["password"]
                     else:
                         password = cryptPassword(kwargs["password"], algo=kwargs.get("algo", None))
-
                     self.admin.setpassUser(userEnt, password, True)
+                elif pw == "":
+                    # Setup the account with *NO* password
+                    self.admin.unlockUser(userEnt)
+                    log.info("user account %s setup with no password" % user_name)
 
                 if kwargs.get("lock", False):
                     self.admin.lockUser(userEnt)
+                    log.info("user account %s locked" % user_name)
+
 
                 # Add the user to all the groups they should be part of.
                 grpLst.append(self.admin.lookupGroupByName(user_name))
