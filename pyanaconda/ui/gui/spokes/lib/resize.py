@@ -20,6 +20,7 @@
 #
 
 from __future__ import division
+from collections import namedtuple
 
 # pylint: disable-msg=E0611
 from gi.repository import Gdk, Gtk
@@ -40,6 +41,10 @@ EDITABLE_COL = 5
 TOOLTIP_COL = 6
 RESIZE_TARGET_COL = 7
 NAME_COL = 8
+
+PartStoreRow = namedtuple("PartStoreRow", ["id", "desc", "fs", "reclaimable",
+                                           "action", "editable", "tooltip",
+                                           "target", "name"])
 
 PRESERVE = N_("Preserve")
 SHRINK = N_("Shrink")
@@ -241,32 +246,33 @@ class ResizeDialog(GUIObject):
         self._resizeSlider.add_mark(device.size, Gtk.PositionType.BOTTOM, size_str(device.size))
 
     def _update_action_buttons(self, row):
-        device = self.storage.devicetree.getDeviceByID(row[DEVICE_ID_COL])
+        obj = PartStoreRow(*row)
+        device = self.storage.devicetree.getDeviceByID(obj.id)
 
         # Disks themselves may be editable in certain ways, but they are never
         # shrinkable.
-        self._preserveButton.set_sensitive(row[EDITABLE_COL])
-        self._shrinkButton.set_sensitive(row[EDITABLE_COL] and not device.isDisk)
-        self._deleteButton.set_sensitive(row[EDITABLE_COL])
+        self._preserveButton.set_sensitive(obj.editable)
+        self._shrinkButton.set_sensitive(obj.editable and not device.isDisk)
+        self._deleteButton.set_sensitive(obj.editable)
         self._resizeSlider.set_visible(False)
 
-        if not row[EDITABLE_COL]:
+        if not obj.editable:
             return
 
         # If the selected filesystem does not support shrinking, make that
         # button insensitive.
         self._shrinkButton.set_sensitive(device.resizable)
 
-        self._setup_slider(device, row[RESIZE_TARGET_COL])
+        self._setup_slider(device, obj.target)
 
         # Then, disable the button for whatever action is currently selected.
         # It doesn't make a lot of sense to allow clicking that.
-        if row[ACTION_COL] == _(PRESERVE):
+        if obj.action == _(PRESERVE):
             self._preserveButton.set_sensitive(False)
-        elif row[ACTION_COL] == _(SHRINK):
+        elif obj.action == _(SHRINK):
             self._shrinkButton.set_sensitive(False)
             self._resizeSlider.set_visible(True)
-        elif row[ACTION_COL] == _(DELETE):
+        elif obj.action == _(DELETE):
             self._deleteButton.set_sensitive(False)
 
     def _update_reclaim_button(self, got):
@@ -303,17 +309,17 @@ class ResizeDialog(GUIObject):
             self._deleteButton.emit("clicked")
 
     def _sumReclaimableSpace(self, model, path, itr, *args):
-        (editable, action, ident, targetSize) = model.get(itr, EDITABLE_COL, ACTION_COL, DEVICE_ID_COL, RESIZE_TARGET_COL)
+        obj = PartStoreRow(*model[itr])
 
-        if not editable:
+        if not obj.editable:
             return False
 
-        device = self.storage.devicetree.getDeviceByID(ident)
-        if action == _(PRESERVE):
+        device = self.storage.devicetree.getDeviceByID(obj.id)
+        if obj.action == _(PRESERVE):
             return False
-        if action == _(SHRINK):
-            self._selectedReclaimableSpace += device.size - targetSize
-        elif action == _(DELETE):
+        if obj.action == _(SHRINK):
+            self._selectedReclaimableSpace += device.size - obj.target
+        elif obj.action == _(DELETE):
             self._selectedReclaimableSpace += device.size
 
         return False
@@ -366,21 +372,20 @@ class ResizeDialog(GUIObject):
         self._update_action_buttons(selectedRow)
 
     def _scheduleActions(self, model, path, itr, *args):
-        (editable, action, ident, target) = model.get(itr, EDITABLE_COL, ACTION_COL, DEVICE_ID_COL, RESIZE_TARGET_COL)
+        obj = PartStoreRow(*model[itr])
+        device = self.storage.devicetree.getDeviceByID(obj.id)
 
-        device = self.storage.devicetree.getDeviceByID(ident)
-
-        if not editable:
+        if not obj.editable:
             return False
 
-        if action == _(PRESERVE):
+        if obj.action == _(PRESERVE):
             return False
-        elif action == _(SHRINK):
+        elif obj.action == _(SHRINK):
             if device.resizable:
-                self.storage.resizeDevice(device, target)
+                self.storage.resizeDevice(device, obj.target)
             else:
                 self.storage.recursiveRemove(device)
-        elif action == _(DELETE):
+        elif obj.action == _(DELETE):
             self.storage.recursiveRemove(device)
 
         return False
@@ -398,12 +403,12 @@ class ResizeDialog(GUIObject):
 
         itr = self._diskStore.get_iter_first()
         while itr:
-            if not self._diskStore[itr][EDITABLE_COL]:
+            obj = PartStoreRow(*self._diskStore[itr])
+            if not obj.editable:
                 itr = self._diskStore.iter_next(itr)
                 continue
 
-            (ident, ) = self._diskStore.get(itr, DEVICE_ID_COL) 
-            device = self.storage.devicetree.getDeviceByID(ident)
+            device = self.storage.devicetree.getDeviceByID(obj.id)
             if device.isDisk:
                 self._actionChanged(itr, action)
 
