@@ -69,10 +69,12 @@ class WelcomeLanguageSpoke(StandaloneSpoke):
             return
 
         lang_timezone = None
-        # check the geolocation data for territory code
-        geoloc_territory = geoloc.get_territory_code()
-        if geoloc_territory:
-            lang_timezone = timezone.get_preferred_timezone(geoloc_territory)
+        # check if the geolocation lookup returned a time zone
+        # (the geolocation module makes sure that the returned timezone is
+        # either a valid timezone or None)
+        geoloc_timezone = geoloc.get_timezone()
+        if geoloc_timezone:
+            lang_timezone = geoloc_timezone
         # if no data is provided by Geolocation,
         # try to get timezone from the current language
         elif self.language.territory and not self.data.timezone.timezone:

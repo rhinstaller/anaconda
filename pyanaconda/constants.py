@@ -131,12 +131,12 @@ THREAD_GEOLOCATION_REFRESH = "AnaGeolocationRefreshThread"
 
 # geolocation providers
 # - values are used by the geoloc CLI/boot option
-GEOLOC_PROVIDER_MIRROR_MANAGER = "provider_mirror_manager"
+GEOLOC_PROVIDER_FEDORA_GEOIP = "provider_fedora_geoip"
 GEOLOC_PROVIDER_HOSTIP = "provider_hostip"
 GEOLOC_PROVIDER_GOOGLE_WIFI = "provider_google_wifi"
 # geocoding provider
 GEOLOC_GEOCODER_NOMINATIM = "geocoder_nominatim"
 # default providers
-GEOLOC_DEFAULT_PROVIDER = GEOLOC_PROVIDER_MIRROR_MANAGER
+GEOLOC_DEFAULT_PROVIDER = GEOLOC_PROVIDER_FEDORA_GEOIP
 GEOLOC_DEFAULT_GEOCODER = GEOLOC_GEOCODER_NOMINATIM
 

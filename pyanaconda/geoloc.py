@@ -35,29 +35,25 @@ is currently in progress, both return None.
 Geolocation backends
 
 This module currently supports three geolocation backends:
-* Fedora MirrorManager
+* Fedora GeoIP API
 * Hostip GeoIP
 * Google WiFi
 
-Fedora MirrorManager backend
-This is the default backend. It queries the Fedora mirror manager API for
-a list of most optimal mirrors and parses the result for country code.
-For production, it would be probably good to ask the MirrorManager people
-to provide a simple GeoIP API Anaconda can use, as the currently used one
-isn't originally meant for this usecase (so it might not be guaranteed to
-contain the country code in the future) and returns quite a lot of useless
-data (mirror URLs) that has to be computed by MirrorManager but is of no
-use to Anaconda.
+Fedora GeoIP backend
+This is the default backend. It queries the Fedora GeoIP API for location
+data based on current public IP address. The reply is JSON formated and
+contains the following fields:
+postal_code, latitude, longitude, region, city, country_code, country_name,
+time_zone, country_code3, area_code, metro_code, region_name and dma_code
+Anaconda currently uses just time_zone and country_code.
 
 Hostip backend
 A GeoIP look-up backend that can be used to determine current country code
 from current public IP address. The public IP address is determined
 automatically when calling the API.
-GeoIP results from Hostip can contain more granularity than the results
-from MirrorManager (territory code only). They contain the current public IP
-and an approximate address. To get this detail location info, use the
-get_result() method to get an instance of the LocationResult class,
-wrapping the result.
+GeoIP results from Hostip contain the current public IP and an approximate
+address. To get this detail location info, use the get_result() method
+to get an instance of the LocationResult class, used to wrap the result.
 
 Google WiFi backend
 This backend is probably the most accurate one, at least as long as the
@@ -107,10 +103,10 @@ in a couple seconds
 import urllib
 import urllib2
 import json
-import re
 import dbus
 import threading
 import time
+import timezone
 
 import logging
 log = logging.getLogger("anaconda")
@@ -151,19 +147,32 @@ def get_territory_code():
     """This function returns the current country code
     or None, if:
     - no results were found
-    - the refresh is still in progress
+    - the lookup is still in progress
     - the geolocation module was not activated (init & refresh were not called)
-
      - this is for example the case during image and directory installs
-
-    None might also be returned even if refresh was called, but
-    the look-up is still in progress.
 
     :return: current country code or None if not known
     :rtype: string or None
     """
     if location_info_instance:
         return location_info_instance.get_territory_code()
+    else:
+        return None
+
+
+def get_timezone():
+    """This function returns the current time zone
+    or None, if:
+    - no timezone was found
+    - the lookup is still in progress
+    - the geolocation module was not activated (init & refresh were not called)
+     - this is for example the case during image and directory installs
+
+    :return: current timezone or None if not known
+    :rtype: string or None
+    """
+    if location_info_instance:
+        return location_info_instance.get_timezone()
     else:
         return None
 
@@ -197,7 +206,7 @@ def get_provider_id_from_option(option_string):
     """
 
     providers = {
-        constants.GEOLOC_PROVIDER_MIRROR_MANAGER,
+        constants.GEOLOC_PROVIDER_FEDORA_GEOIP,
         constants.GEOLOC_PROVIDER_HOSTIP
     }
     if option_string in providers:
@@ -216,13 +225,13 @@ def _get_provider(provider_id):
     """
 
     providers = {
-        constants.GEOLOC_PROVIDER_MIRROR_MANAGER: MirrorManagerGeoIPProvider,
+        constants.GEOLOC_PROVIDER_FEDORA_GEOIP: FedoraGeoIPProvider,
         constants.GEOLOC_PROVIDER_HOSTIP: HostipGeoIPProvider,
-        constants.GEOLOC_PROVIDER_GOOGLE_WIFI : GoogleWiFiLocationProvider
+        constants.GEOLOC_PROVIDER_GOOGLE_WIFI: GoogleWiFiLocationProvider
     }
     # if unknown provider id is specified,
-    # use the MirrorManager provider
-    default_provider = MirrorManagerGeoIPProvider
+    # use the Fedora GeoIP provider
+    default_provider = FedoraGeoIPProvider
     provider = providers.get(provider_id, default_provider)
     return provider()
 
@@ -300,6 +309,18 @@ class LocationInfo(object):
         else:
             return None
 
+    def get_timezone(self):
+        """A convenience function for getting the current time zone
+
+        :return: time zone or None if no results are available
+        :rtype: string or None
+        """
+        result = self._provider.get_result()
+        if result:
+            return result.timezone
+        else:
+            return None
+
     def get_public_ip_address(self):
         """A convenience function for getting current public IP
 
@@ -314,23 +335,34 @@ class LocationInfo(object):
 
 
 class LocationResult(object):
-    def __init__(self, territory_code=None, public_ip_address=None, city=None):
+    def __init__(self, territory_code=None, timezone=None,
+                 timezone_source="unknown", public_ip_address=None, city=None):
         """Encapsulates the result from GeoIP lookup.
 
         :param territory_code: the territory code from GeoIP lookup
         :type territory_code: string
+        :param timezone: the time zone from GeoIP lookup
+        :type timezone: string
+        :param timezone_source: specifies source of the time zone string
+        :type timezone_source: string
         :param public_ip_address: current public IP address
         :type public_ip_address: string
         :param city: current city
         :type city: string
         """
         self._territory_code = territory_code
+        self._timezone = timezone
+        self._timezone_source = timezone_source
         self._public_ip_address = public_ip_address
         self._city = city
 
     @property
     def territory_code(self):
         return self._territory_code
+
+    @property
+    def timezone(self):
+        return self._timezone
 
     @property
     def public_ip_address(self):
@@ -343,6 +375,10 @@ class LocationResult(object):
     def __str__(self):
         if self.territory_code:
             result_string = "territory: %s" % self.territory_code
+            if self.timezone:
+                result_string += "\ntime zone: %s (from %s)" % (
+                    self.timezone, self._timezone_source
+                )
             if self.public_ip_address:
                 result_string += "\npublic IP address: "
                 result_string += "%s" % self.public_ip_address
@@ -419,29 +455,40 @@ class GeolocationBackend(object):
         return self.get_name()
 
 
-class MirrorManagerGeoIPProvider(GeolocationBackend):
+class FedoraGeoIPProvider(GeolocationBackend):
     """The Fedora GeoIP service provider"""
 
-    API_URL = "https://mirrors.fedoraproject.org/" \
-              "mirrorlist?repo=fedora-19&arch=i386"
+    API_URL = "https://geoip.fedoraproject.org/city"
 
     def __init__(self):
         GeolocationBackend.__init__(self)
 
     def get_name(self):
-        return "Fedora MirrorManager"
+        return "Fedora GeoIP"
 
     def _refresh(self):
         try:
             reply = urllib2.urlopen(self.API_URL, timeout=
                                     constants.NETWORK_CONNECTION_TIMEOUT)
             if reply:
-                territory = re.findall("country = ([A-Z]*)", reply.readline())
-                if territory:
+                json_reply = json.load(reply)
+                territory = json_reply.get("country_code", None)
+                timezone_source = "GeoIP"
+                timezone_code = json_reply.get("time_zone", None)
+                # check if the timezone returned by the API is valid
+                if not timezone.is_valid_timezone(timezone_code):
+                    # try to get a timezone from the territory code
+                    timezone_code = timezone.get_preferred_timezone(territory)
+                    timezone_source = "territory code"
+                if territory or timezone_code:
                     self._set_result(LocationResult(
-                        territory_code=territory[0]))
+                        territory_code=territory,
+                        timezone=timezone_code,
+                        timezone_source=timezone_source))
+        except urllib2.HTTPError as e:
+            log.debug("Geoloc: HTTPError for Fedora GeoIP API lookup:\n%s" % e)
         except urllib2.URLError as e:
-            log.debug("Geoloc: URLError during FMM lookup:\n%s" % e)
+            log.debug("Geoloc: URLError for Fedora GeoIP API lookup:\n%s" % e)
 
 
 class HostipGeoIPProvider(GeolocationBackend):
@@ -758,9 +805,9 @@ if __name__ == "__main__":
     print "  provider used: %s" % location_info._provider
     print "  territory code: %s" % location_info.get_territory_code()
 
-    print "trying the Fedora MirrorManager backend"
+    print "trying the Fedora GeoIP backend"
     location_info = LocationInfo(provider_id=
-                                 constants.GEOLOC_PROVIDER_MIRROR_MANAGER)
+                                 constants.GEOLOC_PROVIDER_FEDORA_GEOIP)
     location_info.refresh()
     print "  provider used: %s" % location_info._provider
     print "  territory code: %s" % location_info.get_territory_code()
