@@ -346,6 +346,12 @@ def parseNfsUrl(nfsurl):
             (host, path) = s
         else:
             host = s[0]
+
+    if not options:
+        options = "nolock"
+    elif "nolock" not in options:
+        options += ",nolock"
+
     return (options, host, path)
 
 def add_po_path(module, dir):
