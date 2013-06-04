@@ -433,16 +433,19 @@ class ResizeDialog(GUIObject):
     def on_resize_value_changed(self, rng):
         (model, itr) = self._selection.get_selected()
 
+        old_delta = rng.get_adjustment().get_upper()-model[itr][RESIZE_TARGET_COL]
+        self._selectedReclaimableSpace -= old_delta
+
         # Update the target size in the store.
         model[itr][RESIZE_TARGET_COL] = rng.get_value()
 
         # Update the "Total selected space" label.
         delta = rng.get_adjustment().get_upper()-rng.get_value()
-        self._update_labels(selectedReclaimable=self._selectedReclaimableSpace+delta)
+        self._selectedReclaimableSpace += delta
+        self._update_labels(selectedReclaimable=self._selectedReclaimableSpace)
 
         # And then the reclaim button, in case they've made enough space.
-        newTotal = self._selectedReclaimableSpace + delta
-        self._update_reclaim_button(Size(spec="%s MB" % newTotal))
+        self._update_reclaim_button(Size(spec="%s MB" % self._selectedReclaimableSpace))
 
     def resize_slider_format(self, scale, value):
         # This makes the value displayed under the slider prettier than just a
