@@ -204,6 +204,13 @@ Using this option implies `text`.
 Set the language to be used during installation. This should be a language
 that's valid for use with the `lang` kickstart command.
 
+=== inst.geoloc ===
+Configure geolocation usage in Anaconda. Geolocation is used to pre-set
+language and time zone.
+`inst.geoloc=0`:: Disables geolocation.
+`inst.geoloc=provider_fedora_geoip`:: Use the Fedora GeoIP API (default).
+`inst.geoloc=provider_hostip`:: Use the Hostip.info GeoIP API.
+
 === inst.keymap ===
 Set the keyboard layout to use. This should be something valid for use with
 the `keyboard` kickstart command.
