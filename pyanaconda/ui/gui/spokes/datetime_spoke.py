@@ -40,6 +40,7 @@ from pyanaconda import network
 from pyanaconda import nm
 from pyanaconda import ntp
 from pyanaconda import flags
+from pyanaconda import constants
 from pyanaconda.threads import threadMgr, AnacondaThread
 
 import datetime
@@ -339,7 +340,8 @@ class DatetimeSpoke(FirstbootSpokeMixIn, NormalSpoke):
 
         self._regions_zones = timezone.get_all_regions_and_timezones()
 
-        threadMgr.add(AnacondaThread(name="AnaDateTimeThread", target=self._initialize))
+        threadMgr.add(AnacondaThread(name=constants.THREAD_DATE_TIME,
+                                     target=self._initialize))
 
     def _initialize(self):
         for day in xrange(1, 32):
