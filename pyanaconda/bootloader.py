@@ -2144,15 +2144,16 @@ class EXTLINUX(BootLoader):
         for image in self.images:
             args = Arguments()
             args.add("root=%s" % image.device.fstabSpec)
-            args.add("initrd=%s/%s" % (self.boot_prefix, image.initrd))
             args.update(self.boot_args)
             log.info("bootloader.py: used boot args: %s " % args)
             stanza = ("label %(label)s (%(version)s)\n"
                       "\tkernel %(boot_prefix)s/%(kernel)s\n"
+                      "\tinitrd %(boot_prefix)s/%(initrd)s\n"
                       "\tappend %(args)s\n\n"
                       % {"label": self.image_label(image),
                          "version": image.version,
                          "kernel": image.kernel,
+                         "initrd": image.initrd,
                          "args": args,
                          "boot_prefix": self.boot_prefix})
             config.write(stanza)
@@ -2165,6 +2166,7 @@ class EXTLINUX(BootLoader):
                   "menu hidden\n\n"
                   "timeout %(timeout)d\n"
                   "#totaltimeout 9000\n\n"
+                  "default %(default)\n\n"
                   % { "productName": productName, "timeout": self.timeout *10,
                      "default": self.image_label(self.default)})
         config.write(header)
