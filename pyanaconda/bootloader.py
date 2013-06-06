@@ -2075,7 +2075,7 @@ class ZIPL(BootLoader):
 class UBOOT(BootLoader):
     name = "UBOOT"
     _config_file = "boot.cmd"
-    packages = ['uboot-tools']
+    packages = ['uboot-tools', 'arm-boot-config']
 
     stage2_device_types = ["partition"]
 
@@ -2085,10 +2085,7 @@ class UBOOT(BootLoader):
 
     @property
     def config_dir(self):
-        if self.stage2_device.format.mountpoint == "/boot/uboot/":
-            return "/boot/uboot"
-        else:
-            return "/boot"
+        return "/boot"
 
     @property
     def config_file(self):
@@ -2104,9 +2101,9 @@ class UBOOT(BootLoader):
     #
 
     def install(self):
-        _outfile = "%s/boot.scr" % self.config_dir
-        args = ["-p", self.config_file, _outfile]
-        rc = iutil.execWithRedirect("cp", args, root=ROOT_PATH)
+        # a-b-c is a tool that generates a generic boor.scr that works in most situations.
+        # not perfect but is better than doing nothing
+        rc = iutil.execWithRedirect("a-b-c", [], root=ROOT_PATH)
 
         if rc:
             raise BootLoaderError("bootloader install failed")
