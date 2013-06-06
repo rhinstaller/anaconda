@@ -60,8 +60,8 @@ class PasswordSpoke(FirstbootSpokeMixIn, NormalSpoke):
 
         self._kickstarted = self.data.rootpw.seen
         if self._kickstarted:
-            self.pw.set_placeholder_text(_("The password was set by kickstart."))
-            self.confirm.set_placeholder_text(_("The password was set by kickstart."))
+            self.pw.set_placeholder_text(_("The password is set."))
+            self.confirm.set_placeholder_text(_("The password is set."))
 
         # set up passphrase quality checker
         self._pwq = pwquality.PWQSettings()
@@ -87,8 +87,6 @@ class PasswordSpoke(FirstbootSpokeMixIn, NormalSpoke):
     def status(self):
         if self._error:
             return _("Error setting root password")
-        elif self._kickstarted:
-            return _("Root password was set by kickstart")
         elif self.data.rootpw.password:
             return _("Root password is set")
         elif self.data.rootpw.lock:
