@@ -253,6 +253,23 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Thu Jun 06 2013 Brian C. Lane <bcl@redhat.com> - 19.30.3-1
+- Remove the commented lines for the CapsLock warning (vpodzime)
+- Do not refer to kickstart in the root password spoke (#963968) (vpodzime)
+- uboot: make sure arm-boot-config is installed and call a-b-c (dennis)
+- extlinux: dont pass initrd as a argument, add default entry (dennis)
+- Remove Use network login button for now (#965883) (bcl)
+- Check the password when Done is clicked (#948165) (vpodzime)
+- Handle the case where home directory already exists (#970628) (vpodzime)
+- Add a function to recursively change owner of a directory (vpodzime)
+- Do change root properly when manipulating users (vpodzime)
+- Add modified network spoke to LiveDVD (#963059) (rvykydal)
+- Fix traceback of noipv6 option with wireless devices (#970077) (rvykydal)
+- Create user account with no password (#968915) (bcl)
+- Add password strength to root password spoke (bcl)
+- Show User password strength during entry (bcl)
+- Add "nolock" to the set of NFS options (#968023). (clumens)
+
 * Mon Jun 03 2013 Brian C. Lane <bcl@redhat.com> - 19.30.2-1
 - Add some more details to disk list in storage spoke. (#965592)
   (sbueno+anaconda)
