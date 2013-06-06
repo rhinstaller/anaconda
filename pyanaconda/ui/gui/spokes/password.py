@@ -19,6 +19,7 @@
 # Red Hat Author(s): Jesse Keating <jkeating@redhat.com>
 #
 
+# pylint: disable-msg=E0611
 from gi.repository import Gtk
 
 from pyanaconda.i18n import _, N_
@@ -71,17 +72,8 @@ class PasswordSpoke(FirstbootSpokeMixIn, NormalSpoke):
         self.pw_label = self.builder.get_object("password_label")
 
     def refresh(self):
-#        self.setCapsLockLabel()
         self.pw.grab_focus()
         self._checkPassword()
-
-# Caps lock detection isn't hooked up right now
-#    def setCapsLockLabel(self):
-#        if isCapsLockEnabled():
-#            self.capslock.set_text("<b>" + _("Caps Lock is on.") + "</b>")
-#            self.capslock.set_use_markup(True)
-#        else:
-#            self.capslock..set_text("")
 
     @property
     def status(self):
