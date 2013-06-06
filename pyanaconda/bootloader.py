@@ -2163,7 +2163,7 @@ class EXTLINUX(BootLoader):
                   "menu hidden\n\n"
                   "timeout %(timeout)d\n"
                   "#totaltimeout 9000\n\n"
-                  "default %(default)\n\n"
+                  "default %(default)s\n\n"
                   % { "productName": productName, "timeout": self.timeout *10,
                      "default": self.image_label(self.default)})
         config.write(header)
