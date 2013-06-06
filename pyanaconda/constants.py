@@ -127,6 +127,7 @@ THREAD_ISCSI_DISCOVER = "AnaIscsiDiscoverThread"
 THREAD_ISCSI_LOGIN = "AnaIscsiLoginThread"
 THREAD_GEOLOCATION_REFRESH = "AnaGeolocationRefreshThread"
 THREAD_DATE_TIME = "AnaDateTimeThread"
+THREAD_TIME_INIT = "AnaTimeInitThread"
 
 # Geolocation constants
 

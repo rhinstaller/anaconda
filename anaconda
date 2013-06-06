@@ -1028,6 +1028,7 @@ if __name__ == "__main__":
     from blivet import storageInitialize
     from pyanaconda.packaging import payloadInitialize
     from pyanaconda.network import networkInitialize, wait_for_connecting_NM_thread
+    from pyanaconda.timezone import time_initialize
 
     if anaconda.rescue:
         rescue.doRescue(anaconda.intf, anaconda.rescue_mount, ksdata)
@@ -1036,7 +1037,11 @@ if __name__ == "__main__":
 
     networkInitialize(ksdata)
     if not flags.dirInstall:
-        threadMgr.add(AnacondaThread(name=constants.THREAD_STORAGE, target=storageInitialize, args=(anaconda.storage, ksdata, anaconda.protected)))
+        threadMgr.add(AnacondaThread(name=constants.THREAD_STORAGE, target=storageInitialize,
+                                     args=(anaconda.storage, ksdata, anaconda.protected)))
+        threadMgr.add(AnacondaThread(name=constants.THREAD_TIME_INIT, target=time_initialize,
+                                     args=(ksdata.timezone, anaconda.storage, anaconda.bootloader)))
+
     threadMgr.add(AnacondaThread(name=constants.THREAD_WAIT_FOR_CONNECTING_NM, target=wait_for_connecting_NM_thread, args=(ksdata,)))
     threadMgr.add(AnacondaThread(name=constants.THREAD_PAYLOAD, target=payloadInitialize, args=(anaconda.storage, ksdata, anaconda.payload)))
 
