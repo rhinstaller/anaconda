@@ -1240,9 +1240,6 @@ class Timezone(commands.timezone.F18_Timezone):
     def __init__(self, *args):
         commands.timezone.F18_Timezone.__init__(self, *args)
 
-        #TODO: Do we need to set it to False in case of dual-boot?
-        #default to UTC HW clock in Anaconda
-        self.isUtc = True
         self._added_chrony = False
         self._enabled_chrony = False
 

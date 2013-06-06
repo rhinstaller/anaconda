@@ -30,6 +30,8 @@ from collections import OrderedDict
 
 from pyanaconda import localization
 from pyanaconda import iutil
+from pyanaconda.constants import THREAD_STORAGE
+from pyanaconda.threads import threadMgr
 from blivet import arch
 
 import logging
@@ -50,6 +52,35 @@ NTP_SERVICE = "chronyd"
 class TimezoneConfigError(Exception):
     """Exception class for timezone configuration related problems"""
     pass
+
+def time_initialize(timezone, storage, bootloader):
+    """
+    Try to guess if RTC uses UTC time or not, set timezone.isUtc properly and
+    set system time from RTC using the UTC guess.
+    Guess is done by searching for bootable ntfs devices.
+
+    :param timezone: ksdata.timezone object
+    :param storage: blivet.Blivet instance
+    :param bootloader: bootloader.Bootloader instance
+
+    """
+
+    if not timezone.isUtc:
+        # if set in the kickstart, no magic needed here
+        threadMgr.wait(THREAD_STORAGE)
+        ntfs_devs = filter(lambda dev: dev.format.name == "ntfs",
+                           storage.devices)
+
+        timezone.isUtc = not bootloader.has_windows(ntfs_devs)
+
+    cmd = "hwclock"
+    args = ["--hctosys"]
+    if timezone.isUtc:
+        args.append("--utc")
+    else:
+        args.append("--localtime")
+
+    iutil.execWithRedirect(cmd, args)
 
 def write_timezone_config(timezone, root):
     """

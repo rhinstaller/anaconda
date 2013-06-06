@@ -381,6 +381,12 @@ class DatetimeSpoke(FirstbootSpokeMixIn, NormalSpoke):
         self._config_dialog = NTPconfigDialog(self.data)
         self._config_dialog.initialize()
 
+        time_init_thread = threadMgr.get(constants.THREAD_TIME_INIT)
+        if time_init_thread is not None:
+            hubQ.send_message(self.__class__.__name__,
+                             _("Restoring hardware time..."))
+            threadMgr.wait(constants.THREAD_TIME_INIT)
+
         hubQ.send_ready(self.__class__.__name__, False)
 
     @property
