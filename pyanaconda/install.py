@@ -132,6 +132,8 @@ def doInstall(storage, payload, ksdata, instClass):
     with progress_report(_("Setting up the installation environment")):
         ksdata.addons.setup(storage, ksdata, instClass)
 
+    storage.updateKSData()  # this puts custom storage info into ksdata
+
     # Do partitioning.
     payload.preStorage()
 
