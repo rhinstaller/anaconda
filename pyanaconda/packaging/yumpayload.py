@@ -213,6 +213,7 @@ class YumPayload(PackagePayload):
 
                 del self._yum
 
+            self._writeYumConfig()
             self._yum = yum.YumBase()
 
             self._yum.use_txmbr_in_callback = True
