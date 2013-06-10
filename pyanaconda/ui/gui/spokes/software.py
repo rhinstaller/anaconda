@@ -256,9 +256,9 @@ class SoftwareSelectionSpoke(NormalSpoke):
             #     default if nothing is selected.
             if (environment == self.environment) or \
                (not self.environment and firstEnvironment):
+                self.environment = environment
                 sel = self.builder.get_object("environmentSelector")
                 sel.select_iter(itr)
-                self.environment = environment
 
             firstEnvironment = False
 
