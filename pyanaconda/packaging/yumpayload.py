@@ -1675,3 +1675,6 @@ reposdir=%s
 
         super(YumPayload, self).postInstall()
 
+        # Make sure yum is really done and gone and lets go of the yum.log
+        self._yum.close()
+        del self._yum
