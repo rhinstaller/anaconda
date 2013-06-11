@@ -225,6 +225,7 @@ class NetworkControlBox(object):
     def __init__(self, builder):
 
         self.builder = builder
+        self._running_nmce = None
 
         # button for creating of virtual bond and vlan devices
         self.builder.get_object("add_toolbutton").set_sensitive(True)
@@ -451,17 +452,31 @@ class NetworkControlBox(object):
             activate = (con, device)
 
         log.info("network: configuring connection %s device %s ssid %s" % (uuid, device.get_iface(), ssid))
-        self.builder.get_object("button_wired_options").set_sensitive(False)
+        self.kill_nmce(msg="Configure button clicked")
         proc = subprocess.Popen(["nm-connection-editor", "--edit", "%s" % uuid])
+        self._running_nmce = proc
 
         GLib.child_watch_add(proc.pid, self.on_nmce_exited, activate)
 
+    def kill_nmce(self, msg=""):
+        if not self._running_nmce:
+            return False
+
+        log.debug("network: killing running nm-c-e %s: %s"
+                  % (self._running_nmce.pid, msg))
+        self._running_nmce.kill()
+        self._running_nmce = None
+        return True
+
     def on_nmce_exited(self, pid, condition, activate):
-        self.builder.get_object("button_wired_options").set_sensitive(True)
-        if activate:
-            con, device = activate
-            gtk_call_once(self._activate_connection_cb, con, device)
-        network.logIfcfgFiles("nm-c-e run")
+        # nm-c-e was closed normally, not killed by anaconda
+        if condition == 0:
+            if self._running_nmce and self._running_nmce.pid == pid:
+                self._running_nmce = None
+            if activate:
+                con, device = activate
+                gtk_call_once(self._activate_connection_cb, con, device)
+            network.logIfcfgFiles("nm-c-e run")
 
     def _activate_connection_cb(self, con, device):
         self.client.activate_connection(con, device,
@@ -1102,6 +1117,7 @@ class NetworkSpoke(NormalSpoke):
     def apply(self):
         _update_network_data(self.data, self.network_control_box)
         log.debug("network: apply ksdata %s" % self.data.network)
+        self.network_control_box.kill_nmce(msg="leaving network spoke")
 
     @property
     def completed(self):
@@ -1260,6 +1276,8 @@ class NetworkStandaloneSpoke(StandaloneSpoke):
             threadMgr.wait(constants.THREAD_PAYLOAD)
 
             threadMgr.add(AnacondaThread(name=constants.THREAD_PAYLOAD, target=payloadInitialize, args=(self.storage, self.data, self.payload)))
+
+        self.network_control_box.kill_nmce(msg="leaving standalone network spoke")
 
     @property
     def completed(self):
