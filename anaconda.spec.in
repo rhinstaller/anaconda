@@ -253,6 +253,18 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Jun 11 2013 Brian C. Lane <bcl@redhat.com> - 19.30.4-1
+- Set environment before selecting it (#971109) (bcl)
+- Add documentation for the geoloc boot option (mkolman)
+- Rewrite the yum config on yum reset (#967805) (bcl)
+- Set system time from HW clock and guess if it is UTC (#881403) (vpodzime)
+- Use a constant for the Datetime spoke initialization thread (vpodzime)
+- Return bool value from the GRUB.has_windows method (vpodzime)
+- Use the new Fedora GeoIP API (#963531) (mkolman)
+- Add check for THREAD_PAYLOAD_MD to storage software test (bcl)
+- Network spoke: add secret agent (static wep and wpa) (rvykydal)
+- extlinux: Fix missing format specifier (bcl)
+
 * Thu Jun 06 2013 Brian C. Lane <bcl@redhat.com> - 19.30.3-1
 - Remove the commented lines for the CapsLock warning (vpodzime)
 - Do not refer to kickstart in the root password spoke (#963968) (vpodzime)
