@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: anaconda 19.30.3\n"
+"Project-Id-Version: anaconda 19.30.4\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
-"POT-Creation-Date: 2013-06-11 09:02-0700\n"
+"POT-Creation-Date: 2013-06-12 10:49-0700\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1132,8 +1132,8 @@ msgstr[0] ""
 msgstr[1] ""
 
 #: pyanaconda/ui/gui/spokes/custom.py:948
-#: pyanaconda/ui/gui/spokes/network.py:644
-#: pyanaconda/ui/gui/spokes/network.py:1293
+#: pyanaconda/ui/gui/spokes/network.py:649
+#: pyanaconda/ui/gui/spokes/network.py:1119
 #: pyanaconda/ui/gui/spokes/lib/accordion.py:59
 msgid "Unknown"
 msgstr ""
@@ -1426,185 +1426,166 @@ msgstr ""
 msgid "_LANGUAGE SUPPORT"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.py:89
+#: pyanaconda/ui/gui/spokes/network.py:84
 msgid "Status unknown (missing)"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.py:92
+#: pyanaconda/ui/gui/spokes/network.py:87
 msgid "Status unknown"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.py:94
+#: pyanaconda/ui/gui/spokes/network.py:89
 msgid "Unmanaged"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.py:97
+#: pyanaconda/ui/gui/spokes/network.py:92
 msgid "Firmware missing"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.py:100
+#: pyanaconda/ui/gui/spokes/network.py:95
 msgid "Cable unplugged"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.py:102
+#: pyanaconda/ui/gui/spokes/network.py:97
 msgid "Unavailable"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.py:104
+#: pyanaconda/ui/gui/spokes/network.py:99
 msgid "Disconnected"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.py:109
+#: pyanaconda/ui/gui/spokes/network.py:104
 msgid "Connecting"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.py:111
+#: pyanaconda/ui/gui/spokes/network.py:106
 msgid "Authentication required"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.py:113
+#: pyanaconda/ui/gui/spokes/network.py:108
 msgid "Connected"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.py:115
+#: pyanaconda/ui/gui/spokes/network.py:110
 msgid "Disconnecting"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.py:117
+#: pyanaconda/ui/gui/spokes/network.py:112
 msgid "Connection failed"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.py:633
+#: pyanaconda/ui/gui/spokes/network.py:638
 msgid "unplugged"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.py:646
+#: pyanaconda/ui/gui/spokes/network.py:651
 msgid "Ethernet"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.py:648
+#: pyanaconda/ui/gui/spokes/network.py:653
 msgid "Wireless"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.py:650
+#: pyanaconda/ui/gui/spokes/network.py:655
 msgid "Bond"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.py:652
+#: pyanaconda/ui/gui/spokes/network.py:657
 msgid "Vlan"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.py:752
+#: pyanaconda/ui/gui/spokes/network.py:757
 #: pyanaconda/ui/gui/spokes/network.glade:627
 #: pyanaconda/ui/gui/spokes/network.glade:955
 msgid "IPv4 Address"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.py:753
+#: pyanaconda/ui/gui/spokes/network.py:758
 #: pyanaconda/ui/gui/spokes/network.glade:599
 #: pyanaconda/ui/gui/spokes/network.glade:969
 #: pyanaconda/ui/gui/spokes/network.glade:1588
 msgid "IPv6 Address"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.py:755
-#: pyanaconda/ui/gui/spokes/network.py:757
+#: pyanaconda/ui/gui/spokes/network.py:760
+#: pyanaconda/ui/gui/spokes/network.py:762
 #: pyanaconda/ui/gui/spokes/network.glade:1574
 msgid "IP Address"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.py:842
+#: pyanaconda/ui/gui/spokes/network.py:847
 #, python-format
 msgid "%d Mb/s"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.py:1042
+#: pyanaconda/ui/gui/spokes/network.py:1050
 msgid "WEP"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.py:1045
+#: pyanaconda/ui/gui/spokes/network.py:1053
 msgid "WPA"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.py:1048
+#: pyanaconda/ui/gui/spokes/network.py:1056
 msgid "WPA2"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.py:1052
+#: pyanaconda/ui/gui/spokes/network.py:1060
 msgid "Enterprise"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.py:1057 widgets/src/SpokeSelector.c:55
+#: pyanaconda/ui/gui/spokes/network.py:1065 widgets/src/SpokeSelector.c:55
 msgid "None"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.py:1184
-msgid "Authentication required by wireless network"
-msgstr ""
-
-#: pyanaconda/ui/gui/spokes/network.py:1185
-#, python-format
-msgid ""
-"Passwords or encryption keys are required to access\n"
-"the wireless network '%(network_id)s'."
-msgstr ""
-
-#: pyanaconda/ui/gui/spokes/network.py:1198
-msgid "_Password:"
-msgstr ""
-
-#: pyanaconda/ui/gui/spokes/network.py:1206
-msgid "_Key:"
-msgstr ""
-
-#: pyanaconda/ui/gui/spokes/network.py:1261
+#: pyanaconda/ui/gui/spokes/network.py:1087
 msgid "_NETWORK CONFIGURATION"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.py:1297
+#: pyanaconda/ui/gui/spokes/network.py:1123
 msgid "Connecting..."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.py:1299
+#: pyanaconda/ui/gui/spokes/network.py:1125
 msgid "Disconnecting..."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.py:1316
+#: pyanaconda/ui/gui/spokes/network.py:1142
 #, python-format
 msgid "Wired (%(interface_name)s) connected"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.py:1319
+#: pyanaconda/ui/gui/spokes/network.py:1145
 #, python-format
 msgid "Wireless connected to %(access_point)s"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.py:1322
+#: pyanaconda/ui/gui/spokes/network.py:1148
 #, python-format
 msgid "Bond %(interface_name)s (%(list_of_slaves)s) connected"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.py:1325
+#: pyanaconda/ui/gui/spokes/network.py:1151
 #, python-format
 msgid "Vlan %(interface_name)s (%(parent_device)s, ID %(vlanid)s) connected"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.py:1338
+#: pyanaconda/ui/gui/spokes/network.py:1164
 #, python-format
 msgid "Connected: %(list_of_interface_names)s"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.py:1341
+#: pyanaconda/ui/gui/spokes/network.py:1167
 msgid "Not connected"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.py:1344
+#: pyanaconda/ui/gui/spokes/network.py:1170
 #: pyanaconda/ui/gui/spokes/network.glade:2338
 msgid "No network devices available"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.py:1391
-#: pyanaconda/ui/gui/spokes/network.py:1458
+#: pyanaconda/ui/gui/spokes/network.py:1216
+#: pyanaconda/ui/gui/spokes/network.py:1282
 #, python-format
 msgid "Hostname is not valid: %s"
 msgstr ""
@@ -2507,20 +2488,6 @@ msgstr ""
 
 #: pyanaconda/ui/gui/spokes/network.glade:2461
 msgid "_Hostname:"
-msgstr ""
-
-#: pyanaconda/ui/gui/spokes/network.glade:2513
-msgid "Authentication"
-msgstr ""
-
-#: pyanaconda/ui/gui/spokes/network.glade:2597
-msgid "<b>Authentication required by wireless network</b>"
-msgstr ""
-
-#: pyanaconda/ui/gui/spokes/network.glade:2614
-msgid ""
-"Passwords or encryption keys are required to access\n"
-"the wireless network"
 msgstr ""
 
 #: pyanaconda/ui/gui/spokes/software.glade:33
