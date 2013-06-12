@@ -100,7 +100,7 @@ The last argument is correct as-is, it's not a place where you substitute
 something for <lang>.  The BRANCH_NAME will be something other than 'master'.
 For example, when we branch for F-16:
 
-    tx set --execute --auto-local -r anaconda.f16-branch -s en \
+    tx set --execute --auto-local -r anaconda.f16-branch -s en -t PO \
            -f po/anaconda.pot "po/<lang>.po"
 
 Check the .tx/config file on the branch to ensure it references the correct
