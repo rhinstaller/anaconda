@@ -12,6 +12,12 @@
     <property name="can_focus">False</property>
     <property name="icon_name">system-run-symbolic</property>
   </object>
+  <object class="GtkListStore" id="days">
+    <columns>
+      <!-- column-name number -->
+      <column type="guint"/>
+    </columns>
+  </object>
   <object class="GtkTreeModelFilter" id="daysFilter">
     <property name="child_model">days</property>
   </object>
@@ -619,12 +625,6 @@
         </child>
       </object>
     </child>
-  </object>
-  <object class="GtkListStore" id="days">
-    <columns>
-      <!-- column-name number -->
-      <column type="guint"/>
-    </columns>
   </object>
   <object class="GtkImage" id="downImage">
     <property name="visible">True</property>
