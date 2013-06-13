@@ -301,6 +301,9 @@ class DatetimeSpoke(FirstbootSpokeMixIn, NormalSpoke):
     def __init__(self, *args):
         NormalSpoke.__init__(self, *args)
 
+        # taking values from the kickstart file?
+        self._kickstarted = flags.flags.automatedInstall
+
     def initialize(self):
         NormalSpoke.initialize(self)
         self._daysStore = self.builder.get_object("days")
@@ -402,6 +405,8 @@ class DatetimeSpoke(FirstbootSpokeMixIn, NormalSpoke):
             return _("Nothing selected")
 
     def apply(self):
+        old_tz = self.data.timezone.timezone
+
         # we could use self._tzmap.get_timezone() here, but it returns "" if
         # Etc/XXXXXX timezone is selected
         region = self._get_active_region()
@@ -409,7 +414,11 @@ class DatetimeSpoke(FirstbootSpokeMixIn, NormalSpoke):
         new_tz = region + "/" + city
 
         self.data.timezone.timezone = new_tz
-        self.data.timezone.seen = True
+
+        if old_tz != new_tz:
+            # new values, not from kickstart
+            self.data.timezone.seen = False
+            self._kickstarted = False
 
         self.data.timezone.nontp = not self._ntpSwitch.get_active()
 
@@ -425,7 +434,8 @@ class DatetimeSpoke(FirstbootSpokeMixIn, NormalSpoke):
 
     @property
     def completed(self):
-        if flags.flags.automatedInstall and not self.data.timezone.seen:
+        if self._kickstarted and not self.data.timezone.seen:
+            # taking values from kickstart, but not specified
             return False
         else:
             return timezone.is_valid_timezone(self.data.timezone.timezone)

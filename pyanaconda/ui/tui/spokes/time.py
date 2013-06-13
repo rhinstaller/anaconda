@@ -133,3 +133,4 @@ class TimeZoneSpoke(FirstbootSpokeMixIn, NormalTUISpoke):
 
     def apply(self):
         self.data.timezone.timezone = self._selection
+        self.data.timezone.seen = False
