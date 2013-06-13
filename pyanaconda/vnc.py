@@ -36,6 +36,25 @@ import logging
 log = logging.getLogger("anaconda")
 stdoutLog = logging.getLogger("anaconda.stdout")
 
+XVNC_BINARY_NAME = "Xvnc"
+
+
+def shutdownServer():
+    """Try to shutdown any running XVNC server
+
+    Why is this function on the module level and not in the VncServer class ?
+
+    As the server needs to be killed from the exit handler, it would have
+    to somehow get to the VncServer instance. Like this, it can just kill
+    it by calling a function of the vnc module.
+    """
+    try:
+        iutil.execWithCapture("killall", [XVNC_BINARY_NAME])
+        log.info("The XVNC server has been shut down.")
+    except OSError as e:
+        log.error("Shutdown of the XVNC server failed with exception:\n%s" % e)
+
+
 class VncServer:
 
     def __init__(self, display="1", root="/", ip=None, name=None,
@@ -196,7 +215,7 @@ class VncServer:
             rc = self.setVNCPassword()
 
         # Lets start the xvnc.
-        xvnccommand =  [ "Xvnc", ":%s" % self.display,
+        xvnccommand =  [ XVNC_BINARY_NAME, ":%s" % self.display,
                         "-depth", "16", "-br",
                         "IdleTimeout=0", "-auth", "/dev/null", "-once",
                         "DisconnectClients=false", "desktop=%s" % (self.desktop,),

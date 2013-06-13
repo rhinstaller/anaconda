@@ -39,6 +39,9 @@ def exitHandler(rebootData, storage, exitCode=None):
     from pyanaconda import isys
     from pyanaconda.flags import flags
 
+    if flags.usevnc:
+        vnc.shutdownServer()
+
     if exitCode:
         anaconda.intf.shutdown()
 
