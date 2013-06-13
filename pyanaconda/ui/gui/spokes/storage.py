@@ -289,11 +289,13 @@ class StorageChecker(object):
     _mainSpokeClass = "StorageSpoke"
 
     def run(self):
-        hubQ.send_not_ready(self._mainSpokeClass)
         threadMgr.add(AnacondaThread(name=constants.THREAD_CHECK_STORAGE,
                                      target=self.checkStorage))
 
     def checkStorage(self):
+        threadMgr.wait(constants.THREAD_EXECUTE_STORAGE)
+
+        hubQ.send_not_ready(self._mainSpokeClass)
         hubQ.send_message(self._mainSpokeClass, _("Checking storage configuration..."))
         (StorageChecker.errors,
          StorageChecker.warnings) = self.storage.sanityCheck()
