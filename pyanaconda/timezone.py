@@ -65,6 +65,10 @@ def time_initialize(timezone, storage, bootloader):
 
     """
 
+    if arch.isS390():
+        # nothing to do on s390 where hwclock doesn't exist
+        return
+
     if not timezone.isUtc:
         # if set in the kickstart, no magic needed here
         threadMgr.wait(THREAD_STORAGE)
