@@ -98,7 +98,11 @@ class PasswordSpoke(FirstbootSpokeMixIn, NormalSpoke):
         self.data.rootpw.password = cryptPassword(self._password)
         self.data.rootpw.isCrypted = True
         self.data.rootpw.lock = False
+
+        # value from the kickstart changed
+        self.data.rootpw.seen = False
         self._kickstarted = False
+
         self.pw.set_placeholder_text("")
         self.confirm.set_placeholder_text("")
 
