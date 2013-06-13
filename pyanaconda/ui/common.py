@@ -213,6 +213,8 @@ class Spoke(UIObject):
         self.instclass = instclass
         self.applyOnSkip = False
 
+        self._visitedSinceApplied = True
+
     @classmethod
     def should_run(cls, environment, data):
         """This method is responsible for beginning Spoke initialization.
