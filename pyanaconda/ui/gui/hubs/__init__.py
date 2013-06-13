@@ -120,9 +120,14 @@ class Hub(GUIObject, common.Hub):
         Gtk.main()
         action.window.set_transient_for(None)
 
+        action._visitedSinceApplied = True
+
+        # Don't take _visitedSinceApplied into account here.  It will always be
+        # True from the line above.
         if action.changed and (not action.skipTo or (action.skipTo and action.applyOnSkip)):
             action.apply()
             action.execute()
+            action._visitedSinceApplied = False
 
     def _collectCategoriesAndSpokes(self):
         """collects categories and spokes to be displayed on this Hub
@@ -210,8 +215,10 @@ class Hub(GUIObject, common.Hub):
                 spoke.selector.connect("key-release-event", self._on_spoke_clicked, spoke)
 
                 # If this is a kickstart install, attempt to execute any provided ksdata now.
-                if flags.automatedInstall and spoke.ready and spoke.changed:
+                if flags.automatedInstall and spoke.ready and spoke.changed and \
+                   spoke._visitedSinceApplied:
                     spoke.execute()
+                    spoke._visitedSinceApplied = False
 
                 selectors.append(spoke.selector)
 
@@ -331,8 +338,9 @@ class Hub(GUIObject, common.Hub):
                     # _createBox skipped.  Now that it's become ready, do it.  Note
                     # that we also provide a way to skip this processing (see comments
                     # communication.py) to prevent getting caught in a loop.
-                    if not args[1] and spoke.changed:
+                    if not args[1] and spoke.changed and spoke._visitedSinceApplied:
                         spoke.execute()
+                        spoke._visitedSinceApplied = False
 
                     if self.continuePossible:
                         if self._inSpoke:
@@ -352,7 +360,7 @@ class Hub(GUIObject, common.Hub):
         GUIObject.refresh(self)
         self._createBox()
 
-        self._update_spoke_id = GLib.timeout_add_seconds(1, self._update_spokes)
+        self._update_spoke_id = GLib.timeout_add(100, self._update_spokes)
 
     ### SIGNAL HANDLERS
 
