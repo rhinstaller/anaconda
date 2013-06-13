@@ -127,7 +127,7 @@ def set_x_resolution(runres):
     if runres and opts.display_mode == 'g' and not flags.usevnc and wm_pid :
         try:
             log.info("Setting the screen resolution to: %s.", runres)
-            iutil.execWithRedirect("xrandr", 
+            iutil.execWithRedirect("xrandr",
                                    ["-d", ":1", "-s", runres])
         except RuntimeError as e:
             log.error("The X resolution not set")
@@ -178,7 +178,7 @@ def setupPythonUpdates():
         target = "/etc/udev/rules.d/" + rule.split('/')[-1]
         shutil.copyfile(rule, target)
 
-def symlink_updates(dest_dir, update_dir):    
+def symlink_updates(dest_dir, update_dir):
     contents = os.listdir(update_dir)
 
     for f in os.listdir(dest_dir):
@@ -1055,12 +1055,12 @@ if __name__ == "__main__":
     if flags.imageInstall or flags.dirInstall:
         use_geolocation = False
     # and also check if it was not disabled by boot option
-    else: 
+    else:
         # flags.cmdline.getbool is used as it handles values such as
         # 0, no, off and also nogeoloc as False
         # and other values or geoloc not being present as True
         use_geolocation = flags.cmdline.getbool('geoloc', True)
-        
+
 
     if use_geolocation:
         provider_id = constants.GEOLOC_DEFAULT_PROVIDER
@@ -1071,11 +1071,11 @@ if __name__ == "__main__":
                 log.error('geoloc: wrong provider id specified: %s' %
                         opts.geoloc)
             else:
-                provider_id = parsed_id           
+                provider_id = parsed_id
         # instantiate the geolocation module and start location data refresh
         geoloc.init_geolocation(provider_id=provider_id)
         geoloc.refresh()
-    
+
     # setup ntp servers and start NTP daemon if not requested otherwise
     if can_touch_runtime_system("start chronyd"):
         if anaconda.ksdata.timezone.ntpservers:
