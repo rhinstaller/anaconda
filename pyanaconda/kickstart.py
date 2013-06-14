@@ -1037,7 +1037,7 @@ class PartitionData(commands.partition.F18_PartData):
                                      parents=request)
             storage.createDevice(luksdev)
 
-class Raid(commands.raid.F18_Raid):
+class Raid(commands.raid.F19_Raid):
     def execute(self, storage, ksdata, instClass):
         for r in self.raidList:
             r.execute(storage, ksdata, instClass)
