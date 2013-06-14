@@ -256,6 +256,10 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Fri Jun 14 2013 Brian C. Lane <bcl@redhat.com> - 19.30.7-1
+- Update Raid to use F19_Raid. (#974689) (dlehman)
+- Don't use any grub theme by default. (pjones)
+
 * Fri Jun 14 2013 Brian C. Lane <bcl@redhat.com> - 19.30.6-1
 - Use langtable instead of our magic tables and hacks (vpodzime)
 - Network spoke: re-run nm-c-e on second [Configure] click (#972959) (rvykydal)
