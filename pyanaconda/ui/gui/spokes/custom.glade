@@ -452,6 +452,7 @@ use.  Try something else?</property>
             </child>
             <child>
               <object class="GtkScrolledWindow" id="scrolledwindow2">
+                <property name="height_request">150</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="hexpand">True</property>
