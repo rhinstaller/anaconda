@@ -256,6 +256,20 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Fri Jun 14 2013 Brian C. Lane <bcl@redhat.com> - 19.30.6-1
+- Use langtable instead of our magic tables and hacks (vpodzime)
+- Network spoke: re-run nm-c-e on second [Configure] click (#972959) (rvykydal)
+- Add custom storage configuration to ksdata. (#929119) (dlehman)
+- Don't try to install ntfsprogs in rhel since it isn't included. (#964586)
+  (dlehman)
+- Update kickstart md array name specification to not use minors. (#965299)
+  (dlehman)
+- Wait for storage execute to finish (bcl)
+- Prevent StorageSpoke.execute from running multiple times (#966761, #967527).
+  (clumens)
+- Put days GtkListStore before it is referenced (bcl)
+- s390 doesn't have the hwclock utility (#973999) (vpodzime)
+
 * Wed Jun 12 2013 Brian C. Lane <bcl@redhat.com> - 19.30.5-1
 - Branch transifex for f19 and updates docs (bcl)
 - Revert "Network spoke: add secret agent (static wep and wpa)" (bcl)
