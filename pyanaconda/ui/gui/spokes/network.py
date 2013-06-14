@@ -223,10 +223,11 @@ class NetworkControlBox(object):
         NetworkManager.DeviceType.VLAN,
     ]
 
-    def __init__(self, builder):
+    def __init__(self, builder, spoke=None):
 
         self.builder = builder
         self._running_nmce = None
+        self.spoke = spoke
 
         # button for creating of virtual bond and vlan devices
         self.builder.get_object("add_toolbutton").set_sensitive(True)
@@ -514,6 +515,8 @@ class NetworkControlBox(object):
 
     def on_add_device_clicked(self, *args):
         dialog = self.builder.get_object("add_device_dialog")
+        if self.spoke:
+            dialog.set_transient_for(self.spoke.window)
         rc = dialog.run()
         dialog.hide()
         if rc == 1:
@@ -524,14 +527,17 @@ class NetworkControlBox(object):
 
     def add_device(self, type):
         log.info("network: adding device of type %s" % type)
-        self.builder.get_object("add_toolbutton").set_sensitive(False)
+        self.kill_nmce(msg="Add device button clicked")
         proc = subprocess.Popen(["nm-connection-editor", "--create", "--type=%s" % type])
+        self._running_nmce = proc
 
         GLib.child_watch_add(proc.pid, self.on_nmce_adding_exited)
 
     def on_nmce_adding_exited(self, pid, condition):
-        self.builder.get_object("add_toolbutton").set_sensitive(True)
-        network.logIfcfgFiles("nm-c-e run")
+        if condition == 0:
+            if self._running_nmce and self._running_nmce.pid == pid:
+                self._running_nmce = None
+            network.logIfcfgFiles("nm-c-e run")
 
     def selected_device(self):
         selection = self.builder.get_object("treeview_devices").get_selection()
@@ -1280,7 +1286,7 @@ class NetworkSpoke(NormalSpoke):
 
     def __init__(self, *args, **kwargs):
         NormalSpoke.__init__(self, *args, **kwargs)
-        self.network_control_box = NetworkControlBox(self.builder)
+        self.network_control_box = NetworkControlBox(self.builder, spoke=self)
         self.network_control_box.hostname = self.data.network.hostname
         self.network_control_box.client.connect("notify::%s" %
                                                 NMClient.CLIENT_STATE,
@@ -1423,7 +1429,7 @@ class NetworkStandaloneSpoke(StandaloneSpoke):
 
     def __init__(self, *args, **kwargs):
         StandaloneSpoke.__init__(self, *args, **kwargs)
-        self.network_control_box = NetworkControlBox(self.builder)
+        self.network_control_box = NetworkControlBox(self.builder, spoke=self)
         self.network_control_box.hostname = self.data.network.hostname
         parent = self.builder.get_object("AnacondaStandaloneWindow-action_area5")
         parent.add(self.network_control_box.vbox)
