@@ -78,6 +78,7 @@ from pyanaconda.ui.lib.disks import size_str
 
 # pylint: disable-msg=E0611
 from gi.repository import Gdk, Gtk
+from gi.repository.AnacondaWidgets import MountpointSelector
 
 import logging
 log = logging.getLogger("anaconda")
@@ -1836,7 +1837,11 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
             return
 
         if event.keyval == Gdk.KEY_Delete:
-            self._removeButton.emit("clicked")
+            # But we only want delete to work if you have focused a MountpointSelector,
+            # and not just any random widget.  For those, it's likely the user wants
+            # to delete a character.
+            if isinstance(window.get_focus(), MountpointSelector):
+                self._removeButton.emit("clicked")
 
     def on_back_clicked(self, button):
         # First, save anything from the currently displayed mountpoint.
