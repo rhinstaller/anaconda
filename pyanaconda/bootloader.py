@@ -1446,7 +1446,7 @@ class GRUB2(GRUB):
         log.info("bootloader.py: used boot args: %s " % self.boot_args)
         defaults.write("GRUB_CMDLINE_LINUX=\"%s\"\n" % self.boot_args)
         defaults.write("GRUB_DISABLE_RECOVERY=\"true\"\n")
-        defaults.write("GRUB_THEME=\"/boot/grub2/themes/system/theme.txt\"\n")
+        #defaults.write("GRUB_THEME=\"/boot/grub2/themes/system/theme.txt\"\n")
         defaults.close()
 
     def _encrypt_password(self):
