@@ -45,9 +45,7 @@ class PasswordSpoke(FirstbootSpokeMixIn, EditTUIDialog):
 
     @property
     def status(self):
-        if self.data.rootpw.password and self.data.rootpw.seen:
-            return _("Password was set by kickstart.")
-        elif self.data.rootpw.password:
+        if self.data.rootpw.password:
             return _("Password is set.")
         elif self.data.rootpw.lock:
             return _("Root account is disabled.")
