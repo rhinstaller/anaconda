@@ -299,6 +299,10 @@ class Hub(GUIObject, common.Hub):
 
         q = hubQ.q
 
+        if not self._spokes:
+            # no spokes, move on
+            gtk_call_once(self.continueButton.emit, "clicked")
+
         # Grab all messages that may have appeared since last time this method ran.
         while True:
             try:
