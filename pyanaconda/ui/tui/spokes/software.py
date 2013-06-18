@@ -114,7 +114,9 @@ class SoftwareSpoke(NormalTUISpoke):
 
         displayed = []
         for env in environments:
-            displayed.append(CheckboxWidget(title="%s" % env, completed=(environments.index(env) == self._selection)))
+            (name, desc) = self.payload.environmentDescription(env)
+
+            displayed.append(CheckboxWidget(title="%s" % name, completed=(environments.index(env) == self._selection)))
         print(_("Choose a desktop environment."))
 
         def _prep(i, w):
