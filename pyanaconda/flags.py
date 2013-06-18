@@ -143,6 +143,10 @@ class BootArgs(OrderedDict):
         if right.count('"') % 2:
             cmdline = left + middle + '"' + right
 
+        # shlex doesn't properly handle \\ (it removes them)
+        # which scrambles the spaces used in labels so use underscores
+        cmdline = cmdline.replace("\\x20", "_")
+
         lst = shlex.split(cmdline)
 
         for i in lst:
