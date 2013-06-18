@@ -31,6 +31,9 @@ from pyanaconda.ui.gui.categories.user_settings import UserSettingsCategory
 from pyanaconda.ui.common import FirstbootSpokeMixIn
 from pyanaconda.ui.gui.utils import enlightbox
 
+from pykickstart.constants import FIRSTBOOT_RECONFIG
+from pyanaconda.constants import ANACONDA_ENVIRON, FIRSTBOOT_ENVIRON
+
 import pwquality
 
 __all__ = ["UserSpoke", "AdvancedUserDialog"]
@@ -143,6 +146,23 @@ class UserSpoke(FirstbootSpokeMixIn, NormalSpoke):
 
     icon = "avatar-default-symbolic"
     title = N_("_USER CREATION")
+
+    @classmethod
+    def should_run(cls, environment, data):
+        # the user spoke should run always in the anaconda and in firstboot only
+        # when doing reconfig or if no user has been created in the installation
+        if environment == ANACONDA_ENVIRON:
+            return True
+        elif environment == FIRSTBOOT_ENVIRON and data is None:
+            # cannot decide, stay in the game and let another call with data
+            # available (will come) decide
+            return True
+        elif environment == FIRSTBOOT_ENVIRON and data and \
+                (data.firstboot.firstboot == FIRSTBOOT_RECONFIG or \
+                     len(data.user.userList) == 0):
+            return True
+        else:
+            return False
 
     def __init__(self, *args):
         NormalSpoke.__init__(self, *args)

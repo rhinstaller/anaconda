@@ -26,6 +26,8 @@ from pyanaconda.ui.tui.simpleline import TextWidget
 from pyanaconda.ui.tui import YesNoDialog
 from pyanaconda.users import guess_username
 from pyanaconda.i18n import _
+from pykickstart.constants import FIRSTBOOT_RECONFIG
+from pyanaconda.constants import ANACONDA_ENVIRON, FIRSTBOOT_ENVIRON
 
 import re
 
@@ -44,6 +46,23 @@ class UserSpoke(FirstbootSpokeMixIn, EditTUISpoke):
         Entry("Administrator", "_admin", EditTUISpoke.CHECK, lambda self,args: args._create),
         Entry("Groups", "_groups", re.compile("^([a-z0-9_]+)?(, ?([a-z0-9_]+))*$"), lambda self,args: args._create)
         ]
+
+    @classmethod
+    def should_run(cls, environment, data):
+        # the user spoke should run always in the anaconda and in firstboot only
+        # when doing reconfig or if no user has been created in the installation
+        if environment == ANACONDA_ENVIRON:
+            return True
+        elif environment == FIRSTBOOT_ENVIRON and data is None:
+            # cannot decide, stay in the game and let another call with data
+            # available (will come) decide
+            return True
+        elif environment == FIRSTBOOT_ENVIRON and data and \
+                (data.firstboot.firstboot == FIRSTBOOT_RECONFIG or \
+                     len(data.user.userList) == 0):
+            return True
+        else:
+            return False
 
     def __init__(self, app, data, storage, payload, instclass):
         FirstbootSpokeMixIn.__init__(self)
