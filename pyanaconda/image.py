@@ -26,6 +26,7 @@ from errors import *
 
 import blivet.util
 import blivet.arch
+from blivet.errors import StorageError
 
 import logging
 log = logging.getLogger("anaconda")
@@ -137,7 +138,7 @@ def mountImageDirectory(method, storage):
                 exn = MediaMountError(str(e))
                 if errorHandler.cb(exn) == ERROR_RAISE:
                     raise exn
-    elif methodstr.startswith("nfsiso:"):
+    elif method.method.startswith("nfsiso:"):
         # XXX what if we mount it on ISO_DIR and then create a symlink
         #     if there are no isos instead of the remount?
 
