@@ -475,6 +475,13 @@ class FedoraGeoIPProvider(GeolocationBackend):
                 territory = json_reply.get("country_code", None)
                 timezone_source = "GeoIP"
                 timezone_code = json_reply.get("time_zone", None)
+
+                if timezone_code is not None:
+                    # the timezone code is returned as Unicode,
+                    # it needs to be converted to UTF-8 encoded string,
+                    # otherwise some string processing in Anaconda might fail
+                    timezone_code = timezone_code.encode("utf8")
+
                 # check if the timezone returned by the API is valid
                 if not timezone.is_valid_timezone(timezone_code):
                     # try to get a timezone from the territory code
