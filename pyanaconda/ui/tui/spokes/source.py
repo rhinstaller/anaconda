@@ -22,10 +22,11 @@
 from pyanaconda.flags import flags
 from pyanaconda.ui.tui.spokes import EditTUISpoke
 from pyanaconda.ui.tui.spokes import EditTUISpokeEntry as Entry
-from pyanaconda.ui.tui.simpleline import CheckboxWidget, TextWidget
+from pyanaconda.ui.tui.simpleline import TextWidget, ColumnWidget
 from pyanaconda.threads import threadMgr, AnacondaThread
 from pyanaconda.packaging import PayloadError, MetadataError
 from pyanaconda.i18n import _
+from pyanaconda.image import opticalInstallMedia
 
 from pyanaconda.constants import THREAD_SOURCE_WATCHER, THREAD_SOFTWARE_WATCHER, THREAD_PAYLOAD
 from pyanaconda.constants import THREAD_PAYLOAD_MD, THREAD_STORAGE, THREAD_CHECK_SOFTWARE
@@ -52,6 +53,7 @@ class SourceSpoke(EditTUISpoke):
         EditTUISpoke.__init__(self, app, data, storage, payload, instclass)
         self._ready = False
         self.errors = []
+        self._cdrom = None
 
     def initialize(self):
         EditTUISpoke.initialize(self)
@@ -63,12 +65,23 @@ class SourceSpoke(EditTUISpoke):
         """ Private initialize. """
         threadMgr.wait(THREAD_STORAGE)
         threadMgr.wait(THREAD_PAYLOAD)
+        # If we've previously set up to use a CD/DVD method, the media has
+        # already been mounted by payload.setup.  We can't try to mount it
+        # again.  So just use what we already know to create the selector.
+        # Otherwise, check to see if there's anything available.
+        if self.data.method.method == "cdrom":
+            self._cdrom = self.payload.install_device
+        elif not flags.automatedInstall:
+            self._cdrom = opticalInstallMedia(self.storage.devicetree)
+
         self._ready = True
 
     def _repo_status(self):
         """ Return a string describing repo url or lack of one. """
         if self.data.method.method == "url":
             return self.data.method.url or self.data.method.mirrorlist
+        elif self.data.method.method == "cdrom":
+            return _("CD/DVD drive")
         elif self.payload.baseRepo:
             return _("Closest mirror")
         else:
@@ -104,38 +117,59 @@ class SourceSpoke(EditTUISpoke):
 
         threadMgr.wait(THREAD_PAYLOAD_MD)
 
-        print(_("Choose an installation source type."))
+        _methods = [_("CD/DVD"), _("Network")]
+        if args == 2:
+            text = [TextWidget(p) for p in self._protocols]
+        else:
+            self._window += [TextWidget(_("Choose an installation source type."))]
+            text = [TextWidget(m) for m in _methods]
 
-        msg = self._update_summary()
+        def _prep(i, w):
+            number = TextWidget("%2d)" % (i + 1))
+            return ColumnWidget([(4, [number]), (None, [w])], 1)
 
-        for num, proto in enumerate(self._protocols):
-            box = CheckboxWidget(title="%i) %s" % (num + 1, proto), completed=(num + 1 == self._selection))
-            self._window += [box, ""]
+        # gnarl and mangle all of our widgets so things look pretty on screen
+        choices = [_prep(i, w) for i, w in enumerate(text)]
 
-        self._window += [TextWidget(msg), ""]
+        displayed = ColumnWidget([(78, choices)], 1)
+        self._window.append(displayed)
 
         return True
 
     def input(self, args, key):
         """ Handle the input; this decides the repo protocol. """
-        if key == "c" and self._selection == 1:
-            # closest mirror
-            self.data.method.method = None
-            self.apply()
-
-        if key == "c" and self._selection in range(2, 5):
-            self.data.method.method = "url"
-
-            # want to kick off new spoke asking to specify repo
-            newspoke = SpecifyRepoSpoke(self.app, self.data, self.storage,
-                                        self.payload, self.instclass, self._selection)
-            self.app.switch_screen_modal(newspoke)
-            self.apply()
-
         try:
             num = int(key)
-            if num in range(1, 5):
+            if args == 2:
+                # network install
+                ## FIXME: setting self._selection reeks a bit of redundancy
+                ## now that some of this has been rewritten, so it should be
+                ## done away with entirely in the future, at some point
                 self._selection = num
+                if self._selection == 1:
+                    # closest mirror
+                    self.data.method.method = None
+                    self.apply()
+                    self.close()
+                    return True
+                elif self._selection in range(2, 5):
+                    self.data.method.method = "url"
+                    newspoke = SpecifyRepoSpoke(self.app, self.data, self.storage,
+                                              self.payload, self.instclass, self._selection)
+                    self.app.switch_screen_modal(newspoke)
+                    self.apply()
+                    self.close()
+                    return True
+            else:
+                if num == 1:
+                    # iso selected, just set some vars and return to main hub
+                    self.data.method.method = "cdrom"
+                    self.payload.install_device = self._cdrom
+                    self.apply()
+                    self.close()
+                    return True
+                else:
+                    self.app.switch_screen(self, num)
             return None
         except (ValueError, IndexError):
             return key
