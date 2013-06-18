@@ -259,7 +259,7 @@ class WelcomeLanguageSpoke(StandaloneSpoke):
         self._languageStoreFilter.refilter()
 
     def _addLanguage(self, store, native, english, setting):
-        lang = '<span lang="%s">%s</span>' % (re.sub('\..*', '', setting), native)
+        lang = '<span lang="%s">%s</span>' % (re.sub(r'\..*', '', setting), native)
         store.append([lang, english, setting, False])
 
     def _matchesEntry(self, model, itr, *args):

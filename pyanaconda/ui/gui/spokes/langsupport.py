@@ -137,7 +137,7 @@ class LangsupportSpoke(NormalSpoke):
         return retval
 
     def _add_language(self, store, native, english, setting, selected, additional):
-        store.append(['<span lang="%s">%s</span>' % (re.sub('\..*', '', setting), native),
+        store.append(['<span lang="%s">%s</span>' % (re.sub(r'\..*', '', setting), native),
                      english, setting, selected, additional])
 
     def _select_language(self, store, language):

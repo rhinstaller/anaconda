@@ -99,7 +99,7 @@ def parse_serial_opt(arg):
     Also note that the kernel assumes 1 stop bit; this can't be changed.
     """
     opts = serial_opts()
-    m = re.match('\d+', arg)
+    m = re.match(r'\d+', arg)
     if m is None:
         return opts
     opts.speed = m.group()
@@ -2061,8 +2061,8 @@ class ZIPL(BootLoader):
                 #     Preparing boot device: dasdb (0200).
                 #     Preparing boot device: dasdl.
                 # We want to extract the device name and pass that.
-                name = re.sub(".+?: ", "", line)
-                self.stage1_name = re.sub("(\s\(.+\))?\.$", "", name)
+                name = re.sub(r".+?: ", "", line)
+                self.stage1_name = re.sub(r"(\s\(.+\))?\.$", "", name)
 
         if not self.stage1_name:
             raise BootLoaderError("could not find IPL device")
