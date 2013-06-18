@@ -42,21 +42,20 @@ class MediaUnmountError(Exception):
 class ScriptError(Exception):
     pass
 
-"""These constants are returned by the callback in the ErrorHandler class.
-   Each represents a different kind of action the caller can take:
-
-   ERROR_RAISE - This is a fatal error, and anaconda can do nothing but quit
-                 or raise an exception.  This then feeds into the exception
-                 handling framework.
-
-   ERROR_CONTINUE - anaconda should continue with whatever it was going to do.
-                    This result comes from non-fatal errors, asking yes/no
-                    questions, and the like.
-
-   ERROR_RETRY - This is a serious problem, but anaconda should attempt to
-                 try again.  Continued failures may eventually result in an
-                 ERROR_RAISE.
-"""
+# These constants are returned by the callback in the ErrorHandler class.
+# Each represents a different kind of action the caller can take:
+#
+# ERROR_RAISE - This is a fatal error, and anaconda can do nothing but quit
+#               or raise an exception.  This then feeds into the exception
+#               handling framework.
+#
+# ERROR_CONTINUE - anaconda should continue with whatever it was going to do.
+#                  This result comes from non-fatal errors, asking yes/no
+#                  questions, and the like.
+#
+# ERROR_RETRY - This is a serious problem, but anaconda should attempt to
+#               try again.  Continued failures may eventually result in an
+#               ERROR_RAISE.
 ERROR_RAISE = 0
 ERROR_CONTINUE = 1
 ERROR_RETRY = 2

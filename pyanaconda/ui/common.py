@@ -334,8 +334,6 @@ class Spoke(UIObject):
         raise NotImplementedError
 
 class NormalSpoke(Spoke):
-    priority = 100
-
     """A NormalSpoke is a Spoke subclass that is displayed when the user
        selects something on a Hub.  This is what most Spokes in anaconda will
        be based on.
@@ -345,6 +343,9 @@ class NormalSpoke(Spoke):
        provides some basic navigation information (where you are, what you're
        installing, how to get back to the Hub) at the top of the screen.
     """
+
+    priority = 100
+
     def __init__(self, data, storage, payload, instclass):
         """Create a NormalSpoke instance."""
         if self.__class__ is NormalSpoke:
