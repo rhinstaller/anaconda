@@ -210,7 +210,7 @@ class LiveImageKSPayload(LiveImagePayload):
     def setup(self, storage):
         """ Check the availability and size of the image.
         """
-        super(LiveImagePayload, self).setup(storage)
+        super(LiveImageKSPayload, self).setup(storage)
 
         self._proxies = {}
         if self.data.method.proxy:

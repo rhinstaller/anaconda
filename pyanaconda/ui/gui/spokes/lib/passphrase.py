@@ -40,7 +40,7 @@ class PassphraseDialog(GUIObject):
     uiFile = "spokes/lib/passphrase.glade"
 
     def refresh(self):
-        super(GUIObject, self).refresh()
+        super(PassphraseDialog, self).refresh()
 
         # disable input methods for the passphrase Entry widgets and make sure
         # the focus change mask is enabled
