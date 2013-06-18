@@ -33,6 +33,7 @@ from pyanaconda.ui.gui import GUIObject
 from pyanaconda.ui.gui.categories import collect_categories
 from pyanaconda.ui.gui.spokes import StandaloneSpoke, collect_spokes
 from pyanaconda.ui.gui.utils import gtk_call_once
+from pyanaconda.constants import ANACONDA_ENVIRON
 
 import logging
 log = logging.getLogger("anaconda")
@@ -168,9 +169,9 @@ class Hub(GUIObject, common.Hub):
             selectors = []
             for spokeClass in sorted(cats_and_spokes[c], key=lambda s: s.title):
                 # Check if this spoke is to be shown in anaconda
-                if not spokeClass.should_run("anaconda", self.data):
+                if not spokeClass.should_run(ANACONDA_ENVIRON, self.data):
                     continue
-    
+
                 # Create the new spoke and populate its UI with whatever data.
                 # From here on, this Spoke will always exist.
                 spoke = spokeClass(self.data, self.storage, self.payload, self.instclass)

@@ -27,6 +27,9 @@ import copy
 import sys
 import types
 
+from pyanaconda.constants import ANACONDA_ENVIRON, FIRSTBOOT_ENVIRON
+from pykickstart.constants import FIRSTBOOT_RECONFIG
+
 import logging
 log = logging.getLogger("anaconda")
 
@@ -134,7 +137,22 @@ class FirstbootSpokeMixIn(object):
            It might be called multiple times, with or without (None)
            the data argument.
         """
-        return environment in ("anaconda", "firstboot")
+
+        if environment == ANACONDA_ENVIRON:
+            return True
+        elif environment == FIRSTBOOT_ENVIRON and data is None:
+            # cannot decide, stay in the game and let another call with data
+            # available (will come) decide
+            return True
+        elif environment == FIRSTBOOT_ENVIRON and \
+                data and data.firstboot.firstboot == FIRSTBOOT_RECONFIG:
+            # generally run spokes in firstboot only if doing reconfig, spokes
+            # that should run even if not doing reconfig should override this
+            # method
+            return True
+        else:
+            return False
+
 
 class FirstbootOnlySpokeMixIn(object):
     """This MixIn class marks Spokes as usable for Firstboot."""
@@ -149,7 +167,19 @@ class FirstbootOnlySpokeMixIn(object):
            It might be called multiple times, with or without (None)
            the data argument.
         """
-        return environment in ("firstboot")
+
+        if environment == FIRSTBOOT_ENVIRON and data is None:
+            # cannot decide, stay in the game and let another call with data
+            # available (will come) decide
+            return True
+        elif environment == FIRSTBOOT_ENVIRON and \
+                data and data.firstboot.firstboot == FIRSTBOOT_RECONFIG:
+            # generally run spokes in firstboot only if doing reconfig, spokes
+            # that should run even if not doing reconfig should override this
+            # method
+            return True
+        else:
+            return False
 
 class Spoke(UIObject):
     """A Spoke is a single configuration screen.  There are several different
@@ -225,7 +255,7 @@ class Spoke(UIObject):
            It might be called multiple times, with or without (None)
            the data argument.
         """
-        return environment in ("anaconda")
+        return environment == ANACONDA_ENVIRON
 
     def apply(self):
         """Apply the selections made on this Spoke to the object's preset
