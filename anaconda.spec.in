@@ -256,6 +256,20 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Wed Jun 19 2013 Brian C. Lane <bcl@redhat.com> - 19.30.9-1
+- Continue from the hub if there are no spokes (vpodzime)
+- Make the firstboot --reconfig option work (vpodzime)
+- Use nice names for environment in TUI software spoke (#971304)
+  (sbueno+anaconda)
+- Add option to install from CD/DVD in text UI. (#971191) (sbueno+anaconda)
+- write_config_console function for extlinux to write out serial console boot
+  arguments (#974643) (dennis)
+- Encode timezone from GeoIP as UTF-8 string (#975159) (mkolman)
+- Network spoke: improve Add bond/vlan device dialog behaviour (#924381)
+  (rvykydal)
+- Unset the 'seen' flag if values are changed in the UI (#971050) (vpodzime)
+- Do not refer to kickstart in text rootpw spoke (vpodzime)
+
 * Mon Jun 17 2013 Brian C. Lane <bcl@redhat.com> - 19.30.8-1
 - Revert "Revert "Network spoke: add secret agent (static wep and wpa)"" (bcl)
 - The delete key shouldn't always delete a mountpoint (#969197, #970185).

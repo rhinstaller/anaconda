@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: anaconda 19.30.7\n"
+"Project-Id-Version: anaconda 19.30.8\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
-"POT-Creation-Date: 2013-06-17 15:11-0700\n"
+"POT-Creation-Date: 2013-06-19 20:20-0700\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -692,26 +692,22 @@ msgid "Set root password"
 msgstr ""
 
 #: pyanaconda/ui/tui/spokes/password.py:49
-msgid "Password was set by kickstart."
-msgstr ""
-
-#: pyanaconda/ui/tui/spokes/password.py:51
 msgid "Password is set."
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/password.py:53
+#: pyanaconda/ui/tui/spokes/password.py:51
 msgid "Root account is disabled."
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/password.py:55
+#: pyanaconda/ui/tui/spokes/password.py:53
 msgid "Password is not set."
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/password.py:60
+#: pyanaconda/ui/tui/spokes/password.py:58
 msgid "Please select new root password. You will have to type it twice."
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/password.py:66
+#: pyanaconda/ui/tui/spokes/password.py:64
 msgid "Password"
 msgstr ""
 
@@ -816,8 +812,8 @@ msgid "Timezone settings"
 msgstr ""
 
 #: pyanaconda/ui/tui/spokes/time.py:56
-#: pyanaconda/ui/gui/spokes/datetime_spoke.py:396
-#: pyanaconda/ui/gui/spokes/datetime_spoke.py:400
+#: pyanaconda/ui/gui/spokes/datetime_spoke.py:399
+#: pyanaconda/ui/gui/spokes/datetime_spoke.py:403
 #, python-format
 msgid "%s timezone"
 msgstr ""
@@ -841,54 +837,67 @@ msgid ""
 "Use numbers or type names directly [b to region list, q to quit]: "
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/source.py:43
+#: pyanaconda/ui/tui/spokes/source.py:44
 msgid "Installation source"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/source.py:46 pyanaconda/ui/tui/spokes/source.py:73
+#: pyanaconda/ui/tui/spokes/source.py:47 pyanaconda/ui/tui/spokes/source.py:86
 #: pyanaconda/ui/gui/spokes/source.py:498
 msgid "Closest mirror"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/source.py:75
+#: pyanaconda/ui/tui/spokes/source.py:84
+#: pyanaconda/ui/gui/spokes/source.py:492
+msgid "CD/DVD drive"
+msgstr ""
+
+#: pyanaconda/ui/tui/spokes/source.py:88
 #: pyanaconda/ui/tui/spokes/software.py:94
-#: pyanaconda/ui/gui/spokes/datetime_spoke.py:402
+#: pyanaconda/ui/gui/spokes/datetime_spoke.py:405
 #: pyanaconda/ui/gui/spokes/software.py:180
 #: pyanaconda/ui/gui/spokes/source.py:464
 #: pyanaconda/ui/gui/spokes/source.py:500
 msgid "Nothing selected"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/source.py:80
+#: pyanaconda/ui/tui/spokes/source.py:93
 #: pyanaconda/ui/gui/spokes/source.py:486
 #: pyanaconda/ui/gui/spokes/source.py:495
 msgid "Error setting up software source"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/source.py:82
+#: pyanaconda/ui/tui/spokes/source.py:95
 #: pyanaconda/ui/tui/spokes/software.py:77
 msgid "Processing..."
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/source.py:88
+#: pyanaconda/ui/tui/spokes/source.py:101
 #, python-format
 msgid "Repo URL set to: %s"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/source.py:107
+#: pyanaconda/ui/tui/spokes/source.py:120
+msgid "CD/DVD"
+msgstr ""
+
+#: pyanaconda/ui/tui/spokes/source.py:120
+msgid "Network"
+msgstr ""
+
+#: pyanaconda/ui/tui/spokes/source.py:124
 msgid "Choose an installation source type."
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/source.py:149
+#: pyanaconda/ui/tui/spokes/source.py:183
 #: pyanaconda/ui/gui/spokes/source.py:423
 msgid "Failed to set up installation source"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/source.py:154
+#: pyanaconda/ui/tui/spokes/source.py:188
 msgid "Error downloading package metadata"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/source.py:160
+#: pyanaconda/ui/tui/spokes/source.py:194
 #: pyanaconda/ui/tui/spokes/software.py:65
 #: pyanaconda/ui/gui/spokes/software.py:211
 #: pyanaconda/ui/gui/spokes/software.py:235
@@ -896,11 +905,11 @@ msgstr ""
 msgid "No installation source available"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/source.py:177
+#: pyanaconda/ui/tui/spokes/source.py:211
 msgid "Specify Repo Options"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/source.py:181
+#: pyanaconda/ui/tui/spokes/source.py:215
 msgid "Repo URL"
 msgstr ""
 
@@ -923,7 +932,7 @@ msgstr ""
 msgid "Custom software selected"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/software.py:118
+#: pyanaconda/ui/tui/spokes/software.py:120
 msgid "Choose a desktop environment."
 msgstr ""
 
@@ -1007,7 +1016,7 @@ msgstr ""
 msgid "USER SETTINGS"
 msgstr ""
 
-#: pyanaconda/ui/gui/hubs/__init__.py:281
+#: pyanaconda/ui/gui/hubs/__init__.py:282
 msgid ""
 "Please complete items marked with this icon before continuing to the next "
 "step."
@@ -1132,8 +1141,8 @@ msgstr[0] ""
 msgstr[1] ""
 
 #: pyanaconda/ui/gui/spokes/custom.py:949
-#: pyanaconda/ui/gui/spokes/network.py:659
-#: pyanaconda/ui/gui/spokes/network.py:1309
+#: pyanaconda/ui/gui/spokes/network.py:665
+#: pyanaconda/ui/gui/spokes/network.py:1315
 #: pyanaconda/ui/gui/spokes/lib/accordion.py:59
 msgid "Unknown"
 msgstr ""
@@ -1385,19 +1394,19 @@ msgstr ""
 msgid "DATE & _TIME"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/datetime_spoke.py:387
+#: pyanaconda/ui/gui/spokes/datetime_spoke.py:390
 msgid "Restoring hardware time..."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/datetime_spoke.py:398
+#: pyanaconda/ui/gui/spokes/datetime_spoke.py:401
 msgid "Invalid timezone"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/datetime_spoke.py:894
+#: pyanaconda/ui/gui/spokes/datetime_spoke.py:904
 msgid "You need to set up networking first if you want to use NTP"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/datetime_spoke.py:899
+#: pyanaconda/ui/gui/spokes/datetime_spoke.py:909
 msgid "You have no working NTP server configured"
 msgstr ""
 
@@ -1474,137 +1483,137 @@ msgstr ""
 msgid "Connection failed"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.py:648
+#: pyanaconda/ui/gui/spokes/network.py:654
 msgid "unplugged"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.py:661
+#: pyanaconda/ui/gui/spokes/network.py:667
 msgid "Ethernet"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.py:663
+#: pyanaconda/ui/gui/spokes/network.py:669
 msgid "Wireless"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.py:665
+#: pyanaconda/ui/gui/spokes/network.py:671
 msgid "Bond"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.py:667
+#: pyanaconda/ui/gui/spokes/network.py:673
 msgid "Vlan"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.py:767
+#: pyanaconda/ui/gui/spokes/network.py:773
 #: pyanaconda/ui/gui/spokes/network.glade:627
 #: pyanaconda/ui/gui/spokes/network.glade:955
 msgid "IPv4 Address"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.py:768
+#: pyanaconda/ui/gui/spokes/network.py:774
 #: pyanaconda/ui/gui/spokes/network.glade:599
 #: pyanaconda/ui/gui/spokes/network.glade:969
 #: pyanaconda/ui/gui/spokes/network.glade:1588
 msgid "IPv6 Address"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.py:770
-#: pyanaconda/ui/gui/spokes/network.py:772
+#: pyanaconda/ui/gui/spokes/network.py:776
+#: pyanaconda/ui/gui/spokes/network.py:778
 #: pyanaconda/ui/gui/spokes/network.glade:1574
 msgid "IP Address"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.py:857
+#: pyanaconda/ui/gui/spokes/network.py:863
 #, python-format
 msgid "%d Mb/s"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.py:1057
+#: pyanaconda/ui/gui/spokes/network.py:1063
 msgid "WEP"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.py:1060
+#: pyanaconda/ui/gui/spokes/network.py:1066
 msgid "WPA"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.py:1063
+#: pyanaconda/ui/gui/spokes/network.py:1069
 msgid "WPA2"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.py:1067
+#: pyanaconda/ui/gui/spokes/network.py:1073
 msgid "Enterprise"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.py:1072 widgets/src/SpokeSelector.c:55
+#: pyanaconda/ui/gui/spokes/network.py:1078 widgets/src/SpokeSelector.c:55
 msgid "None"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.py:1199
+#: pyanaconda/ui/gui/spokes/network.py:1205
 msgid "Authentication required by wireless network"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.py:1200
+#: pyanaconda/ui/gui/spokes/network.py:1206
 #, python-format
 msgid ""
 "Passwords or encryption keys are required to access\n"
 "the wireless network '%(network_id)s'."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.py:1213
+#: pyanaconda/ui/gui/spokes/network.py:1219
 msgid "_Password:"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.py:1221
+#: pyanaconda/ui/gui/spokes/network.py:1227
 msgid "_Key:"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.py:1276
+#: pyanaconda/ui/gui/spokes/network.py:1282
 msgid "_NETWORK CONFIGURATION"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.py:1313
+#: pyanaconda/ui/gui/spokes/network.py:1319
 msgid "Connecting..."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.py:1315
+#: pyanaconda/ui/gui/spokes/network.py:1321
 msgid "Disconnecting..."
-msgstr ""
-
-#: pyanaconda/ui/gui/spokes/network.py:1332
-#, python-format
-msgid "Wired (%(interface_name)s) connected"
-msgstr ""
-
-#: pyanaconda/ui/gui/spokes/network.py:1335
-#, python-format
-msgid "Wireless connected to %(access_point)s"
 msgstr ""
 
 #: pyanaconda/ui/gui/spokes/network.py:1338
 #, python-format
-msgid "Bond %(interface_name)s (%(list_of_slaves)s) connected"
+msgid "Wired (%(interface_name)s) connected"
 msgstr ""
 
 #: pyanaconda/ui/gui/spokes/network.py:1341
 #, python-format
+msgid "Wireless connected to %(access_point)s"
+msgstr ""
+
+#: pyanaconda/ui/gui/spokes/network.py:1344
+#, python-format
+msgid "Bond %(interface_name)s (%(list_of_slaves)s) connected"
+msgstr ""
+
+#: pyanaconda/ui/gui/spokes/network.py:1347
+#, python-format
 msgid "Vlan %(interface_name)s (%(parent_device)s, ID %(vlanid)s) connected"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.py:1354
+#: pyanaconda/ui/gui/spokes/network.py:1360
 #, python-format
 msgid "Connected: %(list_of_interface_names)s"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.py:1357
+#: pyanaconda/ui/gui/spokes/network.py:1363
 msgid "Not connected"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.py:1360
+#: pyanaconda/ui/gui/spokes/network.py:1366
 #: pyanaconda/ui/gui/spokes/network.glade:2338
 msgid "No network devices available"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.py:1407
-#: pyanaconda/ui/gui/spokes/network.py:1476
+#: pyanaconda/ui/gui/spokes/network.py:1413
+#: pyanaconda/ui/gui/spokes/network.py:1482
 #, python-format
 msgid "Hostname is not valid: %s"
 msgstr ""
@@ -1634,63 +1643,63 @@ msgstr ""
 msgid "Root password is not set"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/password.py:123
-#: pyanaconda/ui/gui/spokes/user.py:327
+#: pyanaconda/ui/gui/spokes/password.py:127
+#: pyanaconda/ui/gui/spokes/user.py:347
 #: pyanaconda/ui/gui/spokes/lib/passphrase.py:102
 #: pyanaconda/ui/gui/spokes/lib/passphrase.glade:173
 msgid "Weak"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/password.py:124
-#: pyanaconda/ui/gui/spokes/user.py:328
+#: pyanaconda/ui/gui/spokes/password.py:128
+#: pyanaconda/ui/gui/spokes/user.py:348
 msgid "The password you have provided is weak"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/password.py:129
-#: pyanaconda/ui/gui/spokes/user.py:333
+#: pyanaconda/ui/gui/spokes/password.py:133
+#: pyanaconda/ui/gui/spokes/user.py:353
 msgid "You will have to press Done twice to confirm it."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/password.py:132
-#: pyanaconda/ui/gui/spokes/user.py:336
+#: pyanaconda/ui/gui/spokes/password.py:136
+#: pyanaconda/ui/gui/spokes/user.py:356
 #: pyanaconda/ui/gui/spokes/lib/passphrase.py:105
 msgid "Fair"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/password.py:136
-#: pyanaconda/ui/gui/spokes/user.py:340
+#: pyanaconda/ui/gui/spokes/password.py:140
+#: pyanaconda/ui/gui/spokes/user.py:360
 #: pyanaconda/ui/gui/spokes/lib/passphrase.py:108
 msgid "Good"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/password.py:140
-#: pyanaconda/ui/gui/spokes/user.py:344
+#: pyanaconda/ui/gui/spokes/password.py:144
+#: pyanaconda/ui/gui/spokes/user.py:364
 #: pyanaconda/ui/gui/spokes/lib/passphrase.py:111
 msgid "Strong"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/password.py:145
-#: pyanaconda/ui/gui/spokes/user.py:349
+#: pyanaconda/ui/gui/spokes/password.py:149
+#: pyanaconda/ui/gui/spokes/user.py:369
 msgid "Empty"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/password.py:146
-#: pyanaconda/ui/gui/spokes/user.py:350
+#: pyanaconda/ui/gui/spokes/password.py:150
+#: pyanaconda/ui/gui/spokes/user.py:370
 msgid "The password is empty."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/password.py:148
-#: pyanaconda/ui/gui/spokes/user.py:352
+#: pyanaconda/ui/gui/spokes/password.py:152
+#: pyanaconda/ui/gui/spokes/user.py:372
 msgid "The passwords do not match."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/password.py:170
-#: pyanaconda/ui/gui/spokes/user.py:386
+#: pyanaconda/ui/gui/spokes/password.py:174
+#: pyanaconda/ui/gui/spokes/user.py:406
 msgid "You must provide and confirm a password."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/password.py:180
-#: pyanaconda/ui/gui/spokes/user.py:396
+#: pyanaconda/ui/gui/spokes/password.py:184
+#: pyanaconda/ui/gui/spokes/user.py:416
 #, python-format
 msgid "You have provided a weak password: %s.  Press Done again to use anyway."
 msgstr ""
@@ -1781,10 +1790,6 @@ msgstr ""
 #: pyanaconda/ui/gui/spokes/source.py:490
 #, python-format
 msgid "NFS server %s"
-msgstr ""
-
-#: pyanaconda/ui/gui/spokes/source.py:492
-msgid "CD/DVD drive"
 msgstr ""
 
 #: pyanaconda/ui/gui/spokes/source.py:580
@@ -1926,29 +1931,29 @@ msgstr ""
 msgid "_OK"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/user.py:145
+#: pyanaconda/ui/gui/spokes/user.py:148
 msgid "_USER CREATION"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/user.py:191 pyanaconda/ui/gui/spokes/user.py:192
+#: pyanaconda/ui/gui/spokes/user.py:211 pyanaconda/ui/gui/spokes/user.py:212
 msgid "The password was set by kickstart."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/user.py:219
+#: pyanaconda/ui/gui/spokes/user.py:239
 #, python-format
 msgid "Error creating user account: %s"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/user.py:221
+#: pyanaconda/ui/gui/spokes/user.py:241
 msgid "No user will be created"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/user.py:223
+#: pyanaconda/ui/gui/spokes/user.py:243
 #, python-format
 msgid "Administrator %s will be created"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/user.py:225
+#: pyanaconda/ui/gui/spokes/user.py:245
 #, python-format
 msgid "User %s will be created"
 msgstr ""
