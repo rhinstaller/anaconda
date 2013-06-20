@@ -83,7 +83,7 @@ class SoftwareSpoke(NormalTUISpoke):
         # default, and it really should be so we can maintain consistency
         # with graphical behavior
         if self._selection >= 0 and not self.environment:
-            self.environment = self.payload.environments[self._selection]
+            self.apply()
 
         if not self.environment:
             # Ks installs with %packages will have an env selected, unless
