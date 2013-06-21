@@ -1,6 +1,6 @@
 # Localization category classes
 #
-# Copyright (C) 2011  Red Hat, Inc.
+# Copyright (C) 2011, 2013  Red Hat, Inc.
 #
 # This copyrighted material is made available to anyone wishing to use,
 # modify, copy, or redistribute it subject to the terms and conditions of
@@ -28,4 +28,5 @@ __all__ = ["CustomizationCategory"]
 
 class CustomizationCategory(SpokeCategory):
     displayOnHub = ProgressHub
+    sortOrder = 100
     title = N_("CUSTOMIZATION")

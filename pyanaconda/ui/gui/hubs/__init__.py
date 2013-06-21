@@ -142,7 +142,7 @@ class Hub(GUIObject, common.Hub):
         # Collect all the categories this hub displays, then collect all the
         # spokes belonging to all those categories.
         categories = sorted(filter(lambda c: c.displayOnHub == self.__class__, collect_categories(self.paths["categories"])),
-                            key=lambda c: c.title)
+                            key=lambda c: c.sortOrder)
         for c in categories:
             ret[c] = collect_spokes(self.paths["spokes"], c.__name__)
 

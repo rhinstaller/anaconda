@@ -1,6 +1,6 @@
 # Base classes for spoke categories.
 #
-# Copyright (C) 2011  Red Hat, Inc.
+# Copyright (C) 2011, 2013  Red Hat, Inc.
 #
 # This copyrighted material is made available to anyone wishing to use,
 # modify, copy, or redistribute it subject to the terms and conditions of
@@ -36,10 +36,14 @@ class SpokeCategory(object):
 
        displayOnHub  -- The Hub subclass to display this Category on.  If
                         None, this Category will be skipped.
+       sortOrder     -- A number indicating the order in which this Category
+                        will be displayed.  A lower number indicates display
+                        higher up in the Hub.
        title         -- The title of this SpokeCategory, to be displayed above
                         the grid.
     """
     displayOnHub = None
+    sortOrder = 1000
     title = N_("DEFAULT TITLE")
 
 def collect_categories(mask_paths):
@@ -49,5 +53,5 @@ def collect_categories(mask_paths):
     categories = []
     for mask, path in mask_paths:
         categories.extend(collect(mask, path, lambda obj: getattr(obj, "displayOnHub", None) != None))
-        
+
     return categories

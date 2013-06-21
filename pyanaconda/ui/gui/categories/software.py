@@ -1,6 +1,6 @@
 # Software category classes
 #
-# Copyright (C) 2011  Red Hat, Inc.
+# Copyright (C) 2011, 2013  Red Hat, Inc.
 #
 # This copyrighted material is made available to anyone wishing to use,
 # modify, copy, or redistribute it subject to the terms and conditions of
@@ -27,4 +27,5 @@ __all__ = ["SoftwareCategory"]
 
 class SoftwareCategory(SpokeCategory):
     displayOnHub = SummaryHub
+    sortOrder = 200
     title = N_("SOFTWARE")
