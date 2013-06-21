@@ -649,6 +649,9 @@ class SourceSpoke(NormalSpoke):
             elif proto.startswith("ftp:"):
                 self._protocolComboBox.set_active(PROTOCOL_FTP)
                 l = 6
+            else:
+                self._protocolComboBox.set_active(PROTOCOL_HTTP)
+                l = 0
 
             self._urlEntry.set_sensitive(True)
             self._urlEntry.set_text(proto[l:])
