@@ -578,7 +578,7 @@ class SourceSpoke(NormalSpoke):
             @gtk_action_wait
             def gtk_action_1():
                 self._autodetectDeviceLabel.set_text(_("Device: %s") % self._cdrom.name)
-                self._autodetectLabel.set_text(_("Label: %s") % (self._cdrom.format.label or ""))
+                self._autodetectLabel.set_text(_("Label: %s") % (getattr(self._cdrom.format, "label", "") or ""))
 
             gtk_action_1()
             added = True
