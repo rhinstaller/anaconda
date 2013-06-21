@@ -646,6 +646,13 @@ class NetworkData(commands.network.RHEL6_NetworkData):
                 break
 
         dev = devices.get(device, None)
+        if self.vlanid:
+            devname = "%s.%s" % (device, self.vlanid)
+            # ifcfg file for vlan device was not created in loader
+            if devname not in devices:
+                log.info("vlan %s not configured, only supported for devices activated during installation" % devname)
+                return
+            dev = devices.get(devname, None)
 
         if self.hostname != "":
             anaconda.id.network.setHostname(self.hostname)
@@ -660,13 +667,6 @@ class NetworkData(commands.network.RHEL6_NetworkData):
                 return
             else:
                 raise KickstartValueError, formatErrorMsg(self.lineno, msg="The provided network interface %s does not exist" % device)
-
-        if self.vlanid:
-            devname = "%s.%s" % (device, self.vlanid)
-            # ifcfg file for vlan device was not created in loader
-            if devname not in devices:
-                log.info("vlan %s not configured, only supported for devices activated during installation" % devname)
-                return
 
         # ipv4 settings
         if not self.noipv4:
