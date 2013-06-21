@@ -117,7 +117,7 @@ class AnacondaKSScript(KSScript):
 
         with open(messages, "w") as fp:
             rc = iutil.execWithRedirect(self.interp, ["/tmp/%s" % os.path.basename(path)],
-                                        stdin=fp, stdout=fp,
+                                        stdout=fp,
                                         root = scriptRoot)
 
         if rc != 0:
