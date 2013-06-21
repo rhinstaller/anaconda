@@ -498,10 +498,16 @@ class Network:
 
             line = "network"
 
+            # split vlanid from device
+            if dev.get("TYPE") == "Vlan":
+                (device, sep, vlanid) = dev.get("DEVICE").rpartition('.')
+            else:
+                device = dev.get("DEVICE")
+
             # ipv4 and ipv6
             if dev.get("ONBOOT"):
                 line += " --onboot %s" % dev.get("ONBOOT")
-            line += " --device %s" % dev.get("DEVICE")
+            line += " --device %s" % device
             if dev.get('MTU') and dev.get('MTU') != "0":
                 line += " --mtu=%s" % dev.get('MTU')
 
@@ -560,6 +566,10 @@ class Network:
                 if (self.hostname and
                     self.hostname != "localhost.localdomain"):
                     line += " --hostname %s" % self.hostname
+
+            # vlanid
+            if dev.get("TYPE") == "Vlan":
+                line += " --vlanid %s" % vlanid
 
             line += "\n"
             f.write(line)
