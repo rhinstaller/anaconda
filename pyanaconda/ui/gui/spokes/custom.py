@@ -72,7 +72,7 @@ from pyanaconda.ui.gui.spokes.lib.passphrase import PassphraseDialog
 from pyanaconda.ui.gui.spokes.lib.accordion import *
 from pyanaconda.ui.gui.spokes.lib.refresh import RefreshDialog
 from pyanaconda.ui.gui.spokes.lib.summary import ActionSummaryDialog
-from pyanaconda.ui.gui.utils import setViewportBackground, gtk_action_wait, enlightbox, fancy_set_sensitive
+from pyanaconda.ui.gui.utils import setViewportBackground, gtk_action_wait, enlightbox, fancy_set_sensitive, ignoreEscape
 from pyanaconda.ui.gui.categories.storage import StorageCategory
 from pyanaconda.ui.lib.disks import size_str
 
@@ -2714,6 +2714,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
     # disks to pick up whatever changes the user made outside our control.
     def on_refresh_clicked(self, *args):
         dialog = RefreshDialog(self.data, self.storage)
+        ignoreEscape(dialog.window)
         with enlightbox(self.window, dialog.window):
             rc = dialog.run()
             dialog.window.destroy()

@@ -102,6 +102,21 @@ def enlightbox(mainWindow, dialog):
     yield
     lightbox.destroy()
 
+def ignoreEscape(dlg):
+    """Prevent a dialog from accepting the escape keybinding, which emits a
+       close signal and will cause the dialog to close with some return value
+       we are likely not expecting.  Instead, this method will cause the
+       escape key to do nothing for the given GtkDialog.
+    """
+    provider = Gtk.CssProvider()
+    provider.load_from_data("@binding-set IgnoreEscape {"
+                            "   unbind 'Escape';"
+                            "}"
+                            "GtkDialog { gtk-key-bindings: IgnoreEscape }")
+
+    context = dlg.get_style_context()
+    context.add_provider(provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION)
+
 def setViewportBackground(vp, color="@theme_bg_color"):
     """Set the background color of the GtkViewport vp to be the same as the
        overall UI background.  This should not be called for every viewport,
