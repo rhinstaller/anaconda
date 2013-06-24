@@ -40,6 +40,7 @@ from pyanaconda.ui.gui.spokes import NormalSpoke, StandaloneSpoke
 from pyanaconda.ui.gui.categories.software import SoftwareCategory
 from pyanaconda.ui.gui.hubs.summary import SummaryHub
 from pyanaconda.ui.gui.utils import gtk_call_once, enlightbox
+from pyanaconda.ui.common import FirstbootSpokeMixIn
 
 from pyanaconda import network
 from pyanaconda.nm import nm_activated_devices, nm_device_setting_value
@@ -1274,7 +1275,7 @@ def register_secret_agent(spoke):
     return True
 
 
-class NetworkSpoke(NormalSpoke):
+class NetworkSpoke(FirstbootSpokeMixIn, NormalSpoke):
     builderObjects = ["networkWindow", "liststore_wireless_network", "liststore_devices", "add_device_dialog", "liststore_add_device"]
     mainWidgetName = "networkWindow"
     uiFile = "spokes/network.glade"
