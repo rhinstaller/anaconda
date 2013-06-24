@@ -541,7 +541,7 @@ class ContainerDialog(GUIObject):
 
         selected_level_string = store[itr][0]   # eg: "RAID1 (Redundancy)"
         level = selected_level_string.split()[0].lower()    # -> "raid1"
-        if level == "none":
+        if level == "none" or level == _("None").lower():
             level = None
 
         return level
@@ -557,7 +557,7 @@ class ContainerDialog(GUIObject):
 
         raid_level = self.raid_level
         if not raid_level or raid_level == "single":
-            raid_level = "None"
+            raid_level = _("None")
 
         # Set a default RAID level in the combo.
         for (i, row) in enumerate(raid_combo.get_model()):
