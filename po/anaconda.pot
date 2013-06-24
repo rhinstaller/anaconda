@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: anaconda 19.30.8\n"
+"Project-Id-Version: anaconda 19.30.9\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
-"POT-Creation-Date: 2013-06-19 20:20-0700\n"
+"POT-Creation-Date: 2013-06-24 14:22-0700\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -141,17 +141,17 @@ msgstr ""
 msgid "%s must be on a primary partition."
 msgstr ""
 
-#: pyanaconda/bootloader.py:617 pyanaconda/bootloader.py:707
+#: pyanaconda/bootloader.py:627 pyanaconda/bootloader.py:717
 #, python-format
 msgid "%s cannot be on an encrypted block device."
 msgstr ""
 
-#: pyanaconda/bootloader.py:665
+#: pyanaconda/bootloader.py:675
 #, python-format
 msgid "%s cannot be of type %s"
 msgstr ""
 
-#: pyanaconda/bootloader.py:1588
+#: pyanaconda/bootloader.py:1598
 #, python-format
 msgid ""
 "%(deviceName)s may not have enough space for grub2 to embed core.img when "
@@ -1127,6 +1127,12 @@ msgstr ""
 msgid "container"
 msgstr ""
 
+#: pyanaconda/ui/gui/spokes/custom.py:544
+#: pyanaconda/ui/gui/spokes/custom.py:560
+#: pyanaconda/ui/gui/spokes/network.py:1078 widgets/src/SpokeSelector.c:55
+msgid "None"
+msgstr ""
+
 #: pyanaconda/ui/gui/spokes/custom.py:595
 #: pyanaconda/ui/gui/spokes/custom.glade:714
 msgid "MANUAL PARTITIONING"
@@ -1541,10 +1547,6 @@ msgstr ""
 
 #: pyanaconda/ui/gui/spokes/network.py:1073
 msgid "Enterprise"
-msgstr ""
-
-#: pyanaconda/ui/gui/spokes/network.py:1078 widgets/src/SpokeSelector.c:55
-msgid "None"
 msgstr ""
 
 #: pyanaconda/ui/gui/spokes/network.py:1205
