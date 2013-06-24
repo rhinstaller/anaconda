@@ -1497,6 +1497,9 @@ int writeEnabledNetInfo(iface_t *iface) {
 
     if (iface->hostname) {
         fprintf(fp, "HOSTNAME=%s\n", iface->hostname);
+        if (iface->ipv4method == IPV4_DHCP_METHOD) {
+            fprintf(fp, "DHCP_HOSTNAME=%s\n", iface->hostname);
+        }
     }
 
     if (iface->domain) {
