@@ -41,6 +41,7 @@ from blivet import devicefactory
 from blivet.formats import device_formats
 from blivet.formats import getFormat
 from blivet.formats.fs import FS
+from blivet.platform import platform
 from blivet.size import Size
 from blivet import Root
 from blivet.devicefactory import DEVICE_TYPE_LVM
@@ -173,8 +174,18 @@ def ui_storage_logger():
 
 def populate_mountpoint_store(store, used_mountpoints):
     # sure, add whatever you want to this list. this is just a start.
-    paths = ["/", "/boot", "/boot/efi", "/home", "/usr", "/var",
-             "swap", "biosboot", "prepboot"]
+    paths = ["/", "/boot", "/home", "/usr", "/var"] + \
+            platform.bootStage1ConstraintDict["mountpoints"]
+
+    # Sort the list now so all the real mountpoints go to the front, then
+    # add all the pseudo mountpoints we have.
+    paths.sort()
+    paths += ["swap"]
+
+    for fmt in ["appleboot", "biosboot", "prepboot"]:
+        if getFormat(fmt).supported:
+            paths += [fmt]
+
     for path in paths:
         if path not in used_mountpoints:
             store.append([path])
