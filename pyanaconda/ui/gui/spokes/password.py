@@ -158,6 +158,9 @@ class PasswordSpoke(FirstbootSpokeMixIn, NormalSpoke):
         if self._error:
             self.set_warning(self._error)
             self.window.show_all()
+            return False
+
+        return True
 
     def _validatePassword(self):
         # Do various steps to validate the password
@@ -187,6 +190,14 @@ class PasswordSpoke(FirstbootSpokeMixIn, NormalSpoke):
                 return False
 
         if self._error:
+            return False
+
+        # the self._checkPassword function is used to indicate the password
+        # strength and need of hitting the Done button twice so use it here as
+        # well
+        if not self._checkPassword() and pw != self._oldweak:
+            # check failed and the Done button was clicked for the first time
+            self._oldweak = pw
             return False
 
         # if no errors, clear the info for next time we go into the spoke
