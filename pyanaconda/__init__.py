@@ -120,6 +120,8 @@ class Anaconda(object):
                 elif self.ksdata.method.method == "liveimg":
                     from pyanaconda.packaging.livepayload import LiveImageKSPayload
                     klass = LiveImageKSPayload
+                elif flags.dnf:
+                    from pyanaconda.packaging.dnfpayload import DNFPayload as klass
                 else:
                     from pyanaconda.packaging.yumpayload import YumPayload
                     klass = YumPayload

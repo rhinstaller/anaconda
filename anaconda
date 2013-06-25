@@ -302,6 +302,7 @@ def parseOptions(argv=None, cmdline=None):
     op.add_option("--leavebootorder", action="store_true", default=False)
     op.add_option("--noeject", action="store_false", dest="eject", default=True)
     op.add_option("--extlinux", action="store_true", default=False)
+    op.add_option("--dnf", action="store_true", default=False)
 
     # some defaults change based on cmdline flags
     if cmdline is not None:
@@ -840,6 +841,9 @@ if __name__ == "__main__":
 
     if opts.extlinux:
         flags.extlinux = opts.extlinux
+
+    if opts.dnf:
+        flags.dnf = opts.dnf
 
     # set flags
     flags.dmraid = opts.dmraid

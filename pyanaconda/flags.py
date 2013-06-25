@@ -69,6 +69,7 @@ class Flags(object):
         self.gpt = False
         self.leavebootorder = False
         self.testing = False
+        self.dnf = False
         # ksprompt is whether or not to prompt for missing ksdata
         self.ksprompt = True
         # parse the boot commandline
@@ -93,6 +94,9 @@ class Flags(object):
 
         if "gpt" in self.cmdline:
             self.gpt = True
+
+        if "dnf" in self.cmdline:
+            self.dnf = True
 
 cmdline_files = ['/proc/cmdline', '/run/install/cmdline',
                  '/run/install/cmdline.d/*.conf', '/etc/cmdline']
