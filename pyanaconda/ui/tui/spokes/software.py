@@ -168,7 +168,18 @@ class SoftwareSpoke(NormalTUISpoke):
         if not self.environment:
             return
 
-        self.payload.selectEnvironment(self.environment)
+        if not self._origEnv:
+            # nothing selected before, select the environment
+            self.payload.selectEnvironment(self.environment)
+        elif self._origEnv != self.environment:
+            # environment changed, clear the list of packages and select the new
+            # one
+            self.payload.data.packages.groupList = []
+            self.payload.selectEnvironment(self.environment)
+        else:
+            # no change
+            return
+
         self._origEnv = self.environment
 
     def checkSoftwareSelection(self):
