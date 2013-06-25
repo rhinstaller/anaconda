@@ -542,7 +542,7 @@ class Network:
                     if dev.get('IPV6ADDR'):
                         line += " --ipv6 %s" % dev.get('IPV6ADDR')
                         if dev.get('IPV6_DEFAULTGW'):
-                            line += " --gateway %s" % dev.get('IPV6_DEFAULTGW')
+                            line += " --ipv6gateway %s" % dev.get('IPV6_DEFAULTGW')
                     if dev.get('DHCPV6') == "yes":
                         line += " --ipv6 dhcp"
 

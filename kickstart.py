@@ -737,6 +737,9 @@ class NetworkData(commands.network.RHEL6_NetworkData):
         if self.gateway != "":
             anaconda.id.network.setGateway(self.gateway, dev.iface)
 
+        if self.ipv6gateway != "":
+            dev.set(('IPV6_DEFAULTGW', self.ipv6gateway))
+
         if self.nodefroute:
             dev.set (("DEFROUTE", "no"))
 

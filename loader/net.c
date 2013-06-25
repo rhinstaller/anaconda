@@ -1712,6 +1712,7 @@ void setKickstartNetwork(struct loaderData_s * loaderData, int argc,
     struct in_addr addr;
 #ifdef ENABLE_IPV6
     struct in6_addr addr6;
+    gchar *ipv6gateway = NULL;
 #endif
     int rc;
     GOptionEntry ksOptions[] = {
@@ -1723,6 +1724,8 @@ void setKickstartNetwork(struct loaderData_s * loaderData, int argc,
         { "ip", 'i', 0, G_OPTION_ARG_STRING, &loaderData->ipv4, NULL, NULL },
 #ifdef ENABLE_IPV6
         { "ipv6", 0, 0, G_OPTION_ARG_STRING, &loaderData->ipv6, NULL, NULL },
+        { "ipv6gateway", 0, 0, G_OPTION_ARG_STRING, &ipv6gateway,
+          NULL, NULL },
 #endif
         { "mtu", 0, 0, G_OPTION_ARG_INT, &mtu, NULL, NULL },
         { "nameserver", 'n', 0, G_OPTION_ARG_STRING, &loaderData->dns,
@@ -1844,6 +1847,20 @@ void setKickstartNetwork(struct loaderData_s * loaderData, int argc,
                        strerror(errno));
         }
     }
+
+#ifdef ENABLE_IPV6
+    if (ipv6gateway) {
+        if ((rc = inet_pton(AF_INET6, ipv6gateway, &addr6)) == 1) {
+            loaderData->gateway6 = strdup(ipv6gateway);
+        } else if (rc == 0) {
+            logMessage(WARNING,
+                       "invalid address in kickstart --ipv6gateway");
+        } else {
+             logMessage(ERROR, "%s (%d): %s", __func__, __LINE__,
+                           strerror(errno));
+        }
+    }
+#endif
 
     if (!noksdev) {
         if (device) {
