@@ -153,12 +153,12 @@ class Page(Gtk.Box):
         Gtk.Box.__init__(self, orientation=Gtk.Orientation.VERTICAL, spacing=6)
 
         # Create the Data label and a box to store all its members in.
-        self._dataBox = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=6)
+        self._dataBox = Gtk.Box(orientation=Gtk.Orientation.VERTICAL)
         self._dataBox.add(self._make_category_label(_("DATA")))
         self.add(self._dataBox)
 
         # Create the System label and a box to store all its members in.
-        self._systemBox = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=6)
+        self._systemBox = Gtk.Box(orientation=Gtk.Orientation.VERTICAL)
         self._systemBox.add(self._make_category_label(_("SYSTEM")))
         self.add(self._systemBox)
 
@@ -176,6 +176,7 @@ class Page(Gtk.Box):
         selector = selectorFromDevice(device, mountpoint=mountpoint)
         selector.connect("button-press-event", self._onSelectorClicked, cb)
         selector.connect("key-release-event", self._onSelectorClicked, cb)
+        selector.set_margin_bottom(6)
         self.members.append(selector)
 
         if self._mountpointType(selector.props.mountpoint) == DATA_DEVICE:
