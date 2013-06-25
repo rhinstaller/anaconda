@@ -161,7 +161,7 @@ static void format_size_label(AnacondaMountpointSelector *widget, const char *va
 static void format_name_label(AnacondaMountpointSelector *widget, const char *value) {
     char *markup;
 
-    markup = g_markup_printf_escaped("<span fgcolor='grey' size='small'>%s</span>", value);
+    markup = g_markup_printf_escaped("<span fgcolor='black' size='small'>%s</span>", value);
     gtk_label_set_markup(GTK_LABEL(widget->priv->name_label), markup);
     g_free(markup);
 }
