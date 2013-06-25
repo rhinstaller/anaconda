@@ -616,7 +616,7 @@ def get_ksdevice_name(ksspec=""):
         ksspec = flags.cmdline.get('ksdevice', "")
     ksdevice = ksspec
 
-    bootif_mac = None
+    bootif_mac = ''
     if ksdevice == 'bootif' and "BOOTIF" in flags.cmdline:
         bootif_mac = flags.cmdline["BOOTIF"][3:].replace("-", ":").upper()
     for dev in sorted(nm.nm_devices()):
