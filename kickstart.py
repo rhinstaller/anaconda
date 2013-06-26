@@ -560,13 +560,17 @@ class LogVolData(commands.logvol.RHEL6_LogVolData):
             except KeyError:
                 pass
 
-            request = storage.newLV(format=format,
-                                    name=self.name,
-                                    vg=vg,
-                                    size=self.size,
-                                    grow=self.grow,
-                                    maxsize=self.maxSizeMB,
-                                    percent=self.percent)
+            try:
+                request = storage.newLV(format=format,
+                                        name=self.name,
+                                        vg=vg,
+                                        size=self.size,
+                                        grow=self.grow,
+                                        maxsize=self.maxSizeMB,
+                                        percent=self.percent)
+            except DeviceError as e:
+                # Promote DeviceError to KickstartError so the UI will display it
+                raise KickstartError(str(e))
 
             if self.fsprofile and hasattr(request.format, "fsprofile"):
                 request.format.fsprofile = self.fsprofile
