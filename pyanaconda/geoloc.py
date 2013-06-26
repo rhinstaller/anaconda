@@ -116,6 +116,8 @@ from pyanaconda.threads import AnacondaThread, threadMgr
 from pyanaconda import nm
 
 location_info_instance = None
+refresh_condition = threading.Condition()
+refresh_in_progress = False
 
 
 def init_geolocation(provider_id=constants.GEOLOC_DEFAULT_PROVIDER):
@@ -143,7 +145,7 @@ def refresh():
         log.debug("Geoloc: refresh() called before init_geolocation()")
 
 
-def get_territory_code():
+def get_territory_code(wait=False):
     """This function returns the current country code
     or None, if:
     - no results were found
@@ -151,16 +153,21 @@ def get_territory_code():
     - the geolocation module was not activated (init & refresh were not called)
      - this is for example the case during image and directory installs
 
+    :param wait: wait for lookup in progress to finish
+    False - don't wait
+    True - wait for default period
+    number - wait for up to number seconds
+    :type wait:  bool or number
     :return: current country code or None if not known
     :rtype: string or None
     """
-    if location_info_instance:
+    if _get_location_info_instance(wait):
         return location_info_instance.get_territory_code()
     else:
         return None
 
 
-def get_timezone():
+def get_timezone(wait=False):
     """This function returns the current time zone
     or None, if:
     - no timezone was found
@@ -168,28 +175,37 @@ def get_timezone():
     - the geolocation module was not activated (init & refresh were not called)
      - this is for example the case during image and directory installs
 
+    :param wait: wait for lookup in progress to finish
+    False - don't wait
+    True - wait for default period
+    number - wait for up to number seconds
+    :type wait:  bool or number
     :return: current timezone or None if not known
     :rtype: string or None
     """
-    if location_info_instance:
+    if _get_location_info_instance(wait):
         return location_info_instance.get_timezone()
     else:
         return None
 
 
-def get_result():
+def get_result(wait=False):
     """Returns the current geolocation result wrapper
     or None, if:
     - no results were found
     - the refresh is still in progress
     - the geolocation module was not activated (init & refresh were not called)
-
      - this is for example the case during image and directory installs
 
+    :param wait: wait for lookup in progress to finish
+    False - don't wait
+    True - wait for default period
+    number - wait for up to number seconds
+    :type wait:  bool or number
     :return: LocationResult instance or None if location is unknown
     :rtype: LocationResult or None
     """
-    if location_info_instance:
+    if _get_location_info_instance(wait):
         return location_info_instance.get_result()
     else:
         return None
@@ -234,6 +250,53 @@ def _get_provider(provider_id):
     default_provider = FedoraGeoIPProvider
     provider = providers.get(provider_id, default_provider)
     return provider()
+
+
+def _get_location_info_instance(wait=False):
+    """Return instance of the location info object
+    and optionally wait for the Geolocation thread to finish
+
+    If there is no lookup in progress (no Geolocation refresh thread
+    is running), this function returns at once).
+
+    Meaning of the wait parameter:
+    - False or <=0: don't wait
+    - True : wait for default number of seconds specified by
+    the GEOLOC_TIMEOUT constant
+    - >0 : wait for a given number of seconds
+
+    :param wait: specifies if this function should wait
+    for the lookup to finish before returning the instance
+    :type wait: bool or integer or float
+    """
+    if not wait:
+        # just returns the instance
+        return location_info_instance
+
+    # check if wait is a boolean or a number
+    if wait is True:
+        # use the default waiting period
+        wait = constants.GEOLOC_TIMEOUT
+    # check if there is a refresh in progress
+    start_time = time.time()
+    refresh_condition.acquire()
+    if refresh_in_progress:
+        # calling wait releases the lock and blocks,
+        # after the thread is notified, it unblocks and
+        # reacquires the lock
+        refresh_condition.wait(timeout=wait)
+        if refresh_in_progress:
+            log.info("Waiting for Geolocation timed out after %d seconds."
+                     % wait)
+            # please note that this does not mean that the actual
+            # geolocation lookup was stopped in any way, it just
+            # means the caller was unblocked after the waiting period
+            # ended while the lookup thread is still running
+        else:
+            elapsed_time = time.time() - start_time
+            log.info("Waited %1.2f seconds for Geolocation" % elapsed_time)
+    refresh_condition.release()
+    return location_info_instance
 
 
 class GeolocationError(Exception):
@@ -413,6 +476,9 @@ class GeolocationBackend(object):
         if force is True or self._result is None:
             log.info("Starting geolocation lookup")
             log.info("Geolocation provider: %s" % self.get_name())
+            global refresh_in_progress
+            with refresh_condition:
+                    refresh_in_progress = True
             try:
                 start_time = time.time()
                 self._refresh()
@@ -422,6 +488,10 @@ class GeolocationBackend(object):
                 message = "GeoIP lookup ended with exception"
                 message += "\n%s" % e
                 log.debug(message)
+            with refresh_condition:
+                refresh_in_progress = False
+                refresh_condition.notify_all()
+            # check if there were any results
             result = self.get_result()
             if result:
                 log.info("%s" % result)

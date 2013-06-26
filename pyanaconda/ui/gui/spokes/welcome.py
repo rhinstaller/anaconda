@@ -156,7 +156,7 @@ class WelcomeLanguageSpoke(StandaloneSpoke):
 
         # We can use the territory from geolocation here
         # to preselect the translation, when it's available.
-        territory = geoloc.get_territory_code()
+        territory = geoloc.get_territory_code(wait=True)
         self.language = Language(LOCALE_PREFERENCES, territory=territory)
 
         # check if there is one and only one locale for the territory
