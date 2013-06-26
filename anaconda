@@ -225,6 +225,11 @@ def parseOptions(argv=None, cmdline=None):
     # "option=0" on the boot commandline (store_true options do, though).
     # Basically, don't use store_false unless the option starts with "no".
 
+    # YET ANOTHER NOTE: If you change anything here:
+    # a) document its usage in docs/boot-options.txt
+    # b) be prepared to maintain it for a very long time
+    # If this seems like too much trouble, *don't add a new option*!
+
     # Interface
     op.add_option("-C", "--cmdline", dest="display_mode", action="store_const", const="c",
                   default="g")
