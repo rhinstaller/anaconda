@@ -1582,7 +1582,7 @@ int writeEnabledNetInfo(iface_t *iface) {
     }
 
     /* Global settings */
-    if ((fp = fopen(SYSCONFIG_PATH"/.network", "w")) == NULL) {
+    if ((fp = fopen(SYSCONFIG_PATH"/network", "w")) == NULL) {
         return 9;
     }
 
@@ -1622,13 +1622,9 @@ int writeEnabledNetInfo(iface_t *iface) {
     }
 #endif
 
+    /* This triggers NM's inotify mechanism for updating system hostname */
     if (fclose(fp) == EOF) {
         return 12;
-    }
-
-    if (rename(SYSCONFIG_PATH"/.network",
-               SYSCONFIG_PATH"/network") == -1) {
-        return 15;
     }
 
     return 0;
