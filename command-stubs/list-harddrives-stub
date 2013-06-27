@@ -25,7 +25,8 @@ def main():
 
     def get_devices():
         devices = parted.getAllDevices()
-        devices = [d for d in devices if d.type != parted.DEVICE_DM]
+        devices = [d for d in devices if d.type != parted.DEVICE_DM \
+                               and not d.path.startswith('/dev/sr')]
         for dev in devices:
             path = dev.path[5:] if dev.path.startswith('/dev/') else dev.path
             yield path, dev.getSize()
