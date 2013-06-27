@@ -49,6 +49,9 @@ class SoftwareSpoke(NormalTUISpoke):
         # for detecting later whether any changes have been made
         self._origEnv = None
 
+        # are we taking values (package list) from a kickstart file?
+        self._kickstarted = flags.automatedInstall and self.data.packages.seen
+
     def initialize(self):
         NormalTUISpoke.initialize(self)
         threadMgr.add(AnacondaThread(name=THREAD_SOFTWARE_WATCHER, target=self._initialize))
@@ -56,7 +59,7 @@ class SoftwareSpoke(NormalTUISpoke):
     def _initialize(self):
         """ Private initialize. """
         threadMgr.wait(THREAD_PAYLOAD)
-        if flags.automatedInstall and self.data.packages.seen:
+        if self._kickstarted:
             threadMgr.wait(THREAD_PAYLOAD_MD)
         else:
             try:
@@ -82,14 +85,15 @@ class SoftwareSpoke(NormalTUISpoke):
         # quite ugly, but env isn't getting set to gnome (or anything) by
         # default, and it really should be so we can maintain consistency
         # with graphical behavior
-        if self._selection >= 0 and not self.environment:
+        if self._selection >= 0 and not self.environment \
+                and not self._kickstarted:
             self.apply()
 
         if not self.environment:
             # Ks installs with %packages will have an env selected, unless
             # they did an install without a desktop environment. This should
             # catch that one case.
-            if flags.automatedInstall and self.data.packages.seen:
+            if self._kickstarted:
                 return _("Custom software selected")
             return _("Nothing selected")
 
@@ -158,7 +162,11 @@ class SoftwareSpoke(NormalTUISpoke):
     def apply(self):
         """ Apply our selections """
         self._apply()
+
+        # no longer using values from kickstart
+        self._kickstarted = False
         self.data.packages.seen = True
+
         threadMgr.add(AnacondaThread(name=THREAD_CHECK_SOFTWARE,
                                      target=self.checkSoftwareSelection))
 
