@@ -256,6 +256,12 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Thu Jun 27 2013 Brian C. Lane <bcl@redhat.com> - 19.30.13-1
+- Do not preselect the environment if using kickstart packages (#978852)
+  (vpodzime)
+- Skip network.execute for dirInstall (cherry picked from commit
+  e073327df9ed6a650884bac95db71c3e04ace0d7) (bcl)
+
 * Tue Jun 25 2013 Brian C. Lane <bcl@redhat.com> - 19.30.12-1
 - Clear the list of packages on environment change (#977715) (vpodzime)
 
