@@ -245,9 +245,14 @@ def doAutoPartition(anaconda):
     log.warning("not sanity checking devices because I don't know how yet")
 
     # run the autopart function to allocate and grow partitions
+    if anaconda.id.storage.doAutoPart:
+        exclusiveDisks = anaconda.id.storage.clearPartDisks[:]
+    else:
+        exclusiveDisks = None
+
     try:
         doPartitioning(anaconda.id.storage,
-                       exclusiveDisks=anaconda.id.storage.clearPartDisks)
+                       exclusiveDisks=exclusiveDisks)
 
         if anaconda.id.storage.doAutoPart:
             _scheduleLVs(anaconda, devs)
