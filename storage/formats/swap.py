@@ -64,6 +64,8 @@ class SwapSpace(DeviceFormat):
 
         self.priority = kwargs.get("priority")
         self.label = kwargs.get("label")
+        if "mountopts" in kwargs:
+            self.options = kwargs.get("mountopts")
 
     def __str__(self):
         s = DeviceFormat.__str__(self)
