@@ -27,7 +27,8 @@ class InstallClass(BaseInstallClass):
     id = "rhel"
     name = N_("Red Hat Enterprise Linux")
     sortPriority = 10000
-    hidden = 1
+    if not productName.startswith("Red Hat Enterprise"):
+        hidden = 1
     defaultFS = "xfs"
 
     bootloaderTimeoutDefault = 5
