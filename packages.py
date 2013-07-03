@@ -247,7 +247,7 @@ def setFileCons(anaconda):
             isys.resetFileContext(os.path.normpath(f), anaconda.rootPath)
 
         # ugh, this is ugly
-        for d in ["/etc/sysconfig/network-scripts", "/var/cache/yum", "/var/lib/rpm", "/var/lib/yum", "/etc/lvm", "/dev/mapper", "/etc/iscsi", "/var/lib/iscsi", "/root", "/var/log", "/etc/modprobe.d", "/etc/sysconfig" ]:
+        for d in ["/etc/sysconfig/network-scripts", "/var/cache/yum", "/var/lib/rpm", "/var/lib/yum", "/etc/lvm", "/dev/mapper", "/etc/iscsi", "/var/lib/iscsi", "/root", "/var/log", "/etc/modprobe.d", "/etc/sysconfig", "/etc/multipath" ]:
             if not os.path.isdir(anaconda.rootPath + d):
                 continue
 
