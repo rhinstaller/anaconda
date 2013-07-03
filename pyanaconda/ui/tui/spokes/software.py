@@ -121,7 +121,7 @@ class SoftwareSpoke(NormalTUISpoke):
             (name, desc) = self.payload.environmentDescription(env)
 
             displayed.append(CheckboxWidget(title="%s" % name, completed=(environments.index(env) == self._selection)))
-        print(_("Choose a desktop environment."))
+        print(_("Base environment"))
 
         def _prep(i, w):
             """ Do some format magic for display. """
