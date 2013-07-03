@@ -1497,10 +1497,10 @@ class PartitionWindow(InstallWindow):
         # The LVM info message
         lvminfo_button = create_storage_xml.get_widget("create_storage_info_lvm")
         whatis_lvm = _("Logical Volume Manager (LVM) is a 3 level construct. "
-                "The fist level is made up of disks or partitions formated with "
+                "The first level is made up of disks or partitions formated with "
                 "LVM metadata called Physical Volumes (PV).  A Volume Group "
                 "(VG) sits on top of one or more PVs. The VG, in turn, is the "
-                "base to creat one ore more Logical Volumes (LV).  Note that a "
+                "base to create one or more Logical Volumes (LV).  Note that a "
                 "VG can be an aggregate of PVs from multiple physical disk.  For "
                 "more information on using LVM please consult the %s "
                 "documentation\n") % (productName, )
