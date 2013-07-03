@@ -1271,7 +1271,7 @@ class XFS(FS):
     _defaultFormatOptions = ["-f"]
     _defaultLabelOptions = ["-L"]
     _maxLabelChars = 16
-    _maxSize = 16 * 1024 * 1024
+    _maxSize = 100 * 1024 * 1024
     _formattable = True
     _linuxNative = True
     _supported = True
