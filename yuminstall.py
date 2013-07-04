@@ -344,6 +344,7 @@ class AnacondaYum(YumSorter):
         # Only needed for media installs.
         self.currentMedia = None
         self.mediagrabber = None
+        self._loopdev_used = None
 
         # Where is the source media mounted?  This is the directory
         # where Packages/ is located.
@@ -447,7 +448,7 @@ class AnacondaYum(YumSorter):
                         _("Unable to access the disc."))
 
     def _switchImage(self, discnum):
-        umountImage(self.tree, self.currentMedia)
+        umountImage(self.tree, self.currentMedia, self._loopdev_used)
         self.currentMedia = None
 
         # mountDirectory checks before doing anything, so it's safe to
@@ -455,9 +456,9 @@ class AnacondaYum(YumSorter):
         mountDirectory(self.anaconda.methodstr,
                        self.anaconda.intf.messageWindow)
 
-        self._discImages = mountImage(self.isodir, self.tree, discnum,
-                                      self.anaconda.intf.messageWindow,
-                                      discImages=self._discImages)
+        (self._loopdev_used, self._discImages) = mountImage(self.isodir, self.tree, discnum,
+                                                            self.anaconda.intf.messageWindow,
+                                                            discImages=self._discImages)
         self.currentMedia = discnum
 
     def configBaseURL(self):

@@ -449,6 +449,7 @@ sbin/killall5
 sbin/kpartx
 sbin/ldconfig
 sbin/load_policy
+sbin/losetup
 sbin/lspci
 sbin/lvm*
 sbin/mdadm
@@ -1147,8 +1148,6 @@ mkdir -p $DEST/lib
 mkdir -p $DEST/firmware
 ln -snf /modules $DEST/lib/modules
 ln -snf /firmware $DEST/lib/firmware
-cp $DEST/usr/lib/anaconda/losetup-stub $DEST/usr/bin/losetup
-cp $DEST/usr/lib/anaconda/losetup-test $DEST/usr/bin/losetup-test
 cp $DEST/usr/lib/anaconda/list-harddrives-stub $DEST/usr/bin/list-harddrives
 cp $DEST/usr/lib/anaconda/list-harddrives-test $DEST/usr/bin/list-harddrives-test
 cp $DEST/usr/lib/anaconda/loadkeys-stub $DEST/usr/bin/loadkeys

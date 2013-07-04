@@ -29,6 +29,14 @@ log = logging.getLogger("anaconda")
 
 _arch = iutil.getArch()
 
+def getFreeLoopDev():
+    loopdev = iutil.execWithCapture("losetup", ["-f"], fatal=True)
+    loopdev = loopdev.strip()
+    if not loopdev:
+        raise RuntimeError("No free loop device available")
+
+    return loopdev
+
 def findIsoImages(path, messageWindow):
     flush = os.stat(path)
     files = os.listdir(path)
@@ -40,13 +48,15 @@ def findIsoImages(path, messageWindow):
         if not isys.isIsoImage(what):
             continue
 
+        loopdev = getFreeLoopDev()
+
         try:
-            isys.losetup("/dev/loop2", what, readOnly = 1)
+            isys.losetup(loopdev, what, readOnly = 1)
         except SystemError:
             continue
 
         try:
-            isys.mount("/dev/loop2", "/mnt/cdimage", fstype = "iso9660",
+            isys.mount(loopdev, "/mnt/cdimage", fstype = "iso9660",
                        readOnly = True)
             for num in range(1, 10):
                 if os.access("/mnt/cdimage/.discinfo", os.R_OK):
@@ -99,7 +109,7 @@ def findIsoImages(path, messageWindow):
         except SystemError:
             pass
 
-        isys.unlosetup("/dev/loop2")
+        isys.unlosetup(loopdev)
 
     return discImages
 
@@ -177,11 +187,13 @@ def mountImage(isodir, tree, discnum, messageWindow, discImages={}):
     if discImages == {}:
         discImages = findIsoImages(isodir, messageWindow)
 
+    loopdev = getFreeLoopDev()
+
     while True:
         try:
             isoImage = "%s/%s" % (isodir, discImages[discnum])
-            isys.losetup("/dev/loop1", isoImage, readOnly = 1)
-            isys.mount("/dev/loop1", tree, fstype = 'iso9660', readOnly = True)
+            isys.losetup(loopdev, isoImage, readOnly = 1)
+            isys.mount(loopdev, tree, fstype = 'iso9660', readOnly = True)
             break
         except:
             ans = messageWindow(_("Missing ISO 9660 Image"),
@@ -199,7 +211,7 @@ def mountImage(isodir, tree, discnum, messageWindow, discImages={}):
             elif ans == 1:
                 discImages = findIsoImages(isodir, messageWindow)
 
-    return discImages
+    return (loopdev, discImages)
 
 # given groupset containing information about selected packages, use
 # the disc number info in the headers to come up with message describing
@@ -273,10 +285,11 @@ def scanForMedia(tree, storage):
 
     return None
 
-def umountImage(tree, currentMedia):
+def umountImage(tree, currentMedia, loopdev):
     if currentMedia is not None:
         isys.umount(tree, removeDir=False)
-        isys.unlosetup("/dev/loop1")
+        if loopdev:
+            isys.unlosetup(loopdev)
 
 def unmountCD(dev, messageWindow):
     if not dev:
