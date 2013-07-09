@@ -90,40 +90,40 @@ it to use.
 CREATING A NEW ANACONDA BRANCH
 ------------------------------
 
-When we make a new branch, we need to branch the translation files.  Do this
-with:
+When we make a new branch, we need to branch the translation files.
 
-    tx set --execute --auto-local -r anaconda.BRANCH_NAME -s en \
+First you need to populate the project with the initial po files. I suggest
+using the ones from the master branch, e.g.:
+
+    git checkout master
+    git clean -xdf
+    tx pull -a
+    # leave the *.po files in the po/ subdirectory
+    git checkout BRANCH_NAME
+
+Next you need to update the transifex config with the new branch:
+
+    tx set --execute --auto-local -r anaconda.BRANCH_NAME -s en -t PO \
            -f po/anaconda.pot "po/<lang>.po"
 
 The last argument is correct as-is, it's not a place where you substitute
 something for <lang>.  The BRANCH_NAME will be something other than 'master'.
-For example, when we branch for F-16:
+For example, when we branch for F-20:
 
-    tx set --execute --auto-local -r anaconda.f16-branch -s en -t PO \
+    tx set --execute --auto-local -r anaconda.f20-branch -s en -t PO \
            -f po/anaconda.pot "po/<lang>.po"
 
 Check the .tx/config file on the branch to ensure it references the correct
 anaconda.BRANCH_NAME in Transifex and remove the [anaconda.master] block so
 that it doesn't try to push to master and the new branch.
 
-Once you have run "tx set", you need to populate the project with the initial
-po files.  I suggest using the ones from the master branch, e.g.:
-
-    git checkout master
-    git clean -xdf
-    tx pull -a
-    # leave the *.po files in the po/ subdirectory
-    git checkout f18-branch
-
-Log into transifex.net and select 'Add New Resource' for the Anaconda
-project. Upload the po/anaconda.pot file as the Resource File, name it
-f18-branch and select 'PO File(.po)' for the I18N Type. After the resource
-is created you should then be able to push to it with:
+Now you can run:
 
     tx push -s -t
 
-This will push the po files and anaconda.pot from master to the f16-branch
+This will push the po files and anaconda.pot from master to the BRANCH_NAME
 resource for anaconda in Transifex.  This is just an initial seed that the
 translation team can work with.  And since we branch from master, the code
 should be more or less in sync with the po files at branch time.
+
+Don't forget to commit the new .tx/config file to the branch.
