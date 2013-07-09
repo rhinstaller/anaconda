@@ -30,6 +30,7 @@ import iutil
 import socket
 import os
 import time
+import threading
 import tempfile
 import simpleconfig
 import re
@@ -40,7 +41,7 @@ from blivet.devices import FcoeDiskDevice, iScsiDiskDevice
 import blivet.arch
 
 from pyanaconda import nm
-from pyanaconda.constants import NETWORK_CONNECTION_TIMEOUT
+from pyanaconda import constants
 from pyanaconda.i18n import _
 
 import logging
@@ -59,6 +60,10 @@ DEFAULT_HOSTNAME = "localhost.localdomain"
 HOSTNAME_PART_RE = re.compile(r"(?!-)[A-Z\d-]{1,63}(?<!-)$", re.IGNORECASE)
 
 ifcfglog = None
+
+network_connected = None
+network_connected_condition = threading.Condition()
+
 def setup_ifcfg_log():
     # Setup special logging for ifcfg NM interface
     from pyanaconda import anaconda_log
@@ -776,29 +781,6 @@ def write_network_config(storage, ksdata, instClass, rootpath):
     disableNMForStorageDevices(rootpath, storage)
     autostartFCoEDevices(rootpath, storage, ksdata)
 
-def wait_for_connecting_NM():
-    """If NM is in connecting state, wait for connection.
-    Return value: NM has got connection."""
-
-    if nm.nm_is_connected:
-        return True
-
-    if nm.nm_is_connecting():
-        log.debug("waiting for connecting NM (dhcp?)")
-    else:
-        return False
-
-    i = 0
-    while nm.nm_is_connecting() and i < NETWORK_CONNECTION_TIMEOUT:
-        i += 1
-        time.sleep(1)
-        if nm.nm_is_connected():
-            log.debug("connected, waited %d seconds" % i)
-            return True
-
-    log.debug("not connected, waited %d of %d secs" % (i, NETWORK_CONNECTION_TIMEOUT))
-    return False
-
 def update_hostname_data(ksdata, hostname):
     log.debug("updating hostname %s" % hostname)
     hostname_found = False
@@ -922,9 +904,59 @@ def _get_ntp_servers_from_dhcp(ksdata):
         # no NTP servers were specified, add those from DHCP
         ksdata.timezone.ntpservers = hostnames
 
+def _wait_for_connecting_NM():
+    """If NM is in connecting state, wait for connection.
+    Return value: NM has got connection."""
+
+    if nm.nm_is_connected:
+        return True
+
+    if nm.nm_is_connecting():
+        log.debug("waiting for connecting NM (dhcp?)")
+    else:
+        return False
+
+    i = 0
+    while nm.nm_is_connecting() and i < constants.NETWORK_CONNECTION_TIMEOUT:
+        i += constants.NETWORK_CONNECTED_CHECK_INTERVAL
+        time.sleep(constants.NETWORK_CONNECTED_CHECK_INTERVAL)
+        if nm.nm_is_connected():
+            log.debug("connected, waited %d seconds" % i)
+            return True
+
+    log.debug("not connected, waited %d of %d secs" % (i, constants.NETWORK_CONNECTION_TIMEOUT))
+    return False
+
+
 def wait_for_connecting_NM_thread(ksdata):
+    """This function is called from a thread which is run at startup
+    to wait for Network Manager to connect."""
     # connection (e.g. auto default dhcp) is activated by NM service
-    if wait_for_connecting_NM():
+    connected = _wait_for_connecting_NM()
+    if connected:
         hostname = getHostname()
         update_hostname_data(ksdata, hostname)
         _get_ntp_servers_from_dhcp(ksdata)
+    with network_connected_condition:
+        global network_connected
+        network_connected = connected
+        network_connected_condition.notify_all()
+
+
+def wait_for_connectivity(timeout=constants.NETWORK_CONNECTION_TIMEOUT):
+    """Wait for network connectivty to become available
+
+    :param timeout: how long to wait in seconds
+    :type param: integer of float"""
+    connected = False
+    network_connected_condition.acquire()
+    # if network_connected is None, network connectivity check
+    # has not yet been run or is in progress, so wait for it to finish
+    if network_connected is None:
+        # wait releases the lock and reacquires it once the thread is unblocked
+        network_connected_condition.wait(timeout=timeout)
+    connected = network_connected
+    # after wait() unblocks, we get the lock back,
+    # so we need to release it
+    network_connected_condition.release()
+    return connected
