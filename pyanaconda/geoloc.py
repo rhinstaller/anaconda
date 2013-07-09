@@ -107,13 +107,13 @@ import dbus
 import threading
 import time
 import timezone
+import network
 
 import logging
 log = logging.getLogger("anaconda")
 
 from pyanaconda import constants
 from pyanaconda.threads import AnacondaThread, threadMgr
-from pyanaconda import nm
 
 location_info_instance = None
 refresh_condition = threading.Condition()
@@ -333,24 +333,13 @@ class LocationInfo(object):
         if threadMgr.get(constants.THREAD_GEOLOCATION_REFRESH):
             log.debug("Geoloc: refresh already in progress")
         else:  # wait for Internet connectivity
-            if self._wait_for_connectivity():
+            if network.wait_for_connectivity():
                 threadMgr.add(AnacondaThread(
                     name=constants.THREAD_GEOLOCATION_REFRESH,
                     target=self._provider.refresh))
             else:
                 log.error("Geolocation refresh failed"
                           " - no connectivity")
-
-    def _wait_for_connectivity(self):
-        """ Wait for Internet connectivity to become available.
-
-        :return: True is connectivity is available, False otherwise
-        :rtype: bool
-        """
-        # wait for the thread that waits for NM to connect
-        threadMgr.wait(constants.THREAD_WAIT_FOR_CONNECTING_NM)
-        # then check if NM connected successfully
-        return nm.nm_is_connected()
 
     def get_result(self):
         """Get result from the provider

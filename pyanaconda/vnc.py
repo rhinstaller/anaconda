@@ -193,7 +193,7 @@ class VncServer:
 
     def startServer(self):
         self.log.info(_("Starting VNC..."))
-        network.wait_for_connecting_NM()
+        network.wait_for_connectivity()
 
         # Lets call it from here for now.
         try:
