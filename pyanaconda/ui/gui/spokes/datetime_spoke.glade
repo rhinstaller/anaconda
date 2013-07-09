@@ -30,6 +30,7 @@
   <object class="GtkEntryCompletion" id="cityCompletion">
     <property name="model">citiesSort</property>
     <property name="text_column">0</property>
+    <property name="inline_completion">True</property>
     <signal name="match-selected" handler="on_completion_match_selected" object="cityCombobox" swapped="no"/>
   </object>
   <object class="GtkTreeModelFilter" id="citiesFilter">
@@ -650,6 +651,7 @@
   <object class="GtkEntryCompletion" id="regionCompletion">
     <property name="model">regions</property>
     <property name="text_column">0</property>
+    <property name="inline_completion">True</property>
     <signal name="match-selected" handler="on_completion_match_selected" object="regionCombobox" swapped="no"/>
   </object>
   <object class="GtkListStore" id="months">
