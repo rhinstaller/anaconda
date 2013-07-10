@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: anaconda 13.21.194\n"
+"Project-Id-Version: anaconda 13.21.195\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
-"POT-Creation-Date: 2013-01-22 17:21-0800\n"
+"POT-Creation-Date: 2013-07-10 11:35-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -42,8 +42,8 @@ msgstr ""
 #: loader/mediacheck.c:46 loader/mediacheck.c:85 loader/mediacheck.c:92
 #: loader/mediacheck.c:96 loader/mediacheck.c:105 loader/method.c:277
 #: loader/method.c:351 loader/modules.c:396 loader/modules.c:412
-#: loader/net.c:607 loader/net.c:991 loader/net.c:1796 loader/net.c:1820
-#: loader/net.c:2164 loader/net.c:2183 loader/net.c:2195
+#: loader/net.c:607 loader/net.c:991 loader/net.c:1795 loader/net.c:1819
+#: loader/net.c:2163 loader/net.c:2182 loader/net.c:2194
 #: loader/nfsinstall.c:91 loader/nfsinstall.c:279 loader/nfsinstall.c:296
 #: loader/nfsinstall.c:384 loader/telnetd.c:92 loader/urlinstall.c:137
 #: loader/urlinstall.c:159 loader/urlinstall.c:221 loader/urlinstall.c:374
@@ -97,9 +97,9 @@ msgid "Installing %s\n"
 msgstr ""
 
 #: bootloader.py:55 bootloader.py:242 bootloader.py:248 bootloader.py:255
-#: gui.py:1284 image.py:82 installinterfacebase.py:66 network.py:880
-#: text.py:490 text.py:550 yuminstall.py:1621 yuminstall.py:1830
-#: yuminstall.py:1865 iw/blpasswidget.py:154 iw/upgrade_swap_gui.py:190
+#: gui.py:1284 image.py:92 installinterfacebase.py:66 network.py:890
+#: text.py:490 text.py:550 yuminstall.py:1622 yuminstall.py:1831
+#: yuminstall.py:1866 iw/blpasswidget.py:154 iw/upgrade_swap_gui.py:190
 #: iw/upgrade_swap_gui.py:198 iw/upgrade_swap_gui.py:205
 #: textw/upgrade_text.py:196
 msgid "Warning"
@@ -113,19 +113,19 @@ msgid ""
 "Would you like to continue with the installation?"
 msgstr ""
 
-#: bootloader.py:60 gui.py:1187 gui.py:1320 gui.py:1539 image.py:91
+#: bootloader.py:60 gui.py:1187 gui.py:1320 gui.py:1539 image.py:101
 #: installinterfacebase.py:109 livecd.py:205 livecd.py:447 packages.py:162
-#: upgrade.py:58 upgrade.py:199 yuminstall.py:272 yuminstall.py:1099
-#: yuminstall.py:1104 yuminstall.py:1187 yuminstall.py:1193 yuminstall.py:1345
-#: yuminstall.py:1372 yuminstall.py:1433 yuminstall.py:1617 yuminstall.py:1647
-#: yuminstall.py:1670 storage/__init__.py:105 storage/__init__.py:111
+#: upgrade.py:58 upgrade.py:199 yuminstall.py:272 yuminstall.py:1100
+#: yuminstall.py:1105 yuminstall.py:1188 yuminstall.py:1194 yuminstall.py:1346
+#: yuminstall.py:1373 yuminstall.py:1434 yuminstall.py:1618 yuminstall.py:1648
+#: yuminstall.py:1671 storage/__init__.py:105 storage/__init__.py:111
 #: storage/__init__.py:113 storage/__init__.py:221 storage/__init__.py:274
 #: storage/__init__.py:2087
 msgid "_Exit installer"
 msgstr ""
 
-#: bootloader.py:60 image.py:92 image.py:253 kickstart.py:1506
-#: kickstart.py:1550 upgrade.py:58 yuminstall.py:1438 yuminstall.py:1617
+#: bootloader.py:60 image.py:102 image.py:265 kickstart.py:1510
+#: kickstart.py:1554 upgrade.py:58 yuminstall.py:1439 yuminstall.py:1618
 #: iw/partition_gui.py:1629 storage/__init__.py:2088
 msgid "_Continue"
 msgstr ""
@@ -163,8 +163,8 @@ msgstr ""
 msgid "In progress"
 msgstr ""
 
-#: cmdline.py:88 gui.py:1315 kickstart.py:1288 kickstart.py:1368
-#: kickstart.py:1376 kickstart.py:1415 kickstart.py:1423 text.py:396
+#: cmdline.py:88 gui.py:1315 kickstart.py:1292 kickstart.py:1372
+#: kickstart.py:1380 kickstart.py:1419 kickstart.py:1427 text.py:396
 #, python-format
 msgid ""
 "The following error was found while parsing the kickstart configuration "
@@ -367,21 +367,21 @@ msgid ""
 "className = %s"
 msgstr ""
 
-#: gui.py:1450 image.py:166 image.py:196 packages.py:370
+#: gui.py:1450 image.py:176 image.py:208 packages.py:370
 #: storage/__init__.py:1905
 msgid "_Exit"
 msgstr ""
 
-#: gui.py:1451 image.py:166 image.py:196 livecd.py:205 yuminstall.py:966
-#: yuminstall.py:1372 yuminstall.py:1433 yuminstall.py:1647
+#: gui.py:1451 image.py:176 image.py:208 livecd.py:205 yuminstall.py:967
+#: yuminstall.py:1373 yuminstall.py:1434 yuminstall.py:1648
 msgid "_Retry"
 msgstr ""
 
-#: gui.py:1453 storage/partitioning.py:313
+#: gui.py:1453 storage/partitioning.py:318
 msgid "The system will now reboot."
 msgstr ""
 
-#: gui.py:1454 image.py:253 packages.py:374 yuminstall.py:1688
+#: gui.py:1454 image.py:265 packages.py:374 yuminstall.py:1689
 msgid "_Reboot"
 msgstr ""
 
@@ -411,7 +411,7 @@ msgstr ""
 msgid "Install Window"
 msgstr ""
 
-#: image.py:83
+#: image.py:93
 #, python-format
 msgid ""
 "The ISO image %s has a size which is not a multiple of 2048 bytes.  This may "
@@ -421,11 +421,11 @@ msgid ""
 "choose to continue if you think this is in error."
 msgstr ""
 
-#: image.py:158
+#: image.py:168
 msgid "Couldn't Mount ISO Source"
 msgstr ""
 
-#: image.py:159
+#: image.py:169
 #, python-format
 msgid ""
 "An error occurred mounting the source device %s.  This may happen if your "
@@ -434,11 +434,11 @@ msgid ""
 "installation."
 msgstr ""
 
-#: image.py:187
+#: image.py:199
 msgid "Missing ISO 9660 Image"
 msgstr ""
 
-#: image.py:188
+#: image.py:200
 #, python-format
 msgid ""
 "The installer has tried to mount image #%s, but cannot find it on the hard "
@@ -448,11 +448,11 @@ msgid ""
 "the installation."
 msgstr ""
 
-#: image.py:243
+#: image.py:255
 msgid "Required Install Media"
 msgstr ""
 
-#: image.py:244
+#: image.py:256
 #, python-format
 msgid ""
 "The software you have selected to install will require the following %"
@@ -463,16 +463,16 @@ msgid ""
 "need to abort the installation and exit please select \"Reboot\"."
 msgstr ""
 
-#: image.py:253 livecd.py:446 packages.py:374 upgrade.py:198
-#: yuminstall.py:1104 yuminstall.py:1193 yuminstall.py:1619 yuminstall.py:1670
-#: yuminstall.py:1688 storage/__init__.py:113 ui/anaconda.glade.h:2
+#: image.py:265 livecd.py:446 packages.py:374 upgrade.py:198
+#: yuminstall.py:1105 yuminstall.py:1194 yuminstall.py:1620 yuminstall.py:1671
+#: yuminstall.py:1689 storage/__init__.py:113 ui/anaconda.glade.h:2
 msgid "_Back"
 msgstr ""
 
-#: image.py:291 livecd.py:198 livecd.py:440 partIntfHelpers.py:240 text.py:359
-#: text.py:363 yuminstall.py:446 yuminstall.py:982 yuminstall.py:1097
-#: yuminstall.py:1102 yuminstall.py:1376 yuminstall.py:1443 yuminstall.py:1641
-#: yuminstall.py:1663 iw/advanced_storage.py:385 iw/advanced_storage.py:398
+#: image.py:304 livecd.py:198 livecd.py:440 partIntfHelpers.py:240 text.py:359
+#: text.py:363 yuminstall.py:447 yuminstall.py:983 yuminstall.py:1098
+#: yuminstall.py:1103 yuminstall.py:1377 yuminstall.py:1444 yuminstall.py:1642
+#: yuminstall.py:1664 iw/advanced_storage.py:385 iw/advanced_storage.py:398
 #: iw/advanced_storage.py:458 iw/autopart_type.py:95 iw/cleardisks_gui.py:44
 #: iw/cleardisks_gui.py:54 iw/filter_gui.py:437 iw/osbootwidget.py:211
 #: iw/osbootwidget.py:221 iw/raid_dialog_gui.py:220 iw/task_gui.py:54
@@ -494,7 +494,7 @@ msgstr ""
 msgid "Error"
 msgstr ""
 
-#: image.py:292
+#: image.py:305
 #, python-format
 msgid ""
 "An error occurred unmounting the disc.  Please make sure you're not "
@@ -610,63 +610,63 @@ msgid ""
 "%s"
 msgstr ""
 
-#: kickstart.py:1387
+#: kickstart.py:1391
 #, python-format
 msgid "Error processing %%ksappend lines: %s"
 msgstr ""
 
-#: kickstart.py:1390
+#: kickstart.py:1394
 #, python-format
 msgid "Unknown error processing %%ksappend lines: %s"
 msgstr ""
 
-#: kickstart.py:1446 livecd.py:228
+#: kickstart.py:1450 livecd.py:228
 msgid "Post-Installation"
 msgstr ""
 
-#: kickstart.py:1447
+#: kickstart.py:1451
 msgid "Running post-installation scripts"
 msgstr ""
 
-#: kickstart.py:1463
+#: kickstart.py:1467
 msgid "Pre-Installation"
 msgstr ""
 
-#: kickstart.py:1464
+#: kickstart.py:1468
 msgid "Running pre-installation scripts"
 msgstr ""
 
-#: kickstart.py:1497
+#: kickstart.py:1501
 msgid "Missing Package"
 msgstr ""
 
-#: kickstart.py:1498
+#: kickstart.py:1502
 #, python-format
 msgid ""
 "You have specified that the package '%s' should be installed.  This package "
 "does not exist. Would you like to continue or abort this installation?"
 msgstr ""
 
-#: kickstart.py:1504 kickstart.py:1548
+#: kickstart.py:1508 kickstart.py:1552
 msgid "_Abort"
 msgstr ""
 
-#: kickstart.py:1505 kickstart.py:1549
+#: kickstart.py:1509 kickstart.py:1553
 msgid "_Ignore All"
 msgstr ""
 
-#: kickstart.py:1540
+#: kickstart.py:1544
 msgid "Missing Group"
 msgstr ""
 
-#: kickstart.py:1541
+#: kickstart.py:1545
 #, python-format
 msgid ""
 "You have specified that the group '%s' should be installed. This group does "
 "not exist. Would you like to continue or abort this installation?"
 msgstr ""
 
-#: kickstart.py:1664
+#: kickstart.py:1668
 #, python-format
 msgid ""
 "The kickstart configuration file is missing required information that "
@@ -746,17 +746,17 @@ msgstr ""
 msgid "'%s' is an invalid IP address."
 msgstr ""
 
-#: network.py:881
+#: network.py:891
 msgid ""
 "You do not have an active network connection.  This is required by some "
 "exception saving methods.  Would you like to configure your network now?"
 msgstr ""
 
-#: network.py:887 rescue.py:262 yuminstall.py:1340 iw/task_gui.py:311
+#: network.py:897 rescue.py:262 yuminstall.py:1341 iw/task_gui.py:311
 msgid "No Network Available"
 msgstr ""
 
-#: network.py:888
+#: network.py:898
 msgid "Remote exception saving methods will not work."
 msgstr ""
 
@@ -1661,42 +1661,42 @@ msgid ""
 "errors when reading the installation media.  Installation cannot continue."
 msgstr ""
 
-#: yuminstall.py:428
+#: yuminstall.py:429
 msgid "Change Disc"
 msgstr ""
 
-#: yuminstall.py:429
+#: yuminstall.py:430
 #, python-format
 msgid "Please insert %(productName)s disc %(discnum)d to continue."
 msgstr ""
 
-#: yuminstall.py:439
+#: yuminstall.py:440
 msgid "Wrong Disc"
 msgstr ""
 
-#: yuminstall.py:440
+#: yuminstall.py:441
 #, python-format
 msgid "That's not the correct %s disc."
 msgstr ""
 
-#: yuminstall.py:447
+#: yuminstall.py:448
 msgid "Unable to access the disc."
 msgstr ""
 
-#: yuminstall.py:611
+#: yuminstall.py:612
 #, python-format
 msgid "Repository %r is missing name in configuration, using id"
 msgstr ""
 
-#: yuminstall.py:964 yuminstall.py:966
+#: yuminstall.py:965 yuminstall.py:967
 msgid "Re_boot"
 msgstr ""
 
-#: yuminstall.py:964
+#: yuminstall.py:965
 msgid "_Eject"
 msgstr ""
 
-#: yuminstall.py:983
+#: yuminstall.py:984
 #, python-format
 msgid ""
 "The file %s cannot be opened.  This is due to a missing file, a corrupt "
@@ -1707,95 +1707,95 @@ msgid ""
 "\n"
 msgstr ""
 
-#: yuminstall.py:1031
+#: yuminstall.py:1032
 msgid "Retrying"
 msgstr ""
 
-#: yuminstall.py:1031
+#: yuminstall.py:1032
 msgid "Retrying download."
 msgstr ""
 
-#: yuminstall.py:1093
+#: yuminstall.py:1094
 #, python-format
 msgid ""
 "There was an error running your transaction for the following reason: %s\n"
 msgstr ""
 
-#: yuminstall.py:1138 yuminstall.py:1139
+#: yuminstall.py:1139 yuminstall.py:1140
 msgid "file conflicts"
 msgstr ""
 
-#: yuminstall.py:1140
+#: yuminstall.py:1141
 msgid "older package(s)"
 msgstr ""
 
-#: yuminstall.py:1141
+#: yuminstall.py:1142
 msgid "insufficient disk space"
 msgstr ""
 
-#: yuminstall.py:1142
+#: yuminstall.py:1143
 msgid "insufficient disk inodes"
 msgstr ""
 
-#: yuminstall.py:1143
+#: yuminstall.py:1144
 msgid "package conflicts"
 msgstr ""
 
-#: yuminstall.py:1144
+#: yuminstall.py:1145
 msgid "package already installed"
 msgstr ""
 
-#: yuminstall.py:1145
+#: yuminstall.py:1146
 msgid "required package"
 msgstr ""
 
-#: yuminstall.py:1146
+#: yuminstall.py:1147
 msgid "package for incorrect arch"
 msgstr ""
 
-#: yuminstall.py:1147
+#: yuminstall.py:1148
 msgid "package for incorrect os"
 msgstr ""
 
-#: yuminstall.py:1161
+#: yuminstall.py:1162
 msgid "You need more space on the following file systems:\n"
 msgstr ""
 
-#: yuminstall.py:1174
+#: yuminstall.py:1175
 #, python-format
 msgid ""
 "There were file conflicts when checking the packages to be installed:\n"
 "%s\n"
 msgstr ""
 
-#: yuminstall.py:1177
+#: yuminstall.py:1178
 #, python-format
 msgid ""
 "There was an error running your transaction for the following reason(s): %"
 "s.\n"
 msgstr ""
 
-#: yuminstall.py:1185 yuminstall.py:1190
+#: yuminstall.py:1186 yuminstall.py:1191
 msgid "Error Running Transaction"
 msgstr ""
 
-#: yuminstall.py:1341 iw/task_gui.py:312
+#: yuminstall.py:1342 iw/task_gui.py:312
 msgid ""
 "Some of your software repositories require networking, but there was an "
 "error enabling the network on your system."
 msgstr ""
 
-#: yuminstall.py:1377
+#: yuminstall.py:1378
 msgid ""
 "Unable to read group information from repositories.  This is a problem with "
 "the generation of your install tree."
 msgstr ""
 
-#: yuminstall.py:1433 textw/constants_text.py:64
+#: yuminstall.py:1434 textw/constants_text.py:64
 msgid "Edit"
 msgstr ""
 
-#: yuminstall.py:1444 yuminstall.py:1642
+#: yuminstall.py:1445 yuminstall.py:1643
 #, python-format
 msgid ""
 "Unable to read package metadata. This may be due to a missing repodata "
@@ -1805,7 +1805,7 @@ msgid ""
 "%s"
 msgstr ""
 
-#: yuminstall.py:1622
+#: yuminstall.py:1623
 msgid ""
 "Some of the packages you have selected for install are missing "
 "dependencies.  You can exit the installation, go back and change your "
@@ -1813,7 +1813,7 @@ msgid ""
 "dependencies."
 msgstr ""
 
-#: yuminstall.py:1664
+#: yuminstall.py:1665
 #, python-format
 msgid ""
 "Your selected packages require %d MB of free space for installation, but you "
@@ -1821,22 +1821,22 @@ msgid ""
 "installer."
 msgstr ""
 
-#: yuminstall.py:1685
+#: yuminstall.py:1686
 msgid "Reboot?"
 msgstr ""
 
-#: yuminstall.py:1686
+#: yuminstall.py:1687
 msgid "The system will be rebooted now."
 msgstr ""
 
-#: yuminstall.py:1831
+#: yuminstall.py:1832
 #, python-format
 msgid ""
 "You appear to be upgrading from a system which is too old to upgrade to this "
 "version of %s.  Are you sure you wish to continue the upgrade process?"
 msgstr ""
 
-#: yuminstall.py:1866
+#: yuminstall.py:1867
 #, python-format
 msgid ""
 "The arch of the release of %(productName)s you are upgrading to appears to "
@@ -1845,48 +1845,48 @@ msgid ""
 "upgrade process?"
 msgstr ""
 
-#: yuminstall.py:1913
+#: yuminstall.py:1914
 msgid "Post Upgrade"
 msgstr ""
 
-#: yuminstall.py:1914
+#: yuminstall.py:1915
 msgid "Performing post-upgrade configuration"
 msgstr ""
 
-#: yuminstall.py:1916
+#: yuminstall.py:1917
 msgid "Post Installation"
 msgstr ""
 
-#: yuminstall.py:1917
+#: yuminstall.py:1918
 msgid "Performing post-installation configuration"
 msgstr ""
 
-#: yuminstall.py:2163
+#: yuminstall.py:2164
 msgid "Installation Starting"
 msgstr ""
 
-#: yuminstall.py:2164
+#: yuminstall.py:2165
 msgid "Starting installation process"
 msgstr ""
 
-#: yuminstall.py:2202
+#: yuminstall.py:2203
 msgid "Dependency Check"
 msgstr ""
 
-#: yuminstall.py:2203
+#: yuminstall.py:2204
 msgid "Checking dependencies in packages selected for installation"
 msgstr ""
 
-#: yuminstall.py:2259 yuminstall.py:2275
+#: yuminstall.py:2260 yuminstall.py:2276
 msgid "Retrieving installation information."
 msgstr ""
 
-#: yuminstall.py:2261 yuminstall.py:2277
+#: yuminstall.py:2262 yuminstall.py:2278
 #, python-format
 msgid "Retrieving installation information for %s."
 msgstr ""
 
-#: yuminstall.py:2262 yuminstall.py:2278
+#: yuminstall.py:2263 yuminstall.py:2279
 msgid "Installation Progress"
 msgstr ""
 
@@ -2593,7 +2593,7 @@ msgid "The volume group name \"%s\" is already in use. Please pick another."
 msgstr ""
 
 #: iw/lvm_dialog_gui.py:1114 iw/partition_gui.py:1615
-#: storage/partitioning.py:233 storage/partitioning.py:276
+#: storage/partitioning.py:233 storage/partitioning.py:281
 msgid "Error Partitioning"
 msgstr ""
 
@@ -2967,10 +2967,10 @@ msgstr ""
 #: iw/partition_gui.py:1499
 #, python-format
 msgid ""
-"Logical Volume Manager (LVM) is a 3 level construct. The fist level is made "
+"Logical Volume Manager (LVM) is a 3 level construct. The first level is made "
 "up of disks or partitions formated with LVM metadata called Physical Volumes "
 "(PV).  A Volume Group (VG) sits on top of one or more PVs. The VG, in turn, "
-"is the base to creat one ore more Logical Volumes (LV).  Note that a VG can "
+"is the base to create one or more Logical Volumes (LV).  Note that a VG can "
 "be an aggregate of PVs from multiple physical disk.  For more information on "
 "using LVM please consult the %s documentation\n"
 msgstr ""
@@ -3474,7 +3474,7 @@ msgstr ""
 #: loader/driverselect.c:178 loader/hdinstall.c:214 loader/hdinstall.c:268
 #: loader/kbd.c:119 loader/loader.c:520 loader/loader.c:537
 #: loader/loader.c:1496 loader/loader.c:1529 loader/net.c:607 loader/net.c:991
-#: loader/net.c:2164 loader/net.c:2183 loader/nfsinstall.c:91
+#: loader/net.c:2163 loader/net.c:2182 loader/nfsinstall.c:91
 #: loader/urls.c:268 storage/__init__.py:165 storage/devicetree.py:93
 #: textw/constants_text.py:52
 msgid "Back"
@@ -3582,7 +3582,7 @@ msgstr ""
 #: loader/driverdisk.c:802 loader/driverdisk.c:840 loader/hdinstall.c:362
 #: loader/kickstart.c:138 loader/kickstart.c:148 loader/kickstart.c:190
 #: loader/kickstart.c:195 loader/kickstart.c:524 loader/modules.c:396
-#: loader/modules.c:412 loader/net.c:1796 loader/net.c:1820
+#: loader/modules.c:412 loader/net.c:1795 loader/net.c:1819
 #: loader/nfsinstall.c:384 loader/urlinstall.c:374 loader/urlinstall.c:385
 #: loader/urlinstall.c:392
 msgid "Kickstart Error"
@@ -4087,62 +4087,62 @@ msgstr ""
 msgid "You must enter both a valid IPv6 address and a CIDR prefix."
 msgstr ""
 
-#: loader/net.c:1797
+#: loader/net.c:1796
 #, c-format
 msgid "Bad argument to kickstart network command: %s"
 msgstr ""
 
-#: loader/net.c:1821
+#: loader/net.c:1820
 #, c-format
 msgid "Bad bootproto %s specified in network command"
 msgstr ""
 
-#: loader/net.c:1940
+#: loader/net.c:1939
 msgid "Seconds:"
 msgstr ""
 
-#: loader/net.c:2159
+#: loader/net.c:2158
 msgid "Networking Device"
 msgstr ""
 
-#: loader/net.c:2160
+#: loader/net.c:2159
 msgid ""
 "You have multiple network devices on this system. Which would you like to "
 "install through?"
 msgstr ""
 
-#: loader/net.c:2164
+#: loader/net.c:2163
 msgid "Identify"
 msgstr ""
 
-#: loader/net.c:2173
+#: loader/net.c:2172
 msgid "You can identify the physical port for"
 msgstr ""
 
-#: loader/net.c:2175
+#: loader/net.c:2174
 msgid ""
 "by flashing the LED lights for a number of seconds.  Enter a number between "
 "1 and 30 to set the duration to flash the LED port lights."
 msgstr ""
 
-#: loader/net.c:2182
+#: loader/net.c:2181
 msgid "Identify NIC"
 msgstr ""
 
-#: loader/net.c:2195
+#: loader/net.c:2194
 msgid "Invalid Duration"
 msgstr ""
 
-#: loader/net.c:2196
+#: loader/net.c:2195
 msgid "You must enter the number of seconds as an integer between 1 and 30."
 msgstr ""
 
-#: loader/net.c:2208
+#: loader/net.c:2207
 #, c-format
 msgid "Flashing %s port lights for %d seconds."
 msgstr ""
 
-#: loader/net.c:2439 loader/net.c:2443
+#: loader/net.c:2438 loader/net.c:2442
 #, c-format
 msgid "Waiting for NetworkManager to configure %s.\n"
 msgstr ""
@@ -4766,7 +4766,7 @@ msgid ""
 "problems on the filesystem."
 msgstr ""
 
-#: storage/formats/fs.py:536 storage/partitioning.py:312
+#: storage/formats/fs.py:536 storage/partitioning.py:317
 msgid "Unrecoverable Error"
 msgstr ""
 
@@ -4871,11 +4871,11 @@ msgid ""
 "another partitioning method."
 msgstr ""
 
-#: storage/partitioning.py:259
+#: storage/partitioning.py:264
 msgid "Warnings During Automatic Partitioning"
 msgstr ""
 
-#: storage/partitioning.py:261
+#: storage/partitioning.py:266
 #, python-format
 msgid ""
 "Following warnings occurred during automatic partitioning:\n"
@@ -4883,14 +4883,14 @@ msgid ""
 "%s"
 msgstr ""
 
-#: storage/partitioning.py:275 storage/partitioning.py:296
+#: storage/partitioning.py:280 storage/partitioning.py:301
 msgid ""
 "\n"
 "\n"
 "Press 'OK' to exit the installer."
 msgstr ""
 
-#: storage/partitioning.py:277
+#: storage/partitioning.py:282
 #, python-format
 msgid ""
 "Could not allocate requested partitions: \n"
@@ -4898,18 +4898,18 @@ msgid ""
 "%(msg)s.%(extra)s"
 msgstr ""
 
-#: storage/partitioning.py:298
+#: storage/partitioning.py:303
 msgid ""
 "\n"
 "\n"
 "Press 'OK' to choose a different partitioning option."
 msgstr ""
 
-#: storage/partitioning.py:300
+#: storage/partitioning.py:305
 msgid "Automatic Partitioning Errors"
 msgstr ""
 
-#: storage/partitioning.py:301
+#: storage/partitioning.py:306
 #, python-format
 msgid ""
 "The following errors occurred with your partitioning:\n"

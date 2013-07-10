@@ -222,6 +222,33 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Wed Jul 10 2013 Samantha N. Bueno <sbueno+anaconda@redhat.com> - 13.21.196-1
+- Only pass exclusiveDisks for autopart (bcl)
+  Resolves: rhbz#852523
+- Use standard losetup utility to get a free loop device (vpodzime)
+  Resolves: rhbz#846336
+- Write directly to /etc/sysconfig/network so that inotify works (rvykydal)
+  Resolves: rhbz#845572
+- Fix spelling errors in the About LVM dialog (vpodzime)
+  Resolves: rhbz#851284
+- Set proper SELinux context of /etc/multipath. (sbueno+anaconda)
+  Resolves: rhbz#919409
+- Fix max supported size for XFS partitions. (sbueno+anaconda)
+  Resolves: rhbz#880577
+- Filter out /dev/sr* from list-harddrives (bcl)
+  Resolves: rhbz#847600
+- Show ks LVM DeviceErrors in the UI (bcl)
+  Resolves: rhbz#880625
+- Send host-name to dhcp server in installer for dhcp + hostname (rvykydal)
+  Resolves: rhbz#917815
+- Use edd fcoe boot option instead of enumerating all ifaces (rvykydal)
+  Resolves: rhbz#909463
+- Don't write vlan kickstart configuration to parent device ifcfg file
+  (mmatsuya)
+  Resolves: rhbz#903689
+- Fix --vlanid option in generated kickstart file (rvykydal)
+  Resolves: rhbz#921609
+
 * Tue Jan 22 2013 Brian C. Lane <bcl@redhat.com> - 13.21.195-1
 - Disconnect active slaves before activating bond (rvykydal)
   Related: rhbz#662007
