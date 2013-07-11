@@ -258,6 +258,21 @@ class AutoStep(commands.autostep.FC3_AutoStep):
         flags.autoscreenshot = self.autoscreenshot
 
 class Bootloader(commands.bootloader.RHEL6_Bootloader):
+    def parse(self, args):
+        retval = commands.bootloader.RHEL6_Bootloader.parse(self, args)
+
+        # Expand the drives in driveorder so that things like /dev/disk/by-* will work
+        drives = []
+        for drive in self.driveorder:
+            matched = deviceMatches(drive)
+            if matched:
+                drives.extend(matched)
+            else:
+                raise KickstartValueError, formatErrorMsg(self.lineno, msg="Specified nonexistent disk %s in bootloader command" % drive)
+        self.driveorder = drives
+
+        return retval
+
     def execute(self, anaconda):
         if self.location == "none":
             location = None
