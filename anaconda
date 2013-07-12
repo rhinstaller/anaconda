@@ -951,32 +951,15 @@ if __name__ == "__main__":
         else:
             log.error("Unknown method: %s", (anaconda.methodstr,))
 
+    from pyanaconda import localization
     # Set the language before loading an interface, when it may be too late.
     if opts.lang:
-        from pyanaconda.localization import Language, LOCALE_PREFERENCES, expand_langs
-
-        langObj = Language(LOCALE_PREFERENCES, territory=None)
-
-        # Given something other than the long format we prefer?  We need to
-        # dig through supported translations to figure out what the user
-        # meant.
-        foundLang = False
-        if not opts.lang in langObj.translations:
-
-            for trans in langObj.translations.keys():
-                if opts.lang in expand_langs(trans):
-                    opts.lang = trans
-                    foundLang = True
-                    break
-
-            if not foundLang:
-                opts.lang = constants.DEFAULT_LANG
-
-        langObj.set_install_lang(opts.lang)
-        ksdata.lang.lang = opts.lang
-        # report if a language specified by the user
-        # or a default was used
-        ksdata.lang.seen = foundLang
+        locales = localization.get_language_locales(opts.lang)
+        if locales:
+            localization.setup_locale(locales[0], ksdata.lang)
+            ksdata.lang.seen = True
+        else:
+            log.error("Invalid locale '%s' given on command line" % opts.lang)
 
     import blivet
     blivet.enable_installer_mode()
@@ -1023,10 +1006,6 @@ if __name__ == "__main__":
     signal.signal(signal.SIGUSR1, lambda signum, frame:
                                          exception.test_exception_handling())
     signal.signal(signal.SIGUSR2, lambda signum, frame: anaconda.dumpState())
-
-    if opts.lang:
-        # this is lame, but make things match what we expect (#443408)
-        opts.lang = opts.lang.replace(".utf8", ".UTF-8")
 
     from blivet import storageInitialize
     from pyanaconda.packaging import payloadInitialize
@@ -1083,6 +1062,9 @@ if __name__ == "__main__":
 
         if not anaconda.ksdata.timezone.nontp:
             iutil.start_service("chronyd")
+
+    # try to load firmware language
+    localization.load_firmware_language(ksdata.lang)
 
     # FIXME:  This will need to be made cleaner once this file starts to take
     # shape with the new UI code.
