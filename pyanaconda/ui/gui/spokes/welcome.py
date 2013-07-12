@@ -78,14 +78,18 @@ class WelcomeLanguageSpoke(StandaloneSpoke):
             # current language
             self.data.timezone.timezone = loc_timezones[0]
 
-        lang_country = localization.get_locale_territory(self.data.lang.lang)
-        self._set_keyboard_defaults(store[itr][1], lang_country)
+        self._set_keyboard_defaults(self.data.lang.lang)
 
-    def _set_keyboard_defaults(self, lang_name, country):
+    def _set_keyboard_defaults(self, locale):
         """
         Set default keyboard settings (layouts, layout switching).
 
-        :param lang_name: name of the selected language (e.g. "Czech")
+        :param locale: locale string (see localization.LANGCODE_RE)
+        :type locale: str
+        :return: list of preferred keyboard layouts
+        :rtype: list of strings
+        :raise InvalidLocaleSpec: if an invalid locale is given (see
+                                  localization.LANGCODE_RE)
 
         """
 
@@ -101,14 +105,10 @@ class WelcomeLanguageSpoke(StandaloneSpoke):
             #do not add layouts if there are any specified in the kickstart
             return
 
-        #get language name without any additional specifications
-        #e.g. 'English (United States)' -> 'English'
-        lang_name = lang_name.split()[0]
-
-        default_layout = self._xklwrapper.get_default_lang_country_layout(lang_name,
-                                                                          country)
-        if default_layout:
-            new_layouts = [default_layout]
+        layouts = localization.get_locale_keyboards(locale)
+        if layouts:
+            # take the first locale (with highest rank) from the list
+            new_layouts = [layouts[0]]
         else:
             new_layouts = ["us"]
 
@@ -210,6 +210,7 @@ class WelcomeLanguageSpoke(StandaloneSpoke):
             self._origStrings[welcomeLabel] = welcomeLabel.get_label()
 
         before = self._origStrings[welcomeLabel]
+        # pylint: disable-msg=E1103
         xlated = _(before) % (productName.upper(), productVersion)
         welcomeLabel.set_label(xlated)
 

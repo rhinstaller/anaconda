@@ -35,9 +35,11 @@ keymaps.
 import types
 import os
 import shutil
+import langtable
 
 from pyanaconda import iutil
 from pyanaconda import flags
+from pyanaconda import localization
 from pyanaconda.safe_dbus import dbus_call_safe_sync, dbus_get_property_safe_sync
 from pyanaconda.safe_dbus import DBUS_SYSTEM_BUS_ADDR, DBusPropertyError
 
@@ -477,64 +479,6 @@ class XklWrapper(object):
         """Method returning list of available layout switching options"""
 
         return self._switching_options
-
-    def get_default_language_layout(self, language):
-        """Get the default layout for a given language."""
-
-        layouts = self.get_language_layouts(language)
-        if layouts:
-            #first layout (should exist for every language)
-            return layouts[0].name
-        else:
-            return None
-
-    def get_language_layouts(self, language):
-        """Get layouts for a given language."""
-
-        language_layouts = self._language_keyboard_variants.get(language, None)
-
-        if language_layouts:
-            return language_layouts
-
-        #else try some magic and if everything fails, return None
-        for (lang, layouts) in self._language_keyboard_variants.iteritems():
-            #XXX: some languages are returned in a weird form from the
-            #     libxklavier iterations (e.g. "Greek, Modern (1453-)")
-            if lang.startswith(language):
-                return layouts
-
-        return None
-
-    def get_default_lang_country_layout(self, language, country):
-        """
-        Get default layout matching both language and country. If none such
-        layout is found, get default layout for language. If no layout for
-        the given language is found but there is layout for the given country,
-        return the one for the country.
-
-        """
-
-        language_layouts = self.get_language_layouts(language)
-        country_layouts = self._country_keyboard_variants.get(country, None)
-        if not language_layouts and not country_layouts:
-            return None
-
-        if not country_layouts:
-            return language_layouts[0].name
-
-        if not language_layouts:
-            return country_layouts[0].name
-
-        matches_both = (layout for layout in language_layouts
-                                if layout in country_layouts)
-
-        try:
-            return matches_both.next().name
-        except StopIteration:
-            if country_layouts:
-                return country_layouts[0].name
-            else:
-                return language_layouts[0].name
 
     def activate_default_layout(self):
         """
