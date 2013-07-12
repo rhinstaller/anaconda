@@ -19,12 +19,13 @@
 # Red Hat Author(s): Radek Vykydal <rvykydal@redhat.com>
 #
 
+# pylint: disable-msg=E0611
 from gi.repository import Gtk, Pango
 from pyanaconda.flags import flags
 from pyanaconda.i18n import _, N_
 from pyanaconda.ui.gui.spokes import NormalSpoke
 from pyanaconda.ui.gui.categories.localization import LocalizationCategory
-from pyanaconda.localization import Language, LOCALE_PREFERENCES, expand_langs
+from pyanaconda import localization
 
 import re
 
@@ -65,14 +66,16 @@ class LangsupportSpoke(NormalSpoke):
             renderer = self.builder.get_object(rend)
             column.set_cell_data_func(renderer, self._mark_selected_bold, idx)
 
-        language = Language(LOCALE_PREFERENCES, territory=None)
         # source of lang code <-> UI name mapping
-        self.locale_infos_for_data = language.translations
-        self.locale_infos_for_ui = language.translations
+        # (localization.get_available_translations() returns a generator)
+        self.locale_infos_for_data = list(localization.get_available_translations())
+        self.locale_infos_for_ui = self.locale_infos_for_data[:]
 
-        for code, info in sorted(self.locale_infos_for_ui.items()):
-            self._add_language(self._langsupportStore, info.display_name,
-                               info.english_name, info.short_name,
+        for locale in sorted(self.locale_infos_for_ui):
+            self._add_language(self._langsupportStore,
+                               localization.get_native_name(locale),
+                               localization.get_english_name(locale),
+                               locale,
                                False, True)
 
         self._select_language(self._langsupportStore, self.data.lang.lang)
@@ -85,23 +88,22 @@ class LangsupportSpoke(NormalSpoke):
     def refresh(self):
         self._langsupportEntry.set_text("")
         lang_infos = self._find_localeinfos_for_code(self.data.lang.lang, self.locale_infos_for_ui)
-        lang_short_names = [info.short_name for info in lang_infos]
-        if len(lang_short_names) > 1:
+        if len(lang_infos) > 1:
             log.warning("Found multiple locales for lang %s: %s, picking first" %
-                        (self.data.lang.lang, lang_short_names))
+                        (self.data.lang.lang, lang_infos))
         # Just take the first found
         # TODO - for corner cases choose the one that is common prefix
-        lang_short_names = lang_short_names[:1]
+        lang_infos = lang_infos[:1]
 
-        addsupp_short_names = []
+        addsupp_infos = []
         for code in self.data.lang.addsupport:
             code_infos = self._find_localeinfos_for_code(code, self.locale_infos_for_ui)
-            addsupp_short_names.extend(info.short_name for info in code_infos)
+            addsupp_infos.extend(code_infos)
 
         for row in self._langsupportStore:
-            if row[COL_LANG_SETTING] in addsupp_short_names:
+            if row[COL_LANG_SETTING] in addsupp_infos:
                 row[COL_SELECTED] = True
-            if row[COL_LANG_SETTING] in lang_short_names:
+            if row[COL_LANG_SETTING] in lang_infos:
                 row[COL_SELECTED] = True
                 row[COL_IS_ADDITIONAL] = False
 
@@ -117,7 +119,7 @@ class LangsupportSpoke(NormalSpoke):
             for info in self._find_localeinfos_for_code(code, self.locale_infos_for_data):
                 if info not in infos:
                     infos.append(info)
-        return ", ".join(info.english_name for info in infos)
+        return ", ".join(localization.get_english_name(info) for info in infos)
 
     @property
     def mandatory(self):
@@ -128,13 +130,13 @@ class LangsupportSpoke(NormalSpoke):
         return True
 
     def _find_localeinfos_for_code(self, code, infos):
-        try:
-            retval = [infos[code]]
-        except KeyError:
-            retval = [info for _code, info in infos.items()
-                      if code in expand_langs(_code)]
-            log.debug("locale info found for %s: %s" % (code, retval))
-        return retval
+        if code in infos:
+            return [code]
+        else:
+            retval = [info for info in infos
+                      if code in localization.expand_langs(info)]
+            log.debug("locale infos found for %s: %s" % (code, retval))
+            return retval
 
     def _add_language(self, store, native, english, setting, selected, additional):
         store.append(['<span lang="%s">%s</span>' % (re.sub(r'\..*', '', setting), native),
@@ -142,7 +144,7 @@ class LangsupportSpoke(NormalSpoke):
 
     def _select_language(self, store, language):
         itr = store.get_iter_first()
-        while itr and language not in expand_langs(store[itr][COL_LANG_SETTING]):
+        while itr and language not in localization.expand_langs(store[itr][COL_LANG_SETTING]):
             itr = store.iter_next(itr)
 
         # If we were provided with an unsupported language, just use the default.

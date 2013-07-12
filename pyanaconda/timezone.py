@@ -26,9 +26,9 @@ configuration, valid timezones recognition etc.
 
 import os
 import pytz
+import langtable
 from collections import OrderedDict
 
-from pyanaconda import localization
 from pyanaconda import iutil
 from pyanaconda.constants import THREAD_STORAGE
 from pyanaconda.threads import threadMgr
@@ -157,42 +157,24 @@ def save_hw_clock(timezone):
     iutil.execWithRedirect(cmd, args)
 
 
-def get_all_territory_timezones(territory):
-    """
-    Return the list of timezones for a given territory.
-
-    :param territory: either localization.LocaleInfo or territory
-
-    """
-
-    if isinstance(territory, localization.LocaleInfo):
-        territory = territory.territory
-
-    try:
-        timezones = pytz.country_timezones(territory)
-    except KeyError:
-        timezones = list()
-
-    timezones = [zone.encode("utf-8") for zone in timezones]
-    return timezones
-
-
 def get_preferred_timezone(territory):
     """
     Get the preferred timezone for a given territory. Note that this function
     simply returns the first timezone in the list of timezones for a given
     territory.
 
-    :param territory: either localization.LocaleInfo or territory
+    :param territory: territory to get preferred timezone for
+    :type territory: str
+    :return: preferred timezone for the given territory or None if no found
+    :rtype: str or None
 
     """
 
-    try:
-        timezone = get_all_territory_timezones(territory)[0]
-    except IndexError:
-        timezone = None
+    timezones = langtable.list_timezones(territoryId=territory)
+    if not timezones:
+        return None
 
-    return timezone
+    return timezones[0]
 
 def get_all_regions_and_timezones():
     """

@@ -28,7 +28,7 @@ from pyanaconda.ui.gui.hubs.summary import SummaryHub
 from pyanaconda.ui.gui.spokes import StandaloneSpoke
 from pyanaconda.ui.gui.utils import enlightbox
 
-from pyanaconda.localization import Language, LOCALE_PREFERENCES, expand_langs
+from pyanaconda import localization
 from pyanaconda.product import distributionText, isFinal, productName, productVersion
 from pyanaconda import keyboard
 from pyanaconda import timezone
@@ -59,9 +59,8 @@ class WelcomeLanguageSpoke(StandaloneSpoke):
         selected = self.builder.get_object("languageViewSelection")
         (store, itr) = selected.get_selected()
 
-        lang = store[itr][2]
-        self.language.select_translation(lang)
-        self.data.lang.lang = lang
+        locale = store[itr][2]
+        localization.setup_locale(locale, self.data.lang)
 
         # Skip timezone and keyboard default setting for kickstart installs.
         # The user may have provided these values via kickstart and if not, we
@@ -69,22 +68,18 @@ class WelcomeLanguageSpoke(StandaloneSpoke):
         if flags.flags.automatedInstall:
             return
 
-        lang_timezone = None
-        # check if the geolocation lookup returned a time zone
-        # (the geolocation module makes sure that the returned timezone is
-        # either a valid timezone or None)
         geoloc_timezone = geoloc.get_timezone()
+        loc_timezones = localization.get_locale_timezones(self.data.lang.lang)
         if geoloc_timezone:
-            lang_timezone = geoloc_timezone
-        # if no data is provided by Geolocation,
-        # try to get timezone from the current language
-        elif self.language.territory and not self.data.timezone.timezone:
-            lang_timezone = timezone.get_preferred_timezone(self.language.territory)
+            # (the geolocation module makes sure that the returned timezone is
+            # either a valid timezone or None)
+            self.data.timezone.timezone = geoloc_timezone
+        elif loc_timezones and not self.data.timezone.timezone:
+            # no data is provided by Geolocation, try to get timezone from the
+            # current language
+            self.data.timezone.timezone = loc_timezones[0]
 
-        if lang_timezone:
-            self.data.timezone.timezone = lang_timezone
-
-        lang_country = self.language.preferred_locale.territory
+        lang_country = localization.get_locale_territory(self.data.lang.lang)
         self._set_keyboard_defaults(store[itr][1], lang_country)
 
     def _set_keyboard_defaults(self, lang_name, country):
@@ -158,24 +153,17 @@ class WelcomeLanguageSpoke(StandaloneSpoke):
         # We can use the territory from geolocation here
         # to preselect the translation, when it's available.
         territory = geoloc.get_territory_code()
-        self.language = Language(LOCALE_PREFERENCES, territory=territory)
 
-        # check if there is one and only one locale for the territory
-        if len(self.language.preferred_locales) != 1:
-            log.info("Didn't get a single locale from Geolocation,"
-                        " falling back to default locale.")
-            self.language = Language(LOCALE_PREFERENCES, territory=None)
-            # Explanation:
-            # Some territories have multiple locales,
-            # for example, the Switzerland has:
-            # de_CH, it_CH and fr_CH
-            # As there is no clear order of preference for them,
-            # it is safer to just fall back to the default locale
+        locales = localization.get_territory_locales(territory)
+        if locales and not (self.data.lang.lang and self.data.lang.seen):
+            # get something from the GeoIP lookup and not set in/on the
+            # kickstart/command line
+            localization.setup_locale(locales[0], self.data.lang)
 
         # fill the list with available translations
-        for _code, trans in sorted(self.language.translations.items()):
-            self._addLanguage(store, trans.display_name,
-                              trans.english_name, trans.short_name)
+        for locale in localization.get_available_translations():
+            self._addLanguage(store, localization.get_native_name(locale),
+                              localization.get_english_name(locale), locale)
 
         # Move the default language (whatever was provided on the command line,
         # or by kickstart, or by geoip, or English if nothing else) to the top
@@ -183,16 +171,7 @@ class WelcomeLanguageSpoke(StandaloneSpoke):
         # dropped into the middle of a scrollable list.
         (store, itr) = self._selection.get_selected()
         if not itr:
-            # check if a language was set by kickstart
-            # NOTE: seen means the language was "seen" in
-            # kickstart or boot option, so it overrides
-            # the language detected by geolocation
-            if self.data.lang.lang and self.data.lang.seen:
-                lang = self.data.lang.lang
-            else:
-                lang = self.language.preferred_translation.short_name
-
-            itr = self._selectLanguage(lang)
+            itr = self._selectLanguage(self.data.lang.lang)
 
         # store is the filtered store, and itr is an iter on it.  We need to
         # convert to an iter on the underlying store.
@@ -290,7 +269,8 @@ class WelcomeLanguageSpoke(StandaloneSpoke):
         itr = store.get_iter_first()
         # store[itr][3] is True if this row is a separator in the view, so we
         # want to skip those.
-        while itr and not store[itr][3] and language not in expand_langs(store[itr][2]):
+        while itr and not store[itr][3] \
+                and language not in localization.expand_langs(store[itr][2]):
             itr = store.iter_next(itr)
 
         # If we were provided with an unsupported language, just use the default.
@@ -326,8 +306,7 @@ class WelcomeLanguageSpoke(StandaloneSpoke):
 
         if selected:
             lang = store[selected[0]][2]
-            self.language.set_install_lang(lang)
-            self.language.set_system_lang(lang)
+            localization.setup_locale(lang, self.data.lang)
             self.retranslate(lang)
 
     def on_clear_icon_clicked(self, entry, icon_pos, event):
