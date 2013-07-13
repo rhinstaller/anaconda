@@ -94,7 +94,8 @@ def storageInitialize(anaconda, examine_all=True):
         storage.protectedDevSpecs.extend(anaconda.protected)
         storage.reset(examine_all=examine_all)
 
-        if not flags.livecdInstall and not storage.protectedDevices:
+        if not flags.livecdInstall and not storage.protectedDevices and \
+          not anaconda.protected:
             if anaconda.id.getUpgrade():
                 return
             else:

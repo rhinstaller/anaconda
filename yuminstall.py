@@ -477,9 +477,18 @@ class AnacondaYum(YumSorter):
             if m.startswith("hd:"):
                 if m.count(":") == 2:
                     (device, path) = m[3:].split(":")
+                    fstype = "auto"
                 else:
                     (device, fstype, path) = m[3:].split(":")
 
+                # First check for an installable tree
+                isys.mount(device, self.tree, fstype=fstype)
+                if os.path.exists("%s/%s/repodata/repomd.xml" % (self.tree, path)):
+                    self._baseRepoURL = "file://%s/%s" % (self.tree, path)
+                    return
+                isys.umount(self.tree, removeDir=False)
+
+                # Look for .iso images
                 self.isodir = "/mnt/isodir/%s" % path
 
                 # This takes care of mounting /mnt/isodir first.
