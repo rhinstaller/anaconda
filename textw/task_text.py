@@ -19,10 +19,25 @@
 
 from constants_text import *
 from constants import *
+from yuminstall import NoSuchGroup
+#import sys
+import gettext
+_ = lambda x: gettext.ldgettext("anaconda", x)
+
 
 class TaskWindow:
     def __call__(self, screen, anaconda):
         anaconda.backend.resetPackageSelections()
-        anaconda.backend.selectGroup("Core")
+        try:
+            anaconda.backend.selectGroup("Core")
+        except NoSuchGroup:
+            anaconda.intf.messageWindow(_("Core group missing in selected repos"),
+                                        _("At least one of the software "
+                                          "repositories used for the "
+                                          "installation needs to contain "
+                                          "the core package group. If the "
+                                          "core group is not present, "
+                                          "installation can't continue."))
+            sys.exit(1)
 
         return INSTALL_OK

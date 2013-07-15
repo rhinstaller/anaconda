@@ -523,6 +523,14 @@ class TaskWindow(InstallWindow):
         # through the UI.
         self.backend.ayum.comps = None
 
+        # check if the selected repositories contain the core package group,
+        # which is required for installation
+        if not self.backend.ayum.comps.has_group("core"):
+            self.anaconda.intf.messageWindow(_("Core group missing in selected repos"),
+                _("You must select at least one software repository "
+                  "containing the core package group."))
+            raise gui.StayOnScreen
+
         tasks = self.xml.get_widget("taskList").get_model()
         for (cb, task, grps) in filter(lambda x: not x[0], tasks):
             map(lambda g: setattr(self.backend.ayum.comps.return_group(g),
