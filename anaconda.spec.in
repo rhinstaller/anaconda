@@ -255,6 +255,15 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Mon Jul 15 2013 Brian C. Lane <bcl@redhat.com> - 20.2-1
+- Use the new wait for connectivity function (mkolman)
+- Improve waiting for network connectivity (mkolman)
+- Use langtable to get default layout instead of our magic (#485137) (vpodzime)
+- Adapt to the new localization module (vpodzime)
+- Rewrite the localization module (vpodzime)
+- Make the Welcome spoke wait for Geolocation lookup to finish (#975193)
+  (mkolman)
+
 * Tue Jul 09 2013 Brian C. Lane <bcl@redhat.com> - 20.1-1
 
 * Thu May 23 2013 Brian C. Lane <bcl@redhat.com> - 19.30-1
