@@ -20,7 +20,7 @@
 ACLOCAL_AMFLAGS = -I m4
 
 SUBDIRS = pyanaconda po data \
-	  tests utils scripts docs dracut widgets
+	      utils scripts docs dracut widgets
 
 EXTRA_DIST = config.rpath COPYING \
              anaconda.spec.in
@@ -116,10 +116,10 @@ updates:
 
 # UNIT TESTING TARGETS
 unittest:
-	PYTHONPATH=tests/:. nosetests --exclude=logpicker -a \!acceptance,\!slow  tests/
+	PYTHONPATH=tests/:. nosetests -v --exclude=logpicker -a \!acceptance,\!slow  tests/
 
 unittests-logpicker:
-	PYTHONPATH=tests/:.:utils/ nosetests tests/logpicker_test
+	PYTHONPATH=tests/:.:utils/ nosetests -v old_tests/logpicker_test
 
 # GUI TESTING
 runspoke:
