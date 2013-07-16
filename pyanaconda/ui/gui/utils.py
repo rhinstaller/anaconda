@@ -24,7 +24,7 @@
 from pyanaconda.threads import threadMgr
 
 from contextlib import contextmanager
-from gi.repository import Gtk, GLib
+from gi.repository import Gtk, GLib, AnacondaWidgets
 import Queue
 
 def gtk_call_once(func, *args):
@@ -94,8 +94,9 @@ def gtk_action_nowait(func):
 
 @contextmanager
 def enlightbox(mainWindow, dialog):
+    # importing globally would cause a circular dependency
     from pyanaconda.ui.gui import ANACONDA_WINDOW_GROUP
-    from gi.repository import AnacondaWidgets
+
     lightbox = AnacondaWidgets.lb_show_over(mainWindow)
     ANACONDA_WINDOW_GROUP.add_window(lightbox)
     dialog.set_transient_for(lightbox)
