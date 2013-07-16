@@ -210,19 +210,17 @@ def get_native_name(locale):
 
     return _upcase_first_letter(name)
 
-def get_available_translations(domain=None, localedir=None):
+def get_available_translations(localedir=None):
     """
     Method that generates (i.e. returns a generator) available translations for
     the given domain and localedir.
 
-    :type domain: str
     :type localedir: str
     :return: generator yielding available translations
     :rtype: generator yielding strings
 
     """
 
-    domain = domain or gettext._current_domain
     localedir = localedir or gettext._default_localedir
 
     messagefiles = sorted(glob.glob(localedir + "/*/LC_MESSAGES/anaconda.mo"))
