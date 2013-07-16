@@ -26,7 +26,7 @@ class InstallClass(BaseInstallClass):
     # name has underscore used for mnemonics, strip if you dont need it
     id = "rhel"
     name = N_("Red Hat Enterprise Linux")
-    sortPriority = 10000
+    sortPriority = 20000
     if not productName.startswith("Red Hat Enterprise"):
         hidden = 1
     defaultFS = "xfs"
