@@ -216,34 +216,34 @@ def get_native_name(locale):
 def get_available_translations(localedir=None):
     """
     Method that generates (i.e. returns a generator) available translations for
-    the given domain and localedir.
+    the installer in the given localedir.
 
     :type localedir: str
-    :return: generator yielding available translations
+    :return: generator yielding available translations (languages)
     :rtype: generator yielding strings
 
     """
 
     localedir = localedir or gettext._default_localedir
 
-    messagefiles = sorted(glob.glob(localedir + "/*/LC_MESSAGES/anaconda.mo"))
+    # usually there are no message files for en
+    messagefiles = sorted(glob.glob(localedir + "/*/LC_MESSAGES/anaconda.mo") +
+                          ["blob/en/blob/blob"])
     trans_gen = (path.split(os.path.sep)[-3] for path in messagefiles)
 
-    # usually there are no message files for en
-    langs = {"en"}
-    yield "en_US.UTF-8"
+    langs = set()
 
     for trans in trans_gen:
         parts = parse_langcode(trans)
         lang = parts.get("language", "")
         if lang and lang not in langs:
             langs.add(lang)
+            # check if there are any locales for the language
             locales = get_language_locales(lang)
             if not locales:
                 continue
 
-            # take the first locale (with highest rank) for the language
-            yield locales[0]
+            yield lang
 
 def get_language_locales(lang):
     """
