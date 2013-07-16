@@ -34,8 +34,8 @@ LOCALE_CONF_FILE_PATH = "/etc/locale.conf"
 #e.g. 'SR_RS.UTF-8@latin'
 LANGCODE_RE = re.compile(r'(?P<language>[A-Za-z]+)'
                          r'(_(?P<territory>[A-Za-z]+))?'
-                         r'(\.(?P<encoding>[-\w]+))?'
-                         r'(@(?P<script>[-\w]+))?')
+                         r'(\.(?P<encoding>[-A-Za-z0-9]+))?'
+                         r'(@(?P<script>[-A-Za-z0-9]+))?')
 
 class LocalizationConfigError(Exception):
     """Exception class for localization configuration related problems"""
@@ -75,8 +75,8 @@ def parse_langcode(langcode):
 
     'language' : 'SR'
     'territory' : 'RS'
-    'codeset' : 'UTF-8'
-    'modifier' : 'latin'
+    'encoding' : 'UTF-8'
+    'script' : 'latin'
 
     or None if the given string doesn't match the LANGCODE_RE.
 
