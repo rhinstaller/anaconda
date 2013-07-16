@@ -29,7 +29,7 @@ from blivet.size import Size
 
 class RHELBaseInstallClass(BaseInstallClass):
     name = "Red Hat Enterprise Linux"
-    sortPriority = 10000
+    sortPriority = 20000
     if not productName.startswith("Red Hat "):
         hidden = True
     defaultFS = "xfs"
