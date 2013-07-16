@@ -147,20 +147,23 @@ def is_supported_locale(locale):
     en_name = get_english_name(locale)
     return bool(en_name)
 
-def setup_locale(locale, lang):
+def setup_locale(locale, lang=None):
     """
     Procedure setting the system to use the given locale and store it in to the
-    ksdata.lang object. DOES NOT PERFORM ANY CHECKS OF THE GIVEN LOCALE.
+    ksdata.lang object (if given). DOES NOT PERFORM ANY CHECKS OF THE GIVEN
+    LOCALE.
 
     :param locale: locale to setup
     :type locale: str
-    :param lang: ksdata.lang object
+    :param lang: ksdata.lang object or None
     :return: None
     :rtype: None
 
     """
 
-    lang.lang = locale
+    if lang:
+        lang.lang = locale
+
     os.environ["LANG"] = locale
 
 def get_english_name(locale):
