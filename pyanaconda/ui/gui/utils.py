@@ -154,3 +154,43 @@ def really_show(widget):
     """
     widget.set_no_show_all(False)
     widget.show()
+
+def set_treeview_selection(treeview, item, col=0):
+    """
+    Select the given item in the given treeview and scroll to it.
+
+    :param treeview: treeview to select and item in
+    :type treeview: GtkTreeView
+    :param item: item to be selected
+    :type item: str
+    :param col: column to search for the item in
+    :type col: int
+    :return: selected iterator or None if item was not found
+    :rtype: GtkTreeIter or None
+
+    """
+
+    model = treeview.get_model()
+    itr = model.get_iter_first()
+    while itr and not model[itr][col] == item:
+        itr = model.iter_next(itr)
+
+    if not itr:
+        # item not found, cannot be selected
+        return None
+
+    # otherwise select the item and scroll to it
+    selection = treeview.get_selection()
+    selection.select_iter(itr)
+    path = model.get_path(itr)
+
+    # row_align=0.5 tells GTK to move the cell to the middle of the
+    # treeview viewport (0.0 should align it with the top, 1.0 with bottom)
+    # If the cell is the uppermost one, it should align it with the top
+    # of the viewport.
+    #
+    # Unfortunately, this does not work as expected due to a bug in GTK.
+    # (see rhbz#970048)
+    treeview.scroll_to_cell(path, use_align=True, row_align=0.5)
+
+    return itr
