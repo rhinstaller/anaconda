@@ -21,6 +21,7 @@
 
 import sys
 import re
+import langtable
 
 from gi.repository import Gtk, Pango
 from pyanaconda.ui.gui.hubs.summary import SummaryHub
@@ -110,14 +111,12 @@ class WelcomeLanguageSpoke(StandaloneSpoke):
             # take the first locale (with highest rank) from the list and
             # store it normalized
             new_layouts = [keyboard.normalize_layout_variant(layouts[0])]
+            if not langtable.supports_ascii(layouts[0]):
+                # does not support typing ASCII chars, append the 'us' layout
+                new_layouts.append("us")
         else:
+            log.error("Failed to get layout for chosen locale '%s'" % locale)
             new_layouts = ["us"]
-
-        checkbutton = self.builder.get_object("setKeyboardCheckButton")
-        if not checkbutton.get_active() and "us" not in new_layouts:
-            #user doesn't want only the language-default layout, prepend
-            #'English (US)' layout
-            new_layouts.insert(0, "us")
 
         self.data.keyboard.x_layouts = new_layouts
         if flags.can_touch_runtime_system("replace runtime X layouts"):
@@ -129,6 +128,9 @@ class WelcomeLanguageSpoke(StandaloneSpoke):
 
             if flags.can_touch_runtime_system("init layout switching"):
                 self._xklwrapper.set_switching_options(["grp:alt_shift_toggle"])
+                # activate the first (language-default) layout instead of the
+                # 'us' one
+                self._xklwrapper.activate_default_layout()
 
     @property
     def completed(self):
