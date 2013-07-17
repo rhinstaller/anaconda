@@ -1018,8 +1018,13 @@ class InstallInterface(InstallInterfaceBase):
                 if not install_device:
                     break
 
-            # update ifcfg files for nm-c-e
-            self.anaconda.id.network.setNMControlledDevices(nm_controlled_devices)
+            # bug #882452 - Now when NM controls VLAN devices, the update (change from
+            # NM_CONTROOLED=yes to NM_CONTROLLED=no) would kill vlan connections
+            # established by fcoe/fipvlan, so we update the NM_CONTROLLED only
+            # in ifcfg files transferred to target system.
+            #
+            ## update ifcfg files for nm-c-e
+            #self.anaconda.id.network.setNMControlledDevices(nm_controlled_devices)
 
             self.anaconda.id.network.writeIfcfgFiles()
             network.logIfcfgFiles(message="Dump before nm-c-e (can race "
