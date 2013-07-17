@@ -1090,37 +1090,21 @@ class InstallInterface(InstallInterfaceBase):
         self.ppw = ppw
 
     def waitWindow (self, title, text):
-        if self.icw:
-            return WaitWindow (title, text, self.icw.window)
-        else:
-            return WaitWindow (title, text)
+        return WaitWindow(title, text, self._getParent())
 
     def progressWindow (self, title, text, total, updpct = 0.05, pulse = False):
-        if self.icw:
-            return ProgressWindow (title, text, total, updpct,
-                                   parent = self.icw.window, pulse = pulse)
-        else:
-            return ProgressWindow (title, text, total, updpct, pulse = pulse)
+        return ProgressWindow(title, text, total, updpct,
+                              parent = self._getParent(), pulse = pulse)
 
     def messageWindow(self, title, text, type="ok", default = None,
              custom_buttons=None,  custom_icon=None):
-        if self.icw:
-            parent = self.icw.window
-        else:
-            parent = None
-
         rc = MessageWindow (title, text, type, default,
-                custom_buttons, custom_icon, run=True, parent=parent).getrc()
+                custom_buttons, custom_icon, run=True, parent=self._getParent()).getrc()
         return rc
 
     def reinitializeWindow(self, title, path, size, description, details):
-        if self.icw:
-            parent = self.icw.window
-        else:
-            parent = None
-
         rc = ReinitializeWindow(title, path, size, description, details,
-                                parent=parent).getrc()
+                                parent=self._getParent()).getrc()
         return rc
 
     def createRepoWindow(self):
@@ -1158,14 +1142,9 @@ class InstallInterface(InstallInterfaceBase):
     def detailedMessageWindow(self, title, text, longText=None, type="ok",
                               default=None, custom_buttons=None,
                               custom_icon=None, expanded=False):
-        if self.icw:
-            parent = self.icw.window
-        else:
-            parent = None
-
         rc = DetailedMessageWindow (title, text, longText, type, default,
                                     custom_buttons, custom_icon, run=True,
-                                    parent=parent, expanded=expanded).getrc()
+                                    parent=self._getParent(), expanded=expanded).getrc()
         return rc
 
     def mainExceptionWindow(self, shortText, longTextFile):
@@ -1182,23 +1161,13 @@ class InstallInterface(InstallInterfaceBase):
         win.run()
 
     def exitWindow(self, title, text):
-        if self.icw:
-            parent = self.icw.window
-        else:
-            parent = None
-
         rc = MessageWindow (title, text, type="custom",
-                            custom_icon="info", parent=parent,
+                            custom_icon="info", parent=self._getParent(),
                             custom_buttons=[_("_Exit installer")]).getrc()
         return rc
 
     def getLuksPassphrase(self, passphrase = "", preexist = False):
-        if self.icw:
-            parent = self.icw.window
-        else:
-            parent = None
-
-        d = luksPassphraseWindow(passphrase, parent = parent,
+        d = luksPassphraseWindow(passphrase, parent = self._getParent(),
                                  preexist = preexist)
         rc = d.run()
         passphrase = d.getPassphrase()
@@ -1207,12 +1176,7 @@ class InstallInterface(InstallInterfaceBase):
         return (passphrase, isglobal)
 
     def passphraseEntryWindow(self, device):
-        if self.icw:
-            parent = self.icw.window
-        else:
-            parent = None
-
-        d = PassphraseEntryWindow(device, parent = parent)
+        d = PassphraseEntryWindow(device, parent = self._getParent())
         rc = d.run()
         d.destroy()
         return rc
@@ -1340,6 +1304,19 @@ class InstallInterface(InstallInterfaceBase):
 
     def setSteps(self, anaconda):
         pass
+
+    def _getParent(self):
+        # Find the parent window to use for new dialogs
+        active_toplevels = [w for w in gtk.window_list_toplevels()
+                            if w.is_active()]
+        if active_toplevels:
+            parent = active_toplevels[0]
+        elif self.icw:
+            parent = self.icw.window
+        else:
+            parent = None
+
+        return parent
 
 class InstallControlWindow:
     def setLanguage (self):
