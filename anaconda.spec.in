@@ -222,6 +222,14 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Wed Jul 17 2013 Samantha N. Bueno <sbueno+anaconda@redhat.com> - 13.21.197-1
+- Check if selected repos have the core package group (mkolman)
+  Resolves: rhbz#901515
+- Use install tree from repo=hd (bcl)
+  Resolves: rhbz#818233
+- Allow /dev/disk/by-* in bootloader --driveorder (bcl)
+  Resolves: rhbz#890095
+
 * Wed Jul 10 2013 Samantha N. Bueno <sbueno+anaconda@redhat.com> - 13.21.196-1
 - Only pass exclusiveDisks for autopart (bcl)
   Resolves: rhbz#852523
