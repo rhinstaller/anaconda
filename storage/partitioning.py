@@ -1194,6 +1194,10 @@ def allocatePartitions(storage, disks, partitions, freespace):
                 log.debug("found free space for bootable request")
                 break
 
+        if getNextPartitionType(disklabel.partedDisk) is None:
+            raise PartitioningError("no free partition slots on %s" % 
+                                    _disk.name)
+
         if free is None:
             raise PartitioningError("not enough free space on disks")
 
