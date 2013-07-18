@@ -337,6 +337,10 @@ class ISCSIDialog(GUIObject):
 
             for node in self._discoveredNodes:
                 if obj.notLoggedIn and node.name == obj.name:
+                    # when binding interfaces match also interface
+                    if self.iscsi.ifaces and \
+                       obj.iface != self.iscsi.ifaces[node.iface]:
+                        continue
                     (rc, msg) = self.iscsi.log_into_node(node,
                                                          username=credentials.username,
                                                          password=credentials.password,
