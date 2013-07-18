@@ -496,11 +496,18 @@ class LogVolData(commands.logvol.RHEL6_LogVolData):
         # we might have truncated or otherwise changed the specified vg name
         vgname = anaconda.id.ksdata.onPart.get(self.vgname, self.vgname)
 
+        disk_space = 0
+        for disk in storage.disks:
+            if not storage.clearPartDisks \
+                    or disk.name in storage.clearPartDisks:
+                disk_space += disk.size
+
         if self.mountpoint == "swap":
             type = "swap"
             self.mountpoint = ""
             if self.recommended or self.hibernation:
-                (self.size, self.maxSizeMB) = iutil.swapSuggestion(hibernation=self.hibernation)
+                (self.size, self.maxSizeMB) = iutil.swapSuggestion(hibernation=self.hibernation,
+                                                                   disk_space=disk_space)
                 self.grow = True
         else:
             if self.fstype != "":
@@ -771,11 +778,18 @@ class PartitionData(commands.partition.RHEL6_PartData):
             if self.disk == "":
                 raise KickstartValueError, formatErrorMsg(self.lineno, msg="Specified BIOS disk %s cannot be determined" % self.onbiosdisk)
 
+        disk_space = 0
+        for disk in storage.disks:
+            if not storage.clearPartDisks \
+                    or disk.name in storage.clearPartDisks:
+                disk_space += disk.size
+
         if self.mountpoint == "swap":
             type = "swap"
             self.mountpoint = ""
             if self.recommended or self.hibernation:
-                (self.size, self.maxSizeMB) = iutil.swapSuggestion(hibernation=self.hibernation)
+                (self.size, self.maxSizeMB) = iutil.swapSuggestion(hibernation=self.hibernation,
+                                                                   disk_space=disk_space)
                 self.grow = True
 
         # if people want to specify no mountpoint for some reason, let them

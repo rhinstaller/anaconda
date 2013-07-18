@@ -40,6 +40,9 @@ import logging
 log = logging.getLogger("anaconda")
 program_log = logging.getLogger("program")
 
+# maximum ratio of swap size to disk size (10 %)
+MAX_SWAP_DISK_RATIO = 0.1
+
 #Python reimplementation of the shell tee process, so we can
 #feed the pipe output into two places at the same time
 class tee(threading.Thread):
@@ -450,10 +453,17 @@ def memInstalled():
 
     return long(mem)
 
-## Suggest the size of the swap partition that will be created.
-# @param quiet Should size information be logged?
-# @return A tuple of the minimum and maximum swap size, in megabytes.
-def swapSuggestion(quiet=0, hibernation=False):
+def swapSuggestion(quiet=0, hibernation=False, disk_space=None):
+    """
+    Suggest the size of the swap partition that will be created.
+
+    @param quiet: Should size information be logged?
+    @param hibernation: Suggest size of the swap partition to support hibernation?
+    @param disk_space: Total disk space available
+    @return: A tuple of the minimum and maximum swap size, in megabytes.
+
+    """
+
     mem = memInstalled()/1024
     mem = ((mem/16)+1)*16
     if not quiet:
@@ -478,6 +488,16 @@ def swapSuggestion(quiet=0, hibernation=False):
             swap = mem + swap
         else:
             log.info("Ignoring --hibernation option on systems with 64 GB of RAM or more")
+
+    if disk_space is not None:
+        max_swap = int(disk_space * MAX_SWAP_DISK_RATIO)
+        if swap > max_swap:
+            log.info("Suggested swap size (%(swap)d M) exceeds %(percent)d %% of "
+                     "disk space, using %(percent)d %% of disk space (%(size)d M) "
+                     "instead." % {"percent": MAX_SWAP_DISK_RATIO*100,
+                                   "swap": swap,
+                                   "size": max_swap})
+            swap = max_swap
 
     if not quiet:
 	log.info("Swap attempt of %sM", swap)

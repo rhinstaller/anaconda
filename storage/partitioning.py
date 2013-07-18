@@ -239,6 +239,20 @@ def doAutoPartition(anaconda):
             anaconda.id.storage.reset()
             return DISPATCH_BACK
 
+        # get a new swap suggestion, now that we know the total disk space we're
+        # gonna use
+        disk_space = 0
+        for disk in anaconda.id.storage.disks:
+            if not anaconda.id.storage.clearPartDisks \
+                    or disk.name in anaconda.id.storage.clearPartDisks:
+                disk_space += disk.size
+
+        (min_size, max_size) = iutil.swapSuggestion(disk_space=disk_space)
+        for request in anaconda.id.storage.autoPartitionRequests:
+            if request.fstype == "swap":
+                request.size = min_size
+                request.maxSize= max_size
+
         _schedulePartitions(anaconda, disks)
 
     # sanity check the individual devices
