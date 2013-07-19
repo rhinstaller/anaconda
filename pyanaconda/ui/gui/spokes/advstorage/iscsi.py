@@ -162,6 +162,9 @@ class ISCSIDialog(GUIObject):
     def run(self):
         rc = self.window.run()
         self.window.destroy()
+        # We need to call this to get the device nodes to show up
+        # in our devicetree.
+        self.storage.devicetree.populate()
         return rc
 
     ##
@@ -352,9 +355,6 @@ class ISCSIDialog(GUIObject):
 
                     row[1] = False
 
-                    # We need to call this to get the device node to show up
-                    # in our devicetree.
-                    self.storage.devicetree.populate()
 
                     # Only logging into one at a time.
                     break
