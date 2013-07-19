@@ -558,6 +558,8 @@ class StorageSpoke(NormalSpoke, StorageChecker):
         # those selected in the filter UI are displayed.  This means refresh
         # needs to know to create and destroy overviews as appropriate.
         for name in self.data.ignoredisk.onlyuse:
+            if name not in disk_names:
+                continue
             obj = self.storage.devicetree.getDeviceByName(name, hidden=True)
             if isLocalDisk(obj):
                 continue
