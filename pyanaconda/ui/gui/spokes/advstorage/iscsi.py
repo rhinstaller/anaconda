@@ -119,6 +119,7 @@ class ISCSIDialog(GUIObject):
         self._loginError = False
 
         self._discoveredNodes = []
+        self._update_devicetree = False
 
     def refresh(self):
         self._authTypeCombo = self.builder.get_object("authTypeCombo")
@@ -164,7 +165,8 @@ class ISCSIDialog(GUIObject):
         self.window.destroy()
         # We need to call this to get the device nodes to show up
         # in our devicetree.
-        self.storage.devicetree.populate()
+        if self._update_devicetree:
+            self.storage.devicetree.populate()
         return rc
 
     ##
@@ -353,8 +355,8 @@ class ISCSIDialog(GUIObject):
                         self._loginError = msg
                         return
 
+                    self._update_devicetree = True
                     row[1] = False
-
 
                     # Only logging into one at a time.
                     break
