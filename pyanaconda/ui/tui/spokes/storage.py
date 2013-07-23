@@ -291,6 +291,9 @@ class StorageSpoke(NormalTUISpoke):
 
         self.disks = sorted(getDisks(self.storage.devicetree),
                             key=lambda d: d.name)
+        # if only one disk is available, go ahead and mark it as selected
+        if len(self.disks) == 1:
+            self._update_disk_list(self.disks[0])
 
         self._update_summary()
         self._ready = True
