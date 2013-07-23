@@ -594,7 +594,7 @@ class Iscsi(commands.iscsi.F17_Iscsi):
         mode = blivet.iscsi.iscsi().mode
         if mode == "none":
             if tg.iface:
-                storage.iscsi.iscsi().create_interfaces(active_ifaces)
+                blivet.iscsi.iscsi().create_interfaces(active_ifaces)
         elif ((mode == "bind" and not tg.iface)
               or (mode == "default" and tg.iface)):
             raise KickstartValueError, formatErrorMsg(self.lineno, msg="iscsi --iface must be specified (binding used) either for all targets or for none")
