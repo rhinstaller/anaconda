@@ -927,6 +927,16 @@ def _wait_for_connecting_NM():
     log.debug("not connected, waited %d of %d secs" % (i, constants.NETWORK_CONNECTION_TIMEOUT))
     return False
 
+def wait_for_network_devices(devices, timeout=constants.NETWORK_CONNECTION_TIMEOUT):
+    devices = set(devices)
+    i = 0
+    log.debug("waiting for connection of devices %s for iscsi" % devices)
+    while  i < timeout:
+        if not devices - set(nm.nm_activated_devices()):
+            return True
+        i += 1
+        time.sleep(1)
+    return False
 
 def wait_for_connecting_NM_thread(ksdata):
     """This function is called from a thread which is run at startup

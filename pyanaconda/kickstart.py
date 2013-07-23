@@ -587,14 +587,13 @@ class Iscsi(commands.iscsi.F17_Iscsi):
         tg = commands.iscsi.F17_Iscsi.parse(self, args)
 
         if tg.iface:
-            active_ifaces = nm.nm_activated_devices()
-            if tg.iface not in active_ifaces:
+            if not network.wait_for_network_devices([tg.iface]):
                 raise KickstartValueError, formatErrorMsg(self.lineno, msg="network interface %s required by iscsi %s target is not up" % (tg.iface, tg.target))
 
         mode = blivet.iscsi.iscsi().mode
         if mode == "none":
             if tg.iface:
-                blivet.iscsi.iscsi().create_interfaces(active_ifaces)
+                blivet.iscsi.iscsi().create_interfaces(nm.nm_activated_devices())
         elif ((mode == "bind" and not tg.iface)
               or (mode == "default" and tg.iface)):
             raise KickstartValueError, formatErrorMsg(self.lineno, msg="iscsi --iface must be specified (binding used) either for all targets or for none")
