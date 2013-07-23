@@ -325,13 +325,9 @@ class ISCSIDialog(GUIObject):
         if not path:
             return
 
-        # First, mark all rows as unselected.
-        for row in self._store:
-            row[0] = False
-
         # Then, go back and mark just this row as selected.
         itr = self._store.get_iter(path)
-        self._store[itr][0] = True
+        self._store[itr][0] = not self._store[itr][0]
 
     def _login(self, credentials):
         for row in self._store:
@@ -357,9 +353,6 @@ class ISCSIDialog(GUIObject):
 
                     self._update_devicetree = True
                     row[1] = False
-
-                    # Only logging into one at a time.
-                    break
 
     def _check_login(self, *args):
         if threadMgr.get(constants.THREAD_ISCSI_LOGIN):
