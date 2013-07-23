@@ -776,6 +776,17 @@ def write_network_config(storage, ksdata, instClass, rootpath):
     disableNMForStorageDevices(rootpath, storage)
     autostartFCoEDevices(rootpath, storage, ksdata)
 
+def wait_for_network_devices(devices, timeout=NETWORK_CONNECTION_TIMEOUT):
+    devices = set(devices)
+    i = 0
+    log.debug("waiting for connection of devices %s for iscsi" % devices)
+    while  i < timeout:
+        if not devices - set(nm.nm_activated_devices()):
+            return True
+        i += 1
+        time.sleep(1)
+    return False
+
 def wait_for_connecting_NM():
     """If NM is in connecting state, wait for connection.
     Return value: NM has got connection."""
