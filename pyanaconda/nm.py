@@ -284,15 +284,7 @@ def nm_ntp_servers_from_dhcp():
             for ip in ntp_servers_string.split(" "):
                 ntp_servers.append(ip)
 
-        # harvest NTP servers from DHCPv6
-        dhcp6_path = nm_device_property(device, "Dhcp6Config")
-        dhcp6_proxy = _get_proxy(object_path=dhcp6_path,
-                interface_name="org.freedesktop.NetworkManager.DHCP6Config")
-        options = dhcp6_proxy.get_cached_property("Options")
-        if options is not None:
-            # NTP server addresses returned by DHCP are whitespace delimited
-            for ip in options.unpack().split(" "):
-                ntp_servers.append(ip)
+        # NetworkManager does not request NTP/SNTP options for DHCP6
     return ntp_servers
 
 def _device_settings(name):
