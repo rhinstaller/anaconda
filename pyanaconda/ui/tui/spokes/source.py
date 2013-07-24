@@ -44,7 +44,7 @@ class SourceSpoke(EditTUISpoke):
     title = _("Installation source")
     category = "source"
 
-    _protocols = (_("Closest mirror"), "http://", "https://", "ftp://")
+    _protocols = (_("Closest mirror"), "http://", "https://", "ftp://", "nfs")
 
     # default to 'closest mirror', as done in the GUI
     _selection = 1
@@ -80,6 +80,8 @@ class SourceSpoke(EditTUISpoke):
         """ Return a string describing repo url or lack of one. """
         if self.data.method.method == "url":
             return self.data.method.url or self.data.method.mirrorlist
+        elif self.data.method.method == "nfs":
+            return _("NFS server %s") % self.data.method.server
         elif self.data.method.method == "cdrom":
             return _("CD/DVD drive")
         elif self.payload.baseRepo:
@@ -125,6 +127,7 @@ class SourceSpoke(EditTUISpoke):
             text = [TextWidget(m) for m in _methods]
 
         def _prep(i, w):
+            """ Mangle our text to make it look pretty on screen. """
             number = TextWidget("%2d)" % (i + 1))
             return ColumnWidget([(4, [number]), (None, [w])], 1)
 
@@ -142,9 +145,6 @@ class SourceSpoke(EditTUISpoke):
             num = int(key)
             if args == 2:
                 # network install
-                ## FIXME: setting self._selection reeks a bit of redundancy
-                ## now that some of this has been rewritten, so it should be
-                ## done away with entirely in the future, at some point
                 self._selection = num
                 if self._selection == 1:
                     # closest mirror
@@ -156,6 +156,15 @@ class SourceSpoke(EditTUISpoke):
                     self.data.method.method = "url"
                     newspoke = SpecifyRepoSpoke(self.app, self.data, self.storage,
                                               self.payload, self.instclass, self._selection)
+                    self.app.switch_screen_modal(newspoke)
+                    self.apply()
+                    self.close()
+                    return True
+                elif self._selection == 5:
+                    # nfs
+                    self.data.method.method = "nfs"
+                    newspoke = SpecifyNFSRepoSpoke(self.app, self.data, self.storage,
+                                            self.payload, self.instclass, self._selection, self.errors)
                     self.app.switch_screen_modal(newspoke)
                     self.apply()
                     self.close()
@@ -178,8 +187,8 @@ class SourceSpoke(EditTUISpoke):
         """ Pull down yum repo metadata """
         try:
             self.payload.updateBaseRepo(fallback=False, checkmount=False)
-        except PayloadError as err:
-            LOG.error("PayloadError: %s" % (err,))
+        except (OSError, PayloadError) as err:
+            LOG.error("Error: %s" % (err,))
             self.errors.append(_("Failed to set up installation source"))
         else:
             self.payload.gatherRepoMetadata()
@@ -240,3 +249,44 @@ class SpecifyRepoSpoke(EditTUISpoke):
             # protocol either unknown or entry already starts with a protocol
             # specification
             self.data.method.url = self.args.url
+
+class SpecifyNFSRepoSpoke(EditTUISpoke):
+    """ Specify server and mount opts here if NFS selected. """
+    title = _("Specify Repo Options")
+    category = "source"
+
+    edit_fields = [
+        Entry(_("NFS <server>:/<path>"), "url", re.compile(".*$"), True),
+        Entry(_("NFS mount options"), "opts", re.compile(".*$"), True)
+    ]
+
+    def __init__(self, app, data, storage, payload, instclass, selection, errors):
+        EditTUISpoke.__init__(self, app, data, storage, payload, instclass)
+        self.selection = selection
+        self.args = self.data.method
+        self.errors = errors
+
+    def refresh(self, args=None):
+        """ Refresh window. """
+        return EditTUISpoke.refresh(self, args)
+
+    @property
+    def indirect(self):
+        return True
+
+    def apply(self):
+        """ Apply our changes. """
+        if self.args.url == "" or not ':' in self.args.url:
+            return False
+
+        if self.args.url.startswith("nfs://"):
+            self.args.url = self.args.url.strip("nfs://")
+
+        try:
+            (self.data.method.server, self.data.method.dir) = self.args.url.split(":", 2)
+        except ValueError as err:
+            LOG.error("ValueError: %s" % (err,))
+            self.errors.append(_("Failed to set up installation source. Check the source address."))
+            return
+
+        self.data.method.opts = self.args.opts or ""
