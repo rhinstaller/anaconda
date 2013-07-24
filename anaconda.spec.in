@@ -222,6 +222,19 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Wed Jul 24 2013 Samantha N. Bueno <sbueno+anaconda@redhat.com> - 13.21.198-1
+- Use the active window as parent for new dialogs (dshea)
+  Resolves: rhbz#888292
+- Add kickstart network --ipv6gateway option (rvykydal)
+  Resolves: rhbz#905227
+- Limit the maximum swap size to 10 % of disk space (vpodzime)
+  Resolves: rhbz#878907
+  Related: rhbz#879232
+- Don't kill FCoE vlan connections when configuring network in UI (rvykydal)
+  Resolves: rhbz#882452
+- Use correct error message when running out of partition slots (mkolman)
+  Resolves: rhbz#859420
+
 * Wed Jul 17 2013 Samantha N. Bueno <sbueno+anaconda@redhat.com> - 13.21.197-1
 - Check if selected repos have the core package group (mkolman)
   Resolves: rhbz#901515

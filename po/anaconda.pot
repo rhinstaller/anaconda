@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: anaconda 13.21.196\n"
+"Project-Id-Version: anaconda 13.21.197\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
-"POT-Creation-Date: 2013-07-17 19:10-0400\n"
+"POT-Creation-Date: 2013-07-24 15:27-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -42,8 +42,8 @@ msgstr ""
 #: loader/mediacheck.c:46 loader/mediacheck.c:85 loader/mediacheck.c:92
 #: loader/mediacheck.c:96 loader/mediacheck.c:105 loader/method.c:277
 #: loader/method.c:351 loader/modules.c:396 loader/modules.c:412
-#: loader/net.c:607 loader/net.c:991 loader/net.c:1795 loader/net.c:1819
-#: loader/net.c:2163 loader/net.c:2182 loader/net.c:2194
+#: loader/net.c:607 loader/net.c:991 loader/net.c:1798 loader/net.c:1822
+#: loader/net.c:2180 loader/net.c:2199 loader/net.c:2211
 #: loader/nfsinstall.c:91 loader/nfsinstall.c:279 loader/nfsinstall.c:296
 #: loader/nfsinstall.c:384 loader/telnetd.c:92 loader/urlinstall.c:137
 #: loader/urlinstall.c:159 loader/urlinstall.c:221 loader/urlinstall.c:374
@@ -97,7 +97,7 @@ msgid "Installing %s\n"
 msgstr ""
 
 #: bootloader.py:55 bootloader.py:242 bootloader.py:248 bootloader.py:255
-#: gui.py:1284 image.py:92 installinterfacebase.py:66 network.py:890
+#: gui.py:1253 image.py:92 installinterfacebase.py:66 network.py:890
 #: text.py:490 text.py:550 yuminstall.py:1631 yuminstall.py:1840
 #: yuminstall.py:1875 iw/blpasswidget.py:154 iw/upgrade_swap_gui.py:190
 #: iw/upgrade_swap_gui.py:198 iw/upgrade_swap_gui.py:205
@@ -113,7 +113,7 @@ msgid ""
 "Would you like to continue with the installation?"
 msgstr ""
 
-#: bootloader.py:60 gui.py:1187 gui.py:1320 gui.py:1539 image.py:101
+#: bootloader.py:60 gui.py:1166 gui.py:1289 gui.py:1521 image.py:101
 #: installinterfacebase.py:109 livecd.py:205 livecd.py:447 packages.py:162
 #: upgrade.py:58 upgrade.py:199 yuminstall.py:272 yuminstall.py:1109
 #: yuminstall.py:1114 yuminstall.py:1197 yuminstall.py:1203 yuminstall.py:1355
@@ -124,8 +124,8 @@ msgstr ""
 msgid "_Exit installer"
 msgstr ""
 
-#: bootloader.py:60 image.py:102 image.py:265 kickstart.py:1525
-#: kickstart.py:1569 upgrade.py:58 yuminstall.py:1448 yuminstall.py:1627
+#: bootloader.py:60 image.py:102 image.py:265 kickstart.py:1542
+#: kickstart.py:1586 upgrade.py:58 yuminstall.py:1448 yuminstall.py:1627
 #: iw/partition_gui.py:1629 storage/__init__.py:2089
 msgid "_Continue"
 msgstr ""
@@ -163,8 +163,8 @@ msgstr ""
 msgid "In progress"
 msgstr ""
 
-#: cmdline.py:88 gui.py:1315 kickstart.py:1307 kickstart.py:1387
-#: kickstart.py:1395 kickstart.py:1434 kickstart.py:1442 text.py:396
+#: cmdline.py:88 gui.py:1284 kickstart.py:1324 kickstart.py:1404
+#: kickstart.py:1412 kickstart.py:1451 kickstart.py:1459 text.py:396
 #, python-format
 msgid ""
 "The following error was found while parsing the kickstart configuration "
@@ -264,7 +264,7 @@ msgid ""
 "installation you must enter the device's passphrase below."
 msgstr ""
 
-#: gui.py:726 gui.py:1539 partIntfHelpers.py:160 partIntfHelpers.py:345
+#: gui.py:726 gui.py:1521 partIntfHelpers.py:160 partIntfHelpers.py:345
 #: text.py:100 text.py:101 iw/account_gui.py:131 loader/dirbrowser.c:128
 #: loader/driverdisk.c:479 loader/kickstart.c:334 loader/loader.c:479
 #: loader/loader.c:591 textw/constants_text.py:48 textw/userauth_text.py:87
@@ -276,38 +276,38 @@ msgstr ""
 msgid "_Debug"
 msgstr ""
 
-#: gui.py:1042 textw/netconfig_text.py:399
+#: gui.py:1047 textw/netconfig_text.py:399
 msgid "Waiting for NetworkManager"
 msgstr ""
 
-#: gui.py:1043
+#: gui.py:1048
 #, python-format
 msgid "Waiting for NetworkManager to activate these devices: %s"
 msgstr ""
 
-#: gui.py:1064
+#: gui.py:1069
 #, python-format
 msgid "Failed to activate these network interfaces: %s"
 msgstr ""
 
-#: gui.py:1067
+#: gui.py:1072
 msgid "Network Configuration"
 msgstr ""
 
-#: gui.py:1076
+#: gui.py:1081
 #, python-format
 msgid "An error occurred trying to bring up the %s network interface."
 msgstr ""
 
-#: gui.py:1078
+#: gui.py:1083
 msgid "Error Enabling Network"
 msgstr ""
 
-#: gui.py:1137 installinterfacebase.py:48 iw/task_gui.py:324
+#: gui.py:1126 installinterfacebase.py:48 iw/task_gui.py:324
 msgid "Error Setting Up Repository"
 msgstr ""
 
-#: gui.py:1138
+#: gui.py:1127
 #, python-format
 msgid ""
 "The following error occurred while setting up the installation repository:\n"
@@ -317,11 +317,11 @@ msgid ""
 "Please provide the correct information for installing %(productName)s."
 msgstr ""
 
-#: gui.py:1236 ui/reinitialize-dialog.glade.h:2
+#: gui.py:1205 ui/reinitialize-dialog.glade.h:2
 msgid "Storage Device Warning"
 msgstr ""
 
-#: gui.py:1285 text.py:551
+#: gui.py:1254 text.py:551
 #, python-format
 msgid ""
 "Error processing LVM.\n"
@@ -331,35 +331,35 @@ msgid ""
 "with inconsistent metadata."
 msgstr ""
 
-#: gui.py:1292 installinterfacebase.py:94 text.py:500 text.py:558
+#: gui.py:1261 installinterfacebase.py:94 text.py:500 text.py:558
 msgid "_Ignore"
 msgstr ""
 
-#: gui.py:1293 text.py:501 text.py:559
+#: gui.py:1262 text.py:501 text.py:559
 msgid "Ignore _all"
 msgstr ""
 
-#: gui.py:1294 text.py:502 text.py:560
+#: gui.py:1263 text.py:502 text.py:560
 msgid "_Re-initialize"
 msgstr ""
 
-#: gui.py:1295 text.py:503 text.py:561
+#: gui.py:1264 text.py:503 text.py:561
 msgid "Re-ini_tialize all"
 msgstr ""
 
-#: gui.py:1317 text.py:398
+#: gui.py:1286 text.py:398
 msgid "Error Parsing Kickstart Config"
 msgstr ""
 
-#: gui.py:1364
+#: gui.py:1346
 msgid "default:LTR"
 msgstr ""
 
-#: gui.py:1444 text.py:628
+#: gui.py:1426 text.py:628
 msgid "Error!"
 msgstr ""
 
-#: gui.py:1445 text.py:629
+#: gui.py:1427 text.py:629
 #, python-format
 msgid ""
 "An error occurred when attempting to load an installer interface component.\n"
@@ -367,47 +367,47 @@ msgid ""
 "className = %s"
 msgstr ""
 
-#: gui.py:1450 image.py:176 image.py:208 packages.py:370
+#: gui.py:1432 image.py:176 image.py:208 packages.py:370
 #: storage/__init__.py:1906
 msgid "_Exit"
 msgstr ""
 
-#: gui.py:1451 image.py:176 image.py:208 livecd.py:205 yuminstall.py:976
+#: gui.py:1433 image.py:176 image.py:208 livecd.py:205 yuminstall.py:976
 #: yuminstall.py:1382 yuminstall.py:1443 yuminstall.py:1657
 msgid "_Retry"
 msgstr ""
 
-#: gui.py:1453 storage/partitioning.py:318
+#: gui.py:1435 storage/partitioning.py:332
 msgid "The system will now reboot."
 msgstr ""
 
-#: gui.py:1454 image.py:265 packages.py:374 yuminstall.py:1698
+#: gui.py:1436 image.py:265 packages.py:374 yuminstall.py:1698
 msgid "_Reboot"
 msgstr ""
 
-#: gui.py:1456
+#: gui.py:1438
 msgid "Exiting"
 msgstr ""
 
-#: gui.py:1536 installinterfacebase.py:55 livecd.py:126 text.py:267
+#: gui.py:1518 installinterfacebase.py:55 livecd.py:126 text.py:267
 #: upgrade.py:190
 msgid "Exit installer"
 msgstr ""
 
-#: gui.py:1537
+#: gui.py:1519
 msgid "Are you sure you wish to exit the installer?"
 msgstr ""
 
-#: gui.py:1546
+#: gui.py:1528
 #, python-format
 msgid "%s Installer"
 msgstr ""
 
-#: gui.py:1552
+#: gui.py:1534
 msgid "Unable to load title bar"
 msgstr ""
 
-#: gui.py:1635
+#: gui.py:1617
 msgid "Install Window"
 msgstr ""
 
@@ -568,15 +568,15 @@ msgstr ""
 msgid "Hardware Error Encountered"
 msgstr ""
 
-#: iutil.py:853
+#: iutil.py:873
 msgid "Error determining boot device's disk name"
 msgstr ""
 
-#: iutil.py:876
+#: iutil.py:896
 msgid "the device containing /boot"
 msgstr ""
 
-#: iutil.py:878
+#: iutil.py:898
 #, python-format
 msgid ""
 "After shutdown, please perform a manual IPL from %s to continue installation."
@@ -610,63 +610,63 @@ msgid ""
 "%s"
 msgstr ""
 
-#: kickstart.py:1406
+#: kickstart.py:1423
 #, python-format
 msgid "Error processing %%ksappend lines: %s"
 msgstr ""
 
-#: kickstart.py:1409
+#: kickstart.py:1426
 #, python-format
 msgid "Unknown error processing %%ksappend lines: %s"
 msgstr ""
 
-#: kickstart.py:1465 livecd.py:228
+#: kickstart.py:1482 livecd.py:228
 msgid "Post-Installation"
 msgstr ""
 
-#: kickstart.py:1466
+#: kickstart.py:1483
 msgid "Running post-installation scripts"
 msgstr ""
 
-#: kickstart.py:1482
+#: kickstart.py:1499
 msgid "Pre-Installation"
 msgstr ""
 
-#: kickstart.py:1483
+#: kickstart.py:1500
 msgid "Running pre-installation scripts"
 msgstr ""
 
-#: kickstart.py:1516
+#: kickstart.py:1533
 msgid "Missing Package"
 msgstr ""
 
-#: kickstart.py:1517
+#: kickstart.py:1534
 #, python-format
 msgid ""
 "You have specified that the package '%s' should be installed.  This package "
 "does not exist. Would you like to continue or abort this installation?"
 msgstr ""
 
-#: kickstart.py:1523 kickstart.py:1567
+#: kickstart.py:1540 kickstart.py:1584
 msgid "_Abort"
 msgstr ""
 
-#: kickstart.py:1524 kickstart.py:1568
+#: kickstart.py:1541 kickstart.py:1585
 msgid "_Ignore All"
 msgstr ""
 
-#: kickstart.py:1559
+#: kickstart.py:1576
 msgid "Missing Group"
 msgstr ""
 
-#: kickstart.py:1560
+#: kickstart.py:1577
 #, python-format
 msgid ""
 "You have specified that the group '%s' should be installed. This group does "
 "not exist. Would you like to continue or abort this installation?"
 msgstr ""
 
-#: kickstart.py:1683
+#: kickstart.py:1700
 #, python-format
 msgid ""
 "The kickstart configuration file is missing required information that "
@@ -2593,7 +2593,7 @@ msgid "The volume group name \"%s\" is already in use. Please pick another."
 msgstr ""
 
 #: iw/lvm_dialog_gui.py:1114 iw/partition_gui.py:1615
-#: storage/partitioning.py:233 storage/partitioning.py:281
+#: storage/partitioning.py:233 storage/partitioning.py:295
 msgid "Error Partitioning"
 msgstr ""
 
@@ -3484,7 +3484,7 @@ msgstr ""
 #: loader/driverselect.c:178 loader/hdinstall.c:214 loader/hdinstall.c:268
 #: loader/kbd.c:119 loader/loader.c:520 loader/loader.c:537
 #: loader/loader.c:1496 loader/loader.c:1529 loader/net.c:607 loader/net.c:991
-#: loader/net.c:2163 loader/net.c:2182 loader/nfsinstall.c:91
+#: loader/net.c:2180 loader/net.c:2199 loader/nfsinstall.c:91
 #: loader/urls.c:268 storage/__init__.py:166 storage/devicetree.py:93
 #: textw/constants_text.py:52
 msgid "Back"
@@ -3592,7 +3592,7 @@ msgstr ""
 #: loader/driverdisk.c:802 loader/driverdisk.c:840 loader/hdinstall.c:362
 #: loader/kickstart.c:138 loader/kickstart.c:148 loader/kickstart.c:190
 #: loader/kickstart.c:195 loader/kickstart.c:524 loader/modules.c:396
-#: loader/modules.c:412 loader/net.c:1795 loader/net.c:1819
+#: loader/modules.c:412 loader/net.c:1798 loader/net.c:1822
 #: loader/nfsinstall.c:384 loader/urlinstall.c:374 loader/urlinstall.c:385
 #: loader/urlinstall.c:392
 msgid "Kickstart Error"
@@ -4097,62 +4097,62 @@ msgstr ""
 msgid "You must enter both a valid IPv6 address and a CIDR prefix."
 msgstr ""
 
-#: loader/net.c:1796
+#: loader/net.c:1799
 #, c-format
 msgid "Bad argument to kickstart network command: %s"
 msgstr ""
 
-#: loader/net.c:1820
+#: loader/net.c:1823
 #, c-format
 msgid "Bad bootproto %s specified in network command"
 msgstr ""
 
-#: loader/net.c:1939
+#: loader/net.c:1956
 msgid "Seconds:"
 msgstr ""
 
-#: loader/net.c:2158
+#: loader/net.c:2175
 msgid "Networking Device"
 msgstr ""
 
-#: loader/net.c:2159
+#: loader/net.c:2176
 msgid ""
 "You have multiple network devices on this system. Which would you like to "
 "install through?"
 msgstr ""
 
-#: loader/net.c:2163
+#: loader/net.c:2180
 msgid "Identify"
 msgstr ""
 
-#: loader/net.c:2172
+#: loader/net.c:2189
 msgid "You can identify the physical port for"
 msgstr ""
 
-#: loader/net.c:2174
+#: loader/net.c:2191
 msgid ""
 "by flashing the LED lights for a number of seconds.  Enter a number between "
 "1 and 30 to set the duration to flash the LED port lights."
 msgstr ""
 
-#: loader/net.c:2181
+#: loader/net.c:2198
 msgid "Identify NIC"
 msgstr ""
 
-#: loader/net.c:2194
+#: loader/net.c:2211
 msgid "Invalid Duration"
 msgstr ""
 
-#: loader/net.c:2195
+#: loader/net.c:2212
 msgid "You must enter the number of seconds as an integer between 1 and 30."
 msgstr ""
 
-#: loader/net.c:2207
+#: loader/net.c:2224
 #, c-format
 msgid "Flashing %s port lights for %d seconds."
 msgstr ""
 
-#: loader/net.c:2438 loader/net.c:2442
+#: loader/net.c:2455 loader/net.c:2459
 #, c-format
 msgid "Waiting for NetworkManager to configure %s.\n"
 msgstr ""
@@ -4776,7 +4776,7 @@ msgid ""
 "problems on the filesystem."
 msgstr ""
 
-#: storage/formats/fs.py:536 storage/partitioning.py:317
+#: storage/formats/fs.py:536 storage/partitioning.py:331
 msgid "Unrecoverable Error"
 msgstr ""
 
@@ -4881,11 +4881,11 @@ msgid ""
 "another partitioning method."
 msgstr ""
 
-#: storage/partitioning.py:264
+#: storage/partitioning.py:278
 msgid "Warnings During Automatic Partitioning"
 msgstr ""
 
-#: storage/partitioning.py:266
+#: storage/partitioning.py:280
 #, python-format
 msgid ""
 "Following warnings occurred during automatic partitioning:\n"
@@ -4893,14 +4893,14 @@ msgid ""
 "%s"
 msgstr ""
 
-#: storage/partitioning.py:280 storage/partitioning.py:301
+#: storage/partitioning.py:294 storage/partitioning.py:315
 msgid ""
 "\n"
 "\n"
 "Press 'OK' to exit the installer."
 msgstr ""
 
-#: storage/partitioning.py:282
+#: storage/partitioning.py:296
 #, python-format
 msgid ""
 "Could not allocate requested partitions: \n"
@@ -4908,18 +4908,18 @@ msgid ""
 "%(msg)s.%(extra)s"
 msgstr ""
 
-#: storage/partitioning.py:303
+#: storage/partitioning.py:317
 msgid ""
 "\n"
 "\n"
 "Press 'OK' to choose a different partitioning option."
 msgstr ""
 
-#: storage/partitioning.py:305
+#: storage/partitioning.py:319
 msgid "Automatic Partitioning Errors"
 msgstr ""
 
-#: storage/partitioning.py:306
+#: storage/partitioning.py:320
 #, python-format
 msgid ""
 "The following errors occurred with your partitioning:\n"
