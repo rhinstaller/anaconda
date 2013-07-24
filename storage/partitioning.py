@@ -99,7 +99,12 @@ def _schedulePartitions(anaconda, disks):
         elif request.fstype == "prepboot":
             # make sure there never is more than one prepboot per disk
             bootdev = anaconda.platform.bootDevice()
-            if (bootdev and
+            if (bootdev and bootdev.name.startswith('req')):
+                # we already have a prepboot partition requested
+                log.info("partitioning: skipping additional PReP boot "
+                         "partition request")
+                continue
+            if (bootdev and bootdev.disk and
                 anaconda.id.bootloader.drivelist and
                 anaconda.id.bootloader.drivelist[0] == bootdev.disk.name):
                 # do not allow creating the new PReP boot on the same drive
