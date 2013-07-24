@@ -232,8 +232,9 @@ def find_dd(mnt="/media/DD"):
     dd_repos = []
     arch = os.uname()[4]
     for root, dirs, files in os.walk(mnt, followlinks=True):
-        if "rhdd3" in files and arch in dirs:
-            dd_repos.append(root+"/"+arch)
+        if "rhdd3" in files and "rpms" in dirs and \
+          os.path.exists(root+"/rpms/"+arch):
+            dd_repos.append(root+"/rpms/"+arch)
     log.debug("Found repos - %s" % " ".join(dd_repos))
     return dd_repos
 
