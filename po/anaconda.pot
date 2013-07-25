@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: anaconda 20.1\n"
+"Project-Id-Version: anaconda 20.2\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
-"POT-Creation-Date: 2013-07-15 15:50-0700\n"
+"POT-Creation-Date: 2013-07-25 09:25-0700\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,24 +18,24 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 
-#: anaconda:352
+#: anaconda:353
 #, c-format
 msgid ""
 "%s requires %s MB of memory to install, but you only have %s MB on this "
 "machine.\n"
 msgstr ""
 
-#: anaconda:354
+#: anaconda:355
 #, c-format
 msgid ""
 "The %s graphical installer requires %s MB of memory, but you only have %s MB."
 msgstr ""
 
-#: anaconda:359
+#: anaconda:360
 msgid "Not enough RAM"
 msgstr ""
 
-#: anaconda:360
+#: anaconda:361
 msgid ""
 " Try the text mode installer by running:\n"
 "\n"
@@ -44,37 +44,37 @@ msgid ""
 " from a root terminal."
 msgstr ""
 
-#: anaconda:363
+#: anaconda:364
 msgid " Starting text mode."
 msgstr ""
 
-#: anaconda:393 pyanaconda/rescue.py:295 pyanaconda/rescue.py:328
+#: anaconda:394 pyanaconda/rescue.py:295 pyanaconda/rescue.py:328
 #: pyanaconda/rescue.py:341 pyanaconda/rescue.py:409 pyanaconda/rescue.py:425
 #: pyanaconda/rescue.py:436
 msgid "OK"
 msgstr ""
 
-#: anaconda:501
+#: anaconda:502
 msgid "DISPLAY variable not set. Starting text mode."
 msgstr ""
 
-#: anaconda:509
+#: anaconda:510
 msgid "Graphical installation is not available. Starting text mode."
 msgstr ""
 
-#: anaconda:517
+#: anaconda:518
 msgid ""
 "Text mode provides a limited set of installation options. It does not offer "
 "custom partitioning for full control over the disk layout. Would you like to "
 "use VNC mode instead?"
 msgstr ""
 
-#: anaconda:640
+#: anaconda:641
 #, c-format
 msgid "Please ssh install@%s to begin the install."
 msgstr ""
 
-#: anaconda:642
+#: anaconda:643
 msgid "Please ssh install@<host> to continue installation."
 msgstr ""
 
@@ -294,7 +294,7 @@ msgstr ""
 msgid "%s is missing. Cannot setup firewall."
 msgstr ""
 
-#: pyanaconda/kickstart.py:1653
+#: pyanaconda/kickstart.py:1652
 msgid "Running pre-installation scripts"
 msgstr ""
 
@@ -758,20 +758,20 @@ msgid "Custom partitioning selected"
 msgstr ""
 
 #: pyanaconda/ui/tui/spokes/storage.py:154
-#: pyanaconda/ui/gui/spokes/storage.py:686
+#: pyanaconda/ui/gui/spokes/storage.py:688
 msgid ""
 "No disks detected.  Please shut down the computer, connect at least one "
 "disk, and restart to complete installation."
 msgstr ""
 
 #: pyanaconda/ui/tui/spokes/storage.py:156
-#: pyanaconda/ui/gui/spokes/storage.py:688
+#: pyanaconda/ui/gui/spokes/storage.py:690
 msgid "No disks selected; please select at least one disk to install to."
 msgstr ""
 
 #: pyanaconda/ui/tui/spokes/storage.py:171
 #: pyanaconda/ui/gui/spokes/source.py:553
-#: pyanaconda/ui/gui/spokes/storage.py:646
+#: pyanaconda/ui/gui/spokes/storage.py:648
 msgid "Probing storage..."
 msgstr ""
 
@@ -789,21 +789,21 @@ msgstr ""
 msgid "Checking storage configuration..."
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/storage.py:300
+#: pyanaconda/ui/tui/spokes/storage.py:303
 msgid "Autopartitioning Options"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/storage.py:331
+#: pyanaconda/ui/tui/spokes/storage.py:334
 msgid ""
 "Installation requires partitioning of your hard drive. Select what space to "
 "use for the install target."
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/storage.py:364
+#: pyanaconda/ui/tui/spokes/storage.py:367
 msgid "Partition Scheme Options"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/storage.py:389
+#: pyanaconda/ui/tui/spokes/storage.py:392
 msgid "Select a partition scheme configuration."
 msgstr ""
 
@@ -841,17 +841,23 @@ msgstr ""
 msgid "Installation source"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/source.py:47 pyanaconda/ui/tui/spokes/source.py:86
+#: pyanaconda/ui/tui/spokes/source.py:47 pyanaconda/ui/tui/spokes/source.py:88
 #: pyanaconda/ui/gui/spokes/source.py:498
 msgid "Closest mirror"
 msgstr ""
 
 #: pyanaconda/ui/tui/spokes/source.py:84
+#: pyanaconda/ui/gui/spokes/source.py:490
+#, python-format
+msgid "NFS server %s"
+msgstr ""
+
+#: pyanaconda/ui/tui/spokes/source.py:86
 #: pyanaconda/ui/gui/spokes/source.py:492
 msgid "CD/DVD drive"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/source.py:88
+#: pyanaconda/ui/tui/spokes/source.py:90
 #: pyanaconda/ui/tui/spokes/software.py:98
 #: pyanaconda/ui/gui/spokes/datetime_spoke.py:405
 #: pyanaconda/ui/gui/spokes/software.py:180
@@ -860,44 +866,44 @@ msgstr ""
 msgid "Nothing selected"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/source.py:93
+#: pyanaconda/ui/tui/spokes/source.py:95
 #: pyanaconda/ui/gui/spokes/source.py:486
 #: pyanaconda/ui/gui/spokes/source.py:495
 msgid "Error setting up software source"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/source.py:95
+#: pyanaconda/ui/tui/spokes/source.py:97
 #: pyanaconda/ui/tui/spokes/software.py:80
 msgid "Processing..."
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/source.py:101
+#: pyanaconda/ui/tui/spokes/source.py:103
 #, python-format
 msgid "Repo URL set to: %s"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/source.py:120
+#: pyanaconda/ui/tui/spokes/source.py:122
 msgid "CD/DVD"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/source.py:120
+#: pyanaconda/ui/tui/spokes/source.py:122
 msgid "Network"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/source.py:124
+#: pyanaconda/ui/tui/spokes/source.py:126
 msgid "Choose an installation source type."
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/source.py:183
+#: pyanaconda/ui/tui/spokes/source.py:192
 #: pyanaconda/ui/gui/spokes/source.py:423
 msgid "Failed to set up installation source"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/source.py:188
+#: pyanaconda/ui/tui/spokes/source.py:197
 msgid "Error downloading package metadata"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/source.py:194
+#: pyanaconda/ui/tui/spokes/source.py:203
 #: pyanaconda/ui/tui/spokes/software.py:68
 #: pyanaconda/ui/gui/spokes/software.py:211
 #: pyanaconda/ui/gui/spokes/software.py:235
@@ -905,12 +911,25 @@ msgstr ""
 msgid "No installation source available"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/source.py:211
+#: pyanaconda/ui/tui/spokes/source.py:220
+#: pyanaconda/ui/tui/spokes/source.py:255
 msgid "Specify Repo Options"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/source.py:215
+#: pyanaconda/ui/tui/spokes/source.py:224
 msgid "Repo URL"
+msgstr ""
+
+#: pyanaconda/ui/tui/spokes/source.py:259
+msgid "NFS <server>:/<path>"
+msgstr ""
+
+#: pyanaconda/ui/tui/spokes/source.py:260
+msgid "NFS mount options"
+msgstr ""
+
+#: pyanaconda/ui/tui/spokes/source.py:289
+msgid "Failed to set up installation source. Check the source address."
 msgstr ""
 
 #: pyanaconda/ui/tui/spokes/software.py:37
@@ -979,7 +998,7 @@ msgid "_Exit Installer"
 msgstr ""
 
 #: pyanaconda/ui/gui/__init__.py:404 pyanaconda/ui/gui/spokes/software.py:410
-#: pyanaconda/ui/gui/spokes/storage.py:896
+#: pyanaconda/ui/gui/spokes/storage.py:898
 #: pyanaconda/ui/gui/hubs/summary.glade:76 widgets/src/StandaloneWindow.c:54
 msgid "_Quit"
 msgstr ""
@@ -1793,11 +1812,6 @@ msgid ""
 "Failed to set up installation source; check the repo url and proxy settings"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.py:490
-#, python-format
-msgid "NFS server %s"
-msgstr ""
-
 #: pyanaconda/ui/gui/spokes/source.py:580
 #, python-format
 msgid "Device: %s"
@@ -1890,50 +1904,50 @@ msgstr ""
 msgid "Failed to save storage configuration..."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/storage.py:575
+#: pyanaconda/ui/gui/spokes/storage.py:577
 msgid "Error checking storage configuration.  Click for details."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/storage.py:577
+#: pyanaconda/ui/gui/spokes/storage.py:579
 msgid "Warning checking storage configuration.  Click for details."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/storage.py:630
+#: pyanaconda/ui/gui/spokes/storage.py:632
 #, python-format
 msgid "%s free"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/storage.py:675
+#: pyanaconda/ui/gui/spokes/storage.py:677
 #, python-format
 msgid "%d disk selected; %s capacity; %s free"
 msgid_plural "%d disks selected; %s capacity; %s free"
 msgstr[0] ""
 msgstr[1] ""
 
-#: pyanaconda/ui/gui/spokes/storage.py:728
+#: pyanaconda/ui/gui/spokes/storage.py:730
 msgid ""
 "You have chosen to skip bootloader installation.  Your system may not be "
 "bootable."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/storage.py:892
+#: pyanaconda/ui/gui/spokes/storage.py:894
 msgid ""
 "The following errors were encountered when checking your storage "
 "configuration.  You can modify your storage layout or quit the installer."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/storage.py:896
+#: pyanaconda/ui/gui/spokes/storage.py:898
 msgid "_Modify Storage Layout"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/storage.py:908
+#: pyanaconda/ui/gui/spokes/storage.py:910
 msgid ""
 "The following warnings were encountered when checking your storage "
 "configuration.  These are not fatal, but you may wish to make changes to "
 "your storage layout."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/storage.py:912
+#: pyanaconda/ui/gui/spokes/storage.py:914
 msgid "_OK"
 msgstr ""
 
@@ -2145,60 +2159,60 @@ msgstr ""
 msgid "Tip:"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/datetime_spoke.glade:45
+#: pyanaconda/ui/gui/spokes/datetime_spoke.glade:46
 msgid "DATE & TIME"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/datetime_spoke.glade:92
+#: pyanaconda/ui/gui/spokes/datetime_spoke.glade:93
 msgid "_Region:"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/datetime_spoke.glade:134
+#: pyanaconda/ui/gui/spokes/datetime_spoke.glade:135
 msgid "_City:"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/datetime_spoke.glade:187
+#: pyanaconda/ui/gui/spokes/datetime_spoke.glade:188
 msgid "_Network Time"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/datetime_spoke.glade:278
-#: pyanaconda/ui/gui/spokes/datetime_spoke.glade:310
+#: pyanaconda/ui/gui/spokes/datetime_spoke.glade:279
+#: pyanaconda/ui/gui/spokes/datetime_spoke.glade:311
 msgid "00"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/datetime_spoke.glade:294
+#: pyanaconda/ui/gui/spokes/datetime_spoke.glade:295
 msgid ":"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/datetime_spoke.glade:416
+#: pyanaconda/ui/gui/spokes/datetime_spoke.glade:417
 msgid " "
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/datetime_spoke.glade:432
+#: pyanaconda/ui/gui/spokes/datetime_spoke.glade:433
 msgid "PM"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/datetime_spoke.glade:476
+#: pyanaconda/ui/gui/spokes/datetime_spoke.glade:477
 msgid "24-_hour"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/datetime_spoke.glade:494
+#: pyanaconda/ui/gui/spokes/datetime_spoke.glade:495
 msgid "_AM/PM"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/datetime_spoke.glade:676
+#: pyanaconda/ui/gui/spokes/datetime_spoke.glade:678
 msgid "Add and mark for usage NTP servers"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/datetime_spoke.glade:745
+#: pyanaconda/ui/gui/spokes/datetime_spoke.glade:747
 msgid "Hostname"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/datetime_spoke.glade:760
+#: pyanaconda/ui/gui/spokes/datetime_spoke.glade:762
 msgid "Working"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/datetime_spoke.glade:768
+#: pyanaconda/ui/gui/spokes/datetime_spoke.glade:770
 msgid "Use"
 msgstr ""
 
@@ -3350,15 +3364,15 @@ msgstr ""
 
 #: pyanaconda/ui/gui/spokes/advstorage/iscsi.glade:261
 #: pyanaconda/ui/gui/spokes/advstorage/iscsi.glade:400
-#: pyanaconda/ui/gui/spokes/advstorage/iscsi.glade:824
-#: pyanaconda/ui/gui/spokes/advstorage/iscsi.glade:966
+#: pyanaconda/ui/gui/spokes/advstorage/iscsi.glade:823
+#: pyanaconda/ui/gui/spokes/advstorage/iscsi.glade:965
 msgid "CHAP _Username:"
 msgstr ""
 
 #: pyanaconda/ui/gui/spokes/advstorage/iscsi.glade:277
 #: pyanaconda/ui/gui/spokes/advstorage/iscsi.glade:416
-#: pyanaconda/ui/gui/spokes/advstorage/iscsi.glade:840
-#: pyanaconda/ui/gui/spokes/advstorage/iscsi.glade:982
+#: pyanaconda/ui/gui/spokes/advstorage/iscsi.glade:839
+#: pyanaconda/ui/gui/spokes/advstorage/iscsi.glade:981
 msgid "CHAP _Password:"
 msgstr ""
 
@@ -3367,7 +3381,7 @@ msgid "Reverse CHAP User_name:"
 msgstr ""
 
 #: pyanaconda/ui/gui/spokes/advstorage/iscsi.glade:448
-#: pyanaconda/ui/gui/spokes/advstorage/iscsi.glade:1014
+#: pyanaconda/ui/gui/spokes/advstorage/iscsi.glade:1013
 msgid "Reverse CHAP Pass_word:"
 msgstr ""
 
@@ -3404,37 +3418,37 @@ msgid ""
 "Please select which nodes you wish to log into:"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/advstorage/iscsi.glade:725
+#: pyanaconda/ui/gui/spokes/advstorage/iscsi.glade:724
 msgid "Node Name"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/advstorage/iscsi.glade:736
+#: pyanaconda/ui/gui/spokes/advstorage/iscsi.glade:735
 msgid "Interface"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/advstorage/iscsi.glade:766
+#: pyanaconda/ui/gui/spokes/advstorage/iscsi.glade:765
 msgid "_Node login authentication type:"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/advstorage/iscsi.glade:998
+#: pyanaconda/ui/gui/spokes/advstorage/iscsi.glade:997
 msgid "_Reverse CHAP Username:"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/advstorage/iscsi.glade:1066
+#: pyanaconda/ui/gui/spokes/advstorage/iscsi.glade:1065
 msgid "_Log In"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/advstorage/iscsi.glade:1124
+#: pyanaconda/ui/gui/spokes/advstorage/iscsi.glade:1123
 msgid "<b>Node login failed.</b>"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/advstorage/iscsi.glade:1139
+#: pyanaconda/ui/gui/spokes/advstorage/iscsi.glade:1138
 msgid ""
 "The following error occurred logging into the selected iSCSI node.  Please "
 "double check your authorization information and try again"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/advstorage/iscsi.glade:1165
+#: pyanaconda/ui/gui/spokes/advstorage/iscsi.glade:1164
 msgid "_Retry Log In"
 msgstr ""
 

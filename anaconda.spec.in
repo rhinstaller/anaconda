@@ -255,6 +255,28 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Thu Jul 25 2013 Brian C. Lane <bcl@redhat.com> - 20.3-1
+- Fix driver disk path for inst.dd= method (#987513) (bcl)
+- Add support for NFS as install source in TUI. (#971298) (sbueno+anaconda)
+- Allow logging into multiple iscsi nodes at once (#975831). (clumens)
+- Fix crash while parsing ntp servers from DHCP6 (#969303) (dshea)
+- Use ExceptionInfo namedtuple when dumping anaconda (#982299) (vpodzime)
+- Wait for device connections for iface-bound iscsi in kickstart (#740105)
+  (rvykydal)
+- Refer to blivet instead of storage in iscsi kickstart (#740105) (rvykydal)
+- Mark disk 'selected' if only one present in TUI. (#975790) (sbueno+anaconda)
+- Update devicetree only if we logged in to some target in add iscsi dialog.
+  (rvykydal)
+- Don't show multipath members in specialized disks overview (#740105)
+  (rvykydal)
+- Do not populate devicetree after each single login in iscsi dialog (#740105)
+  (rvykydal)
+- Match also iface when logging into selected iface-bound iscsi target
+  (#740105) (rvykydal)
+- Fix handling of non-ASCII names (#969309) (dshea)
+- Use inline completion for the region/city selection (vpodzime)
+- Fix copyright of the main anaconda script (vpodzime)
+
 * Mon Jul 15 2013 Brian C. Lane <bcl@redhat.com> - 20.2-1
 - Use the new wait for connectivity function (mkolman)
 - Improve waiting for network connectivity (mkolman)
