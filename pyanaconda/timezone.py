@@ -31,6 +31,7 @@ from collections import OrderedDict
 
 from pyanaconda import iutil
 from pyanaconda.constants import THREAD_STORAGE
+from pyanaconda.flags import flags
 from pyanaconda.threads import threadMgr
 from blivet import arch
 
@@ -69,7 +70,7 @@ def time_initialize(timezone, storage, bootloader):
         # nothing to do on s390 where hwclock doesn't exist
         return
 
-    if not timezone.isUtc:
+    if not timezone.isUtc and not flags.automatedInstall:
         # if set in the kickstart, no magic needed here
         threadMgr.wait(THREAD_STORAGE)
         ntfs_devs = filter(lambda dev: dev.format.name == "ntfs",
