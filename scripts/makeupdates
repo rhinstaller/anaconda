@@ -26,6 +26,15 @@ import os
 import shutil
 import subprocess
 import sys
+import re
+import glob
+import urlgrabber
+import urlgrabber.progress
+
+RPM_FOLDER_NAME = "~/.anaconda_updates_rpm_cache"
+KOJI_BASE_URL = "http://kojipkgs.fedoraproject.org//packages/" \
+                "%(toplevel_name)s/%(toplevel_version)s/%(release)s/%(arch)s/%(rpm_name)s"
+
 
 def getArchiveTag(configure, spec):
     tag = ""
@@ -82,6 +91,18 @@ def getArchiveTagOffset(configure, spec, offset):
     except IndexError:
         return tag
 
+def get_anaconda_version():
+    """Get current anaconda version as string from the configure script"""
+    with open("configure.ac", "rc") as f:
+        match = re.search(r"AC_INIT\(\[.*\],\ \[(.*)\],\ \[.*\]\)", f.read())
+    return match.groups()[0]
+
+def get_fedora_version():
+    """Return integer representing current Fedora number,
+    based on Anaconda version"""
+    anaconda_version = get_anaconda_version()
+    return int(anaconda_version.split(".")[0])
+
 def doGitDiff(tag, args=[]):
     proc = subprocess.Popen(['git', 'diff', '--name-status', tag] + args,
                             stdout=subprocess.PIPE,
@@ -89,6 +110,27 @@ def doGitDiff(tag, args=[]):
 
     lines = proc[0].split('\n')
     return lines
+
+def doGitContentDiff(tag, args=[]):
+    proc = subprocess.Popen(['git', 'diff', tag] + args,
+                            stdout=subprocess.PIPE,
+                            stderr=subprocess.PIPE).communicate()
+    lines = proc[0].split('\n')
+    return lines
+
+def download_with_progress(url, path):
+    try:
+        prog = urlgrabber.progress.text_progress_meter()
+        urlgrabber.urlgrab(url, filename=path, progress_obj=prog)
+        return True
+    except Exception:
+        return None
+
+
+def create_RPM_cache_folder():
+    """Create RPM package cache folder if it does not already exist"""
+    if not os.path.exists(RPM_FOLDER_NAME):
+        os.makedirs(RPM_FOLDER_NAME)
 
 def copyUpdatedFiles(tag, updates, cwd):
     def pruneFile(src, names):
@@ -281,6 +323,153 @@ def createUpdatesImage(cwd, updates):
     os.system("find . | cpio -c -o | gzip -9cv > %s/updates.img" % (cwd,))
     sys.stdout.write("updates.img ready\n")
 
+def check_for_new_packages(tag, arch):
+    """Download any new packages added to Requires and Defines
+    since the given tag, return list of RPM paths
+    """
+    new_packages = {}
+    second_pass = []
+    diff = doGitContentDiff(tag, ["anaconda.spec.in"])
+    new_requires = filter(lambda x: x.startswith("+Requires:"), diff)
+    new_defines = filter(lambda x: x.startswith("+%define"), diff)
+
+    # parse all new requires and defines for package name and version
+
+    # parse requires
+
+    for req in new_requires:
+        package = req.split()[1]
+        version = req.split().pop()
+        # handle version variables (%{package-namever})
+        if version.startswith("%"):
+            # drop the %{ prefix and ver} suffix
+            version_var = version[2:-4]
+            second_pass.append((package, version_var))
+        else:
+            new_packages[package] = version
+
+    for define in new_defines:
+        # second word & split the "ver" suffix
+        package = define.split()[1][:-3]
+        version = define.split()[2]
+        new_packages[package] = version
+
+    # resolve version variables against already added packages
+    # TODO: handle links to packages that were not added in the diff
+    for package, versions_var in second_pass:
+        version = new_packages.get(versions_var, None)
+        if version:
+            new_packages[package] = version
+
+    # parse defines
+    if new_packages:
+        print("found %d new packages in Defines and Requires" %
+              len(new_packages))
+    else:
+        print("no new Defines or Requires found")
+        return []
+
+    # make sure the RPM cache folder exists
+    create_RPM_cache_folder()
+    fedora_number = get_fedora_version()
+    # remove available packages from the list
+    new_packages, include_rpms = remove_local_packages(new_packages, arch)
+    # generate URLs for packages that are not locally available
+    urls = get_koji_URLS(new_packages, fedora_number, arch)
+    # download the Koji URLs
+    for url, filename in urls:
+        # append the RPM cache folder to the filename
+        download_path = os.path.join(RPM_FOLDER_NAME, filename)
+        if download_with_progress(url, download_path):
+            # add successfully downloads to the RPM inclusion list
+            include_rpms.append(download_path)
+    return map(lambda x: os.path.abspath(x), include_rpms)
+
+def remove_local_packages(packages, arch):
+    """Remove locally available RPMs from the list of needed packages,
+    return locally unavailable packages and paths to relevant locally
+    available RPMs for inclusion"""
+    # list all package names and version for the RPMs already in cache
+    folder_glob = os.path.join(RPM_FOLDER_NAME, "*.rpm")
+    folder_glob = os.path.abspath(folder_glob)
+    include_rpms = []
+    # only check RPMs that are either noarch or built for the
+    # currently specified architecture
+    allowed = ("noarch.rpm", "%s.rpm" % arch)
+    relevant_rpms = [x for x in glob.glob(folder_glob) if x.endswith(allowed)]
+
+    # iterate over all relevant cached RPMs and check if they are needed
+    for rpm_path in relevant_rpms:
+        proc = subprocess.Popen(['rpm', '-qp', '--queryformat',
+                                '%{NAME} %{VERSION} %{RELEASE}', rpm_path],
+                                stdout=subprocess.PIPE,
+                                stderr=None)
+        proc_output = proc.communicate()
+        if proc.returncode != 0:
+            continue
+        name, version, release = proc_output[0].split()
+        # add the build number, extracted from release
+        version_build = "%s-%s" % (version, release.split(".")[0])
+        # check if the package is needed
+        if name in packages:
+            requested_version = packages[name]
+            # handle versions with build number and without it
+            if requested_version == version_build or requested_version == version:
+                include_rpms.append(rpm_path)
+                del packages[name]
+
+    # return only those packages that are not locally available
+    if include_rpms:
+        print("%d RPMs found locally:" % len(include_rpms))
+    else:
+        print("no packages found locally")
+    for rpm in include_rpms:
+        print(os.path.basename(rpm))
+    return packages, include_rpms
+
+def get_koji_URLS(packages, fedora_number, arch):
+    """Get RPM download URLs for given packages and Fedora version,
+    return URLS and RPM filenames
+    """
+    url_filename = []
+    import koji
+    kojiclient = koji.ClientSession('http://koji.fedoraproject.org/kojihub', {})
+    for name, version in packages.iteritems():
+        # check if version contains build number or not
+        if len(version.split("-")) == 1:
+            version = "%s-*" % version
+        package_glob = "%s-%s.fc%d.*.rpm" % (name, version, fedora_number)
+        print("searching for %s in Koji" % package_glob)
+        results = kojiclient.search(package_glob, "rpm", "glob")
+        # leave only results that are either noarch or are built
+        # for the current architecture
+        allowed = ("noarch.rpm", "%s.rpm" % arch)
+        results = [x for x in results if x['name'].endswith(allowed)]
+        if results:  # any packages left ?
+            package_metadata = {}
+            rpm_name = results[0]['name']
+            package_metadata['rpm_name'] = rpm_name
+            print("RPM found: %s" % rpm_name)
+            rpm_id = results[0]['id']
+
+            # get info about the RPM to
+            # get the arch and build_id
+            result = kojiclient.getRPM(rpm_id)
+            package_metadata['arch'] = result['arch']
+            package_metadata['release'] = result['release']
+            build_id = result['build_id']
+
+            # so we can get the toplevel package name and version
+            result = kojiclient.getBuild(build_id)
+            package_metadata['toplevel_name'] = result['package_name']
+            package_metadata['toplevel_version'] = result['version']
+
+            # and use the information to build the URL
+            url = KOJI_BASE_URL % package_metadata
+            # simple, isn't it ? :)
+            url_filename.append((url, rpm_name))
+    return url_filename
+
 def usage(cmd):
     sys.stdout.write("Usage: %s [OPTION]...\n" % (cmd,))
     sys.stdout.write("Options:\n")
@@ -290,6 +479,8 @@ def usage(cmd):
     sys.stdout.write("    -t, --tag        Make image from TAG to HEAD.\n")
     sys.stdout.write("    -o, --offset     Make image from (latest_tag - OFFSET) to HEAD.\n")
     sys.stdout.write("    -a, --add        Add contents of rpm to the update\n")
+    sys.stdout.write("    -f, --fetch      Autofetch new dependencies from Koji for ARCH\n")
+    sys.stdout.write("                     (cached in ~/.anaconda_updates_rpm_cache)\n")
 
 def main(argv):
     prog = os.path.basename(sys.argv[0])
@@ -302,11 +493,13 @@ def main(argv):
     opts = []
     offset = 0
     add_rpms = []
+    fetch = False
+    arch = None
 
     try:
-        opts, args = getopt.getopt(sys.argv[1:], 'a:t:o:kc?',
+        opts, args = getopt.getopt(sys.argv[1:], 'a:t:f:o:kc?',
                                    ['add=', 'tag=', 'offset=',
-                                    'keep', 'compile', 'help'])
+                                    'keep', 'compile', 'help', 'fetch='])
     except getopt.GetoptError:
         help = True
 
@@ -323,6 +516,12 @@ def main(argv):
             offset = int(a)
         elif o in ('-a', '--add'):
             add_rpms.append(os.path.abspath(a))
+        elif o in ('-f', '--fetch'):
+            fetch = True
+            if a == "":
+                help = True
+            else:
+                arch = a
         else:
             unknown = True
 
@@ -356,6 +555,10 @@ def main(argv):
 
         if widgetsChanged(tag):
             copyUpdatedWidgets(updates, cwd)
+
+    if fetch:
+        rpm_paths = check_for_new_packages(tag, arch)
+        add_rpms.extend(rpm_paths)
 
     if add_rpms:
         addRpms(updates, add_rpms)
