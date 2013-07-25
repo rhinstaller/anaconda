@@ -256,6 +256,34 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Thu Jul 25 2013 Brian C. Lane <bcl@redhat.com> - 19.31.2-1
+- Fix driver disk path for inst.dd= method (bcl)
+  Resolves: rhbz#987513
+- Allow logging into multiple iscsi nodes at once (clumens).
+  Resolves: rhbz#975831
+- Add support for NFS as install source in TUI. (sbueno+anaconda)
+  Resolves: rhbz#971298
+- Fix crash while parsing ntp servers from DHCP6 (dshea)
+  Resolves: rhbz#987978
+- Wait for device connections for iface-bound iscsi in kickstart (rvykydal)
+  Resolves: rhbz#740105
+- Refer to blivet instead of storage in iscsi kickstart (rvykydal)
+  Resolves: rhbz#740105
+- Mark disk 'selected' if only one present in TUI. (sbueno+anaconda)
+  Resolves: rhbz#975790
+- Update devicetree only if we logged in to some target in add iscsi dialog.
+  (rvykydal)
+  Related: rhbz#740105
+- Don't show multipath members in specialized disks overview (rvykydal)
+  Resolves: rhbz#740105
+- Do not populate devicetree after each single login in iscsi dialog (rvykydal)
+  Resolves: rhbz#740105
+- Match also iface when logging into selected iface-bound iscsi target
+  (rvykydal)
+  Resolves: rhbz#740105
+- Make sure proper installclass selected for RHEL installs. (sbueno+anaconda)
+  Resolves: rhbz#975720
+
 * Tue Jul 09 2013 Brian C. Lane <bcl@redhat.com> - 19.31.1-1
 
 * Thu May 23 2013 Brian C. Lane <bcl@redhat.com> - 19.30-1
