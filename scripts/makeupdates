@@ -39,27 +39,21 @@ KOJI_BASE_URL = "http://kojipkgs.fedoraproject.org//packages/" \
 def getArchiveTag(configure, spec):
     tag = ""
 
-    f = open(configure)
-    lines = f.readlines()
-    f.close()
+    with open(configure, "r") as f:
+        for line in f:
+            if line.startswith('AC_INIT('):
+                fields = line.split('[')
+                tag += fields[1].split(']')[0] + '-' + fields[2].split(']')[0]
+                break
+            else:
+                continue
 
-    for line in lines:
-        if line.startswith('AC_INIT('):
-            fields = line.split('[')
-            tag += fields[1].split(']')[0] + '-' + fields[2].split(']')[0]
-            break
-        else:
-            continue
-
-    f = open(spec)
-    lines = f.readlines()
-    f.close()
-
-    for line in lines:
-        if line.startswith('Release:'):
-            tag += '-' + line.split()[1].split('%')[0]
-        else:
-            continue
+    with open(spec, "r") as f:
+        for line in f:
+            if line.startswith('Release:'):
+                tag += '-' + line.split()[1].split('%')[0]
+            else:
+                continue
 
     return tag
 
