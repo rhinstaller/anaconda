@@ -944,8 +944,9 @@ def wait_for_connecting_NM_thread(ksdata):
     # connection (e.g. auto default dhcp) is activated by NM service
     connected = _wait_for_connecting_NM()
     if connected:
-        hostname = getHostname()
-        update_hostname_data(ksdata, hostname)
+        if ksdata.network.hostname == DEFAULT_HOSTNAME:
+            hostname = getHostname()
+            update_hostname_data(ksdata, hostname)
         _get_ntp_servers_from_dhcp(ksdata)
     with network_connected_condition:
         global network_connected
