@@ -88,6 +88,7 @@ static PyObject * doIsCapsLockEnabled(PyObject * s, PyObject * args);
 static PyObject * doGetAnacondaVersion(PyObject * s, PyObject * args);
 static PyObject * doInitLog(PyObject * s);
 static PyObject * doTotalMemory(PyObject * s);
+static PyObject * doSetSystemTime(PyObject *s, PyObject *args);
 
 static PyMethodDef isysModuleMethods[] = {
     { "devSpaceFree", (PyCFunction) doDevSpaceFree, METH_VARARGS, NULL },
@@ -103,6 +104,7 @@ static PyMethodDef isysModuleMethods[] = {
     { "getAnacondaVersion", (PyCFunction) doGetAnacondaVersion, METH_VARARGS, NULL },
     { "initLog", (PyCFunction) doInitLog, METH_VARARGS, NULL },
     { "total_memory", (PyCFunction) doTotalMemory, METH_NOARGS, NULL },
+    { "set_system_time", (PyCFunction) doSetSystemTime, METH_VARARGS, NULL},
     { NULL, NULL, 0, NULL }
 } ;
 
@@ -273,5 +275,20 @@ static PyObject * doTotalMemory(PyObject * s) {
     unsigned long long tm = totalMemory();
     return PyLong_FromUnsignedLongLong(tm);
 }
+
+static PyObject * doSetSystemTime(PyObject *s, PyObject  *args) {
+    struct timeval tv;
+    tv.tv_usec = 0;
+
+    if (!PyArg_ParseTuple(args, "L", &(tv.tv_sec)))
+        return NULL;
+
+    if (settimeofday(&tv, NULL) != 0)
+        PyErr_SetFromErrno(PyExc_SystemError);
+
+    Py_INCREF(Py_None);
+    return Py_None;
+}
+
 
 /* vim:set shiftwidth=4 softtabstop=4: */

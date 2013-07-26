@@ -111,6 +111,17 @@ def isPaeAvailable():
 def getAnacondaVersion():
     return _isys.getAnacondaVersion()
 
+def set_system_time(secs):
+    """
+    Set system time to time given as a number of seconds since the Epoch.
+
+    :param secs: a number of seconds since the Epoch to set system time to
+    :type secs: int
+
+    """
+
+    return  _isys.set_system_time(secs)
+
 auditDaemon = _isys.auditdaemon
 
 handleSegv = _isys.handleSegv

@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2012  Red Hat, Inc.
+# Copyright (C) 2012-2013  Red Hat, Inc.
 #
 # This copyrighted material is made available to anyone wishing to use,
 # modify, copy, or redistribute it subject to the terms and conditions of
@@ -27,8 +27,10 @@ import re
 import os
 import tempfile
 import shutil
+import ntplib
+import socket
 
-from pyanaconda import iutil
+from pyanaconda import isys
 from pyanaconda.threads import threadMgr, AnacondaThread
 from pyanaconda.constants import THREAD_SYNC_TIME_BASENAME
 
@@ -44,19 +46,25 @@ class NTPconfigError(Exception):
 
 def ntp_server_working(server):
     """
-    Runs ntpdate to try to connect to the $server (timeout may take some time).
+    Tries to do an NTP request to the $server (timeout may take some time).
 
+    :param server: hostname or IP address of an NTP server
+    :type server: string
     :return: True if the given server is reachable and working, False otherwise
+    :rtype: bool
 
     """
 
-    #FIXME: It would be nice to use execWithRedirect here, but it is not
-    #       thread-safe and hangs if this function is called from threads.
-    #       By using tee (and block-buffered pipes) it is also much slower.
-    #we just need to know the exit status
-    retc = os.system("ntpdate -q %s &>/dev/null" % server)
+    client = ntplib.NTPClient()
 
-    return retc == 0
+    try:
+        client.request(server)
+    except ntplib.NTPException:
+        return False
+    except socket.gaierror:
+        return False
+
+    return True
 
 def get_servers_from_config(conf_file_path=NTP_CONFIG_FILE,
                             srv_regexp=SRV_LINE_REGEXP):
@@ -164,9 +172,15 @@ def one_time_sync(server, callback=None):
 
     """
 
-    ret = iutil.execWithRedirect("ntpdate", [server])
-
-    success = ret == 0
+    client = ntplib.NTPClient()
+    try:
+        results = client.request(server)
+        isys.set_system_time(int(results.tx_time))
+        success = True
+    except ntplib.NTPException:
+        success = False
+    except socket.gaierror:
+        success = False
 
     if callback is not None:
         callback(success)
