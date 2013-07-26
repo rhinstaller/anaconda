@@ -332,8 +332,16 @@ def check_for_new_packages(tag, arch):
     # parse requires
 
     for req in new_requires:
-        package = req.split()[1]
-        version = req.split().pop()
+        parts = req.split()
+        if len(parts) < 2:
+            # must contain at least "+Requires:" and "some_package"
+            continue
+        package = parts[1]
+        if len(parts) > 2:
+            version = parts.pop()
+        else:
+            version = ""
+
         # handle version variables (%{package-namever})
         if version.startswith("%"):
             # drop the %{ prefix and ver} suffix
@@ -429,6 +437,8 @@ def get_koji_URLS(packages, fedora_number, arch):
     import koji
     kojiclient = koji.ClientSession('http://koji.fedoraproject.org/kojihub', {})
     for name, version in packages.iteritems():
+        if not version:
+            version = "*"
         # check if version contains build number or not
         if len(version.split("-")) == 1:
             version = "%s-*" % version
