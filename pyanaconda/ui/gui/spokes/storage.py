@@ -49,7 +49,7 @@ from pyanaconda.ui.gui.spokes.lib.cart import SelectedDisksDialog
 from pyanaconda.ui.gui.spokes.lib.passphrase import PassphraseDialog
 from pyanaconda.ui.gui.spokes.lib.detailederror import DetailedErrorDialog
 from pyanaconda.ui.gui.spokes.lib.resize import ResizeDialog
-from pyanaconda.ui.gui.categories.storage import StorageCategory
+from pyanaconda.ui.gui.categories.system import SystemCategory
 from pyanaconda.ui.gui.utils import enlightbox, gtk_call_once, gtk_action_wait
 
 from pyanaconda.kickstart import doKickstartStorage
@@ -310,7 +310,7 @@ class StorageSpoke(NormalSpoke, StorageChecker):
     mainWidgetName = "storageWindow"
     uiFile = "spokes/storage.glade"
 
-    category = StorageCategory
+    category = SystemCategory
 
     # other candidates: computer-symbolic, folder-symbolic
     icon = "drive-harddisk-symbolic"

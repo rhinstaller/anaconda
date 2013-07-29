@@ -76,7 +76,7 @@ from pyanaconda.ui.gui.spokes.lib.accordion import *
 from pyanaconda.ui.gui.spokes.lib.refresh import RefreshDialog
 from pyanaconda.ui.gui.spokes.lib.summary import ActionSummaryDialog
 from pyanaconda.ui.gui.utils import setViewportBackground, gtk_action_wait, enlightbox, fancy_set_sensitive, ignoreEscape
-from pyanaconda.ui.gui.categories.storage import StorageCategory
+from pyanaconda.ui.gui.categories.system import SystemCategory
 from pyanaconda.ui.lib.disks import size_str
 
 # pylint: disable-msg=E0611
@@ -607,7 +607,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
     mainWidgetName = "customStorageWindow"
     uiFile = "spokes/custom.glade"
 
-    category = StorageCategory
+    category = SystemCategory
     title = N_("MANUAL PARTITIONING")
 
     def __init__(self, data, storage, payload, instclass):

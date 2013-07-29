@@ -24,9 +24,9 @@ from pyanaconda.i18n import N_
 from pyanaconda.ui.gui.categories import SpokeCategory
 from pyanaconda.ui.gui.hubs.summary import SummaryHub
 
-__all__ = ["StorageCategory"]
+__all__ = ["SystemCategory"]
 
-class StorageCategory(SpokeCategory):
+class SystemCategory(SpokeCategory):
     displayOnHub = SummaryHub
     sortOrder = 300
-    title = N_("STORAGE")
+    title = N_("SYSTEM")

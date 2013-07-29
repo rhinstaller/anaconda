@@ -38,7 +38,7 @@ from pyanaconda import constants
 from pyanaconda.ui.communication import hubQ
 from pyanaconda.ui.gui import GUIObject
 from pyanaconda.ui.gui.spokes import NormalSpoke, StandaloneSpoke
-from pyanaconda.ui.gui.categories.software import SoftwareCategory
+from pyanaconda.ui.gui.categories.system import SystemCategory
 from pyanaconda.ui.gui.hubs.summary import SummaryHub
 from pyanaconda.ui.gui.utils import gtk_call_once, enlightbox
 from pyanaconda.ui.common import FirstbootSpokeMixIn
@@ -1285,7 +1285,7 @@ class NetworkSpoke(FirstbootSpokeMixIn, NormalSpoke):
     title = N_("_NETWORK CONFIGURATION")
     icon = "network-transmit-receive-symbolic"
 
-    category = SoftwareCategory
+    category = SystemCategory
 
     def __init__(self, *args, **kwargs):
         NormalSpoke.__init__(self, *args, **kwargs)
