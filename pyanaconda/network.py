@@ -936,6 +936,7 @@ def _get_ntp_servers_from_dhcp(ksdata):
 def wait_for_connecting_NM_thread(ksdata):
     # connection (e.g. auto default dhcp) is activated by NM service
     if wait_for_connecting_NM():
-        hostname = getHostname()
-        update_hostname_data(ksdata, hostname)
+        if ksdata.network.hostname == DEFAULT_HOSTNAME:
+            hostname = getHostname()
+            update_hostname_data(ksdata, hostname)
         _get_ntp_servers_from_dhcp(ksdata)
