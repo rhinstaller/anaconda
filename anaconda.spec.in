@@ -128,7 +128,7 @@ Requires: chrony
 Requires: ntpdate
 Requires: rsync
 Requires: hostname
-%ifnarch s390 s390x
+%ifarch %{ix86} x86_64
 Requires: fcoe-utils >= %{fcoeutilsver}
 %endif
 Requires: iscsi-initiator-utils >= %{iscsiver}
