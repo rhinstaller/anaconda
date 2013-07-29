@@ -615,7 +615,7 @@ class SourceSpoke(NormalSpoke):
         idx = 0
         for dev in potentialHdisoSources(self.storage.devicetree):
             store.append([dev, "%s (%s MB)" % (self._sanitize_model(dev.disk.model), int(dev.size))])
-            if dev.name == self.data.method.partition:
+            if self.data.method.method == "harddrive" and dev.name == self.data.method.partition:
                 active = idx
             added = True
             idx += 1
