@@ -35,7 +35,7 @@ from pyanaconda.ui.gui.spokes import NormalSpoke
 from pyanaconda.ui.gui.spokes.advstorage.fcoe import FCoEDialog
 from pyanaconda.ui.gui.spokes.advstorage.iscsi import ISCSIDialog
 from pyanaconda.ui.gui.spokes.lib.cart import SelectedDisksDialog
-from pyanaconda.ui.gui.categories.storage import StorageCategory
+from pyanaconda.ui.gui.categories.system import SystemCategory
 
 __all__ = ["FilterSpoke"]
 
@@ -403,7 +403,7 @@ class FilterSpoke(NormalSpoke):
     mainWidgetName = "filterWindow"
     uiFile = "spokes/filter.glade"
 
-    category = StorageCategory
+    category = SystemCategory
 
     title = N_("_INSTALLATION DESTINATION")
 
