@@ -124,6 +124,9 @@ if updates=$(getarg updates inst.updates); then
     fi
 fi
 
+# for vnc bring network up in initramfs so that cmdline configuration is used
+getargbool 0 vnc inst.vnc && warn "anaconda requiring network for vnc" && set_neednet
+
 # make sure we get ifcfg for every interface that comes up
 echo 'save_netinfo $netif' > $hookdir/initqueue/online/anaconda-ifcfg.sh
 
