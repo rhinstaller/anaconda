@@ -2420,6 +2420,8 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         # Take care of the previously chosen selector.
         if self._current_selector and self._initialized and \
            self._current_selector != selector:
+            # unselect the previously chosen selector
+            self._current_selector.set_chosen(False)
             self._save_current_selector()
             log.debug("new selector: %s", selector._device)
 

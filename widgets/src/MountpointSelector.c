@@ -68,8 +68,7 @@ static void anaconda_mountpoint_selector_set_property(GObject *object, guint pro
 static void anaconda_mountpoint_selector_realize(GtkWidget *widget, gpointer user_data);
 static void anaconda_mountpoint_selector_finalize(AnacondaMountpointSelector *widget);
 
-static void     anaconda_mountpoint_selector_toggle_background(AnacondaMountpointSelector *widget);
-static gboolean anaconda_mountpoint_selector_focus_changed(GtkWidget *widget, GdkEventFocus *event, gpointer user_data);
+static void anaconda_mountpoint_selector_toggle_background(AnacondaMountpointSelector *widget);
 
 static void anaconda_mountpoint_selector_class_init(AnacondaMountpointSelectorClass *klass) {
     GObjectClass *object_class = G_OBJECT_CLASS(klass);
@@ -186,8 +185,6 @@ static void anaconda_mountpoint_selector_init(AnacondaMountpointSelector *mountp
      */
     gtk_widget_set_can_focus(GTK_WIDGET(mountpoint), TRUE);
     gtk_widget_add_events(GTK_WIDGET(mountpoint), GDK_FOCUS_CHANGE_MASK|GDK_KEY_RELEASE_MASK);
-    g_signal_connect(mountpoint, "focus-in-event", G_CALLBACK(anaconda_mountpoint_selector_focus_changed), NULL);
-    g_signal_connect(mountpoint, "focus-out-event", G_CALLBACK(anaconda_mountpoint_selector_focus_changed), NULL);
 
     /* Set "hand" cursor shape when over the selector */
     mountpoint->priv->cursor = gdk_cursor_new(GDK_HAND2);
@@ -288,24 +285,6 @@ static void anaconda_mountpoint_selector_set_property(GObject *object, guint pro
     }
 }
 
-static gboolean anaconda_mountpoint_selector_focus_changed(GtkWidget *widget, GdkEventFocus *event, gpointer user_data) {
-    GtkStateFlags new_state;
-
-    new_state = gtk_widget_get_state_flags(widget) & ~GTK_STATE_FOCUSED;
-    if (event->in) {
-        gtk_widget_show(GTK_WIDGET(ANACONDA_MOUNTPOINT_SELECTOR(widget)->priv->arrow));
-        new_state |= GTK_STATE_FOCUSED;
-        anaconda_mountpoint_selector_set_chosen(ANACONDA_MOUNTPOINT_SELECTOR(widget), TRUE);
-    }
-    else {
-        gtk_widget_hide(GTK_WIDGET(ANACONDA_MOUNTPOINT_SELECTOR(widget)->priv->arrow));
-        anaconda_mountpoint_selector_set_chosen(ANACONDA_MOUNTPOINT_SELECTOR(widget), FALSE);
-    }
-
-    gtk_widget_set_state_flags(widget, new_state, TRUE);
-    return FALSE;
-}
-
 static void anaconda_mountpoint_selector_toggle_background(AnacondaMountpointSelector *widget) {
     if (widget->priv->chosen) {
         gtk_widget_set_state_flags(GTK_WIDGET(widget), GTK_STATE_FLAG_SELECTED, FALSE);
@@ -346,6 +325,12 @@ gboolean anaconda_mountpoint_selector_get_chosen(AnacondaMountpointSelector *wid
 void anaconda_mountpoint_selector_set_chosen(AnacondaMountpointSelector *widget, gboolean is_chosen) {
     widget->priv->chosen = is_chosen;
     anaconda_mountpoint_selector_toggle_background(widget);
-    if (is_chosen)
+
+    if (is_chosen) {
+        gtk_widget_show(GTK_WIDGET(widget->priv->arrow));
         gtk_widget_grab_focus(GTK_WIDGET(widget));
+    }
+    else {
+        gtk_widget_hide(GTK_WIDGET(widget->priv->arrow));
+    }
 }

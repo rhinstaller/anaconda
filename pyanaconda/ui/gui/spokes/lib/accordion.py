@@ -179,6 +179,7 @@ class Page(Gtk.Box):
         selector = selectorFromDevice(device, mountpoint=mountpoint)
         selector.connect("button-press-event", self._onSelectorClicked, cb)
         selector.connect("key-release-event", self._onSelectorClicked, cb)
+        selector.connect("focus-in-event", self._onSelectorFocusIn, cb)
         selector.set_margin_bottom(6)
         self.members.append(selector)
 
@@ -216,6 +217,11 @@ class Page(Gtk.Box):
 
         # Then, this callback will set up the right hand side of the screen to
         # show the details for the newly selected object.
+        cb(selector)
+
+    def _onSelectorFocusIn(self, selector, event, cb):
+        # could be simple lambda, but this way it looks more similar to the
+        # _onSelectorClicked
         cb(selector)
 
 class UnknownPage(Page):
