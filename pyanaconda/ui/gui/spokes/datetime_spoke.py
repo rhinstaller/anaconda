@@ -36,6 +36,7 @@ from pyanaconda.i18n import _, N_
 from pyanaconda import timezone
 from pyanaconda.timezone import NTP_SERVICE
 from pyanaconda import iutil
+from pyanaconda import isys
 from pyanaconda import network
 from pyanaconda import nm
 from pyanaconda import ntp
@@ -619,9 +620,7 @@ class DatetimeSpoke(FirstbootSpokeMixIn, NormalSpoke):
         #day may be None if there is no such in the selected year and month
         if day:
             day = int(day)
-            seconds = datetime.datetime.now().second
-            os.system("date -s '%0.2d/%0.2d/%0.4d %0.2d:%0.2d:%0.2d'" %
-                                (month, day, year, hours, minutes, seconds))
+            isys.set_system_date_time(year, month, day, hours, minutes)
 
         #start the timer only when the spoke is shown
         if self._update_datetime_timer_id is not None:

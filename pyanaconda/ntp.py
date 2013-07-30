@@ -207,4 +207,3 @@ def one_time_sync_async(server, callback=None):
 
     threadMgr.add(AnacondaThread(name=thread_name, target=one_time_sync,
                                  args=(server, callback)))
-

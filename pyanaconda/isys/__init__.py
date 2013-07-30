@@ -1,7 +1,7 @@
 #
 # isys.py - installer utility functions and glue for C module
 #
-# Copyright (C) 2001, 2002, 2003, 2004, 2005, 2006, 2007  Red Hat, Inc.
+# Copyright (C) 2001-2013  Red Hat, Inc.
 # All rights reserved.
 #
 # This program is free software; you can redistribute it and/or modify
@@ -41,6 +41,8 @@ import blivet.arch
 import re
 import struct
 import dbus
+import time
+import datetime
 
 import logging
 log = logging.getLogger("anaconda")
@@ -120,7 +122,35 @@ def set_system_time(secs):
 
     """
 
-    return  _isys.set_system_time(secs)
+    _isys.set_system_time(secs)
+    log.info("System time set to %s", time.ctime(secs))
+
+def set_system_date_time(year=None, month=None, day=None, hour=None, minute=None,
+                         second=None, utc=False):
+    """
+    Set system date and time given by the parameters as numbers. If some
+    parameter is missing or None, the current system date/time field is used
+    instead (i.e. the value is not changed by this function).
+
+    :type year, month, ..., second: int
+    :param utc: wheter the other parameters specify UTC or local time
+    :type utc: bool
+
+    """
+
+    # get the right values
+    local = 0 if utc else 1
+    now = datetime.datetime.now()
+    year = year or now.year
+    month = month or now.month
+    day = day or now.day
+    hour = hour or now.hour
+    minute = minute or now.minute
+    second = second or now.second
+
+    # struct fields -> year, month, day, hour, minute, second, week_day, year_day, local
+    time_struct = time.struct_time((year, month, day, hour, minute, second, 0, 0, local))
+    set_system_time(int(time.mktime(time_struct)))
 
 auditDaemon = _isys.auditdaemon
 
