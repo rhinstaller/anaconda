@@ -55,8 +55,6 @@ SERVER_QUERY = 2
 
 DEFAULT_TZ = "America/New_York"
 
-POOL_SERVERS_NOTE = N_("Note: pool servers may not be available all the time")
-
 class NTPconfigDialog(GUIObject):
     builderObjects = ["ntpConfigDialog", "addImage", "serversStore"]
     mainWidgetName = "ntpConfigDialog"
@@ -112,13 +110,11 @@ class NTPconfigDialog(GUIObject):
 
         self._serverEntry = self.builder.get_object("serverEntry")
         self._serversStore = self.builder.get_object("serversStore")
-        self._poolsNote = self.builder.get_object("poolsNote")
 
         self._initialize_store_from_config()
 
     def _initialize_store_from_config(self):
         self._serversStore.clear()
-        self._poolsNote.set_text("")
 
         if self.data.timezone.ntpservers:
             for server in self.data.timezone.ntpservers:
@@ -241,9 +237,6 @@ class NTPconfigDialog(GUIObject):
                 return
 
         itr = self._serversStore.append([server, SERVER_QUERY, True])
-
-        if "pool" in server:
-            self._poolsNote.set_text(_(POOL_SERVERS_NOTE))
 
         #do not block UI while starting thread (may take some time)
         self._refresh_server_working(itr)

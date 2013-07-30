@@ -787,20 +787,6 @@
             <property name="position">2</property>
           </packing>
         </child>
-        <child>
-          <object class="GtkLabel" id="poolsNote">
-            <property name="visible">True</property>
-            <property name="can_focus">False</property>
-            <attributes>
-              <attribute name="font-desc" value="Sans Italic 9"/>
-            </attributes>
-          </object>
-          <packing>
-            <property name="expand">False</property>
-            <property name="fill">True</property>
-            <property name="position">3</property>
-          </packing>
-        </child>
         <child internal-child="action_area">
           <object class="GtkButtonBox" id="dialog-action_area1">
             <property name="can_focus">False</property>
