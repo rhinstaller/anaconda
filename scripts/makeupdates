@@ -416,7 +416,8 @@ def remove_local_packages(packages, arch):
         if name in packages:
             requested_version = packages[name]
             # handle versions with build number and without it
-            if requested_version == version_build or requested_version == version:
+            if not requested_version or requested_version == version_build or \
+                    requested_version == version:
                 include_rpms.append(rpm_path)
                 del packages[name]
 
