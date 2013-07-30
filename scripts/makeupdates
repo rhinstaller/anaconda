@@ -31,7 +31,7 @@ import glob
 import urlgrabber
 import urlgrabber.progress
 
-RPM_FOLDER_NAME = "~/.anaconda_updates_rpm_cache"
+RPM_FOLDER_NAME = os.path.expanduser("~/.anaconda_updates_rpm_cache")
 KOJI_BASE_URL = "http://kojipkgs.fedoraproject.org//packages/" \
                 "%(toplevel_name)s/%(toplevel_version)s/%(release)s/%(arch)s/%(rpm_name)s"
 
