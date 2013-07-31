@@ -148,3 +148,6 @@ GEOLOC_TIMEOUT = 3
 
 ANACONDA_ENVIRON = "anaconda"
 FIRSTBOOT_ENVIRON = "firstboot"
+
+# Tainted hardware
+UNSUPPORTED_HW = 1 << 28
