@@ -658,7 +658,16 @@ reposdir=%s
                 url = "file://" + INSTALL_TREE
                 self.install_device = isodevice
         elif method.method == "nfs":
-            # See if dracut dealt with nfsiso
+            # There are several possible scenarios here:
+            # 1. dracut could have mounted both the nfs repo and an iso and used
+            #    the stage2 from inside the iso to boot from.
+            #    isodev and device will be set in this case.
+            # 2. dracut could have mounted the nfs repo and used a stage2 from
+            #    the NFS mount w/o mounting the iso.
+            #    isodev will be None and device will be the nfs: path
+            # 3. dracut did not mount the nfs (eg. stage2 came from elsewhere)
+            #    isodev and device are both None
+            # 4. The repo may not contain an iso, in that case use it as is
             if isodev:
                 options, host, path = iutil.parseNfsUrl('nfs:%s' % isodev)
                 # See if the dir holding the iso is what we want
@@ -693,17 +702,23 @@ reposdir=%s
 
                 image = findFirstIsoImage(path)
 
-                # it appears there are ISO images in the dir, so assume they want to
-                # install from one of them
+                # An image was found, mount it on INSTALL_TREE
                 if image:
-                    # move the mount to ISO_DIR
-                    # work around inability to move shared filesystems
-                    iutil.execWithRedirect("mount",
-                                           ["--make-rprivate", "/"])
-                    iutil.execWithRedirect("mount",
-                                           ["--move", INSTALL_TREE, ISO_DIR])
+                    if path.startswith(INSTALL_TREE):
+                        # move the INSTALL_TREE mount to ISO_DIR so we can
+                        # mount the contents of the iso there.
+                        # work around inability to move shared filesystems
+                        iutil.execWithRedirect("mount",
+                                               ["--make-rprivate", "/"])
+                        iutil.execWithRedirect("mount",
+                                               ["--move", INSTALL_TREE, ISO_DIR])
+                        # The iso is now under ISO_DIR
+                        path = ISO_DIR
+                    elif path.endswith(".iso"):
+                        path = os.path.dirname(path)
+
                     # mount the ISO on a loop
-                    image = os.path.normpath("%s/%s" % (ISO_DIR, image))
+                    image = os.path.normpath("%s/%s" % (path, image))
                     mountImage(image, INSTALL_TREE)
 
                     url = "file://" + INSTALL_TREE
