@@ -1496,7 +1496,7 @@ dataMap = {
         "VolGroupData": VolGroupData,
 }
 
-superclass = returnClassForVersion()
+superclass = returnClassForVersion(RHEL7)
     
 class AnacondaKSHandler(superclass):
     AddonClassType = AddonData

@@ -161,7 +161,7 @@ dracutCmds = {
     'text': DisplayMode,
     'bootloader': Bootloader,
 }
-handlerclass = returnClassForVersion()
+handlerclass = returnClassForVersion(RHEL7)
 class DracutHandler(handlerclass):
     def __init__(self):
         handlerclass.__init__(self, commandUpdates=dracutCmds)
