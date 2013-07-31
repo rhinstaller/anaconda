@@ -32,7 +32,7 @@ import uuid
 import glob
 from pykickstart.parser import KickstartParser, preprocessKickstart
 from pykickstart.sections import NullSection
-from pykickstart.version import returnClassForVersion
+from pykickstart.version import returnClassForVersion, RHEL7
 from pykickstart.errors import KickstartError
 # pylint: disable=wildcard-import
 from pykickstart.constants import *
@@ -216,7 +216,7 @@ dracutCmds = {
     'text': DisplayMode,
     'bootloader': Bootloader,
 }
-handlerclass = returnClassForVersion()
+handlerclass = returnClassForVersion(RHEL7)
 class DracutHandler(handlerclass):
     def __init__(self):
         handlerclass.__init__(self, commandUpdates=dracutCmds)

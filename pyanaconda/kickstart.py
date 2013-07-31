@@ -69,7 +69,7 @@ from pykickstart.errors import formatErrorMsg, KickstartError, KickstartValueErr
 from pykickstart.parser import KickstartParser
 from pykickstart.parser import Script as KSScript
 from pykickstart.sections import NullSection, PackageSection, PostScriptSection, PreScriptSection, TracebackScriptSection
-from pykickstart.version import returnClassForVersion
+from pykickstart.version import returnClassForVersion, RHEL7
 
 import logging
 log = logging.getLogger("anaconda")
@@ -1843,7 +1843,7 @@ dataMap = {
         "VolGroupData": VolGroupData,
 }
 
-superclass = returnClassForVersion()
+superclass = returnClassForVersion(RHEL7)
 
 class AnacondaKSHandler(superclass):
     AddonClassType = AddonData
