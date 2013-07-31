@@ -35,6 +35,7 @@ from pyanaconda import timezone
 from pyanaconda import flags
 from pyanaconda import geoloc
 from pyanaconda.i18n import _, N_
+from pyanaconda.iutil import is_unsupported_hw
 
 import logging
 log = logging.getLogger("anaconda")
@@ -44,7 +45,7 @@ __all__ = ["WelcomeLanguageSpoke"]
 class WelcomeLanguageSpoke(StandaloneSpoke):
     mainWidgetName = "welcomeWindow"
     uiFile = "spokes/welcome.glade"
-    builderObjects = ["languageStore", "languageStoreFilter", "welcomeWindow", "betaWarnDialog"]
+    builderObjects = ["languageStore", "languageStoreFilter", "welcomeWindow", "betaWarnDialog", "unsupportedHardwareDialog"]
 
     preForHub = SummaryHub
     priority = 0
@@ -340,17 +341,21 @@ class WelcomeLanguageSpoke(StandaloneSpoke):
     # warning dialog first.
     def _on_continue_clicked(self, cb):
         # Don't display the betanag dialog if this is the final release.
-        if isFinal:
-            StandaloneSpoke._on_continue_clicked(self, cb)
-            return
+        if not isFinal:
+            dlg = self.builder.get_object("betaWarnDialog")
+            with enlightbox(self.window, dlg):
+                rc = dlg.run()
+                dlg.destroy()
+            if rc == 0:
+                sys.exit(0)
 
-        dlg = self.builder.get_object("betaWarnDialog")
+        if productName.startswith("Red Hat Enterprise Linux") and \
+          is_unsupported_hw() and not self.data.unsupportedhardware.unsupported_hardware:
+            dlg = self.builder.get_object("unsupportedHardwareDialog")
+            with enlightbox(self.window, dlg):
+                rc = dlg.run()
+                dlg.destroy()
+            if rc == 0:
+                sys.exit(0)
 
-        with enlightbox(self.window, dlg):
-            rc = dlg.run()
-            dlg.destroy()
-
-        if rc == 0:
-            sys.exit(0)
-        else:
-            StandaloneSpoke._on_continue_clicked(self, cb)
+        StandaloneSpoke._on_continue_clicked(self, cb)

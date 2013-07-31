@@ -711,3 +711,19 @@ def chown_dir_tree(root, uid, gid, from_uid_only=None, from_gid_only=None):
         dir_tree_map(root, lambda path: conditional_chown(path, uid, gid,
                                                           from_uid_only,
                                                           from_gid_only))
+
+def is_unsupported_hw():
+    """ Check to see if the hardware is supported or not.
+
+        :returns:   True if this is unsupported hardware, False otherwise
+        :rtype:     bool
+    """
+    try:
+        tainted = long(open("/proc/sys/kernel/tainted").read())
+    except (IOError, ValueError):
+        tainted = 0L
+
+    status = bool(tainted & UNSUPPORTED_HW)
+    if status:
+        log.debug("Installing on Unsupported Hardware")
+    return status
