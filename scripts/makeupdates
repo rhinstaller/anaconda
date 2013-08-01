@@ -30,6 +30,7 @@ import re
 import glob
 import urllib
 import threading
+import multiprocessing
 
 RPM_FOLDER_NAME = os.path.expanduser("~/.anaconda_updates_rpm_cache")
 KOJI_BASE_URL = "http://kojipkgs.fedoraproject.org//packages/" \
@@ -260,7 +261,7 @@ def copyUpdatedIsys(updates, cwd):
             os.system('./autogen.sh')
         os.system('./configure --prefix=`rpm --eval %_prefix`')
 
-    os.system('make')
+    os.system('make -j %d' % multiprocessing.cpu_count())
 
     # Updates get overlaid onto the runtime filesystem. Anaconda expects them
     # to be in /run/install/updates, so put them in
