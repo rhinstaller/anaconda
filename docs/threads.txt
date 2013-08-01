@@ -70,13 +70,7 @@ THREAD NAMES
 PYGTK AND THREADS
 
    GTK+ presents the biggest challenge for threads, but it's not
-   impossible.  We will be allowing GTK+ calls from any thread, so we
-   have to call threads_init() in gui.py as the first thing:
-
-      gtk.gdk.threads_init()
-
-   After this, you can use Python threads as you normally would.  When
-   you call gtk.main(), you need to call it like this:
+   impossible. When you call gtk.main(), you need to call it like this:
 
       gtk.threads_enter()
       gtk.main()

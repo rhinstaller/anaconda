@@ -182,7 +182,6 @@ def initThreading():
        THE MAIN THREAD.
     """
     from gi.repository import GObject
-    GObject.threads_init()
 
     global threadMgr
     threadMgr = ThreadManager()
