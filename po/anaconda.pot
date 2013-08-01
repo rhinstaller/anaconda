@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: anaconda 20.2\n"
+"Project-Id-Version: anaconda 20.3\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
-"POT-Creation-Date: 2013-07-25 09:25-0700\n"
+"POT-Creation-Date: 2013-08-01 10:29-0700\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -220,7 +220,7 @@ msgid "Discovering realm to join"
 msgstr ""
 
 #: pyanaconda/install.py:165 pyanaconda/packaging/livepayload.py:144
-#: pyanaconda/packaging/yumpayload.py:1562
+#: pyanaconda/packaging/yumpayload.py:1577
 msgid "Performing post-installation setup tasks"
 msgstr ""
 
@@ -552,19 +552,19 @@ msgstr ""
 msgid "Checking image checksum"
 msgstr ""
 
-#: pyanaconda/packaging/yumpayload.py:1479
+#: pyanaconda/packaging/yumpayload.py:1494
 msgid "Starting package installation process"
 msgstr ""
 
-#: pyanaconda/packaging/yumpayload.py:1542
+#: pyanaconda/packaging/yumpayload.py:1557
 msgid "You need more space on the following file systems:\n"
 msgstr ""
 
-#: pyanaconda/packaging/yumpayload.py:1560
+#: pyanaconda/packaging/yumpayload.py:1575
 msgid "Preparing transaction from installation source"
 msgstr ""
 
-#: pyanaconda/packaging/yumpayload.py:1561
+#: pyanaconda/packaging/yumpayload.py:1576
 msgid "Installing"
 msgstr ""
 
@@ -807,31 +807,31 @@ msgstr ""
 msgid "Select a partition scheme configuration."
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/time.py:29
+#: pyanaconda/ui/tui/spokes/time_spoke.py:29
 msgid "Timezone settings"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/time.py:56
-#: pyanaconda/ui/gui/spokes/datetime_spoke.py:399
-#: pyanaconda/ui/gui/spokes/datetime_spoke.py:403
+#: pyanaconda/ui/tui/spokes/time_spoke.py:56
+#: pyanaconda/ui/gui/spokes/datetime_spoke.py:393
+#: pyanaconda/ui/gui/spokes/datetime_spoke.py:397
 #, python-format
 msgid "%s timezone"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/time.py:58
+#: pyanaconda/ui/tui/spokes/time_spoke.py:58
 msgid "Timezone is not set."
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/time.py:66
+#: pyanaconda/ui/tui/spokes/time_spoke.py:66
 #, python-format
 msgid "Available timezones in region %s"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/time.py:69
+#: pyanaconda/ui/tui/spokes/time_spoke.py:69
 msgid "Available regions"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/time.py:132
+#: pyanaconda/ui/tui/spokes/time_spoke.py:132
 msgid ""
 "Please select the timezone.\n"
 "Use numbers or type names directly [b to region list, q to quit]: "
@@ -859,7 +859,7 @@ msgstr ""
 
 #: pyanaconda/ui/tui/spokes/source.py:90
 #: pyanaconda/ui/tui/spokes/software.py:98
-#: pyanaconda/ui/gui/spokes/datetime_spoke.py:405
+#: pyanaconda/ui/gui/spokes/datetime_spoke.py:399
 #: pyanaconda/ui/gui/spokes/software.py:180
 #: pyanaconda/ui/gui/spokes/source.py:464
 #: pyanaconda/ui/gui/spokes/source.py:500
@@ -1415,27 +1415,23 @@ msgid ""
 "appropriate type for that disk.\n"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/datetime_spoke.py:58
-msgid "Note: pool servers may not be available all the time"
-msgstr ""
-
-#: pyanaconda/ui/gui/spokes/datetime_spoke.py:299
+#: pyanaconda/ui/gui/spokes/datetime_spoke.py:293
 msgid "DATE & _TIME"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/datetime_spoke.py:390
+#: pyanaconda/ui/gui/spokes/datetime_spoke.py:384
 msgid "Restoring hardware time..."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/datetime_spoke.py:401
+#: pyanaconda/ui/gui/spokes/datetime_spoke.py:395
 msgid "Invalid timezone"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/datetime_spoke.py:904
+#: pyanaconda/ui/gui/spokes/datetime_spoke.py:896
 msgid "You need to set up networking first if you want to use NTP"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/datetime_spoke.py:909
+#: pyanaconda/ui/gui/spokes/datetime_spoke.py:901
 msgid "You have no working NTP server configured"
 msgstr ""
 
@@ -2351,7 +2347,7 @@ msgid "CCW"
 msgstr ""
 
 #: pyanaconda/ui/gui/spokes/filter.glade:1393
-#: pyanaconda/ui/gui/spokes/lib/summary.glade:150
+#: pyanaconda/ui/gui/spokes/lib/summary.glade:151
 msgid "Type"
 msgstr ""
 
@@ -3577,7 +3573,7 @@ msgid "Reclaimable Space"
 msgstr ""
 
 #: pyanaconda/ui/gui/spokes/lib/resize.glade:193
-#: pyanaconda/ui/gui/spokes/lib/summary.glade:139
+#: pyanaconda/ui/gui/spokes/lib/summary.glade:140
 msgid "Action"
 msgstr ""
 
@@ -3620,19 +3616,19 @@ msgstr ""
 
 #: pyanaconda/ui/gui/spokes/lib/summary.glade:102
 msgid ""
-"Your customizations will result in the following changes taking effect on "
-"the disks you've selected:"
+"Your customizations will result in the following changes taking effect after "
+"you return to the main menu and begin installation:"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/lib/summary.glade:128
+#: pyanaconda/ui/gui/spokes/lib/summary.glade:129
 msgid "Order"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/lib/summary.glade:161
+#: pyanaconda/ui/gui/spokes/lib/summary.glade:162
 msgid "Device Name"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/lib/summary.glade:172
+#: pyanaconda/ui/gui/spokes/lib/summary.glade:173
 msgid "Mountpoint"
 msgstr ""
 

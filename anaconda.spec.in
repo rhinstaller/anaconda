@@ -254,6 +254,31 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Thu Aug 01 2013 Brian C. Lane <bcl@redhat.com> - 20.4-1
+- POTFILES.in: rename time.py to time_spoke.py (bcl)
+- Only move INSTALL_TREE when it is mounted (#888196) (bcl)
+- Use ksdata.method.seen (#986069) (bcl)
+- Threaded Koji RPM lookups and downloads (mkolman)
+- Fix the langcode parsing regexp (vpodzime)
+- Move tests to old_tests and add some new, working tests (vpodzime)
+- Replace hostname with hostnamectl (#989584) (rvykydal)
+- Require fcoe-utils only on ix86 and x86_64 architectures (#989913) (vpodzime)
+- Fix searching for local RPMs with no version required (vpodzime)
+- Expand the '~' in the RPM_FOLDER_NAME (vpodzime)
+- Set system date and time with our own function (vpodzime)
+- Remove the useless, confusing and lying PoolsNote (vpodzime)
+- Use tiny, fast and thread-safe ntplib module instead of ntpdate (vpodzime)
+- For vnc require network in intramfs (#989156) (rvykydal)
+- Fix makeupdates' package fetching when no version is specified (vpodzime)
+- Make it clear on the summary dialog that changes take effect later. (clumens)
+- Don't mark the summary dialog's tree view as insensitive. (clumens)
+- Work with files in a more pythonic way in makeupdates (vpodzime)
+- Honor hostname set in kickstart (#988483) (rvykydal)
+- Do not automatically set UTC mode on kickstart installs. (clumens)
+- Add automatic fetching of RPMs for new Defines & Requires (mkolman)
+- Don't prompt for ssh on s390x if doing an image install. (#983056) (sbueno)
+- Rename tz spoke to avoid potential conflict with std 'time' module. (sbueno)
+
 * Thu Jul 25 2013 Brian C. Lane <bcl@redhat.com> - 20.3-1
 - Fix driver disk path for inst.dd= method (#987513) (bcl)
 - Add support for NFS as install source in TUI. (#971298) (sbueno+anaconda)
