@@ -2789,7 +2789,9 @@ class MDRaidArrayDevice(StorageDevice):
             elif self.level == mdraid.RAID10:
                 size = (self.memberDevices / 2.0) * smallestMemberSize
                 size -= size % self.chunkSize
-            log.debug("non-existant RAID %s size == %s" % (self.level, size))
+
+            size -= 1   # account for unexpected metadata
+            log.debug("non-existent RAID %s size == %s" % (self.level, size))
         else:
             size = self.partedDevice.getSize()
             log.debug("existing RAID %s size == %s" % (self.level, size))
