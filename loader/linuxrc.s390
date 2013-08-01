@@ -225,6 +225,7 @@ function readcmsfile() # $1=dasdport $2=filename
     fi
     # precondition: dasd_eckd_mod driver incl. dependencies loaded,
     #               dasd_mod must be loaded without setting any DASD online
+    udevadm settle
     dev=$(canonicalize_devno $1)
     numcpus=$(grep processors /proc/cpuinfo | cut -c19-)
     if [ ${numcpus} -eq 1 ]; then
