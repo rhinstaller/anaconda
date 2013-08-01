@@ -917,7 +917,7 @@ if __name__ == "__main__":
         ksdata.method.noverifyssl = flags.noverifyssl
 
     # set ksdata.method based on anaconda.method if it isn't already set
-    if anaconda.methodstr and not ksdata.method.method:
+    if anaconda.methodstr and not ksdata.method.seen:
         if anaconda.methodstr.startswith("cdrom"):
             ksdata.method.method = "cdrom"
         elif anaconda.methodstr.startswith("nfs"):
