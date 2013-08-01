@@ -126,7 +126,6 @@ Requires: kbd
 Requires: chrony
 Requires: python-ntplib
 Requires: rsync
-Requires: hostname
 %ifarch %{ix86} x86_64
 Requires: fcoe-utils >= %{fcoeutilsver}
 %endif

@@ -677,7 +677,7 @@ def set_hostname(hn):
         return
 
     log.info("setting installation environment hostname to %s" % hn)
-    iutil.execWithRedirect("hostname", [hn])
+    iutil.execWithRedirect("hostnamectl", ["set-hostname", hn])
 
 def write_hostname(rootpath, ksdata, overwrite=False):
     cfgfile = os.path.normpath(rootpath + hostnameFile)
