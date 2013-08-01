@@ -1334,10 +1334,10 @@ static char *doLoaderMain(struct loaderData_s *loaderData,
             /* This is specific to RHEL, which does not have the mirror system
              * set up like Fedora does.  If the CD/DVD doesn't have packages,
              * then it's a boot.iso and we still need to prompt for the
-             * installation source.
+             * installation source, except when this is a rescue.
              */
 
-            if (!access("/mnt/stage2/.discinfo", R_OK)) {
+            if (!access("/mnt/stage2/.discinfo", R_OK) || FL_RESCUE(flags)) {
                 skipLangKbd = 1;
                 flags |= LOADER_FLAGS_NOPASS;
 
