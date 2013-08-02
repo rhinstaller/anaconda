@@ -4,7 +4,7 @@
   <!-- interface-requires AnacondaWidgets 1.0 -->
   <object class="GtkDialog" id="addDialog">
     <property name="can_focus">False</property>
-    <property name="border_width">5</property>
+    <property name="border_width">6</property>
     <property name="type_hint">dialog</property>
     <property name="decorated">False</property>
     <child internal-child="vbox">
@@ -233,7 +233,7 @@ use.  Try something else?</property>
   </object>
   <object class="GtkDialog" id="confirmDeleteDialog">
     <property name="can_focus">False</property>
-    <property name="border_width">5</property>
+    <property name="border_width">6</property>
     <property name="type_hint">dialog</property>
     <property name="decorated">False</property>
     <child internal-child="vbox">
@@ -327,7 +327,7 @@ use.  Try something else?</property>
   </object>
   <object class="GtkDialog" id="container_dialog">
     <property name="can_focus">False</property>
-    <property name="border_width">5</property>
+    <property name="border_width">6</property>
     <property name="type_hint">dialog</property>
     <property name="decorated">False</property>
     <child internal-child="vbox">
@@ -1908,7 +1908,7 @@ until you click on the main menu's 'Begin Installation' button.</property>
     <property name="width_request">400</property>
     <property name="height_request">200</property>
     <property name="can_focus">False</property>
-    <property name="border_width">5</property>
+    <property name="border_width">6</property>
     <property name="type_hint">dialog</property>
     <property name="decorated">False</property>
     <child internal-child="vbox">
@@ -2096,7 +2096,7 @@ until you click on the main menu's 'Begin Installation' button.</property>
     <property name="width_request">600</property>
     <property name="height_request">400</property>
     <property name="can_focus">False</property>
-    <property name="border_width">5</property>
+    <property name="border_width">6</property>
     <property name="title" translatable="yes">Help</property>
     <property name="modal">True</property>
     <property name="window_position">center-on-parent</property>

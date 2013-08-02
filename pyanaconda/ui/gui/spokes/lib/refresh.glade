@@ -3,7 +3,7 @@
   <!-- interface-requires gtk+ 3.0 -->
   <object class="GtkDialog" id="refreshDialog">
     <property name="can_focus">False</property>
-    <property name="border_width">5</property>
+    <property name="border_width">6</property>
     <property name="title" translatable="yes">RESCAN DISKS</property>
     <property name="modal">True</property>
     <property name="window_position">center-on-parent</property>
