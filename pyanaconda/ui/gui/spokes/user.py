@@ -335,6 +335,11 @@ class UserSpoke(FirstbootSpokeMixIn, NormalSpoke):
         to the passwords entered by the user. It is called by
         the changed Gtk event handler.
         """
+
+        # If the password was set by kickstart, skip the strength check
+        if self._user.password_kickstarted:
+            return True
+
         try:
             strength = self._pwq.check(self.pw.get_text(), None, None)
             _pwq_error = None
