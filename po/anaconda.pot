@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: anaconda 13.21.197\n"
+"Project-Id-Version: anaconda 13.21.198\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
-"POT-Creation-Date: 2013-07-24 15:27-0400\n"
+"POT-Creation-Date: 2013-08-02 09:56-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -377,7 +377,7 @@ msgstr ""
 msgid "_Retry"
 msgstr ""
 
-#: gui.py:1435 storage/partitioning.py:332
+#: gui.py:1435 storage/partitioning.py:337
 msgid "The system will now reboot."
 msgstr ""
 
@@ -2593,7 +2593,7 @@ msgid "The volume group name \"%s\" is already in use. Please pick another."
 msgstr ""
 
 #: iw/lvm_dialog_gui.py:1114 iw/partition_gui.py:1615
-#: storage/partitioning.py:233 storage/partitioning.py:295
+#: storage/partitioning.py:238 storage/partitioning.py:300
 msgid "Error Partitioning"
 msgstr ""
 
@@ -4730,7 +4730,7 @@ msgid "filesystem configuration missing a type"
 msgstr ""
 
 #: storage/formats/fs.py:354 storage/formats/luks.py:199
-#: storage/formats/lvmpv.py:103 storage/formats/swap.py:163
+#: storage/formats/lvmpv.py:103 storage/formats/swap.py:165
 msgid "Formatting"
 msgstr ""
 
@@ -4776,7 +4776,7 @@ msgid ""
 "problems on the filesystem."
 msgstr ""
 
-#: storage/formats/fs.py:536 storage/partitioning.py:331
+#: storage/formats/fs.py:536 storage/partitioning.py:336
 msgid "Unrecoverable Error"
 msgstr ""
 
@@ -4819,7 +4819,7 @@ msgstr ""
 msgid "Encrypting %s"
 msgstr ""
 
-#: storage/formats/lvmpv.py:104 storage/formats/swap.py:164
+#: storage/formats/lvmpv.py:104 storage/formats/swap.py:166
 #, python-format
 msgid "Creating %s on %s"
 msgstr ""
@@ -4869,23 +4869,23 @@ msgstr ""
 msgid "Could not log in to any of the discovered nodes"
 msgstr ""
 
-#: storage/partitioning.py:227
+#: storage/partitioning.py:232
 msgid ""
 "Could not find enough free space for automatic partitioning.  Press 'OK' to "
 "exit the installer."
 msgstr ""
 
-#: storage/partitioning.py:230
+#: storage/partitioning.py:235
 msgid ""
 "Could not find enough free space for automatic partitioning, please use "
 "another partitioning method."
 msgstr ""
 
-#: storage/partitioning.py:278
+#: storage/partitioning.py:283
 msgid "Warnings During Automatic Partitioning"
 msgstr ""
 
-#: storage/partitioning.py:280
+#: storage/partitioning.py:285
 #, python-format
 msgid ""
 "Following warnings occurred during automatic partitioning:\n"
@@ -4893,14 +4893,14 @@ msgid ""
 "%s"
 msgstr ""
 
-#: storage/partitioning.py:294 storage/partitioning.py:315
+#: storage/partitioning.py:299 storage/partitioning.py:320
 msgid ""
 "\n"
 "\n"
 "Press 'OK' to exit the installer."
 msgstr ""
 
-#: storage/partitioning.py:296
+#: storage/partitioning.py:301
 #, python-format
 msgid ""
 "Could not allocate requested partitions: \n"
@@ -4908,18 +4908,18 @@ msgid ""
 "%(msg)s.%(extra)s"
 msgstr ""
 
-#: storage/partitioning.py:317
+#: storage/partitioning.py:322
 msgid ""
 "\n"
 "\n"
 "Press 'OK' to choose a different partitioning option."
 msgstr ""
 
-#: storage/partitioning.py:319
+#: storage/partitioning.py:324
 msgid "Automatic Partitioning Errors"
 msgstr ""
 
-#: storage/partitioning.py:320
+#: storage/partitioning.py:325
 #, python-format
 msgid ""
 "The following errors occurred with your partitioning:\n"

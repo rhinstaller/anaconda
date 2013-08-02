@@ -222,6 +222,16 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Fri Aug 02 2013 Samantha N. Bueno <sbueno+anaconda@redhat.com> - 13.21.199-1
+- Fix issue where installation hangs in linuxrc.s390. (sbueno+anaconda)
+  Resolves: rhbz#949409
+- Pass mountopts to swap options (bcl)
+  Resolves: rhbz#857517
+- Enable the AMD IOMMU driver if tboot is installed. (dshea)
+  Resolves: rhbz#928144
+- Fix crash in handling of PReP Boot partitions (dshea)
+  Resolves: rhbz#881005
+
 * Wed Jul 24 2013 Samantha N. Bueno <sbueno+anaconda@redhat.com> - 13.21.198-1
 - Use the active window as parent for new dialogs (dshea)
   Resolves: rhbz#888292
