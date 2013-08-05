@@ -56,7 +56,7 @@ loader_SOURCES     = loader.c copy.c log.c moduleinfo.c loadermisc.c \
 
 init_CFLAGS        = $(COMMON_CFLAGS) $(GLIB_CFLAGS)
 init_LDADD	   = $(GLIB_LIBS)
-init_SOURCES       = init.c undomounts.c shutdown.c copy.c
+init_SOURCES       = init.c undomounts.c shutdown.c copy.c modules.c log.c
 
 shutdown_CFLAGS    = $(COMMON_CFLAGS) -DAS_SHUTDOWN=1
 shutdown_SOURCES   = shutdown.c undomounts.c

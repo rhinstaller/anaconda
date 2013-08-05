@@ -38,7 +38,6 @@ gboolean mlLoadModule(const gchar *, gchar **);
 gboolean mlLoadModuleSet(const gchar *);
 gboolean mlAddBlacklist(gchar *);
 gboolean mlRemoveBlacklist(gchar *);
-void loadKickstartModule(struct loaderData_s *, int, char **);
 
 GTree* mlSaveModuleState();
 void mlRestoreModuleState(GTree *state);

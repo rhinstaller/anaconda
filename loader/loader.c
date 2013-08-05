@@ -1027,13 +1027,7 @@ static void parseCmdLineFlags(struct loaderData_s * loaderData,
         else if (!strcasecmp(argv[i], "kssendsn"))
             flags |= LOADER_FLAGS_KICKSTART_SEND_SERIAL;
         /* deprecated hardware bits */
-        else if (!strcasecmp(argv[i], "nousbstorage"))
-            mlAddBlacklist("usb-storage");
-        else if (!strcasecmp(argv[i], "nousb")) {
-            mlAddBlacklist("ehci-hcd");
-            mlAddBlacklist("ohci-hcd");
-            mlAddBlacklist("uhci-hcd");
-        } else if (!strcasecmp(argv[i], "nofirewire"))
+        else if (!strcasecmp(argv[i], "nofirewire"))
             mlAddBlacklist("firewire-ohci");
         else if (!strcasecmp(argv[i], "noeject"))
             flags |= LOADER_FLAGS_NOEJECT;

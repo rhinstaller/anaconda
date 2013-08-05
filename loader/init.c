@@ -62,6 +62,8 @@
 #include "copy.h"
 #include "devt.h"
 #include "devices.h"
+#include "modules.h"
+#include "log.h"
 
 #endif
 
@@ -547,6 +549,11 @@ int main(int argc, char **argv) {
         fatal_error(1);
     createDevices();
     printf("done\n");
+
+    if (!mlInitModuleConfig()) {
+        logMessage(ERROR, "unable to initialize kernel module loading");
+        abort();
+    }
 
     printf("starting udev...");
     fflush(stdout);

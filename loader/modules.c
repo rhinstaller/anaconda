@@ -291,6 +291,12 @@ gboolean mlInitModuleConfig(void) {
                     g_strfreev(blmods);
                 }
             }
+        } else if (!strncmp(options[i], "nousbstorage", 12)) {
+            blacklist = g_slist_append(blacklist, "usb-storage");
+        } else if (!strcasecmp(options[i], "nousb")) {
+            blacklist = g_slist_append(blacklist, "ehci-hcd");
+            blacklist = g_slist_append(blacklist, "ohci-hcd");
+            blacklist = g_slist_append(blacklist, "uhci-hcd");
         } else if ((fields = g_strsplit(options[i], ".", 0)) != NULL) {
             if (g_strv_length(fields) == 2) {
                 if (_isValidModule(fields[0])) {
@@ -371,57 +377,6 @@ gboolean mlRemoveBlacklist(gchar *module) {
     }
 
     return TRUE;
-}
-
-void loadKickstartModule(struct loaderData_s * loaderData,
-                         int argc, char **argv) {
-    gchar *opts = NULL;
-    gchar *module = NULL;
-    gchar **args = NULL, **remaining = NULL;
-    gboolean rc;
-    GOptionContext *optCon = g_option_context_new(NULL);
-    GError *optErr = NULL;
-    GOptionEntry ksDeviceOptions[] = {
-        { "opts", 0, 0, G_OPTION_ARG_STRING, &opts, NULL, NULL },
-        { G_OPTION_REMAINING, 0, 0, G_OPTION_ARG_STRING_ARRAY, &remaining,
-          NULL, NULL },
-        { NULL },
-    };
-
-    g_option_context_set_help_enabled(optCon, FALSE);
-    g_option_context_add_main_entries(optCon, ksDeviceOptions, NULL);
-
-    if (!g_option_context_parse(optCon, &argc, &argv, &optErr)) {
-        startNewt();
-        newtWinMessage(_("Kickstart Error"), _("OK"),
-                       _("Bad argument to device kickstart method "
-                         "command: %s"), optErr->message);
-        g_error_free(optErr);
-        g_option_context_free(optCon);
-        return;
-    }
-
-    g_option_context_free(optCon);
-
-    if ((remaining != NULL) && (g_strv_length(remaining) == 1)) {
-        module = remaining[0];
-    }
-
-    if (!module) {
-        startNewt();
-        newtWinMessage(_("Kickstart Error"), _("OK"),
-                       _("A module name must be specified for "
-                         "the kickstart device command."));
-        return;
-    }
-
-    if (opts) {
-        args = g_strsplit(opts, " ", 0);
-    }
-
-    rc = mlLoadModule(module, args);
-    g_strfreev(args);
-    return;
 }
 
 inline gint gcmp(gconstpointer a, gconstpointer b, gpointer userptr)

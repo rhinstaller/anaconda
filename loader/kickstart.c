@@ -91,6 +91,8 @@ static void setVnc(struct loaderData_s * loaderData, int argc,
                        char ** argv);
 static void setUnsupportedHw(struct loaderData_s * loaderData, int argc,
                        char ** argv);
+static void loadKickstartModule(struct loaderData_s * loaderData, int argc,
+                                char **argv);
 
 struct ksCommandNames ksTable[] = {
     { KS_CMD_NFS, "nfs", setKickstartNfs },
@@ -544,6 +546,57 @@ static void setShutdown(struct loaderData_s * loaderData, int argc,
 static void setMediaCheck(struct loaderData_s * loaderData, int argc, 
                           char ** argv) {
     flags |= LOADER_FLAGS_MEDIACHECK;
+    return;
+}
+
+static void loadKickstartModule(struct loaderData_s * loaderData,
+                                int argc, char **argv) {
+    gchar *opts = NULL;
+    gchar *module = NULL;
+    gchar **args = NULL, **remaining = NULL;
+    gboolean rc;
+    GOptionContext *optCon = g_option_context_new(NULL);
+    GError *optErr = NULL;
+    GOptionEntry ksDeviceOptions[] = {
+        { "opts", 0, 0, G_OPTION_ARG_STRING, &opts, NULL, NULL },
+        { G_OPTION_REMAINING, 0, 0, G_OPTION_ARG_STRING_ARRAY, &remaining,
+          NULL, NULL },
+        { NULL },
+    };
+
+    g_option_context_set_help_enabled(optCon, FALSE);
+    g_option_context_add_main_entries(optCon, ksDeviceOptions, NULL);
+
+    if (!g_option_context_parse(optCon, &argc, &argv, &optErr)) {
+        startNewt();
+        newtWinMessage(_("Kickstart Error"), _("OK"),
+                       _("Bad argument to device kickstart method "
+                         "command: %s"), optErr->message);
+        g_error_free(optErr);
+        g_option_context_free(optCon);
+        return;
+    }
+
+    g_option_context_free(optCon);
+
+    if ((remaining != NULL) && (g_strv_length(remaining) == 1)) {
+        module = remaining[0];
+    }
+
+    if (!module) {
+        startNewt();
+        newtWinMessage(_("Kickstart Error"), _("OK"),
+                       _("A module name must be specified for "
+                         "the kickstart device command."));
+        return;
+    }
+
+    if (opts) {
+        args = g_strsplit(opts, " ", 0);
+    }
+
+    rc = mlLoadModule(module, args);
+    g_strfreev(args);
     return;
 }
 
