@@ -256,6 +256,22 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Mon Aug 05 2013 Brian C. Lane <bcl@redhat.com> - 19.31.3-1
+- Skip password strength check for kickstart passwords (dshea)
+  Resolves: rhbz#993040
+- Add unsupported hardware dialog (bcl)
+  Resolves: rhbz#872728
+- Only move INSTALL_TREE when it is mounted (bcl)
+  Resolves: rhbz#888196
+- Require fcoe-utils only on ix86 and x86_64 architectures (vpodzime)
+  Resolves: rhbz#989913
+- For vnc require network in intramfs (rvykydal)
+  Resolves: rhbz#990071
+- Honor hostname set in kickstart (rvykydal)
+  Resolves: rhbz#988483
+- Don't prompt for ssh on s390x if doing an image install. (sbueno)
+  Resolves: rhbz#983056
+
 * Thu Jul 25 2013 Brian C. Lane <bcl@redhat.com> - 19.31.2-1
 - Fix driver disk path for inst.dd= method (bcl)
   Resolves: rhbz#987513

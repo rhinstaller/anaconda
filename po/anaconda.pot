@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: anaconda 19.31.1\n"
+"Project-Id-Version: anaconda 19.31.2\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
-"POT-Creation-Date: 2013-07-25 10:05-0700\n"
+"POT-Creation-Date: 2013-08-05 11:02-0700\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -220,7 +220,7 @@ msgid "Discovering realm to join"
 msgstr ""
 
 #: pyanaconda/install.py:165 pyanaconda/packaging/livepayload.py:144
-#: pyanaconda/packaging/yumpayload.py:1562
+#: pyanaconda/packaging/yumpayload.py:1577
 msgid "Performing post-installation setup tasks"
 msgstr ""
 
@@ -552,19 +552,19 @@ msgstr ""
 msgid "Checking image checksum"
 msgstr ""
 
-#: pyanaconda/packaging/yumpayload.py:1479
+#: pyanaconda/packaging/yumpayload.py:1494
 msgid "Starting package installation process"
 msgstr ""
 
-#: pyanaconda/packaging/yumpayload.py:1542
+#: pyanaconda/packaging/yumpayload.py:1557
 msgid "You need more space on the following file systems:\n"
 msgstr ""
 
-#: pyanaconda/packaging/yumpayload.py:1560
+#: pyanaconda/packaging/yumpayload.py:1575
 msgid "Preparing transaction from installation source"
 msgstr ""
 
-#: pyanaconda/packaging/yumpayload.py:1561
+#: pyanaconda/packaging/yumpayload.py:1576
 msgid "Installing"
 msgstr ""
 
@@ -955,6 +955,18 @@ msgstr ""
 msgid "Base environment"
 msgstr ""
 
+#: pyanaconda/ui/tui/spokes/warnings.py:36
+msgid "Warnings"
+msgstr ""
+
+#: pyanaconda/ui/tui/spokes/warnings.py:44
+#: pyanaconda/ui/gui/spokes/welcome.glade:99
+msgid ""
+"This hardware (or a combination thereof) is not supported by Red Hat.  For "
+"more information on supported hardware, please refer to http://www.redhat."
+"com/hardware."
+msgstr ""
+
 #: pyanaconda/ui/tui/spokes/__init__.py:46
 msgid "Default spoke title"
 msgstr ""
@@ -999,6 +1011,7 @@ msgstr ""
 
 #: pyanaconda/ui/gui/__init__.py:404 pyanaconda/ui/gui/spokes/software.py:410
 #: pyanaconda/ui/gui/spokes/storage.py:898
+#: pyanaconda/ui/gui/spokes/welcome.glade:21
 #: pyanaconda/ui/gui/hubs/summary.glade:76 widgets/src/StandaloneWindow.c:54
 msgid "_Quit"
 msgstr ""
@@ -1669,62 +1682,62 @@ msgid "Root password is not set"
 msgstr ""
 
 #: pyanaconda/ui/gui/spokes/password.py:127
-#: pyanaconda/ui/gui/spokes/user.py:347
+#: pyanaconda/ui/gui/spokes/user.py:352
 #: pyanaconda/ui/gui/spokes/lib/passphrase.py:102
 #: pyanaconda/ui/gui/spokes/lib/passphrase.glade:173
 msgid "Weak"
 msgstr ""
 
 #: pyanaconda/ui/gui/spokes/password.py:128
-#: pyanaconda/ui/gui/spokes/user.py:348
+#: pyanaconda/ui/gui/spokes/user.py:353
 msgid "The password you have provided is weak"
 msgstr ""
 
 #: pyanaconda/ui/gui/spokes/password.py:133
-#: pyanaconda/ui/gui/spokes/user.py:353
+#: pyanaconda/ui/gui/spokes/user.py:358
 msgid "You will have to press Done twice to confirm it."
 msgstr ""
 
 #: pyanaconda/ui/gui/spokes/password.py:136
-#: pyanaconda/ui/gui/spokes/user.py:356
+#: pyanaconda/ui/gui/spokes/user.py:361
 #: pyanaconda/ui/gui/spokes/lib/passphrase.py:105
 msgid "Fair"
 msgstr ""
 
 #: pyanaconda/ui/gui/spokes/password.py:140
-#: pyanaconda/ui/gui/spokes/user.py:360
+#: pyanaconda/ui/gui/spokes/user.py:365
 #: pyanaconda/ui/gui/spokes/lib/passphrase.py:108
 msgid "Good"
 msgstr ""
 
 #: pyanaconda/ui/gui/spokes/password.py:144
-#: pyanaconda/ui/gui/spokes/user.py:364
+#: pyanaconda/ui/gui/spokes/user.py:369
 #: pyanaconda/ui/gui/spokes/lib/passphrase.py:111
 msgid "Strong"
 msgstr ""
 
 #: pyanaconda/ui/gui/spokes/password.py:149
-#: pyanaconda/ui/gui/spokes/user.py:369
+#: pyanaconda/ui/gui/spokes/user.py:374
 msgid "Empty"
 msgstr ""
 
 #: pyanaconda/ui/gui/spokes/password.py:150
-#: pyanaconda/ui/gui/spokes/user.py:370
+#: pyanaconda/ui/gui/spokes/user.py:375
 msgid "The password is empty."
 msgstr ""
 
 #: pyanaconda/ui/gui/spokes/password.py:152
-#: pyanaconda/ui/gui/spokes/user.py:372
+#: pyanaconda/ui/gui/spokes/user.py:377
 msgid "The passwords do not match."
 msgstr ""
 
 #: pyanaconda/ui/gui/spokes/password.py:177
-#: pyanaconda/ui/gui/spokes/user.py:406
+#: pyanaconda/ui/gui/spokes/user.py:411
 msgid "You must provide and confirm a password."
 msgstr ""
 
 #: pyanaconda/ui/gui/spokes/password.py:187
-#: pyanaconda/ui/gui/spokes/user.py:416
+#: pyanaconda/ui/gui/spokes/user.py:421
 #, python-format
 msgid "You have provided a weak password: %s.  Press Done again to use anyway."
 msgstr ""
@@ -2588,7 +2601,8 @@ msgstr ""
 msgid "Cancel & _add more disks"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/storage.glade:50 widgets/src/StandaloneWindow.c:55
+#: pyanaconda/ui/gui/spokes/storage.glade:50
+#: pyanaconda/ui/gui/spokes/welcome.glade:35 widgets/src/StandaloneWindow.c:55
 msgid "_Continue"
 msgstr ""
 
@@ -2773,7 +2787,7 @@ msgid "Select additional language support to be installed"
 msgstr ""
 
 #: pyanaconda/ui/gui/spokes/langsupport.glade:175
-#: pyanaconda/ui/gui/spokes/welcome.glade:370
+#: pyanaconda/ui/gui/spokes/welcome.glade:494
 msgid "Type here to search."
 msgstr ""
 
@@ -2997,19 +3011,23 @@ msgstr ""
 msgid "Name of the repository."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/welcome.glade:21
+#: pyanaconda/ui/gui/spokes/welcome.glade:66
+msgid "Unsupported Hardware Detected"
+msgstr ""
+
+#: pyanaconda/ui/gui/spokes/welcome.glade:145
 msgid "_Get me out of here!"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/welcome.glade:35
+#: pyanaconda/ui/gui/spokes/welcome.glade:159
 msgid "_I accept my fate."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/welcome.glade:66
+#: pyanaconda/ui/gui/spokes/welcome.glade:190
 msgid "This is unstable, pre-release software."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/welcome.glade:99
+#: pyanaconda/ui/gui/spokes/welcome.glade:223
 msgid ""
 "You wake up inside an OS installer in Timbuktu, and it's six months in the "
 "future.  But, there are bugs.  Bugs everywhere.  Bugs you must live with.  "
@@ -3017,23 +3035,23 @@ msgid ""
 "purposes only."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/welcome.glade:253
+#: pyanaconda/ui/gui/spokes/welcome.glade:377
 msgid "WELCOME TO %s %s."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/welcome.glade:271
+#: pyanaconda/ui/gui/spokes/welcome.glade:395
 msgid "What language would you like to use during the installation process?"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/welcome.glade:321
+#: pyanaconda/ui/gui/spokes/welcome.glade:445
 msgid "nativeName"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/welcome.glade:337
+#: pyanaconda/ui/gui/spokes/welcome.glade:461
 msgid "englishName"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/welcome.glade:392
+#: pyanaconda/ui/gui/spokes/welcome.glade:516
 msgid "Set _keyboard to default layout for selected language."
 msgstr ""
 
