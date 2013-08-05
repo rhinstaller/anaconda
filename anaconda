@@ -81,6 +81,13 @@ def exitHandler(rebootData, storage, exitCode=None):
         else: # reboot action is KS_REBOOT or None
             os.system("systemctl --no-wall reboot")
 
+def startSpiceVDAgent():
+    status = os.system("spice-vdagent")
+
+    # An error status usually means that we're not running on a virt guest
+    if not status:
+        log.info("spice-vdagent exited with status %d" % status)
+
 def startMetacityWM():
     childpid = os.fork()
     if not childpid:
@@ -134,6 +141,14 @@ def set_x_resolution(runres):
             log.error("The X resolution not set")
             iutil.execWithRedirect("xrandr",
                                    ["-d", ":1", "-q"])
+
+def doExtraX11Actions(opts):
+    """Perform X11 actions not related to startup"""
+
+    set_x_resolution(opts.runres)
+
+    startSpiceVDAgent()
+    log.info("Started spice-vdagent.")
 
 def setupPythonUpdates():
     from distutils.sysconfig import get_python_lib
@@ -576,7 +591,8 @@ def setupDisplay(anaconda, opts, addon_paths=None):
             signal.signal(signal.SIGUSR1, old_sigusr1)
             signal.signal(signal.SIGCHLD, old_sigchld)
 
-    set_x_resolution(opts.runres)
+        if not graphical_failed:
+            doExtraX11Actions(opts)
 
     if anaconda.displayMode == 't' and graphical_failed and \
          flags.vncquestion and not anaconda.ksdata.vnc.enabled:
