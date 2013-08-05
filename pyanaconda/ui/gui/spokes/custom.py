@@ -618,7 +618,6 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         self._devices = []
         self._media_disks = []
         self._fs_types = []             # list of supported fstypes
-        self._unused_devices = None     # None indicates uninitialized
         self._free_space = Size(bytes=0)
 
         self._device_disks = []
@@ -748,16 +747,13 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
 
     @property
     def unusedDevices(self):
-        if self._unused_devices is None:
-            self._unused_devices = [d for d in self.__storage.unusedDevices
-                                        if d.disks and not d.partitioned and
-                                           d.isleaf]
-            # add incomplete VGs and MDs
-            incomplete = [d for d in self.__storage.devicetree._devices
-                                if not getattr(d, "complete", True)]
-            self._unused_devices.extend(incomplete)
-
-        return self._unused_devices
+        unused_devices = [d for d in self.__storage.unusedDevices
+                                if d.disks and not d.partitioned and d.isleaf]
+        # add incomplete VGs and MDs
+        incomplete = [d for d in self.__storage.devicetree._devices
+                            if not getattr(d, "complete", True)]
+        unused_devices.extend(incomplete)
+        return unused_devices
 
     @property
     def existingSwaps(self):
@@ -826,7 +822,6 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
                 self.__storage.devicetree.hide(disk)
 
         self._devices = self.__storage.devices
-        self._unused_devices = None
 
     def refresh(self):
         self.clear_errors()
@@ -2186,7 +2181,6 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         # Now that devices have been removed from the installation root,
         # refreshing the display will have the effect of making them disappear.
         # It's like they never existed.
-        self._unused_devices = None     # why do we cache this?
         self._updateSpaceDisplay()
         self._do_refresh()
 
@@ -2827,7 +2821,6 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
             self.__storage.roots = findExistingInstallations(self.__storage.devicetree)
 
         self._devices = self.__storage.devices
-        self._unused_devices = None     # why do we cache this?
         self._clear_current_selector()
         self._do_refresh()
 
