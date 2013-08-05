@@ -1256,15 +1256,18 @@ class SELinux(commands.selinux.FC3_SELinux):
 
 class Services(commands.services.FC6_Services):
     def execute(self, storage, ksdata, instClass):
-        disabled = map(lambda s: s + ".service", self.disabled)
-        enabled = map(lambda s: s + ".service", self.enabled)
+        for svc in self.disabled:
+            if not svc.endswith(".service"):
+                svc += ".service"
 
-        if disabled:
-            iutil.execWithRedirect("systemctl", ["disable"] + disabled,
+            iutil.execWithRedirect("systemctl", ["disable", svc],
                                    root=ROOT_PATH)
 
-        if enabled:
-            iutil.execWithRedirect("systemctl", ["enable"] + enabled,
+        for svc in self.enabled:
+            if not svc.endswith(".service"):
+                svc += ".service"
+
+            iutil.execWithRedirect("systemctl", ["enable", svc],
                                    root=ROOT_PATH)
 
 class Timezone(commands.timezone.F18_Timezone):
