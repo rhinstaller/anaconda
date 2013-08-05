@@ -44,7 +44,7 @@ from pyanaconda.ui.gui.utils import gtk_call_once, enlightbox
 from pyanaconda.ui.common import FirstbootSpokeMixIn
 
 from pyanaconda import network
-from pyanaconda.nm import nm_activated_devices, nm_device_setting_value
+from pyanaconda.nm import nm_activated_devices, nm_device_setting_value, nm_dbus_ay_to_ipv6
 
 # pylint: disable-msg=E0611
 from gi.repository import GLib, GObject, Pango, Gio, NetworkManager, NMClient
@@ -769,7 +769,7 @@ class NetworkControlBox(object):
             config = dbus.SystemBus().get_object(NM_SERVICE, ipv6cfg.get_path())
             addr, prefix, gw = getNMObjProperty(config, ".IP6Config",
                                                 "Addresses")[0]
-            ipv6_addr = socket.inet_ntop(socket.AF_INET6, "".join(chr(byte) for byte in addr))
+            ipv6_addr = nm_dbus_ay_to_ipv6(addr)
         self._set_device_info_value(dt, "ipv6", ipv6_addr)
 
         if ipv4cfg and ipv6_addr:
@@ -1503,39 +1503,27 @@ class NetworkStandaloneSpoke(StandaloneSpoke):
 def _update_network_data(data, ncb):
     data.network.network = []
     for dev in ncb.listed_devices:
-        network_data = getKSNetworkData(dev)
+        network_data = None
+        ifcfg_suffix = _ifcfg_suffix(dev)
+        if ifcfg_suffix:
+            network_data = network.get_ks_network_data(dev, ifcfg_suffix)
         if network_data is not None:
             data.network.network.append(network_data)
     hostname = ncb.hostname
     network.update_hostname_data(data, hostname)
 
-def getKSNetworkData(device):
+def _ifcfg_suffix(device):
     retval = None
-
-    ifcfg_suffix = None
     if device.get_device_type() == NetworkManager.DeviceType.ETHERNET:
-        ifcfg_suffix = device.get_iface()
+        retval = device.get_iface()
     elif device.get_device_type() == NetworkManager.DeviceType.WIFI:
         ap = device.get_active_access_point()
         if ap:
-            ifcfg_suffix = ap.get_ssid()
+            retval = ap.get_ssid()
     elif device.get_device_type() == NetworkManager.DeviceType.BOND:
-        ifcfg_suffix = network.get_bond_master_ifcfg_name(device.get_iface())[6:]
+        retval = network.get_bond_master_ifcfg_name(device.get_iface())[6:]
     elif device.get_device_type() == NetworkManager.DeviceType.VLAN:
-        ifcfg_suffix = network.get_vlan_ifcfg_name(device.get_iface())[6:]
-
-    if ifcfg_suffix:
-        ifcfg_suffix = ifcfg_suffix.replace(' ', '_')
-        device_cfg = network.NetworkDevice(network.netscriptsDir, ifcfg_suffix)
-        try:
-            device_cfg.loadIfcfgFile()
-        except IOError as e:
-            log.debug("getKSNetworkData %s: %s" % (ifcfg_suffix, e))
-            return None
-        retval = network.kickstartNetworkData(ifcfg=device_cfg)
-        if retval and device.get_iface() in nm_activated_devices():
-            retval.activate = True
-
+        retval = network.get_vlan_ifcfg_name(device.get_iface())[6:]
     return retval
 
 if __name__ == "__main__":

@@ -21,8 +21,10 @@
 
 from gi.repository import Gio, GLib
 from gi.repository import NetworkManager
+import IPy
 import struct
 import socket
+import re
 
 from pyanaconda.constants import DEFAULT_DBUS_TIMEOUT
 
@@ -253,6 +255,29 @@ def nm_device_ip_addresses(name, version=4):
        PropertyNotFoundError if ip configuration is not found
     """
     retval = []
+    config = nm_device_ip_config(name, version)
+    if config:
+        retval = [addrs[0] for addrs in config[0]]
+
+    return retval
+
+def nm_device_ip_config(name, version=4):
+    """Return list of devices's IP config
+
+       version=4 - ipv4 config
+       version=6 - ipv6 config
+
+       Returns:
+       [[[address1, prefix1, gateway1], [address2, prefix2, gateway2], ...], [nameserver1, nameserver2]]
+       addressX, gatewayX: string
+       prefixX: int
+       [] if device is not in ACTIVATED state
+
+       Exceptions:
+       UnknownDeviceError if device is not found
+       PropertyNotFoundError if ip configuration is not found
+    """
+    retval = []
 
     state = nm_device_property(name, "State")
     if state != NetworkManager.DeviceState.ACTIVATED:
@@ -270,20 +295,33 @@ def nm_device_ip_addresses(name, version=4):
     config = nm_device_property(name, property)
     if config == "/":
         return []
+
     proxy = _get_proxy(object_path=config, interface_name=dbus_iface)
+
     addresses = proxy.get_cached_property("Addresses").unpack()
+    addr_list = []
     for addr, prefix, gateway in addresses:
+        # TODO - look for a library function (could have used IPy but byte order!)
+        if version == 4:
+            addr_str = nm_dbus_int_to_ipv4(addr)
+            gateway_str = nm_dbus_int_to_ipv4(gateway)
+        elif version == 6:
+            addr_str = nm_dbus_ay_to_ipv6(addr)
+            gateway_str = nm_dbus_ay_to_ipv6(gateway)
+        addr_list.append([addr_str, prefix, gateway_str])
+
+    nameservers = proxy.get_cached_property("Nameservers").unpack()
+    ns_list = []
+    for ns in nameservers:
         # TODO - look for a library function
         if version == 4:
-            tmp = struct.pack('I', addr)
-            addr_str = socket.inet_ntop(socket.AF_INET, tmp)
+            ns_str = nm_dbus_int_to_ipv4(ns)
         elif version == 6:
-            addr_str = socket.inet_ntop(socket.AF_INET6, "".join(chr(byte) for byte in addr))
-        else:
-            continue
-        retval.append(addr_str)
+            ns_str = nm_dbus_ay_to_ipv6(ns)
+        ns_list.append(ns_str)
 
-    return retval
+    return [addr_list, ns_list]
+
 
 def nm_ntp_servers_from_dhcp():
     """Return a list of NTP servers that were specified the reply of the
@@ -415,12 +453,41 @@ def nm_device_setting_value(name, key1, key2):
         value = None
     return value
 
-def nm_update_settings_of_device(name, key1, key2, value, default_type_str=None):
-    """Update setting key1, key2 of device name with value.
+def nm_activate_device_connection(dev_name, con_uuid):
+
+    proxy = _get_proxy()
+    args = GLib.Variant('(s)', (dev_name,))
+    try:
+        device = proxy.call_sync("GetDeviceByIpIface",
+                                  args,
+                                  Gio.DBusCallFlags.NONE,
+                                  DEFAULT_DBUS_TIMEOUT,
+                                  None)
+    except Exception as e:
+        if "org.freedesktop.NetworkManager.UnknownDevice" in e.message:
+            raise UnknownDeviceError(dev_name, e)
+        raise
+
+    device_path = device.unpack()[0]
+
+    con_path = _find_settings(con_uuid, 'connection', 'uuid')
+
+    args = GLib.Variant('(ooo)', (con_path, device_path, "/"))
+    nm_proxy = _get_proxy()
+    nm_proxy.call_sync("ActivateConnection",
+                        args,
+                        Gio.DBusCallFlags.NONE,
+                        DEFAULT_DBUS_TIMEOUT,
+                        None)
+
+def nm_update_settings_of_device(name, new_values):
+    """Update setting of device.
+
+       new_values: list of settings to be modified [[key1, key2, value, default_type_str], ...]
 
        The type of value is determined from existing settings of device.
        If setting for key1, key2 does not exist, default_type_str is used or
-       the type is inferred from the value supplied (string and bool only).
+       if None, the type is inferred from the value supplied (string and bool only).
 
        Exceptions:
        UnknownDeviceError - device was not found
@@ -429,14 +496,16 @@ def nm_update_settings_of_device(name, key1, key2, value, default_type_str=None)
     settings_path = _device_settings(name)
     if not settings_path:
         raise DeviceSettingsNotFoundError(name)
-    return _update_settings(_device_settings(name), key1, key2, value, default_type_str)
+    return _update_settings(settings_path, new_values)
 
-def _update_settings(settings_path, key1, key2, value, default_type_str=None):
-    """Update setting key1, key2 of object specified by settings_path with value.
+def _update_settings(settings_path, new_values):
+    """Update setting of object specified by settings_path with value.
+
+       new_values: list of settings to be modified [[key1, key2, value, default_type_str], ...]
 
        The type of value is determined from existing setting.
        If setting for key1, key2 does not exist, default_type_str is used or
-       the type is inferred from the value supplied (string and bool only).
+       if None, the type is inferred from the value supplied (string and bool only).
     """
     proxy = _get_proxy(object_path=settings_path, interface_name="org.freedesktop.NetworkManager.Settings.Connection")
     args = None
@@ -445,10 +514,11 @@ def _update_settings(settings_path, key1, key2, value, default_type_str=None):
                                Gio.DBusCallFlags.NONE,
                                DEFAULT_DBUS_TIMEOUT,
                                None)
-    new_settings = _gvariant_settings(settings, key1, key2, value, default_type_str)
+    for key1, key2, value, default_type_str in new_values:
+        settings = _gvariant_settings(settings, key1, key2, value, default_type_str)
 
     proxy.call_sync("Update",
-                    new_settings,
+                    settings,
                     Gio.DBusCallFlags.NONE,
                     DEFAULT_DBUS_TIMEOUT,
                     None)
@@ -503,6 +573,22 @@ def _gvariant_settings(settings, updated_key1, updated_key2, value, default_type
 
     return GLib.Variant(settings.get_type_string(), (new_settings,))
 
+def nm_ipv6_to_dbus_ay(address):
+    """Convert ipv6 address from string to list of bytes (ay) for dbus."""
+    return [int(byte, 16) for byte in re.findall('.{1,2}', IPy.IP(address).strFullsize().replace(':', ''))]
+
+def nm_ipv4_to_dbus_int(address):
+    """Convert ipv4 address from string to int for dbus (switched endianess)."""
+    return struct.unpack("=L", socket.inet_aton(address))[0]
+
+def nm_dbus_ay_to_ipv6(bytelist):
+    """Convert ipv6 address from list of bytes (dbus ay) to string."""
+    return socket.inet_ntop(socket.AF_INET6, "".join(chr(byte) for byte in bytelist))
+
+def nm_dbus_int_to_ipv4(address):
+    """Convert ipv4 address from int from dbus (switched endianess) to string."""
+    return socket.inet_ntop(socket.AF_INET, struct.pack('=L', address))
+
 
 if __name__ == "__main__":
     print "NM state: %s:" % nm_state()
@@ -548,6 +634,8 @@ if __name__ == "__main__":
             print "     %s" % e
 
         try:
+            print "     IP4 config: %s" % nm_device_ip_config(devname)
+            print "     IP6 config: %s" % nm_device_ip_config(devname, version=6)
             print "     IP4 addrs: %s" % nm_device_ip_addresses(devname)
             print "     IP6 addrs: %s" % nm_device_ip_addresses(devname, version=6)
             print "     Udi: %s" % nm_device_property(devname, "Udi")
@@ -598,29 +686,30 @@ if __name__ == "__main__":
         new_value = True
 
     print "Updating to %s" % new_value
-    nm_update_settings_of_device(devname, key1, key2, new_value)
+    nm_update_settings_of_device(devname, [[key1, key2, new_value, None]])
     print "Value of setting %s %s: %s" % (key1, key2, nm_device_setting_value(devname, key1, key2))
-    nm_update_settings_of_device(devname, key1, key2, original_value)
+    nm_update_settings_of_device(devname, [[key1, key2, original_value, None]])
     print "Value of setting %s %s: %s" % (key1, key2, nm_device_setting_value(devname, key1, key2))
-    nm_update_settings_of_device(devname, key1, key2, original_value, "b")
+    nm_update_settings_of_device(devname, [[key1, key2, original_value, "b"]])
     print "Value of setting %s %s: %s" % (key1, key2, nm_device_setting_value(devname, key1, key2))
 
-    nm_update_settings_of_device(devname, key1, "nonexisting", new_value)
-    nm_update_settings_of_device(devname, "nonexisting", "nonexisting", new_value)
+    nm_update_settings_of_device(devname, [[key1, "nonexisting", new_value, None]])
+    nm_update_settings_of_device(devname, [["nonexisting", "nonexisting", new_value, None]])
     try:
-        nm_update_settings_of_device("nonexixting", key1, key2, new_value)
+        nm_update_settings_of_device("nonexixting", [[key1, key2, new_value, None]])
     except UnknownDeviceError as e:
         print "%s" % e
 
     if wireless_device:
         try:
-            nm_update_settings_of_device(wireless_device, key1, key2, new_value)
+            nm_update_settings_of_device(wireless_device, [[key1, key2, new_value, None]])
         except DeviceSettingsNotFoundError as e:
             print "%s" % e
 
-    #nm_update_settings_of_device(devname, "connection", "id", "test")
-    #nm_update_settings_of_device(devname, "connection", "timestamp", 11111111)
-    #nm_update_settings_of_device(devname, "802-3-ethernet", "mac-address", [55,55,55,55,55,55])
-    #nm_update_settings_of_device(devname, "ipv6", "method", "auto")
-    #nm_update_settings_of_device(devname, "connection", "autoconnect", True)
-    #nm_update_settings_of_device(devname, "connection", "autoconnect", False, "b")
+    #nm_update_settings_of_device(devname, [["connection", "id", "test", None]])
+    #nm_update_settings_of_device(devname, [["connection", "timestamp", 11111111, None]])
+    #nm_update_settings_of_device(devname, [["802-3-ethernet", "mac-address", [55,55,55,55,55,55], None]])
+    #nm_update_settings_of_device(devname, [["ipv6", "method", "auto", None]])
+    #nm_update_settings_of_device(devname, [["ipv6", "addressess", [[[32,1,0,0,0,0,0,0,0,0,0,0,0,0,0,a], 64, [0]*16]], None]])
+    #nm_update_settings_of_device(devname, [["connection", "autoconnect", True, None]])
+    #nm_update_settings_of_device(devname, [["connection", "autoconnect", False, "b"]])
