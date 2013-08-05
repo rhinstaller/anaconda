@@ -1576,6 +1576,8 @@ class GRUB2(GRUB):
         sure it starts >= 512K, otherwise return an error.
         """
         ret = True
+        base_gap_bytes = 32256      # 31.5KiB
+        advanced_gap_bytes = 524288 # 512KiB
         self.errors = []
         self.warnings = []
 
@@ -1583,9 +1585,10 @@ class GRUB2(GRUB):
             return ret
 
         # These are small enough to fit
-        if self.stage2_device.format.type in ("ext2", "ext3", "ext4") \
-           and self.stage2_device.type == "partition":
-            return ret
+        if self.stage2_device.type == "partition":
+            min_start = base_gap_bytes
+        else:
+            min_start = advanced_gap_bytes
 
         if not self.stage1_disk:
             return False
@@ -1594,7 +1597,7 @@ class GRUB2(GRUB):
         parts = self.stage1_disk.format.partedDisk.partitions
         for p in parts:
             start = p.geometry.start * p.disk.device.sectorSize
-            if not p.getFlag(PARTITION_BIOS_GRUB) and start < 1024*512:
+            if not p.getFlag(PARTITION_BIOS_GRUB) and start < min_start:
                 msg = _("%(deviceName)s may not have enough space for grub2 to embed "
                         "core.img when using the %(fsType)s filesystem on %(deviceType)s") \
                         % {"deviceName": self.stage1_device.name, "fsType": self.stage2_device.format.type,
