@@ -278,6 +278,15 @@ class NetworkDevice(IfcfgFile):
         IfcfgFile.set(self, *args)
         self._dirty = True
 
+    def unset(self, *args):
+        for key in args:
+            if self.get(key):
+                self._dirty = True
+                break
+        else:
+            return
+        IfcfgFile.unset(self, *args)
+
     @property
     def keyfilePath(self):
         return os.path.join(self.dir, "keys-%s" % self.iface)
@@ -316,11 +325,11 @@ def dumpMissingDefaultIfcfgs():
             continue
 
         try:
-            nm.nm_update_settings_of_device(devname, 'connection', 'id', devname)
+            nm.nm_update_settings_of_device(devname, [['connection', 'id', devname, None]])
             log.debug("network: dumping ifcfg file for default autoconnection on %s", devname)
-            nm.nm_update_settings_of_device(devname, 'connection', 'autoconnect', False)
-            log.debug("network: setting autoconnect of %s to False", devname)
-        except nm.DeviceSettingsNotFoundError:
+            nm.nm_update_settings_of_device(devname, [['connection', 'autoconnect', False, None]])
+            log.debug("network: setting autoconnect of %s to False" , devname)
+        except nm.DeviceSettingsNotFoundError as e:
             log.debug("network: no ifcfg file for %s", devname)
         rv = True
 
@@ -405,6 +414,81 @@ def dracutBootArguments(ifcfg, storage_ipaddr, hostname=None):
 
     return netargs
 
+def get_ks_network_data(devname, ifcfg_suffix=None):
+    retval = None
+    ifcfg_suffix = ifcfg_suffix or devname
+
+    ifcfg_suffix = ifcfg_suffix.replace(' ', '_')
+    device_cfg = NetworkDevice(netscriptsDir, ifcfg_suffix)
+    try:
+        device_cfg.loadIfcfgFile()
+    except IOError as e:
+        log.debug("get_ks_network_data %s: %s" % (ifcfg_suffix, e))
+        return None
+    retval = kickstartNetworkData(ifcfg=device_cfg)
+    if retval and devname in nm.nm_activated_devices():
+        retval.activate = True
+
+    return retval
+
+def update_settings_with_ksdata(devname, networkdata):
+
+    new_values = []
+
+    # ipv4 settings
+    method4 = "auto"
+    if networkdata.bootProto == "static":
+        method4 = "manual"
+    new_values.append(["ipv4", "method", method4, "s"])
+
+    if method4 == "manual":
+        addr4 = nm.nm_ipv4_to_dbus_int(networkdata.ip)
+        gateway4 = nm.nm_ipv4_to_dbus_int(networkdata.gateway)
+        prefix4 = netmask2prefix(networkdata.netmask)
+        new_values.append(["ipv4", "addresses", [[addr4, prefix4, gateway4]], "aau"])
+
+    # ipv6 settings
+    if networkdata.noipv6:
+        method6 = "ignore"
+    else:
+        if networkdata.ipv6 == "auto":
+            method6 = "auto"
+        elif networkdata.ipv6 == "dhcp":
+            method6 = "dhcp"
+        else:
+            method6 = "manual"
+    new_values.append(["ipv6", "method", method6, "s"])
+
+    if method6 == "manual":
+        addr6, _slash, prefix6 = networkdata.ipv6.partition("/")
+        if prefix6:
+            prefix6 = int(prefix6)
+        else:
+            prefix6 = 64
+        addr6 = nm.nm_ipv6_to_dbus_ay(addr6)
+        if networkdata.ipv6gateway:
+            gateway6 = nm.nm_ipv6_to_dbus_ay(networkdata.ipv6gateway)
+        else:
+            gateway6 = [0] * 16
+        new_values.append(["ipv6", "addresses", [(addr6, prefix6, gateway6)], "a(ayuay)"])
+
+    # nameservers
+    nss4 = []
+    nss6 = []
+    if networkdata.nameserver:
+        for ns in networkdata.nameserver.split(","):
+            if ":" in ns:
+                nss6.append(nm.nm_ipv6_to_dbus_ay(ns))
+            else:
+                nss4.append(nm.nm_ipv4_to_dbus_int(ns))
+    new_values.append(["ipv4", "dns", nss4, "au"])
+    new_values.append(["ipv6", "dns", nss6, "aay"])
+
+    # onboot
+    new_values.append(['connection', 'autoconnect', networkdata.onboot, None])
+
+    nm.nm_update_settings_of_device(devname, new_values)
+
 def kickstartNetworkData(ifcfg=None, hostname=None):
 
     from pyanaconda.kickstart import AnacondaKSHandler
@@ -469,7 +553,8 @@ def kickstartNetworkData(ifcfg=None, hostname=None):
         else:
             if ifcfg.get('IPV6ADDR'):
                 kwargs["ipv6"] = ifcfg.get('IPV6ADDR')
-                if ifcfg.get('IPV6_DEFAULTGW'):
+                if ifcfg.get('IPV6_DEFAULTGW') \
+                   and ifcfg.get('IPV6_DEFAULTGW') != "::":
                     kwargs["ipv6gateway"] = ifcfg.get('IPV6_DEFAULTGW')
             if ifcfg.get('DHCPV6C') == "yes":
                 kwargs["ipv6"] = "dhcp"
@@ -856,8 +941,8 @@ def setOnboot(ksdata):
             continue
 
         try:
-            nm.nm_update_settings_of_device(devname, 'connection', 'autoconnect', network_data.onboot)
-            ifcfglog.debug("setting autoconnect (ONBOOT) of %s to %s", devname, network_data.onboot)
+            nm.nm_update_settings_of_device(devname, [['connection', 'autoconnect', network_data.onboot, None]])
+            ifcfglog.debug("setting autoconnect (ONBOOT) of %s to %s" , devname, network_data.onboot)
         except nm.DeviceSettingsNotFoundError as e:
             log.debug("setOnboot: %s", e)
 
