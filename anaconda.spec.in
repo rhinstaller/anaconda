@@ -222,6 +222,10 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Tue Aug 06 2013 Samantha N. Bueno <sbueno+anaconda@redhat.com> - 13.21.200-1
+- discinfo isn't needed for rescue (bcl)
+  Resolves: rhbz#859569
+
 * Fri Aug 02 2013 Samantha N. Bueno <sbueno+anaconda@redhat.com> - 13.21.199-1
 - Fix issue where installation hangs in linuxrc.s390. (sbueno+anaconda)
   Resolves: rhbz#949409
