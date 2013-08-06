@@ -74,11 +74,11 @@ def exitHandler(rebootData, storage, exitCode=None):
                 dracut_eject(drive.path)
 
         if rebootData.action == KS_SHUTDOWN:
-            os.system("systemctl --no-wall poweroff")
+            subprocess.Popen(["systemctl", "--no-wall", "poweroff"])
         elif rebootData.action == KS_WAIT:
-            os.system("systemctl --no-wall halt")
+            subprocess.Popen(["systemctl", "--no-wall", "halt"])
         else: # reboot action is KS_REBOOT or None
-            os.system("systemctl --no-wall reboot")
+            subprocess.Popen(["systemctl", "--no-wall", "reboot"])
 
 def startMetacityWM():
     childpid = os.fork()
@@ -92,10 +92,10 @@ def startMetacityWM():
         except BaseException as e:
             # catch all possible exceptions
             log.error("Problems running the window manager: %s" % str(e))
-            sys.exit(1)
+            os._exit(1)
 
         log.info("The window manager has terminated.")
-        sys.exit(0)
+        os._exit(0)
     return childpid
 
 def startAuditDaemon():
@@ -106,7 +106,7 @@ def startAuditDaemon():
             os.execl(cmd, cmd)
         except OSError as e:
             log.error("Error running the audit daemon: %s" % str(e))
-        sys.exit(0)
+        os._exit(0)
     # auditd will turn into a daemon so catch the immediate child pid now:
     os.waitpid(childpid, 0)
 
