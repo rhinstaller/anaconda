@@ -529,9 +529,6 @@ class Firewall(commands.firewall.F14_Firewall):
 
 class Firstboot(commands.firstboot.FC3_Firstboot):
     def execute(self, *args):
-        if not os.path.exists(ROOT_PATH + "/lib/systemd/system/firstboot-graphical.service"):
-            return
-
         action = "enable"
 
         if self.firstboot == FIRSTBOOT_SKIP:
