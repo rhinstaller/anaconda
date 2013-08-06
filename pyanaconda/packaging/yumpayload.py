@@ -496,7 +496,7 @@ reposdir=%s
             if not repo.enabled:
                 continue
             try:
-                self.configureAddOnRepo(repo)
+                self._configureAddOnRepo(repo)
             except NoNetworkError as e:
                 log.error("repo %s needs an active network connection", repo.name)
                 self.disableRepo(repo.name)
@@ -784,7 +784,7 @@ reposdir=%s
                 self._removeYumRepo(BASE_REPO_NAME)
                 raise
 
-    def configureAddOnRepo(self, repo):
+    def _configureAddOnRepo(self, repo):
         """ Configure a single ksdata repo. """
         url = repo.baseurl
         if url and url.startswith("nfs:"):

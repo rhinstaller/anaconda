@@ -207,10 +207,6 @@ class Payload(object):
         """ Update the base repository from ksdata.method. """
         pass
 
-    def configureAddOnRepo(self, repo):
-        """ Set up an addon repo as defined in ksdata Repo repo. """
-        pass
-
     def gatherRepoMetadata(self):
         pass
 
