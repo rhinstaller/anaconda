@@ -222,6 +222,12 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Wed Aug 07 2013 Samantha N. Bueno <sbueno+anaconda@redhat.com> - 13.21.201-1
+- Ensure x86 /boot is on a partition < 2TB (dshea)
+  Resolves: rhbz#915666
+- Fix bootloader device detection on ks upgrades for s390x (sbueno+anaconda)
+  Resolves: rhbz#875644
+
 * Tue Aug 06 2013 Samantha N. Bueno <sbueno+anaconda@redhat.com> - 13.21.200-1
 - discinfo isn't needed for rescue (bcl)
   Resolves: rhbz#859569
