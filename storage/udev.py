@@ -399,6 +399,14 @@ def udev_device_get_lv_attr(info):
         attr = [attr]
     return attr
 
+def udev_device_get_lv_types(info):
+    segtypes = info['LVM2_SEGTYPE']
+    if not segtypes:
+        segtypes = []
+    elif not isinstance(segtypes, list):
+        segtypes = [segtypes]
+    return segtypes
+
 def udev_device_dm_subsystem_match(info, subsystem):
     """ Return True if the device matches a given device-mapper subsystem. """
     uuid = info.get("DM_UUID", "")

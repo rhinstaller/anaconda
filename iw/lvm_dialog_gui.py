@@ -50,10 +50,11 @@ class VolumeGroupEditor:
         for lv in self.lvs.values():
             _l = LVMLogicalVolumeDevice(lv['name'], vg, format=lv['format'],
                                    size=lv['size'], exists=lv['exists'],
-                                   stripes=lv['stripes'],
+                                   copies=lv['copies'],
                                    logSize=lv['logSize'],
                                    snapshotSpace=lv['snapshotSpace'])
             _l.originalFormat = lv['originalFormat']
+            _l.metaDataSize = lv['metaDataSize']
 
         return vg
 
@@ -117,8 +118,8 @@ class VolumeGroupEditor:
         resize = False
         for lv in self.lvs.values():
             # total space required by an lv may be greater than lv size.
-            vg_space = lv['size'] * lv['stripes'] + lv['logSize'] \
-                        + lv['snapshotSpace']
+            vg_space = lv['size'] * lv['copies'] + lv['logSize'] \
+                        + lv['snapshotSpace'] + lv['metaDataSize']
             clamped_vg_space = lvm.clampSize(vg_space, newpe, roundup=1)
             used += clamped_vg_space
             if lv['size'] != lvm.clampSize(lv['size'], newpe, roundup=1):
@@ -464,7 +465,7 @@ class VolumeGroupEditor:
             lvsizeentry.set_text("%Ld" % lv['size'])
 
             # Maximum size label
-            max_grow = tempvg.freeSpace / lv['stripes']
+            max_grow = tempvg.freeSpace / lv['copies']
             maxsizelabel = createAlignedLabel(_("(Max size is %s MB)") %
                                               min(lvm.getMaxLVSize(),
                                                   lv['size'] + max_grow))
@@ -812,8 +813,9 @@ class VolumeGroupEditor:
                                    'size': templv.size,
                                    'format': templv.format,
                                    'originalFormat': templv.originalFormat,
-                                   'stripes': templv.stripes,
+                                   'copies': templv.copies,
                                    'logSize': templv.logSize,
+                                   'metaDataSize': templv.metaDataSize,
                                    'snapshotSpace': templv.snapshotSpace,
                                    'exists': templv.exists}
         if self.lvs.has_key(origname) and origname != templv.lvname:
@@ -864,8 +866,9 @@ class VolumeGroupEditor:
                           'size': free,
                           'format': format,
                           'originalFormat': format,
-                          'stripes': 1,
+                          'copies': 1,
                           'logSize': 0,
+                          'metaDataSize': 0,
                           'snapshotSpace': 0,
                           'exists': False}
         self.editLogicalVolume(self.lvs[name], isNew = 1)
@@ -1303,8 +1306,9 @@ class VolumeGroupEditor:
                                    "size": lv.size,
                                    "format": copy.copy(lv.format),
                                    "originalFormat": lv.originalFormat,
-                                   "stripes": lv.stripes,
+                                   "copies": lv.copies,
                                    "logSize": lv.logSize,
+                                   "metaDataSize": lv.metaDataSize,
                                    "snapshotSpace": lv.snapshotSpace,
                                    "exists": lv.exists}
 

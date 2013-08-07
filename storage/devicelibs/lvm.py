@@ -328,9 +328,10 @@ def vginfo(vg_name):
     return d
 
 def lvs(vg_name):
-    args = ["lvs", "--noheadings", "--nosuffix"] + \
-            ["--units", "m"] + \
-            ["-o", "lv_name,lv_uuid,lv_size,lv_attr"] + \
+    args = ["lvs",
+            "-a", "--unit", "k", "--nosuffix", "--nameprefixes", "--rows",
+            "--unquoted", "--noheadings",
+            "-olv_name,lv_uuid,lv_size,lv_attr,segtype"] + \
             config_args + \
             [vg_name]
 
@@ -338,20 +339,21 @@ def lvs(vg_name):
                                 args,
                                 stderr="/dev/tty5")
 
-    lvs = {}
-    for line in buf.splitlines():
-        line = line.strip()
-        if not line:
+    _vars = buf.split()
+    info = {}
+    for var in _vars:
+        (name, equals, value) = var.partition("=")
+        if not equals:
             continue
-        (name, uuid, size, attr) = line.split()
-        lvs[name] = {"size": size,
-                     "uuid": uuid,
-                     "attr": attr}
 
-    if not lvs:
-        raise LVMError(_("lvs failed for %s" % vg_name))
+        val = value.strip()
 
-    return lvs
+        if name not in info:
+            info[name] = []
+
+        info[name].append(val)
+
+    return info
 
 def lvorigin(vg_name, lv_name):
     args = ["lvs", "--noheadings", "-o", "origin"] + \

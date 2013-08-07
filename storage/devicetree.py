@@ -1514,14 +1514,21 @@ class DeviceTree(object):
     def handleVgLvs(self, vg_device):
         ret = False
         vg_name = vg_device.name
-        lv_names = vg_device.lv_names
-        lv_uuids = vg_device.lv_uuids
-        lv_sizes = vg_device.lv_sizes
-        lv_attr = vg_device.lv_attr
 
         if not vg_device.complete:
             log.warning("Skipping LVs for incomplete VG %s" % vg_name)
             return False
+
+        lv_info = devicelibs.lvm.lvs(vg_name)
+        try:
+            lv_names = udev_device_get_lv_names(lv_info)
+            lv_uuids = udev_device_get_lv_uuids(lv_info)
+            lv_sizes = udev_device_get_lv_sizes(lv_info)
+            lv_attr = udev_device_get_lv_attr(lv_info)
+            lv_types = udev_device_get_lv_types(lv_info)
+        except KeyError as e:
+            log.warning("invalid data for VG %s: %s" % (vg_name, e))
+            return
 
         if not lv_names:
             log.debug("no LVs listed for VG %s" % vg_name)
@@ -1546,9 +1553,12 @@ class DeviceTree(object):
         # the end
         indices = range(len(lv_names))
         indices.sort(key=lambda i: lv_attr[i], cmp=lv_attr_cmp)
-        mirrors = {}
+        raid = {}
         for index in indices:
             lv_name = lv_names[index]
+            if not lv_name:
+                continue
+
             name = "%s-%s" % (vg_name, lv_name)
             if lv_attr[index][0] in 'Ss':
                 log.debug("found lvm snapshot volume '%s'" % name)
@@ -1579,29 +1589,39 @@ class DeviceTree(object):
                 continue
             elif lv_attr[index][0] in 'Ii':
                 # mirror image
-                lv_name = re.sub(r'_mimage.+', '', lv_name[1:-1])
+                lv_name = re.sub(r'_[rm]image.+', '', lv_name[1:-1])
                 name = "%s-%s" % (vg_name, lv_name)
-                if name not in mirrors:
-                    mirrors[name] = {"stripes": 0, "log": 0}
+                if name not in raid:
+                    raid[name] = {"copies": 0, "log": 0, "meta": 0}
 
-                mirrors[name]["stripes"] += 1
+                raid[name]["copies"] += 1
+                continue
+            elif lv_attr[index][0] == 'e':
+                # raid metadata volume
+                lv_name = re.sub(r'_rmeta.+', '', lv_name[1:-1])
+                name = "%s-%s" % (vg_name, lv_name)
+                raid[name]["meta"] += lv_sizes[index]
+                continue
             elif lv_attr[index][0] == 'l':
                 # log volume
                 lv_name = re.sub(r'_mlog.*', '', lv_name[1:-1])
                 name = "%s-%s" % (vg_name, lv_name)
-                if name not in mirrors:
-                    mirrors[name] = {"stripes": 0, "log": 0}
+                if name not in raid:
+                    raid[name] = {"copies": 0, "log": 0, "meta": 0}
 
-                mirrors[name]["log"] = lv_sizes[index]
+                raid[name]["log"] = lv_sizes[index]
+                continue
 
-            lv_dev = self.getDeviceByName(name)
-            if lv_dev is None:
+            lv_device = self.getDeviceByName(name)
+            if lv_device is None:
                 lv_uuid = lv_uuids[index]
                 lv_size = lv_sizes[index]
+                lv_type = lv_types[index]
                 lv_device = LVMLogicalVolumeDevice(lv_name,
                                                    vg_device,
                                                    uuid=lv_uuid,
                                                    size=lv_size,
+                                                   segType=lv_type,
                                                    exists=True)
                 self._addDevice(lv_device)
 
@@ -1612,13 +1632,15 @@ class DeviceTree(object):
                     log.info("setup of %s failed: %s"
                                         % (lv_device.name, msg))
 
-        for name, mirror in mirrors.items():
+        for name, data in raid.items():
             lv_dev = self.getDeviceByName(name)
-            lv_dev.stripes = mirror["stripes"]
-            lv_dev.logSize = mirror["log"]
-            log.debug("set %s stripes to %d, log size to %dMB, total size %dMB"
-                        % (lv_dev.name, lv_dev.stripes, lv_dev.logSize,
-                           lv_dev.vgSpaceUsed))
+            lv_dev.copies = data["copies"]
+            lv_dev.metaDataSize = data["meta"]
+            lv_dev.logSize = data["log"]
+            log.debug("set %s copies to %d, metadata size to %dMB, log size "
+                      "to %dMB, total size %dMB"
+                        % (lv_dev.name, lv_dev.copies, lv_dev.metaDataSize,
+                           lv_dev.logSize, lv_dev.vgSpaceUsed))
 
         return ret
 
@@ -1658,28 +1680,6 @@ class DeviceTree(object):
                                              pvCount=pv_count,
                                              exists=True)
             self._addDevice(vg_device)
-
-        # Now we add any lv info found in this pv to the vg_device, we
-        # do this for all pvs as pvs only contain lv info for lvs which they
-        # contain themselves
-        try:
-            lv_names = udev_device_get_lv_names(info)
-            lv_uuids = udev_device_get_lv_uuids(info)
-            lv_sizes = udev_device_get_lv_sizes(info)
-            lv_attr = udev_device_get_lv_attr(info)
-        except KeyError as e:
-            log.warning("invalid data for %s: %s" % (device.name, e))
-            return
-
-        for i in range(len(lv_names)):
-            # Skip empty and already added lvs
-            if not lv_names[i] or lv_names[i] in vg_device.lv_names:
-                continue
-
-            vg_device.lv_names.append(lv_names[i])
-            vg_device.lv_uuids.append(lv_uuids[i])
-            vg_device.lv_sizes.append(lv_sizes[i])
-            vg_device.lv_attr.append(lv_attr[i])
 
     def handleUdevMDMemberFormat(self, info, device):
         log_method_call(self, name=device.name, type=device.format.type)

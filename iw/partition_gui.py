@@ -1804,8 +1804,9 @@ class PartitionWindow(InstallWindow):
                               'size': vg.freeSpace,
                               'format': format,
                               'originalFormat': format,
-                              'stripes': 1,
+                              'copies': 1,
                               'logSize': 0,
+                              'metaDataSize': 0,
                               'snapshotSpace': 0,
                               'exists': False}
             lv = vgeditor.lvs[name]

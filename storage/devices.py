@@ -1870,6 +1870,7 @@ class LVMVolumeGroupDevice(DMDevice):
         self.lv_uuids = []
         self.lv_sizes = []
         self.lv_attr = []
+        self.lv_types = []
         self.hasDuplicate = False
         self.reserved_percent = 0
         self.reserved_space = 0
@@ -2301,7 +2302,7 @@ class LVMLogicalVolumeDevice(DMDevice):
     _packages = ["lvm2"]
 
     def __init__(self, name, vgdev, size=None, uuid=None,
-                 stripes=1, logSize=0, snapshotSpace=0,
+                 copies=1, logSize=0, snapshotSpace=0, segType=None,
                  format=None, exists=None, sysfsPath='',
                  grow=None, maxsize=None, percent=None,
                  singlePV=False):
@@ -2316,13 +2317,14 @@ class LVMLogicalVolumeDevice(DMDevice):
 
                 size -- the device's size (in MB)
                 uuid -- the device's UUID
-                stripes -- number of copies in the vg (>1 for mirrored lvs)
+                copies -- number of copies in the vg (>1 for mirrored lvs)
                 logSize -- size of log volume (for mirrored lvs)
                 snapshotSpace -- sum of sizes of snapshots of this lv
                 sysfsPath -- sysfs device path
                 format -- a DeviceFormat instance
                 exists -- indicates whether this is an existing device
                 singlePV -- if true, maps this lv to a single pv
+                segType -- segment type (eg: "linear", "raid1")
 
                 For new (non-existent) LVs only:
 
@@ -2353,9 +2355,11 @@ class LVMLogicalVolumeDevice(DMDevice):
 
         self.uuid = uuid
         self.snapshotSpace = snapshotSpace
-        self.stripes = stripes
+        self.copies = copies
         self.logSize = logSize
+        self.metaDataSize = 0
         self.singlePV = singlePV
+        self.segType = segType or "linear"
 
         self.req_grow = None
         self.req_max_size = 0
@@ -2382,11 +2386,11 @@ class LVMLogicalVolumeDevice(DMDevice):
     def __str__(self):
         s = DMDevice.__str__(self)
         s += ("  VG device = %(vgdev)r  percent = %(percent)s\n"
-              "  mirrored = %(mirrored)s stripes = %(stripes)d"
+              "  segment type = %(type)s copies = %(copies)d"
               "  snapshot total =  %(snapshots)dMB\n"
               "  VG space used = %(vgspace)dMB" %
               {"vgdev": self.vg, "percent": self.req_percent,
-               "mirrored": self.mirrored, "stripes": self.stripes,
+               "type": self.segType, "copies": self.copies,
                "snapshots": self.snapshotSpace, "vgspace": self.vgSpaceUsed })
         return s
 
@@ -2394,7 +2398,7 @@ class LVMLogicalVolumeDevice(DMDevice):
     def dict(self):
         d = super(LVMLogicalVolumeDevice, self).dict
         if self.exists:
-            d.update({"mirrored": self.mirrored, "stripes": self.stripes,
+            d.update({"copies": self.copies,
                       "snapshots": self.snapshotSpace,
                       "vgspace": self.vgSpaceUsed})
         else:
@@ -2430,7 +2434,7 @@ class LVMLogicalVolumeDevice(DMDevice):
 
     @property
     def mirrored(self):
-        return self.stripes > 1
+        return self.copies > 1
 
     def _setSize(self, size):
         size = self.vg.align(numeric_type(size))
@@ -2447,8 +2451,8 @@ class LVMLogicalVolumeDevice(DMDevice):
     @property
     def vgSpaceUsed(self):
         """ Space occupied by this LV, not including snapshots. """
-        return (self.vg.align(self.size, roundup=True) * self.stripes
-                + self.logSize)
+        return (self.vg.align(self.size, roundup=True) * self.copies
+                + self.logSize + self.metaDataSize)
 
     @property
     def vg(self):
