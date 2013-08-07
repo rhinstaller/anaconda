@@ -277,6 +277,10 @@ class EFI(Platform):
         elif not req:
             return [_("You have not created a bootable partition.")]
 
+        # Get the /boot device, which will be different from req on EFI
+        mntDict = self._mntDict()
+        boot_device = mntDict.get("/boot", mntDict.get("/"))
+
         errors = Platform.checkBootRequest(self, req)
 
         if req.format.mountpoint == "/boot/efi":
@@ -285,10 +289,16 @@ class EFI(Platform):
 
             # EFI also needs /boot to be on an extX partition, either as its own
             # partition or with / on extX. Get the format of whatever /boot is on
-            mntDict = self._mntDict()
-            boot_device = mntDict.get("/boot", mntDict.get("/"))
             boot_errors = Platform.checkBootRequest(self, boot_device)
             errors += boot_errors
+
+        # Limit /boot to 2TB
+        if boot_device.size > 2*1024*1024:
+            # If there is no /boot, ask for one
+            if boot_device.format.mountpoint == "/":
+                errors.append(_("/boot must be less than 2TB. Shrink / or create a separate /boot partition."))
+            else:
+                errors.append(_("/boot must be less than 2TB"))
 
         # Don't try to check the disklabel on lv's etc.
         partitions = []
