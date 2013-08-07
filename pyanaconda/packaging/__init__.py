@@ -203,7 +203,7 @@ class Payload(object):
         self.data.method.proxy = ""
         self.data.method.opts = None
 
-    def updateBaseRepo(self):
+    def updateBaseRepo(self, fallback=True, root=None, checkmount=True):
         """ Update the base repository from ksdata.method. """
         pass
 
@@ -466,7 +466,8 @@ class Payload(object):
     ##
     ## METHODS FOR MEDIA MANAGEMENT (XXX should these go in another module?)
     ##
-    def _setupDevice(self, device, mountpoint):
+    @staticmethod
+    def _setupDevice(device, mountpoint):
         """ Prepare an install CD/DVD for use as a package source. """
         log.info("setting up device %s and mounting on %s", device.name, mountpoint)
         # Is there a symlink involved?  If so, let's get the actual path.
@@ -496,7 +497,8 @@ class Payload(object):
             device.teardown(recursive=True)
             raise PayloadSetupError(str(e))
 
-    def _setupNFS(self, mountpoint, server, path, options):
+    @staticmethod
+    def _setupNFS(mountpoint, server, path, options):
         """ Prepare an NFS directory for use as a package source. """
         log.info("mounting %s:%s:%s on %s", server, path, options, mountpoint)
         if os.path.ismount(mountpoint):
