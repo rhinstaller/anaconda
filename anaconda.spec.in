@@ -256,6 +256,10 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Wed Aug 07 2013 Brian C. Lane <bcl@redhat.com> - 19.31.5-1
+- Need to import the version constant we are using, too (clumens).
+  Resolves: rhbz#994366
+
 * Tue Aug 06 2013 Brian C. Lane <bcl@redhat.com> - 19.31.4-1
 - Use ksdata.method.seen (bcl)
   Resolves: rhbz#989461
