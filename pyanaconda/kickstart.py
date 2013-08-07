@@ -65,7 +65,7 @@ from pykickstart.errors import formatErrorMsg, KickstartError, KickstartValueErr
 from pykickstart.parser import KickstartParser
 from pykickstart.parser import Script as KSScript
 from pykickstart.sections import *
-from pykickstart.version import returnClassForVersion
+from pykickstart.version import returnClassForVersion, RHEL7
 
 import logging
 log = logging.getLogger("anaconda")

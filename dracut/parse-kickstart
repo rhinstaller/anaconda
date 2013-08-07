@@ -16,7 +16,7 @@ import logging
 import shutil
 import uuid
 from pykickstart.parser import KickstartParser, preprocessKickstart
-from pykickstart.version import returnClassForVersion
+from pykickstart.version import returnClassForVersion, RHEL7
 from pykickstart.errors import KickstartError
 from pykickstart.constants import *
 from pykickstart import commands
