@@ -82,11 +82,12 @@ def exitHandler(rebootData, storage, exitCode=None):
             os.system("systemctl --no-wall reboot")
 
 def startSpiceVDAgent():
-    status = os.system("spice-vdagent")
+    status = iutil.execWithRedirect("spice-vdagent", [])
 
-    # An error status usually means that we're not running on a virt guest
-    if not status:
+    if status:
         log.info("spice-vdagent exited with status %d" % status)
+    else:
+        log.info("Started spice-vdagent.")
 
 def startMetacityWM():
     childpid = os.fork()
@@ -148,7 +149,6 @@ def doExtraX11Actions(opts):
     set_x_resolution(opts.runres)
 
     startSpiceVDAgent()
-    log.info("Started spice-vdagent.")
 
 def setupPythonUpdates():
     from distutils.sysconfig import get_python_lib
