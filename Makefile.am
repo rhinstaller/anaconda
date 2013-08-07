@@ -116,10 +116,10 @@ updates:
 
 # UNIT TESTING TARGETS
 unittest:
-	PYTHONPATH=tests/:. nosetests -v --exclude=logpicker -a \!acceptance,\!slow  tests/
+	PYTHONPATH=pyanaconda/isys/.libs:tests/:. nosetests -v --exclude=logpicker -a \!acceptance,\!slow  tests/
 
 unittests-logpicker:
-	PYTHONPATH=tests/:.:utils/ nosetests -v old_tests/logpicker_test
+	PYTHONPATH=pyanaconda/isys/.libs:tests/:.:utils/ nosetests -v old_tests/logpicker_test
 
 # GUI TESTING
 runspoke:
