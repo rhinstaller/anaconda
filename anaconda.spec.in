@@ -254,6 +254,26 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Thu Aug 08 2013 Brian C. Lane <bcl@redhat.com> - 20.5-1
+- Don't wait for systemctl shutdown command to exit (#974383) (bcl)
+- Fix the logging of the spice-vdagent status (dshea)
+- Update PYTHONPATH so unit tests work right out of the source tree. (clumens)
+- Don't check for a firstboot service file before processing the command.
+  (clumens)
+- Strengthen the services command processing a bit. (clumens)
+- Start spice-vdagent (#969405) (dshea)
+- Skip password strength check for kickstart passwords (#986490) (dshea)
+- Network spoke: fix refresh of device IP configuration (rvykydal)
+- Add unsupported hardware dialog (#872728) (bcl)
+- storage.py -> system.py in POTFILES.in (clumens)
+- border_width=5 -> border_width=6 (clumens)
+- No need to call threads_init anymore (bcl)
+- Consolidate storage and networking under one category (#973013). (clumens)
+- When doing a live install, set the ks method appropriately (#986069).
+  (clumens)
+- Check that we're doing an HD install before examining the attr (#989428).
+  (clumens)
+
 * Thu Aug 01 2013 Brian C. Lane <bcl@redhat.com> - 20.4-1
 - POTFILES.in: rename time.py to time_spoke.py (bcl)
 - Only move INSTALL_TREE when it is mounted (#888196) (bcl)

@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: anaconda 20.3\n"
+"Project-Id-Version: anaconda 20.4\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
-"POT-Creation-Date: 2013-08-01 10:29-0700\n"
+"POT-Creation-Date: 2013-08-08 09:29-0700\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,24 +18,24 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 
-#: anaconda:353
+#: anaconda:368
 #, c-format
 msgid ""
 "%s requires %s MB of memory to install, but you only have %s MB on this "
 "machine.\n"
 msgstr ""
 
-#: anaconda:355
+#: anaconda:370
 #, c-format
 msgid ""
 "The %s graphical installer requires %s MB of memory, but you only have %s MB."
 msgstr ""
 
-#: anaconda:360
+#: anaconda:375
 msgid "Not enough RAM"
 msgstr ""
 
-#: anaconda:361
+#: anaconda:376
 msgid ""
 " Try the text mode installer by running:\n"
 "\n"
@@ -44,37 +44,37 @@ msgid ""
 " from a root terminal."
 msgstr ""
 
-#: anaconda:364
+#: anaconda:379
 msgid " Starting text mode."
 msgstr ""
 
-#: anaconda:394 pyanaconda/rescue.py:295 pyanaconda/rescue.py:328
+#: anaconda:409 pyanaconda/rescue.py:295 pyanaconda/rescue.py:328
 #: pyanaconda/rescue.py:341 pyanaconda/rescue.py:409 pyanaconda/rescue.py:425
 #: pyanaconda/rescue.py:436
 msgid "OK"
 msgstr ""
 
-#: anaconda:502
+#: anaconda:517
 msgid "DISPLAY variable not set. Starting text mode."
 msgstr ""
 
-#: anaconda:510
+#: anaconda:525
 msgid "Graphical installation is not available. Starting text mode."
 msgstr ""
 
-#: anaconda:518
+#: anaconda:533
 msgid ""
 "Text mode provides a limited set of installation options. It does not offer "
 "custom partitioning for full control over the disk layout. Would you like to "
 "use VNC mode instead?"
 msgstr ""
 
-#: anaconda:641
+#: anaconda:657
 #, c-format
 msgid "Please ssh install@%s to begin the install."
 msgstr ""
 
-#: anaconda:643
+#: anaconda:659
 msgid "Please ssh install@<host> to continue installation."
 msgstr ""
 
@@ -955,6 +955,18 @@ msgstr ""
 msgid "Base environment"
 msgstr ""
 
+#: pyanaconda/ui/tui/spokes/warnings.py:36
+msgid "Warnings"
+msgstr ""
+
+#: pyanaconda/ui/tui/spokes/warnings.py:44
+#: pyanaconda/ui/gui/spokes/welcome.glade:99
+msgid ""
+"This hardware (or a combination thereof) is not supported by Red Hat.  For "
+"more information on supported hardware, please refer to http://www.redhat."
+"com/hardware."
+msgstr ""
+
 #: pyanaconda/ui/tui/spokes/__init__.py:46
 msgid "Default spoke title"
 msgstr ""
@@ -999,6 +1011,7 @@ msgstr ""
 
 #: pyanaconda/ui/gui/__init__.py:404 pyanaconda/ui/gui/spokes/software.py:410
 #: pyanaconda/ui/gui/spokes/storage.py:898
+#: pyanaconda/ui/gui/spokes/welcome.glade:21
 #: pyanaconda/ui/gui/hubs/summary.glade:76 widgets/src/StandaloneWindow.c:54
 msgid "_Quit"
 msgstr ""
@@ -1027,8 +1040,9 @@ msgstr ""
 msgid "SOFTWARE"
 msgstr ""
 
-#: pyanaconda/ui/gui/categories/storage.py:32
-msgid "STORAGE"
+#: pyanaconda/ui/gui/categories/system.py:32
+#: pyanaconda/ui/gui/spokes/lib/accordion.py:162
+msgid "SYSTEM"
 msgstr ""
 
 #: pyanaconda/ui/gui/categories/user_settings.py:32
@@ -1152,7 +1166,7 @@ msgstr ""
 
 #: pyanaconda/ui/gui/spokes/custom.py:560
 #: pyanaconda/ui/gui/spokes/custom.py:576
-#: pyanaconda/ui/gui/spokes/network.py:1081 widgets/src/SpokeSelector.c:55
+#: pyanaconda/ui/gui/spokes/network.py:1074 widgets/src/SpokeSelector.c:55
 msgid "None"
 msgstr ""
 
@@ -1170,8 +1184,8 @@ msgstr[0] ""
 msgstr[1] ""
 
 #: pyanaconda/ui/gui/spokes/custom.py:966
-#: pyanaconda/ui/gui/spokes/network.py:668
-#: pyanaconda/ui/gui/spokes/network.py:1318
+#: pyanaconda/ui/gui/spokes/network.py:673
+#: pyanaconda/ui/gui/spokes/network.py:1311
 #: pyanaconda/ui/gui/spokes/lib/accordion.py:59
 msgid "Unknown"
 msgstr ""
@@ -1508,133 +1522,133 @@ msgstr ""
 msgid "Connection failed"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.py:657
+#: pyanaconda/ui/gui/spokes/network.py:662
 msgid "unplugged"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.py:670
+#: pyanaconda/ui/gui/spokes/network.py:675
 msgid "Ethernet"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.py:672
+#: pyanaconda/ui/gui/spokes/network.py:677
 msgid "Wireless"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.py:674
+#: pyanaconda/ui/gui/spokes/network.py:679
 msgid "Bond"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.py:676
+#: pyanaconda/ui/gui/spokes/network.py:681
 msgid "Vlan"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.py:776
+#: pyanaconda/ui/gui/spokes/network.py:769
 #: pyanaconda/ui/gui/spokes/network.glade:627
 #: pyanaconda/ui/gui/spokes/network.glade:955
 msgid "IPv4 Address"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.py:777
+#: pyanaconda/ui/gui/spokes/network.py:770
 #: pyanaconda/ui/gui/spokes/network.glade:599
 #: pyanaconda/ui/gui/spokes/network.glade:969
 #: pyanaconda/ui/gui/spokes/network.glade:1588
 msgid "IPv6 Address"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.py:779
-#: pyanaconda/ui/gui/spokes/network.py:781
+#: pyanaconda/ui/gui/spokes/network.py:772
+#: pyanaconda/ui/gui/spokes/network.py:774
 #: pyanaconda/ui/gui/spokes/network.glade:1574
 msgid "IP Address"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.py:866
+#: pyanaconda/ui/gui/spokes/network.py:859
 #, python-format
 msgid "%d Mb/s"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.py:1066
+#: pyanaconda/ui/gui/spokes/network.py:1059
 msgid "WEP"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.py:1069
+#: pyanaconda/ui/gui/spokes/network.py:1062
 msgid "WPA"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.py:1072
+#: pyanaconda/ui/gui/spokes/network.py:1065
 msgid "WPA2"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.py:1076
+#: pyanaconda/ui/gui/spokes/network.py:1069
 msgid "Enterprise"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.py:1208
+#: pyanaconda/ui/gui/spokes/network.py:1201
 msgid "Authentication required by wireless network"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.py:1209
+#: pyanaconda/ui/gui/spokes/network.py:1202
 #, python-format
 msgid ""
 "Passwords or encryption keys are required to access\n"
 "the wireless network '%(network_id)s'."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.py:1222
+#: pyanaconda/ui/gui/spokes/network.py:1215
 msgid "_Password:"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.py:1230
+#: pyanaconda/ui/gui/spokes/network.py:1223
 msgid "_Key:"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.py:1285
+#: pyanaconda/ui/gui/spokes/network.py:1278
 msgid "_NETWORK CONFIGURATION"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.py:1322
+#: pyanaconda/ui/gui/spokes/network.py:1315
 msgid "Connecting..."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.py:1324
+#: pyanaconda/ui/gui/spokes/network.py:1317
 msgid "Disconnecting..."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.py:1341
+#: pyanaconda/ui/gui/spokes/network.py:1334
 #, python-format
 msgid "Wired (%(interface_name)s) connected"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.py:1344
+#: pyanaconda/ui/gui/spokes/network.py:1337
 #, python-format
 msgid "Wireless connected to %(access_point)s"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.py:1347
+#: pyanaconda/ui/gui/spokes/network.py:1340
 #, python-format
 msgid "Bond %(interface_name)s (%(list_of_slaves)s) connected"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.py:1350
+#: pyanaconda/ui/gui/spokes/network.py:1343
 #, python-format
 msgid "Vlan %(interface_name)s (%(parent_device)s, ID %(vlanid)s) connected"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.py:1363
+#: pyanaconda/ui/gui/spokes/network.py:1356
 #, python-format
 msgid "Connected: %(list_of_interface_names)s"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.py:1366
+#: pyanaconda/ui/gui/spokes/network.py:1359
 msgid "Not connected"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.py:1369
+#: pyanaconda/ui/gui/spokes/network.py:1362
 #: pyanaconda/ui/gui/spokes/network.glade:2338
 msgid "No network devices available"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.py:1416
-#: pyanaconda/ui/gui/spokes/network.py:1485
+#: pyanaconda/ui/gui/spokes/network.py:1409
+#: pyanaconda/ui/gui/spokes/network.py:1478
 #, python-format
 msgid "Hostname is not valid: %s"
 msgstr ""
@@ -1665,62 +1679,62 @@ msgid "Root password is not set"
 msgstr ""
 
 #: pyanaconda/ui/gui/spokes/password.py:127
-#: pyanaconda/ui/gui/spokes/user.py:347
+#: pyanaconda/ui/gui/spokes/user.py:352
 #: pyanaconda/ui/gui/spokes/lib/passphrase.py:102
 #: pyanaconda/ui/gui/spokes/lib/passphrase.glade:173
 msgid "Weak"
 msgstr ""
 
 #: pyanaconda/ui/gui/spokes/password.py:128
-#: pyanaconda/ui/gui/spokes/user.py:348
+#: pyanaconda/ui/gui/spokes/user.py:353
 msgid "The password you have provided is weak"
 msgstr ""
 
 #: pyanaconda/ui/gui/spokes/password.py:133
-#: pyanaconda/ui/gui/spokes/user.py:353
+#: pyanaconda/ui/gui/spokes/user.py:358
 msgid "You will have to press Done twice to confirm it."
 msgstr ""
 
 #: pyanaconda/ui/gui/spokes/password.py:136
-#: pyanaconda/ui/gui/spokes/user.py:356
+#: pyanaconda/ui/gui/spokes/user.py:361
 #: pyanaconda/ui/gui/spokes/lib/passphrase.py:105
 msgid "Fair"
 msgstr ""
 
 #: pyanaconda/ui/gui/spokes/password.py:140
-#: pyanaconda/ui/gui/spokes/user.py:360
+#: pyanaconda/ui/gui/spokes/user.py:365
 #: pyanaconda/ui/gui/spokes/lib/passphrase.py:108
 msgid "Good"
 msgstr ""
 
 #: pyanaconda/ui/gui/spokes/password.py:144
-#: pyanaconda/ui/gui/spokes/user.py:364
+#: pyanaconda/ui/gui/spokes/user.py:369
 #: pyanaconda/ui/gui/spokes/lib/passphrase.py:111
 msgid "Strong"
 msgstr ""
 
 #: pyanaconda/ui/gui/spokes/password.py:149
-#: pyanaconda/ui/gui/spokes/user.py:369
+#: pyanaconda/ui/gui/spokes/user.py:374
 msgid "Empty"
 msgstr ""
 
 #: pyanaconda/ui/gui/spokes/password.py:150
-#: pyanaconda/ui/gui/spokes/user.py:370
+#: pyanaconda/ui/gui/spokes/user.py:375
 msgid "The password is empty."
 msgstr ""
 
 #: pyanaconda/ui/gui/spokes/password.py:152
-#: pyanaconda/ui/gui/spokes/user.py:372
+#: pyanaconda/ui/gui/spokes/user.py:377
 msgid "The passwords do not match."
 msgstr ""
 
 #: pyanaconda/ui/gui/spokes/password.py:177
-#: pyanaconda/ui/gui/spokes/user.py:406
+#: pyanaconda/ui/gui/spokes/user.py:411
 msgid "You must provide and confirm a password."
 msgstr ""
 
 #: pyanaconda/ui/gui/spokes/password.py:187
-#: pyanaconda/ui/gui/spokes/user.py:416
+#: pyanaconda/ui/gui/spokes/user.py:421
 #, python-format
 msgid "You have provided a weak password: %s.  Press Done again to use anyway."
 msgstr ""
@@ -1976,10 +1990,6 @@ msgstr ""
 
 #: pyanaconda/ui/gui/spokes/lib/accordion.py:157
 msgid "DATA"
-msgstr ""
-
-#: pyanaconda/ui/gui/spokes/lib/accordion.py:162
-msgid "SYSTEM"
 msgstr ""
 
 #: pyanaconda/ui/gui/spokes/lib/accordion.py:258
@@ -2584,7 +2594,8 @@ msgstr ""
 msgid "Cancel & _add more disks"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/storage.glade:50 widgets/src/StandaloneWindow.c:55
+#: pyanaconda/ui/gui/spokes/storage.glade:50
+#: pyanaconda/ui/gui/spokes/welcome.glade:35 widgets/src/StandaloneWindow.c:55
 msgid "_Continue"
 msgstr ""
 
@@ -2769,7 +2780,7 @@ msgid "Select additional language support to be installed"
 msgstr ""
 
 #: pyanaconda/ui/gui/spokes/langsupport.glade:175
-#: pyanaconda/ui/gui/spokes/welcome.glade:370
+#: pyanaconda/ui/gui/spokes/welcome.glade:494
 msgid "Type here to search."
 msgstr ""
 
@@ -2993,19 +3004,23 @@ msgstr ""
 msgid "Name of the repository."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/welcome.glade:21
+#: pyanaconda/ui/gui/spokes/welcome.glade:66
+msgid "Unsupported Hardware Detected"
+msgstr ""
+
+#: pyanaconda/ui/gui/spokes/welcome.glade:145
 msgid "_Get me out of here!"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/welcome.glade:35
+#: pyanaconda/ui/gui/spokes/welcome.glade:159
 msgid "_I accept my fate."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/welcome.glade:66
+#: pyanaconda/ui/gui/spokes/welcome.glade:190
 msgid "This is unstable, pre-release software."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/welcome.glade:99
+#: pyanaconda/ui/gui/spokes/welcome.glade:223
 msgid ""
 "You wake up inside an OS installer in Timbuktu, and it's six months in the "
 "future.  But, there are bugs.  Bugs everywhere.  Bugs you must live with.  "
@@ -3013,23 +3028,23 @@ msgid ""
 "purposes only."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/welcome.glade:253
+#: pyanaconda/ui/gui/spokes/welcome.glade:377
 msgid "WELCOME TO %s %s."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/welcome.glade:271
+#: pyanaconda/ui/gui/spokes/welcome.glade:395
 msgid "What language would you like to use during the installation process?"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/welcome.glade:321
+#: pyanaconda/ui/gui/spokes/welcome.glade:445
 msgid "nativeName"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/welcome.glade:337
+#: pyanaconda/ui/gui/spokes/welcome.glade:461
 msgid "englishName"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/welcome.glade:392
+#: pyanaconda/ui/gui/spokes/welcome.glade:516
 msgid "Set _keyboard to default layout for selected language."
 msgstr ""
 
