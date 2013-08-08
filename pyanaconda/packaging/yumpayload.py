@@ -568,48 +568,6 @@ reposdir=%s
             return dev[len(DRACUT_ISODIR)+1:]
         return None
 
-    def _setUpMedia(self, device):
-        method = self.data.method
-        if method.method == "harddrive":
-            self._setupDevice(device, mountpoint=ISO_DIR)
-
-            # check for ISO images in the newly mounted dir
-            path = ISO_DIR
-            if method.dir:
-                path = os.path.normpath("%s/%s" % (path, method.dir))
-
-            # XXX it would be nice to streamline this when we're just setting
-            #     things back up after storage activation instead of having to
-            #     pretend we don't already know which ISO image we're going to
-            #     use
-            image = findFirstIsoImage(path)
-            if not image:
-                device.teardown(recursive=True)
-                raise PayloadSetupError("failed to find valid iso image")
-
-            if path.endswith(".iso"):
-                path = os.path.dirname(path)
-
-            # this could already be set up the first time through
-            if not os.path.ismount(INSTALL_TREE):
-                # mount the ISO on a loop
-                image = os.path.normpath("%s/%s" % (path, image))
-                mountImage(image, INSTALL_TREE)
-
-            if not method.dir.endswith(".iso"):
-                method.dir = os.path.normpath("%s/%s" % (method.dir,
-                                                         os.path.basename(image)))
-                while method.dir.startswith("/"):
-                    # riduculous
-                    method.dir = method.dir[1:]
-        # Check to see if the device is already mounted, in which case
-        # we don't need to mount it again
-        elif method.method == "cdrom" and \
-             blivet.util.get_mount_paths(device.path):
-            return
-        else:
-            device.format.setup(mountpoint=INSTALL_TREE)
-
     def _configureBaseRepo(self, storage, checkmount=True):
         """ Configure the base repo.
 
@@ -652,7 +610,7 @@ reposdir=%s
                     # because we can't tear it down
             isodevice = storage.devicetree.resolveDevice(devspec)
             if needmount:
-                self._setUpMedia(isodevice)
+                self._setupMedia(isodevice)
                 url = "file://" + INSTALL_TREE
                 self.install_device = isodevice
         elif method.method == "nfs":
@@ -753,7 +711,7 @@ reposdir=%s
                 if self.install_device:
                     if not method.method:
                         method.method = "cdrom"
-                    self._setUpMedia(self.install_device)
+                    self._setupMedia(self.install_device)
                     url = "file://" + INSTALL_TREE
                 elif method.method == "cdrom":
                     raise PayloadSetupError("no usable optical media found")
@@ -1502,7 +1460,7 @@ reposdir=%s
         self._addDriverRepos()
 
         if self.install_device:
-            self._setUpMedia(self.install_device)
+            self._setupMedia(self.install_device)
 
         with _yum_lock:
             self._writeInstallConfig()

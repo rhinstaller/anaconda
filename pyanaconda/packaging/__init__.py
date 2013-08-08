@@ -44,6 +44,7 @@ from pyanaconda.flags import flags
 
 from pyanaconda import iutil
 from pyanaconda import isys
+from pyanaconda.image import mountImage
 from pyanaconda.iutil import ProxyString, ProxyStringError
 
 from pykickstart.parser import Group
@@ -658,6 +659,48 @@ class PackagePayload(Payload):
                 kernels = ["kernel-%s" % platform.armMachine]
 
         return kernels
+
+    def _setupMedia(self, device):
+        method = self.data.method
+        if method.method == "harddrive":
+            self._setupDevice(device, mountpoint=ISO_DIR)
+
+            # check for ISO images in the newly mounted dir
+            path = ISO_DIR
+            if method.dir:
+                path = os.path.normpath("%s/%s" % (path, method.dir))
+
+            # XXX it would be nice to streamline this when we're just setting
+            #     things back up after storage activation instead of having to
+            #     pretend we don't already know which ISO image we're going to
+            #     use
+            image = findFirstIsoImage(path)
+            if not image:
+                device.teardown(recursive=True)
+                raise PayloadSetupError("failed to find valid iso image")
+
+            if path.endswith(".iso"):
+                path = os.path.dirname(path)
+
+            # this could already be set up the first time through
+            if not os.path.ismount(INSTALL_TREE):
+                # mount the ISO on a loop
+                image = os.path.normpath("%s/%s" % (path, image))
+                mountImage(image, INSTALL_TREE)
+
+            if not method.dir.endswith(".iso"):
+                method.dir = os.path.normpath("%s/%s" % (method.dir,
+                                                         os.path.basename(image)))
+                while method.dir.startswith("/"):
+                    # riduculous
+                    method.dir = method.dir[1:]
+        # Check to see if the device is already mounted, in which case
+        # we don't need to mount it again
+        elif method.method == "cdrom" and \
+             blivet.util.get_mount_paths(device.path):
+            return
+        else:
+            device.format.setup(mountpoint=INSTALL_TREE)
 
 def payloadInitialize(storage, ksdata, payload):
     from pyanaconda.threads import threadMgr
