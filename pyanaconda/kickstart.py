@@ -1038,7 +1038,7 @@ class PartitionData(commands.partition.F18_PartData):
 
         if self.encrypted:
             if self.passphrase and not storage.encryptionPassphrase:
-               storage.encryptionPassphrase = self.passphrase
+                storage.encryptionPassphrase = self.passphrase
 
             cert = getEscrowCertificate(storage.escrowCertificates, self.escrowcert)
             if self.onPart:
@@ -1191,7 +1191,7 @@ class RaidData(commands.raid.F18_RaidData):
 
         if self.encrypted:
             if self.passphrase and not storage.encryptionPassphrase:
-               storage.encryptionPassphrase = self.passphrase
+                storage.encryptionPassphrase = self.passphrase
 
             cert = getEscrowCertificate(storage.escrowCertificates, self.escrowcert)
             if self.preexist:

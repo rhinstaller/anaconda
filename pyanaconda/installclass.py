@@ -70,7 +70,7 @@ class BaseInstallClass(object):
         return self._l10n_domain
 
     def setPackageSelection(self, anaconda):
-	pass
+        pass
 
     def getBackend(self):
         # The default is to return None here, which means anaconda should
@@ -112,7 +112,7 @@ class BaseInstallClass(object):
         pass
 
     def __init__(self):
-	pass
+        pass
 
 allClasses = []
 allClasses_hidden = []
@@ -167,14 +167,16 @@ def availableClasses(showHidden=0):
     done = {}
     list = []
     for file in files:
-	if file[0] == '.': continue
+        if file[0] == '.':
+            continue
         if len (file) < 4:
-	    continue
-	if file[-3:] != ".py" and file[-4:-1] != ".py":
-	    continue
-	mainName = string.split(file, ".")[0]
-	if done.has_key(mainName): continue
-	done[mainName] = 1
+            continue
+        if file[-3:] != ".py" and file[-4:-1] != ".py":
+            continue
+        mainName = string.split(file, ".")[0]
+        if done.has_key(mainName):
+            continue
+        done[mainName] = 1
 
 
         try:
@@ -188,10 +190,10 @@ def availableClasses(showHidden=0):
 
             obj = loaded.InstallClass
 
-	    if obj.__dict__.has_key('sortPriority'):
-		sortOrder = obj.sortPriority
-	    else:
-		sortOrder = 0
+            if obj.__dict__.has_key('sortPriority'):
+                sortOrder = obj.sortPriority
+            else:
+                sortOrder = 0
 
             if obj.hidden == 0 or showHidden == 1:
                 list.append(((obj.name, obj), sortOrder))

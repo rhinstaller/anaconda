@@ -75,7 +75,7 @@ class SoftwareSelectionSpoke(NormalSpoke):
         addons = self._get_selected_addons()
         for group in addons:
             if group not in self.selectedGroups:
-              self.selectedGroups.append(group)
+                self.selectedGroups.append(group)
 
         self._selectFlag = False
         self.payload.data.packages.groupList = []
@@ -379,7 +379,7 @@ class SoftwareSelectionSpoke(NormalSpoke):
 
         if event and event.type == Gdk.EventType.KEY_RELEASE and \
            event.keyval not in [Gdk.KEY_space, Gdk.KEY_Return, Gdk.KEY_ISO_Enter, Gdk.KEY_KP_Enter, Gdk.KEY_KP_Space]:
-              return
+            return
 
         selection = view.get_selection()
         (model, itr) = selection.get_selected()

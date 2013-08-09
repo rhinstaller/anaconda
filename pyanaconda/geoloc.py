@@ -467,7 +467,7 @@ class GeolocationBackend(object):
             log.info("Geolocation provider: %s" % self.get_name())
             global refresh_in_progress
             with refresh_condition:
-                    refresh_in_progress = True
+                refresh_in_progress = True
             try:
                 start_time = time.time()
                 self._refresh()
