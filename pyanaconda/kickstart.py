@@ -550,8 +550,7 @@ class Group(commands.group.F12_Group):
         for grp in self.groupList:
             kwargs = grp.__dict__
             kwargs.update({"root": ROOT_PATH})
-            if not users.createGroup(grp.name, **kwargs):
-                log.error("Group %s already exists, not creating." % grp.name)
+            users.createGroup(grp.name, **kwargs)
 
 class IgnoreDisk(commands.ignoredisk.RHEL6_IgnoreDisk):
     def parse(self, args):
@@ -1332,8 +1331,7 @@ class User(commands.user.F12_User):
         for usr in self.userList:
             kwargs = usr.__dict__
             kwargs.update({"algo": algo, "root": ROOT_PATH})
-            if not users.createUser(usr.name, **kwargs):
-                log.error("User %s already exists, not creating." % usr.name)
+            users.createUser(usr.name, **kwargs)
 
 class VolGroup(commands.volgroup.FC16_VolGroup):
     def execute(self, storage, ksdata, instClass):

@@ -189,6 +189,7 @@ class Users:
             self.admin = libuser.admin()
 
             if self.admin.lookupGroupByName(group_name):
+                log.error("Group %s already exists, not creating." % grp.name)
                 os._exit(1)
 
             groupEnt = self.admin.initGroup(group_name)
@@ -196,7 +197,12 @@ class Users:
             if kwargs.get("gid", -1) >= 0:
                 groupEnt.set(libuser.GIDNUMBER, kwargs["gid"])
 
-            self.admin.addGroup(groupEnt)
+            try:
+                self.admin.addGroup(groupEnt)
+            except RuntimeError as e:
+                log.critical("Error when creating new group: %s" % str(e))
+                os._exit(1)
+
             os._exit(0)
 
         try:
@@ -250,45 +256,55 @@ class Users:
 
             self.admin = libuser.admin()
 
+            if self.admin.lookupUserByName(user_name):
+                log.error("User %s already exists, not creating." % usr.name)
+                os._exit(1)
+
+            userEnt = self.admin.initUser(user_name)
+            groupEnt = self.admin.initGroup(user_name)
+
+            if kwargs.get("gid", -1) >= 0:
+                groupEnt.set(libuser.GIDNUMBER, kwargs["gid"])
+
+            grpLst = filter(lambda grp: grp,
+                            map(self.admin.lookupGroupByName, kwargs.get("groups", [])))
+            userEnt.set(libuser.GIDNUMBER, [groupEnt.get(libuser.GIDNUMBER)[0]] +
+                        map(lambda grp: grp.get(libuser.GIDNUMBER)[0], grpLst))
+
+            if kwargs.get("homedir", False):
+                userEnt.set(libuser.HOMEDIRECTORY, kwargs["homedir"])
+            else:
+                iutil.mkdirChain(root+'/home')
+                userEnt.set(libuser.HOMEDIRECTORY, "/home/" + user_name)
+
+            if kwargs.get("shell", False):
+                userEnt.set(libuser.LOGINSHELL, kwargs["shell"])
+
+            if kwargs.get("uid", -1) >= 0:
+                userEnt.set(libuser.UIDNUMBER, kwargs["uid"])
+
+            if kwargs.get("gecos", False):
+                userEnt.set(libuser.GECOS, kwargs["gecos"])
+
+            # need to create home directory for the user or does it already exist?
+            # userEnt.get returns lists (usually with a single item)
+            mk_homedir = not os.path.exists(userEnt.get(libuser.HOMEDIRECTORY)[0])
+
             try:
-                if self.admin.lookupUserByName(user_name):
-                    os._exit(1)
-
-                userEnt = self.admin.initUser(user_name)
-                groupEnt = self.admin.initGroup(user_name)
-
-                if kwargs.get("gid", -1) >= 0:
-                    groupEnt.set(libuser.GIDNUMBER, kwargs["gid"])
-
-                grpLst = filter(lambda grp: grp,
-                                map(self.admin.lookupGroupByName, kwargs.get("groups", [])))
-                userEnt.set(libuser.GIDNUMBER, [groupEnt.get(libuser.GIDNUMBER)[0]] +
-                            map(lambda grp: grp.get(libuser.GIDNUMBER)[0], grpLst))
-
-                if kwargs.get("homedir", False):
-                    userEnt.set(libuser.HOMEDIRECTORY, kwargs["homedir"])
-                else:
-                    iutil.mkdirChain(root+'/home')
-                    userEnt.set(libuser.HOMEDIRECTORY, "/home/" + user_name)
-
-                if kwargs.get("shell", False):
-                    userEnt.set(libuser.LOGINSHELL, kwargs["shell"])
-
-                if kwargs.get("uid", -1) >= 0:
-                    userEnt.set(libuser.UIDNUMBER, kwargs["uid"])
-
-                if kwargs.get("gecos", False):
-                    userEnt.set(libuser.GECOS, kwargs["gecos"])
-
-                # need to create home directory for the user or does it already exist?
-                # userEnt.get returns lists (usually with a single item)
-                mk_homedir = not os.path.exists(userEnt.get(libuser.HOMEDIRECTORY)[0])
-
                 self.admin.addUser(userEnt, mkmailspool=kwargs.get("mkmailspool", True),
                                    mkhomedir=mk_homedir)
-                self.admin.addGroup(groupEnt)
+            except RuntimeError as e:
+                log.critical("Error when creating new user: %s" % str(e))
+                os._exit(1)
 
-                if not mk_homedir:
+            try:
+                self.admin.addGroup(groupEnt)
+            except RuntimeError as e:
+                log.critical("Error when creating new group: %s" % str(e))
+                os._exit(1)
+
+            if not mk_homedir:
+                try:
                     stats = os.stat(userEnt.get(libuser.HOMEDIRECTORY)[0])
                     orig_uid = stats.st_uid
                     orig_gid = stats.st_gid
@@ -300,8 +316,13 @@ class Users:
                                          userEnt.get(libuser.UIDNUMBER)[0],
                                          groupEnt.get(libuser.GIDNUMBER)[0],
                                          orig_uid, orig_gid)
+                except OSError as e:
+                    log.critical("Unable to change owner of existing home directory: %s" % \
+                            os.strerror)
+                    os._exit(1)
 
-                pw = kwargs.get("password", False)
+            pw = kwargs.get("password", False)
+            try:
                 if pw:
                     if kwargs.get("isCrypted", False):
                         password = kwargs["password"]
@@ -316,18 +337,23 @@ class Users:
                 if kwargs.get("lock", False):
                     self.admin.lockUser(userEnt)
                     log.info("user account %s locked" % user_name)
+            # setpassUser raises SystemError on failure, while unlockUser and lockUser
+            # raise RuntimeError
+            except (RuntimeError, SystemError) as e:
+                log.critical("Unable to set password for new user: %s" % str(e))
+                os._exit(1)
 
-
-                # Add the user to all the groups they should be part of.
-                grpLst.append(self.admin.lookupGroupByName(user_name))
+            # Add the user to all the groups they should be part of.
+            grpLst.append(self.admin.lookupGroupByName(user_name))
+            try:
                 for grp in grpLst:
                     grp.add(libuser.MEMBERNAME, user_name)
                     self.admin.modifyGroup(grp)
-
-                os._exit(0)
-            except Exception as e:
-                log.critical("Error when creating new user: %s" % str(e))
+            except RuntimeError as e:
+                log.critical("Unable to add user to groups: %s" % str(e))
                 os._exit(1)
+
+            os._exit(0)
 
         try:
             (pid, status) = os.waitpid(childpid, 0)
