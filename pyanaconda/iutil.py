@@ -96,7 +96,7 @@ def _run_program(argv, root='/', stdin=None, stdout=None, env_prune=None):
     return (proc.returncode, out)
 
 def execWithRedirect(command, argv, stdin=None, stdout=None,
-                     stderr=None, root='/', env_prune=[]):
+                     stderr=None, root='/', env_prune=None):
     """ Run an external program and redirect the output to a file.
         @param command The command to run
         @param argv The argument list

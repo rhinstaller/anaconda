@@ -1501,11 +1501,20 @@ dataMap = {
 }
 
 superclass = returnClassForVersion()
-    
+
 class AnacondaKSHandler(superclass):
     AddonClassType = AddonData
-    
-    def __init__ (self, addon_paths = [], commandUpdates=commandMap, dataUpdates=dataMap):
+
+    def __init__ (self, addon_paths=None, commandUpdates=None, dataUpdates=None):
+        if addon_paths is None:
+            addon_paths = []
+
+        if commandUpdates is None:
+            commandUpdates = commandMap
+
+        if dataUpdates is None:
+            dataUpdates = dataMap
+
         superclass.__init__(self, commandUpdates=commandUpdates, dataUpdates=dataUpdates)
         self.onPart = {}
 

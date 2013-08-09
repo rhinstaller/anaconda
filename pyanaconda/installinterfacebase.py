@@ -35,7 +35,7 @@ class InstallInterfaceBase(object):
 
     def detailedMessageWindow(self, title, text, longText=None, ty="ok",
                               default=None, custom_icon=None,
-                              custom_buttons=[], expanded=False):
+                              custom_buttons=None, expanded=False):
         raise NotImplementedError
 
     def methodstrRepoWindow(self, methodstr, exception):
