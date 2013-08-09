@@ -1437,7 +1437,6 @@ class SpokeRegistry(dict):
         # do not write anything into kickstart
         return ""
 
-    # pylint: disable-msg=C0103
     def execute(self, storage, ksdata, instClass, users):
         path = os.path.join(ROOT_PATH, "var", "lib", "inital-setup")
         try:
