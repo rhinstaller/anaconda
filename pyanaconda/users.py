@@ -28,7 +28,6 @@ import os
 import os.path
 import iutil
 import pwquality
-from pyanaconda.constants import ROOT_PATH
 from pyanaconda.iutil import strip_accents
 from pyanaconda.i18n import _
 

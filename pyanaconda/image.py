@@ -18,10 +18,9 @@
 #
 
 import isys
-import os, os.path, stat, sys
+import os, os.path, stat
 from constants import *
 
-from pyanaconda.i18n import _
 from errors import *
 
 import blivet.util

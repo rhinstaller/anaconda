@@ -19,9 +19,6 @@
 # Red Hat Author(s): Jesse Keating <jkeating@redhat.com>
 #
 
-# pylint: disable-msg=E0611
-from gi.repository import Gtk
-
 from pyanaconda.i18n import _, N_
 from pyanaconda.users import cryptPassword, validatePassword
 from pwquality import PWQError

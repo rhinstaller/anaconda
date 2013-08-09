@@ -181,8 +181,6 @@ def initThreading():
        an event is triggered in the GTK main loop. And IT HAS TO BE CALLED IN
        THE MAIN THREAD.
     """
-    from gi.repository import GObject
-
     global threadMgr
     threadMgr = ThreadManager()
 

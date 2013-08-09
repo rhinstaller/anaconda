@@ -9,7 +9,7 @@ import gi.overrides
 for p in os.environ.get("ANACONDA_WIDGETS_OVERRIDES", "").split(":"):
     gi.overrides.__path__.insert(0, p)
 
-from gi.repository import AnacondaWidgets, Gtk
+from gi.repository import Gtk
 
 import ctypes
 import os.path

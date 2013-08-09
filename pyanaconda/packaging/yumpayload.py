@@ -50,11 +50,9 @@ log = logging.getLogger("packaging")
 
 try:
     import rpm
-    import rpmUtils
 except ImportError:
     log.error("import of rpm failed")
     rpm = None
-    rpmUtils = None
 
 try:
     import yum
@@ -86,7 +84,6 @@ from pyanaconda.packaging import NoSuchGroup, NoSuchPackage
 from pyanaconda.progress import progressQ
 
 from pyanaconda.localization import expand_langs
-import itertools
 
 from pykickstart.constants import KS_MISSING_IGNORE
 

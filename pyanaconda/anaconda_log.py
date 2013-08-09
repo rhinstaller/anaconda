@@ -25,7 +25,6 @@
 import logging
 from logging.handlers import SysLogHandler, SYSLOG_UDP_PORT
 import os
-import signal
 import sys
 import types
 import warnings

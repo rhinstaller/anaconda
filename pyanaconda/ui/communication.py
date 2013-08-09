@@ -18,8 +18,6 @@
 #
 # Author(s): Chris Lumens <clumens@redhat.com>
 
-import Queue
-
 from pyanaconda.queue import QueueFactory
 
 # A queue to be used for communicating information from a spoke back to its

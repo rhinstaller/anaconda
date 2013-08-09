@@ -35,11 +35,9 @@ keymaps.
 import types
 import os
 import shutil
-import langtable
 
 from pyanaconda import iutil
 from pyanaconda import flags
-from pyanaconda import localization
 from pyanaconda.safe_dbus import dbus_call_safe_sync, dbus_get_property_safe_sync
 from pyanaconda.safe_dbus import DBUS_SYSTEM_BUS_ADDR, DBusPropertyError
 

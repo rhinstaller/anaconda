@@ -20,7 +20,7 @@
 # Red Hat Author(s): Chris Lumens <clumens@redhat.com>
 #
 
-from pyanaconda.constants import ROOT_PATH, THREAD_PAYLOAD
+from pyanaconda.constants import ROOT_PATH
 from blivet import turnOnFilesystems
 from pyanaconda.bootloader import writeBootLoader
 from pyanaconda.progress import progress_report, progressQ

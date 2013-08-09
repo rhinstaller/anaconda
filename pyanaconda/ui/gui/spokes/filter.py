@@ -27,7 +27,7 @@ from blivet.devices import DASDDevice, FcoeDiskDevice, iScsiDiskDevice, Multipat
 from blivet.fcoe import has_fcoe
 
 from pyanaconda.flags import flags
-from pyanaconda.i18n import _, N_, P_
+from pyanaconda.i18n import N_, P_
 
 from pyanaconda.ui.lib.disks import getDisks, isLocalDisk, size_str
 from pyanaconda.ui.gui.utils import enlightbox

@@ -23,7 +23,7 @@ import sys
 import re
 
 # pylint: disable-msg=E0611
-from gi.repository import AnacondaWidgets, Gtk, Pango
+from gi.repository import Gtk, Pango
 from pyanaconda.ui.gui.hubs.summary import SummaryHub
 from pyanaconda.ui.gui.spokes import StandaloneSpoke
 from pyanaconda.ui.gui.utils import enlightbox
@@ -31,10 +31,9 @@ from pyanaconda.ui.gui.utils import enlightbox
 from pyanaconda import localization
 from pyanaconda.product import distributionText, isFinal, productName, productVersion
 from pyanaconda import keyboard
-from pyanaconda import timezone
 from pyanaconda import flags
 from pyanaconda import geoloc
-from pyanaconda.i18n import _, N_
+from pyanaconda.i18n import _
 from pyanaconda.iutil import is_unsupported_hw
 
 import logging

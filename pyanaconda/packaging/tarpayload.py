@@ -27,8 +27,6 @@
 
 """
 
-import shutil
-
 from . import *
 
 try:

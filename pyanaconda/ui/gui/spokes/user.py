@@ -19,8 +19,6 @@
 # Red Hat Author(s): Martin Sivak <msivak@redhat.com>
 #
 
-from gi.repository import Gtk
-
 from pyanaconda.i18n import _, N_
 from pyanaconda.users import cryptPassword, validatePassword, guess_username
 from pwquality import PWQError

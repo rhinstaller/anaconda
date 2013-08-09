@@ -23,14 +23,14 @@ import logging
 log = logging.getLogger("anaconda")
 
 # pylint: disable-msg=E0611
-from gi.repository import AnacondaWidgets, GLib, Gtk, Gdk
+from gi.repository import GLib, Gtk, Gdk
 
 from pyanaconda.ui.communication import hubQ
 from pyanaconda.ui.common import FirstbootSpokeMixIn
 from pyanaconda.ui.gui import GUIObject
 from pyanaconda.ui.gui.spokes import NormalSpoke
 from pyanaconda.ui.gui.categories.localization import LocalizationCategory
-from pyanaconda.ui.gui.utils import enlightbox, gtk_action_nowait, gtk_action_wait, gtk_call_once
+from pyanaconda.ui.gui.utils import enlightbox, gtk_action_nowait, gtk_call_once
 
 from pyanaconda.i18n import _, N_
 from pyanaconda import timezone

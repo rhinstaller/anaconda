@@ -22,7 +22,6 @@ import logging
 log = logging.getLogger("anaconda")
 
 from contextlib import contextmanager
-import Queue
 
 from pyanaconda.queue import QueueFactory
 

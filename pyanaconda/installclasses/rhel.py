@@ -20,7 +20,6 @@
 from pyanaconda.installclass import BaseInstallClass
 from pyanaconda.constants import *
 from pyanaconda.product import *
-import types
 
 class InstallClass(BaseInstallClass):
     # name has underscore used for mnemonics, strip if you dont need it

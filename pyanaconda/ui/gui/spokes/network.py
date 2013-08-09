@@ -30,10 +30,10 @@
 # - nm-c-e run: blocking? logging?
 
 # pylint: disable-msg=E0611
-from gi.repository import Gtk, AnacondaWidgets
+from gi.repository import Gtk
 
 from pyanaconda import flags
-from pyanaconda.i18n import _, N_, P_
+from pyanaconda.i18n import _, N_
 from pyanaconda import constants
 from pyanaconda.ui.communication import hubQ
 from pyanaconda.ui.gui import GUIObject
@@ -53,9 +53,7 @@ import dbus.service
 import socket
 import subprocess
 import struct
-import time
 import string
-from dbus.mainloop.glib import DBusGMainLoop
 dbus.mainloop.glib.DBusGMainLoop(set_as_default=True)
 
 import ctypes

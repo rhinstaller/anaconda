@@ -59,7 +59,6 @@ from pyanaconda.i18n import _
 from .ui.common import collect
 from .addons import AddonSection, AddonData, AddonRegistry, collect_addon_paths
 
-from pykickstart.base import KickstartCommand
 from pykickstart.constants import *
 from pykickstart.errors import formatErrorMsg, KickstartError, KickstartValueError
 from pykickstart.parser import KickstartParser

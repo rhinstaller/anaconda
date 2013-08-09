@@ -32,7 +32,7 @@ from pyanaconda.localization import expand_langs
 from pyanaconda.product import productName
 from pyanaconda.flags import flags
 from pyanaconda.constants import THREAD_INSTALL, THREAD_CONFIGURATION
-from pykickstart.constants import KS_WAIT, KS_SHUTDOWN, KS_REBOOT
+from pykickstart.constants import KS_SHUTDOWN, KS_REBOOT
 
 from pyanaconda.ui.gui.hubs import Hub
 from pyanaconda.ui.gui.utils import gtk_action_nowait, gtk_call_once

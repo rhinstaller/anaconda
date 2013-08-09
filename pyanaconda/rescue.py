@@ -27,7 +27,6 @@ from text import WaitWindow, OkCancelWindow, ProgressWindow, PassphraseEntryWind
 from flags import flags
 import sys
 import os
-import isys
 from blivet import mountExistingSystem
 from blivet.errors import StorageError
 from installinterfacebase import InstallInterfaceBase
@@ -35,7 +34,6 @@ import iutil
 import shutil
 import time
 import re
-import network
 import subprocess
 from pykickstart.constants import *
 import meh.ui.text

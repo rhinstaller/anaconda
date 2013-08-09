@@ -22,7 +22,7 @@
 # pylint: disable-msg=E0611
 from gi.repository import Gtk, Pango
 from pyanaconda.flags import flags
-from pyanaconda.i18n import _, N_
+from pyanaconda.i18n import N_
 from pyanaconda.ui.gui.spokes import NormalSpoke
 from pyanaconda.ui.gui.categories.localization import LocalizationCategory
 from pyanaconda import localization
@@ -172,7 +172,7 @@ class LangsupportSpoke(NormalSpoke):
         # Otherwise, filter the list showing only what is matched by the
         # text entry.  Either the English or native names can match.
         lowered = entry.lower()
-        if lowered in native.lower() or lowered in english.lower():
+        if lowered in nativelower() or lowered in english.lower():
             return True
         else:
             return False

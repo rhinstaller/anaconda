@@ -55,14 +55,10 @@ from blivet.devicefactory import get_raid_level
 from blivet.devicefactory import SIZE_POLICY_AUTO
 from blivet.devicefactory import SIZE_POLICY_MAX
 from blivet import findExistingInstallations
-from blivet.partitioning import doPartitioning
 from blivet.partitioning import doAutoPartition
 from blivet.errors import StorageError
 from blivet.errors import NoDisksError
 from blivet.errors import NotEnoughFreeSpaceError
-from blivet.errors import ErrorRecoveryFailure
-from blivet.errors import CryptoError
-from blivet.errors import MDRaidError
 from blivet.devicelibs import mdraid
 from blivet.devices import LUKSDevice
 

@@ -22,8 +22,6 @@
 from pyanaconda.ui.tui.spokes import EditTUISpoke
 from pyanaconda.ui.tui.spokes import EditTUISpokeEntry as Entry
 from pyanaconda.ui.common import FirstbootSpokeMixIn
-from pyanaconda.ui.tui.simpleline import TextWidget
-from pyanaconda.ui.tui import YesNoDialog
 from pyanaconda.users import guess_username
 from pyanaconda.i18n import _
 from pykickstart.constants import FIRSTBOOT_RECONFIG

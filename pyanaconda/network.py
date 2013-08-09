@@ -31,12 +31,9 @@ import socket
 import os
 import time
 import threading
-import tempfile
-import simpleconfig
 import re
 from flags import flags
 from simpleconfig import IfcfgFile
-import urlgrabber.grabber
 from blivet.devices import FcoeDiskDevice, iScsiDiskDevice
 import blivet.arch
 

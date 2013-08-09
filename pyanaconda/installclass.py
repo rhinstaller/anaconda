@@ -22,13 +22,10 @@
 #
 
 from distutils.sysconfig import get_python_lib
-import os, sys, iutil
-import isys
+import os, sys
 import string
 import imputil
-import types
 
-from pyanaconda.i18n import _
 from constants import *
 from product import *
 from blivet.partspec import *
