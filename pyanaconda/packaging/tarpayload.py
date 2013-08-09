@@ -73,6 +73,7 @@ class TarPayload(ArchivePayload):
     def kernelVersionList(self):
         names = self.archive.getnames()
         kernels = [n for n in names if "boot/vmlinuz-" in n]
+        return kernels
 
     def install(self):
         try:
