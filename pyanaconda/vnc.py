@@ -211,7 +211,7 @@ class VncServer:
             SecurityTypes = "VncAuth"
             rfbauth = self.pw_file
             # Create the password file.
-            rc = self.setVNCPassword()
+            self.setVNCPassword()
 
         # Lets start the xvnc.
         xvnccommand =  [ XVNC_BINARY_NAME, ":%s" % self.display,

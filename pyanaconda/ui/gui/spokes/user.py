@@ -454,7 +454,7 @@ class UserSpoke(FirstbootSpokeMixIn, NormalSpoke):
 
         self._advanced.refresh()
         with enlightbox(self.window, self._advanced.window):
-            response = self._advanced.run()
+            self._advanced.run()
 
         self.admin.set_active(self._wheel.name in self._user.groups)
 

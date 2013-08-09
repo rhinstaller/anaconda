@@ -709,7 +709,7 @@ class StorageSpoke(NormalSpoke, StorageChecker):
         dialog = SelectedDisksDialog(self.data,)
         dialog.refresh([d for d in self.disks if d.name in self.selected_disks],
                        free_space)
-        rc = self.run_lightbox_dialog(dialog)
+        self.run_lightbox_dialog(dialog)
 
         # update selected disks since some may have been removed
         self.selected_disks = [d.name for d in dialog.disks]

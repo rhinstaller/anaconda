@@ -398,7 +398,7 @@ class SoftwareSelectionSpoke(NormalSpoke):
 
     def on_custom_clicked(self, button):
         with enlightbox(self.window, self._addRepoDialog.window):
-            response =  self._addRepoDialog.run()
+            self._addRepoDialog.run()
 
     def on_info_bar_clicked(self, *args):
         if not self._errorMsgs:

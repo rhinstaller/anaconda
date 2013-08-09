@@ -1275,7 +1275,7 @@ reposdir=%s
         log.debug("select package %s" % pkgid)
         with _yum_lock:
             try:
-                mbrs = self._yum.install(pattern=pkgid)
+                self._yum.install(pattern=pkgid)
             except yum.Errors.InstallError:
                 raise NoSuchPackage(pkgid)
 
