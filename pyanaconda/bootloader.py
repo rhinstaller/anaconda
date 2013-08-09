@@ -377,7 +377,7 @@ class BootLoader(object):
     #
     # constraint checking for target devices
     #
-    def _is_valid_md(self, device, device_types=None, raid_levels=None,
+    def _is_valid_md(self, device, raid_levels=None,
                      metadata=None, member_types=None, desc=""):
         ret = True
         if device.type != "mdarray":
@@ -410,7 +410,7 @@ class BootLoader(object):
         log.debug("_is_valid_md(%s) returning %s" % (device.name,ret))
         return ret
 
-    def _is_valid_disklabel(self, device, disklabel_types=None, desc=""):
+    def _is_valid_disklabel(self, device, disklabel_types=None):
         ret = True
         if self.disklabel_types:
             for disk in device.disks:
@@ -583,8 +583,7 @@ class BootLoader(object):
             valid = False
 
         if not self._is_valid_disklabel(device,
-                                        disklabel_types=self.disklabel_types,
-                                        desc=description):
+                                        disklabel_types=self.disklabel_types):
             valid = False
 
         if not self._is_valid_size(device, desc=description):
@@ -596,7 +595,6 @@ class BootLoader(object):
             valid = False
 
         if not self._is_valid_md(device,
-                                 device_types=constraint["device_types"],
                                  raid_levels=constraint["raid_levels"],
                                  metadata=constraint["raid_metadata"],
                                  member_types=constraint["raid_member_types"],
@@ -676,8 +674,7 @@ class BootLoader(object):
             valid = False
 
         if not self._is_valid_disklabel(device,
-                                        disklabel_types=self.disklabel_types,
-                                        desc=self.stage2_description):
+                                        disklabel_types=self.disklabel_types):
             valid = False
 
         if not self._is_valid_size(device, desc=self.stage2_description):
@@ -692,7 +689,7 @@ class BootLoader(object):
                                         primary=self.stage2_must_be_primary):
             valid = False
 
-        if not self._is_valid_md(device, device_types=self.stage2_device_types,
+        if not self._is_valid_md(device,
                                  raid_levels=self.stage2_raid_levels,
                                  metadata=self.stage2_raid_metadata,
                                  member_types=self.stage2_raid_member_types,
@@ -2064,9 +2061,7 @@ class ZIPL(BootLoader):
     #
 
     def install(self):
-        buf = iutil.execWithCapture("zipl", [],
-                                    root=ROOT_PATH,
-                                    fatal=True)
+        buf = iutil.execWithCapture("zipl", [], root=ROOT_PATH)
         for line in buf.splitlines():
             if line.startswith("Preparing boot device: "):
                 # Output here may look like:

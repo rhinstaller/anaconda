@@ -96,13 +96,12 @@ def _run_program(argv, root='/', stdin=None, stdout=None, env_prune=None):
     return (proc.returncode, out)
 
 def execWithRedirect(command, argv, stdin=None, stdout=None,
-                     stderr=None, root='/', env_prune=None):
+                     root='/', env_prune=None):
     """ Run an external program and redirect the output to a file.
         @param command The command to run
         @param argv The argument list
         @param stdin The file object to read stdin from.
         @param stdout Optional file object to redirect stdout and stderr to.
-        @param stderr not used
         @param root The directory to chroot to before running command.
         @param env_prune environment variable to remove before execution
         @return The return code of the command
@@ -115,15 +114,12 @@ def execWithRedirect(command, argv, stdin=None, stdout=None,
     argv = [command] + argv
     return _run_program(argv, stdin=stdin, stdout=stdout, root=root, env_prune=env_prune)[0]
 
-def execWithCapture(command, argv, stdin=None, stderr=None, root='/',
-                    fatal=False):
+def execWithCapture(command, argv, stdin=None, root='/'):
     """ Run an external program and capture standard out and err.
         @param command The command to run
         @param argv The argument list
         @param stdin The file object to read stdin from.
-        @param stderr not used
         @param root The directory to chroot to before running command.
-        @param fatal not used
         @return The output of the command
     """
     if flags.testing:
