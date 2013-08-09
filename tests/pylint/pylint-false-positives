@@ -1,0 +1,6 @@
+^E0611:[ 0-9]*,[0-9]*: No name '_isys' in module 'pyanaconda'$
+^E0611:[ 0-9]*,[0-9]*:.*: No name '_isys' in module 'pyanaconda'$
+^E1101:[ 0-9]*,[0-9]*:.*: Instance of '.*' has no 'anaconda' member$
+^E1101:[ 0-9]*,[0-9]*:Anaconda\.backend: Instance of 'DefaultInstall' has no 'getBackend' member$
+^dm.c: [ 0-9]*,[0-9]*: not running as root returning empty list$
+Note this last line must never end with a newline
