@@ -227,6 +227,7 @@ class BootLoader(object):
     stage2_is_valid_stage1 = False
 
     # requirements for stage2 devices
+    stage2_device = None
     stage2_device_types = []
     stage2_raid_levels = []
     stage2_raid_metadata = []
