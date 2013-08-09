@@ -579,8 +579,6 @@ class StorageSpoke(NormalSpoke, StorageChecker):
             self.set_warning(_("Warning checking storage configuration.  Click for details."))
 
     def initialize(self):
-        from pyanaconda.ui.gui.utils import setViewportBackground
-
         NormalSpoke.initialize(self)
 
         # Wouldn't it be nice if glade knew how to do this?

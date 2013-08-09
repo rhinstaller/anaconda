@@ -534,7 +534,6 @@ class Payload(object):
 
     def _copyDriverDiskFiles(self):
         import glob
-        import shutil
 
         new_firmware = False
 
@@ -712,7 +711,6 @@ def write_txmbrs(payload, filename):
 ### MAIN
 ###
 if __name__ == "__main__":
-    import os
     import sys
     import blivet
     from pykickstart.version import makeVersion

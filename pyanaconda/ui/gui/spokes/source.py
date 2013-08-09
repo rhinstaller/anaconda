@@ -469,7 +469,6 @@ class SourceSpoke(NormalSpoke):
 
     @property
     def ready(self):
-        from pyanaconda.threads import threadMgr
         return (self._ready and
                 not threadMgr.get(constants.THREAD_PAYLOAD_MD) and
                 not threadMgr.get(constants.THREAD_SOFTWARE_WATCHER) and
@@ -477,7 +476,6 @@ class SourceSpoke(NormalSpoke):
 
     @property
     def status(self):
-        from pyanaconda.threads import threadMgr
         if threadMgr.get(constants.THREAD_CHECK_SOFTWARE):
             return _("Checking software dependencies...")
         elif not self.ready:
@@ -533,8 +531,6 @@ class SourceSpoke(NormalSpoke):
         self._repoProxyPasswordEntry = self.builder.get_object("repoProxyPasswordEntry")
 
     def initialize(self):
-        from pyanaconda.threads import threadMgr, AnacondaThread
-
         NormalSpoke.initialize(self)
 
         self._grabObjects()
@@ -548,8 +544,6 @@ class SourceSpoke(NormalSpoke):
         threadMgr.add(AnacondaThread(name=constants.THREAD_SOURCE_WATCHER, target=self._initialize))
 
     def _initialize(self):
-        from pyanaconda.threads import threadMgr
-
         hubQ.send_message(self.__class__.__name__, _("Probing storage..."))
 
         threadMgr.wait(constants.THREAD_STORAGE)

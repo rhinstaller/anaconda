@@ -197,7 +197,6 @@ class YumPayload(PackagePayload):
 
     def _resetYum(self, root=None, keep_cache=False):
         """ Delete and recreate the payload's YumBase instance. """
-        import shutil
         if root is None:
             root = self._root_dir
 
@@ -1031,9 +1030,6 @@ reposdir=%s
     @property
     def environments(self):
         """ List of environment ids. """
-        from yum.Errors import RepoError
-        from yum.Errors import GroupsError
-
         environments = []
         yum_groups = self._yumGroups
         if yum_groups:
@@ -1159,9 +1155,6 @@ reposdir=%s
     @property
     def groups(self):
         """ List of group ids. """
-        from yum.Errors import RepoError
-        from yum.Errors import GroupsError
-
         groups = []
         yum_groups = self._yumGroups
         if yum_groups:

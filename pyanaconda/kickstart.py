@@ -38,8 +38,7 @@ import os
 import os.path
 import tempfile
 import subprocess
-import flags as flags_module
-from flags import flags
+from flags import flags, can_touch_runtime_system
 from constants import ADDON_PATHS, DEFAULT_LANG, ROOT_PATH
 import shlex
 import sys
@@ -1281,7 +1280,7 @@ class Timezone(commands.timezone.F18_Timezone):
     def setup(self, ksdata):
         if self.nontp:
             if iutil.service_running(NTP_SERVICE) and \
-                    flags_module.can_touch_runtime_system("stop NTP service"):
+                    can_touch_runtime_system("stop NTP service"):
                 ret = iutil.stop_service(NTP_SERVICE)
                 if ret != 0:
                     log.error("Failed to stop NTP service")
@@ -1296,7 +1295,7 @@ class Timezone(commands.timezone.F18_Timezone):
 
         else:
             if not iutil.service_running(NTP_SERVICE) and \
-                    flags_module.can_touch_runtime_system("start NTP service"):
+                    can_touch_runtime_system("start NTP service"):
                 ret = iutil.start_service(NTP_SERVICE)
                 if ret != 0:
                     log.error("Failed to start NTP service")

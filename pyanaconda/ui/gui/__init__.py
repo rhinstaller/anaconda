@@ -25,11 +25,10 @@ import meh.ui.gui
 from gi.repository import Gdk, Gtk, AnacondaWidgets
 
 from pyanaconda.i18n import _
-from pyanaconda.product import distributionText, isFinal
+from pyanaconda.product import distributionText, isFinal, productName, productVersion
 
 from pyanaconda.ui import UserInterface, common
 from pyanaconda.ui.gui.utils import enlightbox, gtk_action_wait
-from pyanaconda.product import isFinal, productName, productVersion
 import os.path
 
 import logging
@@ -306,8 +305,6 @@ class GraphicalUserInterface(UserInterface):
 
         """
 
-        from gi.repository import AnacondaWidgets
-
         # if there are no actions (not populated yet), we can do nothing
         if len(self._actions) > 0 and self._currentAction:
             lightbox = AnacondaWidgets.lb_show_over(self._currentAction.window)
@@ -411,7 +408,6 @@ class GraphicalUserInterface(UserInterface):
 
     @gtk_action_wait
     def showYesNoQuestion(self, message):
-        from gi.repository import AnacondaWidgets, Gtk
         dlg = Gtk.MessageDialog(flags=Gtk.DialogFlags.MODAL,
                                 message_type=Gtk.MessageType.QUESTION,
                                 buttons=Gtk.ButtonsType.NONE,
