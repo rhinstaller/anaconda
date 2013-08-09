@@ -174,8 +174,8 @@ class InstallOptions1Dialog(GUIObject):
                      "space, including <b>%(software)s</b> for software and "
                      "<b>%(swap)s</b> for swap space.")
                    % {"product": productName,
-                      "total": required_space + auto_swap,
-                      "software": required_space, "swap": auto_swap})
+                      "total": required_space_text + auto_swap,
+                      "software": required_space_text, "swap": auto_swap})
         return sw_text
 
     # Methods to handle sensitivity of the modify button.
