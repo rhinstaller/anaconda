@@ -188,20 +188,16 @@ class Users:
 
             self.admin = libuser.admin()
 
-            try:
-                if self.admin.lookupGroupByName(group_name):
-                    os._exit(1)
-
-                groupEnt = self.admin.initGroup(group_name)
-
-                if kwargs.get("gid", -1) >= 0:
-                    groupEnt.set(libuser.GIDNUMBER, kwargs["gid"])
-
-                self.admin.addGroup(groupEnt)
-                os._exit(0)
-            except Exception as e:
-                log.critical("Error when creating new group: %s" % str(e))
+            if self.admin.lookupGroupByName(group_name):
                 os._exit(1)
+
+            groupEnt = self.admin.initGroup(group_name)
+
+            if kwargs.get("gid", -1) >= 0:
+                groupEnt.set(libuser.GIDNUMBER, kwargs["gid"])
+
+            self.admin.addGroup(groupEnt)
+            os._exit(0)
 
         try:
             (pid, status) = os.waitpid(childpid, 0)
@@ -355,12 +351,10 @@ class Users:
 
             self.admin = libuser.admin()
 
-            try:
-                if self.admin.lookupUserByName(username):
-                    os._exit(0)
-            except Exception as e:
-                log.critical("Error when searching for user: %s" % str(e))
-            os._exit(1)
+            if self.admin.lookupUserByName(username):
+                os._exit(0)
+            else:
+                os._exit(1)
 
         try:
             (pid, status) = os.waitpid(childpid, 0)

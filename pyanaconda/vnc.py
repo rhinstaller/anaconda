@@ -111,7 +111,7 @@ class VncServer:
         ipstr = self.ip
         try:
             hinfo = socket.gethostbyaddr(ipstr)
-        except Exception as e:
+        except socket.herror as e:
             log.debug("Exception caught trying to get host name of %s: %s" %
                       (ipstr, e))
             self.name = network.getHostname()

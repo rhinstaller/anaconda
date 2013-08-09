@@ -25,7 +25,7 @@ from errors import errorHandler, ERROR_RAISE, InvalidImageSizeError, MediaMountE
 
 import blivet.util
 import blivet.arch
-from blivet.errors import StorageError
+from blivet.errors import FSError, StorageError
 
 import logging
 log = logging.getLogger("anaconda")
@@ -192,7 +192,7 @@ def opticalInstallMedia(devicetree, mountpoint=INSTALL_TREE):
         devicetree.updateDeviceFormat(dev)
         try:
             dev.format.mount(mountpoint=mountpoint)
-        except Exception:
+        except FSError:
             continue
 
         if not verifyMedia(mountpoint):
@@ -221,7 +221,7 @@ def unmountCD(dev):
     while True:
         try:
             dev.format.unmount()
-        except Exception as e:
+        except FSError as e:
             log.error("exception in _unmountCD: %s" %(e,))
             exn = MediaUnmountError()
             errorHandler.cb(exn, dev)

@@ -59,6 +59,7 @@ from blivet.partitioning import doAutoPartition
 from blivet.errors import StorageError
 from blivet.errors import NoDisksError
 from blivet.errors import NotEnoughFreeSpaceError
+from blivet.errors import SizeParamsError, SizeNotPositiveError
 from blivet.devicelibs import mdraid
 from blivet.devices import LUKSDevice
 
@@ -151,7 +152,7 @@ def size_from_entry(entry):
 
     try:
         size = Size(spec=size_text)
-    except Exception:
+    except (SizeParamsError, SizeNotPositiveError):
         return None
     else:
         # Minimium size for ui-created partitions is 1MB.

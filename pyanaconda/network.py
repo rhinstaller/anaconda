@@ -169,7 +169,7 @@ def getHostname():
         for ipaddr in addrs:
             try:
                 hinfo = socket.gethostbyaddr(ipaddr)
-            except Exception as e:
+            except socket.herror as e:
                 log.debug("Exception caught trying to get host name of %s: %s" %
                           (ipaddr, e))
             else:
