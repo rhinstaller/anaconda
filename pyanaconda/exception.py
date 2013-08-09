@@ -21,8 +21,9 @@
 #            David Cantrell <dcantrell@redhat.com>
 #            Vratislav Podzimek <vpodzime@redhat.com>
 #
-from meh.handler import *
-from meh.dump import *
+from meh import Config
+from meh.handler import ExceptionHandler
+from meh.dump import ReverseExceptionDump
 import isys
 import iutil
 import sys

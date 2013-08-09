@@ -21,7 +21,6 @@
 
 import os, sys
 import time
-from constants import *
 import network
 import product
 import socket

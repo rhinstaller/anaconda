@@ -64,7 +64,7 @@ from pyanaconda.flags import flags
 from pyanaconda.i18n import _, N_, P_
 from pyanaconda import constants
 
-from pykickstart.constants import *
+from pykickstart.constants import CLEARPART_TYPE_NONE, AUTOPART_TYPE_LVM
 
 import sys
 

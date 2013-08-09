@@ -35,7 +35,7 @@ except ImportError:
     log.error("import of tarfile failed")
     tarfile = None
 
-from pyanaconda.constants import *
+from pyanaconda.constants import ROOT_PATH
 from pyanaconda.flags import flags
 
 from pyanaconda import iutil
@@ -43,7 +43,6 @@ from pyanaconda import iutil
 import logging
 log = logging.getLogger("anaconda")
 
-from pyanaconda.errors import *
 #from pyanaconda.progress import progress
 
 class TarPayload(ArchivePayload):

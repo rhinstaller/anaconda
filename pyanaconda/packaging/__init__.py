@@ -39,7 +39,7 @@ if __name__ == "__main__":
     from pyanaconda import anaconda_log
     anaconda_log.init()
 
-from pyanaconda.constants import *
+from pyanaconda.constants import ROOT_PATH, GROUP_ALL, GROUP_DEFAULT, GROUP_REQUIRED, DD_ALL, DD_FIRMWARE, DD_RPMS, THREAD_STORAGE, THREAD_WAIT_FOR_CONNECTING_NM
 from pyanaconda.flags import flags
 
 from pyanaconda import iutil
@@ -51,7 +51,6 @@ from pykickstart.parser import Group
 import logging
 log = logging.getLogger("packaging")
 
-from pyanaconda.errors import *
 from blivet.errors import StorageError
 import blivet.util
 import blivet.arch

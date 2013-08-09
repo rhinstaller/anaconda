@@ -19,7 +19,7 @@
 #
 
 from pyanaconda.errors import ScriptError, errorHandler
-from blivet.deviceaction import *
+from blivet.deviceaction import ActionCreateFormat, ActionDestroyFormat, ActionResizeDevice, ActionResizeFormat
 from blivet.devices import LUKSDevice
 from blivet.devicelibs.lvm import getPossiblePhysicalExtents
 from blivet.devicelibs import swap
@@ -40,7 +40,7 @@ import tempfile
 import subprocess
 import flags as flags_module
 from flags import flags
-from constants import *
+from constants import ADDON_PATHS, DEFAULT_LANG, ROOT_PATH
 import shlex
 import sys
 import urlgrabber
@@ -59,11 +59,12 @@ from pyanaconda.i18n import _
 from .ui.common import collect
 from .addons import AddonSection, AddonData, AddonRegistry, collect_addon_paths
 
-from pykickstart.constants import *
+from pykickstart.constants import CLEARPART_TYPE_NONE, FIRSTBOOT_SKIP, FIRSTBOOT_RECONFIG, KS_SCRIPT_POST, KS_SCRIPT_PRE, \
+                                  KS_SCRIPT_TRACEBACK, SELINUX_DISABLED, SELINUX_ENFORCING, SELINUX_PERMISSIVE
 from pykickstart.errors import formatErrorMsg, KickstartError, KickstartValueError
 from pykickstart.parser import KickstartParser
 from pykickstart.parser import Script as KSScript
-from pykickstart.sections import *
+from pykickstart.sections import NullSection, PackageSection, PostScriptSection, PreScriptSection, TracebackScriptSection
 from pykickstart.version import returnClassForVersion
 
 import logging

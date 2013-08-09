@@ -19,9 +19,9 @@
 
 import isys
 import os, os.path, stat
-from constants import *
+from constants import INSTALL_TREE, ISO_DIR
 
-from errors import *
+from errors import errorHandler, ERROR_RAISE, InvalidImageSizeError, MediaMountError, MediaUnmountError, MissingImageError
 
 import blivet.util
 import blivet.arch

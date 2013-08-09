@@ -26,9 +26,7 @@ import os, sys
 import string
 import imputil
 
-from constants import *
-from product import *
-from blivet.partspec import *
+from blivet.partspec import PartSpec
 from blivet.devicelibs import swap
 from blivet.platform import platform
 

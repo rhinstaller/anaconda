@@ -19,5 +19,7 @@
 # Red Hat Author(s): Martin Sivak <msivak@redhat.com>
 #
 
+# pylint: disable-msg=W0401
 from base import *
+# pylint: disable-msg=W0401
 from widgets import *

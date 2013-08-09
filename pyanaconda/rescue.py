@@ -20,9 +20,9 @@
 #            Jeremy Katz <katzj@redhat.com>
 #
 
-from snack import *
-from constants import *
-from constants_text import *
+from snack import ButtonChoiceWindow, ListboxChoiceWindow,SnackScreen
+from constants import ANACONDA_CLEANUP, ROOT_PATH
+from constants_text import TEXT_OK_BUTTON, TEXT_NO_BUTTON, TEXT_YES_BUTTON
 from text import WaitWindow, OkCancelWindow, ProgressWindow, PassphraseEntryWindow
 from flags import flags
 import sys
@@ -35,7 +35,7 @@ import shutil
 import time
 import re
 import subprocess
-from pykickstart.constants import *
+from pykickstart.constants import KS_REBOOT, KS_SHUTDOWN
 import meh.ui.text
 from pyanaconda.i18n import _
 

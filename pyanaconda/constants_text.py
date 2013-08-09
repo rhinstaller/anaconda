@@ -17,6 +17,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
+# pylint: disable-msg=W0401
 from pyanaconda.constants import *
 from pyanaconda.i18n import _, N_
 
@@ -39,6 +40,10 @@ class Translator:
 TEXT_OK_STR = N_("OK")
 TEXT_OK_CHECK  = "ok"
 TEXT_OK_BUTTON = Translator(TEXT_OK_STR, TEXT_OK_CHECK)
+
+TEXT_CANCEL_STR = N_("Cancel")
+TEXT_CANCEL_CHECK = "cancel"
+TEXT_CANCEL_BUTTON = Translator(TEXT_CANCEL_STR, TEXT_CANCEL_CHECK)
 
 TEXT_YES_STR = N_("Yes")
 TEXT_YES_CHECK = "yes"

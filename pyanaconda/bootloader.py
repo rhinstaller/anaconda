@@ -32,7 +32,7 @@ from blivet.devicelibs import mdraid
 from pyanaconda.isys import sync
 from pyanaconda.product import productName
 from pyanaconda.flags import flags
-from pyanaconda.constants import *
+from pyanaconda.constants import ROOT_PATH
 from blivet.errors import StorageError
 from blivet.fcoe import fcoe
 import pyanaconda.network

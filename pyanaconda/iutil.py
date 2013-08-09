@@ -33,7 +33,7 @@ from Queue import Queue, Empty
 
 from flags import flags
 from pyanaconda.i18n import _
-from constants import *
+from constants import DRACUT_SHUTDOWN_EJECT, ROOT_PATH, TRANSLATIONS_UPDATE_DIR, UNSUPPORTED_HW
 
 import logging
 log = logging.getLogger("anaconda")

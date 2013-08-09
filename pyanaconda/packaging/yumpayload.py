@@ -64,13 +64,14 @@ except ImportError:
     log.error("import of yum failed")
     yum = None
 
-from pyanaconda.constants import *
+from pyanaconda.constants import BASE_REPO_NAME, DRACUT_ISODIR, DRACUT_REPODIR, INSTALL_TREE, ISO_DIR, MOUNT_DIR, ROOT_PATH
 from pyanaconda.flags import flags
 
 from pyanaconda import iutil
 from pyanaconda.iutil import ProxyString, ProxyStringError
 from pyanaconda.i18n import _
 from pyanaconda.nm import nm_is_connected
+from pyanaconda.product import productName, isFinal
 from blivet.size import Size
 import blivet.util
 import blivet.arch
@@ -79,13 +80,13 @@ from pyanaconda.image import opticalInstallMedia
 from pyanaconda.image import mountImage
 from pyanaconda.image import findFirstIsoImage
 
-from pyanaconda.errors import *
+from pyanaconda.errors import ERROR_RAISE, errorHandler
 from pyanaconda.packaging import NoSuchGroup, NoSuchPackage
 from pyanaconda.progress import progressQ
 
 from pyanaconda.localization import expand_langs
 
-from pykickstart.constants import KS_MISSING_IGNORE
+from pykickstart.constants import GROUP_ALL, GROUP_DEFAULT, KS_MISSING_IGNORE
 
 YUM_PLUGINS = ["blacklist", "whiteout", "fastestmirror", "langpacks"]
 default_repos = [productName.lower(), "rawhide"]
