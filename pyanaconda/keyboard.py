@@ -147,7 +147,7 @@ def write_keyboard_config(keyboard, root, convert=True):
         if not os.path.isdir(xconf_dir):
             os.makedirs(xconf_dir)
 
-    except OSError as oserr:
+    except OSError:
         errors.append("Cannot create directory xorg.conf.d")
 
     if keyboard.x_layouts:
@@ -176,7 +176,7 @@ def write_keyboard_config(keyboard, root, convert=True):
             try:
                 shutil.copy2(xconf_file_path,
                              os.path.normpath(root + "/" + xconf_file_path))
-            except IOError as ioerr:
+            except IOError:
                 # The file may not exist (eg. text install) so don't raise
                 pass
 
@@ -626,7 +626,7 @@ class LocaledWrapper(object):
                                                  LOCALED_IFACE,
                                                  "VConsoleKeymap",
                                                  self._connection)
-        except DBusPropertyError as dperr:
+        except DBusPropertyError:
             # no value for the property
             log.error("Failed to get the value for the systemd-localed's "
                       "VConsoleKeymap property")
@@ -643,7 +643,7 @@ class LocaledWrapper(object):
                                                   LOCALED_IFACE,
                                                   "X11Layout",
                                                   self._connection)
-        except DBusPropertyError as dperr:
+        except DBusPropertyError:
             # no value for the property
             log.error("Failed to get the value for the systemd-localed's "
                       "X11Layout property")
@@ -655,7 +655,7 @@ class LocaledWrapper(object):
                                                    LOCALED_IFACE,
                                                    "X11Variant",
                                                    self._connection)
-        except DBusPropertyError as dperr:
+        except DBusPropertyError:
             # no value for the property
             log.error("Failed to get the value for the systemd-localed's "
                       "X11Variant property")

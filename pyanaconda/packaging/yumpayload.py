@@ -1455,7 +1455,7 @@ reposdir=%s
             try:
                 # XXX might need explicit arch specification
                 self._selectYumPackage(kernel)
-            except NoSuchPackage as e:
+            except NoSuchPackage:
                 log.info("no %s package" % kernel)
                 continue
             else:

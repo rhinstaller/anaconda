@@ -321,7 +321,7 @@ def dumpMissingDefaultIfcfgs():
             log.debug("network: dumping ifcfg file for default autoconnection on %s" % devname)
             nm.nm_update_settings_of_device(devname, 'connection', 'autoconnect', False)
             log.debug("network: setting autoconnect of %s to False" % devname)
-        except nm.DeviceSettingsNotFoundError as e:
+        except nm.DeviceSettingsNotFoundError:
             log.debug("network: no ifcfg file for %s" % devname)
         rv = True
 
