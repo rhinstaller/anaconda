@@ -25,18 +25,6 @@ import re
 
 SELINUX_DEFAULT = 1
 
-DISPATCH_BACK = -1
-DISPATCH_FORWARD = 1
-DISPATCH_DEFAULT = None
-DISPATCH_WAITING = 2
-
-# XXX this is made up and used by the size spinner; should just be set with
-# a callback
-MAX_PART_SIZE = 1024*1024*1024
-
-# install key related constants
-SKIP_KEY = -50
-
 # where to look for 3rd party addons
 ADDON_PATHS = ["/usr/share/anaconda/addons"]
 
