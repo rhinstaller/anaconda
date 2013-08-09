@@ -547,8 +547,6 @@ class Firstboot(commands.firstboot.FC3_Firstboot):
 
 class Group(commands.group.F12_Group):
     def execute(self, storage, ksdata, instClass, users):
-        algo = getPassAlgo(ksdata.authconfig.authconfig)
-
         for grp in self.groupList:
             kwargs = grp.__dict__
             kwargs.update({"root": ROOT_PATH})
