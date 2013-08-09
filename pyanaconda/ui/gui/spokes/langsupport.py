@@ -172,7 +172,7 @@ class LangsupportSpoke(NormalSpoke):
         # Otherwise, filter the list showing only what is matched by the
         # text entry.  Either the English or native names can match.
         lowered = entry.lower()
-        if lowered in nativelower() or lowered in english.lower():
+        if lowered in native.lower() or lowered in english.lower():
             return True
         else:
             return False

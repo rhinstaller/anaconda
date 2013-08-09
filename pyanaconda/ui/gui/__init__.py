@@ -35,7 +35,7 @@ import os.path
 import logging
 log = logging.getLogger("anaconda")
 
-__all__ = ["GraphicalUserInterface", "UIObject", "busyCursor", "unbusyCursor", "QuitDialog"]
+__all__ = ["GraphicalUserInterface", "busyCursor", "unbusyCursor", "QuitDialog"]
 
 _screenshotIndex = 0
 
