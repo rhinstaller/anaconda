@@ -1300,7 +1300,6 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
             #
             if changed_device_type or changed_container:
                 # remove the current device
-                root = self._current_selector._root
                 self._destroy_device(device)
                 if device in self._devices:
                     # the removal failed. don't continue.

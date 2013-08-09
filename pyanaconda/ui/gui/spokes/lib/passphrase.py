@@ -154,7 +154,6 @@ class PassphraseDialog(GUIObject):
         passphrase = self._passphrase_entry.get_text()
         confirm = self._confirm_entry.get_text()
         if passphrase != confirm:
-            match = False
             icon = "gtk-dialog-error"
             msg = ERROR_NOT_MATCHING
             self._set_entry_icon(entry, icon, _(msg))

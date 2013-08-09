@@ -243,7 +243,6 @@ class SoftwareSelectionSpoke(NormalSpoke):
         self._environmentStore = self.builder.get_object("environmentStore")
         self._environmentStore.clear()
 
-        clasess = []
         firstEnvironment = True
         for environment in self.payload.environments:
             (name, desc) = self.payload.environmentDescription(environment)

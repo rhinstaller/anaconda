@@ -283,7 +283,7 @@ class ISCSIDialog(GUIObject):
         text = widget.get_text()
 
         try:
-            ip = IP(text)
+            IP(text)
             return True
         except ValueError:
             return False
