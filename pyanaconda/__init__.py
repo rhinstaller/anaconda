@@ -28,7 +28,7 @@
 #            Matt Wilson <msw@rpath.com>
 #
 
-import os, time, string
+import os, time
 import sys
 from constants import ROOT_PATH
 from tempfile import mkstemp
@@ -59,7 +59,6 @@ class Anaconda(object):
         self.ksdata = None
         self.mediaDevice = None
         self.methodstr = None
-        self._network = None
         self.opts = None
         self._payload = None
         self.proxy = None
@@ -104,14 +103,6 @@ class Anaconda(object):
         del self._intf
 
     intf = property(_getInterface, _setInterface, _delInterface)
-
-    @property
-    def network(self):
-        if not self._network:
-            import network
-            self._network = network.Network()
-
-        return self._network
 
     @property
     def payload(self):
@@ -233,14 +224,3 @@ class Anaconda(object):
         f = open("%s/etc/X11/xorg.conf" %(root,), 'w')
         f.write('Section "Device"\n\tIdentifier "Videocard0"\n\tDriver "%s"\nEndSection\n' % self.xdriver)
         f.close()
-
-    def write(self):
-        import network
-        self.writeXdriver()
-
-        network.write_sysconfig_network()
-        network.disableIPV6()
-        network.copyConfigToPath(ROOT_PATH)
-        if not self.ksdata:
-            self.instClass.setNetworkOnbootDefault()
-        self.desktop.write()
