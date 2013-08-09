@@ -167,10 +167,10 @@ class SimpleConfigFile(object):
 
 
 class IfcfgFile(SimpleConfigFile):
-    def __init__(self, dir, iface):
+    def __init__(self, directory, iface):
         SimpleConfigFile.__init__(self, always_quote=True)
         self.iface = iface
-        self.dir = dir
+        self.dir = directory
 
     @property
     def path(self):
@@ -189,14 +189,14 @@ class IfcfgFile(SimpleConfigFile):
 
     # ifcfg-rh is using inotify IN_CLOSE_WRITE event
     # so we don't use temporary file for new configuration.
-    def write(self, dir=None):
+    def write(self, directory=None):
         """ Writes values into ifcfg file.
         """
 
-        if not dir:
+        if not directory:
             path = self.path
         else:
-            path = os.path.join(dir, os.path.basename(self.path))
+            path = os.path.join(directory, os.path.basename(self.path))
 
         SimpleConfigFile.write(self, path)
 

@@ -146,15 +146,15 @@ def netmask2prefix(netmask):
 
 def prefix2netmask(prefix):
     """ Convert prefix (CIDR bits) to netmask """
-    bytes = []
+    _bytes = []
     for i in range(4):
         if prefix >= 8:
-            bytes.append(255)
+            _bytes.append(255)
             prefix -= 8
         else:
-            bytes.append(256 - 2**(8-prefix))
+            _bytes.append(256 - 2**(8-prefix))
             prefix = 0
-    netmask = ".".join(str(byte) for byte in bytes)
+    netmask = ".".join(str(byte) for byte in _bytes)
     return netmask
 
 # Try to determine what the hostname should be for this system
@@ -214,8 +214,8 @@ def logIfcfgFiles(message=""):
 
 class NetworkDevice(IfcfgFile):
 
-    def __init__(self, dir, iface):
-        IfcfgFile.__init__(self, dir, iface)
+    def __init__(self, directory, iface):
+        IfcfgFile.__init__(self, directory, iface)
         if iface.startswith('ctc'):
             self.info["TYPE"] = "CTC"
         self.wepkey = ""
@@ -584,15 +584,15 @@ def ifaceForHostIP(host):
 
     return routeInfo[routeInfo.index("dev") + 1]
 
-def copyFileToPath(file, destPath='', overwrite=False):
-    if not os.path.isfile(file):
+def copyFileToPath(fileName, destPath='', overwrite=False):
+    if not os.path.isfile(fileName):
         return False
-    destfile = os.path.join(destPath, file.lstrip('/'))
+    destfile = os.path.join(destPath, fileName.lstrip('/'))
     if (os.path.isfile(destfile) and not overwrite):
         return False
     if not os.path.isdir(os.path.dirname(destfile)):
         iutil.mkdirChain(os.path.dirname(destfile))
-    shutil.copy(file, destfile)
+    shutil.copy(fileName, destfile)
     return True
 
 # /etc/sysconfig/network-scripts/ifcfg-*

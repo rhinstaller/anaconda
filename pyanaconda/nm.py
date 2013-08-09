@@ -136,7 +136,7 @@ def nm_activated_devices():
 
     return interfaces
 
-def nm_device_property(name, property):
+def nm_device_property(name, prop):
     """Return value of device NM property
 
        Exceptions:
@@ -162,16 +162,16 @@ def nm_device_property(name, property):
     device = device.unpack()[0]
     proxy = _get_proxy(object_path=device, interface_name="org.freedesktop.NetworkManager.Device")
 
-    if property in proxy.get_cached_property_names():
-        retval = proxy.get_cached_property(property).unpack()
+    if prop in proxy.get_cached_property_names():
+        retval = proxy.get_cached_property(prop).unpack()
     else:
         # Look in device type based interface
         device_type = proxy.get_cached_property("DeviceType").unpack()
         proxy = _get_proxy(object_path=device, interface_name=device_type_interfaces[device_type])
-        if property in proxy.get_cached_property_names():
-            retval = proxy.get_cached_property(property).unpack()
+        if prop in proxy.get_cached_property_names():
+            retval = proxy.get_cached_property(prop).unpack()
         else:
-            raise PropertyNotFoundError(property)
+            raise PropertyNotFoundError(prop)
 
     return retval
 
@@ -238,14 +238,14 @@ def nm_device_ip_addresses(name, version=4):
 
     if version == 4:
         dbus_iface = "org.freedesktop.NetworkManager.IP4Config"
-        property = "Ip4Config"
+        prop= "Ip4Config"
     elif version == 6:
         dbus_iface = "org.freedesktop.NetworkManager.IP6Config"
-        property = "Ip6Config"
+        prop= "Ip6Config"
     else:
         return []
 
-    config = nm_device_property(name, property)
+    config = nm_device_property(name, prop)
     if config == "/":
         return []
     proxy = _get_proxy(object_path=config, interface_name=dbus_iface)

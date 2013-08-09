@@ -151,14 +151,14 @@ class AnacondaLog:
                             fmtStr=STDOUT_FORMAT, minLevel=logging.INFO)
 
     # Add a simple handler - file or stream, depending on what we're given.
-    def addFileHandler (self, file, addToLogger, minLevel=DEFAULT_TTY_LEVEL,
+    def addFileHandler (self, dest, addToLogger, minLevel=DEFAULT_TTY_LEVEL,
                         fmtStr=ENTRY_FORMAT,
                         autoLevel=False):
         try:
-            if isinstance(file, types.StringTypes):
-                logfileHandler = logging.FileHandler(file)
+            if isinstance(dest, types.StringTypes):
+                logfileHandler = logging.FileHandler(dest)
             else:
-                logfileHandler = logging.StreamHandler(file)
+                logfileHandler = logging.StreamHandler(dest)
 
             logfileHandler.setLevel(minLevel)
             logfileHandler.setFormatter(logging.Formatter(fmtStr, DATE_FORMAT))
@@ -181,6 +181,7 @@ class AnacondaLog:
         syslogHandler.setLevel(logging.DEBUG)
         logger.addHandler(syslogHandler)
 
+    # pylint: disable-msg=W0622
     def showwarning(self, message, category, filename, lineno,
                       file=sys.stderr, line=None):
         """ Make sure messages sent through python's warnings module get logged.

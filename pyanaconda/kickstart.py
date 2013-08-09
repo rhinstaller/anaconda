@@ -648,20 +648,20 @@ class LogVolData(commands.logvol.F20_LogVolData):
         vgname = ksdata.onPart.get(self.vgname, self.vgname)
 
         if self.mountpoint == "swap":
-            type = "swap"
+            ty = "swap"
             self.mountpoint = ""
             if self.recommended or self.hibernation:
                 self.size = swap.swapSuggestion(hibernation=self.hibernation)
                 self.grow = False
         else:
             if self.fstype != "":
-                type = self.fstype
+                ty = self.fstype
             else:
-                type = storage.defaultFSType
+                ty = storage.defaultFSType
 
         if self.thin_pool:
             self.mountpoint = ""
-            type = None
+            ty = None
 
         # Sanity check mountpoint
         if self.mountpoint != "" and self.mountpoint[0] != '/':
@@ -730,13 +730,13 @@ class LogVolData(commands.logvol.F20_LogVolData):
                 raise KickstartValueError, formatErrorMsg(self.lineno, msg="Percentage must be between 0 and 100")
 
         # Now get a format to hold a lot of these extra values.
-        format = getFormat(type,
-                           mountpoint=self.mountpoint,
-                           label=self.label,
-                           fsprofile=self.fsprofile,
-                           mountopts=self.fsopts)
-        if not format.type and not self.thin_pool:
-            raise KickstartValueError, formatErrorMsg(self.lineno, msg="The \"%s\" filesystem type is not supported." % type)
+        fmt = getFormat(ty,
+                        mountpoint=self.mountpoint,
+                        label=self.label,
+                        fsprofile=self.fsprofile,
+                        mountopts=self.fsopts)
+        if not fmt.type and not self.thin_pool:
+            raise KickstartValueError, formatErrorMsg(self.lineno, msg="The \"%s\" filesystem type is not supported." % ty)
 
         # If we were given a pre-existing LV to create a filesystem on, we need
         # to verify it and its VG exists and then schedule a new format action
@@ -778,7 +778,7 @@ class LogVolData(commands.logvol.F20_LogVolData):
             else:
                 pool_args = {}
 
-            request = storage.newLV(format=format,
+            request = storage.newLV(format=fmt,
                                     name=self.name,
                                     parents=parents,
                                     size=self.size,
@@ -797,7 +797,7 @@ class LogVolData(commands.logvol.F20_LogVolData):
 
             cert = getEscrowCertificate(storage.escrowCertificates, self.escrowcert)
             if self.preexist:
-                luksformat = format
+                luksformat = fmt
                 device.format = getFormat("luks", passphrase=self.passphrase, device=device.path,
                                           cipher=self.cipher,
                                           escrow_cert=cert,
@@ -869,7 +869,7 @@ class PartitionData(commands.partition.F18_PartData):
                 raise KickstartValueError, formatErrorMsg(self.lineno, msg="Specified BIOS disk %s cannot be determined" % self.onbiosdisk)
 
         if self.mountpoint == "swap":
-            type = "swap"
+            ty = "swap"
             self.mountpoint = ""
             if self.recommended or self.hibernation:
                 self.size = swap.swapSuggestion(hibernation=self.hibernation)
@@ -879,20 +879,20 @@ class PartitionData(commands.partition.F18_PartData):
         elif self.mountpoint == "None":
             self.mountpoint = ""
             if self.fstype:
-                type = self.fstype
+                ty = self.fstype
             else:
-                type = storage.defaultFSType
+                ty = storage.defaultFSType
         elif self.mountpoint == 'appleboot':
-            type = "appleboot"
+            ty = "appleboot"
             self.mountpoint = ""
         elif self.mountpoint == 'prepboot':
-            type = "prepboot"
+            ty = "prepboot"
             self.mountpoint = ""
         elif self.mountpoint == 'biosboot':
-            type = "biosboot"
+            ty = "biosboot"
             self.mountpoint = ""
         elif self.mountpoint.startswith("raid."):
-            type = "mdmember"
+            ty = "mdmember"
             kwargs["name"] = self.mountpoint
             self.mountpoint = ""
 
@@ -902,7 +902,7 @@ class PartitionData(commands.partition.F18_PartData):
             if self.onPart:
                 ksdata.onPart[kwargs["name"]] = self.onPart
         elif self.mountpoint.startswith("pv."):
-            type = "lvmpv"
+            ty = "lvmpv"
             kwargs["name"] = self.mountpoint
             self.mountpoint = ""
 
@@ -912,7 +912,7 @@ class PartitionData(commands.partition.F18_PartData):
             if self.onPart:
                 ksdata.onPart[kwargs["name"]] = self.onPart
         elif self.mountpoint.startswith("btrfs."):
-            type = "btrfs"
+            ty = "btrfs"
             kwargs["name"] = self.mountpoint
             self.mountpoint = ""
 
@@ -923,17 +923,17 @@ class PartitionData(commands.partition.F18_PartData):
                 ksdata.onPart[kwargs["name"]] = self.onPart
         elif self.mountpoint == "/boot/efi":
             if blivet.arch.isMactel():
-                type = "hfs+"
+                ty = "hfs+"
             else:
-                type = "EFI System Partition"
+                ty = "EFI System Partition"
                 self.fsopts = "defaults,uid=0,gid=0,umask=0077,shortname=winnt"
         else:
             if self.fstype != "":
-                type = self.fstype
+                ty = self.fstype
             elif self.mountpoint == "/boot":
-                type = storage.defaultBootFSType
+                ty = storage.defaultBootFSType
             else:
-                type = storage.defaultFSType
+                ty = storage.defaultFSType
 
         # If this specified an existing request that we should not format,
         # quit here after setting up enough information to mount it later.
@@ -968,13 +968,13 @@ class PartitionData(commands.partition.F18_PartData):
             return
 
         # Now get a format to hold a lot of these extra values.
-        kwargs["format"] = getFormat(type,
+        kwargs["format"] = getFormat(ty,
                                      mountpoint=self.mountpoint,
                                      label=self.label,
                                      fsprofile=self.fsprofile,
                                      mountopts=self.fsopts)
         if not kwargs["format"].type:
-            raise KickstartValueError, formatErrorMsg(self.lineno, msg="The \"%s\" filesystem type is not supported." % type)
+            raise KickstartValueError, formatErrorMsg(self.lineno, msg="The \"%s\" filesystem type is not supported." % ty)
 
         # If we were given a specific disk to create the partition on, verify
         # that it exists first.  If it doesn't exist, see if it exists with
@@ -1085,10 +1085,10 @@ class RaidData(commands.raid.F18_RaidData):
         storage.doAutoPart = False
 
         if self.mountpoint == "swap":
-            type = "swap"
+            ty = "swap"
             self.mountpoint = ""
         elif self.mountpoint.startswith("pv."):
-            type = "lvmpv"
+            ty = "lvmpv"
             kwargs["name"] = self.mountpoint
             ksdata.onPart[kwargs["name"]] = devicename
 
@@ -1097,7 +1097,7 @@ class RaidData(commands.raid.F18_RaidData):
 
             self.mountpoint = ""
         elif self.mountpoint.startswith("btrfs."):
-            type = "btrfs"
+            ty = "btrfs"
             kwargs["name"] = self.mountpoint
             ksdata.onPart[kwargs["name"]] = devicename
 
@@ -1107,12 +1107,12 @@ class RaidData(commands.raid.F18_RaidData):
             self.mountpoint = ""
         else:
             if self.fstype != "":
-                type = self.fstype
+                ty = self.fstype
             elif self.mountpoint == "/boot" and \
                  "mdarray" in storage.bootloader.stage2_device_types:
-                type = storage.defaultBootFSType
+                ty = storage.defaultBootFSType
             else:
-                type = storage.defaultFSType
+                ty = storage.defaultFSType
 
         # Sanity check mountpoint
         if self.mountpoint != "" and self.mountpoint[0] != '/':
@@ -1148,13 +1148,13 @@ class RaidData(commands.raid.F18_RaidData):
             raidmems.append(dev)
 
         # Now get a format to hold a lot of these extra values.
-        kwargs["format"] = getFormat(type,
+        kwargs["format"] = getFormat(ty,
                                      label=self.label,
                                      fsprofile=self.fsprofile,
                                      mountpoint=self.mountpoint,
                                      mountopts=self.fsopts)
         if not kwargs["format"].type:
-            raise KickstartValueError, formatErrorMsg(self.lineno, msg="The \"%s\" filesystem type is not supported." % type)
+            raise KickstartValueError, formatErrorMsg(self.lineno, msg="The \"%s\" filesystem type is not supported." % ty)
 
         kwargs["name"] = devicename
         kwargs["level"] = self.level

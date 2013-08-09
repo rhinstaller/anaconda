@@ -962,8 +962,8 @@ class SourceSpoke(NormalSpoke):
         repo = self.data.RepoData(name="New Repository")
         repo.ks_repo = True
         repo.orig_name = ""
-        iter = self._repoStore.append([True, repo.name, repo])
-        self._repoSelection.select_iter(iter)
+        itr = self._repoStore.append([True, repo.name, repo])
+        self._repoSelection.select_iter(itr)
         self._repoEntryBox.set_sensitive(True)
 
 

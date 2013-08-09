@@ -76,10 +76,10 @@ AGENT_MANAGER_PATH = "/org/freedesktop/NetworkManager/AgentManager"
 
 
 
-def getNMObjProperty(object, nm_iface_suffix, property):
-    props_iface = dbus.Interface(object, DBUS_PROPS_IFACE)
+def getNMObjProperty(obj, nm_iface_suffix, prop):
+    props_iface = dbus.Interface(obj, DBUS_PROPS_IFACE)
     return props_iface.Get("org.freedesktop.NetworkManager"+nm_iface_suffix,
-                           property)
+                           prop)
 
 
 DEVICES_COLUMN_TITLE  = 2
@@ -87,37 +87,37 @@ DEVICES_COLUMN_OBJECT = 3
 
 
 def localized_string_of_device_state(device, state):
-    str = _("Status unknown (missing)")
+    s = _("Status unknown (missing)")
 
     if state == NetworkManager.DeviceState.UNKNOWN:
-        str = _("Status unknown")
+        s = _("Status unknown")
     elif state == NetworkManager.DeviceState.UNMANAGED:
-        str = _("Unmanaged")
+        s = _("Unmanaged")
     elif state == NetworkManager.DeviceState.UNAVAILABLE:
         if device.get_firmware_missing():
-            str = _("Firmware missing")
+            s = _("Firmware missing")
         elif (device.get_device_type() == NetworkManager.DeviceType.ETHERNET
               and not device.get_carrier()):
-            str = _("Cable unplugged")
+            s = _("Cable unplugged")
         else:
-            str = _("Unavailable")
+            s = _("Unavailable")
     elif state == NetworkManager.DeviceState.DISCONNECTED:
-        str = _("Disconnected")
+        s = _("Disconnected")
     elif state in (NetworkManager.DeviceState.PREPARE,
                    NetworkManager.DeviceState.CONFIG,
                    NetworkManager.DeviceState.IP_CONFIG,
                    NetworkManager.DeviceState.IP_CHECK):
-        str = _("Connecting")
+        s = _("Connecting")
     elif state == NetworkManager.DeviceState.NEED_AUTH:
-        str = _("Authentication required")
+        s = _("Authentication required")
     elif state == NetworkManager.DeviceState.ACTIVATED:
-        str = _("Connected")
+        s = _("Connected")
     elif state == NetworkManager.DeviceState.DEACTIVATING:
-        str = _("Disconnecting")
+        s = _("Disconnecting")
     elif state == NetworkManager.DeviceState.FAILED:
-        str = _("Connection failed")
+        s = _("Connection failed")
 
-    return str
+    return s
 
 configuration_of_disconnected_devices_allowed = True
 # it is not in gnome-control-center but it makes sense
@@ -141,18 +141,18 @@ class CellRendererSignal(Gtk.CellRendererPixbuf):
         self.signal = 0
 
 
-    def do_get_property(self, property):
-        if property.name == 'signal':
+    def do_get_property(self, prop):
+        if prop.name == 'signal':
             return self.signal
         else:
-            raise AttributeError, 'unknown property %s' % property.name
+            raise AttributeError, 'unknown property %s' % prop.name
 
-    def do_set_property(self, property, value):
-        if property.name == 'signal':
+    def do_set_property(self, prop, value):
+        if prop.name == 'signal':
             self.signal = value
             self._set_icon_name(value)
         else:
-            raise AttributeError, 'unknown property %s' % property.name
+            raise AttributeError, 'unknown property %s' % prop.name
 
     def _set_icon_name(self, value):
 
@@ -195,18 +195,18 @@ class CellRendererSecurity(Gtk.CellRendererPixbuf):
         self.security = NM_AP_SEC_UNKNOWN
         self.icon_name = ""
 
-    def do_get_property(self, property):
-        if property.name == 'security':
+    def do_get_property(self, prop):
+        if prop.name == 'security':
             return self.security
         else:
-            raise AttributeError, 'unknown property %s' % property.name
+            raise AttributeError, 'unknown property %s' % prop.name
 
-    def do_set_property(self, property, value):
-        if property.name == 'security':
+    def do_set_property(self, prop, value):
+        if prop.name == 'security':
             self.security = value
             self._set_icon_name(value)
         else:
-            raise AttributeError, 'unknown property %s' % property.name
+            raise AttributeError, 'unknown property %s' % prop.name
 
     def _set_icon_name(self, security):
         self.icon_name = ""
@@ -247,17 +247,17 @@ class NetworkControlBox(object):
 
         do_not_show_in_refresh = ["heading_wireless_network_name",
                                   "combobox_wireless_network_name"]
-        do_not_show_in_refresh += ["%s_%s_%s" % (widget, type, value)
+        do_not_show_in_refresh += ["%s_%s_%s" % (widget, ty, value)
                                    for widget in ["heading", "label"]
-                                   for type in ["wired", "wireless"]
+                                   for ty in ["wired", "wireless"]
                                    for value in ["ipv4", "ipv6", "dns", "route"]]
         do_not_show_in_refresh += ["%s_wired_%s" % (widget, value)
                                    for widget in ["heading", "label"]
                                    for value in ["slaves", "vlanid", "parent"]]
 
-        for id in not_supported + do_not_show_in_refresh:
-            self.builder.get_object(id).set_no_show_all(True)
-            self.builder.get_object(id).hide()
+        for ident in not_supported + do_not_show_in_refresh:
+            self.builder.get_object(ident).set_no_show_all(True)
+            self.builder.get_object(ident).hide()
 
         self.builder.get_object("notebook_types").set_show_tabs(False)
 
@@ -403,12 +403,12 @@ class NetworkControlBox(object):
     def on_wireless_ap_changed_cb(self, combobox, *args):
         if self._updating_device:
             return
-        iter = combobox.get_active_iter()
-        if not iter:
+        itr = combobox.get_active_iter()
+        if not itr:
             return
 
         device = self.selected_device()
-        ap_obj_path, ssid_target = combobox.get_model().get(iter, 0, 1)
+        ap_obj_path, ssid_target = combobox.get_model().get(itr, 0, 1)
         self.selected_ssid = ssid_target
         if ap_obj_path == "ap-other...":
             return
@@ -531,10 +531,10 @@ class NetworkControlBox(object):
             dev_type = model[ai][1]
             self.add_device(dev_type)
 
-    def add_device(self, type):
-        log.info("network: adding device of type %s" % type)
+    def add_device(self, ty):
+        log.info("network: adding device of type %s" % ty)
         self.kill_nmce(msg="Add device button clicked")
-        proc = subprocess.Popen(["nm-connection-editor", "--create", "--type=%s" % type])
+        proc = subprocess.Popen(["nm-connection-editor", "--create", "--type=%s" % ty])
         self._running_nmce = proc
 
         GLib.child_watch_add(proc.pid, self.on_nmce_adding_exited)
@@ -547,10 +547,10 @@ class NetworkControlBox(object):
 
     def selected_device(self):
         selection = self.builder.get_object("treeview_devices").get_selection()
-        (model, iter) = selection.get_selected()
-        if not iter:
+        (model, itr) = selection.get_selected()
+        if not itr:
             return None
-        return model.get(iter, DEVICES_COLUMN_OBJECT)[0]
+        return model.get(itr, DEVICES_COLUMN_OBJECT)[0]
 
     def find_connection_for_device(self, device, ssid=None):
         dev_type = device.get_device_type()
@@ -644,12 +644,12 @@ class NetworkControlBox(object):
     def _dev_type_sort_value(self, device):
         dev_type = device.get_device_type()
         if dev_type == NetworkManager.DeviceType.ETHERNET:
-            str = "1"
+            s = "1"
         elif dev_type == NetworkManager.DeviceType.WIFI:
-            str = "2"
+            s = "2"
         else:
-            str = "3"
-        return str
+            s = "3"
+        return s
 
     def _dev_title(self, device):
         unplugged = ''
@@ -960,14 +960,14 @@ class NetworkControlBox(object):
 
         store = self.builder.get_object("liststore_wireless_network")
         # the third column is for sorting
-        iter = store.append([ap.get_path(),
-                             ssid,
-                             ssid,
-                             ap.get_strength(),
-                             mode,
-                             security])
+        itr = store.append([ap.get_path(),
+                            ssid,
+                            ssid,
+                            ap.get_strength(),
+                            mode,
+                            security])
         if active:
-            self.builder.get_object("combobox_wireless_network_name").set_active_iter(iter)
+            self.builder.get_object("combobox_wireless_network_name").set_active_iter(itr)
 
     def _get_strongest_unique_aps(self, access_points):
         strongest_aps = {}
@@ -994,19 +994,19 @@ class NetworkControlBox(object):
         if (not (flags & NM_802_11_AP_FLAGS_PRIVACY) and
             wpa_flags == NM_802_11_AP_SEC_NONE and
             rsn_flags == NM_802_11_AP_SEC_NONE):
-            type = NM_AP_SEC_NONE
+            ty = NM_AP_SEC_NONE
         elif (flags & NM_802_11_AP_FLAGS_PRIVACY and
               wpa_flags == NM_802_11_AP_SEC_NONE and
               rsn_flags == NM_802_11_AP_SEC_NONE):
-            type = NM_AP_SEC_WEP
+            ty = NM_AP_SEC_WEP
         elif (not (flags & NM_802_11_AP_FLAGS_PRIVACY) and
               wpa_flags != NM_802_11_AP_SEC_NONE and
               rsn_flags != NM_802_11_AP_SEC_NONE):
-            type = NM_AP_SEC_WPA
+            ty = NM_AP_SEC_WPA
         else:
-            type = NM_AP_SEC_WPA2
+            ty = NM_AP_SEC_WPA2
 
-        return type
+        return ty
 
 ## TODO NM_GI_BUGS - attribute starts with number
 #    def _ap_security_string(self, ap):
@@ -1318,38 +1318,38 @@ class NetworkSpoke(FirstbootSpokeMixIn, NormalSpoke):
             if ac:
                 # Don't show bond slaves
                 slaves = []
-                for name, type, info in ac:
-                    if type == NetworkManager.DeviceType.BOND:
+                for name, ty, info in ac:
+                    if ty == NetworkManager.DeviceType.BOND:
                         slaves.extend(info)
                 if slaves:
-                    ac = [(name, type, info)
-                          for name, type, info in ac
+                    ac = [(name, ty, info)
+                          for name, ty, info in ac
                           if name not in slaves]
 
                 if len(ac) == 1:
-                    name, type, info = ac[0]
-                    if type == NetworkManager.DeviceType.ETHERNET:
+                    name, ty, info = ac[0]
+                    if ty == NetworkManager.DeviceType.ETHERNET:
                         msg = _("Wired (%(interface_name)s) connected") \
                               % {"interface_name": name}
-                    elif type == NetworkManager.DeviceType.WIFI:
+                    elif ty == NetworkManager.DeviceType.WIFI:
                         msg = _("Wireless connected to %(access_point)s") \
                               % {"access_point" : info}
-                    elif type == NetworkManager.DeviceType.BOND:
+                    elif ty == NetworkManager.DeviceType.BOND:
                         msg = _("Bond %(interface_name)s (%(list_of_slaves)s) connected") \
                               % {"interface_name": name, "list_of_slaves": ",".join(info)}
-                    if type == NetworkManager.DeviceType.VLAN:
+                    if ty == NetworkManager.DeviceType.VLAN:
                         msg = _("Vlan %(interface_name)s (%(parent_device)s, ID %(vlanid)s) connected") \
                               % {"interface_name": name, "parent_device": info[0], "vlanid": info[1]}
                 else:
                     devlist = []
-                    for name, type, info in ac:
-                        if type == NetworkManager.DeviceType.ETHERNET:
+                    for name, ty, info in ac:
+                        if ty == NetworkManager.DeviceType.ETHERNET:
                             devlist.append("%s" % name)
-                        elif type == NetworkManager.DeviceType.WIFI:
+                        elif ty == NetworkManager.DeviceType.WIFI:
                             devlist.append("%s" % info)
-                        elif type == NetworkManager.DeviceType.BOND:
+                        elif ty == NetworkManager.DeviceType.BOND:
                             devlist.append("%s (%s)" % (name, ",".join(info)))
-                        if type == NetworkManager.DeviceType.VLAN:
+                        if ty == NetworkManager.DeviceType.VLAN:
                             devlist.append("%s" % name)
                     msg = _("Connected: %(list_of_interface_names)s") \
                           % {"list_of_interface_names": ", ".join(devlist)}

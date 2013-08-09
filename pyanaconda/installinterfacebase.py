@@ -29,11 +29,11 @@ class InstallInterfaceBase(object):
     def reinitializeWindow(self, title, path, size, description):
         raise NotImplementedError
 
-    def messageWindow(self, title, text, type="ok", default = None,
+    def messageWindow(self, title, text, ty="ok", default = None,
              custom_buttons=None,  custom_icon=None):
         raise NotImplementedError
 
-    def detailedMessageWindow(self, title, text, longText=None, type="ok",
+    def detailedMessageWindow(self, title, text, longText=None, ty="ok",
                               default=None, custom_icon=None,
                               custom_buttons=[], expanded=False):
         raise NotImplementedError
@@ -51,7 +51,7 @@ class InstallInterfaceBase(object):
               "installation repository:\n\n%(e)s\n\n"
               "Installation can not continue.")
             % {'e': exception},
-            type = "custom",
+            ty = "custom",
             custom_icon="info",
             custom_buttons=[_("Exit installer")])
         sys.exit(0)
@@ -62,7 +62,7 @@ class InstallInterfaceBase(object):
                "The installer will now terminate.") % str(exception)
         self.messageWindow(title=_("Hardware Error Encountered"),
                            text=text,
-                           type="custom",
+                           ty="custom",
                            custom_icon="error",
                            custom_buttons=[_("_Exit installer")])
         sys.exit(0)
