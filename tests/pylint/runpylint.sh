@@ -55,7 +55,7 @@ fi
 # run pylint one file / module at a time, otherwise it sometimes gets
 # confused
 > pylint-log
-for i in $(find pyanaconda -type f -name '*py'); do
+for i in anaconda $(find pyanaconda -type f -name '*py' \! -executable); do
   pylint --init-hook='import sys; \
       sys.path.insert(1, "pyanaconda/isys/.libs"); \
       sys.path.insert(2, "pyanaconda/isys"); \
