@@ -21,7 +21,7 @@
 
 AC_PREREQ([2.63])
 AC_INIT([AnacondaWidgets], [1.0], [clumens@redhat.com])
-AM_INIT_AUTOMAKE(AnacondaWidgets, 1.0)
+AM_INIT_AUTOMAKE
 AM_SILENT_RULES([yes])
 
 AM_PATH_PYTHON
@@ -46,7 +46,6 @@ GTK_DOC_CHECK([1.14],[--flavour no-tmpl])
 AM_CONDITIONAL([ENABLE_GTK_DOC], false)
 ])
 
-PKG_PROG_PKG_CONFIG
 PKG_CHECK_MODULES([GLADEUI], [gladeui-2.0 >= 3.10])
 PKG_CHECK_MODULES([GTK], [gtk+-x11-3.0 >= 3.0])
 PKG_CHECK_MODULES([GLIB], [glib-2.0])
