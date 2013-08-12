@@ -667,6 +667,33 @@ class PackagePayload(Payload):
 
         return kernels
 
+    def reset(self):
+        # cdrom: install_device.teardown (INSTALL_TREE)
+        # hd: umount INSTALL_TREE, install_device.teardown (ISO_DIR)
+        # nfs: umount INSTALL_TREE
+        # nfsiso: umount INSTALL_TREE, umount ISO_DIR
+        if os.path.ismount(INSTALL_TREE) and not flags.testing:
+            if self.install_device and \
+               blivet.util.get_mount_device(INSTALL_TREE) == self.install_device.path:
+                self.install_device.teardown(recursive=True)
+            else:
+                blivet.util.umount(INSTALL_TREE)
+
+        if os.path.ismount(ISO_DIR) and not flags.testing:
+            if self.install_device and \
+               blivet.util.get_mount_device(ISO_DIR) == self.install_device.path:
+                self.install_device.teardown(recursive=True)
+            # The below code will fail when nfsiso is the stage2 source
+            # But if we don't do this we may not be able to switch from
+            # one nfsiso repo to another nfsiso repo.  We need to have a
+            # way to detect the stage2 state and work around it.
+            # Commenting out the below is a hack for F18.  FIXME
+            #else:
+            #    # NFS
+            #    blivet.util.umount(ISO_DIR)
+
+        self.install_device = None
+
     def _setupMedia(self, device):
         method = self.data.method
         if method.method == "harddrive":
