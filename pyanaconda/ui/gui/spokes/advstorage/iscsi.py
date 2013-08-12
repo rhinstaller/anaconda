@@ -21,7 +21,6 @@
 
 from IPy import IP
 from collections import namedtuple
-# pylint: disable-msg=E0611
 from gi.repository import GLib
 
 from pyanaconda import constants

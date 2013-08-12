@@ -22,7 +22,6 @@
 from __future__ import division
 from collections import namedtuple
 
-# pylint: disable-msg=E0611
 from gi.repository import Gdk, Gtk
 
 from pyanaconda.i18n import _, N_, P_

@@ -76,7 +76,6 @@ from pyanaconda.ui.gui.utils import setViewportBackground, gtk_action_wait, enli
 from pyanaconda.ui.gui.categories.system import SystemCategory
 from pyanaconda.ui.lib.disks import size_str
 
-# pylint: disable-msg=E0611
 from gi.repository import Gdk, Gtk
 from gi.repository.AnacondaWidgets import MountpointSelector
 

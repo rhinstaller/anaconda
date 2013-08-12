@@ -19,7 +19,6 @@
 # Red Hat Author(s): Radek Vykydal <rvykydal@redhat.com>
 #
 
-# pylint: disable-msg=E0611
 from gi.repository import Gtk, Pango
 from pyanaconda.flags import flags
 from pyanaconda.i18n import N_

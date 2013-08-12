@@ -39,7 +39,6 @@ from pyanaconda.threads import threadMgr
 from pyanaconda.i18n import _
 from pyanaconda import flags
 
-# pylint: disable-msg=E0611
 from gi.repository import GLib
 
 import logging
@@ -93,7 +92,6 @@ class AnacondaExceptionHandler(ExceptionHandler):
             sys.exit(0)
         else:
             try:
-                # pylint: disable-msg=E0611
                 from gi.repository import Gtk
 
                 # XXX: Gtk stopped raising RuntimeError if it fails to

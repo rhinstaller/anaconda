@@ -22,7 +22,6 @@
 import sys
 import re
 
-# pylint: disable-msg=E0611
 from gi.repository import Gtk, Pango
 from pyanaconda.ui.gui.hubs.summary import SummaryHub
 from pyanaconda.ui.gui.spokes import StandaloneSpoke

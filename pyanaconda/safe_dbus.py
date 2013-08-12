@@ -20,7 +20,6 @@
 
 """Module providing thread-safe and mainloop-safe DBus operations."""
 
-# pylint: disable-msg=E0611
 from gi.repository import GLib, Gio
 from pyanaconda.constants import DEFAULT_DBUS_TIMEOUT
 
