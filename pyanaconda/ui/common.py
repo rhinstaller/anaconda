@@ -418,9 +418,7 @@ class StandaloneSpoke(NormalSpoke):
         if self.preForHub and self.postForHub:
             raise AttributeError("StandaloneSpoke instance %s may not have both preForHub and postForHub set" % self)
 
-        Spoke.__init__(self, data, storage, payload, instclass)
-
-
+        NormalSpoke.__init__(self, data, storage, payload, instclass)
 
 class PersonalizationSpoke(Spoke):
     """A PersonalizationSpoke is a Spoke subclass that is displayed when the
