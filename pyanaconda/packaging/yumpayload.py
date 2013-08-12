@@ -35,15 +35,12 @@
 
 """
 
-from ConfigParser import MissingSectionHeaderError
-
+import ConfigParser
 import os
 import shutil
 import sys
 import time
 from pyanaconda.iutil import execReadlines
-
-from . import *
 
 import logging
 log = logging.getLogger("packaging")
@@ -81,7 +78,9 @@ from pyanaconda.image import mountImage
 from pyanaconda.image import findFirstIsoImage
 
 from pyanaconda.errors import ERROR_RAISE, errorHandler
-from pyanaconda.packaging import NoSuchGroup, NoSuchPackage
+from pyanaconda.packaging import DependencyError, MetadataError, NoNetworkError, NoSuchGroup, \
+                                 NoSuchPackage, PackagePayload, PayloadError, PayloadInstallError, \
+                                 PayloadSetupError
 from pyanaconda.progress import progressQ
 
 from pyanaconda.localization import expand_langs
@@ -670,7 +669,7 @@ reposdir=%s
             #    isodev and device are both None
             # 4. The repo may not contain an iso, in that case use it as is
             if isodev:
-                options, host, path = iutil.parseNfsUrl('nfs:%s' % isodev)
+                path = iutil.parseNfsUrl('nfs:%s' % isodev)[2]
                 # See if the dir holding the iso is what we want
                 # and also if we have an iso mounted to /run/install/repo
                 if path and path in isodev and DRACUT_ISODIR in device:
@@ -766,7 +765,7 @@ reposdir=%s
             with _yum_lock:
                 try:
                     self._yum.preconf.releasever = self._getReleaseVersion(url)
-                except MissingSectionHeaderError as e:
+                except ConfigParser.MissingSectionHeaderError as e:
                     log.error("couldn't set releasever from base repo (%s): %s"
                               % (method.method, e))
                     self._removeYumRepo(BASE_REPO_NAME)

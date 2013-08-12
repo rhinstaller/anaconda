@@ -27,7 +27,8 @@
 
 """
 
-from . import *
+import logging
+log = logging.getLogger("anaconda")
 
 try:
     import tarfile
@@ -36,14 +37,7 @@ except ImportError:
     tarfile = None
 
 from pyanaconda.constants import ROOT_PATH
-from pyanaconda.flags import flags
-
-from pyanaconda import iutil
-
-import logging
-log = logging.getLogger("anaconda")
-
-#from pyanaconda.progress import progress
+from pyanaconda.packaging import ArchivePayload, PayloadError
 
 class TarPayload(ArchivePayload):
     """ A TarPayload unpacks a single tar archive onto the target system. """
@@ -53,6 +47,7 @@ class TarPayload(ArchivePayload):
 
         super(TarPayload, self).__init__(data)
         self.archive = None
+        self.image_file = None
 
     def setup(self, storage):
         super(TarPayload, self).setup(storage)
