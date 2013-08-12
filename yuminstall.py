@@ -1630,11 +1630,11 @@ debuglevel=6
 
                     rc = anaconda.intf.detailedMessageWindow(_("Warning"),
                             _("Some of the packages you have selected for "
-                              "install are missing dependencies.  You can "
-                              "exit the installation, go back and change "
-                              "your package selections, or continue "
-                              "installing these packages without their "
-                              "dependencies."),
+                              "install are missing dependencies or conflict "
+                              "with another package. You can exit the "
+                              "installation, go back and change your package "
+                              "selections, or continue installing these "
+                              "packages without their dependencies."),
                             depprob + "\n", type="custom", custom_icon="error",
                             custom_buttons=custom_buttons)
                     dscb.pop()
