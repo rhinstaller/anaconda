@@ -286,6 +286,7 @@ class BootLoader(object):
         self.stage2_is_preferred_stage1 = False
 
         self.errors = []
+        self.problems = []
         self.warnings = []
 
     #

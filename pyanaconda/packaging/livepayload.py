@@ -63,6 +63,8 @@ class LiveImagePayload(ImagePayload):
         super(LiveImagePayload, self).__init__(*args, **kwargs)
         # Used to adjust size of ROOT_PATH when files are already present
         self._adj_size = 0
+        self.pct = 0
+        self.pct_lock = None
 
     def setup(self, storage):
         super(LiveImagePayload, self).setup(storage)
@@ -205,6 +207,7 @@ class LiveImageKSPayload(LiveImagePayload):
     def __init__(self, *args, **kwargs):
         super(LiveImageKSPayload, self).__init__(*args, **kwargs)
         self._min_size = 0
+        self._proxies = {}
         self.image_path = ROOT_PATH+"/disk.img"
 
     def setup(self, storage):

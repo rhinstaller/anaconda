@@ -79,6 +79,7 @@ class App(object):
         """
 
         self._header = title
+        self._redraw = True
         self._spacer = "\n".join(2*[width*"="])
         self._width = width
         self.quit_question = yes_or_no_question

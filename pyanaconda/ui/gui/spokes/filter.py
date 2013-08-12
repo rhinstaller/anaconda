@@ -141,11 +141,11 @@ class SearchPage(FilterPage):
         self._lunEntry = self.builder.get_object("searchLUNEntry")
         self._wwidEntry = self.builder.get_object("searchWWIDEntry")
 
+        self._combo = self.builder.get_object("searchTypeCombo")
         self._portCombo = self.builder.get_object("searchPortCombo")
         self._targetEntry = self.builder.get_object("searchTargetEntry")
 
     def setup(self, store, selectedNames, disks):
-        self._combo = self.builder.get_object("searchTypeCombo")
         self._combo.set_active(0)
         self._combo.emit("changed")
 
@@ -212,6 +212,7 @@ class MultipathPage(FilterPage):
         self.model = self.builder.get_object("multipathModel")
         self.model.set_visible_func(self.visible_func)
 
+        self._combo = self.builder.get_object("multipathTypeCombo")
         self._icCombo = self.builder.get_object("multipathInterconnectCombo")
         self._vendorCombo = self.builder.get_object("multipathVendorCombo")
         self._wwidEntry = self.builder.get_object("multipathWWIDEntry")
@@ -238,7 +239,6 @@ class MultipathPage(FilterPage):
             if not disk.bus in interconnects:
                 interconnects.append(disk.bus)
 
-        self._combo = self.builder.get_object("multipathTypeCombo")
         self._combo.set_active(0)
         self._combo.emit("changed")
 
@@ -279,6 +279,7 @@ class OtherPage(FilterPage):
         self.model = self.builder.get_object("otherModel")
         self.model.set_visible_func(self.visible_func)
 
+        self._combo = self.builder.get_object("otherTypeCombo")
         self._icCombo = self.builder.get_object("otherInterconnectCombo")
         self._idEntry = self.builder.get_object("otherIDEntry")
         self._vendorCombo = self.builder.get_object("otherVendorCombo")
@@ -324,7 +325,6 @@ class OtherPage(FilterPage):
             if not disk.bus in interconnects:
                 interconnects.append(disk.bus)
 
-        self._combo = self.builder.get_object("otherTypeCombo")
         self._combo.set_active(0)
         self._combo.emit("changed")
 
@@ -410,6 +410,10 @@ class FilterSpoke(NormalSpoke):
     def __init__(self, *args):
         NormalSpoke.__init__(self, *args)
         self.applyOnSkip = True
+
+        self.ancestors = []
+        self.disks = []
+        self.selected_disks = []
 
     @property
     def indirect(self):

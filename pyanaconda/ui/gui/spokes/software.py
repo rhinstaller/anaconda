@@ -58,6 +58,9 @@ class SoftwareSelectionSpoke(NormalSpoke):
         self.excludedGroups = []
         self.environment = None
 
+        self._addonStore = self.builder.get_object("addonStore")
+        self._environmentStore = self.builder.get_object("environmentStore")
+
         # Used for detecting whether anything's changed in the spoke.
         self._origAddons = []
         self._origEnvironment = None
@@ -240,7 +243,6 @@ class SoftwareSelectionSpoke(NormalSpoke):
 
         threadMgr.wait(constants.THREAD_PAYLOAD_MD)
 
-        self._environmentStore = self.builder.get_object("environmentStore")
         self._environmentStore.clear()
 
         firstEnvironment = True
@@ -278,7 +280,6 @@ class SoftwareSelectionSpoke(NormalSpoke):
         self._addonStore.append([selected, "<b>%s</b>\n%s" % (name, desc), grp, False])
 
     def refreshAddons(self):
-        self._addonStore = self.builder.get_object("addonStore")
         self._addonStore.clear()
         if self.environment:
             # First, we make up two lists:  One of addons specific to this environment,

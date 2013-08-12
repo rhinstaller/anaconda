@@ -141,6 +141,8 @@ class YumPayload(PackagePayload):
         self._requiredPackages = []
         self._requiredGroups = []
 
+        self.txID = None
+
         self.reset()
 
     def reset(self, root=None):

@@ -51,6 +51,8 @@ class ProgressHub(Hub):
         self._currentStep = 0
         self._configurationDone = False
 
+        self._rnotes_id = None
+
     def _do_configuration(self, widget = None, reenable_ransom = True):
         from pyanaconda.install import doConfiguration
         from pyanaconda.threads import threadMgr, AnacondaThread
@@ -65,7 +67,7 @@ class ProgressHub(Hub):
         if reenable_ransom:
             self._start_ransom_notes()
 
-        self._progress_id = GLib.timeout_add(250, self._update_progress, self._configuration_done)
+        GLib.timeout_add(250, self._update_progress, self._configuration_done)
         threadMgr.add(AnacondaThread(name=THREAD_CONFIGURATION, target=doConfiguration,
                                      args=(self.storage, self.payload, self.data, self.instclass)))
 
@@ -215,7 +217,7 @@ class ProgressHub(Hub):
         Hub.refresh(self)
 
         self._start_ransom_notes()
-        self._progress_id = GLib.timeout_add(250, self._update_progress, self._install_done)
+        GLib.timeout_add(250, self._update_progress, self._install_done)
         threadMgr.add(AnacondaThread(name=THREAD_INSTALL, target=doInstall,
                                      args=(self.storage, self.payload, self.data, self.instclass)))
 

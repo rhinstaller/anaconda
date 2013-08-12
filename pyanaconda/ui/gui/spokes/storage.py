@@ -97,6 +97,15 @@ class InstallOptions1Dialog(GUIObject):
         self.showReclaim = kwargs.pop("showReclaim", None)
         GUIObject.__init__(self, *args, **kwargs)
 
+        self.autoPartType = None
+        self.encrypted = False
+
+        self._grabObjects()
+
+    def _grabObjects(self):
+        self.autoPartTypeCombo = self.builder.get_object("options1_combo")
+        self.encryptCheckbutton = self.builder.get_object("encryption1_checkbutton")
+
     def run(self):
         rc = self.window.run()
         self.window.destroy()
@@ -104,11 +113,9 @@ class InstallOptions1Dialog(GUIObject):
 
     def refresh(self, required_space, auto_swap, disk_free, fs_free, autoPartType, encrypted):
         self.autoPartType = autoPartType
-        self.autoPartTypeCombo = self.builder.get_object("options1_combo")
         self.autoPartTypeCombo.set_active(self.autoPartType)
 
         self.encrypted = encrypted
-        self.encryptCheckbutton = self.builder.get_object("encryption1_checkbutton")
         self.encryptCheckbutton.set_active(self.encrypted)
 
         options_label = self.builder.get_object("options1_label")
@@ -153,13 +160,6 @@ class InstallOptions1Dialog(GUIObject):
             return self.RESPONSE_CONTINUE_CUSTOM
         else:
             return self.RESPONSE_CONTINUE_NONE
-
-    def _set_free_space_labels(self, disk_free, fs_free):
-        disk_free_text = size_str(disk_free)
-        self.disk_free_label.set_text(disk_free_text)
-
-        fs_free_text = size_str(fs_free)
-        self.fs_free_label.set_text(fs_free_text)
 
     def _modify_sw_link_clicked(self, label, uri):
         if self._software_is_ready():
@@ -216,13 +216,24 @@ class InstallOptions2Dialog(InstallOptions1Dialog):
     builderObjects = ["options2_dialog"]
     mainWidgetName = "options2_dialog"
 
+    def _grabObjects(self):
+        self.autoPartTypeCombo = self.builder.get_object("options2_combo")
+        self.encryptCheckbutton = self.builder.get_object("encryption2_checkbutton")
+        self.disk_free_label = self.builder.get_object("options2_disk_free_label")
+        self.fs_free_label = self.builder.get_object("options2_fs_free_label")
+
+    def _set_free_space_labels(self, disk_free, fs_free):
+        disk_free_text = size_str(disk_free)
+        self.disk_free_label.set_text(disk_free_text)
+
+        fs_free_text = size_str(fs_free)
+        self.fs_free_label.set_text(fs_free_text)
+
     def refresh(self, required_space, auto_swap, disk_free, fs_free, autoPartType, encrypted):
         self.autoPartType = autoPartType
-        self.autoPartTypeCombo = self.builder.get_object("options2_combo")
         self.autoPartTypeCombo.set_active(self.autoPartType)
 
         self.encrypted = encrypted
-        self.encryptCheckbutton = self.builder.get_object("encryption2_checkbutton")
         self.encryptCheckbutton.set_active(self.encrypted)
 
         sw_text = self._get_sw_needs_text(required_space, auto_swap)
@@ -233,8 +244,6 @@ class InstallOptions2Dialog(InstallOptions1Dialog):
         label.set_tooltip_text(_("Please wait... software metadata still loading."))
         label.connect("activate-link", self._modify_sw_link_clicked)
 
-        self.disk_free_label = self.builder.get_object("options2_disk_free_label")
-        self.fs_free_label = self.builder.get_object("options2_fs_free_label")
         self._set_free_space_labels(disk_free, fs_free)
 
         label_text = _("<b>You don't have enough space available to install "
@@ -254,6 +263,17 @@ class InstallOptions3Dialog(InstallOptions1Dialog):
     builderObjects = ["options3_dialog"]
     mainWidgetName = "options3_dialog"
 
+    def _grabObjects(self):
+        self.disk_free_label = self.builder.get_object("options3_disk_free_label")
+        self.fs_free_label = self.builder.get_object("options3_fs_free_label")
+
+    def _set_free_space_labels(self, disk_free, fs_free):
+        disk_free_text = size_str(disk_free)
+        self.disk_free_label.set_text(disk_free_text)
+
+        fs_free_text = size_str(fs_free)
+        self.fs_free_label.set_text(fs_free_text)
+
     def refresh(self, required_space, auto_swap, disk_free, fs_free, autoPartType, encrypted):
         sw_text = self._get_sw_needs_text(required_space, auto_swap)
         label_text = (_("%(sw_text)s You don't have enough space available to install "
@@ -265,8 +285,6 @@ class InstallOptions3Dialog(InstallOptions1Dialog):
         label.set_tooltip_text(_("Please wait... software metadata still loading."))
         label.connect("activate-link", self._modify_sw_link_clicked)
 
-        self.disk_free_label = self.builder.get_object("options3_disk_free_label")
-        self.fs_free_label = self.builder.get_object("options3_fs_free_label")
         self._set_free_space_labels(disk_free, fs_free)
 
         label_text = _("<b>You don't have enough space available to install "
@@ -321,6 +339,9 @@ class StorageSpoke(NormalSpoke, StorageChecker):
         self.applyOnSkip = True
 
         self._ready = False
+        self.autoPartType = None
+        self.encrypted = False
+        self.passphrase = ""
         self.selected_disks = self.data.ignoredisk.onlyuse[:]
 
         # This list contains all possible disks that can be included in the install.

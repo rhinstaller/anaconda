@@ -71,6 +71,18 @@ class ProxyDialog(GUIObject):
     mainWidgetName = "proxyDialog"
     uiFile = "spokes/source.glade"
 
+    def __init__(self, data):
+        GUIObject.__init__(self, data)
+
+        self._proxyCheck = self.builder.get_object("enableProxyCheck")
+        self._proxyInfoBox = self.builder.get_object("proxyInfoBox")
+        self._authCheck = self.builder.get_object("enableAuthCheck")
+        self._proxyAuthBox = self.builder.get_object("proxyAuthBox")
+
+        self._proxyURLEntry = self.builder.get_object("proxyURLEntry")
+        self._proxyUsernameEntry = self.builder.get_object("proxyUsernameEntry")
+        self._proxyPasswordEntry = self.builder.get_object("proxyPasswordEntry")
+
     def on_proxy_cancel_clicked(self, *args):
         self.window.destroy()
 
@@ -110,15 +122,6 @@ class ProxyDialog(GUIObject):
     def refresh(self):
         GUIObject.refresh(self)
 
-        self._proxyCheck = self.builder.get_object("enableProxyCheck")
-        self._proxyInfoBox = self.builder.get_object("proxyInfoBox")
-        self._authCheck = self.builder.get_object("enableAuthCheck")
-        self._proxyAuthBox = self.builder.get_object("proxyAuthBox")
-
-        self._proxyURLEntry = self.builder.get_object("proxyURLEntry")
-        self._proxyUsernameEntry = self.builder.get_object("proxyUsernameEntry")
-        self._proxyPasswordEntry = self.builder.get_object("proxyPasswordEntry")
-
         if not self.data.method.proxy:
             self._proxyCheck.set_active(False)
             self.on_proxy_enable_toggled(self._proxyCheck)
@@ -149,6 +152,10 @@ class MediaCheckDialog(GUIObject):
     builderObjects = ["mediaCheckDialog"]
     mainWidgetName = "mediaCheckDialog"
     uiFile = "spokes/source.glade"
+
+    def __init__(self, data):
+        GUIObject.__init__(self, data)
+        self.progressBar = self.builder.get_object("mediaCheck-progressBar")
 
     def _checkisoEndsCB(self, pid, status):
         doneButton = self.builder.get_object("doneButton")
@@ -181,8 +188,6 @@ class MediaCheckDialog(GUIObject):
         return True
 
     def run(self, devicePath):
-        self.progressBar = self.builder.get_object("mediaCheck-progressBar")
-
         (retval, pid, stdin, stdout, stderr) = \
             GLib.spawn_async_with_pipes(None, ["checkisomd5", "--gauge", devicePath], [],
                                         GLib.SpawnFlags.DO_NOT_REAP_CHILD|GLib.SpawnFlags.SEARCH_PATH,
@@ -217,9 +222,12 @@ class IsoChooser(GUIObject):
     mainWidgetName = "isoChooserDialog"
     uiFile = "spokes/source.glade"
 
+    def __init__(self, data):
+        GUIObject.__init__(self, data)
+        self._chooser = self.builder.get_object("isoChooser")
+
     def refresh(self, currentFile=""):
         GUIObject.refresh(self)
-        self._chooser = self.builder.get_object("isoChooser")
         self._chooser.connect("current-folder-changed", self.on_folder_changed)
         self._chooser.set_filename(constants.ISO_DIR + "/" + currentFile)
 

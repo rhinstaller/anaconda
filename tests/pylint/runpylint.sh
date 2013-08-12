@@ -63,6 +63,7 @@ for i in $(find pyanaconda -type f -name '*py'); do
       sys.path.insert(4, "pyanaconda/.libs")' \
     -i y -r n --disable=C,R --rcfile=/dev/null \
     --ignored-classes=Popen,QueueFactory,TransactionSet \
+    --defining-attr-methods=__init__,_grabObjects,initialize,reset,start \
     $DISABLED_WARN_OPTIONS \
     $DISABLED_ERR_OPTIONS \
     $NON_STRICT_OPTIONS $i | \

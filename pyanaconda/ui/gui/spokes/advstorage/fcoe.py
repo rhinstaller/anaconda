@@ -40,17 +40,18 @@ class FCoEDialog(GUIObject):
         self.storage = storage
         self.fcoe = self.storage.fcoe()
 
-    def refresh(self):
         self._addButton = self.builder.get_object("addButton")
         self._cancelButton = self.builder.get_object("cancelButton")
         self._addSpinner = self.builder.get_object("addSpinner")
         self._errorBox = self.builder.get_object("errorBox")
 
         self._nicCombo = self.builder.get_object("nicCombo")
-        self._nicCombo.remove_all()
 
         self._dcbCheckbox = self.builder.get_object("dcbCheckbox")
         self._autoCheckbox = self.builder.get_object("autoCheckbox")
+
+    def refresh(self):
+        self._nicCombo.remove_all()
 
         for devname in nm.nm_devices():
             if not nm.nm_device_type_is_ethernet(devname):

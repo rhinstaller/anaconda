@@ -389,6 +389,7 @@ class XklWrapper(object):
         self._language_keyboard_variants = dict()
         self._country_keyboard_variants = dict()
         self._switching_options = list()
+        self._variants_list = list()
 
         #we want to display layouts as 'language (description)'
         self.name_to_show_str = dict()
