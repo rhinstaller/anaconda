@@ -100,7 +100,19 @@ AC_CHECK_FUNCS([dup2 fdatasync ftruncate getcwd gethostbyname gettimeofday \
                [AC_MSG_FAILURE([*** Required function $ac_func not found.])])
 
 AM_PATH_PYTHON(python_required_version)
-AM_CHECK_PYTHON_HEADERS(,[AC_MSG_ERROR(could not find Python headers or library)])
+
+# Check for the python extension paths
+PKG_CHECK_MODULES([PYTHON], [python], [
+    LIBS_save="$LIBS"
+    LIBS="$LIBS $PYTHON_LIBS"
+    AC_MSG_CHECKING([Python libraries])
+    AC_TRY_LINK_FUNC([Py_Initialize], 
+                     [AC_MSG_RESULT([yes])], 
+                     [AC_MSG_RESULT([no])
+                      AC_MSG_FAILURE([*** Unable to use python library])])
+    LIBS="$LIBS_save"
+    ],
+    [AC_MSG_FAILURE([*** Unable to find python library])])
 
 # Check for libraries we need that provide pkg-config scripts
 PKG_PROG_PKG_CONFIG([0.23])
