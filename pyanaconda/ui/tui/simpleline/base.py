@@ -616,7 +616,7 @@ class Widget(object):
         """This has to return list (rows) of lists (columns) with one character elements."""
         return self._buffer
 
-    def render(self, width = None):
+    def render(self, width):
         """This method has to redraw the widget's self._buffer.
 
            :param width: the width of buffer requested by the caller

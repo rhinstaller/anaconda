@@ -98,12 +98,15 @@ class EditTUIDialog(NormalTUISpoke):
         NormalTUISpoke.__init__(self, app, data, storage, payload, instclass)
         self.value = None
 
-    def refresh(self, args):
+    def refresh(self, args = None):
         self._window = []
         self.value = None
         return True
 
-    def prompt(self, entry):
+    def prompt(self, entry = None):
+        if not entry:
+            return None
+
         if entry.aux == self.PASSWORD:
             pw = self._app.raw_input(_("%s: ") % entry.title, hidden=True)
             confirm = self._app.raw_input(_("%s (confirm): ") % entry.title, hidden=True)
@@ -141,10 +144,14 @@ class OneShotEditTUIDialog(EditTUIDialog):
        the value is read
     """
 
-    def prompt(self, entry):
-        ret = EditTUIDialog.prompt(self, entry)
-        if ret is None:
-            self.close()
+    def prompt(self, entry = None):
+        ret = None
+
+        if entry:
+            ret = EditTUIDialog.prompt(self, entry)
+            if ret is None:
+                self.close()
+
         return ret
 
 class EditTUISpoke(NormalTUISpoke):

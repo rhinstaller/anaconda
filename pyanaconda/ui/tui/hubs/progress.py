@@ -94,7 +94,7 @@ class ProgressHub(TUIHub):
             q.task_done()
         return True
 
-    def refresh(self, args):
+    def refresh(self, args = None):
         from pyanaconda.install import doInstall, doConfiguration
         from pyanaconda.threads import threadMgr, AnacondaThread
 
