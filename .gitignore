@@ -14,6 +14,7 @@
 .depend
 .deps
 .libs
+ABOUT-NLS
 ChangeLog
 Makefile
 Makefile.in
@@ -27,6 +28,7 @@ config.guess
 config.h
 config.h.in
 config.log
+config.rpath
 config.status
 config.sub
 configure
@@ -44,10 +46,14 @@ ltoptions.m4
 ltsugar.m4
 ltversion.m4
 lt~obsolete.m4
+m4/*.m4
 missing
 po/*.gmo
 po/*.po
+po/Makefile.in.in
+po/Makevars.template
 po/POTFILES
+po/Rules-quot
 po/en@boldquot.insert-header
 po/en@boldquot.po
 po/en@quot.insert-header

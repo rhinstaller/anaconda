@@ -39,6 +39,7 @@ AC_PROG_MAKE_SET
 AC_PROG_LIBTOOL
 
 AM_GNU_GETTEXT([external])
+AM_GNU_GETTEXT_VERSION([0.18.1])
 
 # Checks for libraries.
 AC_CHECK_LIB([X11], [XGetWindowAttributes],

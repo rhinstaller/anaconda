@@ -1,4 +1,5 @@
-#!/bin/bash
+#!/bin/bash 
+autopoint --force
 aclocal -I m4
 libtoolize --copy --force
 autoconf
