@@ -20,7 +20,6 @@
 #
 
 from snack import ButtonBar, ButtonChoiceWindow, Entry, GridForm, Scale, TextboxReflowed
-import string
 from constants_text import TEXT_OK_BUTTON, TEXT_CANCEL_BUTTON, TEXT_OK_CHECK
 from pyanaconda.i18n import _
 
@@ -51,7 +50,7 @@ class OkCancelWindow:
 
     def __init__(self, screen, title, text):
         rc = ButtonChoiceWindow(screen, title, text, buttons=[TEXT_OK_BUTTON, _("Cancel")])
-        if rc == string.lower(_("Cancel")):
+        if rc == _("Cancel").lower():
             self.rc = 1
         else:
             self.rc = 0

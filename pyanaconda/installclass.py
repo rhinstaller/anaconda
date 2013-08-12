@@ -23,7 +23,6 @@
 
 from distutils.sysconfig import get_python_lib
 import os, sys
-import string
 import imputil
 
 from blivet.partspec import PartSpec
@@ -168,7 +167,7 @@ def availableClasses(showHidden=0):
             continue
         if fileName[-3:] != ".py" and fileName[-4:-1] != ".py":
             continue
-        mainName = string.split(fileName, ".")[0]
+        mainName = fileName.split(".")[0]
         if done.has_key(mainName):
             continue
         done[mainName] = 1

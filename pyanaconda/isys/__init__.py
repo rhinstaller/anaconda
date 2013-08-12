@@ -29,7 +29,6 @@ except ImportError:
     # up PYTHONPATH and just do this basic import.
     import _isys
 
-import string
 import os
 import os.path
 import socket
