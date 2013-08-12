@@ -1,10 +1,10 @@
-#!/bin/bash
-aclocal -I m4
+#!/bin/bash -e
+[ -d m4 ] || mkdir m4
 libtoolize --copy --force
-gtkdocize
+gtkdocize --copy
+aclocal -I m4
 autoconf
-autoheader
-touch config.h.in
+autoheader --force
 automake --foreign --add-missing --copy
 rm -rf autom4te.cache
-ln -sf /usr/share/gettext/gettext.h src
+cp -f /usr/share/gettext/gettext.h src
