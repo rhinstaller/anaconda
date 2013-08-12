@@ -926,10 +926,6 @@ class BootLoader(object):
         config.close()
         self.write_config_post()
 
-    def read(self):
-        """ Read an existing bootloader configuration. """
-        raise NotImplementedError()
-
     @property
     def trusted_boot(self):
         return self._trusted_boot
