@@ -1150,14 +1150,12 @@ class DeviceTree(object):
         # reinitialized the disklabel.
         #
         # Also ignore partitions on devices we do not support partitioning
-        # of, like logical volumes.
-        if not getattr(disk.format, "partitions", None) or \
-           not disk.partitionable:
-            # When we got here because the disk does not have a disklabel
-            # format (ie a biosraid member), or because it is not
-            # partitionable we want LVM to ignore this partition too
-            if disk.format.type != "disklabel" or not disk.partitionable:
+        # of, like logical volumes, though there's no need to filter partitions
+        # on members of multipaths or fwraid
+        if not getattr(disk.format, "partitions", None) or not disk.partitionable:
+            if not disk.format.hidden:
                 lvm.lvm_cc_addFilterRejectRegexp(name)
+
             log.debug("ignoring partition %s" % name)
             return
 
