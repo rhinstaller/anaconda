@@ -22,9 +22,10 @@ DISABLED_ERR_OPTIONS="--disable=E1103"
 # W0403 - Relative import %r, should be %r
 # W0511 - Used when a warning note as FIXME or XXX is detected.
 # W0603 - Using the global statement
+# W0604 - Using the global statement at the module level
 # W0613 - Unused argument %r
 # W0614 - Unused import %s from wildcard import
-DISABLED_WARN_OPTIONS="--disable=W0141,W0142,W0223,W0403,W0511,W0603,W0613,W0614"
+DISABLED_WARN_OPTIONS="--disable=W0141,W0142,W0223,W0403,W0511,W0603,W0604,W0613,W0614"
 
 usage () {
   echo "usage: `basename $0` [--strict] [--help]"
@@ -61,7 +62,7 @@ for i in anaconda $(find pyanaconda -type f -name '*py' \! -executable); do
       sys.path.insert(2, "pyanaconda/isys"); \
       sys.path.insert(3, "pyanaconda")' \
     -i y -r n --disable=C,R --rcfile=/dev/null \
-    --ignored-classes=Popen,QueueFactory,TransactionSet \
+    --ignored-classes=DefaultInstall,Popen,QueueFactory,TransactionSet \
     --defining-attr-methods=__init__,_grabObjects,initialize,reset,start \
     $DISABLED_WARN_OPTIONS \
     $DISABLED_ERR_OPTIONS \
