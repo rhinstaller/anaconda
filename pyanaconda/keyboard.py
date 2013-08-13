@@ -34,6 +34,7 @@ keymaps.
 
 import types
 import os
+import re
 import shutil
 
 from pyanaconda import iutil
@@ -51,32 +52,48 @@ LOCALED_SERVICE = "org.freedesktop.locale1"
 LOCALED_OBJECT_PATH = "/org/freedesktop/locale1"
 LOCALED_IFACE = "org.freedesktop.locale1"
 
-DEFAULT_VC_FONT = "latarcyrheb-sun16"
+# should match and parse strings like 'cz' or 'cz (qwerty)' regardless of white
+# space
+LAYOUT_VARIANT_RE = re.compile(r'^\s*(\w+)\s*' # layout plus
+                               r'(?:(?:\(\s*(\w+)\s*\))' # variant in parentheses
+                               r'|(?:$))\s*') # or nothing
 
 class KeyboardConfigError(Exception):
     """Exception class for keyboard configuration related problems"""
 
     pass
 
-def _parse_layout_variant(layout):
+class InvalidLayoutVariantSpec(Exception):
+    """
+    Exception class for errors related to parsing layout and variant specification strings.
+
+    """
+
+    pass
+
+def _parse_layout_variant(layout_variant_str):
     """
     Parse layout and variant from the string that may look like 'layout' or
     'layout (variant)'.
 
+    :param layout_variant_str: keyboard layout and variant string specification
+    :type layout_variant_str: str
     :return: the (layout, variant) pair, where variant can be ""
     :rtype: tuple
+    :raise InvalidLayoutVariantSpec: if the given string isn't a valid layout
+                                     and variant specification string
 
     """
 
-    variant = ""
+    match = LAYOUT_VARIANT_RE.match(layout_variant_str)
+    if not match:
+        msg = "'%s' is not a valid keyboard layout and variant specification" % layout_variant_str
+        raise InvalidLayoutVariantSpec(msg)
 
-    lbracket_idx = layout.find("(")
-    rbracket_idx = layout.rfind(")")
-    if lbracket_idx != -1:
-        variant = layout[(lbracket_idx + 1) : rbracket_idx]
-        layout = layout[:lbracket_idx].strip()
+    layout, variant = match.groups()
 
-    return (layout, variant)
+    # groups may be (layout, None) if no variant was specified
+    return (layout, variant or "")
 
 def _join_layout_variant(layout, variant=""):
     """
@@ -502,12 +519,15 @@ class XklWrapper(object):
         'cz (qwerty)').
 
         :param layout: either 'layout' or 'layout (variant)'
-        :raise XklWrapperError: if the given layout cannot be added
+        :raise XklWrapperError: if the given layout is invalid or cannot be added
 
         """
 
-        #we can get 'layout' or 'layout (variant)'
-        (layout, variant) = _parse_layout_variant(layout)
+        try:
+            #we can get 'layout' or 'layout (variant)'
+            (layout, variant) = _parse_layout_variant(layout)
+        except InvalidLayoutVariantSpec as ilverr:
+            raise XklWrapperError("Failed to add layout: %s" % ilverr)
 
         #do not add the same layout-variant combinanion multiple times
         if (layout, variant) in zip(self._rec.layouts, self._rec.variants):
