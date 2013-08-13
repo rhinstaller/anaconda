@@ -89,7 +89,7 @@ class Hub(GUIObject, common.Hub):
         # mode, but if the user interacts with the hub, it will be
         # disabled again
         self._autoContinue = flags.automatedInstall
-        
+
         self._incompleteSpokes = []
         self._inSpoke = False
         self._notReadySpokes = []
@@ -298,8 +298,11 @@ class Hub(GUIObject, common.Hub):
     @property
     def continuePossible(self):
         return len(self._incompleteSpokes) == 0 and len(self._notReadySpokes) == 0 and getattr(self._checker, "success", True)
-        
+
     def _updateContinueButton(self):
+        if not self.continueButton:
+            return
+
         self.continueButton.set_sensitive(self.continuePossible)
 
     def _update_spokes(self):
@@ -308,7 +311,7 @@ class Hub(GUIObject, common.Hub):
 
         q = hubQ.q
 
-        if not self._spokes:
+        if not self._spokes and self.continueButton:
             # no spokes, move on
             gtk_call_once(self.continueButton.emit, "clicked")
 
@@ -360,7 +363,7 @@ class Hub(GUIObject, common.Hub):
                     if self.continuePossible:
                         if self._inSpoke:
                             self._autoContinue = False
-                        elif self._autoContinue:
+                        elif self._autoContinue and q.empty() and self.continueButton:
                             click_continue = True
 
             elif code == hubQ.HUB_CODE_MESSAGE:
@@ -383,12 +386,20 @@ class Hub(GUIObject, common.Hub):
 
         GLib.timeout_add(100, self._update_spokes)
 
+    @property
+    def continueButton(self):
+        return None
+
+    @property
+    def quitButton(self):
+        return None
+
     ### SIGNAL HANDLERS
 
     def register_event_cb(self, event, cb):
-        if event == "continue" and hasattr(self, "continueButton"):
+        if event == "continue" and self.continueButton:
             self.continueButton.connect("clicked", lambda *args: cb())
-        elif event == "quit" and hasattr(self, "quitButton"):
+        elif event == "quit" and self.quitButton:
             self.quitButton.connect("clicked", lambda *args: cb())
 
     def _on_spoke_clicked(self, selector, event, spoke):
