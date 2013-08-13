@@ -222,6 +222,18 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Mon Aug 12 2013 Samantha N. Bueno <sbueno+anaconda@redhat.com> - 13.21.202-1
+- Add support for preexisting lvm using raid segment types. (dlehman)
+  Resolves: rhbz#873281
+- Add a bit of padding for metadata in new md size estimates. (dlehman)
+  Resolves: rhbz#895982
+- Expand warning text for package install issues. (sbueno+anaconda)
+  Resolves: rhbz#895098
+- Don't filter partitions on mpath devices in lvm (sbueno+anaconda)
+  Resolves: rhbz#885755
+- Move "nousbstorage" and "nousb" handling into init.c. (clumens)
+  Resolves: rhbz#947704
+
 * Wed Aug 07 2013 Samantha N. Bueno <sbueno+anaconda@redhat.com> - 13.21.201-1
 - Ensure x86 /boot is on a partition < 2TB (dshea)
   Resolves: rhbz#915666

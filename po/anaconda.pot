@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: anaconda 13.21.200\n"
+"Project-Id-Version: anaconda 13.21.201\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
-"POT-Creation-Date: 2013-08-07 17:33-0400\n"
+"POT-Creation-Date: 2013-08-12 21:00-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -33,22 +33,21 @@ msgstr ""
 #: loader/driverselect.c:178 loader/hdinstall.c:117 loader/hdinstall.c:268
 #: loader/hdinstall.c:327 loader/hdinstall.c:362 loader/hdinstall.c:442
 #: loader/hdinstall.c:492 loader/hdinstall.c:505 loader/kbd.c:119
-#: loader/kickstart.c:138 loader/kickstart.c:148 loader/kickstart.c:190
-#: loader/kickstart.c:195 loader/kickstart.c:302 loader/kickstart.c:334
-#: loader/kickstart.c:524 loader/lang.c:114 loader/lang.c:373
-#: loader/loader.c:443 loader/loader.c:479 loader/loader.c:519
-#: loader/loader.c:537 loader/loader.c:554 loader/loader.c:591
-#: loader/loader.c:1252 loader/loader.c:1281 loader/loader.c:1496
-#: loader/mediacheck.c:46 loader/mediacheck.c:85 loader/mediacheck.c:92
-#: loader/mediacheck.c:96 loader/mediacheck.c:105 loader/method.c:277
-#: loader/method.c:351 loader/modules.c:396 loader/modules.c:412
-#: loader/net.c:607 loader/net.c:991 loader/net.c:1798 loader/net.c:1822
-#: loader/net.c:2180 loader/net.c:2199 loader/net.c:2211
-#: loader/nfsinstall.c:91 loader/nfsinstall.c:279 loader/nfsinstall.c:296
-#: loader/nfsinstall.c:384 loader/telnetd.c:92 loader/urlinstall.c:137
-#: loader/urlinstall.c:159 loader/urlinstall.c:221 loader/urlinstall.c:374
-#: loader/urlinstall.c:385 loader/urlinstall.c:392 loader/urls.c:268
-#: loader/urls.c:339 loader/urls.c:345 loader/urls.c:354
+#: loader/kickstart.c:140 loader/kickstart.c:150 loader/kickstart.c:192
+#: loader/kickstart.c:197 loader/kickstart.c:304 loader/kickstart.c:336
+#: loader/kickstart.c:526 loader/kickstart.c:572 loader/kickstart.c:588
+#: loader/lang.c:114 loader/lang.c:373 loader/loader.c:443 loader/loader.c:479
+#: loader/loader.c:519 loader/loader.c:537 loader/loader.c:554
+#: loader/loader.c:591 loader/loader.c:1246 loader/loader.c:1275
+#: loader/loader.c:1490 loader/mediacheck.c:46 loader/mediacheck.c:85
+#: loader/mediacheck.c:92 loader/mediacheck.c:96 loader/mediacheck.c:105
+#: loader/method.c:277 loader/method.c:351 loader/net.c:607 loader/net.c:991
+#: loader/net.c:1798 loader/net.c:1822 loader/net.c:2180 loader/net.c:2199
+#: loader/net.c:2211 loader/nfsinstall.c:91 loader/nfsinstall.c:279
+#: loader/nfsinstall.c:296 loader/nfsinstall.c:384 loader/telnetd.c:92
+#: loader/urlinstall.c:137 loader/urlinstall.c:159 loader/urlinstall.c:221
+#: loader/urlinstall.c:374 loader/urlinstall.c:385 loader/urlinstall.c:392
+#: loader/urls.c:268 loader/urls.c:339 loader/urls.c:345 loader/urls.c:354
 #: textw/constants_text.py:44
 msgid "OK"
 msgstr ""
@@ -266,7 +265,7 @@ msgstr ""
 
 #: gui.py:726 gui.py:1521 partIntfHelpers.py:160 partIntfHelpers.py:345
 #: text.py:100 text.py:101 iw/account_gui.py:131 loader/dirbrowser.c:128
-#: loader/driverdisk.c:479 loader/kickstart.c:334 loader/loader.c:479
+#: loader/driverdisk.c:479 loader/kickstart.c:336 loader/loader.c:479
 #: loader/loader.c:591 textw/constants_text.py:48 textw/userauth_text.py:87
 msgid "Cancel"
 msgstr ""
@@ -481,9 +480,9 @@ msgstr ""
 #: loader/driverdisk.c:294 loader/driverdisk.c:545 loader/driverdisk.c:586
 #: loader/driverdisk.c:614 loader/driverdisk.c:622 loader/driverdisk.c:694
 #: loader/hdinstall.c:117 loader/hdinstall.c:327 loader/hdinstall.c:442
-#: loader/hdinstall.c:492 loader/hdinstall.c:505 loader/kickstart.c:302
+#: loader/hdinstall.c:492 loader/hdinstall.c:505 loader/kickstart.c:304
 #: loader/lang.c:114 loader/loader.c:443 loader/loader.c:554
-#: loader/loader.c:1252 loader/mediacheck.c:46 loader/mediacheck.c:85
+#: loader/loader.c:1246 loader/mediacheck.c:46 loader/mediacheck.c:85
 #: loader/mediacheck.c:92 loader/mediacheck.c:96 loader/method.c:277
 #: loader/method.c:351 loader/nfsinstall.c:279 loader/nfsinstall.c:296
 #: loader/telnetd.c:92 loader/urlinstall.c:137 loader/urlinstall.c:159
@@ -918,7 +917,7 @@ msgstr ""
 msgid "You must first select a partition to delete."
 msgstr ""
 
-#: partIntfHelpers.py:156 partIntfHelpers.py:344 iw/lvm_dialog_gui.py:887
+#: partIntfHelpers.py:156 partIntfHelpers.py:344 iw/lvm_dialog_gui.py:890
 msgid "Confirm Delete"
 msgstr ""
 
@@ -927,9 +926,9 @@ msgstr ""
 msgid "You are about to delete all partitions on the device '%s'."
 msgstr ""
 
-#: partIntfHelpers.py:160 partIntfHelpers.py:345 iw/lvm_dialog_gui.py:890
-#: iw/lvm_dialog_gui.py:1510 iw/osbootwidget.py:104 iw/partition_gui.py:1860
-#: iw/partition_gui.py:1877
+#: partIntfHelpers.py:160 partIntfHelpers.py:345 iw/lvm_dialog_gui.py:893
+#: iw/lvm_dialog_gui.py:1514 iw/osbootwidget.py:104 iw/partition_gui.py:1861
+#: iw/partition_gui.py:1878
 msgid "_Delete"
 msgstr ""
 
@@ -1816,10 +1815,10 @@ msgstr ""
 
 #: yuminstall.py:1632
 msgid ""
-"Some of the packages you have selected for install are missing "
-"dependencies.  You can exit the installation, go back and change your "
-"package selections, or continue installing these packages without their "
-"dependencies."
+"Some of the packages you have selected for install are missing dependencies "
+"or conflict with another package. You can exit the installation, go back and "
+"change your package selections, or continue installing these packages "
+"without their dependencies."
 msgstr ""
 
 #: yuminstall.py:1674
@@ -2382,24 +2381,24 @@ msgstr ""
 msgid "What language would you like to use during the installation process?"
 msgstr ""
 
-#: iw/lvm_dialog_gui.py:128 iw/lvm_dialog_gui.py:174 iw/lvm_dialog_gui.py:188
-#: iw/lvm_dialog_gui.py:227 iw/lvm_dialog_gui.py:304 iw/lvm_dialog_gui.py:703
-#: iw/lvm_dialog_gui.py:724
+#: iw/lvm_dialog_gui.py:129 iw/lvm_dialog_gui.py:175 iw/lvm_dialog_gui.py:189
+#: iw/lvm_dialog_gui.py:228 iw/lvm_dialog_gui.py:305 iw/lvm_dialog_gui.py:704
+#: iw/lvm_dialog_gui.py:725
 msgid "Not enough space"
 msgstr ""
 
-#: iw/lvm_dialog_gui.py:129
+#: iw/lvm_dialog_gui.py:130
 msgid ""
 "The physical extent size cannot be changed because otherwise the space "
 "required by the currently defined logical volumes will be increased to more "
 "than the available space."
 msgstr ""
 
-#: iw/lvm_dialog_gui.py:138
+#: iw/lvm_dialog_gui.py:139
 msgid "Confirm Physical Extent Change"
 msgstr ""
 
-#: iw/lvm_dialog_gui.py:139
+#: iw/lvm_dialog_gui.py:140
 msgid ""
 "This change in the value of the physical extent will require the sizes of "
 "the current logical volume requests to be rounded up in size to an integer "
@@ -2408,11 +2407,11 @@ msgid ""
 "This change will take effect immediately."
 msgstr ""
 
-#: iw/lvm_dialog_gui.py:148 iw/lvm_dialog_gui.py:210
+#: iw/lvm_dialog_gui.py:149 iw/lvm_dialog_gui.py:211
 msgid "C_ontinue"
 msgstr ""
 
-#: iw/lvm_dialog_gui.py:175
+#: iw/lvm_dialog_gui.py:176
 #, python-format
 msgid ""
 "The physical extent size cannot be changed because the value selected (%"
@@ -2420,7 +2419,7 @@ msgid ""
 "10.2f MB) in the volume group."
 msgstr ""
 
-#: iw/lvm_dialog_gui.py:189
+#: iw/lvm_dialog_gui.py:190
 #, python-format
 msgid ""
 "The physical extent size cannot be changed because the value selected (%"
@@ -2428,17 +2427,17 @@ msgid ""
 "volume (%(maxpvsize)10.2f MB) in the volume group."
 msgstr ""
 
-#: iw/lvm_dialog_gui.py:203
+#: iw/lvm_dialog_gui.py:204
 msgid "Too small"
 msgstr ""
 
-#: iw/lvm_dialog_gui.py:204
+#: iw/lvm_dialog_gui.py:205
 msgid ""
 "This change in the value of the physical extent will waste substantial space "
 "on one or more of the physical volumes in the volume group."
 msgstr ""
 
-#: iw/lvm_dialog_gui.py:228
+#: iw/lvm_dialog_gui.py:229
 #, python-format
 msgid ""
 "The physical extent size cannot be changed because the resulting maximum "
@@ -2446,104 +2445,104 @@ msgid ""
 "defined logical volumes."
 msgstr ""
 
-#: iw/lvm_dialog_gui.py:305
+#: iw/lvm_dialog_gui.py:306
 msgid ""
 "You cannot remove this physical volume because otherwise the volume group "
 "will be too small to hold the currently defined logical volumes."
 msgstr ""
 
-#: iw/lvm_dialog_gui.py:405
+#: iw/lvm_dialog_gui.py:406
 msgid "Make Logical Volume"
 msgstr ""
 
-#: iw/lvm_dialog_gui.py:407
+#: iw/lvm_dialog_gui.py:408
 #, python-format
 msgid "Edit Logical Volume: %s"
 msgstr ""
 
-#: iw/lvm_dialog_gui.py:446 iw/raid_dialog_gui.py:449
+#: iw/lvm_dialog_gui.py:447 iw/raid_dialog_gui.py:449
 msgid "_File System Type:"
 msgstr ""
 
-#: iw/lvm_dialog_gui.py:452
+#: iw/lvm_dialog_gui.py:453
 msgid "_Logical Volume Name:"
 msgstr ""
 
-#: iw/lvm_dialog_gui.py:461 iw/partition_dialog_gui.py:502
+#: iw/lvm_dialog_gui.py:462 iw/partition_dialog_gui.py:502
 msgid "_Size (MB):"
 msgstr ""
 
-#: iw/lvm_dialog_gui.py:468
+#: iw/lvm_dialog_gui.py:469
 #, python-format
 msgid "(Max size is %s MB)"
 msgstr ""
 
-#: iw/lvm_dialog_gui.py:473 iw/partition_dialog_gui.py:554
+#: iw/lvm_dialog_gui.py:474 iw/partition_dialog_gui.py:554
 #: iw/partition_ui_helpers_gui.py:333 iw/raid_dialog_gui.py:421
 msgid "_Encrypt"
 msgstr ""
 
-#: iw/lvm_dialog_gui.py:482 iw/partition_dialog_gui.py:484
+#: iw/lvm_dialog_gui.py:483 iw/partition_dialog_gui.py:484
 #: iw/raid_dialog_gui.py:459
 msgid "Original File System Type:"
 msgstr ""
 
-#: iw/lvm_dialog_gui.py:487 iw/partition_dialog_gui.py:492
+#: iw/lvm_dialog_gui.py:488 iw/partition_dialog_gui.py:492
 #: iw/raid_dialog_gui.py:466
 msgid "Original File System Label:"
 msgstr ""
 
-#: iw/lvm_dialog_gui.py:492
+#: iw/lvm_dialog_gui.py:493
 msgid "Logical Volume Name:"
 msgstr ""
 
-#: iw/lvm_dialog_gui.py:496
+#: iw/lvm_dialog_gui.py:497
 msgid "Size (MB):"
 msgstr ""
 
-#: iw/lvm_dialog_gui.py:523 iw/partition_dialog_gui.py:435
+#: iw/lvm_dialog_gui.py:524 iw/partition_dialog_gui.py:435
 #: iw/raid_dialog_gui.py:440
 msgid "_Mount Point:"
 msgstr ""
 
-#: iw/lvm_dialog_gui.py:604 iw/partition_dialog_gui.py:118
+#: iw/lvm_dialog_gui.py:605 iw/partition_dialog_gui.py:118
 #: iw/raid_dialog_gui.py:171
 msgid "Mount Point Error"
 msgstr ""
 
-#: iw/lvm_dialog_gui.py:615
+#: iw/lvm_dialog_gui.py:616
 msgid "Illegal Logical Volume Name"
 msgstr ""
 
-#: iw/lvm_dialog_gui.py:631
+#: iw/lvm_dialog_gui.py:632
 msgid "Illegal logical volume name"
 msgstr ""
 
-#: iw/lvm_dialog_gui.py:632
+#: iw/lvm_dialog_gui.py:633
 #, python-format
 msgid "The logical volume name \"%s\" is already in use. Please pick another."
 msgstr ""
 
-#: iw/lvm_dialog_gui.py:674 iw/partition_dialog_gui.py:134
+#: iw/lvm_dialog_gui.py:675 iw/partition_dialog_gui.py:134
 #: iw/raid_dialog_gui.py:187
 msgid "Mount point in use"
 msgstr ""
 
-#: iw/lvm_dialog_gui.py:675 iw/partition_dialog_gui.py:135
+#: iw/lvm_dialog_gui.py:676 iw/partition_dialog_gui.py:135
 #: iw/raid_dialog_gui.py:188
 #, python-format
 msgid "The mount point \"%s\" is in use. Please pick another."
 msgstr ""
 
-#: iw/lvm_dialog_gui.py:690
+#: iw/lvm_dialog_gui.py:691
 msgid "Illegal size"
 msgstr ""
 
-#: iw/lvm_dialog_gui.py:691
+#: iw/lvm_dialog_gui.py:692
 msgid "The requested size as entered is not a valid number greater than 0."
 msgstr ""
 
-#: iw/lvm_dialog_gui.py:704
+#: iw/lvm_dialog_gui.py:705
 #, python-format
 msgid ""
 "The current requested size (%(size)10.2f MB) is larger than the maximum "
@@ -2552,7 +2551,7 @@ msgid ""
 "this Volume Group."
 msgstr ""
 
-#: iw/lvm_dialog_gui.py:725
+#: iw/lvm_dialog_gui.py:726
 #, python-format
 msgid ""
 "The size entered for this logical volume (%(size)d MB) combined with the "
@@ -2561,52 +2560,52 @@ msgid ""
 "volume smaller."
 msgstr ""
 
-#: iw/lvm_dialog_gui.py:839
+#: iw/lvm_dialog_gui.py:841
 msgid "No free slots"
 msgstr ""
 
-#: iw/lvm_dialog_gui.py:840
+#: iw/lvm_dialog_gui.py:842
 #, python-format
 msgid "You cannot create more than %d logical volume per volume group."
 msgid_plural "You cannot create more than %d logical volumes per volume group."
 msgstr[0] ""
 msgstr[1] ""
 
-#: iw/lvm_dialog_gui.py:850
+#: iw/lvm_dialog_gui.py:852
 msgid "No free space"
 msgstr ""
 
-#: iw/lvm_dialog_gui.py:851
+#: iw/lvm_dialog_gui.py:853
 msgid ""
 "There is no room left in the volume group to create new logical volumes. To "
 "add a logical volume you must reduce the size of one or more of the "
 "currently existing logical volumes"
 msgstr ""
 
-#: iw/lvm_dialog_gui.py:888
+#: iw/lvm_dialog_gui.py:891
 #, python-format
 msgid "Are you sure you want to delete the logical volume \"%s\"?"
 msgstr ""
 
-#: iw/lvm_dialog_gui.py:1003
+#: iw/lvm_dialog_gui.py:1006
 msgid "Invalid Volume Group Name"
 msgstr ""
 
-#: iw/lvm_dialog_gui.py:1013
+#: iw/lvm_dialog_gui.py:1016
 msgid "Name in use"
 msgstr ""
 
-#: iw/lvm_dialog_gui.py:1014
+#: iw/lvm_dialog_gui.py:1017
 #, python-format
 msgid "The volume group name \"%s\" is already in use. Please pick another."
 msgstr ""
 
-#: iw/lvm_dialog_gui.py:1114 iw/partition_gui.py:1615
+#: iw/lvm_dialog_gui.py:1117 iw/partition_gui.py:1615
 #: storage/partitioning.py:238 storage/partitioning.py:300
 msgid "Error Partitioning"
 msgstr ""
 
-#: iw/lvm_dialog_gui.py:1115
+#: iw/lvm_dialog_gui.py:1118
 #, python-format
 msgid ""
 "Could not allocate requested logical volumes:\n"
@@ -2614,11 +2613,11 @@ msgid ""
 "%s."
 msgstr ""
 
-#: iw/lvm_dialog_gui.py:1321
+#: iw/lvm_dialog_gui.py:1325
 msgid "Not enough physical volumes"
 msgstr ""
 
-#: iw/lvm_dialog_gui.py:1322
+#: iw/lvm_dialog_gui.py:1326
 msgid ""
 "At least one unused physical volume partition is needed to create an LVM "
 "Volume Group.\n"
@@ -2627,74 +2626,74 @@ msgid ""
 "select the \"LVM\" option again."
 msgstr ""
 
-#: iw/lvm_dialog_gui.py:1333
+#: iw/lvm_dialog_gui.py:1337
 msgid "Make LVM Volume Group"
 msgstr ""
 
-#: iw/lvm_dialog_gui.py:1336
+#: iw/lvm_dialog_gui.py:1340
 #, python-format
 msgid "Edit LVM Volume Group: %s"
 msgstr ""
 
-#: iw/lvm_dialog_gui.py:1338
+#: iw/lvm_dialog_gui.py:1342
 msgid "Edit LVM Volume Group"
 msgstr ""
 
-#: iw/lvm_dialog_gui.py:1354
+#: iw/lvm_dialog_gui.py:1358
 msgid "_Volume Group Name:"
 msgstr ""
 
-#: iw/lvm_dialog_gui.py:1362
+#: iw/lvm_dialog_gui.py:1366
 msgid "Volume Group Name:"
 msgstr ""
 
-#: iw/lvm_dialog_gui.py:1370
+#: iw/lvm_dialog_gui.py:1374
 msgid "_Physical Extent:"
 msgstr ""
 
-#: iw/lvm_dialog_gui.py:1385
+#: iw/lvm_dialog_gui.py:1389
 msgid "Physical Volumes to _Use:"
 msgstr ""
 
-#: iw/lvm_dialog_gui.py:1391
+#: iw/lvm_dialog_gui.py:1395
 msgid "Used Space:"
 msgstr ""
 
-#: iw/lvm_dialog_gui.py:1408
+#: iw/lvm_dialog_gui.py:1412
 msgid "Reserved Space:"
 msgstr ""
 
-#: iw/lvm_dialog_gui.py:1428
+#: iw/lvm_dialog_gui.py:1432
 msgid "Free Space:"
 msgstr ""
 
-#: iw/lvm_dialog_gui.py:1446
+#: iw/lvm_dialog_gui.py:1450
 msgid "Total Space:"
 msgstr ""
 
-#: iw/lvm_dialog_gui.py:1484
+#: iw/lvm_dialog_gui.py:1488
 msgid "Logical Volume Name"
 msgstr ""
 
-#: iw/lvm_dialog_gui.py:1487 iw/partition_gui.py:616
+#: iw/lvm_dialog_gui.py:1491 iw/partition_gui.py:616
 #: iw/upgrade_swap_gui.py:138 textw/upgrade_text.py:127
 msgid "Mount Point"
 msgstr ""
 
-#: iw/lvm_dialog_gui.py:1490 iw/partition_gui.py:615
+#: iw/lvm_dialog_gui.py:1494 iw/partition_gui.py:615
 msgid "Size (MB)"
 msgstr ""
 
-#: iw/lvm_dialog_gui.py:1504 iw/osbootwidget.py:96
+#: iw/lvm_dialog_gui.py:1508 iw/osbootwidget.py:96
 msgid "_Add"
 msgstr ""
 
-#: iw/lvm_dialog_gui.py:1507 iw/osbootwidget.py:100 iw/partition_gui.py:1859
-#: iw/partition_gui.py:1874
+#: iw/lvm_dialog_gui.py:1511 iw/osbootwidget.py:100 iw/partition_gui.py:1860
+#: iw/partition_gui.py:1875
 msgid "_Edit"
 msgstr ""
 
-#: iw/lvm_dialog_gui.py:1522
+#: iw/lvm_dialog_gui.py:1526
 msgid "_Logical Volumes"
 msgstr ""
 
@@ -3025,15 +3024,15 @@ msgid ""
 "%s"
 msgstr ""
 
-#: iw/partition_gui.py:1858
+#: iw/partition_gui.py:1859
 msgid "_Create"
 msgstr ""
 
-#: iw/partition_gui.py:1861
+#: iw/partition_gui.py:1862
 msgid "Re_set"
 msgstr ""
 
-#: iw/partition_gui.py:1889
+#: iw/partition_gui.py:1890
 msgid "Please Select A Device"
 msgstr ""
 
@@ -3492,7 +3491,7 @@ msgstr ""
 #: loader/driverdisk.c:602 loader/driverselect.c:78 loader/driverselect.c:152
 #: loader/driverselect.c:178 loader/hdinstall.c:214 loader/hdinstall.c:268
 #: loader/kbd.c:119 loader/loader.c:520 loader/loader.c:537
-#: loader/loader.c:1496 loader/loader.c:1529 loader/net.c:607 loader/net.c:991
+#: loader/loader.c:1490 loader/loader.c:1523 loader/net.c:607 loader/net.c:991
 #: loader/net.c:2180 loader/net.c:2199 loader/nfsinstall.c:91
 #: loader/urls.c:268 storage/__init__.py:166 storage/devicetree.py:93
 #: textw/constants_text.py:52
@@ -3599,9 +3598,9 @@ msgid "Do you wish to load any more driver disks?"
 msgstr ""
 
 #: loader/driverdisk.c:802 loader/driverdisk.c:840 loader/hdinstall.c:362
-#: loader/kickstart.c:138 loader/kickstart.c:148 loader/kickstart.c:190
-#: loader/kickstart.c:195 loader/kickstart.c:524 loader/modules.c:396
-#: loader/modules.c:412 loader/net.c:1798 loader/net.c:1822
+#: loader/kickstart.c:140 loader/kickstart.c:150 loader/kickstart.c:192
+#: loader/kickstart.c:197 loader/kickstart.c:526 loader/kickstart.c:572
+#: loader/kickstart.c:588 loader/net.c:1798 loader/net.c:1822
 #: loader/nfsinstall.c:384 loader/urlinstall.c:374 loader/urlinstall.c:385
 #: loader/urlinstall.c:392
 msgid "Kickstart Error"
@@ -3714,43 +3713,52 @@ msgstr ""
 msgid "What type of keyboard do you have?"
 msgstr ""
 
-#: loader/kickstart.c:139
+#: loader/kickstart.c:141
 #, c-format
 msgid "Error opening kickstart file %s: %m"
 msgstr ""
 
-#: loader/kickstart.c:149
+#: loader/kickstart.c:151
 #, c-format
 msgid "Error reading contents of kickstart file %s: %m"
 msgstr ""
 
-#: loader/kickstart.c:191
+#: loader/kickstart.c:193
 #, c-format
 msgid "Error in %s on line %d of kickstart file %s."
 msgstr ""
 
-#: loader/kickstart.c:196
+#: loader/kickstart.c:198
 #, c-format
 msgid "Missing options on line %d of kickstart file %s."
 msgstr ""
 
-#: loader/kickstart.c:303
+#: loader/kickstart.c:305
 msgid "Cannot find ks.cfg on removable media."
 msgstr ""
 
-#: loader/kickstart.c:339
+#: loader/kickstart.c:341
 msgid ""
 "Unable to download the kickstart file.  Please modify the kickstart "
 "parameter below or press Cancel to proceed as an interactive installation."
 msgstr ""
 
-#: loader/kickstart.c:348
+#: loader/kickstart.c:350
 msgid "Error downloading kickstart file"
 msgstr ""
 
-#: loader/kickstart.c:525
+#: loader/kickstart.c:527
 #, c-format
 msgid "Bad argument to shutdown kickstart method command: %s"
+msgstr ""
+
+#: loader/kickstart.c:573
+#, c-format
+msgid "Bad argument to device kickstart method command: %s"
+msgstr ""
+
+#: loader/kickstart.c:589
+msgid "A module name must be specified for the kickstart device command."
 msgstr ""
 
 #: loader/lang.c:63 loader/loader.c:233
@@ -3831,114 +3839,114 @@ msgstr ""
 msgid "Error downloading updates image"
 msgstr ""
 
-#: loader/loader.c:1248
+#: loader/loader.c:1242
 #, c-format
 msgid "You do not have enough RAM to install %s on this machine."
 msgstr ""
 
-#: loader/loader.c:1281
+#: loader/loader.c:1275
 msgid "Unsupported Hardware Detected"
 msgstr ""
 
-#: loader/loader.c:1282
+#: loader/loader.c:1276
 msgid ""
 "This hardware (or a combination thereof) is not supported by Red Hat.  For "
 "more information on supported hardware, please refer to http://www.redhat."
 "com/hardware."
 msgstr ""
 
-#: loader/loader.c:1348
+#: loader/loader.c:1342
 msgid "Media Detected"
 msgstr ""
 
-#: loader/loader.c:1349
+#: loader/loader.c:1343
 msgid "Found local installation media"
 msgstr ""
 
-#: loader/loader.c:1488
+#: loader/loader.c:1482
 msgid "Rescue Method"
 msgstr ""
 
-#: loader/loader.c:1489
+#: loader/loader.c:1483
 msgid "Installation Method"
 msgstr ""
 
-#: loader/loader.c:1491
+#: loader/loader.c:1485
 msgid "What type of media contains the rescue image?"
 msgstr ""
 
-#: loader/loader.c:1493
+#: loader/loader.c:1487
 msgid "What type of media contains the installation image?"
 msgstr ""
 
-#: loader/loader.c:1528
+#: loader/loader.c:1522
 msgid "No driver found"
 msgstr ""
 
-#: loader/loader.c:1528
+#: loader/loader.c:1522
 msgid "Select driver"
 msgstr ""
 
-#: loader/loader.c:1529
+#: loader/loader.c:1523
 msgid "Use a driver disk"
 msgstr ""
 
-#: loader/loader.c:1530
+#: loader/loader.c:1524
 msgid ""
 "Unable to find any devices of the type needed for this installation type.  "
 "Would you like to manually select your driver or use a driver disk?"
 msgstr ""
 
-#: loader/loader.c:1762
+#: loader/loader.c:1756
 msgid "The following devices have been found on your system."
 msgstr ""
 
-#: loader/loader.c:1764
+#: loader/loader.c:1758
 msgid ""
 "No device drivers have been loaded for your system.  Would you like to load "
 "any now?"
 msgstr ""
 
-#: loader/loader.c:1768
+#: loader/loader.c:1762
 msgid "Devices"
 msgstr ""
 
-#: loader/loader.c:1769
+#: loader/loader.c:1763
 msgid "Done"
 msgstr ""
 
-#: loader/loader.c:1770
+#: loader/loader.c:1764
 msgid "Add Device"
 msgstr ""
 
-#: loader/loader.c:2060
+#: loader/loader.c:2054
 #, c-format
 msgid "loader has already been run.  Starting shell.\n"
 msgstr ""
 
-#: loader/loader.c:2207
+#: loader/loader.c:2201
 #, c-format
 msgid "Driver disc was detected in %s. Do you want to use it?."
 msgstr ""
 
-#: loader/loader.c:2211
+#: loader/loader.c:2205
 msgid "Driver disc detected"
 msgstr ""
 
-#: loader/loader.c:2211
+#: loader/loader.c:2205
 msgid "Use it"
 msgstr ""
 
-#: loader/loader.c:2211
+#: loader/loader.c:2205
 msgid "Skip it"
 msgstr ""
 
-#: loader/loader.c:2577
+#: loader/loader.c:2571
 #, c-format
 msgid "Running anaconda %s, the %s rescue mode - please wait.\n"
 msgstr ""
 
-#: loader/loader.c:2579
+#: loader/loader.c:2573
 #, c-format
 msgid "Running anaconda %s, the %s system installer - please wait.\n"
 msgstr ""
@@ -3996,15 +4004,6 @@ msgstr ""
 
 #: loader/method.c:324
 msgid "Checksum Test"
-msgstr ""
-
-#: loader/modules.c:397
-#, c-format
-msgid "Bad argument to device kickstart method command: %s"
-msgstr ""
-
-#: loader/modules.c:413
-msgid "A module name must be specified for the kickstart device command."
 msgstr ""
 
 #: loader/net.c:112
@@ -4675,36 +4674,31 @@ msgstr[1] ""
 msgid "vginfo failed for %s"
 msgstr ""
 
-#: storage/devicelibs/lvm.py:352
-#, python-format
-msgid "lvs failed for %s"
-msgstr ""
-
-#: storage/devices.py:823 storage/devices.py:1547 storage/devices.py:2616
+#: storage/devices.py:823 storage/devices.py:1547 storage/devices.py:2620
 msgid "large"
 msgstr ""
 
-#: storage/devices.py:825 storage/devices.py:1553 storage/devices.py:2622
+#: storage/devices.py:825 storage/devices.py:1553 storage/devices.py:2626
 msgid "small"
 msgstr ""
 
-#: storage/devices.py:1323 storage/devices.py:2084 storage/devices.py:2549
-#: storage/devices.py:3132 storage/devices.py:3619
+#: storage/devices.py:1323 storage/devices.py:2085 storage/devices.py:2553
+#: storage/devices.py:3138 storage/devices.py:3625
 msgid "Creating"
 msgstr ""
 
-#: storage/devices.py:1324 storage/devices.py:2085 storage/devices.py:2550
-#: storage/devices.py:3133
+#: storage/devices.py:1324 storage/devices.py:2086 storage/devices.py:2554
+#: storage/devices.py:3139
 #, python-format
 msgid "Creating device %s"
 msgstr ""
 
-#: storage/devices.py:2665
+#: storage/devices.py:2669
 #, python-format
 msgid "A RAID%d set requires atleast %d members"
 msgstr ""
 
-#: storage/devices.py:3620
+#: storage/devices.py:3626
 #, python-format
 msgid "Creating file %s"
 msgstr ""
@@ -4722,7 +4716,7 @@ msgid ""
 "installation."
 msgstr ""
 
-#: storage/devicetree.py:1985 storage/devicetree.py:2033
+#: storage/devicetree.py:1983 storage/devicetree.py:2031
 msgid "This partition is part of an inconsistent LVM Volume Group."
 msgstr ""
 
