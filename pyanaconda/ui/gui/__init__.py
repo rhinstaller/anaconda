@@ -493,6 +493,7 @@ class GraphicalExceptionHandlingIface(meh.ui.gui.GraphicalIntf):
         :type lightbox_func: GtkWindow -> None
 
         """
+        meh.ui.gui.GraphicalIntf.__init__(self)
 
         self._lightbox_func = lightbox_func
 
