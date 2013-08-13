@@ -258,24 +258,6 @@
                     <property name="position">0</property>
                   </packing>
                 </child>
-                <child>
-                  <object class="GtkButton" id="addAddonButton">
-                    <property name="label" translatable="yes">_Add custom add-on...</property>
-                    <property name="can_focus">True</property>
-                    <property name="receives_default">True</property>
-                    <property name="no_show_all">True</property>
-                    <property name="halign">end</property>
-                    <property name="valign">start</property>
-                    <property name="margin_top">6</property>
-                    <property name="use_underline">True</property>
-                    <signal name="clicked" handler="on_custom_clicked" swapped="no"/>
-                  </object>
-                  <packing>
-                    <property name="expand">False</property>
-                    <property name="fill">True</property>
-                    <property name="position">1</property>
-                  </packing>
-                </child>
               </object>
             </child>
           </object>
