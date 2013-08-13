@@ -179,7 +179,7 @@ class IfcfgFile(SimpleConfigFile):
     def clear(self):
         SimpleConfigFile.reset(self)
 
-    def read(self):
+    def read(self, filename=None):
         """ Reads values from ifcfg file.
 
             returns: number of values read

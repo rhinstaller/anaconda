@@ -124,7 +124,7 @@ class Payload(object):
         """
         pass
 
-    def reset(self):
+    def reset(self, root=None):
         """ Reset the instance, not including ksdata. """
         pass
 

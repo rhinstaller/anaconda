@@ -436,6 +436,7 @@ reposdir=%s
         except RepoError:
             return super(YumPayload, self).isRepoEnabled(repo_id)
 
+    # pylint: disable-msg=W0221
     def updateBaseRepo(self, fallback=True, root=None, checkmount=True):
         """ Update the base repo based on self.data.method.
 

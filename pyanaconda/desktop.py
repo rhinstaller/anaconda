@@ -49,7 +49,7 @@ class Desktop(SimpleConfigFile):
         super(Desktop, self).__init__()
         self.runlevel = 3
 
-    def write(self):
+    def write(self, filename=None):
         if self.getDefaultDesktop():
             f = open(ROOT_PATH + "/etc/sysconfig/desktop", "w")
             f.write(str(self))

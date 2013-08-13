@@ -110,6 +110,7 @@ class InstallOptions1Dialog(GUIObject):
         self.window.destroy()
         return rc
 
+    # pylint: disable-msg=W0221
     def refresh(self, required_space, auto_swap, disk_free, fs_free, autoPartType, encrypted):
         self.autoPartType = autoPartType
         self.autoPartTypeCombo.set_active(self.autoPartType)

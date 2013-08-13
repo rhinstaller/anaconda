@@ -286,6 +286,7 @@ class ResizeDialog(GUIObject):
         need = self.payload.spaceRequired
         self._resizeButton.set_sensitive(got+self._initialFreeSpace >= need and got > Size(0))
 
+    # pylint: disable-msg=W0221
     def refresh(self, disks):
         super(ResizeDialog, self).refresh()
 
