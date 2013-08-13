@@ -35,7 +35,7 @@ from time import sleep
 from threading import Lock
 from urlgrabber.grabber import URLGrabber
 from urlgrabber.grabber import URLGrabError
-from pyanaconda.iutil import ProxyString, ProxyStringError
+from pyanaconda.iutil import ProxyString, ProxyStringError, lowerASCII
 import urllib
 import hashlib
 import glob
@@ -297,7 +297,7 @@ class LiveImageKSPayload(LiveImagePayload):
             filesum = sha256.hexdigest()
             log.debug("sha256 of %s is %s" % (self.data.method.url, filesum))
 
-            if self.data.method.checksum.lower() != filesum:
+            if lowerASCII(self.data.method.checksum) != filesum:
                 log.error("%s does not match checksum." % self.data.method.checksum)
                 exn = PayloadInstallError("Checksum of image does not match")
                 if errorHandler.cb(exn) == ERROR_RAISE:

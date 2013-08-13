@@ -19,6 +19,7 @@
 # Author(s): Chris Lumens <clumens@redhat.com>
 
 import Queue
+from iutil import lowerASCII, upperASCII
 
 class QueueFactory(object):
     """Constructs a new object wrapping a Queue.Queue, complete with constants
@@ -65,12 +66,12 @@ class QueueFactory(object):
             raise AttributeError("%s queue already has a message named %s" % (self.name, name))
 
         # Add a constant.
-        const_name = self.name.upper() + "_CODE_" + name.upper()
+        const_name = upperASCII(self.name) + "_CODE_" + upperASCII(name)
         setattr(self, const_name, self.__counter)
         self.__counter += 1
 
         # Add a convenience method for putting things into the queue.
-        method_name = "send_" + name.lower()
+        method_name = "send_" + lowerASCII(name)
         method = self._makeMethod(getattr(self, const_name), method_name, argc)
         setattr(self, method_name, method)
 

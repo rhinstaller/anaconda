@@ -28,6 +28,8 @@ import errno
 import subprocess
 import re
 import unicodedata
+import string
+import types
 from threading import Thread
 from Queue import Queue, Empty
 
@@ -704,3 +706,40 @@ def is_unsupported_hw():
     if status:
         log.debug("Installing on Unsupported Hardware")
     return status
+
+# Define translations between ASCII uppercase and lowercase for
+# locale-independent string conversions. The tables are 256-byte string used
+# with string.translate. If string.translate is used with a unicode string,
+# even if the string contains only 7-bit characters, string.translate will
+# raise a UnicodeDecodeError.
+_ASCIIupper_table = string.maketrans(string.ascii_lowercase, string.ascii_uppercase)
+_ASCIIlower_table = string.maketrans(string.ascii_uppercase, string.ascii_lowercase)
+
+def _toASCII(s):
+    """Convert a unicode string to ASCII"""
+    if type(s) == types.UnicodeType:
+        # Decompose the string using the NFK decomposition, which in addition
+        # to the canonical decomposition replaces characters based on
+        # compatibility equivalence (e.g., ROMAN NUMERAL ONE has its own code
+        # point but it's really just a capital I), so that we can keep as much
+        # of the ASCII part of the string as possible.
+        s = unicodedata.normalize('NKFD', s).encode('ascii', 'ignore')
+    elif type(s) != types.StringType:
+        s = ''
+    return s
+
+def upperASCII(s):
+    """Convert a string to uppercase using only ASCII character definitions.
+
+    The returned string will contain only ASCII characters. This function is
+    locale-independent.
+    """
+    return string.translate(_toASCII(s), _ASCIIupper_table)
+
+def lowerASCII(s):
+    """Convert a string to lowercase using only ASCII character definitions.
+
+    The returned string will contain only ASCII characters. This function is
+    locale-independent.
+    """
+    return string.translate(_toASCII(s), _ASCIIlower_table)

@@ -17,21 +17,10 @@
 #
 import os
 import shutil
-import string
 import shlex
 from pipes import _safechars
 import tempfile
-
-# use our own ASCII only uppercase function to avoid locale issues
-# not going to be fast but not important
-def uppercase_ASCII_string(s):
-    newstr = ""
-    for c in s:
-        if c in string.lowercase:
-            newstr += chr(ord(c)-32)
-        else:
-            newstr += c
-    return newstr
+from iutil import upperASCII
 
 def unquote(s):
     return ' '.join(shlex.split(s))
@@ -104,15 +93,15 @@ class SimpleConfigFile(object):
 
     def set(self, *args):
         for key, value in args:
-            self.info[uppercase_ASCII_string(key)] = value
+            self.info[upperASCII(key)] = value
 
     def unset(self, *keys):
-        for key in (uppercase_ASCII_string(k) for k in keys):
+        for key in (upperASCII(k) for k in keys):
             if key in self.info:
                 del self.info[key]
 
     def get(self, key):
-        return self.info.get(uppercase_ASCII_string(key), "")
+        return self.info.get(upperASCII(key), "")
 
     def _parseline(self, line):
         """ parse a line into a key, value pair
@@ -128,7 +117,7 @@ class SimpleConfigFile(object):
         if self.read_unquote:
             val = unquote(val)
         if key != '' and eq == '=':
-            return (uppercase_ASCII_string(key), val)
+            return (upperASCII(key), val)
         else:
             return (None, None)
 

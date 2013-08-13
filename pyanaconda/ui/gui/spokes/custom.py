@@ -37,6 +37,7 @@ from pyanaconda.i18n import _, N_, P_
 from pyanaconda.product import productName, productVersion
 from pyanaconda.threads import AnacondaThread, threadMgr
 from pyanaconda.constants import THREAD_EXECUTE_STORAGE, THREAD_STORAGE, THREAD_CUSTOM_STORAGE_INIT
+from pyanaconda.iutil import lowerASCII
 
 from blivet import devicefactory
 from blivet.formats import device_formats
@@ -205,7 +206,7 @@ def validate_mountpoint(mountpoint, used_mountpoints, strict=True):
     elif mountpoint.startswith("/dev") or mountpoint.startswith("/proc") or \
          mountpoint.startswith("/sys"):
         valid = MOUNTPOINT_INVALID
-    elif (mountpoint.lower() not in fake_mountpoints and
+    elif (lowerASCII(mountpoint) not in fake_mountpoints and
           ((len(mountpoint) > 1 and mountpoint.endswith("/")) or
            not mountpoint.startswith("/") or
            " " in mountpoint or
@@ -1943,7 +1944,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         # we're doing nothing here to ensure that bootable requests end up on
         # the boot disk, but the weight from platform should take care of this
 
-        if mountpoint.lower() in ("swap", "biosboot", "prepboot"):
+        if lowerASCII(mountpoint) in ("swap", "biosboot", "prepboot"):
             mountpoint = None
 
         device_type_from_autopart = {AUTOPART_TYPE_LVM: DEVICE_TYPE_LVM,

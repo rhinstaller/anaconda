@@ -375,7 +375,7 @@ def dracutBootArguments(ifcfg, storage_ipaddr, hostname=None):
                 netargs.add("ip=%s::%s:%s:%s:%s:none" % (ipaddr, gateway,
                            ifcfg.get('PREFIX'), hostname, devname))
         else:
-            if ifcfg.get('bootproto').lower() == 'dhcp':
+            if iutil.lowerASCII(ifcfg.get('bootproto')) == 'dhcp':
                 netargs.add("ip=%s:dhcp" % devname)
             else:
                 if ifcfg.get('GATEWAY'):
@@ -433,7 +433,7 @@ def kickstartNetworkData(ifcfg=None, hostname=None):
     if not ifcfg.get('BOOTPROTO'):
         kwargs["noipv4"] = True
     else:
-        if ifcfg.get('BOOTPROTO').lower() == 'dhcp':
+        if iutil.lowerASCII(ifcfg.get('BOOTPROTO')) == 'dhcp':
             kwargs["bootProto"] = "dhcp"
             if ifcfg.get('DHCPCLASS'):
                 kwargs["dhcpclass"] = ifcfg.get('DHCPCLASS')
@@ -479,7 +479,7 @@ def kickstartNetworkData(ifcfg=None, hostname=None):
     # ipv4 and ipv6
     dnsline = ''
     for key in ifcfg.info.keys():
-        if key.upper().startswith('DNS'):
+        if iutil.upperASCII(key).startswith('DNS'):
             if dnsline == '':
                 dnsline = ifcfg.get(key)
             else:
@@ -496,7 +496,7 @@ def kickstartNetworkData(ifcfg=None, hostname=None):
     # hostname
     if ifcfg.get("DHCP_HOSTNAME"):
         kwargs["hostname"] = ifcfg.get("DHCP_HOSTNAME")
-    elif ifcfg.get("BOOTPROTO").lower != "dhcp":
+    elif iutil.lowerASCII(ifcfg.get("BOOTPROTO")) != "dhcp":
         if (hostname and
             hostname != DEFAULT_HOSTNAME):
             kwargs["hostname"] = hostname
@@ -814,9 +814,9 @@ def get_device_name(devspec):
         log.info("unspecified network --device in kickstart, using %s (%s)" %
                  (devname, msg))
     else:
-        if devspec.lower() == "ibft":
+        if iutil.lowerASCII(devspec) == "ibft":
             devname = ""
-        if devspec.lower() == "link":
+        if iutil.lowerASCII(devspec) == "link":
             for dev in sorted(devices):
                 try:
                     link_up = nm.nm_device_carrier(dev)
@@ -828,7 +828,7 @@ def get_device_name(devspec):
                     break
             else:
                 log.error("Kickstart: No network device with link found")
-        elif devspec.lower() == "bootif":
+        elif iutil.lowerASCII(devspec) == "bootif":
             if "BOOTIF" in flags.cmdline:
                 # MAC address like 01-aa-bb-cc-dd-ee-ff
                 devname = flags.cmdline["BOOTIF"][3:]
