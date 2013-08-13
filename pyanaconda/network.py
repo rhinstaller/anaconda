@@ -412,6 +412,7 @@ def kickstartNetworkData(ifcfg=None, hostname=None):
     kwargs = {}
 
     if not ifcfg and hostname:
+        # pylint: disable-msg=E1101
         return handler.NetworkData(hostname=hostname, bootProto="")
 
     # no network command for bond slaves
@@ -516,6 +517,7 @@ def kickstartNetworkData(ifcfg=None, hostname=None):
         kwargs["device"] = ifcfg.get("PHYSDEV")
         kwargs["vlanid"] = ifcfg.get("VLAN_ID")
 
+    # pylint: disable-msg=E1101
     return handler.NetworkData(**kwargs)
 
 def get_bond_master_ifcfg_name(devname):
