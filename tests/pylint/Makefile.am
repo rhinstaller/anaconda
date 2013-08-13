@@ -1,4 +1,4 @@
-# tests/kickstart/Makefile.am for anaconda
+# tests/pylint/Makefile.am for anaconda
 #
 # Copyright (C) 2010  Red Hat, Inc.
 #
@@ -20,3 +20,5 @@
 EXTRA_DIST = *pylint*
 
 MAINTAINERCLEANFILES = Makefile.in
+
+TESTS = ./runpylint.sh

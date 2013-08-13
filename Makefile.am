@@ -20,7 +20,8 @@
 ACLOCAL_AMFLAGS = -I m4
 
 SUBDIRS = pyanaconda po data \
-	      utils scripts docs dracut widgets
+	      utils scripts docs dracut widgets \
+	      tests/pylint
 
 EXTRA_DIST = config.rpath COPYING \
              anaconda.spec.in
@@ -28,7 +29,8 @@ EXTRA_DIST = config.rpath COPYING \
 MAINTAINERCLEANFILES = Makefile.in config.guess config.h.in config.sub \
                        depcomp install-sh ltmain.sh missing ABOUT-NLS \
                        INSTALL aclocal.m4 configure *.pyc py-compile \
-		       m4/* config.rpath po/Makefile.in.in po/Rules-quot
+		       m4/* config.rpath po/Makefile.in.in po/Rules-quot \
+		       test-driver
 
 CLEANFILES = *~ anaconda.spec
 
