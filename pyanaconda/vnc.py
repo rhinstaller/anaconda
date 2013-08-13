@@ -26,6 +26,7 @@ import product
 import socket
 import subprocess
 import iutil
+import dbus
 
 from pyanaconda.i18n import _, P_
 from pyanaconda.ui.tui.simpleline import App
@@ -197,7 +198,7 @@ class VncServer:
         # Lets call it from here for now.
         try:
             self.initialize()
-        except Exception, e:
+        except (socket.herror, dbus.DBusException, ValueError) as e:
             stdoutLog.critical("Could not initialize the VNC server: %s" % e)
             sys.exit(1)
 

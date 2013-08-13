@@ -32,6 +32,8 @@ import os
 import time
 import threading
 import re
+import dbus
+
 from flags import flags
 from simpleconfig import IfcfgFile
 from blivet.devices import FcoeDiskDevice, iScsiDiskDevice
@@ -120,7 +122,7 @@ def getIPs():
         try:
             ips += (nm.nm_device_ip_addresses(devname, version=4) +
                     nm.nm_device_ip_addresses(devname, version=6))
-        except Exception as e:
+        except (dbus.DBusException, ValueError) as e:
             log.warning("Got an exception trying to get the ip addr "
                         "of %s: %s" % (devname, e))
     return ips

@@ -468,15 +468,12 @@ class GeolocationBackend(object):
             global refresh_in_progress
             with refresh_condition:
                 refresh_in_progress = True
-            try:
-                start_time = time.time()
-                self._refresh()
-                log.info("Geolocation lookup finished in %1.1f seconds"
-                         % (time.time() - start_time))
-            except Exception as e:
-                message = "GeoIP lookup ended with exception"
-                message += "\n%s" % e
-                log.debug(message)
+
+            start_time = time.time()
+            self._refresh()
+            log.info("Geolocation lookup finished in %1.1f seconds"
+                     % (time.time() - start_time))
+
             with refresh_condition:
                 refresh_in_progress = False
                 refresh_condition.notify_all()
@@ -791,8 +788,9 @@ class WifiScanner(object):
             network_manager = bus.get_object('org.freedesktop.NetworkManager',
                                              '/org/freedesktop/NetworkManager')
             devices = network_manager.GetDevices()
-        except Exception as e:
+        except dbus.DBusException as e:
             log.debug("Exception caught during WiFi AP scan: %s" % e)
+
         # iterate over all devices
         for device_path in devices:
             device = bus.get_object('org.freedesktop.NetworkManager',
