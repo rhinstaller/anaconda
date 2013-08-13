@@ -40,6 +40,7 @@ from pyanaconda import iutil
 from pyanaconda import flags
 from pyanaconda.safe_dbus import dbus_call_safe_sync, dbus_get_property_safe_sync
 from pyanaconda.safe_dbus import DBUS_SYSTEM_BUS_ADDR, DBusPropertyError
+from pyanaconda.constants import DEFAULT_VC_FONT
 
 from gi.repository import Xkl, Gio, GLib
 
