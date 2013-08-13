@@ -96,7 +96,6 @@ def sanityCheckHostname(hostname):
         return (False, _("Hostname must be 255 or fewer characters in length."))
 
     validStart = string.ascii_letters + string.digits
-    validAll = validStart + ".-"
 
     if hostname[0] not in validStart:
         return (False, _("Hostname must start with a valid character in the "
@@ -147,7 +146,7 @@ def netmask2prefix(netmask):
 def prefix2netmask(prefix):
     """ Convert prefix (CIDR bits) to netmask """
     _bytes = []
-    for i in range(4):
+    for _i in range(4):
         if prefix >= 8:
             _bytes.append(255)
             prefix -= 8

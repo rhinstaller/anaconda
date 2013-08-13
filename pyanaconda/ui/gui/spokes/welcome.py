@@ -245,7 +245,8 @@ class WelcomeLanguageSpoke(StandaloneSpoke):
         # Need to strip out the pango markup before attempting to match.
         # Otherwise, starting to type "span" for "spanish" will match everything
         # due to the enclosing span tag.
-        (success, attrs, native, accel) = Pango.parse_markup(model[itr][0], -1, "_")
+        # (success, attrs, native, accel)
+        native = Pango.parse_markup(model[itr][0], -1, "_")[2]
         english = model[itr][1]
         entry = self._languageEntry.get_text().strip()
 

@@ -679,7 +679,7 @@ reposdir=%s
                 # see if the nfs dir is mounted
                 needmount = True
                 if device:
-                    options, host, path = iutil.parseNfsUrl('nfs:%s' % device)
+                    _options, host, path = iutil.parseNfsUrl('nfs:%s' % device)
                     if path and path in device:
                         needmount = False
                         path = DRACUT_REPODIR
@@ -742,8 +742,7 @@ reposdir=%s
                         # prepend nfs: to the url as that's what the parser
                         # wants.  Note we don't get options from this, but
                         # that's OK for the UI at least.
-                        options, host, path = iutil.parseNfsUrl("nfs:%s" %
-                                                                device)
+                        _options, host, path = iutil.parseNfsUrl("nfs:%s" % device)
                         method.method = "nfs"
                         method.server = host
                         method.dir = path

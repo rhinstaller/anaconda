@@ -56,7 +56,7 @@ class InstallClass(BaseInstallClass):
                 continue
             try:
                 link_up = nm.nm_device_carrier(devName)
-            except ValueError as e:
+            except ValueError:
                 continue
             if link_up:
                 dev = network.NetworkDevice(ROOT_PATH + network.netscriptsDir, devName)

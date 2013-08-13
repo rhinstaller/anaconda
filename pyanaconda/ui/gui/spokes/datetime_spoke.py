@@ -846,7 +846,6 @@ class DatetimeSpoke(FirstbootSpokeMixIn, NormalSpoke):
     def on_city_region_text_entry_activated(self, entry):
         combo = entry.get_parent()
         model = combo.get_model()
-        itr = model.get_iter_first()
         entry_text = entry.get_text().lower()
 
         for row in model:

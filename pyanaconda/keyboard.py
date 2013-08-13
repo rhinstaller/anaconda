@@ -168,7 +168,7 @@ def write_keyboard_config(keyboard, root, convert=True):
             try:
                 if not os.path.isdir(rooted_xconf_dir):
                     os.makedirs(rooted_xconf_dir)
-            except OSError as oserr:
+            except OSError:
                 errors.append("Cannot create directory xorg.conf.d")
 
             # copy the file to the chroot
@@ -195,7 +195,7 @@ def write_keyboard_config(keyboard, root, convert=True):
                 # systemd now defaults to a font that cannot display non-ascii
                 # characters, so we have to tell it to use a better one
                 fobj.write('FONT="%s"\n' % DEFAULT_VC_FONT)
-        except IOError as ioerr:
+        except IOError:
             errors.append("Cannot write vconsole configuration file")
 
     if errors:
@@ -682,7 +682,7 @@ class LocaledWrapper(object):
                                                   LOCALED_IFACE,
                                                   "X11Options",
                                                   self._connection)
-        except DBusPropertyError as dperr:
+        except DBusPropertyError:
             # no value for the property
             log.error("Failed to get the value for the systemd-localed's "
                       "X11Options property")

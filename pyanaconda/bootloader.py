@@ -849,7 +849,7 @@ class BootLoader(object):
         # (in Network.dracutSetupArgs).
         # Dracut needs the explicit ifname= because biosdevname
         # fails to rename the iface (because of BFS booting from it).
-        for nic, dcb, auto_vlan in fcoe().nics:
+        for nic, _dcb, _auto_vlan in fcoe().nics:
             hwaddr = nm_device_hwaddress(nic)
             self.boot_args.add("ifname=%s:%s" % (nic, hwaddr.lower()))
 
@@ -886,7 +886,7 @@ class BootLoader(object):
         """ Set console options based on boot arguments. """
         console = flags.cmdline.get("console", "")
         console = os.path.basename(console)
-        self.console, x, self.console_options = console.partition(",")
+        self.console, _x, self.console_options = console.partition(",")
 
     def write_config_console(self, config):
         """Write console-related configuration lines."""
@@ -1287,8 +1287,8 @@ class GRUB(BootLoader):
                    % {"grub_config_dir": self.grub_config_dir,
                       "config_dir": self.config_dir,
                       "config_basename": self._config_file,
-                      "stage1dev": self.grub_device_name(self.stage1_device),
-                      "stage2dev": self.grub_device_name(self.stage2_device)})
+                      "stage1dev": self.grub_device_name(stage1dev),
+                      "stage2dev": self.grub_device_name(stage2dev)})
             (pread, pwrite) = os.pipe()
             os.write(pwrite, cmd)
             os.close(pwrite)
@@ -2205,7 +2205,6 @@ class EXTLINUX(BootLoader):
     #
 
     def install(self):
-        backup = "%s/backup.b" % self._config_dir
         args = ["--install", self._config_dir]
         rc = iutil.execWithRedirect("extlinux", args,
                                     root=ROOT_PATH)

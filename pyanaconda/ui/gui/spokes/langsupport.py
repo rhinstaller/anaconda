@@ -160,7 +160,8 @@ class LangsupportSpoke(NormalSpoke):
         # Need to strip out the pango markup before attempting to match.
         # Otherwise, starting to type "span" for "spanish" will match everything
         # due to the enclosing span tag.
-        (success, attrs, native, accel) = Pango.parse_markup(model[itr][COL_NATIVE_NAME], -1, "_")
+        # (success, attrs, native, accel)
+        native = Pango.parse_markup(model[itr][COL_NATIVE_NAME], -1, "_")[2]
         english = model[itr][COL_ENGLISH_NAME]
         entry = self._langsupportEntry.get_text().strip()
 

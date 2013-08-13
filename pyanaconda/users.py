@@ -107,7 +107,7 @@ def cryptPassword(password, algo=None):
 
     saltstr = salts[algo]
 
-    for i in range(saltlen):
+    for _i in range(saltlen):
         saltstr = saltstr + random.choice (string.letters +
                                            string.digits + './')
 
@@ -206,7 +206,7 @@ class Users:
             os._exit(0)
 
         try:
-            (pid, status) = os.waitpid(childpid, 0)
+            status = os.waitpid(childpid, 0)[1]
         except OSError as e:
             log.critical("exception from waitpid while creating a group: %s %s" % (e.errno, e.strerror))
             return False
@@ -356,7 +356,7 @@ class Users:
             os._exit(0)
 
         try:
-            (pid, status) = os.waitpid(childpid, 0)
+            status = os.waitpid(childpid, 0)[1]
         except OSError as e:
             log.critical("exception from waitpid while creating a user: %s %s" % (e.errno, e.strerror))
             return False
@@ -383,7 +383,7 @@ class Users:
                 os._exit(1)
 
         try:
-            (pid, status) = os.waitpid(childpid, 0)
+            status = os.waitpid(childpid, 0)[1]
         except OSError as e:
             log.critical("exception from waitpid while creating a user: %s %s" % (e.errno, e.strerror))
             return False

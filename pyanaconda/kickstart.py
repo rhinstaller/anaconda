@@ -432,7 +432,7 @@ class Realm(commands.realm.F19_Realm):
         try:
             proc = subprocess.Popen(argv, stdout=subprocess.PIPE,
                                     stderr=subprocess.PIPE)
-            output, stderr = proc.communicate()
+            stderr = proc.communicate()[1]
             # might contain useful information for users who use
             # use the realm kickstart command
             log.info("Realm join stderr:\n%s" % stderr)

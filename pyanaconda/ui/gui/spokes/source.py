@@ -187,7 +187,7 @@ class MediaCheckDialog(GUIObject):
         return True
 
     def run(self, devicePath):
-        (retval, pid, stdin, stdout, stderr) = \
+        (retval, pid, _stdin, stdout, _stderr) = \
             GLib.spawn_async_with_pipes(None, ["checkisomd5", "--gauge", devicePath], [],
                                         GLib.SpawnFlags.DO_NOT_REAP_CHILD|GLib.SpawnFlags.SEARCH_PATH,
                                         None, None)
@@ -449,8 +449,10 @@ class SourceSpoke(NormalSpoke):
                     # involves side effects like network access) so go ahead and grab
                     # them now. These are properties with side-effects, just accessing
                     # them will trigger yum.
-                    e = self.payload.environments
-                    g = self.payload.groups
+                    # pylint: disable-msg=W0104
+                    self.payload.environments
+                    # pylint: disable-msg=W0104
+                    self.payload.groups
                 except MetadataError:
                     hubQ.send_message("SoftwareSelectionSpoke",
                                       _("No installation source available"))
@@ -871,7 +873,7 @@ class SourceSpoke(NormalSpoke):
 
             Update the repo text boxes with the current information
         """
-        model, itr = self._repoSelection.get_selected()
+        itr = self._repoSelection.get_selected()[1]
         if not itr:
             return
         self._update_repo_info(self._repoStore[itr][REPO_OBJ])
@@ -971,7 +973,7 @@ class SourceSpoke(NormalSpoke):
     def on_removeRepo_clicked(self, button):
         """ Remove the selected repository
         """
-        model, itr = self._repoSelection.get_selected()
+        itr = self._repoSelection.get_selected()[1]
         if not itr:
             return
         self._repoStore.remove(itr)
@@ -987,7 +989,7 @@ class SourceSpoke(NormalSpoke):
     def on_repoNameEntry_changed(self, entry):
         """ repo name changed
         """
-        model, itr = self._repoSelection.get_selected()
+        itr = self._repoSelection.get_selected()[1]
         if not itr:
             return
         repo = self._repoStore[itr][REPO_OBJ]
@@ -999,7 +1001,7 @@ class SourceSpoke(NormalSpoke):
     def on_repoUrl_changed(self, *args):
         """ proxy url or protocol changed
         """
-        model, itr = self._repoSelection.get_selected()
+        itr = self._repoSelection.get_selected()[1]
         if not itr:
             return
         repo = self._repoStore[itr][REPO_OBJ]
@@ -1014,7 +1016,7 @@ class SourceSpoke(NormalSpoke):
     def on_repoMirrorlistCheckbox_toggled(self, *args):
         """ mirror state changed
         """
-        model, itr = self._repoSelection.get_selected()
+        itr = self._repoSelection.get_selected()[1]
         if not itr:
             return
         repo = self._repoStore[itr][REPO_OBJ]
@@ -1031,7 +1033,7 @@ class SourceSpoke(NormalSpoke):
     def on_repoProxy_changed(self, *args):
         """ Update the selected repo's proxy settings
         """
-        model, itr = self._repoSelection.get_selected()
+        itr = self._repoSelection.get_selected()[1]
         if not itr:
             return
         repo = self._repoStore[itr][REPO_OBJ]

@@ -318,7 +318,7 @@ class SoftwareSelectionSpoke(NormalSpoke):
     # left hand panel, or None if nothing's selected.
     def _get_selected_environment(self):
         environmentView = self.builder.get_object("environmentView")
-        (store, itr) = environmentView.get_selection().get_selected()
+        itr = environmentView.get_selection().get_selected()[1]
         if not itr:
             return None
 
@@ -388,7 +388,7 @@ class SoftwareSelectionSpoke(NormalSpoke):
         # If the user clicked on the first column, they've clicked on the checkbox which was
         # handled separately from this signal handler.  Handling it again here will result in
         # the checkbox being toggled yet again.  So, we need to return in that case.
-        (path, col) = view.get_cursor()
+        col = view.get_cursor()[1]
         if not col or col.get_title() == "Selected":
             return
 

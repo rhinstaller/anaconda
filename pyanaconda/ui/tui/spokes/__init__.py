@@ -118,8 +118,8 @@ class EditTUIDialog(NormalTUISpoke):
                 if error:
                     print(error)
                     return None
-            except PWQError as (e, msg):
-                error = _("You have provided a weak password: %s. " % msg)
+            except PWQError as e:
+                error = _("You have provided a weak password: %s. " % e.message)
                 error += _("\nWould you like to use it anyway?")
                 question_window = YesNoDialog(self._app, error)
                 self._app.switch_screen_modal(question_window)

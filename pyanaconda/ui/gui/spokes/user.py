@@ -341,8 +341,8 @@ class UserSpoke(FirstbootSpokeMixIn, NormalSpoke):
         try:
             strength = self._pwq.check(self.pw.get_text(), None, None)
             _pwq_error = None
-        except pwquality.PWQError as (e, msg):
-            _pwq_error = msg
+        except pwquality.PWQError as e:
+            _pwq_error = e.message
             strength = 0
 
         if strength < 50:

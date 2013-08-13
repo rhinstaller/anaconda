@@ -159,9 +159,9 @@ class VncServer:
 
         vncconfigcommand = [self.root+"/usr/bin/vncconfig", "-display", ":%s"%self.display, "-connect", hostarg]
 
-        for i in range(maxTries):
+        for _i in range(maxTries):
             vncconfp = subprocess.Popen(vncconfigcommand, stdout=subprocess.PIPE, stderr=subprocess.PIPE) # vncconfig process
-            (out, err) = vncconfp.communicate()
+            err = vncconfp.communicate()[1]
 
             if err == '':
                 self.log.info(_("Connected!"))

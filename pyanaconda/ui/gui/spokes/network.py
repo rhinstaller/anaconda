@@ -756,8 +756,7 @@ class NetworkControlBox(object):
         ipv6_addr = None
         if ipv6cfg:
             config = dbus.SystemBus().get_object(NM_SERVICE, ipv6cfg.get_path())
-            addr, prefix, gw = getNMObjProperty(config, ".IP6Config",
-                                                "Addresses")[0]
+            addr, prefix, _gw = getNMObjProperty(config, ".IP6Config", "Addresses")[0]
             ipv6_addr = socket.inet_ntop(socket.AF_INET6, "".join(chr(byte) for byte in addr))
         self._set_device_info_value(dt, "ipv6", ipv6_addr)
 

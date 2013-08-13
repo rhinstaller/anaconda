@@ -250,7 +250,7 @@ def nm_device_ip_addresses(name, version=4):
         return []
     proxy = _get_proxy(object_path=config, interface_name=dbus_iface)
     addresses = proxy.get_cached_property("Addresses").unpack()
-    for addr, prefix, gateway in addresses:
+    for addr, _prefix, _gateway in addresses:
         # TODO - look for a library function
         if version == 4:
             tmp = struct.pack('I', addr)
