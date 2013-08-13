@@ -533,6 +533,7 @@ class UIScreen(object):
 
         for w in self._window:
             if hasattr(w, "render"):
+                # pylint: disable-msg=E1101
                 w.render(self.app.width)
             print unicode(w)
 
