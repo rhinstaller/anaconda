@@ -106,7 +106,6 @@ import json
 import dbus
 import threading
 import time
-import timezone
 import network
 
 import logging
@@ -114,6 +113,7 @@ log = logging.getLogger("anaconda")
 
 from pyanaconda import constants
 from pyanaconda.threads import AnacondaThread, threadMgr
+from pyanaconda.timezone import get_preferred_timezone, is_valid_timezone
 
 location_info_instance = None
 refresh_condition = threading.Condition()
@@ -542,9 +542,9 @@ class FedoraGeoIPProvider(GeolocationBackend):
                     timezone_code = timezone_code.encode("utf8")
 
                 # check if the timezone returned by the API is valid
-                if not timezone.is_valid_timezone(timezone_code):
+                if not is_valid_timezone(timezone_code):
                     # try to get a timezone from the territory code
-                    timezone_code = timezone.get_preferred_timezone(territory)
+                    timezone_code = get_preferred_timezone(territory)
                     timezone_source = "territory code"
                 if territory or timezone_code:
                     self._set_result(LocationResult(
@@ -808,10 +808,9 @@ class WifiScanner(object):
 
                 for ap_path in device.GetAccessPoints():
                     # drill down to the DBUS object for the AP
-                    network = bus.get_object('org.freedesktop.NetworkManager',
-                                             ap_path)
+                    net = bus.get_object('org.freedesktop.NetworkManager', ap_path)
                     network_properties = dbus.Interface(
-                        network, dbus_interface=dbus_iface_id)
+                        net, dbus_interface=dbus_iface_id)
 
                     # get the MAC, name & signal strength
                     bssid = str(network_properties.Get(ap_id, "HwAddress"))

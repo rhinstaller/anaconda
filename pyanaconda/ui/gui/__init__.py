@@ -24,7 +24,7 @@ import meh.ui.gui
 from gi.repository import Gdk, Gtk, AnacondaWidgets
 
 from pyanaconda.i18n import _
-from pyanaconda.product import distributionText, isFinal, productName, productVersion
+from pyanaconda import product
 
 from pyanaconda.ui import UserInterface, common
 from pyanaconda.ui.gui.utils import enlightbox, gtk_action_wait
@@ -214,7 +214,7 @@ class GraphicalUserInterface(UserInterface):
        It is suitable for use both directly and via VNC.
     """
     def __init__(self, storage, payload, instclass,
-                 distributionText = distributionText, isFinal = isFinal,
+                 distributionText = product.distributionText, isFinal = product.isFinal,
                  quitDialog = QuitDialog):
 
         UserInterface.__init__(self, storage, payload, instclass)
@@ -230,16 +230,6 @@ class GraphicalUserInterface(UserInterface):
         self._quitDialog = quitDialog
         self._mehInterface = GraphicalExceptionHandlingIface(
                                     self.lightbox_over_current_action)
-
-        # This is a hack to make sure the AnacondaWidgets library gets loaded
-        # before glade tries to use Anaconda types
-        # glade file should contain the following line to make this seamless
-        #
-        # <requires lib="AnacondaWidgets" version="1.0"/>
-        #
-        # but the current (3.4) version of GtkBuilder does not support
-        # requires elements with 3rd party libraries
-        from gi.repository import AnacondaWidgets
 
     basemask = "pyanaconda.ui.gui"
     basepath = os.path.dirname(__file__)
