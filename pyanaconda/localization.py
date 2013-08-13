@@ -205,7 +205,8 @@ def get_native_name(locale):
     name = langtable.language_name(languageId=parts["language"],
                                    territoryId=parts.get("territory", ""),
                                    scriptId=parts.get("script", ""),
-                                   languageIdQuery=parts["language"])
+                                   languageIdQuery=parts["language"],
+                                   scriptIdQuery=parts.get("script", ""))
 
     return _upcase_first_letter(name)
 
