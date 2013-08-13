@@ -18,8 +18,8 @@
 #
 
 from pyanaconda.installclass import BaseInstallClass
-from pyanaconda.constants import *
-from pyanaconda.product import *
+from pyanaconda.constants import ROOT_PATH
+from pyanaconda.product import productName
 from pyanaconda import network
 from pyanaconda import nm
 from pyanaconda.i18n import N_
@@ -39,9 +39,6 @@ class InstallClass(BaseInstallClass):
     def configure(self, anaconda):
         BaseInstallClass.configure(self, anaconda)
         BaseInstallClass.setDefaultPartitioning(self, anaconda.storage)
-
-    def setGroupSelection(self, anaconda):
-        BaseInstallClass.setGroupSelection(self, anaconda)
 
     def setNetworkOnbootDefault(self, ksdata):
         # if something's already enabled, we can just leave the config alone

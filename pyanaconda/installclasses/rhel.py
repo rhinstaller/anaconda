@@ -17,9 +17,9 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
+from pyanaconda.i18n import N_
 from pyanaconda.installclass import BaseInstallClass
-from pyanaconda.constants import *
-from pyanaconda.product import *
+from pyanaconda.product import productName
 
 class InstallClass(BaseInstallClass):
     # name has underscore used for mnemonics, strip if you dont need it
