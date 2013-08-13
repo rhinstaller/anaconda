@@ -72,6 +72,8 @@ libAnacondaWidgets_la_SOURCES = $(SOURCES) $(HDRS) \
 lib_includedir=$(includedir)/AnacondaWidgets
 lib_include_HEADERS = $(HDRS)
 
+MAINTAINERCLEANFILES = gettext.h
+
 if HAVE_INTROSPECTION
 AnacondaWidgets-1.0.gir: libAnacondaWidgets.la
 
@@ -86,5 +88,5 @@ typelibdir = $(libdir)/girepository-1.0
 typelib_DATA = $(INTROSPECTION_GIRS:.gir=.typelib)
 
 CLEANFILES = AnacondaWidgets-1.0.gir $(typelib_DATA)
-MAINTAINERCLEANFILES = Makefile.in
+MAINTAINERCLEANFILES += Makefile.in
 endif

@@ -24,7 +24,8 @@ ACLOCAL_AMFLAGS = -I m4
 SUBDIRS = src python glade doc data
 
 MAINTAINERCLEANFILES = Makefile.in aclocal.m4 config.guess config.h.in config.sub \
-	depcomp gtk-doc.make install-sh ltmain.sh missing
+	configure depcomp gtk-doc.make install-sh ltmain.sh missing py-compile \
+	m4/*.m4
 
 run-glade:
 	LD_LIBRARY_PATH=src/.libs GLADE_CATALOG_PATH=glade GLADE_MODULE_PATH=src/.libs glade

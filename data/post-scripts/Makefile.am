@@ -19,4 +19,4 @@
 
 postscriptsdir = $(datadir)/$(PACKAGE_NAME)/post-scripts
 dist_postscripts_DATA = 80-setfilecons.ks 90-copy-screenshots.ks 99-copy-logs.ks
-MAINTAINERCLEAFILES = Makefile.in
+MAINTAINERCLEANFILES = Makefile.in

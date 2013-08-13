@@ -16,3 +16,5 @@
 # Author: Chris Lumens <clumens@redhat.com>
 
 EXTRA_DIST = run-text-hub.py run-text-spoke.py
+
+MAINTAINERCLEANFILES = Makefile.in

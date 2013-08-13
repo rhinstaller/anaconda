@@ -16,3 +16,5 @@
 # Author: Chris Lumens <clumens@redhat.com>
 
 EXTRA_DIST = README run-hub.py run-spoke.py
+
+MAINTAINERCLEANFILES = Makefile.in
