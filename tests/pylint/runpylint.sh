@@ -59,8 +59,7 @@ for i in anaconda $(find pyanaconda -type f -name '*py' \! -executable); do
   pylint --init-hook='import sys; \
       sys.path.insert(1, "pyanaconda/isys/.libs"); \
       sys.path.insert(2, "pyanaconda/isys"); \
-      sys.path.insert(3, "pyanaconda"); \
-      sys.path.insert(4, "pyanaconda/.libs")' \
+      sys.path.insert(3, "pyanaconda")' \
     -i y -r n --disable=C,R --rcfile=/dev/null \
     --ignored-classes=Popen,QueueFactory,TransactionSet \
     --defining-attr-methods=__init__,_grabObjects,initialize,reset,start \
