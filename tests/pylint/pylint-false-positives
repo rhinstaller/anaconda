@@ -1,3 +1,10 @@
+^F0401:[ 0-9]*,[0-9]*: Unable to import 'gi.repository.AnacondaWidgets'
+^E0611:[ 0-9]*,[0-9]*: No name '.*' in module 'gi.repository'$
+^E0611:[ 0-9]*,[0-9]*:.*: No name '.*' in module 'gi.repository'$
+^E1101:[ 0-9]*,[0-9]*:.*: Instance of '.*' has no 'add' member$
+^E1101:[ 0-9]*,[0-9]*:.*: Instance of '.*' has no 'remove' member$
+^E1101:[ 0-9]*,[0-9]*:.*: Instance of '.*' has no 'set_.*' member$
+^E1101:[ 0-9]*,[0-9]*:.*: Instance of '.*' has no 'show_all' member$
 ^W0402:[ 0-9]*,[0-9]*: Uses of a deprecated module 'string'$
 ^W0402:[ 0-9]*,[0-9]*:.*: Uses of a deprecated module 'string'$
 ^E0611:[ 0-9]*,[0-9]*: No name '_isys' in module 'pyanaconda'$
