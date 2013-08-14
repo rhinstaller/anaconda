@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: anaconda 13.21.201\n"
+"Project-Id-Version: anaconda 13.21.202\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
-"POT-Creation-Date: 2013-08-12 21:00-0400\n"
+"POT-Creation-Date: 2013-08-14 10:34-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -95,7 +95,7 @@ msgstr ""
 msgid "Installing %s\n"
 msgstr ""
 
-#: bootloader.py:55 bootloader.py:243 bootloader.py:249 bootloader.py:256
+#: bootloader.py:55 bootloader.py:245 bootloader.py:251 bootloader.py:258
 #: gui.py:1253 image.py:92 installinterfacebase.py:66 network.py:890
 #: text.py:490 text.py:550 yuminstall.py:1631 yuminstall.py:1840
 #: yuminstall.py:1875 iw/blpasswidget.py:154 iw/upgrade_swap_gui.py:190
@@ -129,27 +129,27 @@ msgstr ""
 msgid "_Continue"
 msgstr ""
 
-#: bootloader.py:179
+#: bootloader.py:181
 msgid "Bootloader"
 msgstr ""
 
-#: bootloader.py:179
+#: bootloader.py:181
 msgid "Installing bootloader."
 msgstr ""
 
-#: bootloader.py:244
+#: bootloader.py:246
 msgid ""
 "There was an error installing the bootloader.  The system may not be "
 "bootable."
 msgstr ""
 
-#: bootloader.py:250
+#: bootloader.py:252
 msgid ""
 "No kernel packages were installed on the system.  Bootloader configuration "
 "will not be changed."
 msgstr ""
 
-#: bootloader.py:257
+#: bootloader.py:259
 msgid ""
 "There was an error installing the bootloader.  The system may not be bootable"
 msgstr ""
@@ -2180,8 +2180,8 @@ msgstr ""
 msgid "You must select one drive to boot from."
 msgstr ""
 
-#: iw/cleardisks_gui.py:127 iw/cleardisks_gui.py:147 iw/filter_gui.py:504
-#: iw/filter_gui.py:516 iw/filter_gui.py:546
+#: iw/cleardisks_gui.py:127 iw/cleardisks_gui.py:147 iw/filter_gui.py:509
+#: iw/filter_gui.py:521 iw/filter_gui.py:551
 msgid "Model"
 msgstr ""
 
@@ -2189,18 +2189,18 @@ msgstr ""
 msgid "Capacity"
 msgstr ""
 
-#: iw/cleardisks_gui.py:129 iw/filter_gui.py:506 iw/filter_gui.py:526
-#: iw/filter_gui.py:537 iw/filter_gui.py:548
+#: iw/cleardisks_gui.py:129 iw/filter_gui.py:511 iw/filter_gui.py:531
+#: iw/filter_gui.py:542 iw/filter_gui.py:553
 msgid "Vendor"
 msgstr ""
 
-#: iw/cleardisks_gui.py:130 iw/cleardisks_gui.py:149 iw/filter_gui.py:509
-#: iw/filter_gui.py:524 iw/filter_gui.py:535 iw/filter_gui.py:551
+#: iw/cleardisks_gui.py:130 iw/cleardisks_gui.py:149 iw/filter_gui.py:514
+#: iw/filter_gui.py:529 iw/filter_gui.py:540 iw/filter_gui.py:556
 msgid "Identifier"
 msgstr ""
 
-#: iw/cleardisks_gui.py:131 iw/filter_gui.py:507 iw/filter_gui.py:527
-#: iw/filter_gui.py:538 iw/filter_gui.py:549
+#: iw/cleardisks_gui.py:131 iw/filter_gui.py:512 iw/filter_gui.py:532
+#: iw/filter_gui.py:543 iw/filter_gui.py:554
 msgid "Interconnect"
 msgstr ""
 
@@ -2317,34 +2317,34 @@ msgstr ""
 msgid "Device Filter"
 msgstr ""
 
-#: iw/filter_gui.py:505 iw/filter_gui.py:517 iw/filter_gui.py:525
-#: iw/filter_gui.py:536 iw/filter_gui.py:547
+#: iw/filter_gui.py:510 iw/filter_gui.py:522 iw/filter_gui.py:530
+#: iw/filter_gui.py:541 iw/filter_gui.py:552
 msgid "Capacity (MB)"
 msgstr ""
 
-#: iw/filter_gui.py:508 iw/filter_gui.py:539 iw/filter_gui.py:550
+#: iw/filter_gui.py:513 iw/filter_gui.py:544 iw/filter_gui.py:555
 msgid "Serial Number"
 msgstr ""
 
-#: iw/filter_gui.py:510 iw/filter_gui.py:518 iw/filter_gui.py:529
-#: iw/filter_gui.py:540 iw/filter_gui.py:555 iw/osbootwidget.py:66
+#: iw/filter_gui.py:515 iw/filter_gui.py:523 iw/filter_gui.py:534
+#: iw/filter_gui.py:545 iw/filter_gui.py:560 iw/osbootwidget.py:66
 #: iw/partition_gui.py:613
 msgid "Device"
 msgstr ""
 
-#: iw/filter_gui.py:528
+#: iw/filter_gui.py:533
 msgid "Paths"
 msgstr ""
 
-#: iw/filter_gui.py:552
+#: iw/filter_gui.py:557
 msgid "Port"
 msgstr ""
 
-#: iw/filter_gui.py:553
+#: iw/filter_gui.py:558
 msgid "Target"
 msgstr ""
 
-#: iw/filter_gui.py:554
+#: iw/filter_gui.py:559
 msgid "LUN"
 msgstr ""
 
@@ -4716,7 +4716,7 @@ msgid ""
 "installation."
 msgstr ""
 
-#: storage/devicetree.py:1983 storage/devicetree.py:2031
+#: storage/devicetree.py:1985 storage/devicetree.py:2033
 msgid "This partition is part of an inconsistent LVM Volume Group."
 msgstr ""
 

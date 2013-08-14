@@ -222,6 +222,20 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Wed Aug 14 2013 Samantha N. Bueno <sbueno+anaconda@redhat.com> - 13.21.203-1
+- Update spec file to require new pykickstart. (sbueno+anaconda)
+  Related: rhbz#886010
+- Revert "Don't filter partitions on mpath devices in lvm (sbueno+anaconda)"
+  Resolves: rhbz#996595
+  Related: rhbz#885755
+- Fix bootloader upgrades if using zIPL. (sbueno+anaconda)
+  Resolves: rhbz#894050
+- Fix issue where extra mpath entries wrongly shown in UI.  (sbueno+anaconda)
+  Resolves: rhbz#914637
+- Show warning msg if re-using a partition without formatting.
+  (sbueno+anaconda)
+  Resolves: rhbz#886020
+
 * Mon Aug 12 2013 Samantha N. Bueno <sbueno+anaconda@redhat.com> - 13.21.202-1
 - Add support for preexisting lvm using raid segment types. (dlehman)
   Resolves: rhbz#873281
