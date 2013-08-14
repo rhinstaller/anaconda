@@ -254,6 +254,85 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Wed Aug 14 2013 Brian C. Lane <bcl@redhat.com> - 20.6-1
+- Import DBusGMainLoop directly (bcl)
+- Catch AttributeError when looking for InstallClass (bcl)
+- dracut/parse-kickstart should use the updated method-related classes
+  (#994978). (clumens)
+- Ignore warnings about the global keyword and the DefaultInstall class.
+  (clumens)
+- Fix all the pylint warnings in the anaconda file. (clumens)
+- Deal with the last of the catching Exception warnings. (clumens)
+- Always define a continueButton and quitButton property. (clumens)
+- Fix pylint warnings in the installclasses. (clumens)
+- Remove a directory that does not exist from the PYTHONPATH for pylint.
+  (clumens)
+- Fix up some warnings about calling the superclass's __init__ method.
+  (clumens)
+- Remove the reference to "anaconda" in reIPL. (clumens)
+- Fix up almost all of the redefining warning messages. (clumens)
+- Add a bunch of gobject-introspection related ignore lines. (clumens)
+- StorageChecker ought to have a self.storage attribute. (clumens)
+- Ignore another error pylint can't quite figure out. (clumens)
+- pylint doesn't understand what's in AnacondaKSHandler. (clumens)
+- Remove the "Add custom add-on" button. (clumens)
+- Fix up places where overridden methods don't take the same number of args.
+  (clumens)
+- Fix up all unused variable warnings. (clumens)
+- Added files to MAINTAINERCLEANFILES (dshea)
+- Reenabled the pylint test target (dshea)
+- Cleanup the autogen scripts. (dshea)
+- Remove m4 files from the widgets project. (dshea)
+- Install gettext files at build time. (dshea)
+- Use the python checks provided by automake. (dshea)
+- Added a missing type check found by autoscan (dshea)
+- Cleanup the widgets autoconf file (dshea)
+- Add detail to logs when creating users and groups (dshea)
+- Fix miscellaneous errors in installclass.py. (clumens)
+- Fix a variety of errors in the packaging module. (clumens)
+- Do not run pylint against executable files in pyanaconda/. (clumens)
+- Clean up deprecated uses of the string module. (clumens)
+- Call the right superclass's method. (clumens)
+- Straighten out text UI methods so they have the same method signature.
+  (clumens)
+- Remove the lines to ignore E0611. (clumens)
+- Bootloader.read is completely unused; cut it. (clumens)
+- Fix all the "X is defined outside of __init__" warnings. (clumens)
+- Display the correct string for the space required by packages. (clumens)
+- Remove lines that clearly just don't do anything. (clumens)
+- If we're not going to use the return value, don't grab it. (clumens)
+- kernelVersionList in tarpayload.py should act the same as all other versions.
+  (clumens)
+- If we're not going to use the exception object, don't grab it. (clumens)
+- Define stage2_device in the BootLoader class. (clumens)
+- Don't call getPassAlgo before running createGroup. (clumens)
+- Remove some unused values out of constants.py. (clumens)
+- Finish taking care of pylint warnings in image.py. (clumens)
+- Remove the unused network and write methods from the Anaconda object.
+  (clumens)
+- Remove the disable-msg lines for a couple C messages. (clumens)
+- Remove some easy unused argument warnings. (clumens)
+- Remove everything from InstallInterfaceBase except what Rescue needs.
+  (clumens)
+- Remove the duplicated imports. (clumens)
+- Do not use a list or a dict as a default argument to a method. (clumens)
+- Remove unneeded lambdas. (clumens)
+- Fix up all the warnings where we used a reserved function name or keyword.
+  (clumens)
+- Fix up about half of the "except:" and "except Exception:" lines. (clumens)
+- Fix a couple undefined variable errors that were real bugs. (clumens)
+- Ignore statements that have no effect. (clumens)
+- Fix up all the wildcard imports except two in packaging. (clumens)
+- Remove all unused import lines. (clumens)
+- Remove unnecessary pass statements. (clumens)
+- Fix bad indentation and tab-instead-of-space warnings from pylint. (clumens)
+- Put the pylint test back into service. (clumens)
+- Run make with multiple jobs in makeupdates (vpodzime)
+- Use gtk_image_new_from_icon_name (bcl)
+- Remove caching of unused device list. (dlehman)
+- Check MBR gap size even when /boot is on a plain partition. (#986431)
+  (dlehman)
+
 * Thu Aug 08 2013 Brian C. Lane <bcl@redhat.com> - 20.5-1
 - Don't wait for systemctl shutdown command to exit (#974383) (bcl)
 - Fix the logging of the spice-vdagent status (dshea)
