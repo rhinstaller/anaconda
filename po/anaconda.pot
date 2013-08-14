@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: anaconda 19.31.4\n"
+"Project-Id-Version: anaconda 19.31.5\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
-"POT-Creation-Date: 2013-08-07 07:37-0700\n"
+"POT-Creation-Date: 2013-08-13 17:10-0700\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -2787,7 +2787,7 @@ msgid "Select additional language support to be installed"
 msgstr ""
 
 #: pyanaconda/ui/gui/spokes/langsupport.glade:175
-#: pyanaconda/ui/gui/spokes/welcome.glade:494
+#: pyanaconda/ui/gui/spokes/welcome.glade:498
 msgid "Type here to search."
 msgstr ""
 
@@ -3016,11 +3016,11 @@ msgid "Unsupported Hardware Detected"
 msgstr ""
 
 #: pyanaconda/ui/gui/spokes/welcome.glade:145
-msgid "_Get me out of here!"
+msgid "I want to _exit."
 msgstr ""
 
 #: pyanaconda/ui/gui/spokes/welcome.glade:159
-msgid "_I accept my fate."
+msgid "I want to _proceed."
 msgstr ""
 
 #: pyanaconda/ui/gui/spokes/welcome.glade:190
@@ -3029,29 +3029,36 @@ msgstr ""
 
 #: pyanaconda/ui/gui/spokes/welcome.glade:223
 msgid ""
-"You wake up inside an OS installer in Timbuktu, and it's six months in the "
-"future.  But, there are bugs.  Bugs everywhere.  Bugs you must live with.  "
-"This OS of the future isn't a stable OS you can rely on.  It's for testing "
-"purposes only."
+"Notice:  This is pre-release software that is intended for development and "
+"testing purposes only.  Do not use this software for any critical work or "
+"for production environments.\n"
+"\n"
+"By clicking \"I want to proceed\", you understand and accept the risks "
+"associated with pre-release software, that you intend to use this for "
+"testing and development purposes only, and are willing to report any bugs or "
+"issues in order to enhance this work.\n"
+"\n"
+"If you do not understand or accept the risks, then please exit this program "
+"by clicking \"I want to exit\" which will reboot your system."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/welcome.glade:377
+#: pyanaconda/ui/gui/spokes/welcome.glade:381
 msgid "WELCOME TO %s %s."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/welcome.glade:395
+#: pyanaconda/ui/gui/spokes/welcome.glade:399
 msgid "What language would you like to use during the installation process?"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/welcome.glade:445
+#: pyanaconda/ui/gui/spokes/welcome.glade:449
 msgid "nativeName"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/welcome.glade:461
+#: pyanaconda/ui/gui/spokes/welcome.glade:465
 msgid "englishName"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/welcome.glade:516
+#: pyanaconda/ui/gui/spokes/welcome.glade:520
 msgid "Set _keyboard to default layout for selected language."
 msgstr ""
 

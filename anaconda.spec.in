@@ -256,6 +256,10 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Aug 13 2013 Brian C. Lane <bcl@redhat.com> - 19.31.6-1
+- Change the betanag wording to be better for RHEL (clumens).
+  Resolves: rhbz#917820
+
 * Wed Aug 07 2013 Brian C. Lane <bcl@redhat.com> - 19.31.5-1
 - Need to import the version constant we are using, too (clumens).
   Resolves: rhbz#994366
