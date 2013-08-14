@@ -165,13 +165,15 @@ def writeBootloader(anaconda):
     if anaconda.id.bootloader.doUpgradeOnly:
         (bootType, theDev) = checkbootloader.getBootloaderTypeAndBoot(anaconda.rootPath, storage=anaconda.id.storage)
         
-        anaconda.id.bootloader.doUpgradeonly = 1
         if bootType == "GRUB":
             if theDev.startswith('/dev/md'):
                 theDev = fixedMdraidGrubTarget(anaconda,
                                                devicePathToName(theDev))
             anaconda.id.bootloader.useGrubVal = 1
             anaconda.id.bootloader.setDevice(devicePathToName(theDev))
+        elif bootType == "ZIPL":
+            anaconda.id.bootloader.images.setup(anaconda.id.storage)
+            return
         else:
             anaconda.id.bootloader.doUpgradeOnly = 0    
             anaconda.id.bootloader.images.setup(anaconda.id.storage)
