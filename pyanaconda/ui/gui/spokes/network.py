@@ -52,7 +52,9 @@ import socket
 import subprocess
 import struct
 import string
-dbus.mainloop.glib.DBusGMainLoop(set_as_default=True)
+
+from dbus.mainloop.glib import DBusGMainLoop
+DBusGMainLoop(set_as_default=True)
 
 import ctypes
 ctypes.cdll.LoadLibrary("libnm-util.so.2")
