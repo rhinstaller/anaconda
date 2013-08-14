@@ -476,11 +476,16 @@ class FilterWindow(InstallWindow):
                     self.depopulate(d)
 
                 # If all components of this multipath device are in the
-                # cache, skip it.  Otherwise, it's a new device and needs to
-                # be populated into the UI.
+                # cache, skip it. Otherwise, perform some additional checks
+                # and then populate the UI.
                 if d not in self._cachedMPaths:
-                    mpaths.append(mp)
-                    break
+                    # Since we're only tracking mpaths by their members, we
+                    # have no way of knowing whether the mpath the disk
+                    # belongs to is already in the UI, so check for it here
+                    # before creating a new mpath device.
+                    if udev_device_get_multipath_name(d) is None:
+                        mpaths.append(mp)
+                        break
 
         nonraids = filter(lambda d: d not in self._cachedDevices, new_nonraids)
         raids = filter(lambda d: d not in self._cachedRaidDevices, new_raids)
