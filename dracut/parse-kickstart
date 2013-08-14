@@ -52,24 +52,29 @@ proc_cmdline = read_cmdline("/proc/cmdline")
 
 # Here are the kickstart commands we care about:
 
-class Method(commands.method.F14_Method):
-    '''install methods: cdrom, harddrive, nfs, url'''
+class Cdrom(commands.cdrom.FC3_Cdrom):
     def dracut_args(self, args, lineno, obj):
-        if self.method == "cdrom":
-            method="cdrom"
-        elif self.method == "harddrive":
-            if self.biospart:
-                method="bd:%s:%s" % (self.partition, self.dir)
-            else:
-                method="hd:%s:%s" % (self.partition, self.dir)
-        elif self.method == "nfs":
-            method="nfs:%s:%s" % (self.server, self.dir)
-            if self.opts:
-                method += ":%s" % self.opts
-        elif self.method == "url":
-            # FIXME: self.proxy, self.noverifyssl
-            method = self.url
+        return "inst.repo=cdrom"
+
+class HardDrive(commands.harddrive.FC3_HardDrive):
+    def dracut_args(self, args, lineno, obj):
+        if self.biospart:
+            return "inst.repo=bd:%s:%s" % (self.partition, self.dir)
+        else:
+            return "inst.repo=hd:%s:%s" % (self.partition, self.dir)
+
+class NFS(commands.nfs.FC6_NFS):
+    def dracut_args(self, args, lineno, obj):
+        method="nfs:%s:%s" % (self.server, self.dir)
+        if self.opts:
+            method += ":%s" % self.opts
+
         return "inst.repo=%s" % method
+
+class URL(commands.url.F18_Url):
+    def dracut_args(self, args, lineno, obj):
+        # FIXME: self.proxy, self.noverifyssl
+        return "inst.repo=%s" % self.url
 
 class Updates(commands.updates.F7_Updates):
     def dracut_args(self, args, lineno, obj):
@@ -148,10 +153,10 @@ class Bootloader(commands.bootloader.F19_Bootloader):
 # TODO: keymap, lang... device? selinux?
 
 dracutCmds = {
-    'cdrom': Method,
-    'harddrive': Method,
-    'nfs': Method,
-    'url': Method,
+    'cdrom': Cdrom,
+    'harddrive': HardDrive,
+    'nfs': NFS,
+    'url': URL,
     'updates': Updates,
     'mediacheck': MediaCheck,
     'driverdisk': DriverDisk,
