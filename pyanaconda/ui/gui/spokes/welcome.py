@@ -35,7 +35,7 @@ from pyanaconda import keyboard
 from pyanaconda import flags
 from pyanaconda import geoloc
 from pyanaconda.i18n import _
-from pyanaconda.iutil import is_unsupported_hw
+from pyanaconda.iutil import is_unsupported_hw, strip_accents
 from pyanaconda.constants import DEFAULT_LANG
 
 import logging
@@ -272,7 +272,8 @@ class WelcomeLanguageSpoke(StandaloneSpoke):
         # Otherwise, filter the list showing only what is matched by the
         # text entry.  Either the English or native names can match.
         lowered = entry.lower()
-        if lowered in native.lower() or lowered in english.lower():
+        translit = strip_accents(unicode(native, "utf-8")).lower()
+        if lowered in native.lower() or lowered in english.lower() or lowered in translit:
             return True
         else:
             return False
