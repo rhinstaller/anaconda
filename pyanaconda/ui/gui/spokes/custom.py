@@ -237,6 +237,31 @@ def really_show(widget):
     widget.set_no_show_all(False)
     widget.show()
 
+def selectedRaidLevel(raidLevelCombo):
+    """Interpret the selection of a RAID level combo box."""
+    itr = raidLevelCombo.get_active_iter()
+    store = raidLevelCombo.get_model()
+
+    if not itr:
+        return
+
+    selected_level_string = store[itr][0]   # eg: "RAID1 (Redundancy)"
+    level = selected_level_string.split()[0]    # -> "RAID1"
+
+    # The RAID level strings are not translated, but the "None" string in
+    # the container dialog is. Transformations in relation to "None" need
+    # to happen within the locale settings, but transformations in
+    # relation to "RAID* ..." need to happen only within ASCII. For example,
+    # "RAID1".lower() in Turkish would become "raıd1", which is not what
+    # we want.
+    levelLocale = level.lower()
+    levelASCII = lowerASCII(level)
+
+    if levelASCII == "none" or levelLocale == _("None").lower():
+        return None
+
+    return levelASCII
+
 class AddDialog(GUIObject):
     builderObjects = ["addDialog", "mountPointStore", "mountPointCompletion", "mountPointEntryBuffer"]
     mainWidgetName = "addDialog"
@@ -497,7 +522,7 @@ class ContainerDialog(GUIObject):
 
         model, paths = self._treeview.get_selection().get_selected_rows()
 
-        raid_level = self._get_raid_level()
+        raid_level = selectedRaidLevel(self._raidLevelCombo)
         if raid_level:
             md_level = mdraid.raidLevel(raid_level)
             min_disks = mdraid.get_raid_min_members(md_level)
@@ -558,20 +583,6 @@ class ContainerDialog(GUIObject):
             return model[itr][4]
         elif self.device_type == DEVICE_TYPE_BTRFS:
             return model[itr][3]
-
-    def _get_raid_level(self):
-        itr = self._raidLevelCombo.get_active_iter()
-        store = self._raidLevelCombo.get_model()
-
-        if not itr:
-            return
-
-        selected_level_string = store[itr][0]   # eg: "RAID1 (Redundancy)"
-        level = selected_level_string.split()[0].lower()    # -> "raid1"
-        if level == "none" or level == _("None").lower():
-            level = None
-
-        return level
 
     def _populate_raid(self):
         """ Set up the raid-specific portion of the device details. """
@@ -1207,7 +1218,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         changed_mountpoint = (old_mountpoint != mountpoint)
 
         # RAID LEVEL
-        raid_level = self._get_raid_level()
+        raid_level = selectedRaidLevel(self._raidLevelCombo)
         old_raid_level = get_raid_level(device)
         changed_raid_level = (old_device_type == device_type and
                               device_type in (DEVICE_TYPE_MD,
@@ -1581,20 +1592,6 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
             return model[itr][2]
         elif device_type == DEVICE_TYPE_BTRFS:
             return model[itr][3]
-
-    def _get_raid_level(self):
-        itr = self._raidLevelCombo.get_active_iter()
-        store = self._raidLevelCombo.get_model()
-
-        if not itr:
-            return
-
-        selected_level_string = store[itr][0]   # eg: "RAID1 (Redundancy)"
-        level = selected_level_string.split()[0].lower()    # -> "raid1"
-        if level == "none":
-            level = None
-
-        return level
 
     def _populate_raid(self, raid_level):
         """ Set up the raid-specific portion of the device details. """
@@ -2263,7 +2260,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
             self._applyButton.set_sensitive(True)
 
         self._device_disks = disks
-        self._populate_raid(self._get_raid_level())
+        self._populate_raid(selectedRaidLevel(self._raidLevelCombo))
 
     def run_container_editor(self, container=None, name=None):
         size = 0
