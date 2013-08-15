@@ -21,7 +21,6 @@
 #
 # Author: David Cantrell <dcantrell@redhat.com>
 
-import getopt
 import os
 import shutil
 import subprocess
@@ -31,6 +30,7 @@ import glob
 import urllib
 import threading
 import multiprocessing
+import argparse
 
 RPM_FOLDER_NAME = os.path.expanduser("~/.anaconda_updates_rpm_cache")
 KOJI_BASE_URL = "http://kojipkgs.fedoraproject.org//packages/" \
@@ -527,103 +527,81 @@ def get_rpm_from_Koji_thread(package, fedora_number, arch,
             with print_lock:
                 print("%s download failed: %s @ %s" % (prefix, rpm_name, url))
 
-def usage(cmd):
-    sys.stdout.write("Usage: %s [OPTION]...\n" % (cmd,))
-    sys.stdout.write("Options:\n")
-    sys.stdout.write("    -k, --keep       Do not delete updates subdirectory.\n")
-    sys.stdout.write("    -c, --compile    Compile code if there are isys changes.\n")
-    sys.stdout.write("    -h, --help       Display this help and exit.\n")
-    sys.stdout.write("    -t, --tag        Make image from TAG to HEAD.\n")
-    sys.stdout.write("    -o, --offset     Make image from (latest_tag - OFFSET) to HEAD.\n")
-    sys.stdout.write("    -a, --add        Add contents of rpm to the update\n")
-    sys.stdout.write("    -f, --fetch      Autofetch new dependencies from Koji for ARCH\n")
-    sys.stdout.write("                     (cached in ~/.anaconda_updates_rpm_cache)\n")
-
-def main(argv):
-    prog = os.path.basename(sys.argv[0])
+def main():
     cwd = os.getcwd()
-    configure = os.path.realpath(cwd + '/configure.ac')
-    spec = os.path.realpath(cwd + '/anaconda.spec.in')
-    updates = cwd + '/updates'
-    keep, compile, help, unknown = False, False, False, False
-    tag = None
-    opts = []
-    offset = 0
-    add_rpms = []
-    fetch = False
-    arch = None
+    configure = os.path.realpath(os.path.join(cwd, 'configure.ac'))
+    spec = os.path.realpath(os.path.join(cwd, 'anaconda.spec.in'))
+    updates = os.path.join(cwd, 'updates')
 
-    try:
-        opts, args = getopt.getopt(sys.argv[1:], 'a:t:f:o:kc?',
-                                   ['add=', 'tag=', 'offset=',
-                                    'keep', 'compile', 'help', 'fetch='])
-    except getopt.GetoptError:
-        help = True
+    parser = argparse.ArgumentParser(description="Make Anaconda updates image")
 
-    for o, a in opts:
-        if o in ('-k', '--keep'):
-            keep = True
-        elif o in ('-c', '--compile'):
-            compile = True
-        elif o in ('-?', '--help'):
-            help = True
-        elif o in ('-t', '--tag'):
-            tag = a
-        elif o in ('-o', '--offset'):
-            offset = int(a)
-        elif o in ('-a', '--add'):
-            add_rpms.append(os.path.abspath(a))
-        elif o in ('-f', '--fetch'):
-            fetch = True
-            if a == "":
-                help = True
-            else:
-                arch = a
-        else:
-            unknown = True
+    parser.add_argument('-k', '--keep', action='store_true',
+                        help='do not delete updates subdirectory')
 
-    if help:
-        usage(prog)
-        sys.exit(0)
-    elif unknown:
-        sys.stderr.write("%s: extra operand `%s'" % (prog, sys.argv[1],))
-        sys.stderr.write("Try `%s --help' for more information." % (prog,))
-        sys.exit(1)
+    parser.add_argument('-c', '--compile', action='store_true',
+                        help='compile code if there are isys changes')
+
+    parser.add_argument('-t', '--tag', action='store', type=str,
+                        help='make updates image from TAG to HEAD')
+
+    parser.add_argument('-o', '--offset', action='store', type=int, default=0,
+                        help='make image from (latest_tag - OFFSET) to HEAD')
+
+    # -a/--add can be both used multiple times and multiple paths can be
+    # passed to a single -a/--add option, all provided paths will be then added
+    # to the add_rpm list
+    #
+    # Example:
+    #
+    # makeupdates -a foo.rpm -a bar.rpm baz.rpm --add spam.rpm
+    #
+    # This will add foo.rpm, bar.rpm, baz.rpm and spam.rpm to the
+    # updates image.
+    parser.add_argument('-a', '--add', action='append', type=str, nargs='+',
+                        dest='add_rpms', metavar='PATH_TO_RPM', default=[],
+                        help='add contents of RPMs to the updates image')
+
+    parser.add_argument('-f', '--fetch', action='store', type=str, metavar="ARCH",
+                        help='autofetch new dependencies from Koji for ARCH')
+
+    args = parser.parse_args()
 
     if not os.path.isfile(configure) and not os.path.isfile(spec):
         sys.stderr.write("You must be at the top level of the anaconda source tree.\n")
         sys.exit(1)
 
-    if not tag:
-        if offset < 1:
-            tag = getArchiveTag(configure, spec)
+    if not args.tag:
+        # add a fake tag to the arguments to be consistent
+        if args.offset < 1:
+            args.tag = getArchiveTag(configure, spec)
         else:
-            tag = getArchiveTagOffset(configure, spec, offset)
-        sys.stdout.write("Using tag: %s\n" % tag)
+            args.tag = getArchiveTagOffset(configure, spec, args.offset)
+        sys.stdout.write("Using tag: %s\n" % args.tag)
 
     if not os.path.isdir(updates):
         os.makedirs(updates)
 
-    copyUpdatedFiles(tag, updates, cwd)
+    copyUpdatedFiles(args.tag, updates, cwd)
 
-    if compile:
-        if isysChanged(tag):
+    if args.compile:
+        if isysChanged(args.tag):
             copyUpdatedIsys(updates, cwd)
 
-        if widgetsChanged(tag):
+        if widgetsChanged(args.tag):
             copyUpdatedWidgets(updates, cwd)
 
-    if fetch:
-        rpm_paths = check_for_new_packages(tag, arch)
-        add_rpms.extend(rpm_paths)
+    if args.fetch:
+        arch = args.fetch
+        rpm_paths = check_for_new_packages(args.tag, arch)
+        args.add_rpms.extend(rpm_paths)
 
-    if add_rpms:
-        addRpms(updates, add_rpms)
+    if args.add_rpms:
+        addRpms(updates, args.add_rpms)
 
     createUpdatesImage(cwd, updates)
 
-    if not keep:
+    if not args.keep:
         shutil.rmtree(updates)
 
 if __name__ == "__main__":
-    main(sys.argv)
+    main()
