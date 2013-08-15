@@ -68,3 +68,15 @@ class ParsingAndJoiningTests(unittest.TestCase):
         for spec in specs:
             (layout, variant) = keyboard._parse_layout_variant(spec)
             self.assertEqual(spec, keyboard._join_layout_variant(layout, variant))
+
+    def layout_variant_normalize_test(self):
+        """Normalizing layout and variant strings should work as expected."""
+
+        # no effect on normalized layout and variant string
+        self.assertEqual(keyboard.normalize_layout_variant("cz (qwerty)"), "cz (qwerty)")
+        self.assertEqual(keyboard.normalize_layout_variant("cz"), "cz")
+
+        # normalize spaces
+        self.assertEqual(keyboard.normalize_layout_variant("cz(qwerty)"), "cz (qwerty)")
+        self.assertEqual(keyboard.normalize_layout_variant("cz ( qwerty )"), "cz (qwerty)")
+        self.assertEqual(keyboard.normalize_layout_variant("cz "), "cz")
