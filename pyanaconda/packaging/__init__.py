@@ -446,7 +446,11 @@ class Payload(object):
         log.debug("getting release version from tree at %s (%s)" % (url,
                                                                     version))
 
-        treeinfo = self._getTreeInfo(url, self.data.method.proxy, not flags.noverifyssl)
+        if hasattr(self.data.method, "proxy"):
+            proxy = self.data.method.proxy
+        else:
+            proxy = None
+        treeinfo = self._getTreeInfo(url, proxy, not flags.noverifyssl)
         if treeinfo:
             c = ConfigParser.ConfigParser()
             c.read(treeinfo)

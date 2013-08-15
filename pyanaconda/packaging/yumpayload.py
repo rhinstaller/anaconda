@@ -259,7 +259,7 @@ reposdir=%s
         if self.data.packages.multiLib:
             buf += "multilib_policy=all\n"
 
-        if self.data.method.proxy:
+        if hasattr(self.data.method, "proxy") and self.data.method.proxy:
             try:
                 proxy = ProxyString(self.data.method.proxy)
                 buf += "proxy=%s\n" % (proxy.noauth_url,)
@@ -331,7 +331,7 @@ reposdir=%s
                                 f.write("proxy_password=%s\n" % (proxy.password,))
                         except ProxyStringError as e:
                             log.error("Failed to parse proxy for _writeInstallConfig %s: %s" \
-                                      % (self.data.method.proxy, e))
+                                      % (ks_repo.proxy, e))
 
                     if ks_repo.cost:
                         f.write("cost=%d\n" % ks_repo.cost)
@@ -772,9 +772,15 @@ reposdir=%s
                     raise PayloadSetupError("base repo is unusable")
 
             self._yumCacheDirHack()
+
+            if hasattr(method, "proxy"):
+                proxyurl = method.proxy
+            else:
+                proxyurl = None
+
             try:
                 self._addYumRepo(BASE_REPO_NAME, url, mirrorlist=mirrorlist,
-                                 proxyurl=method.proxy, sslverify=sslverify)
+                                 proxyurl=proxyurl, sslverify=sslverify)
             except MetadataError as e:
                 log.error("base repo (%s/%s) not valid -- removing it"
                           % (method.method, url))
@@ -794,7 +800,13 @@ reposdir=%s
         if self._repoNeedsNetwork(repo) and not nm_is_connected():
             raise NoNetworkError
 
-        proxy = repo.proxy or self.data.method.proxy
+        if repo.proxy:
+            proxy = repo.proxy
+        elif hasattr(self.data.method, "proxy"):
+            proxy = self.data.method.proxy
+        else:
+            proxy = None
+
         sslverify = not (flags.noverifyssl or repo.noverifyssl)
 
         # this repo is already in ksdata, so we only add it to yum here

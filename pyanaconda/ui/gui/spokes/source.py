@@ -121,7 +121,8 @@ class ProxyDialog(GUIObject):
     def refresh(self):
         GUIObject.refresh(self)
 
-        if not self.data.method.proxy:
+
+        if not (hasattr(self.data.method, "proxy") and self.data.method.proxy):
             self._proxyCheck.set_active(False)
             self.on_proxy_enable_toggled(self._proxyCheck)
             self._authCheck.set_active(False)
@@ -429,7 +430,7 @@ class SourceSpoke(NormalSpoke):
             log.error("PayloadError: %s" % (e,))
             self._error = True
             hubQ.send_message(self.__class__.__name__, _("Failed to set up installation source"))
-            if not self.data.method.proxy:
+            if not (hasattr(self.data.method, "proxy") and self.data.method.proxy):
                 gtk_call_once(self.set_warning, _("Failed to set up installation source; check the repo url"))
             else:
                 gtk_call_once(self.set_warning, _("Failed to set up installation source; check the repo url and proxy settings"))
@@ -753,6 +754,10 @@ class SourceSpoke(NormalSpoke):
                 self._verifyIsoButton.set_sensitive(True)
 
     def on_proxy_clicked(self, button):
+        # If this method has no proxy, ignore the click
+        if not hasattr(self.data.method, "proxy"):
+            return
+
         old_proxy = self.data.method.proxy
         dialog = ProxyDialog(self.data)
         with enlightbox(self.window, dialog.window):
