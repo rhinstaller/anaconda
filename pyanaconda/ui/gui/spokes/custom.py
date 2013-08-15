@@ -399,22 +399,20 @@ class ContainerDialog(GUIObject):
         self._error = None
         GUIObject.__init__(self, *args, **kwargs)
 
+        self._grabObjects()
+
         # set up the dialog labels with device-type-specific text
         container_type = container_type_names.get(self.device_type,
                                                   _("container"))
         title_text = container_dialog_title % {"container_type": container_type.upper()}
-        title_label = self.builder.get_object("container_dialog_title_label")
-        title_label.set_text(title_text)
+        self._title_label.set_text(title_text)
 
         dialog_text = container_dialog_text % {"container_type": container_type.lower()}
-        dialog_label = self.builder.get_object("container_dialog_label")
-        dialog_label.set_text(dialog_text)
+        self._dialog_label.set_text(dialog_text)
 
         # populate the dialog widgets
-        name_entry = self.builder.get_object("container_name_entry")
-        name_entry.set_text(self.name)
+        self._name_entry.set_text(self.name)
 
-        self._store = self.builder.get_object("disk_store")
         # populate the store
         for disk in self._disks:
             self._store.append([disk.description,
@@ -423,12 +421,11 @@ class ContainerDialog(GUIObject):
                                 disk.serial,
                                 disk.id])
 
-        treeview = self.builder.get_object("container_disk_view")
-        model = treeview.get_model()
+        model = self._treeview.get_model()
         itr = model.get_iter_first()
 
         selected_ids = [d.id for d in self.selected]
-        selection = treeview.get_selection()
+        selection = self._treeview.get_selection()
         while itr:
             disk_id = model.get_value(itr, 4)
             if disk_id in selected_ids:
@@ -437,34 +434,48 @@ class ContainerDialog(GUIObject):
             itr = model.iter_next(itr)
 
         # XXX how will this be related to the device encryption setting?
-        encryptCheckbutton = self.builder.get_object("containerEncryptedCheckbox")
-        encryptCheckbutton.set_active(self.encrypted)
+        self._encryptCheckbutton.set_active(self.encrypted)
 
         # set up the raid level combo
         # XXX how will this be related to the device raid level setting?
-        raidStoreFilter = self.builder.get_object("containerRaidStoreFiltered")
-        raidStoreFilter.set_visible_func(self._raid_level_visible)
-        raidStoreFilter.refilter()
+        self._raidStoreFilter.set_visible_func(self._raid_level_visible)
+        self._raidStoreFilter.refilter()
         self._populate_raid()
 
-        self.sizeCombo = self.builder.get_object("containerSizeCombo")
-        self.sizeEntry = self.builder.get_object("containerSizeEntry")
-        self.sizeLabel = self.builder.get_object("containerSizeLabel")
         size = Size(spec="%d mb" % self.size)
-        self.sizeEntry.set_text(size.humanReadable(max_places=None))
+        self._sizeEntry.set_text(size.humanReadable(max_places=None))
         if self.size_policy == SIZE_POLICY_AUTO:
-            self.sizeCombo.set_active(0)
+            self._sizeCombo.set_active(0)
         elif self.size_policy == SIZE_POLICY_MAX:
-            self.sizeCombo.set_active(1)
+            self._sizeCombo.set_active(1)
         else:
-            self.sizeCombo.set_active(2)
+            self._sizeCombo.set_active(2)
 
         if self.exists:
-            fancy_set_sensitive(name_entry, False)
-            treeview.set_sensitive(False)
-            fancy_set_sensitive(encryptCheckbutton, False)
-            fancy_set_sensitive(self.sizeCombo, False)
-            self.sizeEntry.set_sensitive(False)
+            fancy_set_sensitive(self._name_entry, False)
+            self._treeview.set_sensitive(False)
+            fancy_set_sensitive(self._encryptCheckbutton, False)
+            fancy_set_sensitive(self._sizeCombo, False)
+            self._sizeEntry.set_sensitive(False)
+
+    def _grabObjects(self):
+        self._title_label = self.builder.get_object("container_dialog_title_label")
+        self._dialog_label = self.builder.get_object("container_dialog_label")
+        self._error_label = self.builder.get_object("containerErrorLabel")
+
+        self._name_entry = self.builder.get_object("container_name_entry")
+
+        self._encryptCheckbutton = self.builder.get_object("containerEncryptedCheckbox")
+        self._raidStoreFilter = self.builder.get_object("containerRaidStoreFiltered")
+
+        self._store = self.builder.get_object("disk_store")
+        self._treeview = self.builder.get_object("container_disk_view")
+
+        self._sizeCombo = self.builder.get_object("containerSizeCombo")
+        self._sizeEntry = self.builder.get_object("containerSizeEntry")
+
+        self._raidLevelCombo = self.builder.get_object("containerRaidLevelCombo")
+        self._raidLevelLabel = self.builder.get_object("containerRaidLevelLabel")
 
     def _get_disk_by_id(self, disk_id):
         for disk in self._disks:
@@ -477,15 +488,14 @@ class ContainerDialog(GUIObject):
             return
 
         # If no name was entered, quit the dialog as if they did nothing.
-        name = self.builder.get_object("container_name_entry").get_text().strip()
+        name = self._name_entry.get_text().strip()
         if not name:
             self._error = _(empty_name_msg)
-            self.builder.get_object("containerErrorLabel").set_text(self._error)
+            self._error_label.set_text(self._error)
             self.window.show_all()
             return
 
-        treeview = self.builder.get_object("container_disk_view")
-        model, paths = treeview.get_selection().get_selected_rows()
+        model, paths = self._treeview.get_selection().get_selected_rows()
 
         raid_level = self._get_raid_level()
         if raid_level:
@@ -494,17 +504,17 @@ class ContainerDialog(GUIObject):
             if len(paths) < min_disks:
                 self._error = (_(raid_level_not_enough_disks_msg)
                                % (raid_level, min_disks, len(paths)))
-                self.builder.get_object("containerErrorLabel").set_text(self._error)
+                self._error_label.set_text(self._error)
                 self.window.show_all()
                 return
 
-        idx = self.sizeCombo.get_active()
+        idx = self._sizeCombo.get_active()
         if idx == 0:
             size = SIZE_POLICY_AUTO
         elif idx == 1:
             size = SIZE_POLICY_MAX
         elif idx == 2:
-            size = size_from_entry(self.sizeEntry)
+            size = size_from_entry(self._sizeEntry)
             if size:
                 size = int(size.convertTo(spec="MB"))
             elif size is None:
@@ -520,10 +530,10 @@ class ContainerDialog(GUIObject):
 
         self.name = name
         self.raid_level = raid_level
-        self.encrypted = self.builder.get_object("containerEncryptedCheckbox").get_active()
+        self.encrypted = self._encryptCheckbutton.get_active()
         self.size_policy = size
 
-        self.builder.get_object("containerErrorLabel").set_text("")
+        self.builder._error_label.set_text("")
         self.window.destroy()
 
     def run(self):
@@ -536,11 +546,11 @@ class ContainerDialog(GUIObject):
     def on_size_changed(self, combo):
         active_index = combo.get_active()
         if active_index == 0:
-            self.sizeEntry.set_sensitive(False)
+            self._sizeEntry.set_sensitive(False)
         elif active_index == 1:
-            self.sizeEntry.set_sensitive(False)
+            self._sizeEntry.set_sensitive(False)
         else:
-            self.sizeEntry.set_sensitive(True)
+            self._sizeEntry.set_sensitive(True)
 
     def _raid_level_visible(self, model, itr, user_data):
         # This is weird because for lvm's container-wide raid we use md.
@@ -550,9 +560,8 @@ class ContainerDialog(GUIObject):
             return model[itr][3]
 
     def _get_raid_level(self):
-        combo = self.builder.get_object("containerRaidLevelCombo")
-        itr = combo.get_active_iter()
-        store = combo.get_model()
+        itr = self._raidLevelCombo.get_active_iter()
+        store = self._raidLevelCombo.get_model()
 
         if not itr:
             return
@@ -566,11 +575,8 @@ class ContainerDialog(GUIObject):
 
     def _populate_raid(self):
         """ Set up the raid-specific portion of the device details. """
-        raid_label = self.builder.get_object("containerRaidLevelLabel")
-        raid_combo = self.builder.get_object("containerRaidLevelCombo")
-
         if self.device_type not in [DEVICE_TYPE_LVM, DEVICE_TYPE_BTRFS, DEVICE_TYPE_LVM_THINP]:
-            map(really_hide, [raid_label, raid_combo])
+            map(really_hide, [self._raidLevelLabel, self._raidLevelCombo])
             return
 
         raid_level = self.raid_level
@@ -578,14 +584,14 @@ class ContainerDialog(GUIObject):
             raid_level = _("None")
 
         # Set a default RAID level in the combo.
-        for (i, row) in enumerate(raid_combo.get_model()):
+        for (i, row) in enumerate(self._raidLevelCombo.get_model()):
             log.debug("container dialog: raid level %s" % row[0])
             if row[0].upper().startswith(raid_level.upper()):
-                raid_combo.set_active(i)
+                self._raidLevelCombo.set_active(i)
                 break
 
-        map(really_show, [raid_label, raid_combo])
-        fancy_set_sensitive(raid_combo, not self.exists)
+        map(really_show, [self._raidLevelLabel, self._raidLevelCombo])
+        fancy_set_sensitive(self._raidLevelCombo, not self.exists)
 
 class HelpDialog(GUIObject):
     builderObjects = ["help_dialog", "help_text_view", "help_text_buffer"]
@@ -711,9 +717,24 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         self._sizeEntry = self.builder.get_object("sizeEntry")
         self._typeCombo = self.builder.get_object("deviceTypeCombo")
         self._modifyContainerButton = self.builder.get_object("modifyContainerButton")
+        self._containerCombo = self.builder.get_object("containerCombo")
+
+        self._passphraseEntry = self.builder.get_object("passphraseEntry")
 
         # Stores
         self._raidStoreFilter = self.builder.get_object("raidStoreFiltered")
+
+        # Labels
+        self._selectedDeviceLabel = self.builder.get_object("selectedDeviceLabel")
+        self._selectedDeviceDescLabel = self.builder.get_object("selectedDeviceDescLabel")
+        self._encryptedDeviceLabel = self.builder.get_object("encryptedDeviceLabel")
+        self._encryptedDeviceDescLabel = self.builder.get_object("encryptedDeviceDescriptionLabel")
+        self._incompleteDeviceLabel = self.builder.get_object("incompleteDeviceLabel")
+        self._incompleteDeviceDescLabel = self.builder.get_object("incompleteDeviceDescriptionLabel")
+        self._incompleteDeviceOptionsLabel = self.builder.get_object("incompleteDeviceOptionsLabel")
+        self._uneditableDeviceLabel = self.builder.get_object("uneditableDeviceLabel")
+        self._uneditableDeviceDescLabel = self.builder.get_object("uneditableDeviceDescriptionLabel")
+        self._containerLabel = self.builder.get_object("containerLabel")
 
     def initialize(self):
         NormalSpoke.initialize(self)
@@ -1620,8 +1641,6 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
 
     def _populate_right_side(self, selector):
         log.debug("populate_right_side: %s" % selector._device)
-        selectedDeviceLabel = self.builder.get_object("selectedDeviceLabel")
-        selectedDeviceDescLabel = self.builder.get_object("selectedDeviceDescLabel")
 
         device = selector._device
         if device.type == "luks/dm-crypt":
@@ -1657,8 +1676,8 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         log.debug("updated device_container_encrypted to %s" % self._device_container_encrypted)
         log.debug("updated device_container_size to %s" % self._device_container_size)
 
-        selectedDeviceLabel.set_text(selector.props.name)
-        selectedDeviceDescLabel.set_text(self._description(selector.props.name))
+        self._selectedDeviceLabel.set_text(selector.props.name)
+        self._selectedDeviceDescLabel.set_text(self._description(selector.props.name))
 
         device_name = getattr(use_dev, "lvname", use_dev.name)
         self._nameEntry.set_text(device_name)
@@ -2313,7 +2332,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         self._device_container_size = dialog.size_policy
 
     def on_modify_container_clicked(self, button):
-        container_name = self.builder.get_object("containerCombo").get_active_text()
+        container_name = self._containerCombo.get_active_text()
 
         container = self.__storage.devicetree.getDeviceByName(container_name)
 
@@ -2338,13 +2357,12 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
                 container.format.label = self._device_container_name
 
         container_exists = getattr(container, "exists", False)
-        container_combo = self.builder.get_object("containerCombo")
-        for idx, data in enumerate(container_combo.get_model()):
+        for idx, data in enumerate(self._containerCombo.get_model()):
             # we're looking for the original vg name
             if data[0] == container_name:
-                container_combo.remove(idx)
-                container_combo.insert_text(idx, self._device_container_name)
-                container_combo.set_active(idx)
+                self._containerCombo.remove(idx)
+                self._containerCombo.insert_text(idx, self._device_container_name)
+                self._containerCombo.set_active(idx)
                 self._modifyContainerButton.set_sensitive(not container_exists)
                 break
 
@@ -2413,14 +2431,14 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         if selector._device.format.type == "luks" and \
            selector._device.format.exists:
             self._partitionsNotebook.set_current_page(NOTEBOOK_LUKS_PAGE)
-            selectedDeviceLabel = self.builder.get_object("encryptedDeviceLabel")
-            selectedDeviceDescLabel = self.builder.get_object("encryptedDeviceDescriptionLabel")
+            selectedDeviceLabel = self._encryptedDeviceLabel
+            selectedDeviceDescLabel = self._encryptedDeviceDescLabel
             no_edit = True
         elif not getattr(selector._device, "complete", True):
             self._partitionsNotebook.set_current_page(NOTEBOOK_INCOMPLETE_PAGE)
-            selectedDeviceLabel = self.builder.get_object("incompleteDeviceLabel")
-            selectedDeviceDescLabel = self.builder.get_object("incompleteDeviceDescriptionLabel")
-            optionsLabel = self.builder.get_object("incompleteDeviceOptionsLabel")
+            selectedDeviceLabel = self._incompleteDeviceLabel
+            selectedDeviceDescLabel = self._incompleteDeviceDescLabel
+            optionsLabel = self._incompleteDeviceOptionsLabel
 
             if selector._device.type == "mdarray":
                 total = selector._device.memberDevices
@@ -2438,8 +2456,8 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
             no_edit = True
         elif devicefactory.get_device_type(selector._device) is None:
             self._partitionsNotebook.set_current_page(NOTEBOOK_UNEDITABLE_PAGE)
-            selectedDeviceLabel = self.builder.get_object("uneditableDeviceLabel")
-            selectedDeviceDescLabel = self.builder.get_object("uneditableDeviceDescriptionLabel")
+            selectedDeviceLabel = self._uneditableDeviceLabel
+            selectedDeviceDescLabel = self._uneditableDeviceDescLabel
             no_edit = True
 
         if no_edit:
@@ -2599,8 +2617,6 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
             if isinstance(device, LUKSDevice):
                 device = device.slave
 
-        container_combo = self.builder.get_object("containerCombo")
-        container_label = self.builder.get_object("containerLabel")
         container_size_policy = SIZE_POLICY_AUTO
         if device_type in (DEVICE_TYPE_LVM, DEVICE_TYPE_BTRFS, DEVICE_TYPE_LVM_THINP):
             # set up the vg widgets and then bail out
@@ -2619,8 +2635,8 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
                     container_size_policy = container.size_policy
 
             container_type_text = container_type_names[device_type]
-            container_label.set_text(container_type_text.title())
-            container_combo.remove_all()
+            self._containerLabel.set_text(container_type_text.title())
+            self._containerCombo.remove_all()
             if device_type == DEVICE_TYPE_BTRFS:
                 containers = self.__storage.btrfsVolumes
             else:
@@ -2628,10 +2644,10 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
 
             default_seen = False
             for c in containers:
-                container_combo.append_text(c.name)
+                self._containerCombo.append_text(c.name)
                 if default_container and c.name == default_container:
                     default_seen = True
-                    container_combo.set_active(containers.index(c))
+                    self._containerCombo.set_active(containers.index(c))
 
             if default_container is None:
                 hostname = self.data.network.hostname
@@ -2642,22 +2658,22 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
             self._device_container_size = container_size_policy
 
             if not default_seen:
-                container_combo.append_text(default_container)
-                container_combo.set_active(len(container_combo.get_model()) - 1)
+                self._containerCombo.append_text(default_container)
+                self._containerCombo.set_active(len(self._containerCombo.get_model()) - 1)
 
-            container_combo.append_text(_(new_container_text) % {"container_type": container_type_text.lower()})
+            self._containerCombo.append_text(_(new_container_text) % {"container_type": container_type_text.lower()})
             if default_container is None:
-                container_combo.set_active(len(container_combo.get_model()) - 1)
+                self._containerCombo.set_active(len(self._containerCombo.get_model()) - 1)
 
-            map(really_show, [container_label, container_combo, self._modifyContainerButton])
+            map(really_show, [self._containerLabel, self._containerCombo, self._modifyContainerButton])
 
             # make the combo and button insensitive for existing LVs
             can_change_container = (device is not None and not device.exists)
-            fancy_set_sensitive(container_combo, can_change_container)
+            fancy_set_sensitive(self._containerCombo, can_change_container)
             container_exists = getattr(container, "exists", False)
             self._modifyContainerButton.set_sensitive(not container_exists)
         else:
-            map(really_hide, [container_label, container_combo, self._modifyContainerButton])
+            map(really_hide, [self._containerLabel, self._containerCombo, self._modifyContainerButton])
 
     def on_device_type_changed(self, combo):
         if not self._initialized:
@@ -2797,8 +2813,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         self.clear_errors()
         device = self._current_selector._device
         log.info("trying to unlock %s..." % device.name)
-        entry = self.builder.get_object("passphraseEntry")
-        passphrase = entry.get_text()
+        passphrase = self._passphraseEntry.get_text()
         device.format.passphrase = passphrase
         try:
             device.setup()
@@ -2808,7 +2823,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
             device.teardown(recursive=True)
             self._error = e
             device.format.passphrase = None
-            entry.set_text("")
+            self._passphraseEntry.set_text("")
             self.set_warning(_("Failed to unlock encrypted block device. "
                                "Click for details"))
             self.window.show_all()
