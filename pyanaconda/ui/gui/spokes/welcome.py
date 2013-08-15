@@ -111,8 +111,9 @@ class WelcomeLanguageSpoke(LangLocaleHandler, StandaloneSpoke):
 
         layouts = localization.get_locale_keyboards(locale)
         if layouts:
-            # take the first locale (with highest rank) from the list
-            new_layouts = [layouts[0]]
+            # take the first locale (with highest rank) from the list and
+            # store it normalized
+            new_layouts = [keyboard.normalize_layout_variant(layouts[0])]
             if not langtable.supports_ascii(layouts[0]):
                 # does not support typing ASCII chars, append the 'us' layout
                 new_layouts.append("us")

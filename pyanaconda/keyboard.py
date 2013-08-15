@@ -112,6 +112,21 @@ def _join_layout_variant(layout, variant=""):
     else:
         return layout
 
+def normalize_layout_variant(layout_str):
+    """
+    Normalize keyboard layout and variant specification given as a single
+    string. E.g. for a 'layout(variant) string missing the space between the
+    left parenthesis return 'layout (variant)' which is a proper layout and
+    variant specification we use.
+
+    :param layout_str: a string specifying keyboard layout and its variant
+    :type layout_str: string
+
+    """
+
+    layout, variant = _parse_layout_variant(layout_str)
+    return _join_layout_variant(layout, variant)
+
 def populate_missing_items(keyboard):
     """
     Function that populates keyboard.vc_keymap and keyboard.x_layouts if
