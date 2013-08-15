@@ -1420,7 +1420,7 @@ class Timezone(commands.timezone.F18_Timezone):
             except ntp.NTPconfigError as ntperr:
                 log.warning("Failed to save NTP configuration: %s" % ntperr)
 
-class User(commands.user.F12_User):
+class User(commands.user.F19_User):
     def execute(self, storage, ksdata, instClass, users):
         algo = getPassAlgo(ksdata.authconfig.authconfig)
 
