@@ -21,7 +21,7 @@
 
 AC_PREREQ([2.63])
 AC_INIT([AnacondaWidgets], [1.0], [clumens@redhat.com])
-AM_INIT_AUTOMAKE
+AM_INIT_AUTOMAKE([foreign])
 AM_SILENT_RULES([yes])
 
 AM_PATH_PYTHON
