@@ -189,7 +189,7 @@ class Users:
             self.admin = libuser.admin()
 
             if self.admin.lookupGroupByName(group_name):
-                log.error("Group %s already exists, not creating." % grp.name)
+                log.error("Group %s already exists, not creating." % group_name)
                 os._exit(1)
 
             groupEnt = self.admin.initGroup(group_name)
@@ -257,7 +257,7 @@ class Users:
             self.admin = libuser.admin()
 
             if self.admin.lookupUserByName(user_name):
-                log.error("User %s already exists, not creating." % usr.name)
+                log.error("User %s already exists, not creating." % user_name)
                 os._exit(1)
 
             userEnt = self.admin.initUser(user_name)
