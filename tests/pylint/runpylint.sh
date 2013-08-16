@@ -61,7 +61,8 @@ for i in anaconda $(find pyanaconda -type f -name '*py' \! -executable); do
       sys.path.insert(1, "pyanaconda/isys/.libs"); \
       sys.path.insert(2, "pyanaconda/isys"); \
       sys.path.insert(3, "pyanaconda")' \
-    -i y -r n --disable=C,R --rcfile=/dev/null \
+    --msg-template='{msg_id}:{line:3d},{column}: {obj}: {msg}' \
+    -r n --disable=C,R --rcfile=/dev/null \
     --ignored-classes=DefaultInstall,Popen,QueueFactory,TransactionSet \
     --defining-attr-methods=__init__,_grabObjects,initialize,reset,start \
     $DISABLED_WARN_OPTIONS \
