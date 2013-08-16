@@ -17,6 +17,7 @@
 # Red Hat, Inc.
 #
 # Red Hat Author(s): Radek Vykydal <rvykydal@redhat.com>
+#                    Vratislav Podzimek <vpodzime@redhat.com>
 #
 
 from gi.repository import Gtk, Pango
@@ -25,6 +26,7 @@ from pyanaconda.i18n import N_
 from pyanaconda.iutil import strip_accents
 from pyanaconda.ui.gui.spokes import NormalSpoke
 from pyanaconda.ui.gui.categories.localization import LocalizationCategory
+from pyanaconda.ui.gui.utils import set_treeview_selection
 from pyanaconda import localization
 
 import re
@@ -34,14 +36,8 @@ log = logging.getLogger("anaconda")
 
 __all__ = ["LangsupportSpoke"]
 
-COL_NATIVE_NAME   = 0
-COL_ENGLISH_NAME  = 1
-COL_LANG_SETTING  = 2
-COL_SELECTED      = 3
-COL_IS_ADDITIONAL = 4
-
 class LangsupportSpoke(NormalSpoke):
-    builderObjects = ["langsupportStore", "langsupportStoreFilter", "langsupportWindow"]
+    builderObjects = ["languageStore", "languageStoreFilter", "localeStore", "langsupportWindow"]
     mainWidgetName = "langsupportWindow"
     uiFile = "spokes/langsupport.glade"
 
@@ -52,60 +48,59 @@ class LangsupportSpoke(NormalSpoke):
 
     def __init__(self, *args, **kwargs):
         NormalSpoke.__init__(self, *args, **kwargs)
+        self._selected_locales = set()
 
     def initialize(self):
-        self._langsupportStore = self.builder.get_object("langsupportStore")
-        self._langsupportEntry = self.builder.get_object("langsupportEntry")
-        self._langsupportStoreFilter = self.builder.get_object("langsupportStoreFilter")
-        self._langsupportStoreFilter.set_visible_func(self._matches_entry, None)
+        self._languageStore = self.builder.get_object("languageStore")
+        self._languageEntry = self.builder.get_object("languageEntry")
+        self._languageStoreFilter = self.builder.get_object("languageStoreFilter")
+        self._langView = self.builder.get_object("languageView")
+        self._langSelectedRenderer = self.builder.get_object("langSelectedRenderer")
+        self._langSelectedColumn = self.builder.get_object("langSelectedColumn")
+        self._langSelection = self.builder.get_object("languageViewSelection")
+        self._localeStore = self.builder.get_object("localeStore")
+        self._localeView = self.builder.get_object("localeView")
 
-        # mark selected items in language list bold
-        for col, rend, idx in (("englishNameCol", "englishNameRenderer", COL_ENGLISH_NAME),
-                               ("nativeNameCol", "nativeNameRenderer", COL_NATIVE_NAME)):
+        # fill the list with available translations
+        for lang in localization.get_available_translations():
+            self._add_language(self._languageStore,
+                               localization.get_native_name(lang),
+                               localization.get_english_name(lang), lang)
+
+        # render a right arrow for the chosen language
+        self._right_arrow = Gtk.Image.new_from_file("/usr/share/anaconda/pixmaps/right-arrow-icon.png")
+        self._langSelectedColumn.set_cell_data_func(self._langSelectedRenderer,
+                                                    self._render_lang_selected)
+
+        # mark selected locales and languages with selected locales bold
+        localeNativeColumn = self.builder.get_object("localeNativeName")
+        localeNativeNameRenderer = self.builder.get_object("localeNativeNameRenderer")
+        localeNativeColumn.set_cell_data_func(localeNativeNameRenderer,
+                                              self._mark_selected_locale_bold)
+
+        for col, rend in [("nativeName", "nativeNameRenderer"),
+                          ("englishName", "englishNameRenderer")]:
             column = self.builder.get_object(col)
             renderer = self.builder.get_object(rend)
-            column.set_cell_data_func(renderer, self._mark_selected_bold, idx)
+            column.set_cell_data_func(renderer, self._mark_selected_language_bold)
 
-        # source of lang code <-> UI name mapping
-        # (localization.get_available_translations() returns a generator)
-        self.locale_infos_for_data = list(localization.get_available_translations())
-        self.locale_infos_for_ui = self.locale_infos_for_data[:]
-
-        for locale in sorted(self.locale_infos_for_ui):
-            self._add_language(self._langsupportStore,
-                               localization.get_native_name(locale),
-                               localization.get_english_name(locale),
-                               locale,
-                               False, True)
-
-        self._select_language(self._langsupportStore, self.data.lang.lang)
+        # make filtering work
+        self._languageStoreFilter.set_visible_func(self._matches_entry, None)
 
     def apply(self):
-        self.data.lang.addsupport = [row[COL_LANG_SETTING]
-                                     for row in self._langsupportStore
-                                     if row[COL_SELECTED] and row[COL_IS_ADDITIONAL]]
+        # store only additional langsupport locales
+        self.data.lang.addsupport = sorted(self._selected_locales - set([self.data.lang.lang]))
 
     def refresh(self):
-        self._langsupportEntry.set_text("")
-        lang_infos = self._find_localeinfos_for_code(self.data.lang.lang, self.locale_infos_for_ui)
-        if len(lang_infos) > 1:
-            log.warning("Found multiple locales for lang %s: %s, picking first",
-                        self.data.lang.lang, lang_infos)
-        # Just take the first found
-        # TODO - for corner cases choose the one that is common prefix
-        lang_infos = lang_infos[:1]
+        self._languageEntry.set_text("")
+        self._selected_locales = set(self._installed_langsupports)
 
-        addsupp_infos = []
-        for code in self.data.lang.addsupport:
-            code_infos = self._find_localeinfos_for_code(code, self.locale_infos_for_ui)
-            addsupp_infos.extend(code_infos)
+        # select the first locale from the "to be installed" langsupports
+        self._select_locale(self._installed_langsupports[0])
 
-        for row in self._langsupportStore:
-            if row[COL_LANG_SETTING] in addsupp_infos:
-                row[COL_SELECTED] = True
-            if row[COL_LANG_SETTING] in lang_infos:
-                row[COL_SELECTED] = True
-                row[COL_IS_ADDITIONAL] = False
+    @property
+    def _installed_langsupports(self):
+        return [self.data.lang.lang] + sorted(self.data.lang.addsupport)
 
     @property
     def showable(self):
@@ -113,13 +108,8 @@ class LangsupportSpoke(NormalSpoke):
 
     @property
     def status(self):
-        # TODO: translate
-        infos = self._find_localeinfos_for_code(self.data.lang.lang, self.locale_infos_for_data)[:1]
-        for code in self.data.lang.addsupport:
-            for info in self._find_localeinfos_for_code(code, self.locale_infos_for_data):
-                if info not in infos:
-                    infos.append(info)
-        return ", ".join(localization.get_english_name(info) for info in infos)
+        return ", ".join(localization.get_native_name(locale)
+                         for locale in self._installed_langsupports)
 
     @property
     def mandatory(self):
@@ -129,42 +119,64 @@ class LangsupportSpoke(NormalSpoke):
     def completed(self):
         return True
 
-    def _find_localeinfos_for_code(self, code, infos):
-        if code in infos:
-            return [code]
-        else:
-            retval = [info for info in infos
-                      if code in localization.expand_langs(info)]
-            log.debug("locale infos found for %s: %s", code, retval)
-            return retval
+    def _add_language(self, store, native, english, lang):
+        native_span = '<span lang="%s">%s</span>' % (lang, native)
+        store.append([native_span, english, lang])
 
-    def _add_language(self, store, native, english, setting, selected, additional):
-        store.append(['<span lang="%s">%s</span>' % (re.sub(r'\..*', '', setting), native),
-                     english, setting, selected, additional])
+    def _addLocale(self, store, native, locale):
+        native_span = '<span lang="%s">%s</span>' % (re.sub(r'\..*', '', locale), native)
 
-    def _select_language(self, store, language):
-        itr = store.get_iter_first()
-        while itr and language not in localization.expand_langs(store[itr][COL_LANG_SETTING]):
-            itr = store.iter_next(itr)
+        # native, locale, selected, additional
+        store.append([native_span, locale, locale in self._selected_locales,
+                      locale != self.data.lang.lang])
 
-        # If we were provided with an unsupported language, just use the default.
-        if not itr:
-            return
+    def _refresh_locale_store(self, lang):
+        """Refresh the localeStore with locales for the given language."""
 
-        treeview = self.builder.get_object("langsupportView")
-        selection = treeview.get_selection()
-        selection.select_iter(itr)
-        path = store.get_path(itr)
-        treeview.scroll_to_cell(path)
+        self._localeStore.clear()
+        locales = localization.get_language_locales(lang)
+        for locale in locales:
+            self._addLocale(self._localeStore,
+                            localization.get_native_name(locale),
+                            locale)
+
+        # select the first locale (with the highest rank)
+        set_treeview_selection(self._localeView, locales[0], col=1)
+
+    def _select_locale(self, locale):
+        """
+        Try to select the given locale in the language and locale
+        treeviews. This method tries to find the best match for the given
+        locale.
+
+        :return: a pair of selected iterators (language and locale)
+        :rtype: a pair of GtkTreeIter or None objects
+
+        """
+
+        # get lang and select it
+        parts = localization.parse_langcode(locale)
+        if "language" not in parts:
+            # invalid locale, cannot select
+            return (None, None)
+
+        lang_itr = set_treeview_selection(self._langView, parts["language"], col=2)
+        self._refresh_locale_store(parts["language"]) #XXX: needed?
+
+        # find matches and use the one with the highest rank
+        locales = localization.get_language_locales(locale)
+        locale_itr = set_treeview_selection(self._localeView, locales[0], col=1)
+
+        return (lang_itr, locale_itr)
 
     def _matches_entry(self, model, itr, *args):
         # Need to strip out the pango markup before attempting to match.
         # Otherwise, starting to type "span" for "spanish" will match everything
         # due to the enclosing span tag.
         # (success, attrs, native, accel)
-        native = Pango.parse_markup(model[itr][COL_NATIVE_NAME], -1, "_")[2]
-        english = model[itr][COL_ENGLISH_NAME]
-        entry = self._langsupportEntry.get_text().strip()
+        native = Pango.parse_markup(model[itr][0], -1, "_")[2]
+        english = model[itr][1]
+        entry = self._languageEntry.get_text().strip()
 
         # Nothing in the text entry?  Display everything.
         if not entry:
@@ -179,21 +191,52 @@ class LangsupportSpoke(NormalSpoke):
         else:
             return False
 
-    def _mark_selected_bold(self, column, renderer, model, itr, idx):
-        value = model[itr][idx]
-        if model[itr][COL_SELECTED]:
-            value = "<b>%s</b>" % value
-        renderer.set_property("markup", value)
+    def _render_lang_selected(self, column, renderer, model, itr, user_data=None):
+        (lang_store, sel_itr) = self._langSelection.get_selected()
 
-    def on_langsupport_toggled(self, renderer, path):
-        selected = not self._langsupportStoreFilter[path][COL_SELECTED]
-        itr = self._langsupportStoreFilter.get_iter(path)
-        itr = self._langsupportStoreFilter.convert_iter_to_child_iter(itr)
-        self._langsupportStore[itr][COL_SELECTED] = selected
+        lang_locales = set(localization.get_language_locales(model[itr][2]))
+        if sel_itr and lang_store[sel_itr][2] == model[itr][2]:
+            renderer.set_property("pixbuf", self._right_arrow.get_pixbuf())
+        else:
+            renderer.set_property("pixbuf", None)
+
+    def _mark_selected_locale_bold(self, column, renderer, model, itr, user_data=None):
+        if model[itr][2]:
+            renderer.set_property("weight", Pango.Weight.BOLD.real)
+        else:
+            renderer.set_property("weight", Pango.Weight.NORMAL.real)
+
+    def _mark_selected_language_bold(self, column, renderer, model, itr, user_data=None):
+        lang_locales = set(localization.get_language_locales(model[itr][2]))
+        if not lang_locales.isdisjoint(self._selected_locales):
+            renderer.set_property("weight", Pango.Weight.BOLD.real)
+        else:
+            renderer.set_property("weight", Pango.Weight.NORMAL.real)
+
+    # Signal handlers.
+    def on_lang_selection_changed(self, selection):
+        (store, selected) = selection.get_selected_rows()
+
+        if selected:
+            lang = store[selected[0]][2]
+            self._refresh_locale_store(lang)
+        else:
+            self._localeStore.clear()
+
+    def on_locale_toggled(self, renderer, path):
+        itr = self._localeStore.get_iter(path)
+        row = self._localeStore[itr]
+
+        row[2] = not row[2]
+
+        if row[2]:
+            self._selected_locales.add(row[1])
+        else:
+            self._selected_locales.remove(row[1])
 
     def on_clear_icon_clicked(self, entry, icon_pos, event):
         if icon_pos == Gtk.EntryIconPosition.SECONDARY:
             entry.set_text("")
 
     def on_entry_changed(self, *args):
-        self._langsupportStoreFilter.refilter()
+        self._languageStoreFilter.refilter()
