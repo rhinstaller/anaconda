@@ -756,9 +756,13 @@ class NetworkControlBox(object):
         ipv6_addr = None
         if ipv6cfg:
             config = dbus.SystemBus().get_object(NM_SERVICE, ipv6cfg.get_path())
-            addr, _prefix, _gw = getNMObjProperty(config, ".IP6Config", "Addresses")[0]
-            ipv6_addr = nm_dbus_ay_to_ipv6(addr)
-        self._set_device_info_value(dt, "ipv6", ipv6_addr)
+            addr6_str = ""
+            for addr, _prefix, _gw in getNMObjProperty(config, ".IP6Config", "Addresses"):
+                ipv6_addr = nm_dbus_ay_to_ipv6(addr)
+                if not ipv6_addr.startswith("fe80:"):
+                    addr6_str += "%s\n" % ipv6_addr
+
+        self._set_device_info_value(dt, "ipv6", addr6_str.strip())
 
         if ipv4cfg and ipv6_addr:
             self.builder.get_object("heading_%s_ipv4" % dt).set_label(_("IPv4 Address"))
