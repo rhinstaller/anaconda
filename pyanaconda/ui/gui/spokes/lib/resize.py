@@ -209,9 +209,9 @@ class ResizeDialog(GUIObject):
 
     def _update_labels(self, nDisks=None, totalReclaimable=None, selectedReclaimable=None):
         if nDisks is not None and totalReclaimable is not None:
-            text = P_("<b>%s disk; %s reclaimable space</b> (in filesystems)",
-                      "<b>%s disks; %s reclaimable space</b> (in filesystems)",
-                      nDisks) % (nDisks, size_str(totalReclaimable))
+            text = P_("<b>%(count)s disk; %(size)s reclaimable space</b> (in filesystems)",
+                      "<b>%(count)s disks; %(size)s reclaimable space</b> (in filesystems)",
+                      nDisks) % {"count" : nDisks, "size" : size_str(totalReclaimable)}
             self._reclaimable_label.set_markup(text)
 
         if selectedReclaimable is not None:

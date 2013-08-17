@@ -92,7 +92,7 @@ NOTEBOOK_LUKS_PAGE = 2
 NOTEBOOK_UNEDITABLE_PAGE = 3
 NOTEBOOK_INCOMPLETE_PAGE = 4
 
-new_install_name = N_("New %s %s Installation")
+new_install_name = N_("New %(name)s %(version)s Installation")
 new_container_text = N_("Create a new %(container_type)s ...")
 container_dialog_title = N_("CONFIGURE %(container_type)s")
 container_dialog_text = N_("Please create a name for this %(container_type)s "
@@ -108,9 +108,9 @@ empty_mountpoint_msg = N_("Please enter a valid mountpoint.")
 invalid_mountpoint_msg = N_("That mount point is invalid. Try something else?")
 mountpoint_in_use_msg = N_("That mount point is already in use. Try something else?")
 
-raid_level_not_enough_disks_msg = N_("The RAID level you have selected (%s) "
-                                     "requires more disks (%d) than you "
-                                     "currently have selected (%d).")
+raid_level_not_enough_disks_msg = N_("The RAID level you have selected (%(level)s) "
+                                     "requires more disks (%(min)d) than you "
+                                     "currently have selected (%(count)d).")
 empty_name_msg = N_("Please enter a valid name.")
 invalid_name_msg = N_("That name is invalid. Try something else?")
 
@@ -529,7 +529,9 @@ class ContainerDialog(GUIObject):
             min_disks = mdraid.get_raid_min_members(md_level)
             if len(paths) < min_disks:
                 self._error = (_(raid_level_not_enough_disks_msg)
-                               % (raid_level, min_disks, len(paths)))
+                                 % {"level" : raid_level,
+                                     "min" : min_disks,
+                                     "count" : len(paths)})
                 self._error_label.set_text(self._error)
                 self.window.show_all()
                 return
@@ -886,7 +888,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
 
     @property
     def translated_new_install_name(self):
-        return _(new_install_name) % (productName, productVersion)
+        return _(new_install_name) % {"name" : productName, "version" : productVersion}
 
     @property
     def _current_page(self):
@@ -954,7 +956,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
             self._accordion.addPage(page, cb=self.on_page_clicked)
 
             self._partitionsNotebook.set_current_page(NOTEBOOK_LABEL_PAGE)
-            self._whenCreateLabel.set_text(self._when_create_text % (productName, productVersion))
+            self._whenCreateLabel.set_text(self._when_create_text % {"name" : productName, "version" : productVersion})
         else:
             swaps = [d for d in new_devices if d.format.type == "swap"]
             mounts = dict((d.format.mountpoint, d) for d in new_devices
@@ -1237,8 +1239,8 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
                      % _(DEVICE_TEXT_PARTITION))
         elif device_type != DEVICE_TYPE_PARTITION and \
              fs_type_short in partition_only_format_types:
-            error = (_("%s must be on a device of type %s")
-                     % (fs_type, _(DEVICE_TEXT_PARTITION)))
+            error = (_("%(fs)s must be on a device of type %(type)s")
+                       % {"fs" : fs_type, "type" : _(DEVICE_TEXT_PARTITION)})
         elif mountpoint and encrypted and mountpoint.startswith("/boot"):
             error = _("%s cannot be encrypted") % mountpoint
         elif encrypted and fs_type_short in partition_only_format_types:
@@ -2039,9 +2041,9 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
                         log.error("factoryDevice failed w/ old container: %s" % e2)
                     else:
                         type_str = device_text_map[device_type]
-                        self.set_info(_("Added new %s to existing "
-                                        "container %s.")
-                                      % (type_str, container.name))
+                        self.set_info(_("Added new %(type)s to existing "
+                                        "container %(name)s.")
+                                        % {"type" : type_str, "name" : container.name})
                         self.window.show_all()
                         e = None
 

@@ -699,9 +699,11 @@ class StorageSpoke(NormalSpoke, StorageChecker):
             free += free_space[disk.name][0]
             count += 1
 
-        summary = (P_("%d disk selected; %s capacity; %s free",
-                      "%d disks selected; %s capacity; %s free",
-                      count) % (count, str(Size(spec="%s MB" % capacity)), free))
+        summary = (P_("%(count)d disk selected; %(capacity)s capacity; %(free)s free",
+                      "%(count)d disks selected; %(capacity)s capacity; %(free)s free",
+                      count) % {"count" : count,
+                                "capacity" : str(Size(spec="%s MB" % capacity)),
+                                "free" : free})
         summary_label = self.builder.get_object("summary_label")
         summary_label.set_text(summary)
         summary_label.set_sensitive(count > 0)
