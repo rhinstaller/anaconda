@@ -365,6 +365,7 @@ class Payload(object):
     ###
     @property
     def spaceRequired(self):
+        """ The total disk space (Size) required for the current selection. """
         raise NotImplementedError()
 
     @property
