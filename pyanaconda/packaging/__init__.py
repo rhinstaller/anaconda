@@ -106,6 +106,7 @@ class Payload(object):
         self.storage = None
         self._kernelVersionList = []
         self._createdInitrds = False
+        self.txID = None
 
     def setup(self, storage):
         """ Do any payload-specific setup. """
