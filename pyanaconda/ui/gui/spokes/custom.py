@@ -1,3 +1,4 @@
+# vim: set fileencoding=utf-8
 # Custom partitioning classes.
 #
 # Copyright (C) 2012, 2013  Red Hat, Inc.
