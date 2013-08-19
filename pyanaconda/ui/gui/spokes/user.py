@@ -21,20 +21,27 @@
 
 from pyanaconda.i18n import _, N_
 from pyanaconda.users import cryptPassword, validatePassword, guess_username
-from pwquality import PWQError
 
 from pyanaconda.ui.gui.spokes import NormalSpoke
-from pyanaconda.ui.gui import GUIObject
+from pyanaconda.ui.gui import GUIObject, check_re
 from pyanaconda.ui.gui.categories.user_settings import UserSettingsCategory
 from pyanaconda.ui.common import FirstbootSpokeMixIn
 from pyanaconda.ui.gui.utils import enlightbox
 
 from pykickstart.constants import FIRSTBOOT_RECONFIG
 from pyanaconda.constants import ANACONDA_ENVIRON, FIRSTBOOT_ENVIRON
+from pyanaconda.regexes import GECOS_VALID, USERNAME_VALID
 
 import pwquality
 
 __all__ = ["UserSpoke", "AdvancedUserDialog"]
+
+def _checkUsername(editable, data):
+    """Validate a username. Allow empty usernames."""
+    if not (editable.get_text()):
+        return None
+    else:
+        return check_re(editable, data)
 
 class AdvancedUserDialog(GUIObject):
     builderObjects = ["advancedUserDialog", "uid", "gid"]
@@ -194,6 +201,9 @@ class UserSpoke(FirstbootSpokeMixIn, NormalSpoke):
         self.usepassword = self.builder.get_object("c_usepassword")
         self.b_advanced = self.builder.get_object("b_advanced")
 
+        # Counter for the click Done twice check
+        self._waivePasswordClicks = 0
+
         self.guesser = {
             self.username: True
             }
@@ -201,6 +211,10 @@ class UserSpoke(FirstbootSpokeMixIn, NormalSpoke):
         # set up passphrase quality checker
         self._pwq = pwquality.PWQSettings()
         self._pwq.read_config()
+
+        # Updated during the password changed event and used by the password
+        # field validity checker
+        self._pwq_error = None
 
         self.pw_bar = self.builder.get_object("password_bar")
         self.pw_label = self.builder.get_object("password_label")
@@ -217,17 +231,45 @@ class UserSpoke(FirstbootSpokeMixIn, NormalSpoke):
                 self.pw.set_placeholder_text(_("The password was set by kickstart."))
                 self.confirm.set_placeholder_text(_("The password was set by kickstart."))
 
+        # Password checks, in order of importance:
+        # - if a password is required, is one specified?
+        # - if a password is specified and there is data in the confirm box, do they match?
+        # - if a password is specified and the confirm box is empty or match, how strong is it?
+        # - if a password is required, is there any data in the confirm box?
+        self.add_check(self.pw, self._checkPasswordEmpty, None)
+        
+        # The password confirmation needs to be checked whenever either of the password
+        # fields change
+        self.add_check(self.confirm, self._checkPasswordConfirm, None)
+        self.add_check(self.pw, self._checkPasswordConfirm, None)
+
+        # Keep a reference to this check, since it has to be manually run for the
+        # click Done twice check.
+        self._pwStrengthCheck = self.add_check(self.pw, self._checkPasswordStrength, None)
+
+        self.add_check(self.confirm, self._checkPasswordEmpty, None)
+
+        # Allow empty usernames so the spoke can be exited without creating a user
+        self.add_check(self.username, _checkUsername,
+                {'regex': USERNAME_VALID, 'message': _("Invalid username")})
+
+        self.add_re_check(self.fullname, GECOS_VALID, _("Full name cannot contain colon characters"))
+
         self._advanced = AdvancedUserDialog(self._user, self._groupDict,
                                             self.data)
         self._advanced.initialize()
 
     def refresh(self):
+        # Enable the input checks in case they were disabled on the last exit
+        for check in self.checks:
+            check.enable()
+
         self.username.set_text(self._user.name)
         self.fullname.set_text(self._user.gecos)
         self.admin.set_active(self._wheel.name in self._user.groups)
 
-        if self.usepassword.get_active():
-            self._checkPassword()
+        self.pw.emit("changed")
+        self.confirm.emit("changed")
 
         if self.username.get_text() and self.usepassword.get_active() and \
            self._user.password == "":
@@ -299,16 +341,50 @@ class UserSpoke(FirstbootSpokeMixIn, NormalSpoke):
     def completed(self):
         return len(self.data.user.userList) > 0
 
+    def _updatePwQuality(self, editable=None, data=None):
+        """This method updates the password indicators according
+        to the password entered by the user. It is called by
+        the changed Gtk event handler.
+        """
+        pwtext = self.pw.get_text()
+
+        # Reset the counter used for the "press Done twice" logic
+        self._waivePasswordClicks = 0
+
+        try:
+            strength = self._pwq.check(pwtext, None, None)
+            self._pwq_error = None
+        except pwquality.PWQError as e:
+            self._pwq_error = e.message
+            strength = 0
+
+        if not pwtext:
+            val = 0
+            text = _("Empty")
+        elif strength < 50:
+            val = 1
+            text = _("Weak")
+        elif strength < 75:
+            val = 2
+            text = _("Fair")
+        elif strength < 90:
+            val = 3
+            text = _("Good")
+        else:
+            val = 4
+            text = _("Strong")
+
+        self.pw_bar.set_value(val)
+        self.pw_label.set_text(text)
+
     def _passwordDisabler(self, editable = None, data = None):
         """Called by Gtk callback when the "Use password" check
         button is toggled. It will make password entries in/sensitive."""
 
         self.pw.set_sensitive(self.usepassword.get_active())
         self.confirm.set_sensitive(self.usepassword.get_active())
-        if not self.usepassword.get_active():
-            self.clear_info()
-        else:
-            self._checkPassword()
+        self.pw.emit("changed")
+        self.confirm.emit("changed")
 
     def _guessNameDisabler(self, editable = None, data = None):
         """Called by Gtk callback when the username or hostname
@@ -336,114 +412,80 @@ class UserSpoke(FirstbootSpokeMixIn, NormalSpoke):
             self.username.set_text(username)
             self.guesser[self.username] = True
 
-    def _checkPassword(self, editable = None, data = None):
-        """This method updates the password indicators according
-        to the passwords entered by the user. It is called by
-        the changed Gtk event handler.
+    def _checkPasswordEmpty(self, editable, data):
+        """Check whether a password has been specified at all.
+        
+           This check is used for both the password and the confirmation.
         """
 
         # If the password was set by kickstart, skip the strength check
         if self._user.password_kickstarted:
             return True
 
-        try:
-            strength = self._pwq.check(self.pw.get_text(), None, None)
-            _pwq_error = None
-        except pwquality.PWQError as e:
-            _pwq_error = e.message
-            strength = 0
-
-        if strength < 50:
-            val = 1
-            text = _("Weak")
-            self._error = _("The password you have provided is weak")
-            if _pwq_error:
-                self._error += ": %s. " % _pwq_error
+        # Skip the check if no password is required
+        if (not self.usepassword.get_active()) or self._user.password_kickstarted:
+            return None
+        elif not editable.get_text():
+            if editable == self.pw:
+                return _("The password is empty")
             else:
-                self._error += ". "
-            self._error += _("You will have to press Done twice to confirm it.")
-        elif strength < 75:
-            val = 2
-            text = _("Fair")
-            self._error = False
-        elif strength < 90:
-            val = 3
-            text = _("Good")
-            self._error = False
+                return _("The passwords do not match.")
         else:
-            val = 4
-            text = _("Strong")
-            self._error = False
+            return None
 
-        if not self.pw.get_text():
-            val = 0
-            text = _("Empty")
-            self._error = _("The password is empty.")
-        elif self.confirm.get_text() and self.pw.get_text() != self.confirm.get_text():
-            self._error = _("The passwords do not match.")
+    def _checkPasswordConfirm(self, editable=None, data=None):
+        """If the user has entered confirmation data, check whether it matches the password."""
+        
+        # Skip the check if no password is required
+        if (not self.usepassword.get_active()) or self._user.password_kickstarted:
+            return None
+        elif self.confirm.get_text() and (self.pw.get_text() != self.confirm.get_text()):
+            return _("The passwords do not match.")
+        else:
+            return None
 
-        self.pw_bar.set_value(val)
-        self.pw_label.set_text(text)
+    def _checkPasswordStrength(self, editable=None, data=None):
+        """Update the error message based on password strength.
+        
+           The password strength has already been checked in _updatePwQuality, called
+           previously in the signal chain. This method converts the data set from there
+           into an error message.
 
-        self.clear_info()
-        if self._error:
-            self.set_warning(self._error)
-            self.window.show_all()
-            return False
+           The password strength check can be waived by pressing "Done" twice. This
+           is controlled through the self._waivePasswordClicks counter. The counter
+           is set in on_back_clicked, which also re-runs this check manually.
+         """
 
-        return True
+        # Skip the check if no password is required
+        if (not self.usepassword.get_active()) or self._user.password_kickstarted:
+            return None
 
-    def _validatePassword(self):
-        """This method checks the password weakness and
-        implements the Press Done twice logic. It is used from
-        the on_back_clicked handler.
+        pwstrength = self.pw_bar.get_value()
+        
+        # If the password passed the pwquality test, see if validatePassword
+        # catches anything else.
+        if pwstrength >= 2:
+            self._pwq_error = validatePassword(self.pw.get_text())
+            if self._pwq_error:
+                pwstrength = 0
 
-        It also sets the self._error of the password is not
-        sufficient or does not pass the pwquality checks.
-
-        :return: True if the password should be accepted, False otherwise
-        :rtype: bool
-
-        """
-
-        # Do various steps to validate the password
-        # sets self._error to an error string
-        # Return True if valid, False otherwise
-        self._error = False
-        pw = self.pw.get_text()
-        confirm = self.confirm.get_text()
-
-        if not pw and not confirm:
-            self._error = _("You must provide and confirm a password.")
-            return False
-
-        try:
-            self._error = validatePassword(pw, confirm)
-        except PWQError as e:
-            if pw == self._oldweak:
-                # We got a second attempt with the same weak password
-                pass
+        if pwstrength < 2:
+            # If Done has been clicked twice, waive the check
+            if self._waivePasswordClicks > 1:
+                return None
+            elif self._waivePasswordClicks == 1:
+                return _("You have provided a weak password: %s. "
+                        " Press Done again to use anyway.") % self._pwq_error
             else:
-                self._error = _("You have provided a weak password: %s. "
-                                " Press Done again to use anyway.") % e.message
-                self._oldweak = pw
-                return False
-
-        if self._error:
-            return False
-
-        # the self._checkPassword function is used to indicate the password
-        # strength and need of hitting the Done button twice so use it here as
-        # well
-        if not self._checkPassword() and pw != self._oldweak:
-            # check failed and the Done button was clicked for the first time
-            self._oldweak = pw
-            return False
-
-        # if no errors, clear the info for next time we go into the spoke
-        self.clear_info()
-        self._error = False
-        return True
+                error = _("The password you have provided is weak")
+                if self._pwq_error:
+                    error += ": %s. " % self._pwq_error
+                else:
+                    error += ". "
+                error += _("You will have to press Done twice to confirm it.")
+                return error
+        else:
+            return None
 
     def on_advanced_clicked(self, _button):
         """Handler for the Advanced.. button. It starts the Advanced dialog
@@ -466,24 +508,13 @@ class UserSpoke(FirstbootSpokeMixIn, NormalSpoke):
         self.admin.set_active(self._wheel.name in self._user.groups)
 
     def on_back_clicked(self, button):
-        # Return if:
-        # - no user is requested (empty username)
-        # - no password is required
-        # - password is set by kickstart and password text entry is empty
-        # - password is set by dialog and _validatePassword returns True
-        if not self.username.get_text() or \
-           not self.usepassword.get_active() or \
-           (self.pw.get_text() == "" and \
-            self.pw.get_text() == self.confirm.get_text() and \
-            self._user.password_kickstarted) or \
-           self._validatePassword():
-            self._error = False
-            self.clear_info()
-            NormalSpoke.on_back_clicked(self, button)
-        # Show the confirmation message if the password is not acceptable
-        else:
-            self.clear_info()
-            self.set_warning(self._error)
-            self.pw.grab_focus()
-            self.window.show_all()
+        # Add a click and re-check the password strength
+        self._waivePasswordClicks += 1
+        self._pwStrengthCheck.update_check_status()
+
+        # If there is no user set, skip the checks
+        if not self.username.get_text():
+            for check in self.checks:
+                check.disable()
+        NormalSpoke.on_back_clicked(self, button)
 
