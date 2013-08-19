@@ -258,7 +258,7 @@ class SpecifyNFSRepoSpoke(EditTUISpoke):
     category = "source"
 
     edit_fields = [
-        Entry(_("NFS <server>:/<path>"), "url", re.compile(".*$"), True),
+        Entry(_("NFS <server>:/<path>"), "server", re.compile(".*$"), True),
         Entry(_("NFS mount options"), "opts", re.compile(".*$"), True)
     ]
 
@@ -278,14 +278,14 @@ class SpecifyNFSRepoSpoke(EditTUISpoke):
 
     def apply(self):
         """ Apply our changes. """
-        if self.args.url == "" or not ':' in self.args.url:
+        if self.args.server == "" or not ':' in self.args.server:
             return False
 
-        if self.args.url.startswith("nfs://"):
-            self.args.url = self.args.url.strip("nfs://")
+        if self.args.server.startswith("nfs://"):
+            self.args.server = self.args.server.strip("nfs://")
 
         try:
-            (self.data.method.server, self.data.method.dir) = self.args.url.split(":", 2)
+            (self.data.method.server, self.data.method.dir) = self.args.server.split(":", 2)
         except ValueError as err:
             LOG.error("ValueError: %s", err)
             self.errors.append(_("Failed to set up installation source. Check the source address."))
