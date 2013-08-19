@@ -49,7 +49,7 @@ class ThreadManager(object):
            and start it.  It is assumed that obj.name is unique and descriptive.
         """
         if obj.name in self._objs:
-            raise KeyError
+            raise KeyError("Cannot add thread '%s', a thread with the same name already running" % obj.name)
 
         self._objs[obj.name] = obj
         self._errors[obj.name] = None
