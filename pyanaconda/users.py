@@ -111,20 +111,20 @@ def cryptPassword(password, algo=None):
 
     return crypt.crypt (password, saltstr)
 
-def validatePassword(pw, confirm, minlen=6):
+def validatePassword(pw, confirm=None, minlen=6, user="root"):
     # Do various steps to validate the password
     # Return an error string, or None for no errors
     # If inital checks pass, pwquality will be tested.  Raises
     # from pwquality will pass up to the calling code
 
     # if both pw and confirm are blank, password is disabled.
-    if (pw and not confirm) or (confirm and not pw):
+    if (pw and confirm == '') or (confirm and not pw):
         error = _("You must enter your root password "
                   "and confirm it by typing it a second "
                   "time to continue.")
         return error
 
-    if pw != confirm:
+    if confirm != None and pw != confirm:
         error = _("The passwords you entered were "
                   "different.  Please try again.")
         return error
@@ -141,7 +141,7 @@ def validatePassword(pw, confirm, minlen=6):
         settings = pwquality.PWQSettings()
         settings.read_config()
         settings.minlen = minlen
-        settings.check(pw, None, "root")
+        settings.check(pw, None, user)
 
     return None
 
