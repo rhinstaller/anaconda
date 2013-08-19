@@ -795,13 +795,6 @@ class BootLoader(object):
             dracut_devices.extend([usr_device])
 
         done = []
-        # When we see a device whose setup string starts with a key in this
-        # dict we pop that pair from the dict. When we're done looking at
-        # devices we are left with the values that belong in the boot args.
-        dracut_storage = {"rd.luks.uuid": "rd.luks=0",
-                          "rd.lvm.lv": "rd.lvm=0",
-                          "rd.md.uuid": "rd.md=0",
-                          "rd.dm.uuid": "rd.dm=0"}
         for device in dracut_devices:
             for dep in storage.devices:
                 if dep in done:
@@ -817,8 +810,6 @@ class BootLoader(object):
                 self.boot_args.update(setup_args)
                 self.dracut_args.update(setup_args)
                 done.append(dep)
-                for setup_arg in setup_args:
-                    dracut_storage.pop(setup_arg.split("=")[0], None)
 
                 # network storage
                 # XXX this is nothing to be proud of
@@ -826,9 +817,6 @@ class BootLoader(object):
                     setup_args = pyanaconda.network.dracutSetupArgs(dep)
                     self.boot_args.update(setup_args)
                     self.dracut_args.update(setup_args)
-
-        self.boot_args.update(dracut_storage.values())
-        self.dracut_args.update(dracut_storage.values())
 
         # passed-in objects
         for cfg_obj in list(args) + kwargs.values():
