@@ -256,6 +256,14 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Mon Aug 19 2013 Brian C. Lane <bcl@redhat.com> - 19.31.8-1
+- dracut no longer auto assembles everything (bcl)
+  Resolves: rhbz#960496
+- Don't override multilib setting unless the option was passed. (dlehman)
+  Resolves: rhbz#987557
+- Don't read proxy for methods that have no proxy (dshea)
+  Resolves: rhbz#997410
+
 * Wed Aug 14 2013 Brian C. Lane <bcl@redhat.com> - 19.31.7-1
 - dracut/parse-kickstart should use the updated method-related classes
   (clumens).
