@@ -21,8 +21,6 @@
 
 from pyanaconda.i18n import _
 
-import re
-
 SELINUX_DEFAULT = 1
 
 # where to look for 3rd party addons
@@ -59,7 +57,6 @@ else:
 
 # DriverDisc Paths
 DD_ALL = "/tmp/DD"
-DD_EXTRACTED = re.compile("/lib/modules/[^/]+/updates/DD/(?P<moduledir>.*/)?(?P<modulename>[^/.]+).ko.*")
 DD_FIRMWARE = "/tmp/DD/lib/firmware"
 DD_RPMS = "/tmp/DD-*"
 

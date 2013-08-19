@@ -35,6 +35,7 @@ from Queue import Queue, Empty
 
 from flags import flags
 from constants import DRACUT_SHUTDOWN_EJECT, ROOT_PATH, TRANSLATIONS_UPDATE_DIR, UNSUPPORTED_HW
+from regexes import PROXY_URL_PARSE
 
 import logging
 log = logging.getLogger("anaconda")
@@ -493,8 +494,7 @@ class ProxyString(object):
         # 5 = hostname
         # 6 = port
         # 7 = extra
-        pattern = re.compile("([A-Za-z]+://)?(([A-Za-z0-9]+)(:[^:@]+)?@)?([^:/]+)(:[0-9]+)?(/.*)?")
-        m = pattern.match(self.url)
+        m = PROXY_URL_PARSE.match(self.url)
         if not m:
             raise ProxyStringError("malformed url, cannot parse it.")
 

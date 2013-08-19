@@ -19,8 +19,8 @@
 #
 
 import unittest
-import re
-import traceback
+
+from pyanaconda.regexes import PROXY_URL
 
 class ProxyRegexTestCase(unittest.TestCase):
     def proxy_regex_test(self):
@@ -107,13 +107,10 @@ class ProxyRegexTestCase(unittest.TestCase):
                 ]
 
 
-        # This is from yumupdate.py and needs to be updated when it changes
-        pattern = re.compile("([A-Za-z]+://)?(([A-Za-z0-9]+)(:[^:@]+)?@)?([^:/]+)(:[0-9]+)?(/.*)?")
-
         got_error = False
         for proxy, result in tests:
             try:
-                self.assertEqual(pattern.match(proxy).groups(), result)
+                self.assertEqual(PROXY_URL.match(proxy).groups(), result)
             except AssertionError as error:
                 got_error = True
                 print error
