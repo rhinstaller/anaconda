@@ -28,8 +28,7 @@ from pyanaconda.flags import flags
 from pyanaconda.i18n import N_, _
 from pykickstart.constants import FIRSTBOOT_RECONFIG
 from pyanaconda.constants import ANACONDA_ENVIRON, FIRSTBOOT_ENVIRON
-
-import re
+from pyanaconda.regexes import GECOS_VALID, USERNAME_VALID, GROUPLIST_SIMPLE_VALID
 
 __all__ = ["UserSpoke"]
 
@@ -39,12 +38,12 @@ class UserSpoke(FirstbootSpokeMixIn, EditTUISpoke):
 
     edit_fields = [
         Entry("Create user", "_create", EditTUISpoke.CHECK, True),
-        Entry("Fullname", "gecos", re.compile("^[^:]*$"), lambda self,args: args._create),
+        Entry("Fullname", "gecos", GECOS_VALID, lambda self,args: args._create),
         Entry("Username", "name", USERNAME_VALID, lambda self,args: args._create),
         Entry("Use password", "_use_password", EditTUISpoke.CHECK, lambda self,args: args._create),
         Entry("Password", "_password", EditTUISpoke.PASSWORD, lambda self,args: args._use_password and args._create),
         Entry("Administrator", "_admin", EditTUISpoke.CHECK, lambda self,args: args._create),
-        Entry("Groups", "_groups", re.compile("^([a-z0-9_]+)?(, ?([a-z0-9_]+))*$"), lambda self,args: args._create)
+        Entry("Groups", "_groups", GROUPLIST_SIMPLE_VALID, lambda self,args: args._create)
         ]
 
     @classmethod

@@ -21,11 +21,10 @@
 
 from pyanaconda.i18n import N_
 
-import re
+import os
 
 # Use -1 to indicate that the selinux configuration is unset
 SELINUX_DEFAULT = -1
-import os
 
 DISPATCH_BACK = -1
 DISPATCH_FORWARD = 1
@@ -58,7 +57,6 @@ if productName.count(" "):
 
 # DriverDisc Paths
 DD_ALL = "/tmp/DD"
-DD_EXTRACTED = re.compile("/lib/modules/[^/]+/updates/DD/(?P<moduledir>.*/)?(?P<modulename>[^/.]+).ko.*")
 DD_FIRMWARE = "/tmp/DD/lib/firmware"
 DD_RPMS = "/tmp/DD-*"
 
