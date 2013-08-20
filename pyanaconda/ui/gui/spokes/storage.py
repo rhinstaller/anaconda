@@ -168,14 +168,13 @@ class InstallOptions1Dialog(GUIObject):
         return True
 
     def _get_sw_needs_text(self, required_space, auto_swap):
-        required_space_text = size_str(required_space)
         sw_text = (_("Your current <a href=\"\"><b>%(product)s</b> software "
                      "selection</a> requires <b>%(total)s</b> of available "
                      "space, including <b>%(software)s</b> for software and "
                      "<b>%(swap)s</b> for swap space.")
                    % {"product": productName,
-                      "total": required_space_text + auto_swap,
-                      "software": required_space_text, "swap": auto_swap})
+                      "total": required_space + auto_swap,
+                      "software": required_space, "swap": auto_swap})
         return sw_text
 
     # Methods to handle sensitivity of the modify button.
