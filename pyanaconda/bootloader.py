@@ -2218,8 +2218,8 @@ bootloader_by_platform = {platform.X86: GRUB2,
                           platform.IPSeriesPPC: IPSeriesGRUB2,
                           platform.NewWorldPPC: MacYaboot,
                           platform.S390: ZIPL,
-                          platform.ARM: UBOOT,
-                          platform.omapARM: UBOOT}
+                          platform.ARM: EXTLINUX,
+                          platform.omapARM: EXTLINUX}
 
 def get_bootloader():
     platform_name = platform.platform.__class__.__name__
