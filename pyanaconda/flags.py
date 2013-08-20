@@ -31,7 +31,7 @@ class Flags(object):
     def __setattr__(self, attr, val):
         # pylint: disable-msg=E1101
         if attr not in self.__dict__ and not self._in_init:
-            raise AttributeError, attr
+            raise AttributeError(attr)
         else:
             self.__dict__[attr] = val
 
