@@ -464,7 +464,9 @@ class SourceSpoke(NormalSpoke):
 
     @property
     def changed(self):
-        return self._method_changed() or self._update_payload_repos()
+        method_changed = self._method_changed()
+        update_payload_repos = self._update_payload_repos()
+        return method_changed or update_payload_repos
 
     @property
     def completed(self):
