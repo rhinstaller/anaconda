@@ -222,6 +222,10 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Tue Aug 20 2013 Samantha N. Bueno <sbueno+anaconda@redhat.com> - 13.21.204-1
+- Don't require fcoe-utils if we're on s390. (sbueno+anaconda)
+  Resolves: rhbz#998486
+
 * Wed Aug 14 2013 Samantha N. Bueno <sbueno+anaconda@redhat.com> - 13.21.203-1
 - Update spec file to require new pykickstart. (sbueno+anaconda)
   Related: rhbz#886010
