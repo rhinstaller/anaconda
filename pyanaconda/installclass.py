@@ -178,7 +178,7 @@ def availableClasses(showHidden=0):
         try:
             found = imputil.imp.find_module(mainName)
         except ImportError:
-            log.warning ("module import of %s failed: %s" % (mainName, sys.exc_type))
+            log.warning ("module import of %s failed: %s", mainName, sys.exc_type)
             continue
 
         try:
@@ -194,7 +194,7 @@ def availableClasses(showHidden=0):
             if obj.hidden == 0 or showHidden == 1:
                 lst.append(((obj.name, obj), sortOrder))
         except (ImportError, AttributeError):
-            log.warning ("module import of %s failed: %s" % (mainName, sys.exc_type))
+            log.warning ("module import of %s failed: %s", mainName, sys.exc_type)
             if flags.debug: raise
             else: continue
 
@@ -217,18 +217,18 @@ def getBaseInstallClass():
 
     if len(avail) == 1:
         (cname, cobject) = avail[0]
-        log.info("using only installclass %s" %(cname,))
+        log.info("using only installclass %s", cname)
     elif len(allavail) == 1:
         (cname, cobject) = allavail[0]
-        log.info("using only installclass %s" %(cname,))
+        log.info("using only installclass %s", cname)
 
     # Use the highest priority install class if more than one found.
     elif len(avail) > 1:
         (cname, cobject) = avail.pop()
-        log.info('%s is the highest priority installclass, using it' % cname)
+        log.info('%s is the highest priority installclass, using it', cname)
     elif len(allavail) > 1:
         (cname, cobject) = allavail.pop()
-        log.info('%s is the highest priority installclass, using it' % cname)
+        log.info('%s is the highest priority installclass, using it', cname)
 
     # Default to the base installclass if nothing else is found.
     else:

@@ -286,15 +286,14 @@ def _get_location_info_instance(wait=False):
         # reacquires the lock
         refresh_condition.wait(timeout=wait)
         if refresh_in_progress:
-            log.info("Waiting for Geolocation timed out after %d seconds."
-                     % wait)
+            log.info("Waiting for Geolocation timed out after %d seconds.", wait)
             # please note that this does not mean that the actual
             # geolocation lookup was stopped in any way, it just
             # means the caller was unblocked after the waiting period
             # ended while the lookup thread is still running
         else:
             elapsed_time = time.time() - start_time
-            log.info("Waited %1.2f seconds for Geolocation" % elapsed_time)
+            log.info("Waited %1.2f seconds for Geolocation", elapsed_time)
     refresh_condition.release()
     return location_info_instance
 
@@ -464,15 +463,15 @@ class GeolocationBackend(object):
         # check if refresh is needed
         if force is True or self._result is None:
             log.info("Starting geolocation lookup")
-            log.info("Geolocation provider: %s" % self.get_name())
+            log.info("Geolocation provider: %s", self.get_name())
             global refresh_in_progress
             with refresh_condition:
                 refresh_in_progress = True
 
             start_time = time.time()
             self._refresh()
-            log.info("Geolocation lookup finished in %1.1f seconds"
-                     % (time.time() - start_time))
+            log.info("Geolocation lookup finished in %1.1f seconds",
+                     time.time() - start_time)
 
             with refresh_condition:
                 refresh_in_progress = False
@@ -480,7 +479,7 @@ class GeolocationBackend(object):
             # check if there were any results
             result = self.get_result()
             if result:
-                log.info("%s" % result)
+                log.info("%s", result)
             else:
                 log.info("no results")
 
@@ -549,9 +548,9 @@ class FedoraGeoIPProvider(GeolocationBackend):
                         timezone=timezone_code,
                         timezone_source=timezone_source))
         except urllib2.HTTPError as e:
-            log.debug("Geoloc: HTTPError for Fedora GeoIP API lookup:\n%s" % e)
+            log.debug("Geoloc: HTTPError for Fedora GeoIP API lookup:\n%s", e)
         except urllib2.URLError as e:
-            log.debug("Geoloc: URLError for Fedora GeoIP API lookup:\n%s" % e)
+            log.debug("Geoloc: URLError for Fedora GeoIP API lookup:\n%s", e)
 
 
 class HostipGeoIPProvider(GeolocationBackend):
@@ -582,7 +581,7 @@ class HostipGeoIPProvider(GeolocationBackend):
                         city=reply_dict.get("city", None)
                     ))
         except urllib2.URLError as e:
-            log.debug("Geoloc: URLError during Hostip lookup:\n%s" % e)
+            log.debug("Geoloc: URLError during Hostip lookup:\n%s", e)
 
 
 class GoogleWiFiLocationProvider(GeolocationBackend):
@@ -623,7 +622,7 @@ class GoogleWiFiLocationProvider(GeolocationBackend):
                     log.info("Service couldn't find current location.")
             except urllib2.URLError as e:
                 log.debug("Geoloc: URLError during Google"
-                          "  Wifi lookup:\n%s" % e)
+                          "  Wifi lookup:\n%s", e)
         else:
             log.info("No WiFi access points found - can't detect location.")
 
@@ -705,7 +704,7 @@ class Geocoder(object):
                 return None
         except urllib2.URLError as e:
             log.debug("Geoloc: URLError during Nominatim reverse geocoding"
-                      " :\n%s" % e)
+                      " :\n%s", e)
 
 
 class GeocodingResult(object):
@@ -789,7 +788,7 @@ class WifiScanner(object):
                                              '/org/freedesktop/NetworkManager')
             devices = network_manager.GetDevices()
         except dbus.DBusException as e:
-            log.debug("Exception caught during WiFi AP scan: %s" % e)
+            log.debug("Exception caught during WiFi AP scan: %s", e)
 
         # iterate over all devices
         for device_path in devices:

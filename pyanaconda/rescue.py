@@ -135,7 +135,7 @@ def makeFStab(instPath = ""):
             f.write(buf)
         f.close()
     except IOError as e:
-        log.info("failed to write /etc/fstab: %s" % e)
+        log.info("failed to write /etc/fstab: %s", e)
 
 # make sure they have a resolv.conf in the chroot
 def makeResolvConf(instPath):
@@ -331,7 +331,7 @@ def doRescue(intf, rescue_mount, ksdata):
                 rootmounted = False
             else:
                 if flags.automatedInstall:
-                    log.info("System has been mounted under: %s" % ROOT_PATH)
+                    log.info("System has been mounted under: %s", ROOT_PATH)
                 else:
                     ButtonChoiceWindow(intf.screen, _("Rescue"),
                        _("Your system has been mounted under %(rootPath)s.\n\n"
@@ -393,7 +393,7 @@ def doRescue(intf, rescue_mount, ksdata):
         except (ValueError, LookupError, SyntaxError, NameError):
             raise
         except Exception as e:
-            log.error("doRescue caught exception: %s" % e)
+            log.error("doRescue caught exception: %s", e)
             if flags.automatedInstall:
                 log.error("An error occurred trying to mount some or all of your system")
             else:
@@ -433,7 +433,7 @@ def doRescue(intf, rescue_mount, ksdata):
         try:
             makeResolvConf(ROOT_PATH)
         except (OSError, IOError) as e:
-            log.error("error making a resolv.conf: %s" %(e,))
+            log.error("error making a resolv.conf: %s", e)
         msgStr = _("Your system is mounted under the %s directory.") % (ROOT_PATH,)
         ButtonChoiceWindow(intf.screen, _("Rescue"), msgStr, [_("OK")] )
 

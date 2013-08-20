@@ -89,8 +89,8 @@ class LangsupportSpoke(NormalSpoke):
         self._langsupportEntry.set_text("")
         lang_infos = self._find_localeinfos_for_code(self.data.lang.lang, self.locale_infos_for_ui)
         if len(lang_infos) > 1:
-            log.warning("Found multiple locales for lang %s: %s, picking first" %
-                        (self.data.lang.lang, lang_infos))
+            log.warning("Found multiple locales for lang %s: %s, picking first",
+                        self.data.lang.lang, lang_infos)
         # Just take the first found
         # TODO - for corner cases choose the one that is common prefix
         lang_infos = lang_infos[:1]
@@ -135,7 +135,7 @@ class LangsupportSpoke(NormalSpoke):
         else:
             retval = [info for info in infos
                       if code in localization.expand_langs(info)]
-            log.debug("locale infos found for %s: %s" % (code, retval))
+            log.debug("locale infos found for %s: %s", code, retval)
             return retval
 
     def _add_language(self, store, native, english, setting, selected, additional):

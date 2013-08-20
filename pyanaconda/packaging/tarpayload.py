@@ -56,7 +56,7 @@ class TarPayload(ArchivePayload):
             self.archive = tarfile.open(self.image_file)
         except (tarfile.ReadError, tarfile.CompressionError) as e:
             # maybe we only need to catch ReadError and CompressionError here
-            log.error("opening tar archive %s: %s" % (self.image_file, e))
+            log.error("opening tar archive %s: %s", self.image_file, e)
             raise PayloadError("invalid payload format")
 
     @property
@@ -74,5 +74,5 @@ class TarPayload(ArchivePayload):
         try:
             self.archive.extractall(path=ROOT_PATH)
         except (tarfile.ExtractError, tarfile.CompressionError) as e:
-            log.error("extracting tar archive %s: %s" % (self.image_file, e))
+            log.error("extracting tar archive %s: %s", self.image_file, e)
 

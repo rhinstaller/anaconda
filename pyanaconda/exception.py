@@ -144,7 +144,7 @@ class AnacondaExceptionHandler(ExceptionHandler):
                 dest = "/mnt/sysimage/root/%s" % os.path.basename(self.exnFile)
                 shutil.copyfile(self.exnFile, dest)
             except (shutil.Error, IOError):
-                log.error("Failed to copy %s to /mnt/sysimage/root" % self.exnFile)
+                log.error("Failed to copy %s to /mnt/sysimage/root", self.exnFile)
 
         # run kickstart traceback scripts (if necessary)
         try:

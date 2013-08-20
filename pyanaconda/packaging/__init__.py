@@ -229,7 +229,7 @@ class Payload(object):
         try:
             idx = [repo.name for repo in repos].index(repo_id)
         except ValueError:
-            log.error("failed to remove repo %s: not found" % repo_id)
+            log.error("failed to remove repo %s: not found", repo_id)
         else:
             repos.pop(idx)
 
@@ -384,7 +384,7 @@ class Payload(object):
             versions = [f.split("/")[-1][8:] for f in files if os.path.isfile(f) \
                         and "-rescue-" not in f]
             versions.sort(cmp=cmpfunc)
-            log.debug("kernel versions: %s" % versions)
+            log.debug("kernel versions: %s", versions)
             self._kernelVersionList = versions
 
         return self._kernelVersionList
@@ -407,8 +407,8 @@ class Payload(object):
         if not url:
             return None
 
-        log.debug("retrieving treeinfo from %s (proxy: %s ; sslverify: %s)"
-                    % (url, proxy_url, sslverify))
+        log.debug("retrieving treeinfo from %s (proxy: %s ; sslverify: %s)",
+                  url, proxy_url, sslverify)
 
         ugopts = {"ssl_verify_peer": sslverify,
                   "ssl_verify_host": sslverify}
@@ -420,8 +420,8 @@ class Payload(object):
                 proxies = {"http": proxy.url,
                            "https": proxy.url}
             except ProxyStringError as e:
-                log.info("Failed to parse proxy for _getTreeInfo %s: %s" \
-                         % (proxy_url, e))
+                log.info("Failed to parse proxy for _getTreeInfo %s: %s",
+                         proxy_url, e)
 
         ug = URLGrabber()
         try:
@@ -434,7 +434,7 @@ class Payload(object):
                                       "/tmp/.treeinfo", copy_local=True,
                                       proxies=proxies, **ugopts)
             except URLGrabError as e:
-                log.info("Error downloading treeinfo: %s" % e)
+                log.info("Error downloading treeinfo: %s", e)
                 treeinfo = None
 
         return treeinfo
@@ -443,8 +443,7 @@ class Payload(object):
         """ Return the release version of the tree at the specified URL. """
         version = productVersion.split("-")[0]
 
-        log.debug("getting release version from tree at %s (%s)" % (url,
-                                                                    version))
+        log.debug("getting release version from tree at %s (%s)", url, version)
 
         if hasattr(self.data.method, "proxy"):
             proxy = self.data.method.proxy
@@ -463,7 +462,7 @@ class Payload(object):
         if version.startswith(time.strftime("%Y")):
             version = "rawhide"
 
-        log.debug("got a release version of %s" % version)
+        log.debug("got a release version of %s", version)
         return version
 
     ##
@@ -471,8 +470,7 @@ class Payload(object):
     ##
     def _setupDevice(self, device, mountpoint):
         """ Prepare an install CD/DVD for use as a package source. """
-        log.info("setting up device %s and mounting on %s" % (device.name,
-                                                              mountpoint))
+        log.info("setting up device %s and mounting on %s", device.name, mountpoint)
         # Is there a symlink involved?  If so, let's get the actual path.
         # This is to catch /run/install/isodir vs. /mnt/install/isodir, for
         # instance.
@@ -481,7 +479,7 @@ class Payload(object):
         if os.path.ismount(realMountpoint):
             mdev = blivet.util.get_mount_device(realMountpoint)
             if mdev:
-                log.warning("%s is already mounted on %s" % (mdev, mountpoint))
+                log.warning("%s is already mounted on %s", mdev, mountpoint)
 
             if mdev == device.path:
                 return
@@ -496,22 +494,21 @@ class Payload(object):
             device.setup()
             device.format.setup(mountpoint=mountpoint)
         except StorageError as e:
-            log.error("mount failed: %s" % e)
+            log.error("mount failed: %s", e)
             device.teardown(recursive=True)
             raise PayloadSetupError(str(e))
 
     def _setupNFS(self, mountpoint, server, path, options):
         """ Prepare an NFS directory for use as a package source. """
-        log.info("mounting %s:%s:%s on %s" % (server, path, options, mountpoint))
+        log.info("mounting %s:%s:%s on %s", server, path, options, mountpoint)
         if os.path.ismount(mountpoint):
             dev = blivet.util.get_mount_device(mountpoint)
             _server, colon, _path = dev.partition(":")
             if colon == ":" and server == _server and path == _path:
-                log.debug("%s:%s already mounted on %s" % (server, path,
-                                                           mountpoint))
+                log.debug("%s:%s already mounted on %s", server, path, mountpoint)
                 return
             else:
-                log.debug("%s already has something mounted on it" % mountpoint)
+                log.debug("%s already has something mounted on it", mountpoint)
                 try:
                     blivet.util.umount(mountpoint)
                 except OSError as e:
@@ -548,7 +545,7 @@ class Payload(object):
             try:
                 shutil.copyfile(f, "%s/lib/firmware/" % ROOT_PATH)
             except IOError as e:
-                log.error("Could not copy firmware file %s: %s" % (f, e.strerror))
+                log.error("Could not copy firmware file %s: %s", f, e.strerror)
             else:
                 new_firmware = True
 
@@ -561,7 +558,7 @@ class Payload(object):
             try:
                 shutil.copytree(DD_ALL, ROOT_PATH + "/root/DD")
             except IOError as e:
-                log.error("failed to copy driver disk files: %s" % e.strerror)
+                log.error("failed to copy driver disk files: %s", e.strerror)
                 # XXX TODO: real error handling, as this is probably going to
                 #           prevent boot on some systems
 
@@ -573,7 +570,7 @@ class Payload(object):
             return
 
         for kernel in self.kernelVersionList:
-            log.info("recreating initrd for %s" % kernel)
+            log.info("recreating initrd for %s", kernel)
             iutil.execWithRedirect("new-kernel-pkg",
                                    ["--mkinitrd", "--dracut",
                                     "--depmod", "--install", kernel],

@@ -120,7 +120,7 @@ class AnacondaKSScript(KSScript):
                                         root = scriptRoot)
 
         if rc != 0:
-            log.error("Error code %s running the kickstart script at line %s" % (rc, self.lineno))
+            log.error("Error code %s running the kickstart script at line %s", rc, self.lineno)
             if self.errorOnFail:
                 err = ""
                 with open(messages, "r") as fp:
@@ -152,7 +152,7 @@ def getEscrowCertificate(escrowCerts, url):
         msg = _("Escrow certificate %s requires the network.") % url
         raise KickstartError(msg)
 
-    log.info("escrow: downloading %s" % (url,))
+    log.info("escrow: downloading %s", url)
 
     try:
         f = urlgrabber.urlopen(url)
@@ -277,7 +277,7 @@ class Bootloader(commands.bootloader.F19_Bootloader):
                                 if not d.format.hidden and not d.protected]
         for drive in self.driveorder[:]:
             if drive not in disk_names:
-                log.warning("requested drive %s in boot drive order doesn't exist" % drive)
+                log.warning("requested drive %s in boot drive order doesn't exist", drive)
                 self.driveorder.remove(drive)
 
         storage.bootloader.disk_order = self.driveorder
@@ -390,7 +390,7 @@ class Realm(commands.realm.F19_Realm):
             output, stderr = proc.communicate()
             # might contain useful information for users who use
             # use the realm kickstart command
-            log.info("Realm discover stderr:\n%s" % stderr)
+            log.info("Realm discover stderr:\n%s", stderr)
         except OSError as msg:
             # TODO: A lousy way of propagating what will usually be
             # 'no such realm'
@@ -406,14 +406,14 @@ class Realm(commands.realm.F19_Realm):
         if not lines:
             return
         self.discovered = lines.pop(0).strip()
-        log.info("Realm discovered: %s" % self.discovered)
+        log.info("Realm discovered: %s", self.discovered)
         for line in lines:
             parts = line.split(":", 1)
             if len(parts) == 2 and parts[0].strip() == "required-package":
                 self.packages.append(parts[1].strip())
 
-        log.info("Realm %s needs packages %s" %
-                 (self.discovered, ", ".join(self.packages)))
+        log.info("Realm %s needs packages %s",
+                 self.discovered, ", ".join(self.packages))
 
     def execute(self, *args):
         if not self.discovered:
@@ -435,7 +435,7 @@ class Realm(commands.realm.F19_Realm):
             stderr = proc.communicate()[1]
             # might contain useful information for users who use
             # use the realm kickstart command
-            log.info("Realm join stderr:\n%s" % stderr)
+            log.info("Realm join stderr:\n%s", stderr)
             rc = proc.returncode
         except OSError as msg:
             log.error("Error running %s: %s", argv, msg)
@@ -601,9 +601,9 @@ class Iscsi(commands.iscsi.F17_Iscsi):
                                             tg.password_in,
                                             target=tg.target,
                                             iface=tg.iface)
-            log.info("added iscsi target %s at %s via %s" %(tg.target,
-                                                            tg.ipaddr,
-                                                            tg.iface))
+            log.info("added iscsi target %s at %s via %s", tg.target,
+                                                           tg.ipaddr,
+                                                           tg.iface)
         except (IOError, ValueError) as e:
             raise KickstartValueError(formatErrorMsg(self.lineno, msg=str(e)))
 
@@ -981,8 +981,8 @@ class PartitionData(commands.partition.F18_PartData):
                 # if this is a multipath member promote it to the real mpath
                 if disk and disk.format.type == "multipath_member":
                     mpath_device = storage.devicetree.getChildren(disk)[0]
-                    storage_log.info("kickstart: part: promoting %s to %s"
-                                     % (disk.name, mpath_device.name))
+                    storage_log.info("kickstart: part: promoting %s to %s",
+                                     disk.name, mpath_device.name)
                     disk = mpath_device
                 if not disk:
                     raise KickstartValueError(formatErrorMsg(self.lineno, msg="Specified nonexistent disk %s in partition command" % n))
@@ -1239,7 +1239,7 @@ class SELinux(commands.selinux.FC3_SELinux):
                            SELINUX_PERMISSIVE: "permissive" }
 
         if self.selinux not in selinux_states:
-            log.error("unknown selinux state: %s" % (self.selinux,))
+            log.error("unknown selinux state: %s", self.selinux)
             return
 
         try:
@@ -1248,7 +1248,7 @@ class SELinux(commands.selinux.FC3_SELinux):
             selinux_cfg.set(("SELINUX", selinux_states[self.selinux]))
             selinux_cfg.write()
         except IOError as msg:
-            log.error ("Error setting selinux mode: %s" % (msg,))
+            log.error ("Error setting selinux mode: %s", msg)
 
 class Services(commands.services.FC6_Services):
     def execute(self, storage, ksdata, instClass):
@@ -1309,7 +1309,7 @@ class Timezone(commands.timezone.F18_Timezone):
         if not timezone.is_valid_timezone(self.timezone):
             # this should never happen, but for pity's sake
             log.warning("Timezone %s set in kickstart is not valid, falling "\
-                        "back to default (America/New_York)." % (self.timezone,))
+                        "back to default (America/New_York).", self.timezone)
             self.timezone = "America/New_York"
 
         timezone.write_timezone_config(self, ROOT_PATH)
@@ -1321,7 +1321,7 @@ class Timezone(commands.timezone.F18_Timezone):
                 ntp.save_servers_to_config(self.ntpservers,
                                            conf_file_path=chronyd_conf_path)
             except ntp.NTPconfigError as ntperr:
-                log.warning("Failed to save NTP configuration: %s" % ntperr)
+                log.warning("Failed to save NTP configuration: %s", ntperr)
 
 class User(commands.user.F19_User):
     def execute(self, storage, ksdata, instClass, users):

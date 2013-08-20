@@ -44,18 +44,16 @@ def createLuserConf(instPath, algoname='sha512'):
     try:
         fn = os.environ["LIBUSER_CONF"]
         if os.access(fn, os.F_OK):
-            log.info("removing libuser.conf at %s" % (os.getenv("LIBUSER_CONF")))
+            log.info("removing libuser.conf at %s", os.getenv("LIBUSER_CONF"))
             os.unlink(fn)
-        log.info("created new libuser.conf at %s with instPath=\"%s\"" % \
-                (fn,instPath))
+        log.info("created new libuser.conf at %s with instPath=\"%s\"", fn, instPath)
         fd = open(fn, 'w')
     except (OSError, IOError, KeyError):
         createTmp = True
 
     if createTmp:
         (fp, fn) = tempfile.mkstemp(prefix="libuser.")
-        log.info("created new libuser.conf at %s with instPath=\"%s\"" % \
-                (fn,instPath))
+        log.info("created new libuser.conf at %s with instPath=\"%s\"", fn, instPath)
         fd = os.fdopen(fp, 'w')
 
     buf = """
@@ -189,7 +187,7 @@ class Users:
             self.admin = libuser.admin()
 
             if self.admin.lookupGroupByName(group_name):
-                log.error("Group %s already exists, not creating." % group_name)
+                log.error("Group %s already exists, not creating.", group_name)
                 os._exit(1)
 
             groupEnt = self.admin.initGroup(group_name)
@@ -200,7 +198,7 @@ class Users:
             try:
                 self.admin.addGroup(groupEnt)
             except RuntimeError as e:
-                log.critical("Error when creating new group: %s" % str(e))
+                log.critical("Error when creating new group: %s", str(e))
                 os._exit(1)
 
             os._exit(0)
@@ -208,7 +206,7 @@ class Users:
         try:
             status = os.waitpid(childpid, 0)[1]
         except OSError as e:
-            log.critical("exception from waitpid while creating a group: %s %s" % (e.errno, e.strerror))
+            log.critical("exception from waitpid while creating a group: %s %s", e.errno, e.strerror)
             return False
 
         if os.WIFEXITED(status) and (os.WEXITSTATUS(status) == 0):
@@ -257,7 +255,7 @@ class Users:
             self.admin = libuser.admin()
 
             if self.admin.lookupUserByName(user_name):
-                log.error("User %s already exists, not creating." % user_name)
+                log.error("User %s already exists, not creating.", user_name)
                 os._exit(1)
 
             userEnt = self.admin.initUser(user_name)
@@ -294,13 +292,13 @@ class Users:
                 self.admin.addUser(userEnt, mkmailspool=kwargs.get("mkmailspool", True),
                                    mkhomedir=mk_homedir)
             except RuntimeError as e:
-                log.critical("Error when creating new user: %s" % str(e))
+                log.critical("Error when creating new user: %s", str(e))
                 os._exit(1)
 
             try:
                 self.admin.addGroup(groupEnt)
             except RuntimeError as e:
-                log.critical("Error when creating new group: %s" % str(e))
+                log.critical("Error when creating new group: %s", str(e))
                 os._exit(1)
 
             if not mk_homedir:
@@ -310,14 +308,14 @@ class Users:
                     orig_gid = stats.st_gid
 
                     log.info("Home directory for the user %s already existed, "
-                             "fixing the owner." % user_name)
+                             "fixing the owner.", user_name)
                     # home directory already existed, change owner of it properly
                     iutil.chown_dir_tree(userEnt.get(libuser.HOMEDIRECTORY)[0],
                                          userEnt.get(libuser.UIDNUMBER)[0],
                                          groupEnt.get(libuser.GIDNUMBER)[0],
                                          orig_uid, orig_gid)
                 except OSError as e:
-                    log.critical("Unable to change owner of existing home directory: %s" % \
+                    log.critical("Unable to change owner of existing home directory: %s",
                             os.strerror)
                     os._exit(1)
 
@@ -332,15 +330,15 @@ class Users:
                 elif pw == "":
                     # Setup the account with *NO* password
                     self.admin.unlockUser(userEnt)
-                    log.info("user account %s setup with no password" % user_name)
+                    log.info("user account %s setup with no password", user_name)
 
                 if kwargs.get("lock", False):
                     self.admin.lockUser(userEnt)
-                    log.info("user account %s locked" % user_name)
+                    log.info("user account %s locked", user_name)
             # setpassUser raises SystemError on failure, while unlockUser and lockUser
             # raise RuntimeError
             except (RuntimeError, SystemError) as e:
-                log.critical("Unable to set password for new user: %s" % str(e))
+                log.critical("Unable to set password for new user: %s", str(e))
                 os._exit(1)
 
             # Add the user to all the groups they should be part of.
@@ -350,7 +348,7 @@ class Users:
                     grp.add(libuser.MEMBERNAME, user_name)
                     self.admin.modifyGroup(grp)
             except RuntimeError as e:
-                log.critical("Unable to add user to groups: %s" % str(e))
+                log.critical("Unable to add user to groups: %s", str(e))
                 os._exit(1)
 
             os._exit(0)
@@ -358,7 +356,7 @@ class Users:
         try:
             status = os.waitpid(childpid, 0)[1]
         except OSError as e:
-            log.critical("exception from waitpid while creating a user: %s %s" % (e.errno, e.strerror))
+            log.critical("exception from waitpid while creating a user: %s %s", e.errno, e.strerror)
             return False
 
         if os.WIFEXITED(status) and (os.WEXITSTATUS(status) == 0):
@@ -385,7 +383,7 @@ class Users:
         try:
             status = os.waitpid(childpid, 0)[1]
         except OSError as e:
-            log.critical("exception from waitpid while creating a user: %s %s" % (e.errno, e.strerror))
+            log.critical("exception from waitpid while creating a user: %s %s", e.errno, e.strerror)
             return False
 
         if os.WIFEXITED(status) and (os.WEXITSTATUS(status) == 0):

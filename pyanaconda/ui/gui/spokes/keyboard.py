@@ -553,7 +553,7 @@ class KeyboardSpoke(NormalSpoke):
                 self._addLayout(self._store, layout)
                 valid_layouts += layout
             except keyboard.XklWrapperError:
-                log.error("Failed to add layout '%s'" % layout)
+                log.error("Failed to add layout '%s'", layout)
 
         if not valid_layouts:
             log.error("No valid layout given, falling back to default 'us'")

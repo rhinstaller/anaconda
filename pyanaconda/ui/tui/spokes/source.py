@@ -188,7 +188,7 @@ class SourceSpoke(EditTUISpoke):
         try:
             self.payload.updateBaseRepo(fallback=False, checkmount=False)
         except (OSError, PayloadError) as err:
-            LOG.error("Error: %s" % (err,))
+            LOG.error("Error: %s", err)
             self.errors.append(_("Failed to set up installation source"))
         else:
             self.payload.gatherRepoMetadata()
@@ -287,7 +287,7 @@ class SpecifyNFSRepoSpoke(EditTUISpoke):
         try:
             (self.data.method.server, self.data.method.dir) = self.args.url.split(":", 2)
         except ValueError as err:
-            LOG.error("ValueError: %s" % (err,))
+            LOG.error("ValueError: %s", err)
             self.errors.append(_("Failed to set up installation source. Check the source address."))
             return
 

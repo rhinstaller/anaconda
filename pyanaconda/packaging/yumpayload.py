@@ -103,16 +103,16 @@ class YumLock(object):
         frame = inspect.stack()[2]
         threadName = threading.currentThread().name
 
-        log.info("about to acquire _yum_lock for %s at %s:%s (%s)" % (threadName, frame[1], frame[2], frame[3]))
+        log.info("about to acquire _yum_lock for %s at %s:%s (%s)", threadName, frame[1], frame[2], frame[3])
         _private_yum_lock.acquire()
-        log.info("have _yum_lock for %s" % threadName)
+        log.info("have _yum_lock for %s", threadName)
         return _private_yum_lock
 
     def __exit__(self, exc_type, exc_val, exc_tb):
         _private_yum_lock.release()
 
         if not isFinal:
-            log.info("gave up _yum_lock for %s" % threading.currentThread().name)
+            log.info("gave up _yum_lock for %s", threading.currentThread().name)
 
 _yum_lock = YumLock()
 _yum_cache_dir = "/tmp/yum.cache"
@@ -232,7 +232,7 @@ class YumPayload(PackagePayload):
 
     def _writeLangpacksConfig(self):
         langs = [self.data.lang.lang] + self.data.lang.addsupport
-        log.debug("configuring langpacks for %s" % langs)
+        log.debug("configuring langpacks for %s", langs)
         with open("/etc/yum/pluginconf.d/langpacks.conf", "a") as f:
             f.write("# Added by Anaconda\n")
             f.write("langpack_locales = %s\n" % ", ".join(langs))
@@ -268,8 +268,8 @@ reposdir=%s
                 if proxy.password:
                     buf += "proxy_password=%s\n" % (proxy.password,)
             except ProxyStringError as e:
-                log.error("Failed to parse proxy for _writeYumConfig %s: %s" \
-                          % (self.data.method.proxy, e))
+                log.error("Failed to parse proxy for _writeYumConfig %s: %s",
+                          self.data.method.proxy, e)
 
         open("/tmp/anaconda-yum.conf", "w").write(buf)
 
@@ -311,7 +311,7 @@ reposdir=%s
                 elif repo.baseurl:
                     f.write("baseurl=%s\n" % repo.baseurl[0])
                 else:
-                    log.error("repo %s has no baseurl or mirrorlist" % repo.id)
+                    log.error("repo %s has no baseurl or mirrorlist", repo.id)
                     f.close()
                     os.unlink(cfg_path)
                     continue
@@ -330,8 +330,8 @@ reposdir=%s
                             if proxy.password:
                                 f.write("proxy_password=%s\n" % (proxy.password,))
                         except ProxyStringError as e:
-                            log.error("Failed to parse proxy for _writeInstallConfig %s: %s" \
-                                      % (ks_repo.proxy, e))
+                            log.error("Failed to parse proxy for _writeInstallConfig %s: %s",
+                                      ks_repo.proxy, e)
 
                     if ks_repo.cost:
                         f.write("cost=%d\n" % ks_repo.cost)
@@ -351,15 +351,15 @@ reposdir=%s
         self._writeYumConfig()
         self._writeLangpacksConfig()
         self._resetYum(root=ROOT_PATH, keep_cache=True)
-        log.debug("setting releasever to previous value of %s" % releasever)
+        log.debug("setting releasever to previous value of %s", releasever)
         self._yum.preconf.releasever = releasever
 
         self._yumCacheDirHack()
         self.gatherRepoMetadata()
 
         # trigger setup of self._yum.config
-        log.debug("installation yum config repos: %s"
-                  % ",".join(r.id for r in self._yum.repos.listEnabled()))
+        log.debug("installation yum config repos: %s",
+                  ",".join(r.id for r in self._yum.repos.listEnabled()))
 
     # YUMFIXME: there should be a way to reset package sacks without all this
     #           knowledge of the yum internals or, better yet, some convenience
@@ -500,11 +500,10 @@ reposdir=%s
             try:
                 self.configureAddOnRepo(repo)
             except NoNetworkError as e:
-                log.error("repo %s needs an active network connection"
-                          % repo.name)
+                log.error("repo %s needs an active network connection", repo.name)
                 self.disableRepo(repo.name)
             except PayloadError as e:
-                log.error("repo %s setup failed: %s" % (repo.name, e))
+                log.error("repo %s setup failed: %s", repo.name, e)
                 self.disableRepo(repo.name)
 
         # now disable and/or remove any repos that don't make sense
@@ -551,8 +550,8 @@ reposdir=%s
                     try:
                         self._getRepoMetadata(repo)
                     except PayloadError as e:
-                        log.error("failed to grab repo metadata for %s: %s"
-                                  % (repo_id, e))
+                        log.error("failed to grab repo metadata for %s: %s",
+                                  repo_id, e)
                         self.disableRepo(repo_id)
 
         log.info("metadata retrieval complete")
@@ -766,8 +765,8 @@ reposdir=%s
                 try:
                     self._yum.preconf.releasever = self._getReleaseVersion(url)
                 except ConfigParser.MissingSectionHeaderError as e:
-                    log.error("couldn't set releasever from base repo (%s): %s"
-                              % (method.method, e))
+                    log.error("couldn't set releasever from base repo (%s): %s",
+                              method.method, e)
                     self._removeYumRepo(BASE_REPO_NAME)
                     raise PayloadSetupError("base repo is unusable")
 
@@ -782,8 +781,8 @@ reposdir=%s
                 self._addYumRepo(BASE_REPO_NAME, url, mirrorlist=mirrorlist,
                                  proxyurl=proxyurl, sslverify=sslverify)
             except MetadataError as e:
-                log.error("base repo (%s/%s) not valid -- removing it"
-                          % (method.method, url))
+                log.error("base repo (%s/%s) not valid -- removing it",
+                          method.method, url)
                 self._removeYumRepo(BASE_REPO_NAME)
                 raise
 
@@ -823,10 +822,10 @@ reposdir=%s
             # Does this repo already exist? If so, it was already added and may have
             # been edited by the user so skip adding it again.
             if self.getAddOnRepo(addon[1]):
-                log.debug("Skipping %s, already exists." % addon[1])
+                log.debug("Skipping %s, already exists.", addon[1])
                 continue
 
-            log.info("Adding addon repo %s" % addon[1])
+            log.info("Adding addon repo %s", addon[1])
             ks_repo = self.data.RepoData(name=addon[1],
                                          baseurl=addon[2],
                                          proxy=repo.proxy,
@@ -867,7 +866,7 @@ reposdir=%s
             validAddons = c.get(section, "addons").split(",")
         else:
             return retval
-        log.debug("Addons found: %s" % validAddons)
+        log.debug("Addons found: %s", validAddons)
 
         for addon in validAddons:
             addonSection = "addon-%s" % addon
@@ -886,7 +885,7 @@ reposdir=%s
         # And try to grab its metadata.  We do this here so it can be done
         # on a per-repo basis, so we can then get some finer grained error
         # handling and recovery.
-        log.debug("getting repo metadata for %s" % yumrepo.id)
+        log.debug("getting repo metadata for %s", yumrepo.id)
         with _yum_lock:
             try:
                 yumrepo.getPrimaryXML()
@@ -897,11 +896,11 @@ reposdir=%s
             # At the worst, it just means the groups won't be displayed in the UI
             # which isn't too bad, because you may be doing a kickstart install and
             # picking packages instead.
-            log.debug("getting group info for %s" % yumrepo.id)
+            log.debug("getting group info for %s", yumrepo.id)
             try:
                 yumrepo.getGroups()
             except RepoMDError:
-                log.error("failed to get groups for repo %s" % yumrepo.id)
+                log.error("failed to get groups for repo %s", yumrepo.id)
 
     def _replaceVars(self, url):
         """ Replace url variables with their values
@@ -951,15 +950,15 @@ reposdir=%s
                 if proxy.password:
                     kwargs["proxy_password"] = proxy.password
             except ProxyStringError as e:
-                log.error("Failed to parse proxy for _addYumRepo %s: %s" \
-                          % (proxyurl, e))
+                log.error("Failed to parse proxy for _addYumRepo %s: %s",
+                          proxyurl, e)
 
         if baseurl:
             baseurl = self._replaceVars(baseurl)
         if mirrorlist:
             mirrorlist = self._replaceVars(mirrorlist)
-        log.debug("adding yum repo %s with baseurl %s and mirrorlist %s"
-                    % (name, baseurl, mirrorlist))
+        log.debug("adding yum repo %s with baseurl %s and mirrorlist %s",
+                  name, baseurl, mirrorlist)
         with _yum_lock:
             if needsAdding:
                 # Then add it to yum's internal structures.
@@ -985,7 +984,7 @@ reposdir=%s
 
     def addRepo(self, newrepo):
         """ Add a ksdata repo. """
-        log.debug("adding new repo %s" % newrepo.name)
+        log.debug("adding new repo %s", newrepo.name)
         self._addYumRepo(newrepo.name, newrepo.baseurl, newrepo.mirrorlist, newrepo.proxy)   # FIXME: handle MetadataError
         super(YumPayload, self).addRepo(newrepo)
 
@@ -998,7 +997,7 @@ reposdir=%s
 
     def removeRepo(self, repo_id):
         """ Remove a repo as specified by id. """
-        log.debug("removing repo %s" % repo_id)
+        log.debug("removing repo %s", repo_id)
 
         # if this is an NFS repo, we'll want to unmount the NFS mount after
         # removing the repo
@@ -1016,11 +1015,11 @@ reposdir=%s
             try:
                 blivet.util.umount(mountpoint)
             except SystemError as e:
-                log.error("failed to unmount nfs repo %s: %s" % (mountpoint, e))
+                log.error("failed to unmount nfs repo %s: %s", mountpoint, e)
 
     def enableRepo(self, repo_id):
         """ Enable a repo as specified by id. """
-        log.debug("enabling repo %s" % repo_id)
+        log.debug("enabling repo %s", repo_id)
         if repo_id in self.repos:
             with _yum_lock:
                 self._yum.repos.enableRepo(repo_id)
@@ -1028,7 +1027,7 @@ reposdir=%s
 
     def disableRepo(self, repo_id):
         """ Disable a repo as specified by id. """
-        log.debug("disabling repo %s" % repo_id)
+        log.debug("disabling repo %s", repo_id)
         if repo_id in self.repos:
             with _yum_lock:
                 self._yum.repos.disableRepo(repo_id)
@@ -1161,7 +1160,7 @@ reposdir=%s
                     try:
                         self._groups = self._yum.comps
                     except (RepoError, GroupsError) as e:
-                        log.error("failed to get group info: %s" % e)
+                        log.error("failed to get group info: %s", e)
 
         return self._groups
 
@@ -1244,7 +1243,7 @@ reposdir=%s
         if optional:
             pkg_types.append("optional")
 
-        log.debug("select group %s" % groupid)
+        log.debug("select group %s", groupid)
         with _yum_lock:
             try:
                 self._yum.selectGroup(groupid, group_package_types=pkg_types)
@@ -1253,7 +1252,7 @@ reposdir=%s
 
     def _deselectYumGroup(self, groupid):
         # deselect the group in comps
-        log.debug("deselect group %s" % groupid)
+        log.debug("deselect group %s", groupid)
         with _yum_lock:
             try:
                 self._yum.deselectGroup(groupid, force=True)
@@ -1275,7 +1274,7 @@ reposdir=%s
                 try:
                     self._packages = self._yum.pkgSack.returnPackages()
                 except RepoError as e:
-                    log.error("failed to get package list: %s" % e)
+                    log.error("failed to get package list: %s", e)
 
             return self._packages
 
@@ -1285,7 +1284,7 @@ reposdir=%s
            pkgid - The name of a package to be installed.  This could include
                    a version or architecture component.
         """
-        log.debug("select package %s" % pkgid)
+        log.debug("select package %s", pkgid)
         with _yum_lock:
             try:
                 self._yum.install(pattern=pkgid)
@@ -1298,7 +1297,7 @@ reposdir=%s
            pkgid - The name of a package to be excluded.  This could include
                    a version or architecture component.
         """
-        log.debug("deselect package %s" % pkgid)
+        log.debug("deselect package %s", pkgid)
         with _yum_lock:
             self._yum.tsInfo.deselect(pkgid)
 
@@ -1455,8 +1454,8 @@ reposdir=%s
 
         self.calculateSpaceNeeds()
         with _yum_lock:
-            log.info("%d packages selected totalling %s"
-                     % (len(self._yum.tsInfo.getMembers()), self.spaceRequired))
+            log.info("%d packages selected totalling %s",
+                     len(self._yum.tsInfo.getMembers()), self.spaceRequired)
 
     def selectKernelPackage(self):
         kernels = self.kernelPackages
@@ -1469,23 +1468,23 @@ reposdir=%s
                 # XXX might need explicit arch specification
                 self._selectYumPackage(kernel)
             except NoSuchPackage:
-                log.info("no %s package" % kernel)
+                log.info("no %s package", kernel)
                 continue
             else:
-                log.info("selected %s" % kernel)
+                log.info("selected %s", kernel)
                 selected = kernel
                 # select module packages for this kernel
 
                 # select the devel package if gcc will be installed
                 with _yum_lock:
                     if self._yum.tsInfo.matchNaevr(name="gcc"):
-                        log.info("selecting %s-devel" % kernel)
+                        log.info("selecting %s-devel", kernel)
                         # XXX might need explicit arch specification
                         self._selectYumPackage("%s-devel" % kernel)
                 break
 
         if not selected:
-            log.error("failed to select a kernel from %s" % kernels)
+            log.error("failed to select a kernel from %s", kernels)
 
     def selectRequiredPackages(self):
         if self._requiredPackages:
@@ -1626,7 +1625,7 @@ reposdir=%s
                 else:
                     log.debug(line)
         except IOError as e:
-            log.error("Error running anaconda-yum: %s" % e)
+            log.error("Error running anaconda-yum: %s", e)
             exn = PayloadInstallError(str(e))
             if errorHandler.cb(exn) == ERROR_RAISE:
                 progressQ.send_quit(1)
@@ -1671,12 +1670,12 @@ reposdir=%s
             try:
                 os.rename(yum_conf, yum_conf + ".anacbak")
             except OSError as e:
-                log.error("failed to back up yum.conf: %s" % e)
+                log.error("failed to back up yum.conf: %s", e)
 
         try:
             yb.conf.write(open(yum_conf, "w"))
         except IOError as e:
-            log.error("failed to write out yum.conf: %s" % e)
+            log.error("failed to write out yum.conf: %s", e)
 
     def postInstall(self):
         """ Perform post-installation tasks. """

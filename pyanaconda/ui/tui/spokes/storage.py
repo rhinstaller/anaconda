@@ -255,7 +255,7 @@ class StorageSpoke(NormalTUISpoke):
         try:
             doKickstartStorage(self.storage, self.data, self.instclass)
         except StorageError as e:
-            log.error("storage configuration failed: %s" % e)
+            log.error("storage configuration failed: %s", e)
             print _("storage configuration failed: %s") % e
             self.errors = [str(e)]
             self.data.clearpart.type = CLEARPART_TYPE_ALL
