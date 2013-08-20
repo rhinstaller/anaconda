@@ -51,5 +51,21 @@ GROUPNAME_VALID = USERNAME_VALID
 # before and after the commas. The empty string is allowed.
 GROUPLIST_SIMPLE_VALID = re.compile(r'^\s*(' + _USERNAME_BASE + r'(\s*,\s*' + _USERNAME_BASE + r')*)?\s*$')
 
+# Parse the <gr-name> (<gid>) strings in the group list.
+#
+# The name match is non-greedy so that it doesn't match the whitespace betweeen
+# the name and ID.
+#
+# There's some non-capturing groups ("clusters" in the perlre parlance) thrown
+# in there, and, haha, wow, that's confusing to look at. There are two groups
+# that actually end up in the match object, and they're named to try to make
+# it a little easier: the first is "name", and the second is "gid".
+#
+# EVERY STRING IS MATCHED. This expression cannot be used for validation.
+# If there is no GID, or the GID contains non-digits, everything except
+# leading or trailing whitespace ends up in the name group. The result needs to
+# be validated with GROUPNAME_VALID.
+GROUPLIST_FANCY_PARSE = re.compile(r'^(?:\s*)(?P<name>.*?)\s*(?:\((?P<gid>\d+)\))?(?:\s*)$')
+
 # Proxy parsing
 PROXY_URL_PARSE = re.compile("([A-Za-z]+://)?(([A-Za-z0-9]+)(:[^:@]+)?@)?([^:/]+)(:[0-9]+)?(/.*)?")

@@ -372,6 +372,93 @@ class GUIObject(common.UIObject):
         """An iterator over all input checks"""
         return self._check_list.__iter__()
 
+class GUIDialog(GUIObject):
+    """This is an abstract for creating dialog windows. It implements the
+       update_check interface to display an error message when an input
+       validation fails.
+
+       GUIDialog does not define where errors are displayed, so classes
+       that derive from GUIDialog must define error labels and include them
+       as the check_data parameter to add_check. More than one check can use
+       the same label: the message from the first failed check will update the
+       label.
+    """
+
+    def __init__(self, data):
+        if self.__class__ is GUIDialog:
+            raise TypeError("GUIDialog is an abstract class")
+
+        GUIObject.__init__(self, data)
+
+    def add_check_with_error_label(self, editable, error_label, run_check, 
+            check_data=None, set_error=None):
+        """Add an input validation check to this dialog. The error_label will
+           be added to the check_data for the validation check and will be
+           used to display the error message if the check fails.
+
+           :param editable: the input field to validate
+           :type editable: GtkEditable
+
+           :param error_label: the label in which to display the error data
+           :type error_label:  GtkLabel
+
+           :param run_check: a function called to validate the input field. The
+                         parameters are (editable, check_data). The return
+                         value is an object used by update_check, or None
+                         if the check passes.
+           :type run_check: function
+           
+           :param check_data: additional data to pass to the check function
+
+           :param set_error: a function called when a check changes state. The
+                         parameters are (GUICheck, run_check_return).  The
+                         return value is ignored.
+           :type set_error: function
+           
+           :returns: A check object
+           :rtype: GUICheck
+        """
+        if not set_error:
+            set_error = self.set_check_error
+
+        return self.add_check(editable=editable, run_check=run_check, 
+                check_data={'error_label': error_label, 'message': check_data},
+                set_error=set_error)
+
+    def add_re_check_with_error_label(self, editable, error_label, regex, message, set_error=None):
+        """Add a check using a regular expression."""
+        # Use the GUIObject function so we can create the check_data dictionary here
+        if not set_error:
+            set_error = self.set_check_error
+
+        return self.add_check(editable=editable, run_check=check_re,
+                check_data={'error_label': error_label, 'message': message, 'regex': regex},
+                set_error=set_error)
+
+    def set_check_error(self, check, check_return):
+        """Update all input check failure messages.
+
+           If multiple checks use the same GtkLabel, only the first one will
+           be used.
+        """
+
+        # If the signaling check passed, clear its error label
+        if not check_return:
+            if 'error_label' in check.check_data:
+                check.check_data['error_label'].set_text('')
+
+        # Keep track of which labels have errors set. If we see an error for
+        # a label that's already been set, skip it.
+        labels_seen = []
+        for failed_check in self.failed_checks:
+            if not 'error_label' in failed_check.check_data:
+                continue
+
+            label = failed_check.check_data['error_label']
+            if label not in labels_seen:
+                labels_seen.append(label)
+                label.set_text(failed_check.check_status)
+
 class QuitDialog(GUIObject):
     builderObjects = ["quitDialog"]
     mainWidgetName = "quitDialog"

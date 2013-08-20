@@ -16,7 +16,7 @@
             <property name="can_focus">False</property>
             <property name="layout_style">end</property>
             <child>
-              <object class="GtkButton" id="button2">
+              <object class="GtkButton" id="cancel_button">
                 <property name="label">gtk-cancel</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
@@ -30,12 +30,12 @@
               </packing>
             </child>
             <child>
-              <object class="GtkButton" id="button1">
+              <object class="GtkButton" id="save_button">
                 <property name="label" translatable="yes">_Save Changes</property>
-                <property name="use_underline">True</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
+                <property name="use_underline">True</property>
               </object>
               <packing>
                 <property name="expand">False</property>
@@ -319,6 +319,18 @@
                   </packing>
                 </child>
                 <child>
+                  <object class="GtkLabel" id="groups_error">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="xalign">0</property>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">True</property>
+                    <property name="position">2</property>
+                  </packing>
+                </child>
+                <child>
                   <object class="GtkGrid" id="grid2">
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
@@ -397,7 +409,7 @@ Groups that do not already exist will be created; specify their GID in parenthes
                   <packing>
                     <property name="expand">False</property>
                     <property name="fill">True</property>
-                    <property name="position">2</property>
+                    <property name="position">3</property>
                   </packing>
                 </child>
               </object>
@@ -417,8 +429,8 @@ Groups that do not already exist will be created; specify their GID in parenthes
       </object>
     </child>
     <action-widgets>
-      <action-widget response="2">button2</action-widget>
-      <action-widget response="1">button1</action-widget>
+      <action-widget response="2">cancel_button</action-widget>
+      <action-widget response="1">save_button</action-widget>
     </action-widgets>
   </object>
   <object class="GtkAdjustment" id="gid">

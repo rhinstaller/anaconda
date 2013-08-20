@@ -23,14 +23,14 @@ from pyanaconda.i18n import _, N_
 from pyanaconda.users import cryptPassword, validatePassword, guess_username
 
 from pyanaconda.ui.gui.spokes import NormalSpoke
-from pyanaconda.ui.gui import GUIObject, check_re
+from pyanaconda.ui.gui import GUIObject, GUIDialog, check_re
 from pyanaconda.ui.gui.categories.user_settings import UserSettingsCategory
 from pyanaconda.ui.common import FirstbootSpokeMixIn
 from pyanaconda.ui.gui.utils import enlightbox
 
 from pykickstart.constants import FIRSTBOOT_RECONFIG
 from pyanaconda.constants import ANACONDA_ENVIRON, FIRSTBOOT_ENVIRON
-from pyanaconda.regexes import GECOS_VALID, USERNAME_VALID
+from pyanaconda.regexes import GECOS_VALID, USERNAME_VALID, GROUPNAME_VALID, GROUPLIST_FANCY_PARSE
 
 import pwquality
 
@@ -43,13 +43,24 @@ def _checkUsername(editable, data):
     else:
         return check_re(editable, data)
 
-class AdvancedUserDialog(GUIObject):
+def _validateGroups(editable, data):
+    groups_list = editable.get_text().split(",")
+
+    # Check each group name in the list
+    for group in groups_list:
+        group_name = GROUPLIST_FANCY_PARSE.match(group).group('name')
+        if not GROUPNAME_VALID.match(group_name):
+            return _("Invalid group name: %s") % group_name
+
+    return None
+
+class AdvancedUserDialog(GUIDialog):
     builderObjects = ["advancedUserDialog", "uid", "gid"]
     mainWidgetName = "advancedUserDialog"
     uiFile = "spokes/advanced_user.glade"
 
     def __init__(self, user, groupDict, data):
-        GUIObject.__init__(self, data)
+        GUIDialog.__init__(self, data)
         self._user = user
         self._groupDict = groupDict
 
@@ -64,11 +75,24 @@ class AdvancedUserDialog(GUIObject):
         self._spinGid = self.builder.get_object("spin_gid")
         self._uid = self.builder.get_object("uid")
         self._gid = self.builder.get_object("gid")
+        self._groupsError = self.builder.get_object("groups_error")
+        self._saveButton = self.builder.get_object("save_button")
 
     def initialize(self):
         GUIObject.initialize(self)
 
         self._grabObjects()
+
+        # Validate the group input box
+        self.add_check_with_error_label(editable=self._tGroups, 
+                error_label=self._groupsError, 
+                run_check=_validateGroups)
+
+    def update_check(self, check, check_status):
+        # If there are any errors, disable the save button
+        self._saveButton.set_sensitive(not next(self.failed_checks, None))
+
+        return GUIDialog.update_check(self, check, check_status)
 
     def _apply_checkboxes(self, _editable = None, data = None):
         """Update the state of this screen according to the
