@@ -264,9 +264,6 @@ class ErrorHandler(object):
             kwargs["exception"] = exn
             rc = _map[exn.__class__.__name__](*args, **kwargs)
 
-            if isinstance(self.ui, TextUserInterface):
-                self.ui.run()
-
         return rc
 
 # Create a singleton of the ErrorHandler class.  It is up to the UserInterface

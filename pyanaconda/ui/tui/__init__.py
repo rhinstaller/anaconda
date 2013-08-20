@@ -24,6 +24,7 @@ from pyanaconda.i18n import _
 from pyanaconda.ui import common
 from pyanaconda.ui.communication import hubQ
 from pyanaconda.flags import flags
+from pyanaconda.threads import threadMgr
 import simpleline as tui
 from hubs.summary import SummaryHub
 from hubs.progress import ProgressHub
@@ -33,6 +34,7 @@ from tuiobject import YesNoDialog, ErrorDialog
 import os
 import sys
 import site
+import Queue
 import meh.ui.text
 
 def exception_msg_handler(event, data):
@@ -140,8 +142,10 @@ class TextUserInterface(ui.UserInterface):
         # tell python-meh it should use our raw_input
         self._meh_interface.set_io_handler(meh.ui.text.IOHandler(in_func=self._app.raw_input))
 
-        # register handler for the exception messages
+        # register handlers for various messages
         self._app.register_event_handler(hubQ.HUB_CODE_EXCEPTION, exception_msg_handler)
+        self._app.register_event_handler(hubQ.HUB_CODE_SHOW_MESSAGE, self._handle_show_message)
+
         _hubs = self._list_hubs()
 
         # First, grab a list of all the standalone spokes.
@@ -176,6 +180,69 @@ class TextUserInterface(ui.UserInterface):
     ###
     ### MESSAGE HANDLING METHODS
     ###
+    def _send_show_message(self, msg_fn, args, ret_queue):
+        """
+        Send message requesting to show some message dialog specified by the
+        message function.
+
+        :param msg_fn: message dialog function requested to be called
+        :type msg_fn: a function taking the same number of arguments as is the
+                      length of the args param
+        :param args: arguments to be passed to the message dialog function
+        :type args: any
+        :param ret_queue: the queue which the return value of the message dialog
+                          function should be put
+        :type ret_queue: a Queue.Queue instance
+
+        """
+
+        self._app.queue.put((hubQ.HUB_CODE_SHOW_MESSAGE,
+                             [msg_fn, args, ret_queue]))
+
+    def _handle_show_message(self, event, data):
+        """
+        Handler for the HUB_CODE_SHOW_MESSAGE message in the hubQ.
+
+        :param event: event data
+        :type event: (event_type, message_data)
+        :param data: additional data
+        :type data: any
+
+        """
+
+        # event_type, message_data
+        msg_data = event[1]
+        msg_fn, args, ret_queue = msg_data
+
+        ret_queue.put(msg_fn(*args))
+
+    def _show_message_in_main_thread(self, msg_fn, args):
+        """
+        If running in the main thread, run the message dialog function and
+        return its return value. If running in a non-main thread, request the
+        message function to be called in the main thread.
+
+        :param msg_fn: message dialog function to be run
+        :type msg_fn: a function taking the same number of arguments as is the
+                      length of the args param
+        :param args: arguments to be passed to the message dialog function
+        :type args: any
+
+        """
+
+        if threadMgr.in_main_thread():
+            # call the function directly
+            return msg_fn(*args)
+        else:
+            # create a queue for the result returned by the function
+            ret_queue = Queue.Queue()
+
+            # request the function to be called in the main thread
+            self._send_show_message(msg_fn, args, ret_queue)
+
+            # wait and return the result from the queue
+            return ret_queue.get()
+
     def showError(self, message):
         """Display an error dialog with the given message.  After this dialog
            is displayed, anaconda will quit.  There is no return value.  This
@@ -184,11 +251,21 @@ class TextUserInterface(ui.UserInterface):
            In the code, this method should be used sparingly and only for
            critical errors that anaconda cannot figure out how to recover from.
         """
+
+        return self._show_message_in_main_thread(self._showError, (message,))
+
+    def _showError(self, message):
+        """Internal helper function that MUST BE CALLED FROM THE MAIN THREAD"""
+
         error_window = ErrorDialog(self._app, message)
         self._app.switch_screen(error_window)
 
     def showDetailedError(self, message, details):
-        self.showError(message + "\n\n" + details)
+        return self._show_message_in_main_thread(self._showDetailedError, (message, details))
+
+    def _showDetailedError(self, message, details):
+        """Internal helper function that MUST BE CALLED FROM THE MAIN THREAD"""
+        return self.showError(message + "\n\n" + details)
 
     def showYesNoQuestion(self, message):
         """Display a dialog with the given message that presents the user a yes
@@ -203,9 +280,17 @@ class TextUserInterface(ui.UserInterface):
 
            When cmdline mode is active, the default will be to answer no.
         """
+
+        return self._show_message_in_main_thread(self._showYesNoQuestion, (message,))
+
+    def _showYesNoQuestion(self, message):
+        """Internal helper function that MUST BE CALLED FROM THE MAIN THREAD"""
+
         if flags.automatedInstall and not flags.ksprompt:
             # If we're in cmdline mode, just say no.
             return False
+
         question_window = YesNoDialog(self._app, message)
         self._app.switch_screen_modal(question_window)
+
         return question_window.answer
