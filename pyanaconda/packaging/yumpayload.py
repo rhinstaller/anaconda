@@ -1350,10 +1350,11 @@ reposdir=%s
         if errorHandler.cb(exn, str(exn)) == ERROR_RAISE:
             # The progress bar polls kind of slowly, thus installation could
             # still continue for a bit before the quit message is processed.
-            # Doing a sys.exit also ensures the running thread quits before
-            # it can do anything else.
+            # Let's sleep forever to prevent any further actions and wait for
+            # the main thread to quit the process.
             progressQ.send_quit(1)
-            sys.exit(1)
+            while True:
+                time.sleep(100000)
 
     def _applyYumSelections(self):
         """ Apply the selections in ksdata to yum.
