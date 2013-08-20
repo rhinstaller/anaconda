@@ -46,42 +46,52 @@ class AdvancedUserDialog(GUIObject):
         self._user = user
         self._groupDict = groupDict
 
+    def _grabObjects(self):
+        self._cHome = self.builder.get_object("c_home")
+        self._cUid = self.builder.get_object("c_uid")
+        self._cGid = self.builder.get_object("c_gid")
+        self._tHome = self.builder.get_object("t_home")
+        self._lHome = self.builder.get_object("l_home")
+        self._tGroups = self.builder.get_object("t_groups")
+        self._spinUid = self.builder.get_object("spin_uid")
+        self._spinGid = self.builder.get_object("spin_gid")
+        self._uid = self.builder.get_object("uid")
+        self._gid = self.builder.get_object("gid")
+
     def initialize(self):
         GUIObject.initialize(self)
+
+        self._grabObjects()
 
     def _apply_checkboxes(self, _editable = None, data = None):
         """Update the state of this screen according to the
         checkbox states on the screen. It is called from
         the toggled Gtk event.
         """
-        c_home = self.builder.get_object("c_home").get_active()
-        c_uid = self.builder.get_object("c_uid").get_active()
-        c_gid = self.builder.get_object("c_gid").get_active()
+        c_home = self._cHome.get_active()
+        c_uid = self._cUid.get_active()
+        c_gid = self._cGid.get_active()
 
-        self.builder.get_object("t_home").set_sensitive(c_home)
-        self.builder.get_object("l_home").set_sensitive(c_home)
-        self.builder.get_object("spin_uid").set_sensitive(c_uid)
-        self.builder.get_object("spin_gid").set_sensitive(c_gid)
+        self._tHome.set_sensitive(c_home)
+        self._lHome.set_sensitive(c_home)
+        self._spinUid.set_sensitive(c_uid)
+        self._spinGid.set_sensitive(c_gid)
 
     def refresh(self):
-        t_home = self.builder.get_object("t_home")
         if self._user.homedir:
-            t_home.set_text(self._user.homedir)
+            self._tHome.set_text(self._user.homedir)
         elif self._user.name:
             homedir = "/home/" + self._user.name
-            t_home.set_text(homedir)
+            self._tHome.set_text(homedir)
             self._user.homedir = homedir
 
-        c_home = self.builder.get_object("c_home")
-        c_home.set_active(bool(self._user.homedir))
-        c_uid = self.builder.get_object("c_uid")
-        c_uid.set_active(bool(self._user.uid))
-        c_gid = self.builder.get_object("c_gid")
-        c_gid.set_active(bool(self._user.gid))
+        self._cHome.set_active(bool(self._user.homedir))
+        self._cUid.set_active(bool(self._user.uid))
+        self._cGid.set_active(bool(self._user.gid))
         self._apply_checkboxes()
 
-        self.builder.get_object("spin_uid").update()
-        self.builder.get_object("spin_gid").update()
+        self._spinUid.update()
+        self._spinGid.update()
 
         groups = []
         for group_name in self._user.groups:
@@ -94,7 +104,7 @@ class AdvancedUserDialog(GUIObject):
             elif group.gid is not None:
                 groups.append("(%d)" % (group.gid,))
 
-        self.builder.get_object("t_groups").set_text(", ".join(groups))
+        self._tGroups.set_text(", ".join(groups))
 
     def run(self):
         self.window.show()
@@ -103,22 +113,22 @@ class AdvancedUserDialog(GUIObject):
 
         #OK clicked
         if rc == 1:
-            if self.builder.get_object("c_home").get_active():
-                self._user.homedir = self.builder.get_object("t_home").get_text()
+            if self._cHome.get_active():
+                self._user.homedir = self._tHome.get_text()
             else:
                 self._user.homedir = None
 
-            if self.builder.get_object("c_uid").get_active():
-                self._user.uid = int(self.builder.get_object("uid").get_value())
+            if self._cUid.get_active():
+                self._user.uid = int(self._uid.get_value())
             else:
                 self._user.uid = None
 
-            if self.builder.get_object("c_gid").get_active():
-                self._user.gid = int(self.builder.get_object("gid").get_value())
+            if self._cGid.get_active():
+                self._user.gid = int(self._gid.get_value())
             else:
                 self._user.gid = None
 
-            groups = self.builder.get_object("t_groups").get_text().split(",")
+            groups = self._tGroups.get_text().split(",")
             self._user.groups = []
             for group in groups:
                 group = group.strip()
@@ -131,8 +141,6 @@ class AdvancedUserDialog(GUIObject):
             pass
 
         return rc
-
-
 
 class UserSpoke(FirstbootSpokeMixIn, NormalSpoke):
     builderObjects = ["userCreationWindow"]
