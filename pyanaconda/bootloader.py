@@ -2074,42 +2074,6 @@ class ZIPL(BootLoader):
         # do the reipl
         iutil.reIPL(self.stage1_name)
 
-class UBOOT(BootLoader):
-    name = "UBOOT"
-    _config_file = "boot.cmd"
-    packages = ['uboot-tools', 'arm-boot-config']
-
-    stage2_device_types = ["partition"]
-
-    #
-    # configuration
-    #
-
-    @property
-    def config_dir(self):
-        return "/boot"
-
-    @property
-    def config_file(self):
-        return "%s/%s" % (self.config_dir, self._config_file)
-
-    def write_config_images(self, config):
-        stanza = (" ")
-        config.write(stanza)
-
-
-    #
-    # installation
-    #
-
-    def install(self, args=None):
-        # a-b-c is a tool that generates a generic boor.scr that works in most situations.
-        # not perfect but is better than doing nothing
-        rc = iutil.execWithRedirect("a-b-c", [], root=ROOT_PATH)
-
-        if rc:
-            raise BootLoaderError("bootloader install failed")
-
 class EXTLINUX(BootLoader):
     name = "EXTLINUX"
     _config_file = "extlinux.conf"
