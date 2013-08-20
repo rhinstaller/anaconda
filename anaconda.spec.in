@@ -138,6 +138,7 @@ Requires: genisoimage >= %{genisoimagever}
 Requires: syslinux >= 3.73
 Requires: makebootfat
 Requires: device-mapper
+Requires: fcoe-utils >= %{fcoeutilsver}
 %endif
 %ifarch s390 s390x
 Requires: openssh
@@ -148,7 +149,6 @@ Requires: NetworkManager >= %{nmver}
 Requires: dhclient
 Requires: anaconda-yum-plugins
 Requires: libselinux-python >= %{libselinuxver}
-Requires: fcoe-utils >= %{fcoeutilsver}
 %ifarch %{sparc}
 Requires: elftoaout piggyback
 %endif
