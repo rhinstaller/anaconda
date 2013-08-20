@@ -16,6 +16,7 @@ NON_STRICT_OPTIONS="--disable=W0212"
 # E1103 - %s %r has no %r member (but some types could not be inferred)
 DISABLED_ERR_OPTIONS="--disable=E1103"
 
+# W0110 - map/filter on lambda could be replaced by comprehension
 # W0141 - Used builtin function %r
 # W0142 - Used * or ** magic
 # W0223 - Method %r is abstract in class %r but is not overridden
@@ -25,7 +26,7 @@ DISABLED_ERR_OPTIONS="--disable=E1103"
 # W0604 - Using the global statement at the module level
 # W0613 - Unused argument %r
 # W0614 - Unused import %s from wildcard import
-DISABLED_WARN_OPTIONS="--disable=W0141,W0142,W0223,W0403,W0511,W0603,W0604,W0613,W0614"
+DISABLED_WARN_OPTIONS="--disable=W0110,W0141,W0142,W0223,W0403,W0511,W0603,W0604,W0613,W0614"
 
 usage () {
   echo "usage: `basename $0` [--strict] [--help]"
@@ -60,6 +61,7 @@ for i in anaconda $(find pyanaconda -type f -name '*py' \! -executable); do
   pylint \
     --msg-template='{msg_id}:{line:3d},{column}: {obj}: {msg}' \
     -r n --disable=C,R --rcfile=/dev/null \
+    --dummy-variables-rgx=_ \
     --ignored-classes=DefaultInstall,Popen,QueueFactory,TransactionSet \
     --defining-attr-methods=__init__,_grabObjects,initialize,reset,start \
     $DISABLED_WARN_OPTIONS \
