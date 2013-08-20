@@ -20,8 +20,11 @@
 ACLOCAL_AMFLAGS = -I m4
 
 SUBDIRS = pyanaconda po data \
-	      utils scripts docs dracut widgets \
-	      tests/pylint
+	      utils scripts docs dracut widgets
+
+TESTS_ENVIRONMENT = PYTHONPATH=$(builddir)/pyanaconda/isys/.libs:$(builddir)/pyanaconda/isys:$(builddir)/pyanaconda ; export PYTHONPATH;
+TESTS = tests/pylint/runpylint.sh \
+		  tests/nosetests.sh
 
 EXTRA_DIST = config.rpath COPYING \
              anaconda.spec.in

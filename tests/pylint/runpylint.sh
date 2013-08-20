@@ -57,10 +57,7 @@ fi
 # confused
 > pylint-log
 for i in anaconda $(find pyanaconda -type f -name '*py' \! -executable); do
-  pylint --init-hook='import sys; \
-      sys.path.insert(1, "pyanaconda/isys/.libs"); \
-      sys.path.insert(2, "pyanaconda/isys"); \
-      sys.path.insert(3, "pyanaconda")' \
+  pylint \
     --msg-template='{msg_id}:{line:3d},{column}: {obj}: {msg}' \
     -r n --disable=C,R --rcfile=/dev/null \
     --ignored-classes=DefaultInstall,Popen,QueueFactory,TransactionSet \
