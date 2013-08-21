@@ -839,7 +839,7 @@ class DmRaid(commands.dmraid.FC6_DmRaid):
     def parse(self, args):
         raise NotImplementedError("The dmraid kickstart command is not currently supported")
 
-class Partition(commands.partition.F18_Partition):
+class Partition(commands.partition.F20_Partition):
     def execute(self, storage, ksdata, instClass):
         for p in self.partitions:
             p.execute(storage, ksdata, instClass)
@@ -1332,7 +1332,7 @@ class User(commands.user.F19_User):
             kwargs.update({"algo": algo, "root": ROOT_PATH})
             users.createUser(usr.name, **kwargs)
 
-class VolGroup(commands.volgroup.FC16_VolGroup):
+class VolGroup(commands.volgroup.F20_VolGroup):
     def execute(self, storage, ksdata, instClass):
         for v in self.vgList:
             v.execute(storage, ksdata, instClass)
