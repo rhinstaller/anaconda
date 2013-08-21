@@ -177,7 +177,7 @@ def ui_storage_logger():
 
 def populate_mountpoint_store(store, used_mountpoints):
     # sure, add whatever you want to this list. this is just a start.
-    paths = ["/", "/boot", "/home", "/usr", "/var"] + \
+    paths = ["/", "/boot", "/home", "/var"] + \
             platform.bootStage1ConstraintDict["mountpoints"]
 
     # Sort the list now so all the real mountpoints go to the front, then
