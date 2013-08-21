@@ -667,7 +667,7 @@ class PackagePayload(Payload):
 
         return kernels
 
-    def reset(self):
+    def reset(self, root=None):
         # cdrom: install_device.teardown (INSTALL_TREE)
         # hd: umount INSTALL_TREE, install_device.teardown (ISO_DIR)
         # nfs: umount INSTALL_TREE

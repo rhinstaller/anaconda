@@ -73,10 +73,6 @@ from blivet.size import Size
 import blivet.util
 import blivet.arch
 
-from pyanaconda.image import opticalInstallMedia
-from pyanaconda.image import mountImage
-from pyanaconda.image import findFirstIsoImage
-
 from pyanaconda.errors import ERROR_RAISE, errorHandler
 from pyanaconda.packaging import DependencyError, MetadataError, NoNetworkError, NoSuchGroup, \
                                  NoSuchPackage, PackagePayload, PayloadError, PayloadInstallError, \

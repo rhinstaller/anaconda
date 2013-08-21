@@ -27,7 +27,6 @@ from pyanaconda.progress import progressQ
 
 import logging
 import multiprocessing
-import operator
 import pyanaconda.constants as constants
 import pyanaconda.errors as errors
 import pyanaconda.packaging as packaging
@@ -154,7 +153,7 @@ class DNFPayload(packaging.PackagePayload):
         if self.data.packages.handleMissing == constants.KS_MISSING_IGNORE:
             return
 
-        if errors.errorHandler.cb(exn, str(exn)) == constants.ERROR_RAISE:
+        if errors.errorHandler.cb(exn, str(exn)) == errors.ERROR_RAISE:
             # The progress bar polls kind of slowly, thus installation could
             # still continue for a bit before the quit message is processed.
             # Doing a sys.exit also ensures the running thread quits before
@@ -195,7 +194,7 @@ class DNFPayload(packaging.PackagePayload):
     @property
     def environments(self):
         environments = self._base.comps.environments_iter
-        return [e.id for e in environments]
+        return [env.id for env in environments]
 
     @property
     def groups(self):
@@ -246,7 +245,7 @@ class DNFPayload(packaging.PackagePayload):
         except dnf.exceptions.DepsolveError as e:
             msg = str(e)
             log.warning(msg)
-            raise errors.DependencyError([msg])
+            raise packaging.DependencyError([msg])
 
         log.info("%d packages selected totalling %s",
                  len(self._base.transaction), self.spaceRequired)
@@ -296,8 +295,8 @@ class DNFPayload(packaging.PackagePayload):
             self._setupMedia(self.install_device)
         try:
             self.checkSoftwareSelection()
-        except errors.DependencyError:
-            if errors.errorHandler.cb(e) == constants.ERROR_RAISE:
+        except packaging.DependencyError:
+            if errors.errorHandler.cb(e) == errors.ERROR_RAISE:
                 progressQ.send_quit(1)
                 sys.exit(1)
 
@@ -327,8 +326,8 @@ class DNFPayload(packaging.PackagePayload):
     def isRepoEnabled(self, repo_id):
         try:
             return self._base.repos[repo_id].enabled
-        except Exception:
-            return super(YumPayload, self).isRepoEnabled(repo_id)
+        except dnf.exceptions.RepoError:
+            return super(DNFPayload, self).isRepoEnabled(repo_id)
 
     def preInstall(self, packages=None, groups=None):
         super(DNFPayload, self).preInstall()
@@ -338,7 +337,7 @@ class DNFPayload(packaging.PackagePayload):
     def release(self):
         pass
 
-    def reset(self):
+    def reset(self, root=None):
         super(DNFPayload, self).reset()
         self.txID = None
 
