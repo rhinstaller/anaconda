@@ -44,7 +44,7 @@ MKDB_OPTIONS=--sgml-mode
 # Only needed if you are using gtkdoc-scangobj to dynamically query widget
 # signals and properties (which we are).
 GTKDOC_CFLAGS=$(GLIB_CFLAGS) $(GTK_CFLAGS)
-GTKDOC_LIBS=$(GLIB_LIBS) $(GTK_LIBS) -lAnacondaWidgets -L$(top_srcdir)/src
+GTKDOC_LIBS=$(GLIB_LIBS) $(GTK_LIBS) $(top_builddir)/src/libAnacondaWidgets.la
 
 include $(top_srcdir)/gtk-doc.make
 
