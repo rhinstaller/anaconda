@@ -256,6 +256,12 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Wed Aug 21 2013 Brian C. Lane <bcl@redhat.com> - 19.31.9-1
+- The NFS text dialog should never attempt to use method.url (clumens).
+  Resolves: rhbz#998446
+- Update both the method and repo info. (dshea)
+  Resolves: rhbz#999185
+
 * Mon Aug 19 2013 Brian C. Lane <bcl@redhat.com> - 19.31.8-1
 - dracut no longer auto assembles everything (bcl)
   Resolves: rhbz#960496

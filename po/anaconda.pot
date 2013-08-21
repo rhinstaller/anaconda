@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: anaconda 19.31.7\n"
+"Project-Id-Version: anaconda 19.31.8\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
-"POT-Creation-Date: 2013-08-19 10:22-0700\n"
+"POT-Creation-Date: 2013-08-21 08:18-0700\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -770,7 +770,7 @@ msgid "No disks selected; please select at least one disk to install to."
 msgstr ""
 
 #: pyanaconda/ui/tui/spokes/storage.py:171
-#: pyanaconda/ui/gui/spokes/source.py:553
+#: pyanaconda/ui/gui/spokes/source.py:555
 #: pyanaconda/ui/gui/spokes/storage.py:648
 msgid "Probing storage..."
 msgstr ""
@@ -842,18 +842,18 @@ msgid "Installation source"
 msgstr ""
 
 #: pyanaconda/ui/tui/spokes/source.py:47 pyanaconda/ui/tui/spokes/source.py:88
-#: pyanaconda/ui/gui/spokes/source.py:498
+#: pyanaconda/ui/gui/spokes/source.py:500
 msgid "Closest mirror"
 msgstr ""
 
 #: pyanaconda/ui/tui/spokes/source.py:84
-#: pyanaconda/ui/gui/spokes/source.py:490
+#: pyanaconda/ui/gui/spokes/source.py:492
 #, python-format
 msgid "NFS server %s"
 msgstr ""
 
 #: pyanaconda/ui/tui/spokes/source.py:86
-#: pyanaconda/ui/gui/spokes/source.py:492
+#: pyanaconda/ui/gui/spokes/source.py:494
 msgid "CD/DVD drive"
 msgstr ""
 
@@ -861,14 +861,14 @@ msgstr ""
 #: pyanaconda/ui/tui/spokes/software.py:98
 #: pyanaconda/ui/gui/spokes/datetime_spoke.py:405
 #: pyanaconda/ui/gui/spokes/software.py:180
-#: pyanaconda/ui/gui/spokes/source.py:464
-#: pyanaconda/ui/gui/spokes/source.py:500
+#: pyanaconda/ui/gui/spokes/source.py:466
+#: pyanaconda/ui/gui/spokes/source.py:502
 msgid "Nothing selected"
 msgstr ""
 
 #: pyanaconda/ui/tui/spokes/source.py:95
-#: pyanaconda/ui/gui/spokes/source.py:486
-#: pyanaconda/ui/gui/spokes/source.py:495
+#: pyanaconda/ui/gui/spokes/source.py:488
+#: pyanaconda/ui/gui/spokes/source.py:497
 msgid "Error setting up software source"
 msgstr ""
 
@@ -1747,7 +1747,7 @@ msgid "_SOFTWARE SELECTION"
 msgstr ""
 
 #: pyanaconda/ui/gui/spokes/software.py:102
-#: pyanaconda/ui/gui/spokes/source.py:482
+#: pyanaconda/ui/gui/spokes/source.py:484
 msgid "Checking software dependencies..."
 msgstr ""
 
@@ -1825,12 +1825,12 @@ msgid ""
 "Failed to set up installation source; check the repo url and proxy settings"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.py:580
+#: pyanaconda/ui/gui/spokes/source.py:582
 #, python-format
 msgid "Device: %s"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.py:581
+#: pyanaconda/ui/gui/spokes/source.py:583
 #, python-format
 msgid "Label: %s"
 msgstr ""
