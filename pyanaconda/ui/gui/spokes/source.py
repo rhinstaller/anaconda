@@ -603,6 +603,8 @@ class SourceSpoke(NormalSpoke):
         # provided a URL.
         # FIXME
 
+        self._reset_repoStore()
+
         self._ready = True
         hubQ.send_ready(self.__class__.__name__, False)
 
