@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!-- Generated with glade 3.16.1 -->
 <interface>
-  <!-- interface-requires gtk+ 3.0 -->
+  <requires lib="gtk+" version="3.0"/>
   <!-- interface-requires AnacondaWidgets 1.0 -->
   <object class="GtkFileFilter" id="isoFilter">
     <patterns>
       <pattern>*.iso</pattern>
     </patterns>
   </object>
-  <object class="GtkDialog" id="isoChooserDialog">
-    <property name="width_request">441</property>
-    <property name="height_request">320</property>
+  <object class="GtkFileChooserDialog" id="isoChooserDialog">
     <property name="can_focus">False</property>
     <property name="border_width">5</property>
-    <property name="resizable">False</property>
     <property name="type_hint">dialog</property>
     <property name="decorated">False</property>
+    <property name="create_folders">False</property>
+    <property name="filter">isoFilter</property>
     <child internal-child="vbox">
       <object class="GtkBox" id="dialog-vbox2">
         <property name="can_focus">False</property>
@@ -61,18 +61,7 @@
           </packing>
         </child>
         <child>
-          <object class="GtkFileChooserWidget" id="isoChooser">
-            <property name="visible">True</property>
-            <property name="can_focus">False</property>
-            <property name="orientation">vertical</property>
-            <property name="create_folders">False</property>
-            <property name="filter">isoFilter</property>
-          </object>
-          <packing>
-            <property name="expand">True</property>
-            <property name="fill">True</property>
-            <property name="position">1</property>
-          </packing>
+          <placeholder/>
         </child>
       </object>
     </child>
@@ -1033,9 +1022,6 @@
                         <property name="toolbar_style">icons</property>
                         <property name="show_arrow">False</property>
                         <property name="icon_size">1</property>
-                        <style>
-                          <class name="inline-toolbar"/>
-                        </style>
                         <child>
                           <object class="GtkToolButton" id="addButton">
                             <property name="width_request">42</property>
@@ -1093,6 +1079,9 @@
                             <property name="homogeneous">True</property>
                           </packing>
                         </child>
+                        <style>
+                          <class name="inline-toolbar"/>
+                        </style>
                       </object>
                       <packing>
                         <property name="left_attach">0</property>
@@ -1304,7 +1293,7 @@
                                 <property name="can_focus">False</property>
                                 <property name="ypad">3</property>
                                 <property name="stock">gtk-dialog-warning</property>
-                                <property name="icon-size">2</property>
+                                <property name="icon_size">2</property>
                               </object>
                               <packing>
                                 <property name="expand">False</property>
@@ -1380,7 +1369,7 @@
                             <property name="visible">True</property>
                             <property name="can_focus">False</property>
                             <property name="stock">gtk-dialog-warning</property>
-                            <property name="icon-size">2</property>
+                            <property name="icon_size">2</property>
                           </object>
                           <packing>
                             <property name="expand">False</property>

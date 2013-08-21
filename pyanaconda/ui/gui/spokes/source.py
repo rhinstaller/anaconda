@@ -235,7 +235,7 @@ class IsoChooser(GUIObject):
 
     def refresh(self, currentFile=""):
         GUIObject.refresh(self)
-        self._chooser = self.builder.get_object("isoChooser")
+        self._chooser = self.builder.get_object("isoChooserDialog")
         self._chooser.connect("current-folder-changed", self.on_folder_changed)
         self._chooser.set_filename(constants.ISO_DIR + "/" + currentFile)
 
