@@ -645,6 +645,8 @@ class SourceSpoke(NormalSpoke):
         # provided a URL.
         # FIXME
 
+        self._reset_repoStore()
+
         self._ready = True
         # Wait to make sure the other threads are done before sending ready, otherwise
         # the spoke may not get be sensitive by _handleCompleteness in the hub.
