@@ -121,9 +121,6 @@ updates:
 	scripts/makeupdates $${opts}
 
 # UNIT TESTING TARGETS
-unittest:
-	PYTHONPATH=pyanaconda/isys/.libs:tests/:. nosetests -v --exclude=logpicker -a \!acceptance,\!slow  tests/
-
 unittests-logpicker:
 	PYTHONPATH=pyanaconda/isys/.libs:tests/:.:utils/ nosetests -v old_tests/logpicker_test
 
