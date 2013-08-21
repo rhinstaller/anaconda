@@ -195,11 +195,8 @@ class Page(Gtk.Box):
         self.members.remove(selector)
 
     def _mountpointType(self, mountpoint):
-        if not mountpoint:
-            # This catches things like swap.
-            return SYSTEM_DEVICE
-        elif mountpoint in ["/", "/boot", "/boot/efi", "/tmp", "/usr", "/var",
-                            "biosboot", "prepboot"]:
+        if not mountpoint or mountpoint in ["/", "/boot", "/boot/efi", "/tmp", "/usr", "/var",
+                                            "biosboot", "prepboot", "swap"]:
             return SYSTEM_DEVICE
         else:
             return DATA_DEVICE
