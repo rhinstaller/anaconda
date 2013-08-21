@@ -255,6 +255,59 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Wed Aug 21 2013 Brian C. Lane <bcl@redhat.com> - 20.7-1
+- Modify the gtk_warning function in anaconda to use gtk3. (clumens)
+- Fix some pylint warnings in the new DNF code. (clumens)
+- Fix a couple more pykickstart handler version mismatches. (clumens)
+- anaconda requires a later version of partitioning syntax now. (clumens)
+- packaging: add dnf to the Anaconda's requires. (ales)
+- Enable DNFPayload on specific triggers. (ales)
+- DNFPayload: initial version. (ales)
+- refactor: tear down the install device in PackagePayload.reset(). (ales)
+- refactor: extract the device handling in YumPayload._configureBaseRepo up to
+  PackagePayload. (ales)
+- refactor: move YumPayload._setUpMedia() up to PackagePayload._setupMedia().
+  (ales)
+- Tweaks in the Payload interface. (ales)
+- remove: configureAddOnRepo from the Payload interface. (ales)
+- Payload: forgotten comment in spaceRequired() (ales)
+- Payload: define txID to None. (ales)
+- The NFS text dialog should never attempt to use method.url (#998446).
+  (clumens)
+- Remove the unittest target, since "make check" will do this for us. (clumens)
+- Use the latest version of the RAID kickstart handler. (clumens)
+- Update both the method and repo info. (dshea)
+- remove the UBOOT class arm systems are now using EXTLINUX (dennis)
+- ARM: switch to using extlinux by default (dennis)
+- Update our pylint arguments. (clumens)
+- Don't implicitly unpack exceptions.  That won't be supporetd in the future.
+  (clumens)
+- Modify how we call logging functions to take a list of parameters. (clumens)
+- Use "raise Exception()" instead of "raise Exception, ..." (clumens)
+- Hook up pylint and our nosetests to be run via "make check". (clumens)
+- Drop unneeded required_space_text variable. (#997690) (dlehman)
+- Specify also query script when getting locale's native name (vpodzime)
+- Update runpylint.sh for pylint 1.0.0 (bcl)
+- Clean up translation placeholders (#890157) (bcl)
+- Don't override multilib setting unless the option was passed. (#987557)
+  (dlehman)
+- Set the encoding of custom.py to utf-8 (dshea)
+- Report if a package was not found in Koji during autofetch (mkolman)
+- Convert makeupdates from getopt to argparse (mkolman)
+- Fixed the interpretation of RAID levels (dshea)
+- Consolidate get_object() calls. (dshea)
+- Add ASCII-only upper and lower string functions. (dshea)
+- Fix the User/Group already exists log messages. (dshea)
+- Normalize keyboard layout and variant strings from langtable (vpodzime)
+- A few tests for the keyboard layout and variant strings processing (vpodzime)
+- More robust parsing of the layout and variant string specification (vpodzime)
+- Move DEFAULT_VC_FONT to constants (vpodzime)
+- Match langs with stripped accents when filtering languages (vpodzime)
+- Fix the User subclass using an old version of the pykickstart superclass.
+  (clumens)
+- Bring the kickstart version test back to life. (clumens)
+- Don't read proxy for methods that have no proxy (dshea)
+
 * Wed Aug 14 2013 Brian C. Lane <bcl@redhat.com> - 20.6-1
 - Import DBusGMainLoop directly (bcl)
 - Catch AttributeError when looking for InstallClass (bcl)
