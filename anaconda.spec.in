@@ -256,6 +256,18 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Thu Aug 22 2013 Brian C. Lane <bcl@redhat.com> - 19.31.10-1
+- Check for hwaddress exceptions. (dshea)
+  Resolves: rhbz#999514
+- If LANG isn't set, set it to default value. (sbueno+anaconda)
+  Resolves: rhbz#997397
+- Do not run another instance of the TUI for errors (vpodzime)
+  Resolves: rhbz#997661
+- Do not try to exit from the installation thread (vpodzime)
+  Related: rhbz#997661
+- Tell which thread failed to be added by the ThreadMgr (vpodzime)
+  Related: rhbz#997661
+
 * Wed Aug 21 2013 Brian C. Lane <bcl@redhat.com> - 19.31.9-1
 - The NFS text dialog should never attempt to use method.url (clumens).
   Resolves: rhbz#998446
