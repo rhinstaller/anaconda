@@ -60,7 +60,10 @@ class FCoEDialog(GUIObject):
             if not nm.nm_device_type_is_ethernet(devname):
                 continue
 
-            self._nicCombo.append_text("%s - %s" % (devname, nm.nm_device_hwaddress(devname)))
+            try:
+                self._nicCombo.append_text("%s - %s" % (devname, nm.nm_device_hwaddress(devname)))
+            except ValueError:
+                continue
 
         self._nicCombo.set_active(0)
 
