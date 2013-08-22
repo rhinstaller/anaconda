@@ -167,6 +167,8 @@ def nm_device_property(name, prop):
     else:
         # Look in device type based interface
         device_type = proxy.get_cached_property("DeviceType").unpack()
+        if not device_type in device_type_interfaces:
+            raise PropertyNotFoundError(property)
         proxy = _get_proxy(object_path=device, interface_name=device_type_interfaces[device_type])
         if prop in proxy.get_cached_property_names():
             retval = proxy.get_cached_property(prop).unpack()
@@ -301,8 +303,11 @@ def _device_settings(name):
     elif devtype == NetworkManager.DeviceType.VLAN:
         settings = _find_settings(name, 'vlan', 'interface-name')
     else:
-        hwaddr_str = nm_device_hwaddress(name)
-        settings = _settings_for_hwaddr(hwaddr_str)
+        try:
+            hwaddr_str = nm_device_hwaddress(name)
+            settings = _settings_for_hwaddr(hwaddr_str)
+        except ValueError:
+            settings = None
 
     return settings
 
