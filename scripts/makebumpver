@@ -199,8 +199,8 @@ class MakeBumpVer:
             return False
 
     def _rpmLog(self, fixedIn):
-        range = "%s-%s-%s.." % (self.name, self.version, self.release)
-        proc = subprocess.Popen(['git', 'log', '--pretty=oneline', range],
+        git_range = "%s-%s-%s.." % (self.name, self.version, self.release)
+        proc = subprocess.Popen(['git', 'log', '--pretty=oneline', git_range],
                                 stdout=subprocess.PIPE,
                                 stderr=subprocess.PIPE).communicate()
         lines = filter(lambda x: x.find('l10n: ') != 41 and \
@@ -212,7 +212,7 @@ class MakeBumpVer:
             for commit in self.ignore.split(','):
                 lines = filter(lambda x: not x.startswith(commit), lines)
 
-        log = []
+        rpm_log = []
         bad = False
         rhel = self._isRHEL()
 
@@ -223,7 +223,9 @@ class MakeBumpVer:
             commit = fields[0]
 
             summary = self._getCommitDetail(commit, "%s")
-            long = self._getCommitDetail(commit, "%b")
+            body = self._getCommitDetail(commit, "%b")
+            if type(body) is not list:
+                body = [body]
             author = self._getCommitDetail(commit, "%aE")
 
             if rhel:
@@ -274,15 +276,15 @@ class MakeBumpVer:
                     summary = summary.strip()
                     summary += " (%s)" % author
 
-                for longline in long:
+                for bodyline in body:
                     m = re.match("^(Resolves|Related|Conflicts):\ +rhbz#\d+.*$",
-                                 longline)
+                                 bodyline)
                     if not m:
                         continue
 
                     actionre = re.search("(Resolves|Related|Conflicts)",
-                                         longline)
-                    bugre = re.search("\d+", longline)
+                                         bodyline)
+                    bugre = re.search("\d+", bodyline)
                     if actionre and bugre:
                         action = actionre.group()
                         bug = bugre.group()
@@ -306,14 +308,14 @@ class MakeBumpVer:
                     print "*** No bugs referenced in commit %s\n" % commit
                     bad = True
 
-                log.append((summary.strip(), list(rhbz)))
+                rpm_log.append((summary.strip(), list(rhbz)))
             else:
-                log.append(("%s (%s)" % (summary.strip(), author), None))
+                rpm_log.append(("%s (%s)" % (summary.strip(), author), None))
 
         if bad:
             sys.exit(1)
 
-        return log
+        return rpm_log
 
     def _writeNewConfigure(self, newVersion):
         f = open(self.configure, 'r')
@@ -397,7 +399,7 @@ def main(argv):
     spec = os.path.realpath(cwd + '/anaconda.spec.in')
     name, version, release, bugreport = None, None, None, None
     ignore, bugmap = None, None
-    help, unknown = False, False
+    show_help, unknown = False, False
     opts, args = [], []
 
     try:
@@ -406,7 +408,7 @@ def main(argv):
                                     'bugreport=', 'ignore=', 'map=',
                                     'debug', 'help'])
     except getopt.GetoptError:
-        help = True
+        show_help = True
 
     for o, a in opts:
         if o in ('-n', '--name'):
@@ -424,11 +426,11 @@ def main(argv):
         elif o in ('-d', '--debug'):
             log.setLevel(logging.DEBUG)
         elif o in ('-?', '--help'):
-            help = True
+            show_help = True
         else:
             unknown = True
 
-    if help:
+    if show_help:
         usage(prog)
         sys.exit(0)
     elif unknown:
