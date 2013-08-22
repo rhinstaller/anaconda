@@ -58,6 +58,10 @@ fi
 # confused
 > pylint-log
 for i in anaconda $(find pyanaconda -type f -name '*py' \! -executable); do
+  if [ "$i" == "pyanaconda/packaging/dnfpayload.py" ]; then
+     continue
+  fi
+
   pylint \
     --msg-template='{msg_id}:{line:3d},{column}: {obj}: {msg}' \
     -r n --disable=C,R --rcfile=/dev/null \
