@@ -33,8 +33,9 @@ import time
 import threading
 import re
 import dbus
-
+import IPy
 from flags import flags
+
 from simpleconfig import IfcfgFile
 from blivet.devices import FcoeDiskDevice, iScsiDiskDevice
 import blivet.arch
@@ -79,6 +80,13 @@ def setup_ifcfg_log():
 
     ifcfglog = logging.getLogger("ifcfg")
 
+def check_ip_address(address, version=None):
+    try:
+        _ip, ver = IPy.parseAddress(address)
+    except ValueError:
+        return False
+    if version and version == ver:
+        return True
 
 def sanityCheckHostname(hostname):
     """

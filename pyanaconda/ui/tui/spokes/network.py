@@ -238,6 +238,24 @@ class NetworkSpoke(EditTUISpoke):
             self.hostname_dialog.value = hostname
         network.update_hostname_data(self.data, hostname)
 
+class Fake_RE_IPV6(object):
+    def __init__(self, allow_prefix=False, whitelist=None):
+        self.whitelist = whitelist or []
+        self.allow_prefix = allow_prefix
+    def match(self, value):
+        if value in self.whitelist:
+            return True
+        addr, _slash, prefix = value.partition("/")
+        if prefix:
+            if not self.allow_prefix:
+                return False
+            try:
+                if not 1 <= int(prefix) <= 128:
+                    return False
+            except ValueError:
+                return False
+        return network.check_ip_address(addr, version=6)
+
 class ConfigureNetworkSpoke(EditTUISpoke):
     """ Spoke to set various configuration options for net devices. """
     title = _("Device configuration")
@@ -248,7 +266,9 @@ class ConfigureNetworkSpoke(EditTUISpoke):
               re.compile("^" + IPV4_PATTERN_WITHOUT_ANCHORS + "|dhcp$"), True),
         Entry(_("IPv4 netmask"), "netmask", re.compile("^" + IPV4_PATTERN_WITHOUT_ANCHORS + "$"), True),
         Entry(_("IPv4 gateway"), "gateway", re.compile("^" + IPV4_PATTERN_WITHOUT_ANCHORS + "$"), True),
-        Entry(_('IPv6 address or %s for automatic, %s for DHCP, %s to turn off') % ('"auto"', '"dhcp"', '"ignore"'), "ipv6", re.compile(".*:|^auto$|^ignore$|^dhcp$"), True),
+        Entry(_('IPv6 address or %s for automatic, %s for DHCP, %s to turn off')
+              % ('"auto"', '"dhcp"', '"ignore"'), "ipv6",
+              Fake_RE_IPV6(allow_prefix=True, whitelist=["auto", "dhcp", "ignore"]), True),
         Entry(_("IPv6 default gateway"), "ipv6gateway", re.compile(".*$"), True),
         Entry(_("Nameservers (comma separated)"), "nameserver", re.compile(".*$"), True),
         Entry(_("Connect automatically after reboot"), "onboot", EditTUISpoke.CHECK, True),
