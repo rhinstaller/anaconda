@@ -94,7 +94,7 @@ def startMetacityWM():
             iutil.execWithRedirect('metacity', ["--display", ":1", "--sm-disable"])
         except BaseException as e:
             # catch all possible exceptions
-            log.error("Problems running the window manager: %s", str(e))
+            log.error("Problems running the window manager: %s", e)
             os._exit(1)
 
         log.info("The window manager has terminated.")
@@ -108,7 +108,7 @@ def startAuditDaemon():
         try:
             os.execl(cmd, cmd)
         except OSError as e:
-            log.error("Error running the audit daemon: %s", str(e))
+            log.error("Error running the audit daemon: %s", e)
         os._exit(0)
     # auditd will turn into a daemon so catch the immediate child pid now:
     os.waitpid(childpid, 0)

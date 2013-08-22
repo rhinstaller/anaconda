@@ -387,7 +387,7 @@ def write_ifcfg(filename, ifcfg):
             for k,v in ifcfg.items():
                 f.write("%s=%s\n" % (k,v))
     except IOError as e:
-        log.error("can't write %s: %s" % (filename, str(e)))
+        log.error("can't write %s: %s" % (filename, e))
         return False
     return True
 

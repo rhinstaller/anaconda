@@ -198,7 +198,7 @@ class Users:
             try:
                 self.admin.addGroup(groupEnt)
             except RuntimeError as e:
-                log.critical("Error when creating new group: %s", str(e))
+                log.critical("Error when creating new group: %s", e)
                 os._exit(1)
 
             os._exit(0)
@@ -292,13 +292,13 @@ class Users:
                 self.admin.addUser(userEnt, mkmailspool=kwargs.get("mkmailspool", True),
                                    mkhomedir=mk_homedir)
             except RuntimeError as e:
-                log.critical("Error when creating new user: %s", str(e))
+                log.critical("Error when creating new user: %s", e)
                 os._exit(1)
 
             try:
                 self.admin.addGroup(groupEnt)
             except RuntimeError as e:
-                log.critical("Error when creating new group: %s", str(e))
+                log.critical("Error when creating new group: %s", e)
                 os._exit(1)
 
             if not mk_homedir:
@@ -338,7 +338,7 @@ class Users:
             # setpassUser raises SystemError on failure, while unlockUser and lockUser
             # raise RuntimeError
             except (RuntimeError, SystemError) as e:
-                log.critical("Unable to set password for new user: %s", str(e))
+                log.critical("Unable to set password for new user: %s", e)
                 os._exit(1)
 
             # Add the user to all the groups they should be part of.
@@ -348,7 +348,7 @@ class Users:
                     grp.add(libuser.MEMBERNAME, user_name)
                     self.admin.modifyGroup(grp)
             except RuntimeError as e:
-                log.critical("Unable to add user to groups: %s", str(e))
+                log.critical("Unable to add user to groups: %s", e)
                 os._exit(1)
 
             os._exit(0)
