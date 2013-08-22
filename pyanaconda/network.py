@@ -33,7 +33,9 @@ import time
 import tempfile
 import simpleconfig
 import re
+import IPy
 from flags import flags
+
 from simpleconfig import IfcfgFile
 import urlgrabber.grabber
 from blivet.devices import FcoeDiskDevice, iScsiDiskDevice
@@ -75,6 +77,13 @@ def setup_ifcfg_log():
 
     ifcfglog = logging.getLogger("ifcfg")
 
+def check_ip_address(address, version=None):
+    try:
+        _ip, ver = IPy.parseAddress(address)
+    except ValueError:
+        return False
+    if version and version == ver:
+        return True
 
 def sanityCheckHostname(hostname):
     """
