@@ -255,6 +255,24 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Fri Aug 23 2013 Brian C. Lane <bcl@redhat.com> - 20.8-1
+- Fix a SIGSEGV when returning from storage spoke (#983319) (dshea)
+- makebumpver: Fix problem with single line body (bcl)
+- For now, ignore checking dnfpayload.py with pylint. (clumens)
+- Don't do str() on an exception we're passing into a string substitution.
+  (clumens)
+- Check for hwaddress exceptions. (dshea)
+- If LANG isn't set, set it to default value. (#997397) (sbueno+anaconda)
+- Remove yet another unused import. (clumens)
+- swap devices should be under the System portion (#962668). (clumens)
+- Populate the repo store before changed can ever be called (#994940).
+  (clumens)
+- Make the ISO choosing widget wider (#973376). (clumens)
+- Don't recommend /usr as a separate mount point anymore (#981465). (clumens)
+- Do not run another instance of the TUI for errors (#997661) (vpodzime)
+- Do not try to exit from the installation thread (vpodzime)
+- Tell which thread failed to be added by the ThreadMgr (vpodzime)
+
 * Wed Aug 21 2013 Brian C. Lane <bcl@redhat.com> - 20.7-1
 - Modify the gtk_warning function in anaconda to use gtk3. (clumens)
 - Fix some pylint warnings in the new DNF code. (clumens)
