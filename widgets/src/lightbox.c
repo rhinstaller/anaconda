@@ -37,6 +37,9 @@
 
 #include "lightbox.h"
 
+/* GObject ID for the parent window's configure-event signal handler */
+#define ANACONDA_LB_PARENT_CONFIGURE_EVENT  "anaconda-configure-event"
+
 static void anaconda_lb_move_window_to_parent(GtkWidget *parent,
                                               GdkEventConfigure *e,
                                               GtkWindow *window)
@@ -69,6 +72,8 @@ static void anaconda_lb_move_window_to_parent(GtkWidget *parent,
         gdk_window_move (w_window, nx, ny);
         gdk_window_restack(w_window, p_window, TRUE);
     }
+
+    g_object_set_data(G_OBJECT(window), ANACONDA_LB_PARENT_CONFIGURE_EVENT, NULL);
 }
 
 /**
@@ -90,6 +95,7 @@ GtkWindow *anaconda_lb_show_over(GtkWindow *window)
     cairo_t *cr;
     cairo_pattern_t *pattern;
     cairo_surface_t *surface;
+    guint signal_handler;
 
     lightbox = (GTK_WINDOW(gtk_window_new(GTK_WINDOW_TOPLEVEL)));
     gtk_window_set_transient_for(lightbox, window);
@@ -123,8 +129,12 @@ GtkWindow *anaconda_lb_show_over(GtkWindow *window)
     cairo_pattern_destroy (pattern);
 
     /* make the shade move with the parent window */
-    g_signal_connect(window, "configure-event",
+    signal_handler = g_signal_connect(window, "configure-event",
                      G_CALLBACK (anaconda_lb_move_window_to_parent), lightbox);
+
+    /* Save the signal handler in the lightbox so we can remove it later */
+    g_object_set_data(G_OBJECT(lightbox), ANACONDA_LB_PARENT_CONFIGURE_EVENT,
+            GUINT_TO_POINTER(signal_handler));
 
     return lightbox;
 }
@@ -139,5 +149,27 @@ GtkWindow *anaconda_lb_show_over(GtkWindow *window)
  */
 void anaconda_lb_destroy(GtkWindow *lightbox)
 {
+    GtkWindow *window;
+    gpointer p_signal_handler;
+
+    /* Disconnect the configure-event from the contained window */
+    if (GTK_IS_WINDOW(lightbox))
+    {
+        window = gtk_window_get_transient_for(GTK_WINDOW(lightbox));
+
+        p_signal_handler = g_object_get_data(G_OBJECT(lightbox), 
+                ANACONDA_LB_PARENT_CONFIGURE_EVENT);
+        if ((NULL != p_signal_handler) && GTK_IS_WINDOW(window))
+        {
+            /* XXX HAAAAAAACK:
+             * If the configure-event signal handler for the contained window
+             * hasn't fired yet, do it now.
+             */
+            g_signal_emit_by_name(window, "configure-event", window);
+
+            g_signal_handler_disconnect(window, GPOINTER_TO_UINT(p_signal_handler));
+        }
+    }
+
     gtk_widget_destroy(GTK_WIDGET(lightbox));
 }

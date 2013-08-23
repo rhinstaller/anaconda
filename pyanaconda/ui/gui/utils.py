@@ -100,7 +100,7 @@ def enlightbox(mainWindow, dialog):
     ANACONDA_WINDOW_GROUP.add_window(lightbox)
     dialog.set_transient_for(lightbox)
     yield
-    lightbox.destroy()
+    AnacondaWidgets.lb_destroy(lightbox)
 
 def ignoreEscape(dlg):
     """Prevent a dialog from accepting the escape keybinding, which emits a
