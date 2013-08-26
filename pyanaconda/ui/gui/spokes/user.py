@@ -108,6 +108,23 @@ class AdvancedUserDialog(GUIDialog):
         self._spinUid.set_sensitive(c_uid)
         self._spinGid.set_sensitive(c_gid)
 
+    def _parse_groups(self):
+        group_strings = self._tGroups.get_text().split(",")
+        group_objects = []
+
+        for group in group_strings:
+            # Skip empty strings
+            if not group:
+                continue
+
+            (group_name, group_id) = GROUPLIST_FANCY_PARSE.match(group).groups()
+            if group_id:
+                group_id = int(group_id)
+
+            group_objects.append(self.data.GroupData(name=group_name, gid=group_id))
+
+        return group_objects
+
     def refresh(self):
         if self._user.homedir:
             self._tHome.set_text(self._user.homedir)
@@ -159,13 +176,12 @@ class AdvancedUserDialog(GUIDialog):
             else:
                 self._user.gid = None
 
-            groups = self._tGroups.get_text().split(",")
+            groups = self._parse_groups()
             self._user.groups = []
+            self._groupDict.clear()
             for group in groups:
-                group = group.strip()
-                if group not in self._groupDict:
-                    self._groupDict[group] = self.data.GroupData(name = group)
-                self._user.groups.append(group)
+                self._groupDict[group.name] = group
+                self._user.groups.append(group.name)
 
         #Cancel clicked, window destroyed...
         else:
@@ -343,6 +359,10 @@ class UserSpoke(FirstbootSpokeMixIn, NormalSpoke):
         self._user.name = self.username.get_text()
         self._user.gecos = self.fullname.get_text()
 
+        # Remove any groups that were created in a previous visit to this spoke
+        self.data.group.groupList = [g for g in self.data.group.groupList \
+                if not hasattr(g, 'anaconda_group')]
+
         # the user will be created only if the username is set
         if self._user.name:
             if self.admin.get_active() and \
@@ -352,8 +372,14 @@ class UserSpoke(FirstbootSpokeMixIn, NormalSpoke):
                  self._wheel.name in self._user.groups:
                 self._user.groups.remove(self._wheel.name)
 
-            self.data.group.groupList += (self._groupDict[g] for g in self._user.groups
-                                                             if g != self._wheel.name)
+            anaconda_groups = [self._groupDict[g] for g in self._user.groups
+                                if g != self._wheel.name]
+
+            self.data.group.groupList += anaconda_groups
+
+            # Flag the groups as being created in this spoke
+            for g in anaconda_groups:
+                g.anaconda_group = True
 
             if self._user not in self.data.user.userList:
                 self.data.user.userList.append(self._user)
