@@ -331,7 +331,8 @@ class ConfirmDeleteDialog(GUIObject):
 
         if rootName and "_" in rootName:
             rootName = rootName.replace("_", "__")
-        self._removeAll.set_label(self._removeAll.get_label() % rootName)
+        self._removeAll.set_label(
+                _("Delete _all other filesystems in the %s root as well.") % rootName)
         self._removeAll.set_sensitive(rootName is not None)
 
         if mountpoint:
@@ -339,7 +340,9 @@ class ConfirmDeleteDialog(GUIObject):
         else:
             txt = device
 
-        label.set_text(label.get_text() % txt)
+        label_text = _("Are you sure you want to delete all of the data on %s?") % txt
+
+        label.set_text(label_text)
 
     def run(self):
         return self.window.run()
@@ -641,7 +644,6 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         self.passphrase = ""
 
         self._current_selector = None
-        self._when_create_text = ""
         self._devices = []
         self._error = None
         self._media_disks = []
@@ -753,8 +755,6 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
     def initialize(self):
         NormalSpoke.initialize(self)
         self._grabObjects()
-
-        self._when_create_text = self._whenCreateLabel.get_text()
 
         setViewportBackground(self.builder.get_object("availableSpaceViewport"), "#db3279")
         setViewportBackground(self.builder.get_object("totalSpaceViewport"), "#60605b")
@@ -956,7 +956,9 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
             self._accordion.addPage(page, cb=self.on_page_clicked)
 
             self._partitionsNotebook.set_current_page(NOTEBOOK_LABEL_PAGE)
-            self._whenCreateLabel.set_text(self._when_create_text % {"name" : productName, "version" : productVersion})
+            self._whenCreateLabel.set_text(
+                    _("When you create mount points for your %(name)s %(version)s installation, you'll be able to view their details here.") %\
+                            {"name" : productName, "version" : productVersion})
         else:
             swaps = [d for d in new_devices if d.format.type == "swap"]
             mounts = dict((d.format.mountpoint, d) for d in new_devices
@@ -2433,7 +2435,6 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
             self._partitionsNotebook.set_current_page(NOTEBOOK_INCOMPLETE_PAGE)
             selectedDeviceLabel = self._incompleteDeviceLabel
             selectedDeviceDescLabel = self._incompleteDeviceDescLabel
-            optionsLabel = self._incompleteDeviceOptionsLabel
 
             if selector._device.type == "mdarray":
                 total = selector._device.memberDevices
@@ -2447,7 +2448,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
                 txt = _("This LVM Volume Group is missing %(missingPVs)d of %(totalPVs)d physical "
                         "volumes. You can remove it or select a different "
                         "device.") % {"missingPVs": missing, "totalPVs": total}
-            optionsLabel.set_text(txt)
+            self._incompleteDeviceOptionsLabel.set_text(txt)
             no_edit = True
         elif devicefactory.get_device_type(selector._device) is None:
             self._partitionsNotebook.set_current_page(NOTEBOOK_UNEDITABLE_PAGE)
