@@ -214,6 +214,7 @@ AM_CONDITIONAL(IS_X86_64,
 AC_CONFIG_SUBDIRS([widgets])
 
 AC_CONFIG_FILES([Makefile
+                 anaconda.spec
                  data/Makefile
                  data/command-stubs/Makefile
                  docs/Makefile

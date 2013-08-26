@@ -27,8 +27,7 @@ TESTS = tests/pylint/runpylint.sh \
 		  tests/nosetests.sh \
 		  tests/accelerators/run_check_accelerators.sh
 
-EXTRA_DIST = config.rpath COPYING \
-             anaconda.spec.in
+EXTRA_DIST = config.rpath COPYING
 
 MAINTAINERCLEANFILES = Makefile.in config.guess config.h.in config.sub \
                        depcomp install-sh ltmain.sh missing ABOUT-NLS \
@@ -36,7 +35,7 @@ MAINTAINERCLEANFILES = Makefile.in config.guess config.h.in config.sub \
 		       m4/* config.rpath po/Makefile.in.in po/Rules-quot \
 		       test-driver
 
-CLEANFILES = *~ anaconda.spec
+CLEANFILES = *~
 
 MOSTLYCLEANDIRS = m4
 
@@ -46,15 +45,8 @@ dist_sbin_SCRIPTS     = anaconda
 
 ARCHIVE_TAG   = $(PACKAGE_NAME)-$(PACKAGE_VERSION)-$(PACKAGE_RELEASE)
 
-sed_verbose = $(sed_verbose_$(V))
-sed_verbose_ = $(sed_verbose_$(AM_DEFAULT_VERBOSITY))
-sed_verbose_0 = @echo "  SED    "$@;
-
 TX_PULL_ARGS = -a --disable-overwrite
 TX_PUSH_ARGS = -s
-
-$(PACKAGE_NAME).spec: $(PACKAGE_NAME).spec.in
-	$(sed_verbose)sed -e 's/#VERSION#/$(PACKAGE_VERSION)/' < $< > $@
 
 tag:
 	@git tag -s -a -m "Tag as $(ARCHIVE_TAG)" $(ARCHIVE_TAG)
