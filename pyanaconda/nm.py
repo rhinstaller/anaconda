@@ -26,6 +26,14 @@ import socket
 
 from pyanaconda.constants import DEFAULT_DBUS_TIMEOUT
 
+supported_device_types = [
+    NetworkManager.DeviceType.ETHERNET,
+    NetworkManager.DeviceType.WIFI,
+    NetworkManager.DeviceType.INFINIBAND,
+    NetworkManager.DeviceType.BOND,
+    NetworkManager.DeviceType.VLAN,
+    NetworkManager.DeviceType.BRIDGE,
+]
 
 class UnknownDeviceError(ValueError):
     """Device of specified name was not found by NM"""
@@ -83,7 +91,7 @@ def nm_is_connecting():
     return nm_state() == NetworkManager.State.CONNECTING
 
 def nm_devices():
-    """Return list of network device names"""
+    """Return list of network device names supported in installer"""
 
     interfaces = []
 
@@ -98,6 +106,9 @@ def nm_devices():
     devices = devices.unpack()[0]
     for device in devices:
         proxy = _get_proxy(object_path=device, interface_name="org.freedesktop.NetworkManager.Device")
+        device_type = proxy.get_cached_property("DeviceType").unpack()
+        if device_type not in supported_device_types:
+            continue
         interfaces.append(proxy.get_cached_property("Interface").unpack())
 
     return interfaces
