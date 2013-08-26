@@ -26,7 +26,6 @@ import stat
 import os.path
 import errno
 import subprocess
-import re
 import unicodedata
 import string
 import types

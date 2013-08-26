@@ -28,8 +28,6 @@ from pykickstart.constants import FIRSTBOOT_RECONFIG
 from pyanaconda.constants import ANACONDA_ENVIRON, FIRSTBOOT_ENVIRON
 from pyanaconda.regexes import GECOS_VALID, USERNAME_VALID, GROUPLIST_SIMPLE_VALID
 
-import re
-
 __all__ = ["UserSpoke"]
 
 class UserSpoke(FirstbootSpokeMixIn, EditTUISpoke):
