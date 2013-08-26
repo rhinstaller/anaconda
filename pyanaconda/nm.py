@@ -26,18 +26,6 @@ import socket
 
 from pyanaconda.constants import DEFAULT_DBUS_TIMEOUT
 
-device_type_interfaces = {
-    NetworkManager.DeviceType.ETHERNET: "org.freedesktop.NetworkManager.Device.Wired",
-    NetworkManager.DeviceType.WIFI: "org.freedesktop.NetworkManager.Device.Wireless",
-    NetworkManager.DeviceType.MODEM: "org.freedesktop.NetworkManager.Device.Modem",
-    NetworkManager.DeviceType.BT: "org.freedesktop.NetworkManager.Device.Bluetooth",
-    NetworkManager.DeviceType.OLPC_MESH: "org.freedesktop.NetworkManager.Device.OlpcMesh",
-    NetworkManager.DeviceType.WIMAX: "org.freedesktop.NetworkManager.Device.WiMax",
-    NetworkManager.DeviceType.INFINIBAND: "org.freedesktop.NetworkManager.Device.Infiniband",
-    NetworkManager.DeviceType.BOND: "org.freedesktop.NetworkManager.Device.Bond",
-    NetworkManager.DeviceType.VLAN: "org.freedesktop.NetworkManager.Device.Vlan",
-    NetworkManager.DeviceType.ADSL: "org.freedesktop.NetworkManager.Device.Adsl"
-}
 
 class UnknownDeviceError(ValueError):
     """Device of specified name was not found by NM"""
@@ -58,7 +46,6 @@ class DeviceSettingsNotFoundError(ValueError):
     """Settings (NMRemoteConnection object was not found"""
     def __str__(self):
         return self.__repr__()
-
 
 def _get_proxy(bus_type=Gio.BusType.SYSTEM,
                flags=Gio.DBusProxyFlags.NONE,
@@ -136,6 +123,27 @@ def nm_activated_devices():
 
     return interfaces
 
+def _get_object_iface_names(object_path):
+    connection = Gio.bus_get_sync(Gio.BusType.SYSTEM, None)
+    res_xml = connection.call_sync("org.freedesktop.NetworkManager",
+                                   object_path,
+                                   "org.freedesktop.DBus.Introspectable",
+                                   "Introspect",
+                                   None,
+                                   GLib.VariantType.new("(s)"),
+                                   Gio.DBusCallFlags.NONE,
+                                   -1,
+                                   None)
+    node_info = Gio.DBusNodeInfo.new_for_xml(res_xml[0])
+    return [iface.name for iface in node_info.interfaces]
+
+def _device_type_specific_interface(device):
+    ifaces = _get_object_iface_names(device)
+    for iface in ifaces:
+        if iface.startswith("org.freedesktop.NetworkManager.Device."):
+            return iface
+    return None
+
 def nm_device_property(name, prop):
     """Return value of device NM property
 
@@ -166,12 +174,13 @@ def nm_device_property(name, prop):
         retval = proxy.get_cached_property(prop).unpack()
     else:
         # Look in device type based interface
-        device_type = proxy.get_cached_property("DeviceType").unpack()
-        if not device_type in device_type_interfaces:
-            raise PropertyNotFoundError(property)
-        proxy = _get_proxy(object_path=device, interface_name=device_type_interfaces[device_type])
-        if prop in proxy.get_cached_property_names():
-            retval = proxy.get_cached_property(prop).unpack()
+        interface = _device_type_specific_interface(device)
+        if interface:
+            proxy = _get_proxy(object_path=device, interface_name=interface)
+            if prop in proxy.get_cached_property_names():
+                retval = proxy.get_cached_property(prop).unpack()
+            else:
+                raise PropertyNotFoundError(prop)
         else:
             raise PropertyNotFoundError(prop)
 
