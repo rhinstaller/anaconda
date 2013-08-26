@@ -326,7 +326,7 @@ class DNFPayload(packaging.PackagePayload):
     def isRepoEnabled(self, repo_id):
         try:
             return self._base.repos[repo_id].enabled
-        except dnf.exceptions.RepoError:
+        except (dnf.exceptions.RepoError, KeyError):
             return super(DNFPayload, self).isRepoEnabled(repo_id)
 
     def preInstall(self, packages=None, groups=None):
