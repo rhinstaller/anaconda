@@ -1641,6 +1641,7 @@ updates available for you.</property>
                                         <property name="top_padding">12</property>
                                         <child>
                                           <object class="GtkButton" id="button_mobilebb_options">
+                                            <!-- check_accelerators: not in same tab as button_wireless_options -->
                                             <property name="label" translatable="yes">_Configure...</property>
                                             <property name="visible">True</property>
                                             <property name="can_focus">True</property>
@@ -1926,6 +1927,7 @@ updates available for you.</property>
                                         <property name="top_padding">12</property>
                                         <child>
                                           <object class="GtkButton" id="button_vpn_options">
+                                            <!-- check_accelerators: not in same tab as button_wireless_options -->
                                             <property name="label" translatable="yes">_Configure...</property>
                                             <property name="visible">True</property>
                                             <property name="can_focus">True</property>
@@ -2081,6 +2083,7 @@ updates available for you.</property>
                                             <property name="visible">True</property>
                                             <property name="can_focus">False</property>
                                             <property name="xalign">1</property>
+                                            <!-- check_accelerators: not in same tab as button_wireless_options -->
                                             <property name="label" translatable="yes">_Configuration URL</property>
                                             <property name="use_underline">True</property>
                                             <property name="mnemonic_widget">entry_proxy_url</property>
@@ -2111,7 +2114,7 @@ updates available for you.</property>
                                             <property name="visible">True</property>
                                             <property name="can_focus">False</property>
                                             <property name="xalign">1</property>
-                                            <property name="label" translatable="yes">_HTTP Proxy</property>
+                                            <property name="label" translatable="yes">HTTP _Proxy</property>
                                             <property name="use_underline">True</property>
                                             <property name="mnemonic_widget">entry_proxy_http</property>
                                           </object>
@@ -2159,6 +2162,7 @@ updates available for you.</property>
                                             <property name="visible">True</property>
                                             <property name="can_focus">False</property>
                                             <property name="xalign">1</property>
+                                            <!-- check_accelerators: not in same tab as button_wireless_options -->
                                             <property name="label" translatable="yes">_Socks Host</property>
                                             <property name="use_underline">True</property>
                                             <property name="mnemonic_widget">entry_proxy_socks</property>
@@ -2424,7 +2428,7 @@ updates available for you.</property>
                               <object class="GtkLabel" id="label_flight_mode">
                                 <property name="visible">True</property>
                                 <property name="can_focus">False</property>
-                                <property name="label" translatable="yes">Air_plane Mode</property>
+                                <property name="label" translatable="yes">_Airplane Mode</property>
                                 <property name="use_underline">True</property>
                               </object>
                               <packing>

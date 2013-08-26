@@ -643,7 +643,7 @@ use.  Try something else?</property>
                   <object class="GtkLabel" id="containerSizeLabel">
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
-                    <property name="label" translatable="yes">_Size policy:</property>
+                    <property name="label" translatable="yes">Si_ze policy:</property>
                     <property name="use_underline">True</property>
                     <property name="mnemonic_widget">containerSizeCombo</property>
                   </object>
@@ -1106,7 +1106,7 @@ use.  Try something else?</property>
                                     </child>
                                     <child>
                                       <object class="GtkCheckButton" id="reformatCheckbox">
-                                        <property name="label" translatable="yes">Refor_mat</property>
+                                        <property name="label" translatable="yes">Re_format</property>
                                         <property name="visible">True</property>
                                         <property name="can_focus">True</property>
                                         <property name="receives_default">False</property>
@@ -1179,7 +1179,7 @@ use.  Try something else?</property>
                                         <property name="visible">True</property>
                                         <property name="can_focus">False</property>
                                         <property name="xalign">0</property>
-                                        <property name="label" translatable="yes">_RAID Level:</property>
+                                        <property name="label" translatable="yes">R_AID Level:</property>
                                         <property name="use_underline">True</property>
                                         <property name="mnemonic_widget">raidLevelCombo</property>
                                         <attributes>
@@ -1364,6 +1364,7 @@ until you click on the main menu's 'Begin Installation' button.</property>
                                   <object class="GtkLabel" id="passphraseLabel">
                                     <property name="visible">True</property>
                                     <property name="can_focus">False</property>
+                                    <!-- check_accelerators: not visible at same time as mountPointLabel -->
                                     <property name="label" translatable="yes">_Passphrase:</property>
                                     <property name="use_underline">True</property>
                                     <attributes>
@@ -1392,6 +1393,7 @@ until you click on the main menu's 'Begin Installation' button.</property>
                                 </child>
                                 <child>
                                   <object class="GtkButton" id="unlockButton">
+                                    <!-- check_accelerators: not visible at same time as applyButton -->
                                     <property name="label" translatable="yes">_Unlock</property>
                                     <property name="visible">True</property>
                                     <property name="can_focus">True</property>
