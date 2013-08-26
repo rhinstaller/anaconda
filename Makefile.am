@@ -24,7 +24,8 @@ SUBDIRS = pyanaconda po data \
 
 TESTS_ENVIRONMENT = PYTHONPATH=$(builddir)/pyanaconda/isys/.libs:$(builddir)/pyanaconda/isys:$(builddir)/pyanaconda ; export PYTHONPATH;
 TESTS = tests/pylint/runpylint.sh \
-		  tests/nosetests.sh
+		  tests/nosetests.sh \
+		  tests/accelerators/run_check_accelerators.sh
 
 EXTRA_DIST = config.rpath COPYING \
              anaconda.spec.in
