@@ -305,9 +305,10 @@ def _device_settings(name):
     else:
         try:
             hwaddr_str = nm_device_hwaddress(name)
-            settings = _settings_for_hwaddr(hwaddr_str)
-        except ValueError:
+        except PropertyNotFoundError:
             settings = None
+        else:
+            settings = _settings_for_hwaddr(hwaddr_str)
 
     return settings
 
