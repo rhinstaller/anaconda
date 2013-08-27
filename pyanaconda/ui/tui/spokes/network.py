@@ -28,6 +28,7 @@ from pyanaconda.ui.tui.simpleline import TextWidget, ColumnWidget
 from pyanaconda.i18n import _
 from pyanaconda import network
 from pyanaconda.nm import nm_activated_devices, nm_state, nm_devices, nm_device_type_is_ethernet, nm_device_ip_config, nm_activate_device_connection, nm_device_setting_value
+from pyanaconda.regexes import IPV4_PATTERN_WITHOUT_ANCHORS
 
 # pylint: disable-msg=E0611
 from gi.repository import NetworkManager
@@ -234,17 +235,16 @@ class NetworkSpoke(EditTUISpoke):
             self.hostname_dialog.value = hostname
         network.update_hostname_data(self.data, hostname)
 
-RE_IPV4="^(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}"
-
 class ConfigureNetworkSpoke(EditTUISpoke):
     """ Spoke to set various configuration options for net devices. """
     title = _("Device configuration")
     category = "network"
 
     edit_fields = [
-        Entry(_('IPv4 address or %s for DHCP' % '"dhcp"'), "ip", re.compile(RE_IPV4+"|dhcp$"), True),
-        Entry(_("IPv4 netmask"), "netmask", re.compile(RE_IPV4), True),
-        Entry(_("IPv4 gateway"), "gateway", re.compile(RE_IPV4), True),
+        Entry(_('IPv4 address or %s for DHCP' % '"dhcp"'), "ip",
+              re.compile("^" + IPV4_PATTERN_WITHOUT_ANCHORS + "|dhcp$"), True),
+        Entry(_("IPv4 netmask"), "netmask", re.compile("^" + IPV4_PATTERN_WITHOUT_ANCHORS + "$"), True),
+        Entry(_("IPv4 gateway"), "gateway", re.compile("^" + IPV4_PATTERN_WITHOUT_ANCHORS + "$"), True),
         Entry(_('IPv6 address or %s for automatic, %s for DHCP, %s to turn off') % ('"auto"', '"dhcp"', '"ignore"'), "ipv6", re.compile(".*:|^auto$|^ignore$|^dhcp$"), True),
         Entry(_("IPv6 default gateway"), "ipv6gateway", re.compile(".*$"), True),
         Entry(_("Nameservers (comma separated)"), "nameserver", re.compile(".*$"), True),

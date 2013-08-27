@@ -69,3 +69,6 @@ GROUPLIST_FANCY_PARSE = re.compile(r'^(?:\s*)(?P<name>.*?)\s*(?:\((?P<gid>\d+)\)
 
 # Proxy parsing
 PROXY_URL_PARSE = re.compile("([A-Za-z]+://)?(([A-Za-z0-9]+)(:[^:@]+)?@)?([^:/]+)(:[0-9]+)?(/.*)?")
+
+# IPv4 address without anchors
+IPV4_PATTERN_WITHOUT_ANCHORS = r'(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)'
