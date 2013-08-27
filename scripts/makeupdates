@@ -46,6 +46,12 @@ VERSION_EQUAL = "="
 VERSION_MORE_OR_EQUAL = ">="
 VERSION_LESS_OR_EQUAL = "<="
 
+VERSION_OP_MAP = {
+    "=": VERSION_EQUAL,
+    ">=": VERSION_MORE_OR_EQUAL,
+    "<=": VERSION_LESS_OR_EQUAL
+}
+
 
 def getArchiveTag(configure, spec):
     tag = ""
@@ -386,48 +392,96 @@ def createUpdatesImage(cwd, updates):
     os.system("find . | cpio -c -o | gzip -9cv > %s/updates.img" % (cwd,))
     sys.stdout.write("updates.img ready\n")
 
-def check_for_new_packages(tag, arch, added_rpms):
+def check_for_new_packages(tag, arch, added_rpms, specfile_path):
     """Download any new packages added to Requires and Defines
     since the given tag, return list of RPM paths
     """
     new_packages = {}
     version_vars = {}
+    all_used_version_vars = {}
     fedora_number = get_fedora_version()
+
+    Package = namedtuple("Package", "name version version_request req_tuple")
+
     diff = doGitContentDiff(tag, ["anaconda.spec.in"])
     new_requires = filter(lambda x: x.startswith("+Requires:"), diff)
     new_defines = filter(lambda x: x.startswith("+%define"), diff)
+    with open(specfile_path, "rc") as f:
+        spec_content = f.readlines()
+        all_defines = filter(lambda x: x.startswith("%define"), spec_content)
+        all_requires = filter(lambda x: x.startswith("Requires:"), spec_content)
 
-    # first parse defines, to get the version variables
-
-    for define in new_defines:
+    # parse all defines, to get the version variables
+    for define in all_defines:
         # second word & split the "ver" suffix
         package = define.split()[1][:-3]
         version = define.split()[2]
         version_vars[package] = version
 
+    # parse all Requires and store lines referencing
+    # version variables
+    # ex.: Requires: langtable-data >= %{langtablever}
+    # will be stored as:
+    # langtable : [(langtable-data, VERSION_MORE_OR_EQUAL)]
+
+    for require in all_requires:
+        parts = require.split()
+        # we are interest only in Requires lines using
+        # version variables
+        if len(parts) >= 4 and parts[3].startswith('%'):
+            package_name = parts[1]
+            version_request = VERSION_OP_MAP.get(parts[2])
+            # drop the %{ prefix and ver} suffix
+            version_var = parts[3][2:-4]
+            # store (package_name, version_request) tuples for the given
+            # version variable
+
+            # single version variable might be used to set version of multiple
+            # package, see langtable for an example of such usage
+            if version_var in all_used_version_vars:
+                all_used_version_vars[version_var].append((package_name, version_request))
+            else:
+                all_used_version_vars[version_var] = [(package_name, version_request)]
+
+    # parse all new defines
+    for define in new_defines:
+        # second word & split the "ver" suffix
+        parts = define.split()
+        version_var = parts[1][:-3]
+        version = parts[2]
+        # if there are any packages in Requires using the version variable
+        # corresponding to the current %define, add a new package request
+        packages_using_this_define = all_used_version_vars.get(version_var, [])
+        # multiple requests might be using a single version variable
+        for package_name, version_request in packages_using_this_define:
+            if not version.count("-"):
+                version = "%s-1" % version
+            pkg_name = "%s-%s.fc%s.%s.rpm" % (package_name, version,
+                                              fedora_number, arch)
+            pkg_tuple = get_pkg_tuple(pkg_name)
+            req_tuple = get_req_tuple(pkg_tuple, version_request)
+            new_packages[package_name] = Package(package_name, version,
+                                                 version_request, req_tuple)
+
     # then parse requires and substitute version variables where needed
-
-    Package = namedtuple("Package", "name version version_request req_tuple")
-
     for req in new_requires:
         parts = req.split()
         if len(parts) < 2:
             # must contain at least "+Requires:" and "some_package"
             continue
         package_name = parts[1]
+
+        # skip packages that were already added from new %defines
+        if package_name in new_packages:
+            continue
+
         version_request = None
         if len(parts) > 2:
             # get the version request operator
             version_operator = parts[2]
             # at the moment only = (considered the default),
             # >= and <= are supported
-
-            if version_operator == ">=":
-                version_request = VERSION_MORE_OR_EQUAL
-            elif version_operator == "<=":
-                version_request = VERSION_LESS_OR_EQUAL
-            elif version_operator == "=":
-                version_request = VERSION_EQUAL
+            version_request = VERSION_OP_MAP.get(version_operator)
             version = parts.pop()
         else:
             version = ""
@@ -459,8 +513,9 @@ def check_for_new_packages(tag, arch, added_rpms):
         new_packages[package_name] = Package(package_name, version,
                                              version_request, req_tuple)
 
+    # report about new package requests
     if new_packages:
-        print("%d new packages found in Requires:" %
+        print("%d new packages found in Requires or updated %%defines for Requires:" %
               len(new_packages))
         for p in new_packages.values():
             if p.version_request:
@@ -468,7 +523,7 @@ def check_for_new_packages(tag, arch, added_rpms):
             else:
                 print(p.name)
     else:
-        print("no new Requires found")
+        print("no new Requires or updated %%defines for Requires found")
         return []
 
     # make sure the RPM cache folder exists
@@ -774,7 +829,7 @@ def main():
 
     if args.fetch:
         arch = args.fetch
-        rpm_paths = check_for_new_packages(args.tag, arch, args.add_rpms)
+        rpm_paths = check_for_new_packages(args.tag, arch, args.add_rpms, spec)
         args.add_rpms.extend(rpm_paths)
 
     if args.add_rpms:
