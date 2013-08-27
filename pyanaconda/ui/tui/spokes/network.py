@@ -119,19 +119,18 @@ class NetworkSpoke(EditTUISpoke):
             dnss_str = ",".join(ipv4config[1])
         else:
             addr_str = dnss_str = gateway_str = netmask_str = ""
-        msg += _(" IPv4 Address: %s\n") % addr_str
-        msg += _(" Gateway: %s\n") % gateway_str
-        msg += _(" Netmask: %s\n") % netmask_str
+        msg += _(" IPv4 Address: %s Netmask: %s Gateway: %s\n") % (addr_str, netmask_str, gateway_str)
         msg += _(" DNS: %s\n") % dnss_str
 
         if ipv6config and ipv6config[0]:
             for ipv6addr in ipv6config[0]:
                 addr_str, prefix, gateway_str = ipv6addr
-                msg += _(" IPv6 Address: %s/%d\n") % (addr_str, prefix)
+                # Do not display link-local addresses
+                if not addr_str.startswith("fe80:"):
+                    msg += _(" IPv6 Address: %s/%d\n") % (addr_str, prefix)
 
             dnss_str = ",".join(ipv6config[1])
 
-        msg += "\n"
         return msg
 
     def refresh(self, args=None):
