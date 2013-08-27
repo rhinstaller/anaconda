@@ -110,6 +110,7 @@ import network
 
 import logging
 log = logging.getLogger("anaconda")
+slog = logging.getLogger("sensitive-info")
 
 from pyanaconda import constants
 from pyanaconda.threads import AnacondaThread, threadMgr
@@ -479,9 +480,10 @@ class GeolocationBackend(object):
             # check if there were any results
             result = self.get_result()
             if result:
-                log.info("%s", result)
+                log.info("got results from geolocation")
+                slog.info("geolocation result:\n%s", result)
             else:
-                log.info("no results")
+                log.info("no results from geolocation")
 
     def _refresh(self):
         pass
