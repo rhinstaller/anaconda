@@ -256,6 +256,16 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Mon Aug 26 2013 Brian C. Lane <bcl@redhat.com> - 19.31.11-1
+- Return only network devices supported in installer from nm_devices (rvykydal)
+  Resolves: rhbz#999514
+- Obtain network device type specific dbus interface dynamically (rvykydal)
+  Resolves: rhbz#999514
+- Catch no-hwaddr exception only for the respective call (rvykydal)
+  Resolves: rhbz#999514
+- Don't catch hwaddr not found exception for ethernet devices (rvykydal)
+  Resolves: rhbz#999514
+
 * Thu Aug 22 2013 Brian C. Lane <bcl@redhat.com> - 19.31.10-1
 - Check for hwaddress exceptions. (dshea)
   Resolves: rhbz#999514
