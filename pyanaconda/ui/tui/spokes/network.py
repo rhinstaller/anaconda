@@ -196,6 +196,10 @@ class NetworkSpoke(EditTUISpoke):
                 ndata.ip = ""
             else:
                 ndata.bootProto = "static"
+                if not ndata.gateway or not ndata.netmask:
+                    self.errors.append(_("Configuration not saved: gateway or netmask missing in static configuration"))
+                    return True
+
             if ndata.ipv6 == "ignore":
                 ndata.noipv6 = True
                 ndata.ipv6 = ""
