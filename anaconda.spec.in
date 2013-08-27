@@ -255,6 +255,25 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Mon Aug 26 2013 Brian C. Lane <bcl@redhat.com> - 20.9-1
+- Text network spoke: basic configuration support (#909299) (rvykydal)
+- Add support for network configuration in TUI. (#909299) (sbueno+anaconda)
+- Remove partial matches from Koji search results (mkolman)
+- Handle >=,<=,= for package version, fix -a/--add (mkolman)
+- Return only network devices supported in installer from nm_devices (#999514)
+  (rvykydal)
+- Obtain network device type specific dbus interface dynamically (#999514)
+  (rvykydal)
+- Catch no-hwaddr exception only for the respective call (#999514) (rvykydal)
+- Don't catch hwaddr not found exception for ethernet devices (#999514)
+  (rvykydal)
+- Added a validation test for the GUI group list (dshea)
+- Validate input fields on the user spoke. (#967245) (dshea)
+- Added an input validation framework. (dshea)
+- Pre-fetch widgets in advanced user dialog (dshea)
+- Change validatePassword to be more flexible. (dshea)
+- Moved regexes into regexes.py. (dshea)
+
 * Fri Aug 23 2013 Brian C. Lane <bcl@redhat.com> - 20.8-1
 - Fix a SIGSEGV when returning from storage spoke (#983319) (dshea)
 - makebumpver: Fix problem with single line body (bcl)
