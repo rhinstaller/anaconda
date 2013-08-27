@@ -43,6 +43,7 @@ PROGRAM_LOG_FILE = "/tmp/program.log"
 PROGRAM_LOG_TTY = "/dev/tty5"
 STORAGE_LOG_FILE = "/tmp/storage.log"
 PACKAGING_LOG_FILE = "/tmp/packaging.log"
+SENSITIVE_INFO_LOG_FILE = "/tmp/sensitive-info.log"
 ANACONDA_SYSLOG_FACILITY = SysLogHandler.LOG_LOCAL1
 
 from threading import Lock
@@ -133,6 +134,14 @@ class AnacondaLog:
         self.addFileHandler(PACKAGING_LOG_FILE, yum_logger,
                             minLevel=logging.DEBUG)
         self.forwardToSyslog(yum_logger)
+
+        # Create the sensitive information logger
+        # * the sensitive-info.log file is not copied to the installed
+        # system, as it might contain sensitive information that
+        # should not be persistently stored by default
+        sensitive_logger = logging.getLogger("sensitive-info")
+        self.addFileHandler(SENSITIVE_INFO_LOG_FILE, sensitive_logger,
+                            minLevel=logging.DEBUG)
 
         # Create a second logger for just the stuff we want to dup on
         # stdout.  Anything written here will also get passed up to the
