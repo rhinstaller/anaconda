@@ -8,7 +8,17 @@
 # to stdout and this script will exit with a status of 1, if no (non filtered)
 # warnings are found it exits with a status of 0
 
-FALSE_POSITIVES=tests/pylint/pylint-false-positives
+# If $top_srcdir is set, assume this is being run from automake and we don't
+# need to keep a separate log
+pylint_log=0
+if [ -z "$top_srcdir" ]; then
+    pylint_log=1
+fi
+
+: "${top_srcdir:=$(dirname "$0")/../..}"
+: "${srcdir:=${top_srcdir}/tests/pylint}"
+
+FALSE_POSITIVES="${srcdir}"/pylint-false-positives
 
 # W0212 - Access to a protected member %s of a client class
 NON_STRICT_OPTIONS="--disable=W0212"
@@ -54,15 +64,19 @@ if [ "`tail -c 1 $FALSE_POSITIVES`" == "`echo`" ]; then
   exit 1
 fi
 
+exit_status=0
+if [ "$pylint_log" -ne 0 ]; then
+    > pylint-log
+fi
+
 # run pylint one file / module at a time, otherwise it sometimes gets
 # confused
-> pylint-log
-for i in anaconda $(find pyanaconda -type f -name '*py' \! -executable); do
-  if [ "$i" == "pyanaconda/packaging/dnfpayload.py" ]; then
+for i in "${top_srcdir}"/anaconda $(find "${top_srcdir}/pyanaconda" -type f -name '*py' \! -executable); do
+  if [ -n "$(echo "$i" | grep 'pyanaconda/packaging/dnfpayload.py$')" ]; then
      continue
   fi
 
-  pylint \
+  pylint_output="$(pylint \
     --msg-template='{msg_id}:{line:3d},{column}: {obj}: {msg}' \
     -r n --disable=C,R --rcfile=/dev/null \
     --dummy-variables-rgx=_ \
@@ -71,19 +85,27 @@ for i in anaconda $(find pyanaconda -type f -name '*py' \! -executable); do
     $DISABLED_WARN_OPTIONS \
     $DISABLED_ERR_OPTIONS \
     $NON_STRICT_OPTIONS $i | \
-    egrep -v "`cat $FALSE_POSITIVES | tr '\n' '|'`" > pylint-tmp-log
-  if grep -q -v '************* Module ' pylint-tmp-log; then
-    cat pylint-tmp-log >> pylint-log
+    egrep -v "$(tr '\n' '|' < "$FALSE_POSITIVES") \
+    ")"
+  # I0011 is the informational "Locally disabling ...." message
+  if [ -n "$(echo "$pylint_output" | fgrep -v '************* Module ' |\
+          grep -v '^I0011:')" ]; then
+      if [ "$pylint_log" -ne 0 ]; then
+          echo "$pylint_output" >> pylint-log
+      else
+          echo "$pylint_output"
+      fi
+      exit_status=1
   fi
 done
-rm pylint-tmp-log
 
-if [ -s pylint-log ]; then
-  echo "pylint reports the following issues:"
-  cat pylint-log
-  exit 1
+if [ "$pylint_log" -ne 0 ]; then
+    if [ -s pylint-log ]; then
+        echo "pylint reports the following issues:"
+        cat pylint-log
+    else
+        rm pylint-log
+    fi
 fi
 
-rm pylint-log
-
-exit 0
+exit "$exit_status"

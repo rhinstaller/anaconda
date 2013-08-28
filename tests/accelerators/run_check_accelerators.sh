@@ -1,6 +1,6 @@
 #!/bin/sh
 
-scriptdir="$(dirname "$0")"
-gladedir="$scriptdir/../.."
+: "${top_srcdir:=$(dirname "$0")/../..}"
+: "${srcdir:=${top_srcdir}/tests/accelerators}"
 
-find "${gladedir}" -name '*.glade' -exec "${scriptdir}/check_accelerators.py" {} +
+find "${top_srcdir}" -name '*.glade' -exec "${srcdir}/check_accelerators.py" {} +

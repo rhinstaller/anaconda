@@ -1,6 +1,14 @@
-#!/bin/bash
+#!/bin/sh
 
 echo $PYTHONPATH
 
-# The path we pass to nosetests is relative to the top-level of the anaconda source dir.
-nosetests -v --exclude=logpicker -a \!acceptance,\!slow tests/*_tests
+# Use the directory above the one containing the script as the default for
+# $top_srcdir
+: "${top_srcdir:=$(dirname "$0")/..}"
+
+# If no tests were selected, select all of them
+if [ $# -eq 0 ]; then
+    set -- "${top_srcdir}"/tests/*_tests
+fi
+
+exec nosetests -v --exclude=logpicker -a \!acceptance,\!slow "$@"

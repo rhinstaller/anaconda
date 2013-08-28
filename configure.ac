@@ -260,6 +260,7 @@ AC_CONFIG_FILES([Makefile
                  pyanaconda/ui/tui/tools/Makefile
                  pyanaconda/ui/tui/Makefile
                  data/post-scripts/Makefile
+                 tests/Makefile
                  utils/Makefile
                  utils/dd/Makefile
                  utils/log_picker/Makefile
