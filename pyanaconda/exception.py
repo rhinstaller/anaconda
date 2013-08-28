@@ -243,7 +243,7 @@ def lsblk_callback():
 def nmcli_dev_list_callback():
     """Callback to get info about network devices."""
 
-    return iutil.execWithCapture("nmcli", ["dev", "list"])
+    return iutil.execWithCapture("nmcli", ["device", "show"])
 
 def test_exception_handling():
     """
