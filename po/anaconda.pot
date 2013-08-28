@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: anaconda 19.31.10\n"
+"Project-Id-Version: anaconda 19.31.11\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
-"POT-Creation-Date: 2013-08-26 19:02-0700\n"
+"POT-Creation-Date: 2013-08-28 17:13-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -298,21 +298,21 @@ msgstr ""
 msgid "Running pre-installation scripts"
 msgstr ""
 
-#: pyanaconda/network.py:91
+#: pyanaconda/network.py:100
 msgid "Hostname cannot be None or an empty string."
 msgstr ""
 
-#: pyanaconda/network.py:94
+#: pyanaconda/network.py:103
 msgid "Hostname must be 255 or fewer characters in length."
 msgstr ""
 
-#: pyanaconda/network.py:100
+#: pyanaconda/network.py:109
 msgid ""
 "Hostname must start with a valid character in the ranges 'a-z', 'A-Z', or "
 "'0-9'"
 msgstr ""
 
-#: pyanaconda/network.py:108
+#: pyanaconda/network.py:117
 msgid ""
 "Hostnames can only contain the characters 'a-z', 'A-Z', '0-9', '-', or '.', "
 "parts between periods must contain something and cannot start or end with "
@@ -685,6 +685,149 @@ msgstr ""
 
 #: pyanaconda/ui/tui/spokes/askvnc.py:127
 msgid "The password must be at least six characters long."
+msgstr ""
+
+#: pyanaconda/ui/tui/spokes/network.py:43
+msgid "Network settings"
+msgstr ""
+
+#: pyanaconda/ui/tui/spokes/network.py:70
+#: pyanaconda/ui/gui/spokes/custom.py:966
+#: pyanaconda/ui/gui/spokes/network.py:668
+#: pyanaconda/ui/gui/spokes/network.py:1318
+#: pyanaconda/ui/gui/spokes/lib/accordion.py:59
+msgid "Unknown"
+msgstr ""
+
+#: pyanaconda/ui/tui/spokes/network.py:74
+#: pyanaconda/ui/gui/spokes/network.py:1322
+msgid "Connecting..."
+msgstr ""
+
+#: pyanaconda/ui/tui/spokes/network.py:76
+#: pyanaconda/ui/gui/spokes/network.py:1324
+msgid "Disconnecting..."
+msgstr ""
+
+#: pyanaconda/ui/tui/spokes/network.py:80
+#: pyanaconda/ui/gui/spokes/network.py:1366
+msgid "Not connected"
+msgstr ""
+
+#: pyanaconda/ui/tui/spokes/network.py:83
+#, python-format
+msgid "Wired %s connected"
+msgstr ""
+
+#: pyanaconda/ui/tui/spokes/network.py:89
+#: pyanaconda/ui/gui/spokes/network.py:1363
+#, python-format
+msgid "Connected: %(list_of_interface_names)s"
+msgstr ""
+
+#: pyanaconda/ui/tui/spokes/network.py:93
+#: pyanaconda/ui/gui/spokes/network.py:1369
+#: pyanaconda/ui/gui/spokes/network.glade:2338
+msgid "No network devices available"
+msgstr ""
+
+#: pyanaconda/ui/tui/spokes/network.py:105
+#, python-format
+msgid "Wired (%(interface_name)s) disconnected\n"
+msgstr ""
+
+#: pyanaconda/ui/tui/spokes/network.py:110
+#, python-format
+msgid "Wired (%(interface_name)s) connected\n"
+msgstr ""
+
+#: pyanaconda/ui/tui/spokes/network.py:122
+#, python-format
+msgid " IPv4 Address: %s Netmask: %s Gateway: %s\n"
+msgstr ""
+
+#: pyanaconda/ui/tui/spokes/network.py:123
+#, python-format
+msgid " DNS: %s\n"
+msgstr ""
+
+#: pyanaconda/ui/tui/spokes/network.py:130
+#, python-format
+msgid " IPv6 Address: %s/%d\n"
+msgstr ""
+
+#: pyanaconda/ui/tui/spokes/network.py:149
+#, python-format
+msgid "Hostname: %s\n"
+msgstr ""
+
+#: pyanaconda/ui/tui/spokes/network.py:161
+msgid "Set hostname"
+msgstr ""
+
+#: pyanaconda/ui/tui/spokes/network.py:163
+#, python-format
+msgid "Configure device %s"
+msgstr ""
+
+#: pyanaconda/ui/tui/spokes/network.py:182
+#: pyanaconda/ui/gui/spokes/datetime_spoke.glade:745
+msgid "Hostname"
+msgstr ""
+
+#: pyanaconda/ui/tui/spokes/network.py:200
+msgid ""
+"Configuration not saved: gateway or netmask missing in static configuration"
+msgstr ""
+
+#: pyanaconda/ui/tui/spokes/network.py:237
+#: pyanaconda/ui/gui/spokes/network.py:1416
+#: pyanaconda/ui/gui/spokes/network.py:1485
+#, python-format
+msgid "Hostname is not valid: %s"
+msgstr ""
+
+#: pyanaconda/ui/tui/spokes/network.py:261
+msgid "Device configuration"
+msgstr ""
+
+#: pyanaconda/ui/tui/spokes/network.py:265
+#, python-format
+msgid "IPv4 address or %s for DHCP"
+msgstr ""
+
+#: pyanaconda/ui/tui/spokes/network.py:267
+msgid "IPv4 netmask"
+msgstr ""
+
+#: pyanaconda/ui/tui/spokes/network.py:268
+msgid "IPv4 gateway"
+msgstr ""
+
+#: pyanaconda/ui/tui/spokes/network.py:269
+#, python-format
+msgid "IPv6 address or %s for automatic, %s for DHCP, %s to turn off"
+msgstr ""
+
+#: pyanaconda/ui/tui/spokes/network.py:272
+msgid "IPv6 default gateway"
+msgstr ""
+
+#: pyanaconda/ui/tui/spokes/network.py:273
+msgid "Nameservers (comma separated)"
+msgstr ""
+
+#: pyanaconda/ui/tui/spokes/network.py:274
+msgid "Connect automatically after reboot"
+msgstr ""
+
+#: pyanaconda/ui/tui/spokes/network.py:275
+msgid "Apply configuration in installer"
+msgstr ""
+
+#: pyanaconda/ui/tui/spokes/network.py:290
+#, python-format
+msgid "Configuring device %s."
 msgstr ""
 
 #: pyanaconda/ui/tui/spokes/password.py:30
@@ -1182,13 +1325,6 @@ msgid_plural "%d _storage devices selected"
 msgstr[0] ""
 msgstr[1] ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:966
-#: pyanaconda/ui/gui/spokes/network.py:668
-#: pyanaconda/ui/gui/spokes/network.py:1318
-#: pyanaconda/ui/gui/spokes/lib/accordion.py:59
-msgid "Unknown"
-msgstr ""
-
 #: pyanaconda/ui/gui/spokes/custom.py:989
 msgid ""
 "The 'swap' area on your computer is used by the operating\n"
@@ -1608,14 +1744,6 @@ msgstr ""
 msgid "_NETWORK CONFIGURATION"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.py:1322
-msgid "Connecting..."
-msgstr ""
-
-#: pyanaconda/ui/gui/spokes/network.py:1324
-msgid "Disconnecting..."
-msgstr ""
-
 #: pyanaconda/ui/gui/spokes/network.py:1341
 #, python-format
 msgid "Wired (%(interface_name)s) connected"
@@ -1634,26 +1762,6 @@ msgstr ""
 #: pyanaconda/ui/gui/spokes/network.py:1350
 #, python-format
 msgid "Vlan %(interface_name)s (%(parent_device)s, ID %(vlanid)s) connected"
-msgstr ""
-
-#: pyanaconda/ui/gui/spokes/network.py:1363
-#, python-format
-msgid "Connected: %(list_of_interface_names)s"
-msgstr ""
-
-#: pyanaconda/ui/gui/spokes/network.py:1366
-msgid "Not connected"
-msgstr ""
-
-#: pyanaconda/ui/gui/spokes/network.py:1369
-#: pyanaconda/ui/gui/spokes/network.glade:2338
-msgid "No network devices available"
-msgstr ""
-
-#: pyanaconda/ui/gui/spokes/network.py:1416
-#: pyanaconda/ui/gui/spokes/network.py:1485
-#, python-format
-msgid "Hostname is not valid: %s"
 msgstr ""
 
 #: pyanaconda/ui/gui/spokes/password.py:47
@@ -2215,10 +2323,6 @@ msgstr ""
 
 #: pyanaconda/ui/gui/spokes/datetime_spoke.glade:676
 msgid "Add and mark for usage NTP servers"
-msgstr ""
-
-#: pyanaconda/ui/gui/spokes/datetime_spoke.glade:745
-msgid "Hostname"
 msgstr ""
 
 #: pyanaconda/ui/gui/spokes/datetime_spoke.glade:760
