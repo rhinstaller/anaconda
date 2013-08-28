@@ -34,6 +34,8 @@ class InstallClass(BaseInstallClass):
 
     _l10n_domain = "anaconda"
 
+    installUpdates = True
+
     efi_dir = "fedora"
 
     def configure(self, anaconda):
