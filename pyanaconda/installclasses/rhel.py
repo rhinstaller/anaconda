@@ -36,6 +36,8 @@ class InstallClass(BaseInstallClass):
 
     ignoredPackages = ["ntfsprogs"]
 
+    installUpdates = False
+
     _l10n_domain = "comps"
 
     efi_dir = "redhat"

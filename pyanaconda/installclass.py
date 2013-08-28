@@ -53,6 +53,10 @@ class BaseInstallClass(object):
     # mechanism.
     ignoredPackages = []
 
+    # This flag controls whether or not Anaconda should provide an option to
+    # install the latest updates during installation source selection.
+    installUpdates = True
+
     _l10n_domain = None
 
     # The default filesystem type to use.  If None, we will use whatever

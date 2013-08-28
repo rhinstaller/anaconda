@@ -39,7 +39,7 @@ from pyanaconda.ui.gui.spokes import NormalSpoke
 from pyanaconda.ui.gui.categories.software import SoftwareCategory
 from pyanaconda.ui.gui.utils import enlightbox, gtk_action_wait
 from pyanaconda.iutil import ProxyString, ProxyStringError, cmp_obj_attrs
-from pyanaconda.ui.gui.utils import gtk_call_once
+from pyanaconda.ui.gui.utils import gtk_call_once, really_hide, really_show
 from pyanaconda.threads import threadMgr, AnacondaThread
 from pyanaconda.packaging import PayloadError, MetadataError
 from pyanaconda import constants
@@ -534,6 +534,9 @@ class SourceSpoke(NormalSpoke):
         self._repoProxyUsernameEntry = self.builder.get_object("repoProxyUsernameEntry")
         self._repoProxyPasswordEntry = self.builder.get_object("repoProxyPasswordEntry")
 
+        # updates option container
+        self._updatesBox = self.builder.get_object("updatesBox")
+
     def initialize(self):
         from pyanaconda.threads import threadMgr, AnacondaThread
 
@@ -546,6 +549,12 @@ class SourceSpoke(NormalSpoke):
         self._autodetectButton.connect("toggled", self.on_source_toggled, self._autodetectBox)
         self._isoButton.connect("toggled", self.on_source_toggled, self._isoBox)
         self._networkButton.connect("toggled", self.on_source_toggled, self._networkBox)
+
+        # Show or hide the updates option based on the installclass
+        if self.instclass.installUpdates:
+            really_show(self._updatesBox)
+        else:
+            really_hide(self._updatesBox)
 
         threadMgr.add(AnacondaThread(name=constants.THREAD_SOURCE_WATCHER, target=self._initialize))
 
