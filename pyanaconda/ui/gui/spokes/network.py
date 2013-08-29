@@ -753,23 +753,22 @@ class NetworkControlBox(object):
                 self._set_device_info_value(dt, "subnet", None)
 
         # TODO NM_GI_BUGS - segfaults on get_addres(), get_prefix()
-        ipv6_addr = None
+        addr6_str = ""
         if ipv6cfg:
             config = dbus.SystemBus().get_object(NM_SERVICE, ipv6cfg.get_path())
-            addr6_str = ""
             for addr, _prefix, _gw in getNMObjProperty(config, ".IP6Config", "Addresses"):
                 ipv6_addr = nm_dbus_ay_to_ipv6(addr)
                 if not ipv6_addr.startswith("fe80:"):
                     addr6_str += "%s\n" % ipv6_addr
 
-        self._set_device_info_value(dt, "ipv6", addr6_str.strip())
+        self._set_device_info_value(dt, "ipv6", addr6_str.strip() or None)
 
-        if ipv4cfg and ipv6_addr:
+        if ipv4cfg and addr6_str:
             self.builder.get_object("heading_%s_ipv4" % dt).set_label(_("IPv4 Address"))
             self.builder.get_object("heading_%s_ipv6" % dt).set_label(_("IPv6 Address"))
         elif ipv4cfg:
             self.builder.get_object("heading_%s_ipv4" % dt).set_label(_("IP Address"))
-        elif ipv6_addr:
+        elif addr6_str:
             self.builder.get_object("heading_%s_ipv6" % dt).set_label(_("IP Address"))
 
         return False
