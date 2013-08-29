@@ -79,7 +79,7 @@ from pyanaconda.packaging import DependencyError, MetadataError, NoNetworkError,
                                  PayloadSetupError
 from pyanaconda.progress import progressQ
 
-from pyanaconda.localization import expand_langs
+from pyanaconda.localization import langcode_matches_locale
 
 from pykickstart.constants import GROUP_ALL, GROUP_DEFAULT, KS_MISSING_IGNORE
 
@@ -979,10 +979,9 @@ reposdir=%s
         with _yum_lock:
             groups = yum_groups.get_groups()
             for lang_code in lang_codes:
-                for lang_code_guess in expand_langs(lang_code):
-                    for group in groups:
-                        if group.langonly == lang_code_guess:
-                            lang_groups.add(group.groupid)
+                for group in groups:
+                    if langcode_matches_locale(group.langonly, lang_code):
+                        lang_groups.add(group.groupid)
 
         return list(lang_groups)
 

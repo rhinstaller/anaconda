@@ -26,12 +26,13 @@ from gi.repository import GLib, Gtk
 import itertools
 import os
 import sys
+import glob
 
 from pyanaconda.i18n import _
-from pyanaconda.localization import expand_langs
+from pyanaconda.localization import langcode_matches_locale, find_best_locale_match
 from pyanaconda.product import productName
 from pyanaconda.flags import flags
-from pyanaconda.constants import THREAD_INSTALL, THREAD_CONFIGURATION
+from pyanaconda.constants import THREAD_INSTALL, THREAD_CONFIGURATION, DEFAULT_LANG
 from pykickstart.constants import KS_SHUTDOWN, KS_REBOOT
 
 from pyanaconda.ui.gui.hubs import Hub
@@ -142,22 +143,38 @@ class ProgressHub(Hub):
             self._progressNotebook.set_current_page(0)
 
     def _get_rnotes(self):
-        import glob
-
         # We first look for rnotes in paths containing the language, then in
         # directories without the language component.  You know, just in case.
-        langs = expand_langs(os.environ["LANG"]) + [""]
 
-        paths = ["/tmp/updates/pixmaps/rnotes/%s/",
-                 "/tmp/product/pixmaps/rnotes/%s/",
-                 "/usr/share/anaconda/pixmaps/rnotes/%s/"]
+        paths = ["/tmp/updates/pixmaps/rnotes/",
+                 "/tmp/product/pixmaps/rnotes/",
+                 "/usr/share/anaconda/pixmaps/rnotes/"]
 
-        for (l, d) in itertools.product(langs, paths):
-            pixmaps = glob.glob((d % l) + "*.png") + glob.glob((d % l) + "*.jpg")
-            if len(pixmaps) > 0:
-                return pixmaps
+        all_lang_pixmaps = []
+        for path in paths:
+            all_lang_pixmaps += glob.glob(path + "*/*.png") + glob.glob(path + "*/*.jpg")
 
-        return []
+        pixmap_langs = [pixmap.split(os.path.sep)[-2] for pixmap in all_lang_pixmaps]
+        best_lang = find_best_locale_match(os.environ["LANG"], pixmap_langs)
+
+        if not best_lang:
+            # nothing found, try the default language
+            best_lang = find_best_locale_match(DEFAULT_LANG, pixmap_langs)
+
+        if not best_lang:
+            # nothing found even for the default language, try non-localized rnotes
+            non_localized = []
+            for path in paths:
+                non_localized += glob.glob(path + "*.png") + glob.glob(path + "*.jpg")
+
+            return non_localized
+
+        best_lang_pixmaps = []
+        for path in paths:
+            best_lang_pixmaps += (glob.glob(path + best_lang + "/*.png") +
+                                  glob.glob(path + best_lang + "/*.jpg"))
+
+        return best_lang_pixmaps
 
     def _cycle_rnotes(self):
         # Change the ransom notes image every minute by grabbing the next

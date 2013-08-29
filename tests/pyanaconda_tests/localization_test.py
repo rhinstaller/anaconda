@@ -99,11 +99,56 @@ class UpcaseFirstLetterTests(unittest.TestCase):
         self.assertEqual(localization._upcase_first_letter("czech Republic"),
                          "Czech Republic")
 
-class ExpandLangsTest(unittest.TestCase):
-    def expand_langs_test(self):
-        """expand_langs should return every valid combination."""
+class LangcodeLocaleMatchingTests(unittest.TestCase):
+    def langcode_matches_locale_test(self):
+        """Langcode-locale matching should work as expected."""
 
-        expected_result = ["fr", "fr_FR", "fr_FR.UTF-8@euro", "fr.UTF-8@euro",
-                           "fr_FR@euro", "fr_FR.UTF-8", "fr@euro", "fr.UTF-8"]
-        self.assertListEqual(localization.expand_langs("fr_FR.UTF-8@euro"),
-                             expected_result)
+        # should match
+        self.assertTrue(localization.langcode_matches_locale("sr", "sr"))
+        self.assertTrue(localization.langcode_matches_locale("sr", "sr_RS"))
+        self.assertTrue(localization.langcode_matches_locale("sr", "sr_RS.UTF-8"))
+        self.assertTrue(localization.langcode_matches_locale("sr", "sr_RS.UTF-8@latin"))
+        self.assertTrue(localization.langcode_matches_locale("sr_RS", "sr_RS"))
+        self.assertTrue(localization.langcode_matches_locale("sr_RS", "sr_RS.UTF-8"))
+        self.assertTrue(localization.langcode_matches_locale("sr_RS", "sr_RS.UTF-8@latin"))
+        self.assertTrue(localization.langcode_matches_locale("sr_RS.UTF-8", "sr_RS.UTF-8"))
+        self.assertTrue(localization.langcode_matches_locale("sr_RS.UTF-8", "sr_RS.UTF-8@latin"))
+        self.assertTrue(localization.langcode_matches_locale("sr_RS.UTF-8@latin", "sr_RS.UTF-8@latin"))
+
+        # missing language, shouldn't match
+        self.assertFalse(localization.langcode_matches_locale("", "sr"))
+        self.assertFalse(localization.langcode_matches_locale("sr", ""))
+
+        # missing items in the locale, shouldn't match
+        self.assertFalse(localization.langcode_matches_locale("sr_RS", "sr"))
+        self.assertFalse(localization.langcode_matches_locale("sr_RS.UTF-8", "sr_RS"))
+        self.assertFalse(localization.langcode_matches_locale("sr.UTF-8", "sr_RS"))
+        self.assertFalse(localization.langcode_matches_locale("sr_RS.UTF-8", "sr.UTF-8"))
+        self.assertFalse(localization.langcode_matches_locale("sr_RS.UTF-8@latin", "sr_RS"))
+        self.assertFalse(localization.langcode_matches_locale("sr_RS@latin", "sr_RS"))
+        self.assertFalse(localization.langcode_matches_locale("sr.UTF-8@latin", "sr_RS.UTF-8"))
+        self.assertFalse(localization.langcode_matches_locale("sr@latin", "sr_RS"))
+
+        # different parts, shouldn't match
+        self.assertFalse(localization.langcode_matches_locale("sr", "en"))
+        self.assertFalse(localization.langcode_matches_locale("de_CH", "fr_CH"))
+        self.assertFalse(localization.langcode_matches_locale("sr_RS", "sr_ME"))
+        self.assertFalse(localization.langcode_matches_locale("sr_RS@latin", "sr_RS@cyrilic"))
+        self.assertFalse(localization.langcode_matches_locale("sr_RS@latin", "sr_ME@latin"))
+
+    def find_best_locale_match_test(self):
+        """Finding best locale matches should work as expected."""
+
+        # can find best matches
+        self.assertEqual(localization.find_best_locale_match("cs_CZ", ["cs", "cs_CZ", "en", "en_US"]), "cs_CZ")
+        self.assertEqual(localization.find_best_locale_match("cs", ["cs_CZ", "cs", "en", "en_US"]), "cs")
+        self.assertEqual(localization.find_best_locale_match("pt_BR", ["pt", "pt_BR"]), "pt_BR")
+        self.assertEqual(localization.find_best_locale_match("pt_BR", ["pt", "pt_BR", "pt_PT"]), "pt_BR")
+        self.assertEqual(localization.find_best_locale_match("cs_CZ.UTF-8", ["cs", "cs_CZ", "cs_CZ.UTF-8"]),
+                         "cs_CZ.UTF-8")
+        self.assertEqual(localization.find_best_locale_match("cs_CZ.UTF-8@latin",
+                                                             ["cs", "cs_CZ@latin", "cs_CZ.UTF-8"]), "cs_CZ@latin")
+
+        # no matches
+        self.assertIsNone(localization.find_best_locale_match("pt_BR", ["en_BR", "en"]))
+        self.assertIsNone(localization.find_best_locale_match("cs_CZ.UTF-8", ["en", "en.UTF-8"]))
