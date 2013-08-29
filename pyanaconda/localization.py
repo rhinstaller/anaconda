@@ -88,48 +88,6 @@ def parse_langcode(langcode):
     else:
         return None
 
-def expand_langs(astring):
-    """
-    Converts a single language into a "language search path". For example,
-    for "fr_FR.UTF-8@euro" would return set containing:
-    "fr", "fr_FR", "fr_FR.UTF-8@euro", "fr.UTF-8@euro", "fr_FR@euro",
-    "fr_FR.UTF-8", "fr@euro", "fr.UTF-8"
-
-    :rtype: list of strings
-
-    """
-
-    langs = set([astring])
-
-    lang_dict = parse_langcode(astring)
-
-    if not lang_dict:
-        return list(langs)
-
-    base, loc, enc, script = [lang_dict[key] for key in ("language",
-                                      "territory", "encoding", "script")]
-
-    if not base:
-        return list(langs)
-
-    if not enc:
-        enc = "UTF-8"
-
-    langs.add(base)
-    langs.add("%s.%s" % (base, enc))
-
-    if loc:
-        langs.add("%s_%s" % (base, loc))
-        langs.add("%s_%s.%s" %(base, loc, enc))
-    if script:
-        langs.add("%s@%s" % (base, script))
-        langs.add("%s.%s@%s" % (base, enc, script))
-
-    if loc and script:
-        langs.add("%s_%s@%s" % (base, loc, script))
-
-    return list(langs)
-
 def is_supported_locale(locale):
     """
     Function that tells if the given locale is supported by the Anaconda or
@@ -146,6 +104,95 @@ def is_supported_locale(locale):
 
     en_name = get_english_name(locale)
     return bool(en_name)
+
+def langcode_matches_locale(langcode, locale):
+    """
+    Function that tells if the given langcode matches the given locale. I.e. if
+    all parts of appearing in the langcode (language, territory, script and
+    encoding) are the same as the matching parts of the locale.
+
+    :param langcode: a langcode (e.g. en, en_US, en_US@latin, etc.)
+    :type langcode: str
+    :param locale: a valid locale (e.g. en_US.UTF-8 or sr_RS.UTF-8@latin, etc.)
+    :type locale: str
+    :return: whether the given langcode matches the given locale or not
+    :rtype: bool
+
+    """
+
+    langcode_parts = parse_langcode(langcode)
+    locale_parts = parse_langcode(locale)
+
+    if not langcode_parts or not locale_parts:
+        # to match, both need to be valid langcodes (need to have at least
+        # language specified)
+        return False
+
+    # Check parts one after another. If some part appears in the langcode and
+    # doesn't match the one from the locale (or is missing in the locale),
+    # return False, otherwise they match
+    for part in ("language", "territory", "script", "encoding"):
+        if langcode_parts[part] and langcode_parts[part] != locale_parts.get(part):
+            return False
+
+    return True
+
+def find_best_locale_match(locale, langcodes):
+    """
+    Find the best match for the locale in a list of langcodes. This is useful
+    when e.g. pt_BR is a locale and there are possibilities to choose an item
+    (e.g. rnote) for a list containing both pt and pt_BR or even also pt_PT.
+
+    :param locale: a valid locale (e.g. en_US.UTF-8 or sr_RS.UTF-8@latin, etc.)
+    :type locale: str
+    :param langcodes: a list or generator of langcodes (e.g. en, en_US, en_US@latin, etc.)
+    :type langcodes: list(str) or generator(str)
+    :return: the best matching langcode from the list of None if none matches
+    :rtype: str or None
+
+    """
+
+    score_map = { "language" : 1000,
+                  "territory":  100,
+                  "script"   :   10,
+                  "encoding" :    1 }
+
+    def get_match_score(locale, langcode):
+        score = 0
+
+        locale_parts = parse_langcode(locale)
+        langcode_parts = parse_langcode(langcode)
+        if not locale_parts or not langcode_parts:
+            return score
+
+        for part, part_score in score_map.iteritems():
+            if locale_parts[part] and langcode_parts[part]:
+                if locale_parts[part] == langcode_parts[part]:
+                    # match
+                    score += part_score
+                else:
+                    # not match
+                    score -= part_score
+            elif langcode_parts[part] and not locale_parts[part]:
+                # langcode has something the locale doesn't have
+                score -= part_score
+
+        return score
+
+    scores = []
+
+    # get score for each langcode
+    for langcode in langcodes:
+        scores.append((langcode, get_match_score(locale, langcode)))
+
+    # find the best one
+    sorted_langcodes = sorted(scores, key=lambda item_score: item_score[1], reverse=True)
+
+    # matches matching only script or encoding or both are not useful
+    if sorted_langcodes and sorted_langcodes[0][1] > score_map["territory"]:
+        return sorted_langcodes[0][0]
+    else:
+        return None
 
 def setup_locale(locale, lang=None):
     """
