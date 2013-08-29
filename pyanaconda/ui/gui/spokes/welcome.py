@@ -34,6 +34,7 @@ from pyanaconda import flags
 from pyanaconda import geoloc
 from pyanaconda.i18n import _
 from pyanaconda.iutil import is_unsupported_hw, strip_accents
+from pyanaconda.constants import DEFAULT_LANG
 
 import logging
 log = logging.getLogger("anaconda")
@@ -171,6 +172,12 @@ class WelcomeLanguageSpoke(StandaloneSpoke):
         (store, itr) = self._selection.get_selected()
         if not itr:
             itr = self._selectLanguage(self.data.lang.lang)
+
+        if not itr:
+            log.error("Failed to select requested language %s, using the default %s",
+                      self.data.lang.lang, DEFAULT_LANG)
+            itr = self._selectLanguage(DEFAULT_LANG)
+            self.data.lang.lang = DEFAULT_LANG
 
         # store is the filtered store, and itr is an iter on it.  We need to
         # convert to an iter on the underlying store.
