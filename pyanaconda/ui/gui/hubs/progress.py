@@ -31,7 +31,7 @@ from pyanaconda.i18n import _
 from pyanaconda.localization import expand_langs
 from pyanaconda.product import productName
 from pyanaconda.flags import flags
-from pyanaconda.constants import THREAD_INSTALL, THREAD_CONFIGURATION, DEFAULT_LANG
+from pyanaconda.constants import THREAD_INSTALL, THREAD_CONFIGURATION
 from pykickstart.constants import KS_SHUTDOWN, KS_REBOOT
 
 from pyanaconda.ui.gui.hubs import Hub
@@ -146,13 +146,7 @@ class ProgressHub(Hub):
 
         # We first look for rnotes in paths containing the language, then in
         # directories without the language component.  You know, just in case.
-        try:
-            langs = expand_langs(os.environ["LANG"]) + [""]
-        except KeyError:
-            # if for some reason LANG isn't set to anything, set it to
-            # the default value
-            os.environ["LANG"] = DEFAULT_LANG
-            langs = expand_langs(os.environ["LANG"]) + [""]
+        langs = expand_langs(os.environ["LANG"]) + [""]
 
         paths = ["/tmp/updates/pixmaps/rnotes/%s/",
                  "/tmp/product/pixmaps/rnotes/%s/",
