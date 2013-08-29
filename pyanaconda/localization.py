@@ -228,20 +228,21 @@ def get_available_translations(domain=None, localedir=None):
     messagefiles = sorted(glob.glob(localedir + "/*/LC_MESSAGES/anaconda.mo"))
     trans_gen = (path.split(os.path.sep)[-3] for path in messagefiles)
 
-    # usually there are no message files for en
-    langs = {"en"}
+    yielded_locales = {"en_US.UTF-8"}
     yield "en_US.UTF-8"
 
     for trans in trans_gen:
         parts = parse_langcode(trans)
-        lang = parts.get("language", "")
-        if lang and lang not in langs:
-            langs.add(lang)
-            locales = get_language_locales(lang)
-            if not locales:
-                continue
+        if not parts:
+            continue
 
-            # take the first locale (with highest rank) for the language
+        locales = get_language_locales(trans)
+        if not locales:
+            continue
+
+        # take the first locale (with highest rank) for the language
+        if locales[0] not in yielded_locales:
+            yielded_locales.add(locales[0])
             yield locales[0]
 
 def get_language_locales(lang):
