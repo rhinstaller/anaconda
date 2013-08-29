@@ -104,7 +104,11 @@ def _get_property(object_path, prop, interface_name_suffix=""):
     return prop.unpack()[0]
 
 def nm_state():
-    """Return state of NetworkManager"""
+    """Return state of NetworkManager
+
+    :return: state of NetworkManager
+    :rtype: integer
+    """
     return _get_property("/org/freedesktop/NetworkManager", "State")
 
 # FIXME - use just GLOBAL? There is some connectivity checking
@@ -112,17 +116,29 @@ def nm_state():
 # and how it is implemented.
 # Also see Gio g_network_monitor_can_reach.
 def nm_is_connected():
-    """Is NetworkManager connected?"""
+    """Is NetworkManager connected?
+
+    :return: True if NM is connected, False otherwise.
+    :rtype: bool
+    """
     return nm_state() in (NetworkManager.State.CONNECTED_GLOBAL,
                           NetworkManager.State.CONNECTED_SITE,
                           NetworkManager.State.CONNECTED_LOCAL)
 
 def nm_is_connecting():
-    """Is NetworkManager connecting?"""
+    """Is NetworkManager connecting?
+
+    :return: True if NM is in CONNECTING state, False otherwise.
+    :rtype: bool
+    """
     return nm_state() == NetworkManager.State.CONNECTING
 
 def nm_devices():
-    """Return list of network device names supported in installer"""
+    """Return names of network devices supported in installer.
+
+    :return: names of network devices supported in installer
+    :rtype: list of strings
+    """
 
     interfaces = []
 
@@ -145,7 +161,11 @@ def nm_devices():
     return interfaces
 
 def nm_activated_devices():
-    """Return list of names of activated network devices"""
+    """Return names of activated network devices.
+
+    :return: names of activated network devices
+    :rtype: list of strings
+    """
 
     interfaces = []
 
@@ -185,9 +205,14 @@ def _device_type_specific_interface(device):
 def nm_device_property(name, prop):
     """Return value of device NM property
 
-       Exceptions:
-       UnknownDeviceError if device is not found
-       PropertyNotFoundError if property is not found
+       :param name: name of device
+       :type name: str
+       :param prop: property
+       :type name: str
+       :return: value of device's property
+       :rtype: unpacked GDBus value
+       :raise UnknownDeviceError: if device is not found
+       :raise PropertyNotFoundError: if property is not found
     """
 
     retval = None
@@ -223,75 +248,100 @@ def nm_device_property(name, prop):
 def nm_device_type_is_wifi(name):
     """Is the type of device wifi?
 
-       Exceptions:
-       UnknownDeviceError if device is not found
-       PropertyNotFoundError if type is not found
+       :param name: name of device
+       :type name: str
+       :return: True if type of device is WIFI, False otherwise
+       :rtype: bool
+       :raise UnknownDeviceError: if device is not found
+       :raise PropertyNotFoundError: if property is not found
     """
     return nm_device_type(name) == NetworkManager.DeviceType.WIFI
 
 def nm_device_type_is_ethernet(name):
     """Is the type of device ethernet?
 
-       Exceptions:
-       UnknownDeviceError if device is not found
-       PropertyNotFoundError if type is not found
+       :param name: name of device
+       :type name: str
+       :return: True if type of device is ETHERNET, False otherwise
+       :rtype: bool
+       :raise UnknownDeviceError: if device is not found
+       :raise PropertyNotFoundError: if property is not found
     """
     return nm_device_type(name) == NetworkManager.DeviceType.ETHERNET
 
 def nm_device_type_is_bond(name):
     """Is the type of device bond?
 
-       Exceptions:
-       UnknownDeviceError if device is not found
-       PropertyNotFoundError if type is not found
+       :param name: name of device
+       :type name: str
+       :return: True if type of device is BOND, False otherwise
+       :rtype: bool
+       :raise UnknownDeviceError: if device is not found
+       :raise PropertyNotFoundError: if property is not found
     """
     return nm_device_type(name) == NetworkManager.DeviceType.BOND
 
 def nm_device_type_is_vlan(name):
     """Is the type of device vlan?
 
-       Exceptions:
-       UnknownDeviceError if device is not found
-       PropertyNotFoundError if type is not found
+       :param name: name of device
+       :type name: str
+       :return: True if type of device is VLAN, False otherwise
+       :rtype: bool
+       :raise UnknownDeviceError: if device is not found
+       :raise PropertyNotFoundError: if property is not found
     """
     return nm_device_type(name) == NetworkManager.DeviceType.VLAN
 
 def nm_device_hwaddress(name):
-    """Return device's 'HwAddress' property
+    """Return active hardware address of device ('HwAddress' property)
 
-       Exceptions:
-       UnknownDeviceError if device is not found
-       PropertyNotFoundError if property is not found
+       :param name: name of device
+       :type name: str
+       :return: active hardware address of device ('HwAddress' property)
+       :rtype: str
+       :raise UnknownDeviceError: if device is not found
+       :raise PropertyNotFoundError: if 'HwAddress' property is not found
     """
     return nm_device_property(name, "HwAddress")
 
 def nm_device_type(name):
-    """Return device's 'DeviceType' property
+    """Return device's type ('DeviceType' property).
 
-       Exceptions:
-       UnknownDeviceError if device is not found
-       PropertyNotFoundError if property is not found
+       :param name: name of device
+       :type name: str
+       :return: device type
+       :rtype: integer
+       :raise UnknownDeviceError: if device is not found
+       :raise PropertyNotFoundError: if 'DeviceType' property is not found
     """
     return nm_device_property(name, "DeviceType")
 
 def nm_device_carrier(name):
-    """Return device's 'Carrier' property
+    """Return whether physical carrier of device is found.
+       ('Carrier' property)
 
-       Exceptions:
-       UnknownDeviceError if device is not found
-       PropertyNotFoundError if property is not found
+       :param name: name of device
+       :type name: str
+       :return: True if physical carrier is found, False otherwise
+       :rtype: bool
+       :raise UnknownDeviceError: if device is not found
+       :raise PropertyNotFoundError: if 'Carrier' property is not found
     """
     return nm_device_property(name, "Carrier")
 
 def nm_device_ip_addresses(name, version=4):
-    """Return list of devices's IP addresses
+    """Return IP addresses of device in ACTIVATED state.
 
-       version=4 - ipv4 addresses
-       version=6 - ipv6 addresses
-
-       Exceptions:
-       UnknownDeviceError if device is not found
-       PropertyNotFoundError if ip configuration is not found
+       :param name: name of device
+       :type name: str
+       :param version: version of IP protocol (value 4 or 6)
+       :type version: int
+       :return: IP addresses of device, empty list if device is not
+                in ACTIVATED state
+       :rtype: list of strings
+       :raise UnknownDeviceError: if device is not found
+       :raise PropertyNotFoundError: if IP configuration is not found
     """
     retval = []
     config = nm_device_ip_config(name, version)
@@ -303,8 +353,11 @@ def nm_device_ip_addresses(name, version=4):
 def nm_device_active_ssid(name):
     """Return ssid of device's active access point.
 
-       Exceptions:
-       UnknownDeviceError if device is not found
+       :param name: name of device
+       :type name: str
+       :return ssid of active access point, None if device has no active AP
+       :rtype: str
+       :raise UnknownDeviceError: if device is not found
     """
 
     try:
@@ -321,20 +374,20 @@ def nm_device_active_ssid(name):
     return ssid
 
 def nm_device_ip_config(name, version=4):
-    """Return list of devices's IP config
+    """Return IP configurations of device in ACTIVATED state.
 
-       version=4 - ipv4 config
-       version=6 - ipv6 config
-
-       Returns:
-       [[[address1, prefix1, gateway1], [address2, prefix2, gateway2], ...], [nameserver1, nameserver2]]
-       addressX, gatewayX: string
-       prefixX: int
-       [] if device is not in ACTIVATED state
-
-       Exceptions:
-       UnknownDeviceError if device is not found
-       PropertyNotFoundError if ip configuration is not found
+       :param name: name of device
+       :type name: str
+       :param version: version of IP protocol (value 4 or 6)
+       :type version: int
+       :return: IP configuration of device, empty list if device is not
+                in ACTIVATED state
+       :rtype: [[[address1, prefix1, gateway1], [address2, prefix2, gateway2], ...],
+                [nameserver1, nameserver2]]
+               addressX, gatewayX: string
+               prefixX: int
+       :raise UnknownDeviceError: if device is not found
+       :raise PropertyNotFoundError: if ip configuration is not found
     """
     state = nm_device_property(name, "State")
     if state != NetworkManager.DeviceState.ACTIVATED:
@@ -388,10 +441,10 @@ def nm_device_ip_config(name, version=4):
     return [addr_list, ns_list]
 
 def nm_ntp_servers_from_dhcp():
-    """Return a list of NTP servers that were specified the reply of the
-       DHCP server or empty list if no NTP servers were returned.
-       The return_hostnames  parameter specifies if the NTP server IP
-       addresses from the DHCP reply should be converted to hostnames.
+    """Return NTP servers obtained by DHCP.
+
+       return: NTP servers obtained by DHCP
+       rtype: list of str
     """
     ntp_servers = []
     # get paths for all actively connected interfaces
@@ -414,12 +467,13 @@ def nm_ntp_servers_from_dhcp():
     return ntp_servers
 
 def _device_settings(name):
-    """Return object path of device setting
+    """Return object path of device setting.
 
-       Returns None if settings were not found.
-
-       Exceptions:
-       UnknownDeviceError - device was not found
+       :param name: name of device
+       :type name: str
+       :return: path of settings, None if not found
+       :rtype: str or None
+       :raise UnknownDeviceError: if device is not found
     """
     devtype = nm_device_type(name)
     if devtype == NetworkManager.DeviceType.BOND:
@@ -439,7 +493,10 @@ def _device_settings(name):
 def _settings_for_ap(ssid):
     """Return object path of wireless access point settings.
 
-       Returns None if settings were not found.
+       :param ssid: ssid of access point
+       :type ssid: str
+       :return: path of settings, None if not found
+       :rtype: str or None
 `   """
     return _find_settings(ssid, '802-11-wireless', 'ssid',
             format_value=lambda ba: "".join(chr(b) for b in ba))
@@ -447,7 +504,10 @@ def _settings_for_ap(ssid):
 def _settings_for_hwaddr(hwaddr):
     """Return object path of settings of device specified by hw address.
 
-       Returns None if settings were not found.
+       :param hwaddr: hardware address (uppercase)
+       :type hwaddr: str
+       :return: path of settings, None if not found
+       :rtype: str or None
     """
     return _find_settings(hwaddr, '802-3-ethernet', 'mac-address',
             format_value=lambda ba: ":".join("%02X" % b for b in ba))
@@ -455,7 +515,17 @@ def _settings_for_hwaddr(hwaddr):
 def _find_settings(value, key1, key2, format_value=lambda x:x):
     """Return object path of settings having given value of key1, key2 setting
 
-       Returns None if settings were not found.
+       :param value: required value of setting
+       :type value: corresponds to dbus type of setting
+       :param key1: first-level key of setting (eg "connection")
+       :type key1: str
+       :param key2: second-level key of setting (eg "uuid")
+       :type key2: str
+       :param format_value: function to be called on setting value before
+                            comparing
+       :type format_value: function taking one argument (setting value)
+       :return: path of settings, None if not found
+       :rtype: str or None
     """
     retval = None
 
@@ -490,16 +560,19 @@ def _find_settings(value, key1, key2, format_value=lambda x:x):
 def nm_device_setting_value(name, key1, key2):
     """Return value of device's setting specified by key1 and key2.
 
-       Return None if the setting is not found which means NM will use
-       default value for the setting.  We can't validate that keys
-       actually correspond to a setting (see "connection" "autoconnect"
-       setting).
-
-       Caller should handle None as default value.
-
-       Exceptions:
-       UnknownDeviceError - device was not found
-       DeviceSettingsNotFoundError - settings were not found (eg for "wlan0")
+       :param name: name of device
+       :type name: str
+       :param key1: first-level key of setting (eg "connection")
+       :type key1: str
+       :param key2: second-level key of setting (eg "uuid")
+       :type key2: str
+       :return: value of setting or None if the setting was not found
+                which means it does not exist or default value is used
+                by NM
+       :rtype: unpacked GDBus variant or None
+       :raise UnknownDeviceError: if device is not found
+       :raise DeviceSettingsNotFoundError: if settings were not found
+                                           (eg for "wlan0")
     """
     settings_path = _device_settings(name)
     if not settings_path:
@@ -522,9 +595,13 @@ def nm_device_setting_value(name, key1, key2):
 def nm_activate_device_connection(dev_name, con_uuid):
     """Activate device with specified connection.
 
-       Exceptions:
-       UnknownDeviceError - device was not found
-
+       :param dev_name: name of device
+       :type dev_name: str
+       :param con_uuid: uuid of connection to be activated on device
+       :type con_uuid: str
+       :raise UnknownDeviceError: if device is not found
+       :raise UnmanagedDeviceError: if device is not managed by NM
+                                    or unavailable
     """
 
     proxy = _get_proxy()
@@ -560,15 +637,29 @@ def nm_activate_device_connection(dev_name, con_uuid):
 def nm_update_settings_of_device(name, new_values):
     """Update setting of device.
 
-       new_values: list of settings to be modified [[key1, key2, value, default_type_str], ...]
-
        The type of value is determined from existing settings of device.
        If setting for key1, key2 does not exist, default_type_str is used or
        if None, the type is inferred from the value supplied (string and bool only).
 
-       Exceptions:
-       UnknownDeviceError - device was not found
-       DeviceSettingsNotFoundError - settings were not found (eg for "wlan0")
+       :param name: name of device
+       :type name: str
+       :param new_values: list of settings with new values and its types
+                          [[key1, key2, value, default_type_str]]
+                          key1: first-level key of setting (eg "connection")
+                          key2: second-level key of setting (eg "uuid")
+                          value: new value
+                          default_type_str: dbus type of new value to be used
+                                            if the setting does not already exist;
+                                            if None, the type is inferred from
+                                            value (string and bool only)
+       :type new_values: [[key1, key2, value, default_type_str], ...]
+                         key1: str
+                         key2: str
+                         value:
+                         default_type_str: str
+       :raise UnknownDeviceError: if device is not found
+       :raise DeviceSettingsNotFoundError: if settings were not found
+                                           (eg for "wlan0")
     """
     settings_path = _device_settings(name)
     if not settings_path:
@@ -578,11 +669,26 @@ def nm_update_settings_of_device(name, new_values):
 def _update_settings(settings_path, new_values):
     """Update setting of object specified by settings_path with value.
 
-       new_values: list of settings to be modified [[key1, key2, value, default_type_str], ...]
-
        The type of value is determined from existing setting.
        If setting for key1, key2 does not exist, default_type_str is used or
        if None, the type is inferred from the value supplied (string and bool only).
+
+       :param settings_path: path of settings object
+       :type settings_path: str
+       :param new_values: list of settings with new values and its types
+                          [[key1, key2, value, default_type_str]]
+                          key1: first-level key of setting (eg "connection")
+                          key2: second-level key of setting (eg "uuid")
+                          value: new value
+                          default_type_str: dbus type of new value to be used
+                                            if the setting does not already exist;
+                                            if None, the type is inferred from
+                                            value (string and bool only)
+       :type new_values: [[key1, key2, value, default_type_str], ...]
+                         key1: str
+                         key2: str
+                         value:
+                         default_type_str: str
     """
     proxy = _get_proxy(object_path=settings_path, interface_name="org.freedesktop.NetworkManager.Settings.Connection")
     args = None
@@ -651,19 +757,43 @@ def _gvariant_settings(settings, updated_key1, updated_key2, value, default_type
     return GLib.Variant(settings.get_type_string(), (new_settings,))
 
 def nm_ipv6_to_dbus_ay(address):
-    """Convert ipv6 address from string to list of bytes (ay) for dbus."""
+    """Convert ipv6 address from string to list of bytes 'ay' for dbus
+
+    :param address: IPv6 address
+    :type address: str
+    :return: address in format 'ay' for NM dbus setting
+    :rtype: list of bytes
+    """
     return [int(byte, 16) for byte in re.findall('.{1,2}', IPy.IP(address).strFullsize().replace(':', ''))]
 
 def nm_ipv4_to_dbus_int(address):
-    """Convert ipv4 address from string to int for dbus (switched endianess)."""
+    """Convert ipv4 address from string to int for dbus (switched endianess).
+
+    :param address: IPv4 address
+    :type address: str
+    :return: IPv4 address as an integer 'u' for NM dbus setting
+    :rtype: integer
+    """
     return struct.unpack("=L", socket.inet_aton(address))[0]
 
 def nm_dbus_ay_to_ipv6(bytelist):
-    """Convert ipv6 address from list of bytes (dbus ay) to string."""
+    """Convert ipv6 address from list of bytes (dbus 'ay') to string.
+
+    :param address: IPv6 address as list of bytes returned by dbus ('ay')
+    :type address: list of bytes - dbus 'ay'
+    :return: IPv6 address
+    :rtype: str
+    """
     return socket.inet_ntop(socket.AF_INET6, "".join(chr(byte) for byte in bytelist))
 
 def nm_dbus_int_to_ipv4(address):
-    """Convert ipv4 address from int from dbus (switched endianess) to string."""
+    """Convert ipv4 address from dus int 'u' (switched endianess) to string.
+
+    :param address: IPv4 address as integer returned by dbus ('u')
+    :type address: integer - dbus 'u'
+    :return: IPv6 address
+    :rtype: str
+    """
     return socket.inet_ntop(socket.AF_INET, struct.pack('=L', address))
 
 def test():
