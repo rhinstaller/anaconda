@@ -191,6 +191,10 @@ def opticalInstallMedia(devicetree, mountpoint=INSTALL_TREE):
 
     for dev in devicetree.getDevicesByType("cdrom"):
         devicetree.updateDeviceFormat(dev)
+        if not hasattr(dev.format, "mount"):
+            # no mountable media
+            continue
+
         try:
             dev.format.mount(mountpoint=mountpoint)
         except Exception:
