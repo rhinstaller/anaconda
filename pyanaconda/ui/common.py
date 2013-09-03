@@ -168,13 +168,8 @@ class FirstbootOnlySpokeMixIn(object):
            the data argument.
         """
 
-        if environment == FIRSTBOOT_ENVIRON and data is None:
-            # cannot decide, stay in the game and let another call with data
-            # available (will come) decide
-            return True
-        elif environment == FIRSTBOOT_ENVIRON and \
-                data and data.firstboot.firstboot == FIRSTBOOT_RECONFIG:
-            # generally run spokes in firstboot only if doing reconfig, spokes
+        if environment == FIRSTBOOT_ENVIRON:
+            # firstboot only spokes should run in firstboot by default, spokes
             # that should run even if not doing reconfig should override this
             # method
             return True
