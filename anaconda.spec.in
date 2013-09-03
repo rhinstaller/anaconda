@@ -255,6 +255,32 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Sep 03 2013 Brian C. Lane <bcl@redhat.com> - 20.10-1
+- Optionally hide the GUI option to install updates (dshea)
+- Move the really_hide and really_show functions to utils (vpodzime)
+- Search for all translations, not only one per langauge (#1001446) (vpodzime)
+- Use the DEFAULT_LANG if GeoIP suggestion cannot be used (#1000715) (vpodzime)
+- Network spoke: fix showing of ipv6 addresses (rvykydal)
+- Use the sensitive-info log for sensitive location info (#986844) (mkolman)
+- Add new logger for sensitive information (mkolman)
+- Handle %%define changes for autofetch (mkolman)
+- Update dumping of network info for new nmcli interface. (rvykydal)
+- Text network spoke: more strict ipv6 address input checking (#909299)
+  (rvykydal)
+- Network spoke: show global ipv6 addresses (rvykydal)
+- Text network spoke: add to translated files (po/POTFILES.in) (#902299)
+  (rvykydal)
+- Text network spoke: require netmask and gateway for static ipv4 (#902299)
+  (rvykydal)
+- Text network spoke: Condense device configuration information (#902299)
+  (rvykydal)
+- Text network spoke: fix ipv4 regex (#909299) (rvykydal)
+- Resolved accelerator conflicts and marked excpetions. (dshea)
+- Added tests for duplicated keyboard accelerators (dshea)
+- Implement group creation with GID in GUI (#968085) (dshea)
+- Remove unused imports. (dshea)
+- Move dynamic labels out of custom.glade (#1000703) (dshea)
+
 * Mon Aug 26 2013 Brian C. Lane <bcl@redhat.com> - 20.9-1
 - Text network spoke: basic configuration support (#909299) (rvykydal)
 - Add support for network configuration in TUI. (#909299) (sbueno+anaconda)
