@@ -167,8 +167,8 @@ class Hub(GUIObject, common.Hub):
 
             selectors = []
             for spokeClass in sorted(cats_and_spokes[c], key=lambda s: s.title):
-                # Check if this spoke is to be shown in anaconda
-                if not spokeClass.should_run(ANACONDA_ENVIRON, self.data):
+                # Check if this spoke is to be shown in the supported environments
+                if not any(spokeClass.should_run(environ, self.data) for environ in self._environs):
                     continue
 
                 # Create the new spoke and populate its UI with whatever data.

@@ -483,11 +483,15 @@ class Hub(UIObject):
         """
         UIObject.__init__(self, data)
 
-        self._spokes = {}
         self.storage = storage
         self.payload = payload
         self.instclass = instclass
+
         self.paths = {}
+        self._spokes = {}
+
+        # spokes for which environments this hub should collect?
+        self._environs = [ANACONDA_ENVIRON]
 
     def set_path(self, path_id, paths):
         """Update the paths attribute with list of tuples in the form (module
