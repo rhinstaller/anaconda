@@ -766,10 +766,13 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler):
             combo = self.builder.get_object("isoPartitionCombo")
             combo.set_active(active)
 
-        # We default to the mirror list, and then if the method tells us
-        # something different later, we can change it.
-        self._protocolComboBox.set_active_id(PROTOCOL_MIRROR)
-        self._urlEntry.set_sensitive(False)
+        # We default to the mirror list if available. http otherwise
+        if self.payload.mirrorEnabled:
+            self._protocolComboBox.set_active(PROTOCOL_MIRROR)
+            self._urlEntry.set_sensitive(False)
+        else:
+            self._protocolComboBox.set_active(PROTOCOL_HTTP)
+            self._urlEntry.set_sensitive(True)
         self._updateURLEntryCheck()
 
         # Set up the default state of UI elements.
