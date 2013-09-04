@@ -21,4 +21,4 @@ MAINTAINERCLEANFILES = Makefile.in
 
 pkgpyexecdir = $(pyexecdir)/py$(PACKAGE_NAME)
 spokesdir        = $(pkgpyexecdir)/ui/tui/spokes
-spokes_PYTHON    = *.py
+spokes_PYTHON    = $(srcdir)/*.py

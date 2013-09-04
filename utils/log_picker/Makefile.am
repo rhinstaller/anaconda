@@ -19,6 +19,6 @@ SUBDIRS = sending
 
 pkgpyexecdir = $(pyexecdir)/log_picker
 logpickerdir = $(pkgpyexecdir)
-logpicker_PYTHON = *.py
+logpicker_PYTHON = $(srcdir)/*.py
 
 MAINTAINERCLEANFILES = Makefile.in

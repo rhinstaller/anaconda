@@ -18,6 +18,6 @@
 
 pkgpyexecdir = $(pyexecdir)/log_picker
 sendingdir = $(pkgpyexecdir)/sending
-sending_PYTHON = *.py
+sending_PYTHON = $(srcdir)/*.py
 
 MAINTAINERCLEANFILES = Makefile.in

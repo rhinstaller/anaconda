@@ -17,7 +17,7 @@
 # Author: Vratislav Podzimek <vpodzime@redhat.com>
 
 timezonemap_datadir        = $(datadir)/anaconda/tzmapdata
-dist_timezonemap_data_DATA = *.png timezones_backward
+dist_timezonemap_data_DATA = $(srcdir)/*.png timezones_backward
 
 MAINTAINERCLEANFILES = Makefile.in
 

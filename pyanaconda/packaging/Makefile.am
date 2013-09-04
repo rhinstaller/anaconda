@@ -19,6 +19,6 @@
 
 pkgpyexecdir = $(pyexecdir)/py$(PACKAGE_NAME)
 packagingdir = $(pkgpyexecdir)/packaging
-packaging_PYTHON = *.py
+packaging_PYTHON = $(srcdir)/*.py
 
 MAINTAINERCLEANFILES = Makefile.in

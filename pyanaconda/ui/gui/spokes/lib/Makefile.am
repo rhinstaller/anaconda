@@ -19,7 +19,7 @@ MAINTAINERCLEANFILES = Makefile.in
 
 pkgpyexecdir     = $(pyexecdir)/py$(PACKAGE_NAME)
 spokesdir        = $(pkgpyexecdir)/ui/gui/spokes/lib
-spokes_PYTHON    = *.py
+spokes_PYTHON    = $(srcdir)/*.py
 
 uidir            = $(datadir)/$(PACKAGE_NAME)/ui/spokes/lib
-dist_ui_DATA     = *.glade
+dist_ui_DATA     = $(srcdir)/*.glade

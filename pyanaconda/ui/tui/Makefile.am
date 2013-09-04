@@ -21,4 +21,4 @@ MAINTAINERCLEANFILES = Makefile.in
 
 pkgpyexecdir = $(pyexecdir)/py$(PACKAGE_NAME)
 tuidir        = $(pkgpyexecdir)/ui/tui
-tui_PYTHON    = *.py
+tui_PYTHON    = $(srcdir)/*.py
