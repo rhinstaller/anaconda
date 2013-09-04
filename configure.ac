@@ -21,7 +21,7 @@ m4_define(python_required_version, 2.5)
 
 AC_PREREQ([2.63])
 AC_INIT([anaconda], [20.11], [anaconda-devel-list@redhat.com])
-AM_INIT_AUTOMAKE([foreign no-dist-gzip dist-bzip2])
+AM_INIT_AUTOMAKE([foreign no-dist-gzip dist-bzip2 tar-ustar])
 
 AC_CONFIG_HEADERS([config.h])
 AC_CONFIG_MACRO_DIR([m4])
