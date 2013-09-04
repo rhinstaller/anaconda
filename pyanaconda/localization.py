@@ -82,6 +82,9 @@ def parse_langcode(langcode):
 
     """
 
+    if not langcode:
+        return None
+
     match = LANGCODE_RE.match(langcode)
     if match:
         return match.groupdict()
