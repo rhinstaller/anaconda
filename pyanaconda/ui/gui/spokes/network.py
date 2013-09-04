@@ -1084,6 +1084,8 @@ class NetworkControlBox(object):
 
     @hostname.setter
     def hostname(self, value):
+        if not value:
+            return
         self.entry_hostname.set_text(value)
 
 
