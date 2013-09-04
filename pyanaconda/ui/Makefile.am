@@ -21,4 +21,4 @@ MAINTAINERCLEANFILES = Makefile.in
 
 pkgpyexecdir = $(pyexecdir)/py$(PACKAGE_NAME)
 uidir        = $(pkgpyexecdir)/ui
-ui_PYTHON    = *.py
+ui_PYTHON    = $(srcdir)/*.py

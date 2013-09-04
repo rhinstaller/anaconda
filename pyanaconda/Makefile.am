@@ -24,4 +24,4 @@ MAINTAINERCLEANFILES = Makefile.in
 # anaconda Python code
 pkgpyexecdir    = $(pyexecdir)/py$(PACKAGE_NAME)
 anacondadir     = $(pkgpyexecdir)
-anaconda_PYTHON = *.py
+anaconda_PYTHON = $(srcdir)/*.py

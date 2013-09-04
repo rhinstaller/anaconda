@@ -21,7 +21,7 @@ pkgpyexecdir = $(pyexecdir)/py$(PACKAGE_NAME)
 
 ISYS_SRCS = isofs.c linkdetect.c auditd.c log.c mem.c
 
-dist_noinst_HEADERS = *.h
+dist_noinst_HEADERS = $(srcdir)/*.h
 
 ISYS_CFLAGS = -DVERSION='"$(PACKAGE_VERSION)-$(PACKAGE_RELEASE)"' \
               $(NETWORKMANAGER_CFLAGS) $(LIBNL_CFLAGS) $(LIBNM_GLIB_CFLAGS) \
@@ -31,7 +31,7 @@ ISYS_LIBS   = $(RESOLV_LIBS) $(ZLIB_LIBS) \
               $(LIBNL_LIBS) $(LIBNM_GLIB_LIBS)
 
 isysdir     = $(pkgpyexecdir)/isys
-isys_PYTHON = *.py
+isys_PYTHON = $(srcdir)/*.py
 
 pkgpyexec_LTLIBRARIES = _isys.la
 _isys_la_CFLAGS       = $(PYTHON_INCLUDES) $(ISYS_CFLAGS)

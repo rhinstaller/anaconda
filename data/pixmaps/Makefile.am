@@ -18,6 +18,6 @@
 # Author: David Cantrell <dcantrell@redhat.com>
 
 pixmapsdir        = $(datadir)/$(PACKAGE_NAME)/pixmaps
-dist_pixmaps_DATA = *.png *.svg
+dist_pixmaps_DATA = $(srcdir)/*.png $(srcdir)/*.svg
 
 MAINTAINERCLEANFILES = Makefile.in

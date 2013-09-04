@@ -21,4 +21,4 @@ MAINTAINERCLEANFILES = Makefile.in
 
 pkgpyexecdir = $(pyexecdir)/py$(PACKAGE_NAME)
 simplelinedir        = $(pkgpyexecdir)/ui/tui/simpleline
-simpleline_PYTHON    = *.py
+simpleline_PYTHON    = $(srcdir)/*.py

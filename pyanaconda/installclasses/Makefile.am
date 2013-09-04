@@ -19,6 +19,6 @@
 
 pkgpyexecdir = $(pyexecdir)/py$(PACKAGE_NAME)
 installclassesdir = $(pkgpyexecdir)/installclasses
-installclasses_PYTHON = *.py
+installclasses_PYTHON = $(srcdir)/*.py
 
 MAINTAINERCLEANFILES = Makefile.in

@@ -21,7 +21,7 @@ MAINTAINERCLEANFILES = Makefile.in
 
 pkgpyexecdir = $(pyexecdir)/py$(PACKAGE_NAME)
 guidir       = $(pkgpyexecdir)/ui/gui
-gui_PYTHON   = *.py
+gui_PYTHON   = $(srcdir)/*.py
 
 uidir        = $(datadir)/$(PACKAGE_NAME)/ui/
-dist_ui_DATA = *.glade
+dist_ui_DATA = $(srcdir)/*.glade
