@@ -483,8 +483,8 @@ reposdir=%s
         with _yum_lock:
             # yum initializes with plugins disabled, and when plugins are disabled
             # _yum.plugins is a DummyYumPlugins object, which has no useful attributes.
-            if hasattr(self._yum.plugins, "enabledPlugins"):
-                return "fastestmirror" in self._yum.plugins.enabledPlugins
+            if hasattr(self._yum.plugins, "_plugins"):
+                return "fastestmirror" in self._yum.plugins._plugins
             else:
                 return False
 
