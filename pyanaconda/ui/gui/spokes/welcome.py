@@ -28,6 +28,7 @@ from gi.repository import Gtk, Pango
 from pyanaconda.ui.gui.hubs.summary import SummaryHub
 from pyanaconda.ui.gui.spokes import StandaloneSpoke
 from pyanaconda.ui.gui.utils import enlightbox, set_treeview_selection
+from pyanaconda.ui.gui.spokes.lib.lang_locale_handler import LangLocaleHandler
 
 from pyanaconda import localization
 from pyanaconda.product import distributionText, isFinal, productName, productVersion
@@ -43,7 +44,7 @@ log = logging.getLogger("anaconda")
 
 __all__ = ["WelcomeLanguageSpoke"]
 
-class WelcomeLanguageSpoke(StandaloneSpoke):
+class WelcomeLanguageSpoke(LangLocaleHandler, StandaloneSpoke):
     mainWidgetName = "welcomeWindow"
     uiFile = "spokes/welcome.glade"
     builderObjects = ["languageStore", "languageStoreFilter", "localeStore",
@@ -143,14 +144,6 @@ class WelcomeLanguageSpoke(StandaloneSpoke):
     def _row_is_separator(self, model, itr, *args):
         return model[itr][3]
 
-    def _render_lang_selected(self, column, renderer, model, itr, user_data=None):
-        (lang_store, sel_itr) = self._langSelection.get_selected()
-
-        if sel_itr and lang_store[sel_itr][2] == model[itr][2]:
-            renderer.set_property("pixbuf", self._right_arrow.get_pixbuf())
-        else:
-            renderer.set_property("pixbuf", None)
-
     def initialize(self):
         self._languageStore = self.builder.get_object("languageStore")
         self._languageStoreFilter = self.builder.get_object("languageStoreFilter")
@@ -163,13 +156,10 @@ class WelcomeLanguageSpoke(StandaloneSpoke):
         self._localeStore = self.builder.get_object("localeStore")
         self._localeSelection = self.builder.get_object("localeViewSelection")
 
+        LangLocaleHandler.initialize(self)
+
         # We need to tell the view whether something is a separator or not.
         self._langView.set_row_separator_func(self._row_is_separator, None)
-
-        # Render a right arrow for the chosen language
-        self._right_arrow = Gtk.Image.new_from_file("/usr/share/anaconda/pixmaps/right-arrow-icon.png")
-        self._langSelectedColumn.set_cell_data_func(self._langSelectedRenderer,
-                                                    self._render_lang_selected)
 
         # We can use the territory from geolocation here
         # to preselect the translation, when it's available.
@@ -180,12 +170,6 @@ class WelcomeLanguageSpoke(StandaloneSpoke):
             # get something from the GeoIP lookup and not set in/on the
             # kickstart/command line
             localization.setup_locale(locales[0], self.data.lang)
-
-        # fill the list with available translations
-        for lang in localization.get_available_translations():
-            self._addLanguage(self._languageStore,
-                              localization.get_native_name(lang),
-                              localization.get_english_name(lang), lang)
 
         # Move the default language (whatever was provided on the command line,
         # or by kickstart, or by geoip, or English if nothing else) to the top
@@ -209,8 +193,6 @@ class WelcomeLanguageSpoke(StandaloneSpoke):
         # And then we add a separator after the default chosen language.
         newItr = store.insert(1)
         store.set(newItr, 0, "", 1, "", 2, "", 3, True)
-
-        self._languageStoreFilter.set_visible_func(self._matchesEntry, None)
 
     def _retranslate_one(self, widgetName):
         widget = self.builder.get_object(widgetName)
@@ -251,85 +233,21 @@ class WelcomeLanguageSpoke(StandaloneSpoke):
         self._languageEntry.set_text("")
         self._languageStoreFilter.refilter()
 
-    def _addLanguage(self, store, native, english, lang):
+    def _add_language(self, store, native, english, lang):
         native_span = '<span lang="%s">%s</span>' % (lang, native)
         store.append([native_span, english, lang, False])
 
-    def _addLocale(self, store, native, locale):
+    def _add_locale(self, store, native, locale):
         native_span = '<span lang="%s">%s</span>' % (re.sub(r'\..*', '', locale), native)
         store.append([native_span, locale])
-
-    def _matchesEntry(self, model, itr, *args):
-        # Need to strip out the pango markup before attempting to match.
-        # Otherwise, starting to type "span" for "spanish" will match everything
-        # due to the enclosing span tag.
-        # (success, attrs, native, accel)
-        native = Pango.parse_markup(model[itr][0], -1, "_")[2]
-        english = model[itr][1]
-        entry = self._languageEntry.get_text().strip()
-
-        # Nothing in the text entry?  Display everything.
-        if not entry:
-            return True
-
-        # Otherwise, filter the list showing only what is matched by the
-        # text entry.  Either the English or native names can match.
-        lowered = entry.lower()
-        translit = strip_accents(unicode(native, "utf-8")).lower()
-        if lowered in native.lower() or lowered in english.lower() or lowered in translit:
-            return True
-        else:
-            return False
-
-    def _select_locale(self, locale):
-        """
-        Try to select the given locale in the language and locale
-        treeviews. This method tries to find the best match for the given
-        locale.
-
-        :return: a pair of selected iterators (language and locale)
-        :rtype: a pair of GtkTreeIter or None objects
-
-        """
-
-        # get lang and select it
-        parts = localization.parse_langcode(locale)
-        if "language" not in parts:
-            # invalid locale, cannot select
-            return (None, None)
-
-        lang_itr = set_treeview_selection(self._langView, parts["language"], col=2)
-
-        # find matches and use the one with the highest rank
-        locales = localization.get_language_locales(locale)
-        locale_itr = set_treeview_selection(self._localeView, locales[0], col=1)
-
-        return (lang_itr, locale_itr)
-
-    def _refresh_locale_store(self, lang):
-        """Refresh the localeStore with locales for the given language."""
-
-        self._localeStore.clear()
-        locales = localization.get_language_locales(lang)
-        for locale in locales:
-            self._addLocale(self._localeStore,
-                            localization.get_native_name(locale),
-                            locale)
-
-        # select the first locale (with the highest rank)
-        set_treeview_selection(self._localeView, locales[0], col=1)
 
     # Signal handlers.
     def on_lang_selection_changed(self, selection):
         (store, selected) = selection.get_selected_rows()
+        LangLocaleHandler.on_lang_selection_changed(self, selection)
 
-        if selected:
-            lang = store[selected[0]][2]
-            self._refresh_locale_store(lang)
-        else:
-            if hasattr(self.window, "set_may_continue"):
+        if not selected and hasattr(self.window, "set_may_continue"):
                 self.window.set_may_continue(False)
-            self._localeStore.clear()
 
     def on_locale_selection_changed(self, selection):
         (store, selected) = selection.get_selected_rows()
@@ -340,13 +258,6 @@ class WelcomeLanguageSpoke(StandaloneSpoke):
             lang = store[selected[0]][1]
             localization.setup_locale(lang)
             self.retranslate(lang)
-
-    def on_clear_icon_clicked(self, entry, icon_pos, event):
-        if icon_pos == Gtk.EntryIconPosition.SECONDARY:
-            entry.set_text("")
-
-    def on_entry_changed(self, *args):
-        self._languageStoreFilter.refilter()
 
     # Override the default in StandaloneSpoke so we can display the beta
     # warning dialog first.
