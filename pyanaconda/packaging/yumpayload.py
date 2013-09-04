@@ -420,7 +420,7 @@ reposdir=%s
     @property
     def mirrorEnabled(self):
         with _yum_lock:
-            return "fastestmirror" in self._yum.plugins.enabledPlugins
+            return "fastestmirror" in self._yum.plugins._plugins
 
     def getRepo(self, repo_id):
         """ Return the yum repo object. """
