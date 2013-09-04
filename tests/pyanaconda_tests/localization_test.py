@@ -25,6 +25,10 @@ class ParsingTests(unittest.TestCase):
     def invalid_langcodes_test(self):
         """Should return None for invalid langcodes."""
 
+        # None
+        parts = localization.parse_langcode(None)
+        self.assertIsNone(parts)
+
         # nonsense
         parts = localization.parse_langcode("*_&!")
         self.assertIsNone(parts)
@@ -118,6 +122,8 @@ class LangcodeLocaleMatchingTests(unittest.TestCase):
         # missing language, shouldn't match
         self.assertFalse(localization.langcode_matches_locale("", "sr"))
         self.assertFalse(localization.langcode_matches_locale("sr", ""))
+        self.assertFalse(localization.langcode_matches_locale("sr", None))
+        self.assertFalse(localization.langcode_matches_locale(None, "sr"))
 
         # missing items in the locale, shouldn't match
         self.assertFalse(localization.langcode_matches_locale("sr_RS", "sr"))
