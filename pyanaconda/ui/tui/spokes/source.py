@@ -44,7 +44,7 @@ class SourceSpoke(EditTUISpoke):
     title = _("Installation source")
     category = "source"
 
-    _protocols = (_("Closest mirror"), "http://", "https://", "ftp://", "nfs")
+    _protocols = ["http://", "https://", "ftp://", "nfs", _("Closest mirror")]
 
     # default to 'closest mirror', as done in the GUI
     _selection = 1
@@ -73,6 +73,10 @@ class SourceSpoke(EditTUISpoke):
             self._cdrom = self.payload.install_device
         elif not flags.automatedInstall:
             self._cdrom = opticalInstallMedia(self.storage.devicetree)
+
+        # Only show Closest mirror if mirrors are available
+        if not self.payload.mirrorEnabled:
+            self._protocols.pop()
 
         self._ready = True
 
@@ -146,13 +150,7 @@ class SourceSpoke(EditTUISpoke):
             if args == 2:
                 # network install
                 self._selection = num
-                if self._selection == 1:
-                    # closest mirror
-                    self.data.method.method = None
-                    self.apply()
-                    self.close()
-                    return True
-                elif self._selection in range(2, 5):
+                if 0 < self._selection < 4:
                     self.data.method.method = "url"
                     newspoke = SpecifyRepoSpoke(self.app, self.data, self.storage,
                                               self.payload, self.instclass, self._selection)
@@ -160,12 +158,18 @@ class SourceSpoke(EditTUISpoke):
                     self.apply()
                     self.close()
                     return True
-                elif self._selection == 5:
+                elif self._selection == 4:
                     # nfs
                     self.data.method.method = "nfs"
                     newspoke = SpecifyNFSRepoSpoke(self.app, self.data, self.storage,
                                             self.payload, self.instclass, self._selection, self.errors)
                     self.app.switch_screen_modal(newspoke)
+                    self.apply()
+                    self.close()
+                    return True
+                elif self._selection == 5 and self.payload.mirrorEnabled:
+                    # closest mirror
+                    self.data.method.method = None
                     self.apply()
                     self.close()
                     return True
