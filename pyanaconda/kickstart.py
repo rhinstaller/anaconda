@@ -1300,7 +1300,8 @@ class Timezone(commands.timezone.F18_Timezone):
                 ksdata.packages.packageList.append(NTP_PACKAGE)
                 self._added_chrony = True
 
-            if not NTP_SERVICE in ksdata.services.enabled:
+            if not NTP_SERVICE in ksdata.services.enabled and \
+                    not NTP_SERVICE in ksdata.services.disabled:
                 ksdata.services.enabled.append(NTP_SERVICE)
                 self._enabled_chrony = True
 
