@@ -307,7 +307,6 @@ class NetworkDevice(IfcfgFile):
         f.close()
         return content
 
-
 def dumpMissingDefaultIfcfgs():
     """
     Dump missing default ifcfg file for wired devices.
@@ -327,9 +326,12 @@ def dumpMissingDefaultIfcfgs():
         if not nm.nm_device_type_is_ethernet(devname):
             continue
 
-        # if there is no ifcfg file for the device
-        device_cfg = NetworkDevice(netscriptsDir, devname)
-        if os.access(device_cfg.path, os.R_OK):
+        # check that device has connection without ifcfg file
+        try:
+            con_uuid = nm.nm_device_setting_value(devname, "connection", "uuid")
+        except nm.DeviceSettingsNotFoundError:
+            continue
+        if get_ifcfg_name([("UUID", con_uuid)], root_path=""):
             continue
 
         try:
@@ -613,26 +615,23 @@ def kickstartNetworkData(ifcfg=None, hostname=None):
     # pylint: disable-msg=E1101
     return handler.NetworkData(**kwargs)
 
-def get_bond_master_ifcfg_name(devname):
-    """Name of ifcfg file of bond device devname"""
-
-    for filename in _ifcfg_files(netscriptsDir):
+def get_ifcfg_name(values, root_path=""):
+    for filename in _ifcfg_files(os.path.normpath(root_path+netscriptsDir)):
         ifcfg = NetworkDevice(netscriptsDir, filename[6:])
         ifcfg.loadIfcfgFile()
-        # FIXME: dracut has only BOND_OPTS
-        if ifcfg.get("BONDING_MASTER") == "yes" or ifcfg.get("TYPE") == "Bond":
-            if ifcfg.get("DEVICE") == devname:
-                return filename
+        for key, value in values:
+            if ifcfg.get(key) != value:
+                break
+        else:
+            return filename
+
+def get_bond_master_ifcfg_name(devname):
+    """Name of ifcfg file of bond device devname"""
+    return get_ifcfg_name([("TYPE", "Bond"), ("DEVICE", devname)])
 
 def get_vlan_ifcfg_name(devname):
     """Name of ifcfg file of vlan device devname"""
-
-    for filename in _ifcfg_files(netscriptsDir):
-        ifcfg = NetworkDevice(netscriptsDir, filename[6:])
-        ifcfg.loadIfcfgFile()
-        if ifcfg.get("VLAN") == "yes" or ifcfg.get("TYPE") == "Vlan":
-            if ifcfg.get("DEVICE") == devname:
-                return filename
+    return get_ifcfg_name([("TYPE", "Vlan"), ("DEVICE", devname)])
 
 def get_bond_slaves_from_ifcfgs(master_specs):
     """List of slave device names of master specified by master_specs.
@@ -750,16 +749,6 @@ def get_ksdevice_name(ksspec=""):
                 break
 
     return ksdevice
-
-# note that NetworkDevice.get returns "" if key is not found
-def get_ifcfg_value(iface, key, root_path=""):
-    dev = NetworkDevice(os.path.normpath(root_path + netscriptsDir), iface)
-    try:
-        dev.loadIfcfgFile()
-    except IOError as e:
-        log.debug("get_ifcfg_value %s %s: %s", iface, key, e)
-        return ""
-    return dev.get(key)
 
 def set_hostname(hn):
     if flags.imageInstall:
