@@ -256,6 +256,8 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Wed Sep 04 2013 Brian C. Lane <bcl@redhat.com> - 19.31.13-1
+
 * Wed Aug 28 2013 Samantha N. Bueno <sbueno+anaconda@redhat.com> - 19.31.12-1
 - Text network spoke: more strict ipv6 address input checking (rvykydal)
   Resolves: rhbz#909299
