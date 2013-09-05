@@ -20,14 +20,12 @@
 #
 
 from pyanaconda.i18n import _, N_
-from pyanaconda.users import cryptPassword, validatePassword
+from pyanaconda.users import cryptPassword, validatePassword, checkPassword
 from pwquality import PWQError
 
 from pyanaconda.ui.gui.spokes import NormalSpoke
 from pyanaconda.ui.gui.categories.user_settings import UserSettingsCategory
 from pyanaconda.ui.common import FirstbootSpokeMixIn
-
-import pwquality
 
 __all__ = ["PasswordSpoke"]
 
@@ -60,10 +58,6 @@ class PasswordSpoke(FirstbootSpokeMixIn, NormalSpoke):
         if self._kickstarted:
             self.pw.set_placeholder_text(_("The password is set."))
             self.confirm.set_placeholder_text(_("The password is set."))
-
-        # set up passphrase quality checker
-        self._pwq = pwquality.PWQSettings()
-        self._pwq.read_config()
 
         self.pw_bar = self.builder.get_object("password_bar")
         self.pw_label = self.builder.get_object("password_label")
@@ -113,9 +107,9 @@ class PasswordSpoke(FirstbootSpokeMixIn, NormalSpoke):
         the changed Gtk event handler.
         """
         try:
-            strength = self._pwq.check(self.pw.get_text(), None, None)
+            strength = checkPassword(self.pw.get_text())
             _pwq_error = None
-        except pwquality.PWQError as e:
+        except PWQError as e:
             _pwq_error = e.message
             strength = 0
 

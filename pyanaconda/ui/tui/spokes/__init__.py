@@ -21,7 +21,7 @@
 from pyanaconda.ui.tui import simpleline as tui
 from pyanaconda.ui.tui.tuiobject import TUIObject, YesNoDialog
 from pyanaconda.ui.common import Spoke, StandaloneSpoke, NormalSpoke, PersonalizationSpoke, collect
-from pyanaconda.users import validatePassword
+from pyanaconda.users import validatePassword, checkPassword
 from pwquality import PWQError
 import re
 from collections import namedtuple
@@ -118,6 +118,9 @@ class EditTUIDialog(NormalTUISpoke):
                 if error:
                     print(error)
                     return None
+                strength = checkPassword(pw)
+                if strength < 50:
+                    raise PWQError("The password you have provided is weak.")
             except PWQError as e:
                 error = _("You have provided a weak password: %s. " % e.message)
                 error += _("\nWould you like to use it anyway?")

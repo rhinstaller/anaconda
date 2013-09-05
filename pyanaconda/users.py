@@ -145,6 +145,14 @@ def validatePassword(pw, confirm=None, minlen=6, user="root"):
 
     return None
 
+def checkPassword(pw):
+    """ Check the quality of a password passed in and return a numeric
+        value.
+    """
+    pwq = pwquality.PWQSettings()
+    pwq.read_config()
+    return pwq.check(pw, None, None)
+
 def guess_username(fullname):
     fullname = fullname.split()
 
