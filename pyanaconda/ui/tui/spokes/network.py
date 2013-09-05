@@ -262,7 +262,7 @@ class ConfigureNetworkSpoke(EditTUISpoke):
     category = "network"
 
     edit_fields = [
-        Entry(_('IPv4 address or %s for DHCP' % '"dhcp"'), "ip",
+        Entry(_('IPv4 address or %s for DHCP') % '"dhcp"', "ip",
               re.compile("^" + IPV4_PATTERN_WITHOUT_ANCHORS + "|dhcp$"), True),
         Entry(_("IPv4 netmask"), "netmask", re.compile("^" + IPV4_PATTERN_WITHOUT_ANCHORS + "$"), True),
         Entry(_("IPv4 gateway"), "gateway", re.compile("^" + IPV4_PATTERN_WITHOUT_ANCHORS + "$"), True),
