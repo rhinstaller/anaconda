@@ -150,8 +150,10 @@ def save_servers_to_config(servers, conf_file_path=NTP_CONFIG_FILE,
     if not out_file_path:
         try:
             stat = os.stat(conf_file_path)
-            shutil.move(temp_path, conf_file_path)
+            # Use copy rather then move to get the correct selinux context
+            shutil.copy(temp_path, conf_file_path)
             os.chmod(conf_file_path, stat.st_mode)
+            os.unlink(temp_path)
 
         except OSError as oserr:
             msg = "Cannot replace the old config with "\
