@@ -116,7 +116,7 @@ class SourceSpoke(EditTUISpoke):
         if flags.automatedInstall and (not self.data.method.method or not self.payload.baseRepo):
             return False
         else:
-            return not self.errors and self.ready
+            return not self.errors and self.ready and (self.data.method.method or self.payload.baseRepo)
 
     def refresh(self, args=None):
         EditTUISpoke.refresh(self, args)
