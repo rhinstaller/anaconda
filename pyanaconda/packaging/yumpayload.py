@@ -1445,6 +1445,7 @@ reposdir=%s
             # check dependencies
             log.info("checking dependencies")
             (code, msgs) = self._yum.buildTransaction(unfinished_transactions_check=False)
+            log.debug("buildTransaction = (%s, %s)" % (code, msgs))
             self._removeTxSaveFile()
             if code == 0:
                 # empty transaction?
@@ -1452,8 +1453,6 @@ reposdir=%s
             elif code == 2:
                 # success
                 log.debug("success")
-            elif self.data.packages.handleMissing == KS_MISSING_IGNORE:
-                log.debug("ignoring missing due to ks config")
             else:
                 for msg in msgs:
                     log.warning(msg)
