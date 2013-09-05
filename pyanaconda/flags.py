@@ -180,16 +180,19 @@ class BootArgs(OrderedDict):
                 result = False # XXX: should noarg=off -> True?
         return result
 
-def can_touch_runtime_system(msg):
+def can_touch_runtime_system(msg, touch_live=False):
     """
     Guard that should be used before doing actions that modify runtime system.
 
     :param msg: message to be logged in case that runtime system cannot be touched
+    :type msg: str
+    :param touch_live: whether to allow touching liveCD installation system
+    :type touch_live: bool
     :rtype: bool
 
     """
 
-    if flags.livecdInstall:
+    if flags.livecdInstall and not touch_live:
         log.info("Not doing '%s' in live installation", msg)
         return False
 

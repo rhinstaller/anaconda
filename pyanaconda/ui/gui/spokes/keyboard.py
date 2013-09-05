@@ -264,6 +264,7 @@ class KeyboardSpoke(NormalSpoke):
     def __init__(self, *args):
         NormalSpoke.__init__(self, *args)
         self._remove_last_attempt = False
+        self._confirmed = False
         self._xkl_wrapper = keyboard.XklWrapper.get_instance()
 
         self._upButton = self.builder.get_object("upButton")
@@ -272,17 +273,23 @@ class KeyboardSpoke(NormalSpoke):
         self._previewButton = self.builder.get_object("previewButton")
 
     def apply(self):
+        # the user has confirmed (seen) the configuration
+        self._confirmed = True
+
         # Clear and repopulate self.data with actual values
         self.data.keyboard.x_layouts = list()
         self.data.keyboard.seen = True
 
         for row in self._store:
             self.data.keyboard.x_layouts.append(row[0])
-        # FIXME:  Set the keyboard layout here, too.
 
     @property
     def completed(self):
         if flags.flags.automatedInstall and not self.data.keyboard.seen:
+            return False
+        elif not self._confirmed and self._xkl_wrapper.get_current_layout() != self.data.keyboard.x_layouts[0]:
+            # the currently activated layout is a different one from the
+            # installed system's default
             return False
         else:
             return True
@@ -296,7 +303,7 @@ class KeyboardSpoke(NormalSpoke):
         NormalSpoke.initialize(self)
 
         if flags.can_touch_runtime_system("hide runtime keyboard configuration "
-                                          "warning"):
+                                          "warning", touch_live=True):
             self.builder.get_object("warningBox").hide()
 
         # We want to store layouts' names but show layouts as
@@ -314,7 +321,7 @@ class KeyboardSpoke(NormalSpoke):
 
         self._layoutSwitchLabel = self.builder.get_object("layoutSwitchLabel")
 
-        if not flags.can_touch_runtime_system("test X layouts"):
+        if not flags.can_touch_runtime_system("test X layouts", touch_live=True):
             # Disable area for testing layouts as we cannot make
             # it work without modifying runtime system
 
@@ -352,7 +359,7 @@ class KeyboardSpoke(NormalSpoke):
 
     def _addLayout(self, store, name):
         # first try to add the layout
-        if flags.can_touch_runtime_system("add runtime X layout"):
+        if flags.can_touch_runtime_system("add runtime X layout", touch_live=True):
             self._xkl_wrapper.add_layout(name)
 
         # valid layout, append it to the store
@@ -365,7 +372,7 @@ class KeyboardSpoke(NormalSpoke):
 
         """
 
-        if flags.can_touch_runtime_system("remove runtime X layout"):
+        if flags.can_touch_runtime_system("remove runtime X layout", touch_live=True):
             self._xkl_wrapper.remove_layout(store[itr][0])
         store.remove(itr)
 
@@ -449,7 +456,7 @@ class KeyboardSpoke(NormalSpoke):
             return
 
         store.swap(cur, prev)
-        if flags.can_touch_runtime_system("reorder runtime X layouts"):
+        if flags.can_touch_runtime_system("reorder runtime X layouts", touch_live=True):
             self._flush_layouts_to_X()
 
         if not store.iter_previous(cur):
@@ -473,7 +480,7 @@ class KeyboardSpoke(NormalSpoke):
             return
 
         store.swap(cur, nxt)
-        if flags.can_touch_runtime_system("reorder runtime X layouts"):
+        if flags.can_touch_runtime_system("reorder runtime X layouts", touch_live=True):
             self._flush_layouts_to_X()
 
         if activate_default:

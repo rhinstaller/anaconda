@@ -121,14 +121,14 @@ class WelcomeLanguageSpoke(LangLocaleHandler, StandaloneSpoke):
             new_layouts = ["us"]
 
         self.data.keyboard.x_layouts = new_layouts
-        if flags.can_touch_runtime_system("replace runtime X layouts"):
+        if flags.can_touch_runtime_system("replace runtime X layouts", touch_live=True):
             self._xklwrapper.replace_layouts(new_layouts)
 
         if len(new_layouts) >= 2 and not self.data.keyboard.switch_options:
             #initialize layout switching if needed
             self.data.keyboard.switch_options = ["grp:alt_shift_toggle"]
 
-            if flags.can_touch_runtime_system("init layout switching"):
+            if flags.can_touch_runtime_system("init layout switching", touch_live=True):
                 self._xklwrapper.set_switching_options(["grp:alt_shift_toggle"])
                 # activate the first (language-default) layout instead of the
                 # 'us' one

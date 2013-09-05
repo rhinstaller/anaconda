@@ -500,6 +500,32 @@ class XklWrapper(object):
         self._switching_options.append(name)
         self.switch_to_show_str[name] = desc.encode("utf-8")
 
+    def get_current_layout(self):
+        """
+        Get current activated X layout and variant
+
+        :return: current activated X layout and variant (e.g. "cz (qwerty)")
+
+        """
+        # ported from the widgets/src/LayoutIndicator.c code
+
+        self._engine.start_listen(Xkl.EngineListenModes.TRACK_KEYBOARD_STATE)
+        state = self._engine.get_current_state()
+        cur_group = state.group
+        num_groups = self._engine.get_num_groups()
+
+        # BUG?: if the last layout in the list is activated and removed,
+        #       state.group may be equal to n_groups
+        if cur_group >= num_groups:
+            cur_group = num_groups - 1;
+
+        layout = self._rec.layouts[cur_group]
+        variant = self._rec.variants[cur_group]
+
+        self._engine.stop_listen(Xkl.EngineListenModes.TRACK_KEYBOARD_STATE)
+
+        return _join_layout_variant(layout, variant)
+
     def get_available_layouts(self):
         """A generator yielding layouts (no need to store them as a bunch)"""
 
