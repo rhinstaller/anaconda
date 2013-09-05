@@ -257,6 +257,13 @@ update-desktop-database &> /dev/null || :
 
 %changelog
 * Wed Sep 04 2013 Brian C. Lane <bcl@redhat.com> - 19.31.13-1
+- Remove Closest mirrors if no mirrors (bcl)
+  Related: rhbz#876135
+- Fix fastestmirror plugin check (bcl)
+  Related: rhbz#876135
+- Optionally hide the GUI option to install updates (dshea)
+  Resolves: rhbz#999442
+- Move the really_hide and really_show functions to utils (vpodzime)
 
 * Wed Aug 28 2013 Samantha N. Bueno <sbueno+anaconda@redhat.com> - 19.31.12-1
 - Text network spoke: more strict ipv6 address input checking (rvykydal)
