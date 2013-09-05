@@ -402,12 +402,16 @@ class DatetimeSpoke(FirstbootSpokeMixIn, NormalSpoke):
             return _("Nothing selected")
 
     def apply(self):
-        old_tz = self.data.timezone.timezone
-
         # we could use self._tzmap.get_timezone() here, but it returns "" if
         # Etc/XXXXXX timezone is selected
         region = self._get_active_region()
         city = self._get_active_city()
+        # nothing selected, just leave the spoke and
+        # return to hub without changing anything
+        if not region or not city:
+            return
+
+        old_tz = self.data.timezone.timezone
         new_tz = region + "/" + city
 
         self.data.timezone.timezone = new_tz
@@ -697,8 +701,9 @@ class DatetimeSpoke(FirstbootSpokeMixIn, NormalSpoke):
 
     def _restore_old_city_region(self):
         """Restore stored "old" (or last valid) values."""
-
-        self._set_timezone(self._old_region + "/" + self._old_city)
+        # check if there are old values to go back to
+        if self._old_region and self._old_city:
+            self._set_timezone(self._old_region + "/" + self._old_city)
 
     def on_up_hours_clicked(self, *args):
         self._stop_and_maybe_start_time_updating()
