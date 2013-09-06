@@ -335,6 +335,8 @@ class Users:
                     else:
                         password = cryptPassword(kwargs["password"], algo=kwargs.get("algo", None))
                     self.admin.setpassUser(userEnt, password, True)
+                    userEnt.set(libuser.SHADOWLASTCHANGE, "")
+                    self.admin.modifyUser(userEnt)
                 elif pw == "":
                     # Setup the account with *NO* password
                     self.admin.unlockUser(userEnt)
@@ -410,6 +412,7 @@ class Users:
         if lock:
             self.admin.lockUser(user)
 
+        user.set(libuser.SHADOWLASTCHANGE, "")
         self.admin.modifyUser(user)
 
     def setRootPassword(self, password, isCrypted=False, isLocked=False, algo=None):
