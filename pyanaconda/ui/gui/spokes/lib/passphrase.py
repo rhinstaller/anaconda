@@ -83,7 +83,6 @@ class PassphraseDialog(GUIObject):
 
         if not self.passphrase:
             self._save_button.set_sensitive(False)
-            self._confirm_entry.set_sensitive(False)
 
         self._passphrase_entry.set_text(self.passphrase)
         self._confirm_entry.set_text(self.passphrase)
@@ -128,37 +127,27 @@ class PassphraseDialog(GUIObject):
 
     def on_passphrase_changed(self, entry):
         self._update_passphrase_strength()
-        if self._confirm_entry.get_text():
-            self._confirm_entry.set_text("")
+        if entry.get_text() and entry.get_text() == self._confirm_entry.get_text():
             self._set_entry_icon(self._confirm_entry, "", "")
+            self._save_button.set_sensitive(True)
+        else:
+            self._save_button.set_sensitive(False)
 
         if not self._pwq_error:
             self._set_entry_icon(entry, "", "")
 
-        self._save_button.set_sensitive(False)
-        self._confirm_entry.set_sensitive(False)
-
     def on_passphrase_editing_done(self, entry, *args):
-        sensitive = True
         if self._pwq_error:
             icon = "gtk-dialog-error"
             msg = _(ERROR_WEAK) % self._pwq_error
-            sensitive = False
             self._set_entry_icon(entry, icon, msg)
 
-        self._confirm_entry.set_sensitive(sensitive)
-        if sensitive:
-            self._confirm_entry.grab_focus()
-
-        return True
-
     def on_confirm_changed(self, entry):
-        if not self._save_button.get_sensitive() and \
-           entry.get_text() == self._passphrase_entry.get_text():
-            self._save_button.set_sensitive(True)
-            self._save_button.grab_focus()
-            self._save_button.grab_default()
+        if entry.get_text() and entry.get_text() == self._passphrase_entry.get_text():
             self._set_entry_icon(entry, "", "")
+            self._save_button.set_sensitive(True)
+        else:
+            self._save_button.set_sensitive(False)
 
     def on_confirm_editing_done(self, entry, *args):
         passphrase = self._passphrase_entry.get_text()
@@ -169,9 +158,12 @@ class PassphraseDialog(GUIObject):
             self._set_entry_icon(entry, icon, _(msg))
             self._save_button.set_sensitive(False)
         else:
-            self._save_button.grab_focus()
-            self._save_button.grab_default()
+            self._set_entry_icon(entry, "", "")
 
     def on_save_clicked(self, button):
         self.passphrase = self._passphrase_entry.get_text()
 
+    def on_entry_activated(self, entry):
+        if self._save_button.get_sensitive() and \
+           entry.get_text() == self._passphrase_entry.get_text():
+            self._save_button.emit("clicked")
