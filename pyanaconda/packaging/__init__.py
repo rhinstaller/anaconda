@@ -571,10 +571,16 @@ class Payload(object):
                 # XXX TODO: real error handling, as this is probably going to
                 #           prevent boot on some systems
 
-        if new_firmware:
-            self._recreateInitrds()
+    def recreateInitrds(self, force=False):
+        """ Recreate the initrds by calling new-kernel-pkg
 
-    def _recreateInitrds(self, force=False):
+            This needs to be done after all configuration files have been
+            written, since dracut depends on some of them.
+
+            :param force: Always recreate, default is to only do it on first call
+            :type force: bool
+            :returns: None
+        """
         if not force and self._createdInitrds:
             return
 
@@ -583,7 +589,7 @@ class Payload(object):
             if not flags.imageInstall:
                 iutil.execWithRedirect("new-kernel-pkg",
                                        ["--mkinitrd", "--dracut",
-                                        "--depmod", "--install", kernel],
+                                        "--depmod", "--update", kernel],
                                        root=ROOT_PATH)
             else:
                 # hostonly is not sensible for disk image installations
