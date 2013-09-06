@@ -255,6 +255,26 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Fri Sep 06 2013 Brian C. Lane <bcl@redhat.com> - 20.12-1
+- Cleanup arch tests (dshea)
+- Rearranged the automake tests. (dshea)
+- Update po/ build files to the current gettext (dshea)
+- Use libtool with gtkdoc-scanobj (dshea)
+- Use autoconf to set the spec file Version. (dshea)
+- Use the ustar format with make dist (dshea)
+- Fix widgets autotools generation. (dshea)
+- Require gtk-doc and GObject. (dshea)
+- dracut no longer auto assembles everything (#960496) (bcl)
+- Only ignore missing packages entries (#983316) (bcl)
+- Fix a string that was modified before translation (#1004960) (dshea)
+- Let users configure keyboard via anaconda in live installations (#1002533)
+  (vpodzime)
+- Use copy instead of move for NTP configuration (#985566) (hdegoede)
+- Share code between the Welcome and Langsupport spokes (vpodzime)
+- Do not try to set None as hostname (#1002737) (vpodzime)
+- Fix crash on LiveCD if network is configured before installing (#1002373)
+  (rvykydal)
+
 * Thu Sep 05 2013 Brian C. Lane <bcl@redhat.com> - 20.11-1
 - Add more details to iso device selector (#971290) (bcl)
 - Warn user if they enter a weak password in TUI. (#1001039) (sbueno+anaconda)
