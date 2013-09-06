@@ -52,12 +52,12 @@ def _writeKS(ksdata):
 def doConfiguration(storage, payload, ksdata, instClass):
     from pyanaconda.kickstart import runPostScripts
 
-    step_count = 5
+    step_count = 6
     # if a realm was discovered,
     # increment the counter as the
     # real joining step will be executed
     if ksdata.realm.discovered:
-        step_count = 6
+        step_count += 1
     progressQ.send_init(step_count)
 
     # Now run the execute methods of ksdata that require an installed system
@@ -88,6 +88,9 @@ def doConfiguration(storage, payload, ksdata, instClass):
     with progress_report(_("Configuring addons")):
         ksdata.addons.execute(storage, ksdata, instClass, u)
         ksdata.configured_spokes.execute(storage, ksdata, instClass, u)
+
+    with progress_report(_("Generating initramfs")):
+        payload.recreateInitrds(force=True)
 
     if ksdata.realm.discovered:
         with progress_report(_("Joining realm: %s") % ksdata.realm.discovered):

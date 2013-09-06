@@ -147,7 +147,6 @@ class LiveImagePayload(ImagePayload):
         blivet.util.umount(INSTALL_TREE)
 
         super(LiveImagePayload, self).postInstall()
-        self._recreateInitrds()
 
     @property
     def spaceRequired(self):
