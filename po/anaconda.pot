@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: anaconda 19.31.12\n"
+"Project-Id-Version: anaconda 19.31.13\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
-"POT-Creation-Date: 2013-09-04 17:22-0700\n"
+"POT-Creation-Date: 2013-09-05 17:46-0700\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -294,7 +294,7 @@ msgstr ""
 msgid "%s is missing. Cannot setup firewall."
 msgstr ""
 
-#: pyanaconda/kickstart.py:1652
+#: pyanaconda/kickstart.py:1653
 msgid "Running pre-installation scripts"
 msgstr ""
 
@@ -1004,7 +1004,6 @@ msgstr ""
 #: pyanaconda/ui/tui/spokes/software.py:98
 #: pyanaconda/ui/gui/spokes/datetime_spoke.py:405
 #: pyanaconda/ui/gui/spokes/software.py:180
-#: pyanaconda/ui/gui/spokes/source.py:466
 #: pyanaconda/ui/gui/spokes/source.py:502
 msgid "Nothing selected"
 msgstr ""
@@ -1132,18 +1131,18 @@ msgstr ""
 msgid "%s (confirm): "
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/__init__.py:121
+#: pyanaconda/ui/tui/spokes/__init__.py:124
 #, python-format
 msgid "You have provided a weak password: %s. "
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/__init__.py:122
+#: pyanaconda/ui/tui/spokes/__init__.py:125
 msgid ""
 "\n"
 "Would you like to use it anyway?"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/__init__.py:131
+#: pyanaconda/ui/tui/spokes/__init__.py:134
 #, python-format
 msgid "Enter new value for '%s' and press enter\n"
 msgstr ""
@@ -1764,87 +1763,87 @@ msgstr ""
 msgid "Vlan %(interface_name)s (%(parent_device)s, ID %(vlanid)s) connected"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/password.py:47
+#: pyanaconda/ui/gui/spokes/password.py:45
 msgid "_ROOT PASSWORD"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/password.py:64
-#: pyanaconda/ui/gui/spokes/password.py:65
+#: pyanaconda/ui/gui/spokes/password.py:62
+#: pyanaconda/ui/gui/spokes/password.py:63
 msgid "The password is set."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/password.py:81
+#: pyanaconda/ui/gui/spokes/password.py:75
 msgid "Error setting root password"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/password.py:83
+#: pyanaconda/ui/gui/spokes/password.py:77
 msgid "Root password is set"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/password.py:85
+#: pyanaconda/ui/gui/spokes/password.py:79
 msgid "Root account is disabled"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/password.py:87
+#: pyanaconda/ui/gui/spokes/password.py:81
 msgid "Root password is not set"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/password.py:127
+#: pyanaconda/ui/gui/spokes/password.py:121
 #: pyanaconda/ui/gui/spokes/user.py:352
 #: pyanaconda/ui/gui/spokes/lib/passphrase.py:102
 #: pyanaconda/ui/gui/spokes/lib/passphrase.glade:173
 msgid "Weak"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/password.py:128
+#: pyanaconda/ui/gui/spokes/password.py:122
 #: pyanaconda/ui/gui/spokes/user.py:353
 msgid "The password you have provided is weak"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/password.py:133
+#: pyanaconda/ui/gui/spokes/password.py:127
 #: pyanaconda/ui/gui/spokes/user.py:358
 msgid "You will have to press Done twice to confirm it."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/password.py:136
+#: pyanaconda/ui/gui/spokes/password.py:130
 #: pyanaconda/ui/gui/spokes/user.py:361
 #: pyanaconda/ui/gui/spokes/lib/passphrase.py:105
 msgid "Fair"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/password.py:140
+#: pyanaconda/ui/gui/spokes/password.py:134
 #: pyanaconda/ui/gui/spokes/user.py:365
 #: pyanaconda/ui/gui/spokes/lib/passphrase.py:108
 msgid "Good"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/password.py:144
+#: pyanaconda/ui/gui/spokes/password.py:138
 #: pyanaconda/ui/gui/spokes/user.py:369
 #: pyanaconda/ui/gui/spokes/lib/passphrase.py:111
 msgid "Strong"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/password.py:149
+#: pyanaconda/ui/gui/spokes/password.py:143
 #: pyanaconda/ui/gui/spokes/user.py:374
 msgid "Empty"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/password.py:150
+#: pyanaconda/ui/gui/spokes/password.py:144
 #: pyanaconda/ui/gui/spokes/user.py:375
 msgid "The password is empty."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/password.py:152
+#: pyanaconda/ui/gui/spokes/password.py:146
 #: pyanaconda/ui/gui/spokes/user.py:377
 msgid "The passwords do not match."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/password.py:177
+#: pyanaconda/ui/gui/spokes/password.py:171
 #: pyanaconda/ui/gui/spokes/user.py:411
 msgid "You must provide and confirm a password."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/password.py:187
+#: pyanaconda/ui/gui/spokes/password.py:181
 #: pyanaconda/ui/gui/spokes/user.py:421
 #, python-format
 msgid "You have provided a weak password: %s.  Press Done again to use anyway."

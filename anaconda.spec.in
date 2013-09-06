@@ -256,6 +256,20 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Thu Sep 05 2013 Brian C. Lane <bcl@redhat.com> - 19.31.14-1
+- Add more details to iso device selector (bcl)
+  Resolves: rhbz#971290
+- Warn user if they enter a weak password in TUI. (sbueno+anaconda)
+  Resolves: rhbz#1001039
+- Don't mark spoke as completed if no repo is set. (sbueno+anaconda)
+  Resolves: rhbz#1001538
+- Run firstboot-only spokes on first boot by default (vpodzime)
+  Related: rhbz#1000409
+- Let hubs specify which environments they support (vpodzime)
+  Related: rhbz#1000409
+- Don't enable chronyd if disabled in kickstart (mkolman)
+  Resolves: rhbz#1002583
+
 * Wed Sep 04 2013 Brian C. Lane <bcl@redhat.com> - 19.31.13-1
 - Remove Closest mirrors if no mirrors (bcl)
   Related: rhbz#876135
