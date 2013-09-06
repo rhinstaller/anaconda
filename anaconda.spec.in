@@ -255,6 +255,24 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Thu Sep 05 2013 Brian C. Lane <bcl@redhat.com> - 20.11-1
+- Add more details to iso device selector (#971290) (bcl)
+- Warn user if they enter a weak password in TUI. (#1001039) (sbueno+anaconda)
+- Don't mark spoke as completed if no repo is set. (#1001538) (sbueno+anaconda)
+- Don't enable chronyd if disabled in kickstart (#1002583) (mkolman)
+- Run firstboot-only spokes on first boot by default (vpodzime)
+- Let hubs specify which environments they support (vpodzime)
+- Don't mount cdroms that contain no mountable media. (#1000889) (dlehman)
+- Don't try to parse langcode if none given (vpodzime)
+- Get rid of the non-deterministic expand_langs and its usage (vpodzime)
+- Rework the Langsupport spoke to work with all locales (vpodzime)
+- Rework the Welcome spoke to allow users choose from all locales (vpodzime)
+- Improve import in GUI utils a bit (vpodzime)
+- Remove the cryptic "language-default keyboard" checkbutton (vpodzime)
+- Allow seting up locale without modifying ksdata (vpodzime)
+- Remove an unused argument of get_available_translations (vpodzime)
+- Setup language early to a value we can figure out (vpodzime)
+
 * Tue Sep 03 2013 Brian C. Lane <bcl@redhat.com> - 20.10-1
 - Optionally hide the GUI option to install updates (dshea)
 - Move the really_hide and really_show functions to utils (vpodzime)
