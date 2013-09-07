@@ -38,6 +38,31 @@ AC_PROG_LN_S
 AC_PROG_MAKE_SET
 AC_PROG_LIBTOOL
 
+# Check for the intltool programs
+# These checks and subsitutions are adapted IT_PROG_INTLTOOL provided in
+# intltool.m4, but without the parts where it breaks gettext.
+AC_PATH_PROG([INTLTOOL_EXTRACT], [intltool-extract])
+AC_PATH_PROG([INTLTOOL_MERGE], [intltool-merge])
+AS_IF([test -z "$INTLTOOL_EXTRACT" -o -z "$INTLTOOL_MERGE"],
+      [AC_MSG_ERROR([*** intltool not found])])
+
+# Add the bits for Makefile rules
+INTLTOOL_V_MERGE='$(INTLTOOL__v_MERGE_$(V))'
+INTLTOOL__v_MERGE_='$(INTLTOOL__v_MERGE_$(AM_DEFAULT_VERBOSITY))'
+INTLTOOL__v_MERGE_0='@echo "  ITMRG " $@;'
+INTLTOOL_V_MERGE_OPTIONS='$(intltool__v_merge_options_$(V))'
+intltool__v_merge_options_='$(intltool__v_merge_options_$(AM_DEFAULT_VERBOSITY))'
+intltool__v_merge_options_0='-q'
+AC_SUBST(INTLTOOL_V_MERGE)
+AC_SUBST(INTLTOOL__v_MERGE_)
+AC_SUBST(INTLTOOL__v_MERGE_0)
+AC_SUBST(INTLTOOL_V_MERGE_OPTIONS)
+AC_SUBST(intltool__v_merge_options_)
+AC_SUBST(intltool__v_merge_options_0)
+
+INTLTOOL_DESKTOP_RULE='%.desktop:  %.desktop.in  $(INTLTOOL_MERGE) $(wildcard $(top_srcdir)/po/*.po) ; $(INTLTOOL_V_MERGE)LC_ALL=C $(INTLTOOL_MERGE) $(INTLTOOL_V_MERGE_OPTIONS) -d -u -c $(top_builddir)/po/.intltool-merge-cache $(top_srcdir)/po $< $@'
+AC_SUBST(INTLTOOL_DESKTOP_RULE)
+
 AM_GNU_GETTEXT([external])
 
 # Checks for libraries.

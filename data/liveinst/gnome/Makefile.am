@@ -27,9 +27,4 @@ CLEANFILES = fedora-welcome.desktop
 
 MAINTAINERCLEANFILES = Makefile.in
 
-intltool_merge_verbose = $(intltool_merge_verbose_$(V))
-intltool_merge_verbose_ = $(intltool_merge_verbose_$(AM_DEFAULT_VERBOSITY))
-intltool_merge_verbose_0 = @echo "  MERGE  "$@;
-
-fedora-welcome.desktop: fedora-welcome.desktop.in
-	$(intltool_merge_verbose)LC_ALL=C intltool-merge -q -d -u $(top_srcdir)/po fedora-welcome.desktop.in fedora-welcome.desktop
+@INTLTOOL_DESKTOP_RULE@
