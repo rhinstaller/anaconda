@@ -35,12 +35,7 @@ CLEANFILES = liveinst.desktop *.h
 
 MAINTAINERCLEANFILES = Makefile.in
 
-intltool_merge_verbose = $(intltool_merge_verbose_$(V))
-intltool_merge_verbose_ = $(intltool_merge_verbose_$(AM_DEFAULT_VERBOSITY))
-intltool_merge_verbose_0 = @echo "  MERGE  "$@;
-
-liveinst.desktop: liveinst.desktop.in
-	$(intltool_merge_verbose)LC_ALL=C intltool-merge -q -d -u $(top_srcdir)/po liveinst.desktop.in liveinst.desktop
+@INTLTOOL_DESKTOP_RULE@
 
 install-exec-local:
 	mkdir -p $(DESTDIR)$(bindir)
