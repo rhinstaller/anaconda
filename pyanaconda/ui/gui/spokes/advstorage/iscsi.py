@@ -331,7 +331,7 @@ class ISCSIDialog(GUIObject):
 
     def _login(self, credentials):
         for row in self._store:
-            obj = NodeStoreRow._make(row)
+            obj = NodeStoreRow(*row)
 
             if not obj.selected:
                 continue

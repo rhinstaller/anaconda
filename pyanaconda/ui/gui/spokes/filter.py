@@ -202,7 +202,7 @@ class SearchPage(FilterPage):
             return hasattr(device, "fcp_lun") and self._lunEntry.get_text() in device.fcp_lun
 
     def visible_func(self, model, itr, *args):
-        obj = DiskStoreRow._make(model[itr])
+        obj = DiskStoreRow(*model[itr])
         device = self.storage.devicetree.getDeviceByName(obj.name, hidden=True)
         return self._filter_func(device)
 
@@ -269,7 +269,7 @@ class MultipathPage(FilterPage):
         if not flags.mpath:
             return False
 
-        obj = DiskStoreRow._make(model[itr])
+        obj = DiskStoreRow(*model[itr])
         device = self.storage.devicetree.getDeviceByName(obj.name, hidden=True)
         return self.ismember(device) and self._filter_func(device)
 
@@ -356,7 +356,7 @@ class OtherPage(FilterPage):
             return False
 
     def visible_func(self, model, itr, *args):
-        obj = DiskStoreRow._make(model[itr])
+        obj = DiskStoreRow(*model[itr])
         device = self.storage.devicetree.getDeviceByName(obj.name, hidden=True)
         return self.ismember(device) and self._filter_func(device)
 
@@ -373,7 +373,7 @@ class RaidPage(FilterPage):
         if not flags.dmraid:
             return False
 
-        obj = DiskStoreRow._make(model[itr])
+        obj = DiskStoreRow(*model[itr])
         device = self.storage.devicetree.getDeviceByName(obj.name, hidden=True)
         return self.ismember(device)
 
@@ -393,7 +393,7 @@ class ZPage(FilterPage):
             return
 
     def visible_func(self, model, itr, *args):
-        obj = DiskStoreRow._make(model[itr])
+        obj = DiskStoreRow(*model[itr])
         device = self.storage.devicetree.getDeviceByName(obj.name, hidden=True)
         return self.ismember(device)
 
