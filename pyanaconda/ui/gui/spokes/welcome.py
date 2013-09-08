@@ -54,6 +54,7 @@ class WelcomeLanguageSpoke(LangLocaleHandler, StandaloneSpoke):
 
     def __init__(self, *args, **kwargs):
         StandaloneSpoke.__init__(self, *args, **kwargs)
+        LangLocaleHandler.__init__(self, *args, **kwargs)
         self._xklwrapper = keyboard.XklWrapper.get_instance()
         self._origStrings = {}
 
@@ -246,7 +247,7 @@ class WelcomeLanguageSpoke(LangLocaleHandler, StandaloneSpoke):
         LangLocaleHandler.on_lang_selection_changed(self, selection)
 
         if not selected and hasattr(self.window, "set_may_continue"):
-                self.window.set_may_continue(False)
+            self.window.set_may_continue(False)
 
     def on_locale_selection_changed(self, selection):
         (store, selected) = selection.get_selected_rows()
