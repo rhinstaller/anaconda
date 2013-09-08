@@ -55,7 +55,7 @@ class GroupParseTestCase(unittest.TestCase):
                 self.assertEqual(GROUPLIST_FANCY_PARSE.match(group).groups(), result)
             except AssertionError as error:
                 got_error = True
-                print(error)
+                print("Group parse error: `%s' did not not parse as `%s'" % (group, result))
 
         if got_error:
             self.fail()

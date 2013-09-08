@@ -31,14 +31,14 @@ class UsernameRegexTestCase(unittest.TestCase):
                 self.assertIsNotNone(expression.match(good))
             except AssertionError as error:
                 got_error = True
-                print(error)
+                print("Good string %s did not match expression" % good)
 
         for bad in badlist:
             try:
                 self.assertIsNone(expression.match(bad))
             except AssertionError as error:
                 got_error = True
-                print(error)
+                print("Bad string %s matched expression" % bad)
 
         if got_error:
             self.fail()

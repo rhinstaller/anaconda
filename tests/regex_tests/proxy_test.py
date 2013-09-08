@@ -20,7 +20,7 @@
 
 import unittest
 
-from pyanaconda.regexes import PROXY_URL
+from pyanaconda.regexes import PROXY_URL_PARSE
 
 class ProxyRegexTestCase(unittest.TestCase):
     def proxy_regex_test(self):
@@ -110,10 +110,10 @@ class ProxyRegexTestCase(unittest.TestCase):
         got_error = False
         for proxy, result in tests:
             try:
-                self.assertEqual(PROXY_URL.match(proxy).groups(), result)
+                self.assertEqual(PROXY_URL_PARSE.match(proxy).groups(), result)
             except AssertionError as error:
                 got_error = True
-                print error
+                print("Proxy parse error: `%s' did not parse as `%s'" % (proxy, result))
 
         if got_error:
             self.fail()

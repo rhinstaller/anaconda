@@ -30,7 +30,7 @@
 #
 # nosetests will be run for any python files found in a directory matching *_tests
 
-AM_TESTS_ENVIRONMENT = PYTHONPATH='$(abs_top_builddir)'/pyanaconda/isys/.libs:'$(abs_top_srcdir)'/pyanaconda/isys:'$(abs_top_srcdir)'/pyanaconda:'$(abs_top_srcdir)'; top_srcdir='$(abs_top_srcdir)'; top_builddir='$(abs_top_builddir)'; export PYTHONPATH; export top_srcdir; export top_builddir;
+AM_TESTS_ENVIRONMENT = top_srcdir="$(top_srcdir)" top_builddir="$(top_builddir)" ; . $(srcdir)/testenv.sh ;
 TEST_EXTENSIONS = .sh
 
 dist_check_DATA = pylint/pylint-false-positives
@@ -40,6 +40,7 @@ dist_check_SCRIPTS = accelerators/check_accelerators.py \
 		     accelerators/run_check_accelerators.sh \
 		     nosetests.sh \
 		     pylint/runpylint.sh \
+		     testenv.sh \
 		     $(srcdir)/*_tests/*.py
 
 TESTS = nosetests.sh \

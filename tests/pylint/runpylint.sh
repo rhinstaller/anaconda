@@ -16,7 +16,12 @@ if [ -z "$top_srcdir" ]; then
 fi
 
 : "${top_srcdir:=$(dirname "$0")/../..}"
-: "${srcdir:=${top_srcdir}/tests/pylint}"
+srcdir="${top_srcdir}/tests/pylint"
+
+# If no PYTHONPATH is set, import the test environment
+if [ -z "$PYTHONPATH" ]; then
+    . ${top_srcdir}/tests/testenv.sh
+fi
 
 FALSE_POSITIVES="${srcdir}"/pylint-false-positives
 
