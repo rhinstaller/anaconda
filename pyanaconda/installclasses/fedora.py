@@ -66,7 +66,7 @@ class InstallClass(BaseInstallClass):
                 dev = network.NetworkDevice(ROOT_PATH + network.netscriptsDir, devName)
                 try:
                     dev.loadIfcfgFile()
-                except IOError as e:
+                except IOError:
                     continue
                 dev.set(('ONBOOT', 'yes'))
                 dev.writeIfcfgFile()

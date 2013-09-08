@@ -43,7 +43,7 @@ from pyanaconda.ui.gui.utils import gtk_call_once, enlightbox
 from pyanaconda.ui.common import FirstbootSpokeMixIn
 
 from pyanaconda import network
-from pyanaconda.nm import nm_activated_devices, nm_device_setting_value, nm_dbus_ay_to_ipv6
+from pyanaconda.nm import nm_device_setting_value, nm_dbus_ay_to_ipv6
 
 from gi.repository import GLib, GObject, Pango, Gio, NetworkManager, NMClient
 import dbus

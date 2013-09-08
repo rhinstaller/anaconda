@@ -517,7 +517,7 @@ class XklWrapper(object):
         # BUG?: if the last layout in the list is activated and removed,
         #       state.group may be equal to n_groups
         if cur_group >= num_groups:
-            cur_group = num_groups - 1;
+            cur_group = num_groups - 1
 
         layout = self._rec.layouts[cur_group]
         variant = self._rec.variants[cur_group]

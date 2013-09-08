@@ -20,14 +20,12 @@
 #                    Vratislav Podzimek <vpodzime@redhat.com>
 #
 
-from gi.repository import Gtk, Pango
+from gi.repository import Pango
 from pyanaconda.flags import flags
 from pyanaconda.i18n import N_
-from pyanaconda.iutil import strip_accents
 from pyanaconda.ui.gui.spokes import NormalSpoke
 from pyanaconda.ui.gui.categories.localization import LocalizationCategory
 from pyanaconda.ui.gui.spokes.lib.lang_locale_handler import LangLocaleHandler
-from pyanaconda.ui.gui.utils import set_treeview_selection
 from pyanaconda import localization
 
 import re

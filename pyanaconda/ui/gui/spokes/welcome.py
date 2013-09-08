@@ -24,10 +24,9 @@ import sys
 import re
 import langtable
 
-from gi.repository import Gtk, Pango
 from pyanaconda.ui.gui.hubs.summary import SummaryHub
 from pyanaconda.ui.gui.spokes import StandaloneSpoke
-from pyanaconda.ui.gui.utils import enlightbox, set_treeview_selection
+from pyanaconda.ui.gui.utils import enlightbox
 from pyanaconda.ui.gui.spokes.lib.lang_locale_handler import LangLocaleHandler
 
 from pyanaconda import localization
@@ -36,7 +35,7 @@ from pyanaconda import keyboard
 from pyanaconda import flags
 from pyanaconda import geoloc
 from pyanaconda.i18n import _
-from pyanaconda.iutil import is_unsupported_hw, strip_accents
+from pyanaconda.iutil import is_unsupported_hw
 from pyanaconda.constants import DEFAULT_LANG
 
 import logging
@@ -150,7 +149,7 @@ class WelcomeLanguageSpoke(LangLocaleHandler, StandaloneSpoke):
         self._languageEntry = self.builder.get_object("languageEntry")
         self._langSelection = self.builder.get_object("languageViewSelection")
         self._langSelectedRenderer = self.builder.get_object("langSelectedRenderer")
-        self._langSelectedColumn = self.builder.get_object("langSelectedColumn");
+        self._langSelectedColumn = self.builder.get_object("langSelectedColumn")
         self._langView = self.builder.get_object("languageView")
         self._localeView = self.builder.get_object("localeView")
         self._localeStore = self.builder.get_object("localeStore")
@@ -243,7 +242,7 @@ class WelcomeLanguageSpoke(LangLocaleHandler, StandaloneSpoke):
 
     # Signal handlers.
     def on_lang_selection_changed(self, selection):
-        (store, selected) = selection.get_selected_rows()
+        (_store, selected) = selection.get_selected_rows()
         LangLocaleHandler.on_lang_selection_changed(self, selection)
 
         if not selected and hasattr(self.window, "set_may_continue"):

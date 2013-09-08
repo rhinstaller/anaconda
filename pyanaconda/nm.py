@@ -277,8 +277,6 @@ def nm_device_ip_config(name, version=4):
        UnknownDeviceError if device is not found
        PropertyNotFoundError if ip configuration is not found
     """
-    retval = []
-
     state = nm_device_property(name, "State")
     if state != NetworkManager.DeviceState.ACTIVATED:
         return []
