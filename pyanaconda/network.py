@@ -433,7 +433,7 @@ def get_ks_network_data(devname, ifcfg_suffix=None):
     try:
         device_cfg.loadIfcfgFile()
     except IOError as e:
-        log.debug("get_ks_network_data %s: %s" % (ifcfg_suffix, e))
+        log.debug("get_ks_network_data %s: %s", ifcfg_suffix, e)
         return None
     retval = kickstartNetworkData(ifcfg=device_cfg)
     if retval and devname in nm.nm_activated_devices():

@@ -1230,7 +1230,7 @@ reposdir=%s
             # check dependencies
             log.info("checking dependencies")
             (code, msgs) = self._yum.buildTransaction(unfinished_transactions_check=False)
-            log.debug("buildTransaction = (%s, %s)" % (code, msgs))
+            log.debug("buildTransaction = (%s, %s)", code, msgs)
             self._removeTxSaveFile()
             if code == 0:
                 # empty transaction?
