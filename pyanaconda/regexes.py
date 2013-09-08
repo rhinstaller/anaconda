@@ -41,7 +41,7 @@ GECOS_VALID = re.compile(r'^[^:]*$')
 # both for a maximum total of 32. The empty string is not allowed.
 
 # a base expression without anchors, helpful for building other expressions
-_USERNAME_BASE = r'[a-zA-Z0-9._](a-zA-Z0-9._-]{,30}\$|[a-zA-Z0-9._-]{,31})'
+_USERNAME_BASE = r'[a-zA-Z0-9._](([a-zA-Z0-9._-]{,30}\$)|([a-zA-Z0-9._-]{,31}))'
 
 USERNAME_VALID = re.compile(r'^' + _USERNAME_BASE + '$')
 GROUPNAME_VALID = USERNAME_VALID
