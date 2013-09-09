@@ -459,7 +459,6 @@ def startSsh():
     if not fork_orphan():
         os.open("/var/log/lastlog", os.O_RDWR | os.O_CREAT, 0644)
         ssh_keys = {
-            'rsa1':'ssh_host_key',
             'rsa':'ssh_host_rsa_key',
             'dsa':'ssh_host_dsa_key',
             }

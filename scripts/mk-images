@@ -475,10 +475,6 @@ EOF
         # key generation takes ages on s390, you really don't want this
         # for every installation attempt. These are NOT the keys of the
         # installed system!
-        echo -n "Generating SSH1 RSA host key: "
-        /usr/bin/ssh-keygen -q -t rsa1 -f $MBD_DIR/etc/ssh/ssh_host_key \
-                            -C '' -N '' >&/dev/null
-        echo
         echo -n "Generating SSH2 RSA host key: "
         /usr/bin/ssh-keygen -q -t rsa -f $MBD_DIR/etc/ssh/ssh_host_rsa_key \
                             -C '' -N '' >&/dev/null
@@ -494,7 +490,6 @@ EOF
 
     cat > $MBD_DIR/etc/ssh/sshd_config.anaconda <<EOF
 Port 22
-HostKey /etc/ssh/ssh_host_key
 HostKey /etc/ssh/ssh_host_rsa_key
 HostKey /etc/ssh/ssh_host_dsa_key
 PermitRootLogin yes
