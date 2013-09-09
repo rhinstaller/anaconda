@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: anaconda 20.11\n"
+"Project-Id-Version: anaconda 20.12\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
-"POT-Creation-Date: 2013-09-06 15:09-0700\n"
+"POT-Creation-Date: 2013-09-09 16:44-0700\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -198,34 +198,38 @@ msgstr ""
 msgid "Configuring addons"
 msgstr ""
 
-#: pyanaconda/install.py:93
+#: pyanaconda/install.py:92
+msgid "Generating initramfs"
+msgstr ""
+
+#: pyanaconda/install.py:96
 #, python-format
 msgid "Joining realm: %s"
 msgstr ""
 
-#: pyanaconda/install.py:96
+#: pyanaconda/install.py:99
 msgid "Running post-installation scripts"
 msgstr ""
 
-#: pyanaconda/install.py:126
+#: pyanaconda/install.py:129
 #, python-format
 msgid "Waiting for %s threads to finish"
 msgstr ""
 
-#: pyanaconda/install.py:130
+#: pyanaconda/install.py:133
 msgid "Setting up the installation environment"
 msgstr ""
 
-#: pyanaconda/install.py:147
+#: pyanaconda/install.py:150
 msgid "Discovering realm to join"
 msgstr ""
 
-#: pyanaconda/install.py:163 pyanaconda/packaging/livepayload.py:146
+#: pyanaconda/install.py:166 pyanaconda/packaging/livepayload.py:146
 #: pyanaconda/packaging/yumpayload.py:1374
 msgid "Performing post-installation setup tasks"
 msgstr ""
 
-#: pyanaconda/install.py:168
+#: pyanaconda/install.py:171
 msgid "Installing bootloader"
 msgstr ""
 
@@ -496,13 +500,13 @@ msgstr ""
 msgid "Installing software"
 msgstr ""
 
-#: pyanaconda/packaging/livepayload.py:193
-#: pyanaconda/packaging/livepayload.py:202
+#: pyanaconda/packaging/livepayload.py:192
+#: pyanaconda/packaging/livepayload.py:201
 #, python-format
 msgid "Downloading %(url)s (%(pct)d%%)"
 msgstr ""
 
-#: pyanaconda/packaging/livepayload.py:289
+#: pyanaconda/packaging/livepayload.py:288
 msgid "Checking image checksum"
 msgstr ""
 
@@ -1547,11 +1551,11 @@ msgstr ""
 msgid "Invalid timezone"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/datetime_spoke.py:897
+#: pyanaconda/ui/gui/spokes/datetime_spoke.py:902
 msgid "You need to set up networking first if you want to use NTP"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/datetime_spoke.py:902
+#: pyanaconda/ui/gui/spokes/datetime_spoke.py:907
 msgid "You have no working NTP server configured"
 msgstr ""
 
@@ -1576,7 +1580,7 @@ msgstr ""
 msgid "Layout switching not configured."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/langsupport.py:48
+#: pyanaconda/ui/gui/spokes/langsupport.py:46
 msgid "_LANGUAGE SUPPORT"
 msgstr ""
 

@@ -255,6 +255,20 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Mon Sep 09 2013 Brian C. Lane <bcl@redhat.com> - 20.13-1
+- Fix handling of flexible specs in onpart for member devices. (#1004885)
+  (dlehman)
+- Always regenerate initramfs (#994180) (bcl)
+- Avoid the use of NamedTuple._make (dshea)
+- Add superclass __init__()s and fix an indent (dshea)
+- Pass logging string format variables as parameters (dshea)
+- Remove unnecessary variables, imports, semicolons (dshea)
+- Fix the user/group name regex (dshea)
+- Fix problems with the test scripts (dshea)
+- Handle kickstarts that don't specify timezone (#1001598) (mkolman)
+- Don't set "date of last password change" /etc/shadow field (#985572)
+  (hdegoede)
+
 * Fri Sep 06 2013 Brian C. Lane <bcl@redhat.com> - 20.12-1
 - Cleanup arch tests (dshea)
 - Rearranged the automake tests. (dshea)
