@@ -44,7 +44,7 @@ from pyanaconda.ui.gui.utils import gtk_call_once, enlightbox
 from pyanaconda.ui.common import FirstbootSpokeMixIn
 
 from pyanaconda import network
-from pyanaconda.nm import nm_activated_devices, nm_device_setting_value, nm_dbus_ay_to_ipv6
+from pyanaconda.nm import nm_device_setting_value, nm_device_ip_config
 
 # pylint: disable-msg=E0611
 from gi.repository import GLib, GObject, Pango, Gio, NetworkManager, NMClient
@@ -708,12 +708,9 @@ class NetworkControlBox(object):
         self._refresh_parent_vlanid(device)
         self._refresh_speed_hwaddr(device, state)
         self._refresh_ap(device, state)
-        self._refresh_device_cfg(device, state)
+        self._refresh_device_cfg(device)
 
-    def _refresh_device_cfg(self, device, state):
-
-        if state is None:
-            state = device.get_state()
+    def _refresh_device_cfg(self, device):
 
         dev_type = device.get_device_type()
         if dev_type == NetworkManager.DeviceType.ETHERNET:
@@ -725,45 +722,28 @@ class NetworkControlBox(object):
         elif dev_type == NetworkManager.DeviceType.VLAN:
             dt = "wired"
 
-        if state == NetworkManager.DeviceState.ACTIVATED:
-            ipv4cfg = device.get_ip4_config()
-            ipv6cfg = device.get_ip6_config()
-        else:
-            ipv4cfg = None
-            ipv6cfg = None
+        ipv4cfg = nm_device_ip_config(device.get_iface(), version=4)
+        ipv6cfg = nm_device_ip_config(device.get_iface(), version=6)
 
-        if ipv4cfg:
-            addr = socket.inet_ntoa(struct.pack('=L',
-                                                ipv4cfg.get_addresses()[0].get_address()))
-            self._set_device_info_value(dt, "ipv4", addr)
-            dnss = " ".join(socket.inet_ntoa(struct.pack('=L', addr))
-                             for addr in ipv4cfg.get_nameservers())
-            self._set_device_info_value(dt, "dns", dnss)
-            gateway = socket.inet_ntoa(struct.pack('=L',
-                                                   ipv4cfg.get_addresses()[0].get_gateway()))
-            self._set_device_info_value(dt, "route", gateway)
-            if dt == "wired":
-                prefix = ipv4cfg.get_addresses()[0].get_prefix()
-                nm_utils.nm_utils_ip4_prefix_to_netmask.argtypes = [ctypes.c_uint32]
-                nm_utils.nm_utils_ip4_prefix_to_netmask.restype = ctypes.c_uint32
-                netmask = nm_utils.nm_utils_ip4_prefix_to_netmask(prefix)
-                netmask = socket.inet_ntoa(struct.pack('=L', netmask))
-                self._set_device_info_value(dt, "subnet", netmask)
+        if ipv4cfg and ipv4cfg[0]:
+            addr_str, prefix, gateway_str = ipv4cfg[0][0]
+            netmask_str = network.prefix2netmask(prefix)
+            dnss_str = " ".join(ipv4cfg[1])
         else:
-            self._set_device_info_value(dt, "ipv4", None)
-            self._set_device_info_value(dt, "dns", None)
-            self._set_device_info_value(dt, "route", None)
-            if dt == "wired":
-                self._set_device_info_value(dt, "subnet", None)
+            addr_str = dnss_str = gateway_str = netmask_str = None
+        self._set_device_info_value(dt, "ipv4", addr_str)
+        self._set_device_info_value(dt, "dns", dnss_str)
+        self._set_device_info_value(dt, "route", gateway_str)
+        if dt == "wired":
+            self._set_device_info_value(dt, "subnet", netmask_str)
 
-        # TODO NM_GI_BUGS - segfaults on get_addres(), get_prefix()
         addr6_str = ""
-        if ipv6cfg:
-            config = dbus.SystemBus().get_object(NM_SERVICE, ipv6cfg.get_path())
-            for addr, _prefix, _gw in getNMObjProperty(config, ".IP6Config", "Addresses"):
-                ipv6_addr = nm_dbus_ay_to_ipv6(addr)
-                if not ipv6_addr.startswith("fe80:"):
-                    addr6_str += "%s\n" % ipv6_addr
+        if ipv6cfg and ipv6cfg[0]:
+            for ipv6addr in ipv6cfg[0]:
+                addr_str, prefix, gateway_str = ipv6addr
+                # Do not display link-local addresses
+                if not addr_str.startswith("fe80:"):
+                    addr6_str += "%s/%d\n" % (addr_str, prefix)
 
         self._set_device_info_value(dt, "ipv6", addr6_str.strip() or None)
 
