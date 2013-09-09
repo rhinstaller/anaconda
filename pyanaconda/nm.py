@@ -73,10 +73,27 @@ def _get_proxy(bus_type=Gio.BusType.SYSTEM,
                                            cancellable)
     return proxy
 
+def _get_property(object_path, prop, interface_name_suffix=""):
+    interface_name = "org.freedesktop.NetworkManager" + interface_name_suffix
+    proxy = _get_proxy(object_path=object_path, interface_name="org.freedesktop.DBus.Properties")
+    args = GLib.Variant('(ss)', (interface_name, prop))
+    try:
+        prop = proxy.call_sync("Get",
+                                args,
+                                Gio.DBusCallFlags.NONE,
+                                DEFAULT_DBUS_TIMEOUT,
+                                None)
+    except GLib.GError as e:
+        if "org.freedesktop.DBus.Error.AccessDenied" in e.message:
+            return None
+        else:
+            raise
+
+    return prop.unpack()[0]
+
 def nm_state():
     """Return state of NetworkManager"""
-    proxy = _get_proxy()
-    return proxy.get_cached_property("State").unpack()
+    return _get_property("/org/freedesktop/NetworkManager", "State")
 
 # FIXME - use just GLOBAL? There is some connectivity checking
 # for GLOBAL in NM (nm_connectivity_get_connected), not sure if
@@ -107,11 +124,11 @@ def nm_devices():
 
     devices = devices.unpack()[0]
     for device in devices:
-        proxy = _get_proxy(object_path=device, interface_name="org.freedesktop.NetworkManager.Device")
-        device_type = proxy.get_cached_property("DeviceType").unpack()
+        device_type = _get_property(device, "DeviceType", ".Device")
         if device_type not in supported_device_types:
             continue
-        interfaces.append(proxy.get_cached_property("Interface").unpack())
+        iface = _get_property(device, "Interface", ".Device")
+        interfaces.append(iface)
 
     return interfaces
 
@@ -120,19 +137,15 @@ def nm_activated_devices():
 
     interfaces = []
 
-    proxy = _get_proxy()
-    active_connections = proxy.get_cached_property("ActiveConnections").unpack()
+    active_connections = _get_property("/org/freedesktop/NetworkManager", "ActiveConnections")
     for ac in active_connections:
-        proxy = _get_proxy(object_path=ac, interface_name="org.freedesktop.NetworkManager.Connection.Active")
-        state = proxy.get_cached_property("State")
-        if not state or state.unpack() != NetworkManager.ActiveConnectionState.ACTIVATED:
+        state = _get_property(ac, "State", ".Connection.Active")
+        if state != NetworkManager.ActiveConnectionState.ACTIVATED:
             continue
-        devices = proxy.get_cached_property("Devices")
-        if not devices:
-            continue
-        for device in devices.unpack():
-            proxy = _get_proxy(object_path=device, interface_name="org.freedesktop.NetworkManager.Device")
-            interfaces.append(proxy.get_cached_property("Interface").unpack())
+        devices = _get_property(ac, "Devices", ".Connection.Active")
+        for device in devices:
+            iface = _get_property(device, "Interface", ".Device")
+            interfaces.append(iface)
 
     return interfaces
 
@@ -181,18 +194,14 @@ def nm_device_property(name, prop):
         raise
 
     device = device.unpack()[0]
-    proxy = _get_proxy(object_path=device, interface_name="org.freedesktop.NetworkManager.Device")
 
-    if prop in proxy.get_cached_property_names():
-        retval = proxy.get_cached_property(prop).unpack()
-    else:
+    retval = _get_property(device, prop, ".Device")
+    if not retval:
         # Look in device type based interface
         interface = _device_type_specific_interface(device)
         if interface:
-            proxy = _get_proxy(object_path=device, interface_name=interface)
-            if prop in proxy.get_cached_property_names():
-                retval = proxy.get_cached_property(prop).unpack()
-            else:
+            retval = _get_property(device, prop, interface[30:])
+            if not retval:
                 raise PropertyNotFoundError(prop)
         else:
             raise PropertyNotFoundError(prop)
@@ -282,10 +291,10 @@ def nm_device_ip_config(name, version=4):
         return []
 
     if version == 4:
-        dbus_iface = "org.freedesktop.NetworkManager.IP4Config"
+        dbus_iface = ".IP4Config"
         prop= "Ip4Config"
     elif version == 6:
-        dbus_iface = "org.freedesktop.NetworkManager.IP6Config"
+        dbus_iface = ".IP6Config"
         prop= "Ip6Config"
     else:
         return []
@@ -294,9 +303,7 @@ def nm_device_ip_config(name, version=4):
     if config == "/":
         return []
 
-    proxy = _get_proxy(object_path=config, interface_name=dbus_iface)
-
-    addresses = proxy.get_cached_property("Addresses").unpack()
+    addresses = _get_property(config, "Addresses", dbus_iface)
     addr_list = []
     for addr, prefix, gateway in addresses:
         # TODO - look for a library function (could have used IPy but byte order!)
@@ -308,7 +315,7 @@ def nm_device_ip_config(name, version=4):
             gateway_str = nm_dbus_ay_to_ipv6(gateway)
         addr_list.append([addr_str, prefix, gateway_str])
 
-    nameservers = proxy.get_cached_property("Nameservers").unpack()
+    nameservers = _get_property(config, "Nameservers", dbus_iface)
     ns_list = []
     for ns in nameservers:
         # TODO - look for a library function
@@ -319,7 +326,6 @@ def nm_device_ip_config(name, version=4):
         ns_list.append(ns_str)
 
     return [addr_list, ns_list]
-
 
 def nm_ntp_servers_from_dhcp():
     """Return a list of NTP servers that were specified the reply of the
@@ -333,12 +339,10 @@ def nm_ntp_servers_from_dhcp():
     for device in active_devices:
         # harvest NTP server addresses from DHCPv4
         dhcp4_path = nm_device_property(device, "Dhcp4Config")
-        dhcp4_proxy = _get_proxy(object_path=dhcp4_path,
-                interface_name="org.freedesktop.NetworkManager.DHCP4Config")
-        options = dhcp4_proxy.get_cached_property("Options")
-        if options and 'ntp_servers' in options.unpack():
+        options = _get_property(dhcp4_path, "Options", ".DHCP4Config")
+        if options and 'ntp_servers' in options:
             # NTP server addresses returned by DHCP are whitespace delimited
-            ntp_servers_string = options.unpack()["ntp_servers"] 
+            ntp_servers_string = options["ntp_servers"]
             for ip in ntp_servers_string.split(" "):
                 ntp_servers.append(ip)
 
