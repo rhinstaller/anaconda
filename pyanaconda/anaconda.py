@@ -28,7 +28,7 @@
 #            Matt Wilson <msw@rpath.com>
 #
 
-import os, time
+import os
 import sys
 from constants import ROOT_PATH
 from tempfile import mkstemp
@@ -36,7 +36,6 @@ from tempfile import mkstemp
 from pyanaconda.bootloader import get_bootloader
 from pyanaconda import constants
 from pyanaconda import addons
-from pyanaconda.i18n import _
 
 import logging
 log = logging.getLogger("anaconda")
