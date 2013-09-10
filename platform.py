@@ -392,15 +392,8 @@ class IPSeriesPPC(PPC):
     _maxBootPartSize = 10
 
     def bootDevice(self):
-        bootDev = None
-
-        # We want the first PReP partition.
-        for device in self.anaconda.id.storage.partitions:
-            if device.format.type == "prepboot":
-                bootDev = device
-                break
-
-        return bootDev
+        # use booty's PReP-picking algorithm
+        return self.anaconda.id.bootloader.pickPReP()
 
     def bootloaderChoices(self, bl):
         ret = {}

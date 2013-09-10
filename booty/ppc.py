@@ -7,6 +7,36 @@ from bootloaderInfo import *
 import iutil
 
 class ppcBootloaderInfo(bootloaderInfo):
+    def pickPReP(self):
+        # if we created a new PReP partition, pick that
+        for a in self.storage.findActions(type="create", obj="format"):
+            if a.format.type == "prepboot" and a.device in self.storage.devices:
+                return a.device
+
+        # otherwise, look at the existing PReP partitions.
+        prepdevs = []
+        for dev in self.storage.fsset.devices:
+            if (dev.format.type == "prepboot" and
+                    dev.partedPartition.getFlag(parted.PARTITION_BOOT)):
+                prepdevs.append(dev)
+
+        # (no PReP found? bail out.)
+        if len(prepdevs) == 0:
+            return None
+
+        # we'd prefer a PReP partition that's on the same disk as /boot.
+        bootdev = self.storage.mountpoints.get("/boot",self.storage.rootDevice)
+        if bootdev.type == "mdarray":
+            bootdisks = set(p.disk for p in bootdev.parents)
+        else:
+            bootdisks = set([bootdev.disk])
+        for dev in prepdevs:
+            if dev.disk in bootdisks:
+                return dev
+
+        # failing that, return the first PReP partition we found
+        return prepdevs[0]
+
     def getBootDevs(self, bl):
         import parted
 
@@ -14,10 +44,9 @@ class ppcBootloaderInfo(bootloaderInfo):
         machine = iutil.getPPCMachine()
 
         if machine == 'pSeries':
-            for dev in self.storage.fsset.devices:
-                if (dev.format.type == "prepboot" and
-                        dev.partedPartition.getFlag(parted.PARTITION_BOOT)):
-                    retval.append(dev.path)
+            prep = self.pickPReP()
+            if prep:
+                retval.append(prep.path)
         elif machine == 'PMac':
             for dev in self.storage.fsset.devices:
                 if dev.format.type == "hfs" and dev.format.bootable:
@@ -31,7 +60,6 @@ class ppcBootloaderInfo(bootloaderInfo):
                 except KeyError:
                     # Try / if we don't have this we're not going to work
                     device = self.storage.rootDevice
-
                 retval.append(device.path)
             else:
                 if bl.getDevice():
