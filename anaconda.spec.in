@@ -256,6 +256,12 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Mon Sep 09 2013 Brian C. Lane <bcl@redhat.com> - 19.31.15-1
+- Handle kickstarts that don't specify timezone (mkolman)
+  Resolves: rhbz#1001598
+- Only ignore missing packages entries (bcl)
+  Resolves: rhbz#983316
+
 * Thu Sep 05 2013 Brian C. Lane <bcl@redhat.com> - 19.31.14-1
 - Add more details to iso device selector (bcl)
   Resolves: rhbz#971290
