@@ -287,11 +287,12 @@ class InstallOptions3Dialog(InstallOptions1Dialog):
         self._set_free_space_labels(disk_free, fs_free)
 
         label_text = _("<b>You don't have enough space available to install "
-                       "%s</b>, even if you used all of the free space "
+                       "%(productName)s</b>, even if you used all of the free space "
                        "available on the selected disks.  You could add more "
                        "disks for additional space, "
                        "modify your software selection to install a smaller "
-                       "version of <b>%s</b>, or quit the installer.") % (productName, productName)
+                       "version of <b>%(productName)s</b>, or quit the installer.") % \
+                               {"productName": productName}
         self.builder.get_object("options3_label2").set_markup(label_text)
 
         self._add_modify_watcher("options3_label1")

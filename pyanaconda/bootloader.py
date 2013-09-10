@@ -395,9 +395,9 @@ class BootLoader(object):
         # new arrays will be created with an appropriate metadata format
         if device.exists and \
            metadata and device.metadataVersion not in metadata:
-            self.errors.append(_("RAID sets that contain '%s' must have one "
-                                 "of the following metadata versions: %s.")
-                               % (desc, ",".join(metadata)))
+            self.errors.append(_("RAID sets that contain '%(desc)s' must have one "
+                                 "of the following metadata versions: %(metadata_versions)s.")
+                               % {"desc": desc, "metadata_versions": ",".join(metadata)})
             ret = False
 
         if member_types:
@@ -482,8 +482,8 @@ class BootLoader(object):
             sector_size = device.partedPartition.disk.device.sectorSize
             end_mb = (sector_size * end_sector) / (1024.0 * 1024.0)
             if end_mb > max_mb:
-                self.errors.append(_("%s must be within the first %dMB of "
-                                     "the disk.") % (desc, max_mb))
+                self.errors.append(_("%(desc)s must be within the first %(max_mb)dMB of "
+                                     "the disk.") % {"desc": desc, "max_mb": max_mb})
                 ret = False
 
         log.debug("_is_valid_location(%s) returning %s", device.name, ret)
