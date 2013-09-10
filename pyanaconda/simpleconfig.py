@@ -81,26 +81,31 @@ class SimpleConfigFile(object):
                 if key:
                     self.info[key] = value
 
-    def write(self, filename=None):
+    def write(self, filename=None, use_tmp=True):
         """ passing filename will override the filename passed to init.
         """
         filename = filename or self.filename
         if not filename:
             return None
 
-        tmpf = tempfile.NamedTemporaryFile(mode="w", delete=False)
-        tmpf.write(str(self))
-        tmpf.close()
+        if use_tmp:
+            tmpf = tempfile.NamedTemporaryFile(mode="w", delete=False)
+            tmpf.write(str(self))
+            tmpf.close()
 
-        # Move the temporary file (with 0600 permissions) over the top of the
-        # original and preserve the original's permissions
-        filename = os.path.realpath(filename)
-        if os.path.exists(filename):
-            m = os.stat(filename).st_mode
+            # Move the temporary file (with 0600 permissions) over the top of the
+            # original and preserve the original's permissions
+            filename = os.path.realpath(filename)
+            if os.path.exists(filename):
+                m = os.stat(filename).st_mode
+            else:
+                m = int('0100644', 8)
+            shutil.move(tmpf.name, filename)
+            os.chmod(filename, m)
         else:
-            m = int('0100644', 8)
-        shutil.move(tmpf.name, filename)
-        os.chmod(filename, m)
+            # write directly to the file
+            with open(filename, "w") as fobj:
+                fobj.write(str(self))
 
     def set(self, *args):
         for key, value in args:
@@ -187,8 +192,6 @@ class IfcfgFile(SimpleConfigFile):
         SimpleConfigFile.read(self, self.path)
         return len(self.info)
 
-    # ifcfg-rh is using inotify IN_CLOSE_WRITE event
-    # so we don't use temporary file for new configuration.
     def write(self, dir=None):
         """ Writes values into ifcfg file.
         """
@@ -198,5 +201,6 @@ class IfcfgFile(SimpleConfigFile):
         else:
             path = os.path.join(dir, os.path.basename(self.path))
 
-        SimpleConfigFile.write(self, path)
-
+        # ifcfg-rh is using inotify IN_CLOSE_WRITE event so we don't use
+        # temporary file for new configuration
+        SimpleConfigFile.write(self, path, use_tmp=False)
