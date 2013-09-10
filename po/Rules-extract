@@ -1,0 +1,43 @@
+# Handle files that xgettext can't handle automatically
+
+# intltool-extract is kind of weird. It treats the input file list as relative
+# to what it thinks $srcdir is, which is either the current directory or the
+# value of the undocumented -s parameter. For the output filename, it has two
+# modes: --update, the default, will output files in the same directory as the
+# input file. --local will output files in a tmp/ directory relative to the
+# current working directory.
+#
+# All output files need to be in $srcdir for gettext to be able to find them.
+
+%.glade.h: %.glade
+	@intltool-extract -q --type=gettext/glade -l $< && \
+	mv tmp/$$(basename $@) $@
+
+%.desktop.in.h: %.desktop.in
+	@intltool-extract -q --type=gettext/keys -l $< && \
+	mv tmp/$$(basename $@) $@
+
+%liveinst.h: %liveinst
+	@intltool-extract -q --type=gettext/quoted -l $< && \
+	mv tmp/$$(basename $@) $@
+
+# Remove the $top_srcdir prefix from files so that xgettext can search for the file
+# relative to $top_srcdir and get the path name right in the .po
+%anaconda.po: %anaconda
+	@input_file="$<" && \
+	$(XGETTEXT) $(XGETTEXT_OPTIONS) --omit-header --directory=$(top_srcdir) \
+		--language=Python -o $@ $${input_file##$(top_srcdir)/}
+
+# This file is actually JavaScript, but C is close enough
+%fedora-welcome.po: %fedora-welcome
+	@input_file="$<" && \
+	$(XGETTEXT) $(XGETTEXT_OPTIONS) --omit-header --directory=$(top_srcdir) \
+		--language=C -o $@ $${input_file##$(top_srcdir)/}
+
+mostlyclean: mostlyclean-extract
+mostlyclean-extract:
+	rm -f \
+		$(top_srcdir)/anaconda.po $(top_srcdir)/data/liveinst/gnome/fedora-welcome.po \
+		$(top_srcdir)/data/liveinst/console.apps/liveinst.h
+	find $(top_srcdir) \( -name '*.glade.h' -o -name '*.desktop.in.h' \) \
+		-exec rm -f {} \;
