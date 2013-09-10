@@ -559,7 +559,7 @@ class GraphicalUserInterface(UserInterface):
 
         # if there are no actions (not populated yet), we can do nothing
         if len(self._actions) > 0 and self._currentAction:
-            lightbox = AnacondaWidgets.lb_show_over(self._currentAction.window)
+            lightbox = AnacondaWidgets.Lightbox(parent_window=self._currentAction.window)
             ANACONDA_WINDOW_GROUP.add_window(lightbox)
             window.main_window.set_transient_for(lightbox)
 

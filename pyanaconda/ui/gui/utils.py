@@ -97,11 +97,11 @@ def enlightbox(mainWindow, dialog):
     # importing globally would cause a circular dependency
     from pyanaconda.ui.gui import ANACONDA_WINDOW_GROUP
 
-    lightbox = AnacondaWidgets.lb_show_over(mainWindow)
+    lightbox = AnacondaWidgets.Lightbox(parent_window=mainWindow)
     ANACONDA_WINDOW_GROUP.add_window(lightbox)
     dialog.set_transient_for(lightbox)
     yield
-    AnacondaWidgets.lb_destroy(lightbox)
+    lightbox.destroy()
 
 def ignoreEscape(dlg):
     """Prevent a dialog from accepting the escape keybinding, which emits a

@@ -24,152 +24,338 @@
  * @title: Lightbox
  * @short_description: Functions to draw a window over a shaded background
  *
- * The lightbox is a set of functions used to display one window (a dialog or
- * other similar window, typically) over top of the main window in the
- * background.  The main window is shaded out to make the foreground window
- * stand out more, as well as to reinforce to the user that the background
- * window may not be interacted with.
+ * The lightbox is a widget used to display one window (a dialog or other
+ * similar window, typically) over top of the main window in the background.
+ * The main window is shaded out to make the foreground window stand out more,
+ * as well as to reinforce to the user that the background window may not be
+ * interacted with.
+ *
+ * The lightbox window will show as soon as it is created.
  */
 
 #include <cairo.h>
-#include <gdk/gdk.h>
 #include <gtk/gtk.h>
 
 #include "lightbox.h"
 
-/* GObject ID for the parent window's configure-event signal handler */
-#define ANACONDA_LB_PARENT_CONFIGURE_EVENT  "anaconda-configure-event"
+#include "intl.h"
 
-static void anaconda_lb_move_window_to_parent(GtkWidget *parent,
-                                              GdkEventConfigure *e,
-                                              GtkWindow *window)
+enum {
+    PROP_PARENT_WINDOW = 1
+};
+
+struct _AnacondaLightboxPrivate {
+    GtkWindow *transient_parent;
+    gboolean   parent_configure_event_handler_set;
+    guint      parent_configure_event_handler;
+};
+
+static void anaconda_lightbox_set_property(GObject *object, guint prop_id, const GValue *value, GParamSpec *pspec);
+static void anaconda_lightbox_draw_background(GObject *gobject, GParamSpec *psec, gpointer user_data);
+
+static gboolean anaconda_lb_parent_configure_event(GtkWidget *parent, GdkEvent *event, gpointer lightbox);
+static gboolean anaconda_lb_configure_event(GtkWidget *lightbox, GdkEvent *event, gpointer user_data);
+static void anaconda_lb_cleanup(GtkWidget *widget, gpointer user_data);
+
+G_DEFINE_TYPE(AnacondaLightbox, anaconda_lightbox, GTK_TYPE_WINDOW)
+
+static void anaconda_lightbox_class_init(AnacondaLightboxClass *klass)
 {
-    GdkWindow *p_window, *w_window;
-    int pwidth, pheight, width, height, px, py, x, y, nx, ny;
+    GObjectClass *object_class = G_OBJECT_CLASS(klass);
 
-    if (!GTK_IS_WIDGET(parent) || !GTK_IS_WINDOW(window))
-        return;
+    object_class->set_property = anaconda_lightbox_set_property;
 
-    p_window = gtk_widget_get_window (parent);
-    w_window = gtk_widget_get_window (GTK_WIDGET(window));
+    /**
+     * AnacondaLightbox:parent-window:
+     *
+     * The parent of this window. This value is used as the transient parent
+     * for this window.
+     *
+     * Since: 2.0
+     */
+    g_object_class_install_property(object_class,
+            PROP_PARENT_WINDOW,
+            g_param_spec_object("parent-window",
+                P_("Parent Window"),
+                P_("The parent of this window"),
+                GTK_TYPE_WINDOW,
+                G_PARAM_WRITABLE | G_PARAM_CONSTRUCT_ONLY));
 
-    if (!GDK_IS_WINDOW(p_window) || !GDK_IS_WINDOW(w_window))
-        return;
-
-    pwidth = gdk_window_get_width (p_window);
-    pheight = gdk_window_get_height (p_window);
-    gdk_window_get_position(p_window, &px, &py);
-
-    width = gdk_window_get_width (w_window);
-    height = gdk_window_get_height (w_window);
-    gdk_window_get_position(w_window, &x, &y);
-
-    nx = px + pwidth / 2 - width / 2;
-    ny = py + pheight / 2 - height / 2;
-
-    if (x != nx || y != ny)
-    {
-        gdk_window_move (w_window, nx, ny);
-        gdk_window_restack(w_window, p_window, TRUE);
-    }
-
-    g_object_set_data(G_OBJECT(window), ANACONDA_LB_PARENT_CONFIGURE_EVENT, NULL);
+    g_type_class_add_private(object_class, sizeof(AnacondaLightboxPrivate));
 }
 
-/**
- * anaconda_lb_show_over:
- * @window: (in) A #GtkWindow
- *
- * Show lightbox over window.
- *
- * Return value: (transfer none): the lightbox widget.
- *
- * Since: 1.0
- */
-GtkWindow *anaconda_lb_show_over(GtkWindow *window)
+static void anaconda_lightbox_init(AnacondaLightbox *lightbox)
 {
-    GtkWindow *lightbox;
-    GdkWindow *w_window;
-    GdkWindow *l_window;
-    int width, height;
-    cairo_t *cr;
-    cairo_pattern_t *pattern;
-    cairo_surface_t *surface;
-    guint signal_handler;
+    lightbox->priv = G_TYPE_INSTANCE_GET_PRIVATE(lightbox,
+            ANACONDA_TYPE_LIGHTBOX,
+            AnacondaLightboxPrivate
+            );
 
-    lightbox = (GTK_WINDOW(gtk_window_new(GTK_WINDOW_TOPLEVEL)));
-    gtk_window_set_transient_for(lightbox, window);
-    gtk_window_set_decorated(lightbox, FALSE);
-    gtk_window_set_has_resize_grip(lightbox, FALSE);
-    gtk_window_set_position(lightbox, GTK_WIN_POS_CENTER_ON_PARENT);
-    gtk_window_set_type_hint (lightbox, GDK_WINDOW_TYPE_HINT_SPLASHSCREEN);
+    /* Disable the window decorations on the parent (Gtk.Window) class */
+    gtk_container_set_border_width(GTK_CONTAINER(lightbox), 0);
+    gtk_window_set_decorated(GTK_WINDOW(lightbox), FALSE);
+    gtk_window_set_has_resize_grip(GTK_WINDOW(lightbox), FALSE);
+
+    /* Indicate we will handle drawing the widget so no theme is applied */
     gtk_widget_set_app_paintable(GTK_WIDGET(lightbox), TRUE);
+    gtk_window_set_type_hint(GTK_WINDOW(lightbox), GDK_WINDOW_TYPE_HINT_SPLASHSCREEN);
 
-    w_window = gtk_widget_get_window (GTK_WIDGET(window));
-    width = gdk_window_get_width(w_window);
-    height = gdk_window_get_height(w_window);
-    gtk_window_set_default_size(lightbox, width, height);
-    gtk_widget_realize(GTK_WIDGET(lightbox));
-    l_window = gtk_widget_get_window (GTK_WIDGET(lightbox));
-    gdk_window_set_background_pattern (l_window, NULL);
+    /* handle restacking events */
+    g_signal_connect(lightbox, "configure-event", G_CALLBACK(anaconda_lb_configure_event), NULL);
+
+    /* cleanup */
+    g_signal_connect(lightbox, "destroy", G_CALLBACK(anaconda_lb_cleanup), NULL);
+}
+
+static void anaconda_lightbox_set_property(GObject *object, guint prop_id, const GValue *value, GParamSpec *pspec)
+{
+    AnacondaLightbox *lightbox = ANACONDA_LIGHTBOX(object);
+    AnacondaLightboxPrivate *priv = lightbox->priv;
+
+    switch (prop_id)
+    {
+        case PROP_PARENT_WINDOW:
+            priv->transient_parent = GTK_WINDOW(g_object_ref(g_value_get_object(value)));
+            /* The property is CONSTRUCT_ONLY, so no point calling notify */
+            anaconda_lightbox_draw_background(object, pspec, NULL);
+            break;
+        default:
+            G_OBJECT_WARN_INVALID_PROPERTY_ID(object, prop_id, pspec);
+            break;
+    }
+}
+
+/*
+ * Adjust the lightbox any time the parent window's size, position or stacking
+ * changes. Returns FALSE to allow signal processing to continue.
+ */
+static gboolean anaconda_lb_parent_configure_event(
+        GtkWidget *parent,
+        GdkEvent *event,
+        gpointer lightbox
+        )
+{
+    /* Always return FALSE to continue processing for this signal. */
+    GdkWindow *g_parent_window;
+    GdkWindow *g_lightbox_window;
+
+    if ((event->type != GDK_CONFIGURE) ||
+            !GTK_IS_WIDGET(parent) ||
+            !GTK_IS_WINDOW(lightbox))
+    {
+        return FALSE;
+    }
+
+    g_lightbox_window = gtk_widget_get_window(GTK_WIDGET(lightbox));
+    if (NULL == g_lightbox_window)
+    {
+        /*
+         * No underlying GdkWindow. This may mean the lightbox is not yet
+         * realized, but whatever the cause, there's nothing we can do here.
+         */
+        return FALSE;
+    }
+
+    /* Resize and move the window according to the event data */
+    gdk_window_move_resize(g_lightbox_window,
+            event->configure.x,
+            event->configure.y,
+            event->configure.width,
+            event->configure.height
+            );
+
+    g_parent_window = gtk_widget_get_window(parent);
+    if (NULL == g_parent_window)
+    {
+        return FALSE;
+    }
+
+    /* Stack the lightbox above the parent */
+    gdk_window_restack(g_lightbox_window, g_parent_window, TRUE);
+
+    return FALSE;
+}
+
+
+/*
+ * Draw the window background. Uses the gobject notify handler signature
+ * in case we want to allow parent-window to change in the future.
+ */
+static void anaconda_lightbox_draw_background(
+        GObject *gobject,
+        GParamSpec *psec,
+        gpointer user_data
+        )
+{
+    AnacondaLightbox *lightbox;
+
+    GdkWindow *g_lightbox_window;
+    GdkWindow *g_parent_window;
+    cairo_surface_t *surface;
+    cairo_pattern_t *pattern;
+    cairo_t *cr;
+
+    if (!ANACONDA_IS_LIGHTBOX(gobject))
+    {
+        return;
+    }
+
+    lightbox = ANACONDA_LIGHTBOX(gobject);
+
+    /*
+     * Skip the check for whether the value has changed, since we only allow
+     * it to be set in the constructor
+     */
+
+    if (lightbox->priv->transient_parent)
+    {
+        gtk_window_set_transient_for(GTK_WINDOW(lightbox), lightbox->priv->transient_parent);
+
+        /* Destroy the lightbox when the parent is destroyed */
+        gtk_window_set_destroy_with_parent(GTK_WINDOW(lightbox), TRUE);
+
+        /* Set the initial position to the center of the parent */
+        gtk_window_set_position(GTK_WINDOW(lightbox), GTK_WIN_POS_CENTER_ON_PARENT);
+
+        /* Set the lightbox to the parent window's dimensions */
+        g_parent_window = gtk_widget_get_window(GTK_WIDGET(lightbox->priv->transient_parent));
+        gtk_window_set_default_size(GTK_WINDOW(lightbox),
+                gdk_window_get_width(g_parent_window),
+                gdk_window_get_height(g_parent_window)
+                );
+
+        /* make the shade move with the parent window */
+        /* Add a reference for the lightbox pointer held for the handler */
+        g_object_ref(lightbox);
+        lightbox->priv->parent_configure_event_handler =
+            g_signal_connect(lightbox->priv->transient_parent, "configure-event",
+                    G_CALLBACK(anaconda_lb_parent_configure_event), lightbox);
+        lightbox->priv->parent_configure_event_handler_set = TRUE;
+
+        /*
+         * NB: We should probably be handling the draw signal in order to refresh
+         * the transparent pattern from the parent window whenver something
+         * changes, but by the time things get to the signal handler the surface is
+         * already set up and doesn't support alpha channels and replacing it
+         * doesn't seem to work quite right. Besides, none of these windows are
+         * supposed to move anyway.
+         */
+
+        /* Realize the window to initialize the Gdk objects */
+        if (!gtk_widget_get_realized(GTK_WIDGET(lightbox)))
+        {
+            gtk_widget_realize(GTK_WIDGET(lightbox));
+        }
+        g_lightbox_window = gtk_widget_get_window(GTK_WIDGET(lightbox));
+
+        /* Create a new surface that supports alpha content */
+        surface = gdk_window_create_similar_surface(g_lightbox_window,
+                CAIRO_CONTENT_COLOR_ALPHA,
+                gdk_window_get_width(g_parent_window),
+                gdk_window_get_height(g_parent_window));
+        cr = cairo_create(surface);
+
+        /* Use the parent window as a pattern and paint it on the surface */
+        gdk_cairo_set_source_window(cr, g_parent_window, 0, 0);
+        cairo_paint(cr);
+
+        /* Paint a black, 50% transparent shade */
+        cairo_set_source_rgba(cr, 0.0, 0.0, 0.0, 0.5);
+        cairo_paint(cr);
+
+        cairo_destroy(cr);
+
+        /* Use the surface we painted as the window background */
+        pattern = cairo_pattern_create_for_surface(surface);
+        gdk_window_set_background_pattern(g_lightbox_window, pattern);
+        cairo_pattern_destroy(pattern);
+    }
+
     gtk_widget_show(GTK_WIDGET(lightbox));
-    surface = gdk_window_create_similar_surface(l_window,
-                                                CAIRO_CONTENT_COLOR_ALPHA,
-                                                width, height);
+}
 
-    cr = cairo_create (surface);
-    gdk_cairo_set_source_window(cr, w_window, 0, 0);
-    cairo_paint(cr);
-    cairo_set_source_rgba(cr, 0.0, 0.0, 0.0, 0.5);
-    cairo_paint(cr);
-    cairo_destroy(cr);
+/*
+ * Restack the lightbox and its parent any time we receive a configure-event
+ * on the lightbox
+ */
+static gboolean anaconda_lb_configure_event(
+        GtkWidget *lightbox,
+        GdkEvent *event,
+        gpointer user_data
+        )
+{
+    GtkWindow *parent;
+    GdkWindow *g_parent_window;
+    GdkWindow *g_lightbox_window;
 
-    pattern = cairo_pattern_create_for_surface (surface);
-    gdk_window_set_background_pattern(l_window, pattern);
-    cairo_pattern_destroy (pattern);
+    if ((event->type != GDK_CONFIGURE) || !ANACONDA_IS_LIGHTBOX(lightbox))
+    {
+        return FALSE;
+    }
 
-    /* make the shade move with the parent window */
-    signal_handler = g_signal_connect(window, "configure-event",
-                     G_CALLBACK (anaconda_lb_move_window_to_parent), lightbox);
+    parent = ANACONDA_LIGHTBOX(lightbox)->priv->transient_parent;
+    if (!GTK_IS_WINDOW(parent))
+    {
+        return FALSE;
+    }
 
-    /* Save the signal handler in the lightbox so we can remove it later */
-    g_object_set_data(G_OBJECT(lightbox), ANACONDA_LB_PARENT_CONFIGURE_EVENT,
-            GUINT_TO_POINTER(signal_handler));
+    g_lightbox_window = gtk_widget_get_window(lightbox);
+    if (NULL == g_lightbox_window)
+    {
+        return FALSE;
+    }
 
-    return lightbox;
+    g_parent_window = gtk_widget_get_window(GTK_WIDGET(parent));
+    if (NULL == g_parent_window)
+    {
+        return FALSE;
+    }
+
+    gdk_window_restack(g_lightbox_window, g_parent_window, TRUE);
+    return FALSE;
+}
+
+/* Clean up references to lightbox held by the parent window */
+static void anaconda_lb_cleanup(GtkWidget *widget, gpointer user_data)
+{
+    AnacondaLightbox *lightbox;
+
+    /* Remove the signal handlers set on the parent window */
+    if (ANACONDA_IS_LIGHTBOX(widget))
+    {
+        lightbox = ANACONDA_LIGHTBOX(widget);
+
+        if (lightbox->priv->parent_configure_event_handler_set)
+        {
+            g_signal_handler_disconnect(lightbox->priv->transient_parent,
+                    lightbox->priv->parent_configure_event_handler);
+            lightbox->priv->parent_configure_event_handler_set = FALSE;
+            g_object_unref(lightbox);
+        }
+
+        /* Drop the reference for the parent window */
+        g_object_unref(lightbox->priv->transient_parent);
+        lightbox->priv->transient_parent = NULL;
+    }
 }
 
 /**
- * anaconda_lb_destroy:
- * @lightbox: a #GtkWindow
+ * anaconda_lightbox_new:
+ * @parent: The parent for this window
  *
- * Destroys the previously used lightbox.
+ * Creates a new #AnacondaLightbox, which is a top-level, undecorated window
+ * that uses a shaded version of its parent window's background as its own
+ * background.
  *
- * Since: 1.0
+ * Returns: the new lightbox as a #GtkWidget
  */
-void anaconda_lb_destroy(GtkWindow *lightbox)
+GtkWidget* anaconda_lightbox_new(GtkWindow *parent)
 {
-    GtkWindow *window;
-    gpointer p_signal_handler;
+    AnacondaLightbox *lightbox;
 
-    /* Disconnect the configure-event from the contained window */
-    if (GTK_IS_WINDOW(lightbox))
-    {
-        window = gtk_window_get_transient_for(GTK_WINDOW(lightbox));
+    lightbox = ANACONDA_LIGHTBOX(g_object_new(ANACONDA_TYPE_LIGHTBOX,
+                "parent-window", parent,
+                NULL));
 
-        p_signal_handler = g_object_get_data(G_OBJECT(lightbox), 
-                ANACONDA_LB_PARENT_CONFIGURE_EVENT);
-        if ((NULL != p_signal_handler) && GTK_IS_WINDOW(window))
-        {
-            /* XXX HAAAAAAACK:
-             * If the configure-event signal handler for the contained window
-             * hasn't fired yet, do it now.
-             */
-            g_signal_emit_by_name(window, "configure-event", window);
-
-            g_signal_handler_disconnect(window, GPOINTER_TO_UINT(p_signal_handler));
-        }
-    }
-
-    gtk_widget_destroy(GTK_WIDGET(lightbox));
+    return GTK_WIDGET(lightbox);
 }

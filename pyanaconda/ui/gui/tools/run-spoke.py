@@ -20,7 +20,7 @@ if len(sys.argv)<2:
     sys.exit(1)
 
 # This is a hack to make sure the AnacondaWidgets library gets loaded
-ctypes.CDLL("libAnacondaWidgets.so.0", ctypes.RTLD_GLOBAL)
+ctypes.CDLL("libAnacondaWidgets.so.1", ctypes.RTLD_GLOBAL)
 
 # Logging always needs to be set up first thing, or there'll be tracebacks.
 from pyanaconda import anaconda_log

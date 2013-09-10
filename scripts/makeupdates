@@ -358,7 +358,7 @@ def copyUpdatedWidgets(updates, cwd):
 
     os.system('make')
 
-    files = ["libAnacondaWidgets.so", "libAnacondaWidgets.so.0", "libAnacondaWidgets.so.0.0.0"]
+    files = ["libAnacondaWidgets.so", "libAnacondaWidgets.so.1", "libAnacondaWidgets.so.1.0.0"]
     for f in files:
         path = os.path.normpath(cwd + "/widgets/src/.libs/" + f)
         if os.path.islink(path) and not os.path.exists(updates + libdir + os.path.basename(path)):
