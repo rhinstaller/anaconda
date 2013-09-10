@@ -73,8 +73,13 @@ class PayloadRPMDisplay(dnf.output.LoggingTransactionDisplay):
             self._queue.put(('post', None))
 
 def do_transaction(base, queue):
-    display = PayloadRPMDisplay(queue)
-    base.do_transaction(display=display)
+    try:
+        display = PayloadRPMDisplay(queue)
+        base.do_transaction(display=display)
+    except BaseException as e:
+        log.error('The transaction process has ended abruptly')
+        log.info(e)
+        queue.put('quit', str(e))
 
 class DNFPayload(packaging.PackagePayload):
     def __init__(self, data):
