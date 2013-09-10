@@ -1273,6 +1273,10 @@ class NetworkSpoke(FirstbootSpokeMixIn, NormalSpoke):
         log.debug("network: apply ksdata %s", self.data.network)
         self.network_control_box.kill_nmce(msg="leaving network spoke")
 
+    def execute(self):
+        # update system's hostname
+        network.set_hostname(self.data.network.hostname)
+
     @property
     def completed(self):
         # TODO: check also if source requires updates when implemented
@@ -1433,6 +1437,10 @@ class NetworkStandaloneSpoke(StandaloneSpoke):
             threadMgr.add(AnacondaThread(name=constants.THREAD_PAYLOAD, target=payloadInitialize, args=(self.storage, self.data, self.payload)))
 
         self.network_control_box.kill_nmce(msg="leaving standalone network spoke")
+
+    def execute(self):
+        # update system's hostname
+        network.set_hostname(self.data.network.hostname)
 
     @property
     def completed(self):
