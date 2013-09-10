@@ -255,6 +255,20 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Sep 10 2013 Brian C. Lane <bcl@redhat.com> - 20.14-1
+- Convert the lightbox into a GObject (#1000927) (dshea)
+- Remove some more unused imports. (clumens)
+- Move the Anaconda class to a proper module (vpodzime)
+- Firstboot should be disabled by default after automated installations
+  (vpodzime)
+- Fix typo introduced in refactorization (#1005511) (vpodzime)
+- Remove unused imports in the network spoke. (clumens)
+- Get rid of the now-unused new_firmware variable. (clumens)
+- Remove magic from the passphrase dialog (#921948) (vpodzime)
+- Don't pass extra arguments to LangLocaleHandler.__init__() (vpodzime)
+- Fix check for device state when reading its IPXConfig (#1001776, # 1005198)
+  (rvykydal)
+
 * Mon Sep 09 2013 Brian C. Lane <bcl@redhat.com> - 20.13-1
 - Fix handling of flexible specs in onpart for member devices. (#1004885)
   (dlehman)
