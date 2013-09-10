@@ -53,7 +53,12 @@ class SettingNotFoundError(ValueError):
         return self.__repr__()
 
 class DeviceSettingsNotFoundError(ValueError):
-    """Settings (NMRemoteConnection object was not found"""
+    """Settings NMRemoteConnection object was not found"""
+    def __str__(self):
+        return self.__repr__()
+
+class UnknownMethodGetError(Exception):
+    """Object does not have Get, most probably being invalid"""
     def __str__(self):
         return self.__repr__()
 
@@ -86,6 +91,8 @@ def _get_property(object_path, prop, interface_name_suffix=""):
     except GLib.GError as e:
         if "org.freedesktop.DBus.Error.AccessDenied" in e.message:
             return None
+        elif "org.freedesktop.DBus.Error.UnknownMethod" in e.message:
+            raise UnknownMethodGetError
         else:
             raise
 
@@ -303,7 +310,12 @@ def nm_device_ip_config(name, version=4):
     if config == "/":
         return []
 
-    addresses = _get_property(config, "Addresses", dbus_iface)
+    try:
+        addresses = _get_property(config, "Addresses", dbus_iface)
+    # object is valid only if device is in ACTIVATED state (racy)
+    except UnknownMethodGetError:
+        return []
+
     addr_list = []
     for addr, prefix, gateway in addresses:
         # TODO - look for a library function (could have used IPy but byte order!)
@@ -315,7 +327,12 @@ def nm_device_ip_config(name, version=4):
             gateway_str = nm_dbus_ay_to_ipv6(gateway)
         addr_list.append([addr_str, prefix, gateway_str])
 
-    nameservers = _get_property(config, "Nameservers", dbus_iface)
+    try:
+        nameservers = _get_property(config, "Nameservers", dbus_iface)
+    # object is valid only if device is in ACTIVATED state (racy)
+    except UnknownMethodGetError:
+        return []
+
     ns_list = []
     for ns in nameservers:
         # TODO - look for a library function
@@ -339,7 +356,11 @@ def nm_ntp_servers_from_dhcp():
     for device in active_devices:
         # harvest NTP server addresses from DHCPv4
         dhcp4_path = nm_device_property(device, "Dhcp4Config")
-        options = _get_property(dhcp4_path, "Options", ".DHCP4Config")
+        try:
+            options = _get_property(dhcp4_path, "Options", ".DHCP4Config")
+        # object is valid only if device is in ACTIVATED state (racy)
+        except UnknownMethodGetError:
+            options = None
         if options and 'ntp_servers' in options:
             # NTP server addresses returned by DHCP are whitespace delimited
             ntp_servers_string = options["ntp_servers"]
