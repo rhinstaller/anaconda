@@ -549,7 +549,7 @@ class ContainerDialog(GUIObject):
         self.encrypted = self._encryptCheckbutton.get_active()
         self.size_policy = size
 
-        self.builder._error_label.set_text("")
+        self._error_label.set_text("")
         self.window.destroy()
 
     def run(self):
