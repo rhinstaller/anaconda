@@ -47,7 +47,7 @@ class LangsupportSpoke(LangLocaleHandler, NormalSpoke):
 
     def __init__(self, *args, **kwargs):
         NormalSpoke.__init__(self, *args, **kwargs)
-        LangLocaleHandler.__init__(self, *args, **kwargs)
+        LangLocaleHandler.__init__(self)
         self._selected_locales = set()
 
     def initialize(self):

@@ -54,7 +54,7 @@ class WelcomeLanguageSpoke(LangLocaleHandler, StandaloneSpoke):
 
     def __init__(self, *args, **kwargs):
         StandaloneSpoke.__init__(self, *args, **kwargs)
-        LangLocaleHandler.__init__(self, *args, **kwargs)
+        LangLocaleHandler.__init__(self)
         self._xklwrapper = keyboard.XklWrapper.get_instance()
         self._origStrings = {}
 
