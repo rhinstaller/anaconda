@@ -48,9 +48,7 @@ from pyanaconda.nm import nm_device_setting_value, nm_device_ip_config
 from gi.repository import GLib, GObject, Pango, Gio, NetworkManager, NMClient
 import dbus
 import dbus.service
-import socket
 import subprocess
-import struct
 import string
 
 from dbus.mainloop.glib import DBusGMainLoop
