@@ -139,6 +139,10 @@ class DNFPayload(packaging.PackagePayload):
         conf.installroot = constants.ROOT_PATH
         conf.releasever = self._getReleaseVersion(None)
 
+        # NSS won't survive the forking we do to shield out chroot during
+        # transaction, disable it in RPM:
+        conf.tsflags.append('nocrypto')
+
         conf.reposdir = REPO_DIRS
         log.info('Loading repositories config on the filesystem.')
         self._base.read_all_repos()
