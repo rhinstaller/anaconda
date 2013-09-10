@@ -528,6 +528,11 @@ class Firewall(commands.firewall.F14_Firewall):
             iutil.execWithRedirect(cmd, args, root=ROOT_PATH)
 
 class Firstboot(commands.firstboot.FC3_Firstboot):
+    def setup(self, *args):
+        # firstboot should be disabled by default after kickstart installations
+        if flags.automatedInstall and not self.seen:
+            self.firstboot = FIRSTBOOT_SKIP
+
     def execute(self, *args):
         if not os.path.exists(ROOT_PATH + "/lib/systemd/system/firstboot-graphical.service"):
             return

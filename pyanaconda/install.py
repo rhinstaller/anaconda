@@ -130,6 +130,7 @@ def doInstall(storage, payload, ksdata, instClass):
             threadMgr.wait_all()
 
     with progress_report(_("Setting up the installation environment")):
+        ksdata.firstboot.setup(storage, ksdata, instClass)
         ksdata.addons.setup(storage, ksdata, instClass)
 
     storage.updateKSData()  # this puts custom storage info into ksdata
