@@ -222,6 +222,12 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Wed Sep 11 2013 Samantha N. Bueno <sbueno+anaconda@redhat.com> - 13.21.205-1
+- PPC: strengthen PReP-picking algorithm (wwoods)
+  Resolves: rhbz#877852
+- Drop support for ssh protocol version 1 (bcl)
+  Resolves: rhbz#1004752
+
 * Tue Aug 20 2013 Samantha N. Bueno <sbueno+anaconda@redhat.com> - 13.21.204-1
 - Don't require fcoe-utils if we're on s390. (sbueno+anaconda)
   Resolves: rhbz#998486
