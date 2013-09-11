@@ -58,13 +58,13 @@
               <object class="GtkBox" id="AnacondaSpokeWindow-action_area1">
                 <property name="can_focus">False</property>
                 <property name="orientation">vertical</property>
-                <property name="spacing">6</property>
+                <property name="spacing">12</property>
                 <child>
                   <object class="GtkLabel" id="selectLabel">
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
-                    <property name="halign">start</property>
-                    <property name="label" translatable="yes">Select additional language support to be installed</property>
+                    <property name="halign">center</property>
+                    <property name="label" translatable="yes">Select additional language support to be installed:</property>
                     <attributes>
                       <attribute name="font-desc" value="Cantarell 14"/>
                       <attribute name="weight" value="normal"/>
