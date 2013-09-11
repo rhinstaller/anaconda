@@ -121,6 +121,7 @@ class DNFPayload(packaging.PackagePayload):
 
         map(self._install_package, self._required_pkgs)
         map(self._select_group, self._required_groups)
+        self._select_kernel_package()
 
     def _bump_tx_id(self):
         if self.txID is None:
@@ -180,6 +181,19 @@ class DNFPayload(packaging.PackagePayload):
         if optional:
             types.add('optional')
         self._base.select_group(grp, types)
+
+    def _select_kernel_package(self):
+        kernels = self.kernelPackages
+        for kernel in kernels:
+            try:
+                self._install_package(kernel)
+            except packaging.NoSuchPackage:
+                log.info('kernel: no such package %s', kernel)
+            else:
+                log.info('kernel: selected %s', kernel)
+                break
+        else:
+            log.error('kernel: failed to select a kernel from %s', kernels)
 
     def _sync_metadata(self, dnf_repo):
         try:
