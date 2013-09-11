@@ -22,6 +22,7 @@
 from pyanaconda.ui.tui.spokes import NormalTUISpoke
 from pyanaconda.ui.tui.simpleline import TextWidget, ColumnWidget
 from pyanaconda.constants import USEVNC, USETEXT
+from pyanaconda.constants_text import INPUT_PROCESSED
 from pyanaconda.i18n import _
 import getpass
 
@@ -68,10 +69,14 @@ class AskVNCSpoke(NormalTUISpoke):
         """Override input so that we can launch the VNC password spoke"""
 
         try:
-            number = int(key)
-            choice = self._choices[number -1]
-        except (ValueError, KeyError, IndexError):
+            keyid = int(key) - 1
+        except ValueError:
             return key
+
+        if 0 <= keyid < len(self._choices):
+            choice = self._choices[keyid]
+        else:
+            return INPUT_PROCESSED
 
         if choice == USETEXT:
             self._usevnc = False
@@ -83,7 +88,7 @@ class AskVNCSpoke(NormalTUISpoke):
 
         self.apply()
         self.close()
-        return None
+        return INPUT_PROCESSED
 
     def apply(self):
         self.data.vnc.enabled = self._usevnc

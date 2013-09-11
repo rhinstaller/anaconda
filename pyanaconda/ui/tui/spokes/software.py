@@ -28,6 +28,7 @@ from pyanaconda.i18n import _
 
 from pyanaconda.constants import THREAD_PAYLOAD, THREAD_PAYLOAD_MD
 from pyanaconda.constants import THREAD_CHECK_SOFTWARE, THREAD_SOFTWARE_WATCHER
+from pyanaconda.constants_text import INPUT_PROCESSED
 
 __all__ = ["SoftwareSpoke"]
 
@@ -140,16 +141,19 @@ class SoftwareSpoke(NormalTUISpoke):
 
     def input(self, args, key):
         """ Handle the input; this chooses the desktop environment. """
-        if key.lower() == "c" and self._selection in range(len(self.payload.environments)):
-            self.apply()
-
         try:
             keyid = int(key) - 1
-            if keyid in range(len(self.payload.environments)):
-                self._selection = keyid
-            return None
-        except (ValueError, IndexError):
-            return key
+        except ValueError:
+            if key.lower() == "c" and 0 <= self._selection < len(self.payload.environments):
+                self.apply()
+                self.close()
+                return INPUT_PROCESSED
+            else:
+                return key
+
+        if 0 <= keyid < len(self.payload.environments):
+            self._selection = keyid
+        return INPUT_PROCESSED
 
     @property
     def ready(self):

@@ -52,3 +52,7 @@ TEXT_YES_BUTTON = Translator(TEXT_YES_STR, TEXT_YES_CHECK)
 TEXT_NO_STR = N_("No")
 TEXT_NO_CHECK = "no"
 TEXT_NO_BUTTON = Translator(TEXT_NO_STR, TEXT_NO_CHECK)
+
+# Make the return calls from the UIScreen input() function more clear
+INPUT_PROCESSED = None
+INPUT_DISCARDED = False

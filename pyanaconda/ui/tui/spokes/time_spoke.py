@@ -24,6 +24,7 @@ from pyanaconda.ui.tui.simpleline import TextWidget, ColumnWidget
 from pyanaconda.ui.common import FirstbootSpokeMixIn
 from pyanaconda import timezone
 from pyanaconda.i18n import _
+from pyanaconda.constants_text import INPUT_PROCESSED
 
 class TimeZoneSpoke(FirstbootSpokeMixIn, NormalTUISpoke):
     title = _("Timezone settings")
@@ -87,46 +88,42 @@ class TimeZoneSpoke(FirstbootSpokeMixIn, NormalTUISpoke):
     def input(self, args, key):
         try:
             keyid = int(key) - 1
-            if args:
-                self._selection = "%s/%s" % (args, self._timezones[args][keyid])
+        except ValueError:
+            if key.lower().replace("_", " ") in self._lower_zones:
+                index = self._lower_zones.index(key.lower().replace("_", " "))
+                self._selection = self._zones[index]
                 self.apply()
                 self.close()
-            else:
-                if len(self._timezones[self._regions[keyid]]) == 1:
-                    self._selection = "%s/%s" % (self._regions[keyid],
-                                                 self._timezones[self._regions[keyid]][0])
+                return INPUT_PROCESSED
+            elif key.lower() in self._lower_regions:
+                index = self._lower_regions.index(key.lower())
+                if len(self._timezones[self._regions[index]]) == 1:
+                    self._selection = "%s/%s" % (self._regions[index],
+                                                 self._timezones[self._regions[index]][0])
                     self.apply()
                     self.close()
                 else:
-                    self.app.switch_screen(self, self._regions[keyid])
-            return True
-        except (ValueError, IndexError):
-            pass
+                    self.app.switch_screen(self, self._regions[id])
+                return INPUT_PROCESSED
+            elif key.lower() == "b":
+                self.app.switch_screen(self, None)
+                return INPUT_PROCESSED
+            else:
+                return key
 
-        if key.lower().replace("_", " ") in self._lower_zones:
-            index = self._lower_zones.index(key.lower().replace("_", " "))
-            self._selection = self._zones[index]
+        if args:
+            self._selection = "%s/%s" % (args, self._timezones[args][keyid])
             self.apply()
             self.close()
-            return True
-
-        elif key.lower() in self._lower_regions:
-            index = self._lower_regions.index(key.lower())
-            if len(self._timezones[self._regions[index]]) == 1:
-                self._selection = "%s/%s" % (self._regions[index],
-                                             self._timezones[self._regions[index]][0])
+        else:
+            if len(self._timezones[self._regions[keyid]]) == 1:
+                self._selection = "%s/%s" % (self._regions[keyid],
+                                             self._timezones[self._regions[keyid]][0])
                 self.apply()
                 self.close()
             else:
-                self.app.switch_screen(self, self._regions[id])
-            return True
-
-        elif key.lower() == "b":
-            self.app.switch_screen(self, None)
-            return True
-
-        else:
-            return key
+                self.app.switch_screen(self, self._regions[keyid])
+            return INPUT_PROCESSED
 
     def prompt(self, args = None):
         return _("Please select the timezone.\nUse numbers or type names directly [b to region list, q to quit]: ")

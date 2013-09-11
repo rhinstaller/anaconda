@@ -30,6 +30,7 @@ from pyanaconda.image import opticalInstallMedia
 
 from pyanaconda.constants import THREAD_SOURCE_WATCHER, THREAD_SOFTWARE_WATCHER, THREAD_PAYLOAD
 from pyanaconda.constants import THREAD_PAYLOAD_MD, THREAD_STORAGE, THREAD_CHECK_SOFTWARE
+from pyanaconda.constants_text import INPUT_PROCESSED
 
 import re
 
@@ -143,45 +144,46 @@ class SourceSpoke(EditTUISpoke):
         """ Handle the input; this decides the repo protocol. """
         try:
             num = int(key)
-            if args == 2:
-                # network install
-                self._selection = num
-                if self._selection == 1:
-                    # closest mirror
-                    self.data.method.method = None
-                    self.apply()
-                    self.close()
-                    return True
-                elif self._selection in range(2, 5):
-                    self.data.method.method = "url"
-                    newspoke = SpecifyRepoSpoke(self.app, self.data, self.storage,
-                                              self.payload, self.instclass, self._selection)
-                    self.app.switch_screen_modal(newspoke)
-                    self.apply()
-                    self.close()
-                    return True
-                elif self._selection == 5:
-                    # nfs
-                    self.data.method.method = "nfs"
-                    newspoke = SpecifyNFSRepoSpoke(self.app, self.data, self.storage,
-                                            self.payload, self.instclass, self._selection, self.errors)
-                    self.app.switch_screen_modal(newspoke)
-                    self.apply()
-                    self.close()
-                    return True
-            else:
-                if num == 1:
-                    # iso selected, just set some vars and return to main hub
-                    self.data.method.method = "cdrom"
-                    self.payload.install_device = self._cdrom
-                    self.apply()
-                    self.close()
-                    return True
-                else:
-                    self.app.switch_screen(self, num)
-            return None
-        except (ValueError, IndexError):
+        except ValueError:
             return key
+
+        if args == 2:
+            # network install
+            self._selection = num
+            if self._selection == 1:
+                # closest mirror
+                self.data.method.method = None
+                self.apply()
+                self.close()
+                return INPUT_PROCESSED
+            elif self._selection in range(2, 5):
+                self.data.method.method = "url"
+                newspoke = SpecifyRepoSpoke(self.app, self.data, self.storage,
+                                          self.payload, self.instclass, self._selection)
+                self.app.switch_screen_modal(newspoke)
+                self.apply()
+                self.close()
+                return INPUT_PROCESSED
+            elif self._selection == 5:
+                # nfs
+                self.data.method.method = "nfs"
+                newspoke = SpecifyNFSRepoSpoke(self.app, self.data, self.storage,
+                                        self.payload, self.instclass, self._selection, self.errors)
+                self.app.switch_screen_modal(newspoke)
+                self.apply()
+                self.close()
+                return INPUT_PROCESSED
+        else:
+            if num == 1:
+                # iso selected, just set some vars and return to main hub
+                self.data.method.method = "cdrom"
+                self.payload.install_device = self._cdrom
+                self.apply()
+                self.close()
+                return INPUT_PROCESSED
+            else:
+                self.app.switch_screen(self, num)
+        return INPUT_PROCESSED
 
     def getRepoMetadata(self):
         """ Pull down yum repo metadata """

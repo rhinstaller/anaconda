@@ -33,6 +33,7 @@ from pyanaconda.flags import flags
 from pyanaconda.kickstart import doKickstartStorage
 from pyanaconda.threads import threadMgr, AnacondaThread
 from pyanaconda.constants import THREAD_STORAGE, THREAD_STORAGE_WATCHER
+from pyanaconda.constants_text import INPUT_PROCESSED
 from pyanaconda.i18n import _, P_
 
 from pykickstart.constants import CLEARPART_TYPE_ALL, CLEARPART_TYPE_LINUX, CLEARPART_TYPE_NONE
@@ -201,23 +202,22 @@ class StorageSpoke(NormalTUISpoke):
     def input(self, args, key):
         """Grab the disk choice and update things"""
 
-        if key == "c":
-            if self.selected_disks:
-                newspoke = AutoPartSpoke(self.app, self.data, self.storage,
-                                         self.payload, self.instclass)
-                self.app.switch_screen_modal(newspoke)
-                self.apply()
-                self.execute()
-                self.close()
-            return None
-
         try:
-            number = int(key)
-            self._update_disk_list(self.disks[number -1])
-            return None
-
-        except (ValueError, KeyError, IndexError):
-            return key
+            keyid = int(key) - 1
+            self._update_disk_list(self.disks[keyid])
+            return INPUT_PROCESSED
+        except (ValueError, IndexError):
+            if key.lower() == "c":
+                if self.selected_disks:
+                    newspoke = AutoPartSpoke(self.app, self.data, self.storage,
+                                             self.payload, self.instclass)
+                    self.app.switch_screen_modal(newspoke)
+                    self.apply()
+                    self.execute()
+                    self.close()
+                return INPUT_PROCESSED
+            else:
+                return key
 
     def apply(self):
         self.autopart = self.data.autopart.autopart
@@ -353,31 +353,31 @@ class AutoPartSpoke(NormalTUISpoke):
     def input(self, args, key):
         """Grab the choice and update things"""
 
-        if key == "c":
-            newspoke = PartitionSchemeSpoke(self.app, self.data, self.storage,
-                                            self.payload, self.instclass)
-            self.app.switch_screen_modal(newspoke)
-            self.apply()
-            self.close()
-            return False
-
         try:
-            number = int(key)
-            self.clearPartType = PARTTYPES[self.parttypelist[number -1]]
-            self.apply()
-            self.close()
-            return False
+            keyid = int(key) - 1
+        except ValueError:
+            if key.lower() == "c":
+                newspoke = PartitionSchemeSpoke(self.app, self.data, self.storage,
+                                                self.payload, self.instclass)
+                self.app.switch_screen_modal(newspoke)
+                self.apply()
+                self.close()
+                return INPUT_PROCESSED
+            else:
+                return key
 
-        except (ValueError, KeyError, IndexError):
-            return key
+        if 0 <= keyid < len(self.parttypelist):
+            self.clearPartType = PARTTYPES[self.parttypelist[keyid]]
+            self.apply()
+        return INPUT_PROCESSED
 
 class PartitionSchemeSpoke(NormalTUISpoke):
-    """ SPoke to select what partitioning scheme to use on disk(s). """
+    """ Spoke to select what partitioning scheme to use on disk(s). """
     title = _("Partition Scheme Options")
     category = "destination"
 
     # set default FS to LVM, for consistency with graphical behavior
-    _selection = 2
+    _selection = 1
 
     def __init__(self, app, data, storage, payload, instclass):
         NormalTUISpoke.__init__(self, app, data, storage, payload, instclass)
@@ -395,7 +395,7 @@ class PartitionSchemeSpoke(NormalTUISpoke):
         for sch in schemelist:
             box = CheckboxWidget(title="%i) %s" %(schemelist.index(sch) \
                                  + 1, sch), completed=(schemelist.index(sch) \
-                                 + 1 == self._selection))
+                                 == self._selection))
             self._window += [box, ""]
 
         message = _("Select a partition scheme configuration.")
@@ -405,18 +405,19 @@ class PartitionSchemeSpoke(NormalTUISpoke):
     def input(self, args, key):
         """ Grab the choice and update things. """
 
-        if key == "c" and self._selection:
-            self.apply()
-            self.close()
-            return None
-
         try:
-            keyid = int(key)
-            if keyid in range(0, 4):
-                self._selection = keyid
-            return None
-        except (ValueError, IndexError, KeyError):
-            return key
+            keyid = int(key) - 1
+        except ValueError:
+            if key.lower() == "c" and self._selection:
+                self.apply()
+                self.close()
+                return INPUT_PROCESSED
+            else:
+                return key
+
+        if 0 <= keyid < len(self.partschemes):
+            self._selection = keyid
+        return INPUT_PROCESSED
 
     def apply(self):
         """ Apply our selections. """

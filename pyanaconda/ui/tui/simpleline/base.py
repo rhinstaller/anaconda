@@ -552,8 +552,9 @@ class UIScreen(object):
         :param args: optional argument passed from switch_screen calls
         :type args: anything
 
-        :return: return True or None if key was handled, False if the screen should not
-                 process input on the App and key if you want it to.
+        :return: return True or INPUT_PROCESSED (None) if key was handled,
+                 INPUT_DISCARDED (False) if the screen should not process input
+                 on the App and key if you want it to.
         :rtype: True|False|None|unicode
         """
 

@@ -29,6 +29,7 @@ from pyanaconda.i18n import _
 from pyanaconda import network
 from pyanaconda.nm import nm_activated_devices, nm_state, nm_devices, nm_device_type_is_ethernet, nm_device_ip_config, nm_activate_device_connection, nm_device_setting_value
 from pyanaconda.regexes import IPV4_PATTERN_WITHOUT_ANCHORS
+from pyanaconda.constants_text import INPUT_PROCESSED
 
 # pylint: disable-msg=E0611
 from gi.repository import NetworkManager
@@ -184,7 +185,7 @@ class NetworkSpoke(EditTUISpoke):
             self.app.switch_screen_modal(self.hostname_dialog, Entry(_("Hostname"),
                                 "hostname", re.compile(".*$"), True))
             self.apply()
-            return True
+            return INPUT_PROCESSED
         elif 2 <= num <= len(self.supported_devices) + 1:
             # configure device
             devname = self.supported_devices[num-2]
@@ -200,7 +201,7 @@ class NetworkSpoke(EditTUISpoke):
                 ndata.bootProto = "static"
                 if not ndata.gateway or not ndata.netmask:
                     self.errors.append(_("Configuration not saved: gateway or netmask missing in static configuration"))
-                    return True
+                    return INPUT_PROCESSED
 
             if ndata.ipv6 == "ignore":
                 ndata.noipv6 = True
@@ -215,7 +216,7 @@ class NetworkSpoke(EditTUISpoke):
                 nm_activate_device_connection(devname, uuid)
 
             self.apply()
-            return True
+            return INPUT_PROCESSED
         else:
             return key
 
