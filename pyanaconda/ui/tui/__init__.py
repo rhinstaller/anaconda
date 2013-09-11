@@ -166,9 +166,10 @@ class TextUserInterface(ui.UserInterface):
             if hasattr(obj, "set_path"):
                 obj.set_path("spokes", self.paths["spokes"])
 
-            obj.setup(self.ENVIRONMENT)
+            should_schedule = obj.setup(self.ENVIRONMENT)
 
-            self._app.schedule_screen(obj)
+            if should_schedule:
+                self._app.schedule_screen(obj)
 
     def run(self):
         """Run the interface.  This should do little more than just pass

@@ -75,6 +75,8 @@ class TUIHub(TUIObject, common.Hub):
                 self._keys[self._spoke_count] = spoke
                 self._spokes[spoke.__class__.__name__] = spoke
 
+        # only schedule the hub if it has some spokes
+        return self._spoke_count != 0
 
     def refresh(self, args = None):
         """This methods fills the self._window list by all the objects
@@ -97,6 +99,7 @@ class TUIHub(TUIObject, common.Hub):
     def input(self, args, key):
         """Handle user input. Numbers are used to show a spoke, the rest is passed
         to the higher level for processing."""
+
         try:
             number = int(key)
             self.app.switch_screen_with_return(self._keys[number])

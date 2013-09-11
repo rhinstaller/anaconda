@@ -32,7 +32,9 @@ class SummaryHub(TUIHub):
     categories = ["source", "localization", "destination", "password", "software", "network"]
 
     def setup(self, environment="anaconda"):
-        TUIHub.setup(self, environment=environment)
+        should_schedule = TUIHub.setup(self, environment=environment)
+        if not should_schedule:
+            return False
 
         if flags.automatedInstall:
             sys.stdout.write(_("Starting automated install"))
@@ -47,6 +49,8 @@ class SummaryHub(TUIHub):
             for spoke in spokes:
                 if spoke.changed:
                     spoke.execute()
+
+        return True
 
     # override the prompt so that we can skip user input on kickstarts
     # where all the data is in hand.  If not in hand, do the actual prompt.

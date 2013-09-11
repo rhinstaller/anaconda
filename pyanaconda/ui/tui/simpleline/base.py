@@ -505,8 +505,17 @@ class UIScreen(object):
         self._page = 0
 
     def setup(self, environment):
-        """Do additional setup right before this screen is used."""
-        pass
+        """
+        Do additional setup right before this screen is used.
+
+        :param environment: environment (see pyanaconda.constants) the UI is running in
+        :type environment: either FIRSTBOOT_ENVIRON or ANACONDA_ENVIRON
+        :return: whether this screen should be scheduled or not
+        :rtype: bool
+
+        """
+
+        return True
 
     def refresh(self, args = None):
         """Method which prepares the content desired on the screen to self._window.
