@@ -34,7 +34,7 @@ GISOURCES = BaseWindow.c \
 	 StandaloneWindow.c \
 	 TimezoneMap.c \
 	 LayoutIndicator.c \
-	 lightbox.c
+	 Lightbox.c
 
 GIHDRS = BaseWindow.h \
 	 DiskOverview.h \
@@ -45,7 +45,7 @@ GIHDRS = BaseWindow.h \
 	 StandaloneWindow.h \
 	 TimezoneMap.h \
 	 LayoutIndicator.h \
-	 lightbox.h
+	 Lightbox.h
 
 NONGISOURCES = tz.c
 

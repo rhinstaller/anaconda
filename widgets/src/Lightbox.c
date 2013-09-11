@@ -20,7 +20,7 @@
 /* based on an example by Ray Strode <rstrode@redhat.com> */
 
 /**
- * SECTION: lightbox
+ * SECTION: Lightbox
  * @title: Lightbox
  * @short_description: Functions to draw a window over a shaded background
  *
@@ -36,7 +36,7 @@
 #include <cairo.h>
 #include <gtk/gtk.h>
 
-#include "lightbox.h"
+#include "Lightbox.h"
 
 #include "intl.h"
 
