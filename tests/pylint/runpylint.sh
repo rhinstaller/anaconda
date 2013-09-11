@@ -15,6 +15,9 @@ if [ -z "$top_srcdir" ]; then
     pylint_log=1
 fi
 
+# Unset TERM so that things that use readline don't output terminal garbage
+unset TERM
+
 # If $top_srcdir has not been set by automake, import the test environment
 if [ -z "$top_srcdir" ]; then
     top_srcdir="$(dirname "$0")/../.."
@@ -77,7 +80,9 @@ fi
 # run pylint one file / module at a time, otherwise it sometimes gets
 # confused
 if [ -z "$FILES" ]; then
-    FILES="${top_srcdir}/anaconda $(find "${top_srcdir}/pyanaconda" -type f -name '*py' \! -executable)"
+    # Find any file in the list of directories that either ends in .py
+    # or contains #!/usr/bin/python in the first line.
+    FILES="$(find "${top_srcdir}"/{anaconda,pyanaconda,tests,widgets,utils,scripts} -type f \( -name '*.py' -o -exec awk -e 'NR==1 { if ($0 ~ /^#!\/usr\/bin\/python/) exit 0; else exit 1; }' -e 'END { if (NR == 0) exit 1; }' {} \; \) -print)"
 fi
 for i in $FILES; do
   if [ -n "$(echo "$i" | grep 'pyanaconda/packaging/dnfpayload.py$')" ]; then
@@ -89,7 +94,7 @@ for i in $FILES; do
     -r n --disable=C,R --rcfile=/dev/null \
     --dummy-variables-rgx=_ \
     --ignored-classes=DefaultInstall,Popen,QueueFactory,TransactionSet \
-    --defining-attr-methods=__init__,_grabObjects,initialize,reset,start \
+    --defining-attr-methods=__init__,_grabObjects,initialize,reset,start,setUp \
     $DISABLED_WARN_OPTIONS \
     $DISABLED_ERR_OPTIONS \
     $NON_STRICT_OPTIONS $i | \

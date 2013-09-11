@@ -9,6 +9,19 @@ import os
 import sys
 from subprocess import check_output, CalledProcessError
 
+def is_python(filename):
+    if filename.endswith(".py"):
+        return True
+
+    try:
+        with open(filename) as testfile:
+            if testfile.readline().startswith("#!/usr/bin/python"):
+                return True
+    except IOError:
+        pass
+
+    return False
+
 OTHER_MODULES_PATH = ".:../blivet/:../pykickstart/"
 
 if "NOPYLINT" in os.environ:
@@ -25,7 +38,7 @@ pylint_files = []
 # Lines look like: :100755 100755 2cf57974e13a2aae778e28f942a4d44bf6567409 6fe1b6caf32d565b2cdb6d1aee250aaddc6d3a04 M      tests/pylint/runpylint.sh
 for gf in git_files.splitlines():
     path = gf.split()[-1]
-    if path == "anaconda" or path.endswith(".py"):
+    if is_python(path):
         pylint_files.append(path)
 
 if not pylint_files:
