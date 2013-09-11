@@ -263,7 +263,8 @@ class ResizeDialog(GUIObject):
         # button insensitive.
         self._shrinkButton.set_sensitive(device.resizable)
 
-        self._setup_slider(device, obj.target)
+        if device.resizable:
+            self._setup_slider(device, obj.target)
 
         # Then, disable the button for whatever action is currently selected.
         # It doesn't make a lot of sense to allow clicking that.
