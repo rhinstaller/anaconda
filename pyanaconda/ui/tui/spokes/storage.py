@@ -315,10 +315,6 @@ class AutoPartSpoke(NormalTUISpoke):
     def indirect(self):
         return True
 
-    @property
-    def completed(self):
-        return True # We're always complete
-
     def refresh(self, args = None):
         NormalTUISpoke.refresh(self, args)
         # synchronize our local data store with the global ksdata
