@@ -70,6 +70,10 @@ class StorageSpoke(NormalTUISpoke):
         self.errors = []
         self.warnings = []
 
+        if not flags.automatedInstall:
+            # default to using autopart for interactive installs
+            self.data.autopart.autopart = True
+
     @property
     def completed(self):
         retval = bool(self.storage.rootDevice and not self.errors)
@@ -213,10 +217,6 @@ class StorageSpoke(NormalTUISpoke):
             return key
 
     def apply(self):
-        if not flags.automatedInstall:
-            # default to using autopart for interactive installs
-            self.data.autopart.autopart = True
-
         self.autopart = self.data.autopart.autopart
         self.data.ignoredisk.onlyuse = self.selected_disks[:]
         self.data.clearpart.drives = self.selected_disks[:]
@@ -338,6 +338,12 @@ class AutoPartSpoke(NormalTUISpoke):
         return True
 
     def apply(self):
+        # kind of a hack, but if we're actually getting to this spoke, there
+        # is no doubt that we are doing autopartitioning, so set autopart to
+        # True. In the case of ks installs which may not have defined any
+        # partition options, autopart was never set to True, causing some
+        # issues. (rhbz#1001061)
+        self.data.autopart.autopart = True
         self.data.clearpart.type = self.clearPartType
         self.data.clearpart.initAll = True
 
