@@ -34,7 +34,6 @@ import threading
 import re
 import dbus
 import IPy
-from flags import flags
 
 from simpleconfig import IfcfgFile
 from blivet.devices import FcoeDiskDevice, iScsiDiskDevice
@@ -42,6 +41,7 @@ import blivet.arch
 
 from pyanaconda import nm
 from pyanaconda import constants
+from pyanaconda.flags import flags, can_touch_runtime_system
 from pyanaconda.i18n import _
 
 import logging
@@ -751,12 +751,9 @@ def get_ksdevice_name(ksspec=""):
     return ksdevice
 
 def set_hostname(hn):
-    if flags.imageInstall:
-        log.info("image install -- not setting hostname")
-        return
-
-    log.info("setting installation environment hostname to %s", hn)
-    iutil.execWithRedirect("hostnamectl", ["set-hostname", hn])
+    if can_touch_runtime_system("set hostname", touch_live=True):
+        log.info("setting installation environment hostname to %s", hn)
+        iutil.execWithRedirect("hostnamectl", ["set-hostname", hn])
 
 def write_hostname(rootpath, ksdata, overwrite=False):
     cfgfile = os.path.normpath(rootpath + hostnameFile)
