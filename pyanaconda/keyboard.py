@@ -216,9 +216,18 @@ def write_keyboard_config(keyboard, root, convert=True):
             localed_wrapper.set_layouts(layouts_variants,
                                         options)
         else:
-            # just let systemd-localed write out the conf file
-            localed_wrapper.set_layouts(keyboard.x_layouts,
-                                        keyboard.switch_options)
+            try:
+                # just let systemd-localed write out the conf file
+                localed_wrapper.set_layouts(keyboard.x_layouts,
+                                            keyboard.switch_options)
+            except InvalidLayoutVariantSpec as ilvs:
+                # some weird value appeared as a requested X layout
+                log.error("Failed to write out config file: %s", ilvs)
+
+                # try default
+                keyboard.x_layouts = ["us"]
+                localed_wrapper.set_layouts(keyboard.x_layouts,
+                                            keyboard.switch_options)
 
     if keyboard.vc_keymap:
         try:
@@ -306,12 +315,20 @@ def activate_keyboard(keyboard):
         if not valid_keymap:
             log.error("'%s' is not a valid VConsole keymap, not loading",
                         keyboard.vc_keymap)
+            keyboard.vc_keymap = None
         else:
             # activate VConsole keymap and get converted layout and variant
             c_lay_var = localed.set_and_convert_keymap(keyboard.vc_keymap)
 
-    if not keyboard.x_layouts and c_lay_var:
-        keyboard.x_layouts.append(c_lay_var)
+    if not keyboard.x_layouts:
+        if c_lay_var:
+            # suggested by systemd-localed for a requested VConsole keymap
+            keyboard.x_layouts.append(c_lay_var)
+        if keyboard.vc_keymap:
+            # nothing suggested by systemd-localed, but we may try to use the
+            # same string for both VConsole keymap and X layout (will fail
+            # safely if it doesn't work)
+            keyboard.x_layouts.append(keyboard.vc_keymap)
 
     if keyboard.x_layouts:
         c_keymap = localed.set_and_convert_layout(keyboard.x_layouts[0])
