@@ -389,11 +389,17 @@ class XklWrapper(object):
     """
 
     _instance = None
+    _instance_lang = None
 
     @staticmethod
     def get_instance():
+        # If the language has changed, we need to grab new strings
+        if os.environ["LANG"] != XklWrapper._instance_lang:
+            XklWrapper._instance = None
+
         if not XklWrapper._instance:
             XklWrapper._instance = XklWrapper()
+            XklWrapper._instance_lang = os.environ["LANG"]
 
         return XklWrapper._instance
 
