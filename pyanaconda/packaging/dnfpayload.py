@@ -326,6 +326,7 @@ class DNFPayload(packaging.PackagePayload):
 
         pkgs_to_download = self._base.transaction.install_set
         log.info('Downloading pacakges.')
+        progressQ.send_message(_('Downloading packages'))
         self._base.download_packages(pkgs_to_download)
         log.info('Downloading packages finished.')
 
