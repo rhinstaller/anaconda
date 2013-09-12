@@ -17,47 +17,40 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 # Author(s): Matt Wilson <msw@redhat.com>
+#            Chris Lumens <clumens@redhat.com>
 #
 
 import os
-from simpleconfig import SimpleConfigFile
 from pyanaconda.constants import ROOT_PATH, RUNLEVELS
 
 import logging
 log = logging.getLogger("anaconda")
 
-class Desktop(SimpleConfigFile):
-#
-# This class represents the default desktop to run and the default runlevel
-# to start in
-#
-    def setDefaultRunLevel(self, runlevel):
-        if int(runlevel) not in RUNLEVELS:
-            raise RuntimeError("Desktop::setDefaultRunLevel() - Must specify runlevel as 3 or 5!")
-        self.runlevel = runlevel
-
-    def getDefaultRunLevel(self):
-        return self.runlevel
-
-    def setDefaultDesktop(self, desktop):
-        self.info["DESKTOP"] = desktop
-
-    def getDefaultDesktop(self):
-        return self.get("DESKTOP")
-
+class Desktop(object):
     def __init__(self):
-        super(Desktop, self).__init__()
-        self.runlevel = 3
+        self._runlevel = 3
+        self.desktop = None
 
-    def write(self, filename=None, use_tmp=True):
-        if self.getDefaultDesktop():
-            f = open(ROOT_PATH + "/etc/sysconfig/desktop", "w")
-            f.write(str(self))
-            f.close()
+    @property
+    def runlevel(self):
+        return self._runlevel
+
+    @runlevel.setter
+    def runlevel(self, runlevel):
+        if int(runlevel) not in RUNLEVELS:
+            raise RuntimeError("Desktop::setDefaultRunLevel() - Must specify runlevel as one of %s" % RUNLEVELS.keys())
+
+        self._runlevel = runlevel
+
+    def write(self):
+        if self.desktop:
+            with open(ROOT_PATH + "/etc/sysconfig/desktop", "w") as f:
+                f.write("DESKTOP=%s\n" % self.desktop)
 
         if not os.path.isdir(ROOT_PATH + '/etc/systemd/system'):
             log.warning("there is no /etc/systemd/system directory, cannot update default.target!")
             return
+
         default_target = ROOT_PATH + '/etc/systemd/system/default.target'
         if os.path.islink(default_target):
             os.unlink(default_target)
