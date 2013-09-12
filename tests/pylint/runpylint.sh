@@ -44,10 +44,11 @@ DISABLED_ERR_OPTIONS="--disable=E1103"
 DISABLED_WARN_OPTIONS="--disable=W0110,W0141,W0142,W0223,W0403,W0511,W0603,W0604,W0613,W0614"
 
 usage () {
-  echo "usage: `basename $0` [--strict] [--help]"
+  echo "usage: `basename $0` [--strict] [--help] [files...]"
   exit $1
 }
 
+FILES=
 while [ $# -gt 0 ]; do
   case $1 in
     --strict)
@@ -57,8 +58,8 @@ while [ $# -gt 0 ]; do
       usage 0
       ;;
     *)
-      echo "Error unknown option: $1"
-      usage 1
+      FILES=$@
+      break
   esac
   shift
 done
@@ -76,7 +77,10 @@ fi
 
 # run pylint one file / module at a time, otherwise it sometimes gets
 # confused
-for i in "${top_srcdir}"/anaconda $(find "${top_srcdir}/pyanaconda" -type f -name '*py' \! -executable); do
+if [ -z "$FILES" ]; then
+    FILES="${top_srcdir}/anaconda $(find "${top_srcdir}/pyanaconda" -type f -name '*py' \! -executable)"
+fi
+for i in $FILES; do
   if [ -n "$(echo "$i" | grep 'pyanaconda/packaging/dnfpayload.py$')" ]; then
      continue
   fi
