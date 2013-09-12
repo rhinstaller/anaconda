@@ -36,6 +36,7 @@ import types
 import os
 import re
 import shutil
+import ctypes
 
 from pyanaconda import iutil
 from pyanaconda import flags
@@ -350,7 +351,7 @@ def item_str(s):
     elif type(s) == types.ListType:
         # XXX: this is the wrong case that should be fixed (rhbz#920595)
         i = s.index(0)
-        s = "".join(chr(char) for char in s[:i] if char in xrange(256))
+        s = "".join(chr(ctypes.c_uint8(char).value) for char in s[:i])
 
     return s.decode("utf-8") #there are some non-ascii layout descriptions
 
