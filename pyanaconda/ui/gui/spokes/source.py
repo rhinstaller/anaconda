@@ -473,7 +473,7 @@ class SourceSpoke(NormalSpoke):
         if flags.automatedInstall and (not self.data.method.method or not self.payload.baseRepo):
             return False
         else:
-            return not self._error and self.status and (self.data.method.method or self.payload.baseRepo)
+            return not self._error and self.ready and (self.data.method.method or self.payload.baseRepo)
 
     @property
     def mandatory(self):
