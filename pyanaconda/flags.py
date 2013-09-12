@@ -70,6 +70,7 @@ class Flags(object):
         self.leavebootorder = False
         self.testing = False
         self.dnf = False
+        self.mpathFriendlyNames = True
         # ksprompt is whether or not to prompt for missing ksdata
         self.ksprompt = True
         # parse the boot commandline
