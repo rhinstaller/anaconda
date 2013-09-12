@@ -50,8 +50,13 @@ class InstallClass(BaseInstallClass):
     def setNetworkOnbootDefault(self, ksdata):
         # if something's already enabled, we can just leave the config alone
         for devName in nm.nm_devices():
-            if not nm.nm_device_type_is_wifi(devName) and \
-               network.get_ifcfg_value(devName, "ONBOOT", ROOT_PATH) == "yes":
+            if nm.nm_device_type_is_wifi(devName):
+                continue
+            try:
+                onboot = nm.nm_device_setting_value(devName, "connection", "autoconnect")
+            except nm.DeviceSettingsNotFoundError:
+                continue
+            if not onboot == False:
                 return
 
         # the default otherwise: bring up the first wired netdev with link
@@ -63,12 +68,15 @@ class InstallClass(BaseInstallClass):
             except ValueError as e:
                 continue
             if link_up:
-                dev = network.NetworkDevice(ROOT_PATH + network.netscriptsDir, devName)
-                dev.loadIfcfgFile()
-                dev.set(('ONBOOT', 'yes'))
-                dev.writeIfcfgFile()
+                ifcfg_path = network.find_ifcfg_file_of_device(devName, root_path=ROOT_PATH)
+                if not ifcfg_path:
+                    continue
+                ifcfg = network.IfcfgFile(ifcfg_path)
+                ifcfg.read()
+                ifcfg.set(('ONBOOT', 'yes'))
+                ifcfg.write()
                 for nd in ksdata.network.network:
-                    if nd.device == dev.iface:
+                    if nd.device == devName:
                         nd.onboot = True
                         break
                 break

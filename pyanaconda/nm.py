@@ -233,6 +233,24 @@ def nm_device_type_is_ethernet(name):
     """
     return nm_device_type(name) == NetworkManager.DeviceType.ETHERNET
 
+def nm_device_type_is_bond(name):
+    """Is the type of device bond?
+
+       Exceptions:
+       UnknownDeviceError if device is not found
+       PropertyNotFoundError if type is not found
+    """
+    return nm_device_type(name) == NetworkManager.DeviceType.BOND
+
+def nm_device_type_is_vlan(name):
+    """Is the type of device vlan?
+
+       Exceptions:
+       UnknownDeviceError if device is not found
+       PropertyNotFoundError if type is not found
+    """
+    return nm_device_type(name) == NetworkManager.DeviceType.VLAN
+
 def nm_device_hwaddress(name):
     """Return device's 'HwAddress' property
 
@@ -276,6 +294,26 @@ def nm_device_ip_addresses(name, version=4):
         retval = [addrs[0] for addrs in config[0]]
 
     return retval
+
+def nm_device_active_ssid(name):
+    """Return ssid of device's active access point.
+
+       Exceptions:
+       UnknownDeviceError if device is not found
+    """
+
+    try:
+        aap = nm_device_property(name, "ActiveAccessPoint")
+    except PropertyNotFoundError:
+        return None
+
+    if aap == "/":
+        return None
+
+    ssid_ay = _get_property(aap, "Ssid", ".AccessPoint")
+    ssid = "".join(chr(b) for b in ssid_ay)
+
+    return ssid
 
 def nm_device_ip_config(name, version=4):
     """Return list of devices's IP config
