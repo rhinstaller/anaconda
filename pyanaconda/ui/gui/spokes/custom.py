@@ -1241,8 +1241,10 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
             md_level = mdraid.raidLevel(raid_level)
             min_disks = mdraid.get_raid_min_members(md_level)
             if len(self._device_disks) < min_disks:
-                error = (_(raid_level_not_enough_disks_msg)
-                         % (raid_level, min_disks, len(self._device_disks)))
+                error = _(raid_level_not_enough_disks_msg) % \
+                        {"level": raid_level,
+                         "min" : min_disks,
+                         "count": len(self._device_disks)}
 
         if error:
             self.set_warning(error)
