@@ -17,41 +17,34 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 # Author(s): Matt Wilson <msw@redhat.com>
+#            Chris Lumens <clumens@redhat.com>
 #
 
 import os
-from pyanaconda.simpleconfig import SimpleConfigFile
 from pyanaconda.constants import RUNLEVELS
 from pyanaconda import iutil
 
 import logging
 log = logging.getLogger("anaconda")
 
-class Desktop(SimpleConfigFile):
-#
-# This class represents the default desktop to run and the default runlevel
-# to start in
-#
-    def setDefaultRunLevel(self, runlevel):
-        if int(runlevel) not in RUNLEVELS:
-            raise RuntimeError("Desktop::setDefaultRunLevel() - Must specify runlevel as 3 or 5!")
-        self.runlevel = runlevel
-
-    def getDefaultRunLevel(self):
-        return self.runlevel
-
-    def setDefaultDesktop(self, desktop):
-        self.info["DESKTOP"] = desktop
-
-    def getDefaultDesktop(self):
-        return self.get("DESKTOP")
-
+class Desktop(object):
     def __init__(self):
-        super(Desktop, self).__init__()
-        self.runlevel = 3
+        self._runlevel = 3
+        self.desktop = None
+
+    @property
+    def runlevel(self):
+        return self._runlevel
+
+    @runlevel.setter
+    def runlevel(self, runlevel):
+        if int(runlevel) not in RUNLEVELS:
+            raise RuntimeError("Desktop::setDefaultRunLevel() - Must specify runlevel as one of %s" % RUNLEVELS.keys())
+
+        self._runlevel = runlevel
 
     def write(self):
-        if self.getDefaultDesktop():
+        if self.desktop:
             f = open(iutil.getSysroot() + "/etc/sysconfig/desktop", "w")
             f.write(str(self))
             f.close()

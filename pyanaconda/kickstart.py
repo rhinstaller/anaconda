@@ -1519,10 +1519,10 @@ class XConfig(commands.xconfig.F14_XConfig):
     def execute(self, *args):
         desktop = Desktop()
         if self.startX:
-            desktop.setDefaultRunLevel(5)
+            desktop.runlevel = 5
 
         if self.defaultdesktop:
-            desktop.setDefaultDesktop(self.defaultdesktop)
+            desktop.desktop = self.defaultdesktop
 
         # now write it out
         desktop.write()
