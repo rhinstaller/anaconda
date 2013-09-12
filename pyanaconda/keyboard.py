@@ -41,7 +41,7 @@ from pyanaconda import iutil
 from pyanaconda import flags
 from pyanaconda.safe_dbus import dbus_call_safe_sync, dbus_get_property_safe_sync
 from pyanaconda.safe_dbus import DBUS_SYSTEM_BUS_ADDR, DBusPropertyError
-from pyanaconda.constants import DEFAULT_VC_FONT
+from pyanaconda.constants import DEFAULT_VC_FONT, DEFAULT_KEYBOARD
 
 from gi.repository import Xkl, Gio, GLib
 
@@ -143,7 +143,7 @@ def populate_missing_items(keyboard):
         keyboard.vc_keymap = localed.set_and_convert_layout(keyboard.x_layouts[0])
 
     if not keyboard.vc_keymap:
-        keyboard.vc_keymap = "us"
+        keyboard.vc_keymap = DEFAULT_KEYBOARD
 
     if not keyboard.x_layouts:
         c_lay_var = localed.set_and_convert_keymap(keyboard.vc_keymap)
@@ -225,7 +225,7 @@ def write_keyboard_config(keyboard, root, convert=True):
                 log.error("Failed to write out config file: %s", ilvs)
 
                 # try default
-                keyboard.x_layouts = ["us"]
+                keyboard.x_layouts = [DEFAULT_KEYBOARD]
                 localed_wrapper.set_layouts(keyboard.x_layouts,
                                             keyboard.switch_options)
 
@@ -421,13 +421,13 @@ class XklWrapper(object):
                                            self._rec.layouts,
                                            self._rec.variants))
                 log.error("Failed to activate layouts: '%s', "
-                          "falling back to default 'us'", lay_var_str)
-                self._rec.set_layouts(["us"])
+                          "falling back to default %s", lay_var_str, DEFAULT_KEYBOARD)
+                self._rec.set_layouts([DEFAULT_KEYBOARD])
                 self._rec.set_variants([""])
 
                 if not self._rec.activate(self._engine):
-                    # failed to activate even the default "us" layout, something
-                    # is really wrong
+                    # failed to activate even the default layout, something is
+                    # really wrong
                     raise XklWrapperError("Failed to initialize layouts")
 
         #needed also for Gkbd.KeyboardDrawingDialog

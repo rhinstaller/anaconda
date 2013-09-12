@@ -77,6 +77,8 @@ DEFAULT_LANG = "en_US.UTF-8"
 
 DEFAULT_VC_FONT = "latarcyrheb-sun16"
 
+DEFAULT_KEYBOARD = "us"
+
 DRACUT_SHUTDOWN_EJECT = "/run/initramfs/usr/lib/dracut/hooks/shutdown/99anaconda-eject.sh"
 
 # VNC questions

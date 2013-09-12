@@ -36,7 +36,7 @@ from pyanaconda import flags
 from pyanaconda import geoloc
 from pyanaconda.i18n import _
 from pyanaconda.iutil import is_unsupported_hw
-from pyanaconda.constants import DEFAULT_LANG
+from pyanaconda.constants import DEFAULT_LANG, DEFAULT_KEYBOARD
 
 import logging
 log = logging.getLogger("anaconda")
@@ -114,11 +114,11 @@ class WelcomeLanguageSpoke(LangLocaleHandler, StandaloneSpoke):
             # store it normalized
             new_layouts = [keyboard.normalize_layout_variant(layouts[0])]
             if not langtable.supports_ascii(layouts[0]):
-                # does not support typing ASCII chars, append the 'us' layout
-                new_layouts.append("us")
+                # does not support typing ASCII chars, append the default layout
+                new_layouts.append(DEFAULT_KEYBOARD)
         else:
             log.error("Failed to get layout for chosen locale '%s'", locale)
-            new_layouts = ["us"]
+            new_layouts = [DEFAULT_KEYBOARD]
 
         self.data.keyboard.x_layouts = new_layouts
         if flags.can_touch_runtime_system("replace runtime X layouts", touch_live=True):
@@ -130,8 +130,8 @@ class WelcomeLanguageSpoke(LangLocaleHandler, StandaloneSpoke):
 
             if flags.can_touch_runtime_system("init layout switching", touch_live=True):
                 self._xklwrapper.set_switching_options(["grp:alt_shift_toggle"])
-                # activate the first (language-default) layout instead of the
-                # 'us' one
+                # activate the language-default layout instead of the additional
+                # one
                 self._xklwrapper.activate_default_layout()
 
     @property

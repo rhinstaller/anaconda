@@ -29,6 +29,7 @@ from pyanaconda.ui.gui.utils import enlightbox, gtk_call_once
 from pyanaconda import keyboard
 from pyanaconda import flags
 from pyanaconda.i18n import _, N_
+from pyanaconda.constants import DEFAULT_KEYBOARD
 
 import logging
 log = logging.getLogger("anaconda")
@@ -550,8 +551,8 @@ class KeyboardSpoke(NormalSpoke):
 
     def _add_data_layouts(self):
         if not self.data.keyboard.x_layouts:
-            # nothing specified, just add the default 'us'
-            self._addLayout(self._store, "us")
+            # nothing specified, just add the default
+            self._addLayout(self._store, DEFAULT_KEYBOARD)
             return
 
         valid_layouts = []
@@ -563,9 +564,9 @@ class KeyboardSpoke(NormalSpoke):
                 log.error("Failed to add layout '%s'", layout)
 
         if not valid_layouts:
-            log.error("No valid layout given, falling back to default 'us'")
-            self._addLayout(self._store, "us")
-            self.data.keyboard.x_layouts = ["us"]
+            log.error("No valid layout given, falling back to default %s", DEFAULT_KEYBOARD)
+            self._addLayout(self._store, DEFAULT_KEYBOARD)
+            self.data.keyboard.x_layouts = [DEFAULT_KEYBOARD]
 
     def _flush_layouts_to_X(self):
         layouts_list = list()
