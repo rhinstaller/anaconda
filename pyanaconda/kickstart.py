@@ -622,11 +622,6 @@ class IscsiName(commands.iscsiname.FC6_IscsiName):
         return retval
 
 class Lang(commands.lang.F19_Lang):
-    def __init__(self, *args, **kwargs):
-        commands.lang.F19_Lang.__init__(self, *args, **kwargs)
-        if not self.lang and not flags.automatedInstall:
-            self.lang = DEFAULT_LANG
-
     def execute(self, *args, **kwargs):
         localization.write_language_configuration(self, ROOT_PATH)
 

@@ -979,7 +979,8 @@ if __name__ == "__main__":
         else:
             log.error("Invalid locale '%s' given on command line or in kickstart", requested_lang)
     else:
-        localization.setup_locale(constants.DEFAULT_LANG)
+        # no kickstart or bootoption - use default
+        localization.setup_locale(constants.DEFAULT_LANG, ksdata.lang)
 
     import blivet
     blivet.enable_installer_mode()
