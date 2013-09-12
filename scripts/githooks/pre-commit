@@ -1,0 +1,47 @@
+#!/usr/bin/python
+""" Run the Anaconda pylint tests on the files changed in this commit
+
+    Set NOPYLINT env variable to skip this. eg. NOPYLINT= git commit
+
+
+"""
+import os
+import sys
+from subprocess import check_output, CalledProcessError
+
+OTHER_MODULES_PATH = ".:../blivet/:../pykickstart/"
+
+if "NOPYLINT" in os.environ:
+    print "Skipping pre-commit pylint run"
+    sys.exit(0)
+
+# run pylint on all the python files changed by this commit
+try:
+    git_files = check_output("git diff-index --cached HEAD", shell=True)
+except CalledProcessError:
+    sys.exit(1)
+
+pylint_files = []
+# Lines look like: :100755 100755 2cf57974e13a2aae778e28f942a4d44bf6567409 6fe1b6caf32d565b2cdb6d1aee250aaddc6d3a04 M      tests/pylint/runpylint.sh
+for gf in git_files.splitlines():
+    path = gf.split()[-1]
+    if path == "anaconda" or path.endswith(".py"):
+        pylint_files.append(path)
+
+if not pylint_files:
+    sys.exit(0)
+pylint_files = " ".join(pylint_files)
+
+# Make sure pykickstart and blivet can be found
+# Note that if the checked out versions are too far off pylint may fail
+env = os.environ.copy()
+env["PYTHONPATH"] = OTHER_MODULES_PATH
+
+print "Running pylint on %s" % pylint_files
+try:
+    check_output("./tests/pylint/runpylint.sh %s" % pylint_files, shell=True, env=env)
+except CalledProcessError as e:
+    print e.output
+    sys.exit(1)
+
+sys.exit(0)
