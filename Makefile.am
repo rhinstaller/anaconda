@@ -47,14 +47,14 @@ tag:
 	@echo "Tagged as $(ARCHIVE_TAG)"
 
 po-pull:
-	rm -f po/en@boldquot.gmo po/en@boldquot.po
-	rm -f po/en@quot.gmo po/en@quot.po
+	rm -f $(srcdir)/po/en@boldquot.gmo $(srcdir)/po/en@boldquot.po
+	rm -f $(srcdir)/po/en@quot.gmo $(srcdir)/po/en@quot.po
 	rpm -q transifex-client &>/dev/null || ( echo "need to run: yum install transifex-client"; exit 1 )
 	tx pull $(TX_PULL_ARGS)
 
 scratch: po-pull
 	$(MAKE) ARCHIVE_TAG=HEAD dist
-	git checkout -- po/$(PACKAGE_NAME).pot
+	git checkout -- $(srcdir)/po/$(PACKAGE_NAME).pot
 
 scratch-bumpver: po-pull
 	@opts="-n $(PACKAGE_NAME) -v $(PACKAGE_VERSION) -r $(PACKAGE_RELEASE) -b $(PACKAGE_BUGREPORT)" ; \
@@ -67,11 +67,11 @@ scratch-bumpver: po-pull
 	if [ ! -z "$(BZDEBUG)" ]; then \
 		opts="$${opts} -d" ; \
 	fi ; \
-	scripts/makebumpver $${opts} || exit 1 ; \
+	( cd $(srcdir) && scripts/makebumpver $${opts} ) || exit 1 ; \
 	$(MAKE) -C po $(PACKAGE_NAME).pot-update ; 
 
 release:
-	$(MAKE) dist && $(MAKE) tag && git checkout -- po/$(PACKAGE_NAME).pot
+	$(MAKE) dist && $(MAKE) tag && git checkout -- $(srcdir)/po/$(PACKAGE_NAME).pot
 
 api:
 	doxygen docs/api.cfg
@@ -87,12 +87,14 @@ bumpver: po-pull
 	if [ ! -z "$(BZDEBUG)" ]; then \
 		opts="$${opts} -d" ; \
 	fi ; \
-	scripts/makebumpver $${opts} || exit 1 ; \
-	$(MAKE) -C po $(PACKAGE_NAME).pot-update ; \
+	( cd $(srcdir) && scripts/makebumpver $${opts} ) || exit 1 ; \
+	$(MAKE) -C po $(PACKAGE_NAME).pot-update && \
 	tx push $(TX_PUSH_ARGS)
 
 install-buildrequires:
-	yum install $$(grep BuildRequires: anaconda.spec.in | cut -d ' ' -f 2)
+	srcdir="$(srcdir)" && \
+	: $${srcdir:=.} && \
+	yum install $$(grep BuildRequires: $${srcdir}/anaconda.spec.in | cut -d ' ' -f 2)
 
 # Generate an updates.img based on the changed files since the release
 # was tagged.  Updates are copied to ./updates-img and then the image is
@@ -105,59 +107,59 @@ updates:
 	if [ "$${keep}" = "Y" ]; then \
 		opts="$${opts} -k" ; \
 	fi ; \
-	scripts/makeupdates $${opts}
+	( cd $(srcdir) && scripts/makeupdates $${opts} -b '$(abs_builddir)' )
 
 # UNIT TESTING TARGETS
 unittests-logpicker:
-	PYTHONPATH=pyanaconda/isys/.libs:tests/:.:utils/ nosetests -v old_tests/logpicker_test
+	PYTHONPATH=$(builddir)/pyanaconda/isys/.libs:tests/:$(srcdir):utils/ nosetests -v old_tests/logpicker_test
 
 # GUI TESTING
 runspoke:
-	ANACONDA_DATA=${PWD}/data \
-	ANACONDA_WIDGETS_OVERRIDES=${PWD}/widgets/python \
-	ANACONDA_WIDGETS_DATA=${PWD}/widgets/data \
-	ANACONDA_INSTALL_CLASSES=${PWD}/pyanaconda/installclasses \
-	PYTHONPATH=.:pyanaconda/isys/.libs:widgets/python/:widgets/src/.libs/ \
-	LD_LIBRARY_PATH=widgets/src/.libs \
-	UIPATH=pyanaconda/ui/gui/ \
-	GI_TYPELIB_PATH=widgets/src/ \
-	pyanaconda/ui/gui/tools/run-spoke.py ${SPOKE_MODULE} ${SPOKE_CLASS}
+	ANACONDA_DATA=$(srcdir)/data \
+	ANACONDA_WIDGETS_OVERRIDES=$(srcdir)/widgets/python \
+	ANACONDA_WIDGETS_DATA=$(srcdir)/widgets/data \
+	ANACONDA_INSTALL_CLASSES=$(srcdir)/pyanaconda/installclasses \
+	PYTHONPATH=$(srcdir):$(builddir)/pyanaconda/isys/.libs:$(srcdir)/widgets/python/:$(builddir)/widgets/src/.libs/ \
+	LD_LIBRARY_PATH=$(builddir)/widgets/src/.libs \
+	UIPATH=$(srcdir)/pyanaconda/ui/gui/ \
+	GI_TYPELIB_PATH=$(builddir)/widgets/src/ \
+	$(srcdir)/pyanaconda/ui/gui/tools/run-spoke.py ${SPOKE_MODULE} ${SPOKE_CLASS}
 
 runhub:
-	ANACONDA_DATA=${PWD}/data \
-	ANACONDA_WIDGETS_OVERRIDES=${PWD}/widgets/python \
-	ANACONDA_WIDGETS_DATA=${PWD}/widgets/data \
-	ANACONDA_INSTALL_CLASSES=${PWD}/pyanaconda/installclasses \
-	PYTHONPATH=.:pyanaconda/isys/.libs:widgets/python/:widgets/src/.libs/ \
-	LD_LIBRARY_PATH=widgets/src/.libs \
-	UIPATH=pyanaconda/ui/gui/ \
-	GI_TYPELIB_PATH=widgets/src/ \
-	pyanaconda/ui/gui/tools/run-hub.py ${HUB_MODULE} ${HUB_CLASS}
+	ANACONDA_DATA=$(srcdir)/data \
+	ANACONDA_WIDGETS_OVERRIDES=$(srcdir)/widgets/python \
+	ANACONDA_WIDGETS_DATA=$(srcdir)/widgets/data \
+	ANACONDA_INSTALL_CLASSES=$(srcdir)/pyanaconda/installclasses \
+	PYTHONPATH=$(srcdir):$(builddir)/pyanaconda/isys/.libs:$(srcdir)/widgets/python/:$(builddir)/widgets/src/.libs/ \
+	LD_LIBRARY_PATH=$(builddir)/widgets/src/.libs \
+	UIPATH=$(srcdir)/pyanaconda/ui/gui/ \
+	GI_TYPELIB_PATH=$(builddir)/widgets/src/ \
+	$(srcdir)/pyanaconda/ui/gui/tools/run-hub.py ${HUB_MODULE} ${HUB_CLASS}
 
 runtextspoke:
-	ANACONDA_DATA=${PWD}/data \
-	ANACONDA_INSTALL_CLASSES=${PWD}/pyanaconda/installclasses \
-	PYTHONPATH=.:pyanaconda/isys/.libs:widgets/python/:widgets/src/.libs/ \
-	LD_LIBRARY_PATH=widgets/src/.libs \
-	pyanaconda/ui/tui/tools/run-text-spoke.py ${SPOKE_MODULE} ${SPOKE_CLASS}
+	ANACONDA_DATA=$(srcdir)/data \
+	ANACONDA_INSTALL_CLASSES=$(srcdir)/pyanaconda/installclasses \
+	PYTHONPATH=$(srcdir):$(builddir)/pyanaconda/isys/.libs:$(srcdir)/widgets/python/:$(builddir)/widgets/src/.libs/ \
+	LD_LIBRARY_PATH=$(builddir)/widgets/src/.libs \
+	$(srcdir)/pyanaconda/ui/tui/tools/run-text-spoke.py ${SPOKE_MODULE} ${SPOKE_CLASS}
 
 runtexthub:
-	ANACONDA_DATA=${PWD}/data \
-	ANACONDA_INSTALL_CLASSES=${PWD}/pyanaconda/installclasses \
-	PYTHONPATH=.:pyanaconda/isys/.libs:widgets/python/:widgets/src/.libs/ \
-	LD_LIBRARY_PATH=widgets/src/.libs \
-	pyanaconda/ui/tui/tools/run-text-hub.py ${HUB_MODULE} ${HUB_CLASS}
+	ANACONDA_DATA=$(srcdir)/data \
+	ANACONDA_INSTALL_CLASSES=$(srcdir)/pyanaconda/installclasses \
+	PYTHONPATH=$(srcdir):$(builddir)/pyanaconda/isys/.libs:$(srcdir)/widgets/python/:$(builddir)/widgets/src/.libs/ \
+	LD_LIBRARY_PATH=$(builddir)/widgets/src/.libs \
+	$(srcdir)/pyanaconda/ui/tui/tools/run-text-hub.py ${HUB_MODULE} ${HUB_CLASS}
 
 
 runglade:
-	ANACONDA_DATA=${PWD}/data \
-	ANACONDA_WIDGETS_OVERRIDES=${PWD}/widgets/python \
-	ANACONDA_WIDGETS_DATA=${PWD}/widgets/data \
-	ANACONDA_INSTALL_CLASSES=${PWD}/pyanaconda/installclasses \
-	PYTHONPATH=.:pyanaconda/isys/.libs:widgets/python/:widgets/src/.libs/ \
-	LD_LIBRARY_PATH=widgets/src/.libs \
-	UIPATH=pyanaconda/ui/gui/ \
-	GI_TYPELIB_PATH=widgets/src/ \
-	GLADE_CATALOG_SEARCH_PATH=${PWD}/widgets/glade \
-	GLADE_MODULE_SEARCH_PATH=${PWD}/widgets/src/.libs \
+	ANACONDA_DATA=$(srcdir)/data \
+	ANACONDA_WIDGETS_OVERRIDES=$(srcdir)/widgets/python \
+	ANACONDA_WIDGETS_DATA=$(srcdir)/widgets/data \
+	ANACONDA_INSTALL_CLASSES=$(srcdir)/pyanaconda/installclasses \
+	PYTHONPATH=$(srcdir):$(builddir)/pyanaconda/isys/.libs:$(srcdir)/widgets/python/:$(builddir)/widgets/src/.libs/ \
+	LD_LIBRARY_PATH=$(builddir)/widgets/src/.libs \
+	UIPATH=$(srcdir)/pyanaconda/ui/gui/ \
+	GI_TYPELIB_PATH=$(builddir)/widgets/src/ \
+	GLADE_CATALOG_SEARCH_PATH=$(srcdir)/widgets/glade \
+	GLADE_MODULE_SEARCH_PATH=$(builddir)/widgets/src/.libs \
 	glade ${GLADE_FILE}

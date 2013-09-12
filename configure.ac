@@ -208,7 +208,7 @@ CFLAGS="`cflags_filter $CFLAGS`"
 LIBS=
 
 # Get the release number from the spec file
-rel="`awk '/Release:/ { split($2, r, "%"); print r[[1]] }' anaconda.spec.in`"
+rel="`awk '/Release:/ { split($2, r, "%"); print r[[1]] }' $srcdir/anaconda.spec.in`"
 AC_SUBST(PACKAGE_RELEASE, [$rel])
 
 # Perform arch related tests

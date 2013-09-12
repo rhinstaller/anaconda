@@ -312,15 +312,22 @@ def isysChanged(tag):
 def widgetsChanged(tag):
     return _compilableChanged(tag, 'widgets')
 
-def copyUpdatedIsys(updates, cwd):
-    os.chdir(cwd)
-
-    if not os.path.isfile('Makefile'):
+def checkAutotools(srcdir, builddir):
+    # Assumes that cwd is srcdir
+    if not os.path.isfile(os.path.join(builddir, 'Makefile')):
         if not os.path.isfile('configure'):
             os.system('./autogen.sh')
-        os.system('./configure --prefix=`rpm --eval %_prefix`')
+        os.chdir(builddir)
+        os.system(os.path.join(srcdir, 'configure') + ' --prefix=`rpm --eval %_prefix` --enable-gtk-doc --enable-introspection')
+        os.chdir(srcdir)
 
-    os.system('make -j %d' % multiprocessing.cpu_count())
+def copyUpdatedIsys(updates, srcdir, builddir):
+    os.chdir(srcdir)
+    print("copyUpdatedIsys BUILDDIR %s" % builddir)
+
+    checkAutotools(srcdir, builddir)
+
+    os.system('make -C %s -j %d' % (builddir, multiprocessing.cpu_count()))
 
     # Updates get overlaid onto the runtime filesystem. Anaconda expects them
     # to be in /run/install/updates, so put them in
@@ -332,13 +339,13 @@ def copyUpdatedIsys(updates, cwd):
     if not os.path.isdir(tmpupdates):
         os.makedirs(tmpupdates)
 
-    isysmodule = os.path.realpath(cwd + '/pyanaconda/isys/.libs/_isys.so')
+    isysmodule = os.path.realpath(os.path.join(builddir,'pyanaconda/isys/.libs/_isys.so'))
 
     if os.path.isfile(isysmodule):
         shutil.copy2(isysmodule, tmpupdates)
 
-def copyUpdatedWidgets(updates, cwd):
-    os.chdir(cwd)
+def copyUpdatedWidgets(updates, srcdir, builddir):
+    os.chdir(srcdir)
 
     if os.path.isdir("/lib64"):
         libdir = "/lib64/"
@@ -351,22 +358,19 @@ def copyUpdatedWidgets(updates, cwd):
     if not os.path.isdir(updates + libdir + "girepository-1.0"):
         os.makedirs(updates + libdir + "girepository-1.0")
 
-    if not os.path.isfile('Makefile'):
-        if not os.path.isfile('configure'):
-            os.system('./autogen.sh')
-        os.system('./configure --prefix=`rpm --eval %_prefix` --enable-gtk-doc --enable-introspection')
+    checkAutotools(srcdir, builddir)
 
-    os.system('make')
+    os.system('make -C %s' % builddir)
 
     files = ["libAnacondaWidgets.so", "libAnacondaWidgets.so.1", "libAnacondaWidgets.so.1.0.0"]
     for f in files:
-        path = os.path.normpath(cwd + "/widgets/src/.libs/" + f)
+        path = os.path.normpath(builddir + "/widgets/src/.libs/" + f)
         if os.path.islink(path) and not os.path.exists(updates + libdir + os.path.basename(path)):
             os.symlink(os.readlink(path), updates + libdir + os.path.basename(path))
         elif os.path.isfile(path):
             shutil.copy2(path, updates + libdir)
 
-    typelib = os.path.realpath(cwd + "/widgets/src/AnacondaWidgets-1.0.typelib")
+    typelib = os.path.realpath(builddir + "/widgets/src/AnacondaWidgets-1.0.typelib")
     if os.path.isfile(typelib):
         shutil.copy2(typelib, updates + libdir + "girepository-1.0")
 
@@ -782,6 +786,9 @@ def main():
     parser.add_argument('-f', '--fetch', action='store', type=str, metavar="ARCH",
                         help='autofetch new dependencies from Koji for ARCH')
 
+    parser.add_argument('-b', '--builddir', action='store', type=str,
+                        metavar='BUILDDIR', help='build directory for shared objects')
+
     args = parser.parse_args()
 
     if not os.path.isfile(configure) and not os.path.isfile(spec):
@@ -796,6 +803,15 @@ def main():
             args.tag = getArchiveTagOffset(configure, spec, args.offset)
         sys.stdout.write("Using tag: %s\n" % args.tag)
 
+    if args.builddir:
+        if os.path.isabs(args.builddir):
+            builddir = args.builddir
+        else:
+            builddir = os.path.join(cwd, args.builddir)
+    else:
+        builddir = cwd
+    print("BUILDDIR %s" % builddir)
+
     if not os.path.isdir(updates):
         os.makedirs(updates)
 
@@ -803,10 +819,10 @@ def main():
 
     if args.compile:
         if isysChanged(args.tag):
-            copyUpdatedIsys(updates, cwd)
+            copyUpdatedIsys(updates, cwd, builddir)
 
         if widgetsChanged(args.tag):
-            copyUpdatedWidgets(updates, cwd)
+            copyUpdatedWidgets(updates, cwd, builddir)
 
     if args.add_rpms:
         # as using -a or --add mutltiple times
