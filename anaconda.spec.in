@@ -255,6 +255,23 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Wed Sep 11 2013 Brian C. Lane <bcl@redhat.com> - 20.15-1
+- Don't set up the resize slider for non-resizable devices. (#997690) (dlehman)
+- Remove 'completed' property from Autopart spoke in text UI. (sbueno+anaconda)
+- Clean up code for input handling in TUI spokes. (sbueno+anaconda)
+- set_hostname should proceed only on DVD and live installations (vpodzime)
+- Don't use temporary file and move when writing out an ifcfg file (vpodzime)
+- Set hostname when leaving network spokes (vpodzime)
+- Keep file-naming convention with the Lightbox widget (vpodzime)
+- Let users configure autopart options in interactive text ks. (#1001061)
+  (sbueno+anaconda)
+- Add parameters to format strings (dshea)
+- Fix pre-processing of files for xgettext (#1005644) (dshea)
+- Added a test to check for xgettext warnings (dshea)
+- Make sure XklWrapper isn't dumped to the anaconda-tb file (vpodzime)
+- Catch race of network device state vs reading its config properties (#980576)
+  (rvykydal)
+
 * Tue Sep 10 2013 Brian C. Lane <bcl@redhat.com> - 20.14-1
 - Convert the lightbox into a GObject (#1000927) (dshea)
 - Remove some more unused imports. (clumens)
