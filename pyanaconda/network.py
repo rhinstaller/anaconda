@@ -509,6 +509,9 @@ def kickstartNetworkData(ifcfg=None, hostname=None):
         # pylint: disable-msg=E1101
         return handler.NetworkData(hostname=hostname, bootProto="")
 
+    if not ifcfg:
+        return None
+
     # no network command for bond slaves
     if ifcfg.get("MASTER"):
         return None
