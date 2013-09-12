@@ -256,6 +256,25 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Wed Sep 11 2013 Brian C. Lane <bcl@redhat.com> - 19.31.16-1
+- Let users configure autopart options in interactive text ks.
+  (sbueno+anaconda)
+  Resolves: rhbz#1001061
+- Catch race of network device state vs reading its config properties
+  (rvykydal)
+  Resolves: rhbz#919478
+- Fix check for device state when reading its IPXConfig (rvykydal)
+  Resolves: rhbz#1005681
+- Network spoke: fix showing of ipv6 addresses (rvykydal)
+  Resolves: rhbz#1005681
+- Network spoke: show global ipv6 addresses (rvykydal)
+  Resolves: rhbz#1005681
+- Network spoke: fix refresh of device IP configuration (rvykydal)
+  Resolves: rhbz#1005681
+- Firstboot should be disabled by default after automated installations
+  (vpodzime)
+  Resolves: rhbz#985277
+
 * Mon Sep 09 2013 Brian C. Lane <bcl@redhat.com> - 19.31.15-1
 - Handle kickstarts that don't specify timezone (mkolman)
   Resolves: rhbz#1001598
