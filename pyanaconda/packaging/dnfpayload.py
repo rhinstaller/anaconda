@@ -163,6 +163,7 @@ class DNFPayload(packaging.PackagePayload):
         if self.data.packages.handleMissing == constants.KS_MISSING_IGNORE:
             return
 
+        log.error('Missed: %r', exn)
         if errors.errorHandler.cb(exn, str(exn)) == errors.ERROR_RAISE:
             # The progress bar polls kind of slowly, thus installation could
             # still continue for a bit before the quit message is processed.
