@@ -95,9 +95,11 @@ class DNFPayload(packaging.PackagePayload):
     def _add_repo(self, ksrepo):
         repo = self._base.build_repo(ksrepo.name)
         url = ksrepo.baseurl
+        mirrorlist = ksrepo.mirrorlist
         if url:
             repo.baseurl = [url]
-        repo.mirrorlist = ksrepo.mirrorlist
+        if mirrorlist:
+            repo.mirrorlist = mirrorlist
         repo.sslverify = not (ksrepo.noverifyssl or flags.noverifyssl)
         repo.enable()
         self._base.repos.add(repo)
