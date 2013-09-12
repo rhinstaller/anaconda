@@ -181,7 +181,7 @@ class IfcfgFile(SimpleConfigFile):
         SimpleConfigFile.read(self, self.path)
         return len(self.info)
 
-    def write(self, directory=None):
+    def write(self, directory=None, use_tmp=False):
         """ Writes values into ifcfg file.
         """
 
@@ -192,4 +192,4 @@ class IfcfgFile(SimpleConfigFile):
 
         # ifcfg-rh is using inotify IN_CLOSE_WRITE event so we don't use
         # temporary file for new configuration
-        SimpleConfigFile.write(self, path, use_tmp=False)
+        SimpleConfigFile.write(self, path, use_tmp=use_tmp)
