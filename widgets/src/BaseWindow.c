@@ -573,6 +573,7 @@ void anaconda_base_window_clear_info(AnacondaBaseWindow *win) {
 /**
  * anaconda_base_window_retranslate:
  * @win: a #AnacondaBaseWindow
+ * @lang: target language
  *
  * Reload translations for this widget as needed.  Generally, this is not
  * needed.  However when changing the language during installation, we need
@@ -609,6 +610,9 @@ void anaconda_base_window_retranslate(AnacondaBaseWindow *win, const char *lang)
     }
 
     format_beta_label(win, _(win->priv->orig_beta));
+
+    /* retranslate the layout indicator */
+    anaconda_layout_indicator_retranslate(ANACONDA_LAYOUT_INDICATOR(win->priv->layout_indicator));
 }
 
 static GtkBuildableIface *parent_buildable_iface;

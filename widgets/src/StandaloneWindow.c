@@ -218,6 +218,7 @@ void anaconda_standalone_window_set_may_continue(AnacondaStandaloneWindow *win,
 /**
  * anaconda_standalone_window_retranslate:
  * @win: a #AnacondaStaldaloneWindow
+ * @lang: target language
  *
  * Reload translations for this widget as needed.  Generally, this is not
  * needed.  However when changing the language during installation, we need

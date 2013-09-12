@@ -72,6 +72,7 @@ gchar      *anaconda_layout_indicator_get_current_layout (AnacondaLayoutIndicato
 guint      anaconda_layout_indicator_get_label_width (AnacondaLayoutIndicator *indicator);
 void       anaconda_layout_indicator_set_label_width (AnacondaLayoutIndicator *indicator,
                                                        guint new_width);
+void       anaconda_layout_indicator_retranslate (AnacondaLayoutIndicator *indicator);
 
 G_END_DECLS
 

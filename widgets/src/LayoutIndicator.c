@@ -444,3 +444,19 @@ void anaconda_layout_indicator_set_label_width(AnacondaLayoutIndicator *indicato
     anaconda_layout_indicator_set_property(G_OBJECT(indicator), PROP_LABEL_WIDTH,
                                            &width, NULL);
 }
+
+/**
+ * anaconda_layout_indicator_retranslate:
+ * @indicator: a #AnacondaLayoutIndicator
+ *
+ * Reload translations for this widget as needed.  Generally, this is not
+ * needed.  However when changing the language during installation, we need to
+ * be able to make sure the screen gets retranslated.  This function must be
+ * called after the LANG environment variable, locale and gettext magic are set.
+ *
+ * Since: 1.0
+ */
+void anaconda_layout_indicator_retranslate(AnacondaLayoutIndicator *indicator) {
+    gtk_widget_set_tooltip_text(GTK_WIDGET(indicator),
+                                g_strdup_printf(TOOLTIP_FORMAT_STR, indicator->priv->layout));
+}
