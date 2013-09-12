@@ -28,6 +28,7 @@ from pyanaconda.ui.tui.simpleline import TextWidget, ColumnWidget
 from pyanaconda.i18n import _
 from pyanaconda import network
 from pyanaconda.nm import nm_activated_devices, nm_state, nm_devices, nm_device_type_is_ethernet, nm_device_ip_config, nm_activate_device_connection, nm_device_setting_value
+
 from pyanaconda.regexes import IPV4_PATTERN_WITHOUT_ANCHORS
 from pyanaconda.constants_text import INPUT_PROCESSED
 
@@ -189,7 +190,7 @@ class NetworkSpoke(EditTUISpoke):
         elif 2 <= num <= len(self.supported_devices) + 1:
             # configure device
             devname = self.supported_devices[num-2]
-            ndata = network.get_ks_network_data(devname)
+            ndata = network.ksdata_from_ifcfg(devname)
             newspoke = ConfigureNetworkSpoke(self.app, self.data, self.storage,
                                     self.payload, self.instclass, ndata)
             self.app.switch_screen_modal(newspoke)
@@ -229,9 +230,12 @@ class NetworkSpoke(EditTUISpoke):
 
         self.data.network.network = []
         for name in self.supported_devices:
-            network_data = network.get_ks_network_data(name)
-            if network_data is not None:
-                self.data.network.network.append(network_data)
+            nd = network.ksdata_from_ifcfg(name)
+            if not nd:
+                continue
+            if name in nm_activated_devices():
+                nd.activate = True
+            self.data.network.network.append(nd)
 
         (valid, error) = network.sanityCheckHostname(self.hostname_dialog.value)
         if valid:

@@ -63,15 +63,15 @@ class InstallClass(BaseInstallClass):
             except ValueError:
                 continue
             if link_up:
-                dev = network.NetworkDevice(ROOT_PATH + network.netscriptsDir, devName)
-                try:
-                    dev.loadIfcfgFile()
-                except IOError:
+                ifcfg_path = network.find_ifcfg_file_of_device(devName, root_path=ROOT_PATH)
+                if not ifcfg_path:
                     continue
-                dev.set(('ONBOOT', 'yes'))
-                dev.writeIfcfgFile()
+                ifcfg = network.IfcfgFile(ifcfg_path)
+                ifcfg.read()
+                ifcfg.set(('ONBOOT', 'yes'))
+                ifcfg.write()
                 for nd in ksdata.network.network:
-                    if nd.device == dev.iface:
+                    if nd.device == devName:
                         nd.onboot = True
                         break
                 break

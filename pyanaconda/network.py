@@ -35,7 +35,7 @@ import re
 import dbus
 import IPy
 
-from simpleconfig import IfcfgFile
+from simpleconfig import SimpleConfigFile
 from blivet.devices import FcoeDiskDevice, iScsiDiskDevice
 import blivet.arch
 
@@ -209,81 +209,43 @@ def _ifcfg_files(directory):
         if name.startswith("ifcfg-"):
             if name == "ifcfg-lo":
                 continue
-            rv.append(name)
+            rv.append(os.path.join(directory,name))
     return rv
 
 def logIfcfgFiles(message=""):
     ifcfglog.debug("content of files (%s):", message)
-    for name in _ifcfg_files(netscriptsDir):
-        path = os.path.join(netscriptsDir, name)
+    for path in _ifcfg_files(netscriptsDir):
         with open(path, "r") as f:
             content = f.read()
         ifcfglog.debug("%s:\n%s", path, content)
 
-class NetworkDevice(IfcfgFile):
-
-    def __init__(self, directory, iface):
-        IfcfgFile.__init__(self, directory, iface)
-        if iface.startswith('ctc'):
-            self.info["TYPE"] = "CTC"
-        self.wepkey = ""
+class IfcfgFile(SimpleConfigFile):
+    def __init__(self, filename):
+        SimpleConfigFile.__init__(self, always_quote=True, filename=filename)
         self._dirty = False
 
-    def clear(self):
-        IfcfgFile.clear(self)
-        if self.iface.startswith('ctc'):
-            self.info["TYPE"] = "CTC"
-        self.wepkey = ""
-
-    def __str__(self):
-        s = ""
-        keys = self.info.keys()
-        if blivet.arch.isS390() and ("HWADDR" in keys):
-            keys.remove("HWADDR")
-        # make sure we include autoneg in the ethtool line
-        if 'ETHTOOL_OPTS' in keys:
-            eopts = self.get('ETHTOOL_OPTS')
-            if "autoneg" not in eopts:
-                self.set(('ETHTOOL_OPTS', "autoneg off %s" % eopts))
-
-        for key in keys:
-            if self.info[key] is not None:
-                s = s + key + '="' + self.info[key] + '"\n'
-
-        return s
-
-    def loadIfcfgFile(self):
-        ifcfglog.debug("loadIfcfFile %s", self.path)
-
-        self.clear()
-        IfcfgFile.read(self)
+    def read(self):
+        self.reset()
+        ifcfglog.debug("IfcfFile.read %s", self.filename)
+        SimpleConfigFile.read(self)
         self._dirty = False
 
-    def writeIfcfgFile(self):
-        # Write out the file only if there is a key whose
-        # value has been changed since last load of ifcfg file.
-        ifcfglog.debug("writeIfcfgFile %s to %s%s", self.iface, self.path,
-                                                  ("" if self._dirty else " not needed"))
-        if self._dirty:
-            ifcfglog.debug("old %s:\n%s", self.path, self.fileContent())
-            ifcfglog.debug("writing NetworkDevice %s:\n%s", self.iface, self.__str__())
-            IfcfgFile.write(self)
+    def write(self, filename=None):
+        if self._dirty or filename:
+            # ifcfg-rh is using inotify IN_CLOSE_WRITE event so we don't use
+            # temporary file for new configuration
+            ifcfglog.debug("IfcfgFile.write %s:\n%s", self.filename, self.__str__())
+            SimpleConfigFile.write(self, filename, use_tmp=False)
             self._dirty = False
 
-        # We can't read the file right now racing with ifcfg-rh update
-        #ifcfglog.debug("%s:\n%s" % (device.path, device.fileContent()))
-
     def set(self, *args):
-        # If we are changing value of a key set _dirty flag
-        # informing that ifcfg file needs to be synced.
-        s = " ".join("%s=%s" % key_val for key_val in args)
-        ifcfglog.debug("NetworkDevice %s set: %s", self.iface, s)
         for (key, data) in args:
             if self.get(key) != data:
                 break
         else:
             return
-        IfcfgFile.set(self, *args)
+        ifcfglog.debug("IfcfgFile.set %s: %s", self.filename, args)
+        SimpleConfigFile.set(self, *args)
         self._dirty = True
 
     def unset(self, *args):
@@ -293,19 +255,8 @@ class NetworkDevice(IfcfgFile):
                 break
         else:
             return
-        IfcfgFile.unset(self, *args)
-
-    @property
-    def keyfilePath(self):
-        return os.path.join(self.dir, "keys-%s" % self.iface)
-
-    def fileContent(self):
-        if not os.path.exists(self.path):
-            return ""
-        f = open(self.path, 'r')
-        content = f.read()
-        f.close()
-        return content
+        ifcfglog.debug("IfcfgFile.unset %s: %s", self.filename, args)
+        SimpleConfigFile.unset(self, *args)
 
 def dumpMissingDefaultIfcfgs():
     """
@@ -331,7 +282,7 @@ def dumpMissingDefaultIfcfgs():
             con_uuid = nm.nm_device_setting_value(devname, "connection", "uuid")
         except nm.DeviceSettingsNotFoundError:
             continue
-        if get_ifcfg_name([("UUID", con_uuid)], root_path=""):
+        if find_ifcfg_file([("UUID", con_uuid)], root_path=""):
             continue
 
         try:
@@ -359,16 +310,20 @@ def dracutSetupArgs(networkStorageDevice):
         log.error('Unknown network interface: %s', nic)
         return ""
 
-    ifcfg = NetworkDevice(netscriptsDir, nic)
-    ifcfg.loadIfcfgFile()
-    return dracutBootArguments(ifcfg,
+    ifcfg_path = find_ifcfg_file_of_device(nic)
+    if not ifcfg_path:
+        log.error("dracutSetupArgs: can't find ifcfg file for %s", nic)
+        return ""
+    ifcfg = IfcfgFile(ifcfg_path)
+    ifcfg.read()
+    return dracutBootArguments(nic,
+                               ifcfg,
                                networkStorageDevice.host_address,
                                getHostname())
 
-def dracutBootArguments(ifcfg, storage_ipaddr, hostname=None):
+def dracutBootArguments(devname, ifcfg, storage_ipaddr, hostname=None):
 
     netargs = set()
-    devname = ifcfg.iface
 
     if ifcfg.get('BOOTPROTO') == 'ibft':
         netargs.add("ip=ibft")
@@ -423,23 +378,6 @@ def dracutBootArguments(ifcfg, storage_ipaddr, hostname=None):
         netargs.add(znet)
 
     return netargs
-
-def get_ks_network_data(devname, ifcfg_suffix=None):
-    retval = None
-    ifcfg_suffix = ifcfg_suffix or devname
-
-    ifcfg_suffix = ifcfg_suffix.replace(' ', '_')
-    device_cfg = NetworkDevice(netscriptsDir, ifcfg_suffix)
-    try:
-        device_cfg.loadIfcfgFile()
-    except IOError as e:
-        log.debug("get_ks_network_data %s: %s", ifcfg_suffix, e)
-        return None
-    retval = kickstartNetworkData(ifcfg=device_cfg)
-    if retval and devname in nm.nm_activated_devices():
-        retval.activate = True
-
-    return retval
 
 def update_settings_with_ksdata(devname, networkdata):
 
@@ -499,31 +437,56 @@ def update_settings_with_ksdata(devname, networkdata):
 
     nm.nm_update_settings_of_device(devname, new_values)
 
-def kickstartNetworkData(ifcfg=None, hostname=None):
+def ksdata_from_ifcfg(devname):
+
+    ifcfg_path = None
+    if nm.nm_device_type_is_ethernet(devname):
+        ifcfg_path = find_ifcfg_file_of_device(devname)
+    elif nm.nm_device_type_is_wifi(devname):
+        ssid = nm.nm_device_active_ssid(devname)
+        if ssid:
+            ifcfg_path = find_ifcfg_file([("ESSID", ssid)])
+    elif nm.nm_device_type_is_bond(devname):
+        ifcfg_path = find_ifcfg_file([("DEVICE", devname)])
+    elif nm.nm_device_type_is_vlan(devname):
+        ifcfg_path = find_ifcfg_file([("DEVICE", devname)])
+
+    if not ifcfg_path:
+        return None
+
+    ifcfg = IfcfgFile(ifcfg_path)
+    ifcfg.read()
+    nd = ifcfg_to_ksdata(ifcfg, devname)
+
+    if not nd:
+        return None
+
+    if nm.nm_device_type_is_ethernet(devname):
+        nd.device = devname
+    elif nm.nm_device_type_is_wifi(devname):
+        nm.device = ""
+    elif nm.nm_device_type_is_bond(devname):
+        nd.device = devname
+    elif nm.nm_device_type_is_vlan(devname):
+        nd.device = devname.split(".")[0]
+
+    return nd
+
+def ifcfg_to_ksdata(ifcfg, devname):
 
     from pyanaconda.kickstart import AnacondaKSHandler
     handler = AnacondaKSHandler()
     kwargs = {}
-
-    if not ifcfg and hostname:
-        # pylint: disable-msg=E1101
-        return handler.NetworkData(hostname=hostname, bootProto="")
-
-    if not ifcfg:
-        return None
 
     # no network command for bond slaves
     if ifcfg.get("MASTER"):
         return None
 
     # ipv4 and ipv6
-    if not ifcfg.get("ESSID"):
-        kwargs["device"] = ifcfg.iface
     if ifcfg.get("ONBOOT") and ifcfg.get("ONBOOT" ) == "no":
         kwargs["onboot"] = False
     if ifcfg.get('MTU') and ifcfg.get('MTU') != "0":
         kwargs["mtu"] = ifcfg.get('MTU')
-
     # ipv4
     if not ifcfg.get('BOOTPROTO'):
         kwargs["noipv4"] = True
@@ -592,15 +555,11 @@ def kickstartNetworkData(ifcfg=None, hostname=None):
     # hostname
     if ifcfg.get("DHCP_HOSTNAME"):
         kwargs["hostname"] = ifcfg.get("DHCP_HOSTNAME")
-    elif iutil.lowerASCII(ifcfg.get("BOOTPROTO")) != "dhcp":
-        if (hostname and
-            hostname != DEFAULT_HOSTNAME):
-            kwargs["hostname"] = hostname
 
     # bonding
     # FIXME: dracut has only BOND_OPTS
     if ifcfg.get("BONDING_MASTER") == "yes" or ifcfg.get("TYPE") == "Bond":
-        slaves = get_bond_slaves_from_ifcfgs([ifcfg.iface, ifcfg.get("UUID")])
+        slaves = get_bond_slaves_from_ifcfgs([devname, ifcfg.get("UUID")])
         if slaves:
             kwargs["bondslaves"] = ",".join(slaves)
         bondopts = ifcfg.get("BONDING_OPTS")
@@ -618,23 +577,40 @@ def kickstartNetworkData(ifcfg=None, hostname=None):
     # pylint: disable-msg=E1101
     return handler.NetworkData(**kwargs)
 
-def get_ifcfg_name(values, root_path=""):
-    for filename in _ifcfg_files(os.path.normpath(root_path+netscriptsDir)):
-        ifcfg = NetworkDevice(netscriptsDir, filename[6:])
-        ifcfg.loadIfcfgFile()
+def hostname_ksdata(hostname):
+    from pyanaconda.kickstart import AnacondaKSHandler
+    handler = AnacondaKSHandler()
+    kwargs = {}
+    # pylint: disable-msg=E1101
+    return handler.NetworkData(hostname=hostname, bootProto="")
+
+def find_ifcfg_file_of_device(devname, root_path=""):
+    ifcfg_path = None
+    try:
+        hwaddr = nm.nm_device_hwaddress(devname)
+    except nm.PropertyNotFoundError:
+        hwaddr = None
+    if hwaddr:
+        hwaddr_check = lambda mac: mac.upper() == hwaddr.upper()
+        ifcfg_path = find_ifcfg_file([("HWADDR", hwaddr_check)], root_path)
+    if not ifcfg_path:
+        ifcfg_path = find_ifcfg_file([("DEVICE", devname)], root_path)
+    return ifcfg_path
+
+def find_ifcfg_file(values, root_path=""):
+    for filepath in _ifcfg_files(os.path.normpath(root_path+netscriptsDir)):
+        ifcfg = IfcfgFile(filepath)
+        ifcfg.read()
         for key, value in values:
-            if ifcfg.get(key) != value:
-                break
+            if callable(value):
+                if not value(ifcfg.get(key)):
+                    break
+            else:
+                if ifcfg.get(key) != value:
+                    break
         else:
-            return filename
-
-def get_bond_master_ifcfg_name(devname):
-    """Name of ifcfg file of bond device devname"""
-    return get_ifcfg_name([("TYPE", "Bond"), ("DEVICE", devname)])
-
-def get_vlan_ifcfg_name(devname):
-    """Name of ifcfg file of vlan device devname"""
-    return get_ifcfg_name([("TYPE", "Vlan"), ("DEVICE", devname)])
+            return filepath
+    return None
 
 def get_bond_slaves_from_ifcfgs(master_specs):
     """List of slave device names of master specified by master_specs.
@@ -644,9 +620,9 @@ def get_bond_slaves_from_ifcfgs(master_specs):
     """
     slaves = []
 
-    for filename in _ifcfg_files(netscriptsDir):
-        ifcfg = NetworkDevice(netscriptsDir, filename[6:])
-        ifcfg.loadIfcfgFile()
+    for filepath in _ifcfg_files(netscriptsDir):
+        ifcfg = IfcfgFile(filepath)
+        ifcfg.read()
         master = ifcfg.get("MASTER")
         if master in master_specs:
             device = ifcfg.get("DEVICE")
@@ -784,33 +760,36 @@ def disableNMForStorageDevices(rootpath, storage):
     for devname in nm.nm_devices():
         if (usedByFCoE(devname, storage) or
             usedByRootOnISCSI(devname, storage)):
-            dev = NetworkDevice(rootpath + netscriptsDir, devname)
-            if os.access(dev.path, os.R_OK):
-                dev.loadIfcfgFile()
-                dev.set(('NM_CONTROLLED', 'no'))
-                dev.writeIfcfgFile()
-                log.info("network device %s used by storage will not be "
-                         "controlled by NM", devname)
-            else:
+            ifcfg_path = find_ifcfg_file_of_device(devname, root_path=rootpath)
+            if not ifcfg_path:
                 log.warning("disableNMForStorageDevices: ifcfg file for %s not found",
                             devname)
+                continue
+            ifcfg = IfcfgFile(ifcfg_path)
+            ifcfg.read()
+            ifcfg.set(('NM_CONTROLLED', 'no'))
+            ifcfg.write()
+            log.info("network device %s used by storage will not be "
+                     "controlled by NM", devname)
 
 # sets ONBOOT=yes (and its mirror value in ksdata) for devices used by FCoE
 def autostartFCoEDevices(rootpath, storage, ksdata):
     for devname in nm.nm_devices():
         if usedByFCoE(devname, storage):
-            dev = NetworkDevice(rootpath + netscriptsDir, devname)
-            if os.access(dev.path, os.R_OK):
-                dev.loadIfcfgFile()
-                dev.set(('ONBOOT', 'yes'))
-                dev.writeIfcfgFile()
-                log.debug("setting ONBOOT=yes for network device %s used by fcoe", devname)
-                for nd in ksdata.network.network:
-                    if nd.device == dev.iface:
-                        nd.onboot = True
-                        break
-            else:
+            ifcfg_path = find_ifcfg_file_of_device(devname, root_path=rootpath)
+            if not ifcfg_path:
                 log.warning("autoconnectFCoEDevices: ifcfg file for %s not found", devname)
+                continue
+
+            ifcfg = IfcfgFile(ifcfg_path)
+            ifcfg.read()
+            ifcfg.set(('ONBOOT', 'yes'))
+            ifcfg.write()
+            log.debug("setting ONBOOT=yes for network device %s used by fcoe", devname)
+            for nd in ksdata.network.network:
+                if nd.device == devname:
+                    nd.onboot = True
+                    break
 
 def usedByFCoE(iface, storage):
     for d in storage.devices:
@@ -866,7 +845,7 @@ def update_hostname_data(ksdata, hostname):
             nd.hostname = hostname
             hostname_found = True
     if not hostname_found:
-        nd = kickstartNetworkData(hostname=hostname)
+        nd = hostname_ksdata(hostname)
         ksdata.network.network.append(nd)
 
 def get_device_name(devspec):

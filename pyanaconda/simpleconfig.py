@@ -160,36 +160,3 @@ class SimpleConfigFile(object):
         return s
 
 
-class IfcfgFile(SimpleConfigFile):
-    def __init__(self, directory, iface):
-        SimpleConfigFile.__init__(self, always_quote=True)
-        self.iface = iface
-        self.dir = directory
-
-    @property
-    def path(self):
-        return os.path.join(self.dir, "ifcfg-%s" % self.iface)
-
-    def clear(self):
-        SimpleConfigFile.reset(self)
-
-    def read(self, filename=None):
-        """ Reads values from ifcfg file.
-
-            returns: number of values read
-        """
-        SimpleConfigFile.read(self, self.path)
-        return len(self.info)
-
-    def write(self, directory=None, use_tmp=False):
-        """ Writes values into ifcfg file.
-        """
-
-        if not directory:
-            path = self.path
-        else:
-            path = os.path.join(directory, os.path.basename(self.path))
-
-        # ifcfg-rh is using inotify IN_CLOSE_WRITE event so we don't use
-        # temporary file for new configuration
-        SimpleConfigFile.write(self, path, use_tmp=use_tmp)

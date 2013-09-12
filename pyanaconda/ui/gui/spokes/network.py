@@ -43,7 +43,7 @@ from pyanaconda.ui.gui.utils import gtk_call_once, enlightbox
 from pyanaconda.ui.common import FirstbootSpokeMixIn
 
 from pyanaconda import network
-from pyanaconda.nm import nm_device_setting_value, nm_device_ip_config
+from pyanaconda.nm import nm_device_setting_value, nm_device_ip_config, nm_activated_devices
 
 from gi.repository import GLib, GObject, Pango, Gio, NetworkManager, NMClient
 import dbus
@@ -1482,28 +1482,15 @@ class NetworkStandaloneSpoke(StandaloneSpoke):
 def _update_network_data(data, ncb):
     data.network.network = []
     for dev in ncb.listed_devices:
-        network_data = None
-        ifcfg_suffix = _ifcfg_suffix(dev)
-        if ifcfg_suffix:
-            network_data = network.get_ks_network_data(dev, ifcfg_suffix)
-        if network_data is not None:
-            data.network.network.append(network_data)
+        devname = dev.get_iface()
+        nd = network.ksdata_from_ifcfg(devname)
+        if not nd:
+            continue
+        if devname in nm_activated_devices():
+            nd.activate = True
+        data.network.network.append(nd)
     hostname = ncb.hostname
     network.update_hostname_data(data, hostname)
-
-def _ifcfg_suffix(device):
-    retval = None
-    if device.get_device_type() == NetworkManager.DeviceType.ETHERNET:
-        retval = device.get_iface()
-    elif device.get_device_type() == NetworkManager.DeviceType.WIFI:
-        ap = device.get_active_access_point()
-        if ap:
-            retval = ap.get_ssid()
-    elif device.get_device_type() == NetworkManager.DeviceType.BOND:
-        retval = network.get_bond_master_ifcfg_name(device.get_iface())[6:]
-    elif device.get_device_type() == NetworkManager.DeviceType.VLAN:
-        retval = network.get_vlan_ifcfg_name(device.get_iface())[6:]
-    return retval
 
 def test():
     win = Gtk.Window()
