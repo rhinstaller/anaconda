@@ -36,7 +36,7 @@
 
 mostlyclean: mostlyclean-extract
 mostlyclean-extract:
-	rm -f Rules-extract \
+	rm -f \
 		$(top_srcdir)/anaconda.po $(top_srcdir)/data/liveinst/gnome/fedora-welcome.po \
 		$(top_srcdir)/data/liveinst/console.apps/liveinst.h
 	find $(top_srcdir) \( -name '*.glade.h' -o -name '*.desktop.in.h' \) \
