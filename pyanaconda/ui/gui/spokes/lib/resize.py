@@ -225,7 +225,9 @@ class ResizeDialog(GUIObject):
            will not have a slider displayed, so they do not need to be worried
            with here.
         """
+        self._resizeSlider.handler_block_by_func(self.on_resize_value_changed)
         self._resizeSlider.set_range(device.minSize, device.size)
+        self._resizeSlider.handler_unblock_by_func(self.on_resize_value_changed)
         self._resizeSlider.set_value(value)
 
         # The slider needs to be keyboard-accessible.  We'll make small movements change in
