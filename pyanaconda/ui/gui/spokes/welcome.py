@@ -165,34 +165,58 @@ class WelcomeLanguageSpoke(LangLocaleHandler, StandaloneSpoke):
         # to preselect the translation, when it's available.
         territory = geoloc.get_territory_code(wait=True)
 
-        locales = localization.get_territory_locales(territory)
-        if locales and not (self.data.lang.lang and self.data.lang.seen):
-            # get something from the GeoIP lookup and not set in/on the
-            # kickstart/command line
-            localization.setup_locale(locales[0], self.data.lang)
+        # bootopts and kickstart have priority over geoip
+        if self.data.lang.lang and self.data.lang.seen:
+            locales = [self.data.lang.lang]
+        else:
+            locales = localization.get_territory_locales(territory) or [DEFAULT_LANG]
 
-        # Move the default language (whatever was provided on the command line,
-        # or by kickstart, or by geoip, or English if nothing else) to the top
-        # of the list and select it by default.  People find it confusing to be
-        # dropped into the middle of a scrollable list.
-        lang_itr, locale_itr = self._select_locale(self.data.lang.lang)
-
-        if not lang_itr or not locale_itr:
-            log.error("Failed to select language %s, using the default %s",
-                      self.data.lang.lang, DEFAULT_LANG)
-            lang_itr, locale_itr = self._select_locale(DEFAULT_LANG)
-            self.data.lang.lang = DEFAULT_LANG
-
+        # get the data models
         filter_store = self._languageStoreFilter
-        # filtered store and lang_itr is an iter on it.  We need to
-        # convert to an iter on the underlying store.
-        itr = filter_store.convert_iter_to_child_iter(lang_itr)
         store = filter_store.get_model()
-        store.move_after(itr, None)
 
-        # And then we add a separator after the default chosen language.
-        newItr = store.insert(1)
+        # get language codes for the locales
+        langs = [localization.parse_langcode(locale)['language'] for locale in locales]
+
+        # check which of the geolocated languages have translations
+        # and store the iterators for those languages in a dictionary
+        langs_with_translations = {}
+        itr = store.get_iter_first()
+        while itr:
+            row_lang = store[itr][2]
+            if row_lang in langs:
+                langs_with_translations[row_lang] = itr
+            itr = store.iter_next(itr)
+
+        # if there are no translations for the given locales,
+        # use default
+        if not langs_with_translations:
+            localization.setup_locale(DEFAULT_LANG, self.data.lang)
+            lang_itr, _locale_itr = self._select_locale(self.data.lang.lang)
+            langs_with_translations[DEFAULT_LANG] = lang_itr
+            locales = [DEFAULT_LANG]
+
+        # go over all geolocated languages in reverse order
+        # and move those we have translation for to the top of the
+        # list, above the separator
+        for lang in reversed(langs):
+            itr = langs_with_translations.get(lang)
+            if itr:
+                store.move_after(itr, None)
+            else:
+                # we don't have translation for this language,
+                # so dump all locales for it
+                locales = [l for l in locales
+                           if localization.parse_langcode(l)['language'] != lang]
+
+        # And then we add a separator after the selected best language
+        # and any additional languages (that have translations) from geoip
+        newItr = store.insert(len(langs_with_translations))
         store.set(newItr, 0, "", 1, "", 2, "", 3, True)
+
+        # setup the "best" locale
+        localization.setup_locale(locales[0], self.data.lang)
+        self._select_locale(self.data.lang.lang)
 
     def _retranslate_one(self, widgetName):
         widget = self.builder.get_object(widgetName)
