@@ -224,6 +224,13 @@ class WelcomeLanguageSpoke(LangLocaleHandler, StandaloneSpoke):
         xlated = _(before) % (productName.upper(), productVersion)
         welcomeLabel.set_label(xlated)
 
+        # Retranslate the language (filtering) entry's placeholder text
+        languageEntry = self.builder.get_object("languageEntry")
+        if not languageEntry in self._origStrings:
+            self._origStrings[languageEntry] = languageEntry.get_placeholder_text()
+
+        languageEntry.set_placeholder_text(_(self._origStrings[languageEntry]))
+
         # And of course, don't forget the underlying window.
         self.window.set_property("distribution", distributionText().upper())
         self.window.retranslate(lang)

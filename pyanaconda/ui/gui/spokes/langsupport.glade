@@ -170,7 +170,7 @@
                         <property name="invisible_char">●</property>
                         <property name="invisible_char_set">True</property>
                         <property name="secondary_icon_name">edit-clear-symbolic</property>
-                        <property name="placeholder_text">Type here to search.</property>
+                        <property name="placeholder_text" translatable="yes">Type here to search.</property>
                         <signal name="changed" handler="on_entry_changed" swapped="no"/>
                         <signal name="icon-release" handler="on_clear_icon_clicked" swapped="no"/>
                       </object>
