@@ -371,6 +371,7 @@ def ksnet_to_ifcfg(net, filename=None):
         ifcfg.pop('HWADDR')
         ifcfg['TYPE'] = "Vlan"
         ifcfg['VLAN'] = "yes"
+        ifcfg['VLAN_ID'] = net.vlanid
         ifcfg['NAME'] = "VLAN connection %s" % interface_name
         ifcfg['DEVICE'] = interface_name
         ifcfg['PHYSDEV'] = dev
