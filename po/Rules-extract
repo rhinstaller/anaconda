@@ -7,19 +7,27 @@
 # input file. --local will output files in a tmp/ directory relative to the
 # current working directory.
 #
+# intltool-extract adds "no-c-format" to any lines it finds containing format
+# specifiers, which disables the xgettext warnings on format errors. Assume
+# instead that anything in a glade file is going to be used as a python format
+# string so that our gettext tests work.
+#
 # All output files need to be in $srcdir for gettext to be able to find them.
 
 %.glade.h: %.glade
 	@intltool-extract -q --type=gettext/glade -l $< && \
-	mv tmp/$$(basename $@) $@
+	sed 's/no-c-format/python-format/' < tmp/$$(basename $@) > $@ && \
+	rm -f tmp/$$(basename $@)
 
 %.desktop.in.h: %.desktop.in
 	@intltool-extract -q --type=gettext/keys -l $< && \
-	mv tmp/$$(basename $@) $@
+	sed 's/no-c-format/python-format/' < tmp/$$(basename $@) > $@ && \
+	rm -f tmp/$$(basename $@)
 
 %liveinst.h: %liveinst
 	@intltool-extract -q --type=gettext/quoted -l $< && \
-	mv tmp/$$(basename $@) $@
+	sed 's/no-c-format/python-format/' < tmp/$$(basename $@) > $@ && \
+	rm -f tmp/$$(basename $@)
 
 # Remove the $top_srcdir prefix from files so that xgettext can search for the file
 # relative to $top_srcdir and get the path name right in the .po
