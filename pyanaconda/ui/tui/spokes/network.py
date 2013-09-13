@@ -27,7 +27,7 @@ from pyanaconda.ui.tui.spokes import EditTUISpokeEntry as Entry
 from pyanaconda.ui.tui.simpleline import TextWidget, ColumnWidget
 from pyanaconda.i18n import _
 from pyanaconda import network
-from pyanaconda.nm import nm_activated_devices, nm_state, nm_devices, nm_device_type_is_ethernet, nm_device_ip_config, nm_activate_device_connection, nm_device_setting_value
+from pyanaconda.nm import nm_activated_devices, nm_state, nm_devices, nm_device_type_is_ethernet, nm_device_ip_config, nm_activate_device_connection, nm_device_setting_value, UnmanagedDeviceError
 
 from pyanaconda.regexes import IPV4_PATTERN_WITHOUT_ANCHORS
 from pyanaconda.constants_text import INPUT_PROCESSED
@@ -217,7 +217,10 @@ class NetworkSpoke(EditTUISpoke):
 
             if ndata._apply:
                 uuid = nm_device_setting_value(devname, "connection", "uuid")
-                nm_activate_device_connection(devname, uuid)
+                try:
+                    nm_activate_device_connection(devname, uuid)
+                except UnmanagedDeviceError:
+                    self.errors.append(_("Can't apply configuration, device activation failed."))
 
             self.apply()
             return INPUT_PROCESSED
