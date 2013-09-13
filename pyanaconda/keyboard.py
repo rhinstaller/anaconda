@@ -38,6 +38,7 @@ import re
 import shutil
 import ctypes
 import gettext
+import threading
 
 from collections import namedtuple
 
@@ -45,7 +46,8 @@ from pyanaconda import iutil
 from pyanaconda import flags
 from pyanaconda.safe_dbus import dbus_call_safe_sync, dbus_get_property_safe_sync
 from pyanaconda.safe_dbus import DBUS_SYSTEM_BUS_ADDR, DBusPropertyError
-from pyanaconda.constants import DEFAULT_VC_FONT, DEFAULT_KEYBOARD
+from pyanaconda.constants import DEFAULT_VC_FONT, DEFAULT_KEYBOARD, THREAD_XKL_WRAPPER_INIT
+from pyanaconda.threads import threadMgr, AnacondaThread
 
 from gi.repository import Xkl, Gio, GLib
 
@@ -349,6 +351,15 @@ def activate_keyboard(keyboard):
         # write out keyboard configuration for the X session
         write_keyboard_config(keyboard, root="/", convert=False)
 
+def background_XklWrapper_initialize():
+    """
+    Create the XklWrapper singleton instance in a separate thread to save time
+    when it's really needed.
+
+    """
+
+    threadMgr.add(AnacondaThread(name=THREAD_XKL_WRAPPER_INIT, target=XklWrapper.get_instance))
+
 def item_str(s):
     """Convert a zero-terminated byte array to a proper str"""
 
@@ -380,11 +391,13 @@ class XklWrapper(object):
     """
 
     _instance = None
+    _instance_lock = threading.Lock()
 
     @staticmethod
     def get_instance():
-        if not XklWrapper._instance:
-            XklWrapper._instance = XklWrapper()
+        with XklWrapper._instance_lock:
+            if not XklWrapper._instance:
+                XklWrapper._instance = XklWrapper()
 
         return XklWrapper._instance
 
