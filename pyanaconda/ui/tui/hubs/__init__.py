@@ -108,6 +108,7 @@ class TUIHub(TUIObject, common.Hub):
         except (ValueError, KeyError):
             # If we get a continue, check for unfinished spokes.  If unfinished
             # don't continue
+            # TRANSLATORS: 'c' to continue
             if key == _('c'):
                 for spoke in self._spokes.values():
                     if not spoke.completed and spoke.mandatory:

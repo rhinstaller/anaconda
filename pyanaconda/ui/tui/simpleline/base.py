@@ -449,16 +449,19 @@ class App(object):
                 return False
 
         # global refresh command
+        # TRANSLATORS: 'r' to refresh
         if self._screens and (key == _('r')):
             self._do_redraw()
             return True
 
         # global close command
+        # TRANSLATORS: 'c' to continue
         if self._screens and (key == _('c')):
             self.close_screen()
             return True
 
         # global quit command
+        # TRANSLATORS: 'q' to quit
         elif self._screens and (key == _('q')):
             if self.quit_question:
                 d = self.quit_question(self, _(self.quit_message))
