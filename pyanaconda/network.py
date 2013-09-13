@@ -44,6 +44,8 @@ from pyanaconda import constants
 from pyanaconda.flags import flags, can_touch_runtime_system
 from pyanaconda.i18n import _
 
+from gi.repository import NetworkManager
+
 import logging
 log = logging.getLogger("anaconda")
 
@@ -1027,3 +1029,71 @@ def wait_for_connectivity(timeout=constants.NETWORK_CONNECTION_TIMEOUT):
     # so we need to release it
     network_connected_condition.release()
     return connected
+
+def status_message():
+    """ A short string describing which devices are connected. """
+
+    msg = _("Unknown")
+
+    state = nm.nm_state()
+    if state == NetworkManager.State.CONNECTING:
+        msg = _("Connecting...")
+    elif state == NetworkManager.State.DISCONNECTING:
+        msg = _("Disconnecting...")
+    else:
+        active_devs = nm.nm_activated_devices()
+        if active_devs:
+
+            slaves = {}
+            ssids = {}
+            nonslaves = []
+
+            # first find slaves and wireless aps
+            for devname in active_devs:
+                master = nm.nm_device_setting_value(devname, "connection", "master")
+                if master:
+                    if master in slaves:
+                        slaves[master].append(devname)
+                    else:
+                        slaves[master] = [devname]
+                else:
+                    nonslaves.append(devname)
+                if nm.nm_device_type_is_wifi(devname):
+                    ssids[devname] = nm.nm_device_active_ssid(devname) or ""
+
+            if len(nonslaves) == 1:
+                if nm.nm_device_type_is_ethernet(devname):
+                    msg = _("Wired (%(interface_name)s) connected") \
+                          % {"interface_name": devname}
+                elif nm.nm_device_type_is_wifi(devname):
+                    msg = _("Wireless connected to %(access_point)s") \
+                          % {"access_point" : ssids[devname]}
+                elif nm.nm_device_type_is_bond(devname):
+                    msg = _("Bond %(interface_name)s (%(list_of_slaves)s) connected") \
+                          % {"interface_name": devname, \
+                             "list_of_slaves": ",".join(slaves[devname])}
+                elif nm.nm_device_type_is_vlan(devname):
+                    parent = nm.nm_device_setting_value(devname, "vlan", "parent")
+                    vlanid = nm.nm_device_setting_value(devname, "vlan", "id")
+                    msg = _("Vlan %(interface_name)s (%(parent_device)s, ID %(vlanid)s) connected") \
+                          % {"interface_name": devname, "parent_device": parent, "vlanid": vlanid}
+            elif len(nonslaves) > 1:
+                devlist = []
+                for devname in nonslaves:
+                    if nm.nm_device_type_is_ethernet(devname):
+                        devlist.append("%s" % devname)
+                    elif nm.nm_device_type_is_wifi(devname):
+                        devlist.append("%s" % ssids[devname])
+                    elif nm.nm_device_type_is_bond(devname):
+                        devlist.append("%s (%s)" % (devname, ",".join(slaves[devname])))
+                    elif nm.nm_device_type_is_vlan(devname):
+                        devlist.append("%s" % devname)
+                msg = _("Connected: %(list_of_interface_names)s") \
+                      % {"list_of_interface_names": ", ".join(devlist)}
+        else:
+            msg = _("Not connected")
+
+    if not nm.nm_devices():
+        msg = _("No network devices available")
+
+    return msg
