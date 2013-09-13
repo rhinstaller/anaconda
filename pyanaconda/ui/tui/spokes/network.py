@@ -27,13 +27,10 @@ from pyanaconda.ui.tui.spokes import EditTUISpokeEntry as Entry
 from pyanaconda.ui.tui.simpleline import TextWidget, ColumnWidget
 from pyanaconda.i18n import _
 from pyanaconda import network
-from pyanaconda.nm import nm_activated_devices, nm_state, nm_devices, nm_device_type_is_ethernet, nm_device_ip_config, nm_activate_device_connection, nm_device_setting_value, UnmanagedDeviceError
+from pyanaconda import nm
 
 from pyanaconda.regexes import IPV4_PATTERN_WITHOUT_ANCHORS
 from pyanaconda.constants_text import INPUT_PROCESSED
-
-# pylint: disable-msg=E0611
-from gi.repository import NetworkManager
 
 import re
 
@@ -53,10 +50,10 @@ class NetworkSpoke(EditTUISpoke):
         self.errors = []
 
     def initialize(self):
-        for name in nm_devices():
-            if nm_device_type_is_ethernet(name):
+        for name in nm.nm_devices():
+            if nm.nm_device_type_is_ethernet(name):
                 # ignore slaves
-                if nm_device_setting_value(name, "connection", "slave-type"):
+                if nm.nm_device_setting_value(name, "connection", "slave-type"):
                     continue
                 self.supported_devices.append(name)
 
@@ -67,7 +64,7 @@ class NetworkSpoke(EditTUISpoke):
     @property
     def completed(self):
         return (not can_touch_runtime_system("require network connection")
-                or nm_activated_devices())
+                or nm.nm_activated_devices())
 
     @property
     def status(self):
@@ -77,7 +74,7 @@ class NetworkSpoke(EditTUISpoke):
     def _summary_text(self):
         """Devices cofiguration shown to user."""
         msg = ""
-        activated_devs = nm_activated_devices()
+        activated_devs = nm.nm_activated_devices()
         for name in self.supported_devices:
             if name in activated_devs:
                 msg += self._activated_device_msg(name)
@@ -90,8 +87,8 @@ class NetworkSpoke(EditTUISpoke):
         msg = _("Wired (%(interface_name)s) connected\n") \
                 % {"interface_name": devname}
 
-        ipv4config = nm_device_ip_config(devname, version=4)
-        ipv6config = nm_device_ip_config(devname, version=6)
+        ipv4config = nm.nm_device_ip_config(devname, version=4)
+        ipv6config = nm.nm_device_ip_config(devname, version=6)
 
         if ipv4config and ipv4config[0]:
             addr_str, prefix, gateway_str = ipv4config[0][0]
@@ -191,10 +188,10 @@ class NetworkSpoke(EditTUISpoke):
             network.update_settings_with_ksdata(devname, ndata)
 
             if ndata._apply:
-                uuid = nm_device_setting_value(devname, "connection", "uuid")
+                uuid = nm.nm_device_setting_value(devname, "connection", "uuid")
                 try:
-                    nm_activate_device_connection(devname, uuid)
-                except UnmanagedDeviceError:
+                    nm.nm_activate_device_connection(devname, uuid)
+                except nm.UnmanagedDeviceError:
                     self.errors.append(_("Can't apply configuration, device activation failed."))
 
             self.apply()
@@ -210,11 +207,11 @@ class NetworkSpoke(EditTUISpoke):
         hostname = self.data.network.hostname
 
         self.data.network.network = []
-        for name in nm_devices():
+        for name in nm.nm_devices():
             nd = network.ksdata_from_ifcfg(name)
             if not nd:
                 continue
-            if name in nm_activated_devices():
+            if name in nm.nm_activated_devices():
                 nd.activate = True
             self.data.network.network.append(nd)
 
