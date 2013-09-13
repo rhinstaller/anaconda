@@ -43,18 +43,6 @@ shortProductName = productName.lower()
 if productName.count(" "):
     shortProductName = ''.join(s[0] for s in shortProductName.split())
 
-exceptionText = _("An unhandled exception has occurred.  This "
-                  "is most likely a bug.  Please save a copy of "
-                  "the detailed exception and file a bug report")
-if not bugzillaUrl:
-    # this string will be combined with "An unhandled exception"...
-    # the leading space is not a typo.
-    exceptionText += _(" with the provider of this software.")
-else:
-    # this string will be combined with "An unhandled exception"...
-    # the leading space is not a typo.
-    exceptionText += _(" against anaconda at %s") %(bugzillaUrl,)
-
 # DriverDisc Paths
 DD_ALL = "/tmp/DD"
 DD_FIRMWARE = "/tmp/DD/lib/firmware"
