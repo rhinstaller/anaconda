@@ -5,11 +5,12 @@ from booty import BootyNoKernelWarning
 from util import getDiskPart
 from bootloaderInfo import *
 import iutil
+import parted
 
 class ppcBootloaderInfo(bootloaderInfo):
     def pickPReP(self):
         # if we created a new PReP partition, pick that
-        for a in self.storage.findActions(type="create", obj="format"):
+        for a in self.storage.devicetree.findActions(type="create", object="format"):
             if a.format.type == "prepboot" and a.device in self.storage.devices:
                 return a.device
 
@@ -38,7 +39,6 @@ class ppcBootloaderInfo(bootloaderInfo):
         return prepdevs[0]
 
     def getBootDevs(self, bl):
-        import parted
 
         retval = []
         machine = iutil.getPPCMachine()
