@@ -70,32 +70,7 @@ class NetworkSpoke(EditTUISpoke):
     @property
     def status(self):
         """ Short msg telling what devices are active. """
-        msg = _("Unknown")
-
-        state = nm_state()
-        if state == NetworkManager.State.CONNECTING:
-            msg = _("Connecting...")
-        elif state == NetworkManager.State.DISCONNECTING:
-            msg = _("Disconnecting...")
-        else:
-            activated_devs = nm_activated_devices()
-            if not activated_devs:
-                msg = _("Not connected")
-            elif len(activated_devs) == 1:
-                if nm_device_type_is_ethernet(activated_devs[0]):
-                    msg = _("Wired %s connected" % activated_devs[0])
-            else:
-                devlist = []
-                for dev in activated_devs:
-                    if nm_device_type_is_ethernet(dev):
-                        devlist.append("%s" % dev)
-                msg = _("Connected: %(list_of_interface_names)s") \
-                      % {"list_of_interface_names": ", ".join(devlist)}
-
-        if not nm_devices():
-            msg = _("No network devices available")
-
-        return msg
+        return network.status_message()
 
     def _summary_text(self):
         """Devices cofiguration shown to user."""

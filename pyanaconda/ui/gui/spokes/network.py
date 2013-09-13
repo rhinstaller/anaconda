@@ -1290,60 +1290,7 @@ class NetworkSpoke(FirstbootSpokeMixIn, NormalSpoke):
     @property
     def status(self):
         """ A short string describing which devices are connected. """
-        msg = _("Unknown")
-
-        state = self.network_control_box.client.get_state()
-        if state == NetworkManager.State.CONNECTING:
-            msg = _("Connecting...")
-        elif state == NetworkManager.State.DISCONNECTING:
-            msg = _("Disconnecting...")
-        else:
-            ac = self.network_control_box.activated_connections()
-            if ac:
-                # Don't show bond slaves
-                slaves = []
-                for name, type, info in ac:
-                    if type == NetworkManager.DeviceType.BOND:
-                        slaves.extend(info)
-                if slaves:
-                    ac = [(name, type, info)
-                          for name, type, info in ac
-                          if name not in slaves]
-
-                if len(ac) == 1:
-                    name, type, info = ac[0]
-                    if type == NetworkManager.DeviceType.ETHERNET:
-                        msg = _("Wired (%(interface_name)s) connected") \
-                              % {"interface_name": name}
-                    elif type == NetworkManager.DeviceType.WIFI:
-                        msg = _("Wireless connected to %(access_point)s") \
-                              % {"access_point" : info}
-                    elif type == NetworkManager.DeviceType.BOND:
-                        msg = _("Bond %(interface_name)s (%(list_of_slaves)s) connected") \
-                              % {"interface_name": name, "list_of_slaves": ",".join(info)}
-                    if type == NetworkManager.DeviceType.VLAN:
-                        msg = _("Vlan %(interface_name)s (%(parent_device)s, ID %(vlanid)s) connected") \
-                              % {"interface_name": name, "parent_device": info[0], "vlanid": info[1]}
-                else:
-                    devlist = []
-                    for name, type, info in ac:
-                        if type == NetworkManager.DeviceType.ETHERNET:
-                            devlist.append("%s" % name)
-                        elif type == NetworkManager.DeviceType.WIFI:
-                            devlist.append("%s" % info)
-                        elif type == NetworkManager.DeviceType.BOND:
-                            devlist.append("%s (%s)" % (name, ",".join(info)))
-                        if type == NetworkManager.DeviceType.VLAN:
-                            devlist.append("%s" % name)
-                    msg = _("Connected: %(list_of_interface_names)s") \
-                          % {"list_of_interface_names": ", ".join(devlist)}
-            else:
-                msg = _("Not connected")
-
-        if not self.network_control_box.listed_devices:
-            msg = _("No network devices available")
-
-        return msg
+        return network.status_message()
 
     def initialize(self):
         register_secret_agent(self)
