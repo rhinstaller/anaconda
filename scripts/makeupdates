@@ -393,7 +393,7 @@ def addRpms(updates_path, add_rpms):
 
 def createUpdatesImage(cwd, updates):
     os.chdir(updates)
-    os.system("find . | cpio -c -o | gzip -9cv > %s/updates.img" % (cwd,))
+    os.system("find . | cpio -c -o | pigz -9cv > %s/updates.img" % (cwd,))
     sys.stdout.write("updates.img ready\n")
 
 def check_for_new_packages(tag, arch, added_rpms, specfile_path):
