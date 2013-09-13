@@ -753,9 +753,9 @@
                             <property name="can_focus">False</property>
                             <property name="active">0</property>
                             <items>
-                              <item translatable="yes">http://</item>
-                              <item translatable="yes">https://</item>
-                              <item translatable="yes">ftp://</item>
+                              <item>http://</item>
+                              <item>https://</item>
+                              <item>ftp://</item>
                               <item translatable="yes">nfs</item>
                               <item translatable="yes">Closest mirror</item>
                             </items>
@@ -1039,7 +1039,7 @@
                             <property name="has_tooltip">True</property>
                             <property name="tooltip_markup" translatable="yes">Add a new repository.</property>
                             <property name="tooltip_text" translatable="yes">Add a new repository.</property>
-                            <property name="label" translatable="yes">addButton</property>
+                            <property name="label" translatable="yes">Add</property>
                             <property name="use_underline">True</property>
                             <property name="icon_name">list-add-symbolic</property>
                             <signal name="clicked" handler="on_addRepo_clicked" swapped="no"/>
@@ -1058,7 +1058,7 @@
                             <property name="has_tooltip">True</property>
                             <property name="tooltip_markup" translatable="yes">Remove the selected repository.</property>
                             <property name="tooltip_text" translatable="yes">Remove the selected repository.</property>
-                            <property name="label" translatable="yes">removeButton</property>
+                            <property name="label" translatable="yes">Remove</property>
                             <property name="use_underline">True</property>
                             <property name="icon_name">list-remove-symbolic</property>
                             <signal name="clicked" handler="on_removeRepo_clicked" swapped="no"/>
@@ -1077,7 +1077,7 @@
                             <property name="has_tooltip">True</property>
                             <property name="tooltip_markup" translatable="yes">Revert to the default list of repositories.</property>
                             <property name="tooltip_text" translatable="yes">Revert to the default list of repositories.</property>
-                            <property name="label" translatable="yes">resetButton</property>
+                            <property name="label" translatable="yes">Reset</property>
                             <property name="use_underline">True</property>
                             <property name="icon_name">view-refresh</property>
                             <signal name="clicked" handler="on_resetRepos_clicked" swapped="no"/>
@@ -1217,9 +1217,9 @@
                             <property name="entry_text_column">0</property>
                             <property name="id_column">1</property>
                             <items>
-                              <item translatable="yes">http://</item>
-                              <item translatable="yes">https://</item>
-                              <item translatable="yes">ftp://</item>
+                              <item>http://</item>
+                              <item>https://</item>
+                              <item>ftp://</item>
                             </items>
                             <signal name="changed" handler="on_repoUrl_changed" swapped="no"/>
                           </object>

@@ -276,7 +276,7 @@
                                   <object class="GtkLabel" id="hoursLabel">
                                     <property name="visible">True</property>
                                     <property name="can_focus">False</property>
-                                    <property name="label" translatable="yes">00</property>
+                                    <property name="label">00</property>
                                     <attributes>
                                       <attribute name="scale" value="2"/>
                                     </attributes>
@@ -292,7 +292,7 @@
                                   <object class="GtkLabel" id="colonLabel">
                                     <property name="visible">True</property>
                                     <property name="can_focus">False</property>
-                                    <property name="label" translatable="yes">:</property>
+                                    <property name="label" translatable="yes" comments="TRANSLATORS: This is the separator between hours and minutes, like in HH:MM">:</property>
                                     <attributes>
                                       <attribute name="scale" value="2"/>
                                     </attributes>
@@ -308,7 +308,7 @@
                                   <object class="GtkLabel" id="minutesLabel">
                                     <property name="visible">True</property>
                                     <property name="can_focus">False</property>
-                                    <property name="label" translatable="yes">00</property>
+                                    <property name="label">00</property>
                                     <attributes>
                                       <attribute name="scale" value="2"/>
                                     </attributes>
@@ -414,7 +414,7 @@
                                   <object class="GtkLabel" id="spaceLabel">
                                     <property name="visible">True</property>
                                     <property name="can_focus">False</property>
-                                    <property name="label" translatable="yes"> </property>
+                                    <property name="label"> </property>
                                     <attributes>
                                       <attribute name="scale" value="2"/>
                                     </attributes>

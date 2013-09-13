@@ -308,7 +308,7 @@
                 <property name="can_focus">False</property>
                 <property name="halign">start</property>
                 <property name="margin_bottom">6</property>
-                <property name="label" translatable="yes">&lt;b&gt;%s disks; %s reclaimable space&lt;/b&gt; (in filesystems)</property>
+                <property name="label">&lt;b&gt;%s disks; %s reclaimable space&lt;/b&gt; (in filesystems)</property>
                 <property name="use_markup">True</property>
               </object>
               <packing>
@@ -323,7 +323,7 @@
                 <property name="can_focus">False</property>
                 <property name="halign">end</property>
                 <property name="margin_bottom">6</property>
-                <property name="label" translatable="yes">Total selected space to reclaim:  &lt;b&gt;%s&lt;/b&gt;</property>
+                <property name="label">Total selected space to reclaim:  &lt;b&gt;%s&lt;/b&gt;</property>
                 <property name="use_markup">True</property>
               </object>
               <packing>
@@ -338,7 +338,7 @@
                 <property name="can_focus">False</property>
                 <property name="halign">end</property>
                 <property name="margin_bottom">6</property>
-                <property name="label" translatable="yes">Installation requires a total of &lt;b&gt;%s&lt;/b&gt; for system data.</property>
+                <property name="label">Installation requires a total of &lt;b&gt;%s&lt;/b&gt; for system data.</property>
                 <property name="use_markup">True</property>
               </object>
               <packing>
