@@ -42,6 +42,11 @@ class UnknownDeviceError(ValueError):
     def __str__(self):
         return self.__repr__()
 
+class UnmanagedDeviceError(Exception):
+    """Device of specified name is not managed by NM or unavailable"""
+    def __str__(self):
+        return self.__repr__()
+
 class PropertyNotFoundError(ValueError):
     """Property of NM object was not found"""
     def __str__(self):
@@ -195,7 +200,7 @@ def nm_device_property(name, prop):
                                   Gio.DBusCallFlags.NONE,
                                   DEFAULT_DBUS_TIMEOUT,
                                   None)
-    except Exception as e:
+    except GLib.GError as e:
         if "org.freedesktop.NetworkManager.UnknownDevice" in e.message:
             raise UnknownDeviceError(name, e)
         raise
@@ -543,6 +548,12 @@ def nm_device_setting_value(name, key1, key2):
     return value
 
 def nm_activate_device_connection(dev_name, con_uuid):
+    """Activate device with specified connection.
+
+       Exceptions:
+       UnknownDeviceError - device was not found
+
+    """
 
     proxy = _get_proxy()
     args = GLib.Variant('(s)', (dev_name,))
@@ -552,7 +563,7 @@ def nm_activate_device_connection(dev_name, con_uuid):
                                   Gio.DBusCallFlags.NONE,
                                   DEFAULT_DBUS_TIMEOUT,
                                   None)
-    except Exception as e:
+    except GLib.GError as e:
         if "org.freedesktop.NetworkManager.UnknownDevice" in e.message:
             raise UnknownDeviceError(dev_name, e)
         raise
@@ -563,11 +574,16 @@ def nm_activate_device_connection(dev_name, con_uuid):
 
     args = GLib.Variant('(ooo)', (con_path, device_path, "/"))
     nm_proxy = _get_proxy()
-    nm_proxy.call_sync("ActivateConnection",
-                        args,
-                        Gio.DBusCallFlags.NONE,
-                        DEFAULT_DBUS_TIMEOUT,
-                        None)
+    try:
+        nm_proxy.call_sync("ActivateConnection",
+                            args,
+                            Gio.DBusCallFlags.NONE,
+                            DEFAULT_DBUS_TIMEOUT,
+                            None)
+    except GLib.GError as e:
+        if "org.freedesktop.NetworkManager.UnmanagedDevice" in e.message:
+            raise UnmanagedDeviceError(dev_name, e)
+        raise
 
 def nm_update_settings_of_device(name, new_values):
     """Update setting of device.
