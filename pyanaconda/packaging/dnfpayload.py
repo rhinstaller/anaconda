@@ -152,9 +152,6 @@ class DNFPayload(packaging.PackagePayload):
         conf.tsflags.append('nocrypto')
 
         conf.reposdir = REPO_DIRS
-        log.info('Loading repositories config on the filesystem.')
-        self._base.read_all_repos()
-        log.info('Done: Loading repositories config on the filesystem.')
 
     def _install_package(self, pkg_name):
         cnt = self._base.install(pkg_name)
@@ -367,6 +364,7 @@ class DNFPayload(packaging.PackagePayload):
     def reset(self, root=None):
         super(DNFPayload, self).reset()
         self.txID = None
+        self._base.reset(sack=True, repos=True)
 
     def selectEnvironment(self, environmentid):
         env = self._base.comps.environment_by_pattern(environmentid)
@@ -380,6 +378,7 @@ class DNFPayload(packaging.PackagePayload):
 
     def updateBaseRepo(self, fallback=True, root=None, checkmount=True):
         log.info('configuring base repo')
+        self.reset()
         url, mirrorlist, sslverify = self._setupInstallDevice(self.storage,
                                                               checkmount)
         method = self.data.method
@@ -393,6 +392,11 @@ class DNFPayload(packaging.PackagePayload):
             else:
                 log.debug("disabling ksdata method, doesn't provide a valid repo")
                 method.method = None
+        if not method.method:
+            # only when there's no repo set via method use the repos from the
+            # install image itself:
+            log.info('Loading repositories config on the filesystem.')
+            self._base.read_all_repos()
 
         for ksrepo in self.data.repo.dataList():
             self._add_repo(ksrepo)
@@ -404,6 +408,4 @@ class DNFPayload(packaging.PackagePayload):
             if 'source' in id_ or 'debuginfo' in id_:
                 self.disableRepo(id_)
             elif constants.isFinal and 'rawhide' in id_:
-                self.disableRepo(id_)
-            elif method.method and id_ not in ksnames:
                 self.disableRepo(id_)
