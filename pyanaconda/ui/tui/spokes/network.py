@@ -55,6 +55,9 @@ class NetworkSpoke(EditTUISpoke):
     def initialize(self):
         for name in nm_devices():
             if nm_device_type_is_ethernet(name):
+                # ignore slaves
+                if nm_device_setting_value(name, "connection", "slave-type"):
+                    continue
                 self.supported_devices.append(name)
 
         EditTUISpoke.initialize(self)
