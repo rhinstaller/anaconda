@@ -355,24 +355,6 @@ def item_str(s):
 
     return s.decode("utf-8") #there are some non-ascii layout descriptions
 
-class _Layout(object):
-    """Internal class representing a single layout variant"""
-
-    def __init__(self, name, desc):
-        self.name = name
-        self.desc = desc
-
-    def __str__(self):
-        return '%s (%s)' % (self.name, self.desc)
-
-    def __eq__(self, obj):
-        return isinstance(obj, self.__class__) and \
-            self.name == obj.name
-
-    @property
-    def description(self):
-        return self.desc
-
 class XklWrapperError(KeyboardConfigError):
     """Exception class for reporting libxklavier-related problems"""
 
@@ -441,10 +423,7 @@ class XklWrapper(object):
         self.configreg = Xkl.ConfigRegistry.get_instance(self._engine)
         self.configreg.load(False)
 
-        self._language_keyboard_variants = dict()
-        self._country_keyboard_variants = dict()
         self._switching_options = list()
-        self._variants_list = list()
 
         #we want to display layouts as 'language (description)'
         self.name_to_show_str = dict()
@@ -477,8 +456,6 @@ class XklWrapper(object):
             else:
                 self.name_to_show_str[name] = "%s" % description.encode("utf-8")
 
-            self._variants_list.append(_Layout(name, description))
-
     def _get_country_variant(self, c_reg, item, subitem, country):
         if subitem:
             name = item_str(item.name) + " (" + item_str(subitem.name) + ")"
@@ -495,26 +472,16 @@ class XklWrapper(object):
             else:
                 self.name_to_show_str[name] = "%s" % description.encode("utf-8")
 
-        self._variants_list.append(_Layout(name, description))
-
     def _get_language_variants(self, c_reg, item, user_data=None):
-        #helper "global" variable
-        self._variants_list = list()
         lang_name, lang_desc = item_str(item.name), item_str(item.description)
 
         c_reg.foreach_language_variant(lang_name, self._get_lang_variant, lang_desc)
 
-        self._language_keyboard_variants[lang_desc] = self._variants_list
-
     def _get_country_variants(self, c_reg, item, user_data=None):
-        #helper "global" variable
-        self._variants_list = list()
         country_name, country_desc = item_str(item.name), item_str(item.description)
 
         c_reg.foreach_country_variant(country_name, self._get_country_variant,
                                       country_desc)
-
-        self._country_keyboard_variants[country_name] = self._variants_list
 
     def _get_switch_option(self, c_reg, item, user_data=None):
         """Helper function storing layout switching options in foreach cycle"""
