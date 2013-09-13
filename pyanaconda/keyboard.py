@@ -37,6 +37,7 @@ import os
 import re
 import shutil
 import ctypes
+import gettext
 
 from collections import namedtuple
 
@@ -63,6 +64,9 @@ LAYOUT_VARIANT_RE = re.compile(r'^\s*(\w+)\s*' # layout plus
 
 # namedtuple for information about a keyboard layout (its language and description)
 LayoutInfo = namedtuple("LayoutInfo", ["lang", "desc"])
+
+Xkb_ = lambda x: gettext.ldgettext("xkeyboard-config", x)
+iso_ = lambda x: gettext.ldgettext("iso_639", x)
 
 class KeyboardConfigError(Exception):
     """Exception class for keyboard configuration related problems"""
@@ -376,17 +380,11 @@ class XklWrapper(object):
     """
 
     _instance = None
-    _instance_lang = None
 
     @staticmethod
     def get_instance():
-        # If the language has changed, we need to grab new strings
-        if os.environ["LANG"] != XklWrapper._instance_lang:
-            XklWrapper._instance = None
-
         if not XklWrapper._instance:
             XklWrapper._instance = XklWrapper()
-            XklWrapper._instance_lang = os.environ["LANG"]
 
         return XklWrapper._instance
 
@@ -535,8 +533,11 @@ class XklWrapper(object):
 
         layout_info = self._layout_infos[layout_variant]
         if with_lang and layout_info.lang:
-            return "%s (%s)" % (iutil.upcase_first_letter(layout_info.lang),
-                                layout_info.desc)
+            # translate language and upcase its first letter, translate the
+            # layout-variant description
+            xlated_lang = iso_(layout_info.lang)
+            return "%s (%s)" % (iutil.upcase_first_letter(xlated_lang.decode("utf-8")),
+                                Xkb_(layout_info.desc))
         else:
             return layout_info.desc
 
@@ -551,7 +552,8 @@ class XklWrapper(object):
 
         """
 
-        return self._switch_opt_infos[switch_opt]
+        # translate the description of the switching option
+        return Xkb_(self._switch_opt_infos[switch_opt])
 
     def activate_default_layout(self):
         """
