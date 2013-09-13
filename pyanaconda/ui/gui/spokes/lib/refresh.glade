@@ -148,16 +148,6 @@
                     <signal name="clicked" handler="on_rescan_clicked" swapped="no"/>
                   </object>
                 </child>
-                <child type="tab">
-                  <object class="GtkLabel" id="label4">
-                    <property name="visible">True</property>
-                    <property name="can_focus">False</property>
-                    <property name="label" translatable="yes">page 1</property>
-                  </object>
-                  <packing>
-                    <property name="tab_fill">False</property>
-                  </packing>
-                </child>
                 <child>
                   <object class="GtkBox" id="box3">
                     <property name="visible">True</property>
@@ -192,17 +182,6 @@
                   </object>
                   <packing>
                     <property name="position">1</property>
-                  </packing>
-                </child>
-                <child type="tab">
-                  <object class="GtkLabel" id="label5">
-                    <property name="visible">True</property>
-                    <property name="can_focus">False</property>
-                    <property name="label" translatable="yes">page 2</property>
-                  </object>
-                  <packing>
-                    <property name="position">1</property>
-                    <property name="tab_fill">False</property>
                   </packing>
                 </child>
                 <child>
@@ -262,17 +241,6 @@ installation options while this scan completes.</property>
                     <property name="position">2</property>
                   </packing>
                 </child>
-                <child type="tab">
-                  <object class="GtkLabel" id="label6">
-                    <property name="visible">True</property>
-                    <property name="can_focus">False</property>
-                    <property name="label" translatable="yes">page 3</property>
-                  </object>
-                  <packing>
-                    <property name="position">2</property>
-                    <property name="tab_fill">False</property>
-                  </packing>
-                </child>
                 <child>
                   <object class="GtkGrid" id="grid2">
                     <property name="visible">True</property>
@@ -327,17 +295,6 @@ installation options while this scan completes.</property>
                   </object>
                   <packing>
                     <property name="position">3</property>
-                  </packing>
-                </child>
-                <child type="tab">
-                  <object class="GtkLabel" id="label10">
-                    <property name="visible">True</property>
-                    <property name="can_focus">False</property>
-                    <property name="label" translatable="yes">page 4</property>
-                  </object>
-                  <packing>
-                    <property name="position">3</property>
-                    <property name="tab_fill">False</property>
                   </packing>
                 </child>
               </object>
