@@ -222,6 +222,11 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Fri Sep 13 2013 Samantha N. Bueno <sbueno+anaconda@redhat.com> - 13.21.206-1
+- Fix traceback occurring in ppc bootloader code. (sbueno+anaconda)
+  Related: rhbz#877852
+  Resolves: rhbz#1007724
+
 * Wed Sep 11 2013 Samantha N. Bueno <sbueno+anaconda@redhat.com> - 13.21.205-1
 - PPC: strengthen PReP-picking algorithm (wwoods)
   Resolves: rhbz#877852
