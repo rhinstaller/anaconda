@@ -232,7 +232,7 @@ class NetworkSpoke(EditTUISpoke):
         hostname = self.data.network.hostname
 
         self.data.network.network = []
-        for name in self.supported_devices:
+        for name in nm_devices():
             nd = network.ksdata_from_ifcfg(name)
             if not nd:
                 continue
