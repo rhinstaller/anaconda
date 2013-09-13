@@ -38,6 +38,8 @@ import re
 import shutil
 import ctypes
 
+from collections import namedtuple
+
 from pyanaconda import iutil
 from pyanaconda import flags
 from pyanaconda.safe_dbus import dbus_call_safe_sync, dbus_get_property_safe_sync
@@ -58,6 +60,9 @@ LOCALED_IFACE = "org.freedesktop.locale1"
 LAYOUT_VARIANT_RE = re.compile(r'^\s*(\w+)\s*' # layout plus
                                r'(?:(?:\(\s*(\w+)\s*\))' # variant in parentheses
                                r'|(?:$))\s*') # or nothing
+
+# namedtuple for information about a keyboard layout (its language and description)
+LayoutInfo = namedtuple("LayoutInfo", ["lang", "desc"])
 
 class KeyboardConfigError(Exception):
     """Exception class for keyboard configuration related problems"""
@@ -423,14 +428,8 @@ class XklWrapper(object):
         self.configreg = Xkl.ConfigRegistry.get_instance(self._engine)
         self.configreg.load(False)
 
-        self._switching_options = list()
-
-        #we want to display layouts as 'language (description)'
-        self.name_to_show_str = dict()
-
-        #we want to display layout switching options as e.g. "Alt + Shift" not
-        #as "grp:alt_shift_toggle"
-        self.switch_to_show_str = dict()
+        self._layout_infos = dict()
+        self._switch_opt_infos = dict()
 
         #this might take quite a long time
         self.configreg.foreach_language(self._get_language_variants, None)
@@ -449,12 +448,9 @@ class XklWrapper(object):
 
         #if this layout has already been added for some other language,
         #do not add it again (would result in duplicates in our lists)
-        if name not in self.name_to_show_str:
-            if lang:
-                self.name_to_show_str[name] = "%s (%s)" % (lang.encode("utf-8"),
-                                                    description.encode("utf-8"))
-            else:
-                self.name_to_show_str[name] = "%s" % description.encode("utf-8")
+        if name not in self._layout_infos:
+            self._layout_infos[name] = LayoutInfo(lang.encode("utf-8"),
+                                                  description.encode("utf-8"))
 
     def _get_country_variant(self, c_reg, item, subitem, country):
         if subitem:
@@ -465,12 +461,9 @@ class XklWrapper(object):
             description = item_str(item.description)
 
         # if the layout was not added with any language, add it with a country
-        if name not in self.name_to_show_str:
-            if country:
-                self.name_to_show_str[name] = "%s (%s)" % (country.encode("utf-8"),
-                                                    description.encode("utf-8"))
-            else:
-                self.name_to_show_str[name] = "%s" % description.encode("utf-8")
+        if name not in self._layout_infos:
+            self._layout_infos[name] = LayoutInfo(country.encode("utf-8"),
+                                                  description.encode("utf-8"))
 
     def _get_language_variants(self, c_reg, item, user_data=None):
         lang_name, lang_desc = item_str(item.name), item_str(item.description)
@@ -488,8 +481,7 @@ class XklWrapper(object):
         desc = item_str(item.description)
         name = item_str(item.name)
 
-        self._switching_options.append(name)
-        self.switch_to_show_str[name] = desc.encode("utf-8")
+        self._switch_opt_infos[name] = desc.encode("utf-8")
 
     def get_current_layout(self):
         """
@@ -520,12 +512,46 @@ class XklWrapper(object):
     def get_available_layouts(self):
         """A generator yielding layouts (no need to store them as a bunch)"""
 
-        return self.name_to_show_str.iterkeys()
+        return self._layout_infos.iterkeys()
 
     def get_switching_options(self):
         """Method returning list of available layout switching options"""
 
-        return self._switching_options
+        return self._switch_opt_infos.iterkeys()
+
+    def get_layout_variant_description(self, layout_variant, with_lang=True):
+        """
+        Get description of the given layout-variant.
+
+        :param layout_variant: layout-variant specification (e.g. 'cz (qwerty)')
+        :type layout_variant: str
+        :param with_lang: whether to include language of the layout-variant (if defined)
+                          in the description or not
+        :type with_lang: bool
+        :return: description of the layout-variant specification (e.g. 'Czech (qwerty)')
+        :rtype: str
+
+        """
+
+        layout_info = self._layout_infos[layout_variant]
+        if with_lang and layout_info.lang:
+            return "%s (%s)" % (iutil.upcase_first_letter(layout_info.lang),
+                                layout_info.desc)
+        else:
+            return layout_info.desc
+
+    def get_switch_opt_description(self, switch_opt):
+        """
+        Get description of the given layout switching option.
+
+        :param switch_opt: switching option name/ID (e.g. 'grp:alt_shift_toggle')
+        :type switch_opt: str
+        :return: description of the layout switching option (e.g. 'Alt + Shift')
+        :rtype: str
+
+        """
+
+        return self._switch_opt_infos[switch_opt]
 
     def activate_default_layout(self):
         """
@@ -539,7 +565,7 @@ class XklWrapper(object):
     def is_valid_layout(self, layout):
         """Return if given layout is valid layout or not"""
 
-        return layout in self.name_to_show_str
+        return layout in self._layout_infos
 
     def add_layout(self, layout):
         """
