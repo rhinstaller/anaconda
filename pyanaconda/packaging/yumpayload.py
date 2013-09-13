@@ -1183,7 +1183,7 @@ reposdir=%s
             except NoSuchGroup as e:
                 self._handleMissing(e)
 
-        self.selectKernelPackage()
+        self._select_kernel_package()
         self.selectRequiredPackages()
 
     def _addDriverRepos(self):
@@ -1249,7 +1249,7 @@ reposdir=%s
             log.info("%d packages selected totalling %s",
                      len(self._yum.tsInfo.getMembers()), self.spaceRequired)
 
-    def selectKernelPackage(self):
+    def _select_kernel_package(self):
         kernels = self.kernelPackages
         selected = None
         # XXX This is optimistic. I'm curious if yum will DTRT if I just say
