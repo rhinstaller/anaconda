@@ -84,25 +84,6 @@ class ParsingTests(unittest.TestCase):
         self.assertEqual(parts["territory"], "CZ")
         self.assertEqual(parts["script"], "latin")
 
-class UpcaseFirstLetterTests(unittest.TestCase):
-    def upcase_first_letter_test(self):
-        """Upcasing first letter should work as expected."""
-
-        # no change
-        self.assertEqual(localization._upcase_first_letter("Czech RePuBliC"),
-                         "Czech RePuBliC")
-
-        # simple case
-        self.assertEqual(localization._upcase_first_letter("czech"), "Czech")
-
-        # first letter only
-        self.assertEqual(localization._upcase_first_letter("czech republic"),
-                         "Czech republic")
-
-        # no lowercase
-        self.assertEqual(localization._upcase_first_letter("czech Republic"),
-                         "Czech Republic")
-
 class LangcodeLocaleMatchingTests(unittest.TestCase):
     def langcode_matches_locale_test(self):
         """Langcode-locale matching should work as expected."""
