@@ -255,6 +255,27 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Fri Sep 13 2013 Brian C. Lane <bcl@redhat.com> - 20.16-1
+- add pre-commit hook to run pylint (bcl)
+- Allow runpylint.sh to be passed files (bcl)
+- handle case of no ifcfg and no hostname (#1002737) (bcl)
+- Allow make targets to be run outside of $srcdir (dshea)
+- Fix the wildcard usage in automake files. (dshea)
+- Move the intltool Makefile rules into configure.ac (dshea)
+- Fix a format parameter mapping (#1007472) (dshea)
+- Check whether keyboard translations are stale (#972236) (dshea)
+- Fix the handling of xklavier strings. (dshea)
+- Center the Langsupport spoke's description (vpodzime)
+- Set minimal width request for the locales box (vpodzime)
+- Use constant for default keyboard layout (vpodzime)
+- Try to use VConsole keymap name as X layout (#1007359) (vpodzime)
+- Retranslate also layout indicator when retranslating BaseWindow (#1007087)
+  (vpodzime)
+- Check ready state before baseRepo (#1007448) (bcl)
+- Fix po/Rules-extract so it doesn't remove itself (dshea)
+- Include LayoutIndicator and TimezoneMap to the Micsellaneous Widgets
+  (vpodzime)
+
 * Wed Sep 11 2013 Brian C. Lane <bcl@redhat.com> - 20.15-1
 - Don't set up the resize slider for non-resizable devices. (#997690) (dlehman)
 - Remove 'completed' property from Autopart spoke in text UI. (sbueno+anaconda)

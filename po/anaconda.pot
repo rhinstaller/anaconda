@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: anaconda 20.14\n"
+"Project-Id-Version: anaconda 20.15\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
-"POT-Creation-Date: 2013-09-11 17:32-0700\n"
+"POT-Creation-Date: 2013-09-13 17:30-0700\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -115,11 +115,11 @@ msgstr ""
 msgid " against anaconda at %s"
 msgstr ""
 
-#: pyanaconda/constants.py:83
+#: pyanaconda/constants.py:85
 msgid "Start VNC"
 msgstr ""
 
-#: pyanaconda/constants.py:84
+#: pyanaconda/constants.py:86
 msgid "Use text mode"
 msgstr ""
 
@@ -1321,86 +1321,86 @@ msgstr ""
 msgid "Devices of type %s require a valid RAID level selection."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:1446
+#: pyanaconda/ui/gui/spokes/custom.py:1448
 msgid "Device resize request failed. Click for details."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:1516
+#: pyanaconda/ui/gui/spokes/custom.py:1518
 msgid "Device reformat request failed. Click for details."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:1568
+#: pyanaconda/ui/gui/spokes/custom.py:1570
 #, python-format
 msgid "Specified name %s already in use."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:1683
+#: pyanaconda/ui/gui/spokes/custom.py:1685
 msgid "This file system does not support labels."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:1851
+#: pyanaconda/ui/gui/spokes/custom.py:1853
 msgid ""
 "The space available to this mountpoint can be changed by modifying the "
 "volume below."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:1853
+#: pyanaconda/ui/gui/spokes/custom.py:1855
 msgid "This file system may not be resized."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:2027
+#: pyanaconda/ui/gui/spokes/custom.py:2029
 #, python-format
 msgid "Added new %(type)s to existing container %(name)s."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:2039
+#: pyanaconda/ui/gui/spokes/custom.py:2041
 msgid "Failed to add new device. Click for details."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:2045
+#: pyanaconda/ui/gui/spokes/custom.py:2047
 msgid "Invalid partition size set. Use a valid integer."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:2068
+#: pyanaconda/ui/gui/spokes/custom.py:2070
 msgid "Device removal request failed. Click for details."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:2293
+#: pyanaconda/ui/gui/spokes/custom.py:2295
 #, python-format
 msgid "Volume Group name %s is already in use. Not saving changes."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:2427
+#: pyanaconda/ui/gui/spokes/custom.py:2429
 #, python-format
 msgid ""
 "This Software RAID array is missing %(missingMembers)d of %(totalMembers)d "
 "member partitions. You can remove it or select a different device."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:2433
+#: pyanaconda/ui/gui/spokes/custom.py:2435
 #, python-format
 msgid ""
 "This LVM Volume Group is missing %(missingPVs)d of %(totalPVs)d physical "
 "volumes. You can remove it or select a different device."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:2502
+#: pyanaconda/ui/gui/spokes/custom.py:2504
 msgid "No disks selected."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:2508
+#: pyanaconda/ui/gui/spokes/custom.py:2510
 msgid "Not enough free space on selected disks."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:2514
+#: pyanaconda/ui/gui/spokes/custom.py:2516
 msgid "Automatic partitioning failed. Click for details."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:2807
+#: pyanaconda/ui/gui/spokes/custom.py:2809
 msgid "Failed to unlock encrypted block device. Click for details"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:2832
+#: pyanaconda/ui/gui/spokes/custom.py:2834
 #, python-format
 msgid ""
 "You have chosen to manually set up the filesystems for your new "
@@ -1523,20 +1523,20 @@ msgstr ""
 msgid "_INSTALLATION DESTINATION"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/keyboard.py:39
+#: pyanaconda/ui/gui/spokes/keyboard.py:40
 #, python-format
 msgid "%s to switch layouts."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/keyboard.py:262
+#: pyanaconda/ui/gui/spokes/keyboard.py:263
 msgid "_KEYBOARD"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/keyboard.py:334
+#: pyanaconda/ui/gui/spokes/keyboard.py:335
 msgid "Testing layouts configuration not available."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/keyboard.py:386
+#: pyanaconda/ui/gui/spokes/keyboard.py:387
 msgid "Layout switching not configured."
 msgstr ""
 
@@ -2839,7 +2839,7 @@ msgid "LANGUAGE SUPPORT"
 msgstr ""
 
 #: pyanaconda/ui/gui/spokes/langsupport.glade.h:2
-msgid "Select additional language support to be installed"
+msgid "Select additional language support to be installed:"
 msgstr ""
 
 #: pyanaconda/ui/gui/spokes/langsupport.glade.h:3
