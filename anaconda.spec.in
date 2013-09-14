@@ -256,6 +256,21 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Fri Sep 13 2013 Brian C. Lane <bcl@redhat.com> - 19.31.17-1
+- Don't set up the resize slider for non-resizable devices. (dlehman)
+  Resolves: rhbz#1008049
+- Fix handling of flexible specs in onpart for member devices. (dlehman)
+  Resolves: rhbz#1008048
+- Don't mount cdroms that contain no mountable media. (dlehman)
+  Resolves: rhbz#1008050
+- Check MBR gap size even when /boot is on a plain partition. (dlehman)
+  Resolves: rhbz#1008051
+- Try to use VConsole keymap name as X layout (vpodzime)
+  Resolves: rhbz#1007359
+- Check ready state before baseRepo (bcl)
+  Resolves: rhbz#1001538
+  Related: rhbz#1001538
+
 * Wed Sep 11 2013 Brian C. Lane <bcl@redhat.com> - 19.31.16-1
 - Let users configure autopart options in interactive text ks.
   (sbueno+anaconda)
