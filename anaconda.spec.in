@@ -255,6 +255,35 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Mon Sep 16 2013 Brian C. Lane <bcl@redhat.com> - 20.17-1
+- Fix handling of blank size specs in the custom spoke. (#1004903) (dlehman)
+- Block resize slider value changed handler when setting range. (#1007387)
+  (dlehman)
+- Remove an unused import. (clumens)
+- Create the XklWrapper singleton in background (vpodzime)
+- Translate layout and switching options descriptions on the fly (vpodzime)
+- Improve XklWrapper's API (vpodzime)
+- Move upcase_first_letter function to iutil (vpodzime)
+- Remove the Layout class and things we don't need in XklWrapper (vpodzime)
+- Ignore the whole m4 directory (vpodzime)
+- Do not schedule hubs with no spokes available (#1006357) (vpodzime)
+- Retranslate language filtering placeholder texts (#1007090) (vpodzime)
+- Use pigz to create updates.img (vpodzime)
+- The Desktop class doesn't need to inherit from SimpleConfigFile. (clumens)
+- Fix yet another pylint error caught after the fact. (clumens)
+- Move all languages found by geoip to the top in Welcome spoke (mkolman)
+- Don't set ksdata.lang.seen to True if using default value (mkolman)
+- DNFPayload: reset the sack and repos on updateBaseRepo() (ales)
+- refactor: YumPayload: selectKernelPackage()->_select_kernel_package() (ales)
+- DNFPayload: mirrorlist can not be an empty string. (ales)
+- DNFPayload: display the download step in progressQ. (ales)
+- DNFPayload: logging the missed packages/groups. (ales)
+- DNFPayload: select kernel packages. (ales)
+- DNFPayload: log when the transaction process unexpectedly terminates. (ales)
+- DNFpayload: disable all NSS operations in RPM. (ales)
+- DNFPayload: keyerror in isRepoEnabled() (ales)
+- DNFPayload: implement selectEnvironment() (ales)
+
 * Fri Sep 13 2013 Brian C. Lane <bcl@redhat.com> - 20.16-1
 - add pre-commit hook to run pylint (bcl)
 - Allow runpylint.sh to be passed files (bcl)
