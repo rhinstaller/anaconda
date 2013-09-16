@@ -18,7 +18,7 @@ if [ -n "$mnt" ]; then
 else
     tmpmnt="$(mkuniqdir /run/install tmpmnt)"
     if mount -o ro $dev $tmpmnt; then
-        cp $tmpmnt$path /tmp/ks.cfg
+        cp $tmpmnt/$path /tmp/ks.cfg
         umount $tmpmnt
         rmdir $tmpmnt
     fi
