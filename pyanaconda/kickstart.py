@@ -39,7 +39,7 @@ import os.path
 import tempfile
 import subprocess
 from flags import flags, can_touch_runtime_system
-from constants import ADDON_PATHS, DEFAULT_LANG, ROOT_PATH
+from constants import ADDON_PATHS, ROOT_PATH
 import shlex
 import sys
 import urlgrabber
