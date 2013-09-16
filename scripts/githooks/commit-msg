@@ -15,17 +15,28 @@
 # This example catches duplicate Signed-off-by lines.
 
 test "" = "$(grep '^Signed-off-by: ' "$1" |
-	 sort | uniq -c | sed -e '/^[ 	]*1[ 	]/d')" || {
-	echo >&2 Duplicate Signed-off-by lines.
-	exit 1
+    sort | uniq -c | sed -e '/^[   ]*1[    ]/d')" || {
+    echo >&2 Duplicate Signed-off-by lines.
+    exit 1
 }
 
 # Make sure commits on RHEL branches reference RHEL bugs.
 RETVAL=0
 
-git branch | grep ^* | cut -c3- | grep -q ^rhel
-if [ $? -eq 1 ]; then
+branch_name=$(git branch | grep ^* | cut -c3-)
+branch_pattern="^rhel([[:digit:]])-(.*)"
+if [[ ! "$branch_name" =~ $branch_pattern ]]; then
     exit ${RETVAL}
+fi
+RELEASE=${BASH_REMATCH[1]}
+
+# Is this a local branch, or the primary branch?
+if [ "${BASH_REMATCH[2]}" == "branch" ]; then
+    # Make a missing ack block the commit
+    ACK_FATAL=1
+else
+    # Missing acks are just warnings
+    ACK_FATAL=0
 fi
 
 if [ -f "${HOME}/.rhbzauth" ]; then
@@ -51,6 +62,22 @@ else
     ${bzcmd} login
 fi
 
+# Check the bz to see if it has an ack for this release. If the branch is
+# a local branch, just warn. If it is the primary branch, block the commit.
+bz_has_ack() {
+    bug=$1
+    flags=$(${bzcmd} query --bug_id=${bug} --outputformat="%{flags}")
+
+    ack_pattern="rhel-${RELEASE}\.[[:digit:]]+\.[[:digit:]]+\+"
+    if [[ ! "$flags" =~ $ack_pattern ]]; then
+        echo "*** BZ ${bug} is missing acks: ${flags}"
+
+        if [ $ACK_FATAL -eq 1 ]; then
+            RETVAL=1
+        fi
+    fi
+}
+
 summary="$(head -n 1 ${1})"
 for word in ${summary} ; do
     echo "${word}" | grep -q -E "^.*(#[0-9]+).*"
@@ -61,6 +88,7 @@ for word in ${summary} ; do
             echo "*** BZ ${bug} is not a RHEL bug." >&2
             RETVAL=1
         fi
+        bz_has_ack ${bug}
     fi
 done
 
@@ -75,6 +103,7 @@ if [ ${last} -gt 0 ]; then
             echo "*** BZ ${bug} is not a RHEL bug." >&2
             RETVAL=1
         fi
+        bz_has_ack ${bug}
     done
 fi
 
