@@ -26,17 +26,26 @@ from pyanaconda.i18n import _
 from pyanaconda.constants import THREAD_INSTALL, THREAD_CONFIGURATION
 from pykickstart.constants import KS_SHUTDOWN, KS_REBOOT
 
-from pyanaconda.ui.tui.hubs import TUIHub
+from pyanaconda.ui.tui.spokes import StandaloneTUISpoke
+from pyanaconda.ui.tui.hubs.summary import SummaryHub
 from pyanaconda.ui.tui.simpleline.base import ExitAllMainLoops
 
-__all__ = ["ProgressHub"]
+__all__ = ["ProgressSpoke"]
 
-class ProgressHub(TUIHub):
+class ProgressSpoke(StandaloneTUISpoke):
     title = _("Progress")
 
+    postForHub = SummaryHub
+    priority = 0
+
     def __init__(self, app, ksdata, storage, payload, instclass):
-        TUIHub.__init__(self, app, ksdata, storage, payload, instclass)
+        StandaloneTUISpoke.__init__(self, app, ksdata, storage, payload, instclass)
         self._stepped = False
+
+    @property
+    def completed(self):
+        # this spoke is never completed, initially
+        return False
 
     def _update_progress(self):
         """Handle progress updates from install thread."""
@@ -120,12 +129,12 @@ class ProgressHub(TUIHub):
             # Just pretend like we got input, and our input doesn't care
             # what it gets, it just quits.
             self.input(None, None)
-        
+
         return True
 
     def prompt(self, args = None):
         return(_("\tInstallation complete.  Press return to quit"))
 
     def input(self, args, key):
-        # There is nothing to do here, just raise to exit the hub
+        # There is nothing to do here, just raise to exit the spoke
         raise ExitAllMainLoops()
