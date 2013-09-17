@@ -27,7 +27,7 @@ screens handling languages or locales configuration.
 from gi.repository import Gtk, Pango
 from pyanaconda import localization
 from pyanaconda.iutil import strip_accents
-from pyanaconda.ui.gui.utils import set_treeview_selection
+from pyanaconda.ui.gui.utils import set_treeview_selection, get_default_widget_direction
 
 class LangLocaleHandler(object):
     """
@@ -50,9 +50,14 @@ class LangLocaleHandler(object):
         self._localeStore = None
         self._localeSelection = None
 
+        self._arrow = None
+
     def initialize(self):
-        # Render a right arrow for the chosen language
-        self._right_arrow = Gtk.Image.new_from_file("/usr/share/anaconda/pixmaps/right-arrow-icon.png")
+        # Render an arrow for the chosen language
+        if get_default_widget_direction() == Gtk.TextDirection.LTR:
+            self._arrow = Gtk.Image.new_from_file("/usr/share/anaconda/pixmaps/right-arrow-icon.png")
+        else:
+            self._arrow = Gtk.Image.new_from_file("/usr/share/anaconda/pixmaps/left-arrow-icon.png")
         self._langSelectedColumn.set_cell_data_func(self._langSelectedRenderer,
                                                     self._render_lang_selected)
 
@@ -91,7 +96,7 @@ class LangLocaleHandler(object):
         (lang_store, sel_itr) = self._langSelection.get_selected()
 
         if sel_itr and lang_store[sel_itr][2] == model[itr][2]:
-            renderer.set_property("pixbuf", self._right_arrow.get_pixbuf())
+            renderer.set_property("pixbuf", self._arrow.get_pixbuf())
         else:
             renderer.set_property("pixbuf", None)
 

@@ -21,6 +21,7 @@
 #include <gdk/gdk.h>
 #include <glib.h>
 #include <glib/gstdio.h>
+#include <gettext.h>
 
 #include "MountpointSelector.h"
 #include "intl.h"
@@ -166,6 +167,15 @@ static void format_name_label(AnacondaMountpointSelector *widget, const char *va
     g_free(markup);
 }
 
+/* XXX: this should be provided by the Gtk itself (#1008821) */
+static GtkTextDirection get_default_widget_direction() {
+    const char *xlated = g_dgettext("gtk30", "default:LTR");
+    if (strcmp (xlated, "default:RTL") == 0)
+        return GTK_TEXT_DIR_RTL;
+    else
+        return GTK_TEXT_DIR_LTR;
+}
+
 static void anaconda_mountpoint_selector_init(AnacondaMountpointSelector *mountpoint) {
     mountpoint->priv = G_TYPE_INSTANCE_GET_PRIVATE(mountpoint,
                                                    ANACONDA_TYPE_MOUNTPOINT_SELECTOR,
@@ -192,7 +202,10 @@ static void anaconda_mountpoint_selector_init(AnacondaMountpointSelector *mountp
      * gtk_image_new_from_file will just display a broken image icon in that
      * case.  That's good enough error notification.
      */
-    mountpoint->priv->arrow = gtk_image_new_from_file("/usr/share/anaconda/pixmaps/right-arrow-icon.png");
+    if (get_default_widget_direction() == GTK_TEXT_DIR_LTR)
+        mountpoint->priv->arrow = gtk_image_new_from_file("/usr/share/anaconda/pixmaps/right-arrow-icon.png");
+    else
+        mountpoint->priv->arrow = gtk_image_new_from_file("/usr/share/anaconda/pixmaps/left-arrow-icon.png");
     gtk_widget_set_no_show_all(GTK_WIDGET(mountpoint->priv->arrow), TRUE);
 
     /* Set some properties. */
