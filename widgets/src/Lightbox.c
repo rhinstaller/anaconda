@@ -33,6 +33,24 @@
  * The lightbox window will show as soon as it is created.
  */
 
+/*
+ * We have two methods for drawing the transparent background, depending
+ * on whether we can use a compositing window manager for alpha blending
+ * or not.
+ *
+ * In a compositing window manager (e.g., gnome-shell on the livecd), we
+ * create the transparent background using Gtk by overriding the window's
+ * background color and setting an opacity.
+ *
+ * In a non-compositing window manager (e.g., metacity on the install DVD),
+ * we override Gtk's drawing of the widget entirely. We set paintable to
+ * false to indicate that theme information should not be applied, and then
+ * as the parent-window property is being set, we use cairo to paint a new
+ * surface using the parent's Gdk window as the source pattern, apply a 50%
+ * translucent fill to the surface, and then use this surface as the
+ * background for the lightbox's Gdk window.
+ */
+
 #include <cairo.h>
 #include <gtk/gtk.h>
 
@@ -48,10 +66,12 @@ struct _AnacondaLightboxPrivate {
     GtkWindow *transient_parent;
     gboolean   parent_configure_event_handler_set;
     guint      parent_configure_event_handler;
+
+    gboolean   composited;
 };
 
 static void anaconda_lightbox_set_property(GObject *object, guint prop_id, const GValue *value, GParamSpec *pspec);
-static void anaconda_lightbox_draw_background(GObject *gobject, GParamSpec *psec, gpointer user_data);
+static void anaconda_lightbox_set_parent_window(GObject *gobject, GParamSpec *psec, gpointer user_data);
 
 static gboolean anaconda_lb_parent_configure_event(GtkWidget *parent, GdkEvent *event, gpointer lightbox);
 static gboolean anaconda_lb_configure_event(GtkWidget *lightbox, GdkEvent *event, gpointer user_data);
@@ -96,9 +116,31 @@ static void anaconda_lightbox_init(AnacondaLightbox *lightbox)
     gtk_window_set_decorated(GTK_WINDOW(lightbox), FALSE);
     gtk_window_set_has_resize_grip(GTK_WINDOW(lightbox), FALSE);
 
-    /* Indicate we will handle drawing the widget so no theme is applied */
-    gtk_widget_set_app_paintable(GTK_WIDGET(lightbox), TRUE);
     gtk_window_set_type_hint(GTK_WINDOW(lightbox), GDK_WINDOW_TYPE_HINT_SPLASHSCREEN);
+
+    /* Decide now which background drawing method to use */
+    lightbox->priv->composited = gtk_widget_is_composited(GTK_WIDGET(lightbox));
+    if (lightbox->priv->composited)
+    {
+        GdkRGBA color = {0.0, 0.0, 0.0, 1.0};    /* opaque black */
+
+        /* Set the background to black */
+        gtk_widget_override_background_color(GTK_WIDGET(lightbox),
+                GTK_STATE_FLAG_NORMAL,
+                &color
+                );
+
+        /* Set the opacity to 50% */
+        gtk_widget_set_opacity(GTK_WIDGET(lightbox), 0.5);
+    }
+    else
+    {
+        /*
+         * Indicate we will handle drawing the widget, do the rest in
+         * anaconda_lightbox_set_parent_window
+         */
+        gtk_widget_set_app_paintable(GTK_WIDGET(lightbox), TRUE);
+    }
 
     /* handle restacking events */
     g_signal_connect(lightbox, "configure-event", G_CALLBACK(anaconda_lb_configure_event), NULL);
@@ -117,7 +159,7 @@ static void anaconda_lightbox_set_property(GObject *object, guint prop_id, const
         case PROP_PARENT_WINDOW:
             priv->transient_parent = GTK_WINDOW(g_object_ref(g_value_get_object(value)));
             /* The property is CONSTRUCT_ONLY, so no point calling notify */
-            anaconda_lightbox_draw_background(object, pspec, NULL);
+            anaconda_lightbox_set_parent_window(object, pspec, NULL);
             break;
         default:
             G_OBJECT_WARN_INVALID_PROPERTY_ID(object, prop_id, pspec);
@@ -181,7 +223,7 @@ static gboolean anaconda_lb_parent_configure_event(
  * Draw the window background. Uses the gobject notify handler signature
  * in case we want to allow parent-window to change in the future.
  */
-static void anaconda_lightbox_draw_background(
+static void anaconda_lightbox_set_parent_window(
         GObject *gobject,
         GParamSpec *psec,
         gpointer user_data
@@ -232,43 +274,47 @@ static void anaconda_lightbox_draw_background(
                     G_CALLBACK(anaconda_lb_parent_configure_event), lightbox);
         lightbox->priv->parent_configure_event_handler_set = TRUE;
 
-        /*
-         * NB: We should probably be handling the draw signal in order to refresh
-         * the transparent pattern from the parent window whenver something
-         * changes, but by the time things get to the signal handler the surface is
-         * already set up and doesn't support alpha channels and replacing it
-         * doesn't seem to work quite right. Besides, none of these windows are
-         * supposed to move anyway.
-         */
-
-        /* Realize the window to initialize the Gdk objects */
-        if (!gtk_widget_get_realized(GTK_WIDGET(lightbox)))
+        /* Handle the non-compositing background case */
+        if (!lightbox->priv->composited)
         {
-            gtk_widget_realize(GTK_WIDGET(lightbox));
+            /*
+             * NB: We should probably be handling the draw signal in order to refresh
+             * the transparent pattern from the parent window whenver something
+             * changes, but by the time things get to the signal handler the surface is
+             * already set up and doesn't support alpha channels and replacing it
+             * doesn't seem to work quite right. Besides, none of these windows are
+             * supposed to move anyway.
+             */
+
+            /* Realize the window to initialize the Gdk objects */
+            if (!gtk_widget_get_realized(GTK_WIDGET(lightbox)))
+            {
+                gtk_widget_realize(GTK_WIDGET(lightbox));
+            }
+            g_lightbox_window = gtk_widget_get_window(GTK_WIDGET(lightbox));
+
+            /* Create a new surface that supports alpha content */
+            surface = gdk_window_create_similar_surface(g_lightbox_window,
+                    CAIRO_CONTENT_COLOR_ALPHA,
+                    gdk_window_get_width(g_parent_window),
+                    gdk_window_get_height(g_parent_window));
+            cr = cairo_create(surface);
+
+            /* Use the parent window as a pattern and paint it on the surface */
+            gdk_cairo_set_source_window(cr, g_parent_window, 0, 0);
+            cairo_paint(cr);
+
+            /* Paint a black, 50% transparent shade */
+            cairo_set_source_rgba(cr, 0.0, 0.0, 0.0, 0.5);
+            cairo_paint(cr);
+
+            cairo_destroy(cr);
+
+            /* Use the surface we painted as the window background */
+            pattern = cairo_pattern_create_for_surface(surface);
+            gdk_window_set_background_pattern(g_lightbox_window, pattern);
+            cairo_pattern_destroy(pattern);
         }
-        g_lightbox_window = gtk_widget_get_window(GTK_WIDGET(lightbox));
-
-        /* Create a new surface that supports alpha content */
-        surface = gdk_window_create_similar_surface(g_lightbox_window,
-                CAIRO_CONTENT_COLOR_ALPHA,
-                gdk_window_get_width(g_parent_window),
-                gdk_window_get_height(g_parent_window));
-        cr = cairo_create(surface);
-
-        /* Use the parent window as a pattern and paint it on the surface */
-        gdk_cairo_set_source_window(cr, g_parent_window, 0, 0);
-        cairo_paint(cr);
-
-        /* Paint a black, 50% transparent shade */
-        cairo_set_source_rgba(cr, 0.0, 0.0, 0.0, 0.5);
-        cairo_paint(cr);
-
-        cairo_destroy(cr);
-
-        /* Use the surface we painted as the window background */
-        pattern = cairo_pattern_create_for_surface(surface);
-        gdk_window_set_background_pattern(g_lightbox_window, pattern);
-        cairo_pattern_destroy(pattern);
     }
 
     gtk_widget_show(GTK_WIDGET(lightbox));
