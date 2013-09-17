@@ -26,7 +26,7 @@ import langtable
 
 from pyanaconda.ui.gui.hubs.summary import SummaryHub
 from pyanaconda.ui.gui.spokes import StandaloneSpoke
-from pyanaconda.ui.gui.utils import enlightbox
+from pyanaconda.ui.gui.utils import enlightbox, setup_gtk_direction
 from pyanaconda.ui.gui.spokes.lib.lang_locale_handler import LangLocaleHandler
 
 from pyanaconda import localization
@@ -81,6 +81,9 @@ class WelcomeLanguageSpoke(LangLocaleHandler, StandaloneSpoke):
             # current language
             self.data.timezone.timezone = loc_timezones[0]
 
+        # setup Gtk direction (RTL/LTR) now that we have the language
+        # configuration applied
+        setup_gtk_direction()
         self._set_keyboard_defaults(self.data.lang.lang)
 
     def _set_keyboard_defaults(self, locale):
