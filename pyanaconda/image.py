@@ -189,7 +189,11 @@ def mountImage(isodir, tree):
 def opticalInstallMedia(devicetree, mountpoint=INSTALL_TREE):
     retval = None
 
-    for dev in devicetree.getDevicesByType("cdrom"):
+    # Search for devices identified as cdrom along with any other
+    # device that has an iso9660 filesystem. This will catch USB media
+    # created from ISO images.
+    for dev in set(devicetree.getDevicesByType("cdrom") + \
+            [d for d in devicetree.devices if d.format.type == "iso9660"]):
         devicetree.updateDeviceFormat(dev)
         if not hasattr(dev.format, "mount"):
             # no mountable media
