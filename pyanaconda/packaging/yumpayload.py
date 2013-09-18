@@ -276,10 +276,12 @@ reposdir=%s
                 f.write("enabled=1\n")
                 if repo.mirrorlist:
                     f.write("mirrorlist=%s" % repo.mirrorlist)
+                elif repo.metalink:
+                    f.write("metalink=%s" % repo.metalink)
                 elif repo.baseurl:
                     f.write("baseurl=%s\n" % repo.baseurl[0])
                 else:
-                    log.error("repo %s has no baseurl or mirrorlist", repo.id)
+                    log.error("repo %s has no baseurl, mirrorlist or metalink", repo.id)
                     f.close()
                     os.unlink(cfg_path)
                     continue
