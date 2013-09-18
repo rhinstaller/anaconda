@@ -27,7 +27,6 @@ from pyanaconda.flags import flags
 from pyanaconda.threads import threadMgr
 import simpleline as tui
 from hubs.summary import SummaryHub
-from hubs.progress import ProgressHub
 from spokes import StandaloneSpoke
 from tuiobject import YesNoDialog, ErrorDialog
 
@@ -126,7 +125,7 @@ class TextUserInterface(ui.UserInterface):
 
     def _list_hubs(self):
         """returns the list of hubs to use"""
-        return [SummaryHub, ProgressHub]
+        return [SummaryHub]
 
     def _is_standalone(self, spoke):
         """checks if the passed spoke is standalone"""
