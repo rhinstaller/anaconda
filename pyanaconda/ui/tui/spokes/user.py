@@ -115,7 +115,9 @@ class UserSpoke(FirstbootSpokeMixIn, EditTUISpoke):
 
     def apply(self):
         if self.args.gecos and not self.args.name:
-            self.args.name = guess_username(self.args.gecos)
+            username = guess_username(self.args.gecos)
+            if USERNAME_VALID.match(username):
+                self.args.name = guess_username(self.args.gecos)
 
         self.args.groups = [g.strip() for g in self.args._groups.split(",") if g]
 
