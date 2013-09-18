@@ -616,7 +616,7 @@ def udev_device_get_iscsi_initiator(info):
 
 # This is completely different for Broadcom FCoE devices (bnx2fc), where we use
 # the sysfs path:
-# /devices/pci0000:00/0000:00:02.0/0000:09:00.0/0000:0a:01.0/0000:0e:00.0/host3/rport-3:0-2/target3:0:1/3:0:1:3/block/sdm
+# /devices/pci0000:00/0000:00:03.0/0000:04:00.3/net/eth3/ctlr_0/host5/rport-5:0-3/target5:0:1/5:0:1:147/block/sdb
 # and find whether the host has 'fc_host' and if it the device has a bound
 # Ethernet interface.
 
@@ -626,7 +626,7 @@ def _detect_broadcom_fcoe(info):
     if match:
         sysfs_pci, host = match.groups()
         if os.access('/sys/%s/%s/fc_host' %(sysfs_pci, host), os.X_OK) and \
-                os.access('/sys/%s/net' %(sysfs_pci), os.X_OK):
+                'net' in sysfs_pci:
             return (sysfs_pci, host)
     return (None, None)
 
@@ -662,10 +662,14 @@ def udev_device_get_fcoe_nic(info):
 
     (sysfs_pci, host) = _detect_broadcom_fcoe(info)
     if (sysfs_pci, host) != (None, None):
-        net_path = '/sys/%s/net' % sysfs_pci
-        listdir = os.listdir(net_path)
-        if len(listdir) > 0 :
-            return listdir[0]
+        net, iface = info['sysfs_path'].split("/")[5:7]
+        if net != "net":
+            log.warning("unexpected sysfs_path of bnx2fc device: %s" % info['sysfs_path'])
+            match = re.compile(r'.*/net/([^/]*)').match(info['sysfs_path'])
+            if match:
+                return match.groups()[0]
+        else:
+            return iface
 
 def udev_device_get_fcoe_identifier(info):
     path = info.get("ID_PATH", "")
