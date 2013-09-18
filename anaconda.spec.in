@@ -255,6 +255,21 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Wed Sep 18 2013 Brian C. Lane <bcl@redhat.com> - 20.18-1
+- ProgressHub no longer exists in pyanaconda/ui/tui/hubs. (clumens)
+- Search all disk types for install media (#1004726) (dshea)
+- git commit check for ack flag on rhel branches (bcl)
+- Fix Lightbox for compositing window managers (#1008446) (dshea)
+- Add metalink support to yumpayload (bcl)
+- Make progress screen in text mode standalone spoke instead of hub (vpodzime)
+- Render the right arrow based on the widget direction (#1008397) (vpodzime)
+- Mirror the GUI if an RTL language is chosen (#1008397) (vpodzime)
+- Removed unused GUI elements (dshea)
+- Clean up what is and isn't translatable and how. (dshea)
+- Removed the exceptionsText constant (dshea)
+- Add comments for translators to TUI input strings (#854226) (dshea)
+- Use python-format on all intltool-extract strings (dshea)
+
 * Mon Sep 16 2013 Brian C. Lane <bcl@redhat.com> - 20.17-1
 - Fix handling of blank size specs in the custom spoke. (#1004903) (dlehman)
 - Block resize slider value changed handler when setting range. (#1007387)

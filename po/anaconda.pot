@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: anaconda 20.16\n"
+"Project-Id-Version: anaconda 20.17\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
-"POT-Creation-Date: 2013-09-16 09:55-0700\n"
+"POT-Creation-Date: 2013-09-18 07:57-0700\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -100,26 +100,11 @@ msgid ""
 "using the %(fsType)s filesystem on %(deviceType)s"
 msgstr ""
 
-#: pyanaconda/constants.py:46
-msgid ""
-"An unhandled exception has occurred.  This is most likely a bug.  Please "
-"save a copy of the detailed exception and file a bug report"
-msgstr ""
-
-#: pyanaconda/constants.py:52
-msgid " with the provider of this software."
-msgstr ""
-
-#: pyanaconda/constants.py:56
-#, python-format
-msgid " against anaconda at %s"
-msgstr ""
-
-#: pyanaconda/constants.py:85
+#: pyanaconda/constants.py:73
 msgid "Start VNC"
 msgstr ""
 
-#: pyanaconda/constants.py:86
+#: pyanaconda/constants.py:74
 msgid "Use text mode"
 msgstr ""
 
@@ -166,7 +151,7 @@ msgid "Discovering realm to join"
 msgstr ""
 
 #: pyanaconda/install.py:167 pyanaconda/packaging/livepayload.py:146
-#: pyanaconda/packaging/yumpayload.py:1374
+#: pyanaconda/packaging/yumpayload.py:1376
 msgid "Performing post-installation setup tasks"
 msgstr ""
 
@@ -457,19 +442,19 @@ msgstr ""
 msgid "Checking image checksum"
 msgstr ""
 
-#: pyanaconda/packaging/yumpayload.py:1291
+#: pyanaconda/packaging/yumpayload.py:1293
 msgid "Starting package installation process"
 msgstr ""
 
-#: pyanaconda/packaging/yumpayload.py:1354
+#: pyanaconda/packaging/yumpayload.py:1356
 msgid "You need more space on the following file systems:\n"
 msgstr ""
 
-#: pyanaconda/packaging/yumpayload.py:1372
+#: pyanaconda/packaging/yumpayload.py:1374
 msgid "Preparing transaction from installation source"
 msgstr ""
 
-#: pyanaconda/packaging/yumpayload.py:1373
+#: pyanaconda/packaging/yumpayload.py:1375
 msgid "Installing"
 msgstr ""
 
@@ -478,14 +463,6 @@ msgstr ""
 msgid ""
 "Not enough space in filesystems for the current software selection. An "
 "additional %s is needed."
-msgstr ""
-
-#: pyanaconda/ui/tui/hubs/progress.py:35
-msgid "Progress"
-msgstr ""
-
-#: pyanaconda/ui/tui/hubs/progress.py:127
-msgid "\tInstallation complete.  Press return to quit"
 msgstr ""
 
 #: pyanaconda/ui/tui/hubs/summary.py:30
@@ -504,12 +481,13 @@ msgstr ""
 msgid "Default HUB title"
 msgstr ""
 
-#: pyanaconda/ui/tui/hubs/__init__.py:111
-#: pyanaconda/ui/tui/simpleline/base.py:457
+#. TRANSLATORS: 'c' to continue
+#: pyanaconda/ui/tui/hubs/__init__.py:112
+#: pyanaconda/ui/tui/simpleline/base.py:459
 msgid "c"
 msgstr ""
 
-#: pyanaconda/ui/tui/hubs/__init__.py:114
+#: pyanaconda/ui/tui/hubs/__init__.py:115
 msgid "Please complete all spokes before continuing"
 msgstr ""
 
@@ -541,15 +519,17 @@ msgstr ""
 msgid "Do you really want to quit?"
 msgstr ""
 
-#: pyanaconda/ui/tui/simpleline/base.py:452
+#. TRANSLATORS: 'r' to refresh
+#: pyanaconda/ui/tui/simpleline/base.py:453
 msgid "r"
 msgstr ""
 
-#: pyanaconda/ui/tui/simpleline/base.py:462
+#. TRANSLATORS: 'q' to quit
+#: pyanaconda/ui/tui/simpleline/base.py:465
 msgid "q"
 msgstr ""
 
-#: pyanaconda/ui/tui/simpleline/base.py:582
+#: pyanaconda/ui/tui/simpleline/base.py:585
 msgid ""
 "  Please make your choice from above ['q' to quit | 'c' to continue |\n"
 "  'r' to refresh]: "
@@ -676,7 +656,7 @@ msgid "Configure device %s"
 msgstr ""
 
 #: pyanaconda/ui/tui/spokes/network.py:185
-#: pyanaconda/ui/gui/spokes/datetime_spoke.glade.h:12
+#: pyanaconda/ui/gui/spokes/datetime_spoke.glade.h:11
 msgid "Hostname"
 msgstr ""
 
@@ -893,7 +873,7 @@ msgstr ""
 
 #: pyanaconda/ui/tui/spokes/source.py:48 pyanaconda/ui/tui/spokes/source.py:89
 #: pyanaconda/ui/gui/spokes/source.py:508
-#: pyanaconda/ui/gui/spokes/source.glade.h:26
+#: pyanaconda/ui/gui/spokes/source.glade.h:23
 msgid "Closest mirror"
 msgstr ""
 
@@ -1015,6 +995,14 @@ msgid ""
 "This hardware (or a combination thereof) is not supported by Red Hat.  For "
 "more information on supported hardware, please refer to http://www.redhat."
 "com/hardware."
+msgstr ""
+
+#: pyanaconda/ui/tui/spokes/progress.py:36
+msgid "Progress"
+msgstr ""
+
+#: pyanaconda/ui/tui/spokes/progress.py:136
+msgid "\tInstallation complete.  Press return to quit"
 msgstr ""
 
 #: pyanaconda/ui/tui/spokes/__init__.py:46
@@ -2181,7 +2169,7 @@ msgstr ""
 msgid "0 MB"
 msgstr ""
 
-#: widgets/src/MountpointSelector.c:49
+#: widgets/src/MountpointSelector.c:50
 msgid "0 GB"
 msgstr ""
 
@@ -2279,39 +2267,32 @@ msgstr ""
 msgid "_Network Time"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/datetime_spoke.glade.h:5
-msgid "00"
-msgstr ""
-
+#. TRANSLATORS: This is the separator between hours and minutes, like in HH:MM
 #: pyanaconda/ui/gui/spokes/datetime_spoke.glade.h:6
 msgid ":"
 msgstr ""
 
 #: pyanaconda/ui/gui/spokes/datetime_spoke.glade.h:7
-msgid " "
-msgstr ""
-
-#: pyanaconda/ui/gui/spokes/datetime_spoke.glade.h:8
 msgid "PM"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/datetime_spoke.glade.h:9
+#: pyanaconda/ui/gui/spokes/datetime_spoke.glade.h:8
 msgid "24-_hour"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/datetime_spoke.glade.h:10
+#: pyanaconda/ui/gui/spokes/datetime_spoke.glade.h:9
 msgid "_AM/PM"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/datetime_spoke.glade.h:11
+#: pyanaconda/ui/gui/spokes/datetime_spoke.glade.h:10
 msgid "Add and mark for usage NTP servers"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/datetime_spoke.glade.h:13
+#: pyanaconda/ui/gui/spokes/datetime_spoke.glade.h:12
 msgid "Working"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/datetime_spoke.glade.h:14
+#: pyanaconda/ui/gui/spokes/datetime_spoke.glade.h:13
 msgid "Use"
 msgstr ""
 
@@ -2759,7 +2740,7 @@ msgid "You may add a keyboard layout by selecting it below:"
 msgstr ""
 
 #: pyanaconda/ui/gui/spokes/keyboard.glade.h:3
-#: pyanaconda/ui/gui/spokes/source.glade.h:35
+#: pyanaconda/ui/gui/spokes/source.glade.h:32
 #: pyanaconda/ui/gui/spokes/lib/cart.glade.h:5
 #: pyanaconda/ui/gui/spokes/lib/resize.glade.h:5
 msgid "Name"
@@ -2967,123 +2948,111 @@ msgid "_On the network:"
 msgstr ""
 
 #: pyanaconda/ui/gui/spokes/source.glade.h:22
-msgid "http://"
-msgstr ""
-
-#: pyanaconda/ui/gui/spokes/source.glade.h:23
-msgid "https://"
-msgstr ""
-
-#: pyanaconda/ui/gui/spokes/source.glade.h:24
-msgid "ftp://"
-msgstr ""
-
-#: pyanaconda/ui/gui/spokes/source.glade.h:25
 msgid "nfs"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.glade.h:27
+#: pyanaconda/ui/gui/spokes/source.glade.h:24
 msgid "_Proxy setup..."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.glade.h:28
+#: pyanaconda/ui/gui/spokes/source.glade.h:25
 msgid "This URL refers to a _mirror list."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.glade.h:29
+#: pyanaconda/ui/gui/spokes/source.glade.h:26
 msgid "N_FS mount options:"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.glade.h:30
+#: pyanaconda/ui/gui/spokes/source.glade.h:27
 msgid "This field is optional."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.glade.h:31
+#: pyanaconda/ui/gui/spokes/source.glade.h:28
 msgid "Updates"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.glade.h:32
+#: pyanaconda/ui/gui/spokes/source.glade.h:29
 msgid ""
 "Don't install the latest available software _updates. Install the default "
 "versions provided by the install source above."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.glade.h:33
+#: pyanaconda/ui/gui/spokes/source.glade.h:30
 msgid "Additional repositories"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.glade.h:34
+#: pyanaconda/ui/gui/spokes/source.glade.h:31
 msgid "Enabled"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.glade.h:36
+#: pyanaconda/ui/gui/spokes/source.glade.h:33
 msgid "Add a new repository."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.glade.h:37
+#: pyanaconda/ui/gui/spokes/source.glade.h:34
 #: pyanaconda/ui/gui/spokes/custom.glade.h:51
-msgid "addButton"
+msgid "Add"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.glade.h:38
+#: pyanaconda/ui/gui/spokes/source.glade.h:35
 msgid "Remove the selected repository."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.glade.h:39
+#: pyanaconda/ui/gui/spokes/source.glade.h:36
 #: pyanaconda/ui/gui/spokes/custom.glade.h:53
-msgid "removeButton"
+msgid "Remove"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.glade.h:40
+#: pyanaconda/ui/gui/spokes/source.glade.h:37
 msgid "Revert to the default list of repositories."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.glade.h:41
-msgid "resetButton"
+#: pyanaconda/ui/gui/spokes/source.glade.h:38
+msgid "Reset"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.glade.h:42
+#: pyanaconda/ui/gui/spokes/source.glade.h:39
 msgid "URL for the repository, without protocol."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.glade.h:43
+#: pyanaconda/ui/gui/spokes/source.glade.h:40
 msgid "URL of proxy in the form of protocol://host:[port]"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.glade.h:44
+#: pyanaconda/ui/gui/spokes/source.glade.h:41
 msgid "Optional proxy username."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.glade.h:45
+#: pyanaconda/ui/gui/spokes/source.glade.h:42
 msgid "Optional proxy password."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.glade.h:46
+#: pyanaconda/ui/gui/spokes/source.glade.h:43
 msgid "This URL refers to a mirror list."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.glade.h:47
+#: pyanaconda/ui/gui/spokes/source.glade.h:44
 #: pyanaconda/ui/gui/spokes/custom.glade.h:15
 msgid "_Name:"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.glade.h:48
+#: pyanaconda/ui/gui/spokes/source.glade.h:45
 msgid "Protocol for the repository URL."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.glade.h:49
+#: pyanaconda/ui/gui/spokes/source.glade.h:46
 msgid "P_roxy URL:"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.glade.h:50
+#: pyanaconda/ui/gui/spokes/source.glade.h:47
 msgid "U_sername:"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.glade.h:51
+#: pyanaconda/ui/gui/spokes/source.glade.h:48
 msgid "Pass_word:"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.glade.h:52
+#: pyanaconda/ui/gui/spokes/source.glade.h:49
 msgid "Name of the repository."
 msgstr ""
 
@@ -3112,7 +3081,7 @@ msgid ""
 msgstr ""
 
 #: pyanaconda/ui/gui/spokes/welcome.glade.h:10
-#, no-c-format
+#, python-format
 msgid "WELCOME TO %(name)s %(version)s."
 msgstr ""
 
@@ -3320,7 +3289,7 @@ msgid "Configure selected mountpoint."
 msgstr ""
 
 #: pyanaconda/ui/gui/spokes/custom.glade.h:55
-msgid "configureButton"
+msgid "Configure"
 msgstr ""
 
 #: pyanaconda/ui/gui/spokes/custom.glade.h:56
@@ -3501,7 +3470,7 @@ msgid "_Bind targets to network interfaces"
 msgstr ""
 
 #: pyanaconda/ui/gui/spokes/advstorage/iscsi.glade.h:21
-#, no-c-format
+#, python-format
 msgid ""
 "The following nodes were discovered using the iSCSI initiator <b>"
 "%(initiatorName)s</b> using the target IP address <b>%(targetAddress)s</b>.  "
@@ -3616,39 +3585,23 @@ msgid "_Rescan Disks"
 msgstr ""
 
 #: pyanaconda/ui/gui/spokes/lib/refresh.glade.h:5
-msgid "page 1"
-msgstr ""
-
-#: pyanaconda/ui/gui/spokes/lib/refresh.glade.h:6
 msgid "Scanning disks.  This may take a moment..."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/lib/refresh.glade.h:7
-msgid "page 2"
-msgstr ""
-
-#: pyanaconda/ui/gui/spokes/lib/refresh.glade.h:8
+#: pyanaconda/ui/gui/spokes/lib/refresh.glade.h:6
 msgid ""
 "You may <a href=\"\">go back to the main menu</a> to complete other\n"
 "installation options while this scan completes."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/lib/refresh.glade.h:10
-msgid "page 3"
-msgstr ""
-
-#: pyanaconda/ui/gui/spokes/lib/refresh.glade.h:11
+#: pyanaconda/ui/gui/spokes/lib/refresh.glade.h:8
 msgid "<b>Disk rescan complete.</b>"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/lib/refresh.glade.h:12
+#: pyanaconda/ui/gui/spokes/lib/refresh.glade.h:9
 msgid ""
 "Pressing 'OK' below will take you to the disk selection screen where you "
 "will need to re-select your disks."
-msgstr ""
-
-#: pyanaconda/ui/gui/spokes/lib/refresh.glade.h:13
-msgid "page 4"
 msgstr ""
 
 #: pyanaconda/ui/gui/spokes/lib/resize.glade.h:2
@@ -3682,21 +3635,6 @@ msgstr ""
 
 #: pyanaconda/ui/gui/spokes/lib/resize.glade.h:11
 msgid "_Shrink"
-msgstr ""
-
-#: pyanaconda/ui/gui/spokes/lib/resize.glade.h:14
-#, no-c-format
-msgid "<b>%s disks; %s reclaimable space</b> (in filesystems)"
-msgstr ""
-
-#: pyanaconda/ui/gui/spokes/lib/resize.glade.h:16
-#, no-c-format
-msgid "Total selected space to reclaim:  <b>%s</b>"
-msgstr ""
-
-#: pyanaconda/ui/gui/spokes/lib/resize.glade.h:18
-#, no-c-format
-msgid "Installation requires a total of <b>%s</b> for system data."
 msgstr ""
 
 #: pyanaconda/ui/gui/spokes/lib/summary.glade.h:1
@@ -3756,7 +3694,7 @@ msgid "Preparing to install"
 msgstr ""
 
 #: pyanaconda/ui/gui/hubs/progress.glade.h:4
-#, no-c-format
+#, c-format, python-format
 msgid ""
 "%s is now successfully installed on your system, but some configuration "
 "still needs to be done.  Finish it and then click the Finish configuration "
@@ -3768,7 +3706,7 @@ msgid "_Finish configuration"
 msgstr ""
 
 #: pyanaconda/ui/gui/hubs/progress.glade.h:7
-#, no-c-format
+#, c-format, python-format
 msgid ""
 "%s is now successfully installed on your system and ready for you to use!  "
 "Go ahead and reboot to start using it!"
