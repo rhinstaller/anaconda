@@ -37,7 +37,23 @@ import time
 import re
 import network
 import subprocess
-from pykickstart.constants import *
+
+from snack import ButtonChoiceWindow, ListboxChoiceWindow,SnackScreen
+
+from constants import ANACONDA_CLEANUP, ROOT_PATH
+from constants_text import TEXT_OK_BUTTON, TEXT_NO_BUTTON, TEXT_YES_BUTTON
+from text import WaitWindow, OkCancelWindow, ProgressWindow, PassphraseEntryWindow
+from flags import flags
+from installinterfacebase import InstallInterfaceBase
+from i18n import _
+from kickstart import runPostScripts
+
+from blivet import mountExistingSystem
+from blivet.errors import StorageError
+from blivet.devices import LUKSDevice
+
+from pykickstart.constants import KS_REBOOT, KS_SHUTDOWN
+
 import meh.ui.text
 from pyanaconda.i18n import _
 
@@ -214,6 +230,40 @@ def _exception_handler_wrapper(orig_except_handler, screen, *args):
     screen.finish()
     return orig_except_handler(*args)
 
+def _unlock_devices(intf, storage):
+    try_passphrase = None
+    for device in storage.devices:
+        if device.format.type == "luks":
+            skip = False
+            unlocked = False
+            while not (skip or unlocked):
+                if try_passphrase is None:
+                    passphrase = intf.passphraseEntryWindow(device.name)
+                else:
+                    passphrase = try_passphrase
+
+                if passphrase is None:
+                    # canceled
+                    skip = True
+                else:
+                    device.format.passphrase = passphrase
+                    try:
+                        device.setup()
+                        device.format.setup()
+                        luks_dev = LUKSDevice(device.format.mapName,
+                                              parents=[device],
+                                              exists=True)
+                        storage.devicetree._addDevice(luks_dev)
+                        storage.devicetree.populate()
+                        unlocked = True
+                        # try to use the same passhprase for other devices
+                        try_passphrase = passphrase
+                    except StorageError as serr:
+                        log.error("Failed to unlock %s: %s", device.name, serr)
+                        device.teardown(recursive=True)
+                        device.format.passphrase = None
+                        try_passphrase = None
+
 def doRescue(intf, rescue_mount, ksdata):
     import blivet
 
@@ -271,6 +321,7 @@ def doRescue(intf, rescue_mount, ksdata):
 
     sto = blivet.Blivet(ksdata=ksdata)
     blivet.storageInitialize(sto, ksdata, [])
+    _unlock_devices(intf, sto)
     roots = blivet.findExistingInstallations(sto.devicetree)
 
     if not roots:
