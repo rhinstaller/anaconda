@@ -15,13 +15,13 @@ if [ -z "$top_srcdir" ]; then
     pylint_log=1
 fi
 
-: "${top_srcdir:=$(dirname "$0")/../..}"
-srcdir="${top_srcdir}/tests/pylint"
-
-# If no PYTHONPATH is set, import the test environment
-if [ -z "$PYTHONPATH" ]; then
+# If $top_srcdir has not been set by automake, import the test environment
+if [ -z "$top_srcdir" ]; then
+    top_srcdir="$(dirname "$0")/../.."
     . ${top_srcdir}/tests/testenv.sh
 fi
+
+srcdir="${top_srcdir}/tests/pylint"
 
 FALSE_POSITIVES="${srcdir}"/pylint-false-positives
 

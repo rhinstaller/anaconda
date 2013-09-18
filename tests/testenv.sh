@@ -5,10 +5,14 @@ if [ -z "$top_srcdir" ]; then
     exit 1
 fi
 
-# If not top_builddir is set, use top_srcdir
+# If no top_builddir is set, use top_srcdir
 : "${top_builddir:=$top_srcdir}"
 
-PYTHONPATH="${top_builddir}/pyanaconda/isys/.libs:${top_srcdir}/pyanaconda:${top_srcdir}"
+if [ -z "$PYTHONPATH" ]; then
+    PYTHONPATH="${top_builddir}/pyanaconda/isys/.libs:${top_srcdir}/pyanaconda:${top_srcdir}"
+else
+    PYTHONPATH="${PYTHONPATH}:${top_builddir}/pyanaconda/isys/.libs:${top_srcdir}/pyanaconda:${top_srcdir}"
+fi
 export PYTHONPATH
 export top_srcdir
 export top_builddir
