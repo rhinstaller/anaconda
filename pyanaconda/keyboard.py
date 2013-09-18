@@ -550,7 +550,7 @@ class XklWrapper(object):
             # layout-variant description
             xlated_lang = iso_(layout_info.lang)
             return "%s (%s)" % (iutil.upcase_first_letter(xlated_lang.decode("utf-8")),
-                                Xkb_(layout_info.desc))
+                                Xkb_(layout_info.desc).decode("utf-8"))
         else:
             return layout_info.desc
 
