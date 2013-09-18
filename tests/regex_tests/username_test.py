@@ -29,14 +29,14 @@ class UsernameRegexTestCase(unittest.TestCase):
         for good in goodlist:
             try:
                 self.assertIsNotNone(expression.match(good))
-            except AssertionError as error:
+            except AssertionError:
                 got_error = True
                 print("Good string %s did not match expression" % good)
 
         for bad in badlist:
             try:
                 self.assertIsNone(expression.match(bad))
-            except AssertionError as error:
+            except AssertionError:
                 got_error = True
                 print("Bad string %s matched expression" % bad)
 
@@ -70,7 +70,12 @@ class UsernameRegexTestCase(unittest.TestCase):
                 'g_burdell',
                 '_burdell',
                 'gggggggggggggggggggggggggburdell', # 32 characters
-                'ggggggggggggggggggggggggburdell$'
+                'ggggggggggggggggggggggggburdell$',
+                '_',
+                'r',
+                'ro',
+                'roo',
+                'roota',
                 ]
 
         bad_tests = [
@@ -83,7 +88,10 @@ class UsernameRegexTestCase(unittest.TestCase):
                 'ggggggggggggggggggggggggggburdell', # 33 characters
                 'gggggggggggggggggggggggggburdell$',
                 ' gburdell',
-                ':gburdell'
+                ':gburdell',
+                'root',
+                '$',
+                '-'
                 ]
 
         self._run_tests(USERNAME_VALID, good_tests, bad_tests)

@@ -38,10 +38,13 @@ GECOS_VALID = re.compile(r'^[^:]*$')
 # and UT_NAMESIZE for user names (which is defined as 32 bits/utmp.h). This
 # expression captures all of that: the initial character, followed by either
 # up to 30 portable characters and a dollar sign or up to 31 portable characters,
-# both for a maximum total of 32. The empty string is not allowed.
+# both for a maximum total of 32. The empty string is not allowed. "root" is not
+# allowed.
 
 # a base expression without anchors, helpful for building other expressions
-_USERNAME_BASE = r'[a-zA-Z0-9._](([a-zA-Z0-9._-]{,30}\$)|([a-zA-Z0-9._-]{,31}))'
+# If the string is the right length to match "root", use a lookback expression
+# to make sure it isn't.
+_USERNAME_BASE = r'[a-zA-Z0-9._](([a-zA-Z0-9._-]{0,2})|([a-zA-Z0-9._-]{3}(?<!root))|([a-zA-Z0-9._-]{4,31})|([a-zA-Z0-9._-]{,30}\$))'
 
 USERNAME_VALID = re.compile(r'^' + _USERNAME_BASE + '$')
 GROUPNAME_VALID = USERNAME_VALID
