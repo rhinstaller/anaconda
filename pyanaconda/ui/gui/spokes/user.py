@@ -279,9 +279,13 @@ class UserSpoke(FirstbootSpokeMixIn, NormalSpoke):
         self.add_check(self.pw, self._checkPasswordEmpty, None)
         
         # The password confirmation needs to be checked whenever either of the password
-        # fields change
-        self.add_check(self.confirm, self._checkPasswordConfirm, None)
-        self.add_check(self.pw, self._checkPasswordConfirm, None)
+        # fields change. Separate checks are created on each field so that edits on
+        # either will trigger a check and so that the last edited field will get the focus
+        # when Done is clicked. Whichever check is run needs to run the other check in
+        # order to reset the status. The check_data field is used as a flag to prevent
+        # infinite recursion.
+        self._confirm_check = self.add_check(self.confirm, self._checkPasswordConfirm, None)
+        self._password_check = self.add_check(self.pw, self._checkPasswordConfirm, None)
 
         # Keep a reference to this check, since it has to be manually run for the
         # click Done twice check.
@@ -483,16 +487,31 @@ class UserSpoke(FirstbootSpokeMixIn, NormalSpoke):
         else:
             return None
 
-    def _checkPasswordConfirm(self, editable=None, data=None):
+    def _checkPasswordConfirm(self, editable=None, reset_status=None):
         """If the user has entered confirmation data, check whether it matches the password."""
+
+        # This check is triggered by changes to either the password field or the
+        # confirmation field. If this method is being run from a successful check
+        # to reset the status, just return success
+        if reset_status:
+            return None
         
         # Skip the check if no password is required
         if (not self.usepassword.get_active()) or self._user.password_kickstarted:
-            return None
+            result = None
         elif self.confirm.get_text() and (self.pw.get_text() != self.confirm.get_text()):
-            return _("The passwords do not match.")
+            result = _("The passwords do not match.")
         else:
-            return None
+            result = None
+
+        # If the check succeeded, reset the status of the other check object
+        if result is None:
+            if editable == self.confirm:
+                self._password_check.update_check_status(check_data=True)
+            else:
+                self._confirm_check.update_check_status(check_data=True)
+
+        return result
 
     def _checkPasswordStrength(self, editable=None, data=None):
         """Update the error message based on password strength.

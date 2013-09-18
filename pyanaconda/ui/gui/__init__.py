@@ -98,9 +98,16 @@ class GUICheck(object):
             self._handler_id = None
             self._check_status = None
 
-    def update_check_status(self, editable=None, data=None):
+    def update_check_status(self, editable=None, check_data=None):
         """Run an input validation check."""
-        new_check_status = self._run_check(self._editable, self._check_data)
+
+        # Allow check parameters to be overriden in parameters
+        if editable is None:
+            editable = self._editable
+        if check_data is None:
+            check_data = self._check_data
+
+        new_check_status = self._run_check(editable, check_data)
         check_status_changed = (self._check_status != new_check_status)
         self._check_status = new_check_status
 
