@@ -259,6 +259,11 @@ class UserSpoke(FirstbootSpokeMixIn, NormalSpoke):
         self.pw_bar = self.builder.get_object("password_bar")
         self.pw_label = self.builder.get_object("password_label")
 
+        # Configure levels for the password bar
+        self.pw_bar.add_offset_value("low", 2)
+        self.pw_bar.add_offset_value("medium", 3)
+        self.pw_bar.add_offset_value("high", 4)
+
         # indicate when the password was set by kickstart
         self._user.password_kickstarted = self.data.user.seen
         if self._user.password_kickstarted:
