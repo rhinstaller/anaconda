@@ -1364,7 +1364,6 @@ until you click on the main menu's 'Begin Installation' button.</property>
                                   <object class="GtkLabel" id="passphraseLabel">
                                     <property name="visible">True</property>
                                     <property name="can_focus">False</property>
-                                    <!-- check_accelerators: not visible at same time as mountPointLabel -->
                                     <property name="label" translatable="yes">_Passphrase:</property>
                                     <property name="use_underline">True</property>
                                     <attributes>
@@ -1393,7 +1392,6 @@ until you click on the main menu's 'Begin Installation' button.</property>
                                 </child>
                                 <child>
                                   <object class="GtkButton" id="unlockButton">
-                                    <!-- check_accelerators: not visible at same time as applyButton -->
                                     <property name="label" translatable="yes">_Unlock</property>
                                     <property name="visible">True</property>
                                     <property name="can_focus">True</property>

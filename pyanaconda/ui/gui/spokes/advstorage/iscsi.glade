@@ -397,7 +397,6 @@
                                 <property name="visible">True</property>
                                 <property name="can_focus">False</property>
                                 <property name="xalign">0</property>
-                                <!-- check_accelerators: not visible at same time as label2 -->
                                 <property name="label" translatable="yes">CHAP _Username:</property>
                                 <property name="use_underline">True</property>
                                 <property name="mnemonic_widget">rchapUsernameEntry</property>
@@ -414,7 +413,6 @@
                                 <property name="visible">True</property>
                                 <property name="can_focus">False</property>
                                 <property name="xalign">0</property>
-                                <!-- check_accelerators: not visible at same time as label3 -->
                                 <property name="label" translatable="yes">CHAP _Password:</property>
                                 <property name="use_underline">True</property>
                                 <property name="mnemonic_widget">rchapPasswordEntry</property>
@@ -764,7 +762,6 @@
                             <property name="visible">True</property>
                             <property name="can_focus">False</property>
                             <property name="xalign">0</property>
-                            <!-- check_accelerators: not visible at same time as label11 -->
                             <property name="label" translatable="yes">_Node login authentication type:</property>
                             <property name="use_underline">True</property>
                             <property name="mnemonic_widget">loginAuthTypeCombo</property>
@@ -823,7 +820,6 @@
                                     <property name="visible">True</property>
                                     <property name="can_focus">False</property>
                                     <property name="xalign">0</property>
-                                    <!-- check_accelerators: not visible at same time as label2 -->
                                     <property name="label" translatable="yes">CHAP _Username:</property>
                                     <property name="use_underline">True</property>
                                     <property name="mnemonic_widget">loginChapUsernameEntry</property>
@@ -840,7 +836,6 @@
                                     <property name="visible">True</property>
                                     <property name="can_focus">False</property>
                                     <property name="xalign">0</property>
-                                    <!-- check_accelerators: not visible at same time as label3 -->
                                     <property name="label" translatable="yes">CHAP _Password:</property>
                                     <property name="use_underline">True</property>
                                     <property name="mnemonic_widget">loginChapPasswordEntry</property>
@@ -967,7 +962,6 @@
                                     <property name="visible">True</property>
                                     <property name="can_focus">False</property>
                                     <property name="xalign">0</property>
-                                    <!-- check_accelerators: not visible at same time as label2 -->
                                     <property name="label" translatable="yes">CHAP _Username:</property>
                                     <property name="use_underline">True</property>
                                     <property name="mnemonic_widget">loginRchapUsernameEntry</property>
@@ -984,7 +978,6 @@
                                     <property name="visible">True</property>
                                     <property name="can_focus">False</property>
                                     <property name="xalign">0</property>
-                                    <!-- check_accelerators: not visible at same time as label3 -->
                                     <property name="label" translatable="yes">CHAP _Password:</property>
                                     <property name="use_underline">True</property>
                                     <property name="mnemonic_widget">loginRchapPasswordEntry</property>
@@ -1001,7 +994,6 @@
                                     <property name="visible">True</property>
                                     <property name="can_focus">False</property>
                                     <property name="xalign">0</property>
-                                    <!-- check_accelerators: not visible at same time as retryButton -->
                                     <property name="label" translatable="yes">_Reverse CHAP Username:</property>
                                     <property name="use_underline">True</property>
                                     <property name="mnemonic_widget">loginRchapReverseUsername</property>
@@ -1018,7 +1010,6 @@
                                     <property name="visible">True</property>
                                     <property name="can_focus">False</property>
                                     <property name="xalign">0</property>
-                                    <!-- check_accelerators: not visible at same time as label12 -->
                                     <property name="label" translatable="yes">Reverse CHAP Pass_word:</property>
                                     <property name="use_underline">True</property>
                                     <property name="mnemonic_widget">loginRchapReversePassword</property>
@@ -1170,7 +1161,7 @@
                                 </child>
                                 <child>
                                   <object class="GtkButton" id="retryLoginButton">
-                                    <!-- check_accelerators: not visible at same time as retryButton -->
+                                    <!-- check_accelerators: not visible at same time as label19 -->
                                     <property name="label" translatable="yes">_Retry Log In</property>
                                     <property name="visible">True</property>
                                     <property name="can_focus">True</property>
