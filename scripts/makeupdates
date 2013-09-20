@@ -227,6 +227,12 @@ def copyUpdatedFiles(tag, updates, cwd):
         file = fields[1]
 
         if status == "D":
+            if file.startswith('pyanaconda/'):
+                # deleted python module, write out a stub raising ImportError
+                file_path = os.path.join(tmpupdates, file)
+                with open(file_path, "w") as fobj:
+                    fobj.write('raise ImportError("This module no longer exists!")')
+
             continue
 
         if file.endswith('.spec.in') or (file.find('Makefile') != -1) or \
