@@ -61,7 +61,7 @@ LOCALED_IFACE = "org.freedesktop.locale1"
 # should match and parse strings like 'cz' or 'cz (qwerty)' regardless of white
 # space
 LAYOUT_VARIANT_RE = re.compile(r'^\s*(\w+)\s*' # layout plus
-                               r'(?:(?:\(\s*(\w+)\s*\))' # variant in parentheses
+                               r'(?:(?:\(\s*([-\w]+)\s*\))' # variant in parentheses
                                r'|(?:$))\s*') # or nothing
 
 # namedtuple for information about a keyboard layout (its language and description)

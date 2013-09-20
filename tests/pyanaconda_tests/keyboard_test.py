@@ -25,10 +25,14 @@ class ParsingAndJoiningTests(unittest.TestCase):
     def layout_variant_parsing_test(self):
         """Should correctly parse keyboard layout and variant string specs."""
 
-        # a valid layout variant spec
+        # valid layout variant specs
         layout, variant = keyboard._parse_layout_variant("cz (qwerty)")
         self.assertEqual(layout, "cz")
         self.assertEqual(variant, "qwerty")
+
+        layout, variant = keyboard._parse_layout_variant("cz (dvorak-ucw)")
+        self.assertEqual(layout, "cz")
+        self.assertEqual(variant, "dvorak-ucw")
 
         # a valid layout variant spec with no variant specified
         layout, variant = keyboard._parse_layout_variant("cz")
