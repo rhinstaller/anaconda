@@ -258,7 +258,7 @@ class TextUserInterface(ui.UserInterface):
         """Internal helper function that MUST BE CALLED FROM THE MAIN THREAD"""
 
         error_window = ErrorDialog(self._app, message)
-        self._app.switch_screen(error_window)
+        self._app.switch_screen_modal(error_window)
 
     def showDetailedError(self, message, details):
         return self._show_message_in_main_thread(self._showDetailedError, (message, details))

@@ -44,6 +44,7 @@ class ErrorDialog(tui.UIScreen):
         tui.UIScreen.refresh(self, args)
         text = tui.TextWidget(self._message)
         self._window.append(tui.CenterWidget(text))
+        return True
 
     def prompt(self, args = None):
         return _("Press enter to exit.")
@@ -51,6 +52,7 @@ class ErrorDialog(tui.UIScreen):
     def input(self, args, key):
         """This dialog is closed by any input."""
         self.close()
+        return None
 
 class YesNoDialog(tui.UIScreen):
     """Dialog screen for Yes - No questions."""

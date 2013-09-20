@@ -1524,7 +1524,8 @@ reposdir=%s
         except DependencyError as e:
             if errorHandler.cb(e) == ERROR_RAISE:
                 progressQ.send_quit(1)
-                sys.exit(1)
+                while True:
+                    time.sleep(100000)
 
         # doPreInstall
         # create mountpoints for protected device mountpoints (?)
