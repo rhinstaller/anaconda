@@ -22,6 +22,7 @@
 from pyanaconda.i18n import _
 from pyanaconda.ui import common
 import simpleline as tui
+from pyanaconda.constants_text import INPUT_PROCESSED
 
 class ErrorDialog(tui.UIScreen):
     """Dialog screen for reporting errors to user."""
@@ -44,6 +45,7 @@ class ErrorDialog(tui.UIScreen):
         tui.UIScreen.refresh(self, args)
         text = tui.TextWidget(self._message)
         self._window.append(tui.CenterWidget(text))
+        return True
 
     def prompt(self, args = None):
         return _("Press enter to exit.")
@@ -51,6 +53,7 @@ class ErrorDialog(tui.UIScreen):
     def input(self, args, key):
         """This dialog is closed by any input."""
         self.close()
+        return INPUT_PROCESSED
 
 class YesNoDialog(tui.UIScreen):
     """Dialog screen for Yes - No questions."""
