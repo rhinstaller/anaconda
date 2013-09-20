@@ -135,7 +135,6 @@ class DNFPayload(packaging.PackagePayload):
     def _configure(self):
         self._base = dnf.Base()
         conf = self._base.conf
-        conf.persistdir = DNF_CACHE_DIR
         self._base.cache_c.prefix = DNF_CACHE_DIR
         self._base.cache_c.suffix = 'default'
         conf.logdir = '/tmp/payload-logs'
@@ -144,8 +143,9 @@ class DNFPayload(packaging.PackagePayload):
         conf.errorlevel = 0
         self._base.logging.setup_from_dnf_conf(conf)
 
-        conf.installroot = constants.ROOT_PATH
         conf.releasever = self._getReleaseVersion(None)
+        conf.installroot = constants.ROOT_PATH
+        conf.prepend_installroot('persistdir')
 
         # NSS won't survive the forking we do to shield out chroot during
         # transaction, disable it in RPM:
