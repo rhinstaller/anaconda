@@ -634,6 +634,9 @@ class Lang(commands.lang.F19_Lang):
     def execute(self, *args, **kwargs):
         localization.write_language_configuration(self, ROOT_PATH)
 
+# no overrides needed here
+class Eula = commands.eula.F20_Eula
+
 class LogVol(commands.logvol.F20_LogVol):
     def execute(self, storage, ksdata, instClass):
         for l in self.lvList:
@@ -1466,6 +1469,7 @@ commandMap = {
         "bootloader": Bootloader,
         "clearpart": ClearPart,
         "dmraid": DmRaid,
+        "eula": Eula,
         "fcoe": Fcoe,
         "firewall": Firewall,
         "firstboot": Firstboot,
