@@ -124,6 +124,7 @@ class DNFPayload(packaging.PackagePayload):
         map(self._install_package, self._required_pkgs)
         map(self._select_group, self._required_groups)
         self._select_kernel_package()
+        self._install_package('dnf')
 
     def _bump_tx_id(self):
         if self.txID is None:
