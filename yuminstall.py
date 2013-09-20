@@ -1578,9 +1578,12 @@ debuglevel=6
             selectKernel("kernel")
 
     def selectFSPackages(self, storage):
+        fspkgs = set()
         for device in storage.fsset.devices:
             # this takes care of device and filesystem packages
-            map(self.selectPackage, device.packages)
+            for pkg in device.packages:
+                fspkgs.add(pkg)
+        map(self.selectPackage, fspkgs)
 
     # anaconda requires several programs on the installed system to complete
     # installation, but we have no guarantees that some of these will be
