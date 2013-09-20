@@ -350,6 +350,35 @@ EOF
         for subdir in firewire pcmcia sound wireless ; do
             find -H $MMB_DIR/lib/modules -name $subdir | xargs rm -rf
         done
+
+        # Explicitly remove more (#1006043)
+        ( if [ -d $MBD_DIR/firmware/radeon ]; then
+              cd $MBD_DIR/firmware/radeon
+              for f in *.bin ; do
+                  if [ ! "$f" = "CEDAR_rlc.bin" -a ! "$f" = "CEDAR_pfp.bin" -a ! "$f" = "CEDAR_me.bin" ]; then
+                      rm "$f"
+                  fi
+              done
+          fi
+        )
+
+        rm -f $MBD_DIR/firmware/sun/cassini.bin
+        rm -f $MBD_DIR/firmware/brcm/bcm43xx_hdr-0.fw
+        rm -f $MBD_DIR/firmware/brcm/bcm43xx-0.fw
+        rm -f $MBD_DIR/firmware/carl9170-1.fw
+        rm -f $MBD_DIR/firmware/iwlwifi-2030-6.ucode
+        rm -f $MBD_DIR/firmware/htc_9271.fw
+        rm -f $MBD_DIR/firmware/iwlwifi-3160-7.ucode
+        rm -f $MBD_DIR/firmware/iwlwifi-7260-7.ucode
+        rm -f $MBD_DIR/firmware/adaptec/starfire_rx.bin
+        rm -f $MBD_DIR/firmware/adaptec/starfire_tx.bin
+        rm -f $MBD_DIR/firmware/ositech/Xilinx7OD.bin
+        rm -f $MBD_DIR/firmware/iwlwifi-2000-6.ucode
+        rm -f $MBD_DIR/firmware/iwlwifi-6000g2b-6.ucode
+        rm -f $MBD_DIR/firmware/iwlwifi-135-6.ucode
+        rm -f $MBD_DIR/firmware/htc_7010.fw
+        rm -f $MBD_DIR/firmware/iwlwifi-105-6.ucode
+        rm -rf $MBD_DIR/firmware/zd1211
     fi
 
     # clean up leftover cruft
