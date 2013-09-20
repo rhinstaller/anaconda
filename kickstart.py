@@ -684,12 +684,35 @@ class NetworkData(commands.network.RHEL6_NetworkData):
             anaconda.id.network.setHostname(self.hostname)
             anaconda.id.network.overrideDHCPhostname = True
 
+        activate_new_device = False
         if not dev:
-            if self.hostname:
+            if self.bondslaves:
+                if not self.activate:
+                    log.info("bond %s not configured in stage 2, only activation supported, please use --activate option" % device)
+                    return
+                activate_new_device = True
+                dev = anaconda.id.network.enableBondingDevice(device)
+                dev.set(("BONDING_OPTS", self.bondopts))
+                slaves = self.bondslaves.split(',')
+                for slave in slaves:
+                    slavedev = devices.get(slave, None)
+                    if slavedev:
+                        # disconnect the slave
+                        anaconda.id.network.disconnectDevice(slavedev.iface)
+
+                        mac = slavedev.get('HWADDR')
+                        uuid = slavedev.get('UUID')
+                        slavedev.clear()
+                        slavedev.set(("DEVICE", slave))
+                        if mac:
+                            slavedev.set(("HWADDR", mac))
+                        if uuid:
+                            slavedev.set(("UUID", uuid))
+                        slavedev.set(("SLAVE", "yes"))
+                        slavedev.set(("MASTER", device))
+                        slavedev.set(("ONBOOT", "yes"))
+            elif self.hostname:
                 # Only set hostname
-                return
-            elif self.bondslaves:
-                log.info("bond %s not configured, only supported for devices activated during installation" % device)
                 return
             else:
                 raise KickstartValueError, formatErrorMsg(self.lineno, msg="The provided network interface %s does not exist" % device)
@@ -742,6 +765,18 @@ class NetworkData(commands.network.RHEL6_NetworkData):
 
         if self.nodefroute:
             dev.set (("DEFROUTE", "no"))
+
+        if activate_new_device:
+            log.info("Bringing up network device %s in stage2 kickstart ..." %
+                     dev.iface)
+            dev.set (("onboot", "yes"))
+            anaconda.id.network.write()
+            if not anaconda.id.network.waitForDevice(dev.iface):
+                log.info("Can't find bond device %s")
+                return
+            failed_ifaces = anaconda.id.network.waitForDevicesActivation([dev.iface])
+            log.info("Activation %s" % ('succeeded' if not failed_ifaces else 'failed',))
+            return
 
         needs_net = (anaconda.methodstr and
                      (anaconda.methodstr.startswith("http:") or

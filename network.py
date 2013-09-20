@@ -642,6 +642,18 @@ class Network:
                     log.warning("autoconnectFCoEDevices: %s file not found" %
                                 device.path)
 
+    def enableBondingDevice(self, devName, instPath=''):
+        dev = NetworkDevice(instPath + netscriptsDir, devName)
+        self.netdevices[devName] = dev
+        dev.set(("DEVICE", devName))
+        dev.set(("TYPE", "Bond"))
+        dev.set(("NM_CONTROLLED", "yes"))
+        if not os.access(dev.path, os.R_OK):
+            f = open(dev.path, "w")
+            f.close()
+        dev.writeIfcfgFile()
+        return dev
+
     def hasActiveIPoIBDevice(self):
         active_devs = getActiveNetDevs()
         for devName, device in self.netdevices.items():
@@ -734,6 +746,15 @@ class Network:
                 f.write("options ipv6 disable=1\n")
                 f.close()
 
+    def waitForDevice(self, device, timeout=CONNECTION_TIMEOUT):
+        props = isys.getDeviceProperties(device)
+        i = 0
+        while not props and i < timeout:
+            props = isys.getDeviceProperties(device)
+            i += 1
+            time.sleep(1)
+        return bool(props)
+
     def waitForDevicesActivation(self, devices):
         waited_devs_props = {}
 
@@ -794,6 +815,23 @@ class Network:
     def bringUp(self):
         self.write()
         return self.waitForConnection()
+
+    def disconnectDevice(self, devname):
+        bus = dbus.SystemBus()
+        nm = bus.get_object(isys.NM_SERVICE, isys.NM_MANAGER_PATH)
+        device_paths = nm.get_dbus_method("GetDevices")()
+        for device_path in device_paths:
+            device = bus.get_object(isys.NM_SERVICE, device_path)
+            device_props_iface = dbus.Interface(device, isys.DBUS_PROPS_IFACE)
+            iface = str(device_props_iface.Get(isys.NM_DEVICE_IFACE, "Interface"))
+            if iface == devname:
+                try:
+                    device.get_dbus_method("Disconnect")()
+                except dbus.DBusException as e:
+                    log.debug("disconnectDevice %s: %s" % (devname, e))
+                    return False
+                return True
+        return False
 
     # get a kernel cmdline string for dracut needed for access to host host
     def dracutSetupArgs(self, networkStorageDevice):
