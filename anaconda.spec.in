@@ -256,6 +256,10 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Fri Sep 20 2013 Brian C. Lane <bcl@redhat.com> - 19.31.18-1
+- Search all disk types for install media (dshea)
+  Resolves: rhbz#1004726
+
 * Fri Sep 13 2013 Brian C. Lane <bcl@redhat.com> - 19.31.17-1
 - Don't set up the resize slider for non-resizable devices. (dlehman)
   Resolves: rhbz#1008049
