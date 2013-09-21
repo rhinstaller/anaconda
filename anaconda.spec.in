@@ -255,6 +255,27 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Fri Sep 20 2013 Brian C. Lane <bcl@redhat.com> - 20.19-1
+- tui ErrorDialog needs to be modal (#983316) (bcl)
+- Keyboard variant names may contain dashes (#1008730) (vpodzime)
+- Forbid "root" as a user or group name. (#968451) (dshea)
+- Set the password strength color based on strength (#965596) (dshea)
+- Fix the password confirmation match check (#1009907) (dshea)
+- Replace removed python modules with stubs in makeupdates (vpodzime)
+- Unlock encrypted partitions before finding installations (#901917) (vpodzime)
+- Network TUI: remove unused import, import nm. (rvykydal)
+- Network TUI: show the same status as in gui. (rvykydal)
+- Network TUI: don't traceback when applying config to device without link.
+  (rvykydal)
+- Generate ifcfg VLAN_ID value for kickstart network --vlanid. (rvykydal)
+- Network TUI: fix updating of ksdata in apply. (rvykydal)
+- Network TUI: ignore slaves devices for configuration. (rvykydal)
+- Clean up ifcfg file handling. (rvykydal)
+- Check the validity of generated usernames in TUI (#965543) (dshea)
+- Behave better when PYTHONPATH is already set (dshea)
+- Decode keyboard layout descriptions as UTF-8 (#1009278) (dshea)
+- Filter out devices with no media from custom (#960794) (bcl)
+
 * Wed Sep 18 2013 Brian C. Lane <bcl@redhat.com> - 20.18-1
 - ProgressHub no longer exists in pyanaconda/ui/tui/hubs. (clumens)
 - Search all disk types for install media (#1004726) (dshea)

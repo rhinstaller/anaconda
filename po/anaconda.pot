@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: anaconda 20.17\n"
+"Project-Id-Version: anaconda 20.18\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
-"POT-Creation-Date: 2013-09-18 07:57-0700\n"
+"POT-Creation-Date: 2013-09-20 17:25-0700\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -151,7 +151,7 @@ msgid "Discovering realm to join"
 msgstr ""
 
 #: pyanaconda/install.py:167 pyanaconda/packaging/livepayload.py:146
-#: pyanaconda/packaging/yumpayload.py:1376
+#: pyanaconda/packaging/yumpayload.py:1377
 msgid "Performing post-installation setup tasks"
 msgstr ""
 
@@ -182,25 +182,72 @@ msgstr ""
 msgid "Running pre-installation scripts"
 msgstr ""
 
-#: pyanaconda/network.py:103
+#: pyanaconda/network.py:105
 msgid "Hostname cannot be None or an empty string."
 msgstr ""
 
-#: pyanaconda/network.py:106
+#: pyanaconda/network.py:108
 msgid "Hostname must be 255 or fewer characters in length."
 msgstr ""
 
-#: pyanaconda/network.py:111
+#: pyanaconda/network.py:113
 msgid ""
 "Hostname must start with a valid character in the ranges 'a-z', 'A-Z', or "
 "'0-9'"
 msgstr ""
 
-#: pyanaconda/network.py:119
+#: pyanaconda/network.py:121
 msgid ""
 "Hostnames can only contain the characters 'a-z', 'A-Z', '0-9', '-', or '.', "
 "parts between periods must contain something and cannot start or end with "
 "'-'."
+msgstr ""
+
+#: pyanaconda/network.py:1036 pyanaconda/ui/gui/spokes/custom.py:994
+#: pyanaconda/ui/gui/spokes/network.py:667
+#: pyanaconda/ui/gui/spokes/lib/accordion.py:59
+msgid "Unknown"
+msgstr ""
+
+#: pyanaconda/network.py:1040
+msgid "Connecting..."
+msgstr ""
+
+#: pyanaconda/network.py:1042
+msgid "Disconnecting..."
+msgstr ""
+
+#: pyanaconda/network.py:1066
+#, python-format
+msgid "Wired (%(interface_name)s) connected"
+msgstr ""
+
+#: pyanaconda/network.py:1069
+#, python-format
+msgid "Wireless connected to %(access_point)s"
+msgstr ""
+
+#: pyanaconda/network.py:1072
+#, python-format
+msgid "Bond %(interface_name)s (%(list_of_slaves)s) connected"
+msgstr ""
+
+#: pyanaconda/network.py:1078
+#, python-format
+msgid "Vlan %(interface_name)s (%(parent_device)s, ID %(vlanid)s) connected"
+msgstr ""
+
+#: pyanaconda/network.py:1091
+#, python-format
+msgid "Connected: %(list_of_interface_names)s"
+msgstr ""
+
+#: pyanaconda/network.py:1094
+msgid "Not connected"
+msgstr ""
+
+#: pyanaconda/network.py:1097 pyanaconda/ui/gui/spokes/network.glade.h:43
+msgid "No network devices available"
 msgstr ""
 
 #: pyanaconda/product.py:53
@@ -208,25 +255,25 @@ msgstr ""
 msgid "%(productName)s %(productVersion)s INSTALLATION"
 msgstr ""
 
-#: pyanaconda/rescue.py:182 pyanaconda/rescue.py:319 pyanaconda/rescue.py:404
+#: pyanaconda/rescue.py:183 pyanaconda/rescue.py:355 pyanaconda/rescue.py:440
 #, python-format
 msgid "Run %s to unmount the system when you are finished."
 msgstr ""
 
-#: pyanaconda/rescue.py:185
+#: pyanaconda/rescue.py:186
 msgid "When finished please exit from the shell and your system will reboot."
 msgstr ""
 
-#: pyanaconda/rescue.py:199
+#: pyanaconda/rescue.py:200
 msgid "Unable to find /bin/sh to execute!  Not starting shell"
 msgstr ""
 
-#: pyanaconda/rescue.py:253 pyanaconda/rescue.py:326 pyanaconda/rescue.py:336
-#: pyanaconda/rescue.py:407 pyanaconda/rescue.py:438
+#: pyanaconda/rescue.py:288 pyanaconda/rescue.py:362 pyanaconda/rescue.py:372
+#: pyanaconda/rescue.py:443 pyanaconda/rescue.py:474
 msgid "Rescue"
 msgstr ""
 
-#: pyanaconda/rescue.py:254
+#: pyanaconda/rescue.py:289
 #, python-format
 msgid ""
 "The rescue environment will now attempt to find your Linux installation and "
@@ -240,48 +287,48 @@ msgid ""
 "\n"
 msgstr ""
 
-#: pyanaconda/rescue.py:264
+#: pyanaconda/rescue.py:299
 msgid "Continue"
 msgstr ""
 
-#: pyanaconda/rescue.py:264 pyanaconda/rescue.py:270
+#: pyanaconda/rescue.py:299 pyanaconda/rescue.py:305
 msgid "Read-Only"
 msgstr ""
 
-#: pyanaconda/rescue.py:264 pyanaconda/rescue.py:266
+#: pyanaconda/rescue.py:299 pyanaconda/rescue.py:301
 msgid "Skip"
 msgstr ""
 
-#: pyanaconda/rescue.py:294
+#: pyanaconda/rescue.py:330
 msgid "System to Rescue"
 msgstr ""
 
-#: pyanaconda/rescue.py:295
+#: pyanaconda/rescue.py:331
 msgid "Which device holds the root partition of your installation?"
 msgstr ""
 
-#: pyanaconda/rescue.py:297 pyanaconda/rescue.py:330 pyanaconda/rescue.py:343
-#: pyanaconda/rescue.py:411 pyanaconda/rescue.py:427 pyanaconda/rescue.py:438
+#: pyanaconda/rescue.py:333 pyanaconda/rescue.py:366 pyanaconda/rescue.py:379
+#: pyanaconda/rescue.py:447 pyanaconda/rescue.py:463 pyanaconda/rescue.py:474
 #: anaconda:410
 msgid "OK"
 msgstr ""
 
-#: pyanaconda/rescue.py:297 pyanaconda/rescue.py:301
+#: pyanaconda/rescue.py:333 pyanaconda/rescue.py:337
 msgid "Exit"
 msgstr ""
 
-#: pyanaconda/rescue.py:316 pyanaconda/rescue.py:401
+#: pyanaconda/rescue.py:352 pyanaconda/rescue.py:437
 msgid "The system will reboot automatically when you exit from the shell."
 msgstr ""
 
-#: pyanaconda/rescue.py:327
+#: pyanaconda/rescue.py:363
 #, python-format
 msgid ""
 "Your system had dirty file systems which you chose not to mount.  Press "
 "return to get a shell from which you can fsck and mount your partitions. %s"
 msgstr ""
 
-#: pyanaconda/rescue.py:337
+#: pyanaconda/rescue.py:373
 #, python-format
 msgid ""
 "Your system has been mounted under %(rootPath)s.\n"
@@ -294,7 +341,7 @@ msgid ""
 "%(msg)s"
 msgstr ""
 
-#: pyanaconda/rescue.py:408
+#: pyanaconda/rescue.py:444
 #, python-format
 msgid ""
 "An error occurred trying to mount some or all of your system. Some of it may "
@@ -303,24 +350,24 @@ msgid ""
 "Press <return> to get a shell."
 msgstr ""
 
-#: pyanaconda/rescue.py:416
+#: pyanaconda/rescue.py:452
 msgid "You don't have any Linux partitions.  Rebooting.\n"
 msgstr ""
 
-#: pyanaconda/rescue.py:420
+#: pyanaconda/rescue.py:456
 msgid " The system will reboot automatically when you exit from the shell."
 msgstr ""
 
-#: pyanaconda/rescue.py:424
+#: pyanaconda/rescue.py:460
 msgid "Rescue Mode"
 msgstr ""
 
-#: pyanaconda/rescue.py:425
+#: pyanaconda/rescue.py:461
 #, python-format
 msgid "You don't have any Linux partitions. Press return to get a shell.%s"
 msgstr ""
 
-#: pyanaconda/rescue.py:437
+#: pyanaconda/rescue.py:473
 #, python-format
 msgid "Your system is mounted under the %s directory."
 msgstr ""
@@ -446,15 +493,15 @@ msgstr ""
 msgid "Starting package installation process"
 msgstr ""
 
-#: pyanaconda/packaging/yumpayload.py:1356
+#: pyanaconda/packaging/yumpayload.py:1357
 msgid "You need more space on the following file systems:\n"
 msgstr ""
 
-#: pyanaconda/packaging/yumpayload.py:1374
+#: pyanaconda/packaging/yumpayload.py:1375
 msgid "Preparing transaction from installation source"
 msgstr ""
 
-#: pyanaconda/packaging/yumpayload.py:1375
+#: pyanaconda/packaging/yumpayload.py:1376
 msgid "Installing"
 msgstr ""
 
@@ -491,27 +538,27 @@ msgstr ""
 msgid "Please complete all spokes before continuing"
 msgstr ""
 
-#: pyanaconda/ui/tui/tuiobject.py:29
+#: pyanaconda/ui/tui/tuiobject.py:30
 msgid "Error"
 msgstr ""
 
-#: pyanaconda/ui/tui/tuiobject.py:49
+#: pyanaconda/ui/tui/tuiobject.py:51
 msgid "Press enter to exit."
 msgstr ""
 
-#: pyanaconda/ui/tui/tuiobject.py:58
+#: pyanaconda/ui/tui/tuiobject.py:61
 msgid "Question"
 msgstr ""
 
-#: pyanaconda/ui/tui/tuiobject.py:81
+#: pyanaconda/ui/tui/tuiobject.py:84
 msgid "Please respond 'yes' or 'no': "
 msgstr ""
 
-#: pyanaconda/ui/tui/tuiobject.py:84
+#: pyanaconda/ui/tui/tuiobject.py:87
 msgid "yes"
 msgstr ""
 
-#: pyanaconda/ui/tui/tuiobject.py:89
+#: pyanaconda/ui/tui/tuiobject.py:92
 msgid "no"
 msgstr ""
 
@@ -572,147 +619,111 @@ msgstr ""
 msgid "The password must be at least six characters long."
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/network.py:44
+#: pyanaconda/ui/tui/spokes/network.py:42
 msgid "Network settings"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/network.py:71
-#: pyanaconda/ui/gui/spokes/custom.py:993
-#: pyanaconda/ui/gui/spokes/network.py:667
-#: pyanaconda/ui/gui/spokes/network.py:1293
-#: pyanaconda/ui/gui/spokes/lib/accordion.py:59
-msgid "Unknown"
-msgstr ""
-
-#: pyanaconda/ui/tui/spokes/network.py:75
-#: pyanaconda/ui/gui/spokes/network.py:1297
-msgid "Connecting..."
-msgstr ""
-
-#: pyanaconda/ui/tui/spokes/network.py:77
-#: pyanaconda/ui/gui/spokes/network.py:1299
-msgid "Disconnecting..."
-msgstr ""
-
-#: pyanaconda/ui/tui/spokes/network.py:81
-#: pyanaconda/ui/gui/spokes/network.py:1341
-msgid "Not connected"
-msgstr ""
-
-#: pyanaconda/ui/tui/spokes/network.py:84
-#, python-format
-msgid "Wired %s connected"
-msgstr ""
-
-#: pyanaconda/ui/tui/spokes/network.py:90
-#: pyanaconda/ui/gui/spokes/network.py:1338
-#, python-format
-msgid "Connected: %(list_of_interface_names)s"
-msgstr ""
-
-#: pyanaconda/ui/tui/spokes/network.py:94
-#: pyanaconda/ui/gui/spokes/network.py:1344
-#: pyanaconda/ui/gui/spokes/network.glade.h:43
-msgid "No network devices available"
-msgstr ""
-
-#: pyanaconda/ui/tui/spokes/network.py:106
+#: pyanaconda/ui/tui/spokes/network.py:82
 #, python-format
 msgid "Wired (%(interface_name)s) disconnected\n"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/network.py:111
+#: pyanaconda/ui/tui/spokes/network.py:87
 #, python-format
 msgid "Wired (%(interface_name)s) connected\n"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/network.py:123
+#: pyanaconda/ui/tui/spokes/network.py:99
 #, python-format
 msgid " IPv4 Address: %(addr)s Netmask: %(netmask)s Gateway: %(gateway)s\n"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/network.py:125
+#: pyanaconda/ui/tui/spokes/network.py:101
 #, python-format
 msgid " DNS: %s\n"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/network.py:132
+#: pyanaconda/ui/tui/spokes/network.py:108
 #, python-format
 msgid " IPv6 Address: %(addr)s/%(prefix)d\n"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/network.py:152
+#: pyanaconda/ui/tui/spokes/network.py:128
 #, python-format
 msgid "Hostname: %s\n"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/network.py:164
+#: pyanaconda/ui/tui/spokes/network.py:140
 msgid "Set hostname"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/network.py:166
+#: pyanaconda/ui/tui/spokes/network.py:142
 #, python-format
 msgid "Configure device %s"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/network.py:185
+#: pyanaconda/ui/tui/spokes/network.py:161
 #: pyanaconda/ui/gui/spokes/datetime_spoke.glade.h:11
 msgid "Hostname"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/network.py:203
+#: pyanaconda/ui/tui/spokes/network.py:179
 msgid ""
 "Configuration not saved: gateway or netmask missing in static configuration"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/network.py:240
-#: pyanaconda/ui/gui/spokes/network.py:1391
-#: pyanaconda/ui/gui/spokes/network.py:1464
+#: pyanaconda/ui/tui/spokes/network.py:195
+msgid "Can't apply configuration, device activation failed."
+msgstr ""
+
+#: pyanaconda/ui/tui/spokes/network.py:222
+#: pyanaconda/ui/gui/spokes/network.py:1338
+#: pyanaconda/ui/gui/spokes/network.py:1411
 #, python-format
 msgid "Hostname is not valid: %s"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/network.py:264
+#: pyanaconda/ui/tui/spokes/network.py:246
 msgid "Device configuration"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/network.py:268
+#: pyanaconda/ui/tui/spokes/network.py:250
 #, python-format
 msgid "IPv4 address or %s for DHCP"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/network.py:270
+#: pyanaconda/ui/tui/spokes/network.py:252
 msgid "IPv4 netmask"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/network.py:271
+#: pyanaconda/ui/tui/spokes/network.py:253
 msgid "IPv4 gateway"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/network.py:272
+#: pyanaconda/ui/tui/spokes/network.py:254
 #, python-format
 msgid ""
 "IPv6 address or %(auto)s for automatic, %(dhcp)s for DHCP, %(ignore)s to "
 "turn off"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/network.py:275
+#: pyanaconda/ui/tui/spokes/network.py:257
 msgid "IPv6 default gateway"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/network.py:276
+#: pyanaconda/ui/tui/spokes/network.py:258
 msgid "Nameservers (comma separated)"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/network.py:277
+#: pyanaconda/ui/tui/spokes/network.py:259
 msgid "Connect automatically after reboot"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/network.py:278
+#: pyanaconda/ui/tui/spokes/network.py:260
 msgid "Apply configuration in installer"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/network.py:293
+#: pyanaconda/ui/tui/spokes/network.py:275
 #, python-format
 msgid "Configuring device %s."
 msgstr ""
@@ -1043,22 +1054,22 @@ msgstr ""
 msgid "Enter new value for '%s' and press enter\n"
 msgstr ""
 
-#: pyanaconda/ui/gui/__init__.py:644
+#: pyanaconda/ui/gui/__init__.py:657
 msgid "_Exit Installer"
 msgstr ""
 
-#: pyanaconda/ui/gui/__init__.py:653 pyanaconda/ui/gui/spokes/software.py:405
+#: pyanaconda/ui/gui/__init__.py:666 pyanaconda/ui/gui/spokes/software.py:405
 #: pyanaconda/ui/gui/spokes/storage.py:925 widgets/src/StandaloneWindow.c:54
 #: pyanaconda/ui/gui/spokes/welcome.glade.h:1
 #: pyanaconda/ui/gui/hubs/summary.glade.h:2
 msgid "_Quit"
 msgstr ""
 
-#: pyanaconda/ui/gui/__init__.py:668
+#: pyanaconda/ui/gui/__init__.py:681
 msgid "_No"
 msgstr ""
 
-#: pyanaconda/ui/gui/__init__.py:668
+#: pyanaconda/ui/gui/__init__.py:681
 msgid "_Yes"
 msgstr ""
 
@@ -1233,7 +1244,7 @@ msgstr ""
 msgid "MANUAL PARTITIONING"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:836
+#: pyanaconda/ui/gui/spokes/custom.py:837
 #: pyanaconda/ui/gui/spokes/filter.py:508
 #, python-format
 msgid "%d _storage device selected"
@@ -1241,154 +1252,154 @@ msgid_plural "%d _storage devices selected"
 msgstr[0] ""
 msgstr[1] ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:945
+#: pyanaconda/ui/gui/spokes/custom.py:946
 #, python-format
 msgid ""
 "When you create mount points for your %(name)s %(version)s installation, "
 "you'll be able to view their details here."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:1016
+#: pyanaconda/ui/gui/spokes/custom.py:1017
 msgid ""
 "The 'swap' area on your computer is used by the operating\n"
 "system when running low on memory."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:1019
+#: pyanaconda/ui/gui/spokes/custom.py:1020
 msgid ""
 "The 'boot' area on your computer is where files needed\n"
 "to start the operating system are stored."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:1022
+#: pyanaconda/ui/gui/spokes/custom.py:1023
 msgid ""
 "The 'root' area on your computer is where core system\n"
 "files and applications are stored."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:1025
+#: pyanaconda/ui/gui/spokes/custom.py:1026
 msgid ""
 "The 'home' area on your computer is where all your personal\n"
 "data is stored."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:1028
+#: pyanaconda/ui/gui/spokes/custom.py:1029
 msgid ""
 "The BIOS boot partition is required to enable booting\n"
 "from GPT-partitioned disks on BIOS hardware."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:1031
+#: pyanaconda/ui/gui/spokes/custom.py:1032
 msgid ""
 "The PReP boot partition is required as part of the\n"
 "bootloader configuration on some PPC platforms."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:1225
+#: pyanaconda/ui/gui/spokes/custom.py:1226
 #, python-format
 msgid "/boot/efi must be on a device of type %s"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:1229
+#: pyanaconda/ui/gui/spokes/custom.py:1230
 #, python-format
 msgid "%(fs)s must be on a device of type %(type)s"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:1232
-#: pyanaconda/ui/gui/spokes/custom.py:1234
+#: pyanaconda/ui/gui/spokes/custom.py:1233
+#: pyanaconda/ui/gui/spokes/custom.py:1235
 #, python-format
 msgid "%s cannot be encrypted"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:1236
+#: pyanaconda/ui/gui/spokes/custom.py:1237
 msgid "You must create a new filesystem on the root device."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:1238
+#: pyanaconda/ui/gui/spokes/custom.py:1239
 #, python-format
 msgid "Devices of type %s require a valid RAID level selection."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:1448
+#: pyanaconda/ui/gui/spokes/custom.py:1449
 msgid "Device resize request failed. Click for details."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:1518
+#: pyanaconda/ui/gui/spokes/custom.py:1519
 msgid "Device reformat request failed. Click for details."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:1570
+#: pyanaconda/ui/gui/spokes/custom.py:1571
 #, python-format
 msgid "Specified name %s already in use."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:1685
+#: pyanaconda/ui/gui/spokes/custom.py:1686
 msgid "This file system does not support labels."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:1853
+#: pyanaconda/ui/gui/spokes/custom.py:1854
 msgid ""
 "The space available to this mountpoint can be changed by modifying the "
 "volume below."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:1855
+#: pyanaconda/ui/gui/spokes/custom.py:1856
 msgid "This file system may not be resized."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:2029
+#: pyanaconda/ui/gui/spokes/custom.py:2030
 #, python-format
 msgid "Added new %(type)s to existing container %(name)s."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:2041
+#: pyanaconda/ui/gui/spokes/custom.py:2042
 msgid "Failed to add new device. Click for details."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:2047
+#: pyanaconda/ui/gui/spokes/custom.py:2048
 msgid "Invalid partition size set. Use a valid integer."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:2070
+#: pyanaconda/ui/gui/spokes/custom.py:2071
 msgid "Device removal request failed. Click for details."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:2295
+#: pyanaconda/ui/gui/spokes/custom.py:2296
 #, python-format
 msgid "Volume Group name %s is already in use. Not saving changes."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:2429
+#: pyanaconda/ui/gui/spokes/custom.py:2430
 #, python-format
 msgid ""
 "This Software RAID array is missing %(missingMembers)d of %(totalMembers)d "
 "member partitions. You can remove it or select a different device."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:2435
+#: pyanaconda/ui/gui/spokes/custom.py:2436
 #, python-format
 msgid ""
 "This LVM Volume Group is missing %(missingPVs)d of %(totalPVs)d physical "
 "volumes. You can remove it or select a different device."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:2504
+#: pyanaconda/ui/gui/spokes/custom.py:2505
 msgid "No disks selected."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:2510
+#: pyanaconda/ui/gui/spokes/custom.py:2511
 msgid "Not enough free space on selected disks."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:2516
+#: pyanaconda/ui/gui/spokes/custom.py:2517
 msgid "Automatic partitioning failed. Click for details."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:2809
+#: pyanaconda/ui/gui/spokes/custom.py:2810
 msgid "Failed to unlock encrypted block device. Click for details"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:2834
+#: pyanaconda/ui/gui/spokes/custom.py:2835
 #, python-format
 msgid ""
 "You have chosen to manually set up the filesystems for your new "
@@ -1662,26 +1673,6 @@ msgstr ""
 msgid "_NETWORK CONFIGURATION"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.py:1316
-#, python-format
-msgid "Wired (%(interface_name)s) connected"
-msgstr ""
-
-#: pyanaconda/ui/gui/spokes/network.py:1319
-#, python-format
-msgid "Wireless connected to %(access_point)s"
-msgstr ""
-
-#: pyanaconda/ui/gui/spokes/network.py:1322
-#, python-format
-msgid "Bond %(interface_name)s (%(list_of_slaves)s) connected"
-msgstr ""
-
-#: pyanaconda/ui/gui/spokes/network.py:1325
-#, python-format
-msgid "Vlan %(interface_name)s (%(parent_device)s, ID %(vlanid)s) connected"
-msgstr ""
-
 #: pyanaconda/ui/gui/spokes/password.py:42
 msgid "_ROOT PASSWORD"
 msgstr ""
@@ -1691,77 +1682,77 @@ msgstr ""
 msgid "The password is set."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/password.py:72
+#: pyanaconda/ui/gui/spokes/password.py:77
 msgid "Error setting root password"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/password.py:74
+#: pyanaconda/ui/gui/spokes/password.py:79
 msgid "Root password is set"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/password.py:76
+#: pyanaconda/ui/gui/spokes/password.py:81
 msgid "Root account is disabled"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/password.py:78
+#: pyanaconda/ui/gui/spokes/password.py:83
 msgid "Root password is not set"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/password.py:118
-#: pyanaconda/ui/gui/spokes/user.py:416
-#: pyanaconda/ui/gui/spokes/lib/passphrase.py:111
+#: pyanaconda/ui/gui/spokes/password.py:123
+#: pyanaconda/ui/gui/spokes/user.py:425
+#: pyanaconda/ui/gui/spokes/lib/passphrase.py:114
 #: pyanaconda/ui/gui/spokes/lib/passphrase.glade.h:6
 msgid "Weak"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/password.py:119
-#: pyanaconda/ui/gui/spokes/user.py:530
+#: pyanaconda/ui/gui/spokes/password.py:124
+#: pyanaconda/ui/gui/spokes/user.py:554
 msgid "The password you have provided is weak"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/password.py:124
-#: pyanaconda/ui/gui/spokes/user.py:535
+#: pyanaconda/ui/gui/spokes/password.py:129
+#: pyanaconda/ui/gui/spokes/user.py:559
 msgid "You will have to press Done twice to confirm it."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/password.py:127
-#: pyanaconda/ui/gui/spokes/user.py:419
-#: pyanaconda/ui/gui/spokes/lib/passphrase.py:114
+#: pyanaconda/ui/gui/spokes/password.py:132
+#: pyanaconda/ui/gui/spokes/user.py:428
+#: pyanaconda/ui/gui/spokes/lib/passphrase.py:117
 msgid "Fair"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/password.py:131
-#: pyanaconda/ui/gui/spokes/user.py:422
-#: pyanaconda/ui/gui/spokes/lib/passphrase.py:117
+#: pyanaconda/ui/gui/spokes/password.py:136
+#: pyanaconda/ui/gui/spokes/user.py:431
+#: pyanaconda/ui/gui/spokes/lib/passphrase.py:120
 msgid "Good"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/password.py:135
-#: pyanaconda/ui/gui/spokes/user.py:425
-#: pyanaconda/ui/gui/spokes/lib/passphrase.py:120
+#: pyanaconda/ui/gui/spokes/password.py:140
+#: pyanaconda/ui/gui/spokes/user.py:434
+#: pyanaconda/ui/gui/spokes/lib/passphrase.py:123
 msgid "Strong"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/password.py:140
-#: pyanaconda/ui/gui/spokes/user.py:413
+#: pyanaconda/ui/gui/spokes/password.py:145
+#: pyanaconda/ui/gui/spokes/user.py:422
 msgid "Empty"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/password.py:141
+#: pyanaconda/ui/gui/spokes/password.py:146
 msgid "The password is empty."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/password.py:143
-#: pyanaconda/ui/gui/spokes/user.py:482 pyanaconda/ui/gui/spokes/user.py:493
+#: pyanaconda/ui/gui/spokes/password.py:148
+#: pyanaconda/ui/gui/spokes/user.py:491 pyanaconda/ui/gui/spokes/user.py:508
 msgid "The passwords do not match."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/password.py:168
+#: pyanaconda/ui/gui/spokes/password.py:173
 msgid "You must provide and confirm a password."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/password.py:178
-#: pyanaconda/ui/gui/spokes/user.py:527
+#: pyanaconda/ui/gui/spokes/password.py:183
+#: pyanaconda/ui/gui/spokes/user.py:551
 #, python-format
 msgid "You have provided a weak password: %s.  Press Done again to use anyway."
 msgstr ""
@@ -1994,38 +1985,38 @@ msgstr ""
 msgid "_USER CREATION"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/user.py:271 pyanaconda/ui/gui/spokes/user.py:272
+#: pyanaconda/ui/gui/spokes/user.py:276 pyanaconda/ui/gui/spokes/user.py:277
 msgid "The password was set by kickstart."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/user.py:294
+#: pyanaconda/ui/gui/spokes/user.py:303
 msgid "Invalid username"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/user.py:296
+#: pyanaconda/ui/gui/spokes/user.py:305
 msgid "Full name cannot contain colon characters"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/user.py:327
+#: pyanaconda/ui/gui/spokes/user.py:336
 #, python-format
 msgid "Error creating user account: %s"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/user.py:329
+#: pyanaconda/ui/gui/spokes/user.py:338
 msgid "No user will be created"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/user.py:331
+#: pyanaconda/ui/gui/spokes/user.py:340
 #, python-format
 msgid "Administrator %s will be created"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/user.py:333
+#: pyanaconda/ui/gui/spokes/user.py:342
 #, python-format
 msgid "User %s will be created"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/user.py:480
+#: pyanaconda/ui/gui/spokes/user.py:489
 msgid "The password is empty"
 msgstr ""
 
