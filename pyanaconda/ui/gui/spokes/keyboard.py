@@ -61,23 +61,29 @@ class AddLayoutDialog(GUIObject):
         self._chosen_layouts = []
 
     def matches_entry(self, model, itr, user_data=None):
-        value = model[itr][0]
-        value = self._xkl_wrapper.get_layout_variant_description(value)
-        entry_text = self._entry.get_text()
-        if entry_text is not None:
-            entry_text = entry_text.lower()
-            entry_text_words = entry_text.split()
-        else:
-            return False
-        try:
-            if value:
-                value = value.lower()
-                for word in entry_text_words:
-                    value.index(word)
+        def have_word_match(str1, str2):
+            """Tells if all words from str1 exist in str2 or not."""
+
+            if str1 is None or str2 is None:
+                return False
+
+            str1 = str1.lower()
+            str1_words = str1.split()
+
+            try:
+                str2 = str2.lower()
+                for word in str1_words:
+                    str2.index(word)
                 return True
-            return False
-        except ValueError:
-            return False
+            except ValueError:
+                return False
+
+        value = model[itr][0]
+        eng_value = self._xkl_wrapper.get_layout_variant_description(value, xlated=False)
+        xlated_value = self._xkl_wrapper.get_layout_variant_description(value)
+        entry_text = self._entry.get_text()
+
+        return have_word_match(entry_text, eng_value) or have_word_match(entry_text, xlated_value)
 
     def compare_layouts(self, model, itr1, itr2, user_data=None):
         """

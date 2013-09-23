@@ -534,7 +534,7 @@ class XklWrapper(object):
 
         return self._switch_opt_infos.iterkeys()
 
-    def get_layout_variant_description(self, layout_variant, with_lang=True):
+    def get_layout_variant_description(self, layout_variant, with_lang=True, xlated=True):
         """
         Get description of the given layout-variant.
 
@@ -543,20 +543,30 @@ class XklWrapper(object):
         :param with_lang: whether to include language of the layout-variant (if defined)
                           in the description or not
         :type with_lang: bool
+        :param xlated: whethe to return translated or english version of the description
+        :type xlated: bool
         :return: description of the layout-variant specification (e.g. 'Czech (qwerty)')
         :rtype: str
 
         """
 
         layout_info = self._layout_infos[layout_variant]
+        if xlated:
+            description = Xkb_(layout_info.desc).decode("utf-8")
+        else:
+            description = layout_info.desc
+
         if with_lang and layout_info.lang:
             # translate language and upcase its first letter, translate the
             # layout-variant description
-            xlated_lang = iso_(layout_info.lang)
-            return "%s (%s)" % (iutil.upcase_first_letter(xlated_lang.decode("utf-8")),
-                                Xkb_(layout_info.desc).decode("utf-8"))
+            if xlated:
+                lang = iso_(layout_info.lang).decode("utf-8")
+            else:
+                lang = layout_info.lang
+
+            return "%s (%s)" % (iutil.upcase_first_letter(lang), description)
         else:
-            return layout_info.desc
+            return description
 
     def get_switch_opt_description(self, switch_opt):
         """
