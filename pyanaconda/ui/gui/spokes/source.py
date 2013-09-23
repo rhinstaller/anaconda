@@ -545,6 +545,9 @@ class SourceSpoke(NormalSpoke):
         # updates option container
         self._updatesBox = self.builder.get_object("updatesBox")
 
+        self._proxyButton = self.builder.get_object("proxyButton")
+        self._nfsOptsBox = self.builder.get_object("nfsOptsBox")
+
     def initialize(self):
         NormalSpoke.initialize(self)
 
@@ -753,6 +756,14 @@ class SourceSpoke(NormalSpoke):
         enabled = button.get_active()
         relatedBox.set_sensitive(enabled)
 
+        if button is self._networkButton:
+            # setup updates check box based on protocol chosen
+            self._protocolComboBox.emit("changed")
+        else:
+            # just make updates check box sensitive and unchecked by default
+            self._noUpdatesCheckbox.set_active(False)
+            self._updatesBox.set_sensitive(True)
+
     def on_chooser_clicked(self, button):
         dialog = IsoChooser(self.data)
 
@@ -814,18 +825,20 @@ class SourceSpoke(NormalSpoke):
             dialog.run("/dev/" + self._cdrom.name)
 
     def on_protocol_changed(self, combo):
-        proxyButton = self.builder.get_object("proxyButton")
-        nfsOptsBox = self.builder.get_object("nfsOptsBox")
-
         # Only allow the URL entry to be used if we're using an HTTP/FTP
         # method that's not the mirror list, or an NFS method.
         self._urlEntry.set_sensitive(self._http_active() or self._ftp_active() or self._nfs_active())
 
         # Only allow thse widgets to be shown if it makes sense for the
         # the currently selected protocol.
-        proxyButton.set_sensitive(self._http_active() or self._mirror_active())
-        nfsOptsBox.set_visible(self._nfs_active())
+        self._proxyButton.set_sensitive(self._http_active() or self._mirror_active())
+        self._nfsOptsBox.set_visible(self._nfs_active())
         self._mirrorlistCheckbox.set_visible(self._http_active())
+
+        # We only know how to enable updates if the default mirror is used.
+        # don't disable updates by default
+        self._noUpdatesCheckbox.set_active(not self._mirror_active())
+        self._updatesBox.set_sensitive(self._mirror_active())
 
     def _update_payload_repos(self):
         """ Change the packaging repos to match the new edits
