@@ -525,8 +525,9 @@ class Firewall(commands.firewall.F14_Firewall):
 
         cmd = "/usr/bin/firewall-offline-cmd"
         if not os.path.exists(ROOT_PATH+cmd):
-            msg = _("%s is missing. Cannot setup firewall.") % (cmd,)
-            raise KickstartError(msg)
+            if self.enabled:
+                msg = _("%s is missing. Cannot setup firewall.") % (cmd,)
+                raise KickstartError(msg)
         else:
             iutil.execWithRedirect(cmd, args, root=ROOT_PATH)
 
