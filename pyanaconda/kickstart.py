@@ -582,8 +582,9 @@ class Firewall(commands.firewall.F20_Firewall):
 
         cmd = "/usr/bin/firewall-offline-cmd"
         if not os.path.exists(iutil.getSysroot()+cmd):
-            msg = _("%s is missing. Cannot setup firewall.") % (cmd,)
-            raise KickstartError(msg)
+            if self.enabled:
+                msg = _("%s is missing. Cannot setup firewall.") % (cmd,)
+                raise KickstartError(msg)
         else:
             iutil.execInSysroot(cmd, args)
 
