@@ -34,6 +34,7 @@ import threading
 import re
 import dbus
 import IPy
+import itertools
 
 from simpleconfig import SimpleConfigFile
 from blivet.devices import FcoeDiskDevice, iScsiDiskDevice
@@ -1045,20 +1046,15 @@ def status_message():
 
             slaves = {}
             ssids = {}
-            nonslaves = []
 
             # first find slaves and wireless aps
             for devname in active_devs:
-                master = nm.nm_device_setting_value(devname, "connection", "master")
-                if master:
-                    if master in slaves:
-                        slaves[master].append(devname)
-                    else:
-                        slaves[master] = [devname]
-                else:
-                    nonslaves.append(devname)
+                slaves[devname] = nm.nm_device_slaves(devname) or []
                 if nm.nm_device_type_is_wifi(devname):
                     ssids[devname] = nm.nm_device_active_ssid(devname) or ""
+
+            all_slaves = set(itertools.chain.from_iterable(slaves.values()))
+            nonslaves = [dev for dev in active_devs if dev not in all_slaves]
 
             if len(nonslaves) == 1:
                 devname = nonslaves[0]
