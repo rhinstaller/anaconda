@@ -28,7 +28,8 @@
 #include "LayoutIndicator.h"
 #include "intl.h"
 
-#define TOOLTIP_FORMAT_STR _("Current layout: '%s'. Click to switch to the next layout")
+#define MULTIPLE_LAYOUTS_TIP  _("Current layout: '%s'. Click to switch to the next layout.")
+#define SINGLE_LAYOUT_TIP _("Current layout: '%s'. Add more layouts to enable switching.")
 #define DEFAULT_LAYOUT "us"
 #define DEFAULT_LABEL_MAX_CHAR_WIDTH 8
 #define MARKUP_FORMAT_STR "<span fgcolor='black' weight='bold'>%s</span>"
@@ -72,6 +73,7 @@ static void anaconda_layout_indicator_realize(GtkWidget *widget, gpointer user_d
 static void anaconda_layout_indicator_clicked(GtkWidget *widget, GdkEvent *event, gpointer user_data);
 static void anaconda_layout_indicator_refresh_ui_elements(AnacondaLayoutIndicator *indicator);
 static void anaconda_layout_indicator_refresh_layout(AnacondaLayoutIndicator *indicator);
+static void anaconda_layout_indicator_refresh_tooltip(AnacondaLayoutIndicator *indicator);
 
 /* helper functions */
 static gchar* get_current_layout(XklEngine *engine, XklConfigRec *conf_rec);
@@ -311,15 +313,12 @@ static void anaconda_layout_indicator_clicked(GtkWidget *widget, GdkEvent *event
 
 static void anaconda_layout_indicator_refresh_ui_elements(AnacondaLayoutIndicator *self) {
     gchar *markup;
-    gchar *tooltip;
 
     markup = g_markup_printf_escaped(MARKUP_FORMAT_STR, self->priv->layout);
     gtk_label_set_markup(self->priv->layout_label, markup);
     g_free(markup);
 
-    tooltip = g_strdup_printf(TOOLTIP_FORMAT_STR, self->priv->layout);
-    gtk_widget_set_tooltip_text(GTK_WIDGET(self), tooltip);
-    g_free(tooltip);
+    anaconda_layout_indicator_refresh_tooltip(self);
 }
 
 static void anaconda_layout_indicator_refresh_layout(AnacondaLayoutIndicator *self) {
@@ -329,6 +328,20 @@ static void anaconda_layout_indicator_refresh_layout(AnacondaLayoutIndicator *se
     self->priv->layout = get_current_layout(klass->engine, self->priv->config_rec);
 
     anaconda_layout_indicator_refresh_ui_elements(self);
+}
+
+static void anaconda_layout_indicator_refresh_tooltip(AnacondaLayoutIndicator *self) {
+    AnacondaLayoutIndicatorClass *klass = ANACONDA_LAYOUT_INDICATOR_GET_CLASS(self);
+    guint n_groups = xkl_engine_get_num_groups(klass->engine);
+    gchar *tooltip;
+
+    if (n_groups > 1)
+        tooltip = g_strdup_printf(MULTIPLE_LAYOUTS_TIP, self->priv->layout);
+    else
+        tooltip = g_strdup_printf(SINGLE_LAYOUT_TIP, self->priv->layout);
+
+    gtk_widget_set_tooltip_text(GTK_WIDGET(self), tooltip);
+    g_free(tooltip);
 }
 
 /**
