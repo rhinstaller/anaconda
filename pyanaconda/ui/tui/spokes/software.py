@@ -79,6 +79,8 @@ class SoftwareSpoke(NormalTUISpoke):
             return _("Error checking software selection")
         if not self.ready:
             return _("Processing...")
+        if not self.payload.getBaseRepo(wait=False):
+            return _("Installation source not set up")
         if not self.txid_valid:
             return _("Source changed - please verify")
 
@@ -107,13 +109,25 @@ class SoftwareSpoke(NormalTUISpoke):
                          not self.errors and self.txid_valid
 
         if flags.automatedInstall:
-            return processingDone and self.data.packages.seen
+            return processingDone and self.payload.getBaseRepo(wait=False) and self.data.packages.seen
         else:
-            return self.environment is not None and processingDone
+            return self.payload.getBaseRepo(wait=False) and self.environment is not None and processingDone
 
     def refresh(self, args=None):
         """ Refresh screen. """
         NormalTUISpoke.refresh(self, args)
+
+        if not self.payload.getBaseRepo(wait=False):
+            message = TextWidget(_("Installation source needs to be set up first."))
+            self._window.append(message)
+
+            # add some more space below
+            self._window.append(TextWidget(""))
+            return True
+
+        # put a title above the list and some space below it
+        self._window.append(TextWidget(_("Base environment")))
+        self._window.append(TextWidget(""))
 
         environments = self.payload.environments
 
@@ -160,8 +174,7 @@ class SoftwareSpoke(NormalTUISpoke):
         """ If we're ready to move on. """
         return (not threadMgr.get(THREAD_SOFTWARE_WATCHER) and
                 not threadMgr.get(THREAD_PAYLOAD_MD) and
-                not threadMgr.get(THREAD_CHECK_SOFTWARE) and
-                self.payload.getBaseRepo() is not None)
+                not threadMgr.get(THREAD_CHECK_SOFTWARE))
 
     def apply(self):
         """ Apply our selections """
