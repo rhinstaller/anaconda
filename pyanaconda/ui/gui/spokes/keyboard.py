@@ -20,7 +20,7 @@
 #                    Vratislav Podzimek <vpodzime@redhat.com>
 #
 
-from gi.repository import Gkbd, Gdk
+from gi.repository import Gkbd, Gdk, Gtk
 
 from pyanaconda.ui.gui import GUIObject
 from pyanaconda.ui.gui.spokes import NormalSpoke
@@ -501,6 +501,8 @@ class KeyboardSpoke(NormalSpoke):
         dialog = Gkbd.KeyboardDrawing.dialog_new()
         Gkbd.KeyboardDrawing.dialog_set_layout(dialog, self._xkl_wrapper.configreg,
                                                layout_row[0])
+        dialog.set_size_request(750, 350)
+        dialog.set_position(Gtk.WindowPosition.CENTER_ALWAYS)
         with enlightbox(self.window, dialog):
             dialog.show_all()
             dialog.run()
