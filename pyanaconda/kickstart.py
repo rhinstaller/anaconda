@@ -752,7 +752,7 @@ class LogVolData(commands.logvol.F20_LogVolData):
                     raise KickstartValueError(formatErrorMsg(self.lineno,
                             msg="Invalid target size (%d) for device %s" % (self.size, device.name)))
 
-            devicetree.registerAction(ActionCreateFormat(device, format))
+            devicetree.registerAction(ActionCreateFormat(device, fmt))
         else:
             # If a previous device has claimed this mount point, delete the
             # old one.
