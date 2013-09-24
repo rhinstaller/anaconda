@@ -514,7 +514,11 @@ class XklWrapper(object):
             cur_group = num_groups - 1
 
         layout = self._rec.layouts[cur_group]
-        variant = self._rec.variants[cur_group]
+        try:
+            variant = self._rec.variants[cur_group]
+        except IndexError:
+            # X server may have forgotten to add the "" variant for its default layout
+            variant = ""
 
         self._engine.stop_listen(Xkl.EngineListenModes.TRACK_KEYBOARD_STATE)
 
