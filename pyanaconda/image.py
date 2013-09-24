@@ -18,7 +18,7 @@
 #
 
 import isys
-import os, os.path, stat, sys
+import os, os.path, stat, sys, tempfile
 from constants import *
 
 from pyanaconda.i18n import _
@@ -186,7 +186,7 @@ def mountImage(isodir, tree):
 
 # Return the first Device instance containing valid optical install media
 # for this product.
-def opticalInstallMedia(devicetree, mountpoint=INSTALL_TREE):
+def opticalInstallMedia(devicetree):
     retval = None
 
     # Search for devices identified as cdrom along with any other
@@ -202,16 +202,21 @@ def opticalInstallMedia(devicetree, mountpoint=INSTALL_TREE):
             # no mountable media
             continue
 
+        mountpoint = tempfile.mkdtemp()
         try:
-            dev.format.mount(mountpoint=mountpoint)
-        except Exception:
-            continue
+            try:
+                dev.format.mount(mountpoint=mountpoint)
+            except FSError:
+                continue
 
-        if not verifyMedia(mountpoint):
+            if not verifyMedia(mountpoint):
+                dev.format.unmount()
+                continue
+
             dev.format.unmount()
-            continue
+        finally:
+            os.rmdir(mountpoint)
 
-        dev.format.unmount()
         retval = dev
         break
 
