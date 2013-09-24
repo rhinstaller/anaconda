@@ -442,17 +442,28 @@ def update_settings_with_ksdata(devname, networkdata):
 
 def ksdata_from_ifcfg(devname):
 
+    if nm.nm_device_is_slave(devname):
+        return None
+
     ifcfg_path = None
-    if nm.nm_device_type_is_ethernet(devname):
-        ifcfg_path = find_ifcfg_file_of_device(devname)
-    elif nm.nm_device_type_is_wifi(devname):
-        ssid = nm.nm_device_active_ssid(devname)
-        if ssid:
-            ifcfg_path = find_ifcfg_file([("ESSID", ssid)])
-    elif nm.nm_device_type_is_bond(devname):
-        ifcfg_path = find_ifcfg_file([("DEVICE", devname)])
-    elif nm.nm_device_type_is_vlan(devname):
-        ifcfg_path = find_ifcfg_file([("DEVICE", devname)])
+
+    # Find ifcfg file for the device.
+    # If the device is active, use uuid of its active connection.
+    uuid = nm.nm_device_active_con_uuid(devname)
+    if uuid:
+        ifcfg_path = find_ifcfg_file([("UUID", uuid)])
+    else:
+        # If not, look it up by other values depending on its type
+        if nm.nm_device_type_is_ethernet(devname):
+            ifcfg_path = find_ifcfg_file_of_device(devname)
+        elif nm.nm_device_type_is_wifi(devname):
+            ssid = nm.nm_device_active_ssid(devname)
+            if ssid:
+                ifcfg_path = find_ifcfg_file([("ESSID", ssid)])
+        elif nm.nm_device_type_is_bond(devname):
+            ifcfg_path = find_ifcfg_file([("DEVICE", devname)])
+        elif nm.nm_device_type_is_vlan(devname):
+            ifcfg_path = find_ifcfg_file([("DEVICE", devname)])
 
     if not ifcfg_path:
         return None
@@ -588,13 +599,20 @@ def hostname_ksdata(hostname):
 
 def find_ifcfg_file_of_device(devname, root_path=""):
     ifcfg_path = None
+
     try:
         hwaddr = nm.nm_device_hwaddress(devname)
     except nm.PropertyNotFoundError:
         hwaddr = None
     if hwaddr:
         hwaddr_check = lambda mac: mac.upper() == hwaddr.upper()
-        ifcfg_path = find_ifcfg_file([("HWADDR", hwaddr_check)], root_path)
+        nonempty = lambda x: x
+        # slave configration created in GUI takes precedence
+        ifcfg_path = find_ifcfg_file([("HWADDR", hwaddr_check),
+                                      ("MASTER", nonempty)],
+                                     root_path)
+        if not ifcfg_path:
+            ifcfg_path = find_ifcfg_file([("HWADDR", hwaddr_check)], root_path)
     if not ifcfg_path:
         ifcfg_path = find_ifcfg_file([("DEVICE", devname)], root_path)
     return ifcfg_path

@@ -293,6 +293,19 @@ def nm_device_type_is_vlan(name):
     """
     return nm_device_type(name) == NetworkManager.DeviceType.VLAN
 
+def nm_device_is_slave(name):
+    """Is the device a slave?
+
+       Exceptions:
+       UnknownDeviceError if device is not found
+    """
+    active_con = nm_device_property(name, 'ActiveConnection')
+    if active_con == "/":
+        return False
+
+    master = _get_property(active_con, "Master", ".Connection.Active")
+    return master and master != "/"
+
 def nm_device_hwaddress(name):
     """Return active hardware address of device ('HwAddress' property)
 
@@ -304,6 +317,19 @@ def nm_device_hwaddress(name):
        :raise PropertyNotFoundError: if 'HwAddress' property is not found
     """
     return nm_device_property(name, "HwAddress")
+
+def nm_device_active_con_uuid(name):
+    """Return uuid of device's active connection
+
+       Exceptions:
+       UnknownDeviceError if device is not found
+    """
+    active_con = nm_device_property(name, 'ActiveConnection')
+    if active_con == "/":
+        return None
+
+    uuid = _get_property(active_con, "Uuid", ".Connection.Active")
+    return uuid
 
 def nm_device_type(name):
     """Return device's type ('DeviceType' property).
