@@ -193,6 +193,9 @@ def opticalInstallMedia(devicetree, mountpoint=INSTALL_TREE):
     # created from ISO images.
     for dev in set(devicetree.getDevicesByType("cdrom") + \
             [d for d in devicetree.devices if d.format.type == "iso9660"]):
+        if not dev.controllable:
+            continue
+
         devicetree.updateDeviceFormat(dev)
         if not hasattr(dev.format, "mount"):
             # no mountable media
