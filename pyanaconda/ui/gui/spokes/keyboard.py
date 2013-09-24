@@ -285,7 +285,9 @@ class KeyboardSpoke(NormalSpoke):
     @property
     def status(self):
         # We don't need to check that self._store is empty, because that isn't allowed.
-        return self._xkl_wrapper.name_to_show_str[self._store[0][0]]
+        descriptions = (self._xkl_wrapper.name_to_show_str[row[0]]
+                        for row in self._store)
+        return ", ".join(descriptions)
 
     def initialize(self):
         NormalSpoke.initialize(self)
