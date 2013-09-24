@@ -18,8 +18,8 @@
 #
 
 import isys
-import os, os.path, stat
-from constants import INSTALL_TREE, ISO_DIR
+import os, os.path, stat, tempfile
+from constants import ISO_DIR
 
 from errors import errorHandler, ERROR_RAISE, InvalidImageSizeError, MediaMountError, MediaUnmountError, MissingImageError
 
@@ -185,7 +185,7 @@ def mountImage(isodir, tree):
 
 # Return the first Device instance containing valid optical install media
 # for this product.
-def opticalInstallMedia(devicetree, mountpoint=INSTALL_TREE):
+def opticalInstallMedia(devicetree):
     retval = None
 
     # Search for devices identified as cdrom along with any other
@@ -201,16 +201,21 @@ def opticalInstallMedia(devicetree, mountpoint=INSTALL_TREE):
             # no mountable media
             continue
 
+        mountpoint = tempfile.mkdtemp()
         try:
-            dev.format.mount(mountpoint=mountpoint)
-        except FSError:
-            continue
+            try:
+                dev.format.mount(mountpoint=mountpoint)
+            except FSError:
+                continue
 
-        if not verifyMedia(mountpoint):
+            if not verifyMedia(mountpoint):
+                dev.format.unmount()
+                continue
+
             dev.format.unmount()
-            continue
+        finally:
+            os.rmdir(mountpoint)
 
-        dev.format.unmount()
         retval = dev
         break
 
