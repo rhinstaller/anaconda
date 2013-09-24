@@ -238,7 +238,7 @@ class ConfigureSwitchingDialog(GUIObject):
     def checked_options(self):
         """Property returning all checked options from the list"""
 
-        ret = [row[0] for row in self._switchingOptsStore if row[1] and row[0]]
+        ret = [row[0] for row in self._switchingOptsSort if row[1] and row[0]]
         return ret
 
     def on_use_option_toggled(self, renderer, path, *args):
