@@ -257,7 +257,7 @@ class Hub(GUIObject, common.Hub):
     def _updateCompleteness(self, spoke):
         spoke.selector.set_sensitive(spoke.ready)
         spoke.selector.set_property("status", spoke.status)
-        spoke.selector.set_tooltip_markup(spoke.status)
+        spoke.selector.set_tooltip_markup(GLib.markup_escape_text(spoke.status))
         spoke.selector.set_incomplete(not spoke.completed and spoke.mandatory)
         self._handleCompleteness(spoke)
 
