@@ -19,7 +19,6 @@
 
 scriptsdir = $(libexecdir)/$(PACKAGE_NAME)
 dist_scripts_SCRIPTS = upd-updates run-anaconda anaconda-yum
-dist_scripts_DATA    = pyrc.py
 dist_noinst_SCRIPTS  = upd-kernel makeupdates
 
 dist_bin_SCRIPTS = analog anaconda-cleanup instperf
