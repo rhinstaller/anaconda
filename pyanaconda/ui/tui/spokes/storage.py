@@ -38,6 +38,8 @@ from pyanaconda.i18n import _, P_
 
 from pykickstart.constants import CLEARPART_TYPE_ALL, CLEARPART_TYPE_LINUX, CLEARPART_TYPE_NONE
 
+from collections import OrderedDict
+
 import logging
 log = logging.getLogger("anaconda")
 
@@ -377,8 +379,8 @@ class PartitionSchemeSpoke(NormalTUISpoke):
 
     def __init__(self, app, data, storage, payload, instclass):
         NormalTUISpoke.__init__(self, app, data, storage, payload, instclass)
-        self.partschemes = {"Standard Partition": AUTOPART_TYPE_PLAIN,
-                        "BTRFS": AUTOPART_TYPE_BTRFS, "LVM": AUTOPART_TYPE_LVM}
+        self.partschemes = OrderedDict([("Standard Partition", AUTOPART_TYPE_PLAIN),
+                        ("LVM", AUTOPART_TYPE_LVM), ("BTRFS", AUTOPART_TYPE_BTRFS)])
 
     @property
     def indirect(self):
@@ -420,7 +422,7 @@ class PartitionSchemeSpoke(NormalTUISpoke):
 
         schemelist = self.partschemes.values()
         try:
-            self.data.autopart.type = schemelist[self._selection - 1]
+            self.data.autopart.type = schemelist[self._selection]
         except IndexError:
             # we shouldn't ever see this, but just in case, don't crash.
             # when autopart.type is detected as None in AutoPartSpoke.apply(),
