@@ -73,7 +73,9 @@ def run_yum_transaction(release, arch, yum_conf, install_root, ts_file, script_l
 
     # remove some environmental variables that can cause problems with package scripts
     env_remove = ('DISPLAY', 'DBUS_SESSION_BUS_ADDRESS')
-    [os.environ.pop(k) for k in env_remove if k in os.environ]
+    for k in env_remove:
+        if k in os.environ:
+            os.environ.pop(k)
 
     try:
         # Setup the basics, point to the config file and install_root
@@ -332,8 +334,8 @@ class RPMCallback(object):
 
 
 if __name__ == "__main__":
-    parser = setup_parser()
-    args = parser.parse_args()
+    arg_parser = setup_parser()
+    args = arg_parser.parse_args()
 
     # force output to be flushed
     sys.stdout = os.fdopen(sys.stdout.fileno(), 'w', 0)

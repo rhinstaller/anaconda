@@ -232,7 +232,7 @@ class MakeBumpVer:
                 rhbz = set()
 
                 # look for a bug in the summary line, validate if found
-                m = re.search("\(#\d+(\,.*)*\)", summary)
+                m = re.search(r"\(#\d+(\,.*)*\)", summary)
                 if m:
                     fullbug = summary[m.start():m.end()]
                     bugstr = summary[m.start()+2:m.end()-1]
@@ -277,14 +277,14 @@ class MakeBumpVer:
                     summary += " (%s)" % author
 
                 for bodyline in body:
-                    m = re.match("^(Resolves|Related|Conflicts):\ +rhbz#\d+.*$",
+                    m = re.match(r"^(Resolves|Related|Conflicts):\ +rhbz#\d+.*$",
                                  bodyline)
                     if not m:
                         continue
 
                     actionre = re.search("(Resolves|Related|Conflicts)",
                                          bodyline)
-                    bugre = re.search("\d+", bodyline)
+                    bugre = re.search(r"\d+", bodyline)
                     if actionre and bugre:
                         action = actionre.group()
                         bug = bugre.group()
