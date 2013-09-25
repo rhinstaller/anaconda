@@ -392,7 +392,7 @@ def addRpms(updates_path, add_rpms):
     """
     # convert all the RPM paths to absolute paths, so that
     # relative paths can be used with -a/--add
-    add_rpms = map(lambda x: os.path.abspath(x), add_rpms)
+    add_rpms = map(os.path.abspath, add_rpms)
 
     for rpm in add_rpms:
         cmd = "cd %s && rpm2cpio %s | cpio -dium" % (updates_path, rpm)
@@ -556,7 +556,7 @@ def check_for_new_packages(tag, arch, added_rpms, specfile_path):
     if new_packages:
         include_rpms.extend(get_RPMs_from_koji(new_packages, fedora_number, arch))
     # return absolute paths for the packages
-    return map(lambda x: os.path.abspath(x), include_rpms)
+    return map(os.path.abspath, include_rpms)
 
 def remove_local_packages(packages, arch, added_rpms):
     """Remove locally available RPMs from the list of needed packages,

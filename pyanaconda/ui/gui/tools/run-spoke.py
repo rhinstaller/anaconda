@@ -98,8 +98,8 @@ payload.setup(storage)
 
 spoke = spokeClass(ksdata, storage, payload, instclass)
 if hasattr(spoke, "register_event_cb"):
-    spoke.register_event_cb("continue", lambda: Gtk.main_quit())
-    spoke.register_event_cb("quit", lambda: Gtk.main_quit())
+    spoke.register_event_cb("continue", Gtk.main_quit)
+    spoke.register_event_cb("quit", Gtk.main_quit)
 
 if hasattr(spoke, "set_path"):
     spoke.set_path("categories", [
