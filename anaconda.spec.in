@@ -256,6 +256,12 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Wed Sep 25 2013 Brian C. Lane <bcl@redhat.com> - 19.31.19-1
+- Export the pykickstart Eula command (vpodzime)
+  Related: rhbz#1000409
+- LiveImageKSPayload skip the parent class setup method (bcl)
+  Resolves: rhbz#1010500
+
 * Fri Sep 20 2013 Brian C. Lane <bcl@redhat.com> - 19.31.18-1
 - Search all disk types for install media (dshea)
   Resolves: rhbz#1004726
