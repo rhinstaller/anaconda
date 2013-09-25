@@ -400,10 +400,10 @@ def main(argv):
     name, version, release, bugreport = None, None, None, None
     ignore, bugmap = None, None
     show_help, unknown = False, False
-    opts, args = [], []
+    opts = []
 
     try:
-        opts, args = getopt.getopt(sys.argv[1:], 'n:v:r:b:i:m:d?',
+        opts, _args = getopt.getopt(sys.argv[1:], 'n:v:r:b:i:m:d?',
                                    ['name=', 'version=', 'release=',
                                     'bugreport=', 'ignore=', 'map=',
                                     'debug', 'help'])

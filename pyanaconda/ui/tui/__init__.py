@@ -20,8 +20,6 @@
 #
 
 from pyanaconda import ui
-from pyanaconda.i18n import _
-from pyanaconda.ui import common
 from pyanaconda.ui.communication import hubQ
 from pyanaconda.flags import flags
 from pyanaconda.threads import threadMgr

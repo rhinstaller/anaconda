@@ -111,7 +111,7 @@ class ProxyRegexTestCase(unittest.TestCase):
         for proxy, result in tests:
             try:
                 self.assertEqual(PROXY_URL_PARSE.match(proxy).groups(), result)
-            except AssertionError as error:
+            except AssertionError:
                 got_error = True
                 print("Proxy parse error: `%s' did not parse as `%s'" % (proxy, result))
 

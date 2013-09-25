@@ -38,8 +38,6 @@ flags.imageInstall = True
 import pyanaconda.anaconda_log
 pyanaconda.anaconda_log.init()
 
-from pyanaconda import iutil
-
 from blivet import StorageDiscoveryConfig
 from blivet.devicetree import DeviceTree
 from blivet import devicelibs

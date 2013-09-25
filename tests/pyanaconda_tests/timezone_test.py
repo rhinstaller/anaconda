@@ -20,7 +20,6 @@
 
 from pyanaconda import timezone
 import unittest
-import langtable
 import mock
 
 class TimezonesListings(unittest.TestCase):
