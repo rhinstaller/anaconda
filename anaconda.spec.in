@@ -255,6 +255,34 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Wed Sep 25 2013 Brian C. Lane <bcl@redhat.com> - 20.20-1
+- Encrypt normal user passwords when doing text install. (#977732)
+  (sbueno+anaconda)
+- Escape the status before setting it as markup (vpodzime)
+- network gui: do not crash on devices without settings (eg wireless)
+  (#1010519) (rvykydal)
+- Make the keyboard layout preview dialog bigger (#1011140) (vpodzime)
+- Return switching options with the same order as shown (#1011130) (vpodzime)
+- Use a temporary directory for verifying ISO media (dshea)
+- Skip devices not controllable by blivet (#1009809) (dshea)
+- Add translation support to check_accelerators (dshea)
+- Make sure autopart type is handled deterministicaly in text mode (#1010453)
+  (vpodzime)
+- Don't rely on X server adding empty variant for its defaults (#1011658)
+  (vpodzime)
+- Make Keyboard spoke's status consistent with other statuses (#1011166)
+  (vpodzime)
+- LiveImageKSPayload skip the parent class setup method (#1010500) (bcl)
+- Pass the actual format instead of Python built-in (#1009678) (vpodzime)
+- Don't allow using updates with non-default network sources (#1008028)
+  (vpodzime)
+- Use Sphinx documentation format in nm.py. (rvykydal)
+- Changed the keyboard accelerator for iscsi "Retry Log In" (dshea)
+- Only fail on a missing firewalld command if the firewall is enabled
+  (#1004976). (clumens)
+- Cleanup some pylint failures in the network module (bcl)
+- Add GtkNotebook support to the accelerators check. (dshea)
+
 * Fri Sep 20 2013 Brian C. Lane <bcl@redhat.com> - 20.19-1
 - tui ErrorDialog needs to be modal (#983316) (bcl)
 - Keyboard variant names may contain dashes (#1008730) (vpodzime)
