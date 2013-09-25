@@ -181,7 +181,7 @@ def download_to_file(url, path):
         result = urllib.urlretrieve(url, path)
         # return the storage path
         return result[0]
-    except Exception, e:
+    except IOError, e:
         print("download of %s to %s failed with exception: %s" % (url, path, e))
         return None
 

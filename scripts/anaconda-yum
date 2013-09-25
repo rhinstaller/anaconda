@@ -151,8 +151,10 @@ def run_yum_transaction(release, arch, yum_conf, install_root, ts_file, script_l
         finally:
             yb.ts.close()
             logfile.close()
-    except Exception as e:
+    except YumBaseError as e:
         print("ERROR: transaction error: %s" % e)
+    except Exception as e:
+        print("ERROR: unexpected error: %s" % e)
     finally:
         print("QUIT:")
 
