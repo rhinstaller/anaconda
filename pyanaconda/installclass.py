@@ -32,7 +32,7 @@ from blivet.platform import platform
 import logging
 log = logging.getLogger("anaconda")
 
-from flags import flags
+from pyanaconda.flags import flags
 
 class BaseInstallClass(object):
     # default to not being hidden

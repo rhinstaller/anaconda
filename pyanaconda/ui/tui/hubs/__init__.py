@@ -18,7 +18,7 @@
 #
 # Red Hat Author(s): Martin Sivak <msivak@redhat.com>
 #
-from .. import simpleline as tui
+from pyanaconda.ui.tui import simpleline as tui
 from pyanaconda.ui.tui.tuiobject import TUIObject
 from pyanaconda.ui.tui.spokes import collect_spokes
 from pyanaconda.ui import common

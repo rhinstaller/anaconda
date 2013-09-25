@@ -19,7 +19,7 @@
 # Author(s): Chris Lumens <clumens@redhat.com>
 
 import Queue
-from iutil import lowerASCII, upperASCII
+from pyanaconda.iutil import lowerASCII, upperASCII
 
 class QueueFactory(object):
     """Constructs a new object wrapping a Queue.Queue, complete with constants

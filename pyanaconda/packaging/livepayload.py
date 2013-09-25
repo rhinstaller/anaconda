@@ -40,7 +40,7 @@ import urllib
 import hashlib
 import glob
 
-from . import ImagePayload, PayloadSetupError, PayloadInstallError
+from pyanaconda.packaging import ImagePayload, PayloadSetupError, PayloadInstallError
 
 from pyanaconda.constants import INSTALL_TREE, ROOT_PATH, THREAD_LIVE_PROGRESS
 from pyanaconda.constants import IMAGE_DIR

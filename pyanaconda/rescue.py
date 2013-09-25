@@ -21,7 +21,7 @@
 #
 import sys
 import os
-import iutil
+from pyanaconda import iutil
 import shutil
 import time
 import re
@@ -29,13 +29,13 @@ import subprocess
 
 from snack import ButtonChoiceWindow, ListboxChoiceWindow,SnackScreen
 
-from constants import ANACONDA_CLEANUP, ROOT_PATH
-from constants_text import TEXT_OK_BUTTON, TEXT_NO_BUTTON, TEXT_YES_BUTTON
-from text import WaitWindow, OkCancelWindow, ProgressWindow, PassphraseEntryWindow
-from flags import flags
-from installinterfacebase import InstallInterfaceBase
-from i18n import _
-from kickstart import runPostScripts
+from pyanaconda.constants import ANACONDA_CLEANUP, ROOT_PATH
+from pyanaconda.constants_text import TEXT_OK_BUTTON, TEXT_NO_BUTTON, TEXT_YES_BUTTON
+from pyanaconda.text import WaitWindow, OkCancelWindow, ProgressWindow, PassphraseEntryWindow
+from pyanaconda.flags import flags
+from pyanaconda.installinterfacebase import InstallInterfaceBase
+from pyanaconda.i18n import _
+from pyanaconda.kickstart import runPostScripts
 
 from blivet import mountExistingSystem
 from blivet.errors import StorageError

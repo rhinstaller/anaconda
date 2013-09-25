@@ -530,13 +530,13 @@ class GraphicalUserInterface(UserInterface):
 
     def _list_hubs(self):
         """Return a list of Hub classes to be imported to this interface"""
-        from .hubs.summary import SummaryHub
-        from .hubs.progress import ProgressHub
+        from pyanaconda.ui.gui.hubs.summary import SummaryHub
+        from pyanaconda.ui.gui.hubs.progress import ProgressHub
         return [SummaryHub, ProgressHub]
 
     def _is_standalone(self, obj):
         """Is the spoke passed as obj standalone?"""
-        from .spokes import StandaloneSpoke
+        from pyanaconda.ui.gui.spokes import StandaloneSpoke
         return isinstance(obj, StandaloneSpoke)
 
     def setup(self, data):
@@ -549,7 +549,7 @@ class GraphicalUserInterface(UserInterface):
         """Grab all relevant standalone spokes, add them to the passed
            list of hubs and order the list according to the
            relationships between hubs and standalones."""
-        from .spokes import StandaloneSpoke
+        from pyanaconda.ui.gui.spokes import StandaloneSpoke
 
         # First, grab a list of all the standalone spokes.
         standalones = self._collectActionClasses(self.paths["spokes"], StandaloneSpoke)
@@ -571,7 +571,7 @@ class GraphicalUserInterface(UserInterface):
             window.main_window.set_transient_for(lightbox)
 
     def _instantiateAction(self, actionClass):
-        from spokes import StandaloneSpoke
+        from pyanaconda.ui.gui.spokes import StandaloneSpoke
 
         # Instantiate an action on-demand, passing the arguments defining our
         # spoke API and setting up continue/quit signal handlers.

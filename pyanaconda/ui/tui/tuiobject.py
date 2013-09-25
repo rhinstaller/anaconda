@@ -21,7 +21,7 @@
 
 from pyanaconda.i18n import _
 from pyanaconda.ui import common
-import simpleline as tui
+import pyanaconda.ui.tui.simpleline as tui
 from pyanaconda.constants_text import INPUT_PROCESSED
 
 class ErrorDialog(tui.UIScreen):

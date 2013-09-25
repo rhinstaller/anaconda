@@ -20,7 +20,7 @@ import shutil
 import shlex
 from pipes import _safechars
 import tempfile
-from iutil import upperASCII
+from pyanaconda.iutil import upperASCII
 
 def unquote(s):
     return ' '.join(shlex.split(s))

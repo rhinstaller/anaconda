@@ -31,7 +31,7 @@ ADDON_PATHS = ["/usr/share/anaconda/addons"]
 from pykickstart.constants import *
 
 # common string needs to be easy to change
-import product
+from pyanaconda import product
 productName = product.productName
 productVersion = product.productVersion
 productArch = product.productArch

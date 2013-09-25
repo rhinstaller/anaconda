@@ -20,6 +20,6 @@
 #
 
 # pylint: disable-msg=W0401
-from base import *
+from pyanaconda.ui.tui.simpleline.base import *
 # pylint: disable-msg=W0401
-from widgets import *
+from pyanaconda.ui.tui.simpleline.widgets import *

@@ -21,11 +21,9 @@
 
 import os, sys
 import time
-import network
-import product
+from pyanaconda import network, product, iutil
 import socket
 import subprocess
-import iutil
 import dbus
 
 from pyanaconda.i18n import _, P_

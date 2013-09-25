@@ -17,11 +17,11 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-import isys
+from pyanaconda import isys
 import os, os.path, stat, tempfile
-from constants import ISO_DIR
+from pyanaconda.constants import ISO_DIR
 
-from errors import errorHandler, ERROR_RAISE, InvalidImageSizeError, MediaMountError, MediaUnmountError, MissingImageError
+from pyanaconda.errors import errorHandler, ERROR_RAISE, InvalidImageSizeError, MediaMountError, MediaUnmountError, MissingImageError
 
 import blivet.util
 import blivet.arch

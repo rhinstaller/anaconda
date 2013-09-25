@@ -24,14 +24,12 @@
 from meh import Config
 from meh.handler import ExceptionHandler
 from meh.dump import ReverseExceptionDump
-import isys
-import iutil
+from pyanaconda import isys, iutil, kickstart
 import sys
 import os
 import shutil
 import signal
 import time
-import kickstart
 import blivet.errors
 from pyanaconda.ui.communication import hubQ
 from pyanaconda.constants import ROOT_PATH, THREAD_EXCEPTION_HANDLING_TEST

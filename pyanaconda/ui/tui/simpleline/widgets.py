@@ -23,7 +23,7 @@
 
 __all__ = ["TextWidget", "ColumnWidget", "CheckboxWidget", "CenterWidget"]
 
-import base
+from pyanaconda.ui.tui.simpleline import base
 
 class TextWidget(base.Widget):
     """Class to handle wrapped text output."""

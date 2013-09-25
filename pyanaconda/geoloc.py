@@ -106,7 +106,7 @@ import json
 import dbus
 import threading
 import time
-import network
+from pyanaconda import network
 
 import logging
 log = logging.getLogger("anaconda")

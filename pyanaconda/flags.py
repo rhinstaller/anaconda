@@ -20,7 +20,7 @@
 import selinux
 import shlex
 import glob
-from constants import SELINUX_DEFAULT
+from pyanaconda.constants import SELINUX_DEFAULT
 from collections import OrderedDict
 
 import logging

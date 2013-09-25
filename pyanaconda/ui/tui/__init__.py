@@ -25,10 +25,10 @@ from pyanaconda.ui import common
 from pyanaconda.ui.communication import hubQ
 from pyanaconda.flags import flags
 from pyanaconda.threads import threadMgr
-import simpleline as tui
-from hubs.summary import SummaryHub
-from spokes import StandaloneSpoke
-from tuiobject import YesNoDialog, ErrorDialog
+import pyanaconda.ui.tui.simpleline as tui
+from pyanaconda.ui.tui.hubs.summary import SummaryHub
+from pyanaconda.ui.tui.spokes import StandaloneSpoke
+from pyanaconda.ui.tui.tuiobject import YesNoDialog, ErrorDialog
 
 import os
 import sys

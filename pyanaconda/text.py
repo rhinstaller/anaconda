@@ -20,7 +20,7 @@
 #
 
 from snack import ButtonBar, ButtonChoiceWindow, Entry, GridForm, Scale, TextboxReflowed
-from constants_text import TEXT_OK_BUTTON, TEXT_CANCEL_BUTTON, TEXT_OK_CHECK
+from pyanaconda.constants_text import TEXT_OK_BUTTON, TEXT_CANCEL_BUTTON, TEXT_OK_CHECK
 from pyanaconda.i18n import _
 
 class WaitWindow:

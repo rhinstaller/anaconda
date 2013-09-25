@@ -33,13 +33,13 @@ import blivet.zfcp
 import blivet.arch
 
 import glob
-import iutil
+from pyanaconda import iutil
 import os
 import os.path
 import tempfile
 import subprocess
-from flags import flags, can_touch_runtime_system
-from constants import ADDON_PATHS, ROOT_PATH
+from pyanaconda.flags import flags, can_touch_runtime_system
+from pyanaconda.constants import ADDON_PATHS, ROOT_PATH
 import shlex
 import sys
 import urlgrabber
@@ -55,8 +55,8 @@ from pyanaconda.simpleconfig import SimpleConfigFile
 from pyanaconda.users import getPassAlgo
 from pyanaconda.desktop import Desktop
 from pyanaconda.i18n import _
-from .ui.common import collect
-from .addons import AddonSection, AddonData, AddonRegistry, collect_addon_paths
+from pyanaconda.ui.common import collect
+from pyanaconda.addons import AddonSection, AddonData, AddonRegistry, collect_addon_paths
 
 from pykickstart.constants import CLEARPART_TYPE_NONE, FIRSTBOOT_SKIP, FIRSTBOOT_RECONFIG, KS_SCRIPT_POST, KS_SCRIPT_PRE, \
                                   KS_SCRIPT_TRACEBACK, SELINUX_DISABLED, SELINUX_ENFORCING, SELINUX_PERMISSIVE
@@ -71,7 +71,7 @@ log = logging.getLogger("anaconda")
 stderrLog = logging.getLogger("anaconda.stderr")
 storage_log = logging.getLogger("blivet")
 stdoutLog = logging.getLogger("anaconda.stdout")
-from anaconda_log import logger, logLevelMap, setHandlersLevel,\
+from pyanaconda.anaconda_log import logger, logLevelMap, setHandlersLevel,\
     DEFAULT_TTY_LEVEL
 
 class AnacondaKSScript(KSScript):

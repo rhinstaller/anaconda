@@ -22,7 +22,7 @@
 __all__ = ["UserInterface"]
 
 import os
-from .common import collect, PathDict
+from pyanaconda.ui.common import collect, PathDict
 
 class UserInterface(object):
     """This is the base class for all kinds of install UIs.  It primarily

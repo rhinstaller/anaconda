@@ -30,7 +30,7 @@
 
 import os
 import sys
-from constants import ROOT_PATH
+from pyanaconda.constants import ROOT_PATH
 from tempfile import mkstemp
 
 from pyanaconda.bootloader import get_bootloader
@@ -43,7 +43,7 @@ stdoutLog = logging.getLogger("anaconda.stdout")
 
 class Anaconda(object):
     def __init__(self):
-        import desktop
+        from pyanaconda import desktop
 
         self._bootloader = None
         self.canReIPL = False
@@ -86,7 +86,7 @@ class Anaconda(object):
     @property
     def instClass(self):
         if not self._instClass:
-            from installclass import DefaultInstall
+            from pyanaconda.installclass import DefaultInstall
             self._instClass = DefaultInstall()
 
         return self._instClass
@@ -111,7 +111,7 @@ class Anaconda(object):
             klass = self.instClass.getBackend()
 
             if not klass:
-                from flags import flags
+                from pyanaconda.flags import flags
 
                 if flags.livecdInstall:
                     from pyanaconda.packaging.livepayload import LiveImagePayload

@@ -19,7 +19,7 @@
 # Authors:
 #   Will Woods <wwoods@redhat.com>
 
-from flags import BootArgs
+from pyanaconda.flags import BootArgs
 from optparse import OptionParser, OptionConflictError
 
 class AnacondaOptionParser(OptionParser):
