@@ -1,4 +1,4 @@
-# Root password text spoke
+# User creation text spoke
 #
 # Copyright (C) 2013  Red Hat, Inc.
 #
@@ -22,7 +22,7 @@
 from pyanaconda.ui.tui.spokes import EditTUISpoke
 from pyanaconda.ui.tui.spokes import EditTUISpokeEntry as Entry
 from pyanaconda.ui.common import FirstbootSpokeMixIn
-from pyanaconda.users import guess_username
+from pyanaconda.users import guess_username, cryptPassword
 from pyanaconda.i18n import _
 from pykickstart.constants import FIRSTBOOT_RECONFIG
 from pyanaconda.constants import ANACONDA_ENVIRON, FIRSTBOOT_ENVIRON
@@ -125,3 +125,15 @@ class UserSpoke(FirstbootSpokeMixIn, EditTUISpoke):
             self.data.user.userList.append(self.args)
         elif (not self.args._create) and (self.args in self.data.user.userList):
             self.data.user.userList.remove(self.args)
+
+        # encrypt and store password only if user entered anything; this should
+        # preserve passwords set via kickstart
+        if self.args._use_password and len(self.args.password) > 0:
+            self.args.password = cryptPassword(self.args.password)
+            self.args.isCrypted = True
+            self.args.password_kickstarted = False
+        # clear pw when user unselects to use pw
+        else:
+            self.args.password = ""
+            self.args.isCrypted = False
+            self.args.password_kickstarted = False
