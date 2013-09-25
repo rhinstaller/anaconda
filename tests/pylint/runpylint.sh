@@ -103,6 +103,9 @@ for i in $FILES; do
   # I0011 is the informational "Locally disabling ...." message
   if [ -n "$(echo "$pylint_output" | fgrep -v '************* Module ' |\
           grep -v '^I0011:')" ]; then
+      # Replace the Module line with the actual filename
+      pylint_output="$(echo "$pylint_output" | sed "s|\* Module .*|* Module $i|")"
+
       if [ "$pylint_log" -ne 0 ]; then
           echo "$pylint_output" >> pylint-log
       else

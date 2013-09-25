@@ -30,29 +30,36 @@ if "NOPYLINT" in os.environ:
 
 # run pylint on all the python files changed by this commit
 try:
-    git_files = check_output("git diff-index --cached HEAD", shell=True)
+    git_files = check_output("git status --porcelain", shell=True)
 except CalledProcessError:
     sys.exit(1)
 
 pylint_files = []
-# Lines look like: :100755 100755 2cf57974e13a2aae778e28f942a4d44bf6567409 6fe1b6caf32d565b2cdb6d1aee250aaddc6d3a04 M      tests/pylint/runpylint.sh
+# Lines look like: MM tests/pylint/runpylint.sh
+# The first character is the status in the index (or our side of a merge),
+# the second character is the status in the tree (or their side of a merge).
 for gf in git_files.splitlines():
-    path = gf.split()[-1]
-    if is_python(path):
-        pylint_files.append(path)
+    # If the file is being removed or is not in git, ignore it
+    if gf[0] in ('D', '?'):
+        continue
+    elif is_python(gf[3:]):
+        # If the file is unmerged or changed locally, raise an error
+        if gf[0] == 'U' or gf[1] in ('U', 'M'):
+            print("ERROR: %s in commit does not match tree" % gf[3:])
+            sys.exit(1)
+        pylint_files.append(gf[3:])
 
 if not pylint_files:
     sys.exit(0)
-pylint_files = " ".join(pylint_files)
 
 # Make sure pykickstart and blivet can be found
 # Note that if the checked out versions are too far off pylint may fail
 env = os.environ.copy()
 env["PYTHONPATH"] = OTHER_MODULES_PATH
 
-print "Running pylint on %s" % pylint_files
+print "Running pylint on %s" % " ".join(pylint_files)
 try:
-    check_output("./tests/pylint/runpylint.sh %s" % pylint_files, shell=True, env=env)
+    check_output(["./tests/pylint/runpylint.sh"] + pylint_files, env=env)
 except CalledProcessError as e:
     print e.output
     sys.exit(1)
