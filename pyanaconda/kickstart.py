@@ -635,7 +635,7 @@ class Lang(commands.lang.F19_Lang):
         localization.write_language_configuration(self, ROOT_PATH)
 
 # no overrides needed here
-class Eula = commands.eula.F20_Eula
+Eula = commands.eula.F20_Eula
 
 class LogVol(commands.logvol.F20_LogVol):
     def execute(self, storage, ksdata, instClass):
