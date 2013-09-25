@@ -654,7 +654,13 @@ class BootLoader(object):
                 continue
 
             if self.is_valid_stage1_device(device):
-                self.stage1_device = device
+                if flags.imageInstall and device.isDisk:
+                    # GRUB2 will install to /dev/loop0 but not to
+                    # /dev/mapper/<image_name>
+                    self.stage1_device = device.parents[0]
+                else:
+                    self.stage1_device = device
+
                 break
 
         if not self.stage1_device:
