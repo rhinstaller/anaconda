@@ -784,11 +784,11 @@ class SourceSpoke(NormalSpoke):
                 self._verifyIsoButton.set_sensitive(True)
 
     def on_proxy_clicked(self, button):
-        # If this method has no proxy, ignore the click
         if not hasattr(self.data.method, "proxy"):
-            return
+            old_proxy = None
+        else:
+            old_proxy = self.data.method.proxy
 
-        old_proxy = self.data.method.proxy
         dialog = ProxyDialog(self.data)
         with enlightbox(self.window, dialog.window):
             dialog.refresh()
