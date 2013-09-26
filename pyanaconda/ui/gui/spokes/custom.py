@@ -2022,7 +2022,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
 
         self._devices = self.__storage.devices
         if not self._error:
-            self._do_refresh(mountpointToShow=mountpoint)
+            self._do_refresh(mountpointToShow=mountpoint or fstype)
         else:
             self._do_refresh()
         self._updateSpaceDisplay()
@@ -2098,7 +2098,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         if not page:
             page = self._current_page
 
-        log.debug("show first mountpoint: %s" % page.pageTitle)
+        log.debug("show mountpoint: %s" % page.pageTitle)
         if not page.members:
             self._clear_current_selector()
             return
@@ -2108,7 +2108,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
             return
 
         for member in page.members:
-            if member.get_property("mountpoint") == mountpoint:
+            if member.get_property("mountpoint").lower() == mountpoint.lower():
                 self.on_selector_clicked(member)
                 break
 
