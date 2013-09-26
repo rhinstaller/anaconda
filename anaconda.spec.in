@@ -255,6 +255,40 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Thu Sep 26 2013 Brian C. Lane <bcl@redhat.com> - 19.31.20-1
+- Encrypt normal user passwords when doing text install. (sbueno+anaconda)
+  Resolves: rhbz#1012028
+- Fixup Eula class (bcl)
+  Related: rhbz#1000409
+- Center the Langsupport spoke's description (vpodzime)
+  Related: rhbz#1006458
+- Normalize keyboard layout and variant strings from langtable (vpodzime)
+  Related: rhbz#1006458
+- More robust parsing of the layout and variant string specification (vpodzime)
+  Related: rhbz#1006458
+- Share code between the Welcome and Langsupport spokes (vpodzime)
+  Related: rhbz#1006458
+- Rework the Langsupport spoke to work with all locales (vpodzime)
+  Related: rhbz#1006458
+- Match langs with stripped accents when filtering languages (vpodzime)
+  Related: rhbz#1006458
+- Get rid of the non-deterministic expand_langs and its usage (vpodzime)
+  Related: rhbz#1006458
+- Rework the Welcome spoke to allow users choose from all locales (vpodzime)
+  Resolves: rhbz#1006458
+- Allow seting up locale without modifying ksdata (vpodzime)
+  Related: rhbz#1006458
+- Remove an unused argument of get_available_translations (vpodzime)
+  Related: rhbz#1006458
+- Specify also query script when getting locale's native name (vpodzime)
+  Related: rhbz#1006458
+- Fix the langcode parsing regexp (vpodzime)
+  Related: rhbz#1006458
+- Adapt to the new localization module (vpodzime)
+  Related: rhbz#1006458
+- Rewrite the localization module (vpodzime)
+  Related: rhbz#1006458
+
 * Wed Sep 25 2013 Brian C. Lane <bcl@redhat.com> - 19.31.19-1
 - Export the pykickstart Eula command (vpodzime)
   Related: rhbz#1000409
