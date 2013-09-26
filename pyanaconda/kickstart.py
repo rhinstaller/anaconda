@@ -1012,7 +1012,8 @@ class PartitionData(commands.partition.F18_PartData):
                                      mountpoint=self.mountpoint,
                                      label=self.label,
                                      fsprofile=self.fsprofile,
-                                     mountopts=self.fsopts)
+                                     mountopts=self.fsopts,
+                                     size=self.size)
         if not kwargs["format"].type:
             raise KickstartValueError(formatErrorMsg(self.lineno, msg="The \"%s\" filesystem type is not supported." % ty))
 
@@ -1069,6 +1070,11 @@ class PartitionData(commands.partition.F18_PartData):
             devicetree.registerAction(ActionCreateFormat(device, kwargs["format"]))
             if ty == "swap":
                 storage.addFstabSwap(device)
+        # tmpfs mounts are not disks and don't occupy a disk partition,
+        # so handle them here
+        elif self.fstype == "tmpfs":
+            request = storage.newTmpFS(**kwargs)
+            storage.createDevice(request)
         else:
             # If a previous device has claimed this mount point, delete the
             # old one.
