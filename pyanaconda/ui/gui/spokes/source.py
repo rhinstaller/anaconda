@@ -25,7 +25,7 @@ import time
 import logging
 log = logging.getLogger("anaconda")
 
-import os.path
+import os, signal
 
 from gi.repository import GLib
 
@@ -155,12 +155,15 @@ class MediaCheckDialog(GUIObject):
     def __init__(self, data):
         GUIObject.__init__(self, data)
         self.progressBar = self.builder.get_object("mediaCheck-progressBar")
+        self._pid = None
 
     def _checkisoEndsCB(self, pid, status):
         doneButton = self.builder.get_object("doneButton")
         verifyLabel = self.builder.get_object("verifyLabel")
 
-        if status == 0:
+        if os.WIFSIGNALED(status):
+            pass
+        elif status == 0:
             verifyLabel.set_text(_("This media is good to install from."))
         else:
             verifyLabel.set_text(_("This media is not good to install from."))
@@ -168,6 +171,7 @@ class MediaCheckDialog(GUIObject):
         self.progressBar.set_fraction(1.0)
         doneButton.set_sensitive(True)
         GLib.spawn_close_pid(pid)
+        self._pid = None
 
     def _checkisoStdoutWatcher(self, fd, condition):
         if condition == GLib.IOCondition.HUP:
@@ -187,7 +191,7 @@ class MediaCheckDialog(GUIObject):
         return True
 
     def run(self, devicePath):
-        (retval, pid, _stdin, stdout, _stderr) = \
+        (retval, self._pid, _stdin, stdout, _stderr) = \
             GLib.spawn_async_with_pipes(None, ["checkisomd5", "--gauge", devicePath], [],
                                         GLib.SpawnFlags.DO_NOT_REAP_CHILD|GLib.SpawnFlags.SEARCH_PATH,
                                         None, None)
@@ -195,12 +199,18 @@ class MediaCheckDialog(GUIObject):
             return
 
         # This function waits for checkisomd5 to end and then cleans up after it.
-        GLib.child_watch_add(pid, self._checkisoEndsCB)
+        GLib.child_watch_add(self._pid, self._checkisoEndsCB)
 
         # This function watches the process's stdout.
         GLib.io_add_watch(stdout, GLib.IOCondition.IN|GLib.IOCondition.HUP, self._checkisoStdoutWatcher)
 
         self.window.run()
+
+    def on_close(self, *args):
+        if self._pid:
+            os.kill(self._pid, signal.SIGKILL)
+
+        self.window.destroy()
 
     def on_done_clicked(self, *args):
         self.window.destroy()
