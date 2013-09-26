@@ -882,7 +882,7 @@ class DmRaid(commands.dmraid.FC6_DmRaid):
     def parse(self, args):
         raise NotImplementedError("The dmraid kickstart command is not currently supported")
 
-class Partition(commands.partition.F18_Partition):
+class Partition(commands.partition.F20_Partition):
     def execute(self, storage, ksdata, instClass):
         for p in self.partitions:
             p.execute(storage, ksdata, instClass)
@@ -1011,7 +1011,8 @@ class PartitionData(commands.partition.F18_PartData):
                                      mountpoint=self.mountpoint,
                                      label=self.label,
                                      fsprofile=self.fsprofile,
-                                     mountopts=self.fsopts)
+                                     mountopts=self.fsopts,
+                                     size=self.size)
         if not kwargs["format"].type:
             raise KickstartValueError, formatErrorMsg(self.lineno, msg="The \"%s\" filesystem type is not supported." % type)
 
@@ -1066,6 +1067,11 @@ class PartitionData(commands.partition.F18_PartData):
                             msg="Invalid target size (%d) for device %s" % (self.size, device.name)))
 
             devicetree.registerAction(ActionCreateFormat(device, kwargs["format"]))
+        # tmpfs mounts are not disks and don't occupy a disk partition,
+        # so handle them here
+        elif self.fstype == "tmpfs":
+            request = storage.newTmpFS(**kwargs)
+            storage.createDevice(request)
         else:
             # If a previous device has claimed this mount point, delete the
             # old one.
