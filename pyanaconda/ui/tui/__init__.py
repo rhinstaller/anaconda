@@ -23,7 +23,7 @@ from pyanaconda import ui
 from pyanaconda.ui.communication import hubQ
 from pyanaconda.flags import flags
 from pyanaconda.threads import threadMgr
-import pyanaconda.ui.tui.simpleline as tui
+from pyanaconda.ui.tui import simpleline as tui
 from pyanaconda.ui.tui.hubs.summary import SummaryHub
 from pyanaconda.ui.tui.spokes import StandaloneSpoke
 from pyanaconda.ui.tui.tuiobject import YesNoDialog, ErrorDialog
