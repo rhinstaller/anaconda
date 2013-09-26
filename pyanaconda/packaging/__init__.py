@@ -581,10 +581,21 @@ class Payload(object):
 
         for kernel in self.kernelVersionList:
             log.info("recreating initrd for %s", kernel)
-            iutil.execWithRedirect("new-kernel-pkg",
-                                   ["--mkinitrd", "--dracut",
-                                    "--depmod", "--update", kernel],
-                                   root=ROOT_PATH)
+            if not flags.imageInstall:
+                iutil.execWithRedirect("new-kernel-pkg",
+                                       ["--mkinitrd", "--dracut",
+                                        "--depmod", "--update", kernel],
+                                       root=ROOT_PATH)
+            else:
+                # hostonly is not sensible for disk image installations
+                # using /dev/disk/by-uuid/ is necessary due to disk image naming
+                iutil.execWithRedirect("dracut",
+                                       ["-N",
+                                        "--persistent-policy", "by-uuid",
+                                        "-f", "/boot/initramfs-%s.img" % kernel,
+                                        kernel],
+                                        root=ROOT_PATH)
+
         self._createdInitrds = True
 
 
