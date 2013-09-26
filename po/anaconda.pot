@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: anaconda 13.21.205\n"
+"Project-Id-Version: anaconda 13.21.206\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
-"POT-Creation-Date: 2013-09-13 09:45-0400\n"
+"POT-Creation-Date: 2013-09-26 10:27-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -97,8 +97,8 @@ msgstr ""
 
 #: bootloader.py:55 bootloader.py:245 bootloader.py:251 bootloader.py:258
 #: gui.py:1253 image.py:92 installinterfacebase.py:66 network.py:890
-#: text.py:490 text.py:550 yuminstall.py:1631 yuminstall.py:1840
-#: yuminstall.py:1875 iw/blpasswidget.py:154 iw/upgrade_swap_gui.py:190
+#: text.py:490 text.py:550 yuminstall.py:1634 yuminstall.py:1843
+#: yuminstall.py:1878 iw/blpasswidget.py:154 iw/upgrade_swap_gui.py:190
 #: iw/upgrade_swap_gui.py:198 iw/upgrade_swap_gui.py:205
 #: textw/upgrade_text.py:196
 msgid "Warning"
@@ -116,15 +116,15 @@ msgstr ""
 #: installinterfacebase.py:109 livecd.py:205 livecd.py:447 packages.py:162
 #: upgrade.py:58 upgrade.py:199 yuminstall.py:272 yuminstall.py:1109
 #: yuminstall.py:1114 yuminstall.py:1197 yuminstall.py:1203 yuminstall.py:1355
-#: yuminstall.py:1382 yuminstall.py:1443 yuminstall.py:1627 yuminstall.py:1657
-#: yuminstall.py:1680 storage/__init__.py:106 storage/__init__.py:112
+#: yuminstall.py:1382 yuminstall.py:1443 yuminstall.py:1630 yuminstall.py:1660
+#: yuminstall.py:1683 storage/__init__.py:106 storage/__init__.py:112
 #: storage/__init__.py:114 storage/__init__.py:222 storage/__init__.py:275
 #: storage/__init__.py:2088
 msgid "_Exit installer"
 msgstr ""
 
 #: bootloader.py:60 image.py:102 image.py:265 kickstart.py:1542
-#: kickstart.py:1586 upgrade.py:58 yuminstall.py:1448 yuminstall.py:1627
+#: kickstart.py:1586 upgrade.py:58 yuminstall.py:1448 yuminstall.py:1630
 #: iw/partition_gui.py:1629 storage/__init__.py:2089
 msgid "_Continue"
 msgstr ""
@@ -372,7 +372,7 @@ msgid "_Exit"
 msgstr ""
 
 #: gui.py:1433 image.py:176 image.py:208 livecd.py:205 yuminstall.py:976
-#: yuminstall.py:1382 yuminstall.py:1443 yuminstall.py:1657
+#: yuminstall.py:1382 yuminstall.py:1443 yuminstall.py:1660
 msgid "_Retry"
 msgstr ""
 
@@ -380,7 +380,7 @@ msgstr ""
 msgid "The system will now reboot."
 msgstr ""
 
-#: gui.py:1436 image.py:265 packages.py:374 yuminstall.py:1698
+#: gui.py:1436 image.py:265 packages.py:374 yuminstall.py:1701
 msgid "_Reboot"
 msgstr ""
 
@@ -463,15 +463,15 @@ msgid ""
 msgstr ""
 
 #: image.py:265 livecd.py:446 packages.py:374 upgrade.py:198
-#: yuminstall.py:1114 yuminstall.py:1203 yuminstall.py:1629 yuminstall.py:1680
-#: yuminstall.py:1698 storage/__init__.py:114 ui/anaconda.glade.h:2
+#: yuminstall.py:1114 yuminstall.py:1203 yuminstall.py:1632 yuminstall.py:1683
+#: yuminstall.py:1701 storage/__init__.py:114 ui/anaconda.glade.h:2
 msgid "_Back"
 msgstr ""
 
 #: image.py:304 livecd.py:198 livecd.py:440 partIntfHelpers.py:240 text.py:359
 #: text.py:363 yuminstall.py:447 yuminstall.py:992 yuminstall.py:1107
-#: yuminstall.py:1112 yuminstall.py:1386 yuminstall.py:1453 yuminstall.py:1651
-#: yuminstall.py:1673 iw/advanced_storage.py:385 iw/advanced_storage.py:398
+#: yuminstall.py:1112 yuminstall.py:1386 yuminstall.py:1453 yuminstall.py:1654
+#: yuminstall.py:1676 iw/advanced_storage.py:385 iw/advanced_storage.py:398
 #: iw/advanced_storage.py:458 iw/autopart_type.py:95 iw/cleardisks_gui.py:44
 #: iw/cleardisks_gui.py:54 iw/filter_gui.py:437 iw/osbootwidget.py:211
 #: iw/osbootwidget.py:221 iw/raid_dialog_gui.py:220 iw/task_gui.py:54
@@ -1803,7 +1803,7 @@ msgstr ""
 msgid "Edit"
 msgstr ""
 
-#: yuminstall.py:1454 yuminstall.py:1652
+#: yuminstall.py:1454 yuminstall.py:1655
 #, python-format
 msgid ""
 "Unable to read package metadata. This may be due to a missing repodata "
@@ -1813,7 +1813,7 @@ msgid ""
 "%s"
 msgstr ""
 
-#: yuminstall.py:1632
+#: yuminstall.py:1635
 msgid ""
 "Some of the packages you have selected for install are missing dependencies "
 "or conflict with another package. You can exit the installation, go back and "
@@ -1821,7 +1821,7 @@ msgid ""
 "without their dependencies."
 msgstr ""
 
-#: yuminstall.py:1674
+#: yuminstall.py:1677
 #, python-format
 msgid ""
 "Your selected packages require %d MB of free space for installation, but you "
@@ -1829,22 +1829,22 @@ msgid ""
 "installer."
 msgstr ""
 
-#: yuminstall.py:1695
+#: yuminstall.py:1698
 msgid "Reboot?"
 msgstr ""
 
-#: yuminstall.py:1696
+#: yuminstall.py:1699
 msgid "The system will be rebooted now."
 msgstr ""
 
-#: yuminstall.py:1841
+#: yuminstall.py:1844
 #, python-format
 msgid ""
 "You appear to be upgrading from a system which is too old to upgrade to this "
 "version of %s.  Are you sure you wish to continue the upgrade process?"
 msgstr ""
 
-#: yuminstall.py:1876
+#: yuminstall.py:1879
 #, python-format
 msgid ""
 "The arch of the release of %(productName)s you are upgrading to appears to "
@@ -1853,48 +1853,48 @@ msgid ""
 "upgrade process?"
 msgstr ""
 
-#: yuminstall.py:1923
+#: yuminstall.py:1926
 msgid "Post Upgrade"
 msgstr ""
 
-#: yuminstall.py:1924
+#: yuminstall.py:1927
 msgid "Performing post-upgrade configuration"
 msgstr ""
 
-#: yuminstall.py:1926
+#: yuminstall.py:1929
 msgid "Post Installation"
 msgstr ""
 
-#: yuminstall.py:1927
+#: yuminstall.py:1930
 msgid "Performing post-installation configuration"
 msgstr ""
 
-#: yuminstall.py:2173
+#: yuminstall.py:2176
 msgid "Installation Starting"
 msgstr ""
 
-#: yuminstall.py:2174
+#: yuminstall.py:2177
 msgid "Starting installation process"
 msgstr ""
 
-#: yuminstall.py:2212
+#: yuminstall.py:2215
 msgid "Dependency Check"
 msgstr ""
 
-#: yuminstall.py:2213
+#: yuminstall.py:2216
 msgid "Checking dependencies in packages selected for installation"
 msgstr ""
 
-#: yuminstall.py:2269 yuminstall.py:2285
+#: yuminstall.py:2272 yuminstall.py:2288
 msgid "Retrieving installation information."
 msgstr ""
 
-#: yuminstall.py:2271 yuminstall.py:2287
+#: yuminstall.py:2274 yuminstall.py:2290
 #, python-format
 msgid "Retrieving installation information for %s."
 msgstr ""
 
-#: yuminstall.py:2272 yuminstall.py:2288
+#: yuminstall.py:2275 yuminstall.py:2291
 msgid "Installation Progress"
 msgstr ""
 

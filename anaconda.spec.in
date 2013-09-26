@@ -222,6 +222,17 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Thu Sep 26 2013 Samantha N. Bueno <sbueno+anaconda@redhat.com> - 13.21.207-1
+- Remove firmware from the boot image that does not apply to ppc64 (dcantrell)
+  Resolves: rhbz#1006043
+- fcoe: adapt bnx2fc detection to changed sysfs path structure (rvykydal)
+  Resolves: rhbz#1008731
+- Do not select FS packages over and over (vpodzime)
+  Resolves: rhbz#994504
+- Check size of images/netboot/ppc64.img to see if it's larger than 32M.
+  (dcantrell)
+  Related: rhbz#1006043
+
 * Fri Sep 13 2013 Samantha N. Bueno <sbueno+anaconda@redhat.com> - 13.21.206-1
 - Fix traceback occurring in ppc bootloader code. (sbueno+anaconda)
   Related: rhbz#877852
