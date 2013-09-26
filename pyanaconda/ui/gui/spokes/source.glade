@@ -92,6 +92,7 @@
     <property name="type_hint">dialog</property>
     <property name="decorated">False</property>
     <property name="has_resize_grip">False</property>
+    <signal name="close" handler="on_close" swapped="no"/>
     <child internal-child="vbox">
       <object class="GtkBox" id="dialog-vbox1">
         <property name="can_focus">False</property>
