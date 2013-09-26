@@ -548,8 +548,12 @@ class UserSpoke(FirstbootSpokeMixIn, NormalSpoke):
             if self._waivePasswordClicks > 1:
                 return None
             elif self._waivePasswordClicks == 1:
-                return _("You have provided a weak password: %s. "
-                        " Press Done again to use anyway.") % self._pwq_error
+                if self._pwq_error:
+                    return _("You have provided a weak password: %s. "
+                            " Press Done again to use anyway.") % self._pwq_error
+                else:
+                    return _("You have provided a weak password. "
+                            " Press Done again to use anyway.")
             else:
                 error = _("The password you have provided is weak")
                 if self._pwq_error:
