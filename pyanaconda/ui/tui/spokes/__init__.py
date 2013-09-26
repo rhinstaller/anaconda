@@ -221,8 +221,10 @@ class EditTUISpoke(NormalTUISpoke):
         def _prep_password(i, entry):
             number = tui.TextWidget("%2d)" % i)
             title = tui.TextWidget(_(entry.title))
-            value = getdeepattr(self.args, entry.attribute)
-            value = tui.TextWidget("".join(["*"] * len(value)))
+            value = ""
+            if len(getdeepattr(self.args, entry.attribute)) > 0:
+                value = _("Password set.")
+            value = tui.TextWidget(value)
 
             return tui.ColumnWidget([(3, [number]), (None, [title, value])], 1)
 
