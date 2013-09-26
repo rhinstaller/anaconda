@@ -66,6 +66,8 @@ class ProgressHub(Hub):
         if reenable_ransom:
             self._start_ransom_notes()
 
+        self._restart_spinner()
+
         self._progress_id = GLib.timeout_add(250, self._update_progress, self._configuration_done)
         threadMgr.add(AnacondaThread(name=THREAD_CONFIGURATION, target=doConfiguration,
                                      args=(self.storage, self.payload, self.data, self.instclass)))
@@ -265,6 +267,12 @@ class ProgressHub(Hub):
             return
 
         gtk_call_once(self._progressLabel.set_text, message)
+
+    @gtk_action_nowait
+    def _restart_spinner(self):
+        spinner = self.builder.get_object("progressSpinner")
+        spinner.show()
+        spinner.start()
 
     @gtk_action_nowait
     def _progress_bar_complete(self):
