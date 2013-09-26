@@ -633,7 +633,7 @@ class SourceSpoke(NormalSpoke):
                          "label" : dev.format.label or dev.format.uuid or ""
                        }
             store.append([dev, "%(model)s %(path)s (%(size)s MB) %(format)s %(label)s" % dev_info])
-            if self.data.method.method == "harddrive" and dev.name == self.data.method.partition:
+            if self.data.method.method == "harddrive" and self.data.method.partition in [dev.path, dev.name]:
                 active = idx
             added = True
             idx += 1
