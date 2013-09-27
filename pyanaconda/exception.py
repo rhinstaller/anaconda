@@ -30,6 +30,7 @@ import os
 import shutil
 import signal
 import time
+import re
 import blivet.errors
 from pyanaconda.ui.communication import hubQ
 from pyanaconda.constants import ROOT_PATH, THREAD_EXCEPTION_HANDLING_TEST
@@ -193,9 +194,8 @@ def initExceptionHandling(anaconda):
                  "/tmp/program.log", "/tmp/storage.log", "/tmp/ifcfg.log",
                  "/tmp/yum.log", ROOT_PATH + "/root/install.log",
                  "/proc/cmdline" ]
-    if flags.flags.livecdInstall:
-        fileList.extend(["/var/log/messages"])
-    else:
+
+    if os.path.exists("/tmp/syslog"):
         fileList.extend(["/tmp/syslog"])
 
     if anaconda.opts and anaconda.opts.ksfile:
@@ -228,6 +228,11 @@ def initExceptionHandling(anaconda):
                            attchmnt_only=True)
     conf.register_callback("type", lambda: "anaconda", attchmnt_only=True)
 
+    if "/tmp/syslog" not in fileList:
+        # no syslog, grab output from journalctl and put it also to the
+        # anaconda-tb file
+        conf.register_callback("journalctl", journalctl_callback, attchmnt_only=False)
+
     handler = AnacondaExceptionHandler(conf, anaconda.intf.meh_interface,
                                        ReverseExceptionDump, anaconda.intf.tty_num)
     handler.install(anaconda)
@@ -243,6 +248,20 @@ def nmcli_dev_list_callback():
     """Callback to get info about network devices."""
 
     return iutil.execWithCapture("nmcli", ["device", "show"])
+
+def journalctl_callback():
+    """Callback to get logs from journalctl."""
+
+    # regex to filter log messages from anaconda's process (we have that in our
+    # logs)
+    anaconda_log_line = re.compile(r"\[%d\]:" % os.getpid())
+    ret = ""
+    for line in iutil.execReadlines("journalctl", []):
+        if anaconda_log_line.search(line) is None:
+            # not an anaconda's message
+            ret += line + "\n"
+
+    return ret
 
 def test_exception_handling():
     """
