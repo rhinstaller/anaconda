@@ -223,7 +223,6 @@ update-desktop-database &> /dev/null || :
 %{_datadir}/anaconda
 %{_prefix}/libexec/anaconda
 %{_libdir}/python*/site-packages/pyanaconda/*
-%{_libdir}/python*/site-packages/log_picker/*
 %{_bindir}/analog
 %{_bindir}/anaconda-cleanup
 %ifarch %livearches
