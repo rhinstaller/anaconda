@@ -39,18 +39,14 @@ class BaseTestCase(unittest.TestCase):
 class CommandVersionTestCase(BaseTestCase):
     def commands_test(self):
         for (commandName, commandObj) in self._commandMap.iteritems():
-            baseClass = commandObj().__class__.__bases__[0]
             pykickstartClass = self.handler.commands[commandName].__class__
-            self.assertEqual(baseClass.__name__, pykickstartClass.__name__)
+            self.assertIsInstance(commandObj(), pykickstartClass)
 
 # Do the same thing as CommandVersionTestCase, but for data objects.
 class DataVersionTestCase(BaseTestCase):
     def data_test(self):
         for (dataName, dataObj) in self._dataMap.iteritems():
-            baseClass = dataObj().__class__.__bases__[0]
-
             # pykickstart does not expose data objects as a mapping the way
             # it does command objects.
             pykickstartClass = eval("self.handler.%s" % dataName)
-
-            self.assertEqual(baseClass.__name__, pykickstartClass.__name__)
+            self.assertIsInstance(dataObj(), pykickstartClass)
