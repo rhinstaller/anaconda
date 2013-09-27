@@ -504,9 +504,11 @@ class KeyboardSpoke(NormalSpoke):
         if not layout_row:
             return
 
+        layout, variant = keyboard.parse_layout_variant(layout_row[0])
+        lay_var_spec = "%s\t%s" % (layout, variant)
         dialog = Gkbd.KeyboardDrawing.dialog_new()
         Gkbd.KeyboardDrawing.dialog_set_layout(dialog, self._xkl_wrapper.configreg,
-                                               layout_row[0])
+                                               lay_var_spec)
         dialog.set_size_request(750, 350)
         dialog.set_position(Gtk.WindowPosition.CENTER_ALWAYS)
         with enlightbox(self.window, dialog):

@@ -26,34 +26,34 @@ class ParsingAndJoiningTests(unittest.TestCase):
         """Should correctly parse keyboard layout and variant string specs."""
 
         # valid layout variant specs
-        layout, variant = keyboard._parse_layout_variant("cz (qwerty)")
+        layout, variant = keyboard.parse_layout_variant("cz (qwerty)")
         self.assertEqual(layout, "cz")
         self.assertEqual(variant, "qwerty")
 
-        layout, variant = keyboard._parse_layout_variant("cz (dvorak-ucw)")
+        layout, variant = keyboard.parse_layout_variant("cz (dvorak-ucw)")
         self.assertEqual(layout, "cz")
         self.assertEqual(variant, "dvorak-ucw")
 
         # a valid layout variant spec with no variant specified
-        layout, variant = keyboard._parse_layout_variant("cz")
+        layout, variant = keyboard.parse_layout_variant("cz")
         self.assertEqual(layout, "cz")
         self.assertEqual(variant, "")
 
         # an invalid layout variant spec (missing layout)
         with self.assertRaises(keyboard.InvalidLayoutVariantSpec):
-            layout, variant = keyboard._parse_layout_variant("")
+            layout, variant = keyboard.parse_layout_variant("")
 
         # another invalid layout variant spec (invalid layout)
         with self.assertRaises(keyboard.InvalidLayoutVariantSpec):
-            layout, variant = keyboard._parse_layout_variant("&*&%$")
+            layout, variant = keyboard.parse_layout_variant("&*&%$")
 
         # another invalid layout variant spec (square brackets)
         with self.assertRaises(keyboard.InvalidLayoutVariantSpec):
-            layout, variant = keyboard._parse_layout_variant("cz [qwerty]")
+            layout, variant = keyboard.parse_layout_variant("cz [qwerty]")
 
         # another invalid layout variant spec (invalid variant)
         with self.assertRaises(keyboard.InvalidLayoutVariantSpec):
-            layout, variant = keyboard._parse_layout_variant("cz (&*&*)")
+            layout, variant = keyboard.parse_layout_variant("cz (&*&*)")
 
     def layout_variant_joining_test(self):
         """Should correctly join keyboard layout and variant to a string spec."""
@@ -70,7 +70,7 @@ class ParsingAndJoiningTests(unittest.TestCase):
 
         specs = ("cz", "cz (qwerty)")
         for spec in specs:
-            (layout, variant) = keyboard._parse_layout_variant(spec)
+            (layout, variant) = keyboard.parse_layout_variant(spec)
             self.assertEqual(spec, keyboard._join_layout_variant(layout, variant))
 
     def layout_variant_normalize_test(self):

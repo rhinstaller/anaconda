@@ -83,7 +83,7 @@ class InvalidLayoutVariantSpec(Exception):
 
     pass
 
-def _parse_layout_variant(layout_variant_str):
+def parse_layout_variant(layout_variant_str):
     """
     Parse layout and variant from the string that may look like 'layout' or
     'layout (variant)'.
@@ -136,7 +136,7 @@ def normalize_layout_variant(layout_str):
 
     """
 
-    layout, variant = _parse_layout_variant(layout_str)
+    layout, variant = parse_layout_variant(layout_str)
     return _join_layout_variant(layout, variant)
 
 def populate_missing_items(keyboard):
@@ -612,7 +612,7 @@ class XklWrapper(object):
 
         try:
             #we can get 'layout' or 'layout (variant)'
-            (layout, variant) = _parse_layout_variant(layout)
+            (layout, variant) = parse_layout_variant(layout)
         except InvalidLayoutVariantSpec as ilverr:
             raise XklWrapperError("Failed to add layout: %s" % ilverr)
 
@@ -640,7 +640,7 @@ class XklWrapper(object):
         """
 
         #we can get 'layout' or 'layout (variant)'
-        (layout, variant) = _parse_layout_variant(layout)
+        (layout, variant) = parse_layout_variant(layout)
 
         layouts_variants = zip(self._rec.layouts, self._rec.variants)
 
@@ -674,7 +674,7 @@ class XklWrapper(object):
         new_variants = list()
 
         for layout_variant in layouts_list:
-            (layout, variant) = _parse_layout_variant(layout_variant)
+            (layout, variant) = parse_layout_variant(layout_variant)
             new_layouts.append(layout)
             new_variants.append(variant)
 
@@ -855,7 +855,7 @@ class LocaledWrapper(object):
         variants = []
 
         for layout_variant in layouts_variants:
-            (layout, variant) = _parse_layout_variant(layout_variant)
+            (layout, variant) = parse_layout_variant(layout_variant)
             layouts.append(layout)
             variants.append(variant)
 
