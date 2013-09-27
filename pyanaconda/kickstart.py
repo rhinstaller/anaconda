@@ -369,6 +369,15 @@ class BTRFSData(commands.btrfs.F17_BTRFSData):
         if self.mountpoint != "" and self.mountpoint[0] != '/':
             raise KickstartValueError, formatErrorMsg(self.lineno, msg="The mount point \"%s\" is not valid." % (self.mountpoint,))
 
+        # If a previous device has claimed this mount point, delete the
+        # old one.
+        try:
+            if self.mountpoint:
+                device = storage.mountpoints[self.mountpoint]
+                storage.destroyDevice(device)
+        except KeyError:
+            pass
+
         if self.preexist:
             device = devicetree.getDeviceByName(self.name)
             if not device:
@@ -376,16 +385,9 @@ class BTRFSData(commands.btrfs.F17_BTRFSData):
 
             if not device:
                 raise KickstartValueError, formatErrorMsg(self.lineno, msg="Specified nonexistent BTRFS volume %s in btrfs command" % self.name)
-        else:
-            # If a previous device has claimed this mount point, delete the
-            # old one.
-            try:
-                if self.mountpoint:
-                    device = storage.mountpoints[self.mountpoint]
-                    storage.destroyDevice(device)
-            except KeyError:
-                pass
 
+            device.mountpoint = self.mountpoint
+        else:
             request = storage.newBTRFS(name=name,
                                        subvol=self.subvol,
                                        mountpoint=self.mountpoint,
