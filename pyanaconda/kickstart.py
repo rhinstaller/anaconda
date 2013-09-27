@@ -264,6 +264,9 @@ class AutoPart(commands.autopart.F20_AutoPart):
 
 class Bootloader(commands.bootloader.F19_Bootloader):
     def execute(self, storage, ksdata, instClass):
+        if flags.imageInstall and blivet.arch.isS390():
+            self.location = "none"
+
         if self.location == "none":
             location = None
         elif self.location == "partition":
