@@ -59,13 +59,16 @@ class PODict(collections.Mapping):
     def __len__(self):
         return len(self._dict)
 
-def is_exception(node, language=None):
-    if language:
-        comment_str = "check_accelerators(%s)" % language
-    else:
-        comment_str = "check_accelerators"
+def is_exception(node, conflicting_node, language=None):
+    # Check for a comment of the form
+    # <!-- check_accelerators: <conflicting-node-id> -->
+    # The node passed in is the label property of the widget rather than the
+    # <object> node itself, so we actually want the id attribute of the parent node.
+    for comment in node.xpath("./preceding-sibling::comment()[contains(., 'check_accelerators:')]"):
+        if comment.text.split(":")[1].strip() == conflicting_node.getparent().attrib['id']:
+            return True
 
-    return bool(node.xpath("./parent::*/comment()[contains(., '%s')]" % comment_str))
+    return False
 
 def add_check_accel(glade_filename, accels, label, po_map):
     """Check whether an accelerator conflicts with existing accelerators.
@@ -85,7 +88,7 @@ def add_check_accel(glade_filename, accels, label, po_map):
         accel = match.group('accel').lower()
         if accel in accels:
             # Check for an exception comment
-            if is_exception(label, language):
+            if is_exception(label, accels[accel]):
                 return
 
             if language:

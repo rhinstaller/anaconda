@@ -693,7 +693,7 @@
                     </child>
                     <child>
                       <object class="GtkButton" id="verifyIsoButton">
-                        <!-- check_accelerators: not active at same time as verifyMediaButton -->
+                        <!-- check_accelerators: verifyMediaButton -->
                         <property name="label" translatable="yes">_Verify</property>
                         <property name="visible">True</property>
                         <property name="sensitive">False</property>
