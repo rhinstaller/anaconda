@@ -362,8 +362,7 @@ class AutoPartSpoke(NormalTUISpoke):
             number = int(key)
             self.clearPartType = PARTTYPES[self.parttypelist[number -1]]
             self.apply()
-            self.close()
-            return False
+            return None
 
         except (ValueError, KeyError, IndexError):
             return key
