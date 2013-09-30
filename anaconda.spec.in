@@ -255,6 +255,21 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Mon Sep 30 2013 Samantha N. Bueno <sbueno+anaconda@redhat.com> - 19.31.21-1
+- Move DEFAULT_VC_FONT to constants (vpodzime)
+  Resolves: rhbz#1012811
+- Fix issue where spoke returns to hub early in text mode. (sbueno+anaconda)
+  Resolves: rhbz#979375
+- Don't confuse users by misleading tooltip (vpodzime)
+  Resolves: rhbz#1011112
+- Display newly created partitions without a mountpoint, too (clumens).
+  Resolves: rhbz#886039
+- If the full device path is given in repo=hd:, still select it in the UI
+  (clumens).
+  Resolves: rhbz#980479
+- tui ErrorDialog needs to be modal (bcl)
+  Resolves: rhbz#983316
+
 * Thu Sep 26 2013 Brian C. Lane <bcl@redhat.com> - 19.31.20-1
 - Encrypt normal user passwords when doing text install. (sbueno+anaconda)
   Resolves: rhbz#1012028
