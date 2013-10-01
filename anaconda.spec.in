@@ -255,6 +255,12 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Oct 01 2013 Brian C. Lane <bcl@redhat.com> - 19.31.22-1
+- Moved the NFS nolock option into Payload._setupNFS (dshea)
+  Resolves: rhbz#1001593
+- Don't try to parse langcode if none given (vpodzime)
+  Resolves: rhbz#1013955
+
 * Mon Sep 30 2013 Samantha N. Bueno <sbueno+anaconda@redhat.com> - 19.31.21-1
 - Move DEFAULT_VC_FONT to constants (vpodzime)
   Resolves: rhbz#1012811
