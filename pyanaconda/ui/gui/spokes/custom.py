@@ -1869,7 +1869,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
             dialog.refresh(self.__storage.devicetree.findActions())
             rc = dialog.run()
 
-        if rc == 0:
+        if rc != int(Gtk.ResponseType.ACCEPT): 
             # Cancel.  Stay on the custom screen.
             return
 
