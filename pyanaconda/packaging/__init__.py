@@ -521,6 +521,11 @@ class Payload(object):
         # mount the specified directory
         url = "%s:%s" % (server, path)
 
+        if not options:
+            options = "nolock"
+        elif "nolock" not in options:
+            options += ",nolock"
+
         try:
             blivet.util.mount(url, mountpoint, fstype="nfs", options=options)
         except OSError as e:
