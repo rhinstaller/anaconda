@@ -98,6 +98,10 @@ class PasswordSpoke(FirstbootSpokeMixIn, NormalSpoke):
         self.pw_bar.add_offset_value("high", 4)
 
     def refresh(self):
+        # Enable the input checks in case they were disabled on the last exit
+        for check in self.checks:
+            check.enable()
+
         self.pw.grab_focus()
         self.pw.emit("changed")
 
@@ -117,7 +121,7 @@ class PasswordSpoke(FirstbootSpokeMixIn, NormalSpoke):
 
     def apply(self):
         pw = self.pw.get_text()
-        if (not pw) and (self._kickstarted):
+        if not pw:
             return
 
         self.data.rootpw.password = cryptPassword(pw)
@@ -248,5 +252,10 @@ class PasswordSpoke(FirstbootSpokeMixIn, NormalSpoke):
         # Add a click and re-check the password strength
         self._waivePasswordClicks += 1
         self._pwStrengthCheck.update_check_status()
+
+        # If neither the password nor the confirm field are set, skip the checks
+        if (not self.pw.get_text()) and (not self.confirm.get_text()):
+            for check in self.checks:
+                check.disable()
 
         NormalSpoke.on_back_clicked(self, button)
