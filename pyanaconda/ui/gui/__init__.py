@@ -294,9 +294,6 @@ class GUIObject(common.UIObject):
            the set_error function. By default, set_error will call
            self.set_warning with the status of the first failed check.
 
-           Checks are not enabled when they are created. To activate the
-           check, call .enable() on the returned GUICheck object.
-        
            :param editable: the input field to validate
            :type editable: GtkEditable
 
