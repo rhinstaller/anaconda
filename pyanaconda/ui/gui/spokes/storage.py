@@ -63,6 +63,7 @@ from pyanaconda.product import productName
 from pyanaconda.flags import flags
 from pyanaconda.i18n import _, N_, P_
 from pyanaconda import constants
+from pyanaconda.bootloader import BootLoaderError
 
 from pykickstart.constants import *
 
@@ -391,7 +392,7 @@ class StorageSpoke(NormalSpoke, StorageChecker):
         hubQ.send_message(self.__class__.__name__, _("Saving storage configuration..."))
         try:
             doKickstartStorage(self.storage, self.data, self.instclass)
-        except StorageError as e:
+        except (StorageError, BootLoaderError) as e:
             log.error("storage configuration failed: %s" % e)
             StorageChecker.errors = str(e).split("\n")
             hubQ.send_message(self.__class__.__name__, _("Failed to save storage configuration..."))

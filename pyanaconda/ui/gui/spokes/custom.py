@@ -37,6 +37,7 @@ from pyanaconda.i18n import _, N_, P_
 from pyanaconda.product import productName, productVersion
 from pyanaconda.threads import AnacondaThread, threadMgr
 from pyanaconda.constants import THREAD_EXECUTE_STORAGE, THREAD_STORAGE, THREAD_CUSTOM_STORAGE_INIT
+from pyanaconda.bootloader import BootLoaderError
 
 from blivet import devicefactory
 from blivet.formats import device_formats
@@ -647,10 +648,14 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
 
                 self.storage.savePassphrase(device)
 
-        # set up bootloader and check the configuration
-        self.storage.setUpBootLoader()
-
         StorageChecker.errors = []
+        # set up bootloader and check the configuration
+        try:
+            self.storage.setUpBootLoader()
+        except BootLoaderError as e:
+            log.error("storage configuration failed: %s" % e)
+            StorageChecker.errors = str(e).split("\n")
+
         StorageChecker.run(self)
         hubQ.send_ready("StorageSpoke", True)
 
@@ -2487,7 +2492,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
                 self._error = e
                 self.set_error(_("Not enough free space on selected disks."))
                 self.window.show_all()
-            except StorageError as e:
+            except (StorageError, BootLoaderError) as e:
                 log.error("doAutoPartition failed: %s" % e)
                 self._reset_storage()
                 self._error = e
