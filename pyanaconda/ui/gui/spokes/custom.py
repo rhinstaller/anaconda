@@ -926,20 +926,8 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         # of the pykickstart AUTOPART_TYPE_* constants are the same.
         self.data.autopart.type = autopartTypeCombo.get_active()
 
-    def _do_refresh(self, mountpointToShow=None):
-        # block mountpoint selector signal handler for now
-        self._initialized = False
-        self._clear_current_selector()
-
-        # Make sure we start with a clean slate.
-        self._accordion.removeAllPages()
-
-        # Start with buttons disabled, since nothing is selected.
-        self._removeButton.set_sensitive(False)
-        self._configButton.set_sensitive(False)
-
-        # Now it's time to populate the accordion.
-
+    @property
+    def new_devices(self):
         # A device scheduled for formatting only belongs in the new root.
         new_devices = [d for d in self._devices if (d.isleaf or
                                                     d.type.startswith("btrfs"))
@@ -958,15 +946,30 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
 
         new_devices = list(set(new_devices))
 
+        return new_devices
+
+    def _do_refresh(self, mountpointToShow=None):
+        # block mountpoint selector signal handler for now
+        self._initialized = False
+        self._clear_current_selector()
+
+        # Make sure we start with a clean slate.
+        self._accordion.removeAllPages()
+
+        # Start with buttons disabled, since nothing is selected.
+        self._removeButton.set_sensitive(False)
+        self._configButton.set_sensitive(False)
+
+        # Now it's time to populate the accordion.
         log.debug("ui: devices=%s", [d.name for d in self._devices])
         log.debug("ui: unused=%s", [d.name for d in self.unusedDevices])
-        log.debug("ui: new_devices=%s", [d.name for d in new_devices])
+        log.debug("ui: new_devices=%s", [d.name for d in self.new_devices])
 
         ui_roots = self.__storage.roots[:]
 
         # If we've not yet run autopart, add an instance of CreateNewPage.  This
         # ensures it's only added once.
-        if not new_devices:
+        if not self.new_devices:
             page = CreateNewPage(self.translated_new_install_name,
                                  self.on_create_clicked,
                                  self._change_autopart_type,
@@ -979,11 +982,11 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
                     "view their details here.") % {"name" : productName,
                                                    "version" : productVersion})   
         else:
-            swaps = [d for d in new_devices if d.format.type == "swap"]
-            mounts = dict((d.format.mountpoint, d) for d in new_devices
+            swaps = [d for d in self.new_devices if d.format.type == "swap"]
+            mounts = dict((d.format.mountpoint, d) for d in self.new_devices
                                 if getattr(d.format, "mountpoint", None))
 
-            for device in new_devices:
+            for device in self.new_devices:
                 if device in self.bootLoaderDevices:
                     mounts[device.format.type] = device
 
