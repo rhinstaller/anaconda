@@ -41,6 +41,9 @@ class MediaUnmountError(Exception):
 class ScriptError(Exception):
     pass
 
+class RemovedModuleError(ImportError):
+    pass
+
 # These constants are returned by the callback in the ErrorHandler class.
 # Each represents a different kind of action the caller can take:
 #

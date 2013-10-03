@@ -28,6 +28,7 @@ import sys
 import types
 
 from pyanaconda.constants import ANACONDA_ENVIRON, FIRSTBOOT_ENVIRON
+from pyanaconda.errors import RemovedModuleError
 from pykickstart.constants import FIRSTBOOT_RECONFIG
 
 import logging
@@ -597,6 +598,10 @@ def collect(module_pattern, path, pred):
             # skip the file as well
             if not module_flags[0].startswith(".py") and loaded_ext.startswith(".py"):
                 continue
+
+        except RemovedModuleError:
+            # collected some removed module
+            continue
 
         except ImportError as imperr:
             if "pyanaconda" in module_path:
