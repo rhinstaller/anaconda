@@ -29,7 +29,10 @@ from pyanaconda.ui.common import FirstbootSpokeMixIn
 from pyanaconda.ui.gui.utils import enlightbox
 
 from pykickstart.constants import FIRSTBOOT_RECONFIG
-from pyanaconda.constants import ANACONDA_ENVIRON, FIRSTBOOT_ENVIRON
+from pyanaconda.constants import ANACONDA_ENVIRON, FIRSTBOOT_ENVIRON,\
+        PASSWORD_EMPTY_ERROR, PASSWORD_CONFIRM_ERROR_GUI, PASSWORD_STRENGTH_DESC,\
+        PASSWORD_WEAK, PASSWORD_WEAK_WITH_ERROR, PASSWORD_WEAK_CONFIRM,\
+        PASSWORD_WEAK_CONFIRM_WITH_ERROR
 from pyanaconda.regexes import GECOS_VALID, USERNAME_VALID, GROUPNAME_VALID, GROUPLIST_FANCY_PARSE
 
 import pwquality
@@ -416,19 +419,15 @@ class UserSpoke(FirstbootSpokeMixIn, NormalSpoke):
 
         if not pwtext:
             val = 0
-            text = _("Empty")
         elif strength < 50:
             val = 1
-            text = _("Weak")
         elif strength < 75:
             val = 2
-            text = _("Fair")
         elif strength < 90:
             val = 3
-            text = _("Good")
         else:
             val = 4
-            text = _("Strong")
+        text = PASSWORD_STRENGTH_DESC[val]
 
         self.pw_bar.set_value(val)
         self.pw_label.set_text(text)
@@ -483,9 +482,9 @@ class UserSpoke(FirstbootSpokeMixIn, NormalSpoke):
             return GUICheck.CHECK_OK
         elif not editable.get_text():
             if editable == self.pw:
-                return _("The password is empty")
+                return PASSWORD_EMPTY_ERROR
             else:
-                return _("The passwords do not match.")
+                return PASSWORD_CONFIRM_ERROR_GUI
         else:
             return GUICheck.CHECK_OK
 
@@ -500,14 +499,14 @@ class UserSpoke(FirstbootSpokeMixIn, NormalSpoke):
         
         # Skip the check if no password is required
         if (not self.usepassword.get_active()) or self._user.password_kickstarted:
-            result = None
+            result = GUICheck.CHECK_OK
         elif self.confirm.get_text() and (self.pw.get_text() != self.confirm.get_text()):
-            result = _("The passwords do not match.")
+            result = PASSWORD_CONFIRM_ERROR_GUI
         else:
-            result = None
+            result = GUICheck.CHECK_OK
 
         # If the check succeeded, reset the status of the other check object
-        if result is None:
+        if result == GUICheck.CHECK_OK:
             if editable == self.confirm:
                 self._password_check.update_check_status(check_data=True)
             else:
@@ -546,19 +545,14 @@ class UserSpoke(FirstbootSpokeMixIn, NormalSpoke):
                 return GUICheck.CHECK_OK
             elif self._waivePasswordClicks == 1:
                 if self._pwq_error:
-                    return _("You have provided a weak password: %s. "
-                            " Press Done again to use anyway.") % self._pwq_error
+                    return PASSWORD_WEAK_CONFIRM_WITH_ERROR % self._pwq_error
                 else:
-                    return _("You have provided a weak password. "
-                            " Press Done again to use anyway.")
+                    return PASSWORD_WEAK_CONFIRM
             else:
-                error = _("The password you have provided is weak")
                 if self._pwq_error:
-                    error += ": %s. " % self._pwq_error
+                    return PASSWORD_WEAK_WITH_ERROR % self._pwq_error
                 else:
-                    error += ". "
-                error += _("You will have to press Done twice to confirm it.")
-                return error
+                    return PASSWORD_WEAK
         else:
             return GUICheck.CHECK_OK
 

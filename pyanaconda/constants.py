@@ -130,3 +130,14 @@ FIRSTBOOT_ENVIRON = "firstboot"
 
 # Tainted hardware
 UNSUPPORTED_HW = 1 << 28
+
+# Password validation
+PASSWORD_EMPTY_ERROR = _("The password is empty.")
+PASSWORD_CONFIRM_ERROR_GUI = _("The passwords do not match.")
+PASSWORD_CONFIRM_ERROR_TUI = _("The passwords you entered were different.  Please try again.")
+PASSWORD_WEAK = _("The password you have provided is weak. You will have to press Done twice to confirm it.")
+PASSWORD_WEAK_WITH_ERROR = _("The password you have provided is weak: %s. You will have to press Done twice to confirm it.")
+PASSWORD_WEAK_CONFIRM = _("You have provided a weak password. Press Done again to use anyway.")
+PASSWORD_WEAK_CONFIRM_WITH_ERROR = _("You have provided a weak password: %s. Press Done again to use anyway.")
+
+PASSWORD_STRENGTH_DESC = [_("Empty"), _("Weak"), _("Fair"), _("Good"), _("Strong")]

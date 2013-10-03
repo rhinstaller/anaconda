@@ -27,6 +27,10 @@ from pyanaconda.ui.gui.spokes import NormalSpoke
 from pyanaconda.ui.gui.categories.user_settings import UserSettingsCategory
 from pyanaconda.ui.common import FirstbootSpokeMixIn
 
+from pyanaconda.constants import PASSWORD_EMPTY_ERROR, PASSWORD_CONFIRM_ERROR_GUI,\
+        PASSWORD_STRENGTH_DESC, PASSWORD_WEAK, PASSWORD_WEAK_WITH_ERROR,\
+        PASSWORD_WEAK_CONFIRM_WITH_ERROR
+
 __all__ = ["PasswordSpoke"]
 
 
@@ -120,32 +124,27 @@ class PasswordSpoke(FirstbootSpokeMixIn, NormalSpoke):
 
         if strength < 50:
             val = 1
-            text = _("Weak")
-            self._error = _("The password you have provided is weak")
             if _pwq_error:
-                self._error += ": %s. " % _pwq_error
+                self._error = PASSWORD_WEAK_WITH_ERROR % _pwq_error
             else:
-                self._error += ". "
-            self._error += _("You will have to press Done twice to confirm it.")
+                self._error = PASSWORD_WEAK
         elif strength < 75:
             val = 2
-            text = _("Fair")
             self._error = False
         elif strength < 90:
             val = 3
-            text = _("Good")
             self._error = False
         else:
             val = 4
-            text = _("Strong")
             self._error = False
 
         if not self.pw.get_text():
             val = 0
-            text = _("Empty")
-            self._error = _("The password is empty.")
+            self._error = PASSWORD_EMPTY_ERROR
         elif self.confirm.get_text() and self.pw.get_text() != self.confirm.get_text():
-            self._error = _("The passwords do not match.")
+            self._error = PASSWORD_CONFIRM_ERROR_GUI
+
+        text = PASSWORD_STRENGTH_DESC[val]
 
         self.pw_bar.set_value(val)
         self.pw_label.set_text(text)
@@ -180,8 +179,7 @@ class PasswordSpoke(FirstbootSpokeMixIn, NormalSpoke):
                 # We got a second attempt with the same weak password
                 pass
             else:
-                self._error = _("You have provided a weak password: %s. "
-                                " Press Done again to use anyway.") % e[1]
+                self._error = PASSWORD_WEAK_CONFIRM_WITH_ERROR % e[1]
                 self._oldweak = pw
                 return False
 

@@ -30,6 +30,7 @@ from pyanaconda import iutil
 import pwquality
 from pyanaconda.iutil import strip_accents
 from pyanaconda.i18n import _
+from pyanaconda.constants import PASSWORD_CONFIRM_ERROR_TUI
 
 import logging
 log = logging.getLogger("anaconda")
@@ -125,8 +126,7 @@ def validatePassword(pw, confirm=None, minlen=6, user="root"):
         return error
 
     if confirm != None and pw != confirm:
-        error = _("The passwords you entered were "
-                  "different.  Please try again.")
+        error = PASSWORD_CONFIRM_ERROR_TUI
         return error
 
     legal = string.digits + string.ascii_letters + string.punctuation + " "
