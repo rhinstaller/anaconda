@@ -274,15 +274,23 @@ class BootLoader(object):
         # default image
         self._default_image = None
 
+        self._update_only = False
+        self.skip_bootloader = False
+
+        self.errors = []
+        self.warnings = []
+
+        self.reset()
+
+    def reset(self):
+        """ Reset stage1 and stage2 values """
         # the device the bootloader will be installed on
         self.stage1_device = None
 
         # the "boot disk", meaning the disk stage1 _will_ go on
         self.stage1_disk = None
 
-        self._update_only = False
-        self.skip_bootloader = False
-
+        self.stage2_device = None
         self.stage2_is_preferred_stage1 = False
 
         self.errors = []
@@ -634,6 +642,7 @@ class BootLoader(object):
     def set_stage1_device(self, devices):
         self.stage1_device = None
         if not self.stage1_disk:
+            self.reset()
             raise BootLoaderError("need stage1 disk to set stage1 device")
 
         if self.stage2_is_preferred_stage1:
@@ -649,6 +658,7 @@ class BootLoader(object):
                 break
 
         if not self.stage1_device:
+            self.reset()
             raise BootLoaderError("failed to find a suitable stage1 device")
 
     #

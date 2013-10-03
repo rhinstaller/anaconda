@@ -65,6 +65,7 @@ from pyanaconda import constants
 from pyanaconda.bootloader import BootLoaderError
 
 from pykickstart.constants import CLEARPART_TYPE_NONE, AUTOPART_TYPE_LVM
+from pykickstart.errors import KickstartValueError
 
 import sys
 
@@ -389,9 +390,8 @@ class StorageSpoke(NormalSpoke, StorageChecker):
 
         if self.data.bootloader.bootDrive and \
            self.data.bootloader.bootDrive not in self.selected_disks:
-            self.data.bootloader.bootDrive = None
-            self.storage.bootloader.stage1_disk = None
-            self.storage.bootloader.stage1_device = None
+            self.data.bootloader.bootDrive = ""
+            self.storage.bootloader.reset()
 
         self.data.clearpart.initAll = True
         self.data.clearpart.type = self.clearPartType
@@ -419,10 +419,11 @@ class StorageSpoke(NormalSpoke, StorageChecker):
         hubQ.send_message(self.__class__.__name__, _("Saving storage configuration..."))
         try:
             doKickstartStorage(self.storage, self.data, self.instclass)
-        except (StorageError, BootLoaderError) as e:
+        except (StorageError, BootLoaderError, KickstartValueError) as e:
             log.error("storage configuration failed: %s", e)
             StorageChecker.errors = str(e).split("\n")
             hubQ.send_message(self.__class__.__name__, _("Failed to save storage configuration..."))
+            self.data.bootloader.bootDrive = ""
             self.data.ignoredisk.drives = []
             self.data.ignoredisk.onlyuse = []
             self.storage.config.update(self.data)

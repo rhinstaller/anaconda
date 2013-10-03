@@ -686,6 +686,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         except BootLoaderError as e:
             log.error("storage configuration failed: %s", e)
             StorageChecker.errors = str(e).split("\n")
+            self.data.bootloader.bootDrive = ""
 
         StorageChecker.run(self)
         hubQ.send_ready("StorageSpoke", True)
