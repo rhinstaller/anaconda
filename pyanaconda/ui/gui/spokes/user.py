@@ -414,7 +414,7 @@ class UserSpoke(FirstbootSpokeMixIn, NormalSpoke):
             strength = self._pwq.check(pwtext, None, None)
             self._pwq_error = None
         except pwquality.PWQError as e:
-            self._pwq_error = e.message
+            self._pwq_error = e[1]
             strength = 0
 
         if not pwtext:
