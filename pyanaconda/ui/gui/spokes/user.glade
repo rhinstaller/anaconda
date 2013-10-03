@@ -102,7 +102,7 @@
                         <property name="invisible_char">●</property>
                         <property name="invisible_char_set">True</property>
                         <property name="caps_lock_warning">False</property>
-                        <signal name="changed" handler="_guessNames" swapped="no"/>
+                        <signal name="changed" handler="full_name_changed" swapped="no"/>
                       </object>
                       <packing>
                         <property name="left_attach">1</property>
@@ -117,7 +117,7 @@
                         <property name="can_focus">True</property>
                         <property name="invisible_char">●</property>
                         <property name="invisible_char_set">True</property>
-                        <signal name="changed" handler="_guessNameDisabler" swapped="no"/>
+                        <signal name="changed" handler="username_changed" swapped="no"/>
                       </object>
                       <packing>
                         <property name="left_attach">1</property>
@@ -172,7 +172,7 @@
                         <property name="can_focus">True</property>
                         <property name="visibility">False</property>
                         <property name="invisible_char">●</property>
-                        <signal name="changed" handler="_updatePwQuality" swapped="no"/>
+                        <signal name="changed" handler="password_changed" swapped="no"/>
                       </object>
                       <packing>
                         <property name="left_attach">1</property>
@@ -219,7 +219,7 @@
                         <property name="xalign">0</property>
                         <property name="active">True</property>
                         <property name="draw_indicator">True</property>
-                        <signal name="toggled" handler="_passwordDisabler" swapped="no"/>
+                        <signal name="toggled" handler="usepassword_toggled" swapped="no"/>
                       </object>
                       <packing>
                         <property name="left_attach">1</property>

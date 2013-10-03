@@ -281,7 +281,7 @@ class UserSpoke(FirstbootSpokeMixIn, NormalSpoke):
         # - if a password is specified and there is data in the confirm box, do they match?
         # - if a password is specified and the confirm box is empty or match, how strong is it?
         # - if a password is required, is there any data in the confirm box?
-        self.add_check(self.pw, self._checkPasswordEmpty, None)
+        self.add_check(self.pw, self._checkPasswordEmpty)
         
         # The password confirmation needs to be checked whenever either of the password
         # fields change. Separate checks are created on each field so that edits on
@@ -289,14 +289,14 @@ class UserSpoke(FirstbootSpokeMixIn, NormalSpoke):
         # when Done is clicked. Whichever check is run needs to run the other check in
         # order to reset the status. The check_data field is used as a flag to prevent
         # infinite recursion.
-        self._confirm_check = self.add_check(self.confirm, self._checkPasswordConfirm, None)
-        self._password_check = self.add_check(self.pw, self._checkPasswordConfirm, None)
+        self._confirm_check = self.add_check(self.confirm, self._checkPasswordConfirm)
+        self._password_check = self.add_check(self.pw, self._checkPasswordConfirm)
 
         # Keep a reference to this check, since it has to be manually run for the
         # click Done twice check.
-        self._pwStrengthCheck = self.add_check(self.pw, self._checkPasswordStrength, None)
+        self._pwStrengthCheck = self.add_check(self.pw, self._checkPasswordStrength)
 
-        self.add_check(self.confirm, self._checkPasswordEmpty, None)
+        self.add_check(self.confirm, self._checkPasswordEmpty)
 
         # Allow empty usernames so the spoke can be exited without creating a user
         self.add_check(self.username, _checkUsername,
@@ -400,7 +400,7 @@ class UserSpoke(FirstbootSpokeMixIn, NormalSpoke):
     def completed(self):
         return len(self.data.user.userList) > 0
 
-    def _updatePwQuality(self, editable=None, data=None):
+    def password_changed(self, editable=None, data=None):
         """This method updates the password indicators according
         to the password entered by the user. It is called by
         the changed Gtk event handler.
@@ -436,7 +436,7 @@ class UserSpoke(FirstbootSpokeMixIn, NormalSpoke):
         self.pw_bar.set_value(val)
         self.pw_label.set_text(text)
 
-    def _passwordDisabler(self, editable = None, data = None):
+    def usepassword_toggled(self, togglebutton = None, data = None):
         """Called by Gtk callback when the "Use password" check
         button is toggled. It will make password entries in/sensitive."""
 
@@ -445,7 +445,7 @@ class UserSpoke(FirstbootSpokeMixIn, NormalSpoke):
         self.pw.emit("changed")
         self.confirm.emit("changed")
 
-    def _guessNameDisabler(self, editable = None, data = None):
+    def username_changed(self, editable = None, data = None):
         """Called by Gtk callback when the username or hostname
         entry changes. It disables the guess algorithm if the
         user added his own text there and reenable it when the
@@ -458,7 +458,7 @@ class UserSpoke(FirstbootSpokeMixIn, NormalSpoke):
             self.guesser[editable] = False
             self.b_advanced.set_sensitive(True)
 
-    def _guessNames(self, editable = None, data = None):
+    def full_name_changed(self, editable = None, data = None):
         """Called by Gtk callback when the full name field changes.
         It guesses the username and hostname, strips diacritics
         and make those lowercase.
@@ -565,7 +565,7 @@ class UserSpoke(FirstbootSpokeMixIn, NormalSpoke):
         else:
             return None
 
-    def on_advanced_clicked(self, _button):
+    def on_advanced_clicked(self, _button, data=None):
         """Handler for the Advanced.. button. It starts the Advanced dialog
         for setting homedit, uid, gid and groups.
         """
