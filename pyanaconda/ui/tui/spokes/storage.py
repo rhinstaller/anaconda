@@ -37,6 +37,7 @@ from pyanaconda.i18n import _, P_
 from pyanaconda.bootloader import BootLoaderError
 
 from pykickstart.constants import CLEARPART_TYPE_ALL, CLEARPART_TYPE_LINUX, CLEARPART_TYPE_NONE
+from pykickstart.errors import KickstartValueError
 
 import logging
 log = logging.getLogger("anaconda")
@@ -252,10 +253,11 @@ class StorageSpoke(NormalTUISpoke):
         print(_("Generating updated storage configuration"))
         try:
             doKickstartStorage(self.storage, self.data, self.instclass)
-        except (StorageError, BootLoaderError) as e:
+        except (StorageError, BootLoaderError, KickstartValueError) as e:
             log.error("storage configuration failed: %s" % e)
             print _("storage configuration failed: %s") % e
             self.errors = [str(e)]
+            self.data.bootloader.bootDrive = ""
             self.data.clearpart.type = CLEARPART_TYPE_ALL
             self.data.clearpart.initAll = False
             self.storage.config.update(self.data)
