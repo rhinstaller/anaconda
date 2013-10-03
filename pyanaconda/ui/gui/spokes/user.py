@@ -220,7 +220,6 @@ class UserSpoke(FirstbootSpokeMixIn, NormalSpoke):
     def __init__(self, *args):
         NormalSpoke.__init__(self, *args)
         self._oldweak = None
-        self._error = False
 
     def initialize(self):
         NormalSpoke.initialize(self)
@@ -332,9 +331,7 @@ class UserSpoke(FirstbootSpokeMixIn, NormalSpoke):
 
     @property
     def status(self):
-        if self._error:
-            return _("Error creating user account: %s") % self._error
-        elif len(self.data.user.userList) == 0:
+        if len(self.data.user.userList) == 0:
             return _("No user will be created")
         elif self._wheel.name in self.data.user.userList[0].groups:
             return _("Administrator %s will be created") % self.data.user.userList[0].name
