@@ -346,7 +346,7 @@ EOF
 
     # Remove some modules and firmware on ppc64 so the ramdisk image
     # is <= 32MB (BZ #675685)
-    if [ "$BUILDARCH" = "ppc64" ]; then
+    if [ "$BUILDARCH" = "ppc" -o "$BUILDARCH" = "ppc64" ]; then
         for subdir in firewire pcmcia sound wireless ; do
             find -H $MMB_DIR/lib/modules -name $subdir | xargs rm -rf
         done
