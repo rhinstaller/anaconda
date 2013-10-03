@@ -805,11 +805,6 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         return unused_devices
 
     @property
-    def existingSwaps(self):
-        return [d for d in self._devices
-                    if d.format.type == "swap" and d.format.exists]
-
-    @property
     def bootLoaderDevices(self):
         devices = []
         format_types = ["biosboot", "prepboot"]
@@ -941,7 +936,6 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         new_mounts = [d for d in self.__storage.mountpoints.values() if d.exists]
         if new_mounts or new_devices:
             new_devices.extend(self.__storage.mountpoints.values())
-            new_devices.extend(self.existingSwaps)
             new_devices.extend(self.bootLoaderDevices)
 
         new_devices = list(set(new_devices))
@@ -1081,9 +1075,6 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
 
             page = Page(self.translated_new_install_name)
             expander.add(page)
-
-            # pull in all the existing swap devices
-            devices.extend(self.existingSwaps)
 
             # also pull in biosboot and prepboot that are on our boot disk
             devices.extend(self.bootLoaderDevices)
