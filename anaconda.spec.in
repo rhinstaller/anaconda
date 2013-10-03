@@ -222,6 +222,15 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Thu Oct 03 2013 David Cantrell <dcantrell@redhat.com> - 13.21.208-1
+- Catch BUILDARCH set to 'ppc' or 'ppc64' when trimming down the image.
+  (dcantrell)
+  Related: rhbz#1014719
+- Move and fix the ppc64 image size check (dshea)
+  Resolves: rhbz#1014719
+- Whitespace changes for mk-images.ppc (dshea)
+  Related: rhbz#1014719
+
 * Thu Sep 26 2013 Samantha N. Bueno <sbueno+anaconda@redhat.com> - 13.21.207-1
 - Remove firmware from the boot image that does not apply to ppc64 (dcantrell)
   Resolves: rhbz#1006043
