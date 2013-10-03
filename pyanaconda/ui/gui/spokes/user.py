@@ -395,10 +395,9 @@ class UserSpoke(FirstbootSpokeMixIn, NormalSpoke):
     def completed(self):
         return len(self.data.user.userList) > 0
 
-    def password_changed(self, editable=None, data=None):
+    def _updatePwQuality(self):
         """This method updates the password indicators according
-        to the password entered by the user. It is called by
-        the changed Gtk event handler.
+        to the password entered by the user.
         """
         pwtext = self.pw.get_text()
         username = self.username.get_text()
@@ -429,8 +428,13 @@ class UserSpoke(FirstbootSpokeMixIn, NormalSpoke):
 
         self.pw.set_sensitive(self.usepassword.get_active())
         self.confirm.set_sensitive(self.usepassword.get_active())
+
+        # Re-check the password
         self.pw.emit("changed")
-        self.confirm.emit("changed")
+
+    def password_changed(self, editable=None, data=None):
+        """Update the password strength level bar"""
+        self._updatePwQuality()
 
     def username_changed(self, editable = None, data = None):
         """Called by Gtk callback when the username or hostname
@@ -445,16 +449,19 @@ class UserSpoke(FirstbootSpokeMixIn, NormalSpoke):
             self.guesser[editable] = False
             self.b_advanced.set_sensitive(True)
 
+            # Re-run the password checks against the new username
+            self.pw.emit("changed")
+
     def full_name_changed(self, editable = None, data = None):
         """Called by Gtk callback when the full name field changes.
         It guesses the username and hostname, strips diacritics
         and make those lowercase.
         """
-        fullname = self.fullname.get_text()
-        username = guess_username(fullname)
 
         # after the text is updated in guesser, the guess has to be reenabled
         if self.guesser[self.username]:
+            fullname = self.fullname.get_text()
+            username = guess_username(fullname)
             self.username.set_text(username)
             self.guesser[self.username] = True
 
