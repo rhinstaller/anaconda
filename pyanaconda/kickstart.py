@@ -376,6 +376,9 @@ class BTRFSData(commands.btrfs.F17_BTRFSData):
 
             if not device:
                 raise KickstartValueError(formatErrorMsg(self.lineno, msg="Specified nonexistent BTRFS volume %s in btrfs command" % self.name))
+
+            if ty == "swap":
+                storage.addFstabSwap(device)
         else:
             # If a previous device has claimed this mount point, delete the
             # old one.
@@ -394,6 +397,8 @@ class BTRFSData(commands.btrfs.F17_BTRFSData):
                                        parents=members)
 
             storage.createDevice(request)
+            if ty == "swap":
+                storage.addFstabSwap(request)
 
 
 class Realm(commands.realm.F19_Realm):
@@ -784,6 +789,8 @@ class LogVolData(commands.logvol.F20_LogVolData):
                             msg="Invalid target size (%d) for device %s" % (self.size, device.name)))
 
             devicetree.registerAction(ActionCreateFormat(device, fmt))
+            if ty == "swap":
+                storage.addFstabSwap(device)
         else:
             # If a previous device has claimed this mount point, delete the
             # old one.
@@ -817,6 +824,8 @@ class LogVolData(commands.logvol.F20_LogVolData):
                                     **pool_args)
 
             storage.createDevice(request)
+            if ty == "swap":
+                storage.addFstabSwap(request)
 
         if self.encrypted:
             if self.passphrase and not storage.encryptionPassphrase:
@@ -1055,6 +1064,8 @@ class PartitionData(commands.partition.F18_PartData):
                             msg="Invalid target size (%d) for device %s" % (self.size, device.name)))
 
             devicetree.registerAction(ActionCreateFormat(device, kwargs["format"]))
+            if ty == "swap":
+                storage.addFstabSwap(device)
         else:
             # If a previous device has claimed this mount point, delete the
             # old one.
@@ -1067,6 +1078,8 @@ class PartitionData(commands.partition.F18_PartData):
 
             request = storage.newPartition(**kwargs)
             storage.createDevice(request)
+            if ty == "swap":
+                storage.addFstabSwap(request)
 
         if self.encrypted:
             if self.passphrase and not storage.encryptionPassphrase:
