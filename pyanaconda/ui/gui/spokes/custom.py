@@ -1979,6 +1979,9 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         self.storage.devicetree.names = self.__storage.devicetree.names
         self.storage.roots = self.__storage.roots
 
+        new_swaps = (dev for dev in self.new_devices if dev.format.type == "swap")
+        self.storage.setFstabSwaps(new_swaps)
+
         # set up bootloader and check the configuration
         try:
             self.storage.setUpBootLoader()
