@@ -42,6 +42,9 @@ ANACONDA_WINDOW_GROUP = Gtk.WindowGroup()
 class GUICheck(object):
     """Handle an input validation check."""
 
+    # Use as a return value to indicate a passed check
+    CHECK_OK = None
+
     def __init__(self, parent, editable, run_check, check_data, set_error):
         """Create a new input validation check.
 
@@ -54,7 +57,7 @@ class GUICheck(object):
 
            :param run_check: The check function. The function is called as
                              check(editable, check_data). The return value is an
-                             error state object or None if the check succeeds.
+                             error state object or CHECK_OK if the check succeeds.
            :type run_check:  function
 
            :param check_data: An optional parameter passed to check().
@@ -299,8 +302,8 @@ class GUIObject(common.UIObject):
 
            :param run_check: a function called to validate the input field. The
                          parameters are (editable, check_data). The return
-                         value is an object used by update_check, or None
-                         if the check passes.
+                         value is an object used by update_check, or
+                         GUICheck.CHECK_OK if the check passes.
            :type run_check: function
            
            :param check_data: additional data to pass to the check function
@@ -408,8 +411,8 @@ class GUIDialog(GUIObject):
 
            :param run_check: a function called to validate the input field. The
                          parameters are (editable, check_data). The return
-                         value is an object used by update_check, or None
-                         if the check passes.
+                         value is an object used by update_check, or
+                         GUICheck.CHECK_OK if the check passes.
            :type run_check: function
            
            :param check_data: additional data to pass to the check function
@@ -806,9 +809,9 @@ def check_re(editable, data):
                     'regex' and 'message'.
        :type data:  dict
 
-       :returns: error_data if the check fails, otherwise None.
+       :returns: error_data if the check fails, otherwise GUICheck.CHECK_OK.
     """
     if data['regex'].match(editable.get_text()):
-        return None
+        return GUICheck.CHECK_OK
     else:
         return data['message']

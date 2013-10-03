@@ -23,7 +23,7 @@ from pyanaconda.i18n import _, N_
 from pyanaconda.users import cryptPassword, validatePassword, guess_username
 
 from pyanaconda.ui.gui.spokes import NormalSpoke
-from pyanaconda.ui.gui import GUIObject, GUIDialog, check_re
+from pyanaconda.ui.gui import GUIObject, GUIDialog, check_re, GUICheck
 from pyanaconda.ui.gui.categories.user_settings import UserSettingsCategory
 from pyanaconda.ui.common import FirstbootSpokeMixIn
 from pyanaconda.ui.gui.utils import enlightbox
@@ -39,7 +39,7 @@ __all__ = ["UserSpoke", "AdvancedUserDialog"]
 def _checkUsername(editable, data):
     """Validate a username. Allow empty usernames."""
     if not (editable.get_text()):
-        return None
+        return GUICheck.CHECK_OK
     else:
         return check_re(editable, data)
 
@@ -52,7 +52,7 @@ def _validateGroups(editable, data):
         if not GROUPNAME_VALID.match(group_name):
             return _("Invalid group name: %s") % group_name
 
-    return None
+    return GUICheck.CHECK_OK
 
 class AdvancedUserDialog(GUIDialog):
     builderObjects = ["advancedUserDialog", "uid", "gid"]
@@ -476,18 +476,18 @@ class UserSpoke(FirstbootSpokeMixIn, NormalSpoke):
 
         # If the password was set by kickstart, skip the strength check
         if self._user.password_kickstarted:
-            return True
+            return GUICheck.CHECK_OK
 
         # Skip the check if no password is required
         if (not self.usepassword.get_active()) or self._user.password_kickstarted:
-            return None
+            return GUICheck.CHECK_OK
         elif not editable.get_text():
             if editable == self.pw:
                 return _("The password is empty")
             else:
                 return _("The passwords do not match.")
         else:
-            return None
+            return GUICheck.CHECK_OK
 
     def _checkPasswordConfirm(self, editable=None, reset_status=None):
         """If the user has entered confirmation data, check whether it matches the password."""
@@ -496,7 +496,7 @@ class UserSpoke(FirstbootSpokeMixIn, NormalSpoke):
         # confirmation field. If this method is being run from a successful check
         # to reset the status, just return success
         if reset_status:
-            return None
+            return GUICheck.CHECK_OK
         
         # Skip the check if no password is required
         if (not self.usepassword.get_active()) or self._user.password_kickstarted:
@@ -529,7 +529,7 @@ class UserSpoke(FirstbootSpokeMixIn, NormalSpoke):
 
         # Skip the check if no password is required
         if (not self.usepassword.get_active()) or self._user.password_kickstarted:
-            return None
+            return GUICheck.CHECK_OK
 
         pwstrength = self.pw_bar.get_value()
         
@@ -543,7 +543,7 @@ class UserSpoke(FirstbootSpokeMixIn, NormalSpoke):
         if pwstrength < 2:
             # If Done has been clicked twice, waive the check
             if self._waivePasswordClicks > 1:
-                return None
+                return GUICheck.CHECK_OK
             elif self._waivePasswordClicks == 1:
                 if self._pwq_error:
                     return _("You have provided a weak password: %s. "
@@ -560,7 +560,7 @@ class UserSpoke(FirstbootSpokeMixIn, NormalSpoke):
                 error += _("You will have to press Done twice to confirm it.")
                 return error
         else:
-            return None
+            return GUICheck.CHECK_OK
 
     def on_advanced_clicked(self, _button, data=None):
         """Handler for the Advanced.. button. It starts the Advanced dialog
