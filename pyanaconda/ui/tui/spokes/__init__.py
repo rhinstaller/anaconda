@@ -21,12 +21,12 @@
 from pyanaconda.ui.tui import simpleline as tui
 from pyanaconda.ui.tui.tuiobject import TUIObject, YesNoDialog
 from pyanaconda.ui.common import Spoke, StandaloneSpoke, NormalSpoke, PersonalizationSpoke, collect
-from pyanaconda.users import validatePassword, checkPassword, cryptPassword
-from pwquality import PWQError
+from pyanaconda.users import validatePassword, cryptPassword
 import re
 from collections import namedtuple
 from pyanaconda.iutil import setdeepattr, getdeepattr
 from pyanaconda.i18n import _
+from pyanaconda.constants import PASSWORD_CONFIRM_ERROR_TUI
 
 __all__ = ["TUISpoke", "EditTUISpoke", "EditTUIDialog", "EditTUISpokeEntry", "StandaloneSpoke", "NormalSpoke", "PersonalizationSpoke",
            "collect_spokes", "collect_categories"]
@@ -110,20 +110,28 @@ class EditTUIDialog(NormalTUISpoke):
         if entry.aux == self.PASSWORD:
             pw = self._app.raw_input(_("%s: ") % entry.title, hidden=True)
             confirm = self._app.raw_input(_("%s (confirm): ") % entry.title, hidden=True)
-            error = None
-            # just returning an error is either blank or mismatched
-            # passwords.  Raising is because of poor quality.
-            try:
-                error = validatePassword(pw, confirm)
-                if error:
-                    print(error)
-                    return None
-                strength = checkPassword(pw)
-                if strength < 50:
-                    raise PWQError((-1, "The password you have provided is weak."))
-            except PWQError as e:
-                error = _("You have provided a weak password: %s. " % e[1])
-                error += _("\nWould you like to use it anyway?")
+
+            if (pw and not confirm) or (confirm and not pw):
+                print(_("You must enter your root password and confirm it by typing"
+                        " it a second time to continue."))
+                return None
+            if (pw != confirm):
+                print(PASSWORD_CONFIRM_ERROR_TUI)
+                return None
+
+            valid, strength, message = validatePassword(pw, user=None)
+
+            if not valid:
+                print(message)
+                return None
+
+            if strength < 50:
+                if message:
+                    error = _("You have provided a weak password: %s\n"
+                              "Would you like to use it anyway?") % message
+                else:
+                    error = _("You have provided a weak password.\n"
+                              "Would you like to use it anyway?")
                 question_window = YesNoDialog(self._app, error)
                 self._app.switch_screen_modal(question_window)
                 if not question_window.answer:

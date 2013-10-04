@@ -20,8 +20,7 @@
 #
 
 from pyanaconda.i18n import _, N_
-from pyanaconda.users import cryptPassword, validatePassword, checkPassword
-from pwquality import PWQError
+from pyanaconda.users import cryptPassword, validatePassword
 
 from pyanaconda.ui.gui import GUICheck
 from pyanaconda.ui.gui.spokes import NormalSpoke
@@ -83,6 +82,7 @@ class PasswordSpoke(FirstbootSpokeMixIn, NormalSpoke):
 
         # Password validation data
         self._pwq_error = None
+        self._pwq_valid = True
 
         self._kickstarted = self.data.rootpw.seen
         if self._kickstarted:
@@ -191,12 +191,7 @@ class PasswordSpoke(FirstbootSpokeMixIn, NormalSpoke):
         # Reset the counter used for the "press Done twice" logic
         self._waivePasswordClicks = 0
 
-        try:
-            strength = checkPassword(pwtext)
-            _pwq_error = None
-        except PWQError as e:
-            _pwq_error = e[1]
-            strength = 0
+        self._pwq_valid, strength, self._pwq_error = validatePassword(pwtext, "root")
 
         if not pwtext:
             val = 0
@@ -226,14 +221,11 @@ class PasswordSpoke(FirstbootSpokeMixIn, NormalSpoke):
         if (not pw and not confirm) and self._kickstarted:
             return GUICheck.CHECK_OK
 
-        pwstrength = self.pw_bar.get_value()
+        # Check for validity errors
+        if (not self._pwq_valid) and (self._pwq_error):
+            return self._pwq_error
 
-        # If the password passed the pwquality tesxt, see if validatePassword
-        # catches anything else
-        if pwstrength >= 2:
-            self._pwq_error = validatePassword(self.pw.get_text())
-            if self._pwq_error:
-                pwstrength = 0
+        pwstrength = self.pw_bar.get_value()
 
         if pwstrength < 2:
             # If Done has been clicked twice, waive the check

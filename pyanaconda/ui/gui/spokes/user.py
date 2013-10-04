@@ -35,8 +35,6 @@ from pyanaconda.constants import ANACONDA_ENVIRON, FIRSTBOOT_ENVIRON,\
         PASSWORD_WEAK_CONFIRM_WITH_ERROR
 from pyanaconda.regexes import GECOS_VALID, USERNAME_VALID, GROUPNAME_VALID, GROUPLIST_FANCY_PARSE
 
-import pwquality
-
 __all__ = ["UserSpoke", "AdvancedUserDialog"]
 
 def _checkUsername(editable, data):
@@ -250,13 +248,10 @@ class UserSpoke(FirstbootSpokeMixIn, NormalSpoke):
             self.username: True
             }
 
-        # set up passphrase quality checker
-        self._pwq = pwquality.PWQSettings()
-        self._pwq.read_config()
-
         # Updated during the password changed event and used by the password
         # field validity checker
         self._pwq_error = None
+        self._pwq_valid = True
 
         self.pw_bar = self.builder.get_object("password_bar")
         self.pw_label = self.builder.get_object("password_label")
@@ -406,16 +401,12 @@ class UserSpoke(FirstbootSpokeMixIn, NormalSpoke):
         the changed Gtk event handler.
         """
         pwtext = self.pw.get_text()
+        username = self.username.get_text()
 
         # Reset the counter used for the "press Done twice" logic
         self._waivePasswordClicks = 0
 
-        try:
-            strength = self._pwq.check(pwtext, None, None)
-            self._pwq_error = None
-        except pwquality.PWQError as e:
-            self._pwq_error = e[1]
-            strength = 0
+        self._pwq_valid, strength, self._pwq_error = validatePassword(pwtext, username)
 
         if not pwtext:
             val = 0
@@ -530,15 +521,12 @@ class UserSpoke(FirstbootSpokeMixIn, NormalSpoke):
         if (not self.usepassword.get_active()) or self._user.password_kickstarted:
             return GUICheck.CHECK_OK
 
+        # If the password failed the validity check, fail this check
+        if (not self._pwq_valid) and (self._pwq_error):
+            return self._pwq_error
+
         pwstrength = self.pw_bar.get_value()
         
-        # If the password passed the pwquality test, see if validatePassword
-        # catches anything else.
-        if pwstrength >= 2:
-            self._pwq_error = validatePassword(self.pw.get_text())
-            if self._pwq_error:
-                pwstrength = 0
-
         if pwstrength < 2:
             # If Done has been clicked twice, waive the check
             if self._waivePasswordClicks > 1:

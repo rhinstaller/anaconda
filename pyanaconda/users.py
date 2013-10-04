@@ -30,7 +30,7 @@ from pyanaconda import iutil
 import pwquality
 from pyanaconda.iutil import strip_accents
 from pyanaconda.i18n import _
-from pyanaconda.constants import PASSWORD_CONFIRM_ERROR_TUI
+from pyanaconda.constants import PASSWORD_MIN_LEN
 
 import logging
 log = logging.getLogger("anaconda")
@@ -112,46 +112,67 @@ def cryptPassword(password, algo=None):
 
     return crypt.crypt (password, saltstr)
 
-def validatePassword(pw, confirm=None, minlen=6, user="root"):
-    # Do various steps to validate the password
-    # Return an error string, or None for no errors
-    # If inital checks pass, pwquality will be tested.  Raises
-    # from pwquality will pass up to the calling code
+def validatePassword(pw, user="root", settings=None):
+    """Check the quality of a password.
 
-    # if both pw and confirm are blank, password is disabled.
-    if (pw and confirm == '') or (confirm and not pw):
-        error = _("You must enter your root password "
-                  "and confirm it by typing it a second "
-                  "time to continue.")
-        return error
+       This function does three things: given a password and an optional
+       username, it will tell if this password can be used at all, how
+       strong the password is on a scale of 1-100, and, if the password is
+       unusable, why it is unusuable.
 
-    if confirm != None and pw != confirm:
-        error = PASSWORD_CONFIRM_ERROR_TUI
-        return error
+       This function uses libpwquality to check the password strength.
+       pwquality will raise a PWQError on a weak password, which, honestly,
+       is kind of dumb behavior. A weak password isn't exceptional, it's what
+       we're asking about! Anyway, this function does not raise PWQError. If
+       the password fails the PWQSettings conditions, the first member of the
+       return tuple will be False and the second member of the tuple will be 0.
+
+       :param pw: the password to check
+       :type pw: string
+
+       :param user: the username for which the password is being set. If no
+                    username is provided, "root" will be used. Use user=None
+                    to disable the username check.
+       :type user: string
+
+       :param settings: an optional PWQSettings object
+       :type settings: pwquality.PWQSettings
+
+       :returns: A tuple containing (bool(valid), int(score), str(message))
+       :rtype: tuple
+    """
+
+    valid = True
+    message = None
+    strength = 0
+
+    if settings is None:
+        # Generate a default PWQSettings once and save it as a member of this function
+        if not hasattr(validatePassword, "pwqsettings"):
+            validatePassword.pwqsettings = pwquality.PWQSettings()
+            validatePassword.pwqsettings.read_config()
+            validatePassword.pwqsettings.minlen = PASSWORD_MIN_LEN
+        settings = validatePassword.pwqsettings
 
     legal = string.digits + string.ascii_letters + string.punctuation + " "
     for letter in pw:
         if letter not in legal:
-            error = _("Requested password contains "
+            message = _("Requested password contains "
                       "non-ASCII characters, which are "
                       "not allowed.")
-            return error
+            valid = False
+            break
 
-    if pw:
-        settings = pwquality.PWQSettings()
-        settings.read_config()
-        settings.minlen = minlen
-        settings.check(pw, None, user)
+    if valid:
+        try:
+            strength = settings.check(pw, None, user)
+        except pwquality.PWQError as e:
+            # Leave valid alone here: the password is weak but can still
+            # be accepted.
+            # PWQError values are built as a tuple of (int, str)
+            message = e[1]
 
-    return None
-
-def checkPassword(pw):
-    """ Check the quality of a password passed in and return a numeric
-        value.
-    """
-    pwq = pwquality.PWQSettings()
-    pwq.read_config()
-    return pwq.check(pw, None, None)
+    return (valid, strength, message)
 
 def guess_username(fullname):
     fullname = fullname.split()

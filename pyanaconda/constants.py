@@ -132,6 +132,7 @@ FIRSTBOOT_ENVIRON = "firstboot"
 UNSUPPORTED_HW = 1 << 28
 
 # Password validation
+PASSWORD_MIN_LEN = 6
 PASSWORD_EMPTY_ERROR = _("The password is empty.")
 PASSWORD_CONFIRM_ERROR_GUI = _("The passwords do not match.")
 PASSWORD_CONFIRM_ERROR_TUI = _("The passwords you entered were different.  Please try again.")
