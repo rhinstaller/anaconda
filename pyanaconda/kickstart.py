@@ -501,7 +501,7 @@ class Fcoe(commands.fcoe.F13_Fcoe):
 
         return fc
 
-class Firewall(commands.firewall.F14_Firewall):
+class Firewall(commands.firewall.F20_Firewall):
     def execute(self, storage, ksdata, instClass):
         args = []
         # enabled is None if neither --enable or --disable is passed
@@ -511,7 +511,8 @@ class Firewall(commands.firewall.F14_Firewall):
         else:
             args += ["--enabled"]
 
-        if not "ssh" in self.services and not "22:tcp" in self.ports:
+        if "ssh" not in self.services and "ssh" not in self.remove_services \
+            and "22:tcp" not in self.ports:
             args += ["--service=ssh"]
 
         for dev in self.trusts:
@@ -519,6 +520,9 @@ class Firewall(commands.firewall.F14_Firewall):
 
         for port in self.ports:
             args += [ "--port=%s" % (port,) ]
+
+        for remove_service in self.remove_services:
+            args += [ "--remove-service=%s" % (remove_service,) ]
 
         for service in self.services:
             args += [ "--service=%s" % (service,) ]
