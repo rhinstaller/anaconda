@@ -222,6 +222,13 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Fri Oct 04 2013 Samantha N. Bueno <sbueno+anaconda@redhat.com> - 13.21.209-1
+- Forced removal of some kernel modules in the ppc64 ramdisk (dcantrell)
+  Resolves: rhbz#1014719
+- Add some more safety checks for the initrd.img size check on ppc64.
+  (dcantrell)
+  Related: rhbz#1014719
+
 * Thu Oct 03 2013 David Cantrell <dcantrell@redhat.com> - 13.21.208-1
 - Catch BUILDARCH set to 'ppc' or 'ppc64' when trimming down the image.
   (dcantrell)
