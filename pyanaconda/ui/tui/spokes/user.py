@@ -24,7 +24,7 @@ from pyanaconda.ui.tui.spokes import EditTUISpokeEntry as Entry
 from pyanaconda.ui.common import FirstbootSpokeMixIn
 from pyanaconda.ui.tui.simpleline import TextWidget
 from pyanaconda.ui.tui import YesNoDialog
-from pyanaconda.users import guess_username, cryptPassword
+from pyanaconda.users import guess_username
 from pyanaconda.i18n import _
 from pykickstart.constants import FIRSTBOOT_RECONFIG
 from pyanaconda.constants import ANACONDA_ENVIRON, FIRSTBOOT_ENVIRON
@@ -42,7 +42,7 @@ class UserSpoke(FirstbootSpokeMixIn, EditTUISpoke):
         Entry("Fullname", "gecos", re.compile("^[^:]*$"), lambda self,args: args._create),
         Entry("Username", "name", re.compile("^[a-z0-9_]+$"), lambda self,args: args._create),
         Entry("Use password", "_use_password", EditTUISpoke.CHECK, lambda self,args: args._create),
-        Entry("Password", "password", EditTUISpoke.PASSWORD, lambda self,args: args._use_password and args._create),
+        Entry("Password", "_password", EditTUISpoke.PASSWORD, lambda self,args: args._use_password and args._create),
         Entry("Administrator", "_admin", EditTUISpoke.CHECK, lambda self,args: args._create),
         Entry("Groups", "_groups", re.compile("^([a-z0-9_]+)?(, ?([a-z0-9_]+))*$"), lambda self,args: args._create)
         ]
@@ -76,6 +76,10 @@ class UserSpoke(FirstbootSpokeMixIn, EditTUISpoke):
             self.args._create = False
 
         self.args._use_password = self.args.isCrypted or self.args.password
+
+        # Keep the password separate from the kickstart data until apply()
+        # so that all of the properties are set at once
+        self.args._password = ""
 
     def refresh(self, args = None):
         self.args._admin = "wheel" in self.args.groups
@@ -129,8 +133,8 @@ class UserSpoke(FirstbootSpokeMixIn, EditTUISpoke):
 
         # encrypt and store password only if user entered anything; this should
         # preserve passwords set via kickstart
-        if self.args._use_password and len(self.args.password) > 0:
-            self.args.password = cryptPassword(self.args.password)
+        if self.args._use_password and len(self.args._password) > 0:
+            self.args.password = self.args._password
             self.args.isCrypted = True
             self.args.password_kickstarted = False
         # clear pw when user unselects to use pw

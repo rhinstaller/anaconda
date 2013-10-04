@@ -21,7 +21,7 @@
 from pyanaconda.ui.tui import simpleline as tui
 from pyanaconda.ui.tui.tuiobject import TUIObject, YesNoDialog
 from pyanaconda.ui.common import Spoke, StandaloneSpoke, NormalSpoke, PersonalizationSpoke, collect
-from pyanaconda.users import validatePassword, checkPassword
+from pyanaconda.users import validatePassword, checkPassword, cryptPassword
 from pwquality import PWQError
 import re
 from collections import namedtuple
@@ -128,7 +128,7 @@ class EditTUIDialog(NormalTUISpoke):
                 if not question_window.answer:
                     return None
 
-            self.value = pw
+            self.value = cryptPassword(pw)
             return None
         else:
             return _("Enter new value for '%s' and press enter\n") % entry.title

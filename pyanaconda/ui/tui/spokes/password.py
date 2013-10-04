@@ -23,7 +23,6 @@
 from pyanaconda.ui.tui.spokes import EditTUIDialog, EditTUISpokeEntry
 from pyanaconda.ui.common import FirstbootSpokeMixIn
 from pyanaconda.ui.tui.simpleline import TextWidget
-from pyanaconda.users import cryptPassword
 from pyanaconda.i18n import _
 
 class PasswordSpoke(FirstbootSpokeMixIn, EditTUIDialog):
@@ -71,7 +70,7 @@ class PasswordSpoke(FirstbootSpokeMixIn, EditTUIDialog):
         self.close()
 
     def apply(self):
-        self.data.rootpw.password = cryptPassword(self._password)
+        self.data.rootpw.password = self._password
         self.data.rootpw.isCrypted = True
         self.data.rootpw.lock = False
         self.data.rootpw.seen = False
