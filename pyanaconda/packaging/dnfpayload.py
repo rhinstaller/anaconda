@@ -293,7 +293,7 @@ class DNFPayload(packaging.PackagePayload):
         env = self._base.comps.environment_by_pattern(environmentid)
         if env is None:
             raise packaging.NoSuchGroup(environmentid)
-        return grpid in env.option_ids
+        return grpid in (id_.name for id_ in env.option_ids)
 
     def environmentOptionIsDefault(self, environmentid, grpid):
         env = self._base.comps.environment_by_pattern(environmentid)
