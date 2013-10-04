@@ -525,7 +525,8 @@ class UserSpoke(FirstbootSpokeMixIn, NormalSpoke):
          """
 
         # Skip the check if no password is required
-        if (not self.usepassword.get_active()) or self._user.password_kickstarted:
+        if (not self.usepassword.get_active()) or \
+                ((not self.pw.get_text()) and (self._user.password_kickstarted)):
             return GUICheck.CHECK_OK
 
         # If the password failed the validity check, fail this check
