@@ -729,6 +729,12 @@ class Widget(object):
         if not text:
             return
 
+        try:
+            text = text.decode("utf-8")
+        except UnicodeDecodeError as e:
+            raise ValueError("Unable to decode string %s" %
+                    str(e.object).decode("utf-8", "replace"))
+
         if row is None:
             row = self._cursor[0]
 
