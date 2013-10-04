@@ -24,7 +24,15 @@ from pyanaconda.ui.tui.simpleline import TextWidget, ColumnWidget
 from pyanaconda.constants import USEVNC, USETEXT
 from pyanaconda.constants_text import INPUT_PROCESSED
 from pyanaconda.i18n import _
+from pyanaconda.ui.communication import hubQ
+from pyanaconda.ui.tui import exception_msg_handler
 import getpass
+import sys
+
+def exception_msg_handler_and_exit(event, data):
+    """Display an exception and exit so that we don't end up in a loop."""
+    exception_msg_handler(event, data)
+    sys.exit(1)
 
 class AskVNCSpoke(NormalTUISpoke):
     title = _("VNC")
@@ -35,6 +43,12 @@ class AskVNCSpoke(NormalTUISpoke):
     def __init__(self, app, data, storage=None, payload=None,
                  instclass=None, message=None):
         NormalTUISpoke.__init__(self, app, data, storage, payload, instclass)
+
+        # The TUI hasn't been initialized with the message handlers yet. Add an
+        # exception message handler so that the TUI exits if anything goes wrong
+        # at this stage.
+        self._app.register_event_handler(hubQ.HUB_CODE_EXCEPTION, exception_msg_handler_and_exit)
+
         if message:
             self._message = message
         else:
