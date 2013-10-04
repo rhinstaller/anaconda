@@ -253,6 +253,14 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Fri Oct 04 2013 Brian C. Lane <bcl@redhat.com> - 20.22-1
+- Only encrypt the TUI user password once (#1015220) (dshea)
+- Don't try to collect removed modules (vpodzime)
+- Moved the NFS nolock option into Payload._setupNFS (dshea)
+- Grab journalctl logs if there is no /tmp/syslog (vpodzime)
+- Pass layout and variant in specific format to Gkbd (#1011155) (vpodzime)
+- Translate the "Quit" string at the end of liveinst. (dshea)
+
 * Fri Sep 27 2013 Brian C. Lane <bcl@redhat.com> - 20.21-1
 - Remove another reference to log_picker. (clumens)
 - Turn spinner back on for configuration (bcl)
