@@ -675,6 +675,23 @@ def ifaceForHostIP(host):
 
     return routeInfo[routeInfo.index("dev") + 1]
 
+def default_route_device():
+    routes = iutil.execWithCapture("ip", [ "route", "show"])
+    if not routes:
+        log.error("Could not get default route device")
+        return None
+
+    for line in routes.split("\n"):
+        if line.startswith("default"):
+            parts = line.split()
+            if parts[3] == "dev":
+                return parts[4]
+            else:
+                log.error("Could not parse default route device")
+                return None
+
+    return None
+
 def copyFileToPath(file, destPath='', overwrite=False):
     if not os.path.isfile(file):
         return False
