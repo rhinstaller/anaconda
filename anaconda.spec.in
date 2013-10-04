@@ -255,6 +255,10 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Fri Oct 04 2013 Brian C. Lane <bcl@redhat.com> - 19.31.23-1
+- Only encrypt the TUI user password once. (dshea)
+  Related: rhbz#1012028
+
 * Tue Oct 01 2013 Brian C. Lane <bcl@redhat.com> - 19.31.22-1
 - Moved the NFS nolock option into Payload._setupNFS (dshea)
   Resolves: rhbz#1001593
