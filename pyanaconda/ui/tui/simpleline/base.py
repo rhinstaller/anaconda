@@ -193,9 +193,7 @@ class App(object):
         :type args: anything
         """
 
-        # poll a screen's "ready" status before scheduling it to show
-        if ui.ready:
-            self._screens.append((ui, args, self.NOP))
+        self._screens.append((ui, args, self.NOP))
 
         self.redraw()
 
