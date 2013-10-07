@@ -1,3 +1,5 @@
+/* Anaconda gtk style overrides */
+
 /* Define styles to apply to the GtkLevelBar widgets for different values.
  *
  * This stylesheet defines properties for "low", "medium" and "high" level bar
@@ -59,4 +61,51 @@
     background-color: transparent;
     background-image: none;
     border-color: alpha(#000000, 0.1);
+}
+
+/* As of gnome-themes-standard 3.9.90, the Adwaita theme uses the same color
+ * for all GtkInfoBars regardless of the MessageType.
+ * (https://bugzilla.gnome.org/show_bug.cgi?id=704266, commit 6bfa3aa0). The
+ * colors were actually kind of ok, and also the new colors are borderline
+ * unreadable, so these rules revert that change and set different colors.
+ */
+
+@define-color info_fg_color black;
+@define-color info_bg_color rgb (252, 252, 189);
+@define-color warning_fg_color black;
+@define-color warning_bg_color rgb (250, 173, 61);
+@define-color question_fg_color white;
+@define-color question_bg_color rgb (138, 173, 212);
+@define-color error_fg_color white;
+@define-color error_bg_color rgb (237, 54, 54);
+
+.info {
+    background-color: @info_bg_color;
+    color: @info_fg_color;
+    border-color: darker(@info_bg_color);
+}
+
+.warning {
+    background-color: @warning_bg_color;
+    color: @warning_fg_color;
+    border-color: darker(@warning_bg_color);
+}
+
+.question {
+    background-color: @question_bg_color;
+    color: @question_fg_color;
+    border-color: darker(@question_bg_color);
+}
+
+.error {
+    background-color: @error_bg_color;
+    color: @error_fg_color;
+    border-color: darker(@error_bg_color);
+}
+
+.info,
+.warning,
+.question,
+.error {
+    text-shadow: none;
 }
