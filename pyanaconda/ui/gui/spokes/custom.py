@@ -95,6 +95,7 @@ NOTEBOOK_INCOMPLETE_PAGE = 4
 
 new_install_name = N_("New %(name)s %(version)s Installation")
 new_container_text = N_("Create a new %(container_type)s ...")
+container_tooltip = N_("Create or select %(container_type)s")
 container_dialog_title = N_("CONFIGURE %(container_type)s")
 container_dialog_text = N_("Please create a name for this %(container_type)s "
                            "and select at least one disk below.")
@@ -2646,6 +2647,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
                 self._containerCombo.set_active(len(self._containerCombo.get_model()) - 1)
 
             self._containerCombo.append_text(_(new_container_text) % {"container_type": container_type_text.lower()})
+            self._containerCombo.set_tooltip_text(_(container_tooltip) % {"container_type": container_type_text.lower()})
             if default_container is None:
                 self._containerCombo.set_active(len(self._containerCombo.get_model()) - 1)
 
