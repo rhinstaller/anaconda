@@ -222,6 +222,12 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Mon Oct 07 2013 Samantha N. Bueno <sbueno+anaconda@redhat.com> - 13.21.210-1
+- Fix bootloader issues on s390x. (sbueno+anaconda)
+  Resolves: rhbz#1008941
+  Resolves: rhbz#875644
+  Resolves: rhbz#894050
+
 * Fri Oct 04 2013 Samantha N. Bueno <sbueno+anaconda@redhat.com> - 13.21.209-1
 - Forced removal of some kernel modules in the ppc64 ramdisk (dcantrell)
   Resolves: rhbz#1014719
