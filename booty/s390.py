@@ -116,9 +116,25 @@ class s390BootloaderInfo(bootloaderInfo):
         
     
     def writeZipl(self, instRoot, bl, kernelList, chainList,
-                  defaultDev, justConfigFile):
+                  defaultDev, upgrade=False):
         rootDev = self.storage.rootDevice
-        
+
+        try:
+            bootDev = self.storage.mountpoints["/boot"]
+        except KeyError:
+            bootDev = rootDev
+
+        if not upgrade:
+            self.writeZiplConf(instRoot, bl, kernelList, chainList, defaultDev,
+                                rootDev, upgrade=False)
+        else:
+            # at this point all we should have to do is set the boot device
+            # if all we are doing is upgrading
+            self.prepBootDev(instRoot)
+
+
+    def writeZiplConf(self, instRoot, bl, kernelList, chainList,
+                  defaultDev, rootDev, justConfigFile):
         cf = '/etc/zipl.conf'
         self.perms = 0600
         if os.access (instRoot + cf, os.R_OK):
@@ -155,26 +171,34 @@ class s390BootloaderInfo(bootloaderInfo):
         f.close()
 
         if not justConfigFile:
-            rc = iutil.execWithCapture("zipl", [], root = instRoot,
-                                       stderr = "/dev/stderr",
-                                       fatal = True)
-            for line in rc.splitlines():
-                if line.startswith("Preparing boot device: "):
-                    # Output here may look like:
-                    #     Preparing boot device: dasdb (0200).
-                    #     Preparing boot device: dasdl.
-                    # We want to extract the device name and pass that.
-
-                    fields = line[23:].split()
-                    self.setDevice(fields[0].replace('.', ''))
+            self.prepBootDev(instRoot)
 
         return 0
 
+    def prepBootDev(self, instRoot):
+        rc = iutil.execWithCapture("zipl", [], root = instRoot,
+                                   stderr = "/dev/stderr",
+                                   fatal = True)
+        for line in rc.splitlines():
+            if line.startswith("Preparing boot device: "):
+                # Output here may look like:
+                #     Preparing boot device: dasdb (0200).
+                #     Preparing boot device: dasdl.
+                # We want to extract the device name and pass that.
+
+                fields = line[23:].split()
+                self.setDevice(fields[0].replace('.', ''))
+
     def write(self, instRoot, bl, kernelList, chainList,
             defaultDev):
+        if self.doUpgradeOnly:
+            return self.writeZipl(instRoot, bl, kernelList,
+                                    chainList, defaultDev,
+                                    upgrade=True)
+
         rc = self.writeZipl(instRoot, bl, kernelList, 
                             chainList, defaultDev,
-                            not self.useZiplVal)
+                            upgrade=False)
         if rc:
             return rc
 
@@ -182,7 +206,6 @@ class s390BootloaderInfo(bootloaderInfo):
 
     def __init__(self, instData):
         bootloaderInfo.__init__(self, instData)
-        self.useZiplVal = 1      # only used on s390
         self.kernelLocation = "/boot/"
         self._configdir = "/etc"
         self._configname = "zipl.conf"

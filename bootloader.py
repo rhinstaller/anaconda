@@ -173,9 +173,8 @@ def writeBootloader(anaconda):
             anaconda.id.bootloader.setDevice(devicePathToName(theDev))
         elif bootType == "ZIPL":
             anaconda.id.bootloader.images.setup(anaconda.id.storage)
-            return
         else:
-            anaconda.id.bootloader.doUpgradeOnly = 0    
+            anaconda.id.bootloader.doUpgradeOnly = 0
             anaconda.id.bootloader.images.setup(anaconda.id.storage)
 
     w = anaconda.intf.waitWindow(_("Bootloader"), _("Installing bootloader."))

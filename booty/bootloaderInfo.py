@@ -595,6 +595,7 @@ class bootloaderInfo(object):
         # "install" case.  if 1, update lilo.conf (since grubby won't do that)
         # and then run lilo or grub only.
         # XXX THIS IS A HACK.  implementation details are only there for x86
+        # and as of 2013, for s390/s390x as well.
         self.doUpgradeOnly = 0
         self.kickstart = 0
 
