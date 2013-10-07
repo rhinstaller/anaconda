@@ -492,13 +492,17 @@ class UIScreen(object):
     # title line of the screen
     title = u"Screen.."
 
-    def __init__(self, app):
+    def __init__(self, app, screen_height = 25):
         """
         :param app: reference to application main class
         :type app: instance of class App
+
+        :param screen_height: height of the screen (useful for printing long widgets)
+        :type screen_height: int
         """
 
         self._app = app
+        self._screen_height = screen_height
 
         # list that holds the content to be printed out
         self._window = []
@@ -539,6 +543,40 @@ class UIScreen(object):
         """Return reference to the window instance. In TUI, just return self."""
         return self
 
+    def _print_long_widget(self, widget):
+        """Prints a long widget (possibly longer than the screen height) with
+           user interaction (when needed).
+
+           :param widget: possibly long widget to print
+           :type widget: Widget instance
+
+        """
+
+        pos = 0
+        lines = widget.get_lines()
+        num_lines = len(lines)
+
+        if num_lines < self._screen_height - 2:
+            # widget plus prompt are shorter than screen height, just print the widget
+            print u"\n".join(lines)
+            return
+
+        # long widget, print it in steps and prompt user to continue
+        last_line = num_lines - 1
+        while pos <= last_line:
+            if pos + self._screen_height - 2 > last_line:
+                # enough space to print the rest of the widget plus regular
+                # prompt (2 lines)
+                for line in lines[pos:]:
+                    print line
+                pos += self._screen_height - 1
+            else:
+                # print part with a prompt to continue
+                for line in lines[pos:(pos + self._screen_height - 2)]:
+                    print line
+                self._app.raw_input(_("Press ENTER to continue"))
+                pos += self._screen_height - 1
+
     def show_all(self):
         """Prepares all elements of self._window for output and then prints
         them on the screen."""
@@ -547,8 +585,11 @@ class UIScreen(object):
             if hasattr(w, "render"):
                 # pylint: disable-msg=E1101
                 w.render(self.app.width)
-            print unicode(w)
-
+            if isinstance(w, Widget):
+                self._print_long_widget(w)
+            else:
+                # not a widget, just print its unicode representation
+                print unicode(w)
     show = show_all
 
     def hide(self):
@@ -642,9 +683,14 @@ class Widget(object):
            """
         self.clear()
 
-    def __unicode__(self):
-        """Method to render the screen when printing as unicode string."""
-        return u"\n".join(u"".join(l) for l in self._buffer)
+    def get_lines(self):
+        """Get lines to write out in order to show this widget.
+
+           :return: lines representing this widget
+           :rtype: list(unicode)
+           """
+
+        return [unicode(u"".join(line)) for line in self._buffer]
 
     def setxy(self, row, col):
         """Sets cursor position.
