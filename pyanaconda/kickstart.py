@@ -201,6 +201,25 @@ def removeExistingFormat(device, storage):
 
     storage.devicetree.registerAction(ActionDestroyFormat(device))
 
+def getAvailableDiskSpace(storage):
+    """
+    Get overall disk space available on disks we may use (not free space on the
+    disks, but overall space on the disks).
+
+    :param storage: blivet.Blivet instance
+    :return: overall disk space available in MB
+    :rtype: int
+
+    """
+
+    disk_space = 0
+    for disk in storage.disks:
+        if not storage.config.clearPartDisks or \
+                disk.name in storage.config.clearPartDisks:
+            disk_space += disk.size
+
+    return disk_space
+
 ###
 ### SUBCLASSES OF PYKICKSTART COMMAND HANDLERS
 ###
@@ -654,7 +673,8 @@ class LogVolData(commands.logvol.F20_LogVolData):
             ty = "swap"
             self.mountpoint = ""
             if self.recommended or self.hibernation:
-                self.size = swap.swapSuggestion(hibernation=self.hibernation)
+                disk_space = getAvailableDiskSpace(storage)
+                self.size = swap.swapSuggestion(hibernation=self.hibernation, disk_space=disk_space)
                 self.grow = False
         else:
             if self.fstype != "":
@@ -875,7 +895,8 @@ class PartitionData(commands.partition.F18_PartData):
             ty = "swap"
             self.mountpoint = ""
             if self.recommended or self.hibernation:
-                self.size = swap.swapSuggestion(hibernation=self.hibernation)
+                disk_space = getAvailableDiskSpace(storage)
+                self.size = swap.swapSuggestion(hibernation=self.hibernation, disk_space=disk_space)
                 self.grow = False
         # if people want to specify no mountpoint for some reason, let them
         # this is really needed for pSeries boot partitions :(

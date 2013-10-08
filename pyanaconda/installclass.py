@@ -33,6 +33,7 @@ import logging
 log = logging.getLogger("anaconda")
 
 from pyanaconda.flags import flags
+from pyanaconda.kickstart import getAvailableDiskSpace
 
 class BaseInstallClass(object):
     # default to not being hidden
@@ -88,7 +89,9 @@ class BaseInstallClass(object):
         if bootreqs:
             autorequests.extend(bootreqs)
 
-        swp = swap.swapSuggestion()
+
+        disk_space = getAvailableDiskSpace(storage)
+        swp = swap.swapSuggestion(disk_space=disk_space)
         autorequests.append(PartSpec(fstype="swap", size=swp, grow=False,
                                      lv=True, encrypted=True))
 

@@ -81,7 +81,7 @@ BuildRequires: s390utils-devel
 
 Requires: anaconda-widgets = %{version}-%{release}
 Requires: dnf
-Requires: python-blivet >= 0.18
+Requires: python-blivet >= 0.23
 Requires: gnome-icon-theme-symbolic
 Requires: python-meh >= %{mehver}
 Requires: libreport-anaconda >= 2.0.21-1
