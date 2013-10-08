@@ -19,7 +19,7 @@
 # Author(s): Erik Troan <ewt@redhat.com>
 #
 
-from pyanaconda.i18n import _
+from pyanaconda.i18n import N_
 
 SELINUX_DEFAULT = 1
 
@@ -70,8 +70,8 @@ DEFAULT_KEYBOARD = "us"
 DRACUT_SHUTDOWN_EJECT = "/run/initramfs/usr/lib/dracut/hooks/shutdown/99anaconda-eject.sh"
 
 # VNC questions
-USEVNC = _("Start VNC")
-USETEXT = _("Use text mode")
+USEVNC = N_("Start VNC")
+USETEXT = N_("Use text mode")
 
 # Runlevel files
 RUNLEVELS = {3: 'multi-user.target', 5: 'graphical.target'}
@@ -133,12 +133,12 @@ UNSUPPORTED_HW = 1 << 28
 
 # Password validation
 PASSWORD_MIN_LEN = 6
-PASSWORD_EMPTY_ERROR = _("The password is empty.")
-PASSWORD_CONFIRM_ERROR_GUI = _("The passwords do not match.")
-PASSWORD_CONFIRM_ERROR_TUI = _("The passwords you entered were different.  Please try again.")
-PASSWORD_WEAK = _("The password you have provided is weak. You will have to press Done twice to confirm it.")
-PASSWORD_WEAK_WITH_ERROR = _("The password you have provided is weak: %s. You will have to press Done twice to confirm it.")
-PASSWORD_WEAK_CONFIRM = _("You have provided a weak password. Press Done again to use anyway.")
-PASSWORD_WEAK_CONFIRM_WITH_ERROR = _("You have provided a weak password: %s. Press Done again to use anyway.")
+PASSWORD_EMPTY_ERROR = N_("The password is empty.")
+PASSWORD_CONFIRM_ERROR_GUI = N_("The passwords do not match.")
+PASSWORD_CONFIRM_ERROR_TUI = N_("The passwords you entered were different.  Please try again.")
+PASSWORD_WEAK = N_("The password you have provided is weak. You will have to press Done twice to confirm it.")
+PASSWORD_WEAK_WITH_ERROR = N_("The password you have provided is weak: %s. You will have to press Done twice to confirm it.")
+PASSWORD_WEAK_CONFIRM = N_("You have provided a weak password. Press Done again to use anyway.")
+PASSWORD_WEAK_CONFIRM_WITH_ERROR = N_("You have provided a weak password: %s. Press Done again to use anyway.")
 
-PASSWORD_STRENGTH_DESC = [_("Empty"), _("Weak"), _("Fair"), _("Good"), _("Strong")]
+PASSWORD_STRENGTH_DESC = [N_("Empty"), N_("Weak"), N_("Fair"), N_("Good"), N_("Strong")]

@@ -60,7 +60,7 @@ class AskVNCSpoke(NormalTUISpoke):
                               "graphical installation or continue "
                               "with a text mode installation?")
 
-        self._choices = (USEVNC, USETEXT)
+        self._choices = (_(USEVNC), _(USETEXT))
         self._usevnc = False
 
     @property
@@ -92,7 +92,7 @@ class AskVNCSpoke(NormalTUISpoke):
         else:
             return INPUT_PROCESSED
 
-        if choice == USETEXT:
+        if choice == _(USETEXT):
             self._usevnc = False
         else:
             self._usevnc = True

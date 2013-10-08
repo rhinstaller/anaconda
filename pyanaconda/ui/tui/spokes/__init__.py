@@ -116,7 +116,7 @@ class EditTUIDialog(NormalTUISpoke):
                         " it a second time to continue."))
                 return None
             if (pw != confirm):
-                print(PASSWORD_CONFIRM_ERROR_TUI)
+                print(_(PASSWORD_CONFIRM_ERROR_TUI))
                 return None
 
             valid, strength, message = validatePassword(pw, user=None)

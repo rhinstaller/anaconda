@@ -148,9 +148,9 @@ class PasswordSpoke(FirstbootSpokeMixIn, NormalSpoke):
 
         if not editable.get_text():
             if editable == self.pw:
-                return PASSWORD_EMPTY_ERROR
+                return _(PASSWORD_EMPTY_ERROR)
             else:
-                return PASSWORD_CONFIRM_ERROR_GUI
+                return _(PASSWORD_CONFIRM_ERROR_GUI)
         else:
             return GUICheck.CHECK_OK
 
@@ -170,7 +170,7 @@ class PasswordSpoke(FirstbootSpokeMixIn, NormalSpoke):
         if (not pw and not confirm) and self._kickstarted:
             result = GUICheck.CHECK_OK
         elif confirm and (pw != confirm):
-            result = PASSWORD_CONFIRM_ERROR_GUI
+            result = _(PASSWORD_CONFIRM_ERROR_GUI)
         else:
             result = GUICheck.CHECK_OK
 
@@ -207,7 +207,7 @@ class PasswordSpoke(FirstbootSpokeMixIn, NormalSpoke):
             val = 3
         else:
             val = 4
-        text = PASSWORD_STRENGTH_DESC[val]
+        text = _(PASSWORD_STRENGTH_DESC[val])
 
         self.pw_bar.set_value(val)
         self.pw_label.set_text(text)
@@ -237,14 +237,14 @@ class PasswordSpoke(FirstbootSpokeMixIn, NormalSpoke):
                 return GUICheck.CHECK_OK
             elif self._waivePasswordClicks == 1:
                 if self._pwq_error:
-                    return PASSWORD_WEAK_CONFIRM_WITH_ERROR % self._pwq_error
+                    return _(PASSWORD_WEAK_CONFIRM_WITH_ERROR) % self._pwq_error
                 else:
-                    return PASSWORD_WEAK_CONFIRM
+                    return _(PASSWORD_WEAK_CONFIRM)
             else:
                 if self._pwq_error:
-                    return PASSWORD_WEAK_WITH_ERROR % self._pwq_error
+                    return _(PASSWORD_WEAK_WITH_ERROR) % self._pwq_error
                 else:
-                    return PASSWORD_WEAK
+                    return _(PASSWORD_WEAK)
         else:
             return GUICheck.CHECK_OK
 
