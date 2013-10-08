@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: anaconda 20.21\n"
+"Project-Id-Version: anaconda 20.22\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
-"POT-Creation-Date: 2013-10-04 14:26-0700\n"
+"POT-Creation-Date: 2013-10-08 14:40-0700\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -108,6 +108,61 @@ msgstr ""
 msgid "Use text mode"
 msgstr ""
 
+#: pyanaconda/constants.py:136
+msgid "The password is empty."
+msgstr ""
+
+#: pyanaconda/constants.py:137
+msgid "The passwords do not match."
+msgstr ""
+
+#: pyanaconda/constants.py:138
+msgid "The passwords you entered were different.  Please try again."
+msgstr ""
+
+#: pyanaconda/constants.py:139
+msgid ""
+"The password you have provided is weak. You will have to press Done twice to "
+"confirm it."
+msgstr ""
+
+#: pyanaconda/constants.py:140
+#, python-format
+msgid ""
+"The password you have provided is weak: %s. You will have to press Done "
+"twice to confirm it."
+msgstr ""
+
+#: pyanaconda/constants.py:141
+msgid "You have provided a weak password. Press Done again to use anyway."
+msgstr ""
+
+#: pyanaconda/constants.py:142
+#, python-format
+msgid "You have provided a weak password: %s. Press Done again to use anyway."
+msgstr ""
+
+#: pyanaconda/constants.py:144
+msgid "Empty"
+msgstr ""
+
+#: pyanaconda/constants.py:144 pyanaconda/ui/gui/spokes/lib/passphrase.py:114
+#: pyanaconda/ui/gui/spokes/lib/passphrase.glade.h:6
+msgid "Weak"
+msgstr ""
+
+#: pyanaconda/constants.py:144 pyanaconda/ui/gui/spokes/lib/passphrase.py:117
+msgid "Fair"
+msgstr ""
+
+#: pyanaconda/constants.py:144 pyanaconda/ui/gui/spokes/lib/passphrase.py:120
+msgid "Good"
+msgstr ""
+
+#: pyanaconda/constants.py:144 pyanaconda/ui/gui/spokes/lib/passphrase.py:123
+msgid "Strong"
+msgstr ""
+
 #: pyanaconda/install.py:65
 msgid "Configuring installed system"
 msgstr ""
@@ -173,12 +228,12 @@ msgid ""
 "%s"
 msgstr ""
 
-#: pyanaconda/kickstart.py:529
+#: pyanaconda/kickstart.py:533
 #, python-format
 msgid "%s is missing. Cannot setup firewall."
 msgstr ""
 
-#: pyanaconda/kickstart.py:1664
+#: pyanaconda/kickstart.py:1668
 msgid "Running pre-installation scripts"
 msgstr ""
 
@@ -203,7 +258,7 @@ msgid ""
 "'-'."
 msgstr ""
 
-#: pyanaconda/network.py:1054 pyanaconda/ui/gui/spokes/custom.py:994
+#: pyanaconda/network.py:1054 pyanaconda/ui/gui/spokes/custom.py:995
 #: pyanaconda/ui/gui/spokes/network.py:667
 #: pyanaconda/ui/gui/spokes/lib/accordion.py:59
 msgid "Unknown"
@@ -582,40 +637,40 @@ msgid ""
 "  'r' to refresh]: "
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/askvnc.py:30
+#: pyanaconda/ui/tui/spokes/askvnc.py:38
 msgid "VNC"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/askvnc.py:41
+#: pyanaconda/ui/tui/spokes/askvnc.py:55
 msgid ""
 "X was unable to start on your machine.  Would you like to start VNC to "
 "connect to this computer from another computer and perform a graphical "
 "installation or continue with a text mode installation?"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/askvnc.py:97
+#: pyanaconda/ui/tui/spokes/askvnc.py:111
 msgid "VNC Password"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/askvnc.py:106
+#: pyanaconda/ui/tui/spokes/askvnc.py:120
 msgid ""
 "Please provide VNC password. You will have to type it twice. \n"
 "Leave blank for no password"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/askvnc.py:125
+#: pyanaconda/ui/tui/spokes/askvnc.py:139
 msgid "Password: "
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/askvnc.py:126
+#: pyanaconda/ui/tui/spokes/askvnc.py:140
 msgid "Password (confirm): "
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/askvnc.py:129
+#: pyanaconda/ui/tui/spokes/askvnc.py:143
 msgid "Passwords do not match!"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/askvnc.py:132
+#: pyanaconda/ui/tui/spokes/askvnc.py:146
 msgid "The password must be at least six characters long."
 msgstr ""
 
@@ -1038,23 +1093,31 @@ msgstr ""
 msgid "%s (confirm): "
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/__init__.py:125
-#, python-format
-msgid "You have provided a weak password: %s. "
+#: pyanaconda/ui/tui/spokes/__init__.py:115
+msgid ""
+"You must enter your root password and confirm it by typing it a second time "
+"to continue."
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/__init__.py:126
+#: pyanaconda/ui/tui/spokes/__init__.py:130
+#, python-format
 msgid ""
-"\n"
+"You have provided a weak password: %s\n"
 "Would you like to use it anyway?"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/__init__.py:135
+#: pyanaconda/ui/tui/spokes/__init__.py:133
+msgid ""
+"You have provided a weak password.\n"
+"Would you like to use it anyway?"
+msgstr ""
+
+#: pyanaconda/ui/tui/spokes/__init__.py:143
 #, python-format
 msgid "Enter new value for '%s' and press enter\n"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/__init__.py:231
+#: pyanaconda/ui/tui/spokes/__init__.py:239
 msgid "Password set."
 msgstr ""
 
@@ -1132,124 +1195,129 @@ msgstr ""
 
 #: pyanaconda/ui/gui/spokes/custom.py:98
 #, python-format
-msgid "CONFIGURE %(container_type)s"
+msgid "Create or select %(container_type)s"
 msgstr ""
 
 #: pyanaconda/ui/gui/spokes/custom.py:99
+#, python-format
+msgid "CONFIGURE %(container_type)s"
+msgstr ""
+
+#: pyanaconda/ui/gui/spokes/custom.py:100
 #, python-format
 msgid ""
 "Please create a name for this %(container_type)s and select at least one "
 "disk below."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:101
+#: pyanaconda/ui/gui/spokes/custom.py:102
 msgid "Volume Group"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:102
+#: pyanaconda/ui/gui/spokes/custom.py:103
 msgid "Volume"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:103
+#: pyanaconda/ui/gui/spokes/custom.py:104
 msgid ""
 "Storage configuration reset due to unrecoverable error. Click for details."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:105
+#: pyanaconda/ui/gui/spokes/custom.py:106
 msgid "Device reconfiguration failed. Click for details."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:108
+#: pyanaconda/ui/gui/spokes/custom.py:109
 msgid "Please enter a valid mountpoint."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:109
+#: pyanaconda/ui/gui/spokes/custom.py:110
 msgid "That mount point is invalid. Try something else?"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:110
+#: pyanaconda/ui/gui/spokes/custom.py:111
 msgid "That mount point is already in use. Try something else?"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:112
+#: pyanaconda/ui/gui/spokes/custom.py:113
 #, python-format
 msgid ""
 "The RAID level you have selected (%(level)s) requires more disks (%(min)d) "
 "than you currently have selected (%(count)d)."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:115
+#: pyanaconda/ui/gui/spokes/custom.py:116
 #: pyanaconda/ui/gui/spokes/custom.glade.h:22
 msgid "Please enter a valid name."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:116
+#: pyanaconda/ui/gui/spokes/custom.py:117
 msgid "That name is invalid. Try something else?"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:132
+#: pyanaconda/ui/gui/spokes/custom.py:133
 #: pyanaconda/ui/gui/spokes/storage.glade.h:7
 #: pyanaconda/ui/gui/spokes/custom.glade.h:35
 msgid "LVM"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:133
+#: pyanaconda/ui/gui/spokes/custom.py:134
 #: pyanaconda/ui/gui/spokes/storage.glade.h:8
 #: pyanaconda/ui/gui/spokes/custom.glade.h:37
 msgid "LVM Thin Provisioning"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:134
+#: pyanaconda/ui/gui/spokes/custom.py:135
 #: pyanaconda/ui/gui/spokes/custom.glade.h:36
 msgid "RAID"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:135
+#: pyanaconda/ui/gui/spokes/custom.py:136
 #: pyanaconda/ui/gui/spokes/storage.glade.h:5
 #: pyanaconda/ui/gui/spokes/custom.glade.h:33
 msgid "Standard Partition"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:136
+#: pyanaconda/ui/gui/spokes/custom.py:137
 #: pyanaconda/ui/gui/spokes/storage.glade.h:6
 #: pyanaconda/ui/gui/spokes/custom.glade.h:34
 msgid "BTRFS"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:137
+#: pyanaconda/ui/gui/spokes/custom.py:138
 #: pyanaconda/ui/gui/spokes/custom.glade.h:16
 #: pyanaconda/ui/gui/spokes/lib/resize.glade.h:4
 msgid "Disk"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:246
-#: pyanaconda/ui/gui/spokes/custom.py:586
+#: pyanaconda/ui/gui/spokes/custom.py:247
+#: pyanaconda/ui/gui/spokes/custom.py:587
 #: pyanaconda/ui/gui/spokes/network.py:1050 widgets/src/SpokeSelector.c:55
 #: pyanaconda/ui/gui/spokes/filter.glade.h:4
 #: pyanaconda/ui/gui/spokes/custom.glade.h:67
 msgid "None"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:320
+#: pyanaconda/ui/gui/spokes/custom.py:321
 #, python-format
 msgid "Delete _all other filesystems in the %s root as well."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:328
+#: pyanaconda/ui/gui/spokes/custom.py:329
 #, python-format
 msgid "Are you sure you want to delete all of the data on %s?"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:420
+#: pyanaconda/ui/gui/spokes/custom.py:421
 msgid "container"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:621
+#: pyanaconda/ui/gui/spokes/custom.py:622
 #: pyanaconda/ui/gui/spokes/custom.glade.h:27
 msgid "MANUAL PARTITIONING"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:837
+#: pyanaconda/ui/gui/spokes/custom.py:838
 #: pyanaconda/ui/gui/spokes/filter.py:508
 #, python-format
 msgid "%d _storage device selected"
@@ -1257,154 +1325,154 @@ msgid_plural "%d _storage devices selected"
 msgstr[0] ""
 msgstr[1] ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:946
+#: pyanaconda/ui/gui/spokes/custom.py:947
 #, python-format
 msgid ""
 "When you create mount points for your %(name)s %(version)s installation, "
 "you'll be able to view their details here."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:1017
+#: pyanaconda/ui/gui/spokes/custom.py:1018
 msgid ""
 "The 'swap' area on your computer is used by the operating\n"
 "system when running low on memory."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:1020
+#: pyanaconda/ui/gui/spokes/custom.py:1021
 msgid ""
 "The 'boot' area on your computer is where files needed\n"
 "to start the operating system are stored."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:1023
+#: pyanaconda/ui/gui/spokes/custom.py:1024
 msgid ""
 "The 'root' area on your computer is where core system\n"
 "files and applications are stored."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:1026
+#: pyanaconda/ui/gui/spokes/custom.py:1027
 msgid ""
 "The 'home' area on your computer is where all your personal\n"
 "data is stored."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:1029
+#: pyanaconda/ui/gui/spokes/custom.py:1030
 msgid ""
 "The BIOS boot partition is required to enable booting\n"
 "from GPT-partitioned disks on BIOS hardware."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:1032
+#: pyanaconda/ui/gui/spokes/custom.py:1033
 msgid ""
 "The PReP boot partition is required as part of the\n"
 "bootloader configuration on some PPC platforms."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:1226
+#: pyanaconda/ui/gui/spokes/custom.py:1227
 #, python-format
 msgid "/boot/efi must be on a device of type %s"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:1230
+#: pyanaconda/ui/gui/spokes/custom.py:1231
 #, python-format
 msgid "%(fs)s must be on a device of type %(type)s"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:1233
-#: pyanaconda/ui/gui/spokes/custom.py:1235
+#: pyanaconda/ui/gui/spokes/custom.py:1234
+#: pyanaconda/ui/gui/spokes/custom.py:1236
 #, python-format
 msgid "%s cannot be encrypted"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:1237
+#: pyanaconda/ui/gui/spokes/custom.py:1238
 msgid "You must create a new filesystem on the root device."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:1239
+#: pyanaconda/ui/gui/spokes/custom.py:1240
 #, python-format
 msgid "Devices of type %s require a valid RAID level selection."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:1449
+#: pyanaconda/ui/gui/spokes/custom.py:1450
 msgid "Device resize request failed. Click for details."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:1519
+#: pyanaconda/ui/gui/spokes/custom.py:1520
 msgid "Device reformat request failed. Click for details."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:1571
+#: pyanaconda/ui/gui/spokes/custom.py:1572
 #, python-format
 msgid "Specified name %s already in use."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:1686
+#: pyanaconda/ui/gui/spokes/custom.py:1687
 msgid "This file system does not support labels."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:1854
+#: pyanaconda/ui/gui/spokes/custom.py:1855
 msgid ""
 "The space available to this mountpoint can be changed by modifying the "
 "volume below."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:1856
+#: pyanaconda/ui/gui/spokes/custom.py:1857
 msgid "This file system may not be resized."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:2030
+#: pyanaconda/ui/gui/spokes/custom.py:2031
 #, python-format
 msgid "Added new %(type)s to existing container %(name)s."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:2042
+#: pyanaconda/ui/gui/spokes/custom.py:2043
 msgid "Failed to add new device. Click for details."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:2048
+#: pyanaconda/ui/gui/spokes/custom.py:2049
 msgid "Invalid partition size set. Use a valid integer."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:2071
+#: pyanaconda/ui/gui/spokes/custom.py:2072
 msgid "Device removal request failed. Click for details."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:2296
+#: pyanaconda/ui/gui/spokes/custom.py:2297
 #, python-format
 msgid "Volume Group name %s is already in use. Not saving changes."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:2430
+#: pyanaconda/ui/gui/spokes/custom.py:2431
 #, python-format
 msgid ""
 "This Software RAID array is missing %(missingMembers)d of %(totalMembers)d "
 "member partitions. You can remove it or select a different device."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:2436
+#: pyanaconda/ui/gui/spokes/custom.py:2437
 #, python-format
 msgid ""
 "This LVM Volume Group is missing %(missingPVs)d of %(totalPVs)d physical "
 "volumes. You can remove it or select a different device."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:2505
+#: pyanaconda/ui/gui/spokes/custom.py:2506
 msgid "No disks selected."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:2511
+#: pyanaconda/ui/gui/spokes/custom.py:2512
 msgid "Not enough free space on selected disks."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:2517
+#: pyanaconda/ui/gui/spokes/custom.py:2518
 msgid "Automatic partitioning failed. Click for details."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:2810
+#: pyanaconda/ui/gui/spokes/custom.py:2812
 msgid "Failed to unlock encrypted block device. Click for details"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:2835
+#: pyanaconda/ui/gui/spokes/custom.py:2837
 #, python-format
 msgid ""
 "You have chosen to manually set up the filesystems for your new "
@@ -1678,88 +1746,25 @@ msgstr ""
 msgid "_NETWORK CONFIGURATION"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/password.py:42
+#: pyanaconda/ui/gui/spokes/password.py:46
 msgid "_ROOT PASSWORD"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/password.py:59
-#: pyanaconda/ui/gui/spokes/password.py:60
+#: pyanaconda/ui/gui/spokes/password.py:89
+#: pyanaconda/ui/gui/spokes/password.py:90
 msgid "The password is set."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/password.py:77
-msgid "Error setting root password"
-msgstr ""
-
-#: pyanaconda/ui/gui/spokes/password.py:79
+#: pyanaconda/ui/gui/spokes/password.py:111
 msgid "Root password is set"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/password.py:81
+#: pyanaconda/ui/gui/spokes/password.py:113
 msgid "Root account is disabled"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/password.py:83
+#: pyanaconda/ui/gui/spokes/password.py:115
 msgid "Root password is not set"
-msgstr ""
-
-#: pyanaconda/ui/gui/spokes/password.py:123
-#: pyanaconda/ui/gui/spokes/user.py:425
-#: pyanaconda/ui/gui/spokes/lib/passphrase.py:114
-#: pyanaconda/ui/gui/spokes/lib/passphrase.glade.h:6
-msgid "Weak"
-msgstr ""
-
-#: pyanaconda/ui/gui/spokes/password.py:124
-#: pyanaconda/ui/gui/spokes/user.py:558
-msgid "The password you have provided is weak"
-msgstr ""
-
-#: pyanaconda/ui/gui/spokes/password.py:129
-#: pyanaconda/ui/gui/spokes/user.py:563
-msgid "You will have to press Done twice to confirm it."
-msgstr ""
-
-#: pyanaconda/ui/gui/spokes/password.py:132
-#: pyanaconda/ui/gui/spokes/user.py:428
-#: pyanaconda/ui/gui/spokes/lib/passphrase.py:117
-msgid "Fair"
-msgstr ""
-
-#: pyanaconda/ui/gui/spokes/password.py:136
-#: pyanaconda/ui/gui/spokes/user.py:431
-#: pyanaconda/ui/gui/spokes/lib/passphrase.py:120
-msgid "Good"
-msgstr ""
-
-#: pyanaconda/ui/gui/spokes/password.py:140
-#: pyanaconda/ui/gui/spokes/user.py:434
-#: pyanaconda/ui/gui/spokes/lib/passphrase.py:123
-msgid "Strong"
-msgstr ""
-
-#: pyanaconda/ui/gui/spokes/password.py:145
-#: pyanaconda/ui/gui/spokes/user.py:422
-msgid "Empty"
-msgstr ""
-
-#: pyanaconda/ui/gui/spokes/password.py:146
-msgid "The password is empty."
-msgstr ""
-
-#: pyanaconda/ui/gui/spokes/password.py:148
-#: pyanaconda/ui/gui/spokes/user.py:491 pyanaconda/ui/gui/spokes/user.py:508
-msgid "The passwords do not match."
-msgstr ""
-
-#: pyanaconda/ui/gui/spokes/password.py:173
-msgid "You must provide and confirm a password."
-msgstr ""
-
-#: pyanaconda/ui/gui/spokes/password.py:183
-#: pyanaconda/ui/gui/spokes/user.py:552
-#, python-format
-msgid "You have provided a weak password: %s.  Press Done again to use anyway."
 msgstr ""
 
 #: pyanaconda/ui/gui/spokes/software.py:48
@@ -1981,52 +1986,39 @@ msgstr ""
 msgid "_OK"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/user.py:53
+#: pyanaconda/ui/gui/spokes/user.py:54
 #, python-format
 msgid "Invalid group name: %s"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/user.py:201
+#: pyanaconda/ui/gui/spokes/user.py:202
 msgid "_USER CREATION"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/user.py:276 pyanaconda/ui/gui/spokes/user.py:277
+#: pyanaconda/ui/gui/spokes/user.py:273 pyanaconda/ui/gui/spokes/user.py:274
 msgid "The password was set by kickstart."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/user.py:303
+#: pyanaconda/ui/gui/spokes/user.py:300
 msgid "Invalid username"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/user.py:305
+#: pyanaconda/ui/gui/spokes/user.py:302
 msgid "Full name cannot contain colon characters"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/user.py:336
-#, python-format
-msgid "Error creating user account: %s"
-msgstr ""
-
-#: pyanaconda/ui/gui/spokes/user.py:338
+#: pyanaconda/ui/gui/spokes/user.py:333
 msgid "No user will be created"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/user.py:340
+#: pyanaconda/ui/gui/spokes/user.py:335
 #, python-format
 msgid "Administrator %s will be created"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/user.py:342
+#: pyanaconda/ui/gui/spokes/user.py:337
 #, python-format
 msgid "User %s will be created"
-msgstr ""
-
-#: pyanaconda/ui/gui/spokes/user.py:489
-msgid "The password is empty"
-msgstr ""
-
-#: pyanaconda/ui/gui/spokes/user.py:555
-msgid "You have provided a weak password.  Press Done again to use anyway."
 msgstr ""
 
 #: pyanaconda/ui/gui/spokes/lib/accordion.py:157

@@ -253,6 +253,28 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Oct 08 2013 Brian C. Lane <bcl@redhat.com> - 20.23-1
+- Use Unicode in the TUI buffer strings (#1015620) (dshea)
+- DNFPayload: install DNF itself. (ales)
+- DNFPayload: direct conf.persistdir to the sysimage. (ales)
+- Add a tooltip to the container combobox (#975801) (bcl)
+- Use different colors for different message types. (dshea)
+- Exit on exception in the askVNC spoke (#962804) (dshea)
+- Don't skip the strength check if overriding a kickstart password (dshea)
+- Allow password spoke to be exited without password (#1004931) (dshea)
+- Re-check the password strength when the username changes (dshea)
+- Only call pwquality once per password. (dshea)
+- Use GUICheck checks for the root password strength (dshea)
+- Use constants for password check failure messages (dshea)
+- Use a constant to indicate GUICheck success (dshea)
+- Remove a redundant error property from UserSpoke (dshea)
+- Fix the usages of PWQError. (#1014405) (dshea)
+- Fix usage of GtkLevelBar in glade. (dshea)
+- Clean up callbacks in the user spoke. (dshea)
+- Removed an untrue portion of a doc comment (dshea)
+- Support for removing services from firewall needs newer PyKickstart (mkolman)
+- Add support for removing services from the firewall (#957809) (mkolman)
+
 * Fri Oct 04 2013 Brian C. Lane <bcl@redhat.com> - 20.22-1
 - Only encrypt the TUI user password once (#1015220) (dshea)
 - Don't try to collect removed modules (vpodzime)
