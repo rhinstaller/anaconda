@@ -58,7 +58,7 @@ class StorageSpoke(NormalTUISpoke):
     as disk selection, partitioning, and fs type.
     """
     title = _("Install Destination")
-    category = "destination"
+    category = "system"
 
     def __init__(self, app, data, storage, payload, instclass):
         NormalTUISpoke.__init__(self, app, data, storage, payload, instclass)
@@ -337,7 +337,7 @@ class StorageSpoke(NormalTUISpoke):
 class AutoPartSpoke(NormalTUISpoke):
     """ Autopartitioning options are presented here. """
     title = _("Autopartitioning Options")
-    category = "destination"
+    category = "system"
 
     def __init__(self, app, data, storage, payload, instclass):
         NormalTUISpoke.__init__(self, app, data, storage, payload, instclass)
@@ -406,7 +406,7 @@ class AutoPartSpoke(NormalTUISpoke):
 class PartitionSchemeSpoke(NormalTUISpoke):
     """ SPoke to select what partitioning scheme to use on disk(s). """
     title = _("Partition Scheme Options")
-    category = "destination"
+    category = "system"
 
     # set default FS to LVM, for consistency with graphical behavior
     _selection = 2

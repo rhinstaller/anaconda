@@ -145,7 +145,7 @@ class SourceSwitchHandler(object):
 class SourceSpoke(SourceSwitchHandler, EditTUISpoke):
     """ Spoke used to customize the install source repo. """
     title = _("Installation source")
-    category = "source"
+    category = "software"
 
     _protocols = ["http://", "https://", "ftp://", "nfs", _("Closest mirror")]
 
@@ -349,7 +349,7 @@ class SourceSpoke(SourceSwitchHandler, EditTUISpoke):
 class SpecifyRepoSpoke(SourceSwitchHandler, EditTUISpoke):
     """ Specify the repo URL here if closest mirror not selected. """
     title = _("Specify Repo Options")
-    category = "source"
+    category = "software"
 
     edit_fields = [
         Entry(_("Repo URL"), "url", re.compile(".*$"), True)
@@ -387,7 +387,7 @@ class SpecifyRepoSpoke(SourceSwitchHandler, EditTUISpoke):
 class SpecifyNFSRepoSpoke(SourceSwitchHandler, EditTUISpoke):
     """ Specify server and mount opts here if NFS selected. """
     title = _("Specify Repo Options")
-    category = "source"
+    category = "software"
 
     edit_fields = [
         Entry(_("NFS <server>:/<path>"), "server", re.compile(".*$"), True),
