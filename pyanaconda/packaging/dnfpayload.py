@@ -155,8 +155,9 @@ class DNFPayload(packaging.PackagePayload):
         conf.reposdir = REPO_DIRS
 
     def _install_package(self, pkg_name):
-        cnt = self._base.install(pkg_name)
-        if not cnt:
+        try:
+            return self._base.install(pkg_name)
+        except dnf.exceptions.PackageNotFoundError:
             raise packaging.NoSuchPackage(pkg_name)
 
     def _miss(self, exn):
