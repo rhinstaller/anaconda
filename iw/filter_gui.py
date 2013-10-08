@@ -469,23 +469,39 @@ class FilterWindow(InstallWindow):
         # components, just like new_mpaths.  That's what populate expects.
         mpaths = []
         for mp in new_mpaths:
+            old_mpaths = []
+            is_new_multipath = False
+
             for d in mp:
                 # If any of the multipath components are in the nonraids cache,
                 # remove them from the UI store.
                 if d in self._cachedDevices:
                     self.depopulate(d)
 
-                # If all components of this multipath device are in the
-                # cache, skip it. Otherwise, perform some additional checks
-                # and then populate the UI.
-                if d not in self._cachedMPaths:
-                    # Since we're only tracking mpaths by their members, we
-                    # have no way of knowing whether the mpath the disk
-                    # belongs to is already in the UI, so check for it here
-                    # before creating a new mpath device.
-                    if udev_device_get_multipath_name(d) is None:
-                        mpaths.append(mp)
-                        break
+                # Check whether this device is part of an existing multipath,
+                # but as part of a different set of members
+                if d in self._cachedMPathMembers and hasattr(self._cachedMPaths, d["name"]):
+                    if self._cachedMPaths[d["name"]] != mp:
+                        old_mpaths.append(mp)
+                        is_new_multipath = True
+
+                # Check whether this is a new device
+                if d not in self._cachedMPathMembers:
+                    is_new_multipath = True
+
+            for omp in old_mpaths:
+                # Clean up the caches
+                for d in omp:
+                    del self._cachedMPathMembers[self._cachedMPathMembers.index(d)]
+                    del self._cachedMPaths[d["name"]]
+                self.depopulate(d)
+
+            if is_new_multipath:
+                mpaths.append(mp)
+
+                # Add the multipath to the cache
+                for d in mp:
+                    self._cachedMPaths[d["name"]] = mp
 
         nonraids = filter(lambda d: d not in self._cachedDevices, new_nonraids)
         raids = filter(lambda d: d not in self._cachedRaidDevices, new_raids)
@@ -501,7 +517,7 @@ class FilterWindow(InstallWindow):
         # And then we need to do the same list flattening trick here as in
         # getScreen.
         lst = list(itertools.chain(*mpaths))
-        self._cachedMPaths.extend(lst)
+        self._cachedMPathMembers.extend(lst)
 
     def _makeBasic(self):
         np = NotebookPage(self.store, "basic", self.xml, Callbacks(self.xml))
@@ -668,7 +684,8 @@ class FilterWindow(InstallWindow):
         # to flatten it into a single list of all components of all multipaths
         # and store that.
         lst = list(itertools.chain(*mpaths))
-        self._cachedMPaths = NameCache(lst)
+        self._cachedMPathMembers = NameCache(lst)
+        self._cachedMPaths = {}
 
         # Switch to the first notebook page that displays any devices.
         i = 0
