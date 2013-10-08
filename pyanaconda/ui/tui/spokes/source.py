@@ -43,7 +43,7 @@ __all__ = ["SourceSpoke"]
 class SourceSpoke(EditTUISpoke):
     """ Spoke used to customize the install source repo. """
     title = _("Installation source")
-    category = "source"
+    category = "software"
 
     _protocols = (_("Closest mirror"), "http://", "https://", "ftp://", "nfs")
 
@@ -222,7 +222,7 @@ class SourceSpoke(EditTUISpoke):
 class SpecifyRepoSpoke(EditTUISpoke):
     """ Specify the repo URL here if closest mirror not selected. """
     title = _("Specify Repo Options")
-    category = "source"
+    category = "software"
 
     edit_fields = [
         Entry(_("Repo URL"), "url", re.compile(".*$"), True)
@@ -257,7 +257,7 @@ class SpecifyRepoSpoke(EditTUISpoke):
 class SpecifyNFSRepoSpoke(EditTUISpoke):
     """ Specify server and mount opts here if NFS selected. """
     title = _("Specify Repo Options")
-    category = "source"
+    category = "software"
 
     edit_fields = [
         Entry(_("NFS <server>:/<path>"), "server", re.compile(".*$"), True),
