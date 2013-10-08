@@ -40,7 +40,7 @@ __all__ = ["NetworkSpoke"]
 class NetworkSpoke(EditTUISpoke):
     """ Spoke used to configure network settings. """
     title = _("Network settings")
-    category = "network"
+    category = "system"
 
     def __init__(self, app, data, storage, payload, instclass):
         EditTUISpoke.__init__(self, app, data, storage, payload, instclass)

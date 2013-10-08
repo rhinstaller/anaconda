@@ -29,7 +29,7 @@ import time
 class SummaryHub(TUIHub):
     title = _("Installation")
     ## FIXME: this should be pulling data from somewhere, not just a static list
-    categories = ["source", "localization", "destination", "password", "software", "network"]
+    categories = ["localization", "password", "software", "system"]
 
     def setup(self, environment="anaconda"):
         should_schedule = TUIHub.setup(self, environment=environment)
