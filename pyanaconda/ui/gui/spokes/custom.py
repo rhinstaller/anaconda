@@ -418,12 +418,14 @@ class ContainerDialog(GUIObject):
         self._grabObjects()
 
         # set up the dialog labels with device-type-specific text
-        container_type = container_type_names.get(self.device_type,
-                                                  _("container"))
-        title_text = container_dialog_title % {"container_type": container_type.upper()}
+        if self.device_type in container_type_names:
+            container_type = _(container_type_names[self.device_type])
+        else:
+            container_type = _("container")
+        title_text = _(container_dialog_title) % {"container_type": container_type.upper()}
         self._title_label.set_text(title_text)
 
-        dialog_text = container_dialog_text % {"container_type": container_type.lower()}
+        dialog_text = _(container_dialog_text) % {"container_type": container_type.lower()}
         self._dialog_label.set_text(dialog_text)
 
         # populate the dialog widgets
@@ -603,7 +605,7 @@ class HelpDialog(GUIObject):
     uiFile = "spokes/custom.glade"
 
     def run(self):
-        help_text = help_text_template % {"productName": productName}
+        help_text = _(help_text_template) % {"productName": productName}
         help_buffer = self.builder.get_object("help_text_buffer")
         help_buffer.set_text(_(help_text))
         self.window.run()
@@ -1237,7 +1239,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         elif mountpoint == "/" and device.format.exists and not reformat:
             error = _("You must create a new filesystem on the root device.")
         elif device_type == DEVICE_TYPE_MD and raid_level in (None, "single"):
-            error = _("Devices of type %s require a valid RAID level selection.") % DEVICE_TEXT_MD
+            error = _("Devices of type %s require a valid RAID level selection.") % _(DEVICE_TEXT_MD)
 
         if not error and raid_level not in (None, "single"):
             md_level = mdraid.raidLevel(raid_level)
@@ -2027,7 +2029,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
                     except StorageError as e2:
                         log.error("factoryDevice failed w/ old container: %s", e2)
                     else:
-                        type_str = device_text_map[device_type]
+                        type_str = _(device_text_map[device_type])
                         self.set_info(_("Added new %(type)s to existing "
                                         "container %(name)s.")
                                         % {"type" : type_str, "name" : container.name})
@@ -2364,7 +2366,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
             return
 
         device_type = self._get_current_device_type()
-        container_type = container_type_names[device_type].lower()
+        container_type = _(container_type_names[device_type]).lower()
         new_text = _(new_container_text) % {"container_type": container_type}
         if container_name == new_text:
             # run the vg editor dialog with a default name and disk set
@@ -2619,7 +2621,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
                 if container:
                     container_size_policy = container.size_policy
 
-            container_type_text = container_type_names[device_type]
+            container_type_text = _(container_type_names[device_type])
             self._containerLabel.set_text(container_type_text.title())
             self._containerCombo.remove_all()
             if device_type == DEVICE_TYPE_BTRFS:

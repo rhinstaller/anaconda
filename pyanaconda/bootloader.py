@@ -688,19 +688,19 @@ class BootLoader(object):
 
         if not self._device_type_match(device, self.stage2_device_types):
             self.errors.append(_("%(desc)s cannot be of type %(type)s")
-                                 % {"desc" : self.stage2_description, "type" : device.type})
+                                 % {"desc" : _(self.stage2_description), "type" : device.type})
             valid = False
 
         if not self._is_valid_disklabel(device,
                                         disklabel_types=self.disklabel_types):
             valid = False
 
-        if not self._is_valid_size(device, desc=self.stage2_description):
+        if not self._is_valid_size(device, desc=_(self.stage2_description)):
             valid = False
 
         if not self._is_valid_location(device,
                                        max_mb=self.stage2_max_end_mb,
-                                       desc=self.stage2_description):
+                                       desc=_(self.stage2_description)):
             valid = False
 
         if not self._is_valid_partition(device,
@@ -711,14 +711,14 @@ class BootLoader(object):
                                  raid_levels=self.stage2_raid_levels,
                                  metadata=self.stage2_raid_metadata,
                                  member_types=self.stage2_raid_member_types,
-                                 desc=self.stage2_description):
+                                 desc=_(self.stage2_description)):
             valid = False
 
         if linux and \
            not self._is_valid_format(device,
                                      format_types=self.stage2_format_types,
                                      mountpoints=self.stage2_mountpoints,
-                                     desc=self.stage2_description):
+                                     desc=_(self.stage2_description)):
             valid = False
 
         non_linux_format_types = platform.platform._non_linux_format_types
@@ -729,7 +729,7 @@ class BootLoader(object):
 
         if not self.encryption_support and device.encrypted:
             self.errors.append(_("%s cannot be on an encrypted block "
-                                 "device.") % self.stage2_description)
+                                 "device.") % _(self.stage2_description))
             valid = False
 
         log.debug("is_valid_stage2_device(%s) returning %s", device.name, valid)
