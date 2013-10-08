@@ -255,6 +255,49 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Oct 08 2013 Brian C. Lane <bcl@redhat.com> - 19.31.24-1
+- Pass layout and variant in specific format to Gkbd (vpodzime)
+  Resolves: rhbz#1011155
+- Return switching options with the same order as shown (vpodzime)
+  Resolves: rhbz#1011130
+- Make the keyboard layout preview dialog bigger (vpodzime)
+  Resolves: rhbz#1011140
+- Make Keyboard spoke's status consistent with other statuses (vpodzime)
+  Resolves: rhbz#1011166
+- Generate ifcfg VLAN_ID value for kickstart network --vlanid (rvykydal)
+  Resolves: rhbz#1011860
+- Set ONBOOT=yes for the device used for installation (rvykydal).
+  Resolves: rhbz#1002544
+- Add a tooltip to the container combobox (bcl)
+  Resolves: rhbz#975801
+- Support for removing services from the firewall needs newer PyKickstart
+  (mkolman)
+  Related: rhbz#1016870
+- Add support for removing services from the firewall (mkolman)
+  Resolves: rhbz#1016870
+- Don't set ksdata.lang.seen to True if using default value (mkolman)
+  Resolves: rhbz#997397
+- network gui: do not crash on devices without settings (eg wireless)
+  (rvykydal)
+  Related: rhbz#1011928
+  Resolves: rhbz#1011928
+- Network TUI: show the same status as in gui (rvykydal)
+  Resolves: rhbz#1011928
+- Network TUI: don't traceback when applying config to device without link
+  (rvykydal)
+  Resolves: rhbz#1011866
+- Network TUI: fix updating of ksdata in apply (rvykydal)
+  Resolves: rhbz#1011855
+- Network TUI: ignore slaves devices for configuration (rvykydal)
+  Resolves: rhbz#1011841
+- network: don't create ksdata for devices enslaved in GUI (rvykydal)
+  Resolves: rhbz#1011826
+- Clean up ifcfg file handling (rvykydal)
+  Resolves: rhbz#1011826
+- Don't use temporary file and move when writing out an ifcfg file (vpodzime)
+  Related: rhbz#1011826
+  Resolves: rhbz#1011826
+
 * Fri Oct 04 2013 Brian C. Lane <bcl@redhat.com> - 19.31.23-1
 - Only encrypt the TUI user password once. (dshea)
   Related: rhbz#1012028
