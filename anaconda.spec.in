@@ -255,6 +255,9 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Wed Oct 09 2013 Vratislav Podzimek <vpodzime@redhat.com> - 19.31.25-1
+- Clean up some rpmdiff errors (bcl)
+  Resolves: rhbz#1012624
 * Tue Oct 08 2013 Brian C. Lane <bcl@redhat.com> - 19.31.24-1
 - Pass layout and variant in specific format to Gkbd (vpodzime)
   Resolves: rhbz#1011155
