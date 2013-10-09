@@ -126,7 +126,7 @@ class s390BootloaderInfo(bootloaderInfo):
 
         if not upgrade:
             self.writeZiplConf(instRoot, bl, kernelList, chainList, defaultDev,
-                                rootDev, upgrade=False)
+                                rootDev)
         else:
             # at this point all we should have to do is set the boot device
             # if all we are doing is upgrading
@@ -134,7 +134,7 @@ class s390BootloaderInfo(bootloaderInfo):
 
 
     def writeZiplConf(self, instRoot, bl, kernelList, chainList,
-                  defaultDev, rootDev, justConfigFile):
+                  defaultDev, rootDev):
         cf = '/etc/zipl.conf'
         self.perms = 0600
         if os.access (instRoot + cf, os.R_OK):
@@ -170,8 +170,7 @@ class s390BootloaderInfo(bootloaderInfo):
 
         f.close()
 
-        if not justConfigFile:
-            self.prepBootDev(instRoot)
+        self.prepBootDev(instRoot)
 
         return 0
 
