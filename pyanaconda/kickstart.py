@@ -339,6 +339,10 @@ class BTRFSData(commands.btrfs.F17_BTRFSData):
                     dev = devicetree.getChildren(dev)[0]
                 except IndexError:
                     dev = None
+
+            if dev and dev.format.type != "btrfs":
+                raise KickstartValueError, formatErrorMsg(self.lineno, msg="BTRFS partition %s has incorrect format (%s)" % (member, dev.format.type))
+
             if not dev:
                 raise KickstartValueError, formatErrorMsg(self.lineno, msg="Tried to use undefined partition %s in BTRFS volume specification" % member)
 
@@ -1169,6 +1173,10 @@ class RaidData(commands.raid.F18_RaidData):
                     dev = devicetree.getChildren(dev)[0]
                 except IndexError:
                     dev = None
+
+            if dev and dev.format.type != "mdmember":
+                raise KickstartValueError, formatErrorMsg(self.lineno, msg="RAID member %s has incorrect format (%s)" % (mem, dev.format.type))
+
             if not dev:
                 raise KickstartValueError, formatErrorMsg(self.lineno, msg="Tried to use undefined partition %s in RAID specification" % mem)
 
@@ -1386,6 +1394,10 @@ class VolGroupData(commands.volgroup.FC16_VolGroupData):
                     dev = devicetree.getChildren(dev)[0]
                 except IndexError:
                     dev = None
+
+            if dev and dev.format.type != "lvmpv":
+                raise KickstartValueError, formatErrorMsg(self.lineno, msg="Physical Volume %s has incorrect format (%s)" % (pv, dev.format.type))
+
             if not dev:
                 raise KickstartValueError, formatErrorMsg(self.lineno, msg="Tried to use undefined partition %s in Volume Group specification" % pv)
 
