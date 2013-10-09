@@ -25,6 +25,7 @@ from pyanaconda.flags import flags
 from pyanaconda.i18n import _
 from pyanaconda.progress import progressQ
 
+import itertools
 import logging
 import multiprocessing
 import pyanaconda.constants as constants
@@ -289,6 +290,14 @@ class DNFPayload(packaging.PackagePayload):
         if env is None:
             raise packaging.NoSuchGroup(environmentid)
         return (env.ui_name, env.ui_description)
+
+    def environmentGroups(self, environmentid):
+        env = self._base.comps.environment_by_pattern(environmentid)
+        if env is None:
+            raise packaging.NoSuchGroup(environmentid)
+        group_ids = (id_.name for id_ in env.group_ids)
+        option_ids = (id_.name for id_ in env.option_ids)
+        return list(itertools.chain(group_ids, option_ids))
 
     def environmentHasOption(self, environmentid, grpid):
         env = self._base.comps.environment_by_pattern(environmentid)
