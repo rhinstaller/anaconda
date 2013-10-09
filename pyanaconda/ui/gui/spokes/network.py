@@ -43,7 +43,7 @@ from pyanaconda.ui.gui.utils import gtk_call_once, enlightbox
 from pyanaconda.ui.common import FirstbootSpokeMixIn
 
 from pyanaconda import network
-from pyanaconda.nm import nm_device_setting_value, nm_device_ip_config, nm_activated_devices
+from pyanaconda.nm import nm_device_setting_value, nm_device_ip_config, nm_activated_devices, nm_device_active_ssid
 
 from gi.repository import GLib, GObject, Pango, Gio, NetworkManager, NMClient
 import dbus
@@ -349,33 +349,6 @@ class NetworkControlBox(object):
         device = self.selected_device()
         self.refresh_ui(device)
 
-    def activated_connections(self):
-        """Returns list of tuples (device_name, ssid), ssid is None for wired."""
-        active_devs = []
-
-        for con in self.client.get_active_connections():
-            if con.get_state() != NetworkManager.ActiveConnectionState.ACTIVATED:
-                continue
-            device = con.get_devices()[0]
-            dev_type, dev_name, dev_info = device.get_device_type(), None, None
-            if dev_type == NetworkManager.DeviceType.ETHERNET:
-                dev_name = device.get_iface()
-            elif dev_type == NetworkManager.DeviceType.WIFI:
-                ap = device.get_active_access_point()
-                if ap:
-                    dev_name = device.get_iface()
-                    dev_info = ap.get_ssid()
-            elif dev_type == NetworkManager.DeviceType.BOND:
-                dev_name = device.get_iface()
-                dev_info = [d.get_iface() for d in device.get_slaves()]
-            elif dev_type == NetworkManager.DeviceType.VLAN:
-                dev_name = device.get_iface()
-                parent = nm_device_setting_value(dev_name, "vlan", "parent")
-                dev_info = [parent, str(device.get_vlan_id())]
-            if dev_name:
-                active_devs.append((dev_name, dev_type, dev_info))
-        return active_devs
-
     # Signal handlers.
     def on_device_selection_changed(self, *args):
         device = self.selected_device()
@@ -448,7 +421,7 @@ class NetworkControlBox(object):
         # already activated (assume entering secrets)
         activate = None
         if (device.get_device_type() == NetworkManager.DeviceType.WIFI and ssid
-            and (device.get_iface(), NetworkManager.DeviceType.WIFI, ssid) not in self.activated_connections()):
+            and (nm_device_active_ssid(device.get_iface()) == ssid)):
             activate = (con, device)
 
         log.info("network: configuring connection %s device %s ssid %s", uuid, device.get_iface(), ssid)
@@ -1281,7 +1254,7 @@ class NetworkSpoke(FirstbootSpokeMixIn, NormalSpoke):
     def completed(self):
         # TODO: check also if source requires updates when implemented
         return (not can_touch_runtime_system("require network connection")
-                or len(self.network_control_box.activated_connections()) > 0)
+                or nm_activated_devices())
 
     @property
     def mandatory(self):
@@ -1392,7 +1365,7 @@ class NetworkStandaloneSpoke(StandaloneSpoke):
     @property
     def completed(self):
         return (not can_touch_runtime_system("require network connection")
-                or len(self.network_control_box.activated_connections()) > 0)
+                or nm_activated_devices())
 
     def initialize(self):
         register_secret_agent(self)
