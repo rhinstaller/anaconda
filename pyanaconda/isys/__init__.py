@@ -109,6 +109,14 @@ def isPaeAvailable():
 
     return isPAE
 
+def isLpaeAvailable():
+    with open("/proc/cpuinfo", "r") as fobj:
+        for line in fobj:
+            if line.startswith("Features") and "lpae" in line.split():
+                return True
+
+    return False
+
 def getAnacondaVersion():
     return _isys.getAnacondaVersion()
 

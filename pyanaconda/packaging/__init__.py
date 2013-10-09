@@ -669,6 +669,9 @@ class PackagePayload(Payload):
             if platform.armMachine is not None:
                 kernels = ["kernel-%s" % platform.armMachine]
 
+            if isys.isLpaeAvailable():
+                kernels.insert(0, "kernel-lpae")
+
         return kernels
 
     def reset(self, root=None):
