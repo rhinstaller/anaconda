@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: anaconda 13.21.209\n"
+"Project-Id-Version: anaconda 13.21.210\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
-"POT-Creation-Date: 2013-10-07 10:14-0400\n"
+"POT-Creation-Date: 2013-10-09 09:32-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -96,7 +96,7 @@ msgid "Installing %s\n"
 msgstr ""
 
 #: bootloader.py:55 bootloader.py:244 bootloader.py:250 bootloader.py:257
-#: gui.py:1253 image.py:92 installinterfacebase.py:66 network.py:890
+#: gui.py:1253 image.py:92 installinterfacebase.py:66 network.py:928
 #: text.py:490 text.py:550 yuminstall.py:1634 yuminstall.py:1843
 #: yuminstall.py:1878 iw/blpasswidget.py:154 iw/upgrade_swap_gui.py:190
 #: iw/upgrade_swap_gui.py:198 iw/upgrade_swap_gui.py:205
@@ -123,8 +123,8 @@ msgstr ""
 msgid "_Exit installer"
 msgstr ""
 
-#: bootloader.py:60 image.py:102 image.py:265 kickstart.py:1542
-#: kickstart.py:1586 upgrade.py:58 yuminstall.py:1448 yuminstall.py:1630
+#: bootloader.py:60 image.py:102 image.py:265 kickstart.py:1577
+#: kickstart.py:1621 upgrade.py:58 yuminstall.py:1448 yuminstall.py:1630
 #: iw/partition_gui.py:1629 storage/__init__.py:2089
 msgid "_Continue"
 msgstr ""
@@ -162,8 +162,8 @@ msgstr ""
 msgid "In progress"
 msgstr ""
 
-#: cmdline.py:88 gui.py:1284 kickstart.py:1324 kickstart.py:1404
-#: kickstart.py:1412 kickstart.py:1451 kickstart.py:1459 text.py:396
+#: cmdline.py:88 gui.py:1284 kickstart.py:1359 kickstart.py:1439
+#: kickstart.py:1447 kickstart.py:1486 kickstart.py:1494 text.py:396
 #, python-format
 msgid ""
 "The following error was found while parsing the kickstart configuration "
@@ -609,63 +609,63 @@ msgid ""
 "%s"
 msgstr ""
 
-#: kickstart.py:1423
+#: kickstart.py:1458
 #, python-format
 msgid "Error processing %%ksappend lines: %s"
 msgstr ""
 
-#: kickstart.py:1426
+#: kickstart.py:1461
 #, python-format
 msgid "Unknown error processing %%ksappend lines: %s"
 msgstr ""
 
-#: kickstart.py:1482 livecd.py:228
+#: kickstart.py:1517 livecd.py:228
 msgid "Post-Installation"
 msgstr ""
 
-#: kickstart.py:1483
+#: kickstart.py:1518
 msgid "Running post-installation scripts"
 msgstr ""
 
-#: kickstart.py:1499
+#: kickstart.py:1534
 msgid "Pre-Installation"
 msgstr ""
 
-#: kickstart.py:1500
+#: kickstart.py:1535
 msgid "Running pre-installation scripts"
 msgstr ""
 
-#: kickstart.py:1533
+#: kickstart.py:1568
 msgid "Missing Package"
 msgstr ""
 
-#: kickstart.py:1534
+#: kickstart.py:1569
 #, python-format
 msgid ""
 "You have specified that the package '%s' should be installed.  This package "
 "does not exist. Would you like to continue or abort this installation?"
 msgstr ""
 
-#: kickstart.py:1540 kickstart.py:1584
+#: kickstart.py:1575 kickstart.py:1619
 msgid "_Abort"
 msgstr ""
 
-#: kickstart.py:1541 kickstart.py:1585
+#: kickstart.py:1576 kickstart.py:1620
 msgid "_Ignore All"
 msgstr ""
 
-#: kickstart.py:1576
+#: kickstart.py:1611
 msgid "Missing Group"
 msgstr ""
 
-#: kickstart.py:1577
+#: kickstart.py:1612
 #, python-format
 msgid ""
 "You have specified that the group '%s' should be installed. This group does "
 "not exist. Would you like to continue or abort this installation?"
 msgstr ""
 
-#: kickstart.py:1700
+#: kickstart.py:1735
 #, python-format
 msgid ""
 "The kickstart configuration file is missing required information that "
@@ -745,17 +745,17 @@ msgstr ""
 msgid "'%s' is an invalid IP address."
 msgstr ""
 
-#: network.py:891
+#: network.py:929
 msgid ""
 "You do not have an active network connection.  This is required by some "
 "exception saving methods.  Would you like to configure your network now?"
 msgstr ""
 
-#: network.py:897 rescue.py:262 yuminstall.py:1350 iw/task_gui.py:311
+#: network.py:935 rescue.py:262 yuminstall.py:1350 iw/task_gui.py:311
 msgid "No Network Available"
 msgstr ""
 
-#: network.py:898
+#: network.py:936
 msgid "Remote exception saving methods will not work."
 msgstr ""
 
@@ -2180,8 +2180,8 @@ msgstr ""
 msgid "You must select one drive to boot from."
 msgstr ""
 
-#: iw/cleardisks_gui.py:127 iw/cleardisks_gui.py:147 iw/filter_gui.py:509
-#: iw/filter_gui.py:521 iw/filter_gui.py:551
+#: iw/cleardisks_gui.py:127 iw/cleardisks_gui.py:147 iw/filter_gui.py:525
+#: iw/filter_gui.py:537 iw/filter_gui.py:567
 msgid "Model"
 msgstr ""
 
@@ -2189,18 +2189,18 @@ msgstr ""
 msgid "Capacity"
 msgstr ""
 
-#: iw/cleardisks_gui.py:129 iw/filter_gui.py:511 iw/filter_gui.py:531
-#: iw/filter_gui.py:542 iw/filter_gui.py:553
+#: iw/cleardisks_gui.py:129 iw/filter_gui.py:527 iw/filter_gui.py:547
+#: iw/filter_gui.py:558 iw/filter_gui.py:569
 msgid "Vendor"
 msgstr ""
 
-#: iw/cleardisks_gui.py:130 iw/cleardisks_gui.py:149 iw/filter_gui.py:514
-#: iw/filter_gui.py:529 iw/filter_gui.py:540 iw/filter_gui.py:556
+#: iw/cleardisks_gui.py:130 iw/cleardisks_gui.py:149 iw/filter_gui.py:530
+#: iw/filter_gui.py:545 iw/filter_gui.py:556 iw/filter_gui.py:572
 msgid "Identifier"
 msgstr ""
 
-#: iw/cleardisks_gui.py:131 iw/filter_gui.py:512 iw/filter_gui.py:532
-#: iw/filter_gui.py:543 iw/filter_gui.py:554
+#: iw/cleardisks_gui.py:131 iw/filter_gui.py:528 iw/filter_gui.py:548
+#: iw/filter_gui.py:559 iw/filter_gui.py:570
 msgid "Interconnect"
 msgstr ""
 
@@ -2317,34 +2317,34 @@ msgstr ""
 msgid "Device Filter"
 msgstr ""
 
-#: iw/filter_gui.py:510 iw/filter_gui.py:522 iw/filter_gui.py:530
-#: iw/filter_gui.py:541 iw/filter_gui.py:552
+#: iw/filter_gui.py:526 iw/filter_gui.py:538 iw/filter_gui.py:546
+#: iw/filter_gui.py:557 iw/filter_gui.py:568
 msgid "Capacity (MB)"
 msgstr ""
 
-#: iw/filter_gui.py:513 iw/filter_gui.py:544 iw/filter_gui.py:555
+#: iw/filter_gui.py:529 iw/filter_gui.py:560 iw/filter_gui.py:571
 msgid "Serial Number"
 msgstr ""
 
-#: iw/filter_gui.py:515 iw/filter_gui.py:523 iw/filter_gui.py:534
-#: iw/filter_gui.py:545 iw/filter_gui.py:560 iw/osbootwidget.py:66
+#: iw/filter_gui.py:531 iw/filter_gui.py:539 iw/filter_gui.py:550
+#: iw/filter_gui.py:561 iw/filter_gui.py:576 iw/osbootwidget.py:66
 #: iw/partition_gui.py:613
 msgid "Device"
 msgstr ""
 
-#: iw/filter_gui.py:533
+#: iw/filter_gui.py:549
 msgid "Paths"
 msgstr ""
 
-#: iw/filter_gui.py:557
+#: iw/filter_gui.py:573
 msgid "Port"
 msgstr ""
 
-#: iw/filter_gui.py:558
+#: iw/filter_gui.py:574
 msgid "Target"
 msgstr ""
 
-#: iw/filter_gui.py:559
+#: iw/filter_gui.py:575
 msgid "LUN"
 msgstr ""
 

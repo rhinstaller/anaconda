@@ -222,6 +222,17 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Wed Oct 09 2013 Samantha N. Bueno <sbueno+anaconda@redhat.com> - 13.21.211-1
+- Do not limit swap size to 10 % of disk space for hibernation (vpodzime)
+  Resolves: rhbz#1003844
+- Fix the display of multipath devices (dshea)
+  Related: rhbz#914637
+  Resolves: rhbz#1007641
+- Fix traceback in s390x bootloader code. (sbueno+anaconda)
+  Resolves: rhbz#1017068
+- Support bonding in %pre section (rvykydal)
+  Resolves: rhbz#971961
+
 * Mon Oct 07 2013 Samantha N. Bueno <sbueno+anaconda@redhat.com> - 13.21.210-1
 - Fix bootloader issues on s390x. (sbueno+anaconda)
   Resolves: rhbz#1008941
