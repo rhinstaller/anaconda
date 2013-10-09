@@ -753,7 +753,7 @@ def get_rpm_from_Koji_thread(package, fedora_number, arch,
                 print("%s %s in version %s %s was not found in Koji" % (
                       prefix, package.name, package.version_request, package.version))
             else:
-                print("%s in any version was not found in Koji" % (prefix, package.name))
+                print("%s %s in any version was not found in Koji" % (prefix, package.name))
 
 def main():
     cwd = os.getcwd()
