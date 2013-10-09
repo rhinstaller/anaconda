@@ -255,6 +255,12 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Wed Oct 09 2013 Brian C. Lane <bcl@redhat.com> - 19.31.26-1
+- Clear bootDisk and bootloader stage info on errors (bcl)
+  Resolves: rhbz#1013482
+- Catch BootLoaderError when setting up bootloader (bcl)
+  Resolves: rhbz#1013474
+
 * Wed Oct 09 2013 Vratislav Podzimek <vpodzime@redhat.com> - 19.31.25-1
 - Clean up some rpmdiff errors (bcl)
   Resolves: rhbz#1012624
