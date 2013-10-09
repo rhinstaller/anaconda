@@ -489,7 +489,7 @@ def swapSuggestion(quiet=0, hibernation=False, disk_space=None):
         else:
             log.info("Ignoring --hibernation option on systems with 64 GB of RAM or more")
 
-    if disk_space is not None:
+    if disk_space is not None and not hibernation:
         max_swap = int(disk_space * MAX_SWAP_DISK_RATIO)
         if swap > max_swap:
             log.info("Suggested swap size (%(swap)d M) exceeds %(percent)d %% of "
