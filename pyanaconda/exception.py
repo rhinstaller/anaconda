@@ -31,6 +31,7 @@ import shutil
 import signal
 import time
 import re
+import errno
 import blivet.errors
 from pyanaconda.ui.communication import hubQ
 from pyanaconda.constants import ROOT_PATH, THREAD_EXCEPTION_HANDLING_TEST
@@ -82,7 +83,9 @@ class AnacondaExceptionHandler(ExceptionHandler):
         ty = dump_info.exc_info.type
         value = dump_info.exc_info.value
 
-        if issubclass(ty, blivet.errors.StorageError) and value.hardware_fault:
+        if (issubclass(ty, blivet.errors.StorageError) and value.hardware_fault) \
+                or (issubclass(ty, OSError) and value.errno == errno.EIO):
+            # hardware fault or '[Errno 5] Input/Output error'
             hw_error_msg = _("The installation was stopped due to what "
                              "seems to be a problem with your hardware. "
                              "The exact error message is:\n\n%s.\n\n "
