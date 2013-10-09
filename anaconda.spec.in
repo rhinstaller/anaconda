@@ -281,9 +281,9 @@ update-desktop-database &> /dev/null || :
   Resolves: rhbz#975801
 - Support for removing services from the firewall needs newer PyKickstart
   (mkolman)
-  Related: rhbz#1016870
+  Related: rhbz#1016008
 - Add support for removing services from the firewall (mkolman)
-  Resolves: rhbz#1016870
+  Related: rhbz#1016008
 - Don't set ksdata.lang.seen to True if using default value (mkolman)
   Resolves: rhbz#997397
 - network gui: do not crash on devices without settings (eg wireless)
