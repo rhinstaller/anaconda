@@ -38,12 +38,18 @@ AC_PROG_LN_S
 
 AM_GNU_GETTEXT([external])
 
+dnl Make sure that autoconf fails if the gobject-introspection macro
+dnl is not expanded.
+m4_pattern_forbid([GOBJECT_INTROSPECTION_CHECK])dnl
 GOBJECT_INTROSPECTION_CHECK([0.6.7])
  
 # Fail if introspection was not enabled
 AS_IF([test "x$found_introspection" = xyes], [:],
       [AC_MSG_ERROR([*** GObject introspection must be enabled])])
 
+dnl A missing GTK_DOC_CHECK should fail in autogen.sh running gtkdocize, but
+dnl might as well check it here too
+m4_pattern_forbid([GTK_DOC_CHECK])dnl
 GTK_DOC_CHECK([1.14], [--flavour no-tmpl])
 
 PKG_CHECK_MODULES([GLADEUI], [gladeui-2.0 >= 3.10])
