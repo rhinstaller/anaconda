@@ -43,6 +43,16 @@ class MountpointSelector(Anaconda.MountpointSelector):
         if mountpoint:
             self.set_property("mountpoint", mountpoint)
 
+    @property
+    def size(self):
+        # using get_property causes problems with pylint for some reason
+        # pylint: disable-msg=E1101
+        return self.get_property("size")
+
+    @size.setter
+    def size(self, size):
+        self.set_property("size", size)
+
 MountpointSelector = override(MountpointSelector)
 __all__.append('MountpointSelector')
 
