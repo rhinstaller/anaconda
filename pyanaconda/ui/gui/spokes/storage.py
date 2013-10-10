@@ -52,12 +52,13 @@ from pyanaconda.ui.gui.spokes.lib.resize import ResizeDialog
 from pyanaconda.ui.gui.categories.storage import StorageCategory
 from pyanaconda.ui.gui.utils import enlightbox, gtk_call_once, gtk_action_wait
 
-from pyanaconda.kickstart import doKickstartStorage
+from pyanaconda.kickstart import doKickstartStorage, getAvailableDiskSpace
 from blivet import empty_device
 from blivet.size import Size
 from blivet.devices import MultipathDevice
 from blivet.errors import StorageError
 from blivet.platform import platform
+from blivet.devicelibs import swap as swap_lib
 from pyanaconda.threads import threadMgr, AnacondaThread
 from pyanaconda.product import productName
 from pyanaconda.flags import flags
@@ -378,6 +379,13 @@ class StorageSpoke(NormalSpoke, StorageChecker):
         # If custom is selected, we want to leave alone any storage layout the
         # user may have set up before now.
         self.storage.config.clearNonExistent = self.data.autopart.autopart
+
+        # refresh the autopart swap size suggestion with currently selected disks
+        for request in self.storage.autoPartitionRequests:
+            if request.fstype == "swap":
+                disk_space = getAvailableDiskSpace(self.storage)
+                request.size = swap_lib.swapSuggestion(disk_space=disk_space)
+                break
 
     def execute(self):
         # Spawn storage execution as a separate thread so there's no big delay
