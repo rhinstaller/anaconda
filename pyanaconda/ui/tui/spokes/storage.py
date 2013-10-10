@@ -409,7 +409,7 @@ class PartitionSchemeSpoke(NormalTUISpoke):
         try:
             keyid = int(key) - 1
         except ValueError:
-            if key.lower() == "c" and self._selection:
+            if key.lower() == "c":
                 self.apply()
                 self.close()
                 return INPUT_PROCESSED
