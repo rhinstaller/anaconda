@@ -467,6 +467,7 @@ int readNetConfig(char * device, iface_t * iface,
     opts.v6Method = 0;
 #endif
     char *devicename = iface->device;
+    extern int post_link_sleep;
 
     if (iface->vlanid) {
 	checked_asprintf(&devicename, "%s.%d", iface->device, iface->vlanid);
@@ -486,7 +487,8 @@ int readNetConfig(char * device, iface_t * iface,
             return LOADER_BACK;
         }
 
-        i = wait_for_iface_activation(devicename, iface->dhcptimeout);
+        i = wait_for_iface_activation(devicename,
+            post_link_sleep > iface->dhcptimeout ? post_link_sleep : iface->dhcptimeout);
         newtPopWindow();
 
         if (i > 0) {
@@ -547,7 +549,8 @@ int readNetConfig(char * device, iface_t * iface,
         return LOADER_BACK;
     }
 
-    i = wait_for_iface_activation(iface->device, iface->dhcptimeout);
+    i = wait_for_iface_activation(iface->device,
+            post_link_sleep > iface->dhcptimeout ? post_link_sleep : iface->dhcptimeout);
     newtPopWindow();
 
     if (i > 0) {
@@ -1296,6 +1299,7 @@ int writeEnabledNetInfo(iface_t *iface) {
     struct utsname kv;
     char *uuid = NULL;
     char *devicename = iface->device;
+    extern int post_link_sleep;
 
     if (iface->vlanid) {
         checked_asprintf(&devicename, "%s.%d", iface->device, iface->vlanid);
@@ -1541,6 +1545,10 @@ int writeEnabledNetInfo(iface_t *iface) {
     if (!iface->defroute) {
         fprintf(fp, "DEFROUTE=no\n");
         logMessage(INFO, "not setting default route via %s", devicename);
+    }
+
+    if (post_link_sleep) {
+        fprintf(fp, "GATEWAY_PING_TIMEOUT=%d\n", post_link_sleep);
     }
 
     if (fclose(fp) == EOF) {
