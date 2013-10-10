@@ -91,10 +91,19 @@ bumpver: po-pull
 	$(MAKE) -C po $(PACKAGE_NAME).pot-update && \
 	tx push $(TX_PUSH_ARGS)
 
+# Install all packages specified as BuildRequires in the Anaconda specfile
+# -> installs packages needed to build Anaconda
 install-buildrequires:
 	srcdir="$(srcdir)" && \
 	: $${srcdir:=.} && \
 	yum install $$(grep BuildRequires: $${srcdir}/anaconda.spec.in | cut -d ' ' -f 2)
+
+# Install all packages specified as Requires in the Anaconda specfile
+# -> installs packages needed to run Anaconda and the Anaconda unit tests
+install-requires:
+	srcdir="$(srcdir)" && \
+	: $${srcdir:=.} && \
+	yum install $$(grep Requires: $${srcdir}/anaconda.spec.in | cut -d ' ' -f 2)
 
 # Generate an updates.img based on the changed files since the release
 # was tagged.  Updates are copied to ./updates-img and then the image is
