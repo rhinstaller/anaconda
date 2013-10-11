@@ -11,6 +11,7 @@ mkdir -p /mnt/sysimage/var/log/anaconda
 [ -e /tmp/ifcfg.log ] && cp /tmp/ifcfg.log $ANA_INSTALL_PATH/var/log/anaconda/anaconda.ifcfg.log
 [ -e /tmp/yum.log ] && cp /tmp/yum.log $ANA_INSTALL_PATH/var/log/anaconda/anaconda.yum.log
 cp /tmp/ks-script*.log $ANA_INSTALL_PATH/var/log/anaconda/
+journalctl -b > $ANA_INSTALL_PATH/var/log/anaconda/anaconda.journal.log
 chmod 0600 /mnt/sysimage/var/log/anaconda/*
 
 %end
