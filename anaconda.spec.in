@@ -255,6 +255,20 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Fri Oct 11 2013 Brian C. Lane <bcl@redhat.com> - 19.31.27-1
+- Refresh swap suggestion once we know which disks to use (vpodzime)
+  Related: rhbz#1016673
+- fix luksformat references (bcl)
+  Resolves: rhbz#1014493
+- kickstart: check for correct format (bcl)
+  Resolves: rhbz#1014545
+- UIScreen doesn't necessarily have the ready property (vpodzime)
+  Related: rhbz#1000409
+- Print long widgets in a nice way (vpodzime)
+  Related: rhbz#1000409
+- Take into account disk space when calculating swap suggestion (vpodzime)
+  Resolves: rhbz#1016673
+
 * Wed Oct 09 2013 Brian C. Lane <bcl@redhat.com> - 19.31.26-1
 - Clear bootDisk and bootloader stage info on errors (bcl)
   Resolves: rhbz#1013482
