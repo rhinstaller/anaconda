@@ -117,7 +117,8 @@ class LiveImagePayload(ImagePayload):
         # go recursively, include devices and special files, don't cross
         # file system boundaries
         args = ["-pogAXtlHrDx", "--exclude", "/dev/", "--exclude", "/proc/",
-                "--exclude", "/sys/", "--exclude", "/run/", INSTALL_TREE+"/", ROOT_PATH]
+                "--exclude", "/sys/", "--exclude", "/run/", "--exclude", "/boot/*rescue*",
+                "--exclude", "/etc/machine-id", INSTALL_TREE+"/", ROOT_PATH]
         try:
             rc = iutil.execWithRedirect(cmd, args)
         except (OSError, RuntimeError) as e:
@@ -145,6 +146,13 @@ class LiveImagePayload(ImagePayload):
         blivet.util.umount(INSTALL_TREE)
 
         super(LiveImagePayload, self).postInstall()
+
+        # Live needs to create the rescue image before bootloader is written
+        for kernel in self.kernelVersionList:
+            log.info("Generating rescue image for %s", kernel)
+            iutil.execWithRedirect("new-kernel-pkg",
+                                   ["--rpmposttrans", kernel],
+                                   root=ROOT_PATH)
 
     @property
     def spaceRequired(self):

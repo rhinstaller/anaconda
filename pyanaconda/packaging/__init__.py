@@ -601,9 +601,6 @@ class Payload(object):
                                         kernel],
                                         root=ROOT_PATH)
 
-            iutil.execWithRedirect("new-kernel-pkg",
-                                   ["--rpmposttrans", kernel],
-                                   root=ROOT_PATH)
         self._createdInitrds = True
 
 
