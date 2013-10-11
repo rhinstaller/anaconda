@@ -32,6 +32,7 @@ import pyanaconda.constants as constants
 import pyanaconda.errors as errors
 import pyanaconda.packaging as packaging
 import sys
+import time
 
 log = logging.getLogger("packaging")
 
@@ -51,6 +52,11 @@ REPO_DIRS = ['/etc/yum.repos.d',
              '/etc/anaconda.repos.d',
              '/tmp/updates/anaconda.repos.d',
              '/tmp/product/anaconda.repos.d']
+
+def _failure_limbo():
+    progressQ.send_quit(1)
+    while True:
+        time.sleep(10000)
 
 class PayloadRPMDisplay(dnf.output.LoggingTransactionDisplay):
     def __init__(self, queue):
@@ -80,7 +86,7 @@ def do_transaction(base, queue):
     except BaseException as e:
         log.error('The transaction process has ended abruptly')
         log.info(e)
-        queue.put('quit', str(e))
+        queue.put(('quit', str(e)))
 
 class DNFPayload(packaging.PackagePayload):
     def __init__(self, data):
@@ -104,10 +110,12 @@ class DNFPayload(packaging.PackagePayload):
         repo.sslverify = not (ksrepo.noverifyssl or flags.noverifyssl)
         repo.enable()
         self._base.repos.add(repo)
+        log.info("added repo: '%s'", ksrepo.name)
 
     def _apply_selections(self):
         self._select_group('core')
         for pkg_name in self.data.packages.packageList:
+            log.info("selecting package: '%s'", pkg_name)
             try:
                 self._install_package(pkg_name)
             except packaging.NoSuchPackage as e:
@@ -263,10 +271,9 @@ class DNFPayload(packaging.PackagePayload):
         self._base.reset(goal=True)
         self._apply_selections()
 
-        log.info("checking dependencies")
         try:
             if self._base.build_transaction():
-                log.debug("success")
+                log.debug("checking dependencies: success.")
             else:
                 log.debug("empty transaction")
         except dnf.exceptions.DepsolveError as e:
@@ -332,8 +339,7 @@ class DNFPayload(packaging.PackagePayload):
             self.checkSoftwareSelection()
         except packaging.DependencyError:
             if errors.errorHandler.cb(e) == errors.ERROR_RAISE:
-                progressQ.send_quit(1)
-                sys.exit(1)
+                _failure_limbo()
 
         pkgs_to_download = self._base.transaction.install_set
         log.info('Downloading pacakges.')
@@ -346,14 +352,17 @@ class DNFPayload(packaging.PackagePayload):
 
         queue = multiprocessing.Queue()
         process = multiprocessing.Process(target=do_transaction,
-                                          args=(self._base,queue))
+                                          args=(self._base, queue))
         process.start()
         (token, msg) = queue.get()
-        while token != 'post':
+        while token not in ('post', 'quit'):
             if token == 'install':
                 msg = _("Installing %s") % msg
                 progressQ.send_message(msg)
             (token, msg) = queue.get()
+
+        if token == 'quit':
+            _failure_limbo()
 
         post_msg = _("Performing post-installation setup tasks")
         progressQ.send_message(post_msg)
