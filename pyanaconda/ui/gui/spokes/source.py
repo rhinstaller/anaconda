@@ -716,8 +716,10 @@ class SourceSpoke(NormalSpoke):
             # fall back to a URL.
             if not self._autodetectButton.get_no_show_all():
                 self._autodetectButton.set_active(True)
+                self.data.method.method = "cdrom"
             else:
                 self._networkButton.set_active(True)
+                self.data.method.method = "url"
 
         self._noUpdatesCheckbox.set_active(not self.payload.isRepoEnabled("updates"))
 
