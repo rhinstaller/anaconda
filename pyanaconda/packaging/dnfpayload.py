@@ -260,6 +260,7 @@ class DNFPayload(packaging.PackagePayload):
     def checkSoftwareSelection(self):
         log.info("checking software selection")
         self._bump_tx_id()
+        self._base.reset(goal=True)
         self._apply_selections()
 
         log.info("checking dependencies")
