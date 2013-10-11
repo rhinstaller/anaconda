@@ -478,12 +478,14 @@ def _device_settings(name):
     elif devtype == NetworkManager.DeviceType.VLAN:
         settings = _find_settings(name, 'vlan', 'interface-name')
     else:
-        try:
-            hwaddr_str = nm_device_hwaddress(name)
-        except PropertyNotFoundError:
-            settings = None
-        else:
-            settings = _settings_for_hwaddr(hwaddr_str)
+        settings = _find_settings(name, 'connection', 'interface-name')
+        if not settings:
+            try:
+                hwaddr_str = nm_device_hwaddress(name)
+            except PropertyNotFoundError:
+                settings = None
+            else:
+                settings = _settings_for_hwaddr(hwaddr_str)
 
     return settings
 
