@@ -354,7 +354,7 @@
                                     <property name="can_focus">True</property>
                                     <property name="receives_default">True</property>
                                     <property name="image">upImage1</property>
-                                    <signal name="clicked" handler="on_up_ampm_clicked" swapped="no"/>
+                                    <signal name="clicked" handler="on_updown_ampm_clicked" swapped="no"/>
                                   </object>
                                   <packing>
                                     <property name="left_attach">4</property>
@@ -384,7 +384,7 @@
                                     <property name="can_focus">True</property>
                                     <property name="receives_default">True</property>
                                     <property name="image">downImage1</property>
-                                    <signal name="clicked" handler="on_down_ampm_clicked" swapped="no"/>
+                                    <signal name="clicked" handler="on_updown_ampm_clicked" swapped="no"/>
                                   </object>
                                   <packing>
                                     <property name="left_attach">4</property>

@@ -753,21 +753,13 @@ class DatetimeSpoke(FirstbootSpokeMixIn, NormalSpoke):
         minutes_str = "%0.2d" % ((minutes - 1) % 60)
         self._minutesLabel.set_text(minutes_str)
 
-    def on_up_ampm_clicked(self, *args):
+    def on_updown_ampm_clicked(self, *args):
         self._stop_and_maybe_start_time_updating()
 
-        if self._amPmLabel.get_text() == "AM":
-            self._amPmLabel.set_text("PM")
+        if self._amPmLabel.get_text() == _("AM"):
+            self._amPmLabel.set_text(_("PM"))
         else:
-            self._amPmLabel.set_text("AM")
-
-    def on_down_ampm_clicked(self, *args):
-        self._stop_and_maybe_start_time_updating()
-
-        if self._amPmLabel.get_text() == "AM":
-            self._amPmLabel.set_text("PM")
-        else:
-            self._amPmLabel.set_text("AM")
+            self._amPmLabel.set_text(_("AM"))
 
     def on_region_changed(self, combo, *args):
         """
