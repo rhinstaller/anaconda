@@ -285,12 +285,19 @@ class DNFPayload(packaging.PackagePayload):
                  len(self._base.transaction), self.spaceRequired)
 
     def disableRepo(self, repo_id):
-        log.info("Disabling '%s'", repo_id)
-        self._base.repos[repo_id].disable()
+        try:
+            self._base.repos[repo_id].disable()
+            log.info("Disabled '%s'", repo_id)
+        except KeyError:
+            pass
         super(DNFPayload, self).disableRepo(repo_id)
 
     def enableRepo(self, repo_id):
-        self._base.repos[repo_id].enable()
+        try:
+            self._base.repos[repo_id].enable()
+            log.info("Enabled '%s'", repo_id)
+        except KeyError:
+            pass
         super(DNFPayload, self).enableRepo(repo_id)
 
     def environmentDescription(self, environmentid):
