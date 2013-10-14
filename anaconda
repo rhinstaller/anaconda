@@ -951,7 +951,7 @@ if __name__ == "__main__":
             ksdata.method.method = "url"
             ksdata.method.url = anaconda.methodstr
         elif anaconda.methodstr.startswith("livecd"):
-            ksdata.method.method = "livecd"
+            ksdata.method.method = "harddrive"
             device = anaconda.methodstr.split(":", 1)[1]
             ksdata.method.partition = os.path.normpath(device)
         else:
