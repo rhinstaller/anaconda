@@ -13,6 +13,10 @@ if [ -z "$PYTHONPATH" ]; then
 else
     PYTHONPATH="${PYTHONPATH}:${top_builddir}/pyanaconda/isys/.libs:${top_srcdir}/pyanaconda:${top_srcdir}"
 fi
+
+ANACONDA_INSTALL_CLASSES="${top_builddir}/pyanaconda/installclasses"
+
+export ANACONDA_INSTALL_CLASSES
 export PYTHONPATH
 export top_srcdir
 export top_builddir
