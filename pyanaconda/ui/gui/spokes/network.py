@@ -44,7 +44,7 @@ from pyanaconda.ui.gui.utils import gtk_call_once, enlightbox
 from pyanaconda.ui.common import FirstbootSpokeMixIn
 
 from pyanaconda import network
-from pyanaconda.nm import nm_device_setting_value, nm_device_ip_config, nm_activated_devices, nm_device_active_ssid
+from pyanaconda import nm
 
 # pylint: disable-msg=E0611
 from gi.repository import GLib, GObject, Pango, Gio, NetworkManager, NMClient
@@ -120,11 +120,6 @@ def localized_string_of_device_state(device, state):
         str = _("Connection failed")
 
     return str
-
-configuration_of_disconnected_devices_allowed = True
-# it is not in gnome-control-center but it makes sense
-# for installer
-# https://bugzilla.redhat.com/show_bug.cgi?id=704119
 
 __all__ = ["NetworkSpoke", "NetworkStandaloneSpoke"]
 
@@ -267,7 +262,6 @@ class NetworkControlBox(object):
         self._updating_device = False
 
         self.client = NMClient.Client.new()
-        self.remote_settings = NMClient.RemoteSettings()
 
         # devices list
         # limited to wired and wireless
@@ -390,11 +384,13 @@ class NetworkControlBox(object):
 
         log.info("network: access point changed: %s" % ssid_target)
 
-        con = self.find_connection_for_device(device, ssid_target)
-        if con:
-            self.client.activate_connection(con, device,
-                                            None, None, None)
-        else:
+        try:
+            uuid = nm.nm_ap_setting_value(ssid_target, "connection", "uuid")
+            nm.nm_activate_device_connection(device.get_iface(), uuid)
+        except nm.UnmanagedDeviceError as e:
+            log.debug("network: on_wireless_ap_changed: %s" % e)
+        except nm.SettingsNotFoundError as e:
+            log.debug("network: on_wireless_ap_changed: %s" % e)
             self.client.add_and_activate_connection(None, device, ap_obj_path,
                                                     None, None)
 
@@ -409,26 +405,36 @@ class NetworkControlBox(object):
         if not device:
             return
 
-        con = self.find_active_connection_for_device(device)
-        ssid = None
-        if not con and configuration_of_disconnected_devices_allowed:
+        devname = device.get_iface()
+        uuid = None
+        try:
+            uuid = nm.nm_device_active_con_uuid(devname)
+        except nm.UnknownDeviceError as e:
+            log.debug("network: on_edit_connection: %s" % e)
+        if not uuid:
             if device.get_device_type() == NetworkManager.DeviceType.WIFI:
-                ssid = self.selected_ssid
-            con = self.find_connection_for_device(device, ssid)
+                if self.selected_ssid:
+                    try:
+                        uuid = nm.nm_ap_setting_value(self.selected_ssid, "connection", "uuid")
+                    except nm.SettingsNotFoundError as e:
+                        log.debug("network: on_edit_connection: %s" % e)
+            else:
+                uuid = nm.nm_device_setting_value(devname, "connection", "uuid")
 
-        if con:
-            uuid = con.get_uuid()
-        else:
+        if not uuid:
+            log.debug("network: on_edit_connection: can't find connection for device %s" % devname)
             return
 
         # 871132 auto activate wireless connection after editing if it is not
         # already activated (assume entering secrets)
         activate = None
-        if (device.get_device_type() == NetworkManager.DeviceType.WIFI and ssid
-            and (nm_device_active_ssid(device.get_iface()) == ssid)):
-            activate = (con, device)
+        if (device.get_device_type() == NetworkManager.DeviceType.WIFI
+            and self.selected_ssid
+            and self.selected_ssid != nm.nm_device_active_ssid(devname)):
+            activate = (uuid, devname)
 
-        log.info("network: configuring connection %s device %s ssid %s" % (uuid, device.get_iface(), ssid))
+        log.info("network: configuring connection %s device %s ssid %s" %
+                 (uuid, devname, self.selected_ssid))
         self.kill_nmce(msg="Configure button clicked")
         proc = subprocess.Popen(["nm-connection-editor", "--edit", "%s" % uuid])
         self._running_nmce = proc
@@ -451,13 +457,12 @@ class NetworkControlBox(object):
             if self._running_nmce and self._running_nmce.pid == pid:
                 self._running_nmce = None
             if activate:
-                con, device = activate
-                gtk_call_once(self._activate_connection_cb, con, device)
+                uuid, devname = activate
+                gtk_call_once(self._activate_connection_cb, uuid, devname)
             network.logIfcfgFiles("nm-c-e run")
 
-    def _activate_connection_cb(self, con, device):
-        self.client.activate_connection(con, device,
-                                        None, None, None)
+    def _activate_connection_cb(self, uuid, devname):
+        nm.nm_activate_device_connection(devname, uuid)
 
     def on_wireless_enabled(self, *args):
         switch = self.builder.get_object("device_wireless_off_switch")
@@ -480,11 +485,12 @@ class NetworkControlBox(object):
                         NetworkManager.DeviceType.BOND,
                         NetworkManager.DeviceType.VLAN):
             if active:
-                cons = self.remote_settings.list_connections()
-                dev_cons = device.filter_connections(cons)
-                if dev_cons:
-                    self.client.activate_connection(dev_cons[0], device,
-                                                    None, None, None)
+                uuid = nm.nm_device_setting_value(device.get_iface(), "connection", "uuid")
+                if uuid:
+                    try:
+                        nm.nm_activate_device_connection(device.get_iface(), uuid)
+                    except nm.UnmanagedDeviceError as e:
+                        log.debug("network: on_device_off_toggled: %s" % e)
                 else:
                     self.client.add_and_activate_connection(None, device, None,
                                                             None, None)
@@ -526,47 +532,6 @@ class NetworkControlBox(object):
         if not iter:
             return None
         return model.get(iter, DEVICES_COLUMN_OBJECT)[0]
-
-    def find_connection_for_device(self, device, ssid=None):
-        dev_type = device.get_device_type()
-        cons = self.remote_settings.list_connections()
-        for con in cons:
-            con_type = con.get_setting_connection().get_connection_type()
-            if dev_type == NetworkManager.DeviceType.ETHERNET:
-                if con_type != NetworkManager.SETTING_WIRED_SETTING_NAME:
-                    continue
-                settings = con.get_setting_wired()
-                con_hwaddr = ":".join("%02X" % ord(bytechar)
-                                      for bytechar in settings.get_mac_address())
-                if con_hwaddr == device.get_hw_address():
-                    return con
-            elif dev_type == NetworkManager.DeviceType.WIFI:
-                if con_type != NetworkManager.SETTING_WIRELESS_SETTING_NAME:
-                    continue
-                settings = con.get_setting_wireless()
-                if ssid == settings.get_ssid():
-                    return con
-            elif dev_type == NetworkManager.DeviceType.BOND:
-                if con_type != NetworkManager.SETTING_BOND_SETTING_NAME:
-                    continue
-                settings = con.get_setting_bond()
-                if device.get_iface() == settings.get_virtual_iface_name():
-                    return con
-            elif dev_type == NetworkManager.DeviceType.VLAN:
-                if con_type != NetworkManager.SETTING_VLAN_SETTING_NAME:
-                    continue
-                settings = con.get_setting_vlan()
-                if device.get_iface() == settings.get_interface_name():
-                    return con
-            else:
-                return None
-
-    def find_active_connection_for_device(self, device):
-        cons = self.client.get_active_connections()
-        for con in cons:
-            if con.get_devices()[0] is device:
-                return self.remote_settings.get_connection_by_path(con.get_connection())
-        return None
 
     def _device_is_stored(self, nm_device):
         """Check that device with Udi of nm_device is already in liststore"""
@@ -695,8 +660,8 @@ class NetworkControlBox(object):
         elif dev_type == NetworkManager.DeviceType.VLAN:
             dt = "wired"
 
-        ipv4cfg = nm_device_ip_config(device.get_iface(), version=4)
-        ipv6cfg = nm_device_ip_config(device.get_iface(), version=6)
+        ipv4cfg = nm.nm_device_ip_config(device.get_iface(), version=4)
+        ipv6cfg = nm.nm_device_ip_config(device.get_iface(), version=6)
 
         if ipv4cfg and ipv4cfg[0]:
             addr_str, prefix, gateway_str = ipv4cfg[0][0]
@@ -788,7 +753,7 @@ class NetworkControlBox(object):
         dev_type = device.get_device_type()
         if dev_type == NetworkManager.DeviceType.VLAN:
             self._set_device_info_value("wired", "vlanid", str(device.get_vlan_id()))
-            parent = nm_device_setting_value(device.get_iface(), "vlan", "parent")
+            parent = nm.nm_device_setting_value(device.get_iface(), "vlan", "parent")
             self._set_device_info_value("wired", "parent", parent)
 
     def _refresh_speed_hwaddr(self, device, state=None):
@@ -888,8 +853,6 @@ class NetworkControlBox(object):
                                             NetworkManager.DeviceState.DEACTIVATING,
                                             NetworkManager.DeviceState.FAILED))
             self._updating_device = False
-            if not configuration_of_disconnected_devices_allowed:
-                self.builder.get_object("button_%s_options" % dev_type_str).set_sensitive(state == NetworkManager.DeviceState.ACTIVATED)
         elif dev_type_str == "wireless":
             self.on_wireless_enabled()
 
@@ -1255,7 +1218,7 @@ class NetworkSpoke(FirstbootSpokeMixIn, NormalSpoke):
     def completed(self):
         # TODO: check also if source requires updates when implemented
         return (not flags.can_touch_runtime_system("require network connection")
-                or nm_activated_devices())
+                or nm.nm_activated_devices())
 
     @property
     def mandatory(self):
@@ -1362,7 +1325,7 @@ class NetworkStandaloneSpoke(StandaloneSpoke):
     @property
     def completed(self):
         return (not flags.can_touch_runtime_system("require network connection")
-                or nm_activated_devices())
+                or nm.nm_activated_devices())
 
     def initialize(self):
         register_secret_agent(self)
@@ -1403,7 +1366,7 @@ def _update_network_data(data, ncb):
         nd = network.ksdata_from_ifcfg(devname)
         if not nd:
             continue
-        if devname in nm_activated_devices():
+        if devname in nm.nm_activated_devices():
             nd.activate = True
         data.network.network.append(nd)
     hostname = ncb.hostname

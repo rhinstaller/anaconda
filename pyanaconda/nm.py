@@ -52,12 +52,7 @@ class PropertyNotFoundError(ValueError):
     def __str__(self):
         return self.__repr__()
 
-class SettingNotFoundError(ValueError):
-    """Setting of NMRemoteConnection was not found"""
-    def __str__(self):
-        return self.__repr__()
-
-class DeviceSettingsNotFoundError(ValueError):
+class SettingsNotFoundError(ValueError):
     """Settings NMRemoteConnection object was not found"""
     def __str__(self):
         return self.__repr__()
@@ -552,11 +547,11 @@ def nm_device_setting_value(name, key1, key2):
 
        Exceptions:
        UnknownDeviceError - device was not found
-       DeviceSettingsNotFoundError - settings were not found (eg for "wlan0")
+       SettingsNotFoundError - settings were not found (eg for "wlan0")
     """
     settings_path = _device_settings(name)
     if not settings_path:
-        raise DeviceSettingsNotFoundError(name)
+        raise SettingsNotFoundError(name)
     proxy = _get_proxy(object_path=settings_path, interface_name="org.freedesktop.NetworkManager.Settings.Connection")
     args = None
     settings = proxy.call_sync("GetSettings",
@@ -568,9 +563,42 @@ def nm_device_setting_value(name, key1, key2):
     try:
         value = settings[key1][key2]
     except KeyError:
-        #raise SettingNotFoundError(key1, key2)
         value = None
     return value
+
+def nm_ap_setting_value(ssid, key1, key2):
+    """Return value of ap's setting specified by key1 and key2.
+
+       :param ssid: name of ap (ssid)
+       :type ssid: str
+       :param key1: first-level key of setting (eg "connection")
+       :type key1: str
+       :param key2: second-level key of setting (eg "uuid")
+       :type key2: str
+       :return: value of setting or None if the setting was not found
+                which means it does not exist or default value is used
+                by NM
+       :rtype: unpacked GDBus variant or None
+       :raise SettingsNotFoundError: if settings were not found
+                                           (eg for "wlan0")
+    """
+    settings_path = _settings_for_ap(ssid)
+    if not settings_path:
+        raise SettingsNotFoundError(ssid)
+    proxy = _get_proxy(object_path=settings_path, interface_name="org.freedesktop.NetworkManager.Settings.Connection")
+    args = None
+    settings = proxy.call_sync("GetSettings",
+                               args,
+                               Gio.DBusCallFlags.NONE,
+                               DEFAULT_DBUS_TIMEOUT,
+                               None)
+    settings = settings.unpack()[0]
+    try:
+        value = settings[key1][key2]
+    except KeyError:
+        value = None
+    return value
+
 
 def nm_activate_device_connection(dev_name, con_uuid):
     """Activate device with specified connection.
@@ -621,11 +649,11 @@ def nm_update_settings_of_device(name, new_values):
 
        Exceptions:
        UnknownDeviceError - device was not found
-       DeviceSettingsNotFoundError - settings were not found (eg for "wlan0")
+       SettingsNotFoundError - settings were not found (eg for "wlan0")
     """
     settings_path = _device_settings(name)
     if not settings_path:
-        raise DeviceSettingsNotFoundError(name)
+        raise SettingsNotFoundError(name)
     return _update_settings(settings_path, new_values)
 
 def _update_settings(settings_path, new_values):
@@ -833,7 +861,7 @@ if __name__ == "__main__":
     if wireless_device:
         try:
             nm_update_settings_of_device(wireless_device, [[key1, key2, new_value, None]])
-        except DeviceSettingsNotFoundError as e:
+        except SettingsNotFoundError as e:
             print "%s" % e
 
     #nm_update_settings_of_device(devname, [["connection", "id", "test", None]])
