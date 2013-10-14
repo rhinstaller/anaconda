@@ -283,7 +283,7 @@ def dumpMissingDefaultIfcfgs():
         # check that device has connection without ifcfg file
         try:
             con_uuid = nm.nm_device_setting_value(devname, "connection", "uuid")
-        except nm.DeviceSettingsNotFoundError:
+        except nm.SettingsNotFoundError:
             continue
         if find_ifcfg_file([("UUID", con_uuid)], root_path=""):
             continue
@@ -293,7 +293,7 @@ def dumpMissingDefaultIfcfgs():
             log.debug("network: dumping ifcfg file for default autoconnection on %s", devname)
             nm.nm_update_settings_of_device(devname, [['connection', 'autoconnect', False, None]])
             log.debug("network: setting autoconnect of %s to False" , devname)
-        except nm.DeviceSettingsNotFoundError:
+        except nm.SettingsNotFoundError:
             log.debug("network: no ifcfg file for %s", devname)
         rv = True
 
@@ -939,7 +939,7 @@ def setOnboot(ksdata):
         try:
             nm.nm_update_settings_of_device(devname, [['connection', 'autoconnect', network_data.onboot, None]])
             ifcfglog.debug("setting autoconnect (ONBOOT) of %s to %s" , devname, network_data.onboot)
-        except nm.DeviceSettingsNotFoundError as e:
+        except nm.SettingsNotFoundError as e:
             log.debug("setOnboot: %s", e)
 
 def networkInitialize(ksdata):

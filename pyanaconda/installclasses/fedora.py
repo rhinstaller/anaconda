@@ -49,7 +49,7 @@ class InstallClass(BaseInstallClass):
                 continue
             try:
                 onboot = nm.nm_device_setting_value(devName, "connection", "autoconnect")
-            except nm.DeviceSettingsNotFoundError:
+            except nm.SettingsNotFoundError:
                 continue
             if not onboot == False:
                 return
