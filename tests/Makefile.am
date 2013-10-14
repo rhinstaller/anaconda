@@ -42,9 +42,11 @@ dist_check_SCRIPTS = accelerators/check_accelerators.py \
 		     pylint/runpylint.sh \
 		     testenv.sh \
 		     gettext/gettext_warnings.sh \
+		     storage/run_storage_tests.py \
 		     $(srcdir)/*_tests/*.py
 
 TESTS = nosetests.sh \
 	pylint/runpylint.sh \
 	gettext/gettext_warnings.sh \
+	storage/run_storage_tests.py \
 	accelerators/run_check_accelerators.sh
