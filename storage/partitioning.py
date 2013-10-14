@@ -1061,13 +1061,6 @@ def allocatePartitions(storage, disks, partitions, freespace):
         use_disk = None
         part_type = None
         growth = 0
-        # initialize the disklabel variable to None,
-        # so we can safely check if the variable was set or not
-        # (req_disks can be empty if using multipath with custom
-        # partitioning, in this case disklabel will not be set by the
-        # for loop and we need to check for that, as there are
-        # some check working with disklabel after the loop)
-        disklabel = None
         # loop through disks
         for _disk in req_disks:
             disklabel = disklabels[_disk.path]
@@ -1220,9 +1213,7 @@ def allocatePartitions(storage, disks, partitions, freespace):
                 log.debug("found free space for bootable request")
                 break
 
-        # check if disklabel is set and if it is, check if the disk is
-        # out of partition slots (None = out of partition slots)
-        if disklabel is not None and getNextPartitionType(disklabel.partedDisk) is None:
+        if getNextPartitionType(disklabel.partedDisk) is None:
             raise PartitioningError("no free partition slots on %s" % 
                                     _disk.name)
 
