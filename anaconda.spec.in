@@ -23,6 +23,7 @@ Source0: %{name}-%{version}.tar.bz2
 %define libnlver 1.0
 %define pykickstartver 1.99.42
 %define yumver 3.4.3-91
+%define dnfver 0.4.4
 %define partedver 1.8.1
 %define pypartedver 2.5-2
 %define pythonpyblockver 0.45
@@ -80,7 +81,7 @@ BuildRequires: s390utils-devel
 %endif
 
 Requires: anaconda-widgets = %{version}-%{release}
-Requires: dnf
+Requires: dnf >= %{dnfver}
 Requires: python-blivet >= 0.24
 Requires: gnome-icon-theme-symbolic
 Requires: python-meh >= %{mehver}
