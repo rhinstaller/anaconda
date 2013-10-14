@@ -85,10 +85,6 @@ if [ -z "$FILES" ]; then
     FILES="$(find "${top_srcdir}"/{anaconda,pyanaconda,tests,widgets,utils,scripts} -type f \( -name '*.py' -o -exec awk -e 'NR==1 { if ($0 ~ /^#!\/usr\/bin\/python/) exit 0; else exit 1; }' -e 'END { if (NR == 0) exit 1; }' {} \; \) -print)"
 fi
 for i in $FILES; do
-  if [ -n "$(echo "$i" | grep 'pyanaconda/packaging/dnfpayload.py$')" ]; then
-     continue
-  fi
-
   pylint_output="$(pylint \
     --msg-template='{msg_id}:{line:3d},{column}: {obj}: {msg}' \
     -r n --disable=C,R --rcfile=/dev/null \
