@@ -43,7 +43,9 @@ fi
 
 # Try to sort out where the live device is
 if [ -z "$LIVE_BLOCK" ]; then
-    if [ -b "/dev/mapper/live-osimg-min" ]; then
+    if [ -b "/dev/mapper/live-base" ]; then
+       LIVE_BLOCK="/dev/mapper/live-base"
+    elif [ -b "/dev/mapper/live-osimg-min" ]; then
        LIVE_BLOCK="/dev/mapper/live-osimg-min"
     fi
 fi
