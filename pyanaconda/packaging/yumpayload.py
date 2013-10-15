@@ -269,6 +269,7 @@ reposdir=%s
 
         for repo in self._yum.repos.listEnabled():
             cfg_path = "%s/%s.repo" % (self._repos_dir, repo.id)
+            log.debug("writing repository file %s for repository %s", cfg_path, repo.id)
             ks_repo = self.getAddOnRepo(repo.id)
             with open(cfg_path, "w") as f:
                 f.write("[%s]\n" % repo.id)
