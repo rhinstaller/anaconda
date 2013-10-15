@@ -353,7 +353,7 @@
                                 <property name="width_request">42</property>
                                 <property name="visible">True</property>
                                 <property name="can_focus">False</property>
-                                <property name="label" translatable="yes">Add layout</property>
+                                <property name="label" translatable="yes">_Add layout</property>
                                 <property name="use_underline">True</property>
                                 <property name="icon_name">list-add-symbolic</property>
                                 <signal name="clicked" handler="on_add_clicked" swapped="no"/>
@@ -368,7 +368,7 @@
                                 <property name="width_request">42</property>
                                 <property name="visible">True</property>
                                 <property name="can_focus">False</property>
-                                <property name="label" translatable="yes">Remove layout</property>
+                                <property name="label" translatable="yes">_Remove layout</property>
                                 <property name="use_underline">True</property>
                                 <property name="icon_name">list-remove-symbolic</property>
                                 <signal name="clicked" handler="on_remove_clicked" swapped="no"/>
@@ -383,7 +383,7 @@
                                 <property name="width_request">42</property>
                                 <property name="visible">True</property>
                                 <property name="can_focus">False</property>
-                                <property name="label" translatable="yes">Move selected layout up</property>
+                                <property name="label" translatable="yes">Move selected layout _up</property>
                                 <property name="use_underline">True</property>
                                 <property name="icon_name">go-up-symbolic</property>
                                 <signal name="clicked" handler="on_up_clicked" swapped="no"/>
@@ -398,7 +398,7 @@
                                 <property name="width_request">42</property>
                                 <property name="visible">True</property>
                                 <property name="can_focus">False</property>
-                                <property name="label" translatable="yes">Move selected layout down</property>
+                                <property name="label" translatable="yes">Move selected layout _down</property>
                                 <property name="use_underline">True</property>
                                 <property name="icon_name">go-down-symbolic</property>
                                 <signal name="clicked" handler="on_down_clicked" swapped="no"/>
@@ -414,7 +414,7 @@
                                 <property name="height_request">36</property>
                                 <property name="visible">True</property>
                                 <property name="can_focus">False</property>
-                                <property name="label" translatable="yes">Preview layout</property>
+                                <property name="label" translatable="yes">_Preview layout</property>
                                 <property name="use_underline">True</property>
                                 <property name="icon_name">input-keyboard-symbolic</property>
                                 <signal name="clicked" handler="on_preview_clicked" swapped="no"/>
