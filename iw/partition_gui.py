@@ -1346,7 +1346,21 @@ class PartitionWindow(InstallWindow):
         # First we must decide what parts of the create_storage_dialog
         # we will activate.
 
+        # get the currently selected device
+        device = self.tree.getCurrentDevice()
+
+        # check if the current device is partitioned,
+        # if it isn't, we don't support it
         activate_create_partition = True
+        if device:
+            # a device is selected in the GUI,
+            # disable the create dialog if it is unpartitioned
+            activate_create_partition = device.partitioned
+        else:
+            # device was not yet selected in the GUI,
+            # check all devices and disable the create dialog
+            # if there are no partitioned devices
+            activate_create_partition = bool(self.storage.partitioned)
 
         # We activate the create Volume Group radio button if there is a free
         # partition with a Physical Volume format.
