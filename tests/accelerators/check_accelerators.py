@@ -84,12 +84,13 @@ def add_check_accel(glade_filename, accels, label, po_map):
     """
     global success
 
-    language = None
     if po_map:
         if label.text not in po_map:
             return
         label.text = po_map[label.text]
-        language = po_map.metadata['Language']
+        lang_str = " for language %s" % po_map.metadata['Language']
+    else:
+        lang_str = ""
 
     match = accel_re.search(label.text)
     if match:
@@ -99,11 +100,6 @@ def add_check_accel(glade_filename, accels, label, po_map):
             if is_exception(label, accels[accel]):
                 return
 
-            if language:
-                lang_str = " for language %s" % language
-            else:
-                lang_str = ""
-
             print(("Accelerator collision for key %s in %s%s\n    line %d: %s\n    line %d: %s" %\
                     (accel, os.path.normpath(glade_filename), lang_str,
                         accels[accel].sourceline, accels[accel].text,
@@ -111,6 +107,11 @@ def add_check_accel(glade_filename, accels, label, po_map):
             success = False
         else:
             accels[accel] = label
+    else:
+        print(("No accelerator defined for %s in %s%s: line %d" %\
+                (label.text, os.path.normpath(glade_filename), lang_str,
+                    label.sourceline)).encode("utf-8"))
+        success = False
 
 def combine_accels(glade_filename, list_a, list_b, po_map):
     if not list_a:
@@ -149,12 +150,12 @@ def process_object(glade_filename, interface_object, po_map):
     accels = [{}]
 
     # Add everything that isn't a child of a GtkNotebook
-    for label in interface_object.xpath(".//property[@name='label' and ../property[@name='use_underline']/text() = 'True' and not(ancestor::object[@class='GtkNotebook'])]"):
+    for label in interface_object.xpath(".//property[@name='label' and ../property[@name='use_underline']/text() = 'True' and not(ancestor::object[@class='GtkNotebook']) and not(../property[@name='use_stock']/text() = 'True')]"):
         add_check_accel(glade_filename, accels[0], label, po_map)
 
     # For each GtkNotebook tab that is not a child of another notebook,
     # add the tab to the top-level context
-    for notebook_label in interface_object.xpath(".//object[@class='GtkNotebook' and not(ancestor::object[@class='GtkNotebook'])]/child[@type='tab']//property[@name='label' and ../property[@name='use_underline']/text() = 'True']"):
+    for notebook_label in interface_object.xpath(".//object[@class='GtkNotebook' and not(ancestor::object[@class='GtkNotebook'])]/child[@type='tab']//property[@name='label' and ../property[@name='use_underline']/text() = 'True' and not(../property[@name='use_stock']/text() = 'True')]"):
         add_check_accel(glade_filename, accels[0], notebook_label, po_map)
 
     # Now process each non-tab object in each Gtknotebook that is not a child
