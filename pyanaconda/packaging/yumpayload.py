@@ -84,7 +84,6 @@ from pyanaconda.localization import langcode_matches_locale
 from pykickstart.constants import GROUP_ALL, GROUP_DEFAULT, KS_MISSING_IGNORE
 
 YUM_PLUGINS = ["blacklist", "whiteout", "fastestmirror", "langpacks"]
-default_repos = [productName.lower(), "rawhide"]
 
 import inspect
 import threading
@@ -121,11 +120,15 @@ class YumPayload(PackagePayload):
         only exist in yum. Lastly, the base repo exists in yum and in
         ksdata.method.
     """
+
+
     def __init__(self, data):
         if rpm is None or yum is None:
             raise PayloadError("unsupported payload type")
 
         PackagePayload.__init__(self, data)
+
+        self.default_repos = [productName.lower(), "rawhide"]
 
         self._root_dir = "/tmp/yum.root"
         self._repos_dir = "/etc/yum.repos.d,/etc/anaconda.repos.d,/tmp/updates/anaconda.repos.d,/tmp/product/anaconda.repos.d"
@@ -375,7 +378,7 @@ reposdir=%s
 
     @property
     def baseRepo(self):
-        repo_names = [BASE_REPO_NAME] + default_repos
+        repo_names = [BASE_REPO_NAME] + self.default_repos
         base_repo_name = None
         with _yum_lock:
             for repo_name in repo_names:
