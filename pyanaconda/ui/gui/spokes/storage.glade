@@ -999,6 +999,7 @@
                                             <property name="image">addSpecializedImage</property>
                                             <property name="use_underline">True</property>
                                             <property name="image_position">top</property>
+                                            <property name="always_show_image">True</property>
                                             <signal name="clicked" handler="on_specialized_clicked" swapped="no"/>
                                           </object>
                                           <packing>
