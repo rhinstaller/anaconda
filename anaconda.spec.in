@@ -222,6 +222,16 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Tue Oct 15 2013 Samantha N. Bueno <sbueno+anaconda@redhat.com> - 13.21.212-1
+- Fix getDiskPart for nvme devices (vpavlin)
+  Resolves: rhbz#1018703
+- fcoe: rise fipvlan timeout to 100 (rvykydal)
+  Resolves: rhbz#1009691
+- Revert "Check if disklabel is set (mkolman)"
+  Resolves: rhbz#1007683
+- Check if disklabel is set (mkolman)
+  Resolves: rhbz#1007683
+
 * Wed Oct 09 2013 Samantha N. Bueno <sbueno+anaconda@redhat.com> - 13.21.211-1
 - Do not limit swap size to 10 % of disk space for hibernation (vpodzime)
   Resolves: rhbz#1003844
