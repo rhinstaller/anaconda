@@ -25,7 +25,7 @@ import time
 import logging
 log = logging.getLogger("anaconda")
 
-import os, signal
+import os, signal, string
 
 from gi.repository import GLib
 
@@ -502,7 +502,9 @@ class SourceSpoke(NormalSpoke):
             return _("Checking software dependencies...")
         elif not self.ready:
             return _(BASEREPO_SETUP_MESSAGE)
-        elif self._error or not self.payload.baseRepo:
+        elif not self.payload.baseRepo:
+            return _("Error setting up base repository")
+        elif self._error:
             return _("Error setting up software source")
         elif self.data.method.method == "url":
             return self.data.method.url or self.data.method.mirrorlist
@@ -512,7 +514,7 @@ class SourceSpoke(NormalSpoke):
             return _("Local media")
         elif self.data.method.method == "harddrive":
             if not self._currentIsoFile:
-                return _("Error setting up software source")
+                return _("Error setting up ISO file")
             return os.path.basename(self._currentIsoFile)
         elif self.payload.baseRepo:
             return _("Closest mirror")
@@ -573,6 +575,12 @@ class SourceSpoke(NormalSpoke):
             really_show(self._updatesBox)
         else:
             really_hide(self._updatesBox)
+
+        self._repoNameWarningBox = self.builder.get_object("repoNameWarningBox")
+        self._repoNameWarningLabel = self.builder.get_object("repoNameWarningLabel")
+
+        self._repoNamesWarningBox = self.builder.get_object("repoNamesWarningBox")
+        self._repoNamesWarningLabel = self.builder.get_object("repoNamesWarningLabel")
 
         threadMgr.add(AnacondaThread(name=constants.THREAD_SOURCE_WATCHER, target=self._initialize))
 
@@ -775,6 +783,16 @@ class SourceSpoke(NormalSpoke):
             self._noUpdatesCheckbox.set_active(False)
             self._updatesBox.set_sensitive(True)
 
+    def on_back_clicked(self, button):
+        """If the user entered duplicate repo names, keep them on the screen.
+           Otherwise, do the usual thing."""
+        ui_repo_names = [r[REPO_OBJ].name for r in self._repoStore]
+
+        if len(ui_repo_names) != len(frozenset(ui_repo_names)):
+            return
+        else:
+            NormalSpoke.on_back_clicked(self, button)
+
     def on_chooser_clicked(self, button):
         dialog = IsoChooser(self.data)
 
@@ -863,8 +881,17 @@ class SourceSpoke(NormalSpoke):
         """
         REPO_ATTRS=("name", "baseurl", "mirrorlist", "proxy", "enabled")
         changed = False
-        for repo in [r[REPO_OBJ] for r in self._repoStore]:
-            orig_repo = self.payload.getAddOnRepo(repo.orig_name)
+
+        ui_orig_names = [r[REPO_OBJ].orig_name for r in self._repoStore]
+
+        # Remove repos from payload that were removed in the UI
+        for repo_name in [r for r in self.payload.addOns if r not in ui_orig_names]:
+            repo = self.payload.getAddOnRepo(repo_name)
+            # TODO: Need an API to do this w/o touching yum (not addRepo)
+            self.payload.data.repo.dataList().remove(repo)
+            changed = True
+
+        for repo, orig_repo in [(r[REPO_OBJ],self.payload.getAddOnRepo(r[REPO_OBJ].orig_name)) for r in self._repoStore]:
             if not orig_repo:
                 # TODO: Need an API to do this w/o touching yum (not addRepo)
                 self.payload.data.repo.dataList().append(repo)
@@ -874,30 +901,19 @@ class SourceSpoke(NormalSpoke):
                     setattr(orig_repo, attr, getattr(repo, attr))
                 changed = True
 
-        # Remove repos from payload that were removed in the UI
-        ui_repo_names = [r[REPO_OBJ].name for r in self._repoStore]
-        for repo_name in self.payload.addOns:
-            if repo_name not in ui_repo_names:
-                repo = self.payload.getAddOnRepo(repo_name)
-                # TODO: Need an API to do this w/o touching yum (not addRepo)
-                self.payload.data.repo.dataList().remove(repo)
-                changed = True
-
         return changed
 
     def _reset_repoStore(self):
-        """ Reset the list of repos to the default list and select first entry
+        """ Reset the list of repos.
 
-            Populate it with all the addon repos from payload.getAddOns
-            If there are none, clear the repo entry fields
+            Populate the list with all the addon repos from payload.addOns.
+
+            If the list has no element, clear the repo entry fields.
         """
         self._repoStore.clear()
         repos = self.payload.addOns
         log.debug("Setting up repos: %s", repos)
         for name in repos:
-            if name in [constants.BASE_REPO_NAME, "updates"]:
-                continue
-
             repo = self.payload.getAddOnRepo(name)
             ks_repo = self.data.RepoData(name=repo.name,
                                          baseurl=repo.baseurl,
@@ -957,6 +973,8 @@ class SourceSpoke(NormalSpoke):
         """
         self._repoNameEntry.set_text(repo.name)
 
+        self._display_repo_name_message(repo, repo.name)
+
         self._repoMirrorlistCheckbox.handler_block_by_func(self.on_repoMirrorlistCheckbox_toggled)
         if repo.mirrorlist:
             url = repo.mirrorlist
@@ -994,6 +1012,72 @@ class SourceSpoke(NormalSpoke):
                 log.error("Failed to parse proxy for repo %s: %s", repo.name, e)
                 return
 
+    def _verify_repo_names(self):
+        """ Returns an appropriate error message if the list of repo names
+            contains duplicates.
+        """
+        repo_names = [r[REPO_OBJ].name for r in self._repoStore]
+        if len(repo_names) != len(frozenset(repo_names)):
+            return N_("Duplicate repository names.")
+        return None
+
+    def _display_repo_names_message(self):
+        """ Displays a warning if the list of repo names is not valid.
+            Returns the warning message displayed, if any.
+        """
+        warning_msg = self._verify_repo_names()
+        if warning_msg:
+            self._repoNamesWarningLabel.set_text(_(warning_msg))
+            really_show(self._repoNamesWarningBox)
+            self.set_warning(_("Duplicate repository names not allowed; choose a unique name for each repository."))
+            self.window.show_all()
+        else:
+            self._repoNamesWarningLabel.set_text("")
+            really_hide(self._repoNamesWarningBox)
+            self.clear_info()
+        return warning_msg
+
+    def _verify_repo_name(self, repo, name):
+        """ Returns an appropriate error message if the given name
+            is not valid for this repo.
+            Performs these checks:
+            *) Checks if the string is empty
+            *) Checks if the format is accepted by yum.
+            *) Checks if the repository name coincides with any of the
+               non-additional repositories.
+            :param repo: kickstart repository object
+            :type repo: RepoData
+            :param name: the designated name for the repo
+            :type name: string
+        """
+        if name == "":
+            return N_("Empty repository name.")
+
+        allowed_chars = string.ascii_letters + string.digits + '-_.:'
+        if [c for c in name if c not in allowed_chars]:
+            return N_("Invalid repository name.")
+
+        if name in [r for r in self.payload.repos if r not in self.payload.addOns] + [constants.BASE_REPO_NAME] + self.payload.default_repos:
+            return N_("Repository name conflicts with internal repository name.")
+        return None
+
+    def _display_repo_name_message(self, repo, name):
+        """ Displays a warning if the repo name is not valid.
+            Returns the warning message displayed, if any.
+            :param repo: kickstart repository object
+            :type repo: RepoData
+            :param name: the designated name for the repo
+            :type name: string
+        """
+        warning_msg = self._verify_repo_name(repo, name)
+        if warning_msg:
+            self._repoNameWarningLabel.set_text(_(warning_msg))
+            really_show(self._repoNameWarningBox)
+        else:
+            self._repoNameWarningLabel.set_text("")
+            really_hide(self._repoNameWarningBox)
+        return warning_msg
+
     def on_noUpdatesCheckbox_toggled(self, *args):
         """ Toggle the enable state of the updates repo
 
@@ -1011,13 +1095,15 @@ class SourceSpoke(NormalSpoke):
     def on_addRepo_clicked(self, button):
         """ Add a new repository
         """
-        repo = self.data.RepoData(name="New Repository")
+        repo = self.data.RepoData(name="New_Repository")
         repo.ks_repo = True
         repo.orig_name = ""
+
         itr = self._repoStore.append([True, repo.name, repo])
         self._repoSelection.select_iter(itr)
         self._repoEntryBox.set_sensitive(True)
-
+        self._display_repo_name_message(repo, repo.name)
+        self._display_repo_names_message()
 
     def on_removeRepo_clicked(self, button):
         """ Remove the selected repository
@@ -1029,6 +1115,7 @@ class SourceSpoke(NormalSpoke):
         if len(self._repoStore) == 0:
             self._clear_repo_info()
             self._repoEntryBox.set_sensitive(False)
+        self._display_repo_names_message()
 
     def on_resetRepos_clicked(self, button):
         """ Revert to the default list of repositories
@@ -1042,10 +1129,12 @@ class SourceSpoke(NormalSpoke):
         if not itr:
             return
         repo = self._repoStore[itr][REPO_OBJ]
-
         name = self._repoNameEntry.get_text().strip()
-        self._repoStore.set_value(itr, REPO_NAME_COL, name)
-        repo.name = name
+
+        if not self._display_repo_name_message(repo, name):
+            self._repoStore.set_value(itr, REPO_NAME_COL, name)
+            repo.name = name
+        self._display_repo_names_message()
 
     def on_repoUrl_changed(self, *args):
         """ proxy url or protocol changed
