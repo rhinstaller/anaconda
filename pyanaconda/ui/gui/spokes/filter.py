@@ -498,7 +498,7 @@ class FilterSpoke(NormalSpoke):
 
     def _update_summary(self):
         summaryButton = self.builder.get_object("summary_button")
-        label = summaryButton.get_children()[0]
+        label = self.builder.get_object("summary_button_label")
 
         # We need to remove ancestor devices from the count.  Otherwise, we'll
         # end up in a situation where selecting one multipath device could
@@ -509,7 +509,6 @@ class FilterSpoke(NormalSpoke):
                      "%d _storage devices selected",
                      count) % count
 
-        label.set_use_markup(True)
         label.set_markup("<span foreground='blue'><u>%s</u></span>" % summary)
         label.set_use_underline(True)
 

@@ -123,34 +123,32 @@ class InstallOptions1Dialog(GUIObject):
 
         options_label = self.builder.get_object("options1_label")
 
-        options_text = _("You have <b>%(freeSpace)s</b> of free space, which is "
-                         "enough to install %(productName)s.  What would you "
-                         "like to do?") % {"freeSpace": disk_free, "productName": productName}
+        options_text = _("<span font-desc=\"Cantarell 11\">You have <b>%(freeSpace)s</b> "
+                         "of free space, which is enough to install %(productName)s.  "
+                         "What would you like to do?</span>") %\
+                         {"freeSpace": disk_free, "productName": productName}
         options_label.set_markup(options_text)
 
-        label = self.builder.get_object("options1_autopart_radio").get_children()[0]
+        label = self.builder.get_object("options1_autopart_label")
         label.set_markup(_("<span font-desc=\"Cantarell 11\">A_utomatically "
                            "configure my %(productName)s installation to the "
                            "disk(s) I selected and return me to the main "
                            "menu.</span>") % {"productName": productName})
-        label.set_line_wrap(True)
         label.set_use_underline(True)
 
         radio = self.builder.get_object("options1_reclaim_radio")
         if self.showReclaim:
-            label = radio.get_children()[0]
+            label = self.builder.get_object("options1_reclaim_label")
             label.set_markup(_("<span font-desc=\"Cantarell 11\">I want more space. "
                                "_Guide me through shrinking and/or removing partitions "
                                "so I can have more space for %(productName)s.</span>") % {"productName": productName})
-            label.set_line_wrap(True)
             label.set_use_underline(True)
         else:
             radio.hide()
 
-        label = self.builder.get_object("options1_custom_radio").get_children()[0]
+        label = self.builder.get_object("options1_custom_label")
         label.set_markup(_("<span font-desc=\"Cantarell 11\">I want to review/_modify "
                            "my disk partitions before continuing.</span>"))
-        label.set_line_wrap(True)
         label.set_use_underline(True)
 
     @property

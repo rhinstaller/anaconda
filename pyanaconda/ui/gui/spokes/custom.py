@@ -708,7 +708,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
 
         self._availableSpaceLabel = self.builder.get_object("availableSpaceLabel")
         self._totalSpaceLabel = self.builder.get_object("totalSpaceLabel")
-        self._summaryButton = self.builder.get_object("summary_button")
+        self._summaryLabel = self.builder.get_object("summary_label")
 
         # Buttons
         self._addButton = self.builder.get_object("addButton")
@@ -837,15 +837,13 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         self._availableSpaceLabel.set_text(str(self._free_space))
         self._totalSpaceLabel.set_text(str(self._currentTotalSpace()))
 
-        summaryLabel = self._summaryButton.get_children()[0]
         count = len(self.data.clearpart.drives)
         summary = P_("%d _storage device selected",
                      "%d _storage devices selected",
                      count) % count
 
-        summaryLabel.set_use_markup(True)
-        summaryLabel.set_markup("<span foreground='blue'><u>%s</u></span>" % summary)
-        summaryLabel.set_use_underline(True)
+        self._summaryLabel.set_markup("<span foreground='blue'><u>%s</u></span>" % summary)
+        self._summaryLabel.set_use_underline(True)
 
     def _reset_storage(self):
         self.__storage = self.storage.copy()
