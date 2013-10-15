@@ -61,7 +61,7 @@ except ImportError:
     log.error("import of yum failed")
     yum = None
 
-from pyanaconda.constants import BASE_REPO_NAME, DRACUT_ISODIR, INSTALL_TREE, ISO_DIR, MOUNT_DIR, ROOT_PATH
+from pyanaconda.constants import BASE_REPO_NAME, DRACUT_ISODIR, INSTALL_TREE, ISO_DIR, MOUNT_DIR, ROOT_PATH, THREAD_REFRESH_BASE_REPO
 from pyanaconda.flags import flags
 
 from pyanaconda import iutil
@@ -77,13 +77,16 @@ from pyanaconda.errors import ERROR_RAISE, errorHandler
 from pyanaconda.packaging import DependencyError, MetadataError, NoNetworkError, NoSuchGroup, \
                                  NoSuchPackage, PackagePayload, PayloadError, PayloadInstallError, \
                                  PayloadSetupError
+from pyanaconda.packaging import REPO_NOT_SET
 from pyanaconda.progress import progressQ
+from pyanaconda.threads import threadMgr, AnacondaThread
 
 from pyanaconda.localization import langcode_matches_locale
 
 from pykickstart.constants import GROUP_ALL, GROUP_DEFAULT, KS_MISSING_IGNORE
 
 YUM_PLUGINS = ["blacklist", "whiteout", "fastestmirror", "langpacks"]
+default_repos = [productName.lower(), "rawhide"]
 
 import inspect
 import threading
@@ -137,6 +140,13 @@ class YumPayload(PackagePayload):
 
         self._requiredPackages = []
         self._requiredGroups = []
+
+        # base repo caching
+        self._cached_base_repo = None
+        self._br_cache_valid = False
+        self._br_callbacks = []
+        self._br_cache_valid_lock = threading.Lock()
+        self._br_refresh_lock = threading.Lock()
 
         self.reset()
 
@@ -376,18 +386,55 @@ reposdir=%s
 
         return _repos
 
-    @property
-    def baseRepo(self):
-        repo_names = [BASE_REPO_NAME] + self.default_repos
-        base_repo_name = None
+    def getBaseRepo(self, wait=True, callback=None):
+        # prevent potential thread calling callbacks from finishing if we want
+        # to add some more
+        with self._br_refresh_lock:
+            # test and set atomically
+            with self._br_cache_valid_lock:
+                if self._br_cache_valid:
+                    return self._cached_base_repo
+
+            # cache not valid, should we start a thread to refresh it?
+            refresh_thread = threadMgr.get(THREAD_REFRESH_BASE_REPO)
+            if not refresh_thread:
+                threadMgr.add(AnacondaThread(name=THREAD_REFRESH_BASE_REPO, target=self._refreshBaseRepo))
+
+            if callback:
+                self._br_callbacks.append(callback)
+
+        if wait:
+            threadMgr.wait(THREAD_REFRESH_BASE_REPO)
+            return self._cached_base_repo
+        else:
+            # not waiting for the thread and cache was not valid
+            return REPO_NOT_SET
+
+    def _refreshBaseRepo(self):
+        repo_names = [BASE_REPO_NAME] + default_repos
         with _yum_lock:
             for repo_name in repo_names:
                 if repo_name in self.repos and \
                    self._yum.repos.getRepo(repo_name).enabled:
-                    base_repo_name = repo_name
+                    with self._br_cache_valid_lock:
+                        # cache the value for multiple use
+                        self._cached_base_repo = repo_name
+                        self._br_cache_valid = True
+                        current_cached = self._cached_base_repo
                     break
+            else:
+                # didn't find any base repo set and enabled
+                with self._br_cache_valid_lock:
+                    # set the cache to None, but make it valid
+                    self._cached_base_repo = None
+                    self._br_cache_valid = True
+                    current_cached = self._cached_base_repo
 
-        return base_repo_name
+        with self._br_refresh_lock:
+            # go through scheduled callbacks (if any) and remove them
+            for callback in self._br_callbacks:
+                callback(current_cached)
+                self._br_callbacks.remove(callback)
 
     @property
     def mirrorEnabled(self):
@@ -424,6 +471,9 @@ reposdir=%s
               retrieval fails.
         """
         log.info("updating base repo")
+
+        with self._br_cache_valid_lock:
+            self._br_cache_valid = False
 
         # start with a fresh YumBase instance
         self.reset(root=root)
@@ -515,6 +565,9 @@ reposdir=%s
                     self.disableRepo(repo.id)
 
     def gatherRepoMetadata(self):
+        with self._br_cache_valid_lock:
+            self._br_cache_valid = False
+
         # now go through and get metadata for all enabled repos
         log.info("gathering repo metadata")
         for repo_id in self.repos:
@@ -556,6 +609,10 @@ reposdir=%s
             If checkmount is true, check the dracut mount to see if we have
             usable media mounted.
         """
+
+        with self._br_cache_valid_lock:
+            self._br_cache_valid = False
+
         log.info("configuring base repo")
         url, mirrorlist, sslverify = self._setupInstallDevice(storage, checkmount)
         method = self.data.method
@@ -681,6 +738,9 @@ reposdir=%s
         """ Retrieve repo metadata if we don't already have it. """
         from yum.Errors import RepoError, RepoMDError
 
+        with self._br_cache_valid_lock:
+            self._br_cache_valid = False
+
         # And try to grab its metadata.  We do this here so it can be done
         # on a per-repo basis, so we can then get some finer grained error
         # handling and recovery.
@@ -723,6 +783,9 @@ reposdir=%s
     def _addYumRepo(self, name, baseurl, mirrorlist=None, proxyurl=None, **kwargs):
         """ Add a yum repo to the YumBase instance. """
         from yum.Errors import RepoError
+
+        with self._br_cache_valid_lock:
+            self._br_cache_valid = False
 
         needsAdding = True
 
@@ -798,6 +861,9 @@ reposdir=%s
         """ Remove a repo as specified by id. """
         log.debug("removing repo %s", repo_id)
 
+        with self._br_cache_valid_lock:
+            self._br_cache_valid = False
+
         # if this is an NFS repo, we'll want to unmount the NFS mount after
         # removing the repo
         mountpoint = None
@@ -818,6 +884,10 @@ reposdir=%s
 
     def enableRepo(self, repo_id):
         """ Enable a repo as specified by id. """
+
+        with self._br_cache_valid_lock:
+            self._br_cache_valid = False
+
         log.debug("enabling repo %s", repo_id)
         if repo_id in self.repos:
             with _yum_lock:
@@ -826,6 +896,10 @@ reposdir=%s
 
     def disableRepo(self, repo_id):
         """ Disable a repo as specified by id. """
+
+        with self._br_cache_valid_lock:
+            self._br_cache_valid = False
+
         log.debug("disabling repo %s", repo_id)
         if repo_id in self.repos:
             with _yum_lock:

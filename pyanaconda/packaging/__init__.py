@@ -64,6 +64,8 @@ from pyanaconda.product import productName, productVersion
 import urlgrabber
 urlgrabber.grabber.default_grabber.opts.user_agent = "%s (anaconda)/%s" %(productName, productVersion)
 
+REPO_NOT_SET = False
+
 ###
 ### ERROR HANDLING
 ###
@@ -145,9 +147,22 @@ class Payload(object):
         """ A list of addon repo identifiers. """
         return [r.name for r in self.data.repo.dataList()]
 
-    @property
-    def baseRepo(self):
-        """ The identifier of the current base repo. """
+    def getBaseRepo(self, wait=True, callback=None):
+        """
+        Get the identifier of the current base repo.
+
+        :param wait: whether to block until the identifier is derived from the
+                     configuration (may take a long time) or just try to use
+                     the cached value and return REPO_NOT_SET if there is none
+        :type wait: bool
+        :param callback: callback that will be called once the indentifier is
+                         derived from the configuration (gets the repo ID as
+                         the first argument) if it is not returned instantly
+        :type callback: str -> None
+        :returns: id of the current base repo or None if wait=True is used or
+                  REPO_NOT_SET if wait=False is used and the value is not cached
+
+        """
         return None
 
     @property

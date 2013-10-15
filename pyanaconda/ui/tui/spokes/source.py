@@ -85,7 +85,7 @@ class SourceSpoke(EditTUISpoke):
             return _("NFS server %s") % self.data.method.server
         elif self.data.method.method == "cdrom":
             return _("Local media")
-        elif self.payload.baseRepo:
+        elif self.payload.getBaseRepo(wait=True):
             return _("Closest mirror")
         else:
             return _("Nothing selected")
@@ -110,10 +110,10 @@ class SourceSpoke(EditTUISpoke):
 
     @property
     def completed(self):
-        if flags.automatedInstall and (not self.data.method.method or not self.payload.baseRepo):
+        if flags.automatedInstall and (not self.data.method.method or not self.payload.getBaseRepo(wait=False)):
             return False
         else:
-            return not self.errors and self.ready and (self.data.method.method or self.payload.baseRepo)
+            return not self.errors and self.ready and (self.data.method.method or self.payload.getBaseRepo(wait=False))
 
     def refresh(self, args=None):
         EditTUISpoke.refresh(self, args)
@@ -195,7 +195,7 @@ class SourceSpoke(EditTUISpoke):
         else:
             self.payload.gatherRepoMetadata()
             self.payload.release()
-            if not self.payload.baseRepo:
+            if not self.payload.getBaseRepo(wait=True):
                 self.errors.append(_("Error downloading package metadata"))
             else:
                 try:

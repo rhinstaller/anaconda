@@ -149,10 +149,10 @@ class SoftwareSelectionSpoke(NormalSpoke):
         # because the user filled something out, or because we're done fetching
         # repo metadata from the mirror list, or we detected a DVD/CD.
 
-        return (not threadMgr.get(constants.THREAD_SOFTWARE_WATCHER) and
-                not threadMgr.get(constants.THREAD_PAYLOAD_MD) and
-                not threadMgr.get(constants.THREAD_CHECK_SOFTWARE) and
-                self.payload.baseRepo is not None)
+        return bool(not threadMgr.get(constants.THREAD_SOFTWARE_WATCHER) and
+                    not threadMgr.get(constants.THREAD_PAYLOAD_MD) and
+                    not threadMgr.get(constants.THREAD_CHECK_SOFTWARE) and
+                    self.payload.getBaseRepo())
 
     @property
     def showable(self):

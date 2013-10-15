@@ -161,7 +161,7 @@ class SoftwareSpoke(NormalTUISpoke):
         return (not threadMgr.get(THREAD_SOFTWARE_WATCHER) and
                 not threadMgr.get(THREAD_PAYLOAD_MD) and
                 not threadMgr.get(THREAD_CHECK_SOFTWARE) and
-                self.payload.baseRepo is not None)
+                self.payload.getBaseRepo() is not None)
 
     def apply(self):
         """ Apply our selections """
