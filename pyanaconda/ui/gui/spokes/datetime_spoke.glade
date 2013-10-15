@@ -200,8 +200,6 @@
                                       <object class="GtkSwitch" id="networkTimeSwitch">
                                         <property name="visible">True</property>
                                         <property name="can_focus">True</property>
-                                        <property name="halign">end</property>
-                                        <property name="valign">start</property>
                                         <signal name="notify::active" handler="on_ntp_switched" swapped="no"/>
                                       </object>
                                       <packing>
