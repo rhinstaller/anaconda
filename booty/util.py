@@ -11,7 +11,7 @@ def getDiskPart(dev, storage):
         if (path.startswith('rd/') or path.startswith('ida/') or
                 path.startswith('cciss/') or path.startswith('sx8/') or
                 path.startswith('mapper/') or path.startswith('mmcblk') or
-                path.startswith('md')):
+                path.startswith('md') or path.startswith('nvme')):
             if dev[-2] == 'p':
                 cut = -2
             elif dev[-3] == 'p' and dev[-2] in string.digits:
