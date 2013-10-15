@@ -48,7 +48,15 @@ class PODict(collections.Mapping):
         pofile = polib.pofile(filename)
         self.metadata = pofile.metadata
         for entry in pofile.translated_entries():
-            self._dict[entry.msgid] = entry.msgstr
+            # If this is a plural entry, take the first option and hope that
+            # the accelerator is the same for all options.
+            # Add dictionary entries for both the singular and plural IDs so
+            # that glade placeholders can contain either form.
+            if entry.msgstr_plural:
+                self._dict[entry.msgid] = entry.msgstr_plural['0']
+                self._dict[entry.msgid_plural] = entry.msgstr_plural['0']
+            else:
+                self._dict[entry.msgid] = entry.msgstr
 
     def __getitem__(self, key):
         return self._dict[key]
