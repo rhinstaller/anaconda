@@ -259,7 +259,7 @@ def journalctl_callback():
     # logs)
     anaconda_log_line = re.compile(r"\[%d\]:" % os.getpid())
     ret = ""
-    for line in iutil.execReadlines("journalctl", []):
+    for line in iutil.execReadlines("journalctl", ["-b"]):
         if anaconda_log_line.search(line) is None:
             # not an anaconda's message
             ret += line + "\n"
