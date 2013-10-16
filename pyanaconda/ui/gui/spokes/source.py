@@ -421,6 +421,8 @@ class SourceSpoke(NormalSpoke):
             if dev:
                 dev.protected = False
 
+        self._proxyChange = False
+
         return True
 
     def getRepoMetadata(self):
