@@ -67,10 +67,12 @@
                 <property name="can_focus">False</property>
                 <property name="margin_top">6</property>
                 <property name="xalign">1</property>
-                <property name="label" translatable="yes">&lt;b&gt;_Desired Capacity:&lt;/b&gt;</property>
-                <property name="use_markup">True</property>
+                <property name="label" translatable="yes">_Desired Capacity:</property>
                 <property name="use_underline">True</property>
                 <property name="mnemonic_widget">addSizeEntry</property>
+                <attributes>
+                  <attribute name="weight" value="bold"/>
+                </attributes>
               </object>
               <packing>
                 <property name="left_attach">0</property>
@@ -84,10 +86,12 @@
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
                 <property name="xalign">0</property>
-                <property name="label" translatable="yes">&lt;b&gt;Mount _Point:&lt;/b&gt;</property>
-                <property name="use_markup">True</property>
+                <property name="label" translatable="yes">Mount _Point:</property>
                 <property name="use_underline">True</property>
                 <property name="mnemonic_widget">addMountPointEntry</property>
+                <attributes>
+                  <attribute name="weight" value="bold"/>
+                </attributes>
               </object>
               <packing>
                 <property name="left_attach">0</property>
@@ -877,10 +881,12 @@ use.  Try something else?</property>
                                     <property name="visible">True</property>
                                     <property name="can_focus">False</property>
                                     <property name="xalign">0</property>
-                                    <property name="label" translatable="yes">&lt;b&gt;Mount _Point:&lt;/b&gt;</property>
-                                    <property name="use_markup">True</property>
+                                    <property name="label" translatable="yes">Mount _Point:</property>
                                     <property name="use_underline">True</property>
                                     <property name="mnemonic_widget">mountPointEntry</property>
+                                    <attributes>
+                                      <attribute name="weight" value="bold"/>
+                                    </attributes>
                                   </object>
                                   <packing>
                                     <property name="left_attach">0</property>
@@ -910,10 +916,12 @@ use.  Try something else?</property>
                                     <property name="visible">True</property>
                                     <property name="can_focus">False</property>
                                     <property name="xalign">0</property>
-                                    <property name="label" translatable="yes">&lt;b&gt;_Label:&lt;/b&gt;</property>
-                                    <property name="use_markup">True</property>
+                                    <property name="label" translatable="yes">_Label:</property>
                                     <property name="use_underline">True</property>
                                     <property name="mnemonic_widget">labelEntry</property>
+                                    <attributes>
+                                      <attribute name="weight" value="bold"/>
+                                    </attributes>
                                   </object>
                                   <packing>
                                     <property name="left_attach">0</property>
@@ -976,10 +984,12 @@ use.  Try something else?</property>
                                     <property name="can_focus">False</property>
                                     <property name="halign">end</property>
                                     <property name="xalign">0</property>
-                                    <property name="label" translatable="yes">&lt;b&gt;_Desired Capacity:&lt;/b&gt;</property>
-                                    <property name="use_markup">True</property>
+                                    <property name="label" translatable="yes">_Desired Capacity:</property>
                                     <property name="use_underline">True</property>
                                     <property name="mnemonic_widget">sizeEntry</property>
+                                    <attributes>
+                                      <attribute name="weight" value="bold"/>
+                                    </attributes>
                                   </object>
                                   <packing>
                                     <property name="left_attach">0</property>
@@ -1015,10 +1025,12 @@ use.  Try something else?</property>
                                         <property name="visible">True</property>
                                         <property name="can_focus">False</property>
                                         <property name="xalign">0</property>
-                                        <property name="label" translatable="yes">&lt;b&gt;Device _Type:&lt;/b&gt;</property>
-                                        <property name="use_markup">True</property>
+                                        <property name="label" translatable="yes">Device _Type:</property>
                                         <property name="use_underline">True</property>
                                         <property name="mnemonic_widget">deviceTypeCombo</property>
+                                        <attributes>
+                                          <attribute name="weight" value="bold"/>
+                                        </attributes>
                                       </object>
                                       <packing>
                                         <property name="left_attach">0</property>
@@ -1032,10 +1044,12 @@ use.  Try something else?</property>
                                         <property name="visible">True</property>
                                         <property name="can_focus">False</property>
                                         <property name="xalign">0</property>
-                                        <property name="label" translatable="yes">&lt;b&gt;File S_ystem:&lt;/b&gt;</property>
-                                        <property name="use_markup">True</property>
+                                        <property name="label" translatable="yes">File S_ystem:</property>
                                         <property name="use_underline">True</property>
                                         <property name="mnemonic_widget">fileSystemTypeCombo</property>
+                                        <attributes>
+                                          <attribute name="weight" value="bold"/>
+                                        </attributes>
                                       </object>
                                       <packing>
                                         <property name="left_attach">0</property>
@@ -1736,8 +1750,11 @@ until you click on the main menu's 'Begin Installation' button.</property>
                                 <property name="visible">True</property>
                                 <property name="can_focus">False</property>
                                 <property name="xalign">0</property>
-                                <property name="label" translatable="yes">&lt;span size="small" foreground="white"&gt;AVAILABLE SPACE&lt;/span&gt;</property>
-                                <property name="use_markup">True</property>
+                                <property name="label" translatable="yes">AVAILABLE SPACE</property>
+                                <attributes>
+                                  <attribute name="scale" value="0.83333333333329995"/>
+                                  <attribute name="foreground" value="#ffffffffffff"/>
+                                </attributes>
                               </object>
                               <packing>
                                 <property name="expand">False</property>
@@ -1788,8 +1805,11 @@ until you click on the main menu's 'Begin Installation' button.</property>
                                 <property name="visible">True</property>
                                 <property name="can_focus">False</property>
                                 <property name="xalign">0</property>
-                                <property name="label" translatable="yes">&lt;span size="small" foreground="white"&gt;TOTAL SPACE&lt;/span&gt;</property>
-                                <property name="use_markup">True</property>
+                                <property name="label" translatable="yes">TOTAL SPACE</property>
+                                <attributes>
+                                  <attribute name="scale" value="0.83333333333329995"/>
+                                  <attribute name="foreground" value="#ffffffffffff"/>
+                                </attributes>
                               </object>
                               <packing>
                                 <property name="expand">False</property>

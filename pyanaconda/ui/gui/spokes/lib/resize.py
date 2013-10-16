@@ -174,8 +174,9 @@ class ResizeDialog(GUIObject):
             diskFree = free_space[disk.name][0]
             converted = diskFree.convertTo(spec="mb")
             if int(converted):
+                freeSpaceString = "<span foreground='grey' style='italic'>%s</span>" % _("Free space")
                 self._diskStore.append(itr, [disk.id,
-                                             _("""<span foreground='grey' style='italic'>Free space</span>"""),
+                                             freeSpaceString,
                                              "",
                                              "<span foreground='grey' style='italic'>%s</span>" % size_str(diskFree),
                                              _(PRESERVE),
