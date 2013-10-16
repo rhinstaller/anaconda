@@ -41,6 +41,7 @@ import shutil
 import sys
 import time
 from pyanaconda.iutil import execReadlines
+from functools import wraps
 
 import logging
 log = logging.getLogger("packaging")
@@ -86,7 +87,8 @@ from pyanaconda.localization import langcode_matches_locale
 from pykickstart.constants import GROUP_ALL, GROUP_DEFAULT, KS_MISSING_IGNORE
 
 YUM_PLUGINS = ["blacklist", "whiteout", "fastestmirror", "langpacks"]
-default_repos = [productName.lower(), "rawhide"]
+DEFAULT_REPOS = [productName.lower(), "rawhide"]
+BASE_REPO_NAMES = [BASE_REPO_NAME] + DEFAULT_REPOS
 
 import inspect
 import threading
@@ -111,6 +113,35 @@ class YumLock(object):
 
         if not isFinal:
             log.info("gave up _yum_lock for %s", threading.currentThread().name)
+
+def invalidates_br_cache(cond_fn=None):
+    """
+    Function returning decorator for methods that invalidate base repo cache.
+
+    :param cond_fn: condition function telling if base repo should be
+                    invalidated or not (HAS TO TAKE THE SAME ARGUMENTS AS THE
+                    DECORATED FUNCTION)
+
+    """
+
+    def decorator(method):
+        """
+        Decorator for methods that invalidate base repo cache.
+
+        :param method: decorated method of the YumPayload class
+
+        """
+
+        @wraps(method)
+        def inner_method(yum_payload, *args, **kwargs):
+            if cond_fn is None or cond_fn(yum_payload, *args, **kwargs):
+                yum_payload.invalidate_br_cache()
+
+            return method(yum_payload, *args, **kwargs)
+
+        return inner_method
+
+    return decorator
 
 _yum_lock = YumLock()
 _yum_cache_dir = "/tmp/yum.cache"
@@ -149,6 +180,11 @@ class YumPayload(PackagePayload):
         self._br_refresh_lock = threading.Lock()
 
         self.reset()
+
+    def invalidate_br_cache(self):
+        """ Invalidates base repo cache. """
+        with self._br_cache_valid_lock:
+            self._br_cache_valid = False
 
     def reset(self, root=None):
         """ Reset this instance to its initial (unconfigured) state. """
@@ -411,9 +447,8 @@ reposdir=%s
             return REPO_NOT_SET
 
     def _refreshBaseRepo(self):
-        repo_names = [BASE_REPO_NAME] + default_repos
         with _yum_lock:
-            for repo_name in repo_names:
+            for repo_name in BASE_REPO_NAMES:
                 if repo_name in self.repos and \
                    self._yum.repos.getRepo(repo_name).enabled:
                     with self._br_cache_valid_lock:
@@ -434,7 +469,8 @@ reposdir=%s
             # go through scheduled callbacks (if any) and remove them
             for callback in self._br_callbacks:
                 callback(current_cached)
-                self._br_callbacks.remove(callback)
+
+            self._br_callbacks = []
 
     @property
     def mirrorEnabled(self):
@@ -458,6 +494,7 @@ reposdir=%s
             return super(YumPayload, self).isRepoEnabled(repo_id)
 
     # pylint: disable-msg=W0221
+    @invalidates_br_cache()
     def updateBaseRepo(self, fallback=True, root=None, checkmount=True):
         """ Update the base repo based on self.data.method.
 
@@ -471,9 +508,6 @@ reposdir=%s
               retrieval fails.
         """
         log.info("updating base repo")
-
-        with self._br_cache_valid_lock:
-            self._br_cache_valid = False
 
         # start with a fresh YumBase instance
         self.reset(root=root)
@@ -564,10 +598,8 @@ reposdir=%s
                     # if a method/repo was given, disable all default repos
                     self.disableRepo(repo.id)
 
+    @invalidates_br_cache()
     def gatherRepoMetadata(self):
-        with self._br_cache_valid_lock:
-            self._br_cache_valid = False
-
         # now go through and get metadata for all enabled repos
         log.info("gathering repo metadata")
         for repo_id in self.repos:
@@ -597,6 +629,7 @@ reposdir=%s
             return dev[len(DRACUT_ISODIR)+1:]
         return None
 
+    @invalidates_br_cache()
     def _configureBaseRepo(self, storage, checkmount=True):
         """ Configure the base repo.
 
@@ -609,9 +642,6 @@ reposdir=%s
             If checkmount is true, check the dracut mount to see if we have
             usable media mounted.
         """
-
-        with self._br_cache_valid_lock:
-            self._br_cache_valid = False
 
         log.info("configuring base repo")
         url, mirrorlist, sslverify = self._setupInstallDevice(storage, checkmount)
@@ -738,9 +768,6 @@ reposdir=%s
         """ Retrieve repo metadata if we don't already have it. """
         from yum.Errors import RepoError, RepoMDError
 
-        with self._br_cache_valid_lock:
-            self._br_cache_valid = False
-
         # And try to grab its metadata.  We do this here so it can be done
         # on a per-repo basis, so we can then get some finer grained error
         # handling and recovery.
@@ -780,12 +807,10 @@ reposdir=%s
 
         return url
 
+    @invalidates_br_cache(lambda s, n, *args, **kwargs: n in BASE_REPO_NAMES)
     def _addYumRepo(self, name, baseurl, mirrorlist=None, proxyurl=None, **kwargs):
         """ Add a yum repo to the YumBase instance. """
         from yum.Errors import RepoError
-
-        with self._br_cache_valid_lock:
-            self._br_cache_valid = False
 
         needsAdding = True
 
@@ -850,6 +875,7 @@ reposdir=%s
         self._addYumRepo(newrepo.name, newrepo.baseurl, newrepo.mirrorlist, newrepo.proxy)   # FIXME: handle MetadataError
         super(YumPayload, self).addRepo(newrepo)
 
+    @invalidates_br_cache(lambda s, r_id: r_id in BASE_REPO_NAMES)
     def _removeYumRepo(self, repo_id):
         if repo_id in self.repos:
             with _yum_lock:
@@ -882,6 +908,7 @@ reposdir=%s
             except SystemError as e:
                 log.error("failed to unmount nfs repo %s: %s", mountpoint, e)
 
+    @invalidates_br_cache(lambda s, r_id: r_id in BASE_REPO_NAMES)
     def enableRepo(self, repo_id):
         """ Enable a repo as specified by id. """
 
@@ -894,6 +921,7 @@ reposdir=%s
                 self._yum.repos.enableRepo(repo_id)
         super(YumPayload, self).enableRepo(repo_id)
 
+    @invalidates_br_cache(lambda s, r_id: r_id in BASE_REPO_NAMES)
     def disableRepo(self, repo_id):
         """ Disable a repo as specified by id. """
 
