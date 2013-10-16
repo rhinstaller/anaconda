@@ -842,8 +842,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
                      "%d _storage devices selected",
                      count) % count
 
-        self._summaryLabel.set_markup("<span foreground='blue'><u>%s</u></span>" % summary)
-        self._summaryLabel.set_use_underline(True)
+        self._summaryLabel.set_text(summary)
 
     def _reset_storage(self):
         self.__storage = self.storage.copy()

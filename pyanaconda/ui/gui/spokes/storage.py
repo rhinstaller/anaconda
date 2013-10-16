@@ -130,25 +130,23 @@ class InstallOptions1Dialog(GUIObject):
         options_label.set_markup(options_text)
 
         label = self.builder.get_object("options1_autopart_label")
-        label.set_markup(_("<span font-desc=\"Cantarell 11\">A_utomatically "
-                           "configure my %(productName)s installation to the "
-                           "disk(s) I selected and return me to the main "
-                           "menu.</span>") % {"productName": productName})
+        label.set_text(_("A_utomatically configure my %(productName)s installation to the "
+                           "disk(s) I selected and return me to the main menu.") %
+                           {"productName": productName})
         label.set_use_underline(True)
 
         radio = self.builder.get_object("options1_reclaim_radio")
         if self.showReclaim:
             label = self.builder.get_object("options1_reclaim_label")
-            label.set_markup(_("<span font-desc=\"Cantarell 11\">I want more space. "
-                               "_Guide me through shrinking and/or removing partitions "
-                               "so I can have more space for %(productName)s.</span>") % {"productName": productName})
+            label.set_text(_("I want more space. _Guide me through shrinking and/or removing "
+                               "partitions so I can have more space for %(productName)s.") %
+                               {"productName": productName})
             label.set_use_underline(True)
         else:
             radio.hide()
 
         label = self.builder.get_object("options1_custom_label")
-        label.set_markup(_("<span font-desc=\"Cantarell 11\">I want to review/_modify "
-                           "my disk partitions before continuing.</span>"))
+        label.set_text(_("I want to review/_modify my disk partitions before continuing."))
         label.set_use_underline(True)
 
     @property

@@ -115,10 +115,12 @@
                   <object class="GtkLabel" id="options1_autopart_label">
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
-                    <property name="label">&lt;span font-desc="Cantarell 11"&gt;A_utomatically configure my %(productName)s installation to the disk(s) I selected and return me to the main menu.&lt;/span&gt;</property>
-                    <property name="use_markup">True</property>
+                    <property name="label">A_utomatically configure my %(productName)s installation to the disk(s) I selected and return me to the main menu.</property>
                     <property name="use_underline">True</property>
                     <property name="wrap">True</property>
+                    <attributes>
+                      <attribute name="font-desc" value="Cantarell 11"/>
+                    </attributes>
                   </object>
                 </child>
               </object>
@@ -142,10 +144,12 @@
                   <object class="GtkLabel" id="options1_reclaim_label">
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
-                    <property name="label">&lt;span font-desc="Cantarell 11"&gt;I want more space. _Guide me through shrinking and/or removing partitions so I can have more space for %(productName)s.&lt;/span&gt;</property>
-                    <property name="use_markup">True</property>
+                    <property name="label">I want more space. _Guide me through shrinking and/or removing partitions so I can have more space for %(productName)s.</property>
                     <property name="use_underline">True</property>
                     <property name="wrap">True</property>
+                    <attributes>
+                      <attribute name="font-desc" value="Cantarell 11"/>
+                    </attributes>
                   </object>
                 </child>
               </object>
@@ -169,10 +173,12 @@
                   <object class="GtkLabel" id="options1_custom_label">
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
-                    <property name="label">&lt;span font-desc="Cantarell 11"&gt;I want to review/_modify my disk partitions before continuing.&lt;/span&gt;</property>
-                    <property name="use_markup">True</property>
+                    <property name="label">I want to review/_modify my disk partitions before continuing.</property>
                     <property name="use_underline">True</property>
                     <property name="wrap">True</property>
+                    <attributes>
+                      <attribute name="font-desc" value="Cantarell 11"/>
+                    </attributes>
                   </object>
                 </child>
               </object>

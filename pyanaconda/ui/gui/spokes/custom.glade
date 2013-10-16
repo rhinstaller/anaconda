@@ -1860,8 +1860,11 @@ until you click on the main menu's 'Begin Installation' button.</property>
                             <property name="visible">True</property>
                             <property name="can_focus">False</property>
                             <property name="label">%d _storage devices selected</property>
-                            <property name="use_markup">True</property>
                             <property name="use_underline">True</property>
+                            <attributes>
+                              <attribute name="underline" value="True"/>
+                              <attribute name="foreground" value="#00000000ffff"/>
+                            </attributes>
                           </object>
                         </child>
                       </object>

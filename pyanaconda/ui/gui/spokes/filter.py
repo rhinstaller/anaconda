@@ -509,8 +509,7 @@ class FilterSpoke(NormalSpoke):
                      "%d _storage devices selected",
                      count) % count
 
-        label.set_markup("<span foreground='blue'><u>%s</u></span>" % summary)
-        label.set_use_underline(True)
+        label.set_text(summary)
 
         summaryButton.set_visible(count > 0)
         label.set_sensitive(count > 0)

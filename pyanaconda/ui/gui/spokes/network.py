@@ -1051,8 +1051,6 @@ class SecretAgentDialog(GUIObject):
         img = self.builder.get_object("image_password_dialog")
         img.set_from_icon_name("dialog-password-symbolic", Gtk.IconSize.DIALOG)
         self.builder.get_object("label_message").set_text(self._content['message'])
-        self.builder.get_object("label_title").set_use_markup(True)
-        self.builder.get_object("label_title").set_markup("<b>%s</b>" % self._content['title'])
         self._connect_button = self.builder.get_object("connect_button")
 
     def initialize(self):
