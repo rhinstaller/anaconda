@@ -49,7 +49,7 @@ from pyanaconda.ui.gui.spokes.lib.passphrase import PassphraseDialog
 from pyanaconda.ui.gui.spokes.lib.detailederror import DetailedErrorDialog
 from pyanaconda.ui.gui.spokes.lib.resize import ResizeDialog
 from pyanaconda.ui.gui.categories.system import SystemCategory
-from pyanaconda.ui.gui.utils import enlightbox
+from pyanaconda.ui.gui.utils import enlightbox, escape_markup
 
 from pyanaconda.kickstart import doKickstartStorage, getAvailableDiskSpace
 from blivet import empty_device
@@ -126,7 +126,8 @@ class InstallOptions1Dialog(GUIObject):
         options_text = _("<span font-desc=\"Cantarell 11\">You have <b>%(freeSpace)s</b> "
                          "of free space, which is enough to install %(productName)s.  "
                          "What would you like to do?</span>") %\
-                         {"freeSpace": disk_free, "productName": productName}
+                         {"freeSpace": escape_markup(disk_free),
+                          "productName": escape_markup(productName)}
         options_label.set_markup(options_text)
 
         label = self.builder.get_object("options1_autopart_label")
@@ -171,9 +172,10 @@ class InstallOptions1Dialog(GUIObject):
                      "selection</a> requires <b>%(total)s</b> of available "
                      "space, including <b>%(software)s</b> for software and "
                      "<b>%(swap)s</b> for swap space.")
-                   % {"product": productName,
-                      "total": required_space + auto_swap,
-                      "software": required_space, "swap": auto_swap})
+                   % {"product": escape_markup(productName),
+                      "total": escape_markup(str(required_space + auto_swap)),
+                      "software": escape_markup(str(required_space)),
+                      "swap": escape_markup(str(auto_swap))})
         return sw_text
 
     # Methods to handle sensitivity of the modify button.
@@ -248,7 +250,7 @@ class InstallOptions2Dialog(InstallOptions1Dialog):
                        "%s</b>.  You can shrink or remove existing partitions "
                        "via our guided reclaim space tool, or you can adjust your "
                        "partitions on your own in the custom partitioning "
-                       "interface.") % productName
+                       "interface.") % escape_markup(productName)
         self.builder.get_object("options2_label2").set_markup(label_text)
 
         self._add_modify_watcher("options2_label1")
@@ -277,7 +279,8 @@ class InstallOptions3Dialog(InstallOptions1Dialog):
         label_text = (_("%(sw_text)s You don't have enough space available to install "
                         "<b>%(product)s</b>, even if you used all of the free space "
                         "available on the selected disks.")
-                      % {"sw_text": sw_text, "product": productName})
+                      % {"sw_text": escape_markup(sw_text),
+                         "product": escape_markup(productName)})
         label = self.builder.get_object("options3_label1")
         label.set_markup(label_text)
         label.set_tooltip_text(_("Please wait... software metadata still loading."))
@@ -291,7 +294,7 @@ class InstallOptions3Dialog(InstallOptions1Dialog):
                        "disks for additional space, "
                        "modify your software selection to install a smaller "
                        "version of <b>%(productName)s</b>, or quit the installer.") % \
-                               {"productName": productName}
+                               {"productName": escape_markup(productName)}
         self.builder.get_object("options3_label2").set_markup(label_text)
 
         self._add_modify_watcher("options3_label1")

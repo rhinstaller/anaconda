@@ -25,6 +25,7 @@ from gi.repository import Gtk
 from pyanaconda.i18n import _, P_
 from pyanaconda.ui.lib.disks import size_str
 from pyanaconda.ui.gui import GUIObject
+from pyanaconda.ui.gui.utils import escape_markup
 from blivet.size import Size
 
 __all__ = ["SelectedDisksDialog"]
@@ -134,7 +135,9 @@ class SelectedDisksDialog(GUIObject):
                    "(unpartitioned and in filesystems)",
                   "<b>%(count)d disks; %(size)s capacity; %(free)s free space</b> "
                    "(unpartitioned and in filesystems)",
-                   count) % {"count" : count, "size" : size, "free" : free}
+                   count) % {"count" : count,
+                             "size" : escape_markup(size),
+                             "free" : escape_markup(free)}
         self._summary_label.set_markup(text)
 
     # signal handlers

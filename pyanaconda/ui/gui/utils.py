@@ -223,3 +223,12 @@ def setup_gtk_direction():
     """
 
     Gtk.Widget.set_default_direction(get_default_widget_direction())
+
+def escape_markup(value):
+    """
+    Escape strings for use within Pango markup.
+
+    This function converts the value to a string before passing markup_escape_text().
+    """
+
+    return GLib.markup_escape_text(str(value))

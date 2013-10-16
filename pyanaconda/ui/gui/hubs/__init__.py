@@ -31,7 +31,7 @@ from pyanaconda.ui import common
 from pyanaconda.ui.gui import GUIObject
 from pyanaconda.ui.gui.categories import collect_categories
 from pyanaconda.ui.gui.spokes import StandaloneSpoke, collect_spokes
-from pyanaconda.ui.gui.utils import gtk_call_once
+from pyanaconda.ui.gui.utils import gtk_call_once, escape_markup
 from pyanaconda.constants import ANACONDA_ENVIRON
 
 import logging
@@ -225,7 +225,7 @@ class Hub(GUIObject, common.Hub):
             if not selectors:
                 continue
 
-            label = Gtk.Label("<span font-desc=\"Sans 14\">%s</span>" % _(obj.title))
+            label = Gtk.Label("<span font-desc=\"Sans 14\">%s</span>" % escape_markup(_(obj.title)))
             label.set_use_markup(True)
             label.set_halign(Gtk.Align.START)
             label.set_margin_top(12)
@@ -257,7 +257,7 @@ class Hub(GUIObject, common.Hub):
     def _updateCompleteness(self, spoke):
         spoke.selector.set_sensitive(spoke.ready)
         spoke.selector.set_property("status", spoke.status)
-        spoke.selector.set_tooltip_markup(GLib.markup_escape_text(spoke.status))
+        spoke.selector.set_tooltip_markup(escape_markup(spoke.status))
         spoke.selector.set_incomplete(not spoke.completed and spoke.mandatory)
         self._handleCompleteness(spoke)
 

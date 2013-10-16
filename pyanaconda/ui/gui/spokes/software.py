@@ -30,7 +30,7 @@ from pyanaconda import constants
 from pyanaconda.ui.communication import hubQ
 from pyanaconda.ui.gui.spokes import NormalSpoke
 from pyanaconda.ui.gui.spokes.lib.detailederror import DetailedErrorDialog
-from pyanaconda.ui.gui.utils import enlightbox, gtk_action_wait
+from pyanaconda.ui.gui.utils import enlightbox, gtk_action_wait, escape_markup
 from pyanaconda.ui.gui.categories.software import SoftwareCategory
 
 import sys
@@ -248,7 +248,8 @@ class SoftwareSelectionSpoke(NormalSpoke):
         for environment in self.payload.environments:
             (name, desc) = self.payload.environmentDescription(environment)
 
-            itr = self._environmentStore.append([environment == self.environment, "<b>%s</b>\n%s" % (name, desc), environment])
+            itr = self._environmentStore.append([environment == self.environment, "<b>%s</b>\n%s" % \
+                    (escape_markup(name), escape_markup(desc)), environment])
             # Either:
             # (1) Select the environment given by kickstart or selected last
             #     time this spoke was displayed; or
@@ -276,7 +277,8 @@ class SoftwareSelectionSpoke(NormalSpoke):
         else:
             selected = grp in self.selectedGroups
 
-        self._addonStore.append([selected, "<b>%s</b>\n%s" % (name, desc), grp, False])
+        self._addonStore.append([selected, "<b>%s</b>\n%s" % \
+                (escape_markup(name), escape_markup(desc)), grp, False])
 
     def refreshAddons(self):
         self._addonStore.clear()

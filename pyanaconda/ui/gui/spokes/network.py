@@ -39,7 +39,7 @@ from pyanaconda.ui.gui import GUIObject
 from pyanaconda.ui.gui.spokes import NormalSpoke, StandaloneSpoke
 from pyanaconda.ui.gui.categories.system import SystemCategory
 from pyanaconda.ui.gui.hubs.summary import SummaryHub
-from pyanaconda.ui.gui.utils import gtk_call_once, enlightbox
+from pyanaconda.ui.gui.utils import gtk_call_once, enlightbox, escape_markup
 from pyanaconda.ui.common import FirstbootSpokeMixIn
 
 from pyanaconda import network
@@ -626,12 +626,14 @@ class NetworkControlBox(object):
             and device.get_device_type() == NetworkManager.DeviceType.ETHERNET
             and not device.get_carrier()):
             # Translators: ethernet cable is unplugged
-            unplugged = ', <i>%s</i>' % _("unplugged")
-        title = '<span size="large">%s (%s%s)</span>' % (self._dev_type_str(device),
-                                                         device.get_iface(),
-                                                         unplugged)
-        title += '\n<span size="small">%s %s</span>' % (device.get_vendor() or "",
-                                                        device.get_product() or "")
+            unplugged = ', <i>%s</i>' % escape_markup(_("unplugged"))
+        title = '<span size="large">%s (%s%s)</span>' % \
+                (escape_markup(self._dev_type_str(device)),
+                 escape_markup(device.get_iface()),
+                 unplugged)
+        title += '\n<span size="small">%s %s</span>' % \
+                (escape_markup(device.get_vendor()) or "",
+                 escape_markup(device.get_product()) or "")
         return title
 
     def _dev_type_str(self, device):
