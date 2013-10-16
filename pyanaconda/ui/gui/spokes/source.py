@@ -728,7 +728,7 @@ class SourceSpoke(NormalSpoke):
                 self._networkButton.set_active(True)
                 self.data.method.method = None
 
-        self._noUpdatesCheckbox.set_active(not self.payload.isRepoEnabled("updates"))
+        self._setup_no_updates()
 
         # Setup the addon repos
         self._reset_repoStore()
@@ -737,6 +737,17 @@ class SourceSpoke(NormalSpoke):
         # how others are set up.  We can use the signal handlers to handle
         # that condition here too.
         self.on_protocol_changed(self._protocolComboBox)
+
+    def _setup_no_updates(self):
+        """ Setup the state of the No Updates checkbox.
+
+            If closest mirror is not selected, check it.
+            If closest mirror is selected, and "updates" repo is enabled,
+            uncheck it.
+        """
+        self._updatesBox.set_sensitive(self._mirror_active())
+        active = not self._mirror_active() or not self.payload.isRepoEnabled("updates")
+        self._noUpdatesCheckbox.set_active(active)
 
     @property
     def showable(self):
@@ -774,14 +785,7 @@ class SourceSpoke(NormalSpoke):
         # disabled) button.
         enabled = button.get_active()
         relatedBox.set_sensitive(enabled)
-
-        if button is self._networkButton:
-            # setup updates check box based on protocol chosen
-            self._protocolComboBox.emit("changed")
-        else:
-            # just make updates check box sensitive and unchecked by default
-            self._noUpdatesCheckbox.set_active(False)
-            self._updatesBox.set_sensitive(True)
+        self._setup_no_updates()
 
     def on_back_clicked(self, button):
         """If the user entered duplicate repo names, keep them on the screen.
@@ -863,11 +867,7 @@ class SourceSpoke(NormalSpoke):
         self._proxyButton.set_sensitive(self._http_active() or self._mirror_active())
         self._nfsOptsBox.set_visible(self._nfs_active())
         self._mirrorlistCheckbox.set_visible(self._http_active())
-
-        # We only know how to enable updates if the default mirror is used.
-        # don't disable updates by default
-        self._noUpdatesCheckbox.set_active(not self._mirror_active())
-        self._updatesBox.set_sensitive(self._mirror_active())
+        self._setup_no_updates()
 
     def _update_payload_repos(self):
         """ Change the packaging repos to match the new edits
