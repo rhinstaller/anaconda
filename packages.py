@@ -329,7 +329,7 @@ def rpmSetupGraphicalSystem(anaconda):
 def recreateInitrd (kernelTag, instRoot):
     log.info("recreating initrd for %s" % (kernelTag,))
     iutil.execWithRedirect("/sbin/new-kernel-pkg",
-                           [ "--mkinitrd", "--dracut", "--depmod", "--install", kernelTag ],
+                           [ "--mkinitrd", "--dracut", "--depmod", "--update", kernelTag ],
                            stdout = "/dev/null", stderr = "/dev/null",
                            root = instRoot)
 
