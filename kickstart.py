@@ -262,13 +262,14 @@ class Bootloader(commands.bootloader.RHEL6_Bootloader):
         retval = commands.bootloader.RHEL6_Bootloader.parse(self, args)
 
         # Expand the drives in driveorder so that things like /dev/disk/by-* will work
+        # Devices that cannot be found are used as-is, eg. un-assembled RAID
         drives = []
         for drive in self.driveorder:
             matched = deviceMatches(drive)
             if matched:
                 drives.extend(matched)
             else:
-                raise KickstartValueError, formatErrorMsg(self.lineno, msg="Specified nonexistent disk %s in bootloader command" % drive)
+                drives.append(drive)
         self.driveorder = drives
 
         return retval
