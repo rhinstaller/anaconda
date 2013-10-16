@@ -222,6 +222,14 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Wed Oct 16 2013 Samantha N. Bueno <sbueno+anaconda@redhat.com> - 13.21.213-1
+- Remove manual call to recreate initrd if installing on iSCSI.
+  (sbueno+anaconda)
+  Resolves: rhbz#1007884
+- Some devices may not be present during kickstart parse, so when there is no
+  match revert to previous behavior and just use the name as-is. (bcl)
+  Resolves: rhbz#1014658
+
 * Tue Oct 15 2013 Samantha N. Bueno <sbueno+anaconda@redhat.com> - 13.21.212-1
 - Fix getDiskPart for nvme devices (vpavlin)
   Resolves: rhbz#1018703

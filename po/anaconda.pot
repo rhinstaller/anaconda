@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: anaconda 13.21.211\n"
+"Project-Id-Version: anaconda 13.21.212\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
-"POT-Creation-Date: 2013-10-15 16:10-0400\n"
+"POT-Creation-Date: 2013-10-16 11:01-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -85,12 +85,12 @@ msgstr ""
 msgid "DISPLAY variable not set. Starting text mode."
 msgstr ""
 
-#: backend.py:154
+#: backend.py:142
 #, python-format
 msgid "Upgrading %s\n"
 msgstr ""
 
-#: backend.py:156
+#: backend.py:144
 #, python-format
 msgid "Installing %s\n"
 msgstr ""
@@ -123,8 +123,8 @@ msgstr ""
 msgid "_Exit installer"
 msgstr ""
 
-#: bootloader.py:60 image.py:102 image.py:265 kickstart.py:1577
-#: kickstart.py:1621 upgrade.py:58 yuminstall.py:1448 yuminstall.py:1630
+#: bootloader.py:60 image.py:102 image.py:265 kickstart.py:1578
+#: kickstart.py:1622 upgrade.py:58 yuminstall.py:1448 yuminstall.py:1630
 #: iw/partition_gui.py:1629 storage/__init__.py:2089
 msgid "_Continue"
 msgstr ""
@@ -162,8 +162,8 @@ msgstr ""
 msgid "In progress"
 msgstr ""
 
-#: cmdline.py:88 gui.py:1284 kickstart.py:1359 kickstart.py:1439
-#: kickstart.py:1447 kickstart.py:1486 kickstart.py:1494 text.py:396
+#: cmdline.py:88 gui.py:1284 kickstart.py:1360 kickstart.py:1440
+#: kickstart.py:1448 kickstart.py:1487 kickstart.py:1495 text.py:396
 #, python-format
 msgid ""
 "The following error was found while parsing the kickstart configuration "
@@ -609,63 +609,63 @@ msgid ""
 "%s"
 msgstr ""
 
-#: kickstart.py:1458
+#: kickstart.py:1459
 #, python-format
 msgid "Error processing %%ksappend lines: %s"
 msgstr ""
 
-#: kickstart.py:1461
+#: kickstart.py:1462
 #, python-format
 msgid "Unknown error processing %%ksappend lines: %s"
 msgstr ""
 
-#: kickstart.py:1517 livecd.py:228
+#: kickstart.py:1518 livecd.py:228
 msgid "Post-Installation"
 msgstr ""
 
-#: kickstart.py:1518
+#: kickstart.py:1519
 msgid "Running post-installation scripts"
 msgstr ""
 
-#: kickstart.py:1534
+#: kickstart.py:1535
 msgid "Pre-Installation"
 msgstr ""
 
-#: kickstart.py:1535
+#: kickstart.py:1536
 msgid "Running pre-installation scripts"
 msgstr ""
 
-#: kickstart.py:1568
+#: kickstart.py:1569
 msgid "Missing Package"
 msgstr ""
 
-#: kickstart.py:1569
+#: kickstart.py:1570
 #, python-format
 msgid ""
 "You have specified that the package '%s' should be installed.  This package "
 "does not exist. Would you like to continue or abort this installation?"
 msgstr ""
 
-#: kickstart.py:1575 kickstart.py:1619
+#: kickstart.py:1576 kickstart.py:1620
 msgid "_Abort"
 msgstr ""
 
-#: kickstart.py:1576 kickstart.py:1620
+#: kickstart.py:1577 kickstart.py:1621
 msgid "_Ignore All"
 msgstr ""
 
-#: kickstart.py:1611
+#: kickstart.py:1612
 msgid "Missing Group"
 msgstr ""
 
-#: kickstart.py:1612
+#: kickstart.py:1613
 #, python-format
 msgid ""
 "You have specified that the group '%s' should be installed. This group does "
 "not exist. Would you like to continue or abort this installation?"
 msgstr ""
 
-#: kickstart.py:1735
+#: kickstart.py:1736
 #, python-format
 msgid ""
 "The kickstart configuration file is missing required information that "
