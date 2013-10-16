@@ -536,7 +536,6 @@ class SourceSpoke(NormalSpoke):
         self._mirrorlistCheckbox = self.builder.get_object("mirrorlistCheckbox")
 
         self._noUpdatesCheckbox = self.builder.get_object("noUpdatesCheckbox")
-        self._noUpdatesCheckbox.get_children()[0].set_line_wrap(True)
 
         self._verifyIsoButton = self.builder.get_object("verifyIsoButton")
 

@@ -2,12 +2,6 @@
 <interface>
   <!-- interface-requires gtk+ 3.0 -->
   <!-- interface-requires AnacondaWidgets 1.0 -->
-  <object class="GtkImage" id="addSpecializedImage">
-    <property name="visible">True</property>
-    <property name="can_focus">False</property>
-    <property name="icon_name">drive-harddisk</property>
-    <property name="icon-size">6</property>
-  </object>
   <object class="GtkDialog" id="options1_dialog">
     <property name="width_request">500</property>
     <property name="height_request">200</property>
@@ -991,16 +985,50 @@
                                         <signal name="key-release-event" handler="on_disks_key_released" swapped="no"/>
                                         <child>
                                           <object class="GtkButton" id="addSpecializedButton">
-                                            <property name="label" translatable="yes">_Add a disk...</property>
                                             <property name="visible">True</property>
                                             <property name="can_focus">True</property>
                                             <property name="receives_default">True</property>
                                             <property name="valign">center</property>
-                                            <property name="image">addSpecializedImage</property>
                                             <property name="use_underline">True</property>
                                             <property name="image_position">top</property>
                                             <property name="always_show_image">True</property>
                                             <signal name="clicked" handler="on_specialized_clicked" swapped="no"/>
+                                            <child>
+                                              <object class="GtkBox" id="box7">
+                                                <property name="visible">True</property>
+                                                <property name="can_focus">False</property>
+                                                <property name="orientation">vertical</property>
+                                                <child>
+                                                  <object class="GtkImage" id="image1">
+                                                    <property name="visible">True</property>
+                                                    <property name="can_focus">False</property>
+                                                    <property name="icon_name">drive-harddisk</property>
+                                                  </object>
+                                                  <packing>
+                                                    <property name="expand">False</property>
+                                                    <property name="fill">True</property>
+                                                    <property name="position">0</property>
+                                                  </packing>
+                                                </child>
+                                                <child>
+                                                  <object class="GtkLabel" id="label2">
+                                                    <property name="visible">True</property>
+                                                    <property name="can_focus">False</property>
+                                                    <property name="label" translatable="yes">_Add a disk...</property>
+                                                    <property name="use_underline">True</property>
+                                                    <attributes>
+                                                      <attribute name="weight" value="bold"/>
+                                                      <attribute name="scale" value="1.2"/>
+                                                    </attributes>
+                                                  </object>
+                                                  <packing>
+                                                    <property name="expand">False</property>
+                                                    <property name="fill">True</property>
+                                                    <property name="position">1</property>
+                                                  </packing>
+                                                </child>
+                                              </object>
+                                            </child>
                                           </object>
                                           <packing>
                                             <property name="expand">False</property>
@@ -1048,7 +1076,6 @@
                 </child>
                 <child>
                   <object class="GtkButton" id="summary_button">
-                    <property name="label" translatable="yes">_Full disk summary and bootloader...</property>
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
                     <property name="receives_default">True</property>
@@ -1060,6 +1087,18 @@
                     <property name="focus_on_click">False</property>
                     <property name="xalign">0</property>
                     <signal name="clicked" handler="on_summary_clicked" swapped="no"/>
+                    <child>
+                      <object class="GtkLabel" id="label5">
+                        <property name="visible">True</property>
+                        <property name="can_focus">False</property>
+                        <property name="label" translatable="yes">_Full disk summary and bootloader...</property>
+                        <property name="use_underline">True</property>
+                        <attributes>
+                          <attribute name="underline" value="True"/>
+                          <attribute name="foreground" value="#00000000ffff"/>
+                        </attributes>
+                      </object>
+                    </child>
                   </object>
                   <packing>
                     <property name="expand">False</property>

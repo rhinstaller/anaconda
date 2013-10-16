@@ -616,21 +616,6 @@ class StorageSpoke(NormalSpoke, StorageChecker):
     def initialize(self):
         NormalSpoke.initialize(self)
 
-        # Wouldn't it be nice if glade knew how to do this?
-        label = self.builder.get_object("summary_button").get_children()[0]
-        markup = "<span foreground='blue'><u>%s</u></span>" % label.get_text()
-        label.set_use_markup(True)
-        label.set_markup(markup)
-
-        specializedButton = self.builder.get_object("addSpecializedButton")
-
-        # It's uh... uh... it's down there somewhere, let me take another look.
-        label = specializedButton.get_children()[0].get_children()[0].get_children()[1]
-        markup = "<span size='large'><b>%s</b></span>" % label.get_text()
-        label.set_use_markup(True)
-        label.set_markup(markup)
-        specializedButton.show_all()
-
         self.local_disks_box = self.builder.get_object("local_disks_box")
         self.specialized_disks_box = self.builder.get_object("specialized_disks_box")
 
