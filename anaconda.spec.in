@@ -253,6 +253,29 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Wed Oct 16 2013 Brian C. Lane <bcl@redhat.com> - 20.25.1-1
+- New transifex branch for f20 (bcl)
+- Fix python-blivet buildrequires for new f20-branch version. (dlehman)
+- Save mountpoints specified for existing btrfs volumes. (#892747) (dlehman)
+- BTRFS cannot hold swap, no need to care about fstab swaps (vpodzime)
+- Fix the alignment of the Network Time switch (#1019301) (dshea)
+- Tell blivet which swaps should appear in the fstab (#1011391) (vpodzime)
+- Put only newly created or reformated swaps to the new root (vpodzime)
+- Make code to get new devices reusable as property (vpodzime)
+- Grab journal only from the last boot (vpodzime)
+- DNFPayload: allow enable/disable calls for repos that do not exist. (ales)
+- network: look for device settings also based on DEVICE value (#1017788)
+  (rvykydal)
+- Add shell spoke to s390x installations (vpodzime)
+- Put TUI spokes in common categories (vpodzime)
+- MountpointSelector is a widget, set its property properly (#1013612)
+  (vpodzime)
+- Include the journal log on installed system (bcl)
+- DNFPayload: error handling and logging cleanups. (ales)
+- DNFPayload: reset the transaction goal on new package selection check. (ales)
+- DNFPayload: implement environmentGroups() (ales)
+- Some partition scheme is always selected (#1017435) (vpodzime)
+
 * Fri Oct 11 2013 Brian C. Lane <bcl@redhat.com> - 20.25-1
 - Don't use g_object_set on initialized objects. (dshea)
 - Remove the "other" tab in the network spoke. (dshea)
