@@ -376,9 +376,6 @@ class BTRFSData(commands.btrfs.F17_BTRFSData):
 
             if not device:
                 raise KickstartValueError(formatErrorMsg(self.lineno, msg="Specified nonexistent BTRFS volume %s in btrfs command" % self.name))
-
-            if ty == "swap":
-                storage.addFstabSwap(device)
         else:
             # If a previous device has claimed this mount point, delete the
             # old one.
@@ -397,9 +394,6 @@ class BTRFSData(commands.btrfs.F17_BTRFSData):
                                        parents=members)
 
             storage.createDevice(request)
-            if ty == "swap":
-                storage.addFstabSwap(request)
-
 
 class Realm(commands.realm.F19_Realm):
     def __init__(self, *args):
