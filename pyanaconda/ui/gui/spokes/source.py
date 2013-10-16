@@ -721,13 +721,13 @@ class SourceSpoke(NormalSpoke):
         else:
             # No method was given in advance, so now we need to make a sensible
             # guess.  Go with autodetected media if that was provided, and then
-            # fall back to a URL.
+            # fall back to closest mirror.
             if not self._autodetectButton.get_no_show_all():
                 self._autodetectButton.set_active(True)
                 self.data.method.method = "cdrom"
             else:
                 self._networkButton.set_active(True)
-                self.data.method.method = "url"
+                self.data.method.method = None
 
         self._noUpdatesCheckbox.set_active(not self.payload.isRepoEnabled("updates"))
 
