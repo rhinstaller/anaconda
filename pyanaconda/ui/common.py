@@ -329,6 +329,22 @@ class Spoke(UIObject):
         """
         raise NotImplementedError
 
+    def entry_logger(self):
+        """Log immediately before this spoke is about to be displayed on the
+           screen.  Subclasses may override this method if they want to log
+           more specific information, but an overridden method should finish
+           by calling this method so the entry will be logged.
+        """
+        log.debug("Entered spoke: %s", self.__class__.__name__)
+
+    def exit_logger(self):
+        """Log when a user leaves the spoke.  Subclasses may override this
+           method if they want to log more specific information, but an
+           overridden method should finish by calling this method so the
+           exit will be logged.
+        """
+        log.debug("Left spoke: %s", self.__class__.__name__)
+
 class NormalSpoke(Spoke):
     """A NormalSpoke is a Spoke subclass that is displayed when the user
        selects something on a Hub.  This is what most Spokes in anaconda will
@@ -493,7 +509,32 @@ class Hub(UIObject):
         """Update the paths attribute with list of tuples in the form (module
            name format string, directory name)"""
         self.paths[path_id] = paths
-        
+
+    def entry_logger(self):
+        """Log immediately before this hub is about to be displayed on the
+           screen.  Subclasses may override this method if they want to log
+           more specific information, but an overridden method should finish
+           by calling this method so the entry will be logged.
+
+           Note that due to how the GUI flows, hubs are only entered once -
+           when they are initially displayed.  Going to a spoke from a hub
+           and then coming back to the hub does not count as exiting and
+           entering.
+        """
+        log.debug("Entered hub: %s", self.__class__.__name__)
+
+    def exit_logger(self):
+        """Log when a user leaves the hub.  Subclasses may override this
+           method if they want to log more specific information, but an
+           overridden method should finish by calling this method so the
+           exit will be logged.
+
+           Note that due to how the GUI flows, hubs are not exited when the
+           user selects a spoke from the hub.  They are only exited when the
+           continue or quit button is clicked on the hub.
+        """
+        log.debug("Left hub: %s", self.__class__.__name__)
+
 def collect(module_pattern, path, pred):
     """Traverse the directory (given by path), import all files as a module
        module_pattern % filename and find all classes within that match

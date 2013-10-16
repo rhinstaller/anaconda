@@ -105,6 +105,8 @@ class Hub(GUIObject, common.Hub):
         action.window.maximize()
         action.window.set_property("expand", True)
 
+        action.entry_logger()
+
         action.refresh()
 
         action.window.set_beta(self.window.get_beta())
@@ -128,6 +130,8 @@ class Hub(GUIObject, common.Hub):
             action.apply()
             action.execute()
             action._visitedSinceApplied = False
+
+        action.exit_logger()
 
     def _collectCategoriesAndSpokes(self):
         """collects categories and spokes to be displayed on this Hub

@@ -621,6 +621,7 @@ class GraphicalUserInterface(UserInterface):
                 return
 
         self._currentAction.initialize()
+        self._currentAction.entry_logger()
         self._currentAction.refresh()
 
         self._currentAction.window.set_beta(not self._isFinal)
@@ -737,6 +738,9 @@ class GraphicalUserInterface(UserInterface):
             self._on_continue_clicked()
             return
 
+        self._currentAction.exit_logger()
+        nextAction.entry_logger()
+
         nextAction.refresh()
 
         # Do this last.  Setting up curAction could take a while, and we want
@@ -753,6 +757,7 @@ class GraphicalUserInterface(UserInterface):
             dialog.window.destroy()
 
         if rc == 1:
+            self._currentAction.exit_logger()
             sys.exit(0)
 
 class GraphicalExceptionHandlingIface(meh.ui.gui.GraphicalIntf):
