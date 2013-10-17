@@ -227,6 +227,10 @@ def validate_mountpoint(mountpoint, used_mountpoints, strict=True):
 
 def selectedRaidLevel(raidLevelCombo):
     """Interpret the selection of a RAID level combo box."""
+    if not raidLevelCombo.get_property("visible"):
+        # the combo is hidden when raid level isn't applicable
+        return None
+
     itr = raidLevelCombo.get_active_iter()
     store = raidLevelCombo.get_model()
 
