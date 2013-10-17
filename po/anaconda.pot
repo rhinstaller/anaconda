@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: anaconda 19.31.26\n"
+"Project-Id-Version: anaconda 19.31.27\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
-"POT-Creation-Date: 2013-10-11 15:45-0700\n"
+"POT-Creation-Date: 2013-10-17 13:32-0700\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,24 +18,24 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 
-#: anaconda:352
+#: anaconda:353
 #, c-format
 msgid ""
 "%s requires %s MB of memory to install, but you only have %s MB on this "
 "machine.\n"
 msgstr ""
 
-#: anaconda:354
+#: anaconda:355
 #, c-format
 msgid ""
 "The %s graphical installer requires %s MB of memory, but you only have %s MB."
 msgstr ""
 
-#: anaconda:359
+#: anaconda:360
 msgid "Not enough RAM"
 msgstr ""
 
-#: anaconda:360
+#: anaconda:361
 msgid ""
 " Try the text mode installer by running:\n"
 "\n"
@@ -44,37 +44,37 @@ msgid ""
 " from a root terminal."
 msgstr ""
 
-#: anaconda:363
+#: anaconda:364
 msgid " Starting text mode."
 msgstr ""
 
-#: anaconda:393 pyanaconda/rescue.py:295 pyanaconda/rescue.py:328
+#: anaconda:394 pyanaconda/rescue.py:295 pyanaconda/rescue.py:328
 #: pyanaconda/rescue.py:341 pyanaconda/rescue.py:409 pyanaconda/rescue.py:425
 #: pyanaconda/rescue.py:436
 msgid "OK"
 msgstr ""
 
-#: anaconda:501
+#: anaconda:502
 msgid "DISPLAY variable not set. Starting text mode."
 msgstr ""
 
-#: anaconda:509
+#: anaconda:510
 msgid "Graphical installation is not available. Starting text mode."
 msgstr ""
 
-#: anaconda:517
+#: anaconda:518
 msgid ""
 "Text mode provides a limited set of installation options. It does not offer "
 "custom partitioning for full control over the disk layout. Would you like to "
 "use VNC mode instead?"
 msgstr ""
 
-#: anaconda:640
+#: anaconda:641
 #, c-format
 msgid "Please ssh install@%s to begin the install."
 msgstr ""
 
-#: anaconda:642
+#: anaconda:643
 msgid "Please ssh install@<host> to continue installation."
 msgstr ""
 
@@ -141,17 +141,17 @@ msgstr ""
 msgid "%s must be on a primary partition."
 msgstr ""
 
-#: pyanaconda/bootloader.py:632 pyanaconda/bootloader.py:724
+#: pyanaconda/bootloader.py:632 pyanaconda/bootloader.py:730
 #, python-format
 msgid "%s cannot be on an encrypted block device."
 msgstr ""
 
-#: pyanaconda/bootloader.py:682
+#: pyanaconda/bootloader.py:688
 #, python-format
 msgid "%s cannot be of type %s"
 msgstr ""
 
-#: pyanaconda/bootloader.py:1599
+#: pyanaconda/bootloader.py:1605
 #, python-format
 msgid ""
 "%(deviceName)s may not have enough space for grub2 to embed core.img when "
@@ -289,12 +289,12 @@ msgid ""
 "%s"
 msgstr ""
 
-#: pyanaconda/kickstart.py:552
+#: pyanaconda/kickstart.py:557
 #, python-format
 msgid "%s is missing. Cannot setup firewall."
 msgstr ""
 
-#: pyanaconda/kickstart.py:1694
+#: pyanaconda/kickstart.py:1699
 msgid "Running pre-installation scripts"
 msgstr ""
 
@@ -2110,22 +2110,22 @@ msgstr ""
 msgid "SYSTEM"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/lib/accordion.py:258
+#: pyanaconda/ui/gui/spokes/lib/accordion.py:255
 #, python-format
 msgid ""
 "You haven't created any mount points for your %s %s installation yet.  You "
 "can:"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/lib/accordion.py:267
+#: pyanaconda/ui/gui/spokes/lib/accordion.py:264
 msgid "_Click here to create them automatically."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/lib/accordion.py:284
+#: pyanaconda/ui/gui/spokes/lib/accordion.py:281
 msgid "Create new mount points by clicking the '+' button."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/lib/accordion.py:295
+#: pyanaconda/ui/gui/spokes/lib/accordion.py:292
 msgid ""
 "Or, assign new mount points to existing partitions after selecting them "
 "below."

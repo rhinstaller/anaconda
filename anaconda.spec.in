@@ -255,6 +255,26 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Thu Oct 17 2013 Brian C. Lane <bcl@redhat.com> - 19.31.28-1
+- Fix liveinst to work with livemedia-creator (bcl)
+  Resolves: rhbz#1009711
+- Fix initramfs generation for disk image installations. (dlehman)
+  Resolves: rhbz#1018925
+- Save mountpoints specified for existing btrfs volumes. (dlehman)
+  Resolves: rhbz#1019510
+- Add a command line option for disabling friendly multipath names. (dlehman)
+  Resolves: rhbz#977815
+- Keyboard variant names may contain dashes (vpodzime)
+  Resolves: rhbz#1017556
+- swap devices should be under the System portion (clumens).
+  Resolves: rhbz#1017838
+- Don't try to configure a bootloader for s390 disk image installs. (dlehman)
+  Resolves: rhbz#994521
+- Install bootloader to loop device in disk image installations. (dlehman)
+  Resolves: rhbz#955202
+- network: look for device settings also based on DEVICE value (rvykydal)
+  Resolves: rhbz#1017788
+
 * Fri Oct 11 2013 Brian C. Lane <bcl@redhat.com> - 19.31.27-1
 - Refresh swap suggestion once we know which disks to use (vpodzime)
   Related: rhbz#1016673
