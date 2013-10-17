@@ -36,7 +36,7 @@
             <property name="layout_style">end</property>
             <child>
               <object class="GtkButton" id="summaryCancelButton">
-                <property name="label" translatable="yes">_Cancel &amp; Return to Custom Partitioning</property>
+                <property name="label" translatable="yes" context="GUI|Summary Dialog">_Cancel &amp; Return to Custom Partitioning</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
@@ -51,7 +51,7 @@
             </child>
             <child>
               <object class="GtkButton" id="summaryAcceptButton">
-                <property name="label" translatable="yes">_Accept Changes</property>
+                <property name="label" translatable="yes" context="GUI|Summary Dialog">_Accept Changes</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>

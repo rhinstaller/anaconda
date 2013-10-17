@@ -61,7 +61,7 @@ from blivet.devicelibs import swap as swap_lib
 from pyanaconda.threads import threadMgr, AnacondaThread
 from pyanaconda.product import productName
 from pyanaconda.flags import flags
-from pyanaconda.i18n import _, N_, P_
+from pyanaconda.i18n import _, C_, CN_, P_
 from pyanaconda import constants
 from pyanaconda.bootloader import BootLoaderError
 
@@ -131,23 +131,26 @@ class InstallOptions1Dialog(GUIObject):
         options_label.set_markup(options_text)
 
         label = self.builder.get_object("options1_autopart_label")
-        label.set_text(_("A_utomatically configure my %(productName)s installation to the "
-                           "disk(s) I selected and return me to the main menu.") %
-                           {"productName": productName})
+        label.set_text(C_("GUI|Storage|Options 1 Dialog",
+            "A_utomatically configure my %(productName)s installation to the "
+            "disk(s) I selected and return me to the main menu.") %
+            {"productName": productName})
         label.set_use_underline(True)
 
         radio = self.builder.get_object("options1_reclaim_radio")
         if self.showReclaim:
             label = self.builder.get_object("options1_reclaim_label")
-            label.set_text(_("I want more space. _Guide me through shrinking and/or removing "
-                               "partitions so I can have more space for %(productName)s.") %
-                               {"productName": productName})
+            label.set_text(C_("GUI|Storage|Options 1 Dialog",
+                "I want more space. _Guide me through shrinking and/or removing "
+                "partitions so I can have more space for %(productName)s.") %
+                {"productName": productName})
             label.set_use_underline(True)
         else:
             radio.hide()
 
         label = self.builder.get_object("options1_custom_label")
-        label.set_text(_("I want to review/_modify my disk partitions before continuing."))
+        label.set_text(C_("GUI|Storage|Options 1 Dialog",
+            "I want to review/_modify my disk partitions before continuing."))
         label.set_use_underline(True)
 
     @property
@@ -339,7 +342,7 @@ class StorageSpoke(NormalSpoke, StorageChecker):
 
     # other candidates: computer-symbolic, folder-symbolic
     icon = "drive-harddisk-symbolic"
-    title = N_("INSTALLATION _DESTINATION")
+    title = CN_("GUI|Spoke", "INSTALLATION _DESTINATION")
 
     def __init__(self, *args, **kwargs):
         StorageChecker.__init__(self)
@@ -917,7 +920,10 @@ class StorageSpoke(NormalSpoke, StorageChecker):
                       "configuration.  You can modify your storage layout or quit the "
                       "installer.")
 
-            dialog = DetailedErrorDialog(self.data, buttons=[_("_Quit"), _("_Modify Storage Layout")], label=label)
+            dialog = DetailedErrorDialog(self.data, buttons=[
+                    C_("GUI|Storage|Error Dialog", "_Quit"),
+                    C_("GUI|Storage|Error Dialog", "_Modify Storage Layout")],
+                label=label)
             with enlightbox(self.window, dialog.window):
                 errors = "\n".join(self.errors)
                 dialog.refresh(errors)

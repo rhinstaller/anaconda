@@ -62,7 +62,7 @@
               <object class="GtkLabel" id="label_add_device">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
-                <property name="label" translatable="yes">_Select the type of device you wish to add</property>
+                <property name="label" translatable="yes" context="GUI|Network|Add Device Dialog">_Select the type of device you wish to add</property>
                 <property name="use_underline">True</property>
                 <property name="mnemonic_widget">combobox_add_device</property>
               </object>
@@ -803,7 +803,7 @@ updates available for you.</property>
                                         <property name="vexpand">True</property>
                                         <child>
                                           <object class="GtkButton" id="button_wired_options">
-                                            <property name="label" translatable="yes">C_onfigure...</property>
+                                            <property name="label" translatable="yes" context="GUI|Network|Wired">C_onfigure...</property>
                                             <property name="visible">True</property>
                                             <property name="can_focus">True</property>
                                             <property name="receives_default">True</property>
@@ -1131,7 +1131,7 @@ updates available for you.</property>
                                             <property name="visible">True</property>
                                             <property name="can_focus">False</property>
                                             <property name="xalign">1</property>
-                                            <property name="label" translatable="yes">_Network Name</property>
+                                            <property name="label" translatable="yes" context="GUI|Network|Wireless">_Network Name</property>
                                             <property name="use_underline">True</property>
                                             <property name="mnemonic_widget">combobox_wireless_network_name</property>
                                           </object>
@@ -1251,7 +1251,7 @@ updates available for you.</property>
                                         <property name="vexpand">True</property>
                                         <child>
                                           <object class="GtkButton" id="start_hotspot_button">
-                                            <property name="label" translatable="yes">_Use as Hotspot...</property>
+                                            <property name="label" translatable="yes" context="GUI|Network|Wireless">_Use as Hotspot...</property>
                                             <property name="visible">True</property>
                                             <property name="can_focus">True</property>
                                             <property name="receives_default">True</property>
@@ -1270,7 +1270,7 @@ updates available for you.</property>
                                         </child>
                                         <child>
                                           <object class="GtkButton" id="stop_hotspot_button">
-                                            <property name="label" translatable="yes">_Stop Hotspot...</property>
+                                            <property name="label" translatable="yes" context="GUI|Network|Wireless">_Stop Hotspot...</property>
                                             <property name="visible">True</property>
                                             <property name="can_focus">True</property>
                                             <property name="receives_default">True</property>
@@ -1289,7 +1289,7 @@ updates available for you.</property>
                                         </child>
                                         <child>
                                           <object class="GtkButton" id="button_wireless_options">
-                                            <property name="label" translatable="yes">_Configure...</property>
+                                            <property name="label" translatable="yes" context="GUI|Network|Wireless">_Configure...</property>
                                             <property name="visible">True</property>
                                             <property name="can_focus">True</property>
                                             <property name="receives_default">True</property>
@@ -1641,7 +1641,7 @@ updates available for you.</property>
                                         <property name="top_padding">12</property>
                                         <child>
                                           <object class="GtkButton" id="button_mobilebb_options">
-                                            <property name="label" translatable="yes">_Configure...</property>
+                                            <property name="label" translatable="yes" context="GUI|Network|Mobile Broadband">_Configure...</property>
                                             <property name="visible">True</property>
                                             <property name="can_focus">True</property>
                                             <property name="receives_default">True</property>
@@ -1926,7 +1926,7 @@ updates available for you.</property>
                                         <property name="top_padding">12</property>
                                         <child>
                                           <object class="GtkButton" id="button_vpn_options">
-                                            <property name="label" translatable="yes">_Configure...</property>
+                                            <property name="label" translatable="yes" context="GUI|Network|VPN">_Configure...</property>
                                             <property name="visible">True</property>
                                             <property name="can_focus">True</property>
                                             <property name="receives_default">True</property>
@@ -2053,7 +2053,7 @@ updates available for you.</property>
                                             <property name="visible">True</property>
                                             <property name="can_focus">False</property>
                                             <property name="xalign">1</property>
-                                            <property name="label" translatable="yes">_Method</property>
+                                            <property name="label" translatable="yes" context="GUI|Network|Proxy">_Method</property>
                                             <property name="use_underline">True</property>
                                             <property name="mnemonic_widget">combobox_proxy_mode</property>
                                           </object>
@@ -2081,7 +2081,7 @@ updates available for you.</property>
                                             <property name="visible">True</property>
                                             <property name="can_focus">False</property>
                                             <property name="xalign">1</property>
-                                            <property name="label" translatable="yes">_Configuration URL</property>
+                                            <property name="label" translatable="yes" context="GUI|Network|Proxy">_Configuration URL</property>
                                             <property name="use_underline">True</property>
                                             <property name="mnemonic_widget">entry_proxy_url</property>
                                           </object>
@@ -2111,7 +2111,7 @@ updates available for you.</property>
                                             <property name="visible">True</property>
                                             <property name="can_focus">False</property>
                                             <property name="xalign">1</property>
-                                            <property name="label" translatable="yes">HTTP _Proxy</property>
+                                            <property name="label" translatable="yes" context="GUI|Network|Proxy">HTTP _Proxy</property>
                                             <property name="use_underline">True</property>
                                             <property name="mnemonic_widget">entry_proxy_http</property>
                                           </object>
@@ -2127,7 +2127,7 @@ updates available for you.</property>
                                             <property name="visible">True</property>
                                             <property name="can_focus">False</property>
                                             <property name="xalign">1</property>
-                                            <property name="label" translatable="yes">H_TTPS Proxy</property>
+                                            <property name="label" translatable="yes" context="GUI|Network|Proxy">H_TTPS Proxy</property>
                                             <property name="use_underline">True</property>
                                             <property name="mnemonic_widget">entry_proxy_https</property>
                                           </object>
@@ -2143,7 +2143,7 @@ updates available for you.</property>
                                             <property name="visible">True</property>
                                             <property name="can_focus">False</property>
                                             <property name="xalign">1</property>
-                                            <property name="label" translatable="yes">_FTP Proxy</property>
+                                            <property name="label" translatable="yes" context="GUI|Network|Proxy">_FTP Proxy</property>
                                             <property name="use_underline">True</property>
                                             <property name="mnemonic_widget">entry_proxy_ftp</property>
                                           </object>
@@ -2159,7 +2159,7 @@ updates available for you.</property>
                                             <property name="visible">True</property>
                                             <property name="can_focus">False</property>
                                             <property name="xalign">1</property>
-                                            <property name="label" translatable="yes">_Socks Host</property>
+                                            <property name="label" translatable="yes" context="GUI|Network|Proxy">_Socks Host</property>
                                             <property name="use_underline">True</property>
                                             <property name="mnemonic_widget">entry_proxy_socks</property>
                                           </object>
@@ -2389,7 +2389,7 @@ updates available for you.</property>
                         <property name="can_focus">False</property>
                         <child>
                           <object class="GtkButton" id="button_unlock">
-                            <property name="label" translatable="yes">Unloc_k</property>
+                            <property name="label" translatable="yes" context="GUI|Network">Unloc_k</property>
                             <property name="visible">True</property>
                             <property name="can_focus">True</property>
                             <property name="receives_default">True</property>
@@ -2410,7 +2410,7 @@ updates available for you.</property>
                               <object class="GtkLabel" id="label_flight_mode">
                                 <property name="visible">True</property>
                                 <property name="can_focus">False</property>
-                                <property name="label" translatable="yes">_Airplane Mode</property>
+                                <property name="label" translatable="yes" context="GUI|Network">_Airplane Mode</property>
                                 <property name="use_underline">True</property>
                               </object>
                               <packing>
@@ -2444,7 +2444,7 @@ updates available for you.</property>
                           <object class="GtkLabel" id="label_hostname">
                             <property name="visible">True</property>
                             <property name="can_focus">False</property>
-                            <property name="label" translatable="yes">_Hostname:</property>
+                            <property name="label" translatable="yes" context="GUI|Network">_Hostname:</property>
                             <property name="use_underline">True</property>
                             <property name="mnemonic_widget">entry_hostname</property>
                           </object>

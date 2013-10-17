@@ -22,7 +22,7 @@
 
 from gi.repository import Pango
 from pyanaconda.flags import flags
-from pyanaconda.i18n import N_
+from pyanaconda.i18n import CN_
 from pyanaconda.ui.gui.spokes import NormalSpoke
 from pyanaconda.ui.gui.utils import escape_markup
 from pyanaconda.ui.gui.categories.localization import LocalizationCategory
@@ -44,7 +44,7 @@ class LangsupportSpoke(LangLocaleHandler, NormalSpoke):
     category = LocalizationCategory
 
     icon = "accessories-character-map-symbolic"
-    title = N_("_LANGUAGE SUPPORT")
+    title = CN_("GUI|Spoke", "_LANGUAGE SUPPORT")
 
     def __init__(self, *args, **kwargs):
         NormalSpoke.__init__(self, *args, **kwargs)

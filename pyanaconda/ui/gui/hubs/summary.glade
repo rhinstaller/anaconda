@@ -73,7 +73,7 @@
             <property name="margin_right">6</property>
             <child>
               <object class="GtkButton" id="quitButton">
-                <property name="label" translatable="yes">_Quit</property>
+                <property name="label" translatable="yes" context="GUI|Summary">_Quit</property>
                 <property name="use_action_appearance">False</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
@@ -91,7 +91,7 @@
             </child>
             <child>
               <object class="GtkButton" id="continueButton">
-                <property name="label" translatable="yes">_Begin Installation</property>
+                <property name="label" translatable="yes" context="GUI|Summary">_Begin Installation</property>
                 <property name="use_action_appearance">False</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>

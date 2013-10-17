@@ -28,7 +28,7 @@ from pyanaconda.ui.gui.categories.localization import LocalizationCategory
 from pyanaconda.ui.gui.utils import enlightbox, gtk_call_once, escape_markup
 from pyanaconda import keyboard
 from pyanaconda import flags
-from pyanaconda.i18n import _, N_
+from pyanaconda.i18n import _, N_, CN_
 from pyanaconda.constants import DEFAULT_KEYBOARD
 
 import logging
@@ -266,7 +266,7 @@ class KeyboardSpoke(NormalSpoke):
     category = LocalizationCategory
 
     icon = "input-keyboard-symbolic"
-    title = N_("_KEYBOARD")
+    title = CN_("GUI|Spoke", "_KEYBOARD")
 
     def __init__(self, *args):
         NormalSpoke.__init__(self, *args)

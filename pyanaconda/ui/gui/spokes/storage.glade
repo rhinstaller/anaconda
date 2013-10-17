@@ -24,7 +24,7 @@
             <property name="layout_style">end</property>
             <child>
               <object class="GtkButton" id="options1_cancel_button">
-                <property name="label" translatable="yes">Cancel &amp; _add more disks</property>
+                <property name="label" translatable="yes" context="GUI|Storage|Options 1 Dialog">Cancel &amp; _add more disks</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
@@ -41,7 +41,7 @@
             </child>
             <child>
               <object class="GtkButton" id="options_continue_button1">
-                <property name="label" translatable="yes">_Continue</property>
+                <property name="label" translatable="yes" context="GUI|Storage|Options 1 Dialog">_Continue</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="has_focus">True</property>
@@ -115,7 +115,7 @@
                   <object class="GtkLabel" id="options1_autopart_label">
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
-                    <property name="label">A_utomatically configure my %(productName)s installation to the disk(s) I selected and return me to the main menu.</property>
+                    <property name="label" context="GUI|Storage|Options 1 Dialog">A_utomatically configure my %(productName)s installation to the disk(s) I selected and return me to the main menu.</property>
                     <property name="use_underline">True</property>
                     <property name="wrap">True</property>
                     <attributes>
@@ -144,7 +144,7 @@
                   <object class="GtkLabel" id="options1_reclaim_label">
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
-                    <property name="label">I want more space. _Guide me through shrinking and/or removing partitions so I can have more space for %(productName)s.</property>
+                    <property name="label" context="GUI|Storage|Options 1 Dialog">I want more space. _Guide me through shrinking and/or removing partitions so I can have more space for %(productName)s.</property>
                     <property name="use_underline">True</property>
                     <property name="wrap">True</property>
                     <attributes>
@@ -173,7 +173,7 @@
                   <object class="GtkLabel" id="options1_custom_label">
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
-                    <property name="label">I want to review/_modify my disk partitions before continuing.</property>
+                    <property name="label" context="GUI|Storage|Options 1 Dialog">I want to review/_modify my disk partitions before continuing.</property>
                     <property name="use_underline">True</property>
                     <property name="wrap">True</property>
                     <attributes>
@@ -237,7 +237,7 @@
             </child>
             <child>
               <object class="GtkCheckButton" id="encryption1_checkbutton">
-                <property name="label" translatable="yes">_Encrypt my data. I'll set a passphrase later.</property>
+                <property name="label" translatable="yes" context="GUI|Storage|Options 1 Dialog">_Encrypt my data. I'll set a passphrase later.</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">False</property>
@@ -289,7 +289,7 @@
             <property name="layout_style">end</property>
             <child>
               <object class="GtkButton" id="options2_cancel_button">
-                <property name="label" translatable="yes">Cancel &amp; _add more disks</property>
+                <property name="label" translatable="yes" context="GUI|Storage|Options 2 Dialog">Cancel &amp; _add more disks</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
@@ -305,7 +305,7 @@
             </child>
             <child>
               <object class="GtkButton" id="options2_custom_button">
-                <property name="label" translatable="yes">_Custom partitioning</property>
+                <property name="label" translatable="yes" context="GUI|Storage|Options 2 Dialog">_Custom partitioning</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
@@ -321,7 +321,7 @@
             </child>
             <child>
               <object class="GtkButton" id="options2_reclaim_button">
-                <property name="label" translatable="yes">_Reclaim space</property>
+                <property name="label" translatable="yes" context="GUI|Storage|Options 2 Dialog">_Reclaim space</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="has_focus">True</property>
@@ -539,7 +539,7 @@
             </child>
             <child>
               <object class="GtkCheckButton" id="encryption2_checkbutton">
-                <property name="label" translatable="yes">_Encrypt my data. I'll set a passphrase later.</property>
+                <property name="label" translatable="yes" context="GUI|Storage|Options 2 Dialog">_Encrypt my data. I'll set a passphrase later.</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">False</property>
@@ -592,7 +592,7 @@
             <property name="layout_style">end</property>
             <child>
               <object class="GtkButton" id="options3_quit_button">
-                <property name="label" translatable="yes">_Quit installer</property>
+                <property name="label" translatable="yes" context="GUI|Storage|Options 3 Dialog">_Quit installer</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
@@ -608,7 +608,7 @@
             </child>
             <child>
               <object class="GtkButton" id="options3_cancel_button">
-                <property name="label" translatable="yes">_Cancel</property>
+                <property name="label" translatable="yes" context="GUI|Storage|Options 3 Dialog">_Cancel</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="has_focus">True</property>
@@ -1024,7 +1024,7 @@
                                                   <object class="GtkLabel" id="label2">
                                                     <property name="visible">True</property>
                                                     <property name="can_focus">False</property>
-                                                    <property name="label" translatable="yes">_Add a disk...</property>
+                                                    <property name="label" translatable="yes" context="GUI|Storage">_Add a disk...</property>
                                                     <property name="use_underline">True</property>
                                                     <attributes>
                                                       <attribute name="weight" value="bold"/>
@@ -1101,7 +1101,7 @@
                       <object class="GtkLabel" id="label5">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
-                        <property name="label" translatable="yes">_Full disk summary and bootloader...</property>
+                        <property name="label" translatable="yes" context="GUI|Storage">_Full disk summary and bootloader...</property>
                         <property name="use_underline">True</property>
                         <attributes>
                           <attribute name="underline" value="True"/>

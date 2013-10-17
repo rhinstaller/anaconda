@@ -18,7 +18,7 @@
             <property name="layout_style">end</property>
             <child>
               <object class="GtkButton" id="uhdQuitButton">
-                <property name="label" translatable="yes">_Quit</property>
+                <property name="label" translatable="yes" context="GUI|Welcome|Unsupported Hardware Dialog">_Quit</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
@@ -32,7 +32,7 @@
             </child>
             <child>
               <object class="GtkButton" id="uhdContinueButton">
-                <property name="label" translatable="yes">_Continue</property>
+                <property name="label" translatable="yes" context="GUI|Welcome|Unsupported Hardware Dialog">_Continue</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
@@ -165,7 +165,7 @@
             <property name="layout_style">end</property>
             <child>
               <object class="GtkButton" id="quitButton">
-                <property name="label" translatable="yes">_Get me out of here!</property>
+                <property name="label" translatable="yes" context="GUI|Welcome|Beta Warn Dialog">_Get me out of here!</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
@@ -179,7 +179,7 @@
             </child>
             <child>
               <object class="GtkButton" id="continueButton">
-                <property name="label" translatable="yes">_I accept my fate.</property>
+                <property name="label" translatable="yes" context="GUI|Welcome|Beta Warn Dialog">_I accept my fate.</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>

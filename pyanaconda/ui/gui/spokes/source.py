@@ -30,7 +30,7 @@ import os, signal
 from gi.repository import GLib
 
 from pyanaconda.flags import flags
-from pyanaconda.i18n import _, N_
+from pyanaconda.i18n import _, N_, CN_
 from pyanaconda.image import opticalInstallMedia, potentialHdisoSources
 from pyanaconda.ui.communication import hubQ
 from pyanaconda.ui.gui import GUIObject
@@ -286,7 +286,7 @@ class SourceSpoke(NormalSpoke):
     category = SoftwareCategory
 
     icon = "media-optical-symbolic"
-    title = N_("_INSTALLATION SOURCE")
+    title = CN_("GUI|Spoke", "_INSTALLATION SOURCE")
 
     def __init__(self, *args, **kwargs):
         NormalSpoke.__init__(self, *args, **kwargs)

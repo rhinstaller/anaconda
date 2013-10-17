@@ -34,7 +34,7 @@ import re
 
 from pykickstart.constants import CLEARPART_TYPE_NONE, AUTOPART_TYPE_PLAIN, AUTOPART_TYPE_BTRFS, AUTOPART_TYPE_LVM, AUTOPART_TYPE_LVM_THINP
 
-from pyanaconda.i18n import _, N_, P_
+from pyanaconda.i18n import _, N_, C_, CP_
 from pyanaconda.product import productName, productVersion
 from pyanaconda.threads import AnacondaThread, threadMgr
 from pyanaconda.constants import THREAD_EXECUTE_STORAGE, THREAD_STORAGE, THREAD_CUSTOM_STORAGE_INIT
@@ -318,7 +318,9 @@ class ConfirmDeleteDialog(GUIObject):
         if rootName and "_" in rootName:
             rootName = rootName.replace("_", "__")
         self._removeAll.set_label(
-                _("Delete _all other filesystems in the %s root as well.") % rootName)
+                C_("GUI|Custom Partitioning|Confirm Delete Dialog",
+                    "Delete _all other filesystems in the %s root as well.")
+                % rootName)
         self._removeAll.set_sensitive(rootName is not None)
 
         if mountpoint:
@@ -839,9 +841,10 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         self._totalSpaceLabel.set_text(str(self._currentTotalSpace()))
 
         count = len(self.data.clearpart.drives)
-        summary = P_("%d _storage device selected",
-                     "%d _storage devices selected",
-                     count) % count
+        summary = CP_("GUI|Custom Partitioning",
+                "%d _storage device selected",
+                "%d _storage devices selected",
+                count) % count
 
         self._summaryLabel.set_text(summary)
 

@@ -24,7 +24,7 @@ from collections import namedtuple
 
 from gi.repository import Gdk, Gtk
 
-from pyanaconda.i18n import _, N_, P_
+from pyanaconda.i18n import _, C_, N_, P_
 from pyanaconda.ui.lib.disks import size_str
 from pyanaconda.ui.gui import GUIObject
 from pyanaconda.ui.gui.utils import escape_markup
@@ -406,12 +406,12 @@ class ResizeDialog(GUIObject):
         self._diskStore.foreach(self._scheduleActions, None)
 
     def on_delete_all_clicked(self, button, *args):
-        if button.get_label() == _("Delete _all"):
+        if button.get_label() == C_("GUI|Reclaim Dialog", "Delete _all"):
             action = DELETE
-            button.set_label(_("Preserve _all"))
+            button.set_label(C_("GUI|Reclaim Dialog", "Preserve _all"))
         else:
             action = PRESERVE
-            button.set_label(_("Delete _all"))
+            button.set_label(C_("GUI|Reclaim Dialog", "Delete _all"))
 
         itr = self._diskStore.get_iter_first()
         while itr:

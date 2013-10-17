@@ -40,7 +40,7 @@
             <property name="layout_style">end</property>
             <child>
               <object class="GtkButton" id="close_button">
-                <property name="label" translatable="yes">_Close</property>
+                <property name="label" translatable="yes" context="GUI|Selected Disks Dialog">_Close</property>
                 <property name="use_action_appearance">False</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
@@ -99,7 +99,7 @@
                     <property name="model">disk_store</property>
                     <child internal-child="selection">
                         <object class="GtkTreeSelection" id="disk_selection">
-                            <signal name="changed" handler="on_selection_changed" swapped="no"/>
+                          <signal name="changed" handler="on_selection_changed" swapped="no"/>
                         </object>
                     </child>
                     <child>
@@ -181,7 +181,7 @@
                 <property name="spacing">12</property>
                 <child>
                   <object class="GtkButton" id="set_as_boot_button">
-                    <property name="label" translatable="yes">_Set as Boot Device</property>
+                    <property name="label" translatable="yes" context="GUI|Selected Disks Dialog">_Set as Boot Device</property>
                     <property name="use_action_appearance">False</property>
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
@@ -198,7 +198,7 @@
                 </child>
                 <child>
                   <object class="GtkButton" id="remove_button">
-                    <property name="label" translatable="yes">_Remove</property>
+                    <property name="label" translatable="yes" context="GUI|Selected Disks Dialog">_Remove</property>
                     <property name="use_action_appearance">False</property>
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>

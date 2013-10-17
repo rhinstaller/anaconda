@@ -22,7 +22,7 @@
 
 from gi.repository import Gtk
 
-from pyanaconda.i18n import _, P_
+from pyanaconda.i18n import C_, P_
 from pyanaconda.ui.lib.disks import size_str
 from pyanaconda.ui.gui import GUIObject
 from pyanaconda.ui.gui.utils import escape_markup
@@ -189,9 +189,11 @@ class SelectedDisksDialog(GUIObject):
 
     def _toggle_button_text(self, row):
         if row[IS_BOOT_COL]:
-            self._set_button.set_label(_("_Do not install bootloader"))
+            self._set_button.set_label(C_("GUI|Selected Disks Dialog",
+                "_Do not install bootloader"))
         else:
-            self._set_button.set_label(_("_Set as Boot Device"))
+            self._set_button.set_label(C_("GUI|Selected Disks Dialog",
+                "_Set as Boot Device"))
 
     def on_selection_changed(self, *args):
         itr = self._selection.get_selected()[1]

@@ -19,7 +19,7 @@
 # Red Hat Author(s): Jesse Keating <jkeating@redhat.com>
 #
 
-from pyanaconda.i18n import _, N_
+from pyanaconda.i18n import _, CN_
 from pyanaconda.users import cryptPassword, validatePassword
 
 from pyanaconda.ui.gui import GUICheck
@@ -43,7 +43,7 @@ class PasswordSpoke(FirstbootSpokeMixIn, NormalSpoke):
     category = UserSettingsCategory
 
     icon = "dialog-password-symbolic"
-    title = N_("_ROOT PASSWORD")
+    title = CN_("GUI|Spoke", "_ROOT PASSWORD")
 
     def __init__(self, *args):
         NormalSpoke.__init__(self, *args)

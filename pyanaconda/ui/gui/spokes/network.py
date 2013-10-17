@@ -32,7 +32,7 @@
 from gi.repository import Gtk
 
 from pyanaconda.flags import can_touch_runtime_system
-from pyanaconda.i18n import _, N_
+from pyanaconda.i18n import _, C_, CN_
 from pyanaconda import constants
 from pyanaconda.ui.communication import hubQ
 from pyanaconda.ui.gui import GUIObject
@@ -1126,7 +1126,7 @@ class SecretAgent(dbus.service.Object):
         secrets = []
         key_mgmt = original_secrets['key-mgmt']
         if key_mgmt in ['wpa-none', 'wpa-psk']:
-            secrets.append({'label'     : _('_Password:'),
+            secrets.append({'label'     : C_('GUI|Network|Secrets Dialog', '_Password:'),
                             'key'      : 'psk',
                             'value'    : original_secrets.get('psk', ''),
                             'validate' : self._validate_wpapsk,
@@ -1134,7 +1134,7 @@ class SecretAgent(dbus.service.Object):
         # static WEP
         elif key_mgmt == 'none':
             key_idx = str(original_secrets.get('wep_tx_keyidx', '0'))
-            secrets.append({'label'     : _('_Key:'),
+            secrets.append({'label'     : C_('GUI|Network|Secrets Dialog', '_Key:'),
                             'key'      : 'wep-key%s' % key_idx,
                             'value'    : original_secrets.get('wep-key%s' % key_idx, ''),
                             'wep_key_type': original_secrets.get('wep-key-type', ''),
@@ -1189,7 +1189,7 @@ class NetworkSpoke(FirstbootSpokeMixIn, NormalSpoke):
     mainWidgetName = "networkWindow"
     uiFile = "spokes/network.glade"
 
-    title = N_("_NETWORK CONFIGURATION")
+    title = CN_("GUI|Spoke", "_NETWORK CONFIGURATION")
     icon = "network-transmit-receive-symbolic"
 
     category = SystemCategory

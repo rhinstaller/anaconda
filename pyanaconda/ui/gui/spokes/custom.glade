@@ -19,7 +19,7 @@
             <property name="layout_style">end</property>
             <child>
               <object class="GtkButton" id="addCancelButton">
-                <property name="label" translatable="yes">_Cancel</property>
+                <property name="label" translatable="yes" context="GUI|Custom Partitioning|Add Dialog">_Cancel</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
@@ -34,7 +34,7 @@
             </child>
             <child>
               <object class="GtkButton" id="addConfirmButton">
-                <property name="label" translatable="yes">_Add mount point</property>
+                <property name="label" translatable="yes" context="GUI|Custom Partitioning|Add Dialog">_Add mount point</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
@@ -67,7 +67,7 @@
                 <property name="can_focus">False</property>
                 <property name="margin_top">6</property>
                 <property name="xalign">1</property>
-                <property name="label" translatable="yes">_Desired Capacity:</property>
+                <property name="label" translatable="yes" context="GUI|Custom Partitioning|Add Dialog">_Desired Capacity:</property>
                 <property name="use_underline">True</property>
                 <property name="mnemonic_widget">addSizeEntry</property>
                 <attributes>
@@ -86,7 +86,7 @@
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
                 <property name="xalign">0</property>
-                <property name="label" translatable="yes">Mount _Point:</property>
+                <property name="label" translatable="yes" context="GUI|Custom Partitioning|Add Dialog">Mount _Point:</property>
                 <property name="use_underline">True</property>
                 <property name="mnemonic_widget">addMountPointEntry</property>
                 <attributes>
@@ -283,7 +283,7 @@ use.  Try something else?</property>
             <property name="layout_style">end</property>
             <child>
               <object class="GtkButton" id="deleteCancelButton">
-                <property name="label" translatable="yes">_Cancel</property>
+                <property name="label" translatable="yes" context="GUI|Custom Partitioning|Confirm Delete Dialog">_Cancel</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="can_default">True</property>
@@ -299,7 +299,7 @@ use.  Try something else?</property>
             </child>
             <child>
               <object class="GtkButton" id="deleteConfirmButton">
-                <property name="label" translatable="yes">_Delete It</property>
+                <property name="label" translatable="yes" context="GUI|Custom Partitioning|Confirm Delete Dialog">_Delete It</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
@@ -343,7 +343,7 @@ use.  Try something else?</property>
             <property name="layout_style">end</property>
             <child>
               <object class="GtkButton" id="container_cancel_button">
-                <property name="label" translatable="yes">_Cancel</property>
+                <property name="label" translatable="yes" context="GUI|Custom Partitioning|Container Dialog">_Cancel</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
@@ -357,7 +357,7 @@ use.  Try something else?</property>
             </child>
             <child>
               <object class="GtkButton" id="container_save_button">
-                <property name="label" translatable="yes">_Save</property>
+                <property name="label" translatable="yes" context="GUI|Custom Partitioning|Container Dialog">_Save</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
@@ -422,7 +422,7 @@ use.  Try something else?</property>
                   <object class="GtkLabel" id="nameLabel">
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
-                    <property name="label" translatable="yes">_Name:</property>
+                    <property name="label" translatable="yes" context="GUI|Custom Partitioning|Container Dialog">_Name:</property>
                     <property name="use_underline">True</property>
                     <property name="mnemonic_widget">container_name_entry</property>
                   </object>
@@ -647,7 +647,7 @@ use.  Try something else?</property>
                   <object class="GtkLabel" id="containerSizeLabel">
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
-                    <property name="label" translatable="yes">Si_ze policy:</property>
+                    <property name="label" translatable="yes" context="GUI|Custom Partitioning|Container Dialog">Si_ze policy:</property>
                     <property name="use_underline">True</property>
                     <property name="mnemonic_widget">containerSizeCombo</property>
                   </object>
@@ -881,7 +881,7 @@ use.  Try something else?</property>
                                     <property name="visible">True</property>
                                     <property name="can_focus">False</property>
                                     <property name="xalign">0</property>
-                                    <property name="label" translatable="yes">Mount _Point:</property>
+                                    <property name="label" translatable="yes" context="GUI|Custom Partitioning|Configure">Mount _Point:</property>
                                     <property name="use_underline">True</property>
                                     <property name="mnemonic_widget">mountPointEntry</property>
                                     <attributes>
@@ -916,7 +916,7 @@ use.  Try something else?</property>
                                     <property name="visible">True</property>
                                     <property name="can_focus">False</property>
                                     <property name="xalign">0</property>
-                                    <property name="label" translatable="yes">_Label:</property>
+                                    <property name="label" translatable="yes" context="GUI|Custom Partitioning|Configure">_Label:</property>
                                     <property name="use_underline">True</property>
                                     <property name="mnemonic_widget">labelEntry</property>
                                     <attributes>
@@ -950,7 +950,7 @@ use.  Try something else?</property>
                                     <property name="visible">True</property>
                                     <property name="can_focus">False</property>
                                     <property name="xalign">0</property>
-                                    <property name="label" translatable="yes">_Name:</property>
+                                    <property name="label" translatable="yes" context="GUI|Custom Partitioning|Configure">_Name:</property>
                                     <property name="use_underline">True</property>
                                     <property name="mnemonic_widget">nameEntry</property>
                                     <attributes>
@@ -984,7 +984,7 @@ use.  Try something else?</property>
                                     <property name="can_focus">False</property>
                                     <property name="halign">end</property>
                                     <property name="xalign">0</property>
-                                    <property name="label" translatable="yes">_Desired Capacity:</property>
+                                    <property name="label" translatable="yes" context="GUI|Custom Partitioning|Configure">_Desired Capacity:</property>
                                     <property name="use_underline">True</property>
                                     <property name="mnemonic_widget">sizeEntry</property>
                                     <attributes>
@@ -1025,7 +1025,7 @@ use.  Try something else?</property>
                                         <property name="visible">True</property>
                                         <property name="can_focus">False</property>
                                         <property name="xalign">0</property>
-                                        <property name="label" translatable="yes">Device _Type:</property>
+                                        <property name="label" translatable="yes" context="GUI|Custom Partitioning|Configure">Device _Type:</property>
                                         <property name="use_underline">True</property>
                                         <property name="mnemonic_widget">deviceTypeCombo</property>
                                         <attributes>
@@ -1044,7 +1044,7 @@ use.  Try something else?</property>
                                         <property name="visible">True</property>
                                         <property name="can_focus">False</property>
                                         <property name="xalign">0</property>
-                                        <property name="label" translatable="yes">File S_ystem:</property>
+                                        <property name="label" translatable="yes" context="GUI|Custom Partitioning|Configure">File S_ystem:</property>
                                         <property name="use_underline">True</property>
                                         <property name="mnemonic_widget">fileSystemTypeCombo</property>
                                         <attributes>
@@ -1101,7 +1101,7 @@ use.  Try something else?</property>
                                     </child>
                                     <child>
                                       <object class="GtkCheckButton" id="encryptCheckbox">
-                                        <property name="label" translatable="yes">_Encrypt</property>
+                                        <property name="label" translatable="yes" context="GUI|Custom Partitioning|Configure">_Encrypt</property>
                                         <property name="visible">True</property>
                                         <property name="can_focus">True</property>
                                         <property name="receives_default">False</property>
@@ -1120,7 +1120,7 @@ use.  Try something else?</property>
                                     </child>
                                     <child>
                                       <object class="GtkCheckButton" id="reformatCheckbox">
-                                        <property name="label" translatable="yes">Ref_ormat</property>
+                                        <property name="label" translatable="yes" context="GUI|Custom Partitioning|Configure">Ref_ormat</property>
                                         <property name="visible">True</property>
                                         <property name="can_focus">True</property>
                                         <property name="receives_default">False</property>
@@ -1142,7 +1142,7 @@ use.  Try something else?</property>
                                         <property name="visible">True</property>
                                         <property name="can_focus">False</property>
                                         <property name="xalign">0</property>
-                                        <property name="label" translatable="yes">Volume _Group:</property>
+                                        <property name="label" translatable="yes" context="GUI|Custom Partitioning|Configure">Volume _Group:</property>
                                         <property name="use_underline">True</property>
                                         <property name="mnemonic_widget">containerCombo</property>
                                         <attributes>
@@ -1174,7 +1174,7 @@ use.  Try something else?</property>
                                     </child>
                                     <child>
                                       <object class="GtkButton" id="modifyContainerButton">
-                                        <property name="label" translatable="yes">_Modify...</property>
+                                        <property name="label" translatable="yes" context="GUI|Custom Partitioning|Configure">_Modify...</property>
                                         <property name="visible">True</property>
                                         <property name="can_focus">True</property>
                                         <property name="receives_default">True</property>
@@ -1193,7 +1193,7 @@ use.  Try something else?</property>
                                         <property name="visible">True</property>
                                         <property name="can_focus">False</property>
                                         <property name="xalign">0</property>
-                                        <property name="label" translatable="yes">RA_ID Level:</property>
+                                        <property name="label" translatable="yes" context="GUI|Custom Partitioning|Configure">RA_ID Level:</property>
                                         <property name="use_underline">True</property>
                                         <property name="mnemonic_widget">raidLevelCombo</property>
                                         <attributes>
@@ -1247,7 +1247,7 @@ use.  Try something else?</property>
                             </child>
                             <child>
                               <object class="GtkButton" id="applyButton">
-                                <property name="label" translatable="yes">_Update Settings</property>
+                                <property name="label" translatable="yes" context="GUI|Custom Partitioning|Configure">_Update Settings</property>
                                 <property name="visible">True</property>
                                 <property name="sensitive">False</property>
                                 <property name="can_focus">True</property>
@@ -1378,7 +1378,7 @@ until you click on the main menu's 'Begin Installation' button.</property>
                                   <object class="GtkLabel" id="passphraseLabel">
                                     <property name="visible">True</property>
                                     <property name="can_focus">False</property>
-                                    <property name="label" translatable="yes">_Passphrase:</property>
+                                    <property name="label" translatable="yes" context="GUI|Custom Partitioning|Encrypted">_Passphrase:</property>
                                     <property name="use_underline">True</property>
                                     <attributes>
                                       <attribute name="font-desc" value="Cantarell 11"/>
@@ -1406,7 +1406,7 @@ until you click on the main menu's 'Begin Installation' button.</property>
                                 </child>
                                 <child>
                                   <object class="GtkButton" id="unlockButton">
-                                    <property name="label" translatable="yes">_Unlock</property>
+                                    <property name="label" translatable="yes" context="GUI|Custom Partitioning|Encrypted">_Unlock</property>
                                     <property name="visible">True</property>
                                     <property name="can_focus">True</property>
                                     <property name="receives_default">True</property>
@@ -1634,7 +1634,7 @@ until you click on the main menu's 'Begin Installation' button.</property>
                             <property name="visible">True</property>
                             <property name="can_focus">False</property>
                             <property name="tooltip_text" translatable="yes">Add a new mountpoint.</property>
-                            <property name="label" translatable="yes">_Add</property>
+                            <property name="label" translatable="yes" context="GUI|Custom Partitioning">_Add</property>
                             <property name="use_underline">True</property>
                             <property name="icon_name">list-add-symbolic</property>
                             <signal name="clicked" handler="on_add_clicked" swapped="no"/>
@@ -1651,7 +1651,7 @@ until you click on the main menu's 'Begin Installation' button.</property>
                             <property name="visible">True</property>
                             <property name="can_focus">False</property>
                             <property name="tooltip_text" translatable="yes">Remove the selected mountpoint(s).</property>
-                            <property name="label" translatable="yes">Remo_ve</property>
+                            <property name="label" translatable="yes" context="GUI|Custom Partitioning">Remo_ve</property>
                             <property name="use_underline">True</property>
                             <property name="icon_name">list-remove-symbolic</property>
                             <signal name="clicked" handler="on_remove_clicked" swapped="no"/>
@@ -1668,7 +1668,7 @@ until you click on the main menu's 'Begin Installation' button.</property>
                             <property name="visible">True</property>
                             <property name="can_focus">False</property>
                             <property name="tooltip_text" translatable="yes">Configure selected mountpoint.</property>
-                            <property name="label" translatable="yes">_Configure</property>
+                            <property name="label" translatable="yes" context="GUI|Custom Partitioning">_Configure</property>
                             <property name="use_underline">True</property>
                             <property name="icon_name">preferences-system-symbolic</property>
                             <signal name="clicked" handler="on_configure_clicked" swapped="no"/>
@@ -1685,7 +1685,7 @@ until you click on the main menu's 'Begin Installation' button.</property>
                             <property name="visible">True</property>
                             <property name="can_focus">False</property>
                             <property name="tooltip_text" translatable="yes">Reload storage configuration from disk.</property>
-                            <property name="label" translatable="yes">Re_fresh</property>
+                            <property name="label" translatable="yes" context="GUI|Custom Partitioning">Re_fresh</property>
                             <property name="use_underline">True</property>
                             <property name="icon_name">view-refresh-symbolic</property>
                             <signal name="clicked" handler="on_refresh_clicked" swapped="no"/>
@@ -1702,7 +1702,7 @@ until you click on the main menu's 'Begin Installation' button.</property>
                             <property name="visible">True</property>
                             <property name="can_focus">False</property>
                             <property name="tooltip_text" translatable="yes">Click for help.</property>
-                            <property name="label" translatable="yes">_Help</property>
+                            <property name="label" translatable="yes" context="GUI|Custom Partitioning">_Help</property>
                             <property name="use_underline">True</property>
                             <property name="icon_name">system-help-symbolic</property>
                             <signal name="clicked" handler="on_help_clicked" swapped="no"/>
@@ -1847,7 +1847,7 @@ until you click on the main menu's 'Begin Installation' button.</property>
                     </child>
                     <child>
                       <object class="GtkButton" id="resetButton">
-                        <property name="label" translatable="yes">_Reset All</property>
+                        <property name="label" translatable="yes" context="GUI|Custom Partitioning">_Reset All</property>
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
                         <property name="receives_default">True</property>
@@ -1879,7 +1879,7 @@ until you click on the main menu's 'Begin Installation' button.</property>
                           <object class="GtkLabel" id="summary_label">
                             <property name="visible">True</property>
                             <property name="can_focus">False</property>
-                            <property name="label">%d _storage devices selected</property>
+                            <property name="label" context="GUI|Custom Partitioning">%d _storage devices selected</property>
                             <property name="use_underline">True</property>
                             <attributes>
                               <attribute name="underline" value="True"/>
@@ -1949,7 +1949,7 @@ until you click on the main menu's 'Begin Installation' button.</property>
             <property name="layout_style">end</property>
             <child>
               <object class="GtkButton" id="cancel_button">
-                <property name="label" translatable="yes">_Cancel</property>
+                <property name="label" translatable="yes" context="GUI|Custom Partitioning|Configure Dialog">_Cancel</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
@@ -1964,7 +1964,7 @@ until you click on the main menu's 'Begin Installation' button.</property>
             </child>
             <child>
               <object class="GtkButton" id="select_button">
-                <property name="label" translatable="yes">_Select</property>
+                <property name="label" translatable="yes" context="GUI|Custom Partitioning|Configure Dialog">_Select</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>

@@ -19,7 +19,7 @@
 # Red Hat Author(s): Chris Lumens <clumens@redhat.com>
 #
 
-from pyanaconda.i18n import _
+from pyanaconda.i18n import C_
 from pyanaconda.ui.gui import GUIObject
 
 __all__ = ["DetailedErrorDialog"]
@@ -46,7 +46,7 @@ class DetailedErrorDialog(GUIObject):
         GUIObject.__init__(self, *args, **kwargs)
 
         if not buttons:
-            widget = self.window.add_button(_("_Cancel"), 0)
+            widget = self.window.add_button(C_("GUI|Detailed Error Dialog", "_Cancel"), 0)
         else:
             buttonbox = self.builder.get_object("detailedButtonBox")
             i = 0
@@ -56,7 +56,7 @@ class DetailedErrorDialog(GUIObject):
 
                 # Quit buttons should always appear left-most, unless it's the
                 # only button.  Then it should appear on the right.
-                if button == _("_Quit") and len(buttons) > 1:
+                if button == C_("GUI|Detailed Error Dialog", "_Quit") and len(buttons) > 1:
                     buttonbox.set_child_secondary(widget, True)
 
                 i += 1

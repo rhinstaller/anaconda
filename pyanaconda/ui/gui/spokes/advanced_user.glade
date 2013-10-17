@@ -31,7 +31,7 @@
             </child>
             <child>
               <object class="GtkButton" id="save_button">
-                <property name="label" translatable="yes">_Save Changes</property>
+                <property name="label" translatable="yes" context="GUI|Advanced User">_Save Changes</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
@@ -100,7 +100,7 @@
                 <property name="orientation">vertical</property>
                 <child>
                   <object class="GtkCheckButton" id="c_home">
-                    <property name="label" translatable="yes">Create a _home directory for this user.</property>
+                    <property name="label" translatable="yes" context="GUI|Advanced User">Create a _home directory for this user.</property>
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
                     <property name="receives_default">False</property>
@@ -127,7 +127,7 @@
                         <property name="visible">True</property>
                         <property name="sensitive">False</property>
                         <property name="can_focus">False</property>
-                        <property name="label" translatable="yes">Home _directory:</property>
+                        <property name="label" translatable="yes" context="GUI|Advanced User">Home _directory:</property>
                         <property name="use_underline">True</property>
                         <property name="mnemonic_widget">t_home</property>
                       </object>
@@ -190,7 +190,7 @@
                 <property name="margin_top">3</property>
                 <child>
                   <object class="GtkCheckButton" id="c_uid">
-                    <property name="label" translatable="yes">Specify a _user ID manually:</property>
+                    <property name="label" translatable="yes" context="GUI|Advanced User">Specify a _user ID manually:</property>
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
                     <property name="receives_default">False</property>
@@ -208,7 +208,7 @@
                 </child>
                 <child>
                   <object class="GtkCheckButton" id="c_gid">
-                    <property name="label" translatable="yes">Specify a _group ID manually:</property>
+                    <property name="label" translatable="yes" context="GUI|Advanced User">Specify a _group ID manually:</property>
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
                     <property name="receives_default">False</property>
@@ -295,7 +295,7 @@
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
                     <property name="xalign">0</property>
-                    <property name="label" translatable="yes">_Add user to the following groups:</property>
+                    <property name="label" translatable="yes" context="GUI|Advanced User">_Add user to the following groups:</property>
                     <property name="use_underline">True</property>
                     <property name="mnemonic_widget">t_groups</property>
                   </object>

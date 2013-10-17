@@ -19,7 +19,7 @@
 # Red Hat Author(s): Martin Sivak <msivak@redhat.com>
 #
 
-from pyanaconda.i18n import _, N_
+from pyanaconda.i18n import _, CN_
 from pyanaconda.users import cryptPassword, validatePassword, guess_username
 
 from pyanaconda.ui.gui.spokes import NormalSpoke
@@ -199,7 +199,7 @@ class UserSpoke(FirstbootSpokeMixIn, NormalSpoke):
     category = UserSettingsCategory
 
     icon = "avatar-default-symbolic"
-    title = N_("_USER CREATION")
+    title = CN_("GUI|Spoke", "_USER CREATION")
 
     @classmethod
     def should_run(cls, environment, data):

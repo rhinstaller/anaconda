@@ -61,7 +61,7 @@
                         <property name="can_focus">False</property>
                         <property name="xalign">1</property>
                         <property name="xpad">10</property>
-                        <property name="label" translatable="yes">_Full name</property>
+                        <property name="label" translatable="yes" context="GUI|User">_Full name</property>
                         <property name="use_underline">True</property>
                         <property name="mnemonic_widget">t_fullname</property>
                         <attributes>
@@ -81,7 +81,7 @@
                         <property name="can_focus">False</property>
                         <property name="xalign">1</property>
                         <property name="xpad">10</property>
-                        <property name="label" translatable="yes">_Username</property>
+                        <property name="label" translatable="yes" context="GUI|User">_Username</property>
                         <property name="use_underline">True</property>
                         <property name="mnemonic_widget">t_username</property>
                         <attributes>
@@ -132,7 +132,7 @@
                         <property name="can_focus">False</property>
                         <property name="xalign">1</property>
                         <property name="xpad">10</property>
-                        <property name="label" translatable="yes">_Password</property>
+                        <property name="label" translatable="yes" context="GUI|User">_Password</property>
                         <property name="use_underline">True</property>
                         <property name="mnemonic_widget">t_password</property>
                         <attributes>
@@ -152,7 +152,7 @@
                         <property name="can_focus">False</property>
                         <property name="xalign">1</property>
                         <property name="xpad">10</property>
-                        <property name="label" translatable="yes">_Confirm password</property>
+                        <property name="label" translatable="yes" context="GUI|User">_Confirm password</property>
                         <property name="use_underline">True</property>
                         <property name="mnemonic_widget">t_verifypassword</property>
                         <attributes>
@@ -212,7 +212,7 @@
                     </child>
                     <child>
                       <object class="GtkCheckButton" id="c_usepassword">
-                        <property name="label" translatable="yes">Require a password to use this account</property>
+                        <property name="label" translatable="yes" context="GUI|User">Require a password to use this account</property>
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
                         <property name="receives_default">False</property>
@@ -274,7 +274,7 @@
                     </child>
                     <child>
                       <object class="GtkCheckButton" id="c_admin">
-                        <property name="label" translatable="yes">Make this user administrator</property>
+                        <property name="label" translatable="yes" context="GUI|User">Make this user administrator</property>
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
                         <property name="receives_default">False</property>
@@ -294,7 +294,7 @@
                         <property name="can_focus">False</property>
                         <child>
                           <object class="GtkButton" id="b_advanced">
-                            <property name="label" translatable="yes">_Advanced...</property>
+                            <property name="label" translatable="yes" context="GUI|User">_Advanced...</property>
                             <property name="visible">True</property>
                             <property name="sensitive">False</property>
                             <property name="can_focus">True</property>

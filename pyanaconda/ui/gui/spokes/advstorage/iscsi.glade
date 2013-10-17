@@ -123,7 +123,7 @@
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
                         <property name="xalign">0</property>
-                        <property name="label" translatable="yes">_Target IP Address:</property>
+                        <property name="label" translatable="yes" context="GUI|Advanced Storage|iSCSI|Configure">_Target IP Address:</property>
                         <property name="use_underline">True</property>
                         <property name="mnemonic_widget">targetEntry</property>
                       </object>
@@ -154,7 +154,7 @@
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
                         <property name="xalign">0</property>
-                        <property name="label" translatable="yes">iSCSI _Initiator Name:</property>
+                        <property name="label" translatable="yes" context="GUI|Advanced Storage|iSCSI|Configure">iSCSI _Initiator Name:</property>
                         <property name="use_underline">True</property>
                         <property name="mnemonic_widget">initiatorEntry</property>
                       </object>
@@ -192,7 +192,7 @@
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
                         <property name="xalign">0</property>
-                        <property name="label" translatable="yes">_Discovery Authentication Type:</property>
+                        <property name="label" translatable="yes" context="GUI|Advanced Storage|iSCSI|Configure">_Discovery Authentication Type:</property>
                         <property name="use_underline">True</property>
                         <property name="mnemonic_widget">authTypeCombo</property>
                       </object>
@@ -258,7 +258,7 @@
                                 <property name="visible">True</property>
                                 <property name="can_focus">False</property>
                                 <property name="xalign">0</property>
-                                <property name="label" translatable="yes">CHAP _Username:</property>
+                                <property name="label" translatable="yes" context="GUI|Advanced Storage|iSCSI|Configure|CHAP">CHAP _Username:</property>
                                 <property name="use_underline">True</property>
                                 <property name="mnemonic_widget">chapUsernameEntry</property>
                               </object>
@@ -274,7 +274,7 @@
                                 <property name="visible">True</property>
                                 <property name="can_focus">False</property>
                                 <property name="xalign">0</property>
-                                <property name="label" translatable="yes">CHAP _Password:</property>
+                                <property name="label" translatable="yes" context="GUI|Advanced Storage|iSCSI|Configure|CHAP">CHAP _Password:</property>
                                 <property name="use_underline">True</property>
                                 <property name="mnemonic_widget">chapPasswordEntry</property>
                               </object>
@@ -397,7 +397,7 @@
                                 <property name="visible">True</property>
                                 <property name="can_focus">False</property>
                                 <property name="xalign">0</property>
-                                <property name="label" translatable="yes">CHAP _Username:</property>
+                                <property name="label" translatable="yes" context="GUI|Advanced Storage|iSCSI|Configure|Reverse CHAP">CHAP _Username:</property>
                                 <property name="use_underline">True</property>
                                 <property name="mnemonic_widget">rchapUsernameEntry</property>
                               </object>
@@ -413,7 +413,7 @@
                                 <property name="visible">True</property>
                                 <property name="can_focus">False</property>
                                 <property name="xalign">0</property>
-                                <property name="label" translatable="yes">CHAP _Password:</property>
+                                <property name="label" translatable="yes" context="GUI|Advanced Storage|iSCSI|Configure|Reverse CHAP">CHAP _Password:</property>
                                 <property name="use_underline">True</property>
                                 <property name="mnemonic_widget">rchapPasswordEntry</property>
                               </object>
@@ -429,7 +429,7 @@
                                 <property name="visible">True</property>
                                 <property name="can_focus">False</property>
                                 <property name="xalign">0</property>
-                                <property name="label" translatable="yes">Reverse CHAP User_name:</property>
+                                <property name="label" translatable="yes" context="GUI|Advanced Storage|iSCSI|Configure|Reverse CHAP">Reverse CHAP User_name:</property>
                                 <property name="use_underline">True</property>
                                 <property name="mnemonic_widget">rchapReverseUsername</property>
                               </object>
@@ -445,7 +445,7 @@
                                 <property name="visible">True</property>
                                 <property name="can_focus">False</property>
                                 <property name="xalign">0</property>
-                                <property name="label" translatable="yes">Reverse CHAP Pass_word:</property>
+                                <property name="label" translatable="yes" context="GUI|Advanced Storage|iSCSI|Configure|Reverse CHAP">Reverse CHAP Pass_word:</property>
                                 <property name="use_underline">True</property>
                                 <property name="mnemonic_widget">rchapReversePassword</property>
                               </object>
@@ -481,7 +481,7 @@
                         <property name="show_border">False</property>
                         <child>
                           <object class="GtkButton" id="startButton">
-                            <property name="label" translatable="yes">_Start Discovery</property>
+                            <property name="label" translatable="yes" context="GUI|Advanced Storage|iSCSI|Configure|Start">_Start Discovery</property>
                             <property name="visible">True</property>
                             <property name="sensitive">False</property>
                             <property name="can_focus">True</property>
@@ -603,7 +603,7 @@
                             </child>
                             <child>
                               <object class="GtkButton" id="retryButton">
-                                <property name="label" translatable="yes">_Retry Discovery</property>
+                                <property name="label" translatable="yes" context="GUI|Advanced Storage|iSCSI|Configure|Retry">_Retry Discovery</property>
                                 <property name="visible">True</property>
                                 <property name="can_focus">True</property>
                                 <property name="receives_default">True</property>
@@ -646,7 +646,7 @@
                     </child>
                     <child>
                       <object class="GtkCheckButton" id="bindCheckbutton">
-                        <property name="label" translatable="yes">_Bind targets to network interfaces</property>
+                        <property name="label" translatable="yes" context="GUI|Advanced Storage|iSCSI|Configure">_Bind targets to network interfaces</property>
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
                         <property name="receives_default">False</property>
@@ -764,7 +764,7 @@
                             <property name="visible">True</property>
                             <property name="can_focus">False</property>
                             <property name="xalign">0</property>
-                            <property name="label" translatable="yes">_Node login authentication type:</property>
+                            <property name="label" translatable="yes" context="GUI|Advanced Storage|iSCSI|Login">_Node login authentication type:</property>
                             <property name="use_underline">True</property>
                             <property name="mnemonic_widget">loginAuthTypeCombo</property>
                           </object>
@@ -822,7 +822,7 @@
                                     <property name="visible">True</property>
                                     <property name="can_focus">False</property>
                                     <property name="xalign">0</property>
-                                    <property name="label" translatable="yes">CHAP _Username:</property>
+                                    <property name="label" translatable="yes" context="GUI|Advanced Storage|iSCSI|Login|CHAP">CHAP _Username:</property>
                                     <property name="use_underline">True</property>
                                     <property name="mnemonic_widget">loginChapUsernameEntry</property>
                                   </object>
@@ -838,7 +838,7 @@
                                     <property name="visible">True</property>
                                     <property name="can_focus">False</property>
                                     <property name="xalign">0</property>
-                                    <property name="label" translatable="yes">CHAP _Password:</property>
+                                    <property name="label" translatable="yes" context="GUI|Advanced Storage|iSCSI|Login|CHAP">CHAP _Password:</property>
                                     <property name="use_underline">True</property>
                                     <property name="mnemonic_widget">loginChapPasswordEntry</property>
                                   </object>
@@ -964,7 +964,7 @@
                                     <property name="visible">True</property>
                                     <property name="can_focus">False</property>
                                     <property name="xalign">0</property>
-                                    <property name="label" translatable="yes">CHAP _Username:</property>
+                                    <property name="label" translatable="yes" context="GUI|Advanced Storage|iSCSI|Login|Reverse CHAP">CHAP _Username:</property>
                                     <property name="use_underline">True</property>
                                     <property name="mnemonic_widget">loginRchapUsernameEntry</property>
                                   </object>
@@ -980,7 +980,7 @@
                                     <property name="visible">True</property>
                                     <property name="can_focus">False</property>
                                     <property name="xalign">0</property>
-                                    <property name="label" translatable="yes">CHAP _Password:</property>
+                                    <property name="label" translatable="yes" context="GUI|Advanced Storage|iSCSI|Login|Reverse CHAP">CHAP _Password:</property>
                                     <property name="use_underline">True</property>
                                     <property name="mnemonic_widget">loginRchapPasswordEntry</property>
                                   </object>
@@ -996,7 +996,7 @@
                                     <property name="visible">True</property>
                                     <property name="can_focus">False</property>
                                     <property name="xalign">0</property>
-                                    <property name="label" translatable="yes">_Reverse CHAP Username:</property>
+                                    <property name="label" translatable="yes" context="GUI|Advanced Storage|iSCSI|Login|Reverse CHAP">_Reverse CHAP Username:</property>
                                     <property name="use_underline">True</property>
                                     <property name="mnemonic_widget">loginRchapReverseUsername</property>
                                   </object>
@@ -1012,7 +1012,7 @@
                                     <property name="visible">True</property>
                                     <property name="can_focus">False</property>
                                     <property name="xalign">0</property>
-                                    <property name="label" translatable="yes">Reverse CHAP Pass_word:</property>
+                                    <property name="label" translatable="yes" context="GUI|Advanced Storage|iSCSI|Login|Reverse CHAP">Reverse CHAP Pass_word:</property>
                                     <property name="use_underline">True</property>
                                     <property name="mnemonic_widget">loginRchapReversePassword</property>
                                   </object>
@@ -1064,7 +1064,7 @@
                                 <property name="spacing">6</property>
                                 <child>
                                   <object class="GtkButton" id="loginButton">
-                                    <property name="label" translatable="yes">_Log In</property>
+                                    <property name="label" translatable="yes" context="GUI|Advanced Storage|iSCSI|Login|Login">_Log In</property>
                                     <property name="visible">True</property>
                                     <property name="can_focus">True</property>
                                     <property name="receives_default">True</property>
@@ -1165,7 +1165,7 @@
                                 </child>
                                 <child>
                                   <object class="GtkButton" id="retryLoginButton">
-                                    <property name="label" translatable="yes">Retry _Log In</property>
+                                    <property name="label" translatable="yes" context="GUI|Advanced Storage|iSCSI|Login|Retry">Retry _Log In</property>
                                     <property name="visible">True</property>
                                     <property name="can_focus">True</property>
                                     <property name="receives_default">True</property>

@@ -31,7 +31,7 @@ from pyanaconda.ui.gui.spokes import NormalSpoke
 from pyanaconda.ui.gui.categories.localization import LocalizationCategory
 from pyanaconda.ui.gui.utils import enlightbox, gtk_action_nowait, gtk_call_once
 
-from pyanaconda.i18n import _, N_
+from pyanaconda.i18n import _, CN_
 from pyanaconda.timezone import NTP_SERVICE, get_all_regions_and_timezones, is_valid_timezone
 from pyanaconda import iutil
 from pyanaconda import isys
@@ -288,7 +288,7 @@ class DatetimeSpoke(FirstbootSpokeMixIn, NormalSpoke):
     category = LocalizationCategory
 
     icon = "preferences-system-time-symbolic"
-    title = N_("DATE & _TIME")
+    title = CN_("GUI|Spoke", "DATE & _TIME")
 
     def __init__(self, *args):
         NormalSpoke.__init__(self, *args)

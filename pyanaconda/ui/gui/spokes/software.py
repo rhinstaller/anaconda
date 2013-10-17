@@ -22,7 +22,7 @@
 from gi.repository import Gdk
 
 from pyanaconda.flags import flags
-from pyanaconda.i18n import _, N_
+from pyanaconda.i18n import _, C_, CN_
 from pyanaconda.packaging import MetadataError
 from pyanaconda.threads import threadMgr, AnacondaThread
 from pyanaconda import constants
@@ -45,7 +45,7 @@ class SoftwareSelectionSpoke(NormalSpoke):
     category = SoftwareCategory
 
     icon = "package-x-generic-symbolic"
-    title = N_("_SOFTWARE SELECTION")
+    title = CN_("GUI|Spoke", "_SOFTWARE SELECTION")
 
     def __init__(self, *args, **kwargs):
         NormalSpoke.__init__(self, *args, **kwargs)
@@ -404,9 +404,11 @@ class SoftwareSelectionSpoke(NormalSpoke):
         label = _("The following software marked for installation has errors.  "
                   "This is likely caused by an error with\nyour installation source.  "
                   "You can change your installation source or quit the installer.")
-        dialog = DetailedErrorDialog(self.data, buttons=[_("_Quit"), _("_Cancel"),
-                                                         _("_Modify Software Source")],
-                                                label=label)
+        dialog = DetailedErrorDialog(self.data,
+                buttons=[C_("GUI|Software Selection|Error Dialog", "_Quit"),
+                         C_("GUI|Software Selection|Error Dialog", "_Cancel"),
+                         C_("GUI|Software Selection|Error Dialog", "_Modify Software Source")],
+                label=label)
         with enlightbox(self.window, dialog.window):
             dialog.refresh(self._errorMsgs)
             rc = dialog.run()

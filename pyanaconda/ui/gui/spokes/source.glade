@@ -103,7 +103,7 @@
             <property name="layout_style">end</property>
             <child>
               <object class="GtkButton" id="doneButton">
-                <property name="label" translatable="yes">_Done</property>
+                <property name="label" translatable="yes" context="GUI|Software Source|Media Check Dialog">_Done</property>
                 <property name="visible">True</property>
                 <property name="sensitive">False</property>
                 <property name="can_focus">True</property>
@@ -233,7 +233,7 @@
             <property name="layout_style">end</property>
             <child>
               <object class="GtkButton" id="proxyCancelButton">
-                <property name="label" translatable="yes">_Cancel</property>
+                <property name="label" translatable="yes" context="GUI|Software Source|Proxy Dialog">_Cancel</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
@@ -248,7 +248,7 @@
             </child>
             <child>
               <object class="GtkButton" id="proxyAddButton">
-                <property name="label" translatable="yes">_Add</property>
+                <property name="label" translatable="yes" context="GUI|Software Source|Proxy Dialog">_Add</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
@@ -276,7 +276,7 @@
             <property name="orientation">vertical</property>
             <child>
               <object class="GtkCheckButton" id="enableProxyCheck">
-                <property name="label" translatable="yes">_Enable HTTP Proxy</property>
+                <property name="label" translatable="yes" context="GUI|Software Source|Proxy Dialog">_Enable HTTP Proxy</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">False</property>
@@ -309,7 +309,7 @@
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
                         <property name="xalign">0</property>
-                        <property name="label" translatable="yes">_Proxy URL</property>
+                        <property name="label" translatable="yes" context="GUI|Software Source|Proxy Dialog">_Proxy URL</property>
                         <property name="use_underline">True</property>
                         <property name="mnemonic_widget">proxyURLEntry</property>
                         <attributes>
@@ -364,7 +364,7 @@
                 </child>
                 <child>
                   <object class="GtkCheckButton" id="enableAuthCheck">
-                    <property name="label" translatable="yes">_Use Authentication</property>
+                    <property name="label" translatable="yes" context="GUI|Software Source|Proxy Dialog">_Use Authentication</property>
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
                     <property name="receives_default">False</property>
@@ -391,7 +391,7 @@
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
                         <property name="xalign">0</property>
-                        <property name="label" translatable="yes">User_name</property>
+                        <property name="label" translatable="yes" context="GUI|Software Source|Proxy Dialog">User_name</property>
                         <property name="use_underline">True</property>
                         <property name="mnemonic_widget">proxyUsernameEntry</property>
                         <attributes>
@@ -410,7 +410,7 @@
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
                         <property name="xalign">0</property>
-                        <property name="label" translatable="yes">Pass_word</property>
+                        <property name="label" translatable="yes" context="GUI|Software Source|Proxy Dialog">Pass_word</property>
                         <property name="use_underline">True</property>
                         <property name="mnemonic_widget">proxyPasswordEntry</property>
                         <attributes>
@@ -550,7 +550,7 @@
                 </child>
                 <child>
                   <object class="GtkRadioButton" id="autodetectRadioButton">
-                    <property name="label" translatable="yes">_Auto-detected installation media:</property>
+                    <property name="label" translatable="yes" context="GUI|Software Source">_Auto-detected installation media:</property>
                     <property name="can_focus">True</property>
                     <property name="receives_default">False</property>
                     <property name="no_show_all">True</property>
@@ -602,7 +602,7 @@
                     </child>
                     <child>
                       <object class="GtkButton" id="verifyMediaButton">
-                        <property name="label" translatable="yes">_Verify</property>
+                        <property name="label" translatable="yes" context="GUI|Software Source">_Verify</property>
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
                         <property name="receives_default">True</property>
@@ -627,7 +627,7 @@
                 </child>
                 <child>
                   <object class="GtkRadioButton" id="isoRadioButton">
-                    <property name="label" translatable="yes">_ISO file:</property>
+                    <property name="label" translatable="yes" context="GUI|Software Source">_ISO file:</property>
                     <property name="can_focus">True</property>
                     <property name="receives_default">False</property>
                     <property name="no_show_all">True</property>
@@ -654,7 +654,7 @@
                       <object class="GtkLabel" id="label6">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
-                        <property name="label" translatable="yes">D_evice:</property>
+                        <property name="label" translatable="yes" context="GUI|Software Source">D_evice:</property>
                         <property name="use_underline">True</property>
                         <property name="mnemonic_widget">isoPartitionCombo</property>
                       </object>
@@ -684,7 +684,7 @@
                     </child>
                     <child>
                       <object class="GtkButton" id="isoChooserButton">
-                        <property name="label" translatable="yes">_Choose an ISO</property>
+                        <property name="label" translatable="yes" context="GUI|Software Source">_Choose an ISO</property>
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
                         <property name="receives_default">True</property>
@@ -700,7 +700,7 @@
                     <child>
                       <object class="GtkButton" id="verifyIsoButton">
                         <!-- check_accelerators: verifyMediaButton -->
-                        <property name="label" translatable="yes">_Verify</property>
+                        <property name="label" translatable="yes" context="GUI|Software Source">_Verify</property>
                         <property name="visible">True</property>
                         <property name="sensitive">False</property>
                         <property name="can_focus">True</property>
@@ -723,7 +723,7 @@
                 </child>
                 <child>
                   <object class="GtkRadioButton" id="networkRadioButton">
-                    <property name="label" translatable="yes">_On the network:</property>
+                    <property name="label" translatable="yes" context="GUI|Software Source">_On the network:</property>
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
                     <property name="receives_default">False</property>
@@ -792,7 +792,7 @@
                         </child>
                         <child>
                           <object class="GtkButton" id="proxyButton">
-                            <property name="label" translatable="yes">_Proxy setup...</property>
+                            <property name="label" translatable="yes" context="GUI|Software Source">_Proxy setup...</property>
                             <property name="use_action_appearance">False</property>
                             <property name="visible">True</property>
                             <property name="can_focus">True</property>
@@ -810,7 +810,7 @@
                         </child>
                         <child>
                           <object class="GtkCheckButton" id="mirrorlistCheckbox">
-                            <property name="label" translatable="yes">This URL refers to a _mirror list.</property>
+                            <property name="label" translatable="yes" context="GUI|Software Source">This URL refers to a _mirror list.</property>
                             <property name="use_action_appearance">False</property>
                             <property name="visible">True</property>
                             <property name="can_focus">True</property>
@@ -851,7 +851,7 @@
                           <object class="GtkLabel" id="label3">
                             <property name="visible">True</property>
                             <property name="can_focus">False</property>
-                            <property name="label" translatable="yes">N_FS mount options:</property>
+                            <property name="label" translatable="yes" context="GUI|Software Source">N_FS mount options:</property>
                             <property name="use_underline">True</property>
                             <property name="mnemonic_widget">nfsOptsEntry</property>
                           </object>
@@ -929,7 +929,7 @@
                           <object class="GtkLabel" id="label10">
                             <property name="visible">True</property>
                             <property name="can_focus">False</property>
-                            <property name="label" translatable="yes">Don't install the latest available software _updates. Install the default versions provided by the install source above.</property>
+                            <property name="label" translatable="yes" context="GUI|Software Source">Don't install the latest available software _updates. Install the default versions provided by the install source above.</property>
                             <property name="use_underline">True</property>
                             <property name="wrap">True</property>
                           </object>
@@ -1054,7 +1054,7 @@
                             <property name="has_tooltip">True</property>
                             <property name="tooltip_markup" translatable="yes">Add a new repository.</property>
                             <property name="tooltip_text" translatable="yes">Add a new repository.</property>
-                            <property name="label" translatable="yes">A_dd</property>
+                            <property name="label" translatable="yes" context="GUI|Software Source">A_dd</property>
                             <property name="use_underline">True</property>
                             <property name="icon_name">list-add-symbolic</property>
                             <signal name="clicked" handler="on_addRepo_clicked" swapped="no"/>
@@ -1073,7 +1073,7 @@
                             <property name="has_tooltip">True</property>
                             <property name="tooltip_markup" translatable="yes">Remove the selected repository.</property>
                             <property name="tooltip_text" translatable="yes">Remove the selected repository.</property>
-                            <property name="label" translatable="yes">_Remove</property>
+                            <property name="label" translatable="yes" context="GUI|Software Source">_Remove</property>
                             <property name="use_underline">True</property>
                             <property name="icon_name">list-remove-symbolic</property>
                             <signal name="clicked" handler="on_removeRepo_clicked" swapped="no"/>
@@ -1092,7 +1092,7 @@
                             <property name="has_tooltip">True</property>
                             <property name="tooltip_markup" translatable="yes">Revert to the default list of repositories.</property>
                             <property name="tooltip_text" translatable="yes">Revert to the default list of repositories.</property>
-                            <property name="label" translatable="yes">Rese_t</property>
+                            <property name="label" translatable="yes" context="GUI|Software Source">Rese_t</property>
                             <property name="use_underline">True</property>
                             <property name="icon_name">view-refresh</property>
                             <signal name="clicked" handler="on_resetRepos_clicked" swapped="no"/>
@@ -1186,7 +1186,7 @@
                         </child>
                         <child>
                           <object class="GtkCheckButton" id="repoMirrorlistCheckbox">
-                            <property name="label" translatable="yes">This URL refers to a mirror _list.</property>
+                            <property name="label" translatable="yes" context="GUI|Software Source">This URL refers to a mirror _list.</property>
                             <property name="visible">True</property>
                             <property name="can_focus">True</property>
                             <property name="receives_default">False</property>
@@ -1208,7 +1208,7 @@
                             <property name="visible">True</property>
                             <property name="can_focus">False</property>
                             <property name="xalign">0</property>
-                            <property name="label" translatable="yes">_Name:</property>
+                            <property name="label" translatable="yes" context="GUI|Software Source">_Name:</property>
                             <property name="use_underline">True</property>
                             <property name="mnemonic_widget">repoNameEntry</property>
                             <attributes>
@@ -1250,7 +1250,7 @@
                             <property name="visible">True</property>
                             <property name="can_focus">False</property>
                             <property name="xalign">0</property>
-                            <property name="label" translatable="yes">Pro_xy URL:</property>
+                            <property name="label" translatable="yes" context="GUI|Software Source">Pro_xy URL:</property>
                             <property name="use_underline">True</property>
                             <property name="mnemonic_widget">repoProxyUrlEntry</property>
                             <attributes>
@@ -1269,7 +1269,7 @@
                             <property name="visible">True</property>
                             <property name="can_focus">False</property>
                             <property name="xalign">0</property>
-                            <property name="label" translatable="yes">U_sername:</property>
+                            <property name="label" translatable="yes" context="GUI|Software Source">U_sername:</property>
                             <property name="use_underline">True</property>
                             <property name="mnemonic_widget">repoProxyUsernameEntry</property>
                             <attributes>
@@ -1288,7 +1288,7 @@
                             <property name="visible">True</property>
                             <property name="can_focus">False</property>
                             <property name="xalign">0</property>
-                            <property name="label" translatable="yes">Pass_word:</property>
+                            <property name="label" translatable="yes" context="GUI|Software Source">Pass_word:</property>
                             <property name="use_underline">True</property>
                             <property name="mnemonic_widget">repoProxyPasswordEntry</property>
                             <attributes>

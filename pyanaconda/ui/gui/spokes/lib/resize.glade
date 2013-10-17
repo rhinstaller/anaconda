@@ -64,7 +64,7 @@
             </child>
             <child>
               <object class="GtkButton" id="resizeButton">
-                <property name="label" translatable="yes">_Reclaim space</property>
+                <property name="label" translatable="yes" context="GUI|Reclaim Dialog">_Reclaim space</property>
                 <property name="visible">True</property>
                 <property name="sensitive">False</property>
                 <property name="can_focus">True</property>
@@ -216,7 +216,7 @@
                 <property name="margin_top">6</property>
                 <child>
                   <object class="GtkButton" id="preserveButton">
-                    <property name="label" translatable="yes">_Preserve</property>
+                    <property name="label" translatable="yes" context="GUI|Reclaim Dialog">_Preserve</property>
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
                     <property name="receives_default">True</property>
@@ -232,7 +232,7 @@
                 </child>
                 <child>
                   <object class="GtkButton" id="deleteButton">
-                    <property name="label" translatable="yes">_Delete</property>
+                    <property name="label" translatable="yes" context="GUI|Reclaim Dialog">_Delete</property>
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
                     <property name="receives_default">True</property>
@@ -248,7 +248,7 @@
                 </child>
                 <child>
                   <object class="GtkButton" id="shrinkButton">
-                    <property name="label" translatable="yes">_Shrink</property>
+                    <property name="label" translatable="yes" context="GUI|Reclaim Dialog">_Shrink</property>
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
                     <property name="receives_default">True</property>
@@ -264,7 +264,7 @@
                 </child>
                 <child>
                   <object class="GtkButton" id="deleteAllButton">
-                    <property name="label" translatable="yes">Delete _all</property>
+                    <property name="label" translatable="yes" context="GUI|Reclaim Dialog">Delete _all</property>
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
                     <property name="receives_default">True</property>

@@ -27,7 +27,7 @@ from blivet.devices import DASDDevice, FcoeDiskDevice, iScsiDiskDevice, Multipat
 from blivet.fcoe import has_fcoe
 
 from pyanaconda.flags import flags
-from pyanaconda.i18n import N_, P_
+from pyanaconda.i18n import CN_, CP_
 
 from pyanaconda.ui.lib.disks import getDisks, isLocalDisk, size_str
 from pyanaconda.ui.gui.utils import enlightbox
@@ -405,7 +405,7 @@ class FilterSpoke(NormalSpoke):
 
     category = SystemCategory
 
-    title = N_("_INSTALLATION DESTINATION")
+    title = CN_("GUI|Spoke", "_INSTALLATION DESTINATION")
 
     def __init__(self, *args):
         NormalSpoke.__init__(self, *args)
@@ -505,7 +505,8 @@ class FilterSpoke(NormalSpoke):
         # potentially show three devices selected (mpatha, sda, sdb for instance).
         count = len([disk for disk in self.selected_disks if disk not in self.ancestors])
 
-        summary = P_("%d _storage device selected",
+        summary = CP_("GUI|Installation Destination|Filter",
+                     "%d _storage device selected",
                      "%d _storage devices selected",
                      count) % count
 

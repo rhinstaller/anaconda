@@ -24,7 +24,7 @@ import os
 from gi.repository import GLib
 
 from pyanaconda.flags import flags
-from pyanaconda.i18n import _
+from pyanaconda.i18n import _, C_
 from pyanaconda.product import distributionText
 
 from pyanaconda.ui import common
@@ -202,7 +202,8 @@ class Hub(GUIObject, common.Hub):
                     spoke.initialize()
                     continue
 
-                spoke.selector = AnacondaWidgets.SpokeSelector(_(spoke.title), spoke.icon)
+                spoke.selector = AnacondaWidgets.SpokeSelector(C_("GUI|Spoke", spoke.title),
+                        spoke.icon)
 
                 # Set all selectors to insensitive before initialize runs.  The call to
                 # _updateCompleteness later will take care of setting it straight.

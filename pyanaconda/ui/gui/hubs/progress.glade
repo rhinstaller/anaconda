@@ -138,7 +138,7 @@
                             </child>
                             <child>
                               <object class="GtkButton" id="configureButton">
-                                <property name="label" translatable="yes">_Finish configuration</property>
+                                <property name="label" translatable="yes" context="GUI|Progress">_Finish configuration</property>
                                 <property name="use_action_appearance">False</property>
                                 <property name="visible">True</property>
                                 <property name="can_focus">True</property>
@@ -191,7 +191,7 @@
                             </child>
                             <child>
                               <object class="GtkButton" id="rebootButton">
-                                <property name="label" translatable="yes">_Reboot</property>
+                                <property name="label" translatable="yes" context="GUI|Progress">_Reboot</property>
                                 <property name="use_action_appearance">False</property>
                                 <property name="visible">True</property>
                                 <property name="can_focus">True</property>
