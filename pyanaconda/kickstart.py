@@ -330,12 +330,11 @@ class BTRFSData(commands.btrfs.F17_BTRFSData):
 
         # Get a list of all the devices that make up this volume.
         for member in self.devices:
-            # if using --onpart, use original device
-            member_name = ksdata.onPart.get(member, member)
-            if member_name:
-                dev = devicetree.getDeviceByName(udev.udev_resolve_devspec(member_name)) or lookupAlias(devicetree, member)
+            dev = devicetree.resolveDevice(member)
             if not dev:
-                dev = devicetree.resolveDevice(member)
+                # if using --onpart, use original device
+                member_name = ksdata.onPart.get(member, member)
+                dev = devicetree.resolveDevice(member_name or lookupAlias(devicetree, member))
 
             if dev and dev.format.type == "luks":
                 try:
@@ -1175,9 +1174,11 @@ class RaidData(commands.raid.F18_RaidData):
 
         # Get a list of all the RAID members.
         for member in self.members:
-            # if member is using --onpart, use original device
-            mem = ksdata.onPart.get(member, member)
-            dev = devicetree.getDeviceByName(udev.udev_resolve_devspec(mem)) or lookupAlias(devicetree, mem)
+            dev = devicetree.resolveDevice(member)
+            if not dev:
+                # if member is using --onpart, use original device
+                mem = ksdata.onPart.get(member, member)
+                dev = devicetree.resolveDevice(mem or lookupAlias(devicetree, member))
             if dev and dev.format.type == "luks":
                 try:
                     dev = devicetree.getChildren(dev)[0]
@@ -1398,9 +1399,11 @@ class VolGroupData(commands.volgroup.FC16_VolGroupData):
 
         # Get a list of all the physical volume devices that make up this VG.
         for pv in self.physvols:
-            # if pv is using --onpart, use original device
-            pv = ksdata.onPart.get(pv, pv)
-            dev = devicetree.getDeviceByName(udev.udev_resolve_devspec(pv)) or lookupAlias(devicetree, pv)
+            dev = devicetree.resolveDevice(pv)
+            if not dev:
+                # if pv is using --onpart, use original device
+                pv_name = ksdata.onPart.get(pv, pv)
+                dev = devicetree.resolveDevice(pv_name or lookupAlias(devicetree, pv))
             if dev and dev.format.type == "luks":
                 try:
                     dev = devicetree.getChildren(dev)[0]
