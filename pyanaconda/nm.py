@@ -357,8 +357,6 @@ def nm_device_ip_config(name, version=4):
        UnknownDeviceError if device is not found
        PropertyNotFoundError if ip configuration is not found
     """
-    retval = []
-
     state = nm_device_property(name, "State")
     if state != NetworkManager.DeviceState.ACTIVATED:
         return []
@@ -535,6 +533,31 @@ def _find_settings(value, key1, key2, format_value=lambda x:x):
 
     return retval
 
+def nm_get_all_settings():
+    """Return all settings for logging."""
+    retval = []
+
+    proxy = _get_proxy(object_path="/org/freedesktop/NetworkManager/Settings", interface_name="org.freedesktop.NetworkManager.Settings")
+
+    args = None
+    connections = proxy.call_sync("ListConnections",
+                                  args,
+                                  Gio.DBusCallFlags.NONE,
+                                  DEFAULT_DBUS_TIMEOUT,
+                                  None)
+
+    for con in connections.unpack()[0]:
+        proxy = _get_proxy(object_path=con, interface_name="org.freedesktop.NetworkManager.Settings.Connection")
+        args = None
+        settings = proxy.call_sync("GetSettings",
+                                   args,
+                                   Gio.DBusCallFlags.NONE,
+                                   DEFAULT_DBUS_TIMEOUT,
+                                   None)
+        retval.append(settings)
+
+    return retval
+
 def nm_device_setting_value(name, key1, key2):
     """Return value of device's setting specified by key1 and key2.
 
@@ -599,17 +622,13 @@ def nm_ap_setting_value(ssid, key1, key2):
         value = None
     return value
 
+def nm_disconnect_device(name):
+    """Disconnect the device.
 
-def nm_activate_device_connection(dev_name, con_uuid):
-    """Activate device with specified connection.
-
-       Exceptions:
-       UnknownDeviceError - device was not found
-
+       :raise UnknownDeviceError: if device is not found
     """
-
     proxy = _get_proxy()
-    args = GLib.Variant('(s)', (dev_name,))
+    args = GLib.Variant('(s)', (name,))
     try:
         device = proxy.call_sync("GetDeviceByIpIface",
                                   args,
@@ -618,10 +637,48 @@ def nm_activate_device_connection(dev_name, con_uuid):
                                   None)
     except GLib.GError as e:
         if "org.freedesktop.NetworkManager.UnknownDevice" in e.message:
-            raise UnknownDeviceError(dev_name, e)
+            raise UnknownDeviceError(name, e)
         raise
 
-    device_path = device.unpack()[0]
+    device = device.unpack()[0]
+    device_proxy = _get_proxy(object_path=device, interface_name="org.freedesktop.NetworkManager.Device")
+    args = None
+    device_proxy.call_sync("Disconnect",
+                            args,
+                            Gio.DBusCallFlags.NONE,
+                            DEFAULT_DBUS_TIMEOUT,
+                            None)
+
+def nm_activate_device_connection(dev_name, con_uuid):
+    """Activate device with specified connection.
+
+       :param dev_name: name of device or None for virtual devices
+       :type dev_name: str or None
+       :param con_uuid: uuid of connection to be activated on device
+       :type con_uuid: str
+       :raise UnknownDeviceError: if device is not found
+       :raise UnmanagedDeviceError: if device is not managed by NM
+                                    or unavailable
+    """
+
+    if dev_name is None:
+        # virtual devices (eg bond, vlan)
+        device_path = "/"
+    else:
+        proxy = _get_proxy()
+        args = GLib.Variant('(s)', (dev_name,))
+        try:
+            device = proxy.call_sync("GetDeviceByIpIface",
+                                      args,
+                                      Gio.DBusCallFlags.NONE,
+                                      DEFAULT_DBUS_TIMEOUT,
+                                      None)
+        except Exception as e:
+            if "org.freedesktop.NetworkManager.UnknownDevice" in e.message:
+                raise UnknownDeviceError(dev_name, e)
+            raise
+
+        device_path = device.unpack()[0]
 
     con_path = _find_settings(con_uuid, 'connection', 'uuid')
 
@@ -637,6 +694,39 @@ def nm_activate_device_connection(dev_name, con_uuid):
         if "org.freedesktop.NetworkManager.UnmanagedDevice" in e.message:
             raise UnmanagedDeviceError(dev_name, e)
         raise
+
+def nm_add_connection(values):
+    """Add new connection specified by values.
+
+       :param values: list of settings with new values and its types
+                      [[key1, key2, value, type_str], ...]
+                      key1: first-level key of setting (eg "connection")
+                      key2: second-level key of setting (eg "uuid")
+                      value: new value
+                      type_str: dbus type of new value (eg "ay")
+       :type values: [[key1, key2, value, type_str], ...]
+                     key1: str
+                     key2: str
+                     value: object
+                     type_str: str
+    """
+
+    settings = {}
+    for key1, key2, value, type_str in values:
+        gvalue = GLib.Variant(type_str, value)
+        if key1 not in settings:
+            settings[key1] = {}
+        settings[key1][key2] = gvalue
+    gsettings = GLib.Variant("(a{sa{sv}})", (settings,))
+
+    proxy = _get_proxy(object_path="/org/freedesktop/NetworkManager/Settings",
+                       interface_name="org.freedesktop.NetworkManager.Settings")
+    connection = proxy.call_sync("AddConnection",
+                                 gsettings,
+                                 Gio.DBusCallFlags.NONE,
+                                 DEFAULT_DBUS_TIMEOUT,
+                                 None)
+    return connection.unpack()
 
 def nm_update_settings_of_device(name, new_values):
     """Update setting of device.
