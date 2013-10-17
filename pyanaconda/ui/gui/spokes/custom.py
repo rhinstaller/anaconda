@@ -1586,6 +1586,10 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
             return model[itr][3]
 
     def _get_raid_level(self):
+        if not self._raidLevelCombo.get_property("visible"):
+            # the combo is hidden when raid level isn't applicable
+            return None
+
         itr = self._raidLevelCombo.get_active_iter()
         store = self._raidLevelCombo.get_model()
 
