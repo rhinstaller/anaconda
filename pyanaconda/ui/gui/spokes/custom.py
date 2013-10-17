@@ -115,7 +115,6 @@ raid_level_not_enough_disks_msg = N_("The RAID level you have selected (%(level)
                                      "requires more disks (%(min)d) than you "
                                      "currently have selected (%(count)d).")
 empty_name_msg = N_("Please enter a valid name.")
-invalid_name_msg = N_("That name is invalid. Try something else?")
 
 container_type_names = {DEVICE_TYPE_LVM: lvm_container_name,
                         DEVICE_TYPE_LVM_THINP: lvm_container_name,
