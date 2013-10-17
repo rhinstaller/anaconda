@@ -87,7 +87,7 @@ class SourceSpoke(EditTUISpoke):
         elif self.data.method.method == "nfs":
             return _("NFS server %s") % self.data.method.server
         elif self.data.method.method == "cdrom":
-            return _("CD/DVD drive")
+            return _("Local media")
         elif self.payload.baseRepo:
             return _("Closest mirror")
         else:

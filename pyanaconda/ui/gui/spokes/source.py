@@ -491,7 +491,7 @@ class SourceSpoke(NormalSpoke):
         elif self.data.method.method == "nfs":
             return _("NFS server %s") % self.data.method.server
         elif self.data.method.method == "cdrom":
-            return _("CD/DVD drive")
+            return _("Local media")
         elif self.data.method.method == "harddrive":
             if not self._currentIsoFile:
                 return _("Error setting up software source")
