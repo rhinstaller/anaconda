@@ -19,10 +19,40 @@
 # Red Hat Author(s): Chris Lumens <clumens@redhat.com>
 #
 
-__all__ = ["_", "N_", "P_"]
+__all__ = ["_", "N_", "P_", "C_", "CN_", "CP_"]
 
 import gettext
 
 _ = lambda x: gettext.ldgettext("anaconda", x)
 N_ = lambda x: x
 P_ = lambda x, y, z: gettext.ldngettext("anaconda", x, y, z)
+
+# This is equivalent to "pgettext" in GNU gettext. The pgettext functions
+# are not exported by Python, but all they really do is a stick a EOT
+# character between msgctxt and msgid and check that msgctxt isn't part
+# of the return value.
+def C_(msgctxt, msgid):
+    ctxid = "%s\x04%s" % (msgctxt, msgid)
+    translation = _(ctxid)
+
+    # If there is no translation for msgctxt<EOT>msgid, return only msgid
+    if translation == ctxid:
+        return msgid
+    else:
+        return translation
+
+# Mark as translatable with context
+CN_ = lambda c, x: x
+
+# npgettext; i.e., gettext with plural form and context
+def CP_(msgctxt, msgid, msgid_plural, n):
+    ctxid = "%s\x04%s" % (msgctxt, msgid)
+    translation = P_(ctxid, msgid_plural, n)
+
+    # If the returned value is msgctxt<EOT>msgid, ngettext was trying to
+    # fallback to msgid. We don't add msgctxt to msgid_plural, so any other
+    # return value is correct.
+    if translation == ctxid:
+        return msgid
+    else:
+        return translation
