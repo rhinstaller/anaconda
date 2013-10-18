@@ -67,6 +67,7 @@ class StorageSpoke(NormalTUISpoke):
 
         self._ready = False
         self.selected_disks = self.data.ignoredisk.onlyuse[:]
+        self.selection = None
 
         self.autopart = None
         self.clearPartType = None
@@ -199,16 +200,33 @@ class StorageSpoke(NormalTUISpoke):
                                completed=(disk.name in self.selected_disks))
             self._window += [c, ""]
 
+        # if we have more than one disk, present an option to just
+        # select all disks
+        if len(self.disks) > 1:
+            c = CheckboxWidget(title="%i) %s" % (len(self.disks) + 1, _("Select all")),
+                                completed=(self.selection == len(self.disks)))
+
+            self._window += [c, ""]
+
         self._window += [TextWidget(message), ""]
 
         return True
+
+    def _select_all_disks(self):
+        """ Mark all disks as selected for use in partitioning. """
+        for i in self.disks:
+            self._update_disk_list(i)
 
     def input(self, args, key):
         """Grab the disk choice and update things"""
 
         try:
             keyid = int(key) - 1
-            self._update_disk_list(self.disks[keyid])
+            self.selection = keyid
+            if len(self.disks) > 1 and keyid == len(self.disks):
+                self._select_all_disks()
+            else:
+                self._update_disk_list(self.disks[keyid])
             return INPUT_PROCESSED
         except (ValueError, IndexError):
             if key.lower() == "c":
