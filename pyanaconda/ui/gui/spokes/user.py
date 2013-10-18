@@ -431,6 +431,7 @@ class UserSpoke(FirstbootSpokeMixIn, NormalSpoke):
 
         # Re-check the password
         self.pw.emit("changed")
+        self.confirm.emit("changed")
 
     def password_changed(self, editable=None, data=None):
         """Update the password strength level bar"""
@@ -451,6 +452,7 @@ class UserSpoke(FirstbootSpokeMixIn, NormalSpoke):
 
             # Re-run the password checks against the new username
             self.pw.emit("changed")
+            self.confirm.emit("changed")
 
     def full_name_changed(self, editable = None, data = None):
         """Called by Gtk callback when the full name field changes.
