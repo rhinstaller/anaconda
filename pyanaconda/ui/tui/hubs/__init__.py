@@ -23,7 +23,7 @@ from pyanaconda.ui.tui.tuiobject import TUIObject
 from pyanaconda.ui.tui.spokes import collect_spokes
 from pyanaconda.ui import common
 
-from pyanaconda.i18n import _
+from pyanaconda.i18n import _, C_
 
 class TUIHub(TUIObject, common.Hub):
     """Base Hub class implementing the pyanaconda.ui.common.Hub interface.
@@ -109,7 +109,7 @@ class TUIHub(TUIObject, common.Hub):
             # If we get a continue, check for unfinished spokes.  If unfinished
             # don't continue
             # TRANSLATORS: 'c' to continue
-            if key == _('c'):
+            if key == C_('TUI|Spoke Navigation', 'c'):
                 for spoke in self._spokes.values():
                     if not spoke.completed and spoke.mandatory:
                         print(_("Please complete all spokes before continuing"))

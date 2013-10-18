@@ -28,7 +28,7 @@ import threading
 from pyanaconda.threads import threadMgr, AnacondaThread
 from pyanaconda.ui.communication import hubQ
 from pyanaconda import constants
-from pyanaconda.i18n import _, N_
+from pyanaconda.i18n import _, N_, C_
 
 RAW_INPUT_LOCK = threading.Lock()
 
@@ -448,19 +448,19 @@ class App(object):
 
         # global refresh command
         # TRANSLATORS: 'r' to refresh
-        if self._screens and (key == _('r')):
+        if self._screens and (key == C_('TUI|Spoke Navigation', 'r')):
             self._do_redraw()
             return True
 
         # global close command
         # TRANSLATORS: 'c' to continue
-        if self._screens and (key == _('c')):
+        if self._screens and (key == C_('TUI|Spoke Navigation', 'c')):
             self.close_screen()
             return True
 
         # global quit command
         # TRANSLATORS: 'q' to quit
-        elif self._screens and (key == _('q')):
+        elif self._screens and (key == C_('TUI|Spoke Navigation', 'q')):
             if self.quit_question:
                 d = self.quit_question(self, _(self.quit_message))
                 self.switch_screen_modal(d)
