@@ -400,7 +400,7 @@ class StorageSpoke(NormalSpoke, StorageChecker):
         hubQ.send_message(self.__class__.__name__, _("Saving storage configuration..."))
         try:
             doKickstartStorage(self.storage, self.data, self.instclass)
-        except (StorageError, BootLoaderError, KickstartValueError) as e:
+        except (StorageError, KickstartValueError) as e:
             log.error("storage configuration failed: %s" % e)
             StorageChecker.errors = str(e).split("\n")
             hubQ.send_message(self.__class__.__name__, _("Failed to save storage configuration..."))
@@ -412,6 +412,11 @@ class StorageSpoke(NormalSpoke, StorageChecker):
             self.disks = getDisks(self.storage.devicetree)
             # now set ksdata back to the user's specified config
             self._applyDiskSelection(self.selected_disks)
+        except BootLoaderError as e:
+            log.error("BootLoader setup failed: %s", e)
+            StorageChecker.errors = str(e).split("\n")
+            hubQ.send_message(self.__class__.__name__, _("Failed to save storage configuration..."))
+            self.data.bootloader.bootDrive = ""
         else:
             if self.autopart:
                 # this was already run as part of doAutoPartition. dumb.
