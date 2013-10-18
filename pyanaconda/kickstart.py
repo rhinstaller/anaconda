@@ -740,6 +740,8 @@ class LogVolData(commands.logvol.F20_LogVolData):
 
             dev.format.mountpoint = self.mountpoint
             dev.format.mountopts = self.fsopts
+            if ty == "swap":
+                storage.addFstabSwap(dev)
             return
 
         # Make sure this LV name is not already used in the requested VG.
@@ -998,6 +1000,8 @@ class PartitionData(commands.partition.F18_PartData):
 
             dev.format.mountpoint = self.mountpoint
             dev.format.mountopts = self.fsopts
+            if ty == "swap":
+                storage.addFstabSwap(dev)
             return
 
         # Now get a format to hold a lot of these extra values.
