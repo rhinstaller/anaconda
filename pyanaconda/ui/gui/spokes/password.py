@@ -104,6 +104,7 @@ class PasswordSpoke(FirstbootSpokeMixIn, NormalSpoke):
 
         self.pw.grab_focus()
         self.pw.emit("changed")
+        self.confirm.emit("changed")
 
     @property
     def status(self):
