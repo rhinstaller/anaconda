@@ -22,7 +22,6 @@ import argparse
 import re
 import os.path
 import copy
-import collections
 import locale
 
 try:
@@ -35,7 +34,9 @@ accel_re = re.compile(r'_(?P<accel>.)')
 success = True
 
 # Only used when --translate is requested.
-class PODict(collections.Mapping):
+class PODict(object):
+    metadata = {}
+
     def __init__(self, filename):
         try:
             import polib
@@ -44,28 +45,26 @@ class PODict(collections.Mapping):
             sys.exit(1)
 
         self._dict = {}
+        self._dict[None] = {}
 
         pofile = polib.pofile(filename)
         self.metadata = pofile.metadata
         for entry in pofile.translated_entries():
+            if (entry.msgctxt is not None) and (entry.msgctxt not in self._dict):
+                self._dict[entry.msgctxt] = {}
+
             # If this is a plural entry, take the first option and hope that
             # the accelerator is the same for all options.
             # Add dictionary entries for both the singular and plural IDs so
             # that glade placeholders can contain either form.
             if entry.msgstr_plural:
-                self._dict[entry.msgid] = entry.msgstr_plural['0']
-                self._dict[entry.msgid_plural] = entry.msgstr_plural['0']
+                self._dict[entry.msgctxt][entry.msgid] = entry.msgstr_plural['0']
+                self._dict[entry.msgctxt][entry.msgid_plural] = entry.msgstr_plural['0']
             else:
-                self._dict[entry.msgid] = entry.msgstr
+                self._dict[entry.msgctxt][entry.msgid] = entry.msgstr
 
-    def __getitem__(self, key):
-        return self._dict[key]
-
-    def __iter__(self):
-        return self._dict.__iter__()
-
-    def __len__(self):
-        return len(self._dict)
+    def get(self, key, context=None):
+        return self._dict[context][key]
 
 def is_exception(node, conflicting_node, language=None):
     # Check for a comment of the form
@@ -85,9 +84,10 @@ def add_check_accel(glade_filename, accels, label, po_map):
     global success
 
     if po_map:
-        if label.text not in po_map:
+        try:
+            label.text = po_map.get(label.text, label.get("context"))
+        except KeyError:
             return
-        label.text = po_map[label.text]
         lang_str = " for language %s" % po_map.metadata['Language']
     else:
         lang_str = ""
