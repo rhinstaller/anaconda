@@ -258,14 +258,14 @@ class Hub(GUIObject, common.Hub):
 
         setViewportBackground(viewport)
 
-    def _updateCompleteness(self, spoke):
+    def _updateCompleteness(self, spoke, update_continue=True):
         spoke.selector.set_sensitive(spoke.ready)
         spoke.selector.set_property("status", spoke.status)
         spoke.selector.set_tooltip_markup(escape_markup(spoke.status))
         spoke.selector.set_incomplete(not spoke.completed and spoke.mandatory)
-        self._handleCompleteness(spoke)
+        self._handleCompleteness(spoke, update_continue)
 
-    def _handleCompleteness(self, spoke):
+    def _handleCompleteness(self, spoke, update_continue=True):
         # Add the spoke to the incomplete list if it's now incomplete, and make
         # sure it's not on the list if it's now complete.  Then show the box if
         # it's needed and hide it if it's not.
@@ -276,6 +276,10 @@ class Hub(GUIObject, common.Hub):
             if spoke not in self._incompleteSpokes:
                 self._incompleteSpokes.append(spoke)
 
+        if update_continue:
+            self._updateContinue()
+
+    def _updateContinue(self):
         self.clear_info()
         if len(self._incompleteSpokes) == 0:
             if self._checker and not self._checker.check():
@@ -420,7 +424,9 @@ class Hub(GUIObject, common.Hub):
         # Now update the selector with the current status and completeness.
         for sp in self._spokes.itervalues():
             if not sp.indirect:
-                self._updateCompleteness(sp)
+                self._updateCompleteness(sp, update_continue=False)
+
+        self._updateContinue()
 
         # And then if that spoke wants us to jump straight to another one,
         # handle that now.
