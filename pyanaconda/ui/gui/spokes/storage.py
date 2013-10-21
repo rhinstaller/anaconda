@@ -855,10 +855,11 @@ class StorageSpoke(NormalSpoke, StorageChecker):
             self.autoPartType = dialog.autoPartType
             self.encrypted = dialog.encrypted
 
+            if not self._check_encrypted():
+                return
+
             if dialog.continue_response == dialog.RESPONSE_CONTINUE_AUTOPART:
                 self.autopart = True
-                if not self._check_encrypted():
-                    return
             elif dialog.continue_response == dialog.RESPONSE_CONTINUE_RECLAIM:
                 self.apply()
                 if not self._show_resize_dialog(disks):
@@ -877,6 +878,9 @@ class StorageSpoke(NormalSpoke, StorageChecker):
         elif rc == dialog.RESPONSE_RECLAIM:
             self.autoPartType = dialog.autoPartType
             self.encrypted = dialog.encrypted
+
+            if not self._check_encrypted():
+                return
 
             self.apply()
             if not self._show_resize_dialog(disks):
