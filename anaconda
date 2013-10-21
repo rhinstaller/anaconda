@@ -670,6 +670,9 @@ def setupDisplay(anaconda, options, addons=None):
             anaconda.displayMode = 'g'
             flags.usevnc = True
             vncS.password = anaconda.ksdata.vnc.password
+        else:
+            # user has explicitly specified text mode
+            flags.vncquestion = False
 
     log.info("Display mode = %s", anaconda.displayMode)
     check_memory(anaconda, options)
