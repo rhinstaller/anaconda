@@ -222,6 +222,10 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Mon Oct 21 2013 Samantha N. Bueno <sbueno+anaconda@redhat.com> - 13.21.214-1
+- Don't traceback due to unpartitioned devices (mkolman)
+  Resolves: rhbz#1007683
+
 * Wed Oct 16 2013 Samantha N. Bueno <sbueno+anaconda@redhat.com> - 13.21.213-1
 - Remove manual call to recreate initrd if installing on iSCSI.
   (sbueno+anaconda)
