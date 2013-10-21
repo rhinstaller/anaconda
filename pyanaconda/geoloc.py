@@ -553,6 +553,8 @@ class FedoraGeoIPProvider(GeolocationBackend):
             log.debug("Geoloc: HTTPError for Fedora GeoIP API lookup:\n%s", e)
         except urllib2.URLError as e:
             log.debug("Geoloc: URLError for Fedora GeoIP API lookup:\n%s", e)
+        except ValueError as e:
+            log.debug("Geoloc: Unable to decode GeoIP JSON:\n%s", e)
 
 
 class HostipGeoIPProvider(GeolocationBackend):
