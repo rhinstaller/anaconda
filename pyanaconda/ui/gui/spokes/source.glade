@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!-- Generated with glade 3.16.0 on Thu Oct 17 10:58:58 2013 -->
 <interface>
   <!-- interface-requires gtk+ 3.0 -->
   <!-- interface-requires AnacondaWidgets 1.0 -->
@@ -63,7 +64,6 @@
           <object class="GtkFileChooserWidget" id="isoChooser">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
-            <property name="orientation">vertical</property>
             <property name="create_folders">False</property>
             <property name="filter">isoFilter</property>
           </object>
@@ -781,7 +781,6 @@
                             <property name="can_focus">True</property>
                             <property name="hexpand">True</property>
                             <property name="invisible_char">●</property>
-                            <property name="invisible_char_set">True</property>
                           </object>
                           <packing>
                             <property name="left_attach">1</property>
@@ -797,7 +796,6 @@
                             <property name="visible">True</property>
                             <property name="can_focus">True</property>
                             <property name="receives_default">True</property>
-                            <property name="use_action_appearance">False</property>
                             <property name="use_underline">True</property>
                             <signal name="clicked" handler="on_proxy_clicked" swapped="no"/>
                           </object>
@@ -817,7 +815,6 @@
                             <property name="receives_default">False</property>
                             <property name="no_show_all">True</property>
                             <property name="hexpand">True</property>
-                            <property name="use_action_appearance">False</property>
                             <property name="use_underline">True</property>
                             <property name="xalign">0</property>
                             <property name="draw_indicator">True</property>
@@ -869,7 +866,6 @@
                             <property name="tooltip_markup" translatable="yes">This field is optional.</property>
                             <property name="tooltip_text" translatable="yes">This field is optional.</property>
                             <property name="invisible_char">●</property>
-                            <property name="invisible_char_set">True</property>
                           </object>
                           <packing>
                             <property name="expand">True</property>
@@ -1041,10 +1037,10 @@
                         <property name="can_focus">False</property>
                         <property name="toolbar_style">icons</property>
                         <property name="show_arrow">False</property>
-                        <property name="icon_size">1</property>
                         <style>
                           <class name="inline-toolbar"/>
                         </style>
+                        <property name="icon_size">1</property>
                         <child>
                           <object class="GtkToolButton" id="addButton">
                             <property name="width_request">42</property>
@@ -1123,7 +1119,6 @@
                             <property name="tooltip_markup" translatable="yes">URL for the repository, without protocol.</property>
                             <property name="tooltip_text" translatable="yes">URL for the repository, without protocol.</property>
                             <property name="invisible_char">●</property>
-                            <property name="invisible_char_set">True</property>
                             <signal name="changed" handler="on_repoUrl_changed" swapped="no"/>
                           </object>
                           <packing>
@@ -1140,7 +1135,6 @@
                             <property name="tooltip_markup" translatable="yes">URL of proxy in the form of protocol://host:[port]</property>
                             <property name="tooltip_text" translatable="yes">URL of proxy in the form of protocol://host:[port]</property>
                             <property name="invisible_char">●</property>
-                            <property name="invisible_char_set">True</property>
                             <signal name="changed" handler="on_repoProxy_changed" swapped="no"/>
                           </object>
                           <packing>
@@ -1157,7 +1151,6 @@
                             <property name="tooltip_markup" translatable="yes">Optional proxy username.</property>
                             <property name="tooltip_text" translatable="yes">Optional proxy username.</property>
                             <property name="invisible_char">●</property>
-                            <property name="invisible_char_set">True</property>
                             <signal name="changed" handler="on_repoProxy_changed" swapped="no"/>
                           </object>
                           <packing>
@@ -1174,7 +1167,6 @@
                             <property name="tooltip_markup" translatable="yes">Optional proxy password.</property>
                             <property name="visibility">False</property>
                             <property name="invisible_char">●</property>
-                            <property name="invisible_char_set">True</property>
                             <signal name="changed" handler="on_repoProxy_changed" swapped="no"/>
                           </object>
                           <packing>
@@ -1229,8 +1221,6 @@
                             <property name="tooltip_markup" translatable="yes">Protocol for the repository URL.</property>
                             <property name="tooltip_text" translatable="yes">Protocol for the repository URL.</property>
                             <property name="active">0</property>
-                            <property name="entry_text_column">0</property>
-                            <property name="id_column">1</property>
                             <items>
                               <item>http://</item>
                               <item>https://</item>
@@ -1310,7 +1300,6 @@
                             <property name="tooltip_text" translatable="yes">Name of the repository.</property>
                             <property name="hexpand">True</property>
                             <property name="invisible_char">●</property>
-                            <property name="invisible_char_set">True</property>
                             <signal name="changed" handler="on_repoNameEntry_changed" swapped="no"/>
                           </object>
                           <packing>

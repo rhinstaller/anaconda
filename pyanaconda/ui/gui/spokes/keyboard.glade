@@ -1,7 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!-- Generated with glade 3.16.0 on Thu Oct 17 10:58:06 2013 -->
 <interface>
-  <!-- interface-requires gtk+ 3.0 -->
+  <!-- interface-requires gtk+ 3.2 -->
   <!-- interface-requires AnacondaWidgets 1.0 -->
+  <object class="GtkListStore" id="addedLayoutStore">
+    <columns>
+      <!-- column-name name -->
+      <column type="gchararray"/>
+    </columns>
+  </object>
+  <object class="GtkTreeModelFilter" id="newLayoutStoreFilter">
+    <property name="child_model">newLayoutStore</property>
+  </object>
+  <object class="GtkTreeModelSort" id="newLayoutStoreSort">
+    <property name="model">newLayoutStoreFilter</property>
+  </object>
+  <object class="GtkListStore" id="switchingOptsStore">
+    <columns>
+      <!-- column-name description -->
+      <column type="gchararray"/>
+      <!-- column-name use -->
+      <column type="gboolean"/>
+    </columns>
+  </object>
+  <object class="GtkTreeModelSort" id="switchingOptsSort">
+    <property name="model">switchingOptsStore</property>
+  </object>
   <object class="GtkDialog" id="addLayoutDialog">
     <property name="can_focus">False</property>
     <property name="border_width">6</property>
@@ -167,7 +191,8 @@
       <action-widget response="1">confirmAddButton</action-widget>
     </action-widgets>
   </object>
-  <object class="GtkListStore" id="addedLayoutStore">
+  <object class="GtkTextBuffer" id="layoutTestBuffer"/>
+  <object class="GtkListStore" id="newLayoutStore">
     <columns>
       <!-- column-name name -->
       <column type="gchararray"/>
@@ -177,8 +202,6 @@
     <property name="startup_id">filler</property>
     <property name="can_focus">False</property>
     <property name="startup_id">filler</property>
-    <property name="mnemonics_visible">False</property>
-    <property name="focus_visible">False</property>
     <property name="window_name" translatable="yes">KEYBOARD LAYOUT</property>
     <signal name="button-clicked" handler="on_back_clicked" swapped="no"/>
     <child internal-child="main_box">
@@ -248,7 +271,7 @@
                         <property name="can_focus">False</property>
                         <property name="no_show_all">True</property>
                         <property name="stock">gtk-dialog-warning</property>
-                        <property name="icon-size">1</property>
+                        <property name="icon_size">1</property>
                       </object>
                       <packing>
                         <property name="expand">False</property>
@@ -344,10 +367,10 @@
                             <property name="visible">True</property>
                             <property name="can_focus">False</property>
                             <property name="toolbar_style">icons</property>
-                            <property name="icon_size">1</property>
                             <style>
                               <class name="inline-toolbar"/>
                             </style>
+                            <property name="icon_size">1</property>
                             <child>
                               <object class="GtkToolButton" id="addLayoutButton">
                                 <property name="width_request">42</property>
@@ -548,19 +571,6 @@
       </object>
     </child>
   </object>
-  <object class="GtkTextBuffer" id="layoutTestBuffer"/>
-  <object class="GtkListStore" id="newLayoutStore">
-    <columns>
-      <!-- column-name name -->
-      <column type="gchararray"/>
-    </columns>
-  </object>
-  <object class="GtkTreeModelFilter" id="newLayoutStoreFilter">
-    <property name="child_model">newLayoutStore</property>
-  </object>
-  <object class="GtkTreeModelSort" id="newLayoutStoreSort">
-    <property name="model">newLayoutStoreFilter</property>
-  </object>
   <object class="GtkDialog" id="switchingDialog">
     <property name="can_focus">False</property>
     <property name="border_width">6</property>
@@ -722,16 +732,5 @@
       <action-widget response="0">button2</action-widget>
       <action-widget response="1">button1</action-widget>
     </action-widgets>
-  </object>
-  <object class="GtkListStore" id="switchingOptsStore">
-    <columns>
-      <!-- column-name description -->
-      <column type="gchararray"/>
-      <!-- column-name use -->
-      <column type="gboolean"/>
-    </columns>
-  </object>
-  <object class="GtkTreeModelSort" id="switchingOptsSort">
-    <property name="model">switchingOptsStore</property>
   </object>
 </interface>

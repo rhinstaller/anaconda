@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!-- Generated with glade 3.16.0 on Thu Oct 17 10:59:25 2013 -->
 <interface>
   <!-- interface-requires gtk+ 3.6 -->
   <!-- interface-requires AnacondaWidgets 1.0 -->
@@ -100,7 +101,6 @@
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
                         <property name="invisible_char">●</property>
-                        <property name="invisible_char_set">True</property>
                         <property name="caps_lock_warning">False</property>
                         <signal name="changed" handler="full_name_changed" swapped="no"/>
                       </object>
@@ -116,7 +116,6 @@
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
                         <property name="invisible_char">●</property>
-                        <property name="invisible_char_set">True</property>
                         <signal name="changed" handler="username_changed" swapped="no"/>
                       </object>
                       <packing>

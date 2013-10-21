@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!-- Generated with glade 3.16.0 on Thu Oct 17 10:48:44 2013 -->
 <interface>
-  <!-- interface-requires AnacondaWidgets 1.0 -->
   <!-- interface-requires gtk+ 3.0 -->
+  <!-- interface-requires AnacondaWidgets 1.0 -->
   <object class="GtkDialog" id="passphrase_dialog">
     <property name="can_focus">False</property>
     <property name="border_width">6</property>
@@ -115,9 +116,9 @@
                 <property name="visibility">False</property>
                 <property name="invisible_char">●</property>
                 <property name="width_chars">32</property>
+                <signal name="activate" handler="on_entry_activated" swapped="no"/>
                 <signal name="changed" handler="on_passphrase_changed" swapped="no"/>
                 <signal name="focus-out-event" handler="on_passphrase_editing_done" swapped="no"/>
-                <signal name="activate" handler="on_entry_activated" swapped="no"/>
               </object>
               <packing>
                 <property name="left_attach">1</property>
@@ -149,8 +150,8 @@
                 <property name="visibility">False</property>
                 <property name="invisible_char">●</property>
                 <property name="width_chars">32</property>
-                <signal name="changed" handler="on_confirm_changed" swapped="no"/>
                 <signal name="activate" handler="on_entry_activated" swapped="no"/>
+                <signal name="changed" handler="on_confirm_changed" swapped="no"/>
                 <signal name="focus-out-event" handler="on_confirm_editing_done" swapped="no"/>
               </object>
               <packing>

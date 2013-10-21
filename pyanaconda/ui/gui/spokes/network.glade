@@ -1,7 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!-- Generated with glade 3.16.0 on Thu Oct 17 10:58:35 2013 -->
 <interface>
   <!-- interface-requires gtk+ 3.0 -->
   <!-- interface-requires AnacondaWidgets 1.0 -->
+  <object class="GtkListStore" id="liststore_add_device">
+    <columns>
+      <!-- column-name label -->
+      <column type="gchararray"/>
+      <!-- column-name type -->
+      <column type="gchararray"/>
+    </columns>
+    <data>
+      <row>
+        <col id="0" translatable="yes">Bond</col>
+        <col id="1" translatable="yes">bond</col>
+      </row>
+      <row>
+        <col id="0" translatable="yes">Vlan</col>
+        <col id="1" translatable="yes">vlan</col>
+      </row>
+    </data>
+  </object>
   <object class="GtkDialog" id="add_device_dialog">
     <property name="can_focus">False</property>
     <property name="border_width">6</property>
@@ -105,24 +124,6 @@
       <action-widget response="1">button_add_device_create</action-widget>
     </action-widgets>
   </object>
-  <object class="GtkListStore" id="liststore_add_device">
-    <columns>
-      <!-- column-name label -->
-      <column type="gchararray"/>
-      <!-- column-name type -->
-      <column type="gchararray"/>
-    </columns>
-    <data>
-      <row>
-        <col id="0" translatable="yes">Bond</col>
-        <col id="1" translatable="yes">bond</col>
-      </row>
-      <row>
-        <col id="0" translatable="yes">Vlan</col>
-        <col id="1" translatable="yes">vlan</col>
-      </row>
-    </data>
-  </object>
   <object class="GtkListStore" id="liststore_devices">
     <columns>
       <!-- column-name icon -->
@@ -170,6 +171,9 @@
                 <property name="margin_left">6</property>
                 <property name="margin_right">6</property>
                 <property name="margin_top">6</property>
+                <child>
+                  <placeholder/>
+                </child>
                 <child>
                   <placeholder/>
                 </child>
@@ -327,10 +331,10 @@ updates available for you.</property>
                                     <property name="can_focus">False</property>
                                     <property name="toolbar_style">icons</property>
                                     <property name="show_arrow">False</property>
-                                    <property name="icon_size">1</property>
                                     <style>
                                       <class name="inline-toolbar"/>
                                     </style>
+                                    <property name="icon_size">1</property>
                                     <child>
                                       <object class="GtkToolButton" id="add_toolbutton">
                                         <property name="width_request">42</property>
@@ -400,7 +404,7 @@ updates available for you.</property>
                                             <property name="xalign">1</property>
                                             <property name="pixel_size">48</property>
                                             <property name="icon_name">network-wired</property>
-                                            <property name="icon-size">6</property>
+                                            <property name="icon_size">6</property>
                                           </object>
                                           <packing>
                                             <property name="left_attach">0</property>
@@ -864,7 +868,7 @@ updates available for you.</property>
                                             <property name="xalign">1</property>
                                             <property name="pixel_size">48</property>
                                             <property name="icon_name">network-wireless</property>
-                                            <property name="icon-size">6</property>
+                                            <property name="icon_size">6</property>
                                           </object>
                                           <packing>
                                             <property name="left_attach">0</property>
@@ -1352,7 +1356,7 @@ updates available for you.</property>
                                             <property name="xalign">1</property>
                                             <property name="pixel_size">48</property>
                                             <property name="icon_name">network-cellular-connected-symbolic</property>
-                                            <property name="icon-size">6</property>
+                                            <property name="icon_size">6</property>
                                           </object>
                                           <packing>
                                             <property name="left_attach">0</property>
@@ -1694,7 +1698,7 @@ updates available for you.</property>
                                             <property name="xalign">1</property>
                                             <property name="pixel_size">48</property>
                                             <property name="icon_name">network-vpn</property>
-                                            <property name="icon-size">6</property>
+                                            <property name="icon_size">6</property>
                                           </object>
                                           <packing>
                                             <property name="left_attach">0</property>
@@ -1979,7 +1983,7 @@ updates available for you.</property>
                                             <property name="xalign">1</property>
                                             <property name="pixel_size">48</property>
                                             <property name="icon_name">preferences-system-network</property>
-                                            <property name="icon-size">6</property>
+                                            <property name="icon_size">6</property>
                                           </object>
                                           <packing>
                                             <property name="left_attach">0</property>
@@ -2097,7 +2101,6 @@ updates available for you.</property>
                                             <property name="visible">True</property>
                                             <property name="can_focus">True</property>
                                             <property name="invisible_char">●</property>
-                                            <property name="invisible_char_set">True</property>
                                           </object>
                                           <packing>
                                             <property name="left_attach">1</property>
@@ -2191,7 +2194,6 @@ updates available for you.</property>
                                             <property name="visible">True</property>
                                             <property name="can_focus">True</property>
                                             <property name="invisible_char">●</property>
-                                            <property name="invisible_char_set">True</property>
                                           </object>
                                           <packing>
                                             <property name="left_attach">1</property>
@@ -2206,7 +2208,6 @@ updates available for you.</property>
                                             <property name="can_focus">True</property>
                                             <property name="invisible_char">●</property>
                                             <property name="xalign">1</property>
-                                            <property name="invisible_char_set">True</property>
                                           </object>
                                           <packing>
                                             <property name="left_attach">2</property>
@@ -2220,7 +2221,6 @@ updates available for you.</property>
                                             <property name="visible">True</property>
                                             <property name="can_focus">True</property>
                                             <property name="invisible_char">●</property>
-                                            <property name="invisible_char_set">True</property>
                                           </object>
                                           <packing>
                                             <property name="left_attach">1</property>
@@ -2234,7 +2234,6 @@ updates available for you.</property>
                                             <property name="visible">True</property>
                                             <property name="can_focus">True</property>
                                             <property name="invisible_char">●</property>
-                                            <property name="invisible_char_set">True</property>
                                           </object>
                                           <packing>
                                             <property name="left_attach">1</property>
@@ -2248,7 +2247,6 @@ updates available for you.</property>
                                             <property name="visible">True</property>
                                             <property name="can_focus">True</property>
                                             <property name="invisible_char">●</property>
-                                            <property name="invisible_char_set">True</property>
                                           </object>
                                           <packing>
                                             <property name="left_attach">1</property>
@@ -2263,7 +2261,6 @@ updates available for you.</property>
                                             <property name="can_focus">True</property>
                                             <property name="invisible_char">●</property>
                                             <property name="xalign">1</property>
-                                            <property name="invisible_char_set">True</property>
                                           </object>
                                           <packing>
                                             <property name="left_attach">2</property>
@@ -2278,7 +2275,6 @@ updates available for you.</property>
                                             <property name="can_focus">True</property>
                                             <property name="invisible_char">●</property>
                                             <property name="xalign">1</property>
-                                            <property name="invisible_char_set">True</property>
                                           </object>
                                           <packing>
                                             <property name="left_attach">2</property>
@@ -2293,7 +2289,6 @@ updates available for you.</property>
                                             <property name="can_focus">True</property>
                                             <property name="invisible_char">●</property>
                                             <property name="xalign">1</property>
-                                            <property name="invisible_char_set">True</property>
                                           </object>
                                           <packing>
                                             <property name="left_attach">2</property>

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!-- Generated with glade 3.16.0 on Thu Oct 17 10:58:26 2013 -->
 <interface>
-  <!-- interface-requires gtk+ 3.0 -->
+  <!-- interface-requires gtk+ 3.2 -->
   <!-- interface-requires AnacondaWidgets 1.0 -->
   <object class="GtkListStore" id="languageStore">
     <columns>
@@ -14,6 +15,18 @@
   </object>
   <object class="GtkTreeModelFilter" id="languageStoreFilter">
     <property name="child_model">languageStore</property>
+  </object>
+  <object class="GtkListStore" id="localeStore">
+    <columns>
+      <!-- column-name nativeName -->
+      <column type="gchararray"/>
+      <!-- column-name locale -->
+      <column type="gchararray"/>
+      <!-- column-name selected -->
+      <column type="gboolean"/>
+      <!-- column-name isAdditional -->
+      <column type="gboolean"/>
+    </columns>
   </object>
   <object class="AnacondaSpokeWindow" id="langsupportWindow">
     <property name="startup_id">filler</property>
@@ -169,7 +182,6 @@
                         <property name="can_focus">True</property>
                         <property name="valign">start</property>
                         <property name="invisible_char">●</property>
-                        <property name="invisible_char_set">True</property>
                         <property name="secondary_icon_name">edit-clear-symbolic</property>
                         <property name="placeholder_text" translatable="yes">Type here to search.</property>
                         <signal name="changed" handler="on_entry_changed" swapped="no"/>
@@ -212,8 +224,8 @@
                                     <signal name="toggled" handler="on_locale_toggled" swapped="no"/>
                                   </object>
                                   <attributes>
-                                    <attribute name="active">2</attribute>
                                     <attribute name="sensitive">3</attribute>
+                                    <attribute name="active">2</attribute>
                                   </attributes>
                                 </child>
                               </object>
@@ -268,17 +280,5 @@
         </child>
       </object>
     </child>
-  </object>
-  <object class="GtkListStore" id="localeStore">
-    <columns>
-      <!-- column-name nativeName -->
-      <column type="gchararray"/>
-      <!-- column-name locale -->
-      <column type="gchararray"/>
-      <!-- column-name selected -->
-      <column type="gboolean"/>
-      <!-- column-name isAdditional -->
-      <column type="gboolean"/>
-    </columns>
   </object>
 </interface>
