@@ -254,6 +254,40 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Mon Oct 21 2013 Brian C. Lane <bcl@redhat.com> - 21.1-1
+- Adds additional debug logging to yumpayload.py. (amulhern)
+- Handle invalid JSON in geoloc (#1021410) (dshea)
+- Revert "Only prompt for LUKS password if the user has chosen to configure
+  automatically." (amulhern)
+- Add context support to check_accelerators (dshea)
+- Added translation contexts to the TUI. (dshea)
+- Added translation contexts to the GUI. (dshea)
+- Add support for context-based translations (dshea)
+- Reset checks on both password fields. (#1020580) (dshea)
+- Fix swaps added to fstab for noformat (gene)
+- Don't update hub's continue button and label for every spoke (#1020373)
+  (vpodzime)
+- Add storage tests. (clumens)
+- Add option to select all hard drives in text mode. (#965580)
+  (sbueno+anaconda)
+- BootLoaderError should not reset storage (#1019541) (bcl)
+- Only prompt for LUKS password if the user has chosen to configure
+  automatically. (amulhern)
+- Remove an unused string (dshea)
+- Translate AM and PM (dshea)
+- Translate strings marked as translatable (dshea)
+- network gui spoke: use GDBus to obtain list of settings (#1018467) (rvykydal)
+- network: look for device settings also based on DEVICE value (#1017788)
+  (rvykydal)
+- Fix liveinst to work with livemedia-creator (#1009711) (bcl)
+- Remove the button-label property on SpokeWindow. (clumens)
+- Log entering/exiting spokes and hubs in the GUI. (clumens)
+- Escape text inserted into markup strings (dshea)
+- Move markup out of translatable strings (dshea)
+- Move formating markup out of python where possible (dshea)
+- Use explicit children to set label attributes (dshea)
+- Turn on the image on the "Add a disk..." button. (dshea)
+
 * Wed Oct 16 2013 Brian C. Lane <bcl@redhat.com> - 20.26-1
 - Install bootloader to loop device in disk image installations. (#1019502)
   (dlehman)
