@@ -873,6 +873,7 @@ class NetworkControlBox(object):
             self.builder.get_object("label_wired_parent").hide()
         elif dev_type == NetworkManager.DeviceType.WIFI:
             notebook.set_current_page(1)
+            self.builder.get_object("button_wireless_options").set_sensitive(self.selected_ssid is not None)
 
     def _refresh_carrier_info(self):
         for i in self.builder.get_object("liststore_devices"):
