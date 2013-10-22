@@ -389,7 +389,7 @@ class BTRFSData(commands.btrfs.F17_BTRFSData):
             if not device:
                 raise KickstartValueError(formatErrorMsg(self.lineno, msg="Specified nonexistent BTRFS volume %s in btrfs command" % self.name))
 
-            device.mountpoint = self.mountpoint
+            device.format.mountpoint = self.mountpoint
         else:
             request = storage.newBTRFS(name=name,
                                        subvol=self.subvol,
