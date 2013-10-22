@@ -213,6 +213,14 @@ class NetworkControlBox(object):
     supported_device_types = [
         NetworkManager.DeviceType.ETHERNET,
         NetworkManager.DeviceType.WIFI,
+        NetworkManager.DeviceType.TEAM,
+        NetworkManager.DeviceType.BOND,
+        NetworkManager.DeviceType.VLAN,
+    ]
+
+    wired_ui_device_types = [
+        NetworkManager.DeviceType.ETHERNET,
+        NetworkManager.DeviceType.TEAM,
         NetworkManager.DeviceType.BOND,
         NetworkManager.DeviceType.VLAN,
     ]
@@ -475,9 +483,7 @@ class NetworkControlBox(object):
         log.info("network: device %s switched %s", device.get_iface(), "on" if active else "off")
 
         dev_type = device.get_device_type()
-        if dev_type in (NetworkManager.DeviceType.ETHERNET,
-                        NetworkManager.DeviceType.BOND,
-                        NetworkManager.DeviceType.VLAN):
+        if dev_type in self.wired_ui_device_types:
             if active:
                 uuid = nm.nm_device_setting_value(device.get_iface(), "connection", "uuid")
                 if uuid:
@@ -555,17 +561,7 @@ class NetworkControlBox(object):
     def _dev_icon_name(self, device):
         icon_name = ""
         dev_type = device.get_device_type()
-        if  dev_type == NetworkManager.DeviceType.ETHERNET:
-            if device.get_state() == NetworkManager.DeviceState.UNAVAILABLE:
-                icon_name = "network-wired-disconnected"
-            else:
-                icon_name = "network-wired"
-        elif  dev_type == NetworkManager.DeviceType.BOND:
-            if device.get_state() == NetworkManager.DeviceState.UNAVAILABLE:
-                icon_name = "network-wired-disconnected"
-            else:
-                icon_name = "network-wired"
-        elif  dev_type == NetworkManager.DeviceType.VLAN:
+        if dev_type in self.wired_ui_device_types:
             if device.get_state() == NetworkManager.DeviceState.UNAVAILABLE:
                 icon_name = "network-wired-disconnected"
             else:
@@ -611,6 +607,8 @@ class NetworkControlBox(object):
             title = _("Bond")
         elif dev_type == NetworkManager.DeviceType.VLAN:
             title = _("Vlan")
+        elif dev_type == NetworkManager.DeviceType.TEAM:
+            title = _("Team")
         else:
             title = ""
         return title
@@ -645,14 +643,10 @@ class NetworkControlBox(object):
     def _refresh_device_cfg(self, device):
 
         dev_type = device.get_device_type()
-        if dev_type == NetworkManager.DeviceType.ETHERNET:
+        if dev_type in self.wired_ui_device_types:
             dt = "wired"
         elif dev_type == NetworkManager.DeviceType.WIFI:
             dt = "wireless"
-        elif dev_type == NetworkManager.DeviceType.BOND:
-            dt = "wired"
-        elif dev_type == NetworkManager.DeviceType.VLAN:
-            dt = "wired"
 
         ipv4cfg = nm.nm_device_ip_config(device.get_iface(), version=4)
         ipv6cfg = nm.nm_device_ip_config(device.get_iface(), version=6)
@@ -738,7 +732,8 @@ class NetworkControlBox(object):
 
     def _refresh_slaves(self, device):
         dev_type = device.get_device_type()
-        if dev_type == NetworkManager.DeviceType.BOND:
+        if dev_type in [NetworkManager.DeviceType.BOND,
+                        NetworkManager.DeviceType.TEAM]:
             slaves = ",".join(s.get_iface()
                 for s in device.get_slaves())
             self._set_device_info_value("wired", "slaves", slaves)
@@ -752,18 +747,15 @@ class NetworkControlBox(object):
 
     def _refresh_speed_hwaddr(self, device, state=None):
         dev_type = device.get_device_type()
-        if dev_type == NetworkManager.DeviceType.ETHERNET:
+        if dev_type in self.wired_ui_device_types:
             dt = "wired"
-            speed = device.get_speed()
         elif dev_type == NetworkManager.DeviceType.WIFI:
             dt = "wireless"
+        speed = None
+        if dev_type == NetworkManager.DeviceType.ETHERNET:
+            speed = device.get_speed()
+        elif dev_type == NetworkManager.DeviceType.WIFI:
             speed = device.get_bitrate() / 1000
-        elif dev_type == NetworkManager.DeviceType.BOND:
-            dt = "wired"
-            speed = None
-        elif dev_type == NetworkManager.DeviceType.VLAN:
-            dt = "wired"
-            speed = None
 
         if state is None:
             state = device.get_state()
@@ -787,7 +779,8 @@ class NetworkControlBox(object):
             self.builder.get_object("label_wired_vlanid").hide()
             self.builder.get_object("heading_wired_parent").hide()
             self.builder.get_object("label_wired_parent").hide()
-        elif dev_type == NetworkManager.DeviceType.BOND:
+        elif dev_type in [NetworkManager.DeviceType.BOND,
+                          NetworkManager.DeviceType.TEAM]:
             notebook.set_current_page(0)
             self.builder.get_object("heading_wired_slaves").show()
             self.builder.get_object("label_wired_slaves").show()
@@ -812,14 +805,10 @@ class NetworkControlBox(object):
 
     def _refresh_header_ui(self, device, state=None):
         dev_type = device.get_device_type()
-        if dev_type == NetworkManager.DeviceType.ETHERNET:
+        if dev_type in sefl.wired_ui_device_types:
             dev_type_str = "wired"
         elif dev_type == NetworkManager.DeviceType.WIFI:
             dev_type_str = "wireless"
-        elif dev_type == NetworkManager.DeviceType.BOND:
-            dev_type_str = "wired"
-        elif dev_type == NetworkManager.DeviceType.VLAN:
-            dev_type_str = "wired"
 
         if dev_type_str == "wired":
             # update icon according to device status
