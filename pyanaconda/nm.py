@@ -496,6 +496,18 @@ def nm_device_slaves(name):
 
     return slave_ifaces
 
+def nm_hwaddr_to_device_name(hwaddr):
+    """Return device name of interface with given hardware address.
+
+        :param hwaddr: hardware address
+        :type hwaddr: str
+        :return: device name of interface having hwaddr
+        :rtype: str
+    """
+    for device in nm_devices():
+        if nm_device_hwaddress(device).upper() == hwaddr.upper():
+            return device
+    return None
 
 def nm_ntp_servers_from_dhcp():
     """Return NTP servers obtained by DHCP.
@@ -524,12 +536,12 @@ def nm_ntp_servers_from_dhcp():
     return ntp_servers
 
 def _device_settings(name):
-    """Return object path of device setting.
+    """Return list of object paths of device settings
 
        :param name: name of device
        :type name: str
-       :return: path of settings, None if not found
-       :rtype: str or None
+       :return: list of paths of settings of device
+       :rtype: []
        :raise UnknownDeviceError: if device is not found
     """
     devtype = nm_device_type(name)
@@ -543,36 +555,36 @@ def _device_settings(name):
             try:
                 hwaddr_str = nm_device_hwaddress(name)
             except PropertyNotFoundError:
-                settings = None
+                settings = []
             else:
                 settings = _settings_for_hwaddr(hwaddr_str)
 
     return settings
 
 def _settings_for_ap(ssid):
-    """Return object path of wireless access point settings.
+    """Return list of object paths of wireless access point settings.
 
        :param ssid: ssid of access point
        :type ssid: str
-       :return: path of settings, None if not found
-       :rtype: str or None
+       :return: list of paths of settings of access point
+       :rtype: list
 `   """
     return _find_settings(ssid, '802-11-wireless', 'ssid',
             format_value=lambda ba: "".join(chr(b) for b in ba))
 
 def _settings_for_hwaddr(hwaddr):
-    """Return object path of settings of device specified by hw address.
+    """Return list of object paths of settings of device specified by hw address.
 
        :param hwaddr: hardware address (uppercase)
        :type hwaddr: str
-       :return: path of settings, None if not found
-       :rtype: str or None
+       :return: list of paths of settings found for hw address
+       :rtype: list
     """
     return _find_settings(hwaddr, '802-3-ethernet', 'mac-address',
             format_value=lambda ba: ":".join("%02X" % b for b in ba))
 
 def _find_settings(value, key1, key2, format_value=lambda x:x):
-    """Return object path of settings having given value of key1, key2 setting
+    """Return list of object paths of settings having given value of key1, key2 setting
 
        :param value: required value of setting
        :type value: corresponds to dbus type of setting
@@ -583,10 +595,10 @@ def _find_settings(value, key1, key2, format_value=lambda x:x):
        :param format_value: function to be called on setting value before
                             comparing
        :type format_value: function taking one argument (setting value)
-       :return: path of settings, None if not found
-       :rtype: str or None
+       :return: list of paths of settings
+       :rtype: list
     """
-    retval = None
+    retval = []
 
     proxy = _get_proxy(object_path="/org/freedesktop/NetworkManager/Settings", interface_name="org.freedesktop.NetworkManager.Settings")
 
@@ -611,8 +623,27 @@ def _find_settings(value, key1, key2, format_value=lambda x:x):
         except KeyError:
             continue
         if format_value(v) == value:
-            retval = con
-            break
+            retval.append(con)
+
+    return retval
+
+def nm_get_settings(value, key1, key2, format_value=lambda x:x):
+    """Return settings having given value of key1, key2 setting
+
+       Returns list of settings(dicts) , None if settings were not found.
+    """
+    retval = []
+    settings_paths = _find_settings(value, key1, key2, format_value)
+    for settings_path in settings_paths:
+        proxy = _get_proxy(object_path=settings_path, interface_name="org.freedesktop.NetworkManager.Settings.Connection")
+        args = None
+        settings = proxy.call_sync("GetSettings",
+                                   args,
+                                   Gio.DBusCallFlags.NONE,
+                                   DEFAULT_DBUS_TIMEOUT,
+                                   None)
+        settings = settings.unpack()[0]
+        retval.append(settings)
 
     return retval
 
@@ -658,9 +689,11 @@ def nm_device_setting_value(name, key1, key2):
        :raise SettingsNotFoundError: if settings were not found
                                            (eg for "wlan0")
     """
-    settings_path = _device_settings(name)
-    if not settings_path:
+    settings_paths = _device_settings(name)
+    if not settings_paths:
         raise SettingsNotFoundError(name)
+    else:
+        settings_path = settings_paths[0]
     proxy = _get_proxy(object_path=settings_path, interface_name="org.freedesktop.NetworkManager.Settings.Connection")
     args = None
     settings = proxy.call_sync("GetSettings",
@@ -691,9 +724,11 @@ def nm_ap_setting_value(ssid, key1, key2):
        :raise SettingsNotFoundError: if settings were not found
                                            (eg for "wlan0")
     """
-    settings_path = _settings_for_ap(ssid)
-    if not settings_path:
+    settings_paths = _settings_for_ap(ssid)
+    if not settings_paths:
         raise SettingsNotFoundError(ssid)
+    else:
+        settings_path = settings_paths[0]
     proxy = _get_proxy(object_path=settings_path, interface_name="org.freedesktop.NetworkManager.Settings.Connection")
     args = None
     settings = proxy.call_sync("GetSettings",
@@ -745,6 +780,7 @@ def nm_activate_device_connection(dev_name, con_uuid):
        :raise UnknownDeviceError: if device is not found
        :raise UnmanagedDeviceError: if device is not managed by NM
                                     or unavailable
+       :raise SettingsNotFoundError: if conneciton with given uuid was not found
     """
 
     if dev_name is None:
@@ -766,9 +802,11 @@ def nm_activate_device_connection(dev_name, con_uuid):
 
         device_path = device.unpack()[0]
 
-    con_path = _find_settings(con_uuid, 'connection', 'uuid')
+    con_paths = _find_settings(con_uuid, 'connection', 'uuid')
+    if not con_paths:
+        raise SettingsNotFoundError(con_uuid)
 
-    args = GLib.Variant('(ooo)', (con_path, device_path, "/"))
+    args = GLib.Variant('(ooo)', (con_paths[0], device_path, "/"))
     nm_proxy = _get_proxy()
     try:
         nm_proxy.call_sync("ActivateConnection",
@@ -841,9 +879,11 @@ def nm_update_settings_of_device(name, new_values):
        :raise SettingsNotFoundError: if settings were not found
                                            (eg for "wlan0")
     """
-    settings_path = _device_settings(name)
-    if not settings_path:
+    settings_paths = _device_settings(name)
+    if not settings_paths:
         raise SettingsNotFoundError(name)
+    else:
+        settings_path = settings_paths[0]
     return _update_settings(settings_path, new_values)
 
 def _update_settings(settings_path, new_values):
