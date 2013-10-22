@@ -35,6 +35,7 @@ supported_device_types = [
     NetworkManager.DeviceType.BOND,
     NetworkManager.DeviceType.VLAN,
     NetworkManager.DeviceType.BRIDGE,
+    NetworkManager.DeviceType.TEAM,
 ]
 
 class UnknownDeviceError(ValueError):
@@ -275,6 +276,18 @@ def nm_device_type_is_bond(name):
        :raise PropertyNotFoundError: if property is not found
     """
     return nm_device_type(name) == NetworkManager.DeviceType.BOND
+
+def nm_device_type_is_team(name):
+    """Is the type of device team?
+
+       :param name: name of device
+       :type name: str
+       :return: True if type of device is TEAM, False otherwise
+       :rtype: bool
+       :raise UnknownDeviceError: if device is not found
+       :raise PropertyNotFoundError: if property is not found
+    """
+    return nm_device_type(name) == NetworkManager.DeviceType.TEAM
 
 def nm_device_type_is_vlan(name):
     """Is the type of device vlan?
