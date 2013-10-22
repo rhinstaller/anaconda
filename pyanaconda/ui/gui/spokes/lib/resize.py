@@ -369,7 +369,7 @@ class ResizeDialog(GUIObject):
         self._diskStore.foreach(self._sumReclaimableSpace, None)
         self._update_labels(selectedReclaimable=self._selectedReclaimableSpace)
 
-        self._update_reclaim_button(Size(spec="%s MB" % self._selectedReclaimableSpace))
+        self._update_reclaim_button(Size(spec="%f MB" % self._selectedReclaimableSpace))
         self._update_action_buttons(selectedRow)
 
     def _scheduleActions(self, model, path, itr, *args):
@@ -451,7 +451,7 @@ class ResizeDialog(GUIObject):
         self._update_labels(selectedReclaimable=self._selectedReclaimableSpace)
 
         # And then the reclaim button, in case they've made enough space.
-        self._update_reclaim_button(Size(spec="%s MB" % self._selectedReclaimableSpace))
+        self._update_reclaim_button(Size(spec="%f MB" % self._selectedReclaimableSpace))
 
     def resize_slider_format(self, scale, value):
         # This makes the value displayed under the slider prettier than just a

@@ -77,6 +77,6 @@ def size_str(mb):
     if isinstance(mb, Size):
         spec = str(mb)
     else:
-        spec = "%s mb" % mb
+        spec = "%f mb" % mb
 
     return str(Size(spec=spec)).upper()
