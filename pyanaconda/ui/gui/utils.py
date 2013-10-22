@@ -231,4 +231,7 @@ def escape_markup(value):
     This function converts the value to a string before passing markup_escape_text().
     """
 
+    if isinstance(value, unicode):
+        value = value.encode("utf-8")
+
     return GLib.markup_escape_text(str(value))
