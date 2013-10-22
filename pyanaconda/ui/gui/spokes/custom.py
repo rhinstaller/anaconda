@@ -828,7 +828,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         for disk in self._clearpartDevices:
             totalSpace += disk.size
 
-        return Size(spec="%s MB" % totalSpace)
+        return Size(spec="%f MB" % totalSpace)
 
     def _updateSpaceDisplay(self):
         # Set up the free space/available space displays in the bottom left.
