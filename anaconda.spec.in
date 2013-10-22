@@ -222,6 +222,10 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Tue Oct 22 2013 Samantha N. Bueno <sbueno+anaconda@redhat.com> - 13.21.215-1
+- Explicitly load dm-raid.ko for lvm raid segment types. (dlehman)
+  Resolves: rhbz#873281
+
 * Mon Oct 21 2013 Samantha N. Bueno <sbueno+anaconda@redhat.com> - 13.21.214-1
 - Don't traceback due to unpartitioned devices (mkolman)
   Resolves: rhbz#1007683
