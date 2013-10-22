@@ -90,7 +90,6 @@ enum {
 
 struct _AnacondaBaseWindowPrivate {
     gboolean    is_beta, info_shown;
-    gulong     clicked_handler_id;
     GtkWidget  *main_box, *event_box, *info_bar;
     GtkWidget  *alignment;
     GtkWidget  *nav_box, *nav_area, *action_area;
@@ -484,8 +483,8 @@ static void anaconda_base_window_set_info_bar(AnacondaBaseWindow *win, GtkMessag
      * bar is hidden.
      */
     gtk_widget_add_events(GTK_WIDGET(win->priv->event_box), GDK_BUTTON_RELEASE_MASK);
-    win->priv->clicked_handler_id = g_signal_connect(win->priv->event_box, "button-release-event",
-                                          G_CALLBACK(anaconda_base_window_info_bar_clicked), win);
+    g_signal_connect(win->priv->event_box, "button-release-event",
+                     G_CALLBACK(anaconda_base_window_info_bar_clicked), win);
 
     content_area = gtk_info_bar_get_content_area(GTK_INFO_BAR(win->priv->info_bar));
 
@@ -563,8 +562,6 @@ static gboolean anaconda_base_window_info_bar_clicked(GtkWidget *wiget, GdkEvent
 void anaconda_base_window_clear_info(AnacondaBaseWindow *win) {
     if (!win->priv->info_shown)
         return;
-
-    g_signal_handler_disconnect(win->priv->event_box, win->priv->clicked_handler_id);
 
     gtk_widget_hide(win->priv->info_bar);
     gtk_widget_destroy(win->priv->info_bar);
