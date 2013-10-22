@@ -99,7 +99,7 @@ class DriverDisk(commands.driverdisk.F14_DriverDisk):
         if location:
             return "inst.driverdisk=%s" % location
 
-class Network(commands.network.F19_Network):
+class Network(commands.network.F20_Network):
     def dracut_args(self, args, lineno, net):
         '''
         NOTE: The first 'network' line get special treatment:
@@ -307,7 +307,7 @@ def ksnet_to_ifcfg(net, filename=None):
     if not dev:
         return
     if (not os.path.isdir("/sys/class/net/%s" % dev)
-        and not net.bondslaves):
+        and not net.bondslaves and not net.teamslaves):
         log.info("can't find device %s" % dev)
         return
     ifcfg = dict()
@@ -403,6 +403,34 @@ def ksnet_to_ifcfg(net, filename=None):
             # FIXME - change in dracut?
             slave_filename = "/tmp/ifcfg/ifcfg-%s" % slave
             log.info("writing ifcfg %s for slave %s of bond %s" % (slave_filename, slave, dev))
+            write_ifcfg(slave_filename, slave_ifcfg)
+
+    if net.teamslaves:
+
+        ifcfg.pop('HWADDR')
+        ifcfg['TYPE'] = "Team"
+        ifcfg['NAME'] = "Team connection %s" % dev
+        ifcfg['TEAM_CONFIG'] = "'" + net.teamconfig + "'"
+
+        for i, (slave, cfg) in enumerate(net.teamslaves):
+            slave_ifcfg = {
+                            'DEVICE': slave,
+                            'DEVICETYPE' : "TeamPort",
+                            'NAME' : "%s slave %s" % (dev, i),
+                            'UUID' : str(uuid.uuid4()),
+                            'ONBOOT' : "yes",
+                            'TEAM_MASTER' : dev,
+#                            'HWADDR' : readsysfile("/sys/class/net/%s/address" % slave),
+                          }
+            if cfg:
+                slave_ifcfg['TEAM_PORT_CONFIG'] = "'" + cfg + "'"
+
+            # not using NM naming conventions, following dracut so that it does not
+            # override kickstart config by generating its own ifcfg files for slaves
+            #slave_filename = "/tmp/ifcfg/ifcfg-%s" % "_".join(slave_ifcfg['NAME'].split(" "))
+            # FIXME - change in dracut?
+            slave_filename = "/tmp/ifcfg/ifcfg-%s" % slave
+            log.info("writing ifcfg %s for slave %s of team %s" % (slave_filename, slave, dev))
             write_ifcfg(slave_filename, slave_ifcfg)
 
     if net.vlanid:
