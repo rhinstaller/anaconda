@@ -554,6 +554,8 @@ def ksdata_from_ifcfg(devname):
         nm.device = ""
     elif nm.nm_device_type_is_bond(devname):
         nd.device = devname
+    elif nm.nm_device_type_is_team(devname):
+        nd.device = devname
     elif nm.nm_device_type_is_vlan(devname):
         nd.device = devname.split(".")[0]
 
@@ -567,6 +569,9 @@ def ifcfg_to_ksdata(ifcfg, devname):
 
     # no network command for bond slaves
     if ifcfg.get("MASTER"):
+        return None
+    # no network command for team slaves
+    if ifcfg.get("TEAM_MASTER"):
         return None
 
     # ipv4 and ipv6
@@ -662,7 +667,19 @@ def ifcfg_to_ksdata(ifcfg, devname):
         kwargs["vlanid"] = ifcfg.get("VLAN_ID")
 
     # pylint: disable-msg=E1101
-    return handler.NetworkData(**kwargs)
+    nd = handler.NetworkData(**kwargs)
+
+    # teaming
+    if ifcfg.get("TYPE") == "Team" or ifcfg.get("DEVICETYPE") == "Team":
+        slaves = get_team_slaves([devname, ifcfg.get("UUID")])
+        for dev, cfg in slaves:
+            nd.teamslaves.append((dev, cfg))
+
+        teamconfig = nm.nm_device_setting_value(devname, "team", "config")
+        if teamconfig:
+            nd.teamconfig = teamconfig
+
+    return nd
 
 def hostname_ksdata(hostname):
     from pyanaconda.kickstart import AnacondaKSHandler
@@ -682,6 +699,8 @@ def find_ifcfg_file_of_device(devname, root_path=""):
             ifcfg_path = find_ifcfg_file([("ESSID", ssid)])
     elif nm.nm_device_type_is_bond(devname):
         ifcfg_path = find_ifcfg_file([("DEVICE", devname)])
+    elif nm.nm_device_type_is_team(devname):
+        ifcfg_path = find_ifcfg_file([("DEVICE", devname)])
     elif nm.nm_device_type_is_vlan(devname):
         ifcfg_path = find_ifcfg_file([("DEVICE", devname)])
     elif nm.nm_device_type_is_ethernet(devname):
@@ -696,6 +715,10 @@ def find_ifcfg_file_of_device(devname, root_path=""):
             ifcfg_path = find_ifcfg_file([("HWADDR", hwaddr_check),
                                           ("MASTER", nonempty)],
                                          root_path)
+            if not ifcfg_path:
+                ifcfg_path = find_ifcfg_file([("HWADDR", hwaddr_check),
+                                              ("TEAM_MASTER", nonempty)],
+                                             root_path)
             if not ifcfg_path:
                 ifcfg_path = find_ifcfg_file([("HWADDR", hwaddr_check)], root_path)
         if not ifcfg_path:
@@ -745,6 +768,39 @@ def get_bond_slaves_from_ifcfgs(master_specs):
                     if h.upper() == hwaddr.upper():
                         slaves.append(devname)
                         break
+    return slaves
+
+# why not from ifcfg? because we want config json value without escapes
+def get_team_slaves(master_specs):
+    """List of slaves of master specified by master_specs (name, opts).
+
+       master_specs is a list containing device name of master (dracut)
+       and/or master's connection uuid
+    """
+    slaves = []
+
+    for master in master_specs:
+        slave_settings = nm.nm_get_settings(master, "connection", "master")
+        for settings in slave_settings:
+            try:
+                cfg = settings["team-port"]["config"]
+            except KeyError as e:
+                cfg = ""
+            devname = settings["connection"].get("interface-name")
+            #nm-c-e doesn't save device name
+            # TODO: wifi, infiniband
+            if not devname:
+                type = settings["connection"]["type"]
+                if type == "802-3-ethernet":
+                    hwaddr = settings["802-3-ethernet"]["mac-address"]
+                    hwaddr = ":".join("%02X" % b for b in hwaddr)
+                    devname = nm.nm_hwaddr_to_device_name(hwaddr)
+            if devname:
+                slaves.append((devname, cfg))
+            else:
+                uuid = settings["connection"].get("uuid")
+                log.debug("network: can't get team slave device name of %s", uuid)
+
     return slaves
 
 def ifaceForHostIP(host):
