@@ -260,9 +260,8 @@ update-desktop-database &> /dev/null || :
   Resolves: rhbz#1002462
 - Don't ask to start vnc if user specifies text mode. (sbueno+anaconda)
   Resolves: rhbz#959119
-- Revert "Only prompt for LUKS password if the user has chosen to configure
-  automatically." (amulhern)
-  Related: rhbz#1017330
+- Do not accept changes if the user presses Esc on summary screen.
+  Resolves: rhbz#998384
 
 * Thu Oct 17 2013 Brian C. Lane <bcl@redhat.com> - 19.31.28-1
 - Fix liveinst to work with livemedia-creator (bcl)
