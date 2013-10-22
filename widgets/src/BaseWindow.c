@@ -562,8 +562,6 @@ void anaconda_base_window_clear_info(AnacondaBaseWindow *win) {
     if (!win->priv->info_shown)
         return;
 
-    g_object_disconnect(win->priv->info_bar, "button-release-event", NULL);
-
     gtk_widget_hide(win->priv->info_bar);
     gtk_widget_destroy(win->priv->info_bar);
     gtk_widget_destroy(win->priv->event_box);
