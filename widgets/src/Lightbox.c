@@ -74,7 +74,6 @@ static void anaconda_lightbox_set_property(GObject *object, guint prop_id, const
 static void anaconda_lightbox_set_parent_window(GObject *gobject, GParamSpec *psec, gpointer user_data);
 
 static gboolean anaconda_lb_parent_configure_event(GtkWidget *parent, GdkEvent *event, gpointer lightbox);
-static gboolean anaconda_lb_configure_event(GtkWidget *lightbox, GdkEvent *event, gpointer user_data);
 static void anaconda_lb_cleanup(GtkWidget *widget, gpointer user_data);
 
 G_DEFINE_TYPE(AnacondaLightbox, anaconda_lightbox, GTK_TYPE_WINDOW)
@@ -142,9 +141,6 @@ static void anaconda_lightbox_init(AnacondaLightbox *lightbox)
         gtk_widget_set_app_paintable(GTK_WIDGET(lightbox), TRUE);
     }
 
-    /* handle restacking events */
-    g_signal_connect(lightbox, "configure-event", G_CALLBACK(anaconda_lb_configure_event), NULL);
-
     /* cleanup */
     g_signal_connect(lightbox, "destroy", G_CALLBACK(anaconda_lb_cleanup), NULL);
 }
@@ -178,8 +174,8 @@ static gboolean anaconda_lb_parent_configure_event(
         )
 {
     /* Always return FALSE to continue processing for this signal. */
-    GdkWindow *g_parent_window;
     GdkWindow *g_lightbox_window;
+    gint x, y, width, height;
 
     if ((event->type != GDK_CONFIGURE) ||
             !GTK_IS_WIDGET(parent) ||
@@ -198,22 +194,20 @@ static gboolean anaconda_lb_parent_configure_event(
         return FALSE;
     }
 
-    /* Resize and move the window according to the event data */
-    gdk_window_move_resize(g_lightbox_window,
-            event->configure.x,
-            event->configure.y,
-            event->configure.width,
-            event->configure.height
-            );
+    /* Get the current size and position of the lightbox */
+    gdk_window_get_geometry(g_lightbox_window, &x, &y, &width, &height);
 
-    g_parent_window = gtk_widget_get_window(parent);
-    if (NULL == g_parent_window)
+    /* Resize and move the lightbox if anything changed */
+    if ((event->configure.x != x) || (event->configure.y != y) ||
+            (event->configure.width != width) || (event->configure.height != height))
     {
-        return FALSE;
+        gdk_window_move_resize(g_lightbox_window,
+                event->configure.x,
+                event->configure.y,
+                event->configure.width,
+                event->configure.height
+                );
     }
-
-    /* Stack the lightbox above the parent */
-    gdk_window_restack(g_lightbox_window, g_parent_window, TRUE);
 
     return FALSE;
 }
@@ -318,47 +312,6 @@ static void anaconda_lightbox_set_parent_window(
     }
 
     gtk_widget_show(GTK_WIDGET(lightbox));
-}
-
-/*
- * Restack the lightbox and its parent any time we receive a configure-event
- * on the lightbox
- */
-static gboolean anaconda_lb_configure_event(
-        GtkWidget *lightbox,
-        GdkEvent *event,
-        gpointer user_data
-        )
-{
-    GtkWindow *parent;
-    GdkWindow *g_parent_window;
-    GdkWindow *g_lightbox_window;
-
-    if ((event->type != GDK_CONFIGURE) || !ANACONDA_IS_LIGHTBOX(lightbox))
-    {
-        return FALSE;
-    }
-
-    parent = ANACONDA_LIGHTBOX(lightbox)->priv->transient_parent;
-    if (!GTK_IS_WINDOW(parent))
-    {
-        return FALSE;
-    }
-
-    g_lightbox_window = gtk_widget_get_window(lightbox);
-    if (NULL == g_lightbox_window)
-    {
-        return FALSE;
-    }
-
-    g_parent_window = gtk_widget_get_window(GTK_WIDGET(parent));
-    if (NULL == g_parent_window)
-    {
-        return FALSE;
-    }
-
-    gdk_window_restack(g_lightbox_window, g_parent_window, TRUE);
-    return FALSE;
 }
 
 /* Clean up references to lightbox held by the parent window */
