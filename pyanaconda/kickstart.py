@@ -1729,6 +1729,7 @@ def doKickstartStorage(storage, ksdata, instClass):
     if not any(d for d in storage.disks
                if not d.format.hidden and not d.protected):
         return
+    ksdata.bootloader.execute(storage, ksdata, instClass)
     ksdata.autopart.execute(storage, ksdata, instClass)
     ksdata.partition.execute(storage, ksdata, instClass)
     ksdata.raid.execute(storage, ksdata, instClass)
