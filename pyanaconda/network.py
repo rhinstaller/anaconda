@@ -34,7 +34,7 @@ import threading
 import re
 import dbus
 import IPy
-import uuid
+from uuid import uuid4
 import itertools
 
 from pyanaconda.simpleconfig import SimpleConfigFile
@@ -285,7 +285,7 @@ def dumpMissingDefaultIfcfgs():
 
         # check that device has connection without ifcfg file
         try:
-            con_uuid = nm.nm_device_setting_value(devname, "connection", "uuid")
+            nm.nm_device_setting_value(devname, "connection", "uuid")
         except nm.SettingsNotFoundError:
             continue
         if find_ifcfg_file_of_device(devname):
@@ -458,7 +458,7 @@ def bond_options_ksdata_to_dbus(opts_str):
 def add_connection_for_ksdata(networkdata, devname):
 
     added_connections = []
-    con_uuid = str(uuid.uuid4())
+    con_uuid = str(uuid4())
     values = _get_ip_setting_values_from_ksdata(networkdata)
     # HACK preventing NM to autoactivate the connection
     #values.append(['connection', 'autoconnect', networkdata.onboot, 'b'])
@@ -473,13 +473,13 @@ def add_connection_for_ksdata(networkdata, devname):
         values.append(['bond', 'interface-name', devname, 's'])
         options = bond_options_ksdata_to_dbus(networkdata.bondopts)
         values.append(['bond', 'options', options, 'a{ss}'])
-        for i, slave in enumerate(networkdata.bondslaves.split(","), 1):
+        for _i, slave in enumerate(networkdata.bondslaves.split(","), 1):
 
             #slave_name = "%s slave %d" % (devname, i)
             slave_name = slave
 
             svalues = []
-            suuid =  str(uuid.uuid4())
+            suuid =  str(uuid4())
             svalues.append(['connection', 'uuid', suuid, 's'])
             svalues.append(['connection', 'id', slave_name, 's'])
             svalues.append(['connection', 'slave-type', 'bond', 's'])
