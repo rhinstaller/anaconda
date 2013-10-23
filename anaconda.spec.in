@@ -255,6 +255,36 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Wed Oct 23 2013 Brian C. Lane <bcl@redhat.com> - 19.31.30-1
+- Turn spinner back on for configuration (bcl)
+  Related: rhbz#1019970
+  Resolves: rhbz#1019970
+- Correctly generate rescue initrd (bcl)
+  Related: rhbz#1019970
+  Resolves: rhbz#1019970
+- Always regenerate initramfs (bcl)
+  Resolves: rhbz#1019970
+- remove signal disconnect (bcl)
+  Resolves: rhbz#996899
+- Always use decimal notation for Size specs (dshea)
+  Resolves: rhbz#999440
+- network kickstart: add support for devices configured in %%pre (rvykydal)
+  Resolves: rhbz#1019796
+- network gui spoke: use GDBus to obtain list of settings (rvykydal)
+  Resolves: rhbz#1019775
+- network: remove function we don't need anymore (rvykydal)
+  Resolves: rhbz#1019775
+  Related: rhbz#1019775
+- network gui: make Configure button insensitive when no ap is selected
+  (rvykydal)
+  Resolves: rhbz#1015212
+- Use a temporary directory for verifying ISO media (dshea)
+  Related: rhbz#1017648
+- Skip devices not controllable by blivet (dshea)
+  Resolves: rhbz#1017648
+- Use more general status for installations from media (vpodzime)
+  Resolves: rhbz#1017703
+
 * Mon Oct 21 2013 Brian C. Lane <bcl@redhat.com> - 19.31.29-1
 - Use Unicode in the TUI buffer strings (dshea)
   Resolves: rhbz#1002462
