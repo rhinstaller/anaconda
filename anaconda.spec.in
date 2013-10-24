@@ -254,6 +254,19 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Wed Oct 23 2013 Brian C. Lane <bcl@redhat.com> - 21.2-1
+- remove signal disconnect (#996899) (bcl)
+- Re-saved every glade file with glade-3.16.0 (dshea)
+- Fix pylint errors in network.py. (clumens)
+- Always use decimal notation for Size specs (dshea)
+- network kickstart: add support for devices configured in %%pre (#1019796)
+  (rvykydal)
+- network gui: make Configure button insensitive when no ap is selected
+  (#1015212) (rvykydal)
+- Encode possible unicode objects before calling str() on them (vpodzime)
+- Fix a typo in function documentation (vpodzime)
+- Use more general status for installations from media (#1017703) (vpodzime)
+
 * Mon Oct 21 2013 Brian C. Lane <bcl@redhat.com> - 21.1-1
 - Adds additional debug logging to yumpayload.py. (amulhern)
 - Handle invalid JSON in geoloc (#1021410) (dshea)

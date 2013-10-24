@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: anaconda 21.0\n"
+"Project-Id-Version: anaconda 21.1\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
-"POT-Creation-Date: 2013-10-21 16:27-0700\n"
+"POT-Creation-Date: 2013-10-23 17:05-0700\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -237,71 +237,71 @@ msgstr ""
 msgid "Running pre-installation scripts"
 msgstr ""
 
-#: pyanaconda/network.py:106
+#: pyanaconda/network.py:107
 msgid "Hostname cannot be None or an empty string."
 msgstr ""
 
-#: pyanaconda/network.py:109
+#: pyanaconda/network.py:110
 msgid "Hostname must be 255 or fewer characters in length."
 msgstr ""
 
-#: pyanaconda/network.py:114
+#: pyanaconda/network.py:115
 msgid ""
 "Hostname must start with a valid character in the ranges 'a-z', 'A-Z', or "
 "'0-9'"
 msgstr ""
 
-#: pyanaconda/network.py:122
+#: pyanaconda/network.py:123
 msgid ""
 "Hostnames can only contain the characters 'a-z', 'A-Z', '0-9', '-', or '.', "
 "parts between periods must contain something and cannot start or end with "
 "'-'."
 msgstr ""
 
-#: pyanaconda/network.py:1054 pyanaconda/ui/gui/spokes/custom.py:1002
+#: pyanaconda/network.py:1205 pyanaconda/ui/gui/spokes/custom.py:1002
 #: pyanaconda/ui/gui/spokes/network.py:607
 #: pyanaconda/ui/gui/spokes/lib/accordion.py:60
 msgid "Unknown"
 msgstr ""
 
-#: pyanaconda/network.py:1058
+#: pyanaconda/network.py:1209
 msgid "Connecting..."
 msgstr ""
 
-#: pyanaconda/network.py:1060
+#: pyanaconda/network.py:1211
 msgid "Disconnecting..."
 msgstr ""
 
-#: pyanaconda/network.py:1080
+#: pyanaconda/network.py:1231
 #, python-format
 msgid "Wired (%(interface_name)s) connected"
 msgstr ""
 
-#: pyanaconda/network.py:1083
+#: pyanaconda/network.py:1234
 #, python-format
 msgid "Wireless connected to %(access_point)s"
 msgstr ""
 
-#: pyanaconda/network.py:1086
+#: pyanaconda/network.py:1237
 #, python-format
 msgid "Bond %(interface_name)s (%(list_of_slaves)s) connected"
 msgstr ""
 
-#: pyanaconda/network.py:1092
+#: pyanaconda/network.py:1243
 #, python-format
 msgid "Vlan %(interface_name)s (%(parent_device)s, ID %(vlanid)s) connected"
 msgstr ""
 
-#: pyanaconda/network.py:1105
+#: pyanaconda/network.py:1256
 #, python-format
 msgid "Connected: %(list_of_interface_names)s"
 msgstr ""
 
-#: pyanaconda/network.py:1108
+#: pyanaconda/network.py:1259
 msgid "Not connected"
 msgstr ""
 
-#: pyanaconda/network.py:1111 pyanaconda/ui/gui/spokes/network.glade.h:45
+#: pyanaconda/network.py:1262 pyanaconda/ui/gui/spokes/network.glade.h:45
 msgid "No network devices available"
 msgstr ""
 
@@ -739,8 +739,8 @@ msgid "Can't apply configuration, device activation failed."
 msgstr ""
 
 #: pyanaconda/ui/tui/spokes/network.py:222
-#: pyanaconda/ui/gui/spokes/network.py:1274
-#: pyanaconda/ui/gui/spokes/network.py:1347
+#: pyanaconda/ui/gui/spokes/network.py:1275
+#: pyanaconda/ui/gui/spokes/network.py:1348
 #, python-format
 msgid "Hostname is not valid: %s"
 msgstr ""
@@ -963,7 +963,7 @@ msgstr ""
 
 #: pyanaconda/ui/tui/spokes/source.py:87
 #: pyanaconda/ui/gui/spokes/source.py:512
-msgid "CD/DVD drive"
+msgid "Local media"
 msgstr ""
 
 #: pyanaconda/ui/tui/spokes/source.py:91
@@ -1068,7 +1068,7 @@ msgid "Warnings"
 msgstr ""
 
 #: pyanaconda/ui/tui/spokes/warnings.py:44
-#: pyanaconda/ui/gui/spokes/welcome.glade.h:4
+#: pyanaconda/ui/gui/spokes/welcome.glade.h:8
 msgid ""
 "This hardware (or a combination thereof) is not supported by Red Hat.  For "
 "more information on supported hardware, please refer to http://www.redhat."
@@ -1301,7 +1301,7 @@ msgstr ""
 
 #: pyanaconda/ui/gui/spokes/custom.py:247
 #: pyanaconda/ui/gui/spokes/custom.py:591
-#: pyanaconda/ui/gui/spokes/network.py:988 widgets/src/SpokeSelector.c:55
+#: pyanaconda/ui/gui/spokes/network.py:989 widgets/src/SpokeSelector.c:55
 #: pyanaconda/ui/gui/spokes/filter.glade.h:4
 #: pyanaconda/ui/gui/spokes/custom.glade.h:73
 msgid "None"
@@ -1709,12 +1709,12 @@ msgid "Wireless"
 msgstr ""
 
 #: pyanaconda/ui/gui/spokes/network.py:613
-#: pyanaconda/ui/gui/spokes/network.glade.h:3
+#: pyanaconda/ui/gui/spokes/network.glade.h:1
 msgid "Bond"
 msgstr ""
 
 #: pyanaconda/ui/gui/spokes/network.py:615
-#: pyanaconda/ui/gui/spokes/network.glade.h:5
+#: pyanaconda/ui/gui/spokes/network.glade.h:3
 msgid "Vlan"
 msgstr ""
 
@@ -1739,45 +1739,45 @@ msgstr ""
 msgid "%d Mb/s"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.py:973
+#: pyanaconda/ui/gui/spokes/network.py:974
 msgid "WEP"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.py:976
+#: pyanaconda/ui/gui/spokes/network.py:977
 msgid "WPA"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.py:979
+#: pyanaconda/ui/gui/spokes/network.py:980
 msgid "WPA2"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.py:983
+#: pyanaconda/ui/gui/spokes/network.py:984
 msgid "Enterprise"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.py:1115
+#: pyanaconda/ui/gui/spokes/network.py:1116
 #: pyanaconda/ui/gui/spokes/network.glade.h:50
 msgid "Authentication required by wireless network"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.py:1116
+#: pyanaconda/ui/gui/spokes/network.py:1117
 #, python-format
 msgid ""
 "Passwords or encryption keys are required to access\n"
 "the wireless network '%(network_id)s'."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.py:1129
+#: pyanaconda/ui/gui/spokes/network.py:1130
 msgctxt "GUI|Network|Secrets Dialog"
 msgid "_Password:"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.py:1137
+#: pyanaconda/ui/gui/spokes/network.py:1138
 msgctxt "GUI|Network|Secrets Dialog"
 msgid "_Key:"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.py:1192
+#: pyanaconda/ui/gui/spokes/network.py:1193
 msgctxt "GUI|Spoke"
 msgid "_NETWORK CONFIGURATION"
 msgstr ""
@@ -2556,21 +2556,21 @@ msgctxt "GUI|Installation Destination|Filter"
 msgid "Add FCo_E SAN..."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.glade.h:1
-msgid "Add device"
-msgstr ""
-
 #: pyanaconda/ui/gui/spokes/network.glade.h:2
-msgctxt "GUI|Network|Add Device Dialog"
-msgid "_Select the type of device you wish to add"
-msgstr ""
-
-#: pyanaconda/ui/gui/spokes/network.glade.h:4
 msgid "bond"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.glade.h:6
+#: pyanaconda/ui/gui/spokes/network.glade.h:4
 msgid "vlan"
+msgstr ""
+
+#: pyanaconda/ui/gui/spokes/network.glade.h:5
+msgid "Add device"
+msgstr ""
+
+#: pyanaconda/ui/gui/spokes/network.glade.h:6
+msgctxt "GUI|Network|Add Device Dialog"
+msgid "_Select the type of device you wish to add"
 msgstr ""
 
 #: pyanaconda/ui/gui/spokes/network.glade.h:7
@@ -3244,39 +3244,39 @@ msgid "Name of the repository."
 msgstr ""
 
 #: pyanaconda/ui/gui/spokes/welcome.glade.h:1
-msgctxt "GUI|Welcome|Unsupported Hardware Dialog"
-msgid "_Quit"
-msgstr ""
-
-#: pyanaconda/ui/gui/spokes/welcome.glade.h:2
-msgctxt "GUI|Welcome|Unsupported Hardware Dialog"
-msgid "_Continue"
-msgstr ""
-
-#: pyanaconda/ui/gui/spokes/welcome.glade.h:3
-msgid "Unsupported Hardware Detected"
-msgstr ""
-
-#: pyanaconda/ui/gui/spokes/welcome.glade.h:5
 msgctxt "GUI|Welcome|Beta Warn Dialog"
 msgid "_Get me out of here!"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/welcome.glade.h:6
+#: pyanaconda/ui/gui/spokes/welcome.glade.h:2
 msgctxt "GUI|Welcome|Beta Warn Dialog"
 msgid "_I accept my fate."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/welcome.glade.h:7
+#: pyanaconda/ui/gui/spokes/welcome.glade.h:3
 msgid "This is unstable, pre-release software."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/welcome.glade.h:8
+#: pyanaconda/ui/gui/spokes/welcome.glade.h:4
 msgid ""
 "You wake up inside an OS installer in Timbuktu, and it's six months in the "
 "future.  But, there are bugs.  Bugs everywhere.  Bugs you must live with.  "
 "This OS of the future isn't a stable OS you can rely on.  It's for testing "
 "purposes only."
+msgstr ""
+
+#: pyanaconda/ui/gui/spokes/welcome.glade.h:5
+msgctxt "GUI|Welcome|Unsupported Hardware Dialog"
+msgid "_Quit"
+msgstr ""
+
+#: pyanaconda/ui/gui/spokes/welcome.glade.h:6
+msgctxt "GUI|Welcome|Unsupported Hardware Dialog"
+msgid "_Continue"
+msgstr ""
+
+#: pyanaconda/ui/gui/spokes/welcome.glade.h:7
+msgid "Unsupported Hardware Detected"
 msgstr ""
 
 #: pyanaconda/ui/gui/spokes/welcome.glade.h:10
