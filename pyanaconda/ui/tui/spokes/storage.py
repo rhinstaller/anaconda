@@ -86,10 +86,7 @@ class StorageSpoke(NormalTUISpoke):
     def completed(self):
         retval = bool(self.storage.rootDevice and not self.errors)
 
-        if flags.automatedInstall:
-            return retval and self.data.bootloader.seen
-        else:
-            return retval
+        return retval
 
     @property
     def ready(self):
@@ -112,8 +109,6 @@ class StorageSpoke(NormalTUISpoke):
 
         if flags.automatedInstall and not self.storage.rootDevice:
             return msg
-        elif flags.automatedInstall and not self.data.bootloader.seen:
-            msg = _("No bootloader configured")
         elif self.data.ignoredisk.onlyuse:
             msg = P_(("%d disk selected"),
                      ("%d disks selected"),
