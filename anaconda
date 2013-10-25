@@ -773,7 +773,7 @@ if __name__ == "__main__":
     iutil.setup_translations(gettext)
 
     # reset python's default SIGINT handler
-    signal.signal(signal.SIGINT, signal.SIG_DFL)
+    signal.signal(signal.SIGINT, signal.SIG_IGN)
     signal.signal(signal.SIGSEGV, isys.handleSegv)
     signal.signal(signal.SIGTERM, lambda num, frame: sys.exit(1))
 
