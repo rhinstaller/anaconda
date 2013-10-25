@@ -45,6 +45,6 @@ done
 # platform.  Really any platform with a crappy console that can't do curses
 # or have multiple VTs should get sshd spawned automatically, but we don't
 # yet have a good way of detecting these platforms.
-if getargbool 0 inst.sshd || [ $(uname -m) = "s390x" ]; then
+if getargbool 0 sshd inst.sshd || [ $(uname -m) = "s390x" ]; then
     ln -sf $systemd_dir/anaconda-sshd.service $target_dir/anaconda-sshd.service
 fi
