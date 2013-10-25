@@ -866,6 +866,10 @@ class StorageSpoke(NormalSpoke, StorageChecker):
                     # User pressed cancel on the reclaim dialog, so don't leave
                     # the storage spoke.
                     return
+
+                # if the user did not press cancel that means they want to
+                # proceed with autopart
+                self.autopart = True
             elif dialog.continue_response == dialog.RESPONSE_CONTINUE_CUSTOM:
                 self.autopart = False
                 self.skipTo = "CustomPartitioningSpoke"
@@ -887,6 +891,10 @@ class StorageSpoke(NormalSpoke, StorageChecker):
                 # User pressed cancel on the reclaim dialog, so don't leave
                 # the storage spoke.
                 return
+
+            # if the user did not press cancel that means they want to
+            # proceed with autopart
+            self.autopart = True
         elif rc == dialog.RESPONSE_QUIT:
             raise SystemExit("user-selected exit")
         elif rc == dialog.RESPONSE_CUSTOM:
