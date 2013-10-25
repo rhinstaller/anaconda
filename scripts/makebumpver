@@ -43,6 +43,7 @@ class MakeBumpVer:
         self.username = None
         self.password = None
         self.bz = None
+        self._bz_cache = {}
 
         authfile = os.path.realpath(os.getenv('HOME') + '/.rhbzauth')
         if os.path.isfile(authfile):
@@ -76,6 +77,10 @@ class MakeBumpVer:
 
         self.configure = kwargs.get('configure')
         self.spec = kwargs.get('spec')
+        self.skip_acks = kwargs.get('skip_acks', False)
+
+        # RHEL release number or None
+        self.rhel = self._isRHEL()
 
     def _gitConfig(self, field):
         proc = subprocess.Popen(['git', 'config', field],
@@ -102,9 +107,11 @@ class MakeBumpVer:
         fields = lines[0].split(' ')
 
         if len(fields) == 2 and fields[1].startswith('rhel'):
-            return True
-        else:
-            return False
+            branch_pattern="^rhel(\d+)-(.*)"
+            m = re.match(branch_pattern, fields[1])
+            if m:
+                return m.group(1)
+        return False
 
     def _getCommitDetail(self, commit, field):
         proc = subprocess.Popen(['git', 'log', '-1',
@@ -143,12 +150,16 @@ class MakeBumpVer:
             rc = self.bz.login(self.username, self.password)
             log.debug("login rc = %s", rc)
 
+        if bug in self._bz_cache:
+            return self._bz_cache[bug]
+
         bugs = self.bz.query({'bug_id': bug})
         log.debug("bugs = %s", bugs)
 
         if len(bugs) != 1:
             return None
         else:
+            self._bz_cache[bug] = bugs[0]
             return bugs[0]
 
     def _isRHELBug(self, bug, commit, summary):
@@ -198,6 +209,23 @@ class MakeBumpVer:
             print "***     %s\n" % summary
             return False
 
+    def _isRHELBugAcked(self, bug, commit, summary):
+        """ Check the bug's ack state
+        """
+        if not self.rhel or self.skip_acks:
+            return True
+
+        bzentry = self._queryBug(bug)
+        ack_pattern="rhel-%s\.\d+\.\d+" % self.rhel
+        for f in bzentry.flags:
+            if re.match(ack_pattern, f['name']) and f['status'] == '+':
+                return True
+
+        print "*** Bug %s does not have ACK" % bug
+        print "***     Commit: %s" % commit
+        print "***     %s\n" % summary
+        return False
+
     def _rpmLog(self, fixedIn):
         git_range = "%s-%s-%s.." % (self.name, self.version, self.release)
         proc = subprocess.Popen(['git', 'log', '--pretty=oneline', git_range],
@@ -214,7 +242,6 @@ class MakeBumpVer:
 
         rpm_log = []
         bad = False
-        rhel = self._isRHEL()
 
         for line in lines:
             if not line:
@@ -228,7 +255,7 @@ class MakeBumpVer:
                 body = [body]
             author = self._getCommitDetail(commit, "%aE")
 
-            if rhel:
+            if self.rhel:
                 rhbz = set()
 
                 # look for a bug in the summary line, validate if found
@@ -270,6 +297,9 @@ class MakeBumpVer:
                         if not self._isRHELBugFixedInVersion(ckbug, commit,
                                                              summary, fixedIn):
                             bad = True
+
+                        if not self._isRHELBugAcked(ckbug, commit, summary):
+                            bad = True
                     else:
                         bad = True
                 else:
@@ -301,7 +331,8 @@ class MakeBumpVer:
                                                               summary) or \
                             not self._isRHELBugFixedInVersion(ckbug, commit,
                                                               summary,
-                                                              fixedIn)):
+                                                              fixedIn) or \
+                            not self._isRHELBugAcked(ckbug, commit, summary)):
                             bad = True
 
                 if len(rhbz) == 0:
@@ -385,6 +416,7 @@ def usage(cmd):
     sys.stdout.write("    -b, --bugreport  Bug reporting email address.\n")
     sys.stdout.write("    -i, --ignore     Comma separated list of git commits to ignore.\n")
     sys.stdout.write("    -m, --map        Comma separated list of FEDORA_BZ=RHEL_BZ mappings.\n")
+    sys.stdout.write("    -s, --skip-acks  Skip checking for rhel-X.X.X ack flag\n")
     sys.stdout.write("    -d, --debug      Turn on debug logging to stdout\n")
     sys.stdout.write("\nThe -i switch is intended for use with utility commits that we do not need to\n")
     sys.stdout.write("reference in the spec file changelog.  The -m switch is used to map a Fedora\n")
@@ -399,7 +431,7 @@ def main(argv):
     spec = os.path.realpath(cwd + '/anaconda.spec.in')
     name, version, release, bugreport = None, None, None, None
     ignore, bugmap = None, None
-    show_help, unknown = False, False
+    show_help, unknown, skip_acks = False, False, False
     opts = []
 
     try:
@@ -423,6 +455,8 @@ def main(argv):
             ignore = a
         elif o in ('-m', '--map'):
             bugmap = a
+        elif o in ('-s', '--skip-acks'):
+            skip_acks = True
         elif o in ('-d', '--debug'):
             log.setLevel(logging.DEBUG)
         elif o in ('-?', '--help'):
@@ -460,7 +494,7 @@ def main(argv):
 
     mbv = MakeBumpVer(name=name, version=version, release=release,
                       bugreport=bugreport, ignore=ignore, bugmap=bugmap,
-                      configure=configure, spec=spec)
+                      configure=configure, spec=spec, skip_acks=skip_acks)
     mbv.run()
 
 if __name__ == "__main__":
