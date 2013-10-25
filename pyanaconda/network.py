@@ -499,6 +499,41 @@ def add_connection_for_ksdata(networkdata, devname):
             nm.nm_add_connection(svalues)
             added_connections.append((suuid, slave))
         dev_spec = None
+    # type "team"
+    elif networkdata.teamslaves:
+        values.append(['connection', 'type', 'team', 's'])
+        values.append(['connection', 'id', devname, 's'])
+        values.append(['team', 'interface-name', devname, 's'])
+        values.append(['team', 'config', networkdata.teamconfig, 's'])
+        for i, (slave, cfg) in enumerate(networkdata.teamslaves):
+
+            # assume ethernet, TODO: infiniband, wifi, vlan
+            #slave_name = "%s slave %d" % (devname, i)
+            slave_name = slave
+
+            svalues = []
+            suuid =  str(uuid.uuid4())
+            svalues.append(['connection', 'uuid', suuid, 's'])
+            svalues.append(['connection', 'id', slave_name, 's'])
+            svalues.append(['connection', 'slave-type', 'team', 's'])
+            svalues.append(['connection', 'master', devname, 's'])
+            svalues.append(['connection', 'type', '802-3-ethernet', 's'])
+            mac = nm.nm_device_hwaddress(slave)
+            mac = [int(b, 16) for b in mac.split(":")]
+            svalues.append(['802-3-ethernet', 'mac-address', mac, 'ay'])
+            svalues.append(['team-port', 'config', cfg, 's'])
+
+            # disconnect slaves
+            if networkdata.activate:
+                nm.nm_disconnect_device(slave)
+            # remove ifcfg file
+            ifcfg_path = find_ifcfg_file_of_device(slave)
+            if ifcfg_path and os.access(ifcfg_path, os.R_OK):
+                os.unlink(ifcfg_path)
+
+            nm.nm_add_connection(svalues)
+            added_connections.append((suuid, slave))
+        dev_spec = None
     # type "vlan"
     elif networkdata.vlanid:
         parent, _sep, _vlanid = devname.partition(".")
@@ -1133,6 +1168,9 @@ def setOnboot(ksdata):
             devname = "%s.%s" % (physdev, network_data.vlanid)
         # bond
         elif network_data.bondslaves:
+            devname = network_data.device
+        # team
+        elif network_data.teamslaves:
             devname = network_data.device
         # ethernet
         else:
