@@ -62,13 +62,12 @@ def exitHandler(rebootData, storage, exitCode=None):
     if not flags.imageInstall and not flags.livecdInstall \
        and not flags.dirInstall:
         from pykickstart.constants import KS_SHUTDOWN, KS_WAIT
-        from pyanaconda.iutil import dracut_eject
+        from pyanaconda.iutil import dracut_eject, get_mount_paths
 
         if flags.eject or rebootData.eject:
-            for drive in storage.devicetree.devices:
-                if drive.type != "cdrom":
-                    continue
-                dracut_eject(drive.path)
+            for cdrom in storage.devicetree.getDevicesByType("cdrom"):
+                if get_mount_paths(cdrom.path):
+                    dracut_eject(cdrom.path)
 
         if rebootData.action == KS_SHUTDOWN:
             subprocess.Popen(["systemctl", "--no-wall", "poweroff"])
