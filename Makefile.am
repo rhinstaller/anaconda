@@ -74,6 +74,9 @@ scratch-bumpver: po-pull
 	if [ ! -z "$(BZDEBUG)" ]; then \
 		opts="$${opts} -d" ; \
 	fi ; \
+	if [ ! -z "$(SKIP_ACKS)" ]; then \
+		opts="$${opts} -s" ; \
+	fi ; \
 	scripts/makebumpver $${opts} || exit 1 ; \
 	$(MAKE) -C po $(PACKAGE_NAME).pot-update ; 
 
@@ -93,6 +96,9 @@ bumpver: po-pull
 	fi ; \
 	if [ ! -z "$(BZDEBUG)" ]; then \
 		opts="$${opts} -d" ; \
+	fi ; \
+	if [ ! -z "$(SKIP_ACKS)" ]; then \
+		opts="$${opts} -s" ; \
 	fi ; \
 	scripts/makebumpver $${opts} || exit 1 ; \
 	$(MAKE) -C po $(PACKAGE_NAME).pot-update ; \
