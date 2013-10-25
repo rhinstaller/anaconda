@@ -1186,10 +1186,10 @@ class RaidData(commands.raid.F18_RaidData):
                     dev = None
 
             if dev and dev.format.type != "mdmember":
-                raise KickstartValueError(formatErrorMsg(self.lineno, msg="RAID member %s has incorrect format (%s)" % (mem, dev.format.type)))
+                raise KickstartValueError(formatErrorMsg(self.lineno, msg="RAID member %s has incorrect format (%s)" % (member, dev.format.type)))
 
             if not dev:
-                raise KickstartValueError(formatErrorMsg(self.lineno, msg="Tried to use undefined partition %s in RAID specification" % mem))
+                raise KickstartValueError(formatErrorMsg(self.lineno, msg="Tried to use undefined partition %s in RAID specification" % member))
 
             raidmems.append(dev)
 
