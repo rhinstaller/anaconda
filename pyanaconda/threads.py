@@ -166,8 +166,6 @@ class AnacondaThread(threading.Thread):
         log.info("Running Thread: %s (%s)", self.name, self.ident)
         try:
             threading.Thread.run(self, *args, **kwargs)
-        except KeyboardInterrupt:
-            raise
         except:
             threadMgr.set_error(self.name, *sys.exc_info())
             sys.excepthook(*sys.exc_info())
