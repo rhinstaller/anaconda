@@ -254,6 +254,20 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Fri Oct 25 2013 Brian C. Lane <bcl@redhat.com> - 21.3-1
+- Reset _proxyChange when a change is triggered (bcl)
+- Setup No Update checkbox correctly (#1016801) (bcl)
+- Fall back to closest mirror in source (#1016801) (bcl)
+- anaconda-dracut: fix ks failure with hd:<dev>:some/path.ks (wwoods)
+- Make sure lower bound for resize is applied. (#986575) (dlehman)
+- Use devicetree to resolve device specs in kickstart. (#1022206) (dlehman)
+- Disregard raid level combo when it isn't applicable. (#1022203) (dlehman)
+- Mountpoint is an attr of the format, not the device. (#892747) (dlehman)
+- Add bootloader execute before autopart (#1021258) (bcl)
+- Do error checking of repository names on "Installation Source" screen.
+  (amulhern)
+- Avoid configure-event loops. (#1021511) (dshea)
+
 * Wed Oct 23 2013 Brian C. Lane <bcl@redhat.com> - 21.2-1
 - remove signal disconnect (#996899) (bcl)
 - Re-saved every glade file with glade-3.16.0 (dshea)
