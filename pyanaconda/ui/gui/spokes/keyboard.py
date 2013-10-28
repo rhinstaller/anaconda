@@ -325,6 +325,8 @@ class KeyboardSpoke(NormalSpoke):
         self._store = self.builder.get_object("addedLayoutStore")
         self._add_data_layouts()
 
+        self._selection = self.builder.get_object("layoutSelection")
+
         self._switching_dialog = ConfigureSwitchingDialog(self.data)
         self._switching_dialog.initialize()
 
@@ -421,19 +423,24 @@ class KeyboardSpoke(NormalSpoke):
                     self._removeLayout(self._store, itr)
                 self._remove_last_attempt = False
 
+            # Update the selection information
+            self._selection.emit("changed")
+
     def on_remove_clicked(self, button):
-        selection = self.builder.get_object("layoutSelection")
-        if not selection.count_selected_rows():
+        if not self._selection.count_selected_rows():
             return
 
-        (store, itr) = selection.get_selected()
+        (store, itr) = self._selection.get_selected()
         itr2 = store.get_iter_first()
         #if the first item is selected, try to select the next one
         if store[itr][0] == store[itr2][0]:
             itr2 = store.iter_next(itr2)
             if itr2: #next one existing
-                selection.select_iter(itr2)
+                self._selection.select_iter(itr2)
                 self._removeLayout(store, itr)
+                # Re-emit the selection changed signal now that the backing store is updated
+                # in order to update the first/last/only-based button sensitivities
+                self._selection.change("changed")
                 return
 
             #nothing left, run AddLayout dialog to replace the current layout
@@ -452,14 +459,13 @@ class KeyboardSpoke(NormalSpoke):
             itr3 = store.iter_next(itr3)
 
         self._removeLayout(store, itr)
-        selection.select_iter(itr2)
+        self._selection.select_iter(itr2)
 
     def on_up_clicked(self, button):
-        selection = self.builder.get_object("layoutSelection")
-        if not selection.count_selected_rows():
+        if not self._selection.count_selected_rows():
             return
 
-        (store, cur) = selection.get_selected()
+        (store, cur) = self._selection.get_selected()
         prev = store.iter_previous(cur)
         if not prev:
             return
@@ -472,14 +478,13 @@ class KeyboardSpoke(NormalSpoke):
             #layout is first in the list (set as default), activate it
             self._xkl_wrapper.activate_default_layout()
 
-        selection.emit("changed")
+        self._selection.emit("changed")
 
     def on_down_clicked(self, button):
-        selection = self.builder.get_object("layoutSelection")
-        if not selection.count_selected_rows():
+        if not self._selection.count_selected_rows():
             return
 
-        (store, cur) = selection.get_selected()
+        (store, cur) = self._selection.get_selected()
 
         #if default layout (first in the list) changes we need to activate it
         activate_default = not store.iter_previous(cur)
@@ -495,11 +500,10 @@ class KeyboardSpoke(NormalSpoke):
         if activate_default:
             self._xkl_wrapper.activate_default_layout()
 
-        selection.emit("changed")
+        self._selection.emit("changed")
 
     def on_preview_clicked(self, button):
-        selection = self.builder.get_object("layoutSelection")
-        (store, cur) = selection.get_selected()
+        (store, cur) = self._selection.get_selected()
         layout_row = store[cur]
         if not layout_row:
             return
@@ -536,17 +540,22 @@ class KeyboardSpoke(NormalSpoke):
         self._removeButton.set_sensitive(True)
         self._previewButton.set_sensitive(True)
 
-        # Disable the Up button if the top row's selected, and disable the
-        # Down button if the bottom row's selected.
-        if selected[0].get_indices() == [0]:
+        # If only one row is available, disable both the Up and Down button
+        if len(store) == 1:
             self._upButton.set_sensitive(False)
-            self._downButton.set_sensitive(True)
-        elif selected[0].get_indices() == [len(store)-1]:
-            self._upButton.set_sensitive(True)
             self._downButton.set_sensitive(False)
         else:
-            self._upButton.set_sensitive(True)
-            self._downButton.set_sensitive(True)
+            # Disable the Up button if the top row's selected, and disable the
+            # Down button if the bottom row's selected.
+            if selected[0].get_indices() == [0]:
+                self._upButton.set_sensitive(False)
+                self._downButton.set_sensitive(True)
+            elif selected[0].get_indices() == [len(store)-1]:
+                self._upButton.set_sensitive(True)
+                self._downButton.set_sensitive(False)
+            else:
+                self._upButton.set_sensitive(True)
+                self._downButton.set_sensitive(True)
 
     def on_options_clicked(self, *args):
         self._switching_dialog.refresh()
