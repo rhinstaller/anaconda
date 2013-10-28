@@ -1713,6 +1713,19 @@ class MacEFIGRUB(EFIGRUB):
         super(MacEFIGRUB, self).install()
         self.mactel_config()
 
+    def is_valid_stage1_device(self, device, early=False):
+        valid = super(MacEFIGRUB, self).is_valid_stage1_device(device, early)
+
+        # Make sure we don't pick the OSX root partition
+        if valid and getattr(device.format, "name", "") != "Linux HFS+ ESP":
+            valid = False
+
+        if hasattr(device.format, "name"):
+            log.debug("device.format.name is '%s'", device.format.name)
+
+        log.debug("MacEFIGRUB.is_valid_stage1_device(%s) returning %s", device.name, valid)
+        return valid
+
 
 class YabootBase(BootLoader):
     def write_config_password(self, config):

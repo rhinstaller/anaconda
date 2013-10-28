@@ -144,7 +144,7 @@ device_text_map = {DEVICE_TYPE_LVM: DEVICE_TEXT_LVM,
                    DEVICE_TYPE_BTRFS: DEVICE_TEXT_BTRFS,
                    DEVICE_TYPE_LVM_THINP: DEVICE_TEXT_LVM_THINP}
 
-partition_only_format_types = ["efi", "hfs+", "prepboot", "biosboot",
+partition_only_format_types = ["efi", "macefi", "prepboot", "biosboot",
                                "appleboot"]
 
 def size_from_entry(entry):

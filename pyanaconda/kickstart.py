@@ -957,7 +957,7 @@ class PartitionData(commands.partition.F18_PartData):
                 ksdata.onPart[kwargs["name"]] = self.onPart
         elif self.mountpoint == "/boot/efi":
             if blivet.arch.isMactel():
-                ty = "hfs+"
+                ty = "macefi"
             else:
                 ty = "EFI System Partition"
                 self.fsopts = "defaults,uid=0,gid=0,umask=0077,shortname=winnt"
