@@ -107,7 +107,7 @@ class MakeBumpVer:
         fields = lines[0].split(' ')
 
         if len(fields) == 2 and fields[1].startswith('rhel'):
-            branch_pattern="^rhel(\d+)-(.*)"
+            branch_pattern=r"^rhel(\d+)-(.*)"
             m = re.match(branch_pattern, fields[1])
             if m:
                 return m.group(1)
@@ -216,7 +216,7 @@ class MakeBumpVer:
             return True
 
         bzentry = self._queryBug(bug)
-        ack_pattern="rhel-%s\.\d+\.\d+" % self.rhel
+        ack_pattern=r"rhel-%s\.\d+\.\d+" % self.rhel
         for f in bzentry.flags:
             if re.match(ack_pattern, f['name']) and f['status'] == '+':
                 return True
