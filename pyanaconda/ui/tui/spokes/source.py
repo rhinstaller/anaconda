@@ -17,21 +17,28 @@
 # Red Hat, Inc.
 #
 # Red Hat Author(s): Samantha N. Bueno <sbueno@redhat.com>
+#                    Martin Kolman     <mkolman@redhat.com>
 #
 
 from pyanaconda.flags import flags
-from pyanaconda.ui.tui.spokes import EditTUISpoke
+from pyanaconda.ui.tui.spokes import EditTUISpoke, NormalTUISpoke
 from pyanaconda.ui.tui.spokes import EditTUISpokeEntry as Entry
 from pyanaconda.ui.tui.simpleline import TextWidget, ColumnWidget
 from pyanaconda.threads import threadMgr, AnacondaThread
 from pyanaconda.packaging import PayloadError, MetadataError
 from pyanaconda.i18n import _
-from pyanaconda.image import opticalInstallMedia
+from pyanaconda.image import opticalInstallMedia, potentialHdisoSources
 
 from pyanaconda.constants import THREAD_SOURCE_WATCHER, THREAD_SOFTWARE_WATCHER, THREAD_PAYLOAD
-from pyanaconda.constants import THREAD_PAYLOAD_MD, THREAD_STORAGE, THREAD_CHECK_SOFTWARE
+from pyanaconda.constants import THREAD_PAYLOAD_MD, THREAD_STORAGE, THREAD_STORAGE_WATCHER
+from pyanaconda.constants import THREAD_CHECK_SOFTWARE, ISO_DIR, DRACUT_ISODIR
+
+from blivet.util import get_mount_paths
 
 import re
+import os
+import glob
+import copy
 
 import logging
 LOG = logging.getLogger("anaconda")
@@ -39,7 +46,103 @@ LOG = logging.getLogger("anaconda")
 
 __all__ = ["SourceSpoke"]
 
-class SourceSpoke(EditTUISpoke):
+class SourceSwitchHandler(object):
+    """ A class that can be used as a mixin handling
+    installation source switching.
+    It will correctly switch to the new method
+    and cleanup any previous method set.
+    """
+
+    def __init__(self, data, storage):
+        self._device = None
+        self._current_iso_path = None
+        # Pylint doesn't like using self.data and self.storage
+        # if they are not declared here in init and we can't do
+        # that because they are set as a property by one of
+        # the classes used for constructing the TUISpoke.
+        # So we create a local class variable and use that.
+        self._data = data
+        self._storage = storage
+
+    def _clean_hdd_iso(self):
+        """ Clean HDD ISO usage
+        This means unmounting the partition and unprotecting it,
+        so it can be used for the installation.
+        """
+
+        if self._data.method.method == "harddrive" and self._data.method.partition:
+            part = self._data.method.partition
+            dev = self._storage.devicetree.getDeviceByName(part)
+            if dev:
+                dev.protected = False
+            self._storage.config.protectedDevSpecs.remove(part)
+
+    def set_source_hdd_iso(self, device, iso_path):
+        """ Switch to the HDD ISO install source
+
+        :param partition: name of the partition hosting the ISO
+        :type partition: string
+        :param iso_path: full path to the source ISO file
+        :type iso_path: string
+        """
+        partition = device.name
+        # the GUI source spoke also does the copy
+        old_source = copy.copy(self._data.method)
+
+        # if a different partition was used previously, unprotect it
+        if old_source.method == "harddrive" and old_source.partition != partition:
+            self._clean_hdd_iso()
+
+        # protect current device
+        if device:
+            device.protected = True
+            self._storage.config.protectedDevSpecs.append(device.name)
+
+        self._data.method.method = "harddrive"
+        self._data.method.partition = partition
+        # the / gets stripped off by payload.ISOImage
+        self._data.method.dir = "/" + iso_path
+
+        # as we already made the device protected when
+        # switching to it, we don't need to protect it here
+
+    def set_source_url(self, url=None):
+        """ Switch to install source specified by URL """
+
+        # clean any old HDD ISO sources
+        self._clean_hdd_iso()
+
+        self._data.method.method = "url"
+        if url is not None:
+            self._data.method.url = url
+
+    def set_source_nfs(self, opts=None):
+        """ Switch to NFS install source """
+
+        # clean any old HDD ISO sources
+        self._clean_hdd_iso()
+
+        self._data.method.method = "nfs"
+        if opts is not None:
+            self._data.method.opts = opts
+
+    def set_source_cdrom(self):
+        """ Switch to cdrom install source """
+
+        # clean any old HDD ISO sources
+        self._clean_hdd_iso()
+
+        self._data.method.method = "cdrom"
+
+    def set_source_closest_mirror(self):
+        """ Switch to the closest mirror install source """
+
+        # clean any old HDD ISO sources
+        self._clean_hdd_iso()
+
+        self._data.method.method = None
+
+class SourceSpoke(SourceSwitchHandler, EditTUISpoke):
     """ Spoke used to customize the install source repo. """
     title = _("Installation source")
     category = "source"
@@ -51,6 +154,7 @@ class SourceSpoke(EditTUISpoke):
 
     def __init__(self, app, data, storage, payload, instclass):
         EditTUISpoke.__init__(self, app, data, storage, payload, instclass)
+        SourceSwitchHandler.__init__(self, data, storage)
         self._ready = False
         self.errors = []
         self._cdrom = None
@@ -88,6 +192,10 @@ class SourceSpoke(EditTUISpoke):
             return _("NFS server %s") % self.data.method.server
         elif self.data.method.method == "cdrom":
             return _("Local media")
+        elif self.data.method.method == "harddrive":
+            if not self.data.method.dir:
+                return _("Error setting up software source")
+            return os.path.basename(self.data.method.dir)
         elif self.payload.baseRepo:
             return _("Closest mirror")
         else:
@@ -123,8 +231,8 @@ class SourceSpoke(EditTUISpoke):
 
         threadMgr.wait(THREAD_PAYLOAD_MD)
 
-        _methods = [_("CD/DVD"), _("Network")]
-        if args == 2:
+        _methods = [_("CD/DVD"), _("Local ISO file"), _("Network")]
+        if args == 3:
             text = [TextWidget(p) for p in self._protocols]
         else:
             self._window += [TextWidget(_("Choose an installation source type."))]
@@ -144,14 +252,15 @@ class SourceSpoke(EditTUISpoke):
         return True
 
     def input(self, args, key):
-        """ Handle the input; this decides the repo protocol. """
+        """ Handle the input; this decides the repo source. """
         try:
             num = int(key)
-            if args == 2:
+            if args == 3:
                 # network install
                 self._selection = num
                 if 0 < self._selection < 4:
-                    self.data.method.method = "url"
+                    # preliminary URL source switch
+                    self.set_source_url()
                     newspoke = SpecifyRepoSpoke(self.app, self.data, self.storage,
                                               self.payload, self.instclass, self._selection)
                     self.app.switch_screen_modal(newspoke)
@@ -160,7 +269,8 @@ class SourceSpoke(EditTUISpoke):
                     return True
                 elif self._selection == 4:
                     # nfs
-                    self.data.method.method = "nfs"
+                    # preliminary NFS source switch
+                    self.set_source_nfs()
                     newspoke = SpecifyNFSRepoSpoke(self.app, self.data, self.storage,
                                             self.payload, self.instclass, self._selection, self.errors)
                     self.app.switch_screen_modal(newspoke)
@@ -169,14 +279,25 @@ class SourceSpoke(EditTUISpoke):
                     return True
                 elif self._selection == 5 and self.payload.mirrorEnabled:
                     # closest mirror
-                    self.data.method.method = None
+                    self.set_source_closest_mirror()
                     self.apply()
                     self.close()
                     return True
+            elif num == 2:
+                # local ISO file (HDD ISO)
+                self._selection = num
+                newspoke = SelectDeviceSpoke(self.app, self.data,
+                                             self.storage, self.payload,
+                                             self.instclass)
+                self.app.switch_screen_modal(newspoke)
+                self.apply()
+                self.close()
+                return True
             else:
+                # mounted ISO
                 if num == 1:
                     # iso selected, just set some vars and return to main hub
-                    self.data.method.method = "cdrom"
+                    self.set_source_cdrom()
                     self.payload.install_device = self._cdrom
                     self.apply()
                     self.close()
@@ -216,10 +337,15 @@ class SourceSpoke(EditTUISpoke):
 
     def apply(self):
         """ Execute the selections made. """
-        threadMgr.add(AnacondaThread(name=THREAD_PAYLOAD_MD,
-                                     target=self.getRepoMetadata))
+        # If askmethod was provided on the command line, entering the source
+        # spoke wipes that out.
+        if flags.askmethod:
+            flags.askmethod = False
 
-class SpecifyRepoSpoke(EditTUISpoke):
+        threadMgr.add(AnacondaThread(name=THREAD_PAYLOAD_MD,
+                      target=self.getRepoMetadata))
+
+class SpecifyRepoSpoke(SourceSwitchHandler, EditTUISpoke):
     """ Specify the repo URL here if closest mirror not selected. """
     title = _("Specify Repo Options")
     category = "source"
@@ -230,6 +356,7 @@ class SpecifyRepoSpoke(EditTUISpoke):
 
     def __init__(self, app, data, storage, payload, instclass, selection):
         EditTUISpoke.__init__(self, app, data, storage, payload, instclass)
+        SourceSwitchHandler.__init__(self, data, storage)
         self.selection = selection
         self.args = self.data.method
 
@@ -243,18 +370,20 @@ class SpecifyRepoSpoke(EditTUISpoke):
 
     def apply(self):
         """ Apply all of our changes. """
+        url = None
         if self.selection == 2 and not self.args.url.startswith("http://"):
-            self.data.method.url = "http://" + self.args.url
+            url = "http://" + self.args.url
         elif self.selection == 3 and not self.args.url.startswith("https://"):
-            self.data.method.url = "https://" + self.args.url
+            url = "https://" + self.args.url
         elif self.selection == 4 and not self.args.url.startswith("ftp://"):
-            self.data.method.url = "ftp://" + self.args.url
+            url = "ftp://" + self.args.url
         else:
             # protocol either unknown or entry already starts with a protocol
             # specification
-            self.data.method.url = self.args.url
+            url = self.args.url
+        self.set_source_url(url)
 
-class SpecifyNFSRepoSpoke(EditTUISpoke):
+class SpecifyNFSRepoSpoke(SourceSwitchHandler, EditTUISpoke):
     """ Specify server and mount opts here if NFS selected. """
     title = _("Specify Repo Options")
     category = "source"
@@ -266,6 +395,7 @@ class SpecifyNFSRepoSpoke(EditTUISpoke):
 
     def __init__(self, app, data, storage, payload, instclass, selection, errors):
         EditTUISpoke.__init__(self, app, data, storage, payload, instclass)
+        SourceSwitchHandler.__init__(self, data, storage)
         self.selection = selection
         self.args = self.data.method
         self.errors = errors
@@ -293,4 +423,180 @@ class SpecifyNFSRepoSpoke(EditTUISpoke):
             self.errors.append(_("Failed to set up installation source. Check the source address."))
             return
 
-        self.data.method.opts = self.args.opts or ""
+        opts = self.args.opts or ""
+        self.set_source_nfs(opts)
+
+class SelectDeviceSpoke(NormalTUISpoke):
+    """ Select device containing the install source ISO file. """
+
+    title = _("Select device containing the ISO file")
+    category = "source"
+
+    def __init__(self, app, data, storage, payload, instclass):
+        NormalTUISpoke.__init__(self, app, data, storage, payload, instclass)
+        self._currentISOFile = None
+        self._mountable_devices = self._get_mountable_devices()
+        self._device = None
+
+    @property
+    def indirect(self):
+        return True
+
+    def _sanitize_model(self, model):
+        return model.replace("_", " ")
+
+    def _get_mountable_devices(self):
+        disks = []
+        fstring = "%(model)s %(path)s (%(size)s MB) %(format)s %(label)s"
+        for dev in potentialHdisoSources(self.storage.devicetree):
+            # path model size format type uuid of format
+            dev_info = {"model": self._sanitize_model(dev.disk.model),
+                        "path": dev.path,
+                        "size": dev.size,
+                        "format": dev.format.name or "",
+                        "label": dev.format.label or dev.format.uuid or ""
+                        }
+            disks.append([dev, fstring % dev_info])
+        return disks
+
+    def refresh(self, args=None):
+        NormalTUISpoke.refresh(self, args)
+
+        # check if the storage refresh thread is running
+        if threadMgr.get(THREAD_STORAGE_WATCHER):
+            # storage refresh is running - just report it
+            # so that the user can refresh until it is done
+            # TODO: refresh once the thread is done ?
+            message = _("Probing storage...")
+            self._window += [TextWidget(message), ""]
+            return True
+
+        # check if there are any mountable devices
+        if self._mountable_devices:
+            def _prep(i, w):
+                """ Mangle our text to make it look pretty on screen. """
+                number = TextWidget("%2d)" % (i + 1))
+                return ColumnWidget([(4, [number]), (None, [w])], 1)
+
+            devices = [TextWidget(d[1]) for d in self._mountable_devices]
+
+            # gnarl and mangle all of our widgets so things look pretty on
+            # screen
+            choices = [_prep(i, w) for i, w in enumerate(devices)]
+
+            displayed = ColumnWidget([(78, choices)], 1)
+            self._window.append(displayed)
+
+        else:
+            message = _("No mountable devices found")
+            self._window += [TextWidget(message), ""]
+        return True
+
+    def input(self, args, key):
+        try:
+            # try to switch to one of the mountable devices
+            # to look for ISOs
+            num = int(key)
+            device = self._mountable_devices[num-1][0]  # get the device object
+            self._device = device
+            newspoke = SelectISOSpoke(self.app, self.data,
+                                      self.storage, self.payload,
+                                      self.instclass, device)
+            self.app.switch_screen_modal(newspoke)
+            self.close()
+            return True
+        except (IndexError, ValueError):
+            # either the input was not a number or
+            # we don't have the disk for the given number
+            return key
+
+class SelectISOSpoke(SourceSwitchHandler, NormalTUISpoke):
+    """ Select an ISO to use as install source. """
+
+    title = _("Select an ISO to use as install source")
+    category = "source"
+
+    def __init__(self, app, data, storage, payload, instclass, device):
+        NormalTUISpoke.__init__(self, app, data, storage, payload, instclass)
+        SourceSwitchHandler.__init__(self, data, storage)
+        self.selection = None
+        self.args = self.data.method
+        self._device = device
+        self._mount_device()
+        self._isos = self._getISOs()
+
+    def refresh(self, args=None):
+        NormalTUISpoke.refresh(self, args)
+
+        if self._isos:
+            isos = [TextWidget(iso) for iso in self._isos]
+
+            def _prep(i, w):
+                """ Mangle our text to make it look pretty on screen. """
+                number = TextWidget("%2d)" % (i + 1))
+                return ColumnWidget([(4, [number]), (None, [w])], 1)
+
+            # gnarl and mangle all of our widgets so things look pretty on screen
+            choices = [_prep(i, w) for i, w in enumerate(isos)]
+
+            displayed = ColumnWidget([(78, choices)], 1)
+            self._window.append(displayed)
+        else:
+            message = _("No *.iso files found in device root folder")
+            self._window += [TextWidget(message), ""]
+
+        return True
+
+    def input(self, args, key):
+        if key == "c":
+            self.apply()
+            self.close()
+            return key
+        try:
+            num = int(key)
+            # get the ISO path
+            self._current_iso_path = self._isos[num-1]
+            self.apply()
+            self.close()
+            return True
+        except (IndexError, ValueError):
+            return key
+
+    @property
+    def indirect(self):
+        return True
+
+    def _mount_device(self):
+        """ Mount the device so we can search it for ISOs. """
+        mounts = get_mount_paths(self._device.path)
+
+        # We have to check both ISO_DIR and the DRACUT_ISODIR because we
+        # still reference both, even though /mnt/install is a symlink to
+        # /run/install.  Finding mount points doesn't handle the symlink
+        if ISO_DIR not in mounts and DRACUT_ISODIR not in mounts:
+            # We're not mounted to either location, so do the mount
+            self._device.format.mount(mountpoint=ISO_DIR)
+
+    def _unmount_device(self):
+        self._device.format.unmount()
+
+    def _getISOs(self):
+        """List all *.iso files in the root folder
+        of the currently selected device.
+
+        TODO: advanced ISO file selection
+        :returns: a list of *.iso file paths
+        :rtype: list
+        """
+        # note: os.path.join handles * in path correctly
+        isos = glob.glob(os.path.join(ISO_DIR, "*.iso"))
+        return [os.path.basename(i) for i in isos]
+
+    def apply(self):
+        """ Apply all of our changes. """
+
+        if self._current_iso_path:
+            self.set_source_hdd_iso(self._device, self._current_iso_path)
+        # unmount the device - the (YUM) payload will remount it anyway
+        # (if it uses it)
+        self._unmount_device()
