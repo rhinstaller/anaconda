@@ -17,13 +17,10 @@
 #
 # Author: David Cantrell <dcantrell@redhat.com>
 
-EXTRA_DIST = install-methods.txt mediacheck.txt \
+EXTRA_DIST = boot-options.txt mediacheck.txt \
              lvm_sanity_checks.txt rescue-mode api.cfg making-screenshots \
-             threads.txt command-line.txt gettext.txt transifex.txt
+             threads.txt gettext.txt transifex.txt
 
 CLEANFILES = api *.xml
 
-MAINTAINERCLEANFILES = Makefile.in command-line.txt
-
-command-line.txt:
-	curl -4 -A "anaconda-build" -o command-line.txt "http://fedoraproject.org/w/index.php?title=Anaconda_Boot_Options&action=raw"
+MAINTAINERCLEANFILES = Makefile.in

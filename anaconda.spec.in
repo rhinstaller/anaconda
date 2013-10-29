@@ -212,9 +212,6 @@ update-desktop-database &> /dev/null || :
 
 %files -f %{name}.lang
 %doc COPYING
-%doc docs/command-line.txt
-%doc docs/install-methods.txt
-%doc docs/mediacheck.txt
 %{_unitdir}/*
 %{_prefix}/lib/systemd/system-generators/*
 %{_bindir}/instperf
