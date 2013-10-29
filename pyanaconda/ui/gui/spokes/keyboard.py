@@ -491,7 +491,12 @@ class KeyboardSpoke(NormalSpoke):
             return
 
         layout, variant = keyboard.parse_layout_variant(layout_row[0])
-        lay_var_spec = "%s\t%s" % (layout, variant)
+
+        if variant:
+            lay_var_spec = "%s\t%s" % (layout, variant)
+        else:
+            lay_var_spec = layout
+
         dialog = Gkbd.KeyboardDrawing.dialog_new()
         Gkbd.KeyboardDrawing.dialog_set_layout(dialog, self._xkl_wrapper.configreg,
                                                lay_var_spec)
