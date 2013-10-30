@@ -551,18 +551,20 @@ class XklWrapper(object):
         """
 
         layout_info = self._layout_infos[layout_variant]
-
-        # translate language and upcase its first letter, translate the
-        # layout-variant description
         if xlated:
-            lang = iutil.upcase_first_letter(iso_(layout_info.lang).decode("utf-8"))
             description = Xkb_(layout_info.desc).decode("utf-8")
         else:
-            lang = iutil.upcase_first_letter(layout_info.lang)
             description = layout_info.desc
 
-        if with_lang and lang and not description.startswith(lang):
-            return "%s (%s)" % (lang, description)
+        if with_lang and layout_info.lang:
+            # translate language and upcase its first letter, translate the
+            # layout-variant description
+            if xlated:
+                lang = iso_(layout_info.lang).decode("utf-8")
+            else:
+                lang = layout_info.lang
+
+            return "%s (%s)" % (iutil.upcase_first_letter(lang), description)
         else:
             return description
 
