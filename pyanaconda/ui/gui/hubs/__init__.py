@@ -314,6 +314,7 @@ class Hub(GUIObject, common.Hub):
             # no spokes, move on
             gtk_call_once(self.continueButton.emit, "clicked")
 
+        click_continue = False
         # Grab all messages that may have appeared since last time this method ran.
         while True:
             try:
@@ -361,14 +362,20 @@ class Hub(GUIObject, common.Hub):
                     if self.continuePossible:
                         if self._inSpoke:
                             self._autoContinue = False
-                        elif self._autoContinue and q.empty() and self.continueButton:
-                            # enqueue the emit to the Gtk message queue
-                            gtk_call_once(self.continueButton.emit, "clicked")
+                        elif self._autoContinue:
+                            click_continue = True
+
             elif code == hubQ.HUB_CODE_MESSAGE:
                 spoke.selector.set_property("status", args[1])
                 log.info("setting %s status to: %s", spoke, args[1])
 
             q.task_done()
+
+        # queue is now empty, should continue be clicked?
+        if self._autoContinue and click_continue and self.continueButton:
+            # enqueue the emit to the Gtk message queue
+            log.info("_autoContinue clicking continue button")
+            gtk_call_once(self.continueButton.emit, "clicked")
 
         return True
 
