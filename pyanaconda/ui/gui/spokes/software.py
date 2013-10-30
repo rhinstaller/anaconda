@@ -439,7 +439,8 @@ class SoftwareSelectionSpoke(NormalSpoke):
         # handled separately from this signal handler.  Handling it again here will result in
         # the checkbox being toggled yet again.  So, we need to return in that case.
         col = view.get_cursor()[1]
-        if not col or col.get_title() == "Selected":
+        first_col = view.get_column(0)
+        if col == first_col:
             return
 
         # Always do something here, since addons can be toggled.
