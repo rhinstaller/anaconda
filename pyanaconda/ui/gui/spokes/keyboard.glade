@@ -9,6 +9,12 @@
       <column type="gchararray"/>
     </columns>
   </object>
+  <object class="GtkListStore" id="newLayoutStore">
+    <columns>
+      <!-- column-name name -->
+      <column type="gchararray"/>
+    </columns>
+  </object>
   <object class="GtkTreeModelFilter" id="newLayoutStoreFilter">
     <property name="child_model">newLayoutStore</property>
   </object>
@@ -192,12 +198,6 @@
     </action-widgets>
   </object>
   <object class="GtkTextBuffer" id="layoutTestBuffer"/>
-  <object class="GtkListStore" id="newLayoutStore">
-    <columns>
-      <!-- column-name name -->
-      <column type="gchararray"/>
-    </columns>
-  </object>
   <object class="AnacondaSpokeWindow" id="keyboardWindow">
     <property name="startup_id">filler</property>
     <property name="can_focus">False</property>
