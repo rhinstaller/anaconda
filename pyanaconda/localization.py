@@ -240,6 +240,7 @@ def get_native_name(locale):
                                    territoryId=parts.get("territory", ""),
                                    scriptId=parts.get("script", ""),
                                    languageIdQuery=parts["language"],
+                                   territoryIdQuery=parts.get("territory", ""),
                                    scriptIdQuery=parts.get("script", ""))
 
     return upcase_first_letter(name)
