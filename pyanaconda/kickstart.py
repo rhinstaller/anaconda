@@ -338,7 +338,7 @@ class BTRFSData(commands.btrfs.F17_BTRFSData):
             if not dev:
                 # if using --onpart, use original device
                 member_name = ksdata.onPart.get(member, member)
-                dev = devicetree.resolveDevice(member_name or lookupAlias(devicetree, member))
+                dev = devicetree.resolveDevice(member_name) or lookupAlias(devicetree, member)
 
             if dev and dev.format.type == "luks":
                 try:
@@ -1177,7 +1177,7 @@ class RaidData(commands.raid.F18_RaidData):
             if not dev:
                 # if member is using --onpart, use original device
                 mem = ksdata.onPart.get(member, member)
-                dev = devicetree.resolveDevice(mem or lookupAlias(devicetree, member))
+                dev = devicetree.resolveDevice(mem) or lookupAlias(devicetree, member)
             if dev and dev.format.type == "luks":
                 try:
                     dev = devicetree.getChildren(dev)[0]
@@ -1400,7 +1400,7 @@ class VolGroupData(commands.volgroup.FC16_VolGroupData):
             if not dev:
                 # if pv is using --onpart, use original device
                 pv_name = ksdata.onPart.get(pv, pv)
-                dev = devicetree.resolveDevice(pv_name or lookupAlias(devicetree, pv))
+                dev = devicetree.resolveDevice(pv_name) or lookupAlias(devicetree, pv)
             if dev and dev.format.type == "luks":
                 try:
                     dev = devicetree.getChildren(dev)[0]
