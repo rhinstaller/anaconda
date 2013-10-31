@@ -28,7 +28,8 @@ from pyanaconda.iutil import setdeepattr, getdeepattr
 from pyanaconda.i18n import _
 from pyanaconda.constants import PASSWORD_CONFIRM_ERROR_TUI
 
-__all__ = ["TUISpoke", "EditTUISpoke", "EditTUIDialog", "EditTUISpokeEntry", "StandaloneSpoke", "NormalSpoke", "PersonalizationSpoke",
+__all__ = ["TUISpoke", "EditTUISpoke", "EditTUIDialog", "EditTUISpokeEntry",
+           "StandaloneTUISpoke", "NormalTUISpoke", "PersonalizationSpoke",
            "collect_spokes", "collect_categories"]
 
 class TUISpoke(TUIObject, tui.Widget, Spoke):
