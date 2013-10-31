@@ -254,6 +254,27 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Wed Oct 30 2013 Brian C. Lane <bcl@redhat.com> - 21.4-1
+- Fix up a couple more pylint errors. (clumens)
+- Add check for Linux HFS+ ESP on Mac (#1010495) (bcl)
+- Update bootDrive info when storage config updated in text-mode. (#861018)
+  (sbueno+anaconda)
+- Remove the special handling for en (dshea)
+- Ignore SIGINT (#1024822) (amulhern)
+- Don't show language twice for keyboard layouts (#1021907) (petersen)
+- Make Software spoke ready even if there is no repo (#1010348) (vpodzime)
+- Use decorator for methods that invalidate base repo cache (vpodzime)
+- Use cache for base repo if possible (vpodzime)
+- Make sure to actually set the autopart flag when needed. (#1023554) (dlehman)
+- Fix Gtk errors about list store columns (dshea)
+- Fix the layout up and down button sensitivies. (dshea)
+- Fix the Gkbd spec string for layouts with no variant (dshea)
+- pylint wants regexes with backslashes to be specified with 'r'. (clumens)
+- Add ack flag checking to makebumpver (bcl)
+- Correctly accept 'sshd' boot arg as alias for 'inst.sshd' (#924157) (wwoods)
+- Only eject CDROM devices we're actually using (#949919) (wwoods)
+- mem may not exist when it's printed out in these error messages. (clumens)
+
 * Fri Oct 25 2013 Brian C. Lane <bcl@redhat.com> - 21.3-1
 - Reset _proxyChange when a change is triggered (bcl)
 - Setup No Update checkbox correctly (#1016801) (bcl)
