@@ -417,7 +417,7 @@ class Hub(GUIObject, common.Hub):
         # autoContinue feature and wait for the user to explicitly state
         # that he is done configuring by pressing the continue button.
         self._autoContinue = False
-        
+
         self._inSpoke = True
         self._runSpoke(spoke)
         self._inSpoke = False

@@ -85,8 +85,8 @@ class AdvancedUserDialog(GUIDialog):
         self._grabObjects()
 
         # Validate the group input box
-        self.add_check_with_error_label(editable=self._tGroups, 
-                error_label=self._groupsError, 
+        self.add_check_with_error_label(editable=self._tGroups,
+                error_label=self._groupsError,
                 run_check=_validateGroups)
 
     def update_check(self, check, check_status):
@@ -279,7 +279,7 @@ class UserSpoke(FirstbootSpokeMixIn, NormalSpoke):
         # - if a password is specified and the confirm box is empty or match, how strong is it?
         # - if a password is required, is there any data in the confirm box?
         self.add_check(self.pw, self._checkPasswordEmpty)
-        
+
         # The password confirmation needs to be checked whenever either of the password
         # fields change. Separate checks are created on each field so that edits on
         # either will trigger a check and so that the last edited field will get the focus
@@ -469,7 +469,7 @@ class UserSpoke(FirstbootSpokeMixIn, NormalSpoke):
 
     def _checkPasswordEmpty(self, editable, data):
         """Check whether a password has been specified at all.
-        
+
            This check is used for both the password and the confirmation.
         """
 
@@ -496,7 +496,7 @@ class UserSpoke(FirstbootSpokeMixIn, NormalSpoke):
         # to reset the status, just return success
         if reset_status:
             return GUICheck.CHECK_OK
-        
+
         # Skip the check if no password is required
         if (not self.usepassword.get_active()) or self._user.password_kickstarted:
             result = GUICheck.CHECK_OK
@@ -516,7 +516,7 @@ class UserSpoke(FirstbootSpokeMixIn, NormalSpoke):
 
     def _checkPasswordStrength(self, editable=None, data=None):
         """Update the error message based on password strength.
-        
+
            The password strength has already been checked in _updatePwQuality, called
            previously in the signal chain. This method converts the data set from there
            into an error message.
@@ -536,7 +536,7 @@ class UserSpoke(FirstbootSpokeMixIn, NormalSpoke):
             return self._pwq_error
 
         pwstrength = self.pw_bar.get_value()
-        
+
         if pwstrength < 2:
             # If Done has been clicked twice, waive the check
             if self._waivePasswordClicks > 1:

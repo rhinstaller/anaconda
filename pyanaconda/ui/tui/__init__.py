@@ -79,7 +79,7 @@ class TextUserInterface(ui.UserInterface):
                         as final (True) or development
                         (False) version.
         :type isFinal: bool
-        
+
         :param quitMessage: The text to be used in quit
                             dialog question. It should not
                             be translated to allow for change

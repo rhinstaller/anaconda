@@ -1377,7 +1377,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
                     # accordingly
                     self._update_all_devices_in_selectors()
                     self._error = e
-                    self.set_warning(_(device_configuration_error_msg)) 
+                    self.set_warning(_(device_configuration_error_msg))
                     self.window.show_all()
 
                     if _device is None:
@@ -2347,7 +2347,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
                 self.__storage.devicetree.names.remove(container.name)
                 self.__storage.devicetree.names.append(self._device_container_name)
 
-            # until there's a setter for btrfs volume name 
+            # until there's a setter for btrfs volume name
             container._name = self._device_container_name
             if container.format.type == "btrfs":
                 container.format.label = self._device_container_name

@@ -58,7 +58,7 @@ EARLY_SWAP_RAM = 896 * 1024
 
 ## Get the amount of free space available under a directory path.
 # @param path The directory path to check.
-# @return The amount of free space available, in 
+# @return The amount of free space available, in
 def pathSpaceAvailable(path):
     return _isys.devSpaceFree(path)
 

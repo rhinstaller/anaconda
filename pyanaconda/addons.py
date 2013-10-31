@@ -46,7 +46,7 @@ def collect_addon_paths(toplevel_addon_paths, ui_subdir="gui"):
             directories = os.listdir(path)
         except OSError:
             directories = []
-                
+
         for addon_id in directories:
             addon_ks_path = os.path.join(path, addon_id, "ks")
             if os.path.isdir(addon_ks_path):

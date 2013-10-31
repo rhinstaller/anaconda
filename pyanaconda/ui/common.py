@@ -560,7 +560,7 @@ def collect(module_pattern, path, pred):
     # when the directory "path" does not exist
     except OSError:
         return []
-    
+
     for module_file in contents:
         if (not module_file.endswith(".py")) and \
            (not module_file.endswith(".so")):
@@ -623,7 +623,7 @@ def collect(module_pattern, path, pred):
 
             # restore the extension dot eaten by split
             loaded_ext = "." + loaded_ext
-            
+
             # do not collect classes when the module is already imported
             # from different path than we are traversing
             # this condition checks the module name without file extension
@@ -665,7 +665,7 @@ def collect(module_pattern, path, pred):
             members = [(name, getattr(module, name))
                        for name in module.__all__
                        if p(getattr(module, name))]
-        
+
         for (name, val) in members:
             retval.append(val)
 

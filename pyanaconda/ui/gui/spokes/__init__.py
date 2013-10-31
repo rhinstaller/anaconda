@@ -110,5 +110,5 @@ def collect_spokes(mask_paths, category):
     spokes = []
     for mask, path in mask_paths:
         spokes.extend(collect(mask, path, lambda obj: hasattr(obj, "category") and obj.category != None and obj.category.__name__ == category))
-        
+
     return spokes

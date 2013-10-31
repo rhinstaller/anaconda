@@ -51,7 +51,7 @@ class GUICheck(object):
            :param parent: The parent GUIObject. When a check state changes,
                           the GUICheck will call set_error(check, check-state)
            :type parent:  GUIObject
-           
+
            :param editable: The input field being checked
            :type editable:  GtkEditable
 
@@ -128,7 +128,7 @@ class GUICheck(object):
     @property
     def check_data(self):
         return self._check_data
-        
+
 class GUIObject(common.UIObject):
     """This is the base class from which all other GUI classes are derived.  It
        thus contains only attributes and methods that are common to everything
@@ -305,14 +305,14 @@ class GUIObject(common.UIObject):
                          value is an object used by update_check, or
                          GUICheck.CHECK_OK if the check passes.
            :type run_check: function
-           
+
            :param check_data: additional data to pass to the check function
 
            :param set_error: a function called when a check changes state. The
                          parameters are (GUICheck, run_check_return).  The
                          return value is ignored.
            :type set_error: function
-           
+
            :returns: A check object
            :rtype: GUICheck
         """
@@ -326,7 +326,7 @@ class GUIObject(common.UIObject):
 
     def add_re_check(self, editable, regex, message, set_error=None):
         """Add a check using a regular expresion.
-           
+
            :param editable: the input field to validate
            :type editable:  GtkEditable
 
@@ -346,7 +346,7 @@ class GUIObject(common.UIObject):
         """
         if not set_error:
             set_error = self.set_check_error
-        return self.add_check(editable=editable, run_check=check_re, 
+        return self.add_check(editable=editable, run_check=check_re,
                 check_data={'regex': regex, 'message': message}, set_error=set_error)
 
     def update_check(self, check, check_status):
@@ -397,7 +397,7 @@ class GUIDialog(GUIObject):
 
         GUIObject.__init__(self, data)
 
-    def add_check_with_error_label(self, editable, error_label, run_check, 
+    def add_check_with_error_label(self, editable, error_label, run_check,
             check_data=None, set_error=None):
         """Add an input validation check to this dialog. The error_label will
            be added to the check_data for the validation check and will be
@@ -414,21 +414,21 @@ class GUIDialog(GUIObject):
                          value is an object used by update_check, or
                          GUICheck.CHECK_OK if the check passes.
            :type run_check: function
-           
+
            :param check_data: additional data to pass to the check function
 
            :param set_error: a function called when a check changes state. The
                          parameters are (GUICheck, run_check_return).  The
                          return value is ignored.
            :type set_error: function
-           
+
            :returns: A check object
            :rtype: GUICheck
         """
         if not set_error:
             set_error = self.set_check_error
 
-        return self.add_check(editable=editable, run_check=run_check, 
+        return self.add_check(editable=editable, run_check=run_check,
                 check_data={'error_label': error_label, 'message': check_data},
                 set_error=set_error)
 
