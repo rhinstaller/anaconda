@@ -255,6 +255,33 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Wed Oct 30 2013 Brian C. Lane <bcl@redhat.com> - 19.31.31-1
+- Update bootDrive info when storage config updated in text-mode.
+  (sbueno+anaconda)
+  Resolves: rhbz#861018
+- Ignore SIGINT (amulhern)
+  Resolves: rhbz#971323
+- Make Software spoke ready even if there is no repo (vpodzime)
+  Resolves: rhbz#1001054
+- Correctly accept 'sshd' boot arg as alias for 'inst.sshd' (wwoods)
+  Resolves: rhbz#924157
+- Fix the Gkbd spec string for layouts with no variant (dshea)
+  Resolves: rhbz#1011155
+- mem may not exist when it's printed out in these error messages. (clumens)
+  Related: rhbz#1019322
+- Use devicetree to resolve device specs in kickstart. (dlehman)
+  Resolves: rhbz#1019322
+- Add bootloader execute before autopart (bcl)
+  Resolves: rhbz#1022418
+- BootLoaderError should not reset storage (bcl)
+  Resolves: rhbz#1022418
+  Related: rhbz#1022418
+- Mountpoint is an attr of the format, not the device. (dlehman)
+  Resolves: rhbz#1019510
+- Do error checking of repository names on "Installation Source" screen.
+  (amulhern)
+  Resolves: rhbz#1020991
+
 * Wed Oct 23 2013 Brian C. Lane <bcl@redhat.com> - 19.31.30-1
 - Turn spinner back on for configuration (bcl)
   Related: rhbz#1019970
