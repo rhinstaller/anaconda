@@ -64,7 +64,7 @@ void anaconda_standalone_window_post_create(GladeWidgetAdaptor *adaptor,
         glade_widget_property_set(alignment_widget, "xalign", 0.5);
         glade_widget_property_set(alignment_widget, "yalign", 0.0);
         glade_widget_property_set(alignment_widget, "xscale", 0.5);
-        glade_widget_property_set(alignment_widget, "yscale", 0.5);
+        glade_widget_property_set(alignment_widget, "yscale", 1.0);
     } else {
         glade_widget_property_set(alignment_widget, "xalign", 0.5);
         glade_widget_property_set(alignment_widget, "yalign", 0.0);
