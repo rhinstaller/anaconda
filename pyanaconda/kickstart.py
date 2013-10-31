@@ -263,6 +263,10 @@ class AutoPart(commands.autopart.F20_AutoPart):
         doAutoPartition(storage, ksdata)
 
 class Bootloader(commands.bootloader.F19_Bootloader):
+    def __init__(self, *args, **kwargs):
+        commands.bootloader.F19_Bootloader.__init__(self, *args, **kwargs)
+        self.location = "mbr"
+
     def execute(self, storage, ksdata, instClass):
         if flags.imageInstall and blivet.arch.isS390():
             self.location = "none"
