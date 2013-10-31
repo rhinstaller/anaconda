@@ -47,6 +47,14 @@ class SoftwareSelectionSpoke(NormalSpoke):
     icon = "package-x-generic-symbolic"
     title = CN_("GUI|Spoke", "_SOFTWARE SELECTION")
 
+    # Add-on selection states
+    # no user interaction with this add-on
+    _ADDON_DEFAULT = 0
+    # user selected
+    _ADDON_SELECTED = 1
+    # user de-selected
+    _ADDON_DESELECTED = 2
+
     def __init__(self, *args, **kwargs):
         NormalSpoke.__init__(self, *args, **kwargs)
         self._errorMsgs = None
@@ -59,6 +67,18 @@ class SoftwareSelectionSpoke(NormalSpoke):
 
         self._addonStore = self.builder.get_object("addonStore")
         self._environmentStore = self.builder.get_object("environmentStore")
+
+        # Used to determine which add-ons to display for each environment.
+        # The dictionary keys are environment IDs. The dictionary values are two-tuples
+        # consisting of lists of add-on group IDs. The first list is the add-ons specific
+        # to the environment, and the second list is the other add-ons possible for the
+        # environment.
+        self._environmentAddons = {}
+
+        # Used to store how the user has interacted with add-ons for the default add-on
+        # selection logic. The dictionary keys are group IDs, and the values are selection
+        # state constants. See refreshAddons for how the values are used.
+        self._addonStates = {}
 
         # Used for detecting whether anything's changed in the spoke.
         self._origAddons = []
@@ -208,6 +228,9 @@ class SoftwareSelectionSpoke(NormalSpoke):
                 self.payload.environments
                 # pylint: disable-msg=W0104
                 self.payload.groups
+
+                # Parse the environments and groups into the form we want
+                self._parseEnvironments()
             except MetadataError:
                 hubQ.send_message(self.__class__.__name__,
                                   _("No installation source available"))
@@ -227,6 +250,25 @@ class SoftwareSelectionSpoke(NormalSpoke):
         # If packages were provided by an input kickstart file (or some other means),
         # we should do dependency solving here.
         self._apply()
+
+    def _parseEnvironments(self):
+        self._environmentAddons = {}
+
+        for environment in self.payload.environments:
+            self._environmentAddons[environment] = ([], [])
+
+            # Determine which groups are specific to this environment and which other groups
+            # are available in this environment.
+            for grp in self.payload.groups:
+                if self.payload.environmentHasOption(environment, grp):
+                    self._environmentAddons[environment][0].append(grp)
+                elif self.payload._isGroupVisible(grp) and self.payload._groupHasInstallableMembers(grp):
+                    self._environmentAddons[environment][1].append(grp)
+
+        # Set all of the add-on selection states to the default
+        self._addonStates = {}
+        for grp in self.payload.groups:
+            self._addonStates[grp] = self._ADDON_DEFAULT
 
     @gtk_action_wait
     def _first_refresh(self):
@@ -271,39 +313,40 @@ class SoftwareSelectionSpoke(NormalSpoke):
 
     def _addAddon(self, grp):
         (name, desc) = self.payload.groupDescription(grp)
-        # If no groups are selected, select the default groups
-        if not self._origEnvironment:
-            selected = self.payload.environmentOptionIsDefault(self.environment, grp)
+
+        # If the add-on was previously selected by the user, select it
+        if self._addonStates[grp] == self._ADDON_SELECTED:
+            selected = True
+        # If the add-on was previously de-selected by the user, de-select it
+        elif self._addonStates[grp] == self._ADDON_DESELECTED:
+            selected = False
+        # Otherwise, use the default state
         else:
-            selected = grp in self.selectedGroups
+            selected = self.payload.environmentOptionIsDefault(self.environment, grp)
 
         self._addonStore.append([selected, "<b>%s</b>\n%s" % \
                 (escape_markup(name), escape_markup(desc)), grp, False])
 
     def refreshAddons(self):
         self._addonStore.clear()
-        if self.environment:
-            # First, we make up two lists:  One of addons specific to this environment,
+        if self.environment and (self.environment in self._environmentAddons):
+            # We have two lists:  One of addons specific to this environment,
             # and one of all the others.  The environment-specific ones will be displayed
             # first and then a separator, and then the generic ones.  This is to make it
             # a little more obvious that the thing on the left side of the screen and the
             # thing on the right side of the screen are related.
-            specific = []
-            generic = []
+            #
+            # If a particular add-on was previously selected or de-selected by the user, that
+            # state will be used. Otherwise, the add-on will be selected if it is a default
+            # for this environment.
 
-            for grp in self.payload.groups:
-                if self.payload.environmentHasOption(self.environment, grp):
-                    specific.append(grp)
-                elif self.payload._isGroupVisible(grp) and self.payload._groupHasInstallableMembers(grp):
-                    generic.append(grp)
-
-            for grp in specific:
+            for grp in self._environmentAddons[self.environment][0]:
                 self._addAddon(grp)
 
             # This marks a separator in the view.
             self._addonStore.append([False, "", "", True])
 
-            for grp in generic:
+            for grp in self._environmentAddons[self.environment][1]:
                 self._addAddon(grp)
 
         self._selectFlag = True
@@ -371,8 +414,13 @@ class SoftwareSelectionSpoke(NormalSpoke):
             if group in self.excludedGroups:
                 self.excludedGroups.remove(group)
 
-        elif not selected and group in self.selectedGroups:
-            self.selectedGroups.remove(group)
+            self._addonStates[group] = self._ADDON_SELECTED
+
+        else:
+            if group in self.selectedGroups:
+                self.selectedGroups.remove(group)
+
+            self._addonStates[group] = self._ADDON_DESELECTED
 
     def on_addon_view_clicked(self, view, event, *args):
         if event and not event.type in [Gdk.EventType.BUTTON_RELEASE, Gdk.EventType.KEY_RELEASE]:
