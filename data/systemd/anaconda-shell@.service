@@ -6,6 +6,9 @@ After=systemd-user-sessions.service plymouth-quit-wait.service
 
 [Service]
 WorkingDirectory=/
+Environment=HOME=/
+Environment=PATH=/bin:/sbin:/usr/bin:/usr/sbin:/mnt/sysimage/sbin:/mnt/sysimage/usr/sbin:/mnt/sysimage/bin:/mnt/sysimage/usr/bin
+Environment="PS1=[anaconda \u@\h \W]\$ "
 ExecStart=-/sbin/agetty -n -l /bin/bash -o '--login' %I 38400
 Restart=always
 RestartSec=0
