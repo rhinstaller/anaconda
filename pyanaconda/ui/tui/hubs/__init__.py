@@ -55,7 +55,7 @@ class TUIHub(TUIObject, common.Hub):
             spokes = collect_spokes(self.paths["spokes"], c)
 
             # sort them according to their priority
-            for s in sorted(spokes, key = lambda s: s.priority):
+            for s in sorted(spokes, key = lambda s: s.title):
                 # Check if this spoke is to be shown in anaconda
                 if not s.should_run(environment, self.data):
                     continue
