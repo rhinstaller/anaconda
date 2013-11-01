@@ -31,8 +31,8 @@ from pyanaconda.regexes import GECOS_VALID, USERNAME_VALID, GROUPLIST_SIMPLE_VAL
 __all__ = ["UserSpoke"]
 
 class UserSpoke(FirstbootSpokeMixIn, EditTUISpoke):
-    title = _("Create user")
-    category = "password"
+    title = _("User creation")
+    category = "user"
 
     edit_fields = [
         Entry("Create user", "_create", EditTUISpoke.CHECK, True),

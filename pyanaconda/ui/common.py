@@ -356,8 +356,6 @@ class NormalSpoke(Spoke):
        installing, how to get back to the Hub) at the top of the screen.
     """
 
-    priority = 100
-
     def __init__(self, data, storage, payload, instclass):
         """Create a NormalSpoke instance."""
         if self.__class__ is NormalSpoke:

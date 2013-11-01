@@ -26,8 +26,8 @@ from pyanaconda.ui.tui.simpleline import TextWidget
 from pyanaconda.i18n import _
 
 class PasswordSpoke(FirstbootSpokeMixIn, EditTUIDialog):
-    title = _("Set root password")
-    category = "password"
+    title = _("Root password")
+    category = "user"
 
     def __init__(self, app, data, storage, payload, instclass):
         EditTUIDialog.__init__(self, app, data, storage, payload, instclass)
