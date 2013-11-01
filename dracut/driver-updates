@@ -41,6 +41,7 @@ import sys
 import os
 import subprocess
 import time
+import glob
 
 log = logging.getLogger("DD")
 
@@ -529,6 +530,10 @@ def network_driver(dd_path):
     skip_dds = set(oemdrv_list())
 
     log.info("Processing Network Drivers from %s" % dd_path)
+    isos = glob.glob(os.path.join(dd_path, "*.iso"))
+    for iso in isos:
+        select_dd(iso)
+
     process_dd(dd_path)
 
     # TODO: May need to add new drivers to /tmp/dd_modules to prevent them from being unloaded
