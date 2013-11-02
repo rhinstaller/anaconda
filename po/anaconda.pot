@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: anaconda 21.3\n"
+"Project-Id-Version: anaconda 21.4\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
-"POT-Creation-Date: 2013-10-30 17:34-0700\n"
+"POT-Creation-Date: 2013-11-01 16:18-0700\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -228,12 +228,12 @@ msgid ""
 "%s"
 msgstr ""
 
-#: pyanaconda/kickstart.py:559
+#: pyanaconda/kickstart.py:563
 #, python-format
 msgid "%s is missing. Cannot setup firewall."
 msgstr ""
 
-#: pyanaconda/kickstart.py:1720
+#: pyanaconda/kickstart.py:1724
 msgid "Running pre-installation scripts"
 msgstr ""
 
@@ -682,7 +682,7 @@ msgid "The password must be at least six characters long."
 msgstr ""
 
 #: pyanaconda/ui/tui/spokes/network.py:42
-msgid "Network settings"
+msgid "Network configuration"
 msgstr ""
 
 #: pyanaconda/ui/tui/spokes/network.py:82
@@ -791,7 +791,7 @@ msgid "Configuring device %s."
 msgstr ""
 
 #: pyanaconda/ui/tui/spokes/password.py:29
-msgid "Set root password"
+msgid "Root password"
 msgstr ""
 
 #: pyanaconda/ui/tui/spokes/password.py:48
@@ -827,91 +827,86 @@ msgid "Use Free Space"
 msgstr ""
 
 #: pyanaconda/ui/tui/spokes/storage.py:62
-msgid "Install Destination"
+msgid "Installation Destination"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/storage.py:112
-#: pyanaconda/ui/gui/spokes/storage.py:484
+#: pyanaconda/ui/tui/spokes/storage.py:109
+#: pyanaconda/ui/gui/spokes/storage.py:480
 msgid "No disks selected"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/storage.py:117
-#: pyanaconda/ui/gui/spokes/storage.py:489
-msgid "No bootloader configured"
-msgstr ""
-
-#: pyanaconda/ui/tui/spokes/storage.py:124
-#: pyanaconda/ui/gui/spokes/storage.py:496
+#: pyanaconda/ui/tui/spokes/storage.py:119
+#: pyanaconda/ui/gui/spokes/storage.py:490
 msgid "Error checking storage configuration"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/storage.py:126
-#: pyanaconda/ui/gui/spokes/storage.py:498
+#: pyanaconda/ui/tui/spokes/storage.py:121
+#: pyanaconda/ui/gui/spokes/storage.py:492
 msgid "Warning checking storage configuration"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/storage.py:129
-#: pyanaconda/ui/gui/spokes/storage.py:500
+#: pyanaconda/ui/tui/spokes/storage.py:124
+#: pyanaconda/ui/gui/spokes/storage.py:494
 msgid "Automatic partitioning selected"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/storage.py:131
-#: pyanaconda/ui/gui/spokes/storage.py:502
+#: pyanaconda/ui/tui/spokes/storage.py:126
+#: pyanaconda/ui/gui/spokes/storage.py:496
 msgid "Custom partitioning selected"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/storage.py:167
-#: pyanaconda/ui/gui/spokes/storage.py:717
+#: pyanaconda/ui/tui/spokes/storage.py:162
+#: pyanaconda/ui/gui/spokes/storage.py:711
 msgid ""
 "No disks detected.  Please shut down the computer, connect at least one "
 "disk, and restart to complete installation."
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/storage.py:169
-#: pyanaconda/ui/gui/spokes/storage.py:719
+#: pyanaconda/ui/tui/spokes/storage.py:164
+#: pyanaconda/ui/gui/spokes/storage.py:713
 msgid "No disks selected; please select at least one disk to install to."
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/storage.py:184
+#: pyanaconda/ui/tui/spokes/storage.py:179
 #: pyanaconda/ui/gui/spokes/source.py:590
-#: pyanaconda/ui/gui/spokes/storage.py:675
+#: pyanaconda/ui/gui/spokes/storage.py:669
 msgid "Probing storage..."
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/storage.py:206
+#: pyanaconda/ui/tui/spokes/storage.py:201
 msgid "Select all"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/storage.py:281
+#: pyanaconda/ui/tui/spokes/storage.py:276
 msgid "Generating updated storage configuration"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/storage.py:286
-#: pyanaconda/ui/tui/spokes/storage.py:297
+#: pyanaconda/ui/tui/spokes/storage.py:281
+#: pyanaconda/ui/tui/spokes/storage.py:292
 #, python-format
 msgid "storage configuration failed: %s"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/storage.py:302
+#: pyanaconda/ui/tui/spokes/storage.py:297
 #: pyanaconda/ui/gui/spokes/storage.py:327
 msgid "Checking storage configuration..."
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/storage.py:340
+#: pyanaconda/ui/tui/spokes/storage.py:335
 msgid "Autopartitioning Options"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/storage.py:367
+#: pyanaconda/ui/tui/spokes/storage.py:362
 msgid ""
 "Installation requires partitioning of your hard drive. Select what space to "
 "use for the install target."
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/storage.py:406
+#: pyanaconda/ui/tui/spokes/storage.py:401
 msgid "Partition Scheme Options"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/storage.py:431
+#: pyanaconda/ui/tui/spokes/storage.py:426
 msgid "Select a partition scheme configuration."
 msgstr ""
 
@@ -969,7 +964,7 @@ msgstr ""
 #: pyanaconda/ui/tui/spokes/source.py:91
 #: pyanaconda/ui/tui/spokes/software.py:101
 #: pyanaconda/ui/gui/spokes/datetime_spoke.py:402
-#: pyanaconda/ui/gui/spokes/software.py:180
+#: pyanaconda/ui/gui/spokes/software.py:200
 #: pyanaconda/ui/gui/spokes/source.py:524
 msgid "Nothing selected"
 msgstr ""
@@ -1012,8 +1007,8 @@ msgstr ""
 
 #: pyanaconda/ui/tui/spokes/source.py:207
 #: pyanaconda/ui/tui/spokes/software.py:69
-#: pyanaconda/ui/gui/spokes/software.py:213
-#: pyanaconda/ui/gui/spokes/software.py:237
+#: pyanaconda/ui/gui/spokes/software.py:236
+#: pyanaconda/ui/gui/spokes/software.py:279
 #: pyanaconda/ui/gui/spokes/source.py:471
 msgid "No installation source available"
 msgstr ""
@@ -1044,22 +1039,22 @@ msgid "Software selection"
 msgstr ""
 
 #: pyanaconda/ui/tui/spokes/software.py:79
-#: pyanaconda/ui/gui/spokes/software.py:164
+#: pyanaconda/ui/gui/spokes/software.py:184
 msgid "Error checking software selection"
 msgstr ""
 
 #: pyanaconda/ui/tui/spokes/software.py:83
-#: pyanaconda/ui/gui/spokes/software.py:167
+#: pyanaconda/ui/gui/spokes/software.py:187
 msgid "Installation source not set up"
 msgstr ""
 
 #: pyanaconda/ui/tui/spokes/software.py:85
-#: pyanaconda/ui/gui/spokes/software.py:170
+#: pyanaconda/ui/gui/spokes/software.py:190
 msgid "Source changed - please verify"
 msgstr ""
 
 #: pyanaconda/ui/tui/spokes/software.py:100
-#: pyanaconda/ui/gui/spokes/software.py:178
+#: pyanaconda/ui/gui/spokes/software.py:198
 msgid "Custom software selected"
 msgstr ""
 
@@ -1092,53 +1087,53 @@ msgstr ""
 msgid "\tInstallation complete.  Press return to quit"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/__init__.py:46
+#: pyanaconda/ui/tui/spokes/__init__.py:47
 msgid "Default spoke title"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/__init__.py:56
+#: pyanaconda/ui/tui/spokes/__init__.py:57
 msgid "testing status..."
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/__init__.py:94
+#: pyanaconda/ui/tui/spokes/__init__.py:95
 msgid "New value"
-msgstr ""
-
-#: pyanaconda/ui/tui/spokes/__init__.py:111
-#, python-format
-msgid "%s: "
 msgstr ""
 
 #: pyanaconda/ui/tui/spokes/__init__.py:112
 #, python-format
+msgid "%s: "
+msgstr ""
+
+#: pyanaconda/ui/tui/spokes/__init__.py:113
+#, python-format
 msgid "%s (confirm): "
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/__init__.py:115
+#: pyanaconda/ui/tui/spokes/__init__.py:116
 msgid ""
 "You must enter your root password and confirm it by typing it a second time "
 "to continue."
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/__init__.py:130
+#: pyanaconda/ui/tui/spokes/__init__.py:131
 #, python-format
 msgid ""
 "You have provided a weak password: %s\n"
 "Would you like to use it anyway?"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/__init__.py:133
+#: pyanaconda/ui/tui/spokes/__init__.py:134
 msgid ""
 "You have provided a weak password.\n"
 "Would you like to use it anyway?"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/__init__.py:143
+#: pyanaconda/ui/tui/spokes/__init__.py:144
 #, python-format
 msgid "Enter new value for '%s' and press enter\n"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/__init__.py:239
+#: pyanaconda/ui/tui/spokes/__init__.py:240
 msgid "Password set."
 msgstr ""
 
@@ -1818,29 +1813,29 @@ msgctxt "GUI|Spoke"
 msgid "_SOFTWARE SELECTION"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/software.py:102
+#: pyanaconda/ui/gui/spokes/software.py:122
 #: pyanaconda/ui/gui/spokes/source.py:504
 msgid "Checking software dependencies..."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/software.py:107
+#: pyanaconda/ui/gui/spokes/software.py:127
 msgid "Error checking software dependencies"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/software.py:190
+#: pyanaconda/ui/gui/spokes/software.py:210
 #: pyanaconda/ui/gui/spokes/source.py:51
 msgid "Downloading package metadata..."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/software.py:194
+#: pyanaconda/ui/gui/spokes/software.py:214
 msgid "Downloading group metadata..."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/software.py:312
+#: pyanaconda/ui/gui/spokes/software.py:355
 msgid "Error checking software dependencies.  Click for details."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/software.py:404
+#: pyanaconda/ui/gui/spokes/software.py:453
 msgid ""
 "The following software marked for installation has errors.  This is likely "
 "caused by an error with\n"
@@ -1848,17 +1843,17 @@ msgid ""
 "the installer."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/software.py:408
+#: pyanaconda/ui/gui/spokes/software.py:457
 msgctxt "GUI|Software Selection|Error Dialog"
 msgid "_Quit"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/software.py:409
+#: pyanaconda/ui/gui/spokes/software.py:458
 msgctxt "GUI|Software Selection|Error Dialog"
 msgid "_Cancel"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/software.py:410
+#: pyanaconda/ui/gui/spokes/software.py:459
 msgctxt "GUI|Software Selection|Error Dialog"
 msgid "_Modify Software Source"
 msgstr ""
@@ -2020,56 +2015,56 @@ msgstr ""
 msgid "Failed to save storage configuration..."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/storage.py:621
+#: pyanaconda/ui/gui/spokes/storage.py:615
 msgid "Error checking storage configuration.  Click for details."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/storage.py:623
+#: pyanaconda/ui/gui/spokes/storage.py:617
 msgid "Warning checking storage configuration.  Click for details."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/storage.py:659
+#: pyanaconda/ui/gui/spokes/storage.py:653
 #, python-format
 msgid "%s free"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/storage.py:704
+#: pyanaconda/ui/gui/spokes/storage.py:698
 #, python-format
 msgid "%(count)d disk selected; %(capacity)s capacity; %(free)s free"
 msgid_plural "%(count)d disks selected; %(capacity)s capacity; %(free)s free"
 msgstr[0] ""
 msgstr[1] ""
 
-#: pyanaconda/ui/gui/spokes/storage.py:759
+#: pyanaconda/ui/gui/spokes/storage.py:753
 msgid ""
 "You have chosen to skip bootloader installation.  Your system may not be "
 "bootable."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/storage.py:931
+#: pyanaconda/ui/gui/spokes/storage.py:925
 msgid ""
 "The following errors were encountered when checking your storage "
 "configuration.  You can modify your storage layout or quit the installer."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/storage.py:936
+#: pyanaconda/ui/gui/spokes/storage.py:930
 msgctxt "GUI|Storage|Error Dialog"
 msgid "_Quit"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/storage.py:937
+#: pyanaconda/ui/gui/spokes/storage.py:931
 msgctxt "GUI|Storage|Error Dialog"
 msgid "_Modify Storage Layout"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/storage.py:950
+#: pyanaconda/ui/gui/spokes/storage.py:944
 msgid ""
 "The following warnings were encountered when checking your storage "
 "configuration.  These are not fatal, but you may wish to make changes to "
 "your storage layout."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/storage.py:954
+#: pyanaconda/ui/gui/spokes/storage.py:948
 msgid "_OK"
 msgstr ""
 
@@ -2797,10 +2792,6 @@ msgstr ""
 
 #: pyanaconda/ui/gui/spokes/software.glade.h:3
 msgid "Add-Ons for Selected Environment"
-msgstr ""
-
-#: pyanaconda/ui/gui/spokes/software.glade.h:4
-msgid "column"
 msgstr ""
 
 #: pyanaconda/ui/gui/spokes/storage.glade.h:1
