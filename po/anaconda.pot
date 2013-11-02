@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: anaconda 19.31.30\n"
+"Project-Id-Version: anaconda 19.31.31\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
-"POT-Creation-Date: 2013-10-30 17:10-0700\n"
+"POT-Creation-Date: 2013-11-01 18:15-0700\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -293,12 +293,12 @@ msgid ""
 "%s"
 msgstr ""
 
-#: pyanaconda/kickstart.py:556
+#: pyanaconda/kickstart.py:560
 #, python-format
 msgid "%s is missing. Cannot setup firewall."
 msgstr ""
 
-#: pyanaconda/kickstart.py:1702
+#: pyanaconda/kickstart.py:1706
 msgid "Running pre-installation scripts"
 msgstr ""
 
@@ -889,84 +889,80 @@ msgstr ""
 msgid "Install Destination"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/storage.py:105
-#: pyanaconda/ui/gui/spokes/storage.py:455
+#: pyanaconda/ui/tui/spokes/storage.py:102
+#: pyanaconda/ui/gui/spokes/storage.py:451
 msgid "No disks selected"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/storage.py:110
-#: pyanaconda/ui/gui/spokes/storage.py:460
-msgid "No bootloader configured"
-msgstr ""
-
-#: pyanaconda/ui/tui/spokes/storage.py:117
-#: pyanaconda/ui/gui/spokes/storage.py:467
+#: pyanaconda/ui/tui/spokes/storage.py:112
+#: pyanaconda/ui/gui/spokes/storage.py:461
 msgid "Error checking storage configuration"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/storage.py:119
-#: pyanaconda/ui/gui/spokes/storage.py:469
+#: pyanaconda/ui/tui/spokes/storage.py:114
+#: pyanaconda/ui/gui/spokes/storage.py:463
 msgid "Warning checking storage configuration"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/storage.py:122
-#: pyanaconda/ui/gui/spokes/storage.py:471
+#: pyanaconda/ui/tui/spokes/storage.py:117
+#: pyanaconda/ui/gui/spokes/storage.py:465
 msgid "Automatic partitioning selected"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/storage.py:124
-#: pyanaconda/ui/gui/spokes/storage.py:473
+#: pyanaconda/ui/tui/spokes/storage.py:119
+#: pyanaconda/ui/gui/spokes/storage.py:467
 msgid "Custom partitioning selected"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/storage.py:160
-#: pyanaconda/ui/gui/spokes/storage.py:703
+#: pyanaconda/ui/tui/spokes/storage.py:155
+#: pyanaconda/ui/gui/spokes/storage.py:697
 msgid ""
 "No disks detected.  Please shut down the computer, connect at least one "
 "disk, and restart to complete installation."
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/storage.py:162
-#: pyanaconda/ui/gui/spokes/storage.py:705
+#: pyanaconda/ui/tui/spokes/storage.py:157
+#: pyanaconda/ui/gui/spokes/storage.py:699
 msgid "No disks selected; please select at least one disk to install to."
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/storage.py:177
+#: pyanaconda/ui/tui/spokes/storage.py:172
+#: pyanaconda/ui/tui/spokes/source.py:470
 #: pyanaconda/ui/gui/spokes/source.py:572
-#: pyanaconda/ui/gui/spokes/storage.py:663
+#: pyanaconda/ui/gui/spokes/storage.py:657
 msgid "Probing storage..."
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/storage.py:258
+#: pyanaconda/ui/tui/spokes/storage.py:253
 msgid "Generating updated storage configuration"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/storage.py:263
-#: pyanaconda/ui/tui/spokes/storage.py:274
+#: pyanaconda/ui/tui/spokes/storage.py:258
+#: pyanaconda/ui/tui/spokes/storage.py:269
 #, python-format
 msgid "storage configuration failed: %s"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/storage.py:279
+#: pyanaconda/ui/tui/spokes/storage.py:274
 #: pyanaconda/ui/gui/spokes/storage.py:302
 msgid "Checking storage configuration..."
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/storage.py:317
+#: pyanaconda/ui/tui/spokes/storage.py:312
 msgid "Autopartitioning Options"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/storage.py:348
+#: pyanaconda/ui/tui/spokes/storage.py:343
 msgid ""
 "Installation requires partitioning of your hard drive. Select what space to "
 "use for the install target."
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/storage.py:386
+#: pyanaconda/ui/tui/spokes/storage.py:381
 msgid "Partition Scheme Options"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/storage.py:411
+#: pyanaconda/ui/tui/spokes/storage.py:406
 msgid "Select a partition scheme configuration."
 msgstr ""
 
@@ -1000,27 +996,34 @@ msgid ""
 "Use numbers or type names directly [b to region list, q to quit]: "
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/source.py:44
+#: pyanaconda/ui/tui/spokes/source.py:147
 msgid "Installation source"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/source.py:47 pyanaconda/ui/tui/spokes/source.py:92
+#: pyanaconda/ui/tui/spokes/source.py:150
+#: pyanaconda/ui/tui/spokes/source.py:200
 #: pyanaconda/ui/gui/spokes/source.py:502
 msgid "Closest mirror"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/source.py:88
+#: pyanaconda/ui/tui/spokes/source.py:192
 #: pyanaconda/ui/gui/spokes/source.py:494
 #, python-format
 msgid "NFS server %s"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/source.py:90
+#: pyanaconda/ui/tui/spokes/source.py:194
 #: pyanaconda/ui/gui/spokes/source.py:496
 msgid "Local media"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/source.py:94
+#: pyanaconda/ui/tui/spokes/source.py:197
+#: pyanaconda/ui/tui/spokes/source.py:207
+#: pyanaconda/ui/gui/spokes/source.py:490
+msgid "Error setting up software source"
+msgstr ""
+
+#: pyanaconda/ui/tui/spokes/source.py:202
 #: pyanaconda/ui/tui/spokes/software.py:100
 #: pyanaconda/ui/gui/spokes/datetime_spoke.py:405
 #: pyanaconda/ui/gui/spokes/software.py:180
@@ -1028,43 +1031,42 @@ msgstr ""
 msgid "Nothing selected"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/source.py:99
-#: pyanaconda/ui/gui/spokes/source.py:490
-msgid "Error setting up software source"
-msgstr ""
-
-#: pyanaconda/ui/tui/spokes/source.py:101
+#: pyanaconda/ui/tui/spokes/source.py:209
 #: pyanaconda/ui/tui/spokes/software.py:80
 msgid "Processing..."
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/source.py:107
+#: pyanaconda/ui/tui/spokes/source.py:215
 #, python-format
 msgid "Repo URL set to: %s"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/source.py:126
+#: pyanaconda/ui/tui/spokes/source.py:234
 msgid "CD/DVD"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/source.py:126
+#: pyanaconda/ui/tui/spokes/source.py:234
+msgid "Local ISO file"
+msgstr ""
+
+#: pyanaconda/ui/tui/spokes/source.py:234
 msgid "Network"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/source.py:130
+#: pyanaconda/ui/tui/spokes/source.py:238
 msgid "Choose an installation source type."
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/source.py:196
+#: pyanaconda/ui/tui/spokes/source.py:317
 #: pyanaconda/ui/gui/spokes/source.py:423
 msgid "Failed to set up installation source"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/source.py:201
+#: pyanaconda/ui/tui/spokes/source.py:322
 msgid "Error downloading package metadata"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/source.py:207
+#: pyanaconda/ui/tui/spokes/source.py:328
 #: pyanaconda/ui/tui/spokes/software.py:68
 #: pyanaconda/ui/gui/spokes/software.py:211
 #: pyanaconda/ui/gui/spokes/software.py:235
@@ -1072,25 +1074,41 @@ msgstr ""
 msgid "No installation source available"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/source.py:224
-#: pyanaconda/ui/tui/spokes/source.py:259
+#: pyanaconda/ui/tui/spokes/source.py:350
+#: pyanaconda/ui/tui/spokes/source.py:388
 msgid "Specify Repo Options"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/source.py:228
+#: pyanaconda/ui/tui/spokes/source.py:354
 msgid "Repo URL"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/source.py:263
+#: pyanaconda/ui/tui/spokes/source.py:392
 msgid "NFS <server>:/<path>"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/source.py:264
+#: pyanaconda/ui/tui/spokes/source.py:393
 msgid "NFS mount options"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/source.py:293
+#: pyanaconda/ui/tui/spokes/source.py:423
 msgid "Failed to set up installation source. Check the source address."
+msgstr ""
+
+#: pyanaconda/ui/tui/spokes/source.py:432
+msgid "Select device containing the ISO file"
+msgstr ""
+
+#: pyanaconda/ui/tui/spokes/source.py:491
+msgid "No mountable devices found"
+msgstr ""
+
+#: pyanaconda/ui/tui/spokes/source.py:516
+msgid "Select an ISO to use as install source"
+msgstr ""
+
+#: pyanaconda/ui/tui/spokes/source.py:545
+msgid "No *.iso files found in device root folder"
 msgstr ""
 
 #: pyanaconda/ui/tui/spokes/software.py:37
@@ -1184,7 +1202,7 @@ msgid "_Exit Installer"
 msgstr ""
 
 #: pyanaconda/ui/gui/__init__.py:404 pyanaconda/ui/gui/spokes/software.py:410
-#: pyanaconda/ui/gui/spokes/storage.py:913
+#: pyanaconda/ui/gui/spokes/storage.py:907
 #: pyanaconda/ui/gui/spokes/welcome.glade:21
 #: pyanaconda/ui/gui/hubs/summary.glade:76 widgets/src/StandaloneWindow.c:54
 msgid "_Quit"
@@ -2068,50 +2086,50 @@ msgstr ""
 msgid "Failed to save storage configuration..."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/storage.py:592
+#: pyanaconda/ui/gui/spokes/storage.py:586
 msgid "Error checking storage configuration.  Click for details."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/storage.py:594
+#: pyanaconda/ui/gui/spokes/storage.py:588
 msgid "Warning checking storage configuration.  Click for details."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/storage.py:647
+#: pyanaconda/ui/gui/spokes/storage.py:641
 #, python-format
 msgid "%s free"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/storage.py:692
+#: pyanaconda/ui/gui/spokes/storage.py:686
 #, python-format
 msgid "%d disk selected; %s capacity; %s free"
 msgid_plural "%d disks selected; %s capacity; %s free"
 msgstr[0] ""
 msgstr[1] ""
 
-#: pyanaconda/ui/gui/spokes/storage.py:745
+#: pyanaconda/ui/gui/spokes/storage.py:739
 msgid ""
 "You have chosen to skip bootloader installation.  Your system may not be "
 "bootable."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/storage.py:909
+#: pyanaconda/ui/gui/spokes/storage.py:903
 msgid ""
 "The following errors were encountered when checking your storage "
 "configuration.  You can modify your storage layout or quit the installer."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/storage.py:913
+#: pyanaconda/ui/gui/spokes/storage.py:907
 msgid "_Modify Storage Layout"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/storage.py:925
+#: pyanaconda/ui/gui/spokes/storage.py:919
 msgid ""
 "The following warnings were encountered when checking your storage "
 "configuration.  These are not fatal, but you may wish to make changes to "
 "your storage layout."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/storage.py:929
+#: pyanaconda/ui/gui/spokes/storage.py:923
 msgid "_OK"
 msgstr ""
 

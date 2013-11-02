@@ -255,6 +255,22 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Fri Nov 01 2013 Brian C. Lane <bcl@redhat.com> - 19.31.32-1
+- Send the continue click after the queue is empty (bcl)
+  Resolves: rhbz#1025346
+- Fix kickstart block device resolution. (dlehman)
+  Resolves: rhbz#1025508
+- No longer use summary screen visit to decide whether bootloader has been
+  configured (amulhern)
+  Resolves: rhbz#916529
+- Remove the bootloader line from the interactive kickstart file (amulhern)
+  Resolves: rhbz#916529
+  Related: rhbz#916529
+- Set bootloader default location to mbr in constructor (amulhern)
+  Resolves: rhbz#916529
+- Add HDD ISO support for TUI (mkolman)
+  Resolves: rhbz#1000327
+
 * Wed Oct 30 2013 Brian C. Lane <bcl@redhat.com> - 19.31.31-1
 - Update bootDrive info when storage config updated in text-mode.
   (sbueno+anaconda)
