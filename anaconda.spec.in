@@ -253,6 +253,16 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Fri Nov 01 2013 Brian C. Lane <bcl@redhat.com> - 20.25.6-1
+- Send the continue click after the queue is empty (#1025347) (bcl)
+- No longer use summary screen visit to decide whether bootloader has been
+  configured (#1025802) (amulhern)
+- Remove the bootloader line from the interactive kickstart file (#1025802)
+  (amulhern)
+- Set bootloader default location to mbr in constructor (#1025802) (amulhern)
+- Fix kickstart block device resolution. (#1022206) (dlehman)
+- Specify query territory when getting language native name (vpodzime)
+
 * Wed Oct 30 2013 Brian C. Lane <bcl@redhat.com> - 20.25.5-1
 - Fix up a couple more pylint errors. (clumens)
 - Add check for Linux HFS+ ESP on Mac (#1010495) (bcl)
