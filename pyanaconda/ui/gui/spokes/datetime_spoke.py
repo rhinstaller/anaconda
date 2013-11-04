@@ -40,6 +40,7 @@ from pyanaconda import nm
 from pyanaconda import ntp
 from pyanaconda import flags
 from pyanaconda import constants
+from pyanaconda import localization
 from pyanaconda.threads import threadMgr, AnacondaThread
 
 import datetime
@@ -326,7 +327,7 @@ class DatetimeSpoke(FirstbootSpokeMixIn, NormalSpoke):
         self._citiesFilter.set_visible_func(self.city_in_region, None)
 
         self._citiesSort = self.builder.get_object("citiesSort")
-        self._citiesSort.set_sort_column_id(0, Gtk.SortType.ASCENDING)
+        self._citiesSort.set_sort_column_id(1, Gtk.SortType.ASCENDING)
 
         self._hoursLabel = self.builder.get_object("hoursLabel")
         self._minutesLabel = self.builder.get_object("minutesLabel")
@@ -359,9 +360,9 @@ class DatetimeSpoke(FirstbootSpokeMixIn, NormalSpoke):
             self.add_to_store(self._yearsStore, year)
 
         for region in self._regions_zones.keys():
-            self.add_to_store(self._regionsStore, region)
+            self.add_to_store_xlated(self._regionsStore, region)
             for city in self._regions_zones[region]:
-                self.add_to_store(self._citiesStore, city)
+                self.add_to_store_xlated(self._citiesStore, city)
 
         if self._radioButton24h.get_active():
             self._set_amPm_part_sensitive(False)
@@ -393,11 +394,11 @@ class DatetimeSpoke(FirstbootSpokeMixIn, NormalSpoke):
     def status(self):
         if self.data.timezone.timezone:
             if is_valid_timezone(self.data.timezone.timezone):
-                return _("%s timezone") % self.data.timezone.timezone
+                return _("%s timezone") % localization.get_xlated_timezone(self.data.timezone.timezone)
             else:
                 return _("Invalid timezone")
         elif self._tzmap.get_timezone():
-            return _("%s timezone") % self._tzmap.get_timezone()
+            return _("%s timezone") % localization.get_xlated_timezone(self._tzmap.get_timezone())
         else:
             return _("Nothing selected")
 
@@ -491,6 +492,11 @@ class DatetimeSpoke(FirstbootSpokeMixIn, NormalSpoke):
         self._set_combo_selection(self._cityCombo, city)
 
         return True
+
+    @gtk_action_nowait
+    def add_to_store_xlated(self, store, item):
+        xlated = localization.get_xlated_timezone(item)
+        store.append([item, xlated])
 
     @gtk_action_nowait
     def add_to_store(self, store, item):

@@ -26,6 +26,7 @@ import re
 import langtable
 import glob
 
+from pyanaconda import constants
 from pyanaconda.iutil import upcase_first_letter
 
 import logging
@@ -369,6 +370,29 @@ def get_locale_territory(locale):
         raise InvalidLocaleSpec("'%s' is not a valid locale" % locale)
 
     return parts.get("territory", None)
+
+def get_xlated_timezone(tz_spec_part):
+    """
+    Function returning translated name of a region, city or complete timezone
+    name according to the current value of the $LANG variable.
+
+    :param tz_spec_part: a region, city or complete timezone name
+    :type tz_spec_part: str
+    :return: translated name of the given region, city or timezone
+    :rtype: str
+
+    """
+
+    locale = os.environ.get("LANG", constants.DEFAULT_LANG)
+    parts = parse_langcode(locale)
+    if "language" not in parts:
+        raise InvalidLocaleSpec("'%s' is not a valid locale" % locale)
+
+    xlated = langtable.timezone_name(tz_spec_part, languageIdQuery=parts["language"],
+                                     territoryIdQuery=parts.get("territory", ""),
+                                     scriptIdQuery=parts.get("script", ""))
+
+    return xlated.encode("utf-8")
 
 def write_language_configuration(lang, root):
     """
