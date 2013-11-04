@@ -117,7 +117,6 @@ class ProgressHub(Hub):
 
         return True
 
-
     def _configuration_done(self):
         # Configuration done, remove ransom notes timer
         # and switch to the Reboot page
@@ -125,10 +124,12 @@ class ProgressHub(Hub):
         GLib.source_remove(self._rnotes_id)
         self._progressNotebook.set_current_page(1)
 
+        self.set_warning(_("Use of this product is subject to the license agreement found at /usr/share/doc/redhat-release/EULA"))
+        self.window.show_all()
+
         # kickstart install, continue automatically if reboot or shutdown selected
         if flags.automatedInstall and self.data.reboot.action in [KS_REBOOT, KS_SHUTDOWN]:
             self.continueButton.emit("clicked")
-
 
     def _install_done(self):
         # package installation done, check personalization spokes
@@ -204,6 +205,9 @@ class ProgressHub(Hub):
         self._progressLabel = self.builder.get_object("progressLabel")
         self._progressNotebook = self.builder.get_object("progressNotebook")
 
+        self._spinner = self.builder.get_object("progressSpinner")
+        self._spinner.show()
+
         lbl = self.builder.get_object("configurationLabel")
         lbl.set_text(lbl.get_text() % productName)
 
@@ -270,15 +274,13 @@ class ProgressHub(Hub):
 
     @gtk_action_nowait
     def _restart_spinner(self):
-        spinner = self.builder.get_object("progressSpinner")
-        spinner.show()
-        spinner.start()
+        self._spinner.show()
+        self._spinner.start()
 
     @gtk_action_nowait
     def _progress_bar_complete(self):
         self._progressBar.set_fraction(1.0)
         self._progressLabel.set_text(_("Complete!"))
 
-        spinner = self.builder.get_object("progressSpinner")
-        spinner.stop()
-        spinner.hide()
+        self._spinner.stop()
+        self._spinner.hide()
