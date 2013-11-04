@@ -24,6 +24,7 @@ import gettext
 import os
 import re
 import langtable
+import locale as locale_mod
 import glob
 
 from pyanaconda import constants
@@ -197,6 +198,7 @@ def setup_locale(locale, lang=None):
         lang.lang = locale
 
     os.environ["LANG"] = locale
+    locale_mod.setlocale(locale_mod.LC_ALL, locale)
 
 def get_english_name(locale):
     """
