@@ -769,7 +769,7 @@ class StorageSpoke(NormalSpoke, StorageChecker):
 
         dialog = PassphraseDialog(self.data)
         rc = self.run_lightbox_dialog(dialog)
-        if rc == 0:
+        if rc != 1:
             return False
 
         self.passphrase = dialog.passphrase
@@ -897,6 +897,8 @@ class StorageSpoke(NormalSpoke, StorageChecker):
             self.encrypted = dialog.encrypted
 
             self.skipTo = "CustomPartitioningSpoke"
+        else:
+            return
 
         self.applyOnSkip = True
         NormalSpoke.on_back_clicked(self, button)

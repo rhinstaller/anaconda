@@ -1903,7 +1903,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
             dialog.refresh(self.__storage.devicetree.findActions())
             rc = dialog.run()
 
-        if rc == 0:
+        if rc != 1:
             # Cancel.  Stay on the custom screen.
             return
 
@@ -1916,7 +1916,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
             with enlightbox(self.window, dialog.window):
                 rc = dialog.run()
 
-            if rc == 0:
+            if rc != 1:
                 # Cancel. Leave the old passphrase set if there was one.
                 return
 
@@ -2191,7 +2191,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
                                device.name, root_name)
                 rc = dialog.run()
 
-                if rc == 0:
+                if rc != 1:
                     dialog.window.destroy()
                     return
 
@@ -2244,7 +2244,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         with enlightbox(self.window, dialog.window):
             rc = dialog.run()
 
-        if rc == 0:
+        if rc != 1:
             return
 
         disks = dialog.selected
@@ -2290,7 +2290,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
             rc = dialog.run()
             dialog.window.destroy()
 
-        if rc == 0:
+        if rc != 1:
             return
 
         disks = dialog.selected

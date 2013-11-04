@@ -306,7 +306,7 @@ class WelcomeLanguageSpoke(LangLocaleHandler, StandaloneSpoke):
             with enlightbox(self.window, dlg):
                 rc = dlg.run()
                 dlg.destroy()
-            if rc == 0:
+            if rc != 1:
                 sys.exit(0)
 
         if productName.startswith("Red Hat Enterprise Linux") and \
@@ -315,7 +315,7 @@ class WelcomeLanguageSpoke(LangLocaleHandler, StandaloneSpoke):
             with enlightbox(self.window, dlg):
                 rc = dlg.run()
                 dlg.destroy()
-            if rc == 0:
+            if rc != 1:
                 sys.exit(0)
 
         StandaloneSpoke._on_continue_clicked(self, cb)
