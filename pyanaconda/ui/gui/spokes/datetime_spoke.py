@@ -35,18 +35,20 @@ from pyanaconda.ui.gui.utils import enlightbox, gtk_action_nowait, gtk_action_wa
 from pyanaconda.i18n import _, N_
 from pyanaconda import timezone
 from pyanaconda.timezone import NTP_SERVICE
+from pyanaconda.localization import get_xlated_timezone
 from pyanaconda import iutil
 from pyanaconda import network
 from pyanaconda import nm
 from pyanaconda import ntp
 from pyanaconda import flags
 from pyanaconda import constants
-from pyanaconda import localization
 from pyanaconda.threads import threadMgr, AnacondaThread
 
 import datetime
 import os
+import re
 import threading
+import locale as locale_mod
 
 __all__ = ["DatetimeSpoke"]
 
@@ -57,6 +59,59 @@ SERVER_QUERY = 2
 DEFAULT_TZ = "America/New_York"
 
 POOL_SERVERS_NOTE = N_("Note: pool servers may not be available all the time")
+SPLIT_NUMBER_SUFFIX_RE = re.compile(r'([^0-9]*)([-+])([0-9]+)')
+
+def _compare_regions(reg_xlated1, reg_xlated2):
+    """Compare two pairs of regions and their translations."""
+
+    reg1, xlated1 = reg_xlated1
+    reg2, xlated2 = reg_xlated2
+
+    # sort the Etc timezones to the end
+    if reg1 == "Etc" and reg2 == "Etc":
+        return 0
+    elif reg1 == "Etc":
+        return 1
+    elif reg2 == "Etc":
+        return -1
+    else:
+        # otherwise compare the translated names
+        return locale_mod.strcoll(xlated1, xlated2)
+
+def _compare_cities(city_xlated1, city_xlated2):
+    """Compare two paris of cities and their translations."""
+
+    # if there are "cities" ending with numbers (like GMT+-X), we need to sort
+    # them based on their numbers
+    val1 = city_xlated1[1]
+    val2 = city_xlated2[1]
+
+    match1 = SPLIT_NUMBER_SUFFIX_RE.match(val1)
+    match2 = SPLIT_NUMBER_SUFFIX_RE.match(val2)
+
+    if match1 is None and match2 is None:
+        # no +-X suffix, just compare the strings
+        return locale_mod.strcoll(val1, val2)
+
+    if match1 is None or match2 is None:
+        # one with the +-X suffix, compare the prefixes
+        if match1:
+            prefix, _sign, _suffix = match1.groups()
+            return locale_mod.strcoll(prefix, val2)
+        else:
+            prefix, _sign, _suffix = match2.groups()
+            return locale_mod.strcoll(val1, prefix)
+
+    # both have the +-X suffix
+    prefix1, sign1, suffix1 = match1.groups()
+    prefix2, sign2, suffix2 = match2.groups()
+
+    if prefix1 == prefix2:
+        # same prefixes, let signs determine
+        return cmp(int(sign1 + suffix1), int(sign2 + suffix2))
+    else:
+        # compare prefixes
+        return locale_mod.strcoll(prefix1, prefix2)
 
 class NTPconfigDialog(GUIObject):
     builderObjects = ["ntpConfigDialog", "addImage", "serversStore"]
@@ -287,8 +342,7 @@ class DatetimeSpoke(FirstbootSpokeMixIn, NormalSpoke):
                       "days", "months", "years", "regions", "cities",
                       "upImage", "upImage1", "upImage2", "downImage",
                       "downImage1", "downImage2", "downImage3", "configImage",
-                      "citiesFilter", "daysFilter", "citiesSort", "regionsSort",
-                      "cityCompletion", "regionCompletion",
+                      "citiesFilter", "daysFilter", "regionCompletion",
                       ]
 
     mainWidgetName = "datetimeWindow"
@@ -330,9 +384,6 @@ class DatetimeSpoke(FirstbootSpokeMixIn, NormalSpoke):
         self._citiesFilter = self.builder.get_object("citiesFilter")
         self._citiesFilter.set_visible_func(self.city_in_region, None)
 
-        self._citiesSort = self.builder.get_object("citiesSort")
-        self._citiesSort.set_sort_column_id(1, Gtk.SortType.ASCENDING)
-
         self._hoursLabel = self.builder.get_object("hoursLabel")
         self._minutesLabel = self.builder.get_object("minutesLabel")
         self._amPmUp = self.builder.get_object("amPmUpButton")
@@ -362,10 +413,16 @@ class DatetimeSpoke(FirstbootSpokeMixIn, NormalSpoke):
         for year in xrange(1990, 2051):
             self.add_to_store(self._yearsStore, year)
 
-        for region in self._regions_zones.keys():
-            self.add_to_store_xlated(self._regionsStore, region)
+        cities = set()
+        xlated_regions = ((region, get_xlated_timezone(region))
+                          for region in self._regions_zones.iterkeys())
+        for region, xlated in sorted(xlated_regions, cmp=_compare_regions):
+            self.add_to_store_xlated(self._regionsStore, region, xlated)
             for city in self._regions_zones[region]:
-                self.add_to_store_xlated(self._citiesStore, city)
+                cities.add((city, get_xlated_timezone(city)))
+
+        for city, xlated in sorted(cities, cmp=_compare_cities):
+            self.add_to_store_xlated(self._citiesStore, city, xlated)
 
         if self._radioButton24h.get_active():
             self._set_amPm_part_sensitive(False)
@@ -397,11 +454,11 @@ class DatetimeSpoke(FirstbootSpokeMixIn, NormalSpoke):
     def status(self):
         if self.data.timezone.timezone:
             if timezone.is_valid_timezone(self.data.timezone.timezone):
-                return _("%s timezone") % localization.get_xlated_timezone(self.data.timezone.timezone)
+                return _("%s timezone") % get_xlated_timezone(self.data.timezone.timezone)
             else:
                 return _("Invalid timezone")
         elif self._tzmap.get_timezone():
-            return _("%s timezone") % localization.get_xlated_timezone(self._tzmap.get_timezone())
+            return _("%s timezone") % get_xlated_timezone(self._tzmap.get_timezone())
         else:
             return _("Nothing selected")
 
@@ -497,8 +554,7 @@ class DatetimeSpoke(FirstbootSpokeMixIn, NormalSpoke):
         return True
 
     @gtk_action_nowait
-    def add_to_store_xlated(self, store, item):
-        xlated = localization.get_xlated_timezone(item)
+    def add_to_store_xlated(self, store, item, xlated):
         store.append([item, xlated])
 
     @gtk_action_nowait
@@ -862,7 +918,6 @@ class DatetimeSpoke(FirstbootSpokeMixIn, NormalSpoke):
     def on_city_region_text_entry_activated(self, entry):
         combo = entry.get_parent()
         model = combo.get_model()
-        itr = model.get_iter_first()
         entry_text = entry.get_text().lower()
 
         for row in model:
