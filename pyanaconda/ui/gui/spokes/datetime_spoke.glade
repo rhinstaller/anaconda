@@ -12,6 +12,8 @@
     <columns>
       <!-- column-name name -->
       <column type="gchararray"/>
+      <!-- column-name xlated -->
+      <column type="gchararray"/>
     </columns>
   </object>
   <object class="GtkTreeModelFilter" id="citiesFilter">
@@ -64,6 +66,8 @@
   <object class="GtkListStore" id="regions">
     <columns>
       <!-- column-name name -->
+      <column type="gchararray"/>
+      <!-- column-name xlated -->
       <column type="gchararray"/>
     </columns>
   </object>
@@ -144,7 +148,7 @@
                                 <property name="can_focus">False</property>
                                 <property name="model">regions</property>
                                 <property name="has_entry">True</property>
-                                <property name="entry_text_column">0</property>
+                                <property name="entry_text_column">1</property>
                                 <signal name="changed" handler="on_region_changed" object="regionsEntry" swapped="no"/>
                                 <child internal-child="entry">
                                   <object class="GtkEntry" id="regionsEntry">
@@ -186,7 +190,7 @@
                                 <property name="can_focus">False</property>
                                 <property name="model">citiesSort</property>
                                 <property name="has_entry">True</property>
-                                <property name="entry_text_column">0</property>
+                                <property name="entry_text_column">1</property>
                                 <signal name="changed" handler="on_city_changed" object="citiesEntry" swapped="no"/>
                                 <child internal-child="entry">
                                   <object class="GtkEntry" id="citiesEntry">
