@@ -246,7 +246,7 @@ class BootLoader(object):
     global_preserve_args = ["speakup_synth", "apic", "noapic", "apm", "ide",
                             "noht", "acpi", "video", "pci", "nodmraid",
                             "nompath", "nomodeset", "noiswmd", "fips",
-                            "selinux"]
+                            "selinux", "biosdevname"]
     preserve_args = []
 
     _trusted_boot = False
