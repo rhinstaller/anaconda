@@ -1029,7 +1029,7 @@ def setOnboot(ksdata):
         else:
             devname = get_device_name(network_data.device)
             if not devname:
-                log.warning("Kickstart: The provided network interface %s does not exist", network_data.device)
+                log.warning("network: set ONBOOT: --device %s does not exist" , network_data.device)
                 continue
 
         updated_devices.append(devname)
@@ -1050,8 +1050,11 @@ def apply_kickstart_from_pre_section(ksdata):
 
         # get device name for device specified by MAC, link, bootif, etc...
         dev_name = ks_spec_to_device_name(network_data.device)
-        if not dev_name:
-            log.error("Kickstart: The provided network interface %s does not exist", network_data.device)
+        if (not dev_name
+            or (dev_name not in nm.nm_devices()
+                and not network_data.vlanid
+                and not network_data.bondslaves)):
+            log.error("network: pre kickstart: --device %s does not exist", network_data.device)
             continue
 
         if network_data.vlanid:
