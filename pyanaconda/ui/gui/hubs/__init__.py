@@ -312,6 +312,7 @@ class Hub(GUIObject, common.Hub):
 
         if not self._spokes and self.continueButton:
             # no spokes, move on
+            log.info("no spokes available on %s, continuing automatically", self)
             gtk_call_once(self.continueButton.emit, "clicked")
 
         click_continue = False
