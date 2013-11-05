@@ -629,7 +629,7 @@ class StorageSpoke(NormalSpoke, StorageChecker):
         # That makes the DO way too wide.
         if isinstance(disk, MultipathDevice):
             desc = disk.wwid.split(":")
-            description = ":".join(desc[0:3]) + "..." + ":".join(desc[-5:-1])
+            description = ":".join(desc[0:3]) + "..." + ":".join(desc[-4:])
         else:
             description = disk.description
 
