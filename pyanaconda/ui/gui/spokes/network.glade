@@ -810,6 +810,7 @@ updates available for you.</property>
                                             <property name="label" translatable="yes" context="GUI|Network|Wired">C_onfigure...</property>
                                             <property name="visible">True</property>
                                             <property name="can_focus">True</property>
+                                            <property name="tooltip_text" translatable="yes">To apply the configuration immediately turn the device off and on.</property>
                                             <property name="receives_default">True</property>
                                             <property name="halign">end</property>
                                             <property name="valign">end</property>
