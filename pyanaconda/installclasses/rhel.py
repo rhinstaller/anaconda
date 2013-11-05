@@ -35,7 +35,7 @@ class RHELBaseInstallClass(BaseInstallClass):
     bootloaderTimeoutDefault = 5
     bootloaderExtraArgs = []
 
-    ignoredPackages = ["ntfsprogs"]
+    ignoredPackages = ["ntfsprogs", "reiserfs-utils"]
 
     installUpdates = False
 
