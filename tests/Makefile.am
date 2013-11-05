@@ -39,6 +39,7 @@ dist_check_DATA = pylint/pylint-false-positives
 dist_check_SCRIPTS = accelerators/check_accelerators.py \
 		     accelerators/run_check_accelerators.sh \
 		     nosetests.sh \
+		     pylint/intl.py \
 		     pylint/runpylint.sh \
 		     testenv.sh \
 		     gettext/gettext_warnings.sh \

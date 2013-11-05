@@ -26,6 +26,9 @@ fi
 
 srcdir="${top_srcdir}/tests/pylint"
 
+# Need to add the pylint module directory to PYTHONPATH as well.
+PYTHONPATH="${PYTHONPATH}:${srcdir}"
+
 FALSE_POSITIVES="${srcdir}"/pylint-false-positives
 
 # W0212 - Access to a protected member %s of a client class
@@ -91,6 +94,7 @@ for i in $FILES; do
     --dummy-variables-rgx=_ \
     --ignored-classes=DefaultInstall,Popen,QueueFactory,TransactionSet \
     --defining-attr-methods=__init__,_grabObjects,initialize,reset,start,setUp \
+    --load-plugins=intl \
     $DISABLED_WARN_OPTIONS \
     $DISABLED_ERR_OPTIONS \
     $NON_STRICT_OPTIONS $i | \
