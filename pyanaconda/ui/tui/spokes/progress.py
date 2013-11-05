@@ -24,7 +24,7 @@ import sys
 from pyanaconda.flags import flags
 from pyanaconda.i18n import N_, _
 from pyanaconda import iutil
-from pyanaconda.constants import THREAD_INSTALL, THREAD_CONFIGURATION, IPMI_FINISHED
+from pyanaconda.constants import THREAD_INSTALL, THREAD_CONFIGURATION, IPMI_FINISHED, eulaLocation
 from pykickstart.constants import KS_SHUTDOWN, KS_REBOOT
 
 from pyanaconda.ui.tui.spokes import StandaloneTUISpoke
@@ -136,7 +136,7 @@ class ProgressSpoke(StandaloneTUISpoke):
         return True
 
     def prompt(self, args = None):
-        return(_("\tInstallation complete.  Press return to quit"))
+        return(_("\tUse of this product is subject to the license agreement found at %s\n\n\tInstallation complete.  Press return to quit") % eulaLocation)
 
     def input(self, args, key):
         # There is nothing to do here, just raise to exit the spoke

@@ -34,6 +34,7 @@ from pyanaconda.product import productName
 from pyanaconda.flags import flags
 from pyanaconda import iutil
 from pyanaconda.constants import THREAD_INSTALL, THREAD_CONFIGURATION, DEFAULT_LANG, IPMI_FINISHED
+from pyanaconda.constants import eulaLocation
 from pykickstart.constants import KS_SHUTDOWN, KS_REBOOT
 
 from pyanaconda.ui.gui.hubs import Hub
@@ -134,6 +135,9 @@ class ProgressHub(Hub):
         self._progressNotebook.set_current_page(1)
 
         iutil.ipmi_report(IPMI_FINISHED)
+
+        self.set_warning(_("Use of this product is subject to the license agreement found at %s") % eulaLocation)
+        self.window.show_all()
 
         # kickstart install, continue automatically if reboot or shutdown selected
         if flags.automatedInstall and self.data.reboot.action in [KS_REBOOT, KS_SHUTDOWN]:

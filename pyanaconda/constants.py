@@ -37,6 +37,7 @@ productVersion = product.productVersion
 productArch = product.productArch
 bugzillaUrl = product.bugUrl
 isFinal = product.isFinal
+eulaLocation = "/usr/share/redhat-release/EULA"
 
 # for use in device names, eg: "fedora", "rhel"
 shortProductName = productName.lower()
