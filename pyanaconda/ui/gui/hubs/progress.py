@@ -32,7 +32,7 @@ from pyanaconda.i18n import _
 from pyanaconda.localization import langcode_matches_locale, find_best_locale_match
 from pyanaconda.product import productName
 from pyanaconda.flags import flags
-from pyanaconda.constants import THREAD_INSTALL, THREAD_CONFIGURATION, DEFAULT_LANG
+from pyanaconda.constants import THREAD_INSTALL, THREAD_CONFIGURATION, DEFAULT_LANG, eulaLocation
 from pykickstart.constants import KS_WAIT, KS_SHUTDOWN, KS_REBOOT
 
 from pyanaconda.ui.gui.hubs import Hub
@@ -124,7 +124,7 @@ class ProgressHub(Hub):
         GLib.source_remove(self._rnotes_id)
         self._progressNotebook.set_current_page(1)
 
-        self.set_warning(_("Use of this product is subject to the license agreement found at /usr/share/doc/redhat-release/EULA"))
+        self.set_warning(_("Use of this product is subject to the license agreement found at %s") % eulaLocation)
         self.window.show_all()
 
         # kickstart install, continue automatically if reboot or shutdown selected
