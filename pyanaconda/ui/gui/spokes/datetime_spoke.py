@@ -22,7 +22,7 @@
 import logging
 log = logging.getLogger("anaconda")
 
-from gi.repository import GLib, Gtk, Gdk
+from gi.repository import GLib, Gdk
 
 from pyanaconda.ui.communication import hubQ
 from pyanaconda.ui.common import FirstbootSpokeMixIn
