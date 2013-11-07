@@ -23,7 +23,7 @@ from pyanaconda.ui.tui.tuiobject import TUIObject
 from pyanaconda.ui.tui.spokes import collect_spokes
 from pyanaconda.ui import common
 
-from pyanaconda.i18n import _
+from pyanaconda.i18n import _, N_
 
 class TUIHub(TUIObject, common.Hub):
     """Base Hub class implementing the pyanaconda.ui.common.Hub interface.
@@ -39,7 +39,7 @@ class TUIHub(TUIObject, common.Hub):
     """
 
     categories = []
-    title = _("Default HUB title")
+    title = N_("Default HUB title")
 
     def __init__(self, app, data, storage, payload, instclass):
         TUIObject.__init__(self, app, data)

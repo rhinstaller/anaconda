@@ -25,7 +25,7 @@ from pyanaconda.flags import can_touch_runtime_system
 from pyanaconda.ui.tui.spokes import EditTUISpoke, OneShotEditTUIDialog
 from pyanaconda.ui.tui.spokes import EditTUISpokeEntry as Entry
 from pyanaconda.ui.tui.simpleline import TextWidget, ColumnWidget
-from pyanaconda.i18n import _
+from pyanaconda.i18n import N_, _
 from pyanaconda import network
 from pyanaconda.nm import nm_activated_devices, nm_state, nm_devices, nm_device_type_is_ethernet, nm_device_ip_config, nm_activate_device_connection, nm_device_setting_value, UnmanagedDeviceError
 
@@ -40,7 +40,7 @@ __all__ = ["NetworkSpoke"]
 
 class NetworkSpoke(EditTUISpoke):
     """ Spoke used to configure network settings. """
-    title = _("Network settings")
+    title = N_("Network settings")
     category = "system"
 
     def __init__(self, app, data, storage, payload, instclass):
@@ -247,21 +247,21 @@ class Fake_RE_IPV6(object):
 
 class ConfigureNetworkSpoke(EditTUISpoke):
     """ Spoke to set various configuration options for net devices. """
-    title = _("Device configuration")
+    title = N_("Device configuration")
     category = "network"
 
     edit_fields = [
-        Entry(_('IPv4 address or %s for DHCP' % '"dhcp"'), "ip",
+        Entry(N_('IPv4 address or %s for DHCP' % '"dhcp"'), "ip",
               re.compile("^" + IPV4_PATTERN_WITHOUT_ANCHORS + "|dhcp$"), True),
-        Entry(_("IPv4 netmask"), "netmask", re.compile("^" + IPV4_PATTERN_WITHOUT_ANCHORS + "$"), True),
-        Entry(_("IPv4 gateway"), "gateway", re.compile("^" + IPV4_PATTERN_WITHOUT_ANCHORS + "$"), True),
-        Entry(_('IPv6 address or %s for automatic, %s for DHCP, %s to turn off')
+        Entry(N_("IPv4 netmask"), "netmask", re.compile("^" + IPV4_PATTERN_WITHOUT_ANCHORS + "$"), True),
+        Entry(N_("IPv4 gateway"), "gateway", re.compile("^" + IPV4_PATTERN_WITHOUT_ANCHORS + "$"), True),
+        Entry(N_('IPv6 address or %s for automatic, %s for DHCP, %s to turn off')
               % ('"auto"', '"dhcp"', '"ignore"'), "ipv6",
               Fake_RE_IPV6(allow_prefix=True, whitelist=["auto", "dhcp", "ignore"]), True),
-        Entry(_("IPv6 default gateway"), "ipv6gateway", re.compile(".*$"), True),
-        Entry(_("Nameservers (comma separated)"), "nameserver", re.compile(".*$"), True),
-        Entry(_("Connect automatically after reboot"), "onboot", EditTUISpoke.CHECK, True),
-        Entry(_("Apply configuration in installer"), "_apply", EditTUISpoke.CHECK, True),
+        Entry(N_("IPv6 default gateway"), "ipv6gateway", re.compile(".*$"), True),
+        Entry(N_("Nameservers (comma separated)"), "nameserver", re.compile(".*$"), True),
+        Entry(N_("Connect automatically after reboot"), "onboot", EditTUISpoke.CHECK, True),
+        Entry(N_("Apply configuration in installer"), "_apply", EditTUISpoke.CHECK, True),
     ]
 
     def __init__(self, app, data, storage, payload, instclass, ndata):

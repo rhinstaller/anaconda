@@ -25,7 +25,7 @@ from pyanaconda.ui.common import FirstbootSpokeMixIn
 from pyanaconda.ui.tui.simpleline import TextWidget
 from pyanaconda.ui.tui import YesNoDialog
 from pyanaconda.users import guess_username, USERNAME_VALID
-from pyanaconda.i18n import _
+from pyanaconda.i18n import N_, _
 from pykickstart.constants import FIRSTBOOT_RECONFIG
 from pyanaconda.constants import ANACONDA_ENVIRON, FIRSTBOOT_ENVIRON
 
@@ -34,7 +34,7 @@ import re
 __all__ = ["UserSpoke"]
 
 class UserSpoke(FirstbootSpokeMixIn, EditTUISpoke):
-    title = _("Create user")
+    title = N_("Create user")
     category = "password"
 
     edit_fields = [

@@ -34,7 +34,7 @@ from pyanaconda.flags import flags
 from pyanaconda.kickstart import doKickstartStorage
 from pyanaconda.threads import threadMgr, AnacondaThread
 from pyanaconda.constants import THREAD_STORAGE, THREAD_STORAGE_WATCHER
-from pyanaconda.i18n import _, P_
+from pyanaconda.i18n import _, P_, N_
 from pyanaconda.bootloader import BootLoaderError
 
 from pykickstart.constants import CLEARPART_TYPE_ALL, CLEARPART_TYPE_LINUX, CLEARPART_TYPE_NONE
@@ -45,9 +45,9 @@ log = logging.getLogger("anaconda")
 
 __all__ = ["StorageSpoke", "AutoPartSpoke"]
 
-CLEARALL = _("Use All Space")
-CLEARLINUX = _("Replace Existing Linux system(s)")
-CLEARNONE = _("Use Free Space")
+CLEARALL = N_("Use All Space")
+CLEARLINUX = N_("Replace Existing Linux system(s)")
+CLEARNONE = N_("Use Free Space")
 
 PARTTYPES = {CLEARALL: CLEARPART_TYPE_ALL, CLEARLINUX: CLEARPART_TYPE_LINUX,
              CLEARNONE: CLEARPART_TYPE_NONE}
@@ -57,7 +57,7 @@ class StorageSpoke(NormalTUISpoke):
     Storage spoke where users proceed to customize storage features such
     as disk selection, partitioning, and fs type.
     """
-    title = _("Install Destination")
+    title = N_("Install Destination")
     category = "system"
 
     def __init__(self, app, data, storage, payload, instclass):
@@ -336,7 +336,7 @@ class StorageSpoke(NormalTUISpoke):
 
 class AutoPartSpoke(NormalTUISpoke):
     """ Autopartitioning options are presented here. """
-    title = _("Autopartitioning Options")
+    title = N_("Autopartitioning Options")
     category = "system"
 
     def __init__(self, app, data, storage, payload, instclass):
@@ -363,7 +363,7 @@ class AutoPartSpoke(NormalTUISpoke):
 
         for parttype in self.parttypelist:
             c = CheckboxWidget(title="%i) %s" % (self.parttypelist.index(parttype) + 1,
-                                                 parttype),
+                                                 _(parttype)),
                                completed=(PARTTYPES[parttype] == self.clearPartType))
             self._window += [c, ""]
 
@@ -405,7 +405,7 @@ class AutoPartSpoke(NormalTUISpoke):
 
 class PartitionSchemeSpoke(NormalTUISpoke):
     """ SPoke to select what partitioning scheme to use on disk(s). """
-    title = _("Partition Scheme Options")
+    title = N_("Partition Scheme Options")
     category = "system"
 
     # set default FS to LVM, for consistency with graphical behavior

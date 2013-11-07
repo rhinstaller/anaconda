@@ -26,7 +26,7 @@ from pyanaconda.ui.tui.spokes import EditTUISpokeEntry as Entry
 from pyanaconda.ui.tui.simpleline import TextWidget, ColumnWidget
 from pyanaconda.threads import threadMgr, AnacondaThread
 from pyanaconda.packaging import PayloadError, MetadataError
-from pyanaconda.i18n import _
+from pyanaconda.i18n import N_, _
 from pyanaconda.image import opticalInstallMedia, potentialHdisoSources
 
 from pyanaconda.constants import THREAD_SOURCE_WATCHER, THREAD_SOFTWARE_WATCHER, THREAD_PAYLOAD
@@ -144,10 +144,10 @@ class SourceSwitchHandler(object):
 
 class SourceSpoke(SourceSwitchHandler, EditTUISpoke):
     """ Spoke used to customize the install source repo. """
-    title = _("Installation source")
+    title = N_("Installation source")
     category = "software"
 
-    _protocols = ["http://", "https://", "ftp://", "nfs", _("Closest mirror")]
+    _protocols = ["http://", "https://", "ftp://", "nfs", N_("Closest mirror")]
 
     # default to 'closest mirror', as done in the GUI
     _selection = 1
@@ -233,7 +233,7 @@ class SourceSpoke(SourceSwitchHandler, EditTUISpoke):
 
         _methods = [_("CD/DVD"), _("Local ISO file"), _("Network")]
         if args == 3:
-            text = [TextWidget(p) for p in self._protocols]
+            text = [TextWidget(_(p)) for p in self._protocols]
         else:
             self._window += [TextWidget(_("Choose an installation source type."))]
             text = [TextWidget(m) for m in _methods]
@@ -348,11 +348,11 @@ class SourceSpoke(SourceSwitchHandler, EditTUISpoke):
 
 class SpecifyRepoSpoke(SourceSwitchHandler, EditTUISpoke):
     """ Specify the repo URL here if closest mirror not selected. """
-    title = _("Specify Repo Options")
+    title = N_("Specify Repo Options")
     category = "software"
 
     edit_fields = [
-        Entry(_("Repo URL"), "url", re.compile(".*$"), True)
+        Entry(N_("Repo URL"), "url", re.compile(".*$"), True)
         ]
 
     def __init__(self, app, data, storage, payload, instclass, selection):
@@ -386,12 +386,12 @@ class SpecifyRepoSpoke(SourceSwitchHandler, EditTUISpoke):
 
 class SpecifyNFSRepoSpoke(SourceSwitchHandler, EditTUISpoke):
     """ Specify server and mount opts here if NFS selected. """
-    title = _("Specify Repo Options")
+    title = N_("Specify Repo Options")
     category = "software"
 
     edit_fields = [
-        Entry(_("NFS <server>:/<path>"), "server", re.compile(".*$"), True),
-        Entry(_("NFS mount options"), "opts", re.compile(".*$"), True)
+        Entry(N_("NFS <server>:/<path>"), "server", re.compile(".*$"), True),
+        Entry(N_("NFS mount options"), "opts", re.compile(".*$"), True)
     ]
 
     def __init__(self, app, data, storage, payload, instclass, selection, errors):

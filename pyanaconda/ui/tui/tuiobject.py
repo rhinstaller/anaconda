@@ -19,14 +19,14 @@
 # Red Hat Author(s): Martin Sivak <msivak@redhat.com>
 #
 
-from pyanaconda.i18n import _
+from pyanaconda.i18n import N_, _
 from pyanaconda.ui import common
 import simpleline as tui
 
 class ErrorDialog(tui.UIScreen):
     """Dialog screen for reporting errors to user."""
 
-    title = _("Error")
+    title = N_("Error")
 
     def __init__(self, app, message):
         """
@@ -57,7 +57,7 @@ class ErrorDialog(tui.UIScreen):
 class YesNoDialog(tui.UIScreen):
     """Dialog screen for Yes - No questions."""
 
-    title = _("Question")
+    title = N_("Question")
 
     def __init__(self, app, message):
         """

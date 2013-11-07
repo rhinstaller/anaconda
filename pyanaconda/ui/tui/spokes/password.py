@@ -23,10 +23,10 @@
 from pyanaconda.ui.tui.spokes import EditTUIDialog, EditTUISpokeEntry
 from pyanaconda.ui.common import FirstbootSpokeMixIn
 from pyanaconda.ui.tui.simpleline import TextWidget
-from pyanaconda.i18n import _
+from pyanaconda.i18n import N_, _
 
 class PasswordSpoke(FirstbootSpokeMixIn, EditTUIDialog):
-    title = _("Set root password")
+    title = N_("Set root password")
     category = "password"
 
     def __init__(self, app, data, storage, payload, instclass):

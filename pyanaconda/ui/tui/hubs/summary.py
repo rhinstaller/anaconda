@@ -23,7 +23,7 @@
 from pyanaconda.ui.tui.hubs import TUIHub
 from pyanaconda.flags import flags
 from pyanaconda.errors import CmdlineError
-from pyanaconda.i18n import _
+from pyanaconda.i18n import N_, _
 import sys
 import time
 
@@ -31,7 +31,7 @@ import logging
 log = logging.getLogger("anaconda")
 
 class SummaryHub(TUIHub):
-    title = _("Installation")
+    title = N_("Installation")
     ## FIXME: this should be pulling data from somewhere, not just a static list
     categories = ["localization", "password", "software", "system"]
 

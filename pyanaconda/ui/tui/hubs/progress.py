@@ -23,7 +23,7 @@ import time
 import sys
 
 from pyanaconda.flags import flags
-from pyanaconda.i18n import _
+from pyanaconda.i18n import N_, _
 from pyanaconda.constants import THREAD_INSTALL, THREAD_CONFIGURATION, eulaLocation
 from pykickstart.constants import KS_SHUTDOWN, KS_REBOOT
 
@@ -33,7 +33,7 @@ from pyanaconda.ui.tui.simpleline.base import ExitAllMainLoops
 __all__ = ["ProgressHub"]
 
 class ProgressHub(TUIHub):
-    title = _("Progress")
+    title = N_("Progress")
 
     def __init__(self, app, ksdata, storage, payload, instclass):
         TUIHub.__init__(self, app, ksdata, storage, payload, instclass)
@@ -100,7 +100,7 @@ class ProgressHub(TUIHub):
         from pyanaconda.threads import threadMgr, AnacondaThread
 
         # We print this here because we don't really use the window object
-        print(self.title)
+        print(_(self.title))
 
         threadMgr.add(AnacondaThread(name=THREAD_INSTALL, target=doInstall,
                                      args=(self.storage, self.payload, self.data,
