@@ -23,11 +23,11 @@ from pyanaconda.ui.tui.spokes import NormalTUISpoke
 from pyanaconda.ui.tui.simpleline import TextWidget, ColumnWidget
 from pyanaconda.ui.common import FirstbootSpokeMixIn
 from pyanaconda import timezone
-from pyanaconda.i18n import _
+from pyanaconda.i18n import N_, _
 from pyanaconda.constants_text import INPUT_PROCESSED
 
 class TimeZoneSpoke(FirstbootSpokeMixIn, NormalTUISpoke):
-    title = _("Timezone settings")
+    title = N_("Timezone settings")
     category = "localization"
 
     def __init__(self, app, data, storage, payload, instclass):

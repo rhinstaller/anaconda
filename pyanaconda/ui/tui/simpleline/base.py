@@ -533,7 +533,7 @@ class UIScreen(object):
         :rtype: True|False
         """
 
-        self._window = [self.title, u""]
+        self._window = [_(self.title), u""]
         return True
 
     @property

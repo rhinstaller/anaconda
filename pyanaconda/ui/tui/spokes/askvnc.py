@@ -23,7 +23,7 @@ from pyanaconda.ui.tui.spokes import NormalTUISpoke
 from pyanaconda.ui.tui.simpleline import TextWidget, ColumnWidget
 from pyanaconda.constants import USEVNC, USETEXT
 from pyanaconda.constants_text import INPUT_PROCESSED
-from pyanaconda.i18n import _
+from pyanaconda.i18n import N_, _
 from pyanaconda.ui.communication import hubQ
 from pyanaconda.ui.tui import exception_msg_handler
 import getpass
@@ -35,7 +35,7 @@ def exception_msg_handler_and_exit(event, data):
     sys.exit(1)
 
 class AskVNCSpoke(NormalTUISpoke):
-    title = _("VNC")
+    title = N_("VNC")
     category = "vnc"
 
     # This spoke is kinda standalone, not meant to be used with a hub
@@ -108,7 +108,7 @@ class AskVNCSpoke(NormalTUISpoke):
         self.data.vnc.enabled = self._usevnc
 
 class VNCPassSpoke(NormalTUISpoke):
-    title = _("VNC Password")
+    title = N_("VNC Password")
     category = "vnc"
 
     def __init__(self, app, data, storage, payload, instclass, message=None):

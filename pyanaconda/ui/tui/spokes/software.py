@@ -24,7 +24,7 @@ from pyanaconda.ui.tui.spokes import NormalTUISpoke
 from pyanaconda.ui.tui.simpleline import TextWidget, ColumnWidget, CheckboxWidget
 from pyanaconda.threads import threadMgr, AnacondaThread
 from pyanaconda.packaging import MetadataError, DependencyError
-from pyanaconda.i18n import _
+from pyanaconda.i18n import N_, _
 
 from pyanaconda.constants import THREAD_PAYLOAD, THREAD_PAYLOAD_MD
 from pyanaconda.constants import THREAD_CHECK_SOFTWARE, THREAD_SOFTWARE_WATCHER
@@ -35,7 +35,7 @@ __all__ = ["SoftwareSpoke"]
 
 class SoftwareSpoke(NormalTUISpoke):
     """ Spoke used to read new value of text to represent source repo. """
-    title = _("Software selection")
+    title = N_("Software selection")
     category = "software"
 
     def __init__(self, app, data, storage, payload, instclass):

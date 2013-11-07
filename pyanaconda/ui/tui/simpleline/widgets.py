@@ -23,6 +23,7 @@
 
 __all__ = ["TextWidget", "ColumnWidget", "CheckboxWidget", "CenterWidget"]
 
+from pyanaconda.i18n import _
 from pyanaconda.ui.tui.simpleline import base
 
 class TextWidget(base.Widget):
@@ -166,7 +167,7 @@ class CheckboxWidget(base.Widget):
 
         # append lines
         if self.title:
-            data.append(TextWidget(self.title))
+            data.append(TextWidget(_(self.title)))
 
         if self.text:
             data.append(TextWidget("(%s)" % self.text))

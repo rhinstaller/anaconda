@@ -25,7 +25,7 @@ from pyanaconda.users import validatePassword, cryptPassword
 import re
 from collections import namedtuple
 from pyanaconda.iutil import setdeepattr, getdeepattr
-from pyanaconda.i18n import _
+from pyanaconda.i18n import N_, _
 from pyanaconda.constants import PASSWORD_CONFIRM_ERROR_TUI
 
 __all__ = ["TUISpoke", "EditTUISpoke", "EditTUIDialog", "EditTUISpokeEntry",
@@ -44,7 +44,7 @@ class TUISpoke(TUIObject, tui.Widget, Spoke):
     :type category: string
     """
 
-    title = _("Default spoke title")
+    title = N_("Default spoke title")
     category = u""
 
     def __init__(self, app, data, storage, payload, instclass):
@@ -80,7 +80,7 @@ class TUISpoke(TUIObject, tui.Widget, Spoke):
         # always set completed = True here; otherwise key value won't be
         # displayed if completed (spoke value from above) is False
         c = tui.CheckboxWidget(key = key, completed = True,
-                               title = self.title, text = self.status)
+                               title = _(self.title), text = self.status)
         c.render(width)
         self.draw(c)
 
@@ -92,7 +92,7 @@ EditTUISpokeEntry = namedtuple("EditTUISpokeEntry", ["title", "attribute", "aux"
 class EditTUIDialog(NormalTUISpoke):
     """Spoke/dialog used to read new value of textual or password data"""
 
-    title = _("New value")
+    title = N_("New value")
     PASSWORD = re.compile(".*")
 
     def __init__(self, app, data, storage, payload, instclass):

@@ -22,14 +22,14 @@
 
 from pyanaconda.ui.tui.spokes import NormalTUISpoke
 from pyanaconda.ui.tui.simpleline.widgets import TextWidget
-from pyanaconda.i18n import _
+from pyanaconda.i18n import N_, _
 from pyanaconda.constants import ANACONDA_ENVIRON
 from blivet import arch
 
 import subprocess
 
 class ShellSpoke(NormalTUISpoke):
-    title = _("Shell")
+    title = N_("Shell")
     category = "system"
 
     @classmethod

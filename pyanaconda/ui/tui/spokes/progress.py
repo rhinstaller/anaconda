@@ -22,7 +22,7 @@
 import sys
 
 from pyanaconda.flags import flags
-from pyanaconda.i18n import _
+from pyanaconda.i18n import N_, _
 from pyanaconda.constants import THREAD_INSTALL, THREAD_CONFIGURATION
 from pykickstart.constants import KS_SHUTDOWN, KS_REBOOT
 
@@ -33,7 +33,7 @@ from pyanaconda.ui.tui.simpleline.base import ExitAllMainLoops
 __all__ = ["ProgressSpoke"]
 
 class ProgressSpoke(StandaloneTUISpoke):
-    title = _("Progress")
+    title = N_("Progress")
 
     postForHub = SummaryHub
     priority = 0
@@ -108,7 +108,7 @@ class ProgressSpoke(StandaloneTUISpoke):
         from pyanaconda.threads import threadMgr, AnacondaThread
 
         # We print this here because we don't really use the window object
-        print(self.title)
+        print(_(self.title))
 
         threadMgr.add(AnacondaThread(name=THREAD_INSTALL, target=doInstall,
                                      args=(self.storage, self.payload, self.data,
