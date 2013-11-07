@@ -272,7 +272,7 @@ class ConfigureNetworkSpoke(EditTUISpoke):
     def refresh(self, args=None):
         """ Refresh window. """
         EditTUISpoke.refresh(self, args)
-        message = _("Configuring device %s." % self.args.device)
+        message = _("Configuring device %s.") % self.args.device
         self._window += [TextWidget(message), ""]
         return True
 
