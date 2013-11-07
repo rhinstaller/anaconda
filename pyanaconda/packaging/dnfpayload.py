@@ -227,12 +227,12 @@ class DNFPayload(packaging.PackagePayload):
 
     @property
     def environments(self):
-        environments = self._base.comps.environments_iter
+        environments = self._base.comps.environments_iter()
         return [env.id for env in environments]
 
     @property
     def groups(self):
-        groups = self._base.comps.groups_iter
+        groups = self._base.comps.groups_iter()
         return [g.id for g in groups]
 
     @property
@@ -272,7 +272,7 @@ class DNFPayload(packaging.PackagePayload):
         self._apply_selections()
 
         try:
-            if self._base.build_transaction():
+            if self._base.resolve():
                 log.debug("checking dependencies: success.")
             else:
                 log.debug("empty transaction")
@@ -335,7 +335,7 @@ class DNFPayload(packaging.PackagePayload):
 
     def gatherRepoMetadata(self):
         map(self._sync_metadata, self._base.repos.iter_enabled())
-        self._base.activate_sack(load_system_repo=False)
+        self._base.fill_sack(load_system_repo=False)
         self._base.read_comps()
 
     def install(self):
@@ -344,7 +344,7 @@ class DNFPayload(packaging.PackagePayload):
             self._setupMedia(self.install_device)
         try:
             self.checkSoftwareSelection()
-        except packaging.DependencyError:
+        except packaging.DependencyError as e:
             if errors.errorHandler.cb(e) == errors.ERROR_RAISE:
                 _failure_limbo()
 
