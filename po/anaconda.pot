@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: anaconda 19.31.31\n"
+"Project-Id-Version: anaconda 19.31.32\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
-"POT-Creation-Date: 2013-11-01 18:15-0700\n"
+"POT-Creation-Date: 2013-11-06 22:08-0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -54,27 +54,27 @@ msgstr ""
 msgid "OK"
 msgstr ""
 
-#: anaconda:502
+#: anaconda:505
 msgid "DISPLAY variable not set. Starting text mode."
 msgstr ""
 
-#: anaconda:510
+#: anaconda:513
 msgid "Graphical installation is not available. Starting text mode."
 msgstr ""
 
-#: anaconda:518
+#: anaconda:521
 msgid ""
 "Text mode provides a limited set of installation options. It does not offer "
 "custom partitioning for full control over the disk layout. Would you like to "
 "use VNC mode instead?"
 msgstr ""
 
-#: anaconda:644
+#: anaconda:647
 #, c-format
 msgid "Please ssh install@%s to begin the install."
 msgstr ""
 
-#: anaconda:646
+#: anaconda:649
 msgid "Please ssh install@<host> to continue installation."
 msgstr ""
 
@@ -158,26 +158,26 @@ msgid ""
 "using the %(fsType)s filesystem on %(deviceType)s"
 msgstr ""
 
-#: pyanaconda/constants.py:59
+#: pyanaconda/constants.py:60
 msgid ""
 "An unhandled exception has occurred.  This is most likely a bug.  Please "
 "save a copy of the detailed exception and file a bug report"
 msgstr ""
 
-#: pyanaconda/constants.py:65
+#: pyanaconda/constants.py:66
 msgid " with the provider of this software."
 msgstr ""
 
-#: pyanaconda/constants.py:69
+#: pyanaconda/constants.py:70
 #, python-format
 msgid " against anaconda at %s"
 msgstr ""
 
-#: pyanaconda/constants.py:97
+#: pyanaconda/constants.py:98
 msgid "Start VNC"
 msgstr ""
 
-#: pyanaconda/constants.py:98
+#: pyanaconda/constants.py:99
 msgid "Use text mode"
 msgstr ""
 
@@ -631,7 +631,11 @@ msgid "Progress"
 msgstr ""
 
 #: pyanaconda/ui/tui/hubs/progress.py:128
-msgid "\tInstallation complete.  Press return to quit"
+#, python-format
+msgid ""
+"\tUse of this product is subject to the license agreement found at %s\n"
+"\n"
+"\tInstallation complete.  Press return to quit"
 msgstr ""
 
 #: pyanaconda/ui/tui/hubs/summary.py:30
@@ -1246,14 +1250,19 @@ msgid ""
 "step."
 msgstr ""
 
-#: pyanaconda/ui/gui/hubs/progress.py:198
+#: pyanaconda/ui/gui/hubs/progress.py:127
+#, python-format
+msgid "Use of this product is subject to the license agreement found at %s"
+msgstr ""
+
+#: pyanaconda/ui/gui/hubs/progress.py:199
 #, python-format
 msgid ""
 "%s is now successfully installed on your system and ready for you to use!  "
 "When you are ready, reboot your system to start using it!"
 msgstr ""
 
-#: pyanaconda/ui/gui/hubs/progress.py:280
+#: pyanaconda/ui/gui/hubs/progress.py:283
 msgid "Complete!"
 msgstr ""
 
@@ -1489,37 +1498,37 @@ msgstr ""
 msgid "Volume Group name %s is already in use. Not saving changes."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:2413
+#: pyanaconda/ui/gui/spokes/custom.py:2415
 #, python-format
 msgid ""
 "This Software RAID array is missing %(missingMembers)d of %(totalMembers)d "
 "member partitions. You can remove it or select a different device."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:2419
+#: pyanaconda/ui/gui/spokes/custom.py:2421
 #, python-format
 msgid ""
 "This LVM Volume Group is missing %(missingPVs)d of %(totalPVs)d physical "
 "volumes. You can remove it or select a different device."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:2488
+#: pyanaconda/ui/gui/spokes/custom.py:2490
 msgid "No disks selected."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:2494
+#: pyanaconda/ui/gui/spokes/custom.py:2496
 msgid "Not enough free space on selected disks."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:2500
+#: pyanaconda/ui/gui/spokes/custom.py:2502
 msgid "Automatic partitioning failed. Click for details."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:2798
+#: pyanaconda/ui/gui/spokes/custom.py:2800
 msgid "Failed to unlock encrypted block device. Click for details"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:2823
+#: pyanaconda/ui/gui/spokes/custom.py:2825
 #, python-format
 msgid ""
 "You have chosen to manually set up the filesystems for your new "
@@ -2168,22 +2177,22 @@ msgstr ""
 msgid "SYSTEM"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/lib/accordion.py:255
+#: pyanaconda/ui/gui/spokes/lib/accordion.py:261
 #, python-format
 msgid ""
 "You haven't created any mount points for your %s %s installation yet.  You "
 "can:"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/lib/accordion.py:264
+#: pyanaconda/ui/gui/spokes/lib/accordion.py:270
 msgid "_Click here to create them automatically."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/lib/accordion.py:281
+#: pyanaconda/ui/gui/spokes/lib/accordion.py:287
 msgid "Create new mount points by clicking the '+' button."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/lib/accordion.py:292
+#: pyanaconda/ui/gui/spokes/lib/accordion.py:298
 msgid ""
 "Or, assign new mount points to existing partitions after selecting them "
 "below."
@@ -3853,32 +3862,32 @@ msgstr ""
 msgid "We won't touch your disks until you hit this button."
 msgstr ""
 
-#: pyanaconda/ui/gui/hubs/progress.glade:9
+#: pyanaconda/ui/gui/hubs/progress.glade:10
 msgid "CONFIGURATION"
 msgstr ""
 
-#: pyanaconda/ui/gui/hubs/progress.glade:83
+#: pyanaconda/ui/gui/hubs/progress.glade:85
 msgid "Preparing to install"
 msgstr ""
 
-#: pyanaconda/ui/gui/hubs/progress.glade:129
+#: pyanaconda/ui/gui/hubs/progress.glade:131
 msgid ""
 "%s is now successfully installed on your system, but some configuration "
 "still needs to be done.  Finish it and then click the Finish configuration "
 "button please."
 msgstr ""
 
-#: pyanaconda/ui/gui/hubs/progress.glade:141
+#: pyanaconda/ui/gui/hubs/progress.glade:143
 msgid "_Finish configuration"
 msgstr ""
 
-#: pyanaconda/ui/gui/hubs/progress.glade:182
+#: pyanaconda/ui/gui/hubs/progress.glade:184
 msgid ""
 "%s is now successfully installed on your system and ready for you to use!  "
 "Go ahead and reboot to start using it!"
 msgstr ""
 
-#: pyanaconda/ui/gui/hubs/progress.glade:194
+#: pyanaconda/ui/gui/hubs/progress.glade:196
 msgid "_Reboot"
 msgstr ""
 

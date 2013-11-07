@@ -252,6 +252,27 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Wed Nov 06 2013 Brian C. Lane <bcl@redhat.com> - 19.31.33-1
+- Avoid raising an exception if epdb module unavailable (amulhern)
+  Resolves: rhbz#1026779
+- Display a EULA-related warning on progress hub at end of installation.
+  (sbueno+anaconda)
+  Resolves: rhbz#909309
+  Related: rhbz#909309
+- Show last 4 bytes of wwid (jstodola)
+  Resolves: rhbz#1024966
+- Display a EULA-related warning on the progress hub at the end of installation. (clumens)
+  Related: rhbz#909309
+- Handle focus changes of MountpointSelectors from outside (vpodzime)
+  Resolves: rhbz#975838
+- Make network-fetched driver disk .iso files work (vpodzime)
+  Resolves: rhbz#1003595
+- Updates to boot-options.txt document (amulhern)
+  Related: rhbz#1026385
+  Resolves: rhbz#1026385
+- No longer install anaconda user documentation (amulhern)
+  Resolves: rhbz#1026385
+
 * Fri Nov 01 2013 Brian C. Lane <bcl@redhat.com> - 19.31.32-1
 - Send the continue click after the queue is empty (bcl)
   Resolves: rhbz#1025346
