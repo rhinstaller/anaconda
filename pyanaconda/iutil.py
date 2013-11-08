@@ -51,12 +51,12 @@ def augmentEnv():
 
 def _run_program(argv, root='/', stdin=None, stdout=None, env_prune=None):
     """ Run an external program, log the output and return it to the caller
-        @param argv The command to run and argument
-        @param root The directory to chroot to before running command.
-        @param stdin The file object to read stdin from.
-        @param stdout Optional file object to write stdout and stderr to.
-        @param env_prune environment variable to remove before execution
-        @return The return code of the command and the output
+        :param argv: The command to run and argument
+        :param root: The directory to chroot to before running command.
+        :param stdin: The file object to read stdin from.
+        :param stdout: Optional file object to write stdout and stderr to.
+        :param env_prune: environment variable to remove before execution
+        :return: The return code of the command and the output
     """
     if env_prune is None:
         env_prune = []
@@ -99,13 +99,13 @@ def _run_program(argv, root='/', stdin=None, stdout=None, env_prune=None):
 def execWithRedirect(command, argv, stdin=None, stdout=None,
                      root='/', env_prune=None):
     """ Run an external program and redirect the output to a file.
-        @param command The command to run
-        @param argv The argument list
-        @param stdin The file object to read stdin from.
-        @param stdout Optional file object to redirect stdout and stderr to.
-        @param root The directory to chroot to before running command.
-        @param env_prune environment variable to remove before execution
-        @return The return code of the command
+        :param command: The command to run
+        :param argv: The argument list
+        :param stdin: The file object to read stdin from.
+        :param stdout: Optional file object to redirect stdout and stderr to.
+        :param root: The directory to chroot to before running command.
+        :param env_prune: environment variable to remove before execution
+        :return: The return code of the command
     """
     if flags.testing:
         log.info("not running command because we're testing: %s %s",
@@ -117,11 +117,11 @@ def execWithRedirect(command, argv, stdin=None, stdout=None,
 
 def execWithCapture(command, argv, stdin=None, root='/'):
     """ Run an external program and capture standard out and err.
-        @param command The command to run
-        @param argv The argument list
-        @param stdin The file object to read stdin from.
-        @param root The directory to chroot to before running command.
-        @return The output of the command
+        :param command: The command to run
+        :param argv: The argument list
+        :param stdin: The file object to read stdin from.
+        :param root: The directory to chroot to before running command.
+        :return: The output of the command
     """
     if flags.testing:
         log.info("not running command because we're testing: %s %s",
@@ -135,13 +135,13 @@ def execReadlines(command, argv, stdin=None, root='/', env_prune=None):
     """ Execute an external command and return the line output of the command
         in real-time.
 
-        @param command The command to run
-        @param argv The argument list
-        @param stdin The file object to read stdin from.
-        @param stdout Optional file object to redirect stdout and stderr to.
-        @param stderr not used
-        @param root The directory to chroot to before running command.
-        @param env_prune environment variable to remove before execution
+        :param command: The command to run
+        :param argv: The argument list
+        :param stdin: The file object to read stdin from.
+        :param stdout: Optional file object to redirect stdout and stderr to.
+        :param stderr: not used
+        :param root: The directory to chroot to before running command.
+        :param env_prune: environment variable to remove before execution
 
         Output from the file is not logged to program.log
         This returns a generator with the lines from the command until it has finished
@@ -204,8 +204,8 @@ def execConsole():
 
 def getDirSize(directory):
     """ Get the size of a directory and all its subdirectories.
-    @param dir The name of the directory to find the size of.
-    @return The size of the directory in kilobytes.
+    :param dir: The name of the directory to find the size of.
+    :return: The size of the directory in kilobytes.
     """
     def getSubdirSize(directory):
         # returns size in bytes
@@ -242,8 +242,12 @@ def getDirSize(directory):
     return getSubdirSize(directory)/1024
 
 ## Create a directory path.  Don't fail if the directory already exists.
-# @param dir The directory path to create.
 def mkdirChain(directory):
+    """
+    :param dir: The directory path to create
+
+    """
+
     try:
         os.makedirs(directory, 0755)
     except OSError as e:
