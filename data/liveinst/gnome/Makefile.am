@@ -28,3 +28,9 @@ CLEANFILES = fedora-welcome.desktop
 MAINTAINERCLEANFILES = Makefile.in
 
 @INTLTOOL_DESKTOP_RULE@
+
+# Files generated for gettext need to be included in the distribution
+EXTRA_DIST += $(srcdir)/fedora-welcome.po $(srcdir)/fedora-welcome.desktop.in.h
+$(srcdir)/fedora-welcome.po $(srcdir)/fedora-welcome.desktop.in.h: \
+	$(srcdir)/fedora-welcome $(srcdir)/fedora-welcome.desktop.in
+	@$(MAKE) -C $(top_builddir)/po $(abs_top_srcdir)/$(subdir)/$$(basename $@)
