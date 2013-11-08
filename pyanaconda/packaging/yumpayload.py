@@ -183,7 +183,7 @@ class YumPayload(PackagePayload):
         with self._br_cache_valid_lock:
             self._br_cache_valid = False
 
-    def reset(self, root=None):
+    def reset(self, root=None, releasever=None):
         """ Reset this instance to its initial (unconfigured) state. """
 
         super(YumPayload, self).reset()
@@ -195,7 +195,7 @@ class YumPayload(PackagePayload):
         self._groups = None
         self._packages = []
 
-        self._resetYum(root=root)
+        self._resetYum(root=root, releasever=releasever)
 
     def setup(self, storage):
         super(YumPayload, self).setup(storage)
@@ -210,8 +210,11 @@ class YumPayload(PackagePayload):
         # have group info ready.
         self.gatherRepoMetadata()
 
-    def _resetYum(self, root=None, keep_cache=False):
-        """ Delete and recreate the payload's YumBase instance. """
+    def _resetYum(self, root=None, keep_cache=False, releasever=None):
+        """ Delete and recreate the payload's YumBase instance.
+
+            Setup _yum.preconf -- DO NOT TOUCH IT OUTSIDE THIS METHOD
+        """
         if root is None:
             root = self._root_dir
 
@@ -238,9 +241,10 @@ class YumPayload(PackagePayload):
             self._yum.preconf.enabled_plugins = YUM_PLUGINS
             self._yum.preconf.fn = "/tmp/anaconda-yum.conf"
             self._yum.preconf.root = root
-            # set this now to the best default we've got ; we'll update it if/when
-            # we get a base repo set up
-            self._yum.preconf.releasever = self._getReleaseVersion(None)
+            if releasever is None:
+                self._yum.preconf.releasever = self._getReleaseVersion(None)
+            else:
+                self._yum.preconf.releasever = releasever
 
         self.txID = None
 
@@ -367,10 +371,8 @@ reposdir=%s
         releasever = self._yum.conf.yumvar['releasever']
         self._writeYumConfig()
         self._writeLangpacksConfig()
-        self._resetYum(root=ROOT_PATH, keep_cache=True)
         log.debug("setting releasever to previous value of %s", releasever)
-        self._yum.preconf.releasever = releasever
-
+        self._resetYum(root=ROOT_PATH, keep_cache=True, releasever=releasever)
         self._yumCacheDirHack()
         self.gatherRepoMetadata()
 
@@ -487,41 +489,64 @@ reposdir=%s
             - Get metadata for all enabled repos, disabling those for which the
               retrieval fails.
         """
-        log.info("updating base repo")
+        log.info("configuring base repo")
+        url, mirrorlist, sslverify = self._setupInstallDevice(self.storage, checkmount)
 
-        # start with a fresh YumBase instance
-        self.reset(root=root)
+        releasever = None
+        method = self.data.method
+        if method.method:
+            try:
+                releasever = self._getReleaseVersion(url)
+                log.debug("releasever from %s is %s", url, releasever)
+            except ConfigParser.MissingSectionHeaderError as e:
+                log.error("couldn't set releasever from base repo (%s): %s",
+                          method.method, e)
+
+        # start with a fresh YumBase instance & tear down old install device
+        self.reset(root=root, releasever=releasever)
+        self._yumCacheDirHack()
+
+        # This needs to be done again, reset tore it down.
+        url, mirrorlist, sslverify = self._setupInstallDevice(self.storage, checkmount)
 
         # If this is a kickstart install and no method has been set up, or
         # askmethod was given on the command line, we don't want to do
         # anything.  Just disable all repos and return.  This should avoid
         # metadata fetching.
-        if (not self.data.method.method and flags.automatedInstall) or \
+        if (not method.method and flags.automatedInstall) or \
            flags.askmethod:
             with _yum_lock:
                 for repo in self._yum.repos.repos.values():
                     self.disableRepo(repo.id)
-
-            self._yumCacheDirHack()
             return
 
         # see if we can get a usable base repo from self.data.method
-        try:
-            self._configureBaseRepo(self.storage, checkmount=checkmount)
-        except (MetadataError, PayloadError) as e:
-            if not fallback:
-                with _yum_lock:
-                    for repo in self._yum.repos.repos.values():
-                        if repo.enabled:
-                            self.disableRepo(repo.id)
+        if method.method:
+            try:
+                if releasever is None:
+                    raise PayloadSetupError("base repo is unusable")
 
-                return
+                if hasattr(method, "proxy"):
+                    proxyurl = method.proxy
+                else:
+                    proxyurl = None
 
-            # this preserves the method details while disabling it
-            self.data.method.method = None
-            self.install_device = None
-        finally:
-            self._yumCacheDirHack()
+                self._addYumRepo(BASE_REPO_NAME, url, mirrorlist=mirrorlist,
+                                 proxyurl=proxyurl, sslverify=sslverify)
+            except (MetadataError, PayloadError) as e:
+                log.error("base repo (%s/%s) not valid -- removing it",
+                          method.method, url)
+                self._removeYumRepo(BASE_REPO_NAME)
+                if not fallback:
+                    with _yum_lock:
+                        for repo in self._yum.repos.repos.values():
+                            if repo.enabled:
+                                self.disableRepo(repo.id)
+                    return
+
+                # this preserves the method details while disabling it
+                method.method = None
+                self.install_device = None
 
         with _yum_lock:
             if BASE_REPO_NAME not in self._yum.repos.repos.keys():
@@ -572,7 +597,7 @@ reposdir=%s
                      self._yum.repos.getRepo("rawhide").enabled and \
                      repo.id != "rawhide":
                     self.disableRepo(repo.id)
-                elif self.data.method.method and \
+                elif method.method and \
                      repo.id != BASE_REPO_NAME and \
                      repo.id not in (r.name for r in self.data.repo.dataList()):
                     # if a method/repo was given, disable all default repos
@@ -608,49 +633,6 @@ reposdir=%s
         if dev:
             return dev[len(DRACUT_ISODIR)+1:]
         return None
-
-    @invalidates_br_cache()
-    def _configureBaseRepo(self, storage, checkmount=True):
-        """ Configure the base repo.
-
-            If self.data.method.method is set, failure to configure a base repo
-            should generate a PayloadError exception.
-
-            If self.data.method.method is unset, no exception should be raised
-            and no repo should be configured.
-
-            If checkmount is true, check the dracut mount to see if we have
-            usable media mounted.
-        """
-
-        log.info("configuring base repo")
-        url, mirrorlist, sslverify = self._setupInstallDevice(storage, checkmount)
-        method = self.data.method
-        if method.method:
-            with _yum_lock:
-                try:
-                    self._yum.preconf.releasever = self._getReleaseVersion(url)
-                except ConfigParser.MissingSectionHeaderError as e:
-                    log.error("couldn't set releasever from base repo (%s): %s",
-                              method.method, e)
-                    self._removeYumRepo(BASE_REPO_NAME)
-                    raise PayloadSetupError("base repo is unusable")
-
-            self._yumCacheDirHack()
-
-            if hasattr(method, "proxy"):
-                proxyurl = method.proxy
-            else:
-                proxyurl = None
-
-            try:
-                self._addYumRepo(BASE_REPO_NAME, url, mirrorlist=mirrorlist,
-                                 proxyurl=proxyurl, sslverify=sslverify)
-            except MetadataError as e:
-                log.error("base repo (%s/%s) not valid -- removing it",
-                          method.method, url)
-                self._removeYumRepo(BASE_REPO_NAME)
-                raise
 
     def _configureAddOnRepo(self, repo):
         """ Configure a single ksdata repo. """

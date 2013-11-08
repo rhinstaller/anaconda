@@ -389,7 +389,7 @@ class DNFPayload(packaging.PackagePayload):
     def release(self):
         pass
 
-    def reset(self, root=None):
+    def reset(self, root=None, releasever=None):
         super(DNFPayload, self).reset()
         self.txID = None
         self._base.reset(sack=True, repos=True)
