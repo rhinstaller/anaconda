@@ -97,9 +97,10 @@ for i in $FILES; do
     --load-plugins=intl \
     $DISABLED_WARN_OPTIONS \
     $DISABLED_ERR_OPTIONS \
-    $NON_STRICT_OPTIONS $i | \
+    $NON_STRICT_OPTIONS $i 2>&1 | \
     egrep -v "$(tr '\n' '|' < "$FALSE_POSITIVES") \
     ")"
+
   # I0011 is the informational "Locally disabling ...." message
   if [ -n "$(echo "$pylint_output" | fgrep -v '************* Module ' |\
           grep -v '^I0011:')" ]; then
