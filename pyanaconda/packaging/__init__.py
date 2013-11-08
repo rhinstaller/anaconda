@@ -130,7 +130,7 @@ class Payload(object):
         """
         pass
 
-    def reset(self, root=None):
+    def reset(self, root=None, releasever=None):
         """ Reset the instance, not including ksdata. """
         pass
 
@@ -677,7 +677,7 @@ class PackagePayload(Payload):
 
         return kernels
 
-    def reset(self, root=None):
+    def reset(self, root=None, releasever=None):
         # cdrom: install_device.teardown (INSTALL_TREE)
         # hd: umount INSTALL_TREE, install_device.teardown (ISO_DIR)
         # nfs: umount INSTALL_TREE
