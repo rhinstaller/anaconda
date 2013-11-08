@@ -59,7 +59,7 @@ class StorageSpoke(NormalTUISpoke):
     Storage spoke where users proceed to customize storage features such
     as disk selection, partitioning, and fs type.
     """
-    title = M_("Installation Destination")
+    title = N_("Installation Destination")
     category = "system"
 
     def __init__(self, app, data, storage, payload, instclass):
