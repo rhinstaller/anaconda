@@ -14,6 +14,8 @@
 #
 # All output files need to be in $srcdir for gettext to be able to find them.
 
+DISTFILES.common.extra2 = Rules-extract
+
 %.glade.h: %.glade
 	@intltool-extract -q --type=gettext/glade -l $< && \
 	sed 's/no-c-format/python-format/' < tmp/$$(basename $@) > $@ && \
