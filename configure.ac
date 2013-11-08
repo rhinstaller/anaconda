@@ -37,6 +37,7 @@ AC_PROG_INSTALL
 AC_PROG_LN_S
 AC_PROG_MAKE_SET
 AC_PROG_LIBTOOL
+AC_PROG_MKDIR_P
 
 # Check for the intltool programs
 # These checks and subsitutions are adapted IT_PROG_INTLTOOL provided in
