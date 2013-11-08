@@ -44,6 +44,7 @@ dist_check_SCRIPTS = accelerators/check_accelerators.py \
 		     testenv.sh \
 		     gettext/gettext_warnings.sh \
 		     storage/run_storage_tests.py \
+		     $(srcdir)/storage/cases/*.py \
 		     $(srcdir)/*_tests/*.py
 
 TESTS = nosetests.sh \
