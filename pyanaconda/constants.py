@@ -143,3 +143,6 @@ PASSWORD_WEAK_CONFIRM = N_("You have provided a weak password. Press Done again 
 PASSWORD_WEAK_CONFIRM_WITH_ERROR = N_("You have provided a weak password: %s. Press Done again to use anyway.")
 
 PASSWORD_STRENGTH_DESC = [N_("Empty"), N_("Weak"), N_("Fair"), N_("Good"), N_("Strong")]
+
+# the number of seconds we consider a noticeable freeze of the UI
+NOTICEABLE_FREEZE = 0.1

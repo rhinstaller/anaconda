@@ -21,12 +21,22 @@
 #                    Vratislav Podzimek <vpodzime@redhat.com>
 #
 
-from pyanaconda.threads import threadMgr
+from pyanaconda.threads import threadMgr, AnacondaThread
 
+from pyanaconda.constants import NOTICEABLE_FREEZE
 from contextlib import contextmanager
 from gi.repository import Gtk, GLib, AnacondaWidgets
 import Queue
 import gettext
+import time
+import threading
+
+import logging
+log = logging.getLogger("anaconda")
+
+# any better idea how to create a unique, distinguishable object that cannot be
+# confused with anything else?
+TERMINATOR = object()
 
 def gtk_call_once(func, *args):
     """Wrapper for GLib.idle_add call that ensures the func is called
@@ -92,6 +102,82 @@ def gtk_action_nowait(func):
 
     return _call_method
 
+def gtk_batch_map(action, items, args=(), pre_func=None, batch_size=1):
+    """
+    Function that maps an action on items in a way that makes the action run in
+    the main thread, but without blocking the main thread for a noticeable
+    time. If a pre-processing function is given it is mapped on the items first
+    before the action happens in the main thread.
+
+    MUST NOT BE CALLED NOR WAITED FOR FROM THE MAIN THREAD.
+
+    :param action: any action that has to be done on the items in the main
+                   thread
+    :type action: (action_item, *args) -> None
+    :param items: an iterable of items that the action should be mapped on
+    :type items: iterable
+    :param args: additional arguments passed to the action function
+    :type args: tuple
+    :param pre_func: a function that is mapped on the items before they are
+                     passed to the action function
+    :type pre_func: item -> action_item
+    :param batch_size: how many items should be processed in one run in the main loop
+    :raise AssertionError: if called from the main thread
+    :return: None
+
+    """
+
+    assert(not threadMgr.in_main_thread())
+
+    def preprocess(queue):
+        if pre_func:
+            for item in items:
+                queue.put(pre_func(item))
+        else:
+            for item in items:
+                queue.put(item)
+
+        queue.put(TERMINATOR)
+
+    def process_one_batch((queue, action, done_event)):
+        tstamp_start = time.time()
+        tstamp = time.time()
+
+        # process as many batches as user shouldn't notice
+        while tstamp - tstamp_start < NOTICEABLE_FREEZE:
+            for _i in xrange(batch_size):
+                try:
+                    action_item = queue.get_nowait()
+                    if action_item is TERMINATOR:
+                        # all items processed, tell we are finished and return
+                        done_event.set()
+                        return False
+                    else:
+                        # run action on the item
+                        action(action_item, *args)
+                except Queue.Empty:
+                    # empty queue, reschedule to run later
+                    return True
+
+            tstamp = time.time()
+
+        # out of time but something left, reschedule to run again later
+        return True
+
+    item_queue = Queue.Queue()
+    done_event = threading.Event()
+
+    # we don't want to log the whole list, type and address is enough
+    log.debug("Starting applying %s on %s", action, object.__repr__(items))
+
+    # start a thread putting preprocessed items into the queue
+    threadMgr.add(AnacondaThread(prefix="AnaGtkBatchPre",
+                                 target=preprocess,
+                                 args=(item_queue,)))
+
+    GLib.idle_add(process_one_batch, (item_queue, action, done_event))
+    done_event.wait()
+    log.debug("Finished applying %s on %s", action, object.__repr__(items))
 
 @contextmanager
 def enlightbox(mainWindow, dialog):
