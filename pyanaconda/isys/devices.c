@@ -20,6 +20,8 @@
  * Author(s): Bill Nottingham <notting@redhat.com>
  */
 
+#include "config.h"
+
 #include <ctype.h>
 #include <dirent.h>
 #include <errno.h>

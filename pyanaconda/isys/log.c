@@ -23,6 +23,8 @@
  *            Jeremy Katz <katzj@redhat.com>
  */
 
+#include "config.h"
+
 #include <fcntl.h>
 #include <stdarg.h>
 #include <stdio.h>

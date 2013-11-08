@@ -21,6 +21,8 @@
 
 #define _GNU_SOURCE 1
 
+#include "config.h"
+
 #include <sys/types.h>
 #include <sys/syscall.h>
 #include <sys/poll.h>

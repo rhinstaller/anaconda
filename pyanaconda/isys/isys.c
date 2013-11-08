@@ -17,6 +17,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include "config.h"
+
 #include <Python.h>
 
 #include <stdio.h>
@@ -61,6 +63,14 @@
 #include <X11/Xlib.h>
 #include <X11/XKBlib.h>
 #include <X11/keysym.h>
+
+#ifdef MAJOR_IN_MKDEV
+#include <sys/mkdev.h>
+#endif
+
+#ifdef MAJOR_IN_SYSMACROS
+#include <sys/sysmacros.h>
+#endif
 
 #include "iface.h"
 #include "isys.h"
@@ -262,7 +272,7 @@ static PyObject * doIsCapsLockEnabled(PyObject * s, PyObject * args) {
 }
 
 static PyObject * doGetAnacondaVersion(PyObject * s, PyObject * args) {
-    return Py_BuildValue("s", VERSION);
+    return Py_BuildValue("s", VERSION_RELEASE);
 }
 
 static PyObject * doInitLog(PyObject * s) {

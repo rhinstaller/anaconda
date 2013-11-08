@@ -23,6 +23,8 @@
  * Author(s): Jeremy Katz <katzj@redhat.com>
  */
 
+#include "config.h"
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdint.h>

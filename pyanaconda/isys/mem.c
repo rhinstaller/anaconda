@@ -20,6 +20,8 @@
  *                    David Cantrell <dcantrell@redhat.com>
  */
 
+#include "config.h"
+
 #include <errno.h>
 #include <glib.h>
 #include <stdlib.h>

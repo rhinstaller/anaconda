@@ -19,6 +19,8 @@
  * Author(s): Jeremy Katz <katzj@redhat.com>
  */
 
+#include "config.h"
+
 #include <ctype.h>
 #include <errno.h>
 #include <fcntl.h>
