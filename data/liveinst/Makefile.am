@@ -38,14 +38,5 @@ MAINTAINERCLEANFILES = Makefile.in
 @INTLTOOL_DESKTOP_RULE@
 
 install-exec-local:
-	mkdir -p $(DESTDIR)$(bindir)
-	ln -s consolehelper $(DESTDIR)$(bindir)/liveinst
-
-uninstall-local:
-	rm -f $(DESTDIR)$(bindir)/liveinst
-	for d in $(DESTDIR)$(bindir) ; do
-		while [ ! -z "$$d" ]; do \
-			rmdir $$d 2>/dev/null ; \
-			d="`dirname $$d`" ; \
-		done ; \
-	done
+	$(MKDIR_P) $(DESTDIR)$(bindir)
+	$(LN_S) consolehelper $(DESTDIR)$(bindir)/liveinst
