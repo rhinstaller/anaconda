@@ -131,8 +131,9 @@ class AddLayoutDialog(GUIObject):
         self._confirmAddButton.set_sensitive(selected)
 
     def run(self):
+        self.window.show()
         rc = self.window.run()
-        self.window.destroy()
+        self.window.hide()
         return rc
 
     @property
@@ -273,6 +274,7 @@ class KeyboardSpoke(NormalSpoke):
         self._remove_last_attempt = False
         self._confirmed = False
         self._xkl_wrapper = keyboard.XklWrapper.get_instance()
+        self._add_dialog = None
 
         self._upButton = self.builder.get_object("upButton")
         self._downButton = self.builder.get_object("downButton")
@@ -399,27 +401,29 @@ class KeyboardSpoke(NormalSpoke):
 
     # Signal handlers.
     def on_add_clicked(self, button):
-        dialog = AddLayoutDialog(self.data)
-        dialog.initialize()
-        dialog.refresh()
+        if not self._add_dialog:
+            self._add_dialog = AddLayoutDialog(self.data)
+            self._add_dialog.initialize()
 
-        with enlightbox(self.window, dialog.window):
-            response = dialog.run()
+        self._add_dialog.refresh()
+
+        with enlightbox(self.window, self._add_dialog.window):
+            response = self._add_dialog.run()
 
         if response == 1:
             duplicates = set()
             for row in self._store:
                 item = row[0]
-                if item in dialog.chosen_layouts:
+                if item in self._add_dialog.chosen_layouts:
                     duplicates.add(item)
 
-            for layout in dialog.chosen_layouts:
+            for layout in self._add_dialog.chosen_layouts:
                 if layout not in duplicates:
                     self._addLayout(self._store, layout)
 
             if self._remove_last_attempt:
                 itr = self._store.get_iter_first()
-                if not self._store[itr][0] in dialog.chosen_layouts:
+                if not self._store[itr][0] in self._add_dialog.chosen_layouts:
                     self._removeLayout(self._store, itr)
                 self._remove_last_attempt = False
 
