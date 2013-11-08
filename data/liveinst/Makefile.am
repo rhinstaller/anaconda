@@ -25,7 +25,7 @@ dist_sbin_SCRIPTS  = liveinst
 desktopdir         = $(datadir)/applications
 desktop_DATA       = liveinst.desktop
 
-xinitdir           = /etc/X11/xinit/xinitrc.d
+xinitdir           = $(sysconfdir)/X11/xinit/xinitrc.d
 dist_xinit_SCRIPTS = zz-liveinst.sh
 endif
 

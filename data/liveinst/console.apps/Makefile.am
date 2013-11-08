@@ -18,7 +18,7 @@
 # Author: David Cantrell <dcantrell@redhat.com>
 
 if IS_LIVEINST_ARCH
-consoledir        = /etc/security/console.apps
+consoledir        = $(sysconfdir)/security/console.apps
 dist_console_DATA = liveinst
 endif
 
