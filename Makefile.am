@@ -25,6 +25,11 @@ SUBDIRS = pyanaconda po data \
 EXTRA_DIST = config.rpath COPYING \
              anaconda.spec.in
 
+# Files generated for gettext need to be included in the distribution
+EXTRA_DIST += $(srcdir)/anaconda.po
+$(srcdir)/anaconda.po: $(srcdir)/anaconda
+	@$(MAKE) -C $(top_builddir)/po $(abs_top_srcdir)/$(subdir)/$$(basename $@)
+
 MAINTAINERCLEANFILES = Makefile.in config.guess config.h.in config.sub \
                        depcomp install-sh ltmain.sh missing ABOUT-NLS \
                        INSTALL aclocal.m4 configure *.pyc py-compile \

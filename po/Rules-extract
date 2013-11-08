@@ -22,30 +22,30 @@ DISTFILES.common.extra2 = Rules-extract
 	rm -f tmp/$$(basename $@)
 
 %.desktop.in.h: %.desktop.in
-	@intltool-extract -q --type=gettext/keys -l $< && \
+	@intltool-extract -q --type=gettext/keys -l --srcdir / $(realpath $<) && \
 	sed 's/no-c-format/python-format/' < tmp/$$(basename $@) > $@ && \
 	rm -f tmp/$$(basename $@)
 
 %liveinst.h: %liveinst
-	@intltool-extract -q --type=gettext/quoted -l $< && \
+	@intltool-extract -q --type=gettext/quoted -l --srcdir / $(realpath $<) && \
 	sed 's/no-c-format/python-format/' < tmp/$$(basename $@) > $@ && \
 	rm -f tmp/$$(basename $@)
 
 # Remove the $top_srcdir prefix from files so that xgettext can search for the file
 # relative to $top_srcdir and get the path name right in the .po
 %anaconda.po: %anaconda
-	@input_file="$<" && \
+	@input_file="$(realpath $<)" && \
 	$(XGETTEXT) $(XGETTEXT_OPTIONS) --omit-header --directory=$(top_srcdir) \
-		--language=Python -o $@ $${input_file##$(top_srcdir)/}
+		--language=Python -o $@ $${input_file##$(realpath $(top_srcdir))/}
 
 # This file is actually JavaScript, but C is close enough
 %fedora-welcome.po: %fedora-welcome
-	@input_file="$<" && \
+	@input_file="$(realpath $<)" && \
 	$(XGETTEXT) $(XGETTEXT_OPTIONS) --omit-header --directory=$(top_srcdir) \
 		--language=C -o $@ $${input_file##$(top_srcdir)/}
 
-mostlyclean: mostlyclean-extract
-mostlyclean-extract:
+maintainer-clean: maintainer-clean-extract
+maintainer-clean-extract:
 	rm -f \
 		$(top_srcdir)/anaconda.po $(top_srcdir)/data/liveinst/gnome/fedora-welcome.po \
 		$(top_srcdir)/data/liveinst/console.apps/liveinst.h
