@@ -363,7 +363,8 @@ class DatetimeSpoke(FirstbootSpokeMixIn, NormalSpoke):
                       "days", "months", "years", "regions", "cities",
                       "upImage", "upImage1", "upImage2", "downImage",
                       "downImage1", "downImage2", "downImage3", "configImage",
-                      "citiesFilter", "daysFilter", "regionCompletion",
+                      "citiesFilter", "daysFilter",
+                      "cityCompletion", "regionCompletion",
                       ]
 
     mainWidgetName = "datetimeWindow"
