@@ -31,6 +31,8 @@ from pyanaconda import flags
 from pyanaconda.i18n import _, N_, CN_
 from pyanaconda.constants import DEFAULT_KEYBOARD
 
+import locale as locale_mod
+
 import logging
 log = logging.getLogger("anaconda")
 
@@ -97,12 +99,7 @@ class AddLayoutDialog(GUIObject):
         show_str1 = self._xkl_wrapper.get_layout_variant_description(value1)
         show_str2 = self._xkl_wrapper.get_layout_variant_description(value2)
 
-        if show_str1 < show_str2:
-            return -1
-        elif show_str1 == show_str2:
-            return 0
-        else:
-            return 1
+        return locale_mod.strcoll(show_str1, show_str2)
 
     def refresh(self):
         self._entry.grab_focus()
