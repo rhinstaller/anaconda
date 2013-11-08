@@ -19,7 +19,7 @@
 # Red Hat Author(s): Chris Lumens <clumens@redhat.com>
 #
 
-overridesdir	= $(shell python -c "import gi ; print gi._overridesdir")
+overridesdir    = $(pyexecdir)/gi/overrides
 dist_overrides_PYTHON = AnacondaWidgets.py
 
 MAINTAINERCLEANFILES = Makefile.in

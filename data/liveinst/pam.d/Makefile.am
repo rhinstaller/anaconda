@@ -18,7 +18,7 @@
 # Author: David Cantrell <dcantrell@redhat.com>
 
 if IS_LIVEINST_ARCH
-pamdir        = /etc/pam.d
+pamdir        = $(sysconfdir)/pam.d
 dist_pam_DATA = liveinst
 endif
 
