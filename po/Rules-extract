@@ -51,3 +51,7 @@ mostlyclean-extract:
 		$(top_srcdir)/data/liveinst/console.apps/liveinst.h
 	find $(top_srcdir) \( -name '*.glade.h' -o -name '*.desktop.in.h' \) \
 		-exec rm -f {} \;
+
+mostlyclean: mostlyclean-extract
+mostlyclean-extract:
+	rm -rf .intltool-merge-cache
