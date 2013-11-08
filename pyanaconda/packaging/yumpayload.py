@@ -62,7 +62,7 @@ except ImportError:
     log.error("import of yum failed")
     yum = None
 
-from pyanaconda.constants import BASE_REPO_NAME, DRACUT_ISODIR, INSTALL_TREE, ISO_DIR, MOUNT_DIR, ROOT_PATH, THREAD_REFRESH_BASE_REPO
+from pyanaconda.constants import BASE_REPO_NAME, DRACUT_ISODIR, INSTALL_TREE, ISO_DIR, MOUNT_DIR, ROOT_PATH
 from pyanaconda.flags import flags
 
 from pyanaconda import iutil
@@ -78,9 +78,7 @@ from pyanaconda.errors import ERROR_RAISE, errorHandler
 from pyanaconda.packaging import DependencyError, MetadataError, NoNetworkError, NoSuchGroup, \
                                  NoSuchPackage, PackagePayload, PayloadError, PayloadInstallError, \
                                  PayloadSetupError
-from pyanaconda.packaging import REPO_NOT_SET
 from pyanaconda.progress import progressQ
-from pyanaconda.threads import threadMgr, AnacondaThread
 
 from pyanaconda.localization import langcode_matches_locale
 
@@ -117,13 +115,13 @@ class YumLock(object):
 def invalidates_br_cache(cond_fn=None):
     """
     Function returning decorator for methods that invalidate base repo cache.
+    After the method has been run the base repo will be re-validated
 
     :param cond_fn: condition function telling if base repo should be
                     invalidated or not (HAS TO TAKE THE SAME ARGUMENTS AS THE
                     DECORATED FUNCTION)
 
     """
-
     def decorator(method):
         """
         Decorator for methods that invalidate base repo cache.
@@ -131,13 +129,14 @@ def invalidates_br_cache(cond_fn=None):
         :param method: decorated method of the YumPayload class
 
         """
-
         @wraps(method)
         def inner_method(yum_payload, *args, **kwargs):
+            ret = method(yum_payload, *args, **kwargs)
+
             if cond_fn is None or cond_fn(yum_payload, *args, **kwargs):
                 yum_payload.invalidate_br_cache()
-
-            return method(yum_payload, *args, **kwargs)
+                yum_payload._refreshBaseRepo()
+            return ret
 
         return inner_method
 
@@ -175,9 +174,7 @@ class YumPayload(PackagePayload):
         # base repo caching
         self._cached_base_repo = None
         self._br_cache_valid = False
-        self._br_callbacks = []
-        self._br_cache_valid_lock = threading.Lock()
-        self._br_refresh_lock = threading.Lock()
+        self._br_cache_valid_lock = threading.RLock()
 
         self.reset()
 
@@ -422,29 +419,21 @@ reposdir=%s
 
         return _repos
 
-    def getBaseRepo(self, wait=True, callback=None):
-        # prevent potential thread calling callbacks from finishing if we want
-        # to add some more
-        with self._br_refresh_lock:
-            # test and set atomically
-            with self._br_cache_valid_lock:
-                if self._br_cache_valid:
-                    return self._cached_base_repo
+    def getBaseRepo(self):
+        """ Return the cached base repo id, if it is valid.
+            Otherwise, re-validate it and return it.
 
-            # cache not valid, should we start a thread to refresh it?
-            refresh_thread = threadMgr.get(THREAD_REFRESH_BASE_REPO)
-            if not refresh_thread:
-                threadMgr.add(AnacondaThread(name=THREAD_REFRESH_BASE_REPO, target=self._refreshBaseRepo))
+            This should result in minmal access to _yum_lock, especially
+            since the methods that would invalidate the cached value also
+            re-validate it after they have been run. These methods are
+            decorated with @invalidates_br_cache
+        """
+        with self._br_cache_valid_lock:
+            if self._br_cache_valid:
+                return self._cached_base_repo
 
-            if callback:
-                self._br_callbacks.append(callback)
-
-        if wait:
-            threadMgr.wait(THREAD_REFRESH_BASE_REPO)
-            return self._cached_base_repo
-        else:
-            # not waiting for the thread and cache was not valid
-            return REPO_NOT_SET
+        self._refreshBaseRepo()
+        return self._cached_base_repo
 
     def _refreshBaseRepo(self):
         with _yum_lock:
@@ -455,7 +444,6 @@ reposdir=%s
                         # cache the value for multiple use
                         self._cached_base_repo = repo_name
                         self._br_cache_valid = True
-                        current_cached = self._cached_base_repo
                     break
             else:
                 # didn't find any base repo set and enabled
@@ -463,14 +451,6 @@ reposdir=%s
                     # set the cache to None, but make it valid
                     self._cached_base_repo = None
                     self._br_cache_valid = True
-                    current_cached = self._cached_base_repo
-
-        with self._br_refresh_lock:
-            # go through scheduled callbacks (if any) and remove them
-            for callback in self._br_callbacks:
-                callback(current_cached)
-
-            self._br_callbacks = []
 
     @property
     def mirrorEnabled(self):

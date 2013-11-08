@@ -217,7 +217,7 @@ class DNFPayload(packaging.PackagePayload):
         # addon repos via kickstart
         return [r.name for r in self.data.repo.dataList()]
 
-    def getBaseRepo(self, wait=True, callback=None):
+    def getBaseRepo(self):
         # is any locking needed here as in the yumpayload?
         repo_names = [constants.BASE_REPO_NAME] + DEFAULT_REPOS
         for repo in self._base.repos.iter_enabled():

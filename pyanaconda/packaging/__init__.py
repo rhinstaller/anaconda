@@ -147,21 +147,9 @@ class Payload(object):
         """ A list of addon repo identifiers. """
         return [r.name for r in self.data.repo.dataList()]
 
-    def getBaseRepo(self, wait=True, callback=None):
+    def getBaseRepo(self):
         """
         Get the identifier of the current base repo.
-
-        :param wait: whether to block until the identifier is derived from the
-                     configuration (may take a long time) or just try to use
-                     the cached value and return REPO_NOT_SET if there is none
-        :type wait: bool
-        :param callback: callback that will be called once the indentifier is
-                         derived from the configuration (gets the repo ID as
-                         the first argument) if it is not returned instantly
-        :type callback: str -> None
-        :returns: id of the current base repo or None if wait=True is used or
-                  REPO_NOT_SET if wait=False is used and the value is not cached
-
         """
         return None
 
