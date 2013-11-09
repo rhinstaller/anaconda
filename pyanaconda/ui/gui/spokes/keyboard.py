@@ -30,6 +30,7 @@ from pyanaconda import keyboard
 from pyanaconda import flags
 from pyanaconda.i18n import _, N_
 from pyanaconda.constants import DEFAULT_KEYBOARD
+from pyanaconda.iutil import strip_accents
 
 import locale as locale_mod
 
@@ -83,9 +84,12 @@ class AddLayoutDialog(GUIObject):
         value = model[itr][0]
         eng_value = self._xkl_wrapper.get_layout_variant_description(value, xlated=False)
         xlated_value = self._xkl_wrapper.get_layout_variant_description(value)
+        translit_value = strip_accents(xlated_value).lower()
         entry_text = self._entry.get_text()
+        translit_text = strip_accents(unicode(entry_text, "utf-8")).lower()
 
-        return have_word_match(entry_text, eng_value) or have_word_match(entry_text, xlated_value)
+        return have_word_match(entry_text, eng_value) or have_word_match(entry_text, xlated_value) \
+            or have_word_match(translit_text, translit_value)
 
     def compare_layouts(self, model, itr1, itr2, user_data=None):
         """
