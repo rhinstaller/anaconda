@@ -439,3 +439,25 @@ class RunProgramTests(unittest.TestCase):
         _out = "heiz\xc3\xb6lr\xc3\xbccksto\xc3\x9fabd\xc3\xa4mpfung"
         self.assertEqual(iutil.lowerASCII("Heizölrückstoßabdämpfung"), _out)
 
+    def have_word_match_test(self):
+        """Test have_word_match."""
+
+        self.assertTrue(iutil.have_word_match("word1 word2", "word1 word2 word3"))
+        self.assertTrue(iutil.have_word_match("word1 word2", "word2 word1 word3"))
+        self.assertTrue(iutil.have_word_match("word2 word1", "word3 word1 word2"))
+        self.assertTrue(iutil.have_word_match("word1", "word1 word2"))
+        self.assertTrue(iutil.have_word_match("word1 word2", "word2word1 word3"))
+        self.assertTrue(iutil.have_word_match("word2 word1", "word3 word1word2"))
+        self.assertTrue(iutil.have_word_match("word1", "word1word2"))
+        self.assertTrue(iutil.have_word_match("", "word1"))
+
+        self.assertFalse(iutil.have_word_match("word3 word1", "word1"))
+        self.assertFalse(iutil.have_word_match("word1 word3", "word1 word2"))
+        self.assertFalse(iutil.have_word_match("word3 word2", "word1 word2"))
+        self.assertFalse(iutil.have_word_match("word1word2", "word1 word2 word3"))
+        self.assertFalse(iutil.have_word_match("word1", ""))
+        self.assertFalse(iutil.have_word_match("word1", None))
+        self.assertFalse(iutil.have_word_match(None, "word1"))
+        self.assertFalse(iutil.have_word_match("", None))
+        self.assertFalse(iutil.have_word_match(None, ""))
+        self.assertFalse(iutil.have_word_match(None, None))
