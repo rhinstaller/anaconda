@@ -27,7 +27,7 @@ from gi.repository import Gdk, Gtk
 
 from pyanaconda.i18n import _, N_, P_
 from pyanaconda.ui.gui import GUIObject
-from pyanaconda.ui.gui.utils import escape_markup
+from pyanaconda.ui.gui.utils import escape_markup, timed_action
 from blivet.size import Size
 
 __all__ = ["ResizeDialog"]
@@ -474,6 +474,7 @@ class ResizeDialog(GUIObject):
 
         self._update_action_buttons(self._diskStore[itr])
 
+    @timed_action(delay=200, threshold=500, busy_cursor=False)
     def on_resize_value_changed(self, rng):
         (model, itr) = self._selection.get_selected()
 
