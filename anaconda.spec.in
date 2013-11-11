@@ -252,6 +252,12 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Mon Nov 11 2013 Brian C. Lane <bcl@redhat.com> - 19.31.34-1
+- Don't try to unicode unicode strings (vpodzime)
+  Resolves: rhbz#1029109
+- Add tmpfs support (mkolman)
+  Resolves: rhbz#918621
+
 * Wed Nov 06 2013 Brian C. Lane <bcl@redhat.com> - 19.31.33-1
 - Avoid raising an exception if epdb module unavailable (amulhern)
   Resolves: rhbz#1026779
