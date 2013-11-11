@@ -27,13 +27,13 @@ from pyanaconda.i18n import _
 from pyanaconda import product
 
 from pyanaconda.ui import UserInterface, common
-from pyanaconda.ui.gui.utils import enlightbox, gtk_action_wait
+from pyanaconda.ui.gui.utils import enlightbox, gtk_action_wait, busyCursor, unbusyCursor
 import os.path
 
 import logging
 log = logging.getLogger("anaconda")
 
-__all__ = ["GraphicalUserInterface", "busyCursor", "unbusyCursor", "QuitDialog"]
+__all__ = ["GraphicalUserInterface", "QuitDialog"]
 
 _screenshotIndex = 0
 
@@ -794,14 +794,6 @@ class GraphicalExceptionHandlingIface(meh.ui.gui.GraphicalIntf):
         unbusyCursor()
 
         return exc_window
-
-def busyCursor():
-    window = Gdk.get_default_root_window()
-    window.set_cursor(Gdk.Cursor(Gdk.CursorType.WATCH))
-
-def unbusyCursor():
-    window = Gdk.get_default_root_window()
-    window.set_cursor(Gdk.Cursor(Gdk.CursorType.ARROW))
 
 def check_re(editable, data):
     """Perform an input validation check against a regular expression.
