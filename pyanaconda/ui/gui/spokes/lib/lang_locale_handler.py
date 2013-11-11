@@ -27,7 +27,7 @@ screens handling languages or locales configuration.
 from gi.repository import Gtk, Pango
 from pyanaconda import localization
 from pyanaconda.iutil import strip_accents
-from pyanaconda.ui.gui.utils import set_treeview_selection, get_default_widget_direction
+from pyanaconda.ui.gui.utils import set_treeview_selection, get_default_widget_direction, timed_action
 
 class LangLocaleHandler(object):
     """
@@ -161,6 +161,7 @@ class LangLocaleHandler(object):
         if icon_pos == Gtk.EntryIconPosition.SECONDARY:
             entry.set_text("")
 
+    @timed_action()
     def on_entry_changed(self, *args):
         self._languageStoreFilter.refilter()
 
