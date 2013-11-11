@@ -25,7 +25,7 @@ from gi.repository import Gkbd, Gtk, Gdk
 from pyanaconda.ui.gui import GUIObject
 from pyanaconda.ui.gui.spokes import NormalSpoke
 from pyanaconda.ui.gui.categories.localization import LocalizationCategory
-from pyanaconda.ui.gui.utils import enlightbox, gtk_call_once, escape_markup, override_cell_property
+from pyanaconda.ui.gui.utils import enlightbox, gtk_call_once, escape_markup, override_cell_property, timed_action
 from pyanaconda import keyboard
 from pyanaconda import flags
 from pyanaconda.i18n import _, N_
@@ -144,6 +144,7 @@ class AddLayoutDialog(GUIObject):
         selected = selection.count_selected_rows()
         self._confirmAddButton.set_sensitive(selected)
 
+    @timed_action()
     def on_entry_changed(self, *args):
         self._treeModelFilter.refilter()
 

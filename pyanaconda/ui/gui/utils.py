@@ -24,7 +24,8 @@
 from pyanaconda.threads import threadMgr
 
 from contextlib import contextmanager
-from gi.repository import Gtk, GLib
+from gi.repository import Gdk, Gtk, GLib
+import time
 import Queue
 
 def gtk_call_once(func, *args):
@@ -91,6 +92,94 @@ def gtk_action_nowait(func):
 
     return _call_method
 
+
+def timed_action(delay=300, threshold=750, busy_cursor=True):
+    """
+    Function returning decorator for decorating often repeated actions that need
+    to happen in the main loop (entry/slider change callbacks, typically), but
+    that may take a long time causing the GUI freeze for a noticeable time.
+
+    :param delay: number of milliseconds to wait for another invocation of the
+                  decorated function before it is actually called
+    :type delay: int
+    :param threshold: upper bound (in milliseconds) to wait for the decorated
+                      function to be called from the first/last time
+    :type threshold: int
+    :param busy_cursor: whether the cursor should be made busy or not in the
+                        meantime of the decorated function being invocated from
+                        outside and it actually being called
+    :type busy_cursor: bool
+
+    """
+
+    class TimedAction(object):
+        """Class making the timing work."""
+
+        def __init__(self, func):
+            self._func = func
+            self._last_start = None
+            self._timer_id = None
+
+        def _run_once_one_arg(self, (args, kwargs)):
+            # run the function and clear stored values
+            self._func(*args, **kwargs)
+            self._last_start = None
+            self._timer_id = None
+            if busy_cursor:
+                unbusyCursor()
+
+            # function run, no need to schedule it again (return True would do)
+            return False
+
+        def run_func(self, *args, **kwargs):
+            # get timestamps from the first or/and current run
+            self._last_start = self._last_start or time.time()
+            tstamp = time.time()
+
+            if self._timer_id:
+                # remove the old timer scheduling the function
+                GLib.source_remove(self._timer_id)
+                self._timer_id = None
+
+            # are we over the threshold?
+            if (tstamp - self._last_start) * 1000 > threshold:
+                # over threshold, run the function right now and clear the
+                # timestamp
+                self._func(*args, **kwargs)
+                self._last_start = None
+
+            # schedule the function to be run later to allow additional changes
+            # in the meantime
+            if busy_cursor:
+                busyCursor()
+            self._timer_id = GLib.timeout_add(delay, self._run_once_one_arg,
+                                              (args, kwargs))
+
+    def decorator(func):
+        """
+        Decorator replacing the function with its timed version using an
+        instance of the TimedAction class.
+
+        :param func: the decorated function
+
+        """
+
+        ta = TimedAction(func)
+
+        def inner_func(*args, **kwargs):
+            ta.run_func(*args, **kwargs)
+
+        return inner_func
+
+    return decorator
+
+def busyCursor():
+    window = Gdk.get_default_root_window()
+    window.set_cursor(Gdk.Cursor(Gdk.CursorType.WATCH))
+
+def unbusyCursor():
+    window = Gdk.get_default_root_window()
+    window.set_cursor(Gdk.Cursor(Gdk.CursorType.ARROW))
 
 @contextmanager
 def enlightbox(mainWindow, dialog):

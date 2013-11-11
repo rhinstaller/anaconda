@@ -28,13 +28,13 @@ from pyanaconda.constants import IPMI_ABORTED
 from pyanaconda import product, iutil
 
 from pyanaconda.ui import UserInterface, common
-from pyanaconda.ui.gui.utils import enlightbox, gtk_action_wait
+from pyanaconda.ui.gui.utils import enlightbox, gtk_action_wait, busyCursor, unbusyCursor
 import os.path
 
 import logging
 log = logging.getLogger("anaconda")
 
-__all__ = ["GraphicalUserInterface", "GUIObject", "busyCursor", "unbusyCursor", "QuitDialog"]
+__all__ = ["GraphicalUserInterface", "GUIObject", "QuitDialog"]
 
 _screenshotIndex = 0
 _last_screenshot_timestamp = 0
@@ -546,13 +546,4 @@ class GraphicalExceptionHandlingIface(meh.ui.gui.GraphicalIntf):
         unbusyCursor()
 
         return exc_window
-
-def busyCursor():
-    window = Gdk.get_default_root_window()
-    window.set_cursor(Gdk.Cursor(Gdk.CursorType.WATCH))
-
-def unbusyCursor():
-    window = Gdk.get_default_root_window()
-    window.set_cursor(Gdk.Cursor(Gdk.CursorType.ARROW))
-
 
