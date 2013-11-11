@@ -769,3 +769,23 @@ def get_mount_paths(devnode):
     majmin = "%d:%d" % (os.major(devno),os.minor(devno))
     mountinfo = (line.split() for line in open("/proc/self/mountinfo"))
     return [info[4] for info in mountinfo if info[2] == majmin]
+
+def have_word_match(str1, str2):
+    """Tells if all words from str1 exist in str2 or not."""
+
+    if str1 is None or str2 is None:
+        # None never matches
+        return False
+
+    if str1 == "":
+        # empty string matches everything except from None
+        return True
+    elif str2 == "":
+        # non-empty string cannot be found in an empty string
+        return False
+
+    str1 = str1.lower()
+    str1_words = str1.split()
+    str2 = str2.lower()
+
+    return all(word in str2 for word in str1_words)

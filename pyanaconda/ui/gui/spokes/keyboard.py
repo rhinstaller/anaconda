@@ -33,6 +33,7 @@ from pyanaconda.constants import DEFAULT_KEYBOARD, THREAD_KEYBOARD_INIT, THREAD_
 from pyanaconda.ui.communication import hubQ
 from pyanaconda.iutil import strip_accents
 from pyanaconda.threads import threadMgr, AnacondaThread
+from pyanaconda.iutil import have_word_match
 
 import locale as locale_mod
 
@@ -68,28 +69,15 @@ class AddLayoutDialog(GUIObject):
         self._chosen_layouts = []
 
     def matches_entry(self, model, itr, user_data=None):
-        def have_word_match(str1, str2):
-            """Tells if all words from str1 exist in str2 or not."""
-
-            if str1 is None or str2 is None:
-                return False
-
-            str1 = str1.lower()
-            str1_words = str1.split()
-
-            try:
-                str2 = str2.lower()
-                for word in str1_words:
-                    str2.index(word)
-                return True
-            except ValueError:
-                return False
+        entry_text = self._entry.get_text()
+        if not entry_text:
+            # everything matches empty string
+            return True
 
         value = model[itr][0]
         eng_value = self._xkl_wrapper.get_layout_variant_description(value, xlated=False)
         xlated_value = self._xkl_wrapper.get_layout_variant_description(value)
         translit_value = strip_accents(xlated_value).lower()
-        entry_text = self._entry.get_text()
         translit_text = strip_accents(unicode(entry_text, "utf-8")).lower()
 
         return have_word_match(entry_text, eng_value) or have_word_match(entry_text, xlated_value) \
