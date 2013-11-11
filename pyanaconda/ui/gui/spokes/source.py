@@ -70,8 +70,9 @@ class ProxyDialog(GUIObject):
     mainWidgetName = "proxyDialog"
     uiFile = "spokes/source.glade"
 
-    def __init__(self, data):
+    def __init__(self, data, proxy_url):
         GUIObject.__init__(self, data)
+        self.proxyUrl = proxy_url
 
         self._proxyCheck = self.builder.get_object("enableProxyCheck")
         self._proxyInfoBox = self.builder.get_object("proxyInfoBox")
@@ -89,7 +90,7 @@ class ProxyDialog(GUIObject):
         # If the user unchecked the proxy entirely, that means they want it
         # disabled.
         if not self._proxyCheck.get_active():
-            self.data.method.proxy = ""
+            self.proxyUrl = ""
             self.window.destroy()
             return
 
@@ -103,11 +104,11 @@ class ProxyDialog(GUIObject):
 
         try:
             proxy = ProxyString(url=url, username=username, password=password)
-            self.data.method.proxy = proxy.url
+            self.proxyUrl = proxy.url
         except ProxyStringError as e:
             log.error("Failed to parse proxy for ProxyDialog Add - %s:%s@%s: %s", username, password, url, e)
             # TODO - tell the user they entered an invalid proxy and let them retry
-            self.data.method.proxy = ""
+            self.proxyUrl = ""
 
         self.window.destroy()
 
@@ -120,8 +121,7 @@ class ProxyDialog(GUIObject):
     def refresh(self):
         GUIObject.refresh(self)
 
-
-        if not (hasattr(self.data.method, "proxy") and self.data.method.proxy):
+        if not self.proxyUrl:
             self._proxyCheck.set_active(False)
             self.on_proxy_enable_toggled(self._proxyCheck)
             self._authCheck.set_active(False)
@@ -129,14 +129,14 @@ class ProxyDialog(GUIObject):
             return
 
         try:
-            proxy = ProxyString(self.data.method.proxy)
+            proxy = ProxyString(self.proxyUrl)
             if proxy.username:
                 self._proxyUsernameEntry.set_text(proxy.username)
             if proxy.password:
                 self._proxyPasswordEntry.set_text(proxy.password)
             self._proxyURLEntry.set_text(proxy.noauth_url)
         except ProxyStringError as e:
-            log.error("Failed to parse proxy for ProxyDialog.refresh %s: %s", self.data.method.proxy, e)
+            log.error("Failed to parse proxy for ProxyDialog.refresh %s: %s", self.proxyUrl, e)
             return
 
         self._proxyCheck.set_active(True)
@@ -293,6 +293,7 @@ class SourceSpoke(NormalSpoke):
         self._currentIsoFile = None
         self._ready = False
         self._error = False
+        self._proxyUrl = ""
         self._proxyChange = False
         self._cdrom = None
 
@@ -348,6 +349,7 @@ class SourceSpoke(NormalSpoke):
         elif self._mirror_active():
             # this preserves the url for later editing
             self.data.method.method = None
+            self.data.method.proxy = self._proxyUrl
             if not old_source.method and self.payload.getBaseRepo(wait=True) and \
                not self._proxyChange:
                 return False
@@ -379,6 +381,7 @@ class SourceSpoke(NormalSpoke):
                 return False
 
             self.data.method.method = "url"
+            self.data.method.proxy = self._proxyUrl
             if mirrorlist:
                 self.data.method.mirrorlist = url
                 self.data.method.url = ""
@@ -702,6 +705,7 @@ class SourceSpoke(NormalSpoke):
             self._urlEntry.set_sensitive(True)
             self._urlEntry.set_text(proto[l:])
             self._mirrorlistCheckbox.set_active(bool(self.data.method.mirrorlist))
+            self._proxyUrl = self.data.method.proxy
         elif self.data.method.method == "nfs":
             self._networkButton.set_active(True)
             self._protocolComboBox.set_active(PROTOCOL_NFS)
@@ -729,6 +733,7 @@ class SourceSpoke(NormalSpoke):
             else:
                 self._networkButton.set_active(True)
                 self.data.method.method = None
+                self._proxyUrl = self.data.method.proxy
 
         self._setup_no_updates()
 
@@ -819,16 +824,14 @@ class SourceSpoke(NormalSpoke):
                 self._verifyIsoButton.set_sensitive(True)
 
     def on_proxy_clicked(self, button):
-        if not hasattr(self.data.method, "proxy"):
-            old_proxy = None
-        else:
-            old_proxy = self.data.method.proxy
-
-        dialog = ProxyDialog(self.data)
+        dialog = ProxyDialog(self.data, self._proxyUrl)
         with enlightbox(self.window, dialog.window):
             dialog.refresh()
             dialog.run()
-        self._proxyChange = old_proxy != self.data.method.proxy
+
+        if self._proxyUrl != dialog.proxyUrl:
+            self._proxyChange = True
+            self._proxyUrl = dialog.proxyUrl
 
     def on_verify_iso_clicked(self, button):
         p = self._get_selected_partition()
