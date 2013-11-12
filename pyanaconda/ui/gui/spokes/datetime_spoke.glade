@@ -74,12 +74,6 @@
       <column type="gchararray"/>
     </columns>
   </object>
-  <object class="GtkEntryCompletion" id="regionCompletion">
-    <property name="model">regions</property>
-    <property name="text_column">0</property>
-    <property name="inline_completion">True</property>
-    <signal name="match-selected" handler="on_completion_match_selected" object="regionCombobox" swapped="no"/>
-  </object>
   <object class="AnacondaSpokeWindow" id="datetimeWindow">
     <property name="startup_id">filler</property>
     <property name="can_focus">False</property>
@@ -398,7 +392,7 @@
                                     <property name="can_focus">True</property>
                                     <property name="receives_default">True</property>
                                     <property name="image">upImage1</property>
-                                    <signal name="clicked" handler="on_updown_ampm_clicked" swapped="no"/>
+                                    <signal name="clicked" handler="on_up_ampm_clicked" swapped="no"/>
                                   </object>
                                   <packing>
                                     <property name="left_attach">4</property>
@@ -428,7 +422,7 @@
                                     <property name="can_focus">True</property>
                                     <property name="receives_default">True</property>
                                     <property name="image">downImage1</property>
-                                    <signal name="clicked" handler="on_updown_ampm_clicked" swapped="no"/>
+                                    <signal name="clicked" handler="on_down_ampm_clicked" swapped="no"/>
                                   </object>
                                   <packing>
                                     <property name="left_attach">4</property>
