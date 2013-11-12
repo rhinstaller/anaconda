@@ -146,6 +146,10 @@ class VNCPassSpoke(NormalTUISpoke):
             print _("The password must be at least "
                     "six characters long.")
             return None
+        elif len(p1) > 8:
+            print _("The password cannot be more than "
+                    "eight characters long.")
+            return None
         else:
             self._password = p1
             self.apply()

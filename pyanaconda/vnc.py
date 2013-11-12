@@ -199,7 +199,7 @@ class VncServer:
             stdoutLog.critical("Could not initialize the VNC server: %s", e)
             sys.exit(1)
 
-        if self.password and len(self.password) < 6:
+        if self.password and (len(self.password) < 6 or len(self.password) > 8):
             self.changeVNCPasswdWindow()
 
         if not self.password:
@@ -262,12 +262,12 @@ class VncServer:
     def changeVNCPasswdWindow(self):
         """ Change the password to a sane parameter.
 
-        We ask user to input a password that len(password) > 6
-        or password == ''.
+        We ask user to input a password that (len(password) > 6
+        and len(password) <= 8) or password == ''.
         """
 
-        message = _("VNC password provided was not at least 6 characters long.\n"
-                    "Please enter a new one.  Leave blank for no password.")
+        message = _("VNC password must be between six and eight characters long.\n"
+                    "Please enter a new one, or leave blank for no password.")
         app = App("VNC PASSWORD")
         spoke = VNCPassSpoke(app, self.anaconda.ksdata, None, None, None,
                              message)
