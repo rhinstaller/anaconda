@@ -266,7 +266,7 @@ class VncServer:
         and len(password) <= 8) or password == ''.
         """
 
-        message = _("VNC password must be between six and eight characters long.\n"
+        message = _("VNC password must be six to eight characters long.\n"
                     "Please enter a new one, or leave blank for no password.")
         app = App("VNC PASSWORD")
         spoke = VNCPassSpoke(app, self.anaconda.ksdata, None, None, None,
