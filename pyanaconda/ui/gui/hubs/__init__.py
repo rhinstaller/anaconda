@@ -107,9 +107,6 @@ class Hub(GUIObject, common.Hub):
 
         action.refresh()
 
-        action.window.set_beta(self.window.get_beta())
-        action.window.set_property("distribution", distributionText().upper())
-
         action.window.set_transient_for(self.window)
         action.window.show_all()
 
@@ -174,6 +171,8 @@ class Hub(GUIObject, common.Hub):
                 # Create the new spoke and populate its UI with whatever data.
                 # From here on, this Spoke will always exist.
                 spoke = spokeClass(self.data, self.storage, self.payload, self.instclass)
+                spoke.window.set_beta(self.window.get_beta())
+                spoke.window.set_property("distribution", distributionText().upper())
 
                 # If a spoke is not showable, it is unreachable in the UI.  We
                 # might as well get rid of it.
