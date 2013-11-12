@@ -1444,6 +1444,8 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
                 size = device.maxSize
             elif size < device.minSize:
                 size = device.minSize
+            elif size > device.maxSize:
+                size = device.maxSize
 
             # And then we need to re-check that the max size is actually
             # different from the current size.
