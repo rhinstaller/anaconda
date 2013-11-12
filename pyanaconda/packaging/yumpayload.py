@@ -709,6 +709,8 @@ reposdir=%s
                         needmount = False
                         path = DRACUT_REPODIR
                 if needmount:
+                    if method.dir is None:
+                        raise PayloadError("NFS method missing directory/iso path")
                     # Mount the NFS share on INSTALL_TREE. If it ends up
                     # being nfsiso we will move the mountpoint to ISO_DIR.
                     if method.dir.endswith(".iso"):
