@@ -314,7 +314,7 @@ class SourceSpoke(NormalSpoke):
         """
         import copy
 
-        old_source = copy.copy(self.data.method)
+        old_source = copy.deepcopy(self.data.method)
 
         if self._autodetectButton.get_active():
             if not self._cdrom:
@@ -417,6 +417,10 @@ class SourceSpoke(NormalSpoke):
         # If the user moved from an HDISO method to some other, we need to
         # clear the protected bit on that device.
         if old_source.method == "harddrive" and old_source.partition:
+            self._currentIsoFile = None
+            self._isoChooserButton.set_label(self._origIsoChooserButton)
+            self._isoChooserButton.set_use_underline(True)
+
             if old_source.partition in self.storage.config.protectedDevSpecs:
                 self.storage.config.protectedDevSpecs.remove(old_source.partition)
 
@@ -539,6 +543,7 @@ class SourceSpoke(NormalSpoke):
         self._urlEntry = self.builder.get_object("urlEntry")
         self._protocolComboBox = self.builder.get_object("protocolComboBox")
         self._isoChooserButton = self.builder.get_object("isoChooserButton")
+        self._origIsoChooserButton = self._isoChooserButton.get_label()
 
         self._mirrorlistCheckbox = self.builder.get_object("mirrorlistCheckbox")
 
