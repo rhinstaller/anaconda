@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: anaconda 20.25.5\n"
+"Project-Id-Version: anaconda 20.25.6\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
-"POT-Creation-Date: 2013-11-01 18:02-0700\n"
+"POT-Creation-Date: 2013-11-12 16:38-0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -233,7 +233,7 @@ msgstr ""
 msgid "%s is missing. Cannot setup firewall."
 msgstr ""
 
-#: pyanaconda/kickstart.py:1721
+#: pyanaconda/kickstart.py:1727
 msgid "Running pre-installation scripts"
 msgstr ""
 
@@ -865,7 +865,7 @@ msgid "No disks selected; please select at least one disk to install to."
 msgstr ""
 
 #: pyanaconda/ui/tui/spokes/storage.py:178
-#: pyanaconda/ui/gui/spokes/source.py:591
+#: pyanaconda/ui/gui/spokes/source.py:599
 #: pyanaconda/ui/gui/spokes/storage.py:682
 msgid "Probing storage..."
 msgstr ""
@@ -908,8 +908,8 @@ msgid "Timezone settings"
 msgstr ""
 
 #: pyanaconda/ui/tui/spokes/time_spoke.py:57
-#: pyanaconda/ui/gui/spokes/datetime_spoke.py:396
-#: pyanaconda/ui/gui/spokes/datetime_spoke.py:400
+#: pyanaconda/ui/gui/spokes/datetime_spoke.py:456
+#: pyanaconda/ui/gui/spokes/datetime_spoke.py:460
 #, python-format
 msgid "%s timezone"
 msgstr ""
@@ -938,32 +938,32 @@ msgid "Installation source"
 msgstr ""
 
 #: pyanaconda/ui/tui/spokes/source.py:48 pyanaconda/ui/tui/spokes/source.py:89
-#: pyanaconda/ui/gui/spokes/source.py:522
+#: pyanaconda/ui/gui/spokes/source.py:529
 #: pyanaconda/ui/gui/spokes/source.glade.h:23
 msgid "Closest mirror"
 msgstr ""
 
 #: pyanaconda/ui/tui/spokes/source.py:85
-#: pyanaconda/ui/gui/spokes/source.py:514
+#: pyanaconda/ui/gui/spokes/source.py:521
 #, python-format
 msgid "NFS server %s"
 msgstr ""
 
 #: pyanaconda/ui/tui/spokes/source.py:87
-#: pyanaconda/ui/gui/spokes/source.py:516
+#: pyanaconda/ui/gui/spokes/source.py:523
 msgid "Local media"
 msgstr ""
 
 #: pyanaconda/ui/tui/spokes/source.py:91
 #: pyanaconda/ui/tui/spokes/software.py:101
-#: pyanaconda/ui/gui/spokes/datetime_spoke.py:402
-#: pyanaconda/ui/gui/spokes/software.py:180
-#: pyanaconda/ui/gui/spokes/source.py:524
+#: pyanaconda/ui/gui/spokes/datetime_spoke.py:462
+#: pyanaconda/ui/gui/spokes/software.py:200
+#: pyanaconda/ui/gui/spokes/source.py:531
 msgid "Nothing selected"
 msgstr ""
 
 #: pyanaconda/ui/tui/spokes/source.py:96
-#: pyanaconda/ui/gui/spokes/source.py:510
+#: pyanaconda/ui/gui/spokes/source.py:517
 msgid "Error setting up software source"
 msgstr ""
 
@@ -990,7 +990,7 @@ msgid "Choose an installation source type."
 msgstr ""
 
 #: pyanaconda/ui/tui/spokes/source.py:194
-#: pyanaconda/ui/gui/spokes/source.py:443
+#: pyanaconda/ui/gui/spokes/source.py:450
 msgid "Failed to set up installation source"
 msgstr ""
 
@@ -1000,9 +1000,9 @@ msgstr ""
 
 #: pyanaconda/ui/tui/spokes/source.py:207
 #: pyanaconda/ui/tui/spokes/software.py:69
-#: pyanaconda/ui/gui/spokes/software.py:213
-#: pyanaconda/ui/gui/spokes/software.py:237
-#: pyanaconda/ui/gui/spokes/source.py:471
+#: pyanaconda/ui/gui/spokes/software.py:236
+#: pyanaconda/ui/gui/spokes/software.py:279
+#: pyanaconda/ui/gui/spokes/source.py:478
 msgid "No installation source available"
 msgstr ""
 
@@ -1032,22 +1032,22 @@ msgid "Software selection"
 msgstr ""
 
 #: pyanaconda/ui/tui/spokes/software.py:79
-#: pyanaconda/ui/gui/spokes/software.py:164
+#: pyanaconda/ui/gui/spokes/software.py:184
 msgid "Error checking software selection"
 msgstr ""
 
 #: pyanaconda/ui/tui/spokes/software.py:83
-#: pyanaconda/ui/gui/spokes/software.py:167
+#: pyanaconda/ui/gui/spokes/software.py:187
 msgid "Installation source not set up"
 msgstr ""
 
 #: pyanaconda/ui/tui/spokes/software.py:85
-#: pyanaconda/ui/gui/spokes/software.py:170
+#: pyanaconda/ui/gui/spokes/software.py:190
 msgid "Source changed - please verify"
 msgstr ""
 
 #: pyanaconda/ui/tui/spokes/software.py:100
-#: pyanaconda/ui/gui/spokes/software.py:178
+#: pyanaconda/ui/gui/spokes/software.py:198
 msgid "Custom software selected"
 msgstr ""
 
@@ -1135,7 +1135,7 @@ msgid "_Exit Installer"
 msgstr ""
 
 #: pyanaconda/ui/gui/__init__.py:666 pyanaconda/ui/gui/hubs/progress.py:203
-#: pyanaconda/ui/gui/spokes/software.py:405
+#: pyanaconda/ui/gui/spokes/software.py:453
 #: pyanaconda/ui/gui/spokes/storage.py:942 widgets/src/StandaloneWindow.c:54
 #: pyanaconda/ui/gui/spokes/welcome.glade.h:1
 #: pyanaconda/ui/gui/hubs/summary.glade.h:2
@@ -1580,23 +1580,23 @@ msgid ""
 "appropriate type for that disk.\n"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/datetime_spoke.py:291
+#: pyanaconda/ui/gui/spokes/datetime_spoke.py:348
 msgid "DATE & _TIME"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/datetime_spoke.py:387
+#: pyanaconda/ui/gui/spokes/datetime_spoke.py:447
 msgid "Restoring hardware time..."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/datetime_spoke.py:398
+#: pyanaconda/ui/gui/spokes/datetime_spoke.py:458
 msgid "Invalid timezone"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/datetime_spoke.py:902
+#: pyanaconda/ui/gui/spokes/datetime_spoke.py:966
 msgid "You need to set up networking first if you want to use NTP"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/datetime_spoke.py:907
+#: pyanaconda/ui/gui/spokes/datetime_spoke.py:971
 msgid "You have no working NTP server configured"
 msgstr ""
 
@@ -1604,20 +1604,20 @@ msgstr ""
 msgid "_INSTALLATION DESTINATION"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/keyboard.py:40
+#: pyanaconda/ui/gui/spokes/keyboard.py:43
 #, python-format
 msgid "%s to switch layouts."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/keyboard.py:269
+#: pyanaconda/ui/gui/spokes/keyboard.py:271
 msgid "_KEYBOARD"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/keyboard.py:343
+#: pyanaconda/ui/gui/spokes/keyboard.py:346
 msgid "Testing layouts configuration not available."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/keyboard.py:395
+#: pyanaconda/ui/gui/spokes/keyboard.py:398
 msgid "Layout switching not configured."
 msgstr ""
 
@@ -1780,29 +1780,29 @@ msgstr ""
 msgid "_SOFTWARE SELECTION"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/software.py:102
-#: pyanaconda/ui/gui/spokes/source.py:504
+#: pyanaconda/ui/gui/spokes/software.py:122
+#: pyanaconda/ui/gui/spokes/source.py:511
 msgid "Checking software dependencies..."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/software.py:107
+#: pyanaconda/ui/gui/spokes/software.py:127
 msgid "Error checking software dependencies"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/software.py:190
+#: pyanaconda/ui/gui/spokes/software.py:210
 #: pyanaconda/ui/gui/spokes/source.py:51
 msgid "Downloading package metadata..."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/software.py:194
+#: pyanaconda/ui/gui/spokes/software.py:214
 msgid "Downloading group metadata..."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/software.py:310
+#: pyanaconda/ui/gui/spokes/software.py:353
 msgid "Error checking software dependencies.  Click for details."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/software.py:402
+#: pyanaconda/ui/gui/spokes/software.py:450
 msgid ""
 "The following software marked for installation has errors.  This is likely "
 "caused by an error with\n"
@@ -1810,14 +1810,14 @@ msgid ""
 "the installer."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/software.py:405
+#: pyanaconda/ui/gui/spokes/software.py:453
 #: pyanaconda/ui/gui/spokes/storage.glade.h:19
 #: pyanaconda/ui/gui/spokes/source.glade.h:4
 #: pyanaconda/ui/gui/spokes/custom.glade.h:1
 msgid "_Cancel"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/software.py:406
+#: pyanaconda/ui/gui/spokes/software.py:454
 msgid "_Modify Software Source"
 msgstr ""
 
@@ -1841,54 +1841,54 @@ msgstr ""
 msgid "_INSTALLATION SOURCE"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.py:402
-#: pyanaconda/ui/gui/spokes/source.py:445
-#: pyanaconda/ui/gui/spokes/source.py:457
+#: pyanaconda/ui/gui/spokes/source.py:405
+#: pyanaconda/ui/gui/spokes/source.py:452
+#: pyanaconda/ui/gui/spokes/source.py:464
 msgid "Failed to set up installation source; check the repo url"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.py:447
+#: pyanaconda/ui/gui/spokes/source.py:454
 msgid ""
 "Failed to set up installation source; check the repo url and proxy settings"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.py:508
+#: pyanaconda/ui/gui/spokes/source.py:515
 msgid "Error setting up base repository"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.py:519
+#: pyanaconda/ui/gui/spokes/source.py:526
 msgid "Error setting up ISO file"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.py:618
+#: pyanaconda/ui/gui/spokes/source.py:626
 #, python-format
 msgid "Device: %s"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.py:619
+#: pyanaconda/ui/gui/spokes/source.py:627
 #, python-format
 msgid "Label: %s"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.py:1024
+#: pyanaconda/ui/gui/spokes/source.py:1032
 msgid "Duplicate repository names."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.py:1035
+#: pyanaconda/ui/gui/spokes/source.py:1043
 msgid ""
 "Duplicate repository names not allowed; choose a unique name for each "
 "repository."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.py:1057
+#: pyanaconda/ui/gui/spokes/source.py:1065
 msgid "Empty repository name."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.py:1061
+#: pyanaconda/ui/gui/spokes/source.py:1069
 msgid "Invalid repository name."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.py:1064
+#: pyanaconda/ui/gui/spokes/source.py:1072
 msgid "Repository name conflicts with internal repository name."
 msgstr ""
 
@@ -2288,18 +2288,6 @@ msgstr ""
 msgid "DATE & TIME"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/datetime_spoke.glade.h:2
-msgid "_Region:"
-msgstr ""
-
-#: pyanaconda/ui/gui/spokes/datetime_spoke.glade.h:3
-msgid "_City:"
-msgstr ""
-
-#: pyanaconda/ui/gui/spokes/datetime_spoke.glade.h:4
-msgid "_Network Time"
-msgstr ""
-
 #. TRANSLATORS: This is the separator between hours and minutes, like in HH:MM
 #: pyanaconda/ui/gui/spokes/datetime_spoke.glade.h:6
 msgid ":"
@@ -2307,14 +2295,6 @@ msgstr ""
 
 #: pyanaconda/ui/gui/spokes/datetime_spoke.glade.h:7
 msgid "PM"
-msgstr ""
-
-#: pyanaconda/ui/gui/spokes/datetime_spoke.glade.h:8
-msgid "24-_hour"
-msgstr ""
-
-#: pyanaconda/ui/gui/spokes/datetime_spoke.glade.h:9
-msgid "_AM/PM"
 msgstr ""
 
 #: pyanaconda/ui/gui/spokes/datetime_spoke.glade.h:10
