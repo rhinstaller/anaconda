@@ -273,6 +273,9 @@ def copyUpdatedFiles(tag, updates, cwd):
             install_to_dir(gitfile, "usr/share/anaconda/post-scripts")
         elif gitfile.endswith("anaconda-yum"):
             install_to_dir(gitfile, "usr/libexec/anaconda")
+        elif gitfile.endswith("AnacondaWidgets.py"):
+            import gi
+            install_to_dir(gitfile, gi._overridesdir[1:])
         elif gitfile.find('/') != -1:
             fields = gitfile.split('/')
             subdir = fields[0]
