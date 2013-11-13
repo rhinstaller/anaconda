@@ -62,9 +62,6 @@ EARLY_SWAP_RAM = 896 * 1024
 def pathSpaceAvailable(path):
     return _isys.devSpaceFree(path)
 
-def resetResolv():
-    return _isys.resetresolv()
-
 def modulesWithPaths():
     mods = []
     for modline in open("/proc/modules", "r"):
