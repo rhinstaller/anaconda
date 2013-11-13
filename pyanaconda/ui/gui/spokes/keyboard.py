@@ -25,12 +25,14 @@ from gi.repository import Gkbd, Gdk, Gtk
 from pyanaconda.ui.gui import GUIObject
 from pyanaconda.ui.gui.spokes import NormalSpoke
 from pyanaconda.ui.gui.categories.localization import LocalizationCategory
-from pyanaconda.ui.gui.utils import enlightbox, gtk_call_once, escape_markup
+from pyanaconda.ui.gui.utils import enlightbox, gtk_call_once, escape_markup, gtk_batch_map
 from pyanaconda import keyboard
 from pyanaconda import flags
 from pyanaconda.i18n import _, N_, CN_
-from pyanaconda.constants import DEFAULT_KEYBOARD
+from pyanaconda.constants import DEFAULT_KEYBOARD, THREAD_KEYBOARD_INIT, THREAD_ADD_LAYOUTS_INIT
+from pyanaconda.ui.communication import hubQ
 from pyanaconda.iutil import strip_accents
+from pyanaconda.threads import threadMgr, AnacondaThread
 
 import locale as locale_mod
 
@@ -41,6 +43,8 @@ __all__ = ["KeyboardSpoke"]
 
 # %s will be replaced by key combination like Alt+Shift
 LAYOUT_SWITCHING_INFO = N_("%s to switch layouts.")
+
+ADD_LAYOUTS_INITIALIZE_THREAD = "AnaAddLayoutsInitializeThread"
 
 def _show_layout(column, renderer, model, itr, wrapper):
     value = wrapper.get_layout_variant_description(model[itr][0])
@@ -106,6 +110,8 @@ class AddLayoutDialog(GUIObject):
         return locale_mod.strcoll(show_str1, show_str2)
 
     def refresh(self):
+        selected = self._newLayoutSelection.count_selected_rows()
+        self._confirmAddButton.set_sensitive(selected)
         self._entry.grab_focus()
 
     def initialize(self):
@@ -121,15 +127,19 @@ class AddLayoutDialog(GUIObject):
         self._treeModelSort = self.builder.get_object("newLayoutStoreSort")
         self._treeModelSort.set_default_sort_func(self.compare_layouts, None)
 
-        self._store = self.builder.get_object("newLayoutStore")
-        for layout in self._xkl_wrapper.get_available_layouts():
-            self._addLayout(self._store, layout)
-
         self._confirmAddButton = self.builder.get_object("confirmAddButton")
-
         self._newLayoutSelection = self.builder.get_object("newLayoutSelection")
-        selected = self._newLayoutSelection.count_selected_rows()
-        self._confirmAddButton.set_sensitive(selected)
+
+        self._store = self.builder.get_object("newLayoutStore")
+        threadMgr.add(AnacondaThread(name=THREAD_ADD_LAYOUTS_INIT,
+                                     target=self._initialize))
+
+    def _initialize(self):
+        gtk_batch_map(self._addLayout, self._xkl_wrapper.get_available_layouts(),
+                      args=(self._store,), batch_size=20)
+
+    def wait_initialize(self):
+        threadMgr.wait(THREAD_ADD_LAYOUTS_INIT)
 
     def run(self):
         self.window.show()
@@ -171,7 +181,7 @@ class AddLayoutDialog(GUIObject):
         # let the other actions happen as well
         return False
 
-    def _addLayout(self, store, name):
+    def _addLayout(self, name, store):
         store.append([name])
 
 
@@ -276,6 +286,7 @@ class KeyboardSpoke(NormalSpoke):
         self._confirmed = False
         self._xkl_wrapper = keyboard.XklWrapper.get_instance()
         self._add_dialog = None
+        self._ready = False
 
         self._upButton = self.builder.get_object("upButton")
         self._downButton = self.builder.get_object("downButton")
@@ -311,8 +322,14 @@ class KeyboardSpoke(NormalSpoke):
                         for row in self._store)
         return ", ".join(descriptions)
 
+    @property
+    def ready(self):
+        return self._ready and threadMgr.get(ADD_LAYOUTS_INITIALIZE_THREAD) is None
+
     def initialize(self):
         NormalSpoke.initialize(self)
+        self._add_dialog = AddLayoutDialog(self.data)
+        self._add_dialog.initialize()
 
         if flags.can_touch_runtime_system("hide runtime keyboard configuration "
                                           "warning", touch_live=True):
@@ -350,6 +367,17 @@ class KeyboardSpoke(NormalSpoke):
 
             for widget in widgets:
                 widget.set_sensitive(False)
+
+        hubQ.send_not_ready(self.__class__.__name__)
+        hubQ.send_message(self.__class__.__name__,
+                          _("Getting list of layouts..."))
+        threadMgr.add(AnacondaThread(name=THREAD_KEYBOARD_INIT,
+                                     target=self._wait_ready))
+
+    def _wait_ready(self):
+        self._add_dialog.wait_initialize()
+        self._ready = True
+        hubQ.send_ready(self.__class__.__name__, False)
 
     def refresh(self):
         NormalSpoke.refresh(self)
@@ -402,10 +430,6 @@ class KeyboardSpoke(NormalSpoke):
 
     # Signal handlers.
     def on_add_clicked(self, button):
-        if not self._add_dialog:
-            self._add_dialog = AddLayoutDialog(self.data)
-            self._add_dialog.initialize()
-
         self._add_dialog.refresh()
 
         with enlightbox(self.window, self._add_dialog.window):

@@ -109,6 +109,8 @@ THREAD_DATE_TIME = "AnaDateTimeThread"
 THREAD_TIME_INIT = "AnaTimeInitThread"
 THREAD_XKL_WRAPPER_INIT = "AnaXklWrapperInitThread"
 THREAD_REFRESH_BASE_REPO = "AnaBaseRepoRefreshThread"
+THREAD_KEYBOARD_INIT = "AnaKeyboardThread"
+THREAD_ADD_LAYOUTS_INIT = "AnaAddLayoutsInitThread"
 
 # Geolocation constants
 
