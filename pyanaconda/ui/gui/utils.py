@@ -100,6 +100,7 @@ def enlightbox(mainWindow, dialog):
 
     lightbox = AnacondaWidgets.Lightbox(parent_window=mainWindow)
     ANACONDA_WINDOW_GROUP.add_window(lightbox)
+    dialog.set_position(Gtk.WindowPosition.CENTER_ALWAYS)
     dialog.set_transient_for(lightbox)
     yield
     lightbox.destroy()
