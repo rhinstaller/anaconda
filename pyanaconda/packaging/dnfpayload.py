@@ -39,6 +39,7 @@ log = logging.getLogger("packaging")
 try:
     import dnf
     import dnf.exceptions
+    import dnf.repo
     import dnf.output
     import rpm
 except ImportError as e:
@@ -100,7 +101,7 @@ class DNFPayload(packaging.PackagePayload):
         self._configure()
 
     def _add_repo(self, ksrepo):
-        repo = self._base.build_repo(ksrepo.name)
+        repo = dnf.repo.Repo(ksrepo.name, DNF_CACHE_DIR)
         url = ksrepo.baseurl
         mirrorlist = ksrepo.mirrorlist
         if url:
@@ -145,8 +146,7 @@ class DNFPayload(packaging.PackagePayload):
     def _configure(self):
         self._base = dnf.Base()
         conf = self._base.conf
-        self._base.cache_c.prefix = DNF_CACHE_DIR
-        self._base.cache_c.suffix = 'default'
+        conf.cachedir = DNF_CACHE_DIR
         conf.logdir = '/tmp/payload-logs'
         # disable console output completely:
         conf.debuglevel = 0
