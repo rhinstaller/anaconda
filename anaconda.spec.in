@@ -80,7 +80,7 @@ BuildRequires: s390utils-devel
 %endif
 
 Requires: anaconda-widgets = %{version}-%{release}
-Requires: dnf >= 0.4.7
+Requires: dnf >= 0.4.8
 Requires: python-blivet >= 0.23.5
 Requires: gnome-icon-theme-symbolic
 Requires: python-meh >= %{mehver}
