@@ -82,13 +82,8 @@ def _get_proxy(bus_type=Gio.BusType.SYSTEM,
 def _get_property(object_path, prop, interface_name_suffix=""):
     interface_name = "org.freedesktop.NetworkManager" + interface_name_suffix
     proxy = _get_proxy(object_path=object_path, interface_name="org.freedesktop.DBus.Properties")
-    args = GLib.Variant('(ss)', (interface_name, prop))
     try:
-        prop = proxy.call_sync("Get",
-                                args,
-                                Gio.DBusCallFlags.NONE,
-                                DEFAULT_DBUS_TIMEOUT,
-                                None)
+        prop = proxy.Get('(ss)', interface_name, prop)
     except GLib.GError as e:
         if "org.freedesktop.DBus.Error.AccessDenied" in e.message:
             return None
@@ -97,7 +92,7 @@ def _get_property(object_path, prop, interface_name_suffix=""):
         else:
             raise
 
-    return prop.unpack()[0]
+    return prop
 
 def nm_state():
     """Return state of NetworkManager"""
@@ -123,14 +118,7 @@ def nm_devices():
     interfaces = []
 
     proxy = _get_proxy()
-    args = None
-    devices = proxy.call_sync("GetDevices",
-                              args,
-                              Gio.DBusCallFlags.NONE,
-                              DEFAULT_DBUS_TIMEOUT,
-                              None)
-
-    devices = devices.unpack()[0]
+    devices = proxy.GetDevices()
     for device in devices:
         device_type = _get_property(device, "DeviceType", ".Device")
         if device_type not in supported_device_types:
@@ -189,19 +177,12 @@ def nm_device_property(name, prop):
     retval = None
 
     proxy = _get_proxy()
-    args = GLib.Variant('(s)', (name,))
     try:
-        device = proxy.call_sync("GetDeviceByIpIface",
-                                  args,
-                                  Gio.DBusCallFlags.NONE,
-                                  DEFAULT_DBUS_TIMEOUT,
-                                  None)
+        device = proxy.GetDeviceByIpIface('(s)', name)
     except GLib.GError as e:
         if "org.freedesktop.NetworkManager.UnknownDevice" in e.message:
             raise UnknownDeviceError(name, e)
         raise
-
-    device = device.unpack()[0]
 
     retval = _get_property(device, prop, ".Device")
     if not retval:
@@ -526,22 +507,10 @@ def _find_settings(value, key1, key2, format_value=lambda x:x):
 
     proxy = _get_proxy(object_path="/org/freedesktop/NetworkManager/Settings", interface_name="org.freedesktop.NetworkManager.Settings")
 
-    args = None
-    connections = proxy.call_sync("ListConnections",
-                                  args,
-                                  Gio.DBusCallFlags.NONE,
-                                  DEFAULT_DBUS_TIMEOUT,
-                                  None)
-
-    for con in connections.unpack()[0]:
+    connections = proxy.ListConnections()
+    for con in connections:
         proxy = _get_proxy(object_path=con, interface_name="org.freedesktop.NetworkManager.Settings.Connection")
-        args = None
-        settings = proxy.call_sync("GetSettings",
-                                   args,
-                                   Gio.DBusCallFlags.NONE,
-                                   DEFAULT_DBUS_TIMEOUT,
-                                   None)
-        settings = settings.unpack()[0]
+        settings = proxy.GetSettings()
         try:
             v = settings[key1][key2]
         except KeyError:
@@ -560,13 +529,7 @@ def nm_get_settings(value, key1, key2, format_value=lambda x:x):
     settings_paths = _find_settings(value, key1, key2, format_value)
     for settings_path in settings_paths:
         proxy = _get_proxy(object_path=settings_path, interface_name="org.freedesktop.NetworkManager.Settings.Connection")
-        args = None
-        settings = proxy.call_sync("GetSettings",
-                                   args,
-                                   Gio.DBusCallFlags.NONE,
-                                   DEFAULT_DBUS_TIMEOUT,
-                                   None)
-        settings = settings.unpack()[0]
+        settings = proxy.GetSettings()
         retval.append(settings)
 
     return retval
@@ -577,21 +540,10 @@ def nm_get_all_settings():
 
     proxy = _get_proxy(object_path="/org/freedesktop/NetworkManager/Settings", interface_name="org.freedesktop.NetworkManager.Settings")
 
-    args = None
-    connections = proxy.call_sync("ListConnections",
-                                  args,
-                                  Gio.DBusCallFlags.NONE,
-                                  DEFAULT_DBUS_TIMEOUT,
-                                  None)
-
-    for con in connections.unpack()[0]:
+    connections = proxy.ListConnections()
+    for con in connections:
         proxy = _get_proxy(object_path=con, interface_name="org.freedesktop.NetworkManager.Settings.Connection")
-        args = None
-        settings = proxy.call_sync("GetSettings",
-                                   args,
-                                   Gio.DBusCallFlags.NONE,
-                                   DEFAULT_DBUS_TIMEOUT,
-                                   None)
+        settings = proxy.GetSettings()
         retval.append(settings)
 
     return retval
@@ -616,13 +568,7 @@ def nm_device_setting_value(name, key1, key2):
     else:
         settings_path = settings_paths[0]
     proxy = _get_proxy(object_path=settings_path, interface_name="org.freedesktop.NetworkManager.Settings.Connection")
-    args = None
-    settings = proxy.call_sync("GetSettings",
-                               args,
-                               Gio.DBusCallFlags.NONE,
-                               DEFAULT_DBUS_TIMEOUT,
-                               None)
-    settings = settings.unpack()[0]
+    settings = proxy.GetSettings()
     try:
         value = settings[key1][key2]
     except KeyError:
@@ -651,13 +597,7 @@ def nm_ap_setting_value(ssid, key1, key2):
     else:
         settings_path = settings_paths[0]
     proxy = _get_proxy(object_path=settings_path, interface_name="org.freedesktop.NetworkManager.Settings.Connection")
-    args = None
-    settings = proxy.call_sync("GetSettings",
-                               args,
-                               Gio.DBusCallFlags.NONE,
-                               DEFAULT_DBUS_TIMEOUT,
-                               None)
-    settings = settings.unpack()[0]
+    settings = proxy.GetSettings()
     try:
         value = settings[key1][key2]
     except KeyError:
@@ -670,26 +610,15 @@ def nm_disconnect_device(name):
        :raise UnknownDeviceError: if device is not found
     """
     proxy = _get_proxy()
-    args = GLib.Variant('(s)', (name,))
     try:
-        device = proxy.call_sync("GetDeviceByIpIface",
-                                  args,
-                                  Gio.DBusCallFlags.NONE,
-                                  DEFAULT_DBUS_TIMEOUT,
-                                  None)
+        device = proxy.GetDeviceByIpIface('(s)', name)
     except GLib.GError as e:
         if "org.freedesktop.NetworkManager.UnknownDevice" in e.message:
             raise UnknownDeviceError(name, e)
         raise
 
-    device = device.unpack()[0]
     device_proxy = _get_proxy(object_path=device, interface_name="org.freedesktop.NetworkManager.Device")
-    args = None
-    device_proxy.call_sync("Disconnect",
-                            args,
-                            Gio.DBusCallFlags.NONE,
-                            DEFAULT_DBUS_TIMEOUT,
-                            None)
+    device_proxy.Disconnect()
 
 def nm_activate_device_connection(dev_name, con_uuid):
     """Activate device with specified connection.
@@ -709,32 +638,20 @@ def nm_activate_device_connection(dev_name, con_uuid):
         device_path = "/"
     else:
         proxy = _get_proxy()
-        args = GLib.Variant('(s)', (dev_name,))
         try:
-            device = proxy.call_sync("GetDeviceByIpIface",
-                                      args,
-                                      Gio.DBusCallFlags.NONE,
-                                      DEFAULT_DBUS_TIMEOUT,
-                                      None)
+            device_path = proxy.GetDeviceByIpIface('(s)', dev_name)
         except Exception as e:
             if "org.freedesktop.NetworkManager.UnknownDevice" in e.message:
                 raise UnknownDeviceError(dev_name, e)
             raise
 
-        device_path = device.unpack()[0]
-
     con_paths = _find_settings(con_uuid, 'connection', 'uuid')
     if not con_paths:
         raise SettingsNotFoundError(con_uuid)
 
-    args = GLib.Variant('(ooo)', (con_paths[0], device_path, "/"))
     nm_proxy = _get_proxy()
     try:
-        nm_proxy.call_sync("ActivateConnection",
-                            args,
-                            Gio.DBusCallFlags.NONE,
-                            DEFAULT_DBUS_TIMEOUT,
-                            None)
+        nm_proxy.ActivateConnection('(ooo)', con_paths[0], device_path, "/")
     except GLib.GError as e:
         if "org.freedesktop.NetworkManager.UnmanagedDevice" in e.message:
             raise UnmanagedDeviceError(dev_name, e)
@@ -762,16 +679,11 @@ def nm_add_connection(values):
         if key1 not in settings:
             settings[key1] = {}
         settings[key1][key2] = gvalue
-    gsettings = GLib.Variant("(a{sa{sv}})", (settings,))
 
     proxy = _get_proxy(object_path="/org/freedesktop/NetworkManager/Settings",
                        interface_name="org.freedesktop.NetworkManager.Settings")
-    connection = proxy.call_sync("AddConnection",
-                                 gsettings,
-                                 Gio.DBusCallFlags.NONE,
-                                 DEFAULT_DBUS_TIMEOUT,
-                                 None)
-    return connection.unpack()
+    connection = proxy.AddConnection('(a{sa{sv}})', settings)
+    return connection
 
 def nm_update_settings_of_device(name, new_values):
     """Update setting of device.
@@ -810,13 +722,9 @@ def _update_settings(settings_path, new_values):
                                DEFAULT_DBUS_TIMEOUT,
                                None)
     for key1, key2, value, default_type_str in new_values:
-        settings = _gvariant_settings(settings, key1, key2, value, default_type_str)
+        new_settings = _gvariant_settings(settings, key1, key2, value, default_type_str)
 
-    proxy.call_sync("Update",
-                    settings,
-                    Gio.DBusCallFlags.NONE,
-                    DEFAULT_DBUS_TIMEOUT,
-                    None)
+    proxy.Update(settings.get_type_string(), new_settings)
 
 def _gvariant_settings(settings, updated_key1, updated_key2, value, default_type_str=None):
     """Update setting of updated_key1, updated_key2 of settings object with value.
@@ -866,7 +774,7 @@ def _gvariant_settings(settings, updated_key1, updated_key2, value, default_type
             new_settings[updated_key1] = {}
         new_settings[updated_key1][updated_key2] = GLib.Variant(type_str, value)
 
-    return GLib.Variant(settings.get_type_string(), (new_settings,))
+    return new_settings
 
 def nm_ipv6_to_dbus_ay(address):
     """Convert ipv6 address from string to list of bytes (ay) for dbus."""
