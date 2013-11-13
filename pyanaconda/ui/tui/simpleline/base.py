@@ -91,9 +91,6 @@ class App(object):
         else:
             self.queue = Queue.Queue()
 
-        # ensure unique thread names
-        self._in_thread_counter = 0
-
         # event handlers
         # key: event id
         # value: list of tuples (callback, data)
@@ -408,10 +405,7 @@ class App(object):
         """This method reads one input from user. Its basic form has only one
         line, but we might need to override it for more complex apps or testing."""
 
-        thread_name = "%s%d" % (constants.THREAD_INPUT_BASENAME,
-                                self._in_thread_counter)
-        self._in_thread_counter += 1
-        input_thread = AnacondaThread(name=thread_name,
+        input_thread = AnacondaThread(prefix=constants.THREAD_INPUT_BASENAME,
                                       target=self._thread_input,
                                       args=(self.queue, prompt, hidden))
         input_thread.daemon = True

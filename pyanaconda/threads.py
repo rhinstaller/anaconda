@@ -24,6 +24,8 @@ log = logging.getLogger("anaconda")
 
 import threading
 
+_WORKER_THREAD_PREFIX = "AnaWorkerThread"
+
 class ThreadManager(object):
     """A singleton class for managing threads and processes.
 
@@ -54,6 +56,8 @@ class ThreadManager(object):
         self._objs[obj.name] = obj
         self._errors[obj.name] = None
         obj.start()
+
+        return obj.name
 
     def remove(self, name):
         """Removes a thread from the list of known objects.  This should only
@@ -155,7 +159,22 @@ class AnacondaThread(threading.Thread):
        (3) All created threads are made daemonic, which means anaconda will quit
            when the main process is killed.
     """
+
+    # class-wide dictionary ensuring unique thread names
+    _prefix_thread_counts = dict()
+
     def __init__(self, *args, **kwargs):
+        # if neither name nor prefix is given, use the worker prefix
+        if "name" not in kwargs and "prefix" not in kwargs:
+            kwargs["prefix"] = _WORKER_THREAD_PREFIX
+
+        # if prefix is specified, use it to construct new thread name
+        prefix = kwargs.pop("prefix", None)
+        if prefix:
+            thread_num = self._prefix_thread_counts.get(prefix, 0) + 1
+            self._prefix_thread_counts[prefix] = thread_num
+            kwargs["name"] = prefix + str(thread_num)
+
         threading.Thread.__init__(self, *args, **kwargs)
         self.daemon = True
 

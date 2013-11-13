@@ -119,9 +119,6 @@ class NTPconfigDialog(GUIObject):
     def __init__(self, *args):
         GUIObject.__init__(self, *args)
 
-        #used to ensure uniqueness of the threads' names
-        self._threads_counter = 0
-
         #epoch is increased when serversStore is repopulated
         self._epoch = 0
         self._epoch_lock = threading.Lock()
@@ -267,11 +264,9 @@ class NTPconfigDialog(GUIObject):
         """ Runs a new thread with _set_server_ok_nok(itr) as a taget. """
 
         self._serversStore.set_value(itr, 1, SERVER_QUERY)
-        new_thread_name = "AnaNTPserver%d" % self._threads_counter
-        threadMgr.add(AnacondaThread(name=new_thread_name,
+        threadMgr.add(AnacondaThread(prefix="AnaNTPserver",
                                      target=self._set_server_ok_nok,
                                      args=(itr, self._epoch)))
-        self._threads_counter += 1
 
     def _add_server(self, server):
         """
