@@ -20,7 +20,6 @@ Source0: %{name}-%{version}.tar.bz2
 
 # Also update in AM_GNU_GETTEXT_VERSION in configure.ac
 %define gettextver 0.18.3
-%define gconfversion 2.28.1
 %define intltoolver 0.31.2-3
 %define libnlver 1.0
 %define pykickstartver 1.99.46
@@ -119,7 +118,6 @@ Requires: teamd
 Requires: usermode
 Requires: zenity
 %endif
-Requires: GConf2 >= %{gconfversion}
 %ifarch s390 s390x
 Requires: openssh
 %endif
