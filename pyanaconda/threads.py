@@ -38,6 +38,7 @@ class ThreadManager(object):
     """
     def __init__(self):
         self._objs = {}
+        self._objs_lock = threading.RLock()
         self._errors = {}
         self._main_thread = threading.current_thread()
 
@@ -48,43 +49,64 @@ class ThreadManager(object):
         """Given a Thread or Process object, add it to the list of known objects
            and start it.  It is assumed that obj.name is unique and descriptive.
         """
-        if obj.name in self._objs:
-            raise KeyError("Cannot add thread '%s', a thread with the same name already running" % obj.name)
 
-        self._objs[obj.name] = obj
-        self._errors[obj.name] = None
-        obj.start()
+        # we need to lock the thread dictionary when adding a new thread,
+        # so that callers can't get & join threads that are not yet started
+        with self._objs_lock:
+            if obj.name in self._objs:
+                raise KeyError("Cannot add thread '%s', a thread with the same name already running" % obj.name)
+
+            self._objs[obj.name] = obj
+            self._errors[obj.name] = None
+            obj.start()
 
     def remove(self, name):
         """Removes a thread from the list of known objects.  This should only
            be called when a thread exits, or there will be no way to get a
            handle on it.
         """
-        self._objs.pop(name)
+        with self._objs_lock:
+            self._objs.pop(name)
 
     def exists(self, name):
         """Determine if a thread or process exists with the given name."""
-        return name in self._objs
+
+        # thread in the ThreadManager only officially exists once started
+        with self._objs_lock:
+            return name in self._objs
 
     def get(self, name):
         """Given an object name, see if it exists and return the object.
            Return None if no such object exists.  Additionally, this method
            will re-raise any uncaught exception in the thread.
         """
-        obj = self._objs.get(name)
-        if obj:
-            self.raise_error(name)
 
-        return obj
+        # without the lock it would be possible to get & join
+        # a thread that was not yet started
+        with self._objs_lock:
+            obj = self._objs.get(name)
+            if obj:
+                self.raise_if_error(name)
+
+            return obj
 
     def wait(self, name):
         """Wait for the thread to exit and if the thread exited with an error
            re-raise it here.
         """
-        if self.exists(name):
+        # we don't need a lock here,
+        # because get() acquires it itself
+        try:
             self.get(name).join()
+        except AttributeError:
+            pass
+        # - if there is a thread object for the given name,
+        #   we join it
+        # - if there is not a thread object for the given name,
+        #   we get None, try to join it, suppress the AttributeError
+        #   and return immediately
 
-        self.raise_error(name)
+        self.raise_if_error(name)
 
     def wait_all(self):
         """Wait for all threads to exit and if there was an error re-raise it.
@@ -112,7 +134,7 @@ class ThreadManager(object):
         """
         return any(self._errors.values())
 
-    def raise_error(self, name):
+    def raise_if_error(self, name):
         """If a thread has failed due to an exception, raise it into the main
            thread.
         """
@@ -132,7 +154,8 @@ class ThreadManager(object):
             :returns: number of running threads
             :rtype:   int
         """
-        return len(self._objs)
+        with self._objs_lock:
+            return len(self._objs)
 
     @property
     def names(self):
@@ -141,7 +164,8 @@ class ThreadManager(object):
             :returns: list of thread names
             :rtype:   list of strings
         """
-        return self._objs.keys()
+        with self._objs_lock:
+            return self._objs.keys()
 
 class AnacondaThread(threading.Thread):
     """A threading.Thread subclass that exists only for a couple purposes:
