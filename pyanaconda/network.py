@@ -506,14 +506,14 @@ def add_connection_for_ksdata(networkdata, devname):
         values.append(['connection', 'id', devname, 's'])
         values.append(['team', 'interface-name', devname, 's'])
         values.append(['team', 'config', networkdata.teamconfig, 's'])
-        for i, (slave, cfg) in enumerate(networkdata.teamslaves):
+        for _i, (slave, cfg) in enumerate(networkdata.teamslaves):
 
             # assume ethernet, TODO: infiniband, wifi, vlan
             #slave_name = "%s slave %d" % (devname, i)
             slave_name = slave
 
             svalues = []
-            suuid =  str(uuid.uuid4())
+            suuid =  str(uuid4())
             svalues.append(['connection', 'uuid', suuid, 's'])
             svalues.append(['connection', 'id', slave_name, 's'])
             svalues.append(['connection', 'slave-type', 'team', 's'])
@@ -819,14 +819,14 @@ def get_team_slaves(master_specs):
         for settings in slave_settings:
             try:
                 cfg = settings["team-port"]["config"]
-            except KeyError as e:
+            except KeyError:
                 cfg = ""
             devname = settings["connection"].get("interface-name")
             #nm-c-e doesn't save device name
             # TODO: wifi, infiniband
             if not devname:
-                type = settings["connection"]["type"]
-                if type == "802-3-ethernet":
+                ty = settings["connection"]["type"]
+                if ty == "802-3-ethernet":
                     hwaddr = settings["802-3-ethernet"]["mac-address"]
                     hwaddr = ":".join("%02X" % b for b in hwaddr)
                     devname = nm.nm_hwaddr_to_device_name(hwaddr)
