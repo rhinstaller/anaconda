@@ -808,7 +808,7 @@ class NetworkControlBox(object):
 
     def _refresh_header_ui(self, device, state=None):
         dev_type = device.get_device_type()
-        if dev_type in sefl.wired_ui_device_types:
+        if dev_type in self.wired_ui_device_types:
             dev_type_str = "wired"
         elif dev_type == NetworkManager.DeviceType.WIFI:
             dev_type_str = "wireless"
