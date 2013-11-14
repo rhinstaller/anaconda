@@ -10,9 +10,9 @@
 
 # If $top_srcdir is set, assume this is being run from automake and we don't
 # need to keep a separate log
-pylint_log=0
+export pylint_log=0
 if [ -z "$top_srcdir" ]; then
-    pylint_log=1
+    export pylint_log=1
 fi
 
 # Unset TERM so that things that use readline don't output terminal garbage
@@ -27,15 +27,15 @@ fi
 srcdir="${top_srcdir}/tests/pylint"
 
 # Need to add the pylint module directory to PYTHONPATH as well.
-PYTHONPATH="${PYTHONPATH}:${srcdir}"
+export PYTHONPATH="${PYTHONPATH}:${srcdir}"
 
-FALSE_POSITIVES="${srcdir}"/pylint-false-positives
+export FALSE_POSITIVES="${srcdir}"/pylint-false-positives
 
 # W0212 - Access to a protected member %s of a client class
-NON_STRICT_OPTIONS="--disable=W0212"
+export NON_STRICT_OPTIONS="--disable=W0212"
 
 # E1103 - %s %r has no %r member (but some types could not be inferred)
-DISABLED_ERR_OPTIONS="--disable=E1103"
+export DISABLED_ERR_OPTIONS="--disable=E1103"
 
 # W0110 - map/filter on lambda could be replaced by comprehension
 # W0141 - Used builtin function %r
@@ -46,7 +46,7 @@ DISABLED_ERR_OPTIONS="--disable=E1103"
 # W0604 - Using the global statement at the module level
 # W0613 - Unused argument %r
 # W0614 - Unused import %s from wildcard import
-DISABLED_WARN_OPTIONS="--disable=W0110,W0141,W0142,W0223,W0511,W0603,W0604,W0613,W0614"
+export DISABLED_WARN_OPTIONS="--disable=W0110,W0141,W0142,W0223,W0511,W0603,W0604,W0613,W0614"
 
 usage () {
   echo "usage: `basename $0` [--strict] [--help] [files...]"
@@ -57,7 +57,7 @@ FILES=
 while [ $# -gt 0 ]; do
   case $1 in
     --strict)
-      NON_STRICT_OPTIONS=
+      export NON_STRICT_OPTIONS=
       ;;
     --help)
       usage 0
@@ -76,9 +76,6 @@ if [ "`tail -c 1 $FALSE_POSITIVES`" == "`echo`" ]; then
 fi
 
 exit_status=0
-if [ "$pylint_log" -ne 0 ]; then
-    > pylint-log
-fi
 
 # run pylint one file / module at a time, otherwise it sometimes gets
 # confused
@@ -87,34 +84,22 @@ if [ -z "$FILES" ]; then
     # or contains #!/usr/bin/python in the first line.
     FILES="$(find "${top_srcdir}"/{anaconda,pyanaconda,tests,widgets,utils,scripts} -type f \( -name '*.py' -o -exec awk -e 'NR==1 { if ($0 ~ /^#!\/usr\/bin\/python/) exit 0; else exit 1; }' -e 'END { if (NR == 0) exit 1; }' {} \; \) -print)"
 fi
-for i in $FILES; do
-  pylint_output="$(pylint \
-    --msg-template='{msg_id}:{line:3d},{column}: {obj}: {msg}' \
-    -r n --disable=C,R --rcfile=/dev/null \
-    --dummy-variables-rgx=_ \
-    --ignored-classes=DefaultInstall,Popen,QueueFactory,TransactionSet \
-    --defining-attr-methods=__init__,_grabObjects,initialize,reset,start,setUp \
-    --load-plugins=intl \
-    $DISABLED_WARN_OPTIONS \
-    $DISABLED_ERR_OPTIONS \
-    $NON_STRICT_OPTIONS $i 2>&1 | \
-    egrep -v "$(tr '\n' '|' < "$FALSE_POSITIVES") \
-    ")"
 
-  # I0011 is the informational "Locally disabling ...." message
-  if [ -n "$(echo "$pylint_output" | fgrep -v '************* Module ' |\
-          grep -v '^I0011:')" ]; then
-      # Replace the Module line with the actual filename
-      pylint_output="$(echo "$pylint_output" | sed "s|\* Module .*|* Module $i|")"
+num_cpus=$(getconf _NPROCESSORS_ONLN)
+# run pylint in paralel
+echo $FILES | xargs --max-procs=$num_cpus -n 1 "$srcdir"/pylint-one.sh
 
-      if [ "$pylint_log" -ne 0 ]; then
-          echo "$pylint_output" >> pylint-log
-      else
-          echo "$pylint_output"
-      fi
-      exit_status=1
-  fi
+for file in $(find -name 'pylint-out*'); do
+    cat "$file" >> pylint-log
+    rm "$file"
 done
+
+fails=$(find -name 'pylint*failed' -print -exec rm '{}' \;)
+if [ -z "$fails" ]; then
+    exit_status=0
+else
+    exit_status=1
+fi
 
 if [ "$pylint_log" -ne 0 ]; then
     if [ -s pylint-log ]; then
