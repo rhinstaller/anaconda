@@ -82,10 +82,17 @@ BuildRequires: desktop-file-utils
 BuildRequires: s390utils-devel
 %endif
 
-Requires: anaconda-widgets = %{version}-%{release}
+Requires: anaconda-core = %{version}-%{release}
+Requires: anaconda-gui = %{version}-%{release}
+Requires: anaconda-tui = %{version}-%{release}
+
+%description
+The anaconda package is a metapackage for the Anaconda installer.
+
+%package core
+Summary: Core of the Anaconda installer
 Requires: dnf >= %{dnfver}
 Requires: python-blivet >= 0.27
-Requires: gnome-icon-theme-symbolic
 Requires: python-meh >= %{mehver}
 Requires: libreport-anaconda >= 2.0.21-1
 Requires: libselinux-python
@@ -94,7 +101,6 @@ Requires: parted >= %{partedver}
 Requires: pyparted >= %{pypartedver}
 Requires: yum >= %{yumver}
 Requires: python-urlgrabber >= %{pythonurlgrabberver}
-Requires: system-logos
 Requires: pykickstart >= %{pykickstartver}
 Requires: langtable-data >= %{langtablever}
 Requires: langtable-python >= %{langtablever}
@@ -106,10 +112,7 @@ Requires: dbus-python
 Requires: python-pwquality
 Requires: python-IPy
 Requires: python-nss
-Requires: tigervnc-server-minimal
 Requires: pytz
-Requires: libxklavier
-Requires: libgnomekbd
 Requires: realmd
 Requires: teamd
 %ifarch %livearches
@@ -123,7 +126,6 @@ Requires: openssh
 Requires: isomd5sum >= %{isomd5sum}
 Requires: yum-utils >= %{yumutilsver}
 Requires: NetworkManager >= %{nmver}
-Requires: nm-connection-editor
 Requires: dhclient
 Requires: anaconda-yum-plugins
 Requires: libselinux-python >= %{libselinuxver}
@@ -141,15 +143,43 @@ Requires: dmidecode
 Requires: hfsplus-tools
 %endif
 %endif
+
+# required because of the rescue mode and VNC question
+Requires: anaconda-tui = %{version}-%{release}
+
 Obsoletes: anaconda-images <= 10
 Provides: anaconda-images = %{version}-%{release}
 Obsoletes: anaconda-runtime < %{version}-%{release}
 Provides: anaconda-runtime = %{version}-%{release}
 Obsoletes: booty <= 0.107-1
 
-%description
-The anaconda package contains the program which was used to install your
+%description core
+The anaconda-core package contains the program which was used to install your
 system.
+
+%package gui
+Summary: Graphical user interface for the Anaconda installer
+BuildArch: noarch
+Requires: anaconda-core = %{version}-%{release}
+Requires: anaconda-widgets = %{version}-%{release}
+Requires: python-meh-gui >= %{mehver}
+Requires: gnome-icon-theme-symbolic
+Requires: system-logos
+Requires: tigervnc-server-minimal
+Requires: libxklavier
+Requires: libgnomekbd
+Requires: nm-connection-editor
+
+%description gui
+This package contains graphical user interface for the Anaconda installer.
+
+%package tui
+Summary: Textual user interface for the Anaconda installer
+BuildArch: noarch
+Requires: anaconda-core = %{version}-%{release}
+
+%description tui
+This package contains textual user interface for the Anaconda installer.
 
 %package widgets
 Summary: A set of custom GTK+ widgets for use with anaconda
@@ -214,7 +244,10 @@ update-desktop-database &> /dev/null || :
 update-desktop-database &> /dev/null || :
 %endif
 
-%files -f %{name}.lang
+%files
+%doc COPYING
+
+%files core -f %{name}.lang
 %doc COPYING
 %{_unitdir}/*
 %{_prefix}/lib/systemd/system-generators/*
@@ -225,6 +258,10 @@ update-desktop-database &> /dev/null || :
 %exclude %{_datadir}/anaconda/tzmapdata
 %{_prefix}/libexec/anaconda
 %{_libdir}/python*/site-packages/pyanaconda/*
+%exclude %{_libdir}/python*/site-packages/pyanaconda/rescue.py
+%exclude %{_libdir}/python*/site-packages/pyanaconda/text.py
+%exclude %{_libdir}/python*/site-packages/pyanaconda/ui/gui/*
+%exclude %{_libdir}/python*/site-packages/pyanaconda/ui/tui/*
 %{_bindir}/analog
 %{_bindir}/anaconda-cleanup
 %ifarch %livearches
@@ -236,6 +273,14 @@ update-desktop-database &> /dev/null || :
 %{_datadir}/applications/*.desktop
 %{_datadir}/icons/hicolor/*
 %endif
+
+%files gui
+%{_libdir}/python*/site-packages/pyanaconda/ui/gui/*
+
+%files tui
+%{_libdir}/python*/site-packages/pyanaconda/rescue.py
+%{_libdir}/python*/site-packages/pyanaconda/text.py
+%{_libdir}/python*/site-packages/pyanaconda/ui/tui/*
 
 %files widgets
 %{_libdir}/libAnacondaWidgets.so.*
