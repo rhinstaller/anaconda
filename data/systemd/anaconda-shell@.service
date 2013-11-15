@@ -8,7 +8,8 @@ ConditionKernelCommandLine=!inst.noshell
 
 [Service]
 WorkingDirectory=/
-ExecStart=-/sbin/agetty -n -l /bin/bash -o '--login' %I 38400
+ExecStart=-/sbin/agetty --noclear -n -l /bin/bash -o '--login' %I 38400
+Type=idle
 Restart=always
 RestartSec=0
 TTYPath=/dev/%I
@@ -17,3 +18,4 @@ TTYVHangup=yes
 TTYVTDisallocate=yes
 KillMode=process
 KillSignal=SIGHUP
+IgnoreSIGPIPE=no
