@@ -458,7 +458,7 @@ class KeyboardSpoke(NormalSpoke):
                 self._removeLayout(store, itr)
                 # Re-emit the selection changed signal now that the backing store is updated
                 # in order to update the first/last/only-based button sensitivities
-                self._selection.change("changed")
+                self._selection.emit("changed")
                 return
 
             #nothing left, run AddLayout dialog to replace the current layout
