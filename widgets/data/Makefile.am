@@ -18,6 +18,6 @@
 # Red Hat Author(s): Vratislav Podzimek <vpodzime@redhat.com>
 #
 
-SUBDIRS = tzmapdata
+SUBDIRS = tzmapdata pixmaps
 
 MAINTAINERCLEANFILES = Makefile.in

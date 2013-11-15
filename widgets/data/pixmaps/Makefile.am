@@ -17,7 +17,7 @@
 #
 # Author: David Cantrell <dcantrell@redhat.com>
 
-pixmapsdir        = $(datadir)/$(PACKAGE_NAME)/pixmaps
+pixmapsdir        = $(datadir)/anaconda/pixmaps
 dist_pixmaps_DATA = $(srcdir)/*.png $(srcdir)/*.svg
 
 MAINTAINERCLEANFILES = Makefile.in

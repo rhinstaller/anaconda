@@ -25,6 +25,7 @@
 
 #include "MountpointSelector.h"
 #include "intl.h"
+#include "widgets-common.h"
 
 /**
  * SECTION: MountpointSelector
@@ -176,6 +177,8 @@ static GtkTextDirection get_default_widget_direction() {
 }
 
 static void anaconda_mountpoint_selector_init(AnacondaMountpointSelector *mountpoint) {
+    gchar *file;
+
     mountpoint->priv = G_TYPE_INSTANCE_GET_PRIVATE(mountpoint,
                                                    ANACONDA_TYPE_MOUNTPOINT_SELECTOR,
                                                    AnacondaMountpointSelectorPrivate);
@@ -200,9 +203,11 @@ static void anaconda_mountpoint_selector_init(AnacondaMountpointSelector *mountp
      * case.  That's good enough error notification.
      */
     if (get_default_widget_direction() == GTK_TEXT_DIR_LTR)
-        mountpoint->priv->arrow = gtk_image_new_from_file("/usr/share/anaconda/pixmaps/right-arrow-icon.png");
+        file = g_strdup_printf("%s/pixmaps/right-arrow-icon.png", get_widgets_datadir());
     else
-        mountpoint->priv->arrow = gtk_image_new_from_file("/usr/share/anaconda/pixmaps/left-arrow-icon.png");
+        file = g_strdup_printf("%s/pixmaps/left-arrow-icon.png", get_widgets_datadir());
+    mountpoint->priv->arrow = gtk_image_new_from_file(file);
+    g_free(file);
     gtk_widget_set_no_show_all(GTK_WIDGET(mountpoint->priv->arrow), TRUE);
 
     /* Set some properties. */

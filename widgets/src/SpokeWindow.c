@@ -20,6 +20,7 @@
 #include "BaseWindow.h"
 #include "SpokeWindow.h"
 #include "intl.h"
+#include "widgets-common.h"
 
 #include <gdk/gdkkeysyms.h>
 
@@ -139,6 +140,7 @@ static void anaconda_spoke_window_realize(GtkWidget *widget, gpointer user_data)
     cairo_pattern_t *pattern;
     cairo_surface_t *surface;
     cairo_t *cr;
+    gchar *file;
 
     AnacondaSpokeWindow *window = ANACONDA_SPOKE_WINDOW(widget);
 
@@ -147,7 +149,9 @@ static void anaconda_spoke_window_realize(GtkWidget *widget, gpointer user_data)
      * header without an image.
      */
     error = NULL;
-    pixbuf = gdk_pixbuf_new_from_file("/usr/share/anaconda/pixmaps/anaconda_spoke_header.png", &error);
+    file = g_strdup_printf("%s/pixmaps/anaconda_spoke_header.png", get_widgets_datadir());
+    pixbuf = gdk_pixbuf_new_from_file(file, &error);
+    g_free(file);
     if (!pixbuf) {
         fprintf(stderr, "could not load header background: %s\n", error->message);
         g_error_free(error);

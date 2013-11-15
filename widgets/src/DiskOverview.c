@@ -23,6 +23,7 @@
 
 #include "DiskOverview.h"
 #include "intl.h"
+#include "widgets-common.h"
 
 /**
  * SECTION: DiskOverview
@@ -210,6 +211,7 @@ static void set_icon(AnacondaDiskOverview *widget, const char *icon_name) {
     GError *err = NULL;
     GIcon *base_icon, *emblem_icon, *icon;
     GEmblem *emblem = NULL;
+    gchar *file;
 
     if (!icon_name)
         return;
@@ -225,7 +227,9 @@ static void set_icon(AnacondaDiskOverview *widget, const char *icon_name) {
             return;
         }
 
-        emblem_icon = g_icon_new_for_string("/usr/share/anaconda/pixmaps/anaconda-selected-icon.svg", &err);
+        file = g_strdup_printf("%s/pixmaps/anaconda-selected-icon.svg", get_widgets_datadir());
+        emblem_icon = g_icon_new_for_string(file, &err);
+        g_free(file);
         if (!emblem_icon) {
             fprintf(stderr, "could not create emblem: %s\n", err->message);
             g_error_free(err);

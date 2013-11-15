@@ -24,6 +24,7 @@ screens handling languages or locales configuration.
 
 """
 
+import os
 from gi.repository import Gtk, Pango
 from pyanaconda import localization
 from pyanaconda.iutil import strip_accents
@@ -54,10 +55,11 @@ class LangLocaleHandler(object):
 
     def initialize(self):
         # Render an arrow for the chosen language
+        datadir = os.environ.get("ANACONDA_WIDGETS_DATADIR", "/usr/share/anaconda")
         if get_default_widget_direction() == Gtk.TextDirection.LTR:
-            self._arrow = Gtk.Image.new_from_file("/usr/share/anaconda/pixmaps/right-arrow-icon.png")
+            self._arrow = Gtk.Image.new_from_file(os.path.join(datadir, "pixmaps", "right-arrow-icon.png"))
         else:
-            self._arrow = Gtk.Image.new_from_file("/usr/share/anaconda/pixmaps/left-arrow-icon.png")
+            self._arrow = Gtk.Image.new_from_file(os.path.join(datadir, "pixmaps", "left-arrow-icon.png"))
         self._langSelectedColumn.set_cell_data_func(self._langSelectedRenderer,
                                                     self._render_lang_selected)
 

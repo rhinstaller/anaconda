@@ -47,9 +47,9 @@ GIHDRS = BaseWindow.h \
 	 LayoutIndicator.h \
 	 Lightbox.h
 
-NONGISOURCES = tz.c
+NONGISOURCES = tz.c widgets-common.c
 
-NONGIHDRS = tz.h
+NONGIHDRS = tz.h widgets-common.h
 
 SOURCES = $(GISOURCES) $(NONGISOURCES)
 

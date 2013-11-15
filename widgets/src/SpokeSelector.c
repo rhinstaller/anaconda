@@ -24,6 +24,7 @@
 
 #include "SpokeSelector.h"
 #include "intl.h"
+#include "widgets-common.h"
 
 /**
  * SECTION: SpokeSelector
@@ -193,6 +194,7 @@ static void set_icon(AnacondaSpokeSelector *widget, const char *icon_name) {
     GtkIconTheme *icon_theme;
     GtkIconInfo *icon_info;
     GdkPixbuf *pixbuf;
+    gchar *file;
 
     if (!icon_name)
         return;
@@ -208,7 +210,9 @@ static void set_icon(AnacondaSpokeSelector *widget, const char *icon_name) {
             return;
         }
 
-        emblem_icon = g_icon_new_for_string("/usr/share/anaconda/pixmaps/dialog-warning-symbolic.svg", &err);
+        file = g_strdup_printf("%s/pixmaps/dialog-warning-symbolic.svg", get_widgets_datadir());
+        emblem_icon = g_icon_new_for_string(file, &err);
+        g_free(file);
         if (!emblem_icon) {
             fprintf(stderr, "could not create emblem: %s\n", err->message);
             g_error_free(err);
