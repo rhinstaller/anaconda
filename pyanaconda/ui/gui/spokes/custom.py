@@ -318,7 +318,7 @@ class ConfirmDeleteDialog(GUIObject):
         self.window.destroy()
 
     # pylint: disable-msg=W0221
-    def refresh(self, mountpoint, device, rootName):
+    def refresh(self, mountpoint, device, rootName, subvols=False):
         GUIObject.refresh(self)
         label = self.builder.get_object("confirmLabel")
 
@@ -333,7 +333,10 @@ class ConfirmDeleteDialog(GUIObject):
         else:
             txt = device
 
-        label_text = _("Are you sure you want to delete all of the data on %s?") % txt
+        if not subvols:
+            label_text = _("Are you sure you want to delete all of the data on %s?") % txt
+        else:
+            label_text = _("Are you sure you want to delete all of the data on %s, including subvolumes and/or snapshots?") % txt
 
         label.set_text(label_text)
 
@@ -798,7 +801,8 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
     def unusedDevices(self):
         unused_devices = [d for d in self.__storage.unusedDevices
                                 if d.disks and d.mediaPresent and
-                                not d.partitioned and d.isleaf]
+                                not d.partitioned and
+                                (d.isleaf or d.type.startswith("btrfs"))]
         # add incomplete VGs and MDs
         incomplete = [d for d in self.__storage.devicetree._devices
                             if not getattr(d, "complete", True)]
@@ -911,7 +915,9 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
     @property
     def new_devices(self):
         # A device scheduled for formatting only belongs in the new root.
-        new_devices = [d for d in self._devices if d.isleaf and
+        new_devices = [d for d in self._devices if (d.isleaf or
+                                                    d.type.startswith("btrfs"))
+                                                   and
                                                    not d.format.exists and
                                                    not d.partitioned]
 
@@ -1262,6 +1268,16 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
             self.window.show_all()
             self._populate_right_side(selector)
             return
+
+        # If the device is a btrfs volume, the only things we can set/update
+        # are mountpoint and container-wide settings.
+        if device_type == DEVICE_TYPE_BTRFS and hasattr(use_dev, "subvolumes"):
+            size = 0
+            changed_size = False
+            encrypted = False
+            changed_encryption = False
+            raid_level = None
+            changed_raid_level = False
 
         with ui_storage_logger():
             # create a new factory using the appropriate size and type
@@ -1661,11 +1677,12 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
             self._device_container_raid_level = get_raid_level(use_dev.vg)
             self._device_container_encrypted = use_dev.vg.encrypted
             self._device_container_size = use_dev.vg.size_policy
-        elif hasattr(use_dev, "volume"):
-            self._device_container_name = use_dev.volume.name
-            self._device_container_raid_level = get_raid_level(use_dev.volume)
-            self._device_container_encrypted = use_dev.volume.encrypted
-            self._device_container_size = use_dev.volume.size_policy
+        elif hasattr(use_dev, "volume") or hasattr(use_dev, "subvolumes"):
+            volume = getattr(use_dev, "volume", use_dev)
+            self._device_container_name = volume.name
+            self._device_container_raid_level = get_raid_level(volume)
+            self._device_container_encrypted = volume.encrypted
+            self._device_container_size = volume.size_policy
         else:
             self._device_container_name = None
             self._device_container_raid_level = None
@@ -1872,7 +1889,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         self._populate_raid(raid_level)
         self._populate_container(device=use_dev)
         # do this last in case this was set sensitive in on_device_type_changed
-        if use_dev.exists:
+        if use_dev.exists or use_dev.type == "btrfs volume":
             fancy_set_sensitive(self._nameEntry, False)
 
     ###
@@ -2077,6 +2094,8 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
             try:
                 if device.isDisk:
                     self.__storage.initializeDisk(device)
+                elif device.type.startswith("btrfs") and not device.isleaf:
+                    self.__storage.recursiveRemove(device)
                 else:
                     self.__storage.destroyDevice(device)
             except StorageError as e:
@@ -2190,8 +2209,10 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
             # schedule actions to delete the thing.
             dialog = ConfirmDeleteDialog(self.data)
             with enlightbox(self.window, dialog.window):
+                subvols = (device.type.startswith("btrfs") and
+                           not device.isleaf)
                 dialog.refresh(getattr(device.format, "mountpoint", ""),
-                               device.name, root_name)
+                               device.name, root_name, subvols=subvols)
                 rc = dialog.run()
 
                 if rc == 0:
@@ -2667,7 +2688,8 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
             map(really_show, [self._containerLabel, self._containerCombo, self._modifyContainerButton])
 
             # make the combo and button insensitive for existing LVs
-            can_change_container = (device is not None and not device.exists)
+            can_change_container = (device is not None and not device.exists and
+                                    device != container)
             fancy_set_sensitive(self._containerCombo, can_change_container)
             container_exists = getattr(container, "exists", False)
             self._modifyContainerButton.set_sensitive(not container_exists)
