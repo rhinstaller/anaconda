@@ -125,7 +125,8 @@ class AnacondaLog:
         packaging_logger = logging.getLogger("packaging")
         packaging_logger.setLevel(logging.DEBUG)
         self.addFileHandler(PACKAGING_LOG_FILE, packaging_logger,
-                            minLevel=logging.DEBUG)
+                            minLevel=logging.INFO,
+                            autoLevel=True)
         self.forwardToSyslog(packaging_logger)
 
         # Create the yum logger and link it to packaging
