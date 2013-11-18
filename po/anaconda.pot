@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: anaconda 21.5\n"
+"Project-Id-Version: anaconda 21.6\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
-"POT-Creation-Date: 2013-11-08 16:51-0800\n"
+"POT-Creation-Date: 2013-11-18 13:28-0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -108,58 +108,58 @@ msgstr ""
 msgid "Use text mode"
 msgstr ""
 
-#: pyanaconda/constants.py:137
+#: pyanaconda/constants.py:139
 msgid "The password is empty."
 msgstr ""
 
-#: pyanaconda/constants.py:138
+#: pyanaconda/constants.py:140
 msgid "The passwords do not match."
 msgstr ""
 
-#: pyanaconda/constants.py:139
+#: pyanaconda/constants.py:141
 msgid "The passwords you entered were different.  Please try again."
 msgstr ""
 
-#: pyanaconda/constants.py:140
+#: pyanaconda/constants.py:142
 msgid ""
 "The password you have provided is weak. You will have to press Done twice to "
 "confirm it."
 msgstr ""
 
-#: pyanaconda/constants.py:141
+#: pyanaconda/constants.py:143
 #, python-format
 msgid ""
 "The password you have provided is weak: %s. You will have to press Done "
 "twice to confirm it."
 msgstr ""
 
-#: pyanaconda/constants.py:142
+#: pyanaconda/constants.py:144
 msgid "You have provided a weak password. Press Done again to use anyway."
 msgstr ""
 
-#: pyanaconda/constants.py:143
+#: pyanaconda/constants.py:145
 #, python-format
 msgid "You have provided a weak password: %s. Press Done again to use anyway."
 msgstr ""
 
-#: pyanaconda/constants.py:145
+#: pyanaconda/constants.py:147
 msgid "Empty"
 msgstr ""
 
-#: pyanaconda/constants.py:145 pyanaconda/ui/gui/spokes/lib/passphrase.py:114
-#: pyanaconda/ui/gui/spokes/lib/passphrase.glade.h:6
+#: pyanaconda/constants.py:147 pyanaconda/ui/gui/spokes/lib/passphrase.py:114
+#: pyanaconda/ui/gui/spokes/lib/passphrase.glade:176
 msgid "Weak"
 msgstr ""
 
-#: pyanaconda/constants.py:145 pyanaconda/ui/gui/spokes/lib/passphrase.py:117
+#: pyanaconda/constants.py:147 pyanaconda/ui/gui/spokes/lib/passphrase.py:117
 msgid "Fair"
 msgstr ""
 
-#: pyanaconda/constants.py:145 pyanaconda/ui/gui/spokes/lib/passphrase.py:120
+#: pyanaconda/constants.py:147 pyanaconda/ui/gui/spokes/lib/passphrase.py:120
 msgid "Good"
 msgstr ""
 
-#: pyanaconda/constants.py:145 pyanaconda/ui/gui/spokes/lib/passphrase.py:123
+#: pyanaconda/constants.py:147 pyanaconda/ui/gui/spokes/lib/passphrase.py:123
 msgid "Strong"
 msgstr ""
 
@@ -233,7 +233,7 @@ msgstr ""
 msgid "%s is missing. Cannot setup firewall."
 msgstr ""
 
-#: pyanaconda/kickstart.py:1724
+#: pyanaconda/kickstart.py:1730
 msgid "Running pre-installation scripts"
 msgstr ""
 
@@ -258,50 +258,55 @@ msgid ""
 "'-'."
 msgstr ""
 
-#: pyanaconda/network.py:1208 pyanaconda/ui/gui/spokes/custom.py:1006
-#: pyanaconda/ui/gui/spokes/network.py:607
+#: pyanaconda/network.py:1302 pyanaconda/ui/gui/spokes/custom.py:1006
+#: pyanaconda/ui/gui/spokes/network.py:603
 #: pyanaconda/ui/gui/spokes/lib/accordion.py:60
 msgid "Unknown"
 msgstr ""
 
-#: pyanaconda/network.py:1212
+#: pyanaconda/network.py:1306
 msgid "Connecting..."
 msgstr ""
 
-#: pyanaconda/network.py:1214
+#: pyanaconda/network.py:1308
 msgid "Disconnecting..."
 msgstr ""
 
-#: pyanaconda/network.py:1234
+#: pyanaconda/network.py:1328
 #, python-format
 msgid "Wired (%(interface_name)s) connected"
 msgstr ""
 
-#: pyanaconda/network.py:1237
+#: pyanaconda/network.py:1331
 #, python-format
 msgid "Wireless connected to %(access_point)s"
 msgstr ""
 
-#: pyanaconda/network.py:1240
+#: pyanaconda/network.py:1334
 #, python-format
 msgid "Bond %(interface_name)s (%(list_of_slaves)s) connected"
 msgstr ""
 
-#: pyanaconda/network.py:1246
+#: pyanaconda/network.py:1338
+#, python-format
+msgid "Team%(interface_name)s (%(list_of_slaves)s) connected"
+msgstr ""
+
+#: pyanaconda/network.py:1344
 #, python-format
 msgid "Vlan %(interface_name)s (%(parent_device)s, ID %(vlanid)s) connected"
 msgstr ""
 
-#: pyanaconda/network.py:1259
+#: pyanaconda/network.py:1359
 #, python-format
 msgid "Connected: %(list_of_interface_names)s"
 msgstr ""
 
-#: pyanaconda/network.py:1262
+#: pyanaconda/network.py:1362
 msgid "Not connected"
 msgstr ""
 
-#: pyanaconda/network.py:1265 pyanaconda/ui/gui/spokes/network.glade.h:46
+#: pyanaconda/network.py:1365 pyanaconda/ui/gui/spokes/network.glade:2338
 msgid "No network devices available"
 msgstr ""
 
@@ -517,8 +522,8 @@ msgstr ""
 
 #: pyanaconda/vnc.py:269
 msgid ""
-"VNC password provided was not at least 6 characters long.\n"
-"Please enter a new one.  Leave blank for no password."
+"VNC password must be six to eight characters long.\n"
+"Please enter a new one, or leave blank for no password."
 msgstr ""
 
 #: pyanaconda/installclasses/fedora.py:30
@@ -585,7 +590,7 @@ msgstr ""
 
 #. TRANSLATORS: 'c' to continue
 #: pyanaconda/ui/tui/hubs/__init__.py:112
-#: pyanaconda/ui/tui/simpleline/base.py:457
+#: pyanaconda/ui/tui/simpleline/base.py:451
 msgctxt "TUI|Spoke Navigation"
 msgid "c"
 msgstr ""
@@ -623,22 +628,22 @@ msgid "Do you really want to quit?"
 msgstr ""
 
 #. TRANSLATORS: 'r' to refresh
-#: pyanaconda/ui/tui/simpleline/base.py:451
+#: pyanaconda/ui/tui/simpleline/base.py:445
 msgctxt "TUI|Spoke Navigation"
 msgid "r"
 msgstr ""
 
 #. TRANSLATORS: 'q' to quit
-#: pyanaconda/ui/tui/simpleline/base.py:463
+#: pyanaconda/ui/tui/simpleline/base.py:457
 msgctxt "TUI|Spoke Navigation"
 msgid "q"
 msgstr ""
 
-#: pyanaconda/ui/tui/simpleline/base.py:575
+#: pyanaconda/ui/tui/simpleline/base.py:569
 msgid "Press ENTER to continue"
 msgstr ""
 
-#: pyanaconda/ui/tui/simpleline/base.py:624
+#: pyanaconda/ui/tui/simpleline/base.py:618
 msgid ""
 "  Please make your choice from above ['q' to quit | 'c' to continue |\n"
 "  'r' to refresh]: "
@@ -679,6 +684,10 @@ msgstr ""
 
 #: pyanaconda/ui/tui/spokes/askvnc.py:146
 msgid "The password must be at least six characters long."
+msgstr ""
+
+#: pyanaconda/ui/tui/spokes/askvnc.py:150
+msgid "The password cannot be more than eight characters long."
 msgstr ""
 
 #: pyanaconda/ui/tui/spokes/network.py:42
@@ -725,7 +734,7 @@ msgid "Configure device %s"
 msgstr ""
 
 #: pyanaconda/ui/tui/spokes/network.py:161
-#: pyanaconda/ui/gui/spokes/datetime_spoke.glade.h:11
+#: pyanaconda/ui/gui/spokes/datetime_spoke.glade:759
 msgid "Hostname"
 msgstr ""
 
@@ -739,8 +748,8 @@ msgid "Can't apply configuration, device activation failed."
 msgstr ""
 
 #: pyanaconda/ui/tui/spokes/network.py:222
-#: pyanaconda/ui/gui/spokes/network.py:1275
-#: pyanaconda/ui/gui/spokes/network.py:1348
+#: pyanaconda/ui/gui/spokes/network.py:1264
+#: pyanaconda/ui/gui/spokes/network.py:1337
 #, python-format
 msgid "Hostname is not valid: %s"
 msgstr ""
@@ -868,7 +877,7 @@ msgid "No disks selected; please select at least one disk to install to."
 msgstr ""
 
 #: pyanaconda/ui/tui/spokes/storage.py:179
-#: pyanaconda/ui/gui/spokes/source.py:590
+#: pyanaconda/ui/gui/spokes/source.py:598
 #: pyanaconda/ui/gui/spokes/storage.py:669
 msgid "Probing storage..."
 msgstr ""
@@ -915,8 +924,8 @@ msgid "Timezone settings"
 msgstr ""
 
 #: pyanaconda/ui/tui/spokes/time_spoke.py:57
-#: pyanaconda/ui/gui/spokes/datetime_spoke.py:456
-#: pyanaconda/ui/gui/spokes/datetime_spoke.py:460
+#: pyanaconda/ui/gui/spokes/datetime_spoke.py:451
+#: pyanaconda/ui/gui/spokes/datetime_spoke.py:455
 #, python-format
 msgid "%s timezone"
 msgstr ""
@@ -945,32 +954,32 @@ msgid "Installation source"
 msgstr ""
 
 #: pyanaconda/ui/tui/spokes/source.py:48 pyanaconda/ui/tui/spokes/source.py:89
-#: pyanaconda/ui/gui/spokes/source.py:522
-#: pyanaconda/ui/gui/spokes/source.glade.h:23
+#: pyanaconda/ui/gui/spokes/source.py:529
+#: pyanaconda/ui/gui/spokes/source.glade:767
 msgid "Closest mirror"
 msgstr ""
 
 #: pyanaconda/ui/tui/spokes/source.py:85
-#: pyanaconda/ui/gui/spokes/source.py:514
+#: pyanaconda/ui/gui/spokes/source.py:521
 #, python-format
 msgid "NFS server %s"
 msgstr ""
 
 #: pyanaconda/ui/tui/spokes/source.py:87
-#: pyanaconda/ui/gui/spokes/source.py:516
+#: pyanaconda/ui/gui/spokes/source.py:523
 msgid "Local media"
 msgstr ""
 
 #: pyanaconda/ui/tui/spokes/source.py:91
 #: pyanaconda/ui/tui/spokes/software.py:101
-#: pyanaconda/ui/gui/spokes/datetime_spoke.py:462
+#: pyanaconda/ui/gui/spokes/datetime_spoke.py:457
 #: pyanaconda/ui/gui/spokes/software.py:200
-#: pyanaconda/ui/gui/spokes/source.py:524
+#: pyanaconda/ui/gui/spokes/source.py:531
 msgid "Nothing selected"
 msgstr ""
 
 #: pyanaconda/ui/tui/spokes/source.py:96
-#: pyanaconda/ui/gui/spokes/source.py:510
+#: pyanaconda/ui/gui/spokes/source.py:517
 msgid "Error setting up software source"
 msgstr ""
 
@@ -997,7 +1006,7 @@ msgid "Choose an installation source type."
 msgstr ""
 
 #: pyanaconda/ui/tui/spokes/source.py:194
-#: pyanaconda/ui/gui/spokes/source.py:443
+#: pyanaconda/ui/gui/spokes/source.py:450
 msgid "Failed to set up installation source"
 msgstr ""
 
@@ -1009,7 +1018,7 @@ msgstr ""
 #: pyanaconda/ui/tui/spokes/software.py:69
 #: pyanaconda/ui/gui/spokes/software.py:236
 #: pyanaconda/ui/gui/spokes/software.py:279
-#: pyanaconda/ui/gui/spokes/source.py:471
+#: pyanaconda/ui/gui/spokes/source.py:478
 msgid "No installation source available"
 msgstr ""
 
@@ -1072,7 +1081,7 @@ msgid "Warnings"
 msgstr ""
 
 #: pyanaconda/ui/tui/spokes/warnings.py:44
-#: pyanaconda/ui/gui/spokes/welcome.glade.h:8
+#: pyanaconda/ui/gui/spokes/welcome.glade:247
 msgid ""
 "This hardware (or a combination thereof) is not supported by Red Hat.  For "
 "more information on supported hardware, please refer to http://www.redhat."
@@ -1178,7 +1187,7 @@ msgstr ""
 msgid "USER SETTINGS"
 msgstr ""
 
-#: pyanaconda/ui/gui/hubs/__init__.py:290
+#: pyanaconda/ui/gui/hubs/__init__.py:289
 msgid ""
 "Please complete items marked with this icon before continuing to the next "
 "step."
@@ -1264,50 +1273,57 @@ msgid ""
 msgstr ""
 
 #: pyanaconda/ui/gui/spokes/custom.py:117
-#: pyanaconda/ui/gui/spokes/custom.glade.h:24
+#: pyanaconda/ui/gui/spokes/custom.glade:622
 msgid "Please enter a valid name."
 msgstr ""
 
 #: pyanaconda/ui/gui/spokes/custom.py:133
-#: pyanaconda/ui/gui/spokes/storage.glade.h:7
-#: pyanaconda/ui/gui/spokes/custom.glade.h:40
+#: pyanaconda/ui/gui/spokes/storage.glade:220
+#: pyanaconda/ui/gui/spokes/storage.glade:521
+#: pyanaconda/ui/gui/spokes/custom.glade:1069
 msgid "LVM"
 msgstr ""
 
 #: pyanaconda/ui/gui/spokes/custom.py:134
-#: pyanaconda/ui/gui/spokes/storage.glade.h:8
-#: pyanaconda/ui/gui/spokes/custom.glade.h:42
+#: pyanaconda/ui/gui/spokes/storage.glade:221
+#: pyanaconda/ui/gui/spokes/storage.glade:522
+#: pyanaconda/ui/gui/spokes/custom.glade:1071
 msgid "LVM Thin Provisioning"
 msgstr ""
 
 #: pyanaconda/ui/gui/spokes/custom.py:135
-#: pyanaconda/ui/gui/spokes/custom.glade.h:41
+#: pyanaconda/ui/gui/spokes/custom.glade:1070
 msgid "RAID"
 msgstr ""
 
 #: pyanaconda/ui/gui/spokes/custom.py:136
-#: pyanaconda/ui/gui/spokes/storage.glade.h:5
-#: pyanaconda/ui/gui/spokes/custom.glade.h:38
+#: pyanaconda/ui/gui/spokes/storage.glade:218
+#: pyanaconda/ui/gui/spokes/storage.glade:519
+#: pyanaconda/ui/gui/spokes/custom.glade:1067
 msgid "Standard Partition"
 msgstr ""
 
 #: pyanaconda/ui/gui/spokes/custom.py:137
-#: pyanaconda/ui/gui/spokes/storage.glade.h:6
-#: pyanaconda/ui/gui/spokes/custom.glade.h:39
+#: pyanaconda/ui/gui/spokes/storage.glade:219
+#: pyanaconda/ui/gui/spokes/storage.glade:520
+#: pyanaconda/ui/gui/spokes/custom.glade:1068
 msgid "BTRFS"
 msgstr ""
 
 #: pyanaconda/ui/gui/spokes/custom.py:138
-#: pyanaconda/ui/gui/spokes/custom.glade.h:18
-#: pyanaconda/ui/gui/spokes/lib/resize.glade.h:4
+#: pyanaconda/ui/gui/spokes/custom.glade:483
+#: pyanaconda/ui/gui/spokes/custom.glade:2041
+#: pyanaconda/ui/gui/spokes/lib/resize.glade:149
 msgid "Disk"
 msgstr ""
 
 #: pyanaconda/ui/gui/spokes/custom.py:251
 #: pyanaconda/ui/gui/spokes/custom.py:595
-#: pyanaconda/ui/gui/spokes/network.py:989 widgets/src/SpokeSelector.c:55
-#: pyanaconda/ui/gui/spokes/filter.glade.h:4
-#: pyanaconda/ui/gui/spokes/custom.glade.h:73
+#: pyanaconda/ui/gui/spokes/network.py:978 widgets/src/SpokeSelector.c:56
+#: pyanaconda/ui/gui/spokes/filter.glade:166
+#: pyanaconda/ui/gui/spokes/filter.glade:577
+#: pyanaconda/ui/gui/spokes/filter.glade:930
+#: pyanaconda/ui/gui/spokes/custom.glade:2211
 msgid "None"
 msgstr ""
 
@@ -1327,7 +1343,7 @@ msgid "container"
 msgstr ""
 
 #: pyanaconda/ui/gui/spokes/custom.py:630
-#: pyanaconda/ui/gui/spokes/custom.glade.h:29
+#: pyanaconda/ui/gui/spokes/custom.glade:717
 msgid "MANUAL PARTITIONING"
 msgstr ""
 
@@ -1407,86 +1423,86 @@ msgstr ""
 msgid "Devices of type %s require a valid RAID level selection."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:1460
+#: pyanaconda/ui/gui/spokes/custom.py:1462
 msgid "Device resize request failed. Click for details."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:1530
+#: pyanaconda/ui/gui/spokes/custom.py:1532
 msgid "Device reformat request failed. Click for details."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:1582
+#: pyanaconda/ui/gui/spokes/custom.py:1584
 #, python-format
 msgid "Specified name %s already in use."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:1697
+#: pyanaconda/ui/gui/spokes/custom.py:1699
 msgid "This file system does not support labels."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:1865
+#: pyanaconda/ui/gui/spokes/custom.py:1867
 msgid ""
 "The space available to this mountpoint can be changed by modifying the "
 "volume below."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:1867
+#: pyanaconda/ui/gui/spokes/custom.py:1869
 msgid "This file system may not be resized."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:2041
+#: pyanaconda/ui/gui/spokes/custom.py:2043
 #, python-format
 msgid "Added new %(type)s to existing container %(name)s."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:2053
+#: pyanaconda/ui/gui/spokes/custom.py:2055
 msgid "Failed to add new device. Click for details."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:2059
+#: pyanaconda/ui/gui/spokes/custom.py:2061
 msgid "Invalid partition size set. Use a valid integer."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:2082
+#: pyanaconda/ui/gui/spokes/custom.py:2084
 msgid "Device removal request failed. Click for details."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:2307
+#: pyanaconda/ui/gui/spokes/custom.py:2309
 #, python-format
 msgid "Volume Group name %s is already in use. Not saving changes."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:2443
+#: pyanaconda/ui/gui/spokes/custom.py:2445
 #, python-format
 msgid ""
 "This Software RAID array is missing %(missingMembers)d of %(totalMembers)d "
 "member partitions. You can remove it or select a different device."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:2449
+#: pyanaconda/ui/gui/spokes/custom.py:2451
 #, python-format
 msgid ""
 "This LVM Volume Group is missing %(missingPVs)d of %(totalPVs)d physical "
 "volumes. You can remove it or select a different device."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:2518
+#: pyanaconda/ui/gui/spokes/custom.py:2520
 msgid "No disks selected."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:2524
+#: pyanaconda/ui/gui/spokes/custom.py:2526
 msgid "Not enough free space on selected disks."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:2530
+#: pyanaconda/ui/gui/spokes/custom.py:2532
 msgid "Automatic partitioning failed. Click for details."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:2824
+#: pyanaconda/ui/gui/spokes/custom.py:2826
 msgid "Failed to unlock encrypted block device. Click for details"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:2849
+#: pyanaconda/ui/gui/spokes/custom.py:2851
 #, python-format
 msgid ""
 "You have chosen to manually set up the filesystems for your new "
@@ -1585,34 +1601,34 @@ msgid ""
 "appropriate type for that disk.\n"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/datetime_spoke.py:348
+#: pyanaconda/ui/gui/spokes/datetime_spoke.py:343
 msgctxt "GUI|Spoke"
 msgid "DATE & _TIME"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/datetime_spoke.py:447
+#: pyanaconda/ui/gui/spokes/datetime_spoke.py:442
 msgid "Restoring hardware time..."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/datetime_spoke.py:458
+#: pyanaconda/ui/gui/spokes/datetime_spoke.py:453
 msgid "Invalid timezone"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/datetime_spoke.py:823
-#: pyanaconda/ui/gui/spokes/datetime_spoke.py:826
+#: pyanaconda/ui/gui/spokes/datetime_spoke.py:818
+#: pyanaconda/ui/gui/spokes/datetime_spoke.py:821
 msgid "AM"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/datetime_spoke.py:824
-#: pyanaconda/ui/gui/spokes/datetime_spoke.glade.h:7
+#: pyanaconda/ui/gui/spokes/datetime_spoke.py:819
+#: pyanaconda/ui/gui/spokes/datetime_spoke.glade:469
 msgid "PM"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/datetime_spoke.py:958
+#: pyanaconda/ui/gui/spokes/datetime_spoke.py:953
 msgid "You need to set up networking first if you want to use NTP"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/datetime_spoke.py:963
+#: pyanaconda/ui/gui/spokes/datetime_spoke.py:958
 msgid "You have no working NTP server configured"
 msgstr ""
 
@@ -1629,21 +1645,25 @@ msgid_plural "%d _storage devices selected"
 msgstr[0] ""
 msgstr[1] ""
 
-#: pyanaconda/ui/gui/spokes/keyboard.py:40
+#: pyanaconda/ui/gui/spokes/keyboard.py:46
 #, python-format
 msgid "%s to switch layouts."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/keyboard.py:269
+#: pyanaconda/ui/gui/spokes/keyboard.py:270
 msgctxt "GUI|Spoke"
 msgid "_KEYBOARD"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/keyboard.py:345
+#: pyanaconda/ui/gui/spokes/keyboard.py:354
 msgid "Testing layouts configuration not available."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/keyboard.py:397
+#: pyanaconda/ui/gui/spokes/keyboard.py:362
+msgid "Getting list of layouts..."
+msgstr ""
+
+#: pyanaconda/ui/gui/spokes/keyboard.py:417
 msgid "Layout switching not configured."
 msgstr ""
 
@@ -1700,88 +1720,96 @@ msgstr ""
 msgid "Connection failed"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.py:594
+#: pyanaconda/ui/gui/spokes/network.py:590
 msgid "unplugged"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.py:609
+#: pyanaconda/ui/gui/spokes/network.py:605
 msgid "Ethernet"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.py:611
+#: pyanaconda/ui/gui/spokes/network.py:607
 msgid "Wireless"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.py:613
-#: pyanaconda/ui/gui/spokes/network.glade.h:1
+#: pyanaconda/ui/gui/spokes/network.py:609
+#: pyanaconda/ui/gui/spokes/network.glade:15
 msgid "Bond"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.py:615
-#: pyanaconda/ui/gui/spokes/network.glade.h:3
+#: pyanaconda/ui/gui/spokes/network.py:611
+#: pyanaconda/ui/gui/spokes/network.glade:23
 msgid "Vlan"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.py:685
-#: pyanaconda/ui/gui/spokes/network.glade.h:16
+#: pyanaconda/ui/gui/spokes/network.py:613
+#: pyanaconda/ui/gui/spokes/network.glade:19
+msgid "Team"
+msgstr ""
+
+#: pyanaconda/ui/gui/spokes/network.py:679
+#: pyanaconda/ui/gui/spokes/network.glade:635
+#: pyanaconda/ui/gui/spokes/network.glade:964
 msgid "IPv4 Address"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.py:686
-#: pyanaconda/ui/gui/spokes/network.glade.h:15
+#: pyanaconda/ui/gui/spokes/network.py:680
+#: pyanaconda/ui/gui/spokes/network.glade:607
+#: pyanaconda/ui/gui/spokes/network.glade:978
+#: pyanaconda/ui/gui/spokes/network.glade:1597
 msgid "IPv6 Address"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.py:688
-#: pyanaconda/ui/gui/spokes/network.py:690
-#: pyanaconda/ui/gui/spokes/network.glade.h:32
+#: pyanaconda/ui/gui/spokes/network.py:682
+#: pyanaconda/ui/gui/spokes/network.py:684
+#: pyanaconda/ui/gui/spokes/network.glade:1583
 msgid "IP Address"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.py:775
+#: pyanaconda/ui/gui/spokes/network.py:767
 #, python-format
 msgid "%d Mb/s"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.py:974
+#: pyanaconda/ui/gui/spokes/network.py:963
 msgid "WEP"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.py:977
+#: pyanaconda/ui/gui/spokes/network.py:966
 msgid "WPA"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.py:980
+#: pyanaconda/ui/gui/spokes/network.py:969
 msgid "WPA2"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.py:984
+#: pyanaconda/ui/gui/spokes/network.py:973
 msgid "Enterprise"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.py:1116
-#: pyanaconda/ui/gui/spokes/network.glade.h:51
+#: pyanaconda/ui/gui/spokes/network.py:1105
+#: pyanaconda/ui/gui/spokes/network.glade:2583
 msgid "Authentication required by wireless network"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.py:1117
+#: pyanaconda/ui/gui/spokes/network.py:1106
 #, python-format
 msgid ""
 "Passwords or encryption keys are required to access\n"
 "the wireless network '%(network_id)s'."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.py:1130
+#: pyanaconda/ui/gui/spokes/network.py:1119
 msgctxt "GUI|Network|Secrets Dialog"
 msgid "_Password:"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.py:1138
+#: pyanaconda/ui/gui/spokes/network.py:1127
 msgctxt "GUI|Network|Secrets Dialog"
 msgid "_Key:"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.py:1193
+#: pyanaconda/ui/gui/spokes/network.py:1182
 msgctxt "GUI|Spoke"
 msgid "_NETWORK CONFIGURATION"
 msgstr ""
@@ -1814,7 +1842,7 @@ msgid "_SOFTWARE SELECTION"
 msgstr ""
 
 #: pyanaconda/ui/gui/spokes/software.py:122
-#: pyanaconda/ui/gui/spokes/source.py:504
+#: pyanaconda/ui/gui/spokes/source.py:511
 msgid "Checking software dependencies..."
 msgstr ""
 
@@ -1879,54 +1907,54 @@ msgctxt "GUI|Spoke"
 msgid "_INSTALLATION SOURCE"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.py:402
-#: pyanaconda/ui/gui/spokes/source.py:445
-#: pyanaconda/ui/gui/spokes/source.py:457
+#: pyanaconda/ui/gui/spokes/source.py:405
+#: pyanaconda/ui/gui/spokes/source.py:452
+#: pyanaconda/ui/gui/spokes/source.py:464
 msgid "Failed to set up installation source; check the repo url"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.py:447
+#: pyanaconda/ui/gui/spokes/source.py:454
 msgid ""
 "Failed to set up installation source; check the repo url and proxy settings"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.py:508
+#: pyanaconda/ui/gui/spokes/source.py:515
 msgid "Error setting up base repository"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.py:519
+#: pyanaconda/ui/gui/spokes/source.py:526
 msgid "Error setting up ISO file"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.py:617
+#: pyanaconda/ui/gui/spokes/source.py:625
 #, python-format
 msgid "Device: %s"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.py:618
+#: pyanaconda/ui/gui/spokes/source.py:626
 #, python-format
 msgid "Label: %s"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.py:1023
+#: pyanaconda/ui/gui/spokes/source.py:1031
 msgid "Duplicate repository names."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.py:1034
+#: pyanaconda/ui/gui/spokes/source.py:1042
 msgid ""
 "Duplicate repository names not allowed; choose a unique name for each "
 "repository."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.py:1056
+#: pyanaconda/ui/gui/spokes/source.py:1064
 msgid "Empty repository name."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.py:1060
+#: pyanaconda/ui/gui/spokes/source.py:1068
 msgid "Invalid repository name."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.py:1063
+#: pyanaconda/ui/gui/spokes/source.py:1071
 msgid "Repository name conflicts with internal repository name."
 msgstr ""
 
@@ -2146,7 +2174,7 @@ msgid "_Do not install bootloader"
 msgstr ""
 
 #: pyanaconda/ui/gui/spokes/lib/cart.py:196
-#: pyanaconda/ui/gui/spokes/lib/cart.glade.h:8
+#: pyanaconda/ui/gui/spokes/lib/cart.glade:183
 msgctxt "GUI|Selected Disks Dialog"
 msgid "_Set as Boot Device"
 msgstr ""
@@ -2218,7 +2246,7 @@ msgstr ""
 
 #: pyanaconda/ui/gui/spokes/lib/resize.py:409
 #: pyanaconda/ui/gui/spokes/lib/resize.py:414
-#: pyanaconda/ui/gui/spokes/lib/resize.glade.h:12
+#: pyanaconda/ui/gui/spokes/lib/resize.glade:267
 msgctxt "GUI|Reclaim Dialog"
 msgid "Delete _all"
 msgstr ""
@@ -2240,23 +2268,23 @@ msgstr ""
 msgid "PRE-RELEASE / TESTING"
 msgstr ""
 
-#: widgets/src/DiskOverview.c:52
+#: widgets/src/DiskOverview.c:53
 msgid "New Device"
 msgstr ""
 
-#: widgets/src/DiskOverview.c:54 widgets/src/DiskOverview.c:55
+#: widgets/src/DiskOverview.c:55 widgets/src/DiskOverview.c:56
 msgid "0 MB"
 msgstr ""
 
-#: widgets/src/MountpointSelector.c:50
+#: widgets/src/MountpointSelector.c:51
 msgid "0 GB"
 msgstr ""
 
-#: widgets/src/SpokeSelector.c:56
+#: widgets/src/SpokeSelector.c:57
 msgid "New Selector"
 msgstr ""
 
-#: widgets/src/SpokeWindow.c:44
+#: widgets/src/SpokeWindow.c:45
 msgid "_Done"
 msgstr ""
 
@@ -2274,1028 +2302,1078 @@ msgstr ""
 msgid "Current layout: '%s'. Add more layouts to enable switching."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/advanced_user.glade.h:1
+#: pyanaconda/ui/gui/spokes/advanced_user.glade:49
 msgctxt "GUI|Advanced User"
 msgid "_Save Changes"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/advanced_user.glade.h:2
+#: pyanaconda/ui/gui/spokes/advanced_user.glade:80
 msgid "ADVANCED USER CONFIGURATION"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/advanced_user.glade.h:3
+#: pyanaconda/ui/gui/spokes/advanced_user.glade:99
 msgid "Home Directory"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/advanced_user.glade.h:4
+#: pyanaconda/ui/gui/spokes/advanced_user.glade:118
 msgctxt "GUI|Advanced User"
 msgid "Create a _home directory for this user."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/advanced_user.glade.h:5
+#: pyanaconda/ui/gui/spokes/advanced_user.glade:145
 msgctxt "GUI|Advanced User"
 msgid "Home _directory:"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/advanced_user.glade.h:6
+#: pyanaconda/ui/gui/spokes/advanced_user.glade:189
 msgid "User and Group IDs"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/advanced_user.glade.h:7
+#: pyanaconda/ui/gui/spokes/advanced_user.glade:208
 msgctxt "GUI|Advanced User"
 msgid "Specify a _user ID manually:"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/advanced_user.glade.h:8
+#: pyanaconda/ui/gui/spokes/advanced_user.glade:226
 msgctxt "GUI|Advanced User"
 msgid "Specify a _group ID manually:"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/advanced_user.glade.h:9
+#: pyanaconda/ui/gui/spokes/advanced_user.glade:290
 msgid "Group Membership"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/advanced_user.glade.h:10
+#: pyanaconda/ui/gui/spokes/advanced_user.glade:313
 msgctxt "GUI|Advanced User"
 msgid "_Add user to the following groups:"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/advanced_user.glade.h:11
+#: pyanaconda/ui/gui/spokes/advanced_user.glade:359
 msgid "wheel, my-team (1245), project-x (29935)"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/advanced_user.glade.h:12
+#: pyanaconda/ui/gui/spokes/advanced_user.glade:376
 msgid ""
 "You may input a comma-separated list of group names and group IDs here.\n"
 "Groups that do not already exist will be created; specify their GID in "
 "parentheses. "
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/advanced_user.glade.h:14
+#: pyanaconda/ui/gui/spokes/advanced_user.glade:392
 msgid "Example:"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/advanced_user.glade.h:15
+#: pyanaconda/ui/gui/spokes/advanced_user.glade:411
 msgid "Tip:"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/datetime_spoke.glade.h:1
+#: pyanaconda/ui/gui/spokes/datetime_spoke.glade:81
 msgid "DATE & TIME"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/datetime_spoke.glade.h:2
+#: pyanaconda/ui/gui/spokes/datetime_spoke.glade:131
 msgctxt "GUI|Date and Time"
 msgid "_Region:"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/datetime_spoke.glade.h:3
+#: pyanaconda/ui/gui/spokes/datetime_spoke.glade:173
 msgctxt "GUI|Date and Time"
 msgid "_City:"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/datetime_spoke.glade.h:4
+#: pyanaconda/ui/gui/spokes/datetime_spoke.glade:226
 msgctxt "GUI|Date and Time"
 msgid "_Network Time"
 msgstr ""
 
 #. TRANSLATORS: This is the separator between hours and minutes, like in HH:MM
-#: pyanaconda/ui/gui/spokes/datetime_spoke.glade.h:6
+#: pyanaconda/ui/gui/spokes/datetime_spoke.glade:331
 msgid ":"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/datetime_spoke.glade.h:8
+#: pyanaconda/ui/gui/spokes/datetime_spoke.glade:513
 msgctxt "GUI|Date and Time"
 msgid "24-_hour"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/datetime_spoke.glade.h:9
+#: pyanaconda/ui/gui/spokes/datetime_spoke.glade:531
 msgctxt "GUI|Date and Time"
 msgid "_AM/PM"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/datetime_spoke.glade.h:10
+#: pyanaconda/ui/gui/spokes/datetime_spoke.glade:691
 msgid "Add and mark for usage NTP servers"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/datetime_spoke.glade.h:12
+#: pyanaconda/ui/gui/spokes/datetime_spoke.glade:774
 msgid "Working"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/datetime_spoke.glade.h:13
+#: pyanaconda/ui/gui/spokes/datetime_spoke.glade:782
 msgid "Use"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/filter.glade.h:1
-#: pyanaconda/ui/gui/spokes/storage.glade.h:22
+#: pyanaconda/ui/gui/spokes/filter.glade:63
+#: pyanaconda/ui/gui/spokes/storage.glade:800
 msgid "INSTALLATION DESTINATION"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/filter.glade.h:2
+#: pyanaconda/ui/gui/spokes/filter.glade:136
 msgid "Search Results:"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/filter.glade.h:3
+#: pyanaconda/ui/gui/spokes/filter.glade:150
 msgctxt "GUI|Installation Destination|Filter|Search"
 msgid "Search _By:"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/filter.glade.h:5
+#: pyanaconda/ui/gui/spokes/filter.glade:167
 msgid "Port / Target / LUN #"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/filter.glade.h:6
+#: pyanaconda/ui/gui/spokes/filter.glade:168
 msgid "Target WWID"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/filter.glade.h:7
+#: pyanaconda/ui/gui/spokes/filter.glade:206
 msgctxt "GUI|Installation Destination|Filter|Search|Port Target LUN"
 msgid "_Port:"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/filter.glade.h:8
+#: pyanaconda/ui/gui/spokes/filter.glade:231
 msgctxt "GUI|Installation Destination|Filter|Search|Port Target LUN"
 msgid "_Target:"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/filter.glade.h:9
+#: pyanaconda/ui/gui/spokes/filter.glade:257
 msgctxt "GUI|Installation Destination|Filter|Search|Port Target LUN"
 msgid "_LUN:"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/filter.glade.h:10
+#: pyanaconda/ui/gui/spokes/filter.glade:297
 msgctxt "GUI|Installation Destination|Filter|Search|WWID"
 msgid "_WWID:"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/filter.glade.h:11
+#: pyanaconda/ui/gui/spokes/filter.glade:371
+#: pyanaconda/ui/gui/spokes/filter.glade:580
+#: pyanaconda/ui/gui/spokes/filter.glade:761
 msgid "WWID"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/filter.glade.h:12
-#: pyanaconda/ui/gui/spokes/custom.glade.h:19
-#: pyanaconda/ui/gui/spokes/lib/cart.glade.h:6
+#: pyanaconda/ui/gui/spokes/filter.glade:385
+#: pyanaconda/ui/gui/spokes/filter.glade:775
+#: pyanaconda/ui/gui/spokes/filter.glade:1130
+#: pyanaconda/ui/gui/spokes/filter.glade:1418
+#: pyanaconda/ui/gui/spokes/custom.glade:496
+#: pyanaconda/ui/gui/spokes/custom.glade:2054
+#: pyanaconda/ui/gui/spokes/lib/cart.glade:145
 msgid "Capacity"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/filter.glade.h:13
+#: pyanaconda/ui/gui/spokes/filter.glade:399
+#: pyanaconda/ui/gui/spokes/filter.glade:579
+#: pyanaconda/ui/gui/spokes/filter.glade:804
+#: pyanaconda/ui/gui/spokes/filter.glade:932
+#: pyanaconda/ui/gui/spokes/filter.glade:1159
 msgid "Interconnect"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/filter.glade.h:14
+#: pyanaconda/ui/gui/spokes/filter.glade:413
 msgid "Model"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/filter.glade.h:15
+#: pyanaconda/ui/gui/spokes/filter.glade:427
+#: pyanaconda/ui/gui/spokes/filter.glade:1446
 msgid "LUN"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/filter.glade.h:16
+#: pyanaconda/ui/gui/spokes/filter.glade:441
 msgid "Port"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/filter.glade.h:17
+#: pyanaconda/ui/gui/spokes/filter.glade:455
 msgid "Target"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/filter.glade.h:18
+#: pyanaconda/ui/gui/spokes/filter.glade:469
+#: pyanaconda/ui/gui/spokes/filter.glade:578
+#: pyanaconda/ui/gui/spokes/filter.glade:789
+#: pyanaconda/ui/gui/spokes/filter.glade:931
+#: pyanaconda/ui/gui/spokes/filter.glade:1144
 msgid "Vendor"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/filter.glade.h:19
+#: pyanaconda/ui/gui/spokes/filter.glade:531
 msgctxt "GUI|Installation Destination|Filter"
 msgid "Searc_h"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/filter.glade.h:20
+#: pyanaconda/ui/gui/spokes/filter.glade:561
 msgctxt "GUI|Installation Destination|Filter|Multipath"
 msgid "_Filter By:"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/filter.glade.h:21
+#: pyanaconda/ui/gui/spokes/filter.glade:617
 msgctxt "GUI|Installation Destination|Filter|Multipath|Vendor"
 msgid "Show Only _Devices From:"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/filter.glade.h:22
+#: pyanaconda/ui/gui/spokes/filter.glade:655
 msgctxt "GUI|Installation Destination|Filter|Multipath|Interconnect"
 msgid "Show Only _Devices With:"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/filter.glade.h:23
+#: pyanaconda/ui/gui/spokes/filter.glade:693
 msgctxt "GUI|Installation Destination|Filter|Multipath|WWID"
 msgid "Show Only _Devices Containing:"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/filter.glade.h:24
+#: pyanaconda/ui/gui/spokes/filter.glade:818
 msgid "Paths"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/filter.glade.h:25
+#: pyanaconda/ui/gui/spokes/filter.glade:883
 msgctxt "GUI|Installation Destination|Filter"
 msgid "_Multipath Devices"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/filter.glade.h:26
+#: pyanaconda/ui/gui/spokes/filter.glade:914
 msgctxt "GUI|Installation Destination|Filter|Other"
 msgid "_Filter By:"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/filter.glade.h:27
-#: pyanaconda/ui/gui/spokes/custom.glade.h:21
+#: pyanaconda/ui/gui/spokes/filter.glade:933
+#: pyanaconda/ui/gui/spokes/custom.glade:522
+#: pyanaconda/ui/gui/spokes/custom.glade:2080
 msgid "ID"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/filter.glade.h:28
+#: pyanaconda/ui/gui/spokes/filter.glade:970
 msgctxt "GUI|Installation Destination|Filter|Other|Vendor"
 msgid "Show Only _Devices From:"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/filter.glade.h:29
+#: pyanaconda/ui/gui/spokes/filter.glade:1008
 msgctxt "GUI|Installation Destination|Filter|Other|Interconnect"
 msgid "Show Only _Devices With:"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/filter.glade.h:30
+#: pyanaconda/ui/gui/spokes/filter.glade:1046
 msgctxt "GUI|Installation Destination|Filter|Other|ID"
 msgid "Show Only _Devices Containing:"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/filter.glade.h:31
+#: pyanaconda/ui/gui/spokes/filter.glade:1116
 msgid "Identifier"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/filter.glade.h:32
+#: pyanaconda/ui/gui/spokes/filter.glade:1224
 msgctxt "GUI|Installation Destination|Filter"
 msgid "_Other SAN Devices"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/filter.glade.h:33
+#: pyanaconda/ui/gui/spokes/filter.glade:1236
 msgid "Nothing here yet."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/filter.glade.h:34
+#: pyanaconda/ui/gui/spokes/filter.glade:1246
 msgctxt "GUI|Installation Destination|Filter"
 msgid "Firmware _RAID"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/filter.glade.h:35
+#: pyanaconda/ui/gui/spokes/filter.glade:1277
 msgctxt "GUI|Installation Destination|Filter|zSeries"
 msgid "_Filter By:"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/filter.glade.h:36
+#: pyanaconda/ui/gui/spokes/filter.glade:1293
 msgctxt "GUI|Installation Destination|Filter|zSeries"
 msgid "_Label"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/filter.glade.h:37
+#: pyanaconda/ui/gui/spokes/filter.glade:1306
 msgctxt "GUI|Installation Destination|Filter|zSeries"
 msgid "_Go"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/filter.glade.h:38
+#: pyanaconda/ui/gui/spokes/filter.glade:1390
 msgid "CCW"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/filter.glade.h:39
-#: pyanaconda/ui/gui/spokes/lib/summary.glade.h:7
+#: pyanaconda/ui/gui/spokes/filter.glade:1404
+#: pyanaconda/ui/gui/spokes/lib/summary.glade:152
 msgid "Type"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/filter.glade.h:40
+#: pyanaconda/ui/gui/spokes/filter.glade:1432
 msgid "WWPN"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/filter.glade.h:41
+#: pyanaconda/ui/gui/spokes/filter.glade:1479
 msgctxt "GUI|Installation Destination|Filter"
 msgid "_zSeries Devices"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/filter.glade.h:42
+#: pyanaconda/ui/gui/spokes/filter.glade:1502
 msgctxt "GUI|Installation Destination|Filter"
 msgid "_Add ZFCP LUN..."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/filter.glade.h:43
+#: pyanaconda/ui/gui/spokes/filter.glade:1517
 msgctxt "GUI|Installation Destination|Filter"
 msgid "Add _iSCSI Target..."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/filter.glade.h:44
+#: pyanaconda/ui/gui/spokes/filter.glade:1532
 msgctxt "GUI|Installation Destination|Filter"
 msgid "Add FCo_E SAN..."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.glade.h:2
+#: pyanaconda/ui/gui/spokes/network.glade:16
 msgid "bond"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.glade.h:4
+#: pyanaconda/ui/gui/spokes/network.glade:20
+msgid "team"
+msgstr ""
+
+#: pyanaconda/ui/gui/spokes/network.glade:24
 msgid "vlan"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.glade.h:5
+#: pyanaconda/ui/gui/spokes/network.glade:31
 msgid "Add device"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.glade.h:6
+#: pyanaconda/ui/gui/spokes/network.glade:88
 msgctxt "GUI|Network|Add Device Dialog"
 msgid "_Select the type of device you wish to add"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.glade.h:7
+#: pyanaconda/ui/gui/spokes/network.glade:163
+#: pyanaconda/ui/gui/spokes/network.glade:239
 msgid "NETWORK CONFIGURATION"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.glade.h:8
+#: pyanaconda/ui/gui/spokes/network.glade:208
 msgid ""
 "We'll need network access to fetch information about your location and to "
 "make software\n"
 "updates available for you."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.glade.h:10
+#: pyanaconda/ui/gui/spokes/network.glade:278
 msgid ""
 "Please use the live desktop environment's tools for customizing your network "
 "configuration.  You can set the hostname here."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.glade.h:11
+#: pyanaconda/ui/gui/spokes/network.glade:493
 msgid "Slaves"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.glade.h:12
+#: pyanaconda/ui/gui/spokes/network.glade:521
+#: pyanaconda/ui/gui/spokes/network.glade:1007
+#: pyanaconda/ui/gui/spokes/network.glade:1626
 msgid "DNS"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.glade.h:13
+#: pyanaconda/ui/gui/spokes/network.glade:551
+#: pyanaconda/ui/gui/spokes/network.glade:992
+#: pyanaconda/ui/gui/spokes/network.glade:1611
 msgid "Default Route"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.glade.h:14
+#: pyanaconda/ui/gui/spokes/network.glade:579
 msgid "Subnet Mask"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.glade.h:17
+#: pyanaconda/ui/gui/spokes/network.glade:663
+#: pyanaconda/ui/gui/spokes/network.glade:950
+#: pyanaconda/ui/gui/spokes/network.glade:1438
 msgid "Speed"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.glade.h:18
+#: pyanaconda/ui/gui/spokes/network.glade:691
+#: pyanaconda/ui/gui/spokes/network.glade:936
 msgid "Hardware Address"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.glade.h:19
+#: pyanaconda/ui/gui/spokes/network.glade:719
 msgid "Parent"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.glade.h:20
+#: pyanaconda/ui/gui/spokes/network.glade:733
 msgid "Vlan ID"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.glade.h:21
+#: pyanaconda/ui/gui/spokes/network.glade:814
 msgctxt "GUI|Network|Wired"
 msgid "C_onfigure..."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.glade.h:22
+#: pyanaconda/ui/gui/spokes/network.glade:817
 msgid "To apply the configuration immediately turn the device off and on."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.glade.h:23
+#: pyanaconda/ui/gui/spokes/network.glade:1129
 msgid "Security"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.glade.h:24
+#: pyanaconda/ui/gui/spokes/network.glade:1143
 msgctxt "GUI|Network|Wireless"
 msgid "_Network Name"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.glade.h:25
+#: pyanaconda/ui/gui/spokes/network.glade:1159
 msgid "Network Name"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.glade.h:26
+#: pyanaconda/ui/gui/spokes/network.glade:1173
 msgid "Security Key"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.glade.h:27
+#: pyanaconda/ui/gui/spokes/network.glade:1263
 msgctxt "GUI|Network|Wireless"
 msgid "_Use as Hotspot..."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.glade.h:28
+#: pyanaconda/ui/gui/spokes/network.glade:1282
 msgctxt "GUI|Network|Wireless"
 msgid "_Stop Hotspot..."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.glade.h:29
+#: pyanaconda/ui/gui/spokes/network.glade:1301
 msgctxt "GUI|Network|Wireless"
 msgid "_Configure..."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.glade.h:30
+#: pyanaconda/ui/gui/spokes/network.glade:1424
 msgid "IMEI"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.glade.h:31
+#: pyanaconda/ui/gui/spokes/network.glade:1452
 msgid "Provider"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.glade.h:33
+#: pyanaconda/ui/gui/spokes/network.glade:1653
 msgctxt "GUI|Network|Mobile Broadband"
 msgid "_Configure..."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.glade.h:34
+#: pyanaconda/ui/gui/spokes/network.glade:1766
 msgid "VPN Type"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.glade.h:35
+#: pyanaconda/ui/gui/spokes/network.glade:1780
 msgid "Gateway"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.glade.h:36
+#: pyanaconda/ui/gui/spokes/network.glade:1794
 msgid "Group Name"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.glade.h:37
+#: pyanaconda/ui/gui/spokes/network.glade:1808
 msgid "Group Password"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.glade.h:38
+#: pyanaconda/ui/gui/spokes/network.glade:1822
 msgid "Username"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.glade.h:39
+#: pyanaconda/ui/gui/spokes/network.glade:1938
 msgctxt "GUI|Network|VPN"
 msgid "_Configure..."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.glade.h:40
+#: pyanaconda/ui/gui/spokes/network.glade:2065
 msgctxt "GUI|Network|Proxy"
 msgid "_Method"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.glade.h:41
+#: pyanaconda/ui/gui/spokes/network.glade:2093
 msgctxt "GUI|Network|Proxy"
 msgid "_Configuration URL"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.glade.h:42
+#: pyanaconda/ui/gui/spokes/network.glade:2122
 msgctxt "GUI|Network|Proxy"
 msgid "HTTP _Proxy"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.glade.h:43
+#: pyanaconda/ui/gui/spokes/network.glade:2138
 msgctxt "GUI|Network|Proxy"
 msgid "H_TTPS Proxy"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.glade.h:44
+#: pyanaconda/ui/gui/spokes/network.glade:2154
 msgctxt "GUI|Network|Proxy"
 msgid "_FTP Proxy"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.glade.h:45
+#: pyanaconda/ui/gui/spokes/network.glade:2170
 msgctxt "GUI|Network|Proxy"
 msgid "_Socks Host"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.glade.h:47
+#: pyanaconda/ui/gui/spokes/network.glade:2392
 msgctxt "GUI|Network"
 msgid "Unloc_k"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.glade.h:48
+#: pyanaconda/ui/gui/spokes/network.glade:2413
 msgctxt "GUI|Network"
 msgid "_Airplane Mode"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.glade.h:49
+#: pyanaconda/ui/gui/spokes/network.glade:2447
 msgctxt "GUI|Network"
 msgid "_Hostname:"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.glade.h:50
+#: pyanaconda/ui/gui/spokes/network.glade:2499
 msgid "Authentication"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.glade.h:52
+#: pyanaconda/ui/gui/spokes/network.glade:2602
 msgid ""
 "Passwords or encryption keys are required to access\n"
 "the wireless network"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/software.glade.h:1
+#: pyanaconda/ui/gui/spokes/software.glade:34
 msgid "SOFTWARE SELECTION"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/software.glade.h:2
+#: pyanaconda/ui/gui/spokes/software.glade:90
 msgid "Base Environment"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/software.glade.h:3
+#: pyanaconda/ui/gui/spokes/software.glade:110
 msgid "Add-Ons for Selected Environment"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/storage.glade.h:1
+#: pyanaconda/ui/gui/spokes/storage.glade:27
 msgctxt "GUI|Storage|Options 1 Dialog"
 msgid "Cancel & _add more disks"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/storage.glade.h:2
+#: pyanaconda/ui/gui/spokes/storage.glade:44
 msgctxt "GUI|Storage|Options 1 Dialog"
 msgid "_Continue"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/storage.glade.h:3
+#: pyanaconda/ui/gui/spokes/storage.glade:78
+#: pyanaconda/ui/gui/spokes/storage.glade:358
+#: pyanaconda/ui/gui/spokes/storage.glade:644
 msgid "INSTALLATION OPTIONS"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/storage.glade.h:4
+#: pyanaconda/ui/gui/spokes/storage.glade:201
+#: pyanaconda/ui/gui/spokes/storage.glade:502
 msgid "Partition scheme:"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/storage.glade.h:9
+#: pyanaconda/ui/gui/spokes/storage.glade:240
 msgctxt "GUI|Storage|Options 1 Dialog"
 msgid "_Encrypt my data. I'll set a passphrase later."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/storage.glade.h:10
+#: pyanaconda/ui/gui/spokes/storage.glade:291
 msgctxt "GUI|Storage|Options 2 Dialog"
 msgid "Cancel & _add more disks"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/storage.glade.h:11
+#: pyanaconda/ui/gui/spokes/storage.glade:307
 msgctxt "GUI|Storage|Options 2 Dialog"
 msgid "_Custom partitioning"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/storage.glade.h:12
+#: pyanaconda/ui/gui/spokes/storage.glade:323
 msgctxt "GUI|Storage|Options 2 Dialog"
 msgid "_Reclaim space"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/storage.glade.h:13
+#: pyanaconda/ui/gui/spokes/storage.glade:375
+#: pyanaconda/ui/gui/spokes/storage.glade:660
 msgid ""
 "Here we'll describe how much space is needed for the current software "
 "selection."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/storage.glade.h:14
+#: pyanaconda/ui/gui/spokes/storage.glade:401
+#: pyanaconda/ui/gui/spokes/storage.glade:686
 msgid "disk free"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/storage.glade.h:15
+#: pyanaconda/ui/gui/spokes/storage.glade:419
+#: pyanaconda/ui/gui/spokes/storage.glade:703
 msgid "Free space available for use."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/storage.glade.h:16
+#: pyanaconda/ui/gui/spokes/storage.glade:437
+#: pyanaconda/ui/gui/spokes/storage.glade:721
 msgid "fs free"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/storage.glade.h:17
+#: pyanaconda/ui/gui/spokes/storage.glade:455
+#: pyanaconda/ui/gui/spokes/storage.glade:739
 msgid "Free space unavailable but reclaimable from existing partitions."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/storage.glade.h:18
+#: pyanaconda/ui/gui/spokes/storage.glade:480
+#: pyanaconda/ui/gui/spokes/storage.glade:764
 msgid "Here we'll describe what your options are."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/storage.glade.h:19
+#: pyanaconda/ui/gui/spokes/storage.glade:541
 msgctxt "GUI|Storage|Options 2 Dialog"
 msgid "_Encrypt my data. I'll set a passphrase later."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/storage.glade.h:20
+#: pyanaconda/ui/gui/spokes/storage.glade:593
 msgctxt "GUI|Storage|Options 3 Dialog"
 msgid "_Quit installer"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/storage.glade.h:21
+#: pyanaconda/ui/gui/spokes/storage.glade:609
 msgctxt "GUI|Storage|Options 3 Dialog"
 msgid "_Cancel"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/storage.glade.h:23
+#: pyanaconda/ui/gui/spokes/storage.glade:848
 msgid ""
 "Select the device(s) you'd like to install to.  They will be left untouched "
 "until you click on the main menu's \"Begin Installation\" button."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/storage.glade.h:24
+#: pyanaconda/ui/gui/spokes/storage.glade:883
 msgid "Local Standard Disks"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/storage.glade.h:25
+#: pyanaconda/ui/gui/spokes/storage.glade:937
+#: pyanaconda/ui/gui/spokes/storage.glade:1060
 msgid "Disks left unselected here will not be touched."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/storage.glade.h:26
+#: pyanaconda/ui/gui/spokes/storage.glade:954
 msgid "Specialized & Network Disks"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/storage.glade.h:27
+#: pyanaconda/ui/gui/spokes/storage.glade:1022
 msgctxt "GUI|Storage"
 msgid "_Add a disk..."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/storage.glade.h:28
+#: pyanaconda/ui/gui/spokes/storage.glade:1099
 msgctxt "GUI|Storage"
 msgid "_Full disk summary and bootloader..."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/storage.glade.h:29
+#: pyanaconda/ui/gui/spokes/storage.glade:1120
 msgid "summary"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/keyboard.glade.h:1
+#: pyanaconda/ui/gui/spokes/keyboard.glade:98
 msgid "ADD A KEYBOARD LAYOUT"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/keyboard.glade.h:2
+#: pyanaconda/ui/gui/spokes/keyboard.glade:115
 msgid "You may add a keyboard layout by selecting it below:"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/keyboard.glade.h:3
-#: pyanaconda/ui/gui/spokes/source.glade.h:32
-#: pyanaconda/ui/gui/spokes/lib/cart.glade.h:5
-#: pyanaconda/ui/gui/spokes/lib/resize.glade.h:5
+#: pyanaconda/ui/gui/spokes/keyboard.glade:151
+#: pyanaconda/ui/gui/spokes/source.glade:1013
+#: pyanaconda/ui/gui/spokes/lib/cart.glade:133
+#: pyanaconda/ui/gui/spokes/lib/resize.glade:160
 msgid "Name"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/keyboard.glade.h:4
+#: pyanaconda/ui/gui/spokes/keyboard.glade:205
 msgid "KEYBOARD LAYOUT"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/keyboard.glade.h:5
+#: pyanaconda/ui/gui/spokes/keyboard.glade:247
 msgid ""
 "Which keyboard layouts would you like to use on this system?  You may move "
 "any layout to the top of the list to select it as the default."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/keyboard.glade.h:6
+#: pyanaconda/ui/gui/spokes/keyboard.glade:286
 msgid ""
 "Changes here will only apply to the installed system. Use the desktop's tool "
 "to configure the keyboard for the installation process."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/keyboard.glade.h:7
+#: pyanaconda/ui/gui/spokes/keyboard.glade:343
 msgid "name"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/keyboard.glade.h:8
+#: pyanaconda/ui/gui/spokes/keyboard.glade:378
 msgctxt "GUI|Keyboard Layout"
 msgid "_Add layout"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/keyboard.glade.h:9
+#: pyanaconda/ui/gui/spokes/keyboard.glade:393
 msgctxt "GUI|Keyboard Layout"
 msgid "_Remove layout"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/keyboard.glade.h:10
+#: pyanaconda/ui/gui/spokes/keyboard.glade:408
 msgctxt "GUI|Keyboard Layout"
 msgid "Move selected layout _up"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/keyboard.glade.h:11
+#: pyanaconda/ui/gui/spokes/keyboard.glade:423
 msgctxt "GUI|Keyboard Layout"
 msgid "Move selected layout _down"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/keyboard.glade.h:12
+#: pyanaconda/ui/gui/spokes/keyboard.glade:439
 msgctxt "GUI|Keyboard Layout"
 msgid "_Preview layout"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/keyboard.glade.h:13
+#: pyanaconda/ui/gui/spokes/keyboard.glade:476
 msgctxt "GUI|Keyboard Layout"
 msgid "_Test the layout configuration below:"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/keyboard.glade.h:14
+#: pyanaconda/ui/gui/spokes/keyboard.glade:517
 msgid "Alt + Shift to switch layouts."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/keyboard.glade.h:15
+#: pyanaconda/ui/gui/spokes/keyboard.glade:532
 msgctxt "GUI|Keyboard Layout"
 msgid "_Options"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/keyboard.glade.h:16
+#: pyanaconda/ui/gui/spokes/keyboard.glade:636
 msgid "LAYOUT SWITCHING OPTIONS"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/keyboard.glade.h:17
+#: pyanaconda/ui/gui/spokes/keyboard.glade:653
 msgid ""
 "Which combination(s) would you prefer for switching between keyboard layouts?"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/keyboard.glade.h:18
+#: pyanaconda/ui/gui/spokes/keyboard.glade:689
 msgid "use"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/keyboard.glade.h:19
+#: pyanaconda/ui/gui/spokes/keyboard.glade:702
 msgid "description"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/langsupport.glade.h:1
+#: pyanaconda/ui/gui/spokes/langsupport.glade:35
 msgid "LANGUAGE SUPPORT"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/langsupport.glade.h:2
+#: pyanaconda/ui/gui/spokes/langsupport.glade:80
 msgid "Select additional language support to be installed:"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/langsupport.glade.h:3
-#: pyanaconda/ui/gui/spokes/welcome.glade.h:12
+#: pyanaconda/ui/gui/spokes/langsupport.glade:128
+#: pyanaconda/ui/gui/spokes/langsupport.glade:235
+#: pyanaconda/ui/gui/spokes/welcome.glade:390
+#: pyanaconda/ui/gui/spokes/welcome.glade:486
 msgid "nativeName"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/langsupport.glade.h:4
-#: pyanaconda/ui/gui/spokes/welcome.glade.h:13
+#: pyanaconda/ui/gui/spokes/langsupport.glade:145
+#: pyanaconda/ui/gui/spokes/welcome.glade:407
 msgid "englishName"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/langsupport.glade.h:5
-#: pyanaconda/ui/gui/spokes/welcome.glade.h:14
+#: pyanaconda/ui/gui/spokes/langsupport.glade:163
+#: pyanaconda/ui/gui/spokes/welcome.glade:425
 msgid "selected"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/langsupport.glade.h:6
-#: pyanaconda/ui/gui/spokes/welcome.glade.h:15
+#: pyanaconda/ui/gui/spokes/langsupport.glade:186
+#: pyanaconda/ui/gui/spokes/welcome.glade:448
 msgid "Type here to search."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/langsupport.glade.h:7
+#: pyanaconda/ui/gui/spokes/langsupport.glade:221
 msgid "checked"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/password.glade.h:1
+#: pyanaconda/ui/gui/spokes/password.glade:9
 msgid "ROOT PASSWORD"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/password.glade.h:2
+#: pyanaconda/ui/gui/spokes/password.glade:55
 msgctxt "GUI|Password"
 msgid "_Root Password:"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/password.glade.h:3
+#: pyanaconda/ui/gui/spokes/password.glade:72
 msgctxt "GUI|Password"
 msgid "_Confirm:"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/password.glade.h:4
-#: pyanaconda/ui/gui/spokes/user.glade.h:8
+#: pyanaconda/ui/gui/spokes/password.glade:153
+#: pyanaconda/ui/gui/spokes/user.glade:255
 msgid "empty password"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/password.glade.h:5
+#: pyanaconda/ui/gui/spokes/password.glade:176
 msgid ""
 "The root account is used for administering the system.  Enter a password for "
 "the root user."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.glade.h:1
+#: pyanaconda/ui/gui/spokes/source.glade:106
 msgctxt "GUI|Software Source|Media Check Dialog"
 msgid "_Done"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.glade.h:2
+#: pyanaconda/ui/gui/spokes/source.glade:139
 msgid "MEDIA VERIFICATION"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.glade.h:3
+#: pyanaconda/ui/gui/spokes/source.glade:166
 msgid "Verifying media, please wait..."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.glade.h:4
+#: pyanaconda/ui/gui/spokes/source.glade:236
 msgctxt "GUI|Software Source|Proxy Dialog"
 msgid "_Cancel"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.glade.h:5
+#: pyanaconda/ui/gui/spokes/source.glade:251
 msgctxt "GUI|Software Source|Proxy Dialog"
 msgid "_Add"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.glade.h:6
+#: pyanaconda/ui/gui/spokes/source.glade:279
 msgctxt "GUI|Software Source|Proxy Dialog"
 msgid "_Enable HTTP Proxy"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.glade.h:7
+#: pyanaconda/ui/gui/spokes/source.glade:312
 msgctxt "GUI|Software Source|Proxy Dialog"
 msgid "_Proxy URL"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.glade.h:8
+#: pyanaconda/ui/gui/spokes/source.glade:331
 msgid "<span size=\"small\"><b>Example:</b> squid.mysite.org:3128</span>"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.glade.h:9
+#: pyanaconda/ui/gui/spokes/source.glade:367
 msgctxt "GUI|Software Source|Proxy Dialog"
 msgid "_Use Authentication"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.glade.h:10
+#: pyanaconda/ui/gui/spokes/source.glade:394
 msgctxt "GUI|Software Source|Proxy Dialog"
 msgid "User_name"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.glade.h:11
+#: pyanaconda/ui/gui/spokes/source.glade:413
 msgctxt "GUI|Software Source|Proxy Dialog"
 msgid "Pass_word"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.glade.h:12
+#: pyanaconda/ui/gui/spokes/source.glade:496
 msgid "INSTALLATION SOURCE"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.glade.h:13
+#: pyanaconda/ui/gui/spokes/source.glade:539
 msgid "Which installation source would you like to use?"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.glade.h:14
+#: pyanaconda/ui/gui/spokes/source.glade:553
 msgctxt "GUI|Software Source"
 msgid "_Auto-detected installation media:"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.glade.h:15
+#: pyanaconda/ui/gui/spokes/source.glade:580
 msgid "Device:"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.glade.h:16
+#: pyanaconda/ui/gui/spokes/source.glade:594
 msgid "Label:"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.glade.h:17
+#: pyanaconda/ui/gui/spokes/source.glade:605
+#: pyanaconda/ui/gui/spokes/source.glade:703
 msgctxt "GUI|Software Source"
 msgid "_Verify"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.glade.h:18
+#: pyanaconda/ui/gui/spokes/source.glade:630
 msgctxt "GUI|Software Source"
 msgid "_ISO file:"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.glade.h:19
+#: pyanaconda/ui/gui/spokes/source.glade:657
 msgctxt "GUI|Software Source"
 msgid "D_evice:"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.glade.h:20
+#: pyanaconda/ui/gui/spokes/source.glade:687
 msgctxt "GUI|Software Source"
 msgid "_Choose an ISO"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.glade.h:21
+#: pyanaconda/ui/gui/spokes/source.glade:726
 msgctxt "GUI|Software Source"
 msgid "_On the network:"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.glade.h:22
+#: pyanaconda/ui/gui/spokes/source.glade:766
 msgid "nfs"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.glade.h:24
+#: pyanaconda/ui/gui/spokes/source.glade:794
 msgctxt "GUI|Software Source"
 msgid "_Proxy setup..."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.glade.h:25
+#: pyanaconda/ui/gui/spokes/source.glade:811
 msgctxt "GUI|Software Source"
 msgid "This URL refers to a _mirror list."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.glade.h:26
+#: pyanaconda/ui/gui/spokes/source.glade:851
 msgctxt "GUI|Software Source"
 msgid "N_FS mount options:"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.glade.h:27
+#: pyanaconda/ui/gui/spokes/source.glade:866
+#: pyanaconda/ui/gui/spokes/source.glade:867
 msgid "This field is optional."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.glade.h:28
+#: pyanaconda/ui/gui/spokes/source.glade:901
 msgid "Updates"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.glade.h:29
+#: pyanaconda/ui/gui/spokes/source.glade:928
 msgctxt "GUI|Software Source"
 msgid ""
 "Don't install the latest available software _updates. Install the default "
 "versions provided by the install source above."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.glade.h:30
+#: pyanaconda/ui/gui/spokes/source.glade:953
 msgid "Additional repositories"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.glade.h:31
+#: pyanaconda/ui/gui/spokes/source.glade:1000
 msgid "Enabled"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.glade.h:33
+#: pyanaconda/ui/gui/spokes/source.glade:1052
+#: pyanaconda/ui/gui/spokes/source.glade:1053
 msgid "Add a new repository."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.glade.h:34
+#: pyanaconda/ui/gui/spokes/source.glade:1054
 msgctxt "GUI|Software Source"
 msgid "A_dd"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.glade.h:35
+#: pyanaconda/ui/gui/spokes/source.glade:1071
+#: pyanaconda/ui/gui/spokes/source.glade:1072
 msgid "Remove the selected repository."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.glade.h:36
+#: pyanaconda/ui/gui/spokes/source.glade:1073
 msgctxt "GUI|Software Source"
 msgid "_Remove"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.glade.h:37
+#: pyanaconda/ui/gui/spokes/source.glade:1090
+#: pyanaconda/ui/gui/spokes/source.glade:1091
 msgid "Revert to the previous list of repositories."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.glade.h:38
+#: pyanaconda/ui/gui/spokes/source.glade:1092
 msgctxt "GUI|Software Source"
 msgid "Rese_t"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.glade.h:39
+#: pyanaconda/ui/gui/spokes/source.glade:1120
+#: pyanaconda/ui/gui/spokes/source.glade:1121
 msgid "URL for the repository, without protocol."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.glade.h:40
+#: pyanaconda/ui/gui/spokes/source.glade:1136
+#: pyanaconda/ui/gui/spokes/source.glade:1137
 msgid "URL of proxy in the form of protocol://host:[port]"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.glade.h:41
+#: pyanaconda/ui/gui/spokes/source.glade:1152
+#: pyanaconda/ui/gui/spokes/source.glade:1153
 msgid "Optional proxy username."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.glade.h:42
+#: pyanaconda/ui/gui/spokes/source.glade:1168
 msgid "Optional proxy password."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.glade.h:43
+#: pyanaconda/ui/gui/spokes/source.glade:1182
 msgctxt "GUI|Software Source"
 msgid "This URL refers to a mirror _list."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.glade.h:44
+#: pyanaconda/ui/gui/spokes/source.glade:1204
 msgctxt "GUI|Software Source"
 msgid "_Name:"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.glade.h:45
+#: pyanaconda/ui/gui/spokes/source.glade:1222
+#: pyanaconda/ui/gui/spokes/source.glade:1223
 msgid "Protocol for the repository URL."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.glade.h:46
+#: pyanaconda/ui/gui/spokes/source.glade:1244
 msgctxt "GUI|Software Source"
 msgid "Pro_xy URL:"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.glade.h:47
+#: pyanaconda/ui/gui/spokes/source.glade:1263
 msgctxt "GUI|Software Source"
 msgid "U_sername:"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.glade.h:48
+#: pyanaconda/ui/gui/spokes/source.glade:1282
 msgctxt "GUI|Software Source"
 msgid "Pass_word:"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.glade.h:49
+#: pyanaconda/ui/gui/spokes/source.glade:1320
 msgid "Invalid repository name. Try something else?"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.glade.h:50
+#: pyanaconda/ui/gui/spokes/source.glade:1345
+#: pyanaconda/ui/gui/spokes/source.glade:1346
 msgid "Name of the repository."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.glade.h:51
+#: pyanaconda/ui/gui/spokes/source.glade:1394
 msgid "Duplicate names in list of additional repositories."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/welcome.glade.h:1
+#: pyanaconda/ui/gui/spokes/welcome.glade:22
 msgctxt "GUI|Welcome|Beta Warn Dialog"
 msgid "_Get me out of here!"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/welcome.glade.h:2
+#: pyanaconda/ui/gui/spokes/welcome.glade:36
 msgctxt "GUI|Welcome|Beta Warn Dialog"
 msgid "_I accept my fate."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/welcome.glade.h:3
+#: pyanaconda/ui/gui/spokes/welcome.glade:67
 msgid "This is unstable, pre-release software."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/welcome.glade.h:4
+#: pyanaconda/ui/gui/spokes/welcome.glade:100
 msgid ""
 "You wake up inside an OS installer in Timbuktu, and it's six months in the "
 "future.  But, there are bugs.  Bugs everywhere.  Bugs you must live with.  "
@@ -3303,811 +3381,822 @@ msgid ""
 "purposes only."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/welcome.glade.h:5
+#: pyanaconda/ui/gui/spokes/welcome.glade:169
 msgctxt "GUI|Welcome|Unsupported Hardware Dialog"
 msgid "_Quit"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/welcome.glade.h:6
+#: pyanaconda/ui/gui/spokes/welcome.glade:183
 msgctxt "GUI|Welcome|Unsupported Hardware Dialog"
 msgid "_Continue"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/welcome.glade.h:7
+#: pyanaconda/ui/gui/spokes/welcome.glade:214
 msgid "Unsupported Hardware Detected"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/welcome.glade.h:10
-#, python-format
+#: pyanaconda/ui/gui/spokes/welcome.glade:327
 msgid "WELCOME TO %(name)s %(version)s."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/welcome.glade.h:11
+#: pyanaconda/ui/gui/spokes/welcome.glade:345
 msgid "What language would you like to use during the installation process?"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/user.glade.h:1
+#: pyanaconda/ui/gui/spokes/user.glade:12
 msgid "CREATE USER"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/user.glade.h:2
+#: pyanaconda/ui/gui/spokes/user.glade:65
 msgctxt "GUI|User"
 msgid "_Full name"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/user.glade.h:3
+#: pyanaconda/ui/gui/spokes/user.glade:85
 msgctxt "GUI|User"
 msgid "_Username"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/user.glade.h:4
+#: pyanaconda/ui/gui/spokes/user.glade:134
 msgctxt "GUI|User"
 msgid "_Password"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/user.glade.h:5
+#: pyanaconda/ui/gui/spokes/user.glade:154
 msgctxt "GUI|User"
 msgid "_Confirm password"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/user.glade.h:6
+#: pyanaconda/ui/gui/spokes/user.glade:202
 msgid ""
 "<b>Tip:</b> Keep your username shorter than 32 characters and do not use "
 "spaces."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/user.glade.h:7
+#: pyanaconda/ui/gui/spokes/user.glade:214
 msgctxt "GUI|User"
 msgid "Require a password to use this account"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/user.glade.h:9
+#: pyanaconda/ui/gui/spokes/user.glade:276
 msgctxt "GUI|User"
 msgid "Make this user administrator"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/user.glade.h:10
+#: pyanaconda/ui/gui/spokes/user.glade:296
 msgctxt "GUI|User"
 msgid "_Advanced..."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.glade.h:1
+#: pyanaconda/ui/gui/spokes/custom.glade:23
 msgctxt "GUI|Custom Partitioning|Add Dialog"
 msgid "_Cancel"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.glade.h:2
+#: pyanaconda/ui/gui/spokes/custom.glade:38
 msgctxt "GUI|Custom Partitioning|Add Dialog"
 msgid "_Add mount point"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.glade.h:3
+#: pyanaconda/ui/gui/spokes/custom.glade:71
 msgctxt "GUI|Custom Partitioning|Add Dialog"
 msgid "_Desired Capacity:"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.glade.h:4
+#: pyanaconda/ui/gui/spokes/custom.glade:90
 msgctxt "GUI|Custom Partitioning|Add Dialog"
 msgid "Mount _Point:"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.glade.h:5
+#: pyanaconda/ui/gui/spokes/custom.glade:110
 msgid "ADD A NEW MOUNT POINT"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.glade.h:6
+#: pyanaconda/ui/gui/spokes/custom.glade:128
 msgid ""
 "More customization options are available\n"
 "after creating the mount point below."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.glade.h:8
+#: pyanaconda/ui/gui/spokes/custom.glade:164
 msgid ""
 "That mount point is already in\n"
 "use.  Try something else?"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.glade.h:10
+#: pyanaconda/ui/gui/spokes/custom.glade:190
 msgid "eg: \"20 GB\", \"500mb\" (minus the quotation marks)"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.glade.h:11
+#: pyanaconda/ui/gui/spokes/custom.glade:285
 msgctxt "GUI|Custom Partitioning|Confirm Delete Dialog"
 msgid "_Cancel"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.glade.h:12
+#: pyanaconda/ui/gui/spokes/custom.glade:301
 msgctxt "GUI|Custom Partitioning|Confirm Delete Dialog"
 msgid "_Delete It"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.glade.h:13
+#: pyanaconda/ui/gui/spokes/custom.glade:348
 msgctxt "GUI|Custom Partitioning|Container Dialog"
 msgid "_Cancel"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.glade.h:14
+#: pyanaconda/ui/gui/spokes/custom.glade:362
 msgctxt "GUI|Custom Partitioning|Container Dialog"
 msgid "_Save"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.glade.h:15
+#: pyanaconda/ui/gui/spokes/custom.glade:394
 msgid "CONFIGURE CONTAINER"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.glade.h:16
+#: pyanaconda/ui/gui/spokes/custom.glade:409
 msgid ""
 "Please create a name for this container and select at least one disk below."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.glade.h:17
+#: pyanaconda/ui/gui/spokes/custom.glade:427
 msgctxt "GUI|Custom Partitioning|Container Dialog"
 msgid "_Name:"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.glade.h:20
-#: pyanaconda/ui/gui/spokes/lib/cart.glade.h:7
+#: pyanaconda/ui/gui/spokes/custom.glade:509
+#: pyanaconda/ui/gui/spokes/custom.glade:2067
+#: pyanaconda/ui/gui/spokes/lib/cart.glade:158
 msgid "Free"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.glade.h:22
+#: pyanaconda/ui/gui/spokes/custom.glade:553
 msgid "RAID Level:"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.glade.h:23
+#: pyanaconda/ui/gui/spokes/custom.glade:581
 msgid "Encrypt"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.glade.h:25
+#: pyanaconda/ui/gui/spokes/custom.glade:652
 msgctxt "GUI|Custom Partitioning|Container Dialog"
 msgid "Si_ze policy:"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.glade.h:26
+#: pyanaconda/ui/gui/spokes/custom.glade:667
 msgid "Automatic"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.glade.h:27
+#: pyanaconda/ui/gui/spokes/custom.glade:668
 msgid "As large as possible"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.glade.h:28
+#: pyanaconda/ui/gui/spokes/custom.glade:669
 msgid "Fixed"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.glade.h:30
+#: pyanaconda/ui/gui/spokes/custom.glade:825
+#: pyanaconda/ui/gui/spokes/custom.glade:1302
+#: pyanaconda/ui/gui/spokes/custom.glade:1446
+#: pyanaconda/ui/gui/spokes/custom.glade:1533
 msgid "Selected Device"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.glade.h:31
+#: pyanaconda/ui/gui/spokes/custom.glade:843
+#: pyanaconda/ui/gui/spokes/custom.glade:1320
+#: pyanaconda/ui/gui/spokes/custom.glade:1464
+#: pyanaconda/ui/gui/spokes/custom.glade:1551
 msgid "Device description"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.glade.h:32
+#: pyanaconda/ui/gui/spokes/custom.glade:884
 msgctxt "GUI|Custom Partitioning|Configure"
 msgid "Mount _Point:"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.glade.h:33
+#: pyanaconda/ui/gui/spokes/custom.glade:919
 msgctxt "GUI|Custom Partitioning|Configure"
 msgid "_Label:"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.glade.h:34
+#: pyanaconda/ui/gui/spokes/custom.glade:953
 msgctxt "GUI|Custom Partitioning|Configure"
 msgid "_Name:"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.glade.h:35
+#: pyanaconda/ui/gui/spokes/custom.glade:987
 msgctxt "GUI|Custom Partitioning|Configure"
 msgid "_Desired Capacity:"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.glade.h:36
+#: pyanaconda/ui/gui/spokes/custom.glade:1028
 msgctxt "GUI|Custom Partitioning|Configure"
 msgid "Device _Type:"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.glade.h:37
+#: pyanaconda/ui/gui/spokes/custom.glade:1047
 msgctxt "GUI|Custom Partitioning|Configure"
 msgid "File S_ystem:"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.glade.h:43
+#: pyanaconda/ui/gui/spokes/custom.glade:1100
 msgctxt "GUI|Custom Partitioning|Configure"
 msgid "_Encrypt"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.glade.h:44
+#: pyanaconda/ui/gui/spokes/custom.glade:1119
 msgctxt "GUI|Custom Partitioning|Configure"
 msgid "Ref_ormat"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.glade.h:45
+#: pyanaconda/ui/gui/spokes/custom.glade:1141
 msgctxt "GUI|Custom Partitioning|Configure"
 msgid "Volume _Group:"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.glade.h:46
+#: pyanaconda/ui/gui/spokes/custom.glade:1171
 msgctxt "GUI|Custom Partitioning|Configure"
 msgid "_Modify..."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.glade.h:47
+#: pyanaconda/ui/gui/spokes/custom.glade:1190
 msgctxt "GUI|Custom Partitioning|Configure"
 msgid "RA_ID Level:"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.glade.h:48
+#: pyanaconda/ui/gui/spokes/custom.glade:1244
 msgctxt "GUI|Custom Partitioning|Configure"
 msgid "_Update Settings"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.glade.h:49
+#: pyanaconda/ui/gui/spokes/custom.glade:1266
 msgid ""
 "Note:  The settings you make on this screen will not be applied\n"
 "until you click on the main menu's 'Begin Installation' button."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.glade.h:51
+#: pyanaconda/ui/gui/spokes/custom.glade:1354
 msgid ""
 "This device is encrypted and cannot be read without a valid passphrase. You "
 "may unlock it below."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.glade.h:52
+#: pyanaconda/ui/gui/spokes/custom.glade:1375
 msgctxt "GUI|Custom Partitioning|Encrypted"
 msgid "_Passphrase:"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.glade.h:53
+#: pyanaconda/ui/gui/spokes/custom.glade:1403
 msgctxt "GUI|Custom Partitioning|Encrypted"
 msgid "_Unlock"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.glade.h:54
+#: pyanaconda/ui/gui/spokes/custom.glade:1498
 msgid ""
 "This device cannot be edited directly. You can remove it or select a "
 "different device."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.glade.h:55
+#: pyanaconda/ui/gui/spokes/custom.glade:1630
 msgid "Add a new mountpoint."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.glade.h:56
+#: pyanaconda/ui/gui/spokes/custom.glade:1631
 msgctxt "GUI|Custom Partitioning"
 msgid "_Add"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.glade.h:57
+#: pyanaconda/ui/gui/spokes/custom.glade:1647
 msgid "Remove the selected mountpoint(s)."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.glade.h:58
+#: pyanaconda/ui/gui/spokes/custom.glade:1648
 msgctxt "GUI|Custom Partitioning"
 msgid "Remo_ve"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.glade.h:59
+#: pyanaconda/ui/gui/spokes/custom.glade:1664
 msgid "Configure selected mountpoint."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.glade.h:60
+#: pyanaconda/ui/gui/spokes/custom.glade:1665
 msgctxt "GUI|Custom Partitioning"
 msgid "_Configure"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.glade.h:61
+#: pyanaconda/ui/gui/spokes/custom.glade:1681
 msgid "Reload storage configuration from disk."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.glade.h:62
+#: pyanaconda/ui/gui/spokes/custom.glade:1682
 msgctxt "GUI|Custom Partitioning"
 msgid "Re_fresh"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.glade.h:63
+#: pyanaconda/ui/gui/spokes/custom.glade:1698
 msgid "Click for help."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.glade.h:64
+#: pyanaconda/ui/gui/spokes/custom.glade:1699
 msgctxt "GUI|Custom Partitioning"
 msgid "_Help"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.glade.h:65
+#: pyanaconda/ui/gui/spokes/custom.glade:1747
 msgid "AVAILABLE SPACE"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.glade.h:66
+#: pyanaconda/ui/gui/spokes/custom.glade:1802
 msgid "TOTAL SPACE"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.glade.h:67
+#: pyanaconda/ui/gui/spokes/custom.glade:1844
 msgctxt "GUI|Custom Partitioning"
 msgid "_Reset All"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.glade.h:68
+#: pyanaconda/ui/gui/spokes/custom.glade:1946
 msgctxt "GUI|Custom Partitioning|Configure Dialog"
 msgid "_Cancel"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.glade.h:69
+#: pyanaconda/ui/gui/spokes/custom.glade:1961
 msgctxt "GUI|Custom Partitioning|Configure Dialog"
 msgid "_Select"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.glade.h:70
+#: pyanaconda/ui/gui/spokes/custom.glade:1993
 msgid "CONFIGURE MOUNT POINT"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.glade.h:71
+#: pyanaconda/ui/gui/spokes/custom.glade:2008
 msgid "Select one or more disks this device may reside on."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.glade.h:72
+#: pyanaconda/ui/gui/spokes/custom.glade:2121
 msgid "Help"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.glade.h:74
+#: pyanaconda/ui/gui/spokes/custom.glade:2218
 msgid "RAID0 <span foreground=\"grey\">(Performance)</span>"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.glade.h:75
+#: pyanaconda/ui/gui/spokes/custom.glade:2225
 msgid "RAID1 <span foreground=\"grey\">(Redundancy)</span>"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.glade.h:76
+#: pyanaconda/ui/gui/spokes/custom.glade:2232
 msgid "RAID4 <span foreground=\"grey\">(Error Checking)</span>"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.glade.h:77
+#: pyanaconda/ui/gui/spokes/custom.glade:2239
 msgid "RAID5 <span foreground=\"grey\">(Distributed Error Checking)</span>"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.glade.h:78
+#: pyanaconda/ui/gui/spokes/custom.glade:2246
 msgid "RAID6 <span foreground=\"grey\">(Redundant Error Checking)</span>"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.glade.h:79
+#: pyanaconda/ui/gui/spokes/custom.glade:2253
 msgid "RAID10 <span foreground=\"grey\">(Performance, Redundancy)</span>"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/advstorage/fcoe.glade.h:1
+#: pyanaconda/ui/gui/spokes/advstorage/fcoe.glade:55
 msgid ""
 "Please select the network interface which is connected to your FCoE switch."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/advstorage/fcoe.glade.h:2
+#: pyanaconda/ui/gui/spokes/advstorage/fcoe.glade:70
 msgctxt "GUI|Advanced Storage|FCoE"
 msgid "_NIC:"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/advstorage/fcoe.glade.h:3
+#: pyanaconda/ui/gui/spokes/advstorage/fcoe.glade:96
 msgctxt "GUI|Advanced Storage|FCoE"
 msgid "Use _DCB"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/advstorage/fcoe.glade.h:4
+#: pyanaconda/ui/gui/spokes/advstorage/fcoe.glade:113
 msgctxt "GUI|Advanced Storage|FCoE"
 msgid "Use auto _vlan"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/advstorage/fcoe.glade.h:5
+#: pyanaconda/ui/gui/spokes/advstorage/fcoe.glade:150
 msgctxt "GUI|Advanced Storage|FCoE"
 msgid "_Add FCoE Disk(s)"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/advstorage/fcoe.glade.h:6
+#: pyanaconda/ui/gui/spokes/advstorage/fcoe.glade:197
 msgid "Error adding FCoE SAN."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/advstorage/fcoe.glade.h:7
+#: pyanaconda/ui/gui/spokes/advstorage/fcoe.glade:229
 msgid ""
 "The following error occurred while attempting to add an FCoE SAN.  Please "
 "check your configuration and try again"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/advstorage/iscsi.glade.h:1
+#: pyanaconda/ui/gui/spokes/advstorage/iscsi.glade:83
 msgid "ADD iSCSI STORAGE TARGET"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/advstorage/iscsi.glade.h:2
+#: pyanaconda/ui/gui/spokes/advstorage/iscsi.glade:112
 msgid ""
 "To use iSCSI disks, you must provide the address of your iSCSI target and "
 "the iSCSI initiator name you've configured for your host."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/advstorage/iscsi.glade.h:3
+#: pyanaconda/ui/gui/spokes/advstorage/iscsi.glade:142
 msgctxt "GUI|Advanced Storage|iSCSI|Configure"
 msgid "_Target IP Address:"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/advstorage/iscsi.glade.h:4
+#: pyanaconda/ui/gui/spokes/advstorage/iscsi.glade:173
 msgctxt "GUI|Advanced Storage|iSCSI|Configure"
 msgid "iSCSI _Initiator Name:"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/advstorage/iscsi.glade.h:5
+#: pyanaconda/ui/gui/spokes/advstorage/iscsi.glade:191
+#: pyanaconda/ui/gui/spokes/advstorage/iscsi.glade:797
 msgid "No credentials (discovery authentication disabled)"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/advstorage/iscsi.glade.h:6
+#: pyanaconda/ui/gui/spokes/advstorage/iscsi.glade:192
+#: pyanaconda/ui/gui/spokes/advstorage/iscsi.glade:798
 msgid "CHAP pair"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/advstorage/iscsi.glade.h:7
+#: pyanaconda/ui/gui/spokes/advstorage/iscsi.glade:193
+#: pyanaconda/ui/gui/spokes/advstorage/iscsi.glade:799
 msgid "CHAP pair and a reverse pair"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/advstorage/iscsi.glade.h:8
+#: pyanaconda/ui/gui/spokes/advstorage/iscsi.glade:209
 msgctxt "GUI|Advanced Storage|iSCSI|Configure"
 msgid "_Discovery Authentication Type:"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/advstorage/iscsi.glade.h:9
+#: pyanaconda/ui/gui/spokes/advstorage/iscsi.glade:226
 msgid ""
 "<span size=\"small\"><b>Example:</b> iqn.2012-09.com.example:diskarrays-sn-"
 "a8675309</span>"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/advstorage/iscsi.glade.h:10
+#: pyanaconda/ui/gui/spokes/advstorage/iscsi.glade:275
 msgctxt "GUI|Advanced Storage|iSCSI|Configure|CHAP"
 msgid "CHAP _Username:"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/advstorage/iscsi.glade.h:11
+#: pyanaconda/ui/gui/spokes/advstorage/iscsi.glade:291
 msgctxt "GUI|Advanced Storage|iSCSI|Configure|CHAP"
 msgid "CHAP _Password:"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/advstorage/iscsi.glade.h:12
+#: pyanaconda/ui/gui/spokes/advstorage/iscsi.glade:414
 msgctxt "GUI|Advanced Storage|iSCSI|Configure|Reverse CHAP"
 msgid "CHAP _Username:"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/advstorage/iscsi.glade.h:13
+#: pyanaconda/ui/gui/spokes/advstorage/iscsi.glade:430
 msgctxt "GUI|Advanced Storage|iSCSI|Configure|Reverse CHAP"
 msgid "CHAP _Password:"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/advstorage/iscsi.glade.h:14
+#: pyanaconda/ui/gui/spokes/advstorage/iscsi.glade:446
 msgctxt "GUI|Advanced Storage|iSCSI|Configure|Reverse CHAP"
 msgid "Reverse CHAP User_name:"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/advstorage/iscsi.glade.h:15
+#: pyanaconda/ui/gui/spokes/advstorage/iscsi.glade:462
 msgctxt "GUI|Advanced Storage|iSCSI|Configure|Reverse CHAP"
 msgid "Reverse CHAP Pass_word:"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/advstorage/iscsi.glade.h:16
+#: pyanaconda/ui/gui/spokes/advstorage/iscsi.glade:498
 msgctxt "GUI|Advanced Storage|iSCSI|Configure|Start"
 msgid "_Start Discovery"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/advstorage/iscsi.glade.h:17
+#: pyanaconda/ui/gui/spokes/advstorage/iscsi.glade:535
 msgid "Discovering iSCSI targets.  This may take a moment..."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/advstorage/iscsi.glade.h:18
+#: pyanaconda/ui/gui/spokes/advstorage/iscsi.glade:577
 msgid "Discovery login rejected."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/advstorage/iscsi.glade.h:19
+#: pyanaconda/ui/gui/spokes/advstorage/iscsi.glade:594
 msgid ""
 "The following error occurred discovering iSCSI targets.  Please double check "
 "your authorization information and try again."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/advstorage/iscsi.glade.h:20
+#: pyanaconda/ui/gui/spokes/advstorage/iscsi.glade:620
 msgctxt "GUI|Advanced Storage|iSCSI|Configure|Retry"
 msgid "_Retry Discovery"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/advstorage/iscsi.glade.h:21
+#: pyanaconda/ui/gui/spokes/advstorage/iscsi.glade:663
 msgctxt "GUI|Advanced Storage|iSCSI|Configure"
 msgid "_Bind targets to network interfaces"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/advstorage/iscsi.glade.h:22
+#: pyanaconda/ui/gui/spokes/advstorage/iscsi.glade:740
 msgid "Node Name"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/advstorage/iscsi.glade.h:23
+#: pyanaconda/ui/gui/spokes/advstorage/iscsi.glade:751
 msgid "Interface"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/advstorage/iscsi.glade.h:24
+#: pyanaconda/ui/gui/spokes/advstorage/iscsi.glade:781
 msgctxt "GUI|Advanced Storage|iSCSI|Login"
 msgid "_Node login authentication type:"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/advstorage/iscsi.glade.h:25
+#: pyanaconda/ui/gui/spokes/advstorage/iscsi.glade:800
 msgid "Use the credentials from discovery"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/advstorage/iscsi.glade.h:26
+#: pyanaconda/ui/gui/spokes/advstorage/iscsi.glade:837
 msgctxt "GUI|Advanced Storage|iSCSI|Login|CHAP"
 msgid "CHAP _Username:"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/advstorage/iscsi.glade.h:27
+#: pyanaconda/ui/gui/spokes/advstorage/iscsi.glade:853
 msgctxt "GUI|Advanced Storage|iSCSI|Login|CHAP"
 msgid "CHAP _Password:"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/advstorage/iscsi.glade.h:28
+#: pyanaconda/ui/gui/spokes/advstorage/iscsi.glade:973
 msgctxt "GUI|Advanced Storage|iSCSI|Login|Reverse CHAP"
 msgid "CHAP _Username:"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/advstorage/iscsi.glade.h:29
+#: pyanaconda/ui/gui/spokes/advstorage/iscsi.glade:989
 msgctxt "GUI|Advanced Storage|iSCSI|Login|Reverse CHAP"
 msgid "CHAP _Password:"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/advstorage/iscsi.glade.h:30
+#: pyanaconda/ui/gui/spokes/advstorage/iscsi.glade:1005
 msgctxt "GUI|Advanced Storage|iSCSI|Login|Reverse CHAP"
 msgid "_Reverse CHAP Username:"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/advstorage/iscsi.glade.h:31
+#: pyanaconda/ui/gui/spokes/advstorage/iscsi.glade:1021
 msgctxt "GUI|Advanced Storage|iSCSI|Login|Reverse CHAP"
 msgid "Reverse CHAP Pass_word:"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/advstorage/iscsi.glade.h:32
+#: pyanaconda/ui/gui/spokes/advstorage/iscsi.glade:1073
 msgctxt "GUI|Advanced Storage|iSCSI|Login|Login"
 msgid "_Log In"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/advstorage/iscsi.glade.h:33
+#: pyanaconda/ui/gui/spokes/advstorage/iscsi.glade:1131
 msgid "Node login failed."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/advstorage/iscsi.glade.h:34
+#: pyanaconda/ui/gui/spokes/advstorage/iscsi.glade:1148
 msgid ""
 "The following error occurred logging into the selected iSCSI node.  Please "
 "double check your authorization information and try again"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/advstorage/iscsi.glade.h:35
+#: pyanaconda/ui/gui/spokes/advstorage/iscsi.glade:1174
 msgctxt "GUI|Advanced Storage|iSCSI|Login|Retry"
 msgid "Retry _Log In"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/lib/cart.glade.h:1
+#: pyanaconda/ui/gui/spokes/lib/cart.glade:26
+#: pyanaconda/ui/gui/spokes/lib/cart.glade:78
 msgid "SELECTED DISKS"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/lib/cart.glade.h:2
+#: pyanaconda/ui/gui/spokes/lib/cart.glade:43
 msgctxt "GUI|Selected Disks Dialog"
 msgid "_Close"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/lib/cart.glade.h:3
+#: pyanaconda/ui/gui/spokes/lib/cart.glade:106
 msgid "Boot"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/lib/cart.glade.h:4
+#: pyanaconda/ui/gui/spokes/lib/cart.glade:120
 msgid "Description"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/lib/cart.glade.h:9
+#: pyanaconda/ui/gui/spokes/lib/cart.glade:199
 msgctxt "GUI|Selected Disks Dialog"
 msgid "_Remove"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/lib/cart.glade.h:10
+#: pyanaconda/ui/gui/spokes/lib/cart.glade:226
 msgid "Disk summary goes here"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/lib/detailederror.glade.h:1
+#: pyanaconda/ui/gui/spokes/lib/detailederror.glade:24
 msgid "An unknown error occurred during installation.  Details are below."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/lib/passphrase.glade.h:1
+#: pyanaconda/ui/gui/spokes/lib/passphrase.glade:22
 msgid "DISK ENCRYPTION PASSPHRASE"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/lib/passphrase.glade.h:2
+#: pyanaconda/ui/gui/spokes/lib/passphrase.glade:54
 msgctxt "GUI|Passphrase Dialog"
 msgid "_Save Passphrase"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/lib/passphrase.glade.h:3
+#: pyanaconda/ui/gui/spokes/lib/passphrase.glade:80
 msgid ""
 "You have chosen to encrypt some of your data. You will need to create a "
 "passphrase that you will use to access your data when you start your "
 "computer."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/lib/passphrase.glade.h:4
+#: pyanaconda/ui/gui/spokes/lib/passphrase.glade:101
 msgctxt "GUI|Passphrase Dialog"
 msgid "_Passphrase:"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/lib/passphrase.glade.h:5
+#: pyanaconda/ui/gui/spokes/lib/passphrase.glade:135
 msgctxt "GUI|Passphrase Dialog"
 msgid "_Confirm:"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/lib/passphrase.glade.h:7
+#: pyanaconda/ui/gui/spokes/lib/passphrase.glade:235
 msgid ""
 "Warning: You won't be able to switch between keyboard layouts (from the "
 "default one) when you decrypt your disks after install."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/lib/refresh.glade.h:1
+#: pyanaconda/ui/gui/spokes/lib/refresh.glade:8
+#: pyanaconda/ui/gui/spokes/lib/refresh.glade:71
 msgid "RESCAN DISKS"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/lib/refresh.glade.h:2
+#: pyanaconda/ui/gui/spokes/lib/refresh.glade:87
 msgid ""
 "You can remove or insert additional disks at this time and press 'Rescan "
 "Disks' below for the changes to take effect."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/lib/refresh.glade.h:3
+#: pyanaconda/ui/gui/spokes/lib/refresh.glade:118
 msgid ""
 "<b>Warning:</b> All storage changes made using the installer will be lost "
 "when you press 'Rescan Disks'."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/lib/refresh.glade.h:4
+#: pyanaconda/ui/gui/spokes/lib/refresh.glade:142
 msgctxt "GUI|Refresh Dialog|Rescan"
 msgid "_Rescan Disks"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/lib/refresh.glade.h:5
+#: pyanaconda/ui/gui/spokes/lib/refresh.glade:175
+#: pyanaconda/ui/gui/spokes/lib/refresh.glade:213
 msgid "Scanning disks.  This may take a moment..."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/lib/refresh.glade.h:6
+#: pyanaconda/ui/gui/spokes/lib/refresh.glade:226
 msgid ""
 "You may <a href=\"\">go back to the main menu</a> to complete other\n"
 "installation options while this scan completes."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/lib/refresh.glade.h:8
+#: pyanaconda/ui/gui/spokes/lib/refresh.glade:258
 msgid "Disk rescan complete."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/lib/refresh.glade.h:9
+#: pyanaconda/ui/gui/spokes/lib/refresh.glade:275
 msgid ""
 "Pressing 'OK' below will take you to the disk selection screen where you "
 "will need to re-select your disks."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/lib/resize.glade.h:1
+#: pyanaconda/ui/gui/spokes/lib/resize.glade:67
 msgctxt "GUI|Reclaim Dialog"
 msgid "_Reclaim space"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/lib/resize.glade.h:2
+#: pyanaconda/ui/gui/spokes/lib/resize.glade:101
 msgid "RECLAIM DISK SPACE"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/lib/resize.glade.h:3
+#: pyanaconda/ui/gui/spokes/lib/resize.glade:118
 msgid "Description goes here."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/lib/resize.glade.h:6
+#: pyanaconda/ui/gui/spokes/lib/resize.glade:171
 msgid "Filesystem"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/lib/resize.glade.h:7
+#: pyanaconda/ui/gui/spokes/lib/resize.glade:182
 msgid "Reclaimable Space"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/lib/resize.glade.h:8
-#: pyanaconda/ui/gui/spokes/lib/summary.glade.h:6
+#: pyanaconda/ui/gui/spokes/lib/resize.glade:193
+#: pyanaconda/ui/gui/spokes/lib/summary.glade:141
 msgid "Action"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/lib/resize.glade.h:9
+#: pyanaconda/ui/gui/spokes/lib/resize.glade:219
 msgctxt "GUI|Reclaim Dialog"
 msgid "_Preserve"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/lib/resize.glade.h:10
+#: pyanaconda/ui/gui/spokes/lib/resize.glade:235
 msgctxt "GUI|Reclaim Dialog"
 msgid "_Delete"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/lib/resize.glade.h:11
+#: pyanaconda/ui/gui/spokes/lib/resize.glade:251
 msgctxt "GUI|Reclaim Dialog"
 msgid "_Shrink"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/lib/summary.glade.h:1
+#: pyanaconda/ui/gui/spokes/lib/summary.glade:23
+#: pyanaconda/ui/gui/spokes/lib/summary.glade:87
 msgid "SUMMARY OF CHANGES"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/lib/summary.glade.h:2
+#: pyanaconda/ui/gui/spokes/lib/summary.glade:40
 msgctxt "GUI|Summary Dialog"
 msgid "_Cancel & Return to Custom Partitioning"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/lib/summary.glade.h:3
+#: pyanaconda/ui/gui/spokes/lib/summary.glade:55
 msgctxt "GUI|Summary Dialog"
 msgid "_Accept Changes"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/lib/summary.glade.h:4
+#: pyanaconda/ui/gui/spokes/lib/summary.glade:103
 msgid ""
 "Your customizations will result in the following changes taking effect after "
 "you return to the main menu and begin installation:"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/lib/summary.glade.h:5
+#: pyanaconda/ui/gui/spokes/lib/summary.glade:130
 msgid "Order"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/lib/summary.glade.h:8
+#: pyanaconda/ui/gui/spokes/lib/summary.glade:163
 msgid "Device Name"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/lib/summary.glade.h:9
+#: pyanaconda/ui/gui/spokes/lib/summary.glade:174
 msgid "Mountpoint"
 msgstr ""
 
-#: pyanaconda/ui/gui/main.glade.h:1
+#: pyanaconda/ui/gui/main.glade:79
 msgid ""
 "Are you sure you wish to quit the\n"
 "installation process?"
 msgstr ""
 
-#: pyanaconda/ui/gui/hubs/summary.glade.h:1
+#: pyanaconda/ui/gui/hubs/summary.glade:10
 msgid "INSTALLATION SUMMARY"
 msgstr ""
 
-#: pyanaconda/ui/gui/hubs/summary.glade.h:2
+#: pyanaconda/ui/gui/hubs/summary.glade:78
 msgctxt "GUI|Summary"
 msgid "_Quit"
 msgstr ""
 
-#: pyanaconda/ui/gui/hubs/summary.glade.h:3
+#: pyanaconda/ui/gui/hubs/summary.glade:95
 msgctxt "GUI|Summary"
 msgid "_Begin Installation"
 msgstr ""
 
-#: pyanaconda/ui/gui/hubs/summary.glade.h:4
+#: pyanaconda/ui/gui/hubs/summary.glade:123
 msgid "We won't touch your disks until you hit this button."
 msgstr ""
 
-#: pyanaconda/ui/gui/hubs/progress.glade.h:1
+#: pyanaconda/ui/gui/hubs/progress.glade:10
 msgid "CONFIGURATION"
 msgstr ""
 
-#: pyanaconda/ui/gui/hubs/progress.glade.h:2
+#: pyanaconda/ui/gui/hubs/progress.glade:88
 msgid "Preparing to install"
 msgstr ""
 
-#: pyanaconda/ui/gui/hubs/progress.glade.h:4
-#, c-format, python-format
+#: pyanaconda/ui/gui/hubs/progress.glade:134
 msgid ""
 "%s is now successfully installed on your system, but some configuration "
 "still needs to be done.  Finish it and then click the Finish configuration "
 "button please."
 msgstr ""
 
-#: pyanaconda/ui/gui/hubs/progress.glade.h:5
+#: pyanaconda/ui/gui/hubs/progress.glade:146
 msgctxt "GUI|Progress"
 msgid "_Finish configuration"
 msgstr ""
 
-#: pyanaconda/ui/gui/hubs/progress.glade.h:7
-#, c-format, python-format
+#: pyanaconda/ui/gui/hubs/progress.glade:186
 msgid ""
 "%s is now successfully installed on your system and ready for you to use!  "
 "Go ahead and reboot to start using it!"
 msgstr ""
 
-#: pyanaconda/ui/gui/hubs/progress.glade.h:8
+#: pyanaconda/ui/gui/hubs/progress.glade:198
 msgctxt "GUI|Progress"
 msgid "_Reboot"
 msgstr ""
@@ -4124,7 +4213,7 @@ msgstr ""
 msgid "Install the live CD to your hard disk"
 msgstr ""
 
-#: ../data/liveinst/console.apps/liveinst:5
+#: /home/bcl/Red_Hat/projs/anaconda/data/liveinst/console.apps/liveinst:5
 msgid "Starting Install to Hard Drive"
 msgstr ""
 
