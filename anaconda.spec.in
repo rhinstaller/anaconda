@@ -252,6 +252,10 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Mon Nov 18 2013 Brian C. Lane <bcl@redhat.com> - 19.31.35-1
+- Set spokes' distribution and beta warning only once (vpodzime)
+  Related: rhbz#1028370
+
 * Mon Nov 11 2013 Brian C. Lane <bcl@redhat.com> - 19.31.34-1
 - Don't try to unicode unicode strings (vpodzime)
   Resolves: rhbz#1029109
