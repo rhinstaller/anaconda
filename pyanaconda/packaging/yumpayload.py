@@ -103,16 +103,16 @@ class YumLock(object):
         frame = inspect.stack()[2]
         threadName = threading.currentThread().name
 
-        log.info("about to acquire _yum_lock for %s at %s:%s (%s)", threadName, frame[1], frame[2], frame[3])
+        log.debug("about to acquire _yum_lock for %s at %s:%s (%s)", threadName, frame[1], frame[2], frame[3])
         _private_yum_lock.acquire()
-        log.info("have _yum_lock for %s", threadName)
+        log.debug("have _yum_lock for %s", threadName)
         return _private_yum_lock
 
     def __exit__(self, exc_type, exc_val, exc_tb):
         _private_yum_lock.release()
 
         if not isFinal:
-            log.info("gave up _yum_lock for %s", threading.currentThread().name)
+            log.debug("gave up _yum_lock for %s", threading.currentThread().name)
 
 def invalidates_br_cache(cond_fn=None):
     """
