@@ -202,8 +202,6 @@ def availableClasses(showHidden=0):
                 lst.append(((obj.name, obj), sortOrder))
         except (ImportError, AttributeError):
             log.warning ("module import of %s failed: %s", mainName, sys.exc_type)
-            if flags.debug: raise
-            else: continue
 
     lst.sort(_ordering)
     for (item, _) in lst:
