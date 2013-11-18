@@ -77,6 +77,10 @@ fi
 
 exit_status=0
 
+if [ -s pylint-log ]; then
+    rm pylint-log
+fi
+
 # run pylint one file / module at a time, otherwise it sometimes gets
 # confused
 if [ -z "$FILES" ]; then
@@ -101,13 +105,11 @@ else
     exit_status=1
 fi
 
-if [ "$pylint_log" -ne 0 ]; then
-    if [ -s pylint-log ]; then
-        echo "pylint reports the following issues:"
-        cat pylint-log
-    else
-        rm pylint-log
-    fi
+if [ -s pylint-log ]; then
+    echo "pylint reports the following issues:"
+    cat pylint-log
+elif [ -e pylint-log ]; then
+    rm pylint-log
 fi
 
 exit "$exit_status"

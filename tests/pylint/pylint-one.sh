@@ -10,8 +10,6 @@ fi
 
 file_suffix="$(echo $1|sed s?/?_?g)"
 
-exec > pylint-out_$file_suffix
-
 pylint_output="$(pylint \
     --msg-template='{msg_id}:{line:3d},{column}: {obj}: {msg}' \
     -r n --disable=C,R --rcfile=/dev/null \
@@ -30,9 +28,6 @@ if [ -n "$(echo "$pylint_output" | fgrep -v '************* Module ' |\
           grep -v '^I0011:')" ]; then
     # Replace the Module line with the actual filename
     pylint_output="$(echo "$pylint_output" | sed "s|\* Module .*|* Module $1|")"
-
-    if [ "$pylint_log" -ne 0 ]; then
-        echo "$pylint_output" > pylint-out_$file_suffix
-    fi
+    echo "$pylint_output" > pylint-out_$file_suffix
     touch "pylint-$file_suffix-failed"
 fi
