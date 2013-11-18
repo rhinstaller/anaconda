@@ -32,7 +32,6 @@ GISOURCES = BaseWindow.c \
 	 SpokeSelector.c \
 	 SpokeWindow.c \
 	 StandaloneWindow.c \
-	 TimezoneMap.c \
 	 LayoutIndicator.c \
 	 Lightbox.c
 
@@ -43,13 +42,12 @@ GIHDRS = BaseWindow.h \
 	 SpokeSelector.h \
 	 SpokeWindow.h \
 	 StandaloneWindow.h \
-	 TimezoneMap.h \
 	 LayoutIndicator.h \
 	 Lightbox.h
 
-NONGISOURCES = tz.c widgets-common.c
+NONGISOURCES = widgets-common.c
 
-NONGIHDRS = tz.h widgets-common.h
+NONGIHDRS = widgets-common.h
 
 SOURCES = $(GISOURCES) $(NONGISOURCES)
 

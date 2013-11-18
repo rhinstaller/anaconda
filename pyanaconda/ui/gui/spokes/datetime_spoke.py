@@ -22,7 +22,7 @@
 import logging
 log = logging.getLogger("anaconda")
 
-from gi.repository import GLib, Gdk
+from gi.repository import GLib, Gdk, TimezoneMap
 
 from pyanaconda.ui.communication import hubQ
 from pyanaconda.ui.common import FirstbootSpokeMixIn
@@ -342,6 +342,11 @@ class DatetimeSpoke(FirstbootSpokeMixIn, NormalSpoke):
     icon = "preferences-system-time-symbolic"
     title = CN_("GUI|Spoke", "DATE & _TIME")
 
+    # Hack to get libtimezonemap loaded for GtkBuilder
+    # see https://bugzilla.gnome.org/show_bug.cgi?id=712184
+    _hack = TimezoneMap.TimezoneMap()
+    del(_hack)
+
     def __init__(self, *args):
         NormalSpoke.__init__(self, *args)
 
@@ -450,10 +455,12 @@ class DatetimeSpoke(FirstbootSpokeMixIn, NormalSpoke):
                 return _("%s timezone") % get_xlated_timezone(self.data.timezone.timezone)
             else:
                 return _("Invalid timezone")
-        elif self._tzmap.get_timezone():
-            return _("%s timezone") % get_xlated_timezone(self._tzmap.get_timezone())
         else:
-            return _("Nothing selected")
+            location = self._tzmap.get_location()
+            if location and location.get_property("zone"):
+                return _("%s timezone") % get_xlated_timezone(location.get_property("zone"))
+            else:
+                return _("Nothing selected")
 
     def apply(self):
         # we could use self._tzmap.get_timezone() here, but it returns "" if
@@ -870,12 +877,23 @@ class DatetimeSpoke(FirstbootSpokeMixIn, NormalSpoke):
             return
 
         if region == "Etc":
-            # Etc timezones cannot be displayed on the map, so let's set the map
-            # to "" which sets it to "Europe/London" (UTC) without a city pin
-            self._tzmap.set_timezone("", no_signal=True)
+            # Etc timezones cannot be displayed on the map, so let's reset the
+            # location and manually set a highlight with no location pin.
+            self._tzmap.clear_location()
+            if city in ("GMT", "UTC"):
+                offset = 0.0
+            # The tzdb data uses POSIX-style signs for the GMT zones, which is
+            # the opposite of whatever everyone else expects. GMT+4 indicates a
+            # zone four hours west of Greenwich; i.e., four hours before. Reverse
+            # the sign to match the libtimezone map.
+            else:
+                # Take the part after "GMT"
+                offset = -float(city[3:])
+
+            self._tzmap.set_selected_offset(offset)
         else:
             # we don't want the timezone-changed signal to be emitted
-            self._tzmap.set_timezone(timezone, no_signal=True)
+            self._tzmap.set_timezone(timezone)
 
         # update "old" values
         self._old_city = city
@@ -921,7 +939,11 @@ class DatetimeSpoke(FirstbootSpokeMixIn, NormalSpoke):
         self._stop_and_maybe_start_time_updating(interval=5)
         self._daysFilter.refilter()
 
-    def on_timezone_changed(self, tz_map, timezone):
+    def on_location_changed(self, tz_map, location):
+        if not location:
+            return
+
+        timezone = location.get_property('zone')
         if self._set_timezone(timezone):
             # timezone successfully set
             os.environ["TZ"] = timezone

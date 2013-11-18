@@ -43,6 +43,7 @@ Source0: %{name}-%{version}.tar.bz2
 %define rpmver 4.10.0
 %define libarchivever 3.0.4
 %define langtablever 0.0.18-1
+%define libtimezonemapver 0.4.1-2
 
 BuildRequires: audit-libs-devel
 BuildRequires: gettext >= %{gettextver}
@@ -77,6 +78,7 @@ BuildRequires: desktop-file-utils
 %ifarch s390 s390x
 BuildRequires: s390utils-devel
 %endif
+BuildRequires: libtimezonemap-devel >= %{libtimezonemapver}
 
 Requires: anaconda-core = %{version}-%{release}
 Requires: anaconda-gui = %{version}-%{release}
@@ -111,6 +113,7 @@ Requires: python-nss
 Requires: pytz
 Requires: realmd
 Requires: teamd
+Requires: libtimezonemap >= %{libtimezonemapver}
 %ifarch %livearches
 Requires: usermode
 %endif
@@ -283,7 +286,6 @@ update-desktop-database &> /dev/null || :
 %{_libdir}/libAnacondaWidgets.so.*
 %{_libdir}/girepository*/AnacondaWidgets*typelib
 %{_libdir}/python*/site-packages/gi/overrides/*
-%{_datadir}/anaconda/tzmapdata/*
 
 %files widgets-devel
 %{_libdir}/libAnacondaWidgets.so

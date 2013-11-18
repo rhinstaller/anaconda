@@ -2,6 +2,7 @@
 <!-- Generated with glade 3.16.0 on Thu Oct 17 10:57:29 2013 -->
 <interface>
   <!-- interface-requires gtk+ 3.2 -->
+  <!-- interface-requires TimezoneMap 0.4 -->
   <!-- interface-requires AnacondaWidgets 1.0 -->
   <object class="GtkImage" id="addImage">
     <property name="visible">True</property>
@@ -281,10 +282,10 @@
                       </packing>
                     </child>
                     <child>
-                      <object class="AnacondaTimezoneMap" id="tzmap">
+                      <object class="CcTimezoneMap" id="tzmap">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
-                        <signal name="timezone-changed" handler="on_timezone_changed" swapped="no"/>
+                        <signal name="location-changed" handler="on_location_changed" swapped="no"/>
                       </object>
                       <packing>
                         <property name="expand">True</property>

@@ -69,6 +69,5 @@ AC_CONFIG_FILES([Makefile
                  src/Makefile
                  python/Makefile
                  data/Makefile
-                 data/pixmaps/Makefile
-                 data/tzmapdata/Makefile])
+                 data/pixmaps/Makefile])
 AC_OUTPUT
