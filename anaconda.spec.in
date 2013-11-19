@@ -52,9 +52,6 @@ BuildRequires: gobject-introspection-devel
 BuildRequires: glade-devel
 BuildRequires: pygobject3
 BuildRequires: intltool >= %{intltoolver}
-BuildRequires: libX11-devel
-BuildRequires: libXt-devel
-BuildRequires: libXxf86misc-devel
 BuildRequires: libgnomekbd-devel
 BuildRequires: libnl-devel >= %{libnlver}
 BuildRequires: libxklavier-devel
