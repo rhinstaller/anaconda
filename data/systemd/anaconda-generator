@@ -31,12 +31,11 @@ else
     service_on_tty anaconda-tmux@.service $consoletty
 fi
 
-# put a shell on tty2 and the first virtualization console we find
-for tty in tty2 hvc0 hvc1 xvc0 hvsi0 hvsi1 hvsi2; do
+# put a shell on the first virtualization console we find
+for tty in hvc0 hvc1 xvc0 hvsi0 hvsi1 hvsi2; do
     [ "$tty" = "$consoletty" ] && continue
     if [ -d /sys/class/tty/$tty ]; then
         service_on_tty anaconda-shell@.service $tty
-        [ "$tty" != "tty2" ] && break
     fi
 done
 
