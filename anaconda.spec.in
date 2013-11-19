@@ -116,7 +116,6 @@ Requires: realmd
 Requires: teamd
 %ifarch %livearches
 Requires: usermode
-Requires: zenity
 %endif
 %ifarch s390 s390x
 Requires: openssh
@@ -167,6 +166,9 @@ Requires: tigervnc-server-minimal
 Requires: libxklavier
 Requires: libgnomekbd
 Requires: nm-connection-editor
+%ifarch %livearches
+Requires: zenity
+%endif
 
 %description gui
 This package contains graphical user interface for the Anaconda installer.
