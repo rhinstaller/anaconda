@@ -978,7 +978,21 @@ if __name__ == "__main__":
 
     from pyanaconda import localization
     # Set the language before loading an interface, when it may be too late.
-    requested_lang = opts.lang or ksdata.lang.lang
+
+    # check if the LANG environmental variable is set
+    env_lang = os.environ.get("LANG")
+    if env_lang is not None:
+        # parse it using langtable
+        env_langs = localization.get_language_locales(env_lang)
+        # if parsed LANG is the same as our default language - ignore it;
+        # otherwise use it as valid language candidate
+        if env_langs and env_langs[0] != constants.DEFAULT_LANG:
+            env_lang = env_langs[0]  # the first language is the best match
+        else:
+            env_lang = None
+
+    requested_lang = opts.lang or ksdata.lang.lang or env_lang
+
     if requested_lang:
         locales = localization.get_language_locales(requested_lang)
         if locales:
