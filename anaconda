@@ -488,6 +488,15 @@ def setupDisplay(anaconda, options, addons=None):
         if vncS.vncconnectport == "":
             vncS.vncconnectport = anaconda.ksdata.vnc.port
 
+    if anaconda.displayMode == "g":
+        try:
+            from pyanaconda.ui.gui import GraphicalUserInterface
+        except ImportError:
+            stdoutLog.warning("Graphical user interface not available, falling back to text mode")
+            anaconda.displayMode = "t"
+            flags.usevnc = 0
+            flags.vncquestion = False
+
     # disable VNC over text question when not enough memory is available
     if blivet.util.total_memory() < isys.MIN_GUI_RAM:
         stdoutLog.warning("Not asking for VNC because current memory (%d) < MIN_GUI_RAM (%d)", blivet.util.total_memory(), isys.MIN_GUI_RAM)
