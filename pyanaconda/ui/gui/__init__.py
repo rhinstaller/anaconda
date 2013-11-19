@@ -21,10 +21,11 @@
 import inspect, os, sys, time, site
 import meh.ui.gui
 
-from gi.repository import Gdk, Gtk, AnacondaWidgets
+from gi.repository import Gdk, Gtk, AnacondaWidgets, Keybinder
 
 from pyanaconda.i18n import _
 from pyanaconda import product
+from pyanaconda import iutil
 
 from pyanaconda.ui import UserInterface, common
 from pyanaconda.ui.gui.utils import enlightbox, gtk_action_wait, busyCursor, unbusyCursor
@@ -36,6 +37,8 @@ log = logging.getLogger("anaconda")
 __all__ = ["GraphicalUserInterface", "QuitDialog"]
 
 _screenshotIndex = 0
+_last_screenshot_timestamp = 0
+SCREENSHOT_DELAY = 1  # in seconds
 
 ANACONDA_WINDOW_GROUP = Gtk.WindowGroup()
 
@@ -206,7 +209,10 @@ class GUIObject(common.UIObject):
 
         ANACONDA_WINDOW_GROUP.add_window(self.window)
         self.builder.connect_signals(self)
-        self.window.connect("key-release-event", self._handlePrntScreen)
+
+        # Keybinder from GI needs to be initialized before use
+        Keybinder.init()
+        Keybinder.bind("<Shift>Print", self._handlePrntScreen, [])
 
         self._check_list = []
 
@@ -224,27 +230,27 @@ class GUIObject(common.UIObject):
 
         raise IOError("Could not load UI file '%s' for object '%s'" % (self.uiFile, self))
 
-    def _handlePrntScreen(self, window, event):
+    def _handlePrntScreen(self, *args, **kwargs):
         global _screenshotIndex
+        global _last_screenshot_timestamp
+        # as a single press of the assigned key generates
+        # multiple callbacks, we need to skip additional
+        # callbacks for some time once a screenshot is taken
+        if (time.time() - _last_screenshot_timestamp) >= SCREENSHOT_DELAY:
+            # Make sure the screenshot directory exists.
+            if not os.access(self.screenshots_directory, os.W_OK):
+                os.makedirs(self.screenshots_directory)
 
-        if event.keyval != Gdk.KEY_Print:
-            return
-
-        # Make sure the screenshot directory exists.
-        if not os.access(self.screenshots_directory, os.W_OK):
-            os.mkdir(self.screenshots_directory)
-
-        fn = os.path.join(self.screenshots_directory,
-                          "screenshot-%04d.png" % _screenshotIndex)
-
-        win = window.get_window()
-        width = win.get_width()
-        height = win.get_height()
-
-        pixbuf = Gdk.pixbuf_get_from_window(win, 0, 0, width, height)
-        pixbuf.savev(fn, "png", [], [])
-
-        _screenshotIndex += 1
+            fn = os.path.join(self.screenshots_directory,
+                              "screenshot-%04d.png" % _screenshotIndex)
+            rc = iutil.execWithRedirect("scrot", [fn])
+            if rc == 0:
+                log.info("screenshot nr. %d taken" % _screenshotIndex)
+                _screenshotIndex += 1
+            else:
+                log.error("taking screenshot failed")
+            # start counting from the time the screenshot operation is done
+            _last_screenshot_timestamp = time.time()
 
     @property
     def window(self):

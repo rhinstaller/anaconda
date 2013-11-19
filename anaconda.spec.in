@@ -165,6 +165,8 @@ Requires: nm-connection-editor
 %ifarch %livearches
 Requires: zenity
 %endif
+Requires: scrot
+Requires: keybinder3
 
 %description gui
 This package contains graphical user interface for the Anaconda installer.
