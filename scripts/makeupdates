@@ -497,6 +497,10 @@ def check_for_new_packages(tag, arch, added_rpms, specfile_path):
         else:
             version = ""
 
+        # skip requires of our own packages
+        if version == "%{version}-%{release}":
+            continue
+
         # handle version variables (%{package-namever})
         if version.startswith("%"):
             # drop the %{ prefix and ver} suffix
