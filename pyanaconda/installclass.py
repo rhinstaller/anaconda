@@ -32,7 +32,6 @@ from blivet.platform import platform
 import logging
 log = logging.getLogger("anaconda")
 
-from pyanaconda.flags import flags
 from pyanaconda.kickstart import getAvailableDiskSpace
 
 class BaseInstallClass(object):
