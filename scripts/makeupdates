@@ -155,7 +155,15 @@ def check_package_version(filename, package):
     filename = os.path.basename(filename)
     # split the name into components
     pkg_tuple = get_pkg_tuple(filename)
-    return miscutils.rangeCheck(package.req_tuple, pkg_tuple)
+    # get release ids for request and the package
+    request_release = package.req_tuple[2][2]
+    package_release = pkg_tuple[4]
+    # rangeCheck actually ignores different release ids,
+    # so we need to do it here
+    if request_release != package_release:
+        return False
+    else:
+        return bool(miscutils.rangeCheck(package.req_tuple, pkg_tuple))
 
 def doGitDiff(tag, args=None):
     if args is None:
@@ -413,6 +421,7 @@ def check_for_new_packages(tag, arch, added_rpms, specfile_path):
     version_vars = {}
     all_used_version_vars = {}
     fedora_number = get_fedora_version()
+    release_id = "fc%s" % fedora_number
 
     Package = namedtuple("Package", "name version version_request req_tuple")
 
@@ -469,8 +478,8 @@ def check_for_new_packages(tag, arch, added_rpms, specfile_path):
         for package_name, version_request in packages_using_this_define:
             if not version.count("-"):
                 version = "%s-1" % version
-            pkg_name = "%s-%s.fc%s.%s.rpm" % (package_name, version,
-                                              fedora_number, arch)
+            pkg_name = "%s-%s.%s.%s.rpm" % (package_name, version,
+                                            release_id, arch)
             pkg_tuple = get_pkg_tuple(pkg_name)
             req_tuple = get_req_tuple(pkg_tuple, version_request)
             new_packages[package_name] = Package(package_name, version,
@@ -522,7 +531,7 @@ def check_for_new_packages(tag, arch, added_rpms, specfile_path):
             # newest package will be fetched from Koji anyway
             if not version.count("-"):
                 version = "%s-1" % version
-            pkg_name = "%s-%s.fc%s.%s.rpm" % (package_name, version, fedora_number, arch)
+            pkg_name = "%s-%s.%s.%s.rpm" % (package_name, version, release_id, arch)
             pkg_tuple = get_pkg_tuple(pkg_name)
         else:
             pkg_tuple = (package_name, arch, '', '', '')
@@ -556,14 +565,15 @@ def check_for_new_packages(tag, arch, added_rpms, specfile_path):
         except ValueError:
             print("malformed RPM name ? : %s" % path)
     # remove available packages from the list
-    new_packages, include_rpms = remove_local_packages(new_packages, arch, added_names)
+    new_packages, include_rpms = remove_local_packages(new_packages, arch,
+                                                       release_id, added_names)
     # if some packages are not locally available, download them from Koji
     if new_packages:
         include_rpms.extend(get_RPMs_from_koji(new_packages, fedora_number, arch))
     # return absolute paths for the packages
     return map(os.path.abspath, include_rpms)
 
-def remove_local_packages(packages, arch, added_rpms):
+def remove_local_packages(packages, arch, release_id, added_rpms):
     """Remove locally available RPMs from the list of needed packages,
     return locally unavailable packages and paths to relevant locally
     available RPMs for inclusion"""
@@ -604,8 +614,13 @@ def remove_local_packages(packages, arch, added_rpms):
         if proc.returncode != 0:
             continue
         name, version, release = proc_output[0].split()
-        # add the build number, extracted from release
-        version_build = "%s-%s" % (version, release.split(".")[0])
+        # get the build number and release id
+        build_id, package_release_id = release.split(".", 1)
+        # skip cached RPMs that have different release id
+        if package_release_id != release_id:
+            continue
+        # add the build id to the version string
+        version_build = "%s-%s" % (version, build_id)
         # check if the package is needed
         if name in packages:
             package = packages[name]
