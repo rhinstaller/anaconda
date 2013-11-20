@@ -51,11 +51,16 @@ class SummaryHub(TUIHub):
     # override the prompt so that we can skip user input on kickstarts
     # where all the data is in hand.  If not in hand, do the actual prompt.
     def prompt(self, args=None):
-        if flags.automatedInstall and \
-        all(spoke.completed for spoke in self._keys.values() if spoke.mandatory):
+        incompleteSpokes = [spoke for spoke in self._keys.values()
+                                      if spoke.mandatory and not spoke.completed]
+
+        if flags.automatedInstall and not incompleteSpokes:
             self.close()
             return None
+
         if not flags.ksprompt:
-            errtxt = _("Can't have a question in command line mode!")
+            errtxt = _("The following mandatory spokes are not completed:") + \
+                     "\n" + "\n".join(spoke.title for spoke in incompleteSpokes)
             raise RuntimeError(errtxt)
+
         return TUIHub.prompt(self, args)
