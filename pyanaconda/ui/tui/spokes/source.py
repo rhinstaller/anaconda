@@ -324,6 +324,7 @@ class SourceSpoke(SourceSwitchHandler, EditTUISpoke):
                 try:
                     env = self.payload.environments
                     grp = self.payload.groups
+                    self.errors = []
                 except MetadataError:
                     self.errors.append(_("No installation source available"))
 
