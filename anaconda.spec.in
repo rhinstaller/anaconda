@@ -297,6 +297,22 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Wed Nov 20 2013 Brian C. Lane <bcl@redhat.com> - 21.8-1
+- Fix geolocation on live installs (mkolman)
+- Ignore the pylint warning on importing GraphicalUserInterface. (clumens)
+- Fall back to text mode if GUI is not available (vpodzime)
+- Get rid of unused isys.isCapsLockEnabled function (vpodzime)
+- Don't rely on having zenity and require it only for GUI (vpodzime)
+- No longer need the Gconf2 package (vpodzime)
+- Split out anaconda's user interfaces into separate packages (vpodzime)
+- Do not include tzmapdata into the main package (vpodzime)
+- Create directories for stubs if they don't exist (vpodzime)
+- Do not try to fetch our own packages that will be built (vpodzime)
+- Remove the unused flags import from installclass.py. (clumens)
+- Fix logging of pylint-one output (bcl)
+- Do yum lock logging only with inst.debug or loglevel=debug (vpodzime)
+- Don't panic on installclasses failing with inst.debug (vpodzime)
+
 * Mon Nov 18 2013 Brian C. Lane <bcl@redhat.com> - 21.7-1
 - Expand the use of ANACONDA_WIDGETS_DATADIR. (dshea)
 - Make thread manager operations atomic (#1029898) (mkolman)
