@@ -125,6 +125,8 @@ class SoftwareSpoke(NormalTUISpoke):
             self._window.append(TextWidget(""))
             return True
 
+        threadMgr.wait(THREAD_CHECK_SOFTWARE)
+
         # put a title above the list and some space below it
         self._window.append(TextWidget(_("Base environment")))
         self._window.append(TextWidget(""))

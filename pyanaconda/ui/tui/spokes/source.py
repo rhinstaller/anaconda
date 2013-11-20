@@ -118,6 +118,7 @@ class SourceSpoke(EditTUISpoke):
     def refresh(self, args=None):
         EditTUISpoke.refresh(self, args)
 
+        threadMgr.wait(THREAD_PAYLOAD)
         threadMgr.wait(THREAD_PAYLOAD_MD)
 
         _methods = [_("CD/DVD"), _("Network")]
