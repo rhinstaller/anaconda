@@ -1467,7 +1467,16 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
 
             # And then we need to re-check that the max size is actually
             # different from the current size.
-            if size != device.size:
+            _changed_size = False
+            if size != device.size and int(size) == int(device.currentSize):
+                # size has been set back to its original value
+                actions = self.__storage.devicetree.findActions(type="resize",
+                                                                devid=device.id)
+                with ui_storage_logger():
+                    for action in actions:
+                        self.__storage.devicetree.cancelAction(action)
+                        _changed_size = True
+            elif size != device.size:
                 log.debug("scheduling resize of device %s to %s MB", device.name, size)
 
                 with ui_storage_logger():
@@ -1481,14 +1490,16 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
                                            "Click for details."))
                         self.window.show_all()
                     else:
-                        log.debug("%r", device)
-                        log.debug("new size: %s", device.size)
-                        log.debug("target size: %s", device.targetSize)
+                        _changed_size = True
 
-                        # update the selector's size property
-                        for s in self._accordion.allSelectors:
-                            if s._device == device:
-                                s.size = size_str(device.size)
+            if _changed_size:
+                log.debug("new size: %s", device.size)
+                log.debug("target size: %s", device.targetSize)
+
+                # update the selector's size property
+                for s in self._accordion.allSelectors:
+                    if s._device == device:
+                        s.size = size_str(device.size)
 
                 # update size props of all btrfs devices' selectors
                 self._update_selectors()
