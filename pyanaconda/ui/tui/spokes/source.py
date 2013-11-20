@@ -203,6 +203,7 @@ class SourceSpoke(EditTUISpoke):
                     self.payload.environments
                     # pylint: disable-msg=W0104
                     self.payload.groups
+                    self.errors = []
                 except MetadataError:
                     self.errors.append(_("No installation source available"))
 
