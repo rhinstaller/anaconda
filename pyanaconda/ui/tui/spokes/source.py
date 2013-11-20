@@ -94,7 +94,7 @@ class SourceSpoke(EditTUISpoke):
     def status(self):
         if self.errors:
             return _("Error setting up software source")
-        elif not self._ready:
+        elif not self.ready:
             return _("Processing...")
         else:
             return self._repo_status()
