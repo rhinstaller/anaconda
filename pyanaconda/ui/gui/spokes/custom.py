@@ -1457,9 +1457,17 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
 
             # And then we need to re-check that the max size is actually
             # different from the current size.
-            if size != device.size:
-                log.debug("scheduling resize of device %s to %s MB"
-                            % (device.name, size))
+            _changed_size = False
+            if size != device.size and int(size) == int(device.currentSize):
+                # size has been set back to its original value
+                actions = self.__storage.devicetree.findActions(type="resize",
+                                                                devid=device.id)
+                with ui_storage_logger():
+                    for action in reversed(actions):
+                        self.__storage.devicetree.cancelAction(action)
+                        _changed_size = True
+            elif size != device.size:
+                log.debug("scheduling resize of device %s to %s MB", device.name, size)
 
                 with ui_storage_logger():
                     try:
@@ -1472,6 +1480,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
                                            "Click for details."))
                         self.window.show_all()
                     else:
+<<<<<<< HEAD
                         log.debug("%r" % device)
                         log.debug("new size: %s" % device.size)
                         log.debug("target size: %s" % device.targetSize)
@@ -1480,6 +1489,18 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
                         for s in self._accordion.allSelectors:
                             if s._device == device:
                                 s.size = size_str(device.size)
+=======
+                        _changed_size = True
+
+            if _changed_size:
+                log.debug("new size: %s", device.size)
+                log.debug("target size: %s", device.targetSize)
+
+                # update the selector's size property
+                for s in self._accordion.allSelectors:
+                    if s._device == device:
+                        s.size = size_str(device.size)
+>>>>>>> a01d78f... Handle cancelation of device resize in the custom spoke. (#1027947)
 
                 # update size props of all btrfs devices' selectors
                 self._update_selectors()
