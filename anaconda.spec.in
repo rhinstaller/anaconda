@@ -251,6 +251,16 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Wed Nov 20 2013 Brian C. Lane <bcl@redhat.com> - 20.25.9-1
+- Fix geolocation on live installs (mkolman)
+- Use timing decorator for more actions (vpodzime)
+- A nice decorator making Anaconda's GUI more responsive (#1032026) (vpodzime)
+- Short-circuit layouts matching (vpodzime)
+- Remove the unused flags import from installclass.py. (clumens)
+- Do yum lock logging only with inst.debug or loglevel=debug (vpodzime)
+- Don't panic on installclasses failing with inst.debug (vpodzime)
+- Make thread manager operations atomic (#1029898) (mkolman)
+
 * Fri Nov 15 2013 Brian C. Lane <bcl@redhat.com> - 20.25.8-1
 - Pass biosdevname boot option to installed system (#1023609) (rvykydal)
 - Enforce upper bound for resize. (#1027947) (dlehman)

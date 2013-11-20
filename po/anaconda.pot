@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: anaconda 20.25.7\n"
+"Project-Id-Version: anaconda 20.25.8\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
-"POT-Creation-Date: 2013-11-15 16:36-0800\n"
+"POT-Creation-Date: 2013-11-20 08:48-0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -369,7 +369,7 @@ msgstr ""
 
 #: pyanaconda/rescue.py:333 pyanaconda/rescue.py:366 pyanaconda/rescue.py:379
 #: pyanaconda/rescue.py:447 pyanaconda/rescue.py:463 pyanaconda/rescue.py:474
-#: anaconda:410
+#: anaconda:416
 msgid "OK"
 msgstr ""
 
@@ -1614,15 +1614,15 @@ msgstr ""
 msgid "%s to switch layouts."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/keyboard.py:271
+#: pyanaconda/ui/gui/spokes/keyboard.py:259
 msgid "_KEYBOARD"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/keyboard.py:346
+#: pyanaconda/ui/gui/spokes/keyboard.py:334
 msgid "Testing layouts configuration not available."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/keyboard.py:398
+#: pyanaconda/ui/gui/spokes/keyboard.py:386
 msgid "Layout switching not configured."
 msgstr ""
 
@@ -2121,50 +2121,50 @@ msgstr ""
 msgid "Passphrases do not match."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/lib/resize.py:48
+#: pyanaconda/ui/gui/spokes/lib/resize.py:49
 msgid "Preserve"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/lib/resize.py:49
+#: pyanaconda/ui/gui/spokes/lib/resize.py:50
 msgid "Shrink"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/lib/resize.py:50
+#: pyanaconda/ui/gui/spokes/lib/resize.py:51
 msgid "Delete"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/lib/resize.py:108
+#: pyanaconda/ui/gui/spokes/lib/resize.py:109
 msgid "This device contains the installation source."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/lib/resize.py:153
+#: pyanaconda/ui/gui/spokes/lib/resize.py:154
 #, python-format
 msgid "%(freeSize)s of %(devSize)s"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/lib/resize.py:159
+#: pyanaconda/ui/gui/spokes/lib/resize.py:160
 msgid "Not resizeable"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/lib/resize.py:178
+#: pyanaconda/ui/gui/spokes/lib/resize.py:179
 msgid "<span foreground='grey' style='italic'>Free space</span>"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/lib/resize.py:197
+#: pyanaconda/ui/gui/spokes/lib/resize.py:198
 msgid ""
 "You can remove existing filesystems you no longer need to free up space for "
 "this installation.  Removing a filesystem will permanently delete all of the "
 "data it contains."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/lib/resize.py:203
+#: pyanaconda/ui/gui/spokes/lib/resize.py:204
 msgid ""
 "There is also free space available in pre-existing filesystems.  While it's "
 "risky and we recommend you back up your data first, you can recover that "
 "free disk space and make it available for this installation below."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/lib/resize.py:212
+#: pyanaconda/ui/gui/spokes/lib/resize.py:213
 #, python-format
 msgid "<b>%(count)s disk; %(size)s reclaimable space</b> (in filesystems)"
 msgid_plural ""
@@ -2172,18 +2172,18 @@ msgid_plural ""
 msgstr[0] ""
 msgstr[1] ""
 
-#: pyanaconda/ui/gui/spokes/lib/resize.py:218
+#: pyanaconda/ui/gui/spokes/lib/resize.py:219
 #, python-format
 msgid "Total selected space to reclaim: <b>%s</b>"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/lib/resize.py:403
-#: pyanaconda/ui/gui/spokes/lib/resize.py:408
+#: pyanaconda/ui/gui/spokes/lib/resize.py:404
+#: pyanaconda/ui/gui/spokes/lib/resize.py:409
 #: pyanaconda/ui/gui/spokes/lib/resize.glade.h:12
 msgid "Delete _all"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/lib/resize.py:405
+#: pyanaconda/ui/gui/spokes/lib/resize.py:406
 msgid "Preserve _all"
 msgstr ""
 
@@ -3772,31 +3772,31 @@ msgstr ""
 msgid "Welcome to Fedora"
 msgstr ""
 
-#: anaconda:366
+#: anaconda:372
 #, python-format
 msgid ""
 "%(product_name)s requires %(needed_ram)s MB of memory to install, but you "
 "only have %(total_ram)s MB on this machine.\n"
 msgstr ""
 
-#: anaconda:368
+#: anaconda:374
 #, python-format
 msgid ""
 "The %(product_name)s graphical installer requires %(needed_ram)s MB of "
 "memory, but you only have %(total_ram)s MB."
 msgstr ""
 
-#: anaconda:371
+#: anaconda:377
 msgid ""
 "\n"
 "Press <return> to reboot your system.\n"
 msgstr ""
 
-#: anaconda:373
+#: anaconda:379
 msgid "Not enough RAM"
 msgstr ""
 
-#: anaconda:374
+#: anaconda:380
 msgid ""
 " Try the text mode installer by running:\n"
 "\n"
@@ -3805,35 +3805,35 @@ msgid ""
 " from a root terminal."
 msgstr ""
 
-#: anaconda:377
+#: anaconda:383
 msgid " Starting text mode."
 msgstr ""
 
-#: anaconda:408
+#: anaconda:414
 msgid "Fatal Error"
 msgstr ""
 
-#: anaconda:519
+#: anaconda:525
 msgid "DISPLAY variable not set. Starting text mode."
 msgstr ""
 
-#: anaconda:527
+#: anaconda:533
 msgid "Graphical installation is not available. Starting text mode."
 msgstr ""
 
-#: anaconda:535
+#: anaconda:541
 msgid ""
 "Text mode provides a limited set of installation options. It does not offer "
 "custom partitioning for full control over the disk layout. Would you like to "
 "use VNC mode instead?"
 msgstr ""
 
-#: anaconda:654
+#: anaconda:660
 #, python-format
 msgid "Please ssh install@%s to begin the install."
 msgstr ""
 
-#: anaconda:656
+#: anaconda:662
 msgid "Please ssh install@<host> to continue installation."
 msgstr ""
 
