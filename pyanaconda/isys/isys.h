@@ -28,7 +28,4 @@ int rmmod(char * modName);
 /* returns 0 for true, !0 for false */
 int fileIsIso(const char * file);
 
-/* returns 1 if on an iSeries vio console, 0 otherwise */
-int isVioConsole(void);
-
 #endif

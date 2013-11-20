@@ -20,17 +20,13 @@
 pkgpyexecdir = $(pyexecdir)/py$(PACKAGE_NAME)
 
 ISYS_SRCS = devices.c lang.c \
-            isofs.c linkdetect.c vio.c ethtool.c eddsupport.c iface.c \
-            auditd.c log.c mem.c
+            isofs.c linkdetect.c ethtool.c eddsupport.c
 
 dist_noinst_HEADERS = $(srcdir)/*.h
 
 ISYS_CFLAGS = -DVERSION_RELEASE='"$(PACKAGE_VERSION)-$(PACKAGE_RELEASE)"' \
-              $(NETWORKMANAGER_CFLAGS) $(LIBNL_CFLAGS) $(LIBNM_GLIB_CFLAGS) \
-              $(SELINUX_CFLAGS)
-ISYS_LIBS   = $(RESOLV_LIBS) $(ZLIB_LIBS) \
-              $(DEVMAPPER_LIBS) $(SELINUX_LIBS) \
-              $(LIBNL_LIBS) $(LIBNM_GLIB_LIBS)
+              $(LIBNL_CFLAGS) $(GLIB_CFLAGS)
+ISYS_LIBS   = $(DEVMAPPER_LIBS) $(LIBNL_LIBS) $(GLIB_LIBS)
 
 isysdir     = $(pkgpyexecdir)/isys
 isys_PYTHON = $(srcdir)/*.py

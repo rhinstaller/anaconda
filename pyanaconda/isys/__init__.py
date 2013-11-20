@@ -33,7 +33,6 @@ import os
 import os.path
 import socket
 import stat
-import posix
 import sys
 from pyanaconda import iutil
 import blivet.arch
@@ -55,22 +54,6 @@ else:
 
 MIN_GUI_RAM = MIN_RAM + GUI_INSTALL_EXTRA_RAM
 EARLY_SWAP_RAM = 896 * 1024
-
-## Get the amount of free space available under a directory path.
-# @param path The directory path to check.
-# @return The amount of free space available, in
-def pathSpaceAvailable(path):
-    return _isys.devSpaceFree(path)
-
-def modulesWithPaths():
-    mods = []
-    for modline in open("/proc/modules", "r"):
-        modName = modline.split(" ", 1)[0]
-        modInfo = iutil.execWithCapture("modinfo",
-                ["-F", "filename", modName]).splitlines()
-        modPaths = [ line.strip() for line in modInfo if line!="" ]
-        mods.extend(modPaths)
-    return mods
 
 def isPseudoTTY (fd):
     return _isys.isPseudoTTY (fd)
@@ -156,12 +139,38 @@ def set_system_date_time(year=None, month=None, day=None, hour=None, minute=None
     time_struct = time.struct_time((year, month, day, hour, minute, second, 0, 0, local))
     set_system_time(int(time.mktime(time_struct)))
 
-auditDaemon = _isys.auditdaemon
+def total_memory():
+    """Returns total system memory in kB (given to us by /proc/meminfo)"""
+
+    with open("/proc/meminfo", "r") as fobj:
+        for line in fobj:
+            if not line.startswith("MemTotal"):
+                # we are only interested in the MemTotal: line
+                continue
+
+            fields = line.split()
+            if len(fields) != 3:
+                log.error("unknown format for MemTotal line in /proc/meminfo: %s", line.rstrip())
+                raise RuntimeError("unknown format for MemTotal line in /proc/meminfo: %s" % line.rstrip())
+
+            try:
+                memsize = int(fields[1])
+            except ValueError:
+                log.error("ivalid value of MemTotal /proc/meminfo: %s", fields[1])
+                raise RuntimeError("ivalid value of MemTotal /proc/meminfo: %s" % fields[1])
+
+            # Because /proc/meminfo only gives us the MemTotal (total physical
+            # RAM minus the kernel binary code), we need to round this
+            # up. Assuming every machine has the total RAM MB number divisible
+            # by 128.
+            memsize /= 1024
+            memsize = (memsize / 128 + 1) * 128
+            memsize *= 1024
+
+            log.info("%d kB (%d MB) are available", memsize, memsize / 1024)
+            return memsize
+
+        log.error("MemTotal: line not found in /proc/meminfo")
+        raise RuntimeError("MemTotal: line not found in /proc/meminfo")
 
 handleSegv = _isys.handleSegv
-
-printObject = _isys.printObject
-bind_textdomain_codeset = _isys.bind_textdomain_codeset
-isVioConsole = _isys.isVioConsole
-initLog = _isys.initLog
-total_memory = _isys.total_memory
