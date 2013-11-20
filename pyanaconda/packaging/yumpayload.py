@@ -112,15 +112,16 @@ class YumLock(object):
         if not isFinal:
             log.debug("gave up _yum_lock for %s", threading.currentThread().name)
 
-def invalidates_br_cache(cond_fn=None):
+def refresh_base_repo(cond_fn=None):
     """
-    Function returning decorator for methods that invalidate base repo cache.
-    After the method has been run the base repo will be re-validated
+    Function returning decorator for methods that invalidate base repo.
+    After the method has been run the base repo will be refreshed
 
     :param cond_fn: condition function telling if base repo should be
                     invalidated or not (HAS TO TAKE THE SAME ARGUMENTS AS THE
                     DECORATED FUNCTION)
 
+    While the method runs the base_repo is set to None.
     """
     def decorator(method):
         """
@@ -131,10 +132,13 @@ def invalidates_br_cache(cond_fn=None):
         """
         @wraps(method)
         def inner_method(yum_payload, *args, **kwargs):
+            if cond_fn is None or cond_fn(yum_payload, *args, **kwargs):
+                with yum_payload._base_repo_lock:
+                    yum_payload._base_repo = None
+
             ret = method(yum_payload, *args, **kwargs)
 
             if cond_fn is None or cond_fn(yum_payload, *args, **kwargs):
-                yum_payload.invalidate_br_cache()
                 yum_payload._refreshBaseRepo()
             return ret
 
@@ -172,16 +176,10 @@ class YumPayload(PackagePayload):
         self._requiredGroups = []
 
         # base repo caching
-        self._cached_base_repo = None
-        self._br_cache_valid = False
-        self._br_cache_valid_lock = threading.RLock()
+        self._base_repo = None
+        self._base_repo_lock = threading.RLock()
 
         self.reset()
-
-    def invalidate_br_cache(self):
-        """ Invalidates base repo cache. """
-        with self._br_cache_valid_lock:
-            self._br_cache_valid = False
 
     def reset(self, root=None, releasever=None):
         """ Reset this instance to its initial (unconfigured) state. """
@@ -421,38 +419,30 @@ reposdir=%s
 
         return _repos
 
-    def getBaseRepo(self):
-        """ Return the cached base repo id, if it is valid.
-            Otherwise, re-validate it and return it.
+    @property
+    def baseRepo(self):
+        """ Return the current base repo id
+            :returns: repo id or None
 
-            This should result in minmal access to _yum_lock, especially
-            since the methods that would invalidate the cached value also
-            re-validate it after they have been run. These methods are
-            decorated with @invalidates_br_cache
+            Methods that change (or could change) the base_repo
+            need to be decorated with @refresh_base_repo
         """
-        with self._br_cache_valid_lock:
-            if self._br_cache_valid:
-                return self._cached_base_repo
-
-        self._refreshBaseRepo()
-        return self._cached_base_repo
+        return self._base_repo
 
     def _refreshBaseRepo(self):
+        """ Examine the enabled repos and update _base_repo
+        """
         with _yum_lock:
             for repo_name in BASE_REPO_NAMES:
                 if repo_name in self.repos and \
                    self._yum.repos.getRepo(repo_name).enabled:
-                    with self._br_cache_valid_lock:
-                        # cache the value for multiple use
-                        self._cached_base_repo = repo_name
-                        self._br_cache_valid = True
+                    with self._base_repo_lock:
+                        self._base_repo = repo_name
                     break
             else:
                 # didn't find any base repo set and enabled
-                with self._br_cache_valid_lock:
-                    # set the cache to None, but make it valid
-                    self._cached_base_repo = None
-                    self._br_cache_valid = True
+                with self._base_repo_lock:
+                    self._base_repo = None
 
     @property
     def mirrorEnabled(self):
@@ -476,7 +466,7 @@ reposdir=%s
             return super(YumPayload, self).isRepoEnabled(repo_id)
 
     # pylint: disable-msg=W0221
-    @invalidates_br_cache()
+    @refresh_base_repo()
     def updateBaseRepo(self, fallback=True, root=None, checkmount=True):
         """ Update the base repo based on self.data.method.
 
@@ -603,7 +593,7 @@ reposdir=%s
                     # if a method/repo was given, disable all default repos
                     self.disableRepo(repo.id)
 
-    @invalidates_br_cache()
+    @refresh_base_repo()
     def gatherRepoMetadata(self):
         # now go through and get metadata for all enabled repos
         log.info("gathering repo metadata")
@@ -634,6 +624,7 @@ reposdir=%s
             return dev[len(DRACUT_ISODIR)+1:]
         return None
 
+    @refresh_base_repo()
     def _configureAddOnRepo(self, repo):
         """ Configure a single ksdata repo. """
         url = repo.baseurl
@@ -769,7 +760,6 @@ reposdir=%s
 
         return url
 
-    @invalidates_br_cache(lambda s, n, *args, **kwargs: n in BASE_REPO_NAMES)
     def _addYumRepo(self, name, baseurl, mirrorlist=None, proxyurl=None, **kwargs):
         """ Add a yum repo to the YumBase instance. """
         from yum.Errors import RepoError
@@ -831,13 +821,13 @@ reposdir=%s
         self._groups = None
         self._packages = []
 
+    @refresh_base_repo(lambda s, r_id: r_id in BASE_REPO_NAMES)
     def addRepo(self, newrepo):
         """ Add a ksdata repo. """
         log.debug("adding new repo %s", newrepo.name)
         self._addYumRepo(newrepo.name, newrepo.baseurl, newrepo.mirrorlist, newrepo.proxy)   # FIXME: handle MetadataError
         super(YumPayload, self).addRepo(newrepo)
 
-    @invalidates_br_cache(lambda s, r_id: r_id in BASE_REPO_NAMES)
     def _removeYumRepo(self, repo_id):
         if repo_id in self.repos:
             with _yum_lock:
@@ -845,12 +835,10 @@ reposdir=%s
                 self._groups = None
                 self._packages = []
 
+    @refresh_base_repo(lambda s, r_id: r_id in BASE_REPO_NAMES)
     def removeRepo(self, repo_id):
         """ Remove a repo as specified by id. """
         log.debug("removing repo %s", repo_id)
-
-        with self._br_cache_valid_lock:
-            self._br_cache_valid = False
 
         # if this is an NFS repo, we'll want to unmount the NFS mount after
         # removing the repo
@@ -870,26 +858,18 @@ reposdir=%s
             except SystemError as e:
                 log.error("failed to unmount nfs repo %s: %s", mountpoint, e)
 
-    @invalidates_br_cache(lambda s, r_id: r_id in BASE_REPO_NAMES)
+    @refresh_base_repo(lambda s, r_id: r_id in BASE_REPO_NAMES)
     def enableRepo(self, repo_id):
         """ Enable a repo as specified by id. """
-
-        with self._br_cache_valid_lock:
-            self._br_cache_valid = False
-
         log.debug("enabling repo %s", repo_id)
         if repo_id in self.repos:
             with _yum_lock:
                 self._yum.repos.enableRepo(repo_id)
         super(YumPayload, self).enableRepo(repo_id)
 
-    @invalidates_br_cache(lambda s, r_id: r_id in BASE_REPO_NAMES)
+    @refresh_base_repo(lambda s, r_id: r_id in BASE_REPO_NAMES)
     def disableRepo(self, repo_id):
         """ Disable a repo as specified by id. """
-
-        with self._br_cache_valid_lock:
-            self._br_cache_valid = False
-
         log.debug("disabling repo %s", repo_id)
         if repo_id in self.repos:
             with _yum_lock:

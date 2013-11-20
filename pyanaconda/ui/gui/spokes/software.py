@@ -172,7 +172,7 @@ class SoftwareSelectionSpoke(NormalSpoke):
         return bool(not threadMgr.get(constants.THREAD_SOFTWARE_WATCHER) and
                     not threadMgr.get(constants.THREAD_PAYLOAD_MD) and
                     not threadMgr.get(constants.THREAD_CHECK_SOFTWARE) and
-                    self.payload.getBaseRepo())
+                    self.payload.baseRepo is not None)
 
     @property
     def showable(self):

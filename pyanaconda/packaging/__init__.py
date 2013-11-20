@@ -147,9 +147,10 @@ class Payload(object):
         """ A list of addon repo identifiers. """
         return [r.name for r in self.data.repo.dataList()]
 
-    def getBaseRepo(self):
+    @property
+    def baseRepo(self):
         """
-        Get the identifier of the current base repo.
+        Get the identifier of the current base repo. or None
         """
         return None
 

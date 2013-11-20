@@ -80,7 +80,7 @@ class SoftwareSpoke(NormalTUISpoke):
             return _("Error checking software selection")
         if not self.ready:
             return _("Processing...")
-        if not self.payload.getBaseRepo():
+        if not self.payload.baseRepo:
             return _("Installation source not set up")
         if not self.txid_valid:
             return _("Source changed - please verify")
@@ -110,15 +110,15 @@ class SoftwareSpoke(NormalTUISpoke):
                          not self.errors and self.txid_valid
 
         if flags.automatedInstall:
-            return processingDone and self.payload.getBaseRepo() and self.data.packages.seen
+            return processingDone and self.payload.baseRepo and self.data.packages.seen
         else:
-            return self.payload.getBaseRepo() and self.environment is not None and processingDone
+            return self.payload.baseRepo and self.environment is not None and processingDone
 
     def refresh(self, args=None):
         """ Refresh screen. """
         NormalTUISpoke.refresh(self, args)
 
-        if not self.payload.getBaseRepo():
+        if not self.payload.baseRepo:
             message = TextWidget(_("Installation source needs to be set up first."))
             self._window.append(message)
 
