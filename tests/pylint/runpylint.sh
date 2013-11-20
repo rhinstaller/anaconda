@@ -91,7 +91,7 @@ fi
 
 num_cpus=$(getconf _NPROCESSORS_ONLN)
 # run pylint in paralel
-echo $FILES | xargs --max-procs=$num_cpus -n 1 "$srcdir"/pylint-one.sh
+echo $FILES | xargs --max-procs=$num_cpus -n 1 "$srcdir"/pylint-one.sh || exit 1
 
 for file in $(find -name 'pylint-out*'); do
     cat "$file" >> pylint-log
