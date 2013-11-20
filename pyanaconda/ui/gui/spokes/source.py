@@ -350,7 +350,7 @@ class SourceSpoke(NormalSpoke):
             # this preserves the url for later editing
             self.data.method.method = None
             self.data.method.proxy = self._proxyUrl
-            if not old_source.method and self.payload.getBaseRepo() and \
+            if not old_source.method and self.payload.baseRepo and \
                not self._proxyChange:
                 return False
         elif self._http_active() or self._ftp_active():
@@ -457,7 +457,7 @@ class SourceSpoke(NormalSpoke):
             hubQ.send_message(self.__class__.__name__, _(METADATA_DOWNLOAD_MESSAGE))
             self.payload.gatherRepoMetadata()
             self.payload.release()
-            if not self.payload.getBaseRepo():
+            if not self.payload.baseRepo:
                 hubQ.send_message(self.__class__.__name__, _(METADATA_ERROR_MESSAGE))
                 hubQ.send_ready(self.__class__.__name__, False)
                 self._error = True
@@ -489,10 +489,10 @@ class SourceSpoke(NormalSpoke):
 
     @property
     def completed(self):
-        if flags.automatedInstall and (not self.data.method.method or not self.payload.getBaseRepo()):
+        if flags.automatedInstall and (not self.data.method.method or not self.payload.baseRepo):
             return False
         else:
-            return not self._error and self.ready and (self.data.method.method or self.payload.getBaseRepo())
+            return not self._error and self.ready and (self.data.method.method or self.payload.baseRepo)
 
     @property
     def mandatory(self):
@@ -511,7 +511,7 @@ class SourceSpoke(NormalSpoke):
             return _("Checking software dependencies...")
         elif not self.ready:
             return _(BASEREPO_SETUP_MESSAGE)
-        elif not self.payload.getBaseRepo():
+        elif not self.payload.baseRepo:
             return _("Error setting up base repository")
         elif self._error:
             return _("Error setting up software source")
@@ -525,7 +525,7 @@ class SourceSpoke(NormalSpoke):
             if not self._currentIsoFile:
                 return _("Error setting up ISO file")
             return os.path.basename(self._currentIsoFile)
-        elif self.payload.getBaseRepo():
+        elif self.payload.baseRepo:
             return _("Closest mirror")
         else:
             return _("Nothing selected")
