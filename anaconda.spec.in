@@ -252,6 +252,10 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Thu Nov 21 2013 Brian C. Lane <bcl@redhat.com> - 19.31.36-1
+- Network protocols don't list Closest mirror first (vpodzime)
+  Resolves: rhbz#1028697
+
 * Mon Nov 18 2013 Brian C. Lane <bcl@redhat.com> - 19.31.35-1
 - Set spokes' distribution and beta warning only once (vpodzime)
   Related: rhbz#1028370

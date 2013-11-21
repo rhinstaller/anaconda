@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: anaconda 19.31.34\n"
+"Project-Id-Version: anaconda 19.31.35\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
-"POT-Creation-Date: 2013-11-18 08:59-0800\n"
+"POT-Creation-Date: 2013-11-21 12:20-0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1007,6 +1007,7 @@ msgstr ""
 #: pyanaconda/ui/tui/spokes/source.py:150
 #: pyanaconda/ui/tui/spokes/source.py:200
 #: pyanaconda/ui/gui/spokes/source.py:502
+#: pyanaconda/ui/gui/spokes/source.glade:760
 msgid "Closest mirror"
 msgstr ""
 
@@ -1339,22 +1340,35 @@ msgid "That name is invalid. Try something else?"
 msgstr ""
 
 #: pyanaconda/ui/gui/spokes/custom.py:136
+#: pyanaconda/ui/gui/spokes/storage.glade:193
+#: pyanaconda/ui/gui/spokes/storage.glade:493
+#: pyanaconda/ui/gui/spokes/custom.glade:1060
 msgid "LVM"
 msgstr ""
 
 #: pyanaconda/ui/gui/spokes/custom.py:137
+#: pyanaconda/ui/gui/spokes/storage.glade:194
+#: pyanaconda/ui/gui/spokes/storage.glade:494
+#: pyanaconda/ui/gui/spokes/custom.glade:1062
 msgid "LVM Thin Provisioning"
 msgstr ""
 
 #: pyanaconda/ui/gui/spokes/custom.py:138
+#: pyanaconda/ui/gui/spokes/custom.glade:1061
 msgid "RAID"
 msgstr ""
 
 #: pyanaconda/ui/gui/spokes/custom.py:139
+#: pyanaconda/ui/gui/spokes/storage.glade:191
+#: pyanaconda/ui/gui/spokes/storage.glade:491
+#: pyanaconda/ui/gui/spokes/custom.glade:1058
 msgid "Standard Partition"
 msgstr ""
 
 #: pyanaconda/ui/gui/spokes/custom.py:140
+#: pyanaconda/ui/gui/spokes/storage.glade:192
+#: pyanaconda/ui/gui/spokes/storage.glade:492
+#: pyanaconda/ui/gui/spokes/custom.glade:1059
 msgid "BTRFS"
 msgstr ""
 
@@ -1371,7 +1385,11 @@ msgstr ""
 
 #: pyanaconda/ui/gui/spokes/custom.py:547
 #: pyanaconda/ui/gui/spokes/custom.py:563
-#: pyanaconda/ui/gui/spokes/network.py:993 widgets/src/SpokeSelector.c:55
+#: pyanaconda/ui/gui/spokes/network.py:993
+#: pyanaconda/ui/gui/spokes/filter.glade:152
+#: pyanaconda/ui/gui/spokes/filter.glade:564
+#: pyanaconda/ui/gui/spokes/filter.glade:920
+#: pyanaconda/ui/gui/spokes/custom.glade:2190 widgets/src/SpokeSelector.c:55
 msgid "None"
 msgstr ""
 
@@ -1737,10 +1755,12 @@ msgid "Wireless"
 msgstr ""
 
 #: pyanaconda/ui/gui/spokes/network.py:617
+#: pyanaconda/ui/gui/spokes/network.glade:117
 msgid "Bond"
 msgstr ""
 
 #: pyanaconda/ui/gui/spokes/network.py:619
+#: pyanaconda/ui/gui/spokes/network.glade:121
 msgid "Vlan"
 msgstr ""
 
@@ -2416,6 +2436,14 @@ msgstr ""
 msgid "Search _By:"
 msgstr ""
 
+#: pyanaconda/ui/gui/spokes/filter.glade:153
+msgid "Port / Target / LUN #"
+msgstr ""
+
+#: pyanaconda/ui/gui/spokes/filter.glade:154
+msgid "Target WWID"
+msgstr ""
+
 #: pyanaconda/ui/gui/spokes/filter.glade:192
 msgid "_Port:"
 msgstr ""
@@ -2433,6 +2461,7 @@ msgid "_WWID:"
 msgstr ""
 
 #: pyanaconda/ui/gui/spokes/filter.glade:356
+#: pyanaconda/ui/gui/spokes/filter.glade:567
 #: pyanaconda/ui/gui/spokes/filter.glade:749
 msgid "WWID"
 msgstr ""
@@ -2448,7 +2477,9 @@ msgid "Capacity"
 msgstr ""
 
 #: pyanaconda/ui/gui/spokes/filter.glade:384
+#: pyanaconda/ui/gui/spokes/filter.glade:566
 #: pyanaconda/ui/gui/spokes/filter.glade:792
+#: pyanaconda/ui/gui/spokes/filter.glade:922
 #: pyanaconda/ui/gui/spokes/filter.glade:1151
 msgid "Interconnect"
 msgstr ""
@@ -2471,7 +2502,9 @@ msgid "Target"
 msgstr ""
 
 #: pyanaconda/ui/gui/spokes/filter.glade:454
+#: pyanaconda/ui/gui/spokes/filter.glade:565
 #: pyanaconda/ui/gui/spokes/filter.glade:777
+#: pyanaconda/ui/gui/spokes/filter.glade:921
 #: pyanaconda/ui/gui/spokes/filter.glade:1136
 msgid "Vendor"
 msgstr ""
@@ -2507,6 +2540,12 @@ msgstr ""
 
 #: pyanaconda/ui/gui/spokes/filter.glade:871
 msgid "_Multipath Devices"
+msgstr ""
+
+#: pyanaconda/ui/gui/spokes/filter.glade:923
+#: pyanaconda/ui/gui/spokes/custom.glade:518
+#: pyanaconda/ui/gui/spokes/custom.glade:2059
+msgid "ID"
 msgstr ""
 
 #: pyanaconda/ui/gui/spokes/filter.glade:1108
@@ -2574,6 +2613,14 @@ msgstr ""
 
 #: pyanaconda/ui/gui/spokes/network.glade:65
 msgid "_Select the type of device you wish to add"
+msgstr ""
+
+#: pyanaconda/ui/gui/spokes/network.glade:118
+msgid "bond"
+msgstr ""
+
+#: pyanaconda/ui/gui/spokes/network.glade:122
+msgid "vlan"
 msgstr ""
 
 #: pyanaconda/ui/gui/spokes/network.glade:158
@@ -3083,6 +3130,25 @@ msgstr ""
 msgid "On the _network:"
 msgstr ""
 
+#: pyanaconda/ui/gui/spokes/source.glade:756
+#: pyanaconda/ui/gui/spokes/source.glade:1221
+msgid "http://"
+msgstr ""
+
+#: pyanaconda/ui/gui/spokes/source.glade:757
+#: pyanaconda/ui/gui/spokes/source.glade:1222
+msgid "https://"
+msgstr ""
+
+#: pyanaconda/ui/gui/spokes/source.glade:758
+#: pyanaconda/ui/gui/spokes/source.glade:1223
+msgid "ftp://"
+msgstr ""
+
+#: pyanaconda/ui/gui/spokes/source.glade:759
+msgid "nfs"
+msgstr ""
+
 #: pyanaconda/ui/gui/spokes/source.glade:788
 msgid "_Proxy setup..."
 msgstr ""
@@ -3348,11 +3414,6 @@ msgstr ""
 msgid "Free"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.glade:518
-#: pyanaconda/ui/gui/spokes/custom.glade:2059
-msgid "ID"
-msgstr ""
-
 #: pyanaconda/ui/gui/spokes/custom.glade:549
 msgid "RAID Level:"
 msgstr ""
@@ -3363,6 +3424,18 @@ msgstr ""
 
 #: pyanaconda/ui/gui/spokes/custom.glade:648
 msgid "_Size policy:"
+msgstr ""
+
+#: pyanaconda/ui/gui/spokes/custom.glade:665
+msgid "Automatic"
+msgstr ""
+
+#: pyanaconda/ui/gui/spokes/custom.glade:666
+msgid "As large as possible"
+msgstr ""
+
+#: pyanaconda/ui/gui/spokes/custom.glade:667
+msgid "Fixed"
 msgstr ""
 
 #: pyanaconda/ui/gui/spokes/custom.glade:801
@@ -3511,6 +3584,30 @@ msgstr ""
 msgid "Select one or more disks this device may reside on."
 msgstr ""
 
+#: pyanaconda/ui/gui/spokes/custom.glade:2197
+msgid "RAID0 <span foreground=\"grey\">(Performance)</span>"
+msgstr ""
+
+#: pyanaconda/ui/gui/spokes/custom.glade:2204
+msgid "RAID1 <span foreground=\"grey\">(Redundancy)</span>"
+msgstr ""
+
+#: pyanaconda/ui/gui/spokes/custom.glade:2211
+msgid "RAID4 <span foreground=\"grey\">(Error Checking)</span>"
+msgstr ""
+
+#: pyanaconda/ui/gui/spokes/custom.glade:2218
+msgid "RAID5 <span foreground=\"grey\">(Distributed Error Checking)</span>"
+msgstr ""
+
+#: pyanaconda/ui/gui/spokes/custom.glade:2225
+msgid "RAID6 <span foreground=\"grey\">(Redundant Error Checking)</span>"
+msgstr ""
+
+#: pyanaconda/ui/gui/spokes/custom.glade:2232
+msgid "RAID10 <span foreground=\"grey\">(Performance, Redundancy)</span>"
+msgstr ""
+
 #: pyanaconda/ui/gui/spokes/advstorage/fcoe.glade:54
 msgid ""
 "Please select the network interface which is connected to your FCoE switch."
@@ -3558,6 +3655,21 @@ msgstr ""
 
 #: pyanaconda/ui/gui/spokes/advstorage/iscsi.glade:157
 msgid "iSCSI _Initiator Name:"
+msgstr ""
+
+#: pyanaconda/ui/gui/spokes/advstorage/iscsi.glade:177
+#: pyanaconda/ui/gui/spokes/advstorage/iscsi.glade:783
+msgid "No credentials (discovery authentication disabled)"
+msgstr ""
+
+#: pyanaconda/ui/gui/spokes/advstorage/iscsi.glade:178
+#: pyanaconda/ui/gui/spokes/advstorage/iscsi.glade:784
+msgid "CHAP pair"
+msgstr ""
+
+#: pyanaconda/ui/gui/spokes/advstorage/iscsi.glade:179
+#: pyanaconda/ui/gui/spokes/advstorage/iscsi.glade:785
+msgid "CHAP pair and a reverse pair"
 msgstr ""
 
 #: pyanaconda/ui/gui/spokes/advstorage/iscsi.glade:195
@@ -3636,6 +3748,10 @@ msgstr ""
 
 #: pyanaconda/ui/gui/spokes/advstorage/iscsi.glade:765
 msgid "_Node login authentication type:"
+msgstr ""
+
+#: pyanaconda/ui/gui/spokes/advstorage/iscsi.glade:786
+msgid "Use the credentials from discovery"
 msgstr ""
 
 #: pyanaconda/ui/gui/spokes/advstorage/iscsi.glade:997
