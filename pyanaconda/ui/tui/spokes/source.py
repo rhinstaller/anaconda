@@ -268,11 +268,11 @@ class SpecifyRepoSpoke(EditTUISpoke, SourceSwitchHandler):
     def apply(self):
         """ Apply all of our changes. """
         url = None
-        if self.selection == 2 and not self.args.url.startswith("http://"):
+        if self.selection == 1 and not self.args.url.startswith("http://"):
             url = "http://" + self.args.url
-        elif self.selection == 3 and not self.args.url.startswith("https://"):
+        elif self.selection == 2 and not self.args.url.startswith("https://"):
             url = "https://" + self.args.url
-        elif self.selection == 4 and not self.args.url.startswith("ftp://"):
+        elif self.selection == 3 and not self.args.url.startswith("ftp://"):
             url = "ftp://" + self.args.url
         else:
             # protocol either unknown or entry already starts with a protocol
