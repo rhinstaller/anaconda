@@ -59,7 +59,7 @@ def selectorFromDevice(device, selector=None, mountpoint=""):
     else:
         mp = _("Unknown")
 
-    size = Size(spec="%f MB" % device.size)
+    size = Size(en_spec="%f MB" % device.size)
 
     if not selector:
         selector = MountpointSelector(device.name, str(size).upper(), mp)

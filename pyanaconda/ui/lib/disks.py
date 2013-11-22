@@ -75,8 +75,8 @@ def isLocalDisk(disk):
 
 def size_str(mb):
     if isinstance(mb, Size):
-        spec = str(mb)
+        size = mb
     else:
-        spec = "%f mb" % mb
+        size = Size(en_spec="%f mb" % mb)
 
-    return str(Size(spec=spec)).upper()
+    return str(size).upper()
