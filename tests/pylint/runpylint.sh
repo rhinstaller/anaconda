@@ -25,9 +25,14 @@ if [ -z "$top_srcdir" ]; then
 fi
 
 srcdir="${top_srcdir}/tests/pylint"
+builddir="${top_builddir}/tests/pylint"
 
 # Need to add the pylint module directory to PYTHONPATH as well.
 export PYTHONPATH="${PYTHONPATH}:${srcdir}"
+
+# Save analysis data in the pylint directory
+export PYLINTHOME="${builddir}/.pylint.d"
+[ -d "$PYLINTHOME" ] || mkdir "$PYLINTHOME"
 
 export FALSE_POSITIVES="${srcdir}"/pylint-false-positives
 

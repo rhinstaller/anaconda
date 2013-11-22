@@ -54,3 +54,6 @@ TESTS = nosetests.sh \
 	gettext/gettext_warnings.sh \
 	storage/run_storage_tests.py \
 	accelerators/run_check_accelerators.sh
+
+clean-local:
+	-rm -rf pylint/.pylint.d
