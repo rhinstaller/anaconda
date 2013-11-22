@@ -40,6 +40,7 @@ dist_check_SCRIPTS = accelerators/check_accelerators.py \
 		     accelerators/run_check_accelerators.sh \
 		     nosetests.sh \
 		     pylint/intl.py \
+		     pylint/preconf.py \
 		     pylint/runpylint.sh \
 		     pylint/pylint-one.sh \
 		     testenv.sh \

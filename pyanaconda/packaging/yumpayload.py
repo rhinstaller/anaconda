@@ -212,6 +212,8 @@ class YumPayload(PackagePayload):
         """ Delete and recreate the payload's YumBase instance.
 
             Setup _yum.preconf -- DO NOT TOUCH IT OUTSIDE THIS METHOD
+            NOTE:  This is enforced by tests/pylint/preconf.py.  If the name
+            of this method changes, change it there too.
         """
         if root is None:
             root = self._root_dir
@@ -1498,6 +1500,7 @@ reposdir=%s
         #        all yumvars and writing out the expanded pairs to the conf
         yb = yum.YumBase()
         yum_conf_path = "/etc/yum.conf"
+        # pylint: disable-msg=W9910
         yb.preconf.fn = ROOT_PATH + yum_conf_path
         yb.conf.multilib_policy = "all"
 
