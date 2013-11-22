@@ -38,8 +38,6 @@ MAINTAINERCLEANFILES = Makefile.in config.guess config.h.in config.sub \
 
 CLEANFILES = *~
 
-MOSTLYCLEANDIRS = m4
-
 dist_noinst_DATA      = $(PACKAGE_NAME).spec
 
 dist_sbin_SCRIPTS     = anaconda
