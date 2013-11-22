@@ -31,6 +31,7 @@
 
 from contextlib import contextmanager
 import re
+import unicodedata
 
 from pykickstart.constants import CLEARPART_TYPE_NONE, AUTOPART_TYPE_PLAIN, AUTOPART_TYPE_BTRFS, AUTOPART_TYPE_LVM, AUTOPART_TYPE_LVM_THINP
 
@@ -148,20 +149,21 @@ partition_only_format_types = ["efi", "macefi", "prepboot", "biosboot",
                                "appleboot"]
 
 def size_from_entry(entry):
-    size_text = entry.get_text().strip()
-
-    # if no unit was specified, default to MB
-    if not re.search(r'[A-Za-z]+$', size_text):
-        size_text += "MB"
+    size_text = entry.get_text().decode("utf-8").strip()
 
     try:
-        size = Size(spec=size_text)
+        # if no unit was specified, default to MB. Assume that a string
+        # ending with any kind of a letter has a unit suffix.
+        if unicodedata.category(size_text[-1]).startswith("L"):
+            size = Size(spec=size_text)
+        else:
+            size = Size(en_spec="%sMB" % size_text)
     except (SizeParamsError, SizeNotPositiveError, ValueError):
         return None
     else:
         # Minimium size for ui-created partitions is 1MB.
-        if size.convertTo(spec="mb") < 1:
-            size = Size(spec="1mb")
+        if size.convertTo(en_spec="mb") < 1:
+            size = Size(en_spec="1mb")
 
     return size
 
@@ -352,7 +354,7 @@ class DisksDialog(GUIObject):
         # populate the store
         for disk in self._disks:
             self._store.append([disk.description,
-                                str(Size(spec="%dMB" % disk.size)),
+                                str(Size(en_spec="%dMB" % disk.size)),
                                 str(free[disk.name][0]),
                                 disk.serial,
                                 disk.id])
@@ -436,7 +438,7 @@ class ContainerDialog(GUIObject):
         # populate the store
         for disk in self._disks:
             self._store.append([disk.description,
-                                str(Size(spec="%dMB" % disk.size)),
+                                str(Size(en_spec="%dMB" % disk.size)),
                                 str(free[disk.name][0]),
                                 disk.serial,
                                 disk.id])
@@ -462,7 +464,7 @@ class ContainerDialog(GUIObject):
         self._raidStoreFilter.refilter()
         self._populate_raid()
 
-        size = Size(spec="%d mb" % self.size)
+        size = Size(en_spec="%d mb" % self.size)
         self._sizeEntry.set_text(size.humanReadable(max_places=None))
         if self.size_policy == SIZE_POLICY_AUTO:
             self._sizeCombo.set_active(0)
@@ -538,7 +540,7 @@ class ContainerDialog(GUIObject):
         elif idx == 2:
             size = size_from_entry(self._sizeEntry)
             if size:
-                size = int(size.convertTo(spec="MB"))
+                size = int(size.convertTo(en_spec="MB"))
             elif size is None:
                 size = SIZE_POLICY_MAX
 
@@ -832,7 +834,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         for disk in self._clearpartDevices:
             totalSpace += disk.size
 
-        return Size(spec="%f MB" % totalSpace)
+        return Size(en_spec="%f MB" % totalSpace)
 
     def _updateSpaceDisplay(self):
         # Set up the free space/available space displays in the bottom left.
@@ -1145,7 +1147,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         old_size = device.size
         size = size_from_entry(self._sizeEntry)
         if size:
-            size = int(size.convertTo(spec="MB"))
+            size = int(size.convertTo(en_spec="MB"))
         changed_size = ((use_dev.resizable or not use_dev.exists) and
                         size != int(old_size))
         log.debug("old size: %s", old_size)
@@ -1697,7 +1699,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         else:
             self._labelEntry.set_tooltip_text(_("This file system does not support labels."))
 
-        self._sizeEntry.set_text(Size(spec="%d MB" % device.size).humanReadable(max_places=None))
+        self._sizeEntry.set_text(Size(en_spec="%d MB" % device.size).humanReadable(max_places=None))
 
         self._reformatCheckbox.set_active(not device.format.exists)
         fancy_set_sensitive(self._reformatCheckbox, not device.protected and
@@ -1945,7 +1947,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         log.debug("requested size = %s  ; available space = %s", dialog.size, self._free_space)
 
         # if no size was entered, request as much of the free space as possible
-        if dialog.size is not None and dialog.size.convertTo(spec="mb") < 1:
+        if dialog.size is not None and dialog.size.convertTo(en_spec="mb") < 1:
             size = None
         else:
             size = dialog.size
@@ -1989,7 +1991,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
 
         disks = self._clearpartDevices
         if size is not None:
-            size = float(size.convertTo(spec="mb"))
+            size = float(size.convertTo(en_spec="mb"))
 
         self.clear_errors()
 

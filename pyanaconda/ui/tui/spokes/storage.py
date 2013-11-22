@@ -155,7 +155,7 @@ class StorageSpoke(NormalTUISpoke):
 
         summary = (P_(("%d disk selected; %s capacity; %s free ..."),
                       ("%d disks selected; %s capacity; %s free ..."),
-                      count) % (count, str(Size(spec="%f MB" % capacity)), free))
+                      count) % (count, str(Size(en_spec="%f MB" % capacity)), free))
 
         if len(self.disks) == 0:
             summary = _("No disks detected.  Please shut down the computer, connect at least one disk, and restart to complete installation.")

@@ -711,7 +711,7 @@ class StorageSpoke(NormalSpoke, StorageChecker):
         summary = (P_("%(count)d disk selected; %(capacity)s capacity; %(free)s free",
                       "%(count)d disks selected; %(capacity)s capacity; %(free)s free",
                       count) % {"count" : count,
-                                "capacity" : str(Size(spec="%f MB" % capacity)),
+                                "capacity" : str(Size(en_spec="%f MB" % capacity)),
                                 "free" : free})
         summary_label = self.builder.get_object("summary_label")
         summary_label.set_text(summary)
@@ -814,7 +814,7 @@ class StorageSpoke(NormalSpoke, StorageChecker):
 
         # show the installation options dialog
         disks = [d for d in self.disks if d.name in self.selected_disks]
-        disks_size = sum(Size(spec="%f MB" % d.size) for d in disks)
+        disks_size = sum(Size(en_spec="%f MB" % d.size) for d in disks)
 
         # No disks selected?  The user wants to back out of the storage spoke.
         if not disks:
@@ -842,7 +842,7 @@ class StorageSpoke(NormalSpoke, StorageChecker):
         auto_swap = Size(bytes=0)
         for autoreq in self.storage.autoPartitionRequests:
             if autoreq.fstype == "swap":
-                auto_swap += Size(spec="%d MB" % autoreq.size)
+                auto_swap += Size(en_spec="%d MB" % autoreq.size)
 
         log.debug("disk free: %s  fs free: %s  sw needs: %s  auto swap: %s",
                   disk_free, fs_free, required_space, auto_swap)
