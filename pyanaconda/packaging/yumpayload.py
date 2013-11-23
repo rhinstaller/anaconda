@@ -617,19 +617,14 @@ reposdir=%s
         else:
             device.format.setup(mountpoint=INSTALL_TREE)
 
-    def _configureBaseRepo(self, storage, checkmount=True):
-        """ Configure the base repo.
+    def _setupInstallDevice(self, storage, checkmount):
+        """ Setup the install device
 
-            If self.data.method.method is set, failure to configure a base repo
-            should generate a PayloadError exception.
+            Based on the method, and devices mounted by dracut, setup
+            the install device and return the url or mirrorlist.
 
-            If self.data.method.method is unset, no exception should be raised
-            and no repo should be configured.
-
-            If checkmount is true, check the dracut mount to see if we have
-            usable media mounted.
+            :returns: url, mirrorlist, sslverify
         """
-        log.info("configuring base repo")
         # set up the main repo specified by method=, repo=, or ks method
         # XXX FIXME: does this need to handle whatever was set up by dracut?
         # XXX FIXME: most of this probably belongs up in Payload
@@ -766,6 +761,23 @@ reposdir=%s
                 elif method.method == "cdrom":
                     raise PayloadSetupError("no usable optical media found")
 
+        return url, mirrorlist, sslverify
+
+    def _configureBaseRepo(self, storage, checkmount=True):
+        """ Configure the base repo.
+
+            If self.data.method.method is set, failure to configure a base repo
+            should generate a PayloadError exception.
+
+            If self.data.method.method is unset, no exception should be raised
+            and no repo should be configured.
+
+            If checkmount is true, check the dracut mount to see if we have
+            usable media mounted.
+        """
+        log.info("configuring base repo")
+        url, mirrorlist, sslverify = self._setupInstallDevice(storage, checkmount)
+        method = self.data.method
         if method.method:
             with _yum_lock:
                 try:
