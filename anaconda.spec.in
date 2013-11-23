@@ -251,6 +251,14 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Fri Nov 22 2013 Brian C. Lane <bcl@redhat.com> - 20.25.10-1
+- Remove base_repo cache (#1011555) (bcl)
+- Make _yum.preconf setup atomic (#1028245) (bcl)
+- Remove threading from getBaseRepo handling (#1011555) (bcl)
+- tui: show Processing while source is busy (bcl)
+- tui: wait for threads before entering source and software (#1032823) (bcl)
+- clear errors when metadata is ok in tui source spoke (#1006570) (bcl)
+
 * Wed Nov 20 2013 Brian C. Lane <bcl@redhat.com> - 20.25.9-1
 - Fix geolocation on live installs (mkolman)
 - Use timing decorator for more actions (vpodzime)

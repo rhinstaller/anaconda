@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: anaconda 20.25.8\n"
+"Project-Id-Version: anaconda 20.25.9\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
-"POT-Creation-Date: 2013-11-20 08:48-0800\n"
+"POT-Creation-Date: 2013-11-22 19:20-0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -108,58 +108,58 @@ msgstr ""
 msgid "Use text mode"
 msgstr ""
 
-#: pyanaconda/constants.py:137
+#: pyanaconda/constants.py:136
 msgid "The password is empty."
 msgstr ""
 
-#: pyanaconda/constants.py:138
+#: pyanaconda/constants.py:137
 msgid "The passwords do not match."
 msgstr ""
 
-#: pyanaconda/constants.py:139
+#: pyanaconda/constants.py:138
 msgid "The passwords you entered were different.  Please try again."
 msgstr ""
 
-#: pyanaconda/constants.py:140
+#: pyanaconda/constants.py:139
 msgid ""
 "The password you have provided is weak. You will have to press Done twice to "
 "confirm it."
 msgstr ""
 
-#: pyanaconda/constants.py:141
+#: pyanaconda/constants.py:140
 #, python-format
 msgid ""
 "The password you have provided is weak: %s. You will have to press Done "
 "twice to confirm it."
 msgstr ""
 
-#: pyanaconda/constants.py:142
+#: pyanaconda/constants.py:141
 msgid "You have provided a weak password. Press Done again to use anyway."
 msgstr ""
 
-#: pyanaconda/constants.py:143
+#: pyanaconda/constants.py:142
 #, python-format
 msgid "You have provided a weak password: %s. Press Done again to use anyway."
 msgstr ""
 
-#: pyanaconda/constants.py:145
+#: pyanaconda/constants.py:144
 msgid "Empty"
 msgstr ""
 
-#: pyanaconda/constants.py:145 pyanaconda/ui/gui/spokes/lib/passphrase.py:114
+#: pyanaconda/constants.py:144 pyanaconda/ui/gui/spokes/lib/passphrase.py:114
 #: pyanaconda/ui/gui/spokes/lib/passphrase.glade.h:6
 msgid "Weak"
 msgstr ""
 
-#: pyanaconda/constants.py:145 pyanaconda/ui/gui/spokes/lib/passphrase.py:117
+#: pyanaconda/constants.py:144 pyanaconda/ui/gui/spokes/lib/passphrase.py:117
 msgid "Fair"
 msgstr ""
 
-#: pyanaconda/constants.py:145 pyanaconda/ui/gui/spokes/lib/passphrase.py:120
+#: pyanaconda/constants.py:144 pyanaconda/ui/gui/spokes/lib/passphrase.py:120
 msgid "Good"
 msgstr ""
 
-#: pyanaconda/constants.py:145 pyanaconda/ui/gui/spokes/lib/passphrase.py:123
+#: pyanaconda/constants.py:144 pyanaconda/ui/gui/spokes/lib/passphrase.py:123
 msgid "Strong"
 msgstr ""
 
@@ -206,7 +206,7 @@ msgid "Discovering realm to join"
 msgstr ""
 
 #: pyanaconda/install.py:167 pyanaconda/packaging/livepayload.py:147
-#: pyanaconda/packaging/yumpayload.py:1483
+#: pyanaconda/packaging/yumpayload.py:1425
 msgid "Performing post-installation setup tasks"
 msgstr ""
 
@@ -549,19 +549,19 @@ msgstr ""
 msgid "Checking image checksum"
 msgstr ""
 
-#: pyanaconda/packaging/yumpayload.py:1399
+#: pyanaconda/packaging/yumpayload.py:1341
 msgid "Starting package installation process"
 msgstr ""
 
-#: pyanaconda/packaging/yumpayload.py:1463
+#: pyanaconda/packaging/yumpayload.py:1405
 msgid "You need more space on the following file systems:\n"
 msgstr ""
 
-#: pyanaconda/packaging/yumpayload.py:1481
+#: pyanaconda/packaging/yumpayload.py:1423
 msgid "Preparing transaction from installation source"
 msgstr ""
 
-#: pyanaconda/packaging/yumpayload.py:1482
+#: pyanaconda/packaging/yumpayload.py:1424
 msgid "Installing"
 msgstr ""
 
@@ -960,7 +960,7 @@ msgid "Local media"
 msgstr ""
 
 #: pyanaconda/ui/tui/spokes/source.py:91
-#: pyanaconda/ui/tui/spokes/software.py:101
+#: pyanaconda/ui/tui/spokes/software.py:102
 #: pyanaconda/ui/gui/spokes/datetime_spoke.py:462
 #: pyanaconda/ui/gui/spokes/software.py:200
 #: pyanaconda/ui/gui/spokes/source.py:531
@@ -973,7 +973,7 @@ msgid "Error setting up software source"
 msgstr ""
 
 #: pyanaconda/ui/tui/spokes/source.py:98
-#: pyanaconda/ui/tui/spokes/software.py:81
+#: pyanaconda/ui/tui/spokes/software.py:82
 msgid "Processing..."
 msgstr ""
 
@@ -982,53 +982,53 @@ msgstr ""
 msgid "Repo URL set to: %s"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/source.py:123
+#: pyanaconda/ui/tui/spokes/source.py:124
 msgid "CD/DVD"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/source.py:123
+#: pyanaconda/ui/tui/spokes/source.py:124
 msgid "Network"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/source.py:127
+#: pyanaconda/ui/tui/spokes/source.py:128
 msgid "Choose an installation source type."
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/source.py:194
+#: pyanaconda/ui/tui/spokes/source.py:195
 #: pyanaconda/ui/gui/spokes/source.py:450
 msgid "Failed to set up installation source"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/source.py:199
+#: pyanaconda/ui/tui/spokes/source.py:200
 msgid "Error downloading package metadata"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/source.py:207
-#: pyanaconda/ui/tui/spokes/software.py:69
+#: pyanaconda/ui/tui/spokes/source.py:209
+#: pyanaconda/ui/tui/spokes/software.py:70
 #: pyanaconda/ui/gui/spokes/software.py:236
 #: pyanaconda/ui/gui/spokes/software.py:279
 #: pyanaconda/ui/gui/spokes/source.py:478
 msgid "No installation source available"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/source.py:224
-#: pyanaconda/ui/tui/spokes/source.py:259
+#: pyanaconda/ui/tui/spokes/source.py:226
+#: pyanaconda/ui/tui/spokes/source.py:261
 msgid "Specify Repo Options"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/source.py:228
+#: pyanaconda/ui/tui/spokes/source.py:230
 msgid "Repo URL"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/source.py:263
+#: pyanaconda/ui/tui/spokes/source.py:265
 msgid "NFS <server>:/<path>"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/source.py:264
+#: pyanaconda/ui/tui/spokes/source.py:266
 msgid "NFS mount options"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/source.py:293
+#: pyanaconda/ui/tui/spokes/source.py:295
 msgid "Failed to set up installation source. Check the source address."
 msgstr ""
 
@@ -1036,32 +1036,32 @@ msgstr ""
 msgid "Software selection"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/software.py:79
+#: pyanaconda/ui/tui/spokes/software.py:80
 #: pyanaconda/ui/gui/spokes/software.py:184
 msgid "Error checking software selection"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/software.py:83
+#: pyanaconda/ui/tui/spokes/software.py:84
 #: pyanaconda/ui/gui/spokes/software.py:187
 msgid "Installation source not set up"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/software.py:85
+#: pyanaconda/ui/tui/spokes/software.py:86
 #: pyanaconda/ui/gui/spokes/software.py:190
 msgid "Source changed - please verify"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/software.py:100
+#: pyanaconda/ui/tui/spokes/software.py:101
 #: pyanaconda/ui/gui/spokes/software.py:198
 msgid "Custom software selected"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/software.py:121
+#: pyanaconda/ui/tui/spokes/software.py:122
 msgid "Installation source needs to be set up first."
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/software.py:129
-#: pyanaconda/ui/tui/spokes/software.py:139
+#: pyanaconda/ui/tui/spokes/software.py:132
+#: pyanaconda/ui/tui/spokes/software.py:142
 msgid "Base environment"
 msgstr ""
 
