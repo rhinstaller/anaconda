@@ -297,6 +297,17 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Fri Nov 22 2013 Brian C. Lane <bcl@redhat.com> - 21.9-1
+- Add a test for accesses of yum.preconf outside of _resetYum. (clumens)
+- Remove base_repo cache (#1011555) (bcl)
+- Make _yum.preconf setup atomic (#1028245) (bcl)
+- Remove threading from getBaseRepo handling (#1011555) (bcl)
+- If there are incomplete spokes, let the user know which (#1032801). (clumens)
+- tui: show Processing while source is busy (bcl)
+- tui: wait for threads before entering source and software (#1032823) (bcl)
+- clear errors when metadata is ok in tui source spoke (#1006570) (bcl)
+- Fix parallel pylint in distcheck. (dshea)
+
 * Wed Nov 20 2013 Brian C. Lane <bcl@redhat.com> - 21.8-1
 - Fix geolocation on live installs (mkolman)
 - Ignore the pylint warning on importing GraphicalUserInterface. (clumens)
