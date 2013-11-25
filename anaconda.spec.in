@@ -153,7 +153,6 @@ system.
 
 %package gui
 Summary: Graphical user interface for the Anaconda installer
-BuildArch: noarch
 Requires: anaconda-core = %{version}-%{release}
 Requires: anaconda-widgets = %{version}-%{release}
 Requires: python-meh-gui >= %{mehver}
@@ -172,7 +171,6 @@ This package contains graphical user interface for the Anaconda installer.
 
 %package tui
 Summary: Textual user interface for the Anaconda installer
-BuildArch: noarch
 Requires: anaconda-core = %{version}-%{release}
 
 %description tui
