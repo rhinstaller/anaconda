@@ -38,16 +38,11 @@ update stage2 behaviour of anaconda.
 Selecting DD manually
 ---------------------
 
-There are two ways of triggering DD mode and loading updated drivers manually.
+Use the 'inst.dd' kernel command line option to trigger DD mode.
+If no argument is specified, the UI will prompt for the location of the driver
+rpm. Otherwise, the rpm will be fetched from the specified location.
 
-The first is using 'dd=<location>' argument on the kernel command line during
-installation boot.
-
-Second way is by using only 'dd' argument on the command line and then using
-the TUI provided by anaconda to select DriverDisc's source location.
-
-Documentation for current release will provide more details as this wasn't
-changed.
+Please consult the appropriate Installer Guide for further information.
 
 Automatic DriverDisc detection
 ------------------------------

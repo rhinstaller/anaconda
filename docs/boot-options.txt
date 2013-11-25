@@ -88,6 +88,11 @@ the space character (' ').
 This specifies the location to fetch only the installer runtime image;
 packages will be ignored. Otherwise the same as <<inst.repo,`inst.repo`>>.
 
+=== inst.dd ===
+This specifies the location for driver rpms. May be specified multiple times.
+Locations may be specified using any of the formats allowed for
+<<inst.repo,`inst.repo`>>.
+
 [[kickstart]]
 Kickstart
 ---------
@@ -230,6 +235,11 @@ Run the installer in graphical mode. This is the default.
 Run the installer using a limited text-based UI. Unless you're using a
 kickstart file this probably isn't a good idea; you should use VNC instead.
 
+=== inst.resolution ===
+Specify screen size for the installer. Use format nxm, where n is the
+number of horizontal pixels, m the number of vertical pixels. The lowest
+supported resolution is 800x600.
+
 [[inst.vnc]]
 === inst.vnc ===
 Run the installer GUI in a VNC session. You will need a VNC client application
@@ -270,9 +280,6 @@ the `sshpw` kickstart command.
 
 Debugging and Troubleshooting
 -----------------------------
-
-=== inst.mediacheck ===
-Verify the installer media before starting the install.
 
 === inst.rescue ===
 Run the rescue environment. This is useful for trying to diagnose and fix
@@ -375,6 +382,9 @@ Who needs to force half-duplex 10-base-T anymore?
 === gdb ===
 This was used to debug `loader`, so it has been removed. There are plenty of
 options for debugging dracut-based initramfs - see the {dracutdebug}.
+
+=== inst.mediacheck ===
+Use the dracut option rd.live.check instead.
 
 === ks=floppy ===
 We no longer support floppy drives. Try `inst.ks=hd:<device>` instead.
