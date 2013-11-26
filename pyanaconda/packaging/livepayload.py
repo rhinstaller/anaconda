@@ -154,6 +154,10 @@ class LiveImagePayload(ImagePayload):
                                    ["--rpmposttrans", kernel],
                                    root=ROOT_PATH)
 
+        # Make sure the new system has a machine-id, it won't boot without it
+        if not os.path.exists(ROOT_PATH+"/etc/machine-id"):
+            iutil.execWithRedirect("systemd-machine-id-setup", [], root=ROOT_PATH)
+
     @property
     def spaceRequired(self):
         return Size(bytes=iutil.getDirSize("/")*1024)
