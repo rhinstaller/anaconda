@@ -298,12 +298,14 @@ class Bootloader(commands.bootloader.F19_Bootloader):
         if self.timeout is not None:
             storage.bootloader.timeout = self.timeout
 
-        # Throw out drives specified that don't exist.
+        # Throw out drives specified that don't exist or cannot be used (iSCSI
+        # device on an s390 machine)
         disk_names = [d.name for d in storage.disks
-                                if not d.format.hidden and not d.protected]
+                      if not d.format.hidden and not d.protected and
+                      (not blivet.arch.isS390() or not isinstance(d, blivet.devices.iScsiDiskDevice))]
         for drive in self.driveorder[:]:
             if drive not in disk_names:
-                log.warning("requested drive %s in boot drive order doesn't exist", drive)
+                log.warning("requested drive %s in boot drive order doesn't exist or cannot be used" % drive)
                 self.driveorder.remove(drive)
 
         storage.bootloader.disk_order = self.driveorder
@@ -311,7 +313,7 @@ class Bootloader(commands.bootloader.F19_Bootloader):
         if self.bootDrive:
             if not self.bootDrive in disk_names:
                 raise KickstartValueError(formatErrorMsg(self.lineno,
-                        msg="Requested boot drive %s doesn't exist" % self.bootDrive))
+                        msg="Requested boot drive %s doesn't exist or cannot be used" % self.bootDrive)
         else:
             self.bootDrive = disk_names[0]
 
