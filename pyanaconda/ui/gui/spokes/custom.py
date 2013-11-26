@@ -532,11 +532,11 @@ class ContainerDialog(GUIObject):
 
         raid_level = self._get_raid_level()
         if raid_level:
-            md_level = mdraid.raidLevel(raid_level)
-            min_disks = mdraid.get_raid_min_members(md_level)
+            md_level = mdraid.getRaidLevel(raid_level)
+            min_disks = md_level.min_members
             if len(paths) < min_disks:
                 self._error = (_(raid_level_not_enough_disks_msg)
-                               % {"level": raid_level, "min": min_disks, "count": len(paths)})
+                               % {"level": md_level, "min": min_disks, "count": len(paths)})
                 self.builder.get_object("containerErrorLabel").set_text(self._error)
                 self.window.show_all()
                 return
@@ -1275,11 +1275,11 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
             error = _("Devices of type %s require a valid RAID level selection.") % DEVICE_TEXT_MD
 
         if not error and raid_level not in (None, "single"):
-            md_level = mdraid.raidLevel(raid_level)
-            min_disks = mdraid.get_raid_min_members(md_level)
+            md_level = mdraid.getRaidLevel(raid_level)
+            min_disks = md_level.min_members
             if len(self._device_disks) < min_disks:
                 error = (_(raid_level_not_enough_disks_msg)
-                         % {"level": raid_level, "min": min_disks, "count": len(self._device_disks)})
+                         % {"level": md_level, "min": min_disks, "count": len(self._device_disks)})
 
         if error:
             self.set_warning(error)
