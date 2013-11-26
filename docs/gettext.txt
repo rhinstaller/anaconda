@@ -1,6 +1,7 @@
 gettext, i18n, and the po/ subdirectory
-05-Jun-2009
+26-Nov-2013
 David Cantrell <dcantrell@redhat.com>
+David Shea <dshea@redhat.com>
 ---------------------------------------
 
 I have attempted to clean up our po/ subdirectory and bring it in to
@@ -12,15 +13,15 @@ From time to time, we may have to update our gettext template files and or
 expand or reduce the information in the files.  How do you know what files
 do what?  Here's an explanation:
 
+ABOUT-NLS
+config.rpath
 m4/gettext.m4
 m4/iconv.m4
-m4/lib-ld.m4
-m4/lib-link.m4
-m4/lib-prefix.m4
 m4/nls.m4
 m4/po.m4
-m4/progtest.m4
+m4/...
 po/Makefile.in.in
+po/Makevars.template
 po/Rules-quot
 po/boldquot.sed
 po/en@boldquot.header
@@ -29,16 +30,21 @@ po/insert-header.sin
 po/quot.sed
 po/remove-potcdate.sin
 
-    These files are copied in when 'gettextize' is run on the source
-    project.  When we need to update to a newer minimum version of
-    gettext, these files will be replaced.  In general, we should never
+    These files are copied in when 'autopoint' is run on the source
+    project, which happens as part of autogen.sh.  In general, we should never
     need to touch these files.
+
+    The autopoint tool depends on two macros in configure.ac: AM_GNU_GETTEXT,
+    and AM_GNU_GETTEXT_VERSION([<version>]). From time to time we may need to
+    update the set of gettext files that we use. To do so, update the gettext
+    version number in AM_GNU_GETTEXT_VERSION and run autogen.sh. Be sure to
+    also update the required gettext version in the spec file.
 
 po/Makevars
 
-    Should be updated when we update gettext files with a new gettextize
-    run.  A file called po/Makevars.template will appear and we can move
-    over our values to the new file and commit it.  We do not need to
+    Should be updated when we update gettext files from autopoint with a new
+    gettext version.  A file called po/Makevars.template will appear and we
+    can move over our values to the new file and commit it.  We do not need to
     change this file on a regular basis.
 
 po/POTFILES.in
@@ -46,11 +52,40 @@ po/POTFILES.in
     This file contains a listing of all source files in the project that
     have translatable strings.
 
+    Some files can't be handled by gettext directly, such as the GNOME desktop
+    files and anything without a clear filename extension. For these types of
+    files, add a rule to po/Rules-extract to create a file that gettext can
+    handle, and add the name of the generated file to po/POTFILES.in.
+
 po/LINGUAS
 
     Space-delimited list of languages available.  If a new language is
     added, it should be added to this file.
 
+po/Rules-extract
+
+    Extra Makefile rules to process files that gettext can't handle on its
+    own.
+
+    Currently there are two types of files handled in Rules-extract: files in
+    a language that gettext doesn't know, and files in a language that gettext
+    can't figure out from the filename. For the first type of file (.desktop
+    files, consolehelper files), we use intltool-extract to create a C-style
+    header file containing the translatable strings, and for the second we
+    manually run xgettext, forcing a --language setting, and generate an
+    intermediate .po file.
+
+    In both cases, the name of the generated file is what goes in
+    po/POTFILES.in.
+
+po/anaconda.pot
+
+    This is the template file built by xgettext containing all of the
+    translatable strings. The file is updated and committed to git as part of
+    building a release.
+
 po/*.po
 
-    Actual translated strings, as maintained by the translation team(s).
+    Actual translated strings, as maintained by the translation team(s). These
+    files are not stored in git. The po-pull target will pull the latest
+    translations from Transifex.
