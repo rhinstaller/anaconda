@@ -348,7 +348,7 @@ class DatetimeSpoke(FirstbootSpokeMixIn, NormalSpoke):
         # taking values from the kickstart file?
         self._kickstarted = flags.flags.automatedInstall
 
-        self._config_dialog = None
+        self._config_dialog = NTPconfigDialog(self.data)
         self._update_datetime_timer_id = None
         self._start_updating_timer_id = None
 
@@ -433,7 +433,6 @@ class DatetimeSpoke(FirstbootSpokeMixIn, NormalSpoke):
         if not flags.can_touch_runtime_system("modify system time and date"):
             self._set_date_time_setting_sensitive(False)
 
-        self._config_dialog = NTPconfigDialog(self.data)
         self._config_dialog.initialize()
 
         time_init_thread = threadMgr.get(constants.THREAD_TIME_INIT)
