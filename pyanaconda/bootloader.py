@@ -29,7 +29,7 @@ import blivet
 from parted import PARTITION_BIOS_GRUB
 
 from pyanaconda import iutil
-from blivet.devicelibs import mdraid
+from blivet.devicelibs import raid
 from pyanaconda.isys import sync
 from pyanaconda.product import productName
 from pyanaconda.flags import flags
@@ -401,7 +401,7 @@ class BootLoader(object):
             return ret
 
         if raid_levels and device.level not in raid_levels:
-            levels_str = ",".join("RAID%d" % l for l in raid_levels)
+            levels_str = ",".join("%s" % l for l in raid_levels)
             self.errors.append(_("RAID sets that contain '%(desc)s' must have one "
                                  "of the following raid levels: %(raid_level)s.")
                                  % {"desc" : desc, "raid_level" : levels_str})
@@ -994,7 +994,7 @@ class GRUB(BootLoader):
 
     # list of strings representing options for boot device types
     stage2_device_types = ["partition", "mdarray"]
-    stage2_raid_levels = [mdraid.RAID1]
+    stage2_raid_levels = [raid.RAID1]
     stage2_raid_member_types = ["partition"]
     stage2_raid_metadata = ["0", "0.90", "1.0"]
 
@@ -1372,8 +1372,8 @@ class GRUB2(GRUB):
     # requirements for boot devices
     stage2_device_types = ["partition", "mdarray", "lvmlv", "btrfs volume",
                            "btrfs subvolume"]
-    stage2_raid_levels = [mdraid.RAID0, mdraid.RAID1, mdraid.RAID4,
-                          mdraid.RAID5, mdraid.RAID6, mdraid.RAID10]
+    stage2_raid_levels = [raid.RAID0, raid.RAID1, raid.RAID4,
+                          raid.RAID5, raid.RAID6, raid.RAID10]
     stage2_raid_metadata = ["0", "0.90", "1.0", "1.2"]
 
     @property
@@ -1801,7 +1801,7 @@ class Yaboot(YabootBase):
 
     # stage2 device requirements
     stage2_device_types = ["partition", "mdarray"]
-    stage2_device_raid_levels = [mdraid.RAID1]
+    stage2_device_raid_levels = [raid.RAID1]
 
     #
     # configuration
@@ -2032,7 +2032,7 @@ class ZIPL(BootLoader):
 
     # stage2 device requirements
     stage2_device_types = ["partition", "mdarray", "lvmlv"]
-    stage2_device_raid_levels = [mdraid.RAID1]
+    stage2_device_raid_levels = [raid.RAID1]
 
     @property
     def stage2_format_types(self):
