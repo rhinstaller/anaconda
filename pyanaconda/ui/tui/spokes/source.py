@@ -52,9 +52,11 @@ class SourceSwitchHandler(object):
     It will correctly switch to the new method
     and cleanup any previous method set.
     """
-    def __init__(self):
+    def __init__(self, data, storage):
         self._device = None
         self._current_iso_path = None
+        self.data = data
+        self.storage = storage
 
     def _clean_hdd_iso(self):
         """ Clean HDD ISO usage
@@ -140,7 +142,7 @@ class SourceSpoke(EditTUISpoke, SourceSwitchHandler):
 
     def __init__(self, app, data, storage, payload, instclass):
         EditTUISpoke.__init__(self, app, data, storage, payload, instclass)
-        SourceSwitchHandler.__init__(self)
+        SourceSwitchHandler.__init__(self, data, storage)
         self._ready = False
         self.errors = []
         self._cdrom = None
@@ -270,15 +272,15 @@ class SourceSpoke(EditTUISpoke, SourceSwitchHandler):
                 self.close()
                 return INPUT_PROCESSED
         elif num == 2:
-                # local ISO file (HDD ISO)
-                self._selection = num
-                newspoke = SelectDeviceSpoke(self.app, self.data,
-                                             self.storage, self.payload,
-                                             self.instclass)
-                self.app.switch_screen_modal(newspoke)
-                self.apply()
-                self.close()
-                return INPUT_PROCESSED
+            # local ISO file (HDD ISO)
+            self._selection = num
+            newspoke = SelectDeviceSpoke(self.app, self.data,
+                    self.storage, self.payload,
+                    self.instclass)
+            self.app.switch_screen_modal(newspoke)
+            self.apply()
+            self.close()
+            return INPUT_PROCESSED
         else:
             # mounted ISO
             if num == 1:
@@ -342,7 +344,7 @@ class SpecifyRepoSpoke(EditTUISpoke, SourceSwitchHandler):
 
     def __init__(self, app, data, storage, payload, instclass, selection):
         EditTUISpoke.__init__(self, app, data, storage, payload, instclass)
-        SourceSwitchHandler.__init__(self)
+        SourceSwitchHandler.__init__(self, data, storage)
         self.selection = selection
         self.args = self.data.method
 
@@ -381,7 +383,7 @@ class SpecifyNFSRepoSpoke(EditTUISpoke, SourceSwitchHandler):
 
     def __init__(self, app, data, storage, payload, instclass, selection, errors):
         EditTUISpoke.__init__(self, app, data, storage, payload, instclass)
-        SourceSwitchHandler.__init__(self)
+        SourceSwitchHandler.__init__(self, data, storage)
         self.selection = selection
         self.args = self.data.method
         self.errors = errors
@@ -502,7 +504,7 @@ class SelectISOSpoke(NormalTUISpoke, SourceSwitchHandler):
 
     def __init__(self, app, data, storage, payload, instclass, device):
         NormalTUISpoke.__init__(self, app, data, storage, payload, instclass)
-        SourceSwitchHandler.__init__(self)
+        SourceSwitchHandler.__init__(self, data, storage)
         self.selection = None
         self.args = self.data.method
         self._device = device
@@ -582,8 +584,6 @@ class SelectISOSpoke(NormalTUISpoke, SourceSwitchHandler):
 
         if self._current_iso_path:
             self.set_source_hdd_iso(self._device, self._current_iso_path)
-        else:
-            self._no_refresh = True
         # unmount the device - the (YUM) payload will remount it anyway
         # (if it uses it)
         self._unmount_device()
