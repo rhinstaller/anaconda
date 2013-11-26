@@ -446,14 +446,14 @@ class ResizeDialog(GUIObject):
     def on_resize_value_changed(self, rng):
         (model, itr) = self._selection.get_selected()
 
-        old_delta = rng.get_adjustment().get_upper()-model[itr][RESIZE_TARGET_COL]
+        old_delta = rng.get_adjustment().get_upper()- round(model[itr][RESIZE_TARGET_COL], 2)
         self._selectedReclaimableSpace -= old_delta
 
         # Update the target size in the store.
-        model[itr][RESIZE_TARGET_COL] = rng.get_value()
+        model[itr][RESIZE_TARGET_COL] = round(rng.get_value(), 2)
 
         # Update the "Total selected space" label.
-        delta = rng.get_adjustment().get_upper()-rng.get_value()
+        delta = rng.get_adjustment().get_upper() - round(rng.get_value(), 2)
         self._selectedReclaimableSpace += delta
         self._update_labels(selectedReclaimable=self._selectedReclaimableSpace)
 
