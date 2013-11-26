@@ -26,6 +26,7 @@ import sys
 import os
 import re
 import struct
+import blivet
 from parted import PARTITION_BIOS_GRUB
 
 from pyanaconda import iutil
@@ -111,6 +112,12 @@ def parse_serial_opt(arg):
     except IndexError:
         pass
     return opts
+
+def _is_on_iscsi(device):
+    """Tells whether a given device is on an iSCSI disk or not."""
+
+    return all(isinstance(disk, blivet.devices.iScsiDiskDevice)
+               for disk in device.disks)
 
 class BootLoaderError(Exception):
     pass
@@ -573,6 +580,10 @@ class BootLoader(object):
             log.debug("stage1 device cannot be of type %s" % device.type)
             return False
 
+        if blivet.arch.isS390() and _is_on_iscsi(device):
+            log.debug("stage1 device cannot be on an iSCSI disk on s390(x)")
+            return False
+
         description = self.device_description(device)
 
         if self.stage2_is_valid_stage1 and device == self.stage2_device:
@@ -682,6 +693,10 @@ class BootLoader(object):
             return False
 
         if device.protected:
+            valid = False
+
+        if blivet.arch.isS390() and _is_on_iscsi(device):
+            self.errors.append(_("%s cannot be on an iSCSI disk on s390(x)") % self.stage2_description)
             valid = False
 
         if not self._device_type_match(device, self.stage2_device_types):
