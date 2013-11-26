@@ -21,6 +21,7 @@
 
 from __future__ import division
 from collections import namedtuple
+from math import ceil
 
 # pylint: disable-msg=E0611
 from gi.repository import Gdk, Gtk
@@ -136,14 +137,14 @@ class ResizeDialog(GUIObject):
                 diskReclaimableSpace = disk.size
 
             itr = self._diskStore.append(None, [disk.id,
-                                                "%s %s" % (size_str(disk.size), disk.description),
+                                                "%s %s" % (size_str(int(disk.size)), disk.description),
                                                 fstype,
                                                 "<span foreground='grey' style='italic'>%s total</span>",
                                                 _(PRESERVE),
                                                 editable,
                                                 TY_NORMAL,
                                                 self._get_tooltip(disk),
-                                                disk.size,
+                                                int(disk.size),
                                                 disk.name])
 
             if disk.partitioned:
@@ -156,7 +157,7 @@ class ResizeDialog(GUIObject):
                     if dev.resizable:
                         freeSize = dev.size - dev.minSize
                         resizeString = _("%(freeSize)s of %(devSize)s") \
-                                       % {"freeSize": size_str(freeSize), "devSize": size_str(dev.size)}
+                                       % {"freeSize": size_str(int(freeSize)), "devSize": size_str(int(dev.size))}
                         if not dev.protected:
                             canShrinkSomething = True
                     else:
@@ -176,7 +177,7 @@ class ResizeDialog(GUIObject):
                                                  not dev.protected,
                                                  ty,
                                                  self._get_tooltip(dev),
-                                                 dev.size,
+                                                 int(dev.size),
                                                  dev.name])
                     diskReclaimableSpace += freeSize
 
@@ -193,13 +194,13 @@ class ResizeDialog(GUIObject):
                                              False,
                                              TY_FREE_SPACE,
                                              self._get_tooltip(disk),
-                                             float(converted),
+                                             int(converted),
                                              ""])
                 self._initialFreeSpace += diskFree
 
             # And then go back and fill in the total reclaimable space for the
             # disk, now that we know what each partition has reclaimable.
-            self._diskStore[itr][RECLAIMABLE_COL] = self._diskStore[itr][RECLAIMABLE_COL] % size_str(diskReclaimableSpace)
+            self._diskStore[itr][RECLAIMABLE_COL] = self._diskStore[itr][RECLAIMABLE_COL] % size_str(int(diskReclaimableSpace))
 
             totalDisks += 1
             totalReclaimableSpace += diskReclaimableSpace
@@ -237,27 +238,27 @@ class ResizeDialog(GUIObject):
            will not have a slider displayed, so they do not need to be worried
            with here.
         """
-        self._resizeSlider.set_range(device.minSize, device.size)
+        self._resizeSlider.set_range(int(ceil(device.minSize)), int(device.size))
         self._resizeSlider.set_value(value)
 
         # The slider needs to be keyboard-accessible.  We'll make small movements change in
         # 1% increments, and large movements in 5% increments.
-        distance = device.size - device.minSize
+        distance = int(device.size) - int(ceil(device.minSize))
         onePercent = distance*0.01
         fivePercent = distance*0.05
         twentyPercent = distance*0.2
 
         adjustment = self.builder.get_object("resizeAdjustment")
-        adjustment.configure(value, device.minSize, device.size, onePercent, fivePercent, 0)
+        adjustment.configure(value, int(ceil(device.minSize)), int(device.size), onePercent, fivePercent, 0)
 
         # And then the slider needs a couple tick marks for easier navigation.
         self._resizeSlider.clear_marks()
         for i in range(1, 5):
-            self._resizeSlider.add_mark(device.minSize + i*twentyPercent, Gtk.PositionType.BOTTOM, None)
+            self._resizeSlider.add_mark(int(ceil(device.minSize)) + i*twentyPercent, Gtk.PositionType.BOTTOM, None)
 
         # Finally, add tick marks for the ends.
-        self._resizeSlider.add_mark(device.minSize, Gtk.PositionType.BOTTOM, size_str(device.minSize))
-        self._resizeSlider.add_mark(device.size, Gtk.PositionType.BOTTOM, size_str(device.size))
+        self._resizeSlider.add_mark(int(ceil(device.minSize)), Gtk.PositionType.BOTTOM, size_str(int(ceil(device.minSize))))
+        self._resizeSlider.add_mark(int(device.size), Gtk.PositionType.BOTTOM, size_str(int(device.size)))
 
     def _update_action_buttons(self, row):
         obj = PartStoreRow(*row)
@@ -333,9 +334,9 @@ class ResizeDialog(GUIObject):
         if obj.action == _(PRESERVE):
             return False
         if obj.action == _(SHRINK):
-            self._selectedReclaimableSpace += device.size - obj.target
+            self._selectedReclaimableSpace += int(device.size) - obj.target
         elif obj.action == _(DELETE):
-            self._selectedReclaimableSpace += device.size
+            self._selectedReclaimableSpace += int(device.size)
 
         return False
 
@@ -466,14 +467,14 @@ class ResizeDialog(GUIObject):
     def on_resize_value_changed(self, rng):
         (model, itr) = self._selection.get_selected()
 
-        old_delta = rng.get_adjustment().get_upper()-model[itr][RESIZE_TARGET_COL]
+        old_delta = int(rng.get_adjustment().get_upper())- model[itr][RESIZE_TARGET_COL]
         self._selectedReclaimableSpace -= old_delta
 
         # Update the target size in the store.
-        model[itr][RESIZE_TARGET_COL] = rng.get_value()
+        model[itr][RESIZE_TARGET_COL] = int(rng.get_value())
 
         # Update the "Total selected space" label.
-        delta = rng.get_adjustment().get_upper()-rng.get_value()
+        delta = int(rng.get_adjustment().get_upper()) - int(rng.get_value())
         self._selectedReclaimableSpace += delta
         self._update_labels(selectedReclaimable=self._selectedReclaimableSpace)
 
