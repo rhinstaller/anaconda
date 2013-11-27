@@ -1490,7 +1490,7 @@ class Keyboard(commands.keyboard.F18_Keyboard):
         keyboard.write_keyboard_config(self, ROOT_PATH)
 
     def dracutSetupArgs(self, *args):
-        return keyboard.dracut_setup_args(self)
+        return keyboard.dracut_setup_args()
 
 
 class SpokeRegistry(dict):
