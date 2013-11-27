@@ -58,10 +58,6 @@ import string
 from dbus.mainloop.glib import DBusGMainLoop
 dbus.mainloop.glib.DBusGMainLoop(set_as_default=True)
 
-import ctypes
-ctypes.cdll.LoadLibrary("libnm-util.so.2")
-nm_utils = ctypes.CDLL("libnm-util.so.2")
-
 import logging
 log = logging.getLogger("anaconda")
 
@@ -96,7 +92,9 @@ def localized_string_of_device_state(device, state):
     elif state == NetworkManager.DeviceState.UNMANAGED:
         str = _("Unmanaged")
     elif state == NetworkManager.DeviceState.UNAVAILABLE:
-        if device.get_firmware_missing():
+        if not device:
+            str = _("Unavailable")
+        elif device.get_firmware_missing():
             str = _("Firmware missing")
         elif (device.get_device_type() == NetworkManager.DeviceType.ETHERNET
               and not device.get_carrier()):
@@ -212,7 +210,65 @@ class CellRendererSecurity(Gtk.CellRendererPixbuf):
 
         self.set_property("icon-name", self.icon_name)
 
-class NetworkControlBox(object):
+class DeviceConfiguration(object):
+
+    setting_types = {
+        '802-11-wireless': NetworkManager.DeviceType.WIFI,
+        '802-3-ethernet': NetworkManager.DeviceType.ETHERNET,
+        'vlan': NetworkManager.DeviceType.VLAN,
+        'bond': NetworkManager.DeviceType.BOND,
+        'team': NetworkManager.DeviceType.TEAM,
+        }
+
+    def __init__(self, device=None, con_uuid=None):
+        self.device = device
+        self.con_uuid = con_uuid
+
+        if device:
+            self.device_type = self.device.get_device_type()
+        elif con_uuid:
+            self.device_type = self._setting_device_type(self.con_uuid)
+
+        if not self.con_uuid:
+            if self.device_type != NetworkManager.DeviceType.WIFI:
+                uuid = nm.nm_device_setting_value(device.get_iface(), "connection", "uuid")
+                settings = nm.nm_get_settings(uuid, "connection", "uuid")
+                if settings and 'slave-type' not in settings[0]['connection']:
+                    self.con_uuid = uuid
+
+    def _setting_device_type(self, uuid):
+        settings = nm.nm_get_settings(uuid, "connection", "uuid")
+        if not settings:
+            return None
+        dev_type = self.setting_types.get(settings[0]["connection"]["type"], None)
+        return dev_type
+
+    def get_iface(self):
+        if self.device:
+            iface = self.device.get_iface()
+        else:
+            iface = self.setting_value("connection", "interface-name")
+        return iface
+
+    def setting_value(self, key1, key2):
+        settings = nm.nm_get_settings(self.con_uuid, "connection", "uuid")
+        try:
+            value = settings[0][key1][key2]
+        except IndexError as e:
+            log.debug("network: can't find connection with uuid %s"
+                        % self.con_uuid)
+        except KeyError as e:
+            log.debug("network: can't find '%s' '%s' in connection %s"
+                        % (key1, key2, self.con_uuid))
+        else:
+            return value
+
+class NetworkControlBox(GObject.GObject):
+
+    __gsignals__ = {
+        "nm-state-changed": (GObject.SIGNAL_RUN_LAST, GObject.TYPE_NONE, []),
+        "device-state-changed": (GObject.SIGNAL_RUN_LAST, GObject.TYPE_NONE, [str, int, int, int]),
+    }
 
     supported_device_types = [
         NetworkManager.DeviceType.ETHERNET,
@@ -229,7 +285,23 @@ class NetworkControlBox(object):
         NetworkManager.DeviceType.VLAN,
     ]
 
+    device_type_sort_value = {
+        NetworkManager.DeviceType.ETHERNET : "1",
+        NetworkManager.DeviceType.WIFI : "2",
+    }
+
+    device_type_name = {
+        NetworkManager.DeviceType.UNKNOWN: _("Unknown"),
+        NetworkManager.DeviceType.ETHERNET: _("Ethernet"),
+        NetworkManager.DeviceType.WIFI: _("Wireless"),
+        NetworkManager.DeviceType.BOND: _("Bond"),
+        NetworkManager.DeviceType.VLAN: _("Vlan"),
+        NetworkManager.DeviceType.TEAM: _("Team"),
+    }
+
     def __init__(self, builder, spoke=None):
+
+        GObject.GObject.__init__(self)
 
         self.builder = builder
         self._running_nmce = None
@@ -275,8 +347,8 @@ class NetworkControlBox(object):
         # limited to wired and wireless
         treeview = self.builder.get_object("treeview_devices")
         self._add_device_columns(treeview)
-        devices_store = self.builder.get_object("liststore_devices")
-        devices_store.set_sort_column_id(2, Gtk.SortType.ASCENDING)
+        self.dev_cfg_store = self.builder.get_object("liststore_devices")
+        self.dev_cfg_store.set_sort_column_id(2, Gtk.SortType.ASCENDING)
         selection = treeview.get_selection()
         selection.set_mode(Gtk.SelectionMode.BROWSE)
         selection.connect("changed", self.on_device_selection_changed)
@@ -306,6 +378,8 @@ class NetworkControlBox(object):
                                                               self.on_edit_connection)
         self.entry_hostname = self.builder.get_object("entry_hostname")
 
+        self.client.connect("notify::%s" % NMClient.CLIENT_STATE,
+                            self.on_nm_state_changed)
 
     @property
     def vbox(self):
@@ -340,42 +414,47 @@ class NetworkControlBox(object):
 
     def initialize(self):
         for device in self.client.get_devices():
-            device.connect("notify::ip4-config", self.on_device_config_changed)
-            device.connect("notify::ip6-config", self.on_device_config_changed)
             self.add_device_to_list(device)
 
+        for setting in nm.nm_get_all_settings():
+            uuid = setting["connection"]["uuid"]
+            log.debug("network: GUI, connection %s found" % uuid)
+            if self.dev_cfg(uuid=uuid):
+                continue
+            dev_cfg = DeviceConfiguration(con_uuid=uuid)
+            if dev_cfg.device_type in self.supported_device_types:
+                self.add_dev_cfg(dev_cfg)
+
+        # select the first device
         treeview = self.builder.get_object("treeview_devices")
-        devices_store = self.builder.get_object("liststore_devices")
         selection = treeview.get_selection()
-        itr = devices_store.get_iter_first()
+        itr = self.dev_cfg_store.get_iter_first()
         if itr:
             selection.select_iter(itr)
 
     def refresh(self):
-        device = self.selected_device()
-        self.refresh_ui(device)
+        self.refresh_ui()
 
     # Signal handlers.
+    def on_nm_state_changed(self, *args):
+        self.emit("nm-state-changed")
+
     def on_device_selection_changed(self, *args):
-        device = self.selected_device()
-        if not device:
-            return
+        self.refresh_ui()
 
-        log.debug("network: selected device %s" % device.get_iface())
-        self.refresh_ui(device)
-
-    def on_device_state_changed(self, *args):
-        device = args[0]
-        new_state = args[1]
+    def on_device_state_changed(self, device, new_state, *args):
+        self.emit("device-state-changed", device.get_iface(), new_state, *args)
         if new_state == NetworkManager.DeviceState.SECONDARIES:
             return
         self._refresh_carrier_info()
-        if device == self.selected_device():
-            self.refresh_ui(device, new_state)
+        dev_cfg = self.selected_dev_cfg()
+        if dev_cfg and dev_cfg.device == device:
+            self.refresh_ui(state=new_state)
 
     def on_device_config_changed(self, device, *args):
-        if device == self.selected_device():
-            self.refresh_ui(device)
+        dev_cfg = self.selected_dev_cfg()
+        if dev_cfg and dev_cfg.device == device:
+            self.refresh_ui()
 
     def on_wireless_ap_changed_cb(self, combobox, *args):
         if self._updating_device:
@@ -384,22 +463,25 @@ class NetworkControlBox(object):
         if not iter:
             return
 
-        device = self.selected_device()
+        dev_cfg = self.selected_dev_cfg()
+        if not dev_cfg:
+            return
         ap_obj_path, ssid_target = combobox.get_model().get(iter, 0, 1)
+
         self.selected_ssid = ssid_target
         if ap_obj_path == "ap-other...":
             return
 
-        log.info("network: access point changed: %s" % ssid_target)
+        log.info("network: selected access point: %s" % ssid_target)
 
         try:
             uuid = nm.nm_ap_setting_value(ssid_target, "connection", "uuid")
-            nm.nm_activate_device_connection(device.get_iface(), uuid)
+            nm.nm_activate_device_connection(dev_cfg.device.get_iface(), uuid)
         except nm.UnmanagedDeviceError as e:
             log.debug("network: on_wireless_ap_changed: %s" % e)
         except nm.SettingsNotFoundError as e:
             log.debug("network: on_wireless_ap_changed: %s" % e)
-            self.client.add_and_activate_connection(None, device, ap_obj_path,
+            self.client.add_and_activate_connection(None, dev_cfg.device, ap_obj_path,
                                                     None, None)
 
     def on_device_added(self, client, device, *args):
@@ -409,40 +491,32 @@ class NetworkControlBox(object):
         self.remove_device(device)
 
     def on_edit_connection(self, *args):
-        device = self.selected_device()
-        if not device:
+        dev_cfg = self.selected_dev_cfg()
+        if not dev_cfg:
             return
 
-        devname = device.get_iface()
-        uuid = None
-        try:
-            uuid = nm.nm_device_active_con_uuid(devname)
-        except nm.UnknownDeviceError as e:
-            log.debug("network: on_edit_connection: %s" % e)
-        if not uuid:
-            if device.get_device_type() == NetworkManager.DeviceType.WIFI:
-                if self.selected_ssid:
-                    try:
-                        uuid = nm.nm_ap_setting_value(self.selected_ssid, "connection", "uuid")
-                    except nm.SettingsNotFoundError as e:
-                        log.debug("network: on_edit_connection: %s" % e)
-            else:
-                uuid = nm.nm_device_setting_value(devname, "connection", "uuid")
+        uuid = dev_cfg.con_uuid
+        devname = dev_cfg.get_iface()
+        activate = None
+
+        if dev_cfg.device_type == NetworkManager.DeviceType.WIFI:
+            if self.selected_ssid:
+                try:
+                    uuid = nm.nm_ap_setting_value(self.selected_ssid, "connection", "uuid")
+                except nm.SettingsNotFoundError as e:
+                    log.debug("network: on_edit_connection: %s" % e)
+                else:
+                    # 871132 auto activate wireless connection after editing if it is not
+                    # already activated (assume entering secrets)
+                    if self.selected_ssid != nm.nm_device_active_ssid(devname):
+                        activate = (uuid, devname)
 
         if not uuid:
             log.debug("network: on_edit_connection: can't find connection for device %s" % devname)
             return
 
-        # 871132 auto activate wireless connection after editing if it is not
-        # already activated (assume entering secrets)
-        activate = None
-        if (device.get_device_type() == NetworkManager.DeviceType.WIFI
-            and self.selected_ssid
-            and self.selected_ssid != nm.nm_device_active_ssid(devname)):
-            activate = (uuid, devname)
-
         log.info("network: configuring connection %s device %s ssid %s" %
-                 (uuid, devname, self.selected_ssid))
+                 uuid, devname, self.selected_ssid)
         self.kill_nmce(msg="Configure button clicked")
         proc = subprocess.Popen(["nm-connection-editor", "--edit", "%s" % uuid])
         self._running_nmce = proc
@@ -483,28 +557,31 @@ class NetworkControlBox(object):
             return
 
         active = switch.get_active()
-        device = self.selected_device()
+        dev_cfg = self.selected_dev_cfg()
+        if not dev_cfg:
+            return
 
         log.info("network: device %s switched %s" %
-                  (device.get_iface(), "on" if active else "off"))
+                   (dev_cfg.get_iface(), "on" if active else "off"))
 
-        dev_type = device.get_device_type()
-        if dev_type in self.wired_ui_device_types:
-            if active:
-                uuid = nm.nm_device_setting_value(device.get_iface(), "connection", "uuid")
-                if uuid:
-                    try:
-                        nm.nm_activate_device_connection(device.get_iface(), uuid)
-                    except nm.UnmanagedDeviceError as e:
-                        log.debug("network: on_device_off_toggled: %s" % e)
-                else:
-                    self.client.add_and_activate_connection(None, device, None,
-                                                            None, None)
-            else:
-                device.disconnect(None, None)
-        elif dev_type == NetworkManager.DeviceType.WIFI:
+        if dev_cfg.device_type == NetworkManager.DeviceType.WIFI:
             self.client.wireless_set_enabled(active)
-
+        else:
+            if active:
+                dev_name = dev_cfg.device and dev_cfg.device.get_iface()
+                if not dev_cfg.con_uuid:
+                    log.debug("network: on_device_off_toggled: no connection for %s"
+                               % dev_name)
+                    return
+                try:
+                    nm.nm_activate_device_connection(dev_name, dev_cfg.con_uuid)
+                except (nm.UnmanagedDeviceError, nm.UnknownDeviceError) as e:
+                    log.debug("network: on_device_off_toggled: %s" % e)
+            else:
+                try:
+                    nm.nm_disconnect_device(dev_cfg.get_iface())
+                except (nm.UnmanagedDeviceError, nm.DeviceNotActiveError) as e:
+                    log.debug("network: on_device_off_toggled: %s" % e)
 
     def on_add_device_clicked(self, *args):
         dialog = self.builder.get_object("add_device_dialog")
@@ -532,130 +609,128 @@ class NetworkControlBox(object):
                 self._running_nmce = None
             network.logIfcfgFiles("nm-c-e run")
 
-    def selected_device(self):
+    def selected_dev_cfg(self):
         selection = self.builder.get_object("treeview_devices").get_selection()
-        (model, iter) = selection.get_selected()
+        model, iter = selection.get_selected()
         if not iter:
             return None
-        return model.get(iter, DEVICES_COLUMN_OBJECT)[0]
+        return model[iter][DEVICES_COLUMN_OBJECT]
 
-    def _device_is_stored(self, nm_device):
-        """Check that device with Udi of nm_device is already in liststore"""
-        udi = nm_device.get_udi()
-        model = self.builder.get_object("liststore_devices")
-        for row in model:
-            if udi == row[DEVICES_COLUMN_OBJECT].get_udi():
-                return True
-        return False
+    def add_dev_cfg(self, dev_cfg):
+        log.debug ("network: GUI, device configuration added: connection %s device %s"
+                     % (dev_cfg.con_uuid, dev_cfg.get_iface()))
+        self.dev_cfg_store.append([
+            self._dev_icon_name(dev_cfg),
+            self.device_type_sort_value.get(dev_cfg.device_type, "100"),
+            self._dev_title(dev_cfg),
+            dev_cfg
+        ])
 
     def add_device_to_list(self, device):
-        if self._device_is_stored(device):
-            return
-
         if device.get_device_type() not in self.supported_device_types:
             return
 
+        try:
+            con_uuid = nm.nm_device_setting_value(device.get_iface(), "connection", "uuid")
+            dev_cfg = self.dev_cfg(uuid=con_uuid)
+        except nm.SettingsNotFoundError:
+            # wireless devices
+            dev_cfg = None
+        if dev_cfg:
+            dev_cfg.device = device
+        else:
+            dev_cfg = DeviceConfiguration(device=device)
+            self.add_dev_cfg(dev_cfg)
+
+        device.connect("notify::ip4-config", self.on_device_config_changed)
+        device.connect("notify::ip6-config", self.on_device_config_changed)
         device.connect("state-changed", self.on_device_state_changed)
 
-        self.builder.get_object("liststore_devices").append([
-            self._dev_icon_name(device),
-            self._dev_type_sort_value(device),
-            self._dev_title(device),
-            device,
-        ])
-
-    def _dev_icon_name(self, device):
+    def _dev_icon_name(self, dev_cfg):
         icon_name = ""
-        dev_type = device.get_device_type()
-        if dev_type in self.wired_ui_device_types:
-            if device.get_state() == NetworkManager.DeviceState.UNAVAILABLE:
-                icon_name = "network-wired-disconnected"
+        if dev_cfg.device_type in self.wired_ui_device_types:
+            if dev_cfg.device:
+                if dev_cfg.device.get_state() == NetworkManager.DeviceState.UNAVAILABLE:
+                    icon_name = "network-wired-disconnected"
+                else:
+                    icon_name = "network-wired"
             else:
-                icon_name = "network-wired"
-        elif dev_type == NetworkManager.DeviceType.WIFI:
+                icon_name = "network-wired-disconnected"
+        elif dev_cfg.device_type == NetworkManager.DeviceType.WIFI:
             icon_name = "network-wireless"
 
         return icon_name
 
-    def _dev_type_sort_value(self, device):
-        dev_type = device.get_device_type()
-        if dev_type == NetworkManager.DeviceType.ETHERNET:
-            str = "1"
-        elif dev_type == NetworkManager.DeviceType.WIFI:
-            str = "2"
-        else:
-            str = "3"
-        return str
-
-    def _dev_title(self, device):
+    def _dev_title(self, dev_cfg):
         unplugged = ''
-        if (device.get_state() == NetworkManager.DeviceState.UNAVAILABLE
-            and device.get_device_type() == NetworkManager.DeviceType.ETHERNET
-            and not device.get_carrier()):
-            # Translators: ethernet cable is unplugged
-            unplugged = ', <i>%s</i>' % _("unplugged")
-        title = '<span size="large">%s (%s%s)</span>' % (self._dev_type_str(device),
-                                                         device.get_iface(),
-                                                         unplugged)
-        title += '\n<span size="small">%s %s</span>' % (device.get_vendor() or "",
-                                                        device.get_product() or "")
+        if dev_cfg.device:
+            if (dev_cfg.device.get_state() == NetworkManager.DeviceState.UNAVAILABLE
+                and dev_cfg.device.get_device_type() == NetworkManager.DeviceType.ETHERNET
+                and not dev_cfg.device.get_carrier()):
+                # TRANSLATORS: ethernet cable is unplugged
+                unplugged = ', <i>%s</i>' % _("unplugged")
+        title = '<span size="large">%s (%s%s)</span>' % \
+                 (self.device_type_name.get(dev_cfg.device_type, ""),
+                  dev_cfg.get_iface(),
+                  unplugged)
+
+        if dev_cfg.device:
+            title += '\n<span size="small">%s %s</span>' % \
+                    (dev_cfg.device.get_vendor() or "",
+                     dev_cfg.device.get_product() or "")
         return title
 
-    def _dev_type_str(self, device):
-        dev_type = device.get_device_type()
-        if dev_type == NetworkManager.DeviceType.UNKNOWN:
-            title = _("Unknown")
-        elif dev_type == NetworkManager.DeviceType.ETHERNET:
-            title = _("Ethernet")
-        elif dev_type == NetworkManager.DeviceType.WIFI:
-            title = _("Wireless")
-        elif dev_type == NetworkManager.DeviceType.BOND:
-            title = _("Bond")
-        elif dev_type == NetworkManager.DeviceType.VLAN:
-            title = _("Vlan")
-        elif dev_type == NetworkManager.DeviceType.TEAM:
-            title = _("Team")
-        else:
-            title = ""
-        return title
+    def dev_cfg(self, uuid=None, device=None):
+        for row in self.dev_cfg_store:
+            dev_cfg = row[DEVICES_COLUMN_OBJECT]
+            if uuid:
+                if uuid != dev_cfg.con_uuid:
+                    continue
+            if device:
+                if not dev_cfg.device \
+                   or dev_cfg.device.get_udi() != device.get_udi():
+                    continue
+            return dev_cfg
+        return None
 
     def remove_device(self, device):
         # This should not concern wifi and ethernet devices,
         # just virtual devices e.g. vpn probably
-        # TODO test!, remove perhaps
-        model = self.builder.get_object("liststore_devices")
-        rows_to_remove = []
-        for row in model:
-            if (device.get_udi() == row[DEVICES_COLUMN_OBJECT].get_udi()):
-                rows_to_remove.append(row)
-        for row in rows_to_remove:
-            del(row)
+        log.debug("network: GUI, device removed: %s" % (device.get_iface()))
+        self.dev_cfg(device=device).device = None
 
-    def refresh_ui(self, device, state=None):
+    def refresh_ui(self, state=None):
 
-        if not device:
+        dev_cfg = self.selected_dev_cfg()
+        if not dev_cfg:
+            # the list is empty (no supported devices)
             notebook = self.builder.get_object("notebook_types")
             notebook.set_current_page(5)
             return
 
-        self._refresh_device_type_page(device)
-        self._refresh_header_ui(device, state)
-        self._refresh_slaves(device)
-        self._refresh_parent_vlanid(device)
-        self._refresh_speed_hwaddr(device, state)
-        self._refresh_ap(device, state)
-        self._refresh_device_cfg(device)
+        self._refresh_device_type_page(dev_cfg.device_type)
+        self._refresh_header_ui(dev_cfg, state)
+        self._refresh_slaves(dev_cfg)
+        self._refresh_parent_vlanid(dev_cfg)
+        self._refresh_speed_hwaddr(dev_cfg, state)
+        self._refresh_ap(dev_cfg, state)
+        self._refresh_device_cfg(dev_cfg)
 
-    def _refresh_device_cfg(self, device):
+    def _refresh_device_cfg(self, dev_cfg):
 
-        dev_type = device.get_device_type()
-        if dev_type in self.wired_ui_device_types:
+        if dev_cfg.device_type in self.wired_ui_device_types:
             dt = "wired"
-        elif dev_type == NetworkManager.DeviceType.WIFI:
+        elif dev_cfg.device_type == NetworkManager.DeviceType.WIFI:
             dt = "wireless"
 
-        ipv4cfg = nm.nm_device_ip_config(device.get_iface(), version=4)
-        ipv6cfg = nm.nm_device_ip_config(device.get_iface(), version=6)
+        if dev_cfg.device:
+            try:
+                ipv4cfg = nm.nm_device_ip_config(dev_cfg.device.get_iface(), version=4)
+                ipv6cfg = nm.nm_device_ip_config(dev_cfg.device.get_iface(), version=6)
+            except nm.UnknownDeviceError:
+                ipv4cfg = ipv6cfg = None
+        else:
+            ipv4cfg = ipv6cfg = None
 
         if ipv4cfg and ipv4cfg[0]:
             addr_str, prefix, gateway_str = ipv4cfg[0][0]
@@ -689,16 +764,16 @@ class NetworkControlBox(object):
 
         return False
 
-    def _refresh_ap(self, device, state=None):
-        if device.get_device_type() != NetworkManager.DeviceType.WIFI:
+    def _refresh_ap(self, dev_cfg, state=None):
+        if dev_cfg.device_type != NetworkManager.DeviceType.WIFI:
             return
 
         if state is None:
-            state = device.get_state()
+            state = dev_cfg.device.get_state()
         if state == NetworkManager.DeviceState.UNAVAILABLE:
             ap_str = None
         else:
-            active_ap = device.get_active_access_point()
+            active_ap = dev_cfg.device.get_active_access_point()
             if active_ap:
                 active_ap_dbus = dbus.SystemBus().get_object(NM_SERVICE,
                                                              active_ap.get_path())
@@ -722,7 +797,7 @@ class NetworkControlBox(object):
             store = self.builder.get_object("liststore_wireless_network")
             self._updating_device = True
             store.clear()
-            aps = self._get_strongest_unique_aps(device.get_access_points())
+            aps = self._get_strongest_unique_aps(dev_cfg.device.get_access_points())
             for ap in aps:
                 active = active_ap and active_ap.get_path() == ap.get_path()
                 self._add_ap(ap, active)
@@ -736,47 +811,53 @@ class NetworkControlBox(object):
                         break
             self._updating_device = False
 
-    def _refresh_slaves(self, device):
-        dev_type = device.get_device_type()
-        if dev_type in [NetworkManager.DeviceType.BOND,
-                        NetworkManager.DeviceType.TEAM]:
-            slaves = ",".join(s.get_iface()
-                for s in device.get_slaves())
+    def _refresh_slaves(self, dev_cfg):
+        if dev_cfg.device_type in [NetworkManager.DeviceType.BOND,
+                                   NetworkManager.DeviceType.TEAM]:
+            slaves = ""
+            if dev_cfg.device:
+                slaves = ",".join(s.get_iface() for s in dev_cfg.device.get_slaves())
             self._set_device_info_value("wired", "slaves", slaves)
 
-    def _refresh_parent_vlanid(self, device):
-        dev_type = device.get_device_type()
-        if dev_type == NetworkManager.DeviceType.VLAN:
-            self._set_device_info_value("wired", "vlanid", str(device.get_vlan_id()))
-            parent = nm.nm_device_setting_value(device.get_iface(), "vlan", "parent")
-            self._set_device_info_value("wired", "parent", parent)
+    def _refresh_parent_vlanid(self, dev_cfg):
+        if dev_cfg.device_type == NetworkManager.DeviceType.VLAN:
+            if dev_cfg.device:
+                vlanid = dev_cfg.device.get_vlan_id()
+            else:
+                vlanid = dev_cfg.setting_value("vlan", "id")
+            parent = dev_cfg.setting_value("vlan", "parent")
+            self._set_device_info_value("wired", "vlanid", str(vlanid))
 
-    def _refresh_speed_hwaddr(self, device, state=None):
-        dev_type = device.get_device_type()
+    def _refresh_speed_hwaddr(self, dev_cfg, state=None):
+        dev_type = dev_cfg.device_type
         if dev_type in self.wired_ui_device_types:
             dt = "wired"
         elif dev_type == NetworkManager.DeviceType.WIFI:
             dt = "wireless"
-        speed = None
-        if dev_type == NetworkManager.DeviceType.ETHERNET:
-            speed = device.get_speed()
-        elif dev_type == NetworkManager.DeviceType.WIFI:
-            speed = device.get_bitrate() / 1000
 
-        if state is None:
-            state = device.get_state()
-        if state == NetworkManager.DeviceState.UNAVAILABLE:
+        # Speed
+        speed = None
+        if dev_cfg.device:
+            if dev_type == NetworkManager.DeviceType.ETHERNET:
+                speed = dev_cfg.device.get_speed()
+            elif dev_type == NetworkManager.DeviceType.WIFI:
+                speed = dev_cfg.device.get_bitrate() / 1000
+            if state is None:
+                state = dev_cfg.device.get_state()
+
+        if not dev_cfg.device or state == NetworkManager.DeviceState.UNAVAILABLE:
             speed_str = None
         elif speed:
             speed_str = _("%d Mb/s") % speed
         else:
             speed_str = ""
         self._set_device_info_value(dt, "speed", speed_str)
-        self._set_device_info_value(dt, "mac", device.get_hw_address())
+        # Hardware address
+        hwaddr = dev_cfg.device and dev_cfg.device.get_hw_address()
+        self._set_device_info_value(dt, "mac", hwaddr)
 
-    def _refresh_device_type_page(self, device):
+    def _refresh_device_type_page(self, dev_type):
         notebook = self.builder.get_object("notebook_types")
-        dev_type = device.get_device_type()
         if dev_type == NetworkManager.DeviceType.ETHERNET:
             notebook.set_current_page(0)
             self.builder.get_object("heading_wired_slaves").hide()
@@ -798,41 +879,42 @@ class NetworkControlBox(object):
             notebook.set_current_page(0)
             self.builder.get_object("heading_wired_slaves").hide()
             self.builder.get_object("label_wired_slaves").hide()
-            self.builder.get_object("heading_wired_vlanid").hide()
-            self.builder.get_object("label_wired_vlanid").hide()
-            self.builder.get_object("heading_wired_parent").hide()
-            self.builder.get_object("label_wired_parent").hide()
+            self.builder.get_object("heading_wired_vlanid").show()
+            self.builder.get_object("label_wired_vlanid").show()
+            self.builder.get_object("heading_wired_parent").show()
+            self.builder.get_object("label_wired_parent").show()
         elif dev_type == NetworkManager.DeviceType.WIFI:
             notebook.set_current_page(1)
             self.builder.get_object("button_wireless_options").set_sensitive(self.selected_ssid is not None)
 
     def _refresh_carrier_info(self):
-        for i in self.builder.get_object("liststore_devices"):
+        for i in self.dev_cfg_store:
             i[DEVICES_COLUMN_TITLE] = self._dev_title(i[DEVICES_COLUMN_OBJECT])
 
-    def _refresh_header_ui(self, device, state=None):
-        dev_type = device.get_device_type()
-        if dev_type in (NetworkManager.DeviceType.ETHERNET,
-                        NetworkManager.DeviceType.TEAM,
-                        NetworkManager.DeviceType.BOND,
-                        NetworkManager.DeviceType.VLAN):
+    def _refresh_header_ui(self, dev_cfg, state=None):
+        if dev_cfg.device_type in self.wired_ui_device_types:
             dev_type_str = "wired"
-        elif dev_type == NetworkManager.DeviceType.WIFI:
+        elif dev_cfg.device_type == NetworkManager.DeviceType.WIFI:
             dev_type_str = "wireless"
 
         if dev_type_str == "wired":
             # update icon according to device status
             img = self.builder.get_object("image_wired_device")
-            img.set_from_icon_name(self._dev_icon_name(device), Gtk.IconSize.DIALOG)
+            img.set_from_icon_name(self._dev_icon_name(dev_cfg), Gtk.IconSize.DIALOG)
 
         # TODO: is this necessary? Isn't it static from glade?
+        device_type_label = self.device_type_name.get(dev_cfg.device_type, "")
         self.builder.get_object("label_%s_device" % dev_type_str).set_label(
-            "%s (%s)" % (self._dev_type_str(device), device.get_iface()))
+            "%s (%s)" % (device_type_label, dev_cfg.get_iface()))
 
         if state is None:
-            state = device.get_state()
+            if not dev_cfg.device:
+                state = NetworkManager.DeviceState.DISCONNECTED
+            else:
+                state = dev_cfg.device.get_state()
+
         self.builder.get_object("label_%s_status" % dev_type_str).set_label(
-            localized_string_of_device_state(device, state))
+            localized_string_of_device_state(dev_cfg.device, state))
 
         switch = self.builder.get_object("device_%s_off_switch" % dev_type_str)
         if dev_type_str == "wired":
@@ -987,9 +1069,9 @@ class NetworkControlBox(object):
         return sec_str
 
     @property
-    def listed_devices(self):
+    def dev_cfgs(self):
         return [row[DEVICES_COLUMN_OBJECT] for
-                row in self.builder.get_object("liststore_devices")]
+                row in self.dev_cfg_store]
 
     @property
     def hostname(self):
@@ -1195,11 +1277,10 @@ class NetworkSpoke(FirstbootSpokeMixIn, NormalSpoke):
         NormalSpoke.__init__(self, *args, **kwargs)
         self.network_control_box = NetworkControlBox(self.builder, spoke=self)
         self.network_control_box.hostname = self.data.network.hostname
-        self.network_control_box.client.connect("notify::%s" %
-                                                NMClient.CLIENT_STATE,
-                                                self.on_nm_state_changed)
-        for device in self.network_control_box.client.get_devices():
-            device.connect("state-changed", self.on_device_state_changed)
+        self.network_control_box.connect("nm-state-changed",
+                                         self.on_nm_state_changed)
+        self.network_control_box.connect("device-state-changed",
+                                         self.on_device_state_changed)
 
     def apply(self):
         _update_network_data(self.data, self.network_control_box)
@@ -1243,8 +1324,7 @@ class NetworkSpoke(FirstbootSpokeMixIn, NormalSpoke):
         gtk_call_once(self._update_status)
         gtk_call_once(self._update_hostname)
 
-    def on_device_state_changed(self, *args):
-        new_state = args[1]
+    def on_device_state_changed(self, source, device, new_state, *args):
         if new_state in (NetworkManager.DeviceState.ACTIVATED,
                          NetworkManager.DeviceState.DISCONNECTED,
                          NetworkManager.DeviceState.UNAVAILABLE):
@@ -1288,9 +1368,8 @@ class NetworkStandaloneSpoke(StandaloneSpoke):
         parent = self.builder.get_object("AnacondaStandaloneWindow-action_area5")
         parent.add(self.network_control_box.vbox)
 
-        self.network_control_box.client.connect("notify::%s" %
-                                                NMClient.CLIENT_STATE,
-                                                self.on_nm_state_changed)
+        self.network_control_box.connect("nm-state-changed",
+                                         self.on_nm_state_changed)
 
         self._initially_available = self.completed
         log.debug("network standalone spoke (init): completed: %s" % self._initially_available)
@@ -1353,9 +1432,9 @@ class NetworkStandaloneSpoke(StandaloneSpoke):
 
 def _update_network_data(data, ncb):
     data.network.network = []
-    for dev in ncb.listed_devices:
-        devname = dev.get_iface()
-        nd = network.ksdata_from_ifcfg(devname)
+    for dev_cfg in ncb.dev_cfgs:
+        devname = dev_cfg.get_iface()
+        nd = network.ksdata_from_ifcfg(devname, dev_cfg.con_uuid)
         if not nd:
             continue
         if devname in nm.nm_activated_devices():
@@ -1365,7 +1444,6 @@ def _update_network_data(data, ncb):
     network.update_hostname_data(data, hostname)
 
 if __name__ == "__main__":
-
     win = Gtk.Window()
     win.connect("delete-event", Gtk.main_quit)
 

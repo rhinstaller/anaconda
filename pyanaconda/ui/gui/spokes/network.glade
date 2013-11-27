@@ -136,7 +136,7 @@
       <!-- column-name sort -->
       <column type="gchararray"/>
       <!-- column-name object -->
-      <column type="GObject"/>
+      <column type="PyObject"/>
     </columns>
   </object>
   <object class="GtkListStore" id="liststore_wireless_network">
