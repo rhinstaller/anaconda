@@ -254,23 +254,6 @@ def write_keyboard_config(keyboard, root, convert=True):
     if errors:
         raise KeyboardConfigError("\n".join(errors))
 
-def dracut_setup_args(keyboard):
-    """
-    Function returning dracut setup args for the given keyboard configuration.
-
-    :type keyboard: ksdata.keyboard object
-
-    """
-
-    if not keyboard.vc_keymap:
-        populate_missing_items(keyboard)
-
-    args = set()
-    args.add("vconsole.keymap=%s" % keyboard.vc_keymap)
-    args.add("vconsole.font=%s" % DEFAULT_VC_FONT)
-
-    return args
-
 def _try_to_load_keymap(keymap):
     """
     Method that tries to load keymap and returns boolean indicating if it was

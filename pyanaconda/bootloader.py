@@ -2385,8 +2385,7 @@ def writeBootLoaderFinal(storage, payload, instClass, ksdata):
     # set up dracut/fips boot args
     # XXX FIXME: do this from elsewhere?
     storage.bootloader.set_boot_args(storage=storage,
-                                     payload=payload,
-                                     keyboard=ksdata.keyboard)
+                                     payload=payload)
     try:
         storage.bootloader.write()
     except BootLoaderError as e:

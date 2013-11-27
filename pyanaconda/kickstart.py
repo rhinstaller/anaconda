@@ -1544,9 +1544,6 @@ class Keyboard(commands.keyboard.F18_Keyboard):
     def execute(self, *args):
         keyboard.write_keyboard_config(self, iutil.getSysroot())
 
-    def dracutSetupArgs(self, *args):
-        return keyboard.dracut_setup_args(self)
-
 class Upgrade(commands.upgrade.F20_Upgrade):
     # Upgrade is no longer supported. If an upgrade command was included in
     # a kickstart, warn the user and exit.
