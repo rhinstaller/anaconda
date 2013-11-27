@@ -129,7 +129,7 @@ class ResizeDialog(GUIObject):
                 fstype = ""
                 diskReclaimableSpace = 0
             else:
-                fstype = disk.format.type
+                fstype = disk.format.name
                 diskReclaimableSpace = disk.size
 
             itr = self._diskStore.append(None, [disk.id,
@@ -162,7 +162,7 @@ class ResizeDialog(GUIObject):
 
                     self._diskStore.append(itr, [dev.id,
                                                  self._description(dev),
-                                                 dev.format.type,
+                                                 dev.format.name,
                                                  resizeString,
                                                  _(PRESERVE),
                                                  not dev.protected,
