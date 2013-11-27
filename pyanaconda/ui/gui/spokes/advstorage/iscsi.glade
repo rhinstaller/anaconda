@@ -881,6 +881,7 @@
                                     <property name="visible">True</property>
                                     <property name="can_focus">True</property>
                                     <property name="hexpand">True</property>
+                                    <property name="visibility">False</property>
                                     <property name="invisible_char">●</property>
                                     <signal name="changed" handler="on_login_field_changed" swapped="no"/>
                                   </object>
@@ -940,6 +941,7 @@
                                     <property name="visible">True</property>
                                     <property name="can_focus">True</property>
                                     <property name="hexpand">True</property>
+                                    <property name="visibility">False</property>
                                     <property name="invisible_char">●</property>
                                     <signal name="changed" handler="on_login_field_changed" swapped="no"/>
                                   </object>
@@ -955,6 +957,7 @@
                                     <property name="visible">True</property>
                                     <property name="can_focus">True</property>
                                     <property name="hexpand">True</property>
+                                    <property name="visibility">False</property>
                                     <property name="invisible_char">●</property>
                                     <signal name="changed" handler="on_login_field_changed" swapped="no"/>
                                   </object>
