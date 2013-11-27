@@ -138,7 +138,7 @@ def get_req_tuple(pkg_tuple, version_request):
     return (name, version_request, (epoch, version, release))
 
 
-def check_package_version(filename, package):
+def check_package_version(filename, package, check_release_id=True):
     """Check if package described by filename complies with the required
     version and the version request operator
 
@@ -155,15 +155,15 @@ def check_package_version(filename, package):
     filename = os.path.basename(filename)
     # split the name into components
     pkg_tuple = get_pkg_tuple(filename)
-    # get release ids for request and the package
-    request_release = package.req_tuple[2][2]
-    package_release = pkg_tuple[4]
-    # rangeCheck actually ignores different release ids,
-    # so we need to do it here
-    if request_release != package_release:
-        return False
-    else:
-        return bool(miscutils.rangeCheck(package.req_tuple, pkg_tuple))
+    if check_release_id:
+        # get release ids for request and the package
+        request_release = package.req_tuple[2][2]
+        package_release = pkg_tuple[4]
+        # rangeCheck actually ignores different release ids,
+        # so we need to do it here
+        if request_release != package_release:
+            return False
+    return bool(miscutils.rangeCheck(package.req_tuple, pkg_tuple))
 
 def doGitDiff(tag, args=None):
     if args is None:
@@ -698,9 +698,9 @@ def get_rpm_from_Koji_thread(package, fedora_number, arch,
     # if there is a version-request, just get all package version for the given
     # release and filter them afterwards
     if package.version_request:
-        package_glob = "%s-*.fc%d.*.rpm" % (package.name, fedora_number)
+        package_glob = "%s-*.fc*.*.rpm" % (package.name)
     else:
-        package_glob = "%s-%s.fc%d.*.rpm" % (package.name, version, fedora_number)
+        package_glob = "%s-%s.fc*.*.rpm" % (package.name, version)
 
     # get the current thread, so output can be prefixed by thread number
     prefix = "thread %s:" % threading.current_thread().name
@@ -727,10 +727,43 @@ def get_rpm_from_Koji_thread(package, fedora_number, arch,
         filtered_results = []
         for result in results:
             # check if the version complies with the version request
-            if check_package_version(result['name'], package):
+            if check_package_version(result['name'], package,
+                                     check_release_id=False):
                 filtered_results.append(result)
         # replace results with filtered results
         results = filtered_results
+
+    # the response from Koji has multiple release ids;
+    # packages that were not updated in the given release might
+    # have an older release id, but will still be valid for the
+    # given Fedora release
+    # therefore we go back from the current release id,
+    # until we either find a package or run out of release ids
+    # Example:
+    # foo-0.1.fc19.x86_64.rpm could be the latest RPM for
+    # Fedora 19, 20 & 21, if foo was not updated since the 0.1 release
+
+    def is_in_release(result, release_number):
+        pkg_tuple = get_pkg_tuple(result["name"])
+        # there could be stuff like 16.git20131003.fc20,
+        # so we spit by all dots and get the last one
+        release_id = pkg_tuple[4].split(".").pop()
+        return release_id == "fc%d" % release_number
+
+    suitable_results = []
+    release_number_override = None
+    for release_number in range(fedora_number, 0, -1):
+        suitable_results = [x for x in results if is_in_release(x, release_number)]
+        if suitable_results:
+            if release_number != fedora_number:
+                release_number_override = release_number
+            break
+
+    results = suitable_results
+    if results and release_number_override:
+        with print_lock:
+            print("%s %s not found in fc%d, getting package from fc%d" %
+                 (prefix, package.name, fedora_number, release_number_override))
 
     if results:  # any packages left ?
         # as the newest packages are on the bottom of the
