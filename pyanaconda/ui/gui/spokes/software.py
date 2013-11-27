@@ -242,6 +242,8 @@ class SoftwareSelectionSpoke(NormalSpoke):
 
         self._environmentStore = self.builder.get_object("environmentStore")
         self._environmentStore.clear()
+        if self.environment not in self.payload.environments:
+            self.environment = None
 
         clasess = []
         firstEnvironment = True
