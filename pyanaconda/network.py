@@ -485,7 +485,7 @@ def add_connection_for_ksdata(networkdata, devname):
             svalues.append(['connection', 'slave-type', 'bond', 's'])
             svalues.append(['connection', 'master', devname, 's'])
             svalues.append(['connection', 'type', '802-3-ethernet', 's'])
-            mac = nm.nm_device_hwaddress(slave)
+            mac = nm.nm_device_perm_hwaddress(slave)
             mac = [int(b, 16) for b in mac.split(":")]
             svalues.append(['802-3-ethernet', 'mac-address', mac, 'ay'])
 
@@ -519,7 +519,7 @@ def add_connection_for_ksdata(networkdata, devname):
             svalues.append(['connection', 'slave-type', 'team', 's'])
             svalues.append(['connection', 'master', devname, 's'])
             svalues.append(['connection', 'type', '802-3-ethernet', 's'])
-            mac = nm.nm_device_hwaddress(slave)
+            mac = nm.nm_device_perm_hwaddress(slave)
             mac = [int(b, 16) for b in mac.split(":")]
             svalues.append(['802-3-ethernet', 'mac-address', mac, 'ay'])
             svalues.append(['team-port', 'config', cfg, 's'])
@@ -548,7 +548,7 @@ def add_connection_for_ksdata(networkdata, devname):
     else:
         values.append(['connection', 'type', '802-3-ethernet', 's'])
         values.append(['connection', 'id', devname, 's'])
-        mac = nm.nm_device_hwaddress(devname)
+        mac = nm.nm_device_perm_hwaddress(devname)
         mac = [int(b, 16) for b in mac.split(":")]
         values.append(['802-3-ethernet', 'mac-address', mac, 'ay'])
         dev_spec = devname
@@ -557,20 +557,23 @@ def add_connection_for_ksdata(networkdata, devname):
     added_connections.insert(0, (con_uuid, dev_spec))
     return added_connections
 
-def ksdata_from_ifcfg(devname):
+def ksdata_from_ifcfg(devname, uuid=None):
 
     if nm.nm_device_is_slave(devname):
         return None
+    if nm.nm_device_type_is_wifi(devname):
+        # wifi from kickstart is not supported yet
+        return None
 
-    ifcfg_path = None
+    if not uuid:
+        # Find ifcfg file for the device.
+        # If the device is active, use uuid of its active connection.
+        uuid = nm.nm_device_active_con_uuid(devname)
 
-    # Find ifcfg file for the device.
-    # If the device is active, use uuid of its active connection.
-    uuid = nm.nm_device_active_con_uuid(devname)
     if uuid:
         ifcfg_path = find_ifcfg_file([("UUID", uuid)])
     else:
-        # If not, look it up by other values depending on its type
+        # look it up by other values depending on its type
         ifcfg_path = find_ifcfg_file_of_device(devname)
 
     if not ifcfg_path:
@@ -740,7 +743,7 @@ def find_ifcfg_file_of_device(devname, root_path=""):
         ifcfg_path = find_ifcfg_file([("DEVICE", devname)])
     elif nm.nm_device_type_is_ethernet(devname):
         try:
-            hwaddr = nm.nm_device_hwaddress(devname)
+            hwaddr = nm.nm_device_perm_hwaddress(devname)
         except nm.PropertyNotFoundError:
             hwaddr = None
         if hwaddr:
@@ -906,7 +909,7 @@ def ks_spec_to_device_name(ksspec=""):
         # "XX:XX:XX:XX:XX:XX" (mac address)
         elif ':' in ksdevice:
             try:
-                hwaddr = nm.nm_device_hwaddress(dev)
+                hwaddr = nm.nm_device_perm_hwaddress(dev)
             except ValueError as e:
                 log.debug("ks_spec_to_device_name: %s", e)
                 continue
@@ -916,7 +919,7 @@ def ks_spec_to_device_name(ksspec=""):
         # "bootif" and BOOTIF==XX:XX:XX:XX:XX:XX
         elif ksdevice == 'bootif':
             try:
-                hwaddr = nm.nm_device_hwaddress(dev)
+                hwaddr = nm.nm_device_perm_hwaddress(dev)
             except ValueError as e:
                 log.debug("ks_spec_to_device_name: %s", e)
                 continue
@@ -1093,7 +1096,7 @@ def get_device_name(devspec):
     if devname and devname not in devices:
         for d in devices:
             try:
-                hwaddr = nm.nm_device_hwaddress(d)
+                hwaddr = nm.nm_device_perm_hwaddress(d)
             except ValueError as e:
                 log.debug("get_device_name: %s", e)
                 continue

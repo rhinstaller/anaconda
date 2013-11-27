@@ -48,6 +48,11 @@ class UnmanagedDeviceError(Exception):
     def __str__(self):
         return self.__repr__()
 
+class DeviceNotActiveError(Exception):
+    """Device of specified name is not active"""
+    def __str__(self):
+        return self.__repr__()
+
 class PropertyNotFoundError(ValueError):
     """Property of NM object was not found"""
     def __str__(self):
@@ -307,6 +312,18 @@ def nm_device_hwaddress(name):
     """
     return nm_device_property(name, "HwAddress")
 
+def nm_device_perm_hwaddress(name):
+    """Return active hardware address of device ('HwAddress' property)
+
+       :param name: name of device
+       :type name: str
+       :return: active hardware address of device ('HwAddress' property)
+       :rtype: str
+       :raise UnknownDeviceError: if device is not found
+       :raise PropertyNotFoundError: if 'HwAddress' property is not found
+    """
+    return nm_device_property(name, "PermHwAddress")
+
 def nm_device_active_con_uuid(name):
     """Return uuid of device's active connection
 
@@ -486,7 +503,7 @@ def nm_hwaddr_to_device_name(hwaddr):
         :rtype: str
     """
     for device in nm_devices():
-        if nm_device_hwaddress(device).upper() == hwaddr.upper():
+        if nm_device_perm_hwaddress(device).upper() == hwaddr.upper():
             return device
     return None
 
@@ -534,7 +551,7 @@ def _device_settings(name):
         settings = _find_settings(name, 'connection', 'interface-name')
         if not settings:
             try:
-                hwaddr_str = nm_device_hwaddress(name)
+                hwaddr_str = nm_device_perm_hwaddress(name)
             except PropertyNotFoundError:
                 settings = []
             else:
@@ -697,7 +714,12 @@ def nm_disconnect_device(name):
         raise
 
     device_proxy = _get_proxy(object_path=device, interface_name="org.freedesktop.NetworkManager.Device")
-    device_proxy.Disconnect()
+    try:
+        device_proxy.Disconnect()
+    except GLib.GError as e:
+        if "org.freedesktop.NetworkManager.Device.NotActive" in e.message:
+            raise DeviceNotActiveError(name, e)
+        raise
 
 def nm_activate_device_connection(dev_name, con_uuid):
     """Activate device with specified connection.
