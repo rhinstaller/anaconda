@@ -15,6 +15,7 @@ import sys, os
 import logging
 import shutil
 import uuid
+import glob
 from pykickstart.parser import KickstartParser, preprocessKickstart
 from pykickstart.version import returnClassForVersion, RHEL7
 from pykickstart.errors import KickstartError
@@ -199,6 +200,36 @@ def find_devname(mac):
         if thismac.lower() == mac.lower():
             return netif
 
+def s390_settings(device):
+    cfg = {
+        'SUBCHANNELS': '',
+        'NETTYPE': '',
+        'OPTIONS': ''
+        }
+
+    subchannels = []
+    for symlink in sorted(glob.glob("/sys/class/net/%s/device/cdev[0-9]*" % device)):
+        subchannels.append(os.path.basename(os.readlink(symlink)))
+    if not subchannels:
+        return cfg
+    cfg['SUBCHANNELS'] = ','.join(subchannels)
+
+    ## cat /etc/ccw.conf
+    #qeth,0.0.0900,0.0.0901,0.0.0902,layer2=0,portname=FOOBAR,portno=0
+    #
+    #SUBCHANNELS="0.0.0900,0.0.0901,0.0.0902"
+    #NETTYPE="qeth"
+    #OPTIONS="layer2=1 portname=FOOBAR portno=0"
+    with open('/etc/ccw.conf') as f:
+        for line in f:
+            if cfg['SUBCHANNELS'] in line:
+                items = line.strip().split(',')
+                cfg['NETTYPE'] = items[0]
+                cfg['OPTIONS'] = " ".join(i for i in items[1:] if '=' in i)
+                break
+
+    return cfg
+
 def ksnet_to_dracut(args, lineno, net, bootdev=False):
     '''Translate the kickstart network data into dracut network data.'''
     line = []
@@ -290,6 +321,14 @@ def ksnet_to_ifcfg(net, filename=None):
     # we set real ONBOOT value in anaconda, here
     # we use it to activate devcies by NM on start
     ifcfg['ONBOOT'] = "yes" if net.activate else "no"
+
+    s390cfg = s390_settings(dev)
+    if s390cfg['SUBCHANNELS']:
+        ifcfg['SUBCHANNELS'] = s390cfg['SUBCHANNELS']
+    if s390cfg['NETTYPE']:
+        ifcfg['NETTYPE'] = s390cfg['NETTYPE']
+    if s390cfg['OPTIONS']:
+        ifcfg['OPTIONS'] = s390cfg['OPTIONS']
 
     # dhcp etc.
     ifcfg['BOOTPROTO'] = net.bootProto
