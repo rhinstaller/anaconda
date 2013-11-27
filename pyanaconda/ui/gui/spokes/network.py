@@ -244,6 +244,11 @@ class DeviceConfiguration(object):
             iface = self.device.get_iface()
         else:
             iface = self.setting_value("connection", "interface-name")
+            if not iface:
+                hwaddr = self.setting_value("802-3-ethernet","mac-address")
+                if hwaddr:
+                    hwaddr = ":".join("%02X" % b for b in hwaddr)
+                    iface = nm.nm_hwaddr_to_device_name(hwaddr)
         return iface
 
     def setting_value(self, key1, key2):
@@ -308,6 +313,8 @@ class NetworkControlBox(GObject.GObject):
         self.builder.get_object("add_toolbutton").connect("clicked",
                                                            self.on_add_device_clicked)
         self.builder.get_object("remove_toolbutton").set_sensitive(False)
+        self.builder.get_object("remove_toolbutton").connect("clicked",
+                                                           self.on_remove_device_clicked)
 
         not_supported = ["start_hotspot_button",
                          "stop_hotspot_button",
@@ -419,6 +426,10 @@ class NetworkControlBox(GObject.GObject):
                 continue
             dev_cfg = DeviceConfiguration(con_uuid=uuid)
             if dev_cfg.device_type in self.supported_device_types:
+                # Configs for ethernet has been already added,
+                # this must be some slave.
+                if dev_cfg.device_type == NetworkManager.DeviceType.ETHERNET:
+                    continue
                 self.add_dev_cfg(dev_cfg)
 
         # select the first device
@@ -589,6 +600,15 @@ class NetworkControlBox(GObject.GObject):
             dev_type = model[ai][1]
             self.add_device(dev_type)
 
+    def on_remove_device_clicked(self, *args):
+        selection = self.builder.get_object("treeview_devices").get_selection()
+        model, itr = selection.get_selected()
+        if not itr:
+            return None
+        dev_cfg = model[itr][DEVICES_COLUMN_OBJECT]
+        model.remove(itr)
+        nm.nm_delete_connection(dev_cfg.con_uuid)
+
     def add_device(self, ty):
         log.info("network: adding device of type %s", ty)
         self.kill_nmce(msg="Add device button clicked")
@@ -691,8 +711,10 @@ class NetworkControlBox(GObject.GObject):
     def remove_device(self, device):
         # This should not concern wifi and ethernet devices,
         # just virtual devices e.g. vpn probably
-        log.debug("network: GUI, device removed: %s", device.get_iface())
-        self.dev_cfg(device=device).device = None
+        log.debug("network: GUI, device removed: %s" , device.get_iface())
+        dev_cfg = self.dev_cfg(device=device)
+        if dev_cfg:
+            dev_cfg.device = None
 
     def refresh_ui(self, state=None):
 
@@ -861,6 +883,7 @@ class NetworkControlBox(GObject.GObject):
             self.builder.get_object("label_wired_vlanid").hide()
             self.builder.get_object("heading_wired_parent").hide()
             self.builder.get_object("label_wired_parent").hide()
+            self.builder.get_object("remove_toolbutton").set_sensitive(False)
         elif dev_type in [NetworkManager.DeviceType.BOND,
                           NetworkManager.DeviceType.TEAM]:
             notebook.set_current_page(0)
@@ -870,6 +893,7 @@ class NetworkControlBox(GObject.GObject):
             self.builder.get_object("label_wired_vlanid").hide()
             self.builder.get_object("heading_wired_parent").hide()
             self.builder.get_object("label_wired_parent").hide()
+            self.builder.get_object("remove_toolbutton").set_sensitive(True)
         elif dev_type == NetworkManager.DeviceType.VLAN:
             notebook.set_current_page(0)
             self.builder.get_object("heading_wired_slaves").hide()
@@ -878,6 +902,7 @@ class NetworkControlBox(GObject.GObject):
             self.builder.get_object("label_wired_vlanid").show()
             self.builder.get_object("heading_wired_parent").show()
             self.builder.get_object("label_wired_parent").show()
+            self.builder.get_object("remove_toolbutton").set_sensitive(True)
         elif dev_type == NetworkManager.DeviceType.WIFI:
             notebook.set_current_page(1)
             self.builder.get_object("button_wireless_options").set_sensitive(self.selected_ssid is not None)
