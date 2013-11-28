@@ -39,6 +39,7 @@ except ImportError:
     exit(1)
 
 RPM_FOLDER_NAME = os.path.expanduser("~/.anaconda_updates_rpm_cache")
+RPM_RELEASE_DIR_TEMPLATE = "for_%s"
 KOJI_BASE_URL = "http://kojipkgs.fedoraproject.org//packages/" \
                 "%(toplevel_name)s/%(toplevel_version)s/%(release)s/%(arch)s/%(rpm_name)s"
 
@@ -190,6 +191,10 @@ def download_to_file(url, path):
     or None if the download fails for some reason
     """
     try:
+        # try to make sure the folder for the download exists
+        download_folder = os.path.split(path)[0]
+        if not os.access(download_folder, os.W_OK):
+            os.makedirs(download_folder)
         result = urllib.urlretrieve(url, path)
         # return the storage path
         return result[0]
@@ -577,9 +582,13 @@ def remove_local_packages(packages, arch, release_id, added_rpms):
     """Remove locally available RPMs from the list of needed packages,
     return locally unavailable packages and paths to relevant locally
     available RPMs for inclusion"""
+    current_release_dir = RPM_RELEASE_DIR_TEMPLATE % release_id
     # list all package names and version for the RPMs already in cache
     folder_glob = os.path.join(RPM_FOLDER_NAME, "*.rpm")
     folder_glob = os.path.abspath(folder_glob)
+    release_folder_glob = os.path.join(RPM_FOLDER_NAME, current_release_dir, "*.rpm")
+    release_folder_glob = os.path.abspath(release_folder_glob)
+
     include_rpms = []
     skipped_packages = []
 
@@ -603,7 +612,11 @@ def remove_local_packages(packages, arch, release_id, added_rpms):
     # currently specified architecture
     allowed = ("noarch.rpm", "%s.rpm" % arch)
     relevant_rpms = [x for x in glob.glob(folder_glob) if x.endswith(allowed)]
-
+    # also add any RPMS from the current release folder
+    # (has RPMs from older releases that were not yet rebuilt
+    # for the current release)
+    relevant_rpms.extend(x for x in glob.glob(release_folder_glob)
+                         if x.endswith(allowed))
     # iterate over all relevant cached RPMs and check if they are needed
     for rpm_path in relevant_rpms:
         proc = subprocess.Popen(['rpm', '-qp', '--queryformat',
@@ -616,9 +629,16 @@ def remove_local_packages(packages, arch, release_id, added_rpms):
         name, version, release = proc_output[0].split()
         # get the build number and release id
         build_id, package_release_id = release.split(".", 1)
-        # skip cached RPMs that have different release id
-        if package_release_id != release_id:
-            continue
+
+        # If a package is stored in the for_<release id>
+        # subfolder, we don't check its release id,
+        # because it is a package that has not been rebuilt
+        # for a new release but it still the latest version.
+        # If a package is not stored in a for_<release id> subfolder,
+        # we check the release id to filter out old cached packages.
+        if not os.path.split(rpm_path)[0].endswith(current_release_dir):
+            if package_release_id != release_id:
+                continue
         # add the build id to the version string
         version_build = "%s-%s" % (version, build_id)
         # check if the package is needed
@@ -792,8 +812,17 @@ def get_rpm_from_Koji_thread(package, fedora_number, arch,
         url = KOJI_BASE_URL % package_metadata
         # simple, isn't it ? :)
 
-        # append the RPM cache folder to the filename
-        download_path = os.path.join(RPM_FOLDER_NAME, rpm_name)
+        # build RPM storage path
+        release_dir = ""
+        if release_number_override:
+            # Using package from older release, store it in a sub-folder
+            # so that it is not downloaded again each time.
+            release_id = "fc%d" % fedora_number
+            release_dir = RPM_RELEASE_DIR_TEMPLATE % release_id
+        # if a package from and older release is used, the release subfolder is
+        # added to the storage path, otherwise the package is downloaded to the
+        # main folder
+        download_path = os.path.join(RPM_FOLDER_NAME, release_dir, rpm_name)
         # check if the download was successful
         storage_path = download_to_file(url, download_path)
         if storage_path is not None:
