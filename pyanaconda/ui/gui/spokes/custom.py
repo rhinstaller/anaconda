@@ -154,7 +154,7 @@ def size_from_entry(entry):
     try:
         # if no unit was specified, default to MB. Assume that a string
         # ending with any kind of a letter has a unit suffix.
-        if unicodedata.category(size_text[-1]).startswith("L"):
+        if size_text and unicodedata.category(size_text[-1]).startswith("L"):
             size = Size(spec=size_text)
         else:
             size = Size(en_spec="%sMB" % size_text)
