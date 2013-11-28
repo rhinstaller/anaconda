@@ -158,8 +158,9 @@ def check_package_version(filename, package, check_release_id=True):
     pkg_tuple = get_pkg_tuple(filename)
     if check_release_id:
         # get release ids for request and the package
-        request_release = package.req_tuple[2][2]
-        package_release = pkg_tuple[4]
+        # and strip it from any build/git garbage
+        request_release = package.req_tuple[2][2].rsplit(".", 1).pop()
+        package_release = pkg_tuple[4].rsplit(".", 1).pop()
         # rangeCheck actually ignores different release ids,
         # so we need to do it here
         if request_release != package_release:
@@ -628,7 +629,7 @@ def remove_local_packages(packages, arch, release_id, added_rpms):
             continue
         name, version, release = proc_output[0].split()
         # get the build number and release id
-        build_id, package_release_id = release.split(".", 1)
+        build_id, package_release_id = release.rsplit(".", 1)
 
         # If a package is stored in the for_<release id>
         # subfolder, we don't check its release id,
