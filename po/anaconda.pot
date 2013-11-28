@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: anaconda 21.9\n"
+"Project-Id-Version: anaconda 21.10\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
-"POT-Creation-Date: 2013-11-25 17:26-0800\n"
+"POT-Creation-Date: 2013-11-27 17:11-0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,82 +18,87 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 
-#: pyanaconda/bootloader.py:238
+#: pyanaconda/bootloader.py:245
 msgid "/boot filesystem"
 msgstr ""
 
-#: pyanaconda/bootloader.py:398
+#: pyanaconda/bootloader.py:405
 #, python-format
 msgid ""
 "RAID sets that contain '%(desc)s' must have one of the following raid "
 "levels: %(raid_level)s."
 msgstr ""
 
-#: pyanaconda/bootloader.py:406
+#: pyanaconda/bootloader.py:413
 #, python-format
 msgid ""
 "RAID sets that contain '%(desc)s' must have one of the following metadata "
 "versions: %(metadata_versions)s."
 msgstr ""
 
-#: pyanaconda/bootloader.py:414
+#: pyanaconda/bootloader.py:421
 #, python-format
 msgid ""
 "RAID sets that contain '%(desc)s' must have one of the following device "
 "types: %(types)s."
 msgstr ""
 
-#: pyanaconda/bootloader.py:430
+#: pyanaconda/bootloader.py:437
 #, python-format
 msgid "%(name)s must have one of the following disklabel types: %(types)s."
 msgstr ""
 
-#: pyanaconda/bootloader.py:442
+#: pyanaconda/bootloader.py:449
 #, python-format
 msgid "%(desc)s cannot be of type %(type)s."
 msgstr ""
 
-#: pyanaconda/bootloader.py:448
+#: pyanaconda/bootloader.py:455
 #, python-format
 msgid "%(desc)s must be mounted on one of %(mountpoints)s."
 msgstr ""
 
-#: pyanaconda/bootloader.py:460
+#: pyanaconda/bootloader.py:467
 #, python-format
 msgid "%(desc)s must be between %(min)d and %(max)d MB in size"
 msgstr ""
 
-#: pyanaconda/bootloader.py:466
+#: pyanaconda/bootloader.py:473
 #, python-format
 msgid "%(desc)s must not be smaller than %(min)dMB."
 msgstr ""
 
-#: pyanaconda/bootloader.py:475
+#: pyanaconda/bootloader.py:482
 #, python-format
 msgid "%(desc)s must not be larger than %(max)dMB."
 msgstr ""
 
-#: pyanaconda/bootloader.py:493
+#: pyanaconda/bootloader.py:500
 #, python-format
 msgid "%(desc)s must be within the first %(max_mb)dMB of the disk."
 msgstr ""
 
-#: pyanaconda/bootloader.py:503
+#: pyanaconda/bootloader.py:510
 #, python-format
 msgid "%s must be on a primary partition."
 msgstr ""
 
-#: pyanaconda/bootloader.py:635 pyanaconda/bootloader.py:731
+#: pyanaconda/bootloader.py:646 pyanaconda/bootloader.py:746
 #, python-format
 msgid "%s cannot be on an encrypted block device."
 msgstr ""
 
-#: pyanaconda/bootloader.py:690
+#: pyanaconda/bootloader.py:701
+#, python-format
+msgid "%s cannot be on an iSCSI disk on s390(x)"
+msgstr ""
+
+#: pyanaconda/bootloader.py:705
 #, python-format
 msgid "%(desc)s cannot be of type %(type)s"
 msgstr ""
 
-#: pyanaconda/bootloader.py:1601
+#: pyanaconda/bootloader.py:1616
 #, python-format
 msgid ""
 "%(deviceName)s may not have enough space for grub2 to embed core.img when "
@@ -228,12 +233,12 @@ msgid ""
 "%s"
 msgstr ""
 
-#: pyanaconda/kickstart.py:563
+#: pyanaconda/kickstart.py:565
 #, python-format
 msgid "%s is missing. Cannot setup firewall."
 msgstr ""
 
-#: pyanaconda/kickstart.py:1730
+#: pyanaconda/kickstart.py:1732
 msgid "Running pre-installation scripts"
 msgstr ""
 
@@ -539,13 +544,13 @@ msgstr ""
 msgid "Installing software"
 msgstr ""
 
-#: pyanaconda/packaging/livepayload.py:200
-#: pyanaconda/packaging/livepayload.py:209
+#: pyanaconda/packaging/livepayload.py:204
+#: pyanaconda/packaging/livepayload.py:213
 #, python-format
 msgid "Downloading %(url)s (%(pct)d%%)"
 msgstr ""
 
-#: pyanaconda/packaging/livepayload.py:297
+#: pyanaconda/packaging/livepayload.py:301
 msgid "Checking image checksum"
 msgstr ""
 
@@ -877,6 +882,7 @@ msgid "No disks selected; please select at least one disk to install to."
 msgstr ""
 
 #: pyanaconda/ui/tui/spokes/storage.py:179
+#: pyanaconda/ui/tui/spokes/source.py:457
 #: pyanaconda/ui/gui/spokes/source.py:598
 #: pyanaconda/ui/gui/spokes/storage.py:669
 msgid "Probing storage..."
@@ -949,28 +955,35 @@ msgid ""
 "Use numbers or type names directly [b to region list, q to quit]: "
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/source.py:45
+#: pyanaconda/ui/tui/spokes/source.py:135
 msgid "Installation source"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/source.py:48 pyanaconda/ui/tui/spokes/source.py:89
+#: pyanaconda/ui/tui/spokes/source.py:138
+#: pyanaconda/ui/tui/spokes/source.py:184
 #: pyanaconda/ui/gui/spokes/source.py:529
 #: pyanaconda/ui/gui/spokes/source.glade:767
 msgid "Closest mirror"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/source.py:85
+#: pyanaconda/ui/tui/spokes/source.py:176
 #: pyanaconda/ui/gui/spokes/source.py:521
 #, python-format
 msgid "NFS server %s"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/source.py:87
+#: pyanaconda/ui/tui/spokes/source.py:178
 #: pyanaconda/ui/gui/spokes/source.py:523
 msgid "Local media"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/source.py:91
+#: pyanaconda/ui/tui/spokes/source.py:181
+#: pyanaconda/ui/tui/spokes/source.py:191
+#: pyanaconda/ui/gui/spokes/source.py:517
+msgid "Error setting up software source"
+msgstr ""
+
+#: pyanaconda/ui/tui/spokes/source.py:186
 #: pyanaconda/ui/tui/spokes/software.py:102
 #: pyanaconda/ui/gui/spokes/datetime_spoke.py:457
 #: pyanaconda/ui/gui/spokes/software.py:200
@@ -978,43 +991,42 @@ msgstr ""
 msgid "Nothing selected"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/source.py:96
-#: pyanaconda/ui/gui/spokes/source.py:517
-msgid "Error setting up software source"
-msgstr ""
-
-#: pyanaconda/ui/tui/spokes/source.py:98
+#: pyanaconda/ui/tui/spokes/source.py:193
 #: pyanaconda/ui/tui/spokes/software.py:82
 msgid "Processing..."
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/source.py:104
+#: pyanaconda/ui/tui/spokes/source.py:199
 #, python-format
 msgid "Repo URL set to: %s"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/source.py:124
+#: pyanaconda/ui/tui/spokes/source.py:219
 msgid "CD/DVD"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/source.py:124
+#: pyanaconda/ui/tui/spokes/source.py:219
+msgid "local ISO file"
+msgstr ""
+
+#: pyanaconda/ui/tui/spokes/source.py:219
 msgid "Network"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/source.py:128
+#: pyanaconda/ui/tui/spokes/source.py:223
 msgid "Choose an installation source type."
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/source.py:195
+#: pyanaconda/ui/tui/spokes/source.py:303
 #: pyanaconda/ui/gui/spokes/source.py:450
 msgid "Failed to set up installation source"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/source.py:200
+#: pyanaconda/ui/tui/spokes/source.py:308
 msgid "Error downloading package metadata"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/source.py:209
+#: pyanaconda/ui/tui/spokes/source.py:316
 #: pyanaconda/ui/tui/spokes/software.py:70
 #: pyanaconda/ui/gui/spokes/software.py:236
 #: pyanaconda/ui/gui/spokes/software.py:279
@@ -1022,25 +1034,41 @@ msgstr ""
 msgid "No installation source available"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/source.py:226
-#: pyanaconda/ui/tui/spokes/source.py:261
+#: pyanaconda/ui/tui/spokes/source.py:338
+#: pyanaconda/ui/tui/spokes/source.py:376
 msgid "Specify Repo Options"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/source.py:230
+#: pyanaconda/ui/tui/spokes/source.py:342
 msgid "Repo URL"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/source.py:265
+#: pyanaconda/ui/tui/spokes/source.py:380
 msgid "NFS <server>:/<path>"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/source.py:266
+#: pyanaconda/ui/tui/spokes/source.py:381
 msgid "NFS mount options"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/source.py:295
+#: pyanaconda/ui/tui/spokes/source.py:411
 msgid "Failed to set up installation source. Check the source address."
+msgstr ""
+
+#: pyanaconda/ui/tui/spokes/source.py:419
+msgid "Select device containing the ISO file"
+msgstr ""
+
+#: pyanaconda/ui/tui/spokes/source.py:478
+msgid "No mountable devices found"
+msgstr ""
+
+#: pyanaconda/ui/tui/spokes/source.py:502
+msgid "Select an ISO to use as install source"
+msgstr ""
+
+#: pyanaconda/ui/tui/spokes/source.py:531
+msgid "No *.iso files found in device root folder"
 msgstr ""
 
 #: pyanaconda/ui/tui/spokes/software.py:38
@@ -1866,11 +1894,11 @@ msgstr ""
 msgid "Downloading group metadata..."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/software.py:355
+#: pyanaconda/ui/gui/spokes/software.py:357
 msgid "Error checking software dependencies.  Click for details."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/software.py:453
+#: pyanaconda/ui/gui/spokes/software.py:455
 msgid ""
 "The following software marked for installation has errors.  This is likely "
 "caused by an error with\n"
@@ -1878,17 +1906,17 @@ msgid ""
 "the installer."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/software.py:457
+#: pyanaconda/ui/gui/spokes/software.py:459
 msgctxt "GUI|Software Selection|Error Dialog"
 msgid "_Quit"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/software.py:458
+#: pyanaconda/ui/gui/spokes/software.py:460
 msgctxt "GUI|Software Selection|Error Dialog"
 msgid "_Cancel"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/software.py:459
+#: pyanaconda/ui/gui/spokes/software.py:461
 msgctxt "GUI|Software Selection|Error Dialog"
 msgid "_Modify Software Source"
 msgstr ""
