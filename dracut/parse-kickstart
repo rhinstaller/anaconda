@@ -397,11 +397,7 @@ def ksnet_to_ifcfg(net, filename=None):
                             'MASTER' : dev,
                             'HWADDR' : readsysfile("/sys/class/net/%s/address" % slave),
                           }
-            # not using NM naming conventions, following dracut so that it does not
-            # override kickstart config by generating its own ifcfg files for slaves
-            #slave_filename = "/tmp/ifcfg/ifcfg-%s" % "_".join(slave_ifcfg['NAME'].split(" "))
-            # FIXME - change in dracut?
-            slave_filename = "/tmp/ifcfg/ifcfg-%s" % slave
+            slave_filename = "/tmp/ifcfg/ifcfg-%s" % "_".join(slave_ifcfg['NAME'].split(" "))
             log.info("writing ifcfg %s for slave %s of bond %s" % (slave_filename, slave, dev))
             write_ifcfg(slave_filename, slave_ifcfg)
 
@@ -425,11 +421,7 @@ def ksnet_to_ifcfg(net, filename=None):
             if cfg:
                 slave_ifcfg['TEAM_PORT_CONFIG'] = "'" + cfg + "'"
 
-            # not using NM naming conventions, following dracut so that it does not
-            # override kickstart config by generating its own ifcfg files for slaves
-            #slave_filename = "/tmp/ifcfg/ifcfg-%s" % "_".join(slave_ifcfg['NAME'].split(" "))
-            # FIXME - change in dracut?
-            slave_filename = "/tmp/ifcfg/ifcfg-%s" % slave
+            slave_filename = "/tmp/ifcfg/ifcfg-%s" % "_".join(slave_ifcfg['NAME'].split(" "))
             log.info("writing ifcfg %s for slave %s of team %s" % (slave_filename, slave, dev))
             write_ifcfg(slave_filename, slave_ifcfg)
 
