@@ -251,6 +251,14 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Wed Nov 27 2013 Brian C. Lane <bcl@redhat.com> - 20.25.12-1
+- clear software environment (#1029536) (bcl)
+- Update source on errors (#1030997) (bcl)
+- Round float values coming from the Gtk stack (#1013586) (vpodzime)
+- Generate missing machine-id (bcl)
+- Fix problems reported by pylint. (dshea)
+- Add HDD ISO support for TUI (#1000327) (mkolman)
+
 * Mon Nov 25 2013 Brian C. Lane <bcl@redhat.com> - 20.25.11-1
 - Handle non-leaf btrfs volumes with mountpoints. (#1016959) (dlehman)
 - Use en_spec for blivet Size spec strings with constant components. (#1029616)
