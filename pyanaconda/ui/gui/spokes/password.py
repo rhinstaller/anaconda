@@ -53,7 +53,7 @@ class PasswordSpoke(FirstbootSpokeMixIn, NormalSpoke):
         NormalSpoke.initialize(self)
         # place holders for the text boxes
         self.pw = self.builder.get_object("pw")
-        self.confirm = self.builder.get_object("confirm")
+        self.confirm = self.builder.get_object("confirmPW")
 
         # Install the password checks:
         # - Has a password been specified?

@@ -40,7 +40,7 @@ class PassphraseDialog(GUIObject):
     def __init__(self, data):
         GUIObject.__init__(self, data)
 
-        self._confirm_entry = self.builder.get_object("confirm_entry")
+        self._confirm_entry = self.builder.get_object("confirm_pw_entry")
         self._passphrase_entry = self.builder.get_object("passphrase_entry")
 
         self._save_button = self.builder.get_object("passphrase_save_button")
