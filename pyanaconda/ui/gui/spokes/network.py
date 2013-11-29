@@ -63,6 +63,7 @@ NM_SERVICE = "org.freedesktop.NetworkManager"
 NM_802_11_AP_FLAGS_PRIVACY = 0x1
 NM_802_11_AP_SEC_NONE = 0x0
 NM_802_11_AP_SEC_KEY_MGMT_802_1X = 0x200
+NM_SECRET_AGENT_GET_SECRETS_FLAG_ALLOW_INTERACTION = 0x1
 DBUS_PROPS_IFACE = "org.freedesktop.DBus.Properties"
 SECRET_AGENT_IFACE = 'org.freedesktop.NetworkManager.SecretAgent'
 AGENT_MANAGER_IFACE = 'org.freedesktop.NetworkManager.AgentManager'
@@ -1183,15 +1184,17 @@ class SecretAgent(dbus.service.Object):
                          in_signature='a{sa{sv}}osasb',
                          out_signature='a{sa{sv}}',
                          sender_keyword='sender')
-    def GetSecrets(self, connection_hash, connection_path, setting_name, hints, request_new, sender=None):
+    def GetSecrets(self, connection_hash, connection_path, setting_name, hints, flags, sender=None):
         if not sender:
             raise NotAuthorizedException("Internal error: couldn't get sender")
         uid = self._bus.get_unix_user(sender)
         if uid != 0:
             raise NotAuthorizedException("UID %d not authorized" % uid)
 
-        log.debug("Secrets requested path '%s' setting '%s' hints '%s' new %d",
-                  connection_path, setting_name, str(hints), request_new)
+        log.debug("network: secrets requested path '%s' setting '%s' hints '%s' new %d",
+                  connection_path, setting_name, str(hints), flags)
+        if not (flags & NM_SECRET_AGENT_GET_SECRETS_FLAG_ALLOW_INTERACTION):
+            return
 
         content = self._get_content(setting_name, connection_hash)
         dialog = SecretAgentDialog(self.spoke.data, content=content)
