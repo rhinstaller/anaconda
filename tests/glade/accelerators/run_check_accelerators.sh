@@ -1,7 +1,7 @@
 #!/bin/sh
 
 : "${top_srcdir:=$(dirname "$0")/../..}"
-srcdir="${top_srcdir}/tests/accelerators"
+srcdir="${top_srcdir}/tests/glade/accelerators"
 
 # If --translate was specified but not --podir, add --podir
 i=0
