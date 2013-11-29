@@ -38,6 +38,8 @@ dist_check_DATA = pylint/pylint-false-positives
 # Test scripts need to be listed both here and in TESTS
 dist_check_SCRIPTS = glade/accelerators/check_accelerators.py \
 		     glade/accelerators/run_check_accelerators.sh \
+		     glade/pw_visibility/check_pw_visibility.py \
+		     glade/pw_visibility/run_check_pw_visibility.sh \
 		     nosetests.sh \
 		     pylint/intl.py \
 		     pylint/preconf.py \
@@ -53,7 +55,8 @@ TESTS = nosetests.sh \
 	pylint/runpylint.sh \
 	gettext/gettext_warnings.sh \
 	storage/run_storage_tests.py \
-	glade/accelerators/run_check_accelerators.sh
+	glade/accelerators/run_check_accelerators.sh \
+	glade/pw_visibility/run_check_pw_visibility.sh
 
 clean-local:
 	-rm -rf pylint/.pylint.d
