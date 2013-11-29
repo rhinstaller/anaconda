@@ -207,6 +207,22 @@ class EditTUISpoke(NormalTUISpoke):
         # to edit
         self.args = None
 
+    @property
+    def visible_fields(self):
+        """Get the list of currently visible entries"""
+
+        # it would be nice to have this a static list, but visibility of the
+        # entries often depends on the current state of the spoke and thus
+        # changes dynamically
+        ret = []
+        for entry in self.edit_fields:
+            if callable(entry.visible) and entry.visible(self, self.args):
+                ret.append(entry)
+            elif not callable(entry.visible) and entry.visible:
+                ret.append(entry)
+
+        return ret
+
     def refresh(self, args = None):
         NormalTUISpoke.refresh(self, args)
 
@@ -242,12 +258,7 @@ class EditTUISpoke(NormalTUISpoke):
 
             return tui.ColumnWidget([(3, [number]), (None, [title, value])], 1)
 
-        for idx,entry in enumerate(self.edit_fields):
-            if callable(entry.visible) and not entry.visible(self, self.args):
-                continue
-            elif not callable(entry.visible) and not entry.visible:
-                continue
-
+        for idx, entry in enumerate(self.visible_fields):
             entry_type = entry.aux
             if entry_type == self.PASSWORD:
                 w = _prep_password(idx+1, entry)
@@ -263,16 +274,16 @@ class EditTUISpoke(NormalTUISpoke):
     def input(self, args, key):
         try:
             idx = int(key) - 1
-            if idx >= 0 and idx < len(self.edit_fields):
+            if idx >= 0 and idx < len(self.visible_fields):
                 if self.edit_fields[idx].aux == self.CHECK:
-                    setdeepattr(self.args, self.edit_fields[idx].attribute,
+                    setdeepattr(self.args, self.visible_fields[idx].attribute,
                                 not getdeepattr(self.args, self.edit_fields[idx][1]))
                     self.app.redraw()
                     self.apply()
                 else:
-                    self.app.switch_screen_modal(self.dialog, self.edit_fields[idx])
+                    self.app.switch_screen_modal(self.dialog, self.visible_fields[idx])
                     if self.dialog.value is not None:
-                        setdeepattr(self.args, self.edit_fields[idx].attribute,
+                        setdeepattr(self.args, self.visible_fields[idx].attribute,
                                     self.dialog.value)
                         self.apply()
                 return True
