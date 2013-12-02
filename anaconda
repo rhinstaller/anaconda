@@ -526,10 +526,11 @@ def setupDisplay(anaconda, opts, addon_paths=None):
             vncS.vncconnectport = anaconda.ksdata.vnc.port
 
     if anaconda.displayMode == "g":
-        try:
-            # pylint: disable-msg=W0612
-            from pyanaconda.ui.gui import GraphicalUserInterface
-        except ImportError:
+        import pkgutil
+        import pyanaconda.ui
+
+        mods = (tup[1] for tup in pkgutil.iter_modules(pyanaconda.ui.__path__, "pyanaconda.ui."))
+        if "pyanaconda.ui.gui" not in mods:
             stdoutLog.warning("Graphical user interface not available, falling back to text mode")
             anaconda.displayMode = "t"
             flags.usevnc = 0
