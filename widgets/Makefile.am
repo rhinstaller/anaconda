@@ -21,7 +21,7 @@
 
 ACLOCAL_AMFLAGS = -I m4
 
-SUBDIRS = src python glade doc
+SUBDIRS = src python glade doc data
 
 MAINTAINERCLEANFILES = Makefile.in aclocal.m4 config.guess config.h.in config.sub \
 	configure depcomp gtk-doc.make install-sh ltmain.sh missing py-compile \
