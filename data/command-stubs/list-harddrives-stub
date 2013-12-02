@@ -26,7 +26,7 @@ import _ped
 def main(argv):
     lst = set()
 
-    for dev in filter(lambda d: d.type != parted.DEVICE_DM, parted.getAllDevices()):
+    for dev in filter(lambda d: d.type != parted.DEVICE_DM and not d.path.startswith("/dev/sr"), parted.getAllDevices()):
         if dev.path.startswith("/dev/"):
             path = dev.path[5:]
         else:
