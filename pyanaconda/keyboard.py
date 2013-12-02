@@ -493,6 +493,7 @@ class XklWrapper(object):
 
         """
         # ported from the widgets/src/LayoutIndicator.c code
+        from gi.repository import Xkl
 
         self._engine.start_listen(Xkl.EngineListenModes.TRACK_KEYBOARD_STATE)
         state = self._engine.get_current_state()

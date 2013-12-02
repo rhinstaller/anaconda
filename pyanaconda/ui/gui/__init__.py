@@ -245,7 +245,7 @@ class GUIObject(common.UIObject):
                               "screenshot-%04d.png" % _screenshotIndex)
             rc = iutil.execWithRedirect("scrot", [fn])
             if rc == 0:
-                log.info("screenshot nr. %d taken" % _screenshotIndex)
+                log.info("screenshot nr. %d taken", _screenshotIndex)
                 _screenshotIndex += 1
             else:
                 log.error("taking screenshot failed")
