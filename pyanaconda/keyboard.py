@@ -395,6 +395,8 @@ class XklWrapper(object):
     def __init__(self):
         from gi.repository import GdkX11, Xkl
 
+        self._xkl = Xkl
+
         #initialize Xkl-related stuff
         display = GdkX11.x11_get_default_xdisplay()
         self._engine = Xkl.Engine.get_instance(display)
@@ -493,9 +495,8 @@ class XklWrapper(object):
 
         """
         # ported from the widgets/src/LayoutIndicator.c code
-        from gi.repository import Xkl
 
-        self._engine.start_listen(Xkl.EngineListenModes.TRACK_KEYBOARD_STATE)
+        self._engine.start_listen(self._xkl.EngineListenModes.TRACK_KEYBOARD_STATE)
         state = self._engine.get_current_state()
         cur_group = state.group
         num_groups = self._engine.get_num_groups()
@@ -512,7 +513,7 @@ class XklWrapper(object):
             # X server may have forgotten to add the "" variant for its default layout
             variant = ""
 
-        self._engine.stop_listen(Xkl.EngineListenModes.TRACK_KEYBOARD_STATE)
+        self._engine.stop_listen(self._xkl.EngineListenModes.TRACK_KEYBOARD_STATE)
 
         return _join_layout_variant(layout, variant)
 
