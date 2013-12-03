@@ -251,6 +251,10 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Mon Dec 02 2013 Brian C. Lane <bcl@redhat.com> - 20.25.13-1
+- Don't try to investigate empty string for unicode chars (#1035799) (vpodzime)
+- Do not write out the vconsole.keymap boot option (#1035316) (vpodzime)
+
 * Wed Nov 27 2013 Brian C. Lane <bcl@redhat.com> - 20.25.12-1
 - clear software environment (#1029536) (bcl)
 - Update source on errors (#1030997) (bcl)
