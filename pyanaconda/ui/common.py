@@ -294,9 +294,6 @@ class Spoke(UIObject):
         """
         pass
 
-    def initialize(self):
-        UIObject.initialize(self)
-
     @property
     def status(self):
         """Given the current status of whatever this Spoke configures, return
