@@ -1403,7 +1403,7 @@ class GRUB2(GRUB):
     terminal_type = "console"
 
     # requirements for boot devices
-    stage2_device_types = ["partition", "mdarray", "lvmlv", "btrfs volume",
+    stage2_device_types = ["partition", "mdarray", "btrfs volume",
                            "btrfs subvolume"]
     stage2_raid_levels = [raid.RAID0, raid.RAID1, raid.RAID4,
                           raid.RAID5, raid.RAID6, raid.RAID10]
