@@ -32,6 +32,7 @@ import signal
 import time
 import re
 import errno
+import glob
 import blivet.errors
 from pyanaconda.ui.communication import hubQ
 from pyanaconda.constants import ROOT_PATH, THREAD_EXCEPTION_HANDLING_TEST
@@ -230,6 +231,7 @@ def initExceptionHandling(anaconda):
     conf.register_callback("nmcli_dev_list", nmcli_dev_list_callback,
                            attchmnt_only=True)
     conf.register_callback("type", lambda: "anaconda", attchmnt_only=True)
+    conf.register_callback("addons", list_addons_callback, attchmnt_only=False)
 
     if "/tmp/syslog" not in fileList:
         # no syslog, grab output from journalctl and put it also to the
@@ -265,6 +267,17 @@ def journalctl_callback():
             ret += line + "\n"
 
     return ret
+
+def list_addons_callback():
+    """
+    Callback to get info about the addons potentially affecting Anaconda's
+    behaviour.
+
+    """
+
+    # list available addons and take their package names
+    addon_pkgs = glob.glob("/usr/share/anaconda/addons/*")
+    return ", ".join(addon.rsplit("/", 1)[1] for addon in addon_pkgs)
 
 def test_exception_handling():
     """
