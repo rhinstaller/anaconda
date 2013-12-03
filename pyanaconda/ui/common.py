@@ -23,7 +23,6 @@
 import os
 import imp
 import inspect
-import copy
 import sys
 import types
 
@@ -33,18 +32,6 @@ from pykickstart.constants import FIRSTBOOT_RECONFIG
 
 import logging
 log = logging.getLogger("anaconda")
-
-class PathDict(dict):
-    """Dictionary class supporting + operator"""
-    def __add__(self, ext):
-        new_dict = copy.copy(self)
-        for key, value in ext.iteritems():
-            try:
-                new_dict[key].extend(value)
-            except KeyError:
-                new_dict[key] = value[:]
-
-        return new_dict
 
 class UIObject(object):
     """This is the base class from which all other UI classes are derived.  It

@@ -21,8 +21,21 @@
 
 __all__ = ["UserInterface"]
 
+import copy
 import os
-from pyanaconda.ui.common import collect, PathDict
+from pyanaconda.ui.common import collect
+
+class PathDict(dict):
+    """Dictionary class supporting + operator"""
+    def __add__(self, ext):
+        new_dict = copy.copy(self)
+        for key, value in ext.iteritems():
+            try:
+                new_dict[key].extend(value)
+            except KeyError:
+                new_dict[key] = value[:]
+
+        return new_dict
 
 class UserInterface(object):
     """This is the base class for all kinds of install UIs.  It primarily
