@@ -55,20 +55,20 @@ class SourceSwitchHandler(object):
     def __init__(self, data, storage):
         self._device = None
         self._current_iso_path = None
-        self.data = data
-        self.storage = storage
+        self._data = data
+        self._storage = storage
 
     def _clean_hdd_iso(self):
         """ Clean HDD ISO usage
         This means unmounting the partition and unprotecting it,
         so it can be used for the installation.
         """
-        if self.data.method.method == "harddrive" and self.data.method.partition:
-            part = self.data.method.partition
-            dev = self.storage.devicetree.getDeviceByName(part)
+        if self._data.method.method == "harddrive" and self._data.method.partition:
+            part = self._data.method.partition
+            dev = self._storage.devicetree.getDeviceByName(part)
             if dev:
                 dev.protected = False
-            self.storage.config.protectedDevSpecs.remove(part)
+            self._storage.config.protectedDevSpecs.remove(part)
 
     def set_source_hdd_iso(self, device, iso_path):
         """ Switch to the HDD ISO install source
@@ -79,7 +79,7 @@ class SourceSwitchHandler(object):
         """
         partition = device.name
         # the GUI source spoke also does the copy
-        old_source = copy.copy(self.data.method)
+        old_source = copy.copy(self._data.method)
 
         # if a different partition was used previously, unprotect it
         if old_source.method == "harddrive" and old_source.partition != partition:
@@ -88,12 +88,12 @@ class SourceSwitchHandler(object):
         # protect current device
         if device:
             device.protected = True
-            self.storage.config.protectedDevSpecs.append(device.name)
+            self._storage.config.protectedDevSpecs.append(device.name)
 
-        self.data.method.method = "harddrive"
-        self.data.method.partition = partition
+        self._data.method.method = "harddrive"
+        self._data.method.partition = partition
         # the / gets stripped off by payload.ISOImage
-        self.data.method.dir = "/" + iso_path
+        self._data.method.dir = "/" + iso_path
 
         # as we already made the device protected when
         # switching to it, we don't need to protect it here
@@ -103,32 +103,32 @@ class SourceSwitchHandler(object):
         # clean any old HDD ISO sources
         self._clean_hdd_iso()
 
-        self.data.method.method = "url"
+        self._data.method.method = "url"
         if url is not None:
-            self.data.method.url = url
+            self._data.method.url = url
 
     def set_source_nfs(self, opts=None):
         """ Switch to NFS install source """
         # clean any old HDD ISO sources
         self._clean_hdd_iso()
 
-        self.data.method.method = "nfs"
+        self._data.method.method = "nfs"
         if opts is not None:
-            self.data.method.opts = opts
+            self._data.method.opts = opts
 
     def set_source_cdrom(self):
         """ Switch to cdrom install source """
         # clean any old HDD ISO sources
         self._clean_hdd_iso()
 
-        self.data.method.method = "cdrom"
+        self._data.method.method = "cdrom"
 
     def set_source_closest_mirror(self):
         """ Switch to the closest mirror install source """
         # clean any old HDD ISO sources
         self._clean_hdd_iso()
 
-        self.data.method.method = None
+        self._data.method.method = None
 
 class SourceSpoke(EditTUISpoke, SourceSwitchHandler):
     """ Spoke used to customize the install source repo. """
