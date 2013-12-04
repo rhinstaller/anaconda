@@ -121,6 +121,11 @@ class ThreadManager(object):
             log.debug("Waiting for thread %s to exit", name)
             self.wait(name)
 
+        if self.any_errors:
+            msg = "Unhandled errors from the following threads detected: %s" %\
+                         ", ".join(self._errors.iterkeys())
+            raise RuntimeError(msg)
+
     def set_error(self, name, *exc_info):
         """Set the error data for a thread
 
@@ -140,10 +145,15 @@ class ThreadManager(object):
 
     def raise_if_error(self, name):
         """If a thread has failed due to an exception, raise it into the main
-           thread.
+           thread and remove it from errors.
         """
-        if self._errors.get(name):
-            raise self._errors[name][0], self._errors[name][1], self._errors[name][2]
+        if name not in self._errors:
+            # no errors found for the thread
+            return
+
+        exc_info = self._errors.pop(name)
+        if exc_info:
+            raise exc_info
 
     def in_main_thread(self):
         """Return True if it is run in the main thread."""
@@ -199,6 +209,11 @@ class AnacondaThread(threading.Thread):
             self._prefix_thread_counts[prefix] = thread_num
             kwargs["name"] = prefix + str(thread_num)
 
+        if "fatal" in kwargs:
+            self._fatal = kwargs.pop("fatal")
+        else:
+            self._fatal = True
+
         threading.Thread.__init__(self, *args, **kwargs)
         self.daemon = True
 
@@ -212,7 +227,8 @@ class AnacondaThread(threading.Thread):
         # pylint: disable-msg=W0702
         except:
             threadMgr.set_error(self.name, *sys.exc_info())
-            sys.excepthook(*sys.exc_info())
+            if self._fatal:
+                sys.excepthook(*sys.exc_info())
         finally:
             threadMgr.remove(self.name)
             log.info("Thread Done: %s (%s)", self.name, self.ident)
