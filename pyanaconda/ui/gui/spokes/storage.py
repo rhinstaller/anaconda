@@ -50,6 +50,7 @@ from pyanaconda.ui.gui.spokes.lib.detailederror import DetailedErrorDialog
 from pyanaconda.ui.gui.spokes.lib.resize import ResizeDialog
 from pyanaconda.ui.gui.categories.system import SystemCategory
 from pyanaconda.ui.gui.utils import enlightbox, escape_markup
+from pyanaconda.ui.helpers import StorageChecker
 
 from pyanaconda.kickstart import doKickstartStorage, getAvailableDiskSpace
 from blivet import empty_device
@@ -306,33 +307,6 @@ class InstallOptions3Dialog(InstallOptions1Dialog):
     def continue_response(self):
         return self.RESPONSE_CONTINUE_NONE
 
-class StorageChecker(object):
-    errors = []
-    warnings = []
-    _mainSpokeClass = "StorageSpoke"
-
-    def __init__(self):
-        # This is provided by the StorageSpoke class, which is a subclass of
-        # this one.  Backwards, I know.
-        self.storage  = None
-
-    def run(self):
-        threadMgr.add(AnacondaThread(name=constants.THREAD_CHECK_STORAGE,
-                                     target=self.checkStorage))
-
-    def checkStorage(self):
-        threadMgr.wait(constants.THREAD_EXECUTE_STORAGE)
-
-        hubQ.send_not_ready(self._mainSpokeClass)
-        hubQ.send_message(self._mainSpokeClass, _("Checking storage configuration..."))
-        (StorageChecker.errors,
-         StorageChecker.warnings) = self.storage.sanityCheck()
-        hubQ.send_ready(self._mainSpokeClass, True)
-        for e in StorageChecker.errors:
-            log.error(e)
-        for w in StorageChecker.warnings:
-            log.warn(w)
-
 class StorageSpoke(NormalSpoke, StorageChecker):
     builderObjects = ["storageWindow", "addSpecializedImage"]
     mainWidgetName = "storageWindow"
@@ -431,7 +405,7 @@ class StorageSpoke(NormalSpoke, StorageChecker):
             doKickstartStorage(self.storage, self.data, self.instclass)
         except (StorageError, KickstartValueError) as e:
             log.error("storage configuration failed: %s", e)
-            StorageChecker.errors = str(e).split("\n")
+            self.errors = str(e).split("\n")
             hubQ.send_message(self.__class__.__name__, _("Failed to save storage configuration..."))
             self.data.bootloader.bootDrive = ""
             self.data.ignoredisk.drives = []
@@ -443,14 +417,14 @@ class StorageSpoke(NormalSpoke, StorageChecker):
             self._applyDiskSelection(self.selected_disks)
         except BootLoaderError as e:
             log.error("BootLoader setup failed: %s", e)
-            StorageChecker.errors = str(e).split("\n")
+            self.errors = str(e).split("\n")
             hubQ.send_message(self.__class__.__name__, _("Failed to save storage configuration..."))
             self.data.bootloader.bootDrive = ""
         else:
             if self.autopart:
                 # this was already run as part of doAutoPartition. dumb.
-                StorageChecker.errors = []
-                StorageChecker.warnings = []
+                self.errors = []
+                self.warnings = []
                 self.run()
         finally:
             self._ready = True

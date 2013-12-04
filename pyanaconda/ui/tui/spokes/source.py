@@ -33,102 +33,19 @@ from pyanaconda.constants import THREAD_PAYLOAD_MD, THREAD_STORAGE, THREAD_STORA
 from pyanaconda.constants import THREAD_CHECK_SOFTWARE, ISO_DIR, DRACUT_ISODIR
 from pyanaconda.constants_text import INPUT_PROCESSED
 
+from pyanaconda.ui.helpers import SourceSwitchHandler
+
 from blivet.util import get_mount_paths
 
 import re
 import os
 import fnmatch
-import copy
 
 import logging
 LOG = logging.getLogger("anaconda")
 
 
 __all__ = ["SourceSpoke"]
-
-class SourceSwitchHandler(object):
-    """ A class that can be used as a mixin handling
-    installation source switching.
-    It will correctly switch to the new method
-    and cleanup any previous method set.
-    """
-    def __init__(self, data, storage):
-        self._device = None
-        self._current_iso_path = None
-        self.data = data
-        self.storage = storage
-
-    def _clean_hdd_iso(self):
-        """ Clean HDD ISO usage
-        This means unmounting the partition and unprotecting it,
-        so it can be used for the installation.
-        """
-        if self.data.method.method == "harddrive" and self.data.method.partition:
-            part = self.data.method.partition
-            dev = self.storage.devicetree.getDeviceByName(part)
-            if dev:
-                dev.protected = False
-            self.storage.config.protectedDevSpecs.remove(part)
-
-    def set_source_hdd_iso(self, device, iso_path):
-        """ Switch to the HDD ISO install source
-        :param partition: name of the partition hosting the ISO
-        :type partition: string
-        :param iso_path: full path to the source ISO file
-        :type iso_path: string
-        """
-        partition = device.name
-        # the GUI source spoke also does the copy
-        old_source = copy.copy(self.data.method)
-
-        # if a different partition was used previously, unprotect it
-        if old_source.method == "harddrive" and old_source.partition != partition:
-            self._clean_hdd_iso()
-
-        # protect current device
-        if device:
-            device.protected = True
-            self.storage.config.protectedDevSpecs.append(device.name)
-
-        self.data.method.method = "harddrive"
-        self.data.method.partition = partition
-        # the / gets stripped off by payload.ISOImage
-        self.data.method.dir = "/" + iso_path
-
-        # as we already made the device protected when
-        # switching to it, we don't need to protect it here
-
-    def set_source_url(self, url=None):
-        """ Switch to install source specified by URL """
-        # clean any old HDD ISO sources
-        self._clean_hdd_iso()
-
-        self.data.method.method = "url"
-        if url is not None:
-            self.data.method.url = url
-
-    def set_source_nfs(self, opts=None):
-        """ Switch to NFS install source """
-        # clean any old HDD ISO sources
-        self._clean_hdd_iso()
-
-        self.data.method.method = "nfs"
-        if opts is not None:
-            self.data.method.opts = opts
-
-    def set_source_cdrom(self):
-        """ Switch to cdrom install source """
-        # clean any old HDD ISO sources
-        self._clean_hdd_iso()
-
-        self.data.method.method = "cdrom"
-
-    def set_source_closest_mirror(self):
-        """ Switch to the closest mirror install source """
-        # clean any old HDD ISO sources
-        self._clean_hdd_iso()
-
-        self.data.method.method = None
 
 class SourceSpoke(EditTUISpoke, SourceSwitchHandler):
     """ Spoke used to customize the install source repo. """
@@ -142,7 +59,7 @@ class SourceSpoke(EditTUISpoke, SourceSwitchHandler):
 
     def __init__(self, app, data, storage, payload, instclass):
         EditTUISpoke.__init__(self, app, data, storage, payload, instclass)
-        SourceSwitchHandler.__init__(self, data, storage)
+        SourceSwitchHandler.__init__(self)
         self._ready = False
         self.errors = []
         self._cdrom = None
@@ -344,7 +261,7 @@ class SpecifyRepoSpoke(EditTUISpoke, SourceSwitchHandler):
 
     def __init__(self, app, data, storage, payload, instclass, selection):
         EditTUISpoke.__init__(self, app, data, storage, payload, instclass)
-        SourceSwitchHandler.__init__(self, data, storage)
+        SourceSwitchHandler.__init__(self)
         self.selection = selection
         self.args = self.data.method
 
@@ -383,7 +300,7 @@ class SpecifyNFSRepoSpoke(EditTUISpoke, SourceSwitchHandler):
 
     def __init__(self, app, data, storage, payload, instclass, selection, errors):
         EditTUISpoke.__init__(self, app, data, storage, payload, instclass)
-        SourceSwitchHandler.__init__(self, data, storage)
+        SourceSwitchHandler.__init__(self)
         self.selection = selection
         self.args = self.data.method
         self.errors = errors
@@ -504,7 +421,7 @@ class SelectISOSpoke(NormalTUISpoke, SourceSwitchHandler):
 
     def __init__(self, app, data, storage, payload, instclass, device):
         NormalTUISpoke.__init__(self, app, data, storage, payload, instclass)
-        SourceSwitchHandler.__init__(self, data, storage)
+        SourceSwitchHandler.__init__(self)
         self.selection = None
         self.args = self.data.method
         self._device = device
