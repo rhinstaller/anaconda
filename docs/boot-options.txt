@@ -93,6 +93,9 @@ This specifies the location for driver rpms. May be specified multiple times.
 Locations may be specified using any of the formats allowed for
 <<inst.repo,`inst.repo`>>.
 
+=== inst.multilib ===
+This sets yum's multilib_policy to "all" (as opposed to "best").
+
 [[kickstart]]
 Kickstart
 ---------
