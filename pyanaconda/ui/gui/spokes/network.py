@@ -256,10 +256,10 @@ class DeviceConfiguration(object):
         settings = nm.nm_get_settings(self.con_uuid, "connection", "uuid")
         try:
             value = settings[0][key1][key2]
-        except IndexError as e:
+        except IndexError:
             log.debug("network: can't find connection with uuid %s",
                       self.con_uuid)
-        except KeyError as e:
+        except KeyError:
             log.debug("network: can't find '%s' '%s' in connection %s",
                       key1, key2, self.con_uuid)
         else:
@@ -843,7 +843,6 @@ class NetworkControlBox(GObject.GObject):
                 vlanid = dev_cfg.device.get_vlan_id()
             else:
                 vlanid = dev_cfg.setting_value("vlan", "id")
-            parent = dev_cfg.setting_value("vlan", "parent")
             self._set_device_info_value("wired", "vlanid", str(vlanid))
 
     def _refresh_speed_hwaddr(self, dev_cfg, state=None):
