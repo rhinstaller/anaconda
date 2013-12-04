@@ -43,6 +43,7 @@ Source0: %{name}-%{version}.tar.bz2
 %define rpmver 4.10.0
 %define libarchivever 3.0.4
 %define langtablever 0.0.18-1
+%define libxklavierver 5.4
 %define libtimezonemapver 0.4.1-2
 
 BuildRequires: audit-libs-devel
@@ -55,7 +56,7 @@ BuildRequires: pygobject3
 BuildRequires: intltool >= %{intltoolver}
 BuildRequires: libgnomekbd-devel
 BuildRequires: libnl-devel >= %{libnlver}
-BuildRequires: libxklavier-devel
+BuildRequires: libxklavier-devel >= %{libxklavierver}
 BuildRequires: pango-devel
 BuildRequires: pykickstart >= %{pykickstartver}
 %if ! 0%{?rhel}
@@ -161,7 +162,7 @@ Requires: python-meh-gui >= %{mehver}
 Requires: gnome-icon-theme-symbolic
 Requires: system-logos
 Requires: tigervnc-server-minimal
-Requires: libxklavier
+Requires: libxklavier >= %{libxklavierver}
 Requires: libgnomekbd
 Requires: nm-connection-editor
 %ifarch %livearches

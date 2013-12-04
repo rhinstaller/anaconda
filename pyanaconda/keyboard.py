@@ -32,11 +32,9 @@ keymaps.
 
 """
 
-import types
 import os
 import re
 import shutil
-import ctypes
 import gettext
 import threading
 
@@ -351,21 +349,6 @@ def background_XklWrapper_initialize():
 
     threadMgr.add(AnacondaThread(name=THREAD_XKL_WRAPPER_INIT, target=XklWrapper.get_instance))
 
-def item_str(s):
-    """Convert a zero-terminated byte array to a proper str"""
-
-    # depending of version of libxklavier and the tools generating introspection
-    # data the value of 's' can be either byte string or list of integers
-    if type(s) == types.StringType:
-        i = s.find(b'\x00')
-        s = s[:i]
-    elif type(s) == types.ListType:
-        # XXX: this is the wrong case that should be fixed (rhbz#920595)
-        i = s.index(0)
-        s = "".join(chr(ctypes.c_uint8(char).value) for char in s[:i])
-
-    return s.decode("utf-8") #there are some non-ascii layout descriptions
-
 class XklWrapperError(KeyboardConfigError):
     """Exception class for reporting libxklavier-related problems"""
 
@@ -444,48 +427,46 @@ class XklWrapper(object):
 
     def _get_lang_variant(self, c_reg, item, subitem, lang):
         if subitem:
-            name = item_str(item.name) + " (" + item_str(subitem.name) + ")"
-            description = item_str(subitem.description)
+            name = item.get_name() + " (" + subitem.get_name() + ")"
+            description = subitem.get_description()
         else:
-            name = item_str(item.name)
-            description = item_str(item.description)
+            name = item.get_name()
+            description = item.get_description()
 
         #if this layout has already been added for some other language,
         #do not add it again (would result in duplicates in our lists)
         if name not in self._layout_infos:
-            self._layout_infos[name] = LayoutInfo(lang.encode("utf-8"),
-                                                  description.encode("utf-8"))
+            self._layout_infos[name] = LayoutInfo(lang, description)
 
     def _get_country_variant(self, c_reg, item, subitem, country):
         if subitem:
-            name = item_str(item.name) + " (" + item_str(subitem.name) + ")"
-            description = item_str(subitem.description)
+            name = item.get_name() + " (" + subitem.get_name() + ")"
+            description = subitem.get_description()
         else:
-            name = item_str(item.name)
-            description = item_str(item.description)
+            name = item.get_name()
+            description = item.get_description()
 
         # if the layout was not added with any language, add it with a country
         if name not in self._layout_infos:
-            self._layout_infos[name] = LayoutInfo(country.encode("utf-8"),
-                                                  description.encode("utf-8"))
+            self._layout_infos[name] = LayoutInfo(country, description)
 
     def _get_language_variants(self, c_reg, item, user_data=None):
-        lang_name, lang_desc = item_str(item.name), item_str(item.description)
+        lang_name, lang_desc = item.get_name(), item.get_description()
 
         c_reg.foreach_language_variant(lang_name, self._get_lang_variant, lang_desc)
 
     def _get_country_variants(self, c_reg, item, user_data=None):
-        country_name, country_desc = item_str(item.name), item_str(item.description)
+        country_name, country_desc = item.get_name(), item.get_description()
 
         c_reg.foreach_country_variant(country_name, self._get_country_variant,
                                       country_desc)
 
     def _get_switch_option(self, c_reg, item, user_data=None):
         """Helper function storing layout switching options in foreach cycle"""
-        desc = item_str(item.description)
-        name = item_str(item.name)
+        desc = item.get_description()
+        name = item.get_name()
 
-        self._switch_opt_infos[name] = desc.encode("utf-8")
+        self._switch_opt_infos[name] = desc
 
     def get_current_layout(self):
         """
