@@ -252,6 +252,10 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Thu Dec 05 2013 Brian C. Lane <bcl@redhat.com> - 19.31.37-1
+- Omit /dev/sr* from list-harddrives (sbueno+anaconda)
+  Resolves: rhbz#1032500
+
 * Thu Nov 21 2013 Brian C. Lane <bcl@redhat.com> - 19.31.36-1
 - Network protocols don't list Closest mirror first (vpodzime)
   Resolves: rhbz#1028697
