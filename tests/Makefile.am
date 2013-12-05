@@ -47,6 +47,7 @@ dist_check_SCRIPTS = glade/accelerators/check_accelerators.py \
 		     pylint/pylint-one.sh \
 		     testenv.sh \
 		     gettext/gettext_warnings.sh \
+		     gettext/gettext_potfiles.py \
 		     storage/run_storage_tests.py \
 		     $(srcdir)/storage/cases/*.py \
 		     $(srcdir)/*_tests/*.py
@@ -54,6 +55,7 @@ dist_check_SCRIPTS = glade/accelerators/check_accelerators.py \
 TESTS = nosetests.sh \
 	pylint/runpylint.sh \
 	gettext/gettext_warnings.sh \
+	gettext/gettext_potfiles.py \
 	storage/run_storage_tests.py \
 	glade/accelerators/run_check_accelerators.sh \
 	glade/pw_visibility/run_check_pw_visibility.sh
