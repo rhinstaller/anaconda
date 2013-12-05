@@ -251,6 +251,14 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Wed Dec 04 2013 Brian C. Lane <bcl@redhat.com> - 20.25.14-1
+- Handle cancelation of device resize in the custom spoke. (#1027947) (dlehman)
+- Disallow /boot on lvm until grub2 fully supports it. (#1036705) (dlehman)
+- Disallow /boot on btrfs subvolume until grubby supports it. (#864198)
+  (dlehman)
+- Fix AttributeError in TUI (#1037626) (mkolman)
+- New Version - 20.25.13 (bcl)
+
 * Mon Dec 02 2013 Brian C. Lane <bcl@redhat.com> - 20.25.13-1
 - Don't try to investigate empty string for unicode chars (#1035799) (vpodzime)
 - Do not write out the vconsole.keymap boot option (#1035316) (vpodzime)
