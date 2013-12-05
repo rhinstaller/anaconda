@@ -4,6 +4,9 @@
 # Main anaconda source files
 pyanaconda/bootloader.py
 pyanaconda/constants.py
+pyanaconda/constants_text.py
+pyanaconda/errors.py
+pyanaconda/exception.py
 pyanaconda/image.py
 pyanaconda/install.py
 pyanaconda/installclass.py
@@ -14,6 +17,8 @@ pyanaconda/network.py
 pyanaconda/product.py
 pyanaconda/regexes.py
 pyanaconda/rescue.py
+pyanaconda/text.py
+pyanaconda/users.py
 pyanaconda/vnc.py
 
 # Install class definitions
@@ -25,6 +30,7 @@ pyanaconda/packaging/__init__.py
 pyanaconda/packaging/livepayload.py
 pyanaconda/packaging/tarpayload.py
 pyanaconda/packaging/yumpayload.py
+pyanaconda/packaging/dnfpayload.py
 
 # Interfaces
 pyanaconda/ui/common.py
@@ -45,8 +51,10 @@ pyanaconda/ui/tui/spokes/network.py
 pyanaconda/ui/tui/spokes/password.py
 pyanaconda/ui/tui/spokes/storage.py
 pyanaconda/ui/tui/spokes/time_spoke.py
+pyanaconda/ui/tui/spokes/shell_spoke.py
 pyanaconda/ui/tui/spokes/source.py
 pyanaconda/ui/tui/spokes/software.py
+pyanaconda/ui/tui/spokes/user.py
 pyanaconda/ui/tui/spokes/warnings.py
 pyanaconda/ui/tui/spokes/progress.py
 pyanaconda/ui/tui/spokes/__init__.py
@@ -74,8 +82,10 @@ pyanaconda/ui/gui/spokes/source.py
 pyanaconda/ui/gui/spokes/storage.py
 pyanaconda/ui/gui/spokes/user.py
 pyanaconda/ui/gui/spokes/welcome.py
+pyanaconda/ui/gui/spokes/advstorage/iscsi.py
 pyanaconda/ui/gui/spokes/lib/accordion.py
 pyanaconda/ui/gui/spokes/lib/cart.py
+pyanaconda/ui/gui/spokes/lib/detailederror.py
 pyanaconda/ui/gui/spokes/lib/passphrase.py
 pyanaconda/ui/gui/spokes/lib/refresh.py
 pyanaconda/ui/gui/spokes/lib/resize.py
