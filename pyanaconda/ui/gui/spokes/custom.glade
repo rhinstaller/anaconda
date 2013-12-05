@@ -710,10 +710,8 @@ use.  Try something else?</property>
     </action-widgets>
   </object>
   <object class="AnacondaSpokeWindow" id="customStorageWindow">
-    <property name="startup_id">filler</property>
     <property name="can_focus">False</property>
     <property name="events">GDK_KEY_RELEASE_MASK | GDK_STRUCTURE_MASK</property>
-    <property name="startup_id">filler</property>
     <property name="window_name" translatable="yes">MANUAL PARTITIONING</property>
     <signal name="button-clicked" handler="on_back_clicked" swapped="no"/>
     <signal name="info-bar-clicked" handler="on_info_bar_clicked" swapped="no"/>

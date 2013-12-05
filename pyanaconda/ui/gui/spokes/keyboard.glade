@@ -199,9 +199,7 @@
   </object>
   <object class="GtkTextBuffer" id="layoutTestBuffer"/>
   <object class="AnacondaSpokeWindow" id="keyboardWindow">
-    <property name="startup_id">filler</property>
     <property name="can_focus">False</property>
-    <property name="startup_id">filler</property>
     <property name="window_name" translatable="yes">KEYBOARD LAYOUT</property>
     <signal name="button-clicked" handler="on_back_clicked" swapped="no"/>
     <child internal-child="main_box">

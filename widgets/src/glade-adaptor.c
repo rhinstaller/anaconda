@@ -72,22 +72,3 @@ void anaconda_standalone_window_post_create(GladeWidgetAdaptor *adaptor,
         glade_widget_property_set(alignment_widget, "yscale", 1.0);
     }
 }
-
-void anaconda_standalone_window_write_widget(GladeWidgetAdaptor *adaptor,
-                                             GladeWidget *widget,
-                                             GladeXmlContext *context, GladeXmlNode *node) {
-    GladeProperty *startup_id_prop;
-
-    if (!glade_xml_node_verify (node, GLADE_XML_TAG_WIDGET))
-        return;
-
-    /* Set a bogus startup-id in the output XML file.  This doesn't really seem
-     * like it should be necessary, but glade will crash if I don't.
-     */
-    startup_id_prop = glade_widget_get_property(widget, "startup-id");
-    glade_property_set(startup_id_prop, "filler");
-    glade_property_write(startup_id_prop, context, node);
-
-    /* Chain up and write the parent's properties */
-    GWA_GET_CLASS (GTK_TYPE_WINDOW)->write_widget (adaptor, widget, context, node);
-}

@@ -4,9 +4,7 @@
   <!-- interface-requires gtk+ 3.0 -->
   <!-- interface-requires AnacondaWidgets 1.0 -->
   <object class="AnacondaHubWindow" id="summaryWindow">
-    <property name="startup_id">filler</property>
     <property name="can_focus">False</property>
-    <property name="startup_id">filler</property>
     <property name="window_name" translatable="yes">INSTALLATION SUMMARY</property>
     <child internal-child="main_box">
       <object class="GtkBox" id="AnacondaHubWindow-main_box1">

@@ -29,9 +29,7 @@
     </columns>
   </object>
   <object class="AnacondaSpokeWindow" id="langsupportWindow">
-    <property name="startup_id">filler</property>
     <property name="can_focus">False</property>
-    <property name="startup_id">filler</property>
     <property name="window_name" translatable="yes">LANGUAGE SUPPORT</property>
     <signal name="button-clicked" handler="on_back_clicked" swapped="no"/>
     <child internal-child="main_box">

@@ -4,11 +4,9 @@
   <!-- interface-requires gtk+ 3.6 -->
   <!-- interface-requires AnacondaWidgets 1.0 -->
   <object class="AnacondaSpokeWindow" id="userCreationWindow">
-    <property name="startup_id">filler</property>
     <property name="can_focus">False</property>
     <property name="hexpand">True</property>
     <property name="vexpand">True</property>
-    <property name="startup_id">filler</property>
     <property name="window_name" translatable="yes">CREATE USER</property>
     <signal name="button-clicked" handler="on_back_clicked" swapped="no"/>
     <child internal-child="main_box">

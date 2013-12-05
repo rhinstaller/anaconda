@@ -157,9 +157,7 @@
     </columns>
   </object>
   <object class="AnacondaStandaloneWindow" id="networkStandaloneWindow">
-    <property name="startup_id">filler</property>
     <property name="can_focus">False</property>
-    <property name="startup_id">filler</property>
     <property name="window_name" translatable="yes">NETWORK CONFIGURATION</property>
     <child internal-child="main_box">
       <object class="GtkBox" id="AnacondaStandaloneWindow-main_box5">
@@ -233,9 +231,7 @@ updates available for you.</property>
     </child>
   </object>
   <object class="AnacondaSpokeWindow" id="networkWindow">
-    <property name="startup_id">filler</property>
     <property name="can_focus">False</property>
-    <property name="startup_id">filler</property>
     <property name="window_name" translatable="yes">NETWORK CONFIGURATION</property>
     <signal name="button-clicked" handler="on_back_clicked" swapped="no"/>
     <child internal-child="main_box">
