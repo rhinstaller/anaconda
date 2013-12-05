@@ -2150,7 +2150,7 @@ class EXTLINUX(BootLoader):
         self.write_config_console(config)
         for image in self.images:
             args = Arguments()
-            args.add("root=%s" % image.device.fstabSpec)
+            args.update(["root=%s" % image.device.fstabSpec, "ro"])
             args.update(self.boot_args)
             log.info("bootloader.py: used boot args: %s ", args)
             stanza = ("label %(label)s (%(version)s)\n"
