@@ -2130,6 +2130,8 @@ class EXTLINUX(BootLoader):
         for image in self.images:
             args = Arguments()
             args.add("root=%s" % image.device.fstabSpec)
+            if image.device.type == "btrfs subvolume":
+                args.update(["rootflags=subvol=%s" % image.device.name])
             args.update(self.boot_args)
             log.info("bootloader.py: used boot args: %s ", args)
             stanza = ("label %(label)s (%(version)s)\n"
