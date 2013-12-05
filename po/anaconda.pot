@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: anaconda 21.10\n"
+"Project-Id-Version: anaconda 21.11\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
-"POT-Creation-Date: 2013-11-27 17:11-0800\n"
+"POT-Creation-Date: 2013-12-04 16:06-0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -98,7 +98,7 @@ msgstr ""
 msgid "%(desc)s cannot be of type %(type)s"
 msgstr ""
 
-#: pyanaconda/bootloader.py:1616
+#: pyanaconda/bootloader.py:1615
 #, python-format
 msgid ""
 "%(deviceName)s may not have enough space for grub2 to embed core.img when "
@@ -263,55 +263,55 @@ msgid ""
 "'-'."
 msgstr ""
 
-#: pyanaconda/network.py:1302 pyanaconda/ui/gui/spokes/custom.py:1014
-#: pyanaconda/ui/gui/spokes/network.py:603
+#: pyanaconda/network.py:1305 pyanaconda/ui/gui/spokes/custom.py:1014
+#: pyanaconda/ui/gui/spokes/network.py:296
 #: pyanaconda/ui/gui/spokes/lib/accordion.py:60
 msgid "Unknown"
 msgstr ""
 
-#: pyanaconda/network.py:1306
+#: pyanaconda/network.py:1309
 msgid "Connecting..."
 msgstr ""
 
-#: pyanaconda/network.py:1308
+#: pyanaconda/network.py:1311
 msgid "Disconnecting..."
-msgstr ""
-
-#: pyanaconda/network.py:1328
-#, python-format
-msgid "Wired (%(interface_name)s) connected"
 msgstr ""
 
 #: pyanaconda/network.py:1331
 #, python-format
-msgid "Wireless connected to %(access_point)s"
+msgid "Wired (%(interface_name)s) connected"
 msgstr ""
 
 #: pyanaconda/network.py:1334
 #, python-format
+msgid "Wireless connected to %(access_point)s"
+msgstr ""
+
+#: pyanaconda/network.py:1337
+#, python-format
 msgid "Bond %(interface_name)s (%(list_of_slaves)s) connected"
 msgstr ""
 
-#: pyanaconda/network.py:1338
+#: pyanaconda/network.py:1341
 #, python-format
 msgid "Team%(interface_name)s (%(list_of_slaves)s) connected"
 msgstr ""
 
-#: pyanaconda/network.py:1344
+#: pyanaconda/network.py:1347
 #, python-format
 msgid "Vlan %(interface_name)s (%(parent_device)s, ID %(vlanid)s) connected"
 msgstr ""
 
-#: pyanaconda/network.py:1359
+#: pyanaconda/network.py:1362
 #, python-format
 msgid "Connected: %(list_of_interface_names)s"
 msgstr ""
 
-#: pyanaconda/network.py:1362
+#: pyanaconda/network.py:1365
 msgid "Not connected"
 msgstr ""
 
-#: pyanaconda/network.py:1365 pyanaconda/ui/gui/spokes/network.glade:2338
+#: pyanaconda/network.py:1368 pyanaconda/ui/gui/spokes/network.glade:2338
 msgid "No network devices available"
 msgstr ""
 
@@ -739,7 +739,7 @@ msgid "Configure device %s"
 msgstr ""
 
 #: pyanaconda/ui/tui/spokes/network.py:161
-#: pyanaconda/ui/gui/spokes/datetime_spoke.glade:759
+#: pyanaconda/ui/gui/spokes/datetime_spoke.glade:760
 msgid "Hostname"
 msgstr ""
 
@@ -753,8 +753,8 @@ msgid "Can't apply configuration, device activation failed."
 msgstr ""
 
 #: pyanaconda/ui/tui/spokes/network.py:222
-#: pyanaconda/ui/gui/spokes/network.py:1264
-#: pyanaconda/ui/gui/spokes/network.py:1337
+#: pyanaconda/ui/gui/spokes/network.py:1377
+#: pyanaconda/ui/gui/spokes/network.py:1450
 #, python-format
 msgid "Hostname is not valid: %s"
 msgstr ""
@@ -930,8 +930,8 @@ msgid "Timezone settings"
 msgstr ""
 
 #: pyanaconda/ui/tui/spokes/time_spoke.py:57
-#: pyanaconda/ui/gui/spokes/datetime_spoke.py:451
 #: pyanaconda/ui/gui/spokes/datetime_spoke.py:455
+#: pyanaconda/ui/gui/spokes/datetime_spoke.py:461
 #, python-format
 msgid "%s timezone"
 msgstr ""
@@ -985,7 +985,7 @@ msgstr ""
 
 #: pyanaconda/ui/tui/spokes/source.py:186
 #: pyanaconda/ui/tui/spokes/software.py:102
-#: pyanaconda/ui/gui/spokes/datetime_spoke.py:457
+#: pyanaconda/ui/gui/spokes/datetime_spoke.py:463
 #: pyanaconda/ui/gui/spokes/software.py:200
 #: pyanaconda/ui/gui/spokes/source.py:531
 msgid "Nothing selected"
@@ -1170,23 +1170,23 @@ msgstr ""
 msgid "Enter new value for '%s' and press enter\n"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/__init__.py:240
+#: pyanaconda/ui/tui/spokes/__init__.py:256
 msgid "Password set."
 msgstr ""
 
-#: pyanaconda/ui/gui/__init__.py:658
+#: pyanaconda/ui/gui/__init__.py:664
 msgid "_Exit Installer"
 msgstr ""
 
-#: pyanaconda/ui/gui/__init__.py:667 widgets/src/StandaloneWindow.c:54
+#: pyanaconda/ui/gui/__init__.py:673 widgets/src/StandaloneWindow.c:54
 msgid "_Quit"
 msgstr ""
 
-#: pyanaconda/ui/gui/__init__.py:682
+#: pyanaconda/ui/gui/__init__.py:688
 msgid "_No"
 msgstr ""
 
-#: pyanaconda/ui/gui/__init__.py:682
+#: pyanaconda/ui/gui/__init__.py:688
 msgid "_Yes"
 msgstr ""
 
@@ -1347,7 +1347,7 @@ msgstr ""
 
 #: pyanaconda/ui/gui/spokes/custom.py:253
 #: pyanaconda/ui/gui/spokes/custom.py:600
-#: pyanaconda/ui/gui/spokes/network.py:978 widgets/src/SpokeSelector.c:56
+#: pyanaconda/ui/gui/spokes/network.py:1089 widgets/src/SpokeSelector.c:56
 #: pyanaconda/ui/gui/spokes/filter.glade:166
 #: pyanaconda/ui/gui/spokes/filter.glade:577
 #: pyanaconda/ui/gui/spokes/filter.glade:930
@@ -1458,86 +1458,86 @@ msgstr ""
 msgid "Devices of type %s require a valid RAID level selection."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:1480
+#: pyanaconda/ui/gui/spokes/custom.py:1489
 msgid "Device resize request failed. Click for details."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:1550
+#: pyanaconda/ui/gui/spokes/custom.py:1561
 msgid "Device reformat request failed. Click for details."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:1602
+#: pyanaconda/ui/gui/spokes/custom.py:1613
 #, python-format
 msgid "Specified name %s already in use."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:1718
+#: pyanaconda/ui/gui/spokes/custom.py:1729
 msgid "This file system does not support labels."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:1886
+#: pyanaconda/ui/gui/spokes/custom.py:1897
 msgid ""
 "The space available to this mountpoint can be changed by modifying the "
 "volume below."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:1888
+#: pyanaconda/ui/gui/spokes/custom.py:1899
 msgid "This file system may not be resized."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:2062
+#: pyanaconda/ui/gui/spokes/custom.py:2073
 #, python-format
 msgid "Added new %(type)s to existing container %(name)s."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:2074
+#: pyanaconda/ui/gui/spokes/custom.py:2085
 msgid "Failed to add new device. Click for details."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:2080
+#: pyanaconda/ui/gui/spokes/custom.py:2091
 msgid "Invalid partition size set. Use a valid integer."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:2105
+#: pyanaconda/ui/gui/spokes/custom.py:2116
 msgid "Device removal request failed. Click for details."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:2332
+#: pyanaconda/ui/gui/spokes/custom.py:2343
 #, python-format
 msgid "Volume Group name %s is already in use. Not saving changes."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:2468
+#: pyanaconda/ui/gui/spokes/custom.py:2479
 #, python-format
 msgid ""
 "This Software RAID array is missing %(missingMembers)d of %(totalMembers)d "
 "member partitions. You can remove it or select a different device."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:2474
+#: pyanaconda/ui/gui/spokes/custom.py:2485
 #, python-format
 msgid ""
 "This LVM Volume Group is missing %(missingPVs)d of %(totalPVs)d physical "
 "volumes. You can remove it or select a different device."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:2543
+#: pyanaconda/ui/gui/spokes/custom.py:2554
 msgid "No disks selected."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:2549
+#: pyanaconda/ui/gui/spokes/custom.py:2560
 msgid "Not enough free space on selected disks."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:2555
+#: pyanaconda/ui/gui/spokes/custom.py:2566
 msgid "Automatic partitioning failed. Click for details."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:2850
+#: pyanaconda/ui/gui/spokes/custom.py:2861
 msgid "Failed to unlock encrypted block device. Click for details"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:2875
+#: pyanaconda/ui/gui/spokes/custom.py:2886
 #, python-format
 msgid ""
 "You have chosen to manually set up the filesystems for your new "
@@ -1641,29 +1641,29 @@ msgctxt "GUI|Spoke"
 msgid "DATE & _TIME"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/datetime_spoke.py:442
+#: pyanaconda/ui/gui/spokes/datetime_spoke.py:446
 msgid "Restoring hardware time..."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/datetime_spoke.py:453
+#: pyanaconda/ui/gui/spokes/datetime_spoke.py:457
 msgid "Invalid timezone"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/datetime_spoke.py:818
-#: pyanaconda/ui/gui/spokes/datetime_spoke.py:821
+#: pyanaconda/ui/gui/spokes/datetime_spoke.py:824
+#: pyanaconda/ui/gui/spokes/datetime_spoke.py:827
 msgid "AM"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/datetime_spoke.py:819
-#: pyanaconda/ui/gui/spokes/datetime_spoke.glade:469
+#: pyanaconda/ui/gui/spokes/datetime_spoke.py:825
+#: pyanaconda/ui/gui/spokes/datetime_spoke.glade:470
 msgid "PM"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/datetime_spoke.py:953
+#: pyanaconda/ui/gui/spokes/datetime_spoke.py:974
 msgid "You need to set up networking first if you want to use NTP"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/datetime_spoke.py:958
+#: pyanaconda/ui/gui/spokes/datetime_spoke.py:979
 msgid "You have no working NTP server configured"
 msgstr ""
 
@@ -1707,144 +1707,146 @@ msgctxt "GUI|Spoke"
 msgid "_LANGUAGE SUPPORT"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.py:88
+#: pyanaconda/ui/gui/spokes/network.py:85
 msgid "Status unknown (missing)"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.py:91
+#: pyanaconda/ui/gui/spokes/network.py:88
 msgid "Status unknown"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.py:93
+#: pyanaconda/ui/gui/spokes/network.py:90
 msgid "Unmanaged"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.py:96
-msgid "Firmware missing"
-msgstr ""
-
-#: pyanaconda/ui/gui/spokes/network.py:99
-msgid "Cable unplugged"
-msgstr ""
-
-#: pyanaconda/ui/gui/spokes/network.py:101
+#: pyanaconda/ui/gui/spokes/network.py:93
+#: pyanaconda/ui/gui/spokes/network.py:100
 msgid "Unavailable"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.py:103
+#: pyanaconda/ui/gui/spokes/network.py:95
+msgid "Firmware missing"
+msgstr ""
+
+#: pyanaconda/ui/gui/spokes/network.py:98
+msgid "Cable unplugged"
+msgstr ""
+
+#: pyanaconda/ui/gui/spokes/network.py:102
 msgid "Disconnected"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.py:108
+#: pyanaconda/ui/gui/spokes/network.py:107
 msgid "Connecting"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.py:110
+#: pyanaconda/ui/gui/spokes/network.py:109
 msgid "Authentication required"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.py:112
+#: pyanaconda/ui/gui/spokes/network.py:111
 msgid "Connected"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.py:114
+#: pyanaconda/ui/gui/spokes/network.py:113
 msgid "Disconnecting"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.py:116
+#: pyanaconda/ui/gui/spokes/network.py:115
 msgid "Connection failed"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.py:590
-msgid "unplugged"
-msgstr ""
-
-#: pyanaconda/ui/gui/spokes/network.py:605
+#: pyanaconda/ui/gui/spokes/network.py:297
 msgid "Ethernet"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.py:607
+#: pyanaconda/ui/gui/spokes/network.py:298
 msgid "Wireless"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.py:609
+#: pyanaconda/ui/gui/spokes/network.py:299
 #: pyanaconda/ui/gui/spokes/network.glade:15
 msgid "Bond"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.py:611
+#: pyanaconda/ui/gui/spokes/network.py:300
 #: pyanaconda/ui/gui/spokes/network.glade:23
 msgid "Vlan"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.py:613
+#: pyanaconda/ui/gui/spokes/network.py:301
 #: pyanaconda/ui/gui/spokes/network.glade:19
 msgid "Team"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.py:679
+#. TRANSLATORS: ethernet cable is unplugged
+#: pyanaconda/ui/gui/spokes/network.py:689
+msgid "unplugged"
+msgstr ""
+
+#: pyanaconda/ui/gui/spokes/network.py:778
 #: pyanaconda/ui/gui/spokes/network.glade:635
 #: pyanaconda/ui/gui/spokes/network.glade:964
 msgid "IPv4 Address"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.py:680
+#: pyanaconda/ui/gui/spokes/network.py:779
 #: pyanaconda/ui/gui/spokes/network.glade:607
 #: pyanaconda/ui/gui/spokes/network.glade:978
 #: pyanaconda/ui/gui/spokes/network.glade:1597
 msgid "IPv6 Address"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.py:682
-#: pyanaconda/ui/gui/spokes/network.py:684
+#: pyanaconda/ui/gui/spokes/network.py:781
+#: pyanaconda/ui/gui/spokes/network.py:783
 #: pyanaconda/ui/gui/spokes/network.glade:1583
 msgid "IP Address"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.py:767
+#: pyanaconda/ui/gui/spokes/network.py:870
 #, python-format
 msgid "%d Mb/s"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.py:963
+#: pyanaconda/ui/gui/spokes/network.py:1074
 msgid "WEP"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.py:966
+#: pyanaconda/ui/gui/spokes/network.py:1077
 msgid "WPA"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.py:969
+#: pyanaconda/ui/gui/spokes/network.py:1080
 msgid "WPA2"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.py:973
+#: pyanaconda/ui/gui/spokes/network.py:1084
 msgid "Enterprise"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.py:1105
+#: pyanaconda/ui/gui/spokes/network.py:1218
 #: pyanaconda/ui/gui/spokes/network.glade:2583
 msgid "Authentication required by wireless network"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.py:1106
+#: pyanaconda/ui/gui/spokes/network.py:1219
 #, python-format
 msgid ""
 "Passwords or encryption keys are required to access\n"
 "the wireless network '%(network_id)s'."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.py:1119
+#: pyanaconda/ui/gui/spokes/network.py:1232
 msgctxt "GUI|Network|Secrets Dialog"
 msgid "_Password:"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.py:1127
+#: pyanaconda/ui/gui/spokes/network.py:1240
 msgctxt "GUI|Network|Secrets Dialog"
 msgid "_Key:"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.py:1182
+#: pyanaconda/ui/gui/spokes/network.py:1295
 msgctxt "GUI|Spoke"
 msgid "_NETWORK CONFIGURATION"
 msgstr ""
@@ -2402,49 +2404,49 @@ msgstr ""
 msgid "Tip:"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/datetime_spoke.glade:81
+#: pyanaconda/ui/gui/spokes/datetime_spoke.glade:82
 msgid "DATE & TIME"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/datetime_spoke.glade:131
+#: pyanaconda/ui/gui/spokes/datetime_spoke.glade:132
 msgctxt "GUI|Date and Time"
 msgid "_Region:"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/datetime_spoke.glade:173
+#: pyanaconda/ui/gui/spokes/datetime_spoke.glade:174
 msgctxt "GUI|Date and Time"
 msgid "_City:"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/datetime_spoke.glade:226
+#: pyanaconda/ui/gui/spokes/datetime_spoke.glade:227
 msgctxt "GUI|Date and Time"
 msgid "_Network Time"
 msgstr ""
 
 #. TRANSLATORS: This is the separator between hours and minutes, like in HH:MM
-#: pyanaconda/ui/gui/spokes/datetime_spoke.glade:331
+#: pyanaconda/ui/gui/spokes/datetime_spoke.glade:332
 msgid ":"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/datetime_spoke.glade:513
+#: pyanaconda/ui/gui/spokes/datetime_spoke.glade:514
 msgctxt "GUI|Date and Time"
 msgid "24-_hour"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/datetime_spoke.glade:531
+#: pyanaconda/ui/gui/spokes/datetime_spoke.glade:532
 msgctxt "GUI|Date and Time"
 msgid "_AM/PM"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/datetime_spoke.glade:691
+#: pyanaconda/ui/gui/spokes/datetime_spoke.glade:692
 msgid "Add and mark for usage NTP servers"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/datetime_spoke.glade:774
+#: pyanaconda/ui/gui/spokes/datetime_spoke.glade:775
 msgid "Working"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/datetime_spoke.glade:782
+#: pyanaconda/ui/gui/spokes/datetime_spoke.glade:783
 msgid "Use"
 msgstr ""
 
@@ -3961,42 +3963,42 @@ msgctxt "GUI|Advanced Storage|iSCSI|Login|CHAP"
 msgid "CHAP _Password:"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/advstorage/iscsi.glade:973
+#: pyanaconda/ui/gui/spokes/advstorage/iscsi.glade:976
 msgctxt "GUI|Advanced Storage|iSCSI|Login|Reverse CHAP"
 msgid "CHAP _Username:"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/advstorage/iscsi.glade:989
+#: pyanaconda/ui/gui/spokes/advstorage/iscsi.glade:992
 msgctxt "GUI|Advanced Storage|iSCSI|Login|Reverse CHAP"
 msgid "CHAP _Password:"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/advstorage/iscsi.glade:1005
+#: pyanaconda/ui/gui/spokes/advstorage/iscsi.glade:1008
 msgctxt "GUI|Advanced Storage|iSCSI|Login|Reverse CHAP"
 msgid "_Reverse CHAP Username:"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/advstorage/iscsi.glade:1021
+#: pyanaconda/ui/gui/spokes/advstorage/iscsi.glade:1024
 msgctxt "GUI|Advanced Storage|iSCSI|Login|Reverse CHAP"
 msgid "Reverse CHAP Pass_word:"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/advstorage/iscsi.glade:1073
+#: pyanaconda/ui/gui/spokes/advstorage/iscsi.glade:1076
 msgctxt "GUI|Advanced Storage|iSCSI|Login|Login"
 msgid "_Log In"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/advstorage/iscsi.glade:1131
+#: pyanaconda/ui/gui/spokes/advstorage/iscsi.glade:1134
 msgid "Node login failed."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/advstorage/iscsi.glade:1148
+#: pyanaconda/ui/gui/spokes/advstorage/iscsi.glade:1151
 msgid ""
 "The following error occurred logging into the selected iSCSI node.  Please "
 "double check your authorization information and try again"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/advstorage/iscsi.glade:1174
+#: pyanaconda/ui/gui/spokes/advstorage/iscsi.glade:1177
 msgctxt "GUI|Advanced Storage|iSCSI|Login|Retry"
 msgid "Retry _Log In"
 msgstr ""
@@ -4298,27 +4300,27 @@ msgstr ""
 msgid "Fatal Error"
 msgstr ""
 
-#: anaconda:535
+#: anaconda:536
 msgid "DISPLAY variable not set. Starting text mode."
 msgstr ""
 
-#: anaconda:543
+#: anaconda:544
 msgid "Graphical installation is not available. Starting text mode."
 msgstr ""
 
-#: anaconda:551
+#: anaconda:552
 msgid ""
 "Text mode provides a limited set of installation options. It does not offer "
 "custom partitioning for full control over the disk layout. Would you like to "
 "use VNC mode instead?"
 msgstr ""
 
-#: anaconda:670
+#: anaconda:671
 #, python-format
 msgid "Please ssh install@%s to begin the install."
 msgstr ""
 
-#: anaconda:672
+#: anaconda:673
 msgid "Please ssh install@<host> to continue installation."
 msgstr ""
 
