@@ -1,6 +1,6 @@
 # Progress hub classes
 #
-# Copyright (C) 2011-2012  Red Hat, Inc.
+# Copyright (C) 2011-2013  Red Hat, Inc.
 #
 # This copyrighted material is made available to anyone wishing to use,
 # modify, copy, or redistribute it subject to the terms and conditions of
@@ -144,6 +144,11 @@ class ProgressHub(Hub):
             GLib.source_remove(self._rnotes_id)
             self._progressNotebook.set_current_page(0)
 
+    def _do_globs(self, path):
+        return glob.glob(path + "/*.png") + \
+               glob.glob(path + "/*.jpg") + \
+               glob.glob(path + "/*.svg")
+
     def _get_rnotes(self):
         # We first look for rnotes in paths containing the language, then in
         # directories without the language component.  You know, just in case.
@@ -154,7 +159,7 @@ class ProgressHub(Hub):
 
         all_lang_pixmaps = []
         for path in paths:
-            all_lang_pixmaps += glob.glob(path + "*/*.png") + glob.glob(path + "*/*.jpg")
+            all_lang_pixmaps += self._do_globs(path + "/*")
 
         pixmap_langs = [pixmap.split(os.path.sep)[-2] for pixmap in all_lang_pixmaps]
         best_lang = find_best_locale_match(os.environ["LANG"], pixmap_langs)
@@ -167,14 +172,13 @@ class ProgressHub(Hub):
             # nothing found even for the default language, try non-localized rnotes
             non_localized = []
             for path in paths:
-                non_localized += glob.glob(path + "*.png") + glob.glob(path + "*.jpg")
+                non_localized += self._do_globs(path)
 
             return non_localized
 
         best_lang_pixmaps = []
         for path in paths:
-            best_lang_pixmaps += (glob.glob(path + best_lang + "/*.png") +
-                                  glob.glob(path + best_lang + "/*.jpg"))
+            best_lang_pixmaps += self._do_globs(path + best_lang)
 
         return best_lang_pixmaps
 
