@@ -624,7 +624,7 @@ class HelpDialog(GUIObject):
         self.window.destroy()
 
 class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
-    builderObjects = ["customStorageWindow",
+    builderObjects = ["customStorageWindow", "containerStore",
                       "partitionStore", "raidStoreFiltered", "raidLevelStore",
                       "addImage", "removeImage", "settingsImage",
                       "mountPointCompletion", "mountPointStore"]
@@ -741,6 +741,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         self._typeCombo = self.builder.get_object("deviceTypeCombo")
         self._modifyContainerButton = self.builder.get_object("modifyContainerButton")
         self._containerCombo = self.builder.get_object("containerCombo")
+        self._containerStore = self.builder.get_object("containerStore")
 
         self._passphraseEntry = self.builder.get_object("passphraseEntry")
 
@@ -2363,9 +2364,14 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         self._device_container_encrypted = dialog.encrypted
         self._device_container_size = dialog.size_policy
 
-    def on_modify_container_clicked(self, button):
-        container_name = self._containerCombo.get_active_text()
+    def _container_store_row(self, name, freeSpace=None):
+        if freeSpace is not None:
+            return [name, _("(%s free)") % size_str(freeSpace)]
+        else:
+            return [name, ""]
 
+    def on_modify_container_clicked(self, button):
+        container_name = self._containerStore[self._containerCombo.get_active()][0]
         container = self.__storage.devicetree.getDeviceByName(container_name)
 
         # pass the name along with any found vg since we could be modifying a
@@ -2389,11 +2395,15 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
                 container.format.label = self._device_container_name
 
         container_exists = getattr(container, "exists", False)
-        for idx, data in enumerate(self._containerCombo.get_model()):
+        for idx, data in enumerate(self._containerStore):
             # we're looking for the original vg name
             if data[0] == container_name:
-                self._containerCombo.remove(idx)
-                self._containerCombo.insert_text(idx, self._device_container_name)
+                self._containerStore.remove(idx)
+
+                c = self.__storage.devicetree.getDeviceByName(self._device_container_name)
+                freeSpace = self._device_container_name.getattr(c, "freeSpace", None)
+
+                self._containerStore.insert(idx, self._container_store_row(freeSpace))
                 self._containerCombo.set_active(idx)
                 self._modifyContainerButton.set_sensitive(not container_exists)
                 break
@@ -2401,7 +2411,12 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         self._update_selectors()
 
     def on_container_changed(self, combo):
-        container_name = combo.get_active_text()
+        ndx = combo.get_active()
+        if ndx == -1:
+            return
+
+        container_name = self._containerStore[ndx][0]
+
         log.debug("new container selection: %s", container_name)
         if container_name is None:
             return
@@ -2417,9 +2432,13 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
             hostname = self.data.network.hostname
             name = self.__storage.suggestContainerName(hostname=hostname)
             self.run_container_editor(name=name)
-            for idx, data in enumerate(combo.get_model()):
+            for idx, data in enumerate(self._containerStore):
                 if data[0] == new_text:
-                    combo.insert_text(idx, self._device_container_name)
+                    c = self.__storage.devicetree.getDeviceByName(self._device_container_name)
+                    freeSpace = getattr(c, "freeSpace", None)
+                    row = self._container_store_row(self._device_container_name, freeSpace)
+
+                    self._containerStore.insert(idx, row)
                     combo.set_active(idx)   # triggers a call to this method
                     return
         else:
@@ -2669,7 +2688,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
 
             container_type_text = _(container_type_names[device_type])
             self._containerLabel.set_text(container_type_text.title())
-            self._containerCombo.remove_all()
+            self._containerStore.clear()
             if device_type == DEVICE_TYPE_BTRFS:
                 containers = self.__storage.btrfsVolumes
             else:
@@ -2677,7 +2696,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
 
             default_seen = False
             for c in containers:
-                self._containerCombo.append_text(c.name)
+                self._containerStore.append(self._container_store_row(c.name, getattr(c, "freeSpace", None)))
                 if default_container and c.name == default_container:
                     default_seen = True
                     self._containerCombo.set_active(containers.index(c))
@@ -2691,13 +2710,13 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
             self._device_container_size = container_size_policy
 
             if not default_seen:
-                self._containerCombo.append_text(default_container)
-                self._containerCombo.set_active(len(self._containerCombo.get_model()) - 1)
+                self._containerStore.append(self._container_store_row(default_container))
+                self._containerCombo.set_active(len(self._containerStore) - 1)
 
-            self._containerCombo.append_text(_(new_container_text) % {"container_type": container_type_text.lower()})
+            self._containerStore.append(self._container_store_row(_(new_container_text) % {"container_type": container_type_text.lower()}))
             self._containerCombo.set_tooltip_text(_(container_tooltip) % {"container_type": container_type_text.lower()})
             if default_container is None:
-                self._containerCombo.set_active(len(self._containerCombo.get_model()) - 1)
+                self._containerCombo.set_active(len(self._containerStore) - 1)
 
             map(really_show, [self._containerLabel, self._containerCombo, self._modifyContainerButton])
 
