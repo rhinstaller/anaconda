@@ -61,7 +61,12 @@ def ntp_server_working(server):
         client.request(server)
     except ntplib.NTPException:
         return False
+    # address related error
     except socket.gaierror:
+        return False
+    # socket related error
+    # (including "Network is unreachable")
+    except socket.error:
         return False
 
     return True
