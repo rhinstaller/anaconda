@@ -89,12 +89,6 @@ class AdvancedUserDialog(GUIDialog):
                 error_label=self._groupsError,
                 run_check=_validateGroups)
 
-    def update_check(self, check, check_status):
-        # If there are any errors, disable the save button
-        self._saveButton.set_sensitive(not next(self.failed_checks, None))
-
-        return GUIDialog.update_check(self, check, check_status)
-
     def _apply_checkboxes(self, _editable = None, data = None):
         """Update the state of this screen according to the
         checkbox states on the screen. It is called from

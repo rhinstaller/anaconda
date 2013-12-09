@@ -308,8 +308,8 @@ class GUIObject(common.UIObject):
 
            :param run_check: a function called to validate the input field. The
                          parameters are (editable, check_data). The return
-                         value is an object used by update_check, or
-                         GUICheck.CHECK_OK if the check passes.
+                         value is an error state object or GUICheck.CHECK_OK if
+                         the check passes.
            :type run_check: function
 
            :param check_data: additional data to pass to the check function
@@ -355,16 +355,6 @@ class GUIObject(common.UIObject):
         return self.add_check(editable=editable, run_check=check_re,
                 check_data={'regex': regex, 'message': message}, set_error=set_error)
 
-    def update_check(self, check, check_status):
-        """This method is called when the state of a check in the check list changes.
-
-           :param check: The check object that changed
-           :type check:  GUICheck
-
-           :param check_status: The new status of the check
-        """
-        raise NotImplementedError()
-
     def set_check_error(self, check, check_return):
         """Update the warning with the input validation check error."""
         # Grab the first failed check
@@ -386,9 +376,8 @@ class GUIObject(common.UIObject):
         return self._check_list.__iter__()
 
 class GUIDialog(GUIObject):
-    """This is an abstract for creating dialog windows. It implements the
-       update_check interface to display an error message when an input
-       validation fails.
+    """This is an abstract for creating dialog windows. It displays an error
+       message when an input validation fails.
 
        GUIDialog does not define where errors are displayed, so classes
        that derive from GUIDialog must define error labels and include them
@@ -417,8 +406,8 @@ class GUIDialog(GUIObject):
 
            :param run_check: a function called to validate the input field. The
                          parameters are (editable, check_data). The return
-                         value is an object used by update_check, or
-                         GUICheck.CHECK_OK if the check passes.
+                         value is an error state object or GUICheck.CHECK_OK if
+                         the check passes.
            :type run_check: function
 
            :param check_data: additional data to pass to the check function
