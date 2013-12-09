@@ -72,7 +72,7 @@ int globErrFunc(const char *epath, int eerrno)
 void show_help() {
     int i;
 
-    printf(usage);
+    printf("%s", usage);
     for (i=0; options_help[i][0]; i++) {
         printf("  -%c, --%-20s %s\n", options_help[i][0][0],
                                       options_help[i][0],

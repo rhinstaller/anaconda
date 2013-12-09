@@ -67,7 +67,7 @@ static const char *options_help [][2] = {
 void show_help() {
     int i;
 
-    printf(usage);
+    printf("%s", usage);
     for (i=0; options_help[i][0]; i++) {
         printf("  -%c, --%-20s %s\n", options_help[i][0][0],
                                       options_help[i][0],
