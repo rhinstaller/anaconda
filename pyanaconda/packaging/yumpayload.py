@@ -84,7 +84,7 @@ from pyanaconda.localization import langcode_matches_locale
 
 from pykickstart.constants import GROUP_ALL, GROUP_DEFAULT, KS_MISSING_IGNORE
 
-YUM_PLUGINS = ["blacklist", "whiteout", "fastestmirror", "langpacks"]
+YUM_PLUGINS = ["fastestmirror", "langpacks"]
 DEFAULT_REPOS = [productName.lower(), "rawhide"]
 BASE_REPO_NAMES = [BASE_REPO_NAME] + DEFAULT_REPOS
 

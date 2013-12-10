@@ -27,7 +27,7 @@ import rpmUtils
 import yum
 from urlgrabber.grabber import URLGrabError
 
-YUM_PLUGINS = ["blacklist", "whiteout", "fastestmirror", "langpacks"]
+YUM_PLUGINS = ["fastestmirror", "langpacks"]
 
 def setup_parser():
     """ Setup argparse with supported arguments
