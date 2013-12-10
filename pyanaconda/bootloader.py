@@ -1747,6 +1747,8 @@ class MacEFIGRUB(EFIGRUB):
         return valid
 
 
+# Inherit abstract methods from BootLoader
+# pylint: disable-msg=W0223
 class YabootBase(BootLoader):
     def write_config_password(self, config):
         if self.password:

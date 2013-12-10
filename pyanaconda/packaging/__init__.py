@@ -107,6 +107,9 @@ class Payload(object):
     def __init__(self, data):
         """ data is a kickstart.AnacondaKSHandler class
         """
+        if self.__class__ is Payload:
+            raise TypeError("Payload is an abstract class")
+
         self.data = data
         self.storage = None
         self._kernelVersionList = []
@@ -657,18 +660,37 @@ class Payload(object):
 
         self._copyDriverDiskFiles()
 
+# Inherit abstract methods from Payload
+# pylint: disable-msg=W0223
 class ImagePayload(Payload):
     """ An ImagePayload installs an OS image to the target system. """
-    pass
 
+    def __init__(self, data):
+        if self.__class__ is ImagePayload:
+            raise TypeError("ImagePayload is an abstract class")
+
+        Payload.__init__(self, data)
+
+# Inherit abstract methods from ImagePayload
+# pylint: disable-msg=W0223
 class ArchivePayload(ImagePayload):
     """ An ArchivePayload unpacks source archives onto the target system. """
-    pass
 
+    def __init__(self, data):
+        if self.__class__ is ArchivePayload:
+            raise TypeError("ArchivePayload is an abstract class")
+
+        ImagePayload.__init__(self, data)
+
+# Inherit abstract methods from ImagePayload
+# pylint: disable-msg=W0223
 class PackagePayload(Payload):
     """ A PackagePayload installs a set of packages onto the target system. """
 
     def __init__(self, data):
+        if self.__class__ is PackagePayload:
+            raise TypeError("PackagePayload is an abstract class")
+
         super(PackagePayload, self).__init__(data)
         self.install_device = None
 

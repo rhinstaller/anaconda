@@ -32,6 +32,8 @@ __all__ = ["TUISpoke", "EditTUISpoke", "EditTUIDialog", "EditTUISpokeEntry",
            "StandaloneSpoke", "NormalTUISpoke", "collect_spokes",
            "collect_categories"]
 
+# Inherit abstract methods from Spoke
+# pylint: disable-msg=W0223
 class TUISpoke(TUIObject, tui.Widget, Spoke):
     """Base TUI Spoke class implementing the pyanaconda.ui.common.Spoke API.
     It also acts as a Widget so we can easily add it to Hub, where is shows
@@ -48,6 +50,9 @@ class TUISpoke(TUIObject, tui.Widget, Spoke):
     category = u""
 
     def __init__(self, app, data, storage, payload, instclass):
+        if self.__class__ is TUISpoke:
+            raise TypeError("TUISpoke is an abstract class")
+
         TUIObject.__init__(self, app, data)
         tui.Widget.__init__(self)
         Spoke.__init__(self, data, storage, payload, instclass)
@@ -89,6 +94,8 @@ class NormalTUISpoke(TUISpoke, NormalSpoke):
 
 EditTUISpokeEntry = namedtuple("EditTUISpokeEntry", ["title", "attribute", "aux", "visible"])
 
+# Inherit abstract methods from NormalTUISpoke
+# pylint: disable-msg=W0223
 class EditTUIDialog(NormalTUISpoke):
     """Spoke/dialog used to read new value of textual or password data"""
 
@@ -96,6 +103,9 @@ class EditTUIDialog(NormalTUISpoke):
     PASSWORD = re.compile(".*")
 
     def __init__(self, app, data, storage, payload, instclass):
+        if self.__class__ is EditTUIDialog:
+            raise TypeError("EditTUIDialog is an abstract class")
+
         NormalTUISpoke.__init__(self, app, data, storage, payload, instclass)
         self.value = None
 
@@ -166,6 +176,8 @@ class OneShotEditTUIDialog(EditTUIDialog):
 
         return ret
 
+# Inherit abstract methods from NormalTUISpoke
+# pylint: disable-msg=W0223
 class EditTUISpoke(NormalTUISpoke):
     """Spoke with declarative semantics, it contains
        a list of titles, attribute names and regexps
@@ -200,6 +212,9 @@ class EditTUISpoke(NormalTUISpoke):
     ]
 
     def __init__(self, app, data, storage, payload, instclass):
+        if self.__class__ is EditTUISpoke:
+            raise TypeError("EditTUISpoke is an abstract class")
+
         NormalTUISpoke.__init__(self, app, data, storage, payload, instclass)
         self.dialog = OneShotEditTUIDialog(app, data, storage, payload, instclass)
 

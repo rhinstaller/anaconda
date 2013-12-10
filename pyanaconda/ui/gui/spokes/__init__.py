@@ -57,6 +57,8 @@ class Spoke(GUIObject):
         """
         pass
 
+# Inherit abstract methods from Spoke and common.StandaloneSpoke
+# pylint: disable-msg=W0223
 class StandaloneSpoke(Spoke, common.StandaloneSpoke):
     def __init__(self, data, storage, payload, instclass):
         Spoke.__init__(self, data)
@@ -72,8 +74,13 @@ class StandaloneSpoke(Spoke, common.StandaloneSpoke):
         elif event == "quit":
             self.window.connect("quit-clicked", lambda *args: cb())
 
+# Inherit abstract methods from common.NormalSpoke
+# pylint: disable-msg=W0223
 class NormalSpoke(Spoke, common.NormalSpoke):
     def __init__(self, data, storage, payload, instclass):
+        if self.__class__ is NormalSpoke:
+            raise TypeError("NormalSpoke is an abstract class")
+
         Spoke.__init__(self, data)
         common.NormalSpoke.__init__(self, data, storage, payload, instclass)
 
