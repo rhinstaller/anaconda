@@ -61,3 +61,6 @@ class WarningsSpoke(StandaloneTUISpoke):
 
         return True
 
+    # Override Spoke.apply
+    def apply(self):
+        pass

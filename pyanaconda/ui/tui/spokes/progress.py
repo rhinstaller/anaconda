@@ -138,3 +138,7 @@ class ProgressSpoke(StandaloneTUISpoke):
     def input(self, args, key):
         # There is nothing to do here, just raise to exit the spoke
         raise ExitAllMainLoops()
+
+    # Override Spoke.apply
+    def apply(self):
+        pass
