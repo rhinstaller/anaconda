@@ -790,6 +790,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
 
             # btrfs is always handled by on_device_type_changed
             supported_fs = (obj.type != "btrfs" and
+                            obj.type != "tmpfs" and
                             obj.supported and obj.formattable and
                             (isinstance(obj, FS) or
                              obj.type in ["biosboot", "prepboot", "swap"]))
