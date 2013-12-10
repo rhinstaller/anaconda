@@ -1741,7 +1741,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         self._encryptCheckbox.set_sensitive(self._reformatCheckbox.get_active())
         ancestors = use_dev.ancestors
         ancestors.remove(use_dev)
-        if any(a.format.type == "luks" and a.format.exists for a in ancestors):
+        if any(a.format.type == "luks" for a in ancestors):
             # The encryption checkbutton should not be sensitive if there is
             # existing encryption below the leaf layer.
             self._encryptCheckbox.set_sensitive(False)
@@ -2038,6 +2038,10 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
                           "container_raid_level": get_raid_level(container),
                           "container_size": getattr(container, "size_policy",
                                                                container.size)}
+
+                # The container is already encrypted
+                if container.encrypted:
+                    encrypted = False
 
             try:
                 self.__storage.factoryDevice(device_type,
