@@ -9,8 +9,8 @@
     <property name="icon-size">6</property>
   </object>
   <object class="GtkDialog" id="options1_dialog">
-    <property name="width_request">500</property>
-    <property name="height_request">200</property>
+    <property name="width_request">600</property>
+    <property name="height_request">400</property>
     <property name="can_focus">False</property>
     <property name="border_width">5</property>
     <property name="modal">True</property>
@@ -20,12 +20,12 @@
     <property name="decorated">False</property>
     <property name="mnemonics_visible">False</property>
     <child internal-child="vbox">
-      <object class="GtkBox" id="dialog-vbox2">
+      <object class="GtkBox" id="dialog-vbox5">
         <property name="can_focus">False</property>
         <property name="orientation">vertical</property>
         <property name="spacing">6</property>
         <child internal-child="action_area">
-          <object class="GtkButtonBox" id="dialog-action_area2">
+          <object class="GtkButtonBox" id="dialog-action_area5">
             <property name="can_focus">False</property>
             <property name="layout_style">end</property>
             <child>
@@ -34,7 +34,6 @@
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
-                <property name="halign">start</property>
                 <property name="border_width">6</property>
                 <property name="use_underline">True</property>
               </object>
@@ -46,8 +45,24 @@
               </packing>
             </child>
             <child>
-              <object class="GtkButton" id="options_continue_button1">
-                <property name="label" translatable="yes">_Continue</property>
+              <object class="GtkButton" id="options1_custom_button">
+                <property name="label" translatable="yes">_Custom partitioning</property>
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="receives_default">True</property>
+                <property name="border_width">6</property>
+                <property name="use_underline">True</property>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">True</property>
+                <property name="position">1</property>
+                <property name="non_homogeneous">True</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkButton" id="options1_reclaim_button">
+                <property name="label" translatable="yes">_Reclaim space</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="has_focus">True</property>
@@ -58,7 +73,7 @@
               <packing>
                 <property name="expand">False</property>
                 <property name="fill">True</property>
-                <property name="position">1</property>
+                <property name="position">2</property>
                 <property name="non_homogeneous">True</property>
               </packing>
             </child>
@@ -71,7 +86,7 @@
           </packing>
         </child>
         <child>
-          <object class="GtkBox" id="box4">
+          <object class="GtkBox" id="box5">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
             <property name="orientation">vertical</property>
@@ -80,6 +95,7 @@
               <object class="GtkLabel" id="options1_title_label">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
+                <property name="margin_bottom">6</property>
                 <property name="xalign">0</property>
                 <property name="label" translatable="yes">INSTALLATION OPTIONS</property>
                 <attributes>
@@ -94,11 +110,11 @@
               </packing>
             </child>
             <child>
-              <object class="GtkLabel" id="options1_label">
+              <object class="GtkLabel" id="options1_label1">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
                 <property name="xalign">0</property>
-                <property name="label">Here we'll describe what your options are.</property>
+                <property name="label" translatable="yes">Here we'll describe how much space is needed for the current software selection.</property>
                 <property name="wrap">True</property>
                 <attributes>
                   <attribute name="font-desc" value="Cantarell 11"/>
@@ -111,15 +127,86 @@
               </packing>
             </child>
             <child>
-              <object class="GtkRadioButton" id="options1_autopart_radio">
-                <property name="label">Here's the autopart label.</property>
+              <object class="GtkGrid" id="grid1">
                 <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <property name="receives_default">False</property>
-                <property name="use_underline">True</property>
-                <property name="xalign">0</property>
-                <property name="active">True</property>
-                <property name="draw_indicator">True</property>
+                <property name="can_focus">False</property>
+                <property name="margin_left">6</property>
+                <property name="margin_bottom">12</property>
+                <property name="row_spacing">6</property>
+                <property name="column_spacing">6</property>
+                <property name="row_homogeneous">True</property>
+                <child>
+                  <object class="GtkLabel" id="options1_disk_free_label">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="xalign">1</property>
+                    <property name="label" translatable="yes">disk free</property>
+                    <attributes>
+                      <attribute name="font-desc" value="Cantarell Bold 11"/>
+                      <attribute name="weight" value="bold"/>
+                    </attributes>
+                  </object>
+                  <packing>
+                    <property name="left_attach">0</property>
+                    <property name="top_attach">0</property>
+                    <property name="width">1</property>
+                    <property name="height">1</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkLabel" id="options1_disk_free_desc_label">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="xalign">0</property>
+                    <property name="label" translatable="yes">Free space available for use.</property>
+                    <property name="wrap">True</property>
+                    <attributes>
+                      <attribute name="font-desc" value="Cantarell 11"/>
+                    </attributes>
+                  </object>
+                  <packing>
+                    <property name="left_attach">1</property>
+                    <property name="top_attach">0</property>
+                    <property name="width">1</property>
+                    <property name="height">1</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkLabel" id="options1_fs_free_label">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="xalign">1</property>
+                    <property name="label" translatable="yes">fs free</property>
+                    <attributes>
+                      <attribute name="font-desc" value="Cantarell Bold 11"/>
+                      <attribute name="weight" value="bold"/>
+                    </attributes>
+                  </object>
+                  <packing>
+                    <property name="left_attach">0</property>
+                    <property name="top_attach">1</property>
+                    <property name="width">1</property>
+                    <property name="height">1</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkLabel" id="options1_fs_free_desc_label">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="xalign">0</property>
+                    <property name="label" translatable="yes">Free space unavailable but reclaimable from existing partitions.</property>
+                    <property name="wrap">True</property>
+                    <attributes>
+                      <attribute name="font-desc" value="Cantarell 11"/>
+                    </attributes>
+                  </object>
+                  <packing>
+                    <property name="left_attach">1</property>
+                    <property name="top_attach">1</property>
+                    <property name="width">1</property>
+                    <property name="height">1</property>
+                  </packing>
+                </child>
               </object>
               <packing>
                 <property name="expand">False</property>
@@ -128,16 +215,15 @@
               </packing>
             </child>
             <child>
-              <object class="GtkRadioButton" id="options1_reclaim_radio">
-                <property name="label">Here's the reclaim label.</property>
+              <object class="GtkLabel" id="options1_label2">
                 <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <property name="receives_default">False</property>
-                <property name="use_underline">True</property>
+                <property name="can_focus">False</property>
                 <property name="xalign">0</property>
-                <property name="active">True</property>
-                <property name="draw_indicator">True</property>
-                <property name="group">options1_autopart_radio</property>
+                <property name="label" translatable="yes">Here we'll describe what your options are.</property>
+                <property name="wrap">True</property>
+                <attributes>
+                  <attribute name="font-desc" value="Cantarell 11"/>
+                </attributes>
               </object>
               <packing>
                 <property name="expand">False</property>
@@ -146,31 +232,13 @@
               </packing>
             </child>
             <child>
-              <object class="GtkRadioButton" id="options1_custom_radio">
-                <property name="label">Here's the custom label.</property>
-                <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <property name="receives_default">False</property>
-                <property name="use_underline">True</property>
-                <property name="xalign">0</property>
-                <property name="active">True</property>
-                <property name="draw_indicator">True</property>
-                <property name="group">options1_autopart_radio</property>
-              </object>
-              <packing>
-                <property name="expand">False</property>
-                <property name="fill">True</property>
-                <property name="position">4</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkBox" id="box1">
+              <object class="GtkBox" id="box2">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
                 <property name="margin_top">12</property>
                 <property name="spacing">6</property>
                 <child>
-                  <object class="GtkLabel" id="label3">
+                  <object class="GtkLabel" id="label4">
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
                     <property name="label" translatable="yes">&lt;b&gt;Partition scheme:&lt;/b&gt;</property>
@@ -205,7 +273,7 @@
               <packing>
                 <property name="expand">False</property>
                 <property name="fill">True</property>
-                <property name="position">5</property>
+                <property name="position">4</property>
               </packing>
             </child>
             <child>
@@ -223,7 +291,7 @@
               <packing>
                 <property name="expand">False</property>
                 <property name="fill">True</property>
-                <property name="position">6</property>
+                <property name="position">5</property>
               </packing>
             </child>
           </object>
@@ -237,12 +305,13 @@
     </child>
     <action-widgets>
       <action-widget response="0">options1_cancel_button</action-widget>
-      <action-widget response="1">options_continue_button1</action-widget>
+      <action-widget response="5">options1_custom_button</action-widget>
+      <action-widget response="3">options1_reclaim_button</action-widget>
     </action-widgets>
   </object>
   <object class="GtkDialog" id="options2_dialog">
-    <property name="width_request">600</property>
-    <property name="height_request">400</property>
+    <property name="width_request">400</property>
+    <property name="height_request">300</property>
     <property name="can_focus">False</property>
     <property name="border_width">5</property>
     <property name="modal">True</property>
@@ -252,17 +321,17 @@
     <property name="decorated">False</property>
     <property name="mnemonics_visible">False</property>
     <child internal-child="vbox">
-      <object class="GtkBox" id="dialog-vbox5">
+      <object class="GtkBox" id="dialog-vbox7">
         <property name="can_focus">False</property>
         <property name="orientation">vertical</property>
         <property name="spacing">6</property>
         <child internal-child="action_area">
-          <object class="GtkButtonBox" id="dialog-action_area5">
+          <object class="GtkButtonBox" id="dialog-action_area7">
             <property name="can_focus">False</property>
             <property name="layout_style">end</property>
             <child>
-              <object class="GtkButton" id="options2_cancel_button">
-                <property name="label" translatable="yes">Cancel &amp; _add more disks</property>
+              <object class="GtkButton" id="options2_quit_button">
+                <property name="label" translatable="yes">_Quit installer</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
@@ -277,24 +346,8 @@
               </packing>
             </child>
             <child>
-              <object class="GtkButton" id="options2_custom_button">
-                <property name="label" translatable="yes">_Custom partitioning</property>
-                <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <property name="receives_default">True</property>
-                <property name="border_width">6</property>
-                <property name="use_underline">True</property>
-              </object>
-              <packing>
-                <property name="expand">False</property>
-                <property name="fill">True</property>
-                <property name="position">1</property>
-                <property name="non_homogeneous">True</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkButton" id="options2_reclaim_button">
-                <property name="label" translatable="yes">_Reclaim space</property>
+              <object class="GtkButton" id="options2_cancel_button">
+                <property name="label" translatable="yes">_Cancel</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="has_focus">True</property>
@@ -318,7 +371,7 @@
           </packing>
         </child>
         <child>
-          <object class="GtkBox" id="box5">
+          <object class="GtkBox" id="box6">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
             <property name="orientation">vertical</property>
@@ -331,7 +384,6 @@
                 <property name="xalign">0</property>
                 <property name="label" translatable="yes">INSTALLATION OPTIONS</property>
                 <attributes>
-                  <attribute name="font-desc" value="Cantarell Bold 10"/>
                   <attribute name="weight" value="bold"/>
                 </attributes>
               </object>
@@ -359,7 +411,7 @@
               </packing>
             </child>
             <child>
-              <object class="GtkGrid" id="grid1">
+              <object class="GtkGrid" id="grid2">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
                 <property name="margin_left">6</property>
@@ -374,7 +426,6 @@
                     <property name="xalign">1</property>
                     <property name="label" translatable="yes">disk free</property>
                     <attributes>
-                      <attribute name="font-desc" value="Cantarell Bold 11"/>
                       <attribute name="weight" value="bold"/>
                     </attributes>
                   </object>
@@ -386,7 +437,7 @@
                   </packing>
                 </child>
                 <child>
-                  <object class="GtkLabel" id="options2_disk_free_desc_label">
+                  <object class="GtkLabel" id="options2_disk_free_desc_label1">
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
                     <property name="xalign">0</property>
@@ -410,7 +461,7 @@
                     <property name="xalign">1</property>
                     <property name="label" translatable="yes">fs free</property>
                     <attributes>
-                      <attribute name="font-desc" value="Cantarell Bold 11"/>
+                      <attribute name="font-desc" value="Cantarell 11"/>
                       <attribute name="weight" value="bold"/>
                     </attributes>
                   </object>
@@ -463,69 +514,6 @@
                 <property name="position">3</property>
               </packing>
             </child>
-            <child>
-              <object class="GtkBox" id="box2">
-                <property name="visible">True</property>
-                <property name="can_focus">False</property>
-                <property name="margin_top">12</property>
-                <property name="spacing">6</property>
-                <child>
-                  <object class="GtkLabel" id="label4">
-                    <property name="visible">True</property>
-                    <property name="can_focus">False</property>
-                    <property name="label" translatable="yes">&lt;b&gt;Partition scheme:&lt;/b&gt;</property>
-                    <property name="use_markup">True</property>
-                  </object>
-                  <packing>
-                    <property name="expand">False</property>
-                    <property name="fill">True</property>
-                    <property name="position">0</property>
-                  </packing>
-                </child>
-                <child>
-                  <object class="GtkComboBoxText" id="options2_combo">
-                    <property name="visible">True</property>
-                    <property name="can_focus">False</property>
-                    <property name="active">3</property>
-                    <items>
-                      <item translatable="yes">Standard Partition</item>
-                      <item translatable="yes">BTRFS</item>
-                      <item translatable="yes">LVM</item>
-                      <item translatable="yes">LVM Thin Provisioning</item>
-                    </items>
-                    <signal name="changed" handler="on_type_changed" swapped="no"/>
-                  </object>
-                  <packing>
-                    <property name="expand">False</property>
-                    <property name="fill">True</property>
-                    <property name="position">1</property>
-                  </packing>
-                </child>
-              </object>
-              <packing>
-                <property name="expand">False</property>
-                <property name="fill">True</property>
-                <property name="position">4</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkCheckButton" id="encryption2_checkbutton">
-                <property name="label" translatable="yes">_Encrypt my data. I'll set a passphrase later.</property>
-                <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <property name="receives_default">False</property>
-                <property name="hexpand">True</property>
-                <property name="use_underline">True</property>
-                <property name="xalign">0</property>
-                <property name="draw_indicator">True</property>
-                <signal name="toggled" handler="on_encrypt_toggled" swapped="no"/>
-              </object>
-              <packing>
-                <property name="expand">False</property>
-                <property name="fill">True</property>
-                <property name="position">5</property>
-              </packing>
-            </child>
           </object>
           <packing>
             <property name="expand">False</property>
@@ -536,228 +524,8 @@
       </object>
     </child>
     <action-widgets>
+      <action-widget response="4">options2_quit_button</action-widget>
       <action-widget response="0">options2_cancel_button</action-widget>
-      <action-widget response="5">options2_custom_button</action-widget>
-      <action-widget response="3">options2_reclaim_button</action-widget>
-    </action-widgets>
-  </object>
-  <object class="GtkDialog" id="options3_dialog">
-    <property name="width_request">400</property>
-    <property name="height_request">300</property>
-    <property name="can_focus">False</property>
-    <property name="border_width">5</property>
-    <property name="modal">True</property>
-    <property name="window_position">center-on-parent</property>
-    <property name="destroy_with_parent">True</property>
-    <property name="type_hint">dialog</property>
-    <property name="decorated">False</property>
-    <property name="mnemonics_visible">False</property>
-    <child internal-child="vbox">
-      <object class="GtkBox" id="dialog-vbox7">
-        <property name="can_focus">False</property>
-        <property name="orientation">vertical</property>
-        <property name="spacing">6</property>
-        <child internal-child="action_area">
-          <object class="GtkButtonBox" id="dialog-action_area7">
-            <property name="can_focus">False</property>
-            <property name="layout_style">end</property>
-            <child>
-              <object class="GtkButton" id="options3_quit_button">
-                <property name="label" translatable="yes">_Quit installer</property>
-                <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <property name="receives_default">True</property>
-                <property name="border_width">6</property>
-                <property name="use_underline">True</property>
-              </object>
-              <packing>
-                <property name="expand">False</property>
-                <property name="fill">True</property>
-                <property name="position">0</property>
-                <property name="secondary">True</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkButton" id="options3_cancel_button">
-                <property name="label" translatable="yes">_Cancel</property>
-                <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <property name="has_focus">True</property>
-                <property name="receives_default">True</property>
-                <property name="border_width">6</property>
-                <property name="use_underline">True</property>
-              </object>
-              <packing>
-                <property name="expand">False</property>
-                <property name="fill">True</property>
-                <property name="position">2</property>
-                <property name="non_homogeneous">True</property>
-              </packing>
-            </child>
-          </object>
-          <packing>
-            <property name="expand">False</property>
-            <property name="fill">True</property>
-            <property name="pack_type">end</property>
-            <property name="position">0</property>
-          </packing>
-        </child>
-        <child>
-          <object class="GtkBox" id="box6">
-            <property name="visible">True</property>
-            <property name="can_focus">False</property>
-            <property name="orientation">vertical</property>
-            <property name="spacing">6</property>
-            <child>
-              <object class="GtkLabel" id="options3_title_label">
-                <property name="visible">True</property>
-                <property name="can_focus">False</property>
-                <property name="margin_bottom">6</property>
-                <property name="xalign">0</property>
-                <property name="label" translatable="yes">INSTALLATION OPTIONS</property>
-                <attributes>
-                  <attribute name="weight" value="bold"/>
-                </attributes>
-              </object>
-              <packing>
-                <property name="expand">False</property>
-                <property name="fill">True</property>
-                <property name="position">0</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkLabel" id="options3_label1">
-                <property name="visible">True</property>
-                <property name="can_focus">False</property>
-                <property name="xalign">0</property>
-                <property name="label" translatable="yes">Here we'll describe how much space is needed for the current software selection.</property>
-                <property name="wrap">True</property>
-                <attributes>
-                  <attribute name="font-desc" value="Cantarell 11"/>
-                </attributes>
-              </object>
-              <packing>
-                <property name="expand">False</property>
-                <property name="fill">True</property>
-                <property name="position">1</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkGrid" id="grid2">
-                <property name="visible">True</property>
-                <property name="can_focus">False</property>
-                <property name="margin_left">6</property>
-                <property name="margin_bottom">12</property>
-                <property name="row_spacing">6</property>
-                <property name="column_spacing">6</property>
-                <property name="row_homogeneous">True</property>
-                <child>
-                  <object class="GtkLabel" id="options3_disk_free_label">
-                    <property name="visible">True</property>
-                    <property name="can_focus">False</property>
-                    <property name="xalign">1</property>
-                    <property name="label" translatable="yes">disk free</property>
-                    <attributes>
-                      <attribute name="weight" value="bold"/>
-                    </attributes>
-                  </object>
-                  <packing>
-                    <property name="left_attach">0</property>
-                    <property name="top_attach">0</property>
-                    <property name="width">1</property>
-                    <property name="height">1</property>
-                  </packing>
-                </child>
-                <child>
-                  <object class="GtkLabel" id="options3_disk_free_desc_label1">
-                    <property name="visible">True</property>
-                    <property name="can_focus">False</property>
-                    <property name="xalign">0</property>
-                    <property name="label" translatable="yes">Free space available for use.</property>
-                    <property name="wrap">True</property>
-                    <attributes>
-                      <attribute name="font-desc" value="Cantarell 11"/>
-                    </attributes>
-                  </object>
-                  <packing>
-                    <property name="left_attach">1</property>
-                    <property name="top_attach">0</property>
-                    <property name="width">1</property>
-                    <property name="height">1</property>
-                  </packing>
-                </child>
-                <child>
-                  <object class="GtkLabel" id="options3_fs_free_label">
-                    <property name="visible">True</property>
-                    <property name="can_focus">False</property>
-                    <property name="xalign">1</property>
-                    <property name="label" translatable="yes">fs free</property>
-                    <attributes>
-                      <attribute name="font-desc" value="Cantarell 11"/>
-                      <attribute name="weight" value="bold"/>
-                    </attributes>
-                  </object>
-                  <packing>
-                    <property name="left_attach">0</property>
-                    <property name="top_attach">1</property>
-                    <property name="width">1</property>
-                    <property name="height">1</property>
-                  </packing>
-                </child>
-                <child>
-                  <object class="GtkLabel" id="options3_fs_free_desc_label">
-                    <property name="visible">True</property>
-                    <property name="can_focus">False</property>
-                    <property name="xalign">0</property>
-                    <property name="label" translatable="yes">Free space unavailable but reclaimable from existing partitions.</property>
-                    <property name="wrap">True</property>
-                    <attributes>
-                      <attribute name="font-desc" value="Cantarell 11"/>
-                    </attributes>
-                  </object>
-                  <packing>
-                    <property name="left_attach">1</property>
-                    <property name="top_attach">1</property>
-                    <property name="width">1</property>
-                    <property name="height">1</property>
-                  </packing>
-                </child>
-              </object>
-              <packing>
-                <property name="expand">False</property>
-                <property name="fill">True</property>
-                <property name="position">2</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkLabel" id="options3_label2">
-                <property name="visible">True</property>
-                <property name="can_focus">False</property>
-                <property name="xalign">0</property>
-                <property name="label" translatable="yes">Here we'll describe what your options are.</property>
-                <property name="wrap">True</property>
-                <attributes>
-                  <attribute name="font-desc" value="Cantarell 11"/>
-                </attributes>
-              </object>
-              <packing>
-                <property name="expand">False</property>
-                <property name="fill">True</property>
-                <property name="position">3</property>
-              </packing>
-            </child>
-          </object>
-          <packing>
-            <property name="expand">False</property>
-            <property name="fill">True</property>
-            <property name="position">1</property>
-          </packing>
-        </child>
-      </object>
-    </child>
-    <action-widgets>
-      <action-widget response="4">options3_quit_button</action-widget>
-      <action-widget response="0">options3_cancel_button</action-widget>
     </action-widgets>
   </object>
   <object class="GtkListStore" id="specialized_disk_store">
