@@ -45,13 +45,12 @@ export DISABLED_ERR_OPTIONS="--disable=E1103"
 # W0110 - map/filter on lambda could be replaced by comprehension
 # W0141 - Used builtin function %r
 # W0142 - Used * or ** magic
-# W0223 - Method %r is abstract in class %r but is not overridden
 # W0511 - Used when a warning note as FIXME or XXX is detected.
 # W0603 - Using the global statement
 # W0604 - Using the global statement at the module level
 # W0613 - Unused argument %r
 # W0614 - Unused import %s from wildcard import
-export DISABLED_WARN_OPTIONS="--disable=W0110,W0141,W0142,W0223,W0511,W0603,W0604,W0613,W0614"
+export DISABLED_WARN_OPTIONS="--disable=W0110,W0141,W0142,W0511,W0603,W0604,W0613,W0614"
 
 usage () {
   echo "usage: `basename $0` [--strict] [--help] [files...]"
