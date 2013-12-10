@@ -9,7 +9,7 @@ import xml.etree.ElementTree as ET
 if "top_srcdir" not in os.environ:
     sys.stderr.write("$top_srcdir must be defined in the test environment\n")
     # This return code tells the automake test driver that the test setup failed
-    os._exit(99)
+    sys.exit(99)
 
 success = True
 
@@ -60,4 +60,4 @@ os.chdir(os.environ["top_srcdir"])
 os.path.walk(".", check_potfiles, set(POTFILES))
 
 if not success:
-    os._exit(1)
+    sys.exit(1)
