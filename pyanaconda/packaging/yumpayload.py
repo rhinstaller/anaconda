@@ -90,7 +90,7 @@ import itertools
 
 from pykickstart.constants import KS_MISSING_IGNORE
 
-YUM_PLUGINS = ["blacklist", "whiteout", "fastestmirror", "langpacks"]
+YUM_PLUGINS = ["fastestmirror", "langpacks"]
 
 import inspect
 import threading
