@@ -221,12 +221,16 @@ class Spoke(UIObject):
             raise TypeError("Spoke is an abstract class")
 
         UIObject.__init__(self, data)
-        self.storage = storage
+        self._storage = storage
         self.payload = payload
         self.instclass = instclass
         self.applyOnSkip = False
 
         self._visitedSinceApplied = True
+
+    @property
+    def storage(self):
+        return self._storage
 
     @classmethod
     def should_run(cls, environment, data):
@@ -477,7 +481,7 @@ class Hub(UIObject):
         """
         UIObject.__init__(self, data)
 
-        self.storage = storage
+        self._storage = storage
         self.payload = payload
         self.instclass = instclass
 
@@ -486,6 +490,10 @@ class Hub(UIObject):
 
         # spokes for which environments this hub should collect?
         self._environs = [ANACONDA_ENVIRON]
+
+    @property
+    def storage(self):
+        return self._storage
 
     def set_path(self, path_id, paths):
         """Update the paths attribute with list of tuples in the form (module
