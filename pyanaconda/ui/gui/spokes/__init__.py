@@ -24,8 +24,7 @@ from pyanaconda.ui.common import collect
 from pyanaconda.ui.gui import GUIObject
 import os.path
 
-__all__ = ["StandaloneSpoke", "NormalSpoke", "PersonalizationSpoke",
-           "collect_spokes"]
+__all__ = ["StandaloneSpoke", "NormalSpoke", "collect_spokes"]
 
 class Spoke(GUIObject):
     def __init__(self, data):
@@ -90,11 +89,6 @@ class NormalSpoke(Spoke, common.NormalSpoke):
 
         self.window.hide()
         Gtk.main_quit()
-
-class PersonalizationSpoke(Spoke, common.PersonalizationSpoke):
-    def __init__(self, data, storage, payload, instclass):
-        Spoke.__init__(self, data)
-        common.PersonalizationSpoke.__init__(self, data, storage, payload, instclass)
 
 def collect_spokes(mask_paths, category):
     """Return a list of all spoke subclasses that should appear for a given

@@ -418,23 +418,6 @@ class StandaloneSpoke(NormalSpoke):
 
         NormalSpoke.__init__(self, data, storage, payload, instclass)
 
-class PersonalizationSpoke(Spoke):
-    """A PersonalizationSpoke is a Spoke subclass that is displayed when the
-       user selects something on the Hub during package installation.
-
-       From a layout perspective, a PersonalizationSpoke takes up the middle
-       of the screen therefore hiding the Hub but leaving its action area
-       displayed.  This allows the user to continue seeing package installation
-       progress being made.  The PersonalizationSpoke also provides the same
-       basic navigation information at the top of the screen as a NormalSpoke.
-    """
-    def __init__(self, data, storage, payload, instclass):
-        """Create a PersonalizationSpoke instance."""
-        if self.__class__ is PersonalizationSpoke:
-            raise TypeError("PersonalizationSpoke is an abstract class")
-
-        Spoke.__init__(self, data, storage, payload, instclass)
-
 class Hub(UIObject):
     """A Hub is an overview UI screen.  A Hub consists of one or more grids of
        configuration options that the user may choose from.  Each grid is

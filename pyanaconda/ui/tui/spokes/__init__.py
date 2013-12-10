@@ -20,7 +20,7 @@
 #
 from pyanaconda.ui.tui import simpleline as tui
 from pyanaconda.ui.tui.tuiobject import TUIObject, YesNoDialog
-from pyanaconda.ui.common import Spoke, StandaloneSpoke, NormalSpoke, PersonalizationSpoke, collect
+from pyanaconda.ui.common import Spoke, StandaloneSpoke, NormalSpoke, collect
 from pyanaconda.users import validatePassword, cryptPassword
 import re
 from collections import namedtuple
@@ -29,8 +29,8 @@ from pyanaconda.i18n import N_, _
 from pyanaconda.constants import PASSWORD_CONFIRM_ERROR_TUI
 
 __all__ = ["TUISpoke", "EditTUISpoke", "EditTUIDialog", "EditTUISpokeEntry",
-           "StandaloneTUISpoke", "NormalTUISpoke", "PersonalizationSpoke",
-           "collect_spokes", "collect_categories"]
+           "StandaloneSpoke", "NormalTUISpoke", "collect_spokes",
+           "collect_categories"]
 
 class TUISpoke(TUIObject, tui.Widget, Spoke):
     """Base TUI Spoke class implementing the pyanaconda.ui.common.Spoke API.
@@ -293,9 +293,6 @@ class EditTUISpoke(NormalTUISpoke):
         return NormalTUISpoke.input(self, args, key)
 
 class StandaloneTUISpoke(TUISpoke, StandaloneSpoke):
-    pass
-
-class PersonalizationTUISpoke(TUISpoke, PersonalizationSpoke):
     pass
 
 def collect_spokes(mask_paths, category):
