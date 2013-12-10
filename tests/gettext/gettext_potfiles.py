@@ -51,9 +51,8 @@ def check_potfiles(checklist, dirname, names):
 POTFILES = []
 with open(os.path.join(os.environ["top_srcdir"], "po", "POTFILES.in")) as f:
     for line in (line.strip() for line in f):
-        if not line or line.startswith("#"):
-            continue
-        POTFILES.append(line)
+        if line and not line.startswith("#"):
+            POTFILES.append(line)
 
 # Walk the source tree and look for files with translatable strings
 os.chdir(os.environ["top_srcdir"])
