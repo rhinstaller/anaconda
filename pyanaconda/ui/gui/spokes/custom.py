@@ -1514,7 +1514,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
                 actions = self.__storage.devicetree.findActions(type="resize",
                                                                 devid=device.id)
                 with ui_storage_logger():
-                    for action in actions:
+                    for action in reversed(actions):
                         self.__storage.devicetree.cancelAction(action)
                         _changed_size = True
             elif size != device.size:
