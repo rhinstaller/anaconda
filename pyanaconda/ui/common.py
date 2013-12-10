@@ -566,6 +566,7 @@ def collect(module_pattern, path, pred):
 
         mod_info = None
         module = None
+        module_path = None
 
         try:
             imp.acquire_lock()
@@ -635,7 +636,7 @@ def collect(module_pattern, path, pred):
             continue
 
         except ImportError as imperr:
-            if "pyanaconda" in module_path:
+            if module_path and "pyanaconda" in module_path:
                 # failure when importing our own module:
                 raise
             log.error("Failed to import module in collect: %s", imperr)
