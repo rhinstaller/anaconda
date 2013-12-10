@@ -69,10 +69,11 @@ class StorageChecker(object):
     __metaclass__ = ABCMeta
 
     log = logging.getLogger("anaconda")
+    errors = []
+    warnings = []
 
-    def __init__(self):
-        self.errors = []
-        self.warnings = []
+    def __init__(self, mainSpokeClass="StorageSpoke"):
+        self._mainSpokeClass = mainSpokeClass
 
     @abstractproperty
     def storage(self):
@@ -85,13 +86,14 @@ class StorageChecker(object):
     def checkStorage(self):
         threadMgr.wait(constants.THREAD_EXECUTE_STORAGE)
 
-        hubQ.send_not_read(self.__class__.__name__)
-        hubQ.send_message(self.__class__.__name__, _("Check storage configuration..."))
-        (self.errors,
-         self.warnings) = self.storage.sanityCheck()
-        for e in self.errors:
+        hubQ.send_not_ready(self._mainSpokeClass)
+        hubQ.send_message(self._mainSpokeClass, _("Checking storage configuration..."))
+        (StorageChecker.errors,
+         StorageChecker.warnings) = self.storage.sanityCheck()
+        hubQ.send_ready(self._mainSpokeClass, True)
+        for e in StorageChecker.errors:
             self.log.error(e)
-        for w in self.warnings:
+        for w in StorageChecker.warnings:
             self.log.warn(w)
 
 class SourceSwitchHandler(object):

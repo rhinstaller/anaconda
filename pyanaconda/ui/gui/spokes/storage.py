@@ -405,7 +405,7 @@ class StorageSpoke(NormalSpoke, StorageChecker):
             doKickstartStorage(self.storage, self.data, self.instclass)
         except (StorageError, KickstartValueError) as e:
             log.error("storage configuration failed: %s", e)
-            self.errors = str(e).split("\n")
+            StorageChecker.errors = str(e).split("\n")
             hubQ.send_message(self.__class__.__name__, _("Failed to save storage configuration..."))
             self.data.bootloader.bootDrive = ""
             self.data.ignoredisk.drives = []
@@ -417,14 +417,14 @@ class StorageSpoke(NormalSpoke, StorageChecker):
             self._applyDiskSelection(self.selected_disks)
         except BootLoaderError as e:
             log.error("BootLoader setup failed: %s", e)
-            self.errors = str(e).split("\n")
+            StorageChecker.errors = str(e).split("\n")
             hubQ.send_message(self.__class__.__name__, _("Failed to save storage configuration..."))
             self.data.bootloader.bootDrive = ""
         else:
             if self.autopart:
                 # this was already run as part of doAutoPartition. dumb.
-                self.errors = []
-                self.warnings = []
+                StorageChecker.errors = []
+                StorageChecker.warnings = []
                 self.run()
         finally:
             self._ready = True
