@@ -141,11 +141,6 @@ class Payload(object):
     ### METHODS FOR WORKING WITH REPOSITORIES
     ###
     @property
-    def repos(self):
-        """A list of repo identifiers, not objects themselves."""
-        raise NotImplementedError()
-
-    @property
     def addOns(self):
         """ A list of addon repo identifiers. """
         return [r.name for r in self.data.repo.dataList()]
@@ -247,39 +242,10 @@ class Payload(object):
             repo.enabled = False
 
     ###
-    ### METHODS FOR WORKING WITH ENVIRONMENTS
-    ###
-    @property
-    def environments(self):
-        raise NotImplementedError()
-
-    def environmentHasOption(self, environmentid, grpid):
-        raise NotImplementedError()
-
-    def environmentOptionIsDefault(self, environmentid, grpid):
-        raise NotImplementedError()
-
-    def environmentDescription(self, environmentid):
-        raise NotImplementedError()
-
-    def selectEnvironment(self, environmentid):
-        raise NotImplementedError()
-
-    def environmentGroups(self, environmentid):
-        raise NotImplementedError()
-
-    ###
     ### METHODS FOR WORKING WITH GROUPS
     ###
-    @property
-    def groups(self):
-        raise NotImplementedError()
-
     def languageGroups(self):
         return []
-
-    def groupDescription(self, groupid):
-        raise NotImplementedError()
 
     def groupSelected(self, groupid):
         return Group(groupid) in self.data.packages.groupList
@@ -668,8 +634,6 @@ class ArchivePayload(ImagePayload):
 
         ImagePayload.__init__(self, data)
 
-# Inherit abstract methods from ImagePayload
-# pylint: disable-msg=W0223
 class PackagePayload(Payload):
     """ A PackagePayload installs a set of packages onto the target system. """
 
@@ -901,6 +865,47 @@ class PackagePayload(Payload):
                     raise PayloadSetupError("no usable optical media found")
 
         return url, mirrorlist, sslverify
+
+    ###
+    ### METHODS FOR WORKING WITH REPOSITORIES
+    ###
+    @property
+    def repos(self):
+        """A list of repo identifiers, not objects themselves."""
+        raise NotImplementedError()
+
+    ###
+    ### METHODS FOR WORKING WITH ENVIRONMENTS
+    ###
+    @property
+    def environments(self):
+        raise NotImplementedError()
+
+    def environmentHasOption(self, environmentid, grpid):
+        raise NotImplementedError()
+
+    def environmentOptionIsDefault(self, environmentid, grpid):
+        raise NotImplementedError()
+
+    def environmentDescription(self, environmentid):
+        raise NotImplementedError()
+
+    def selectEnvironment(self, environmentid):
+        raise NotImplementedError()
+
+    def environmentGroups(self, environmentid):
+        raise NotImplementedError()
+
+    ###
+    ### METHODS FOR WORKING WITH GROUPS
+    ###
+    @property
+    def groups(self):
+        raise NotImplementedError()
+
+    def groupDescription(self, groupid):
+        raise NotImplementedError()
+
 
 def payloadInitialize(storage, ksdata, payload):
     from pyanaconda.threads import threadMgr
