@@ -21,6 +21,7 @@
 
 from __future__ import division
 from collections import namedtuple
+from math import ceil
 
 from gi.repository import Gdk, Gtk
 
@@ -232,27 +233,27 @@ class ResizeDialog(GUIObject):
            with here.
         """
         self._resizeSlider.handler_block_by_func(self.on_resize_value_changed)
-        self._resizeSlider.set_range(device.minSize, int(device.size))
+        self._resizeSlider.set_range(int(ceil(device.minSize)), int(device.size))
         self._resizeSlider.handler_unblock_by_func(self.on_resize_value_changed)
         self._resizeSlider.set_value(value)
 
         # The slider needs to be keyboard-accessible.  We'll make small movements change in
         # 1% increments, and large movements in 5% increments.
-        distance = int(device.size) - int(device.minSize)
+        distance = int(device.size) - int(ceil(device.minSize))
         onePercent = distance*0.01
         fivePercent = distance*0.05
         twentyPercent = distance*0.2
 
         adjustment = self.builder.get_object("resizeAdjustment")
-        adjustment.configure(value, device.minSize, int(device.size), onePercent, fivePercent, 0)
+        adjustment.configure(value, int(ceil(device.minSize)), int(device.size), onePercent, fivePercent, 0)
 
         # And then the slider needs a couple tick marks for easier navigation.
         self._resizeSlider.clear_marks()
         for i in range(1, 5):
-            self._resizeSlider.add_mark(device.minSize + i*twentyPercent, Gtk.PositionType.BOTTOM, None)
+            self._resizeSlider.add_mark(int(ceil(device.minSize)) + i*twentyPercent, Gtk.PositionType.BOTTOM, None)
 
         # Finally, add tick marks for the ends.
-        self._resizeSlider.add_mark(device.minSize, Gtk.PositionType.BOTTOM, size_str(device.minSize))
+        self._resizeSlider.add_mark(int(ceil(device.minSize)), Gtk.PositionType.BOTTOM, size_str(int(ceil(device.minSize))))
         self._resizeSlider.add_mark(int(device.size), Gtk.PositionType.BOTTOM, size_str(int(device.size)))
 
     def _update_action_buttons(self, row):
