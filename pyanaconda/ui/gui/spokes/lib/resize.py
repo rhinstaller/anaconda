@@ -393,7 +393,7 @@ class ResizeDialog(GUIObject):
 
         if obj.action == _(PRESERVE):
             return False
-        elif obj.action == _(SHRINK):
+        elif obj.action == _(SHRINK) and int(device.size) != int(obj.target):
             if device.resizable:
                 self.storage.resizeDevice(device, obj.target)
             else:
