@@ -422,6 +422,13 @@ class StandaloneSpoke(NormalSpoke):
 
         NormalSpoke.__init__(self, data, storage, payload, instclass)
 
+    # Standalone spokes are not part of a hub, and thus have no status.
+    # Provide a concrete implementation of status here so that subclasses
+    # don't need one.
+    @property
+    def status(self):
+        return None
+
 class Hub(UIObject):
     """A Hub is an overview UI screen.  A Hub consists of one or more grids of
        configuration options that the user may choose from.  Each grid is
