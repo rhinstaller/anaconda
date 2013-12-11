@@ -251,6 +251,18 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Wed Dec 11 2013 Brian C. Lane <bcl@redhat.com> - 20.25.15-1
+- Fix selector device matching for unallocated partitions. (#1039292) (dlehman)
+- Do not schedule resize actions for non-resizing requests (#1039491)
+  (vpodzime)
+- Use ceil for minSize in resize dialog (#1040012) (bcl)
+- Use integer numbers of megabytes in the Reclaim dialog (#1040012) (vpodzime)
+- Don't encrypt device if container is encrypted (bcl)
+- Disable tmpfs in the GUI (#1039511) (mkolman)
+- Don't crash on NTP lookup without network (#1026079) (mkolman)
+- Make sure url and mirrorlist are not set at once (#1026834) (mkolman)
+- if rootfs is btrfs, add rootflags=subvol to kernel parameters (gene)
+
 * Wed Dec 04 2013 Brian C. Lane <bcl@redhat.com> - 20.25.14-1
 - Handle cancelation of device resize in the custom spoke. (#1027947) (dlehman)
 - Disallow /boot on lvm until grub2 fully supports it. (#1036705) (dlehman)
