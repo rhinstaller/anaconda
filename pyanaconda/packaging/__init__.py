@@ -164,10 +164,6 @@ class Payload(object):
         """
         return True
 
-    def getRepo(self, repo_id):
-        """ Return the package repo object. """
-        raise NotImplementedError()
-
     def isRepoEnabled(self, repo_id):
         """ Return True if repo is enabled. """
         repo = self.getAddOnRepo(repo_id)
@@ -257,9 +253,6 @@ class Payload(object):
     def environments(self):
         raise NotImplementedError()
 
-    def environmentSelected(self, environmentid):
-        raise NotImplementedError()
-
     def environmentHasOption(self, environmentid, grpid):
         raise NotImplementedError()
 
@@ -270,9 +263,6 @@ class Payload(object):
         raise NotImplementedError()
 
     def selectEnvironment(self, environmentid):
-        raise NotImplementedError()
-
-    def deselectEnvironment(self, environmentid):
         raise NotImplementedError()
 
     def environmentGroups(self, environmentid):
@@ -331,10 +321,6 @@ class Payload(object):
     ###
     ### METHODS FOR WORKING WITH PACKAGES
     ###
-    @property
-    def packages(self):
-        raise NotImplementedError()
-
     def packageSelected(self, pkgid):
         return pkgid in self.data.packages.packageList
 
