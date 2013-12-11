@@ -1292,7 +1292,7 @@ class NetworkSpoke(FirstbootSpokeMixIn, NormalSpoke):
     mainWidgetName = "networkWindow"
     uiFile = "spokes/network.glade"
 
-    title = CN_("GUI|Spoke", "_NETWORK CONFIGURATION")
+    title = CN_("GUI|Spoke", "_NETWORK & HOSTNAME")
     icon = "network-transmit-receive-symbolic"
 
     category = SystemCategory
