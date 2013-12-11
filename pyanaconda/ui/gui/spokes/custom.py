@@ -1084,7 +1084,8 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         for s in self._accordion.allSelectors:
             replaced = False
             for new_device in self.__storage.devices:
-                if (s._device.name == new_device.name and
+                if ((s._device.name == new_device.name) or
+                    (getattr(s._device, "req_name", 1) == getattr(new_device, "req_name", 2)) and
                     s._device.type == new_device.type and
                     s._device.format.type == new_device.format.type):
                     selectorFromDevice(new_device, selector=s)
