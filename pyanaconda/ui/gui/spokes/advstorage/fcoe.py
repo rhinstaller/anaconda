@@ -43,6 +43,7 @@ class FCoEDialog(GUIObject):
 
         self.storage = storage
         self.fcoe = self.storage.fcoe()
+        self._update_devicetree = False
 
     def refresh(self):
         self._addButton = self.builder.get_object("addButton")
@@ -65,6 +66,8 @@ class FCoEDialog(GUIObject):
     def run(self):
         rc = self.window.run()
         self.window.destroy()
+        if self._update_devicetree:
+            self.storage.devicetree.populate()
         return rc
 
     @property
@@ -113,6 +116,7 @@ class FCoEDialog(GUIObject):
             self._cancelButton.set_sensitive(True)
         else:
             # Success.  There's nothing else the user can do on this dialog.
+            self._update_devicetree = True
             self.window.response(1)
 
     def on_add_clicked(self, *args):
