@@ -252,6 +252,25 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Wed Dec 11 2013 Brian C. Lane <bcl@redhat.com> - 19.31.38-1
+- Make _yum.preconf setup atomic (bcl)
+  Resolves: rhbz#882279
+- refactor into _setupInstallDevice (bcl)
+  Related: rhbz#882279
+  Resolves: rhbz#882279
+- Pass biosdevname boot option to installed system (rvykydal)
+  Resolves: rhbz#1030943
+- network: add s390 options in ifcfgs generated from kickstart (rvykydal)
+  Resolves: rhbz#1031376
+- Don't require pressing escape twice to kill the media check window (clumens)
+  Resolves: rhbz#1015173
+- Change source spoke proxy handling to use local copy (bcl)
+  Resolves: rhbz#1029245
+- clear software environment (bcl)
+  Resolves: rhbz#1029536
+- Make thread manager operations atomic (mkolman)
+  Resolves: rhbz#1029898
+
 * Thu Dec 05 2013 Brian C. Lane <bcl@redhat.com> - 19.31.37-1
 - Omit /dev/sr* from list-harddrives (sbueno+anaconda)
   Resolves: rhbz#1032500

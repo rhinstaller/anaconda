@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: anaconda 19.31.36\n"
+"Project-Id-Version: anaconda 19.31.37\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
-"POT-Creation-Date: 2013-12-05 11:15-0800\n"
+"POT-Creation-Date: 2013-12-11 17:49-0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -224,7 +224,7 @@ msgid "Discovering realm to join"
 msgstr ""
 
 #: pyanaconda/install.py:169 pyanaconda/packaging/livepayload.py:145
-#: pyanaconda/packaging/yumpayload.py:1594
+#: pyanaconda/packaging/yumpayload.py:1590
 msgid "Performing post-installation setup tasks"
 msgstr ""
 
@@ -603,19 +603,19 @@ msgstr ""
 msgid "Checking image checksum"
 msgstr ""
 
-#: pyanaconda/packaging/yumpayload.py:1510
+#: pyanaconda/packaging/yumpayload.py:1506
 msgid "Starting package installation process"
 msgstr ""
 
-#: pyanaconda/packaging/yumpayload.py:1574
+#: pyanaconda/packaging/yumpayload.py:1570
 msgid "You need more space on the following file systems:\n"
 msgstr ""
 
-#: pyanaconda/packaging/yumpayload.py:1592
+#: pyanaconda/packaging/yumpayload.py:1588
 msgid "Preparing transaction from installation source"
 msgstr ""
 
-#: pyanaconda/packaging/yumpayload.py:1593
+#: pyanaconda/packaging/yumpayload.py:1589
 msgid "Installing"
 msgstr ""
 
@@ -932,7 +932,7 @@ msgstr ""
 
 #: pyanaconda/ui/tui/spokes/storage.py:172
 #: pyanaconda/ui/tui/spokes/source.py:470
-#: pyanaconda/ui/gui/spokes/source.py:572
+#: pyanaconda/ui/gui/spokes/source.py:593
 #: pyanaconda/ui/gui/spokes/storage.py:657
 msgid "Probing storage..."
 msgstr ""
@@ -1006,25 +1006,25 @@ msgstr ""
 
 #: pyanaconda/ui/tui/spokes/source.py:150
 #: pyanaconda/ui/tui/spokes/source.py:200
-#: pyanaconda/ui/gui/spokes/source.py:502
-#: pyanaconda/ui/gui/spokes/source.glade:760
+#: pyanaconda/ui/gui/spokes/source.py:523
+#: pyanaconda/ui/gui/spokes/source.glade:761
 msgid "Closest mirror"
 msgstr ""
 
 #: pyanaconda/ui/tui/spokes/source.py:192
-#: pyanaconda/ui/gui/spokes/source.py:494
+#: pyanaconda/ui/gui/spokes/source.py:515
 #, python-format
 msgid "NFS server %s"
 msgstr ""
 
 #: pyanaconda/ui/tui/spokes/source.py:194
-#: pyanaconda/ui/gui/spokes/source.py:496
+#: pyanaconda/ui/gui/spokes/source.py:517
 msgid "Local media"
 msgstr ""
 
 #: pyanaconda/ui/tui/spokes/source.py:197
 #: pyanaconda/ui/tui/spokes/source.py:207
-#: pyanaconda/ui/gui/spokes/source.py:490
+#: pyanaconda/ui/gui/spokes/source.py:511
 msgid "Error setting up software source"
 msgstr ""
 
@@ -1032,7 +1032,7 @@ msgstr ""
 #: pyanaconda/ui/tui/spokes/software.py:100
 #: pyanaconda/ui/gui/spokes/datetime_spoke.py:405
 #: pyanaconda/ui/gui/spokes/software.py:180
-#: pyanaconda/ui/gui/spokes/source.py:504
+#: pyanaconda/ui/gui/spokes/source.py:525
 msgid "Nothing selected"
 msgstr ""
 
@@ -1063,7 +1063,7 @@ msgid "Choose an installation source type."
 msgstr ""
 
 #: pyanaconda/ui/tui/spokes/source.py:317
-#: pyanaconda/ui/gui/spokes/source.py:423
+#: pyanaconda/ui/gui/spokes/source.py:444
 msgid "Failed to set up installation source"
 msgstr ""
 
@@ -1075,7 +1075,7 @@ msgstr ""
 #: pyanaconda/ui/tui/spokes/software.py:68
 #: pyanaconda/ui/gui/spokes/software.py:211
 #: pyanaconda/ui/gui/spokes/software.py:235
-#: pyanaconda/ui/gui/spokes/source.py:449
+#: pyanaconda/ui/gui/spokes/source.py:470
 msgid "No installation source available"
 msgstr ""
 
@@ -1206,7 +1206,7 @@ msgstr ""
 msgid "_Exit Installer"
 msgstr ""
 
-#: pyanaconda/ui/gui/__init__.py:404 pyanaconda/ui/gui/spokes/software.py:410
+#: pyanaconda/ui/gui/__init__.py:404 pyanaconda/ui/gui/spokes/software.py:412
 #: pyanaconda/ui/gui/spokes/storage.py:907
 #: pyanaconda/ui/gui/spokes/welcome.glade:21
 #: pyanaconda/ui/gui/hubs/summary.glade:76 widgets/src/StandaloneWindow.c:54
@@ -1918,7 +1918,7 @@ msgid "_SOFTWARE SELECTION"
 msgstr ""
 
 #: pyanaconda/ui/gui/spokes/software.py:102
-#: pyanaconda/ui/gui/spokes/source.py:484
+#: pyanaconda/ui/gui/spokes/source.py:505
 msgid "Checking software dependencies..."
 msgstr ""
 
@@ -1935,11 +1935,11 @@ msgstr ""
 msgid "Downloading group metadata..."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/software.py:311
+#: pyanaconda/ui/gui/spokes/software.py:313
 msgid "Error checking software dependencies.  Click for details."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/software.py:407
+#: pyanaconda/ui/gui/spokes/software.py:409
 msgid ""
 "The following software marked for installation has errors.  This is likely "
 "caused by an error with\n"
@@ -1947,9 +1947,9 @@ msgid ""
 "the installer."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/software.py:410
+#: pyanaconda/ui/gui/spokes/software.py:412
 #: pyanaconda/ui/gui/spokes/storage.glade:582
-#: pyanaconda/ui/gui/spokes/source.glade:236
+#: pyanaconda/ui/gui/spokes/source.glade:237
 #: pyanaconda/ui/gui/spokes/custom.glade:22
 #: pyanaconda/ui/gui/spokes/custom.glade:284
 #: pyanaconda/ui/gui/spokes/custom.glade:344
@@ -1957,7 +1957,7 @@ msgstr ""
 msgid "_Cancel"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/software.py:411
+#: pyanaconda/ui/gui/spokes/software.py:413
 msgid "_Modify Software Source"
 msgstr ""
 
@@ -1969,66 +1969,66 @@ msgstr ""
 msgid "Error downloading package metadata..."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.py:158
+#: pyanaconda/ui/gui/spokes/source.py:169
 msgid "This media is good to install from."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.py:160
+#: pyanaconda/ui/gui/spokes/source.py:171
 msgid "This media is not good to install from."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.py:271
+#: pyanaconda/ui/gui/spokes/source.py:287
 msgid "_INSTALLATION SOURCE"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.py:384
-#: pyanaconda/ui/gui/spokes/source.py:425
-#: pyanaconda/ui/gui/spokes/source.py:437
+#: pyanaconda/ui/gui/spokes/source.py:403
+#: pyanaconda/ui/gui/spokes/source.py:446
+#: pyanaconda/ui/gui/spokes/source.py:458
 msgid "Failed to set up installation source; check the repo url"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.py:427
+#: pyanaconda/ui/gui/spokes/source.py:448
 msgid ""
 "Failed to set up installation source; check the repo url and proxy settings"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.py:488
+#: pyanaconda/ui/gui/spokes/source.py:509
 msgid "Error setting up base repository"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.py:499
+#: pyanaconda/ui/gui/spokes/source.py:520
 msgid "Error setting up ISO file"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.py:599
+#: pyanaconda/ui/gui/spokes/source.py:620
 #, python-format
 msgid "Device: %s"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.py:600
+#: pyanaconda/ui/gui/spokes/source.py:621
 #, python-format
 msgid "Label: %s"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.py:994
+#: pyanaconda/ui/gui/spokes/source.py:1016
 msgid "Duplicate repository names."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.py:1005
+#: pyanaconda/ui/gui/spokes/source.py:1027
 msgid ""
 "Duplicate repository names not allowed; choose a unique name for each "
 "repository."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.py:1027
+#: pyanaconda/ui/gui/spokes/source.py:1049
 msgid "Empty repository name."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.py:1031
+#: pyanaconda/ui/gui/spokes/source.py:1053
 msgid "Invalid repository name."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.py:1034
+#: pyanaconda/ui/gui/spokes/source.py:1056
 msgid "Repository name conflicts with internal repository name."
 msgstr ""
 
@@ -2921,7 +2921,7 @@ msgid "You may add a keyboard layout by selecting it below:"
 msgstr ""
 
 #: pyanaconda/ui/gui/spokes/keyboard.glade:121
-#: pyanaconda/ui/gui/spokes/source.glade:1002
+#: pyanaconda/ui/gui/spokes/source.glade:1003
 #: pyanaconda/ui/gui/spokes/lib/cart.glade:134
 #: pyanaconda/ui/gui/spokes/lib/resize.glade:160
 msgid "Name"
@@ -3049,226 +3049,226 @@ msgid ""
 "the root user."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.glade:106 widgets/src/SpokeWindow.c:48
+#: pyanaconda/ui/gui/spokes/source.glade:107 widgets/src/SpokeWindow.c:48
 msgid "_Done"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.glade:139
+#: pyanaconda/ui/gui/spokes/source.glade:140
 msgid "MEDIA VERIFICATION"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.glade:166
+#: pyanaconda/ui/gui/spokes/source.glade:167
 msgid "Verifying media, please wait..."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.glade:251
+#: pyanaconda/ui/gui/spokes/source.glade:252
 msgid "_Add"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.glade:279
+#: pyanaconda/ui/gui/spokes/source.glade:280
 msgid "_Enable HTTP Proxy"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.glade:312
+#: pyanaconda/ui/gui/spokes/source.glade:313
 msgid "<b>_Proxy URL</b>"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.glade:329
+#: pyanaconda/ui/gui/spokes/source.glade:330
 msgid "<span size=\"small\"><b>Example:</b> squid.mysite.org:3128</span>"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.glade:365
+#: pyanaconda/ui/gui/spokes/source.glade:366
 msgid "_Use Authentication"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.glade:392
+#: pyanaconda/ui/gui/spokes/source.glade:393
 msgid "<b>User_name</b>"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.glade:409
+#: pyanaconda/ui/gui/spokes/source.glade:410
 msgid "<b>Pass_word</b>"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.glade:490
+#: pyanaconda/ui/gui/spokes/source.glade:491
 msgid "INSTALLATION SOURCE"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.glade:533
+#: pyanaconda/ui/gui/spokes/source.glade:534
 msgid "Which installation source would you like to use?"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.glade:547
+#: pyanaconda/ui/gui/spokes/source.glade:548
 msgid "_Auto-detected installation media:"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.glade:574
+#: pyanaconda/ui/gui/spokes/source.glade:575
 msgid "Device:"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.glade:588
+#: pyanaconda/ui/gui/spokes/source.glade:589
 msgid "Label:"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.glade:599
-#: pyanaconda/ui/gui/spokes/source.glade:696
+#: pyanaconda/ui/gui/spokes/source.glade:600
+#: pyanaconda/ui/gui/spokes/source.glade:697
 msgid "_Verify"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.glade:624
+#: pyanaconda/ui/gui/spokes/source.glade:625
 msgid "_ISO file:"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.glade:651
+#: pyanaconda/ui/gui/spokes/source.glade:652
 msgid "D_evice:"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.glade:681
+#: pyanaconda/ui/gui/spokes/source.glade:682
 msgid "_Choose an ISO"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.glade:719
+#: pyanaconda/ui/gui/spokes/source.glade:720
 msgid "On the _network:"
-msgstr ""
-
-#: pyanaconda/ui/gui/spokes/source.glade:756
-#: pyanaconda/ui/gui/spokes/source.glade:1221
-msgid "http://"
 msgstr ""
 
 #: pyanaconda/ui/gui/spokes/source.glade:757
 #: pyanaconda/ui/gui/spokes/source.glade:1222
-msgid "https://"
+msgid "http://"
 msgstr ""
 
 #: pyanaconda/ui/gui/spokes/source.glade:758
 #: pyanaconda/ui/gui/spokes/source.glade:1223
-msgid "ftp://"
+msgid "https://"
 msgstr ""
 
 #: pyanaconda/ui/gui/spokes/source.glade:759
+#: pyanaconda/ui/gui/spokes/source.glade:1224
+msgid "ftp://"
+msgstr ""
+
+#: pyanaconda/ui/gui/spokes/source.glade:760
 msgid "nfs"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.glade:788
+#: pyanaconda/ui/gui/spokes/source.glade:789
 msgid "_Proxy setup..."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.glade:806
+#: pyanaconda/ui/gui/spokes/source.glade:807
 msgid "This URL refers to a _mirror list."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.glade:847
+#: pyanaconda/ui/gui/spokes/source.glade:848
 msgid "NFS mount _options:"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.glade:862
 #: pyanaconda/ui/gui/spokes/source.glade:863
+#: pyanaconda/ui/gui/spokes/source.glade:864
 msgid "This field is optional."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.glade:898
+#: pyanaconda/ui/gui/spokes/source.glade:899
 msgid "Updates"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.glade:912
+#: pyanaconda/ui/gui/spokes/source.glade:913
 msgid ""
 "Don't install the latest available software _updates. Install the default "
 "versions provided by the install source above."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.glade:942
+#: pyanaconda/ui/gui/spokes/source.glade:943
 msgid "Additional repositories"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.glade:989
+#: pyanaconda/ui/gui/spokes/source.glade:990
 msgid "Enabled"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.glade:1041
 #: pyanaconda/ui/gui/spokes/source.glade:1042
+#: pyanaconda/ui/gui/spokes/source.glade:1043
 msgid "Add a new repository."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.glade:1043
+#: pyanaconda/ui/gui/spokes/source.glade:1044
 #: pyanaconda/ui/gui/spokes/custom.glade:1627
 msgid "addButton"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.glade:1060
 #: pyanaconda/ui/gui/spokes/source.glade:1061
+#: pyanaconda/ui/gui/spokes/source.glade:1062
 msgid "Remove the selected repository."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.glade:1062
+#: pyanaconda/ui/gui/spokes/source.glade:1063
 #: pyanaconda/ui/gui/spokes/custom.glade:1644
 msgid "removeButton"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.glade:1079
 #: pyanaconda/ui/gui/spokes/source.glade:1080
+#: pyanaconda/ui/gui/spokes/source.glade:1081
 msgid "Revert to the previous list of repositories."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.glade:1081
+#: pyanaconda/ui/gui/spokes/source.glade:1082
 msgid "resetButton"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.glade:1109
 #: pyanaconda/ui/gui/spokes/source.glade:1110
+#: pyanaconda/ui/gui/spokes/source.glade:1111
 msgid "URL for the repository, without protocol."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.glade:1126
 #: pyanaconda/ui/gui/spokes/source.glade:1127
+#: pyanaconda/ui/gui/spokes/source.glade:1128
 msgid "URL of proxy in the form of protocol://host:[port]"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.glade:1143
 #: pyanaconda/ui/gui/spokes/source.glade:1144
+#: pyanaconda/ui/gui/spokes/source.glade:1145
 msgid "Optional proxy username."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.glade:1160
+#: pyanaconda/ui/gui/spokes/source.glade:1161
 msgid "Optional proxy password."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.glade:1175
+#: pyanaconda/ui/gui/spokes/source.glade:1176
 msgid "This URL refers to a mirror list."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.glade:1197
+#: pyanaconda/ui/gui/spokes/source.glade:1198
 #: pyanaconda/ui/gui/spokes/custom.glade:423
 #: pyanaconda/ui/gui/spokes/custom.glade:948
 msgid "_Name:"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.glade:1215
 #: pyanaconda/ui/gui/spokes/source.glade:1216
+#: pyanaconda/ui/gui/spokes/source.glade:1217
 msgid "Protocol for the repository URL."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.glade:1239
+#: pyanaconda/ui/gui/spokes/source.glade:1240
 msgid "_Proxy URL:"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.glade:1258
+#: pyanaconda/ui/gui/spokes/source.glade:1259
 msgid "User_name:"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.glade:1277
+#: pyanaconda/ui/gui/spokes/source.glade:1278
 msgid "Pass_word:"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.glade:1315
+#: pyanaconda/ui/gui/spokes/source.glade:1316
 msgid "Invalid repository name. Try something else?"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.glade:1340
 #: pyanaconda/ui/gui/spokes/source.glade:1341
+#: pyanaconda/ui/gui/spokes/source.glade:1342
 msgid "Name of the repository."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.glade:1390
+#: pyanaconda/ui/gui/spokes/source.glade:1391
 msgid "Duplicate names in list of additional repositories."
 msgstr ""
 
