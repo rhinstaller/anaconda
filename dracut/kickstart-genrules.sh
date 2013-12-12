@@ -10,7 +10,10 @@ case "${kickstart%%:*}" in
     ;;
     cdrom|hd|bd) # cdrom, cdrom:<dev>:<path>, hd:<dev>:<path>, bd:<dev>:<path>
         splitsep ":" "$kickstart" kstype ksdev kspath
-        [ "$kstype" = "cdrom" ] && [ -z "$ksdev" ] && ksdev="/dev/cdrom"
+        if [ "$kstype" = "cdrom" ] && [ -z "$kspath" ]; then
+            kspath="$ksdev"
+            ksdev="/dev/cdrom"
+        fi
         ksdev=$(disk_to_dev_path $ksdev)
         if [ "$kstype" = "bd" ]; then # TODO FIXME: no biospart support yet
             warn "inst.ks='$kickstart'"
