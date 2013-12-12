@@ -20,7 +20,7 @@
 #                    Chris Lumens <clumens@redhat.com>
 #
 
-from blivet.devices import MultipathDevice, iScsiDiskDevice
+from blivet.devices import MultipathDevice, iScsiDiskDevice, FcoeDiskDevice
 from blivet.size import Size
 
 from pyanaconda.flags import flags
@@ -71,7 +71,9 @@ def getDisks(devicetree, fake=False):
     return sorted(list(set(disks)), key=lambda d: d.name)
 
 def isLocalDisk(disk):
-    return not isinstance(disk, MultipathDevice) and not isinstance(disk, iScsiDiskDevice)
+    return (not isinstance(disk, MultipathDevice)
+            and not isinstance(disk, iScsiDiskDevice)
+            and not isinstance(disk, FcoeDiskDevice))
 
 def size_str(mb):
     if isinstance(mb, Size):
