@@ -1721,6 +1721,11 @@ class EFIGRUB(GRUB2):
     def check(self):
         return True
 
+# FIXME: We need to include grubby, and omit efibootmgr and shim packages
+#        on aarch64 until we get all the EFI bits in place.
+class Aarch64EFIGRUB(EFIGRUB):
+    packages = ["grub2-efi", "grubby"]
+
 class MacEFIGRUB(EFIGRUB):
     def mactel_config(self):
         if os.path.exists(ROOT_PATH + "/usr/libexec/mactel-boot-setup"):
@@ -2220,6 +2225,7 @@ bootloader_by_platform = {platform.X86: GRUB2,
                           platform.IPSeriesPPC: IPSeriesGRUB2,
                           platform.NewWorldPPC: MacYaboot,
                           platform.S390: ZIPL,
+                          platform.Aarch64EFI: Aarch64EFIGRUB,
                           platform.ARM: EXTLINUX,
                           platform.omapARM: EXTLINUX}
 
