@@ -331,6 +331,11 @@ class SoftwareSelectionSpoke(NormalSpoke):
 
     def refreshAddons(self):
         self._addonStore.clear()
+
+        # The source was changed, make sure the list is current
+        if not self.txid_valid:
+            self._parseEnvironments()
+
         if self.environment and (self.environment in self._environmentAddons):
             # We have two lists:  One of addons specific to this environment,
             # and one of all the others.  The environment-specific ones will be displayed
