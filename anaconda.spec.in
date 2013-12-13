@@ -298,6 +298,36 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Thu Dec 12 2013 Brian C. Lane <bcl@redhat.com> - 21.13-1
+- Refresh environment addons on source change (#1033749) (bcl)
+- Fix selector device matching for unallocated partitions. (#1039292) (dlehman)
+- Rename the network config spoke a little bit. (clumens)
+- Don't encrypt device if container is encrypted (bcl)
+- network: add s390 options in ifcfgs generated from kickstart (#1031376)
+  (rvykydal)
+- Remove enablement of whiteout/blackout plugins, and the requires on anaconda-
+  yum-plugins. (notting)
+- Fix checking if we are collecting our module (vpodzime)
+- Remove an unnecessary continue statement in the potfiles check (vpodzime)
+- Use sys.exit instead of os._exit in the potfiles test (vpodzime)
+- List addons in exception report data (vpodzime)
+- Make Hub.storage and Spoke.storage a property (dshea)
+- Fix the botched helperization of StorageChecker (dshea)
+- Disable tmpfs in the GUI (#1039511) (mkolman)
+- Don't crash on NTP lookup without network (#1026079) (mkolman)
+- Don't rely on Gtk being importable for exception handling (vpodzime)
+- Support rnotes in SVG format (#1034407). (clumens)
+- Fix a couple warnings from -Werror=format-security (#1036989). (clumens)
+- Use abstract base classes for mixins. (dshea)
+- Display free space remaining in containers (#1035832). (clumens)
+- Make sure url and mirrorlist are not set at once (#1026834) (mkolman)
+- if rootfs is btrfs, add rootflags=subvol to kernel parameters (gene)
+- add ro to bootloader kernel parameters (gene)
+- Added missing entries to POTFILES.in (dshea)
+- Add a check that files with translatable strings are in POTFILES.in (dshea)
+- Fix the handling of renames in the pylint git hook. (dshea)
+- Remove startup-id from AnacondaBaseWindow. (dshea)
+
 * Wed Dec 04 2013 Brian C. Lane <bcl@redhat.com> - 21.12-1
 - Handle cancelation of device resize in the custom spoke. (#1027947) (dlehman)
 - Disallow /boot on lvm until grub2 fully supports it. (#1036705) (dlehman)
