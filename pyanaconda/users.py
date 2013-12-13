@@ -301,7 +301,7 @@ class Users:
             if kwargs.get("homedir", False):
                 userEnt.set(libuser.HOMEDIRECTORY, kwargs["homedir"])
             else:
-                iutil.mkdirChain(root+'/home')
+                iutil.mkdirChain('/home')
                 userEnt.set(libuser.HOMEDIRECTORY, "/home/" + user_name)
 
             if kwargs.get("shell", False):
