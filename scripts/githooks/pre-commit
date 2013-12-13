@@ -39,8 +39,9 @@ pylint_files = []
 # The first character is the status in the index (or our side of a merge),
 # the second character is the status in the tree (or their side of a merge).
 for gf in git_files.splitlines():
-    # If the file is being removed or is not in git, ignore it
-    if gf[0] in ('D', '?'):
+    # If the file is being removed, or is not in git, or is not part of this
+    # commit, ignore it
+    if gf[0] in ('D', '?', ' '):
         continue
     # If the file is being renamed, grab the target filename
     if gf[0] == 'R':
