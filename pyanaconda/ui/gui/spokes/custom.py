@@ -2601,9 +2601,10 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
                 self.__storage.doAutoPart = False
                 log.debug("finished automatic partitioning")
 
-    def on_create_clicked(self, button):
+    def on_create_clicked(self, button, autopartTypeCombo):
         # Then do autopartitioning.  We do not do any clearpart first.  This is
         # custom partitioning, so you have to make your own room.
+        self.__storage.autoPartType = autopartTypeCombo.get_active()
         self._do_autopart()
 
         # Refresh the spoke to make the new partitions appear.
