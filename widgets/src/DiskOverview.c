@@ -56,7 +56,7 @@ enum {
 #define DEFAULT_NAME          ""
 #define DEFAULT_POPUP_INFO    ""
 
-#define ICON_SIZE             128
+#define ICON_SIZE             48
 
 struct _AnacondaDiskOverviewPrivate {
     GtkWidget *grid;
@@ -274,7 +274,7 @@ static void anaconda_disk_overview_init(AnacondaDiskOverview *widget) {
 
     /* Create the grid. */
     widget->priv->grid = gtk_grid_new();
-    gtk_grid_set_row_spacing(GTK_GRID(widget->priv->grid), 6);
+    gtk_grid_set_row_spacing(GTK_GRID(widget->priv->grid), 2);
     gtk_grid_set_column_spacing(GTK_GRID(widget->priv->grid), 6);
     gtk_container_set_border_width(GTK_CONTAINER(widget->priv->grid), 6);
 
