@@ -247,7 +247,6 @@ class WelcomeLanguageSpoke(LangLocaleHandler, StandaloneSpoke):
             self._origStrings[welcomeLabel] = welcomeLabel.get_label()
 
         before = self._origStrings[welcomeLabel]
-        # pylint: disable-msg=E1103
         xlated = _(before) % {"name" : productName.upper(), "version" : productVersion}
         welcomeLabel.set_label(xlated)
 

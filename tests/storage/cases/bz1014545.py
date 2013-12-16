@@ -17,7 +17,6 @@
 #
 # Author: Chris Lumens <clumens@redhat.com>
 
-# pylint: disable-msg=E0611
 from . import TestCase, TestCaseComponent
 
 from pykickstart.errors import KickstartValueError

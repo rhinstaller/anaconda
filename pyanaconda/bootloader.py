@@ -308,13 +308,11 @@ class BootLoader(object):
     #
     # disk list access
     #
-    # pylint: disable-msg=E0202
     @property
     def disk_order(self):
         """Potentially partial order for disks."""
         return self._disk_order
 
-    # pylint: disable-msg=E0102,E0202,E1101
     @disk_order.setter
     def disk_order(self, order):
         log.debug("new disk order: %s", order)
@@ -340,7 +338,6 @@ class BootLoader(object):
     #
     # image list access
     #
-    # pylint: disable-msg=E0202
     @property
     def default(self):
         """The default image."""
@@ -349,7 +346,6 @@ class BootLoader(object):
 
         return self._default_image
 
-    # pylint: disable-msg=E0102,E0202,E1101
     @default.setter
     def default(self, image):
         if image not in self.images:
@@ -758,7 +754,6 @@ class BootLoader(object):
     def has_windows(self, devices):
         return False
 
-    # pylint: disable-msg=E0202
     @property
     def timeout(self):
         """Bootloader timeout in seconds."""
@@ -773,17 +768,14 @@ class BootLoader(object):
         """ Run additional bootloader checks """
         return True
 
-    # pylint: disable-msg=E0102,E0202,E1101
     @timeout.setter
     def timeout(self, seconds):
         self._timeout = seconds
 
-    # pylint: disable-msg=E0202
     @property
     def update_only(self):
         return self._update_only
 
-    # pylint: disable-msg=E0102,E0202,E1101
     @update_only.setter
     def update_only(self, value):
         if value and not self.can_update:
