@@ -224,8 +224,8 @@ static void anaconda_layout_indicator_init(AnacondaLayoutIndicator *self) {
     self->priv->main_box = GTK_BOX(gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 4));
     gtk_box_pack_start(self->priv->main_box, self->priv->icon, FALSE, FALSE, 0);
     gtk_box_pack_end(self->priv->main_box, GTK_WIDGET(self->priv->layout_label), FALSE, FALSE, 0);
-    gtk_widget_set_margin_left(GTK_WIDGET(self->priv->main_box), 4);
-    gtk_widget_set_margin_right(GTK_WIDGET(self->priv->main_box), 4);
+    gtk_widget_set_margin_start(GTK_WIDGET(self->priv->main_box), 4);
+    gtk_widget_set_margin_end(GTK_WIDGET(self->priv->main_box), 4);
     gtk_widget_set_margin_top(GTK_WIDGET(self->priv->main_box), 3);
     gtk_widget_set_margin_bottom(GTK_WIDGET(self->priv->main_box), 3);
 

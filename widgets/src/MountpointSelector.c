@@ -196,7 +196,7 @@ static void anaconda_mountpoint_selector_init(AnacondaMountpointSelector *mountp
     /* Create the grid. */
     mountpoint->priv->grid = gtk_grid_new();
     gtk_grid_set_column_spacing(GTK_GRID(mountpoint->priv->grid), 12);
-    gtk_widget_set_margin_left(GTK_WIDGET(mountpoint->priv->grid), 30);
+    gtk_widget_set_margin_start(GTK_WIDGET(mountpoint->priv->grid), 30);
 
     /* Create the icon.  We don't need to check if it returned NULL since
      * gtk_image_new_from_file will just display a broken image icon in that
@@ -235,7 +235,7 @@ static void anaconda_mountpoint_selector_init(AnacondaMountpointSelector *mountp
     gtk_grid_attach(GTK_GRID(mountpoint->priv->grid), mountpoint->priv->size_label, 1, 0, 1, 2);
     gtk_grid_attach(GTK_GRID(mountpoint->priv->grid), mountpoint->priv->arrow, 2, 0, 1, 2);
     gtk_grid_attach(GTK_GRID(mountpoint->priv->grid), mountpoint->priv->name_label, 0, 1, 1, 2);
-    gtk_widget_set_margin_right(GTK_WIDGET(mountpoint->priv->grid), 12);
+    gtk_widget_set_margin_end(GTK_WIDGET(mountpoint->priv->grid), 12);
 
     gtk_container_add(GTK_CONTAINER(mountpoint), mountpoint->priv->grid);
 }
