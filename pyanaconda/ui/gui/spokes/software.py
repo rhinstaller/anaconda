@@ -347,11 +347,16 @@ class SoftwareSelectionSpoke(NormalSpoke):
             # state will be used. Otherwise, the add-on will be selected if it is a default
             # for this environment.
 
+            addSep = len(self._environmentAddons[self.environment][0]) > 0 and \
+                     len(self._environmentAddons[self.environment][1]) > 0
+
             for grp in self._environmentAddons[self.environment][0]:
                 self._addAddon(grp)
 
-            # This marks a separator in the view.
-            self._addonStore.append([False, "", "", True])
+            # This marks a separator in the view - only add it if there's both environment
+            # specific and generic addons.
+            if addSep:
+                self._addonStore.append([False, "", "", True])
 
             for grp in self._environmentAddons[self.environment][1]:
                 self._addAddon(grp)
