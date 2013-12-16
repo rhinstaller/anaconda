@@ -822,7 +822,7 @@ class SourceSpoke(NormalSpoke):
         with enlightbox(self.window, dialog.window):
             f = dialog.run(self._get_selected_partition())
 
-        if f:
+        if f and f.endswith(".iso"):
             self._currentIsoFile = f
             button.set_label(os.path.basename(f))
             button.set_use_underline(False)
