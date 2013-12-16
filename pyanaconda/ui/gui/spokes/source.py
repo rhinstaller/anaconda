@@ -800,21 +800,21 @@ class SourceSpoke(NormalSpoke):
     def on_chooser_clicked(self, button):
         dialog = IsoChooser(self.data)
 
-        with enlightbox(self.window, dialog.window):
-            # If the chooser has been run one before, we should make it default to
-            # the previously selected file.
-            if self._currentIsoFile:
-                dialog.refresh(currentFile=self._currentIsoFile)
-            else:
-                dialog.refresh()
+        # If the chooser has been run one before, we should make it default to
+        # the previously selected file.
+        if self._currentIsoFile:
+            dialog.refresh(currentFile=self._currentIsoFile)
+        else:
+            dialog.refresh()
 
+        with enlightbox(self.window, dialog.window):
             f = dialog.run(self._get_selected_partition())
 
-            if f:
-                self._currentIsoFile = f
-                button.set_label(os.path.basename(f))
-                button.set_use_underline(False)
-                self._verifyIsoButton.set_sensitive(True)
+        if f and f.endswith(".iso"):
+            self._currentIsoFile = f
+            button.set_label(os.path.basename(f))
+            button.set_use_underline(False)
+            self._verifyIsoButton.set_sensitive(True)
 
     def on_proxy_clicked(self, button):
         dialog = ProxyDialog(self.data, self._proxyUrl)
