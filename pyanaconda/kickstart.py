@@ -232,7 +232,7 @@ class Authconfig(commands.authconfig.FC3_Authconfig):
 
         try:
             iutil.execWithRedirect("/usr/sbin/authconfig", args, root=ROOT_PATH)
-        except RuntimeError as msg:
+        except OSError as msg:
             log.error("Error running /usr/sbin/authconfig %s: %s", args, msg)
 
 class AutoPart(commands.autopart.F20_AutoPart):
