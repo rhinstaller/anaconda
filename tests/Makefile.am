@@ -46,6 +46,7 @@ dist_check_SCRIPTS = glade/accelerators/check_accelerators.py \
 		     nosetests.sh \
 		     pylint/intl.py \
 		     pylint/preconf.py \
+		     pylint/markup.py \
 		     pylint/runpylint.sh \
 		     pylint/pylint-one.sh \
 		     testenv.sh \
