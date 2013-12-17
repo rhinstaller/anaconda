@@ -174,33 +174,6 @@ class RunProgramTests(unittest.TestCase):
         # at least check if a bool is returned
         self.assertIsInstance(iutil.isConsoleOnVirtualTerminal(), bool)
 
-    def strip_markup_test(self):
-        """Test strip_markup."""
-
-        # list of tuples representing a markup and its correct parsing
-        markups = [
-            ("", ""),
-            ("a", "a"),
-            ("č", "č"),
-            ("<č>", ""),
-            ("<a>", ""),
-            ("<a><a>", ""),
-            ("<a></a>", ""),
-            ("<a>abc</a>", "abc"),
-            ("<abc", ""),  # unclosed tag
-            ("a>bc", "a>bc"),  # not a valid tag
-            ("<i><b>bold</b></i>", "bold"),  # nesting
-            ("<p><b>bold</b> <i>italic</i></p>", "bold italic"),
-            ("  <a>text</a>", "  text"),
-            (" <a> </a> ", "   "),
-            ('<span color="blue">text</span>', 'text'),
-            ("<<<<<<<<<<<<<<<", ""),
-        ]
-
-        # check if markup is parsed properly
-        for markup, output in markups:
-            self.assertEqual(iutil.strip_markup(markup), output)
-
     def parse_nfs_url_test(self):
         """Test parseNfsUrl."""
 

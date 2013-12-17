@@ -294,22 +294,6 @@ def isConsoleOnVirtualTerminal(dev="console"):
     consoletype = console.rstrip('0123456789') # remove the number
     return consoletype == 'tty'
 
-def strip_markup(text):
-    if text.find("<") == -1:
-        return text
-    r = ""
-    inTag = False
-    for c in text:
-        if c == ">" and inTag:
-            inTag = False
-            continue
-        elif c == "<" and not inTag:
-            inTag = True
-            continue
-        elif not inTag:
-            r += c
-    return r.encode("utf-8")
-
 def reIPL(ipldev):
     try:
         rc = execWithRedirect("chreipl", ["node", "/dev/" + ipldev])
