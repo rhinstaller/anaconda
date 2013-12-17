@@ -217,6 +217,8 @@ class ProgressHub(Hub):
         lbl.set_text(lbl.get_text() % productName)
 
         rnotes = self._get_rnotes()
+        # Get the start of the pages we're about to add to the notebook
+        rnotes_start = self._progressNotebook.get_n_pages()
         if rnotes:
             # Add a new page in the notebook for each ransom note image.
             for f in rnotes:
@@ -225,14 +227,15 @@ class ProgressHub(Hub):
                 self._progressNotebook.append_page(img, None)
 
             # An infinite list of the page numbers containing ransom notes images.
-            self._rnotesPages = itertools.cycle(range(2, self._progressNotebook.get_n_pages()-2))
+            self._rnotesPages = itertools.cycle(range(rnotes_start,
+                self._progressNotebook.get_n_pages()))
         else:
             # Add a blank page to the notebook and we'll just cycle to that
             # over and over again.
             blank = Gtk.Box()
             blank.show()
             self._progressNotebook.append_page(blank, None)
-            self._rnotesPages = itertools.cycle([2])
+            self._rnotesPages = itertools.cycle([rnotes_start])
 
     def refresh(self):
         from pyanaconda.install import doInstall
