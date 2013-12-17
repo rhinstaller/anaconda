@@ -182,7 +182,7 @@ class ResizeDialog(GUIObject):
                 self._diskStore.append(itr, [disk.id,
                                              freeSpaceString,
                                              "",
-                                             "<span foreground='grey' style='italic'>%s</span>" % size_str(int(diskFree)),
+                                             "<span foreground='grey' style='italic'>%s</span>" % escape_markup(size_str(int(diskFree))),
                                              _(PRESERVE),
                                              False,
                                              self._get_tooltip(disk),

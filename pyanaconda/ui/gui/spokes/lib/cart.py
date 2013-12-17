@@ -131,6 +131,7 @@ class SelectedDisksDialog(GUIObject):
         size = str(Size(bytes=long(size))).upper()
         free = str(Size(bytes=long(free))).upper()
 
+        # pylint: disable-msg=W9922
         text = P_("<b>%(count)d disk; %(size)s capacity; %(free)s free space</b> "
                    "(unpartitioned and in filesystems)",
                   "<b>%(count)d disks; %(size)s capacity; %(free)s free space</b> "
