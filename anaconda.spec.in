@@ -252,6 +252,30 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Mon Dec 16 2013 Brian C. Lane <bcl@redhat.com> - 19.31.39-1
+- use deepcopy on ksdata method (bcl)
+  Resolves: rhbz#1024509
+- Update source on errors (bcl)
+  Resolves: rhbz#1030997
+- clear errors when metadata is ok in tui source spoke (bcl)
+  Resolves: rhbz#1034420
+- Generate missing machine-id (bcl)
+  Resolves: rhbz#1034916
+- fcoe gui: repopulate device tree only if device was actually added (rvykydal)
+  Related: rhbz#1039223
+  Resolves: rhbz#1039223
+- Exclude FCoE disks from local disks (rvykydal)
+  Related: rhbz#1039223
+  Resolves: rhbz#1039223
+- fcoe: repopulate devicetree after adding FCoE SAN (rvykydal)
+  Resolves: rhbz#1039223
+- createUser is already in a chroot (bcl)
+  Resolves: rhbz#1038241
+- Hide password characters in iSCSI login fields (vpodzime)
+  Resolves: rhbz#1034202
+- Do not try to setup None NFS repository (vpodzime)
+  Resolves: rhbz#1028699
+
 * Wed Dec 11 2013 Brian C. Lane <bcl@redhat.com> - 19.31.38-1
 - Make _yum.preconf setup atomic (bcl)
   Resolves: rhbz#882279

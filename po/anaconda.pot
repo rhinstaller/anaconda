@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: anaconda 19.31.37\n"
+"Project-Id-Version: anaconda 19.31.38\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
-"POT-Creation-Date: 2013-12-11 17:49-0800\n"
+"POT-Creation-Date: 2013-12-16 16:30-0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -224,7 +224,7 @@ msgid "Discovering realm to join"
 msgstr ""
 
 #: pyanaconda/install.py:169 pyanaconda/packaging/livepayload.py:145
-#: pyanaconda/packaging/yumpayload.py:1590
+#: pyanaconda/packaging/yumpayload.py:1592
 msgid "Performing post-installation setup tasks"
 msgstr ""
 
@@ -293,12 +293,12 @@ msgid ""
 "%s"
 msgstr ""
 
-#: pyanaconda/kickstart.py:560
+#: pyanaconda/kickstart.py:562
 #, python-format
 msgid "%s is missing. Cannot setup firewall."
 msgstr ""
 
-#: pyanaconda/kickstart.py:1712
+#: pyanaconda/kickstart.py:1714
 msgid "Running pre-installation scripts"
 msgstr ""
 
@@ -593,29 +593,29 @@ msgstr ""
 msgid "Installing software"
 msgstr ""
 
-#: pyanaconda/packaging/livepayload.py:198
-#: pyanaconda/packaging/livepayload.py:207
+#: pyanaconda/packaging/livepayload.py:202
+#: pyanaconda/packaging/livepayload.py:211
 #, python-format
 msgid "Downloading %(url)s (%(pct)d%%)"
 msgstr ""
 
-#: pyanaconda/packaging/livepayload.py:294
+#: pyanaconda/packaging/livepayload.py:298
 msgid "Checking image checksum"
 msgstr ""
 
-#: pyanaconda/packaging/yumpayload.py:1506
+#: pyanaconda/packaging/yumpayload.py:1508
 msgid "Starting package installation process"
 msgstr ""
 
-#: pyanaconda/packaging/yumpayload.py:1570
+#: pyanaconda/packaging/yumpayload.py:1572
 msgid "You need more space on the following file systems:\n"
 msgstr ""
 
-#: pyanaconda/packaging/yumpayload.py:1588
+#: pyanaconda/packaging/yumpayload.py:1590
 msgid "Preparing transaction from installation source"
 msgstr ""
 
-#: pyanaconda/packaging/yumpayload.py:1589
+#: pyanaconda/packaging/yumpayload.py:1591
 msgid "Installing"
 msgstr ""
 
@@ -931,8 +931,8 @@ msgid "No disks selected; please select at least one disk to install to."
 msgstr ""
 
 #: pyanaconda/ui/tui/spokes/storage.py:172
-#: pyanaconda/ui/tui/spokes/source.py:470
-#: pyanaconda/ui/gui/spokes/source.py:593
+#: pyanaconda/ui/tui/spokes/source.py:471
+#: pyanaconda/ui/gui/spokes/source.py:598
 #: pyanaconda/ui/gui/spokes/storage.py:657
 msgid "Probing storage..."
 msgstr ""
@@ -1006,25 +1006,25 @@ msgstr ""
 
 #: pyanaconda/ui/tui/spokes/source.py:150
 #: pyanaconda/ui/tui/spokes/source.py:200
-#: pyanaconda/ui/gui/spokes/source.py:523
+#: pyanaconda/ui/gui/spokes/source.py:527
 #: pyanaconda/ui/gui/spokes/source.glade:761
 msgid "Closest mirror"
 msgstr ""
 
 #: pyanaconda/ui/tui/spokes/source.py:192
-#: pyanaconda/ui/gui/spokes/source.py:515
+#: pyanaconda/ui/gui/spokes/source.py:519
 #, python-format
 msgid "NFS server %s"
 msgstr ""
 
 #: pyanaconda/ui/tui/spokes/source.py:194
-#: pyanaconda/ui/gui/spokes/source.py:517
+#: pyanaconda/ui/gui/spokes/source.py:521
 msgid "Local media"
 msgstr ""
 
 #: pyanaconda/ui/tui/spokes/source.py:197
 #: pyanaconda/ui/tui/spokes/source.py:207
-#: pyanaconda/ui/gui/spokes/source.py:511
+#: pyanaconda/ui/gui/spokes/source.py:515
 msgid "Error setting up software source"
 msgstr ""
 
@@ -1032,7 +1032,7 @@ msgstr ""
 #: pyanaconda/ui/tui/spokes/software.py:100
 #: pyanaconda/ui/gui/spokes/datetime_spoke.py:405
 #: pyanaconda/ui/gui/spokes/software.py:180
-#: pyanaconda/ui/gui/spokes/source.py:525
+#: pyanaconda/ui/gui/spokes/source.py:529
 msgid "Nothing selected"
 msgstr ""
 
@@ -1063,7 +1063,7 @@ msgid "Choose an installation source type."
 msgstr ""
 
 #: pyanaconda/ui/tui/spokes/source.py:317
-#: pyanaconda/ui/gui/spokes/source.py:444
+#: pyanaconda/ui/gui/spokes/source.py:448
 msgid "Failed to set up installation source"
 msgstr ""
 
@@ -1071,48 +1071,48 @@ msgstr ""
 msgid "Error downloading package metadata"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/source.py:328
+#: pyanaconda/ui/tui/spokes/source.py:329
 #: pyanaconda/ui/tui/spokes/software.py:68
 #: pyanaconda/ui/gui/spokes/software.py:211
 #: pyanaconda/ui/gui/spokes/software.py:235
-#: pyanaconda/ui/gui/spokes/source.py:470
+#: pyanaconda/ui/gui/spokes/source.py:474
 msgid "No installation source available"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/source.py:350
-#: pyanaconda/ui/tui/spokes/source.py:388
+#: pyanaconda/ui/tui/spokes/source.py:351
+#: pyanaconda/ui/tui/spokes/source.py:389
 msgid "Specify Repo Options"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/source.py:354
+#: pyanaconda/ui/tui/spokes/source.py:355
 msgid "Repo URL"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/source.py:392
+#: pyanaconda/ui/tui/spokes/source.py:393
 msgid "NFS <server>:/<path>"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/source.py:393
+#: pyanaconda/ui/tui/spokes/source.py:394
 msgid "NFS mount options"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/source.py:423
+#: pyanaconda/ui/tui/spokes/source.py:424
 msgid "Failed to set up installation source. Check the source address."
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/source.py:432
+#: pyanaconda/ui/tui/spokes/source.py:433
 msgid "Select device containing the ISO file"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/source.py:491
+#: pyanaconda/ui/tui/spokes/source.py:492
 msgid "No mountable devices found"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/source.py:516
+#: pyanaconda/ui/tui/spokes/source.py:517
 msgid "Select an ISO to use as install source"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/source.py:545
+#: pyanaconda/ui/tui/spokes/source.py:546
 msgid "No *.iso files found in device root folder"
 msgstr ""
 
@@ -1918,7 +1918,7 @@ msgid "_SOFTWARE SELECTION"
 msgstr ""
 
 #: pyanaconda/ui/gui/spokes/software.py:102
-#: pyanaconda/ui/gui/spokes/source.py:505
+#: pyanaconda/ui/gui/spokes/source.py:509
 msgid "Checking software dependencies..."
 msgstr ""
 
@@ -1982,53 +1982,53 @@ msgid "_INSTALLATION SOURCE"
 msgstr ""
 
 #: pyanaconda/ui/gui/spokes/source.py:403
-#: pyanaconda/ui/gui/spokes/source.py:446
-#: pyanaconda/ui/gui/spokes/source.py:458
+#: pyanaconda/ui/gui/spokes/source.py:450
+#: pyanaconda/ui/gui/spokes/source.py:462
 msgid "Failed to set up installation source; check the repo url"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.py:448
+#: pyanaconda/ui/gui/spokes/source.py:452
 msgid ""
 "Failed to set up installation source; check the repo url and proxy settings"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.py:509
+#: pyanaconda/ui/gui/spokes/source.py:513
 msgid "Error setting up base repository"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.py:520
+#: pyanaconda/ui/gui/spokes/source.py:524
 msgid "Error setting up ISO file"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.py:620
+#: pyanaconda/ui/gui/spokes/source.py:625
 #, python-format
 msgid "Device: %s"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.py:621
+#: pyanaconda/ui/gui/spokes/source.py:626
 #, python-format
 msgid "Label: %s"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.py:1016
+#: pyanaconda/ui/gui/spokes/source.py:1021
 msgid "Duplicate repository names."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.py:1027
+#: pyanaconda/ui/gui/spokes/source.py:1032
 msgid ""
 "Duplicate repository names not allowed; choose a unique name for each "
 "repository."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.py:1049
+#: pyanaconda/ui/gui/spokes/source.py:1054
 msgid "Empty repository name."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.py:1053
+#: pyanaconda/ui/gui/spokes/source.py:1058
 msgid "Invalid repository name."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.py:1056
+#: pyanaconda/ui/gui/spokes/source.py:1061
 msgid "Repository name conflicts with internal repository name."
 msgstr ""
 
@@ -3685,14 +3685,14 @@ msgstr ""
 #: pyanaconda/ui/gui/spokes/advstorage/iscsi.glade:261
 #: pyanaconda/ui/gui/spokes/advstorage/iscsi.glade:400
 #: pyanaconda/ui/gui/spokes/advstorage/iscsi.glade:823
-#: pyanaconda/ui/gui/spokes/advstorage/iscsi.glade:965
+#: pyanaconda/ui/gui/spokes/advstorage/iscsi.glade:968
 msgid "CHAP _Username:"
 msgstr ""
 
 #: pyanaconda/ui/gui/spokes/advstorage/iscsi.glade:277
 #: pyanaconda/ui/gui/spokes/advstorage/iscsi.glade:416
 #: pyanaconda/ui/gui/spokes/advstorage/iscsi.glade:839
-#: pyanaconda/ui/gui/spokes/advstorage/iscsi.glade:981
+#: pyanaconda/ui/gui/spokes/advstorage/iscsi.glade:984
 msgid "CHAP _Password:"
 msgstr ""
 
@@ -3701,7 +3701,7 @@ msgid "Reverse CHAP User_name:"
 msgstr ""
 
 #: pyanaconda/ui/gui/spokes/advstorage/iscsi.glade:448
-#: pyanaconda/ui/gui/spokes/advstorage/iscsi.glade:1013
+#: pyanaconda/ui/gui/spokes/advstorage/iscsi.glade:1016
 msgid "Reverse CHAP Pass_word:"
 msgstr ""
 
@@ -3754,25 +3754,25 @@ msgstr ""
 msgid "Use the credentials from discovery"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/advstorage/iscsi.glade:997
+#: pyanaconda/ui/gui/spokes/advstorage/iscsi.glade:1000
 msgid "_Reverse CHAP Username:"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/advstorage/iscsi.glade:1065
+#: pyanaconda/ui/gui/spokes/advstorage/iscsi.glade:1068
 msgid "_Log In"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/advstorage/iscsi.glade:1123
+#: pyanaconda/ui/gui/spokes/advstorage/iscsi.glade:1126
 msgid "<b>Node login failed.</b>"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/advstorage/iscsi.glade:1138
+#: pyanaconda/ui/gui/spokes/advstorage/iscsi.glade:1141
 msgid ""
 "The following error occurred logging into the selected iSCSI node.  Please "
 "double check your authorization information and try again"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/advstorage/iscsi.glade:1164
+#: pyanaconda/ui/gui/spokes/advstorage/iscsi.glade:1167
 msgid "_Retry Log In"
 msgstr ""
 
