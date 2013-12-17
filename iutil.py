@@ -32,6 +32,7 @@ from flags import flags
 from constants import *
 import re
 import threading
+import selinux
 
 import gettext
 _ = lambda x: gettext.ldgettext("anaconda", x)
@@ -991,3 +992,64 @@ def lsmod():
     with open("/proc/modules") as f:
         lines = f.readlines()
     return [l.split()[0] for l in lines]
+
+class Error(EnvironmentError):
+    pass
+
+def copytree(src, dst, symlinks=False, preserveOwner=False,
+             preserveSelinux=False):
+    def tryChown(src, dest):
+        try:
+            os.chown(dest, os.stat(src)[stat.ST_UID], os.stat(src)[stat.ST_GID])
+        except OverflowError:
+            log.error("Could not set owner and group on file %s" % dest)
+
+    def trySetfilecon(src, dest):
+        try:
+            selinux.lsetfilecon(dest, selinux.lgetfilecon(src)[1])
+        except:
+            log.error("Could not set selinux context on file %s" % dest)
+
+    # copy of shutil.copytree which doesn't require dst to not exist
+    # and which also has options to preserve the owner and selinux contexts
+    names = os.listdir(src)
+    if not os.path.isdir(dst):
+        os.makedirs(dst)
+    errors = []
+    for name in names:
+        srcname = os.path.join(src, name)
+        dstname = os.path.join(dst, name)
+        try:
+            if symlinks and os.path.islink(srcname):
+                linkto = os.readlink(srcname)
+                os.symlink(linkto, dstname)
+                if preserveSelinux:
+                    trySetfilecon(srcname, dstname)
+            elif os.path.isdir(srcname):
+                copytree(srcname, dstname, symlinks, preserveOwner, preserveSelinux)
+            else:
+                shutil.copyfile(srcname, dstname)
+                if preserveOwner:
+                    tryChown(srcname, dstname)
+
+                if preserveSelinux:
+                    trySetfilecon(srcname, dstname)
+
+                shutil.copystat(srcname, dstname)
+        except (IOError, os.error), why:
+            errors.append((srcname, dstname, str(why)))
+        # catch the Error from the recursive copytree so that we can
+        # continue with other files
+        except Error, err:
+            errors.extend(err.args[0])
+    try:
+        if preserveOwner:
+            tryChown(src, dst)
+        if preserveSelinux:
+            trySetfilecon(src, dst)
+
+        shutil.copystat(src, dst)
+    except OSError as e:
+        errors.extend((src, dst, e.strerror))
+    if errors:
+        raise Error, errors

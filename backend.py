@@ -72,13 +72,15 @@ class AnacondaBackend:
         self.initLog(anaconda.id, anaconda.rootPath)
 
     def copyFirmware(self, anaconda):
-        # Multiple driver disks may be loaded, so we need to glob for all
-        # the firmware files in the common DD firmware directory
-        for f in glob.glob(DD_FIRMWARE+"/*"):
-            try:
-                shutil.copyfile(f, "%s/lib/firmware/" % anaconda.rootPath)
-            except IOError, e:
-                log.error("Could not copy firmware file %s: %s" % (f, e.strerror))
+        if not os.path.isdir(DD_FIRMWARE):
+            return
+
+        # Multiple driver disks may be loaded, and there may also be
+        # firmware updates, so recursively copy the firmware directory over
+        try:
+            iutil.copytree(DD_FIRMWARE, anaconda.rootPath+"/lib/firmware/")
+        except iutil.Error, e:
+            log.errors("Error copying %s: %s" % (DD_FIRMWARE, e))
 
     def doPostInstall(self, anaconda):
 
