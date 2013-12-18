@@ -1484,6 +1484,13 @@ class Keyboard(commands.keyboard.F18_Keyboard):
     def dracutSetupArgs(self, *args):
         return keyboard.dracut_setup_args(self)
 
+class Upgrade(commands.upgrade.F20_Upgrade):
+    # Upgrade is no longer supported. If an upgrade command was included in
+    # a kickstart, warn the user and exit.
+    def parse(self, *args):
+        log.error("The upgrade kickstart command is no longer supported. Upgrade functionality is provided through redhat-upgrade-tool.")
+        sys.stderr.write(_("The upgrade kickstart command is no longer supported. Upgrade functionality is provided through redhat-upgrade-tool."))
+        sys.exit(1)
 
 class SpokeRegistry(dict):
     """This class represents the ksdata.firstboot object and
@@ -1545,6 +1552,7 @@ commandMap = {
         "selinux": SELinux,
         "services": Services,
         "timezone": Timezone,
+        "upgrade": Upgrade,
         "user": User,
         "volgroup": VolGroup,
         "xconfig": XConfig,
