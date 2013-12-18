@@ -29,7 +29,7 @@ from blivet.fcoe import has_fcoe
 from pyanaconda.flags import flags
 from pyanaconda.i18n import CN_, CP_
 
-from pyanaconda.ui.lib.disks import getDisks, isLocalDisk, size_str
+from pyanaconda.ui.lib.disks import getDisks, isLocalDisk
 from pyanaconda.ui.gui.utils import enlightbox
 from pyanaconda.ui.gui.spokes import NormalSpoke
 from pyanaconda.ui.gui.spokes.advstorage.fcoe import FCoEDialog
@@ -229,7 +229,7 @@ class MultipathPage(FilterPage):
             selected = disk.name in selectedNames
 
             store.append([True, selected, not disk.protected,
-                          disk.name, "", disk.model, size_str(disk.size),
+                          disk.name, "", disk.model, str(disk.size),
                           disk.vendor, disk.bus, disk.serial,
                           disk.wwid, "\n".join(paths), "", "",
                           "", ""])
@@ -314,7 +314,7 @@ class OtherPage(FilterPage):
                 lun = ""
 
             store.append([True, selected, not disk.protected,
-                          disk.name, "", disk.model, size_str(disk.size),
+                          disk.name, "", disk.model, str(disk.size),
                           disk.vendor, disk.bus, disk.serial,
                           self._long_identifier(disk), "", port, getattr(disk, "initiator", ""),
                           lun, ""])

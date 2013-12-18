@@ -25,7 +25,7 @@ from blivet.size import Size
 
 from pyanaconda.flags import flags
 
-__all__ = ["FakeDiskLabel", "FakeDisk", "getDisks", "isLocalDisk", "size_str"]
+__all__ = ["FakeDiskLabel", "FakeDisk", "getDisks", "isLocalDisk"]
 
 class FakeDiskLabel(object):
     def __init__(self, free=0):
@@ -74,11 +74,3 @@ def isLocalDisk(disk):
     return (not isinstance(disk, MultipathDevice)
             and not isinstance(disk, iScsiDiskDevice)
             and not isinstance(disk, FcoeDiskDevice))
-
-def size_str(mb):
-    if isinstance(mb, Size):
-        size = mb
-    else:
-        size = Size(en_spec="%f mb" % mb)
-
-    return str(size).upper()

@@ -63,7 +63,7 @@ from blivet.partitioning import doAutoPartition
 from blivet.errors import StorageError
 from blivet.errors import NoDisksError
 from blivet.errors import NotEnoughFreeSpaceError
-from blivet.errors import SizeParamsError, SizeNotPositiveError
+from blivet.errors import SizeParamsError
 from blivet.devicelibs import mdraid
 from blivet.devices import LUKSDevice
 
@@ -79,7 +79,6 @@ from pyanaconda.ui.gui.spokes.lib.summary import ActionSummaryDialog
 from pyanaconda.ui.gui.utils import setViewportBackground, gtk_action_wait, enlightbox, fancy_set_sensitive, ignoreEscape,\
         really_hide, really_show
 from pyanaconda.ui.gui.categories.system import SystemCategory
-from pyanaconda.ui.lib.disks import size_str
 
 from gi.repository import Gdk, Gtk
 from gi.repository.AnacondaWidgets import MountpointSelector
@@ -167,18 +166,18 @@ def size_from_entry(entry):
     size_text = entry.get_text().decode("utf-8").strip()
 
     try:
-        # if no unit was specified, default to MB. Assume that a string
+        # if no unit was specified, default to MiB. Assume that a string
         # ending with any kind of a letter has a unit suffix.
         if size_text and unicodedata.category(size_text[-1]).startswith("L"):
             size = Size(spec=size_text)
         else:
-            size = Size(en_spec="%sMB" % size_text)
-    except (SizeParamsError, SizeNotPositiveError, ValueError):
+            size = Size(en_spec="%sMiB" % size_text)
+    except (SizeParamsError, ValueError):
         return None
     else:
-        # Minimium size for ui-created partitions is 1MB.
-        if size.convertTo(en_spec="mb") < 1:
-            size = Size(en_spec="1mb")
+        # Minimium size for ui-created partitions is 1MiB.
+        if size.convertTo(en_spec="MiB") < 1:
+            size = Size(en_spec="1 MiB")
 
     return size
 
@@ -390,7 +389,7 @@ class DisksDialog(GUIObject):
         # populate the store
         for disk in self._disks:
             self._store.append([disk.description,
-                                str(Size(en_spec="%dMB" % disk.size)),
+                                str(disk.size),
                                 str(free[disk.name][0]),
                                 disk.serial,
                                 disk.id])
@@ -452,7 +451,7 @@ class ContainerDialog(GUIObject):
         self.exists = kwargs.pop("exists", False)
 
         self.size_policy = kwargs.pop("size_policy", SIZE_POLICY_AUTO)
-        self.size = kwargs.pop("size", 0)
+        self.size = kwargs.pop("size", Size(bytes=0))
 
         self._error = None
         GUIObject.__init__(self, *args, **kwargs)
@@ -476,7 +475,7 @@ class ContainerDialog(GUIObject):
         # populate the store
         for disk in self._disks:
             self._store.append([disk.description,
-                                str(Size(en_spec="%dMB" % disk.size)),
+                                str(disk.size),
                                 str(free[disk.name][0]),
                                 disk.serial,
                                 disk.id])
@@ -502,8 +501,7 @@ class ContainerDialog(GUIObject):
         self._raidStoreFilter.refilter()
         self._populate_raid()
 
-        size = Size(en_spec="%d mb" % self.size)
-        self._sizeEntry.set_text(size.humanReadable(max_places=None))
+        self._sizeEntry.set_text(self.size.humanReadable(max_places=None))
         if self.size_policy == SIZE_POLICY_AUTO:
             self._sizeCombo.set_active(0)
         elif self.size_policy == SIZE_POLICY_MAX:
@@ -577,9 +575,7 @@ class ContainerDialog(GUIObject):
             size = SIZE_POLICY_MAX
         elif idx == 2:
             size = size_from_entry(self._sizeEntry)
-            if size:
-                size = int(size.convertTo(en_spec="MB"))
-            elif size is None:
+            if size is None:
                 size = SIZE_POLICY_MAX
 
         # now save the changes
@@ -875,12 +871,9 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
 
     def _currentTotalSpace(self):
         """Add up the sizes of all selected disks and return it as a Size."""
-        totalSpace = 0
-
-        for disk in self._clearpartDevices:
-            totalSpace += disk.size
-
-        return Size(en_spec="%f MB" % totalSpace)
+        totalSpace = sum(disk.size for disk in self._clearpartDevices,
+                         Size(bytes=0))
+        return totalSpace
 
     def _updateSpaceDisplay(self):
         # Set up the free space/available space displays in the bottom left.
@@ -1194,10 +1187,8 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         # SIZE
         old_size = device.size
         size = size_from_entry(self._sizeEntry)
-        if size:
-            size = int(size.convertTo(en_spec="MB"))
         changed_size = ((use_dev.resizable or not use_dev.exists) and
-                        size != int(old_size))
+                        size != old_size)
         log.debug("old size: %s", old_size)
         log.debug("new size: %s", size)
 
@@ -1518,7 +1509,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
             # And then we need to re-check that the max size is actually
             # different from the current size.
             _changed_size = False
-            if size != device.size and int(size) == int(device.currentSize):
+            if size != device.size and size == device.currentSize:
                 # size has been set back to its original value
                 actions = self.__storage.devicetree.findActions(type="resize",
                                                                 devid=device.id)
@@ -1527,7 +1518,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
                         self.__storage.devicetree.cancelAction(action)
                         _changed_size = True
             elif size != device.size:
-                log.debug("scheduling resize of device %s to %s MB", device.name, size)
+                log.debug("scheduling resize of device %s to %s", device.name, size)
 
                 with ui_storage_logger():
                     try:
@@ -1549,7 +1540,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
                 # update the selector's size property
                 for s in self._accordion.allSelectors:
                     if s._device == device:
-                        s.size = size_str(device.size)
+                        s.size = str(device.size)
 
                 # update size props of all btrfs devices' selectors
                 self._update_selectors()
@@ -1767,7 +1758,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
 
         self._labelEntry.set_text(getattr(device.format, "label", "") or "")
 
-        self._sizeEntry.set_text(Size(en_spec="%d MB" % device.size).humanReadable(max_places=None))
+        self._sizeEntry.set_text(device.size.humanReadable(max_places=None))
 
         self._reformatCheckbox.set_active(not device.format.exists)
         fancy_set_sensitive(self._reformatCheckbox, not device.protected and
@@ -2059,9 +2050,6 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
             encrypted = False
 
         disks = self._clearpartDevices
-        if size is not None:
-            size = float(size.convertTo(en_spec="mb"))
-
         self.clear_errors()
 
         with ui_storage_logger():
@@ -2409,7 +2397,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
 
     def _container_store_row(self, name, freeSpace=None):
         if freeSpace is not None:
-            return [name, _("(%s free)") % size_str(freeSpace)]
+            return [name, _("(%s free)") % freeSpace]
         else:
             return [name, ""]
 

@@ -41,7 +41,7 @@
 from gi.repository import Gdk, GLib, AnacondaWidgets
 
 from pyanaconda.ui.communication import hubQ
-from pyanaconda.ui.lib.disks import getDisks, isLocalDisk, size_str
+from pyanaconda.ui.lib.disks import getDisks, isLocalDisk
 from pyanaconda.ui.gui import GUIObject
 from pyanaconda.ui.gui.spokes import NormalSpoke
 from pyanaconda.ui.gui.spokes.lib.cart import SelectedDisksDialog
@@ -227,11 +227,8 @@ class InstallOptions2Dialog(InstallOptions1Dialog):
         self.fs_free_label = self.builder.get_object("options2_fs_free_label")
 
     def _set_free_space_labels(self, disk_free, fs_free):
-        disk_free_text = size_str(disk_free)
-        self.disk_free_label.set_text(disk_free_text)
-
-        fs_free_text = size_str(fs_free)
-        self.fs_free_label.set_text(fs_free_text)
+        self.disk_free_label.set_text(str(disk_free))
+        self.fs_free_label.set_text(str(fs_free))
 
     def refresh(self, required_space, auto_swap, disk_free, fs_free, autoPartType, encrypted):
         self.autoPartType = autoPartType
@@ -272,11 +269,8 @@ class InstallOptions3Dialog(InstallOptions1Dialog):
         self.fs_free_label = self.builder.get_object("options3_fs_free_label")
 
     def _set_free_space_labels(self, disk_free, fs_free):
-        disk_free_text = size_str(disk_free)
-        self.disk_free_label.set_text(disk_free_text)
-
-        fs_free_text = size_str(fs_free)
-        self.fs_free_label.set_text(fs_free_text)
+        self.disk_free_label.set_text(str(disk_free))
+        self.fs_free_label.set_text(str(fs_free))
 
     def refresh(self, required_space, auto_swap, disk_free, fs_free, autoPartType, encrypted):
         sw_text = self._get_sw_needs_text(required_space, auto_swap)
@@ -605,7 +599,6 @@ class StorageSpoke(NormalSpoke, StorageChecker):
         else:
             kind = "drive-harddisk"
 
-        size = size_str(disk.size)
         if disk.serial:
             popup_info = "%s" % disk.serial
         else:
@@ -623,8 +616,8 @@ class StorageSpoke(NormalSpoke, StorageChecker):
 
         overview = AnacondaWidgets.DiskOverview(description,
                                                 kind,
-                                                size,
-                                                _("%s free") % size_str(free),
+                                                str(disk.size),
+                                                _("%s free") % free,
                                                 disk.name,
                                                 popup=popup_info)
         box.pack_start(overview, False, False, 0)
@@ -657,7 +650,7 @@ class StorageSpoke(NormalSpoke, StorageChecker):
     def _update_summary(self):
         """ Update the summary based on the UI. """
         count = 0
-        capacity = 0
+        capacity = Size(bytes=0)
         free = Size(bytes=0)
 
         # pass in our disk list so hidden disks' free space is available
@@ -672,7 +665,7 @@ class StorageSpoke(NormalSpoke, StorageChecker):
         summary = (P_("%(count)d disk selected; %(capacity)s capacity; %(free)s free",
                       "%(count)d disks selected; %(capacity)s capacity; %(free)s free",
                       count) % {"count" : count,
-                                "capacity" : str(Size(en_spec="%f MB" % capacity)),
+                                "capacity" : capacity,
                                 "free" : free})
         summary_label = self.builder.get_object("summary_label")
         summary_label.set_text(summary)
@@ -775,7 +768,7 @@ class StorageSpoke(NormalSpoke, StorageChecker):
 
         # show the installation options dialog
         disks = [d for d in self.disks if d.name in self.selected_disks]
-        disks_size = sum(Size(en_spec="%f MB" % d.size) for d in disks)
+        disks_size = sum(d.size for d in disks, Size(bytes=0))
 
         # No disks selected?  The user wants to back out of the storage spoke.
         if not disks:
@@ -800,10 +793,8 @@ class StorageSpoke(NormalSpoke, StorageChecker):
             fs_free = sum(f[1] for f in free_space.itervalues())
 
         required_space = self.payload.spaceRequired
-        auto_swap = Size(bytes=0)
-        for autoreq in self.storage.autoPartitionRequests:
-            if autoreq.fstype == "swap":
-                auto_swap += Size(en_spec="%d MB" % autoreq.size)
+        auto_swap = sum(r.size for r in self.storage.autoPartitionRequests
+                                if r.fstype == "swap", Size(bytes=0))
 
         log.debug("disk free: %s  fs free: %s  sw needs: %s  auto swap: %s",
                   disk_free, fs_free, required_space, auto_swap)
