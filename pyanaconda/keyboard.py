@@ -465,7 +465,7 @@ class XklWrapper(object):
         #if this layout has already been added for some other language,
         #do not add it again (would result in duplicates in our lists)
         if name not in self.name_to_show_str:
-            if lang:
+            if lang and not description.startswith(lang):
                 self.name_to_show_str[name] = "%s (%s)" % (lang.encode("utf-8"),
                                                     description.encode("utf-8"))
             else:
