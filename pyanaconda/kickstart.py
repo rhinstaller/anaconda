@@ -529,7 +529,7 @@ class Fcoe(commands.fcoe.F13_Fcoe):
 
         msg = blivet.fcoe.fcoe().addSan(nic=fc.nic, dcb=fc.dcb, auto_vlan=True) or "Succeeded."
 
-        log.info("adding FCoE SAN on %s: %s", (fc.nic, msg))
+        log.info("adding FCoE SAN on %s: %s" % (fc.nic, msg))
 
         return fc
 
