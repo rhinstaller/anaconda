@@ -32,7 +32,7 @@ from blivet.udev import udev_get_device, udev_device_get_wwid
 from pyanaconda.flags import flags
 from pyanaconda.i18n import N_, P_
 
-from pyanaconda.ui.lib.disks import getDisks, size_str
+from pyanaconda.ui.lib.disks import getDisks
 from pyanaconda.ui.gui.utils import enlightbox, escape_markup
 from pyanaconda.ui.gui.spokes import NormalSpoke
 from pyanaconda.ui.gui.spokes.advstorage.fcoe import FCoEDialog
@@ -255,7 +255,7 @@ class MultipathPage(FilterPage):
             selected = disk.name in selectedNames
 
             store.append([True, selected, not disk.protected,
-                          disk.name, "", disk.model, size_str(disk.size),
+                          disk.name, "", disk.model, str(disk.size),
                           disk.vendor, disk.bus, disk.serial,
                           disk.wwid, "\n".join(paths), "", "",
                           "", "", ""])
@@ -335,7 +335,7 @@ class OtherPage(FilterPage):
                 lun = ""
 
             store.append([True, selected, not disk.protected,
-                          disk.name, "", disk.model, size_str(disk.size),
+                          disk.name, "", disk.model, str(disk.size),
                           disk.vendor, disk.bus, disk.serial,
                           self._long_identifier(disk), "", port, getattr(disk, "initiator", ""),
                           lun, "", ""])
@@ -448,7 +448,7 @@ class ZPage(FilterPage):
 
                     # now add it to our store
                     store.append([True, selected, not disk.protected,
-                                  disk.name, "", disk.model, size_str(disk.size),
+                                  disk.name, "", disk.model, disk.size,
                                   disk.vendor, disk.bus, disk.serial, "", "\n".join(paths),
                                   "", "", disk.fcp_lun, disk.hba_id, disk.wwpn])
 

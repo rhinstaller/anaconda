@@ -39,6 +39,7 @@ import pyanaconda.network
 from pyanaconda.packaging.rpmostreepayload import RPMOSTreePayload
 from pyanaconda.nm import nm_device_hwaddress
 from blivet import platform
+from blivet.size import Size
 from pyanaconda.i18n import _, N_
 from blivet.errors import SinglePhysicalVolumeError
 
@@ -243,7 +244,7 @@ class BootLoader(object):
     stage2_bootable = False
     stage2_must_be_primary = True
     stage2_description = N_("/boot file system")
-    stage2_max_end_mb = 2 * 1024 * 1024
+    stage2_max_end = Size(en_spec="2 TiB")
 
     @property
     def stage2_format_types(self):
@@ -487,15 +488,15 @@ class BootLoader(object):
         log.debug("_is_valid_size(%s) returning %s", device.name, ret)
         return ret
 
-    def _is_valid_location(self, device, max_mb=None, desc=""):
+    def _is_valid_location(self, device, max_end=None, desc=""):
         ret = True
-        if max_mb and device.type == "partition" and device.partedPartition:
+        if max_end and device.type == "partition" and device.partedPartition:
             end_sector = device.partedPartition.geometry.end
             sector_size = device.partedPartition.disk.device.sectorSize
-            end_mb = (sector_size * end_sector) / (1024.0 * 1024.0)
-            if end_mb > max_mb:
-                self.errors.append(_("%(desc)s must be within the first %(max_end)dMB of "
-                                     "the disk.") % {"desc": desc, "max_end": max_mb})
+            end = Size(bytes=sector_size * end_sector)
+            if end > max_end:
+                self.errors.append(_("%(desc)s must be within the first %(max_end)s of "
+                                     "the disk.") % {"desc": desc, "max_end": max_end})
                 ret = False
 
         log.debug("_is_valid_location(%s) returning %s", device.name, ret)
@@ -610,7 +611,7 @@ class BootLoader(object):
             valid = False
 
         if not self._is_valid_location(device,
-                                       max_mb=constraint["max_end_mb"],
+                                       max_end=constraint["max_end"],
                                        desc=description):
             valid = False
 
@@ -714,7 +715,7 @@ class BootLoader(object):
             valid = False
 
         if not self._is_valid_location(device,
-                                       max_mb=self.stage2_max_end_mb,
+                                       max_end=self.stage2_max_end,
                                        desc=self.stage2_description):
             valid = False
 

@@ -22,7 +22,7 @@
 # which has the same license and authored by David Lehman <dlehman@redhat.com>
 #
 
-from pyanaconda.ui.lib.disks import getDisks, size_str, applyDiskSelection
+from pyanaconda.ui.lib.disks import getDisks, applyDiskSelection
 from pyanaconda.ui.tui.spokes import NormalTUISpoke
 from pyanaconda.ui.tui.simpleline import TextWidget, CheckboxWidget
 from pyanaconda.ui.tui.tuiobject import YesNoDialog
@@ -215,7 +215,7 @@ class StorageSpoke(NormalTUISpoke):
             CheckboxWidget, pre-format the display string right here.
         """
         # show this info for all disks
-        format_str = "%s: %s (%s)" % (disk.model, size_str(disk.size), disk.name)
+        format_str = "%s: %s (%s)" % (disk.model, disk.size, disk.name)
 
         disk_attrs = []
         # now check for/add info about special disks

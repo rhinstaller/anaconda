@@ -26,6 +26,7 @@ from blivet.devicelibs import swap as swap_lib
 from blivet.formats import getFormat
 from blivet.partitioning import doPartitioning
 from blivet.partitioning import growLVM
+from blivet.size import Size
 from blivet import udev
 import blivet.iscsi
 import blivet.fcoe
@@ -755,12 +756,17 @@ class LogVolData(commands.logvol.F20_LogVolData):
         # we might have truncated or otherwise changed the specified vg name
         vgname = ksdata.onPart.get(self.vgname, self.vgname)
 
+        try:
+            size = Size(spec="%d MiB" % self.size)
+        except Exception:
+            raise KickstartValueError(formatErrorMsg(self.lineno, msg="The size %s is not valid." % self.size))
+
         if self.mountpoint == "swap":
             ty = "swap"
             self.mountpoint = ""
             if self.recommended or self.hibernation:
                 disk_space = getAvailableDiskSpace(storage)
-                self.size = swap_lib.swapSuggestion(hibernation=self.hibernation, disk_space=disk_space)
+                size = swap_lib.swapSuggestion(hibernation=self.hibernation, disk_space=disk_space)
                 self.grow = False
         else:
             if self.fstype != "":
@@ -802,19 +808,19 @@ class LogVolData(commands.logvol.F20_LogVolData):
                 raise KickstartValueError(formatErrorMsg(self.lineno, msg="No preexisting logical volume with the name \"%s\" was found." % self.name))
 
             if self.resize:
-                if self.size < dev.currentSize:
+                if size < dev.currentSize:
                     # shrink
                     try:
-                        devicetree.registerAction(ActionResizeFormat(dev, self.size))
-                        devicetree.registerAction(ActionResizeDevice(dev, self.size))
+                        devicetree.registerAction(ActionResizeFormat(dev, size))
+                        devicetree.registerAction(ActionResizeDevice(dev, size))
                     except ValueError:
                         raise KickstartValueError(formatErrorMsg(self.lineno,
                                 msg="Invalid target size (%d) for device %s" % (self.size, dev.name)))
                 else:
                     # grow
                     try:
-                        devicetree.registerAction(ActionResizeDevice(dev, self.size))
-                        devicetree.registerAction(ActionResizeFormat(dev, self.size))
+                        devicetree.registerAction(ActionResizeDevice(dev, size))
+                        devicetree.registerAction(ActionResizeFormat(dev, size))
                     except ValueError:
                         raise KickstartValueError(formatErrorMsg(self.lineno,
                                 msg="Invalid target size (%d) for device %s" % (self.size, dev.name)))
@@ -831,9 +837,9 @@ class LogVolData(commands.logvol.F20_LogVolData):
 
             # Size specification checks
             if not self.percent:
-                if not self.size:
+                if not size:
                     raise KickstartValueError(formatErrorMsg(self.lineno, msg="Size required"))
-                elif not self.grow and self.size*1024 < vg.peSize:
+                elif not self.grow and size < vg.peSize:
                     raise KickstartValueError(formatErrorMsg(self.lineno, msg="Logical volume size must be larger than the volume group physical extent size."))
             elif self.percent <= 0 or self.percent > 100:
                 raise KickstartValueError(formatErrorMsg(self.lineno, msg="Percentage must be between 0 and 100"))
@@ -860,7 +866,7 @@ class LogVolData(commands.logvol.F20_LogVolData):
 
             if self.resize:
                 try:
-                    devicetree.registerAction(ActionResizeDevice(device, self.size))
+                    devicetree.registerAction(ActionResizeDevice(device, size))
                 except ValueError:
                     raise KickstartValueError(formatErrorMsg(self.lineno,
                             msg="Invalid target size (%d) for device %s" % (self.size, device.name)))
@@ -884,19 +890,27 @@ class LogVolData(commands.logvol.F20_LogVolData):
                 parents = [vg]
 
             if self.thin_pool:
-                pool_args = { "metadatasize": self.metadata_size,
-                              "chunksize": self.chunk_size / 1024.0 }
+                pool_args = { "metadatasize": Size(spec="%d MiB" % self.metadata_size),
+                              "chunksize": Size(spec="%d KiB" % self.chunk_size) }
             else:
                 pool_args = {}
+
+            if self.maxSizeMB:
+                try:
+                    maxsize = Size(spec="%d MiB" % self.maxSizeMB)
+                except Exception:
+                    raise KickstartValueError(formatErrorMsg(self.lineno, msg="The maximum size %s is not valid." % self.maxSizeMB))
+            else:
+                maxsize = None
 
             request = storage.newLV(format=fmt,
                                     name=self.name,
                                     parents=parents,
-                                    size=self.size,
+                                    size=size,
                                     thin_pool=self.thin_pool,
                                     thin_volume=self.thin_volume,
                                     grow=self.grow,
-                                    maxsize=self.maxSizeMB,
+                                    maxsize=maxsize,
                                     percent=self.percent,
                                     **pool_args)
 
@@ -972,6 +986,11 @@ class PartitionData(commands.partition.F18_PartData):
 
         storage.doAutoPart = False
 
+        try:
+            size = Size(spec="%d MiB" % self.size)
+        except Exception:
+            raise KickstartValueError(formatErrorMsg(self.lineno, msg="The size %s is not valid." % self.size))
+
         if self.onbiosdisk != "":
             for (disk, biosdisk) in storage.eddDict.iteritems():
                 if "%x" % biosdisk == self.onbiosdisk:
@@ -986,7 +1005,7 @@ class PartitionData(commands.partition.F18_PartData):
             self.mountpoint = ""
             if self.recommended or self.hibernation:
                 disk_space = getAvailableDiskSpace(storage)
-                self.size = swap_lib.swapSuggestion(hibernation=self.hibernation, disk_space=disk_space)
+                size = swap_lib.swapSuggestion(hibernation=self.hibernation, disk_space=disk_space)
                 self.grow = False
         # if people want to specify no mountpoint for some reason, let them
         # this is really needed for pSeries boot partitions :(
@@ -1060,19 +1079,19 @@ class PartitionData(commands.partition.F18_PartData):
                 raise KickstartValueError(formatErrorMsg(self.lineno, msg="No preexisting partition with the name \"%s\" was found." % self.onPart))
 
             if self.resize:
-                if self.size < dev.currentSize:
+                if size < dev.currentSize:
                     # shrink
                     try:
-                        devicetree.registerAction(ActionResizeFormat(dev, self.size))
-                        devicetree.registerAction(ActionResizeDevice(dev, self.size))
+                        devicetree.registerAction(ActionResizeFormat(dev, size))
+                        devicetree.registerAction(ActionResizeDevice(dev, size))
                     except ValueError:
                         raise KickstartValueError(formatErrorMsg(self.lineno,
                                 msg="Invalid target size (%d) for device %s" % (self.size, dev.name)))
                 else:
                     # grow
                     try:
-                        devicetree.registerAction(ActionResizeDevice(dev, self.size))
-                        devicetree.registerAction(ActionResizeFormat(dev, self.size))
+                        devicetree.registerAction(ActionResizeDevice(dev, size))
+                        devicetree.registerAction(ActionResizeFormat(dev, size))
                     except ValueError:
                         raise KickstartValueError(formatErrorMsg(self.lineno,
                                 msg="Invalid target size (%d) for device %s" % (self.size, dev.name)))
@@ -1087,7 +1106,7 @@ class PartitionData(commands.partition.F18_PartData):
                                      label=self.label,
                                      fsprofile=self.fsprofile,
                                      mountopts=self.fsopts,
-                                     size=self.size)
+                                     size=size)
         if not kwargs["format"].type:
             raise KickstartValueError(formatErrorMsg(self.lineno, msg="The \"%s\" filesystem type is not supported." % ty))
 
@@ -1117,8 +1136,17 @@ class PartitionData(commands.partition.F18_PartData):
                 raise KickstartValueError(formatErrorMsg(self.lineno, msg="Specified nonexistent disk %s in partition command" % self.disk))
 
         kwargs["grow"] = self.grow
-        kwargs["size"] = self.size
-        kwargs["maxsize"] = self.maxSizeMB
+        kwargs["size"] = size
+        if self.maxSizeMB:
+            try:
+                maxsize = Size(spec="%d MiB" % self.maxSizeMB)
+            except Exception:
+                raise KickstartValueError(formatErrorMsg(self.lineno, msg="The maximum size %s is not valid." % self.maxSizeMB))
+        else:
+            maxsize = None
+
+        kwargs["maxsize"] = maxsize
+
         kwargs["primary"] = self.primOnly
 
         # If we were given a pre-existing partition to create a filesystem on,
@@ -1133,7 +1161,7 @@ class PartitionData(commands.partition.F18_PartData):
             removeExistingFormat(device, storage)
             if self.resize:
                 try:
-                    devicetree.registerAction(ActionResizeDevice(device, self.size))
+                    devicetree.registerAction(ActionResizeDevice(device, size))
                 except ValueError:
                     raise KickstartValueError(formatErrorMsg(self.lineno,
                             msg="Invalid target size (%d) for device %s" % (self.size, device.name)))
@@ -1511,7 +1539,8 @@ class VolGroupData(commands.volgroup.RHEL7_VolGroupData):
             # default PE size requested -- we use blivet's default in KiB
             self.pesize = LVM_PE_SIZE * 1024
 
-        if self.pesize not in getPossiblePhysicalExtents(floor=1024):
+        pesize = Size(spec="%d KiB" % self.pesize)
+        if pesize not in getPossiblePhysicalExtents(floor=1024):
             raise KickstartValueError(formatErrorMsg(self.lineno, msg="Volume group specified invalid pesize"))
 
         # If --noformat or --useexisting was given, there's really nothing to do.
@@ -1527,7 +1556,7 @@ class VolGroupData(commands.volgroup.RHEL7_VolGroupData):
         else:
             request = storage.newVG(parents=pvs,
                                     name=self.vgname,
-                                    peSize=self.pesize/1024.0)
+                                    peSize=pesize)
 
             storage.createDevice(request)
             if self.reserved_space:

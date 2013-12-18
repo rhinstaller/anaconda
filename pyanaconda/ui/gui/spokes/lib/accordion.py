@@ -20,7 +20,6 @@
 # Red Hat Author(s): Chris Lumens <clumens@redhat.com>
 #
 
-from blivet.size import Size
 
 from pyanaconda.i18n import _
 from pyanaconda.product import productName, productVersion
@@ -59,14 +58,12 @@ def selectorFromDevice(device, selector=None, mountpoint=""):
     else:
         mp = _("Unknown")
 
-    size = Size(spec="%f MB" % device.size)
-
     if not selector:
-        selector = MountpointSelector(device.name, str(size).upper(), mp)
+        selector = MountpointSelector(device.name, str(device.size), mp)
         selector._root = None
     else:
         selector.props.name = device.name
-        selector.props.size = str(size).upper()
+        selector.props.size = str(device.size)
         selector.props.mountpoint = mp
 
     selector._device = device

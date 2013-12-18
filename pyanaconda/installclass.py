@@ -29,6 +29,7 @@ import imputil
 from blivet.partspec import PartSpec
 from blivet.devicelibs import swap
 from blivet.platform import platform
+from blivet.size import Size
 
 import logging
 log = logging.getLogger("anaconda")
@@ -80,10 +81,14 @@ class BaseInstallClass(object):
 
     def setDefaultPartitioning(self, storage):
         autorequests = [PartSpec(mountpoint="/", fstype=storage.defaultFSType,
-                                 size=1024, maxSize=50*1024, grow=True,
+                                 size=Size(spec="1GiB"),
+                                 maxSize=Size(spec="50GiB"),
+                                 grow=True,
                                  btr=True, lv=True, thin=True, encrypted=True),
-                        PartSpec(mountpoint="/home", fstype=storage.defaultFSType,
-                                 size=500, grow=True, requiredSpace=50*1024,
+                        PartSpec(mountpoint="/home",
+                                 fstype=storage.defaultFSType,
+                                 size=Size(spec="500MiB"), grow=True,
+                                 requiredSpace=Size(spec="50GiB"),
                                  btr=True, lv=True, thin=True, encrypted=True)]
 
         bootreqs = platform.setDefaultPartitioning()
