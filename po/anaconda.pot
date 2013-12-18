@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: anaconda 21.12\n"
+"Project-Id-Version: anaconda 21.13\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
-"POT-Creation-Date: 2013-12-12 16:07-0800\n"
+"POT-Creation-Date: 2013-12-18 13:05-0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -388,12 +388,12 @@ msgid ""
 "%s"
 msgstr ""
 
-#: pyanaconda/kickstart.py:565
+#: pyanaconda/kickstart.py:567
 #, python-format
 msgid "%s is missing. Cannot setup firewall."
 msgstr ""
 
-#: pyanaconda/kickstart.py:1732
+#: pyanaconda/kickstart.py:1734
 msgid "Running pre-installation scripts"
 msgstr ""
 
@@ -418,7 +418,7 @@ msgid ""
 "'-'."
 msgstr ""
 
-#: pyanaconda/network.py:1305 pyanaconda/ui/gui/spokes/custom.py:1016
+#: pyanaconda/network.py:1305 pyanaconda/ui/gui/spokes/custom.py:1021
 #: pyanaconda/ui/gui/spokes/network.py:296
 #: pyanaconda/ui/gui/spokes/lib/accordion.py:60
 msgid "Unknown"
@@ -1130,15 +1130,15 @@ msgid ""
 "Use numbers or type names directly [b to region list, q to quit]: "
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/shell_spoke.py:32
+#: pyanaconda/ui/tui/spokes/shell_spoke.py:33
 msgid "Shell"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/shell_spoke.py:47
+#: pyanaconda/ui/tui/spokes/shell_spoke.py:48
 msgid "Start shell"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/shell_spoke.py:56
+#: pyanaconda/ui/tui/spokes/shell_spoke.py:57
 msgid "Exit the shell to continue"
 msgstr ""
 
@@ -1250,11 +1250,11 @@ msgstr ""
 msgid "No mountable devices found"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/source.py:419
+#: pyanaconda/ui/tui/spokes/source.py:423
 msgid "Select an ISO to use as install source"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/source.py:448
+#: pyanaconda/ui/tui/spokes/source.py:452
 msgid "No *.iso files found in device root folder"
 msgstr ""
 
@@ -1295,7 +1295,7 @@ msgstr ""
 msgid "User creation"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/user.py:105 pyanaconda/ui/gui/spokes/user.py:333
+#: pyanaconda/ui/tui/spokes/user.py:105 pyanaconda/ui/gui/spokes/user.py:327
 msgid "No user will be created"
 msgstr ""
 
@@ -1303,12 +1303,12 @@ msgstr ""
 msgid "You must set a password"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/user.py:109 pyanaconda/ui/gui/spokes/user.py:335
+#: pyanaconda/ui/tui/spokes/user.py:109 pyanaconda/ui/gui/spokes/user.py:329
 #, python-format
 msgid "Administrator %s will be created"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/user.py:111 pyanaconda/ui/gui/spokes/user.py:337
+#: pyanaconda/ui/tui/spokes/user.py:111 pyanaconda/ui/gui/spokes/user.py:331
 #, python-format
 msgid "User %s will be created"
 msgstr ""
@@ -1333,69 +1333,76 @@ msgstr ""
 msgid "\tInstallation complete.  Press return to quit"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/__init__.py:47
+#: pyanaconda/ui/tui/spokes/__init__.py:49
 msgid "Default spoke title"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/__init__.py:57
+#: pyanaconda/ui/tui/spokes/__init__.py:62
 msgid "testing status..."
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/__init__.py:95
+#: pyanaconda/ui/tui/spokes/__init__.py:102
 msgid "New value"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/__init__.py:112
+#: pyanaconda/ui/tui/spokes/__init__.py:122
 #, python-format
 msgid "%s: "
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/__init__.py:113
+#: pyanaconda/ui/tui/spokes/__init__.py:123
 #, python-format
 msgid "%s (confirm): "
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/__init__.py:116
+#: pyanaconda/ui/tui/spokes/__init__.py:126
 msgid ""
 "You must enter your root password and confirm it by typing it a second time "
 "to continue."
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/__init__.py:131
+#: pyanaconda/ui/tui/spokes/__init__.py:141
 #, python-format
 msgid ""
 "You have provided a weak password: %s\n"
 "Would you like to use it anyway?"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/__init__.py:134
+#: pyanaconda/ui/tui/spokes/__init__.py:144
 msgid ""
 "You have provided a weak password.\n"
 "Would you like to use it anyway?"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/__init__.py:144
+#: pyanaconda/ui/tui/spokes/__init__.py:154
 #, python-format
 msgid "Enter new value for '%s' and press enter\n"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/__init__.py:256
+#: pyanaconda/ui/tui/spokes/__init__.py:162
+#, python-format
+msgid ""
+"You have provided an invalid username: %s\n"
+"Do not use spaces or capital letters.\n"
+msgstr ""
+
+#: pyanaconda/ui/tui/spokes/__init__.py:273
 msgid "Password set."
 msgstr ""
 
-#: pyanaconda/ui/gui/__init__.py:664
+#: pyanaconda/ui/gui/__init__.py:653
 msgid "_Exit Installer"
 msgstr ""
 
-#: pyanaconda/ui/gui/__init__.py:673 widgets/src/StandaloneWindow.c:54
+#: pyanaconda/ui/gui/__init__.py:662 widgets/src/StandaloneWindow.c:54
 msgid "_Quit"
 msgstr ""
 
-#: pyanaconda/ui/gui/__init__.py:688
+#: pyanaconda/ui/gui/__init__.py:677
 msgid "_No"
 msgstr ""
 
-#: pyanaconda/ui/gui/__init__.py:688
+#: pyanaconda/ui/gui/__init__.py:677
 msgid "_Yes"
 msgstr ""
 
@@ -1442,7 +1449,7 @@ msgctxt "GUI|Progress"
 msgid "_Quit"
 msgstr ""
 
-#: pyanaconda/ui/gui/hubs/progress.py:286
+#: pyanaconda/ui/gui/hubs/progress.py:289
 msgid "Complete!"
 msgstr ""
 
@@ -1591,7 +1598,7 @@ msgstr ""
 msgid "MANUAL PARTITIONING"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:857
+#: pyanaconda/ui/gui/spokes/custom.py:862
 #, python-format
 msgctxt "GUI|Custom Partitioning"
 msgid "%d _storage device selected"
@@ -1599,159 +1606,159 @@ msgid_plural "%d _storage devices selected"
 msgstr[0] ""
 msgstr[1] ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:968
+#: pyanaconda/ui/gui/spokes/custom.py:973
 #, python-format
 msgid ""
 "When you create mount points for your %(name)s %(version)s installation, "
 "you'll be able to view their details here."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:1039
+#: pyanaconda/ui/gui/spokes/custom.py:1044
 msgid ""
 "The 'swap' area on your computer is used by the operating\n"
 "system when running low on memory."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:1042
+#: pyanaconda/ui/gui/spokes/custom.py:1047
 msgid ""
 "The 'boot' area on your computer is where files needed\n"
 "to start the operating system are stored."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:1045
+#: pyanaconda/ui/gui/spokes/custom.py:1050
 msgid ""
 "The 'root' area on your computer is where core system\n"
 "files and applications are stored."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:1048
+#: pyanaconda/ui/gui/spokes/custom.py:1053
 msgid ""
 "The 'home' area on your computer is where all your personal\n"
 "data is stored."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:1051
+#: pyanaconda/ui/gui/spokes/custom.py:1056
 msgid ""
 "The BIOS boot partition is required to enable booting\n"
 "from GPT-partitioned disks on BIOS hardware."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:1054
+#: pyanaconda/ui/gui/spokes/custom.py:1059
 msgid ""
 "The PReP boot partition is required as part of the\n"
 "bootloader configuration on some PPC platforms."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:1246
+#: pyanaconda/ui/gui/spokes/custom.py:1251
 #, python-format
 msgid "/boot/efi must be on a device of type %s"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:1250
+#: pyanaconda/ui/gui/spokes/custom.py:1255
 #, python-format
 msgid "%(fs)s must be on a device of type %(type)s"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:1253
-#: pyanaconda/ui/gui/spokes/custom.py:1255
+#: pyanaconda/ui/gui/spokes/custom.py:1258
+#: pyanaconda/ui/gui/spokes/custom.py:1260
 #, python-format
 msgid "%s cannot be encrypted"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:1257
+#: pyanaconda/ui/gui/spokes/custom.py:1262
 msgid "You must create a new filesystem on the root device."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:1259
+#: pyanaconda/ui/gui/spokes/custom.py:1264
 #, python-format
 msgid "Devices of type %s require a valid RAID level selection."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:1492
+#: pyanaconda/ui/gui/spokes/custom.py:1497
 msgid "Device resize request failed. Click for details."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:1564
+#: pyanaconda/ui/gui/spokes/custom.py:1569
 msgid "Device reformat request failed. Click for details."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:1616
+#: pyanaconda/ui/gui/spokes/custom.py:1621
 #, python-format
 msgid "Specified name %s already in use."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:1732
+#: pyanaconda/ui/gui/spokes/custom.py:1737
 msgid "This file system does not support labels."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:1900
+#: pyanaconda/ui/gui/spokes/custom.py:1905
 msgid ""
 "The space available to this mountpoint can be changed by modifying the "
 "volume below."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:1902
+#: pyanaconda/ui/gui/spokes/custom.py:1907
 msgid "This file system may not be resized."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:2080
+#: pyanaconda/ui/gui/spokes/custom.py:2085
 #, python-format
 msgid "Added new %(type)s to existing container %(name)s."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:2092
+#: pyanaconda/ui/gui/spokes/custom.py:2097
 msgid "Failed to add new device. Click for details."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:2098
+#: pyanaconda/ui/gui/spokes/custom.py:2103
 msgid "Invalid partition size set. Use a valid integer."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:2123
+#: pyanaconda/ui/gui/spokes/custom.py:2128
 msgid "Device removal request failed. Click for details."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:2350
+#: pyanaconda/ui/gui/spokes/custom.py:2355
 #, python-format
 msgid "Volume Group name %s is already in use. Not saving changes."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:2375
+#: pyanaconda/ui/gui/spokes/custom.py:2380
 #, python-format
 msgid "(%s free)"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:2504
+#: pyanaconda/ui/gui/spokes/custom.py:2509
 #, python-format
 msgid ""
 "This Software RAID array is missing %(missingMembers)d of %(totalMembers)d "
 "member partitions. You can remove it or select a different device."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:2510
+#: pyanaconda/ui/gui/spokes/custom.py:2515
 #, python-format
 msgid ""
 "This LVM Volume Group is missing %(missingPVs)d of %(totalPVs)d physical "
 "volumes. You can remove it or select a different device."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:2579
+#: pyanaconda/ui/gui/spokes/custom.py:2584
 msgid "No disks selected."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:2585
+#: pyanaconda/ui/gui/spokes/custom.py:2590
 msgid "Not enough free space on selected disks."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:2591
+#: pyanaconda/ui/gui/spokes/custom.py:2596
 msgid "Automatic partitioning failed. Click for details."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:2886
+#: pyanaconda/ui/gui/spokes/custom.py:2891
 msgid "Failed to unlock encrypted block device. Click for details"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:2911
+#: pyanaconda/ui/gui/spokes/custom.py:2916
 #, python-format
 msgid ""
 "You have chosen to manually set up the filesystems for your new "
@@ -1886,7 +1893,7 @@ msgctxt "GUI|Spoke"
 msgid "_INSTALLATION DESTINATION"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/filter.py:509
+#: pyanaconda/ui/gui/spokes/filter.py:514
 #, python-format
 msgctxt "GUI|Installation Destination|Filter"
 msgid "%d _storage device selected"
@@ -2110,11 +2117,11 @@ msgstr ""
 msgid "Downloading group metadata..."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/software.py:362
+#: pyanaconda/ui/gui/spokes/software.py:367
 msgid "Error checking software dependencies.  Click for details."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/software.py:460
+#: pyanaconda/ui/gui/spokes/software.py:465
 msgid ""
 "The following software marked for installation has errors.  This is likely "
 "caused by an error with\n"
@@ -2122,17 +2129,17 @@ msgid ""
 "the installer."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/software.py:464
+#: pyanaconda/ui/gui/spokes/software.py:469
 msgctxt "GUI|Software Selection|Error Dialog"
 msgid "_Quit"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/software.py:465
+#: pyanaconda/ui/gui/spokes/software.py:470
 msgctxt "GUI|Software Selection|Error Dialog"
 msgid "_Cancel"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/software.py:466
+#: pyanaconda/ui/gui/spokes/software.py:471
 msgctxt "GUI|Software Selection|Error Dialog"
 msgid "_Modify Software Source"
 msgstr ""
@@ -2352,20 +2359,20 @@ msgstr ""
 msgid "Invalid group name: %s"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/user.py:202
+#: pyanaconda/ui/gui/spokes/user.py:196
 msgctxt "GUI|Spoke"
 msgid "_USER CREATION"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/user.py:273 pyanaconda/ui/gui/spokes/user.py:274
+#: pyanaconda/ui/gui/spokes/user.py:267 pyanaconda/ui/gui/spokes/user.py:268
 msgid "The password was set by kickstart."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/user.py:300
+#: pyanaconda/ui/gui/spokes/user.py:294
 msgid "Invalid username"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/user.py:302
+#: pyanaconda/ui/gui/spokes/user.py:296
 msgid "Full name cannot contain colon characters"
 msgstr ""
 
@@ -2443,50 +2450,50 @@ msgstr ""
 msgid "Passphrases do not match."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/lib/resize.py:49
+#: pyanaconda/ui/gui/spokes/lib/resize.py:50
 msgid "Preserve"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/lib/resize.py:50
+#: pyanaconda/ui/gui/spokes/lib/resize.py:51
 msgid "Shrink"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/lib/resize.py:51
+#: pyanaconda/ui/gui/spokes/lib/resize.py:52
 msgid "Delete"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/lib/resize.py:109
+#: pyanaconda/ui/gui/spokes/lib/resize.py:110
 msgid "This device contains the installation source."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/lib/resize.py:154
+#: pyanaconda/ui/gui/spokes/lib/resize.py:155
 #, python-format
 msgid "%(freeSize)s of %(devSize)s"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/lib/resize.py:161
+#: pyanaconda/ui/gui/spokes/lib/resize.py:162
 msgid "Not resizeable"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/lib/resize.py:180
+#: pyanaconda/ui/gui/spokes/lib/resize.py:181
 msgid "Free space"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/lib/resize.py:201
+#: pyanaconda/ui/gui/spokes/lib/resize.py:202
 msgid ""
 "You can remove existing filesystems you no longer need to free up space for "
 "this installation.  Removing a filesystem will permanently delete all of the "
 "data it contains."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/lib/resize.py:207
+#: pyanaconda/ui/gui/spokes/lib/resize.py:208
 msgid ""
 "There is also free space available in pre-existing filesystems.  While it's "
 "risky and we recommend you back up your data first, you can recover that "
 "free disk space and make it available for this installation below."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/lib/resize.py:216
+#: pyanaconda/ui/gui/spokes/lib/resize.py:217
 #, python-format
 msgid "<b>%(count)s disk; %(size)s reclaimable space</b> (in filesystems)"
 msgid_plural ""
@@ -2494,19 +2501,19 @@ msgid_plural ""
 msgstr[0] ""
 msgstr[1] ""
 
-#: pyanaconda/ui/gui/spokes/lib/resize.py:223
+#: pyanaconda/ui/gui/spokes/lib/resize.py:224
 #, python-format
 msgid "Total selected space to reclaim: <b>%s</b>"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/lib/resize.py:409
-#: pyanaconda/ui/gui/spokes/lib/resize.py:414
+#: pyanaconda/ui/gui/spokes/lib/resize.py:410
+#: pyanaconda/ui/gui/spokes/lib/resize.py:415
 #: pyanaconda/ui/gui/spokes/lib/resize.glade:267
 msgctxt "GUI|Reclaim Dialog"
 msgid "Delete _all"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/lib/resize.py:411
+#: pyanaconda/ui/gui/spokes/lib/resize.py:412
 msgctxt "GUI|Reclaim Dialog"
 msgid "Preserve _all"
 msgstr ""
@@ -2907,7 +2914,6 @@ msgid "_Select the type of device you wish to add"
 msgstr ""
 
 #: pyanaconda/ui/gui/spokes/network.glade:161
-#: pyanaconda/ui/gui/spokes/network.glade:235
 msgid "NETWORK CONFIGURATION"
 msgstr ""
 
@@ -2916,6 +2922,10 @@ msgid ""
 "We'll need network access to fetch information about your location and to "
 "make software\n"
 "updates available for you."
+msgstr ""
+
+#: pyanaconda/ui/gui/spokes/network.glade:235
+msgid "NETWORK & HOSTNAME"
 msgstr ""
 
 #: pyanaconda/ui/gui/spokes/network.glade:274
@@ -4468,7 +4478,7 @@ msgstr ""
 msgid "Install the live CD to your hard disk"
 msgstr ""
 
-#: /home/bcl/Red_Hat/projs/anaconda/data/liveinst/console.apps/liveinst:5
+#: /home/bcl/anaconda/data/liveinst/console.apps/liveinst:5
 msgid "Starting Install to Hard Drive"
 msgstr ""
 
