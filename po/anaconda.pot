@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: anaconda 19.31.38\n"
+"Project-Id-Version: anaconda 19.31.39\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
-"POT-Creation-Date: 2013-12-16 16:30-0800\n"
+"POT-Creation-Date: 2013-12-17 17:44-0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -78,80 +78,85 @@ msgstr ""
 msgid "Please ssh install@<host> to continue installation."
 msgstr ""
 
-#: pyanaconda/bootloader.py:238
+#: pyanaconda/bootloader.py:245
 msgid "/boot filesystem"
 msgstr ""
 
-#: pyanaconda/bootloader.py:394
+#: pyanaconda/bootloader.py:401
 #, python-format
 msgid ""
 "RAID sets that contain '%s' must have one of the following raid levels: %s."
 msgstr ""
 
-#: pyanaconda/bootloader.py:402
+#: pyanaconda/bootloader.py:409
 #, python-format
 msgid ""
 "RAID sets that contain '%s' must have one of the following metadata "
 "versions: %s."
 msgstr ""
 
-#: pyanaconda/bootloader.py:410
+#: pyanaconda/bootloader.py:417
 #, python-format
 msgid ""
 "RAID sets that contain '%s' must have one of the following device types: %s."
 msgstr ""
 
-#: pyanaconda/bootloader.py:426
+#: pyanaconda/bootloader.py:433
 #, python-format
 msgid "%s must have one of the following disklabel types: %s."
 msgstr ""
 
-#: pyanaconda/bootloader.py:438
+#: pyanaconda/bootloader.py:445
 #, python-format
 msgid "%s cannot be of type %s."
 msgstr ""
 
-#: pyanaconda/bootloader.py:444
+#: pyanaconda/bootloader.py:451
 #, python-format
 msgid "%s must be mounted on one of %s."
 msgstr ""
 
-#: pyanaconda/bootloader.py:456
+#: pyanaconda/bootloader.py:463
 #, python-format
 msgid "%s must be between %d and %d MB in size"
 msgstr ""
 
-#: pyanaconda/bootloader.py:461
+#: pyanaconda/bootloader.py:468
 #, python-format
 msgid "%s must not be smaller than %dMB."
 msgstr ""
 
-#: pyanaconda/bootloader.py:470
+#: pyanaconda/bootloader.py:477
 #, python-format
 msgid "%s must not be larger than %dMB."
 msgstr ""
 
-#: pyanaconda/bootloader.py:488
+#: pyanaconda/bootloader.py:495
 #, python-format
 msgid "%s must be within the first %dMB of the disk."
 msgstr ""
 
-#: pyanaconda/bootloader.py:498
+#: pyanaconda/bootloader.py:505
 #, python-format
 msgid "%s must be on a primary partition."
 msgstr ""
 
-#: pyanaconda/bootloader.py:632 pyanaconda/bootloader.py:730
+#: pyanaconda/bootloader.py:643 pyanaconda/bootloader.py:745
 #, python-format
 msgid "%s cannot be on an encrypted block device."
 msgstr ""
 
-#: pyanaconda/bootloader.py:688
+#: pyanaconda/bootloader.py:699
+#, python-format
+msgid "%s cannot be on an iSCSI disk on s390(x)"
+msgstr ""
+
+#: pyanaconda/bootloader.py:703
 #, python-format
 msgid "%s cannot be of type %s"
 msgstr ""
 
-#: pyanaconda/bootloader.py:1605
+#: pyanaconda/bootloader.py:1620
 #, python-format
 msgid ""
 "%(deviceName)s may not have enough space for grub2 to embed core.img when "
@@ -293,12 +298,12 @@ msgid ""
 "%s"
 msgstr ""
 
-#: pyanaconda/kickstart.py:562
+#: pyanaconda/kickstart.py:564
 #, python-format
 msgid "%s is missing. Cannot setup firewall."
 msgstr ""
 
-#: pyanaconda/kickstart.py:1714
+#: pyanaconda/kickstart.py:1716
 msgid "Running pre-installation scripts"
 msgstr ""
 

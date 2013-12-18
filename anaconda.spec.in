@@ -251,6 +251,28 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Dec 17 2013 Brian C. Lane <bcl@redhat.com> - 19.31.40-1
+- Add initial 64-bit ARM aarch64 EFI support (dmarlin)
+  Resolves: rhbz#1034428
+- Don't wait for systemctl shutdown command to exit (bcl)
+  Resolves: rhbz#994188
+- Fix default device for ks=cdrom (bcl)
+  Resolves: rhbz#1042500
+- Fix geolocation on live installs (mkolman)
+  Resolves: rhbz#1032735
+- Use ExceptionInfo namedtuple when dumping anaconda (vpodzime)
+  Resolves: rhbz#983787
+- Catch OSError if there are problems running authconfig. (sbueno+anaconda)
+  Resolves: rhbz#994674
+- Move atexit registration before running rescue mode (vpodzime)
+  Resolves: rhbz#1042722
+- Set environment variables in anaconda systemd shell file (amulhern)
+  Resolves: rhbz#1023913
+- Don't allow bootloader and /boot on iSCSI on s390 (vpodzime)
+  Resolves: rhbz#1034222
+- Remove enablement of whiteout/blackout plugins and adapt requires (notting)
+  Resolves: rhbz#1040530
+
 * Mon Dec 16 2013 Brian C. Lane <bcl@redhat.com> - 19.31.39-1
 - use deepcopy on ksdata method (bcl)
   Resolves: rhbz#1024509
