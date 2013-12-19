@@ -43,6 +43,10 @@ class Spoke(GUIObject):
            icon will be shown on the Hub beside the spoke, and a highlighted
            message will be shown at the bottom of the Hub.  Installation will not
            be allowed to proceed until all spokes are complete.
+
+           WARNING: This can be called before the spoke is finished initializing
+           if the spoke starts a thread. It should make sure it doesn't access
+           things until they are completely setup.
         """
         return False
 

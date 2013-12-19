@@ -221,7 +221,7 @@ class SourceSpoke(SourceSwitchHandler, EditTUISpoke):
 
     @property
     def completed(self):
-        if flags.automatedInstall and (not self.data.method.method or not self.payload.baseRepo):
+        if flags.automatedInstall and self.ready and (not self.data.method.method or not self.payload.baseRepo):
             return False
         else:
             return not self.errors and self.ready and (self.data.method.method or self.payload.baseRepo)
