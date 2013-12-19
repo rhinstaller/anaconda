@@ -105,14 +105,18 @@ class SoftwareSpoke(NormalTUISpoke):
 
     @property
     def completed(self):
-        """ Make sure our threads are done running and vars are set. """
-        processingDone = not threadMgr.get(THREAD_CHECK_SOFTWARE) and \
-                         not self.errors and self.txid_valid
+        """ Make sure our threads are done running and vars are set.
+
+           WARNING: This can be called before the spoke is finished initializing
+           if the spoke starts a thread. It should make sure it doesn't access
+           things until they are completely setup.
+        """
+        processingDone = self.ready and not self.errors and self.txid_valid
 
         if flags.automatedInstall:
             return processingDone and self.payload.baseRepo and self.data.packages.seen
         else:
-            return self.payload.baseRepo and self.environment is not None and processingDone
+            return processingDone and self.payload.baseRepo and self.environment is not None
 
     def refresh(self, args=None):
         """ Refresh screen. """
