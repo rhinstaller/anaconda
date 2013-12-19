@@ -48,13 +48,15 @@ def augmentEnv():
                })
     return env
 
-def _run_program(argv, root='/', stdin=None, stdout=None, env_prune=None):
+def _run_program(argv, root='/', stdin=None, stdout=None, env_prune=None, log_output=True, binary_output=False):
     """ Run an external program, log the output and return it to the caller
         @param argv The command to run and argument
         @param root The directory to chroot to before running command.
         @param stdin The file object to read stdin from.
         @param stdout Optional file object to write stdout and stderr to.
         @param env_prune environment variable to remove before execution
+        @param log_output: whether to log the output of command
+        @param binary_output: whether to treat the output of command as binary data
         @return The return code of the command and the output
     """
     if env_prune is None:
@@ -81,11 +83,19 @@ def _run_program(argv, root='/', stdin=None, stdout=None, env_prune=None):
 
             out = proc.communicate()[0]
             if out:
-                for line in out.splitlines():
-                    program_log.info(line)
+                if binary_output:
+                    out = [out]
+                else:
+                    if out[-1] != "\n":
+                        out = out + "\n"
+                    out = out.splitlines(True)
+
+                for line in out:
+                    if log_output:
+                        program_log.info(line.strip())
+
                     if stdout:
                         stdout.write(line)
-                        stdout.write("\n")
 
         except OSError as e:
             program_log.error("Error running %s: %s" % (argv[0], e.strerror))
@@ -96,7 +106,7 @@ def _run_program(argv, root='/', stdin=None, stdout=None, env_prune=None):
     return (proc.returncode, out)
 
 def execWithRedirect(command, argv, stdin=None, stdout=None,
-                     stderr=None, root='/', env_prune=[]):
+                     stderr=None, root='/', env_prune=[], log_output=True, binary_output=False):
     """ Run an external program and redirect the output to a file.
         @param command The command to run
         @param argv The argument list
@@ -105,6 +115,8 @@ def execWithRedirect(command, argv, stdin=None, stdout=None,
         @param stderr not used
         @param root The directory to chroot to before running command.
         @param env_prune environment variable to remove before execution
+        @param log_output whether to log the output of command
+        @param binary_output whether to treat the output of command as binary data
         @return The return code of the command
     """
     if flags.testing:
@@ -113,16 +125,18 @@ def execWithRedirect(command, argv, stdin=None, stdout=None,
         return 0
 
     argv = [command] + argv
-    return _run_program(argv, stdin=stdin, stdout=stdout, root=root, env_prune=env_prune)[0]
+    return _run_program(argv, stdin=stdin, stdout=stdout, root=root, env_prune=env_prune,
+            log_output=log_output, binary_output=binary_output)[0]
 
 def execWithCapture(command, argv, stdin=None, stderr=None, root='/',
-                    fatal=False):
+                    fatal=False, log_output=True):
     """ Run an external program and capture standard out and err.
         @param command The command to run
         @param argv The argument list
         @param stdin The file object to read stdin from.
         @param stderr not used
         @param root The directory to chroot to before running command.
+        @param log_output Whether to log the output of command
         @param fatal not used
         @return The output of the command
     """
@@ -132,7 +146,7 @@ def execWithCapture(command, argv, stdin=None, stderr=None, root='/',
         return ""
 
     argv = [command] + argv
-    return _run_program(argv, stdin=stdin, root=root)[1]
+    return _run_program(argv, stdin=stdin, root=root, log_output=log_output)[1]
 
 def execReadlines(command, argv, stdin=None, root='/', env_prune=None):
     """ Execute an external command and return the line output of the command
