@@ -252,6 +252,43 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Fri Dec 20 2013 Brian C. Lane <bcl@redhat.com> - 19.31.41-1
+- Check for ready before baseRepo in completed (bcl)
+  Resolves: rhbz#1044985
+- Print a message and exit if a user attempts to upgrade via kickstart. (dshea)
+  Resolves: rhbz#1036756
+- Don't show the language twice for keyboard layouts (dshea)
+  Resolves: rhbz#1021849
+- If there are incomplete spokes, let the user know which (clumens).
+  Resolves: rhbz#1032801
+- network: GUI, don't ask for wifi secrets upon Configure (rvykydal)
+  Resolves: rhbz#1033073
+- network: GUI, add support for virtual devices removing (rvykydal)
+  Resolves: rhbz#1030870
+- network: fix naming of slave ifcfg files from kickstart (rvykydal)
+  Related: rhbz#1036047
+  Resolves: rhbz#1036047
+- network: GUI, handle virtual devices (bond, vlan, team) properly (rvykydal)
+  Resolves: rhbz#1036047
+- network: call GDBus proxy methods like python (rvykydal)
+  Related: rhbz#1036047
+  Resolves: rhbz#1036047
+- network: add team support for kickstart %%pre phase (rvykydal)
+  Resolves: rhbz#1003591
+- network: generate kickstart commands for team devices (rvykydal)
+  Resolves: rhbz#1003591
+- network: support for adding team devices (rvykydal)
+  Resolves: rhbz#1003591
+- network: display team devices in status (rvykydal)
+  Resolves: rhbz#1003591
+- network: add team support to kickstart (rvykydal)
+  Resolves: rhbz#1003591
+- Accept only .iso files from the IsoChooser dialog (vpodzime)
+  Resolves: rhbz#1015169
+- Fix a typo (rvykydal)
+  Related: rhbz#1039223
+  Resolves: rhbz#1039223
+
 * Tue Dec 17 2013 Brian C. Lane <bcl@redhat.com> - 19.31.40-1
 - Add initial 64-bit ARM aarch64 EFI support (dmarlin)
   Resolves: rhbz#1034428
