@@ -2,6 +2,9 @@
 # Set up a launcher on the desktop for the live installer if we're on
 # a live CD
 
+# Prevents breakage if the hostname is changed before or during the install
+[ -x /usr/bin/xhost ] && xhost +si:localuser:root > /dev/null 2>&1
+
 # don't run on geode (olpc)
 if [ `grep -c Geode /proc/cpuinfo` -eq 0 ]; then
   if [ -b /dev/mapper/live-osimg-min ]; then
