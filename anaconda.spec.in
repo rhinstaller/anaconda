@@ -21,7 +21,6 @@ Source0: %{name}-%{version}.tar.bz2
 # Also update in AM_GNU_GETTEXT_VERSION in configure.ac
 %define gettextver 0.18.3
 %define intltoolver 0.31.2-3
-%define libnlver 1.0
 %define pykickstartver 1.99.46
 %define yumver 3.4.3-91
 %define dnfver 0.4.8
@@ -55,7 +54,6 @@ BuildRequires: glade-devel
 BuildRequires: pygobject3
 BuildRequires: intltool >= %{intltoolver}
 BuildRequires: libgnomekbd-devel
-BuildRequires: libnl-devel >= %{libnlver}
 BuildRequires: libxklavier-devel >= %{libxklavierver}
 BuildRequires: pango-devel
 BuildRequires: pykickstart >= %{pykickstartver}
