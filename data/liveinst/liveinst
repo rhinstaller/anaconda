@@ -110,6 +110,16 @@ for opt in `cat /proc/cmdline` $*; do
     --inst.updates=*)
         UPDATES="${opt#--inst.updates=}"
         ;;
+    ks=*|kickstart=*|--ks=*|--kickstart=*|inst.ks=*|--inst.ks=*|inst.kickstart=*|--inst-kickstart=*)
+        title="Configuration not supported"
+        text="Kickstart is not supported on live installs.  This installation will continue interactively."
+        if which zenity &> /dev/null; then
+            zenity --warning --title="$title" --text="$text"
+         else
+            echo "$title" >&2
+            echo "$text" >&2
+         fi
+        ;;
     esac
 done
 

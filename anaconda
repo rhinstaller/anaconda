@@ -901,7 +901,7 @@ if __name__ == "__main__":
     # execute) that now.  Otherwise, load in defaults from kickstart files
     # shipped with the installation media.
     ksdata = None
-    if opts.ksfile:
+    if opts.ksfile and not opts.liveinst:
         flags.automatedInstall = True
         flags.eject = False
         ksFiles = [opts.ksfile]
