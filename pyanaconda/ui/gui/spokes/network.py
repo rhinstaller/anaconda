@@ -528,7 +528,7 @@ class NetworkControlBox(GObject.GObject):
             return
 
         log.info("network: configuring connection %s device %s ssid %s" %
-                 uuid, devname, self.selected_ssid)
+                 (uuid, devname, self.selected_ssid))
         self.kill_nmce(msg="Configure button clicked")
         proc = subprocess.Popen(["nm-connection-editor", "--edit", "%s" % uuid])
         self._running_nmce = proc
