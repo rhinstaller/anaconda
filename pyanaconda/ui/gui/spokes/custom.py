@@ -1864,29 +1864,30 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         self.__storage.devicetree.pruneActions()
         self.__storage.devicetree.sortActions()
 
-        dialog = ActionSummaryDialog(self.data)
-        with enlightbox(self.window, dialog.window):
-            dialog.refresh(self.__storage.devicetree.findActions())
-            rc = dialog.run()
-
-        if rc != int(Gtk.ResponseType.ACCEPT): 
-            # Cancel.  Stay on the custom screen.
-            return
-
-        # Then if they did anything that resulted in new LUKS devices, we need
-        # to prompt for passphrases.
-        new_luks = any(d for d in self.__storage.devices
-                       if d.format.type == "luks" and not d.format.exists)
-        if new_luks:
-            dialog = PassphraseDialog(self.data)
+        if len(self.__storage.devicetree.findActions()) > 0:
+            dialog = ActionSummaryDialog(self.data)
             with enlightbox(self.window, dialog.window):
+                dialog.refresh(self.__storage.devicetree.findActions())
                 rc = dialog.run()
 
-            if rc == 0:
-                # Cancel. Leave the old passphrase set if there was one.
+            if rc != int(Gtk.ResponseType.ACCEPT): 
+                # Cancel.  Stay on the custom screen.
                 return
 
-            self.passphrase = dialog.passphrase
+            # Then if they did anything that resulted in new LUKS devices, we need
+            # to prompt for passphrases.
+            new_luks = any(d for d in self.__storage.devices
+                           if d.format.type == "luks" and not d.format.exists)
+            if new_luks:
+                dialog = PassphraseDialog(self.data)
+                with enlightbox(self.window, dialog.window):
+                    rc = dialog.run()
+
+                if rc == 0:
+                    # Cancel. Leave the old passphrase set if there was one.
+                    return
+
+                self.passphrase = dialog.passphrase
 
         NormalSpoke.on_back_clicked(self, button)
 
