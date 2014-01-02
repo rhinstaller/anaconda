@@ -1389,29 +1389,6 @@ reposdir=%s
         else:
             rpm.addMacro("__file_context_path", "%{nil}")
 
-    def _transactionErrors(self, errors):
-        spaceNeeded = {}
-        retval = ""
-
-        # RPM can give us a bunch of potential errors, but we really only
-        # care about a handful.
-        for (descr, (ty, mount, need)) in errors:
-            log.error(descr)
-
-            if ty == rpm.RPMPROB_DISKSPACE:
-                spaceNeeded[mount] = need
-
-        # Now that we've found the ones we are interested in, create an
-        # error string to match.
-        if spaceNeeded:
-            retval += _("You need more space on the following "
-                        "file systems:\n")
-
-            for (mount, need) in spaceNeeded.items():
-                retval += "%s on %s\n" % (Size(need), mount)
-
-        return retval
-
     def install(self):
         """ Install the payload.
 
