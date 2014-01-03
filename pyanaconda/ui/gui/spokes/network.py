@@ -619,7 +619,7 @@ class NetworkControlBox(GObject.GObject):
     def add_device(self, ty):
         log.info("network: adding device of type %s" % ty)
         self.kill_nmce(msg="Add device button clicked")
-        proc = subprocess.Popen(["nm-connection-editor", "--create", "--ty=%s" % ty])
+        proc = subprocess.Popen(["nm-connection-editor", "--create", "--type=%s" % ty])
         self._running_nmce = proc
 
         GLib.child_watch_add(proc.pid, self.on_nmce_adding_exited)
