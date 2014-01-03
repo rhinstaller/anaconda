@@ -1938,7 +1938,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         self.__storage.devicetree.pruneActions()
         self.__storage.devicetree.sortActions()
 
-        if len(self.__storage.devicetree.findActions()) > 1:
+        if len(self.__storage.devicetree.findActions()) > 0:
             dialog = ActionSummaryDialog(self.data)
             with enlightbox(self.window, dialog.window):
                 dialog.refresh(self.__storage.devicetree.findActions())
