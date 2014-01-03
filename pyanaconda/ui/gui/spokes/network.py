@@ -431,6 +431,10 @@ class NetworkControlBox(GObject.GObject):
                 # this must be some slave.
                 if dev_cfg.device_type == NetworkManager.DeviceType.ETHERNET:
                     continue
+                # Wireless settings are handled in scope of its device's dev_cfg
+                if dev_cfg.device_type == NetworkManager.DeviceType.WIFI:
+                    continue
+                # Virtual device settings (bond, team, vlan, ...)
                 self.add_dev_cfg(dev_cfg)
 
         # select the first device
