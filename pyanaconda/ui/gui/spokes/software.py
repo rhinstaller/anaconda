@@ -19,7 +19,7 @@
 # Red Hat Author(s): Chris Lumens <clumens@redhat.com>
 #
 
-from gi.repository import Gdk
+from gi.repository import Gtk, Pango
 
 from pyanaconda.flags import flags
 from pyanaconda.i18n import _, C_, CN_
@@ -65,8 +65,8 @@ class SoftwareSelectionSpoke(NormalSpoke):
         self.excludedGroups = []
         self.environment = None
 
-        self._addonStore = self.builder.get_object("addonStore")
-        self._environmentStore = self.builder.get_object("environmentStore")
+        self._environmentListBox = self.builder.get_object("environmentListBox")
+        self._addonListBox = self.builder.get_object("addonListBox")
 
         # Used to determine which add-ons to display for each environment.
         # The dictionary keys are environment IDs. The dictionary values are two-tuples
@@ -84,12 +84,9 @@ class SoftwareSelectionSpoke(NormalSpoke):
         self._origAddons = []
         self._origEnvironment = None
 
-        # We need to tell the addon view whether something is a separator or not.
-        self.builder.get_object("addonView").set_row_separator_func(self._addon_row_is_separator, None)
-
     def _apply(self):
-        row = self._get_selected_environment()
-        if not row:
+        env = self._get_selected_environment()
+        if not env:
             return
 
         addons = self._get_selected_addons()
@@ -99,8 +96,8 @@ class SoftwareSelectionSpoke(NormalSpoke):
 
         self._selectFlag = False
         self.payload.data.packages.groupList = []
-        self.payload.selectEnvironment(row[2])
-        self.environment = row[2]
+        self.payload.selectEnvironment(env)
+        self.environment = env
         for group in self.selectedGroups:
             self.payload.selectGroup(group)
 
@@ -145,14 +142,14 @@ class SoftwareSelectionSpoke(NormalSpoke):
 
     @property
     def changed(self):
-        row = self._get_selected_environment()
-        if not row:
+        env = self._get_selected_environment()
+        if not env:
             return True
 
         addons = self._get_selected_addons()
 
         # Don't redo dep solving if nothing's changed.
-        if row[2] == self._origEnvironment and set(addons) == set(self._origAddons) and \
+        if env == self._origEnvironment and set(addons) == set(self._origAddons) and \
            self.txid_valid:
             return False
 
@@ -189,8 +186,8 @@ class SoftwareSelectionSpoke(NormalSpoke):
         if not self.txid_valid:
             return _("Source changed - please verify")
 
-        row = self._get_selected_environment()
-        if not row:
+        env = self._get_selected_environment()
+        if not env:
             # Kickstart installs with %packages will have a row selected, unless
             # they did an install without a desktop environment.  This should
             # catch that one case.
@@ -199,7 +196,7 @@ class SoftwareSelectionSpoke(NormalSpoke):
 
             return _("Nothing selected")
 
-        return self.payload.environmentDescription(row[2])[0]
+        return self.payload.environmentDescription(env)[0]
 
     def initialize(self):
         NormalSpoke.initialize(self)
@@ -279,39 +276,56 @@ class SoftwareSelectionSpoke(NormalSpoke):
             hubQ.send_message(self.__class__.__name__, _("No installation source available"))
             return False
 
+    def _add_row(self, listbox, name, desc, button):
+        row = Gtk.ListBoxRow()
+        box = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL)
+        box.set_spacing(6)
+
+        button.set_valign(Gtk.Align.START)
+        button.connect("clicked", self.on_button_toggled, row)
+        box.add(button)
+
+        label = Gtk.Label()
+        label.set_line_wrap(True)
+        label.set_line_wrap_mode(Pango.WrapMode.WORD_CHAR)
+        label.set_markup("<b>%s</b>\n%s" % (escape_markup(name), escape_markup(desc)))
+        label.set_hexpand(True)
+        label.set_alignment(0, 0.5)
+        box.add(label)
+
+        row.add(box)
+        listbox.insert(row, -1)
+
     def refresh(self):
         NormalSpoke.refresh(self)
 
         threadMgr.wait(constants.THREAD_PAYLOAD_MD)
 
-        self._environmentStore.clear()
         if self.environment not in self.payload.environments:
             self.environment = None
 
         firstEnvironment = True
+        firstRadio = None
+
+        self._clear_listbox(self._environmentListBox)
+
         for environment in self.payload.environments:
             (name, desc) = self.payload.environmentDescription(environment)
 
-            itr = self._environmentStore.append([environment == self.environment, "<b>%s</b>\n%s" % \
-                    (escape_markup(name), escape_markup(desc)), environment])
-            # Either:
-            # (1) Select the environment given by kickstart or selected last
-            #     time this spoke was displayed; or
-            # (2) Select the first environment given by display order as the
-            #     default if nothing is selected.
-            if (environment == self.environment) or \
-               (not self.environment and firstEnvironment):
+            radio = Gtk.RadioButton(group=firstRadio)
+
+            active = environment == self.environment or \
+                     not self.environment and firstEnvironment
+            radio.set_active(active)
+            if active:
                 self.environment = environment
-                sel = self.builder.get_object("environmentSelector")
-                sel.select_iter(itr)
+
+            self._add_row(self._environmentListBox, name, desc, radio)
+            firstRadio = firstRadio or radio
 
             firstEnvironment = False
 
         self.refreshAddons()
-
-    def _addon_row_is_separator(self, model, itr, *args):
-        # The last column of the model tells us if this row is a separator or not.
-        return model[itr][3]
 
     def _addAddon(self, grp):
         (name, desc) = self.payload.groupDescription(grp)
@@ -326,17 +340,18 @@ class SoftwareSelectionSpoke(NormalSpoke):
         else:
             selected = self.payload.environmentOptionIsDefault(self.environment, grp)
 
-        self._addonStore.append([selected, "<b>%s</b>\n%s" % \
-                (escape_markup(name), escape_markup(desc)), grp, False])
+        check = Gtk.CheckButton()
+        check.set_active(selected)
+        self._add_row(self._addonListBox, name, desc, check)
 
     def refreshAddons(self):
-        self._addonStore.clear()
-
         # The source was changed, make sure the list is current
         if not self.txid_valid:
             self._parseEnvironments()
 
         if self.environment and (self.environment in self._environmentAddons):
+            self._clear_listbox(self._addonListBox)
+
             # We have two lists:  One of addons specific to this environment,
             # and one of all the others.  The environment-specific ones will be displayed
             # first and then a separator, and then the generic ones.  This is to make it
@@ -356,7 +371,7 @@ class SoftwareSelectionSpoke(NormalSpoke):
             # This marks a separator in the view - only add it if there's both environment
             # specific and generic addons.
             if addSep:
-                self._addonStore.append([False, "", "", True])
+                self._addonListBox.insert(Gtk.Separator(), -1)
 
             for grp in self._environmentAddons[self.environment][1]:
                 self._addAddon(grp)
@@ -368,95 +383,99 @@ class SoftwareSelectionSpoke(NormalSpoke):
         else:
             self.clear_info()
 
+    def _allAddons(self):
+        return self._environmentAddons[self.environment][0] + \
+               [""] + \
+               self._environmentAddons[self.environment][1]
+
     def _get_selected_addons(self):
-        return [row[2] for row in self._addonStore if row[0]]
+        retval = []
+
+        addons = self._allAddons()
+
+        for (ndx, row) in enumerate(self._addonListBox.get_children()):
+            box = row.get_children()[0]
+
+            if isinstance(box, Gtk.Separator):
+                continue
+
+            button = box.get_children()[0]
+            if button.get_active():
+                retval.append(addons[ndx])
+
+        return retval
 
     # Returns the row in the store corresponding to what's selected on the
     # left hand panel, or None if nothing's selected.
     def _get_selected_environment(self):
-        environmentView = self.builder.get_object("environmentView")
-        itr = environmentView.get_selection().get_selected()[1]
-        if not itr:
-            return None
+        for (ndx, row) in enumerate(self._environmentListBox.get_children()):
+            box = row.get_children()[0]
+            button = box.get_children()[0]
+            if button.get_active():
+                return self.payload.environments[ndx]
 
-        return self._environmentStore[itr]
+        return None
+
+    def _clear_listbox(self, listbox):
+        for child in listbox.get_children():
+            listbox.remove(child)
+            del(child)
 
     @property
     def txid_valid(self):
         return self._tx_id == self.payload.txID
 
     # Signal handlers
-    def on_environment_toggled(self, renderer, path):
+    def on_button_toggled(self, radio, row):
+        row.activate()
+
+    def on_environment_activated(self, listbox, row):
         if not self._selectFlag:
             return
 
-        # First, mark every row as unselected so the radio button on whatever
-        # row was previously selected will be cleared out.
-        for row in self._environmentStore:
-            row[0] = False
+        box = row.get_children()[0]
+        button = box.get_children()[0]
 
-        # Then, remove all the groups that were selected by the previously
+        button.handler_block_by_func(self.on_button_toggled)
+        button.set_active(not button.get_active())
+        button.handler_unblock_by_func(self.on_button_toggled)
+
+        # Remove all the groups that were selected by the previously
         # selected environment.
         for groupid in self.payload.environmentGroups(self.environment):
             if groupid in self.selectedGroups:
                 self.selectedGroups.remove(groupid)
 
         # Then mark the clicked environment as selected and update the screen.
-        self._environmentStore[path][0] = True
-        self.environment = self._environmentStore[path][2]
+        self.environment = self.payload.environments[row.get_index()]
         self.refreshAddons()
+        self._addonListBox.show_all()
 
-    def on_environment_selection_changed(self, selection):
-        (model, itr) = selection.get_selected()
-        if not itr:
+    def on_addon_activated(self, listbox, row):
+        box = row.get_children()[0]
+        if isinstance(box, Gtk.Separator):
             return
 
-        # Only do something if the row's not previously been selected.
-        if not model[itr][0]:
-            self.on_environment_toggled(None, model.get_path(itr))
+        button = box.get_children()[0]
+        addons = self._allAddons()
+        group = addons[row.get_index()]
 
-    def on_addon_toggled(self, renderer, path):
-        selected = not self._addonStore[path][0]
-        group = self._addonStore[path][2]
-        self._addonStore[path][0] = selected
-        if selected:
-            if group not in self.selectedGroups:
-                self.selectedGroups.append(group)
+        wasActive = group in self.selectedGroups
+
+        button.handler_block_by_func(self.on_button_toggled)
+        button.set_active(not wasActive)
+        button.handler_unblock_by_func(self.on_button_toggled)
+
+        if wasActive:
+            self.selectedGroups.remove(group)
+            self._addonStates[group] = self._ADDON_DESELECTED
+        else:
+            self.selectedGroups.append(group)
 
             if group in self.excludedGroups:
                 self.excludedGroups.remove(group)
 
             self._addonStates[group] = self._ADDON_SELECTED
-
-        else:
-            if group in self.selectedGroups:
-                self.selectedGroups.remove(group)
-
-            self._addonStates[group] = self._ADDON_DESELECTED
-
-    def on_addon_view_clicked(self, view, event, *args):
-        if event and not event.type in [Gdk.EventType.BUTTON_RELEASE, Gdk.EventType.KEY_RELEASE]:
-            return
-
-        if event and event.type == Gdk.EventType.KEY_RELEASE and \
-           event.keyval not in [Gdk.KEY_space, Gdk.KEY_Return, Gdk.KEY_ISO_Enter, Gdk.KEY_KP_Enter, Gdk.KEY_KP_Space]:
-            return
-
-        selection = view.get_selection()
-        (model, itr) = selection.get_selected()
-        if not itr:
-            return
-
-        # If the user clicked on the first column, they've clicked on the checkbox which was
-        # handled separately from this signal handler.  Handling it again here will result in
-        # the checkbox being toggled yet again.  So, we need to return in that case.
-        col = view.get_cursor()[1]
-        first_col = view.get_column(0)
-        if col == first_col:
-            return
-
-        # Always do something here, since addons can be toggled.
-        self.on_addon_toggled(None, model.get_path(itr))
 
     def on_info_bar_clicked(self, *args):
         if not self._errorMsgs:
