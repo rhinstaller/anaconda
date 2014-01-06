@@ -209,8 +209,9 @@ class StorageSpoke(NormalTUISpoke):
 
     def _select_all_disks(self):
         """ Mark all disks as selected for use in partitioning. """
-        for i in self.disks:
-            self._update_disk_list(i)
+        for disk in self.disks:
+            if disk.name not in self.selected_disks:
+                self._update_disk_list(disk)
 
     def input(self, args, key):
         """Grab the disk choice and update things"""
