@@ -47,10 +47,13 @@ class AdvancedUserDialog(GUIObject, GUIInputCheckHandler):
 
     def set_status(self, inputcheck):
         # Set or clear the groups error label based on the check status
+        # Make the save button insensitive if the check fails
         if inputcheck.check_status == InputCheck.CHECK_OK:
             self._groupsError.set_text('')
+            self._saveButton.set_sensitive(True)
         else:
             self._groupsError.set_text(inputcheck.check_status)
+            self._saveButton.set_sensitive(False)
 
     def _validateGroups(self, inputcheck):
         groups_list = self.get_input(inputcheck.input_obj).split(",")
