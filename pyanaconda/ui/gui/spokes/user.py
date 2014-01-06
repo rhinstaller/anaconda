@@ -22,7 +22,7 @@
 from gi.repository import Gtk
 
 from pyanaconda.i18n import _, N_
-from pyanaconda.users import cryptPassword, validatePassword, guess_username
+from pyanaconda.users import cryptPassword, validatePassword, guess_username, USERNAME_VALID
 from pwquality import PWQError
 
 from pyanaconda.ui.gui.spokes import NormalSpoke
@@ -461,12 +461,19 @@ class UserSpoke(FirstbootSpokeMixIn, NormalSpoke):
         self.admin.set_active(self._wheel.name in self._user.groups)
 
     def on_back_clicked(self, button):
+        username = self.username.get_text()
+        # if an invalid username was given, that's the biggest issue
+        if username and not USERNAME_VALID.match(username):
+            self.clear_info()
+            self.set_warning(_("Invalid username"))
+            self.username.grab_focus()
+            self.window.show_all()
         # Return if:
         # - no user is requested (empty username)
         # - no password is required
         # - password is set by kickstart and password text entry is empty
         # - password is set by dialog and _validatePassword returns True
-        if not self.username.get_text() or \
+        elif not username or \
            not self.usepassword.get_active() or \
            (self.pw.get_text() == "" and \
             self.pw.get_text() == self.confirm.get_text() and \

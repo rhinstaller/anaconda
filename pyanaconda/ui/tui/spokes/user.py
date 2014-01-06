@@ -24,7 +24,7 @@ from pyanaconda.ui.tui.spokes import EditTUISpokeEntry as Entry
 from pyanaconda.ui.common import FirstbootSpokeMixIn
 from pyanaconda.ui.tui.simpleline import TextWidget
 from pyanaconda.ui.tui import YesNoDialog
-from pyanaconda.users import guess_username
+from pyanaconda.users import guess_username, USERNAME_VALID
 from pyanaconda.i18n import _
 from pykickstart.constants import FIRSTBOOT_RECONFIG
 from pyanaconda.constants import ANACONDA_ENVIRON, FIRSTBOOT_ENVIRON
@@ -40,7 +40,7 @@ class UserSpoke(FirstbootSpokeMixIn, EditTUISpoke):
     edit_fields = [
         Entry("Create user", "_create", EditTUISpoke.CHECK, True),
         Entry("Fullname", "gecos", re.compile("^[^:]*$"), lambda self,args: args._create),
-        Entry("Username", "name", re.compile("^[a-z0-9_]+$"), lambda self,args: args._create),
+        Entry("Username", "name", USERNAME_VALID, lambda self,args: args._create),
         Entry("Use password", "_use_password", EditTUISpoke.CHECK, lambda self,args: args._create),
         Entry("Password", "_password", EditTUISpoke.PASSWORD, lambda self,args: args._use_password and args._create),
         Entry("Administrator", "_admin", EditTUISpoke.CHECK, lambda self,args: args._create),

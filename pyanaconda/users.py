@@ -28,12 +28,17 @@ import os
 import os.path
 import iutil
 import pwquality
+import re
 from pyanaconda.constants import ROOT_PATH
 from pyanaconda.iutil import strip_accents
 from pyanaconda.i18n import _
 
 import logging
 log = logging.getLogger("anaconda")
+
+_USERNAME_BASE = r'[a-z0-9._](([a-z0-9._-]{0,2})|([a-z0-9._-]{3}(?<!root))|([a-z0-9._-]{4,31})|([a-z0-9._-]{,30}\$))'
+
+USERNAME_VALID = re.compile(r'^' + _USERNAME_BASE + '$')
 
 def createLuserConf(instPath, algoname='sha512'):
     """ Writes a libuser.conf for instPath.
