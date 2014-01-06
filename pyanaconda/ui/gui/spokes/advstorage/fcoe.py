@@ -113,6 +113,7 @@ class FCoEDialog(GUIObject):
             self._cancelButton.set_sensitive(True)
         else:
             # Success.  There's nothing else the user can do on this dialog.
+            self.fcoe.added_nics.append(self.nic)
             self._update_devicetree = True
             self.window.response(1)
 
