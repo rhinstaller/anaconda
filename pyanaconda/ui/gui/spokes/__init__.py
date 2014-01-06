@@ -91,13 +91,6 @@ class NormalSpoke(Spoke, common.NormalSpoke):
     def on_back_clicked(self, window):
         from gi.repository import Gtk
 
-        # Look for failed checks
-        failed_check = next(self.failed_checks, None)
-        if failed_check:
-            # Set the focus to the first failed check and stay in the spoke
-            failed_check.editable.grab_focus()
-            return
-
         self.window.hide()
         Gtk.main_quit()
 

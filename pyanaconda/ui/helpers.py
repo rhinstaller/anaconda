@@ -55,7 +55,7 @@
 # Mixin.data, so UIObject.data satisfies the requirment that Mixin.data be
 # overriden.
 
-from abc import ABCMeta, abstractproperty
+from abc import ABCMeta, abstractproperty, abstractmethod
 
 from pyanaconda import constants
 from pyanaconda.threads import threadMgr, AnacondaThread
@@ -188,3 +188,239 @@ class SourceSwitchHandler(object):
         self._clean_hdd_iso()
 
         self.data.method.method = None
+
+class InputCheck(object):
+    """Handle an input validation check.
+
+       This class is used by classes that implement InputCheckHandler to
+       manage and manipulate input validation check instances.
+    """
+
+    # Use as a return value to indicate a passed check
+    CHECK_OK = None
+
+    # Read-only properties
+    input_obj = property(lambda s: s._input_obj,
+                     doc="The input to check.")
+    run_check = property(lambda s: s._run_check,
+                         doc="A function to call to perform the input check.")
+    data = property(lambda s: s._data,
+                    doc="Optional data associated with the input check.")
+    set_status = property(lambda s: s._set_status,
+                          doc="A function called when the status changes.")
+    check_status = property(lambda s: s._check_status,
+                            doc="The current status of the check")
+
+    def __init__(self, parent, input_obj, run_check, data=None):
+        """Create a new input validation check.
+
+           :param InputCheckHandler parent: The InputCheckHandler object to which this
+                                            check is being added.
+
+           :param function input_obj: An object representing the input to check.
+
+           :param function run_check: A function to call to perform the input check. This
+                                      function is called with the InputCheck object as a
+                                      parameter.  The return value an object representing
+                                      the error state, or CHECK_OK if the check succeeds.
+
+           :param data: Optional data associated with the input check
+        """
+        self._parent = parent
+        self._input_obj = input_obj
+        self._run_check = run_check
+        self._data = data
+        self._check_status = None
+        self._enabled = True
+
+    def update_check_status(self):
+        """Run an input validation check."""
+        if not self.enabled:
+            return
+
+        new_check_status = self._run_check(self)
+        check_status_changed = (self.check_status != new_check_status)
+        self._check_status = new_check_status
+
+        if check_status_changed:
+            self._parent.set_status(self)
+
+    @property
+    def enabled(self):
+        return self._enabled
+
+    @enabled.setter
+    def enabled(self, value):
+        self._enabled = value
+
+        # If disabling the check, clear the status
+        if not value:
+            self._check_status = None
+
+class InputCheckHandler(object):
+    """Provide a framework for adding input validation checks to a screen.
+
+       This helper class provides a mean of defining and associating input
+       validation checks with an input screen. Running the checks and acting
+       upon the results is left up to the subclasses. Classes implementing
+       InputCheckHandler should ensure that the checks are run at the
+       appropriate times (e.g., calling InputCheck.update_check_status when
+       input is changed), and that input for the screen is not accepted if
+       self.failed_checks is not empty.
+
+       See GUIInputCheckHandler and GUISpokeInputCheckHandler for additional
+       functionality.
+    """
+
+    __metaclass__ = ABCMeta
+
+    def __init__(self):
+        self._check_list = []
+
+    def _check_re(self, inputcheck):
+        """Perform an input validation check against a regular expression."""
+        if inputcheck.data['regex'].match(self.get_input(inputcheck.input_obj)):
+            return inputcheck.CHECK_OK
+        else:
+            return inputcheck.data['message']
+
+    @abstractmethod
+    def get_input(self, input_obj):
+        """Return the input string from an input object.
+
+           :param input_obj: The input object
+
+           :returns: An input string
+           :rtype: str
+        """
+        pass
+
+    @abstractmethod
+    def set_status(self, inputcheck):
+        """Update the status of the window from the input validation results.
+
+           This function could, for example, set or clear an error on the window,
+           or display a message near an input area with invalid data.
+
+           :param InputCheck inputcheck: The InputCheck object whose status last changed.
+        """
+        pass
+
+    def add_check(self, input_obj, run_check, data=None):
+
+        """Add an input validation check to this object.
+
+           :param input_obj: An object representing the input to check.
+
+           :param function run_check: A function to call to perform the input check. This
+                                      function is called with the InputCheck object as a
+                                      parameter.  The return value an object representing
+                                      the error state, or CHECK_OK if the check succeeds.
+
+           :param data: Optional data associated with the input check
+
+           :returns: The InputCheck object created.
+           :rtype: InputCheck
+        """
+        checkRef = InputCheck(self, input_obj, run_check, data)
+        self._check_list.append(checkRef)
+        return checkRef
+
+    def add_re_check(self, input_obj, regex, message):
+        """Add a check using a regular expression.
+
+           :param function input_obj: An object representing the input to check.
+
+           :param re.RegexObject regex: The regular expression to check input against.
+
+           :param str message: A message to return for failed checks
+
+           :returns: The InputCheck object created.
+           :rtype: InputCheck
+        """
+        return self.add_check(input_obj=input_obj, run_check=self._check_re,
+                data={'regex': regex, 'message': message})
+
+    @property
+    def failed_checks(self):
+        """A generator of all failed input checks"""
+        return (c for c in self._check_list if c.check_status != InputCheck.CHECK_OK)
+
+    @property
+    def checks(self):
+        """An iterator over all input checks"""
+        return self._check_list.__iter__()
+
+# Inherit abstract methods from InputCheckHandler
+# pylint: disable-msg=W0223
+class GUIInputCheckHandler(InputCheckHandler):
+    """Provide InputCheckHandler functionality for Gtk input screens.
+
+       This class assumes that all input objects are of type GtkEditable and
+       attaches InputCheck.update_check_status to the changed signal.
+    """
+
+    __metaclass__ = ABCMeta
+
+    def _update_check_status(self, editable, inputcheck):
+        inputcheck.update_check_status()
+
+    def get_input(self, input_obj):
+        return input_obj.get_text()
+
+    def add_check(self, input_obj, run_check, data=None):
+        checkRef = InputCheckHandler.add_check(self, input_obj, run_check, data)
+        input_obj.connect_after("changed", self._update_check_status, checkRef)
+        return checkRef
+
+class GUISpokeInputCheckHandler(GUIInputCheckHandler):
+    """Provide InputCheckHandler functionality for graphical spokes.
+
+       This class implements set_status to set a message in the warning area of
+       the spoke window and provides an implementation of on_back_clicked to
+       prevent the user from exiting a spoke with bad input.
+    """
+
+    __metaclass__ = ABCMeta
+
+    def set_status(self, inputcheck):
+        """Update the warning with the input validation error from the first
+           failed check.
+        """
+        failed_check = next(self.failed_checks, None)
+
+        self.clear_info()
+        if failed_check:
+            self.set_warning(failed_check.check_status)
+            self.window.show_all()
+
+    # Implemented by GUIObject
+    @abstractmethod
+    def clear_info(self):
+        pass
+
+    # Implemented by GUIObject
+    @abstractmethod
+    def set_warning(self, msg):
+        pass
+
+    # Implemented by GUIObject
+    @abstractproperty
+    def window(self):
+        pass
+
+    @abstractmethod
+    def on_back_clicked(self, window):
+        """Check whether the input validation checks allow the spoke to be exited.
+
+           Unlike NormalSpoke.on_back_clicked, this function returns a boolean value.
+           Classes implementing this class should run GUISpokeInputCheckHandler.on_back_clicked,
+           and if it succeeded, run NormalSpoke.on_back_clicked.
+        """
+        failed_check = next(self.failed_checks, None)
+
+        if failed_check:
+            failed_check.input_obj.grab_focus()
+            return False
+        else:
+            return True

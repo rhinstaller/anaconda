@@ -22,10 +22,10 @@
 from pyanaconda.i18n import _, CN_
 from pyanaconda.users import cryptPassword, validatePassword
 
-from pyanaconda.ui.gui import GUICheck
 from pyanaconda.ui.gui.spokes import NormalSpoke
 from pyanaconda.ui.gui.categories.user_settings import UserSettingsCategory
 from pyanaconda.ui.common import FirstbootSpokeMixIn
+from pyanaconda.ui.helpers import GUISpokeInputCheckHandler, InputCheck
 
 from pyanaconda.constants import PASSWORD_EMPTY_ERROR, PASSWORD_CONFIRM_ERROR_GUI,\
         PASSWORD_STRENGTH_DESC, PASSWORD_WEAK, PASSWORD_WEAK_WITH_ERROR,\
@@ -34,7 +34,7 @@ from pyanaconda.constants import PASSWORD_EMPTY_ERROR, PASSWORD_CONFIRM_ERROR_GU
 __all__ = ["PasswordSpoke"]
 
 
-class PasswordSpoke(FirstbootSpokeMixIn, NormalSpoke):
+class PasswordSpoke(FirstbootSpokeMixIn, NormalSpoke, GUISpokeInputCheckHandler):
     builderObjects = ["passwordWindow"]
 
     mainWidgetName = "passwordWindow"
@@ -47,6 +47,7 @@ class PasswordSpoke(FirstbootSpokeMixIn, NormalSpoke):
 
     def __init__(self, *args):
         NormalSpoke.__init__(self, *args)
+        GUISpokeInputCheckHandler.__init__(self)
         self._kickstarted = False
 
     def initialize(self):
@@ -100,7 +101,7 @@ class PasswordSpoke(FirstbootSpokeMixIn, NormalSpoke):
     def refresh(self):
         # Enable the input checks in case they were disabled on the last exit
         for check in self.checks:
-            check.enable()
+            check.enabled = True
 
         self.pw.grab_focus()
         self.pw.emit("changed")
@@ -140,47 +141,44 @@ class PasswordSpoke(FirstbootSpokeMixIn, NormalSpoke):
     def completed(self):
         return bool(self.data.rootpw.password or self.data.rootpw.lock)
 
-    def _checkPasswordEmpty(self, editable, data):
+    def _checkPasswordEmpty(self, inputcheck):
         """Check whether a password has been specified at all."""
 
         # If the password was set by kickstart, skip this check
         if self._kickstarted:
-            return GUICheck.CHECK_OK
+            return InputCheck.CHECK_OK
 
-        if not editable.get_text():
-            if editable == self.pw:
+        if not self.get_input(inputcheck.input_obj):
+            if inputcheck.input_obj == self.pw:
                 return _(PASSWORD_EMPTY_ERROR)
             else:
                 return _(PASSWORD_CONFIRM_ERROR_GUI)
         else:
-            return GUICheck.CHECK_OK
+            return InputCheck.CHECK_OK
 
-    def _checkPasswordConfirm(self, editable=None, reset_status=None):
+    def _checkPasswordConfirm(self, inputcheck):
         """Check whether the password matches the confirmation data."""
-
-        # This check is triggered by changes to either the password field or the
-        # confirmation field. If this method is being run from a successful check
-        # to reset the status, just return success
-        if reset_status:
-            return GUICheck.CHECK_OK
 
         pw = self.pw.get_text()
         confirm = self.confirm.get_text()
 
         # Skip the check if no password is required
         if (not pw and not confirm) and self._kickstarted:
-            result = GUICheck.CHECK_OK
+            result = InputCheck.CHECK_OK
         elif confirm and (pw != confirm):
             result = _(PASSWORD_CONFIRM_ERROR_GUI)
         else:
-            result = GUICheck.CHECK_OK
+            result = InputCheck.CHECK_OK
 
         # If the check succeeded, reset the status of the other check object
-        if result == GUICheck.CHECK_OK:
-            if editable == self.confirm:
-                self._password_check.update_check_status(check_data=True)
+        # Disable the current check to prevent a cycle
+        inputcheck.enabled = False
+        if result == InputCheck.CHECK_OK:
+            if inputcheck == self._confirm_check:
+                self._password_check.update_check_status()
             else:
-                self._confirm_check.update_check_status(check_data=True)
+                self._confirm_check.update_check_status()
+        inputcheck.enabled = True
 
         return result
 
@@ -213,7 +211,7 @@ class PasswordSpoke(FirstbootSpokeMixIn, NormalSpoke):
         self.pw_bar.set_value(val)
         self.pw_label.set_text(text)
 
-    def _checkPasswordStrength(self, editable=None, data=None):
+    def _checkPasswordStrength(self, inputcheck):
         """Update the error message based on password strength.
 
            Convert the strength set by _updatePwQuality into an error message.
@@ -224,7 +222,7 @@ class PasswordSpoke(FirstbootSpokeMixIn, NormalSpoke):
 
         # Skip the check if no password is required
         if (not pw and not confirm) and self._kickstarted:
-            return GUICheck.CHECK_OK
+            return InputCheck.CHECK_OK
 
         # Check for validity errors
         if (not self._pwq_valid) and (self._pwq_error):
@@ -235,7 +233,7 @@ class PasswordSpoke(FirstbootSpokeMixIn, NormalSpoke):
         if pwstrength < 2:
             # If Done has been clicked twice, waive the check
             if self._waivePasswordClicks > 1:
-                return GUICheck.CHECK_OK
+                return InputCheck.CHECK_OK
             elif self._waivePasswordClicks == 1:
                 if self._pwq_error:
                     return _(PASSWORD_WEAK_CONFIRM_WITH_ERROR) % self._pwq_error
@@ -247,7 +245,7 @@ class PasswordSpoke(FirstbootSpokeMixIn, NormalSpoke):
                 else:
                     return _(PASSWORD_WEAK)
         else:
-            return GUICheck.CHECK_OK
+            return InputCheck.CHECK_OK
 
     def on_back_clicked(self, button):
         # Add a click and re-check the password strength
@@ -257,6 +255,7 @@ class PasswordSpoke(FirstbootSpokeMixIn, NormalSpoke):
         # If neither the password nor the confirm field are set, skip the checks
         if (not self.pw.get_text()) and (not self.confirm.get_text()):
             for check in self.checks:
-                check.disable()
+                check.enabled = False
 
-        NormalSpoke.on_back_clicked(self, button)
+        if GUISpokeInputCheckHandler.on_back_clicked(self, button):
+            NormalSpoke.on_back_clicked(self, button)
