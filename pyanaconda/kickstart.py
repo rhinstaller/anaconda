@@ -527,9 +527,16 @@ class Fcoe(commands.fcoe.F13_Fcoe):
         if fc.nic not in nm.nm_devices():
             raise KickstartValueError, formatErrorMsg(self.lineno, msg="Specified nonexistent nic %s in fcoe command" % fc.nic)
 
-        msg = blivet.fcoe.fcoe().addSan(nic=fc.nic, dcb=fc.dcb, auto_vlan=True) or "Succeeded."
+        if fc.nic in (info[0] for info in blivet.fcoe.fcoe().nics):
+            log.info("Kickstart fcoe device %s already added from EDD, ignoring"
+                    % fc.nic)
+        else:
+            msg = blivet.fcoe.fcoe().addSan(nic=fc.nic, dcb=fc.dcb, auto_vlan=True)
+            if not msg:
+                msg = "Succeeded."
+                blivet.fcoe.fcoe().added_nics.append(fc.nic)
 
-        log.info("adding FCoE SAN on %s: %s" % (fc.nic, msg))
+            log.info("adding FCoE SAN on %s: %s" % (fc.nic, msg))
 
         return fc
 
