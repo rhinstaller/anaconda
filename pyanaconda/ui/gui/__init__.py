@@ -25,7 +25,6 @@ from gi.repository import Gdk, Gtk, AnacondaWidgets, Keybinder
 
 from pyanaconda.i18n import _
 from pyanaconda import product
-from pyanaconda import iutil
 
 from pyanaconda.ui import UserInterface, common
 from pyanaconda.ui.gui.utils import enlightbox, gtk_action_wait, busyCursor, unbusyCursor
@@ -243,12 +242,13 @@ class GUIObject(common.UIObject):
 
             fn = os.path.join(self.screenshots_directory,
                               "screenshot-%04d.png" % _screenshotIndex)
-            rc = iutil.execWithRedirect("scrot", [fn])
-            if rc == 0:
-                log.info("screenshot nr. %d taken", _screenshotIndex)
-                _screenshotIndex += 1
-            else:
-                log.error("taking screenshot failed")
+            root_window = Gdk.get_default_root_window()
+            pixbuf = Gdk.pixbuf_get_from_window(root_window, 0, 0,
+                                                root_window.get_width(),
+                                                root_window.get_height())
+            pixbuf.savev(fn, 'png', [], [])
+            log.info("screenshot nr. %d taken", _screenshotIndex)
+            _screenshotIndex += 1
             # start counting from the time the screenshot operation is done
             _last_screenshot_timestamp = time.time()
 
