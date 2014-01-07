@@ -325,7 +325,7 @@ def activate_keyboard(keyboard):
         if c_lay_var:
             # suggested by systemd-localed for a requested VConsole keymap
             keyboard.x_layouts.append(c_lay_var)
-        if keyboard.vc_keymap:
+        elif keyboard.vc_keymap:
             # nothing suggested by systemd-localed, but we may try to use the
             # same string for both VConsole keymap and X layout (will fail
             # safely if it doesn't work)
