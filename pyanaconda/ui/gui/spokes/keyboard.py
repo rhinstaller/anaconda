@@ -40,11 +40,11 @@ __all__ = ["KeyboardSpoke"]
 LAYOUT_SWITCHING_INFO = N_("%s to switch layouts.")
 
 def _show_layout(column, renderer, model, itr, wrapper):
-    value = wrapper.name_to_show_str[model[itr][0]]
+    value = wrapper.get_layout_variant_description(model[itr][0])
     renderer.set_property("text", value)
 
 def _show_description(column, renderer, model, itr, wrapper):
-    value = wrapper.switch_to_show_str[model[itr][0]]
+    value = wrapper.get_switch_opt_description(model[itr][0])
     if model[itr][1]:
         value = "<b>%s</b>" % value
     renderer.set_property("markup", value)
@@ -61,7 +61,7 @@ class AddLayoutDialog(GUIObject):
 
     def matches_entry(self, model, itr, user_data=None):
         value = model[itr][0]
-        value = self._xkl_wrapper.name_to_show_str[value]
+        value = self._xkl_wrapper.get_layout_variant_description(value)
         entry_text = self._entry.get_text()
         if entry_text is not None:
             entry_text = entry_text.lower()
@@ -87,8 +87,8 @@ class AddLayoutDialog(GUIObject):
 
         value1 = model[itr1][0]
         value2 = model[itr2][0]
-        show_str1 = self._xkl_wrapper.name_to_show_str[value1]
-        show_str2 = self._xkl_wrapper.name_to_show_str[value2]
+        show_str1 = self._xkl_wrapper.get_layout_variant_description(value1)
+        show_str2 = self._xkl_wrapper.get_layout_variant_description(value2)
 
         if show_str1 < show_str2:
             return -1
@@ -223,8 +223,8 @@ class ConfigureSwitchingDialog(GUIObject):
 
         value1 = model[itr1][0]
         value2 = model[itr2][0]
-        show_str1 = self._xkl_wrapper.switch_to_show_str[value1]
-        show_str2 = self._xkl_wrapper.switch_to_show_str[value2]
+        show_str1 = self._xkl_wrapper.get_switch_opt_description(value1)
+        show_str2 = self._xkl_wrapper.get_switch_opt_description(value2)
 
         if show_str1 < show_str2:
             return -1
@@ -285,7 +285,7 @@ class KeyboardSpoke(NormalSpoke):
     @property
     def status(self):
         # We don't need to check that self._store is empty, because that isn't allowed.
-        descriptions = (self._xkl_wrapper.name_to_show_str[row[0]]
+        descriptions = (self._xkl_wrapper.get_layout_variant_description(row[0])
                         for row in self._store)
         return ", ".join(descriptions)
 
@@ -374,7 +374,7 @@ class KeyboardSpoke(NormalSpoke):
     def _refresh_switching_info(self):
         if self.data.keyboard.switch_options:
             first_option = self.data.keyboard.switch_options[0]
-            desc = self._xkl_wrapper.switch_to_show_str[first_option]
+            desc = self._xkl_wrapper.get_switch_opt_description(first_option)
 
             self._layoutSwitchLabel.set_text(_(LAYOUT_SWITCHING_INFO) % desc)
         else:

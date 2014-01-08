@@ -26,6 +26,8 @@ import re
 import langtable
 import glob
 
+from pyanaconda.iutil import upcase_first_letter
+
 import logging
 log = logging.getLogger("anaconda")
 
@@ -46,27 +48,6 @@ class InvalidLocaleSpec(LocalizationConfigError):
     """Exception class for the errors related to invalid locale specs"""
 
     pass
-
-def _upcase_first_letter(string):
-    """
-    Helper function that upcases the first letter of the string. Python's
-    standard string.capitalize() not only upcases the first letter but also
-    lowercases all the others. string.title() capitalizes all words in the
-    string.
-
-    :type string: either a str or unicode object
-    :return: the given string with the first letter upcased
-    :rtype: str or unicode (depends on the input)
-
-    """
-
-    if not string:
-        # cannot change anything
-        return string
-    elif len(string) == 1:
-        return string.upper()
-    else:
-        return string[0].upper() + string[1:]
 
 def parse_langcode(langcode):
     """
@@ -237,7 +218,7 @@ def get_english_name(locale):
                                    scriptId=parts.get("script", ""),
                                    languageIdQuery="en")
 
-    return _upcase_first_letter(name)
+    return upcase_first_letter(name)
 
 def get_native_name(locale):
     """
@@ -261,7 +242,7 @@ def get_native_name(locale):
                                    languageIdQuery=parts["language"],
                                    scriptIdQuery=parts.get("script", ""))
 
-    return _upcase_first_letter(name)
+    return upcase_first_letter(name)
 
 def get_available_translations(localedir=None):
     """

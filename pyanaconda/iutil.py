@@ -736,3 +736,24 @@ def is_unsupported_hw():
     if status:
         log.debug("Installing on Unsupported Hardware")
     return status
+
+def upcase_first_letter(text):
+    """
+    Helper function that upcases the first letter of the string. Python's
+    standard string.capitalize() not only upcases the first letter but also
+    lowercases all the others. string.title() capitalizes all words in the
+    string.
+
+    :type text: either a str or unicode object
+    :return: the given text with the first letter upcased
+    :rtype: str or unicode (depends on the input)
+
+    """
+
+    if not text:
+        # cannot change anything
+        return text
+    elif len(text) == 1:
+        return text.upper()
+    else:
+        return text[0].upper() + text[1:]
