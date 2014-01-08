@@ -266,7 +266,6 @@ def reload_modules():
 
     # Make a list of modules added since startup
     startup_modules = get_module_set("/tmp/dd_modules")
-    startup_modules.update(["virtio_blk", "virtio_net"])
     current_modules = get_module_set("/proc/modules")
     new_modules = current_modules.difference(startup_modules)
     log.debug("new_modules = %s" % " ".join(new_modules))

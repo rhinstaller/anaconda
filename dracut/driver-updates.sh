@@ -2,9 +2,6 @@
 # Determine if a Driver Update Disk is present, or inst.dd passed on the cmdline
 # and launch the driver update systemd service
 
-# save module state
-cat /proc/modules > /tmp/dd_modules
-
 # load all modules
 udevadm trigger
 udevadm settle
@@ -21,6 +18,9 @@ if [ -n "$dd_args" -o $blkid_rc -eq 0 ]; then
     tty=$(find_tty)
     # kludge to let kernel spit out some extra info w/o stomping on our UI
     sleep 5
+
+    # save module state
+    cat /proc/modules > /tmp/dd_modules
 
     echo "$dd_args" > /tmp/dd_args
     info "Starting Driver Update Disk Service on $tty"
