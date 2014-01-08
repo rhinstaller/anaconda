@@ -1,7 +1,7 @@
 # vim: set fileencoding=utf-8
 # Mountpoint selector accordion and page classes
 #
-# Copyright (C) 2012  Red Hat, Inc.
+# Copyright (C) 2012-2014  Red Hat, Inc.
 #
 # This copyrighted material is made available to anyone wishing to use,
 # modify, copy, or redistribute it subject to the terms and conditions of
@@ -24,7 +24,7 @@ from blivet.size import Size
 
 from pyanaconda.i18n import _
 from pyanaconda.product import productName, productVersion
-from pyanaconda.ui.gui.utils import escape_markup
+from pyanaconda.ui.gui.utils import escape_markup, really_hide, really_show
 
 from gi.repository.AnacondaWidgets import MountpointSelector
 from gi.repository import Gtk
@@ -156,7 +156,11 @@ class Page(Gtk.Box):
 
         # Create the Data label and a box to store all its members in.
         self._dataBox = Gtk.Box(orientation=Gtk.Orientation.VERTICAL)
-        self._dataBox.add(self._make_category_label(_("DATA")))
+        self._dataLabel = self._make_category_label(_("DATA"))
+        really_hide(self._dataLabel)
+        self._dataBox.add(self._dataLabel)
+        self._dataBox.connect("add", self._onDataAdded)
+        self._dataBox.connect("remove", self._onDataRemoved)
         self.add(self._dataBox)
 
         # Create the System label and a box to store all its members in.
@@ -223,6 +227,15 @@ class Page(Gtk.Box):
         # could be simple lambda, but this way it looks more similar to the
         # _onSelectorClicked
         cb(selector)
+
+    def _onDataAdded(self, container, widget):
+        really_show(self._dataLabel)
+
+    def _onDataRemoved(self, container, widget):
+        # This runs before widget is removed from container, so if it's the last
+        # item then the container will still not be empty.
+        if len(container.get_children()) == 1:
+            really_hide(self._dataLabel)
 
 class UnknownPage(Page):
     def __init__(self, title):
