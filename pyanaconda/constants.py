@@ -19,6 +19,7 @@
 # Author(s): Erik Troan <ewt@redhat.com>
 #
 
+import string
 from pyanaconda.i18n import N_
 
 SELINUX_DEFAULT = 1
@@ -147,3 +148,6 @@ PASSWORD_STRENGTH_DESC = [N_("Empty"), N_("Weak"), N_("Fair"), N_("Good"), N_("S
 
 # the number of seconds we consider a noticeable freeze of the UI
 NOTICEABLE_FREEZE = 0.1
+
+# all ASCII characters
+PW_ASCII_CHARS = string.digits + string.ascii_letters + string.punctuation + " "

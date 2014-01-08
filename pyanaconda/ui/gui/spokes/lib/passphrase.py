@@ -24,7 +24,7 @@ from gi.repository import Gtk, Gdk
 import pwquality
 
 from pyanaconda.ui.gui import GUIObject
-
+from pyanaconda.constants import PW_ASCII_CHARS
 from pyanaconda.i18n import _, N_
 
 __all__ = ["PassphraseDialog"]
@@ -131,7 +131,8 @@ class PassphraseDialog(GUIObject):
 
     def on_passphrase_changed(self, entry):
         self._update_passphrase_strength()
-        if entry.get_text() and entry.get_text() == self._confirm_entry.get_text():
+        passphrase = entry.get_text()
+        if passphrase and passphrase == self._confirm_entry.get_text():
             self._set_entry_icon(self._confirm_entry, "", "")
             self._save_button.set_sensitive(True)
         else:
@@ -139,6 +140,16 @@ class PassphraseDialog(GUIObject):
 
         if not self._pwq_error:
             self._set_entry_icon(entry, "", "")
+
+        can_override_icon = entry.get_icon_name(Gtk.EntryIconPosition.SECONDARY)\
+                            in ["gtk-dialog-warning", "", None]
+        if can_override_icon:
+            # no other icon set, make non-ASCII warning (lowest priority) effective
+            if passphrase and any(char not in PW_ASCII_CHARS for char in passphrase):
+                self._set_entry_icon(entry, "gtk-dialog-warning",
+                                     _("contains non-ASCII characters"))
+            else:
+                self._set_entry_icon(entry, "", "")
 
     def on_passphrase_editing_done(self, entry, *args):
         if self._pwq_error:
