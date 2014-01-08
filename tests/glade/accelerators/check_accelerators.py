@@ -24,6 +24,14 @@ import os.path
 import copy
 import locale
 
+# Import translation methods if needed
+if ('-t' in sys.argv) or ('--translate' in sys.argv):
+    try:
+        from translatepo import translate_all
+    except ImportError:
+        print("Unable to load po translation module")
+        sys.exit(99)
+
 try:
     from lxml import etree
 except ImportError:
@@ -32,39 +40,6 @@ except ImportError:
 
 accel_re = re.compile(r'_(?P<accel>.)')
 success = True
-
-# Only used when --translate is requested.
-class PODict(object):
-    metadata = {}
-
-    def __init__(self, filename):
-        try:
-            import polib
-        except ImportError:
-            print("You need to install the python-polib package to check translations")
-            sys.exit(1)
-
-        self._dict = {}
-        self._dict[None] = {}
-
-        pofile = polib.pofile(filename)
-        self.metadata = pofile.metadata
-        for entry in pofile.translated_entries():
-            if (entry.msgctxt is not None) and (entry.msgctxt not in self._dict):
-                self._dict[entry.msgctxt] = {}
-
-            # If this is a plural entry, take the first option and hope that
-            # the accelerator is the same for all options.
-            # Add dictionary entries for both the singular and plural IDs so
-            # that glade placeholders can contain either form.
-            if entry.msgstr_plural:
-                self._dict[entry.msgctxt][entry.msgid] = entry.msgstr_plural['0']
-                self._dict[entry.msgctxt][entry.msgid_plural] = entry.msgstr_plural['0']
-            else:
-                self._dict[entry.msgctxt][entry.msgid] = entry.msgstr
-
-    def get(self, key, context=None):
-        return self._dict[context][key]
 
 def is_exception(node, conflicting_node, language=None):
     # Check for a comment of the form
@@ -85,9 +60,32 @@ def add_check_accel(glade_filename, accels, label, po_map):
 
     if po_map:
         try:
-            label.text = po_map.get(label.text, label.get("context"))
+            label_texts = po_map.get(label.text, label.get("context"))
         except KeyError:
             return
+
+        # If there is more than one translation (i.e., a plural string), check
+        # that the accelerator is the same for all translations
+        if len(label_texts) > 1:
+            match = accel_re.search(label_texts[0])
+            if match:
+                accel0 = match.group('accel').lower()
+            else:
+                accel0 = None
+
+            for label_text in label_texts[1:]:
+                match = accel_re.search(label_text)
+                if match:
+                    accel = match.group('accel').lower()
+                else:
+                    accel = None
+
+                if accel != accel0:
+                    print("Mismatched accelerator in translations for %s in language %s" % \
+                            (label.text, po_map.metadata['Language']))
+                    success = False
+
+        label.text = label_texts[0]
         lang_str = " for language %s" % po_map.metadata['Language']
     else:
         lang_str = ""
@@ -223,38 +221,29 @@ def main(argv=None):
     if args.translate:
         import langtable
 
-        with open(os.path.join(args.podir, 'LINGUAS')) as linguas:
-            for line in linguas.readlines():
-                if re.match(r'^#', line):
-                    continue
+        podicts = translate_all(args.podir)
 
-                for lang in line.strip().split(" "):
-                    # Reset the locale to C before parsing the po file because
-                    # polib has erroneous uses of lower().
-                    # See https://bitbucket.org/izi/polib/issue/54/pofile-parsing-crashes-in-turkish-locale
+        for (lang, po_map) in ((key, podicts[key]) for key in podicts.keys()):
+            # Set the locale so that we can use lower() on accelerator keys.
+            # If the language is of the form xx_XX, use that as the
+            # locale name. Otherwise use the first locale that
+            # langtable returns for the language. If that doesn't work,
+            # just use C and hope for the best.
+            if '_' in lang:
+                locale.setlocale(locale.LC_ALL, lang)
+            else:
+                locale_list = langtable.list_locales(languageId=lang)
+                if locale_list:
+                    try:
+                        locale.setlocale(locale.LC_ALL, locale_list[0])
+                    except locale.Error:
+                        print("No such locale %s, using C" % locale_list[0])
+                        locale.setlocale(locale.LC_ALL, 'C')
+                else:
                     locale.setlocale(locale.LC_ALL, 'C')
-                    po_map = PODict(os.path.join(args.podir, lang + ".po"))
 
-                    # Set the locale so that we can use lower() on accelerator keys.
-                    # If the language is of the form xx_XX, use that as the
-                    # locale name. Otherwise use the first locale that
-                    # langtable returns for the language. If that doesn't work,
-                    # just use C and hope for the best.
-                    if '_' in lang:
-                        locale.setlocale(locale.LC_ALL, lang)
-                    else:
-                        locale_list = langtable.list_locales(languageId=lang)
-                        if locale_list:
-                            try:
-                                locale.setlocale(locale.LC_ALL, locale_list[0])
-                            except locale.Error:
-                                print("No such locale %s, using C" % locale_list[0])
-                                locale.setlocale(locale.LC_ALL, 'C')
-                        else:
-                            locale.setlocale(locale.LC_ALL, 'C')
-
-                    for glade_file in args.glade_files:
-                        check_glade(glade_file, po_map)
+            for glade_file in args.glade_files:
+                check_glade(glade_file, po_map)
 
 if __name__ == "__main__":
     main(sys.argv[1:])

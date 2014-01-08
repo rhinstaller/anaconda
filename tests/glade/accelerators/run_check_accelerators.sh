@@ -1,6 +1,7 @@
 #!/bin/sh
 
 : "${top_srcdir:=$(dirname "$0")/../../..}"
+. "${top_srcdir}/tests/testenv.sh"
 srcdir="${top_srcdir}/tests/glade/accelerators"
 
 # If --translate was specified but not --podir, add --podir

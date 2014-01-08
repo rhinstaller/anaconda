@@ -42,6 +42,7 @@ dist_check_SCRIPTS = glade/accelerators/check_accelerators.py \
 		     glade/pw_visibility/run_check_pw_visibility.sh \
 		     glade/validity/check_glade_validity.py \
 		     glade/validity/run_check_glade_validity.sh \
+		     $(srcdir)/lib/*.py \
 		     nosetests.sh \
 		     pylint/intl.py \
 		     pylint/preconf.py \
