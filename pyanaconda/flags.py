@@ -155,7 +155,16 @@ class BootArgs(OrderedDict):
 
         lst = shlex.split(cmdline)
 
+        # options might have the inst. prefix (used to differentiate
+        # boot options for the installer from other boot options)
+        inst_prefix = "inst."
+
         for i in lst:
+            # drop the inst. prefix (if found), so that getbool() works
+            # consistently for both "foo=0" and "inst.foo=0"
+            if i.startswith(inst_prefix):
+                i = i[len(inst_prefix):]
+
             if "=" in i:
                 (key, val) = i.split("=", 1)
             else:
