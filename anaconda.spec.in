@@ -252,6 +252,17 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Jan 07 2014 Brian C. Lane <bcl@redhat.com> - 19.31.42-1
+- Display additional disk attributes in TUI storage spoke. (sbueno+anaconda)
+  Resolves: rhbz#1024760
+- network GUI: fix typo making device adding fail silently (rvykydal)
+  Resolves: rhbz#1047799
+- network GUI: fix porting thinko in log msg causing traceback on Configure
+  (rvykydal)
+  Resolves: rhbz#1047941
+- Only display the actions summary dialog if there are any actions (clumens).
+  Resolves: rhbz#1030511
+
 * Fri Dec 20 2013 Brian C. Lane <bcl@redhat.com> - 19.31.41-1
 - Check for ready before baseRepo in completed (bcl)
   Resolves: rhbz#1044985
