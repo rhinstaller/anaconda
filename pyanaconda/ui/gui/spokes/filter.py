@@ -516,6 +516,7 @@ class FilterSpoke(NormalSpoke):
                      count) % count
 
         label.set_text(summary)
+        label.set_use_underline(True)
 
         summaryButton.set_visible(count > 0)
         label.set_sensitive(count > 0)

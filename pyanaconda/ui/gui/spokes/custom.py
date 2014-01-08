@@ -864,6 +864,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
                 count) % count
 
         self._summaryLabel.set_text(summary)
+        self._summaryLabel.set_use_underline(True)
 
     def _reset_storage(self):
         self.__storage = self.storage.copy()
