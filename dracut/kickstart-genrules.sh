@@ -8,21 +8,20 @@ case "${kickstart%%:*}" in
         # handled by fetch-kickstart-net in the online hook
         wait_for_kickstart
     ;;
-    cdrom|hd|bd) # cdrom, cdrom:<dev>:<path>, hd:<dev>:<path>, bd:<dev>:<path>
+    cdrom|hd) # cdrom, cdrom:<path>, hd:<dev>:<path>
         splitsep ":" "$kickstart" kstype ksdev kspath
         if [ "$kstype" = "cdrom" ] && [ -z "$kspath" ]; then
             kspath="$ksdev"
-            ksdev="/dev/cdrom"
-        fi
-        ksdev=$(disk_to_dev_path $ksdev)
-        if [ "$kstype" = "bd" ]; then # TODO FIXME: no biospart support yet
-            warn "inst.ks='$kickstart'"
-            warn "can't get kickstart: biospart isn't supported yet"
-            ksdev=""
+            when_any_cdrom_appears \
+                fetch-kickstart-disk \$env{DEVNAME} "$kspath"
         else
+            ksdev=$(disk_to_dev_path $ksdev)
             when_diskdev_appears "$ksdev" \
                 fetch-kickstart-disk \$env{DEVNAME} "$kspath"
-            wait_for_kickstart
         fi
+        wait_for_kickstart
+    ;;
+    bd) # bd:<dev>:<path> - biospart (TODO... if anyone uses this anymore)
+        warn "inst.ks: can't get kickstart - biospart (bd:) isn't supported yet"
     ;;
 esac
