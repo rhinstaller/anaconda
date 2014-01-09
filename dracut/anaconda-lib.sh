@@ -154,6 +154,12 @@ when_diskdev_appears() {
     } >> $rulesfile
 }
 
+when_any_cdrom_appears() {
+    local cmd="/sbin/initqueue --settled --onetime --name autocd $*"
+    printf 'SUBSYSTEM=="block", ENV{ID_CDROM_MEDIA}=="1", RUN+="%s"\n' "$cmd" \
+      >> $rulesfile
+}
+
 # dracut doesn't bring up the network unless:
 #   a) $netroot is set (i.e. you have a network root device), or
 #   b) /tmp/net.ifaces exists.
