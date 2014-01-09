@@ -1725,17 +1725,6 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         fancy_set_sensitive(self._mountPointEntry, device.format.mountable)
 
         self._labelEntry.set_text(getattr(device.format, "label", "") or "")
-        # We could label existing formats that have a labelFsProg if we added an
-        # ActionLabelFormat class.
-        can_label = (hasattr(device.format, "label") and
-                     not device.format.exists and
-                     device.format.type != "btrfs")
-        fancy_set_sensitive(self._labelEntry, can_label)
-
-        if hasattr(device.format, "label"):
-            self._labelEntry.props.has_tooltip = False
-        else:
-            self._labelEntry.set_tooltip_text(_("This file system does not support labels."))
 
         self._sizeEntry.set_text(Size(en_spec="%d MB" % device.size).humanReadable(max_places=None))
 
