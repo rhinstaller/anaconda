@@ -729,6 +729,9 @@ class LocaledWrapper(object):
         diff = len(layouts) - len(variants)
         variants.extend(diff * [""])
 
+        # if there are more variants than layouts, throw the trailing ones away
+        variants = variants[:len(layouts)]
+
         # map can be used with multiple lists and works like zipWith (Haskell)
         return map(_join_layout_variant, layouts, variants)
 
