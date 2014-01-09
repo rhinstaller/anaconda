@@ -8,7 +8,7 @@ if [ $# -lt 1 ]; then
     exit 1
 fi
 
-file_suffix="$(echo $1|sed s?/?_?g)"
+file_suffix="$(eval echo \$$#|sed s?/?_?g)"
 
 pylint_output="$(pylint \
     --msg-template='{msg_id}:{line:3d},{column}: {obj}: {msg}' \
@@ -19,7 +19,7 @@ pylint_output="$(pylint \
     --load-plugins=intl,preconf,markup \
     $DISABLED_WARN_OPTIONS \
     $DISABLED_ERR_OPTIONS \
-    $NON_STRICT_OPTIONS $1 2>&1 | \
+    $NON_STRICT_OPTIONS "$@" 2>&1 | \
     egrep -v "$(tr '\n' '|' < "$FALSE_POSITIVES") \
     ")"
 
@@ -27,7 +27,7 @@ pylint_output="$(pylint \
 if [ -n "$(echo "$pylint_output" | fgrep -v '************* Module ' |\
           grep -v '^I0011:')" ]; then
     # Replace the Module line with the actual filename
-    pylint_output="$(echo "$pylint_output" | sed "s|\* Module .*|* Module $1|")"
+    pylint_output="$(echo "$pylint_output" | sed "s|\* Module .*|* Module $(eval echo \$$#)|")"
     echo "$pylint_output" > pylint-out_$file_suffix
     touch "pylint-$file_suffix-failed"
 fi

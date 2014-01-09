@@ -57,6 +57,8 @@ usage () {
   exit $1
 }
 
+# Separate the module parameters from the files list
+ARGS=
 FILES=
 while [ $# -gt 0 ]; do
   case $1 in
@@ -65,6 +67,9 @@ while [ $# -gt 0 ]; do
       ;;
     --help)
       usage 0
+      ;;
+    -*)
+      ARGS="$ARGS $1"
       ;;
     *)
       FILES=$@
@@ -95,7 +100,7 @@ fi
 
 num_cpus=$(getconf _NPROCESSORS_ONLN)
 # run pylint in paralel
-echo $FILES | xargs --max-procs=$num_cpus -n 1 "$srcdir"/pylint-one.sh || exit 1
+echo $FILES | xargs --max-procs=$num_cpus -n 1 "$srcdir"/pylint-one.sh $ARGS || exit 1
 
 for file in $(find -name 'pylint-out*'); do
     cat "$file" >> pylint-log
