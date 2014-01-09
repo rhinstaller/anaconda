@@ -109,6 +109,10 @@ unrecoverable_error_msg = N_("Storage configuration reset due to unrecoverable "
 device_configuration_error_msg = N_("Device reconfiguration failed. Click for "
                                     "details.")
 
+label_format_invalid_msg = N_("Unacceptable label format for filesystem.")
+label_application_unavailable_msg = N_("Can not set label on filesystem.")
+label_resetting_forbidden_msg = N_("Can not relabel already existing filesystem.")
+
 empty_mountpoint_msg = N_("Please enter a valid mountpoint.")
 invalid_mountpoint_msg = N_("That mount point is invalid. Try something else?")
 mountpoint_in_use_msg = N_("That mount point is already in use. Try something else?")
@@ -122,6 +126,18 @@ invalid_name_msg = N_("That name is invalid. Try something else?")
 container_type_names = {DEVICE_TYPE_LVM: lvm_container_name,
                         DEVICE_TYPE_LVM_THINP: lvm_container_name,
                         DEVICE_TYPE_BTRFS: btrfs_container_name}
+
+LABEL_OK = 0
+LABEL_FORMAT_INVALID = 1
+LABEL_APPLICATION_UNAVAILABLE = 2
+LABEL_RESETTING_FORBIDDEN = 3
+
+label_validation_msgs = {
+    LABEL_OK: "",
+    LABEL_FORMAT_INVALID: label_format_invalid_msg,
+    LABEL_APPLICATION_UNAVAILABLE: label_application_unavailable_msg,
+    LABEL_RESETTING_FORBIDDEN: label_resetting_forbidden_msg}
+
 
 MOUNTPOINT_OK = 0
 MOUNTPOINT_INVALID = 1
@@ -197,6 +213,22 @@ def populate_mountpoint_store(store, used_mountpoints):
     for path in paths:
         if path not in used_mountpoints:
             store.append([path])
+
+def validate_label(label, fmt):
+    """Returns a code indicating either that the given label can be set for
+       this filesystem or the reason why it can not.
+
+       :param str label: The label
+       :param DeviceFormat fmt: The device format to label
+
+    """
+    if fmt.exists:
+        return LABEL_RESETTING_FORBIDDEN
+    if not fmt.labeling():
+        return LABEL_APPLICATION_UNAVAILABLE
+    if not fmt.labelFormatOK(label):
+        return LABEL_FORMAT_INVALID
+    return LABEL_OK
 
 def validate_mountpoint(mountpoint, used_mountpoints, strict=True):
     if strict:
@@ -1117,10 +1149,11 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         old_fs_type = device.format.type
         fs_type_index = self._fsCombo.get_active()
         fs_type = self._fsCombo.get_model()[fs_type_index][0]
-        fs_type_short = getFormat(fs_type).type
-        changed_fs_type = (old_fs_type != fs_type_short)
+        new_fs = getFormat(fs_type)
+        new_fs_type = new_fs.type
+        changed_fs_type = (old_fs_type != new_fs_type)
         log.debug("old fs type: %s" % old_fs_type)
-        log.debug("new fs type: %s" % fs_type_short)
+        log.debug("new fs type: %s" % new_fs_type)
 
         # ENCRYPTION
         old_encrypted = isinstance(device, LUKSDevice)
@@ -1138,6 +1171,14 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         changed_label = (label != old_label)
         log.debug("old label: %s" % old_label)
         log.debug("new_label: %s" % label)
+        if changed_label:
+            error = validate_label(label, new_fs)
+            if error:
+                self._error = _(label_validation_msgs[error])
+                self.set_warning(self._error)
+                self.window.show_all()
+                self._populate_right_side(selector)
+                return
 
         # MOUNTPOINT
         mountpoint = None   # None means format type is not mountable
@@ -1185,12 +1226,12 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
             error = (_("/boot/efi must be on a device of type %s")
                      % _(DEVICE_TEXT_PARTITION))
         elif device_type != DEVICE_TYPE_PARTITION and \
-             fs_type_short in partition_only_format_types:
+             new_fs_type in partition_only_format_types:
             error = (_("%s must be on a device of type %s")
                      % (fs_type, _(DEVICE_TEXT_PARTITION)))
         elif mountpoint and encrypted and mountpoint.startswith("/boot"):
             error = _("%s cannot be encrypted") % mountpoint
-        elif encrypted and fs_type_short in partition_only_format_types:
+        elif encrypted and new_fs_type in partition_only_format_types:
             error = _("%s cannot be encrypted") % fs_type
         elif mountpoint == "/" and device.format.exists and not reformat:
             error = _("You must create a new filesystem on the root device.")
@@ -1464,7 +1505,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
             # FORMATTING
             #
             log.info("scheduling reformat of %s as %s" % (device.name,
-                                                          fs_type_short))
+                                                          new_fs_type))
             with ui_storage_logger():
                 old_format = device.format
                 new_format = getFormat(fs_type,
