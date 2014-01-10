@@ -650,6 +650,9 @@ class NetworkControlBox(GObject.GObject):
     def add_device_to_list(self, device):
         if device.get_device_type() not in self.supported_device_types:
             return
+        # ignore fcoe vlan devices
+        if device.get_iface().endswith('fcoe'):
+            return
 
         try:
             con_uuid = nm.nm_device_setting_value(device.get_iface(), "connection", "uuid")
