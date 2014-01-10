@@ -1,6 +1,6 @@
 # Storage configuration spoke classes
 #
-# Copyright (C) 2011-2013  Red Hat, Inc.
+# Copyright (C) 2011-2014  Red Hat, Inc.
 #
 # This copyrighted material is made available to anyone wishing to use,
 # modify, copy, or redistribute it subject to the terms and conditions of
@@ -259,6 +259,7 @@ class StorageSpoke(NormalSpoke, StorageChecker):
     def _grabObjects(self):
         self._customPart = self.builder.get_object("customRadioButton")
         self._encrypted = self.builder.get_object("encryptionCheckbox")
+        self._reclaim = self.builder.get_object("reclaimCheckbox")
 
     def _applyDiskSelection(self, use_names):
         onlyuse = use_names[:]
@@ -721,7 +722,7 @@ class StorageSpoke(NormalSpoke, StorageChecker):
         if disk_free >= required_space + auto_swap:
             dialog = None
         elif disks_size >= required_space:
-            if self._customPart.get_active():
+            if self._customPart.get_active() or self._reclaim.get_active():
                 dialog = None
             else:
                 dialog = InstallOptions1Dialog(self.data, payload=self.payload)
@@ -736,7 +737,22 @@ class StorageSpoke(NormalSpoke, StorageChecker):
             # Plenty of room - there's no need to pop up a dialog, so just send
             # the user to wherever they asked to go.  That's either the custom
             # spoke or the hub.
+            #    - OR -
+            # Not enough room, but the user checked the reclaim button.
+
+            # But first, we need to ask about an encryption passphrase if that
+            # checkbox was active.
             self.encrypted = self._encrypted.get_active()
+            if not self._check_encrypted():
+                return
+
+            # Oh and then we might also want to go to the reclaim dialog.
+            if self._reclaim.get_active():
+                self.apply()
+                if not self._show_resize_dialog(disks):
+                    # User pressed cancel on the reclaim dialog, so don't leave
+                    # the storage spoke.
+                    return
 
             if self._customPart.get_active():
                 self.autopart = False
@@ -790,6 +806,16 @@ class StorageSpoke(NormalSpoke, StorageChecker):
 
         rc = self.run_lightbox_dialog(resizeDialog)
         return rc
+
+    def on_custom_toggled(self, button):
+        # The custom button won't be active until after this handler is run,
+        # so we have to negate everything here.
+        self._reclaim.set_sensitive(not button.get_active())
+
+        if self._reclaim.get_sensitive():
+            self._reclaim.set_has_tooltip(False)
+        else:
+            self._reclaim.set_tooltip_text(_("You'll be able to make space available during custom partitioning."))
 
     def on_specialized_clicked(self, button):
         # Don't want to run apply or execute in this case, since we have to
