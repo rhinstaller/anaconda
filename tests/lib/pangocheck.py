@@ -63,4 +63,4 @@ def markup_match(orig_markup, xlated_markup):
     attr_list1 = sorted(attr_count1.elements())
     attr_list2 = sorted(attr_count2.elements())
 
-    return (name_list1 != name_list2) or (attr_list1 != attr_list2)
+    return (name_list1 == name_list2) and (attr_list1 == attr_list2)
