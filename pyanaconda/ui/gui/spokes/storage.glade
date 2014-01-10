@@ -745,7 +745,6 @@
                                 <property name="margin_left">18</property>
                                 <property name="margin_right">18</property>
                                 <property name="vexpand">False</property>
-                                <property name="row_spacing">6</property>
                                 <property name="column_spacing">6</property>
                                 <child>
                                   <object class="GtkLabel" id="label10">
@@ -768,6 +767,7 @@
                                   <object class="GtkLabel" id="label11">
                                     <property name="visible">True</property>
                                     <property name="can_focus">False</property>
+                                    <property name="margin_top">6</property>
                                     <property name="xalign">0</property>
                                     <property name="label" translatable="yes">Encryption</property>
                                     <attributes>
@@ -776,7 +776,7 @@
                                   </object>
                                   <packing>
                                     <property name="left_attach">0</property>
-                                    <property name="top_attach">2</property>
+                                    <property name="top_attach">3</property>
                                     <property name="width">2</property>
                                     <property name="height">1</property>
                                   </packing>
@@ -809,6 +809,7 @@
                                     <property name="xalign">0</property>
                                     <property name="draw_indicator">True</property>
                                     <property name="group">autopartRadioButton</property>
+                                    <signal name="toggled" handler="on_custom_toggled" swapped="no"/>
                                   </object>
                                   <packing>
                                     <property name="left_attach">1</property>
@@ -865,7 +866,25 @@
                                   </object>
                                   <packing>
                                     <property name="left_attach">0</property>
-                                    <property name="top_attach">3</property>
+                                    <property name="top_attach">4</property>
+                                    <property name="width">2</property>
+                                    <property name="height">1</property>
+                                  </packing>
+                                </child>
+                                <child>
+                                  <object class="GtkCheckButton" id="reclaimCheckbox">
+                                    <property name="label" translatable="yes">I would like to _make additional space available.</property>
+                                    <property name="visible">True</property>
+                                    <property name="can_focus">True</property>
+                                    <property name="receives_default">False</property>
+                                    <property name="margin_left">12</property>
+                                    <property name="use_underline">True</property>
+                                    <property name="xalign">0</property>
+                                    <property name="draw_indicator">True</property>
+                                  </object>
+                                  <packing>
+                                    <property name="left_attach">0</property>
+                                    <property name="top_attach">2</property>
                                     <property name="width">2</property>
                                     <property name="height">1</property>
                                   </packing>
