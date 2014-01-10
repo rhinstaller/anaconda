@@ -111,10 +111,14 @@ class Network(commands.network.F20_Network):
 
         # first 'network' line
         if len(self.network) == 1:
+            # Setting only hostname in kickstart
+            if not net.device and net.hostname and not self.handler.ksdevice:
+                return None
             net.activate = True
             if net.device == "link" or not net.device:
                 # NOTE: this might still be empty (e.g. 'ks=file:...')
                 # XXX FIXME: handle "link" properly?
+                log.debug("Using ksdevice %s for missing --device in first kickstart network command" % self.handler.ksdevice)
                 net.device = self.handler.ksdevice
             # tell dracut to bring this device up
             netline = ksnet_to_dracut(args, lineno, net, bootdev=True)

@@ -901,8 +901,6 @@ def copyDhclientConfFiles(destPath):
 
 def ks_spec_to_device_name(ksspec=""):
 
-    if not ksspec:
-        ksspec = flags.cmdline.get('ksdevice', "")
     ksdevice = ksspec
 
     bootif_mac = ''
@@ -1101,86 +1099,28 @@ def update_hostname_data(ksdata, hostname):
         nd = hostname_ksdata(hostname)
         ksdata.network.network.append(nd)
 
-def get_device_name(devspec):
+def get_device_name(network_data):
 
-    devices = nm.nm_devices()
-    devname = None
-
-    if not devspec:
-        if "ksdevice" in flags.cmdline:
-            msg = "ksdevice boot parameter"
-            devname = ks_spec_to_device_name(flags.cmdline["ksdevice"])
-        elif nm.nm_is_connected():
-            # device activated in stage 1 by network kickstart command
-            msg = "first active device"
-            try:
-                devname = nm.nm_activated_devices()[0]
-            except IndexError:
-                log.debug("get_device_name: NM is connected but no activated devices found")
-        else:
-            msg = "first device found"
-            devname = min(devices)
-        log.info("unspecified network --device in kickstart, using %s (%s)" %
-                 (devname, msg))
-    else:
-        if devspec.lower() == "ibft":
-            devname = ""
-        if devspec.lower() == "link":
-            for dev in sorted(devices):
-                try:
-                    link_up = nm.nm_device_carrier(dev)
-                except ValueError as e:
-                    log.debug("get_device_name: %s" % e)
-                    continue
-                if link_up:
-                    devname = dev
-                    break
-            else:
-                log.error("Kickstart: No network device with link found")
-        elif devspec.lower() == "bootif":
-            if "BOOTIF" in flags.cmdline:
-                # MAC address like 01-aa-bb-cc-dd-ee-ff
-                devname = flags.cmdline["BOOTIF"][3:]
-                devname = devname.replace("-",":")
-            else:
-                log.error("Using --device=bootif without BOOTIF= boot option supplied")
-        else: devname = devspec
-
-    if devname and devname not in devices:
-        for d in devices:
-            try:
-                hwaddr = nm.nm_device_perm_hwaddress(d)
-            except ValueError as e:
-                log.debug("get_device_name: %s" % e)
-                continue
-            if hwaddr.lower() == devname.lower():
-                devname = d
-                break
-        else:
+    ksspec = network_data.device or flags.cmdline.get('ksdevice', "")
+    dev_name = ks_spec_to_device_name(ksspec)
+    if not dev_name:
+        return ""
+    if dev_name not in nm.nm_devices():
+        if not any((network_data.vlanid, network_data.bondslaves, network_data.teamslaves)):
             return ""
+    if network_data.vlanid:
+        dev_name = "%s.%s" % (dev_name, network_data.vlanid)
 
-    return devname
+    return dev_name
 
 def setOnboot(ksdata):
     updated_devices = []
     for network_data in ksdata.network.network:
 
-        # vlan
-        if network_data.vlanid:
-            physdev = get_device_name(network_data.device) or network_data.device
-            devname = "%s.%s" % (physdev, network_data.vlanid)
-        # bond
-        elif network_data.bondslaves:
-            devname = network_data.device
-        # team
-        elif network_data.teamslaves:
-            devname = network_data.device
-        # ethernet
-        else:
-            devname = get_device_name(network_data.device)
-            if not devname:
-                log.warning("network: set ONBOOT: --device %s does not exist" % network_data.device)
-                continue
+        devname = get_device_name(network_data)
+        if not devname:
+            log.warning("network: set ONBOOT: --device %s does not exist" % network_data.device)
+            continue
 
         updated_devices.append(devname)
         try:
@@ -1198,16 +1138,10 @@ def apply_kickstart_from_pre_section(ksdata):
         if network_data.essid:
             continue
 
-        # get device name for device specified by MAC, link, bootif, etc...
-        dev_name = ks_spec_to_device_name(network_data.device)
-        if (not dev_name
-            or (dev_name not in nm.nm_devices()
-                and not any((network_data.vlanid, network_data.bondslaves, network_data.teamslaves)))):
-            log.error("network: pre kickstart: --device %s does not exist" % network_data.device)
+        dev_name = get_device_name(network_data)
+        if not dev_name:
+            log.warning("network: pre kickstart: --device %s does not exist" % network_data.device)
             continue
-
-        if network_data.vlanid:
-            dev_name = "%s.%s" % (dev_name, network_data.vlanid)
 
         ifcfg_path = find_ifcfg_file_of_device(dev_name)
         # if the device was already configured in intramfs by kickstart ignore it

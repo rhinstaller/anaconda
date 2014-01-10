@@ -14,9 +14,6 @@ netif="$1"
 # user requested a specific device, but this isn't it - exit
 [ -n "$ksdevice" ] && [ "$ksdevice" != "$netif" ] && return 0
 
-# no ksdevice was requested, so the first device online wins!
-[ -z "$ksdevice" ] && ksdevice="$netif"
-
 command -v getarg >/dev/null || . /lib/dracut-lib.sh
 . /lib/url-lib.sh
 . /lib/anaconda-lib.sh
