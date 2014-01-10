@@ -160,6 +160,7 @@ static void anaconda_spoke_window_init(AnacondaSpokeWindow *win) {
 }
 
 static void anaconda_spoke_window_realize(GtkWidget *widget, gpointer user_data) {
+    GtkWidget *nav_box;
     GtkAccelGroup *accel_group;
     GError *error;
     GdkPixbuf *pixbuf;
@@ -174,14 +175,15 @@ static void anaconda_spoke_window_realize(GtkWidget *widget, gpointer user_data)
      * header without an image.
      */
     error = NULL;
-    pixbuf = gdk_pixbuf_new_from_file("/usr/share/anaconda/pixmaps/anaconda_spoke_header.png", &error);
+    nav_box = anaconda_base_window_get_nav_area_background_window(ANACONDA_BASE_WINDOW(window));
+    pixbuf = gdk_pixbuf_new_from_file_at_scale("/usr/share/anaconda/pixmaps/anaconda_spoke_header.png",
+                                               -1, gdk_window_get_height(gtk_widget_get_window(nav_box)),
+                                               FALSE, &error);
+
     if (!pixbuf) {
         fprintf(stderr, "could not load header background: %s\n", error->message);
         g_error_free(error);
     } else {
-        GtkWidget *nav_box = anaconda_base_window_get_nav_area_background_window(ANACONDA_BASE_WINDOW(window));
-        gtk_widget_set_size_request(nav_box, -1, gdk_pixbuf_get_height (pixbuf));
-
         surface = gdk_window_create_similar_surface(gtk_widget_get_window(nav_box), CAIRO_CONTENT_COLOR_ALPHA,
                                                     gdk_pixbuf_get_width(pixbuf), gdk_pixbuf_get_height(pixbuf));
         cr = cairo_create(surface);
