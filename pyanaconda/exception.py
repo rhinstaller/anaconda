@@ -34,6 +34,7 @@ import re
 import errno
 import glob
 import blivet.errors
+from pyanaconda.errors import CmdlineError
 from pyanaconda.ui.communication import hubQ
 from pyanaconda.constants import ROOT_PATH, THREAD_EXCEPTION_HANDLING_TEST
 from pyanaconda.threads import threadMgr
@@ -92,6 +93,23 @@ class AnacondaExceptionHandler(ExceptionHandler):
                              "The exact error message is:\n\n%s.\n\n "
                              "The installer will now terminate.") % str(value)
             self.intf.messageWindow(_("Hardware error occured"), hw_error_msg)
+            sys.exit(0)
+        elif (issubclass (ty, CmdlineError)):
+
+            cmdline_error_msg = _("\nThe installation was stopped due to "
+                                  "incomplete spokes detected while running "
+                                  "in non-interactive cmdline mode. Since there "
+                                  "can not be any questions in cmdline mode, "
+                                  "edit your kickstart file and retry "
+                                  "installation.\nThe exact error message is: "
+                                  "\n\n%s.\n\nThe installer will now terminate.") % str(value)
+
+            # since there is no UI in cmdline mode and it is completely
+            # non-interactive, we can't show a message window asking the user
+            # to acknowledge the error; instead, print the error out and sleep
+            # for a few seconds before exiting the installer
+            print(cmdline_error_msg)
+            time.sleep(10)
             sys.exit(0)
         else:
             try:
