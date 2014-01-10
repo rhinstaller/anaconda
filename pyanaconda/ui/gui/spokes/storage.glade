@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Generated with glade 3.16.0 on Fri Jan 10 15:00:33 2014 -->
+<!-- Generated with glade 3.16.0 on Fri Jan 10 15:31:55 2014 -->
 <interface>
   <!-- interface-requires gtk+ 3.6 -->
   <!-- interface-requires AnacondaWidgets 1.0 -->
@@ -601,9 +601,9 @@
                               </packing>
                             </child>
                             <child>
-                              <object class="GtkLabel" id="label6">
-                                <property name="visible">True</property>
+                              <object class="GtkLabel" id="local_untouched_label">
                                 <property name="can_focus">False</property>
+                                <property name="no_show_all">True</property>
                                 <property name="margin_right">18</property>
                                 <property name="xalign">1</property>
                                 <property name="label" translatable="yes">Disks left unselected here will not be touched.</property>
@@ -727,9 +727,9 @@
                               </packing>
                             </child>
                             <child>
-                              <object class="GtkLabel" id="label1">
-                                <property name="visible">True</property>
+                              <object class="GtkLabel" id="special_untouched_label">
                                 <property name="can_focus">False</property>
+                                <property name="no_show_all">True</property>
                                 <property name="margin_right">18</property>
                                 <property name="xalign">1</property>
                                 <property name="label" translatable="yes">Disks left unselected here will not be touched.</property>
@@ -744,7 +744,7 @@
                               </packing>
                             </child>
                             <child>
-                              <object class="GtkLabel" id="label9">
+                              <object class="GtkLabel" id="other_options_label">
                                 <property name="visible">True</property>
                                 <property name="can_focus">False</property>
                                 <property name="margin_left">6</property>
@@ -762,7 +762,7 @@
                               </packing>
                             </child>
                             <child>
-                              <object class="GtkGrid" id="otherOptionsGrid">
+                              <object class="GtkGrid" id="other_options_grid">
                                 <property name="visible">True</property>
                                 <property name="can_focus">False</property>
                                 <property name="margin_left">18</property>

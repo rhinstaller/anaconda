@@ -582,6 +582,8 @@ class StorageSpoke(NormalSpoke, StorageChecker):
             free += free_space[disk.name][0]
             count += 1
 
+        anySelected = count > 0
+
         summary = (P_("%(count)d disk selected; %(capacity)s capacity; %(free)s free",
                       "%(count)d disks selected; %(capacity)s capacity; %(free)s free",
                       count) % {"count" : count,
@@ -589,14 +591,19 @@ class StorageSpoke(NormalSpoke, StorageChecker):
                                 "free" : free})
         summary_label = self.builder.get_object("summary_label")
         summary_label.set_text(summary)
-        summary_label.set_sensitive(count > 0)
+        summary_label.set_sensitive(anySelected)
 
         summary_button = self.builder.get_object("summary_button")
-        summary_button.set_visible(count > 0)
+        summary_button.set_visible(anySelected)
+
+        self.builder.get_object("local_untouched_label").set_visible(anySelected)
+        self.builder.get_object("special_untouched_label").set_visible(anySelected)
+        self.builder.get_object("other_options_label").set_sensitive(anySelected)
+        self.builder.get_object("other_options_grid").set_sensitive(anySelected)
 
         if len(self.disks) == 0:
             self.set_warning(_("No disks detected.  Please shut down the computer, connect at least one disk, and restart to complete installation."))
-        elif count == 0:
+        elif not anySelected:
             self.set_warning(_("No disks selected; please select at least one disk to install to."))
         else:
             self.clear_info()
