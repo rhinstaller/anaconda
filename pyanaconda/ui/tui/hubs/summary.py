@@ -22,9 +22,13 @@
 
 from pyanaconda.ui.tui.hubs import TUIHub
 from pyanaconda.flags import flags
+from pyanaconda.errors import CmdlineError
 from pyanaconda.i18n import _
 import sys
 import time
+
+import logging
+log = logging.getLogger("anaconda")
 
 class SummaryHub(TUIHub):
     title = _("Installation")
@@ -61,6 +65,7 @@ class SummaryHub(TUIHub):
         if not flags.ksprompt:
             errtxt = _("The following mandatory spokes are not completed:") + \
                      "\n" + "\n".join(spoke.title for spoke in incompleteSpokes)
-            raise RuntimeError(errtxt)
+            log.error("CmdlineError: %s" % errtxt)
+            raise CmdlineError(errtxt)
 
         return TUIHub.prompt(self, args)
