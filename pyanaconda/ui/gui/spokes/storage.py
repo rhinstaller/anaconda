@@ -143,13 +143,13 @@ class InstallOptionsDialogBase(GUIObject):
         if not self._software_is_ready():
             GLib.timeout_add_seconds(1, self._check_for_storage_thread, modify_widget)
 
-class InstallOptions1Dialog(InstallOptionsDialogBase):
-    builderObjects = ["options1_dialog"]
-    mainWidgetName = "options1_dialog"
+class NeedSpaceDialog(InstallOptionsDialogBase):
+    builderObjects = ["need_space_dialog"]
+    mainWidgetName = "need_space_dialog"
 
     def _grabObjects(self):
-        self.disk_free_label = self.builder.get_object("options1_disk_free_label")
-        self.fs_free_label = self.builder.get_object("options1_fs_free_label")
+        self.disk_free_label = self.builder.get_object("need_space_disk_free_label")
+        self.fs_free_label = self.builder.get_object("need_space_fs_free_label")
 
     def _set_free_space_labels(self, disk_free, fs_free):
         self.disk_free_label.set_text(str(disk_free))
@@ -160,7 +160,7 @@ class InstallOptions1Dialog(InstallOptionsDialogBase):
         sw_text = self._get_sw_needs_text(required_space, auto_swap)
         label_text = _("%s The disks you've selected have the following "
                        "amounts of free space:") % sw_text
-        label = self.builder.get_object("options1_label1")
+        label = self.builder.get_object("need_space_desc_label")
         label.set_markup(label_text)
         label.set_tooltip_text(_("Please wait... software metadata still loading."))
         label.connect("activate-link", self._modify_sw_link_clicked)
@@ -172,17 +172,17 @@ class InstallOptions1Dialog(InstallOptionsDialogBase):
                        "via our guided reclaim space tool, or you can adjust your "
                        "partitions on your own in the custom partitioning "
                        "interface.") % escape_markup(productName)
-        self.builder.get_object("options1_label2").set_markup(label_text)
+        self.builder.get_object("need_space_options_label").set_markup(label_text)
 
-        self._add_modify_watcher("options1_label1")
+        self._add_modify_watcher("need_space_desc_label")
 
-class InstallOptions2Dialog(InstallOptionsDialogBase):
-    builderObjects = ["options2_dialog"]
-    mainWidgetName = "options2_dialog"
+class NoSpaceDialog(InstallOptionsDialogBase):
+    builderObjects = ["no_space_dialog"]
+    mainWidgetName = "no_space_dialog"
 
     def _grabObjects(self):
-        self.disk_free_label = self.builder.get_object("options2_disk_free_label")
-        self.fs_free_label = self.builder.get_object("options2_fs_free_label")
+        self.disk_free_label = self.builder.get_object("no_space_disk_free_label")
+        self.fs_free_label = self.builder.get_object("no_space_fs_free_label")
 
     def _set_free_space_labels(self, disk_free, fs_free):
         self.disk_free_label.set_text(str(disk_free))
@@ -196,7 +196,7 @@ class InstallOptions2Dialog(InstallOptionsDialogBase):
                         "available on the selected disks.")
                       % {"sw_text": escape_markup(sw_text),
                          "product": escape_markup(productName)})
-        label = self.builder.get_object("options2_label1")
+        label = self.builder.get_object("no_space_desc_label")
         label.set_markup(label_text)
         label.set_tooltip_text(_("Please wait... software metadata still loading."))
         label.connect("activate-link", self._modify_sw_link_clicked)
@@ -210,9 +210,9 @@ class InstallOptions2Dialog(InstallOptionsDialogBase):
                        "modify your software selection to install a smaller "
                        "version of <b>%(productName)s</b>, or quit the installer.") % \
                                {"productName": escape_markup(productName)}
-        self.builder.get_object("options2_label2").set_markup(label_text)
+        self.builder.get_object("no_space_options_label").set_markup(label_text)
 
-        self._add_modify_watcher("options2_label1")
+        self._add_modify_watcher("no_space_desc_label")
 
 class StorageSpoke(NormalSpoke, StorageChecker):
     builderObjects = ["storageWindow", "addSpecializedImage"]
@@ -725,11 +725,11 @@ class StorageSpoke(NormalSpoke, StorageChecker):
             if self._customPart.get_active() or self._reclaim.get_active():
                 dialog = None
             else:
-                dialog = InstallOptions1Dialog(self.data, payload=self.payload)
+                dialog = NeedSpaceDialog(self.data, payload=self.payload)
                 dialog.refresh(required_space, auto_swap, disk_free, fs_free)
                 rc = self.run_lightbox_dialog(dialog)
         else:
-            dialog = InstallOptions2Dialog(self.data, payload=self.payload)
+            dialog = NoSpaceDialog(self.data, payload=self.payload)
             dialog.refresh(required_space, auto_swap, disk_free, fs_free)
             rc = self.run_lightbox_dialog(dialog)
 
