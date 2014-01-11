@@ -296,6 +296,41 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Fri Jan 10 2014 Brian C. Lane <bcl@redhat.com> - 21.16-1
+- Use blivet.size.Size for all size quantities. (dlehman)
+- make anaconda-shell (wwoods)
+- handle "ks=cdrom[:<path>]" on systems with multiple CDs (#1049237) (wwoods)
+- dracut: add when_any_cdrom_appears for cdrom autoprobe (wwoods)
+- dracut: minor shell cleanup (wwoods)
+- fix inst.noshell (#807703) (wwoods)
+- Error gracefully if we have a question in cmdline mode. (#869731)
+  (sbueno+anaconda)
+- Verify that designated label can be set (#1038590) (amulhern)
+- Do not change sensitivity of label field (#1038590) (amulhern)
+- Make the clear icon functional in language spoke. (sbueno+anaconda)
+- Fix the translated pango markup check (dshea)
+- Remove iutil.strip_markup. (dshea)
+- Pass additional command-line arguments to pylint (dshea)
+- Fix and ignore markup warnings where appropriate (dshea)
+- Check that the Pango markup in glade files is valid (dshea)
+- Added a pylint module to check pango markup. (dshea)
+- Split the po-based translation code into a separate file. (dshea)
+- Fix bool parsing of boot options with inst. prefix (#1044391) (mkolman)
+- Use vc_keymap as X layout only if we get nothing from localed (#1048592)
+  (vpodzime)
+- Warn user if entering LUKS password with non-ASCII characters (#1039168)
+  (vpodzime)
+- Add back some erroneously removed set_use_underline calls (dshea)
+- Only show the "DATA" heading if there are data mount points under it.
+  (clumens)
+- Don't allow the advanced user dialog to be saved with errors (dshea)
+- Move the add_check stuff into helper classes. (dshea)
+- Remove the UID and GID maximums. (#978846) (dshea)
+- Fix an invalid mnemonic widget reference in passphrase entry (dshea)
+- Added checks for some potential issues in glade files (dshea)
+- Remove scrot dependency for global screenshot support (mkolman)
+- Fix mnemonic widget reference id (vpodzime)
+
 * Tue Jan 07 2014 Brian C. Lane <bcl@redhat.com> - 21.15-1
 - Use the new Gtk.ListBox for displaying environments and addons (#1039683).
   (clumens)
