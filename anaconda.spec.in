@@ -252,6 +252,36 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Fri Jan 10 2014 Brian C. Lane <bcl@redhat.com> - 19.31.43-1
+- Fix the release notes image cycler. (dshea)
+  Resolves: rhbz#1049967
+- Error gracefully if we have a question in cmdline mode. (sbueno+anaconda)
+  Resolves: rhbz#869731
+- Verify that designated label can be set (#1038590) (amulhern)
+  Related: rhbz#1038590
+- Do not change sensitivity of label field (#1038590) (amulhern)
+  Related: rhbz#1038590
+- Also update POTFILES.in for the new category name (clumens).
+  Resolves: rhbz#1050053
+- Rename network spoke header (mkolman).
+  Resolves: rhbz#1050053
+- Rename the network config spoke a little bit (clumens).
+  Resolves: rhbz#1050053
+- Consolidate storage and networking under one category (clumens).
+  Resolves: rhbz#1050053
+- Fix bool parsing of boot options with inst. prefix (mkolman)
+  Resolves: rhbz#1044391
+- Treat the output of vncpasswd as binary data, since it is (dshea)
+  Resolves: rhbz#1045162
+- Add iutil.exec* options for handling binary data (dshea)
+  Related: rhbz#1045162
+- Do not allow 'root' as a user name (vpodzime)
+  Resolves: rhbz#1032671
+- Add Shell spoke to s390x installations (vpodzime)
+  Resolves: rhbz#1019248
+- Put TUI spokes in common categories (vpodzime)
+  Related: rhbz#1019248
+
 * Tue Jan 07 2014 Brian C. Lane <bcl@redhat.com> - 19.31.42-1
 - Display additional disk attributes in TUI storage spoke. (sbueno+anaconda)
   Resolves: rhbz#1024760
