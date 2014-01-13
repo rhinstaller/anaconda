@@ -108,8 +108,16 @@ class SoftwareSelectionSpoke(NormalSpoke):
             self._tx_id = None
         else:
             self._errorMsgs = None
-            self._tx_id = self.payload.txID
-        finally:
+            # If we are installing with a kickstart that does not specify packages,
+            # we want the user to enter the Software spoke and confirm the software
+            # selection. We do this be by resetting the transaction id, which
+            # forces the user to visit the spoke and also makes sure any changes
+            # the user does in the spoke are respected.
+            if flags.automatedInstall and not self.data.packages.seen:
+                self._tx_id = None
+            else:
+                self._tx_id = self.payload.txID
+       finally:
             hubQ.send_ready(self.__class__.__name__, False)
             hubQ.send_ready("SourceSpoke", False)
 
