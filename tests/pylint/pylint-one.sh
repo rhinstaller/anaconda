@@ -20,8 +20,8 @@ pylint_output="$(pylint \
     $DISABLED_WARN_OPTIONS \
     $DISABLED_ERR_OPTIONS \
     $NON_STRICT_OPTIONS "$@" 2>&1 | \
-    egrep -v "$(tr '\n' '|' < "$FALSE_POSITIVES") \
-    ")"
+    egrep -v -f "$FALSE_POSITIVES" \
+    )"
 
 # I0011 is the informational "Locally disabling ...." message
 if [ -n "$(echo "$pylint_output" | fgrep -v '************* Module ' |\

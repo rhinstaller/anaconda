@@ -78,12 +78,6 @@ while [ $# -gt 0 ]; do
   shift
 done
 
-if [ "`tail -c 1 $FALSE_POSITIVES`" == "`echo`" ]; then
-  echo "Error $FALSE_POSITIVES ends with an enter."
-  echo "Error the last line of $FALSE_POSITIVES should never have an enter!"
-  exit 1
-fi
-
 exit_status=0
 
 if [ -s pylint-log ]; then
