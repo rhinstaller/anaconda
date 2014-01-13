@@ -1550,7 +1550,7 @@ class VolGroupData(commands.volgroup.RHEL7_VolGroupData):
             self.pesize = LVM_PE_SIZE * 1024
 
         pesize = Size("%d KiB" % self.pesize)
-        if pesize not in getPossiblePhysicalExtents(floor=1024):
+        if pesize not in getPossiblePhysicalExtents():
             raise KickstartValueError(formatErrorMsg(self.lineno, msg="Volume group specified invalid pesize"))
 
         # If --noformat or --useexisting was given, there's really nothing to do.
