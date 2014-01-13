@@ -331,7 +331,21 @@ class StorageSpoke(NormalSpoke, StorageChecker):
         # there should be no need to modify this list.
         self.disks = []
 
-        if not flags.automatedInstall:
+        self._confirmed = True
+        # if set to False, it means the user needs to confirm the current
+        # storage configuration
+
+        if flags.automatedInstall:
+            # now we have to check if some form of partitioning is specified
+            # in the current kickstart
+            if not any((self.data.partition.seen, self.data.logvol.seen,
+                        self.data.volgroup.seen, self.data.raid.seen,
+                        self.data.btrfs.seen, self.data.autopart.seen)):
+                # no partitioning specified, so use autopart
+                # but prompt the user to confirm it
+                self.data.autopart.autopart = True
+                self._confirmed = False
+        else:
             # default to using autopart for interactive installs
             self.data.autopart.autopart = True
 
@@ -432,7 +446,7 @@ class StorageSpoke(NormalSpoke, StorageChecker):
         retval = (threadMgr.get(constants.THREAD_EXECUTE_STORAGE) is None and
                   threadMgr.get(constants.THREAD_CHECK_STORAGE) is None and
                   self.storage.rootDevice is not None and
-                  not self.errors)
+                  not self.errors and self._confirmed)
         return retval
 
     @property
@@ -450,7 +464,9 @@ class StorageSpoke(NormalSpoke, StorageChecker):
         """ A short string describing the current status of storage setup. """
         msg = _("No disks selected")
 
-        if flags.automatedInstall and not self.storage.rootDevice:
+        if not self._confirmed:
+            msg = _("Not configured")
+        elif flags.automatedInstall and not self.storage.rootDevice:
             return msg
         elif self.data.ignoredisk.onlyuse:
             msg = P_(("%d disk selected"),
@@ -536,6 +552,9 @@ class StorageSpoke(NormalSpoke, StorageChecker):
         self._cur_clicked_overview = overview
 
     def refresh(self):
+        # refresh is called when the spoke is shown to the user
+        self._confirmed = True
+
         self.disks = getDisks(self.storage.devicetree)
 
         # synchronize our local data store with the global ksdata
