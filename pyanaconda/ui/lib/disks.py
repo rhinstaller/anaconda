@@ -21,7 +21,6 @@
 #
 
 from blivet.devices import MultipathDevice, iScsiDiskDevice, FcoeDiskDevice
-from blivet.size import Size
 
 from pyanaconda.flags import flags
 

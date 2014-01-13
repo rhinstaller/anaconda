@@ -69,7 +69,7 @@ class SummaryHub(TUIHub):
         if not flags.ksprompt:
             errtxt = _("The following mandatory spokes are not completed:") + \
                      "\n" + "\n".join(spoke.title for spoke in incompleteSpokes)
-            log.error("CmdlineError: %s" % errtxt)
+            log.error("CmdlineError: %s", errtxt)
             raise CmdlineError(errtxt)
 
         return TUIHub.prompt(self, args)

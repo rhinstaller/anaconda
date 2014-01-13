@@ -841,7 +841,7 @@ class LogVolData(commands.logvol.F20_LogVolData):
                                     thin_pool=self.thin_pool,
                                     thin_volume=self.thin_volume,
                                     grow=self.grow,
-                                    maxsize=max_size,
+                                    maxsize=maxsize,
                                     percent=self.percent,
                                     **pool_args)
 
@@ -1467,7 +1467,7 @@ class VolGroupData(commands.volgroup.FC16_VolGroupData):
             raise KickstartValueError(formatErrorMsg(self.lineno, msg="Volume group defined without any physical volumes.  Either specify physical volumes or use --useexisting."))
 
         pesize = Size(spec="%d KiB" % self.pesize)
-        if pesize not in getPossiblePhysicalExtents(floor=1024):
+        if pesize not in getPossiblePhysicalExtents():
             raise KickstartValueError(formatErrorMsg(self.lineno, msg="Volume group specified invalid pesize"))
 
         # If --noformat or --useexisting was given, there's really nothing to do.

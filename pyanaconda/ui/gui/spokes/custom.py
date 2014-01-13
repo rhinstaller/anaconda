@@ -871,7 +871,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
 
     def _currentTotalSpace(self):
         """Add up the sizes of all selected disks and return it as a Size."""
-        totalSpace = sum(disk.size for disk in self._clearpartDevices,
+        totalSpace = sum((disk.size for disk in self._clearpartDevices),
                          Size(bytes=0))
         return totalSpace
 
