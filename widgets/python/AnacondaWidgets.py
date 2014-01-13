@@ -45,8 +45,6 @@ class MountpointSelector(Anaconda.MountpointSelector):
 
     @property
     def size(self):
-        # using get_property causes problems with pylint for some reason
-        # pylint: disable-msg=E1101
         return self.get_property("size")
 
     @size.setter
