@@ -64,8 +64,13 @@ class NetworkSpoke(EditTUISpoke):
 
     @property
     def completed(self):
+        """ Check whether this spoke is complete or not. Do an additional
+            check if we're installing from CD/DVD, since a network connection
+            should not be required in this case.
+        """
+        localinst = bool(self.data.method.method == "cdrom")
         return (not can_touch_runtime_system("require network connection")
-                or nm_activated_devices())
+                or nm_activated_devices() or localinst)
 
     @property
     def status(self):
