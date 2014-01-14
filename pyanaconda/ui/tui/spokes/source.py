@@ -229,7 +229,10 @@ class SourceSpoke(SourceSwitchHandler, EditTUISpoke):
     def refresh(self, args=None):
         EditTUISpoke.refresh(self, args)
 
-        threadMgr.wait(THREAD_PAYLOAD_MD)
+        if not self.ready:
+            message = _("Installation source refresh in progress, try again later.")
+            self._window += [TextWidget(message), ""]
+            return True
 
         _methods = [_("CD/DVD"), _("Local ISO file"), _("Network")]
         if args == 3:
@@ -332,6 +335,7 @@ class SourceSpoke(SourceSwitchHandler, EditTUISpoke):
     def ready(self):
         """ Check if the spoke is ready. """
         return (self._ready and
+                not threadMgr.get(THREAD_PAYLOAD) and
                 not threadMgr.get(THREAD_PAYLOAD_MD) and
                 not threadMgr.get(THREAD_SOFTWARE_WATCHER) and
                 not threadMgr.get(THREAD_CHECK_SOFTWARE))
