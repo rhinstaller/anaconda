@@ -1480,16 +1480,6 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
                                            "Click for details."))
                         self.window.show_all()
                     else:
-<<<<<<< HEAD
-                        log.debug("%r" % device)
-                        log.debug("new size: %s" % device.size)
-                        log.debug("target size: %s" % device.targetSize)
-
-                        # update the selector's size property
-                        for s in self._accordion.allSelectors:
-                            if s._device == device:
-                                s.size = size_str(device.size)
-=======
                         _changed_size = True
 
             if _changed_size:
@@ -1500,7 +1490,6 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
                 for s in self._accordion.allSelectors:
                     if s._device == device:
                         s.size = size_str(device.size)
->>>>>>> a01d78f... Handle cancelation of device resize in the custom spoke. (#1027947)
 
                 # update size props of all btrfs devices' selectors
                 self._update_selectors()
