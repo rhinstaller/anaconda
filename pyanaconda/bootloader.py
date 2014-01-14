@@ -2092,14 +2092,14 @@ class ZIPL(BootLoader):
         buf = iutil.execWithCapture("zipl", [],
                                     root=ROOT_PATH,
                                     fatal=True)
-        for line in buf.splitlines():
+        for line in buf:
             if line.startswith("Preparing boot device: "):
                 # Output here may look like:
                 #     Preparing boot device: dasdb (0200).
                 #     Preparing boot device: dasdl.
                 # We want to extract the device name and pass that.
                 name = re.sub(r".+?: ", "", line)
-                self.stage1_name = re.sub(r"(\s\(.+\))?\.$", "", name)
+                self.stage1_name = re.sub(r"(\s\(.+\))?\.$", "", name.strip())
 
         if not self.stage1_name:
             raise BootLoaderError("could not find IPL device")
