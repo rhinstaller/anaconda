@@ -318,27 +318,9 @@ def reIPL(ipldev):
                  ipldev, e)
 
     if rc:
-        devstring = None
-
-        for disk in anaconda.storage.disks:
-            if disk.name == ipldev:
-                devstring = disk.description
-                break
-
-        if devstring is None:
-            devstring = _("the device containing /boot")
-
-        message = _("After shutdown, please perform a manual IPL from %s "
-                    "to continue installation." % devstring)
-
         log.info("reIPL configuration failed")
-        #os.kill(os.getppid(), signal.SIGUSR1)
     else:
-        message = None
         log.info("reIPL configuration successful")
-        #os.kill(os.getppid(), signal.SIGUSR2)
-
-    return message
 
 def resetRpmDb():
     for rpmfile in glob.glob("%s/var/lib/rpm/__db.*" % ROOT_PATH):

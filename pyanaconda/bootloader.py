@@ -2105,9 +2105,7 @@ class ZIPL(BootLoader):
             raise BootLoaderError("could not find IPL device")
 
         # do the reipl
-        message = iutil.reIPL(self.stage1_name)
-        log.info(message)
-
+        iutil.reIPL(self.stage1_name)
 
 class UBOOT(BootLoader):
     name = "UBOOT"
