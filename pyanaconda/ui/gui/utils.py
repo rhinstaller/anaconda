@@ -77,6 +77,14 @@ def gtk_action_wait(func):
 
     return _call_method
 
+def fire_gtk_action(func, *args):
+    """Run some Gtk action in the main thread and wait for it."""
+
+    @gtk_action_wait
+    def gtk_action():
+        func(*args)
+
+    gtk_action()
 
 def gtk_action_nowait(func):
     """Decorator method which ensures every call of the decorated function to be

@@ -76,8 +76,8 @@ from pyanaconda.ui.gui.spokes.lib.passphrase import PassphraseDialog
 from pyanaconda.ui.gui.spokes.lib.accordion import selectorFromDevice, Accordion, Page, CreateNewPage, UnknownPage
 from pyanaconda.ui.gui.spokes.lib.refresh import RefreshDialog
 from pyanaconda.ui.gui.spokes.lib.summary import ActionSummaryDialog
-from pyanaconda.ui.gui.utils import setViewportBackground, gtk_action_wait, enlightbox, fancy_set_sensitive, ignoreEscape,\
-        really_hide, really_show
+from pyanaconda.ui.gui.utils import setViewportBackground, enlightbox, fancy_set_sensitive, ignoreEscape
+from pyanaconda.ui.gui.utils import really_hide, really_show, fire_gtk_action
 from pyanaconda.ui.gui.categories.system import SystemCategory
 
 from gi.repository import Gdk, Gtk
@@ -813,10 +813,6 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         threadMgr.add(AnacondaThread(name=THREAD_CUSTOM_STORAGE_INIT, target=self._initialize))
 
     def _initialize(self):
-        @gtk_action_wait
-        def gtk_action(name):
-            self._fsCombo.append_text(name)
-
         self._fs_types = []
         for cls in device_formats.itervalues():
             obj = cls()
@@ -828,7 +824,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
                             (isinstance(obj, FS) or
                              obj.type in ["biosboot", "prepboot", "swap"]))
             if supported_fs:
-                gtk_action(obj.name)
+                fire_gtk_action(self._fsCombo.append_text, obj.name)
                 self._fs_types.append(obj.name)
 
     @property
