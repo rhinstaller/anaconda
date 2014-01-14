@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: anaconda 19.31.42\n"
+"Project-Id-Version: anaconda 19.31.43\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
-"POT-Creation-Date: 2014-01-10 17:16-0800\n"
+"POT-Creation-Date: 2014-01-13 16:17-0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -334,55 +334,55 @@ msgid ""
 "'-'."
 msgstr ""
 
-#: pyanaconda/network.py:1295 pyanaconda/ui/gui/spokes/custom.py:985
+#: pyanaconda/network.py:1297 pyanaconda/ui/gui/spokes/custom.py:985
 #: pyanaconda/ui/gui/spokes/network.py:300
 #: pyanaconda/ui/gui/spokes/lib/accordion.py:59
 msgid "Unknown"
 msgstr ""
 
-#: pyanaconda/network.py:1299
+#: pyanaconda/network.py:1301
 msgid "Connecting..."
 msgstr ""
 
-#: pyanaconda/network.py:1301
+#: pyanaconda/network.py:1303
 msgid "Disconnecting..."
 msgstr ""
 
-#: pyanaconda/network.py:1320
+#: pyanaconda/network.py:1322
 #, python-format
 msgid "Wired (%(interface_name)s) connected"
 msgstr ""
 
-#: pyanaconda/network.py:1323
+#: pyanaconda/network.py:1325
 #, python-format
 msgid "Wireless connected to %(access_point)s"
 msgstr ""
 
-#: pyanaconda/network.py:1326
+#: pyanaconda/network.py:1328
 #, python-format
 msgid "Bond %(interface_name)s (%(list_of_slaves)s) connected"
 msgstr ""
 
-#: pyanaconda/network.py:1330
+#: pyanaconda/network.py:1332
 #, python-format
 msgid "Team%(interface_name)s (%(list_of_slaves)s) connected"
 msgstr ""
 
-#: pyanaconda/network.py:1336
+#: pyanaconda/network.py:1338
 #, python-format
 msgid "Vlan %(interface_name)s (%(parent_device)s, ID %(vlanid)s) connected"
 msgstr ""
 
-#: pyanaconda/network.py:1351
+#: pyanaconda/network.py:1353
 #, python-format
 msgid "Connected: %(list_of_interface_names)s"
 msgstr ""
 
-#: pyanaconda/network.py:1354
+#: pyanaconda/network.py:1356
 msgid "Not connected"
 msgstr ""
 
-#: pyanaconda/network.py:1357 pyanaconda/ui/gui/spokes/network.glade:2342
+#: pyanaconda/network.py:1359 pyanaconda/ui/gui/spokes/network.glade:2342
 msgid "No network devices available"
 msgstr ""
 
@@ -810,7 +810,7 @@ msgid "Configure device %s"
 msgstr ""
 
 #: pyanaconda/ui/tui/spokes/network.py:160
-#: pyanaconda/ui/gui/spokes/datetime_spoke.glade:745
+#: pyanaconda/ui/gui/spokes/datetime_spoke.glade:746
 msgid "Hostname"
 msgstr ""
 
@@ -824,8 +824,8 @@ msgid "Can't apply configuration, device activation failed."
 msgstr ""
 
 #: pyanaconda/ui/tui/spokes/network.py:221
-#: pyanaconda/ui/gui/spokes/network.py:1375
-#: pyanaconda/ui/gui/spokes/network.py:1443
+#: pyanaconda/ui/gui/spokes/network.py:1382
+#: pyanaconda/ui/gui/spokes/network.py:1450
 #, python-format
 msgid "Hostname is not valid: %s"
 msgstr ""
@@ -995,8 +995,8 @@ msgid "Timezone settings"
 msgstr ""
 
 #: pyanaconda/ui/tui/spokes/time.py:56
-#: pyanaconda/ui/gui/spokes/datetime_spoke.py:399
-#: pyanaconda/ui/gui/spokes/datetime_spoke.py:403
+#: pyanaconda/ui/gui/spokes/datetime_spoke.py:457
+#: pyanaconda/ui/gui/spokes/datetime_spoke.py:461
 #, python-format
 msgid "%s timezone"
 msgstr ""
@@ -1050,7 +1050,7 @@ msgstr ""
 
 #: pyanaconda/ui/tui/spokes/source.py:202
 #: pyanaconda/ui/tui/spokes/software.py:100
-#: pyanaconda/ui/gui/spokes/datetime_spoke.py:405
+#: pyanaconda/ui/gui/spokes/datetime_spoke.py:463
 #: pyanaconda/ui/gui/spokes/software.py:180
 #: pyanaconda/ui/gui/spokes/source.py:532
 msgid "Nothing selected"
@@ -1418,7 +1418,7 @@ msgstr ""
 
 #: pyanaconda/ui/gui/spokes/custom.py:579
 #: pyanaconda/ui/gui/spokes/custom.py:595
-#: pyanaconda/ui/gui/spokes/network.py:1093
+#: pyanaconda/ui/gui/spokes/network.py:1100
 #: pyanaconda/ui/gui/spokes/filter.glade:152
 #: pyanaconda/ui/gui/spokes/filter.glade:564
 #: pyanaconda/ui/gui/spokes/filter.glade:920
@@ -1674,27 +1674,27 @@ msgid ""
 "appropriate type for that disk.\n"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/datetime_spoke.py:58
+#: pyanaconda/ui/gui/spokes/datetime_spoke.py:61
 msgid "Note: pool servers may not be available all the time"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/datetime_spoke.py:299
+#: pyanaconda/ui/gui/spokes/datetime_spoke.py:354
 msgid "DATE & _TIME"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/datetime_spoke.py:390
+#: pyanaconda/ui/gui/spokes/datetime_spoke.py:448
 msgid "Restoring hardware time..."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/datetime_spoke.py:401
+#: pyanaconda/ui/gui/spokes/datetime_spoke.py:459
 msgid "Invalid timezone"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/datetime_spoke.py:909
+#: pyanaconda/ui/gui/spokes/datetime_spoke.py:970
 msgid "You need to set up networking first if you want to use NTP"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/datetime_spoke.py:914
+#: pyanaconda/ui/gui/spokes/datetime_spoke.py:975
 msgid "You have no working NTP server configured"
 msgstr ""
 
@@ -1796,70 +1796,70 @@ msgid "Team"
 msgstr ""
 
 #. TRANSLATORS: ethernet cable is unplugged
-#: pyanaconda/ui/gui/spokes/network.py:692
+#: pyanaconda/ui/gui/spokes/network.py:699
 msgid "unplugged"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.py:781
+#: pyanaconda/ui/gui/spokes/network.py:788
 #: pyanaconda/ui/gui/spokes/network.glade:631
 #: pyanaconda/ui/gui/spokes/network.glade:959
 msgid "IPv4 Address"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.py:782
+#: pyanaconda/ui/gui/spokes/network.py:789
 #: pyanaconda/ui/gui/spokes/network.glade:603
 #: pyanaconda/ui/gui/spokes/network.glade:973
 #: pyanaconda/ui/gui/spokes/network.glade:1592
 msgid "IPv6 Address"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.py:784
-#: pyanaconda/ui/gui/spokes/network.py:786
+#: pyanaconda/ui/gui/spokes/network.py:791
+#: pyanaconda/ui/gui/spokes/network.py:793
 #: pyanaconda/ui/gui/spokes/network.glade:1578
 msgid "IP Address"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.py:874
+#: pyanaconda/ui/gui/spokes/network.py:881
 #, python-format
 msgid "%d Mb/s"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.py:1078
+#: pyanaconda/ui/gui/spokes/network.py:1085
 msgid "WEP"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.py:1081
+#: pyanaconda/ui/gui/spokes/network.py:1088
 msgid "WPA"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.py:1084
+#: pyanaconda/ui/gui/spokes/network.py:1091
 msgid "WPA2"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.py:1088
+#: pyanaconda/ui/gui/spokes/network.py:1095
 msgid "Enterprise"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.py:1222
+#: pyanaconda/ui/gui/spokes/network.py:1229
 msgid "Authentication required by wireless network"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.py:1223
+#: pyanaconda/ui/gui/spokes/network.py:1230
 #, python-format
 msgid ""
 "Passwords or encryption keys are required to access\n"
 "the wireless network '%(network_id)s'."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.py:1236
+#: pyanaconda/ui/gui/spokes/network.py:1243
 msgid "_Password:"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.py:1244
+#: pyanaconda/ui/gui/spokes/network.py:1251
 msgid "_Key:"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.py:1299
+#: pyanaconda/ui/gui/spokes/network.py:1306
 msgid "_NETWORK & HOSTNAME"
 msgstr ""
 
@@ -2406,56 +2406,56 @@ msgstr ""
 msgid "Tip:"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/datetime_spoke.glade:45
+#: pyanaconda/ui/gui/spokes/datetime_spoke.glade:44
 msgid "DATE & TIME"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/datetime_spoke.glade:92
+#: pyanaconda/ui/gui/spokes/datetime_spoke.glade:91
 msgid "_Region:"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/datetime_spoke.glade:134
+#: pyanaconda/ui/gui/spokes/datetime_spoke.glade:133
 msgid "_City:"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/datetime_spoke.glade:187
+#: pyanaconda/ui/gui/spokes/datetime_spoke.glade:186
 msgid "_Network Time"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/datetime_spoke.glade:278
-#: pyanaconda/ui/gui/spokes/datetime_spoke.glade:310
+#: pyanaconda/ui/gui/spokes/datetime_spoke.glade:277
+#: pyanaconda/ui/gui/spokes/datetime_spoke.glade:309
 msgid "00"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/datetime_spoke.glade:294
+#: pyanaconda/ui/gui/spokes/datetime_spoke.glade:293
 msgid ":"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/datetime_spoke.glade:416
+#: pyanaconda/ui/gui/spokes/datetime_spoke.glade:415
 msgid " "
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/datetime_spoke.glade:432
+#: pyanaconda/ui/gui/spokes/datetime_spoke.glade:431
 msgid "PM"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/datetime_spoke.glade:476
+#: pyanaconda/ui/gui/spokes/datetime_spoke.glade:475
 msgid "24-_hour"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/datetime_spoke.glade:494
+#: pyanaconda/ui/gui/spokes/datetime_spoke.glade:493
 msgid "_AM/PM"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/datetime_spoke.glade:676
+#: pyanaconda/ui/gui/spokes/datetime_spoke.glade:677
 msgid "Add and mark for usage NTP servers"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/datetime_spoke.glade:760
+#: pyanaconda/ui/gui/spokes/datetime_spoke.glade:761
 msgid "Working"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/datetime_spoke.glade:768
+#: pyanaconda/ui/gui/spokes/datetime_spoke.glade:769
 msgid "Use"
 msgstr ""
 

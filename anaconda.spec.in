@@ -252,6 +252,29 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Mon Jan 13 2014 Brian C. Lane <bcl@redhat.com> - 19.31.44-1
+- Be more defensive when getting layouts and their variants (vpodzime)
+  Related: rhbz#1024774
+- Implement and use functions for conversion between keymaps and layouts
+  (vpodzime)
+  Related: rhbz#1024774
+- Provide our own sorting functions for regions and timezones (vpodzime)
+  Resolves: rhbz#1025029
+- Translate timezones in GUI (vpodzime)
+  Resolves: rhbz#1015209
+- Make layout and switching options description translated (vpodzime)
+  Resolves: rhbz#1015209
+- Update dumping of network info for new nmcli interface (rvykydal)
+  Resolves: rhbz#1048166
+- network: do not crash when device for network --device is not found
+  (rvykydal)
+  Resolves: rhbz#1023829
+- network GUI: don't crash when wifi is activated in standalone spoke
+  (rvykydal)
+  Resolves: rhbz#1046138
+- network GUI: ignore fcoe vlan devices (rvykydal)
+  Resolves: rhbz#1051268
+
 * Fri Jan 10 2014 Brian C. Lane <bcl@redhat.com> - 19.31.43-1
 - Fix the release notes image cycler. (dshea)
   Resolves: rhbz#1049967
