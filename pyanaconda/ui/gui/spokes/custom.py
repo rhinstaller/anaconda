@@ -218,10 +218,16 @@ def validate_label(label, fmt):
     """Returns a code indicating either that the given label can be set for
        this filesystem or the reason why it can not.
 
+       In the case where the format can not assign a label, the empty string
+       stands for accept the default, but in the case where the format can
+       assign a label the empty string represents itself.
+
        :param str label: The label
        :param DeviceFormat fmt: The device format to label
 
     """
+    if label == "" and not fmt.labeling():
+        return LABEL_OK
     if fmt.exists:
         return LABEL_RESETTING_FORBIDDEN
     if not fmt.labeling():
@@ -1172,15 +1178,12 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         log.debug("new encryption setting: %s" % encrypted)
 
         # FS LABEL
-        label = ""
-        if self._labelEntry.get_sensitive():
-            label = self._labelEntry.get_text()
-
-        old_label = getattr(device.format, "label", "") or ""
+        label = self._labelEntry.get_text()
+        old_label = getattr(device.format, "label", "")
         changed_label = (label != old_label)
         log.debug("old label: %s" % old_label)
         log.debug("new_label: %s" % label)
-        if changed_label:
+        if changed_label or changed_fs_type:
             error = validate_label(label, new_fs)
             if error:
                 self._error = _(label_validation_msgs[error])
@@ -1690,6 +1693,9 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         else:
             use_dev = device
 
+        if hasattr(device.format, "label") and device.format.label is None:
+            device.format.label = ""
+
         if hasattr(use_dev, "req_disks") and not use_dev.exists:
             self._device_disks = use_dev.req_disks[:]
         else:
@@ -1728,7 +1734,8 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         self._mountPointEntry.set_text(getattr(device.format, "mountpoint", "") or "")
         fancy_set_sensitive(self._mountPointEntry, device.format.mountable)
 
-        self._labelEntry.set_text(getattr(device.format, "label", "") or "")
+        self._labelEntry.set_text(getattr(device.format, "label", ""))
+        fancy_set_sensitive(self._labelEntry, not device.format.exists)
 
         self._sizeEntry.set_text(Size(spec="%d MB" % device.size).humanReadable(max_places=None))
 
@@ -2622,16 +2629,6 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         self._encryptCheckbox.set_sensitive(device_type != DEVICE_TYPE_BTRFS)
         fancy_set_sensitive(self._fsCombo, active)
 
-        # The label entry can only be sensitive if reformat is active and the
-        # currently selected filesystem can be labeled.
-        label_active = active
-        if active:
-            fmt = getFormat(self._fsCombo.get_active_text())
-            label_active = (active and hasattr(fmt, "label") and
-                            fmt.type != "btrfs")
-
-        fancy_set_sensitive(self._labelEntry, label_active)
-
     def on_fs_type_changed(self, combo):
         if not self._initialized:
             return
@@ -2641,11 +2638,6 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
             return
         log.debug("fs type changed: %s" % new_type)
         fmt = getFormat(new_type)
-        # FIXME: can't set a label on an existing format as of now
-        label_active = (self._reformatCheckbox.get_active() and
-                        hasattr(fmt, "label") and
-                        fmt.type != "btrfs")
-        fancy_set_sensitive(self._labelEntry, label_active)
         fancy_set_sensitive(self._mountPointEntry, fmt.mountable)
 
     def _populate_container(self, device=None):
