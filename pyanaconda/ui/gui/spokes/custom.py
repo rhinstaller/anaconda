@@ -171,10 +171,15 @@ partition_only_format_types = ["efi", "hfs+", "prepboot", "biosboot",
 system_mountpoints = ["/dev", "/proc", "/run", "/sys"]
 
 def size_from_entry(entry):
-    size_text = entry.get_text().strip()
+    size_text = entry.get_text().decode("utf-8").strip()
 
-    # if no unit was specified, default to MiB
-    if not re.search(r'[A-Za-z]+$', size_text):
+    # Nothing to parse
+    if not size_text:
+        return None
+
+    # if no unit was specified, default to MiB. Assume that a string
+    # ending with anything other than a digit has a unit suffix
+    if re.search(r'[\d.%s]$' % locale.nl_langinfo(locale.RADIXCHAR), size_text):
         size_text += "MiB"
 
     # Nothing to parse
