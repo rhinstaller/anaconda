@@ -31,6 +31,7 @@
 
 from contextlib import contextmanager
 import re
+import locale
 
 from pykickstart.constants import CLEARPART_TYPE_NONE, AUTOPART_TYPE_PLAIN, AUTOPART_TYPE_BTRFS, AUTOPART_TYPE_LVM, AUTOPART_TYPE_LVM_THINP
 
@@ -162,10 +163,15 @@ partition_only_format_types = ["efi", "macefi", "prepboot", "biosboot",
                                "appleboot"]
 
 def size_from_entry(entry):
-    size_text = entry.get_text().strip()
+    size_text = entry.get_text().decode("utf-8").strip()
 
-    # if no unit was specified, default to MiB
-    if not re.search(r'[A-Za-z]+$', size_text):
+    # Nothing to parse
+    if not size_text:
+        return None
+
+    # if no unit was specified, default to MiB. Assume that a string
+    # ending with anything other than a digit has a unit suffix
+    if re.search(r'[\d.%s]$' % locale.nl_langinfo(locale.RADIXCHAR), size_text):
         size_text += "MiB"
 
     try:
