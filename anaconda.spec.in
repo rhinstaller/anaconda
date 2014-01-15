@@ -252,6 +252,10 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Jan 14 2014 Brian C. Lane <bcl@redhat.com> - 19.31.46-1
+- Fix typo (bcl)
+  Resolves: rhbz#1032066
+
 * Tue Jan 14 2014 Brian C. Lane <bcl@redhat.com> - 19.31.45-1
 - Get rid of the clear button in advanced storage spoke. (sbueno+anaconda)
   Related: rhbz#1024949
