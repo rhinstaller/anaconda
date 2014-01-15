@@ -252,6 +252,43 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Jan 14 2014 Brian C. Lane <bcl@redhat.com> - 19.31.45-1
+- Get rid of the clear button in advanced storage spoke. (sbueno+anaconda)
+  Related: rhbz#1024949
+  Resolves: rhbz#1024949
+- Fix failure to search by LUN in advanced storage spoke. (sbueno+anaconda)
+  Resolves: rhbz#1026822
+- Fix up the z Panel in advanced storage. (sbueno+anaconda)
+  Resolves: rhbz#1024949
+- Add support for adding zFCP devices in the GUI (sbueno+anaconda)
+  Resolves: rhbz#994423
+- Clean up rebase artifacts from previous commit. (dlehman)
+  Related: rhbz#1029630
+- Fix minimal install selection with incomplete kickstart (mkolman)
+  Resolves: rhbz#1032066
+- Disallow /boot on lvm until grub2 fully supports it. (dlehman)
+  Resolves: rhbz#967880
+- Handle cancelation of device resize in the custom spoke. (dlehman)
+  Resolves: rhbz#1029630
+- Handle non-leaf btrfs volumes with mountpoints. (dlehman)
+  Resolves: rhbz#1026210
+- Make sure to actually set the autopart flag when needed. (dlehman)
+  Resolves: rhbz#1023584
+- Make sure upper and lower bounds for resize are applied. (dlehman)
+  Resolves: rhbz#1023190
+- Disregard raid level combo when it isn't applicable. (dlehman)
+  Resolves: rhbz#1020370
+- Make the clear icon functional in language spoke. (sbueno+anaconda)
+  Resolves: rhbz#1051609
+- Remove the reference to "anaconda" in reIPL. (sbueno+anaconda)
+  Resolves: rhbz#1052167
+- Fix traceback on s390x bootloader install. (sbueno+anaconda)
+  Resolves: rhbz#1052167
+- Additional completion checks in network spoke. (sbueno+anaconda)
+  Resolves: rhbz#1044571
+- Fix interactive partitioning with incomplete kickstart (mkolman)
+  Resolves: rhbz#1032124
+
 * Mon Jan 13 2014 Brian C. Lane <bcl@redhat.com> - 19.31.44-1
 - Be more defensive when getting layouts and their variants (vpodzime)
   Related: rhbz#1024774
