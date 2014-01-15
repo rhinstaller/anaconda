@@ -28,7 +28,7 @@ import os
 from gi.repository import Gtk, Pango
 from pyanaconda import localization
 from pyanaconda.iutil import strip_accents
-from pyanaconda.ui.gui.utils import set_treeview_selection, get_default_widget_direction, timed_action
+from pyanaconda.ui.gui.utils import set_treeview_selection, timed_action
 
 class LangLocaleHandler(object):
     """
@@ -56,7 +56,7 @@ class LangLocaleHandler(object):
     def initialize(self):
         # Render an arrow for the chosen language
         datadir = os.environ.get("ANACONDA_WIDGETS_DATADIR", "/usr/share/anaconda")
-        if get_default_widget_direction() == Gtk.TextDirection.LTR:
+        if Gtk.get_locale_direction() == Gtk.TextDirection.LTR:
             self._arrow = Gtk.Image.new_from_file(os.path.join(datadir, "pixmaps", "right-arrow-icon.png"))
         else:
             self._arrow = Gtk.Image.new_from_file(os.path.join(datadir, "pixmaps", "left-arrow-icon.png"))

@@ -167,15 +167,6 @@ static void format_name_label(AnacondaMountpointSelector *widget, const char *va
     g_free(markup);
 }
 
-/* XXX: this should be provided by the Gtk itself (#1008821) */
-static GtkTextDirection get_default_widget_direction() {
-    const char *xlated = g_dgettext("gtk30", "default:LTR");
-    if (strcmp (xlated, "default:RTL") == 0)
-        return GTK_TEXT_DIR_RTL;
-    else
-        return GTK_TEXT_DIR_LTR;
-}
-
 static void anaconda_mountpoint_selector_init(AnacondaMountpointSelector *mountpoint) {
     gchar *file;
 
@@ -202,7 +193,7 @@ static void anaconda_mountpoint_selector_init(AnacondaMountpointSelector *mountp
      * gtk_image_new_from_file will just display a broken image icon in that
      * case.  That's good enough error notification.
      */
-    if (get_default_widget_direction() == GTK_TEXT_DIR_LTR)
+    if (gtk_get_locale_direction() == GTK_TEXT_DIR_LTR)
         file = g_strdup_printf("%s/pixmaps/right-arrow-icon.png", get_widgets_datadir());
     else
         file = g_strdup_printf("%s/pixmaps/left-arrow-icon.png", get_widgets_datadir());

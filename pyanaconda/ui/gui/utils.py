@@ -27,7 +27,6 @@ from pyanaconda.constants import NOTICEABLE_FREEZE
 from contextlib import contextmanager
 from gi.repository import Gdk, Gtk, GLib, AnacondaWidgets
 import Queue
-import gettext
 import time
 import threading
 
@@ -402,25 +401,6 @@ def set_treeview_selection(treeview, item, col=0):
 
     return itr
 
-def get_default_widget_direction():
-    """
-    Function to get default widget direction (RTL/LTR) for the current language
-    configuration.
-
-    XXX: this should be provided by the Gtk itself (#1008821)
-
-    :return: either Gtk.TextDirection.LTR or Gtk.TextDirection.RTL
-    :rtype: GtkTextDirection
-
-    """
-
-    # this is quite a hack, but it's exactly the same check Gtk uses internally
-    xlated = gettext.ldgettext("gtk30", "default:LTR")
-    if xlated == "default:LTR":
-        return Gtk.TextDirection.LTR
-    else:
-        return Gtk.TextDirection.RTL
-
 def setup_gtk_direction():
     """
     Set the right direction (RTL/LTR) of the Gtk widget's and their layout based
@@ -428,7 +408,7 @@ def setup_gtk_direction():
 
     """
 
-    Gtk.Widget.set_default_direction(get_default_widget_direction())
+    Gtk.Widget.set_default_direction(Gtk.get_locale_direction())
 
 def escape_markup(value):
     """
