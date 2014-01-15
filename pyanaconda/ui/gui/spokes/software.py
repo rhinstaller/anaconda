@@ -117,7 +117,7 @@ class SoftwareSelectionSpoke(NormalSpoke):
                 self._tx_id = None
             else:
                 self._tx_id = self.payload.txID
-       finally:
+        finally:
             hubQ.send_ready(self.__class__.__name__, False)
             hubQ.send_ready("SourceSpoke", False)
 
