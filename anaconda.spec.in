@@ -251,6 +251,10 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Wed Jan 15 2014 Brian C. Lane <bcl@redhat.com> - 20.25.16-1
+- Install bootloader to loop device in disk image installations. (#955202)
+  (dlehman)
+
 * Wed Dec 11 2013 Brian C. Lane <bcl@redhat.com> - 20.25.15-1
 - Fix selector device matching for unallocated partitions. (#1039292) (dlehman)
 - Do not schedule resize actions for non-resizing requests (#1039491)
