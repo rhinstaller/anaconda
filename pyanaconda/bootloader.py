@@ -1675,6 +1675,8 @@ class EFIGRUB(GRUB2):
             exec_func = iutil.execWithCapture
         else:
             exec_func = iutil.execWithRedirect
+        if "root" not in kwargs:
+            kwargs["root"] = ROOT_PATH
 
         return exec_func("efibootmgr", list(args), **kwargs)
 
@@ -1697,8 +1699,7 @@ class EFIGRUB(GRUB2):
                     log.warning("failed to parse efi boot slot (%s)" % slot)
                     continue
 
-                rc = self.efibootmgr("-b", slot_id, "-B",
-                                     root=ROOT_PATH)
+                rc = self.efibootmgr("-b", slot_id, "-B")
                 if rc:
                     raise BootLoaderError("failed to remove old efi boot entry")
 
@@ -1721,8 +1722,7 @@ class EFIGRUB(GRUB2):
         rc = self.efibootmgr("-c", "-w", "-L", productName,
                              "-d", boot_disk.path, "-p", boot_part_num,
                              "-l",
-                             self.efi_dir_as_efifs_dir + self._efi_binary,
-                             root=ROOT_PATH)
+                             self.efi_dir_as_efifs_dir + self._efi_binary)
         if rc:
             raise BootLoaderError("failed to set new efi boot target")
 
