@@ -55,8 +55,6 @@ class Flags(object):
         self.selinux = SELINUX_DEFAULT
         self.debug = 0
         self.targetarch = None
-        self.useIPv4 = True
-        self.useIPv6 = True
         self.armPlatform = None
         self.preexisting_x11 = False
         self.noverifyssl = False

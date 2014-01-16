@@ -822,12 +822,6 @@ if __name__ == "__main__":
     if opts.dlabel: #autodetected driverdisc in use
         flags.dlabel = True
 
-    if opts.noipv4:
-        flags.useIPv4 = False
-
-    if opts.noipv6:
-        flags.useIPv6 = False
-
     if opts.proxy:
         anaconda.proxy = opts.proxy
 
