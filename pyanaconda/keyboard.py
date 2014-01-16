@@ -828,7 +828,8 @@ class LocaledWrapper(object):
         layouts = []
         variants = []
 
-        for layout_variant in layouts_variants:
+        for layout_variant in (nonempty for nonempty in layouts_variants
+                               if nonempty):
             (layout, variant) = parse_layout_variant(layout_variant)
             layouts.append(layout)
             variants.append(variant)
