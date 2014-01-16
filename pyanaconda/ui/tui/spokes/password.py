@@ -1,6 +1,6 @@
 # Root password text spoke
 #
-# Copyright (C) 2012  Red Hat, Inc.
+# Copyright (C) 2012-2014  Red Hat, Inc.
 #
 # This copyrighted material is made available to anyone wishing to use,
 # modify, copy, or redistribute it subject to the terms and conditions of
@@ -18,11 +18,13 @@
 #
 # Red Hat Author(s): Martin Sivak <msivak@redhat.com>
 #                    Jesse Keating <jkeating@redhat.com>
+#                    Chris Lumens <clumens@redhat.com>
 #
 
 from pyanaconda.ui.tui.spokes import EditTUIDialog, EditTUISpokeEntry
 from pyanaconda.ui.common import FirstbootSpokeMixIn
 from pyanaconda.ui.tui.simpleline import TextWidget
+from pyanaconda.flags import flags
 from pyanaconda.i18n import N_, _
 
 class PasswordSpoke(FirstbootSpokeMixIn, EditTUIDialog):
@@ -36,6 +38,10 @@ class PasswordSpoke(FirstbootSpokeMixIn, EditTUIDialog):
     @property
     def completed(self):
         return bool(self.data.rootpw.password or self.data.rootpw.lock)
+
+    @property
+    def showable(self):
+        return not (self.completed and flags.automatedInstall)
 
     @property
     def mandatory(self):

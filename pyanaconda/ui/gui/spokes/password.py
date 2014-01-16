@@ -1,6 +1,6 @@
 # root password spoke class
 #
-# Copyright (C) 2012 Red Hat, Inc.
+# Copyright (C) 2012-2014 Red Hat, Inc.
 #
 # This copyrighted material is made available to anyone wishing to use,
 # modify, copy, or redistribute it subject to the terms and conditions of
@@ -17,8 +17,10 @@
 # Red Hat, Inc.
 #
 # Red Hat Author(s): Jesse Keating <jkeating@redhat.com>
+#                    Chris Lumens <clumens@redhat.com>
 #
 
+from pyanaconda.flags import flags
 from pyanaconda.i18n import _, CN_
 from pyanaconda.users import cryptPassword, validatePassword
 
@@ -140,6 +142,10 @@ class PasswordSpoke(FirstbootSpokeMixIn, NormalSpoke, GUISpokeInputCheckHandler)
     @property
     def completed(self):
         return bool(self.data.rootpw.password or self.data.rootpw.lock)
+
+    @property
+    def showable(self):
+        return not (self.completed and flags.automatedInstall)
 
     def _checkPasswordEmpty(self, inputcheck):
         """Check whether a password has been specified at all."""
