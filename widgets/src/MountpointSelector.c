@@ -21,6 +21,7 @@
 #include <gdk/gdk.h>
 #include <glib.h>
 #include <glib/gstdio.h>
+#include <pango/pango.h>
 #include <gettext.h>
 
 #include "MountpointSelector.h"
@@ -208,6 +209,8 @@ static void anaconda_mountpoint_selector_init(AnacondaMountpointSelector *mountp
     mountpoint->priv->name_label = gtk_label_new(NULL);
     format_name_label(mountpoint, _(DEFAULT_NAME));
     gtk_misc_set_alignment(GTK_MISC(mountpoint->priv->name_label), 0, 0);
+    gtk_label_set_ellipsize(GTK_LABEL(mountpoint->priv->name_label), PANGO_ELLIPSIZE_MIDDLE);
+    gtk_label_set_max_width_chars(GTK_LABEL(mountpoint->priv->name_label), 25);
     gtk_widget_set_hexpand(GTK_WIDGET(mountpoint->priv->name_label), TRUE);
 
     /* Create the size label. */
