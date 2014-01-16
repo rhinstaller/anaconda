@@ -253,6 +253,24 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Thu Jan 16 2014 Vratislav Podzimek <vpodzime@redhat.com> - 19.31.47-1
+- Fix closest mirror showing up when it shouldn't (mkolman)
+  Resolves: rhbz#1031663
+- There is no raid module on rhel7-branch (vpodzime)
+  Related: rhbz#1052446
+- Skip empty layout-variant specifications when setting layouts (vpodzime)
+  Resolves: rhbz#1054083
+- Add left and right margins to the Progress hub (vpodzime)
+  Resolves: rhbz#1039556
+- Disallow /boot on btrfs subvolume until grubby supports it. (dlehman)
+  Resolves: rhbz#1052446
+- Decode potentially 8-bit strings in TUI windows (dshea)
+  Resolves: rhbz#1046836
+- Do not translate strings defined at the module or class level. (clumens)
+  Related: rhbz#1046836
+- Require package for proper reporting to RHEL bugzilla (vpodzime)
+  Related: rhbz#1015093
+
 * Tue Jan 14 2014 Brian C. Lane <bcl@redhat.com> - 19.31.46-1
 - Fix typo (bcl)
   Resolves: rhbz#1032066

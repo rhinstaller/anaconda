@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: anaconda 19.31.45\n"
+"Project-Id-Version: anaconda 19.31.46\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
-"POT-Creation-Date: 2014-01-14 17:55-0800\n"
+"POT-Creation-Date: 2014-01-16 11:18+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -156,7 +156,7 @@ msgstr ""
 msgid "%s cannot be of type %s"
 msgstr ""
 
-#: pyanaconda/bootloader.py:1620
+#: pyanaconda/bootloader.py:1619
 #, python-format
 msgid ""
 "%(deviceName)s may not have enough space for grub2 to embed core.img when "
@@ -709,7 +709,7 @@ msgstr ""
 msgid "Press ENTER to continue"
 msgstr ""
 
-#: pyanaconda/ui/tui/simpleline/base.py:609
+#: pyanaconda/ui/tui/simpleline/base.py:611
 msgid ""
 "  Please make your choice from above ['q' to quit | 'c' to continue |\n"
 "  'r' to refresh]: "
@@ -941,7 +941,7 @@ msgid "No disks selected; please select at least one disk to install to."
 msgstr ""
 
 #: pyanaconda/ui/tui/spokes/storage.py:173
-#: pyanaconda/ui/tui/spokes/source.py:471
+#: pyanaconda/ui/tui/spokes/source.py:475
 #: pyanaconda/ui/gui/spokes/source.py:601
 #: pyanaconda/ui/gui/spokes/storage.py:683
 msgid "Probing storage..."
@@ -1056,32 +1056,36 @@ msgstr ""
 msgid "Repo URL set to: %s"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/source.py:234
+#: pyanaconda/ui/tui/spokes/source.py:233
+msgid "Installation source refresh in progress, try again later."
+msgstr ""
+
+#: pyanaconda/ui/tui/spokes/source.py:237
 msgid "CD/DVD"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/source.py:234
+#: pyanaconda/ui/tui/spokes/source.py:237
 msgid "Local ISO file"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/source.py:234
+#: pyanaconda/ui/tui/spokes/source.py:237
 msgid "Network"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/source.py:238
+#: pyanaconda/ui/tui/spokes/source.py:241
 msgid "Choose an installation source type."
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/source.py:317
+#: pyanaconda/ui/tui/spokes/source.py:320
 #: pyanaconda/ui/gui/spokes/source.py:448
 msgid "Failed to set up installation source"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/source.py:322
+#: pyanaconda/ui/tui/spokes/source.py:325
 msgid "Error downloading package metadata"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/source.py:329
+#: pyanaconda/ui/tui/spokes/source.py:332
 #: pyanaconda/ui/tui/spokes/software.py:68
 #: pyanaconda/ui/gui/spokes/software.py:219
 #: pyanaconda/ui/gui/spokes/software.py:243
@@ -1089,40 +1093,40 @@ msgstr ""
 msgid "No installation source available"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/source.py:351
-#: pyanaconda/ui/tui/spokes/source.py:389
+#: pyanaconda/ui/tui/spokes/source.py:355
+#: pyanaconda/ui/tui/spokes/source.py:393
 msgid "Specify Repo Options"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/source.py:355
+#: pyanaconda/ui/tui/spokes/source.py:359
 msgid "Repo URL"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/source.py:393
+#: pyanaconda/ui/tui/spokes/source.py:397
 msgid "NFS <server>:/<path>"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/source.py:394
+#: pyanaconda/ui/tui/spokes/source.py:398
 msgid "NFS mount options"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/source.py:424
+#: pyanaconda/ui/tui/spokes/source.py:428
 msgid "Failed to set up installation source. Check the source address."
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/source.py:433
+#: pyanaconda/ui/tui/spokes/source.py:437
 msgid "Select device containing the ISO file"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/source.py:492
+#: pyanaconda/ui/tui/spokes/source.py:496
 msgid "No mountable devices found"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/source.py:517
+#: pyanaconda/ui/tui/spokes/source.py:521
 msgid "Select an ISO to use as install source"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/source.py:546
+#: pyanaconda/ui/tui/spokes/source.py:550
 msgid "No *.iso files found in device root folder"
 msgstr ""
 
@@ -4065,28 +4069,28 @@ msgstr ""
 msgid "CONFIGURATION"
 msgstr ""
 
-#: pyanaconda/ui/gui/hubs/progress.glade:85
+#: pyanaconda/ui/gui/hubs/progress.glade:87
 msgid "Preparing to install"
 msgstr ""
 
-#: pyanaconda/ui/gui/hubs/progress.glade:131
+#: pyanaconda/ui/gui/hubs/progress.glade:133
 msgid ""
 "%s is now successfully installed on your system, but some configuration "
 "still needs to be done.  Finish it and then click the Finish configuration "
 "button please."
 msgstr ""
 
-#: pyanaconda/ui/gui/hubs/progress.glade:143
+#: pyanaconda/ui/gui/hubs/progress.glade:145
 msgid "_Finish configuration"
 msgstr ""
 
-#: pyanaconda/ui/gui/hubs/progress.glade:184
+#: pyanaconda/ui/gui/hubs/progress.glade:186
 msgid ""
 "%s is now successfully installed on your system and ready for you to use!  "
 "Go ahead and reboot to start using it!"
 msgstr ""
 
-#: pyanaconda/ui/gui/hubs/progress.glade:196
+#: pyanaconda/ui/gui/hubs/progress.glade:198
 msgid "_Reboot"
 msgstr ""
 
