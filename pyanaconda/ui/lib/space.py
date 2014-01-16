@@ -72,7 +72,7 @@ class FileSystemSpaceChecker(object):
                             in the info bar at the bottom of a Hub.
         """
         self.reset()
-        free = Size(spec="%.2f MB" % self.storage.fileSystemFreeSpace)
+        free = Size(bytes=self.storage.fileSystemFreeSpace)
         needed = self.payload.spaceRequired
         log.info("fs space: %s  needed: %s", free, needed)
         self.success = (free >= needed)
