@@ -669,6 +669,12 @@ class SourceSpoke(NormalSpoke):
                          "format": dev.format.name or "",
                          "label" : dev.format.label or dev.format.uuid or ""
                        }
+
+            # With the label in here, the combo box can appear really long thus pushing the "pick an image"
+            # and the "verify" buttons off the screen.
+            if dev_info["label"] != "":
+                dev_info["label"] = "\n" + dev_info["label"]
+
             store.append([dev, "%(model)s %(path)s (%(size)s MB) %(format)s %(label)s" % dev_info])
             if self.data.method.method == "harddrive" and self.data.method.partition in [dev.path, dev.name]:
                 active = idx
