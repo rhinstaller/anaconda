@@ -1278,30 +1278,24 @@ class GRUB(BootLoader):
     def install_targets(self):
         """ List of (stage1, stage2) tuples representing install targets. """
         targets = []
-        if self.stage2_device.type == "mdarray" and \
-           self.stage2_device.level == 1:
-            # make sure we have stage1 and stage2 installed with redundancy
-            # so that boot can succeed even in the event of failure or removal
-            # of some of the disks containing the member partitions of the
-            # /boot array
-            for stage2dev in self.stage2_device.parents:
-                if self.stage1_device.isDisk:
-                    # install to mbr
-                    if self.stage2_device.dependsOn(self.stage1_device):
-                        # if target disk contains any of /boot array's member
-                        # partitions, set up stage1 on each member's disk
-                        # and stage2 on each member partition
-                        stage1dev = stage2dev.disk
-                    else:
-                        # if target disk does not contain any of /boot array's
-                        # member partitions, install stage1 to the target disk
-                        # and stage2 to each of the member partitions
-                        stage1dev = self.stage1_device
-                else:
-                    # target is /boot device and /boot is raid, so install
-                    # grub to each of /boot member partitions
-                    stage1dev = stage2dev
 
+        # make sure we have stage1 and stage2 installed with redundancy
+        # so that boot can succeed even in the event of failure or removal
+        # of some of the disks containing the member partitions of the
+        # /boot array. If the stage1 is not a disk, it probably needs to
+        # be a partition on a particular disk (biosboot, prepboot), so only
+        # add the redundant targets if installing stage1 to a disk that is
+        # a member of the stage2 array.
+
+        if self.stage2_device.type == "mdarray" and \
+           self.stage2_device.level == raid.RAID1 and \
+           self.stage1_device.isDisk and \
+           self.stage2_device.dependsOn(self.stage1_device):
+            for stage2dev in self.stage2_device.parents:
+                # if target disk contains any of /boot array's member
+                # partitions, set up stage1 on each member's disk
+                # and stage2 on each member partition
+                stage1dev = stage2dev.disk
                 targets.append((stage1dev, stage2dev))
         else:
             targets.append((self.stage1_device, self.stage2_device))
@@ -1350,6 +1344,31 @@ class GRUB(BootLoader):
         self.errors = errors
         self.warnings = warnings
         return bool(ret)
+
+    # Add a warning about certain RAID situations to is_valid_stage2_device
+    def is_valid_stage2_device(self, device, linux=True, non_linux=False):
+        valid = super(GRUB, self).is_valid_stage2_device(device, linux, non_linux)
+
+        # If the stage2 device is on a raid1, check that the stage1 device is also redundant,
+        # either by also being part of an array or by being a disk (which is expanded
+        # to every disk in the array by install_targets).
+        if self.stage2_device.type == "mdarray" and \
+                self.stage2_device.level == raid.RAID1 and \
+                self.stage1_device.type != "mdarray":
+            if not self.stage1_device.isDisk:
+                msg = _("bootloader stage2 device %(stage2dev)s in on a multi-disk array, but bootloader stage1 device %(stage1dev)s is not. " \
+                        "A drive failure in %(stage2dev)s could render the system unbootable.") % \
+                        {"stage1dev" : self.stage1_device.name,
+                         "stage2dev" : self.stage2_device.name}
+                self.warnings.append(msg)
+            elif not self.stage2_device.dependsOn(self.stage1_device):
+                msg = _("bootloader stage2 device %(stage2dev)s is on a multi-disk array, but bootloader stage1 device %(stage1dev)s is not part of this array. " \
+                        "The stage1 bootloader will only be installed to a single drive.") % \
+                        {"stage1dev" : self.stage1_device.name,
+                         "stage2dev" : self.stage2_device.name}
+                self.warnings.append(msg)
+
+        return valid
 
 class GRUB2(GRUB):
     """ GRUBv2
