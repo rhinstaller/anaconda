@@ -52,6 +52,8 @@ install() {
     inst "$moddir/driver-updates" "/bin/driver-updates"
     inst_simple "$moddir/driver-updates@.service" "/etc/systemd/system/driver-updates@.service"
     inst_simple "$moddir/driver-updates-net@.service" "/etc/systemd/system/driver-updates-net@.service"
+    # rpm configuration file (needed by dd_extract)
+    inst "/usr/lib/rpm/rpmrc"
     # python deps for parse-kickstart. DOUBLE WOOOO
     $moddir/python-deps $moddir/parse-kickstart $moddir/driver-updates | while read dep; do
         case "$dep" in
