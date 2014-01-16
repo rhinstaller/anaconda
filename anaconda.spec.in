@@ -253,6 +253,10 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Thu Jan 16 2014 Brian C. Lane <bcl@redhat.com> - 19.31.48-1
+- Return program output as a string instead of a list (dshea)
+  Resolves: rhbz#1054142
+
 * Thu Jan 16 2014 Vratislav Podzimek <vpodzime@redhat.com> - 19.31.47-1
 - Fix closest mirror showing up when it shouldn't (mkolman)
   Resolves: rhbz#1031663
