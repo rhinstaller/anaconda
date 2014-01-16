@@ -82,16 +82,16 @@ def _run_program(argv, root='/', stdin=None, stdout=None, env_prune=None, log_ou
                                     stderr=subprocess.STDOUT,
                                     preexec_fn=chroot, cwd=root, env=env)
 
-            out = proc.communicate()[0]
-            if out:
+            output_string = proc.communicate()[0]
+            if output_string:
                 if binary_output:
-                    out = [out]
+                    output_lines = [output_string]
                 else:
-                    if out[-1] != "\n":
-                        out = out + "\n"
-                    out = out.splitlines(True)
+                    if output_string[-1] != "\n":
+                        output_string = output_string + "\n"
+                    output_lines = output_string.splitlines(True)
 
-                for line in out:
+                for line in output_lines:
                     if log_output:
                         program_log.info(line.strip())
 
@@ -104,7 +104,7 @@ def _run_program(argv, root='/', stdin=None, stdout=None, env_prune=None, log_ou
 
         program_log.debug("Return code: %d", proc.returncode)
 
-    return (proc.returncode, out)
+    return (proc.returncode, output_string)
 
 def execWithRedirect(command, argv, stdin=None, stdout=None,
                      root='/', env_prune=None, log_output=True, binary_output=False):
