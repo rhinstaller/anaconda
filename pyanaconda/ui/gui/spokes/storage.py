@@ -747,25 +747,25 @@ class StorageSpoke(NormalSpoke, StorageChecker):
             #    - OR -
             # Not enough room, but the user checked the reclaim button.
 
-            # But first, we need to ask about an encryption passphrase if that
-            # checkbox was active.
             self.encrypted = self._encrypted.get_active()
-            if not self._check_encrypted():
-                return
-
-            # Oh and then we might also want to go to the reclaim dialog.
-            if self._reclaim.get_active():
-                self.apply()
-                if not self._show_resize_dialog(disks):
-                    # User pressed cancel on the reclaim dialog, so don't leave
-                    # the storage spoke.
-                    return
 
             if self._customPart.get_active():
                 self.autopart = False
                 self.skipTo = "CustomPartitioningSpoke"
             else:
                 self.autopart = True
+
+                # We might first need to ask about an encryption passphrase.
+                if not self._check_encrypted():
+                    return
+
+                # Oh and then we might also want to go to the reclaim dialog.
+                if self._reclaim.get_active():
+                    self.apply()
+                    if not self._show_resize_dialog(disks):
+                        # User pressed cancel on the reclaim dialog, so don't leave
+                        # the storage spoke.
+                        return
         elif rc == RESPONSE_CANCEL:
             # A cancel button was clicked on one of the dialogs.  Stay on this
             # spoke.  Generally, this is because the user wants to add more disks.
