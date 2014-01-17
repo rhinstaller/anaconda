@@ -24,7 +24,7 @@
             <property name="layout_style">end</property>
             <child>
               <object class="GtkButton" id="need_space_cancel_button">
-                <property name="label" translatable="yes" context="GUI|Storage|Options 2 Dialog">Cancel &amp; _add more disks</property>
+                <property name="label" translatable="yes" context="GUI|Storage|Need Space Dialog">Cancel &amp; _add more disks</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
@@ -40,7 +40,7 @@
             </child>
             <child>
               <object class="GtkButton" id="need_space_reclaim_button">
-                <property name="label" translatable="yes" context="GUI|Storage|Options 2 Dialog">_Reclaim space</property>
+                <property name="label" translatable="yes" context="GUI|Storage|Need Space Dialog">_Reclaim space</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="has_focus">True</property>
@@ -244,7 +244,7 @@
             <property name="layout_style">end</property>
             <child>
               <object class="GtkButton" id="no_space_quit_button">
-                <property name="label" translatable="yes" context="GUI|Storage|Options 3 Dialog">_Quit installer</property>
+                <property name="label" translatable="yes" context="GUI|Storage|No Space Dialog">_Quit installer</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
@@ -260,7 +260,7 @@
             </child>
             <child>
               <object class="GtkButton" id="no_space_cancel_button">
-                <property name="label" translatable="yes" context="GUI|Storage|Options 3 Dialog">_Cancel</property>
+                <property name="label" translatable="yes" context="GUI|Storage|No Space Dialog">_Cancel</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="has_focus">True</property>
