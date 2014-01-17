@@ -48,19 +48,18 @@ class InstallClass(BaseInstallClass):
         BaseInstallClass.configure(self, anaconda)
         BaseInstallClass.setDefaultPartitioning(self, anaconda.storage)
 
+    # Set first boot policy regarding ONBOOT value
+    # (i.e. which network devices should be activated automatically after reboot)
+    # After switch root we set ONBOOT=no as default for all devices not activated
+    # in initramfs. Here, at the end of installation, we check and modify it eventually.
     def setNetworkOnbootDefault(self, ksdata):
-        # for installations using network
-        if ksdata.method.method not in ("url", "nfs"):
-            return
-
-        # if there is no device to be autoactivated after reboot (we set all
-        # devices not used in initramfs to ONBOOT=no by default)
+        # if there is no device to be autoactivated after reboot
         for devName in nm.nm_devices():
             if nm.nm_device_type_is_wifi(devName):
                 continue
             try:
                 onboot = nm.nm_device_setting_value(devName, "connection", "autoconnect")
-            except nm.DeviceSettingsNotFoundError:
+            except nm.SettingsNotFoundError:
                 continue
             if not onboot == False:
                 return
