@@ -226,13 +226,18 @@ class StorageSpoke(NormalTUISpoke):
         disk_attrs = []
         # now check for/add info about special disks
         if (isinstance(disk, MultipathDevice) or isinstance(disk, iScsiDiskDevice) or isinstance(disk, FcoeDiskDevice)):
-            disk_attrs.append(disk.wwid)
+            if hasattr(disk, "wwid"):
+                disk_attrs.append(disk.wwid)
         elif isinstance(disk, DASDDevice):
-            disk_attrs.append(disk.busid)
+            if hasattr(disk, "busid"):
+                disk_attrs.append(disk.busid)
         elif isinstance (disk, ZFCPDiskDevice):
-            disk_attrs.append(disk.fcp_lun)
-            disk_attrs.append(disk.wwpn)
-            disk_attrs.append(disk.hba_id)
+            if hasattr(disk, "fcp_lun"):
+                disk_attrs.append(disk.fcp_lun)
+            if hasattr(disk, "wwpn"):
+                disk_attrs.append(disk.wwpn)
+            if hasattr(disk, "hba_id"):
+                disk_attrs.append(disk.hba_id)
 
         # now append all additional attributes to our string
         for attr in disk_attrs:
