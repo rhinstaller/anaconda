@@ -38,13 +38,14 @@ FILESYSTEM_COL = 2
 RECLAIMABLE_COL = 3
 ACTION_COL = 4
 EDITABLE_COL = 5
-TOOLTIP_COL = 6
-RESIZE_TARGET_COL = 7
-NAME_COL = 8
+IMMUTABLE_COL = 6
+TOOLTIP_COL = 7
+RESIZE_TARGET_COL = 8
+NAME_COL = 9
 
 PartStoreRow = namedtuple("PartStoreRow", ["id", "desc", "fs", "reclaimable",
-                                           "action", "editable", "tooltip",
-                                           "target", "name"])
+                                           "action", "editable", "immutable",
+                                           "tooltip", "target", "name"])
 
 PRESERVE = N_("Preserve")
 SHRINK = N_("Shrink")
@@ -135,6 +136,7 @@ class ResizeDialog(GUIObject):
                                                 "<span foreground='grey' style='italic'>%s total</span>",
                                                 _(PRESERVE),
                                                 editable,
+                                                False,
                                                 self._get_tooltip(disk),
                                                 disk.size,
                                                 disk.name])
@@ -162,6 +164,7 @@ class ResizeDialog(GUIObject):
                                                  resizeString,
                                                  _(PRESERVE),
                                                  not dev.protected,
+                                                 False,
                                                  self._get_tooltip(dev),
                                                  dev.size,
                                                  dev.name])
@@ -178,6 +181,7 @@ class ResizeDialog(GUIObject):
                                              "<span foreground='grey' style='italic'>%s</span>" % size_str(diskFree),
                                              _(PRESERVE),
                                              False,
+                                             True,
                                              self._get_tooltip(disk),
                                              float(converted),
                                              ""])
@@ -351,6 +355,14 @@ class ResizeDialog(GUIObject):
         if device.isDisk and device.partitioned:
             partItr = self._diskStore.iter_children(itr)
             while partItr:
+                # Immutable entries are those that we can't do anything to - like
+                # the free space lines.  We just want to leave them in the display
+                # for information, but you can't choose to preserve/delete/shrink
+                # them.
+                if self._diskStore[partItr][IMMUTABLE_COL]:
+                    partItr = self._diskStore.iter_next(partItr)
+                    continue
+
                 self._diskStore[partItr][ACTION_COL] = _(newAction)
 
                 # If the user marked a whole disk for deletion, they can't go in and

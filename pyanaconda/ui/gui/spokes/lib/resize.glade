@@ -15,6 +15,8 @@
       <column type="gchararray"/>
       <!-- column-name diskEditable -->
       <column type="gboolean"/>
+      <!-- column-name diskImmutable -->
+      <column type="gboolean"/>
       <!-- column-name diskTooltip -->
       <column type="gchararray"/>
       <!-- column-name diskResizeTarget -->
@@ -161,7 +163,7 @@
                         <child>
                           <object class="GtkCellRendererText" id="nameRenderer"/>
                           <attributes>
-                            <attribute name="text">8</attribute>
+                            <attribute name="text">9</attribute>
                           </attributes>
                         </child>
                       </object>
