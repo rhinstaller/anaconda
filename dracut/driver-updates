@@ -42,6 +42,7 @@ import os
 import subprocess
 import time
 import glob
+import re
 
 log = logging.getLogger("DD")
 
@@ -419,38 +420,65 @@ def dd_extract(driver, dest_path="/updates/", kernel_ver=None):
             copy_file(src, firmware_updates)
             move_file(src, initrd_firmware)
 
+def selection_menu(items, title, info_func, multi_choice=True):
+    """ Display menu and let user select one or more choices.
 
-def select_drivers(drivers):
-    """ Display pages of drivers to be loaded.
-
-        :param drivers: Drivers to be selected by the user
-        :type drivers:  list of Driver objects
-        :returns:       None
+        :param items: list of items
+        :type items: list of objects (with the 'selected' property/attribute if
+                     multi_choice=True is used)
+        :param title: title for the menu
+        :type title: str
+        :param info_func: function providing info about items
+        :type info_func: item -> str
+        :param multi_choice: whether it is a multiple choice menu or not
+        :type multi_choice: bool
+        :returns: the selected item in case of multi_choice=False and user did
+                  selection, None otherwise
     """
+
     page_length = 20
     page = 1
+    if multi_choice:
+        choice_format = "[%s]"
+    else:
+        choice_format = ""
+    format_str = "%3d) " + choice_format + " %s"
+
     while True:
         # show a page of drivers
-        print("\nPage %d of %d" % (page, 1 + (len(drivers) / page_length)))
-        print("Select drivers to install")
-        for i in xrange(0, min(len(drivers), page_length)):
-            driver_idx = ((page-1) * page_length) + i
-            if drivers[driver_idx].selected:
-                selected = "x"
+        print("\nPage %d of %d" % (page, 1 + (len(items) / page_length)))
+        print(title)
+        for i in xrange(0, min(len(items), page_length)):
+            item_idx = ((page-1) * page_length) + i
+            if multi_choice:
+                if items[item_idx].selected:
+                    selected = "x"
+                else:
+                    selected = " "
+                args = (i+1, selected, info_func(items[item_idx]))
             else:
-                selected = " "
-            print("%3d) [%s] %s" % (i+1, selected, drivers[driver_idx].source))
+                args = (i+1, info_func(items[item_idx]))
+            print(format_str % args)
 
         # Select driver to toggle, continue or change pages
-        idx = raw_input("\n# to toggle selection, 'n'-next page, 'p'-previous page or 'c'-continue: ")
+        prompt_common = ", 'n'-next page, 'p'-previous page or 'c'-continue: "
+        if multi_choice:
+            prompt = "\n# to toggle selection" + prompt_common
+        else:
+            prompt = "\n# to select" + prompt_common
+        idx = raw_input(prompt)
         if idx.isdigit():
-            if int(idx) < 1 or int(idx) > min(len(drivers), page_length):
+            if int(idx) < 1 or int(idx) > min(len(items), page_length):
                 print("Invalid selection")
                 continue
-            driver_idx = ((page-1) * page_length) + int(idx) - 1
-            drivers[driver_idx].selected = not drivers[driver_idx].selected
+            item_idx = ((page-1) * page_length) + int(idx) - 1
+            if multi_choice:
+                items[item_idx].selected = not items[item_idx].selected
+            else:
+                # single choice only, we can return now
+                return items[item_idx]
         elif idx.lower() == 'n':
-            if page < 1 + (len(drivers) / page_length):
+            if page < 1 + (len(items) / page_length):
                 page += 1
             else:
                 print("Last page")
@@ -462,6 +490,16 @@ def select_drivers(drivers):
         elif idx.lower() == 'c':
             return
 
+def select_drivers(drivers):
+    """ Display pages of drivers to be loaded.
+
+        :param drivers: Drivers to be selected by the user
+        :type drivers:  list of Driver objects
+        :returns:       None
+    """
+
+    selection_menu(drivers, "Select drivers to install",
+                   lambda driver: driver.source)
 
 def process_dd(dd_path):
     """ Handle installing modules, firmware, enhancements from the dd repo
@@ -540,6 +578,69 @@ def network_driver(dd_path):
     # Scan for new OEMDRV devices
     dd_scan(skip_dds)
 
+class DeviceInfo(object):
+    def __init__(self, device, label, uuid, fs_type):
+        self.device = device
+        self.label = label
+        self.uuid = uuid
+        self.fs_type = fs_type
+
+    def __str__(self):
+        return "%-10s %-6s %-15s %s" % (self.device, self.fs_type,
+                                        self.label, self.uuid)
+
+def select_iso():
+    """ Let user select device and DD ISO on it.
+
+        :returns: path to the selected ISO file and mountpoint to be unmounted
+                  or (None, None) if no ISO file is selected
+        :rtype: (str, str)
+    """
+
+    dev_prefix = "/dev/"
+    blkid_out_regex = re.compile(r'^/dev/([^:]+):\s+LABEL="([^"]+)"\s+UUID="([^"]+)"\s+TYPE="([^"]+)"')
+    _ret, out = run_cmd(["blkid"])
+    devices = []
+    for line in out.splitlines():
+        match = blkid_out_regex.match(line)
+        if match:
+            devices.append(DeviceInfo(*match.groups()))
+
+    header = "      %-10s %-6s %-15s %s" % ("DEVICE", "TYPE", "LABEL", "UUID")
+    iso_dev = selection_menu(devices, "Driver disk device selection\n" + header,
+                             lambda dev_info: str(dev_info),
+                             multi_choice=False)
+    if not iso_dev:
+        return (None, None)
+
+    mnt = "/media/DD-search"
+    if not os.path.isdir(mnt):
+        os.makedirs(mnt)
+    if not mount_device("/dev/" + iso_dev.device, mnt):
+        print("===Cannot mount the chosen device!===\n")
+        return select_iso()
+
+    isos = list()
+    for _path, _dirs, files in os.walk(mnt):
+        isos += (iso_file for iso_file in files if iso_file.endswith(".iso"))
+
+    if not isos:
+        print("===No ISO files found on %s!===\n" % iso_dev)
+        umount(mnt)
+        return select_iso()
+    else:
+        # mount writes out some mounting information, add blank line
+        print
+
+    # let user choose the ISO file
+    dd_iso = selection_menu(isos, "Choose driver disk ISO file",
+                            lambda iso_file: iso_file,
+                            multi_choice=False)
+
+    if not dd_iso:
+        return (None, None)
+
+    return ("/media/DD-search/" + dd_iso, "/media/DD-search")
 
 def dd_scan(skip_dds=None):
     """ Scan the system for OEMDRV devices and and specified by dd=/dev/<device>
@@ -563,6 +664,12 @@ def dd_scan(skip_dds=None):
         dd_todo.update(dd_devs)
         log.info("Checking devices %s" % ", ".join(dd_todo))
 
+    mount_point = None
+    if not dd_todo:
+        iso, mount_point = select_iso()
+        if iso:
+            dd_todo.add(iso)
+
     # Process each Driver Disk, checking for new disks after each one
     while dd_todo:
         device = dd_todo.pop()
@@ -574,6 +681,7 @@ def dd_scan(skip_dds=None):
             log.info("Found new OEMDRV device(s) - %s" % ", ".join(new_oemdrv))
         dd_todo.update(new_oemdrv)
 
+    umount(mount_point)
 
 if __name__ == '__main__':
     log.setLevel(logging.DEBUG)
