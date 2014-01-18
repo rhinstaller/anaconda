@@ -739,3 +739,21 @@ def upcase_first_letter(text):
         return text.upper()
     else:
         return text[0].upper() + text[1:]
+
+class DataHolder(dict):
+    """ A dict that lets you also access keys using dot notation. """
+    def __init__(self, **kwargs):
+        """ kwargs are set as keys for the dict. """
+        dict.__init__(self)
+
+        for attr, value in kwargs.items():
+            self[attr] = value
+
+    def __getattr__(self, attr):
+        return self[attr]
+
+    def __setattr__(self, attr, value):
+        self[attr] = value
+
+    def copy(self):
+        return DataHolder(**dict.copy(self))
