@@ -253,6 +253,21 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Fri Jan 17 2014 Brian C. Lane <bcl@redhat.com> - 19.31.49-1
+- Show labels on Add zFCP dialog. (sbueno+anaconda)
+  Resolves: rhbz#1054675
+- Check for certain disk attrs before trying to access them. (sbueno+anaconda)
+  Resolves: rhbz#1053055
+- Change the name of the system z devices panel. (sbueno+anaconda)
+  Related: rhbz#1024949
+  Resolves: rhbz#1024949
+- Fix selector device matching for unallocated partitions. (dlehman)
+  Resolves: rhbz#1044523
+- Grow the spoke gradient image to fit the nav_area (clumens).
+  Resolves: rhbz#1035772
+- Remove the UID and GID maximums. (dshea)
+  Resolves: rhbz#1053103
+
 * Thu Jan 16 2014 Brian C. Lane <bcl@redhat.com> - 19.31.48-1
 - Return program output as a string instead of a list (dshea)
   Resolves: rhbz#1054142
