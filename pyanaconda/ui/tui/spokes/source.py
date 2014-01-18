@@ -27,6 +27,7 @@ from pyanaconda.threads import threadMgr, AnacondaThread
 from pyanaconda.packaging import PayloadError, MetadataError
 from pyanaconda.i18n import N_, _
 from pyanaconda.image import opticalInstallMedia, potentialHdisoSources
+from pyanaconda.iutil import DataHolder
 
 from pyanaconda.constants import THREAD_SOURCE_WATCHER, THREAD_SOFTWARE_WATCHER, THREAD_PAYLOAD
 from pyanaconda.constants import THREAD_PAYLOAD_MD, THREAD_STORAGE, THREAD_STORAGE_WATCHER
@@ -302,8 +303,12 @@ class SpecifyNFSRepoSpoke(EditTUISpoke, SourceSwitchHandler):
         EditTUISpoke.__init__(self, app, data, storage, payload, instclass)
         SourceSwitchHandler.__init__(self)
         self.selection = selection
-        self.args = self.data.method
         self.errors = errors
+
+        nfs = self.data.method
+        self.args = DataHolder(server="", opts=nfs.opts or "")
+        if nfs.method == "nfs" and nfs.server and nfs.dir:
+            self.args.server = "%s:%s" % (nfs.server, nfs.dir)
 
     def refresh(self, args=None):
         """ Refresh window. """
