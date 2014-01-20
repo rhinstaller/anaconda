@@ -51,4 +51,8 @@
         <title>Index</title>
         <xi:include href="xml/api-index-full.xml" />
     </index>
+
+    <xi:include href="xml/annotation-glossary.xml">
+	<xi:fallback />
+    </xi:include>
 </book>
