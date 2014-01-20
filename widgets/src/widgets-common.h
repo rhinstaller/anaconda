@@ -24,7 +24,7 @@
 
 G_BEGIN_DECLS
 
-gchar *get_widgets_datadir();
+const gchar *anaconda_get_widgets_datadir(void);
 
 G_END_DECLS
 

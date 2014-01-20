@@ -195,9 +195,9 @@ static void anaconda_mountpoint_selector_init(AnacondaMountpointSelector *mountp
      * case.  That's good enough error notification.
      */
     if (gtk_get_locale_direction() == GTK_TEXT_DIR_LTR)
-        file = g_strdup_printf("%s/pixmaps/right-arrow-icon.png", get_widgets_datadir());
+        file = g_strdup_printf("%s/pixmaps/right-arrow-icon.png", anaconda_get_widgets_datadir());
     else
-        file = g_strdup_printf("%s/pixmaps/left-arrow-icon.png", get_widgets_datadir());
+        file = g_strdup_printf("%s/pixmaps/left-arrow-icon.png", anaconda_get_widgets_datadir());
     mountpoint->priv->arrow = gtk_image_new_from_file(file);
     g_free(file);
     gtk_widget_set_no_show_all(GTK_WIDGET(mountpoint->priv->arrow), TRUE);

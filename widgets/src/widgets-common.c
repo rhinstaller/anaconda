@@ -23,11 +23,19 @@
 #include <glib.h>
 #include <stdlib.h>
 
-/* Returns path to anaconda widgets data directory using the value of the
- * environment variable ANACONDA_WIDGETS_DATA or WIDGETS_DATADIR macro
- * (defined in Makefile.am) if the environment variable is not defined.
+/**
+ * anaconda_get_widgets_datadir:
+ *
+ * Return the directory containing the anaconda widgets data files.
+ *
+ * The widgets data directory contains the pixmaps used by the anaconda
+ * widgets. This directory defaults to ${prefix}/share/anaconda/pixmaps, but
+ * it may be overriden at runtime using the ANACONDA_WIDGETS_DATA environment
+ * variable.
+ *
+ * Returns: the widgets data directory.
  */
-gchar *get_widgets_datadir() {
+const gchar *anaconda_get_widgets_datadir(void) {
     gchar *env_value;
 
     env_value = getenv("ANACONDA_WIDGETS_DATA");

@@ -150,7 +150,7 @@ static void anaconda_spoke_window_realize(GtkWidget *widget, gpointer user_data)
      * header without an image.
      */
     error = NULL;
-    file = g_strdup_printf("%s/pixmaps/anaconda_spoke_header.png", get_widgets_datadir());
+    file = g_strdup_printf("%s/pixmaps/anaconda_spoke_header.png", anaconda_get_widgets_datadir());
 
     nav_box = anaconda_base_window_get_nav_area_background_window(ANACONDA_BASE_WINDOW(window));
     pixbuf = gdk_pixbuf_new_from_file_at_scale(file, -1, gdk_window_get_height(gtk_widget_get_window(nav_box)), FALSE, &error);

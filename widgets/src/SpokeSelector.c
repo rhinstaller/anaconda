@@ -210,7 +210,7 @@ static void set_icon(AnacondaSpokeSelector *widget, const char *icon_name) {
             return;
         }
 
-        file = g_strdup_printf("%s/pixmaps/dialog-warning-symbolic.svg", get_widgets_datadir());
+        file = g_strdup_printf("%s/pixmaps/dialog-warning-symbolic.svg", anaconda_get_widgets_datadir());
         emblem_icon = g_icon_new_for_string(file, &err);
         g_free(file);
         if (!emblem_icon) {
