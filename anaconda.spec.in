@@ -49,6 +49,8 @@ BuildRequires: audit-libs-devel
 BuildRequires: gettext >= %{gettextver}
 BuildRequires: gtk3-devel
 BuildRequires: gtk-doc
+BuildRequires: gtk3-devel-docs
+BuildRequires: glib2-doc
 BuildRequires: gobject-introspection-devel
 BuildRequires: glade-devel
 BuildRequires: pygobject3
