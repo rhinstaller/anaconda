@@ -211,6 +211,19 @@ class QuitDialog(GUIObject):
         rc = self.window.run()
         return rc
 
+class ErrorDialog(GUIObject):
+    builderObjects = ["errorDialog", "errorTextBuffer"]
+    mainWidgetName = "errorDialog"
+    uiFile = "main.glade"
+
+    def refresh(self, msg):
+        buf = self.builder.get_object("errorTextBuffer")
+        buf.set_text(msg, -1)
+
+    def run(self):
+        rc = self.window.run()
+        return rc
+
 class GraphicalUserInterface(UserInterface):
     """This is the standard GTK+ interface we try to steer everything to using.
        It is suitable for use both directly and via VNC.
@@ -387,14 +400,10 @@ class GraphicalUserInterface(UserInterface):
     ###
     @gtk_action_wait
     def showError(self, message):
-        dlg = Gtk.MessageDialog(flags=Gtk.DialogFlags.MODAL,
-                                message_type=Gtk.MessageType.ERROR,
-                                buttons=Gtk.ButtonsType.NONE,
-                                message_format=message)
-        dlg.set_decorated(False)
-        dlg.add_button(_("_Exit Installer"), 0)
+        dlg = ErrorDialog(None)
 
-        with enlightbox(self._currentAction.window, dlg):
+        with enlightbox(self._currentAction.window, dlg.window):
+            dlg.refresh(message)
             dlg.run()
             dlg.destroy()
 
