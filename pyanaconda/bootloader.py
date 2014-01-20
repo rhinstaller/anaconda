@@ -244,7 +244,7 @@ class BootLoader(object):
     stage2_bootable = False
     stage2_must_be_primary = True
     stage2_description = N_("/boot file system")
-    stage2_max_end = Size(en_spec="2 TiB")
+    stage2_max_end = Size(spec="2 TiB")
 
     @property
     def stage2_format_types(self):
