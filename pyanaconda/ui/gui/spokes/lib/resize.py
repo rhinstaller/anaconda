@@ -177,7 +177,7 @@ class ResizeDialog(GUIObject):
             # And then add another uneditable line that lists how much space is
             # already free in the disk.
             diskFree = free_space[disk.name][0]
-            if diskFree >= Size(en_spec="1MiB"):
+            if diskFree >= Size(spec="1MiB"):
                 freeSpaceString = "<span foreground='grey' style='italic'>%s</span>" % \
                         escape_markup(_("Free space"))
                 self._diskStore.append(itr, [disk.id,

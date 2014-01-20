@@ -249,7 +249,7 @@ class DNFPayload(packaging.PackagePayload):
     def spaceRequired(self):
         transaction = self._base.transaction
         if transaction is None:
-            return Size(en_spec="3000 MB")
+            return Size(spec="3000 MB")
 
         size = sum(tsi.installed.installsize for tsi in transaction)
         # add 35% to account for the fact that the above method is laughably

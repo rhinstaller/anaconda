@@ -31,7 +31,6 @@
 
 from contextlib import contextmanager
 import re
-import unicodedata
 
 from pykickstart.constants import CLEARPART_TYPE_NONE, AUTOPART_TYPE_PLAIN, AUTOPART_TYPE_BTRFS, AUTOPART_TYPE_LVM, AUTOPART_TYPE_LVM_THINP
 
@@ -163,21 +162,20 @@ partition_only_format_types = ["efi", "macefi", "prepboot", "biosboot",
                                "appleboot"]
 
 def size_from_entry(entry):
-    size_text = entry.get_text().decode("utf-8").strip()
+    size_text = entry.get_text().strip()
+
+    # if no unit was specified, default to MiB
+    if not re.search(r'[A-Za-z]+$', size_text):
+        size_text += "MiB"
 
     try:
-        # if no unit was specified, default to MiB. Assume that a string
-        # ending with any kind of a letter has a unit suffix.
-        if size_text and unicodedata.category(size_text[-1]).startswith("L"):
-            size = Size(spec=size_text)
-        else:
-            size = Size(en_spec="%sMiB" % size_text)
+        size = Size(spec=size_text)
     except (SizeParamsError, ValueError):
         return None
     else:
         # Minimium size for ui-created partitions is 1MiB.
-        if size.convertTo(en_spec="MiB") < 1:
-            size = Size(en_spec="1 MiB")
+        if size.convertTo(spec="MiB") < 1:
+            size = Size(spec="1 MiB")
 
     return size
 
@@ -2010,7 +2008,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         log.debug("requested size = %s  ; available space = %s", dialog.size, self._free_space)
 
         # if no size was entered, request as much of the free space as possible
-        if dialog.size is not None and dialog.size.convertTo(en_spec="mb") < 1:
+        if dialog.size is not None and dialog.size.convertTo(spec="mb") < 1:
             size = None
         else:
             size = dialog.size
