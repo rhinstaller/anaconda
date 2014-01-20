@@ -1370,7 +1370,7 @@ class GRUB2(GRUB):
 
     @property
     def stage2_format_types(self):
-        if productName.startswith("Red Hat Enterprise Linux"):
+        if productName.startswith("Red Hat "):
             return ["xfs", "ext4", "ext3", "ext2", "btrfs"]
         else:
             return ["ext4", "ext3", "ext2", "btrfs", "xfs"]
@@ -2035,7 +2035,7 @@ class ZIPL(BootLoader):
 
     @property
     def stage2_format_types(self):
-        if productName.startswith("Red Hat Enterprise Linux"):
+        if productName.startswith("Red Hat "):
             return ["xfs", "ext4", "ext3", "ext2"]
         else:
             return ["ext4", "ext3", "ext2", "xfs"]
