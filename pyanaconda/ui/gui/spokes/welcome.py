@@ -271,7 +271,7 @@ class WelcomeLanguageSpoke(LangLocaleHandler, StandaloneSpoke):
             if rc == 0:
                 sys.exit(0)
 
-        if productName.startswith("Red Hat Enterprise Linux") and \
+        if productName.startswith("Red Hat ") and \
           is_unsupported_hw() and not self.data.unsupportedhardware.unsupported_hardware:
             dlg = self.builder.get_object("unsupportedHardwareDialog")
             with enlightbox(self.window, dlg):
