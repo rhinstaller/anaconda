@@ -22,11 +22,16 @@ config_get() {
 }
 
 find_iso() {
-    local f="" iso="" isodir="$1" tmpmnt=$(mkuniqdir /run/install tmpmnt)
+    local f="" p="" iso="" isodir="$1" tmpmnt=$(mkuniqdir /run/install tmpmnt)
     for f in $isodir/*.iso; do
         [ -e $f ] || continue
         mount -o loop,ro $f $tmpmnt || continue
-        [ -e $tmpmnt/.discinfo ] && iso=$f
+        # Valid ISOs either have stage2 in one of the supported paths
+        # or have a .treeinfo that might tell use where to find the stage2 image.
+        # If it does not have any of those, it is not valid and will not be used.
+        for p in $tmpmnt/LiveOS/squashfs.img $tmpmnt/images/install.img $tmpmnt/.treeinfo; do
+            if [ -e $p ]; then iso=$f; break; fi
+        done
         umount $tmpmnt
         if [ "$iso" ]; then echo "$iso"; return 0; fi
     done
