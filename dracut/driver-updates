@@ -438,6 +438,10 @@ def selection_menu(items, title, info_func, multi_choice=True):
 
     page_length = 20
     page = 1
+    num_pages = len(items) / page_length
+    if len(items) % page_length > 0:
+        num_pages += 1
+
     if multi_choice:
         choice_format = "[%s]"
     else:
@@ -445,10 +449,14 @@ def selection_menu(items, title, info_func, multi_choice=True):
     format_str = "%3d) " + choice_format + " %s"
 
     while True:
-        # show a page of drivers
-        print("\nPage %d of %d" % (page, 1 + (len(items) / page_length)))
+        # show a page of items
+        print("\nPage %d of %d" % (page, num_pages))
         print(title)
-        for i in xrange(0, min(len(items), page_length)):
+        if page * page_length <= len(items):
+            num_items = page_length
+        else:
+            num_items = len(items) % page_length
+        for i in xrange(0, num_items):
             item_idx = ((page-1) * page_length) + i
             if multi_choice:
                 if items[item_idx].selected:
@@ -460,7 +468,7 @@ def selection_menu(items, title, info_func, multi_choice=True):
                 args = (i+1, info_func(items[item_idx]))
             print(format_str % args)
 
-        # Select driver to toggle, continue or change pages
+        # Select an item to toggle, continue or change pages
         prompt_common = ", 'n'-next page, 'p'-previous page or 'c'-continue: "
         if multi_choice:
             prompt = "\n# to toggle selection" + prompt_common
@@ -468,7 +476,7 @@ def selection_menu(items, title, info_func, multi_choice=True):
             prompt = "\n# to select" + prompt_common
         idx = raw_input(prompt)
         if idx.isdigit():
-            if int(idx) < 1 or int(idx) > min(len(items), page_length):
+            if int(idx) < 1 or int(idx) > num_items:
                 print("Invalid selection")
                 continue
             item_idx = ((page-1) * page_length) + int(idx) - 1
@@ -478,7 +486,7 @@ def selection_menu(items, title, info_func, multi_choice=True):
                 # single choice only, we can return now
                 return items[item_idx]
         elif idx.lower() == 'n':
-            if page < 1 + (len(items) / page_length):
+            if page < num_pages:
                 page += 1
             else:
                 print("Last page")
