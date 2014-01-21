@@ -310,11 +310,6 @@ class OtherPage(FilterPage):
             paths = [d.name for d in disk.parents]
             selected = disk.name in selectedNames
 
-            store.append([True, selected, not disk.protected,
-                          disk.name, "", disk.model, size_str(disk.size),
-                          disk.vendor, disk.bus, disk.serial,
-                          disk.wwid, "\n".join(paths), "", "",
-                          "", "", ""])
             if not disk.vendor in vendors:
                 vendors.append(disk.vendor)
 
