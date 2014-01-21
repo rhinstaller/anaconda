@@ -166,7 +166,7 @@ class DNFPayload(packaging.PackagePayload):
     def _install_package(self, pkg_name):
         try:
             return self._base.install(pkg_name)
-        except dnf.exceptions.PackageNotFoundError:
+        except dnf.exceptions.MarkingError:
             raise packaging.NoSuchPackage(pkg_name)
 
     def _miss(self, exn):
