@@ -1721,9 +1721,6 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         else:
             use_dev = device
 
-        if hasattr(device.format, "label") and device.format.label is None:
-            device.format.label = ""
-
         if hasattr(use_dev, "req_disks") and not use_dev.exists:
             self._device_disks = use_dev.req_disks[:]
         else:
@@ -1762,7 +1759,12 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         self._mountPointEntry.set_text(getattr(device.format, "mountpoint", "") or "")
         fancy_set_sensitive(self._mountPointEntry, device.format.mountable)
 
-        self._labelEntry.set_text(getattr(device.format, "label", ""))
+        if hasattr(device.format, "label"):
+            if device.format.label is None:
+                device.format.label = ""
+            self._labelEntry.set_text(device.format.label)
+        else:
+            self._labelEntry.set_text("")
         fancy_set_sensitive(self._labelEntry, not device.format.exists)
 
         self._sizeEntry.set_text(device.size.humanReadable(max_places=None))
