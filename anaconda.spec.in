@@ -254,6 +254,23 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Mon Jan 20 2014 Brian C. Lane <bcl@redhat.com> - 19.31.50-1
+- Use DataHolder for TUI nfs data (bcl)
+  Resolves: rhbz#1034427
+- Add DataHolder class (bcl)
+  Related: rhbz#1034427
+  Resolves: rhbz#1034427
+- Various changes to handling of filesystem label setting (mulhern)
+  Related: rhbz#1038590
+- Don't show actions next to free space lines in the reclaim dialog (clumens).
+  Resolves: rhbz#1054208
+- If there's a label in the ISO device combo, put it on a new line (clumens).
+  Resolves: rhbz#1031727
+- network: don't activate default auto connections after switchroot (rvykydal)
+  Resolves: rhbz#1012511
+- network ks: allow setting only hostname with network command (rvykydal)
+  Resolves: rhbz#1051564
+
 * Fri Jan 17 2014 Brian C. Lane <bcl@redhat.com> - 19.31.49-1
 - Show labels on Add zFCP dialog. (sbueno+anaconda)
   Resolves: rhbz#1054675
