@@ -254,6 +254,26 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Wed Jan 22 2014 Brian C. Lane <bcl@redhat.com> - 19.31.51-1
+- fcoe: add fcoe=<NIC>:<EDB> to boot options for nics added manually (rvykydal)
+  Resolves: rhbz#1040215
+- Be more liberal in what is accepted as a size unit. (dshea)
+  Resolves: rhbz#1039485
+- Set device.format.label field close to where we read it (amulhern)
+  Resolves: rhbz#1056139
+- network: set ONBOOT=yes for iface used during DVD (hd:) installation
+  (rvykydal)
+  Resolves: rhbz#1052898
+- Fix tb due to non-existant disk attr. (sbueno+anaconda)
+  Resolves: rhbz#1056019
+  Resolves: rhbz#1054746
+- Install the rpmrc file to the initrd.img (vpodzime)
+  Resolves: rhbz#1016004
+- Give users hint about VNC password restrictions (vpodzime)
+  Resolves: rhbz#1053546
+- Unlock encrypted partitions before finding installations (vpodzime)
+  Resolves: rhbz#1043783
+
 * Mon Jan 20 2014 Brian C. Lane <bcl@redhat.com> - 19.31.50-1
 - Use DataHolder for TUI nfs data (bcl)
   Resolves: rhbz#1034427
