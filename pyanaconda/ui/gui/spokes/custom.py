@@ -232,12 +232,13 @@ def validate_label(label, fmt):
        :param DeviceFormat fmt: The device format to label
 
     """
-    if label == "" and not fmt.labeling():
-        return LABEL_OK
     if fmt.exists:
         return LABEL_RESETTING_FORBIDDEN
     if not fmt.labeling():
-        return LABEL_APPLICATION_UNAVAILABLE
+        if label == "":
+            return LABEL_OK
+        else:
+            return LABEL_APPLICATION_UNAVAILABLE
     if not fmt.labelFormatOK(label):
         return LABEL_FORMAT_INVALID
     return LABEL_OK
