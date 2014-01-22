@@ -1586,7 +1586,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         if not do_reformat:
             # Set various attributes that do not require actions.
             if old_label != label and hasattr(device.format, "label") and \
-               not device.format.exists:
+               validate_label(label, device.format) == LABEL_OK:
                 self.clear_errors()
                 log.debug("updating label on %s to %s" % (device.name, label))
                 device.format.label = label
