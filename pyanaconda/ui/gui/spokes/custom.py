@@ -1743,7 +1743,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
             self._labelEntry.set_text(device.format.label)
         else:
             self._labelEntry.set_text("")
-        fancy_set_sensitive(self._labelEntry, not device.format.exists)
+        fancy_set_sensitive(self._labelEntry, True)
 
         self._sizeEntry.set_text(Size(spec="%d MB" % device.size).humanReadable(max_places=None))
 
