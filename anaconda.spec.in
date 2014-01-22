@@ -296,6 +296,56 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Jan 21 2014 Brian C. Lane <bcl@redhat.com> - 21.17-1
+- Test for DataHolder Class (#1034427) (bcl)
+- Use DataHolder for TUI nfs data (#1034427) (bcl)
+- Add DataHolder class (#1034427) (bcl)
+- Handle inst.{gpt,dnf,extlinux} using cmdline.getbool() (wwoods)
+- Drop unreferenced 'useIPv[46]' flag (wwoods)
+- Don't force shell on tty2 (#980062) (wwoods)
+- add comment about boot-options.txt (wwoods)
+- Add support for getting stage2 image from boot.iso (#1035514) (mkolman)
+- Various changes to handling of filesystem label setting (#1038590) (amulhern)
+- Fix translation context on the storage options dialogs. (clumens)
+- Fix problems going into custom partitioning with the new work flow. (clumens)
+- Don't show actions next to free space lines in the reclaim dialog (#1054208).
+  (clumens)
+- If there's a label in the ISO device combo, put it on a new line (#1031727).
+  (clumens)
+- Make the device name in a MountpointSelector less wide (#1048583). (clumens)
+- If a root password is set, don't show the spoke (#910355, #1041405).
+  (clumens)
+- Check for certain disk attrs before trying to access them. (#1053055)
+  (sbueno+anaconda)
+- Use gtk_get_locale_direction. (dshea)
+- Always run efibootmgr from ROOT_PATH (bcl)
+- A class for scheduling Gtk actions and running them all at once (vpodzime)
+- Remove some leftover float conversions. (dshea)
+- Use uint64 for the resize target size. (dshea)
+- Return program output as a string instead of a list (dshea)
+- Implement and use a function for one-off running Gtk actions (vpodzime)
+- Be more defensive when getting layouts and their variants (vpodzime)
+- Implement and use functions for conversion between keymaps and layouts
+  (vpodzime)
+- Fix reset of existing device to its original size. (dlehman)
+- Don't disable checks for global at the module level. (dshea)
+- Clean up the pylint-false-positives. (dshea)
+- Remove pylint comments that are no longer necessary (dshea)
+- Allow pylint-false-positives to end with a newline (dshea)
+- Change storage widget visibility based on disks selected. (clumens)
+- Rename widgets in the two remaining options dialogs. (clumens)
+- Allow going to the reclaim dialog even for autopart (#1014671). (clumens)
+- Add the autopart type combo to custom storage (#1014671). (clumens)
+- Tweak DiskOverview spacing a little bit (#1014671). (clumens)
+- Add custom part and encryption buttons to the main storage spoke (#1014671).
+  (clumens)
+- Remove the existing install_options1 dialog, rename the others (#1014671).
+  (clumens)
+- Grow the spoke gradient image to fit the nav_area (#1035772). (clumens)
+- Additional completion checks in network spoke. (#1044571) (sbueno+anaconda)
+- Fix problems reported by pylint (dshea)
+- Decode potentially 8-bit strings in TUI windows (dshea)
+
 * Fri Jan 10 2014 Brian C. Lane <bcl@redhat.com> - 21.16-1
 - Use blivet.size.Size for all size quantities. (dlehman)
 - make anaconda-shell (wwoods)
