@@ -148,7 +148,8 @@ static void anaconda_standalone_window_init(AnacondaStandaloneWindow *win) {
     gtk_widget_set_margin_start(win->priv->button_box, 6);
     gtk_widget_set_margin_end(win->priv->button_box, 6);
     gtk_widget_set_margin_bottom(win->priv->button_box, 6);
-    gtk_button_box_set_layout(GTK_BUTTON_BOX(win->priv->button_box), GTK_BUTTONBOX_EDGE);
+    gtk_button_box_set_layout(GTK_BUTTON_BOX(win->priv->button_box), GTK_BUTTONBOX_END);
+    gtk_box_set_spacing(GTK_BOX(win->priv->button_box), 12);
     gtk_container_add(GTK_CONTAINER(win->priv->button_box), win->priv->quit_button);
     gtk_container_add(GTK_CONTAINER(win->priv->button_box), win->priv->continue_button);
 
