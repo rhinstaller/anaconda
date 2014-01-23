@@ -902,10 +902,13 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         self.__storage = self.storage.copy()
         self._media_disks = []
 
-        # hide removable disks containing install media
         for disk in self.__storage.disks:
             if disk.removable and disk.protected:
+                # hide removable disks containing install media
                 self._media_disks.append(disk)
+                self.__storage.devicetree.hide(disk)
+            elif not disk.mediaPresent:
+                # hide disks that have no media
                 self.__storage.devicetree.hide(disk)
 
         self._devices = self.__storage.devices

@@ -53,7 +53,7 @@ def getDisks(devicetree, fake=False):
             devices += devicetree._hidden
 
         disks = [d for d in devices if d.isDisk and
-                                       d.size > 0 and
+                                       d.mediaPresent and
                                        not d.format.hidden and
                                        not (d.protected and
                                             d.removable)]
