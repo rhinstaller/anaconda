@@ -56,8 +56,6 @@ class SoftwareSelectionSpoke(NormalSpoke):
         self._tx_id = None
         self._selectFlag = False
 
-        self.selectedGroups = []
-        self.excludedGroups = []
         self.environment = None
 
         # Used for detecting whether anything's changed in the spoke.
@@ -67,24 +65,25 @@ class SoftwareSelectionSpoke(NormalSpoke):
         # We need to tell the addon view whether something is a separator or not.
         self.builder.get_object("addonView").set_row_separator_func(self._addon_row_is_separator, None)
 
+        # track which addons were selected by the user so we can can check them again if user
+        # switches between environments
+        self._user_decided_addons = {}
+
     def _apply(self):
         row = self._get_selected_environment()
         if not row:
             return
 
-        addons = self._get_selected_addons()
-        for group in addons:
-            if group not in self.selectedGroups:
-              self.selectedGroups.append(group)
-
         self._selectFlag = False
         self.payload.data.packages.groupList = []
         self.payload.selectEnvironment(row[2])
         self.environment = row[2]
-        for group in self.selectedGroups:
+
+        addons = self._get_selected_addons()
+        for group in addons:
             self.payload.selectGroup(group)
 
-        # And then save these values so we can check next time.
+        # save these values so we can check next time.
         self._origAddons = addons
         self._origEnvironment = self.environment
 
@@ -280,11 +279,12 @@ class SoftwareSelectionSpoke(NormalSpoke):
 
     def _addAddon(self, grp):
         (name, desc) = self.payload.groupDescription(grp)
-        # If no groups are selected, select the default groups
-        if not self._origEnvironment:
-            selected = self.payload.environmentOptionIsDefault(self.environment, grp)
+        # Check if the group has been explicitly selected or unselected
+        if grp in self._user_decided_addons:
+            selected = self._user_decided_addons[grp]
         else:
-            selected = grp in self.selectedGroups
+            # check if the group should be selected by default
+            selected = self.payload.environmentOptionIsDefault(self.environment, grp)
 
         self._addonStore.append([selected, "<b>%s</b>\n%s" % (name, desc), grp, False])
 
@@ -351,12 +351,6 @@ class SoftwareSelectionSpoke(NormalSpoke):
         for row in self._environmentStore:
             row[0] = False
 
-        # Then, remove all the groups that were selected by the previously
-        # selected environment.
-        for groupid in self.payload.environmentGroups(self.environment):
-            if groupid in self.selectedGroups:
-                self.selectedGroups.remove(groupid)
-
         # Then mark the clicked environment as selected and update the screen.
         self._environmentStore[path][0] = True
         self.environment = self._environmentStore[path][2]
@@ -375,15 +369,7 @@ class SoftwareSelectionSpoke(NormalSpoke):
         selected = not self._addonStore[path][0]
         group = self._addonStore[path][2]
         self._addonStore[path][0] = selected
-        if selected:
-            if group not in self.selectedGroups:
-                self.selectedGroups.append(group)
-
-            if group in self.excludedGroups:
-                self.excludedGroups.remove(group)
-
-        elif not selected and group in self.selectedGroups:
-            self.selectedGroups.remove(group)
+        self._user_decided_addons[group] = selected
 
     def on_addon_view_clicked(self, view, event, *args):
         if event and not event.type in [Gdk.EventType.BUTTON_RELEASE, Gdk.EventType.KEY_RELEASE]:
