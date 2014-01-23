@@ -38,18 +38,23 @@ FILESYSTEM_COL = 2
 RECLAIMABLE_COL = 3
 ACTION_COL = 4
 EDITABLE_COL = 5
-IMMUTABLE_COL = 6
+TYPE_COL = 6
 TOOLTIP_COL = 7
 RESIZE_TARGET_COL = 8
 NAME_COL = 9
 
+TY_NORMAL = 0
+TY_FREE_SPACE = 1
+TY_PROTECTED = 2
+
 PartStoreRow = namedtuple("PartStoreRow", ["id", "desc", "fs", "reclaimable",
-                                           "action", "editable", "immutable",
+                                           "action", "editable", "ty",
                                            "tooltip", "target", "name"])
 
 PRESERVE = N_("Preserve")
 SHRINK = N_("Shrink")
 DELETE = N_("Delete")
+NOTHING = ""
 
 class ResizeDialog(GUIObject):
     builderObjects = ["actionStore", "diskStore", "resizeDialog", "resizeAdjustment"]
@@ -136,7 +141,7 @@ class ResizeDialog(GUIObject):
                                                 "<span foreground='grey' style='italic'>%s total</span>",
                                                 _(PRESERVE),
                                                 editable,
-                                                False,
+                                                TY_NORMAL,
                                                 self._get_tooltip(disk),
                                                 disk.size,
                                                 disk.name])
@@ -158,13 +163,18 @@ class ResizeDialog(GUIObject):
                         freeSize = dev.size
                         resizeString = "<span foreground='grey'>%s</span>" % _("Not resizeable")
 
+                    if dev.protected:
+                        ty = TY_PROTECTED
+                    else:
+                        ty = TY_NORMAL
+
                     self._diskStore.append(itr, [dev.id,
                                                  self._description(dev),
                                                  dev.format.type,
                                                  resizeString,
                                                  _(PRESERVE),
                                                  not dev.protected,
-                                                 False,
+                                                 ty,
                                                  self._get_tooltip(dev),
                                                  dev.size,
                                                  dev.name])
@@ -179,9 +189,9 @@ class ResizeDialog(GUIObject):
                                              _("""<span foreground='grey' style='italic'>Free space</span>"""),
                                              "",
                                              "<span foreground='grey' style='italic'>%s</span>" % size_str(diskFree),
-                                             _(PRESERVE),
+                                             NOTHING,
                                              False,
-                                             True,
+                                             TY_FREE_SPACE,
                                              self._get_tooltip(disk),
                                              float(converted),
                                              ""])
@@ -284,10 +294,10 @@ class ResizeDialog(GUIObject):
         # The reclaim button is sensitive if two conditions are met:
         # (1) There's enough available space (existing free/unpartitioned space,
         #     shrink space, etc.) on all disks.
-        # (2) At least one destructive action has been chosen.  We can detect
-        #     this by checking whether got is non-zero.
+        # (2) At least one destructive action has been chosen.
+        nDeletes = len([row for row in self._diskStore if row[ACTION_COL] == _(DELETE)])
         need = self.payload.spaceRequired
-        self._resizeButton.set_sensitive(got+self._initialFreeSpace >= need and got > Size(0))
+        self._resizeButton.set_sensitive(got+self._initialFreeSpace >= need and nDeletes > 0)
 
     def refresh(self, disks):
         super(ResizeDialog, self).refresh()
@@ -316,10 +326,10 @@ class ResizeDialog(GUIObject):
     def _sumReclaimableSpace(self, model, path, itr, *args):
         obj = PartStoreRow(*model[itr])
 
-        if not obj.editable:
+        device = self.storage.devicetree.getDeviceByID(obj.id)
+        if device.isDisk and device.partitioned:
             return False
 
-        device = self.storage.devicetree.getDeviceByID(obj.id)
         if obj.action == _(PRESERVE):
             return False
         if obj.action == _(SHRINK):
@@ -359,7 +369,7 @@ class ResizeDialog(GUIObject):
                 # the free space lines.  We just want to leave them in the display
                 # for information, but you can't choose to preserve/delete/shrink
                 # them.
-                if self._diskStore[partItr][IMMUTABLE_COL]:
+                if self._diskStore[partItr][TYPE_COL] in [TY_FREE_SPACE, TY_PROTECTED]:
                     partItr = self._diskStore.iter_next(partItr)
                     continue
 
@@ -384,6 +394,11 @@ class ResizeDialog(GUIObject):
         self._update_reclaim_button(Size(spec="%f MB" % self._selectedReclaimableSpace))
         self._update_action_buttons(selectedRow)
 
+    def _recursiveRemove(self, device):
+        children = [d for d in self.storage.devices if device in d.parents and not d.protected]
+        for child in children:
+            self.storage.recursiveRemove(child)
+
     def _scheduleActions(self, model, path, itr, *args):
         obj = PartStoreRow(*model[itr])
         device = self.storage.devicetree.getDeviceByID(obj.id)
@@ -397,9 +412,9 @@ class ResizeDialog(GUIObject):
             if device.resizable:
                 self.storage.resizeDevice(device, obj.target)
             else:
-                self.storage.recursiveRemove(device)
+                self._recursiveRemove(device)
         elif obj.action == _(DELETE):
-            self.storage.recursiveRemove(device)
+            self._recursiveRemove(device)
 
         return False
 
