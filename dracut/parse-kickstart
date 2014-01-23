@@ -67,9 +67,10 @@ class HardDrive(commands.harddrive.FC3_HardDrive):
 
 class NFS(commands.nfs.FC6_NFS):
     def dracut_args(self, args, lineno, obj):
-        method="nfs:%s:%s" % (self.server, self.dir)
         if self.opts:
-            method += ":%s" % self.opts
+            method = "nfs:%s:%s:%s" % (self.opts, self.server, self.dir)
+        else:
+            method="nfs:%s:%s" % (self.server, self.dir)
 
         return "inst.repo=%s" % method
 
