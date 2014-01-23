@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!-- Generated with glade 3.16.0 on Wed Jan 22 15:54:55 2014 -->
 <interface>
   <!-- interface-requires gtk+ 3.0 -->
   <object class="GtkTreeStore" id="diskStore">
@@ -15,8 +16,8 @@
       <column type="gchararray"/>
       <!-- column-name diskEditable -->
       <column type="gboolean"/>
-      <!-- column-name diskImmutable -->
-      <column type="gboolean"/>
+      <!-- column-name diskType -->
+      <column type="gint"/>
       <!-- column-name diskTooltip -->
       <column type="gchararray"/>
       <!-- column-name diskResizeTarget -->
@@ -196,7 +197,6 @@
                         <child>
                           <object class="GtkCellRendererText" id="actionRenderer"/>
                           <attributes>
-                            <attribute name="visible">5</attribute>
                             <attribute name="text">4</attribute>
                           </attributes>
                         </child>
