@@ -596,7 +596,7 @@ def setupDisplay(anaconda, options, addons=None):
         try:
             subprocess.Popen(["Xorg", "-br",
                               "-logfile", "/tmp/X.log",
-                              ":1", "vt7", "-s", "1440", "-ac",
+                              ":1", "vt6", "-s", "1440", "-ac",
                               "-nolisten", "tcp", "-dpi", "96",
                               "-noreset"],
                               close_fds=True,
