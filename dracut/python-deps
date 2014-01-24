@@ -20,7 +20,7 @@ def moduledir(pyfile):
 
 def pyfiles(moddir):
     '''basically, "find $moddir -type f -name "*.py"'''
-    for curdir, dirs, files in os.walk(moddir):
+    for curdir, _dirs, files in os.walk(moddir):
         for f in files:
             if f.endswith(".py"):
                 yield os.path.join(curdir, f)
