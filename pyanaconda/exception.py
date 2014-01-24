@@ -106,7 +106,7 @@ class AnacondaExceptionHandler(ExceptionHandler):
             # to acknowledge the error; instead, print the error out and sleep
             # for a few seconds before exiting the installer
             print(cmdline_error_msg)
-            time.sleep(10)
+            time.sleep(180)
             sys.exit(0)
         else:
             try:
