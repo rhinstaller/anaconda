@@ -254,6 +254,20 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Thu Jan 23 2014 Brian C. Lane <bcl@redhat.com> - 19.31.52-1
+- Only eject CDROM devices we're actually using (wwoods)
+  Resolves: rhbz#966495
+- Use validate_label to check whether label should be updated (mulhern)
+  Related: rhbz#1038590
+- Always reject label if the format exists (mulhern)
+  Related: rhbz#1038590
+- Make label field always sensitive (mulhern)
+  Related: rhbz#1038590
+- Give users way to select DD ISO interactively (vpodzime)
+  Resolves: rhbz#1036765
+- Save module list after initial module load (bcl)
+  Resolves: rhbz#1050352
+
 * Wed Jan 22 2014 Brian C. Lane <bcl@redhat.com> - 19.31.51-1
 - fcoe: add fcoe=<NIC>:<EDB> to boot options for nics added manually (rvykydal)
   Resolves: rhbz#1040215
