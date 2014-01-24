@@ -50,7 +50,11 @@ class FakeDisk(object):
 def getDisks(devicetree, fake=False):
     if not fake:
         devices = devicetree.devices
-        if not flags.imageInstall:
+        if flags.imageInstall:
+            hidden_images = [d for d in devicetree._hidden \
+                             if d.name in devicetree.diskImages]
+            devices += hidden_images
+        else:
             devices += devicetree._hidden
 
         disks = [d for d in devices if d.isDisk and
