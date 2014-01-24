@@ -71,10 +71,10 @@ def run_cmd(cmd):
                 for line in out.splitlines():
                     log.debug(line)
     except OSError as e:
-        log.error("Error running %s: %s" % (cmd[0], e.strerror))
+        log.error("Error running %s: %s", cmd[0], e.strerror)
         raise
     if proc.returncode:
-        log.debug("%s returned %s" % (cmd[0], proc.returncode))
+        log.debug("%s returned %s", cmd[0], proc.returncode)
         raise RunCmdError()
     return (proc.returncode, out)
 
@@ -235,7 +235,7 @@ def find_dd(mnt="/media/DD"):
         if "rhdd3" in files and "rpms" in dirs and \
           os.path.exists(root+"/rpms/"+arch):
             dd_repos.append(root+"/rpms/"+arch)
-    log.debug("Found repos - %s" % " ".join(dd_repos))
+    log.debug("Found repos - %s", " ".join(dd_repos))
     return dd_repos
 
 
@@ -268,7 +268,7 @@ def reload_modules():
     startup_modules = get_module_set("/tmp/dd_modules")
     current_modules = get_module_set("/proc/modules")
     new_modules = current_modules.difference(startup_modules)
-    log.debug("new_modules = %s" % " ".join(new_modules))
+    log.debug("new_modules = %s", " ".join(new_modules))
 
     # I think we can just iterate once using modprobe -r to remove unused deps
     for module in new_modules:
@@ -384,11 +384,11 @@ def dd_extract(driver, dest_path="/updates/", kernel_ver=None):
     cmd = ["dd_extract", "-k", kernel_ver]
     cmd += driver.args
     cmd += ["--rpm", driver.rpm, "--directory", dest_path]
-    log.info("Extracting files from %s" % driver.rpm)
+    log.info("Extracting files from %s", driver.rpm)
     try:
         run_cmd(cmd)
     except (OSError, RunCmdError):
-        log.error("dd_extract failed, skipped %s" % driver.rpm)
+        log.error("dd_extract failed, skipped %s", driver.rpm)
         return
 
     # Create the destination directories
@@ -470,7 +470,7 @@ def process_dd(dd_path):
         :returns:       None
     """
     drivers = dd_list(dd_path)
-    log.debug("drivers = %s" % " ".join([d.rpm for d in drivers]))
+    log.debug("drivers = %s", " ".join([d.rpm for d in drivers]))
 
     # If interactive mode or rhdd3.rules pass flag to deselect by default?
     if os.path.exists(dd_path+"/rhdd3.rules") or is_interactive():
@@ -511,7 +511,7 @@ def select_dd(device):
 
     dd_repos = find_dd(mnt)
     for repo in dd_repos:
-        log.info("Processing DD repo %s on %s" % (repo, device))
+        log.info("Processing DD repo %s on %s", repo, device)
         process_dd(repo)
 
     # TODO - does this need to be done before module reload?
@@ -527,7 +527,7 @@ def network_driver(dd_path):
     """
     skip_dds = set(oemdrv_list())
 
-    log.info("Processing Network Drivers from %s" % dd_path)
+    log.info("Processing Network Drivers from %s", dd_path)
     process_dd(dd_path)
 
     # TODO: May need to add new drivers to /tmp/dd_modules to prevent them from being unloaded
@@ -547,7 +547,7 @@ def dd_scan(skip_dds=None):
         dd_finished = skip_dds
         dd_todo = set(oemdrv_list()).difference(dd_finished)
         if dd_todo:
-            log.info("Found new OEMDRV device(s) - %s" % ", ".join(dd_todo))
+            log.info("Found new OEMDRV device(s) - %s", ", ".join(dd_todo))
     else:
         dd_finished = set()
         dd_todo = set(oemdrv_list())
@@ -556,17 +556,17 @@ def dd_scan(skip_dds=None):
         dd_devs = get_dd_args()
         dd_devs = [dev for dev in dd_devs if dev not in ("dd", "inst.dd")]
         dd_todo.update(dd_devs)
-        log.info("Checking devices %s" % ", ".join(dd_todo))
+        log.info("Checking devices %s", ", ".join(dd_todo))
 
     # Process each Driver Disk, checking for new disks after each one
     while dd_todo:
         device = dd_todo.pop()
-        log.info("Checking device %s" % device)
+        log.info("Checking device %s", device)
         select_dd(device)
         dd_finished.update([device])
         new_oemdrv = set(oemdrv_list()).difference(dd_finished, dd_todo)
         if new_oemdrv:
-            log.info("Found new OEMDRV device(s) - %s" % ", ".join(new_oemdrv))
+            log.info("Found new OEMDRV device(s) - %s", ", ".join(new_oemdrv))
         dd_todo.update(new_oemdrv)
 
 
