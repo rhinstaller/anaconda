@@ -126,15 +126,17 @@ def sanityCheckHostname(hostname):
 
 # Return a list of IP addresses for all active devices.
 def getIPs():
-    ips = []
+    ipv4_addresses = []
+    ipv6_addresses = []
     for devname in nm.nm_activated_devices():
         try:
-            ips += (nm.nm_device_ip_addresses(devname, version=4) +
-                    nm.nm_device_ip_addresses(devname, version=6))
+            ipv4_addresses += nm.nm_device_ip_addresses(devname, version=4)
+            ipv6_addresses += nm.nm_device_ip_addresses(devname, version=6)
         except Exception as e:
             log.warning("Got an exception trying to get the ip addr "
                         "of %s: %s" % (devname, e))
-    return ips
+    # prefer IPv4 addresses to IPv6 addresses
+    return ipv4_addresses + ipv6_addresses
 
 # Return the first real non-local IP we find
 def getFirstRealIP():
