@@ -4,6 +4,7 @@
   <!-- interface-requires gtk+ 3.2 -->
   <!-- interface-requires AnacondaWidgets 1.0 -->
   <object class="GtkDialog" id="betaWarnDialog">
+    <property name="width_request">300</property>
     <property name="can_focus">False</property>
     <property name="border_width">6</property>
     <property name="type_hint">dialog</property>
