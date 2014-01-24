@@ -298,6 +298,21 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Thu Jan 23 2014 Brian C. Lane <bcl@redhat.com> - 21.18-1
+- Use validate_label to check whether label should be updated (#1038590)
+  (amulhern)
+- Always reject label if the format exists (#1038590) (amulhern)
+- Make label field always sensitive (#1038590) (amulhern)
+- Save module list after initial module load (#1050352) (bcl)
+- Require gtk3 and glib2 documentation to build (dshea)
+- Rename get_widgets_datadir to anaconda_get_widgets_datadir. (dshea)
+- Include the annotation-glossary (dshea)
+- Set device.format.label field close to where we read it (#1056139) (amulhern)
+- Install the rpmrc file to the initrd.img (#1016004) (vpodzime)
+- Give users hint about VNC password restrictions (#1053546) (vpodzime)
+- Be more liberal in what is accepted as a size unit. (dshea)
+- Remove en_spec parameters from blivet.size.Size. (dshea)
+
 * Tue Jan 21 2014 Brian C. Lane <bcl@redhat.com> - 21.17-1
 - Test for DataHolder Class (#1034427) (bcl)
 - Use DataHolder for TUI nfs data (#1034427) (bcl)
