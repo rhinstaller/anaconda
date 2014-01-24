@@ -605,7 +605,6 @@ def select_iso():
         :rtype: (str, str)
     """
 
-    dev_prefix = "/dev/"
     blkid_out_regex = re.compile(r'^/dev/([^:]+):\s+LABEL="([^"]+)"\s+UUID="([^"]+)"\s+TYPE="([^"]+)"')
     _ret, out = run_cmd(["blkid"])
     devices = []
@@ -616,8 +615,7 @@ def select_iso():
 
     header = "      %-10s %-6s %-15s %s" % ("DEVICE", "TYPE", "LABEL", "UUID")
     iso_dev = selection_menu(devices, "Driver disk device selection\n" + header,
-                             lambda dev_info: str(dev_info),
-                             multi_choice=False)
+                             str, multi_choice=False)
     if not iso_dev:
         return (None, None)
 
