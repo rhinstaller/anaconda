@@ -254,6 +254,29 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Fri Jan 24 2014 Brian C. Lane <bcl@redhat.com> - 19.31.53-1
+- Put Xorg on tty6 in accordance with Ancient Anaconda Tradition (wwoods)
+  Resolves: rhbz#980062
+- handle "ks=cdrom[:<path>]" on systems with multiple CDs (wwoods)
+  Resolves: rhbz#1049237
+- Fix page logic in driver selection (bcl)
+  Resolves: rhbz#1055333
+- Fix problems going into custom partitioning with the new work flow. (clumens)
+  Related: rhbz#1014671
+- Allow going to the reclaim dialog even for autopart (clumens).
+  Resolves: rhbz#1014671
+- Add the autopart type combo to custom storage (clumens).
+  Resolves: rhbz#1014671
+- Tweak DiskOverview spacing a little bit (clumens).
+  Resolves: rhbz#1014671
+- Add custom part and encryption buttons to the main storage spoke (clumens).
+  Resolves: rhbz#1014671
+- Remove the existing install_options1 dialog, rename the others (clumens).
+  Resolves: rhbz#1014671
+- Extend the timeout period to 180s in the case of cmdline error.
+  (sbueno+anaconda)
+  Resolves: rhbz#1034773
+
 * Thu Jan 23 2014 Brian C. Lane <bcl@redhat.com> - 19.31.52-1
 - Only eject CDROM devices we're actually using (wwoods)
   Resolves: rhbz#966495
