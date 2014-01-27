@@ -59,7 +59,6 @@ class ThreadManager(object):
                 raise KeyError("Cannot add thread '%s', a thread with the same name already running" % obj.name)
 
             self._objs[obj.name] = obj
-            self._errors[obj.name] = None
             obj.start()
 
         return obj.name
