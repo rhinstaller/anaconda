@@ -520,9 +520,9 @@ class ClearPart(commands.clearpart.F17_ClearPart):
 
         storage.clearPartitions()
 
-class Fcoe(commands.fcoe.F13_Fcoe):
+class Fcoe(commands.fcoe.RHEL7_Fcoe):
     def parse(self, args):
-        fc = commands.fcoe.F13_Fcoe.parse(self, args)
+        fc = commands.fcoe.RHEL7_Fcoe.parse(self, args)
 
         if fc.nic not in nm.nm_devices():
             raise KickstartValueError, formatErrorMsg(self.lineno, msg="Specified nonexistent nic %s in fcoe command" % fc.nic)
@@ -531,7 +531,7 @@ class Fcoe(commands.fcoe.F13_Fcoe):
             log.info("Kickstart fcoe device %s already added from EDD, ignoring"
                     % fc.nic)
         else:
-            msg = blivet.fcoe.fcoe().addSan(nic=fc.nic, dcb=fc.dcb, auto_vlan=True)
+            msg = blivet.fcoe.fcoe().addSan(nic=fc.nic, dcb=fc.dcb, auto_vlan=fc.autovlan)
             if not msg:
                 msg = "Succeeded."
                 blivet.fcoe.fcoe().added_nics.append(fc.nic)
