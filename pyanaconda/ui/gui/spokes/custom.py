@@ -1,6 +1,6 @@
 # Custom partitioning classes.
 #
-# Copyright (C) 2012, 2013  Red Hat, Inc.
+# Copyright (C) 2012-2014  Red Hat, Inc.
 #
 # This copyrighted material is made available to anyone wishing to use,
 # modify, copy, or redistribute it subject to the terms and conditions of
@@ -650,6 +650,8 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
     def __init__(self, data, storage, payload, instclass):
         NormalSpoke.__init__(self, data, storage, payload, instclass)
 
+        self._back_already_clicked = False
+
         self._current_selector = None
         self._when_create_text = ""
         self._devices = []
@@ -678,15 +680,6 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
             for disk in reversed(self._media_disks):
                 self.__storage.devicetree.unhide(disk)
 
-        # We can't overwrite the main Storage instance because all the other
-        # spokes have references to it that would get invalidated, but we can
-        # achieve the same effect by updating/replacing a few key attributes.
-        self.storage.devicetree._devices = self.__storage.devicetree._devices
-        self.storage.devicetree._actions = self.__storage.devicetree._actions
-        self.storage.devicetree._hidden = self.__storage.devicetree._hidden
-        self.storage.devicetree.names = self.__storage.devicetree.names
-        self.storage.roots = self.__storage.roots
-
         # update the global passphrase
         self.data.autopart.passphrase = self.passphrase
 
@@ -698,16 +691,6 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
 
                 self.storage.savePassphrase(device)
 
-        StorageChecker.errors = []
-        # set up bootloader and check the configuration
-        try:
-            self.storage.setUpBootLoader()
-        except BootLoaderError as e:
-            log.error("storage configuration failed: %s" % e)
-            StorageChecker.errors = str(e).split("\n")
-            self.data.bootloader.bootDrive = ""
-
-        StorageChecker.run(self)
         hubQ.send_ready("StorageSpoke", True)
 
     @property
@@ -877,6 +860,8 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         # copy the storage instance.
         for thread_name in [THREAD_EXECUTE_STORAGE, THREAD_STORAGE]:
             threadMgr.wait(thread_name)
+
+        self._back_already_clicked = False
 
         self.passphrase = self.data.autopart.passphrase
         self._reset_storage()
@@ -1942,6 +1927,42 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
             if isinstance(window.get_focus(), MountpointSelector):
                 self._removeButton.emit("clicked")
 
+    def _do_check(self):
+        self.clear_errors()
+        StorageChecker.errors = []
+        StorageChecker.warnings = []
+
+        # We can't overwrite the main Storage instance because all the other
+        # spokes have references to it that would get invalidated, but we can
+        # achieve the same effect by updating/replacing a few key attributes.
+        self.storage.devicetree._devices = self.__storage.devicetree._devices
+        self.storage.devicetree._actions = self.__storage.devicetree._actions
+        self.storage.devicetree._hidden = self.__storage.devicetree._hidden
+        self.storage.devicetree.names = self.__storage.devicetree.names
+        self.storage.roots = self.__storage.roots
+
+        # set up bootloader and check the configuration
+        try:
+            self.storage.setUpBootLoader()
+        except BootLoaderError as e:
+            log.error("storage configuration failed: %s" % e)
+            StorageChecker.errors = str(e).split("\n")
+            self.data.bootloader.bootDrive = ""
+
+        StorageChecker.checkStorage(self)
+
+        if self.errors:
+            self.set_warning(_("Error checking storage configuration.  Click for details or press Done again to continue."))
+        elif self.warnings:
+            self.set_warning(_("Warning checking storage configuration.  Click for details or press Done again to continue."))
+
+        # on_info_bar_clicked requires self._error to be set, so set it to the
+        # list of all errors and warnings that storage checking found.
+        self.window.show_all()
+        self._error = "\n".join(self.errors + self.warnings)
+
+        return bool(self._error == "")
+
     def on_back_clicked(self, button):
         # First, save anything from the currently displayed mountpoint.
         self._save_right_side(self._current_selector)
@@ -1950,6 +1971,13 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         # head back to the hub, or stay on the custom screen.
         self.__storage.devicetree.pruneActions()
         self.__storage.devicetree.sortActions()
+
+        # If back has been clicked on once already and no other changes made on the screen,
+        # run the storage check now.  This handles displaying any errors in the info bar.
+        if not self._back_already_clicked:
+            self._back_already_clicked = True
+            if not self._do_check():
+                return
 
         if len(self.__storage.devicetree.findActions()) > 0:
             dialog = ActionSummaryDialog(self.data)
@@ -1980,6 +2008,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
 
     def on_add_clicked(self, button):
         self._save_right_side(self._current_selector)
+        self._back_already_clicked = False
 
         dialog = AddDialog(self.data,
                            mountpoints=self.__storage.mountpoints.keys())
@@ -2473,6 +2502,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         log.debug("notebook page = %s" % nb_page)
         if nb_page == NOTEBOOK_DETAILS_PAGE:
             self._save_right_side(self._current_selector)
+            self._back_already_clicked = False
 
         self._clear_current_selector()
 
@@ -2857,6 +2887,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
     def on_apply_clicked(self, button):
         """ call _save_right_side, then, perhaps, populate_right_side. """
         self._save_right_side(self._current_selector)
+        self._back_already_clicked = False
         self._applyButton.set_sensitive(False)
 
     def on_unlock_clicked(self, button):
