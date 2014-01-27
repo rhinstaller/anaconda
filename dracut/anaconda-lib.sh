@@ -199,7 +199,8 @@ run_kickstart() {
 
     # re-parse new cmdline stuff from the kickstart
     . $hookdir/cmdline/*parse-anaconda-repo.sh
-    # TODO: parse for other stuff ks might set (updates, dd, etc.)
+    . $hookdir/cmdline/*parse-livenet.sh
+    # TODO: parse for other stuff ks might set (dd? other stuff?)
     case "$repotype" in
         http*|ftp|nfs*) do_net=1 ;;
         cdrom|hd|bd)    do_disk=1 ;;
