@@ -33,6 +33,7 @@ import time
 import re
 import errno
 import glob
+import traceback
 import blivet.errors
 from pyanaconda.errors import CmdlineError
 from pyanaconda.ui.communication import hubQ
@@ -81,6 +82,8 @@ class AnacondaExceptionHandler(ExceptionHandler):
         """
 
         log.debug("running handleException")
+        exception_lines = traceback.format_exception(*dump_info.exc_info)
+        log.debug("\n".join(exception_lines))
 
         ty = dump_info.exc_info.type
         value = dump_info.exc_info.value
