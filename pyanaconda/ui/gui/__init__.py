@@ -216,6 +216,7 @@ class ErrorDialog(GUIObject):
     mainWidgetName = "errorDialog"
     uiFile = "main.glade"
 
+    # pylint: disable-msg=W0221
     def refresh(self, msg):
         buf = self.builder.get_object("errorTextBuffer")
         buf.set_text(msg, -1)
@@ -405,7 +406,7 @@ class GraphicalUserInterface(UserInterface):
         with enlightbox(self._currentAction.window, dlg.window):
             dlg.refresh(message)
             dlg.run()
-            dlg.destroy()
+            dlg.window.destroy()
 
     @gtk_action_wait
     def showDetailedError(self, message, details):
