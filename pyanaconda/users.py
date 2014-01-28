@@ -36,7 +36,7 @@ from pyanaconda.i18n import _
 import logging
 log = logging.getLogger("anaconda")
 
-_USERNAME_BASE = r'[a-z0-9._](([a-z0-9._-]{0,2})|([a-z0-9._-]{3}(?<!root))|([a-z0-9._-]{4,31})|([a-z0-9._-]{,30}\$))'
+_USERNAME_BASE = r'[a-zA-Z0-9._](([a-zA-Z0-9._-]{0,2})|([a-zA-Z0-9._-]{3}(?<!root))|([a-zA-Z0-9._-]{4,31})|([a-zA-Z0-9._-]{,30}\$))'
 
 USERNAME_VALID = re.compile(r'^' + _USERNAME_BASE + '$')
 
