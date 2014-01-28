@@ -1004,22 +1004,19 @@ if __name__ == "__main__":
     if anaconda.displayMode == 'c':
         flags.ksprompt = False
 
+    from pyanaconda.anaconda_optparse import name_path_pairs
+
     image_count = 0
-    for image in opts.images:
-        image_spec = image.rsplit(":", 1)
-        path = image_spec[0]
-        if len(image_spec) == 2 and image_spec[1].strip():
-            name = image_spec[1].strip()
-        else:
-            name = os.path.splitext(os.path.basename(path))[0]
-
-        if "/" in name or name in anaconda.storage.config.diskImages.keys():
-            name = "diskimg%d" % image_count
-
-        log.info("naming disk image '%s' '%s'" % (path, name))
-        anaconda.storage.config.diskImages[name] = path
-        image_count += 1
-        flags.imageInstall = True
+    try:
+        disk_image_counter = 0
+        for (name, path) in name_path_pairs(opts.images):
+            log.info("naming disk image '%s' '%s'", path, name)
+            anaconda.storage.config.diskImages[name] = path
+            image_count += 1
+            flags.imageInstall = True
+    except ValueError as e:
+        stdoutLog.error("error specifying image file: %s", e)
+        sys.exit(0)
 
     if image_count:
         anaconda.storage.setupDiskImages()
