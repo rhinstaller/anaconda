@@ -219,6 +219,7 @@ class ResizeDialog(GUIObject):
                              "installation below.")
 
         self._reclaimDescLabel.set_text(description)
+        self._update_reclaim_button(Size(0))
 
     def _update_labels(self, nDisks=None, totalReclaimable=None, selectedReclaimable=None):
         if nDisks is not None and totalReclaimable is not None:
@@ -292,13 +293,7 @@ class ResizeDialog(GUIObject):
             self._deleteButton.set_sensitive(False)
 
     def _update_reclaim_button(self, got):
-        # The reclaim button is sensitive if two conditions are met:
-        # (1) There's enough available space (existing free/unpartitioned space,
-        #     shrink space, etc.) on all disks.
-        # (2) At least one destructive action has been chosen.
-        nDeletes = len([row for row in self._diskStore if row[ACTION_COL] == _(DELETE)])
-        need = self.payload.spaceRequired
-        self._resizeButton.set_sensitive(got+self._initialFreeSpace >= need and nDeletes > 0)
+        self._resizeButton.set_sensitive(got+self._initialFreeSpace >= self.payload.spaceRequired)
 
     def refresh(self, disks):
         super(ResizeDialog, self).refresh()
@@ -396,9 +391,20 @@ class ResizeDialog(GUIObject):
         self._update_action_buttons(selectedRow)
 
     def _recursiveRemove(self, device):
-        children = [d for d in self.storage.devices if device in d.parents and not d.protected]
-        for child in children:
-            self.storage.recursiveRemove(child)
+        """ Remove a device, or if it has protected children, just remove the
+            unprotected children.
+        """
+        if not any(d for d in self.storage.devices \
+                   if device in d.parents and d.protected):
+            # No protected children, remove the device
+            self.storage.recursiveRemove(device)
+        else:
+            # Only remove unprotected children
+            unprotected = (d for d in self.storage.devices \
+                           if device in d.parents and not d.protected)
+            for child in unprotected:
+                if child in self.storage.devices:
+                    self.storage.recursiveRemove(child)
 
     def _scheduleActions(self, model, path, itr, *args):
         obj = PartStoreRow(*model[itr])
