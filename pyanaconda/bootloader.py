@@ -993,6 +993,8 @@ class GRUB(BootLoader):
 
     packages = ["grub"]
 
+    _serial_consoles = ["ttyS"]
+
     def __init__(self):
         super(GRUB, self).__init__()
         self.encrypted_password = ""
@@ -1044,9 +1046,15 @@ class GRUB(BootLoader):
         return GRUB._config_dir
 
     @property
+    def has_serial_console(self):
+        """ true if the console is a serial console. """
+
+        return any(self.console.startswith(sconsole) for sconsole in self._serial_consoles)
+
+    @property
     def serial_command(self):
         command = ""
-        if self.console and self.console.startswith("ttyS"):
+        if self.console and self.has_serial_console:
             unit = self.console[-1]
             command = ["serial"]
             s = parse_serial_opt(self.console_options)
@@ -1071,7 +1079,7 @@ class GRUB(BootLoader):
         if not self.console:
             return
 
-        if self.console.startswith("ttyS"):
+        if self.has_serial_console:
             config.write("%s\n" % self.serial_command)
             config.write("terminal --timeout=%s serial console\n"
                          % self.timeout)
@@ -1451,7 +1459,7 @@ class GRUB2(GRUB):
         defaults.write("GRUB_DISTRIBUTOR=\"$(sed 's, release .*$,,g' /etc/system-release)\"\n")
         defaults.write("GRUB_DEFAULT=saved\n")
         defaults.write("GRUB_DISABLE_SUBMENU=true\n")
-        if self.console and self.console.startswith("ttyS"):
+        if self.console and self.has_serial_console:
             defaults.write("GRUB_TERMINAL=\"serial console\"\n")
             defaults.write("GRUB_SERIAL_COMMAND=\"%s\"\n" % self.serial_command)
         else:
@@ -1718,6 +1726,9 @@ class EFIGRUB(GRUB2):
 #        on aarch64 until we get all the EFI bits in place.
 class Aarch64EFIGRUB(EFIGRUB):
     packages = ["grub2-efi", "grubby"]
+
+    _serial_consoles = ["ttyAMA", "ttyS"]
+
 
 class MacEFIGRUB(EFIGRUB):
     def mactel_config(self):
