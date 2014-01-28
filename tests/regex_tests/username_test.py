@@ -65,6 +65,7 @@ class UsernameRegexTestCase(unittest.TestCase):
         """Test a list of possible username values."""
         good_tests = [
                 'gburdell',
+                'GBurdell',
                 'gburdell$',
                 'g_burdell',
                 '_burdell',
@@ -89,7 +90,6 @@ class UsernameRegexTestCase(unittest.TestCase):
                 ' gburdell',
                 ':gburdell',
                 'root',
-                'GBurdell',
                 '$',
                 '-'
                 ]
