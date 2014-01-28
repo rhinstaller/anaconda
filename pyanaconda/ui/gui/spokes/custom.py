@@ -1966,7 +1966,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         try:
             self.storage.setUpBootLoader()
         except BootLoaderError as e:
-            log.error("storage configuration failed: %s" % e)
+            log.error("storage configuration failed: %s", e)
             StorageChecker.errors = str(e).split("\n")
             self.data.bootloader.bootDrive = ""
 
