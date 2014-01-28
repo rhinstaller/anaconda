@@ -19,8 +19,12 @@
 # Authors:
 #   Will Woods <wwoods@redhat.com>
 
-from pyanaconda.flags import BootArgs
+import itertools
+import os
+
 from optparse import OptionParser, OptionConflictError
+
+from pyanaconda.flags import BootArgs
 
 class AnacondaOptionParser(OptionParser):
     """
@@ -126,3 +130,57 @@ class AnacondaOptionParser(OptionParser):
             values = self.get_default_values()
         v = self.parse_boot_cmdline(cmdline, values)
         return OptionParser.parse_args(self, args, v)
+
+def name_path_pairs(image_specs):
+    """Processes and verifies image file specifications. Generates pairs
+       of names and paths.
+
+       :param image_specs: a list of image specifications
+       :type image_specs: list of str
+
+       Each image spec in image_specs has format <path>[:<name>] where
+       <path> is the path to a local file and <name> is an optional
+       name used to identify the disk in UI. <name> may not contain colons
+       or slashes.
+
+       If no name given in specification, synthesizes name from basename
+       of path. Since two distinct paths may have the same basename, handles
+       name collisions by synthesizing a different name for the colliding
+       name.
+
+       Raises an exception if:
+         * A path is empty
+         * A path specifies a non-existant file
+         * A path specifies a directory
+         * Duplicate paths are specified
+         * A name contains a "/"
+    """
+    image_specs = (spec.rsplit(":", 1) for spec in image_specs)
+    path_name_pairs = ((image_spec[0], image_spec[1].strip() if len(image_spec) == 2 else None) for image_spec in image_specs)
+
+    paths_seen = []
+    names_seen = []
+    for (path, name) in path_name_pairs:
+        if path == "":
+            raise ValueError("empty path specified for image file")
+        path = os.path.abspath(path)
+        if not os.path.exists(path):
+            raise ValueError("non-existant path %s specified for image file" % path)
+        if os.path.isdir(path):
+            raise ValueError("directory path %s specified for image file" % path)
+        if path in paths_seen:
+            raise ValueError("path %s specified twice for image file" % path)
+        paths_seen.append(path)
+
+        if name and "/" in name:
+            raise ValueError("improperly formatted image file name %s, includes slashes" % name)
+
+        if not name:
+            name = os.path.splitext(os.path.basename(path))[0]
+
+        if name in names_seen:
+            names = ("%s_%d" % (name, n) for n in itertools.count())
+            name = itertools.dropwhile(lambda n: n in names_seen, names).next()
+        names_seen.append(name)
+
+        yield name, path
