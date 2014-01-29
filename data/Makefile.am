@@ -25,4 +25,7 @@ dist_pkgdata_DATA          = interactive-defaults.ks \
 			     tmux.conf \
 			     anaconda-gtk.css
 
+helpdir               = $(datadir)/$(PACKAGE_NAME)
+dist_help_DATA        = anaconda_options.txt
+
 MAINTAINERCLEANFILES = Makefile.in

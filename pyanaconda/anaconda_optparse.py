@@ -26,6 +26,9 @@ from optparse import OptionParser, OptionConflictError
 
 from pyanaconda.flags import BootArgs
 
+import logging
+log = logging.getLogger("anaconda")
+
 class AnacondaOptionParser(OptionParser):
     """
     Subclass of OptionParser that also examines boot arguments.
@@ -184,3 +187,64 @@ def name_path_pairs(image_specs):
         names_seen.append(name)
 
         yield name, path
+
+class HelpTextParser(object):
+    """Class to parse help text from file and make it available to option
+       parser.
+    """
+
+    def __init__(self, path):
+        """ Initializer
+            :param path: The absolute path to the help text file
+        """
+        if not os.path.isabs(path):
+            raise ValueError("path %s is not an absolute path" % path)
+        self._path = path
+
+        self._help_text = None
+
+    def read(self, lines):
+        """Reads option, help text pairs from a text file.
+
+           Each pair is separated from the next by an empty line.
+           The option comes first, followed by any number of lines of help text.
+
+           :param lines: a sequence of lines of text
+        """
+        if not lines:
+            return
+        expect_option = True
+        option = None
+        text = []
+        for line in (line.strip() for line in lines):
+            if line == "":
+                expect_option = True
+            elif expect_option:
+                if option:
+                    yield option, " ".join(text)
+                option = line
+                text = []
+                expect_option = False
+            else:
+                text.append(line)
+        yield option, " ".join(text)
+
+    def help_text(self, option):
+        """
+        Returns the help text corresponding to the given command-line option.
+        If no help text is available, returns the empty string.
+
+        :param str option: The name of the option
+
+        :rtype: str
+        """
+        if self._help_text is None:
+            self._help_text = {}
+            try:
+                with open(self._path) as lines:
+                    for option, text in self.read(lines):
+                        self._help_text[option] = text
+            except StandardError:
+                log.error("error reading help text file %s", self._path)
+
+        return self._help_text.get(option, "")

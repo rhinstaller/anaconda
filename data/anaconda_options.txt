@@ -1,0 +1,17 @@
+dirinstall
+Use the device mounted at /mnt/sysimage as the installation
+destination. The --dirinstall and --image options are mutually
+exclusive.
+
+image
+Specification of disk image file to be used as installation
+destination. IMAGE_SPEC must have format <path>[:<name>] where
+<path> specifies the path of an image file and an optional <name>
+component is used to identify the disk during installation.
+<path> must be a local path but it may be relative or absolute.
+If <name> is not specified, a name is synthesized from the
+basename of <path>. <name> may not contain a colon or a slash.
+This option may be used multiple times to specify multiple disk
+images. It is an error to specify the same <path> twice or to use
+duplicate names. The --image and --dirinstall options are
+mutually exclusive.
