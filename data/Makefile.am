@@ -27,4 +27,7 @@ dist_ks_DATA          = interactive-defaults.ks
 tmuxdir               = $(datadir)/$(PACKAGE_NAME)
 dist_tmux_DATA        = tmux.conf
 
+helpdir               = $(datadir)/$(PACKAGE_NAME)
+dist_help_DATA        = anaconda_options.txt
+
 MAINTAINERCLEANFILES = Makefile.in

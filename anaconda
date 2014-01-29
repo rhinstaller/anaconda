@@ -200,6 +200,7 @@ def getAnacondaVersion():
 
 def parseOptions(argv=None, cmdline=None):
     from pyanaconda.anaconda_optparse import AnacondaOptionParser
+    from pyanaconda.anaconda_optparse import HelpTextParser
 
     # NOTE: for each long option (like '--repo'), AnacondaOptionParser
     # checks the boot arguments for bootarg_prefix+option ('inst.repo').
@@ -208,6 +209,7 @@ def parseOptions(argv=None, cmdline=None):
     # See anaconda_optparse.py and BootArgs (in flags.py) for details.
     op = AnacondaOptionParser(version="%prog " + getAnacondaVersion(),
                               bootarg_prefix="inst.", require_prefix=False)
+    help_parser = HelpTextParser("/usr/share/anaconda/anaconda_options.txt")
 
     # NOTE: store_false options will *not* get negated when the user does
     # "option=0" on the boot commandline (store_true options do, though).
@@ -284,8 +286,10 @@ def parseOptions(argv=None, cmdline=None):
     op.add_option("--nomount", dest="rescue_nomount", action="store_true", default=False)
     op.add_option("--updates", dest="updateSrc", action="store", type="string")
     op.add_option("--dlabel", action="store_true", default=False)
-    op.add_option("--image", action="append", dest="images", default=[])
-    op.add_option("--dirinstall", action="store_true", default=False)
+    op.add_option("--image", action="append", dest="images", default=[],
+       metavar="IMAGE_SPEC", help=help_parser.help_text("image"))
+    op.add_option("--dirinstall", action="store_true", default=False,
+       help=help_parser.help_text("dirinstall"))
     op.add_option("--memcheck", action="store_true", default=True)
     op.add_option("--nomemcheck", action="store_false", dest="memcheck")
     op.add_option("--leavebootorder", action="store_true", default=False)
