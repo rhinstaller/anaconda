@@ -254,6 +254,35 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Jan 28 2014 Brian C. Lane <bcl@redhat.com> - 19.31.54-1
+- Set an upper limit on uids and gids. (dshea)
+  Resolves: rhbz#1053103
+- Change the reclaim space button rules (bcl)
+  Resolves: rhbz#980496
+  Related: rhbz#980496
+- Check the validity of generated usernames in TUI (dshea)
+  Resolves: rhbz#1058634
+- Allow capital letters in usernames (dshea)
+  Resolves: rhbz#1058638
+- Display custom part warnings/errors on the spoke itself (clumens).
+  Resolves: rhbz#975840
+- Use integer numbers of megabytes in the Reclaim dialog (vpodzime)
+  Resolves: rhbz#1034232
+- Fix pylint errors (dshea)
+  Related: rhbz#1021506
+- Move the Quit button to the right and make it consistently sized (clumens).
+  Resolves: rhbz#1038802
+- Change the product name we key off (clumens).
+  Resolves: rhbz#1055019
+- Don't include zero sized disks in the custom part UI either (clumens).
+  Resolves: rhbz#903131
+- "Delete All" on the reclaim dialog should not delete hdiso source (clumens).
+  Resolves: rhbz#980496
+- Add a scrollbar to the error dialog (clumens).
+  Resolves: rhbz#1021506
+- Don't show the language twice for keyboard layouts. (dshea)
+  Resolves: rhbz#1021849
+
 * Fri Jan 24 2014 Brian C. Lane <bcl@redhat.com> - 19.31.53-1
 - Put Xorg on tty6 in accordance with Ancient Anaconda Tradition (wwoods)
   Resolves: rhbz#980062
