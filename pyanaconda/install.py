@@ -121,9 +121,14 @@ def doInstall(storage, payload, ksdata, instClass):
     # those are the ones that take the most time.
     steps = len(storage.devicetree.findActions(type="create", object="format")) + \
             len(storage.devicetree.findActions(type="resize", object="format"))
-    steps += 6
-    # pre setup phase, packages setup, packages, bootloader, realmd,
-    # post install
+
+    # pre setup phase, packages setup, packages, bootloader, post install
+    steps += 5
+
+    # joining AD/IPA domain
+    if ksdata.realm.join_realm:
+        steps += 1
+
     progressQ.send_init(steps)
 
     # This should be the only thread running, wait for the others to finish if not.
