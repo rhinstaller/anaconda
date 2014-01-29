@@ -298,6 +298,45 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Jan 28 2014 Brian C. Lane <bcl@redhat.com> - 21.19-1
+- Change the reclaim space button rules (#980496) (bcl)
+- Revert "Fix up username checking regex a bit." (dshea)
+- Fix a pylint-caught problem from my previous cherry-pick. (clumens)
+- Give priority to IPv4 addresses when showing VNC & SSH IP (#1056420)
+  (mkolman)
+- Display custom part warnings/errors on the spoke itself (#975840). (clumens)
+- Fix listing threads that caused an error (vpodzime)
+- Do not add errors item for thread in advance (vpodzime)
+- Log exceptions before running exception handling (vpodzime)
+- Fix kickstart 'updates' command (#1056727) (wwoods)
+- Fix exitHandler loop deactivation (bcl)
+- Show hidden disk images (#1034996) (bcl)
+- Fix pylint errors (dshea)
+- Provide a maximum width to the betanag dialog. (clumens)
+- Don't include zero sized disks in the custom part UI either (#903131).
+  (clumens)
+- Move the Quit button to the right and make it consistently sized (#1038802).
+  (clumens)
+- "Delete All" on the reclaim dialog should not delete hdiso source (#980496).
+  (clumens)
+- Add a scrollbar to the error dialog (#1021506). (clumens)
+- Change the product name we key off (#1055019). (clumens)
+- Another dracut pylint change. (dshea)
+- Fix page logic in driver selection (#1055333) (bcl)
+- Give users way to select DD ISO interactively (#1036765) (vpodzime)
+- Make network-fetched driver disk .iso files work (#1003595) (vpodzime)
+- Disable pylint messages too annoying to deal with. (dshea)
+- Fix unused variable warnings (dshea)
+- Remove unused imports (dshea)
+- Specify string format arguments as logging function parameters (dshea)
+- Remove the raidstart and raidstop commands (dshea)
+- Expand the reach of pylint (dshea)
+- Put Xorg on tty6 in accordance with Ancient Anaconda Tradition (#980062)
+  (wwoods)
+- Fix the handling of kickstart NFS repos with options (#1045528) (dshea)
+- Skip empty layout-variant specifications when setting layouts (#1057442)
+  (vpodzime)
+
 * Thu Jan 23 2014 Brian C. Lane <bcl@redhat.com> - 21.18-1
 - Use validate_label to check whether label should be updated (#1038590)
   (amulhern)
