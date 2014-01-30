@@ -120,7 +120,6 @@ Requires: openssh
 Requires: isomd5sum >= %{isomd5sum}
 Requires: yum-utils >= %{yumutilsver}
 Requires: NetworkManager >= %{nmver}
-Requires: NetworkManager-config-server >= %{nmver}
 Requires: nm-connection-editor
 Requires: dhclient
 Requires: kbd
