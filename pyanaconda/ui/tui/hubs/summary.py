@@ -33,7 +33,7 @@ log = logging.getLogger("anaconda")
 class SummaryHub(TUIHub):
     title = N_("Installation")
     ## FIXME: this should be pulling data from somewhere, not just a static list
-    categories = ["localization", "password", "software", "system"]
+    categories = ["localization", "software", "system", "password"]
 
     def setup(self, environment="anaconda"):
         TUIHub.setup(self, environment=environment)

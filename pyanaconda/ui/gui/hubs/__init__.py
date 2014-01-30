@@ -1,6 +1,6 @@
 # Base classes for Hubs.
 #
-# Copyright (C) 2011-2012  Red Hat, Inc.
+# Copyright (C) 2011-2014  Red Hat, Inc.
 #
 # This copyrighted material is made available to anyone wishing to use,
 # modify, copy, or redistribute it subject to the terms and conditions of
@@ -255,7 +255,7 @@ class Hub(GUIObject, common.Hub):
         setViewportBackground(viewport)
 
     def _updateCompleteness(self, spoke):
-        spoke.selector.set_sensitive(spoke.ready)
+        spoke.selector.set_sensitive(spoke.sensitive and spoke.ready)
         spoke.selector.set_property("status", spoke.status)
         spoke.selector.set_tooltip_markup(spoke.status)
         spoke.selector.set_incomplete(not spoke.completed and spoke.mandatory)

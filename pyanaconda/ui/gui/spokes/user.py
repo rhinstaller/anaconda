@@ -1,6 +1,6 @@
 # User creation spoke
 #
-# Copyright (C) 2013 Red Hat, Inc.
+# Copyright (C) 2013-2014 Red Hat, Inc.
 #
 # This copyrighted material is made available to anyone wishing to use,
 # modify, copy, or redistribute it subject to the terms and conditions of
@@ -17,10 +17,12 @@
 # Red Hat, Inc.
 #
 # Red Hat Author(s): Martin Sivak <msivak@redhat.com>
+#                    Chris Lumens <clumens@redhat.com>
 #
 
 from gi.repository import Gtk
 
+from pyanaconda.flags import flags
 from pyanaconda.i18n import _, N_
 from pyanaconda.users import cryptPassword, validatePassword, guess_username, USERNAME_VALID
 from pwquality import PWQError
@@ -288,6 +290,10 @@ class UserSpoke(FirstbootSpokeMixIn, NormalSpoke):
 
         elif self._user in self.data.user.userList:
             self.data.user.userList.remove(self._user)
+
+    @property
+    def sensitive(self):
+        return not (self.completed and flags.automatedInstall)
 
     @property
     def completed(self):
