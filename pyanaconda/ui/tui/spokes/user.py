@@ -1,6 +1,6 @@
 # User creation text spoke
 #
-# Copyright (C) 2013  Red Hat, Inc.
+# Copyright (C) 2013-2014  Red Hat, Inc.
 #
 # This copyrighted material is made available to anyone wishing to use,
 # modify, copy, or redistribute it subject to the terms and conditions of
@@ -17,12 +17,14 @@
 # Red Hat, Inc.
 #
 # Red Hat Author(s): Martin Sivak <msivak@redhat.com>
+#                    Chris Lumens <clumens@redhat.com>
 #
 
 from pyanaconda.ui.tui.spokes import EditTUISpoke
 from pyanaconda.ui.tui.spokes import EditTUISpokeEntry as Entry
 from pyanaconda.ui.common import FirstbootSpokeMixIn
 from pyanaconda.users import guess_username
+from pyanaconda.flags import flags
 from pyanaconda.i18n import N_, _
 from pykickstart.constants import FIRSTBOOT_RECONFIG
 from pyanaconda.constants import ANACONDA_ENVIRON, FIRSTBOOT_ENVIRON
@@ -93,6 +95,10 @@ class UserSpoke(FirstbootSpokeMixIn, EditTUISpoke):
                 return True
         else:
             return False
+
+    @property
+    def showable(self):
+        return not (self.completed and flags.automatedInstall)
 
     @property
     def mandatory(self):

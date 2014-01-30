@@ -1,6 +1,6 @@
 # Common classes for user interface
 #
-# Copyright (C) 2012  Red Hat, Inc.
+# Copyright (C) 2012-2014  Red Hat, Inc.
 #
 # This copyrighted material is made available to anyone wishing to use,
 # modify, copy, or redistribute it subject to the terms and conditions of
@@ -280,6 +280,19 @@ class Spoke(UIObject):
            things until they are completely setup.
         """
         return False
+
+    @property
+    def sensitive(self):
+        """May the user click on this spoke's selector and be taken to the spoke?
+           This is different from the showable property.  A spoke that is not
+           sensitive will still be shown on the hub, but the user may not enter it.
+           This is also different from the ready property.  A spoke that is not
+           ready may not be entered, but the spoke may become ready in the future.
+           A spoke that is not sensitive will likely not become so.
+
+           Most spokes will not want to override this method.
+        """
+        return True
 
     @property
     def mandatory(self):

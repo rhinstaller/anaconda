@@ -144,7 +144,7 @@ class PasswordSpoke(FirstbootSpokeMixIn, NormalSpoke, GUISpokeInputCheckHandler)
         return bool(self.data.rootpw.password or self.data.rootpw.lock)
 
     @property
-    def showable(self):
+    def sensitive(self):
         return not (self.completed and flags.automatedInstall)
 
     def _checkPasswordEmpty(self, inputcheck):

@@ -259,7 +259,7 @@ class Hub(GUIObject, common.Hub):
         setViewportBackground(viewport)
 
     def _updateCompleteness(self, spoke, update_continue=True):
-        spoke.selector.set_sensitive(spoke.ready)
+        spoke.selector.set_sensitive(spoke.sensitive and spoke.ready)
         spoke.selector.set_property("status", spoke.status)
         spoke.selector.set_tooltip_markup(escape_markup(spoke.status))
         spoke.selector.set_incomplete(not spoke.completed and spoke.mandatory)
