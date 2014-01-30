@@ -55,11 +55,18 @@ po-pull:
 	rpm -q transifex-client &>/dev/null || ( echo "need to run: yum install transifex-client"; exit 1 )
 	tx pull $(TX_PULL_ARGS)
 
-scratch: po-pull
+po-empty:
+	for lingua in $$(grep -v '^#' $(srcdir)/po/LINGUAS) ; do \
+		[ -f $(srcdir)/po/$$lingua.po ] || \
+		msginit -i $(srcdir)/po/$(PACKAGE_NAME).pot -o $(srcdir)/po/$$lingua.po --no-translator || \
+		exit 1 ; \
+	done
+
+scratch: po-empty
 	$(MAKE) ARCHIVE_TAG=HEAD dist
 	git checkout -- $(srcdir)/po/$(PACKAGE_NAME).pot
 
-scratch-bumpver: po-pull
+scratch-bumpver: po-empty
 	@opts="-n $(PACKAGE_NAME) -v $(PACKAGE_VERSION) -r $(PACKAGE_RELEASE) -b $(PACKAGE_BUGREPORT)" ; \
 	if [ ! -z "$(IGNORE)" ]; then \
 		opts="$${opts} -i $(IGNORE)" ; \
