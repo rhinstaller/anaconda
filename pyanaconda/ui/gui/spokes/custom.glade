@@ -794,6 +794,7 @@ use.  Try something else?</property>
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
                         <property name="show_tabs">False</property>
+                        <property name="show_border">False</property>
                         <child>
                           <object class="GtkLabel" id="whenCreateLabel">
                             <property name="visible">True</property>
