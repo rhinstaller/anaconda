@@ -1008,7 +1008,6 @@ if __name__ == "__main__":
 
     image_count = 0
     try:
-        disk_image_counter = 0
         for (name, path) in name_path_pairs(opts.images):
             log.info("naming disk image '%s' '%s'", path, name)
             anaconda.storage.config.diskImages[name] = path
