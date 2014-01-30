@@ -51,6 +51,7 @@
 
 struct device **getDevices(enum deviceType type) {
     struct device **ret = NULL;
+    struct device **tmpret;
     struct device *new;
     int numdevices = 0;
 
@@ -133,7 +134,13 @@ struct device **getDevices(enum deviceType type) {
             if (caps & GENHD_FL_REMOVABLE) {
                 new->priv.removable = 1;
             }
-            ret = realloc(ret, (numdevices+2) * sizeof(struct device));
+            tmpret = realloc(ret, (numdevices+2) * sizeof(struct device));
+            if (NULL == tmpret)
+            {
+                free(ret);
+                return NULL;
+            }
+            ret = tmpret;
             ret[numdevices] = new;
             ret[numdevices+1] = NULL;
             numdevices++;
@@ -213,7 +220,13 @@ storagedone:
                 }
             }
 
-            ret = realloc(ret, (numdevices+2) * sizeof(struct device));
+            tmpret = realloc(ret, (numdevices+2) * sizeof(struct device));
+            if (NULL == tmpret)
+            {
+                free(ret);
+                return NULL;
+            }
+            ret = tmpret;
             ret[numdevices] = new;
             ret[numdevices+1] = NULL;
             numdevices++;
