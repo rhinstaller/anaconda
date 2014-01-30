@@ -53,8 +53,8 @@ def exitHandler(rebootData, storage, exitCode=None):
         anaconda.storage.umountFilesystems(ignoreErrors=True, swapoff=False)
         devicetree = anaconda.storage.devicetree
         devicetree.teardownAll()
-        for name in devicetree.diskImages:
-            dev = devicetree.getDeviceByName(name)
+        for imageName in devicetree.diskImages:
+            dev = devicetree.getDeviceByName(imageName)
             for loop in dev.parents:
                 loop.controllable = True
             dev.deactivate(recursive=True)

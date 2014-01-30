@@ -143,6 +143,7 @@ class ISCSIDialog(GUIObject):
         self._initiatorEntry = self.builder.get_object("initiatorEntry")
 
         self._store = self.builder.get_object("nodeStore")
+        self._storeFilter = self.builder.get_object("nodeStoreFiltered")
 
     def refresh(self):
         self._bindCheckbox.set_active(bool(self.iscsi.ifaces))
@@ -153,7 +154,6 @@ class ISCSIDialog(GUIObject):
 
         self._loginAuthTypeCombo.set_active(0)
 
-        self._storeFilter = self.builder.get_object("nodeStoreFiltered")
         self._storeFilter.set_visible_column(1)
 
         self._initiatorEntry.set_text(self.iscsi.initiator)

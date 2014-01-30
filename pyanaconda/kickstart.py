@@ -531,8 +531,7 @@ class Fcoe(commands.fcoe.F13_Fcoe):
             raise KickstartValueError(formatErrorMsg(self.lineno, msg="Specified nonexistent nic %s in fcoe command" % fc.nic))
 
         if fc.nic in (info[0] for info in blivet.fcoe.fcoe().nics):
-            log.info("Kickstart fcoe device %s already added from EDD, ignoring"
-                    % fc.nic)
+            log.info("Kickstart fcoe device %s already added from EDD, ignoring", fc.nic)
         else:
             msg = blivet.fcoe.fcoe().addSan(nic=fc.nic, dcb=fc.dcb, auto_vlan=True)
             if not msg:
