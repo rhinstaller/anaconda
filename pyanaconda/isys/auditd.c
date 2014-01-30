@@ -31,6 +31,7 @@
 #include <signal.h>
 #include <string.h>
 #include <stdlib.h>
+#include <stdio.h>
 #include <errno.h>
 
 #include <libaudit.h>
@@ -100,6 +101,9 @@ int audit_daemonize(void) {
     if ((child = fork()) > 0)
         return 0;
 
+    if (child < 0)
+        return -1;
+
 #ifndef STANDALONE 
     for (fd = 0; fd < getdtablesize(); fd++)
         close(fd);
@@ -126,7 +130,13 @@ int audit_daemonize(void) {
 
 #ifdef STANDALONE
 int main(void) {
-    return audit_daemonize();
+    if (audit_daemonize() < 0)
+    {
+        perror("fork");
+        return 1;
+    }
+
+    return 0;
 }
 #endif /* STANDALONE */
 
