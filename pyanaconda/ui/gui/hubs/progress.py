@@ -102,15 +102,19 @@ class ProgressHub(Hub):
             elif code == progressQ.PROGRESS_CODE_MESSAGE:
                 self._update_progress_message(args[0])
             elif code == progressQ.PROGRESS_CODE_COMPLETE:
-                # There shouldn't be any more progress bar updates, so return False
-                # to indicate this method should be removed from the idle loop.  Also,
-                # stop the rnotes cycling and display the finished message.
-                self._progress_bar_complete()
                 q.task_done()
+
+                # we are done, stop the progress indication
+                gtk_call_once(self._progressBar.set_fraction, 1.0)
+                gtk_call_once(self._progressLabel.set_text, _("Complete!"))
+                gtk_call_once(self._spinner.stop)
+                gtk_call_once(self._spinner.hide)
 
                 if callback:
                     callback()
 
+                # There shouldn't be any more progress bar updates, so return False
+                # to indicate this method should be removed from the idle loop.
                 return False
             elif code == progressQ.PROGRESS_CODE_QUIT:
                 sys.exit(args[0])
@@ -209,6 +213,7 @@ class ProgressHub(Hub):
         self._progressBar = self.builder.get_object("progressBar")
         self._progressLabel = self.builder.get_object("progressLabel")
         self._progressNotebook = self.builder.get_object("progressNotebook")
+        self._spinner = self.builder.get_object("progressSpinner")
 
         lbl = self.builder.get_object("configurationLabel")
         lbl.set_text(_("%s is now successfully installed, but some configuration still needs to be done.\n"
@@ -282,15 +287,5 @@ class ProgressHub(Hub):
 
     @gtk_action_nowait
     def _restart_spinner(self):
-        spinner = self.builder.get_object("progressSpinner")
-        spinner.show()
-        spinner.start()
-
-    @gtk_action_nowait
-    def _progress_bar_complete(self):
-        self._progressBar.set_fraction(1.0)
-        self._progressLabel.set_text(_("Complete!"))
-
-        spinner = self.builder.get_object("progressSpinner")
-        spinner.stop()
-        spinner.hide()
+        self._spinner.show()
+        self._spinner.start()
