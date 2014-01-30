@@ -100,15 +100,19 @@ class ProgressHub(Hub):
             elif code == progressQ.PROGRESS_CODE_MESSAGE:
                 self._update_progress_message(args[0])
             elif code == progressQ.PROGRESS_CODE_COMPLETE:
-                # There shouldn't be any more progress bar updates, so return False
-                # to indicate this method should be removed from the idle loop.  Also,
-                # stop the rnotes cycling and display the finished message.
-                self._progress_bar_complete()
                 q.task_done()
+
+                # we are done, stop the progress indication
+                gtk_call_once(self._progressBar.set_fraction, 1.0)
+                gtk_call_once(self._progressLabel.set_text, _("Complete!"))
+                gtk_call_once(self._spinner.stop)
+                gtk_call_once(self._spinner.hide)
 
                 if callback:
                     callback()
 
+                # There shouldn't be any more progress bar updates, so return False
+                # to indicate this method should be removed from the idle loop.
                 return False
             elif code == progressQ.PROGRESS_CODE_QUIT:
                 sys.exit(args[0])
@@ -279,11 +283,3 @@ class ProgressHub(Hub):
     def _restart_spinner(self):
         self._spinner.show()
         self._spinner.start()
-
-    @gtk_action_nowait
-    def _progress_bar_complete(self):
-        self._progressBar.set_fraction(1.0)
-        self._progressLabel.set_text(_("Complete!"))
-
-        self._spinner.stop()
-        self._spinner.hide()
