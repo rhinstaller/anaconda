@@ -387,6 +387,11 @@ def dd_extract(driver, dest_path="/updates/", kernel_ver=None):
     cmd += driver.args
     cmd += ["--rpm", driver.rpm, "--directory", dest_path]
     log.info("Extracting files from %s" % driver.rpm)
+
+    # make sure the to be used directory exists
+    if not os.path.isdir(dest_path):
+        os.makedirs(dest_path)
+
     try:
         run_cmd(cmd)
     except (OSError, RunCmdError):
