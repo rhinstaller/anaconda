@@ -153,7 +153,8 @@ class ISCSIDialog(GUIObject):
 
         self._loginAuthTypeCombo.set_active(0)
 
-        self.builder.get_object("nodeStoreFiltered").set_visible_column(1)
+        self._storeFilter = self.builder.get_object("nodeStoreFiltered")
+        self._storeFilter.set_visible_column(1)
 
         self._initiatorEntry.set_text(self.iscsi.initiator)
         self._initiatorEntry.set_sensitive(not self.iscsi.initiatorSet)
@@ -334,7 +335,8 @@ class ISCSIDialog(GUIObject):
             return
 
         # Then, go back and mark just this row as selected.
-        itr = self._store.get_iter(path)
+        itr = self._storeFilter.get_iter(path)
+        itr = self._storeFilter.convert_iter_to_child_iter(itr)
         self._store[itr][0] = not self._store[itr][0]
 
     def _login(self, credentials):
