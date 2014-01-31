@@ -51,6 +51,7 @@ dist_check_SCRIPTS = glade/accelerators/check_accelerators.py \
 		     pylint/markup.py \
 		     pylint/runpylint.sh \
 		     pylint/pylint-one.sh \
+		     cppcheck/runcppcheck.sh \
 		     testenv.sh \
 		     gettext/gettext_warnings.sh \
 		     gettext/gettext_potfiles.py \
@@ -60,6 +61,7 @@ dist_check_SCRIPTS = glade/accelerators/check_accelerators.py \
 
 TESTS = nosetests.sh \
 	pylint/runpylint.sh \
+	cppcheck/runcppcheck.sh \
 	gettext/gettext_warnings.sh \
 	gettext/gettext_potfiles.py \
 	storage/run_storage_tests.py \
