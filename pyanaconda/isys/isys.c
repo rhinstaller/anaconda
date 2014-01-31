@@ -93,6 +93,7 @@ static PyMethodDef isysModuleMethods[] = {
 #define BOOT_SIGNATURE	0xaa55	/* boot signature */
 #define BOOT_SIG_OFFSET	510	/* boot signature offset */
 
+/* cppcheck-suppress unusedFunction */
 void init_isys(void) {
     Py_InitModule("_isys", isysModuleMethods);
 }
