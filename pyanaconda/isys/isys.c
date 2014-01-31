@@ -68,9 +68,6 @@
 #endif
 
 #include "isys.h"
-#include "ethtool.h"
-#include "lang.h"
-#include "eddsupport.h"
 
 #ifndef CDROMEJECT
 #define CDROMEJECT 0x5309
