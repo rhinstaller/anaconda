@@ -57,7 +57,6 @@ from blivet.devicefactory import get_raid_level
 from blivet.devicefactory import SIZE_POLICY_AUTO
 from blivet.devicefactory import SIZE_POLICY_MAX
 from blivet import findExistingInstallations
-from blivet.partitioning import doPartitioning
 from blivet.partitioning import doAutoPartition
 from blivet.errors import StorageError
 from blivet.errors import NoDisksError
