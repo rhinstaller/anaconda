@@ -253,6 +253,30 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Fri Jan 31 2014 Brian C. Lane <bcl@redhat.com> - 19.31.55-1
+- Fix iscsi target selection checkbox in GUI (rvykydal)
+  Resolves: rhbz#1058653
+- Don't Require NetworkManager-config-server (rvykydal)
+  Resolves: rhbz#1012511
+  Related: rhbz#1012511
+- Set progress bar to 100 %% in a different way (vpodzime)
+  Resolves: rhbz#1058755
+- Do not add step for realmd if we are not gonna run it (vpodzime)
+  Related: rhbz#1058755
+- Make sure directory for DD extraction exists (vpodzime)
+  Related: rhbz#1016004
+- Removed unused variable (amulhern)
+  Resolves: rhbz#982164
+  Related: rhbz#982164
+- Handle --image arguments more thoroughly (amulhern)
+  Resolves: rhbz#982164
+- Style the Done button to make it more noticable (mizmo). (clumens)
+  Related: rhbz#1045250
+- Display free space remaining in containers (clumens).
+  Resolves: rhbz#1035832
+- If a root password is set, don't show the spoke (clumens).
+  Resolves: rhbz#1041405
+
 * Tue Jan 28 2014 Brian C. Lane <bcl@redhat.com> - 19.31.54-1
 - Set an upper limit on uids and gids. (dshea)
   Resolves: rhbz#1053103
