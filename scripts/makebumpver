@@ -302,9 +302,11 @@ class MakeBumpVer:
                             bad = True
                     else:
                         bad = True
+                    summary_bug = ckbug
                 else:
                     summary = summary.strip()
                     summary += " (%s)" % author
+                    summary_bug = None
 
                 for bodyline in body:
                     m = re.match("^(Resolves|Related|Conflicts):\ +rhbz#\d+.*$",
@@ -323,6 +325,12 @@ class MakeBumpVer:
 
                         if valid:
                             rhbz.add("%s: rhbz#%s" % (action, ckbug))
+
+                            # Remove the summary bug's Resolves action if it is for the same bug
+                            if action != 'Resolves':
+                                summary_str = "Resolves: rhbz#%s" % summary_bug
+                                if summary_bug and ckbug == summary_bug and summary_str in rhbz:
+                                    rhbz.remove(summary_str)
                         else:
                             bad = True
 
@@ -334,6 +342,11 @@ class MakeBumpVer:
                                                               fixedIn) or \
                             not self._isRHELBugAcked(ckbug, commit, summary)):
                             bad = True
+                        elif valid and action == 'Related' and \
+                            self._isRHELBugAcked(ckbug, commit, summary):
+                            print "*** Bug %s Related commit %s is allowed\n" % (bug, commit)
+                            # Related bugs only need to be valid and have an ack
+                            bad = False
 
                 if len(rhbz) == 0:
                     print "*** No bugs referenced in commit %s\n" % commit
