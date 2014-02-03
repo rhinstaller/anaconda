@@ -22,7 +22,7 @@ if [ "$kickstart" = "nfs:auto" ]; then
     # construct kickstart URL from dhcp info
     # server is next_server, or the dhcp server itself if missing
     . /tmp/net.$netif.dhcpopts
-    server="${new_dhcp_next_server:-$new_dhcp_server_identifier}"
+    server="${new_next_server:-$new_dhcp_server_identifier}"
     # filename is dhcp 'filename' option, or '/kickstart/' if missing
     filename="/kickstart/"
     # read the dhcp lease file and see if we can find 'filename'
