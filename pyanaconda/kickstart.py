@@ -580,7 +580,12 @@ class Firstboot(commands.firstboot.FC3_Firstboot):
             self.firstboot = FIRSTBOOT_SKIP
 
     def execute(self, *args):
-        if not os.path.exists(ROOT_PATH + "/lib/systemd/system/firstboot-graphical.service"):
+        service_paths = ("/lib/systemd/system/firstboot-graphical.service",
+                         "/lib/systemd/system/initial-setup-graphical.service",
+                         "/lib/systemd/system/initial-setup-text.service")
+
+        if not any(os.path.exists(ROOT_PATH + path) for path in service_paths):
+            # none of the first boot utilities installed, nothing to do here
             return
 
         action = "enable"
