@@ -1201,6 +1201,8 @@ reposdir=%s
 
         if self.data.packages.default and self.environments:
             self.selectEnvironment(self.environments[0])
+        elif self.data.packages.environment:
+            self.selectEnvironment(self.data.packages.environment)
 
         for package in self.data.packages.packageList:
             try:

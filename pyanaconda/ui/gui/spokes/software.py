@@ -301,6 +301,8 @@ class SoftwareSelectionSpoke(NormalSpoke):
 
         threadMgr.wait(constants.THREAD_PAYLOAD_MD)
 
+        self.environment = self.data.packages.environment
+
         if self.environment not in self.payload.environments:
             self.environment = None
 
