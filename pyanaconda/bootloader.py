@@ -1686,7 +1686,7 @@ class EFIGRUB(GRUB2):
                 rc = self.efibootmgr("-b", slot_id, "-B",
                                      root=ROOT_PATH)
                 if rc:
-                    raise BootLoaderError("failed to remove old efi boot entry")
+                    raise BootLoaderError("failed to remove old efi boot entry.  This is most likely a kernel bug.")
 
     @property
     def efi_dir_as_efifs_dir(self):
@@ -1710,7 +1710,7 @@ class EFIGRUB(GRUB2):
                              self.efi_dir_as_efifs_dir + self._efi_binary,
                              root=ROOT_PATH)
         if rc:
-            raise BootLoaderError("failed to set new efi boot target")
+            raise BootLoaderError("failed to set new efi boot target. This is most likely a kernel bug.")
 
     def install(self):
         if not flags.leavebootorder:
