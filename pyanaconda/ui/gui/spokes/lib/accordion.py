@@ -1,7 +1,7 @@
 # vim: set fileencoding=utf-8
 # Mountpoint selector accordion and page classes
 #
-# Copyright (C) 2012  Red Hat, Inc.
+# Copyright (C) 2012-2014 Red Hat, Inc.
 #
 # This copyrighted material is made available to anyone wishing to use,
 # modify, copy, or redistribute it subject to the terms and conditions of
@@ -247,7 +247,7 @@ class UnknownPage(Page):
 # of this class will be packed into the Accordion first and then when the new installation
 # is created, it will be removed and replaced with a Page for it.
 class CreateNewPage(Page):
-    def __init__(self, title, cb, partitionsToReuse=True):
+    def __init__(self, title, createClickedCB, autopartTypeChangedCB, partitionsToReuse=True):
         Gtk.Box.__init__(self, orientation=Gtk.Orientation.VERTICAL, spacing=6)
         self.members = []
         self.pageTitle = title
@@ -261,55 +261,69 @@ class CreateNewPage(Page):
         label = Gtk.Label(_("You haven't created any mount points for your %s %s installation yet.  You can:") % (productName, productVersion))
         label.set_line_wrap(True)
         label.set_alignment(0, 0.5)
-        self._createBox.attach(label, 0, 0, 3, 1)
+        self._createBox.attach(label, 0, 0, 2, 1)
+
+        dot = Gtk.Label("•")
+        dot.set_alignment(0.5, 0.4)
+        dot.set_hexpand(False)
+        self._createBox.attach(dot, 0, 1, 1, 1)
+
+        self._createNewButton = Gtk.LinkButton("", label=_("_Click here to create them automatically."))
+        label = self._createNewButton.get_children()[0]
+        label.set_alignment(0, 0.5)
+        label.set_hexpand(True)
+        label.set_line_wrap(True)
+        label.set_use_underline(True)
+
+        # Create this now to pass into the callback.  It will be populated later
+        # on in this method.
+        combo = Gtk.ComboBoxText()
+        combo.connect("changed", autopartTypeChangedCB)
+
+        self._createNewButton.set_has_tooltip(False)
+        self._createNewButton.set_halign(Gtk.Align.START)
+        self._createNewButton.connect("clicked", createClickedCB, combo)
+        self._createNewButton.connect("activate-link", lambda *args: Gtk.true())
+        self._createBox.attach(self._createNewButton, 1, 1, 1, 1)
 
         dot = Gtk.Label("•")
         dot.set_alignment(0.5, 0)
         dot.set_hexpand(False)
-        self._createBox.attach(dot, 0, 1, 1, 1)
+        self._createBox.attach(dot, 0, 2, 1, 1)
 
-        label = Gtk.Label(_("Create them _automatically:"))
-        label.set_use_underline(True)
-        label.set_line_wrap(True)
+        label = Gtk.Label(_("Create new mount points by clicking the '+' button."))
         label.set_alignment(0, 0.5)
-        self._createBox.attach(label, 1, 1, 2, 1)
+        label.set_hexpand(True)
+        label.set_line_wrap(True)
+        self._createBox.attach(label, 1, 2, 1, 1)
 
-        combo = Gtk.ComboBoxText()
+        if partitionsToReuse:
+            dot = Gtk.Label("•")
+            dot.set_alignment(0.5, 0)
+            dot.set_hexpand(False)
+            self._createBox.attach(dot, 0, 3, 1, 1)
+
+            label = Gtk.Label(_("Or, assign new mount points to existing partitions after selecting them below."))
+            label.set_alignment(0, 0.5)
+            label.set_hexpand(True)
+            label.set_line_wrap(True)
+            self._createBox.attach(label, 1, 3, 1, 1)
+
+        label = Gtk.Label(_("_New mount points will use the following partitioning scheme:"))
+        label.set_alignment(0, 0.5)
+        label.set_line_wrap(True)
+        label.set_use_underline(True)
+        self._createBox.attach(label, 0, 4, 2, 1)
+
         label.set_mnemonic_widget(combo)
         combo.append_text(_("Standard Partition"))
         combo.append_text(_("BTRFS"))
         combo.append_text(_("LVM"))
         combo.append_text(_("LVM Thin Provisioning"))
         combo.set_active(2)
-        self._createBox.attach(combo, 1, 2, 1, 1)
-
-        button = Gtk.Button(_("_Create"))
-        button.set_margin_right(6)
-        button.set_use_underline(True)
-        button.connect("clicked", cb, combo)
-        self._createBox.attach(button, 2, 2, 1, 1)
-
-        dot = Gtk.Label("•")
-        dot.set_alignment(0.5, 0)
-        dot.set_hexpand(False)
-        self._createBox.attach(dot, 0, 3, 1, 1)
-
-        label = Gtk.Label(_("Create new mount points by clicking the '+' button."))
-        label.set_alignment(0, 0.5)
-        label.set_hexpand(True)
-        label.set_line_wrap(True)
-        self._createBox.attach(label, 1, 3, 2, 1)
-
-        if partitionsToReuse:
-            dot = Gtk.Label("•")
-            dot.set_alignment(0.5, 0)
-            dot.set_hexpand(False)
-            self._createBox.attach(dot, 0, 4, 1, 1)
-
-            label = Gtk.Label(_("Or, assign new mount points to existing partitions after selecting them below."))
-            label.set_alignment(0, 0.5)
-            label.set_hexpand(True)
-            label.set_line_wrap(True)
-            self._createBox.attach(label, 1, 4, 2, 1)
+        combo.set_margin_left(18)
+        combo.set_margin_right(18)
+        combo.set_hexpand(False)
+        self._createBox.attach(combo, 0, 5, 2, 1)
 
         self.add(self._createBox)

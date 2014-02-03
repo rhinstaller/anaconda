@@ -898,6 +898,17 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
             self._current_selector.set_chosen(False)
             self._current_selector = None
 
+    def _change_autopart_type(self, autopartTypeCombo):
+        # This is called when the autopart type combo on the left hand side of
+        # custom partitioning is changed.  We already know how to handle the
+        # case where the user changes the type and then clicks the autopart
+        # link button.  This handles the case where the user changes the type
+        # and then clicks the '+' button.
+
+        # NOTE: This assumes the order of things in the combo box and the order
+        # of the pykickstart AUTOPART_TYPE_* constants are the same.
+        self.data.autopart.type = autopartTypeCombo.get_active()
+
     def _do_refresh(self, mountpointToShow=None):
         # block mountpoint selector signal handler for now
         self._initialized = False
@@ -941,6 +952,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         if not new_devices:
             page = CreateNewPage(self.translated_new_install_name,
                                  self.on_create_clicked,
+                                 self._change_autopart_type,
                                  partitionsToReuse=bool(ui_roots))
             self._accordion.addPage(page, cb=self.on_page_clicked)
 
