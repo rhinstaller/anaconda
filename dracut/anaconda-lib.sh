@@ -206,6 +206,36 @@ run_kickstart() {
     esac
     [ "$root" = "anaconda-auto-cd" ] && do_disk=1
 
+    # kickstart Driver Disk Handling
+    # parse-kickstart may have added network inst.dd entries to the cmdline
+    # Or it may have written devices to /tmp/dd_ks
+
+    # Does network need to be rerun?
+    dd_args="$(getargs dd= inst.dd=)"
+    for dd in $dd_args; do
+        case "${dd%%:*}" in
+            http|https|ftp|nfs|nfs4)
+                do_net=1
+                rm /tmp/dd_net.done
+                break
+            ;;
+        esac
+    done
+
+    # Run the driver update UI for disks
+    if [ -e "/tmp/dd_ks" ]; then
+        # TODO: Seems like this should be a function, a mostly same version is used in 3 places
+        tty=$(find_tty)
+
+        # save module state
+        cat /proc/modules > /tmp/dd_modules
+
+        info "Starting Kickstart Driver Update Disk Service on $tty"
+        systemctl start driver-updates@$tty.service
+        status=$(systemctl -p ExecMainStatus show driver-updates@$tty.service)
+        info "DD status=$status"
+    fi
+
     # replay udev events to trigger actions
     if [ "$do_disk" ]; then
         . $hookdir/pre-trigger/*repo-genrules.sh
