@@ -61,7 +61,6 @@ from blivet.partitioning import doAutoPartition
 from blivet.errors import StorageError
 from blivet.errors import NoDisksError
 from blivet.errors import NotEnoughFreeSpaceError
-from blivet.errors import ErrorRecoveryFailure
 from blivet.errors import CryptoError
 from blivet.errors import MDRaidError
 from blivet.devicelibs import mdraid
