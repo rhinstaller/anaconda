@@ -2,7 +2,7 @@
 # parse-anaconda-dd.sh: handle driver update disk settings
 
 # no need to do this twice
-[ -f /tmp/dd-net.done ] && return
+[ -f /tmp/dd_net.done ] && return
 
 command -v getarg >/dev/null || . /lib/dracut-lib.sh
 
@@ -16,4 +16,3 @@ for dd in $dd_args; do
         ;;
     esac
 done
-export dd_args

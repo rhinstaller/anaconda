@@ -6,14 +6,13 @@
 netif="$1"
 
 # We already processed the dd_args - exit
-[ -e /tmp/dd-net.done ] && return 0
-
-# no dd requested - exit
-[ -n "$dd_args" ] || return 0
+[ -e /tmp/dd_net.done ] && return 0
 
 command -v getarg >/dev/null || . /lib/dracut-lib.sh
-. /lib/url-lib.sh
+dd_args="$(getargs dd= inst.dd=)"
+[ -n "$dd_args" ] || return 0
 
+. /lib/url-lib.sh
 dd_repo=/tmp/DD-net/
 for dd in $dd_args; do
     case "${dd%%:*}" in
@@ -28,4 +27,4 @@ for dd in $dd_args; do
             ;;
     esac
 done
-echo > /tmp/dd-net.done
+echo > /tmp/dd_net.done
