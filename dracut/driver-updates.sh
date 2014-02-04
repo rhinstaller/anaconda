@@ -10,7 +10,10 @@ udevadm settle
 blkid -t LABEL=OEMDRV > /dev/null
 blkid_rc=$?
 
-# dd_args will have been set by parse-anaconda-dd.sh cmdline hook
+command -v getarg >/dev/null || . /lib/dracut-lib.sh
+dd_args="$(getargs dd= inst.dd=)"
+
+# /tmp/dd_args will have been set by parse-anaconda-dd.sh cmdline hook
 if [ -n "$dd_args" -o $blkid_rc -eq 0 ]; then
     command -v getarg >/dev/null || . /lib/dracut-lib.sh
     . /lib/anaconda-lib.sh

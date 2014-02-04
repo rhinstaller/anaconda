@@ -6,7 +6,7 @@ modules before the rest of the installer is executed.
 
 cmdline hook
     parse-anaconda-dd.sh
-    parses the inst.dd/dd arguments for URIs and saves all of them into $dd_args
+    parses the inst.dd/dd arguments for URIs and saves all of them into /tmp/dd_args
     and calls set_neednet if network is needed to retrieve a driver rpm
     The files will be downloaded when the network device online hook is executed.
 
