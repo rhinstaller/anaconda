@@ -399,6 +399,12 @@ class GraphicalUserInterface(UserInterface):
         settings.set_property("gtk-font-name", "Cantarell")
         settings.set_property("gtk-icon-theme-name", "gnome")
 
+        # Apply the application stylesheet
+        provider = Gtk.CssProvider()
+        provider.load_from_path("/usr/share/anaconda/anaconda-gtk.css")
+        Gtk.StyleContext.add_provider_for_screen(Gdk.Screen.get_default(), provider,
+                Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION)
+
         self._currentAction.window.show_all()
 
         # Do this at the last possible minute.

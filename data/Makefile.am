@@ -21,11 +21,9 @@ SUBDIRS = command-stubs icons liveinst pixmaps systemd post-scripts
 
 CLEANFILES = *~
 
-ksdir                 = $(datadir)/$(PACKAGE_NAME)
-dist_ks_DATA          = interactive-defaults.ks
-
-tmuxdir               = $(datadir)/$(PACKAGE_NAME)
-dist_tmux_DATA        = tmux.conf
+dist_pkgdata_DATA          = interactive-defaults.ks \
+			     tmux.conf \
+			     anaconda-gtk.css
 
 helpdir               = $(datadir)/$(PACKAGE_NAME)
 dist_help_DATA        = anaconda_options.txt
