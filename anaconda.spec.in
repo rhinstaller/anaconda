@@ -298,6 +298,34 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Feb 04 2014 Brian C. Lane <bcl@redhat.com> - 21.20-1
+- makebumpver: Any failure should cancel the bump (bcl)
+- Add option help text for --image and --dirinstall flags (#1056791) (amulhern)
+- Update bumpver to allow Related bugs (bcl)
+- Fix up some pylint errors. (clumens)
+- If a user has been created, don't allow entering the user spoke (#1058564).
+  (clumens)
+- Tweak passphrase wording a bit. (clumens)
+- Tweak the final progress messages to fit on the screen a little better
+  (#1058463). (clumens)
+- Fix iscsi target selection checkbox in GUI (#1058653) (rvykydal)
+- network ks: allow setting only hostname with network command (#1051564)
+  (rvykydal)
+- fcoe: add fcoe=<NIC>:<EDB> to boot options for nics added manually (#1040215)
+  (rvykydal)
+- network GUI: ignore fcoe vlan devices (#1051268) (rvykydal)
+- Use an unused variable. (dshea)
+- Ignore an unused function warning on isys_init (dshea)
+- Remove unused isys files. (dshea)
+- Fix the handling of realloc failures. (dshea)
+- Run cppcheck on the C source files. (dshea)
+- Check RAID10 box for BTRFS (#1021856) (amulhern)
+- Make sure directory for DD extraction exists (vpodzime)
+- Handle --image arguments more thoroughly (#982164,#994488) (amulhern)
+- Remove the border from the custom part notebook. (clumens)
+- Style the Done button to make it more noticable (mizmo). (clumens)
+- Change the string used to test for serial console (#1054951) (dmarlin)
+
 * Tue Jan 28 2014 Brian C. Lane <bcl@redhat.com> - 21.19-1
 - Change the reclaim space button rules (#980496) (bcl)
 - Revert "Fix up username checking regex a bit." (dshea)
