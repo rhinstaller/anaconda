@@ -70,8 +70,66 @@ static void anaconda_standalone_window_realize(GtkWidget *widget,
 
 G_DEFINE_TYPE(AnacondaStandaloneWindow, anaconda_standalone_window, ANACONDA_TYPE_BASE_WINDOW)
 
+static int get_sidebar_width(GtkWidget *window) {
+    GtkAllocation allocation;
+
+    /* change value below to make sidebar bigger / smaller */
+    float sidebar_width_percentage = 0.18;
+
+    gtk_widget_get_allocation(window, &allocation);
+    return allocation.width * sidebar_width_percentage;
+}
+
+static int get_sidebar_height(GtkWidget *window) {
+    GtkAllocation allocation;
+    gtk_widget_get_allocation(window, &allocation);
+    return allocation.height;
+}
+
+/* function to override default drawing to insert sidebar image */
+static gboolean anaconda_standalone_window_on_draw(GtkWidget *win, cairo_t *cr) {
+    /* calls parent class' draw handler */
+    GTK_WIDGET_CLASS(anaconda_standalone_window_parent_class)->draw(win,cr);
+
+    GtkStyleContext * context = gtk_widget_get_style_context(win);
+    gtk_style_context_save (context);
+
+    gtk_style_context_add_class(context, "sidebar");
+    gtk_render_background(context, cr, 0, 0, get_sidebar_width(win), get_sidebar_height(win));
+    gtk_style_context_remove_class(context, "sidebar");
+
+    gtk_style_context_add_class(context, "logo");
+    gtk_render_background(context, cr, 0, 0, get_sidebar_width(win), get_sidebar_height(win));
+    gtk_style_context_remove_class(context, "logo");
+
+    gtk_style_context_restore (context);
+
+    return TRUE; /* TRUE to avoid default draw handler */
+}
+
+/* Move base window content appropriate amount of space to the right to make room for sidebar */
+static void anaconda_standalone_window_size_allocate (GtkWidget *window, GtkAllocation *allocation) {
+    GtkAllocation child_allocation;
+    GtkWidget *child;
+    int sidebar_width;
+
+    gtk_widget_set_allocation(window, allocation);
+    sidebar_width = get_sidebar_width(window);
+    child_allocation.x = allocation->x+sidebar_width;
+    child_allocation.y = allocation->y;
+    child_allocation.width = allocation->width-sidebar_width;
+    child_allocation.height = allocation->height;
+
+    child = gtk_bin_get_child (GTK_BIN (window));
+    if (child && gtk_widget_get_visible (child))
+        gtk_widget_size_allocate (child, &child_allocation);
+}
+
 static void anaconda_standalone_window_class_init(AnacondaStandaloneWindowClass *klass) {
     GObjectClass *object_class = G_OBJECT_CLASS(klass);
+    GtkWidgetClass *widget_class = GTK_WIDGET_CLASS(klass);
+    widget_class->draw = anaconda_standalone_window_on_draw;
+    widget_class->size_allocate = anaconda_standalone_window_size_allocate;
 
     klass->quit_clicked = NULL;
     klass->continue_clicked = NULL;
