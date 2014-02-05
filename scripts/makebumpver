@@ -241,6 +241,7 @@ class MakeBumpVer:
                 lines = filter(lambda x: not x.startswith(commit), lines)
 
         rpm_log = []
+        bad_bump = False
         bad = False
 
         for line in lines:
@@ -257,6 +258,7 @@ class MakeBumpVer:
 
             if self.rhel:
                 rhbz = set()
+                bad = False
 
                 # look for a bug in the summary line, validate if found
                 m = re.search(r"\(#\d+(\,.*)*\)", summary)
@@ -356,7 +358,10 @@ class MakeBumpVer:
             else:
                 rpm_log.append(("%s (%s)" % (summary.strip(), author), None))
 
-        if bad:
+            if bad:
+                bad_bump = True
+
+        if bad_bump:
             sys.exit(1)
 
         return rpm_log
