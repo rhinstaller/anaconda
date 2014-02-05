@@ -1,0 +1,32 @@
+/* vendor-specific colors/images */
+
+@define-color sidebar_redhat #41413e;
+@define-color sidebar_fedora #006eb4;
+
+/* logo and sidebar classes for RHEL */
+.logo {
+    background-image: url('/usr/share/anaconda/pixmaps/redhat-logo.png');
+    background-position: 50% 20px;
+    background-repeat: no-repeat;
+    background-color: transparent;
+}
+
+.sidebar {
+    background-image: url('/usr/share/anaconda/pixmaps/redhat-bg.png');
+    background-color: @sidebar_redhat;
+}
+
+/* swap these into logo & sidebar classes for Fedora */
+/*
+.logo-fedora {
+    background-image: url('/usr/share/anaconda/pixmaps/fedora-logo.png');
+    background-position: 50% 20px;
+    background-repeat: no-repeat;
+    background-color: transparent;
+}
+
+.sidebar-fedora {
+    background-image: url('/usr/share/anaconda/pixmaps/noise-texture.png');
+    background-color: @sidebar_fedora;
+}
+*/
