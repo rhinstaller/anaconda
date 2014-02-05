@@ -1,32 +1,47 @@
 /* vendor-specific colors/images */
 
-@define-color sidebar_redhat #41413e;
-@define-color sidebar_fedora #006eb4;
+@define-color redhat #41413e;
+@define-color fedora #006eb4;
 
 /* logo and sidebar classes for RHEL */
+
+.sidebar {
+    background-image: url('/usr/share/anaconda/pixmaps/sidebar-bg.png');
+    background-color: @redhat;
+}
+
 .logo {
-    background-image: url('/usr/share/anaconda/pixmaps/redhat-logo.png');
+    background-image: url('/usr/share/anaconda/pixmaps/sidebar-logo.png');
+    background-position: 50% 20px;
+    background-repeat: no-repeat;
+    background-color: transparent;
+}
+
+AnacondaSpokeWindow #nav-box {
+    background-color: @redhat;
+    background-image: url('/usr/share/anaconda/pixmaps/topbar-bg.png');
+    background-repeat: repeat;
+    color: white;
+}
+
+AnacondaSpokeWindow #layout-indicator {
+    color: black;
+}
+
+/* swap these into logo & sidebar classes for Fedora */
+/*
+.logo{
+    background-image: url('/usr/share/anaconda/pixmaps/logo.png');
     background-position: 50% 20px;
     background-repeat: no-repeat;
     background-color: transparent;
 }
 
 .sidebar {
-    background-image: url('/usr/share/anaconda/pixmaps/redhat-bg.png');
-    background-color: @sidebar_redhat;
+    background-color: @fedora;
 }
 
-/* swap these into logo & sidebar classes for Fedora */
-/*
-.logo-fedora {
-    background-image: url('/usr/share/anaconda/pixmaps/fedora-logo.png');
-    background-position: 50% 20px;
-    background-repeat: no-repeat;
-    background-color: transparent;
-}
-
-.sidebar-fedora {
-    background-image: url('/usr/share/anaconda/pixmaps/noise-texture.png');
-    background-color: @sidebar_fedora;
+AnacondaSpokeWindow #nav-box {
+    background-color: @fedora;
 }
 */
