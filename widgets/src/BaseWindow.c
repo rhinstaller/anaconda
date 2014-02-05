@@ -227,9 +227,10 @@ static void anaconda_base_window_init(AnacondaBaseWindow *win) {
     win->priv->nav_area = gtk_grid_new();
     gtk_grid_set_row_homogeneous(GTK_GRID(win->priv->nav_area), FALSE);
     gtk_grid_set_column_homogeneous(GTK_GRID(win->priv->nav_area), FALSE);
-    gtk_widget_set_margin_left(win->priv->nav_area, 6);
-    gtk_widget_set_margin_right(win->priv->nav_area, 6);
-    gtk_widget_set_margin_top(win->priv->nav_area, 6);
+    gtk_widget_set_margin_left(win->priv->nav_area, 18);
+    gtk_widget_set_margin_right(win->priv->nav_area, 18);
+    gtk_widget_set_margin_top(win->priv->nav_area, 12);
+    gtk_widget_set_margin_bottom(win->priv->nav_area, 6);
 
     gtk_container_add(GTK_CONTAINER(win->priv->nav_box), win->priv->nav_area);
 

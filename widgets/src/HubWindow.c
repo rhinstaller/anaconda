@@ -86,7 +86,7 @@ static int get_sidebar_width(GtkWidget *window) {
     GtkAllocation allocation;
 
     /* change value below to make sidebar bigger / smaller */
-    float sidebar_width_percentage = 0.18;
+    float sidebar_width_percentage = 0.15;
 
     gtk_widget_get_allocation(window, &allocation);
     return allocation.width * sidebar_width_percentage;
