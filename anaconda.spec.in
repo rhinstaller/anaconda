@@ -253,6 +253,18 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Feb 04 2014 Brian C. Lane <bcl@redhat.com> - 19.31.56-1
+- Add option help text for --image and --dirinstall flags (amulhern)
+  Resolves: rhbz#1056791
+- Search for service files of all first boot utilities (vpodzime)
+  Resolves: rhbz#1060698
+- Check RAID10 box for BTRFS (amulhern)
+  Resolves: rhbz#1021856
+- Remove unused import (amulhern)
+  Related: rhbz#1022497
+- Change the string used to test for serial console (dmarlin)
+  Resolves: rhbz#1054951
+
 * Fri Jan 31 2014 Brian C. Lane <bcl@redhat.com> - 19.31.55-1
 - Fix iscsi target selection checkbox in GUI (rvykydal)
   Resolves: rhbz#1058653
