@@ -223,7 +223,7 @@ static void anaconda_base_window_init(AnacondaBaseWindow *win) {
      */
 
     win->priv->nav_box = gtk_event_box_new();
-    gtk_widget_set_app_paintable(win->priv->nav_box, TRUE);
+    gtk_widget_set_name(win->priv->nav_box, "nav-box");
     gtk_box_pack_start(GTK_BOX(win->priv->main_box), win->priv->nav_box, FALSE, FALSE, 0);
 
     win->priv->nav_area = gtk_grid_new();
@@ -283,6 +283,7 @@ static void anaconda_base_window_init(AnacondaBaseWindow *win) {
     win->priv->layout_indicator = anaconda_layout_indicator_new();
     anaconda_layout_indicator_set_label_width(ANACONDA_LAYOUT_INDICATOR(win->priv->layout_indicator),
                                               LAYOUT_INDICATOR_LABEL_WIDTH);
+    gtk_widget_set_name(win->priv->layout_indicator, "layout-indicator");
     gtk_widget_set_halign(win->priv->layout_indicator, GTK_ALIGN_START);
     gtk_widget_set_hexpand(win->priv->layout_indicator, FALSE);
     gtk_widget_set_margin_top(win->priv->layout_indicator, 6);

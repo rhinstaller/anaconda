@@ -139,45 +139,8 @@ static void anaconda_spoke_window_init(AnacondaSpokeWindow *win) {
 }
 
 static void anaconda_spoke_window_realize(GtkWidget *widget, gpointer user_data) {
-    GtkWidget *nav_box;
     GtkAccelGroup *accel_group;
-    GError *error;
-    GdkPixbuf *pixbuf;
-    cairo_pattern_t *pattern;
-    cairo_surface_t *surface;
-    cairo_t *cr;
-    gchar *file;
-
     AnacondaSpokeWindow *window = ANACONDA_SPOKE_WINDOW(widget);
-
-    /* Set the background gradient in the header.  If we fail to load the
-     * background for any reason, just print an error message and display the
-     * header without an image.
-     */
-    error = NULL;
-    file = g_strdup_printf("%s/pixmaps/anaconda_spoke_header.png", anaconda_get_widgets_datadir());
-
-    nav_box = anaconda_base_window_get_nav_area_background_window(ANACONDA_BASE_WINDOW(window));
-    pixbuf = gdk_pixbuf_new_from_file_at_scale(file, -1, gdk_window_get_height(gtk_widget_get_window(nav_box)), FALSE, &error);
-
-    g_free(file);
-    if (!pixbuf) {
-        fprintf(stderr, "could not load header background: %s\n", error->message);
-        g_error_free(error);
-    } else {
-        surface = gdk_window_create_similar_surface(gtk_widget_get_window(nav_box), CAIRO_CONTENT_COLOR_ALPHA,
-                                                    gdk_pixbuf_get_width(pixbuf), gdk_pixbuf_get_height(pixbuf));
-        cr = cairo_create(surface);
-
-        gdk_cairo_set_source_pixbuf(cr, pixbuf, 0, 0);
-        cairo_paint(cr);
-        cairo_destroy(cr);
-        pattern = cairo_pattern_create_for_surface(surface);
-        cairo_surface_destroy(surface);
-
-        cairo_pattern_set_extend(pattern, CAIRO_EXTEND_REPEAT);
-        gdk_window_set_background_pattern(gtk_widget_get_window(nav_box), pattern);
-    }
 
     /* Pressing F12 should send you back to the hub, similar to how the old UI worked. */
     accel_group = gtk_accel_group_new();
