@@ -1733,10 +1733,10 @@ class EFIGRUB(GRUB2):
     def check(self):
         return True
 
-# FIXME: We need to include grubby, and omit efibootmgr and shim packages
+# FIXME: We need to include grubby, and omit the shim package
 #        on aarch64 until we get all the EFI bits in place.
 class Aarch64EFIGRUB(EFIGRUB):
-    packages = ["grub2-efi", "grubby"]
+    packages = ["grub2-efi", "efibootmgr", "grubby"]
 
     _serial_consoles = ["ttyAMA", "ttyS"]
 
