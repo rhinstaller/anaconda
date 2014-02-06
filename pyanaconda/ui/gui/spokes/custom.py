@@ -2008,10 +2008,29 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         self.__storage.devicetree.pruneActions()
         self.__storage.devicetree.sortActions()
 
+
         # If back has been clicked on once already and no other changes made on the screen,
         # run the storage check now.  This handles displaying any errors in the info bar.
         if not self._back_already_clicked:
             self._back_already_clicked = True
+
+            new_luks = [d for d in self.__storage.devices
+                       if d.format.type == "luks" and not d.format.exists]
+            if new_luks:
+                dialog = PassphraseDialog(self.data)
+                with enlightbox(self.window, dialog.window):
+                    rc = dialog.run()
+
+                if rc != 1:
+                    # Cancel. Leave the old passphrase set if there was one.
+                    return
+
+                self.passphrase = dialog.passphrase
+
+            for luks in new_luks:
+                if not luks.format.hasKey:
+                    luks.format.passphrase = self.passphrase
+
             if not self._do_check():
                 return
 
@@ -2024,21 +2043,6 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
             if rc != 1:
                 # Cancel.  Stay on the custom screen.
                 return
-
-            # Then if they did anything that resulted in new LUKS devices, we need
-            # to prompt for passphrases.
-            new_luks = any(d for d in self.__storage.devices
-                           if d.format.type == "luks" and not d.format.exists)
-            if new_luks:
-                dialog = PassphraseDialog(self.data)
-                with enlightbox(self.window, dialog.window):
-                    rc = dialog.run()
-
-                if rc != 1:
-                    # Cancel. Leave the old passphrase set if there was one.
-                    return
-
-                self.passphrase = dialog.passphrase
 
         NormalSpoke.on_back_clicked(self, button)
 
