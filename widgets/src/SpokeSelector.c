@@ -72,7 +72,7 @@ G_DEFINE_TYPE(AnacondaSpokeSelector, anaconda_spoke_selector, GTK_TYPE_EVENT_BOX
 static void anaconda_spoke_selector_get_property(GObject *object, guint prop_id, GValue *value, GParamSpec *pspec);
 static void anaconda_spoke_selector_set_property(GObject *object, guint prop_id, const GValue *value, GParamSpec *pspec);
 static void anaconda_spoke_selector_realize(GtkWidget *widget, gpointer user_data);
-static void anaconda_spoke_selector_finalize(AnacondaSpokeSelector *spoke);
+static void anaconda_spoke_selector_finalize(GObject *object);
 
 static gboolean anaconda_spoke_selector_focus_changed(GtkWidget *widget, GdkEventFocus *event, gpointer user_data);
 
@@ -81,7 +81,7 @@ static void anaconda_spoke_selector_class_init(AnacondaSpokeSelectorClass *klass
 
     object_class->set_property = anaconda_spoke_selector_set_property;
     object_class->get_property = anaconda_spoke_selector_get_property;
-    object_class->finalize = (GObjectFinalizeFunc) anaconda_spoke_selector_finalize;
+    object_class->finalize = anaconda_spoke_selector_finalize;
 
     /**
      * AnacondaSpokeSelector:icon:
@@ -301,8 +301,11 @@ static void anaconda_spoke_selector_init(AnacondaSpokeSelector *spoke) {
     gtk_container_add(GTK_CONTAINER(spoke), spoke->priv->grid);
 }
 
-static void anaconda_spoke_selector_finalize(AnacondaSpokeSelector *spoke) {
+static void anaconda_spoke_selector_finalize(GObject *object) {
+    AnacondaSpokeSelector *spoke = ANACONDA_SPOKE_SELECTOR(object);
     g_object_unref(spoke->priv->cursor);
+
+    G_OBJECT_CLASS(anaconda_spoke_selector_parent_class)->finalize(object);
 }
 
 static void anaconda_spoke_selector_get_property(GObject *object, guint prop_id, GValue *value, GParamSpec *pspec) {

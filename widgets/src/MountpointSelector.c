@@ -68,7 +68,7 @@ static void anaconda_mountpoint_selector_get_property(GObject *object, guint pro
 static void anaconda_mountpoint_selector_set_property(GObject *object, guint prop_id, const GValue *value, GParamSpec *pspec);
 
 static void anaconda_mountpoint_selector_realize(GtkWidget *widget, gpointer user_data);
-static void anaconda_mountpoint_selector_finalize(AnacondaMountpointSelector *widget);
+static void anaconda_mountpoint_selector_finalize(GObject *object);
 
 static void anaconda_mountpoint_selector_toggle_background(AnacondaMountpointSelector *widget);
 
@@ -77,7 +77,7 @@ static void anaconda_mountpoint_selector_class_init(AnacondaMountpointSelectorCl
 
     object_class->set_property = anaconda_mountpoint_selector_set_property;
     object_class->get_property = anaconda_mountpoint_selector_get_property;
-    object_class->finalize = (GObjectFinalizeFunc) anaconda_mountpoint_selector_finalize;
+    object_class->finalize = anaconda_mountpoint_selector_finalize;
 
     /**
      * AnacondaMountpointSelector:name:
@@ -234,8 +234,11 @@ static void anaconda_mountpoint_selector_init(AnacondaMountpointSelector *mountp
     gtk_container_add(GTK_CONTAINER(mountpoint), mountpoint->priv->grid);
 }
 
-static void anaconda_mountpoint_selector_finalize(AnacondaMountpointSelector *widget) {
+static void anaconda_mountpoint_selector_finalize(GObject *object) {
+    AnacondaMountpointSelector *widget = ANACONDA_MOUNTPOINT_SELECTOR(object);
     g_object_unref(widget->priv->cursor);
+
+    G_OBJECT_CLASS(anaconda_mountpoint_selector_parent_class)->finalize(object);
 }
 
 static void anaconda_mountpoint_selector_realize(GtkWidget *widget, gpointer user_data) {

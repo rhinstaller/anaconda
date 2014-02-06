@@ -81,7 +81,7 @@ static void anaconda_disk_overview_set_property(GObject *object, guint prop_id, 
 static void anaconda_disk_overview_toggle_background(AnacondaDiskOverview *widget);
 
 static void anaconda_disk_overview_realize(GtkWidget *widget, gpointer user_data);
-static void anaconda_disk_overview_finalize(AnacondaDiskOverview *widget);
+static void anaconda_disk_overview_finalize(GObject *object);
 
 static gboolean anaconda_disk_overview_focus_changed(GtkWidget *widget, GdkEventFocus *event, gpointer user_data);
 
@@ -90,7 +90,7 @@ static void anaconda_disk_overview_class_init(AnacondaDiskOverviewClass *klass) 
 
     object_class->set_property = anaconda_disk_overview_set_property;
     object_class->get_property = anaconda_disk_overview_get_property;
-    object_class->finalize = (GObjectFinalizeFunc) anaconda_disk_overview_finalize;
+    object_class->finalize = anaconda_disk_overview_finalize;
 
     /**
      * AnacondaDiskOverview:kind:
@@ -349,8 +349,11 @@ static void anaconda_disk_overview_toggle_background(AnacondaDiskOverview *widge
     gtk_widget_show(widget->priv->kind_icon);
 }
 
-static void anaconda_disk_overview_finalize(AnacondaDiskOverview *widget) {
+static void anaconda_disk_overview_finalize(GObject *object) {
+    AnacondaDiskOverview *widget = ANACONDA_DISK_OVERVIEW(object);
     g_object_unref(widget->priv->cursor);
+
+    G_OBJECT_CLASS(anaconda_disk_overview_parent_class)->finalize(object);
 }
 
 static void anaconda_disk_overview_realize(GtkWidget *widget, gpointer user_data) {
