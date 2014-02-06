@@ -22,12 +22,16 @@
 import os
 import sys
 import argparse
+import time
 import rpm
 import rpmUtils
 import yum
 from urlgrabber.grabber import URLGrabError
+from pyanaconda.iutil import xprogressive_delay
 
 YUM_PLUGINS = ["fastestmirror", "langpacks"]
+
+MAX_DOWNLOAD_RETRIES = 10
 
 def setup_parser():
     """ Setup argparse with supported arguments
@@ -111,12 +115,28 @@ def run_yum_transaction(release, arch, yum_conf, install_root, ts_file, script_l
             yb.ts.ts.setColor(3)
 
         print("DEBUG: populate transaction set")
-        try:
-            # uses dsCallback.transactionPopulation
-            yb.populateTs(keepold=0)
-        except RepoError as e:
-            print("ERROR: error populating transaction: %s" % e)
-            print("QUIT:")
+        xdelay = xprogressive_delay()
+
+        for retry_count in xrange(0, MAX_DOWNLOAD_RETRIES+1):
+            # retry count == 0 -> first attempt
+            # retry count > 0  -> retry
+            if retry_count:
+                # retry after waiting a bit
+                time.sleep(xdelay.next())
+                print("DEBUG: error populating transaction, retrying (%d/%d)"
+                      % (retry_count, MAX_DOWNLOAD_RETRIES))
+            try:
+                # uses dsCallback.transactionPopulation
+                yb.populateTs(keepold=0)
+                break
+            except RepoError as e:
+                continue
+        else:
+            # else = no break called = no successful attempt
+            print("ERROR: error populating transaction after %d retries: %s"
+                  % (retry_count, e))
+            # we don't need to print "QUIT:" there, the finally clause
+            # of the toplevel try-block will do that for us
             return
 
         print("DEBUG: check transaction set")
@@ -260,7 +280,18 @@ class RPMCallback(object):
             raise Exception("rpmcallback getRepo failed")
 
         self.package_file = None
-        while self.package_file is None:
+        retry_message = ""
+        error_message = ""
+        exception_message = ""
+        xdelay = xprogressive_delay()
+
+        for retry_count in xrange(0, MAX_DOWNLOAD_RETRIES+1):
+            # retry count == 0 -> first attempt
+            # retry count > 0  -> retry
+            if retry_count and retry_message:
+                time.sleep(xdelay.next())  # wait a bit before retry
+                print("DEBUG: %s (%d/%d)" % (retry_message, retry_count, MAX_DOWNLOAD_RETRIES))
+
             try:
                 # checkfunc gets passed to yum's use of URLGrabber which
                 # then calls it with the file being fetched. verifyPkg
@@ -276,21 +307,47 @@ class RPMCallback(object):
                 if self.debug:
                     print("DEBUG: getPackage %s" % txmbr.name)
                 package_path = repo.getPackage(txmbr.po, checkfunc=checkfunc)
+                break
             except URLGrabError as e:
-                print("ERROR: URLGrabError: %s" % e)
-                raise Exception("rpmcallback failed")
-            except (yum.Errors.NoMoreMirrorsRepoError, IOError) as e:
-                if os.path.exists(txmbr.po.localPkg()):
-                    os.unlink(txmbr.po.localPkg())
-                    print("DEBUG: retrying download of %s" % txmbr.po)
-                    continue
-                print("ERROR: getPackage error: %s" % e)
-                raise Exception("getPackage failed")
-            except yum.Errors.RepoError as e:
-                print("DEBUG: RepoError: %s" % e)
-                continue
+                if retry_count < MAX_DOWNLOAD_RETRIES:
+                    retry_message = "rpmcallback failed (URLGrabError), retrying"
+                else:
+                    # run out of retries
+                    error_message = "rpmcallback failed (URLGrabError) after %d retries: %s" % \
+                                    (retry_count, e)
+                    exception_message = "rpmcallback failed"
 
-            self.package_file = open(package_path)
+            except (yum.Errors.NoMoreMirrorsRepoError, IOError) as e:
+                # for some reason, this is the exception you will get if
+                # the package file you want to download vanishes, not URLGrabError
+
+                if retry_count < MAX_DOWNLOAD_RETRIES:
+                    retry_message = "retrying download of %s" % txmbr.po
+                    # remove any unfinished downloads of this package
+                    if os.path.exists(txmbr.po.localPkg()):
+                        os.unlink(txmbr.po.localPkg())
+                else:
+                    # run out of retries
+                    error_message = "getPackage error after %d retries: %s" % \
+                                    (retry_count, e)
+                    exception_message = "getPackage failed"
+
+            except yum.Errors.RepoError as e:
+                if retry_count < MAX_DOWNLOAD_RETRIES:
+                    retry_message = "RepoError, retrying: %s" % e
+                else:
+                    # run out of retries
+                    error_message = "RepoError after %d retries: %s" % \
+                                    (retry_count, e)
+                    exception_message = "too many (%d) consecutive repo errors" % \
+                                        retry_count
+
+        else:  # report what went wrong & abort installation
+            print("ERROR: %s" % error_message)
+            raise Exception(exception_message)
+
+        # if we got this far, there should be a package available
+        self.package_file = open(package_path)
 
         if self.debug:
             print("DEBUG: opening package %s" % self.package_file.name)
