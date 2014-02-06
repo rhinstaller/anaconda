@@ -379,9 +379,6 @@ class StorageSpoke(NormalSpoke, StorageChecker):
             self.data.bootloader.bootDrive = ""
         else:
             if self.autopart:
-                # this was already run as part of doAutoPartition. dumb.
-                StorageChecker.errors = []
-                StorageChecker.warnings = []
                 self.run()
         finally:
             self._ready = True
