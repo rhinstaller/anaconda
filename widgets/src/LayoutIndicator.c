@@ -59,7 +59,9 @@ struct _AnacondaLayoutIndicatorPrivate {
     GdkCursor *cursor;
     XklConfigRec *config_rec;
     gulong state_changed_handler_id;
+    gboolean state_changed_handler_id_set;
     gulong config_changed_handler_id;
+    gboolean config_changed_handler_id_set;
 };
 
 G_DEFINE_TYPE(AnacondaLayoutIndicator, anaconda_layout_indicator, GTK_TYPE_EVENT_BOX)
@@ -198,9 +200,11 @@ static void anaconda_layout_indicator_init(AnacondaLayoutIndicator *self) {
     self->priv->state_changed_handler_id = g_signal_connect(klass->engine, "X-state-changed",
                                                               G_CALLBACK(x_state_changed),
                                                               g_object_ref(self));
+    self->priv->state_changed_handler_id_set = TRUE;
     self->priv->config_changed_handler_id = g_signal_connect(klass->engine, "X-config-changed",
                                                              G_CALLBACK(x_config_changed),
                                                              g_object_ref(self));
+    self->priv->config_changed_handler_id_set = TRUE;
 
     /* init layout attribute with the current layout */
     self->priv->layout = get_current_layout(klass->engine, self->priv->config_rec);
@@ -238,8 +242,17 @@ static void anaconda_layout_indicator_dispose(GObject *object) {
     AnacondaLayoutIndicatorClass *klass = ANACONDA_LAYOUT_INDICATOR_GET_CLASS(self);
 
     /* disconnect signals (XklEngine will outlive us) */
-    g_signal_handler_disconnect(klass->engine, self->priv->state_changed_handler_id);
-    g_signal_handler_disconnect(klass->engine, self->priv->config_changed_handler_id);
+    if (self->priv->state_changed_handler_id_set)
+    {
+        g_signal_handler_disconnect(klass->engine, self->priv->state_changed_handler_id);
+        self->priv->state_changed_handler_id_set = FALSE;
+    }
+
+    if (self->priv->config_changed_handler_id_set)
+    {
+        g_signal_handler_disconnect(klass->engine, self->priv->config_changed_handler_id);
+        self->priv->config_changed_handler_id_set = FALSE;
+    }
 
     /* unref all objects we reference (may be called multiple times) */
     if (self->priv->layout_label) {
@@ -258,6 +271,8 @@ static void anaconda_layout_indicator_dispose(GObject *object) {
         g_free(self->priv->layout);
         self->priv->layout = NULL;
     }
+
+    G_OBJECT_CLASS(anaconda_layout_indicator_parent_class)->dispose(object);
 }
 
 static void anaconda_layout_indicator_realize(GtkWidget *widget, gpointer data) {
