@@ -29,6 +29,8 @@ from pyanaconda.ui.tui.simpleline import TextWidget, CheckboxWidget
 from pykickstart.constants import AUTOPART_TYPE_LVM, AUTOPART_TYPE_BTRFS, AUTOPART_TYPE_PLAIN
 from blivet.size import Size
 from blivet.errors import StorageError
+from blivet.errors import SanityError
+from blivet.errors import SanityWarning
 from blivet.devices import DASDDevice, FcoeDiskDevice, iScsiDiskDevice, MultipathDevice, ZFCPDiskDevice
 from pyanaconda.flags import flags
 from pyanaconda.kickstart import doKickstartStorage
@@ -304,14 +306,17 @@ class StorageSpoke(NormalTUISpoke):
             self._ready = True
         else:
             print(_("Checking storage configuration..."))
-            (self.errors, self.warnings) = self.storage.sanityCheck()
+            exns = self.storage.sanityCheck()
+            errors = [exn.message for exn in exns if isinstance(exn, SanityError)]
+            warnings = [exn.message for exn in exns if isinstance(exn, SanityWarning)]
+            (self.errors, self.warnings) = (errors, warnings)
             self._ready = True
             for e in self.errors:
                 log.error(e)
-                print e
+                print(e)
             for w in self.warnings:
-                log.warn(w)
-                print w
+                log.warning(w)
+                print(w)
 
     def initialize(self):
         NormalTUISpoke.initialize(self)
