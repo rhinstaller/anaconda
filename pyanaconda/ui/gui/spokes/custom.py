@@ -64,6 +64,9 @@ from blivet.errors import StorageError
 from blivet.errors import NoDisksError
 from blivet.errors import NotEnoughFreeSpaceError
 from blivet.errors import SizeParamsError
+from blivet.errors import SanityError
+from blivet.errors import SanityWarning
+from blivet.errors import LUKSDeviceWithoutKeyError
 from blivet.devicelibs import mdraid
 from blivet.devices import LUKSDevice
 
@@ -2644,7 +2647,13 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
             self._removeButton.set_sensitive(True)
 
     def _do_autopart(self):
-        # There are never any non-existent devices around when this runs.
+        """Helper function for on_create_clicked.
+           Assumes a non-final context in which at least some errors
+           discovered by sanityCheck are not considered fatal because they
+           will be dealt with later.
+
+           Note: There are never any non-existent devices around when this runs.
+        """
         log.debug("running automatic partitioning")
         self.__storage.doAutoPart = True
         self.clear_errors()
@@ -2679,6 +2688,23 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
             finally:
                 self.__storage.doAutoPart = False
                 log.debug("finished automatic partitioning")
+
+            exns = self.__storage.sanityCheck()
+            errors = [exn for exn in exns if isinstance(exn, SanityError) and not isinstance(exn, LUKSDeviceWithoutKeyError)]
+            warnings = [exn for exn in exns if isinstance(exn, SanityWarning)]
+            for error in errors:
+                log.error(error.message)
+            for warning in warnings:
+                log.warning(warning.message)
+
+            if errors:
+                messages = "\n".join(error.message for error in errors)
+                log.error("doAutoPartition failed: %s", messages)
+                self._reset_storage()
+                self._error = messages
+                self.set_error(_("Automatic partitioning failed. Click "
+                                 "for details."))
+                self.window.show_all()
 
     def on_create_clicked(self, button, autopartTypeCombo):
         # Then do autopartitioning.  We do not do any clearpart first.  This is
