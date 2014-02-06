@@ -57,6 +57,8 @@ from pyanaconda.kickstart import doKickstartStorage, getAvailableDiskSpace
 from blivet.size import Size
 from blivet.devices import MultipathDevice
 from blivet.errors import StorageError
+from blivet.errors import SanityError
+from blivet.errors import SanityWarning
 from blivet.platform import platform
 from blivet.devicelibs import swap as swap_lib
 from pyanaconda.threads import threadMgr, AnacondaThread
@@ -217,6 +219,11 @@ class InstallOptions2Dialog(InstallOptionsDialogBase):
         self._add_modify_watcher("options2_label1")
 
 class StorageChecker(object):
+    """An abstract class for logging storage errors and warnings.
+
+       Treats all errors as strings, so they are not very informative about
+       their meaning.
+    """
     errors = []
     warnings = []
     _mainSpokeClass = "StorageSpoke"
@@ -230,13 +237,15 @@ class StorageChecker(object):
 
         hubQ.send_not_ready(self._mainSpokeClass)
         hubQ.send_message(self._mainSpokeClass, _("Checking storage configuration..."))
-        (StorageChecker.errors,
-         StorageChecker.warnings) = self.storage.sanityCheck()
+        exns = self.storage.sanityCheck()
+        errors = [exn.message for exn in exns if isinstance(exn, SanityError)]
+        warnings = [exn.message for exn in exns if isinstance(exn, SanityWarning)]
+        (StorageChecker.errors, StorageChecker.warnings) = (errors, warnings)
         hubQ.send_ready(self._mainSpokeClass, True)
         for e in StorageChecker.errors:
             log.error(e)
         for w in StorageChecker.warnings:
-            log.warn(w)
+            log.warning(w)
 
 class StorageSpoke(NormalSpoke, StorageChecker):
     builderObjects = ["storageWindow", "addSpecializedImage"]
