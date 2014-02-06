@@ -242,6 +242,7 @@ class Authconfig(commands.authconfig.FC3_Authconfig):
 class AutoPart(commands.autopart.F20_AutoPart):
     def execute(self, storage, ksdata, instClass):
         from blivet.partitioning import doAutoPartition
+        from blivet.partitioning import sanityCheck
 
         if not self.autopart:
             return
@@ -262,6 +263,7 @@ class AutoPart(commands.autopart.F20_AutoPart):
             storage.autoPartType = self.type
 
         doAutoPartition(storage, ksdata)
+        sanityCheck(storage)
 
 class Bootloader(commands.bootloader.F19_Bootloader):
     def __init__(self, *args, **kwargs):
