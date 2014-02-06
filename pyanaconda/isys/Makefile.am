@@ -19,7 +19,7 @@
 
 pkgpyexecdir = $(pyexecdir)/py$(PACKAGE_NAME)
 
-ISYS_SRCS = devices.c isofs.c
+ISYS_SRCS = isofs.c
 
 dist_noinst_HEADERS = $(srcdir)/*.h
 
