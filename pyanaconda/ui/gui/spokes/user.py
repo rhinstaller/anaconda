@@ -585,7 +585,7 @@ class UserSpoke(FirstbootSpokeMixIn, NormalSpoke, GUISpokeInputCheckHandler):
         # If there is no user set, skip the checks
         if not self.username.get_text():
             for check in self.checks:
-                check.disable()
+                check.enabled = False
 
         if GUISpokeInputCheckHandler.on_back_clicked(self, button):
             NormalSpoke.on_back_clicked(self, button)
