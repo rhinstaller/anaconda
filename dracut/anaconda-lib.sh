@@ -230,17 +230,10 @@ run_kickstart() {
     done
 
     # Run the driver update UI for disks
-    if [ -e "/tmp/dd_ks" ]; then
+    if [ -e "/tmp/dd_args_ks" ]; then
         # TODO: Seems like this should be a function, a mostly same version is used in 3 places
-        tty=$(find_tty)
-
-        # save module state
-        cat /proc/modules > /tmp/dd_modules
-
-        info "Starting Kickstart Driver Update Disk Service on $tty"
-        systemctl start driver-updates@$tty.service
-        status=$(systemctl -p ExecMainStatus show driver-updates@$tty.service)
-        info "DD status=$status"
+        start_driver_update "Kickstart Driver Update Disk"
+        rm /tmp/dd_args_ks
     fi
 
     # replay udev events to trigger actions
@@ -263,4 +256,18 @@ wait_for_kickstart() {
 
 wait_for_updates() {
     echo "[ -e /tmp/liveupdates.done ]" > $hookdir/initqueue/finished/updates.sh
+}
+
+start_driver_update() {
+    local title="$1"
+
+    tty=$(find_tty)
+
+    # save module state
+    cat /proc/modules > /tmp/dd_modules
+
+    info "Starting $title Service on $tty"
+    systemctl start driver-updates@$tty.service
+    status=$(systemctl -p ExecMainStatus show driver-updates@$tty.service)
+    info "DD status=$status"
 }
