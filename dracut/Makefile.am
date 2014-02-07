@@ -43,7 +43,6 @@ dist_dracut_SCRIPTS = module-setup.sh \
 		      parse-anaconda-dd.sh \
 		      fetch-driver-net.sh \
 		      driver-updates@.service \
-		      driver-updates-net@.service \
 		      driver-updates.sh \
 		      driver-updates-net.sh \
 		      anaconda-depmod.sh \
