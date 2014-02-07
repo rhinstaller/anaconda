@@ -664,6 +664,12 @@ class StorageSpoke(NormalSpoke, StorageChecker):
             return False
 
         self.passphrase = dialog.passphrase
+
+        for device in self.storage.devices:
+            if device.format.type == "luks" and not device.format.exists:
+                if not device.format.hasKey:
+                    device.format.passphrase = self.passphrase
+
         return True
 
     def on_back_clicked(self, button):
