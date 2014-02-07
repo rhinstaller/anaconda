@@ -23,6 +23,7 @@ Driver Update Disk UI
 /tmp/dd_modules is a copy of /proc/modules at startup time
 /tmp/dd_args is a parsed list of the inst.dd= cmdline args, and may include
              'dd' or 'inst.dd' if it was specified without arguments
+/tmp/dd_args_ks is the same format, but skips processing existing OEMDRV devices.
 
 Pass a path and it will install the driver rpms from the path before checking
 for new OEMDRV devices.
@@ -110,19 +111,24 @@ def is_dd(dd_path):
 
 
 def get_dd_args():
-    """ Get the dd arguments from /tmp/dd_args
+    """ Get the dd arguments from /tmp/dd_args or /tmp/dd_args_ks
 
         :returns: List of arguments
         :rtype:   list of strings
     """
-    try:
-        dd_args = open("/tmp/dd_args", "r").readline().split()
-    except IOError:
-        return []
-
-    # skip dd args that need networking
     net_protocols = ["http", "https", "ftp", "nfs", "nfs4"]
-    return filter(lambda x: x.split(":")[0].lower() not in net_protocols, dd_args)
+    args = []
+    for dd_args_file in ["/tmp/dd_args", "/tmp/dd_args_ks"]:
+        if not os.path.exists(dd_args_file):
+            continue
+        try:
+            dd_args = open(dd_args_file, "r").readline().split()
+        except IOError:
+            return []
+
+        # skip dd args that need networking
+        args.extend(filter(lambda x: x.split(":")[0].lower() not in net_protocols, dd_args))
+    return args
 
 
 def is_interactive():
@@ -141,10 +147,13 @@ def is_interactive():
 def umount(device):
     """ Unmount the device
 
-        :param device: Device to unmount
+        :param device: Device or mountpoint to unmount
         :type device:  string
         :returns:      None
     """
+    if not device:
+        return
+
     try:
         run_cmd(["umount", device])
     except (OSError, RunCmdError):
@@ -588,8 +597,8 @@ def network_driver(dd_path):
 
     # TODO: May need to add new drivers to /tmp/dd_modules to prevent them from being unloaded
 
-    # Scan for new OEMDRV devices
-    dd_scan(skip_dds)
+    # Scan for new OEMDRV devices and ignore dd_args
+    dd_scan(skip_dds, False)
 
 class DeviceInfo(object):
     def __init__(self, device, label, uuid, fs_type):
@@ -653,12 +662,14 @@ def select_iso():
 
     return ("/media/DD-search/" + dd_iso, "/media/DD-search")
 
-def dd_scan(skip_dds=None):
+def dd_scan(skip_dds=None, scan_dd_args=True):
     """ Scan the system for OEMDRV devices and and specified by dd=/dev/<device>
 
-        :param skip_dds: devices to skip when checking for OEMDRV label
-        :type skip_dds:  set()
-        :returns:        None
+        :param skip_dds:     devices to skip when checking for OEMDRV label
+        :type skip_dds:      set()
+        :param scan_dd_args: Scan devices passed in /tmp/dd_args or dd_args_ks
+        :type scan_dd_args:  bool
+        :returns:            None
     """
     if skip_dds:
         dd_finished = skip_dds
@@ -669,6 +680,7 @@ def dd_scan(skip_dds=None):
         dd_finished = set()
         dd_todo = set(oemdrv_list())
 
+    if scan_dd_args:
         # Add the user specified devices
         dd_devs = get_dd_args()
         dd_devs = [dev for dev in dd_devs if dev not in ("dd", "inst.dd")]
@@ -676,7 +688,7 @@ def dd_scan(skip_dds=None):
         log.info("Checking devices %s", ", ".join(dd_todo))
 
     mount_point = None
-    if not dd_todo:
+    if not dd_todo and is_interactive():
         iso, mount_point = select_iso()
         if iso:
             dd_todo.add(iso)
@@ -705,7 +717,19 @@ if __name__ == '__main__':
     log.addHandler(handler)
 
     if len(sys.argv) > 1:
+        # Network driver source
         network_driver(sys.argv[1])
+    elif os.path.exists("/tmp/DD-net/"):
+        network_driver("/tmp/DD-net/")
+    elif os.path.exists("/tmp/dd_args_ks"):
+        # Kickstart driverdisk command, skip existing OEMDRV devices and
+        # process cmdline dd entries. This will process any OEMDRV that
+        # appear after loading the other drivers.
+        skip_dds = set(oemdrv_list())
+        dd_scan(skip_dds)
     else:
+        # Process /tmp/dd_args and OEMDRV devices
         dd_scan()
+
+    sys.exit(0)
 
