@@ -91,13 +91,23 @@ class MediaCheck(commands.mediacheck.FC4_MediaCheck):
 
 class DriverDisk(commands.driverdisk.F14_DriverDisk):
     def dracut_args(self, args, lineno, obj):
-        dd = self.driverdiskList[-1]
-        if dd.biospart:
-            location = "bd:%s" % dd.biospart
-        else:
-            location = dd.partition or dd.source
-        if location:
-            return "inst.driverdisk=%s" % location
+        dd_net = []
+        dd_disk = []
+        for dd in self.driverdiskList:
+            if dd.partition:
+                dd_disk.append(dd.partition)
+            elif dd.source:
+                dd_net.append("inst.dd=%s" % dd.source)
+
+        # disk sources cannot be added to cmdline because the initial
+        # driver-update run has already finished.
+        if dd_disk:
+            with open("/tmp/dd_args_ks", "w") as f:
+                f.write(" ".join(dd_disk))
+
+        # network sources can be added to the existing cmdline, they
+        # are processed later.
+        return "\n".join(dd_net)
 
 class Network(commands.network.F20_Network):
     def dracut_args(self, args, lineno, net):
