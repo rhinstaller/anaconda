@@ -255,6 +255,43 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Fri Feb 07 2014 Brian C. Lane <bcl@redhat.com> - 19.31.57-1
+- driverdisk: Use a single systemd service to start DD UI (bcl)
+  Related: rhbz#1035663
+- driverdisk: Add dd_args_ks handling to driver-updates (bcl)
+  Resolves: rhbz#1035663
+- driverdisk: Process kickstart driverdisk commands (bcl)
+  Related: rhbz#1035663
+- driverdisk: Handle kickstart driverdisk command (bcl)
+  Related: rhbz#1035663
+- driverdisk: Use getargs instead of the env variable (bcl)
+  Related: rhbz#1035663
+- If a user has been created, don't allow entering the user spoke (clumens).
+  Resolves: rhbz#1058564
+- Fix crashes in the LayoutIndicator dispose function. (dshea)
+  Resolves: rhbz#1061206
+- Add support for fcoe --autovlan option (rvykydal)
+  Resolves: rhbz#1055779
+- Require systemd (dshea)
+  Resolves: rhbz#1060823
+- Remove the now-unused anaconda_spoke_header.png. (clumens)
+  Related: rhbz#1045250
+- Minor aesthetic cleanups (duffy).
+  Resolves: rhbz#1045250
+- Add a topbar design to SpokeWindows. (duffy)
+  Resolves: rhbz#1045250
+- Prevent kickstart parsing errors from ending up in boot options (mkolman)
+  Resolves: rhbz#1060184
+- Add a sidebar to the standalone and hub windows (duffy)
+  Resolves: rhbz#1045250
+- Allow specifying an environment in the kickstart file (clumens).
+  Resolves: rhbz#1050994
+- The autopart scheme combo should work for creating partitions manually, too.
+  (clumens)
+  Related: rhbz#1014671
+- Global screenshot support (mkolman)
+  Related: rhbz#1025038
+
 * Tue Feb 04 2014 Brian C. Lane <bcl@redhat.com> - 19.31.56-1
 - Add option help text for --image and --dirinstall flags (amulhern)
   Resolves: rhbz#1056791
