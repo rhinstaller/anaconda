@@ -725,8 +725,8 @@ if __name__ == '__main__':
         # Kickstart driverdisk command, skip existing OEMDRV devices and
         # process cmdline dd entries. This will process any OEMDRV that
         # appear after loading the other drivers.
-        skip_dds = set(oemdrv_list())
-        dd_scan(skip_dds)
+        skip_devices = set(oemdrv_list())
+        dd_scan(skip_devices)
     else:
         # Process /tmp/dd_args and OEMDRV devices
         dd_scan()
