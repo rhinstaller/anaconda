@@ -91,6 +91,11 @@ class SummaryHub(TUIHub):
             log.error("CmdlineError: %s", errtxt)
             raise CmdlineError(errtxt)
 
+        # if we ever need to halt the flow of a ks install to prompt users for
+        # input, flip off the automatedInstall flag -- this way installation
+        # does not automatically proceed once all spokes are complete, and a
+        # user must confirm they want to begin installation
+        flags.automatedInstall = False
 
         # override the default prompt since we want to offer the 'b' to begin
         # installation option here
