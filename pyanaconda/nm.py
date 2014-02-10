@@ -68,6 +68,12 @@ class UnknownMethodGetError(Exception):
     def __str__(self):
         return self.__repr__()
 
+# bug #1062417 e.g. for ethernet device without link
+class UnknownConnectionError(Exception):
+    """Connection is not available for the device"""
+    def __str__(self):
+        return self.__repr__()
+
 def _get_proxy(bus_type=Gio.BusType.SYSTEM,
                flags=Gio.DBusProxyFlags.NONE,
                info=None,
@@ -732,6 +738,7 @@ def nm_activate_device_connection(dev_name, con_uuid):
        :raise UnmanagedDeviceError: if device is not managed by NM
                                     or unavailable
        :raise SettingsNotFoundError: if conneciton with given uuid was not found
+       :raise UnknownConnectionError: if connection is not available for the device
     """
 
     if dev_name is None:
@@ -756,6 +763,8 @@ def nm_activate_device_connection(dev_name, con_uuid):
     except GLib.GError as e:
         if "org.freedesktop.NetworkManager.UnmanagedDevice" in e.message:
             raise UnmanagedDeviceError(dev_name, e)
+        elif "org.freedesktop.NetworkManager.UnknownConnection" in e.message:
+            raise UnknownConnectionError(dev_name, e)
         raise
 
 def nm_add_connection(values):

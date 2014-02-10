@@ -196,7 +196,7 @@ class NetworkSpoke(EditTUISpoke):
                 uuid = nm.nm_device_setting_value(devname, "connection", "uuid")
                 try:
                     nm.nm_activate_device_connection(devname, uuid)
-                except nm.UnmanagedDeviceError:
+                except (UnmanagedDeviceError, UnknownConnectionError):
                     self.errors.append(_("Can't apply configuration, device activation failed."))
 
             self.apply()
