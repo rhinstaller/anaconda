@@ -97,13 +97,14 @@ def localized_string_of_device_state(device, state):
             str = _("Unavailable")
         elif device.get_firmware_missing():
             str = _("Firmware missing")
-        elif (device.get_device_type() == NetworkManager.DeviceType.ETHERNET
-              and not device.get_carrier()):
-            str = _("Cable unplugged")
         else:
             str = _("Unavailable")
     elif state == NetworkManager.DeviceState.DISCONNECTED:
-        str = _("Disconnected")
+        if (device.get_device_type() == NetworkManager.DeviceType.ETHERNET
+              and not device.get_carrier()):
+            str = _("Cable unplugged")
+        else:
+            str = _("Disconnected")
     elif state in (NetworkManager.DeviceState.PREPARE,
                    NetworkManager.DeviceState.CONFIG,
                    NetworkManager.DeviceState.IP_CONFIG,
@@ -591,7 +592,7 @@ class NetworkControlBox(GObject.GObject):
                     return
                 try:
                     nm.nm_activate_device_connection(dev_name, dev_cfg.con_uuid)
-                except (nm.UnmanagedDeviceError, nm.UnknownDeviceError) as e:
+                except (nm.UnmanagedDeviceError, nm.UnknownDeviceError, nm.UnknownConnectionError) as e:
                     log.debug("network: on_device_off_toggled: %s" % e)
             else:
                 try:

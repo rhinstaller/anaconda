@@ -27,7 +27,7 @@ from pyanaconda.ui.tui.spokes import EditTUISpokeEntry as Entry
 from pyanaconda.ui.tui.simpleline import TextWidget, ColumnWidget
 from pyanaconda.i18n import N_, _
 from pyanaconda import network
-from pyanaconda.nm import nm_activated_devices, nm_state, nm_devices, nm_device_type_is_ethernet, nm_device_ip_config, nm_activate_device_connection, nm_device_setting_value, UnmanagedDeviceError
+from pyanaconda.nm import nm_activated_devices, nm_state, nm_devices, nm_device_type_is_ethernet, nm_device_ip_config, nm_activate_device_connection, nm_device_setting_value, UnmanagedDeviceError, UnknownConnectionError
 
 # pylint: disable-msg=E0611
 from gi.repository import NetworkManager
@@ -195,7 +195,7 @@ class NetworkSpoke(EditTUISpoke):
                 uuid = nm_device_setting_value(devname, "connection", "uuid")
                 try:
                     nm_activate_device_connection(devname, uuid)
-                except UnmanagedDeviceError:
+                except (UnmanagedDeviceError, UnknownConnectionError):
                     self.errors.append(_("Can't apply configuration, device activation failed."))
 
             self.apply()
