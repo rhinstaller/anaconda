@@ -1350,6 +1350,13 @@ reposdir=%s
             return
 
         if errorHandler.cb(exn, str(exn)) == ERROR_RAISE:
+            if flags.automatedInstall and not flags.ksprompt:
+                # If we're doing non-interactive ks install, raise CmdlineError
+                # otherwise the system will just reboot automatically
+                errtxt = _("CmdlineError: Missing package: %s" % str(exn))
+                log.error(errtxt)
+                raise CmdlineError(errtxt)
+
             # The progress bar polls kind of slowly, thus installation could
             # still continue for a bit before the quit message is processed.
             # Let's sleep forever to prevent any further actions and wait for
