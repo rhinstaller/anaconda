@@ -2486,18 +2486,23 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
                 container.format.label = self._device_container_name
 
         container_exists = getattr(container, "exists", False)
+        found = None
+
         for idx, data in enumerate(self._containerStore):
             # we're looking for the original vg name
             if data[0] == container_name:
-                self._containerStore.remove(idx)
-
                 c = self.__storage.devicetree.getDeviceByName(self._device_container_name)
                 freeSpace = self._device_container_name.getattr(c, "freeSpace", None)
 
                 self._containerStore.insert(idx, self._container_store_row(freeSpace))
                 self._containerCombo.set_active(idx)
                 self._modifyContainerButton.set_sensitive(not container_exists)
+
+                found = idx
                 break
+
+        if found:
+            self._containerStore.remove(self._containerStore.get_iter_from_string("%s" % found))
 
         self._update_selectors()
 
