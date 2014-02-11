@@ -30,6 +30,7 @@ import logging
 import multiprocessing
 import pyanaconda.constants as constants
 import pyanaconda.errors as errors
+import pyanaconda.iutil
 import pyanaconda.packaging as packaging
 import sys
 import time
@@ -49,6 +50,14 @@ except ImportError as e:
 
 DEFAULT_REPOS = [constants.productName.lower(), "rawhide"]
 DNF_CACHE_DIR = '/tmp/dnf.cache'
+DNF_PACKAGE_CACHE_DIR_SUFFIX = 'dnf.package.cache'
+DOWNLOAD_MPOINTS = {'/tmp',
+                    '/',
+                    '/mnt/sysimage',
+                    '/mnt/sysimage/home',
+                    '/mnt/sysimage/tmp',
+                    '/mnt/sysimage/var',
+                    }
 REPO_DIRS = ['/etc/yum.repos.d',
              '/etc/anaconda.repos.d',
              '/tmp/updates/anaconda.repos.d',
@@ -58,6 +67,40 @@ def _failure_limbo():
     progressQ.send_quit(1)
     while True:
         time.sleep(10000)
+
+def _df_map():
+    """Return (mountpoint -> size available) mapping."""
+    output = pyanaconda.iutil.execWithCapture('df', ['--output=target,avail'])
+    output = output.rstrip()
+    lines = output.splitlines()
+    structured = {}
+    for line in lines:
+        items = line.split()
+        key = items[0]
+        val = items[1]
+        if not key.startswith('/'):
+            continue
+        structured[key] = Size(bytes=int(val)*1024)
+    return structured
+
+def _pick_mpoint(df, requested):
+    def reasonable_mpoint(mpoint):
+        return mpoint in DOWNLOAD_MPOINTS
+
+    # reserve extra
+    requested = requested + Size(en_spec="150 MB")
+    sufficients = {key : val for (key,val) in df.items() if val > requested
+                   and reasonable_mpoint(key)}
+    log.info('Sufficient mountpoints found: %s' % sufficients)
+
+    # prefer /tmp:
+    if '/tmp' in sufficients:
+        return '/tmp'
+    if not len(sufficients):
+        return None
+    # default to the biggest one:
+    return sorted(sufficients.iteritems(), key=operator.itemgetter(1),
+                  reverse=True)[0][0]
 
 class PayloadRPMDisplay(dnf.output.LoggingTransactionDisplay):
     def __init__(self, queue):
@@ -163,6 +206,15 @@ class DNFPayload(packaging.PackagePayload):
 
         conf.reposdir = REPO_DIRS
 
+    @property
+    def _download_space(self):
+        transaction = self._base.transaction
+        if transaction is None:
+            return Size(0)
+
+        size = sum(tsi.installed.downloadsize for tsi in transaction)
+        return Size(size)
+
     def _install_package(self, pkg_name):
         try:
             return self._base.install(pkg_name)
@@ -181,6 +233,20 @@ class DNFPayload(packaging.PackagePayload):
             # it can do anything else.
             progressQ.send_quit(1)
             sys.exit(1)
+
+    def _pick_download_location(self):
+        required = self._download_space
+        df_map = _df_map()
+        mpoint = _pick_mpoint(df_map, required)
+        log.info("Download space required: %s, use filesystem at: %s", required,
+                 mpoint)
+        if mpoint is None:
+            msg = "Not enough disk space to download the packages."
+            raise packaging.PayloadError(msg)
+
+        pkgdir = '%s/%s' % (mpoint, DNF_PACKAGE_CACHE_DIR_SUFFIX)
+        for repo in self._base.repos.iter_enabled():
+            repo.pkgdir = pkgdir
 
     def _select_group(self, group_id, default=True, optional=False):
         grp = self._base.comps.group_by_pattern(group_id)
@@ -345,7 +411,8 @@ class DNFPayload(packaging.PackagePayload):
             self._setupMedia(self.install_device)
         try:
             self.checkSoftwareSelection()
-        except packaging.DependencyError as e:
+            self._pick_download_location()
+        except packaging.PayloadError as e:
             if errors.errorHandler.cb(e) == errors.ERROR_RAISE:
                 _failure_limbo()
 
