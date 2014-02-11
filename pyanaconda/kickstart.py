@@ -1442,7 +1442,7 @@ class User(commands.user.F19_User):
             if ksdata.user.seen and kwargs.get("password", "") == "":
                 kwargs["password"] = None
             if not users.createUser(usr.name, **kwargs):
-                log.error("User %s already exists, not creating." % usr.name)
+                log.error("User %s already exists, not creating.", usr.name)
 
 class VolGroup(commands.volgroup.F20_VolGroup):
     def execute(self, storage, ksdata, instClass):
