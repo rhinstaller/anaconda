@@ -81,9 +81,9 @@ def fire_gtk_action(func, *args):
 
     @gtk_action_wait
     def gtk_action():
-        func(*args)
+        return func(*args)
 
-    gtk_action()
+    return gtk_action()
 
 def gtk_action_nowait(func):
     """Decorator method which ensures every call of the decorated function to be
