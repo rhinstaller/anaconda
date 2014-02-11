@@ -1435,7 +1435,14 @@ class User(commands.user.F19_User):
         for usr in self.userList:
             kwargs = usr.__dict__
             kwargs.update({"algo": algo, "root": ROOT_PATH})
-            users.createUser(usr.name, **kwargs)
+
+            # If the user password came from a kickstart and it is blank we
+            # need to make sure the account is locked, not created with an
+            # empty password.
+            if ksdata.user.seen and kwargs.get("password", "") == "":
+                kwargs["password"] = None
+            if not users.createUser(usr.name, **kwargs):
+                log.error("User %s already exists, not creating." % usr.name)
 
 class VolGroup(commands.volgroup.F20_VolGroup):
     def execute(self, storage, ksdata, instClass):
