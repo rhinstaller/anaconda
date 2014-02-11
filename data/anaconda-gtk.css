@@ -1,6 +1,6 @@
 /* vendor-specific colors/images */
 
-@define-color redhat #41413e;
+@define-color redhat #021519;
 @define-color fedora #006eb4;
 
 /* logo and sidebar classes for RHEL */
@@ -8,6 +8,7 @@
 .sidebar {
     background-image: url('/usr/share/anaconda/pixmaps/sidebar-bg.png');
     background-color: @redhat;
+    background-repeat: no-repeat;
 }
 
 .logo {
@@ -20,7 +21,7 @@
 AnacondaSpokeWindow #nav-box {
     background-color: @redhat;
     background-image: url('/usr/share/anaconda/pixmaps/topbar-bg.png');
-    background-repeat: repeat;
+    background-repeat: no-repeat;
     color: white;
 }
 
