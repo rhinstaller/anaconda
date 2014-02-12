@@ -42,6 +42,7 @@ from pyanaconda.threads import threadMgr
 from pyanaconda.i18n import _
 from pyanaconda import flags
 from pyanaconda import startup_utils
+from pyanaconda import product
 
 from gi.repository import GLib
 
@@ -262,6 +263,8 @@ def initExceptionHandling(anaconda):
     conf.register_callback("lsblk_output", lsblk_callback, attchmnt_only=True)
     conf.register_callback("nmcli_dev_list", nmcli_dev_list_callback,
                            attchmnt_only=True)
+
+    # provide extra information for libreport
     conf.register_callback("type", lambda: "anaconda", attchmnt_only=True)
     conf.register_callback("addons", list_addons_callback, attchmnt_only=False)
 
@@ -269,6 +272,9 @@ def initExceptionHandling(anaconda):
         # no syslog, grab output from journalctl and put it also to the
         # anaconda-tb file
         conf.register_callback("journalctl", journalctl_callback, attchmnt_only=False)
+
+    if not product.isFinal:
+        conf.register_callback("release_type", lambda: "pre-release", attchmnt_only=True)
 
     handler = AnacondaExceptionHandler(conf, anaconda.intf.meh_interface,
                                        ReverseExceptionDump, anaconda.intf.tty_num,
