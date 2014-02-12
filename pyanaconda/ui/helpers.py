@@ -252,15 +252,18 @@ class InputCheck(object):
 
     @property
     def enabled(self):
+        """Whether the check is enabled or not.
+
+           Disabling a check indicates that the status will not change if
+           the input changes. The value of check_status will be the result of
+           the last time the InputCheck was run when enabled. Disabled checks
+           will not be included in InputCheckHandler.failed_checks.
+        """
         return self._enabled
 
     @enabled.setter
     def enabled(self, value):
         self._enabled = value
-
-        # If disabling the check, clear the status
-        if not value:
-            self._check_status = None
 
 class InputCheckHandler(object):
     """Provide a framework for adding input validation checks to a screen.
@@ -349,7 +352,8 @@ class InputCheckHandler(object):
     @property
     def failed_checks(self):
         """A generator of all failed input checks"""
-        return (c for c in self._check_list if c.check_status != InputCheck.CHECK_OK)
+        return (c for c in self._check_list \
+                if c.enabled and c.check_status != InputCheck.CHECK_OK)
 
     @property
     def checks(self):
