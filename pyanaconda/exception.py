@@ -38,6 +38,7 @@ from pyanaconda.constants import ROOT_PATH, THREAD_EXCEPTION_HANDLING_TEST
 from pyanaconda.threads import threadMgr
 from pyanaconda.i18n import _
 from pyanaconda import flags
+from pyanaconda import product
 
 # pylint: disable-msg=E0611
 from gi.repository import GLib
@@ -246,7 +247,11 @@ def initExceptionHandling(anaconda):
     conf.register_callback("lsblk_output", lsblk_callback, attchmnt_only=True)
     conf.register_callback("nmcli_dev_list", nmcli_dev_list_callback,
                            attchmnt_only=True)
+
+    # provide extra information for libreport
     conf.register_callback("type", lambda: "anaconda", attchmnt_only=True)
+    if not product.isFinal:
+        conf.register_callback("release_type", lambda: "pre-release", attchmnt_only=True)
 
     handler = AnacondaExceptionHandler(conf, anaconda.intf.meh_interface,
                                        ReverseExceptionDump, anaconda.intf.tty_num)
