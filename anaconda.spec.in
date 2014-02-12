@@ -255,6 +255,54 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Feb 11 2014 Brian C. Lane <bcl@redhat.com> - 19.31.58-1
+- adding support for new rhel7 branding graphics (duffy)
+  Related: rhbz#1045250
+- Properly retry package downloads (mkolman)
+  Resolves: rhbz#924860
+- Mark language search string in welcome spoke translatable. (sbueno+anaconda)
+  Resolves: rhbz#955229
+- Automatically reboot after successful cmdline installation. (sbueno+anaconda)
+  Resolves: rhbz#1056507
+- dracut: add when_any_cdrom_appears for cdrom autoprobe (wwoods)
+  Resolves: rhbz#1049237
+- Update the Aarch64 packages to include efibootmgr (dmarlin)
+  Resolves: rhbz#1061927
+- kickstart user accounts should be locked by default (bcl)
+  Resolves: rhbz#1063554
+- Move save_netinfo into a hook (bcl)
+  Resolves: rhbz#1048231
+- Fix kickstart 'updates' command (wwoods)
+  Resolves: rhbz#999898
+- Make sure LUKS devices can say they have a key (amulhern)
+  Resolves: rhbz#1060255
+- Handle LUKS passphrase before doing sanity check (amulhern)
+  Resolves: rhbz#1060255
+- Remove some unnecessary resets (amulhern)
+  Related: rhbz#1060255
+- Do not consider no available LUKS passphrase an error in do_autopart
+  (amulhern)
+  Resolves: rhbz#1060255
+- Adapt to new blivet.sanityCheck() return type (amulhern)
+  Related: rhbz#1060255
+- Adapt StorageChecker class for changed return type of sanityCheck (amulhern)
+  Related: rhbz#1060255
+- Add sanityCheck functionality back into AutoPart.execute() (amulhern)
+  Related: rhbz#1060255
+- Bump blivet version for changed sanityCheck() interface (amulhern)
+  Related: rhbz#1060255
+- Removed unused ErrorRecoveryFailure import (amulhern)
+  Related: rhbz#1060255
+- network: adapt to changed handling of devices without carrier in NM
+  (rvykydal)
+  Resolves: rhbz#1062417
+- Once again fix cmdline error handling. (sbueno+anaconda)
+  Resolves: rhbz#1034773
+- On incomplete ks, don't automatically proceed with install. (sbueno+anaconda)
+  Resolves: rhbz#1034282
+- Add correct kernel params if rootfs is btrfs on s390x. (sbueno+anaconda)
+  Resolves: rhbz#874622
+
 * Fri Feb 07 2014 Brian C. Lane <bcl@redhat.com> - 19.31.57-1
 - driverdisk: Use a single systemd service to start DD UI (bcl)
   Related: rhbz#1035663
