@@ -95,7 +95,7 @@ Requires: python-blivet >= 0.41
 Requires: python-meh >= %{mehver}
 Requires: libreport-anaconda >= 2.0.21-1
 Requires: libselinux-python
-Requires: rpm-python >= %{rpmpythonver}
+Requires: rpm-python >= %{rpmver}
 Requires: parted >= %{partedver}
 Requires: pyparted >= %{pypartedver}
 Requires: yum >= %{yumver}
@@ -125,7 +125,7 @@ Requires: isomd5sum >= %{isomd5sum}
 Requires: yum-utils >= %{yumutilsver}
 Requires: NetworkManager >= %{nmver}
 Requires: dhclient
-Requires: libselinux-python >= %{libselinuxver}
+Requires: libselinux-python
 Requires: kbd
 Requires: chrony
 Requires: python-ntplib
