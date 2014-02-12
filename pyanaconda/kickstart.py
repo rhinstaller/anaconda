@@ -302,15 +302,22 @@ class Bootloader(commands.bootloader.F19_Bootloader):
         disk_names = [d.name for d in storage.disks
                       if not d.format.hidden and not d.protected and
                       (not blivet.arch.isS390() or not isinstance(d, blivet.devices.iScsiDiskDevice))]
+        diskSet = set(disk_names)
+
         for drive in self.driveorder[:]:
-            if drive not in disk_names:
+            matches = set(deviceMatches(drive))
+            if matches.isdisjoint(diskSet):
                 log.warning("requested drive %s in boot drive order doesn't exist or cannot be used" % drive)
                 self.driveorder.remove(drive)
 
         storage.bootloader.disk_order = self.driveorder
 
         if self.bootDrive:
-            if not self.bootDrive in disk_names:
+            matches = set(deviceMatches(self.bootDrive))
+            if len(matches) > 1:
+                raise KickstartValueError, formatErrorMsg(self.lineno,
+                        msg="Too many values provided for boot drive: %s" % self.bootDrive)
+            elif matches.isdisjoint(diskSet):
                 raise KickstartValueError, formatErrorMsg(self.lineno,
                         msg="Requested boot drive %s doesn't exist or cannot be used" % self.bootDrive)
         else:
