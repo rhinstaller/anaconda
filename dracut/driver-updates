@@ -601,15 +601,15 @@ def network_driver(dd_path):
     dd_scan(skip_dds, False)
 
 class DeviceInfo(object):
-    def __init__(self, device, label, uuid, fs_type):
+    def __init__(self, device=None, label=None, uuid=None, fs_type=None):
         self.device = device
         self.label = label
         self.uuid = uuid
         self.fs_type = fs_type
 
     def __str__(self):
-        return "%-10s %-6s %-15s %s" % (self.device, self.fs_type,
-                                        self.label, self.uuid)
+        return "%-10s %-20s %-15s %s" % (self.device or "", self.fs_type or "",
+                                        self.label or "", self.uuid or "")
 
 def select_iso():
     """ Let user select device and DD ISO on it.
@@ -619,15 +619,20 @@ def select_iso():
         :rtype: (str, str)
     """
 
-    blkid_out_regex = re.compile(r'^/dev/([^:]+):\s+LABEL="([^"]+)"\s+UUID="([^"]+)"\s+TYPE="([^"]+)"')
+    dev_prefix = "/dev/"
+    blkid_out_regex = re.compile(r'^/dev/(?P<device>[^:]+):\s+'    # device
+                                 r'UUID="(?P<uuid>[^"]+)"\s+'      # UUID
+                                 r'(UUID_SUB="[^"]+"\s+)?'         # UUID_SUB
+                                 r'(LABEL="(?P<label>[^"]+)"\s+)?' # label
+                                 r'TYPE="(?P<fs_type>[^"]+)"')     # type
     _ret, out = run_cmd(["blkid"])
     devices = []
     for line in out.splitlines():
         match = blkid_out_regex.match(line)
         if match:
-            devices.append(DeviceInfo(*match.groups()))
+            devices.append(DeviceInfo(**match.groupdict()))
 
-    header = "      %-10s %-6s %-15s %s" % ("DEVICE", "TYPE", "LABEL", "UUID")
+    header = "      %-10s %-20s %-15s %s" % ("DEVICE", "TYPE", "LABEL", "UUID")
     iso_dev = selection_menu(devices, "Driver disk device selection\n" + header,
                              str, multi_choice=False)
     if not iso_dev:
