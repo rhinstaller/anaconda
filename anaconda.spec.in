@@ -91,6 +91,7 @@ Summary: Core of the Anaconda installer
 Requires: python-blivet >= 1:0.61.15.11
 Requires: python-meh >= %{mehver}
 Requires: libreport-anaconda >= 2.0.21-1
+Requires: libreport-rhel-anaconda-bugzilla >= 2.1.11-1
 Requires: libselinux-python
 Requires: rpm-python >= %{rpmver}
 Requires: parted >= %{partedver}
