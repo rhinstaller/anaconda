@@ -23,7 +23,8 @@ __all__ = ["AddonSection", "AddonRegistry", "AddonData", "collect_addon_paths"]
 
 import os
 from pykickstart.sections import Section
-from pykickstart.options import KSOptionParser
+from pykickstart.errors import KickstartParseError, formatErrorMsg
+from pyanaconda.i18n import _
 
 def collect_addon_paths(toplevel_addon_paths, ui_subdir="gui"):
     """This method looks into the directories present
@@ -131,6 +132,27 @@ class AddonData(object):
         """
         pass
 
+    def handle_header(self, lineno, args):
+        """Process additional arguments to the %addon line.
+
+           This function receives any arguments on the %addon line after the
+           addon ID. For example, for the line:
+
+               %addon com_example_foo --argument='example'
+
+           This function would be called with args=["--argument='example'"].
+
+           By default AddonData.handle_header will fail if passed any arguments,
+           so addon sections that take arguments must override this method.
+        """
+
+        if args:
+            msg = _("Unhandled arguments on %%addon line for %s") % self.name
+            if lineno != None:
+                raise KickstartParseError(formatErrorMsg(lineno, msg=msg))
+            else:
+                raise KickstartParseError(msg)
+
     def handle_line(self, line):
         """Process one kickstart line."""
         self.content += line
@@ -162,13 +184,15 @@ class AddonSection(Section):
     def handleHeader(self, lineno, args):
         """Process the arguments to the %addon header."""
         Section.handleHeader(self, lineno, args)
-        op = KSOptionParser(version=self.version)
-        (_opts, extra) = op.parse_args(args=args[1:], lineno=lineno)
-        self.addon_id = extra[0]
+        self.addon_id = args[1]
 
         # if the addon is not registered, create dummy placeholder for it
         if self.addon_id and not hasattr(self.handler.addons, self.addon_id):
             setattr(self.handler.addons, self.addon_id, AddonData(self.addon_id))
+
+        # Parse additional arguments to %addon with the AddonData handler
+        addon = getattr(self.handler.addons, self.addon_id)
+        addon.handle_header(lineno, args[2:])
 
     def finalize(self):
         """Let addon know no additional data will come."""
