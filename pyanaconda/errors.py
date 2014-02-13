@@ -176,10 +176,19 @@ class ErrorHandler(object):
 
     def _noSuchGroupHandler(self, *args, **kwargs):
         group = args[0]
-        message = _("You have specified that the group '%s' should be "
-                    "installed.  This group does not exist.  Would you like "
-                    "to skip this group and continue with "
-                    "installation?") % group
+        adding = args[1]
+
+        if adding:
+            message = _("You have specified that the group '%s' should be "
+                        "installed.  This group does not exist.  Would you like "
+                        "to ignore this group and continue with "
+                        "installation?") % group
+        else:
+            message = _("You have specified that the group '%s' should be "
+                        "excluded from installation.  This group does not exist.  "
+                        "Would you like to ignore this group and continue with "
+                        "installation?") % group
+
         if self.ui.showYesNoQuestion(message):
             return ERROR_CONTINUE
         else:
@@ -187,10 +196,19 @@ class ErrorHandler(object):
 
     def _noSuchPackageHandler(self, *args, **kwargs):
         package = args[0]
-        message = _("You have specified that the package '%s' should be "
-                    "installed.  This package does not exist.  Would you "
-                    "like to skip this package and continue with "
-                    "installation?") % package
+        adding = args[1]
+
+        if adding:
+            message = _("You have specified that the package '%s' should be "
+                        "installed.  This package does not exist.  Would you "
+                        "like to ignore this package and continue with "
+                        "installation?") % package
+        else:
+            message = _("You have specified that the package '%s' should be "
+                        "excluded from installation.  This package does not exist.  "
+                        "Would you like to ignore this package and continue with "
+                        "installation?") % package
+
         if self.ui.showYesNoQuestion(message):
             return ERROR_CONTINUE
         else:
