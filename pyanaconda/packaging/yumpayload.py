@@ -1179,11 +1179,11 @@ reposdir=%s
                 else:
                     self._yum._ts_save_file = None
 
-    def _handleMissing(self, exn):
+    def _handleMissing(self, exn, adding=True):
         if self.data.packages.handleMissing == KS_MISSING_IGNORE:
             return
 
-        if errorHandler.cb(exn, str(exn)) == ERROR_RAISE:
+        if errorHandler.cb(exn, str(exn), adding) == ERROR_RAISE:
             # The progress bar polls kind of slowly, thus installation could
             # still continue for a bit before the quit message is processed.
             # Let's sleep forever to prevent any further actions and wait for
@@ -1228,13 +1228,13 @@ reposdir=%s
             try:
                 self._deselectYumPackage(package)
             except NoSuchPackage as e:
-                self._handleMissing(e)
+                self._handleMissing(e, adding=False)
 
         for group in self.data.packages.excludedGroupList:
             try:
                 self._deselectYumGroup(group.name)
             except NoSuchGroup as e:
-                self._handleMissing(e)
+                self._handleMissing(e, adding=False)
 
         self._select_kernel_package()
         self.selectRequiredPackages()
