@@ -21,7 +21,6 @@
 
 from __future__ import division
 from collections import namedtuple
-from math import ceil
 
 from gi.repository import Gdk, Gtk
 
@@ -244,30 +243,40 @@ class ResizeDialog(GUIObject):
            slider and keyboard support.  Any devices that are not resizable
            will not have a slider displayed, so they do not need to be worried
            with here.
+
+           :param device: The device
+           :type device: PartitionDevice
+           :param value: default value to set
+           :type value: Size
         """
-        self._resizeSlider.handler_block_by_func(self.on_resize_value_changed)
-        self._resizeSlider.set_range(int(ceil(device.minSize)), int(device.size))
-        self._resizeSlider.handler_unblock_by_func(self.on_resize_value_changed)
-        self._resizeSlider.set_value(value)
+        # Convert the Sizes to ints
+        minSize = int(device.minSize)
+        size = int(device.size)
+        default_value = int(value)
 
         # The slider needs to be keyboard-accessible.  We'll make small movements change in
         # 1% increments, and large movements in 5% increments.
-        distance = device.size - device.minSize
-        onePercent = Size(bytes=distance / 100)
-        fivePercent = Size(bytes=distance / 20)
-        twentyPercent = Size(bytes=distance / 5)
+        distance = size - minSize
+        onePercent = int(distance / 100)
+        fivePercent = int(distance / 20)
+        twentyPercent = int(distance / 5)
+
+        self._resizeSlider.handler_block_by_func(self.on_resize_value_changed)
+        self._resizeSlider.set_range(minSize, size)
+        self._resizeSlider.handler_unblock_by_func(self.on_resize_value_changed)
+        self._resizeSlider.set_value(default_value)
 
         adjustment = self.builder.get_object("resizeAdjustment")
-        adjustment.configure(value, int(ceil(device.minSize)), int(device.size), onePercent, fivePercent, 0)
+        adjustment.configure(default_value, minSize, size, onePercent, fivePercent, 0)
 
         # And then the slider needs a couple tick marks for easier navigation.
         self._resizeSlider.clear_marks()
         for i in range(1, 5):
-            self._resizeSlider.add_mark(int(ceil(device.minSize)) + i*twentyPercent, Gtk.PositionType.BOTTOM, None)
+            self._resizeSlider.add_mark(minSize + i * twentyPercent, Gtk.PositionType.BOTTOM, None)
 
         # Finally, add tick marks for the ends.
-        self._resizeSlider.add_mark(device.minSize, Gtk.PositionType.BOTTOM, str(device.minSize))
-        self._resizeSlider.add_mark(device.size, Gtk.PositionType.BOTTOM, str(device.size))
+        self._resizeSlider.add_mark(minSize, Gtk.PositionType.BOTTOM, str(device.minSize))
+        self._resizeSlider.add_mark(size, Gtk.PositionType.BOTTOM, str(device.size))
 
     def _update_action_buttons(self, row):
         obj = PartStoreRow(*row)
