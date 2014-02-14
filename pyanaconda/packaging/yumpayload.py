@@ -609,6 +609,9 @@ reposdir=%s
                                   repo_id, e)
                         self.disableRepo(repo_id)
 
+        # Make sure environmentAddon information is current
+        self._refreshEnvironmentAddons()
+
         log.info("metadata retrieval complete")
 
     @property

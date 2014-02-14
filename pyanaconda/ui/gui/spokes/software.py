@@ -33,6 +33,9 @@ from pyanaconda.ui.gui.spokes.lib.detailederror import DetailedErrorDialog
 from pyanaconda.ui.gui.utils import enlightbox, gtk_action_wait, escape_markup
 from pyanaconda.ui.gui.categories.software import SoftwareCategory
 
+import logging
+log = logging.getLogger("anaconda")
+
 import sys
 
 __all__ = ["SoftwareSelectionSpoke"]
@@ -67,13 +70,6 @@ class SoftwareSelectionSpoke(NormalSpoke):
 
         self._environmentListBox = self.builder.get_object("environmentListBox")
         self._addonListBox = self.builder.get_object("addonListBox")
-
-        # Used to determine which add-ons to display for each environment.
-        # The dictionary keys are environment IDs. The dictionary values are two-tuples
-        # consisting of lists of add-on group IDs. The first list is the add-ons specific
-        # to the environment, and the second list is the other add-ons possible for the
-        # environment.
-        self._environmentAddons = {}
 
         # Used to store how the user has interacted with add-ons for the default add-on
         # selection logic. The dictionary keys are group IDs, and the values are selection
@@ -249,19 +245,6 @@ class SoftwareSelectionSpoke(NormalSpoke):
         self._apply()
 
     def _parseEnvironments(self):
-        self._environmentAddons = {}
-
-        for environment in self.payload.environments:
-            self._environmentAddons[environment] = ([], [])
-
-            # Determine which groups are specific to this environment and which other groups
-            # are available in this environment.
-            for grp in self.payload.groups:
-                if self.payload.environmentHasOption(environment, grp):
-                    self._environmentAddons[environment][0].append(grp)
-                elif self.payload._isGroupVisible(grp) and self.payload._groupHasInstallableMembers(grp):
-                    self._environmentAddons[environment][1].append(grp)
-
         # Set all of the add-on selection states to the default
         self._addonStates = {}
         for grp in self.payload.groups:
@@ -343,11 +326,7 @@ class SoftwareSelectionSpoke(NormalSpoke):
         self._add_row(self._addonListBox, name, desc, check)
 
     def refreshAddons(self):
-        # The source was changed, make sure the list is current
-        if not self.txid_valid:
-            self._parseEnvironments()
-
-        if self.environment and (self.environment in self._environmentAddons):
+        if self.environment and (self.environment in self.payload.environmentAddons):
             self._clear_listbox(self._addonListBox)
 
             # We have two lists:  One of addons specific to this environment,
@@ -360,10 +339,10 @@ class SoftwareSelectionSpoke(NormalSpoke):
             # state will be used. Otherwise, the add-on will be selected if it is a default
             # for this environment.
 
-            addSep = len(self._environmentAddons[self.environment][0]) > 0 and \
-                     len(self._environmentAddons[self.environment][1]) > 0
+            addSep = len(self.payload.environmentAddons[self.environment][0]) > 0 and \
+                     len(self.payload.environmentAddons[self.environment][1]) > 0
 
-            for grp in self._environmentAddons[self.environment][0]:
+            for grp in self.payload.environmentAddons[self.environment][0]:
                 self._addAddon(grp)
 
             # This marks a separator in the view - only add it if there's both environment
@@ -371,7 +350,7 @@ class SoftwareSelectionSpoke(NormalSpoke):
             if addSep:
                 self._addonListBox.insert(Gtk.Separator(), -1)
 
-            for grp in self._environmentAddons[self.environment][1]:
+            for grp in self.payload.environmentAddons[self.environment][1]:
                 self._addAddon(grp)
 
         self._selectFlag = True
@@ -382,9 +361,9 @@ class SoftwareSelectionSpoke(NormalSpoke):
             self.clear_info()
 
     def _allAddons(self):
-        return self._environmentAddons[self.environment][0] + \
+        return self.payload.environmentAddons[self.environment][0] + \
                [""] + \
-               self._environmentAddons[self.environment][1]
+               self.payload.environmentAddons[self.environment][1]
 
     def _get_selected_addons(self):
         retval = []

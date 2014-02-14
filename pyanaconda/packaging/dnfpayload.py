@@ -405,6 +405,7 @@ class DNFPayload(packaging.PackagePayload):
         map(self._sync_metadata, self._base.repos.iter_enabled())
         self._base.fill_sack(load_system_repo=False)
         self._base.read_comps()
+        self._refreshEnvironmentAddons()
 
     def install(self):
         progressQ.send_message(_('Starting package installation process'))

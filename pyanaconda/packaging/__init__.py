@@ -644,6 +644,13 @@ class PackagePayload(Payload):
         super(PackagePayload, self).__init__(data)
         self.install_device = None
 
+        # Used to determine which add-ons to display for each environment.
+        # The dictionary keys are environment IDs. The dictionary values are two-tuples
+        # consisting of lists of add-on group IDs. The first list is the add-ons specific
+        # to the environment, and the second list is the other add-ons possible for the
+        # environment.
+        self._environmentAddons = {}
+
     @property
     def kernelPackages(self):
         kernels = ["kernel"]
@@ -896,6 +903,31 @@ class PackagePayload(Payload):
     def environmentGroups(self, environmentid):
         raise NotImplementedError()
 
+    @property
+    def environmentAddons(self):
+        return self._environmentAddons
+
+    def _isGroupVisible(self, grp):
+        raise NotImplementedError()
+
+    def _groupHasInstallableMembers(self, grp):
+        raise NotImplementedError()
+
+    def _refreshEnvironmentAddons(self):
+        log.info("Refreshing environmentAddons")
+        self._environmentAddons = {}
+
+        for environment in self.environments:
+            self._environmentAddons[environment] = ([], [])
+
+            # Determine which groups are specific to this environment and which other groups
+            # are available in this environment.
+            for grp in self.groups:
+                if self.environmentHasOption(environment, grp):
+                    self._environmentAddons[environment][0].append(grp)
+                elif self._isGroupVisible(grp) and self._groupHasInstallableMembers(grp):
+                    self._environmentAddons[environment][1].append(grp)
+
     ###
     ### METHODS FOR WORKING WITH GROUPS
     ###
@@ -905,7 +937,6 @@ class PackagePayload(Payload):
 
     def groupDescription(self, groupid):
         raise NotImplementedError()
-
 
 def payloadInitialize(storage, ksdata, payload):
     from pyanaconda.threads import threadMgr
