@@ -255,6 +255,14 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Fri Feb 14 2014 Brian C. Lane <bcl@redhat.com> - 19.31.59-1
+- Allow using globs and alternative paths for specifying boot drive (clumens).
+  Resolves: rhbz#1057282
+- Remove app_paintable from a couple nav boxes (clumens).
+  Resolves: rhbz#1064708
+- Allow catching exceptions from threads (vpodzime)
+  Resolves: rhbz#1063705
+
 * Tue Feb 11 2014 Brian C. Lane <bcl@redhat.com> - 19.31.58-1
 - adding support for new rhel7 branding graphics (duffy)
   Related: rhbz#1045250
