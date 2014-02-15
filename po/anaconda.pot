@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: anaconda 21.20\n"
+"Project-Id-Version: anaconda 21.21\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
-"POT-Creation-Date: 2014-02-11 17:04-0800\n"
+"POT-Creation-Date: 2014-02-14 16:34-0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -262,22 +262,39 @@ msgid ""
 "accessing %s from the shell on tty2 and then click OK to retry."
 msgstr ""
 
-#: pyanaconda/errors.py:182
+#: pyanaconda/errors.py:185
 #, python-format
 msgid ""
 "You have specified that the group '%s' should be installed.  This group does "
-"not exist.  Would you like to skip this group and continue with installation?"
-msgstr ""
-
-#: pyanaconda/errors.py:193
-#, python-format
-msgid ""
-"You have specified that the package '%s' should be installed.  This package "
-"does not exist.  Would you like to skip this package and continue with "
+"not exist.  Would you like to ignore this group and continue with "
 "installation?"
 msgstr ""
 
+#: pyanaconda/errors.py:190
+#, python-format
+msgid ""
+"You have specified that the group '%s' should be excluded from "
+"installation.  This group does not exist.  Would you like to ignore this "
+"group and continue with installation?"
+msgstr ""
+
 #: pyanaconda/errors.py:205
+#, python-format
+msgid ""
+"You have specified that the package '%s' should be installed.  This package "
+"does not exist.  Would you like to ignore this package and continue with "
+"installation?"
+msgstr ""
+
+#: pyanaconda/errors.py:210
+#, python-format
+msgid ""
+"You have specified that the package '%s' should be excluded from "
+"installation.  This package does not exist.  Would you like to ignore this "
+"package and continue with installation?"
+msgstr ""
+
+#: pyanaconda/errors.py:223
 #, python-format
 msgid ""
 "There was an error running the kickstart script at line %(lineno)s.  This is "
@@ -287,20 +304,20 @@ msgid ""
 "%(details)s"
 msgstr ""
 
-#: pyanaconda/errors.py:215
+#: pyanaconda/errors.py:233
 #, python-format
 msgid ""
 "There was an error installing the %s package.  This is a fatal error and "
 "installation will be aborted."
 msgstr ""
 
-#: pyanaconda/errors.py:219
+#: pyanaconda/errors.py:237
 msgid ""
 "The following error occurred while installing.  This is a fatal error and "
 "installation will be aborted."
 msgstr ""
 
-#: pyanaconda/errors.py:227
+#: pyanaconda/errors.py:245
 msgid ""
 "The following software marked for installation has errors.  This is likely "
 "caused by an error with\n"
@@ -402,18 +419,18 @@ msgid ""
 "%s"
 msgstr ""
 
-#: pyanaconda/kickstart.py:576
+#: pyanaconda/kickstart.py:583
 #, python-format
 msgid "%s is missing. Cannot setup firewall."
 msgstr ""
 
-#: pyanaconda/kickstart.py:1546
+#: pyanaconda/kickstart.py:1553
 msgid ""
 "The upgrade kickstart command is no longer supported. Upgrade functionality "
 "is provided through fedup."
 msgstr ""
 
-#: pyanaconda/kickstart.py:1786
+#: pyanaconda/kickstart.py:1793
 msgid "Running pre-installation scripts"
 msgstr ""
 
@@ -1584,9 +1601,9 @@ msgstr ""
 #: pyanaconda/ui/gui/spokes/custom.py:298
 #: pyanaconda/ui/gui/spokes/custom.py:642
 #: pyanaconda/ui/gui/spokes/network.py:1098 widgets/src/SpokeSelector.c:56
-#: pyanaconda/ui/gui/spokes/filter.glade:164
-#: pyanaconda/ui/gui/spokes/filter.glade:575
-#: pyanaconda/ui/gui/spokes/filter.glade:928
+#: pyanaconda/ui/gui/spokes/filter.glade:163
+#: pyanaconda/ui/gui/spokes/filter.glade:574
+#: pyanaconda/ui/gui/spokes/filter.glade:927
 #: pyanaconda/ui/gui/spokes/custom.glade:2226
 msgid "None"
 msgstr ""
@@ -1756,38 +1773,38 @@ msgstr ""
 msgid "(%s free)"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:2590
+#: pyanaconda/ui/gui/spokes/custom.py:2595
 #, python-format
 msgid ""
 "This Software RAID array is missing %(missingMembers)d of %(totalMembers)d "
 "member partitions. You can remove it or select a different device."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:2596
+#: pyanaconda/ui/gui/spokes/custom.py:2601
 #, python-format
 msgid ""
 "This LVM Volume Group is missing %(missingPVs)d of %(totalPVs)d physical "
 "volumes. You can remove it or select a different device."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:2671
+#: pyanaconda/ui/gui/spokes/custom.py:2676
 msgid "No disks selected."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:2677
+#: pyanaconda/ui/gui/spokes/custom.py:2682
 msgid "Not enough free space on selected disks."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:2683
-#: pyanaconda/ui/gui/spokes/custom.py:2709
+#: pyanaconda/ui/gui/spokes/custom.py:2688
+#: pyanaconda/ui/gui/spokes/custom.py:2714
 msgid "Automatic partitioning failed. Click for details."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:2982
+#: pyanaconda/ui/gui/spokes/custom.py:2987
 msgid "Failed to unlock encrypted block device. Click for details"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:3007
+#: pyanaconda/ui/gui/spokes/custom.py:3012
 #, python-format
 msgid ""
 "You have chosen to manually set up the filesystems for your new "
@@ -2692,214 +2709,214 @@ msgstr ""
 msgid "INSTALLATION DESTINATION"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/filter.glade:134
+#: pyanaconda/ui/gui/spokes/filter.glade:133
 msgid "Search Results:"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/filter.glade:148
+#: pyanaconda/ui/gui/spokes/filter.glade:147
 msgctxt "GUI|Installation Destination|Filter|Search"
 msgid "Search _By:"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/filter.glade:165
+#: pyanaconda/ui/gui/spokes/filter.glade:164
 msgid "Port / Target / LUN #"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/filter.glade:166
+#: pyanaconda/ui/gui/spokes/filter.glade:165
 msgid "Target WWID"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/filter.glade:204
+#: pyanaconda/ui/gui/spokes/filter.glade:203
 msgctxt "GUI|Installation Destination|Filter|Search|Port Target LUN"
 msgid "_Port:"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/filter.glade:229
+#: pyanaconda/ui/gui/spokes/filter.glade:228
 msgctxt "GUI|Installation Destination|Filter|Search|Port Target LUN"
 msgid "_Target:"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/filter.glade:255
+#: pyanaconda/ui/gui/spokes/filter.glade:254
 msgctxt "GUI|Installation Destination|Filter|Search|Port Target LUN"
 msgid "_LUN:"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/filter.glade:295
+#: pyanaconda/ui/gui/spokes/filter.glade:294
 msgctxt "GUI|Installation Destination|Filter|Search|WWID"
 msgid "_WWID:"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/filter.glade:369
-#: pyanaconda/ui/gui/spokes/filter.glade:578
-#: pyanaconda/ui/gui/spokes/filter.glade:759
+#: pyanaconda/ui/gui/spokes/filter.glade:368
+#: pyanaconda/ui/gui/spokes/filter.glade:577
+#: pyanaconda/ui/gui/spokes/filter.glade:758
 msgid "WWID"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/filter.glade:383
-#: pyanaconda/ui/gui/spokes/filter.glade:773
-#: pyanaconda/ui/gui/spokes/filter.glade:1128
-#: pyanaconda/ui/gui/spokes/filter.glade:1416
+#: pyanaconda/ui/gui/spokes/filter.glade:382
+#: pyanaconda/ui/gui/spokes/filter.glade:772
+#: pyanaconda/ui/gui/spokes/filter.glade:1127
+#: pyanaconda/ui/gui/spokes/filter.glade:1415
 #: pyanaconda/ui/gui/spokes/custom.glade:496
 #: pyanaconda/ui/gui/spokes/custom.glade:2069
 #: pyanaconda/ui/gui/spokes/lib/cart.glade:145
 msgid "Capacity"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/filter.glade:397
-#: pyanaconda/ui/gui/spokes/filter.glade:577
-#: pyanaconda/ui/gui/spokes/filter.glade:802
-#: pyanaconda/ui/gui/spokes/filter.glade:930
-#: pyanaconda/ui/gui/spokes/filter.glade:1157
+#: pyanaconda/ui/gui/spokes/filter.glade:396
+#: pyanaconda/ui/gui/spokes/filter.glade:576
+#: pyanaconda/ui/gui/spokes/filter.glade:801
+#: pyanaconda/ui/gui/spokes/filter.glade:929
+#: pyanaconda/ui/gui/spokes/filter.glade:1156
 msgid "Interconnect"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/filter.glade:411
+#: pyanaconda/ui/gui/spokes/filter.glade:410
 msgid "Model"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/filter.glade:425
-#: pyanaconda/ui/gui/spokes/filter.glade:1444
+#: pyanaconda/ui/gui/spokes/filter.glade:424
+#: pyanaconda/ui/gui/spokes/filter.glade:1443
 msgid "LUN"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/filter.glade:439
+#: pyanaconda/ui/gui/spokes/filter.glade:438
 msgid "Port"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/filter.glade:453
+#: pyanaconda/ui/gui/spokes/filter.glade:452
 msgid "Target"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/filter.glade:467
-#: pyanaconda/ui/gui/spokes/filter.glade:576
-#: pyanaconda/ui/gui/spokes/filter.glade:787
-#: pyanaconda/ui/gui/spokes/filter.glade:929
-#: pyanaconda/ui/gui/spokes/filter.glade:1142
+#: pyanaconda/ui/gui/spokes/filter.glade:466
+#: pyanaconda/ui/gui/spokes/filter.glade:575
+#: pyanaconda/ui/gui/spokes/filter.glade:786
+#: pyanaconda/ui/gui/spokes/filter.glade:928
+#: pyanaconda/ui/gui/spokes/filter.glade:1141
 msgid "Vendor"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/filter.glade:529
+#: pyanaconda/ui/gui/spokes/filter.glade:528
 msgctxt "GUI|Installation Destination|Filter"
 msgid "Searc_h"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/filter.glade:559
+#: pyanaconda/ui/gui/spokes/filter.glade:558
 msgctxt "GUI|Installation Destination|Filter|Multipath"
 msgid "_Filter By:"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/filter.glade:615
+#: pyanaconda/ui/gui/spokes/filter.glade:614
 msgctxt "GUI|Installation Destination|Filter|Multipath|Vendor"
 msgid "Show Only _Devices From:"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/filter.glade:653
+#: pyanaconda/ui/gui/spokes/filter.glade:652
 msgctxt "GUI|Installation Destination|Filter|Multipath|Interconnect"
 msgid "Show Only _Devices With:"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/filter.glade:691
+#: pyanaconda/ui/gui/spokes/filter.glade:690
 msgctxt "GUI|Installation Destination|Filter|Multipath|WWID"
 msgid "Show Only _Devices Containing:"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/filter.glade:816
+#: pyanaconda/ui/gui/spokes/filter.glade:815
 msgid "Paths"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/filter.glade:881
+#: pyanaconda/ui/gui/spokes/filter.glade:880
 msgctxt "GUI|Installation Destination|Filter"
 msgid "_Multipath Devices"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/filter.glade:912
+#: pyanaconda/ui/gui/spokes/filter.glade:911
 msgctxt "GUI|Installation Destination|Filter|Other"
 msgid "_Filter By:"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/filter.glade:931
+#: pyanaconda/ui/gui/spokes/filter.glade:930
 #: pyanaconda/ui/gui/spokes/custom.glade:522
 #: pyanaconda/ui/gui/spokes/custom.glade:2095
 msgid "ID"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/filter.glade:968
+#: pyanaconda/ui/gui/spokes/filter.glade:967
 msgctxt "GUI|Installation Destination|Filter|Other|Vendor"
 msgid "Show Only _Devices From:"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/filter.glade:1006
+#: pyanaconda/ui/gui/spokes/filter.glade:1005
 msgctxt "GUI|Installation Destination|Filter|Other|Interconnect"
 msgid "Show Only _Devices With:"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/filter.glade:1044
+#: pyanaconda/ui/gui/spokes/filter.glade:1043
 msgctxt "GUI|Installation Destination|Filter|Other|ID"
 msgid "Show Only _Devices Containing:"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/filter.glade:1114
+#: pyanaconda/ui/gui/spokes/filter.glade:1113
 msgid "Identifier"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/filter.glade:1222
+#: pyanaconda/ui/gui/spokes/filter.glade:1221
 msgctxt "GUI|Installation Destination|Filter"
 msgid "_Other SAN Devices"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/filter.glade:1234
+#: pyanaconda/ui/gui/spokes/filter.glade:1233
 msgid "Nothing here yet."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/filter.glade:1244
+#: pyanaconda/ui/gui/spokes/filter.glade:1243
 msgctxt "GUI|Installation Destination|Filter"
 msgid "Firmware _RAID"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/filter.glade:1275
+#: pyanaconda/ui/gui/spokes/filter.glade:1274
 msgctxt "GUI|Installation Destination|Filter|zSeries"
 msgid "_Filter By:"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/filter.glade:1291
+#: pyanaconda/ui/gui/spokes/filter.glade:1290
 msgctxt "GUI|Installation Destination|Filter|zSeries"
 msgid "_Label"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/filter.glade:1304
+#: pyanaconda/ui/gui/spokes/filter.glade:1303
 msgctxt "GUI|Installation Destination|Filter|zSeries"
 msgid "_Go"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/filter.glade:1388
+#: pyanaconda/ui/gui/spokes/filter.glade:1387
 msgid "CCW"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/filter.glade:1402
+#: pyanaconda/ui/gui/spokes/filter.glade:1401
 #: pyanaconda/ui/gui/spokes/lib/summary.glade:152
 msgid "Type"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/filter.glade:1430
+#: pyanaconda/ui/gui/spokes/filter.glade:1429
 msgid "WWPN"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/filter.glade:1477
+#: pyanaconda/ui/gui/spokes/filter.glade:1476
 msgctxt "GUI|Installation Destination|Filter"
 msgid "_zSeries Devices"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/filter.glade:1500
+#: pyanaconda/ui/gui/spokes/filter.glade:1499
 msgctxt "GUI|Installation Destination|Filter"
 msgid "_Add ZFCP LUN..."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/filter.glade:1515
+#: pyanaconda/ui/gui/spokes/filter.glade:1514
 msgctxt "GUI|Installation Destination|Filter"
 msgid "Add _iSCSI Target..."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/filter.glade:1530
+#: pyanaconda/ui/gui/spokes/filter.glade:1529
 msgctxt "GUI|Installation Destination|Filter"
 msgid "Add FCo_E SAN..."
 msgstr ""
@@ -3352,33 +3369,33 @@ msgstr ""
 msgid "LANGUAGE SUPPORT"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/langsupport.glade:78
+#: pyanaconda/ui/gui/spokes/langsupport.glade:77
 msgid "Select additional language support to be installed:"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/langsupport.glade:126
-#: pyanaconda/ui/gui/spokes/langsupport.glade:234
+#: pyanaconda/ui/gui/spokes/langsupport.glade:125
+#: pyanaconda/ui/gui/spokes/langsupport.glade:233
 #: pyanaconda/ui/gui/spokes/welcome.glade:389
 #: pyanaconda/ui/gui/spokes/welcome.glade:485
 msgid "nativeName"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/langsupport.glade:143
+#: pyanaconda/ui/gui/spokes/langsupport.glade:142
 #: pyanaconda/ui/gui/spokes/welcome.glade:406
 msgid "englishName"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/langsupport.glade:161
+#: pyanaconda/ui/gui/spokes/langsupport.glade:160
 #: pyanaconda/ui/gui/spokes/welcome.glade:424
 msgid "selected"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/langsupport.glade:184
+#: pyanaconda/ui/gui/spokes/langsupport.glade:183
 #: pyanaconda/ui/gui/spokes/welcome.glade:447
 msgid "Type here to search."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/langsupport.glade:220
+#: pyanaconda/ui/gui/spokes/langsupport.glade:219
 msgid "checked"
 msgstr ""
 
@@ -3397,7 +3414,7 @@ msgid "_Confirm:"
 msgstr ""
 
 #: pyanaconda/ui/gui/spokes/password.glade:151
-#: pyanaconda/ui/gui/spokes/user.glade:253
+#: pyanaconda/ui/gui/spokes/user.glade:252
 msgid "empty password"
 msgstr ""
 
@@ -3689,43 +3706,43 @@ msgstr ""
 msgid "CREATE USER"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/user.glade:63
+#: pyanaconda/ui/gui/spokes/user.glade:62
 msgctxt "GUI|User"
 msgid "_Full name"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/user.glade:83
+#: pyanaconda/ui/gui/spokes/user.glade:82
 msgctxt "GUI|User"
 msgid "_Username"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/user.glade:132
+#: pyanaconda/ui/gui/spokes/user.glade:131
 msgctxt "GUI|User"
 msgid "_Password"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/user.glade:152
+#: pyanaconda/ui/gui/spokes/user.glade:151
 msgctxt "GUI|User"
 msgid "_Confirm password"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/user.glade:200
+#: pyanaconda/ui/gui/spokes/user.glade:199
 msgid ""
 "<b>Tip:</b> Keep your username shorter than 32 characters and do not use "
 "spaces."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/user.glade:212
+#: pyanaconda/ui/gui/spokes/user.glade:211
 msgctxt "GUI|User"
 msgid "Require a password to use this account"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/user.glade:274
+#: pyanaconda/ui/gui/spokes/user.glade:273
 msgctxt "GUI|User"
 msgid "Make this user administrator"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/user.glade:294
+#: pyanaconda/ui/gui/spokes/user.glade:293
 msgctxt "GUI|User"
 msgid "_Advanced..."
 msgstr ""
