@@ -154,7 +154,7 @@ class ThreadManager(object):
 
         exc_info = self._errors.pop(name)
         if exc_info:
-            raise exc_info
+            raise exc_info[0], exc_info[1], exc_info[2]
 
     def in_main_thread(self):
         """Return True if it is run in the main thread."""
