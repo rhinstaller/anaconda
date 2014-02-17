@@ -611,6 +611,35 @@ class DeviceInfo(object):
         return "%-10s %-20s %-15s %s" % (self.device or "", self.fs_type or "",
                                         self.label or "", self.uuid or "")
 
+def parse_blkid(line):
+    """ Parse a line of output from blkid
+
+        :param line: line of output from blkid
+        :param type: string
+        :returns: {} or dict of NAME=VALUE pairs including "device"
+        :rtype: dict
+
+        blkid output cannot be trusted. labels may be missing or in a different
+        order so we parse what we get and return a dict with their values.
+    """
+    import shlex
+
+    device = {"device":None, "label":None, "uuid":None, "fs_type":None}
+    fields = shlex.split(line)
+    if len(fields) < 2 or not fields[0].startswith("/dev/"):
+        return {}
+
+    # device is in [0] and the remainder are NAME=VALUE with possible spaces
+    # Use the sda1 part of device "/dev/sda1:"
+    device['device'] = fields[0][5:-1]
+    for f in fields[1:]:
+        if "=" in f:
+            (key, val) = f.split("=", 1)
+            if key == "TYPE":
+                key = "fs_type"
+            device[key.lower()] = val
+    return device
+
 def select_iso():
     """ Let user select device and DD ISO on it.
 
@@ -618,19 +647,12 @@ def select_iso():
                   or (None, None) if no ISO file is selected
         :rtype: (str, str)
     """
-
-    dev_prefix = "/dev/"
-    blkid_out_regex = re.compile(r'^/dev/(?P<device>[^:]+):\s+'    # device
-                                 r'UUID="(?P<uuid>[^"]+)"\s+'      # UUID
-                                 r'(UUID_SUB="[^"]+"\s+)?'         # UUID_SUB
-                                 r'(LABEL="(?P<label>[^"]+)"\s+)?' # label
-                                 r'TYPE="(?P<fs_type>[^"]+)"')     # type
     _ret, out = run_cmd(["blkid"])
     devices = []
     for line in out.splitlines():
-        match = blkid_out_regex.match(line)
-        if match:
-            devices.append(DeviceInfo(**match.groupdict()))
+        dev = parse_blkid(line)
+        if dev:
+            devices.append(DeviceInfo(**dev))
 
     header = "      %-10s %-20s %-15s %s" % ("DEVICE", "TYPE", "LABEL", "UUID")
     iso_dev = selection_menu(devices, "Driver disk device selection\n" + header,
@@ -651,7 +673,7 @@ def select_iso():
         isos += (iso_file for iso_file in files if iso_file.endswith(".iso"))
 
     if not isos:
-        print("===No ISO files found on %s!===\n" % iso_dev)
+        print("===No ISO files found on %s!===\n" % iso_dev.device)
         umount(mnt)
         return select_iso()
     else:
