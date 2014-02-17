@@ -1135,11 +1135,8 @@ class SecretAgentDialog(GUIObject):
         grid.set_column_spacing(6)
 
         for row, secret in enumerate(self._content['secrets']):
-            label = Gtk.Label(secret['label'])
-            label.set_halign(Gtk.Align.START)
-            entry = Gtk.Entry()
-            entry.set_visibility(False)
-            entry.set_hexpand(True)
+            label = Gtk.Label(label=secret['label'], halign=Gtk.Align.START)
+            entry = Gtk.Entry(visibility=False, hexpand=True)
             self._validate(entry, secret)
             entry.connect("changed", self._validate, secret)
             entry.connect("activate", self._password_entered_cb)

@@ -278,19 +278,15 @@ class SoftwareSelectionSpoke(NormalSpoke):
 
     def _add_row(self, listbox, name, desc, button):
         row = Gtk.ListBoxRow()
-        box = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL)
-        box.set_spacing(6)
+        box = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=6)
 
         button.set_valign(Gtk.Align.START)
         button.connect("clicked", self.on_button_toggled, row)
         box.add(button)
 
-        label = Gtk.Label()
-        label.set_line_wrap(True)
-        label.set_line_wrap_mode(Pango.WrapMode.WORD_CHAR)
-        label.set_markup("<b>%s</b>\n%s" % (escape_markup(name), escape_markup(desc)))
-        label.set_hexpand(True)
-        label.set_alignment(0, 0.5)
+        label = Gtk.Label(label="<b>%s</b>\n%s" % (escape_markup(name), escape_markup(desc)),
+                          use_markup=True, wrap=True, wrap_mode=Pango.WrapMode.WORD_CHAR,
+                          hexpand=True, xalign=0, yalign=0.5)
         box.add(label)
 
         row.add(box)

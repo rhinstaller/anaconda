@@ -155,11 +155,8 @@ class Hub(GUIObject, common.Hub):
         cats_and_spokes = self._collectCategoriesAndSpokes()
         categories = cats_and_spokes.keys()
 
-        grid = Gtk.Grid()
-        grid.set_row_spacing(6)
-        grid.set_column_spacing(6)
-        grid.set_column_homogeneous(True)
-        grid.set_margin_bottom(12)
+        grid = Gtk.Grid(row_spacing=6, column_spacing=6, column_homogeneous=True,
+                        margin_bottom=12)
 
         row = 0
 
@@ -229,11 +226,8 @@ class Hub(GUIObject, common.Hub):
             if not selectors:
                 continue
 
-            label = Gtk.Label("<span font-desc=\"Sans 14\">%s</span>" % escape_markup(_(obj.title)))
-            label.set_use_markup(True)
-            label.set_halign(Gtk.Align.START)
-            label.set_margin_top(12)
-            label.set_margin_bottom(12)
+            label = Gtk.Label(label="<span font-desc=\"Sans 14\">%s</span>" % escape_markup(_(obj.title)),
+                              use_markup=True, halign=Gtk.Align.START, margin_top=12, margin_bottom=12)
             grid.attach(label, 0, row, 2, 1)
             row += 1
 

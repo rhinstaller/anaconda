@@ -79,11 +79,9 @@ class Accordion(Gtk.Box):
         self._expanders = []
 
     def addPage(self, contents, cb=None):
-        label = Gtk.Label()
-        label.set_markup("""<span size='large' weight='bold' fgcolor='black'>%s</span>""" %
-                escape_markup(contents.pageTitle))
-        label.set_alignment(0, 0.5)
-        label.set_line_wrap(True)
+        label = Gtk.Label(label="""<span size='large' weight='bold' fgcolor='black'>%s</span>""" %
+                          escape_markup(contents.pageTitle), use_markup=True,
+                          xalign=0, yalign=0.5, wrap=True)
 
         expander = Gtk.Expander()
         expander.set_label_widget(label)
@@ -273,19 +271,16 @@ class CreateNewPage(Page):
         self._createBox.set_column_spacing(6)
         self._createBox.set_margin_left(16)
 
-        label = Gtk.Label(_("You haven't created any mount points for your "
+        label = Gtk.Label(label=_("You haven't created any mount points for your "
                             "%(product)s %(version)s installation yet.  "
-                            "You can:") % {"product" : productName, "version" : productVersion})
-        label.set_line_wrap(True)
-        label.set_alignment(0, 0.5)
+                            "You can:") % {"product" : productName, "version" : productVersion},
+                            wrap=True, xalign=0, yalign=0.5)
         self._createBox.attach(label, 0, 0, 2, 1)
 
-        dot = Gtk.Label("•")
-        dot.set_alignment(0.5, 0.4)
-        dot.set_hexpand(False)
+        dot = Gtk.Label(label="•", xalign=0.5, yalign=0.4, hexpand=False)
         self._createBox.attach(dot, 0, 1, 1, 1)
 
-        self._createNewButton = Gtk.LinkButton("", label=_("_Click here to create them automatically."))
+        self._createNewButton = Gtk.LinkButton(uri="", label=_("_Click here to create them automatically."))
         label = self._createNewButton.get_children()[0]
         label.set_alignment(0, 0.5)
         label.set_hexpand(True)
@@ -303,33 +298,23 @@ class CreateNewPage(Page):
         self._createNewButton.connect("activate-link", lambda *args: Gtk.true())
         self._createBox.attach(self._createNewButton, 1, 1, 1, 1)
 
-        dot = Gtk.Label("•")
-        dot.set_alignment(0.5, 0)
-        dot.set_hexpand(False)
+        dot = Gtk.Label(label="•", xalign=0.5, yalign=0, hexpand=False)
         self._createBox.attach(dot, 0, 2, 1, 1)
 
-        label = Gtk.Label(_("Create new mount points by clicking the '+' button."))
-        label.set_alignment(0, 0.5)
-        label.set_hexpand(True)
-        label.set_line_wrap(True)
+        label = Gtk.Label(label=_("Create new mount points by clicking the '+' button."),
+                          xalign=0, yalign=0.5, hexpand=True, wrap=True)
         self._createBox.attach(label, 1, 2, 1, 1)
 
         if partitionsToReuse:
-            dot = Gtk.Label("•")
-            dot.set_alignment(0.5, 0)
-            dot.set_hexpand(False)
+            dot = Gtk.Label(label="•", xalign=0.5, yalign=0, hexpand=False)
             self._createBox.attach(dot, 0, 3, 1, 1)
 
-            label = Gtk.Label(_("Or, assign new mount points to existing partitions after selecting them below."))
-            label.set_alignment(0, 0.5)
-            label.set_hexpand(True)
-            label.set_line_wrap(True)
+            label = Gtk.Label(label=_("Or, assign new mount points to existing partitions after selecting them below."),
+                              xalign=0, yalign=0.5, hexpand=True, wrap=True)
             self._createBox.attach(label, 1, 3, 1, 1)
 
-        label = Gtk.Label(_("_New mount points will use the following partitioning scheme:"))
-        label.set_alignment(0, 0.5)
-        label.set_line_wrap(True)
-        label.set_use_underline(True)
+        label = Gtk.Label(label=_("_New mount points will use the following partitioning scheme:"),
+                          xalign=0, yalign=0.5, wrap=True, use_underline=True)
         self._createBox.attach(label, 0, 4, 2, 1)
 
         label.set_mnemonic_widget(combo)
