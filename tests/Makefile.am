@@ -40,6 +40,7 @@ dist_check_SCRIPTS = glade/accelerators/check_accelerators.py \
 		     glade/pw_visibility/check_pw_visibility.py \
 		     glade/validity/check_glade_validity.py \
 		     glade/markup/check_markup.py \
+		     glade/format_string/check_format_string.py \
 		     glade/run_glade_tests.sh \
 		     $(srcdir)/lib/*.py \
 		     nosetests.sh \
