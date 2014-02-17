@@ -337,8 +337,7 @@ class Bootloader(commands.bootloader.F19_Bootloader):
         else:
             self.bootDrive = disk_names[0]
 
-        spec = udev.udev_resolve_devspec(self.bootDrive)
-        drive = storage.devicetree.getDeviceByName(spec)
+        drive = storage.devicetree.resolveDevice(self.bootDrive)
         storage.bootloader.stage1_disk = drive
 
         if self.leavebootorder:
@@ -407,10 +406,7 @@ class BTRFSData(commands.btrfs.F17_BTRFSData):
             pass
 
         if self.preexist:
-            device = devicetree.getDeviceByName(self.name)
-            if not device:
-                device = udev.udev_resolve_devspec(self.name)
-
+            device = devicetree.resolveDevice(self.name)
             if not device:
                 raise KickstartValueError(formatErrorMsg(self.lineno, msg="Specified nonexistent BTRFS volume %s in btrfs command" % self.name))
 
@@ -1030,7 +1026,7 @@ class PartitionData(commands.partition.F18_PartData):
             if not self.onPart:
                 raise KickstartValueError(formatErrorMsg(self.lineno, msg="--noformat used without --onpart"))
 
-            dev = devicetree.getDeviceByName(udev.udev_resolve_devspec(self.onPart))
+            dev = devicetree.resolveDevice(self.onPart)
             if not dev:
                 raise KickstartValueError(formatErrorMsg(self.lineno, msg="No preexisting partition with the name \"%s\" was found." % self.onPart))
 
@@ -1072,26 +1068,24 @@ class PartitionData(commands.partition.F18_PartData):
         # that it exists first.  If it doesn't exist, see if it exists with
         # mapper/ on the front.  If that doesn't exist either, it's an error.
         if self.disk:
-            names = [self.disk, "mapper/" + self.disk]
-            for n in names:
-                disk = devicetree.getDeviceByName(udev.udev_resolve_devspec(n))
-                # if this is a multipath member promote it to the real mpath
-                if disk and disk.format.type == "multipath_member":
-                    mpath_device = storage.devicetree.getChildren(disk)[0]
-                    storage_log.info("kickstart: part: promoting %s to %s",
-                                     disk.name, mpath_device.name)
-                    disk = mpath_device
-                if not disk:
-                    raise KickstartValueError(formatErrorMsg(self.lineno, msg="Specified nonexistent disk %s in partition command" % n))
-                if not disk.partitionable:
-                    raise KickstartValueError(formatErrorMsg(self.lineno, msg="Cannot install to read-only media %s." % n))
+            disk = devicetree.resolveDevice(self.disk)
+            # if this is a multipath member promote it to the real mpath
+            if disk and disk.format.type == "multipath_member":
+                mpath_device = storage.devicetree.getChildren(disk)[0]
+                storage_log.info("kickstart: part: promoting %s to %s",
+                                 disk.name, mpath_device.name)
+                disk = mpath_device
+            if not disk:
+                raise KickstartValueError(formatErrorMsg(self.lineno, msg="Specified nonexistent disk %s in partition command" % self.disk))
+            if not disk.partitionable:
+                raise KickstartValueError(formatErrorMsg(self.lineno, msg="Cannot install to read-only media %s." % self.disk))
 
-                should_clear = storage.shouldClear(disk)
-                if disk and (disk.partitioned or should_clear):
-                    kwargs["parents"] = [disk]
-                    break
-                elif disk:
-                    raise KickstartValueError(formatErrorMsg(self.lineno, msg="Specified unpartitioned disk %s in partition command" % self.disk))
+            should_clear = storage.shouldClear(disk)
+            if disk and (disk.partitioned or should_clear):
+                kwargs["parents"] = [disk]
+                break
+            elif disk:
+                raise KickstartValueError(formatErrorMsg(self.lineno, msg="Specified unpartitioned disk %s in partition command" % self.disk))
 
             if not kwargs["parents"]:
                 raise KickstartValueError(formatErrorMsg(self.lineno, msg="Specified nonexistent disk %s in partition command" % self.disk))
@@ -1115,7 +1109,7 @@ class PartitionData(commands.partition.F18_PartData):
         # take place there.  Also, we only support a subset of all the options
         # on pre-existing partitions.
         if self.onPart:
-            device = devicetree.getDeviceByName(udev.udev_resolve_devspec(self.onPart))
+            device = devicetree.resolveDevice(self.onPart)
             if not device:
                 raise KickstartValueError(formatErrorMsg(self.lineno, msg="Specified nonexistent partition %s in partition command" % self.onPart))
 
