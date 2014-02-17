@@ -58,6 +58,7 @@ from pyanaconda.desktop import Desktop
 from pyanaconda.i18n import _
 from .ui.common import collect
 from .addons import AddonSection, AddonData, AddonRegistry, collect_addon_paths
+from pyanaconda.bootloader import GRUB2, get_bootloader
 
 from pykickstart.base import KickstartCommand
 from pykickstart.constants import *
@@ -265,6 +266,14 @@ class Bootloader(commands.bootloader.F19_Bootloader):
     def __init__(self, *args, **kwargs):
         commands.bootloader.F19_Bootloader.__init__(self, *args, **kwargs)
         self.location = "mbr"
+
+    def parse(self, args):
+        commands.bootloader.F19_Bootloader.parse(self, args)
+        if self.location == "partition" and isinstance(get_bootloader(), GRUB2):
+            raise KickstartValueError(formatErrorMsg(self.lineno,
+                    msg="GRUB2 does not support installation to a partition."))
+
+        return self
 
     def execute(self, storage, ksdata, instClass):
         if flags.imageInstall and blivet.arch.isS390():
