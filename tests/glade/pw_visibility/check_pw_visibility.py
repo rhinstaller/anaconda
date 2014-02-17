@@ -24,6 +24,7 @@ have the visibility set to False.
 
 """
 
+import argparse
 import sys
 
 try:
@@ -70,12 +71,20 @@ def check_glade_file(glade_file_path):
         return succ
 
 if __name__ == "__main__":
-    if len(sys.argv) < 2:
-        print "Need to specify .glade files to check"
-        sys.exit(1)
+    parser = argparse.ArgumentParser("Check that password entries have visibility set to False")
+
+    # Ignore translation arguments
+    parser.add_argument("-t", "--translate", action='store_true',
+            help=argparse.SUPPRESS)
+    parser.add_argument("-p", "--podir", action='store', type=str,
+            metavar='PODIR', help=argparse.SUPPRESS, default='./po')
+
+    parser.add_argument("glade_files", nargs="+", metavar="GLADE-FILE",
+            help='The glade file to check')
+    args = parser.parse_args(args=sys.argv[1:])
 
     success = True
-    for file_path in sys.argv[1:]:
+    for file_path in args.glade_files:
         success = success and check_glade_file(file_path)
 
     sys.exit(0 if success else 1)

@@ -18,6 +18,7 @@
 # Author: David Shea <dshea@redhat.com>
 
 import sys
+import argparse
 
 from collections import Counter
 
@@ -67,7 +68,19 @@ def main(argv):
                 success = False
 
 if __name__ == "__main__":
-    main(sys.argv[1:])
+    parser = argparse.ArgumentParser("Check glade file validity")
+
+    # Ignore translation arguments
+    parser.add_argument("-t", "--translate", action='store_true',
+            help=argparse.SUPPRESS)
+    parser.add_argument("-p", "--podir", action='store', type=str,
+            metavar='PODIR', help=argparse.SUPPRESS, default='./po')
+
+    parser.add_argument("glade_files", nargs="+", metavar="GLADE-FILE",
+            help='The glade file to check')
+    args = parser.parse_args(args=sys.argv[1:])
+
+    main(args.glade_files)
 
     if success:
         sys.exit(0)
