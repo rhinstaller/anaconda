@@ -123,7 +123,7 @@ class Anaconda(object):
                     try:
                         from pyanaconda.packaging.dnfpayload import DNFPayload
                         klass = DNFPayload
-                    except Exception:
+                    except ImportError:
                         log.critical('Importing DNF  failed.', exc_info=True)
                 else:
                     from pyanaconda.packaging.yumpayload import YumPayload

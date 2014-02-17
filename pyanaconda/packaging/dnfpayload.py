@@ -28,6 +28,7 @@ from pyanaconda.progress import progressQ
 import itertools
 import logging
 import multiprocessing
+import operator
 import pyanaconda.constants as constants
 import pyanaconda.errors as errors
 import pyanaconda.iutil
@@ -91,7 +92,7 @@ def _pick_mpoint(df, requested):
     requested = requested + Size(en_spec="150 MB")
     sufficients = {key : val for (key,val) in df.items() if val > requested
                    and reasonable_mpoint(key)}
-    log.info('Sufficient mountpoints found: %s' % sufficients)
+    log.info('Sufficient mountpoints found: %s', sufficients)
 
     # prefer /tmp:
     if '/tmp' in sufficients:
