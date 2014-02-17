@@ -23,6 +23,7 @@ from blivet.deviceaction import ActionCreateFormat, ActionDestroyFormat, ActionR
 from blivet.devices import LUKSDevice
 from blivet.devicelibs.lvm import getPossiblePhysicalExtents
 from blivet.devicelibs import swap
+from blivet.errors import SizeParamsError
 from blivet.formats import getFormat
 from blivet.partitioning import doPartitioning
 from blivet.partitioning import growLVM
@@ -702,7 +703,7 @@ class LogVolData(commands.logvol.F20_LogVolData):
 
         try:
             size = Size(spec="%d MiB" % self.size)
-        except Exception:
+        except (ValueError, SizeParamsError):
             raise KickstartValueError(formatErrorMsg(self.lineno, msg="The size %s is not valid." % self.size))
 
         if self.mountpoint == "swap":
@@ -844,7 +845,7 @@ class LogVolData(commands.logvol.F20_LogVolData):
             if self.maxSizeMB:
                 try:
                     maxsize = Size(spec="%d MiB" % self.maxSizeMB)
-                except Exception:
+                except (ValueError, SizeParamsError):
                     raise KickstartValueError(formatErrorMsg(self.lineno, msg="The maximum size %s is not valid." % self.maxSizeMB))
             else:
                 maxsize = None
@@ -934,7 +935,7 @@ class PartitionData(commands.partition.F18_PartData):
 
         try:
             size = Size(spec="%d MiB" % self.size)
-        except Exception:
+        except (ValueError, SizeParamsError):
             raise KickstartValueError(formatErrorMsg(self.lineno, msg="The size %s is not valid." % self.size))
 
         if self.onbiosdisk != "":
@@ -1091,7 +1092,7 @@ class PartitionData(commands.partition.F18_PartData):
         if self.maxSizeMB:
             try:
                 maxsize = Size(spec="%d MiB" % self.maxSizeMB)
-            except Exception:
+            except (ValueError, SizeParamsError):
                 raise KickstartValueError(formatErrorMsg(self.lineno, msg="The maximum size %s is not valid." % self.maxSizeMB))
         else:
             maxsize = None

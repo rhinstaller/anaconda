@@ -156,6 +156,7 @@ def run_yum_transaction(release, arch, yum_conf, install_root, ts_file, script_l
             logfile.close()
     except YumBaseError as e:
         print("ERROR: transaction error: %s" % e)
+    # pylint: disable-msg=W0703
     except Exception as e:
         print("ERROR: unexpected error: %s" % e)
     finally:
@@ -254,7 +255,7 @@ class RPMCallback(object):
 
         try:
             repo = self.yb.repos.getRepo(txmbr.po.repoid)
-        except Exception as e:
+        except yum.Errors.RepoError as e:
             print("ERROR: getRepo failed: %s" % e)
             raise Exception("rpmcallback getRepo failed")
 
