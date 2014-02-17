@@ -211,10 +211,13 @@ class ProgressHub(Hub):
         self._progressNotebook = self.builder.get_object("progressNotebook")
 
         lbl = self.builder.get_object("configurationLabel")
-        lbl.set_text(lbl.get_text() % productName)
+        lbl.set_text(_("%s is now successfully installed, but some configuration still needs to be done.\n"
+            "Finish it and then click the Finish configuration button please.") %
+            productName)
 
         lbl = self.builder.get_object("rebootLabel")
-        lbl.set_text(lbl.get_text() % productName)
+        lbl.set_text(_("%s is now successfully installed and ready for you to use!\n"
+                "Go ahead and reboot to start using it!") % productName)
 
         rnotes = self._get_rnotes()
         # Get the start of the pages we're about to add to the notebook

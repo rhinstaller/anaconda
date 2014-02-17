@@ -243,12 +243,8 @@ class WelcomeLanguageSpoke(LangLocaleHandler, StandaloneSpoke):
         # substituted.
         welcomeLabel = self.builder.get_object("welcomeLabel")
 
-        if not welcomeLabel in self._origStrings:
-            self._origStrings[welcomeLabel] = welcomeLabel.get_label()
-
-        before = self._origStrings[welcomeLabel]
-        xlated = _(before) % {"name" : productName.upper(), "version" : productVersion}
-        welcomeLabel.set_label(xlated)
+        welcomeLabel.set_text(_("WELCOME TO %(name)s %(version)s.") %
+                {"name" : productName.upper(), "version" : productVersion})
 
         # Retranslate the language (filtering) entry's placeholder text
         languageEntry = self.builder.get_object("languageEntry")
