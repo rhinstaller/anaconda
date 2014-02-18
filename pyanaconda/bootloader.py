@@ -2037,8 +2037,7 @@ class ZIPL(BootLoader):
     packages = ["s390utils-base"]
 
     # stage2 device requirements
-    stage2_device_types = ["partition", "mdarray", "lvmlv"]
-    stage2_device_raid_levels = [mdraid.RAID1]
+    stage2_device_types = ["partition", "lvmlv"]
 
     @property
     def stage2_format_types(self):
