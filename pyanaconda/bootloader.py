@@ -1511,7 +1511,7 @@ class GRUB2(GRUB):
         users_file = ROOT_PATH + "/etc/grub.d/01_users"
         header = open(users_file, "w")
         header.write("#!/bin/sh -e\n\n")
-        header.write("cat << EOF\n")
+        header.write("cat << \"EOF\"\n")
         # XXX FIXME: document somewhere that the username is "root"
         header.write("set superusers=\"root\"\n")
         header.write("export superusers\n")
