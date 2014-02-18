@@ -1404,6 +1404,12 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
                     if _device is None:
                         # in this case we have removed the old device so we now have
                         # to re-create it
+
+                        # the disks need to be updated since we've replaced all
+                        # of the devices with copies in the devicefactory error
+                        # handler
+                        old_disk_names = [d.name for d in old_disks]
+                        old_disks = [self.__storage.devicetree.getDeviceByName(n) for n in old_disk_names]
                         try:
                             self._replace_device(old_device_type, device.size,
                                                  disks=old_disks,
