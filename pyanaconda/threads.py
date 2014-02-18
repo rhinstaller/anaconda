@@ -138,6 +138,7 @@ class ThreadManager(object):
         """
         return self._errors.get(name)
 
+    @property
     def any_errors(self):
         """Return True of there have been any errors in any threads
         """
