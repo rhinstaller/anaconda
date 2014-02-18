@@ -400,8 +400,10 @@ All this option actually did was set `TERM=vt100`. The default `TERM` setting
 works fine these days, so this was no longer necessary.
 
 === noipv6  ===
-ipv6 is built into the kernel and can't be removed. You should be able to
-disable it with `ipv6.disable`, though.
+ipv6 is built into the kernel and can't be removed by anaconda.
+
+You can disable ipv6 with `ipv6.disable=1`. This setting will be carried onto
+the installed system.
 
 === upgradeany ===
 Anaconda doesn't handle upgrades anymore.
