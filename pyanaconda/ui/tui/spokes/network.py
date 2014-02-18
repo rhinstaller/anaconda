@@ -68,9 +68,15 @@ class NetworkSpoke(EditTUISpoke):
             check if we're installing from CD/DVD, since a network connection
             should not be required in this case.
         """
-        localinst = bool(self.data.method.method == "cdrom")
         return (not can_touch_runtime_system("require network connection")
-                or nm_activated_devices() or localinst)
+                or nm_activated_devices())
+
+    @property
+    def mandatory(self):
+        """ This spoke should only be necessary if we're using an installation
+            source that requires a network connection.
+        """
+        return self.data.method.method in ("url", "nfs")
 
     @property
     def status(self):
