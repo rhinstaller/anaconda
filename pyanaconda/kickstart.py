@@ -1083,7 +1083,6 @@ class PartitionData(commands.partition.F18_PartData):
             should_clear = storage.shouldClear(disk)
             if disk and (disk.partitioned or should_clear):
                 kwargs["parents"] = [disk]
-                break
             elif disk:
                 raise KickstartValueError(formatErrorMsg(self.lineno, msg="Specified unpartitioned disk %s in partition command" % self.disk))
 
