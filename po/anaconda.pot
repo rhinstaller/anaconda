@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: anaconda 19.31.58\n"
+"Project-Id-Version: anaconda 19.31.59\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
-"POT-Creation-Date: 2014-02-14 16:39-0800\n"
+"POT-Creation-Date: 2014-02-18 16:22-0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -288,18 +288,18 @@ msgid ""
 "%s"
 msgstr ""
 
-#: pyanaconda/kickstart.py:580
+#: pyanaconda/kickstart.py:576
 #, python-format
 msgid "%s is missing. Cannot setup firewall."
 msgstr ""
 
-#: pyanaconda/kickstart.py:1519
+#: pyanaconda/kickstart.py:1512
 msgid ""
 "The upgrade kickstart command is no longer supported. Upgrade functionality "
 "is provided through redhat-upgrade-tool."
 msgstr ""
 
-#: pyanaconda/kickstart.py:1751
+#: pyanaconda/kickstart.py:1744
 msgid "Running pre-installation scripts"
 msgstr ""
 
@@ -765,105 +765,105 @@ msgstr ""
 msgid "Network settings"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/network.py:88
+#: pyanaconda/ui/tui/spokes/network.py:94
 #, python-format
 msgid "Wired (%(interface_name)s) disconnected\n"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/network.py:93
+#: pyanaconda/ui/tui/spokes/network.py:99
 #, python-format
 msgid "Wired (%(interface_name)s) connected\n"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/network.py:105
+#: pyanaconda/ui/tui/spokes/network.py:111
 #, python-format
 msgid " IPv4 Address: %s Netmask: %s Gateway: %s\n"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/network.py:106
+#: pyanaconda/ui/tui/spokes/network.py:112
 #, python-format
 msgid " DNS: %s\n"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/network.py:113
+#: pyanaconda/ui/tui/spokes/network.py:119
 #, python-format
 msgid " IPv6 Address: %s/%d\n"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/network.py:132
+#: pyanaconda/ui/tui/spokes/network.py:138
 #, python-format
 msgid "Hostname: %s\n"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/network.py:144
+#: pyanaconda/ui/tui/spokes/network.py:150
 msgid "Set hostname"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/network.py:146
+#: pyanaconda/ui/tui/spokes/network.py:152
 #, python-format
 msgid "Configure device %s"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/network.py:165
+#: pyanaconda/ui/tui/spokes/network.py:171
 #: pyanaconda/ui/gui/spokes/datetime_spoke.glade:746
 msgid "Hostname"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/network.py:183
+#: pyanaconda/ui/tui/spokes/network.py:189
 msgid ""
 "Configuration not saved: gateway or netmask missing in static configuration"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/network.py:199
+#: pyanaconda/ui/tui/spokes/network.py:205
 msgid "Can't apply configuration, device activation failed."
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/network.py:226
+#: pyanaconda/ui/tui/spokes/network.py:232
 #: pyanaconda/ui/gui/spokes/network.py:1383
 #: pyanaconda/ui/gui/spokes/network.py:1451
 #, python-format
 msgid "Hostname is not valid: %s"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/network.py:250
+#: pyanaconda/ui/tui/spokes/network.py:256
 msgid "Device configuration"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/network.py:254
+#: pyanaconda/ui/tui/spokes/network.py:260
 #, python-format
 msgid "IPv4 address or %s for DHCP"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/network.py:256
+#: pyanaconda/ui/tui/spokes/network.py:262
 msgid "IPv4 netmask"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/network.py:257
+#: pyanaconda/ui/tui/spokes/network.py:263
 msgid "IPv4 gateway"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/network.py:258
+#: pyanaconda/ui/tui/spokes/network.py:264
 #, python-format
 msgid "IPv6 address or %s for automatic, %s for DHCP, %s to turn off"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/network.py:261
+#: pyanaconda/ui/tui/spokes/network.py:267
 msgid "IPv6 default gateway"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/network.py:262
+#: pyanaconda/ui/tui/spokes/network.py:268
 msgid "Nameservers (comma separated)"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/network.py:263
+#: pyanaconda/ui/tui/spokes/network.py:269
 msgid "Connect automatically after reboot"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/network.py:264
+#: pyanaconda/ui/tui/spokes/network.py:270
 msgid "Apply configuration in installer"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/network.py:279
+#: pyanaconda/ui/tui/spokes/network.py:285
 #, python-format
 msgid "Configuring device %s."
 msgstr ""
