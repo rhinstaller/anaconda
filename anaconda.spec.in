@@ -299,6 +299,28 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Feb 18 2014 Brian C. Lane <bcl@redhat.com> - 21.23-1
+- driverdisk: Parse all blkid output (#857248) (bcl)
+- Fix blkid output parsing and our output (vpodzime)
+- Don't use positional arguments to initialize Gtk objects (dshea)
+- Set mandatory property in network tui spoke. (#1064139) (sbueno+anaconda)
+- Disallow /boot on RAID on s390x. (#1027670) (sbueno+anaconda)
+- Remove a stray break statement (dshea)
+- Use devicetree.resolveDevice instead of udev_resolve_devspec. (#1047338)
+  (dlehman)
+- Set ThreadManager.any_errors to be a property (dshea)
+- Error on "bootloader --location=partition" when using grub2 (#969095).
+  (clumens)
+- Fix the handling of kernel parameters with no = (#1065704) (dshea)
+- Deal with a couple more "except Exception" lines. (clumens)
+- Fix pylint errors in the latest dnf-related commit. (clumens)
+- DNFPayload: pick the right FS as package download target. (ales)
+- DNFPayload: log import crashes. (ales)
+- DNFPayload: use dnf.exceptions.MarkingError. (ales)
+- Return the returned value in the fire_gtk_action (vpodzime)
+- Allow AddonData classes to parse options in the %%addon line (dshea)
+- Pass ints to Gtk resize functions (#1065021) (bcl)
+
 * Fri Feb 14 2014 Brian C. Lane <bcl@redhat.com> - 21.22-1
 - Remove app_paintable from a couple nav boxes (#1064708). (clumens)
 - Give a more correct error for missing groups/packages on exclude (#1060194).
