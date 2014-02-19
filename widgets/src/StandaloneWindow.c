@@ -94,9 +94,9 @@ static gboolean anaconda_standalone_window_on_draw(GtkWidget *win, cairo_t *cr) 
     GtkStyleContext * context = gtk_widget_get_style_context(win);
     gtk_style_context_save (context);
 
-    gtk_style_context_add_class(context, "sidebar");
+    gtk_style_context_add_class(context, "logo-sidebar");
     gtk_render_background(context, cr, 0, 0, get_sidebar_width(win), get_sidebar_height(win));
-    gtk_style_context_remove_class(context, "sidebar");
+    gtk_style_context_remove_class(context, "logo-sidebar");
 
     gtk_style_context_add_class(context, "logo");
     gtk_render_background(context, cr, 0, 0, get_sidebar_width(win), get_sidebar_height(win));

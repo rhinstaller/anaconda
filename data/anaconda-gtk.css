@@ -5,7 +5,7 @@
 
 /* logo and sidebar classes for RHEL */
 
-.sidebar {
+.logo-sidebar {
     background-image: url('/usr/share/anaconda/pixmaps/sidebar-bg.png');
     background-color: @redhat;
     background-repeat: no-repeat;
@@ -31,7 +31,7 @@ AnacondaSpokeWindow #layout-indicator {
 
 /* swap these into logo & sidebar classes for Fedora */
 /*
-.logo{
+.logo-sidebar {
     background-image: url('/usr/share/anaconda/pixmaps/logo.png');
     background-position: 50% 20px;
     background-repeat: no-repeat;
