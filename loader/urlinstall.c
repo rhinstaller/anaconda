@@ -95,26 +95,31 @@ static char **headers() {
     if (FL_KICKSTART_SEND_SERIAL(flags) && !access("/sbin/dmidecode", X_OK)) {
         FILE *f;
         char sn[1024];
-        size_t sn_len;
+        char *p;
 
         if ((f = popen("/sbin/dmidecode -s system-serial-number", "r")) == NULL) {
             logMessage(CRITICAL, "%s: %d: %m", __func__, __LINE__);
             abort();
         }
 
-        sn_len = fread(sn, sizeof(char), 1023, f);
-        if (ferror(f)) {
-            logMessage(CRITICAL, "%s: %d: %m", __func__, __LINE__);
-            abort();
+        /* dmidecode output may be multiline and may include comments, get the
+         * first non-comment line.
+         */
+        while(!feof(f)) {
+            p = fgets(sn, sizeof(sn), f);
+            if (p == NULL || ferror(f)) {
+                logMessage(CRITICAL, "%s: %d: %m", __func__, __LINE__);
+                abort();
+            }
+            if (sn[0] != '#')
+                break;
         }
-
-        sn[sn_len] = '\0';
         pclose(f);
+        g_strchomp(sn);
 
+        logMessage(INFO, "Extra HTTP Header: X-System-Serial-Number: %s", sn);
         extraHeaders = realloc(extraHeaders, (len+1)*sizeof(char *));
-
         checked_asprintf(&extraHeaders[len], "X-System-Serial-Number: %s", sn);
-
         len++;
     }
 
