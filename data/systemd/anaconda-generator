@@ -1,9 +1,6 @@
 #!/bin/bash
 # anaconda-generator: generate services needed for anaconda operation
 
-# Source in the dracut lib so we can parse cmd line arguments
-. /usr/lib/dracut/modules.d/99base/dracut-lib.sh
-
 # set up dirs
 systemd_dir=/lib/systemd/system
 target_dir=$systemd_dir/anaconda.target.wants
@@ -34,12 +31,3 @@ for tty in hvc0 hvc1 xvc0 hvsi0 hvsi1 hvsi2; do
         service_on_tty anaconda-shell@.service $tty
     fi
 done
-
-# enable the ssh service
-# NOTE: We have a match for s390x here because the console sucks on that
-# platform.  Really any platform with a crappy console that can't do curses
-# or have multiple VTs should get sshd spawned automatically, but we don't
-# yet have a good way of detecting these platforms.
-if getargbool 0 sshd inst.sshd || [ $(uname -m) = "s390x" ]; then
-    ln -sf $systemd_dir/anaconda-sshd.service $target_dir/anaconda-sshd.service
-fi
