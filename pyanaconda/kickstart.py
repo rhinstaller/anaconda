@@ -22,7 +22,7 @@ from pyanaconda.errors import ScriptError, errorHandler
 from blivet.deviceaction import *
 from blivet.devices import LUKSDevice
 from blivet.devicelibs.lvm import getPossiblePhysicalExtents
-from blivet.devicelibs import swap
+from blivet.devicelibs import swap as swap_lib
 from blivet.formats import getFormat
 from blivet.partitioning import doPartitioning
 from blivet.partitioning import growLVM
@@ -201,22 +201,33 @@ def removeExistingFormat(device, storage):
 
 def getAvailableDiskSpace(storage):
     """
-    Get overall disk space available on disks we may use (not free space on the
-    disks, but overall space on the disks).
+    Get overall disk space available on disks we may use.
 
     :param storage: blivet.Blivet instance
-    :return: overall disk space available in MB
+    :return: overall disk space available in MiB
     :rtype: int
 
     """
 
-    disk_space = 0
-    for disk in storage.disks:
-        if not storage.config.clearPartDisks or \
-                disk.name in storage.config.clearPartDisks:
-            disk_space += disk.size
 
-    return disk_space
+    free_space = storage.getFreeSpace()
+    return sum(disk_free.convertTo("MiB") for disk_free, fs_free in free_space.values())
+
+def refreshAutoSwapSize(storage):
+    """
+    Refresh size of the auto partitioning request for swap device according to
+    the current state of the storage configuration.
+
+    :param storage: blivet.Blivet instance
+
+    """
+
+    for request in storage.autoPartitionRequests:
+        if request.fstype == "swap":
+            disk_space = int(getAvailableDiskSpace(storage))
+            request.size = swap_lib.swapSuggestion(disk_space=disk_space)
+            break
+
 
 ###
 ### SUBCLASSES OF PYKICKSTART COMMAND HANDLERS
@@ -737,7 +748,7 @@ class LogVolData(commands.logvol.F20_LogVolData):
             self.mountpoint = ""
             if self.recommended or self.hibernation:
                 disk_space = getAvailableDiskSpace(storage)
-                self.size = swap.swapSuggestion(hibernation=self.hibernation, disk_space=disk_space)
+                self.size = swap_lib.swapSuggestion(hibernation=self.hibernation, disk_space=disk_space)
                 self.grow = False
         else:
             if self.fstype != "":
@@ -959,7 +970,7 @@ class PartitionData(commands.partition.F18_PartData):
             self.mountpoint = ""
             if self.recommended or self.hibernation:
                 disk_space = getAvailableDiskSpace(storage)
-                self.size = swap.swapSuggestion(hibernation=self.hibernation, disk_space=disk_space)
+                self.size = swap_lib.swapSuggestion(hibernation=self.hibernation, disk_space=disk_space)
                 self.grow = False
         # if people want to specify no mountpoint for some reason, let them
         # this is really needed for pSeries boot partitions :(

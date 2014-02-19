@@ -54,7 +54,7 @@ from pyanaconda.ui.gui.spokes.lib.dasdfmt import DasdFormatDialog
 from pyanaconda.ui.gui.categories.system import SystemCategory
 from pyanaconda.ui.gui.utils import enlightbox, gtk_call_once, gtk_action_wait, gtk_action_nowait, ignoreEscape
 
-from pyanaconda.kickstart import doKickstartStorage, getAvailableDiskSpace
+from pyanaconda.kickstart import doKickstartStorage, refreshAutoSwapSize
 from blivet import storageInitialize, arch
 from blivet.size import Size
 from blivet.devices import MultipathDevice
@@ -62,7 +62,6 @@ from blivet.errors import StorageError, DasdFormatError
 from blivet.errors import SanityError
 from blivet.errors import SanityWarning
 from blivet.platform import platform
-from blivet.devicelibs import swap as swap_lib
 from blivet.devicelibs.dasd import make_unformatted_dasd_list, format_dasd
 from pyanaconda.threads import threadMgr, AnacondaThread
 from pyanaconda.product import productName
@@ -338,13 +337,6 @@ class StorageSpoke(NormalSpoke, StorageChecker):
         # If custom is selected, we want to leave alone any storage layout the
         # user may have set up before now.
         self.storage.config.clearNonExistent = self.data.autopart.autopart
-
-        # refresh the autopart swap size suggestion with currently selected disks
-        for request in self.storage.autoPartitionRequests:
-            if request.fstype == "swap":
-                disk_space = getAvailableDiskSpace(self.storage)
-                request.size = swap_lib.swapSuggestion(disk_space=disk_space)
-                break
 
     @gtk_action_nowait
     def execute(self):
@@ -933,6 +925,8 @@ class StorageSpoke(NormalSpoke, StorageChecker):
             # catch-all.  Just stay on this spoke.
             return
 
+        if self.autopart:
+            refreshAutoSwapSize(self.storage)
         self.applyOnSkip = True
         NormalSpoke.on_back_clicked(self, button)
 

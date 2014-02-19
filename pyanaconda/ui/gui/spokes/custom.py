@@ -82,6 +82,8 @@ from pyanaconda.ui.gui.utils import setViewportBackground, gtk_action_wait, enli
         really_hide, really_show
 from pyanaconda.ui.gui.categories.system import SystemCategory
 from pyanaconda.ui.lib.disks import size_str
+from pyanaconda.kickstart import refreshAutoSwapSize
+
 
 # pylint: disable-msg=E0611
 from gi.repository import Gdk, Gtk
@@ -2658,6 +2660,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         self.clear_errors()
         with ui_storage_logger():
             try:
+                refreshAutoSwapSize(self.__storage)
                 doAutoPartition(self.__storage, self.data)
             except NoDisksError as e:
                 # No handling should be required for this.
