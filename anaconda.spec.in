@@ -255,6 +255,25 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Feb 18 2014 Brian C. Lane <bcl@redhat.com> - 19.31.60-1
+- Set mandatory property in network tui spoke. (sbueno+anaconda)
+  Resolves: rhbz#1064139
+- Disallow /boot on RAID on s390x. (sbueno+anaconda)
+  Resolves: rhbz#1027670
+- Use devicetree.resolveDevice instead of udev_resolve_devspec. (dlehman)
+  Resolves: rhbz#1047338
+- Set ThreadManager.any_errors to be a property (dshea)
+  Resolves: rhbz#1066467
+- driverdisk: Parse all blkid output (bcl)
+  Resolves: rhbz#857248
+  Related: rhbz#1036765
+- Use vc_keymap as X layout only if we get nothing from localed (vpodzime)
+  Resolves: rhbz#1066018
+- Tell libreport if it is a final release or not (vpodzime)
+  Resolves: rhbz#1063690
+- Fix blkid output parsing and our output (vpodzime)
+  Related: rhbz#1036765
+
 * Fri Feb 14 2014 Brian C. Lane <bcl@redhat.com> - 19.31.59-1
 - Allow using globs and alternative paths for specifying boot drive (clumens).
   Resolves: rhbz#1057282
