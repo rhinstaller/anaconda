@@ -117,7 +117,7 @@
 
 /* swap these into logo & sidebar classes for RHEL */
 /*
-.sidebar {
+.logo-sidebar {
     background-image: url('/usr/share/anaconda/pixmaps/sidebar-bg.png');
     background-color: @redhat;
 }
@@ -149,7 +149,7 @@ AnacondaSpokeWindow #layout-indicator {
     background-color: transparent;
 }
 
-.sidebar {
+.logo-sidebar {
     background-color: @fedora;
 }
 
