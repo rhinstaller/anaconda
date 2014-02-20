@@ -1631,6 +1631,8 @@ class EFIGRUB(GRUB2):
     stage2_is_valid_stage1 = False
     stage2_bootable = False
 
+    _efi_binary = "\\shim.efi"
+
     @property
     def _config_dir(self):
         return "efi/EFI/%s" % (self.efi_dir,)
@@ -1695,7 +1697,8 @@ class EFIGRUB(GRUB2):
         rc = self.efibootmgr("-c", "-w", "-L", productName,
                              "-d", boot_disk.path, "-p", boot_part_num,
                              "-l",
-                             self.efi_dir_as_efifs_dir + "\\shim.efi")
+                             self.efi_dir_as_efifs_dir + self._efi_binary,
+                             root=ROOT_PATH)
         if rc:
             raise BootLoaderError("failed to set new efi boot target")
 
@@ -1734,6 +1737,7 @@ class Aarch64EFIGRUB(EFIGRUB):
 
     _serial_consoles = ["ttyAMA", "ttyS"]
 
+    _efi_binary = "\\grubaa64.efi"
 
 class MacEFIGRUB(EFIGRUB):
     def mactel_config(self):
