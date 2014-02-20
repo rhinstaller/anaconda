@@ -416,13 +416,6 @@ def check_memory(anaconda, opts, display_mode=None):
                 anaconda.displayMode = 't'
                 time.sleep(2)
 
-def startDebugger(signum, frame):
-    try:
-        import epdb
-        epdb.serve(skip=1)
-    except ImportError:
-        log.error("Failed to start epdb remote debugging; epdb module import failed")
-
 def setupDisplay(anaconda, opts, addon_paths=None):
     from pyanaconda.ui.tui.simpleline import App
     from pyanaconda.ui.tui.spokes.askvnc import AskVNCSpoke
@@ -780,8 +773,6 @@ if __name__ == "__main__":
     pidfile = open("/var/run/anaconda.pid", "w")
     pidfile.write("%s\n" % (os.getpid(),))
     del pidfile
-    # add our own additional signal handlers
-    signal.signal(signal.SIGHUP, startDebugger)
 
     anaconda.opts = opts
 
