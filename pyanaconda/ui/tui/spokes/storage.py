@@ -22,7 +22,7 @@
 # which has the same license and authored by David Lehman <dlehman@redhat.com>
 #
 
-from pyanaconda.ui.lib.disks import getDisks, size_str
+from pyanaconda.ui.lib.disks import getDisks, size_str, applyDiskSelection
 from pyanaconda.ui.tui.spokes import NormalTUISpoke
 from pyanaconda.ui.tui.simpleline import TextWidget, CheckboxWidget
 
@@ -297,6 +297,8 @@ class StorageSpoke(NormalTUISpoke):
             self.storage.config.update(self.data)
             self.storage.autoPartType = self.data.clearpart.type
             self.storage.reset()
+            # now set ksdata back to the user's specified config
+            applyDiskSelection(self.storage, self.data, self.selected_disks)
             self._ready = True
         except BootLoaderError as e:
             log.error("BootLoader setup failed: %s", e)

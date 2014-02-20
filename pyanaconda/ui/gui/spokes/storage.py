@@ -43,7 +43,7 @@
 from gi.repository import Gdk, GLib, Gtk, AnacondaWidgets
 
 from pyanaconda.ui.communication import hubQ
-from pyanaconda.ui.lib.disks import getDisks, isLocalDisk, size_str
+from pyanaconda.ui.lib.disks import getDisks, isLocalDisk, size_str, applyDiskSelection
 from pyanaconda.ui.gui import GUIObject
 from pyanaconda.ui.gui.spokes import NormalSpoke
 from pyanaconda.ui.gui.spokes.lib.cart import SelectedDisksDialog
@@ -304,17 +304,8 @@ class StorageSpoke(NormalSpoke, StorageChecker):
         self._encrypted = self.builder.get_object("encryptionCheckbox")
         self._reclaim = self.builder.get_object("reclaimCheckbox")
 
-    def _applyDiskSelection(self, use_names):
-        onlyuse = use_names[:]
-        for disk in (d for d in self.storage.disks if d.name in onlyuse):
-            onlyuse.extend(d.name for d in disk.ancestors
-                           if d.name not in onlyuse)
-
-        self.data.ignoredisk.onlyuse = onlyuse
-        self.data.clearpart.drives = use_names[:]
-
     def apply(self):
-        self._applyDiskSelection(self.selected_disks)
+        applyDiskSelection(self.storage, self.data, self.selected_disks)
         self.data.autopart.autopart = self.autopart
         self.data.autopart.type = self.autoPartType
         self.data.autopart.encrypted = self.encrypted
@@ -371,7 +362,7 @@ class StorageSpoke(NormalSpoke, StorageChecker):
             self.storage.reset()
             self.disks = getDisks(self.storage.devicetree)
             # now set ksdata back to the user's specified config
-            self._applyDiskSelection(self.selected_disks)
+            applyDiskSelection(self.storage, self.data, self.selected_disks)
         except BootLoaderError as e:
             log.error("BootLoader setup failed: %s", e)
             StorageChecker.errors = str(e).split("\n")
@@ -632,7 +623,7 @@ class StorageSpoke(NormalSpoke, StorageChecker):
 
         # if there's only one disk, select it by default
         if len(self.disks) == 1 and not self.selected_disks:
-            self._applyDiskSelection([self.disks[0].name])
+            applyDiskSelection(self.storage, self.data, [self.disks[0].name])
 
         self._ready = True
         hubQ.send_ready(self.__class__.__name__, False)
@@ -899,7 +890,7 @@ class StorageSpoke(NormalSpoke, StorageChecker):
 
         # However, we do want to apply current selections so the disk cart off
         # the filter spoke will display the correct information.
-        self._applyDiskSelection(self.selected_disks)
+        applyDiskSelection(self.storage, self.data, self.selected_disks)
 
         self.skipTo = "FilterSpoke"
         NormalSpoke.on_back_clicked(self, button)
