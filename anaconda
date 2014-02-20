@@ -669,11 +669,6 @@ def check_memory(anaconda, options, display_mode=None):
                 anaconda.displayMode = 't'
                 time.sleep(2)
 
-def startDebugger(signum, frame):
-    # pylint: disable=import-error
-    import epdb
-    epdb.serve(skip=1)
-
 # pylint: disable=redefined-outer-name
 def setupDisplay(anaconda, options, addons=None):
     from pyanaconda.ui.tui.simpleline import App
@@ -1052,8 +1047,6 @@ if __name__ == "__main__":
     pidfile = open("/var/run/anaconda.pid", "w")
     pidfile.write("%s\n" % (os.getpid(),))
     del pidfile
-    # add our own additional signal handlers
-    signal.signal(signal.SIGHUP, startDebugger)
 
     anaconda.opts = opts
 
