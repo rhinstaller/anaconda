@@ -77,3 +77,12 @@ def isLocalDisk(disk):
     return (not isinstance(disk, MultipathDevice)
             and not isinstance(disk, iScsiDiskDevice)
             and not isinstance(disk, FcoeDiskDevice))
+
+def applyDiskSelection(storage, data, use_names):
+    onlyuse = use_names[:]
+    for disk in (d for d in storage.disks if d.name in onlyuse):
+        onlyuse.extend(d.name for d in disk.ancestors
+                       if d.name not in onlyuse)
+
+    data.ignoredisk.onlyuse = onlyuse
+    data.clearpart.drives = use_names[:]
