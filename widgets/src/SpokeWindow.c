@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2011-2013  Red Hat, Inc.
+ * Copyright (C) 2011-2014  Red Hat, Inc.
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -22,6 +22,7 @@
 #include "intl.h"
 #include "widgets-common.h"
 
+#include <atk/atk.h>
 #include <gdk/gdkkeysyms.h>
 
 /**
@@ -104,6 +105,7 @@ GtkWidget *anaconda_spoke_window_new() {
 }
 
 static void anaconda_spoke_window_init(AnacondaSpokeWindow *win) {
+    AtkObject *atk;
     GtkWidget *nav_area;
     GtkStyleContext *context;
 
@@ -122,6 +124,9 @@ static void anaconda_spoke_window_init(AnacondaSpokeWindow *win) {
     gtk_widget_set_vexpand(win->priv->button, FALSE);
     gtk_widget_set_valign(win->priv->button, GTK_ALIGN_END);
     gtk_widget_set_margin_bottom(win->priv->button, 6);
+
+    atk = gtk_widget_get_accessible(win->priv->button);
+    atk_object_set_name(atk, DEFAULT_BUTTON_LABEL);
 
     /* Set 'Done' button to blue 'suggested-action' style class */
     context = gtk_widget_get_style_context(win->priv->button);

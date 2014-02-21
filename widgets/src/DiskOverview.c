@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2011-2013  Red Hat, Inc.
+ * Copyright (C) 2011-2014  Red Hat, Inc.
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -17,6 +17,7 @@
  * Author: Chris Lumens <clumens@redhat.com>
  */
 
+#include <atk/atk.h>
 #include <gdk/gdk.h>
 #include <gio/gio.h>
 #include <string.h>
@@ -256,6 +257,8 @@ static void set_icon(AnacondaDiskOverview *widget, const char *icon_name) {
 
 /* Initialize the widgets in a newly allocated DiskOverview. */
 static void anaconda_disk_overview_init(AnacondaDiskOverview *widget) {
+    AtkObject *atk;
+    AtkRole role;
     char *markup;
 
     widget->priv = G_TYPE_INSTANCE_GET_PRIVATE(widget,
@@ -323,6 +326,11 @@ static void anaconda_disk_overview_init(AnacondaDiskOverview *widget) {
 
     /* And this one is to handle when you select a DiskOverview via keyboard. */
     g_signal_connect(widget, "key-release-event", G_CALLBACK(anaconda_disk_overview_clicked), NULL);
+
+    role = atk_role_register("disk overview");
+
+    atk = gtk_widget_get_accessible(GTK_WIDGET(widget));
+    atk_object_set_role(atk, role);
 }
 
 gboolean anaconda_disk_overview_clicked(AnacondaDiskOverview *widget, GdkEvent *event) {

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2011-2013  Red Hat, Inc.
+ * Copyright (C) 2011-2014  Red Hat, Inc.
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -17,6 +17,7 @@
  * Author: Chris Lumens <clumens@redhat.com>
  */
 
+#include <atk/atk.h>
 #include <gdk/gdk.h>
 #include <gio/gio.h>
 #include <glib.h>
@@ -248,6 +249,9 @@ static void set_icon(AnacondaSpokeSelector *widget, const char *icon_name) {
 }
 
 static void anaconda_spoke_selector_init(AnacondaSpokeSelector *spoke) {
+    AtkObject *atk;
+    AtkRole role;
+
     spoke->priv = G_TYPE_INSTANCE_GET_PRIVATE(spoke,
                                               ANACONDA_TYPE_SPOKE_SELECTOR,
                                               AnacondaSpokeSelectorPrivate);
@@ -299,6 +303,13 @@ static void anaconda_spoke_selector_init(AnacondaSpokeSelector *spoke) {
     gtk_grid_attach(GTK_GRID(spoke->priv->grid), spoke->priv->status_label, 1, 1, 2, 1);
 
     gtk_container_add(GTK_CONTAINER(spoke), spoke->priv->grid);
+
+    role = atk_role_register("spoke selector");
+
+    atk = gtk_widget_get_accessible(GTK_WIDGET(spoke));
+    atk_object_set_name(atk, _(DEFAULT_TITLE));
+    atk_object_set_description(atk, _(DEFAULT_STATUS));
+    atk_object_set_role(atk, role);
 }
 
 static void anaconda_spoke_selector_finalize(GObject *object) {
@@ -328,6 +339,7 @@ static void anaconda_spoke_selector_get_property(GObject *object, guint prop_id,
 }
 
 static void anaconda_spoke_selector_set_property(GObject *object, guint prop_id, const GValue *value, GParamSpec *pspec) {
+    AtkObject *atk;
     AnacondaSpokeSelector *widget = ANACONDA_SPOKE_SELECTOR(object);
 
     switch(prop_id) {
@@ -341,12 +353,18 @@ static void anaconda_spoke_selector_set_property(GObject *object, guint prop_id,
             break;
 
         case PROP_STATUS: {
+            atk = gtk_widget_get_accessible(GTK_WIDGET(widget));
+
             format_status_label(widget, g_value_get_string(value));
+            atk_object_set_description(atk, g_value_get_string(value));
             break;
         }
 
         case PROP_TITLE: {
+            atk = gtk_widget_get_accessible(GTK_WIDGET(widget));
+
             format_title_label(widget, g_value_get_string(value));
+            atk_object_set_name(atk, gtk_label_get_text(GTK_LABEL(widget->priv->title_label)));
             break;
         }
     }

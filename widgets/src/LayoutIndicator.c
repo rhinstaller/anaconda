@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2013  Red Hat, Inc.
+ * Copyright (C) 2013-2014 Red Hat, Inc.
  *
  * Some parts of this code were inspired by the xfce4-xkb-plugin's sources.
  *
@@ -19,6 +19,7 @@
  * Author: Vratislav Podzimek <vpodzime@redhat.com>
  */
 
+#include <atk/atk.h>
 #include <glib.h>
 #include <gdk/gdk.h>
 #include <gdk/gdkx.h>
@@ -138,6 +139,7 @@ GtkWidget *anaconda_layout_indicator_new() {
 }
 
 static void anaconda_layout_indicator_init(AnacondaLayoutIndicator *self) {
+    AtkObject *atk;
     GdkDisplay *display;
     GdkRGBA background_color = { 0.0, 0.0, 0.0, 0.0 };
     AnacondaLayoutIndicatorClass *klass = ANACONDA_LAYOUT_INDICATOR_GET_CLASS(self);
@@ -235,6 +237,10 @@ static void anaconda_layout_indicator_init(AnacondaLayoutIndicator *self) {
 
     /* add box to the main container (self) */
     gtk_container_add(GTK_CONTAINER(self), GTK_WIDGET(self->priv->main_box));
+
+    atk = gtk_widget_get_accessible(GTK_WIDGET(self));
+    atk_object_set_name(atk, "Keyboard Layout");
+    atk_object_set_description(atk, self->priv->layout);
 }
 
 static void anaconda_layout_indicator_dispose(GObject *object) {
@@ -337,10 +343,14 @@ static void anaconda_layout_indicator_refresh_ui_elements(AnacondaLayoutIndicato
 }
 
 static void anaconda_layout_indicator_refresh_layout(AnacondaLayoutIndicator *self) {
+    AtkObject *atk;
     AnacondaLayoutIndicatorClass *klass = ANACONDA_LAYOUT_INDICATOR_GET_CLASS(self);
 
     g_free(self->priv->layout);
     self->priv->layout = get_current_layout(klass->engine, self->priv->config_rec);
+
+    atk = gtk_widget_get_accessible(GTK_WIDGET(self));
+    atk_object_set_description(atk, self->priv->layout);
 
     anaconda_layout_indicator_refresh_ui_elements(self);
 }

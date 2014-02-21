@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2011-2013  Red Hat, Inc.
+ * Copyright (C) 2011-2014  Red Hat, Inc.
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -21,6 +21,7 @@
 #include "StandaloneWindow.h"
 #include "intl.h"
 
+#include <atk/atk.h>
 #include <gdk/gdkkeysyms.h>
 
 /**
@@ -206,6 +207,7 @@ GtkWidget *anaconda_standalone_window_new() {
 }
 
 static void anaconda_standalone_window_init(AnacondaStandaloneWindow *win) {
+    AtkObject *atk;
     GtkWidget *main_box = anaconda_base_window_get_main_box(ANACONDA_BASE_WINDOW(win));
 
     win->priv = G_TYPE_INSTANCE_GET_PRIVATE(win,
@@ -214,7 +216,12 @@ static void anaconda_standalone_window_init(AnacondaStandaloneWindow *win) {
 
     /* Create the buttons. */
     win->priv->quit_button = gtk_button_new_with_mnemonic(_(QUIT_TEXT));
+    atk = gtk_widget_get_accessible(win->priv->quit_button);
+    atk_object_set_name(atk, _(QUIT_TEXT));
+
     win->priv->continue_button = gtk_button_new_with_mnemonic(_(CONTINUE_TEXT));
+    atk = gtk_widget_get_accessible(win->priv->continue_button);
+    atk_object_set_name(atk, _(CONTINUE_TEXT));
 
     /* Hook up some signals for those buttons.  The signal handlers here will
      * just raise our own custom signals for the whole window.
