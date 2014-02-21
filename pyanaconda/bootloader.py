@@ -1640,6 +1640,10 @@ class EFIGRUB(GRUB2):
         self.efi_dir = 'BOOT'
 
     def efibootmgr(self, *args, **kwargs):
+        if flags.imageInstall or flags.dirInstall:
+            log.info("Skipping efibootmgr for image/directory install.")
+            return ""
+
         if kwargs.pop("capture", False):
             exec_func = iutil.execWithCapture
         else:
