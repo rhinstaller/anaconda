@@ -1,6 +1,6 @@
 #!/usr/bin/python
 #
-# Copyright (C) 2013  Red Hat, Inc.
+# Copyright (C) 2013-2014  Red Hat, Inc.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU Lesser General Public License as published
@@ -19,6 +19,7 @@
 
 from . import TestCase, TestCaseComponent
 
+from blivet.size import Size
 from pykickstart.errors import KickstartValueError
 
 class BTRFSOnNonBTRFSComponent(TestCaseComponent):
@@ -26,7 +27,7 @@ class BTRFSOnNonBTRFSComponent(TestCaseComponent):
 
     def __init__(self, *args, **kwargs):
         TestCaseComponent.__init__(self, *args, **kwargs)
-        self.disksToCreate = [("anatest-disk1", 1000)]
+        self.disksToCreate = [("anatest-disk1", Size(spec="1GiB"))]
 
     @property
     def ks(self):
@@ -49,7 +50,7 @@ class VolGroupOnNonPVsComponent(TestCaseComponent):
 
     def __init__(self, *args, **kwargs):
         TestCaseComponent.__init__(self, *args, **kwargs)
-        self.disksToCreate = [("anatest-disk1", 1000)]
+        self.disksToCreate = [("anatest-disk1", Size(spec="1GiB"))]
 
     @property
     def ks(self):
@@ -72,8 +73,8 @@ class RaidOnNonRaidMembersComponent(TestCaseComponent):
 
     def __init__(self, *args, **kwargs):
         TestCaseComponent.__init__(self, *args, **kwargs)
-        self.disksToCreate = [("anatest-disk1", 1000),
-                              ("anatest-disk2", 1000)]
+        self.disksToCreate = [("anatest-disk1", Size(spec="1GiB")),
+                              ("anatest-disk2", Size(spec="1GiB"))]
 
     @property
     def ks(self):
