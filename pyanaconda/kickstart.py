@@ -710,6 +710,8 @@ class LogVolData(commands.logvol.F20_LogVolData):
             size = Size(spec="%d MiB" % self.size)
         except (ValueError, SizeParamsError):
             raise KickstartValueError(formatErrorMsg(self.lineno, msg="The size %s is not valid." % self.size))
+        except TypeError:
+            pass
 
         if self.mountpoint == "swap":
             ty = "swap"
@@ -852,6 +854,8 @@ class LogVolData(commands.logvol.F20_LogVolData):
                     maxsize = Size(spec="%d MiB" % self.maxSizeMB)
                 except (ValueError, SizeParamsError):
                     raise KickstartValueError(formatErrorMsg(self.lineno, msg="The maximum size %s is not valid." % self.maxSizeMB))
+                except TypeError:
+                    pass
             else:
                 maxsize = None
 
@@ -942,6 +946,8 @@ class PartitionData(commands.partition.F18_PartData):
             size = Size(spec="%d MiB" % self.size)
         except (ValueError, SizeParamsError):
             raise KickstartValueError(formatErrorMsg(self.lineno, msg="The size %s is not valid." % self.size))
+        except TypeError:
+            pass
 
         if self.onbiosdisk != "":
             for (disk, biosdisk) in storage.eddDict.iteritems():
@@ -1096,6 +1102,8 @@ class PartitionData(commands.partition.F18_PartData):
                 maxsize = Size(spec="%d MiB" % self.maxSizeMB)
             except (ValueError, SizeParamsError):
                 raise KickstartValueError(formatErrorMsg(self.lineno, msg="The maximum size %s is not valid." % self.maxSizeMB))
+            except TypeError:
+                pass
         else:
             maxsize = None
 

@@ -8,7 +8,10 @@ if os.geteuid() != 0:
     os._exit(77)
 
 from cases.bz1014545 import BZ1014545_TestCase
-tc = BZ1014545_TestCase()
-failures = tc.run()
+from cases.bz1067707 import BZ1067707_TestCase
+
+for tc in [BZ1014545_TestCase(),
+           BZ1067707_TestCase()]:
+    failures = tc.run()
 
 os._exit(failures)

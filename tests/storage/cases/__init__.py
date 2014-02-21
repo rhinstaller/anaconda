@@ -119,7 +119,7 @@ class TestCaseComponent(object):
     def __init__(self):
         """Create a new TestCaseComponent instance.  This __init__ method should
            typically do very little.  However, subclasses must be sure to set
-           self.disksToCreate.  This attribute is a list of (disk name, size in MB)
+           self.disksToCreate.  This attribute is a list of (disk name, blivet.Size)
            tuples that will be used in this test.  Disks given in this list will
            be automatically created by setupDisks and destroyed by tearDownDisks.
         """
