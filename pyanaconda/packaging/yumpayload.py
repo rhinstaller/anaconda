@@ -1372,10 +1372,18 @@ reposdir=%s
         """
         self._selectYumGroup("core")
 
+        env = None
+
         if self.data.packages.default and self.environments:
-            self.selectEnvironment(self.environments[0])
+            env = self.environments[0]
         elif self.data.packages.environment:
-            self.selectEnvironment(self.data.packages.environment)
+            env = self.data.packages.environment
+
+        if env:
+            try:
+                self.selectEnvironment(env)
+            except NoSuchGroup as e:
+                self._handleMissing(e)
 
         for package in self.data.packages.packageList:
             try:
