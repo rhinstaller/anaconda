@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Generated with glade 3.16.0 on Thu Oct 17 10:46:26 2013 -->
+<!-- Generated with glade 3.16.0 on Thu Feb 20 15:48:20 2014 -->
 <interface>
   <!-- interface-requires gtk+ 3.0 -->
   <!-- interface-requires AnacondaWidgets 1.0 -->
   <object class="AnacondaHubWindow" id="summaryWindow">
     <property name="can_focus">False</property>
     <property name="window_name" translatable="yes">INSTALLATION SUMMARY</property>
+    <child internal-child="accessible">
+      <object class="AtkObject" id="summaryWindow-atkobject">
+        <property name="AtkObject::accessible-name" translatable="yes">INSTALLATION SUMMARY</property>
+      </object>
+    </child>
     <child internal-child="main_box">
       <object class="GtkBox" id="AnacondaHubWindow-main_box1">
         <property name="can_focus">False</property>

@@ -9,6 +9,11 @@
     <property name="border_width">6</property>
     <property name="type_hint">dialog</property>
     <property name="decorated">False</property>
+    <child internal-child="accessible">
+      <object class="AtkObject" id="betaWarnDialog-atkobject">
+        <property name="AtkObject::accessible-name" translatable="yes">Beta Warn</property>
+      </object>
+    </child>
     <child internal-child="vbox">
       <object class="GtkBox" id="dialog-vbox1">
         <property name="can_focus">False</property>
@@ -156,6 +161,11 @@
     <property name="border_width">6</property>
     <property name="type_hint">dialog</property>
     <property name="decorated">False</property>
+    <child internal-child="accessible">
+      <object class="AtkObject" id="unsupportedHardwareDialog-atkobject">
+        <property name="AtkObject::accessible-name" translatable="yes">Unsupported Hardware</property>
+      </object>
+    </child>
     <child internal-child="vbox">
       <object class="GtkBox" id="uhd-vbox">
         <property name="can_focus">False</property>
@@ -278,6 +288,11 @@
   <object class="AnacondaStandaloneWindow" id="welcomeWindow">
     <property name="can_focus">False</property>
     <property name="window_name"/>
+    <child internal-child="accessible">
+      <object class="AtkObject" id="welcomeWindow-atkobject">
+        <property name="AtkObject::accessible-name" translatable="yes">WELCOME</property>
+      </object>
+    </child>
     <child internal-child="main_box">
       <object class="GtkBox" id="AnacondaStandaloneWindow-main_box1">
         <property name="can_focus">False</property>
@@ -379,6 +394,11 @@
                             <property name="headers_visible">False</property>
                             <property name="enable_search">False</property>
                             <property name="search_column">0</property>
+                            <child internal-child="accessible">
+                              <object class="AtkObject" id="languageView-atkobject">
+                                <property name="AtkObject::accessible-name" translatable="yes">Languages</property>
+                              </object>
+                            </child>
                             <child internal-child="selection">
                               <object class="GtkTreeSelection" id="languageViewSelection">
                                 <signal name="changed" handler="on_lang_selection_changed" swapped="no"/>
@@ -476,6 +496,11 @@
                             <property name="headers_visible">False</property>
                             <property name="enable_search">False</property>
                             <property name="search_column">0</property>
+                            <child internal-child="accessible">
+                              <object class="AtkObject" id="localeView-atkobject">
+                                <property name="AtkObject::accessible-name" translatable="yes">Locales</property>
+                              </object>
+                            </child>
                             <child internal-child="selection">
                               <object class="GtkTreeSelection" id="localeViewSelection">
                                 <signal name="changed" handler="on_locale_selection_changed" swapped="no"/>

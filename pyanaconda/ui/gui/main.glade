@@ -10,6 +10,11 @@
     <property name="modal">True</property>
     <property name="type_hint">dialog</property>
     <property name="decorated">False</property>
+    <child internal-child="accessible">
+      <object class="AtkObject" id="errorDialog-atkobject">
+        <property name="AtkObject::accessible-name" translatable="yes">Error</property>
+      </object>
+    </child>
     <child internal-child="vbox">
       <object class="GtkBox" id="dialog-vbox2">
         <property name="can_focus">False</property>
@@ -72,6 +77,11 @@
     <property name="can_focus">False</property>
     <property name="type_hint">dialog</property>
     <property name="decorated">False</property>
+    <child internal-child="accessible">
+      <object class="AtkObject" id="quitDialog-atkobject">
+        <property name="AtkObject::accessible-name" translatable="yes">Quit</property>
+      </object>
+    </child>
     <child internal-child="vbox">
       <object class="GtkBox" id="quitDialog-vbox1">
         <property name="can_focus">False</property>
