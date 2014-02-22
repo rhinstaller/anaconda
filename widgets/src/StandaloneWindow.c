@@ -88,18 +88,33 @@ static int get_sidebar_height(GtkWidget *window) {
 
 /* function to override default drawing to insert sidebar image */
 static gboolean anaconda_standalone_window_on_draw(GtkWidget *win, cairo_t *cr) {
+    GtkStyleContext *context;
+    gdouble sidebar_x;
+    gdouble sidebar_width;
+
     /* calls parent class' draw handler */
     GTK_WIDGET_CLASS(anaconda_standalone_window_parent_class)->draw(win,cr);
 
-    GtkStyleContext * context = gtk_widget_get_style_context(win);
+    sidebar_width = get_sidebar_width(win);
+
+    /* For RTL languages, move the sidebar to the right edge */
+    if (gtk_get_locale_direction() == GTK_TEXT_DIR_LTR) {
+        sidebar_x = 0;
+    } else {
+        GtkAllocation allocation;
+        gtk_widget_get_allocation(win, &allocation);
+        sidebar_x = allocation.width - sidebar_width;
+    }
+
+    context = gtk_widget_get_style_context(win);
     gtk_style_context_save (context);
 
     gtk_style_context_add_class(context, "logo-sidebar");
-    gtk_render_background(context, cr, 0, 0, get_sidebar_width(win), get_sidebar_height(win));
+    gtk_render_background(context, cr, sidebar_x, 0, sidebar_width, get_sidebar_height(win));
     gtk_style_context_remove_class(context, "logo-sidebar");
 
     gtk_style_context_add_class(context, "logo");
-    gtk_render_background(context, cr, 0, 0, get_sidebar_width(win), get_sidebar_height(win));
+    gtk_render_background(context, cr, sidebar_x, 0, sidebar_width, get_sidebar_height(win));
     gtk_style_context_remove_class(context, "logo");
 
     gtk_style_context_restore (context);
@@ -107,18 +122,26 @@ static gboolean anaconda_standalone_window_on_draw(GtkWidget *win, cairo_t *cr) 
     return TRUE; /* TRUE to avoid default draw handler */
 }
 
-/* Move base window content appropriate amount of space to the right to make room for sidebar */
+/* Move base window content appropriate amount of space to make room for sidebar */
 static void anaconda_standalone_window_size_allocate (GtkWidget *window, GtkAllocation *allocation) {
     GtkAllocation child_allocation;
     GtkWidget *child;
     int sidebar_width;
 
+    /*
+     * For RTL languages, the width is reduced by the same amount, but the
+     * start of the window does not need to move.
+     */
     gtk_widget_set_allocation(window, allocation);
     sidebar_width = get_sidebar_width(window);
-    child_allocation.x = allocation->x+sidebar_width;
     child_allocation.y = allocation->y;
     child_allocation.width = allocation->width-sidebar_width;
     child_allocation.height = allocation->height;
+
+    if (gtk_get_locale_direction() == GTK_TEXT_DIR_LTR)
+        child_allocation.x = allocation->x+sidebar_width;
+    else
+        child_allocation.x = allocation->x;
 
     child = gtk_bin_get_child (GTK_BIN (window));
     if (child && gtk_widget_get_visible (child))
