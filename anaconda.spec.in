@@ -299,6 +299,22 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Fri Feb 21 2014 Brian C. Lane <bcl@redhat.com> - 21.24-1
+- setup default environment in initialize (bcl)
+- Move environmentAddons into packaging (bcl)
+- Skip running efibootmgr for image and dir installations (#1067749) (bcl)
+- Move translatable format strings into python. (dshea)
+- Added a check for translatable format strings in glade. (dshea)
+- Use a single script to run the glade tests. (dshea)
+- Check that s390x LVM configuration is valid. (#873135, 885011)
+  (sbueno+anaconda)
+- Re-apply disk selection on error in TUI storage. (#1056316) (sbueno+anaconda)
+- Properly retry package downloads (#924860) (mkolman)
+- Change the CSS class name of the sidebar (#1067049). (clumens)
+- Preserve ipv6.disable=1 on target system (#1040751) (wwoods)
+- Remove an unused import in driver-updates. (clumens)
+- Fix heredoc usage in generated /etc/grub.d/01_users (#1044404). (dcantrell)
+
 * Tue Feb 18 2014 Brian C. Lane <bcl@redhat.com> - 21.23-1
 - driverdisk: Parse all blkid output (#857248) (bcl)
 - Fix blkid output parsing and our output (vpodzime)
