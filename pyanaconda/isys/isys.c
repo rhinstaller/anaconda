@@ -71,14 +71,12 @@
 #define CDROMEJECT 0x5309
 #endif
 
-static PyObject * doisPseudoTTY(PyObject * s, PyObject * args);
 static PyObject * doSync(PyObject * s, PyObject * args);
 static PyObject * doSegvHandler(PyObject *s, PyObject *args);
 static PyObject * doGetAnacondaVersion(PyObject * s, PyObject * args);
 static PyObject * doSetSystemTime(PyObject *s, PyObject *args);
 
 static PyMethodDef isysModuleMethods[] = {
-    { "isPseudoTTY", (PyCFunction) doisPseudoTTY, METH_VARARGS, NULL},
     { "sync", (PyCFunction) doSync, METH_VARARGS, NULL},
     { "handleSegv", (PyCFunction) doSegvHandler, METH_VARARGS, NULL },
     { "getAnacondaVersion", (PyCFunction) doGetAnacondaVersion, METH_VARARGS, NULL },
@@ -92,17 +90,6 @@ static PyMethodDef isysModuleMethods[] = {
 /* cppcheck-suppress unusedFunction */
 void init_isys(void) {
     Py_InitModule("_isys", isysModuleMethods);
-}
-
-static PyObject * doisPseudoTTY(PyObject * s, PyObject * args) {
-    int fd;
-    struct stat sb;
-
-    if (!PyArg_ParseTuple(args, "i", &fd)) return NULL;
-    fstat(fd, &sb);
-
-    /* XXX close enough for now */
-    return Py_BuildValue("i", ((major(sb.st_rdev) >= 136) && (major(sb.st_rdev) <= 143)));
 }
 
 static PyObject * doSync(PyObject * s, PyObject * args) {

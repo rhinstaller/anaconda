@@ -55,9 +55,6 @@ else:
 MIN_GUI_RAM = MIN_RAM + GUI_INSTALL_EXTRA_RAM
 EARLY_SWAP_RAM = 896 * 1024
 
-def isPseudoTTY (fd):
-    return _isys.isPseudoTTY (fd)
-
 ## Flush filesystem buffers.
 def sync ():
     return _isys.sync ()
