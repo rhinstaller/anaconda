@@ -22,54 +22,12 @@
 #include <Python.h>
 
 #include <stdio.h>
-#include <dirent.h>
-#include <errno.h>
-#define u32 __u32
-#include <fcntl.h>
-/* Need to tell loop.h what the actual dev_t type is. */
-#undef dev_t
-#if defined(__alpha)
-#define dev_t unsigned int
-#else
-#if defined(__x86_64__)
-#define dev_t unsigned long
-#else
-#define dev_t unsigned short
-#endif
-#endif
-#include <linux/loop.h>
-#undef dev_t
-#define dev_t dev_t
-#include <sys/ioctl.h>
-#include <sys/stat.h>
-#include <sys/sysmacros.h>
 #include <sys/time.h>
-#include <sys/utsname.h>
-#include <sys/vfs.h>
 #include <unistd.h>
-#include <sys/vt.h>
 #include <sys/types.h>
-#include <sys/socket.h>
-#include <arpa/inet.h>
-#include <linux/fb.h>
-#include <libintl.h>
-#include <libgen.h>
-#include <linux/cdrom.h>
-#include <linux/major.h>
 #include <signal.h>
 #include <execinfo.h>
-
-#ifdef MAJOR_IN_MKDEV
-#include <sys/mkdev.h>
-#endif
-
-#ifdef MAJOR_IN_SYSMACROS
-#include <sys/sysmacros.h>
-#endif
-
-#ifndef CDROMEJECT
-#define CDROMEJECT 0x5309
-#endif
+#include <stdlib.h>
 
 static PyObject * doSync(PyObject * s, PyObject * args);
 static PyObject * doSegvHandler(PyObject *s, PyObject *args);
@@ -83,9 +41,6 @@ static PyMethodDef isysModuleMethods[] = {
     { "set_system_time", (PyCFunction) doSetSystemTime, METH_VARARGS, NULL},
     { NULL, NULL, 0, NULL }
 } ;
-
-#define BOOT_SIGNATURE	0xaa55	/* boot signature */
-#define BOOT_SIG_OFFSET	510	/* boot signature offset */
 
 /* cppcheck-suppress unusedFunction */
 void init_isys(void) {

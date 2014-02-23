@@ -53,7 +53,7 @@ m4_pattern_forbid([GTK_DOC_CHECK])dnl
 GTK_DOC_CHECK([1.14], [--flavour no-tmpl])
 
 PKG_CHECK_MODULES([GLADEUI], [gladeui-2.0 >= 3.10])
-PKG_CHECK_MODULES([GTK], [gtk+-x11-3.0 >= 3.0])
+PKG_CHECK_MODULES([GTK], [gtk+-x11-3.0 >= 3.11.3])
 PKG_CHECK_MODULES([GLIB], [glib-2.0])
 PKG_CHECK_MODULES([LIBXKLAVIER], [libxklavier >= 5.2.1])
 PKG_CHECK_EXISTS([gobject-introspection-1.0 >= 1.30])

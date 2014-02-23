@@ -68,62 +68,23 @@ AM_GNU_GETTEXT([external])
 # Also update in gettextver in anaconda.spec.in
 AM_GNU_GETTEXT_VERSION([0.18.3])
 
-# Checks for libraries.
-AC_CHECK_LIB([X11], [XGetWindowAttributes],
-             [AC_SUBST(X11_LIBS, [-lX11])],
-             [AC_MSG_FAILURE([*** libX11 not usable.])])
-
-AC_CHECK_LIB([audit], [audit_open],
-             [AC_SUBST(AUDIT_LIBS, [-laudit])],
-             [AC_MSG_FAILURE([*** libaudit not usable.])])
-
-AC_CHECK_LIB([z], [zlibVersion],
-             [AC_SUBST(ZLIB_LIBS, [-lz])],
-             [AC_MSG_FAILURE([*** libz not usable.])])
-
 # Checks for header files.
 AC_PATH_X
-AC_FUNC_ALLOCA
-AC_HEADER_RESOLV
-AC_HEADER_MAJOR
-AC_CHECK_HEADERS([argz.h arpa/inet.h fcntl.h inttypes.h libintl.h limits.h \
-                  malloc.h netdb.h netinet/in.h stddef.h stdint.h stdlib.h \
-                  string.h strings.h sys/ioctl.h sys/mount.h sys/param.h \
-                  sys/socket.h sys/time.h sys/vfs.h syslog.h termios.h \
-                  unistd.h utime.h wchar.h],
+AC_CHECK_HEADERS([fcntl.h stdlib.h string.h sys/time.h unistd.h],
                  [],
                  [AC_MSG_FAILURE([*** Header file $ac_header not found.])],
                  [])
 
 # Checks for typedefs, structures, and compiler characteristics.
-AC_TYPE_UID_T
-AC_C_INLINE
-AC_TYPE_INT32_T
-AC_TYPE_MODE_T
-AC_TYPE_OFF_T
 AC_TYPE_PID_T
 AC_TYPE_SIZE_T
 AC_TYPE_SSIZE_T
-AC_CHECK_MEMBERS([struct stat.st_rdev])
-AC_TYPE_UINT16_T
 AC_TYPE_UINT32_T
-AC_TYPE_UINT64_T
-AC_TYPE_UINT8_T
 AC_TYPE_INT64_T
 
 # Checks for library functions.
-AC_FUNC_CHOWN
-AC_FUNC_ERROR_AT_LINE
 AC_FUNC_FORK
-AC_FUNC_LSTAT_FOLLOWS_SLASHED_SYMLINK
-AC_FUNC_MALLOC
-AC_FUNC_MMAP
-AC_FUNC_REALLOC
-AC_CHECK_FUNCS([dup2 fdatasync ftruncate getcwd gethostbyname gettimeofday \
-                lchown memmove memset mkdir mkfifo munmap realpath select \
-                setenv sethostname socket strcasecmp strchr strcspn strdup \
-                strerror strncasecmp strndup strrchr strstr strtol strtoul \
-                strverscmp uname utime wcwidth],
+AC_CHECK_FUNCS([getcwd memset mkdir strchr strdup],
                [],
                [AC_MSG_FAILURE([*** Required function $ac_func not found.])])
 
@@ -144,13 +105,6 @@ PKG_CHECK_MODULES([PYTHON], [python], [
 
 # Check for libraries we need that provide pkg-config scripts
 PKG_PROG_PKG_CONFIG([0.23])
-PKG_CHECK_MODULES([X11], [x11 >= 1.3])
-PKG_CHECK_MODULES([XCOMPOSITE], [xcomposite >= 0.4.1])
-PKG_CHECK_MODULES([GLIB], [glib-2.0 >= 2.16.1])
-PKG_CHECK_MODULES([GTK_X11], [gtk+-x11-3.0 >= 3.11.3])
-PKG_CHECK_MODULES([GDK], [gdk-3.0])
-PKG_CHECK_MODULES([NETWORKMANAGER], [NetworkManager >= 0.7.1])
-PKG_CHECK_MODULES([LIBNM_GLIB], [libnm-glib >= 0.7.1 libnm-util >= 0.7.1])
 PKG_CHECK_MODULES([RPM], [rpm >= 4.10.0])
 PKG_CHECK_MODULES([LIBARCHIVE], [libarchive >= 3.0.4])
 
