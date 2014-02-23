@@ -19,8 +19,6 @@
 
 pkgpyexecdir = $(pyexecdir)/py$(PACKAGE_NAME)
 
-ISYS_SRCS = isofs.c
-
 dist_noinst_HEADERS = $(srcdir)/*.h
 
 ISYS_CFLAGS = -DVERSION_RELEASE='"$(PACKAGE_VERSION)-$(PACKAGE_RELEASE)"' \
@@ -34,13 +32,7 @@ pkgpyexec_LTLIBRARIES = _isys.la
 _isys_la_CFLAGS       = $(PYTHON_CFLAGS) $(ISYS_CFLAGS)
 _isys_la_LDFLAGS      = -module -avoid-version
 _isys_la_LIBADD       = $(PYTHON_LIBS) $(ISYS_LIBS)
-_isys_la_SOURCES      = isys.c $(ISYS_SRCS)
-
-noinst_LTLIBRARIES    = libisys.la
-libisys_la_CFLAGS     = $(ISYS_CFLAGS)
-libisys_la_LDFLAGS    = -static
-libisys_la_LIBADD     = $(ISYS_LIBS)
-libisys_la_SOURCES    = $(ISYS_SRCS)
+_isys_la_SOURCES      = isys.c
 
 auditddir             = $(libexecdir)/$(PACKAGE_NAME)
 auditd_PROGRAMS       = auditd

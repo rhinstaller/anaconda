@@ -67,15 +67,12 @@
 #include <sys/sysmacros.h>
 #endif
 
-#include "isys.h"
-
 #ifndef CDROMEJECT
 #define CDROMEJECT 0x5309
 #endif
 
 static PyObject * doisPseudoTTY(PyObject * s, PyObject * args);
 static PyObject * doSync(PyObject * s, PyObject * args);
-static PyObject * doisIsoImage(PyObject * s, PyObject * args);
 static PyObject * doSegvHandler(PyObject *s, PyObject *args);
 static PyObject * doGetAnacondaVersion(PyObject * s, PyObject * args);
 static PyObject * doSetSystemTime(PyObject *s, PyObject *args);
@@ -83,7 +80,6 @@ static PyObject * doSetSystemTime(PyObject *s, PyObject *args);
 static PyMethodDef isysModuleMethods[] = {
     { "isPseudoTTY", (PyCFunction) doisPseudoTTY, METH_VARARGS, NULL},
     { "sync", (PyCFunction) doSync, METH_VARARGS, NULL},
-    { "isisoimage", (PyCFunction) doisIsoImage, METH_VARARGS, NULL},
     { "handleSegv", (PyCFunction) doSegvHandler, METH_VARARGS, NULL },
     { "getAnacondaVersion", (PyCFunction) doGetAnacondaVersion, METH_VARARGS, NULL },
     { "set_system_time", (PyCFunction) doSetSystemTime, METH_VARARGS, NULL},
@@ -117,19 +113,6 @@ static PyObject * doSync(PyObject * s, PyObject * args) {
 
     Py_INCREF(Py_None);
     return Py_None;
-}
-
-int fileIsIso(const char * file);
-
-static PyObject * doisIsoImage(PyObject * s, PyObject * args) {
-    char * fn;
-    int rc;
-
-    if (!PyArg_ParseTuple(args, "s", &fn)) return NULL;
-
-    rc = fileIsIso(fn);
-    
-    return Py_BuildValue("i", rc);
 }
 
 static PyObject * doSegvHandler(PyObject *s, PyObject *args) {

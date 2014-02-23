@@ -62,11 +62,22 @@ def isPseudoTTY (fd):
 def sync ():
     return _isys.sync ()
 
+ISO_BLOCK_SIZE = 2048
+
 ## Determine if a file is an ISO image or not.
 # @param file The full path to a file to check.
 # @return True if ISO image, False otherwise.
 def isIsoImage(path):
-    return _isys.isisoimage(path)
+    try:
+        with open(path, "rb") as isoFile:
+            for blockNum in range(16, 100):
+                isoFile.seek(blockNum * ISO_BLOCK_SIZE + 1)
+                if isoFile.read(5) == "CD001":
+                    return True
+    except IOError:
+        pass
+
+    return False
 
 isPAE = None
 def isPaeAvailable():
