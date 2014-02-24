@@ -601,11 +601,11 @@ def network_driver(dd_path):
     dd_scan(skip_dds, False)
 
 class DeviceInfo(object):
-    def __init__(self, device=None, label=None, uuid=None, fs_type=None):
-        self.device = device
-        self.label = label
-        self.uuid = uuid
-        self.fs_type = fs_type
+    def __init__(self, **kwargs):
+        self.device = kwargs.get("device", None)
+        self.label = kwargs.get("label", None)
+        self.uuid = kwargs.get("uuid", None)
+        self.fs_type = kwargs.get("fs_type", None)
 
     def __str__(self):
         return "%-10s %-20s %-15s %s" % (self.device or "", self.fs_type or "",
