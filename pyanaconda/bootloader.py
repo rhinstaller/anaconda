@@ -929,7 +929,7 @@ class BootLoader(object):
     def add_crash_args(self):
         buf = ""
         if os.access("%s%s" % (ROOT_PATH, "/usr/sbin/rhcrashkernel-param"), \
-                os.X_OK):
+                     os.X_OK):
             (pread, pwrite) = os.pipe()
             os.close(pwrite)
             buf = iutil.execWithCapture("/usr/sbin/rhcrashkernel-param", [],
