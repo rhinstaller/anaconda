@@ -870,8 +870,6 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         self.passphrase = self.data.autopart.passphrase
         self._reset_storage()
         self._do_refresh()
-        # update our free space number based on Storage
-        self._setCurrentFreeSpace()
 
         self._updateSpaceDisplay()
         self._applyButton.set_sensitive(False)
