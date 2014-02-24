@@ -647,7 +647,11 @@ def select_iso():
                   or (None, None) if no ISO file is selected
         :rtype: (str, str)
     """
-    _ret, out = run_cmd(["blkid"])
+    try:
+        _ret, out = run_cmd(["blkid"])
+    except (OSError, RunCmdError):
+        return (None, None)
+
     devices = []
     for line in out.splitlines():
         dev = parse_blkid(line)
