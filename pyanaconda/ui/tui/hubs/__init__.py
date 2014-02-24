@@ -105,9 +105,14 @@ class TUIHub(TUIObject, common.Hub):
         except (ValueError, KeyError):
             # If we get a continue, check for unfinished spokes.  If unfinished
             # don't continue
-            if key == _('c'):
+            # TRANSLATORS: 'b' to begin installation
+            if key.lower() == _('b'):
                 for spoke in self._spokes.values():
                     if not spoke.completed and spoke.mandatory:
                         print(_("Please complete all spokes before continuing"))
                         return False
+            # Kind of a hack, but we want to ignore if anyone presses 'c'
+            # which is the global TUI key to close the current screen
+            elif key.lower() == _('c'):
+                return False
             return key
