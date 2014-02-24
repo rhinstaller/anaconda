@@ -24,12 +24,8 @@ while [ -f /sys/class/tty/$tty/active ]; do
 done
 consoletty="$tty"
 
-# put anaconda on the real console if not s390x, otherwise put anaconda direct
-if [ $(uname -m) = "s390x" ]; then
-    ln -sf $systemd_dir/anaconda-direct.service $target_dir/
-else
-    service_on_tty anaconda-tmux@.service $consoletty
-fi
+# put anaconda's tmux session on the console
+service_on_tty anaconda-tmux@.service $consoletty
 
 # put a shell on the first virtualization console we find
 for tty in hvc0 hvc1 xvc0 hvsi0 hvsi1 hvsi2; do
