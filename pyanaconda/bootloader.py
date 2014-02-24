@@ -1707,7 +1707,7 @@ class EFIGRUB(GRUB2):
         rc = self.efibootmgr("-c", "-w", "-L", productName,
                              "-d", boot_disk.path, "-p", boot_part_num,
                              "-l",
-                             self.efi_dir_as_efifs_dir + self._efi_binary),
+                             self.efi_dir_as_efifs_dir + self._efi_binary,
                              root=ROOT_PATH)
         if rc:
             raise BootLoaderError("failed to set new efi boot target")
