@@ -991,6 +991,10 @@ if __name__ == "__main__":
     # now start the interface
     setupDisplay(anaconda, opts, addon_paths)
 
+    # if we're in text mode, the resulting system should be too
+    if anaconda.displayMode != 'g':
+        anaconda.ksdata.skipx.skipx = True
+
     if anaconda.rescue:
         from pyanaconda import rescue
         anaconda.intf = rescue.RescueInterface()
