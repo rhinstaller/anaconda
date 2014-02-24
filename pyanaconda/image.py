@@ -209,11 +209,11 @@ def opticalInstallMedia(devicetree):
             except FSError:
                 continue
 
-            if not verifyMedia(mountpoint):
+            try:
+                if not verifyMedia(mountpoint):
+                    continue
+            finally:
                 dev.format.unmount()
-                continue
-
-            dev.format.unmount()
         finally:
             os.rmdir(mountpoint)
 
