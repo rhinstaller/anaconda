@@ -1,6 +1,8 @@
 [Unit]
 Description=Anaconda
 After=anaconda.target
+ConditionKernelCommandLine=!noshell
+ConditionKernelCommandLine=!inst.noshell
 
 [Service]
 Type=forking
