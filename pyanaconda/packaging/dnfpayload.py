@@ -25,6 +25,7 @@ from pyanaconda.flags import flags
 from pyanaconda.i18n import _
 from pyanaconda.progress import progressQ
 
+import collections
 import itertools
 import logging
 import multiprocessing
@@ -42,7 +43,7 @@ try:
     import dnf
     import dnf.exceptions
     import dnf.repo
-    import dnf.output
+    import dnf.callback
     import rpm
 except ImportError as e:
     log.error("dnfpayload: component import failed: %s", e)
@@ -84,6 +85,16 @@ def _df_map():
         structured[key] = Size(bytes=int(val)*1024)
     return structured
 
+def _paced(fn):
+    """Execute `fn` no more often then every 2 seconds."""
+    def paced_fn(self, *args):
+        now = time.time()
+        if now - self.last_time < 2:
+            return
+        self.last_time = now
+        return fn(self, *args)
+    return paced_fn
+
 def _pick_mpoint(df, requested):
     def reasonable_mpoint(mpoint):
         return mpoint in DOWNLOAD_MPOINTS
@@ -103,7 +114,7 @@ def _pick_mpoint(df, requested):
     return sorted(sufficients.iteritems(), key=operator.itemgetter(1),
                   reverse=True)[0][0]
 
-class PayloadRPMDisplay(dnf.output.LoggingTransactionDisplay):
+class PayloadRPMDisplay(dnf.callback.LoggingTransactionDisplay):
     def __init__(self, queue):
         super(PayloadRPMDisplay, self).__init__()
         self._queue = queue
@@ -123,6 +134,43 @@ class PayloadRPMDisplay(dnf.output.LoggingTransactionDisplay):
             self._queue.put(('install', msg))
         elif action == self.TRANS_POST:
             self._queue.put(('post', None))
+
+class DownloadProgress(dnf.callback.DownloadProgress):
+    def __init__(self):
+        self.downloads = collections.defaultdict(int)
+        self.last_time = time.time()
+        self.total_files = 0
+        self.total_size = Size(0)
+
+    @_paced
+    def _update(self):
+        msg = _('Downloading %(total_files)s RPMs, '
+                '%(downloaded)s / %(total_size)s (%(percent)d%%) done.')
+        downloaded = Size(sum(self.downloads.values()))
+        vals = {
+            'downloaded'  : downloaded,
+            'percent'     : int(100 * downloaded/self.total_size),
+            'total_files' : self.total_files,
+            'total_size'  : self.total_size
+        }
+        progressQ.send_message(msg % vals)
+
+    def end(self, payload, status, err_msg):
+        nevra = str(payload)
+        if status is dnf.callback.STATUS_OK:
+            self.downloads[nevra] = payload.download_size
+            self._update()
+            return
+        log.critical("Failed to download '%s': %d - %s", nevra, status, err_msg)
+
+    def progress(self, payload, done):
+        nevra = str(payload)
+        self.downloads[nevra] = done
+        self._update()
+
+    def start(self, total_files, total_size):
+        self.total_files = total_files
+        self.total_size = Size(total_size)
 
 def do_transaction(base, queue):
     try:
@@ -421,7 +469,15 @@ class DNFPayload(packaging.PackagePayload):
         pkgs_to_download = self._base.transaction.install_set
         log.info('Downloading pacakges.')
         progressQ.send_message(_('Downloading packages'))
-        self._base.download_packages(pkgs_to_download)
+        progress = DownloadProgress()
+        try:
+            self._base.download_packages(pkgs_to_download, progress)
+        except dnf.exceptions.DownloadError as e:
+            msg = 'Failed to download the following packages: %s' % str(e)
+            exc = packaging.PayloadInstallError(msg)
+            if errors.errorHandler.cb(exc) == errors.ERROR_RAISE:
+                _failure_limbo()
+
         log.info('Downloading packages finished.')
 
         pre_msg = _("Preparing transaction from installation source")
