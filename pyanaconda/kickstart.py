@@ -1496,6 +1496,13 @@ class XConfig(commands.xconfig.F14_XConfig):
         # now write it out
         desktop.write()
 
+class SkipX(commands.skipx.FC3_SkipX):
+    def execute(self, *args):
+        if self.skipx:
+            desktop = Desktop()
+            desktop.runlevel = 3
+            desktop.write()
+
 class ZFCP(commands.zfcp.F14_ZFCP):
     def parse(self, args):
         fcp = commands.zfcp.F14_ZFCP.parse(self, args)
@@ -1580,6 +1587,7 @@ commandMap = {
         "rootpw": RootPw,
         "selinux": SELinux,
         "services": Services,
+        "skipx": SkipX,
         "timezone": Timezone,
         "upgrade": Upgrade,
         "user": User,

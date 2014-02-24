@@ -72,6 +72,7 @@ def doConfiguration(storage, payload, ksdata, instClass):
         ksdata.lang.execute(storage, ksdata, instClass)
         ksdata.firewall.execute(storage, ksdata, instClass)
         ksdata.xconfig.execute(storage, ksdata, instClass)
+        ksdata.skipx.execute(storage, ksdata, instClass)
 
     if not flags.flags.imageInstall and not flags.flags.dirInstall:
         with progress_report(_("Writing network configuration")):
