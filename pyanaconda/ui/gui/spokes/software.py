@@ -201,8 +201,8 @@ class SoftwareSelectionSpoke(NormalSpoke):
 
         hubQ.send_message(self.__class__.__name__, _("Downloading group metadata..."))
 
-        # we have no way to select environments with kickstart right now
-        # so don't try.
+        self.environment = self.data.packages.environment
+
         if flags.automatedInstall and self.data.packages.seen:
             # We don't want to do a full refresh, just join the metadata thread
             threadMgr.wait(constants.THREAD_PAYLOAD_MD)
@@ -247,8 +247,6 @@ class SoftwareSelectionSpoke(NormalSpoke):
         NormalSpoke.refresh(self)
 
         threadMgr.wait(constants.THREAD_PAYLOAD_MD)
-
-        self.environment = self.data.packages.environment
 
         self._environmentStore = self.builder.get_object("environmentStore")
         self._environmentStore.clear()
