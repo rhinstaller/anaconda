@@ -943,7 +943,7 @@ class BootLoader(object):
                                         stdin=pread,
                                         root=ROOT_PATH)
             os.close(pread)
-        self.boot_args.add(buf)
+        self.boot_args.add(buf.replace('\n', ' '))
 
     def write_config(self):
         """ Write the bootloader configuration. """
