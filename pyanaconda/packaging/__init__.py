@@ -717,6 +717,10 @@ class PackagePayload(Payload):
         if self.data.packages.excludeDocs:
             self.rpmMacros.append(('_excludedocs', '1'))
 
+        if self.data.packages.instLangs is not None:
+            # Use nil if instLangs is empty
+            self.rpmMacros.append(('_install_langs', self.data.packages.instLangs or '%{nil}'))
+
         if flags.selinux:
             for d in ["/tmp/updates",
                       "/etc/selinux/targeted/contexts/files",
