@@ -856,6 +856,7 @@ class NetworkControlBox(GObject.GObject):
             else:
                 vlanid = dev_cfg.setting_value("vlan", "id")
             self._set_device_info_value("wired", "vlanid", str(vlanid))
+            self._set_device_info_value("wired", "parent", parent)
 
     def _refresh_speed_hwaddr(self, dev_cfg, state=None):
         dev_type = dev_cfg.device_type

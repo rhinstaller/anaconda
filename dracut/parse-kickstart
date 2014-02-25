@@ -112,7 +112,7 @@ class DriverDisk(commands.driverdisk.F14_DriverDisk):
         # are processed later.
         return "\n".join(dd_net)
 
-class Network(commands.network.F20_Network):
+class Network(commands.network.F21_Network):
     def dracut_args(self, args, lineno, net):
         '''
         NOTE: The first 'network' line get special treatment:
@@ -449,7 +449,7 @@ def ksnet_to_ifcfg(net, filename=None):
             write_ifcfg(slave_filename, slave_ifcfg)
 
     if net.vlanid:
-        interface_name = "%s.%s" % (dev, net.vlanid)
+        interface_name = net.interfacename or "%s.%s" % (dev, net.vlanid)
         ifcfg.pop('HWADDR')
         ifcfg['TYPE'] = "Vlan"
         ifcfg['VLAN'] = "yes"
