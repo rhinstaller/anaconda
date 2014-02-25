@@ -900,7 +900,7 @@ class Logging(commands.logging.FC6_Logging):
                 remote_server = "%s:%s" %(self.host, self.port)
             logger.updateRemote(remote_server)
 
-class Network(commands.network.F20_Network):
+class Network(commands.network.RHEL7_Network):
     def execute(self, storage, ksdata, instClass):
         network.write_network_config(storage, ksdata, instClass, ROOT_PATH)
 

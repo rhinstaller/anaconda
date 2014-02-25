@@ -524,8 +524,7 @@ def add_connection_for_ksdata(networkdata, devname):
         dev_spec = None
     # type "vlan"
     elif networkdata.vlanid:
-        parent, _sep, _vlanid = devname.partition(".")
-        values.append(['vlan', 'parent', parent, 's'])
+        values.append(['vlan', 'parent', networkdata.parent, 's'])
         values.append(['connection', 'type', 'vlan', 's'])
         values.append(['connection', 'id', devname, 's'])
         values.append(['vlan', 'interface-name', devname, 's'])
@@ -582,7 +581,8 @@ def ksdata_from_ifcfg(devname, uuid=None):
     elif nm.nm_device_type_is_team(devname):
         nd.device = devname
     elif nm.nm_device_type_is_vlan(devname):
-        nd.device = devname.split(".")[0]
+        if devname != default_ks_vlan_interface_name(nd.device, nd.vlanid):
+            nd.interfacename = devname
 
     return nd
 
@@ -1097,7 +1097,8 @@ def get_device_name(network_data):
         if not any((network_data.vlanid, network_data.bondslaves, network_data.teamslaves)):
             return ""
     if network_data.vlanid:
-        dev_name = "%s.%s" % (dev_name, network_data.vlanid)
+        network_data.parent = dev_name
+        dev_name = network_data.interfacename or default_ks_vlan_interface_name(network_data.parent, network_data.vlanid)
 
     return dev_name
 
@@ -1281,3 +1282,6 @@ def status_message():
         msg = _("No network devices available")
 
     return msg
+
+def default_ks_vlan_interface_name(parent, vlanid):
+    return "%s.%s" % (parent, vlanid)
