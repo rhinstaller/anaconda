@@ -1272,7 +1272,7 @@ reposdir=%s
             elif os.path.isdir(repo+blivet.arch.getArch()):
                 repo += blivet.arch.getArch()
             else:
-                log.debug("No driver repo in %s". repo)
+                log.debug("No driver repo in %s", repo)
                 continue
 
             # Run createrepo if there are rpms and no repodata
