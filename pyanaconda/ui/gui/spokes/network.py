@@ -1434,7 +1434,8 @@ class NetworkStandaloneSpoke(StandaloneSpoke):
     @property
     def completed(self):
         return (not can_touch_runtime_system("require network connection")
-                or nm.nm_activated_devices())
+                or nm.nm_activated_devices()
+                or self.data.method.method not in ("url", "nfs"))
 
     def initialize(self):
         register_secret_agent(self)
