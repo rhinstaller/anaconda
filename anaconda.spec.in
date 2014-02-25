@@ -123,6 +123,7 @@ Requires: openssh
 %endif
 Requires: isomd5sum >= %{isomd5sum}
 Requires: yum-utils >= %{yumutilsver}
+Requires: createrepo
 Requires: NetworkManager >= %{nmver}
 Requires: dhclient
 Requires: libselinux-python
