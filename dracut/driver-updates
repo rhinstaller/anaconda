@@ -541,15 +541,13 @@ def process_dd(dd_path):
         map(lambda d: setattr(d, "selected", True), drivers)
 
     # Copy the repository for Anaconda to use during install
-    if os.path.isdir(dd_path+"/repodata"):
-        copy_repo(dd_path, "/updates/run/install/DD-")
+    copy_repo(dd_path, "/updates/run/install/DD-")
 
     for driver in filter(lambda d: d.selected, drivers):
         dd_extract(driver, "/updates/")
 
         # Write the package names for all modules and firmware for Anaconda
-        if os.path.isdir(dd_path+"/repodata") \
-           and ("modules" in driver.flags or "firmwares" in driver.flags):
+        if "modules" in driver.flags or "firmwares" in driver.flags:
             with open("/run/install/dd_packages", "a") as f:
                 f.write("%s\n" % driver.name)
 
