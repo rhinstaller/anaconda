@@ -176,9 +176,6 @@ def run_yum_transaction(release, arch, yum_conf, install_root, ts_file, script_l
             logfile.close()
     except YumBaseError as e:
         print("ERROR: transaction error: %s" % e)
-    # pylint: disable-msg=W0703
-    except Exception as e:
-        print("ERROR: unexpected error: %s" % e)
     finally:
         print("QUIT:")
 
@@ -393,12 +390,15 @@ class RPMCallback(object):
 
 
 if __name__ == "__main__":
-    arg_parser = setup_parser()
-    args = arg_parser.parse_args()
+    try:
+        arg_parser = setup_parser()
+        args = arg_parser.parse_args()
 
-    # force output to be flushed
-    sys.stdout = os.fdopen(sys.stdout.fileno(), 'w', 0)
+        # force output to be flushed
+        sys.stdout = os.fdopen(sys.stdout.fileno(), 'w', 0)
 
-    run_yum_transaction(args.release, args.arch, args.config, args.installroot,
-                        args.tsfile, args.rpmlog, args.test, args.debug)
-
+        run_yum_transaction(args.release, args.arch, args.config, args.installroot,
+                            args.tsfile, args.rpmlog, args.test, args.debug)
+    # pylint: disable-msg=W0703
+    except Exception as e:
+        print("ERROR: unexpected error: %s" % e)
