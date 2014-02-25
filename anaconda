@@ -31,11 +31,30 @@
 # This toplevel file is a little messy at the moment... (2001-06-22)
 # ...still messy (2013-07-12)
 
+coverage = None
+
+proc_cmdline = open("/proc/cmdline", "r").read()
+proc_cmdline = proc_cmdline.split()
+if ("debug=1" in proc_cmdline) or ("debug" in proc_cmdline):
+    import coverage
+    cov = coverage.coverage(data_file="/mnt/sysimage/root/anaconda.coverage",
+                            branch=True,
+                            source=["/usr/sbin/anaconda", "pyanaconda"]
+                            )
+    cov.start()
+
+
 import atexit, sys, os, time, subprocess
 # keep up with process ID of the window manager if we start it
 wm_pid = None
 
 def exitHandler(rebootData, storage, exitCode=None):
+    # stop and save coverage here b/c later the file system may be unavailable
+    if coverage is not None:
+        cov.stop()
+        if os.path.isdir('/mnt/sysimage/root'):
+            cov.save()
+
     if flags.usevnc:
         vnc.shutdownServer()
 

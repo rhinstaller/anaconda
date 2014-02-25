@@ -142,6 +142,8 @@ Requires: hfsplus-tools
 %endif
 %endif
 
+Requires: python-coverage
+
 # required because of the rescue mode and VNC question
 Requires: anaconda-tui = %{version}-%{release}
 
