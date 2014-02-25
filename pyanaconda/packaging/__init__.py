@@ -643,6 +643,7 @@ class PackagePayload(Payload):
 
         super(PackagePayload, self).__init__(data)
         self.install_device = None
+        self._rpm_macros = []
 
         # Used to determine which add-ons to display for each environment.
         # The dictionary keys are environment IDs. The dictionary values are two-tuples
@@ -650,6 +651,30 @@ class PackagePayload(Payload):
         # to the environment, and the second list is the other add-ons possible for the
         # environment.
         self._environmentAddons = {}
+
+    def preInstall(self, packages=None, groups=None):
+        super(PackagePayload, self).preInstall()
+
+        # Set rpm-specific options
+
+        # nofsync speeds things up at the risk of rpmdb data loss in a crash.
+        # But if we crash mid-install you're boned anyway, so who cares?
+        self.rpmMacros.append(('__dbi_htconfig', 'hash nofsync %{__dbi_other} %{__dbi_perms}'))
+
+        if self.data.packages.excludeDocs:
+            self.rpmMacros.append(('_excludedocs', '1'))
+
+        if flags.selinux:
+            for d in ["/tmp/updates",
+                      "/etc/selinux/targeted/contexts/files",
+                      "/etc/security/selinux/src/policy",
+                      "/etc/security/selinux"]:
+                f = d + "/file_contexts"
+                if os.access(f, os.R_OK):
+                    self.rpmMacros.append(('__file_context_path', f))
+                    break
+        else:
+            self.rpmMacros.append(('__file_context_path', '%{nil}'))
 
     @property
     def kernelPackages(self):
@@ -667,6 +692,15 @@ class PackagePayload(Payload):
                 kernels.insert(0, "kernel-lpae")
 
         return kernels
+
+    @property
+    def rpmMacros(self):
+        """A list of (name, value) pairs to define as macros in the rpm transaction."""
+        return self._rpm_macros
+
+    @rpmMacros.setter
+    def rpmMacros(self, value):
+        self._rpm_macros = value
 
     def reset(self, root=None, releasever=None):
         # cdrom: install_device.teardown (INSTALL_TREE)
