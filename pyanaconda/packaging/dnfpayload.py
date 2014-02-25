@@ -457,6 +457,11 @@ class DNFPayload(packaging.PackagePayload):
 
     def install(self):
         progressQ.send_message(_('Starting package installation process'))
+
+        # Add the rpm macros to the global transaction environment
+        for macro in self.rpmMacros:
+            rpm.addMacro(macro[0], macro[1])
+
         if self.install_device:
             self._setupMedia(self.install_device)
         try:
