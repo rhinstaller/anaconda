@@ -656,7 +656,8 @@ class NetworkControlBox(GObject.GObject):
         if device.get_device_type() not in self.supported_device_types:
             return
         # ignore fcoe vlan devices
-        if device.get_iface().endswith('fcoe'):
+        # (can be chopped off to IFNAMSIZ kernel limit)
+        if device.get_iface().endswith(('-fcoe', '-fco', '-fc', '-f', '-')):
             return
 
         try:
