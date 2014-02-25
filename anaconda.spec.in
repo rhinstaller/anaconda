@@ -139,6 +139,9 @@ Requires: dmidecode
 Requires: hfsplus-tools
 %endif
 %endif
+
+Requires: python-coverage
+
 Obsoletes: anaconda-images <= 10
 Provides: anaconda-images = %{version}-%{release}
 Obsoletes: anaconda-runtime < %{version}-%{release}
