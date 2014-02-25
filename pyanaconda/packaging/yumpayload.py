@@ -1581,29 +1581,6 @@ reposdir=%s
                 while True:
                     time.sleep(100000)
 
-        # doPreInstall
-        # create mountpoints for protected device mountpoints (?)
-        # write static configs (storage, modprobe.d/anaconda.conf, network, keyboard)
-
-        # nofsync speeds things up at the risk of rpmdb data loss in a crash.
-        # But if we crash mid-install you're boned anyway, so who cares?
-        rpm.addMacro("__dbi_htconfig",
-                     "hash nofsync %{__dbi_other} %{__dbi_perms}")
-
-        if self.data.packages.excludeDocs:
-            rpm.addMacro("_excludedocs", "1")
-
-        if flags.selinux:
-            for d in ["/tmp/updates",
-                      "/etc/selinux/targeted/contexts/files",
-                      "/etc/security/selinux/src/policy",
-                      "/etc/security/selinux"]:
-                f = d + "/file_contexts"
-                if os.access(f, os.R_OK):
-                    rpm.addMacro("__file_context_path", f)
-                    break
-        else:
-            rpm.addMacro("__file_context_path", "%{nil}")
 
     def _transactionErrors(self, errors):
         spaceNeeded = {}
@@ -1663,6 +1640,9 @@ reposdir=%s
                 "--installroot", iutil.getSysroot(),
                 "--release", release,
                 "--arch", blivet.arch.getArch()]
+
+        for macro in self.rpmMacros:
+            args.extend(["--macro", macro[0], macro[1]])
 
         log.info("Running anaconda-yum to install packages")
         # Watch output for progress, debug and error information

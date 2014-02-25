@@ -57,12 +57,13 @@ def setup_parser():
     parser.add_argument("-i", "--installroot", help="Path to top directory of installroot", default="/mnt/sysimage")
     parser.add_argument("-T", "--test", action="store_true", help="Test transaction, don't actually install")
     parser.add_argument("-d", "--debug", action="store_true", help="Extra debugging output")
+    parser.add_argument("-m", "--macro", action="append", metavar=('NAME', 'VALUE'), nargs=2, help="Macros to add to the rpm transaction")
 
     return parser
 
 
 def run_yum_transaction(release, arch, yum_conf, install_root, ts_file, script_log,
-                        testing=False, debug=False):
+                        testing=False, debug=False, macros=None):
     """ Execute a yum transaction loaded from a transaction file
 
         :param release: The release version to use
@@ -79,6 +80,10 @@ def run_yum_transaction(release, arch, yum_conf, install_root, ts_file, script_l
         :type script_log: string
         :param testing: True sets RPMTRANS_FLAG_TEST (default is false)
         :type testing: bool
+        :param debug: True set verbosity to "debug"
+        :type debug: bool
+        :param macros: Macros to define in the rpm transaction
+        :type macros: list
         :returns: Nothing
 
         This is used to run the yum transaction in a separate process, preventing
@@ -89,6 +94,11 @@ def run_yum_transaction(release, arch, yum_conf, install_root, ts_file, script_l
     # remove some environmental variables that can cause problems with package scripts
     env_remove = ('DISPLAY', 'DBUS_SESSION_BUS_ADDRESS')
     [os.environ.pop(k) for k in env_remove if k in os.environ]
+
+    # Initialize the rpm macros
+    if macros:
+        for macro in macros:
+            rpm.addMacro(macro[0], macro[1])
 
     try:
         # Setup the basics, point to the config file and install_root
@@ -402,5 +412,4 @@ if __name__ == "__main__":
     sys.stdout = os.fdopen(sys.stdout.fileno(), 'w', 0)
 
     run_yum_transaction(args.release, args.arch, args.config, args.installroot,
-                        args.tsfile, args.rpmlog, args.test, args.debug)
-
+                        args.tsfile, args.rpmlog, args.test, args.debug, args.macro)

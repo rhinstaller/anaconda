@@ -703,6 +703,35 @@ class PackagePayload(Payload):
         elif groupid:
             log.warning("Platform group %s not available.", groupid)
 
+        # Set rpm-specific options
+
+        # nofsync speeds things up at the risk of rpmdb data loss in a crash.
+        # But if we crash mid-install you're boned anyway, so who cares?
+        self.rpmMacros.append(('__dbi_htconfig', 'hash nofsync %{__dbi_other} %{__dbi_perms}'))
+
+        if self.data.packages.excludeDocs:
+            self.rpmMacros.append(('_excludedocs', '1'))
+
+        if flags.selinux:
+            for d in ["/tmp/updates",
+                      "/etc/selinux/targeted/contexts/files",
+                      "/etc/security/selinux/src/policy",
+                      "/etc/security/selinux"]:
+                f = d + "/file_contexts"
+                if os.access(f, os.R_OK):
+                    self.rpmMacros.append(('__file_context_path', f))
+                    break
+        else:
+            self.rpmMacros.append(('__file_context_path', '%{nil}'))
+
+    def __init__(self, data):
+        if self.__class__ is PackagePayload:
+            raise TypeError("PackagePayload is an abstract class")
+
+        super(PackagePayload, self).__init__(data)
+        self.install_device = None
+        self._rpm_macros = []
+
     @property
     def kernelPackages(self):
         kernels = ["kernel"]
@@ -716,6 +745,15 @@ class PackagePayload(Payload):
                 kernels = ["kernel-%s" % platform.armMachine]
 
         return kernels
+
+    @property
+    def rpmMacros(self):
+        """A list of (name, value) pairs to define as macros in the rpm transaction."""
+        return self._rpm_macros
+
+    @rpmMacros.setter
+    def rpmMacros(self, value):
+        self._rpm_macros = value
 
 def payloadInitialize(storage, ksdata, payload):
     from pyanaconda.threads import threadMgr
