@@ -258,6 +258,50 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Feb 25 2014 Brian C. Lane <bcl@redhat.com> - 19.31.62-1
+- driverdisk: Create a repo for network drivers (bcl)
+  Resolves: rhbz#1016004
+- fix inst.noshell (wwoods)
+  Resolves: rhbz#1058607
+- Don't use tmux for inst.noshell (wwoods)
+  Resolves: rhbz#1058607
+- driverdisk: Catch blkid failure (bcl)
+  Related: rhbz#1036765
+- driverdisk: Ignore extra blkid fields (bcl)
+  Resolves: rhbz#1036765
+- We can't trust rhcrashkernel-param to give us newline-free text. (pjones)
+  Related: rhbz#814813
+- Enable python-coverage in anaconda (dshea)
+  Resolves: rhbz#1066339
+- Remove redundant _setCurrentFreeSpace() call (amulhern)
+  Related: rhbz#1043763
+- Ensure media being verified is always unmounted (dshea)
+  Resolves: rhbz#1050943
+- Write 'text'/'cmdline' in anaconda-ks.cfg in text/cmdline mode (wwoods)
+  Related: rhbz#1021963
+- text install -> text system (wwoods)
+  Resolves: rhbz#1021963
+- Support the 'skipx' kickstart command (wwoods)
+  Related: rhbz#1021963
+- setup default environment in initialize instead of refresh (bcl)
+  Resolves: rhbz#1066972
+- Fix a nitpick from bcl. (pjones)
+  Related: rhbz#814813
+- Force reboot the system on cmdline error. (sbueno+anaconda)
+  Resolves: rhbz#1034773
+- Make rhcrashkernel-param get run on non-GRUB 2 platforms. (pjones)
+  Resolves: rhbz#814813
+- fix typo, extra bracket (bcl)
+  Resolves: rhbz#1067758
+- Do not use shim.efi on ARMv8 aarch64 (dmarlin)
+  Resolves: rhbz#1067758
+- Handle missing environments specified through kickstart (clumens).
+  Resolves: rhbz#1067492
+- Add 'c' to continue to timezone TUI spoke. (sbueno+anaconda)
+  Resolves: rhbz#979335
+- Make it obvious user is going to begin installation. (sbueno+anaconda)
+  Resolves: rhbz#975793
+
 * Fri Feb 21 2014 Brian C. Lane <bcl@redhat.com> - 19.31.61-1
 - Skip running efibootmgr for image and dir installations (bcl)
   Resolves: rhbz#1067749
