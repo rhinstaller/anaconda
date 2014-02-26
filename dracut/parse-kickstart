@@ -346,6 +346,7 @@ def ksnet_to_ifcfg(net, filename=None):
 
     s390cfg = s390_settings(dev)
     if s390cfg['SUBCHANNELS']:
+        ifcfg.pop('HWADDR')
         ifcfg['SUBCHANNELS'] = s390cfg['SUBCHANNELS']
     if s390cfg['NETTYPE']:
         ifcfg['NETTYPE'] = s390cfg['NETTYPE']
