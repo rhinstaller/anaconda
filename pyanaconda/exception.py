@@ -108,7 +108,7 @@ class AnacondaExceptionHandler(ExceptionHandler):
             # for a few seconds before exiting the installer
             print(cmdline_error_msg)
             time.sleep(180)
-            os.system("reboot")
+            sys.exit(0)
         else:
             try:
                 # pylint: disable-msg=E0611
