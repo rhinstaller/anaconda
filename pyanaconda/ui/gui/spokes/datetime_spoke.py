@@ -395,6 +395,15 @@ class DatetimeSpoke(FirstbootSpokeMixIn, NormalSpoke):
 
         self._regions_zones = timezone.get_all_regions_and_timezones()
 
+        # Set the initial sensitivity of the AM/PM toggle based on the time-type selected
+        self._radioButton24h.emit("toggled")
+
+        if not flags.can_touch_runtime_system("modify system time and date"):
+            self._set_date_time_setting_sensitive(False)
+
+        self._config_dialog = NTPconfigDialog(self.data)
+        self._config_dialog.initialize()
+
         threadMgr.add(AnacondaThread(name=constants.THREAD_DATE_TIME,
                                      target=self._initialize))
 
@@ -424,9 +433,6 @@ class DatetimeSpoke(FirstbootSpokeMixIn, NormalSpoke):
         for city, xlated in sorted(cities, cmp=_compare_cities):
             self.add_to_store_xlated(self._citiesStore, city, xlated)
 
-        if self._radioButton24h.get_active():
-            self._set_amPm_part_sensitive(False)
-
         self._update_datetime_timer_id = None
         if timezone.is_valid_timezone(self.data.timezone.timezone):
             self._set_timezone(self.data.timezone.timezone)
@@ -435,12 +441,6 @@ class DatetimeSpoke(FirstbootSpokeMixIn, NormalSpoke):
                         "(%s)" % (self.data.timezone.timezone, DEFAULT_TZ))
             self._set_timezone(DEFAULT_TZ)
             self.data.timezone.timezone = DEFAULT_TZ
-
-        if not flags.can_touch_runtime_system("modify system time and date"):
-            self._set_date_time_setting_sensitive(False)
-
-        self._config_dialog = NTPconfigDialog(self.data)
-        self._config_dialog.initialize()
 
         time_init_thread = threadMgr.get(constants.THREAD_TIME_INIT)
         if time_init_thread is not None:
@@ -531,6 +531,7 @@ class DatetimeSpoke(FirstbootSpokeMixIn, NormalSpoke):
 
         self._ntpSwitch.set_active(ntp_working)
 
+    @gtk_action_nowait
     def _set_timezone(self, timezone):
         """
         Sets timezone to the city/region comboboxes and the timezone map.
