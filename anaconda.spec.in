@@ -259,6 +259,23 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Wed Feb 26 2014 Brian C. Lane <bcl@redhat.com> - 19.31.63-1
+- Revert "Force reboot the system on cmdline error. (sbueno+anaconda)"
+  Related: rhbz#1034773
+- Revert "Make it obvious user is going to begin installation.
+  (sbueno+anaconda)"
+  Related: rhbz#975793
+- Add createrepo Requires (bcl)
+  Related: rhbz#1016004
+- ListStore.remove expects an iter, not an int (clumens).
+  Resolves: rhbz#1062752
+- Don't require network in standalone spoke for media installs (rvykydal)
+  Resolves: rhbz#1066807
+- Add support for kickstart --interfacename for vlans (rvykydal)
+  Resolves: rhbz#1061646
+- network: detect also fcoe vlan device names exceeding IFNAMESIZ (rvykydal)
+  Related: rhbz#1051268
+
 * Tue Feb 25 2014 Brian C. Lane <bcl@redhat.com> - 19.31.62-1
 - driverdisk: Create a repo for network drivers (bcl)
   Resolves: rhbz#1016004
