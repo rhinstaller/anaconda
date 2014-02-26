@@ -669,8 +669,16 @@ def select_iso():
         return select_iso()
 
     isos = list()
-    for _path, _dirs, files in os.walk(mnt):
-        isos += (iso_file for iso_file in files if iso_file.endswith(".iso"))
+    for dir_path, _dirs, files in os.walk(mnt):
+        # trim the mount point path
+        rel_dir = dir_path[len(mnt):]
+
+        # and the starting "/" (if any)
+        if rel_dir.startswith("/"):
+            rel_dir = rel_dir[1:]
+
+        isos += (os.path.join(rel_dir, iso_file)
+                 for iso_file in files if iso_file.endswith(".iso"))
 
     if not isos:
         print("===No ISO files found on %s!===\n" % iso_dev.device)
@@ -688,7 +696,7 @@ def select_iso():
     if not dd_iso:
         return (None, None)
 
-    return ("/media/DD-search/" + dd_iso, "/media/DD-search")
+    return (os.path.join(mnt, dd_iso), "/media/DD-search")
 
 def dd_scan(skip_dds=None, scan_dd_args=True):
     """ Scan the system for OEMDRV devices and and specified by dd=/dev/<device>
