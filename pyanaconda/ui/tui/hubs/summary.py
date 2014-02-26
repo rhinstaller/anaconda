@@ -73,7 +73,4 @@ class SummaryHub(TUIHub):
         # does not automatically proceed once all spokes are complete, and a
         # user must confirm they want to begin installation
         flags.automatedInstall = False
-
-        # override the default prompt since we want to offer the 'b' to begin
-        # installation option here
-        return _(u"  Please make your choice from above ['q' to quit | 'b' to begin installation |\n  'r' to refresh]: ")
+        return TUIHub.prompt(self, args)
