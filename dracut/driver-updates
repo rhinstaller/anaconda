@@ -482,16 +482,16 @@ def selection_menu(items, title, info_func, multi_choice=True):
             print(format_str % args)
 
         # Select an item to toggle, continue or change pages
-        prompt_common = ", 'n'-next page, 'p'-previous page or 'c'-continue: "
+        opts = ["# to select",
+                "'n'-next page",
+                "'p'-previous page",
+                "'c'-continue"]
         if multi_choice:
-            prompt = "\n# to toggle selection" + prompt_common
-        else:
-            prompt = "\n# to select" + prompt_common
-        idx = raw_input(prompt)
-        if idx.isdigit():
-            if int(idx) < 1 or int(idx) > num_items:
-                print("Invalid selection")
-                continue
+            opts[0] = "# to toggle selection"
+        idx = raw_input(''.join(['\n',
+                                ", ".join(opts[:-1]),
+                                " or ", opts[-1], ": "]))
+        if idx.isdigit() and not (int(idx) < 1 or int(idx) > num_items):
             item_idx = ((page-1) * page_length) + int(idx) - 1
             if multi_choice:
                 items[item_idx].selected = not items[item_idx].selected
@@ -510,6 +510,8 @@ def selection_menu(items, title, info_func, multi_choice=True):
                 print("First page")
         elif idx.lower() == 'c':
             return
+        else:
+            print("Invalid selection")
 
 def select_drivers(drivers):
     """ Display pages of drivers to be loaded.
