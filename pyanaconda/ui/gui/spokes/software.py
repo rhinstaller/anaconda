@@ -309,13 +309,16 @@ class SoftwareSelectionSpoke(NormalSpoke):
     def _addAddon(self, grp):
         (name, desc) = self.payload.groupDescription(grp)
 
-        # If the add-on was previously selected by the user, select it
-        if self._addonStates[grp] == self._ADDON_SELECTED:
-            selected = True
-        # If the add-on was previously de-selected by the user, de-select it
-        elif self._addonStates[grp] == self._ADDON_DESELECTED:
-            selected = False
-        # Otherwise, use the default state
+        if grp in self._addonStates:
+            # If the add-on was previously selected by the user, select it
+            if self._addonStates[grp] == self._ADDON_SELECTED:
+                selected = True
+            # If the add-on was previously de-selected by the user, de-select it
+            elif self._addonStates[grp] == self._ADDON_DESELECTED:
+                selected = False
+            # Otherwise, use the default state
+            else:
+                selected = self.payload.environmentOptionIsDefault(self.environment, grp)
         else:
             selected = self.payload.environmentOptionIsDefault(self.environment, grp)
 
