@@ -1,0 +1,18 @@
+[Unit]
+Description=Restrict Anaconda Text Console
+After=anaconda.service
+Before=anaconda-tmux@.service
+ConditionKernelCommandLine=|inst.noshell
+ConditionKernelCommandLine=|noshell
+
+[Service]
+Type=oneshot
+WorkingDirectory=/root
+ExecStart=/usr/bin/tmux unbind-key -a; \
+                        kill-window -t anaconda:shell; \
+                        bind-key 1 select-window -t :1; \
+                        bind-key 2 select-window -t :2; \
+                        bind-key 3 select-window -t :3; \
+                        bind-key 4 select-window -t :4; \
+                        bind-key 5 select-window -t :5; \
+                        bind-key ? list-keys

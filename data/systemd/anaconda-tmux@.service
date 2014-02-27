@@ -2,8 +2,8 @@
 Description=Anaconda Text Console
 Requires=anaconda.service
 After=anaconda.target anaconda.service
-ConditionKernelCommandLine=!noshell
-ConditionKernelCommandLine=!inst.noshell
+# TODO: use ConditionArchitecture in systemd v210 or later
+ConditionPathIsDirectory=!/sys/hypervisor/s390
 
 [Service]
 Type=idle
