@@ -67,7 +67,7 @@ def time_initialize(timezone, storage, bootloader):
     """
 
     if arch.isS390():
-        # nothing to do on s390 where hwclock doesn't exist
+        # nothing to do on s390(x) were hwclock doesn't exist
         return
 
     if not timezone.isUtc and not flags.automatedInstall:
@@ -117,6 +117,10 @@ def write_timezone_config(timezone, root):
         except OSError as oserr:
             log.error("Error when symlinking timezone (from %s): %s",
                       rooted_tz_file, oserr.strerror)
+
+    if arch.isS390():
+        # there is no HW clock on s390(x)
+        return
 
     try:
         fobj = open(os.path.normpath(root + "/etc/adjtime"), "r")
