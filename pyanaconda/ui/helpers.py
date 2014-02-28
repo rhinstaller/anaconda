@@ -361,7 +361,7 @@ class InputCheckHandler(object):
         return self._check_list.__iter__()
 
 # Inherit abstract methods from InputCheckHandler
-# pylint: disable-msg=W0223
+# pylint: disable=W0223
 class GUIInputCheckHandler(InputCheckHandler):
     """Provide InputCheckHandler functionality for Gtk input screens.
 

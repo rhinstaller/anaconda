@@ -86,7 +86,7 @@ class MarkupChecker(BaseChecker):
     def _validate_pango_markup_string(self, node, string, lang=None):
         try:
             # QUIS CUSTODIET IPSOS CUSTODES
-            # pylint: disable-msg=W9922
+            # pylint: disable=W9922
             tree = ET.fromstring("<markup>%s</markup>" % string)
         except ET.ParseError:
             if lang:

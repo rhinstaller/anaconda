@@ -351,7 +351,7 @@ class Spoke(UIObject):
         log.debug("Left spoke: %s", self.__class__.__name__)
 
 # Inherit abstract methods from Spoke
-# pylint: disable-msg=W0223
+# pylint: disable=W0223
 class NormalSpoke(Spoke):
     """A NormalSpoke is a Spoke subclass that is displayed when the user
        selects something on a Hub.  This is what most Spokes in anaconda will
@@ -402,7 +402,7 @@ class NormalSpoke(Spoke):
         return True
 
 # Inherit abstract methods from NormalSpoke
-# pylint: disable-msg=W0223
+# pylint: disable=W0223
 class StandaloneSpoke(NormalSpoke):
     """A StandaloneSpoke is a Spoke subclass that is displayed apart from any
        Hub.  It is suitable to be used as a Welcome screen.

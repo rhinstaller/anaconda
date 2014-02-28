@@ -17,7 +17,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-# pylint: disable-msg=W0401
+# pylint: disable=W0401
 from pyanaconda.constants import *
 from pyanaconda.i18n import _, N_
 

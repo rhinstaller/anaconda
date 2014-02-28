@@ -450,14 +450,14 @@ class NetworkControlBox(GObject.GObject):
 
     # Signal handlers.
     def on_nm_state_changed(self, *args):
-        # pylint: disable-msg=E1101
+        # pylint: disable=E1101
         self.emit("nm-state-changed")
 
     def on_device_selection_changed(self, *args):
         self.refresh_ui()
 
     def on_device_state_changed(self, device, new_state, *args):
-        # pylint: disable-msg=E1101
+        # pylint: disable=E1101
         self.emit("device-state-changed", device.get_iface(), new_state, *args)
         if new_state == NetworkManager.DeviceState.SECONDARIES:
             return
@@ -696,7 +696,7 @@ class NetworkControlBox(GObject.GObject):
                 and not dev_cfg.device.get_carrier()):
                 # TRANSLATORS: ethernet cable is unplugged
                 unplugged = ', <i>%s</i>' % escape_markup(_("unplugged"))
-        # pylint: disable-msg=W9922
+        # pylint: disable=W9922
         title = '<span size="large">%s (%s%s)</span>' % \
                  (escape_markup(_(self.device_type_name.get(dev_cfg.device_type, ""))),
                   escape_markup(dev_cfg.get_iface()),
@@ -1308,10 +1308,10 @@ class NetworkSpoke(FirstbootSpokeMixIn, NormalSpoke):
         NormalSpoke.__init__(self, *args, **kwargs)
         self.network_control_box = NetworkControlBox(self.builder, spoke=self)
         self.network_control_box.hostname = self.data.network.hostname
-        # pylint: disable-msg=E1101
+        # pylint: disable=E1101
         self.network_control_box.connect("nm-state-changed",
                                          self.on_nm_state_changed)
-        # pylint: disable-msg=E1101
+        # pylint: disable=E1101
         self.network_control_box.connect("device-state-changed",
                                          self.on_device_state_changed)
 
@@ -1405,7 +1405,7 @@ class NetworkStandaloneSpoke(StandaloneSpoke):
         parent = self.builder.get_object("AnacondaStandaloneWindow-action_area5")
         parent.add(self.network_control_box.vbox)
 
-        # pylint: disable-msg=E1101
+        # pylint: disable=E1101
         self.network_control_box.connect("nm-state-changed",
                                          self.on_nm_state_changed)
 

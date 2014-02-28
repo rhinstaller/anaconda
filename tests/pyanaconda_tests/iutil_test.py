@@ -214,7 +214,7 @@ class RunProgramTests(unittest.TestCase):
     def vt_activate_test(self):
         """Test vtActivate."""
 
-        # pylint: disable-msg=E1101
+        # pylint: disable=E1101
 
         def raise_os_error(*args, **kwargs):
             raise OSError
@@ -228,7 +228,7 @@ class RunProgramTests(unittest.TestCase):
     def get_deep_attr_test(self):
         """Test getdeepattr."""
 
-        # pylint: disable-msg=W0201
+        # pylint: disable=W0201
 
         class O(object):
             pass
@@ -253,8 +253,8 @@ class RunProgramTests(unittest.TestCase):
     def set_deep_attr_test(self):
         """Test setdeepattr."""
 
-        # pylint: disable-msg=W0201
-        # pylint: disable-msg=E1101
+        # pylint: disable=W0201
+        # pylint: disable=E1101
 
         class O(object):
             pass
@@ -326,7 +326,7 @@ class RunProgramTests(unittest.TestCase):
     def cmp_obj_attrs_test(self):
         """Test cmp_obj_attrs."""
 
-        # pylint: disable-msg=W0201
+        # pylint: disable=W0201
 
         class O(object):
             pass

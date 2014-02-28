@@ -395,7 +395,7 @@ def gtk_warning(title, reason):
     dialog.run()
     dialog.destroy()
 
-# pylint: disable-msg=W0621
+# pylint: disable=W0621
 def check_memory(anaconda, options, display_mode=None):
     reason_strict = _("%(product_name)s requires %(needed_ram)s MB of memory to "
                       "install, but you only have %(total_ram)s MB on this machine.\n")
@@ -464,11 +464,11 @@ def check_memory(anaconda, options, display_mode=None):
                 time.sleep(2)
 
 def startDebugger(signum, frame):
-    # pylint: disable-msg=F0401
+    # pylint: disable=F0401
     import epdb
     epdb.serve(skip=1)
 
-# pylint: disable-msg=W0621
+# pylint: disable=W0621
 def setupDisplay(anaconda, options, addons=None):
     from pyanaconda.ui.tui.simpleline import App
     from pyanaconda.ui.tui.spokes.askvnc import AskVNCSpoke
@@ -720,7 +720,7 @@ if __name__ == "__main__":
 
     # Allow a file to be loaded as early as possible
     try:
-        # pylint: disable-msg=F0401,W0611
+        # pylint: disable=F0401,W0611
         import updates_disk_hook
     except ImportError:
         pass
