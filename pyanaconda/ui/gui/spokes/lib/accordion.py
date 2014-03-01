@@ -235,7 +235,7 @@ class Page(Gtk.Box):
 class UnknownPage(Page):
     def __init__(self, title):
         # For this type of page, there's only one place to store members.
-        # pylint: disable=W0231
+        # pylint: disable=W0231,W0233
         Gtk.Box.__init__(self, orientation=Gtk.Orientation.VERTICAL, spacing=6)
         self.members = []
         self.pageTitle = title
@@ -260,7 +260,7 @@ class UnknownPage(Page):
 # is created, it will be removed and replaced with a Page for it.
 class CreateNewPage(Page):
     def __init__(self, title, createClickedCB, autopartTypeChangedCB, partitionsToReuse=True):
-        # pylint: disable=W0231
+        # pylint: disable=W0231,W0233
         Gtk.Box.__init__(self, orientation=Gtk.Orientation.VERTICAL, spacing=6)
         self.members = []
         self.pageTitle = title
