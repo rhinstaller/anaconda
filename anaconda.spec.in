@@ -259,6 +259,18 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Fri Feb 28 2014 Brian C. Lane <bcl@redhat.com> - 19.31.64-1
+- Fix console for s390 and 'noshell' mode (wwoods)
+  Resolves: rhbz#1070672
+- Set the name in the volume group store (dshea)
+  Resolves: rhbz#1070854
+- Always run efibootmgr from ROOT_PATH (bcl)
+  Resolves: rhbz#1054968
+- Only run gtk actions in the gtk thread. (dshea)
+  Resolves: rhbz#1067405
+- Don't ignore the directory of the driver disk iso file (vpodzime)
+  Related: rhbz#1036765
+
 * Wed Feb 26 2014 Brian C. Lane <bcl@redhat.com> - 19.31.63-1
 - Revert "Force reboot the system on cmdline error. (sbueno+anaconda)"
   Related: rhbz#1034773
