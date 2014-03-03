@@ -710,10 +710,9 @@ def dd_scan(skip_dds=set(), scan_dd_args=True):
         :returns:            None
     """
     dd_todo = set(oemdrv_list())
-    dd_finished = set()
+
     if skip_dds:
-        dd_finished = skip_dds
-        dd_todo = set(oemdrv_list()).difference(dd_finished)
+        dd_todo.difference_update(skip_dds)
         if dd_todo:
             log.info("Found new OEMDRV device(s) - %s", ", ".join(dd_todo))
 
@@ -732,7 +731,8 @@ def dd_scan(skip_dds=set(), scan_dd_args=True):
             dd_todo.add(iso)
 
     # Process each Driver Disk, checking for new disks after each one
-    dd_load(dd_todo, skip_dds=skip_dds)
+    dd_finished = dd_load(dd_todo, skip_dds=skip_dds)
+    skip_dds.update(dd_finished)
 
     umount(mount_point)
 
@@ -753,7 +753,7 @@ def dd_load(dd_todo, skip_dds=set()):
             continue
         log.info("Checking device %s", device)
         select_dd(device)
-        dd_finished.update([device])
+        dd_finished.add(device)
         new_oemdrv = set(oemdrv_list()).difference(dd_finished, dd_todo)
         if new_oemdrv:
             log.info("Found new OEMDRV device(s) - %s", ", ".join(new_oemdrv))
