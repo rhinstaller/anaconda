@@ -18,6 +18,9 @@ fi
 # Unset TERM so that things that use readline don't output terminal garbage
 unset TERM
 
+# Don't try to connect to the accessibility socket
+export NO_AT_BRIDGE=1
+
 # If $top_srcdir has not been set by automake, import the test environment
 if [ -z "$top_srcdir" ]; then
     top_srcdir="$(dirname "$0")/../.."
