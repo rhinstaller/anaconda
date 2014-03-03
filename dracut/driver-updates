@@ -702,7 +702,7 @@ def select_iso():
 
     return (os.path.join(mnt, dd_iso), "/media/DD-search")
 
-def dd_scan(skip_dds=None, scan_dd_args=True):
+def dd_scan(skip_dds=set(), scan_dd_args=True):
     """ Scan the system for OEMDRV devices and and specified by dd=/dev/<device>
 
         :param skip_dds:     devices to skip when checking for OEMDRV label
@@ -711,14 +711,13 @@ def dd_scan(skip_dds=None, scan_dd_args=True):
         :type scan_dd_args:  bool
         :returns:            None
     """
+    dd_todo = set(oemdrv_list())
+    dd_finished = set()
     if skip_dds:
         dd_finished = skip_dds
         dd_todo = set(oemdrv_list()).difference(dd_finished)
         if dd_todo:
             log.info("Found new OEMDRV device(s) - %s" % ", ".join(dd_todo))
-    else:
-        dd_finished = set()
-        dd_todo = set(oemdrv_list())
 
     if scan_dd_args:
         # Add the user specified devices
@@ -727,6 +726,7 @@ def dd_scan(skip_dds=None, scan_dd_args=True):
         dd_todo.update(dd_devs)
         log.info("Checking devices %s" % ", ".join(dd_todo))
 
+    # Handle interactive driver selection, if needed
     mount_point = None
     if not dd_todo and is_interactive():
         iso, mount_point = select_iso()
@@ -734,17 +734,33 @@ def dd_scan(skip_dds=None, scan_dd_args=True):
             dd_todo.add(iso)
 
     # Process each Driver Disk, checking for new disks after each one
+    dd_load(dd_todo, skip_dds=skip_dds)
+
+    umount(mount_point)
+
+def dd_load(dd_todo, skip_dds=set()):
+    """ Process each Driver Disk, checking for new disks after each one.
+        Return the set of devices that loaded stuff from.
+
+        :param dd_todo:     devices to load drivers from
+        :type dd_todo:      set
+        :param skip_dds:    devices to skip when checking for OEMDRV label
+        :type skip_dds:     set
+        :returns:           set of devices that have been loaded
+    """
+    dd_finished = set()
     while dd_todo:
         device = dd_todo.pop()
         log.info("Checking device %s" % device)
+        if device in skip_dds:
+            continue
         select_dd(device)
         dd_finished.update([device])
         new_oemdrv = set(oemdrv_list()).difference(dd_finished, dd_todo)
         if new_oemdrv:
             log.info("Found new OEMDRV device(s) - %s" % ", ".join(new_oemdrv))
         dd_todo.update(new_oemdrv)
-
-    umount(mount_point)
+    return dd_finished
 
 if __name__ == '__main__':
     log.setLevel(logging.DEBUG)
