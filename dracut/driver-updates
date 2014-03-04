@@ -737,18 +737,23 @@ def dd_scan(skip_dds=set(), scan_dd_args=True):
         dd_todo.update(dd_devs)
         log.info("Checking devices %s", ", ".join(dd_todo))
 
-    # Handle interactive driver selection, if needed
-    mount_point = None
-    if not dd_todo and is_interactive():
-        iso, mount_point = select_iso()
-        if iso:
-            dd_todo.add(iso)
-
     # Process each Driver Disk, checking for new disks after each one
     dd_finished = dd_load(dd_todo, skip_dds=skip_dds)
     skip_dds.update(dd_finished)
 
-    umount(mount_point)
+    # Handle interactive driver selection, if needed
+    mount_point = None
+    while True:
+        iso, mount_point = select_iso()
+        if iso:
+            if iso in skip_dds:
+                skip_dds.remove(iso)
+            dd_load(set([iso]), skip_dds=skip_dds)
+            # NOTE: we intentionally do not add the newly-loaded device to
+            # skip_dds - the user might (e.g.) swap DVDs and use /dev/sr0 twice
+            umount(mount_point)
+        else:
+            break
 
 def dd_load(dd_todo, skip_dds=set()):
     """ Process each Driver Disk, checking for new disks after each one.
