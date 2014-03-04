@@ -654,20 +654,26 @@ def select_iso():
                   or (None, None) if no ISO file is selected
         :rtype: (str, str)
     """
-    try:
-        _ret, out = run_cmd(["blkid"])
-    except (OSError, RunCmdError):
-        return (None, None)
-
-    devices = []
-    for line in out.splitlines():
-        dev = parse_blkid(line)
-        if dev:
-            devices.append(DeviceInfo(**dev))
-
     header = "      %-10s %-20s %-15s %s" % ("DEVICE", "TYPE", "LABEL", "UUID")
-    iso_dev = selection_menu(devices, "Driver disk device selection\n" + header,
-                             str, multi_choice=False)
+
+    iso_dev = DoRefresh
+    while iso_dev is DoRefresh:
+        try:
+            _ret, out = run_cmd(["blkid"])
+        except (OSError, RunCmdError):
+            return (None, None)
+
+        devices = []
+        for line in out.splitlines():
+            dev = parse_blkid(line)
+            if dev:
+                devices.append(DeviceInfo(**dev))
+
+        iso_dev = selection_menu(devices,
+                                 "Driver disk device selection\n" + header,
+                                 str, multi_choice=False, refresh=True)
+        print iso_dev
+
     if not iso_dev:
         return (None, None)
 
