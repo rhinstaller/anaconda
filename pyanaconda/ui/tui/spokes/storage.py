@@ -1,6 +1,6 @@
 # Text storage configuration spoke classes
 #
-# Copyright (C) 2012  Red Hat, Inc.
+# Copyright (C) 2012-2014  Red Hat, Inc.
 #
 # This copyrighted material is made available to anyone wishing to use,
 # modify, copy, or redistribute it subject to the terms and conditions of
@@ -25,17 +25,20 @@
 from pyanaconda.ui.lib.disks import getDisks, size_str, applyDiskSelection
 from pyanaconda.ui.tui.spokes import NormalTUISpoke
 from pyanaconda.ui.tui.simpleline import TextWidget, CheckboxWidget
+from pyanaconda.ui.tui.tuiobject import YesNoDialog
 
 from pykickstart.constants import AUTOPART_TYPE_LVM, AUTOPART_TYPE_BTRFS, AUTOPART_TYPE_PLAIN
+from blivet import storageInitialize, arch
 from blivet.size import Size
-from blivet.errors import StorageError
+from blivet.errors import StorageError, DasdFormatError
 from blivet.errors import SanityError
 from blivet.errors import SanityWarning
 from blivet.devices import DASDDevice, FcoeDiskDevice, iScsiDiskDevice, MultipathDevice, ZFCPDiskDevice
+from blivet.devicelibs.dasd import format_dasd, make_unformatted_dasd_list
 from pyanaconda.flags import flags
 from pyanaconda.kickstart import doKickstartStorage
 from pyanaconda.threads import threadMgr, AnacondaThread
-from pyanaconda.constants import THREAD_STORAGE, THREAD_STORAGE_WATCHER
+from pyanaconda.constants import THREAD_STORAGE, THREAD_STORAGE_WATCHER, THREAD_DASDFMT
 from pyanaconda.i18n import _, P_, N_
 from pyanaconda.bootloader import BootLoaderError
 
@@ -75,6 +78,13 @@ class StorageSpoke(NormalTUISpoke):
         self.errors = []
         self.warnings = []
 
+        if self.data.zerombr.zerombr and arch.isS390():
+            # if zerombr is specified in a ks file and there are unformatted
+            # dasds, automatically format them
+            to_format = make_unformatted_dasd_list(self.selected_disks)
+            if to_format:
+                self.run_dasdfmt(to_format)
+
         if not flags.automatedInstall:
             # default to using autopart for interactive installs
             self.data.autopart.autopart = True
@@ -89,7 +99,7 @@ class StorageSpoke(NormalTUISpoke):
     def ready(self):
         # By default, the storage spoke is not ready.  We have to wait until
         # storageInitialize is done.
-        return self._ready and not threadMgr.get(THREAD_STORAGE_WATCHER)
+        return self._ready and not (threadMgr.get(THREAD_STORAGE_WATCHER) or threadMgr.get(THREAD_DASDFMT))
 
     @property
     def mandatory(self):
@@ -231,6 +241,15 @@ class StorageSpoke(NormalTUISpoke):
 
         if key == "c":
             if self.selected_disks:
+                # check selected disks to see if we have any unformatted DASDs
+                # if we're on s390x, since they need to be formatted before we
+                # can use them.
+                if arch.isS390():
+                    to_format = make_unformatted_dasd_list(self.selected_disks)
+                    if to_format:
+                        self.run_dasdfmt(to_format)
+                        return None
+
                 newspoke = AutoPartSpoke(self.app, self.data, self.storage,
                                          self.payload, self.instclass)
                 self.app.switch_screen_modal(newspoke)
@@ -246,6 +265,47 @@ class StorageSpoke(NormalTUISpoke):
 
         except (ValueError, KeyError, IndexError):
             return key
+
+    def run_dasdfmt(self, to_format):
+        """
+        This generates the list of DASDs requiring dasdfmt and runs dasdfmt
+        against them.
+        """
+        # if the storage thread is running, wait on it to complete before taking
+        # any further actions on devices; most likely to occur if user has
+        # zerombr in their ks file
+        threadMgr.wait(THREAD_STORAGE)
+
+        # ask user to verify they want to format if zerombr not in ks file
+        if not self.data.zerombr.zerombr:
+            # prepare our msg strings; copied directly from dasdfmt.glade
+            summary = _("The following unformatted DASDs have been detected on your system. You can choose to format them now with dasdfmt or cancel to leave them unformatted. Unformatted DASDs can not be used during installation.\n\n")
+
+            warntext = _("Warning: All storage changes made using the installer will be lost when you choose to format.\n\nProceed to run dasdfmt?\n")
+
+            displaytext = summary + "\n".join("/dev/" + d for d in to_format) + "\n" + warntext
+
+            # now show actual prompt; note -- in cmdline mode, auto-answer for
+            # this is 'no', so unformatted DASDs will remain so unless zerombr
+            # is added to the ks file
+            question_window = YesNoDialog(self._app, displaytext)
+            self._app.switch_screen_modal(question_window)
+            if not question_window.answer:
+                # no? well fine then, back to the storage spoke with you;
+                return None
+
+        for disk in to_format:
+            try:
+                print(_("Formatting /dev/%s. This may take a moment.") % disk)
+                format_dasd(disk)
+            except DasdFormatError as err:
+                # Log errors if formatting fails, but don't halt the installer
+                log.error(str(err))
+                continue
+
+        # when finished formatting we need to reinitialize storage
+        protectedNames = [d.name for d in self.storage.protectedDevices]
+        storageInitialize(self.storage, self.data, protectedNames)
 
     def apply(self):
         self.autopart = self.data.autopart.autopart
