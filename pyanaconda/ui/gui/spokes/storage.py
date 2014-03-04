@@ -368,7 +368,7 @@ class StorageSpoke(NormalSpoke, StorageChecker):
 
         if flags.automatedInstall and not self.storage.rootDevice:
             return msg
-        elif threadMgr.get(THREAD_DADSFMT):
+        elif threadMgr.get(constants.THREAD_DASDFMT):
             msg = _("Formatting DASDs")
         elif self.data.ignoredisk.onlyuse:
             msg = P_(("%d disk selected"),
