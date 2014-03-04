@@ -742,7 +742,11 @@ def dd_scan(skip_dds=set(), scan_dd_args=True):
     dd_finished = dd_load(dd_todo, skip_dds=skip_dds)
     skip_dds.update(dd_finished)
 
-    # Handle interactive driver selection, if needed
+    # Skip interactive selection of an iso if OEMDRV was found
+    if skip_dds or not is_interactive():
+        return
+
+    # Handle interactive driver selection
     mount_point = None
     while True:
         iso, mount_point = select_iso()
