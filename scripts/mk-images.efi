@@ -210,7 +210,7 @@ makeEfiImages() {
         return 1
     fi
     echo "Building efiboot.img for ${efiarch}/$KERNELARCH at $TOPDESTPATH/images/efiboot.img"
-   e "grubpkg: ${grubpkg}"
+    echo "grubpkg: ${grubpkg}"
 
     makeefibootimage \
         --imagename efiboot.img \
