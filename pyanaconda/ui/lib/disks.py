@@ -56,11 +56,17 @@ def getDisks(devicetree, fake=False):
         else:
             devices += devicetree._hidden
 
-        disks = [d for d in devices if d.isDisk and
-                                       d.mediaPresent and
-                                       not d.format.hidden and
-                                       not (d.protected and
-                                            d.removable)]
+        disks = []
+        for d in devices:
+            if d.isDisk and not d.format.hidden and not (d.protected and d.removable):
+                # unformatted DASDs are detected with a size of 0, but they should
+                # still show up as valid disks if this function is called, since we
+                # can still use them; anaconda will know how to handle them, so they
+                # don't need to be ignored anymore
+                if d.type == "dasd":
+                    disks.append(d)
+                elif d.size > 0 and d.mediaPresent:
+                    disks.append(d)
     else:
         disks = []
         disks.append(FakeDisk("sda", size=300000, free=10000, serial="00001",
