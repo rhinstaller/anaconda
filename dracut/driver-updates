@@ -434,7 +434,11 @@ def dd_extract(driver, dest_path="/updates/", kernel_ver=None):
             copy_file(src, firmware_updates)
             move_file(src, initrd_firmware)
 
-def selection_menu(items, title, info_func, multi_choice=True):
+
+# an arbitrary value to signal refreshing the menu contents
+DoRefresh = True
+
+def selection_menu(items, title, info_func, multi_choice=True, refresh=False):
     """ Display menu and let user select one or more choices.
 
         :param items: list of items
@@ -489,6 +493,8 @@ def selection_menu(items, title, info_func, multi_choice=True):
                 "'c'-continue"]
         if multi_choice:
             opts[0] = "# to toggle selection"
+        if refresh:
+            opts.insert(1,"'r'-refresh")
         idx = raw_input(''.join(['\n',
                                 ", ".join(opts[:-1]),
                                 " or ", opts[-1], ": "]))
@@ -509,6 +515,8 @@ def selection_menu(items, title, info_func, multi_choice=True):
                 page -= 1
             else:
                 print("First page")
+        elif idx.lower() == 'r' and refresh:
+            return DoRefresh
         elif idx.lower() == 'c':
             return
         else:
