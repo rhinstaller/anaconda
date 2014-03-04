@@ -49,16 +49,19 @@ from pyanaconda.ui.gui.spokes.lib.cart import SelectedDisksDialog
 from pyanaconda.ui.gui.spokes.lib.passphrase import PassphraseDialog
 from pyanaconda.ui.gui.spokes.lib.detailederror import DetailedErrorDialog
 from pyanaconda.ui.gui.spokes.lib.resize import ResizeDialog
+from pyanaconda.ui.gui.spokes.lib.dasdfmt import DasdFormatDialog
 from pyanaconda.ui.gui.categories.system import SystemCategory
-from pyanaconda.ui.gui.utils import enlightbox, escape_markup
+from pyanaconda.ui.gui.utils import enlightbox, escape_markup, gtk_action_nowait, ignoreEscape
 from pyanaconda.ui.helpers import StorageChecker
 
 from pyanaconda.kickstart import doKickstartStorage, getAvailableDiskSpace
+from blivet import storageInitialize, arch
 from blivet.size import Size
 from blivet.devices import MultipathDevice
-from blivet.errors import StorageError
+from blivet.errors import StorageError, DasdFormatError
 from blivet.platform import platform
 from blivet.devicelibs import swap as swap_lib
+from blivet.devicelibs.dasd import make_unformatted_dasd_list, format_dasd
 from pyanaconda.threads import threadMgr, AnacondaThread
 from pyanaconda.product import productName
 from pyanaconda.flags import flags
@@ -249,6 +252,11 @@ class StorageSpoke(NormalSpoke, StorageChecker):
         self.autoPartType = None
         self.clearPartType = CLEARPART_TYPE_NONE
 
+        if self.data.zerombr.zerombr and arch.isS390():
+            # run dasdfmt on any unformatted DASDs automatically
+            threadMgr.add(AnacondaThread(name=constants.THREAD_DASDFMT,
+                            target=self.run_dasdfmt))
+
         self._previous_autopart = False
 
         self._last_clicked_overview = None
@@ -295,6 +303,7 @@ class StorageSpoke(NormalSpoke, StorageChecker):
                 request.size = swap_lib.swapSuggestion(disk_space=disk_space)
                 break
 
+    @gtk_action_nowait
     def execute(self):
         # Spawn storage execution as a separate thread so there's no big delay
         # going back from this spoke to the hub while StorageChecker.run runs.
@@ -305,6 +314,8 @@ class StorageSpoke(NormalSpoke, StorageChecker):
     def _doExecute(self):
         self._ready = False
         hubQ.send_not_ready(self.__class__.__name__)
+        # on the off-chance dasdfmt is running, we can't proceed further
+        threadMgr.wait(constants.THREAD_DASDFMT)
         hubQ.send_message(self.__class__.__name__, _("Saving storage configuration..."))
         try:
             doKickstartStorage(self.storage, self.data, self.instclass)
@@ -357,6 +368,8 @@ class StorageSpoke(NormalSpoke, StorageChecker):
 
         if flags.automatedInstall and not self.storage.rootDevice:
             return msg
+        elif threadMgr.get(THREAD_DADSFMT):
+            msg = _("Formatting DASDs")
         elif self.data.ignoredisk.onlyuse:
             msg = P_(("%d disk selected"),
                      ("%d disks selected"),
@@ -608,6 +621,38 @@ class StorageSpoke(NormalSpoke, StorageChecker):
             if not selected and name in self.selected_disks:
                 self.selected_disks.remove(name)
 
+    def run_dasdfmt(self):
+        """
+        Though the same function exists in pyanaconda.ui.gui.spokes.lib.dasdfmt,
+        this instance doesn't include any of the UI pieces and should only
+        really be getting called on ks installations with "zerombr".
+        """
+        # wait for the initial storage thread to complete before taking any new
+        # actions on storage devices
+        threadMgr.wait(constants.THREAD_STORAGE)
+
+        to_format = make_unformatted_dasd_list(self.selected_disks)
+        if not to_format:
+            # nothing to do here; bail
+            return
+
+        hubQ.send_message(self.__class__.__name__, _("Formatting DASDs"))
+        for disk in to_format:
+            try:
+                format_dasd(disk)
+            except DasdFormatError as err:
+                # Log errors if formatting fails, but don't halt the installer
+                log.error(str(err))
+                continue
+
+        # now re-initialize storage to pick up the newly formatted disks
+        protectedNames = [d.name for d in self.storage.protectedDevices]
+        storageInitialize(self.storage, self.data, protectedNames)
+
+        # I really hate doing this, but the way is the way; probably the most
+        # correct way to kajigger the storage spoke into becoming ready
+        self.execute()
+
     # signal handlers
     def on_summary_clicked(self, button):
         # show the selected disks dialog
@@ -695,6 +740,31 @@ class StorageSpoke(NormalSpoke, StorageChecker):
         if not disks:
             NormalSpoke.on_back_clicked(self, button)
             return
+
+        if arch.isS390():
+            # check for unformatted DASDs and launch dasdfmt if any discovered
+            dasds = make_unformatted_dasd_list(self.selected_disks)
+            if len(dasds) > 0:
+                dialog = DasdFormatDialog(self.data, self.storage, dasds)
+                ignoreEscape(dialog.window)
+                rc = self.run_lightbox_dialog(dialog)
+                if rc == 1:
+                    # User hit OK on the dialog, indicating they stayed on the
+                    # dialog until formatting completed; make sure we stay on
+                    # the storage spoke and don't return to the summary hub
+                    self.skipTo = "StorageSpoke"
+                    # we have to manaually call refresh so changes are picked up
+                    self.refresh()
+                elif rc == 2:
+                    # User clicked uri to return to hub.
+                    NormalSpoke.on_back_clicked(self, button)
+                    return
+                elif rc != 2:
+                    # User either hit cancel on the dialog or closed it via escape,
+                    # there was no formatting done.
+                    # NOTE: rc == 2 means the user clicked on the link that takes t
+                    # back to the hub.
+                    return
 
         # Figure out if the existing disk labels will work on this platform
         # you need to have at least one of the platform's labels in order for
