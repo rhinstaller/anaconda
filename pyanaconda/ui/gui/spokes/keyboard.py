@@ -297,9 +297,12 @@ class KeyboardSpoke(NormalSpoke):
     def completed(self):
         if flags.flags.automatedInstall and not self.data.keyboard.seen:
             return False
-        elif not self._confirmed and self._xkl_wrapper.get_current_layout() != self.data.keyboard.x_layouts[0]:
+        elif not self._confirmed and \
+                self._xkl_wrapper.get_current_layout() != self.data.keyboard.x_layouts[0] and \
+                not flags.flags.usevnc:
             # the currently activated layout is a different one from the
-            # installed system's default
+            # installed system's default. Ignore VNC, since VNC keymaps are
+            # weird and more on the client side.
             return False
         else:
             return True
