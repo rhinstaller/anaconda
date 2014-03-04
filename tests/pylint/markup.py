@@ -31,7 +31,8 @@ import os
 
 import xml.etree.ElementTree as ET
 
-from pangocheck import markup_nodes, is_markup, markup_match
+# markup_necessary not used yet
+from pangocheck import markup_nodes, is_markup, markup_match #, markup_necessary
 
 markupMethods = ["set_markup"]
 escapeMethods = ["escape_markup"]
@@ -62,7 +63,10 @@ class MarkupChecker(BaseChecker):
                        "Translated pango markup contains invalid elements"),
             "W9925" : ("Found mis-translated pango markup for language %s",
                        "invalid-pango-translation",
-                       "The elements or attributes do not match between a pango markup string and its translation")
+                       "The elements or attributes do not match between a pango markup string and its translation"),
+            "W9926" : ("Found unnecessary pango markup",
+                       "unnecessary-markup",
+                       "Pango markup could be expressed as attribute list"),
            }
 
     options = (('translate-markup',
@@ -88,6 +92,12 @@ class MarkupChecker(BaseChecker):
             # QUIS CUSTODIET IPSOS CUSTODES
             # pylint: disable=W9922
             tree = ET.fromstring("<markup>%s</markup>" % string)
+
+            # Check if the markup is necessary
+            # TODO: Turn this on after it's possible to actually do
+            # anything about it. See https://bugzilla.gnome.org/show_bug.cgi?id=725681
+            #if not markup_necessary(tree):
+            #    self.add_message("W9926", node=node)
         except ET.ParseError:
             if lang:
                 self.add_message("W9923", node=node, args=(lang,))
@@ -100,7 +110,7 @@ class MarkupChecker(BaseChecker):
     def __init__(self, linter=None):
         BaseChecker.__init__(self, linter)
 
-    @check_messages("W9920", "W9921", "W9922", "W9923", "W9924", "W9925")
+    @check_messages("W9920", "W9921", "W9922", "W9923", "W9924", "W9925", "W9926")
     def visit_const(self, node):
         if type(node.value) not in (types.StringType, types.UnicodeType):
             return

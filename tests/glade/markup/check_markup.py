@@ -34,7 +34,7 @@ if ('-t' in sys.argv) or ('--translate' in sys.argv):
         print("Unable to load po translation module")
         sys.exit(99)
 
-from pangocheck import markup_nodes, markup_match
+from pangocheck import markup_nodes, markup_match, markup_necessary
 
 try:
     from lxml import etree
@@ -86,6 +86,12 @@ def check_glade_file(glade_file_path, po_map=None):
                     # pylint: disable=W9922
                     pango_tree = etree.fromstring("<markup>%s</markup>" % label_text)
                     _validate_pango_markup(pango_tree)
+
+                    # Check if the markup is necessary
+                    if not markup_necessary(pango_tree):
+                        print("Markup could be expressed as attributes at %s%s:%d" % \
+                                (glade_file_path, lang_str, label.sourceline))
+                        glade_success = False
                 except etree.XMLSyntaxError:
                     print("Unable to parse pango markup at %s%s:%d" % \
                             (glade_file_path, lang_str, label.sourceline))

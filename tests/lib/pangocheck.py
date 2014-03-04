@@ -64,3 +64,63 @@ def markup_match(orig_markup, xlated_markup):
     attr_list2 = sorted(attr_count2.elements())
 
     return (name_list1 == name_list2) and (attr_list1 == attr_list2)
+
+# Check that the markup is needed at all.
+# The input is a parsed ElementTree of the string '<markup>pango markup goes here</markup>'
+# The markup is unnecessary if the only markup in the string surrounds the entire rest of
+# the string, meaning that the pango attributes apply to the entire string, and thus
+# could be expressed using attribute lists. For example, strings like:
+#   <b>Bold text</b>
+# or
+#   <span foreground="grey"><i>colorful</i></span>
+# but not strings like:
+#   <span size="small">This string contains <b>internal</b> markup</span>
+# that contain markup that must be passed to the translators.
+#
+# This function returns True if the markup is necessary and False if the markup
+# can be discarded and expressed as attribute lists.
+def markup_necessary(markup_tree):
+    # If the element has no children at all, there is no markup inside and the
+    # markup is unnecessary.
+    if not len(markup_tree):
+        return False
+
+    # If there is more than one child, the markup is necessary
+    if len(markup_tree) > 1:
+        return True
+
+    # QUICK NOTE FOR PEOPLE EXPECTING ElementTree TO ACT KINDA LIKE DOM 'CUZ LOL
+    # ElementTree is kind of weird with respect to handling multiple text children
+    # of an Element node. element.text is the text leading up to the first element
+    # child, and element[child_idx].tail is the text following the child node that
+    # is actually a child of element but isn't a property of element because Python
+    # is crazy.
+    #
+    # A string like "<markup>word1<i>word2</i>word3<empty/>word4</markup>" will result in
+    #   tree == <Element 'markup' ...>
+    #   tree.text == 'word1'
+    #   tree[0] == <Element 'i' ...>
+    #   tree[0].text == 'word2'
+    #   tree[0].tail == 'word3'
+    #   tree[1] == <Element 'empty' ...>
+    #   tree[1].text == None
+    #   tree[1].text == 'word4'
+    #
+    # So elements that contain text before a child markup element will have
+    # element.text is not None. Elements that have text after a child element
+    # will have .tail on that child set to not None.
+
+    # If .text is set, there is text before the child node, as in
+    # <span>text <b>child</b></span>
+    # and the markup is necessary
+    if markup_tree.text:
+        return True
+
+    # If the child (we already know there's only one) has .tail set, then
+    # there is text between the close of the child and the end of the element
+    # and the markup is necessary
+    if markup_tree[0].tail:
+        return True
+
+    # Recurse on the child node
+    return markup_necessary(markup_tree[0])
