@@ -90,7 +90,7 @@ class DasdFormatDialog(GUIObject):
         """ Loop through our disks and run dasdfmt against them. """
         for disk in self.to_format:
             try:
-                gtk_call_once(self._formatting_label.set_text, _("Formatting /dev/%s. This may take a moment." % disk))
+                gtk_call_once(self._formatting_label.set_text, _("Formatting /dev/%s. This may take a moment.") % disk)
                 format_dasd(disk)
             except DasdFormatError as err:
                 # Log errors if formatting fails, but don't halt the installer
