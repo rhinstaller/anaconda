@@ -259,6 +259,34 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Mar 04 2014 Brian C. Lane <bcl@redhat.com> - 19.31.65-1
+- driver-updates: skip iso selection with OEMDRV (bcl)
+  Related: rhbz#1066784
+- driver-updates: allow interactive mode to load multiple devices (wwoods)
+  Related: rhbz#1066784
+- driver-updates: add DoRefresh loop to select_iso() (wwoods)
+  Resolves: rhbz#1066784
+- driver-updates: add 'refresh' to selection_menu() (wwoods)
+  Related: rhbz#1066784
+- driver-updates: rework 'dd_finished' handling (wwoods)
+  Related: rhbz#1066784
+- driver-updates: refactor dd_scan (wwoods)
+  Related: rhbz#1066784
+- driver-updates: refactor menu to allow other options (wwoods)
+  Related: rhbz#1066784
+- Bump blivet Requires for DASD changes. (sbueno+anaconda)
+  Related: rhbz#1064423
+- Add GUI and TUI logic to handle unformatted DASDs. (sbueno+anaconda)
+  Resolves: rhbz#1064423
+- Show unformatted DASDs in the local disk store. (sbueno+anaconda)
+  Resolves: rhbz#1064423
+- Add dialog box to warn about formatting DASDs. (sbueno+anaconda)
+  Resolves: rhbz#1064423
+- Update disk refs when recovering from a devicefactory failure. (dlehman)
+  Resolves: rhbz#1032141
+- network kickstart: do not bind to MAC if SUBCHANNELS are present (rvykydal)
+  Resolves: rhbz#1070232
+
 * Fri Feb 28 2014 Brian C. Lane <bcl@redhat.com> - 19.31.64-1
 - Fix console for s390 and 'noshell' mode (wwoods)
   Resolves: rhbz#1070672
