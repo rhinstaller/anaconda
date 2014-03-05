@@ -26,20 +26,6 @@
     <property name="inline_completion">True</property>
     <signal name="match-selected" handler="on_completion_match_selected" object="cityCombobox" swapped="no"/>
   </object>
-  <object class="GtkListStore" id="regions">
-    <columns>
-      <!-- column-name name -->
-      <column type="gchararray"/>
-      <!-- column-name xlated -->
-      <column type="gchararray"/>
-    </columns>
-  </object>
-  <object class="GtkEntryCompletion" id="regionCompletion">
-    <property name="model">regions</property>
-    <property name="text_column">0</property>
-    <property name="inline_completion">True</property>
-    <signal name="match-selected" handler="on_completion_match_selected" object="regionCombobox" swapped="no"/>
-  </object>
   <object class="GtkImage" id="configImage">
     <property name="visible">True</property>
     <property name="can_focus">False</property>
@@ -75,9 +61,44 @@
       <column type="gchararray"/>
     </columns>
   </object>
+  <object class="GtkListStore" id="regions">
+    <columns>
+      <!-- column-name name -->
+      <column type="gchararray"/>
+      <!-- column-name xlated -->
+      <column type="gchararray"/>
+    </columns>
+  </object>
+  <object class="GtkEntryCompletion" id="regionCompletion">
+    <property name="model">regions</property>
+    <property name="text_column">0</property>
+    <property name="inline_completion">True</property>
+    <signal name="match-selected" handler="on_completion_match_selected" object="regionCombobox" swapped="no"/>
+  </object>
+  <object class="GtkImage" id="upImage1">
+    <property name="visible">True</property>
+    <property name="can_focus">False</property>
+    <property name="icon_name">go-up-symbolic</property>
+  </object>
+  <object class="GtkImage" id="upImage2">
+    <property name="visible">True</property>
+    <property name="can_focus">False</property>
+    <property name="icon_name">go-up-symbolic</property>
+  </object>
+  <object class="GtkListStore" id="years">
+    <columns>
+      <!-- column-name number -->
+      <column type="guint"/>
+    </columns>
+  </object>
   <object class="AnacondaSpokeWindow" id="datetimeWindow">
     <property name="can_focus">False</property>
     <property name="window_name" translatable="yes">DATE &amp; TIME</property>
+    <child internal-child="accessible">
+      <object class="AtkObject" id="datetimeWindow-atkobject">
+        <property name="AtkObject::accessible-name" translatable="yes">DATE &amp; TIME</property>
+      </object>
+    </child>
     <signal name="button-clicked" handler="on_back_clicked" swapped="no"/>
     <child internal-child="main_box">
       <object class="GtkBox" id="AnacondaSpokeWindow-main_box1">
@@ -152,6 +173,11 @@
                                     <property name="events">GDK_KEY_RELEASE_MASK | GDK_STRUCTURE_MASK</property>
                                     <property name="width_chars">20</property>
                                     <property name="completion">regionCompletion</property>
+                                    <child internal-child="accessible">
+                                      <object class="AtkObject" id="regionsEntry-atkobject">
+                                        <property name="AtkObject::accessible-name" translatable="yes">Region</property>
+                                      </object>
+                                    </child>
                                     <signal name="activate" handler="on_city_region_text_entry_activated" swapped="no"/>
                                     <signal name="focus-out-event" handler="on_entry_left" swapped="no"/>
                                     <signal name="key-release-event" handler="on_city_region_key_released" swapped="no"/>
@@ -194,6 +220,11 @@
                                     <property name="events">GDK_KEY_RELEASE_MASK | GDK_STRUCTURE_MASK</property>
                                     <property name="width_chars">20</property>
                                     <property name="completion">cityCompletion</property>
+                                    <child internal-child="accessible">
+                                      <object class="AtkObject" id="citiesEntry-atkobject">
+                                        <property name="AtkObject::accessible-name" translatable="yes">City</property>
+                                      </object>
+                                    </child>
                                     <signal name="activate" handler="on_city_region_text_entry_activated" swapped="no"/>
                                     <signal name="focus-out-event" handler="on_entry_left" swapped="no"/>
                                     <signal name="key-release-event" handler="on_city_region_key_released" swapped="no"/>
@@ -237,6 +268,11 @@
                                       <object class="GtkSwitch" id="networkTimeSwitch">
                                         <property name="visible">True</property>
                                         <property name="can_focus">True</property>
+                                        <child internal-child="accessible">
+                                          <object class="AtkObject" id="networkTimeSwitch-atkobject">
+                                            <property name="AtkObject::accessible-name" translatable="yes">Use Network Time</property>
+                                          </object>
+                                        </child>
                                         <signal name="notify::active" handler="on_ntp_switched" swapped="no"/>
                                       </object>
                                       <packing>
@@ -252,6 +288,11 @@
                                         <property name="can_focus">True</property>
                                         <property name="receives_default">True</property>
                                         <property name="image">configImage</property>
+                                        <child internal-child="accessible">
+                                          <object class="AtkObject" id="ntpConfigButton-atkobject">
+                                            <property name="AtkObject::accessible-name" translatable="yes">Configure NTP</property>
+                                          </object>
+                                        </child>
                                         <signal name="clicked" handler="on_ntp_config_clicked" swapped="no"/>
                                       </object>
                                       <packing>
@@ -303,6 +344,11 @@
                             <property name="visible">True</property>
                             <property name="can_focus">False</property>
                             <property name="margin_bottom">6</property>
+                            <child internal-child="accessible">
+                              <object class="AtkObject" id="footerBox-atkobject">
+                                <property name="AtkObject::accessible-name" translatable="yes">Set Date &amp; Time</property>
+                              </object>
+                            </child>
                             <child>
                               <object class="GtkGrid" id="grid2">
                                 <property name="visible">True</property>
@@ -312,6 +358,11 @@
                                     <property name="visible">True</property>
                                     <property name="can_focus">False</property>
                                     <property name="label">00</property>
+                                    <child internal-child="accessible">
+                                      <object class="AtkObject" id="hoursLabel-atkobject">
+                                        <property name="AtkObject::accessible-name" translatable="yes">Hours</property>
+                                      </object>
+                                    </child>
                                     <attributes>
                                       <attribute name="scale" value="2"/>
                                     </attributes>
@@ -344,6 +395,11 @@
                                     <property name="visible">True</property>
                                     <property name="can_focus">False</property>
                                     <property name="label">00</property>
+                                    <child internal-child="accessible">
+                                      <object class="AtkObject" id="minutesLabel-atkobject">
+                                        <property name="AtkObject::accessible-name" translatable="yes">Minutes</property>
+                                      </object>
+                                    </child>
                                     <attributes>
                                       <attribute name="scale" value="2"/>
                                     </attributes>
@@ -361,6 +417,11 @@
                                     <property name="can_focus">True</property>
                                     <property name="receives_default">True</property>
                                     <property name="image">upImage</property>
+                                    <child internal-child="accessible">
+                                      <object class="AtkObject" id="hoursUpButton-atkobject">
+                                        <property name="AtkObject::accessible-name" translatable="yes">Hour Up</property>
+                                      </object>
+                                    </child>
                                     <signal name="clicked" handler="on_up_hours_clicked" swapped="no"/>
                                   </object>
                                   <packing>
@@ -376,6 +437,11 @@
                                     <property name="can_focus">True</property>
                                     <property name="receives_default">True</property>
                                     <property name="image">downImage</property>
+                                    <child internal-child="accessible">
+                                      <object class="AtkObject" id="hoursDownButton-atkobject">
+                                        <property name="AtkObject::accessible-name" translatable="yes">Hour Down</property>
+                                      </object>
+                                    </child>
                                     <signal name="clicked" handler="on_down_hours_clicked" swapped="no"/>
                                   </object>
                                   <packing>
@@ -391,6 +457,11 @@
                                     <property name="can_focus">True</property>
                                     <property name="receives_default">True</property>
                                     <property name="image">upImage1</property>
+                                    <child internal-child="accessible">
+                                      <object class="AtkObject" id="amPmUpButton-atkobject">
+                                        <property name="AtkObject::accessible-name" translatable="yes">AM/PM Up</property>
+                                      </object>
+                                    </child>
                                     <signal name="clicked" handler="on_updown_ampm_clicked" swapped="no"/>
                                   </object>
                                   <packing>
@@ -406,6 +477,11 @@
                                     <property name="can_focus">True</property>
                                     <property name="receives_default">True</property>
                                     <property name="image">upImage2</property>
+                                    <child internal-child="accessible">
+                                      <object class="AtkObject" id="minutesUpButton-atkobject">
+                                        <property name="AtkObject::accessible-name" translatable="yes">Minutes Up</property>
+                                      </object>
+                                    </child>
                                     <signal name="clicked" handler="on_up_minutes_clicked" swapped="no"/>
                                   </object>
                                   <packing>
@@ -421,6 +497,11 @@
                                     <property name="can_focus">True</property>
                                     <property name="receives_default">True</property>
                                     <property name="image">downImage1</property>
+                                    <child internal-child="accessible">
+                                      <object class="AtkObject" id="amPmDownButton-atkobject">
+                                        <property name="AtkObject::accessible-name" translatable="yes">AM/PM Down</property>
+                                      </object>
+                                    </child>
                                     <signal name="clicked" handler="on_updown_ampm_clicked" swapped="no"/>
                                   </object>
                                   <packing>
@@ -436,6 +517,11 @@
                                     <property name="can_focus">True</property>
                                     <property name="receives_default">True</property>
                                     <property name="image">downImage2</property>
+                                    <child internal-child="accessible">
+                                      <object class="AtkObject" id="minutesDownButton-atkobject">
+                                        <property name="AtkObject::accessible-name" translatable="yes">Minutes Down</property>
+                                      </object>
+                                    </child>
                                     <signal name="clicked" handler="on_down_minutes_clicked" swapped="no"/>
                                   </object>
                                   <packing>
@@ -677,6 +763,11 @@
     <property name="border_width">6</property>
     <property name="type_hint">dialog</property>
     <property name="decorated">False</property>
+    <child internal-child="accessible">
+      <object class="AtkObject" id="ntpConfigDialog-atkobject">
+        <property name="AtkObject::accessible-name" translatable="yes">Configure NTP</property>
+      </object>
+    </child>
     <child internal-child="vbox">
       <object class="GtkBox" id="dialog-vbox1">
         <property name="can_focus">False</property>
@@ -707,6 +798,11 @@
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="invisible_char">●</property>
+                <child internal-child="accessible">
+                  <object class="AtkObject" id="serverEntry-atkobject">
+                    <property name="AtkObject::accessible-name" translatable="yes">New NTP Server</property>
+                  </object>
+                </child>
                 <signal name="activate" handler="on_entry_activated" swapped="no"/>
               </object>
               <packing>
@@ -721,6 +817,11 @@
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
                 <property name="image">addImage</property>
+                <child internal-child="accessible">
+                  <object class="AtkObject" id="addButton-atkobject">
+                    <property name="AtkObject::accessible-name" translatable="yes">Add NTP Server</property>
+                  </object>
+                </child>
                 <signal name="clicked" handler="on_add_clicked" swapped="no"/>
               </object>
               <packing>
@@ -849,21 +950,5 @@
     <property name="visible">True</property>
     <property name="can_focus">False</property>
     <property name="icon_name">go-up-symbolic</property>
-  </object>
-  <object class="GtkImage" id="upImage1">
-    <property name="visible">True</property>
-    <property name="can_focus">False</property>
-    <property name="icon_name">go-up-symbolic</property>
-  </object>
-  <object class="GtkImage" id="upImage2">
-    <property name="visible">True</property>
-    <property name="can_focus">False</property>
-    <property name="icon_name">go-up-symbolic</property>
-  </object>
-  <object class="GtkListStore" id="years">
-    <columns>
-      <!-- column-name number -->
-      <column type="guint"/>
-    </columns>
   </object>
 </interface>
