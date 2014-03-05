@@ -233,6 +233,11 @@ updates available for you.</property>
   <object class="AnacondaSpokeWindow" id="networkWindow">
     <property name="can_focus">False</property>
     <property name="window_name" translatable="yes">NETWORK &amp; HOSTNAME</property>
+    <child internal-child="accessible">
+      <object class="AtkObject" id="networkWindow-atkobject">
+        <property name="AtkObject::accessible-name" translatable="yes">NETWORK &amp; HOSTNAME</property>
+      </object>
+    </child>
     <signal name="button-clicked" handler="on_back_clicked" swapped="no"/>
     <child internal-child="main_box">
       <object class="GtkBox" id="AnacondaSpokeWindow-main_box1">
@@ -292,6 +297,11 @@ updates available for you.</property>
                         <property name="can_focus">False</property>
                         <property name="orientation">vertical</property>
                         <property name="spacing">3</property>
+                        <child internal-child="accessible">
+                          <object class="AtkObject" id="network_config_vbox-atkobject">
+                            <property name="AtkObject::accessible-name" translatable="yes">Network Config Box</property>
+                          </object>
+                        </child>
                         <child>
                           <object class="GtkBox" id="hbox2">
                             <property name="visible">True</property>
@@ -2397,6 +2407,11 @@ updates available for you.</property>
                       <object class="GtkBox" id="hbox54">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
+                        <child internal-child="accessible">
+                          <object class="AtkObject" id="hbox54-atkobject">
+                            <property name="AtkObject::accessible-name" translatable="yes">More Network Config Box</property>
+                          </object>
+                        </child>
                         <child>
                           <object class="GtkButton" id="button_unlock">
                             <property name="label" translatable="yes" context="GUI|Network">Unloc_k</property>
@@ -2470,6 +2485,11 @@ updates available for you.</property>
                             <property name="can_focus">True</property>
                             <property name="invisible_char">●</property>
                             <property name="width_chars">35</property>
+                            <child internal-child="accessible">
+                              <object class="AtkObject" id="entry_hostname-atkobject">
+                                <property name="AtkObject::accessible-name" translatable="yes">Hostname</property>
+                              </object>
+                            </child>
                           </object>
                           <packing>
                             <property name="expand">False</property>
