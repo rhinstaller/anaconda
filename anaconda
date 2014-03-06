@@ -804,6 +804,7 @@ if __name__ == "__main__":
     from pyanaconda import kickstart
     from pyanaconda import ntp
     from pyanaconda import keyboard
+    from pyanaconda.iutil import ProxyString, ProxyStringError
 
     verdesc = "%s for %s %s" % (getAnacondaVersion(),
                                 product.productName, product.productVersion)
@@ -969,6 +970,24 @@ if __name__ == "__main__":
     # cmdline flags override kickstart settings
     if anaconda.proxy:
         ksdata.method.proxy = anaconda.proxy
+
+        # Setup proxy environmental variables so that pre/post scripts use it
+        # as well as libreport
+        try:
+            proxy = ProxyString(anaconda.proxy)
+        except ProxyStringError as e:
+            log.info("Failed to parse proxy \"%s\": %s" % (anaconda.proxy, e))
+        else:
+            # Set environmental variables to be used by pre/post scripts
+            os.environ["PROXY"] = proxy.noauth_url
+            os.environ["PROXY_USER"] = proxy.username or ""
+            os.environ["PROXY_PASSWORD"] = proxy.password or ""
+
+            # Variables used by curl, libreport, etc.
+            os.environ["http_proxy"] = proxy.url
+            os.environ["ftp_proxy"] = proxy.url
+            os.environ["HTTPS_PROXY"] = proxy.url
+
     if flags.noverifyssl:
         ksdata.method.noverifyssl = flags.noverifyssl
     if opts.multiLib:
