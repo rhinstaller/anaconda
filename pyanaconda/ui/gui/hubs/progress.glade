@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Generated with glade 3.16.0 on Thu Oct 17 10:46:21 2013 -->
+<!-- Generated with glade 3.16.0 on Thu Mar  6 12:06:17 2014 -->
 <interface>
   <!-- interface-requires gtk+ 3.0 -->
   <!-- interface-requires AnacondaWidgets 1.0 -->
   <object class="AnacondaHubWindow" id="progressWindow">
     <property name="can_focus">False</property>
     <property name="window_name" translatable="yes">CONFIGURATION</property>
+    <child internal-child="accessible">
+      <object class="AtkObject" id="progressWindow-atkobject">
+        <property name="AtkObject::accessible-name" translatable="yes">CONFIGURATION</property>
+      </object>
+    </child>
     <child internal-child="main_box">
       <object class="GtkBox" id="AnacondaHubWindow-main_box1">
         <property name="can_focus">False</property>
