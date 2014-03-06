@@ -166,7 +166,10 @@ def nm_activated_devices():
 
     active_connections = _get_property("/org/freedesktop/NetworkManager", "ActiveConnections")
     for ac in active_connections:
-        state = _get_property(ac, "State", ".Connection.Active")
+        try:
+            state = _get_property(ac, "State", ".Connection.Active")
+        except UnknownMethodGetError:
+            continue
         if state != NetworkManager.ActiveConnectionState.ACTIVATED:
             continue
         devices = _get_property(ac, "Devices", ".Connection.Active")
