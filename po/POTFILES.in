@@ -1,5 +1,5 @@
 # List of source files which contain translatable strings.
-# Copyright (C) 2009  Red Hat, Inc.
+# Copyright (C) 2009-2014  Red Hat, Inc.
 
 # Main anaconda source files
 pyanaconda/addons.py
@@ -87,6 +87,7 @@ pyanaconda/ui/gui/spokes/welcome.py
 pyanaconda/ui/gui/spokes/advstorage/iscsi.py
 pyanaconda/ui/gui/spokes/lib/accordion.py
 pyanaconda/ui/gui/spokes/lib/cart.py
+pyanaconda/ui/gui/spokes/lib/custom_storage_helpers.py
 pyanaconda/ui/gui/spokes/lib/dasdfmt.py
 pyanaconda/ui/gui/spokes/lib/detailederror.py
 pyanaconda/ui/gui/spokes/lib/passphrase.py
@@ -124,6 +125,7 @@ pyanaconda/ui/gui/spokes/custom.glade
 pyanaconda/ui/gui/spokes/advstorage/fcoe.glade
 pyanaconda/ui/gui/spokes/advstorage/iscsi.glade
 pyanaconda/ui/gui/spokes/lib/cart.glade
+pyanaconda/ui/gui/spokes/lib/custom_storage_helpers.glade
 pyanaconda/ui/gui/spokes/lib/dasdfmt.glade
 pyanaconda/ui/gui/spokes/lib/detailederror.glade
 pyanaconda/ui/gui/spokes/lib/passphrase.glade

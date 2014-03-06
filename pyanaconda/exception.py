@@ -232,6 +232,8 @@ def initExceptionHandling(anaconda):
                   attrSkipList=["_intf._actions",
                                 "_intf._currentAction._xklwrapper",
                                 "_intf._currentAction._spokes[\"KeyboardSpoke\"]._xkl_wrapper",
+                                "_intf._currentAction._storage_playground",
+                                "_intf._currentAction._spokes[\"CustomSpoke\"]._storage_playground",
                                 "_intf._currentAction.language.translations",
                                 "_intf._currentAction.language.locales",
                                 "_intf._currentAction._spokes[\"PasswordSpoke\"]._oldweak",

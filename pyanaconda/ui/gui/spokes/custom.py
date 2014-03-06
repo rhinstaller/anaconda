@@ -1,4 +1,4 @@
-# vim: set fileencoding=utf-8
+#
 # Custom partitioning classes.
 #
 # Copyright (C) 2012-2014  Red Hat, Inc.
@@ -29,13 +29,9 @@
 # - Implement striping and mirroring for LVM.
 # - Activating reformat should always enable resize for existing devices.
 
-from contextlib import contextmanager
-import re
-import locale
-
 from pykickstart.constants import CLEARPART_TYPE_NONE, AUTOPART_TYPE_PLAIN, AUTOPART_TYPE_BTRFS, AUTOPART_TYPE_LVM, AUTOPART_TYPE_LVM_THINP
 
-from pyanaconda.i18n import _, N_, C_, CP_
+from pyanaconda.i18n import _, N_, CP_
 from pyanaconda.product import productName, productVersion
 from pyanaconda.threads import AnacondaThread, threadMgr
 from pyanaconda.constants import THREAD_EXECUTE_STORAGE, THREAD_STORAGE, THREAD_CUSTOM_STORAGE_INIT
@@ -46,7 +42,6 @@ from blivet import devicefactory
 from blivet.formats import device_formats
 from blivet.formats import getFormat
 from blivet.formats.fs import FS
-from blivet.platform import platform
 from blivet.size import Size
 from blivet import Root
 from blivet.devicefactory import DEVICE_TYPE_LVM
@@ -57,13 +52,11 @@ from blivet.devicefactory import DEVICE_TYPE_DISK
 from blivet.devicefactory import DEVICE_TYPE_LVM_THINP
 from blivet.devicefactory import get_raid_level
 from blivet.devicefactory import SIZE_POLICY_AUTO
-from blivet.devicefactory import SIZE_POLICY_MAX
 from blivet import findExistingInstallations
 from blivet.partitioning import doAutoPartition
 from blivet.errors import StorageError
 from blivet.errors import NoDisksError
 from blivet.errors import NotEnoughFreeSpaceError
-from blivet.errors import SizeParamsError
 from blivet.errors import SanityError
 from blivet.errors import SanityWarning
 from blivet.errors import LUKSDeviceWithoutKeyError
@@ -71,7 +64,6 @@ from blivet.devicelibs import mdraid
 from blivet.devices import LUKSDevice
 
 from pyanaconda.ui.communication import hubQ
-from pyanaconda.ui.gui import GUIObject
 from pyanaconda.ui.gui.spokes import NormalSpoke
 from pyanaconda.ui.gui.spokes.storage import StorageChecker
 from pyanaconda.ui.gui.spokes.lib.cart import SelectedDisksDialog
@@ -79,6 +71,13 @@ from pyanaconda.ui.gui.spokes.lib.passphrase import PassphraseDialog
 from pyanaconda.ui.gui.spokes.lib.accordion import selectorFromDevice, Accordion, Page, CreateNewPage, UnknownPage
 from pyanaconda.ui.gui.spokes.lib.refresh import RefreshDialog
 from pyanaconda.ui.gui.spokes.lib.summary import ActionSummaryDialog
+
+from pyanaconda.ui.gui.spokes.lib.custom_storage_helpers import size_from_entry, ui_storage_logger
+from pyanaconda.ui.gui.spokes.lib.custom_storage_helpers import validate_label, validate_mountpoint, selectedRaidLevel
+from pyanaconda.ui.gui.spokes.lib.custom_storage_helpers import container_type_names, translated_new_install_name
+from pyanaconda.ui.gui.spokes.lib.custom_storage_helpers import label_validation_msgs, mountpoint_validation_msgs, raid_level_not_enough_disks_msg, LABEL_OK # will go away soon
+from pyanaconda.ui.gui.spokes.lib.custom_storage_helpers import AddDialog, ConfirmDeleteDialog, DisksDialog, ContainerDialog, HelpDialog
+
 from pyanaconda.ui.gui.utils import setViewportBackground, enlightbox, fancy_set_sensitive, ignoreEscape
 from pyanaconda.ui.gui.utils import really_hide, really_show, fire_gtk_action
 from pyanaconda.ui.gui.categories.system import SystemCategory
@@ -97,57 +96,6 @@ NOTEBOOK_LUKS_PAGE = 2
 NOTEBOOK_UNEDITABLE_PAGE = 3
 NOTEBOOK_INCOMPLETE_PAGE = 4
 
-new_install_name = N_("New %(name)s %(version)s Installation")
-new_container_text = N_("Create a new %(container_type)s ...")
-container_tooltip = N_("Create or select %(container_type)s")
-container_dialog_title = N_("CONFIGURE %(container_type)s")
-container_dialog_text = N_("Please create a name for this %(container_type)s "
-                           "and select at least one disk below.")
-lvm_container_name = N_("Volume Group")
-btrfs_container_name = N_("Volume")
-unrecoverable_error_msg = N_("Storage configuration reset due to unrecoverable "
-                             "error. Click for details.")
-device_configuration_error_msg = N_("Device reconfiguration failed. Click for "
-                                    "details.")
-
-label_format_invalid_msg = N_("Unacceptable label format for filesystem.")
-label_application_unavailable_msg = N_("Can not set label on filesystem.")
-label_resetting_forbidden_msg = N_("Can not relabel already existing filesystem.")
-
-empty_mountpoint_msg = N_("Please enter a valid mountpoint.")
-invalid_mountpoint_msg = N_("That mount point is invalid. Try something else?")
-mountpoint_in_use_msg = N_("That mount point is already in use. Try something else?")
-
-raid_level_not_enough_disks_msg = N_("The RAID level you have selected (%(level)s) "
-                                     "requires more disks (%(min)d) than you "
-                                     "currently have selected (%(count)d).")
-empty_name_msg = N_("Please enter a valid name.")
-
-container_type_names = {DEVICE_TYPE_LVM: lvm_container_name,
-                        DEVICE_TYPE_LVM_THINP: lvm_container_name,
-                        DEVICE_TYPE_BTRFS: btrfs_container_name}
-
-LABEL_OK = 0
-LABEL_FORMAT_INVALID = 1
-LABEL_APPLICATION_UNAVAILABLE = 2
-LABEL_RESETTING_FORBIDDEN = 3
-
-label_validation_msgs = {
-    LABEL_OK: "",
-    LABEL_FORMAT_INVALID: label_format_invalid_msg,
-    LABEL_APPLICATION_UNAVAILABLE: label_application_unavailable_msg,
-    LABEL_RESETTING_FORBIDDEN: label_resetting_forbidden_msg}
-
-
-MOUNTPOINT_OK = 0
-MOUNTPOINT_INVALID = 1
-MOUNTPOINT_IN_USE = 2
-MOUNTPOINT_EMPTY = 3
-
-mountpoint_validation_msgs = {MOUNTPOINT_OK: "",
-                              MOUNTPOINT_INVALID: invalid_mountpoint_msg,
-                              MOUNTPOINT_IN_USE: mountpoint_in_use_msg,
-                              MOUNTPOINT_EMPTY: empty_mountpoint_msg}
 
 DEVICE_TEXT_LVM = N_("LVM")
 DEVICE_TEXT_LVM_THINP = N_("LVM Thin Provisioning")
@@ -162,508 +110,16 @@ device_text_map = {DEVICE_TYPE_LVM: DEVICE_TEXT_LVM,
                    DEVICE_TYPE_BTRFS: DEVICE_TEXT_BTRFS,
                    DEVICE_TYPE_LVM_THINP: DEVICE_TEXT_LVM_THINP}
 
+new_container_text = N_("Create a new %(container_type)s ...")
+container_tooltip = N_("Create or select %(container_type)s")
+
+device_configuration_error_msg = N_("Device reconfiguration failed. Click for "
+                                    "details.")
+unrecoverable_error_msg = N_("Storage configuration reset due to unrecoverable "
+                             "error. Click for details.")
+
 partition_only_format_types = ["efi", "macefi", "prepboot", "biosboot",
                                "appleboot"]
-
-def size_from_entry(entry):
-    size_text = entry.get_text().decode("utf-8").strip()
-
-    # Nothing to parse
-    if not size_text:
-        return None
-
-    # if no unit was specified, default to MiB. Assume that a string
-    # ending with anything other than a digit has a unit suffix
-    if re.search(r'[\d.%s]$' % locale.nl_langinfo(locale.RADIXCHAR), size_text):
-        size_text += "MiB"
-
-    try:
-        size = Size(spec=size_text)
-    except (SizeParamsError, ValueError):
-        return None
-    else:
-        # Minimium size for ui-created partitions is 1MiB.
-        if size.convertTo(spec="MiB") < 1:
-            size = Size(spec="1 MiB")
-
-    return size
-
-class UIStorageFilter(logging.Filter):
-    def filter(self, record):
-        record.name = "storage.ui"
-        return True
-
-@contextmanager
-def ui_storage_logger():
-    storage_log = logging.getLogger("blivet")
-    f = UIStorageFilter()
-    storage_log.addFilter(f)
-    yield
-    storage_log.removeFilter(f)
-
-def populate_mountpoint_store(store, used_mountpoints):
-    # sure, add whatever you want to this list. this is just a start.
-    paths = ["/", "/boot", "/home", "/var"] + \
-            platform.bootStage1ConstraintDict["mountpoints"]
-
-    # Sort the list now so all the real mountpoints go to the front, then
-    # add all the pseudo mountpoints we have.
-    paths.sort()
-    paths += ["swap"]
-
-    for fmt in ["appleboot", "biosboot", "prepboot"]:
-        if getFormat(fmt).supported:
-            paths += [fmt]
-
-    for path in paths:
-        if path not in used_mountpoints:
-            store.append([path])
-
-def validate_label(label, fmt):
-    """Returns a code indicating either that the given label can be set for
-       this filesystem or the reason why it can not.
-
-       In the case where the format can not assign a label, the empty string
-       stands for accept the default, but in the case where the format can
-       assign a label the empty string represents itself.
-
-       :param str label: The label
-       :param DeviceFormat fmt: The device format to label
-
-    """
-    if fmt.exists:
-        return LABEL_RESETTING_FORBIDDEN
-    if not fmt.labeling():
-        if label == "":
-            return LABEL_OK
-        else:
-            return LABEL_APPLICATION_UNAVAILABLE
-    if not fmt.labelFormatOK(label):
-        return LABEL_FORMAT_INVALID
-    return LABEL_OK
-
-def validate_mountpoint(mountpoint, used_mountpoints, strict=True):
-    if strict:
-        fake_mountpoints = []
-    else:
-        fake_mountpoints = ["swap", "biosboot", "prepboot"]
-
-    valid = MOUNTPOINT_OK
-    if mountpoint in used_mountpoints:
-        valid = MOUNTPOINT_IN_USE
-    elif not mountpoint:
-        valid = MOUNTPOINT_EMPTY
-    elif mountpoint.startswith("/dev") or mountpoint.startswith("/proc") or \
-         mountpoint.startswith("/sys"):
-        valid = MOUNTPOINT_INVALID
-    elif (lowerASCII(mountpoint) not in fake_mountpoints and
-          ((len(mountpoint) > 1 and mountpoint.endswith("/")) or
-           not mountpoint.startswith("/") or
-           " " in mountpoint or
-           re.search(r'/\.*/', mountpoint) or
-           re.search(r'/\.+$', mountpoint))):
-        # - does not end with '/' unless mountpoint _is_ '/'
-        # - starts with '/' except for "swap", &c
-        # - does not contain spaces
-        # - does not contain pairs of '/' enclosing zero or more '.'
-        # - does not end with '/' followed by one or more '.'
-        valid = MOUNTPOINT_INVALID
-
-    return valid
-
-def selectedRaidLevel(raidLevelCombo):
-    """Interpret the selection of a RAID level combo box."""
-    if not raidLevelCombo.get_property("visible"):
-        # the combo is hidden when raid level isn't applicable
-        return None
-
-    itr = raidLevelCombo.get_active_iter()
-    store = raidLevelCombo.get_model()
-
-    if not itr:
-        return
-
-    selected_level_string = store[itr][0]   # eg: "RAID1 (Redundancy)"
-    level = selected_level_string.split()[0]    # -> "RAID1"
-
-    # The RAID level strings are not translated, but the "None" string in
-    # the container dialog is. Transformations in relation to "None" need
-    # to happen within the locale settings, but transformations in
-    # relation to "RAID* ..." need to happen only within ASCII. For example,
-    # "RAID1".lower() in Turkish would become "raıd1", which is not what
-    # we want.
-    levelLocale = level.lower()
-    levelASCII = lowerASCII(level)
-
-    if levelASCII == "none" or levelLocale == _("None").lower():
-        return None
-
-    return levelASCII
-
-class AddDialog(GUIObject):
-    builderObjects = ["addDialog", "mountPointStore", "mountPointCompletion", "mountPointEntryBuffer"]
-    mainWidgetName = "addDialog"
-    uiFile = "spokes/custom.glade"
-
-    def __init__(self, *args, **kwargs):
-        self.mountpoints = kwargs.pop("mountpoints", [])
-        GUIObject.__init__(self, *args, **kwargs)
-        self.size = Size(bytes=0)
-        self.mountpoint = ""
-        self._error = False
-
-        store = self.builder.get_object("mountPointStore")
-        populate_mountpoint_store(store, self.mountpoints)
-        self.builder.get_object("addMountPointEntry").set_model(store)
-
-        completion = self.builder.get_object("mountPointCompletion")
-        completion.set_text_column(0)
-        completion.set_popup_completion(True)
-
-        self._warningLabel = self.builder.get_object("mountPointWarningLabel")
-
-    def on_add_confirm_clicked(self, button, *args):
-        self.mountpoint = self.builder.get_object("addMountPointEntry").get_active_text()
-        self._error = validate_mountpoint(self.mountpoint, self.mountpoints,
-                                          strict=False)
-        self._warningLabel.set_text(_(mountpoint_validation_msgs[self._error]))
-        self.window.show_all()
-        if self._error:
-            return
-
-        self.size = size_from_entry(self.builder.get_object("addSizeEntry"))
-        self.window.destroy()
-
-    def refresh(self):
-        GUIObject.refresh(self)
-        self._warningLabel.set_text("")
-
-    def run(self):
-        while True:
-            self._error = None
-            rc = self.window.run()
-            if not self._error:
-                return rc
-
-class ConfirmDeleteDialog(GUIObject):
-    builderObjects = ["confirmDeleteDialog"]
-    mainWidgetName = "confirmDeleteDialog"
-    uiFile = "spokes/custom.glade"
-
-    def __init__(self, *args, **kwargs):
-        GUIObject.__init__(self, *args, **kwargs)
-        self._removeAll = self.builder.get_object("removeAllCheckbox")
-
-    @property
-    def deleteAll(self):
-        return self._removeAll.get_active()
-
-    def on_delete_confirm_clicked(self, button, *args):
-        self.window.destroy()
-
-    # pylint: disable=W0221
-    def refresh(self, mountpoint, device, rootName, subvols=False):
-        GUIObject.refresh(self)
-        label = self.builder.get_object("confirmLabel")
-
-        if rootName and "_" in rootName:
-            rootName = rootName.replace("_", "__")
-        self._removeAll.set_label(
-                C_("GUI|Custom Partitioning|Confirm Delete Dialog",
-                    "Delete _all other filesystems in the %s root as well.")
-                % rootName)
-        self._removeAll.set_sensitive(rootName is not None)
-
-        if mountpoint:
-            txt = "%s (%s)" % (mountpoint, device)
-        else:
-            txt = device
-
-        if not subvols:
-            label_text = _("Are you sure you want to delete all of the data on %s?") % txt
-        else:
-            label_text = _("Are you sure you want to delete all of the data on %s, including subvolumes and/or snapshots?") % txt
-
-        label.set_text(label_text)
-
-    def run(self):
-        return self.window.run()
-
-class DisksDialog(GUIObject):
-    builderObjects = ["disks_dialog", "disk_store", "disk_view"]
-    mainWidgetName = "disks_dialog"
-    uiFile = "spokes/custom.glade"
-
-    def __init__(self, *args, **kwargs):
-        self._disks = kwargs.pop("disks")
-        free = kwargs.pop("free")
-        self.selected = kwargs.pop("selected")[:]
-        GUIObject.__init__(self, *args, **kwargs)
-        self._store = self.builder.get_object("disk_store")
-        # populate the store
-        for disk in self._disks:
-            self._store.append([disk.description,
-                                str(disk.size),
-                                str(free[disk.name][0]),
-                                disk.serial,
-                                disk.id])
-
-        treeview = self.builder.get_object("disk_view")
-        model = treeview.get_model()
-        itr = model.get_iter_first()
-        selected_ids = [d.id for d in self.selected]
-        selection = treeview.get_selection()
-        while itr:
-            disk_id = model.get_value(itr, 4)
-            if disk_id in selected_ids:
-                selection.select_iter(itr)
-
-            itr = model.iter_next(itr)
-
-    def on_cancel_clicked(self, button):
-        self.window.destroy()
-
-    def _get_disk_by_id(self, disk_id):
-        for disk in self._disks:
-            if disk.id == disk_id:
-                return disk
-
-    def on_select_clicked(self, button):
-        treeview = self.builder.get_object("disk_view")
-        model, paths = treeview.get_selection().get_selected_rows()
-        self.selected = []
-        for path in paths:
-            itr = model.get_iter(path)
-            disk_id = model.get_value(itr, 4)
-            self.selected.append(self._get_disk_by_id(disk_id))
-
-        self.window.destroy()
-
-    def run(self):
-        return self.window.run()
-
-class ContainerDialog(GUIObject):
-    builderObjects = ["container_dialog", "disk_store", "container_disk_view",
-                      "containerRaidStoreFiltered", "containerRaidLevelLabel",
-                      "containerRaidLevelCombo", "raidLevelStore",
-                      "containerSizeCombo", "containerSizeEntry",
-                      "containerSizeLabel", "containerEncryptedCheckbox"]
-    mainWidgetName = "container_dialog"
-    uiFile = "spokes/custom.glade"
-
-    def __init__(self, *args, **kwargs):
-        # these are all absolutely required. not getting them is fatal.
-        self._disks = kwargs.pop("disks")
-        free = kwargs.pop("free")
-        self.selected = kwargs.pop("selected")[:]
-        self.name = kwargs.pop("name") or "" # make sure it's a string
-        self.device_type = kwargs.pop("device_type")
-
-        # these are less critical
-        self.raid_level = kwargs.pop("raid_level", None) or None # not ""
-        self.encrypted = kwargs.pop("encrypted", False)
-        self.exists = kwargs.pop("exists", False)
-
-        self.size_policy = kwargs.pop("size_policy", SIZE_POLICY_AUTO)
-        self.size = kwargs.pop("size", Size(bytes=0))
-
-        self._error = None
-        GUIObject.__init__(self, *args, **kwargs)
-
-        self._grabObjects()
-
-        # set up the dialog labels with device-type-specific text
-        if self.device_type in container_type_names:
-            container_type = _(container_type_names[self.device_type])
-        else:
-            container_type = _("container")
-        title_text = _(container_dialog_title) % {"container_type": container_type.upper()}
-        self._title_label.set_text(title_text)
-
-        dialog_text = _(container_dialog_text) % {"container_type": container_type.lower()}
-        self._dialog_label.set_text(dialog_text)
-
-        # populate the dialog widgets
-        self._name_entry.set_text(self.name)
-
-        # populate the store
-        for disk in self._disks:
-            self._store.append([disk.description,
-                                str(disk.size),
-                                str(free[disk.name][0]),
-                                disk.serial,
-                                disk.id])
-
-        model = self._treeview.get_model()
-        itr = model.get_iter_first()
-
-        selected_ids = [d.id for d in self.selected]
-        selection = self._treeview.get_selection()
-        while itr:
-            disk_id = model.get_value(itr, 4)
-            if disk_id in selected_ids:
-                selection.select_iter(itr)
-
-            itr = model.iter_next(itr)
-
-        # XXX how will this be related to the device encryption setting?
-        self._encryptCheckbutton.set_active(self.encrypted)
-
-        # set up the raid level combo
-        # XXX how will this be related to the device raid level setting?
-        self._raidStoreFilter.set_visible_func(self._raid_level_visible)
-        self._raidStoreFilter.refilter()
-        self._populate_raid()
-
-        self._sizeEntry.set_text(self.size.humanReadable(max_places=None))
-        if self.size_policy == SIZE_POLICY_AUTO:
-            self._sizeCombo.set_active(0)
-        elif self.size_policy == SIZE_POLICY_MAX:
-            self._sizeCombo.set_active(1)
-        else:
-            self._sizeCombo.set_active(2)
-
-        if self.exists:
-            fancy_set_sensitive(self._name_entry, False)
-            self._treeview.set_sensitive(False)
-            fancy_set_sensitive(self._encryptCheckbutton, False)
-            fancy_set_sensitive(self._sizeCombo, False)
-            self._sizeEntry.set_sensitive(False)
-
-    def _grabObjects(self):
-        self._title_label = self.builder.get_object("container_dialog_title_label")
-        self._dialog_label = self.builder.get_object("container_dialog_label")
-        self._error_label = self.builder.get_object("containerErrorLabel")
-
-        self._name_entry = self.builder.get_object("container_name_entry")
-
-        self._encryptCheckbutton = self.builder.get_object("containerEncryptedCheckbox")
-        self._raidStoreFilter = self.builder.get_object("containerRaidStoreFiltered")
-
-        self._store = self.builder.get_object("disk_store")
-        self._treeview = self.builder.get_object("container_disk_view")
-
-        self._sizeCombo = self.builder.get_object("containerSizeCombo")
-        self._sizeEntry = self.builder.get_object("containerSizeEntry")
-
-        self._raidLevelCombo = self.builder.get_object("containerRaidLevelCombo")
-        self._raidLevelLabel = self.builder.get_object("containerRaidLevelLabel")
-
-    def _get_disk_by_id(self, disk_id):
-        for disk in self._disks:
-            if disk.id == disk_id:
-                return disk
-
-    def on_save_clicked(self, button):
-        if self.exists:
-            self.window.destroy()
-            return
-
-        # If no name was entered, quit the dialog as if they did nothing.
-        name = self._name_entry.get_text().strip()
-        if not name:
-            self._error = _(empty_name_msg)
-            self._error_label.set_text(self._error)
-            self.window.show_all()
-            return
-
-        model, paths = self._treeview.get_selection().get_selected_rows()
-
-        raid_level = selectedRaidLevel(self._raidLevelCombo)
-        if raid_level:
-            md_level = mdraid.getRaidLevel(raid_level)
-            min_disks = md_level.min_members
-            if len(paths) < min_disks:
-                self._error = (_(raid_level_not_enough_disks_msg)
-                                 % {"level" : md_level,
-                                     "min" : min_disks,
-                                     "count" : len(paths)})
-                self._error_label.set_text(self._error)
-                self.window.show_all()
-                return
-
-        idx = self._sizeCombo.get_active()
-        if idx == 0:
-            size = SIZE_POLICY_AUTO
-        elif idx == 1:
-            size = SIZE_POLICY_MAX
-        elif idx == 2:
-            size = size_from_entry(self._sizeEntry)
-            if size is None:
-                size = SIZE_POLICY_MAX
-
-        # now save the changes
-
-        self.selected = []
-        for path in paths:
-            itr = model.get_iter(path)
-            disk_id = model.get_value(itr, 4)
-            self.selected.append(self._get_disk_by_id(disk_id))
-
-        self.name = name
-        self.raid_level = raid_level
-        self.encrypted = self._encryptCheckbutton.get_active()
-        self.size_policy = size
-
-        self._error_label.set_text("")
-        self.window.destroy()
-
-    def run(self):
-        while True:
-            self._error = None
-            rc = self.window.run()
-            if not self._error:
-                return rc
-
-    def on_size_changed(self, combo):
-        active_index = combo.get_active()
-        if active_index == 0:
-            self._sizeEntry.set_sensitive(False)
-        elif active_index == 1:
-            self._sizeEntry.set_sensitive(False)
-        else:
-            self._sizeEntry.set_sensitive(True)
-
-    def _raid_level_visible(self, model, itr, user_data):
-        # This is weird because for lvm's container-wide raid we use md.
-        if self.device_type in (DEVICE_TYPE_LVM, DEVICE_TYPE_LVM_THINP):
-            return model[itr][4]
-        elif self.device_type == DEVICE_TYPE_BTRFS:
-            return model[itr][3]
-
-    def _populate_raid(self):
-        """ Set up the raid-specific portion of the device details. """
-        if self.device_type not in [DEVICE_TYPE_LVM, DEVICE_TYPE_BTRFS, DEVICE_TYPE_LVM_THINP]:
-            map(really_hide, [self._raidLevelLabel, self._raidLevelCombo])
-            return
-
-        raid_level = self.raid_level
-        if not raid_level or raid_level == "single":
-            raid_level = _("None")
-
-        # Set a default RAID level in the combo.
-        for (i, row) in enumerate(self._raidLevelCombo.get_model()):
-            log.debug("container dialog: raid level %s", row[0])
-            if row[0].upper().startswith(raid_level.upper()):
-                self._raidLevelCombo.set_active(i)
-                break
-
-        map(really_show, [self._raidLevelLabel, self._raidLevelCombo])
-        fancy_set_sensitive(self._raidLevelCombo, not self.exists)
-
-class HelpDialog(GUIObject):
-    builderObjects = ["help_dialog", "help_text_view", "help_text_buffer"]
-    mainWidgetName = "help_dialog"
-    uiFile = "spokes/custom.glade"
-
-    def run(self):
-        help_text = _(help_text_template) % {"productName": productName}
-        help_buffer = self.builder.get_object("help_text_buffer")
-        help_buffer.set_text(_(help_text))
-        self.window.run()
-
-    def on_close(self, button):
-        self.window.destroy()
 
 class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
     builderObjects = ["customStorageWindow", "containerStore",
@@ -918,10 +374,6 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         self._applyButton.set_sensitive(False)
 
     @property
-    def translated_new_install_name(self):
-        return _(new_install_name) % {"name" : productName, "version" : productVersion}
-
-    @property
     def _current_page(self):
         # The current page is really a function of the current selector.
         # Whatever selector on the LHS is selected, the current page is the
@@ -996,7 +448,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         # If we've not yet run autopart, add an instance of CreateNewPage.  This
         # ensures it's only added once.
         if not self.new_devices:
-            page = CreateNewPage(self.translated_new_install_name,
+            page = CreateNewPage(translated_new_install_name(),
                                  self.on_create_clicked,
                                  self._change_autopart_type,
                                  partitionsToReuse=bool(ui_roots))
@@ -1015,7 +467,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
                 if device in self.bootLoaderDevices:
                     mounts[device.format.type] = device
 
-            new_root = Root(mounts=mounts, swaps=swaps, name=self.translated_new_install_name)
+            new_root = Root(mounts=mounts, swaps=swaps, name=translated_new_install_name())
             ui_roots.insert(0, new_root)
 
         # Add in all the existing (or autopart-created) operating systems.
@@ -1024,7 +476,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
             # Also, only include devices in an old page if the format is intact.
             if not [d for d in root.swaps + root.mounts.values()
                         if d in self._devices and d.disks and
-                           (root.name == self.translated_new_install_name or d.format.exists)]:
+                           (root.name == translated_new_install_name() or d.format.exists)]:
                 continue
 
             page = Page(root.name)
@@ -1032,7 +484,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
             for (mountpoint, device) in root.mounts.iteritems():
                 if device not in self._devices or \
                    not device.disks or \
-                   (root.name != self.translated_new_install_name and not device.format.exists):
+                   (root.name != translated_new_install_name() and not device.format.exists):
                     continue
 
                 selector = page.addSelector(device, self.on_selector_clicked,
@@ -1041,7 +493,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
 
             for device in root.swaps:
                 if device not in self._devices or \
-                   (root.name != self.translated_new_install_name and not device.format.exists):
+                   (root.name != translated_new_install_name() and not device.format.exists):
                     continue
 
                 selector = page.addSelector(device, self.on_selector_clicked)
@@ -1098,14 +550,14 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
 
     def add_new_selector(self, device):
         """ Add an entry for device to the new install Page. """
-        page = self._accordion._find_by_title(self.translated_new_install_name).get_child()
+        page = self._accordion._find_by_title(translated_new_install_name()).get_child()
         devices = [device]
         if not page.members:
             # remove the CreateNewPage and replace it with a regular Page
-            expander = self._accordion._find_by_title(self.translated_new_install_name)
+            expander = self._accordion._find_by_title(translated_new_install_name())
             expander.remove(expander.get_child())
 
-            page = Page(self.translated_new_install_name)
+            page = Page(translated_new_install_name())
             expander.add(page)
 
             # also pull in biosboot and prepboot that are on our boot disk
@@ -1119,7 +571,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
     def _update_selectors(self):
         """ Update all btrfs selectors' size properties. """
         # we're only updating selectors in the new root. problem?
-        page = self._accordion._find_by_title(self.translated_new_install_name).get_child()
+        page = self._accordion._find_by_title(translated_new_install_name()).get_child()
         for selector in page.members:
             selectorFromDevice(selector._device, selector=selector)
 
@@ -1619,7 +1071,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
                     new_selector = None
                     for (page, _selector) in self._accordion.allMembers:
                         if _selector._device in (device, old_device):
-                            if page.pageTitle == self.translated_new_install_name:
+                            if page.pageTitle == translated_new_install_name():
                                 new_selector = _selector
                                 continue
 
@@ -2300,7 +1752,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
 
         log.debug("removing device '%s' from page %s", device, root_name)
 
-        if root_name == self.translated_new_install_name:
+        if root_name == translated_new_install_name():
             if device.exists:
                 # This is an existing device that was added to the new page.
                 # All we want to do is revert any changes to the device and
@@ -3029,64 +2481,3 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
 
     def on_value_changed(self, *args):
         self._applyButton.set_sensitive(True)
-
-help_text_template = N_("""You have chosen to manually set up the filesystems for your new %(productName)s installation. Before you begin, you might want to take a minute to learn the lay of the land. Quite a bit has changed.
-
-The most important change is that creation of new filesystems has been streamlined. You no longer have to build complex devices like LVM logical volumes in stages (physical volume, then volume group, then logical volume) -- now you just create a logical volume and we'll handle the legwork of setting up the physical volumes and volume group to contain it. We'll also handle adjusting the volume group as you add, remove, and resize logical volumes so you don't have to worry about the mundane details.
-
-
-Screen Layout
-
-The left-hand side of the screen shows the OS installations we were able to find on this computer. The new %(productName)s installation is at the top of the list. You can click on the names of the installations to see what filesystems they contain.
-
-Below the various installations and mountpoints on the left-hand side there are buttons to add a new filesystem, remove the selected filesystem, or configure the selected filesystem.
-
-The right-hand side of the screen is where you can customize the currently-selected mountpoint.
-
-On the bottom-left you will see a summary of the disks you have chosen to use for the installation. You can click on the blue text to see more detailed information about your selected disks.
-
-
-How to create a new filesystem on a new device
-
-1. Click on the + button.
-2. Enter the mountpoint and size. (Hint: Hover the mouse pointer over either of the text entry areas for help.)
-3. Select the new mountpoint under "New %(productName)s Installation" on the left-hand side of the screen and customize it to suit your needs.
-
-
-How to reformat a device/filesystem that already exists on your disk
-
-1. Select the filesystem from the left-hand side of the screen.
-2. Click on the "Customize" expander in the mountpoint customization area on the right-hand side of the screen.
-3. Activate the "Reformat" checkbutton, select a filesystem type and, if applicable, enter a mountpoint above in the "Mountpoint" text entry area.
-4. Click on "Apply changes"
-
-
-How to set a mountpoint for a filesystem that already exists on your disk
-
-1. Select the filesystem from the left-hand side of the screen.
-2. Enter a mountpoint in the "Mountpoint" text entry area in the mountpoint customization area.
-3. Click on "Apply changes"
-
-
-How to remove a filesystem that already exists on your disk
-
-1. Select the filesystem you wish to remove on the left-hand side of the screen.
-2. Click the - button.
-
-Hint: Removing a device that already exists on your disk from the "New %(productName)s Installation" does not remove it from the disk. It only resets that device to its original state. To remove a device that already exists on your disk, you must select it from under any of the other detected installations (or "Unknown") and hit the - button.
-
-
-Tips and hints
-
-You can enter sizes for new filesystems that are greater than the total available free space. The installer will come as close as possible to the size you request.
-
-By default, new devices use any/all of your selected disks.
-
-You can change which disks a new device may be allocated from by clicking the configure button (the one with a tools graphic) while that device is selected.
-
-When adding a new mountpoint by clicking the + button, leave the size entry blank to make the new device use all available free space.
-
-When you remove the last device from a container device like an LVM volume group, we will automatically remove that container device to make room for new devices.
-
-When the last partition is removed from a disk, that disk may be reinitialized with a new partition table if we think there is a more appropriate type for that disk.
-""")
