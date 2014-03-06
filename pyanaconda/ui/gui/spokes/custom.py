@@ -2554,12 +2554,11 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         self._clear_current_selector()
 
     def on_selector_clicked(self, selector):
-        if not self._initialized:
+        if not self._initialized or (self._current_selector is selector):
             return
 
         # Take care of the previously chosen selector.
-        if self._current_selector and self._initialized and \
-           self._current_selector != selector:
+        if self._current_selector:
             # unselect the previously chosen selector
             self._current_selector.set_chosen(False)
             self._save_current_selector()
