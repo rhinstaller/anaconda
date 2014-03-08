@@ -302,6 +302,8 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Fri Mar 07 2014 Brian C. Lane <bcl@redhat.com> - 21.26-1
+
 * Fri Feb 28 2014 Brian C. Lane <bcl@redhat.com> - 21.25-1
 - pylint: Add a pile of new E1101 exceptions (bcl)
 - pylint: change disable-msg to disable (bcl)
