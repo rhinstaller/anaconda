@@ -259,6 +259,16 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Fri Mar 07 2014 Brian C. Lane <bcl@redhat.com> - 19.31.66-1
+- set proxy related environmental variables (bcl)
+  Resolves: rhbz#854029
+- network: handle race condition of disappearing active connection (rvykydal)
+  Resolves: rhbz#1073424
+- Do not write out /etc/adjtime file on s390(x) (vpodzime)
+  Resolves: rhbz#1070748
+- Don't traceback, just log a warning if connection is unavailable (mkolman)
+  Resolves: rhbz#1070928
+
 * Tue Mar 04 2014 Brian C. Lane <bcl@redhat.com> - 19.31.65-1
 - driver-updates: skip iso selection with OEMDRV (bcl)
   Related: rhbz#1066784
