@@ -488,7 +488,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
 
                 selector = page.addSelector(device, self.on_selector_clicked,
                                             mountpoint=mountpoint)
-                selector._root = root
+                selector.root = root
 
             for device in root.swaps:
                 if device not in self._devices or \
@@ -496,7 +496,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
                     continue
 
                 selector = page.addSelector(device, self.on_selector_clicked)
-                selector._root = root
+                selector.root = root
 
             page.show_all()
             self._accordion.addPage(page, cb=self.on_page_clicked)
@@ -572,7 +572,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         # we're only updating selectors in the new root. problem?
         page = self._accordion._find_by_title(translated_new_install_name()).get_child()
         for selector in page.members:
-            selectorFromDevice(selector._device, selector=selector)
+            selectorFromDevice(selector.device, selector=selector)
 
     def _replace_device(self, *args, **kwargs):
         """ Create a replacement device and update the device selector. """
@@ -614,7 +614,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         if not self._initialized or not selector:
             return
 
-        device = selector._device
+        device = selector.device
         if device not in self._devices:
             # just-removed device
             return
@@ -926,7 +926,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
                             self.window.show_all()
                             return
 
-            self._update_device_in_selectors(device, selector._device)
+            self._update_device_in_selectors(device, selector.device)
             self._devices = self._storage_playground.devices
 
             # update size props of all btrfs devices' selectors
@@ -1028,7 +1028,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
                         self._devices.remove(device)
                         old_device = device
                         device = device.slave
-                        selector._device = device
+                        selector.device = device
                         self._update_device_in_selectors(old_device, device)
                 elif encrypted:
                     log.info("applying encryption to %s", device.name)
@@ -1041,7 +1041,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
                         self._storage_playground.createDevice(luks_dev)
                         self._devices.append(luks_dev)
                         device = luks_dev
-                        selector._device = device
+                        selector.device = device
                         self._update_device_in_selectors(old_device, device)
 
                 self._devices = self._storage_playground.devices
@@ -1068,7 +1068,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
                     # first, remove this selector from any old install page(s)
                     new_selector = None
                     for (page, _selector) in self._accordion.allMembers:
-                        if _selector._device in (device, old_device):
+                        if _selector.device in (device, old_device):
                             if page.pageTitle == translated_new_install_name():
                                 new_selector = _selector
                                 continue
@@ -1172,9 +1172,9 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         return device_type
 
     def _populate_right_side(self, selector):
-        log.debug("populate_right_side: %s", selector._device)
+        log.debug("populate_right_side: %s", selector.device)
 
-        device = selector._device
+        device = selector.device
         if device.type == "luks/dm-crypt":
             use_dev = device.slave
         else:
@@ -1741,10 +1741,10 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
 
         page = self._current_page
         selector = self._current_selector
-        device = self._current_selector._device
+        device = self._current_selector.device
         root_name = None
-        if selector._root:
-            root_name = selector._root.name
+        if selector.root:
+            root_name = selector.root.name
         elif page:
             root_name = page.pageTitle
 
@@ -1811,7 +1811,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         if not selector:
             return
 
-        device = selector._device
+        device = selector.device
         if device.exists:
             return
 
@@ -2012,7 +2012,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         self._modifyContainerButton.set_sensitive(not container_exists)
 
     def _save_current_selector(self):
-        log.debug("current selector: %s", self._current_selector._device)
+        log.debug("current selector: %s", self._current_selector.device)
         nb_page = self._partitionsNotebook.get_current_page()
         log.debug("notebook page = %s", nb_page)
         if nb_page == NOTEBOOK_DETAILS_PAGE:
@@ -2030,43 +2030,43 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
             # unselect the previously chosen selector
             self._current_selector.set_chosen(False)
             self._save_current_selector()
-            log.debug("new selector: %s", selector._device)
+            log.debug("new selector: %s", selector.device)
 
         no_edit = False
-        if selector._device.format.type == "luks" and \
-           selector._device.format.exists:
+        if selector.device.format.type == "luks" and \
+           selector.device.format.exists:
             self._partitionsNotebook.set_current_page(NOTEBOOK_LUKS_PAGE)
             selectedDeviceLabel = self._encryptedDeviceLabel
             selectedDeviceDescLabel = self._encryptedDeviceDescLabel
             no_edit = True
-        elif not getattr(selector._device, "complete", True):
+        elif not getattr(selector.device, "complete", True):
             self._partitionsNotebook.set_current_page(NOTEBOOK_INCOMPLETE_PAGE)
             selectedDeviceLabel = self._incompleteDeviceLabel
             selectedDeviceDescLabel = self._incompleteDeviceDescLabel
 
-            if selector._device.type == "mdarray":
-                total = selector._device.memberDevices
-                missing = total - len(selector._device.parents)
+            if selector.device.type == "mdarray":
+                total = selector.device.memberDevices
+                missing = total - len(selector.device.parents)
                 txt = _("This Software RAID array is missing %(missingMembers)d of %(totalMembers)d member "
                         "partitions. You can remove it or select a different "
                         "device.") % {"missingMembers": missing, "totalMembers": total}
             else:
-                total = selector._device.pvCount
-                missing = total - len(selector._device.parents)
+                total = selector.device.pvCount
+                missing = total - len(selector.device.parents)
                 txt = _("This LVM Volume Group is missing %(missingPVs)d of %(totalPVs)d physical "
                         "volumes. You can remove it or select a different "
                         "device.") % {"missingPVs": missing, "totalPVs": total}
             self._incompleteDeviceOptionsLabel.set_text(txt)
             no_edit = True
-        elif devicefactory.get_device_type(selector._device) is None:
+        elif devicefactory.get_device_type(selector.device) is None:
             self._partitionsNotebook.set_current_page(NOTEBOOK_UNEDITABLE_PAGE)
             selectedDeviceLabel = self._uneditableDeviceLabel
             selectedDeviceDescLabel = self._uneditableDeviceDescLabel
             no_edit = True
 
         if no_edit:
-            selectedDeviceLabel.set_text(selector._device.name)
-            selectedDeviceDescLabel.set_text(self._description(selector._device.type))
+            selectedDeviceLabel.set_text(selector.device.name)
+            selectedDeviceDescLabel.set_text(self._description(selector.device.type))
             selector.set_chosen(True)
             self._current_selector = selector
             self._configButton.set_sensitive(False)
@@ -2083,10 +2083,10 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         self._current_selector = selector
 
         self._applyButton.set_sensitive(False)
-        self._configButton.set_sensitive(not selector._device.exists and
-                                         not selector._device.protected and
-                                         devicefactory.get_device_type(selector._device) in (DEVICE_TYPE_PARTITION, DEVICE_TYPE_MD))
-        self._removeButton.set_sensitive(not selector._device.protected)
+        self._configButton.set_sensitive(not selector.device.exists and
+                                         not selector.device.protected and
+                                         devicefactory.get_device_type(selector.device) in (DEVICE_TYPE_PARTITION, DEVICE_TYPE_MD))
+        self._removeButton.set_sensitive(not selector.device.protected)
         return True
 
     def on_page_clicked(self, page, mountpointToShow=None):
@@ -2189,7 +2189,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
 
         self._encryptCheckbox.set_sensitive(active)
         if self._current_selector:
-            device = self._current_selector._device
+            device = self._current_selector.device
             if device.type == "luks/dm-crypt":
                 device = device.slave
 
@@ -2226,7 +2226,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
             if self._current_selector is None:
                 return
 
-            device = self._current_selector._device
+            device = self._current_selector.device
             if isinstance(device, LUKSDevice):
                 device = device.slave
 
@@ -2324,7 +2324,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
             raid_level = "raid1"
 
         # lvm uses the RHS to set disk set. no foolish minds here.
-        exists = self._current_selector and self._current_selector._device.exists
+        exists = self._current_selector and self._current_selector.device.exists
         self._configButton.set_sensitive(not exists and new_type not in (DEVICE_TYPE_LVM, DEVICE_TYPE_LVM_THINP, DEVICE_TYPE_BTRFS))
 
         # this has to be done before calling populate_raid since it will need
@@ -2442,7 +2442,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
     def on_unlock_clicked(self, button):
         """ try to open the luks device, populate, then call _do_refresh. """
         self.clear_errors()
-        device = self._current_selector._device
+        device = self._current_selector.device
         log.info("trying to unlock %s...", device.name)
         passphrase = self._passphraseEntry.get_text()
         device.format.passphrase = passphrase
