@@ -175,7 +175,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         # update the global passphrase
         self.data.autopart.passphrase = self.passphrase
 
-        # make sure any device/passphrase pairs we've obtained are remebered
+        # make sure any device/passphrase pairs we've obtained are remembered
         for device in self.storage.devices:
             if device.format.type == "luks" and not device.format.exists:
                 if not device.format.hasKey:
