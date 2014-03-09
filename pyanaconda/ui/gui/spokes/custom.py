@@ -75,7 +75,7 @@ from pyanaconda.ui.gui.spokes.lib.summary import ActionSummaryDialog
 from pyanaconda.ui.gui.spokes.lib.custom_storage_helpers import size_from_entry, ui_storage_logger
 from pyanaconda.ui.gui.spokes.lib.custom_storage_helpers import validate_label, validate_mountpoint, selectedRaidLevel
 from pyanaconda.ui.gui.spokes.lib.custom_storage_helpers import container_type_names
-from pyanaconda.ui.gui.spokes.lib.custom_storage_helpers import mountpoint_validation_msgs, raid_level_not_enough_disks_msg
+from pyanaconda.ui.gui.spokes.lib.custom_storage_helpers import raid_level_not_enough_disks_msg
 from pyanaconda.ui.gui.spokes.lib.custom_storage_helpers import AddDialog, ConfirmDeleteDialog, DisksDialog, ContainerDialog, HelpDialog
 
 from pyanaconda.ui.gui.utils import setViewportBackground, enlightbox, fancy_set_sensitive, ignoreEscape
@@ -712,7 +712,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
 
             error = validate_mountpoint(mountpoint, mountpoints.keys())
             if error:
-                self._error = _(mountpoint_validation_msgs[error])
+                self._error = error
                 self.set_warning(self._error)
                 self.window.show_all()
                 self._populate_right_side(selector)

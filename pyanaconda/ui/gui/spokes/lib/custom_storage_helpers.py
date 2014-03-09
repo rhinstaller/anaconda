@@ -52,24 +52,10 @@ from blivet.devicelibs import mdraid
 import logging
 log = logging.getLogger("anaconda")
 
-empty_mountpoint_msg = N_("Please enter a valid mountpoint.")
-invalid_mountpoint_msg = N_("That mount point is invalid. Try something else?")
-mountpoint_in_use_msg = N_("That mount point is already in use. Try something else?")
-
 raid_level_not_enough_disks_msg = N_("The RAID level you have selected (%(level)s) "
                                      "requires more disks (%(min)d) than you "
                                      "currently have selected (%(count)d).")
 empty_name_msg = N_("Please enter a valid name.")
-
-MOUNTPOINT_OK = 0
-MOUNTPOINT_INVALID = 1
-MOUNTPOINT_IN_USE = 2
-MOUNTPOINT_EMPTY = 3
-
-mountpoint_validation_msgs = {MOUNTPOINT_OK: "",
-                              MOUNTPOINT_INVALID: invalid_mountpoint_msg,
-                              MOUNTPOINT_IN_USE: mountpoint_in_use_msg,
-                              MOUNTPOINT_EMPTY: empty_mountpoint_msg}
 
 container_dialog_title = N_("CONFIGURE %(container_type)s")
 container_dialog_text = N_("Please create a name for this %(container_type)s "
@@ -164,14 +150,13 @@ def validate_mountpoint(mountpoint, used_mountpoints, strict=True):
     else:
         fake_mountpoints = ["swap", "biosboot", "prepboot"]
 
-    valid = MOUNTPOINT_OK
     if mountpoint in used_mountpoints:
-        valid = MOUNTPOINT_IN_USE
+        return _("That mount point is already in use. Try something else?")
     elif not mountpoint:
-        valid = MOUNTPOINT_EMPTY
+        return _("Please enter a valid mountpoint.")
     elif mountpoint.startswith("/dev") or mountpoint.startswith("/proc") or \
          mountpoint.startswith("/sys"):
-        valid = MOUNTPOINT_INVALID
+        return _("That mount point is invalid. Try something else?")
     elif (lowerASCII(mountpoint) not in fake_mountpoints and
           ((len(mountpoint) > 1 and mountpoint.endswith("/")) or
            not mountpoint.startswith("/") or
@@ -183,9 +168,9 @@ def validate_mountpoint(mountpoint, used_mountpoints, strict=True):
         # - does not contain spaces
         # - does not contain pairs of '/' enclosing zero or more '.'
         # - does not end with '/' followed by one or more '.'
-        valid = MOUNTPOINT_INVALID
-
-    return valid
+        return _("That mount point is invalid. Try something else?")
+    else:
+        return ""
 
 def selectedRaidLevel(raidLevelCombo):
     """Interpret the selection of a RAID level combo box."""
@@ -242,7 +227,7 @@ class AddDialog(GUIObject):
         self.mountpoint = self.builder.get_object("addMountPointEntry").get_active_text()
         self._error = validate_mountpoint(self.mountpoint, self.mountpoints,
                                           strict=False)
-        self._warningLabel.set_text(_(mountpoint_validation_msgs[self._error]))
+        self._warningLabel.set_text(self._error)
         self.window.show_all()
         if self._error:
             return
