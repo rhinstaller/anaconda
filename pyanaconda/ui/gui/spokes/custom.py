@@ -74,7 +74,7 @@ from pyanaconda.ui.gui.spokes.lib.summary import ActionSummaryDialog
 
 from pyanaconda.ui.gui.spokes.lib.custom_storage_helpers import size_from_entry, ui_storage_logger
 from pyanaconda.ui.gui.spokes.lib.custom_storage_helpers import validate_label, validate_mountpoint, selectedRaidLevel
-from pyanaconda.ui.gui.spokes.lib.custom_storage_helpers import container_type_names, RAID_NOT_ENOUGH_DISKS
+from pyanaconda.ui.gui.spokes.lib.custom_storage_helpers import get_container_type_name, RAID_NOT_ENOUGH_DISKS
 from pyanaconda.ui.gui.spokes.lib.custom_storage_helpers import AddDialog, ConfirmDeleteDialog, DisksDialog, ContainerDialog, HelpDialog
 
 from pyanaconda.ui.gui.utils import setViewportBackground, enlightbox, fancy_set_sensitive, ignoreEscape
@@ -1977,7 +1977,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
             return
 
         device_type = self._get_current_device_type()
-        container_type = _(container_type_names[device_type]).lower()
+        container_type = get_container_type_name(device_type).lower()
         new_text = _(new_container_text) % {"container_type": container_type}
         if container_name == new_text:
             # run the vg editor dialog with a default name and disk set
@@ -2247,7 +2247,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
                 if container:
                     container_size_policy = container.size_policy
 
-            container_type_text = _(container_type_names[device_type])
+            container_type_text = get_container_type_name(device_type)
             self._containerLabel.set_text(container_type_text.title())
             self._containerStore.clear()
             if device_type == DEVICE_TYPE_BTRFS:

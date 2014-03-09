@@ -24,7 +24,7 @@
 """Helper functions and classes for custom partitioning."""
 
 __all__ = ["size_from_entry", "populate_mountpoint_store", "validate_label",
-           "validate_mountpoint", "selectedRaidLevel",
+           "validate_mountpoint", "selectedRaidLevel", "get_container_type_name",
            "AddDialog", "ConfirmDeleteDialog", "DisksDialog", "ContainerDialog",
            "HelpDialog"]
 
@@ -375,10 +375,7 @@ class ContainerDialog(GUIObject):
         self._grabObjects()
 
         # set up the dialog labels with device-type-specific text
-        if self.device_type in CONTAINER_TYPE_NAMES:
-            container_type = _(CONTAINER_TYPE_NAMES[self.device_type])
-        else:
-            container_type = _("container")
+        container_type = get_container_type_name(self.device_type)
         title_text = _(CONTAINER_DIALOG_TITLE) % {"container_type": container_type.upper()}
         self._title_label.set_text(title_text)
 
