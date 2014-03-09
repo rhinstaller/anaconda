@@ -75,7 +75,7 @@ from pyanaconda.ui.gui.spokes.lib.summary import ActionSummaryDialog
 from pyanaconda.ui.gui.spokes.lib.custom_storage_helpers import size_from_entry, ui_storage_logger
 from pyanaconda.ui.gui.spokes.lib.custom_storage_helpers import validate_label, validate_mountpoint, selectedRaidLevel
 from pyanaconda.ui.gui.spokes.lib.custom_storage_helpers import container_type_names
-from pyanaconda.ui.gui.spokes.lib.custom_storage_helpers import label_validation_msgs, mountpoint_validation_msgs, raid_level_not_enough_disks_msg, LABEL_OK # will go away soon
+from pyanaconda.ui.gui.spokes.lib.custom_storage_helpers import mountpoint_validation_msgs, raid_level_not_enough_disks_msg
 from pyanaconda.ui.gui.spokes.lib.custom_storage_helpers import AddDialog, ConfirmDeleteDialog, DisksDialog, ContainerDialog, HelpDialog
 
 from pyanaconda.ui.gui.utils import setViewportBackground, enlightbox, fancy_set_sensitive, ignoreEscape
@@ -690,7 +690,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         if changed_label or changed_fs_type:
             error = validate_label(label, new_fs)
             if error:
-                self._error = _(label_validation_msgs[error])
+                self._error = error
                 self.set_warning(self._error)
                 self.window.show_all()
                 self._populate_right_side(selector)
@@ -1089,7 +1089,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         if not do_reformat:
             # Set various attributes that do not require actions.
             if old_label != label and hasattr(device.format, "label") and \
-               validate_label(label, device.format) == LABEL_OK:
+               validate_label(label, device.format) == "":
                 self.clear_errors()
                 log.debug("updating label on %s to %s", device.name, label)
                 device.format.label = label

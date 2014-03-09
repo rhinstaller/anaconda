@@ -52,10 +52,6 @@ from blivet.devicelibs import mdraid
 import logging
 log = logging.getLogger("anaconda")
 
-label_format_invalid_msg = N_("Unacceptable label format for filesystem.")
-label_application_unavailable_msg = N_("Can not set label on filesystem.")
-label_resetting_forbidden_msg = N_("Can not relabel already existing filesystem.")
-
 empty_mountpoint_msg = N_("Please enter a valid mountpoint.")
 invalid_mountpoint_msg = N_("That mount point is invalid. Try something else?")
 mountpoint_in_use_msg = N_("That mount point is already in use. Try something else?")
@@ -64,17 +60,6 @@ raid_level_not_enough_disks_msg = N_("The RAID level you have selected (%(level)
                                      "requires more disks (%(min)d) than you "
                                      "currently have selected (%(count)d).")
 empty_name_msg = N_("Please enter a valid name.")
-
-LABEL_OK = 0
-LABEL_FORMAT_INVALID = 1
-LABEL_APPLICATION_UNAVAILABLE = 2
-LABEL_RESETTING_FORBIDDEN = 3
-
-label_validation_msgs = {
-    LABEL_OK: "",
-    LABEL_FORMAT_INVALID: label_format_invalid_msg,
-    LABEL_APPLICATION_UNAVAILABLE: label_application_unavailable_msg,
-    LABEL_RESETTING_FORBIDDEN: label_resetting_forbidden_msg}
 
 MOUNTPOINT_OK = 0
 MOUNTPOINT_INVALID = 1
@@ -163,15 +148,15 @@ def validate_label(label, fmt):
 
     """
     if fmt.exists:
-        return LABEL_RESETTING_FORBIDDEN
+        return _("Can not relabel already existing filesystem.")
     if not fmt.labeling():
         if label == "":
-            return LABEL_OK
+            return ""
         else:
-            return LABEL_APPLICATION_UNAVAILABLE
+            return _("Can not set label on filesystem.")
     if not fmt.labelFormatOK(label):
-        return LABEL_INVALID
-    return LABEL_OK
+        return _("Unacceptable label format for filesystem.")
+    return ""
 
 def validate_mountpoint(mountpoint, used_mountpoints, strict=True):
     if strict:
