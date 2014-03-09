@@ -33,7 +33,7 @@ import re
 
 from pyanaconda.product import productName
 from pyanaconda.iutil import lowerASCII
-from pyanaconda.storage_utils import size_from_input
+from pyanaconda.storage_utils import size_from_input, get_supported_raid_levels
 from pyanaconda.ui.gui import GUIObject
 from pyanaconda.ui.gui.utils import fancy_set_sensitive, really_hide, really_show
 from pyanaconda.i18n import _, N_, C_
@@ -44,6 +44,7 @@ from blivet.formats import getFormat
 from blivet.devicefactory import SIZE_POLICY_AUTO
 from blivet.devicefactory import SIZE_POLICY_MAX
 from blivet.devicefactory import DEVICE_TYPE_LVM
+from blivet.devicefactory import DEVICE_TYPE_MD
 from blivet.devicefactory import DEVICE_TYPE_BTRFS
 from blivet.devicefactory import DEVICE_TYPE_LVM_THINP
 from blivet.devicelibs import mdraid
@@ -492,11 +493,13 @@ class ContainerDialog(GUIObject):
             self._sizeEntry.set_sensitive(True)
 
     def _raid_level_visible(self, model, itr, user_data):
+        raid_level = model[itr][1]
+
         # This is weird because for lvm's container-wide raid we use md.
         if self.device_type in (DEVICE_TYPE_LVM, DEVICE_TYPE_LVM_THINP):
-            return model[itr][4]
-        elif self.device_type == DEVICE_TYPE_BTRFS:
-            return model[itr][3]
+            return raid_level in get_supported_raid_levels(DEVICE_TYPE_MD)
+        else:
+            return raid_level in get_supported_raid_levels(self.device_type)
 
     def _populate_raid(self):
         """ Set up the raid-specific portion of the device details. """

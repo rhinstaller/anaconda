@@ -63,6 +63,8 @@ from blivet.errors import LUKSDeviceWithoutKeyError
 from blivet.devicelibs import mdraid
 from blivet.devices import LUKSDevice
 
+from pyanaconda.storage_utils import get_supported_raid_levels
+
 from pyanaconda.ui.communication import hubQ
 from pyanaconda.ui.gui.spokes import NormalSpoke
 from pyanaconda.ui.gui.spokes.storage import StorageChecker
@@ -1121,12 +1123,8 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
 
     def _raid_level_visible(self, model, itr, user_data):
         device_type = self._get_current_device_type()
-        if device_type == DEVICE_TYPE_LVM:
-            return model[itr][2]
-        elif device_type == DEVICE_TYPE_MD:
-            return model[itr][3]
-        elif device_type == DEVICE_TYPE_BTRFS:
-            return model[itr][4]
+        raid_level = model[itr][1]
+        return raid_level in get_supported_raid_levels(device_type)
 
     def _populate_raid(self, raid_level):
         """ Set up the raid-specific portion of the device details. """

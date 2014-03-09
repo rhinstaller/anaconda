@@ -1227,71 +1227,35 @@ until you click on the main menu's 'Begin Installation' button.</property>
       <column type="gchararray"/>
       <!-- column-name canonRaidLevel -->
       <column type="gchararray"/>
-      <!-- column-name validForLVM -->
-      <column type="gboolean"/>
-      <!-- column-name validForRAID -->
-      <column type="gboolean"/>
-      <!-- column-name validForBTRFS -->
-      <column type="gboolean"/>
-      <!-- column-name validForVG -->
-      <column type="gboolean"/>
     </columns>
     <data>
       <row>
         <col id="0" translatable="yes">None</col>
         <col id="1">none</col>
-        <col id="2">True</col>
-        <col id="3">False</col>
-        <col id="4">True</col>
-        <col id="5">True</col>
       </row>
       <row>
         <col id="0" translatable="yes">RAID0 &lt;span foreground="grey"&gt;(Performance)&lt;/span&gt;</col>
         <col id="1">raid0</col>
-        <col id="2">True</col>
-        <col id="3">True</col>
-        <col id="4">True</col>
-        <col id="5">True</col>
       </row>
       <row>
         <col id="0" translatable="yes">RAID1 &lt;span foreground="grey"&gt;(Redundancy)&lt;/span&gt;</col>
         <col id="1">raid1</col>
-        <col id="2">True</col>
-        <col id="3">True</col>
-        <col id="4">True</col>
-        <col id="5">True</col>
       </row>
       <row>
         <col id="0" translatable="yes">RAID4 &lt;span foreground="grey"&gt;(Error Checking)&lt;/span&gt;</col>
         <col id="1">raid4</col>
-        <col id="2">False</col>
-        <col id="3">True</col>
-        <col id="4">False</col>
-        <col id="5">True</col>
       </row>
       <row>
         <col id="0" translatable="yes">RAID5 &lt;span foreground="grey"&gt;(Distributed Error Checking)&lt;/span&gt;</col>
         <col id="1">raid5</col>
-        <col id="2">False</col>
-        <col id="3">True</col>
-        <col id="4">False</col>
-        <col id="5">True</col>
       </row>
       <row>
         <col id="0" translatable="yes">RAID6 &lt;span foreground="grey"&gt;(Redundant Error Checking)&lt;/span&gt;</col>
         <col id="1">raid6</col>
-        <col id="2">False</col>
-        <col id="3">True</col>
-        <col id="4">False</col>
-        <col id="5">True</col>
       </row>
       <row>
         <col id="0" translatable="yes">RAID10 &lt;span foreground="grey"&gt;(Performance, Redundancy)&lt;/span&gt;</col>
         <col id="1">raid10</col>
-        <col id="2">False</col>
-        <col id="3">True</col>
-        <col id="4">True</col>
-        <col id="5">True</col>
       </row>
     </data>
   </object>

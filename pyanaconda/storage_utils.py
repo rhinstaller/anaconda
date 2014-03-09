@@ -25,6 +25,20 @@ import locale
 
 from blivet.size import Size
 from blivet.errors import SizeParamsError
+from blivet.devicefactory import DEVICE_TYPE_LVM
+from blivet.devicefactory import DEVICE_TYPE_BTRFS
+from blivet.devicefactory import DEVICE_TYPE_MD
+
+# should this and the get_supported_raid_levels go to blivet.devicefactory???
+SUPPORTED_RAID_LEVELS = {DEVICE_TYPE_LVM: {"none", "raid0", "raid1"},
+                         DEVICE_TYPE_MD: {"raid0", "raid1", "raid4", "raid5",
+                                          "raid6", "raid10"},
+                         DEVICE_TYPE_BTRFS: {"none", "raid0", "raid1",
+                                             "raid10"},
+                         # no device type for LVM VG
+                         # VG: {"none", "raid0", "raid1", "raid4",
+                         #      "raid5", "raid6", "raid10"},
+                        }
 
 def size_from_input(input_str):
     """Get size from user's input"""
@@ -48,3 +62,8 @@ def size_from_input(input_str):
             size = Size(spec="1 MiB")
 
     return size
+
+def get_supported_raid_levels(device_type):
+    """Get supported RAID levels for the given device type."""
+
+    return SUPPORTED_RAID_LEVELS.get(device_type, set())
