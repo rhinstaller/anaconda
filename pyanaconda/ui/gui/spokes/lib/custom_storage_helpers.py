@@ -182,22 +182,11 @@ def selectedRaidLevel(raidLevelCombo):
     if not itr:
         return
 
-    selected_level_string = store[itr][0]   # eg: "RAID1 (Redundancy)"
-    level = selected_level_string.split()[0]    # -> "RAID1"
-
-    # The RAID level strings are not translated, but the "None" string in
-    # the container dialog is. Transformations in relation to "None" need
-    # to happen within the locale settings, but transformations in
-    # relation to "RAID* ..." need to happen only within ASCII. For example,
-    # "RAID1".lower() in Turkish would become "raıd1", which is not what
-    # we want.
-    levelLocale = level.lower()
-    levelASCII = lowerASCII(level)
-
-    if levelASCII == "none" or levelLocale == _("None").lower():
+    selected_level = store[itr][1]
+    if selected_level == "none":
         return None
-
-    return levelASCII
+    else:
+        return selected_level
 
 def get_container_type_name(device_type):
     return CONTAINER_TYPE_NAMES.get(device_type, _("container"))

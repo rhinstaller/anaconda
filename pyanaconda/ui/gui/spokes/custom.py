@@ -1122,11 +1122,11 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
     def _raid_level_visible(self, model, itr, user_data):
         device_type = self._get_current_device_type()
         if device_type == DEVICE_TYPE_LVM:
-            return model[itr][1]
-        elif device_type == DEVICE_TYPE_MD:
             return model[itr][2]
-        elif device_type == DEVICE_TYPE_BTRFS:
+        elif device_type == DEVICE_TYPE_MD:
             return model[itr][3]
+        elif device_type == DEVICE_TYPE_BTRFS:
+            return model[itr][4]
 
     def _populate_raid(self, raid_level):
         """ Set up the raid-specific portion of the device details. """
