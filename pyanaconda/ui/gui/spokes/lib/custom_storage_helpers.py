@@ -30,16 +30,15 @@ __all__ = ["size_from_entry", "populate_mountpoint_store", "validate_label",
 
 from contextlib import contextmanager
 import re
-import locale
 
 from pyanaconda.product import productName
 from pyanaconda.iutil import lowerASCII
+from pyanaconda.storage_utils import size_from_input
 from pyanaconda.ui.gui import GUIObject
 from pyanaconda.ui.gui.utils import fancy_set_sensitive, really_hide, really_show
 from pyanaconda.i18n import _, N_, C_
 
 from blivet.size import Size
-from blivet.errors import SizeParamsError
 from blivet.platform import platform
 from blivet.formats import getFormat
 from blivet.devicefactory import SIZE_POLICY_AUTO
@@ -67,26 +66,7 @@ CONTAINER_TYPE_NAMES = {DEVICE_TYPE_LVM: N_("Volume Group"),
 
 def size_from_entry(entry):
     size_text = entry.get_text().decode("utf-8").strip()
-
-    # Nothing to parse
-    if not size_text:
-        return None
-
-    # if no unit was specified, default to MiB. Assume that a string
-    # ending with anything other than a digit has a unit suffix
-    if re.search(r'[\d.%s]$' % locale.nl_langinfo(locale.RADIXCHAR), size_text):
-        size_text += "MiB"
-
-    try:
-        size = Size(spec=size_text)
-    except (SizeParamsError, ValueError):
-        return None
-    else:
-        # Minimium size for ui-created partitions is 1MiB.
-        if size.convertTo(spec="MiB") < 1:
-            size = Size(spec="1 MiB")
-
-    return size
+    return size_from_input(size_text)
 
 class UIStorageFilter(logging.Filter):
     def filter(self, record):
