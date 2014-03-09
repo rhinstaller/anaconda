@@ -52,20 +52,18 @@ from blivet.devicelibs import mdraid
 import logging
 log = logging.getLogger("anaconda")
 
-raid_level_not_enough_disks_msg = N_("The RAID level you have selected (%(level)s) "
-                                     "requires more disks (%(min)d) than you "
-                                     "currently have selected (%(count)d).")
-empty_name_msg = N_("Please enter a valid name.")
+RAID_NOT_ENOUGH_DISKS = N_("The RAID level you have selected (%(level)s) "
+                           "requires more disks (%(min)d) than you "
+                           "currently have selected (%(count)d).")
+EMPTY_NAME_MSG = N_("Please enter a valid name.")
 
-container_dialog_title = N_("CONFIGURE %(container_type)s")
-container_dialog_text = N_("Please create a name for this %(container_type)s "
+CONTAINER_DIALOG_TITLE = N_("CONFIGURE %(container_type)s")
+CONTAINER_DIALOG_TEXT = N_("Please create a name for this %(container_type)s "
                            "and select at least one disk below.")
-lvm_container_name = N_("Volume Group")
-btrfs_container_name = N_("Volume")
 
-container_type_names = {DEVICE_TYPE_LVM: lvm_container_name,
-                        DEVICE_TYPE_LVM_THINP: lvm_container_name,
-                        DEVICE_TYPE_BTRFS: btrfs_container_name}
+CONTAINER_TYPE_NAMES = {DEVICE_TYPE_LVM: N_("Volume Group"),
+                        DEVICE_TYPE_LVM_THINP: N_("Volume Group"),
+                        DEVICE_TYPE_BTRFS: N_("Volume")}
 
 def size_from_entry(entry):
     size_text = entry.get_text().decode("utf-8").strip()
@@ -200,6 +198,9 @@ def selectedRaidLevel(raidLevelCombo):
         return None
 
     return levelASCII
+
+def get_container_type_name(device_type):
+    return CONTAINER_TYPE_NAMES.get(device_type, _("container"))
 
 class AddDialog(GUIObject):
     builderObjects = ["addDialog", "mountPointStore", "mountPointCompletion", "mountPointEntryBuffer"]
@@ -374,14 +375,14 @@ class ContainerDialog(GUIObject):
         self._grabObjects()
 
         # set up the dialog labels with device-type-specific text
-        if self.device_type in container_type_names:
-            container_type = _(container_type_names[self.device_type])
+        if self.device_type in CONTAINER_TYPE_NAMES:
+            container_type = _(CONTAINER_TYPE_NAMES[self.device_type])
         else:
             container_type = _("container")
-        title_text = _(container_dialog_title) % {"container_type": container_type.upper()}
+        title_text = _(CONTAINER_DIALOG_TITLE) % {"container_type": container_type.upper()}
         self._title_label.set_text(title_text)
 
-        dialog_text = _(container_dialog_text) % {"container_type": container_type.lower()}
+        dialog_text = _(CONTAINER_DIALOG_TEXT) % {"container_type": container_type.lower()}
         self._dialog_label.set_text(dialog_text)
 
         # populate the dialog widgets
@@ -463,7 +464,7 @@ class ContainerDialog(GUIObject):
         # If no name was entered, quit the dialog as if they did nothing.
         name = self._name_entry.get_text().strip()
         if not name:
-            self._error = _(empty_name_msg)
+            self._error = _(EMPTY_NAME_MSG)
             self._error_label.set_text(self._error)
             self.window.show_all()
             return
@@ -475,10 +476,9 @@ class ContainerDialog(GUIObject):
             md_level = mdraid.getRaidLevel(raid_level)
             min_disks = md_level.min_members
             if len(paths) < min_disks:
-                self._error = (_(raid_level_not_enough_disks_msg)
-                                 % {"level" : md_level,
-                                     "min" : min_disks,
-                                     "count" : len(paths)})
+                self._error = (_(RAID_NOT_ENOUGH_DISKS) % {"level" : md_level,
+                                                           "min" : min_disks,
+                                                           "count" : len(paths)})
                 self._error_label.set_text(self._error)
                 self.window.show_all()
                 return

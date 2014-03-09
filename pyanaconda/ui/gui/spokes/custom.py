@@ -74,8 +74,7 @@ from pyanaconda.ui.gui.spokes.lib.summary import ActionSummaryDialog
 
 from pyanaconda.ui.gui.spokes.lib.custom_storage_helpers import size_from_entry, ui_storage_logger
 from pyanaconda.ui.gui.spokes.lib.custom_storage_helpers import validate_label, validate_mountpoint, selectedRaidLevel
-from pyanaconda.ui.gui.spokes.lib.custom_storage_helpers import container_type_names
-from pyanaconda.ui.gui.spokes.lib.custom_storage_helpers import raid_level_not_enough_disks_msg
+from pyanaconda.ui.gui.spokes.lib.custom_storage_helpers import container_type_names, RAID_NOT_ENOUGH_DISKS
 from pyanaconda.ui.gui.spokes.lib.custom_storage_helpers import AddDialog, ConfirmDeleteDialog, DisksDialog, ContainerDialog, HelpDialog
 
 from pyanaconda.ui.gui.utils import setViewportBackground, enlightbox, fancy_set_sensitive, ignoreEscape
@@ -758,10 +757,9 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
             md_level = mdraid.getRaidLevel(raid_level)
             min_disks = md_level.min_members
             if len(self._device_disks) < min_disks:
-                error = _(raid_level_not_enough_disks_msg) % \
-                        {"level": md_level,
-                         "min" : min_disks,
-                         "count": len(self._device_disks)}
+                error = _(RAID_NOT_ENOUGH_DISKS) % {"level": md_level,
+                                                    "min" : min_disks,
+                                                    "count": len(self._device_disks)}
 
         if error:
             self.set_warning(error)
