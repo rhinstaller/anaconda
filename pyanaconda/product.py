@@ -52,3 +52,7 @@ if productVersion == "development":
 def distributionText():
     return _("%(productName)s %(productVersion)s INSTALLATION") % \
              {"productName": productName, "productVersion": productVersion}
+
+def translated_new_install_name():
+    return _("New %(name)s %(version)s Installation") % \
+        {"name" : productName, "version" : productVersion}

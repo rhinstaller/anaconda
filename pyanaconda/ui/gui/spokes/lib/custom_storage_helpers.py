@@ -23,8 +23,8 @@
 
 """Helper functions and classes for custom partitioning."""
 
-__all__ = ["translated_new_install_name", "size_from_entry", "populate_mountpoint_store",
-           "validate_label", "validate_mountpoint", "selectedRaidLevel",
+__all__ = ["size_from_entry", "populate_mountpoint_store", "validate_label",
+           "validate_mountpoint", "selectedRaidLevel",
            "AddDialog", "ConfirmDeleteDialog", "DisksDialog", "ContainerDialog",
            "HelpDialog"]
 
@@ -32,7 +32,7 @@ from contextlib import contextmanager
 import re
 import locale
 
-from pyanaconda.product import productName, productVersion
+from pyanaconda.product import productName
 from pyanaconda.iutil import lowerASCII
 from pyanaconda.ui.gui import GUIObject
 from pyanaconda.ui.gui.utils import fancy_set_sensitive, really_hide, really_show
@@ -86,7 +86,6 @@ mountpoint_validation_msgs = {MOUNTPOINT_OK: "",
                               MOUNTPOINT_IN_USE: mountpoint_in_use_msg,
                               MOUNTPOINT_EMPTY: empty_mountpoint_msg}
 
-new_install_name = N_("New %(name)s %(version)s Installation")
 container_dialog_title = N_("CONFIGURE %(container_type)s")
 container_dialog_text = N_("Please create a name for this %(container_type)s "
                            "and select at least one disk below.")
@@ -96,9 +95,6 @@ btrfs_container_name = N_("Volume")
 container_type_names = {DEVICE_TYPE_LVM: lvm_container_name,
                         DEVICE_TYPE_LVM_THINP: lvm_container_name,
                         DEVICE_TYPE_BTRFS: btrfs_container_name}
-
-def translated_new_install_name():
-    return _(new_install_name) % {"name" : productName, "version" : productVersion}
 
 def size_from_entry(entry):
     size_text = entry.get_text().decode("utf-8").strip()

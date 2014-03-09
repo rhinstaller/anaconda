@@ -32,7 +32,7 @@
 from pykickstart.constants import CLEARPART_TYPE_NONE, AUTOPART_TYPE_PLAIN, AUTOPART_TYPE_BTRFS, AUTOPART_TYPE_LVM, AUTOPART_TYPE_LVM_THINP
 
 from pyanaconda.i18n import _, N_, CP_
-from pyanaconda.product import productName, productVersion
+from pyanaconda.product import productName, productVersion, translated_new_install_name
 from pyanaconda.threads import AnacondaThread, threadMgr
 from pyanaconda.constants import THREAD_EXECUTE_STORAGE, THREAD_STORAGE, THREAD_CUSTOM_STORAGE_INIT
 from pyanaconda.iutil import lowerASCII
@@ -74,7 +74,7 @@ from pyanaconda.ui.gui.spokes.lib.summary import ActionSummaryDialog
 
 from pyanaconda.ui.gui.spokes.lib.custom_storage_helpers import size_from_entry, ui_storage_logger
 from pyanaconda.ui.gui.spokes.lib.custom_storage_helpers import validate_label, validate_mountpoint, selectedRaidLevel
-from pyanaconda.ui.gui.spokes.lib.custom_storage_helpers import container_type_names, translated_new_install_name
+from pyanaconda.ui.gui.spokes.lib.custom_storage_helpers import container_type_names
 from pyanaconda.ui.gui.spokes.lib.custom_storage_helpers import label_validation_msgs, mountpoint_validation_msgs, raid_level_not_enough_disks_msg, LABEL_OK # will go away soon
 from pyanaconda.ui.gui.spokes.lib.custom_storage_helpers import AddDialog, ConfirmDeleteDialog, DisksDialog, ContainerDialog, HelpDialog
 
