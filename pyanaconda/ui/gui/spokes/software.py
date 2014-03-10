@@ -386,16 +386,11 @@ class SoftwareSelectionSpoke(NormalSpoke):
 
         return retval
 
-    # Returns the row in the store corresponding to what's selected on the
-    # left hand panel, or None if nothing's selected.
     def _get_selected_environment(self):
-        for (ndx, row) in enumerate(self._environmentListBox.get_children()):
-            box = row.get_children()[0]
-            button = box.get_children()[0]
-            if button.get_active():
-                return self.payload.environments[ndx]
-
-        return None
+        # Returns the currently selected environment (self.environment
+        # is set in both initilize() and apply(), so we don't need to
+        # care about the state of the internal data model at all)
+        return self.environment
 
     def _clear_listbox(self, listbox):
         for child in listbox.get_children():
