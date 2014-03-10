@@ -100,7 +100,7 @@ def _pick_mpoint(df, requested):
         return mpoint in DOWNLOAD_MPOINTS
 
     # reserve extra
-    requested = requested + Size(en_spec="150 MB")
+    requested = requested + Size(spec="150 MB")
     sufficients = {key : val for (key,val) in df.items() if val > requested
                    and reasonable_mpoint(key)}
     log.info('Sufficient mountpoints found: %s', sufficients)
