@@ -132,6 +132,18 @@ class FilterPage(object):
         if items:
             combo.set_active(0)
 
+    def _long_identifier(self, disk):
+        # For iSCSI devices, we want the long ip-address:port-iscsi-tgtname-lun-XX
+        # identifier, but blivet doesn't expose that in any useful way and I don't
+        # want to go asking udev.  Instead, we dig around in the deviceLinks and
+        # default to the name if we can't figure anything else out.
+        for link in disk.deviceLinks:
+            if "by-path" in link:
+                lastSlash = link.rindex("/")+1
+                return link[lastSlash:]
+
+        return disk.name
+
 class SearchPage(FilterPage):
     def __init__(self, storage, builder):
         FilterPage.__init__(self, storage, builder)
@@ -197,7 +209,7 @@ class SearchPage(FilterPage):
         elif filterBy == 1:
             return self._port_equal(device) and self._target_equal(device) and self._lun_equal(device)
         elif filterBy == 2:
-            return hasattr(device, "wwid") and self._wwidEntry.get_text() in device.wwid
+            return self._wwidEntry.get_text() in getattr(device, "wwid", self._long_identifier(device))
         elif filterBy == 3:
             return hasattr(device, "fcp_lun") and self._lunEntry.get_text() in device.fcp_lun
 
@@ -286,18 +298,6 @@ class OtherPage(FilterPage):
 
     def ismember(self, device):
         return isinstance(device, iScsiDiskDevice) or isinstance(device, FcoeDiskDevice)
-
-    def _long_identifier(self, disk):
-        # For iSCSI devices, we want the long ip-address:port-iscsi-tgtname-lun-XX
-        # identifier, but blivet doesn't expose that in any useful way and I don't
-        # want to go asking udev.  Instead, we dig around in the deviceLinks and
-        # default to the name if we can't figure anything else out.
-        for link in disk.deviceLinks:
-            if "by-path" in link:
-                lastSlash = link.rindex("/")+1
-                return link[lastSlash:]
-
-        return disk.name
 
     def setup(self, store, selectedNames, disks):
         vendors = []
