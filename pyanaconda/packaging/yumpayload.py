@@ -587,7 +587,7 @@ reposdir=%s
                 elif self._yum.conf.yumvar['releasever'] == "rawhide" and \
                      "rawhide" in self.repos and \
                      self._yum.repos.getRepo("rawhide").enabled and \
-                     repo.id != "rawhide":
+                     repo.id not in (BASE_REPO_NAME, "rawhide"):
                     self.disableRepo(repo.id)
                 elif method.method and \
                      repo.id != BASE_REPO_NAME and \
@@ -604,11 +604,14 @@ reposdir=%s
                 repo = self._yum.repos.getRepo(repo_id)
                 if repo.enabled:
                     try:
+                        log.info("gathering repo metadata for %s", repo_id)
                         self._getRepoMetadata(repo)
                     except PayloadError as e:
                         log.error("failed to grab repo metadata for %s: %s",
                                   repo_id, e)
                         self.disableRepo(repo_id)
+                else:
+                    log.info("skipping disabled repo %s", repo_id)
 
         # Make sure environmentAddon information is current
         self._refreshEnvironmentAddons()
