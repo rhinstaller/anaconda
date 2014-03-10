@@ -370,7 +370,7 @@ def setupEnvironment():
         del os.environ["LD_PRELOAD"]
 
 def setupLoggingFromOpts(options):
-    if options.debug:
+    if options.debug or options.updateSrc:
         # debugging means debug logging
         options.loglevel = "debug"
 
