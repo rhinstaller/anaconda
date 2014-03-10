@@ -128,13 +128,16 @@ class SoftwareSelectionSpoke(NormalSpoke):
 
     @property
     def completed(self):
-        processingDone = not threadMgr.get(constants.THREAD_CHECK_SOFTWARE) and \
-                         not self._errorMsgs and self.txid_valid
+        processingDone = bool(not threadMgr.get(constants.THREAD_CHECK_SOFTWARE) and
+                              not threadMgr.get(constants.THREAD_PAYLOAD_MD) and
+                              not self._errorMsgs and self.txid_valid)
 
+        # we should always check processingDone before checking the other variables,
+        # as they might be inconsistent until processing is finished
         if flags.automatedInstall:
             return processingDone and self.data.packages.seen
         else:
-            return self._get_selected_environment() is not None and processingDone
+            return processingDone and self._get_selected_environment() is not None
 
     @property
     def changed(self):
