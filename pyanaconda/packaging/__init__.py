@@ -113,6 +113,7 @@ class Payload(object):
         self.data = data
         self.storage = None
         self._kernelVersionList = []
+        self._rescueVersionList = []
         self._createdInitrds = False
         self.txID = None
 
@@ -318,6 +319,27 @@ class Payload(object):
 
         self.data.packages.excludedList.append(pkgid)
 
+    def _updateKernelVersionList(self):
+        import glob
+        try:
+            import yum
+        except ImportError:
+            cmpfunc = cmp
+        else:
+            cmpfunc = yum.rpmUtils.miscutils.compareVerOnly
+
+        files = glob.glob(ROOT_PATH + "/boot/vmlinuz-*")
+        files.extend(glob.glob(ROOT_PATH + "/boot/efi/EFI/redhat/vmlinuz-*"))
+
+        versions = sorted((f.split("/")[-1][8:] for f in files if os.path.isfile(f)), cmp=cmpfunc)
+        log.debug("kernel versions: %s", versions)
+
+        # Store regular and rescue kernels separately
+        self._kernelVersionList = (
+                [v for v in versions if "-rescue-" not in v],
+                [v for v in versions if "-rescue-" in v]
+                )
+
     ###
     ### METHODS FOR QUERYING STATE
     ###
@@ -329,25 +351,16 @@ class Payload(object):
     @property
     def kernelVersionList(self):
         if not self._kernelVersionList:
-            import glob
-            try:
-                import yum
-            except ImportError:
-                cmpfunc = cmp
-            else:
-                cmpfunc = yum.rpmUtils.miscutils.compareVerOnly
+            self._updateKernelVersionList()
 
-            files = glob.glob(ROOT_PATH + "/boot/vmlinuz-*")
-            files.extend(glob.glob(ROOT_PATH + "/boot/efi/EFI/redhat/vmlinuz-*"))
-            # strip off everything up to and including vmlinuz- to get versions
-            # Ignore rescue kernels
-            versions = [f.split("/")[-1][8:] for f in files if os.path.isfile(f) \
-                        and "-rescue-" not in f]
-            versions.sort(cmp=cmpfunc)
-            log.debug("kernel versions: %s", versions)
-            self._kernelVersionList = versions
+        return self._kernelVersionList[0]
 
-        return self._kernelVersionList
+    @property
+    def rescueKernelList(self):
+        if not self._kernelVersionList:
+            self._updateKernelVersionList()
+
+        return self._kernelVersionList[1]
 
     ##
     ## METHODS FOR TREE VERIFICATION

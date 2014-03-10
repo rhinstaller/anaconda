@@ -2343,7 +2343,7 @@ def writeBootLoader(storage, payload, instClass, ksdata):
         log.info("bootloader stage2 target device is %s", stage2_device.name)
 
     # get a list of installed kernel packages
-    kernel_versions = payload.kernelVersionList
+    kernel_versions = payload.kernelVersionList + payload.rescueKernelList
     if not kernel_versions:
         log.warning("no kernel was installed -- bootloader config unchanged")
         return
