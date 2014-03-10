@@ -2284,12 +2284,12 @@ def get_bootloader():
 
 # anaconda-specific functions
 
-def writeSysconfigKernel(storage, version):
+def writeSysconfigKernel(storage, version, instClass):
     # get the name of the default kernel package based on the version
     kernel_basename = "vmlinuz-" + version
     kernel_file = "/boot/%s" % kernel_basename
     if not os.path.isfile(ROOT_PATH + kernel_file):
-        kernel_file = "/boot/efi/EFI/redhat/%s" % kernel_basename
+        kernel_file = "/boot/efi/EFI/%s/%s" % (instClass.efi_dir, kernel_basename)
         if not os.path.isfile(ROOT_PATH + kernel_file):
             log.error("failed to recreate path to default kernel image")
             return
@@ -2365,7 +2365,7 @@ def writeBootLoader(storage, payload, instClass, ksdata):
         storage.bootloader.efi_dir = instClass.efi_dir
 
     # write out /etc/sysconfig/kernel
-    writeSysconfigKernel(storage, version)
+    writeSysconfigKernel(storage, version, instClass)
 
     if storage.bootloader.skip_bootloader:
         log.info("skipping bootloader install per user request")

@@ -196,8 +196,8 @@ class YumPayload(PackagePayload):
 
         self._resetYum(root=root, releasever=releasever)
 
-    def setup(self, storage):
-        super(YumPayload, self).setup(storage)
+    def setup(self, storage, instClass):
+        super(YumPayload, self).setup(storage, instClass)
 
         self._writeYumConfig()
         self._setup = True

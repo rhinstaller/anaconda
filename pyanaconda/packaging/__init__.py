@@ -112,14 +112,16 @@ class Payload(object):
 
         self.data = data
         self.storage = None
+        self.instclass = None
         self._kernelVersionList = []
         self._rescueVersionList = []
         self._createdInitrds = False
         self.txID = None
 
-    def setup(self, storage):
+    def setup(self, storage, instClass):
         """ Do any payload-specific setup. """
         self.storage = storage
+        self.instclass = instClass
 
     def preStorage(self):
         """ Do any payload-specific work necessary before writing the storage
@@ -329,7 +331,7 @@ class Payload(object):
             cmpfunc = yum.rpmUtils.miscutils.compareVerOnly
 
         files = glob.glob(ROOT_PATH + "/boot/vmlinuz-*")
-        files.extend(glob.glob(ROOT_PATH + "/boot/efi/EFI/redhat/vmlinuz-*"))
+        files.extend(glob.glob(ROOT_PATH + "/boot/efi/EFI/%s/vmlinuz-*" % self.instclass.efi_dir))
 
         versions = sorted((f.split("/")[-1][8:] for f in files if os.path.isfile(f)), cmp=cmpfunc)
         log.debug("kernel versions: %s", versions)
@@ -989,7 +991,7 @@ class PackagePayload(Payload):
     def groupDescription(self, groupid):
         raise NotImplementedError()
 
-def payloadInitialize(storage, ksdata, payload):
+def payloadInitialize(storage, ksdata, payload, instClass):
     from pyanaconda.threads import threadMgr
 
     threadMgr.wait(THREAD_STORAGE)
@@ -998,7 +1000,7 @@ def payloadInitialize(storage, ksdata, payload):
     # (set and use payload.needsNetwork ?)
     threadMgr.wait(THREAD_WAIT_FOR_CONNECTING_NM)
 
-    payload.setup(storage)
+    payload.setup(storage, instClass)
 
 def show_groups(payload):
     #repo = ksdata.RepoData(name="anaconda", baseurl="http://cannonball/install/rawhide/os/")

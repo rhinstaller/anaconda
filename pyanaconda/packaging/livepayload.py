@@ -66,8 +66,8 @@ class LiveImagePayload(ImagePayload):
         self.pct = 0
         self.pct_lock = None
 
-    def setup(self, storage):
-        super(LiveImagePayload, self).setup(storage)
+    def setup(self, storage, instClass):
+        super(LiveImagePayload, self).setup(storage, instClass)
 
         # Mount the live device and copy from it instead of the overlay at /
         osimg = storage.devicetree.getDeviceByPath(self.data.method.partition)
@@ -221,11 +221,11 @@ class LiveImageKSPayload(LiveImagePayload):
         self._proxies = {}
         self.image_path = ROOT_PATH+"/disk.img"
 
-    def setup(self, storage):
+    def setup(self, storage, instClass):
         """ Check the availability and size of the image.
         """
         # This is on purpose, we don't want to call LiveImagePayload's setup method.
-        ImagePayload.setup(self, storage)
+        ImagePayload.setup(self, storage, instClass)
 
         self._proxies = {}
         if self.data.method.proxy:
