@@ -63,7 +63,7 @@ from blivet.errors import LUKSDeviceWithoutKeyError
 from blivet.devicelibs import mdraid
 from blivet.devices import LUKSDevice
 
-from pyanaconda.storage_utils import get_supported_raid_levels
+from pyanaconda.storage_utils import get_supported_raid_levels, ui_storage_logger
 
 from pyanaconda.ui.communication import hubQ
 from pyanaconda.ui.gui.spokes import NormalSpoke
@@ -74,7 +74,7 @@ from pyanaconda.ui.gui.spokes.lib.accordion import selectorFromDevice, Accordion
 from pyanaconda.ui.gui.spokes.lib.refresh import RefreshDialog
 from pyanaconda.ui.gui.spokes.lib.summary import ActionSummaryDialog
 
-from pyanaconda.ui.gui.spokes.lib.custom_storage_helpers import size_from_entry, ui_storage_logger
+from pyanaconda.ui.gui.spokes.lib.custom_storage_helpers import size_from_entry
 from pyanaconda.ui.gui.spokes.lib.custom_storage_helpers import validate_label, validate_mountpoint, selectedRaidLevel
 from pyanaconda.ui.gui.spokes.lib.custom_storage_helpers import get_container_type_name, RAID_NOT_ENOUGH_DISKS
 from pyanaconda.ui.gui.spokes.lib.custom_storage_helpers import AddDialog, ConfirmDeleteDialog, DisksDialog, ContainerDialog, HelpDialog

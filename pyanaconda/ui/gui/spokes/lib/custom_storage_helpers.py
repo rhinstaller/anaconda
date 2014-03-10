@@ -28,7 +28,6 @@ __all__ = ["size_from_entry", "populate_mountpoint_store", "validate_label",
            "AddDialog", "ConfirmDeleteDialog", "DisksDialog", "ContainerDialog",
            "HelpDialog"]
 
-from contextlib import contextmanager
 import re
 
 from pyanaconda.product import productName
@@ -68,19 +67,6 @@ CONTAINER_TYPE_NAMES = {DEVICE_TYPE_LVM: N_("Volume Group"),
 def size_from_entry(entry):
     size_text = entry.get_text().decode("utf-8").strip()
     return size_from_input(size_text)
-
-class UIStorageFilter(logging.Filter):
-    def filter(self, record):
-        record.name = "storage.ui"
-        return True
-
-@contextmanager
-def ui_storage_logger():
-    storage_log = logging.getLogger("blivet")
-    f = UIStorageFilter()
-    storage_log.addFilter(f)
-    yield
-    storage_log.removeFilter(f)
 
 def populate_mountpoint_store(store, used_mountpoints):
     # sure, add whatever you want to this list. this is just a start.

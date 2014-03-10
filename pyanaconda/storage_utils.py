@@ -23,11 +23,16 @@
 import re
 import locale
 
+from contextlib import contextmanager
+
 from blivet.size import Size
 from blivet.errors import SizeParamsError
 from blivet.devicefactory import DEVICE_TYPE_LVM
 from blivet.devicefactory import DEVICE_TYPE_BTRFS
 from blivet.devicefactory import DEVICE_TYPE_MD
+
+import logging
+log = logging.getLogger("anaconda")
 
 # should this and the get_supported_raid_levels go to blivet.devicefactory???
 SUPPORTED_RAID_LEVELS = {DEVICE_TYPE_LVM: {"none", "raid0", "raid1"},
@@ -67,3 +72,21 @@ def get_supported_raid_levels(device_type):
     """Get supported RAID levels for the given device type."""
 
     return SUPPORTED_RAID_LEVELS.get(device_type, set())
+
+class UIStorageFilter(logging.Filter):
+    """Logging filter for UI storage events"""
+
+    def filter(self, record):
+        record.name = "storage.ui"
+        return True
+
+@contextmanager
+def ui_storage_logger():
+    """Context manager that applies the UIStorageFilter for its block"""
+
+    storage_log = logging.getLogger("blivet")
+    storage_filter = UIStorageFilter()
+    storage_log.addFilter(storage_filter)
+    yield
+    storage_log.removeFilter(storage_filter)
+
