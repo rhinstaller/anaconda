@@ -70,7 +70,7 @@ from pyanaconda import iutil
 from pyanaconda.iutil import ProxyString, ProxyStringError
 from pyanaconda.i18n import _
 from pyanaconda.nm import nm_is_connected
-from pyanaconda.product import productName, isFinal
+from pyanaconda.product import isFinal
 from blivet.size import Size
 import blivet.util
 import blivet.arch
@@ -86,8 +86,7 @@ from pyanaconda.localization import langcode_matches_locale
 from pykickstart.constants import GROUP_ALL, GROUP_DEFAULT, KS_MISSING_IGNORE
 
 YUM_PLUGINS = ["fastestmirror", "langpacks"]
-DEFAULT_REPOS = [productName.lower(), "rawhide"]
-BASE_REPO_NAMES = [BASE_REPO_NAME] + DEFAULT_REPOS
+BASE_REPO_NAMES = [BASE_REPO_NAME] + PackagePayload.DEFAULT_REPOS
 
 import inspect
 import threading
@@ -165,8 +164,6 @@ class YumPayload(PackagePayload):
             raise PayloadError("unsupported payload type")
 
         PackagePayload.__init__(self, data)
-
-        self.default_repos = [productName.lower(), "rawhide"]
 
         self._root_dir = "/tmp/yum.root"
         self._repos_dir = "/etc/yum.repos.d,/etc/anaconda.repos.d,/tmp/updates/anaconda.repos.d,/tmp/product/anaconda.repos.d"

@@ -1072,7 +1072,10 @@ class SourceSpoke(NormalSpoke):
         if [c for c in name if c not in allowed_chars]:
             return N_("Invalid repository name.")
 
-        if name in [r for r in self.payload.repos if r not in self.payload.addOns] + [constants.BASE_REPO_NAME] + self.payload.default_repos:
+        cnames = [constants.BASE_REPO_NAME] + \
+                 self.payload.DEFAULT_REPOS + \
+                 [r for r in self.payload.repos if r not in self.payload.addOns]
+        if name in cnames:
             return N_("Repository name conflicts with internal repository name.")
         return None
 

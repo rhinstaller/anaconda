@@ -50,7 +50,6 @@ except ImportError as e:
     dnf = None
     rpm = None
 
-DEFAULT_REPOS = [constants.productName.lower(), "rawhide"]
 DNF_CACHE_DIR = '/tmp/dnf.cache'
 DNF_PACKAGE_CACHE_DIR_SUFFIX = 'dnf.package.cache'
 DOWNLOAD_MPOINTS = {'/tmp',
@@ -335,7 +334,7 @@ class DNFPayload(packaging.PackagePayload):
     @property
     def baseRepo(self):
         # is any locking needed here as in the yumpayload?
-        repo_names = [constants.BASE_REPO_NAME] + DEFAULT_REPOS
+        repo_names = [constants.BASE_REPO_NAME] + self.DEFAULT_REPOS
         for repo in self._base.repos.iter_enabled():
             if repo.id in repo_names:
                 return repo.id
