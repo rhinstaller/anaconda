@@ -30,7 +30,7 @@ from pyanaconda import iutil
 import pwquality
 from pyanaconda.iutil import strip_accents
 from pyanaconda.i18n import _
-from pyanaconda.constants import PASSWORD_MIN_LEN, PW_ASCII_CHARS
+from pyanaconda.constants import PASSWORD_MIN_LEN, PW_ASCII_CHARS, ROOT_PATH
 
 import logging
 log = logging.getLogger("anaconda")
@@ -212,7 +212,7 @@ class Users:
         """
 
         childpid = os.fork()
-        root = kwargs.get("root", "/mnt/sysimage")
+        root = kwargs.get("root", ROOT_PATH)
 
         if not childpid:
             if not root in ["","/"]:
@@ -280,7 +280,7 @@ class Users:
                         available one is used.
         """
         childpid = os.fork()
-        root = kwargs.get("root", "/mnt/sysimage")
+        root = kwargs.get("root", ROOT_PATH)
 
         if not childpid:
             if not root in ["","/"]:
@@ -402,7 +402,7 @@ class Users:
         else:
             return False
 
-    def checkUserExists(self, username, root="/mnt/sysimage"):
+    def checkUserExists(self, username, root=ROOT_PATH):
         childpid = os.fork()
 
         if not childpid:
