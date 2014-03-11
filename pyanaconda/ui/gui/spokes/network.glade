@@ -281,24 +281,27 @@ updates available for you.</property>
                   </packing>
                 </child>
                 <child>
-                  <object class="GtkVBox" id="networkControlBox_vbox">
+                  <object class="GtkBox" id="networkControlBox_vbox">
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
+                    <property name="orientation">vertical</property>
                     <property name="spacing">12</property>
                     <child>
-                      <object class="GtkVBox" id="network_config_vbox">
+                      <object class="GtkBox" id="network_config_vbox">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
+                        <property name="orientation">vertical</property>
                         <property name="spacing">3</property>
                         <child>
-                          <object class="GtkHBox" id="hbox2">
+                          <object class="GtkBox" id="hbox2">
                             <property name="visible">True</property>
                             <property name="can_focus">False</property>
                             <property name="spacing">6</property>
                             <child>
-                              <object class="GtkVBox" id="vbox10">
+                              <object class="GtkBox" id="vbox10">
                                 <property name="visible">True</property>
                                 <property name="can_focus">False</property>
+                                <property name="orientation">vertical</property>
                                 <child>
                                   <object class="GtkScrolledWindow" id="devices_scrolledwindow">
                                     <property name="visible">True</property>
@@ -383,10 +386,11 @@ updates available for you.</property>
                                 <property name="can_focus">True</property>
                                 <property name="show_border">False</property>
                                 <child>
-                                  <object class="GtkVBox" id="vbox6">
+                                  <object class="GtkBox" id="vbox6">
                                     <property name="visible">True</property>
                                     <property name="can_focus">False</property>
                                     <property name="border_width">12</property>
+                                    <property name="orientation">vertical</property>
                                     <property name="spacing">6</property>
                                     <child>
                                       <object class="GtkGrid" id="grid1">
@@ -414,11 +418,12 @@ updates available for you.</property>
                                           </packing>
                                         </child>
                                         <child>
-                                          <object class="GtkVBox" id="vbox4">
+                                          <object class="GtkBox" id="vbox4">
                                             <property name="visible">True</property>
                                             <property name="can_focus">False</property>
                                             <property name="valign">start</property>
                                             <property name="hexpand">True</property>
+                                            <property name="orientation">vertical</property>
                                             <property name="spacing">3</property>
                                             <child>
                                               <object class="GtkLabel" id="label_wired_device">
@@ -848,10 +853,11 @@ updates available for you.</property>
                                   </packing>
                                 </child>
                                 <child>
-                                  <object class="GtkVBox" id="vbox5">
+                                  <object class="GtkBox" id="vbox5">
                                     <property name="visible">True</property>
                                     <property name="can_focus">False</property>
                                     <property name="border_width">12</property>
+                                    <property name="orientation">vertical</property>
                                     <property name="spacing">6</property>
                                     <child>
                                       <object class="GtkGrid" id="grid2">
@@ -879,11 +885,12 @@ updates available for you.</property>
                                           </packing>
                                         </child>
                                         <child>
-                                          <object class="GtkVBox" id="vbox3">
+                                          <object class="GtkBox" id="vbox3">
                                             <property name="visible">True</property>
                                             <property name="can_focus">False</property>
                                             <property name="valign">start</property>
                                             <property name="hexpand">True</property>
+                                            <property name="orientation">vertical</property>
                                             <property name="spacing">3</property>
                                             <child>
                                               <object class="GtkLabel" id="label_wireless_device">
@@ -1336,10 +1343,11 @@ updates available for you.</property>
                                   </packing>
                                 </child>
                                 <child>
-                                  <object class="GtkVBox" id="vbox7">
+                                  <object class="GtkBox" id="vbox7">
                                     <property name="visible">True</property>
                                     <property name="can_focus">False</property>
                                     <property name="border_width">12</property>
+                                    <property name="orientation">vertical</property>
                                     <property name="spacing">6</property>
                                     <child>
                                       <object class="GtkGrid" id="grid3">
@@ -1367,11 +1375,12 @@ updates available for you.</property>
                                           </packing>
                                         </child>
                                         <child>
-                                          <object class="GtkVBox" id="vbox11">
+                                          <object class="GtkBox" id="vbox11">
                                             <property name="visible">True</property>
                                             <property name="can_focus">False</property>
                                             <property name="valign">start</property>
                                             <property name="hexpand">True</property>
+                                            <property name="orientation">vertical</property>
                                             <property name="spacing">3</property>
                                             <child>
                                               <object class="GtkLabel" id="label_mobilebb_device">
@@ -1678,10 +1687,11 @@ updates available for you.</property>
                                   </packing>
                                 </child>
                                 <child>
-                                  <object class="GtkVBox" id="vbox9">
+                                  <object class="GtkBox" id="vbox9">
                                     <property name="visible">True</property>
                                     <property name="can_focus">False</property>
                                     <property name="border_width">12</property>
+                                    <property name="orientation">vertical</property>
                                     <property name="spacing">6</property>
                                     <child>
                                       <object class="GtkGrid" id="grid4">
@@ -1709,11 +1719,12 @@ updates available for you.</property>
                                           </packing>
                                         </child>
                                         <child>
-                                          <object class="GtkVBox" id="vbox12">
+                                          <object class="GtkBox" id="vbox12">
                                             <property name="visible">True</property>
                                             <property name="can_focus">False</property>
                                             <property name="valign">start</property>
                                             <property name="hexpand">True</property>
+                                            <property name="orientation">vertical</property>
                                             <property name="spacing">3</property>
                                             <child>
                                               <object class="GtkLabel" id="label_vpn_device">
@@ -1963,10 +1974,11 @@ updates available for you.</property>
                                   </packing>
                                 </child>
                                 <child>
-                                  <object class="GtkVBox" id="vbox8">
+                                  <object class="GtkBox" id="vbox8">
                                     <property name="visible">True</property>
                                     <property name="can_focus">False</property>
                                     <property name="border_width">12</property>
+                                    <property name="orientation">vertical</property>
                                     <property name="spacing">6</property>
                                     <child>
                                       <object class="GtkGrid" id="grid5">
@@ -1994,11 +2006,12 @@ updates available for you.</property>
                                           </packing>
                                         </child>
                                         <child>
-                                          <object class="GtkVBox" id="vbox13">
+                                          <object class="GtkBox" id="vbox13">
                                             <property name="visible">True</property>
                                             <property name="can_focus">False</property>
                                             <property name="valign">start</property>
                                             <property name="hexpand">True</property>
+                                            <property name="orientation">vertical</property>
                                             <property name="spacing">3</property>
                                             <child>
                                               <object class="GtkLabel" id="label_proxy_device">
@@ -2322,10 +2335,11 @@ updates available for you.</property>
                                   </packing>
                                 </child>
                                 <child>
-                                  <object class="GtkVBox" id="vboxNodevice">
+                                  <object class="GtkBox" id="vboxNodevice">
                                     <property name="visible">True</property>
                                     <property name="can_focus">False</property>
                                     <property name="border_width">12</property>
+                                    <property name="orientation">vertical</property>
                                     <property name="spacing">6</property>
                                     <child>
                                       <object class="GtkLabel" id="label2">
@@ -2380,7 +2394,7 @@ updates available for you.</property>
                       </packing>
                     </child>
                     <child>
-                      <object class="GtkHBox" id="hbox54">
+                      <object class="GtkBox" id="hbox54">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
                         <child>
@@ -2398,7 +2412,7 @@ updates available for you.</property>
                           </packing>
                         </child>
                         <child>
-                          <object class="GtkHBox" id="hbox_flight_mode">
+                          <object class="GtkBox" id="hbox_flight_mode">
                             <property name="visible">True</property>
                             <property name="can_focus">False</property>
                             <property name="spacing">3</property>
