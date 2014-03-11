@@ -70,6 +70,14 @@ directory = %(instPath)s/etc
 directory = %(instPath)s/etc
 """ % {"instPath": instPath, "algo": algoname}
 
+    # Import login.defs if installed
+    if os.path.exists(os.path.normpath(instPath + "/etc/login.defs")):
+        buf += """
+[import]
+login_defs = %(instPath)s/etc/login.defs
+""" % {"instPath": instPath}
+
+
     fd.write(buf)
     fd.close()
     os.environ["LIBUSER_CONF"] = fn
