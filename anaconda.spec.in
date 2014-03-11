@@ -302,6 +302,27 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Mar 11 2014 Brian C. Lane <bcl@redhat.com> - 21.27-1
+- Don't disable anaconda repo on rawhide (bcl)
+- Set log level to debug when using an updates image (bcl)
+- driver-updates: accept burned driver discs (#1073719) (wwoods)
+- Do nothing if previously selected selector gets focus again (#1029798)
+  (vpodzime)
+- Firstboot is deprecated and gone on Fedora 20 and anything newer (vpodzime)
+- Reraise the exception properly (vpodzime)
+- Set progress bar to 100 %% in a different way (#1058755) (vpodzime)
+- Refresh after checkbox clicked (#1074188) (amulhern)
+- Use instclass.efi_dir when constructing the EFI path (dshea)
+- Add rescue kernels to the bootloader install list. (#1036349) (dshea)
+- Cover both possible ways that GUI WWID may have been set (#1074184)
+  (amulhern)
+- Do not write out /etc/adjtime file on s390(x) (#1070748) (vpodzime)
+- Ignore the data model and just return self.environment (mkolman)
+- Software spoke can't be complete if the payload thread is running (mkolman)
+- DNFPayload: blivet.size.Size() only knows 'spec' kwarg now. (ales)
+- Specify string format arguments as logging function parameters (dshea)
+- Add missing changelog entries (bcl)
+
 * Fri Mar 07 2014 Brian C. Lane <bcl@redhat.com> - 21.26-1
 - Don't traceback, just log a warning if connection is unavailable (#1070928)
   (mkolman)

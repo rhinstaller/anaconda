@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: anaconda 21.25\n"
+"Project-Id-Version: anaconda 21.26\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
-"POT-Creation-Date: 2014-03-07 18:06-0800\n"
+"POT-Creation-Date: 2014-03-11 16:30-0700\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -401,7 +401,7 @@ msgid "Discovering realm to join"
 msgstr ""
 
 #: pyanaconda/install.py:168 pyanaconda/packaging/livepayload.py:147
-#: pyanaconda/packaging/yumpayload.py:1414
+#: pyanaconda/packaging/yumpayload.py:1417
 #: pyanaconda/packaging/dnfpayload.py:505
 msgid "Performing post-installation setup tasks"
 msgstr ""
@@ -429,13 +429,13 @@ msgstr ""
 msgid "%s is missing. Cannot setup firewall."
 msgstr ""
 
-#: pyanaconda/kickstart.py:1571
+#: pyanaconda/kickstart.py:1570
 msgid ""
 "The upgrade kickstart command is no longer supported. Upgrade functionality "
 "is provided through fedup."
 msgstr ""
 
-#: pyanaconda/kickstart.py:1812
+#: pyanaconda/kickstart.py:1811
 msgid "Running pre-installation scripts"
 msgstr ""
 
@@ -761,17 +761,17 @@ msgstr ""
 msgid "Checking image checksum"
 msgstr ""
 
-#: pyanaconda/packaging/yumpayload.py:1376
+#: pyanaconda/packaging/yumpayload.py:1379
 #: pyanaconda/packaging/dnfpayload.py:459
 msgid "Starting package installation process"
 msgstr ""
 
-#: pyanaconda/packaging/yumpayload.py:1412
+#: pyanaconda/packaging/yumpayload.py:1415
 #: pyanaconda/packaging/dnfpayload.py:488
 msgid "Preparing transaction from installation source"
 msgstr ""
 
-#: pyanaconda/packaging/yumpayload.py:1413
+#: pyanaconda/packaging/yumpayload.py:1416
 msgid "Installing"
 msgstr ""
 
@@ -1240,7 +1240,7 @@ msgstr ""
 #: pyanaconda/ui/tui/spokes/source.py:104
 #: pyanaconda/ui/tui/spokes/software.py:102
 #: pyanaconda/ui/gui/spokes/datetime_spoke.py:463
-#: pyanaconda/ui/gui/spokes/software.py:193
+#: pyanaconda/ui/gui/spokes/software.py:196
 #: pyanaconda/ui/gui/spokes/source.py:534
 msgid "Nothing selected"
 msgstr ""
@@ -1282,8 +1282,8 @@ msgstr ""
 
 #: pyanaconda/ui/tui/spokes/source.py:234
 #: pyanaconda/ui/tui/spokes/software.py:70
-#: pyanaconda/ui/gui/spokes/software.py:229
-#: pyanaconda/ui/gui/spokes/software.py:259
+#: pyanaconda/ui/gui/spokes/software.py:232
+#: pyanaconda/ui/gui/spokes/software.py:262
 #: pyanaconda/ui/gui/spokes/source.py:478
 msgid "No installation source available"
 msgstr ""
@@ -1330,22 +1330,22 @@ msgid "Software selection"
 msgstr ""
 
 #: pyanaconda/ui/tui/spokes/software.py:80
-#: pyanaconda/ui/gui/spokes/software.py:177
+#: pyanaconda/ui/gui/spokes/software.py:180
 msgid "Error checking software selection"
 msgstr ""
 
 #: pyanaconda/ui/tui/spokes/software.py:84
-#: pyanaconda/ui/gui/spokes/software.py:180
+#: pyanaconda/ui/gui/spokes/software.py:183
 msgid "Installation source not set up"
 msgstr ""
 
 #: pyanaconda/ui/tui/spokes/software.py:86
-#: pyanaconda/ui/gui/spokes/software.py:183
+#: pyanaconda/ui/gui/spokes/software.py:186
 msgid "Source changed - please verify"
 msgstr ""
 
 #: pyanaconda/ui/tui/spokes/software.py:101
-#: pyanaconda/ui/gui/spokes/software.py:191
+#: pyanaconda/ui/gui/spokes/software.py:194
 msgid "Custom software selected"
 msgstr ""
 
@@ -1500,19 +1500,23 @@ msgid ""
 "step."
 msgstr ""
 
-#: pyanaconda/ui/gui/hubs/progress.py:204
+#: pyanaconda/ui/gui/hubs/progress.py:109
+msgid "Complete!"
+msgstr ""
+
+#: pyanaconda/ui/gui/hubs/progress.py:208
 #, python-format
 msgid ""
 "%s is now successfully installed on your system and ready for you to use!  "
 "When you are ready, reboot your system to start using it!"
 msgstr ""
 
-#: pyanaconda/ui/gui/hubs/progress.py:207
+#: pyanaconda/ui/gui/hubs/progress.py:211
 msgctxt "GUI|Progress"
 msgid "_Quit"
 msgstr ""
 
-#: pyanaconda/ui/gui/hubs/progress.py:214
+#: pyanaconda/ui/gui/hubs/progress.py:219
 #, python-format
 msgid ""
 "%s is now successfully installed, but some configuration still needs to be "
@@ -1520,15 +1524,11 @@ msgid ""
 "Finish it and then click the Finish configuration button please."
 msgstr ""
 
-#: pyanaconda/ui/gui/hubs/progress.py:219
+#: pyanaconda/ui/gui/hubs/progress.py:224
 #, python-format
 msgid ""
 "%s is now successfully installed and ready for you to use!\n"
 "Go ahead and reboot to start using it!"
-msgstr ""
-
-#: pyanaconda/ui/gui/hubs/progress.py:292
-msgid "Complete!"
 msgstr ""
 
 #: pyanaconda/ui/gui/spokes/custom.py:100
@@ -1822,38 +1822,38 @@ msgstr ""
 msgid "(%s free)"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:2599
+#: pyanaconda/ui/gui/spokes/custom.py:2598
 #, python-format
 msgid ""
 "This Software RAID array is missing %(missingMembers)d of %(totalMembers)d "
 "member partitions. You can remove it or select a different device."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:2605
+#: pyanaconda/ui/gui/spokes/custom.py:2604
 #, python-format
 msgid ""
 "This LVM Volume Group is missing %(missingPVs)d of %(totalPVs)d physical "
 "volumes. You can remove it or select a different device."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:2680
+#: pyanaconda/ui/gui/spokes/custom.py:2679
 msgid "No disks selected."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:2686
+#: pyanaconda/ui/gui/spokes/custom.py:2685
 msgid "Not enough free space on selected disks."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:2692
-#: pyanaconda/ui/gui/spokes/custom.py:2718
+#: pyanaconda/ui/gui/spokes/custom.py:2691
+#: pyanaconda/ui/gui/spokes/custom.py:2717
 msgid "Automatic partitioning failed. Click for details."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:2991
+#: pyanaconda/ui/gui/spokes/custom.py:2990
 msgid "Failed to unlock encrypted block device. Click for details"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:3016
+#: pyanaconda/ui/gui/spokes/custom.py:3015
 #, python-format
 msgid ""
 "You have chosen to manually set up the filesystems for your new "
@@ -2203,20 +2203,20 @@ msgstr ""
 msgid "Error checking software dependencies"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/software.py:203
+#: pyanaconda/ui/gui/spokes/software.py:206
 #: pyanaconda/ui/gui/spokes/source.py:51
 msgid "Downloading package metadata..."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/software.py:207
+#: pyanaconda/ui/gui/spokes/software.py:210
 msgid "Downloading group metadata..."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/software.py:360
+#: pyanaconda/ui/gui/spokes/software.py:363
 msgid "Error checking software dependencies.  Click for details."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/software.py:462
+#: pyanaconda/ui/gui/spokes/software.py:460
 msgid ""
 "The following software marked for installation has errors.  This is likely "
 "caused by an error with\n"
@@ -2224,17 +2224,17 @@ msgid ""
 "the installer."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/software.py:466
+#: pyanaconda/ui/gui/spokes/software.py:464
 msgctxt "GUI|Software Selection|Error Dialog"
 msgid "_Quit"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/software.py:467
+#: pyanaconda/ui/gui/spokes/software.py:465
 msgctxt "GUI|Software Selection|Error Dialog"
 msgid "_Cancel"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/software.py:468
+#: pyanaconda/ui/gui/spokes/software.py:466
 msgctxt "GUI|Software Selection|Error Dialog"
 msgid "_Modify Software Source"
 msgstr ""
