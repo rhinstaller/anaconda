@@ -262,12 +262,12 @@ class SoftwareSelectionSpoke(NormalSpoke):
             hubQ.send_message(self.__class__.__name__, _("No installation source available"))
             return False
 
-    def _add_row(self, listbox, name, desc, button):
+    def _add_row(self, listbox, name, desc, button, clicked):
         row = Gtk.ListBoxRow()
         box = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=6)
 
         button.set_valign(Gtk.Align.START)
-        button.connect("clicked", self.on_button_toggled, row)
+        button.connect("toggled", clicked, row)
         box.add(button)
 
         label = Gtk.Label(label="<b>%s</b>\n%s" % (escape_markup(name), escape_markup(desc)),
@@ -302,7 +302,8 @@ class SoftwareSelectionSpoke(NormalSpoke):
             if active:
                 self.environment = environment
 
-            self._add_row(self._environmentListBox, name, desc, radio)
+            self._add_row(self._environmentListBox, name, desc, radio,
+                    self.on_radio_button_toggled)
             firstRadio = firstRadio or radio
 
             firstEnvironment = False
@@ -327,7 +328,7 @@ class SoftwareSelectionSpoke(NormalSpoke):
 
         check = Gtk.CheckButton()
         check.set_active(selected)
-        self._add_row(self._addonListBox, name, desc, check)
+        self._add_row(self._addonListBox, name, desc, check, self.on_checkbox_toggled)
 
     def refreshAddons(self):
         if self.environment and (self.environment in self.payload.environmentAddons):
@@ -402,7 +403,13 @@ class SoftwareSelectionSpoke(NormalSpoke):
         return self._tx_id == self.payload.txID
 
     # Signal handlers
-    def on_button_toggled(self, radio, row):
+    def on_checkbox_toggled(self, button, row):
+        row.activate()
+
+    def on_radio_button_toggled(self, radio, row):
+        # If the radio button toggled to inactive, don't reactivate the row
+        if not radio.get_active():
+            return
         row.activate()
 
     def on_environment_activated(self, listbox, row):
@@ -412,9 +419,9 @@ class SoftwareSelectionSpoke(NormalSpoke):
         box = row.get_children()[0]
         button = box.get_children()[0]
 
-        button.handler_block_by_func(self.on_button_toggled)
-        button.set_active(not button.get_active())
-        button.handler_unblock_by_func(self.on_button_toggled)
+        button.handler_block_by_func(self.on_radio_button_toggled)
+        button.set_active(True)
+        button.handler_unblock_by_func(self.on_radio_button_toggled)
 
         # Remove all the groups that were selected by the previously
         # selected environment.
@@ -438,9 +445,9 @@ class SoftwareSelectionSpoke(NormalSpoke):
 
         wasActive = group in self.selectedGroups
 
-        button.handler_block_by_func(self.on_button_toggled)
+        button.handler_block_by_func(self.on_checkbox_toggled)
         button.set_active(not wasActive)
-        button.handler_unblock_by_func(self.on_button_toggled)
+        button.handler_unblock_by_func(self.on_checkbox_toggled)
 
         if wasActive:
             self.selectedGroups.remove(group)
