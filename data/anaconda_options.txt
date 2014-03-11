@@ -1,7 +1,9 @@
 dirinstall
 Use the device mounted at /mnt/sysimage as the installation
 destination. The --dirinstall and --image options are mutually
-exclusive.
+exclusive. The /mnt/sysimage directory can be overridden by
+setting the ANACONDA_ROOT_PATH environmental variable before
+starting anaconda.
 
 image
 Specification of disk image file to be used as installation
