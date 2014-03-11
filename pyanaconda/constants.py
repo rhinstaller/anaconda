@@ -25,6 +25,7 @@ import re
 
 # Use -1 to indicate that the selinux configuration is unset
 SELINUX_DEFAULT = -1
+import os
 
 DISPATCH_BACK = -1
 DISPATCH_FORWARD = 1
@@ -79,7 +80,7 @@ DD_RPMS = "/tmp/DD-*"
 TRANSLATIONS_UPDATE_DIR="/tmp/updates/po"
 
 ANACONDA_CLEANUP = "anaconda-cleanup"
-ROOT_PATH = "/mnt/sysimage"
+ROOT_PATH = os.environ.get("ANACONDA_ROOT_PATH", "/mnt/sysimage")
 MOUNT_DIR = "/mnt/install"
 DRACUT_REPODIR = "/run/install/repo"
 DRACUT_ISODIR = "/run/install/source"
