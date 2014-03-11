@@ -192,7 +192,7 @@ class Users:
         """
 
         childpid = os.fork()
-        root = kwargs.get("root", "/mnt/sysimage")
+        root = kwargs.get("root", ROOT_PATH)
 
         if not childpid:
             if not root in ["","/"]:
@@ -258,7 +258,7 @@ class Users:
                         available one is used.
         """
         childpid = os.fork()
-        root = kwargs.get("root", "/mnt/sysimage")
+        root = kwargs.get("root", ROOT_PATH)
 
         if not childpid:
             if not root in ["","/"]:
@@ -358,7 +358,7 @@ class Users:
         else:
             return False
 
-    def checkUserExists(self, username, root="/mnt/sysimage"):
+    def checkUserExists(self, username, root=ROOT_PATH):
         childpid = os.fork()
 
         if not childpid:
