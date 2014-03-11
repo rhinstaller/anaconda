@@ -259,6 +259,25 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Mar 11 2014 Brian C. Lane <bcl@redhat.com> - 19.31.67-1
+- driver-updates: accept burned driver discs (wwoods)
+  Resolves: rhbz#1073719
+- Refresh after checkbox clicked (amulhern)
+  Resolves: rhbz#1074188
+- Don't create bootloader entries for kdump initrd and kernel.
+  (sbueno+anaconda)
+  Resolves: rhbz#1036086
+- Cover both possible ways that GUI WWID may have been set (amulhern)
+  Resolves: rhbz#1074184
+- network: apply ks configuration to devices activated in initramfs (rvykydal)
+  Resolves: rhbz#1037605
+- Make it obvious user is going to begin installation. (sbueno+anaconda)
+  Resolves: rhbz#975793
+- Fix error handling in cmdline mode. (sbueno+anaconda)
+  Resolves: rhbz#1034773
+- Do nothing if previously selected selector gets focus again (vpodzime)
+  Resolves: rhbz#1029798
+
 * Fri Mar 07 2014 Brian C. Lane <bcl@redhat.com> - 19.31.66-1
 - set proxy related environmental variables (bcl)
   Resolves: rhbz#854029
