@@ -158,13 +158,13 @@ class AnacondaExceptionHandler(ExceptionHandler):
     def postWriteHook(self, dump_info):
         anaconda = dump_info.object
 
-        # See if /mnt/sysimage is present and put exception there as well
-        if os.access("/mnt/sysimage/root", os.X_OK):
+        # See if there is a /root present in the root path and put exception there as well
+        if os.access(ROOT_PATH + "/root", os.X_OK):
             try:
-                dest = "/mnt/sysimage/root/%s" % os.path.basename(self.exnFile)
+                dest = ROOT_PATH + "/root/%s" % os.path.basename(self.exnFile)
                 shutil.copyfile(self.exnFile, dest)
             except:
-                log.error("Failed to copy %s to /mnt/sysimage/root" % self.exnFile)
+                log.error("Failed to copy %s to %s/root" % (self.exnFile, ROOT_PATH))
                 pass
 
         # run kickstart traceback scripts (if necessary)
