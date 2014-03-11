@@ -96,19 +96,6 @@ def oemdrv_list():
         return outlines.splitlines()
 
 
-def is_dd(dd_path):
-    """ Determine if a path is a valid DD for the current arch
-
-        :param dd_path: Path to the DD directory to test
-        :type dd_path:  string
-        :returns:       True if it is a valid DD
-        :rtype:         bool
-    """
-    arch = os.uname()[4]
-    return os.path.exists(dd_path+"/rhdd3") and \
-       not os.path.isdir(dd_path+"/rpms/%s" % arch)
-
-
 def get_dd_args():
     """ Get the dd arguments from /tmp/dd_args or /tmp/dd_args_ks
 
@@ -672,7 +659,6 @@ def select_iso():
         iso_dev = selection_menu(devices,
                                  "Driver disk device selection\n" + header,
                                  str, multi_choice=False, refresh=True)
-        print iso_dev
 
     if not iso_dev:
         return (None, None)
@@ -684,6 +670,12 @@ def select_iso():
         print("===Cannot mount the chosen device!===\n")
         return select_iso()
 
+    # is this device a Driver Update Disc?
+    if find_dd(mnt):
+        umount(mnt) # BLUH. unmount it first so select_dd can mount it OK
+        return ("/dev/" + iso_dev.device, None)
+
+    # maybe it's a device containing multiple DUDs - let the user pick one
     isos = list()
     for dir_path, _dirs, files in os.walk(mnt):
         # trim the mount point path
