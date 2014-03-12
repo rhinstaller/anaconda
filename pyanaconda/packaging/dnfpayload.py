@@ -33,6 +33,7 @@ import operator
 import pyanaconda.constants as constants
 import pyanaconda.errors as errors
 import pyanaconda.iutil
+import pyanaconda.localization
 import pyanaconda.packaging as packaging
 import sys
 import time
@@ -514,6 +515,18 @@ class DNFPayload(packaging.PackagePayload):
             return self._base.repos[repo_id].enabled
         except (dnf.exceptions.RepoError, KeyError):
             return super(DNFPayload, self).isRepoEnabled(repo_id)
+
+    def languageGroups(self):
+        locales = [self.data.lang.lang] + self.data.lang.addsupport
+        match_fn = pyanaconda.localization.langcode_matches_locale
+        gids = set()
+        gl_tuples = ((g.id, g.lang_only) for g in self._base.comps.groups_iter())
+        for (gid, lang) in gl_tuples:
+            for locale in locales:
+                if match_fn(lang, locale):
+                    gids.add(gid)
+        log.info('languageGroups: %s', gids)
+        return list(gids)
 
     def preInstall(self, packages=None, groups=None):
         super(DNFPayload, self).preInstall()
