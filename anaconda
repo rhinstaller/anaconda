@@ -55,7 +55,7 @@ def exitHandler(rebootData, storage, exitCode=None):
         devicetree.teardownAll()
         for name in devicetree.diskImages:
             dev = devicetree.getDeviceByName(name)
-            for loop in device.parents:
+            for loop in dev.parents:
                 loop.controllable = True
             dev.deactivate(recursive=True)
 
