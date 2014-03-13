@@ -646,6 +646,10 @@ class SourceSpoke(NormalSpoke):
         # FIXME
 
         self._ready = True
+        # Wait to make sure the other threads are done before sending ready, otherwise
+        # the spoke may not get be sensitive by _handleCompleteness in the hub.
+        while not self.ready:
+            time.sleep(1)
         hubQ.send_ready(self.__class__.__name__, False)
 
     def refresh(self):
