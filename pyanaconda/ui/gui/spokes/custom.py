@@ -2921,7 +2921,23 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
     # This callback is for the button that just resets the UI to anaconda's
     # current understanding of the disk layout.
     def on_reset_clicked(self, *args):
-        self.refresh()
+        msg = _("Continuing with this action will reset all your partitioning selections "
+                "to their current on-disk state.")
+
+        dlg = Gtk.MessageDialog(flags=Gtk.DialogFlags.MODAL,
+                                message_type=Gtk.MessageType.WARNING,
+                                buttons=Gtk.ButtonsType.NONE,
+                                message_format=msg)
+        dlg.set_decorated(False)
+        dlg.add_buttons(_("_Reset selections"), 0, _("_Preserve current selections"), 1)
+        dlg.set_default_response(1)
+
+        with enlightbox(self.window, dlg):
+            rc = dlg.run()
+            dlg.destroy()
+
+        if rc == 0:
+            self.refresh()
 
     # This callback is for the button that has anaconda go back and rescan the
     # disks to pick up whatever changes the user made outside our control.
