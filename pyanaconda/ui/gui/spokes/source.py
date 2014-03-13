@@ -644,6 +644,10 @@ class SourceSpoke(NormalSpoke):
         self._reset_repoStore()
 
         self._ready = True
+        # Wait to make sure the other threads are done before sending ready, otherwise
+        # the spoke may not be set sensitive by _handleCompleteness in the hub.
+        while not self.ready:
+            time.sleep(1)
         hubQ.send_ready(self.__class__.__name__, False)
 
     def refresh(self):
