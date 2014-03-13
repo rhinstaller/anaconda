@@ -756,6 +756,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         self._applyButton = self.builder.get_object("applyButton")
         self._configButton = self.builder.get_object("configureButton")
         self._removeButton = self.builder.get_object("removeButton")
+        self._resetButton = self.builder.get_object("resetButton")
 
         # Detailed configuration stuff
         self._encryptCheckbox = self.builder.get_object("encryptCheckbox")
@@ -1067,6 +1068,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         self._show_mountpoint(page=firstPage, mountpoint=mountpointToShow)
 
         self._applyButton.set_sensitive(False)
+        self._resetButton.set_sensitive(len(self.__storage.devicetree.findActions()) > 0)
 
     ###
     ### RIGHT HAND SIDE METHODS

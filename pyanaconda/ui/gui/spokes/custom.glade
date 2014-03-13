@@ -1858,6 +1858,7 @@ until you click on the main menu's 'Begin Installation' button.</property>
                       <object class="GtkButton" id="resetButton">
                         <property name="label" translatable="yes" context="GUI|Custom Partitioning">_Reset All</property>
                         <property name="visible">True</property>
+                        <property name="sensitive">False</property>
                         <property name="can_focus">True</property>
                         <property name="receives_default">True</property>
                         <property name="halign">end</property>
