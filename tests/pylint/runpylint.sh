@@ -96,10 +96,16 @@ fi
 # run pylint one file / module at a time, otherwise it sometimes gets
 # confused
 if [ -z "$FILES" ]; then
-    # Find any file in the list of directories that either ends in .py
+    # Find any file in the git working tree that either ends in .py
     # or contains #!/usr/bin/python in the first line.
     # Scan everything except old_tests
-    FILES="$(find "${top_srcdir}" -type d -name old_tests -prune -o -type f \( -name '*.py' -o -exec awk -e 'NR==1 { if ($0 ~ /^#!\/usr\/bin\/python/) exit 0; else exit 1; }' -e 'END { if (NR == 0) exit 1; }' {} \; \) -print)"
+    for testfile in $(git ls-files -c "${top_srcdir}" | egrep -v '(^|/)old_tests/') ; do
+        if [ -f "${testfile}" ] && \
+                ( [ "${testfile%.py}" != "${testfile}" ] || \
+                  head -1 "${testfile}" | grep -q '^#!/usr/bin/python' ) ; then
+            FILES="$FILES $testfile"
+        fi
+    done
 fi
 
 num_cpus=$(getconf _NPROCESSORS_ONLN)
