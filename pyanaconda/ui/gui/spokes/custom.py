@@ -168,7 +168,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
 
         self._unhide_unusable_disks()
 
-        new_swaps = (dev for dev in self.new_devices if dev.format.type == "swap")
+        new_swaps = (dev for dev in self.get_new_devices() if dev.format.type == "swap")
         self.storage.setFstabSwaps(new_swaps)
 
         # update the global passphrase
@@ -410,8 +410,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         # of the pykickstart AUTOPART_TYPE_* constants are the same.
         self.data.autopart.type = autopartTypeCombo.get_active()
 
-    @property
-    def new_devices(self):
+    def get_new_devices(self):
         # A device scheduled for formatting only belongs in the new root.
         new_devices = [d for d in self._devices if (d.isleaf or
                                                     d.type.startswith("btrfs"))
@@ -443,16 +442,18 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         self._removeButton.set_sensitive(False)
         self._configButton.set_sensitive(False)
 
+        new_devices = self.get_new_devices()
+
         # Now it's time to populate the accordion.
         log.debug("ui: devices=%s", [d.name for d in self._devices])
         log.debug("ui: unused=%s", [d.name for d in self.unusedDevices])
-        log.debug("ui: new_devices=%s", [d.name for d in self.new_devices])
+        log.debug("ui: new_devices=%s", [d.name for d in new_devices])
 
         ui_roots = self._storage_playground.roots[:]
 
         # If we've not yet run autopart, add an instance of CreateNewPage.  This
         # ensures it's only added once.
-        if not self.new_devices:
+        if not new_devices:
             page = CreateNewPage(translated_new_install_name(),
                                  self.on_create_clicked,
                                  self._change_autopart_type,
@@ -464,11 +465,11 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
                     _("When you create mount points for your %(name)s %(version)s installation, you'll be able to view their details here.") %\
                             {"name" : productName, "version" : productVersion})
         else:
-            swaps = [d for d in self.new_devices if d.format.type == "swap"]
-            mounts = dict((d.format.mountpoint, d) for d in self.new_devices
+            swaps = [d for d in new_devices if d.format.type == "swap"]
+            mounts = dict((d.format.mountpoint, d) for d in new_devices
                                 if getattr(d.format, "mountpoint", None))
 
-            for device in self.new_devices:
+            for device in new_devices:
                 if device in self.bootLoaderDevices:
                     mounts[device.format.type] = device
 
