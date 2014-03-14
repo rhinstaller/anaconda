@@ -480,9 +480,9 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         for root in ui_roots:
             # Don't make a page if none of the root's devices are left.
             # Also, only include devices in an old page if the format is intact.
-            if not [d for d in root.swaps + root.mounts.values()
+            if not any(d for d in root.swaps + root.mounts.values()
                         if d in self._devices and d.disks and
-                           (root.name == translated_new_install_name() or d.format.exists)]:
+                           (root.name == translated_new_install_name() or d.format.exists)):
                 continue
 
             page = Page(root.name)
