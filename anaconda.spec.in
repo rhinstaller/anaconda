@@ -259,6 +259,12 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Fri Mar 14 2014 Brian C. Lane <bcl@redhat.com> - 19.31.68-1
+- Revert "Refresh after checkbox clicked (amulhern)"
+  Related: rhbz#1074188
+- Wait for other threads to finish before sending ready (bcl)
+  Resolves: rhbz#1075103
+
 * Tue Mar 11 2014 Brian C. Lane <bcl@redhat.com> - 19.31.67-1
 - driver-updates: accept burned driver discs (wwoods)
   Resolves: rhbz#1073719
