@@ -145,7 +145,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         self._current_selector = None
         self._devices = []
         self._error = None
-        self._media_disks = []
+        self._hidden_disks = []
         self._fs_types = []             # list of supported fstypes
         self._free_space = Size(bytes=0)
 
@@ -166,10 +166,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
     def apply(self):
         self.clear_errors()
 
-        # unhide any removable install media we hid prior to partitioning
-        with ui_storage_logger():
-            for disk in reversed(self._media_disks):
-                self._storage_playground.devicetree.unhide(disk)
+        self._unhide_unusable_disks()
 
         new_swaps = (dev for dev in self.new_devices if dev.format.type == "swap")
         self.storage.setFstabSwaps(new_swaps)
@@ -344,19 +341,23 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         self._summaryLabel.set_text(summary)
         self._summaryLabel.set_use_underline(True)
 
+    def _hide_unusable_disks(self):
+        self._hidden_disks = []
+
+        with ui_storage_logger():
+            for disk in self._storage_playground.disks:
+                if (disk.removable and disk.protected) or not disk.mediaPresent:
+                    # hide removable disks containing install media
+                    self._hidden_disks.append(disk)
+                    self._storage_playground.devicetree.hide(disk)
+
+    def _unhide_unusable_disks(self):
+        for disk in reversed(self._hidden_disks):
+            self._storage_playground.devicetree.unhide(disk)
+
     def _reset_storage(self):
         self._storage_playground = self.storage.copy()
-        self._media_disks = []
-
-        for disk in self._storage_playground.disks:
-            if disk.removable and disk.protected:
-                # hide removable disks containing install media
-                self._media_disks.append(disk)
-                self._storage_playground.devicetree.hide(disk)
-            elif not disk.mediaPresent:
-                # hide disks that have no media
-                self._storage_playground.devicetree.hide(disk)
-
+        self._hide_unusable_disks()
         self._devices = self._storage_playground.devices
 
     def refresh(self):
