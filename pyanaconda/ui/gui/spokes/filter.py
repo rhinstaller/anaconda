@@ -619,7 +619,7 @@ class FilterSpoke(NormalSpoke):
         elif not self._store[itr][1] and self._store[itr][3] in self.selected_disks:
             self.selected_disks.remove(self._store[itr][3])
 
-        self.refresh()
+        self._update_summary()
 
     def on_add_iscsi_clicked(self, widget, *args):
         dialog = ISCSIDialog(self.data, self.storage)
