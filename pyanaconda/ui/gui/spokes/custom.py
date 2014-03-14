@@ -430,17 +430,9 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
 
         return new_devices
 
-    def _do_refresh(self, mountpointToShow=None):
-        # block mountpoint selector signal handler for now
-        self._initialized = False
-        self._clear_current_selector()
-
-        # Make sure we start with a clean slate.
+    def _populate_accordion(self):
+        # Make sure we start with a clean state.
         self._accordion.removeAllPages()
-
-        # Start with buttons disabled, since nothing is selected.
-        self._removeButton.set_sensitive(False)
-        self._configButton.set_sensitive(False)
 
         new_devices = self.get_new_devices()
 
@@ -461,9 +453,10 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
             self._accordion.addPage(page, cb=self.on_page_clicked)
 
             self._partitionsNotebook.set_current_page(NOTEBOOK_LABEL_PAGE)
-            self._whenCreateLabel.set_text(
-                    _("When you create mount points for your %(name)s %(version)s installation, you'll be able to view their details here.") %\
-                            {"name" : productName, "version" : productVersion})
+            self._whenCreateLabel.set_text(_("When you create mount points for "
+                    "your %(name)s %(version)s installation, you'll be able to "
+                    "view their details here.") % {"name" : productName,
+                                                   "version" : productVersion})
         else:
             swaps = [d for d in new_devices if d.format.type == "swap"]
             mounts = dict((d.format.mountpoint, d) for d in new_devices
@@ -517,6 +510,18 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
 
             page.show_all()
             self._accordion.addPage(page, cb=self.on_page_clicked)
+
+    def _do_refresh(self, mountpointToShow=None):
+        # block mountpoint selector signal handler for now
+        self._initialized = False
+        self._clear_current_selector()
+
+        # Start with buttons disabled, since nothing is selected.
+        self._removeButton.set_sensitive(False)
+        self._configButton.set_sensitive(False)
+
+        # populate the accorion with roots and mount points
+        self._populate_accordion()
 
         # And then open the first page by default.  Most of the time, this will
         # be fine since it'll be the new installation page.
