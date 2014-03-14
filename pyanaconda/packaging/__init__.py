@@ -699,6 +699,9 @@ class PackagePayload(Payload):
 
     @property
     def kernelPackages(self):
+        if "kernel" in self.data.packages.excludedList:
+            return []
+
         kernels = ["kernel"]
 
         if isys.isPaeAvailable():

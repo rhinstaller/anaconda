@@ -156,6 +156,8 @@ def doInstall(storage, payload, ksdata, instClass):
     # system is bootable and configurable, and some other packages in order
     # to finish setting up the system.
     packages = storage.packages + ["authconfig", "firewalld"] + ksdata.realm.packages
+    if not ksdata.bootloader.disabled:
+        packages += storage.bootloader.packages
 
     # don't try to install packages from the install class' ignored list
     packages = [p for p in packages if p not in instClass.ignoredPackages]
@@ -169,7 +171,7 @@ def doInstall(storage, payload, ksdata, instClass):
         payload.postInstall()
 
     # Do bootloader.
-    if not flags.flags.dirInstall:
+    if not flags.flags.dirInstall and not ksdata.bootloader.disabled:
         with progress_report(_("Installing bootloader")):
             writeBootLoader(storage, payload, instClass, ksdata)
 
