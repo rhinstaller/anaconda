@@ -80,7 +80,7 @@ from pyanaconda.ui.gui.spokes.lib.custom_storage_helpers import get_container_ty
 from pyanaconda.ui.gui.spokes.lib.custom_storage_helpers import AddDialog, ConfirmDeleteDialog, DisksDialog, ContainerDialog, HelpDialog
 
 from pyanaconda.ui.gui.utils import setViewportBackground, enlightbox, fancy_set_sensitive, ignoreEscape
-from pyanaconda.ui.gui.utils import really_hide, really_show, fire_gtk_action
+from pyanaconda.ui.gui.utils import really_hide, really_show, GtkActionList
 from pyanaconda.ui.gui.categories.system import SystemCategory
 
 from gi.repository import Gdk, Gtk
@@ -268,6 +268,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
 
     def _initialize(self):
         self._fs_types = []
+        actions = GtkActionList()
         for cls in device_formats.itervalues():
             obj = cls()
 
@@ -278,8 +279,10 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
                             (isinstance(obj, FS) or
                              obj.type in ["biosboot", "prepboot", "swap"]))
             if supported_fs:
-                fire_gtk_action(self._fsCombo.append_text, obj.name)
+                actions.add_action(self._fsCombo.append_text, obj.name)
                 self._fs_types.append(obj.name)
+
+        actions.fire()
 
     @property
     def _clearpartDevices(self):
