@@ -556,7 +556,10 @@ class FilterSpoke(NormalSpoke):
         if not path:
             return
 
-        itr = self._store.get_iter(path)
+        page_index = self._notebook.get_current_page()
+        filter_model = self.pages[page_index].model
+        model_itr = filter_model.get_iter(path)
+        itr = filter_model.convert_iter_to_child_iter(model_itr)
         self._store[itr][1] = not self._store[itr][1]
 
         if self._store[itr][1] and self._store[itr][3] not in self.selected_disks:
