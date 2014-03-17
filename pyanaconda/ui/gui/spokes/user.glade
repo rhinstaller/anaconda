@@ -8,6 +8,11 @@
     <property name="hexpand">True</property>
     <property name="vexpand">True</property>
     <property name="window_name" translatable="yes">CREATE USER</property>
+    <child internal-child="accessible">
+      <object class="AtkObject" id="userCreationWindow-atkobject">
+        <property name="AtkObject::accessible-name" translatable="yes">CREATE USER</property>
+      </object>
+    </child>
     <signal name="button-clicked" handler="on_back_clicked" swapped="no"/>
     <child internal-child="main_box">
       <object class="GtkBox" id="AnacondaSpokeWindow-main_box1">
@@ -99,6 +104,11 @@
                         <property name="can_focus">True</property>
                         <property name="invisible_char">●</property>
                         <property name="caps_lock_warning">False</property>
+                        <child internal-child="accessible">
+                          <object class="AtkObject" id="t_fullname-atkobject">
+                            <property name="AtkObject::accessible-name" translatable="yes">Full Name</property>
+                          </object>
+                        </child>
                         <signal name="changed" handler="full_name_changed" swapped="no"/>
                       </object>
                       <packing>
@@ -113,6 +123,11 @@
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
                         <property name="invisible_char">●</property>
+                        <child internal-child="accessible">
+                          <object class="AtkObject" id="t_username-atkobject">
+                            <property name="AtkObject::accessible-name" translatable="yes">Username</property>
+                          </object>
+                        </child>
                         <signal name="changed" handler="username_changed" swapped="no"/>
                       </object>
                       <packing>
@@ -168,6 +183,11 @@
                         <property name="can_focus">True</property>
                         <property name="visibility">False</property>
                         <property name="invisible_char">●</property>
+                        <child internal-child="accessible">
+                          <object class="AtkObject" id="t_password-atkobject">
+                            <property name="AtkObject::accessible-name" translatable="yes">Password</property>
+                          </object>
+                        </child>
                         <signal name="changed" handler="password_changed" swapped="no"/>
                       </object>
                       <packing>
@@ -183,6 +203,11 @@
                         <property name="can_focus">True</property>
                         <property name="visibility">False</property>
                         <property name="invisible_char">●</property>
+                        <child internal-child="accessible">
+                          <object class="AtkObject" id="t_verifypassword-atkobject">
+                            <property name="AtkObject::accessible-name" translatable="yes">Confirm Password</property>
+                          </object>
+                        </child>
                       </object>
                       <packing>
                         <property name="left_attach">1</property>
