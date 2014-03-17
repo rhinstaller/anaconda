@@ -43,6 +43,7 @@ dist_check_SCRIPTS = glade/accelerators/check_accelerators.py \
 		     glade/format_string/check_format_string.py \
 		     glade/run_glade_tests.sh \
 		     $(srcdir)/lib/*.py \
+		     $(srcdir)/lib/*.sh \
 		     nosetests.sh \
 		     pylint/intl.py \
 		     pylint/preconf.py \

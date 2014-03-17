@@ -34,6 +34,8 @@ if [ -z "$top_srcdir" ]; then
     . ${top_srcdir}/tests/testenv.sh
 fi
 
+. ${top_srcdir}/tests/lib/testlib.sh
+
 srcdir="${top_srcdir}/tests/pylint"
 builddir="${top_builddir}/tests/pylint"
 
@@ -96,16 +98,11 @@ fi
 # run pylint one file / module at a time, otherwise it sometimes gets
 # confused
 if [ -z "$FILES" ]; then
-    # Find any file in the git working tree that either ends in .py
-    # or contains #!/usr/bin/python in the first line.
-    # Scan everything except old_tests
-    for testfile in $(git ls-files -c "${top_srcdir}" | egrep -v '(^|/)old_tests/') ; do
-        if [ -f "${testfile}" ] && \
-                ( [ "${testfile%.py}" != "${testfile}" ] || \
-                  head -1 "${testfile}" | grep -q '^#!/usr/bin/python' ) ; then
-            FILES="$FILES $testfile"
-        fi
-    done
+    # Test any file that either ends in .py or contains #!/usr/bin/python in
+    # the first line.  Scan everything except old_tests
+    FILES=$(findtestfiles \( -name '*.py' -o \
+                -exec /bin/sh -c "head -1 {} | grep -q '#!/usr/bin/python'" \; \) -print | \
+            egrep -v '(|/)old_tests/')
 fi
 
 num_cpus=$(getconf _NPROCESSORS_ONLN)

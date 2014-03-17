@@ -3,6 +3,7 @@
 : "${top_srcdir:=$(dirname "$0")/../..}"
 . "${top_srcdir}/tests/testenv.sh"
 srcdir="${top_srcdir}/tests/glade"
+. "${top_srcdir}/tests/lib/testlib.sh"
 
 # If --translated was specified but not --podir, add --podir
 translate_set=0
@@ -21,7 +22,7 @@ fi
 
 status=0
 for check in ${srcdir}/*/check_*.py ; do
-    find "${top_srcdir}" -name '*.glade' | xargs "${check}" "$@"
+    findtestfiles -name '*.glade' | xargs "${check}" "$@"
     if [ "$?" -ne 0 ]; then
         status=1
     fi

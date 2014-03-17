@@ -6,6 +6,8 @@ if [ -z "$top_srcdir" ]; then
     . ${top_srcdir}/tests/testenv.sh
 fi
 
+. ${top_srcdir}/tests/lib/testlib.sh
+
 if ! type cppcheck > /dev/null 2>&1 ; then
     echo "cppcheck must be installed"
     exit 99
@@ -13,10 +15,11 @@ fi
 
 # If files were specified on the command line, use those. Otherwise, look
 # for all .c files
+filelist=
 if [ "$#" -gt 0 ]; then
     filelist="$@"
 else
-    filelist="$(find "$top_srcdir" -name '*.c')"
+    filelist=$(findtestfiles -name '*.c')
 fi
 
 # Disable unusedFunction in widgets since everything will show up as unused

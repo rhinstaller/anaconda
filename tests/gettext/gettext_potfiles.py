@@ -11,52 +11,55 @@ if "top_srcdir" not in os.environ:
     # This return code tells the automake test driver that the test setup failed
     sys.exit(99)
 
+# Ensure that tests/lib is in sys.path
+testlibpath = os.path.abspath(os.path.join(os.environ["top_srcdir"], "tests/lib"))
+if testlibpath not in sys.path:
+    sys.path.append(testlibpath)
+
+from filelist import testfilelist
+
 success = True
 
-def check_potfiles(checklist, dirname, names):
+def check_potfile(checkfile, potlist):
     global success
 
-    potcheckfiles = []
+    potcheckfile = None
+    if checkfile.endswith(".py"):
+        # Check whether the file imports the i18n module
+        if subprocess.call(["grep", "-q", "^from pyanaconda.i18n import", checkfile]) == 0:
+            potcheckfile = checkfile
+    elif checkfile.endswith(".c"):
+        # Check whether the file includes intl.h
+        if subprocess.call(["grep", "-q", "#include .intl\\.h.", checkfile]) == 0:
+            potcheckfile = checkfile
+    elif checkfile.endswith(".glade"):
+        # Look for a "translatable=yes" attribute
+        if ET.parse(checkfile).findall(".//*[@translatable='yes']"):
+            potcheckfile = checkfile
+    elif checkfile.endswith(".desktop.in"):
+        # These are handled by intltool, make sure the .h version is present
+        potcheckfile = checkfile + ".h"
 
-    # Skip the .git directory
-    if ".git" in names:
-        names.remove(".git")
+    if not potcheckfile:
+        return
 
-    # Strip the "./" component from the path name
-    dirname = os.path.relpath(dirname, ".")
+    # Compute the path relative to top_srcdir
+    potcheckfile = os.path.relpath(potcheckfile, os.environ["top_srcdir"])
 
-    for checkfile in (os.path.join(dirname, name) for name in names):
-        if checkfile.endswith(".py"):
-            # Check whether the file imports the i18n module
-            if subprocess.call(["grep", "-q", "^from pyanaconda.i18n import", checkfile]) == 0:
-                potcheckfiles.append(checkfile)
-        elif checkfile.endswith(".c"):
-            # Check whether the file includes intl.h
-            if subprocess.call(["grep", "-q", "#include .intl\\.h.", checkfile]) == 0:
-                potcheckfiles.append(checkfile)
-        elif checkfile.endswith(".glade"):
-            # Look for a "translatable=yes" attribute
-            if ET.parse(checkfile).findall(".//*[@translatable='yes']"):
-                potcheckfiles.append(checkfile)
-        elif checkfile.endswith(".desktop.in"):
-            # These are handled by intltool, make sure the .h version is present
-            potcheckfiles.append(checkfile + ".h")
-
-    difference = set(potcheckfiles) - checklist
-    for missing in difference:
-        sys.stderr.write("%s not in POTFILES.in\n" % missing)
+    if potcheckfile not in potlist:
+        sys.stderr.write("%s not in POTFILES.in\n" % potcheckfile)
         success = False
 
 # Read in POTFILES.in, skip comments and blank lines
-POTFILES = []
+POTFILES = set()
 with open(os.path.join(os.environ["top_srcdir"], "po", "POTFILES.in")) as f:
     for line in (line.strip() for line in f):
         if line and not line.startswith("#"):
-            POTFILES.append(line)
+            POTFILES.add(line)
 
 # Walk the source tree and look for files with translatable strings
-os.chdir(os.environ["top_srcdir"])
-os.path.walk(".", check_potfiles, set(POTFILES))
+for testfile in testfilelist():
+    check_potfile(testfile, POTFILES)
 
 if not success:
     sys.exit(1)
