@@ -76,6 +76,10 @@ class Anaconda(object):
         # *sigh* we still need to be able to write this out
         self.xdriver = None
 
+        # Data for inhibiting the screensaver
+        self.dbus_session_connection = None
+        self.dbus_inhibit_id = None
+
     @property
     def bootloader(self):
         if not self._bootloader:

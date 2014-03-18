@@ -20,12 +20,15 @@
 
 """Module providing thread-safe and mainloop-safe DBus operations."""
 
+import os
 from gi.repository import GLib, Gio
 from pyanaconda.constants import DEFAULT_DBUS_TIMEOUT
 
 DBUS_PROPS_IFACE = "org.freedesktop.DBus.Properties"
 DBUS_SYSTEM_BUS_ADDR = Gio.dbus_address_get_for_bus_sync(Gio.BusType.SYSTEM,
                                                          None)
+DBUS_SESSION_BUS_ADDR = Gio.dbus_address_get_for_bus_sync(Gio.BusType.SESSION,
+                                                          None)
 
 class SafeDBusError(Exception):
     """Class for exceptions defined in this module."""
@@ -131,3 +134,44 @@ def dbus_get_property_safe_sync(service, obj_path, iface, prop_name,
         raise DBusPropertyError(msg)
 
     return ret
+
+def dbus_get_session_connection():
+    """
+    Get a connection handle for the per-user-login-session message bus.
+
+    !!! RUN THIS EARLY !!! like, before any other threads start. Connections to
+    the session bus must be made with the effective UID of the login user,
+    which in live installs is not the UID of anaconda. This means we need to
+    call seteuid in this method, and doing that after threads have started will
+    probably do something weird.
+
+    Live installs use consolehelper to run as root, which sets the original
+    UID in $USERHELPER_UID.
+
+    :return: the session connection handle
+    :rtype: Gio.DBusConnection
+    :raise DBusCallError: if some DBus related error appears
+    :raise OSError: if unable to set the effective UID
+    """
+
+    old_euid = None
+    if "USERHELPER_UID" in os.environ:
+        old_euid = os.geteuid()
+        os.seteuid(int(os.environ["USERHELPER_UID"]))
+
+    try:
+        connection = Gio.DBusConnection.new_for_address_sync(
+                       DBUS_SESSION_BUS_ADDR,
+                       Gio.DBusConnectionFlags.AUTHENTICATION_CLIENT|
+                       Gio.DBusConnectionFlags.MESSAGE_BUS_CONNECTION,
+                       None, None)
+    except GLib.GError as gerr:
+        raise DBusCallError("Unable to connect to session bus: %s", gerr)
+    finally:
+        if old_euid is not None:
+            os.seteuid(old_euid)
+
+    if connection.is_closed():
+        raise DBusCallError("Connection is closed")
+
+    return connection

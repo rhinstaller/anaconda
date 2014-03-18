@@ -78,6 +78,11 @@ def exitHandler(rebootData, storage, exitCode=None):
                 loop.controllable = True
             dev.deactivate(recursive=True)
 
+    if anaconda.dbus_inhibit_id:
+        from pyanaconda.screensaver import uninhibit_screensaver
+        uninhibit_screensaver(anaconda.dbus_session_connection, anaconda.dbus_inhibit_id)
+        anaconda.dbus_inhibit_id = None
+
     if not flags.imageInstall and not flags.livecdInstall \
        and not flags.dirInstall:
         from pykickstart.constants import KS_SHUTDOWN, KS_WAIT
@@ -862,7 +867,17 @@ if __name__ == "__main__":
         flags.noverifyssl = True
 
     if opts.liveinst:
+        from pyanaconda.safe_dbus import dbus_get_session_connection, DBusCallError
+        from pyanaconda.screensaver import inhibit_screensaver
+
         flags.livecdInstall = True
+
+        try:
+            anaconda.dbus_session_connection = dbus_get_session_connection()
+        except DBusCallError as e:
+            log.info("Unable to connect to DBus session bus: %s", e)
+        else:
+            anaconda.dbus_inhibit_id = inhibit_screensaver(anaconda.dbus_session_connection)
 
     if opts.module:
         for mod in opts.module:
