@@ -161,7 +161,11 @@ class BootArgs(OrderedDict):
                 key = i
                 val = None
 
-            self[key] = val
+            # Duplicate args create a space separated string
+            if key in self:
+                self[key] = self[key] + " " + val
+            else:
+                self[key] = val
 
     def getbool(self, arg, default=False):
         """
