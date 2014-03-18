@@ -114,7 +114,6 @@ Requires: python-nss
 Requires: pytz
 Requires: realmd
 Requires: teamd
-Requires: libtimezonemap >= %{libtimezonemapver}
 %ifarch %livearches
 Requires: usermode
 %endif
@@ -168,6 +167,7 @@ Requires: system-logos
 Requires: tigervnc-server-minimal
 Requires: libxklavier >= %{libxklavierver}
 Requires: libgnomekbd
+Requires: libtimezonemap >= %{libtimezonemapver}
 Requires: nm-connection-editor
 %ifarch %livearches
 Requires: zenity
