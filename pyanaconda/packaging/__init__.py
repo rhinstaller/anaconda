@@ -538,9 +538,25 @@ class Payload(object):
         """ Perform pre-installation tasks. """
         iutil.mkdirChain(ROOT_PATH + "/root")
 
+        self._writeModuleBlacklist()
+
     def install(self):
         """ Install the payload. """
         raise NotImplementedError()
+
+    def _writeModuleBlacklist(self):
+        """ Copy modules from modprobe.blacklist=<module> on cmdline to
+            /etc/modprobe.d/anaconda-blacklist.conf so that modules will
+            continue to be blacklisted when the system boots.
+        """
+        if "modprobe.blacklist" not in flags.cmdline:
+            return
+
+        iutil.mkdirChain(ROOT_PATH + "/etc/modprobe.d")
+        with open(ROOT_PATH + "/etc/modprobe.d/anaconda-blacklist.conf", "w") as f:
+            f.write("# Module blacklists written by anaconda\n")
+            for module in flags.cmdline["modprobe.blacklist"].split():
+                f.write("blacklist %s\n" % module)
 
     def _copyDriverDiskFiles(self):
         import glob
