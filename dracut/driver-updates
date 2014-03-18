@@ -515,6 +515,8 @@ def select_drivers(drivers):
         :type drivers:  list of Driver objects
         :returns:       None
     """
+    if not drivers:
+        return
 
     selection_menu(drivers, "Select drivers to install",
                    lambda driver: driver.source)
@@ -592,7 +594,7 @@ def network_driver(dd_path):
     # TODO: May need to add new drivers to /tmp/dd_modules to prevent them from being unloaded
 
     # Scan for new OEMDRV devices and ignore dd_args
-    dd_scan(skip_dds, False)
+    dd_scan(skip_dds, scan_dd_args=False, skip_device_menu=True)
 
 class DeviceInfo(object):
     def __init__(self, **kwargs):
@@ -706,7 +708,7 @@ def select_iso():
 
     return (os.path.join(mnt, dd_iso), "/media/DD-search")
 
-def dd_scan(skip_dds=None, scan_dd_args=True):
+def dd_scan(skip_dds=None, scan_dd_args=True, skip_device_menu=False):
     """ Scan the system for OEMDRV devices and and specified by dd=/dev/<device>
 
         :param skip_dds:     devices to skip when checking for OEMDRV label
@@ -737,7 +739,7 @@ def dd_scan(skip_dds=None, scan_dd_args=True):
     skip_dds.update(dd_finished)
 
     # Skip interactive selection of an iso if OEMDRV was found
-    if skip_dds or not is_interactive():
+    if skip_dds or skip_device_menu or not is_interactive():
         return
 
     # Handle interactive driver selection
@@ -801,9 +803,10 @@ if __name__ == '__main__':
         # process cmdline dd entries. This will process any OEMDRV that
         # appear after loading the other drivers.
         skip_devices = set(oemdrv_list())
-        dd_scan(skip_devices)
+        dd_scan(skip_devices, skip_device_menu=True)
     else:
         # Process /tmp/dd_args and OEMDRV devices
+        # Show device selection menu when inst.dd passed and no OEMDRV devices
         dd_scan()
 
     sys.exit(0)
