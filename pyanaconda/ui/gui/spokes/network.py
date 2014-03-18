@@ -855,6 +855,7 @@ class NetworkControlBox(GObject.GObject):
                 vlanid = dev_cfg.device.get_vlan_id()
             else:
                 vlanid = dev_cfg.setting_value("vlan", "id")
+            parent = dev_cfg.setting_value("vlan", "parent")
             self._set_device_info_value("wired", "vlanid", str(vlanid))
             self._set_device_info_value("wired", "parent", parent)
 
