@@ -8,6 +8,7 @@ Type=oneshot
 RemainAfterExit=no
 WorkingDirectory=/tmp
 Environment=LANG=en_US.UTF-8
+ExecStartPre=-/bin/plymouth quit
 ExecStart=/bin/driver-updates
 StandardInput=tty-force
 StandardOutput=inherit

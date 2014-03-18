@@ -20,5 +20,4 @@ if [ -n "$dd_args" -o $blkid_rc -eq 0 ]; then
     sleep 5
     echo "$dd_args" > /tmp/dd_args
     start_driver_update "Driver Update Disk"
-    rm /tmp/dd_args
 fi
