@@ -259,6 +259,10 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Mar 18 2014 Brian C. Lane <bcl@redhat.com> - 19.31.69-1
+- Convert iter from filter model iter to backing store iter (amulhern)
+  Resolves: rhbz#1074188
+
 * Fri Mar 14 2014 Brian C. Lane <bcl@redhat.com> - 19.31.68-1
 - Revert "Refresh after checkbox clicked (amulhern)"
   Related: rhbz#1074188
