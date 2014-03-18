@@ -77,3 +77,31 @@ class SummaryHub(TUIHub):
         # override the default prompt since we want to offer the 'b' to begin
         # installation option here
         return _("  Please make your choice from above ['q' to quit | 'b' to begin installation |\n  'r' to refresh]: ")
+
+    def input(self, args, key):
+        """Handle user input. Numbers are used to show a spoke, the rest is passed
+        to the higher level for processing."""
+        try:
+            number = int(key)
+            self.app.switch_screen_with_return(self._keys[number])
+            return None
+
+        except (ValueError, KeyError):
+            # If we get a continue, check for unfinished spokes.  If unfinished
+            # don't continue
+            # TRANSLATORS: 'b' to begin installation
+            if key == _('b'):
+                for spoke in self._spokes.values():
+                    if not spoke.completed and spoke.mandatory:
+                        print(_("Please complete all spokes before continuing"))
+                        return False
+                if self.app._screens:
+                    self.app.close_screen()
+                    return True
+            # TRANSLATORS: 'c' to continue
+            elif key == _('c'):
+                # Kind of a hack, but we want to ignore if anyone presses 'c'
+                # which is the global TUI key to close the current screen
+                return False
+            else:
+                super(SummaryHub, self).input(args, key)
