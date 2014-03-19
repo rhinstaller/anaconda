@@ -30,6 +30,7 @@ from pyanaconda.ui.gui import GUIObject
 from pyanaconda.ui.gui.spokes import NormalSpoke
 from pyanaconda.ui.gui.categories.localization import LocalizationCategory
 from pyanaconda.ui.gui.utils import enlightbox, gtk_action_nowait, gtk_call_once
+from pyanaconda.ui.helpers import GUIDialogInputCheckHandler, InputCheck
 
 from pyanaconda.i18n import _, CN_
 from pyanaconda.timezone import NTP_SERVICE, get_all_regions_and_timezones, is_valid_timezone
@@ -111,13 +112,14 @@ def _compare_cities(city_xlated1, city_xlated2):
         # compare prefixes
         return locale_mod.strcoll(prefix1, prefix2)
 
-class NTPconfigDialog(GUIObject):
+class NTPconfigDialog(GUIObject, GUIDialogInputCheckHandler):
     builderObjects = ["ntpConfigDialog", "addImage", "serversStore"]
     mainWidgetName = "ntpConfigDialog"
     uiFile = "spokes/datetime_spoke.glade"
 
     def __init__(self, *args):
         GUIObject.__init__(self, *args)
+        GUIDialogInputCheckHandler.__init__(self)
 
         #epoch is increased when serversStore is repopulated
         self._epoch = 0
@@ -164,6 +166,12 @@ class NTPconfigDialog(GUIObject):
         self._serverEntry = self.builder.get_object("serverEntry")
         self._serversStore = self.builder.get_object("serversStore")
 
+        self._addButton = self.builder.get_object("addButton")
+
+        # Validate the server entry box
+        self._serverCheck = self.add_check(self._serverEntry, self._validateServer)
+        self._serverCheck.update_check_status()
+
         self._initialize_store_from_config()
 
     def _initialize_store_from_config(self):
@@ -178,6 +186,27 @@ class NTPconfigDialog(GUIObject):
                     self._add_server(server)
             except ntp.NTPconfigError:
                 log.warning("Failed to load NTP servers configuration")
+
+    def _validateServer(self, inputcheck):
+        server = self.get_input(inputcheck.input_obj)
+
+        # If not set, fail the check to keep the button insensitive, but don't
+        # display an error
+        if not server:
+            return InputCheck.CHECK_SILENT
+
+        (valid, error) = network.sanityCheckHostname(server)
+        if not valid:
+            return "'%s' is not a valid hostname: %s" % (server, error)
+        else:
+            return InputCheck.CHECK_OK
+
+    def set_status(self, inputcheck):
+        # Use GUIDialogInputCheckHandler to set the error message
+        GUIDialogInputCheckHandler.set_status(self, inputcheck)
+
+        # Set the sensitivity of the add button based on the result
+        self._addButton.set_sensitive(inputcheck.check_status == InputCheck.CHECK_OK)
 
     def refresh(self):
         self._serverEntry.grab_focus()
@@ -277,11 +306,6 @@ class NTPconfigDialog(GUIObject):
 
         """
 
-        (valid, error) = network.sanityCheckHostname(server)
-        if not valid:
-            log.error("'%s' is not a valid hostname: %s", server, error)
-            return
-
         for row in self._serversStore:
             if row[0] == server:
                 #do not add duplicate items
@@ -293,12 +317,13 @@ class NTPconfigDialog(GUIObject):
         self._refresh_server_working(itr)
 
     def on_entry_activated(self, entry, *args):
-        self._add_server(entry.get_text())
-        entry.set_text("")
+        # Check that the input check has passed
+        if self._serverCheck.check_status == InputCheck.CHECK_OK:
+            self._add_server(entry.get_text())
+            entry.set_text("")
 
     def on_add_clicked(self, *args):
-        self._add_server(self._serverEntry.get_text())
-        self._serverEntry.set_text("")
+        self._serverEntry.emit("activate")
 
     def on_use_server_toggled(self, renderer, path, *args):
         itr = self._serversStore.get_iter(path)
