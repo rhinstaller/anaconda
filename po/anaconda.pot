@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: anaconda 19.31.68\n"
+"Project-Id-Version: anaconda 19.31.69\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
-"POT-Creation-Date: 2014-03-18 16:44-0700\n"
+"POT-Creation-Date: 2014-03-19 11:10-0700\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -668,22 +668,24 @@ msgid ""
 "  'r' to refresh]: "
 msgstr ""
 
-#: pyanaconda/ui/tui/hubs/__init__.py:42
-msgid "Default HUB title"
-msgstr ""
-
 #. TRANSLATORS: 'b' to begin installation
-#: pyanaconda/ui/tui/hubs/__init__.py:109
+#: pyanaconda/ui/tui/hubs/summary.py:93
 msgid "b"
 msgstr ""
 
-#: pyanaconda/ui/tui/hubs/__init__.py:112
+#: pyanaconda/ui/tui/hubs/summary.py:96 pyanaconda/ui/tui/hubs/__init__.py:112
 msgid "Please complete all spokes before continuing"
 msgstr ""
 
-#: pyanaconda/ui/tui/hubs/__init__.py:119
+#. TRANSLATORS: 'c' to continue
+#: pyanaconda/ui/tui/hubs/summary.py:102
+#: pyanaconda/ui/tui/hubs/__init__.py:109
 #: pyanaconda/ui/tui/simpleline/base.py:454
 msgid "c"
+msgstr ""
+
+#: pyanaconda/ui/tui/hubs/__init__.py:42
+msgid "Default HUB title"
 msgstr ""
 
 #: pyanaconda/ui/tui/tuiobject.py:29

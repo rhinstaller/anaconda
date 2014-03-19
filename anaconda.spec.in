@@ -259,6 +259,14 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Wed Mar 19 2014 Brian C. Lane <bcl@redhat.com> - 19.31.70-1
+- Write a modprobe blacklist (bcl)
+  Resolves: rhbz#1073130
+- Append cmdline arg values in BootArgs (bcl)
+  Related: rhbz#1073130
+- Only the Summary TUI hub wants to accept 'b' to continue (vpodzime)
+  Resolves: rhbz#1077546
+
 * Tue Mar 18 2014 Brian C. Lane <bcl@redhat.com> - 19.31.69-1
 - Convert iter from filter model iter to backing store iter (amulhern)
   Resolves: rhbz#1074188
