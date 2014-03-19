@@ -3,6 +3,15 @@
 <interface>
   <!-- interface-requires gtk+ 3.2 -->
   <!-- interface-requires AnacondaWidgets 1.0 -->
+  <object class="GtkListStore" id="mountPointStore">
+    <columns>
+      <!-- column-name path -->
+      <column type="gchararray"/>
+    </columns>
+  </object>
+  <object class="GtkEntryCompletion" id="mountPointCompletion">
+    <property name="model">mountPointStore</property>
+  </object>
   <object class="AnacondaSpokeWindow" id="customStorageWindow">
     <property name="can_focus">False</property>
     <property name="events">GDK_KEY_RELEASE_MASK | GDK_STRUCTURE_MASK</property>
