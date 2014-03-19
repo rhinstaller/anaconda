@@ -65,6 +65,8 @@ from pyanaconda.i18n import _
 import logging
 import copy
 
+from gi.repository import Gtk
+
 class StorageChecker(object):
     __metaclass__ = ABCMeta
 
@@ -381,6 +383,28 @@ class GUIInputCheckHandler(InputCheckHandler):
         checkRef = InputCheckHandler.add_check(self, input_obj, run_check, data)
         input_obj.connect_after("changed", self._update_check_status, checkRef)
         return checkRef
+
+class GUIDialogInputCheckHandler(GUIInputCheckHandler):
+    """Provide InputCheckHandler functionality for Gtk dialogs.
+
+       This class provides a helper method for setting an error message
+       on an entry field. Implementors of this class must still provide
+       a set_status method in order to control the sensitivty of widgets or
+       ignore activated signals.
+    """
+
+    __metaclass__ = ABCMeta
+
+    @abstractmethod
+    def set_status(self, inputcheck):
+        if inputcheck.check_status == InputCheck.CHECK_OK:
+            inputcheck.input_obj.set_icon_from_icon_name(Gtk.EntryIconPosition.SECONDARY, None)
+            inputcheck.input_obj.set_icon_tooltip_text(Gtk.EntryIconPosition.SECONDARY, "")
+        else:
+            inputcheck.input_obj.set_icon_from_icon_name(Gtk.EntryIconPosition.SECONDARY,
+                    "gtk-dialog-error")
+            inputcheck.input_obj.set_icon_tooltip_text(Gtk.EntryIconPosition.SECONDARY,
+                inputcheck.check_status)
 
 class GUISpokeInputCheckHandler(GUIInputCheckHandler):
     """Provide InputCheckHandler functionality for graphical spokes.
