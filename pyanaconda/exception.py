@@ -97,23 +97,6 @@ class AnacondaExceptionHandler(ExceptionHandler):
                              "The installer will now terminate.") % str(value)
             self.intf.messageWindow(_("Hardware error occured"), hw_error_msg)
             sys.exit(0)
-        elif (issubclass (ty, CmdlineError)):
-
-            cmdline_error_msg = _("\nThe installation was stopped due to "
-                                  "incomplete spokes detected while running "
-                                  "in non-interactive cmdline mode. Since there "
-                                  "can not be any questions in cmdline mode, "
-                                  "edit your kickstart file and retry "
-                                  "installation.\nThe exact error message is: "
-                                  "\n\n%s.\n\nThe installer will now terminate.") % str(value)
-
-            # since there is no UI in cmdline mode and it is completely
-            # non-interactive, we can't show a message window asking the user
-            # to acknowledge the error; instead, print the error out and sleep
-            # for a few seconds before exiting the installer
-            print(cmdline_error_msg)
-            time.sleep(10)
-            sys.exit(0)
         else:
             try:
                 from gi.repository import Gtk
@@ -143,11 +126,29 @@ class AnacondaExceptionHandler(ExceptionHandler):
                 # X not running (Gtk cannot be initialized)
                 if threadMgr.in_main_thread():
                     log.debug("In the main thread, running exception handler")
-                    print "An unknown error has occured, look at the "\
-                        "/tmp/anaconda-tb* file(s) for more details"
-                    # in the main thread, run exception handler
-                    super(AnacondaExceptionHandler, self).handleException(
-                                                            dump_info)
+                    if (issubclass (ty, CmdlineError)):
+
+                        cmdline_error_msg = _("\nThe installation was stopped due to "
+                                              "incomplete spokes detected while running "
+                                              "in non-interactive cmdline mode. Since there "
+                                              "can not be any questions in cmdline mode, "
+                                              "edit your kickstart file and retry "
+                                              "installation.\nThe exact error message is: "
+                                              "\n\n%s.\n\nThe installer will now terminate.") % str(value)
+
+                        # since there is no UI in cmdline mode and it is completely
+                        # non-interactive, we can't show a message window asking the user
+                        # to acknowledge the error; instead, print the error out and sleep
+                        # for a few seconds before exiting the installer
+                        print(cmdline_error_msg)
+                        time.sleep(10)
+                        sys.exit(0)
+                    else:
+                        print "An unknown error has occured, look at the "\
+                            "/tmp/anaconda-tb* file(s) for more details"
+                        # in the main thread, run exception handler
+                        super(AnacondaExceptionHandler, self).handleException(
+                                                                dump_info)
                 else:
                     log.debug("In a non-main thread, sending a message with "
                              "exception data")

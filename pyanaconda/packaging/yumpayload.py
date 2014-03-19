@@ -75,7 +75,7 @@ from blivet.size import Size
 import blivet.util
 import blivet.arch
 
-from pyanaconda.errors import ERROR_RAISE, errorHandler
+from pyanaconda.errors import ERROR_RAISE, errorHandler, CmdlineError
 from pyanaconda.packaging import DependencyError, MetadataError, NoNetworkError, NoSuchGroup, \
                                  NoSuchPackage, PackagePayload, PayloadError, PayloadInstallError, \
                                  PayloadSetupError
@@ -1187,7 +1187,13 @@ reposdir=%s
         if self.data.packages.handleMissing == KS_MISSING_IGNORE:
             return
 
-        if errorHandler.cb(exn, str(exn), adding) == ERROR_RAISE:
+        # If we're doing non-interactive ks install, raise CmdlineError,
+        # otherwise the system will just reboot automatically
+        if flags.automatedInstall and not flags.ksprompt:
+            errtxt = _("CmdlineError: Missing package: %s" %str(exn))
+            log.error(errtxt)
+            raise CmdlineError(errtxt)
+        elif errorHandler.cb(exn, str(exn), adding) == ERROR_RAISE:
             # The progress bar polls kind of slowly, thus installation could
             # still continue for a bit before the quit message is processed.
             # Let's sleep forever to prevent any further actions and wait for
