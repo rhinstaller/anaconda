@@ -70,11 +70,14 @@ def dbus_call_safe_sync(service, obj_path, iface, method, args,
     """
 
     if not connection:
-        connection = Gio.DBusConnection.new_for_address_sync(
-                       DBUS_SYSTEM_BUS_ADDR,
-                       Gio.DBusConnectionFlags.AUTHENTICATION_CLIENT|
-                       Gio.DBusConnectionFlags.MESSAGE_BUS_CONNECTION,
-                       None, None)
+        try:
+            connection = Gio.DBusConnection.new_for_address_sync(
+                           DBUS_SYSTEM_BUS_ADDR,
+                           Gio.DBusConnectionFlags.AUTHENTICATION_CLIENT|
+                           Gio.DBusConnectionFlags.MESSAGE_BUS_CONNECTION,
+                           None, None)
+        except GLib.GError as gerr:
+            raise DBusCallError("Unable to connect to system bus: %s", gerr)
 
     if connection.is_closed():
         raise DBusCallError("Connection is closed")
