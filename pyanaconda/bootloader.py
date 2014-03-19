@@ -2107,6 +2107,10 @@ class ZIPL(BootLoader):
 
     def write_config_images(self, config):
         for image in self.images:
+            if "kdump" in (image.initrd or image.kernel):
+                # no need to create bootloader entries for kdump
+                continue
+
             args = Arguments()
             if image.initrd:
                 initrd_line = "\tramdisk=%s/%s\n" % (self.boot_dir,
