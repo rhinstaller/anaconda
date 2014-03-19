@@ -24,7 +24,6 @@
 #            David Cantrell <dcantrell@redhat.com>
 #            Radek Vykydal <rvykydal@redhat.com>
 
-import string
 import shutil
 from pyanaconda import iutil
 import socket
@@ -45,6 +44,7 @@ from pyanaconda import nm
 from pyanaconda import constants
 from pyanaconda.flags import flags, can_touch_runtime_system
 from pyanaconda.i18n import _
+from pyanaconda.regexes import HOSTNAME_PATTERN_WITHOUT_ANCHORS
 
 from gi.repository import NetworkManager
 
@@ -58,10 +58,6 @@ hostnameFile = "/etc/hostname"
 ipv6ConfFile = "/etc/sysctl.d/anaconda.conf"
 ifcfgLogFile = "/tmp/ifcfg.log"
 DEFAULT_HOSTNAME = "localhost.localdomain"
-
-# part of a valid hostname between two periods (cannot start nor end with '-')
-# for more info about '(?!-)' and '(?<!-)' see 're' module documentation
-HOSTNAME_PART_RE = re.compile(r"(?!-)[A-Z\d-]{1,63}(?<!-)$", re.IGNORECASE)
 
 ifcfglog = None
 
@@ -109,17 +105,7 @@ def sanityCheckHostname(hostname):
     if len(hostname) > 255:
         return (False, _("Hostname must be 255 or fewer characters in length."))
 
-    validStart = string.ascii_letters + string.digits
-
-    if hostname[0] not in validStart:
-        return (False, _("Hostname must start with a valid character in the "
-                         "ranges 'a-z', 'A-Z', or '0-9'"))
-
-    if hostname.endswith("."):
-        # hostname can end with '.', but the regexp used below would not match
-        hostname = hostname[:-1]
-
-    if not all(HOSTNAME_PART_RE.match(part) for part in hostname.split(".")):
+    if not (re.match('^' + HOSTNAME_PATTERN_WITHOUT_ANCHORS + '$', hostname)):
         return (False, _("Hostnames can only contain the characters 'a-z', "
                          "'A-Z', '0-9', '-', or '.', parts between periods "
                          "must contain something and cannot start or end with "

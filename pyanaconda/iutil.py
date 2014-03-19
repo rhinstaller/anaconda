@@ -31,10 +31,11 @@ import string
 import types
 from threading import Thread
 from Queue import Queue, Empty
+from urllib import quote, unquote
 
 from pyanaconda.flags import flags
 from pyanaconda.constants import DRACUT_SHUTDOWN_EJECT, ROOT_PATH, TRANSLATIONS_UPDATE_DIR, UNSUPPORTED_HW
-from pyanaconda.regexes import PROXY_URL_PARSE
+from pyanaconda.regexes import URL_PARSE
 
 import logging
 log = logging.getLogger("anaconda")
@@ -481,37 +482,33 @@ class ProxyString(object):
         """
         # NOTE: If this changes, update tests/regex/proxy.py
         #
-        # proxy=[protocol://][username[:password]@]host[:port][path]
-        # groups
+        # proxy=[protocol://][username[:password]@]host[:port][path][?query][#fragment]
+        # groups (both named and numbered)
         # 1 = protocol
-        # 2 = username:password@
-        # 3 = username
-        # 4 = password
-        # 5 = hostname
-        # 6 = port
-        # 7 = extra
-        m = PROXY_URL_PARSE.match(self.url)
+        # 2 = username
+        # 3 = password
+        # 4 = host
+        # 5 = port
+        # 6 = path
+        # 7 = query
+        # 8 = fragment
+        m = URL_PARSE.match(self.url)
         if not m:
             raise ProxyStringError("malformed url, cannot parse it.")
 
         # If no protocol was given default to http.
-        if m.group(1):
-            self.protocol = m.group(1)
-        else:
-            self.protocol = "http://"
+        self.protocol = m.group("protocol") or "http://"
 
-        if m.group(3):
-            self.username = m.group(3)
+        if m.group("username"):
+            self.username = unquote(m.group("username"))
 
-        if m.group(4):
-            # Skip the leading colon
-            self.password = m.group(4)[1:]
+        if m.group("password"):
+            self.password = unquote(m.group("password"))
 
-        if m.group(5):
-            self.host = m.group(5)
-            if m.group(6):
-                # Skip the leading colon
-                self.port = m.group(6)[1:]
+        if m.group("host"):
+            self.host = m.group("host")
+            if m.group("port"):
+                self.port = m.group("port")
         else:
             raise ProxyStringError("url has no host component")
 
@@ -521,8 +518,8 @@ class ProxyString(object):
         """ Parse the components of a proxy url into url and noauth_url
         """
         if self.username or self.password:
-            self.proxy_auth = "%s:%s@" % (self.username or "",
-                                          self.password or "")
+            self.proxy_auth = "%s:%s@" % (quote(self.username) or "",
+                                          quote(self.password) or "")
 
         self.url = self.protocol + self.proxy_auth + self.host + ":" + self.port
         self.noauth_url = self.protocol + self.host + ":" + self.port
