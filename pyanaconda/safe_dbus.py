@@ -91,6 +91,11 @@ def dbus_call_safe_sync(service, obj_path, iface, method, args,
                        (method, obj_path, args, gerr.message)
         raise DBusCallError(msg)
 
+    if ret is None:
+        msg = "No return from %s method on %s with %s arguments" % \
+                       (method, obj_path, args)
+        raise DBusCallError(msg)
+
     return ret.unpack()
 
 def dbus_get_property_safe_sync(service, obj_path, iface, prop_name,
