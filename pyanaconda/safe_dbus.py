@@ -25,13 +25,6 @@ from gi.repository import GLib, Gio
 from pyanaconda.constants import DEFAULT_DBUS_TIMEOUT
 
 DBUS_PROPS_IFACE = "org.freedesktop.DBus.Properties"
-DBUS_SYSTEM_BUS_ADDR = Gio.dbus_address_get_for_bus_sync(Gio.BusType.SYSTEM,
-                                                         None)
-
-# This one is a method instead of a constant because getting the address
-# for the session attempts to run dbus-launch and can fail
-def _get_dbus_session_bus_addr():
-    return Gio.dbus_address_get_for_bus_sync(Gio.BusType.SESSION, None)
 
 class SafeDBusError(Exception):
     """Class for exceptions defined in this module."""
@@ -47,6 +40,15 @@ class DBusPropertyError(DBusCallError):
     """Class for the errors related to getting property values over DBus."""
 
     pass
+
+def dbus_get_new_system_bus_connection_sync():
+    """Return a new connection to the system bus."""
+
+    return Gio.DBusConnection.new_for_address_sync(
+        Gio.dbus_address_get_for_bus_sync(Gio.BusType.SYSTEM, None),
+        Gio.DBusConnectionFlags.AUTHENTICATION_CLIENT|
+        Gio.DBusConnectionFlags.MESSAGE_BUS_CONNECTION,
+        None, None)
 
 def dbus_call_safe_sync(service, obj_path, iface, method, args,
                         connection=None):
@@ -77,11 +79,7 @@ def dbus_call_safe_sync(service, obj_path, iface, method, args,
 
     if not connection:
         try:
-            connection = Gio.DBusConnection.new_for_address_sync(
-                           DBUS_SYSTEM_BUS_ADDR,
-                           Gio.DBusConnectionFlags.AUTHENTICATION_CLIENT|
-                           Gio.DBusConnectionFlags.MESSAGE_BUS_CONNECTION,
-                           None, None)
+            connection = dbus_get_new_system_bus_connection_sync()
         except GLib.GError as gerr:
             raise DBusCallError("Unable to connect to system bus: %s", gerr)
 
@@ -164,7 +162,7 @@ def dbus_get_session_connection():
 
     try:
         connection = Gio.DBusConnection.new_for_address_sync(
-                       _get_dbus_session_bus_addr(),
+                       Gio.dbus_address_get_for_bus_sync(Gio.BusType.SESSION, None),
                        Gio.DBusConnectionFlags.AUTHENTICATION_CLIENT|
                        Gio.DBusConnectionFlags.MESSAGE_BUS_CONNECTION,
                        None, None)

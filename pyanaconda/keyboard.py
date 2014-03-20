@@ -42,12 +42,12 @@ from collections import namedtuple
 
 from pyanaconda import iutil
 from pyanaconda import flags
-from pyanaconda.safe_dbus import dbus_call_safe_sync, dbus_get_property_safe_sync
-from pyanaconda.safe_dbus import DBUS_SYSTEM_BUS_ADDR, DBusPropertyError
+from pyanaconda.safe_dbus import dbus_call_safe_sync, dbus_get_property_safe_sync, dbus_get_new_system_bus_connection_sync
+from pyanaconda.safe_dbus import DBusPropertyError
 from pyanaconda.constants import DEFAULT_VC_FONT, DEFAULT_KEYBOARD, THREAD_XKL_WRAPPER_INIT
 from pyanaconda.threads import threadMgr, AnacondaThread
 
-from gi.repository import Gio, GLib
+from gi.repository import GLib
 
 import logging
 log = logging.getLogger("anaconda")
@@ -683,11 +683,7 @@ class LocaledWrapper(object):
     """
 
     def __init__(self):
-        self._connection = Gio.DBusConnection.new_for_address_sync(
-                             DBUS_SYSTEM_BUS_ADDR,
-                             Gio.DBusConnectionFlags.AUTHENTICATION_CLIENT|
-                             Gio.DBusConnectionFlags.MESSAGE_BUS_CONNECTION,
-                             None, None)
+        self._connection = dbus_get_new_system_bus_connection_sync()
 
     @property
     def keymap(self):
