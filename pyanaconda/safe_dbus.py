@@ -27,8 +27,11 @@ from pyanaconda.constants import DEFAULT_DBUS_TIMEOUT
 DBUS_PROPS_IFACE = "org.freedesktop.DBus.Properties"
 DBUS_SYSTEM_BUS_ADDR = Gio.dbus_address_get_for_bus_sync(Gio.BusType.SYSTEM,
                                                          None)
-DBUS_SESSION_BUS_ADDR = Gio.dbus_address_get_for_bus_sync(Gio.BusType.SESSION,
-                                                          None)
+
+# This one is a method instead of a constant because getting the address
+# for the session attempts to run dbus-launch and can fail
+def _get_dbus_session_bus_addr():
+    return Gio.dbus_address_get_for_bus_sync(Gio.BusType.SESSION, None)
 
 class SafeDBusError(Exception):
     """Class for exceptions defined in this module."""
@@ -161,7 +164,7 @@ def dbus_get_session_connection():
 
     try:
         connection = Gio.DBusConnection.new_for_address_sync(
-                       DBUS_SESSION_BUS_ADDR,
+                       _get_dbus_session_bus_addr(),
                        Gio.DBusConnectionFlags.AUTHENTICATION_CLIENT|
                        Gio.DBusConnectionFlags.MESSAGE_BUS_CONNECTION,
                        None, None)
