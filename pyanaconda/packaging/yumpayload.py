@@ -1399,7 +1399,10 @@ reposdir=%s
 
             This follows the same ordering/pattern as kickstart.py.
         """
-        self._selectYumGroup("core")
+        if self.data.packages.nocore:
+            log.info("skipping core group due to %%packages --nocore; system may not be complete")
+        else:
+            self._selectYumGroup("core")
 
         env = None
 
