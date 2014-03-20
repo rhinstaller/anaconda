@@ -2392,13 +2392,8 @@ def writeBootLoader(storage, payload, instClass, ksdata):
 
     # set up dracut/fips boot args
     # XXX FIXME: do this from elsewhere?
-    #storage.bootloader.set_boot_args(keyboard=anaconda.keyboard,
-    #                                 storage=anaconda.storage,
-    #                                 language=anaconda.instLanguage,
-    #                                 network=anaconda.network)
     storage.bootloader.set_boot_args(storage=storage,
-                                     payload=payload,
-                                     keyboard=ksdata.keyboard)
+                                     payload=payload)
 
     try:
         storage.bootloader.write()
