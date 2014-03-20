@@ -155,7 +155,7 @@ def doInstall(storage, payload, ksdata, instClass):
     # anaconda requires storage packages in order to make sure the target
     # system is bootable and configurable, and some other packages in order
     # to finish setting up the system.
-    packages = storage.packages + ["authconfig", "firewalld"] + ksdata.realm.packages
+    packages = storage.packages + ksdata.realm.packages
     if not ksdata.bootloader.disabled:
         packages += storage.bootloader.packages
 

@@ -229,6 +229,14 @@ def getAvailableDiskSpace(storage):
 
 class Authconfig(commands.authconfig.FC3_Authconfig):
     def execute(self, *args):
+        cmd = "/usr/sbin/authconfig"
+        if not os.path.exists(ROOT_PATH+cmd):
+            if self.seen:
+                msg = _("%s is missing. Cannot setup authentication.") % cmd
+                raise KickstartError(msg)
+            else:
+                return
+
         args = ["--update", "--nostart"] + shlex.split(self.authconfig)
 
         if not flags.automatedInstall and \
@@ -237,9 +245,9 @@ class Authconfig(commands.authconfig.FC3_Authconfig):
             args += ["--enablefingerprint"]
 
         try:
-            iutil.execWithRedirect("/usr/sbin/authconfig", args, root=ROOT_PATH)
+            iutil.execWithRedirect(cmd, args, root=ROOT_PATH)
         except RuntimeError as msg:
-            log.error("Error running /usr/sbin/authconfig %s: %s", args, msg)
+            log.error("Error running %s %s: %s", cmd, args, msg)
 
 class AutoPart(commands.autopart.F20_AutoPart):
     def execute(self, storage, ksdata, instClass):
