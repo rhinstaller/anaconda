@@ -206,7 +206,11 @@ class DNFPayload(packaging.PackagePayload):
         log.info("added repo: '%s'", ksrepo.name)
 
     def _apply_selections(self):
-        self._select_group('core')
+        if self.data.packages.nocore:
+            log.info("skipping core group due to %%packages --nocore; system may not be complete")
+        else:
+            self._select_group('core')
+
         for pkg_name in self.data.packages.packageList:
             log.info("selecting package: '%s'", pkg_name)
             try:
