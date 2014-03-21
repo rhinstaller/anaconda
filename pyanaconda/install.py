@@ -54,12 +54,22 @@ def _writeKS(ksdata):
 def doConfiguration(storage, payload, ksdata, instClass):
     from pyanaconda.kickstart import runPostScripts
 
-    step_count = 6
+    willWriteNetwork = not flags.flags.imageInstall and not flags.flags.dirInstall
+    willRunRealmd = ksdata.realm.discovered
+
+    # configure base, create users, configure addons, initramfs, post-install
+    step_count = 5
+
+    # network, maybe
+    if willWriteNetwork:
+        step_count += 1
+
     # if a realm was discovered,
     # increment the counter as the
     # real joining step will be executed
-    if ksdata.realm.discovered:
+    if willRunRealmd:
         step_count += 1
+
     progressQ.send_init(step_count)
 
     # Now run the execute methods of ksdata that require an installed system
@@ -76,7 +86,7 @@ def doConfiguration(storage, payload, ksdata, instClass):
         ksdata.xconfig.execute(storage, ksdata, instClass)
         ksdata.skipx.execute(storage, ksdata, instClass)
 
-    if not flags.flags.imageInstall and not flags.flags.dirInstall:
+    if willWriteNetwork:
         with progress_report(_("Writing network configuration")):
             ksdata.network.execute(storage, ksdata, instClass)
 
@@ -94,7 +104,7 @@ def doConfiguration(storage, payload, ksdata, instClass):
     with progress_report(_("Generating initramfs")):
         payload.recreateInitrds(force=True)
 
-    if ksdata.realm.discovered:
+    if willRunRealmd:
         with progress_report(_("Joining realm: %s") % ksdata.realm.discovered):
             ksdata.realm.execute(storage, ksdata, instClass)
 
@@ -124,6 +134,9 @@ def doInstall(storage, payload, ksdata, instClass):
        The two main tasks for this are putting filesystems onto disks and
        installing packages onto those filesystems.
     """
+    willRunRealmd = ksdata.realm.join_realm
+    willInstallBootloader = not flags.flags.dirInstall and not ksdata.bootloader.disabled
+
     # First save system time to HW clock.
     if flags.can_touch_runtime_system("save system time to HW clock"):
         timezone.save_hw_clock(ksdata.timezone)
@@ -133,20 +146,26 @@ def doInstall(storage, payload, ksdata, instClass):
     steps = len(storage.devicetree.findActions(type="create", object="format")) + \
             len(storage.devicetree.findActions(type="resize", object="format"))
 
-    # pre setup phase, packages setup, packages, bootloader, post install
-    steps += 5
+    # pre setup phase, post install
+    steps += 2
 
-    # joining AD/IPA domain
-    if ksdata.realm.join_realm:
+    # realmd, maybe
+    if willRunRealmd:
         steps += 1
 
-    progressQ.send_init(steps)
+    # bootloader, maybe
+    if willInstallBootloader:
+        steps += 1
 
     # This should be the only thread running, wait for the others to finish if not.
     if threadMgr.running > 1:
+        progressQ.send_init(steps+1)
+
         with progress_report(_("Waiting for %s threads to finish") % (threadMgr.running-1)):
             map(log.debug, ("Thread %s is running" % n for n in threadMgr.names))
             threadMgr.wait_all()
+    else:
+        progressQ.send_init(steps)
 
     with progress_report(_("Setting up the installation environment")):
         ksdata.firstboot.setup(storage, ksdata, instClass)
@@ -168,7 +187,7 @@ def doInstall(storage, payload, ksdata, instClass):
 
     # Discover information about realms to join,
     # to determine additional packages
-    if ksdata.realm.join_realm:
+    if willRunRealmd:
         with progress_report(_("Discovering realm to join")):
             ksdata.realm.setup()
 
@@ -217,7 +236,7 @@ def doInstall(storage, payload, ksdata, instClass):
             storage.write()
 
     # Do bootloader.
-    if not flags.flags.dirInstall and not ksdata.bootloader.disabled:
+    if willInstallBootloader:
         with progress_report(_("Installing boot loader")):
             writeBootLoader(storage, payload, instClass, ksdata)
 
