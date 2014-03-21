@@ -43,7 +43,7 @@ import glob
 from . import ImagePayload, PayloadSetupError, PayloadInstallError
 
 from pyanaconda.constants import INSTALL_TREE, THREAD_LIVE_PROGRESS
-from pyanaconda.constants import IMAGE_DIR
+from pyanaconda.constants import IMAGE_DIR, TAR_SUFFIX
 
 from pyanaconda import iutil
 
@@ -67,6 +67,7 @@ class LiveImagePayload(ImagePayload):
         self._adj_size = 0
         self.pct = 0
         self.pct_lock = None
+        self.source_size = 1
 
     def setup(self, storage):
         super(LiveImagePayload, self).setup(storage)
@@ -79,6 +80,9 @@ class LiveImagePayload(ImagePayload):
                 raise exn
         blivet.util.mount(osimg.path, INSTALL_TREE, fstype="auto", options="ro")
 
+        source = os.statvfs(INSTALL_TREE)
+        self.source_size = source.f_frsize * (source.f_blocks - source.f_bfree)
+
     def preInstall(self, packages=None, groups=None):
         """ Perform pre-installation tasks. """
         super(LiveImagePayload, self).preInstall(packages=packages, groups=groups)
@@ -88,8 +92,6 @@ class LiveImagePayload(ImagePayload):
         """Monitor the amount of disk space used on the target and source and
            update the hub's progress bar.
         """
-        source = os.statvfs(INSTALL_TREE)
-        source_size = source.f_frsize * (source.f_blocks - source.f_bfree)
         mountpoints = self.storage.mountpoints.copy()
         last_pct = -1
         while self.pct < 100:
@@ -100,7 +102,7 @@ class LiveImagePayload(ImagePayload):
             if dest_size >= self._adj_size:
                 dest_size -= self._adj_size
 
-            pct = int(100 * dest_size / source_size)
+            pct = int(100 * dest_size / self.source_size)
             if pct != last_pct:
                 with self.pct_lock:
                     self.pct = pct
@@ -224,6 +226,11 @@ class LiveImageKSPayload(LiveImagePayload):
         self._proxies = {}
         self.image_path = iutil.getSysroot()+"/disk.img"
 
+    @property
+    def is_tarfile(self):
+        """ Return True if the url ends with a tar suffix """
+        return any(self.data.method.url.endswith(suffix) for suffix in TAR_SUFFIX)
+
     def setup(self, storage):
         """ Check the availability and size of the image.
         """
@@ -318,25 +325,75 @@ class LiveImageKSPayload(LiveImagePayload):
                 if errorHandler.cb(exn) == ERROR_RAISE:
                     raise exn
 
-        # Mount the image and check to see if it is a LiveOS/*.img
-        # style squashfs image. If so, move it to IMAGE_DIR and mount the real
-        # root image on INSTALL_TREE
-        blivet.util.mount(self.image_path, INSTALL_TREE, fstype="auto", options="ro")
-        if os.path.exists(INSTALL_TREE+"/LiveOS"):
-            # Find the first .img in the directory and mount that on INSTALL_TREE
-            img_files = glob.glob(INSTALL_TREE+"/LiveOS/*.img")
-            if img_files:
-                img_file = os.path.basename(sorted(img_files)[0])
+        # If this looks like a tarfile, skip trying to mount it
+        if not self.is_tarfile:
+            # Mount the image and check to see if it is a LiveOS/*.img
+            # style squashfs image. If so, move it to IMAGE_DIR and mount the real
+            # root image on INSTALL_TREE
+            blivet.util.mount(self.image_path, INSTALL_TREE, fstype="auto", options="ro")
+            if os.path.exists(INSTALL_TREE+"/LiveOS"):
+                # Find the first .img in the directory and mount that on INSTALL_TREE
+                img_files = glob.glob(INSTALL_TREE+"/LiveOS/*.img")
+                if img_files:
+                    img_file = os.path.basename(sorted(img_files)[0])
 
-                # move the mount to IMAGE_DIR
-                os.makedirs(IMAGE_DIR, 0755)
-                # work around inability to move shared filesystems
-                iutil.execWithRedirect("mount",
-                                       ["--make-rprivate", "/"])
-                iutil.execWithRedirect("mount",
-                                       ["--move", INSTALL_TREE, IMAGE_DIR])
-                blivet.util.mount(IMAGE_DIR+"/LiveOS/"+img_file, INSTALL_TREE,
-                                  fstype="auto", options="ro")
+                    # move the mount to IMAGE_DIR
+                    os.makedirs(IMAGE_DIR, 0755)
+                    # work around inability to move shared filesystems
+                    iutil.execWithRedirect("mount",
+                                           ["--make-rprivate", "/"])
+                    iutil.execWithRedirect("mount",
+                                           ["--move", INSTALL_TREE, IMAGE_DIR])
+                    blivet.util.mount(IMAGE_DIR+"/LiveOS/"+img_file, INSTALL_TREE,
+                                      fstype="auto", options="ro")
+
+                    source = os.statvfs(INSTALL_TREE)
+                    self.source_size = source.f_frsize * (source.f_blocks - source.f_bfree)
+
+    def install(self):
+        """ Install the payload if it is a tar.
+            Otherwise fall back to rsync of INSTALL_TREE
+        """
+        # If it doesn't look like a tarfile use the super's install()
+        if not self.is_tarfile:
+            super(LiveImageKSPayload, self).install()
+            return
+
+        # Use 2x the archive's size to estimate the size of the install
+        # This is used to drive the progress display
+        self.source_size = os.stat(self.image_path)[stat.ST_SIZE] * 2
+
+        self.pct_lock = Lock()
+        self.pct = 0
+        threadMgr.add(AnacondaThread(name=THREAD_LIVE_PROGRESS,
+                                     target=self.progress))
+
+        cmd = "tar"
+        # preserve: ACL's, xattrs, and SELinux context
+        args = ["--selinux", "--acls", "--xattrs",
+                "--exclude", "/dev/", "--exclude", "/proc/",
+                "--exclude", "/sys/", "--exclude", "/run/", "--exclude", "/boot/*rescue*",
+                "--exclude", "/etc/machine-id", "-xaf", self.image_path, "-C", iutil.getSysroot()]
+        try:
+            rc = iutil.execWithRedirect(cmd, args)
+        except (OSError, RuntimeError) as e:
+            msg = None
+            err = str(e)
+            log.error(err)
+        else:
+            err = None
+            msg = "%s exited with code %d" % (cmd, rc)
+            log.info(msg)
+
+        if err:
+            exn = PayloadInstallError(err or msg)
+            if errorHandler.cb(exn) == ERROR_RAISE:
+                raise exn
+
+        # Wait for progress thread to finish
+        with self.pct_lock:
+            self.pct = 100
+        threadMgr.wait(THREAD_LIVE_PROGRESS)
 
     def postInstall(self):
         """ Unmount image, remove image file from target

@@ -147,3 +147,6 @@ IPMI_STARTED  = 0x7
 IPMI_FINISHED = 0x8
 IPMI_ABORTED  = 0x9
 IPMI_FAILED   = 0xA
+
+# Recognizing a tarfile
+TAR_SUFFIX = (".tar", ".tbz", ".tgz", ".txz", ".tar.bz2", "tar.gz", "tar.xz")
