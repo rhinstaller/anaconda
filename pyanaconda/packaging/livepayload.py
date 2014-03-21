@@ -92,6 +92,9 @@ class LiveImagePayload(ImagePayload):
         except OSError:
             pass
 
+        source = iutil.eintr_retry_call(os.statvfs, INSTALL_TREE)
+        self.source_size = source.f_frsize * (source.f_blocks - source.f_bfree)
+
     def preInstall(self, packages=None, groups=None):
         """ Perform pre-installation tasks. """
         super(LiveImagePayload, self).preInstall(packages=packages, groups=groups)
