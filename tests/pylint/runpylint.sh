@@ -28,6 +28,11 @@ unset TERM
 # Don't try to connect to the accessibility socket
 export NO_AT_BRIDGE=1
 
+# Force the GDK backend to X11. Otherwise if no display can be found, Gdk
+# tries every backend type, which includes "broadway," which prints an error
+# and keeps changing the content of said error.
+export GDK_BACKEND=x11
+
 # If $top_srcdir has not been set by automake, import the test environment
 if [ -z "$top_srcdir" ]; then
     top_srcdir="$(dirname "$0")/../.."
