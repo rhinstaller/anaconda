@@ -259,6 +259,10 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Fri Mar 21 2014 Brian C. Lane <bcl@redhat.com> - 19.31.71-1
+- driverdisk: Show selection menu for network driver isos (bcl)
+  Resolves: rhbz#1075918
+
 * Wed Mar 19 2014 Brian C. Lane <bcl@redhat.com> - 19.31.70-1
 - Write a modprobe blacklist (bcl)
   Resolves: rhbz#1073130
