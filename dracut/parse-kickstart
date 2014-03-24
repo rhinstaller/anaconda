@@ -393,7 +393,7 @@ def ksnet_to_ifcfg(net, filename=None):
             shutil.copyfile(srcpath, dstpath)
 
     if net.bondslaves:
-        ifcfg.pop('HWADDR')
+        ifcfg.pop('HWADDR', None)
         ifcfg['TYPE'] = "Bond"
         ifcfg['BONDING_MASTER'] = "yes"
         ifcfg['NAME'] = "Bond connection %s" % dev
@@ -418,7 +418,7 @@ def ksnet_to_ifcfg(net, filename=None):
 
     if net.teamslaves:
 
-        ifcfg.pop('HWADDR')
+        ifcfg.pop('HWADDR', None)
         ifcfg['TYPE'] = "Team"
         ifcfg['NAME'] = "Team connection %s" % dev
         ifcfg['TEAM_CONFIG'] = "'" + net.teamconfig + "'"
@@ -442,7 +442,7 @@ def ksnet_to_ifcfg(net, filename=None):
 
     if net.vlanid:
         interface_name = net.interfacename or "%s.%s" % (dev, net.vlanid)
-        ifcfg.pop('HWADDR')
+        ifcfg.pop('HWADDR', None)
         ifcfg['TYPE'] = "Vlan"
         ifcfg['VLAN'] = "yes"
         ifcfg['VLAN_ID'] = net.vlanid
