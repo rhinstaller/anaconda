@@ -162,8 +162,9 @@ class BootArgs(OrderedDict):
                 val = None
 
             # Duplicate args create a space separated string
-            if key in self:
-                self[key] = self[key] + " " + val
+            if self.get(key, None):
+                if val:
+                    self[key] = self[key] + " " + val
             else:
                 self[key] = val
 
