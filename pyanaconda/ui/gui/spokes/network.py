@@ -1429,7 +1429,8 @@ class NetworkStandaloneSpoke(StandaloneSpoke):
 
             threadMgr.wait(constants.THREAD_PAYLOAD)
 
-            threadMgr.add(AnacondaThread(name=constants.THREAD_PAYLOAD, target=payloadInitialize, args=(self.storage, self.data, self.payload)))
+            threadMgr.add(AnacondaThread(name=constants.THREAD_PAYLOAD, target=payloadInitialize,
+                args=(self.storage, self.data, self.payload, self.instclass)))
 
         self.network_control_box.kill_nmce(msg="leaving standalone network spoke")
 
