@@ -2403,7 +2403,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
             fancy_set_sensitive(self._encryptCheckbox, True)
 
     def run_container_editor(self, container=None, name=None):
-        size = 0
+        size = Size(0)
         size_policy = self._device_container_size
         if container:
             container_name = container.name
