@@ -1854,7 +1854,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         self._populate_raid(selectedRaidLevel(self._raidLevelCombo))
 
     def run_container_editor(self, container=None, name=None):
-        size = 0
+        size = Size(0)
         size_policy = self._device_container_size
         if container:
             container_name = container.name
