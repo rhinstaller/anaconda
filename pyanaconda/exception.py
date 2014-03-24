@@ -144,8 +144,8 @@ class AnacondaExceptionHandler(ExceptionHandler):
                         time.sleep(10)
                         sys.exit(0)
                     else:
-                        print "An unknown error has occured, look at the "\
-                            "/tmp/anaconda-tb* file(s) for more details"
+                        print("\nAn unknown error has occured, look at the "
+                               "/tmp/anaconda-tb* file(s) for more details")
                         # in the main thread, run exception handler
                         super(AnacondaExceptionHandler, self).handleException(
                                                                 dump_info)
