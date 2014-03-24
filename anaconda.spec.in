@@ -44,7 +44,6 @@ Source0: %{name}-%{version}.tar.bz2
 %define langtablever 0.0.18-1
 %define libxklavierver 5.4
 %define libtimezonemapver 0.4.1-2
-%define blivetver 0.45
 
 BuildRequires: audit-libs-devel
 BuildRequires: gettext >= %{gettextver}
@@ -81,27 +80,6 @@ BuildRequires: desktop-file-utils
 BuildRequires: s390utils-devel
 %endif
 BuildRequires: libtimezonemap-devel >= %{libtimezonemapver}
-# build requirements to execute the tests
-BuildRequires: langtable-data >= %{langtablever}
-BuildRequires: langtable-python >= %{langtablever}
-BuildRequires: pytz
-BuildRequires: libuser-python
-BuildRequires: python-mock
-BuildRequires: python-pwquality
-BuildRequires: python-IPy
-BuildRequires: python-ntplib
-BuildRequires: python-blivet >= %{blivetver}
-BuildRequires: cppcheck
-BuildRequires: python-lxml
-# additional requirements for pylint tests
-BuildRequires: pylint
-BuildRequires: koji
-BuildRequires: python-meh >= %{mehver}
-BuildRequires: python-meh-gui >= %{mehver}
-BuildRequires: python-coverage
-BuildRequires: python-polib
-BuildRequires: dnf >= %{dnfver}
-BuildRequires: keybinder3
 
 Requires: anaconda-core = %{version}-%{release}
 Requires: anaconda-gui = %{version}-%{release}
@@ -113,7 +91,7 @@ The anaconda package is a metapackage for the Anaconda installer.
 %package core
 Summary: Core of the Anaconda installer
 Requires: dnf >= %{dnfver}
-Requires: python-blivet >= %{blivetver}
+Requires: python-blivet >= 0.45
 Requires: python-meh >= %{mehver}
 Requires: libreport-anaconda >= 2.0.21-1
 Requires: libselinux-python
@@ -258,10 +236,6 @@ desktop-file-install ---dir=%{buildroot}%{_datadir}/applications %{buildroot}%{_
 
 %find_lang %{name}
 
-%check
-export LANG=en_US.utf8
-export VERBOSE=1
-%{__make} check
 
 %ifarch %livearches
 %post
