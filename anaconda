@@ -136,12 +136,36 @@ def startAuditDaemon():
     # auditd will turn into a daemon so catch the immediate child pid now:
     os.waitpid(childpid, 0)
 
+def assureLogoImage():
+    # make sure there is a logo image present,
+    # otherwise TTY1 will get spammed by errors
+    import os
+    replacement_image_path = None
+    logo_path = "/usr/share/anaconda/pixmaps/logo.png"
+    header_path = "/usr/share/anaconda/pixmaps/anaconda_header.png"
+    sad_smiley_path = "/usr/share/icons/gnome/48x48/emotes/face-crying.png"
+    if not os.path.exists(logo_path):
+        # first try to replace the missing logo with the Anaconda header image
+        if os.path.exists(header_path):
+            replacement_image_path = header_path
+        # if the header image is not present, use a sad smiley from GTK icons
+        elif os.path.exists(sad_smiley_path):
+            replacement_image_path = sad_smiley_path
+
+        if replacement_image_path:
+            log.warning("logo image is missing, using a substitute")
+            os.symlink(replacement_image_path, logo_path)
+        else:
+            log.warning("logo image is missing")
+
 # function to handle X startup special issues for anaconda
 def doStartupX11Actions():
     """Start window manager"""
 
-    global wm_pid # pid of the anaconda fork where the window manager is running
+    # try to make sure a logo image is present
+    assureLogoImage()
 
+    global wm_pid # pid of the anaconda fork where the window manager is running
     # now start up the window manager
     wm_pid = startMetacityWM()
     log.info("Starting window manager, pid %s.", wm_pid)
