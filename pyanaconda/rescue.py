@@ -37,7 +37,7 @@ from pyanaconda.installinterfacebase import InstallInterfaceBase
 from pyanaconda.i18n import _
 
 from blivet import mountExistingSystem
-from blivet.errors import StorageError
+from blivet.errors import StorageError, DirtyFSError
 from blivet.devices import LUKSDevice
 
 from pykickstart.constants import KS_REBOOT, KS_SHUTDOWN
@@ -346,11 +346,6 @@ def doRescue(intf, rescue_mount, ksdata):
 
     if root:
         try:
-            # TODO: add a callback to warn about dirty filesystems
-            mountExistingSystem(sto.fsset, root.device,
-                                allowDirty = True,
-                                readOnly = readOnly)
-
             if not flags.imageInstall:
                 msg = _("The system will reboot automatically when you exit "
                         "from the shell.")
@@ -358,7 +353,11 @@ def doRescue(intf, rescue_mount, ksdata):
                 msg = _("Run %s to unmount the system "
                         "when you are finished.") % ANACONDA_CLEANUP
 
-            if rc == -1:
+            try:
+                mountExistingSystem(sto.fsset, root.device,
+                                    allowDirty = True,
+                                    readOnly = readOnly)
+            except DirtyFSError:
                 if flags.automatedInstall:
                     log.error("System had dirty file systems which you chose not to mount")
                 else:
