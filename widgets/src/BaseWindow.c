@@ -46,22 +46,41 @@
  * <refsect2 id="AnacondaBaseWindow-BUILDER-UI"><title>AnacondaBaseWindow as GtkBuildable</title>
  * <para>
  * The AnacondaBaseWindow implementation of the #GtkBuildable interface exposes
- * the @action_area as an internal child with the name "action_area".
+ * the @nav_area as an internal child with the name "nav_area" and the
+ * @action_area as an internal child with the name "action_area".
  * </para>
  * <example>
  * <title>A <structname>AnacondaBaseWindow</structname> UI definition fragment.</title>
  * <programlisting><![CDATA[
  * <object class="AnacondaBaseWindow" id="window1">
- *     <child internal-child="action_area">
- *         <object class="GtkVBox" id="vbox1">
- *             <child>
- *                 <object class="GtkLabel" id="label1">
- *                     <property name="label" translatable="yes">THIS IS ONE LABEL</property>
+ *     <child internal-child="main_box">
+ *         <object class="GtkBox" id="main_box1">
+ *             <child internal-child="nav_box">
+ *                 <object class="GtkEventBox" id="nav_box1">
+ *                     <child internal-child="nav_area">
+ *                         <object class="GtkGrid" id="nav_area1">
+ *                             <child>...</child>
+ *                             <child>...</child>
+ *                         </object>
+ *                     </child>
  *                 </object>
  *             </child>
- *             <child>
- *                 <object class="GtkLabel" id="label2">
- *                     <property name="label" translatable="yes">THIS IS ANOTHER LABEL</property>
+ *             <child internal-child="alignment">
+ *                 <object class="GtkAlignment" id="alignment1">
+ *                     <child internal-child="action_area">
+ *                         <object class="GtkBox" id="action_area1">
+ *                             <child>
+ *                                 <object class="GtkLabel" id="label1">
+ *                                     <property name="label" translatable="yes">THIS IS ONE LABEL</property>
+ *                                 </object>
+ *                             </child>
+ *                             <child>
+ *                                 <object class="GtkLabel" id="label2">
+ *                                     <property name="label" translatable="yes">THIS IS ANOTHER LABEL</property>
+ *                                 </object>
+ *                             </child>
+ *                         </object>
+ *                     </child>
  *                 </object>
  *             </child>
  *         </object>

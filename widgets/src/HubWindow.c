@@ -45,26 +45,44 @@
  * <refsect2 id="AnacondaHubWindow-BUILDER-UI"><title>AnacondaHubWindow as GtkBuildable</title>
  * <para>
  * The AnacondaHubWindow implementation of the #GtkBuildable interface exposes
- * the @action_area and @scrolled_window as internal children with the names
- * "action_area" and "scrolled_window".  action_area, in this case, is largely
- * there to give a box to contain both the scrolled_window and a #GtkButtonBox.
+ * the @nav_area, @action_area and @scrolled_window as internal children with the names
+ * "nav_area", "action_area" and "scrolled_window".  action_area, in this case,
+ * is largely there to give a box to contain both the scrolled_window and a
+ * #GtkButtonBox.
  * </para>
  * <example>
  * <title>A <structname>AnacondaHubWindow</structname> UI definition fragment.</title>
  * <programlisting><![CDATA[
  * <object class="AnacondaHubWindow" id="hub1">
- *     <child internal-child="action_area">
- *         <object class="GtkVBox" id="vbox1">
- *             <child internal-child="scrolled_window">
- *                 <object class="GtkScrolledWindow" id="window1">
- *                     <child>...</child>
+ *     <child internal-child="main_box">
+ *         <object class="GtkBox" id="main_box1">
+ *             <child internal-child="nav_box">
+ *                 <object class="GtkEventBox" id="nav_box1">
+ *                     <child internal-child="nav_area">
+ *                         <object class="GtkGrid" id="nav_area1">
+ *                             <child>...</child>
+ *                             <child>...</child>
+ *                         </object>
+ *                     </child>
  *                 </object>
  *             </child>
- *             <child>
- *                 <object class="GtkHButtonBox" id="buttonbox1">
- *                     <child>...</child>
+ *             <child internal-child="alignment">
+ *                 <object class="GtkAlignment" id="alignment1">
+ *                     <child internal-child="action_area">
+ *                         <object class="GtkBox" id="action_area1">
+ *                             <child internal-child="scrolled_window">
+ *                                 <object class="GtkScrolledWindow" id="scrolled_window1">
+ *                                     <child>...</child>
+ *                                 </object>
+ *                             </child>
+ *                         </object>
+ *                     </child>
  *                 </object>
  *             </child>
+ *         </object>
+ *     <child>
+ *         <object class="GtkButtonBox" id="buttonbox1">
+ *             <child>...</child>
  *         </object>
  *     </child>
  * </object>
