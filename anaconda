@@ -398,18 +398,22 @@ def setupEnvironment():
         del os.environ["LD_PRELOAD"]
 
 def setupLoggingFromOpts(options):
+    want_yum_lock_logs = False
     if options.debug or options.updateSrc:
         # debugging means debug logging
         options.loglevel = "debug"
+        want_yum_lock_logs = options.debug
 
     if options.loglevel and anaconda_log.logLevelMap.has_key(options.loglevel):
         level = anaconda_log.logLevelMap[opts.loglevel]
         anaconda_log.logger.tty_loglevel = level
         anaconda_log.setHandlersLevel(log, level)
-        packaging_log = logging.getLogger("packaging")
-        anaconda_log.setHandlersLevel(packaging_log, level)
         storage_log = logging.getLogger("storage")
         anaconda_log.setHandlersLevel(storage_log, level)
+
+        if options.loglevel != "debug" or want_yum_lock_logs:
+            packaging_log = logging.getLogger("packaging")
+            anaconda_log.setHandlersLevel(packaging_log, level)
 
     if options.syslog:
         anaconda_log.logger.updateRemote(options.syslog)
