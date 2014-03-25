@@ -139,7 +139,6 @@ def startAuditDaemon():
 def assureLogoImage():
     # make sure there is a logo image present,
     # otherwise TTY1 will get spammed by errors
-    import os
     replacement_image_path = None
     logo_path = "/usr/share/anaconda/pixmaps/logo.png"
     header_path = "/usr/share/anaconda/pixmaps/anaconda_header.png"
