@@ -59,7 +59,7 @@ class PassphraseDialog(GUIObject):
         # disable input methods for the passphrase Entry widgets and make sure
         # the focus change mask is enabled
         self._passphrase_entry.set_property("im-module", "")
-        self._passphrase_entry.set_icon_from_stock(Gtk.EntryIconPosition.SECONDARY, "")
+        self._passphrase_entry.set_icon_from_icon_name(Gtk.EntryIconPosition.SECONDARY, None)
         self._passphrase_entry.add_events(Gdk.EventMask.FOCUS_CHANGE_MASK)
         self._confirm_entry.set_property("im-module", "")
         self._confirm_entry.add_events(Gdk.EventMask.FOCUS_CHANGE_MASK)
@@ -126,20 +126,20 @@ class PassphraseDialog(GUIObject):
         self._strength_label.set_text(text)
 
     def _set_entry_icon(self, entry, icon, msg):
-        entry.set_icon_from_stock(Gtk.EntryIconPosition.SECONDARY, icon)
+        entry.set_icon_from_icon_name(Gtk.EntryIconPosition.SECONDARY, icon)
         entry.set_icon_tooltip_text(Gtk.EntryIconPosition.SECONDARY, msg)
 
     def on_passphrase_changed(self, entry):
         self._update_passphrase_strength()
         passphrase = entry.get_text()
         if passphrase and passphrase == self._confirm_entry.get_text():
-            self._set_entry_icon(self._confirm_entry, "", "")
+            self._set_entry_icon(self._confirm_entry, None, "")
             self._save_button.set_sensitive(True)
         else:
             self._save_button.set_sensitive(False)
 
         if not self._pwq_error:
-            self._set_entry_icon(entry, "", "")
+            self._set_entry_icon(entry, None, "")
 
         can_override_icon = entry.get_icon_name(Gtk.EntryIconPosition.SECONDARY)\
                             in ["gtk-dialog-warning", "", None]
@@ -149,7 +149,7 @@ class PassphraseDialog(GUIObject):
                 self._set_entry_icon(entry, "gtk-dialog-warning",
                                      _("contains non-ASCII characters"))
             else:
-                self._set_entry_icon(entry, "", "")
+                self._set_entry_icon(entry, None, "")
 
     def on_passphrase_editing_done(self, entry, *args):
         if self._pwq_error:
@@ -159,7 +159,7 @@ class PassphraseDialog(GUIObject):
 
     def on_confirm_changed(self, entry):
         if entry.get_text() and entry.get_text() == self._passphrase_entry.get_text():
-            self._set_entry_icon(entry, "", "")
+            self._set_entry_icon(entry, None, "")
             self._save_button.set_sensitive(True)
         else:
             self._save_button.set_sensitive(False)
@@ -173,7 +173,7 @@ class PassphraseDialog(GUIObject):
             self._set_entry_icon(entry, icon, _(msg))
             self._save_button.set_sensitive(False)
         else:
-            self._set_entry_icon(entry, "", "")
+            self._set_entry_icon(entry, None, "")
 
     def on_save_clicked(self, button):
         self.passphrase = self._passphrase_entry.get_text()

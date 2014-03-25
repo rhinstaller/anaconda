@@ -26,11 +26,11 @@
             <property name="layout_style">end</property>
             <child>
               <object class="GtkButton" id="cancelChooserButton">
-                <property name="label">gtk-cancel</property>
+                <property name="label" translatable="yes" context="GUI|Software Source|ISO Chooser Dialog">_Cancel</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
-                <property name="use_stock">True</property>
+                <property name="use_underline">True</property>
               </object>
               <packing>
                 <property name="expand">False</property>
@@ -40,11 +40,11 @@
             </child>
             <child>
               <object class="GtkButton" id="openChooserButton">
-                <property name="label">gtk-open</property>
+                <property name="label" translatable="yes" context="GUI|Software Source|ISO Chooser Dialog">_Open</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
-                <property name="use_stock">True</property>
+                <property name="use_underline">True</property>
               </object>
               <packing>
                 <property name="expand">False</property>

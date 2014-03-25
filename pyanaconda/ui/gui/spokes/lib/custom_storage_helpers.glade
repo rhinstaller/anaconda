@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Generated with glade 3.16.0 on Thu Oct 17 10:51:34 2013 -->
+<!-- Generated with glade 3.16.1 -->
 <interface>
-  <!-- interface-requires gtk+ 3.2 -->
-  <!-- interface-requires AnacondaWidgets 1.0 -->
+  <requires lib="gtk+" version="3.2"/>
   <object class="GtkEntryBuffer" id="mountPointEntryBuffer"/>
   <object class="GtkListStore" id="mountPointStore">
     <columns>
@@ -980,11 +979,11 @@ use.  Try something else?</property>
             <property name="layout_style">end</property>
             <child>
               <object class="GtkButton" id="help_close_button">
-                <property name="label">gtk-close</property>
+                <property name="label" translatable="yes" context="GUI|Custom Partitioning|Help">_Close</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
-                <property name="use_stock">True</property>
+                <property name="use_underline">True</property>
                 <signal name="clicked" handler="on_close" swapped="no"/>
               </object>
               <packing>

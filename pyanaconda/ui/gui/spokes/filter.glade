@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Generated with glade 3.16.0 on Thu Oct 17 10:57:44 2013 -->
+<!-- Generated with glade 3.16.1 -->
 <interface>
-  <!-- interface-requires gtk+ 3.0 -->
+  <requires lib="gtk+" version="3.0"/>
   <!-- interface-requires AnacondaWidgets 1.0 -->
   <object class="GtkListStore" id="diskStore">
     <columns>
@@ -485,11 +485,11 @@
                                 </child>
                                 <child>
                                   <object class="GtkButton" id="searchClearButton">
-                                    <property name="label">gtk-clear</property>
+                                    <property name="label" translatable="yes" context="GUI|Installation Destination|Filter|Search">_Clear</property>
                                     <property name="visible">True</property>
                                     <property name="can_focus">True</property>
                                     <property name="receives_default">True</property>
-                                    <property name="use_stock">True</property>
+                                    <property name="use_underline">True</property>
                                     <signal name="clicked" handler="on_clear_clicked" swapped="no"/>
                                   </object>
                                   <packing>
@@ -501,11 +501,11 @@
                                 </child>
                                 <child>
                                   <object class="GtkButton" id="searchFindButton">
-                                    <property name="label">gtk-find</property>
+                                    <property name="label" translatable="yes" context="GUI|Installation Destination|Filter|Search">_Find</property>
                                     <property name="visible">True</property>
                                     <property name="can_focus">True</property>
                                     <property name="receives_default">True</property>
-                                    <property name="use_stock">True</property>
+                                    <property name="use_underline">True</property>
                                     <signal name="clicked" handler="on_find_clicked" swapped="no"/>
                                   </object>
                                   <packing>
@@ -834,11 +834,11 @@
                                 </child>
                                 <child>
                                   <object class="GtkButton" id="multipathClearButton">
-                                    <property name="label">gtk-clear</property>
+                                    <property name="label" translatable="yes" context="GUI|Installation Destination|Filter|Multipath">_Clear</property>
                                     <property name="visible">True</property>
                                     <property name="can_focus">True</property>
                                     <property name="receives_default">True</property>
-                                    <property name="use_stock">True</property>
+                                    <property name="use_underline">True</property>
                                     <signal name="clicked" handler="on_clear_clicked" swapped="no"/>
                                   </object>
                                   <packing>
@@ -850,11 +850,11 @@
                                 </child>
                                 <child>
                                   <object class="GtkButton" id="multipathFindButton">
-                                    <property name="label">gtk-find</property>
+                                    <property name="label" translatable="yes" context="GUI|Installation Destination|Filter|Multipath">_Find</property>
                                     <property name="visible">True</property>
                                     <property name="can_focus">True</property>
                                     <property name="receives_default">True</property>
-                                    <property name="use_stock">True</property>
+                                    <property name="use_underline">True</property>
                                     <signal name="clicked" handler="on_find_clicked" swapped="no"/>
                                   </object>
                                   <packing>
@@ -1175,11 +1175,11 @@
                                 </child>
                                 <child>
                                   <object class="GtkButton" id="otherClearButton">
-                                    <property name="label">gtk-clear</property>
+                                    <property name="label" translatable="yes" context="GUI|Installation Destination|Filter|Other">_Clear</property>
                                     <property name="visible">True</property>
                                     <property name="can_focus">True</property>
                                     <property name="receives_default">True</property>
-                                    <property name="use_stock">True</property>
+                                    <property name="use_underline">True</property>
                                     <signal name="clicked" handler="on_clear_clicked" swapped="no"/>
                                   </object>
                                   <packing>
@@ -1191,11 +1191,11 @@
                                 </child>
                                 <child>
                                   <object class="GtkButton" id="otherFindButton">
-                                    <property name="label">gtk-find</property>
+                                    <property name="label" translatable="yes" context="GUI|Installation Destination|Filter|Other">_Find</property>
                                     <property name="visible">True</property>
                                     <property name="can_focus">True</property>
                                     <property name="receives_default">True</property>
-                                    <property name="use_stock">True</property>
+                                    <property name="use_underline">True</property>
                                     <signal name="clicked" handler="on_find_clicked" swapped="no"/>
                                   </object>
                                   <packing>
@@ -1315,11 +1315,11 @@
                                 </child>
                                 <child>
                                   <object class="GtkButton" id="zClearButton">
-                                    <property name="label">gtk-clear</property>
+                                    <property name="label" translatable="yes" context="GUI|Installation Destination|Filter|zSeries">_Clear</property>
                                     <property name="visible">True</property>
                                     <property name="can_focus">True</property>
                                     <property name="receives_default">True</property>
-                                    <property name="use_stock">True</property>
+                                    <property name="use_underline">True</property>
                                   </object>
                                   <packing>
                                     <property name="left_attach">5</property>

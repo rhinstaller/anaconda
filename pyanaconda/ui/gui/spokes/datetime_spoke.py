@@ -148,11 +148,11 @@ class NTPconfigDialog(GUIObject):
         value = model[itr][1]
 
         if value == SERVER_QUERY:
-            renderer.set_property("stock-id", "gtk-dialog-question")
+            renderer.set_property("icon-name", "gtk-dialog-question")
         elif value == SERVER_OK:
-            renderer.set_property("stock-id", "gtk-yes")
+            renderer.set_property("icon-name", "gtk-yes")
         else:
-            renderer.set_property("stock-id", "gtk-no")
+            renderer.set_property("icon-name", "gtk-no")
 
     def initialize(self):
         self.window.set_size_request(500, 400)
