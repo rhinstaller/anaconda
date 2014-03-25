@@ -259,6 +259,13 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Mon Mar 24 2014 Brian C. Lane <bcl@redhat.com> - 19.31.72-1
+- Check boot args for None (bcl)
+  Related: rhbz#1073130
+  Resolves: rhbz#1075918
+- network: don't pop HWADDR twice for vlan on s390 (rvykydal)
+  Related: rhbz#1061646
+
 * Fri Mar 21 2014 Brian C. Lane <bcl@redhat.com> - 19.31.71-1
 - driverdisk: Show selection menu for network driver isos (bcl)
   Resolves: rhbz#1075918
