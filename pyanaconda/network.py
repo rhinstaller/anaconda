@@ -545,6 +545,9 @@ def add_connection_for_ksdata(networkdata, devname):
 
 def ksdata_from_ifcfg(devname, uuid=None):
 
+    if devname not in nm.nm_devices():
+        return None
+
     if nm.nm_device_is_slave(devname):
         return None
     if nm.nm_device_type_is_wifi(devname):
