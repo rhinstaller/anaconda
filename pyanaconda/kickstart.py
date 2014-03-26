@@ -230,7 +230,7 @@ def getAvailableDiskSpace(storage):
 class Authconfig(commands.authconfig.FC3_Authconfig):
     def execute(self, *args):
         cmd = "/usr/sbin/authconfig"
-        if not os.path.exists(ROOT_PATH+cmd):
+        if not os.path.lexists(ROOT_PATH+cmd):
             if self.seen:
                 msg = _("%s is missing. Cannot setup authentication.") % cmd
                 raise KickstartError(msg)
