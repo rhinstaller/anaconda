@@ -19,7 +19,7 @@
 # Author(s): David Shea <dshea@redhat.com>
 #
 
-from pyanaconda.safe_dbus import dbus_call_safe_sync, DBusCallError
+from pyanaconda import safe_dbus
 from gi.repository import GLib
 
 import logging
@@ -46,12 +46,12 @@ def inhibit_screensaver(connection):
     """
 
     try:
-        inhibit_id = dbus_call_safe_sync(SCREENSAVER_SERVICE, SCREENSAVER_PATH, SCREENSAVER_IFACE,
+        inhibit_id = safe_dbus.call_sync(SCREENSAVER_SERVICE, SCREENSAVER_PATH, SCREENSAVER_IFACE,
                 SCREENSAVER_INHIBIT_METHOD, GLib.Variant('(ss)',
                     (SCREENSAVER_APPLICATION, SCREENSAVER_REASON)),
                 connection)
         return inhibit_id[0]
-    except DBusCallError as e:
+    except safe_dbus.DBusCallError as e:
         log.info("Unable to inhibit the screensaver: %s", e)
 
     return None
@@ -67,7 +67,7 @@ def uninhibit_screensaver(connection, inhibit_id):
     """
 
     try:
-        dbus_call_safe_sync(SCREENSAVER_SERVICE, SCREENSAVER_PATH, SCREENSAVER_IFACE,
+        safe_dbus.call_sync(SCREENSAVER_SERVICE, SCREENSAVER_PATH, SCREENSAVER_IFACE,
                 SCREENSAVER_UNINHIBIT_METHOD, GLib.Variant('(u)', (inhibit_id,)), connection)
-    except DBusCallError as e:
+    except safe_dbus.DBusCallError as e:
         log.info("Unable to uninhibit the screensaver: %s", e)

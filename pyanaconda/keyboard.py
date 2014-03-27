@@ -42,8 +42,7 @@ from collections import namedtuple
 
 from pyanaconda import iutil
 from pyanaconda import flags
-from pyanaconda.safe_dbus import dbus_call_safe_sync, dbus_get_property_safe_sync, dbus_get_new_system_bus_connection_sync
-from pyanaconda.safe_dbus import DBusPropertyError
+from pyanaconda import safe_dbus
 from pyanaconda.constants import DEFAULT_VC_FONT, DEFAULT_KEYBOARD, THREAD_XKL_WRAPPER_INIT
 from pyanaconda.threads import threadMgr, AnacondaThread
 
@@ -683,17 +682,17 @@ class LocaledWrapper(object):
     """
 
     def __init__(self):
-        self._connection = dbus_get_new_system_bus_connection_sync()
+        self._connection = safe_dbus.get_new_system_connection()
 
     @property
     def keymap(self):
         try:
-            keymap = dbus_get_property_safe_sync(LOCALED_SERVICE,
+            keymap = safe_dbus.get_property_sync(LOCALED_SERVICE,
                                                  LOCALED_OBJECT_PATH,
                                                  LOCALED_IFACE,
                                                  "VConsoleKeymap",
                                                  self._connection)
-        except DBusPropertyError:
+        except safe_dbus.DBusPropertyError:
             # no value for the property
             log.error("Failed to get the value for the systemd-localed's "
                       "VConsoleKeymap property")
@@ -705,24 +704,24 @@ class LocaledWrapper(object):
     @property
     def layouts_variants(self):
         try:
-            layouts = dbus_get_property_safe_sync(LOCALED_SERVICE,
+            layouts = safe_dbus.get_property_sync(LOCALED_SERVICE,
                                                   LOCALED_OBJECT_PATH,
                                                   LOCALED_IFACE,
                                                   "X11Layout",
                                                   self._connection)
-        except DBusPropertyError:
+        except safe_dbus.DBusPropertyError:
             # no value for the property
             log.error("Failed to get the value for the systemd-localed's "
                       "X11Layout property")
             return [""]
 
         try:
-            variants = dbus_get_property_safe_sync(LOCALED_SERVICE,
+            variants = safe_dbus.get_property_sync(LOCALED_SERVICE,
                                                    LOCALED_OBJECT_PATH,
                                                    LOCALED_IFACE,
                                                    "X11Variant",
                                                    self._connection)
-        except DBusPropertyError:
+        except safe_dbus.DBusPropertyError:
             # no value for the property
             log.error("Failed to get the value for the systemd-localed's "
                       "X11Variant property")
@@ -748,12 +747,12 @@ class LocaledWrapper(object):
     @property
     def options(self):
         try:
-            options = dbus_get_property_safe_sync(LOCALED_SERVICE,
+            options = safe_dbus.get_property_sync(LOCALED_SERVICE,
                                                   LOCALED_OBJECT_PATH,
                                                   LOCALED_IFACE,
                                                   "X11Options",
                                                   self._connection)
-        except DBusPropertyError:
+        except safe_dbus.DBusPropertyError:
             # no value for the property
             log.error("Failed to get the value for the systemd-localed's "
                       "X11Options property")
@@ -780,7 +779,7 @@ class LocaledWrapper(object):
         # should ask for credentials or not
         args = GLib.Variant('(ssbb)', (keymap, "", convert, False))
 
-        dbus_call_safe_sync(LOCALED_SERVICE, LOCALED_OBJECT_PATH, LOCALED_IFACE,
+        safe_dbus.call_sync(LOCALED_SERVICE, LOCALED_OBJECT_PATH, LOCALED_IFACE,
                             "SetVConsoleKeyboard", args, self._connection)
 
     def convert_keymap(self, keymap):
@@ -857,7 +856,7 @@ class LocaledWrapper(object):
         # should ask for credentials or not
         args = GLib.Variant("(ssssbb)", (layouts_str, "", variants_str, opts_str,
                                          convert, False))
-        dbus_call_safe_sync(LOCALED_SERVICE, LOCALED_OBJECT_PATH, LOCALED_IFACE,
+        safe_dbus.call_sync(LOCALED_SERVICE, LOCALED_OBJECT_PATH, LOCALED_IFACE,
                             "SetX11Keyboard", args, self._connection)
 
     def set_and_convert_layout(self, layout_variant):

@@ -894,14 +894,14 @@ if __name__ == "__main__":
         flags.noverifyssl = True
 
     if opts.liveinst:
-        from pyanaconda.safe_dbus import dbus_get_session_connection, DBusCallError
         from pyanaconda.screensaver import inhibit_screensaver
+        from pyanaconda import safe_dbus
 
         flags.livecdInstall = True
 
         try:
-            anaconda.dbus_session_connection = dbus_get_session_connection()
-        except DBusCallError as e:
+            anaconda.dbus_session_connection = safe_dbus.get_new_session_connection()
+        except safe_dbus.DBusCallError as e:
             log.info("Unable to connect to DBus session bus: %s", e)
         else:
             anaconda.dbus_inhibit_id = inhibit_screensaver(anaconda.dbus_session_connection)
