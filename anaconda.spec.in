@@ -259,6 +259,10 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Thu Mar 27 2014 Brian C. Lane <bcl@redhat.com> - 19.31.73-1
+- Add a list of cmdline args that append instead of replace (bcl)
+  Related: rhbz#1073130
+
 * Mon Mar 24 2014 Brian C. Lane <bcl@redhat.com> - 19.31.72-1
 - Check boot args for None (bcl)
   Related: rhbz#1073130
