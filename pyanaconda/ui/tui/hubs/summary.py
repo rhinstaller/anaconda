@@ -32,8 +32,6 @@ log = logging.getLogger("anaconda")
 
 class SummaryHub(TUIHub):
     title = N_("Installation")
-    ## FIXME: this should be pulling data from somewhere, not just a static list
-    categories = ["localization", "software", "system", "user"]
 
     def setup(self, environment="anaconda"):
         should_schedule = TUIHub.setup(self, environment=environment)

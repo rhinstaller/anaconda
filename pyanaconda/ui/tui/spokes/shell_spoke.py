@@ -20,6 +20,7 @@
 
 """Text mode shell spoke"""
 
+from pyanaconda.ui.tui.categories.system import SystemCategory
 from pyanaconda.ui.tui.spokes import NormalTUISpoke
 from pyanaconda.ui.tui.simpleline.widgets import TextWidget
 from pyanaconda.i18n import N_, _
@@ -31,7 +32,7 @@ import subprocess
 
 class ShellSpoke(NormalTUISpoke):
     title = N_("Shell")
-    category = "system"
+    category = SystemCategory
 
     @classmethod
     def should_run(cls, environment, data):

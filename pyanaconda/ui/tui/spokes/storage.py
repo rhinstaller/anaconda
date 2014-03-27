@@ -23,6 +23,7 @@
 #
 
 from pyanaconda.ui.lib.disks import getDisks, applyDiskSelection
+from pyanaconda.ui.tui.categories.system import SystemCategory
 from pyanaconda.ui.tui.spokes import NormalTUISpoke
 from pyanaconda.ui.tui.simpleline import TextWidget, CheckboxWidget
 from pyanaconda.ui.tui.tuiobject import YesNoDialog
@@ -66,7 +67,7 @@ class StorageSpoke(NormalTUISpoke):
     as disk selection, partitioning, and fs type.
     """
     title = N_("Installation Destination")
-    category = "system"
+    category = SystemCategory
 
     def __init__(self, app, data, storage, payload, instclass):
         NormalTUISpoke.__init__(self, app, data, storage, payload, instclass)
@@ -433,7 +434,7 @@ class StorageSpoke(NormalTUISpoke):
 class AutoPartSpoke(NormalTUISpoke):
     """ Autopartitioning options are presented here. """
     title = N_("Autopartitioning Options")
-    category = "system"
+    category = SystemCategory
 
     def __init__(self, app, data, storage, payload, instclass):
         NormalTUISpoke.__init__(self, app, data, storage, payload, instclass)
@@ -499,7 +500,7 @@ class AutoPartSpoke(NormalTUISpoke):
 class PartitionSchemeSpoke(NormalTUISpoke):
     """ Spoke to select what partitioning scheme to use on disk(s). """
     title = N_("Partition Scheme Options")
-    category = "system"
+    category = SystemCategory
 
     # set default FS to LVM, for consistency with graphical behavior
     _selection = 1

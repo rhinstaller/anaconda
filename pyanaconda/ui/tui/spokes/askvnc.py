@@ -36,7 +36,6 @@ def exception_msg_handler_and_exit(event, data):
 
 class AskVNCSpoke(NormalTUISpoke):
     title = N_("VNC")
-    category = "vnc"
 
     # This spoke is kinda standalone, not meant to be used with a hub
     # We pass in some fake data just to make our parents happy
@@ -109,7 +108,6 @@ class AskVNCSpoke(NormalTUISpoke):
 
 class VNCPassSpoke(NormalTUISpoke):
     title = N_("VNC Password")
-    category = "vnc"
 
     def __init__(self, app, data, storage, payload, instclass, message=None):
         NormalTUISpoke.__init__(self, app, data, storage, payload, instclass)

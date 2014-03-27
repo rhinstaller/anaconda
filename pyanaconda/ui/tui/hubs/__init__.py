@@ -20,7 +20,6 @@
 #
 from pyanaconda.ui.tui import simpleline as tui
 from pyanaconda.ui.tui.tuiobject import TUIObject
-from pyanaconda.ui.tui.spokes import collect_spokes
 from pyanaconda.ui import common
 
 from pyanaconda.i18n import _, C_, N_
@@ -50,30 +49,30 @@ class TUIHub(TUIObject, common.Hub):
         self._spoke_count = 0
 
     def setup(self, environment="anaconda"):
-        # look for spokes having category present in self.categories
-        for c in self.categories:
-            spokes = collect_spokes(self.paths["spokes"], c)
+        cats_and_spokes = self._collectCategoriesAndSpokes()
+        categories = cats_and_spokes.keys()
 
-            # sort them according to their priority
-            for s in sorted(spokes, key = lambda s: s.title):
+        for c in sorted(categories, key=lambda c: c.title):
+
+            for spokeClass in sorted(cats_and_spokes[c], key=lambda s: s.title):
                 # Check if this spoke is to be shown in anaconda
-                if not s.should_run(environment, self.data):
+                if not spokeClass.should_run(environment, self.data):
                     continue
 
-                spoke = s(self.app, self.data, self.storage, self.payload, self.instclass)
+                spoke = spokeClass(self.app, self.data, self.storage, self.payload, self.instclass)
 
-                if not spoke.showable:
+                if spoke.showable:
+                    spoke.initialize()
+                else:
                     del spoke
                     continue
-
-                spoke.initialize()
 
                 if spoke.indirect:
                     continue
 
                 self._spoke_count += 1
                 self._keys[self._spoke_count] = spoke
-                self._spokes[spoke.__class__.__name__] = spoke
+                self._spokes[spokeClass.__name__] = spoke
 
         # only schedule the hub if it has some spokes
         return self._spoke_count != 0

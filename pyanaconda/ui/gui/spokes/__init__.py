@@ -20,11 +20,10 @@
 #                    Martin Sivak <msivak@redhat.com>
 
 from pyanaconda.ui import common
-from pyanaconda.ui.common import collect
 from pyanaconda.ui.gui import GUIObject
 import os.path
 
-__all__ = ["StandaloneSpoke", "NormalSpoke", "collect_spokes"]
+__all__ = ["StandaloneSpoke", "NormalSpoke"]
 
 class Spoke(GUIObject):
     def __init__(self, data):
@@ -93,20 +92,3 @@ class NormalSpoke(Spoke, common.NormalSpoke):
 
         self.window.hide()
         Gtk.main_quit()
-
-def collect_spokes(mask_paths, category):
-    """Return a list of all spoke subclasses that should appear for a given
-       category. Look for them in files imported as module_path % basename(f)
-
-       :param mask_paths: list of mask, path tuples to search for classes
-       :type mask_paths: list of (mask, path)
-
-       :return: list of Spoke classes belonging to category
-       :rtype: list of Spoke classes
-
-    """
-    spokes = []
-    for mask, path in mask_paths:
-        spokes.extend(collect(mask, path, lambda obj: hasattr(obj, "category") and obj.category != None and obj.category.__name__ == category))
-
-    return spokes

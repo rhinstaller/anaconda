@@ -20,7 +20,7 @@
 #
 from pyanaconda.ui.tui import simpleline as tui
 from pyanaconda.ui.tui.tuiobject import TUIObject, YesNoDialog
-from pyanaconda.ui.common import Spoke, StandaloneSpoke, NormalSpoke, collect
+from pyanaconda.ui.common import Spoke, StandaloneSpoke, NormalSpoke
 from pyanaconda.users import validatePassword, cryptPassword
 import re
 from collections import namedtuple
@@ -29,8 +29,7 @@ from pyanaconda.i18n import N_, _
 from pyanaconda.constants import PASSWORD_CONFIRM_ERROR_TUI
 
 __all__ = ["TUISpoke", "EditTUISpoke", "EditTUIDialog", "EditTUISpokeEntry",
-           "StandaloneSpoke", "NormalTUISpoke", "collect_spokes",
-           "collect_categories"]
+           "StandaloneSpoke", "NormalTUISpoke"]
 
 # Inherit abstract methods from Spoke
 # pylint: disable=abstract-method
@@ -47,7 +46,6 @@ class TUISpoke(TUIObject, tui.Widget, Spoke):
     """
 
     title = N_("Default spoke title")
-    category = u""
 
     def __init__(self, app, data, storage, payload, instclass):
         if self.__class__ is TUISpoke:
@@ -311,21 +309,3 @@ class EditTUISpoke(NormalTUISpoke):
 
 class StandaloneTUISpoke(TUISpoke, StandaloneSpoke):
     pass
-
-def collect_spokes(mask_paths, category):
-    """Return a list of all spoke subclasses that should appear for a given
-       category.
-    """
-    spokes = []
-    for mask, path in mask_paths:
-        spokes.extend(collect(mask, path, lambda obj: hasattr(obj, "category") and obj.category != None and obj.category == category))
-
-    return spokes
-
-def collect_categories(mask_paths):
-    classes = []
-    for mask, path in mask_paths:
-        classes.extend(collect(mask, path, lambda obj: hasattr(obj, "category") and obj.category != None and obj.category != ""))
-
-    categories = set(c.category for c in classes)
-    return categories

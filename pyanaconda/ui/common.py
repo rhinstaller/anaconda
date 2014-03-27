@@ -524,6 +524,13 @@ class Hub(UIObject):
         """
         log.debug("Entered hub: %s", self.__class__.__name__)
 
+    def _collectCategoriesAndSpokes(self):
+        """This method is provided so that is can be overridden in a subclass
+           by a custom collect method.
+           One example of such usage is the Initial Setup application.
+        """
+        return collectCategoriesAndSpokes(self.paths, self.__class__)
+
     def exit_logger(self):
         """Log when a user leaves the hub.  Subclasses may override this
            method if they want to log more specific information, but an
@@ -673,3 +680,48 @@ def collect(module_pattern, path, pred):
 
     return retval
 
+def collect_spokes(mask_paths, category):
+    """Return a list of all spoke subclasses that should appear for a given
+       category. Look for them in files imported as module_path % basename(f)
+
+       :param mask_paths: list of mask, path tuples to search for classes
+       :type mask_paths: list of (mask, path)
+
+       :return: list of Spoke classes belonging to category
+       :rtype: list of Spoke classes
+
+    """
+    spokes = []
+    for mask, path in mask_paths:
+        spokes.extend(collect(mask, path,
+                      lambda obj: hasattr(obj, "category") and obj.category is not None and obj.category.__name__ == category))
+
+    return spokes
+
+def collect_categories(mask_paths):
+    """Return a list of all category subclasses. Look for them in modules
+       imported as module_mask % basename(f) where f is name of all files in path.
+    """
+    categories = []
+    for mask, path in mask_paths:
+        categories.extend(collect(mask, path, lambda obj: getattr(obj, "displayOnHub", None) is not None))
+
+    return categories
+
+def collectCategoriesAndSpokes(paths, klass):
+    """collects categories and spokes to be displayed on this Hub
+
+       :param paths: dictionary mapping categories, spokes, and hubs to their
+       their respective search path(s)
+       :return: dictionary mapping category class to list of spoke classes
+       :rtype: dictionary[category class] -> [ list of spoke classes ]
+    """
+    ret = {}
+    # Collect all the categories this hub displays, then collect all the
+    # spokes belonging to all those categories.
+    categories = sorted(filter(lambda c: c.displayOnHub == klass, collect_categories(paths["categories"])),
+                        key=lambda c: c.sortOrder)
+    for c in categories:
+        ret[c] = collect_spokes(paths["spokes"], c.__name__)
+
+    return ret

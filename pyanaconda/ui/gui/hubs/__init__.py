@@ -29,8 +29,7 @@ from pyanaconda.product import distributionText
 
 from pyanaconda.ui import common
 from pyanaconda.ui.gui import GUIObject
-from pyanaconda.ui.gui.categories import collect_categories
-from pyanaconda.ui.gui.spokes import StandaloneSpoke, collect_spokes
+from pyanaconda.ui.gui.spokes import StandaloneSpoke
 from pyanaconda.ui.gui.utils import gtk_call_once, escape_markup
 from pyanaconda.constants import ANACONDA_ENVIRON
 
@@ -129,24 +128,6 @@ class Hub(GUIObject, common.Hub):
             action._visitedSinceApplied = False
 
         action.exit_logger()
-
-    def _collectCategoriesAndSpokes(self):
-        """collects categories and spokes to be displayed on this Hub
-
-           :return: dictionary mapping category class to list of spoke classes
-           :rtype: dictionary[category class] -> [ list of spoke classes ]
-        """
-
-        ret = {}
-
-        # Collect all the categories this hub displays, then collect all the
-        # spokes belonging to all those categories.
-        categories = sorted(filter(lambda c: c.displayOnHub == self.__class__, collect_categories(self.paths["categories"])),
-                            key=lambda c: c.sortOrder)
-        for c in categories:
-            ret[c] = collect_spokes(self.paths["spokes"], c.__name__)
-
-        return ret
 
     def _createBox(self):
         from gi.repository import Gtk, AnacondaWidgets

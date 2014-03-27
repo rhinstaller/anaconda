@@ -1,4 +1,4 @@
-# Base classes for spoke categories.
+# Software category classes
 #
 # Copyright (C) 2011, 2013  Red Hat, Inc.
 #
@@ -19,28 +19,13 @@
 # Red Hat Author(s): Chris Lumens <clumens@redhat.com>
 #
 
-import os.path
 from pyanaconda.i18n import N_
+from pyanaconda.ui.tui.categories import SpokeCategory
+from pyanaconda.ui.tui.hubs.summary import SummaryHub
 
-__all__ = ["SpokeCategory"]
+__all__ = ["SoftwareCategory"]
 
-class SpokeCategory(object):
-    """A SpokeCategory is an object used to group multiple related Spokes
-       together on a hub.  It consists of a title displayed above, and then
-       a two-column grid of SpokeSelectors.  Each SpokeSelector is associated
-       with a Spoke subclass.  A SpokeCategory will only display those Spokes
-       with a matching category attribute.
-
-       Class attributes:
-
-       displayOnHub  -- The Hub subclass to display this Category on.  If
-                        None, this Category will be skipped.
-       sortOrder     -- A number indicating the order in which this Category
-                        will be displayed.  A lower number indicates display
-                        higher up in the Hub.
-       title         -- The title of this SpokeCategory, to be displayed above
-                        the grid.
-    """
-    displayOnHub = None
-    sortOrder = 1000
-    title = N_("DEFAULT TITLE")
+class SoftwareCategory(SpokeCategory):
+    displayOnHub = SummaryHub
+    sortOrder = 200
+    title = N_("SOFTWARE")

@@ -21,6 +21,7 @@
 #                    Chris Lumens <clumens@redhat.com>
 #
 
+from pyanaconda.ui.tui.categories.user_settings import UserSettingsCategory
 from pyanaconda.ui.tui.spokes import EditTUIDialog, EditTUISpokeEntry
 from pyanaconda.ui.common import FirstbootSpokeMixIn
 from pyanaconda.ui.tui.simpleline import TextWidget
@@ -29,7 +30,7 @@ from pyanaconda.i18n import N_, _
 
 class PasswordSpoke(FirstbootSpokeMixIn, EditTUIDialog):
     title = N_("Root password")
-    category = "user"
+    category = UserSettingsCategory
 
     def __init__(self, app, data, storage, payload, instclass):
         EditTUIDialog.__init__(self, app, data, storage, payload, instclass)

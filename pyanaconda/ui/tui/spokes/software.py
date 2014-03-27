@@ -20,6 +20,7 @@
 #
 
 from pyanaconda.flags import flags
+from pyanaconda.ui.tui.categories.software import SoftwareCategory
 from pyanaconda.ui.tui.spokes import NormalTUISpoke
 from pyanaconda.ui.tui.simpleline import TextWidget, ColumnWidget, CheckboxWidget
 from pyanaconda.threads import threadMgr, AnacondaThread
@@ -36,7 +37,7 @@ __all__ = ["SoftwareSpoke"]
 class SoftwareSpoke(NormalTUISpoke):
     """ Spoke used to read new value of text to represent source repo. """
     title = N_("Software selection")
-    category = "software"
+    category = SoftwareCategory
 
     def __init__(self, app, data, storage, payload, instclass):
         NormalTUISpoke.__init__(self, app, data, storage, payload, instclass)

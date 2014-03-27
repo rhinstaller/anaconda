@@ -105,6 +105,9 @@ class TextUserInterface(ui.UserInterface):
     pathlist = set([updatepath, basepath] + sitepackages)
 
     paths = ui.UserInterface.paths + {
+            "categories": [(basemask + ".categories.%s",
+                        os.path.join(path, "categories"))
+                        for path in pathlist],
             "spokes": [(basemask + ".spokes.%s",
                         os.path.join(path, "spokes"))
                         for path in pathlist],
@@ -162,6 +165,7 @@ class TextUserInterface(ui.UserInterface):
 
             if hasattr(obj, "set_path"):
                 obj.set_path("spokes", self.paths["spokes"])
+                obj.set_path("categories", self.paths["categories"])
 
             should_schedule = obj.setup(self.ENVIRONMENT)
 

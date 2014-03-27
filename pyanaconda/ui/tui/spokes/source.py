@@ -20,6 +20,7 @@
 #
 
 from pyanaconda.flags import flags
+from pyanaconda.ui.tui.categories.software import SoftwareCategory
 from pyanaconda.ui.tui.spokes import EditTUISpoke, NormalTUISpoke
 from pyanaconda.ui.tui.spokes import EditTUISpokeEntry as Entry
 from pyanaconda.ui.tui.simpleline import TextWidget, ColumnWidget
@@ -51,7 +52,7 @@ __all__ = ["SourceSpoke"]
 class SourceSpoke(EditTUISpoke, SourceSwitchHandler):
     """ Spoke used to customize the install source repo. """
     title = N_("Installation source")
-    category = "software"
+    category = SoftwareCategory
 
     _protocols = (N_("Closest mirror"), "http://", "https://", "ftp://", "nfs")
 
@@ -258,7 +259,7 @@ class SourceSpoke(EditTUISpoke, SourceSwitchHandler):
 class SpecifyRepoSpoke(EditTUISpoke, SourceSwitchHandler):
     """ Specify the repo URL here if closest mirror not selected. """
     title = N_("Specify Repo Options")
-    category = "software"
+    category = SoftwareCategory
 
     edit_fields = [
         Entry(N_("Repo URL"), "url", re.compile(".*$"), True)
@@ -296,7 +297,7 @@ class SpecifyRepoSpoke(EditTUISpoke, SourceSwitchHandler):
 class SpecifyNFSRepoSpoke(EditTUISpoke, SourceSwitchHandler):
     """ Specify server and mount opts here if NFS selected. """
     title = N_("Specify Repo Options")
-    category = "software"
+    category = SoftwareCategory
 
     edit_fields = [
         Entry(N_("NFS <server>:/<path>"), "server", re.compile(".*$"), True),
@@ -343,7 +344,7 @@ class SpecifyNFSRepoSpoke(EditTUISpoke, SourceSwitchHandler):
 class SelectDeviceSpoke(NormalTUISpoke):
     """ Select device containing the install source ISO file. """
     title = N_("Select device containing the ISO file")
-    category = "source"
+    category = SoftwareCategory
 
     def __init__(self, app, data, storage, payload, instclass):
         NormalTUISpoke.__init__(self, app, data, storage, payload, instclass)
@@ -430,7 +431,7 @@ class SelectDeviceSpoke(NormalTUISpoke):
 class SelectISOSpoke(NormalTUISpoke, SourceSwitchHandler):
     """ Select an ISO to use as install source. """
     title = N_("Select an ISO to use as install source")
-    category = "source"
+    category = SoftwareCategory
 
     def __init__(self, app, data, storage, payload, instclass, device):
         NormalTUISpoke.__init__(self, app, data, storage, payload, instclass)

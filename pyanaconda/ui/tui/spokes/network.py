@@ -22,6 +22,7 @@
 
 
 from pyanaconda.flags import can_touch_runtime_system
+from pyanaconda.ui.tui.categories.system import SystemCategory
 from pyanaconda.ui.tui.spokes import EditTUISpoke, OneShotEditTUIDialog
 from pyanaconda.ui.tui.spokes import EditTUISpokeEntry as Entry
 from pyanaconda.ui.tui.simpleline import TextWidget, ColumnWidget
@@ -40,7 +41,7 @@ __all__ = ["NetworkSpoke"]
 class NetworkSpoke(EditTUISpoke):
     """ Spoke used to configure network settings. """
     title = N_("Network configuration")
-    category = "system"
+    category = SystemCategory
 
     def __init__(self, app, data, storage, payload, instclass):
         EditTUISpoke.__init__(self, app, data, storage, payload, instclass)
