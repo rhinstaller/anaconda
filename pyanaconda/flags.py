@@ -20,7 +20,7 @@
 import selinux
 import shlex
 import glob
-from pyanaconda.constants import SELINUX_DEFAULT
+from pyanaconda.constants import SELINUX_DEFAULT, CMDLINE_APPEND
 from collections import OrderedDict
 
 import logging
@@ -161,8 +161,8 @@ class BootArgs(OrderedDict):
                 key = i
                 val = None
 
-            # Duplicate args create a space separated string
-            if self.get(key, None):
+            # Some duplicate args create a space separated string
+            if key in CMDLINE_APPEND and self.get(key, None):
                 if val:
                     self[key] = self[key] + " " + val
             else:
