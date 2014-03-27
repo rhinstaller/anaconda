@@ -151,3 +151,6 @@ FIRSTBOOT_ENVIRON = "firstboot"
 
 # Tainted hardware
 UNSUPPORTED_HW = 1 << 28
+
+# cmdline arguments that append instead of overwrite
+CMDLINE_APPEND = ["modprobe.blacklist"]
