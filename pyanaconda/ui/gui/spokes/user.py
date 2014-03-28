@@ -31,7 +31,7 @@ from pyanaconda.ui.gui import GUIObject
 from pyanaconda.ui.gui.categories.user_settings import UserSettingsCategory
 from pyanaconda.ui.common import FirstbootSpokeMixIn
 from pyanaconda.ui.gui.utils import enlightbox
-from pyanaconda.ui.helpers import GUISpokeInputCheckHandler, GUIInputCheckHandler, InputCheck
+from pyanaconda.ui.helpers import GUISpokeInputCheckHandler, GUIDialogInputCheckHandler, InputCheck
 
 from pykickstart.constants import FIRSTBOOT_RECONFIG
 from pyanaconda.constants import ANACONDA_ENVIRON, FIRSTBOOT_ENVIRON,\
@@ -42,26 +42,30 @@ from pyanaconda.regexes import GECOS_VALID, USERNAME_VALID, GROUPNAME_VALID, GRO
 
 __all__ = ["UserSpoke", "AdvancedUserDialog"]
 
-class AdvancedUserDialog(GUIObject, GUIInputCheckHandler):
+class AdvancedUserDialog(GUIObject, GUIDialogInputCheckHandler):
     builderObjects = ["advancedUserDialog", "uid", "gid"]
     mainWidgetName = "advancedUserDialog"
     uiFile = "spokes/advanced_user.glade"
 
     def set_status(self, inputcheck):
-        # Set or clear the groups error label based on the check status
+        # Use the superclass set_status to set the error message
+        GUIDialogInputCheckHandler.set_status(self, inputcheck)
+
         # Make the save button insensitive if the check fails
         if inputcheck.check_status == InputCheck.CHECK_OK:
-            self._groupsError.set_text('')
             self._saveButton.set_sensitive(True)
         else:
-            self._groupsError.set_text(inputcheck.check_status)
             self._saveButton.set_sensitive(False)
 
     def _validateGroups(self, inputcheck):
-        groups_list = self.get_input(inputcheck.input_obj).split(",")
+        groups_string = self.get_input(inputcheck.input_obj)
+
+        # Pass if the string is empty
+        if not groups_string:
+            return InputCheck.CHECK_OK
 
         # Check each group name in the list
-        for group in groups_list:
+        for group in groups_string.split(","):
             group_name = GROUPLIST_FANCY_PARSE.match(group).group('name')
             if not GROUPNAME_VALID.match(group_name):
                 return _("Invalid group name: %s") % group_name
@@ -70,7 +74,7 @@ class AdvancedUserDialog(GUIObject, GUIInputCheckHandler):
 
     def __init__(self, user, groupDict, data):
         GUIObject.__init__(self, data)
-        GUIInputCheckHandler.__init__(self)
+        GUIDialogInputCheckHandler.__init__(self)
         self._user = user
         self._groupDict = groupDict
 
@@ -85,7 +89,6 @@ class AdvancedUserDialog(GUIObject, GUIInputCheckHandler):
         self._spinGid = self.builder.get_object("spin_gid")
         self._uid = self.builder.get_object("uid")
         self._gid = self.builder.get_object("gid")
-        self._groupsError = self.builder.get_object("groups_error")
         self._saveButton = self.builder.get_object("save_button")
 
     def initialize(self):
