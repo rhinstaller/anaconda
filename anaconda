@@ -1114,8 +1114,10 @@ if __name__ == "__main__":
     setupDisplay(anaconda, opts, addon_paths)
 
     # if we're in text mode, the resulting system should be too
+    # ...unless the kickstart specified otherwise
     if anaconda.displayMode != 'g':
-        anaconda.ksdata.skipx.skipx = True
+        if not anaconda.ksdata.xconfig.startX:
+            anaconda.ksdata.skipx.skipx = True
         from pyanaconda.constants import DISPLAY_MODE_CMDLINE, DISPLAY_MODE_TEXT
         if anaconda.displayMode == 'c':
             anaconda.ksdata.displaymode.displayMode = DISPLAY_MODE_CMDLINE
