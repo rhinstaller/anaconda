@@ -37,6 +37,8 @@ from pyanaconda.flags import flags
 from pyanaconda.constants import DRACUT_SHUTDOWN_EJECT, ROOT_PATH, TRANSLATIONS_UPDATE_DIR, UNSUPPORTED_HW
 from pyanaconda.regexes import URL_PARSE
 
+from pyanaconda.i18n import _
+
 import logging
 log = logging.getLogger("anaconda")
 program_log = logging.getLogger("program")
@@ -473,7 +475,7 @@ class ProxyString(object):
         if url:
             self.parse_url()
         elif not host:
-            raise ProxyStringError("No host url")
+            raise ProxyStringError(_("No host url"))
         else:
             self.parse_components()
 
@@ -494,7 +496,7 @@ class ProxyString(object):
         # 8 = fragment
         m = URL_PARSE.match(self.url)
         if not m:
-            raise ProxyStringError("malformed url, cannot parse it.")
+            raise ProxyStringError(_("malformed URL, cannot parse it."))
 
         # If no protocol was given default to http.
         self.protocol = m.group("protocol") or "http://"
@@ -510,7 +512,7 @@ class ProxyString(object):
             if m.group("port"):
                 self.port = m.group("port")
         else:
-            raise ProxyStringError("url has no host component")
+            raise ProxyStringError(_("URL has no host component"))
 
         self.parse_components()
 

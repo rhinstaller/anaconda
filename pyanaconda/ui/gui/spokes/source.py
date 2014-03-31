@@ -33,6 +33,7 @@ from pyanaconda.flags import flags
 from pyanaconda.i18n import _, N_, CN_
 from pyanaconda.image import opticalInstallMedia, potentialHdisoSources
 from pyanaconda.ui.communication import hubQ
+from pyanaconda.ui.helpers import GUIDialogInputCheckHandler, InputCheck
 from pyanaconda.ui.gui import GUIObject
 from pyanaconda.ui.gui.spokes import NormalSpoke
 from pyanaconda.ui.gui.categories.software import SoftwareCategory
@@ -65,13 +66,14 @@ REPO_OBJ = 2
 
 REPO_PROTO = [(0, "http://"), (1, "https://"), (2, "ftp://")]
 
-class ProxyDialog(GUIObject):
+class ProxyDialog(GUIObject, GUIDialogInputCheckHandler):
     builderObjects = ["proxyDialog"]
     mainWidgetName = "proxyDialog"
     uiFile = "spokes/source.glade"
 
     def __init__(self, data, proxy_url):
         GUIObject.__init__(self, data)
+        GUIDialogInputCheckHandler.__init__(self)
         self.proxyUrl = proxy_url
 
         self._proxyCheck = self.builder.get_object("enableProxyCheck")
@@ -82,19 +84,39 @@ class ProxyDialog(GUIObject):
         self._proxyURLEntry = self.builder.get_object("proxyURLEntry")
         self._proxyUsernameEntry = self.builder.get_object("proxyUsernameEntry")
         self._proxyPasswordEntry = self.builder.get_object("proxyPasswordEntry")
+        self._proxyAddButton = self.builder.get_object("proxyAddButton")
+
+        self._proxyValidate = self.add_check(self._proxyURLEntry, self._validateProxy)
+        self._proxyValidate.update_check_status()
+
+    def _validateProxy(self, inputcheck):
+        proxy_string = self.get_input(inputcheck.input_obj)
+
+        # Don't set an error icon on empty input, but keep the add button insensitive.
+        if not proxy_string:
+            return InputCheck.CHECK_SILENT
+
+        # Attempt to parse the proxy
+        try:
+            ProxyString(url=proxy_string)
+        except ProxyStringError as e:
+            return _("Invalid proxy URL: %s") % e
+
+        # TODO: check for http?
+
+    def set_status(self, inputcheck):
+        # Use the superclass set_status to set the error message
+        GUIDialogInputCheckHandler.set_status(self, inputcheck)
+
+        # Change the sensitivity of the Add button
+        self._proxyAddButton.set_sensitive(inputcheck.check_status == InputCheck.CHECK_OK)
 
     def on_proxy_cancel_clicked(self, *args):
         self.window.destroy()
 
     def on_proxy_add_clicked(self, *args):
-        # If the user unchecked the proxy entirely, that means they want it
-        # disabled.
-        if not self._proxyCheck.get_active():
-            self.proxyUrl = ""
-            self.window.destroy()
-            return
-
         url = self._proxyURLEntry.get_text()
+
         if self._authCheck.get_active():
             username = self._proxyUsernameEntry.get_text()
             password = self._proxyPasswordEntry.get_text()
@@ -102,18 +124,21 @@ class ProxyDialog(GUIObject):
             username = None
             password = None
 
-        try:
-            proxy = ProxyString(url=url, username=username, password=password)
-            self.proxyUrl = proxy.url
-        except ProxyStringError as e:
-            log.error("Failed to parse proxy for ProxyDialog Add - %s:%s@%s: %s", username, password, url, e)
-            # TODO - tell the user they entered an invalid proxy and let them retry
-            self.proxyUrl = ""
+        proxy = ProxyString(url=url, username=username, password=password)
+        self.proxyUrl = proxy.url
 
         self.window.destroy()
 
     def on_proxy_enable_toggled(self, button, *args):
         self._proxyInfoBox.set_sensitive(button.get_active())
+
+        # If disabling, set the add button to insensitve: there's nothing to
+        # add so the user can cancel to exit instead. If enabling, use
+        # the input check status to set the sensitivity
+        if not button.get_active():
+            self._proxyAddButton.set_sensitive(False)
+        else:
+            self.set_status(self._proxyValidate)
 
     def on_proxy_auth_toggled(self, button, *args):
         self._proxyAuthBox.set_sensitive(button.get_active())
