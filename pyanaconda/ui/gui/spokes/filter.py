@@ -28,6 +28,7 @@ import itertools
 from blivet import arch
 from blivet.devices import DASDDevice, FcoeDiskDevice, iScsiDiskDevice, MultipathDevice, MDRaidArrayDevice, ZFCPDiskDevice
 from blivet.fcoe import has_fcoe
+from blivet.udev import udev_get_device, udev_device_get_wwid
 
 from pyanaconda.flags import flags
 from pyanaconda.i18n import _, N_, P_
@@ -137,6 +138,14 @@ class FilterPage(object):
             combo.set_active(0)
 
     def _long_identifier(self, disk):
+        # For FCoE devices that have a serial number, we want to display that as
+        # the WWID.  If nothing's found, just default to the link or name below.
+        if isinstance(disk, FcoeDiskDevice):
+            info = udev_get_device(disk.sysfsPath)
+            wwid = udev_device_get_wwid(info)
+            if wwid:
+                return wwid
+
         # For iSCSI devices, we want the long ip-address:port-iscsi-tgtname-lun-XX
         # identifier, but blivet doesn't expose that in any useful way and I don't
         # want to go asking udev.  Instead, we dig around in the deviceLinks and
