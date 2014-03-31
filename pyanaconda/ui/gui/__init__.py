@@ -70,10 +70,17 @@ class GUIObject(common.UIObject):
                            of widgets shown by this object.  UI files are
                            searched for relative to the same directory as this
                            object's module.
+       translationDomain-- The gettext translation domain for the given GUIObject
+                           subclass. By default the "anaconda" translation domain
+                           is used, but external applications, such as Initial Setup,
+                           that use GUI elements (Hubs & Spokes) from Anaconda
+                           can override the translation domain with their own,
+                           so that their subclasses are properly translated.
     """
     builderObjects = []
     mainWidgetName = None
     uiFile = ""
+    translationDomain = "anaconda"
 
     screenshots_directory = "/tmp/anaconda-screenshots"
 
@@ -108,7 +115,7 @@ class GUIObject(common.UIObject):
         self.applyOnSkip = False
 
         self.builder = Gtk.Builder()
-        self.builder.set_translation_domain("anaconda")
+        self.builder.set_translation_domain(self.translationDomain)
         self._window = None
 
         if self.builderObjects:
