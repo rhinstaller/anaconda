@@ -20,6 +20,7 @@
 #
 
 import os
+import gettext
 
 # pylint: disable-msg=E0611
 from gi.repository import GLib
@@ -198,7 +199,17 @@ class Hub(GUIObject, common.Hub):
                     spoke.initialize()
                     continue
 
-                spoke.selector = AnacondaWidgets.SpokeSelector(_(spoke.title), spoke.icon)
+                # Hubs and spokes might be used outside of Anaconda
+                # (for example in initial-setup) and individual spokes might
+                # also have different translation domains (usually spokes
+                # taken from Anaconda will have the "anaconda" domain and
+                # external spokes will have their own).
+                # Therefore we need to forward the domain of the spoke to
+                # gettext to properly translate its title.
+                spoke.selector = AnacondaWidgets.SpokeSelector(
+                    gettext.ldgettext(spoke.translationDomain, spoke.title),
+                    spoke.icon
+                )
 
                 # Set all selectors to insensitive before initialize runs.  The call to
                 # _updateCompleteness later will take care of setting it straight.
