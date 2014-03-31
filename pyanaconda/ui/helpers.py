@@ -206,6 +206,11 @@ class InputCheck(object):
     # Use as a return value to indicate a passed check
     CHECK_OK = None
 
+    # Treat the check as failed but don't display anything
+    # This can be used, for example, to reject empty input without setting
+    # a big loud error message.
+    CHECK_SILENT = ""
+
     # Read-only properties
     input_obj = property(lambda s: s._input_obj,
                      doc="The input to check.")
@@ -358,6 +363,12 @@ class InputCheckHandler(object):
                 if c.enabled and c.check_status != InputCheck.CHECK_OK)
 
     @property
+    def failed_checks_with_message(self):
+        """A generator of all failed input checks with an error message"""
+        return (c for c in self._check_list \
+                if c.enabled and c.check_status not in (InputCheck.CHECK_OK, InputCheck.CHECK_SILENT))
+
+    @property
     def checks(self):
         """An iterator over all input checks"""
         return self._check_list.__iter__()
@@ -397,7 +408,7 @@ class GUIDialogInputCheckHandler(GUIInputCheckHandler):
 
     @abstractmethod
     def set_status(self, inputcheck):
-        if inputcheck.check_status == InputCheck.CHECK_OK:
+        if inputcheck.check_status in (InputCheck.CHECK_OK, InputCheck.CHECK_SILENT):
             inputcheck.input_obj.set_icon_from_icon_name(Gtk.EntryIconPosition.SECONDARY, None)
             inputcheck.input_obj.set_icon_tooltip_text(Gtk.EntryIconPosition.SECONDARY, "")
         else:
@@ -418,9 +429,9 @@ class GUISpokeInputCheckHandler(GUIInputCheckHandler):
 
     def set_status(self, inputcheck):
         """Update the warning with the input validation error from the first
-           failed check.
+           error message.
         """
-        failed_check = next(self.failed_checks, None)
+        failed_check = next(self.failed_checks_with_message, None)
 
         self.clear_info()
         if failed_check:
