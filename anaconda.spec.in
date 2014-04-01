@@ -259,6 +259,12 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Apr 01 2014 Brian C. Lane <bcl@redhat.com> - 19.31.75-1
+- Display WWIDs in the filter UI for FCoE devices (clumens).
+  Resolves: rhbz#1080316
+- Make it possible to override translation domain in GUIObjects (mkolman).
+  Related: rhbz#1040240
+
 * Fri Mar 28 2014 Brian C. Lane <bcl@redhat.com> - 19.31.74-1
 - network: don't crash on virtual devices turned off (rvykydal)
   Resolves: rhbz#1080640
