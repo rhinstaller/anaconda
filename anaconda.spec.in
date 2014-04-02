@@ -1,4 +1,4 @@
-%define livearches %{ix86} x86_64 ppc ppc64
+%define livearches %{ix86} x86_64 ppc ppc64 ppc64le
 
 Summary: Graphical system installer
 Name:    anaconda
@@ -200,9 +200,9 @@ find %{buildroot} -type f -name "*.la" | xargs %{__rm}
 
 %ifarch %livearches
 desktop-file-install ---dir=%{buildroot}%{_datadir}/applications %{buildroot}%{_datadir}/applications/liveinst.desktop
-%else
-%{__rm} -rf %{buildroot}%{_bindir}/liveinst %{buildroot}%{_sbindir}/liveinst
 %endif
+# NOTE: If you see "error: Installed (but unpackaged) file(s) found" that include liveinst files,
+#       check the IS_LIVEINST_ARCH in configure.ac to make sure your architecture is properly defined
 
 %find_lang %{name}
 
