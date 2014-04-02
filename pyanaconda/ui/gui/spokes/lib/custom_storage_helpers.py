@@ -491,18 +491,19 @@ class ContainerDialog(GUIObject):
 
     def _populate_raid(self):
         """ Set up the raid-specific portion of the device details. """
-        if self.device_type not in [DEVICE_TYPE_LVM, DEVICE_TYPE_BTRFS, DEVICE_TYPE_LVM_THINP]:
+        if not get_supported_raid_levels(self.device_type):
+            # no supported raid levels for this device type
             map(really_hide, [self._raidLevelLabel, self._raidLevelCombo])
             return
 
         raid_level = self.raid_level
         if not raid_level or raid_level == "single":
-            raid_level = _("None")
+            raid_level = "none"
 
         # Set a default RAID level in the combo.
         for (i, row) in enumerate(self._raidLevelCombo.get_model()):
-            log.debug("container dialog: raid level %s", row[0])
-            if row[0].upper().startswith(raid_level.upper()):
+            log.debug("container dialog: raid level %s", row[1])
+            if row[1] == raid_level:
                 self._raidLevelCombo.set_active(i)
                 break
 
