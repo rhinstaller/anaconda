@@ -105,21 +105,21 @@ DEVICE_TEXT_PARTITION = N_("Standard Partition")
 DEVICE_TEXT_BTRFS = N_("BTRFS")
 DEVICE_TEXT_DISK = N_("Disk")
 
-device_text_map = {DEVICE_TYPE_LVM: DEVICE_TEXT_LVM,
+DEVICE_TEXT_MAP = {DEVICE_TYPE_LVM: DEVICE_TEXT_LVM,
                    DEVICE_TYPE_MD: DEVICE_TEXT_MD,
                    DEVICE_TYPE_PARTITION: DEVICE_TEXT_PARTITION,
                    DEVICE_TYPE_BTRFS: DEVICE_TEXT_BTRFS,
                    DEVICE_TYPE_LVM_THINP: DEVICE_TEXT_LVM_THINP}
 
-new_container_text = N_("Create a new %(container_type)s ...")
-container_tooltip = N_("Create or select %(container_type)s")
+NEW_CONTAINER_TEXT = N_("Create a new %(container_type)s ...")
+CONTAINER_TOOLTIP = N_("Create or select %(container_type)s")
 
-device_configuration_error_msg = N_("Device reconfiguration failed. Click for "
+DEVICE_CONFIGURATION_ERROR_MSG = N_("Device reconfiguration failed. Click for "
                                     "details.")
-unrecoverable_error_msg = N_("Storage configuration reset due to unrecoverable "
+UNRECOVERABLE_ERROR_MSG = N_("Storage configuration reset due to unrecoverable "
                              "error. Click for details.")
 
-partition_only_format_types = ["efi", "macefi", "prepboot", "biosboot",
+PARTITION_ONLY_FORMAT_TYPES = ["efi", "macefi", "prepboot", "biosboot",
                                "appleboot"]
 
 class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
@@ -753,12 +753,12 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
             error = (_("/boot/efi must be on a device of type %s")
                      % _(DEVICE_TEXT_PARTITION))
         elif device_type != DEVICE_TYPE_PARTITION and \
-             new_fs_type in partition_only_format_types:
+             new_fs_type in PARTITION_ONLY_FORMAT_TYPES:
             error = (_("%(fs)s must be on a device of type %(type)s")
                        % {"fs" : fs_type, "type" : _(DEVICE_TEXT_PARTITION)})
         elif mountpoint and encrypted and mountpoint.startswith("/boot"):
             error = _("%s cannot be encrypted") % mountpoint
-        elif encrypted and new_fs_type in partition_only_format_types:
+        elif encrypted and new_fs_type in PARTITION_ONLY_FORMAT_TYPES:
             error = _("%s cannot be encrypted") % fs_type
         elif mountpoint == "/" and device.format.exists and not reformat:
             error = _("You must create a new filesystem on the root device.")
@@ -904,7 +904,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
                     # accordingly
                     self._update_all_devices_in_selectors()
                     self._error = e
-                    self.set_warning(_(device_configuration_error_msg))
+                    self.set_warning(_(DEVICE_CONFIGURATION_ERROR_MSG))
                     self.window.show_all()
 
                     if _device is None:
@@ -934,7 +934,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
                             # failed to recover.
                             self.refresh()  # this calls self.clear_errors
                             self._error = e
-                            self.set_warning(_(unrecoverable_error_msg))
+                            self.set_warning(_(UNRECOVERABLE_ERROR_MSG))
                             self.window.show_all()
                             return
 
@@ -1313,7 +1313,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
 
         # if the format is swap the device type can't be btrfs
         include_btrfs = (use_dev.format.type not in
-                            partition_only_format_types + ["swap"])
+                            PARTITION_ONLY_FORMAT_TYPES + ["swap"])
         if include_btrfs and not btrfs_included:
             self._typeCombo.append_text(_(DEVICE_TEXT_BTRFS))
         elif btrfs_included and not include_btrfs:
@@ -1557,7 +1557,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         device_type = device_type_from_autopart[self.data.autopart.type]
         if (device_type != DEVICE_TYPE_PARTITION and
             ((mountpoint and mountpoint.startswith("/boot")) or
-             fstype in partition_only_format_types)):
+             fstype in PARTITION_ONLY_FORMAT_TYPES)):
             device_type = DEVICE_TYPE_PARTITION
 
         # we shouldn't create swap on a thinly provisioned volume
@@ -1570,7 +1570,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
 
         # some devices should never be encrypted
         if ((mountpoint and mountpoint.startswith("/boot")) or
-            fstype in partition_only_format_types):
+            fstype in PARTITION_ONLY_FORMAT_TYPES):
             encrypted = False
 
         disks = self._clearpartDevices
@@ -1625,7 +1625,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
                     except StorageError as e2:
                         log.error("factoryDevice failed w/ old container: %s", e2)
                     else:
-                        type_str = _(device_text_map[device_type])
+                        type_str = _(DEVICE_TEXT_MAP[device_type])
                         self.set_info(_("Added new %(type)s to existing "
                                         "container %(name)s.")
                                         % {"type" : type_str, "name" : container.name})
@@ -1986,7 +1986,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
 
         device_type = self._get_current_device_type()
         container_type = get_container_type_name(device_type).lower()
-        new_text = _(new_container_text) % {"container_type": container_type}
+        new_text = _(NEW_CONTAINER_TEXT) % {"container_type": container_type}
         if container_name == new_text:
             # run the vg editor dialog with a default name and disk set
             hostname = self.data.network.hostname
@@ -2282,8 +2282,8 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
                 self._containerStore.append(self._container_store_row(default_container))
                 self._containerCombo.set_active(len(self._containerStore) - 1)
 
-            self._containerStore.append(self._container_store_row(_(new_container_text) % {"container_type": container_type_text.lower()}))
-            self._containerCombo.set_tooltip_text(_(container_tooltip) % {"container_type": container_type_text.lower()})
+            self._containerStore.append(self._container_store_row(_(NEW_CONTAINER_TEXT) % {"container_type": container_type_text.lower()}))
+            self._containerCombo.set_tooltip_text(_(CONTAINER_TOOLTIP) % {"container_type": container_type_text.lower()})
             if default_container is None:
                 self._containerCombo.set_active(len(self._containerStore) - 1)
 
