@@ -596,17 +596,14 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
 
     def _update_all_devices_in_selectors(self):
         for s in self._accordion.allSelectors:
-            replaced = False
             for new_device in self._storage_playground.devices:
                 if ((s._device.name == new_device.name) or
                     (getattr(s._device, "req_name", 1) == getattr(new_device, "req_name", 2)) and
                     s._device.type == new_device.type and
                     s._device.format.type == new_device.format.type):
                     selectorFromDevice(new_device, selector=s)
-                    replaced = True
                     break
-
-            if not replaced:
+            else:
                 log.warning("failed to replace device: %s", s._device)
 
     def _save_right_side(self, selector):
