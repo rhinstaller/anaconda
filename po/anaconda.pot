@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: anaconda 21.28\n"
+"Project-Id-Version: anaconda 21.29\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
-"POT-Creation-Date: 2014-03-26 17:21-0700\n"
+"POT-Creation-Date: 2014-04-02 16:45-0700\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -410,6 +410,18 @@ msgstr ""
 msgid "Installing bootloader"
 msgstr ""
 
+#: pyanaconda/iutil.py:478
+msgid "No host url"
+msgstr ""
+
+#: pyanaconda/iutil.py:499
+msgid "malformed URL, cannot parse it."
+msgstr ""
+
+#: pyanaconda/iutil.py:515
+msgid "URL has no host component"
+msgstr ""
+
 #: pyanaconda/kickstart.py:155
 #, python-format
 msgid "Escrow certificate %s requires the network."
@@ -444,76 +456,70 @@ msgstr ""
 msgid "Running pre-installation scripts"
 msgstr ""
 
-#: pyanaconda/network.py:107
+#: pyanaconda/network.py:103
 msgid "Hostname cannot be None or an empty string."
 msgstr ""
 
-#: pyanaconda/network.py:110
+#: pyanaconda/network.py:106
 msgid "Hostname must be 255 or fewer characters in length."
 msgstr ""
 
-#: pyanaconda/network.py:115
-msgid ""
-"Hostname must start with a valid character in the ranges 'a-z', 'A-Z', or "
-"'0-9'"
-msgstr ""
-
-#: pyanaconda/network.py:123
+#: pyanaconda/network.py:109
 msgid ""
 "Hostnames can only contain the characters 'a-z', 'A-Z', '0-9', '-', or '.', "
 "parts between periods must contain something and cannot start or end with "
 "'-'."
 msgstr ""
 
-#: pyanaconda/network.py:1261 pyanaconda/ui/gui/spokes/custom.py:506
+#: pyanaconda/network.py:1250 pyanaconda/ui/gui/spokes/custom.py:506
 #: pyanaconda/ui/gui/spokes/network.py:297
 #: pyanaconda/ui/gui/spokes/lib/accordion.py:59
 msgid "Unknown"
 msgstr ""
 
-#: pyanaconda/network.py:1265
+#: pyanaconda/network.py:1254
 msgid "Connecting..."
 msgstr ""
 
-#: pyanaconda/network.py:1267
+#: pyanaconda/network.py:1256
 msgid "Disconnecting..."
 msgstr ""
 
-#: pyanaconda/network.py:1287
+#: pyanaconda/network.py:1276
 #, python-format
 msgid "Wired (%(interface_name)s) connected"
 msgstr ""
 
-#: pyanaconda/network.py:1290
+#: pyanaconda/network.py:1279
 #, python-format
 msgid "Wireless connected to %(access_point)s"
 msgstr ""
 
-#: pyanaconda/network.py:1293
+#: pyanaconda/network.py:1282
 #, python-format
 msgid "Bond %(interface_name)s (%(list_of_slaves)s) connected"
 msgstr ""
 
-#: pyanaconda/network.py:1297
+#: pyanaconda/network.py:1286
 #, python-format
 msgid "Team%(interface_name)s (%(list_of_slaves)s) connected"
 msgstr ""
 
-#: pyanaconda/network.py:1303
+#: pyanaconda/network.py:1292
 #, python-format
 msgid "Vlan %(interface_name)s (%(parent_device)s, ID %(vlanid)s) connected"
 msgstr ""
 
-#: pyanaconda/network.py:1318
+#: pyanaconda/network.py:1307
 #, python-format
 msgid "Connected: %(list_of_interface_names)s"
 msgstr ""
 
-#: pyanaconda/network.py:1321
+#: pyanaconda/network.py:1310
 msgid "Not connected"
 msgstr ""
 
-#: pyanaconda/network.py:1324 pyanaconda/ui/gui/spokes/network.glade:2348
+#: pyanaconda/network.py:1313 pyanaconda/ui/gui/spokes/network.glade:2348
 msgid "No network devices available"
 msgstr ""
 
@@ -806,7 +812,7 @@ msgstr ""
 msgid "Installing %s"
 msgstr ""
 
-#: pyanaconda/ui/helpers.py:93 pyanaconda/ui/tui/spokes/storage.py:394
+#: pyanaconda/ui/helpers.py:95 pyanaconda/ui/tui/spokes/storage.py:394
 msgid "Checking storage configuration..."
 msgstr ""
 
@@ -1140,7 +1146,7 @@ msgstr ""
 
 #: pyanaconda/ui/tui/spokes/storage.py:192
 #: pyanaconda/ui/tui/spokes/source.py:379
-#: pyanaconda/ui/gui/spokes/source.py:601
+#: pyanaconda/ui/gui/spokes/source.py:626
 #: pyanaconda/ui/gui/spokes/storage.py:557
 msgid "Probing storage..."
 msgstr ""
@@ -1204,8 +1210,8 @@ msgid "Timezone settings"
 msgstr ""
 
 #: pyanaconda/ui/tui/spokes/time_spoke.py:57
-#: pyanaconda/ui/gui/spokes/datetime_spoke.py:455
-#: pyanaconda/ui/gui/spokes/datetime_spoke.py:461
+#: pyanaconda/ui/gui/spokes/datetime_spoke.py:480
+#: pyanaconda/ui/gui/spokes/datetime_spoke.py:486
 #, python-format
 msgid "%s timezone"
 msgstr ""
@@ -1247,33 +1253,33 @@ msgstr ""
 
 #: pyanaconda/ui/tui/spokes/source.py:56
 #: pyanaconda/ui/tui/spokes/source.py:102
-#: pyanaconda/ui/gui/spokes/source.py:532
+#: pyanaconda/ui/gui/spokes/source.py:557
 #: pyanaconda/ui/gui/spokes/source.glade:759
 msgid "Closest mirror"
 msgstr ""
 
 #: pyanaconda/ui/tui/spokes/source.py:94
-#: pyanaconda/ui/gui/spokes/source.py:524
+#: pyanaconda/ui/gui/spokes/source.py:549
 #, python-format
 msgid "NFS server %s"
 msgstr ""
 
 #: pyanaconda/ui/tui/spokes/source.py:96
-#: pyanaconda/ui/gui/spokes/source.py:526
+#: pyanaconda/ui/gui/spokes/source.py:551
 msgid "Local media"
 msgstr ""
 
 #: pyanaconda/ui/tui/spokes/source.py:99
 #: pyanaconda/ui/tui/spokes/source.py:109
-#: pyanaconda/ui/gui/spokes/source.py:520
+#: pyanaconda/ui/gui/spokes/source.py:545
 msgid "Error setting up software source"
 msgstr ""
 
 #: pyanaconda/ui/tui/spokes/source.py:104
 #: pyanaconda/ui/tui/spokes/software.py:102
-#: pyanaconda/ui/gui/spokes/datetime_spoke.py:463
+#: pyanaconda/ui/gui/spokes/datetime_spoke.py:488
 #: pyanaconda/ui/gui/spokes/software.py:196
-#: pyanaconda/ui/gui/spokes/source.py:534
+#: pyanaconda/ui/gui/spokes/source.py:559
 msgid "Nothing selected"
 msgstr ""
 
@@ -1304,7 +1310,7 @@ msgid "Choose an installation source type."
 msgstr ""
 
 #: pyanaconda/ui/tui/spokes/source.py:221
-#: pyanaconda/ui/gui/spokes/source.py:450
+#: pyanaconda/ui/gui/spokes/source.py:475
 msgid "Failed to set up installation source"
 msgstr ""
 
@@ -1316,7 +1322,7 @@ msgstr ""
 #: pyanaconda/ui/tui/spokes/software.py:70
 #: pyanaconda/ui/gui/spokes/software.py:232
 #: pyanaconda/ui/gui/spokes/software.py:262
-#: pyanaconda/ui/gui/spokes/source.py:478
+#: pyanaconda/ui/gui/spokes/source.py:503
 msgid "No installation source available"
 msgstr ""
 
@@ -1394,7 +1400,7 @@ msgstr ""
 msgid "User creation"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/user.py:111 pyanaconda/ui/gui/spokes/user.py:335
+#: pyanaconda/ui/tui/spokes/user.py:111 pyanaconda/ui/gui/spokes/user.py:338
 msgid "No user will be created"
 msgstr ""
 
@@ -1402,12 +1408,12 @@ msgstr ""
 msgid "You must set a password"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/user.py:115 pyanaconda/ui/gui/spokes/user.py:337
+#: pyanaconda/ui/tui/spokes/user.py:115 pyanaconda/ui/gui/spokes/user.py:340
 #, python-format
 msgid "Administrator %s will be created"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/user.py:117 pyanaconda/ui/gui/spokes/user.py:339
+#: pyanaconda/ui/tui/spokes/user.py:117 pyanaconda/ui/gui/spokes/user.py:342
 #, python-format
 msgid "User %s will be created"
 msgstr ""
@@ -1806,34 +1812,34 @@ msgstr ""
 msgid "Failed to unlock encrypted block device. Click for details"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/datetime_spoke.py:343
+#: pyanaconda/ui/gui/spokes/datetime_spoke.py:368
 msgctxt "GUI|Spoke"
 msgid "DATE & _TIME"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/datetime_spoke.py:446
+#: pyanaconda/ui/gui/spokes/datetime_spoke.py:471
 msgid "Restoring hardware time..."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/datetime_spoke.py:457
+#: pyanaconda/ui/gui/spokes/datetime_spoke.py:482
 msgid "Invalid timezone"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/datetime_spoke.py:825
-#: pyanaconda/ui/gui/spokes/datetime_spoke.py:828
+#: pyanaconda/ui/gui/spokes/datetime_spoke.py:850
+#: pyanaconda/ui/gui/spokes/datetime_spoke.py:853
 msgid "AM"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/datetime_spoke.py:826
+#: pyanaconda/ui/gui/spokes/datetime_spoke.py:851
 #: pyanaconda/ui/gui/spokes/datetime_spoke.glade:468
 msgid "PM"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/datetime_spoke.py:975
+#: pyanaconda/ui/gui/spokes/datetime_spoke.py:1000
 msgid "You need to set up networking first if you want to use NTP"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/datetime_spoke.py:980
+#: pyanaconda/ui/gui/spokes/datetime_spoke.py:1005
 msgid "You have no working NTP server configured"
 msgstr ""
 
@@ -2059,7 +2065,7 @@ msgid "_SOFTWARE SELECTION"
 msgstr ""
 
 #: pyanaconda/ui/gui/spokes/software.py:115
-#: pyanaconda/ui/gui/spokes/source.py:514
+#: pyanaconda/ui/gui/spokes/source.py:539
 msgid "Checking software dependencies..."
 msgstr ""
 
@@ -2068,7 +2074,7 @@ msgid "Error checking software dependencies"
 msgstr ""
 
 #: pyanaconda/ui/gui/spokes/software.py:206
-#: pyanaconda/ui/gui/spokes/source.py:51
+#: pyanaconda/ui/gui/spokes/source.py:52
 msgid "Downloading package metadata..."
 msgstr ""
 
@@ -2103,75 +2109,80 @@ msgctxt "GUI|Software Selection|Error Dialog"
 msgid "_Modify Software Source"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.py:50
+#: pyanaconda/ui/gui/spokes/source.py:51
 msgid "Setting up installation source..."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.py:52
+#: pyanaconda/ui/gui/spokes/source.py:53
 msgid "Error downloading package metadata..."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.py:167
+#: pyanaconda/ui/gui/spokes/source.py:103
+#, python-format
+msgid "Invalid proxy URL: %s"
+msgstr ""
+
+#: pyanaconda/ui/gui/spokes/source.py:192
 msgid "This media is good to install from."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.py:169
+#: pyanaconda/ui/gui/spokes/source.py:194
 msgid "This media is not good to install from."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.py:289
+#: pyanaconda/ui/gui/spokes/source.py:314
 msgctxt "GUI|Spoke"
 msgid "_INSTALLATION SOURCE"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.py:405
-#: pyanaconda/ui/gui/spokes/source.py:452
-#: pyanaconda/ui/gui/spokes/source.py:464
+#: pyanaconda/ui/gui/spokes/source.py:430
+#: pyanaconda/ui/gui/spokes/source.py:477
+#: pyanaconda/ui/gui/spokes/source.py:489
 msgid "Failed to set up installation source; check the repo url"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.py:454
+#: pyanaconda/ui/gui/spokes/source.py:479
 msgid ""
 "Failed to set up installation source; check the repo url and proxy settings"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.py:518
+#: pyanaconda/ui/gui/spokes/source.py:543
 msgid "Error setting up base repository"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.py:529
+#: pyanaconda/ui/gui/spokes/source.py:554
 msgid "Error setting up ISO file"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.py:626
+#: pyanaconda/ui/gui/spokes/source.py:651
 #, python-format
 msgid "Device: %s"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.py:627
+#: pyanaconda/ui/gui/spokes/source.py:652
 #, python-format
 msgid "Label: %s"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.py:1040
+#: pyanaconda/ui/gui/spokes/source.py:1065
 msgid "Duplicate repository names."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.py:1051
+#: pyanaconda/ui/gui/spokes/source.py:1076
 msgid ""
 "Duplicate repository names not allowed; choose a unique name for each "
 "repository."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.py:1073
+#: pyanaconda/ui/gui/spokes/source.py:1098
 msgid "Empty repository name."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.py:1077
+#: pyanaconda/ui/gui/spokes/source.py:1102
 msgid "Invalid repository name."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.py:1083
+#: pyanaconda/ui/gui/spokes/source.py:1108
 msgid "Repository name conflicts with internal repository name."
 msgstr ""
 
@@ -2293,25 +2304,25 @@ msgstr ""
 msgid "_OK"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/user.py:67
+#: pyanaconda/ui/gui/spokes/user.py:71
 #, python-format
 msgid "Invalid group name: %s"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/user.py:203
+#: pyanaconda/ui/gui/spokes/user.py:206
 msgctxt "GUI|Spoke"
 msgid "_USER CREATION"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/user.py:275 pyanaconda/ui/gui/spokes/user.py:276
+#: pyanaconda/ui/gui/spokes/user.py:278 pyanaconda/ui/gui/spokes/user.py:279
 msgid "The password was set by kickstart."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/user.py:302
+#: pyanaconda/ui/gui/spokes/user.py:305
 msgid "Invalid username"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/user.py:304
+#: pyanaconda/ui/gui/spokes/user.py:307
 msgid "Full name cannot contain colon characters"
 msgstr ""
 
@@ -2746,22 +2757,22 @@ msgctxt "GUI|Advanced User"
 msgid "_Add user to the following groups:"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/advanced_user.glade:357
+#: pyanaconda/ui/gui/spokes/advanced_user.glade:345
 msgid "wheel, my-team (1245), project-x (29935)"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/advanced_user.glade:374
+#: pyanaconda/ui/gui/spokes/advanced_user.glade:362
 msgid ""
 "You may input a comma-separated list of group names and group IDs here.\n"
 "Groups that do not already exist will be created; specify their GID in "
 "parentheses. "
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/advanced_user.glade:390
+#: pyanaconda/ui/gui/spokes/advanced_user.glade:378
 msgid "Example:"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/advanced_user.glade:409
+#: pyanaconda/ui/gui/spokes/advanced_user.glade:397
 msgid "Tip:"
 msgstr ""
 

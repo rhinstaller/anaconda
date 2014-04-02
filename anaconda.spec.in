@@ -302,6 +302,21 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Wed Apr 02 2014 Brian C. Lane <bcl@redhat.com> - 21.30-1
+- Add support ppc64le (hamzy)
+- Validate proxy URLs (dshea)
+- Provide feedback for invalid NTP hostnames. (dshea)
+- Use GUIDialogInputCheckHandler in the advanced user dialog (dshea)
+- Add a new InputCheck status for silent failures. (dshea)
+- Add an InputCheckHandler subclass for dialogs. (dshea)
+- Generalized and improved the proxy URL parsing regex (dshea)
+- Update makebumpver for the newer python-bugzilla on rawhide. (clumens)
+- network: don't crash on virtual devices turned off (#1080640) (rvykydal)
+- network: don't pop HWADDR twice for vlan on s390 (#1061646) (rvykydal)
+- Make safe_dbus module's functions less 'safe' (vpodzime)
+- Add a list of cmdline args that append instead of replace (#1073130) (bcl)
+- safe_dbus: Don't export DBus connection addresses as variables (walters)
+
 * Wed Mar 26 2014 Brian C. Lane <bcl@redhat.com> - 21.29-1
 - Add a Makefile target to create a set of empty .po files. (dshea)
 - os.path.exists -> os.path.lexists when checking for authconfig. (clumens)
