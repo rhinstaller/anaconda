@@ -122,6 +122,20 @@ UNRECOVERABLE_ERROR_MSG = N_("Storage configuration reset due to unrecoverable "
 PARTITION_ONLY_FORMAT_TYPES = ["efi", "macefi", "prepboot", "biosboot",
                                "appleboot"]
 
+MOUNTPOINT_DESCRIPTIONS = {"Swap": N_("The 'swap' area on your computer is used by the operating\n"
+                                      "system when running low on memory."),
+                           "Boot": N_("The 'boot' area on your computer is where files needed\n"
+                                      "to start the operating system are stored."),
+                           "Root": N_("The 'root' area on your computer is where core system\n"
+                                      "files and applications are stored."),
+                           "Home": N_("The 'home' area on your computer is where all your personal\n"
+                                      "data is stored."),
+                           "BIOS Boot": N_("The BIOS boot partition is required to enable booting\n"
+                                           "from GPT-partitioned disks on BIOS hardware."),
+                           "PReP Boot": N_("The PReP boot partition is required as part of the\n"
+                                           "bootloader configuration on some PPC platforms.")
+                            }
+
 class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
     builderObjects = ["customStorageWindow", "containerStore",
                       "partitionStore", "raidStoreFiltered", "raidLevelStore",
@@ -536,29 +550,6 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
     ###
     ### RIGHT HAND SIDE METHODS
     ###
-
-    def _description(self, name):
-        if name == "Swap":
-            return _("The 'swap' area on your computer is used by the operating\n" \
-                     "system when running low on memory.")
-        elif name == "Boot":
-            return _("The 'boot' area on your computer is where files needed\n" \
-                     "to start the operating system are stored.")
-        elif name == "Root":
-            return _("The 'root' area on your computer is where core system\n" \
-                     "files and applications are stored.")
-        elif name == "Home":
-            return _("The 'home' area on your computer is where all your personal\n" \
-                     "data is stored.")
-        elif name == "BIOS Boot":
-            return _("The BIOS boot partition is required to enable booting\n"
-                     "from GPT-partitioned disks on BIOS hardware.")
-        elif name == "PReP Boot":
-            return _("The PReP boot partition is required as part of the\n"
-                     "bootloader configuration on some PPC platforms.")
-        else:
-            return ""
-
     def add_new_selector(self, device):
         """ Add an entry for device to the new install Page. """
         page = self._accordion._find_by_title(translated_new_install_name()).get_child()
@@ -1218,7 +1209,8 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         log.debug("updated device_container_size to %s", self._device_container_size)
 
         self._selectedDeviceLabel.set_text(selector.props.name)
-        self._selectedDeviceDescLabel.set_text(self._description(selector.props.name))
+        desc = _(MOUNTPOINT_DESCRIPTIONS.get(selector.props.name, ""))
+        self._selectedDeviceDescLabel.set_text(desc)
 
         device_name = getattr(use_dev, "lvname", use_dev.name)
         self._nameEntry.set_text(device_name)
@@ -2074,7 +2066,8 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
 
         if no_edit:
             selectedDeviceLabel.set_text(selector.device.name)
-            selectedDeviceDescLabel.set_text(self._description(selector.device.type))
+            desc = _(MOUNTPOINT_DESCRIPTIONS.get(selector.device.type, ""))
+            selectedDeviceDescLabel.set_text(desc)
             selector.set_chosen(True)
             self._current_selector = selector
             self._configButton.set_sensitive(False)
