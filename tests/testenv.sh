@@ -29,3 +29,7 @@ export LD_LIBRARY_PATH
 export PYTHONPATH
 export top_srcdir
 export top_builddir
+
+# This must be added to gi.overrides.__path__ by any test requiring the
+# AnacondaWidgets gi-overrides
+export ANACONDA_WIDGETS_OVERRIDES="${top_srcdir}/widgets/python"
