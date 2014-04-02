@@ -1354,7 +1354,10 @@ class SELinux(commands.selinux.FC3_SELinux):
                            SELINUX_ENFORCING: "enforcing",
                            SELINUX_PERMISSIVE: "permissive" }
 
-        if self.selinux not in selinux_states:
+        if self.selinux is None:
+            # Use the defaults set by the installed (or not) selinux package
+            return
+        elif self.selinux not in selinux_states:
             log.error("unknown selinux state: %s", self.selinux)
             return
 
