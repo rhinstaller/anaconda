@@ -171,7 +171,7 @@ AC_CANONICAL_BUILD
 s_arch="`echo $build_cpu | sed -e s/i.86/i386/ -e s/powerpc.*/ppc/`"
 
 AM_CONDITIONAL(IS_LIVEINST_ARCH,
-  [test x$s_arch = xppc || test x$s_arch = xi386 || test x$s_arch = xx86_64])
+  [test x$s_arch = xppc || test x$s_arch = xppc64 || test x$s_arch = xppc64le || test x$s_arch = xi386 || test x$s_arch = xx86_64])
 
 AC_CONFIG_SUBDIRS([widgets])
 
