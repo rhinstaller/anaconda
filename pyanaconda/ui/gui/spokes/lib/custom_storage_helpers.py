@@ -483,7 +483,9 @@ class ContainerDialog(GUIObject):
 
         # This is weird because for lvm's container-wide raid we use md.
         if self.device_type in (DEVICE_TYPE_LVM, DEVICE_TYPE_LVM_THINP):
-            return raid_level in get_supported_raid_levels(DEVICE_TYPE_MD)
+            # no RAID is an option for LVM(ThP) as well
+            return (raid_level == "none" or
+                    raid_level in get_supported_raid_levels(DEVICE_TYPE_MD))
         else:
             return raid_level in get_supported_raid_levels(self.device_type)
 
