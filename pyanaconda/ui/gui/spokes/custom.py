@@ -721,8 +721,6 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
 
         old_device_info["name"] = old_name
         new_device_info["name"] = name
-        log.debug("old name: %s", old_name)
-        log.debug("new name: %s", name)
 
         # SIZE
         old_size = device.size
@@ -731,8 +729,6 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
                         size != old_size)
         old_device_info["size"] = old_size
         new_device_info["size"] = size
-        log.debug("old size: %s", old_size)
-        log.debug("new size: %s", size)
 
         # DEVICE TYPE
         device_type = self._get_current_device_type()
@@ -740,8 +736,6 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         changed_device_type = (old_device_type != device_type)
         old_device_info["device_type"] = old_device_type
         new_device_info["device_type"] = device_type
-        log.debug("old device type: %s", old_device_type)
-        log.debug("new device type: %s", device_type)
 
         # REFORMAT
         reformat = self._reformatCheckbox.get_active()
@@ -755,9 +749,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         fs_type = new_fs.type
         changed_fs_type = (old_fs_type != fs_type)
         old_device_info["fstype"] = old_fs_type
-        new_device_info["fstype"] = fs_type # XXX: should hold fstype_str?
-        log.debug("old fs type: %s", old_fs_type)
-        log.debug("new fs type: %s", fs_type)
+        new_device_info["fstype"] = fs_type
 
         # ENCRYPTION
         old_encrypted = isinstance(device, LUKSDevice)
@@ -765,8 +757,6 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         changed_encryption = (old_encrypted != encrypted)
         old_device_info["encrypted"] = old_encrypted
         new_device_info["encrypted"] = encrypted
-        log.debug("old encryption setting: %s", old_encrypted)
-        log.debug("new encryption setting: %s", encrypted)
 
         # FS LABEL
         label = self._labelEntry.get_text()
@@ -774,8 +764,6 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         changed_label = (label != old_label)
         old_device_info["label"] = old_label
         new_device_info["label"] = label
-        log.debug("old label: %s", old_label)
-        log.debug("new_label: %s", label)
         if changed_label or changed_fs_type:
             error = validate_label(label, new_fs)
             if error:
@@ -793,8 +781,6 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         old_mountpoint = getattr(device.format, "mountpoint", "") or ""
         old_device_info["mountpoint"] = old_mountpoint
         new_device_info["mountpoint"] = mountpoint
-        log.debug("old mountpoint: %s", old_mountpoint)
-        log.debug("new mountpoint: %s", mountpoint or "")
         if mountpoint is not None and (reformat or
                                        mountpoint != old_mountpoint):
             mountpoints = self._storage_playground.mountpoints.copy()
@@ -824,8 +810,6 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
                               old_raid_level != raid_level)
         old_device_info["raid_level"] = old_raid_level
         new_device_info["raid_level"] = raid_level
-        log.debug("old raid level: %s", old_raid_level)
-        log.debug("new raid level: %s", raid_level)
 
         ##
         ## VALIDATION
@@ -881,14 +865,10 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
 
         old_device_info["container_name"] = old_container_name
         new_device_info["container_name"] = container_name
-        log.debug("old container: %s", old_container_name)
-        log.debug("new container: %s", container_name)
 
         container_encrypted = self._device_container_encrypted
         old_device_info["container_encrypted"] = old_container_encrypted
         new_device_info["container_encrypted"] = container_encrypted
-        log.debug("old container encrypted: %s", old_container_encrypted)
-        log.debug("new container encrypted: %s", container_encrypted)
         changed_container_encrypted = (container_encrypted != old_container_encrypted)
 
         container_raid_level = self._device_container_raid_level
@@ -897,15 +877,11 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
 
         old_device_info["container_raid_level"] = old_container_raid_level
         new_device_info["container_raid_level"] = container_raid_level
-        log.debug("old container raid level: %s", old_container_raid_level)
-        log.debug("new container raid level: %s", container_raid_level)
         changed_container_raid_level = (old_container_raid_level != container_raid_level)
 
         container_size = self._device_container_size
         old_device_info["container_size"] = old_container_size
         new_device_info["container_size"] = container_size
-        log.debug("old container size request: %s", old_container_size)
-        log.debug("new container size request: %s", container_size)
         changed_container_size = (old_container_size != container_size)
 
         # DISK SET
@@ -922,6 +898,14 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         new_device_info["disks"] = disks
         log.debug("old disks: %s", [d.name for d in old_disks])
         log.debug("new disks: %s", [d.name for d in disks])
+
+        log.debug("device: %s", device)
+        already_logged = {"disks", "device"}
+        # log the other changes (old_device_info doesn't have the 'device' key)
+        for key in (to_log for to_log in
+                    old_device_info.keys() if to_log not in already_logged):
+            log.debug("old %s: %s", key, old_device_info[key])
+            log.debug("new %s: %s", key, new_device_info[key])
 
         # XXX prevent multiple raid or encryption layers?
 
