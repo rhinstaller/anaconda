@@ -873,9 +873,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
                     # the removal failed. don't continue.
                     log.error("device removal failed")
                     return
-
                 _device = None
-                _old_device = None
             else:
                 _device = device
 
