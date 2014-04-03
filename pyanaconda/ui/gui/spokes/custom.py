@@ -634,6 +634,10 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
 
         return error
 
+    def _update_size_props(self):
+        self._update_selectors()
+        self._updateSpaceDisplay()
+
     def _save_right_side(self, selector):
         """ Save settings from RHS and apply changes to the device.
 
@@ -934,9 +938,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
             self._devices = self._storage_playground.devices
 
             # update size props of all btrfs devices' selectors
-            self._update_selectors()
-
-            self._updateSpaceDisplay()
+            self._update_size_props()
 
             self._populate_right_side(selector)
             log.debug("leaving save_right_side")
@@ -1009,8 +1011,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
                         s.size = str(device.size)
 
                 # update size props of all btrfs devices' selectors
-                self._update_selectors()
-                self._updateSpaceDisplay()
+                self._update_size_props()
 
         # it's possible that reformat is active but fstype is unchanged, in
         # which case we're not going to schedule another reformat unless
