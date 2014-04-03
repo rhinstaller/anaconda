@@ -605,6 +605,35 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
             else:
                 log.warning("failed to replace device: %s", s._device)
 
+    def _validate_mountpoint(self, mountpoint, device, device_type, fs_type, new_fs_type,
+                            reformat, encrypted, raid_level):
+        error = None
+        if device_type != DEVICE_TYPE_PARTITION and mountpoint == "/boot/efi":
+            error = (_("/boot/efi must be on a device of type %s")
+                     % _(DEVICE_TEXT_PARTITION))
+        elif device_type != DEVICE_TYPE_PARTITION and \
+             new_fs_type in PARTITION_ONLY_FORMAT_TYPES:
+            error = (_("%(fs)s must be on a device of type %(type)s")
+                       % {"fs" : fs_type, "type" : _(DEVICE_TEXT_PARTITION)})
+        elif mountpoint and encrypted and mountpoint.startswith("/boot"):
+            error = _("%s cannot be encrypted") % mountpoint
+        elif encrypted and new_fs_type in PARTITION_ONLY_FORMAT_TYPES:
+            error = _("%s cannot be encrypted") % fs_type
+        elif mountpoint == "/" and device.format.exists and not reformat:
+            error = _("You must create a new filesystem on the root device.")
+        elif device_type == DEVICE_TYPE_MD and raid_level in (None, "single"):
+            error = _("Devices of type %s require a valid RAID level selection.") % _(DEVICE_TEXT_MD)
+
+        if not error and raid_level not in (None, "single"):
+            md_level = mdraid.getRaidLevel(raid_level)
+            min_disks = md_level.min_members
+            if len(self._device_disks) < min_disks:
+                error = _(RAID_NOT_ENOUGH_DISKS) % {"level": md_level,
+                                                    "min" : min_disks,
+                                                    "count": len(self._device_disks)}
+
+        return error
+
     def _save_right_side(self, selector):
         """ Save settings from RHS and apply changes to the device.
 
@@ -735,31 +764,9 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         ##
         ## VALIDATION
         ##
-        error = None
-        if device_type != DEVICE_TYPE_PARTITION and mountpoint == "/boot/efi":
-            error = (_("/boot/efi must be on a device of type %s")
-                     % _(DEVICE_TEXT_PARTITION))
-        elif device_type != DEVICE_TYPE_PARTITION and \
-             new_fs_type in PARTITION_ONLY_FORMAT_TYPES:
-            error = (_("%(fs)s must be on a device of type %(type)s")
-                       % {"fs" : fs_type, "type" : _(DEVICE_TEXT_PARTITION)})
-        elif mountpoint and encrypted and mountpoint.startswith("/boot"):
-            error = _("%s cannot be encrypted") % mountpoint
-        elif encrypted and new_fs_type in PARTITION_ONLY_FORMAT_TYPES:
-            error = _("%s cannot be encrypted") % fs_type
-        elif mountpoint == "/" and device.format.exists and not reformat:
-            error = _("You must create a new filesystem on the root device.")
-        elif device_type == DEVICE_TYPE_MD and raid_level in (None, "single"):
-            error = _("Devices of type %s require a valid RAID level selection.") % _(DEVICE_TEXT_MD)
-
-        if not error and raid_level not in (None, "single"):
-            md_level = mdraid.getRaidLevel(raid_level)
-            min_disks = md_level.min_members
-            if len(self._device_disks) < min_disks:
-                error = _(RAID_NOT_ENOUGH_DISKS) % {"level": md_level,
-                                                    "min" : min_disks,
-                                                    "count": len(self._device_disks)}
-
+        error = self._validate_mountpoint(mountpoint, device, device_type,
+                                          fs_type, new_fs_type,
+                                          reformat, encrypted, raid_level)
         if error:
             self.set_warning(error)
             self.window.show_all()
