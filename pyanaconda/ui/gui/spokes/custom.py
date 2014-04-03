@@ -638,6 +638,66 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         self._update_selectors()
         self._updateSpaceDisplay()
 
+    def _try_replace_device(self, device_type, size, fs_type, disks, mountpoint,
+                            label, raid_level, encrypted, name, container_name,
+                            container_encrypted, container_raid_level, container_size,
+                            device, selector, old_device_type, old_disks, old_fs_type,
+                            old_mountpoint, old_label, old_raid_level, old_encrypted,
+                            old_name, old_container_name, old_container_encrypted,
+                            old_container_raid_level, old_container_size):
+        try:
+            self._replace_device(device_type, size, fstype=fs_type,
+                                 disks=disks, mountpoint=mountpoint,
+                                 label=label, raid_level=raid_level,
+                                 encrypted=encrypted, name=name,
+                                 container_name=container_name,
+                                 container_encrypted=container_encrypted,
+                                 container_raid_level=container_raid_level,
+                                 container_size=container_size,
+                                 device=_device,
+                                 selector=selector)
+        except StorageError as e:
+            log.error("factoryDevice failed: %s", e)
+            # the factory's error handling has replaced all of the
+            # devices with copies, so update the selectors' devices
+            # accordingly
+            self._update_all_devices_in_selectors()
+            self._error = e
+            self.set_warning(_(DEVICE_CONFIGURATION_ERROR_MSG))
+            self.window.show_all()
+
+            if _device is None:
+                # in this case we have removed the old device so we now have
+                # to re-create it
+
+                        # the disks need to be updated since we've replaced all
+                # of the devices with copies in the devicefactory error
+                # handler
+                old_disk_names = (d.name for d in old_disks)
+                old_disks = [self._storage_playground.devicetree.getDeviceByName(n) for n in old_disk_names]
+                try:
+                    self._replace_device(old_device_type, device.size,
+                                         disks=old_disks,
+                                         fstype=old_fs_type,
+                                         mountpoint=old_mountpoint,
+                                         label=old_label,
+                                         raid_level=old_raid_level,
+                                         encrypted=old_encrypted,
+                                         name=old_name,
+                                         container_name=old_container_name,
+                                         container_encrypted=old_container_encrypted,
+                                         container_raid_level=old_container_raid_level,
+                                         container_size=old_container_size,
+                                         selector=selector)
+                except StorageError as e:
+                    # failed to recover.
+                    self.refresh()  # this calls self.clear_errors
+                    self._error = e
+                    self.set_warning(_(UNRECOVERABLE_ERROR_MSG))
+                    self.window.show_all()
+                    return
+
+
     def _save_right_side(self, selector):
         """ Save settings from RHS and apply changes to the device.
 
@@ -882,57 +942,13 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
                 _device = device
 
             with ui_storage_logger():
-                try:
-                    self._replace_device(device_type, size, fstype=fs_type,
-                                         disks=disks, mountpoint=mountpoint,
-                                         label=label, raid_level=raid_level,
-                                         encrypted=encrypted, name=name,
-                                         container_name=container_name,
-                                         container_encrypted=container_encrypted,
-                                         container_raid_level=container_raid_level,
-                                         container_size=container_size,
-                                         device=_device,
-                                         selector=selector)
-                except StorageError as e:
-                    log.error("factoryDevice failed: %s", e)
-                    # the factory's error handling has replaced all of the
-                    # devices with copies, so update the selectors' devices
-                    # accordingly
-                    self._update_all_devices_in_selectors()
-                    self._error = e
-                    self.set_warning(_(DEVICE_CONFIGURATION_ERROR_MSG))
-                    self.window.show_all()
-
-                    if _device is None:
-                        # in this case we have removed the old device so we now have
-                        # to re-create it
-
-                        # the disks need to be updated since we've replaced all
-                        # of the devices with copies in the devicefactory error
-                        # handler
-                        old_disk_names = (d.name for d in old_disks)
-                        old_disks = [self._storage_playground.devicetree.getDeviceByName(n) for n in old_disk_names]
-                        try:
-                            self._replace_device(old_device_type, device.size,
-                                                 disks=old_disks,
-                                                 fstype=old_fs_type,
-                                                 mountpoint=old_mountpoint,
-                                                 label=old_label,
-                                                 raid_level=old_raid_level,
-                                                 encrypted=old_encrypted,
-                                                 name=old_name,
-                                                 container_name=old_container_name,
-                                                 container_encrypted=old_container_encrypted,
-                                                 container_raid_level=old_container_raid_level,
-                                                 container_size=old_container_size,
-                                                 selector=selector)
-                        except StorageError as e:
-                            # failed to recover.
-                            self.refresh()  # this calls self.clear_errors
-                            self._error = e
-                            self.set_warning(_(UNRECOVERABLE_ERROR_MSG))
-                            self.window.show_all()
-                            return
+                self._try_replace_device(device_type, size, fs_type, disks, mountpoint,
+                                         label, raid_level, encrypted, name, container_name,
+                                         container_encrypted, container_raid_level, container_size,
+                                         device, selector, old_device_type, old_disks, old_fs_type,
+                                         old_mountpoint, old_label, old_raid_level, old_encrypted,
+                                         old_name, old_container_name, old_container_encrypted,
+                                         old_container_raid_level, old_container_size)
 
             self._update_device_in_selectors(device, selector.device)
             self._devices = self._storage_playground.devices
