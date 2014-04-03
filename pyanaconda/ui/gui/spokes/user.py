@@ -398,7 +398,8 @@ class UserSpoke(FirstbootSpokeMixIn, NormalSpoke, GUISpokeInputCheckHandler):
 
     @property
     def sensitive(self):
-        return not (self.completed and flags.automatedInstall)
+        return not (self.completed and flags.automatedInstall
+                    and self.data.user.seen)
 
     @property
     def completed(self):
