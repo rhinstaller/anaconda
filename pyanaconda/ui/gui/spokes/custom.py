@@ -70,7 +70,7 @@ from pyanaconda.ui.gui.spokes import NormalSpoke
 from pyanaconda.ui.gui.spokes.storage import StorageChecker
 from pyanaconda.ui.gui.spokes.lib.cart import SelectedDisksDialog
 from pyanaconda.ui.gui.spokes.lib.passphrase import PassphraseDialog
-from pyanaconda.ui.gui.spokes.lib.accordion import selectorFromDevice, Accordion, Page, CreateNewPage, UnknownPage
+from pyanaconda.ui.gui.spokes.lib.accordion import updateSelectorFromDevice, Accordion, Page, CreateNewPage, UnknownPage
 from pyanaconda.ui.gui.spokes.lib.refresh import RefreshDialog
 from pyanaconda.ui.gui.spokes.lib.summary import ActionSummaryDialog
 
@@ -575,7 +575,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         # we're only updating selectors in the new root. problem?
         page = self._accordion._find_by_title(translated_new_install_name()).get_child()
         for selector in page.members:
-            selectorFromDevice(selector.device, selector=selector)
+            updateSelectorFromDevice(selector, selector.device)
 
     def _replace_device(self, *args, **kwargs):
         """ Create a replacement device and update the device selector. """
@@ -586,13 +586,12 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
 
         if selector:
             # update the selector with the new device and its size
-            selectorFromDevice(new_device,
-                               selector=selector)
+            updateSelectorFromDevice(selector, new_device)
 
     def _update_device_in_selectors(self, old_device, new_device):
         for s in self._accordion.allSelectors:
             if s._device == old_device:
-                selectorFromDevice(new_device, selector=s)
+                updateSelectorFromDevice(s, new_device)
 
     def _update_all_devices_in_selectors(self):
         for s in self._accordion.allSelectors:
@@ -601,7 +600,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
                     (getattr(s._device, "req_name", 1) == getattr(new_device, "req_name", 2)) and
                     s._device.type == new_device.type and
                     s._device.format.type == new_device.format.type):
-                    selectorFromDevice(new_device, selector=s)
+                    updateSelectorFromDevice(s, new_device)
                     break
             else:
                 log.warning("failed to replace device: %s", s._device)
@@ -1080,7 +1079,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
 
                     # either update the existing selector or add a new one
                     if new_selector:
-                        selectorFromDevice(device, selector=new_selector)
+                        updateSelectorFromDevice(new_selector, device)
                     else:
                         self.add_new_selector(device)
 
@@ -1097,7 +1096,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
                 log.debug("updating mountpoint of %s to %s", device.name, mountpoint)
                 device.format.mountpoint = mountpoint
                 if old_mountpoint:
-                    selectorFromDevice(device, selector=selector)
+                    updateSelectorFromDevice(selector, device)
                 else:
                     # add an entry to the new page but do not remove any entries
                     # from other pages since we haven't altered the filesystem
@@ -1115,7 +1114,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
                 use_dev._name = old_name
                 self.set_info(_("Specified name %s already in use.") % new_name)
             else:
-                selectorFromDevice(device, selector=selector)
+                updateSelectorFromDevice(selector, device)
 
         self._populate_right_side(selector)
 

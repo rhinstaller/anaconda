@@ -29,14 +29,14 @@ from gi.repository.AnacondaWidgets import MountpointSelector
 from gi.repository import Gtk
 
 __all__ = ["DATA_DEVICE", "SYSTEM_DEVICE",
-           "selectorFromDevice",
+           "newSelectorFromDevice", "updateSelectorFromDevice",
            "Accordion",
            "Page", "UnknownPage", "CreateNewPage"]
 
 DATA_DEVICE = 0
 SYSTEM_DEVICE = 1
 
-def selectorFromDevice(device, selector=None, mountpoint=""):
+def updateSelectorFromDevice(selector, device, mountpoint=""):
     """Create a MountpointSelector from a Device object template.  This
        method should be used whenever constructing a new selector, or when
        setting a bunch of attributes on an existing selector.  For just
@@ -58,15 +58,16 @@ def selectorFromDevice(device, selector=None, mountpoint=""):
     else:
         mp = _("Unknown")
 
-    if not selector:
-        selector = MountpointSelector(device.name, str(device.size), mp)
-        selector._root = None
-    else:
-        selector.props.name = device.name
-        selector.props.size = str(device.size)
-        selector.props.mountpoint = mp
+    selector.props.name = device.name
+    selector.props.size = str(device.size)
+    selector.props.mountpoint = mp
+    selector.device = device
 
-    selector._device = device
+def newSelectorFromDevice(device, mountpoint=""):
+    selector = MountpointSelector(device.name, str(device.size))
+    selector._root = None
+    updateSelectorFromDevice(selector, device, mountpoint)
+
     return selector
 
 # An Accordion is a box that goes on the left side of the custom partitioning spoke.  It
@@ -175,7 +176,7 @@ class Page(Gtk.Box):
         return label
 
     def addSelector(self, device, cb, mountpoint=""):
-        selector = selectorFromDevice(device, mountpoint=mountpoint)
+        selector = newSelectorFromDevice(device, mountpoint=mountpoint)
         selector.connect("button-press-event", self._onSelectorClicked, cb)
         selector.connect("key-release-event", self._onSelectorClicked, cb)
         selector.connect("focus-in-event", self._onSelectorFocusIn, cb)
@@ -242,7 +243,7 @@ class UnknownPage(Page):
         self.pageTitle = title
 
     def addSelector(self, device, cb, mountpoint=""):
-        selector = selectorFromDevice(device, mountpoint=mountpoint)
+        selector = newSelectorFromDevice(device, mountpoint=mountpoint)
         selector.connect("button-press-event", self._onSelectorClicked, cb)
         selector.connect("key-release-event", self._onSelectorClicked, cb)
 
