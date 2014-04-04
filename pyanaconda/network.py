@@ -1181,7 +1181,7 @@ def _wait_for_connecting_NM():
     """If NM is in connecting state, wait for connection.
     Return value: NM has got connection."""
 
-    if nm.nm_is_connected:
+    if nm.nm_is_connected():
         return True
 
     if nm.nm_is_connecting():
