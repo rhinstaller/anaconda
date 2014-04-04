@@ -90,10 +90,15 @@ class ImageDirectoryMountError(PayloadSetupError):
 
 # software selection
 class NoSuchGroup(PayloadError):
-    pass
+    def __init__(self, group, adding=True):
+        PayloadError.__init__(self, group)
+        self.group = group
+        self.adding = adding
 
 class NoSuchPackage(PayloadError):
-    pass
+    def __init__(self, package):
+        PayloadError.__init__(self, package)
+        self.package = package
 
 class DependencyError(PayloadError):
     pass

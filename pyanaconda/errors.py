@@ -21,25 +21,33 @@
 from pyanaconda.i18n import _
 
 __all__ = ["ERROR_RAISE", "ERROR_CONTINUE", "ERROR_RETRY",
-           "ErrorHandler",
            "InvalidImageSizeError", "MissingImageError", "MediaUnmountError",
            "MediaMountError", "ScriptError", "CmdlineError",
            "errorHandler"]
 
 class InvalidImageSizeError(Exception):
-    pass
+    def __init__(self, message, filename):
+        Exception.__init__(self, message)
+        self.filename = filename
 
 class MissingImageError(Exception):
     pass
 
 class MediaMountError(Exception):
-    pass
+    def __init__(self, device):
+        Exception.__init__(self)
+        self.device = device
 
 class MediaUnmountError(Exception):
-    pass
+    def __init__(self, device):
+        Exception.__init__(self)
+        self.device = device
 
 class ScriptError(Exception):
-    pass
+    def __init__(self, lineno, details):
+        Exception.__init__(self)
+        self.lineno = lineno
+        self.details = details
 
 class CmdlineError(Exception):
     pass
@@ -89,54 +97,46 @@ class ErrorHandler(object):
     def __init__(self, ui=None):
         self.ui = ui
 
-    def _kickstartErrorHandler(self, *args, **kwargs):
-        message = _("The following error was found while parsing the kickstart "
-                    "configuration file:\n\n%s") % args[0]
-        self.ui.showError(message)
-        return ERROR_RAISE
-
-    def _partitionErrorHandler(self, *args, **kwargs):
+    def _partitionErrorHandler(self, exn):
         message = _("The following errors occurred with your partitioning:\n\n%(errortxt)s\n\n"
-                    "The installation will now terminate.") % {"errortxt": str(kwargs["exception"])}
+                    "The installation will now terminate.") % {"errortxt": exn}
         self.ui.showError(message)
         return ERROR_RAISE
 
-    def _fsResizeHandler(self, *args, **kwargs):
-        message = _("An error occurred while resizing the device %s.") % args[0]
+    def _fsResizeHandler(self, exn):
+        message = _("An error occurred while resizing the device %s.") % exn
 
-        if "details" in kwargs:
-            message += "\n\n%s" % kwargs["details"]
+        if exn.details:
+            message += "\n\n%s" % exn.details
 
         self.ui.showError(message)
         return ERROR_RAISE
 
-    def _noDisksHandler(self, *args, **kwargs):
+    def _noDisksHandler(self, exn):
         message = _("An error has occurred - no valid devices were found on "
                     "which to create new file systems.  Please check your "
                     "hardware for the cause of this problem.")
         self.ui.showError(message)
         return ERROR_RAISE
 
-    def _dirtyFSHandler(self, *args, **kwargs):
-        devs = kwargs.pop("devices")
+    def _dirtyFSHandler(self, exn):
         message = _("The following file systems for your Linux system were "
                     "not unmounted cleanly.  Would you like to mount them "
-                    "anyway?\n%s") % "\n".join(devs)
+                    "anyway?\n%s") % exn.devices
         if self.ui.showYesNoQuestion(message):
             return ERROR_CONTINUE
         else:
             return ERROR_RAISE
 
-    def _fstabTypeMismatchHandler(self, *args, **kwargs):
+    def _fstabTypeMismatchHandler(self, exn):
         # FIXME: include the two types in the message instead of including
         #        the raw exception text
         message = _("There is an entry in your /etc/fstab file that contains "
                     "an invalid or incorrect filesystem type:\n\n")
-        message += " " + str(kwargs["exception"])
+        message += " " + str(exn)
         self.ui.showError(message)
 
-    def _invalidImageSizeHandler(self, *args, **kwargs):
-        filename = args[0]
+    def _invalidImageSizeHandler(self, exn):
         message = _("The ISO image %s has a size which is not "
                     "a multiple of 2048 bytes.  This may mean "
                     "it was corrupted on transfer to this computer."
@@ -144,13 +144,13 @@ class ErrorHandler(object):
                     "It is recommended that you exit and abort your "
                     "installation, but you can choose to continue if "
                     "you think this is in error. Would you like to "
-                    "continue using this image?") % filename
+                    "continue using this image?") % exn.filename
         if self.ui.showYesNoQuestion(message):
             return ERROR_CONTINUE
         else:
             return ERROR_RAISE
 
-    def _missingImageHandler(self, *args, **kwargs):
+    def _missingImageHandler(self, exn):
         message = _("The installer has tried to mount the "
                     "installation image, but cannot find it on "
                     "the hard drive.\n\n"
@@ -160,96 +160,74 @@ class ErrorHandler(object):
         else:
             return ERROR_RAISE
 
-    def _mediaMountHandler(self, *args, **kwargs):
-        device = args[0]
+    def _mediaMountHandler(self, exn):
         message = _("An error occurred mounting the source "
-                    "device %s. Retry?") % device.name
+                    "device %s. Retry?") % exn.device.name
         if self.ui.showYesNoQuestion(message):
             return ERROR_RETRY
         else:
             return ERROR_RAISE
 
-    def _mediaUnmountHandler(self, *args, **kwargs):
-        device = args[0]
+    def _mediaUnmountHandler(self, exn):
         message = _("An error occurred unmounting the disc.  "
                     "Please make sure you're not accessing "
                     "%s from the shell on tty2 "
-                    "and then click OK to retry.") % device.path
+                    "and then click OK to retry.") % exn.device.path
         self.ui.showError(message)
 
-    def _noSuchGroupHandler(self, *args, **kwargs):
-        group = args[0]
-        adding = args[1]
-
-        if adding:
+    def _noSuchGroupHandler(self, exn):
+        if exn.adding:
             message = _("You have specified that the group '%s' should be "
                         "installed.  This group does not exist.  Would you like "
                         "to ignore this group and continue with "
-                        "installation?") % group
+                        "installation?") % exn.group
         else:
             message = _("You have specified that the group '%s' should be "
                         "excluded from installation.  This group does not exist.  "
                         "Would you like to ignore this group and continue with "
-                        "installation?") % group
+                        "installation?") % exn.group
 
         if self.ui.showYesNoQuestion(message):
             return ERROR_CONTINUE
         else:
             return ERROR_RAISE
 
-    def _noSuchPackageHandler(self, *args, **kwargs):
-        package = args[0]
-        adding = args[1]
-
-        if adding:
-            message = _("You have specified that the package '%s' should be "
-                        "installed.  This package does not exist.  Would you "
-                        "like to ignore this package and continue with "
-                        "installation?") % package
-        else:
-            message = _("You have specified that the package '%s' should be "
-                        "excluded from installation.  This package does not exist.  "
-                        "Would you like to ignore this package and continue with "
-                        "installation?") % package
+    def _noSuchPackageHandler(self, exn):
+        message = _("You have specified that the package '%s' should be "
+                    "installed.  This package does not exist.  Would you "
+                    "like to ignore this package and continue with "
+                    "installation?") % exn.package
 
         if self.ui.showYesNoQuestion(message):
             return ERROR_CONTINUE
         else:
             return ERROR_RAISE
 
-    def _scriptErrorHandler(self, *args, **kwargs):
-        lineno = args[0]
-        details = args[1]
+    def _scriptErrorHandler(self, exn):
         message = _("There was an error running the kickstart script at line "
                     "%(lineno)s.  This is a fatal error and installation will be "
                     "aborted.  The details of this error are:\n\n%(details)s") % \
-                   {"lineno": lineno, "details" : details}
+                   {"lineno": exn.lineno, "details" : exn.details}
         self.ui.showError(message)
         return ERROR_RAISE
 
-    def _payloadInstallHandler(self, *args, **kwargs):
-        package = kwargs.pop("package", None)
-        if package:
-            message = _("There was an error installing the %s package.  This is "
-                        "a fatal error and installation will be aborted.") % \
-                       package
-        else:
-            message = _("The following error occurred while installing.  This is "
-                        "a fatal error and installation will be aborted.")
-        message += "\n\n" + str(kwargs["exception"])
+    def _payloadInstallHandler(self, exn):
+        message = _("The following error occurred while installing.  This is "
+                    "a fatal error and installation will be aborted.")
+        message += "\n\n" + str(exn)
 
         self.ui.showError(message)
         return ERROR_RAISE
 
-    def _dependencyErrorHandler(self, *args, **kwargs):
+    def _dependencyErrorHandler(self, exn):
         message = _("The following software marked for installation has errors.  "
                     "This is likely caused by an error with\nyour installation source.")
-        details = "\n".join(sorted(kwargs["exception"].message))
+        details = "\n".join(sorted(exn.message))
 
         self.ui.showDetailedError(message, details)
         return ERROR_RAISE
 
-    def cb(self, exn, *args, **kwargs):
+    def cb(self, exn):
         """This method is the callback that all error handling should pass
            through.  The return value is one of the ERROR_* constants defined
            in this module, though the exact constant returned depends on the
@@ -258,17 +236,13 @@ class ErrorHandler(object):
            Arguments:
 
            exn      -- An instance of some Exception.
-           args     -- A tuple of positional arguments, unused in this code.
-           kwargs   -- A dict of keyword arguments.  The arguments expected
-                       depends on the exception being handled.
         """
         rc = ERROR_RAISE
 
         if not self.ui:
             raise
 
-        _map = {"KickstartError": self._kickstartErrorHandler,
-                "PartitioningError": self._partitionErrorHandler,
+        _map = {"PartitioningError": self._partitionErrorHandler,
                 "FSResizeError": self._fsResizeHandler,
                 "NoDisksError": self._noDisksHandler,
                 "DirtyFSError": self._dirtyFSHandler,
@@ -284,8 +258,7 @@ class ErrorHandler(object):
                 "DependencyError": self._dependencyErrorHandler}
 
         if exn.__class__.__name__ in _map:
-            kwargs["exception"] = exn
-            rc = _map[exn.__class__.__name__](*args, **kwargs)
+            rc = _map[exn.__class__.__name__](exn)
 
         return rc
 

@@ -92,7 +92,7 @@ def findFirstIsoImage(path):
         # warn user if images appears to be wrong size
         if os.stat(what)[stat.ST_SIZE] % 2048:
             log.warning("%s appears to be corrupted", what)
-            exn = InvalidImageSizeError("size is not a multiple of 2048 bytes")
+            exn = InvalidImageSizeError("size is not a multiple of 2048 bytes", what)
             if errorHandler.cb(exn) == ERROR_RAISE:
                 raise exn
 
@@ -134,7 +134,7 @@ def mountImageDirectory(method, storage):
                 device.format.setup(mountpoint=ISO_DIR)
             except StorageError as e:
                 log.error("couldn't mount ISO source directory: %s", e)
-                exn = MediaMountError(str(e))
+                exn = MediaMountError(str(e), device)
                 if errorHandler.cb(exn) == ERROR_RAISE:
                     raise exn
     elif method.method.startswith("nfsiso:"):
@@ -153,7 +153,7 @@ def mountImageDirectory(method, storage):
                 blivet.util.mount(url, ISO_DIR, fstype="nfs", options=method.options)
             except OSError as e:
                 log.error("couldn't mount ISO source directory: %s", e)
-                exn = MediaMountError(str(e))
+                exn = MediaMountError(str(e), device)
                 if errorHandler.cb(exn) == ERROR_RAISE:
                     raise exn
 
@@ -239,8 +239,8 @@ def unmountCD(dev):
             dev.format.unmount()
         except FSError as e:
             log.error("exception in _unmountCD: %s", e)
-            exn = MediaUnmountError()
-            errorHandler.cb(exn, dev)
+            exn = MediaUnmountError(dev)
+            errorHandler.cb(exn)
         else:
             break
 

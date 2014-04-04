@@ -129,7 +129,7 @@ class AnacondaKSScript(KSScript):
                 with open(messages, "r") as fp:
                     err = "".join(fp.readlines())
 
-                errorHandler.cb(ScriptError(), self.lineno, err)
+                errorHandler.cb(ScriptError(self.lineno, err))
                 sys.exit(0)
 
 class AnacondaInternalScript(AnacondaKSScript):

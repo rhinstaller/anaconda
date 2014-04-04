@@ -1104,7 +1104,7 @@ reposdir=%s
             try:
                 self._yum.deselectGroup(groupid, force=True)
             except yum.Errors.GroupsError:
-                raise NoSuchGroup(groupid)
+                raise NoSuchGroup(groupid, adding=False)
 
     ###
     ### METHODS FOR WORKING WITH PACKAGES
@@ -1183,7 +1183,7 @@ reposdir=%s
                 else:
                     self._yum._ts_save_file = None
 
-    def _handleMissing(self, exn, adding=True):
+    def _handleMissing(self, exn):
         if self.data.packages.handleMissing == KS_MISSING_IGNORE:
             return
 
@@ -1193,7 +1193,7 @@ reposdir=%s
             errtxt = _("CmdlineError: Missing package: %s") % str(exn)
             log.error(errtxt)
             raise CmdlineError(errtxt)
-        elif errorHandler.cb(exn, str(exn), adding) == ERROR_RAISE:
+        elif errorHandler.cb(exn) == ERROR_RAISE:
             # The progress bar polls kind of slowly, thus installation could
             # still continue for a bit before the quit message is processed.
             # Let's sleep forever to prevent any further actions and wait for
@@ -1246,16 +1246,13 @@ reposdir=%s
                 self._handleMissing(e)
 
         for package in self.data.packages.excludedList:
-            try:
-                self._deselectYumPackage(package)
-            except NoSuchPackage as e:
-                self._handleMissing(e, adding=False)
+            self._deselectYumPackage(package)
 
         for group in self.data.packages.excludedGroupList:
             try:
                 self._deselectYumGroup(group.name)
             except NoSuchGroup as e:
-                self._handleMissing(e, adding=False)
+                self._handleMissing(e)
 
         self._select_kernel_package()
         self.selectRequiredPackages()

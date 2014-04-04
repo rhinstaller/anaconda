@@ -279,7 +279,7 @@ class DNFPayload(packaging.PackagePayload):
             return
 
         log.error('Missed: %r', exn)
-        if errors.errorHandler.cb(exn, str(exn)) == errors.ERROR_RAISE:
+        if errors.errorHandler.cb(exn) == errors.ERROR_RAISE:
             # The progress bar polls kind of slowly, thus installation could
             # still continue for a bit before the quit message is processed.
             # Doing a sys.exit also ensures the running thread quits before
