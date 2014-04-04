@@ -23,7 +23,7 @@ __all__ = ["_", "N_", "P_", "C_", "CN_", "CP_"]
 
 import gettext
 
-_ = lambda x: gettext.ldgettext("anaconda", x)
+_ = lambda x: gettext.ldgettext("anaconda", x) if x else ""
 N_ = lambda x: x
 P_ = lambda x, y, z: gettext.ldngettext("anaconda", x, y, z)
 
