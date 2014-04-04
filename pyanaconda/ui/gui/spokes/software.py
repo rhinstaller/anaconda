@@ -23,7 +23,7 @@ from gi.repository import Gtk, Pango
 
 from pyanaconda.flags import flags
 from pyanaconda.i18n import _, C_, CN_
-from pyanaconda.packaging import MetadataError
+from pyanaconda.packaging import MetadataError, PackagePayload
 from pyanaconda.threads import threadMgr, AnacondaThread
 from pyanaconda import constants
 
@@ -172,7 +172,7 @@ class SoftwareSelectionSpoke(NormalSpoke):
 
     @property
     def showable(self):
-        return not flags.livecdInstall and not self.data.method.method == "liveimg"
+        return isinstance(self.payload, PackagePayload)
 
     @property
     def status(self):
