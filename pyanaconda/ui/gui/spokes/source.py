@@ -41,7 +41,7 @@ from pyanaconda.ui.gui.utils import enlightbox, gtk_action_wait
 from pyanaconda.iutil import ProxyString, ProxyStringError, cmp_obj_attrs
 from pyanaconda.ui.gui.utils import gtk_call_once, really_hide, really_show
 from pyanaconda.threads import threadMgr, AnacondaThread
-from pyanaconda.packaging import PayloadError, MetadataError
+from pyanaconda.packaging import PayloadError, MetadataError, PackagePayload
 from pyanaconda import constants
 
 from blivet.util import get_mount_paths
@@ -765,7 +765,7 @@ class SourceSpoke(NormalSpoke):
 
     @property
     def showable(self):
-        return not flags.livecdInstall and not self.data.method.method == "liveimg"
+        return isinstance(self.payload, PackagePayload)
 
     def _mirror_active(self):
         return self._protocolComboBox.get_active() == PROTOCOL_MIRROR
