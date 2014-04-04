@@ -227,8 +227,12 @@ class DNFPayload(packaging.PackagePayload):
             except packaging.NoSuchGroup as e:
                 self._miss(e)
 
-        map(self._install_package, self._required_pkgs)
-        map(self._select_group, self._required_groups)
+        for package in self._required_pkgs:
+            self._install_package(package, required=True)
+
+        for group in self._required_groups:
+            self._select_group(group, required=True)
+
         self._select_kernel_package()
         self._install_package('dnf')
 
@@ -268,11 +272,11 @@ class DNFPayload(packaging.PackagePayload):
         size = sum(tsi.installed.downloadsize for tsi in transaction)
         return Size(size)
 
-    def _install_package(self, pkg_name):
+    def _install_package(self, pkg_name, required=False):
         try:
             return self._base.install(pkg_name)
         except dnf.exceptions.MarkingError:
-            raise packaging.NoSuchPackage(pkg_name)
+            raise packaging.NoSuchPackage(pkg_name, required=required)
 
     def _miss(self, exn):
         if self.data.packages.handleMissing == constants.KS_MISSING_IGNORE:
@@ -301,10 +305,10 @@ class DNFPayload(packaging.PackagePayload):
         for repo in self._base.repos.iter_enabled():
             repo.pkgdir = pkgdir
 
-    def _select_group(self, group_id, default=True, optional=False):
+    def _select_group(self, group_id, default=True, optional=False, required=False):
         grp = self._base.comps.group_by_pattern(group_id)
         if grp is None:
-            raise packaging.NoSuchGroup(group_id)
+            raise packaging.NoSuchGroup(group_id, required=required)
         types = {'mandatory'}
         if default:
             types.add('default')

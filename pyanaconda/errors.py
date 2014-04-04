@@ -176,7 +176,13 @@ class ErrorHandler(object):
         self.ui.showError(message)
 
     def _noSuchGroupHandler(self, exn):
-        if exn.adding:
+        if exn.required:
+            message = _("The group '%s' is required for this installation. "
+                        "This group does not exist. This is a fatal error and "
+                        "installation will be aborted.") % exn.group
+            self.ui.showError(message)
+            return ERROR_RAISE
+        elif exn.adding:
             message = _("You have specified that the group '%s' should be "
                         "installed.  This group does not exist.  Would you like "
                         "to ignore this group and continue with "
@@ -193,15 +199,23 @@ class ErrorHandler(object):
             return ERROR_RAISE
 
     def _noSuchPackageHandler(self, exn):
-        message = _("You have specified that the package '%s' should be "
-                    "installed.  This package does not exist.  Would you "
-                    "like to ignore this package and continue with "
-                    "installation?") % exn.package
-
-        if self.ui.showYesNoQuestion(message):
-            return ERROR_CONTINUE
-        else:
+        if exn.required:
+            message = _("The package '%s' is required for this installation. "
+                        "This package does not exist. This is a fatal error and "
+                        "installation will be aborted.") % exn.package
+            self.ui.showError(message)
             return ERROR_RAISE
+
+        else:
+            message = _("You have specified that the package '%s' should be "
+                        "installed.  This package does not exist.  Would you "
+                        "like to ignore this package and continue with "
+                        "installation?") % exn.package
+
+            if self.ui.showYesNoQuestion(message):
+                return ERROR_CONTINUE
+            else:
+                return ERROR_RAISE
 
     def _scriptErrorHandler(self, exn):
         message = _("There was an error running the kickstart script at line "

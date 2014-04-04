@@ -1081,7 +1081,7 @@ reposdir=%s
                 return True
             return False
 
-    def _selectYumGroup(self, groupid, default=True, optional=False):
+    def _selectYumGroup(self, groupid, default=True, optional=False, required=False):
         # select the group in comps
         pkg_types = ['mandatory']
         if default:
@@ -1095,7 +1095,7 @@ reposdir=%s
             try:
                 self._yum.selectGroup(groupid, group_package_types=pkg_types)
             except yum.Errors.GroupsError:
-                raise NoSuchGroup(groupid)
+                raise NoSuchGroup(groupid, required=required)
 
     def _deselectYumGroup(self, groupid):
         # deselect the group in comps
@@ -1125,7 +1125,7 @@ reposdir=%s
 
             return self._packages
 
-    def _selectYumPackage(self, pkgid):
+    def _selectYumPackage(self, pkgid, required=False):
         """Mark a package for installation.
 
            pkgid - The name of a package to be installed.  This could include
@@ -1136,7 +1136,7 @@ reposdir=%s
             try:
                 self._yum.install(pattern=pkgid)
             except yum.Errors.InstallError:
-                raise NoSuchPackage(pkgid)
+                raise NoSuchPackage(pkgid, required=required)
 
     def _deselectYumPackage(self, pkgid):
         """Mark a package to be excluded from installation.
@@ -1370,11 +1370,14 @@ reposdir=%s
             log.error("failed to select a kernel from %s", kernels)
 
     def selectRequiredPackages(self):
-        if self._requiredPackages:
-            map(self._selectYumPackage, self._requiredPackages)
+        try:
+            for package in self._requiredPackages:
+                self._selectYumPackage(package, required=True)
 
-        if self._requiredGroups:
-            map(self._selectYumGroup, self._requiredGroups)
+            for group in self._requiredGroups:
+                self._selectYumGroup(group, required=True)
+        except (NoSuchPackage, NoSuchGroup) as e:
+            self._handleMissing(e)
 
     def preInstall(self, packages=None, groups=None):
         """ Perform pre-installation tasks. """
