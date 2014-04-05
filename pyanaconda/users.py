@@ -406,19 +406,24 @@ class Users:
         else:
             return self._finishChroot(childpid)
 
-    def setUserPassword(self, username, password, isCrypted, lock, algo=None):
-        user = self.admin.lookupUserByName(username)
+    def setUserPassword(self, username, password, isCrypted, lock, algo=None, root=ROOT_PATH):
+        childpid = self._prepareChroot(root)
 
-        if isCrypted:
-            self.admin.setpassUser(user, password, True)
+        if childpid == 0:
+            user = self.admin.lookupUserByName(username)
+
+            if isCrypted:
+                self.admin.setpassUser(user, password, True)
+            else:
+                self.admin.setpassUser(user, cryptPassword(password, algo=algo), True)
+
+            if lock:
+                self.admin.lockUser(user)
+
+            user.set(libuser.SHADOWLASTCHANGE, "")
+            self.admin.modifyUser(user)
         else:
-            self.admin.setpassUser(user, cryptPassword(password, algo=algo), True)
+            return self._finishChroot(childpid)
 
-        if lock:
-            self.admin.lockUser(user)
-
-        user.set(libuser.SHADOWLASTCHANGE, "")
-        self.admin.modifyUser(user)
-
-    def setRootPassword(self, password, isCrypted=False, isLocked=False, algo=None):
-        return self.setUserPassword("root", password, isCrypted, isLocked, algo)
+    def setRootPassword(self, password, isCrypted=False, isLocked=False, algo=None, root=ROOT_PATH):
+        return self.setUserPassword("root", password, isCrypted, isLocked, algo, root)
