@@ -201,6 +201,35 @@ class Users:
     def __init__ (self):
         self.admin = libuser.admin()
 
+    def _prepareChroot(self, root):
+        # Unfortunately libuser doesn't have an API to operate on a
+        # chroot, so we hack it here by forking a child and calling
+        # chroot() in that child's context.
+
+        childpid = os.fork()
+        if not childpid:
+            if not root in ["","/"]:
+                os.chroot(root)
+                os.chdir("/")
+                del(os.environ["LIBUSER_CONF"])
+
+            self.admin = libuser.admin()
+
+        return childpid
+
+    def _finishChroot(self, childpid):
+        assert childpid > 0
+        try:
+            status = os.waitpid(childpid, 0)[1]
+        except OSError as e:
+            log.critical("exception from waitpid: %s %s", e.errno, e.strerror)
+            return False
+
+        if os.WIFEXITED(status) and (os.WEXITSTATUS(status) == 0):
+            return True
+        else:
+            return False
+
     def createGroup (self, group_name, **kwargs):
         """Create a new user on the system with the given name.  Optional kwargs:
 
@@ -211,17 +240,8 @@ class Users:
                         Defaults to /mnt/sysimage.
         """
 
-        childpid = os.fork()
-        root = kwargs.get("root", ROOT_PATH)
-
-        if not childpid:
-            if not root in ["","/"]:
-                os.chroot(root)
-                os.chdir("/")
-                del(os.environ["LIBUSER_CONF"])
-
-            self.admin = libuser.admin()
-
+        childpid = self._prepareChroot(kwargs.get("root", ROOT_PATH))
+        if childpid == 0:
             if self.admin.lookupGroupByName(group_name):
                 log.error("Group %s already exists, not creating.", group_name)
                 os._exit(1)
@@ -238,17 +258,8 @@ class Users:
                 os._exit(1)
 
             os._exit(0)
-
-        try:
-            status = os.waitpid(childpid, 0)[1]
-        except OSError as e:
-            log.critical("exception from waitpid while creating a group: %s %s", e.errno, e.strerror)
-            return False
-
-        if os.WIFEXITED(status) and (os.WEXITSTATUS(status) == 0):
-            return True
         else:
-            return False
+            return self._finishChroot(childpid)
 
     def createUser (self, user_name, *args, **kwargs):
         """Create a new user on the system with the given name.  Optional kwargs:
@@ -279,17 +290,8 @@ class Users:
            gid       -- The GID for the new user.  If none is given, the next
                         available one is used.
         """
-        childpid = os.fork()
-        root = kwargs.get("root", ROOT_PATH)
-
-        if not childpid:
-            if not root in ["","/"]:
-                os.chroot(root)
-                os.chdir("/")
-                del(os.environ["LIBUSER_CONF"])
-
-            self.admin = libuser.admin()
-
+        childpid = self._prepareChroot(kwargs.get("root", ROOT_PATH))
+        if childpid == 0:
             if self.admin.lookupUserByName(user_name):
                 log.error("User %s already exists, not creating.", user_name)
                 os._exit(1)
@@ -390,44 +392,19 @@ class Users:
                 os._exit(1)
 
             os._exit(0)
-
-        try:
-            status = os.waitpid(childpid, 0)[1]
-        except OSError as e:
-            log.critical("exception from waitpid while creating a user: %s %s", e.errno, e.strerror)
-            return False
-
-        if os.WIFEXITED(status) and (os.WEXITSTATUS(status) == 0):
-            return True
         else:
-            return False
+            return self._finishChroot(childpid)
 
     def checkUserExists(self, username, root=ROOT_PATH):
-        childpid = os.fork()
+        childpid = self._prepareChroot(root)
 
-        if not childpid:
-            if not root in ["","/"]:
-                os.chroot(root)
-                os.chdir("/")
-                del(os.environ["LIBUSER_CONF"])
-
-            self.admin = libuser.admin()
-
+        if childpid == 0:
             if self.admin.lookupUserByName(username):
                 os._exit(0)
             else:
                 os._exit(1)
-
-        try:
-            status = os.waitpid(childpid, 0)[1]
-        except OSError as e:
-            log.critical("exception from waitpid while creating a user: %s %s", e.errno, e.strerror)
-            return False
-
-        if os.WIFEXITED(status) and (os.WEXITSTATUS(status) == 0):
-            return True
         else:
-            return False
+            return self._finishChroot(childpid)
 
     def setUserPassword(self, username, password, isCrypted, lock, algo=None):
         user = self.admin.lookupUserByName(username)
