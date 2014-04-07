@@ -514,6 +514,7 @@ class DNFPayload(packaging.PackagePayload):
         post_msg = _("Performing post-installation setup tasks")
         progressQ.send_message(post_msg)
         process.join()
+        self._base.close()
 
     def isRepoEnabled(self, repo_id):
         try:
