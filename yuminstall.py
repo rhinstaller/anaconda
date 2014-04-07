@@ -1910,6 +1910,10 @@ debuglevel=6
         if anaconda.isKickstart and anaconda.id.ksdata.packages.excludeDocs:
             rpm.addMacro("_excludedocs", "1")
 
+        if anaconda.isKickstart and anaconda.id.ksdata.packages.instLangs is not None:
+            # Use nil if instLangs is empty
+            rpm.addMacro('_install_langs', anaconda.id.ksdata.packages.instLangs or '%{nil}')
+
         cb = AnacondaCallback(self.ayum, anaconda,
                               self.instLog, self.modeText)
         cb.setSizes(len(self.dlpkgs), self.totalSize, self.totalFiles)
