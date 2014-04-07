@@ -926,9 +926,6 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
 
             self.clear_errors()
 
-            #
-            # Handle change of device type and change of container
-            #
             if changed_device_type or changed_container:
                 # remove the current device
                 self._destroy_device(device)
@@ -936,7 +933,6 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
                     # the removal failed. don't continue.
                     log.error("device removal failed")
                     return
-
                 removed_device = True
             else:
                 removed_device = False
@@ -944,17 +940,17 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
             with ui_storage_logger():
                 succ = self._try_replace_device(selector, removed_device,
                                                 new_device_info, old_device_info)
-                if not succ:
-                    # failed, nothing more to be done
-                    return
+            if not succ:
+                # failed, nothing more to be done
+                return
 
             self._update_device_in_selectors(device, selector.device)
             self._devices = self._storage_playground.devices
 
-            # update size props of all btrfs devices' selectors
+            # update size properties and the right side
             self._update_size_props()
-
             self._populate_right_side(selector)
+
             log.debug("leaving save_right_side")
             return
 
