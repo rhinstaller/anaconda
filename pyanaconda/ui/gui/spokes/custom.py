@@ -702,6 +702,49 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
 
         return size
 
+    def _handle_size_change(self, size, old_size, device, use_dev):
+        # bound size to boundaries given by the device
+        size = self._bound_size(size, device)
+
+        # And then we need to re-check that the max size is actually
+        # different from the current size.
+        _changed_size = False
+        if size != device.size and size == device.currentSize:
+            # size has been set back to its original value
+            actions = self._storage_playground.devicetree.findActions(type="resize",
+                                                            devid=device.id)
+            with ui_storage_logger():
+                for action in reversed(actions):
+                    self._storage_playground.devicetree.cancelAction(action)
+                    _changed_size = True
+        elif size != device.size:
+            log.debug("scheduling resize of device %s to %s", device.name, size)
+
+            with ui_storage_logger():
+                try:
+                    self._storage_playground.resizeDevice(device, size)
+                except StorageError as e:
+                    log.error("failed to schedule device resize: %s", e)
+                    device.size = old_size
+                    self._error = e
+                    self.set_warning(_("Device resize request failed. "
+                                       "Click for details."))
+                    self.window.show_all()
+                else:
+                    _changed_size = True
+
+        if _changed_size:
+            log.debug("new size: %s", device.size)
+            log.debug("target size: %s", device.targetSize)
+
+            # update the selector's size property
+            for s in self._accordion.allSelectors:
+                if s._device == device:
+                    s.size = str(device.size)
+
+            # update size props of all btrfs devices' selectors
+            self._update_size_props()
+
     def _save_right_side(self, selector):
         """ Save settings from RHS and apply changes to the device.
 
@@ -987,47 +1030,9 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
                              not device.format.exists):
             self._revert_reformat(device, use_dev)
 
+        # Handle size change
         if changed_size and device.resizable:
-            size = self._bound_size(size, device)
-
-            # And then we need to re-check that the max size is actually
-            # different from the current size.
-            _changed_size = False
-            if size != device.size and size == device.currentSize:
-                # size has been set back to its original value
-                actions = self._storage_playground.devicetree.findActions(type="resize",
-                                                                devid=device.id)
-                with ui_storage_logger():
-                    for action in reversed(actions):
-                        self._storage_playground.devicetree.cancelAction(action)
-                        _changed_size = True
-            elif size != device.size:
-                log.debug("scheduling resize of device %s to %s", device.name, size)
-
-                with ui_storage_logger():
-                    try:
-                        self._storage_playground.resizeDevice(device, size)
-                    except StorageError as e:
-                        log.error("failed to schedule device resize: %s", e)
-                        device.size = old_size
-                        self._error = e
-                        self.set_warning(_("Device resize request failed. "
-                                           "Click for details."))
-                        self.window.show_all()
-                    else:
-                        _changed_size = True
-
-            if _changed_size:
-                log.debug("new size: %s", device.size)
-                log.debug("target size: %s", device.targetSize)
-
-                # update the selector's size property
-                for s in self._accordion.allSelectors:
-                    if s._device == device:
-                        s.size = str(device.size)
-
-                # update size props of all btrfs devices' selectors
-                self._update_size_props()
+            self._handle_size_change(size, old_size, device, use_dev)
 
         # it's possible that reformat is active but fstype is unchanged, in
         # which case we're not going to schedule another reformat unless
