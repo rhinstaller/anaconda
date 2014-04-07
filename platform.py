@@ -189,6 +189,9 @@ class Platform(object):
 
     @property
     def packages (self):
+        if self.anaconda.isKickstart and self.anaconda.id.ksdata.bootloader.disabled:
+            return []
+
         if flags.cmdline.get('fips', None) == '1':
             return self._packages + ['dracut-fips']
         return self._packages

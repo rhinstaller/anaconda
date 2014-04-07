@@ -289,7 +289,7 @@ class Bootloader(commands.bootloader.RHEL6_Bootloader):
             anaconda.id.bootloader.kickstart = 1
             anaconda.id.bootloader.doUpgradeOnly = 1
 
-        if location is None:
+        if location is None or self.disabled:
             anaconda.id.ksdata.permanentSkipSteps.extend(["bootloadersetup", "instbootloader"])
         else:
             anaconda.id.ksdata.showSteps.append("bootloader")

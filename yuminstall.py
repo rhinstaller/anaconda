@@ -1574,6 +1574,9 @@ debuglevel=6
 
             return True
 
+        if anaconda.isKickstart and "kernel" in anaconda.id.ksdata.packages.excludedList:
+            return
+
         foundkernel = False
 
         if not foundkernel and isys.isPaeAvailable():
