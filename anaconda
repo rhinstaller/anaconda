@@ -740,12 +740,8 @@ def cleanPStore():
     # is sufficient free space on the flash part.  On some machines this will
     # take effect immediately, which is the best case.  Unfortunately on some,
     # an intervening reboot is needed."""
-    try:
-        for root, _dirs, files in os.walk("/sys/fs/pstore"):
-            for f in files:
-                os.unlink("%s/%s" % (root,f))
-    except OSError:
-        pass
+    from pyanaconda.iutil import dir_tree_map
+    dir_tree_map("/sys/fs/pstore", os.unlink, files=True, dirs=False)
 
 if __name__ == "__main__":
     print "Starting installer, one moment..."
