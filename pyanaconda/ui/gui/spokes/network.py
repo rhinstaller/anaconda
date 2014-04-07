@@ -98,7 +98,7 @@ def localized_string_of_device_state(device, state):
         else:
             s = _("Unavailable")
     elif state == NetworkManager.DeviceState.DISCONNECTED:
-        if (device.get_device_type() == NetworkManager.DeviceType.ETHERNET
+        if (device and device.get_device_type() == NetworkManager.DeviceType.ETHERNET
               and not device.get_carrier()):
             s = _("Cable unplugged")
         else:
