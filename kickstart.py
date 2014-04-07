@@ -1585,7 +1585,10 @@ def selectPackages(anaconda):
         elif rc == 1:
             ignoreAll = True
 
-    ksdata.packages.groupList.insert(0, Group("Core"))
+    if ksdata.packages.nocore:
+        log.warning("skipping core group due to %%packages --nocore; system may not be complete")
+    else:
+        ksdata.packages.groupList.insert(0, Group("Core"))
 
     if ksdata.packages.addBase:
         # Only add @base if it's not already in the group list.  If the
