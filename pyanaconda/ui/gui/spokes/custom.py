@@ -679,6 +679,17 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
                     self.window.show_all()
                     return False
 
+    def _revert_reformat(self, device, use_dev):
+        # figure out the existing device and reset it
+        if not use_dev.format.exists:
+            original_device = use_dev
+        else:
+            original_device = device
+
+        log.debug("resetting device %s", original_device.name)
+        with ui_storage_logger():
+            self._storage_playground.resetDevice(original_device)
+
     def _save_right_side(self, selector):
         """ Save settings from RHS and apply changes to the device.
 
@@ -962,16 +973,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         # a reformat.
         if not reformat and (not use_dev.format.exists or
                              not device.format.exists):
-            # figure out the existing device and reset it
-            if not use_dev.format.exists:
-                original_device = use_dev
-            else:
-                original_device = device
-
-            log.debug("resetting device %s", original_device.name)
-
-            with ui_storage_logger():
-                self._storage_playground.resetDevice(original_device)
+            self._revert_reformat(device, use_dev)
 
         if changed_size and device.resizable:
             # If no size was specified, we just want to grow to
