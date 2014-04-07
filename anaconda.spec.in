@@ -259,6 +259,10 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Mon Apr 07 2014 Brian C. Lane <bcl@redhat.com> - 19.31.76-1
+- network: adapt to NM fixing virtual device disconnection (rvykydal)
+  Resolves: rhbz#1084953
+
 * Tue Apr 01 2014 Brian C. Lane <bcl@redhat.com> - 19.31.75-1
 - Display WWIDs in the filter UI for FCoE devices (clumens).
   Resolves: rhbz#1080316
