@@ -690,6 +690,18 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         with ui_storage_logger():
             self._storage_playground.resetDevice(original_device)
 
+    def _bound_size(self, size, device):
+        # If no size was specified, we just want to grow to the maximum.
+        # But resizeDevice doesn't take None for a value.
+        if not size:
+            size = device.maxSize
+        elif size < device.minSize:
+            size = device.minSize
+        elif size > device.maxSize:
+            size = device.maxSize
+
+        return size
+
     def _save_right_side(self, selector):
         """ Save settings from RHS and apply changes to the device.
 
@@ -976,15 +988,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
             self._revert_reformat(device, use_dev)
 
         if changed_size and device.resizable:
-            # If no size was specified, we just want to grow to
-            # the maximum.  But resizeDevice doesn't take None for
-            # a value.
-            if not size:
-                size = device.maxSize
-            elif size < device.minSize:
-                size = device.minSize
-            elif size > device.maxSize:
-                size = device.maxSize
+            size = self._bound_size(size, device)
 
             # And then we need to re-check that the max size is actually
             # different from the current size.
