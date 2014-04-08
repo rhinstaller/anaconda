@@ -1075,7 +1075,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
             #
             # FORMATTING
             #
-            log.info("scheduling reformat of %s as %s", device.name, new_fs_type)
+            log.info("scheduling reformat of %s as %s", device.name, fs_type)
             with ui_storage_logger():
                 old_format = device.format
                 new_format = getFormat(fs_type,
