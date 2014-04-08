@@ -86,6 +86,8 @@ from pyanaconda.ui.gui.categories.system import SystemCategory
 from gi.repository import Gdk, Gtk
 from gi.repository.AnacondaWidgets import MountpointSelector
 
+from functools import wraps
+
 import logging
 log = logging.getLogger("anaconda")
 
@@ -135,6 +137,14 @@ MOUNTPOINT_DESCRIPTIONS = {"Swap": N_("The 'swap' area on your computer is used 
                            "PReP Boot": N_("The PReP boot partition is required as part of the\n"
                                            "bootloader configuration on some PPC platforms.")
                             }
+
+def ui_storage_logged(func):
+    @wraps(func)
+    def decorated(*args, **kwargs):
+        with ui_storage_logger():
+            return func(*args, **kwargs)
+
+    return decorated
 
 class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
     builderObjects = ["customStorageWindow", "containerStore",
@@ -355,15 +365,15 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         self._summaryLabel.set_text(summary)
         self._summaryLabel.set_use_underline(True)
 
+    @ui_storage_logged
     def _hide_unusable_disks(self):
         self._hidden_disks = []
 
-        with ui_storage_logger():
-            for disk in self._storage_playground.disks:
-                if (disk.removable and disk.protected) or not disk.mediaPresent:
-                    # hide removable disks containing install media
-                    self._hidden_disks.append(disk)
-                    self._storage_playground.devicetree.hide(disk)
+        for disk in self._storage_playground.disks:
+            if (disk.removable and disk.protected) or not disk.mediaPresent:
+                # hide removable disks containing install media
+                self._hidden_disks.append(disk)
+                self._storage_playground.devicetree.hide(disk)
 
     def _unhide_unusable_disks(self):
         for disk in reversed(self._hidden_disks):
@@ -679,6 +689,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
                     self.window.show_all()
                     return False
 
+    @ui_storage_logged
     def _revert_reformat(self, device, use_dev):
         # figure out the existing device and reset it
         if not use_dev.format.exists:
@@ -687,8 +698,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
             original_device = device
 
         log.debug("resetting device %s", original_device.name)
-        with ui_storage_logger():
-            self._storage_playground.resetDevice(original_device)
+        self._storage_playground.resetDevice(original_device)
 
     def _bound_size(self, size, device):
         # If no size was specified, we just want to grow to the maximum.
@@ -702,6 +712,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
 
         return size
 
+    @ui_storage_logged
     def _handle_size_change(self, size, old_size, device, use_dev):
         # bound size to boundaries given by the device
         size = self._bound_size(size, device)
@@ -713,25 +724,23 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
             # size has been set back to its original value
             actions = self._storage_playground.devicetree.findActions(type="resize",
                                                             devid=device.id)
-            with ui_storage_logger():
-                for action in reversed(actions):
-                    self._storage_playground.devicetree.cancelAction(action)
-                    _changed_size = True
+            for action in reversed(actions):
+                self._storage_playground.devicetree.cancelAction(action)
+                _changed_size = True
         elif size != device.size:
             log.debug("scheduling resize of device %s to %s", device.name, size)
 
-            with ui_storage_logger():
-                try:
-                    self._storage_playground.resizeDevice(device, size)
-                except StorageError as e:
-                    log.error("failed to schedule device resize: %s", e)
-                    device.size = old_size
-                    self._error = e
-                    self.set_warning(_("Device resize request failed. "
-                                       "Click for details."))
-                    self.window.show_all()
-                else:
-                    _changed_size = True
+            try:
+                self._storage_playground.resizeDevice(device, size)
+            except StorageError as e:
+                log.error("failed to schedule device resize: %s", e)
+                device.size = old_size
+                self._error = e
+                self.set_warning(_("Device resize request failed. "
+                                   "Click for details."))
+                self.window.show_all()
+            else:
+                _changed_size = True
 
         if _changed_size:
             log.debug("new size: %s", device.size)
@@ -745,35 +754,35 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
             # update size props of all btrfs devices' selectors
             self._update_size_props()
 
+    @ui_storage_logged
     def _handle_encryption_change(self, encrypted, device, old_device, selector):
         if not encrypted:
             log.info("removing encryption from %s", device.name)
-            with ui_storage_logger():
-                self._storage_playground.destroyDevice(device)
-                self._devices.remove(device)
-                old_device = device
-                device = device.slave
-                selector.device = device
-                self._update_device_in_selectors(old_device, device)
+            self._storage_playground.destroyDevice(device)
+            self._devices.remove(device)
+            old_device = device
+            device = device.slave
+            selector.device = device
+            self._update_device_in_selectors(old_device, device)
         elif encrypted:
             log.info("applying encryption to %s", device.name)
-            with ui_storage_logger():
-                old_device = device
-                new_fmt = getFormat("luks", device=device.path)
-                self._storage_playground.formatDevice(device, new_fmt)
-                luks_dev = LUKSDevice("luks-" + device.name,
-                                      parents=[device])
-                self._storage_playground.createDevice(luks_dev)
-                self._devices.append(luks_dev)
-                device = luks_dev
-                selector.device = device
-                self._update_device_in_selectors(old_device, device)
+            old_device = device
+            new_fmt = getFormat("luks", device=device.path)
+            self._storage_playground.formatDevice(device, new_fmt)
+            luks_dev = LUKSDevice("luks-" + device.name,
+                                  parents=[device])
+            self._storage_playground.createDevice(luks_dev)
+            self._devices.append(luks_dev)
+            device = luks_dev
+            selector.device = device
+            self._update_device_in_selectors(old_device, device)
 
         self._devices = self._storage_playground.devices
 
         # possibly changed device and old_device, need to return the new ones
         return (device, old_device)
 
+    @ui_storage_logged
     def _do_reformat(self, device, mountpoint, label, changed_encryption,
                      encrypted, selector, fs_type):
         self.clear_errors()
@@ -788,39 +797,38 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         # FORMATTING
         #
         log.info("scheduling reformat of %s as %s", device.name, fs_type)
-        with ui_storage_logger():
-            old_format = device.format
-            new_format = getFormat(fs_type,
-                                   mountpoint=mountpoint, label=label,
-                                   device=device.path)
-            try:
-                self._storage_playground.formatDevice(device, new_format)
-            except StorageError as e:
-                log.error("failed to register device format action: %s", e)
-                device.format = old_format
-                self._error = e
-                self.set_warning(_("Device reformat request failed. "
-                                   "Click for details."))
-                self.window.show_all()
+        old_format = device.format
+        new_format = getFormat(fs_type,
+                               mountpoint=mountpoint, label=label,
+                               device=device.path)
+        try:
+            self._storage_playground.formatDevice(device, new_format)
+        except StorageError as e:
+            log.error("failed to register device format action: %s", e)
+            device.format = old_format
+            self._error = e
+            self.set_warning(_("Device reformat request failed. "
+                               "Click for details."))
+            self.window.show_all()
+        else:
+            # first, remove this selector from any old install page(s)
+            new_selector = None
+            for (page, _selector) in self._accordion.allMembers:
+                if _selector.device in (device, old_device):
+                    if page.pageTitle == translated_new_install_name():
+                        new_selector = _selector
+                        continue
+
+                    page.removeSelector(_selector)
+                    if not page.members:
+                        log.debug("removing empty page %s", page.pageTitle)
+                        self._accordion.removePage(page.pageTitle)
+
+            # either update the existing selector or add a new one
+            if new_selector:
+                updateSelectorFromDevice(new_selector, device)
             else:
-                # first, remove this selector from any old install page(s)
-                new_selector = None
-                for (page, _selector) in self._accordion.allMembers:
-                    if _selector.device in (device, old_device):
-                        if page.pageTitle == translated_new_install_name():
-                            new_selector = _selector
-                            continue
-
-                        page.removeSelector(_selector)
-                        if not page.members:
-                            log.debug("removing empty page %s", page.pageTitle)
-                            self._accordion.removePage(page.pageTitle)
-
-                # either update the existing selector or add a new one
-                if new_selector:
-                    updateSelectorFromDevice(new_selector, device)
-                else:
-                    self.add_new_selector(device)
+                self.add_new_selector(device)
 
         # possibly changed device, need to return the new one
         return device
@@ -2149,6 +2157,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         else:
             self._removeButton.set_sensitive(True)
 
+    @ui_storage_logged
     def _do_autopart(self):
         """Helper function for on_create_clicked.
            Assumes a non-final context in which at least some errors
@@ -2160,54 +2169,53 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         log.debug("running automatic partitioning")
         self._storage_playground.doAutoPart = True
         self.clear_errors()
-        with ui_storage_logger():
-            try:
-                doAutoPartition(self._storage_playground, self.data)
-            except NoDisksError as e:
-                # No handling should be required for this.
-                log.error("doAutoPartition failed: %s", e)
-                self._error = e
-                self.set_error(_("No disks selected."))
-                self.window.show_all()
-            except NotEnoughFreeSpaceError as e:
-                # No handling should be required for this.
-                log.error("doAutoPartition failed: %s", e)
-                self._error = e
-                self.set_error(_("Not enough free space on selected disks."))
-                self.window.show_all()
-            except (StorageError, BootLoaderError) as e:
-                log.error("doAutoPartition failed: %s", e)
-                self._reset_storage()
-                self._error = e
-                self.set_error(_("Automatic partitioning failed. Click "
-                                 "for details."))
-                self.window.show_all()
-            else:
-                self._devices = self._storage_playground.devices
-                # mark all new containers for automatic size management
-                for device in self._devices:
-                    if not device.exists and hasattr(device, "size_policy"):
-                        device.size_policy = SIZE_POLICY_AUTO
-            finally:
-                self._storage_playground.doAutoPart = False
-                log.debug("finished automatic partitioning")
+        try:
+            doAutoPartition(self._storage_playground, self.data)
+        except NoDisksError as e:
+            # No handling should be required for this.
+            log.error("doAutoPartition failed: %s", e)
+            self._error = e
+            self.set_error(_("No disks selected."))
+            self.window.show_all()
+        except NotEnoughFreeSpaceError as e:
+            # No handling should be required for this.
+            log.error("doAutoPartition failed: %s", e)
+            self._error = e
+            self.set_error(_("Not enough free space on selected disks."))
+            self.window.show_all()
+        except (StorageError, BootLoaderError) as e:
+            log.error("doAutoPartition failed: %s", e)
+            self._reset_storage()
+            self._error = e
+            self.set_error(_("Automatic partitioning failed. Click "
+                             "for details."))
+            self.window.show_all()
+        else:
+            self._devices = self._storage_playground.devices
+            # mark all new containers for automatic size management
+            for device in self._devices:
+                if not device.exists and hasattr(device, "size_policy"):
+                    device.size_policy = SIZE_POLICY_AUTO
+        finally:
+            self._storage_playground.doAutoPart = False
+            log.debug("finished automatic partitioning")
 
-            exns = self._storage_playground.sanityCheck()
-            errors = [exn for exn in exns if isinstance(exn, SanityError) and not isinstance(exn, LUKSDeviceWithoutKeyError)]
-            warnings = [exn for exn in exns if isinstance(exn, SanityWarning)]
-            for error in errors:
-                log.error(error.message)
-            for warning in warnings:
-                log.warning(warning.message)
+        exns = self._storage_playground.sanityCheck()
+        errors = [exn for exn in exns if isinstance(exn, SanityError) and not isinstance(exn, LUKSDeviceWithoutKeyError)]
+        warnings = [exn for exn in exns if isinstance(exn, SanityWarning)]
+        for error in errors:
+            log.error(error.message)
+        for warning in warnings:
+            log.warning(warning.message)
 
-            if errors:
-                messages = "\n".join(error.message for error in errors)
-                log.error("doAutoPartition failed: %s", messages)
-                self._reset_storage()
-                self._error = messages
-                self.set_error(_("Automatic partitioning failed. Click "
-                                 "for details."))
-                self.window.show_all()
+        if errors:
+            messages = "\n".join(error.message for error in errors)
+            log.error("doAutoPartition failed: %s", messages)
+            self._reset_storage()
+            self._error = messages
+            self.set_error(_("Automatic partitioning failed. Click "
+                             "for details."))
+            self.window.show_all()
 
     def on_create_clicked(self, button, autopartTypeCombo):
         # Then do autopartitioning.  We do not do any clearpart first.  This is
