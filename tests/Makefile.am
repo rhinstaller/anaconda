@@ -55,6 +55,10 @@ dist_check_SCRIPTS = glade/accelerators/check_accelerators.py \
 		     gettext/gettext_warnings.sh \
 		     gettext/gettext_potfiles.py \
 		     storage/run_storage_tests.py \
+		     $(srcdir)/gui/*.ks \
+		     $(srcdir)/gui/*.sh \
+		     $(srcdir)/gui/inside/*.py \
+		     $(srcdir)/gui/outside/*.py \
 		     $(srcdir)/storage/cases/*.py \
 		     $(srcdir)/*_tests/*.py
 
@@ -64,6 +68,7 @@ TESTS = nosetests.sh \
 	gettext/gettext_warnings.sh \
 	gettext/gettext_potfiles.py \
 	storage/run_storage_tests.py \
+	gui/runtest.sh \
 	glade/run_glade_tests.sh
 
 clean-local:
