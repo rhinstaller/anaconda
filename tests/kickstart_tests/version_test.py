@@ -39,6 +39,7 @@ class BaseTestCase(unittest.TestCase):
 # F10 version of a command, make sure anaconda >= F10 uses the F10 version.
 class CommandVersionTestCase(BaseTestCase):
     def commands_test(self):
+        """Test that anaconda uses the right versions of kickstart commands"""
         for (commandName, commandObj) in self._commandMap.iteritems():
             pykickstartClass = self.handler.commands[commandName].__class__
             self.assertIsInstance(commandObj(), pykickstartClass)
@@ -46,6 +47,7 @@ class CommandVersionTestCase(BaseTestCase):
 # Do the same thing as CommandVersionTestCase, but for data objects.
 class DataVersionTestCase(BaseTestCase):
     def data_test(self):
+        """Test that anaconda uses the right versions of kickstart data"""
         for (dataName, dataObj) in self._dataMap.iteritems():
             # pykickstart does not expose data objects as a mapping the way
             # it does command objects.
