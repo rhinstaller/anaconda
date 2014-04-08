@@ -66,7 +66,10 @@ export DISABLED_ERR_OPTIONS="--disable=E1103"
 # W0603 - Using the global statement
 # W0613 - Unused argument %r
 # W0614 - Unused import %s from wildcard import
-export DISABLED_WARN_OPTIONS="--disable=W0110,W0141,W0142,W0511,W0603,W0613,W0614"
+# I0011 - Locally disabling %s (i.e., pylint: disable)
+# I0012 - Locally enabling %s (i.e., pylint: enable)
+# I0013 - Ignoring entire file (i.e., pylint: skip-file)
+export DISABLED_WARN_OPTIONS="--disable=W0110,W0141,W0142,W0511,W0603,W0613,W0614,I0011,I0012,I0013"
 
 usage () {
   echo "usage: `basename $0` [--strict] [--help] [files...]"

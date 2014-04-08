@@ -30,9 +30,7 @@ gi.overrides.__path__[0:0] = (os.environ["ANACONDA_WIDGETS_OVERRIDES"].split(":"
     egrep -v -f "$FALSE_POSITIVES" \
     )"
 
-# I0011 is the informational "Locally disabling ...." message
-if [ -n "$(echo "$pylint_output" | fgrep -v '************* Module ' |\
-          grep -v '^I0011:')" ]; then
+if [ -n "$(echo "$pylint_output" | fgrep -v '************* Module ')" ]; then
     # Replace the Module line with the actual filename
     pylint_output="$(echo "$pylint_output" | sed "s|\* Module .*|* Module $(eval echo \$$#)|")"
     echo "$pylint_output" > pylint-out_$file_suffix
