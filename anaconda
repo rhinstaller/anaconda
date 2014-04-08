@@ -630,7 +630,7 @@ def prompt_for_ssh():
     import gettext
     _ = lambda x: gettext.ldgettext("anaconda", x)
 
-    ip = network.getFirstRealIP()
+    ip = network.get_default_device_ip() or network.getFirstRealIP()
 
     if not ip:
         stdoutLog.error("No IP addresses found, cannot continue installation.")
