@@ -8,6 +8,10 @@ if [ $# -lt 1 ]; then
     exit 1
 fi
 
+if grep -q '# pylint: skip-file' $1; then
+    exit 0
+fi
+
 file_suffix="$(eval echo \$$#|sed s?/?_?g)"
 
 pylint_output="$(pylint \
