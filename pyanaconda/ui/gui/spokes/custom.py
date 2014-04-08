@@ -774,6 +774,57 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         # possibly changed device and old_device, need to return the new ones
         return (device, old_device)
 
+    def _do_reformat(self, device, mountpoint, label, changed_encryption,
+                     encrypted, selector, fs_type):
+        self.clear_errors()
+        #
+        # ENCRYPTION
+        #
+        old_device = None
+        if changed_encryption:
+            device, old_device = self._handle_encryption_change(encrypted,
+                                                device, old_device, selector)
+        #
+        # FORMATTING
+        #
+        log.info("scheduling reformat of %s as %s", device.name, fs_type)
+        with ui_storage_logger():
+            old_format = device.format
+            new_format = getFormat(fs_type,
+                                   mountpoint=mountpoint, label=label,
+                                   device=device.path)
+            try:
+                self._storage_playground.formatDevice(device, new_format)
+            except StorageError as e:
+                log.error("failed to register device format action: %s", e)
+                device.format = old_format
+                self._error = e
+                self.set_warning(_("Device reformat request failed. "
+                                   "Click for details."))
+                self.window.show_all()
+            else:
+                # first, remove this selector from any old install page(s)
+                new_selector = None
+                for (page, _selector) in self._accordion.allMembers:
+                    if _selector.device in (device, old_device):
+                        if page.pageTitle == translated_new_install_name():
+                            new_selector = _selector
+                            continue
+
+                        page.removeSelector(_selector)
+                        if not page.members:
+                            log.debug("removing empty page %s", page.pageTitle)
+                            self._accordion.removePage(page.pageTitle)
+
+                # either update the existing selector or add a new one
+                if new_selector:
+                    updateSelectorFromDevice(new_selector, device)
+                else:
+                    self.add_new_selector(device)
+
+        # possibly changed device, need to return the new one
+        return device
+
     def _save_right_side(self, selector):
         """ Save settings from RHS and apply changes to the device.
 
@@ -1069,54 +1120,12 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         do_reformat = (reformat and (changed_encryption or
                                      changed_fs_type or
                                      device.format.exists))
+
+        # Handle reformat
         if do_reformat:
-            self.clear_errors()
-            #
-            # ENCRYPTION
-            #
-            old_device = None
-            if changed_encryption:
-                device, old_device = self._handle_encryption_change(encrypted,
-                                                    device, old_device, selector)
-            #
-            # FORMATTING
-            #
-            log.info("scheduling reformat of %s as %s", device.name, fs_type)
-            with ui_storage_logger():
-                old_format = device.format
-                new_format = getFormat(fs_type,
-                                       mountpoint=mountpoint, label=label,
-                                       device=device.path)
-                try:
-                    self._storage_playground.formatDevice(device, new_format)
-                except StorageError as e:
-                    log.error("failed to register device format action: %s", e)
-                    device.format = old_format
-                    self._error = e
-                    self.set_warning(_("Device reformat request failed. "
-                                       "Click for details."))
-                    self.window.show_all()
-                else:
-                    # first, remove this selector from any old install page(s)
-                    new_selector = None
-                    for (page, _selector) in self._accordion.allMembers:
-                        if _selector.device in (device, old_device):
-                            if page.pageTitle == translated_new_install_name():
-                                new_selector = _selector
-                                continue
-
-                            page.removeSelector(_selector)
-                            if not page.members:
-                                log.debug("removing empty page %s", page.pageTitle)
-                                self._accordion.removePage(page.pageTitle)
-
-                    # either update the existing selector or add a new one
-                    if new_selector:
-                        updateSelectorFromDevice(new_selector, device)
-                    else:
-                        self.add_new_selector(device)
-
-        if not do_reformat:
+            device = self._do_reformat(device, mountpoint, label, changed_encryption,
+                                       encrypted, selector, fs_type)
+        else:
             # Set various attributes that do not require actions.
             if old_label != label and hasattr(device.format, "label") and \
                validate_label(label, device.format) == "":
