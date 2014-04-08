@@ -36,18 +36,12 @@ TEST_EXTENSIONS = .sh
 dist_check_DATA = pylint/pylint-false-positives
 
 # Test scripts need to be listed both here and in TESTS
-dist_check_SCRIPTS = glade/accelerators/check_accelerators.py \
-		     glade/pw_visibility/check_pw_visibility.py \
-		     glade/validity/check_glade_validity.py \
-		     glade/markup/check_markup.py \
-		     glade/format_string/check_format_string.py \
+dist_check_SCRIPTS = $(srcdir)/glade/*/*.py \
 		     glade/run_glade_tests.sh \
 		     $(srcdir)/lib/*.py \
 		     $(srcdir)/lib/*.sh \
 		     nosetests.sh \
-		     pylint/intl.py \
-		     pylint/preconf.py \
-		     pylint/markup.py \
+		     $(srcdir)/pylint/*.py \
 		     pylint/runpylint.sh \
 		     pylint/pylint-one.sh \
 		     cppcheck/runcppcheck.sh \
