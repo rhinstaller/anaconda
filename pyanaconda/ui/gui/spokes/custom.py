@@ -745,6 +745,35 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
             # update size props of all btrfs devices' selectors
             self._update_size_props()
 
+    def _handle_encryption_change(self, encrypted, device, old_device, selector):
+        if not encrypted:
+            log.info("removing encryption from %s", device.name)
+            with ui_storage_logger():
+                self._storage_playground.destroyDevice(device)
+                self._devices.remove(device)
+                old_device = device
+                device = device.slave
+                selector.device = device
+                self._update_device_in_selectors(old_device, device)
+        elif encrypted:
+            log.info("applying encryption to %s", device.name)
+            with ui_storage_logger():
+                old_device = device
+                new_fmt = getFormat("luks", device=device.path)
+                self._storage_playground.formatDevice(device, new_fmt)
+                luks_dev = LUKSDevice("luks-" + device.name,
+                                      parents=[device])
+                self._storage_playground.createDevice(luks_dev)
+                self._devices.append(luks_dev)
+                device = luks_dev
+                selector.device = device
+                self._update_device_in_selectors(old_device, device)
+
+        self._devices = self._storage_playground.devices
+
+        # possibly changed device and old_device, need to return the new ones
+        return (device, old_device)
+
     def _save_right_side(self, selector):
         """ Save settings from RHS and apply changes to the device.
 
@@ -1047,31 +1076,8 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
             #
             old_device = None
             if changed_encryption:
-                if not encrypted:
-                    log.info("removing encryption from %s", device.name)
-                    with ui_storage_logger():
-                        self._storage_playground.destroyDevice(device)
-                        self._devices.remove(device)
-                        old_device = device
-                        device = device.slave
-                        selector.device = device
-                        self._update_device_in_selectors(old_device, device)
-                elif encrypted:
-                    log.info("applying encryption to %s", device.name)
-                    with ui_storage_logger():
-                        old_device = device
-                        new_fmt = getFormat("luks", device=device.path)
-                        self._storage_playground.formatDevice(device, new_fmt)
-                        luks_dev = LUKSDevice("luks-" + device.name,
-                                              parents=[device])
-                        self._storage_playground.createDevice(luks_dev)
-                        self._devices.append(luks_dev)
-                        device = luks_dev
-                        selector.device = device
-                        self._update_device_in_selectors(old_device, device)
-
-                self._devices = self._storage_playground.devices
-
+                device, old_device = self._handle_encryption_change(encrypted,
+                                                    device, old_device, selector)
             #
             # FORMATTING
             #
