@@ -134,6 +134,17 @@ def getFirstRealIP():
             return ip
     return None
 
+def get_default_device_ip():
+    ip = None
+    devname = default_route_device()
+    if devname:
+        try:
+            ip = nm.nm_device_ip_addresses(devname, version=4)[0]
+        except Exception as e:
+            log.warning("Got an exception trying to get the ip addr "
+                        "of %s: %s" % (devname, e))
+    return ip
+
 def netmask2prefix(netmask):
     prefix = 0
 
