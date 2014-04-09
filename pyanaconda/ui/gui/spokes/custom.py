@@ -1234,6 +1234,34 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
             self._device_container_encrypted = False
             self._device_container_size = SIZE_POLICY_AUTO
 
+    def _setup_fstype_combo(self, device):
+        # remove any fs types that aren't supported
+        remove_indices = []
+        for idx, row in enumerate(self._fsCombo.get_model()):
+            fs_type = row[0]
+            if fs_type not in self._fs_types:
+                remove_indices.append(idx)
+                continue
+
+            if fs_type == device.format.name:
+                self._fsCombo.set_active(idx)
+
+        # remove items from the combobox in reversed order so that item 3
+        # doesn't become item 2 by removing item 1 etc.
+        map(self._fsCombo.remove, reversed(remove_indices))
+
+        # if the current device has unsupported formatting, add an entry for it
+        if device.format.name not in self._fs_types:
+            self._fsCombo.append_text(device.format.name)
+            self._fsCombo.set_active(len(self._fsCombo.get_model()) - 1)
+
+        # Give them a way to reset to original formatting. Whenever we add a
+        # "reformat this" widget this will need revisiting.
+        if device.exists and \
+           device.format.type != device.originalFormat.type and \
+           device.originalFormat.type not in self._fs_types:
+            self._fsCombo.append_text(device.originalFormat.name)
+
     def _populate_right_side(self, selector):
         log.debug("populate_right_side: %s", selector.device)
 
@@ -1290,35 +1318,8 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
             # existing encryption below the leaf layer.
             self._encryptCheckbox.set_sensitive(False)
 
-        ##
-        ## Set up the filesystem type combo.
-        ##
-
-        # remove any fs types that aren't supported
-        remove_indices = []
-        for idx, data in enumerate(self._fsCombo.get_model()):
-            fs_type = data[0]
-            if fs_type not in self._fs_types:
-                remove_indices.insert(0, idx)
-                continue
-
-            if fs_type == device.format.name:
-                self._fsCombo.set_active(idx)
-
-        for remove_idx in remove_indices:
-            self._fsCombo.remove(remove_idx)
-
-        # if the current device has unsupported formatting, add an entry for it
-        if device.format.name not in self._fs_types:
-            self._fsCombo.append_text(device.format.name)
-            self._fsCombo.set_active(len(self._fsCombo.get_model()) - 1)
-
-        # Give them a way to reset to original formatting. Whenever we add a
-        # "reformat this" widget this will need revisiting.
-        if device.exists and \
-           device.format.type != device.originalFormat.type and \
-           device.originalFormat.type not in self._fs_types:
-            self._fsCombo.append_text(device.originalFormat.name)
+        # Set up the filesystem type combo.
+        self._setup_fstype_combo(device)
 
         ##
         ## Set up the device type combo.
