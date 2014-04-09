@@ -1370,33 +1370,8 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         remove_indices.sort(reverse=True)
         map(self._typeCombo.remove, remove_indices)
 
-        md_pos = None
-        btrfs_pos = None
-        partition_pos = None
-        lvm_pos = None
-        thinp_pos = None
-        for idx, itr in enumerate(self._typeCombo.get_model()):
-            if itr[0] == _(DEVICE_TEXT_BTRFS):
-                btrfs_pos = idx
-            elif itr[0] == _(DEVICE_TEXT_MD):
-                md_pos = idx
-            elif itr[0] == _(DEVICE_TEXT_PARTITION):
-                partition_pos = idx
-            elif itr[0] == _(DEVICE_TEXT_LVM):
-                lvm_pos = idx
-            elif itr[0] == _(DEVICE_TEXT_DISK):
-                disk_pos = idx
-            elif itr[0] == _(DEVICE_TEXT_LVM_THINP):
-                thinp_pos = idx
-
         device_type = devicefactory.get_device_type(device)
         raid_level = devicefactory.get_raid_level(device)
-        type_index_map = {DEVICE_TYPE_PARTITION: partition_pos,
-                          DEVICE_TYPE_BTRFS: btrfs_pos,
-                          DEVICE_TYPE_LVM: lvm_pos,
-                          DEVICE_TYPE_LVM_THINP: thinp_pos,
-                          DEVICE_TYPE_MD: md_pos,
-                          DEVICE_TYPE_DISK: disk_pos}
 
         for _type in self._device_name_dict.iterkeys():
             if _type == device_type:
@@ -1405,16 +1380,35 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
             elif _type not in (DEVICE_TYPE_LVM, DEVICE_TYPE_MD, DEVICE_TYPE_BTRFS, DEVICE_TYPE_LVM_THINP):
                 continue
 
-            swap = (device.format.type == "swap")
+            is_swap = device.format.type == "swap"
             mountpoint = getattr(device.format, "mountpoint", None)
 
             with ui_storage_logger():
-                name = self._storage_playground.suggestDeviceName(swap=swap,
+                name = self._storage_playground.suggestDeviceName(swap=is_swap,
                                                         mountpoint=mountpoint)
 
             self._device_name_dict[_type] = name
 
-        self._typeCombo.set_active(type_index_map[device_type])
+        # TODO: get rid of this madness and use ComboBox with proper model
+        # instead
+        for idx, row in enumerate(self._typeCombo.get_model()):
+            if row[0] == _(DEVICE_TEXT_BTRFS) and device_type == DEVICE_TYPE_BTRFS:
+                break
+            elif row[0] == _(DEVICE_TEXT_MD) and device_type == DEVICE_TYPE_MD:
+                break
+            elif row[0] == _(DEVICE_TEXT_PARTITION) and device_type == DEVICE_TYPE_PARTITION:
+                break
+            elif row[0] == _(DEVICE_TEXT_LVM) and device_type == DEVICE_TYPE_LVM:
+                break
+            elif row[0] == _(DEVICE_TEXT_LVM_THINP) and device_type == DEVICE_TYPE_LVM_THINP:
+                break
+            elif row[0] == _(DEVICE_TEXT_DISK) and device_type == DEVICE_TYPE_DISK:
+                break
+        else:
+            msg = "Didn't find device type %s in device type combobox" % device_type
+            raise KeyError(msg)
+
+        self._typeCombo.set_active(idx)
         fancy_set_sensitive(self._fsCombo, self._reformatCheckbox.get_active() and
                                            device_type != DEVICE_TYPE_BTRFS)
 
