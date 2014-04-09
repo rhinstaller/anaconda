@@ -750,11 +750,11 @@
                             <property name="can_focus">False</property>
                             <property name="active">0</property>
                             <items>
-                              <item>http://</item>
-                              <item>https://</item>
-                              <item>ftp://</item>
-                              <item translatable="yes">nfs</item>
-                              <item translatable="yes">Closest mirror</item>
+                              <item id="http">http://</item>
+                              <item id="https">https://</item>
+                              <item id="ftp">ftp://</item>
+                              <item id="nfs" translatable="yes">nfs</item>
+                              <item id="Closest mirror" translatable="yes">Closest mirror</item>
                             </items>
                             <signal name="changed" handler="on_protocol_changed" swapped="no"/>
                           </object>
@@ -1213,9 +1213,9 @@
                             <property name="tooltip_text" translatable="yes">Protocol for the repository URL.</property>
                             <property name="active">0</property>
                             <items>
-                              <item>http://</item>
-                              <item>https://</item>
-                              <item>ftp://</item>
+                              <item id="http">http://</item>
+                              <item id="https">https://</item>
+                              <item id="ftp">ftp://</item>
                             </items>
                             <signal name="changed" handler="on_repoUrl_changed" swapped="no"/>
                           </object>
