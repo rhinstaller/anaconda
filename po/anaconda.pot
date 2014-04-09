@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: anaconda 19.31.75\n"
+"Project-Id-Version: anaconda 19.31.76\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
-"POT-Creation-Date: 2014-04-07 11:02-0700\n"
+"POT-Creation-Date: 2014-04-09 06:09-0700\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -324,55 +324,55 @@ msgid ""
 "'-'."
 msgstr ""
 
-#: pyanaconda/network.py:1243 pyanaconda/ui/gui/spokes/custom.py:1008
+#: pyanaconda/network.py:1254 pyanaconda/ui/gui/spokes/custom.py:1008
 #: pyanaconda/ui/gui/spokes/network.py:301
 #: pyanaconda/ui/gui/spokes/lib/accordion.py:59
 msgid "Unknown"
 msgstr ""
 
-#: pyanaconda/network.py:1247
+#: pyanaconda/network.py:1258
 msgid "Connecting..."
 msgstr ""
 
-#: pyanaconda/network.py:1249
+#: pyanaconda/network.py:1260
 msgid "Disconnecting..."
 msgstr ""
 
-#: pyanaconda/network.py:1268
+#: pyanaconda/network.py:1279
 #, python-format
 msgid "Wired (%(interface_name)s) connected"
 msgstr ""
 
-#: pyanaconda/network.py:1271
+#: pyanaconda/network.py:1282
 #, python-format
 msgid "Wireless connected to %(access_point)s"
 msgstr ""
 
-#: pyanaconda/network.py:1274
+#: pyanaconda/network.py:1285
 #, python-format
 msgid "Bond %(interface_name)s (%(list_of_slaves)s) connected"
 msgstr ""
 
-#: pyanaconda/network.py:1278
+#: pyanaconda/network.py:1289
 #, python-format
 msgid "Team%(interface_name)s (%(list_of_slaves)s) connected"
 msgstr ""
 
-#: pyanaconda/network.py:1284
+#: pyanaconda/network.py:1295
 #, python-format
 msgid "Vlan %(interface_name)s (%(parent_device)s, ID %(vlanid)s) connected"
 msgstr ""
 
-#: pyanaconda/network.py:1299
+#: pyanaconda/network.py:1310
 #, python-format
 msgid "Connected: %(list_of_interface_names)s"
 msgstr ""
 
-#: pyanaconda/network.py:1302
+#: pyanaconda/network.py:1313
 msgid "Not connected"
 msgstr ""
 
-#: pyanaconda/network.py:1305 pyanaconda/ui/gui/spokes/network.glade:2342
+#: pyanaconda/network.py:1316 pyanaconda/ui/gui/spokes/network.glade:2342
 msgid "No network devices available"
 msgstr ""
 

@@ -259,6 +259,10 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Wed Apr 09 2014 Brian C. Lane <bcl@redhat.com> - 19.31.77-1
+- network: show ip of device with default route for vnc and ssh (rvykydal)
+  Resolves: rhbz#1083305
+
 * Mon Apr 07 2014 Brian C. Lane <bcl@redhat.com> - 19.31.76-1
 - network: adapt to NM fixing virtual device disconnection (rvykydal)
   Resolves: rhbz#1084953
