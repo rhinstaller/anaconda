@@ -480,6 +480,9 @@
       <!-- column-name repo -->
       <column type="PyObject"/>
     </columns>
+    <signal name="row-changed" handler="on_repoStore_row_changed" swapped="no"/>
+    <signal name="row-deleted" handler="on_repoStore_row_deleted" swapped="no"/>
+    <signal name="row-inserted" handler="on_repoStore_row_inserted" swapped="no"/>
   </object>
   <object class="AnacondaSpokeWindow" id="sourceWindow">
     <property name="can_focus">False</property>

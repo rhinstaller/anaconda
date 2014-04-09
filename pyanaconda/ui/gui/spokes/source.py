@@ -25,15 +25,16 @@ import time
 import logging
 log = logging.getLogger("anaconda")
 
-import os, signal
+import os, signal, re
 
-from gi.repository import GLib
+from gi.repository import GLib, Gtk
 
 from pyanaconda.flags import flags
 from pyanaconda.i18n import _, N_, CN_
 from pyanaconda.image import opticalInstallMedia, potentialHdisoSources
 from pyanaconda.ui.communication import hubQ
-from pyanaconda.ui.helpers import GUIDialogInputCheckHandler, InputCheck
+from pyanaconda.ui.helpers import GUIDialogInputCheckHandler, GUISpokeInputCheckHandler, InputCheck,\
+        InputCheckHandler
 from pyanaconda.ui.gui import GUIObject
 from pyanaconda.ui.gui.spokes import NormalSpoke
 from pyanaconda.ui.gui.categories.software import SoftwareCategory
@@ -42,7 +43,7 @@ from pyanaconda.iutil import ProxyString, ProxyStringError, cmp_obj_attrs
 from pyanaconda.ui.gui.utils import gtk_call_once, really_hide, really_show
 from pyanaconda.threads import threadMgr, AnacondaThread
 from pyanaconda.packaging import PayloadError, MetadataError
-from pyanaconda.regexes import REPO_NAME_VALID, URL_PARSE
+from pyanaconda.regexes import REPO_NAME_VALID, URL_PARSE, HOSTNAME_PATTERN_WITHOUT_ANCHORS
 from pyanaconda import constants
 
 from blivet.util import get_mount_paths
@@ -341,7 +342,7 @@ class IsoChooser(GUIObject):
         if not d.startswith(constants.ISO_DIR):
             chooser.set_current_folder(constants.ISO_DIR)
 
-class SourceSpoke(NormalSpoke):
+class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler):
     builderObjects = ["isoChooser", "isoFilter", "partitionStore", "sourceWindow", "dirImage", "repoStore"]
     mainWidgetName = "sourceWindow"
     uiFile = "spokes/source.glade"
@@ -353,6 +354,7 @@ class SourceSpoke(NormalSpoke):
 
     def __init__(self, *args, **kwargs):
         NormalSpoke.__init__(self, *args, **kwargs)
+        GUISpokeInputCheckHandler.__init__(self)
         self._currentIsoFile = None
         self._ready = False
         self._error = False
@@ -611,6 +613,11 @@ class SourceSpoke(NormalSpoke):
         self._isoChooserButton = self.builder.get_object("isoChooserButton")
         self._origIsoChooserButton = self._isoChooserButton.get_label()
 
+        # Attach a validator to the URL entry. Start it as disabled, and it will be
+        # enabled/disabled as entry sensitivity is enabled/disabled.
+        self._urlCheck = self.add_check(self._urlEntry, self._checkURLEntry)
+        self._urlCheck.enabled = False
+
         self._mirrorlistCheckbox = self.builder.get_object("mirrorlistCheckbox")
 
         self._noUpdatesCheckbox = self.builder.get_object("noUpdatesCheckbox")
@@ -628,6 +635,19 @@ class SourceSpoke(NormalSpoke):
         self._repoProxyUrlEntry = self.builder.get_object("repoProxyUrlEntry")
         self._repoProxyUsernameEntry = self.builder.get_object("repoProxyUsernameEntry")
         self._repoProxyPasswordEntry = self.builder.get_object("repoProxyPasswordEntry")
+        self._repoView = self.builder.get_object("repoTreeView")
+
+        # Create a check for duplicate repo ids
+        # Call InputCheckHandler directly since this check operates on rows of a TreeModel
+        # instead of GtkEntry inputs. Updating the check is handled by the signal handlers
+        # connected to repoStore.
+        self._duplicateRepoCheck = InputCheckHandler.add_check(self, self._repoStore, self._checkDuplicateRepos)
+
+        # Create dictionaries for the checks on fields in individual repos
+        # These checks will be added and removed as repos are added and removed from repoStore
+        self._repoNameChecks = {}
+        self._repoURLChecks = {}
+        self._repoProxyChecks = {}
 
         # updates option container
         self._updatesBox = self.builder.get_object("updatesBox")
@@ -646,6 +666,7 @@ class SourceSpoke(NormalSpoke):
         self._autodetectButton.connect("toggled", self.on_source_toggled, self._autodetectBox)
         self._isoButton.connect("toggled", self.on_source_toggled, self._isoBox)
         self._networkButton.connect("toggled", self.on_source_toggled, self._networkBox)
+        self._networkButton.connect("toggled", self._updateURLEntryCheck)
 
         # Show or hide the updates option based on the installclass
         if self.instclass.installUpdates:
@@ -764,6 +785,7 @@ class SourceSpoke(NormalSpoke):
         # something different later, we can change it.
         self._protocolComboBox.set_active_id(PROTOCOL_MIRROR)
         self._urlEntry.set_sensitive(False)
+        self._updateURLEntryCheck()
 
         # Set up the default state of UI elements.
         if self.data.method.method == "url":
@@ -785,6 +807,7 @@ class SourceSpoke(NormalSpoke):
 
             self._urlEntry.set_sensitive(True)
             self._urlEntry.set_text(proto[l:])
+            self._updateURLEntryCheck()
             self._mirrorlistCheckbox.set_active(bool(self.data.method.mirrorlist))
             self._proxyUrl = self.data.method.proxy
         elif self.data.method.method == "nfs":
@@ -793,6 +816,7 @@ class SourceSpoke(NormalSpoke):
 
             self._urlEntry.set_text("%s:%s" % (self.data.method.server, self.data.method.dir))
             self._urlEntry.set_sensitive(True)
+            self._updateURLEntryCheck()
             self.builder.get_object("nfsOptsEntry").set_text(self.data.method.opts or "")
         elif self.data.method.method == "harddrive":
             self._isoButton.set_active(True)
@@ -866,6 +890,102 @@ class SourceSpoke(NormalSpoke):
     def _sanitize_model(self, model):
         return model.replace("_", " ")
 
+    # Input checks
+
+    # This method is shared by the checks on urlEntry and repoUrlEntry
+    def _checkURL(self, inputcheck, combo):
+        url_string = self.get_input(inputcheck.input_obj).strip()
+
+        # If this is HTTP/HTTPS/FTP, use the URL_PARSE regex
+        combo_protocol = combo.get_active_id()
+        if combo_protocol in (PROTOCOL_HTTP, PROTOCOL_HTTPS, PROTOCOL_FTP):
+            if not url_string:
+                return _("URL is empty")
+
+            m = URL_PARSE.match(url_string)
+            if not m:
+                return _("Invalid URL")
+
+            # If there is a protocol in the URL, and the protocol matches the
+            # combo box, just remove it. This makes it more convenient to paste
+            # in URLs. It'll probably freak out people who are typing out http://
+            # in the box themselves, but why would you do that?  Don't do that.
+            # If the protocols don't match, complain.
+            url_protocol = m.group('protocol')
+            if url_protocol:
+                if (url_protocol == 'http://' and combo_protocol == PROTOCOL_HTTP) or \
+                        (url_protocol == 'https://' and combo_protocol == PROTOCOL_HTTPS) or \
+                        (url_protocol == 'ftp://' and combo_protocol == PROTOCOL_FTP):
+                    # Disable the check to block a recursive check call
+                    inputcheck.enabled = False
+                    inputcheck.input_obj.set_text(url_string[len(url_protocol):])
+                    inputcheck.enabled = True
+                else:
+                    return _("Protocol in URL does not match selected protocol")
+        elif combo_protocol == PROTOCOL_NFS:
+            if not url_string:
+                return _("NFS server is empty")
+
+            # Make sure the part before the colon looks like a hostname,
+            # and that the path is not empty
+            host, _colon, path = url_string.partition(':')
+
+            if not re.match('^' + HOSTNAME_PATTERN_WITHOUT_ANCHORS + '$', host):
+                return _("Invalid host name")
+
+            if not path:
+                return _("Remote directory is required")
+
+        return InputCheck.CHECK_OK
+
+    def _checkURLEntry(self, inputcheck):
+        return self._checkURL(inputcheck, self._protocolComboBox)
+
+    def _checkRepoURL(self, inputcheck):
+        return self._checkURL(inputcheck, self._repoProtocolComboBox)
+
+    # Update the check on urlEntry when the sensitity or selected protocol changes
+    def _updateURLEntryCheck(self, *args):
+        self._urlCheck.enabled = self._urlEntry.is_sensitive()
+        self._urlCheck.update_check_status()
+
+        # Force a status update to clear any disabled errors
+        self.set_status(self._urlCheck)
+
+    def _checkDuplicateRepos(self, inputcheck):
+        repo_names = [r[REPO_OBJ].name for r in inputcheck.input_obj]
+        if len(repo_names) != len(frozenset(repo_names)):
+            return _("Duplicate repository names.")
+        return InputCheck.CHECK_OK
+
+    def _checkRepoName(self, inputcheck):
+        repo_name = self.get_input(inputcheck.input_obj).strip()
+
+        if not repo_name:
+            return _("Empty repository name")
+
+        if not REPO_NAME_VALID.match(repo_name):
+            return _("Invalid repository name")
+
+        cnames = [constants.BASE_REPO_NAME] + \
+                 self.payload.DEFAULT_REPOS + \
+                 [r for r in self.payload.repos if r not in self.payload.addOns]
+        if repo_name in cnames:
+            return _("Repository name conflicts with internal repository name.")
+
+        return InputCheck.CHECK_OK
+
+    def _checkRepoProxy(self, inputcheck):
+        # Empty proxies are OK, as long as the username and password are empty too
+        proxy_string = self.get_input(inputcheck.input_obj).strip()
+        username_set = self._repoProxyUsernameEntry.is_sensitive() and self._repoProxyUsernameEntry.get_text().strip()
+        password_set = self._repoProxyPasswordEntry.is_sensitive() and self._repoProxyPasswordEntry.get_text().strip()
+
+        if not (proxy_string or username_set or password_set):
+            return InputCheck.CHECK_OK
+
+        return _validateProxy(proxy_string, username_set, password_set)
+
     # Signal handlers.
     def on_source_toggled(self, button, relatedBox):
         # When a radio button is clicked, this handler gets called for both
@@ -876,14 +996,34 @@ class SourceSpoke(NormalSpoke):
         self._setup_no_updates()
 
     def on_back_clicked(self, button):
-        """If the user entered duplicate repo names, keep them on the screen.
+        """If any input validation checks failed, keep the user on the screen.
            Otherwise, do the usual thing."""
-        ui_repo_names = [r[REPO_OBJ].name for r in self._repoStore]
 
-        if len(ui_repo_names) != len(frozenset(ui_repo_names)):
+        failed_check = next(self.failed_checks, None)
+
+        # If the failed check is the duplicate repo check, focus the repo TreeView
+        if failed_check == self._duplicateRepoCheck:
+            self._repoView.grab_focus()
             return
-        else:
-            NormalSpoke.on_back_clicked(self, button)
+        # If the failed check is on one of the repo fields, select the repo in the
+        # TreeView and focus the field
+        elif failed_check in self._repoNameChecks.values():
+            self._repoSelection.select_path(failed_check.data.get_path())
+            self._repoNameEntry.grab_focus()
+            return
+        elif failed_check in self._repoURLChecks.values():
+            self._repoSelection.select_path(failed_check.data.get_path())
+            self._repoUrlEntry.grab_focus()
+            return
+        elif failed_check in self._repoProxyChecks.values():
+            self._repoSelection.select_path(failed_check.data.get_path())
+            self._repoProxyUrlEntry.grab_focus()
+            return
+        # Otherwise let GUISpokeInputCheckHandler figure out what to focus
+        elif not GUISpokeInputCheckHandler.on_back_clicked(self, button):
+            return
+
+        NormalSpoke.on_back_clicked(self, button)
 
     def on_chooser_clicked(self, button):
         dialog = IsoChooser(self.data)
@@ -955,6 +1095,11 @@ class SourceSpoke(NormalSpoke):
         self._mirrorlistCheckbox.set_visible(self._http_active())
         self._setup_no_updates()
 
+        # Any changes to the protocol combo box also need to update the check to see
+        # if the protocol now matches (e.g., user puts in a ftp:// URL with http selected
+        # in the combo box, then switches the combo box to ftp).
+        self._updateURLEntryCheck()
+
     def _update_payload_repos(self):
         """ Change the packaging repos to match the new edits
 
@@ -996,6 +1141,14 @@ class SourceSpoke(NormalSpoke):
 
             If the list has no element, clear the repo entry fields.
         """
+
+        # Remove the repo checks
+        for check in self._repoNameChecks.values() + self._repoURLChecks.values() + self._repoProxyChecks.values():
+            self.remove_check(check)
+        self._repoNameChecks = {}
+        self._repoURLChecks = {}
+        self._repoProxyChecks = {}
+
         self._repoStore.clear()
         repos = self.payload.addOns
         log.debug("Setting up repos: %s", repos)
@@ -1127,6 +1280,16 @@ class SourceSpoke(NormalSpoke):
         itr = self._repoSelection.get_selected()[1]
         if not itr:
             return
+
+        # Remove the input validation checks for this repo
+        repo = self._repoStore[itr][REPO_OBJ]
+        self.remove_check(self._repoNameChecks[repo])
+        self.remove_check(self._repoURLChecks[repo])
+        self.remove_check(self._repoProxyChecks[repo])
+        del self._repoNameChecks[repo]
+        del self._repoURLChecks[repo]
+        del self._repoProxyChecks[repo]
+
         self._repoStore.remove(itr)
         if len(self._repoStore) == 0:
             self._clear_repo_info()
@@ -1146,8 +1309,10 @@ class SourceSpoke(NormalSpoke):
         repo = self._repoStore[itr][REPO_OBJ]
         name = self._repoNameEntry.get_text().strip()
 
-        self._repoStore.set_value(itr, REPO_NAME_COL, name)
         repo.name = name
+        self._repoStore.set_value(itr, REPO_NAME_COL, name)
+
+        self._repoNameChecks[repo].update_check_status()
 
     def on_repoUrl_changed(self, *args):
         """ proxy url or protocol changed
@@ -1163,6 +1328,8 @@ class SourceSpoke(NormalSpoke):
             repo.mirorlist = proto + url
         else:
             repo.baseurl = proto + url
+
+        self._repoURLChecks[repo].update_check_status()
 
     def on_repoMirrorlistCheckbox_toggled(self, *args):
         """ mirror state changed
@@ -1193,8 +1360,36 @@ class SourceSpoke(NormalSpoke):
         username = self._repoProxyUsernameEntry.get_text().strip() or None
         password = self._repoProxyPasswordEntry.get_text().strip() or None
 
+        self._repoProxyChecks[repo].update_check_status()
+
         try:
             proxy = ProxyString(url=url, username=username, password=password)
             repo.proxy = proxy.url
         except ProxyStringError as e:
             log.error("Failed to parse proxy - %s:%s@%s: %s", username, password, url, e)
+
+    def on_repoStore_row_changed(self, model, path, itr, user_data=None):
+        self._duplicateRepoCheck.update_check_status()
+
+    def on_repoStore_row_deleted(self, model, path, user_data=None):
+        self._duplicateRepoCheck.update_check_status()
+
+    def on_repoStore_row_inserted(self, model, path, itr, user_data=None):
+        self._duplicateRepoCheck.update_check_status()
+
+        repo = model[itr][REPO_OBJ]
+
+        # Add checks for the repo fields
+        # Use InputCheckHandler.add_check instead of GUISpokeInputCheckHandler.add_check since
+        # the input fields are used by every repo, so the changed signal handler is shared by
+        # more than one check and needs to update only the active one.
+
+        # It would be nice if we could store itr as the means of accessing this row later,
+        # and GtkListStore sets GTK_TREE_MODEL_ITERS_PERSIST which is supposed to let us
+        # do something like that, but as part of a grand practical joke the iter passed in
+        # to this method is different from the iter used everywhere else, and is useless
+        # once this method returns. Instead, create a TreeRowReference and work backwards
+        # from that using paths any time we need to reference the store.
+        self._repoNameChecks[repo] = InputCheckHandler.add_check(self, self._repoNameEntry, self._checkRepoName, Gtk.TreeRowReference.new(model, path))
+        self._repoURLChecks[repo] = InputCheckHandler.add_check(self, self._repoUrlEntry, self._checkRepoURL, Gtk.TreeRowReference.new(model, path))
+        self._repoProxyChecks[repo] = InputCheckHandler.add_check(self, self._repoProxyUrlEntry, self._checkRepoProxy, Gtk.TreeRowReference.new(model, path))
