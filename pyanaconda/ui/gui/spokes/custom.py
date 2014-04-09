@@ -2480,7 +2480,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
             dlg.run()
             dlg.destroy()
 
-    def on_apply_clicked(self, button):
+    def on_update_settings_clicked(self, button):
         """ call _save_right_side, then, perhaps, populate_right_side. """
         self._save_right_side(self._current_selector)
         self._back_already_clicked = False

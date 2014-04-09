@@ -568,7 +568,7 @@
                                 <property name="valign">start</property>
                                 <property name="margin_top">30</property>
                                 <property name="use_underline">True</property>
-                                <signal name="clicked" handler="on_apply_clicked" swapped="no"/>
+                                <signal name="clicked" handler="on_update_settings_clicked" swapped="no"/>
                               </object>
                               <packing>
                                 <property name="expand">False</property>
