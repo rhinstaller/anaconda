@@ -1262,6 +1262,92 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
            device.originalFormat.type not in self._fs_types:
             self._fsCombo.append_text(device.originalFormat.name)
 
+    def _setup_device_type_combo(self, device, use_dev, device_name):
+        btrfs_pos = None
+        btrfs_included = False
+        md_pos = None
+        md_included = False
+        disk_pos = None
+        disk_included = False
+        for idx, itr in enumerate(self._typeCombo.get_model()):
+            if itr[0] == _(DEVICE_TEXT_BTRFS):
+                btrfs_pos = idx
+                btrfs_included = True
+            elif itr[0] == _(DEVICE_TEXT_MD):
+                md_pos = idx
+                md_included = True
+            elif itr[0] == _(DEVICE_TEXT_DISK):
+                disk_pos = idx
+                disk_included = True
+
+        remove_indices = []
+
+        # only include md if there are two or more disks
+        include_md = (use_dev.type == "mdarray" or
+                      len(self._clearpartDevices) > 1)
+        if include_md and not md_included:
+            self._typeCombo.append_text(_(DEVICE_TEXT_MD))
+        elif md_included and not include_md:
+            remove_indices.append(md_pos)
+
+        # if the format is swap the device type can't be btrfs
+        include_btrfs = (use_dev.format.type not in
+                            PARTITION_ONLY_FORMAT_TYPES + ["swap"])
+        if include_btrfs and not btrfs_included:
+            self._typeCombo.append_text(_(DEVICE_TEXT_BTRFS))
+        elif btrfs_included and not include_btrfs:
+            remove_indices.append(btrfs_pos)
+
+        # only include disk if the current device is a disk
+        include_disk = use_dev.isDisk
+        if include_disk and not disk_included:
+            self._typeCombo.append_text(_(DEVICE_TEXT_DISK))
+        elif disk_included and not include_disk:
+            remove_indices.append(disk_pos)
+
+        map(self._typeCombo.remove, reversed(remove_indices))
+
+        device_type = devicefactory.get_device_type(device)
+
+        for _type in self._device_name_dict.iterkeys():
+            if _type == device_type:
+                self._device_name_dict[_type] = device_name
+                continue
+            elif _type not in (DEVICE_TYPE_LVM, DEVICE_TYPE_MD, DEVICE_TYPE_BTRFS, DEVICE_TYPE_LVM_THINP):
+                continue
+
+            is_swap = device.format.type == "swap"
+            mountpoint = getattr(device.format, "mountpoint", None)
+
+            with ui_storage_logger():
+                name = self._storage_playground.suggestDeviceName(swap=is_swap,
+                                                        mountpoint=mountpoint)
+
+            self._device_name_dict[_type] = name
+
+        # TODO: get rid of this madness and use ComboBox with proper model
+        # instead
+        for idx, row in enumerate(self._typeCombo.get_model()):
+            if row[0] == _(DEVICE_TEXT_BTRFS) and device_type == DEVICE_TYPE_BTRFS:
+                break
+            elif row[0] == _(DEVICE_TEXT_MD) and device_type == DEVICE_TYPE_MD:
+                break
+            elif row[0] == _(DEVICE_TEXT_PARTITION) and device_type == DEVICE_TYPE_PARTITION:
+                break
+            elif row[0] == _(DEVICE_TEXT_LVM) and device_type == DEVICE_TYPE_LVM:
+                break
+            elif row[0] == _(DEVICE_TEXT_LVM_THINP) and device_type == DEVICE_TYPE_LVM_THINP:
+                break
+            elif row[0] == _(DEVICE_TEXT_DISK) and device_type == DEVICE_TYPE_DISK:
+                break
+        else:
+            msg = "Didn't find device type %s in device type combobox" % device_type
+            raise KeyError(msg)
+
+        self._typeCombo.set_active(idx)
+
+        return device_type
+
     def _populate_right_side(self, selector):
         log.debug("populate_right_side: %s", selector.device)
 
@@ -1321,94 +1407,9 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         # Set up the filesystem type combo.
         self._setup_fstype_combo(device)
 
-        ##
-        ## Set up the device type combo.
-        ##
+        # Set up the device type combo.
+        device_type = self._setup_device_type_combo(device, use_dev, device_name)
 
-        btrfs_pos = None
-        btrfs_included = False
-        md_pos = None
-        md_included = False
-        disk_pos = None
-        disk_included = False
-        for idx, itr in enumerate(self._typeCombo.get_model()):
-            if itr[0] == _(DEVICE_TEXT_BTRFS):
-                btrfs_pos = idx
-                btrfs_included = True
-            elif itr[0] == _(DEVICE_TEXT_MD):
-                md_pos = idx
-                md_included = True
-            elif itr[0] == _(DEVICE_TEXT_DISK):
-                disk_pos = idx
-                disk_included = True
-
-        remove_indices = []
-
-        # only include md if there are two or more disks
-        include_md = (use_dev.type == "mdarray" or
-                      len(self._clearpartDevices) > 1)
-        if include_md and not md_included:
-            self._typeCombo.append_text(_(DEVICE_TEXT_MD))
-        elif md_included and not include_md:
-            remove_indices.append(md_pos)
-
-        # if the format is swap the device type can't be btrfs
-        include_btrfs = (use_dev.format.type not in
-                            PARTITION_ONLY_FORMAT_TYPES + ["swap"])
-        if include_btrfs and not btrfs_included:
-            self._typeCombo.append_text(_(DEVICE_TEXT_BTRFS))
-        elif btrfs_included and not include_btrfs:
-            remove_indices.append(btrfs_pos)
-
-        # only include disk if the current device is a disk
-        include_disk = use_dev.isDisk
-        if include_disk and not disk_included:
-            self._typeCombo.append_text(_(DEVICE_TEXT_DISK))
-        elif disk_included and not include_disk:
-            remove_indices.append(disk_pos)
-
-        remove_indices.sort(reverse=True)
-        map(self._typeCombo.remove, remove_indices)
-
-        device_type = devicefactory.get_device_type(device)
-        raid_level = devicefactory.get_raid_level(device)
-
-        for _type in self._device_name_dict.iterkeys():
-            if _type == device_type:
-                self._device_name_dict[_type] = device_name
-                continue
-            elif _type not in (DEVICE_TYPE_LVM, DEVICE_TYPE_MD, DEVICE_TYPE_BTRFS, DEVICE_TYPE_LVM_THINP):
-                continue
-
-            is_swap = device.format.type == "swap"
-            mountpoint = getattr(device.format, "mountpoint", None)
-
-            with ui_storage_logger():
-                name = self._storage_playground.suggestDeviceName(swap=is_swap,
-                                                        mountpoint=mountpoint)
-
-            self._device_name_dict[_type] = name
-
-        # TODO: get rid of this madness and use ComboBox with proper model
-        # instead
-        for idx, row in enumerate(self._typeCombo.get_model()):
-            if row[0] == _(DEVICE_TEXT_BTRFS) and device_type == DEVICE_TYPE_BTRFS:
-                break
-            elif row[0] == _(DEVICE_TEXT_MD) and device_type == DEVICE_TYPE_MD:
-                break
-            elif row[0] == _(DEVICE_TEXT_PARTITION) and device_type == DEVICE_TYPE_PARTITION:
-                break
-            elif row[0] == _(DEVICE_TEXT_LVM) and device_type == DEVICE_TYPE_LVM:
-                break
-            elif row[0] == _(DEVICE_TEXT_LVM_THINP) and device_type == DEVICE_TYPE_LVM_THINP:
-                break
-            elif row[0] == _(DEVICE_TEXT_DISK) and device_type == DEVICE_TYPE_DISK:
-                break
-        else:
-            msg = "Didn't find device type %s in device type combobox" % device_type
-            raise KeyError(msg)
-
-        self._typeCombo.set_active(idx)
         fancy_set_sensitive(self._fsCombo, self._reformatCheckbox.get_active() and
                                            device_type != DEVICE_TYPE_BTRFS)
 
@@ -1439,6 +1440,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         else:
             self._sizeEntry.set_tooltip_text(_("This file system may not be resized."))
 
+        raid_level = devicefactory.get_raid_level(device)
         self._populate_raid(raid_level)
         self._populate_container(device=use_dev)
         # do this last in case this was set sensitive in on_device_type_changed
