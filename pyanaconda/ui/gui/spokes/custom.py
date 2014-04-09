@@ -1216,22 +1216,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
 
         return device_type
 
-    def _populate_right_side(self, selector):
-        log.debug("populate_right_side: %s", selector.device)
-
-        device = selector.device
-        if device.type == "luks/dm-crypt":
-            use_dev = device.slave
-        else:
-            use_dev = device
-
-        if hasattr(use_dev, "req_disks") and not use_dev.exists:
-            self._device_disks = use_dev.req_disks[:]
-        else:
-            self._device_disks = device.disks[:]
-
-        log.debug("updated device_disks to %s", [d.name for d in self._device_disks])
-
+    def _update_container_info(self, use_dev):
         if hasattr(use_dev, "vg"):
             self._device_container_name = use_dev.vg.name
             self._device_container_raid_level = get_raid_level(use_dev.vg)
@@ -1249,6 +1234,23 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
             self._device_container_encrypted = False
             self._device_container_size = SIZE_POLICY_AUTO
 
+    def _populate_right_side(self, selector):
+        log.debug("populate_right_side: %s", selector.device)
+
+        device = selector.device
+        if device.type == "luks/dm-crypt":
+            use_dev = device.slave
+        else:
+            use_dev = device
+
+        if hasattr(use_dev, "req_disks") and not use_dev.exists:
+            self._device_disks = use_dev.req_disks[:]
+        else:
+            self._device_disks = device.disks[:]
+
+        self._update_container_info(use_dev)
+
+        log.debug("updated device_disks to %s", [d.name for d in self._device_disks])
         log.debug("updated device_container_name to %s", self._device_container_name)
         log.debug("updated device_container_raid_level to %s", self._device_container_raid_level)
         log.debug("updated device_container_encrypted to %s", self._device_container_encrypted)
