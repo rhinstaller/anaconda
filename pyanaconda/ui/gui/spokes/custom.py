@@ -138,6 +138,9 @@ MOUNTPOINT_DESCRIPTIONS = {"Swap": N_("The 'swap' area on your computer is used 
                                            "bootloader configuration on some PPC platforms.")
                             }
 
+def dev_type_from_const(dev_type_const):
+    return getattr(devicefactory, dev_type_const, None)
+
 def ui_storage_logged(func):
     @wraps(func)
     def decorated(*args, **kwargs):
@@ -147,7 +150,7 @@ def ui_storage_logged(func):
     return decorated
 
 class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
-    builderObjects = ["customStorageWindow", "containerStore",
+    builderObjects = ["customStorageWindow", "containerStore", "deviceTypeStore",
                       "partitionStore", "raidStoreFiltered", "raidLevelStore",
                       "addImage", "removeImage", "settingsImage",
                       "mountPointCompletion", "mountPointStore"]
@@ -246,6 +249,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         self._raidLevelLabel = self.builder.get_object("raidLevelLabel")
         self._reformatCheckbox = self.builder.get_object("reformatCheckbox")
         self._sizeEntry = self.builder.get_object("sizeEntry")
+        self._typeStore = self.builder.get_object("deviceTypeStore")
         self._typeCombo = self.builder.get_object("deviceTypeCombo")
         self._modifyContainerButton = self.builder.get_object("modifyContainerButton")
         self._containerCombo = self.builder.get_object("containerCombo")
@@ -616,6 +620,10 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
                     break
             else:
                 log.warning("failed to replace device: %s", s._device)
+
+    def _add_device_type(self, dev_type_const):
+        self._typeStore.append([_(DEVICE_TEXT_MAP[dev_type_from_const(dev_type_const)]),
+                                dev_type_const])
 
     def _validate_mountpoint(self, mountpoint, device, device_type, new_fs_type,
                             reformat, encrypted, raid_level):
@@ -1196,25 +1204,12 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         map(really_show, [self._raidLevelLabel, self._raidLevelCombo])
 
     def _get_current_device_type(self):
-        device_type_text = self._typeCombo.get_active_text()
-        log.info("getting device type for %s", device_type_text)
-        device_type = None
-        if device_type_text == _(DEVICE_TEXT_LVM):
-            device_type = DEVICE_TYPE_LVM
-        elif device_type_text == _(DEVICE_TEXT_MD):
-            device_type = DEVICE_TYPE_MD
-        elif device_type_text == _(DEVICE_TEXT_PARTITION):
-            device_type = DEVICE_TYPE_PARTITION
-        elif device_type_text == _(DEVICE_TEXT_BTRFS):
-            device_type = DEVICE_TYPE_BTRFS
-        elif device_type_text == _(DEVICE_TEXT_DISK):
-            device_type = DEVICE_TYPE_DISK
-        elif device_type_text == _(DEVICE_TEXT_LVM_THINP):
-            device_type = DEVICE_TYPE_LVM_THINP
-        else:
-            log.error("unknown device type: '%s'", device_type_text)
+        itr = self._typeCombo.get_active_iter()
+        if not itr:
+            return None
 
-        return device_type
+        # we have the constant name in the second column of the store
+        return dev_type_from_const(self._typeStore[itr][1])
 
     def _update_container_info(self, use_dev):
         if hasattr(use_dev, "vg"):
@@ -1263,49 +1258,37 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
             self._fsCombo.append_text(device.originalFormat.name)
 
     def _setup_device_type_combo(self, device, use_dev, device_name):
-        btrfs_pos = None
-        btrfs_included = False
-        md_pos = None
-        md_included = False
-        disk_pos = None
-        disk_included = False
-        for idx, itr in enumerate(self._typeCombo.get_model()):
-            if itr[0] == _(DEVICE_TEXT_BTRFS):
-                btrfs_pos = idx
-                btrfs_included = True
-            elif itr[0] == _(DEVICE_TEXT_MD):
-                md_pos = idx
-                md_included = True
-            elif itr[0] == _(DEVICE_TEXT_DISK):
-                disk_pos = idx
-                disk_included = True
-
-        remove_indices = []
+        # these device types should always be listed
+        should_appear = {"DEVICE_TYPE_PARTITION", "DEVICE_TYPE_LVM", "DEVICE_TYPE_LVM_THINP"}
 
         # only include md if there are two or more disks
-        include_md = (use_dev.type == "mdarray" or
-                      len(self._clearpartDevices) > 1)
-        if include_md and not md_included:
-            self._typeCombo.append_text(_(DEVICE_TEXT_MD))
-        elif md_included and not include_md:
-            remove_indices.append(md_pos)
+        if (use_dev.type == "mdarray" or len(self._clearpartDevices) > 1):
+            should_appear.add("DEVICE_TYPE_MD")
 
         # if the format is swap the device type can't be btrfs
-        include_btrfs = (use_dev.format.type not in
-                            PARTITION_ONLY_FORMAT_TYPES + ["swap"])
-        if include_btrfs and not btrfs_included:
-            self._typeCombo.append_text(_(DEVICE_TEXT_BTRFS))
-        elif btrfs_included and not include_btrfs:
-            remove_indices.append(btrfs_pos)
+        if use_dev.format.type not in PARTITION_ONLY_FORMAT_TYPES + ["swap"]:
+            should_appear.add("DEVICE_TYPE_BTRFS")
 
         # only include disk if the current device is a disk
-        include_disk = use_dev.isDisk
-        if include_disk and not disk_included:
-            self._typeCombo.append_text(_(DEVICE_TEXT_DISK))
-        elif disk_included and not include_disk:
-            remove_indices.append(disk_pos)
+        if use_dev.isDisk:
+            should_appear.add("DEVICE_TYPE_DISK")
 
-        map(self._typeCombo.remove, reversed(remove_indices))
+        # go through the store and remove things that shouldn't be included
+        # store.remove() updates or invalidates the passed iterator
+        itr = self._typeStore.get_iter_first()
+        valid = True
+        while itr and valid:
+            dev_type_const = self._typeStore[itr][1]
+            if dev_type_const not in should_appear:
+                valid = self._typeStore.remove(itr)
+            elif dev_type_const in should_appear:
+                # already seen, shouldn't be added to the list again
+                should_appear.remove(dev_type_const)
+                itr = self._typeStore.iter_next(itr)
+
+        # add missing device types
+        for dev_type_const in should_appear:
+            self._add_device_type(dev_type_const)
 
         device_type = devicefactory.get_device_type(device)
 
@@ -1325,26 +1308,15 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
 
             self._device_name_dict[_type] = name
 
-        # TODO: get rid of this madness and use ComboBox with proper model
-        # instead
-        for idx, row in enumerate(self._typeCombo.get_model()):
-            if row[0] == _(DEVICE_TEXT_BTRFS) and device_type == DEVICE_TYPE_BTRFS:
+        itr = self._typeStore.get_iter_first()
+        while itr:
+            if dev_type_from_const(self._typeStore[itr][1]) == device_type:
+                self._typeCombo.set_active_iter(itr)
                 break
-            elif row[0] == _(DEVICE_TEXT_MD) and device_type == DEVICE_TYPE_MD:
-                break
-            elif row[0] == _(DEVICE_TEXT_PARTITION) and device_type == DEVICE_TYPE_PARTITION:
-                break
-            elif row[0] == _(DEVICE_TEXT_LVM) and device_type == DEVICE_TYPE_LVM:
-                break
-            elif row[0] == _(DEVICE_TEXT_LVM_THINP) and device_type == DEVICE_TYPE_LVM_THINP:
-                break
-            elif row[0] == _(DEVICE_TEXT_DISK) and device_type == DEVICE_TYPE_DISK:
-                break
+            itr = self._typeStore.iter_next(itr)
         else:
             msg = "Didn't find device type %s in device type combobox" % device_type
             raise KeyError(msg)
-
-        self._typeCombo.set_active(idx)
 
         return device_type
 
@@ -2341,7 +2313,12 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
             return
 
         new_type = self._get_current_device_type()
-        log.debug("device_type_changed: %s %s", new_type, combo.get_active_text())
+        itr = combo.get_active_iter()
+        if not itr:
+            return
+
+        active_dev_type = self._typeStore[itr]
+        log.debug("device_type_changed: %s %s", new_type, active_dev_type)
         if new_type is None:
             return
 

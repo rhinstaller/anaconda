@@ -9,6 +9,36 @@
       <column type="gchararray"/>
     </columns>
   </object>
+  <object class="GtkListStore" id="deviceTypeStore">
+    <columns>
+      <!-- column-name description -->
+      <column type="gchararray"/>
+      <!-- column-name const_name -->
+      <column type="gchararray"/>
+    </columns>
+    <data>
+      <row>
+        <col id="0" translatable="yes">Standard Partition</col>
+        <col id="1">DEVICE_TYPE_PARTITION</col>
+      </row>
+      <row>
+        <col id="0" translatable="yes">BTRFS</col>
+        <col id="1">DEVICE_TYPE_BTRFS</col>
+      </row>
+      <row>
+        <col id="0" translatable="yes">LVM</col>
+        <col id="1">DEVICE_TYPE_LVM</col>
+      </row>
+      <row>
+        <col id="0" translatable="yes">RAID</col>
+        <col id="1">DEVICE_TYPE_MD</col>
+      </row>
+      <row>
+        <col id="0" translatable="yes">LVM Thin Provisioning</col>
+        <col id="1">DEVICE_TYPE_LVM_THINP</col>
+      </row>
+    </data>
+  </object>
   <object class="GtkEntryCompletion" id="mountPointCompletion">
     <property name="model">mountPointStore</property>
   </object>
@@ -361,19 +391,19 @@
                                       </packing>
                                     </child>
                                     <child>
-                                      <object class="GtkComboBoxText" id="deviceTypeCombo">
+                                      <object class="GtkComboBox" id="deviceTypeCombo">
                                         <property name="visible">True</property>
                                         <property name="can_focus">False</property>
                                         <property name="hexpand">True</property>
-                                        <items>
-                                          <item translatable="yes">Standard Partition</item>
-                                          <item translatable="yes">BTRFS</item>
-                                          <item translatable="yes">LVM</item>
-                                          <item translatable="yes">RAID</item>
-                                          <item translatable="yes">LVM Thin Provisioning</item>
-                                        </items>
+                                        <property name="model">deviceTypeStore</property>
                                         <signal name="changed" handler="on_device_type_changed" swapped="no"/>
                                         <signal name="changed" handler="on_value_changed" swapped="no"/>
+                                        <child>
+                                          <object class="GtkCellRendererText" id="deviceTypeRenderer"/>
+                                          <attributes>
+                                            <attribute name="text">0</attribute>
+                                          </attributes>
+                                        </child>
                                       </object>
                                       <packing>
                                         <property name="left_attach">1</property>
