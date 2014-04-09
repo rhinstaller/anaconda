@@ -79,7 +79,7 @@ class Accordion(Gtk.Box):
         Gtk.Box.__init__(self, orientation=Gtk.Orientation.VERTICAL, spacing=12)
         self._expanders = []
 
-    def addPage(self, contents, cb=None):
+    def addPage(self, contents, cb):
         label = Gtk.Label(label="""<span size='large' weight='bold' fgcolor='black'>%s</span>""" %
                           escape_markup(contents.pageTitle), use_markup=True,
                           xalign=0, yalign=0.5, wrap=True)
