@@ -1236,7 +1236,8 @@ def _get_ntp_servers_from_dhcp(ksdata):
             hostname = server_address
         hostnames.append(hostname)
     # check if some NTP servers were specified from kickstart
-    if not ksdata.timezone.ntpservers:
+    if not ksdata.timezone.ntpservers \
+       and not (flags.imageInstall or flags.dirInstall):
         # no NTP servers were specified, add those from DHCP
         ksdata.timezone.ntpservers = hostnames
 
