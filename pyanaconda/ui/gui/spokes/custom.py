@@ -80,7 +80,7 @@ from pyanaconda.ui.gui.spokes.lib.custom_storage_helpers import get_container_ty
 from pyanaconda.ui.gui.spokes.lib.custom_storage_helpers import AddDialog, ConfirmDeleteDialog, DisksDialog, ContainerDialog, HelpDialog
 
 from pyanaconda.ui.gui.utils import setViewportBackground, enlightbox, fancy_set_sensitive, ignoreEscape
-from pyanaconda.ui.gui.utils import really_hide, really_show, GtkActionList
+from pyanaconda.ui.gui.utils import really_hide, really_show, GtkActionList, timed_action
 from pyanaconda.ui.gui.categories.system import SystemCategory
 
 from gi.repository import Gdk, Gtk
@@ -2480,6 +2480,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
             dlg.run()
             dlg.destroy()
 
+    @timed_action(delay=50, threshold=100)
     def on_update_settings_clicked(self, button):
         """ call _save_right_side, then, perhaps, populate_right_side. """
         self._save_right_side(self._current_selector)
