@@ -604,6 +604,7 @@ class SourceSpoke(NormalSpoke):
 
         # I shouldn't have to do this outside GtkBuilder, but it really doesn't
         # want to let me pass in user data.
+        # See also: https://bugzilla.gnome.org/show_bug.cgi?id=727919
         self._autodetectButton.connect("toggled", self.on_source_toggled, self._autodetectBox)
         self._isoButton.connect("toggled", self.on_source_toggled, self._isoBox)
         self._networkButton.connect("toggled", self.on_source_toggled, self._networkBox)
