@@ -63,9 +63,10 @@ from blivet.errors import LUKSDeviceWithoutKeyError
 from blivet.devicelibs import mdraid
 from blivet.devices import LUKSDevice
 
-from pyanaconda.storage_utils import get_supported_raid_levels, ui_storage_logger
+from pyanaconda.storage_utils import get_supported_raid_levels, ui_storage_logger, device_type_from_autopart
 from pyanaconda.storage_utils import DEVICE_TEXT_PARTITION, DEVICE_TEXT_MD, DEVICE_TEXT_MAP
-from pyanaconda.storage_utils import PARTITION_ONLY_FORMAT_TYPES, MOUTPOINT_DESCRIPTIONS
+from pyanaconda.storage_utils import PARTITION_ONLY_FORMAT_TYPES, MOUNTPOINT_DESCRIPTIONS
+from pyanaconda.storage_utils import NAMED_DEVICE_TYPES, CONTAINER_DEVICE_TYPES
 
 from pyanaconda.ui.communication import hubQ
 from pyanaconda.ui.gui.spokes import NormalSpoke
@@ -1246,7 +1247,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
             should_appear.add("DEVICE_TYPE_MD")
 
         # if the format is swap the device type can't be btrfs
-        if use_dev.format.type not in PARTITION_ONLY_FORMAT_TYPES + ("swap"):
+        if use_dev.format.type not in PARTITION_ONLY_FORMAT_TYPES + ("swap",):
             should_appear.add("DEVICE_TYPE_BTRFS")
 
         # only include disk if the current device is a disk
@@ -1276,7 +1277,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
             if _type == device_type:
                 self._device_name_dict[_type] = device_name
                 continue
-            elif _type not in (DEVICE_TYPE_LVM, DEVICE_TYPE_MD, DEVICE_TYPE_BTRFS, DEVICE_TYPE_LVM_THINP):
+            elif _type not in NAMED_DEVICE_TYPES:
                 continue
 
             is_swap = device.format.type == "swap"
@@ -1808,7 +1809,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         if device.exists:
             return
 
-        if self._get_current_device_type() in (DEVICE_TYPE_LVM, DEVICE_TYPE_LVM_THINP, DEVICE_TYPE_BTRFS):
+        if self._get_current_device_type() in CONTAINER_DEVICE_TYPES:
             # disk set management happens through container edit on RHS
             return
 
@@ -2080,9 +2081,10 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         self._current_selector = selector
 
         self._applyButton.set_sensitive(False)
+        container_device = devicefactory.get_device_type(selector.device) in CONTAINER_DEVICE_TYPES
         self._configButton.set_sensitive(not selector.device.exists and
                                          not selector.device.protected and
-                                         devicefactory.get_device_type(selector.device) in (DEVICE_TYPE_PARTITION, DEVICE_TYPE_MD))
+                                         not container_device)
         self._removeButton.set_sensitive(not selector.device.protected)
         return True
 
@@ -2228,7 +2230,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
                 device = device.slave
 
         container_size_policy = SIZE_POLICY_AUTO
-        if device_type in (DEVICE_TYPE_LVM, DEVICE_TYPE_BTRFS, DEVICE_TYPE_LVM_THINP):
+        if device_type in CONTAINER_DEVICE_TYPES:
             # set up the vg widgets and then bail out
             if devicefactory.get_device_type(device) == device_type:
                 _device = device
@@ -2327,7 +2329,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
 
         # lvm uses the RHS to set disk set. no foolish minds here.
         exists = self._current_selector and self._current_selector.device.exists
-        self._configButton.set_sensitive(not exists and new_type not in (DEVICE_TYPE_LVM, DEVICE_TYPE_LVM_THINP, DEVICE_TYPE_BTRFS))
+        self._configButton.set_sensitive(not exists and new_type not in CONTAINER_DEVICE_TYPES)
 
         # this has to be done before calling populate_raid since it will need
         # the raid level combo to contain the relevant raid levels for the new
@@ -2337,7 +2339,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         self._populate_raid(raid_level)
         self._populate_container()
 
-        fancy_set_sensitive(self._nameEntry, new_type in (DEVICE_TYPE_BTRFS, DEVICE_TYPE_LVM, DEVICE_TYPE_MD, DEVICE_TYPE_LVM_THINP))
+        fancy_set_sensitive(self._nameEntry, new_type in NAMED_DEVICE_TYPES)
         self._nameEntry.set_text(self._device_name_dict[new_type])
         fancy_set_sensitive(self._sizeEntry, new_type != DEVICE_TYPE_BTRFS)
 
