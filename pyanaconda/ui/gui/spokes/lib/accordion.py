@@ -24,6 +24,8 @@
 from pyanaconda.i18n import _
 from pyanaconda.product import productName, productVersion
 from pyanaconda.ui.gui.utils import escape_markup, really_hide, really_show
+from pykickstart.constants import AUTOPART_TYPE_PLAIN, AUTOPART_TYPE_BTRFS
+from pykickstart.constants import AUTOPART_TYPE_LVM, AUTOPART_TYPE_LVM_THINP
 
 from gi.repository.AnacondaWidgets import MountpointSelector
 from gi.repository import Gtk
@@ -291,7 +293,11 @@ class CreateNewPage(Page):
 
         # Create this now to pass into the callback.  It will be populated later
         # on in this method.
-        combo = Gtk.ComboBoxText()
+        store = Gtk.ListStore(str, int)
+        combo = Gtk.ComboBox(model=store)
+        cellrendr = Gtk.CellRendererText()
+        combo.pack_start(cellrendr, True)
+        combo.add_attribute(cellrendr, "text", 0)
         combo.connect("changed", autopartTypeChangedCB)
 
         self._createNewButton.set_has_tooltip(False)
@@ -318,16 +324,17 @@ class CreateNewPage(Page):
         label = Gtk.Label(label=_("_New mount points will use the following partitioning scheme:"),
                           xalign=0, yalign=0.5, wrap=True, use_underline=True)
         self._createBox.attach(label, 0, 4, 2, 1)
-
         label.set_mnemonic_widget(combo)
-        combo.append_text(_("Standard Partition"))
-        combo.append_text(_("BTRFS"))
-        combo.append_text(_("LVM"))
-        combo.append_text(_("LVM Thin Provisioning"))
-        combo.set_active(2)
+
+        store.append([_("Standard Partition"), AUTOPART_TYPE_PLAIN])
+        store.append([_("BTRFS"), AUTOPART_TYPE_BTRFS])
+        default = store.append([_("LVM"), AUTOPART_TYPE_LVM])
+        store.append([_("LVM Thin Provisioning"), AUTOPART_TYPE_LVM_THINP])
+
         combo.set_margin_left(18)
         combo.set_margin_right(18)
         combo.set_hexpand(False)
+        combo.set_active_iter(default)
         self._createBox.attach(combo, 0, 5, 2, 1)
 
         self.add(self._createBox)
