@@ -32,6 +32,7 @@ from blivet.devicefactory import DEVICE_TYPE_LVM_THINP
 from blivet.devicefactory import DEVICE_TYPE_BTRFS
 from blivet.devicefactory import DEVICE_TYPE_MD
 from blivet.devicefactory import DEVICE_TYPE_PARTITION
+from blivet.devicefactory import DEVICE_TYPE_DISK
 
 from pyanaconda.i18n import N_
 from pykickstart.constants import AUTOPART_TYPE_PLAIN, AUTOPART_TYPE_BTRFS
@@ -64,7 +65,8 @@ DEVICE_TEXT_MAP = {DEVICE_TYPE_LVM: DEVICE_TEXT_LVM,
                    DEVICE_TYPE_MD: DEVICE_TEXT_MD,
                    DEVICE_TYPE_PARTITION: DEVICE_TEXT_PARTITION,
                    DEVICE_TYPE_BTRFS: DEVICE_TEXT_BTRFS,
-                   DEVICE_TYPE_LVM_THINP: DEVICE_TEXT_LVM_THINP}
+                   DEVICE_TYPE_LVM_THINP: DEVICE_TEXT_LVM_THINP,
+                   DEVICE_TYPE_DISK: DEVICE_TEXT_DISK}
 
 PARTITION_ONLY_FORMAT_TYPES = ("efi", "macefi", "prepboot", "biosboot", "appleboot")
 
