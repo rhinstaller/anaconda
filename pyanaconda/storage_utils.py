@@ -31,6 +31,11 @@ from blivet.devicefactory import DEVICE_TYPE_LVM
 from blivet.devicefactory import DEVICE_TYPE_LVM_THINP
 from blivet.devicefactory import DEVICE_TYPE_BTRFS
 from blivet.devicefactory import DEVICE_TYPE_MD
+from blivet.devicefactory import DEVICE_TYPE_PARTITION
+
+from pyanaconda.i18n import N_
+from pykickstart.constants import AUTOPART_TYPE_PLAIN, AUTOPART_TYPE_BTRFS
+from pykickstart.constants import AUTOPART_TYPE_LVM, AUTOPART_TYPE_LVM_THINP
 
 import logging
 log = logging.getLogger("anaconda")
@@ -46,6 +51,41 @@ SUPPORTED_RAID_LEVELS = {DEVICE_TYPE_LVM: {"none", "raid0", "raid1"},
                          # VG: {"none", "raid0", "raid1", "raid4",
                          #      "raid5", "raid6", "raid10"},
                         }
+
+# TODO: all those constants and mappings should go to blivet
+DEVICE_TEXT_LVM = N_("LVM")
+DEVICE_TEXT_LVM_THINP = N_("LVM Thin Provisioning")
+DEVICE_TEXT_MD = N_("RAID")
+DEVICE_TEXT_PARTITION = N_("Standard Partition")
+DEVICE_TEXT_BTRFS = N_("BTRFS")
+DEVICE_TEXT_DISK = N_("Disk")
+
+DEVICE_TEXT_MAP = {DEVICE_TYPE_LVM: DEVICE_TEXT_LVM,
+                   DEVICE_TYPE_MD: DEVICE_TEXT_MD,
+                   DEVICE_TYPE_PARTITION: DEVICE_TEXT_PARTITION,
+                   DEVICE_TYPE_BTRFS: DEVICE_TEXT_BTRFS,
+                   DEVICE_TYPE_LVM_THINP: DEVICE_TEXT_LVM_THINP}
+
+PARTITION_ONLY_FORMAT_TYPES = ("efi", "macefi", "prepboot", "biosboot", "appleboot")
+
+MOUNTPOINT_DESCRIPTIONS = {"Swap": N_("The 'swap' area on your computer is used by the operating\n"
+                                      "system when running low on memory."),
+                           "Boot": N_("The 'boot' area on your computer is where files needed\n"
+                                      "to start the operating system are stored."),
+                           "Root": N_("The 'root' area on your computer is where core system\n"
+                                      "files and applications are stored."),
+                           "Home": N_("The 'home' area on your computer is where all your personal\n"
+                                      "data is stored."),
+                           "BIOS Boot": N_("The BIOS boot partition is required to enable booting\n"
+                                           "from GPT-partitioned disks on BIOS hardware."),
+                           "PReP Boot": N_("The PReP boot partition is required as part of the\n"
+                                           "bootloader configuration on some PPC platforms.")
+                            }
+
+AUTOPART_DEVICE_TYPES = {AUTOPART_TYPE_LVM: DEVICE_TYPE_LVM,
+                         AUTOPART_TYPE_LVM_THINP: DEVICE_TYPE_LVM_THINP,
+                         AUTOPART_TYPE_PLAIN: DEVICE_TYPE_PARTITION,
+                         AUTOPART_TYPE_BTRFS: DEVICE_TYPE_BTRFS}
 
 def size_from_input(input_str):
     """Get size from user's input"""
@@ -75,6 +115,11 @@ def get_supported_raid_levels(device_type):
 
     return SUPPORTED_RAID_LEVELS.get(device_type, set())
 
+def device_type_from_autopart(autopart_type):
+    """Get device type matching the given autopart type."""
+
+    return AUTOPART_DEVICE_TYPES.get(autopart_type, None)
+
 class UIStorageFilter(logging.Filter):
     """Logging filter for UI storage events"""
 
@@ -91,4 +136,3 @@ def ui_storage_logger():
     storage_log.addFilter(storage_filter)
     yield
     storage_log.removeFilter(storage_filter)
-

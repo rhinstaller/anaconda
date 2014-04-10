@@ -29,7 +29,7 @@
 # - Implement striping and mirroring for LVM.
 # - Activating reformat should always enable resize for existing devices.
 
-from pykickstart.constants import CLEARPART_TYPE_NONE, AUTOPART_TYPE_PLAIN, AUTOPART_TYPE_BTRFS, AUTOPART_TYPE_LVM, AUTOPART_TYPE_LVM_THINP
+from pykickstart.constants import CLEARPART_TYPE_NONE
 
 from pyanaconda.i18n import _, N_, CP_
 from pyanaconda.product import productName, productVersion, translated_new_install_name
@@ -64,6 +64,8 @@ from blivet.devicelibs import mdraid
 from blivet.devices import LUKSDevice
 
 from pyanaconda.storage_utils import get_supported_raid_levels, ui_storage_logger
+from pyanaconda.storage_utils import DEVICE_TEXT_PARTITION, DEVICE_TEXT_MD, DEVICE_TEXT_MAP
+from pyanaconda.storage_utils import PARTITION_ONLY_FORMAT_TYPES, MOUTPOINT_DESCRIPTIONS
 
 from pyanaconda.ui.communication import hubQ
 from pyanaconda.ui.gui.spokes import NormalSpoke
@@ -99,20 +101,6 @@ NOTEBOOK_LUKS_PAGE = 2
 NOTEBOOK_UNEDITABLE_PAGE = 3
 NOTEBOOK_INCOMPLETE_PAGE = 4
 
-
-DEVICE_TEXT_LVM = N_("LVM")
-DEVICE_TEXT_LVM_THINP = N_("LVM Thin Provisioning")
-DEVICE_TEXT_MD = N_("RAID")
-DEVICE_TEXT_PARTITION = N_("Standard Partition")
-DEVICE_TEXT_BTRFS = N_("BTRFS")
-DEVICE_TEXT_DISK = N_("Disk")
-
-DEVICE_TEXT_MAP = {DEVICE_TYPE_LVM: DEVICE_TEXT_LVM,
-                   DEVICE_TYPE_MD: DEVICE_TEXT_MD,
-                   DEVICE_TYPE_PARTITION: DEVICE_TEXT_PARTITION,
-                   DEVICE_TYPE_BTRFS: DEVICE_TEXT_BTRFS,
-                   DEVICE_TYPE_LVM_THINP: DEVICE_TEXT_LVM_THINP}
-
 NEW_CONTAINER_TEXT = N_("Create a new %(container_type)s ...")
 CONTAINER_TOOLTIP = N_("Create or select %(container_type)s")
 
@@ -120,23 +108,6 @@ DEVICE_CONFIGURATION_ERROR_MSG = N_("Device reconfiguration failed. Click for "
                                     "details.")
 UNRECOVERABLE_ERROR_MSG = N_("Storage configuration reset due to unrecoverable "
                              "error. Click for details.")
-
-PARTITION_ONLY_FORMAT_TYPES = ["efi", "macefi", "prepboot", "biosboot",
-                               "appleboot"]
-
-MOUNTPOINT_DESCRIPTIONS = {"Swap": N_("The 'swap' area on your computer is used by the operating\n"
-                                      "system when running low on memory."),
-                           "Boot": N_("The 'boot' area on your computer is where files needed\n"
-                                      "to start the operating system are stored."),
-                           "Root": N_("The 'root' area on your computer is where core system\n"
-                                      "files and applications are stored."),
-                           "Home": N_("The 'home' area on your computer is where all your personal\n"
-                                      "data is stored."),
-                           "BIOS Boot": N_("The BIOS boot partition is required to enable booting\n"
-                                           "from GPT-partitioned disks on BIOS hardware."),
-                           "PReP Boot": N_("The PReP boot partition is required as part of the\n"
-                                           "bootloader configuration on some PPC platforms.")
-                            }
 
 def dev_type_from_const(dev_type_const):
     return getattr(devicefactory, dev_type_const, None)
@@ -1275,7 +1246,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
             should_appear.add("DEVICE_TYPE_MD")
 
         # if the format is swap the device type can't be btrfs
-        if use_dev.format.type not in PARTITION_ONLY_FORMAT_TYPES + ["swap"]:
+        if use_dev.format.type not in PARTITION_ONLY_FORMAT_TYPES + ("swap"):
             should_appear.add("DEVICE_TYPE_BTRFS")
 
         # only include disk if the current device is a disk
@@ -1568,11 +1539,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         if lowerASCII(mountpoint) in ("swap", "biosboot", "prepboot"):
             mountpoint = None
 
-        device_type_from_autopart = {AUTOPART_TYPE_LVM: DEVICE_TYPE_LVM,
-                                     AUTOPART_TYPE_LVM_THINP: DEVICE_TYPE_LVM_THINP,
-                                     AUTOPART_TYPE_PLAIN: DEVICE_TYPE_PARTITION,
-                                     AUTOPART_TYPE_BTRFS: DEVICE_TYPE_BTRFS}
-        device_type = device_type_from_autopart[self.data.autopart.type]
+        device_type = device_type_from_autopart(self.data.autopart.type)
         if (device_type != DEVICE_TYPE_PARTITION and
             ((mountpoint and mountpoint.startswith("/boot")) or
              fstype in PARTITION_ONLY_FORMAT_TYPES)):
