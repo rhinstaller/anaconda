@@ -124,7 +124,7 @@ def run_yum_transaction(release, arch, yum_conf, install_root, ts_file, script_l
         if rpmUtils and rpmUtils.arch.isMultiLibArch():
             yb.ts.ts.setColor(3)
 
-        print("DEBUG: populate transaction set")
+        print("INFO: populate transaction set")
         xdelay = xprogressive_delay()
 
         for retry_count in xrange(0, MAX_DOWNLOAD_RETRIES+1):
@@ -133,7 +133,7 @@ def run_yum_transaction(release, arch, yum_conf, install_root, ts_file, script_l
             if retry_count:
                 # retry after waiting a bit
                 time.sleep(xdelay.next())
-                print("DEBUG: error populating transaction, retrying (%d/%d)"
+                print("PROGRESS_INSTALL: error populating transaction, retrying (%d/%d)"
                       % (retry_count, MAX_DOWNLOAD_RETRIES))
             try:
                 # uses dsCallback.transactionPopulation
@@ -149,9 +149,9 @@ def run_yum_transaction(release, arch, yum_conf, install_root, ts_file, script_l
             # of the toplevel try-block will do that for us
             return
 
-        print("DEBUG: check transaction set")
+        print("INFO: check transaction set")
         yb.ts.check()
-        print("DEBUG: order transaction set")
+        print("INFO: order transaction set")
         yb.ts.order()
         yb.ts.clean()
 
@@ -297,7 +297,7 @@ class RPMCallback(object):
             # retry count > 0  -> retry
             if retry_count and retry_message:
                 time.sleep(xdelay.next())  # wait a bit before retry
-                print("DEBUG: %s (%d/%d)" % (retry_message, retry_count, MAX_DOWNLOAD_RETRIES))
+                print("PROGRESS_INSTALL: %s (%d/%d)" % (retry_message, retry_count, MAX_DOWNLOAD_RETRIES))
 
             try:
                 # checkfunc gets passed to yum's use of URLGrabber which
