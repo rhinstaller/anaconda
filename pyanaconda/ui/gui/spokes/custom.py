@@ -2032,7 +2032,10 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         log.debug("current selector: %s", self._current_selector.device)
         nb_page = self._partitionsNotebook.get_current_page()
         log.debug("notebook page = %s", nb_page)
-        if nb_page == NOTEBOOK_DETAILS_PAGE:
+
+        # only call _save_right_side if on the right page and some changes need
+        # to be saved (sensitivity of the Update Settings button reflects that)
+        if nb_page == NOTEBOOK_DETAILS_PAGE and self._applyButton.get_sensitive():
             self._save_right_side(self._current_selector)
             self._back_already_clicked = False
 
