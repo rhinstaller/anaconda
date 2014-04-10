@@ -317,7 +317,8 @@ class CreateNewPage(Page):
             dot = Gtk.Label(label="•", xalign=0.5, yalign=0, hexpand=False)
             self._createBox.attach(dot, 0, 3, 1, 1)
 
-            label = Gtk.Label(label=_("Or, assign new mount points to existing partitions after selecting them below."),
+            label = Gtk.Label(label=_("Or, assign new mount points to existing "
+                                      "partitions after selecting them below."),
                               xalign=0, yalign=0.5, hexpand=True, wrap=True)
             self._createBox.attach(label, 1, 3, 1, 1)
 
