@@ -237,13 +237,13 @@
               </packing>
             </child>
             <child>
-              <object class="GtkButton" id="proxyAddButton">
-                <property name="label" translatable="yes" context="GUI|Software Source|Proxy Dialog">_Add</property>
+              <object class="GtkButton" id="proxyOkButton">
+                <property name="label" translatable="yes" context="GUI|Software Source|Proxy Dialog">_Ok</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
                 <property name="use_underline">True</property>
-                <signal name="clicked" handler="on_proxy_add_clicked" swapped="no"/>
+                <signal name="clicked" handler="on_proxy_ok_clicked" swapped="no"/>
               </object>
               <packing>
                 <property name="expand">False</property>
@@ -466,7 +466,7 @@
     </child>
     <action-widgets>
       <action-widget response="0">proxyCancelButton</action-widget>
-      <action-widget response="0">proxyAddButton</action-widget>
+      <action-widget response="0">proxyOkButton</action-widget>
     </action-widgets>
   </object>
   <object class="GtkListStore" id="repoStore">

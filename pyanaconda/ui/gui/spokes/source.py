@@ -84,7 +84,7 @@ class ProxyDialog(GUIObject, GUIDialogInputCheckHandler):
         self._proxyURLEntry = self.builder.get_object("proxyURLEntry")
         self._proxyUsernameEntry = self.builder.get_object("proxyUsernameEntry")
         self._proxyPasswordEntry = self.builder.get_object("proxyPasswordEntry")
-        self._proxyAddButton = self.builder.get_object("proxyAddButton")
+        self._proxyOkButton = self.builder.get_object("proxyOkButton")
 
         self._proxyValidate = self.add_check(self._proxyURLEntry, self._validateProxy)
         self._proxyValidate.update_check_status()
@@ -109,36 +109,36 @@ class ProxyDialog(GUIObject, GUIDialogInputCheckHandler):
         GUIDialogInputCheckHandler.set_status(self, inputcheck)
 
         # Change the sensitivity of the Add button
-        self._proxyAddButton.set_sensitive(inputcheck.check_status == InputCheck.CHECK_OK)
+        self._proxyOkButton.set_sensitive(inputcheck.check_status == InputCheck.CHECK_OK)
 
     def on_proxy_cancel_clicked(self, *args):
         self.window.destroy()
 
-    def on_proxy_add_clicked(self, *args):
-        url = self._proxyURLEntry.get_text()
+    def on_proxy_ok_clicked(self, *args):
+        if self._proxyCheck.get_active():
+            url = self._proxyURLEntry.get_text()
 
-        if self._authCheck.get_active():
-            username = self._proxyUsernameEntry.get_text()
-            password = self._proxyPasswordEntry.get_text()
+            if self._authCheck.get_active():
+                username = self._proxyUsernameEntry.get_text()
+                password = self._proxyPasswordEntry.get_text()
+            else:
+                username = None
+                password = None
+
+            proxy = ProxyString(url=url, username=username, password=password)
+            self.proxyUrl = proxy.url
         else:
-            username = None
-            password = None
-
-        proxy = ProxyString(url=url, username=username, password=password)
-        self.proxyUrl = proxy.url
+            self.proxyUrl = ""
 
         self.window.destroy()
 
     def on_proxy_enable_toggled(self, button, *args):
         self._proxyInfoBox.set_sensitive(button.get_active())
 
-        # If disabling, set the add button to insensitve: there's nothing to
-        # add so the user can cancel to exit instead. If enabling, use
-        # the input check status to set the sensitivity
-        if not button.get_active():
-            self._proxyAddButton.set_sensitive(False)
-        else:
+        if button.get_active():
             self.set_status(self._proxyValidate)
+        else:
+            self._proxyOkButton.set_sensitive(True)
 
     def on_proxy_auth_toggled(self, button, *args):
         self._proxyAuthBox.set_sensitive(button.get_active())
