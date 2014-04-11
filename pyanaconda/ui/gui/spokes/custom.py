@@ -827,22 +827,30 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
 
             This method must never trigger a call to self._do_refresh.
         """
+
+        # check if initialized and have something to operate on
         if not self._initialized or not selector:
             return
 
-        # dictionaries for many, many pieces of information about the device and
-        # requested changes
-        new_device_info = dict()
-        old_device_info = dict()
+        # only call _save_right_side if on the right page and some changes need
+        # to be saved (sensitivity of the Update Settings button reflects that)
+        if self._partitionsNotebook.get_current_page() != NOTEBOOK_DETAILS_PAGE or \
+           not self._addButton.get_sensitive():
+            return
+
         device = selector.device
         if device not in self._devices:
             # just-removed device
             return
 
-        new_device_info["device"] = device
-        if self._partitionsNotebook.get_current_page() != NOTEBOOK_DETAILS_PAGE:
-            return
+        self._back_already_clicked = False
 
+        # dictionaries for many, many pieces of information about the device and
+        # requested changes
+        new_device_info = dict()
+        old_device_info = dict()
+
+        new_device_info["device"] = device
         use_dev = device
         if device.type == "luks/dm-crypt":
             use_dev = device.slave
@@ -1501,9 +1509,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         NormalSpoke.on_back_clicked(self, button)
 
     def on_add_clicked(self, button):
-        if self._addButton.get_sensitive():
-            self._save_right_side(self._current_selector)
-            self._back_already_clicked = False
+        self._save_right_side(self._current_selector)
 
         dialog = AddDialog(self.data,
                            mountpoints=self._storage_playground.mountpoints.keys())
@@ -2010,15 +2016,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
 
     def _save_current_selector(self):
         log.debug("current selector: %s", self._current_selector.device)
-        nb_page = self._partitionsNotebook.get_current_page()
-        log.debug("notebook page = %s", nb_page)
-
-        # only call _save_right_side if on the right page and some changes need
-        # to be saved (sensitivity of the Update Settings button reflects that)
-        if nb_page == NOTEBOOK_DETAILS_PAGE and self._applyButton.get_sensitive():
-            self._save_right_side(self._current_selector)
-            self._back_already_clicked = False
-
+        self._save_right_side(self._current_selector)
         self._clear_current_selector()
 
     def on_selector_clicked(self, selector):
@@ -2444,7 +2442,6 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
     def on_update_settings_clicked(self, button):
         """ call _save_right_side, then, perhaps, populate_right_side. """
         self._save_right_side(self._current_selector)
-        self._back_already_clicked = False
         self._applyButton.set_sensitive(False)
 
     def on_unlock_clicked(self, button):
