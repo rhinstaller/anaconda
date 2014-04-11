@@ -1501,8 +1501,9 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         NormalSpoke.on_back_clicked(self, button)
 
     def on_add_clicked(self, button):
-        self._save_right_side(self._current_selector)
-        self._back_already_clicked = False
+        if self._addButton.get_sensitive():
+            self._save_right_side(self._current_selector)
+            self._back_already_clicked = False
 
         dialog = AddDialog(self.data,
                            mountpoints=self._storage_playground.mountpoints.keys())
@@ -1514,6 +1515,8 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
                 # user cancel
                 dialog.window.destroy()
                 return
+
+        self._back_already_clicked = False
 
         # create a device of the default type, using any disks, with an
         # appropriate fstype and mountpoint
