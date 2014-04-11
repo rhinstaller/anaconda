@@ -252,8 +252,10 @@ def get_module_set(fname):
                     modules.update([mod_args[0]])
     return modules
 
+def to_modname(modfile):
+    return os.path.basename(modfile)[:-3].replace('-','_')
 
-def reload_modules():
+def reload_modules(newfiles):
     """ Reload new module versions from /lib/modules/<kernel>/updates/
     """
     try:
@@ -266,6 +268,12 @@ def reload_modules():
     current_modules = get_module_set("/proc/modules")
     new_modules = current_modules.difference(startup_modules)
     log.debug("new_modules = %s", " ".join(new_modules))
+
+    # And a list of modules contained in the disk we just extracted
+    dd_modules = set(to_modname(f) for f in newfiles if f.endswith(".ko"))
+    # TODO: what modules do we unload when there's new firmware?
+    log.debug("dd_modules = %s", " ".join(dd_modules))
+    new_modules.update(dd_modules)
 
     # I think we can just iterate once using modprobe -r to remove unused deps
     for module in new_modules:
@@ -369,7 +377,7 @@ def dd_extract(driver, dest_path="/updates/", kernel_ver=None):
         :type driver:     Driver object
         :param dest_path: Top directory of the destination path
         :type dest_path:  string
-        :returns:         None
+        :returns:         list of paths to extracted firmware and modules
 
         This extracts the driver's files into 'dest_path' (which defaults
         to /updates/ so that the normal live updates handling will overlay
@@ -402,12 +410,15 @@ def dd_extract(driver, dest_path="/updates/", kernel_ver=None):
         if not os.path.exists(d):
             os.makedirs(d)
 
+    filelist = []
+
     # Copy *.ko files over to /updates/lib/modules/<kernel>/updates/
     for root, _dirs, files in os.walk(dest_path+"/lib/modules/"):
         if root.endswith("/updates") and os.path.isdir(root):
             continue
         for f in (f for f in files if f.endswith(".ko")):
             src = root+"/"+f
+            filelist.append(src)
             copy_file(src, ko_updates)
             move_file(src, initrd_updates)
 
@@ -417,8 +428,12 @@ def dd_extract(driver, dest_path="/updates/", kernel_ver=None):
             continue
         for f in (f for f in files):
             src = root+"/"+f
+            filelist.append(src)
             copy_file(src, firmware_updates)
             move_file(src, initrd_firmware)
+
+    # Tell our caller about the newly-extracted stuff
+    return filelist
 
 
 # an arbitrary value to signal refreshing the menu contents
@@ -542,15 +557,17 @@ def process_dd(dd_path):
     # Copy the repository for Anaconda to use during install
     copy_repo(dd_path, "/updates/run/install/DD-")
 
+    extracted = []
+
     for driver in filter(lambda d: d.selected, drivers):
-        dd_extract(driver, "/updates/")
+        extracted += dd_extract(driver, "/updates/")
 
         # Write the package names for all modules and firmware for Anaconda
         if "modules" in driver.flags or "firmwares" in driver.flags:
             with open("/run/install/dd_packages", "a") as f:
                 f.write("%s\n" % driver.name)
 
-    reload_modules()
+    reload_modules(extracted)
 
 
 def select_dd(device):
