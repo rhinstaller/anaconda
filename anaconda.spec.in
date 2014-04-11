@@ -302,6 +302,71 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Thu Apr 10 2014 Brian C. Lane <bcl@redhat.com> - 21.32-1
+- Refactor the code setting up the device type combobox a method (vpodzime)
+- Rename 'swap' variable to 'is_swap' to better express its meaning (vpodzime)
+- Refactor out the code setting up the fstype combobox into a method (vpodzime)
+- Refactor the code updating info about device container into a method
+  (vpodzime)
+- Remove the default None value from the addPage's cb argument (vpodzime)
+- Make on_updates_settings_clicked timed callback (vpodzime)
+- Rename the callback for updating mountpoint settings (vpodzime)
+- Hook up the GUI test so it's run as part of "make check". (clumens)
+- Skip running pylint on files containing "skip-file". (clumens)
+- Add comments to the kickstart tests. (clumens)
+- Add the beginnings of an automated GUI test suite. (clumens)
+- Add accessibility information to the user spoke. (clumens)
+- Add accessibility information to the root password spoke. (clumens)
+- Add accessibility information to the progress hub. (clumens)
+- Add accessibility information to most of the widgets on the storage spoke.
+  (clumens)
+- Add enough accessibility information to the network spoke for livecds.
+  (clumens)
+- Add accessibility information to the keyboard spoke. (clumens)
+- Add accessibility information to the date & time spoke. (clumens)
+- Add a script and base kickstart file for making a dogtail-enabled livecd.
+  (clumens)
+- Add accessibility information to the welcome spoke and summary hub. (clumens)
+- Add accessibility information to some of our widgets. (clumens)
+- Don't use dhcp ntpservers for dir or image installation (bcl)
+- Implement and use decorator for logging UI storage actions (vpodzime)
+- Refactor out the code doing device reformat into a function (vpodzime)
+- Refactor out the code handling encryption change into a function (vpodzime)
+- Fix variable name when logging new fstype (vpodzime)
+- Make it possible to override translation domain in GUIObjects (#1040240)
+  (mkolman)
+- Refactor out the code for handling device size change into a function
+  (vpodzime)
+- Refactor out the code for bounding size into a function (vpodzime)
+- Refactor code for reverting device reformat into a function (vpodzime)
+- Make the code changing an existing device more compact (vpodzime)
+- Comment the part of the code changing an existing device (vpodzime)
+- Do device change logging in one place where possible (vpodzime)
+- Pass information about old and new device as a dictionary (vpodzime)
+- Move code attempting to replace device into a separate function (vpodzime)
+- Mountpoint validation should only care about the new fs type (vpodzime)
+- Make size properties refreshing reused code (vpodzime)
+- Use generator instead of list for auxiliary old_disk_names variable
+  (vpodzime)
+- Remove and unused variable in Custom spoke (vpodzime)
+- Refactor mountpoint configuration validation out from _save_right_side
+  (vpodzime)
+- Don't overload selectorFromDevice function (vpodzime)
+- Use dir_tree_map for the cleanPStore function (vpodzime)
+- Check xconfig before setting the installed displaymode (dshea)
+- DNFPayload: call close() when done with the Base. (ales)
+- Do not try to get "" translated (vpodzime)
+- Use for-cycle else: branch instead of extra variable (vpodzime)
+- Have mountpoint descriptions defined in a dictionary (vpodzime)
+- Uppercase global constants in the Custom spoke (vpodzime)
+- Use cannonical RAID level names when populating RAID stores (vpodzime)
+- No RAID level (RAID level None) is a valid choice for LVM(ThP) (vpodzime)
+- LVM Thin Provisioning supports the same RAID levels as plain LVM (vpodzime)
+- Only block the password/user spokes if data was given in kickstart (vpodzime)
+- Disable a pylint error message for now. (clumens)
+- Suppress selinux error log when using default (#1083239) (bcl)
+- Use the AnacondaWidgets python gi-overrides for pylint (dshea)
+
 * Wed Apr 02 2014 Brian C. Lane <bcl@redhat.com> - 21.31-1
 - Only install consolehelper link on livearches (bcl)
 
