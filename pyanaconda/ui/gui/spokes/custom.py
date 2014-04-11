@@ -1451,7 +1451,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         self.window.show_all()
         self._error = "\n".join(self.errors + self.warnings)
 
-        return bool(self._error == "")
+        return self._error == ""
 
     def on_back_clicked(self, button):
         # First, save anything from the currently displayed mountpoint.
