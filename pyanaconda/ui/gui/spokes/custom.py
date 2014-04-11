@@ -1498,8 +1498,8 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
 
         if len(self._storage_playground.devicetree.findActions()) > 0:
             dialog = ActionSummaryDialog(self.data)
+            dialog.refresh(self._storage_playground.devicetree.findActions())
             with enlightbox(self.window, dialog.window):
-                dialog.refresh(self._storage_playground.devicetree.findActions())
                 rc = dialog.run()
 
             if rc != 1:
@@ -1513,8 +1513,8 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
 
         dialog = AddDialog(self.data,
                            mountpoints=self._storage_playground.mountpoints.keys())
+        dialog.refresh()
         with enlightbox(self.window, dialog.window):
-            dialog.refresh()
             rc = dialog.run()
 
             if rc != 1:
@@ -1771,11 +1771,11 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
             # on it.  Thus, we first need to confirm with the user and then
             # schedule actions to delete the thing.
             dialog = ConfirmDeleteDialog(self.data)
+            subvols = (device.type.startswith("btrfs") and
+                       not device.isleaf)
+            dialog.refresh(getattr(device.format, "mountpoint", ""),
+                           device.name, root_name, subvols=subvols)
             with enlightbox(self.window, dialog.window):
-                subvols = (device.type.startswith("btrfs") and
-                           not device.isleaf)
-                dialog.refresh(getattr(device.format, "mountpoint", ""),
-                               device.name, root_name, subvols=subvols)
                 rc = dialog.run()
 
                 if rc != 1:
@@ -1798,10 +1798,9 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
 
     def on_summary_clicked(self, button):
         dialog = SelectedDisksDialog(self.data)
-
+        dialog.refresh(self._clearpartDevices, self._currentFreeInfo,
+                       showRemove=False, setBoot=False)
         with enlightbox(self.window, dialog.window):
-            dialog.refresh(self._clearpartDevices, self._currentFreeInfo,
-                           showRemove=False, setBoot=False)
             dialog.run()
 
     def on_help_clicked(self, button):
