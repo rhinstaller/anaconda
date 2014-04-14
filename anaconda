@@ -995,6 +995,11 @@ if __name__ == "__main__":
         else:
             log.error("Unknown method: %s", (anaconda.methodstr,))
 
+    # Override the selinux state from kickstart if set on the command line
+    from pyanaconda.constants import SELINUX_DEFAULT
+    if flags.selinux != SELINUX_DEFAULT:
+        ksdata.selinux.selinux = flags.selinux
+
     from pyanaconda import localization
     # Set the language before loading an interface, when it may be too late.
 

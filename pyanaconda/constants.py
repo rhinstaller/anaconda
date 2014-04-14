@@ -23,7 +23,8 @@ from pyanaconda.i18n import _, N_
 
 import re
 
-SELINUX_DEFAULT = 1
+# Use -1 to indicate that the selinux configuration is unset
+SELINUX_DEFAULT = -1
 
 DISPATCH_BACK = -1
 DISPATCH_FORWARD = 1
