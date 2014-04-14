@@ -1990,7 +1990,8 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         device_type = self._get_current_device_type()
         container_type = get_container_type_name(device_type).lower()
         new_text = _(NEW_CONTAINER_TEXT) % {"container_type": container_type}
-        if container_name == new_text:
+        create_new_container = container_name == new_text
+        if create_new_container:
             # run the vg editor dialog with a default name and disk set
             hostname = self.data.network.hostname
             name = self._storage_playground.suggestContainerName(hostname=hostname)
