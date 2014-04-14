@@ -1649,34 +1649,33 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
             self._do_refresh()
         self._updateSpaceDisplay()
 
+    @ui_storage_logged
     def _destroy_device(self, device):
         self.clear_errors()
-        with ui_storage_logger():
-            is_logical_partition = getattr(device, "isLogical", False)
-            try:
-                if device.isDisk:
-                    self._storage_playground.initializeDisk(device)
-                elif device.type.startswith("btrfs") and not device.isleaf:
-                    self._storage_playground.recursiveRemove(device)
-                else:
-                    self._storage_playground.destroyDevice(device)
-            except StorageError as e:
-                log.error("failed to schedule device removal: %s", e)
-                self._error = e
-                self.set_warning(_("Device removal request failed. Click "
-                                   "for details."))
-                self.window.show_all()
+        is_logical_partition = getattr(device, "isLogical", False)
+        try:
+            if device.isDisk:
+                self._storage_playground.initializeDisk(device)
+            elif device.type.startswith("btrfs") and not device.isleaf:
+                self._storage_playground.recursiveRemove(device)
             else:
-                if is_logical_partition:
-                    self._storage_playground.removeEmptyExtendedPartitions()
+                self._storage_playground.destroyDevice(device)
+        except StorageError as e:
+            log.error("failed to schedule device removal: %s", e)
+            self._error = e
+            self.set_warning(_("Device removal request failed. Click "
+                               "for details."))
+            self.window.show_all()
+        else:
+            if is_logical_partition:
+                self._storage_playground.removeEmptyExtendedPartitions()
 
         # If we've just removed the last partition and the disklabel is pre-
         # existing, reinitialize the disk.
         if device.type == "partition" and device.exists and \
            device.disk.format.exists:
-            with ui_storage_logger():
-                if self._storage_playground.shouldClear(device.disk):
-                    self._storage_playground.initializeDisk(device.disk)
+            if self._storage_playground.shouldClear(device.disk):
+                self._storage_playground.initializeDisk(device.disk)
 
         self._devices = self._storage_playground.devices
 
@@ -1697,15 +1696,14 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
             cont_raid = get_raid_level(container)
             cont_size = container.size_policy
             cont_name = container.name
-            with ui_storage_logger():
-                factory = devicefactory.get_device_factory(self._storage_playground,
-                                            device_type, 0,
-                                            disks=container.disks,
-                                            container_name=cont_name,
-                                            container_encrypted=cont_encrypted,
-                                            container_raid_level=cont_raid,
-                                            container_size=cont_size)
-                factory.configure()
+            factory = devicefactory.get_device_factory(self._storage_playground,
+                                        device_type, 0,
+                                        disks=container.disks,
+                                        container_name=cont_name,
+                                        container_encrypted=cont_encrypted,
+                                        container_raid_level=cont_raid,
+                                        container_size=cont_size)
+            factory.configure()
 
         # if this device has parents with no other children, remove them too
         for parent in device.parents:
