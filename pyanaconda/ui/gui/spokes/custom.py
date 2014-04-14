@@ -1959,6 +1959,8 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         c = self._storage_playground.devicetree.getDeviceByName(self._device_container_name)
         freeSpace = getattr(c, "freeSpace", None)
 
+        # else branch of for loop above ensures idx is defined
+        # pylint: disable=W0631
         self._containerStore.insert(idx, self._container_store_row(self._device_container_name, freeSpace))
         self._containerCombo.set_active(idx)
         self._modifyContainerButton.set_sensitive(not container_exists)
