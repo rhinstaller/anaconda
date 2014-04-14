@@ -2340,14 +2340,14 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
 
         # if device type is not btrfs we want to make sure btrfs is not in the
         # fstype combo
-        include_btrfs = False
+        should_be_btrfs = False
         fs_type_sensitive = True
 
         raid_level = None
         if new_type == DEVICE_TYPE_BTRFS:
             # add btrfs to the fstype combo and lock it in
             test_fmt = getFormat("btrfs")
-            include_btrfs = test_fmt.supported and test_fmt.formattable
+            should_be_btrfs = test_fmt.supported and test_fmt.formattable
             fs_type_sensitive = False
             with ui_storage_logger():
                 factory = devicefactory.get_device_factory(self._storage_playground,
@@ -2381,7 +2381,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         fancy_set_sensitive(self._fsCombo, self._reformatCheckbox.get_active() and
                                            fs_type_sensitive)
 
-        self._resolve_btrfs_restrictions(include_btrfs)
+        self._resolve_btrfs_restrictions(should_be_btrfs)
 
     def clear_errors(self):
         self._error = None
