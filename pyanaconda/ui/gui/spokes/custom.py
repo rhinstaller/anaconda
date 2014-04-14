@@ -2240,64 +2240,67 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
                 device = device.slave
 
         container_size_policy = SIZE_POLICY_AUTO
-        if device_type in CONTAINER_DEVICE_TYPES:
-            # set up the vg widgets and then bail out
-            if devicefactory.get_device_type(device) == device_type:
-                _device = device
-            else:
-                _device = None
-
-            with ui_storage_logger():
-                factory = devicefactory.get_device_factory(self._storage_playground,
-                                                         device_type,
-                                                         0)
-                container = factory.get_container(device=_device)
-                default_container = getattr(container, "name", None)
-                if container:
-                    container_size_policy = container.size_policy
-
-            container_type_text = get_container_type_name(device_type)
-            self._containerLabel.set_text(container_type_text.title())
-            self._containerStore.clear()
-            if device_type == DEVICE_TYPE_BTRFS:
-                containers = self._storage_playground.btrfsVolumes
-            else:
-                containers = self._storage_playground.vgs
-
-            default_seen = False
-            for c in containers:
-                self._containerStore.append(self._container_store_row(c.name, getattr(c, "freeSpace", None)))
-                if default_container and c.name == default_container:
-                    default_seen = True
-                    self._containerCombo.set_active(containers.index(c))
-
-            if default_container is None:
-                hostname = self.data.network.hostname
-                default_container = self._storage_playground.suggestContainerName(hostname=hostname)
-
-            log.debug("default container is %s", default_container)
-            self._device_container_name = default_container
-            self._device_container_size = container_size_policy
-
-            if not default_seen:
-                self._containerStore.append(self._container_store_row(default_container))
-                self._containerCombo.set_active(len(self._containerStore) - 1)
-
-            self._containerStore.append(self._container_store_row(_(NEW_CONTAINER_TEXT) % {"container_type": container_type_text.lower()}))
-            self._containerCombo.set_tooltip_text(_(CONTAINER_TOOLTIP) % {"container_type": container_type_text.lower()})
-            if default_container is None:
-                self._containerCombo.set_active(len(self._containerStore) - 1)
-
-            map(really_show, [self._containerLabel, self._containerCombo, self._modifyContainerButton])
-
-            # make the combo and button insensitive for existing LVs
-            can_change_container = (device is not None and not device.exists and
-                                    device != container)
-            fancy_set_sensitive(self._containerCombo, can_change_container)
-            container_exists = getattr(container, "exists", False)
-            self._modifyContainerButton.set_sensitive(not container_exists)
-        else:
+        if device_type not in CONTAINER_DEVICE_TYPES:
+            # just hide the buttons with no meaning for non-container devices
             map(really_hide, [self._containerLabel, self._containerCombo, self._modifyContainerButton])
+            return
+
+        # else really populate the container
+        # set up the vg widgets and then bail out
+        if devicefactory.get_device_type(device) == device_type:
+            _device = device
+        else:
+            _device = None
+
+        with ui_storage_logger():
+            factory = devicefactory.get_device_factory(self._storage_playground,
+                                                     device_type,
+                                                     0)
+            container = factory.get_container(device=_device)
+            default_container_name = getattr(container, "name", None)
+            if container:
+                container_size_policy = container.size_policy
+
+        container_type_text = get_container_type_name(device_type)
+        self._containerLabel.set_text(container_type_text.title())
+        self._containerStore.clear()
+        if device_type == DEVICE_TYPE_BTRFS:
+            containers = self._storage_playground.btrfsVolumes
+        else:
+            containers = self._storage_playground.vgs
+
+        default_seen = False
+        for c in containers:
+            self._containerStore.append(self._container_store_row(c.name, getattr(c, "freeSpace", None)))
+            if default_container_name and c.name == default_container_name:
+                default_seen = True
+                self._containerCombo.set_active(containers.index(c))
+
+        if default_container_name is None:
+            hostname = self.data.network.hostname
+            default_container_name = self._storage_playground.suggestContainerName(hostname=hostname)
+
+        log.debug("default container is %s", default_container_name)
+        self._device_container_name = default_container_name
+        self._device_container_size = container_size_policy
+
+        if not default_seen:
+            self._containerStore.append(self._container_store_row(default_container_name))
+            self._containerCombo.set_active(len(self._containerStore) - 1)
+
+        self._containerStore.append(self._container_store_row(_(NEW_CONTAINER_TEXT) % {"container_type": container_type_text.lower()}))
+        self._containerCombo.set_tooltip_text(_(CONTAINER_TOOLTIP) % {"container_type": container_type_text.lower()})
+        if default_container_name is None:
+            self._containerCombo.set_active(len(self._containerStore) - 1)
+
+        map(really_show, [self._containerLabel, self._containerCombo, self._modifyContainerButton])
+
+        # make the combo and button insensitive for existing LVs
+        can_change_container = (device is not None and not device.exists and
+                                device != container)
+        fancy_set_sensitive(self._containerCombo, can_change_container)
+        container_exists = getattr(container, "exists", False)
+        self._modifyContainerButton.set_sensitive(not container_exists)
 
     def on_device_type_changed(self, combo):
         if not self._initialized:
