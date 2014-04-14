@@ -24,7 +24,8 @@ from pyanaconda.i18n import N_
 
 import os
 
-SELINUX_DEFAULT = 1
+# Use -1 to indicate that the selinux configuration is unset
+SELINUX_DEFAULT = -1
 
 # where to look for 3rd party addons
 ADDON_PATHS = ["/usr/share/anaconda/addons"]
