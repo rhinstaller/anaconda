@@ -25,7 +25,7 @@ import time
 import logging
 log = logging.getLogger("anaconda")
 
-import os, signal, string
+import os, signal
 
 from gi.repository import GLib
 
@@ -42,6 +42,7 @@ from pyanaconda.iutil import ProxyString, ProxyStringError, cmp_obj_attrs
 from pyanaconda.ui.gui.utils import gtk_call_once, really_hide, really_show
 from pyanaconda.threads import threadMgr, AnacondaThread
 from pyanaconda.packaging import PayloadError, MetadataError
+from pyanaconda.regexes import REPO_NAME_VALID
 from pyanaconda import constants
 
 from blivet.util import get_mount_paths
@@ -1107,8 +1108,7 @@ class SourceSpoke(NormalSpoke):
         if name == "":
             return N_("Empty repository name.")
 
-        allowed_chars = string.ascii_letters + string.digits + '-_.:'
-        if [c for c in name if c not in allowed_chars]:
+        if not REPO_NAME_VALID.match(name):
             return N_("Invalid repository name.")
 
         cnames = [constants.BASE_REPO_NAME] + \

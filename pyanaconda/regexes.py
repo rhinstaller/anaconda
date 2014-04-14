@@ -128,3 +128,7 @@ URL_PARSE = re.compile(r'^(?P<protocol>' + URL_SCHEME_PATTERN_WITHOUT_ANCHORS + 
                        r'(?P<path>/(?:' + URL_PATH_CHAR + r')*)?' +
                        r'(?:\?(?P<query>(?:' + URL_PATH_CHAR + r'|\?)*))?' +
                        r'(?:#(?P<fragment>(?:' + URL_PATH_CHAR + r'|\?)*))?$')
+
+
+# Valid characters for repository names
+REPO_NAME_VALID = re.compile(r'^[a-zA-Z0-9_.:-]+$')
