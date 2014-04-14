@@ -2302,6 +2302,30 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         container_exists = getattr(container, "exists", False)
         self._modifyContainerButton.set_sensitive(not container_exists)
 
+    def _resolve_btrfs_restrictions(self, should_be_btrfs):
+        model = self._fsCombo.get_model()
+        btrfs_included = False
+        btrfs_pos = None
+        for idx, data in enumerate(model):
+            if data[0] == "btrfs":
+                btrfs_included = True
+                btrfs_pos = idx
+
+        active_index = self._fsCombo.get_active()
+        fstype = self._fsCombo.get_active_text()
+        if btrfs_included and not should_be_btrfs:
+            for i in range(0, len(model)):
+                if fstype == "btrfs" and \
+                   model[i][0] == self.storage.defaultFSType:
+                    active_index = i
+                    break
+            self._fsCombo.remove(btrfs_pos)
+        elif should_be_btrfs and not btrfs_included:
+            self._fsCombo.append_text("btrfs")
+            active_index = len(self._fsCombo.get_model()) - 1
+
+        self._fsCombo.set_active(active_index)
+
     def on_device_type_changed(self, combo):
         if not self._initialized:
             return
@@ -2356,32 +2380,10 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         self._nameEntry.set_text(self._device_name_dict[new_type])
         fancy_set_sensitive(self._sizeEntry, new_type != DEVICE_TYPE_BTRFS)
 
-        # begin btrfs magic
-        model = self._fsCombo.get_model()
-        btrfs_included = False
-        btrfs_pos = None
-        for idx, data in enumerate(model):
-            if data[0] == "btrfs":
-                btrfs_included = True
-                btrfs_pos = idx
-
-        active_index = self._fsCombo.get_active()
-        fstype = self._fsCombo.get_active_text()
-        if btrfs_included and not include_btrfs:
-            for i in range(0, len(model)):
-                if fstype == "btrfs" and \
-                   model[i][0] == self.storage.defaultFSType:
-                    active_index = i
-                    break
-            self._fsCombo.remove(btrfs_pos)
-        elif include_btrfs and not btrfs_included:
-            self._fsCombo.append_text("btrfs")
-            active_index = len(self._fsCombo.get_model()) - 1
-
-        self._fsCombo.set_active(active_index)
         fancy_set_sensitive(self._fsCombo, self._reformatCheckbox.get_active() and
                                            fs_type_sensitive)
-        # end btrfs magic
+
+        self._resolve_btrfs_restrictions(include_btrfs)
 
     def clear_errors(self):
         self._error = None
