@@ -1508,9 +1508,72 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
 
         NormalSpoke.on_back_clicked(self, button)
 
+    @ui_storage_logged
+    def _add_device(self, dev_info):
+        factory = devicefactory.get_device_factory(self._storage_playground,
+                                                   dev_info["device_type"], dev_info["size"])
+        container = factory.get_container()
+        if container:
+            # don't override user-initiated changes to a defined container
+            dev_info["disks"] = container.disks
+            dev_info.update({"container_encrypted": container.encrypted,
+                             "container_raid_level": get_raid_level(container),
+                             "container_size": getattr(container, "size_policy",
+                                                       container.size)})
+
+            # The container is already encrypted
+            if container.encrypted:
+                dev_info["encrypted"] = False
+
+        device_type = dev_info.pop("device_type")
+        try:
+            self._storage_playground.factoryDevice(device_type,
+                                                   **dev_info)
+        except StorageError as e:
+            log.error("factoryDevice failed: %s", e)
+            log.debug("trying to find an existing container to use")
+            container = factory.get_container(allow_existing=True)
+            log.debug("found container %s", container)
+            if container:
+                # don't override user-initiated changes to a defined container
+                dev_info["disks"] = container.disks
+                dev_info.update({"container_encrypted": container.encrypted,
+                                 "container_raid_level": get_raid_level(container),
+                                 "container_size": getattr(container, "size_policy",
+                                                               container.size),
+                                 "container_name": container.name})
+                try:
+                    self._storage_playground.factoryDevice(device_type,
+                                                           **dev_info)
+                except StorageError as e2:
+                    log.error("factoryDevice failed w/ old container: %s", e2)
+                else:
+                    type_str = _(DEVICE_TEXT_MAP[device_type])
+                    self.set_info(_("Added new %(type)s to existing "
+                                    "container %(name)s.")
+                                    % {"type" : type_str, "name" : container.name})
+                    self.window.show_all()
+                    e = None
+
+            # the factory's error handling has replaced all of the devices
+            # with copies, so update the selectors' devices accordingly
+            self._update_all_devices_in_selectors()
+
+            if e:
+                self._error = e
+                self.set_error(_("Failed to add new device. Click for "
+                                 "details."))
+                self.window.show_all()
+        except OverflowError as e:
+            log.error("invalid size set for partition")
+            self._error = e
+            self.set_error(_("Invalid partition size set. Use a valid integer."))
+            self.window.show_all()
+
     def on_add_clicked(self, button):
         self._save_right_side(self._current_selector)
 
+        ## initialize and run the AddDialog
         dialog = AddDialog(self.data,
                            mountpoints=self._storage_playground.mountpoints.keys())
         dialog.refresh()
@@ -1524,128 +1587,64 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
 
         self._back_already_clicked = False
 
+        ## gather data about the added mountpoint
+        # TODO: use instance of a class with properly named attributes
+        dev_info = dict()
+
         # create a device of the default type, using any disks, with an
         # appropriate fstype and mountpoint
-        mountpoint = dialog.mountpoint
+        dev_info["mountpoint"] = dialog.mountpoint
         log.debug("requested size = %s  ; available space = %s", dialog.size, self._free_space)
 
         # if no size was entered, request as much of the free space as possible
         if dialog.size is not None and dialog.size.convertTo(spec="mb") < 1:
-            size = None
+            dev_info["size"] = None
         else:
-            size = dialog.size
+            dev_info["size"] = dialog.size
 
-        fstype = self.storage.getFSType(mountpoint)
+        dev_info["fstype"] = self.storage.getFSType(dev_info["mountpoint"])
 
         # The encryption setting as applied here means "encrypt leaf devices".
         # If you want "encrypt my VG/PVs" you'll have to either use the autopart
         # button or wait until we have a way to control container-level
         # encryption.
-        encrypted = self.data.autopart.encrypted
+        dev_info["encrypted"] = self.data.autopart.encrypted
 
         # we're doing nothing here to ensure that bootable requests end up on
         # the boot disk, but the weight from platform should take care of this
 
-        if lowerASCII(mountpoint) in ("swap", "biosboot", "prepboot"):
-            mountpoint = None
+        if lowerASCII(dev_info["mountpoint"]) in ("swap", "biosboot", "prepboot"):
+            dev_info["mountpoint"] = None
 
-        device_type = device_type_from_autopart(self.data.autopart.type)
-        if (device_type != DEVICE_TYPE_PARTITION and
-            ((mountpoint and mountpoint.startswith("/boot")) or
-             fstype in PARTITION_ONLY_FORMAT_TYPES)):
-            device_type = DEVICE_TYPE_PARTITION
+        dev_info["device_type"] = device_type_from_autopart(self.data.autopart.type)
+        if (dev_info["device_type"] != DEVICE_TYPE_PARTITION and
+            ((dev_info["mountpoint"] and dev_info["mountpoint"].startswith("/boot")) or
+             dev_info["fstype"] in PARTITION_ONLY_FORMAT_TYPES)):
+            dev_info["device_type"] = DEVICE_TYPE_PARTITION
 
         # we shouldn't create swap on a thinly provisioned volume
-        if fstype == "swap" and device_type == DEVICE_TYPE_LVM_THINP:
-            device_type = DEVICE_TYPE_LVM
+        if dev_info["fstype"] == "swap" and dev_info["device_type"] == DEVICE_TYPE_LVM_THINP:
+            dev_info["device_type"] = DEVICE_TYPE_LVM
 
         # encryption of thinly provisioned volumes isn't supported
-        if encrypted and device_type == DEVICE_TYPE_LVM_THINP:
-            encrypted = False
+        if dev_info["encrypted"] and dev_info["device_type"] == DEVICE_TYPE_LVM_THINP:
+            dev_info["encrypted"] = False
 
         # some devices should never be encrypted
-        if ((mountpoint and mountpoint.startswith("/boot")) or
-            fstype in PARTITION_ONLY_FORMAT_TYPES):
-            encrypted = False
+        if ((dev_info["mountpoint"] and dev_info["mountpoint"].startswith("/boot")) or
+            dev_info["fstype"] in PARTITION_ONLY_FORMAT_TYPES):
+            dev_info["encrypted"] = False
 
-        disks = self._clearpartDevices
+        dev_info["disks"] = self._clearpartDevices
+
+        ## clear errors and try to add the mountpoint/device
         self.clear_errors()
+        self._add_device(dev_info)
 
-        with ui_storage_logger():
-            factory = devicefactory.get_device_factory(self._storage_playground,
-                                                     device_type, size)
-            container = factory.get_container()
-            kwargs = {}
-            if container:
-                # don't override user-initiated changes to a defined container
-                disks = container.disks
-                kwargs = {"container_encrypted": container.encrypted,
-                          "container_raid_level": get_raid_level(container),
-                          "container_size": getattr(container, "size_policy",
-                                                               container.size)}
-
-                # The container is already encrypted
-                if container.encrypted:
-                    encrypted = False
-
-            try:
-                self._storage_playground.factoryDevice(device_type,
-                                         size=size,
-                                         fstype=fstype,
-                                         mountpoint=mountpoint,
-                                         encrypted=encrypted,
-                                         disks=disks,
-                                         **kwargs)
-            except StorageError as e:
-                log.error("factoryDevice failed: %s", e)
-                log.debug("trying to find an existing container to use")
-                container = factory.get_container(allow_existing=True)
-                log.debug("found container %s", container)
-                if container:
-                    # don't override user-initiated changes to a defined container
-                    disks = container.disks
-                    kwargs = {"container_encrypted": container.encrypted,
-                              "container_raid_level": get_raid_level(container),
-                              "container_size": getattr(container, "size_policy",
-                                                                   container.size)}
-                    try:
-                        self._storage_playground.factoryDevice(device_type,
-                                                 size=size,
-                                                 fstype=fstype,
-                                                 mountpoint=mountpoint,
-                                                 encrypted=encrypted,
-                                                 disks=disks,
-                                                 container_name=container.name,
-                                                 **kwargs)
-                    except StorageError as e2:
-                        log.error("factoryDevice failed w/ old container: %s", e2)
-                    else:
-                        type_str = _(DEVICE_TEXT_MAP[device_type])
-                        self.set_info(_("Added new %(type)s to existing "
-                                        "container %(name)s.")
-                                        % {"type" : type_str, "name" : container.name})
-                        self.window.show_all()
-                        e = None
-
-                # the factory's error handling has replaced all of the devices
-                # with copies, so update the selectors' devices accordingly
-                self._update_all_devices_in_selectors()
-
-                if e:
-                    self._error = e
-                    self.set_error(_("Failed to add new device. Click for "
-                                     "details."))
-                    self.window.show_all()
-            except OverflowError as e:
-                log.error("invalid size set for partition")
-                self._error = e
-                self.set_error(_("Invalid partition size set. Use a "
-                                 "valid integer."))
-                self.window.show_all()
-
+        ## refresh internal state and UI elements
         self._devices = self._storage_playground.devices
         if not self._error:
-            self._do_refresh(mountpointToShow=mountpoint or fstype)
+            self._do_refresh(mountpointToShow=dev_info["mountpoint"] or dev_info["fstype"])
         else:
             self._do_refresh()
         self._updateSpaceDisplay()
