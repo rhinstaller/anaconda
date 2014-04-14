@@ -2304,23 +2304,21 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
 
     def _resolve_btrfs_restrictions(self, should_be_btrfs):
         model = self._fsCombo.get_model()
-        btrfs_included = False
         btrfs_pos = None
         for idx, data in enumerate(model):
             if data[0] == "btrfs":
-                btrfs_included = True
                 btrfs_pos = idx
 
         active_index = self._fsCombo.get_active()
-        fstype = self._fsCombo.get_active_text()
-        if btrfs_included and not should_be_btrfs:
-            for i in range(0, len(model)):
-                if fstype == "btrfs" and \
-                   model[i][0] == self.storage.defaultFSType:
-                    active_index = i
-                    break
+        current_fstype = self._fsCombo.get_active_text()
+        if btrfs_pos and not should_be_btrfs:
             self._fsCombo.remove(btrfs_pos)
-        elif should_be_btrfs and not btrfs_included:
+            if current_fstype == "btrfs":
+                for i, row in enumerate(model):
+                    if row[0] == self.storage.defaultFSType:
+                        active_index = i
+                        break
+        elif should_be_btrfs and not btrfs_pos:
             self._fsCombo.append_text("btrfs")
             active_index = len(self._fsCombo.get_model()) - 1
 
