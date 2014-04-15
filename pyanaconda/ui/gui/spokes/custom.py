@@ -1853,6 +1853,15 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         self._device_disks = disks
         self._populate_raid(selectedRaidLevel(self._raidLevelCombo))
 
+    def _container_encryption_change(self, old_encrypted, new_encrypted):
+        if not old_encrypted and new_encrypted:
+            # container set to be encrypted, we should make sure the leaf device
+            # is not encrypted and make the encryption checkbox insensitive
+            self._encryptCheckbox.set_active(False)
+            fancy_set_sensitive(self._encryptCheckbox, False)
+        elif old_encrypted and not new_encrypted:
+            fancy_set_sensitive(self._encryptCheckbox, True)
+
     def run_container_editor(self, container=None, name=None):
         size = Size(0)
         size_policy = self._device_container_size
@@ -1913,6 +1922,9 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         log.debug("new container encrypted: %s", dialog.encrypted)
         log.debug("new container size: %s", dialog.size_policy)
 
+        if new_encrypted:
+            self._container_encryption_change(self._device_container_encrypted,
+                                              dialog.encrypted)
         self._device_disks = disks
         self._device_container_name = name
         self._device_container_raid_level = dialog.raid_level
