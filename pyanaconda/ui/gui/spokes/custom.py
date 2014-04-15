@@ -1944,7 +1944,6 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
                 container.format.label = self._device_container_name
 
         container_exists = getattr(container, "exists", False)
-        found = None
 
         # TODO: implement and use function for finding item in combobox
         for idx, data in enumerate(self._containerStore):
@@ -1964,7 +1963,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         self._containerStore.insert(idx, self._container_store_row(self._device_container_name, freeSpace))
         self._containerCombo.set_active(idx)
         self._modifyContainerButton.set_sensitive(not container_exists)
-        self._containerStore.remove(self._containerStore.get_iter_from_string("%s" % found))
+        self._containerStore.remove(self._containerStore.get_iter_from_string("%s" % idx))
 
         self._update_selectors()
 
