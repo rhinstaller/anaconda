@@ -2468,6 +2468,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         self._save_right_side(self._current_selector)
         self._applyButton.set_sensitive(False)
 
+    @timed_action(delay=50, threshold=100)
     def on_unlock_clicked(self, *args):
         """ try to open the luks device, populate, then call _do_refresh. """
         self.clear_errors()
