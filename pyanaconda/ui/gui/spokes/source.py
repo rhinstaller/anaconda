@@ -42,7 +42,7 @@ from pyanaconda.iutil import ProxyString, ProxyStringError, cmp_obj_attrs
 from pyanaconda.ui.gui.utils import gtk_call_once, really_hide, really_show
 from pyanaconda.threads import threadMgr, AnacondaThread
 from pyanaconda.packaging import PayloadError, MetadataError
-from pyanaconda.regexes import REPO_NAME_VALID
+from pyanaconda.regexes import REPO_NAME_VALID, URL_PARSE
 from pyanaconda import constants
 
 from blivet.util import get_mount_paths
@@ -70,6 +70,34 @@ REPO_PROTO = {PROTOCOL_HTTP:  "http://",
               PROTOCOL_FTP:   "ftp://"
               }
 
+def _validateProxy(proxy_string, username_set, password_set):
+    """Validate a proxy string and return an input code usable by InputCheck
+
+       :param str proxy_string: the proxy URL string
+       :param bool username_set: Whether a username has been specified external to the URL
+       :param bool password_set: Whether a password has been speicifed external to the URL
+    """
+    proxy_match = URL_PARSE.match(proxy_string)
+    if not proxy_match:
+        return _("Invalid proxy URL")
+
+    # Ensure the protocol is something that makes sense
+    protocol = proxy_match.group("protocol")
+    if protocol and protocol not in ('http://', 'https://', 'ftp://'):
+        return _("Invalid proxy protocol: %s") % protocol
+
+    # Path and anything after makes no sense for a proxy URL
+    # Allow '/' as a path so you can use http://proxy.example.com:8080/
+    if (proxy_match.group("path") and proxy_match.group("path") != "/") \
+            or proxy_match.group("query") or proxy_match.group("fragment"):
+        return _("Extra characters in proxy URL")
+
+    # Check if if authentication data is both in the URL and specified externally
+    if (proxy_match.group("username") or proxy_match.group("password")) and (username_set or password_set):
+        return _("Proxy authentication data duplicated")
+
+    return InputCheck.CHECK_OK
+
 class ProxyDialog(GUIObject, GUIDialogInputCheckHandler):
     builderObjects = ["proxyDialog"]
     mainWidgetName = "proxyDialog"
@@ -90,23 +118,20 @@ class ProxyDialog(GUIObject, GUIDialogInputCheckHandler):
         self._proxyPasswordEntry = self.builder.get_object("proxyPasswordEntry")
         self._proxyOkButton = self.builder.get_object("proxyOkButton")
 
-        self._proxyValidate = self.add_check(self._proxyURLEntry, self._validateProxy)
+        self._proxyValidate = self.add_check(self._proxyURLEntry, self._checkProxyURL)
         self._proxyValidate.update_check_status()
 
-    def _validateProxy(self, inputcheck):
+    def _checkProxyURL(self, inputcheck):
         proxy_string = self.get_input(inputcheck.input_obj)
 
         # Don't set an error icon on empty input, but keep the add button insensitive.
         if not proxy_string:
             return InputCheck.CHECK_SILENT
 
-        # Attempt to parse the proxy
-        try:
-            ProxyString(url=proxy_string)
-        except ProxyStringError as e:
-            return _("Invalid proxy URL: %s") % e
+        username_set = self._proxyUsernameEntry.is_sensitive() and self._proxyUsernameEntry.get_text()
+        password_set = self._proxyPasswordEntry.is_sensitive() and self._proxyPasswordEntry.get_text()
 
-        # TODO: check for http?
+        return _validateProxy(proxy_string, username_set, password_set)
 
     def set_status(self, inputcheck):
         # Use the superclass set_status to set the error message
@@ -114,6 +139,14 @@ class ProxyDialog(GUIObject, GUIDialogInputCheckHandler):
 
         # Change the sensitivity of the Add button
         self._proxyOkButton.set_sensitive(inputcheck.check_status == InputCheck.CHECK_OK)
+
+    # Update the proxy validation check on username and password changes to catch
+    # changes in duplicated authentication data
+    def on_proxyUsernameEntry_changed(self, entry, user_data=None):
+        self._proxyValidate.update_check_status()
+
+    def on_proxyPasswordEntry_changed(self, entry, user_data=None):
+        self._proxyValidate.update_check_status()
 
     def on_proxy_cancel_clicked(self, *args):
         self.window.destroy()
@@ -146,6 +179,7 @@ class ProxyDialog(GUIObject, GUIDialogInputCheckHandler):
 
     def on_proxy_auth_toggled(self, button, *args):
         self._proxyAuthBox.set_sensitive(button.get_active())
+        self._proxyValidate.update_check_status()
 
     def refresh(self):
         GUIObject.refresh(self)

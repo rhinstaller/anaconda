@@ -419,6 +419,7 @@
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
                         <property name="invisible_char">●</property>
+                        <signal name="changed" handler="on_proxyUsernameEntry_changed" swapped="no"/>
                       </object>
                       <packing>
                         <property name="left_attach">1</property>
@@ -433,6 +434,7 @@
                         <property name="can_focus">True</property>
                         <property name="visibility">False</property>
                         <property name="invisible_char">●</property>
+                        <signal name="changed" handler="on_proxyPasswordEntry_changed" swapped="no"/>
                       </object>
                       <packing>
                         <property name="left_attach">1</property>
