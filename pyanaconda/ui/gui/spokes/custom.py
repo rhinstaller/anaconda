@@ -640,7 +640,9 @@ class ContainerDialog(GUIObject):
         self.sizeCombo = self.builder.get_object("containerSizeCombo")
         self.sizeEntry = self.builder.get_object("containerSizeEntry")
         self.sizeLabel = self.builder.get_object("containerSizeLabel")
-        self.sizeEntry.set_text(self.size.humanReadable(max_places=None))
+        self._original_size = self.size
+        self._original_size_text = self.size.humanReadable(max_places=None)
+        self.sizeEntry.set_text(self._original_size_text)
         if self.size_policy == SIZE_POLICY_AUTO:
             self.sizeCombo.set_active(0)
         elif self.size_policy == SIZE_POLICY_MAX:
@@ -693,9 +695,12 @@ class ContainerDialog(GUIObject):
         elif idx == 1:
             size = SIZE_POLICY_MAX
         elif idx == 2:
-            size = size_from_entry(self.sizeEntry)
-            if size is None:
-                size = SIZE_POLICY_MAX
+            if self._original_size_text != self.sizeEntry.get_text():
+                size = size_from_entry(self.sizeEntry)
+                if size is None:
+                    size = SIZE_POLICY_MAX
+            else:
+                size = self._original_size
 
         # now save the changes
 
@@ -801,6 +806,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         self._fs_types = []             # list of supported fstypes
         self._free_space = Size(0)
 
+        self._device_size_text = None
         self._device_disks = []
         self._device_container_name = None
         self._device_container_raid_level = None
@@ -1287,9 +1293,16 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
 
         # SIZE
         old_size = device.size
-        size = size_from_entry(self._sizeEntry)
+
+        # we are interested in size human readable representation change because
+        # that's what the user sees
+        same_size = self._device_size_text == self._sizeEntry.get_text()
+        if same_size:
+            size = old_size
+        else:
+            size = size_from_entry(self._sizeEntry)
         changed_size = ((use_dev.resizable or not use_dev.exists) and
-                        size != old_size)
+                        not same_size)
         log.debug("old size: %s", old_size)
         log.debug("new size: %s", size)
 
@@ -1888,7 +1901,8 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
             self._labelEntry.set_text("")
         fancy_set_sensitive(self._labelEntry, True)
 
-        self._sizeEntry.set_text(device.size.humanReadable(max_places=None))
+        self._device_size_text = device.size.humanReadable(max_places=2)
+        self._sizeEntry.set_text(self._device_size_text)
 
         self._reformatCheckbox.set_active(not device.format.exists)
         fancy_set_sensitive(self._reformatCheckbox,
