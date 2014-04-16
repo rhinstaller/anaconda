@@ -397,6 +397,28 @@ def copyUpdatedWidgets(updates, srcdir, builddir):
     if os.path.isfile(typelib):
         shutil.copy2(typelib, updates + libdir + "girepository-1.0")
 
+def copyTranslations(updates, srcdir, builddir):
+    localedir = "/usr/share/locale/"
+
+    # Ensure all the message files are up to date
+    if os.system('make -C %s/po' % builddir) != 0:
+        sys.exit(1)
+
+    # From here gettext puts everything in $srcdir
+    # For each language in LINGUAS, install srcdir/<lang>.gmo as
+    # /usr/share/locale/$language/LC_MESSAGES/anaconda.mo
+    with open(srcdir + '/po/LINGUAS') as linguas:
+        for line in linguas.readlines():
+            if line.startswith('#'):
+                continue
+
+            for lang in line.strip().split(" "):
+                if not os.path.isdir(updates + localedir + lang + "/LC_MESSAGES"):
+                    os.makedirs(updates + localedir + lang + "/LC_MESSAGES")
+
+                shutil.copy2(srcdir + "/po/" + lang + ".gmo",
+                        updates + localedir + lang + "/LC_MESSAGES/anaconda.mo")
+
 def addRpms(updates_path, add_rpms):
     """Add content one or more RPM packages to the updates image
 
@@ -864,6 +886,9 @@ def main():
     parser.add_argument('-o', '--offset', action='store', type=int, default=0,
                         help='make image from (latest_tag - OFFSET) to HEAD')
 
+    parser.add_argument('-p', '--po', action='store_true',
+                        help='update translations')
+
     # -a/--add can be both used multiple times and multiple paths can be
     # passed to a single -a/--add option, all provided paths will be then added
     # to the add_rpm list
@@ -918,6 +943,9 @@ def main():
 
         if widgetsChanged(args.tag):
             copyUpdatedWidgets(updates, cwd, builddir)
+
+    if args.po:
+        copyTranslations(updates, cwd, builddir)
 
     if args.add_rpms:
         # as using -a or --add mutltiple times
