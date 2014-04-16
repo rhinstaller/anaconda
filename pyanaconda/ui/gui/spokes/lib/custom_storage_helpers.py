@@ -370,7 +370,9 @@ class ContainerDialog(GUIObject):
         self._raidStoreFilter.refilter()
         self._populate_raid()
 
-        self._sizeEntry.set_text(self.size.humanReadable(max_places=None))
+        self._original_size = self.size
+        self._original_size_text = self.size.humanReadable(max_places=None)
+        self._sizeEntry.set_text(self._original_size_text)
         if self.size_policy == SIZE_POLICY_AUTO:
             self._sizeCombo.set_active(0)
         elif self.size_policy == SIZE_POLICY_MAX:
@@ -442,9 +444,12 @@ class ContainerDialog(GUIObject):
         elif idx == 1:
             size = SIZE_POLICY_MAX
         elif idx == 2:
-            size = size_from_entry(self._sizeEntry)
-            if size is None:
-                size = SIZE_POLICY_MAX
+            if self._original_size_text != self._sizeEntry.get_text():
+                size = size_from_entry(self._sizeEntry)
+                if size is None:
+                    size = SIZE_POLICY_MAX
+            else:
+                size = self._original_size
 
         # now save the changes
 

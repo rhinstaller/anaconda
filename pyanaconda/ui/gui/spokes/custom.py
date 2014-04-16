@@ -148,6 +148,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         self._fs_types = []             # list of supported fstypes
         self._free_space = Size(bytes=0)
 
+        self._device_size_text = None
         self._device_disks = []
         self._device_container_name = None
         self._device_container_raid_level = None
@@ -875,9 +876,16 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
 
         # SIZE
         old_size = device.size
-        size = size_from_entry(self._sizeEntry)
+
+        # we are interested in size human readable representation change because
+        # that's what the user sees
+        same_size = self._device_size_text == self._sizeEntry.get_text()
+        if same_size:
+            size = old_size
+        else:
+            size = size_from_entry(self._sizeEntry)
         changed_size = ((use_dev.resizable or not use_dev.exists) and
-                        size != old_size)
+                        not same_size)
         old_device_info["size"] = old_size
         new_device_info["size"] = size
 
@@ -1349,7 +1357,8 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
             self._labelEntry.set_text("")
         fancy_set_sensitive(self._labelEntry, True)
 
-        self._sizeEntry.set_text(device.size.humanReadable(max_places=None))
+        self._device_size_text = device.size.humanReadable(max_places=2)
+        self._sizeEntry.set_text(self._device_size_text)
 
         self._reformatCheckbox.set_active(not device.format.exists)
         fancy_set_sensitive(self._reformatCheckbox, not device.protected and
