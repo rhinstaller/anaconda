@@ -1,5 +1,5 @@
 #!/usr/bin/python
-# pylint: disable=W9910
+# pylint: disable=bad-preconf-access
 #
 # Copyright (C) 2013  Red Hat, Inc.
 #
@@ -409,6 +409,6 @@ if __name__ == "__main__":
 
         run_yum_transaction(args.release, args.arch, args.config, args.installroot,
                             args.tsfile, args.rpmlog, args.test, args.debug, args.macro)
-    # pylint: disable=W0703
+        # pylint: disable=broad-except
     except Exception as e:
         print("ERROR: unexpected error: %s" % e)

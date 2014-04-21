@@ -62,7 +62,7 @@ class Spoke(GUIObject):
         pass
 
 # Inherit abstract methods from Spoke and common.StandaloneSpoke
-# pylint: disable=W0223
+# pylint: disable=abstract-method
 class StandaloneSpoke(Spoke, common.StandaloneSpoke):
     def __init__(self, data, storage, payload, instclass):
         Spoke.__init__(self, data)
@@ -79,7 +79,7 @@ class StandaloneSpoke(Spoke, common.StandaloneSpoke):
             self.window.connect("quit-clicked", lambda *args: cb())
 
 # Inherit abstract methods from common.NormalSpoke
-# pylint: disable=W0223
+# pylint: disable=abstract-method
 class NormalSpoke(Spoke, common.NormalSpoke):
     def __init__(self, data, storage, payload, instclass):
         if self.__class__ is NormalSpoke:

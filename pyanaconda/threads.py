@@ -225,7 +225,7 @@ class AnacondaThread(threading.Thread):
         log.info("Running Thread: %s (%s)", self.name, self.ident)
         try:
             threading.Thread.run(self, *args, **kwargs)
-        # pylint: disable=W0702
+        # pylint: disable=bare-except
         except:
             threadMgr.set_error(self.name, *sys.exc_info())
             if self._fatal:

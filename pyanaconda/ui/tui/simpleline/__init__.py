@@ -19,7 +19,7 @@
 # Red Hat Author(s): Martin Sivak <msivak@redhat.com>
 #
 
-# pylint: disable=W0401
+# pylint: disable=wildcard-import
 from pyanaconda.ui.tui.simpleline.base import *
-# pylint: disable=W0401
+# pylint: disable=wildcard-import
 from pyanaconda.ui.tui.simpleline.widgets import *

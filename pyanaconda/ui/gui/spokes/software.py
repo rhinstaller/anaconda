@@ -220,9 +220,9 @@ class SoftwareSelectionSpoke(NormalSpoke):
             # involves side effects like network access.  We need to reference
             # them here, outside of the main thread, to not block the UI.
             try:
-                # pylint: disable=W0104
+                # pylint: disable=pointless-statement
                 self.payload.environments
-                # pylint: disable=W0104
+                # pylint: disable=pointless-statement
                 self.payload.groups
 
                 # Parse the environments and groups into the form we want

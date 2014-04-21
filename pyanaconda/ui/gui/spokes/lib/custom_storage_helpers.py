@@ -219,7 +219,7 @@ class ConfirmDeleteDialog(GUIObject):
     def on_delete_confirm_clicked(self, button, *args):
         self.window.destroy()
 
-    # pylint: disable=W0221
+    # pylint: disable=arguments-differ
     def refresh(self, mountpoint, device, rootName, subvols=False):
         GUIObject.refresh(self)
         label = self.builder.get_object("confirmLabel")

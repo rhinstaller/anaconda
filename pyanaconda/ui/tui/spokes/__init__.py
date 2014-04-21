@@ -33,7 +33,7 @@ __all__ = ["TUISpoke", "EditTUISpoke", "EditTUIDialog", "EditTUISpokeEntry",
            "collect_categories"]
 
 # Inherit abstract methods from Spoke
-# pylint: disable=W0223
+# pylint: disable=abstract-method
 class TUISpoke(TUIObject, tui.Widget, Spoke):
     """Base TUI Spoke class implementing the pyanaconda.ui.common.Spoke API.
     It also acts as a Widget so we can easily add it to Hub, where is shows
@@ -95,7 +95,7 @@ class NormalTUISpoke(TUISpoke, NormalSpoke):
 EditTUISpokeEntry = namedtuple("EditTUISpokeEntry", ["title", "attribute", "aux", "visible"])
 
 # Inherit abstract methods from NormalTUISpoke
-# pylint: disable=W0223
+# pylint: disable=abstract-method
 class EditTUIDialog(NormalTUISpoke):
     """Spoke/dialog used to read new value of textual or password data"""
 
@@ -179,7 +179,7 @@ class OneShotEditTUIDialog(EditTUIDialog):
         return ret
 
 # Inherit abstract methods from NormalTUISpoke
-# pylint: disable=W0223
+# pylint: disable=abstract-method
 class EditTUISpoke(NormalTUISpoke):
     """Spoke with declarative semantics, it contains
        a list of titles, attribute names and regexps

@@ -214,7 +214,7 @@ class RunProgramTests(unittest.TestCase):
     def vt_activate_test(self):
         """Test vtActivate."""
 
-        # pylint: disable=E1101
+        # pylint: disable=no-member
 
         def raise_os_error(*args, **kwargs):
             raise OSError
@@ -228,7 +228,7 @@ class RunProgramTests(unittest.TestCase):
     def get_deep_attr_test(self):
         """Test getdeepattr."""
 
-        # pylint: disable=W0201
+        # pylint: disable=attribute-defined-outside-init
 
         class O(object):
             pass
@@ -253,8 +253,8 @@ class RunProgramTests(unittest.TestCase):
     def set_deep_attr_test(self):
         """Test setdeepattr."""
 
-        # pylint: disable=W0201
-        # pylint: disable=E1101
+        # pylint: disable=attribute-defined-outside-init
+        # pylint: disable=no-member
 
         class O(object):
             pass
@@ -326,7 +326,7 @@ class RunProgramTests(unittest.TestCase):
     def cmp_obj_attrs_test(self):
         """Test cmp_obj_attrs."""
 
-        # pylint: disable=W0201
+        # pylint: disable=attribute-defined-outside-init
 
         class O(object):
             pass

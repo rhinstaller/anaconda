@@ -299,7 +299,7 @@ class IsoChooser(GUIObject):
         GUIObject.__init__(self, data)
         self._chooser = self.builder.get_object("isoChooserDialog")
 
-    # pylint: disable=W0221
+    # pylint: disable=arguments-differ
     def refresh(self, currentFile=""):
         GUIObject.refresh(self)
         self._chooser.connect("current-folder-changed", self.on_folder_changed)
@@ -534,9 +534,9 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler):
                     # involves side effects like network access) so go ahead and grab
                     # them now. These are properties with side-effects, just accessing
                     # them will trigger yum.
-                    # pylint: disable=W0104
+                    # pylint: disable=pointless-statement
                     self.payload.environments
-                    # pylint: disable=W0104
+                    # pylint: disable=pointless-statement
                     self.payload.groups
                 except MetadataError:
                     hubQ.send_message("SoftwareSelectionSpoke",

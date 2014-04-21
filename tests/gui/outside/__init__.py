@@ -132,7 +132,7 @@ class Creator(object):
         # First, create a disk image and put a filesystem on it.
         b = blivet.Blivet()
 
-        # pylint: disable=E0602
+        # pylint: disable=undefined-variable
         disk1_path = create_sparse_file(b, "suite", blivet.size.Size(spec="11 MB"))
         b.config.diskImages["suite"] = disk1_path
 
@@ -169,7 +169,7 @@ class Creator(object):
                                          "addtests": "\n".join(addtests),
                                          "anacondaArgs": config.get("anacondaArgs", "")})
         finally:
-            # pylint: disable=E0602
+            # pylint: disable=undefined-variable
             tear_down_disk_images(b)
             shutil.rmtree(self.mountpoint)
 
@@ -199,7 +199,7 @@ class Creator(object):
             raise
         finally:
             part.format.unmount()
-            # pylint: disable=E0602
+            # pylint: disable=undefined-variable
             tear_down_disk_images(b)
 
     def run(self):
@@ -271,7 +271,7 @@ class OutsideMixin(object):
                              msg="automated UI test %s failed" % self.creator.name)
 
     def setUp(self):
-        # pylint: disable=E1102
+        # pylint: disable=not-callable
         self.creator = self.creatorClass()
         self.creator.makeDrives()
         self.creator.makeSuite()

@@ -35,7 +35,7 @@ class ActionSummaryDialog(GUIObject):
         GUIObject.__init__(self, data)
         self._store = self.builder.get_object("actionStore")
 
-    # pylint: disable=W0221
+    # pylint: disable=arguments-differ
     def initialize(self, actions):
         for (i, action) in enumerate(actions, start=1):
             mountpoint = ""
@@ -55,7 +55,7 @@ class ActionSummaryDialog(GUIObject):
                                 action.device.name,
                                 mountpoint])
 
-    # pylint: disable=W0221
+    # pylint: disable=arguments-differ
     def refresh(self, actions):
         GUIObject.refresh(self)
 

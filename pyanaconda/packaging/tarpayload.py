@@ -40,7 +40,7 @@ from pyanaconda.constants import ROOT_PATH
 from pyanaconda.packaging import ArchivePayload, PayloadError
 
 # TarPayload is not yet fully implemented
-# pylint: disable=W0223
+# pylint: disable=abstract-method
 class TarPayload(ArchivePayload):
     """ A TarPayload unpacks a single tar archive onto the target system. """
     def __init__(self, data):

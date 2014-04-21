@@ -90,7 +90,7 @@ class MarkupChecker(BaseChecker):
     def _validate_pango_markup_string(self, node, string, lang=None):
         try:
             # QUIS CUSTODIET IPSOS CUSTODES
-            # pylint: disable=W9922
+            # pylint: disable=unescaped-markup
             tree = ET.fromstring("<markup>%s</markup>" % string)
 
             # Check if the markup is necessary
@@ -110,7 +110,7 @@ class MarkupChecker(BaseChecker):
     def __init__(self, linter=None):
         BaseChecker.__init__(self, linter)
 
-    @check_messages("W9920", "W9921", "W9922", "W9923", "W9924", "W9925", "W9926")
+    @check_messages("invalid-markup", "invalid-markup-element", "unescaped-markup", "invalid-translated-markup", "invalid-translated-markup-element", "invalid-pango-translation", "unnecessary-markup")
     def visit_const(self, node):
         if type(node.value) not in (types.StringType, types.UnicodeType):
             return

@@ -227,7 +227,7 @@ class ErrorDialog(GUIObject):
     mainWidgetName = "errorDialog"
     uiFile = "main.glade"
 
-    # pylint: disable=W0221
+    # pylint: disable=arguments-differ
     def refresh(self, msg):
         buf = self.builder.get_object("errorTextBuffer")
         buf.set_text(msg, -1)

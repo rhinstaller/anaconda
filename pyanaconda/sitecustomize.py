@@ -19,5 +19,5 @@
 #
 
 import sys
-# pylint: disable=E1101
+# pylint: disable=no-member
 sys.setdefaultencoding('utf-8')

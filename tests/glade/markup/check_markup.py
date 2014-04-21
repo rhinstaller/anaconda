@@ -83,7 +83,7 @@ def check_glade_file(glade_file_path, po_map=None):
             # Wrap the label text in <markup> tags and parse the tree
             for label_text in label_texts:
                 try:
-                    # pylint: disable=W9922
+                    # pylint: disable=unescaped-markup
                     pango_tree = etree.fromstring("<markup>%s</markup>" % label_text)
                     _validate_pango_markup(pango_tree)
 

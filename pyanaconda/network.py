@@ -695,7 +695,7 @@ def ifcfg_to_ksdata(ifcfg, devname):
         kwargs["device"] = ifcfg.get("PHYSDEV")
         kwargs["vlanid"] = ifcfg.get("VLAN_ID")
 
-    # pylint: disable=E1101
+    # pylint: disable=no-member
     nd = handler.NetworkData(**kwargs)
 
     # teaming
@@ -713,7 +713,7 @@ def ifcfg_to_ksdata(ifcfg, devname):
 def hostname_ksdata(hostname):
     from pyanaconda.kickstart import AnacondaKSHandler
     handler = AnacondaKSHandler()
-    # pylint: disable=E1101
+    # pylint: disable=no-member
     return handler.NetworkData(hostname=hostname, bootProto="")
 
 def find_ifcfg_file_of_device(devname, root_path=""):

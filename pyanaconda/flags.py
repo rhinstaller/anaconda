@@ -29,7 +29,7 @@ log = logging.getLogger("anaconda")
 # A lot of effort, but it only allows a limited set of flags to be referenced
 class Flags(object):
     def __setattr__(self, attr, val):
-        # pylint: disable=E1101
+        # pylint: disable=no-member
         if attr not in self.__dict__ and not self._in_init:
             raise AttributeError(attr)
         else:

@@ -31,7 +31,7 @@ SELINUX_DEFAULT = -1
 ADDON_PATHS = ["/usr/share/anaconda/addons"]
 
 # pull in kickstart constants as well
-# pylint: disable=W0401
+# pylint: disable=wildcard-import
 from pykickstart.constants import *
 
 # common string needs to be easy to change

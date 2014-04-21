@@ -25,7 +25,7 @@ import re
 execfile("/usr/share/doc/python-blivet/examples/common.py")
 
 # Set up logging before blivet or anaconda are imported.
-# pylint: disable=E0602
+# pylint: disable=undefined-variable
 set_up_logging()
 blivet_log = logging.getLogger("blivet")
 blivet_log.info(sys.argv[0])
@@ -163,7 +163,7 @@ class TestCaseComponent(object):
            method, but they should call the base method as well to make sure
            the images get destroyed.
         """
-        # pylint: disable=E0602
+        # pylint: disable=undefined-variable
         tear_down_disk_images(self._blivet)
 
         for d in self._disks.values():

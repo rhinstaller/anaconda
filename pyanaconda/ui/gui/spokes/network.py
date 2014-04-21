@@ -694,7 +694,7 @@ class NetworkControlBox(GObject.GObject):
                 and not dev_cfg.device.get_carrier()):
                 # TRANSLATORS: ethernet cable is unplugged
                 unplugged = ', <i>%s</i>' % escape_markup(_("unplugged"))
-        # pylint: disable=W9922
+        # pylint: disable=unescaped-markup
         title = '<span size="large">%s (%s%s)</span>' % \
                  (escape_markup(_(self.device_type_name.get(dev_cfg.device_type, ""))),
                   escape_markup(dev_cfg.get_iface()),

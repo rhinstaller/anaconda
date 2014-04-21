@@ -651,7 +651,7 @@ class Payload(object):
         self._copyDriverDiskFiles()
 
 # Inherit abstract methods from Payload
-# pylint: disable=W0223
+# pylint: disable=abstract-method
 class ImagePayload(Payload):
     """ An ImagePayload installs an OS image to the target system. """
 
@@ -662,7 +662,7 @@ class ImagePayload(Payload):
         Payload.__init__(self, data)
 
 # Inherit abstract methods from ImagePayload
-# pylint: disable=W0223
+# pylint: disable=abstract-method
 class ArchivePayload(ImagePayload):
     """ An ArchivePayload unpacks source archives onto the target system. """
 

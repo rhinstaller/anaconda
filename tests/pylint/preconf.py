@@ -33,7 +33,7 @@ class PreconfChecker(BaseChecker):
                       "Accessing yum.preconf outside of _resetYum will cause tracebacks"),
            }
 
-    @check_messages("W9910")
+    @check_messages("bad-preconf-access")
     def visit_getattr(self, node):
         if node.attrname == "preconf":
             if not isinstance(node.scope(), astroid.Function) or not node.scope().name == "_resetYum":

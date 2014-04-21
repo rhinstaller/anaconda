@@ -185,7 +185,7 @@ class Page(Gtk.Box):
         selector.set_margin_bottom(6)
         self.members.append(selector)
 
-        # pylint: disable=E1101
+        # pylint: disable=no-member
         if self._mountpointType(selector.props.mountpoint) == DATA_DEVICE:
             self._dataBox.add(selector)
         else:
@@ -239,7 +239,7 @@ class Page(Gtk.Box):
 class UnknownPage(Page):
     def __init__(self, title):
         # For this type of page, there's only one place to store members.
-        # pylint: disable=W0231,W0233
+        # pylint: disable=super-init-not-called,non-parent-init-called
         Gtk.Box.__init__(self, orientation=Gtk.Orientation.VERTICAL, spacing=6)
         self.members = []
         self.pageTitle = title
@@ -264,7 +264,7 @@ class UnknownPage(Page):
 # is created, it will be removed and replaced with a Page for it.
 class CreateNewPage(Page):
     def __init__(self, title, createClickedCB, autopartTypeChangedCB, partitionsToReuse=True):
-        # pylint: disable=W0231,W0233
+        # pylint: disable=super-init-not-called,non-parent-init-called
         Gtk.Box.__init__(self, orientation=Gtk.Orientation.VERTICAL, spacing=6)
         self.members = []
         self.pageTitle = title

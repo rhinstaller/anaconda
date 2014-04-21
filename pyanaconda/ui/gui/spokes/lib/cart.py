@@ -52,7 +52,7 @@ class SelectedDisksDialog(GUIObject):
         self._set_button = self.builder.get_object("set_as_boot_button")
         self._remove_button = self.builder.get_object("remove_button")
 
-    # pylint: disable=W0221
+    # pylint: disable=arguments-differ
     def initialize(self, disks, free, showRemove=True, setBoot=True):
         self._previousID = None
 
@@ -97,7 +97,7 @@ class SelectedDisksDialog(GUIObject):
                 row[IS_BOOT_COL] = True
                 break
 
-    # pylint: disable=W0221
+    # pylint: disable=arguments-differ
     def refresh(self, disks, free, showRemove=True, setBoot=True):
         super(SelectedDisksDialog, self).refresh()
 
@@ -130,7 +130,7 @@ class SelectedDisksDialog(GUIObject):
         size = str(Size(bytes=long(size))).upper()
         free = str(Size(bytes=long(free))).upper()
 
-        # pylint: disable=W9922
+        # pylint: disable=unescaped-markup
         text = P_("<b>%(count)d disk; %(size)s capacity; %(free)s free space</b> "
                    "(unpartitioned and in filesystems)",
                   "<b>%(count)d disks; %(size)s capacity; %(free)s free space</b> "

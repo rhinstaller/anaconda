@@ -51,7 +51,7 @@ class IntlChecker(BaseChecker):
 
             curr = curr.parent
 
-    @check_messages("W9902")
+    @check_messages("found-_-in-module-class")
     def visit_callfunc(self, node):
         # The first test skips internal functions like getattr.
         if isinstance(node.func, astroid.Name) and node.func.name == "_":

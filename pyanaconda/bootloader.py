@@ -1780,7 +1780,7 @@ class MacEFIGRUB(EFIGRUB):
 
 
 # Inherit abstract methods from BootLoader
-# pylint: disable=W0223
+# pylint: disable=abstract-method
 class YabootBase(BootLoader):
     def write_config_password(self, config):
         if self.password:

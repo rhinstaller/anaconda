@@ -3,7 +3,7 @@
 
 import os, sys
 from modulefinder import ModuleFinder
-# pylint: disable=W0401
+# pylint: disable=wildcard-import
 from distutils.sysconfig import *
 
 sitedir = get_python_lib()
@@ -19,7 +19,7 @@ def moduledir(pyfile):
         if modname not in ('..', 'site-packages'):
             return os.path.join(topdir, modname)
 
-# pylint: disable=W0621
+# pylint: disable=redefined-outer-name
 def pyfiles(moddir):
     '''basically, "find $moddir -type f -name "*.py"'''
     for curdir, _dirs, files in os.walk(moddir):
