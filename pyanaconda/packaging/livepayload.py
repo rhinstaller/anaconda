@@ -42,7 +42,7 @@ import glob
 
 from . import ImagePayload, PayloadSetupError, PayloadInstallError
 
-from pyanaconda.constants import INSTALL_TREE, ROOT_PATH, THREAD_LIVE_PROGRESS
+from pyanaconda.constants import INSTALL_TREE, THREAD_LIVE_PROGRESS
 from pyanaconda.constants import IMAGE_DIR
 
 from pyanaconda import iutil
@@ -61,7 +61,7 @@ class LiveImagePayload(ImagePayload):
     """ A LivePayload copies the source image onto the target system. """
     def __init__(self, *args, **kwargs):
         super(LiveImagePayload, self).__init__(*args, **kwargs)
-        # Used to adjust size of ROOT_PATH when files are already present
+        # Used to adjust size of sysroot when files are already present
         self._adj_size = 0
 
     def setup(self, storage):
@@ -91,7 +91,7 @@ class LiveImagePayload(ImagePayload):
         while self.pct < 100:
             dest_size = 0
             for mnt in mountpoints:
-                mnt_stat = os.statvfs(ROOT_PATH+mnt)
+                mnt_stat = os.statvfs(iutil.getSysroot()+mnt)
                 dest_size += mnt_stat.f_frsize * (mnt_stat.f_blocks - mnt_stat.f_bfree)
             if dest_size >= self._adj_size:
                 dest_size -= self._adj_size
@@ -118,7 +118,7 @@ class LiveImagePayload(ImagePayload):
         # file system boundaries
         args = ["-pogAXtlHrDx", "--exclude", "/dev/", "--exclude", "/proc/",
                 "--exclude", "/sys/", "--exclude", "/run/", "--exclude", "/boot/*rescue*",
-                "--exclude", "/etc/machine-id", INSTALL_TREE+"/", ROOT_PATH]
+                "--exclude", "/etc/machine-id", INSTALL_TREE+"/", iutil.getSysroot()]
         try:
             rc = iutil.execWithRedirect(cmd, args)
         except (OSError, RuntimeError) as e:
@@ -149,14 +149,13 @@ class LiveImagePayload(ImagePayload):
 
         # Live needs to create the rescue image before bootloader is written
         for kernel in self.kernelVersionList:
-            log.info("Generating rescue image for %s", kernel)
-            iutil.execWithRedirect("new-kernel-pkg",
-                                   ["--rpmposttrans", kernel],
-                                   root=ROOT_PATH)
+            log.info("Generating rescue image for %s" % kernel)
+            iutil.execInSysroot("new-kernel-pkg",
+                                ["--rpmposttrans", kernel])
 
         # Make sure the new system has a machine-id, it won't boot without it
-        if not os.path.exists(ROOT_PATH+"/etc/machine-id"):
-            iutil.execWithRedirect("systemd-machine-id-setup", [], root=ROOT_PATH)
+        if not os.path.exists(iutil.getSysroot()+"/etc/machine-id"):
+            iutil.execInSysroot("systemd-machine-id-setup", [])
 
     @property
     def spaceRequired(self):
@@ -216,7 +215,7 @@ class LiveImageKSPayload(LiveImagePayload):
     def __init__(self, *args, **kwargs):
         super(LiveImageKSPayload, self).__init__(*args, **kwargs)
         self._min_size = 0
-        self.image_path = ROOT_PATH+"/disk.img"
+        self.image_path = iutil.getSysroot()+"/disk.img"
 
     def setup(self, storage):
         """ Check the availability and size of the image.
@@ -263,10 +262,10 @@ class LiveImageKSPayload(LiveImagePayload):
         """ Download image and loopback mount it.
 
             This is called after partitioning is setup, we now have space
-            to grab the image. Download it to ROOT_PATH and provide feedback
+            to grab the image. Download it to sysroot and provide feedback
             during the download (using urlgrabber callback).
         """
-        # Setup urlgrabber and call back to download image to ROOT_PATH
+        # Setup urlgrabber and call back to download image to sysroot
         progress = URLGrabberProgress()
         ugopts = {"ssl_verify_peer": not self.data.method.noverifyssl,
                   "ssl_verify_host": not self.data.method.noverifyssl,

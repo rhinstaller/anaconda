@@ -30,11 +30,11 @@
 
 import os, time, string
 import sys
-from constants import ROOT_PATH
 from tempfile import mkstemp
 
 from pyanaconda.bootloader import get_bootloader
 from pyanaconda import constants
+from pyanaconda import iutil
 from pyanaconda import addons
 from pyanaconda.i18n import _
 
@@ -228,7 +228,7 @@ class Anaconda(object):
         if self.xdriver is None:
             return
         if root is None:
-            root = ROOT_PATH
+            root = iutil.getSysroot()
         if not os.path.isdir("%s/etc/X11" %(root,)):
             os.makedirs("%s/etc/X11" %(root,), mode=0755)
         f = open("%s/etc/X11/xorg.conf" %(root,), 'w')
@@ -241,7 +241,7 @@ class Anaconda(object):
 
         network.write_sysconfig_network()
         network.disableIPV6()
-        network.copyConfigToPath(ROOT_PATH)
+        network.copyConfigToPath(iutil.getSysroot())
         if not self.ksdata:
             self.instClass.setNetworkOnbootDefault()
         self.desktop.write()

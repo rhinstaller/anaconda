@@ -377,8 +377,8 @@ class Payload(object):
             else:
                 cmpfunc = yum.rpmUtils.miscutils.compareVerOnly
 
-            files = glob.glob(ROOT_PATH + "/boot/vmlinuz-*")
-            files.extend(glob.glob(ROOT_PATH + "/boot/efi/EFI/redhat/vmlinuz-*"))
+            files = glob.glob(iutil.getSysroot() + "/boot/vmlinuz-*")
+            files.extend(glob.glob(iutil.getSysroot() + "/boot/efi/EFI/redhat/vmlinuz-*"))
             # strip off everything up to and including vmlinuz- to get versions
             # Ignore rescue kernels
             versions = [f.split("/")[-1][8:] for f in files if os.path.isfile(f) \
@@ -536,7 +536,7 @@ class Payload(object):
     ###
     def preInstall(self, packages=None, groups=None):
         """ Perform pre-installation tasks. """
-        iutil.mkdirChain(ROOT_PATH + "/root")
+        iutil.mkdirChain(iutil.getSysroot() + "/root")
 
         self._writeModuleBlacklist()
 
@@ -552,8 +552,8 @@ class Payload(object):
         if "modprobe.blacklist" not in flags.cmdline:
             return
 
-        iutil.mkdirChain(ROOT_PATH + "/etc/modprobe.d")
-        with open(ROOT_PATH + "/etc/modprobe.d/anaconda-blacklist.conf", "w") as f:
+        iutil.mkdirChain(iutil.getSysroot() + "/etc/modprobe.d")
+        with open(iutil.getSysroot() + "/etc/modprobe.d/anaconda-blacklist.conf", "w") as f:
             f.write("# Module blacklists written by anaconda\n")
             for module in flags.cmdline["modprobe.blacklist"].split():
                 f.write("blacklist %s\n" % module)
@@ -568,7 +568,7 @@ class Payload(object):
         # the firmware files in the common DD firmware directory
         for f in glob.glob(DD_FIRMWARE+"/*"):
             try:
-                shutil.copyfile(f, "%s/lib/firmware/" % ROOT_PATH)
+                shutil.copyfile(f, "%s/lib/firmware/" % iutil.getSysroot())
             except IOError as e:
                 log.error("Could not copy firmware file %s: %s" % (f, e.strerror))
             else:
@@ -576,12 +576,12 @@ class Payload(object):
 
         #copy RPMS
         for d in glob.glob(DD_RPMS):
-            shutil.copytree(d, ROOT_PATH + "/root/" + os.path.basename(d))
+            shutil.copytree(d, iutil.getSysroot() + "/root/" + os.path.basename(d))
 
         #copy modules and firmware into root's home directory
         if os.path.exists(DD_ALL):
             try:
-                shutil.copytree(DD_ALL, ROOT_PATH + "/root/DD")
+                shutil.copytree(DD_ALL, iutil.getSysroot() + "/root/DD")
             except IOError as e:
                 log.error("failed to copy driver disk files: %s" % e.strerror)
                 # XXX TODO: real error handling, as this is probably going to
@@ -603,26 +603,24 @@ class Payload(object):
         for kernel in self.kernelVersionList:
             log.info("recreating initrd for %s" % kernel)
             if not flags.imageInstall:
-                iutil.execWithRedirect("new-kernel-pkg",
-                                       ["--mkinitrd", "--dracut",
-                                        "--depmod", "--update", kernel],
-                                       root=ROOT_PATH)
+                iutil.execInSysroot("new-kernel-pkg",
+                                    ["--mkinitrd", "--dracut",
+                                    "--depmod", "--update", kernel])
             else:
                 # hostonly is not sensible for disk image installations
                 # using /dev/disk/by-uuid/ is necessary due to disk image naming
-                iutil.execWithRedirect("dracut",
-                                       ["-N",
-                                        "--persistent-policy", "by-uuid",
-                                        "-f", "/boot/initramfs-%s.img" % kernel,
-                                        kernel],
-                                        root=ROOT_PATH)
+                iutil.execInSysroot("dracut",
+                                    ["-N",
+                                     "--persistent-policy", "by-uuid",
+                                     "-f", "/boot/initramfs-%s.img" % kernel,
+                                    kernel])
 
         self._createdInitrds = True
 
 
     def _setDefaultBootTarget(self):
         """ Set the default systemd target for the system. """
-        if not os.path.exists(ROOT_PATH + "/etc/systemd/system"):
+        if not os.path.exists(iutil.getSysroot() + "/etc/systemd/system"):
             log.error("systemd is not installed -- can't set default target")
             return
 
@@ -635,7 +633,7 @@ class Payload(object):
         except ImportError:
             log.info("failed to import rpm -- not adjusting default runlevel")
         else:
-            ts = rpm.TransactionSet(ROOT_PATH)
+            ts = rpm.TransactionSet(iutil.getSysroot())
 
             # XXX one day this might need to account for anaconda's display mode
             if ts.dbMatch("provides", 'service(graphical-login)').count() and \
@@ -653,7 +651,7 @@ class Payload(object):
             pass
         else:
             iutil.resetRpmDb()
-            ts = rpm.TransactionSet(ROOT_PATH)
+            ts = rpm.TransactionSet(iutil.getSysroot())
 
             # Only add "rhgb quiet" on non-s390, non-serial installs
             if iutil.isConsoleOnVirtualTerminal() and \
