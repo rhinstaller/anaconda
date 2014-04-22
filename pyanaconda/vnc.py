@@ -148,7 +148,7 @@ class VncServer:
         """Attempt to connect to self.vncconnecthost"""
 
         maxTries = 10
-        self.log.info(_("Attempting to connect to vnc client on host %s...") % (self.vncconnecthost,))
+        self.log.info(_("Attempting to connect to vnc client on host %s..."), self.vncconnecthost)
 
         if self.vncconnectport != "":
             hostarg = self.vncconnecthost + ":" + self.vncconnectport
@@ -173,7 +173,7 @@ class VncServer:
                 sys.exit(1)
         self.log.error(P_("Giving up attempting to connect after %d try!\n",
                           "Giving up attempting to connect after %d tries!\n",
-                          maxTries) % (maxTries,))
+                          maxTries), maxTries)
         return False
 
     def VNCListen(self):
@@ -182,11 +182,11 @@ class VncServer:
         We dont really have to do anything for the server to listen :)
         """
         if self.connxinfo != None:
-            self.log.info(_("Please manually connect your vnc client to %s to begin the install.") % (self.connxinfo,))
+            self.log.info(_("Please manually connect your vnc client to %s to begin the install."), self.connxinfo)
         else:
             self.log.info(_("Please manually connect your vnc client to <IP ADDRESS>:%s "
                             "to begin the install. Switch to the shell (Ctrl-B 2) and "
-                            "run 'ip addr' to find the <IP ADDRESS>.") % (self.display,))
+                            "run 'ip addr' to find the <IP ADDRESS>."), self.display)
 
     def startServer(self):
         self.log.info(_("Starting VNC..."))
