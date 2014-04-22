@@ -60,6 +60,7 @@ export NON_STRICT_OPTIONS="--disable=W0212"
 export DISABLED_ERR_OPTIONS="--disable=E1103"
 
 # W0110 - map/filter on lambda could be replaced by comprehension
+# W0123 - Use of eval
 # W0141 - Used builtin function %r
 # W0142 - Used * or ** magic
 # W0511 - Used when a warning note as FIXME or XXX is detected.
@@ -69,7 +70,7 @@ export DISABLED_ERR_OPTIONS="--disable=E1103"
 # I0011 - Locally disabling %s (i.e., pylint: disable)
 # I0012 - Locally enabling %s (i.e., pylint: enable)
 # I0013 - Ignoring entire file (i.e., pylint: skip-file)
-export DISABLED_WARN_OPTIONS="--disable=W0110,W0141,W0142,W0511,W0603,W0613,W0614,I0011,I0012,I0013"
+export DISABLED_WARN_OPTIONS="--disable=W0110,W0123,W0141,W0142,W0511,W0603,W0613,W0614,I0011,I0012,I0013"
 
 usage () {
   echo "usage: `basename $0` [--strict] [--help] [files...]"
