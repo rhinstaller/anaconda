@@ -40,7 +40,7 @@ import tempfile
 import subprocess
 import flags as flags_module
 from flags import flags
-from constants import *
+from constants import ADDON_PATHS
 import shlex
 import sys
 import urlgrabber
@@ -227,14 +227,14 @@ class Authconfig(commands.authconfig.FC3_Authconfig):
         args = ["--update", "--nostart"] + shlex.split(self.authconfig)
 
         if not flags.automatedInstall and \
-           (os.path.exists(ROOT_PATH + "/lib64/security/pam_fprintd.so") or \
-            os.path.exists(ROOT_PATH + "/lib/security/pam_fprintd.so")):
+           (os.path.exists(iutil.getSysroot() + "/lib64/security/pam_fprintd.so") or \
+            os.path.exists(iutil.getSysroot() + "/lib/security/pam_fprintd.so")):
             args += ["--enablefingerprint"]
 
         try:
-            iutil.execWithRedirect("/usr/sbin/authconfig", args, root=ROOT_PATH)
+            iutil.execInSysroot("/usr/sbin/authconfig", args)
         except OSError as msg:
-            log.error("Error running /usr/sbin/authconfig %s: %s", args, msg)
+            log.error("Error running /usr/sbin/authconfig %s: %s" %  (args, msg))
 
 class AutoPart(commands.autopart.F20_AutoPart):
     def execute(self, storage, ksdata, instClass):
@@ -470,7 +470,7 @@ class Realm(commands.realm.F19_Realm):
             # no explicit password arg using implicit --no-password
             pw_args = ["--no-password"]
 
-        argv = ["realm", "join", "--install", ROOT_PATH, "--verbose"] + \
+        argv = ["realm", "join", "--install", iutil.getSysroot(), "--verbose"] + \
                pw_args + self.join_args
         rc = -1
         try:
@@ -581,11 +581,11 @@ class Firewall(commands.firewall.F20_Firewall):
             args += [ "--service=%s" % (service,) ]
 
         cmd = "/usr/bin/firewall-offline-cmd"
-        if not os.path.exists(ROOT_PATH+cmd):
+        if not os.path.exists(iutil.getSysroot()+cmd):
             msg = _("%s is missing. Cannot setup firewall.") % (cmd,)
             raise KickstartError(msg)
         else:
-            iutil.execWithRedirect(cmd, args, root=ROOT_PATH)
+            iutil.execInSysroot(cmd, args)
 
 class Firstboot(commands.firstboot.FC3_Firstboot):
     def setup(self, *args):
@@ -598,7 +598,7 @@ class Firstboot(commands.firstboot.FC3_Firstboot):
                          "/lib/systemd/system/initial-setup-graphical.service",
                          "/lib/systemd/system/initial-setup-text.service")
 
-        if not any(os.path.exists(ROOT_PATH + path) for path in service_paths):
+        if not any(os.path.exists(iutil.getSysroot() + path) for path in service_paths):
             # none of the first boot utilities installed, nothing to do here
             return
 
@@ -607,13 +607,12 @@ class Firstboot(commands.firstboot.FC3_Firstboot):
         if self.firstboot == FIRSTBOOT_SKIP:
             action = "disable"
         elif self.firstboot == FIRSTBOOT_RECONFIG:
-            f = open(ROOT_PATH + "/etc/reconfigSys", "w+")
+            f = open(iutil.getSysroot() + "/etc/reconfigSys", "w+")
             f.close()
 
-        iutil.execWithRedirect("systemctl", [action, "firstboot-graphical.service",
+        iutil.execInSysroot("systemctl", [action, "firstboot-graphical.service",
                                                      "initial-setup-graphical.service",
-                                                     "initial-setup-text.service"],
-                               root=ROOT_PATH)
+                                                     "initial-setup-text.service"])
 
 class Group(commands.group.F12_Group):
     def execute(self, storage, ksdata, instClass, users):
@@ -621,7 +620,7 @@ class Group(commands.group.F12_Group):
 
         for grp in self.groupList:
             kwargs = grp.__dict__
-            kwargs.update({"root": ROOT_PATH})
+            kwargs.update({"root": iutil.getSysroot()})
             if not users.createGroup(grp.name, **kwargs):
                 log.error("Group %s already exists, not creating." % grp.name)
 
@@ -692,7 +691,7 @@ class IscsiName(commands.iscsiname.FC6_IscsiName):
 
 class Lang(commands.lang.F19_Lang):
     def execute(self, *args, **kwargs):
-        localization.write_language_configuration(self, ROOT_PATH)
+        localization.write_language_configuration(self, iutil.getSysroot())
 
 # no overrides needed here
 Eula = commands.eula.F20_Eula
@@ -902,7 +901,7 @@ class Logging(commands.logging.FC6_Logging):
 
 class Network(commands.network.RHEL7_Network):
     def execute(self, storage, ksdata, instClass):
-        network.write_network_config(storage, ksdata, instClass, ROOT_PATH)
+        network.write_network_config(storage, ksdata, instClass, iutil.getSysroot())
 
 class MultiPath(commands.multipath.FC6_MultiPath):
     def parse(self, args):
@@ -1326,7 +1325,7 @@ class SELinux(commands.selinux.FC3_SELinux):
             return
 
         try:
-            selinux_cfg = SimpleConfigFile(ROOT_PATH+"/etc/selinux/config")
+            selinux_cfg = SimpleConfigFile(iutil.getSysroot()+"/etc/selinux/config")
             selinux_cfg.read()
             selinux_cfg.set(("SELINUX", selinux_states[self.selinux]))
             selinux_cfg.write()
@@ -1339,12 +1338,10 @@ class Services(commands.services.FC6_Services):
         enabled = map(lambda s: s + ".service", self.enabled)
 
         if disabled:
-            iutil.execWithRedirect("systemctl", ["disable"] + disabled,
-                                   root=ROOT_PATH)
+            iutil.execInSysroot("systemctl", ["disable"] + disabled)
 
         if enabled:
-            iutil.execWithRedirect("systemctl", ["enable"] + enabled,
-                                   root=ROOT_PATH)
+            iutil.execInSysroot("systemctl", ["enable"] + enabled)
 
 class Timezone(commands.timezone.F18_Timezone):
     def __init__(self, *args):
@@ -1393,11 +1390,11 @@ class Timezone(commands.timezone.F18_Timezone):
                         "back to default (America/New_York)." % (self.timezone,))
             self.timezone = "America/New_York"
 
-        timezone.write_timezone_config(self, ROOT_PATH)
+        timezone.write_timezone_config(self, iutil.getSysroot())
 
         # write out NTP configuration (if set)
         if not self.nontp and self.ntpservers:
-            chronyd_conf_path = os.path.normpath(ROOT_PATH + ntp.NTP_CONFIG_FILE)
+            chronyd_conf_path = os.path.normpath(iutil.getSysroot() + ntp.NTP_CONFIG_FILE)
             try:
                 ntp.save_servers_to_config(self.ntpservers,
                                            conf_file_path=chronyd_conf_path)
@@ -1410,7 +1407,7 @@ class User(commands.user.F12_User):
 
         for usr in self.userList:
             kwargs = usr.__dict__
-            kwargs.update({"algo": algo, "root": ROOT_PATH})
+            kwargs.update({"algo": algo, "root": iutil.getSysroot()})
 
             # If the user password came from a kickstart and it is blank we
             # need to make sure the account is locked, not created with an
@@ -1515,7 +1512,7 @@ class ZFCP(commands.zfcp.F14_ZFCP):
 
 class Keyboard(commands.keyboard.F18_Keyboard):
     def execute(self, *args):
-        keyboard.write_keyboard_config(self, ROOT_PATH)
+        keyboard.write_keyboard_config(self, iutil.getSysroot())
 
     def dracutSetupArgs(self, *args):
         return keyboard.dracut_setup_args(self)
@@ -1721,7 +1718,7 @@ def runPostScripts(scripts):
             del(os.environ[var])
 
     log.info("Running kickstart %%post script(s)")
-    map (lambda s: s.run(ROOT_PATH), postScripts)
+    map (lambda s: s.run(iutil.getSysroot()), postScripts)
     log.info("All kickstart %%post script(s) have been run")
 
 def runPreScripts(scripts):

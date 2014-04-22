@@ -18,11 +18,11 @@
 #
 
 from pyanaconda.installclass import BaseInstallClass
-from pyanaconda.constants import *
-from pyanaconda.product import *
+from pyanaconda.product import productName
 from pyanaconda import network
+from pyanaconda import iutil
 from pyanaconda import nm
-from pyanaconda.i18n import _
+from pyanaconda.i18n import _, N_
 
 import os, types
 
@@ -68,7 +68,7 @@ class InstallClass(BaseInstallClass):
             except ValueError as e:
                 continue
             if link_up:
-                ifcfg_path = network.find_ifcfg_file_of_device(devName, root_path=ROOT_PATH)
+                ifcfg_path = network.find_ifcfg_file_of_device(devName, root_path=iutil.getSysroot())
                 if not ifcfg_path:
                     continue
                 ifcfg = network.IfcfgFile(ifcfg_path)

@@ -22,6 +22,7 @@ from pyanaconda.constants import *
 from pyanaconda.product import *
 from pyanaconda import network
 from pyanaconda import nm
+from pyanaconda import iutil
 import types
 
 class InstallClass(BaseInstallClass):
@@ -71,7 +72,7 @@ class InstallClass(BaseInstallClass):
             return
         if nm.nm_device_type_is_wifi(devName):
             return
-        ifcfg_path = network.find_ifcfg_file_of_device(devName, root_path=ROOT_PATH)
+        ifcfg_path = network.find_ifcfg_file_of_device(devName, root_path=iutil.getSysroot())
         if not ifcfg_path:
             return
         ifcfg = network.IfcfgFile(ifcfg_path)

@@ -20,12 +20,12 @@
 # Red Hat Author(s): Chris Lumens <clumens@redhat.com>
 #
 
-from pyanaconda.constants import ROOT_PATH, THREAD_PAYLOAD
 from blivet import turnOnFilesystems
 from pyanaconda.bootloader import writeBootLoader
 from pyanaconda.progress import progress_report, progressQ
 from pyanaconda.users import createLuserConf, getPassAlgo, Users
 from pyanaconda import flags
+from pyanaconda import iutil
 from pyanaconda import timezone
 from pyanaconda.i18n import _
 from pyanaconda.threads import threadMgr
@@ -35,7 +35,7 @@ log = logging.getLogger("anaconda")
 def _writeKS(ksdata):
     import os
 
-    path = ROOT_PATH + "/root/anaconda-ks.cfg"
+    path = iutil.getSysroot() + "/root/anaconda-ks.cfg"
 
     # Clear out certain sensitive information that kickstart doesn't have a
     # way of representing encrypted.
@@ -80,7 +80,7 @@ def doConfiguration(storage, payload, ksdata, instClass):
 
     # Creating users and groups requires some pre-configuration.
     with progress_report(_("Creating users")):
-        createLuserConf(ROOT_PATH, algoname=getPassAlgo(ksdata.authconfig.authconfig))
+        createLuserConf(iutil.getSysroot(), algoname=getPassAlgo(ksdata.authconfig.authconfig))
         u = Users()
         ksdata.rootpw.execute(storage, ksdata, instClass, u)
         ksdata.group.execute(storage, ksdata, instClass, u)
