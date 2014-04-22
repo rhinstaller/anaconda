@@ -1,18 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Generated with glade 3.16.0 on Thu Oct 17 10:59:25 2013 -->
+<!-- Generated with glade 3.18.1 -->
 <interface>
-  <!-- interface-requires gtk+ 3.6 -->
-  <!-- interface-requires AnacondaWidgets 1.0 -->
+  <requires lib="gtk+" version="3.6"/>
+  <requires lib="AnacondaWidgets" version="1.0"/>
   <object class="AnacondaSpokeWindow" id="userCreationWindow">
     <property name="can_focus">False</property>
     <property name="hexpand">True</property>
     <property name="vexpand">True</property>
     <property name="window_name" translatable="yes">CREATE USER</property>
-    <child internal-child="accessible">
-      <object class="AtkObject" id="userCreationWindow-atkobject">
-        <property name="AtkObject::accessible-name" translatable="yes">CREATE USER</property>
-      </object>
-    </child>
     <signal name="button-clicked" handler="on_back_clicked" swapped="no"/>
     <child internal-child="main_box">
       <object class="GtkBox" id="AnacondaSpokeWindow-main_box1">
@@ -74,8 +69,6 @@
                       <packing>
                         <property name="left_attach">0</property>
                         <property name="top_attach">0</property>
-                        <property name="width">1</property>
-                        <property name="height">1</property>
                       </packing>
                     </child>
                     <child>
@@ -94,8 +87,6 @@
                       <packing>
                         <property name="left_attach">0</property>
                         <property name="top_attach">1</property>
-                        <property name="width">1</property>
-                        <property name="height">1</property>
                       </packing>
                     </child>
                     <child>
@@ -104,18 +95,16 @@
                         <property name="can_focus">True</property>
                         <property name="invisible_char">●</property>
                         <property name="caps_lock_warning">False</property>
+                        <signal name="changed" handler="full_name_changed" swapped="no"/>
                         <child internal-child="accessible">
                           <object class="AtkObject" id="t_fullname-atkobject">
                             <property name="AtkObject::accessible-name" translatable="yes">Full Name</property>
                           </object>
                         </child>
-                        <signal name="changed" handler="full_name_changed" swapped="no"/>
                       </object>
                       <packing>
                         <property name="left_attach">1</property>
                         <property name="top_attach">0</property>
-                        <property name="width">1</property>
-                        <property name="height">1</property>
                       </packing>
                     </child>
                     <child>
@@ -123,18 +112,16 @@
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
                         <property name="invisible_char">●</property>
+                        <signal name="changed" handler="username_changed" swapped="no"/>
                         <child internal-child="accessible">
                           <object class="AtkObject" id="t_username-atkobject">
                             <property name="AtkObject::accessible-name" translatable="yes">Username</property>
                           </object>
                         </child>
-                        <signal name="changed" handler="username_changed" swapped="no"/>
                       </object>
                       <packing>
                         <property name="left_attach">1</property>
                         <property name="top_attach">1</property>
-                        <property name="width">1</property>
-                        <property name="height">1</property>
                       </packing>
                     </child>
                     <child>
@@ -153,8 +140,6 @@
                       <packing>
                         <property name="left_attach">0</property>
                         <property name="top_attach">5</property>
-                        <property name="width">1</property>
-                        <property name="height">1</property>
                       </packing>
                     </child>
                     <child>
@@ -173,8 +158,6 @@
                       <packing>
                         <property name="left_attach">0</property>
                         <property name="top_attach">7</property>
-                        <property name="width">1</property>
-                        <property name="height">1</property>
                       </packing>
                     </child>
                     <child>
@@ -183,18 +166,16 @@
                         <property name="can_focus">True</property>
                         <property name="visibility">False</property>
                         <property name="invisible_char">●</property>
+                        <signal name="changed" handler="password_changed" swapped="no"/>
                         <child internal-child="accessible">
                           <object class="AtkObject" id="t_password-atkobject">
                             <property name="AtkObject::accessible-name" translatable="yes">Password</property>
                           </object>
                         </child>
-                        <signal name="changed" handler="password_changed" swapped="no"/>
                       </object>
                       <packing>
                         <property name="left_attach">1</property>
                         <property name="top_attach">5</property>
-                        <property name="width">1</property>
-                        <property name="height">1</property>
                       </packing>
                     </child>
                     <child>
@@ -212,8 +193,6 @@
                       <packing>
                         <property name="left_attach">1</property>
                         <property name="top_attach">7</property>
-                        <property name="width">1</property>
-                        <property name="height">1</property>
                       </packing>
                     </child>
                     <child>
@@ -227,8 +206,6 @@
                       <packing>
                         <property name="left_attach">1</property>
                         <property name="top_attach">2</property>
-                        <property name="width">1</property>
-                        <property name="height">1</property>
                       </packing>
                     </child>
                     <child>
@@ -245,8 +222,6 @@
                       <packing>
                         <property name="left_attach">1</property>
                         <property name="top_attach">4</property>
-                        <property name="width">1</property>
-                        <property name="height">1</property>
                       </packing>
                     </child>
                     <child>
@@ -289,8 +264,6 @@
                       <packing>
                         <property name="left_attach">1</property>
                         <property name="top_attach">6</property>
-                        <property name="width">1</property>
-                        <property name="height">1</property>
                       </packing>
                     </child>
                     <child>
@@ -305,8 +278,6 @@
                       <packing>
                         <property name="left_attach">1</property>
                         <property name="top_attach">3</property>
-                        <property name="width">1</property>
-                        <property name="height">1</property>
                       </packing>
                     </child>
                     <child>
@@ -326,16 +297,12 @@
                           <packing>
                             <property name="left_attach">0</property>
                             <property name="top_attach">0</property>
-                            <property name="width">1</property>
-                            <property name="height">1</property>
                           </packing>
                         </child>
                       </object>
                       <packing>
                         <property name="left_attach">1</property>
                         <property name="top_attach">8</property>
-                        <property name="width">1</property>
-                        <property name="height">1</property>
                       </packing>
                     </child>
                     <child>
@@ -372,6 +339,11 @@
         <child>
           <placeholder/>
         </child>
+      </object>
+    </child>
+    <child internal-child="accessible">
+      <object class="AtkObject" id="userCreationWindow-atkobject">
+        <property name="AtkObject::accessible-name" translatable="yes">CREATE USER</property>
       </object>
     </child>
   </object>

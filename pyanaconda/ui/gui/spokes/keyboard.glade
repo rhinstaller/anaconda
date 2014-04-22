@@ -1,221 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Generated with glade 3.16.1 -->
+<!-- Generated with glade 3.18.1 -->
 <interface>
   <requires lib="gtk+" version="3.2"/>
-  <!-- interface-requires AnacondaWidgets 1.0 -->
+  <requires lib="AnacondaWidgets" version="1.0"/>
   <object class="GtkListStore" id="addedLayoutStore">
     <columns>
       <!-- column-name name -->
       <column type="gchararray"/>
     </columns>
   </object>
-  <object class="GtkListStore" id="newLayoutStore">
-    <columns>
-      <!-- column-name name -->
-      <column type="gchararray"/>
-    </columns>
-  </object>
-  <object class="GtkTreeModelFilter" id="newLayoutStoreFilter">
-    <property name="child_model">newLayoutStore</property>
-  </object>
-  <object class="GtkTreeModelSort" id="newLayoutStoreSort">
-    <property name="model">newLayoutStoreFilter</property>
-  </object>
-  <object class="GtkListStore" id="switchingOptsStore">
-    <columns>
-      <!-- column-name description -->
-      <column type="gchararray"/>
-      <!-- column-name use -->
-      <column type="gboolean"/>
-    </columns>
-  </object>
-  <object class="GtkTreeModelSort" id="switchingOptsSort">
-    <property name="model">switchingOptsStore</property>
-  </object>
-  <object class="GtkDialog" id="addLayoutDialog">
-    <property name="can_focus">False</property>
-    <property name="border_width">6</property>
-    <property name="default_height">450</property>
-    <property name="type_hint">dialog</property>
-    <property name="decorated">False</property>
-    <child internal-child="accessible">
-      <object class="AtkObject" id="addLayoutDialog-atkobject">
-        <property name="AtkObject::accessible-name" translatable="yes">Add Layout</property>
-      </object>
-    </child>
-    <child internal-child="vbox">
-      <object class="GtkBox" id="dialog-vbox1">
-        <property name="can_focus">False</property>
-        <property name="orientation">vertical</property>
-        <property name="spacing">2</property>
-        <child internal-child="action_area">
-          <object class="GtkButtonBox" id="addLayoutDialog-actionArea">
-            <property name="can_focus">False</property>
-            <property name="layout_style">end</property>
-            <child>
-              <object class="GtkButton" id="cancelButton">
-                <property name="label" translatable="yes" context="GUI|Keyboard Layout|Add Layout">_Cancel</property>
-                <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <property name="receives_default">True</property>
-                <property name="use_underline">True</property>
-              </object>
-              <packing>
-                <property name="expand">False</property>
-                <property name="fill">True</property>
-                <property name="position">0</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkButton" id="confirmAddButton">
-                <property name="label" translatable="yes" context="GUI|Keyboard Layout|Add Layout">_Add</property>
-                <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <property name="receives_default">True</property>
-                <property name="use_underline">True</property>
-                <signal name="clicked" handler="on_confirm_add_clicked" swapped="no"/>
-              </object>
-              <packing>
-                <property name="expand">False</property>
-                <property name="fill">True</property>
-                <property name="position">1</property>
-              </packing>
-            </child>
-          </object>
-          <packing>
-            <property name="expand">False</property>
-            <property name="fill">True</property>
-            <property name="pack_type">end</property>
-            <property name="position">0</property>
-          </packing>
-        </child>
-        <child>
-          <object class="GtkBox" id="box3">
-            <property name="visible">True</property>
-            <property name="can_focus">False</property>
-            <property name="orientation">vertical</property>
-            <property name="spacing">6</property>
-            <child>
-              <object class="GtkLabel" id="label1">
-                <property name="visible">True</property>
-                <property name="can_focus">False</property>
-                <property name="halign">start</property>
-                <property name="label" translatable="yes">ADD A KEYBOARD LAYOUT</property>
-                <attributes>
-                  <attribute name="font-desc" value="Cantarell Bold 10"/>
-                  <attribute name="weight" value="bold"/>
-                </attributes>
-              </object>
-              <packing>
-                <property name="expand">False</property>
-                <property name="fill">True</property>
-                <property name="position">0</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkLabel" id="label3">
-                <property name="visible">True</property>
-                <property name="can_focus">False</property>
-                <property name="xalign">0</property>
-                <property name="label" translatable="yes">You may add a keyboard layout by selecting it below:</property>
-                <attributes>
-                  <attribute name="font-desc" value="Cantarell 12"/>
-                </attributes>
-              </object>
-              <packing>
-                <property name="expand">False</property>
-                <property name="fill">True</property>
-                <property name="position">1</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkScrolledWindow" id="layoutWindow">
-                <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <property name="vexpand">True</property>
-                <property name="hscrollbar_policy">never</property>
-                <property name="shadow_type">in</property>
-                <child>
-                  <object class="GtkTreeView" id="newLayoutView">
-                    <property name="visible">True</property>
-                    <property name="can_focus">True</property>
-                    <property name="events">GDK_BUTTON_PRESS_MASK | GDK_STRUCTURE_MASK</property>
-                    <property name="model">newLayoutStoreSort</property>
-                    <property name="headers_visible">False</property>
-                    <property name="headers_clickable">False</property>
-                    <property name="enable_search">False</property>
-                    <child internal-child="accessible">
-                      <object class="AtkObject" id="newLayoutView-atkobject">
-                        <property name="AtkObject::accessible-name" translatable="yes">Available Layouts</property>
-                      </object>
-                    </child>
-                    <signal name="button-press-event" handler="on_layout_view_button_press" swapped="no"/>
-                    <child internal-child="selection">
-                      <object class="GtkTreeSelection" id="newLayoutSelection">
-                        <property name="mode">multiple</property>
-                        <signal name="changed" handler="on_add_layout_selection_changed" swapped="no"/>
-                      </object>
-                    </child>
-                    <child>
-                      <object class="GtkTreeViewColumn" id="newLayoutColumn">
-                        <property name="title" translatable="yes">Name</property>
-                        <property name="expand">True</property>
-                        <property name="sort_column_id">0</property>
-                        <child>
-                          <object class="GtkCellRendererText" id="newLayoutRenderer"/>
-                          <attributes>
-                            <attribute name="text">0</attribute>
-                          </attributes>
-                        </child>
-                      </object>
-                    </child>
-                  </object>
-                </child>
-              </object>
-              <packing>
-                <property name="expand">True</property>
-                <property name="fill">True</property>
-                <property name="position">2</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkEntry" id="addLayoutEntry">
-                <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <property name="invisible_char">●</property>
-                <property name="secondary_icon_name">edit-clear-symbolic</property>
-                <signal name="changed" handler="on_entry_changed" swapped="no"/>
-                <signal name="icon-press" handler="on_entry_icon_clicked" swapped="no"/>
-              </object>
-              <packing>
-                <property name="expand">False</property>
-                <property name="fill">False</property>
-                <property name="position">3</property>
-              </packing>
-            </child>
-          </object>
-          <packing>
-            <property name="expand">False</property>
-            <property name="fill">True</property>
-            <property name="position">1</property>
-          </packing>
-        </child>
-      </object>
-    </child>
-    <action-widgets>
-      <action-widget response="0">cancelButton</action-widget>
-      <action-widget response="1">confirmAddButton</action-widget>
-    </action-widgets>
-  </object>
   <object class="GtkTextBuffer" id="layoutTestBuffer"/>
   <object class="AnacondaSpokeWindow" id="keyboardWindow">
     <property name="can_focus">False</property>
     <property name="window_name" translatable="yes">KEYBOARD LAYOUT</property>
-    <child internal-child="accessible">
-      <object class="AtkObject" id="keyboardWindow-atkobject">
-        <property name="AtkObject::accessible-name" translatable="yes">KEYBOARD LAYOUT</property>
-      </object>
-    </child>
     <signal name="button-clicked" handler="on_back_clicked" swapped="no"/>
     <child internal-child="main_box">
       <object class="GtkBox" id="AnacondaSpokeWindow-main_box1">
@@ -346,11 +143,6 @@
                                 <property name="model">addedLayoutStore</property>
                                 <property name="headers_visible">False</property>
                                 <property name="search_column">0</property>
-                                <child internal-child="accessible">
-                                  <object class="AtkObject" id="layoutView-atkobject">
-                                    <property name="AtkObject::accessible-name" translatable="yes">Selected Layouts</property>
-                                  </object>
-                                </child>
                                 <child internal-child="selection">
                                   <object class="GtkTreeSelection" id="layoutSelection">
                                     <signal name="changed" handler="on_selection_changed" swapped="no"/>
@@ -368,6 +160,11 @@
                                         <attribute name="text">0</attribute>
                                       </attributes>
                                     </child>
+                                  </object>
+                                </child>
+                                <child internal-child="accessible">
+                                  <object class="AtkObject" id="layoutView-atkobject">
+                                    <property name="AtkObject::accessible-name" translatable="yes">Selected Layouts</property>
                                   </object>
                                 </child>
                               </object>
@@ -587,6 +384,209 @@
         </child>
       </object>
     </child>
+    <child internal-child="accessible">
+      <object class="AtkObject" id="keyboardWindow-atkobject">
+        <property name="AtkObject::accessible-name" translatable="yes">KEYBOARD LAYOUT</property>
+      </object>
+    </child>
+  </object>
+  <object class="GtkListStore" id="newLayoutStore">
+    <columns>
+      <!-- column-name name -->
+      <column type="gchararray"/>
+    </columns>
+  </object>
+  <object class="GtkTreeModelFilter" id="newLayoutStoreFilter">
+    <property name="child_model">newLayoutStore</property>
+  </object>
+  <object class="GtkTreeModelSort" id="newLayoutStoreSort">
+    <property name="model">newLayoutStoreFilter</property>
+  </object>
+  <object class="GtkDialog" id="addLayoutDialog">
+    <property name="can_focus">False</property>
+    <property name="border_width">6</property>
+    <property name="default_height">450</property>
+    <property name="type_hint">dialog</property>
+    <property name="decorated">False</property>
+    <child internal-child="vbox">
+      <object class="GtkBox" id="dialog-vbox1">
+        <property name="can_focus">False</property>
+        <property name="orientation">vertical</property>
+        <property name="spacing">2</property>
+        <child internal-child="action_area">
+          <object class="GtkButtonBox" id="addLayoutDialog-actionArea">
+            <property name="can_focus">False</property>
+            <property name="layout_style">end</property>
+            <child>
+              <object class="GtkButton" id="cancelButton">
+                <property name="label" translatable="yes" context="GUI|Keyboard Layout|Add Layout">_Cancel</property>
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="receives_default">True</property>
+                <property name="use_underline">True</property>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">True</property>
+                <property name="position">0</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkButton" id="confirmAddButton">
+                <property name="label" translatable="yes" context="GUI|Keyboard Layout|Add Layout">_Add</property>
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="receives_default">True</property>
+                <property name="use_underline">True</property>
+                <signal name="clicked" handler="on_confirm_add_clicked" swapped="no"/>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">True</property>
+                <property name="position">1</property>
+              </packing>
+            </child>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+            <property name="pack_type">end</property>
+            <property name="position">0</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkBox" id="box3">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="orientation">vertical</property>
+            <property name="spacing">6</property>
+            <child>
+              <object class="GtkLabel" id="label1">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="halign">start</property>
+                <property name="label" translatable="yes">ADD A KEYBOARD LAYOUT</property>
+                <attributes>
+                  <attribute name="font-desc" value="Cantarell Bold 10"/>
+                  <attribute name="weight" value="bold"/>
+                </attributes>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">True</property>
+                <property name="position">0</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkLabel" id="label3">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="xalign">0</property>
+                <property name="label" translatable="yes">You may add a keyboard layout by selecting it below:</property>
+                <attributes>
+                  <attribute name="font-desc" value="Cantarell 12"/>
+                </attributes>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">True</property>
+                <property name="position">1</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkScrolledWindow" id="layoutWindow">
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="vexpand">True</property>
+                <property name="hscrollbar_policy">never</property>
+                <property name="shadow_type">in</property>
+                <child>
+                  <object class="GtkTreeView" id="newLayoutView">
+                    <property name="visible">True</property>
+                    <property name="can_focus">True</property>
+                    <property name="events">GDK_BUTTON_PRESS_MASK | GDK_STRUCTURE_MASK</property>
+                    <property name="model">newLayoutStoreSort</property>
+                    <property name="headers_visible">False</property>
+                    <property name="headers_clickable">False</property>
+                    <property name="enable_search">False</property>
+                    <signal name="button-press-event" handler="on_layout_view_button_press" swapped="no"/>
+                    <child internal-child="selection">
+                      <object class="GtkTreeSelection" id="newLayoutSelection">
+                        <property name="mode">multiple</property>
+                        <signal name="changed" handler="on_add_layout_selection_changed" swapped="no"/>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkTreeViewColumn" id="newLayoutColumn">
+                        <property name="title" translatable="yes">Name</property>
+                        <property name="expand">True</property>
+                        <property name="sort_column_id">0</property>
+                        <child>
+                          <object class="GtkCellRendererText" id="newLayoutRenderer"/>
+                          <attributes>
+                            <attribute name="text">0</attribute>
+                          </attributes>
+                        </child>
+                      </object>
+                    </child>
+                    <child internal-child="accessible">
+                      <object class="AtkObject" id="newLayoutView-atkobject">
+                        <property name="AtkObject::accessible-name" translatable="yes">Available Layouts</property>
+                      </object>
+                    </child>
+                  </object>
+                </child>
+              </object>
+              <packing>
+                <property name="expand">True</property>
+                <property name="fill">True</property>
+                <property name="position">2</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkEntry" id="addLayoutEntry">
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="invisible_char">●</property>
+                <property name="secondary_icon_name">edit-clear-symbolic</property>
+                <signal name="changed" handler="on_entry_changed" swapped="no"/>
+                <signal name="icon-press" handler="on_entry_icon_clicked" swapped="no"/>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">False</property>
+                <property name="position">3</property>
+              </packing>
+            </child>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+            <property name="position">1</property>
+          </packing>
+        </child>
+      </object>
+    </child>
+    <action-widgets>
+      <action-widget response="0">cancelButton</action-widget>
+      <action-widget response="1">confirmAddButton</action-widget>
+    </action-widgets>
+    <child internal-child="accessible">
+      <object class="AtkObject" id="addLayoutDialog-atkobject">
+        <property name="AtkObject::accessible-name" translatable="yes">Add Layout</property>
+      </object>
+    </child>
+  </object>
+  <object class="GtkListStore" id="switchingOptsStore">
+    <columns>
+      <!-- column-name description -->
+      <column type="gchararray"/>
+      <!-- column-name use -->
+      <column type="gboolean"/>
+    </columns>
+  </object>
+  <object class="GtkTreeModelSort" id="switchingOptsSort">
+    <property name="model">switchingOptsStore</property>
   </object>
   <object class="GtkDialog" id="switchingDialog">
     <property name="can_focus">False</property>
@@ -594,11 +594,6 @@
     <property name="default_height">450</property>
     <property name="type_hint">dialog</property>
     <property name="decorated">False</property>
-    <child internal-child="accessible">
-      <object class="AtkObject" id="switchingDialog-atkobject">
-        <property name="AtkObject::accessible-name" translatable="yes">Layout Options</property>
-      </object>
-    </child>
     <child internal-child="vbox">
       <object class="GtkBox" id="dialog-vbox2">
         <property name="can_focus">False</property>
@@ -754,5 +749,10 @@
       <action-widget response="0">button2</action-widget>
       <action-widget response="1">button1</action-widget>
     </action-widgets>
+    <child internal-child="accessible">
+      <object class="AtkObject" id="switchingDialog-atkobject">
+        <property name="AtkObject::accessible-name" translatable="yes">Layout Options</property>
+      </object>
+    </child>
   </object>
 </interface>

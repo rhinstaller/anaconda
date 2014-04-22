@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Generated with glade 3.16.0 on Thu Mar  6 10:59:34 2014 -->
+<!-- Generated with glade 3.18.1 -->
 <interface>
-  <!-- interface-requires gtk+ 3.6 -->
-  <!-- interface-requires AnacondaWidgets 1.0 -->
+  <requires lib="gtk+" version="3.6"/>
+  <requires lib="AnacondaWidgets" version="1.0"/>
   <object class="GtkDialog" id="need_space_dialog">
     <property name="width_request">600</property>
     <property name="height_request">400</property>
@@ -13,11 +13,6 @@
     <property name="destroy_with_parent">True</property>
     <property name="type_hint">dialog</property>
     <property name="decorated">False</property>
-    <child internal-child="accessible">
-      <object class="AtkObject" id="need_space_dialog-atkobject">
-        <property name="AtkObject::accessible-name" translatable="yes">Need Space</property>
-      </object>
-    </child>
     <child internal-child="vbox">
       <object class="GtkBox" id="dialog-vbox5">
         <property name="can_focus">False</property>
@@ -132,8 +127,6 @@
                   <packing>
                     <property name="left_attach">0</property>
                     <property name="top_attach">0</property>
-                    <property name="width">1</property>
-                    <property name="height">1</property>
                   </packing>
                 </child>
                 <child>
@@ -150,8 +143,6 @@
                   <packing>
                     <property name="left_attach">1</property>
                     <property name="top_attach">0</property>
-                    <property name="width">1</property>
-                    <property name="height">1</property>
                   </packing>
                 </child>
                 <child>
@@ -168,8 +159,6 @@
                   <packing>
                     <property name="left_attach">0</property>
                     <property name="top_attach">1</property>
-                    <property name="width">1</property>
-                    <property name="height">1</property>
                   </packing>
                 </child>
                 <child>
@@ -186,8 +175,6 @@
                   <packing>
                     <property name="left_attach">1</property>
                     <property name="top_attach">1</property>
-                    <property name="width">1</property>
-                    <property name="height">1</property>
                   </packing>
                 </child>
               </object>
@@ -227,6 +214,11 @@
       <action-widget response="0">need_space_cancel_button</action-widget>
       <action-widget response="3">need_space_reclaim_button</action-widget>
     </action-widgets>
+    <child internal-child="accessible">
+      <object class="AtkObject" id="need_space_dialog-atkobject">
+        <property name="AtkObject::accessible-name" translatable="yes">Need Space</property>
+      </object>
+    </child>
   </object>
   <object class="GtkDialog" id="no_space_dialog">
     <property name="width_request">400</property>
@@ -238,11 +230,6 @@
     <property name="destroy_with_parent">True</property>
     <property name="type_hint">dialog</property>
     <property name="decorated">False</property>
-    <child internal-child="accessible">
-      <object class="AtkObject" id="no_space_dialog-atkobject">
-        <property name="AtkObject::accessible-name" translatable="yes">No Space</property>
-      </object>
-    </child>
     <child internal-child="vbox">
       <object class="GtkBox" id="dialog-vbox7">
         <property name="can_focus">False</property>
@@ -355,8 +342,6 @@
                   <packing>
                     <property name="left_attach">0</property>
                     <property name="top_attach">0</property>
-                    <property name="width">1</property>
-                    <property name="height">1</property>
                   </packing>
                 </child>
                 <child>
@@ -373,8 +358,6 @@
                   <packing>
                     <property name="left_attach">1</property>
                     <property name="top_attach">0</property>
-                    <property name="width">1</property>
-                    <property name="height">1</property>
                   </packing>
                 </child>
                 <child>
@@ -391,8 +374,6 @@
                   <packing>
                     <property name="left_attach">0</property>
                     <property name="top_attach">1</property>
-                    <property name="width">1</property>
-                    <property name="height">1</property>
                   </packing>
                 </child>
                 <child>
@@ -409,8 +390,6 @@
                   <packing>
                     <property name="left_attach">1</property>
                     <property name="top_attach">1</property>
-                    <property name="width">1</property>
-                    <property name="height">1</property>
                   </packing>
                 </child>
               </object>
@@ -450,6 +429,11 @@
       <action-widget response="4">no_space_quit_button</action-widget>
       <action-widget response="0">no_space_cancel_button</action-widget>
     </action-widgets>
+    <child internal-child="accessible">
+      <object class="AtkObject" id="no_space_dialog-atkobject">
+        <property name="AtkObject::accessible-name" translatable="yes">No Space</property>
+      </object>
+    </child>
   </object>
   <object class="GtkListStore" id="specialized_disk_store">
     <columns>
@@ -460,11 +444,6 @@
   <object class="AnacondaSpokeWindow" id="storageWindow">
     <property name="can_focus">False</property>
     <property name="window_name" translatable="yes">INSTALLATION DESTINATION</property>
-    <child internal-child="accessible">
-      <object class="AtkObject" id="storageWindow-atkobject">
-        <property name="AtkObject::accessible-name" translatable="yes">INSTALLATION DESTINATION</property>
-      </object>
-    </child>
     <signal name="button-clicked" handler="on_back_clicked" swapped="no"/>
     <signal name="info-bar-clicked" handler="on_info_bar_clicked" swapped="no"/>
     <child internal-child="main_box">
@@ -686,11 +665,6 @@
                                             <property name="use_underline">True</property>
                                             <property name="image_position">top</property>
                                             <property name="always_show_image">True</property>
-                                            <child internal-child="accessible">
-                                              <object class="AtkObject" id="addSpecializedButton-atkobject">
-                                                <property name="AtkObject::accessible-name" translatable="yes">Add Specialized Disk</property>
-                                              </object>
-                                            </child>
                                             <signal name="clicked" handler="on_specialized_clicked" swapped="no"/>
                                             <child>
                                               <object class="GtkBox" id="box7">
@@ -726,6 +700,11 @@
                                                     <property name="position">1</property>
                                                   </packing>
                                                 </child>
+                                              </object>
+                                            </child>
+                                            <child internal-child="accessible">
+                                              <object class="AtkObject" id="addSpecializedButton-atkobject">
+                                                <property name="AtkObject::accessible-name" translatable="yes">Add Specialized Disk</property>
                                               </object>
                                             </child>
                                           </object>
@@ -789,11 +768,6 @@
                                 <property name="margin_right">18</property>
                                 <property name="vexpand">False</property>
                                 <property name="column_spacing">6</property>
-                                <child internal-child="accessible">
-                                  <object class="AtkObject" id="other_options_grid-atkobject">
-                                    <property name="AtkObject::accessible-name" translatable="yes">Storage Options</property>
-                                  </object>
-                                </child>
                                 <child>
                                   <object class="GtkLabel" id="label10">
                                     <property name="visible">True</property>
@@ -808,7 +782,6 @@
                                     <property name="left_attach">0</property>
                                     <property name="top_attach">0</property>
                                     <property name="width">2</property>
-                                    <property name="height">1</property>
                                   </packing>
                                 </child>
                                 <child>
@@ -826,7 +799,6 @@
                                     <property name="left_attach">0</property>
                                     <property name="top_attach">3</property>
                                     <property name="width">2</property>
-                                    <property name="height">1</property>
                                   </packing>
                                 </child>
                                 <child>
@@ -843,8 +815,6 @@
                                   <packing>
                                     <property name="left_attach">0</property>
                                     <property name="top_attach">1</property>
-                                    <property name="width">1</property>
-                                    <property name="height">1</property>
                                   </packing>
                                 </child>
                                 <child>
@@ -862,8 +832,6 @@
                                   <packing>
                                     <property name="left_attach">1</property>
                                     <property name="top_attach">1</property>
-                                    <property name="width">1</property>
-                                    <property name="height">1</property>
                                   </packing>
                                 </child>
                                 <child>
@@ -915,7 +883,6 @@
                                     <property name="left_attach">0</property>
                                     <property name="top_attach">4</property>
                                     <property name="width">2</property>
-                                    <property name="height">1</property>
                                   </packing>
                                 </child>
                                 <child>
@@ -933,8 +900,12 @@
                                     <property name="left_attach">0</property>
                                     <property name="top_attach">2</property>
                                     <property name="width">2</property>
-                                    <property name="height">1</property>
                                   </packing>
+                                </child>
+                                <child internal-child="accessible">
+                                  <object class="AtkObject" id="other_options_grid-atkobject">
+                                    <property name="AtkObject::accessible-name" translatable="yes">Storage Options</property>
+                                  </object>
                                 </child>
                               </object>
                               <packing>
@@ -988,8 +959,6 @@
                       <packing>
                         <property name="left_attach">0</property>
                         <property name="top_attach">0</property>
-                        <property name="width">1</property>
-                        <property name="height">1</property>
                       </packing>
                     </child>
                     <child>
@@ -1007,8 +976,6 @@
                       <packing>
                         <property name="left_attach">1</property>
                         <property name="top_attach">0</property>
-                        <property name="width">1</property>
-                        <property name="height">1</property>
                       </packing>
                     </child>
                   </object>
@@ -1027,6 +994,11 @@
             <property name="position">1</property>
           </packing>
         </child>
+      </object>
+    </child>
+    <child internal-child="accessible">
+      <object class="AtkObject" id="storageWindow-atkobject">
+        <property name="AtkObject::accessible-name" translatable="yes">INSTALLATION DESTINATION</property>
       </object>
     </child>
   </object>

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!-- Generated with glade 3.18.1 -->
 <interface>
-  <!-- interface-requires gtk+ 3.6 -->
+  <requires lib="gtk+" version="3.6"/>
   <object class="GtkDialog" id="unformattedDasdDialog">
     <property name="can_focus">False</property>
     <property name="border_width">5</property>
@@ -34,8 +35,6 @@
               <packing>
                 <property name="left_attach">0</property>
                 <property name="top_attach">1</property>
-                <property name="width">1</property>
-                <property name="height">1</property>
               </packing>
             </child>
             <child>
@@ -52,8 +51,6 @@
               <packing>
                 <property name="left_attach">0</property>
                 <property name="top_attach">0</property>
-                <property name="width">1</property>
-                <property name="height">1</property>
               </packing>
             </child>
           </object>
@@ -149,8 +146,6 @@
                   <packing>
                     <property name="left_attach">0</property>
                     <property name="top_attach">0</property>
-                    <property name="width">1</property>
-                    <property name="height">1</property>
                   </packing>
                 </child>
                 <child>
@@ -162,8 +157,6 @@
                   <packing>
                     <property name="left_attach">1</property>
                     <property name="top_attach">0</property>
-                    <property name="width">1</property>
-                    <property name="height">1</property>
                   </packing>
                 </child>
                 <child>
@@ -181,7 +174,6 @@ installation options while formatting completes.</property>
                     <property name="left_attach">0</property>
                     <property name="top_attach">1</property>
                     <property name="width">2</property>
-                    <property name="height">1</property>
                   </packing>
                 </child>
               </object>
@@ -219,8 +211,6 @@ installation options while formatting completes.</property>
                   <packing>
                     <property name="left_attach">1</property>
                     <property name="top_attach">0</property>
-                    <property name="width">1</property>
-                    <property name="height">1</property>
                   </packing>
                 </child>
                 <child>
@@ -234,8 +224,6 @@ installation options while formatting completes.</property>
                   <packing>
                     <property name="left_attach">1</property>
                     <property name="top_attach">1</property>
-                    <property name="width">1</property>
-                    <property name="height">1</property>
                   </packing>
                 </child>
                 <child>
@@ -247,7 +235,6 @@ installation options while formatting completes.</property>
                   <packing>
                     <property name="left_attach">0</property>
                     <property name="top_attach">0</property>
-                    <property name="width">1</property>
                     <property name="height">2</property>
                   </packing>
                 </child>

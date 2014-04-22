@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Generated with glade 3.16.1 -->
+<!-- Generated with glade 3.18.1 -->
 <interface>
   <requires lib="gtk+" version="3.0"/>
-  <!-- interface-requires AnacondaWidgets 1.0 -->
+  <requires lib="AnacondaWidgets" version="1.0"/>
   <object class="GtkListStore" id="liststore_add_device">
     <columns>
       <!-- column-name label -->
@@ -156,88 +156,9 @@
       <column type="guint"/>
     </columns>
   </object>
-  <object class="AnacondaStandaloneWindow" id="networkStandaloneWindow">
-    <property name="can_focus">False</property>
-    <property name="window_name" translatable="yes">NETWORK CONFIGURATION</property>
-    <child internal-child="main_box">
-      <object class="GtkBox" id="AnacondaStandaloneWindow-main_box5">
-        <property name="can_focus">False</property>
-        <property name="orientation">vertical</property>
-        <property name="spacing">6</property>
-        <child internal-child="nav_box">
-          <object class="GtkEventBox" id="AnacondaStandaloneWindow-nav_box5">
-            <property name="can_focus">False</property>
-            <child internal-child="nav_area">
-              <object class="GtkGrid" id="AnacondaStandaloneWindow-nav_area5">
-                <property name="can_focus">False</property>
-                <property name="margin_left">6</property>
-                <property name="margin_right">6</property>
-                <property name="margin_top">6</property>
-                <child>
-                  <placeholder/>
-                </child>
-                <child>
-                  <placeholder/>
-                </child>
-              </object>
-            </child>
-          </object>
-          <packing>
-            <property name="expand">False</property>
-            <property name="fill">False</property>
-            <property name="position">0</property>
-          </packing>
-        </child>
-        <child internal-child="alignment">
-          <object class="GtkAlignment" id="AnacondaStandaloneWindow-alignment5">
-            <property name="can_focus">False</property>
-            <property name="yalign">0</property>
-            <property name="xscale">0</property>
-            <property name="yscale">0.5</property>
-            <child internal-child="action_area">
-              <object class="GtkBox" id="AnacondaStandaloneWindow-action_area5">
-                <property name="can_focus">False</property>
-                <property name="orientation">vertical</property>
-                <property name="spacing">6</property>
-                <child>
-                  <object class="GtkLabel" id="networkNeedLabel1">
-                    <property name="visible">True</property>
-                    <property name="can_focus">False</property>
-                    <property name="label" translatable="yes">We'll need network access to fetch information about your location and to make software
-updates available for you.</property>
-                    <attributes>
-                      <attribute name="font-desc" value="Cantarell 12"/>
-                    </attributes>
-                  </object>
-                  <packing>
-                    <property name="expand">False</property>
-                    <property name="fill">True</property>
-                    <property name="position">0</property>
-                  </packing>
-                </child>
-                <child>
-                  <placeholder/>
-                </child>
-              </object>
-            </child>
-          </object>
-          <packing>
-            <property name="expand">True</property>
-            <property name="fill">True</property>
-            <property name="position">1</property>
-          </packing>
-        </child>
-      </object>
-    </child>
-  </object>
   <object class="AnacondaSpokeWindow" id="networkWindow">
     <property name="can_focus">False</property>
     <property name="window_name" translatable="yes">NETWORK &amp; HOSTNAME</property>
-    <child internal-child="accessible">
-      <object class="AtkObject" id="networkWindow-atkobject">
-        <property name="AtkObject::accessible-name" translatable="yes">NETWORK &amp; HOSTNAME</property>
-      </object>
-    </child>
     <signal name="button-clicked" handler="on_back_clicked" swapped="no"/>
     <child internal-child="main_box">
       <object class="GtkBox" id="AnacondaSpokeWindow-main_box1">
@@ -297,11 +218,6 @@ updates available for you.</property>
                         <property name="can_focus">False</property>
                         <property name="orientation">vertical</property>
                         <property name="spacing">3</property>
-                        <child internal-child="accessible">
-                          <object class="AtkObject" id="network_config_vbox-atkobject">
-                            <property name="AtkObject::accessible-name" translatable="yes">Network Config Box</property>
-                          </object>
-                        </child>
                         <child>
                           <object class="GtkBox" id="hbox2">
                             <property name="visible">True</property>
@@ -423,8 +339,6 @@ updates available for you.</property>
                                           <packing>
                                             <property name="left_attach">0</property>
                                             <property name="top_attach">0</property>
-                                            <property name="width">1</property>
-                                            <property name="height">1</property>
                                           </packing>
                                         </child>
                                         <child>
@@ -470,8 +384,6 @@ updates available for you.</property>
                                           <packing>
                                             <property name="left_attach">1</property>
                                             <property name="top_attach">0</property>
-                                            <property name="width">1</property>
-                                            <property name="height">1</property>
                                           </packing>
                                         </child>
                                         <child>
@@ -492,8 +404,6 @@ updates available for you.</property>
                                           <packing>
                                             <property name="left_attach">2</property>
                                             <property name="top_attach">0</property>
-                                            <property name="width">1</property>
-                                            <property name="height">1</property>
                                           </packing>
                                         </child>
                                         <child>
@@ -506,8 +416,6 @@ updates available for you.</property>
                                           <packing>
                                             <property name="left_attach">0</property>
                                             <property name="top_attach">1</property>
-                                            <property name="width">1</property>
-                                            <property name="height">1</property>
                                           </packing>
                                         </child>
                                         <child>
@@ -519,8 +427,6 @@ updates available for you.</property>
                                           <packing>
                                             <property name="left_attach">1</property>
                                             <property name="top_attach">1</property>
-                                            <property name="width">1</property>
-                                            <property name="height">1</property>
                                           </packing>
                                         </child>
                                         <child>
@@ -534,8 +440,6 @@ updates available for you.</property>
                                           <packing>
                                             <property name="left_attach">0</property>
                                             <property name="top_attach">10</property>
-                                            <property name="width">1</property>
-                                            <property name="height">1</property>
                                           </packing>
                                         </child>
                                         <child>
@@ -550,8 +454,6 @@ updates available for you.</property>
                                           <packing>
                                             <property name="left_attach">1</property>
                                             <property name="top_attach">10</property>
-                                            <property name="width">1</property>
-                                            <property name="height">1</property>
                                           </packing>
                                         </child>
                                         <child>
@@ -564,8 +466,6 @@ updates available for you.</property>
                                           <packing>
                                             <property name="left_attach">0</property>
                                             <property name="top_attach">9</property>
-                                            <property name="width">1</property>
-                                            <property name="height">1</property>
                                           </packing>
                                         </child>
                                         <child>
@@ -578,8 +478,6 @@ updates available for you.</property>
                                           <packing>
                                             <property name="left_attach">1</property>
                                             <property name="top_attach">9</property>
-                                            <property name="width">1</property>
-                                            <property name="height">1</property>
                                           </packing>
                                         </child>
                                         <child>
@@ -592,8 +490,6 @@ updates available for you.</property>
                                           <packing>
                                             <property name="left_attach">0</property>
                                             <property name="top_attach">8</property>
-                                            <property name="width">1</property>
-                                            <property name="height">1</property>
                                           </packing>
                                         </child>
                                         <child>
@@ -606,8 +502,6 @@ updates available for you.</property>
                                           <packing>
                                             <property name="left_attach">1</property>
                                             <property name="top_attach">8</property>
-                                            <property name="width">1</property>
-                                            <property name="height">1</property>
                                           </packing>
                                         </child>
                                         <child>
@@ -620,8 +514,6 @@ updates available for you.</property>
                                           <packing>
                                             <property name="left_attach">0</property>
                                             <property name="top_attach">7</property>
-                                            <property name="width">1</property>
-                                            <property name="height">1</property>
                                           </packing>
                                         </child>
                                         <child>
@@ -634,8 +526,6 @@ updates available for you.</property>
                                           <packing>
                                             <property name="left_attach">1</property>
                                             <property name="top_attach">7</property>
-                                            <property name="width">1</property>
-                                            <property name="height">1</property>
                                           </packing>
                                         </child>
                                         <child>
@@ -648,8 +538,6 @@ updates available for you.</property>
                                           <packing>
                                             <property name="left_attach">0</property>
                                             <property name="top_attach">6</property>
-                                            <property name="width">1</property>
-                                            <property name="height">1</property>
                                           </packing>
                                         </child>
                                         <child>
@@ -662,8 +550,6 @@ updates available for you.</property>
                                           <packing>
                                             <property name="left_attach">1</property>
                                             <property name="top_attach">6</property>
-                                            <property name="width">1</property>
-                                            <property name="height">1</property>
                                           </packing>
                                         </child>
                                         <child>
@@ -676,8 +562,6 @@ updates available for you.</property>
                                           <packing>
                                             <property name="left_attach">0</property>
                                             <property name="top_attach">5</property>
-                                            <property name="width">1</property>
-                                            <property name="height">1</property>
                                           </packing>
                                         </child>
                                         <child>
@@ -690,8 +574,6 @@ updates available for you.</property>
                                           <packing>
                                             <property name="left_attach">1</property>
                                             <property name="top_attach">5</property>
-                                            <property name="width">1</property>
-                                            <property name="height">1</property>
                                           </packing>
                                         </child>
                                         <child>
@@ -704,8 +586,6 @@ updates available for you.</property>
                                           <packing>
                                             <property name="left_attach">0</property>
                                             <property name="top_attach">4</property>
-                                            <property name="width">1</property>
-                                            <property name="height">1</property>
                                           </packing>
                                         </child>
                                         <child>
@@ -718,8 +598,6 @@ updates available for you.</property>
                                           <packing>
                                             <property name="left_attach">1</property>
                                             <property name="top_attach">4</property>
-                                            <property name="width">1</property>
-                                            <property name="height">1</property>
                                           </packing>
                                         </child>
                                         <child>
@@ -732,8 +610,6 @@ updates available for you.</property>
                                           <packing>
                                             <property name="left_attach">0</property>
                                             <property name="top_attach">2</property>
-                                            <property name="width">1</property>
-                                            <property name="height">1</property>
                                           </packing>
                                         </child>
                                         <child>
@@ -746,8 +622,6 @@ updates available for you.</property>
                                           <packing>
                                             <property name="left_attach">0</property>
                                             <property name="top_attach">3</property>
-                                            <property name="width">1</property>
-                                            <property name="height">1</property>
                                           </packing>
                                         </child>
                                         <child>
@@ -759,8 +633,6 @@ updates available for you.</property>
                                           <packing>
                                             <property name="left_attach">1</property>
                                             <property name="top_attach">2</property>
-                                            <property name="width">1</property>
-                                            <property name="height">1</property>
                                           </packing>
                                         </child>
                                         <child>
@@ -772,8 +644,6 @@ updates available for you.</property>
                                           <packing>
                                             <property name="left_attach">1</property>
                                             <property name="top_attach">3</property>
-                                            <property name="width">1</property>
-                                            <property name="height">1</property>
                                           </packing>
                                         </child>
                                         <child>
@@ -836,8 +706,6 @@ updates available for you.</property>
                                           <packing>
                                             <property name="left_attach">1</property>
                                             <property name="top_attach">0</property>
-                                            <property name="width">1</property>
-                                            <property name="height">1</property>
                                           </packing>
                                         </child>
                                         <child>
@@ -890,8 +758,6 @@ updates available for you.</property>
                                           <packing>
                                             <property name="left_attach">0</property>
                                             <property name="top_attach">0</property>
-                                            <property name="width">1</property>
-                                            <property name="height">1</property>
                                           </packing>
                                         </child>
                                         <child>
@@ -937,8 +803,6 @@ updates available for you.</property>
                                           <packing>
                                             <property name="left_attach">1</property>
                                             <property name="top_attach">0</property>
-                                            <property name="width">1</property>
-                                            <property name="height">1</property>
                                           </packing>
                                         </child>
                                         <child>
@@ -951,8 +815,6 @@ updates available for you.</property>
                                           <packing>
                                             <property name="left_attach">0</property>
                                             <property name="top_attach">1</property>
-                                            <property name="width">1</property>
-                                            <property name="height">1</property>
                                           </packing>
                                         </child>
                                         <child>
@@ -965,8 +827,6 @@ updates available for you.</property>
                                           <packing>
                                             <property name="left_attach">0</property>
                                             <property name="top_attach">2</property>
-                                            <property name="width">1</property>
-                                            <property name="height">1</property>
                                           </packing>
                                         </child>
                                         <child>
@@ -979,8 +839,6 @@ updates available for you.</property>
                                           <packing>
                                             <property name="left_attach">0</property>
                                             <property name="top_attach">5</property>
-                                            <property name="width">1</property>
-                                            <property name="height">1</property>
                                           </packing>
                                         </child>
                                         <child>
@@ -993,8 +851,6 @@ updates available for you.</property>
                                           <packing>
                                             <property name="left_attach">0</property>
                                             <property name="top_attach">6</property>
-                                            <property name="width">1</property>
-                                            <property name="height">1</property>
                                           </packing>
                                         </child>
                                         <child>
@@ -1007,8 +863,6 @@ updates available for you.</property>
                                           <packing>
                                             <property name="left_attach">0</property>
                                             <property name="top_attach">7</property>
-                                            <property name="width">1</property>
-                                            <property name="height">1</property>
                                           </packing>
                                         </child>
                                         <child>
@@ -1022,8 +876,6 @@ updates available for you.</property>
                                           <packing>
                                             <property name="left_attach">0</property>
                                             <property name="top_attach">8</property>
-                                            <property name="width">1</property>
-                                            <property name="height">1</property>
                                           </packing>
                                         </child>
                                         <child>
@@ -1037,7 +889,6 @@ updates available for you.</property>
                                             <property name="left_attach">1</property>
                                             <property name="top_attach">1</property>
                                             <property name="width">2</property>
-                                            <property name="height">1</property>
                                           </packing>
                                         </child>
                                         <child>
@@ -1051,7 +902,6 @@ updates available for you.</property>
                                             <property name="left_attach">1</property>
                                             <property name="top_attach">2</property>
                                             <property name="width">2</property>
-                                            <property name="height">1</property>
                                           </packing>
                                         </child>
                                         <child>
@@ -1065,7 +915,6 @@ updates available for you.</property>
                                             <property name="left_attach">1</property>
                                             <property name="top_attach">5</property>
                                             <property name="width">2</property>
-                                            <property name="height">1</property>
                                           </packing>
                                         </child>
                                         <child>
@@ -1079,7 +928,6 @@ updates available for you.</property>
                                             <property name="left_attach">1</property>
                                             <property name="top_attach">6</property>
                                             <property name="width">2</property>
-                                            <property name="height">1</property>
                                           </packing>
                                         </child>
                                         <child>
@@ -1093,7 +941,6 @@ updates available for you.</property>
                                             <property name="left_attach">1</property>
                                             <property name="top_attach">7</property>
                                             <property name="width">2</property>
-                                            <property name="height">1</property>
                                           </packing>
                                         </child>
                                         <child>
@@ -1109,7 +956,6 @@ updates available for you.</property>
                                             <property name="left_attach">1</property>
                                             <property name="top_attach">8</property>
                                             <property name="width">2</property>
-                                            <property name="height">1</property>
                                           </packing>
                                         </child>
                                         <child>
@@ -1130,8 +976,6 @@ updates available for you.</property>
                                           <packing>
                                             <property name="left_attach">2</property>
                                             <property name="top_attach">0</property>
-                                            <property name="width">1</property>
-                                            <property name="height">1</property>
                                           </packing>
                                         </child>
                                         <child>
@@ -1144,8 +988,6 @@ updates available for you.</property>
                                           <packing>
                                             <property name="left_attach">0</property>
                                             <property name="top_attach">3</property>
-                                            <property name="width">1</property>
-                                            <property name="height">1</property>
                                           </packing>
                                         </child>
                                         <child>
@@ -1160,8 +1002,6 @@ updates available for you.</property>
                                           <packing>
                                             <property name="left_attach">0</property>
                                             <property name="top_attach">4</property>
-                                            <property name="width">1</property>
-                                            <property name="height">1</property>
                                           </packing>
                                         </child>
                                         <child>
@@ -1174,8 +1014,6 @@ updates available for you.</property>
                                           <packing>
                                             <property name="left_attach">0</property>
                                             <property name="top_attach">9</property>
-                                            <property name="width">1</property>
-                                            <property name="height">1</property>
                                           </packing>
                                         </child>
                                         <child>
@@ -1188,8 +1026,6 @@ updates available for you.</property>
                                           <packing>
                                             <property name="left_attach">0</property>
                                             <property name="top_attach">10</property>
-                                            <property name="width">1</property>
-                                            <property name="height">1</property>
                                           </packing>
                                         </child>
                                         <child>
@@ -1203,7 +1039,6 @@ updates available for you.</property>
                                             <property name="left_attach">1</property>
                                             <property name="top_attach">3</property>
                                             <property name="width">2</property>
-                                            <property name="height">1</property>
                                           </packing>
                                         </child>
                                         <child>
@@ -1224,7 +1059,6 @@ updates available for you.</property>
                                             <property name="left_attach">1</property>
                                             <property name="top_attach">4</property>
                                             <property name="width">2</property>
-                                            <property name="height">1</property>
                                           </packing>
                                         </child>
                                         <child>
@@ -1239,7 +1073,6 @@ updates available for you.</property>
                                             <property name="left_attach">1</property>
                                             <property name="top_attach">9</property>
                                             <property name="width">2</property>
-                                            <property name="height">1</property>
                                           </packing>
                                         </child>
                                         <child>
@@ -1254,7 +1087,6 @@ updates available for you.</property>
                                             <property name="left_attach">1</property>
                                             <property name="top_attach">10</property>
                                             <property name="width">2</property>
-                                            <property name="height">1</property>
                                           </packing>
                                         </child>
                                       </object>
@@ -1286,8 +1118,6 @@ updates available for you.</property>
                                           <packing>
                                             <property name="left_attach">0</property>
                                             <property name="top_attach">0</property>
-                                            <property name="width">1</property>
-                                            <property name="height">1</property>
                                           </packing>
                                         </child>
                                         <child>
@@ -1305,8 +1135,6 @@ updates available for you.</property>
                                           <packing>
                                             <property name="left_attach">1</property>
                                             <property name="top_attach">0</property>
-                                            <property name="width">1</property>
-                                            <property name="height">1</property>
                                           </packing>
                                         </child>
                                         <child>
@@ -1324,8 +1152,6 @@ updates available for you.</property>
                                           <packing>
                                             <property name="left_attach">2</property>
                                             <property name="top_attach">0</property>
-                                            <property name="width">1</property>
-                                            <property name="height">1</property>
                                           </packing>
                                         </child>
                                       </object>
@@ -1380,8 +1206,6 @@ updates available for you.</property>
                                           <packing>
                                             <property name="left_attach">0</property>
                                             <property name="top_attach">0</property>
-                                            <property name="width">1</property>
-                                            <property name="height">1</property>
                                           </packing>
                                         </child>
                                         <child>
@@ -1427,8 +1251,6 @@ updates available for you.</property>
                                           <packing>
                                             <property name="left_attach">1</property>
                                             <property name="top_attach">0</property>
-                                            <property name="width">1</property>
-                                            <property name="height">1</property>
                                           </packing>
                                         </child>
                                         <child>
@@ -1441,8 +1263,6 @@ updates available for you.</property>
                                           <packing>
                                             <property name="left_attach">0</property>
                                             <property name="top_attach">1</property>
-                                            <property name="width">1</property>
-                                            <property name="height">1</property>
                                           </packing>
                                         </child>
                                         <child>
@@ -1455,8 +1275,6 @@ updates available for you.</property>
                                           <packing>
                                             <property name="left_attach">0</property>
                                             <property name="top_attach">2</property>
-                                            <property name="width">1</property>
-                                            <property name="height">1</property>
                                           </packing>
                                         </child>
                                         <child>
@@ -1469,8 +1287,6 @@ updates available for you.</property>
                                           <packing>
                                             <property name="left_attach">0</property>
                                             <property name="top_attach">3</property>
-                                            <property name="width">1</property>
-                                            <property name="height">1</property>
                                           </packing>
                                         </child>
                                         <child>
@@ -1485,7 +1301,6 @@ updates available for you.</property>
                                             <property name="left_attach">1</property>
                                             <property name="top_attach">1</property>
                                             <property name="width">2</property>
-                                            <property name="height">1</property>
                                           </packing>
                                         </child>
                                         <child>
@@ -1500,7 +1315,6 @@ updates available for you.</property>
                                             <property name="left_attach">1</property>
                                             <property name="top_attach">2</property>
                                             <property name="width">2</property>
-                                            <property name="height">1</property>
                                           </packing>
                                         </child>
                                         <child>
@@ -1515,7 +1329,6 @@ updates available for you.</property>
                                             <property name="left_attach">1</property>
                                             <property name="top_attach">3</property>
                                             <property name="width">2</property>
-                                            <property name="height">1</property>
                                           </packing>
                                         </child>
                                         <child>
@@ -1530,7 +1343,6 @@ updates available for you.</property>
                                             <property name="left_attach">1</property>
                                             <property name="top_attach">4</property>
                                             <property name="width">2</property>
-                                            <property name="height">1</property>
                                           </packing>
                                         </child>
                                         <child>
@@ -1544,7 +1356,6 @@ updates available for you.</property>
                                             <property name="left_attach">1</property>
                                             <property name="top_attach">5</property>
                                             <property name="width">2</property>
-                                            <property name="height">1</property>
                                           </packing>
                                         </child>
                                         <child>
@@ -1558,7 +1369,6 @@ updates available for you.</property>
                                             <property name="left_attach">1</property>
                                             <property name="top_attach">6</property>
                                             <property name="width">2</property>
-                                            <property name="height">1</property>
                                           </packing>
                                         </child>
                                         <child>
@@ -1573,7 +1383,6 @@ updates available for you.</property>
                                             <property name="left_attach">1</property>
                                             <property name="top_attach">7</property>
                                             <property name="width">2</property>
-                                            <property name="height">1</property>
                                           </packing>
                                         </child>
                                         <child>
@@ -1586,8 +1395,6 @@ updates available for you.</property>
                                           <packing>
                                             <property name="left_attach">2</property>
                                             <property name="top_attach">0</property>
-                                            <property name="width">1</property>
-                                            <property name="height">1</property>
                                           </packing>
                                         </child>
                                         <child>
@@ -1600,8 +1407,6 @@ updates available for you.</property>
                                           <packing>
                                             <property name="left_attach">0</property>
                                             <property name="top_attach">4</property>
-                                            <property name="width">1</property>
-                                            <property name="height">1</property>
                                           </packing>
                                         </child>
                                         <child>
@@ -1614,8 +1419,6 @@ updates available for you.</property>
                                           <packing>
                                             <property name="left_attach">0</property>
                                             <property name="top_attach">5</property>
-                                            <property name="width">1</property>
-                                            <property name="height">1</property>
                                           </packing>
                                         </child>
                                         <child>
@@ -1628,8 +1431,6 @@ updates available for you.</property>
                                           <packing>
                                             <property name="left_attach">0</property>
                                             <property name="top_attach">6</property>
-                                            <property name="width">1</property>
-                                            <property name="height">1</property>
                                           </packing>
                                         </child>
                                         <child>
@@ -1643,8 +1444,6 @@ updates available for you.</property>
                                           <packing>
                                             <property name="left_attach">0</property>
                                             <property name="top_attach">7</property>
-                                            <property name="width">1</property>
-                                            <property name="height">1</property>
                                           </packing>
                                         </child>
                                       </object>
@@ -1724,8 +1523,6 @@ updates available for you.</property>
                                           <packing>
                                             <property name="left_attach">0</property>
                                             <property name="top_attach">0</property>
-                                            <property name="width">1</property>
-                                            <property name="height">1</property>
                                           </packing>
                                         </child>
                                         <child>
@@ -1771,8 +1568,6 @@ updates available for you.</property>
                                           <packing>
                                             <property name="left_attach">1</property>
                                             <property name="top_attach">0</property>
-                                            <property name="width">1</property>
-                                            <property name="height">1</property>
                                           </packing>
                                         </child>
                                         <child>
@@ -1785,8 +1580,6 @@ updates available for you.</property>
                                           <packing>
                                             <property name="left_attach">0</property>
                                             <property name="top_attach">1</property>
-                                            <property name="width">1</property>
-                                            <property name="height">1</property>
                                           </packing>
                                         </child>
                                         <child>
@@ -1799,8 +1592,6 @@ updates available for you.</property>
                                           <packing>
                                             <property name="left_attach">0</property>
                                             <property name="top_attach">2</property>
-                                            <property name="width">1</property>
-                                            <property name="height">1</property>
                                           </packing>
                                         </child>
                                         <child>
@@ -1813,8 +1604,6 @@ updates available for you.</property>
                                           <packing>
                                             <property name="left_attach">0</property>
                                             <property name="top_attach">3</property>
-                                            <property name="width">1</property>
-                                            <property name="height">1</property>
                                           </packing>
                                         </child>
                                         <child>
@@ -1827,8 +1616,6 @@ updates available for you.</property>
                                           <packing>
                                             <property name="left_attach">0</property>
                                             <property name="top_attach">4</property>
-                                            <property name="width">1</property>
-                                            <property name="height">1</property>
                                           </packing>
                                         </child>
                                         <child>
@@ -1841,8 +1628,6 @@ updates available for you.</property>
                                           <packing>
                                             <property name="left_attach">0</property>
                                             <property name="top_attach">5</property>
-                                            <property name="width">1</property>
-                                            <property name="height">1</property>
                                           </packing>
                                         </child>
                                         <child>
@@ -1857,7 +1642,6 @@ updates available for you.</property>
                                             <property name="left_attach">1</property>
                                             <property name="top_attach">1</property>
                                             <property name="width">2</property>
-                                            <property name="height">1</property>
                                           </packing>
                                         </child>
                                         <child>
@@ -1872,7 +1656,6 @@ updates available for you.</property>
                                             <property name="left_attach">1</property>
                                             <property name="top_attach">2</property>
                                             <property name="width">2</property>
-                                            <property name="height">1</property>
                                           </packing>
                                         </child>
                                         <child>
@@ -1887,7 +1670,6 @@ updates available for you.</property>
                                             <property name="left_attach">1</property>
                                             <property name="top_attach">3</property>
                                             <property name="width">2</property>
-                                            <property name="height">1</property>
                                           </packing>
                                         </child>
                                         <child>
@@ -1902,7 +1684,6 @@ updates available for you.</property>
                                             <property name="left_attach">1</property>
                                             <property name="top_attach">4</property>
                                             <property name="width">2</property>
-                                            <property name="height">1</property>
                                           </packing>
                                         </child>
                                         <child>
@@ -1917,7 +1698,6 @@ updates available for you.</property>
                                             <property name="left_attach">1</property>
                                             <property name="top_attach">5</property>
                                             <property name="width">2</property>
-                                            <property name="height">1</property>
                                           </packing>
                                         </child>
                                         <child>
@@ -1930,8 +1710,6 @@ updates available for you.</property>
                                           <packing>
                                             <property name="left_attach">2</property>
                                             <property name="top_attach">0</property>
-                                            <property name="width">1</property>
-                                            <property name="height">1</property>
                                           </packing>
                                         </child>
                                       </object>
@@ -2011,8 +1789,6 @@ updates available for you.</property>
                                           <packing>
                                             <property name="left_attach">0</property>
                                             <property name="top_attach">0</property>
-                                            <property name="width">1</property>
-                                            <property name="height">1</property>
                                           </packing>
                                         </child>
                                         <child>
@@ -2058,8 +1834,6 @@ updates available for you.</property>
                                           <packing>
                                             <property name="left_attach">1</property>
                                             <property name="top_attach">0</property>
-                                            <property name="width">1</property>
-                                            <property name="height">1</property>
                                           </packing>
                                         </child>
                                         <child>
@@ -2072,8 +1846,6 @@ updates available for you.</property>
                                           <packing>
                                             <property name="left_attach">2</property>
                                             <property name="top_attach">0</property>
-                                            <property name="width">1</property>
-                                            <property name="height">1</property>
                                           </packing>
                                         </child>
                                         <child>
@@ -2088,8 +1860,6 @@ updates available for you.</property>
                                           <packing>
                                             <property name="left_attach">0</property>
                                             <property name="top_attach">1</property>
-                                            <property name="width">1</property>
-                                            <property name="height">1</property>
                                           </packing>
                                         </child>
                                         <child>
@@ -2101,7 +1871,6 @@ updates available for you.</property>
                                             <property name="left_attach">1</property>
                                             <property name="top_attach">1</property>
                                             <property name="width">2</property>
-                                            <property name="height">1</property>
                                           </packing>
                                         </child>
                                         <child>
@@ -2116,8 +1885,6 @@ updates available for you.</property>
                                           <packing>
                                             <property name="left_attach">0</property>
                                             <property name="top_attach">2</property>
-                                            <property name="width">1</property>
-                                            <property name="height">1</property>
                                           </packing>
                                         </child>
                                         <child>
@@ -2130,7 +1897,6 @@ updates available for you.</property>
                                             <property name="left_attach">1</property>
                                             <property name="top_attach">2</property>
                                             <property name="width">2</property>
-                                            <property name="height">1</property>
                                           </packing>
                                         </child>
                                         <child>
@@ -2145,8 +1911,6 @@ updates available for you.</property>
                                           <packing>
                                             <property name="left_attach">0</property>
                                             <property name="top_attach">3</property>
-                                            <property name="width">1</property>
-                                            <property name="height">1</property>
                                           </packing>
                                         </child>
                                         <child>
@@ -2161,8 +1925,6 @@ updates available for you.</property>
                                           <packing>
                                             <property name="left_attach">0</property>
                                             <property name="top_attach">4</property>
-                                            <property name="width">1</property>
-                                            <property name="height">1</property>
                                           </packing>
                                         </child>
                                         <child>
@@ -2177,8 +1939,6 @@ updates available for you.</property>
                                           <packing>
                                             <property name="left_attach">0</property>
                                             <property name="top_attach">5</property>
-                                            <property name="width">1</property>
-                                            <property name="height">1</property>
                                           </packing>
                                         </child>
                                         <child>
@@ -2193,8 +1953,6 @@ updates available for you.</property>
                                           <packing>
                                             <property name="left_attach">0</property>
                                             <property name="top_attach">6</property>
-                                            <property name="width">1</property>
-                                            <property name="height">1</property>
                                           </packing>
                                         </child>
                                         <child>
@@ -2210,7 +1968,6 @@ updates available for you.</property>
                                             <property name="left_attach">0</property>
                                             <property name="top_attach">7</property>
                                             <property name="width">3</property>
-                                            <property name="height">1</property>
                                           </packing>
                                         </child>
                                         <child>
@@ -2222,8 +1979,6 @@ updates available for you.</property>
                                           <packing>
                                             <property name="left_attach">1</property>
                                             <property name="top_attach">3</property>
-                                            <property name="width">1</property>
-                                            <property name="height">1</property>
                                           </packing>
                                         </child>
                                         <child>
@@ -2236,8 +1991,6 @@ updates available for you.</property>
                                           <packing>
                                             <property name="left_attach">2</property>
                                             <property name="top_attach">3</property>
-                                            <property name="width">1</property>
-                                            <property name="height">1</property>
                                           </packing>
                                         </child>
                                         <child>
@@ -2249,8 +2002,6 @@ updates available for you.</property>
                                           <packing>
                                             <property name="left_attach">1</property>
                                             <property name="top_attach">4</property>
-                                            <property name="width">1</property>
-                                            <property name="height">1</property>
                                           </packing>
                                         </child>
                                         <child>
@@ -2262,8 +2013,6 @@ updates available for you.</property>
                                           <packing>
                                             <property name="left_attach">1</property>
                                             <property name="top_attach">5</property>
-                                            <property name="width">1</property>
-                                            <property name="height">1</property>
                                           </packing>
                                         </child>
                                         <child>
@@ -2275,8 +2024,6 @@ updates available for you.</property>
                                           <packing>
                                             <property name="left_attach">1</property>
                                             <property name="top_attach">6</property>
-                                            <property name="width">1</property>
-                                            <property name="height">1</property>
                                           </packing>
                                         </child>
                                         <child>
@@ -2289,8 +2036,6 @@ updates available for you.</property>
                                           <packing>
                                             <property name="left_attach">2</property>
                                             <property name="top_attach">4</property>
-                                            <property name="width">1</property>
-                                            <property name="height">1</property>
                                           </packing>
                                         </child>
                                         <child>
@@ -2303,8 +2048,6 @@ updates available for you.</property>
                                           <packing>
                                             <property name="left_attach">2</property>
                                             <property name="top_attach">5</property>
-                                            <property name="width">1</property>
-                                            <property name="height">1</property>
                                           </packing>
                                         </child>
                                         <child>
@@ -2317,8 +2060,6 @@ updates available for you.</property>
                                           <packing>
                                             <property name="left_attach">2</property>
                                             <property name="top_attach">6</property>
-                                            <property name="width">1</property>
-                                            <property name="height">1</property>
                                           </packing>
                                         </child>
                                       </object>
@@ -2396,6 +2137,11 @@ updates available for you.</property>
                             <property name="position">0</property>
                           </packing>
                         </child>
+                        <child internal-child="accessible">
+                          <object class="AtkObject" id="network_config_vbox-atkobject">
+                            <property name="AtkObject::accessible-name" translatable="yes">Network Config Box</property>
+                          </object>
+                        </child>
                       </object>
                       <packing>
                         <property name="expand">True</property>
@@ -2407,11 +2153,6 @@ updates available for you.</property>
                       <object class="GtkBox" id="hbox54">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
-                        <child internal-child="accessible">
-                          <object class="AtkObject" id="hbox54-atkobject">
-                            <property name="AtkObject::accessible-name" translatable="yes">More Network Config Box</property>
-                          </object>
-                        </child>
                         <child>
                           <object class="GtkButton" id="button_unlock">
                             <property name="label" translatable="yes" context="GUI|Network">Unloc_k</property>
@@ -2451,6 +2192,11 @@ updates available for you.</property>
                             <property name="fill">True</property>
                             <property name="position">1</property>
                           </packing>
+                        </child>
+                        <child internal-child="accessible">
+                          <object class="AtkObject" id="hbox54-atkobject">
+                            <property name="AtkObject::accessible-name" translatable="yes">More Network Config Box</property>
+                          </object>
                         </child>
                       </object>
                       <packing>
@@ -2510,6 +2256,85 @@ updates available for you.</property>
                     <property name="fill">True</property>
                     <property name="position">1</property>
                   </packing>
+                </child>
+              </object>
+            </child>
+          </object>
+          <packing>
+            <property name="expand">True</property>
+            <property name="fill">True</property>
+            <property name="position">1</property>
+          </packing>
+        </child>
+      </object>
+    </child>
+    <child internal-child="accessible">
+      <object class="AtkObject" id="networkWindow-atkobject">
+        <property name="AtkObject::accessible-name" translatable="yes">NETWORK &amp; HOSTNAME</property>
+      </object>
+    </child>
+  </object>
+  <object class="AnacondaStandaloneWindow" id="networkStandaloneWindow">
+    <property name="can_focus">False</property>
+    <property name="window_name" translatable="yes">NETWORK CONFIGURATION</property>
+    <child internal-child="main_box">
+      <object class="GtkBox" id="AnacondaStandaloneWindow-main_box5">
+        <property name="can_focus">False</property>
+        <property name="orientation">vertical</property>
+        <property name="spacing">6</property>
+        <child internal-child="nav_box">
+          <object class="GtkEventBox" id="AnacondaStandaloneWindow-nav_box5">
+            <property name="can_focus">False</property>
+            <child internal-child="nav_area">
+              <object class="GtkGrid" id="AnacondaStandaloneWindow-nav_area5">
+                <property name="can_focus">False</property>
+                <property name="margin_left">6</property>
+                <property name="margin_right">6</property>
+                <property name="margin_top">6</property>
+                <child>
+                  <placeholder/>
+                </child>
+                <child>
+                  <placeholder/>
+                </child>
+              </object>
+            </child>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">False</property>
+            <property name="position">0</property>
+          </packing>
+        </child>
+        <child internal-child="alignment">
+          <object class="GtkAlignment" id="AnacondaStandaloneWindow-alignment5">
+            <property name="can_focus">False</property>
+            <property name="yalign">0</property>
+            <property name="xscale">0</property>
+            <property name="yscale">0.5</property>
+            <child internal-child="action_area">
+              <object class="GtkBox" id="AnacondaStandaloneWindow-action_area5">
+                <property name="can_focus">False</property>
+                <property name="orientation">vertical</property>
+                <property name="spacing">6</property>
+                <child>
+                  <object class="GtkLabel" id="networkNeedLabel1">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="label" translatable="yes">We'll need network access to fetch information about your location and to make software
+updates available for you.</property>
+                    <attributes>
+                      <attribute name="font-desc" value="Cantarell 12"/>
+                    </attributes>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">True</property>
+                    <property name="position">0</property>
+                  </packing>
+                </child>
+                <child>
+                  <placeholder/>
                 </child>
               </object>
             </child>

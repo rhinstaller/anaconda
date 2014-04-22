@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Generated with glade 3.16.0 on Thu Oct 17 10:51:34 2013 -->
+<!-- Generated with glade 3.18.1 -->
 <interface>
-  <!-- interface-requires gtk+ 3.2 -->
-  <!-- interface-requires AnacondaWidgets 1.0 -->
-  <object class="GtkListStore" id="mountPointStore">
+  <requires lib="gtk+" version="3.2"/>
+  <requires lib="AnacondaWidgets" version="1.0"/>
+  <object class="GtkListStore" id="containerStore">
     <columns>
-      <!-- column-name path -->
+      <!-- column-name description -->
+      <column type="gchararray"/>
+      <!-- column-name freeSpace -->
       <column type="gchararray"/>
     </columns>
   </object>
@@ -39,8 +41,55 @@
       </row>
     </data>
   </object>
+  <object class="GtkListStore" id="mountPointStore">
+    <columns>
+      <!-- column-name path -->
+      <column type="gchararray"/>
+    </columns>
+  </object>
   <object class="GtkEntryCompletion" id="mountPointCompletion">
     <property name="model">mountPointStore</property>
+  </object>
+  <object class="GtkListStore" id="raidLevelStore">
+    <columns>
+      <!-- column-name raidLevel -->
+      <column type="gchararray"/>
+      <!-- column-name canonRaidLevel -->
+      <column type="gchararray"/>
+    </columns>
+    <data>
+      <row>
+        <col id="0" translatable="yes">None</col>
+        <col id="1">none</col>
+      </row>
+      <row>
+        <col id="0" translatable="yes">RAID0 &lt;span foreground="grey"&gt;(Performance)&lt;/span&gt;</col>
+        <col id="1">raid0</col>
+      </row>
+      <row>
+        <col id="0" translatable="yes">RAID1 &lt;span foreground="grey"&gt;(Redundancy)&lt;/span&gt;</col>
+        <col id="1">raid1</col>
+      </row>
+      <row>
+        <col id="0" translatable="yes">RAID4 &lt;span foreground="grey"&gt;(Error Checking)&lt;/span&gt;</col>
+        <col id="1">raid4</col>
+      </row>
+      <row>
+        <col id="0" translatable="yes">RAID5 &lt;span foreground="grey"&gt;(Distributed Error Checking)&lt;/span&gt;</col>
+        <col id="1">raid5</col>
+      </row>
+      <row>
+        <col id="0" translatable="yes">RAID6 &lt;span foreground="grey"&gt;(Redundant Error Checking)&lt;/span&gt;</col>
+        <col id="1">raid6</col>
+      </row>
+      <row>
+        <col id="0" translatable="yes">RAID10 &lt;span foreground="grey"&gt;(Performance, Redundancy)&lt;/span&gt;</col>
+        <col id="1">raid10</col>
+      </row>
+    </data>
+  </object>
+  <object class="GtkTreeModelFilter" id="raidStoreFiltered">
+    <property name="child_model">raidLevelStore</property>
   </object>
   <object class="AnacondaSpokeWindow" id="customStorageWindow">
     <property name="can_focus">False</property>
@@ -118,8 +167,6 @@
                       <packing>
                         <property name="left_attach">0</property>
                         <property name="top_attach">0</property>
-                        <property name="width">1</property>
-                        <property name="height">1</property>
                       </packing>
                     </child>
                     <child>
@@ -223,8 +270,6 @@
                                   <packing>
                                     <property name="left_attach">0</property>
                                     <property name="top_attach">1</property>
-                                    <property name="width">1</property>
-                                    <property name="height">1</property>
                                   </packing>
                                 </child>
                                 <child>
@@ -239,8 +284,6 @@
                                   <packing>
                                     <property name="left_attach">1</property>
                                     <property name="top_attach">1</property>
-                                    <property name="width">1</property>
-                                    <property name="height">1</property>
                                   </packing>
                                 </child>
                                 <child>
@@ -258,8 +301,6 @@
                                   <packing>
                                     <property name="left_attach">0</property>
                                     <property name="top_attach">2</property>
-                                    <property name="width">1</property>
-                                    <property name="height">1</property>
                                   </packing>
                                 </child>
                                 <child>
@@ -273,8 +314,6 @@
                                   <packing>
                                     <property name="left_attach">1</property>
                                     <property name="top_attach">2</property>
-                                    <property name="width">1</property>
-                                    <property name="height">1</property>
                                   </packing>
                                 </child>
                                 <child>
@@ -292,8 +331,6 @@
                                   <packing>
                                     <property name="left_attach">0</property>
                                     <property name="top_attach">0</property>
-                                    <property name="width">1</property>
-                                    <property name="height">1</property>
                                   </packing>
                                 </child>
                                 <child>
@@ -306,8 +343,6 @@
                                   <packing>
                                     <property name="left_attach">1</property>
                                     <property name="top_attach">0</property>
-                                    <property name="width">1</property>
-                                    <property name="height">1</property>
                                   </packing>
                                 </child>
                                 <child>
@@ -326,8 +361,6 @@
                                   <packing>
                                     <property name="left_attach">0</property>
                                     <property name="top_attach">3</property>
-                                    <property name="width">1</property>
-                                    <property name="height">1</property>
                                   </packing>
                                 </child>
                                 <child>
@@ -342,8 +375,6 @@
                                   <packing>
                                     <property name="left_attach">1</property>
                                     <property name="top_attach">3</property>
-                                    <property name="width">1</property>
-                                    <property name="height">1</property>
                                   </packing>
                                 </child>
                                 <child>
@@ -367,8 +398,6 @@
                                       <packing>
                                         <property name="left_attach">0</property>
                                         <property name="top_attach">0</property>
-                                        <property name="width">1</property>
-                                        <property name="height">1</property>
                                       </packing>
                                     </child>
                                     <child>
@@ -386,8 +415,6 @@
                                       <packing>
                                         <property name="left_attach">0</property>
                                         <property name="top_attach">1</property>
-                                        <property name="width">1</property>
-                                        <property name="height">1</property>
                                       </packing>
                                     </child>
                                     <child>
@@ -408,8 +435,6 @@
                                       <packing>
                                         <property name="left_attach">1</property>
                                         <property name="top_attach">0</property>
-                                        <property name="width">1</property>
-                                        <property name="height">1</property>
                                       </packing>
                                     </child>
                                     <child>
@@ -423,8 +448,6 @@
                                       <packing>
                                         <property name="left_attach">1</property>
                                         <property name="top_attach">1</property>
-                                        <property name="width">1</property>
-                                        <property name="height">1</property>
                                       </packing>
                                     </child>
                                     <child>
@@ -442,8 +465,6 @@
                                       <packing>
                                         <property name="left_attach">2</property>
                                         <property name="top_attach">0</property>
-                                        <property name="width">1</property>
-                                        <property name="height">1</property>
                                       </packing>
                                     </child>
                                     <child>
@@ -461,8 +482,6 @@
                                       <packing>
                                         <property name="left_attach">2</property>
                                         <property name="top_attach">1</property>
-                                        <property name="width">1</property>
-                                        <property name="height">1</property>
                                       </packing>
                                     </child>
                                     <child>
@@ -480,8 +499,6 @@
                                       <packing>
                                         <property name="left_attach">0</property>
                                         <property name="top_attach">2</property>
-                                        <property name="width">1</property>
-                                        <property name="height">1</property>
                                       </packing>
                                     </child>
                                     <child>
@@ -496,8 +513,6 @@
                                       <packing>
                                         <property name="left_attach">2</property>
                                         <property name="top_attach">2</property>
-                                        <property name="width">1</property>
-                                        <property name="height">1</property>
                                       </packing>
                                     </child>
                                     <child>
@@ -515,8 +530,6 @@
                                       <packing>
                                         <property name="left_attach">0</property>
                                         <property name="top_attach">3</property>
-                                        <property name="width">1</property>
-                                        <property name="height">1</property>
                                       </packing>
                                     </child>
                                     <child>
@@ -535,8 +548,6 @@
                                       <packing>
                                         <property name="left_attach">1</property>
                                         <property name="top_attach">3</property>
-                                        <property name="width">1</property>
-                                        <property name="height">1</property>
                                       </packing>
                                     </child>
                                     <child>
@@ -565,8 +576,6 @@
                                       <packing>
                                         <property name="left_attach">1</property>
                                         <property name="top_attach">2</property>
-                                        <property name="width">1</property>
-                                        <property name="height">1</property>
                                       </packing>
                                     </child>
                                     <child>
@@ -577,7 +586,6 @@
                                     <property name="left_attach">0</property>
                                     <property name="top_attach">4</property>
                                     <property name="width">2</property>
-                                    <property name="height">1</property>
                                   </packing>
                                 </child>
                               </object>
@@ -955,7 +963,6 @@ until you click on the main menu's 'Begin Installation' button.</property>
                       <packing>
                         <property name="left_attach">1</property>
                         <property name="top_attach">0</property>
-                        <property name="width">1</property>
                         <property name="height">2</property>
                       </packing>
                     </child>
@@ -966,9 +973,6 @@ until you click on the main menu's 'Begin Installation' button.</property>
                         <property name="can_focus">False</property>
                         <property name="toolbar_style">icons</property>
                         <property name="show_arrow">False</property>
-                        <style>
-                          <class name="inline-toolbar"/>
-                        </style>
                         <property name="icon_size">1</property>
                         <child>
                           <object class="GtkToolButton" id="addButton">
@@ -1055,12 +1059,13 @@ until you click on the main menu's 'Begin Installation' button.</property>
                             <property name="homogeneous">True</property>
                           </packing>
                         </child>
+                        <style>
+                          <class name="inline-toolbar"/>
+                        </style>
                       </object>
                       <packing>
                         <property name="left_attach">0</property>
                         <property name="top_attach">1</property>
-                        <property name="width">1</property>
-                        <property name="height">1</property>
                       </packing>
                     </child>
                   </object>
@@ -1128,8 +1133,6 @@ until you click on the main menu's 'Begin Installation' button.</property>
                       <packing>
                         <property name="left_attach">0</property>
                         <property name="top_attach">0</property>
-                        <property name="width">1</property>
-                        <property name="height">1</property>
                       </packing>
                     </child>
                     <child>
@@ -1184,8 +1187,6 @@ until you click on the main menu's 'Begin Installation' button.</property>
                       <packing>
                         <property name="left_attach">1</property>
                         <property name="top_attach">0</property>
-                        <property name="width">1</property>
-                        <property name="height">1</property>
                       </packing>
                     </child>
                     <child>
@@ -1204,8 +1205,6 @@ until you click on the main menu's 'Begin Installation' button.</property>
                       <packing>
                         <property name="left_attach">2</property>
                         <property name="top_attach">1</property>
-                        <property name="width">1</property>
-                        <property name="height">1</property>
                       </packing>
                     </child>
                     <child>
@@ -1236,7 +1235,6 @@ until you click on the main menu's 'Begin Installation' button.</property>
                         <property name="left_attach">0</property>
                         <property name="top_attach">1</property>
                         <property name="width">2</property>
-                        <property name="height">1</property>
                       </packing>
                     </child>
                     <child>
@@ -1260,54 +1258,5 @@ until you click on the main menu's 'Begin Installation' button.</property>
         </child>
       </object>
     </child>
-  </object>
-  <object class="GtkListStore" id="raidLevelStore">
-    <columns>
-      <!-- column-name raidLevel -->
-      <column type="gchararray"/>
-      <!-- column-name canonRaidLevel -->
-      <column type="gchararray"/>
-    </columns>
-    <data>
-      <row>
-        <col id="0" translatable="yes">None</col>
-        <col id="1">none</col>
-      </row>
-      <row>
-        <col id="0" translatable="yes">RAID0 &lt;span foreground="grey"&gt;(Performance)&lt;/span&gt;</col>
-        <col id="1">raid0</col>
-      </row>
-      <row>
-        <col id="0" translatable="yes">RAID1 &lt;span foreground="grey"&gt;(Redundancy)&lt;/span&gt;</col>
-        <col id="1">raid1</col>
-      </row>
-      <row>
-        <col id="0" translatable="yes">RAID4 &lt;span foreground="grey"&gt;(Error Checking)&lt;/span&gt;</col>
-        <col id="1">raid4</col>
-      </row>
-      <row>
-        <col id="0" translatable="yes">RAID5 &lt;span foreground="grey"&gt;(Distributed Error Checking)&lt;/span&gt;</col>
-        <col id="1">raid5</col>
-      </row>
-      <row>
-        <col id="0" translatable="yes">RAID6 &lt;span foreground="grey"&gt;(Redundant Error Checking)&lt;/span&gt;</col>
-        <col id="1">raid6</col>
-      </row>
-      <row>
-        <col id="0" translatable="yes">RAID10 &lt;span foreground="grey"&gt;(Performance, Redundancy)&lt;/span&gt;</col>
-        <col id="1">raid10</col>
-      </row>
-    </data>
-  </object>
-  <object class="GtkListStore" id="containerStore">
-    <columns>
-      <!-- column-name description -->
-      <column type="gchararray"/>
-      <!-- column-name freeSpace -->
-      <column type="gchararray"/>
-    </columns>
-  </object>
-  <object class="GtkTreeModelFilter" id="raidStoreFiltered">
-    <property name="child_model">raidLevelStore</property>
   </object>
 </interface>

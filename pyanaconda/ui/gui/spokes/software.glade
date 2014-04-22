@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Generated with glade 3.16.0 on Fri Jan  3 13:29:45 2014 -->
+<!-- Generated with glade 3.18.1 -->
 <interface>
-  <!-- interface-requires gtk+ 3.10 -->
-  <!-- interface-requires AnacondaWidgets 1.0 -->
+  <requires lib="gtk+" version="3.10"/>
+  <requires lib="AnacondaWidgets" version="1.0"/>
   <object class="AnacondaSpokeWindow" id="softwareWindow">
     <property name="can_focus">False</property>
     <property name="hexpand">True</property>
@@ -72,8 +72,6 @@
                       <packing>
                         <property name="left_attach">0</property>
                         <property name="top_attach">0</property>
-                        <property name="width">1</property>
-                        <property name="height">1</property>
                       </packing>
                     </child>
                     <child>
@@ -92,8 +90,6 @@
                       <packing>
                         <property name="left_attach">1</property>
                         <property name="top_attach">0</property>
-                        <property name="width">1</property>
-                        <property name="height">1</property>
                       </packing>
                     </child>
                     <child>
@@ -123,8 +119,6 @@
                       <packing>
                         <property name="left_attach">1</property>
                         <property name="top_attach">1</property>
-                        <property name="width">1</property>
-                        <property name="height">1</property>
                       </packing>
                     </child>
                     <child>
@@ -155,8 +149,6 @@
                       <packing>
                         <property name="left_attach">0</property>
                         <property name="top_attach">1</property>
-                        <property name="width">1</property>
-                        <property name="height">1</property>
                       </packing>
                     </child>
                   </object>
