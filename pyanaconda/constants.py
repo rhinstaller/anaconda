@@ -80,6 +80,8 @@ DD_RPMS = "/tmp/DD-*"
 TRANSLATIONS_UPDATE_DIR="/tmp/updates/po"
 
 ANACONDA_CLEANUP = "anaconda-cleanup"
+# This is a legacy variable; new code should use iutil.getSysroot()
+# or iutil.getTargetPhysicalRoot().
 ROOT_PATH = os.environ.get("ANACONDA_ROOT_PATH", "/mnt/sysimage")
 MOUNT_DIR = "/mnt/install"
 DRACUT_REPODIR = "/run/install/repo"

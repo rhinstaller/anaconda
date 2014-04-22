@@ -29,7 +29,6 @@ import os.path
 import iutil
 import pwquality
 import re
-from pyanaconda.constants import ROOT_PATH
 from pyanaconda.iutil import strip_accents
 from pyanaconda.i18n import _
 
@@ -192,7 +191,7 @@ class Users:
         """
 
         childpid = os.fork()
-        root = kwargs.get("root", ROOT_PATH)
+        root = kwargs.get("root", iutil.getSysroot())
 
         if not childpid:
             if not root in ["","/"]:
@@ -258,7 +257,7 @@ class Users:
                         available one is used.
         """
         childpid = os.fork()
-        root = kwargs.get("root", ROOT_PATH)
+        root = kwargs.get("root", iutil.getSysroot())
 
         if not childpid:
             if not root in ["","/"]:
@@ -358,7 +357,7 @@ class Users:
         else:
             return False
 
-    def checkUserExists(self, username, root=ROOT_PATH):
+    def checkUserExists(self, username, root=iutil.getSysroot()):
         childpid = os.fork()
 
         if not childpid:

@@ -40,7 +40,7 @@ import subprocess
 
 from snack import ButtonChoiceWindow, ListboxChoiceWindow,SnackScreen
 
-from constants import ANACONDA_CLEANUP, ROOT_PATH
+from constants import ANACONDA_CLEANUP
 from constants_text import TEXT_OK_BUTTON, TEXT_NO_BUTTON, TEXT_YES_BUTTON
 from text import WaitWindow, OkCancelWindow, ProgressWindow, PassphraseEntryWindow
 from flags import flags
@@ -308,7 +308,7 @@ def doRescue(intf, rescue_mount, ksdata):
                   "\n\n"
                   "If for some reason this process fails you can choose 'Skip' "
                   "and this step will be skipped and you will go directly to a "
-                  "command shell.\n\n") % (ROOT_PATH,),
+                  "command shell.\n\n") % (iutil.getSysroot(),),
                   [_("Continue"), _("Read-Only"), _("Skip")] )
 
             if rc == _("Skip").lower():
@@ -380,14 +380,14 @@ def doRescue(intf, rescue_mount, ksdata):
                 rootmounted = False
             else:
                 if flags.automatedInstall:
-                    log.info("System has been mounted under: %s" % ROOT_PATH)
+                    log.info("System has been mounted under: %s" % iutil.getSysroot())
                 else:
                     ButtonChoiceWindow(intf.screen, _("Rescue"),
                        _("Your system has been mounted under %(rootPath)s.\n\n"
                          "Press <return> to get a shell. If you would like to "
                          "make your system the root environment, run the command:\n\n"
                          "\tchroot %(rootPath)s\n\n%(msg)s") %
-                                       {'rootPath': ROOT_PATH,
+                                       {'rootPath': iutil.getSysroot(),
                                         'msg': msg},
                                        [_("OK")] )
                 rootmounted = True
@@ -404,7 +404,7 @@ def doRescue(intf, rescue_mount, ksdata):
                     # we have to catch the possible exception
                     # because we support read-only mounting
                     try:
-                        fd = open("%s/.autorelabel" % ROOT_PATH, "w+")
+                        fd = open("%s/.autorelabel" % iutil.getSysroot(), "w+")
                         fd.close()
                     except IOError:
                         log.warning("cannot touch /.autorelabel")
@@ -456,7 +456,7 @@ def doRescue(intf, rescue_mount, ksdata):
                 ButtonChoiceWindow(intf.screen, _("Rescue"),
                     _("An error occurred trying to mount some or all of your "
                       "system. Some of it may be mounted under %s.\n\n"
-                      "Press <return> to get a shell.") % ROOT_PATH + msg,
+                      "Press <return> to get a shell.") % iutil.getSysroot() + msg,
                       [_("OK")] )
     else:
         if flags.automatedInstall and ksdata.reboot.action in [KS_REBOOT, KS_SHUTDOWN]:
@@ -480,10 +480,10 @@ def doRescue(intf, rescue_mount, ksdata):
     if rootmounted and not readOnly:
         sto.makeMtab()
         try:
-            makeResolvConf(ROOT_PATH)
+            makeResolvConf(iutil.getSysroot())
         except (OSError, IOError) as e:
             log.error("error making a resolv.conf: %s" %(e,))
-        msgStr = _("Your system is mounted under the %s directory.") % (ROOT_PATH,)
+        msgStr = _("Your system is mounted under the %s directory.") % (iutil.getSysroot(),)
         ButtonChoiceWindow(intf.screen, _("Rescue"), msgStr, [_("OK")] )
 
     # we do not need ncurses anymore, shut them down

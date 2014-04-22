@@ -288,7 +288,7 @@ reposdir=%s
     def _yumCacheDirHack(self):
         # This is what it takes to get yum to use a cache dir outside the
         # install root. We do this so we don't have to re-gather repo meta-
-        # data after we change the install root to ROOT_PATH, which can only
+        # data after we change the install root to sysroot, which can only
         # happen after we've enabled the new storage configuration.
         with _yum_lock:
             if not self._yum.conf.cachedir.startswith(self._yum.conf.installroot):
@@ -363,7 +363,7 @@ reposdir=%s
         self._writeYumConfig()
         self._writeLangpacksConfig()
         log.debug("setting releasever to previous value of %s" % releasever)
-        self._resetYum(root=ROOT_PATH, keep_cache=True, releasever=releasever)
+        self._resetYum(root=iutil.getSysroot(), keep_cache=True, releasever=releasever)
         self._yumCacheDirHack()
         self.gatherRepoMetadata()
 
@@ -1629,7 +1629,7 @@ reposdir=%s
             "PROGRESS_POST"    : _("Performing post-installation setup tasks")
         }
 
-        ts_file = ROOT_PATH+"/anaconda-yum.yumtx"
+        ts_file = iutil.getSysroot()+"/anaconda-yum.yumtx"
         with _yum_lock:
             # Save the transaction, this will be loaded and executed by the new
             # process.
@@ -1646,7 +1646,7 @@ reposdir=%s
         args = ["--config", "/tmp/anaconda-yum.conf",
                 "--tsfile", ts_file,
                 "--rpmlog", script_log,
-                "--installroot", ROOT_PATH,
+                "--installroot", iutil.getSysroot(),
                 "--release", release,
                 "--arch", blivet.arch.getArch()]
 
@@ -1702,7 +1702,7 @@ reposdir=%s
         #        all yumvars and writing out the expanded pairs to the conf
         yb = yum.YumBase()
         yum_conf_path = "/etc/yum.conf"
-        yb.preconf.fn = ROOT_PATH + yum_conf_path
+        yb.preconf.fn = iutil.getSysroot() + yum_conf_path
         yb.conf.multilib_policy = "all"
 
         # this will appear in yum.conf, which is silly
@@ -1712,7 +1712,7 @@ reposdir=%s
         cachedir = yb.conf.cachedir.replace("/%s/" % yb.arch.basearch,
                                             "/$basearch/")
         yb.conf.cachedir = cachedir
-        yum_conf = ROOT_PATH + yum_conf_path
+        yum_conf = iutil.getSysroot() + yum_conf_path
         if os.path.exists(yum_conf):
             try:
                 os.rename(yum_conf, yum_conf + ".anacbak")
