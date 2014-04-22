@@ -421,7 +421,10 @@ class Users:
                 self.admin.lockUser(user)
 
             user.set(libuser.SHADOWLASTCHANGE, "")
-            self.admin.modifyUser(user)
+            if self.admin.modifyUser(user):
+                os._exit(0)
+            else:
+                os._exit(1)
         else:
             return self._finishChroot(childpid)
 
