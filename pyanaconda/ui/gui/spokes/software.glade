@@ -105,11 +105,18 @@
                         <property name="hscrollbar_policy">never</property>
                         <property name="shadow_type">in</property>
                         <child>
-                          <object class="GtkListBox" id="addonListBox">
+                          <object class="GtkViewport" id="addonViewport">
                             <property name="width_request">250</property>
                             <property name="visible">True</property>
                             <property name="can_focus">False</property>
-                            <signal name="row-activated" handler="on_addon_activated" swapped="no"/>
+                            <child>
+                              <object class="GtkListBox" id="addonListBox">
+                                <property name="visible">True</property>
+                                <property name="can_focus">False</property>
+                                <property name="hexpand">True</property>
+                                <signal name="row-activated" handler="on_addon_activated" swapped="no"/>
+                              </object>
+                            </child>
                           </object>
                         </child>
                       </object>
@@ -130,11 +137,18 @@
                         <property name="hscrollbar_policy">never</property>
                         <property name="shadow_type">in</property>
                         <child>
-                          <object class="GtkListBox" id="environmentListBox">
+                          <object class="GtkViewport" id="environmentViewport">
                             <property name="width_request">250</property>
                             <property name="visible">True</property>
                             <property name="can_focus">False</property>
-                            <signal name="row-activated" handler="on_environment_activated" swapped="no"/>
+                            <child>
+                              <object class="GtkListBox" id="environmentListBox">
+                                <property name="visible">True</property>
+                                <property name="can_focus">False</property>
+                                <property name="hexpand">True</property>
+                                <signal name="row-activated" handler="on_environment_activated" swapped="no"/>
+                              </object>
+                            </child>
                           </object>
                         </child>
                       </object>
