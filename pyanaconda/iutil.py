@@ -48,9 +48,43 @@ from pyanaconda.anaconda_log import program_log_lock
 def augmentEnv():
     env = os.environ.copy()
     env.update({"LC_ALL": "C",
-                "ANA_INSTALL_PATH": ROOT_PATH
+                "ANA_INSTALL_PATH": getSysroot()
                })
     return env
+
+def getTargetPhysicalRoot():
+    """Returns the path to the "physical" storage root, traditionally /mnt/sysimage.
+    
+    This may be distinct from the sysroot, which could be a
+    chroot-type subdirectory of the physical root.  This is used for
+    example by all OSTree-based installations.
+    """
+
+    # We always use the traditional /mnt/sysimage - the physical OS
+    # target is never mounted anywhere else.  This API call just
+    # allows us to have a clean "git grep ROOT_PATH" in other parts of
+    # the code.
+    return ROOT_PATH
+
+_sysroot = ROOT_PATH
+
+def getSysroot():
+    """Returns the path to the target OS installation.
+    
+    For ordinary package-based installations, this is the same as the
+    target root.
+    """
+    return _sysroot
+
+def setSysroot(path):
+    """Change the OS root path.
+       :param path: The new OS root path
+
+    This should only be used by Payload subclasses which install operating
+    systems to non-default roots.
+    """
+    global _sysroot
+    _sysroot = path
 
 def _run_program(argv, root='/', stdin=None, stdout=None, env_prune=None, log_output=True, binary_output=False):
     """ Run an external program, log the output and return it to the caller
@@ -108,6 +142,16 @@ def _run_program(argv, root='/', stdin=None, stdout=None, env_prune=None, log_ou
         program_log.debug("Return code: %d", proc.returncode)
 
     return (proc.returncode, output_string)
+
+def execInSysroot(command, argv, stdin=None):
+    """ Run an external program in the target root.
+        :param command: The command to run
+        :param argv: The argument list
+        :param stdin: The file object to read stdin from.
+        :return: The return code of the command
+    """
+
+    return execWithRedirect(command, argv, stdin=stdin, root=getSysroot())
 
 def execWithRedirect(command, argv, stdin=None, stdout=None,
                      root='/', env_prune=None, log_output=True, binary_output=False):
@@ -311,7 +355,7 @@ def reIPL(ipldev):
         log.info("reIPL configuration successful")
 
 def resetRpmDb():
-    for rpmfile in glob.glob("%s/var/lib/rpm/__db.*" % ROOT_PATH):
+    for rpmfile in glob.glob("%s/var/lib/rpm/__db.*" % getSysroot()):
         try:
             os.unlink(rpmfile)
         except OSError as e:

@@ -30,7 +30,7 @@ from pyanaconda import iutil
 import pwquality
 from pyanaconda.iutil import strip_accents
 from pyanaconda.i18n import _
-from pyanaconda.constants import PASSWORD_MIN_LEN, PW_ASCII_CHARS, ROOT_PATH
+from pyanaconda.constants import PASSWORD_MIN_LEN, PW_ASCII_CHARS
 
 import logging
 log = logging.getLogger("anaconda")
@@ -240,7 +240,7 @@ class Users:
                         Defaults to /mnt/sysimage.
         """
 
-        childpid = self._prepareChroot(kwargs.get("root", ROOT_PATH))
+        childpid = self._prepareChroot(kwargs.get("root", iutil.getSysroot()))
         if childpid == 0:
             if self.admin.lookupGroupByName(group_name):
                 log.error("Group %s already exists, not creating.", group_name)
@@ -290,7 +290,7 @@ class Users:
            gid       -- The GID for the new user.  If none is given, the next
                         available one is used.
         """
-        childpid = self._prepareChroot(kwargs.get("root", ROOT_PATH))
+        childpid = self._prepareChroot(kwargs.get("root", iutil.getSysroot()))
         if childpid == 0:
             if self.admin.lookupUserByName(user_name):
                 log.error("User %s already exists, not creating.", user_name)
@@ -397,7 +397,7 @@ class Users:
         else:
             return self._finishChroot(childpid)
 
-    def checkUserExists(self, username, root=ROOT_PATH):
+    def checkUserExists(self, username, root=None):
         childpid = self._prepareChroot(root)
 
         if childpid == 0:
@@ -408,7 +408,7 @@ class Users:
         else:
             return self._finishChroot(childpid)
 
-    def setUserPassword(self, username, password, isCrypted, lock, algo=None, root=ROOT_PATH):
+    def setUserPassword(self, username, password, isCrypted, lock, algo=None, root=None):
         childpid = self._prepareChroot(root)
 
         if childpid == 0:
@@ -430,5 +430,5 @@ class Users:
         else:
             return self._finishChroot(childpid)
 
-    def setRootPassword(self, password, isCrypted=False, isLocked=False, algo=None, root=ROOT_PATH):
+    def setRootPassword(self, password, isCrypted=False, isLocked=False, algo=None, root=None):
         return self.setUserPassword("root", password, isCrypted, isLocked, algo, root)

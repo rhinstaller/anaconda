@@ -37,7 +37,7 @@ import traceback
 import blivet.errors
 from pyanaconda.errors import CmdlineError
 from pyanaconda.ui.communication import hubQ
-from pyanaconda.constants import ROOT_PATH, THREAD_EXCEPTION_HANDLING_TEST
+from pyanaconda.constants import THREAD_EXCEPTION_HANDLING_TEST
 from pyanaconda.threads import threadMgr
 from pyanaconda.i18n import _
 from pyanaconda import flags
@@ -164,12 +164,12 @@ class AnacondaExceptionHandler(ExceptionHandler):
         anaconda = dump_info.object
 
         # See if there is a /root present in the root path and put exception there as well
-        if os.access(ROOT_PATH + "/root", os.X_OK):
+        if os.access(iutil.getSysroot() + "/root", os.X_OK):
             try:
-                dest = ROOT_PATH + "/root/%s" % os.path.basename(self.exnFile)
+                dest = iutil.getSysroot() + "/root/%s" % os.path.basename(self.exnFile)
                 shutil.copyfile(self.exnFile, dest)
             except (shutil.Error, IOError):
-                log.error("Failed to copy %s to %s/root", self.exnFile, ROOT_PATH)
+                log.error("Failed to copy %s to %s/root", self.exnFile, iutil.getSysroot())
 
         # run kickstart traceback scripts (if necessary)
         try:
@@ -218,7 +218,7 @@ class AnacondaExceptionHandler(ExceptionHandler):
 def initExceptionHandling(anaconda):
     fileList = [ "/tmp/anaconda.log", "/tmp/packaging.log",
                  "/tmp/program.log", "/tmp/storage.log", "/tmp/ifcfg.log",
-                 "/tmp/yum.log", ROOT_PATH + "/root/install.log",
+                 "/tmp/yum.log", iutil.getSysroot() + "/root/install.log",
                  "/proc/cmdline" ]
 
     if os.path.exists("/tmp/syslog"):

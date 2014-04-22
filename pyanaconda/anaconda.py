@@ -30,11 +30,11 @@
 
 import os
 import sys
-from pyanaconda.constants import ROOT_PATH
 from tempfile import mkstemp
 
 from pyanaconda.bootloader import get_bootloader
 from pyanaconda import constants
+from pyanaconda import iutil
 from pyanaconda import addons
 
 import logging
@@ -227,7 +227,7 @@ class Anaconda(object):
         if self.xdriver is None:
             return
         if root is None:
-            root = ROOT_PATH
+            root = iutil.getSysroot()
         if not os.path.isdir("%s/etc/X11" %(root,)):
             os.makedirs("%s/etc/X11" %(root,), mode=0755)
         f = open("%s/etc/X11/xorg.conf" %(root,), 'w')

@@ -41,7 +41,7 @@ import os.path
 import tempfile
 import subprocess
 from pyanaconda.flags import flags, can_touch_runtime_system
-from pyanaconda.constants import ADDON_PATHS, ROOT_PATH
+from pyanaconda.constants import ADDON_PATHS
 import shlex
 import sys
 import urlgrabber
@@ -230,7 +230,7 @@ def getAvailableDiskSpace(storage):
 class Authconfig(commands.authconfig.FC3_Authconfig):
     def execute(self, *args):
         cmd = "/usr/sbin/authconfig"
-        if not os.path.lexists(ROOT_PATH+cmd):
+        if not os.path.lexists(iutil.getSysroot()+cmd):
             if self.seen:
                 msg = _("%s is missing. Cannot setup authentication.") % cmd
                 raise KickstartError(msg)
@@ -240,12 +240,12 @@ class Authconfig(commands.authconfig.FC3_Authconfig):
         args = ["--update", "--nostart"] + shlex.split(self.authconfig)
 
         if not flags.automatedInstall and \
-           (os.path.exists(ROOT_PATH + "/lib64/security/pam_fprintd.so") or \
-            os.path.exists(ROOT_PATH + "/lib/security/pam_fprintd.so")):
+           (os.path.exists(iutil.getSysroot() + "/lib64/security/pam_fprintd.so") or \
+            os.path.exists(iutil.getSysroot() + "/lib/security/pam_fprintd.so")):
             args += ["--enablefingerprint"]
 
         try:
-            iutil.execWithRedirect(cmd, args, root=ROOT_PATH)
+            iutil.execInSysroot(cmd, args)
         except RuntimeError as msg:
             log.error("Error running %s %s: %s", cmd, args, msg)
 
@@ -482,7 +482,7 @@ class Realm(commands.realm.F19_Realm):
             # no explicit password arg using implicit --no-password
             pw_args = ["--no-password"]
 
-        argv = ["realm", "join", "--install", ROOT_PATH, "--verbose"] + \
+        argv = ["realm", "join", "--install", iutil.getSysroot(), "--verbose"] + \
                pw_args + self.join_args
         rc = -1
         try:
@@ -592,12 +592,12 @@ class Firewall(commands.firewall.F20_Firewall):
             args += [ "--service=%s" % (service,) ]
 
         cmd = "/usr/bin/firewall-offline-cmd"
-        if not os.path.exists(ROOT_PATH+cmd):
+        if not os.path.exists(iutil.getSysroot()+cmd):
             if self.enabled:
                 msg = _("%s is missing. Cannot setup firewall.") % (cmd,)
                 raise KickstartError(msg)
         else:
-            iutil.execWithRedirect(cmd, args, root=ROOT_PATH)
+            iutil.execInSysroot(cmd, args)
 
 class Firstboot(commands.firstboot.FC3_Firstboot):
     def setup(self, *args):
@@ -611,18 +611,17 @@ class Firstboot(commands.firstboot.FC3_Firstboot):
         if self.firstboot == FIRSTBOOT_SKIP:
             action = "disable"
         elif self.firstboot == FIRSTBOOT_RECONFIG:
-            f = open(ROOT_PATH + "/etc/reconfigSys", "w+")
+            f = open(iutil.getSysroot() + "/etc/reconfigSys", "w+")
             f.close()
 
-        iutil.execWithRedirect("systemctl", [action, "initial-setup-graphical.service",
-                                             "initial-setup-text.service"],
-                               root=ROOT_PATH)
+        iutil.execInSysroot("systemctl", [action, "initial-setup-graphical.service",
+                                          "initial-setup-text.service"])
 
 class Group(commands.group.F12_Group):
     def execute(self, storage, ksdata, instClass, users):
         for grp in self.groupList:
             kwargs = grp.__dict__
-            kwargs.update({"root": ROOT_PATH})
+            kwargs.update({"root": iutil.getSysroot()})
             users.createGroup(grp.name, **kwargs)
 
 class IgnoreDisk(commands.ignoredisk.RHEL6_IgnoreDisk):
@@ -691,7 +690,7 @@ class IscsiName(commands.iscsiname.FC6_IscsiName):
 
 class Lang(commands.lang.F19_Lang):
     def execute(self, *args, **kwargs):
-        localization.write_language_configuration(self, ROOT_PATH)
+        localization.write_language_configuration(self, iutil.getSysroot())
 
 # no overrides needed here
 Eula = commands.eula.F20_Eula
@@ -924,7 +923,7 @@ class Logging(commands.logging.FC6_Logging):
 
 class Network(commands.network.F21_Network):
     def execute(self, storage, ksdata, instClass):
-        network.write_network_config(storage, ksdata, instClass, ROOT_PATH)
+        network.write_network_config(storage, ksdata, instClass, iutil.getSysroot())
 
 class MultiPath(commands.multipath.FC6_MultiPath):
     def parse(self, args):
@@ -1375,7 +1374,7 @@ class SELinux(commands.selinux.FC3_SELinux):
             return
 
         try:
-            selinux_cfg = SimpleConfigFile(ROOT_PATH+"/etc/selinux/config")
+            selinux_cfg = SimpleConfigFile(iutil.getSysroot()+"/etc/selinux/config")
             selinux_cfg.read()
             selinux_cfg.set(("SELINUX", selinux_states[self.selinux]))
             selinux_cfg.write()
@@ -1388,15 +1387,13 @@ class Services(commands.services.FC6_Services):
             if not svc.endswith(".service"):
                 svc += ".service"
 
-            iutil.execWithRedirect("systemctl", ["disable", svc],
-                                   root=ROOT_PATH)
+            iutil.execInSysroot("systemctl", ["disable", svc])
 
         for svc in self.enabled:
             if not svc.endswith(".service"):
                 svc += ".service"
 
-            iutil.execWithRedirect("systemctl", ["enable", svc],
-                                   root=ROOT_PATH)
+            iutil.execInSysroot("systemctl", ["enable", svc])
 
 class Timezone(commands.timezone.F18_Timezone):
     def __init__(self, *args):
@@ -1445,11 +1442,11 @@ class Timezone(commands.timezone.F18_Timezone):
                         "back to default (America/New_York).", self.timezone)
             self.timezone = "America/New_York"
 
-        timezone.write_timezone_config(self, ROOT_PATH)
+        timezone.write_timezone_config(self, iutil.getSysroot())
 
         # write out NTP configuration (if set)
         if not self.nontp and self.ntpservers:
-            chronyd_conf_path = os.path.normpath(ROOT_PATH + ntp.NTP_CONFIG_FILE)
+            chronyd_conf_path = os.path.normpath(iutil.getSysroot() + ntp.NTP_CONFIG_FILE)
             try:
                 ntp.save_servers_to_config(self.ntpservers,
                                            conf_file_path=chronyd_conf_path)
@@ -1462,7 +1459,7 @@ class User(commands.user.F19_User):
 
         for usr in self.userList:
             kwargs = usr.__dict__
-            kwargs.update({"algo": algo, "root": ROOT_PATH})
+            kwargs.update({"algo": algo, "root": iutil.getSysroot()})
 
             # If the user password came from a kickstart and it is blank we
             # need to make sure the account is locked, not created with an
@@ -1568,7 +1565,7 @@ class ZFCP(commands.zfcp.F14_ZFCP):
 
 class Keyboard(commands.keyboard.F18_Keyboard):
     def execute(self, *args):
-        keyboard.write_keyboard_config(self, ROOT_PATH)
+        keyboard.write_keyboard_config(self, iutil.getSysroot())
 
 class Upgrade(commands.upgrade.F20_Upgrade):
     # Upgrade is no longer supported. If an upgrade command was included in
@@ -1591,7 +1588,7 @@ class SpokeRegistry(dict):
         return ""
 
     def execute(self, storage, ksdata, instClass, users):
-        path = os.path.join(ROOT_PATH, "var", "lib", "inital-setup")
+        path = os.path.join(iutil.getSysroot(), "var", "lib", "inital-setup")
         try:
             os.makedirs(path, 0755)
         except OSError:
@@ -1806,7 +1803,7 @@ def runPostScripts(scripts):
             del(os.environ[var])
 
     log.info("Running kickstart %%post script(s)")
-    map (lambda s: s.run(ROOT_PATH), postScripts)
+    map (lambda s: s.run(iutil.getSysroot()), postScripts)
     log.info("All kickstart %%post script(s) have been run")
 
 def runPreScripts(scripts):

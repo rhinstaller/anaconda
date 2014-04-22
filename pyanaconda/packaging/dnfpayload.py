@@ -254,7 +254,7 @@ class DNFPayload(packaging.PackagePayload):
         self._base.logging.setup_from_dnf_conf(conf)
 
         conf.releasever = self._getReleaseVersion(None)
-        conf.installroot = constants.ROOT_PATH
+        conf.installroot = pyanaconda.iutil.getSysroot()
         conf.prepend_installroot('persistdir')
 
         # NSS won't survive the forking we do to shield out chroot during

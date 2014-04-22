@@ -21,7 +21,8 @@
 #
 
 import os
-from pyanaconda.constants import ROOT_PATH, RUNLEVELS
+from pyanaconda.constants import RUNLEVELS
+from pyanaconda import iutil
 
 import logging
 log = logging.getLogger("anaconda")
@@ -44,14 +45,14 @@ class Desktop(object):
 
     def write(self):
         if self.desktop:
-            with open(ROOT_PATH + "/etc/sysconfig/desktop", "w") as f:
+            with open(iutil.getSysroot() + "/etc/sysconfig/desktop", "w") as f:
                 f.write("DESKTOP=%s\n" % self.desktop)
 
-        if not os.path.isdir(ROOT_PATH + '/etc/systemd/system'):
+        if not os.path.isdir(iutil.getSysroot() + '/etc/systemd/system'):
             log.warning("there is no /etc/systemd/system directory, cannot update default.target!")
             return
 
-        default_target = ROOT_PATH + '/etc/systemd/system/default.target'
+        default_target = iutil.getSysroot() + '/etc/systemd/system/default.target'
         if os.path.islink(default_target):
             os.unlink(default_target)
         os.symlink('/lib/systemd/system/%s' % RUNLEVELS[self.runlevel],

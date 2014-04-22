@@ -33,7 +33,6 @@ from blivet.devicelibs import raid
 from pyanaconda.isys import sync
 from pyanaconda.product import productName
 from pyanaconda.flags import flags
-from pyanaconda.constants import ROOT_PATH
 from blivet.errors import StorageError
 from blivet.fcoe import fcoe
 import pyanaconda.network
@@ -922,19 +921,19 @@ class BootLoader(object):
 
     def write_config_post(self):
         try:
-            os.chmod(ROOT_PATH + self.config_file, self.config_file_mode)
+            os.chmod(iutil.getSysroot() + self.config_file, self.config_file_mode)
         except OSError as e:
             log.error("failed to set config file permissions: %s", e)
 
     def add_crash_args(self):
         buf = ""
-        if os.access("%s%s" % (ROOT_PATH, "/usr/sbin/rhcrashkernel-param"), \
+        if os.access("%s%s" % (iutil.getSysroot(), "/usr/sbin/rhcrashkernel-param"), \
                      os.X_OK):
             (pread, pwrite) = os.pipe()
             os.close(pwrite)
             buf = iutil.execWithCapture("/usr/sbin/rhcrashkernel-param", [],
                                         stdin=pread,
-                                        root=ROOT_PATH)
+                                        root=iutil.getSysroot())
             os.close(pread)
         self.boot_args.add(buf.replace('\n', ' '))
 
@@ -945,7 +944,7 @@ class BootLoader(object):
 
         self.add_crash_args()
 
-        config_path = os.path.normpath(ROOT_PATH + self.config_file)
+        config_path = os.path.normpath(iutil.getSysroot() + self.config_file)
         if os.access(config_path, os.R_OK):
             os.rename(config_path, config_path + ".anacbak")
 
@@ -977,7 +976,7 @@ class BootLoader(object):
 
         self.write_config()
         sync()
-        self.stage2_device.format.sync(root=ROOT_PATH)
+        self.stage2_device.format.sync(root=iutil.getTargetPhysicalRoot())
         self.install()
 
     def install(self, args=None):
@@ -1169,7 +1168,7 @@ class GRUB(BootLoader):
 
         if iutil.isConsoleOnVirtualTerminal(self.console):
             splash = "splash.xpm.gz"
-            splash_path = os.path.normpath("%s/boot/%s/%s" % (ROOT_PATH,
+            splash_path = os.path.normpath("%s/boot/%s/%s" % (iutil.getSysroot(),
                                                         self.splash_dir,
                                                         splash))
             if os.access(splash_path, os.R_OK):
@@ -1222,7 +1221,7 @@ class GRUB(BootLoader):
 
     def write_device_map(self):
         """ Write out a device map containing all supported devices. """
-        map_path = os.path.normpath(ROOT_PATH + self.device_map_file)
+        map_path = os.path.normpath(iutil.getSysroot() + self.device_map_file)
         if os.access(map_path, os.R_OK):
             os.rename(map_path, map_path + ".anacbak")
 
@@ -1238,7 +1237,7 @@ class GRUB(BootLoader):
         super(GRUB, self).write_config_post()
 
         # make symlink for menu.lst (grub's default config file name)
-        menu_lst = "%s%s/menu.lst" % (ROOT_PATH, self.config_dir)
+        menu_lst = "%s%s/menu.lst" % (iutil.getSysroot(), self.config_dir)
         if os.access(menu_lst, os.R_OK):
             try:
                 os.rename(menu_lst, menu_lst + '.anacbak')
@@ -1251,7 +1250,7 @@ class GRUB(BootLoader):
             log.error("failed to create grub menu.lst symlink: %s", e)
 
         # make symlink to grub.conf in /etc since that's where configs belong
-        etc_grub = "%s/etc/%s" % (ROOT_PATH, self._config_file)
+        etc_grub = "%s/etc/%s" % (iutil.getSysroot(), self._config_file)
         if os.access(etc_grub, os.R_OK):
             try:
                 os.unlink(etc_grub)
@@ -1310,8 +1309,7 @@ class GRUB(BootLoader):
         return targets
 
     def install(self, args=None):
-        rc = iutil.execWithRedirect("grub-install", ["--just-copy"],
-                                    root=ROOT_PATH)
+        rc = iutil.execInSysroot("grub-install", ["--just-copy"])
         if rc:
             raise BootLoaderError("bootloader install failed")
 
@@ -1331,8 +1329,7 @@ class GRUB(BootLoader):
             os.close(pwrite)
             args = ["--batch", "--no-floppy",
                     "--device-map=%s" % self.device_map_file]
-            rc = iutil.execWithRedirect("grub", args,
-                                        stdin=pread, root=ROOT_PATH)
+            rc = iutil.execInSysroot("grub", args, stdin=pread)
             os.close(pread)
             if rc:
                 raise BootLoaderError("bootloader install failed")
@@ -1441,7 +1438,7 @@ class GRUB2(GRUB):
 
     def write_device_map(self):
         """ Write out a device map containing all supported devices. """
-        map_path = os.path.normpath(ROOT_PATH + self.device_map_file)
+        map_path = os.path.normpath(iutil.getSysroot() + self.device_map_file)
         if os.access(map_path, os.R_OK):
             os.rename(map_path, map_path + ".anacbak")
 
@@ -1466,7 +1463,7 @@ class GRUB2(GRUB):
         dev_map.close()
 
     def write_defaults(self):
-        defaults_file = "%s%s" % (ROOT_PATH, self.defaults_file)
+        defaults_file = "%s%s" % (iutil.getSysroot(), self.defaults_file)
         defaults = open(defaults_file, "w+")
         defaults.write("GRUB_TIMEOUT=%d\n" % self.timeout)
         defaults.write("GRUB_DISTRIBUTOR=\"$(sed 's, release .*$,,g' /etc/system-release)\"\n")
@@ -1500,7 +1497,7 @@ class GRUB2(GRUB):
         os.close(pwrite)
         buf = iutil.execWithCapture("grub2-mkpasswd-pbkdf2", [],
                                     stdin=pread,
-                                    root=ROOT_PATH)
+                                    root=iutil.getSysroot())
         os.close(pread)
         self.encrypted_password = buf.split()[-1].strip()
         if not self.encrypted_password.startswith("grub.pbkdf2."):
@@ -1510,7 +1507,7 @@ class GRUB2(GRUB):
         if not self.password and not self.encrypted_password:
             return
 
-        users_file = ROOT_PATH + "/etc/grub.d/01_users"
+        users_file = iutil.getSysroot() + "/etc/grub.d/01_users"
         header = open(users_file, "w")
         header.write("#!/bin/sh -e\n\n")
         header.write("cat << \"EOF\"\n")
@@ -1544,16 +1541,13 @@ class GRUB2(GRUB):
         # make sure the default entry is the OS we are installing
         entry_title = "%s Linux, with Linux %s" % (productName,
                                                    self.default.version)
-        rc = iutil.execWithRedirect("grub2-set-default",
-                                    [entry_title],
-                                    root=ROOT_PATH)
+        rc = iutil.execInSysroot("grub2-set-default", [entry_title])
         if rc:
             log.error("failed to set default menu entry to %s", productName)
 
         # now tell grub2 to generate the main configuration file
-        rc = iutil.execWithRedirect("grub2-mkconfig",
-                                    ["-o", self.config_file],
-                                    root=ROOT_PATH)
+        rc = iutil.execInSysroot("grub2-mkconfig",
+                                 ["-o", self.config_file])
         if rc:
             raise BootLoaderError("failed to write bootloader configuration")
 
@@ -1574,7 +1568,7 @@ class GRUB2(GRUB):
                 grub_args.insert(0, '--force')
 
             rc = iutil.execWithRedirect("grub2-install", grub_args,
-                                        root=ROOT_PATH,
+                                        root=iutil.getSysroot(),
                                         env_prune=['MALLOC_PERTURB_'])
             if rc:
                 raise BootLoaderError("bootloader install failed")
@@ -1589,14 +1583,14 @@ class GRUB2(GRUB):
             return
 
         self.write_device_map()
-        self.stage2_device.format.sync(root=ROOT_PATH)
+        self.stage2_device.format.sync(root=iutil.getTargetPhysicalRoot())
         sync()
         self.install()
         sync()
-        self.stage2_device.format.sync(root=ROOT_PATH)
+        self.stage2_device.format.sync(root=iutil.getTargetPhysicalRoot())
         self.write_config()
         sync()
-        self.stage2_device.format.sync(root=ROOT_PATH)
+        self.stage2_device.format.sync(root=iutil.getTargetPhysicalRoot())
 
     def check(self):
         """ When installing to the mbr of a disk grub2 needs enough space
@@ -1665,7 +1659,7 @@ class EFIGRUB(GRUB2):
         else:
             exec_func = iutil.execWithRedirect
         if "root" not in kwargs:
-            kwargs["root"] = ROOT_PATH
+            kwargs["root"] = iutil.getSysroot()
 
         return exec_func("efibootmgr", list(args), **kwargs)
 
@@ -1712,7 +1706,7 @@ class EFIGRUB(GRUB2):
                              "-d", boot_disk.path, "-p", boot_part_num,
                              "-l",
                              self.efi_dir_as_efifs_dir + self._efi_binary,
-                             root=ROOT_PATH)
+                             root=iutil.getSysroot())
         if rc:
             raise BootLoaderError("failed to set new efi boot target. This is most likely a kernel bug.")
 
@@ -1737,7 +1731,7 @@ class EFIGRUB(GRUB2):
             return
 
         sync()
-        self.stage2_device.format.sync(root=ROOT_PATH)
+        self.stage2_device.format.sync(root=iutil.getTargetPhysicalRoot())
         self.install()
         self.write_config()
 
@@ -1755,9 +1749,8 @@ class Aarch64EFIGRUB(EFIGRUB):
 
 class MacEFIGRUB(EFIGRUB):
     def mactel_config(self):
-        if os.path.exists(ROOT_PATH + "/usr/libexec/mactel-boot-setup"):
-            rc = iutil.execWithRedirect("/usr/libexec/mactel-boot-setup", [],
-                                        root=ROOT_PATH)
+        if os.path.exists(iutil.getSysroot() + "/usr/libexec/mactel-boot-setup"):
+            rc = iutil.execInSysroot("/usr/libexec/mactel-boot-setup", [])
             if rc:
                 log.error("failed to configure Mac bootloader")
 
@@ -1886,7 +1879,7 @@ class Yaboot(YabootBase):
         super(Yaboot, self).write_config_post()
 
         # make symlink in /etc to yaboot.conf if config is in /boot/etc
-        etc_yaboot_conf = ROOT_PATH + "/etc/yaboot.conf"
+        etc_yaboot_conf = iutil.getSysroot() + "/etc/yaboot.conf"
         if not os.access(etc_yaboot_conf, os.R_OK):
             try:
                 os.symlink("../boot/etc/yaboot.conf", etc_yaboot_conf)
@@ -1894,8 +1887,8 @@ class Yaboot(YabootBase):
                 log.error("failed to create /etc/yaboot.conf symlink: %s", e)
 
     def write_config(self):
-        if not os.path.isdir(ROOT_PATH + self.config_dir):
-            os.mkdir(ROOT_PATH + self.config_dir)
+        if not os.path.isdir(iutil.getSysroot() + self.config_dir):
+            os.mkdir(iutil.getSysroot() + self.config_dir)
 
         # this writes the config
         super(Yaboot, self).write_config()
@@ -1906,8 +1899,7 @@ class Yaboot(YabootBase):
 
     def install(self, args=None):
         args = ["-f", "-C", self.config_file]
-        rc = iutil.execWithRedirect(self.prog, args,
-                                    root=ROOT_PATH)
+        rc = iutil.execInSysroot(self.prog, args)
         if rc:
             raise BootLoaderError("bootloader installation failed")
 
@@ -2032,7 +2024,7 @@ class IPSeriesGRUB2(GRUB2):
     def write_defaults(self):
         super(IPSeriesGRUB2, self).write_defaults()
 
-        defaults_file = "%s%s" % (ROOT_PATH, self.defaults_file)
+        defaults_file = "%s%s" % (iutil.getSysroot(), self.defaults_file)
         defaults = open(defaults_file, "a+")
         # The terminfo's X and Y size, and output location could change in the future
         defaults.write("GRUB_TERMINFO=\"terminfo -g 80x24 console\"\n")
@@ -2146,7 +2138,7 @@ class ZIPL(BootLoader):
     #
 
     def install(self, args=None):
-        buf = iutil.execWithCapture("zipl", [], root=ROOT_PATH)
+        buf = iutil.execWithCapture("zipl", [], root=iutil.getSysroot())
         for line in buf.splitlines():
             if line.startswith("Preparing boot device: "):
                 # Output here may look like:
@@ -2241,7 +2233,7 @@ class EXTLINUX(BootLoader):
             config.write("menu notabmsg Press [Tab] and enter the password to edit options")
 
     def write_config_post(self):
-        etc_extlinux = os.path.normpath(ROOT_PATH + "/etc/" + self._config_file)
+        etc_extlinux = os.path.normpath(iutil.getSysroot() + "/etc/" + self._config_file)
         if not os.access(etc_extlinux, os.R_OK):
             try:
                 os.symlink("../boot/%s" % self._config_file, etc_extlinux)
@@ -2257,8 +2249,7 @@ class EXTLINUX(BootLoader):
 
     def install(self, args=None):
         args = ["--install", self._config_dir]
-        rc = iutil.execWithRedirect("extlinux", args,
-                                    root=ROOT_PATH)
+        rc = iutil.execInSysroot("extlinux", args)
 
         if rc:
             raise BootLoaderError("bootloader install failed")
@@ -2292,9 +2283,9 @@ def writeSysconfigKernel(storage, version, instClass):
     # get the name of the default kernel package based on the version
     kernel_basename = "vmlinuz-" + version
     kernel_file = "/boot/%s" % kernel_basename
-    if not os.path.isfile(ROOT_PATH + kernel_file):
+    if not os.path.isfile(iutil.getSysroot() + kernel_file):
         kernel_file = "/boot/efi/EFI/%s/%s" % (instClass.efi_dir, kernel_basename)
-        if not os.path.isfile(ROOT_PATH + kernel_file):
+        if not os.path.isfile(iutil.getSysroot() + kernel_file):
             log.error("failed to recreate path to default kernel image")
             return
 
@@ -2304,7 +2295,7 @@ def writeSysconfigKernel(storage, version, instClass):
         log.error("failed to import rpm python module")
         return
 
-    ts = rpm.TransactionSet(ROOT_PATH)
+    ts = rpm.TransactionSet(iutil.getSysroot())
     mi = ts.dbMatch('basenames', kernel_file)
     try:
         h = mi.next()
@@ -2314,7 +2305,7 @@ def writeSysconfigKernel(storage, version, instClass):
 
     kernel = h.name
 
-    f = open(ROOT_PATH + "/etc/sysconfig/kernel", "w+")
+    f = open(iutil.getSysroot() + "/etc/sysconfig/kernel", "w+")
     f.write("# UPDATEDEFAULT specifies if new-kernel-pkg should make\n"
             "# new kernels the default\n")
     # only update the default if we're setting the default to linux (#156678)
