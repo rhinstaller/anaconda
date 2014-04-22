@@ -346,12 +346,14 @@ class Users:
                     orig_gid = stats.st_gid
 
                     log.info("Home directory for the user %s already existed, "
-                             "fixing the owner.", user_name)
+                             "fixing the owner and SELinux context.", user_name)
                     # home directory already existed, change owner of it properly
                     iutil.chown_dir_tree(userEnt.get(libuser.HOMEDIRECTORY)[0],
                                          userEnt.get(libuser.UIDNUMBER)[0],
                                          groupEnt.get(libuser.GIDNUMBER)[0],
                                          orig_uid, orig_gid)
+                    iutil.execWithRedirect("restorecon",
+                                           ["-r", userEnt.get(libuser.HOMEDIRECTORY)[0]])
                 except OSError as e:
                     log.critical("Unable to change owner of existing home directory: %s",
                             os.strerror)
