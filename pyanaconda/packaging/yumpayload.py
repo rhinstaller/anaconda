@@ -801,7 +801,7 @@ reposdir=%s
             baseurl = self._replaceVars(baseurl)
         if mirrorlist:
             mirrorlist = self._replaceVars(mirrorlist)
-        log.debug("adding yum repo %s with baseurl %s and mirrorlist %s",
+        log.info("adding yum repo %s with baseurl %s and mirrorlist %s",
                   name, baseurl, mirrorlist)
         with _yum_lock:
             if needsAdding:
