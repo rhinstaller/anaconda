@@ -903,7 +903,7 @@ class LogVolData(commands.logvol.F20_LogVolData):
             else:
                 maxsize = None
 
-            request = storage.newLV(format=fmt,
+            request = storage.newLV(fmt=fmt,
                                     name=self.name,
                                     parents=parents,
                                     size=size,
@@ -930,7 +930,7 @@ class LogVolData(commands.logvol.F20_LogVolData):
                                           escrow_cert=cert,
                                           add_backup_passphrase=self.backuppassphrase)
                 luksdev = LUKSDevice("luks%d" % storage.nextID,
-                                     format=luksformat,
+                                     fmt=luksformat,
                                      parents=device)
             else:
                 luksformat = request.format
@@ -939,7 +939,7 @@ class LogVolData(commands.logvol.F20_LogVolData):
                                            escrow_cert=cert,
                                            add_backup_passphrase=self.backuppassphrase)
                 luksdev = LUKSDevice("luks%d" % storage.nextID,
-                                     format=luksformat,
+                                     fmt=luksformat,
                                      parents=request)
             storage.createDevice(luksdev)
 
@@ -1101,14 +1101,15 @@ class PartitionData(commands.partition.F18_PartData):
             return
 
         # Now get a format to hold a lot of these extra values.
-        kwargs["format"] = getFormat(ty,
-                                     mountpoint=self.mountpoint,
-                                     label=self.label,
-                                     fsprofile=self.fsprofile,
-                                     mountopts=self.fsopts,
-                                     size=size)
-        if not kwargs["format"].type:
-            raise KickstartValueError(formatErrorMsg(self.lineno, msg="The \"%s\" filesystem type is not supported." % ty))
+        kwargs["fmt"] = getFormat(ty,
+           mountpoint=self.mountpoint,
+           label=self.label,
+           fsprofile=self.fsprofile,
+           mountopts=self.fsopts,
+           size=size)
+        if not kwargs["fmt"].type:
+            raise KickstartValueError(formatErrorMsg(self.lineno,
+                    msg=_("The \"%s\" filesystem type is not supported.") % ty))
 
         # If we were given a specific disk to create the partition on, verify
         # that it exists first.  If it doesn't exist, see if it exists with
@@ -1166,7 +1167,7 @@ class PartitionData(commands.partition.F18_PartData):
                     raise KickstartValueError(formatErrorMsg(self.lineno,
                             msg="Invalid target size (%d) for device %s" % (self.size, device.name)))
 
-            devicetree.registerAction(ActionCreateFormat(device, kwargs["format"]))
+            devicetree.registerAction(ActionCreateFormat(device, kwargs["fmt"]))
             if ty == "swap":
                 storage.addFstabSwap(device)
         # tmpfs mounts are not disks and don't occupy a disk partition,
@@ -1195,13 +1196,13 @@ class PartitionData(commands.partition.F18_PartData):
 
             cert = getEscrowCertificate(storage.escrowCertificates, self.escrowcert)
             if self.onPart:
-                luksformat = kwargs["format"]
+                luksformat = kwargs["fmt"]
                 device.format = getFormat("luks", passphrase=self.passphrase, device=device.path,
                                           cipher=self.cipher,
                                           escrow_cert=cert,
                                           add_backup_passphrase=self.backuppassphrase)
                 luksdev = LUKSDevice("luks%d" % storage.nextID,
-                                     format=luksformat,
+                                     fmt=luksformat,
                                      parents=device)
             else:
                 luksformat = request.format
@@ -1210,7 +1211,7 @@ class PartitionData(commands.partition.F18_PartData):
                                            escrow_cert=cert,
                                            add_backup_passphrase=self.backuppassphrase)
                 luksdev = LUKSDevice("luks%d" % storage.nextID,
-                                     format=luksformat,
+                                     fmt=luksformat,
                                      parents=request)
             storage.createDevice(luksdev)
 
@@ -1303,13 +1304,14 @@ class RaidData(commands.raid.F18_RaidData):
             raidmems.append(dev)
 
         # Now get a format to hold a lot of these extra values.
-        kwargs["format"] = getFormat(ty,
-                                     label=self.label,
-                                     fsprofile=self.fsprofile,
-                                     mountpoint=self.mountpoint,
-                                     mountopts=self.fsopts)
-        if not kwargs["format"].type:
-            raise KickstartValueError(formatErrorMsg(self.lineno, msg="The \"%s\" filesystem type is not supported." % ty))
+        kwargs["fmt"] = getFormat(ty,
+           label=self.label,
+           fsprofile=self.fsprofile,
+           mountpoint=self.mountpoint,
+           mountopts=self.fsopts)
+        if not kwargs["fmt"].type:
+            raise KickstartValueError(formatErrorMsg(self.lineno,
+                    msg=_("The \"%s\" filesystem type is not supported.") % ty))
 
         kwargs["name"] = devicename
         kwargs["level"] = self.level
@@ -1327,7 +1329,7 @@ class RaidData(commands.raid.F18_RaidData):
                 raise KickstartValueError(formatErrorMsg(self.lineno, msg="Specifeid nonexistent RAID %s in raid command" % devicename))
 
             removeExistingFormat(device, storage)
-            devicetree.registerAction(ActionCreateFormat(device, kwargs["format"]))
+            devicetree.registerAction(ActionCreateFormat(device, kwargs["fmt"]))
         else:
             if devicename and devicename in (a.name for a in storage.mdarrays):
                 raise KickstartValueError(formatErrorMsg(self.lineno, msg="The Software RAID array name \"%s\" is already in use." % devicename))
@@ -1354,13 +1356,13 @@ class RaidData(commands.raid.F18_RaidData):
 
             cert = getEscrowCertificate(storage.escrowCertificates, self.escrowcert)
             if self.preexist:
-                luksformat = kwargs["format"]
+                luksformat = kwargs["fmt"]
                 device.format = getFormat("luks", passphrase=self.passphrase, device=device.path,
                                           cipher=self.cipher,
                                           escrow_cert=cert,
                                           add_backup_passphrase=self.backuppassphrase)
                 luksdev = LUKSDevice("luks%d" % storage.nextID,
-                                     format=luksformat,
+                                     fmt=luksformat,
                                      parents=device)
             else:
                 luksformat = request.format
@@ -1369,7 +1371,7 @@ class RaidData(commands.raid.F18_RaidData):
                                            escrow_cert=cert,
                                            add_backup_passphrase=self.backuppassphrase)
                 luksdev = LUKSDevice("luks%d" % storage.nextID,
-                                     format=luksformat,
+                                     fmt=luksformat,
                                      parents=request)
             storage.createDevice(luksdev)
 
