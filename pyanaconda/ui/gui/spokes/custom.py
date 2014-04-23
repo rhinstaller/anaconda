@@ -1931,7 +1931,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         log.debug("new container encrypted: %s", dialog.encrypted)
         log.debug("new container size: %s", dialog.size_policy)
 
-        if new_encrypted:
+        if dialog.encrypted:
             self._container_encryption_change(self._device_container_encrypted,
                                               dialog.encrypted)
         self._device_disks = disks
