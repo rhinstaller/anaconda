@@ -1494,7 +1494,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
             _changed_size = False
             if size != device.size and size == device.currentSize:
                 # size has been set back to its original value
-                actions = self.__storage.devicetree.findActions(type="resize",
+                actions = self.__storage.devicetree.findActions(action_type="resize",
                                                                 devid=device.id)
                 with ui_storage_logger():
                     for action in reversed(actions):
