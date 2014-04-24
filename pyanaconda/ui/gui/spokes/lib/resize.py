@@ -66,8 +66,8 @@ class ResizeDialog(GUIObject):
         self.storage = storage
         self.payload = payload
 
-        self._initialFreeSpace = Size(bytes=0)
-        self._selectedReclaimableSpace = Size(bytes=0)
+        self._initialFreeSpace = Size(0)
+        self._selectedReclaimableSpace = Size(0)
 
         self._actionStore = self.builder.get_object("actionStore")
         self._diskStore = self.builder.get_object("diskStore")
@@ -118,10 +118,10 @@ class ResizeDialog(GUIObject):
 
     def populate(self, disks):
         totalDisks = 0
-        totalReclaimableSpace = Size(bytes=0)
+        totalReclaimableSpace = Size(0)
 
-        self._initialFreeSpace = Size(bytes=0)
-        self._selectedReclaimableSpace = Size(bytes=0)
+        self._initialFreeSpace = Size(0)
+        self._selectedReclaimableSpace = Size(0)
 
         canShrinkSomething = False
 
@@ -133,7 +133,7 @@ class ResizeDialog(GUIObject):
 
             if disk.partitioned:
                 fstype = ""
-                diskReclaimableSpace = Size(bytes=0)
+                diskReclaimableSpace = Size(0)
             else:
                 fstype = disk.format.type
                 diskReclaimableSpace = disk.size
@@ -186,7 +186,7 @@ class ResizeDialog(GUIObject):
             # And then add another uneditable line that lists how much space is
             # already free in the disk.
             diskFree = free_space[disk.name][0]
-            if diskFree >= Size(spec="1MiB"):
+            if diskFree >= Size("1MiB"):
                 self._diskStore.append(itr, [disk.id,
                                              _("""<span foreground='grey' style='italic'>Free space</span>"""),
                                              "",
@@ -247,9 +247,9 @@ class ResizeDialog(GUIObject):
         # The slider needs to be keyboard-accessible.  We'll make small movements change in
         # 1% increments, and large movements in 5% increments.
         distance = device.size - device.minSize
-        onePercent = Size(bytes=distance / 100)
-        fivePercent = Size(bytes=distance / 20)
-        twentyPercent = Size(bytes=distance / 5)
+        onePercent = Size(distance / 100)
+        fivePercent = Size(distance / 20)
+        twentyPercent = Size(distance / 5)
 
         adjustment = self.builder.get_object("resizeAdjustment")
         adjustment.configure(value, int(ceil(device.minSize)), int(device.size), onePercent, fivePercent, 0)
@@ -282,7 +282,7 @@ class ResizeDialog(GUIObject):
         self._shrinkButton.set_sensitive(device.resizable)
 
         if device.resizable:
-            self._setup_slider(device, Size(bytes=obj.target))
+            self._setup_slider(device, Size(obj.target))
 
         # Then, disable the button for whatever action is currently selected.
         # It doesn't make a lot of sense to allow clicking that.
@@ -332,7 +332,7 @@ class ResizeDialog(GUIObject):
         if obj.action == _(PRESERVE):
             return False
         if obj.action == _(SHRINK):
-            self._selectedReclaimableSpace += device.size - Size(bytes=obj.target)
+            self._selectedReclaimableSpace += device.size - Size(obj.target)
         elif obj.action == _(DELETE):
             self._selectedReclaimableSpace += int(device.size)
 
@@ -386,7 +386,7 @@ class ResizeDialog(GUIObject):
 
         # And then we're keeping a running tally of how much space the user
         # has selected to reclaim, so reflect that in the UI.
-        self._selectedReclaimableSpace = Size(bytes=0)
+        self._selectedReclaimableSpace = Size(0)
         self._diskStore.foreach(self._sumReclaimableSpace, None)
         self._update_labels(selectedReclaimable=self._selectedReclaimableSpace)
 
@@ -421,7 +421,7 @@ class ResizeDialog(GUIObject):
         elif obj.action == _(SHRINK):
             if device.resizable:
                 # round this up to nearest MB? MiB? Maybe in targetSize setter.
-                self.storage.resizeDevice(device, Size(bytes=obj.target))
+                self.storage.resizeDevice(device, Size(obj.target))
             else:
                 self._recursiveRemove(device)
         elif obj.action == _(DELETE):
@@ -477,14 +477,14 @@ class ResizeDialog(GUIObject):
     def on_resize_value_changed(self, rng):
         (model, itr) = self._selection.get_selected()
 
-        old_delta = Size(bytes=rng.get_adjustment().get_upper()) - int(model[itr][RESIZE_TARGET_COL])
+        old_delta = Size(rng.get_adjustment().get_upper()) - int(model[itr][RESIZE_TARGET_COL])
         self._selectedReclaimableSpace -= old_delta
 
         # Update the target size in the store.
-        model[itr][RESIZE_TARGET_COL] = Size(bytes=rng.get_value())
+        model[itr][RESIZE_TARGET_COL] = Size(rng.get_value())
 
         # Update the "Total selected space" label.
-        delta = Size(bytes=rng.get_adjustment().get_upper()) - int(rng.get_value())
+        delta = Size(rng.get_adjustment().get_upper()) - int(rng.get_value())
         self._selectedReclaimableSpace += delta
         self._update_labels(selectedReclaimable=self._selectedReclaimableSpace)
 
@@ -494,4 +494,4 @@ class ResizeDialog(GUIObject):
     def resize_slider_format(self, scale, value):
         # This makes the value displayed under the slider prettier than just a
         # single number.
-        return str(Size(bytes=value))
+        return str(Size(value))

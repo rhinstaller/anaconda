@@ -56,7 +56,7 @@ class RPMOSTreePayload(ArchivePayload):
     @property
     def spaceRequired(self):
         # We don't have this data with OSTree at the moment
-        return Size(spec="500 MB")
+        return Size("500 MB")
 
     def _safeExecWithRedirect(self, cmd, argv, **kwargs):
         """Like iutil.execWithRedirect, but treat errors as fatal"""

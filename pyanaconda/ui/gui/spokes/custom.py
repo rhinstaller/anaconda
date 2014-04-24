@@ -65,7 +65,6 @@ from blivet.errors import NotEnoughFreeSpaceError
 from blivet.errors import SanityError
 from blivet.errors import SanityWarning
 from blivet.errors import LUKSDeviceWithoutKeyError
-from blivet.errors import SizeParamsError
 from blivet.devicelibs import mdraid
 from blivet.devices import LUKSDevice
 
@@ -192,13 +191,13 @@ def size_from_entry(entry):
         size_text += "MB"
 
     try:
-        size = Size(spec=size_text)
-    except (SizeParamsError, ValueError):
+        size = Size(size_text)
+    except ValueError:
         return None
     else:
         # Minimium size for ui-created partitions is 1MiB.
         if size.convertTo(spec="MiB") < 1:
-            size = Size(spec="1 MiB")
+            size = Size("1 MiB")
 
     return size
 
@@ -292,7 +291,7 @@ class AddDialog(GUIObject):
     def __init__(self, *args, **kwargs):
         self.mountpoints = kwargs.pop("mountpoints", [])
         GUIObject.__init__(self, *args, **kwargs)
-        self.size = Size(bytes=0)
+        self.size = Size(0)
         self.mountpoint = ""
         self._error = False
 
@@ -446,7 +445,7 @@ class ContainerDialog(GUIObject):
         self.exists = kwargs.pop("exists", False)
 
         self.size_policy = kwargs.pop("size_policy", SIZE_POLICY_AUTO)
-        self.size = kwargs.pop("size", Size(bytes=0))
+        self.size = kwargs.pop("size", Size(0))
 
         self._error = None
         GUIObject.__init__(self, *args, **kwargs)
@@ -675,7 +674,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         self._error = None
         self._media_disks = []
         self._fs_types = []             # list of supported fstypes
-        self._free_space = Size(bytes=0)
+        self._free_space = Size(0)
 
         self._device_disks = []
         self._device_container_name = None
@@ -834,8 +833,8 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
 
     def _currentTotalSpace(self):
         """Add up the sizes of all selected disks and return it as a Size."""
-        totalSpace = sum(disk.size for disk in self._clearpartDevices,
-                         Size(bytes=0))
+        totalSpace = sum((disk.size for disk in self._clearpartDevices),
+                         Size(0))
         return totalSpace
 
     def _updateSpaceDisplay(self):

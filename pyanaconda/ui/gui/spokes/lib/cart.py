@@ -124,11 +124,11 @@ class SelectedDisksDialog(GUIObject):
         free = 0
         for row in self._store:
             count += 1
-            size += Size(spec=row[SIZE_COL])
-            free += Size(spec=row[FREE_SPACE_COL])
+            size += Size(row[SIZE_COL])
+            free += Size(row[FREE_SPACE_COL])
 
-        size = str(Size(bytes=long(size))).upper()
-        free = str(Size(bytes=long(free))).upper()
+        size = str(Size(long(size))).upper()
+        free = str(Size(long(free))).upper()
 
         text = P_("<b>%(count)s disk; %(size)s capacity; %(free)s free space</b> "
                    "(unpartitioned and in file systems)",

@@ -171,7 +171,7 @@ class LiveImagePayload(ImagePayload):
 
     @property
     def spaceRequired(self):
-        return Size(bytes=iutil.getDirSize("/")*1024)
+        return Size(iutil.getDirSize("/")*1024)
 
 class URLGrabberProgress(object):
     """ Provide methods for urlgrabber progress."""
@@ -420,6 +420,6 @@ class LiveImageKSPayload(LiveImagePayload):
             and install.
         """
         if self._min_size:
-            return Size(bytes=self._min_size)
+            return Size(self._min_size)
         else:
-            return Size(bytes=1024*1024*1024)
+            return Size(1024*1024*1024)

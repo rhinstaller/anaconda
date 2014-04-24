@@ -757,9 +757,11 @@ class LogVolData(commands.logvol.F20_LogVolData):
         vgname = ksdata.onPart.get(self.vgname, self.vgname)
 
         try:
-            size = Size(spec="%d MiB" % self.size)
-        except Exception:
+            size = Size("%d MiB" % self.size)
+        except ValueError:
             raise KickstartValueError(formatErrorMsg(self.lineno, msg="The size %s is not valid." % self.size))
+        except TypeError:
+            pass
 
         if self.mountpoint == "swap":
             ty = "swap"
@@ -890,16 +892,18 @@ class LogVolData(commands.logvol.F20_LogVolData):
                 parents = [vg]
 
             if self.thin_pool:
-                pool_args = { "metadatasize": Size(spec="%d MiB" % self.metadata_size),
-                              "chunksize": Size(spec="%d KiB" % self.chunk_size) }
+                pool_args = { "metadatasize": Size("%d MiB" % self.metadata_size),
+                              "chunksize": Size("%d KiB" % self.chunk_size) }
             else:
                 pool_args = {}
 
             if self.maxSizeMB:
                 try:
-                    maxsize = Size(spec="%d MiB" % self.maxSizeMB)
-                except Exception:
+                    maxsize = Size("%d MiB" % self.maxSizeMB)
+                except ValueError:
                     raise KickstartValueError(formatErrorMsg(self.lineno, msg="The maximum size %s is not valid." % self.maxSizeMB))
+                except TypeError:
+                    pass
             else:
                 maxsize = None
 
@@ -987,9 +991,11 @@ class PartitionData(commands.partition.F18_PartData):
         storage.doAutoPart = False
 
         try:
-            size = Size(spec="%d MiB" % self.size)
-        except Exception:
+            size = Size("%d MiB" % self.size)
+        except ValueError:
             raise KickstartValueError(formatErrorMsg(self.lineno, msg="The size %s is not valid." % self.size))
+        except TypeError:
+            pass
 
         if self.onbiosdisk != "":
             for (disk, biosdisk) in storage.eddDict.iteritems():
@@ -1140,9 +1146,11 @@ class PartitionData(commands.partition.F18_PartData):
         kwargs["size"] = size
         if self.maxSizeMB:
             try:
-                maxsize = Size(spec="%d MiB" % self.maxSizeMB)
-            except Exception:
+                maxsize = Size("%d MiB" % self.maxSizeMB)
+            except ValueError:
                 raise KickstartValueError(formatErrorMsg(self.lineno, msg="The maximum size %s is not valid." % self.maxSizeMB))
+            except TypeError:
+                pass
         else:
             maxsize = None
 
@@ -1541,7 +1549,7 @@ class VolGroupData(commands.volgroup.RHEL7_VolGroupData):
             # default PE size requested -- we use blivet's default in KiB
             self.pesize = LVM_PE_SIZE * 1024
 
-        pesize = Size(spec="%d KiB" % self.pesize)
+        pesize = Size("%d KiB" % self.pesize)
         if pesize not in getPossiblePhysicalExtents(floor=1024):
             raise KickstartValueError(formatErrorMsg(self.lineno, msg="Volume group specified invalid pesize"))
 

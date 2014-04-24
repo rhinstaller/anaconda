@@ -641,8 +641,8 @@ class StorageSpoke(NormalSpoke, StorageChecker):
     def _update_summary(self):
         """ Update the summary based on the UI. """
         count = 0
-        capacity = Size(bytes=0)
-        free = Size(bytes=0)
+        capacity = Size(0)
+        free = Size(0)
 
         # pass in our disk list so hidden disks' free space is available
         free_space = self.storage.getFreeSpace(disks=self.disks)
@@ -797,7 +797,7 @@ class StorageSpoke(NormalSpoke, StorageChecker):
 
         # show the installation options dialog
         disks = [d for d in self.disks if d.name in self.selected_disks]
-        disks_size = sum(d.size for d in disks, Size(bytes=0))
+        disks_size = sum((d.size for d in disks), Size(0))
 
         # No disks selected?  The user wants to back out of the storage spoke.
         if not disks:
@@ -847,8 +847,8 @@ class StorageSpoke(NormalSpoke, StorageChecker):
             fs_free = sum(f[1] for f in free_space.itervalues())
 
         required_space = self.payload.spaceRequired
-        auto_swap = sum(r.size for r in self.storage.autoPartitionRequests
-                                if r.fstype == "swap", Size(bytes=0))
+        auto_swap = sum((r.size for r in self.storage.autoPartitionRequests
+                                if r.fstype == "swap"), Size(0))
 
         log.debug("disk free: %s  fs free: %s  sw needs: %s  auto swap: %s",
                   disk_free, fs_free, required_space, auto_swap)
