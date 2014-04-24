@@ -54,7 +54,7 @@ class FileSystemSpaceChecker(object):
            check again.
         """
         self.success = False
-        self.deficit = Size(bytes=0)
+        self.deficit = Size(0)
         self.error_message = ""
 
     def check(self):
@@ -71,7 +71,7 @@ class FileSystemSpaceChecker(object):
                             in the info bar at the bottom of a Hub.
         """
         self.reset()
-        free = Size(bytes=self.storage.fileSystemFreeSpace)
+        free = Size(self.storage.fileSystemFreeSpace)
         needed = self.payload.spaceRequired
         log.info("fs space: %s  needed: %s", free, needed)
         self.success = (free >= needed)

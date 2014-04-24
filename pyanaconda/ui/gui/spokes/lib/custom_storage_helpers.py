@@ -166,7 +166,7 @@ class AddDialog(GUIObject):
     def __init__(self, *args, **kwargs):
         self.mountpoints = kwargs.pop("mountpoints", [])
         GUIObject.__init__(self, *args, **kwargs)
-        self.size = Size(bytes=0)
+        self.size = Size(0)
         self.mountpoint = ""
         self._error = False
 
@@ -323,7 +323,7 @@ class ContainerDialog(GUIObject):
         self.exists = kwargs.pop("exists", False)
 
         self.size_policy = kwargs.pop("size_policy", SIZE_POLICY_AUTO)
-        self.size = kwargs.pop("size", Size(bytes=0))
+        self.size = kwargs.pop("size", Size(0))
 
         self._error = None
         GUIObject.__init__(self, *args, **kwargs)

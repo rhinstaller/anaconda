@@ -27,7 +27,7 @@ class BTRFSOnNonBTRFSComponent(TestCaseComponent):
 
     def __init__(self, *args, **kwargs):
         TestCaseComponent.__init__(self, *args, **kwargs)
-        self.disksToCreate = [("anatest-disk1", Size(spec="1GiB"))]
+        self.disksToCreate = [("anatest-disk1", Size("1GiB"))]
 
     @property
     def ks(self):
@@ -50,7 +50,7 @@ class VolGroupOnNonPVsComponent(TestCaseComponent):
 
     def __init__(self, *args, **kwargs):
         TestCaseComponent.__init__(self, *args, **kwargs)
-        self.disksToCreate = [("anatest-disk1", Size(spec="1GiB"))]
+        self.disksToCreate = [("anatest-disk1", Size("1GiB"))]
 
     @property
     def ks(self):
@@ -73,8 +73,8 @@ class RaidOnNonRaidMembersComponent(TestCaseComponent):
 
     def __init__(self, *args, **kwargs):
         TestCaseComponent.__init__(self, *args, **kwargs)
-        self.disksToCreate = [("anatest-disk1", Size(spec="1GiB")),
-                              ("anatest-disk2", Size(spec="1GiB"))]
+        self.disksToCreate = [("anatest-disk1", Size("1GiB")),
+                              ("anatest-disk2", Size("1GiB"))]
 
     @property
     def ks(self):

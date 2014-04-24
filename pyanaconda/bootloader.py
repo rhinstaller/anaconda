@@ -244,7 +244,7 @@ class BootLoader(object):
     stage2_bootable = False
     stage2_must_be_primary = True
     stage2_description = N_("/boot filesystem")
-    stage2_max_end = Size(spec="2 TiB")
+    stage2_max_end = Size("2 TiB")
 
     @property
     def stage2_format_types(self):
@@ -492,7 +492,7 @@ class BootLoader(object):
         if max_end and device.type == "partition" and device.partedPartition:
             end_sector = device.partedPartition.geometry.end
             sector_size = device.partedPartition.disk.device.sectorSize
-            end = Size(bytes=sector_size * end_sector)
+            end = Size(sector_size * end_sector)
             if end > max_end:
                 self.errors.append(_("%(desc)s must be within the first %(max_end)s of "
                                      "the disk.") % {"desc": desc, "max_end": max_end})

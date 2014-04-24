@@ -25,7 +25,7 @@ class SwapWithRecommendedSizeComponent(TestCaseComponent):
 
     def __init__(self, *args, **kwargs):
         TestCaseComponent.__init__(self, *args, **kwargs)
-        self.disksToCreate = [("anatest-disk1", Size(spec="1GiB"))]
+        self.disksToCreate = [("anatest-disk1", Size("1GiB"))]
 
     @property
     def ks(self):

@@ -157,7 +157,7 @@ class StorageSpoke(NormalTUISpoke):
         """ Update the summary based on the UI. """
         count = 0
         capacity = 0
-        free = Size(bytes=0)
+        free = Size(0)
 
         # pass in our disk list so hidden disks' free space is available
         free_space = self.storage.getFreeSpace(disks=self.disks)
@@ -170,7 +170,7 @@ class StorageSpoke(NormalTUISpoke):
 
         summary = (P_(("%d disk selected; %s capacity; %s free ..."),
                       ("%d disks selected; %s capacity; %s free ..."),
-                      count) % (count, str(Size(bytes=capacity)), free))
+                      count) % (count, str(Size(capacity)), free))
 
         if len(self.disks) == 0:
             summary = _("No disks detected.  Please shut down the computer, connect at least one disk, and restart to complete installation.")

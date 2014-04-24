@@ -23,7 +23,6 @@ from blivet.deviceaction import ActionCreateFormat, ActionDestroyFormat, ActionR
 from blivet.devices import LUKSDevice
 from blivet.devicelibs.lvm import getPossiblePhysicalExtents
 from blivet.devicelibs import swap
-from blivet.errors import SizeParamsError
 from blivet.formats import getFormat
 from blivet.partitioning import doPartitioning
 from blivet.partitioning import growLVM
@@ -727,8 +726,8 @@ class LogVolData(commands.logvol.F20_LogVolData):
         vgname = ksdata.onPart.get(self.vgname, self.vgname)
 
         try:
-            size = Size(spec="%d MiB" % self.size)
-        except (ValueError, SizeParamsError):
+            size = Size("%d MiB" % self.size)
+        except ValueError:
             raise KickstartValueError(formatErrorMsg(self.lineno,
                     msg="The size \"%s\" is invalid." % self.size))
         except TypeError:
@@ -878,15 +877,15 @@ class LogVolData(commands.logvol.F20_LogVolData):
                 parents = [vg]
 
             if self.thin_pool:
-                pool_args = { "metadatasize": Size(spec="%d MiB" % self.metadata_size),
-                              "chunksize": Size(spec="%d KiB" % self.chunk_size) }
+                pool_args = { "metadatasize": Size("%d MiB" % self.metadata_size),
+                              "chunksize": Size("%d KiB" % self.chunk_size) }
             else:
                 pool_args = {}
 
             if self.maxSizeMB:
                 try:
-                    maxsize = Size(spec="%d MiB" % self.maxSizeMB)
-                except (ValueError, SizeParamsError):
+                    maxsize = Size("%d MiB" % self.maxSizeMB)
+                except ValueError:
                     raise KickstartValueError(formatErrorMsg(self.lineno,
                             msg="The maximum size \"%s\" is invalid." % self.maxSizeMB))
                 except TypeError:
@@ -978,8 +977,8 @@ class PartitionData(commands.partition.F18_PartData):
         storage.doAutoPart = False
 
         try:
-            size = Size(spec="%d MiB" % self.size)
-        except (ValueError, SizeParamsError):
+            size = Size("%d MiB" % self.size)
+        except ValueError:
             raise KickstartValueError(formatErrorMsg(self.lineno,
                     msg=_("The size \"%s\" is invalid.") % self.size))
         except TypeError:
@@ -1148,8 +1147,8 @@ class PartitionData(commands.partition.F18_PartData):
         kwargs["size"] = size
         if self.maxSizeMB:
             try:
-                maxsize = Size(spec="%d MiB" % self.maxSizeMB)
-            except (ValueError, SizeParamsError):
+                maxsize = Size("%d MiB" % self.maxSizeMB)
+            except ValueError:
                 raise KickstartValueError(formatErrorMsg(self.lineno,
                         msg=_("The maximum size \"%s\" is invalid.") % self.maxSizeMB))
             except TypeError:
@@ -1567,7 +1566,7 @@ class VolGroupData(commands.volgroup.FC16_VolGroupData):
             raise KickstartValueError(formatErrorMsg(self.lineno,
                     msg=_("Volume group \"%s\" defined without any physical volumes.  Either specify physical volumes or use --useexisting.") % self.vgname))
 
-        pesize = Size(spec="%d KiB" % self.pesize)
+        pesize = Size("%d KiB" % self.pesize)
         if pesize not in getPossiblePhysicalExtents():
             raise KickstartValueError(formatErrorMsg(self.lineno,
                     msg=_("Volume group given physical size of \"%(extentSize)s\", but must be one of:\n%(validExtentSizes)s.") %

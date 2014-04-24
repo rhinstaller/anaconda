@@ -26,7 +26,6 @@ import locale
 from contextlib import contextmanager
 
 from blivet.size import Size
-from blivet.errors import SizeParamsError
 from blivet.devicefactory import DEVICE_TYPE_LVM
 from blivet.devicefactory import DEVICE_TYPE_LVM_THINP
 from blivet.devicefactory import DEVICE_TYPE_BTRFS
@@ -105,13 +104,13 @@ def size_from_input(input_str):
         input_str += "MiB"
 
     try:
-        size = Size(spec=input_str)
-    except (SizeParamsError, ValueError):
+        size = Size(input_str)
+    except ValueError:
         return None
     else:
         # Minimium size for ui-created partitions is 1MiB.
         if size.convertTo(spec="MiB") < 1:
-            size = Size(spec="1 MiB")
+            size = Size("1 MiB")
 
     return size
 

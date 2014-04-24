@@ -146,7 +146,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         self._error = None
         self._hidden_disks = []
         self._fs_types = []             # list of supported fstypes
-        self._free_space = Size(bytes=0)
+        self._free_space = Size(0)
 
         self._device_size_text = None
         self._device_disks = []
@@ -323,7 +323,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
     def _currentTotalSpace(self):
         """Add up the sizes of all selected disks and return it as a Size."""
         totalSpace = sum((disk.size for disk in self._clearpartDevices),
-                         Size(bytes=0))
+                         Size(0))
         return totalSpace
 
     def _updateSpaceDisplay(self):

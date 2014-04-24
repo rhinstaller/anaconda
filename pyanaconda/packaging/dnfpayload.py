@@ -82,7 +82,7 @@ def _df_map():
         val = items[1]
         if not key.startswith('/'):
             continue
-        structured[key] = Size(bytes=int(val)*1024)
+        structured[key] = Size(int(val)*1024)
     return structured
 
 def _paced(fn):
@@ -100,7 +100,7 @@ def _pick_mpoint(df, requested):
         return mpoint in DOWNLOAD_MPOINTS
 
     # reserve extra
-    requested = requested + Size(spec="150 MB")
+    requested = requested + Size("150 MB")
     sufficients = {key : val for (key,val) in df.items() if val > requested
                    and reasonable_mpoint(key)}
     log.info('Sufficient mountpoints found: %s', sufficients)
@@ -377,7 +377,7 @@ class DNFPayload(packaging.PackagePayload):
     def spaceRequired(self):
         transaction = self._base.transaction
         if transaction is None:
-            return Size(spec="3000 MB")
+            return Size("3000 MB")
 
         size = sum(tsi.installed.installsize for tsi in transaction)
         # add 35% to account for the fact that the above method is laughably
