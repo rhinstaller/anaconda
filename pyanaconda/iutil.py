@@ -96,9 +96,15 @@ def _run_program(argv, root='/', stdin=None, stdout=None, env_prune=None, log_ou
     if env_prune is None:
         env_prune = []
 
+    # Transparently redirect callers requesting root=ROOT_PATH to the
+    # configured system root.
+    target_root = root
+    if target_root == ROOT_PATH:
+        target_root = getSysroot()
+
     def chroot():
-        if root and root != '/':
-            os.chroot(root)
+        if target_root and target_root != '/':
+            os.chroot(target_root)
             os.chdir("/")
 
     with program_log_lock:
