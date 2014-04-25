@@ -30,6 +30,7 @@ from pyanaconda import timezone
 from pyanaconda.i18n import _
 from pyanaconda.threads import threadMgr
 import logging
+import blivet
 log = logging.getLogger("anaconda")
 
 def _writeKS(ksdata):
@@ -148,7 +149,9 @@ def doInstall(storage, payload, ksdata, instClass):
     payload.preStorage()
 
     turnOnFilesystems(storage, mountOnly=flags.flags.dirInstall)
-    if not flags.flags.livecdInstall and not flags.flags.dirInstall:
+    write_storage_late = (flags.flags.livecdInstall or ksdata.ostreesetup.seen
+                          and not flags.flags.dirInstall)
+    if not write_storage_late:
         storage.write()
 
     # Do packaging.
@@ -169,8 +172,29 @@ def doInstall(storage, payload, ksdata, instClass):
     payload.preInstall(packages=packages, groups=payload.languageGroups())
     payload.install()
 
-    if flags.flags.livecdInstall:
-        storage.write()
+    if write_storage_late:
+        if iutil.getSysroot() != iutil.getTargetPhysicalRoot():
+            blivet.setSysroot(iutil.getTargetPhysicalRoot(),
+                              iutil.getSysroot())
+            storage.write()
+
+            # Now that we have the FS layout in the target, umount
+            # things that were in the legacy sysroot, and put them in
+            # the target root, except for the physical /.  First,
+            # unmount all target filesystems.
+            storage.umountFilesystems()
+
+            # Explicitly mount the root on the physical sysroot
+            rootmnt = storage.mountpoints.get('/')
+            rootmnt.setup()
+            rootmnt.format.setup(rootmnt.format.options, chroot=iutil.getTargetPhysicalRoot())
+
+            # Everything else goes in the target root, including /boot
+            # since the bootloader code will expect to find /boot
+            # inside the chroot.
+            storage.mountFilesystems(skipRoot=True)
+        else:
+            storage.write()
 
     # Do bootloader.
     if not flags.flags.dirInstall:
