@@ -771,9 +771,13 @@ def _update_settings(settings_path, new_values):
                                DEFAULT_DBUS_TIMEOUT,
                                None)
     for key1, key2, value, default_type_str in new_values:
-        new_settings = _gvariant_settings(settings, key1, key2, value, default_type_str)
+        settings = _gvariant_settings(settings, key1, key2, value, default_type_str)
 
-    proxy.Update(settings.get_type_string(), new_settings)
+    proxy.call_sync("Update",
+                    settings,
+                    Gio.DBusCallFlags.NONE,
+                    DEFAULT_DBUS_TIMEOUT,
+                    None)
 
 def _gvariant_settings(settings, updated_key1, updated_key2, value, default_type_str=None):
     """Update setting of updated_key1, updated_key2 of settings object with value.
@@ -823,7 +827,7 @@ def _gvariant_settings(settings, updated_key1, updated_key2, value, default_type
             new_settings[updated_key1] = {}
         new_settings[updated_key1][updated_key2] = GLib.Variant(type_str, value)
 
-    return new_settings
+    return GLib.Variant(settings.get_type_string(), (new_settings,))
 
 def nm_ipv6_to_dbus_ay(address):
     """Convert ipv6 address from string to list of bytes (ay) for dbus."""
