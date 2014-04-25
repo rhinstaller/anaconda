@@ -191,12 +191,12 @@ def doInstall(storage, payload, ksdata, instClass):
     if flags.flags.livecdInstall:
         storage.write()
 
-    with progress_report(_("Performing post-installation setup tasks")):
-        payload.postInstall()
-
     # Do bootloader.
     if willInstallBootloader:
         with progress_report(_("Installing bootloader")):
             writeBootLoader(storage, payload, instClass, ksdata)
+
+    with progress_report(_("Performing post-installation setup tasks")):
+        payload.postInstall()
 
     progressQ.send_complete()
