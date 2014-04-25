@@ -302,6 +302,43 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Thu Apr 24 2014 Brian C. Lane <bcl@redhat.com> - 21.34-1
+- Improve the "adding yum repo" message structure (mkolman)
+- Fix missing log message about adding a repository (#1089297) (mkolman)
+- Ignore use of eval warnings. (dshea)
+- Specify string format arguments as logging function parameters (dshea)
+- New encrypted state is the dialog's encrypted attribute (vpodzime)
+- Use human readable sizes with two decimal spaces in the GUI (vpodzime)
+- Make the LUKS unlock callback a timed action (vpodzime)
+- Hitting ENTER in the LUKS passwd entry should click the Unlock button
+  (vpodzime)
+- Block leaf device encryption if container is encrypted consistently
+  (vpodzime)
+- Do not remove the replacing item, remove the replaced one instead (vpodzime)
+- Give include_btrfs variable a better name (vpodzime)
+- Make the _resolve_btrfs_restrictions method's code nicer (vpodzime)
+- Refactor the btrfs magic into a separate method (vpodzime)
+- Switch the condition in long if-else statement (vpodzime)
+- Give an opaque condition a better name explaining its real meaning (vpodzime)
+- Refactor out the code for removing empty parents (vpodzime)
+- Use the (vpodzime)
+- Refactor out the code for adding device/mountpoint into a method (vpodzime)
+- Relabel /home partition if using and existing one (#1087736) (vpodzime)
+- Don't forget to call os._exit() in the child process (vpodzime)
+- users: Add root= keyword argument to set{User,Root}Password (walters)
+- users: Deduplicate code to fork()+chroot() (walters)
+- gui/spokes/software: Enable iff payload is PackagePayload (walters)
+- Use descriptive pylint messages instead of numbers. (clumens)
+- Add input validation to the source spoke. (dshea)
+- Remove the tests for duplicate and invalid repo names (dshea)
+- Expand the proxy URL validation. (dshea)
+- Convert the repository name test into a regex (dshea)
+- Add a remove_check method for InputCheckHandler. (dshea)
+- Use ID columns in the protocol combo boxes (dshea)
+- Added a link to a bug about the user data in glade problem. (dshea)
+- Remove the top and bottom padding from source spoke action area (dshea)
+- Re-add a false-positive for the GLib module (dshea)
+
 * Thu Apr 17 2014 Brian C. Lane <bcl@redhat.com> - 21.33-1
 - Add an option to copy translation files to an updates.img (dshea)
 - Set the selinux state from the command line (#784828) (dshea)
