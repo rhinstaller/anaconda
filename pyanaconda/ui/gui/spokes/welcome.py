@@ -34,7 +34,7 @@ from pyanaconda.product import distributionText, isFinal, productName, productVe
 from pyanaconda import keyboard
 from pyanaconda import flags
 from pyanaconda import geoloc
-from pyanaconda.i18n import _
+from pyanaconda.i18n import _, C_
 from pyanaconda.iutil import is_unsupported_hw
 from pyanaconda.constants import DEFAULT_LANG, DEFAULT_KEYBOARD
 
@@ -221,7 +221,7 @@ class WelcomeLanguageSpoke(LangLocaleHandler, StandaloneSpoke):
         localization.setup_locale(locales[0], self.data.lang)
         self._select_locale(self.data.lang.lang)
 
-    def _retranslate_one(self, widgetName):
+    def _retranslate_one(self, widgetName, context=None):
         widget = self.builder.get_object(widgetName)
         if not widget:
             return
@@ -230,14 +230,22 @@ class WelcomeLanguageSpoke(LangLocaleHandler, StandaloneSpoke):
             self._origStrings[widget] = widget.get_label()
 
         before = self._origStrings[widget]
-        widget.set_label(_(before))
+        if context is not None:
+            widget.set_label(C_(context, before))
+        else:
+            widget.set_label(_(before))
 
     def retranslate(self, lang):
         # Change the translations on labels and buttons that do not have
         # substitution text.
-        for name in ["pickLanguageLabel", "betaWarnTitle", "betaWarnDesc",
-                     "quitButton", "continueButton"]:
+        for name in ["pickLanguageLabel", "betaWarnTitle", "betaWarnDesc"]:
             self._retranslate_one(name)
+
+        # It would be nice to be able to read the translation context from the
+        # widget, but we live in an imperfect world.
+        # See also: https://bugzilla.gnome.org/show_bug.cgi?id=729066
+        for name in ["quitButton", "continueButton"]:
+            self._retranslate_one(name, "GUI|Welcome|Beta Warn Dialog")
 
         # The welcome label is special - it has text that needs to be
         # substituted.
