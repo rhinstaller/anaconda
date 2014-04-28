@@ -189,7 +189,6 @@ prepareEfiTree() {
     # to mirror EFI/ to the cd.
     if [ -z "$KERNELFILE" -a -z "$INITRDFILE" ]; then
         cp -av $MBD_BOOTTREE_TMP/EFI/ $TOPDESTPATH/EFI/
-        rm -f $TOPDESTPATH/EFI/BOOT/*.efi
     fi
 }
 
