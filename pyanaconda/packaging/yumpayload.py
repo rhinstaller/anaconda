@@ -1225,12 +1225,6 @@ reposdir=%s
             except NoSuchGroup as e:
                 self._handleMissing(e)
 
-        for package in self.data.packages.packageList:
-            try:
-                self._selectYumPackage(package)
-            except NoSuchPackage as e:
-                self._handleMissing(e)
-
         for group in self.data.packages.groupList:
             default = False
             optional = False
@@ -1245,14 +1239,20 @@ reposdir=%s
             except NoSuchGroup as e:
                 self._handleMissing(e)
 
-        for package in self.data.packages.excludedList:
-            self._deselectYumPackage(package)
-
         for group in self.data.packages.excludedGroupList:
             try:
                 self._deselectYumGroup(group.name)
             except NoSuchGroup as e:
                 self._handleMissing(e)
+
+        for package in self.data.packages.packageList:
+            try:
+                self._selectYumPackage(package)
+            except NoSuchPackage as e:
+                self._handleMissing(e)
+
+        for package in self.data.packages.excludedList:
+            self._deselectYumPackage(package)
 
         self._select_kernel_package()
         self.selectRequiredPackages()
