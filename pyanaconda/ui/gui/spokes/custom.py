@@ -836,7 +836,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         # only call _save_right_side if on the right page and some changes need
         # to be saved (sensitivity of the Update Settings button reflects that)
         if self._partitionsNotebook.get_current_page() != NOTEBOOK_DETAILS_PAGE or \
-           not self._addButton.get_sensitive():
+           not self._applyButton.get_sensitive():
             return
 
         device = selector.device
