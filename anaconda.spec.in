@@ -259,6 +259,10 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Apr 29 2014 Brian C. Lane <bcl@redhat.com> - 19.31.79-1
+- network: fix device configuration in text mode (rvykydal)
+  Resolves: rhbz#1091434
+
 * Mon Apr 28 2014 Brian C. Lane <bcl@redhat.com> - 19.31.78-1
 - Fix unloading modules in driver-updates (wwoods)
   Resolves: rhbz#1085099
