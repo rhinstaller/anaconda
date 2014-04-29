@@ -72,6 +72,10 @@ class SoftwareSpoke(NormalTUISpoke):
         self._ready = True
 
     @property
+    def showable(self):
+        return not flags.livecdInstall and not self.data.method.method == "liveimg"
+
+    @property
     def status(self):
         """ Where we are in the process """
         if self.errors:
