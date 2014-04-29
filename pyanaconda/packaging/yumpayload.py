@@ -1656,7 +1656,7 @@ reposdir=%s
         try:
             for line in execReadlines("/usr/libexec/anaconda/anaconda-yum", args):
                 if line.startswith("PROGRESS_"):
-                    key, text = line.split(":", 2)
+                    key, text = line.split(":", 1)
                     msg = progress_map[key] + text
                     progressQ.send_message(msg)
                     log.debug(msg)
