@@ -61,12 +61,12 @@ class TUIHub(TUIObject, common.Hub):
                     continue
 
                 spoke = s(self.app, self.data, self.storage, self.payload, self.instclass)
-                spoke.initialize()
 
                 if not spoke.showable:
-                    spoke.teardown()
                     del spoke
                     continue
+
+                spoke.initialize()
 
                 if spoke.indirect:
                     continue

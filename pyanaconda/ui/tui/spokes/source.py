@@ -24,7 +24,7 @@ from pyanaconda.ui.tui.spokes import EditTUISpoke, NormalTUISpoke
 from pyanaconda.ui.tui.spokes import EditTUISpokeEntry as Entry
 from pyanaconda.ui.tui.simpleline import TextWidget, ColumnWidget
 from pyanaconda.threads import threadMgr, AnacondaThread
-from pyanaconda.packaging import PayloadError, MetadataError
+from pyanaconda.packaging import PayloadError, MetadataError, PackagePayload
 from pyanaconda.i18n import N_, _
 from pyanaconda.image import opticalInstallMedia, potentialHdisoSources
 from pyanaconda.iutil import DataHolder
@@ -102,6 +102,10 @@ class SourceSpoke(EditTUISpoke, SourceSwitchHandler):
             return _("Closest mirror")
         else:
             return _("Nothing selected")
+
+    @property
+    def showable(self):
+        return isinstance(self.payload, PackagePayload)
 
     @property
     def status(self):

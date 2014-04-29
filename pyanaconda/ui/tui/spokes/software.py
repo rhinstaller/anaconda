@@ -23,7 +23,7 @@ from pyanaconda.flags import flags
 from pyanaconda.ui.tui.spokes import NormalTUISpoke
 from pyanaconda.ui.tui.simpleline import TextWidget, ColumnWidget, CheckboxWidget
 from pyanaconda.threads import threadMgr, AnacondaThread
-from pyanaconda.packaging import MetadataError, DependencyError
+from pyanaconda.packaging import MetadataError, DependencyError, PackagePayload
 from pyanaconda.i18n import N_, _
 
 from pyanaconda.constants import THREAD_PAYLOAD, THREAD_PAYLOAD_MD
@@ -72,6 +72,11 @@ class SoftwareSpoke(NormalTUISpoke):
         self.payload.release()
 
         self._ready = True
+
+    @property
+    def showable(self):
+        return isinstance(self.payload, PackagePayload)
+
 
     @property
     def status(self):
