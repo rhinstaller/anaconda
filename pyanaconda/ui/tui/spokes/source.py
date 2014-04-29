@@ -203,6 +203,10 @@ class SourceSpoke(SourceSwitchHandler, EditTUISpoke):
             return _("Nothing selected")
 
     @property
+    def showable(self):
+        return not flags.livecdInstall and not self.data.method.method == "liveimg"
+
+    @property
     def status(self):
         if self.errors:
             return _("Error setting up software source")
