@@ -138,7 +138,7 @@ class MakeBumpVer:
             if not self.password:
                 self.password = getpass.getpass()
 
-            bzclass = bugzilla.getBugzillaClassForURL(self.bzurl)
+            bzclass = bugzilla.Bugzilla
             self.bz = bzclass(url=self.bzurl)
             print
 
