@@ -259,6 +259,10 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Mon Apr 28 2014 Brian C. Lane <bcl@redhat.com> - 19.31.78-1
+- Fix unloading modules in driver-updates (wwoods)
+  Resolves: rhbz#1085099
+
 * Wed Apr 09 2014 Brian C. Lane <bcl@redhat.com> - 19.31.77-1
 - network: show ip of device with default route for vnc and ssh (rvykydal)
   Resolves: rhbz#1083305
