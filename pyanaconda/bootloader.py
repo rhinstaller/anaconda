@@ -37,6 +37,7 @@ from pyanaconda.flags import flags
 from blivet.errors import StorageError
 from blivet.fcoe import fcoe
 import pyanaconda.network
+from pyanaconda.packaging.rpmostreepayload import RPMOSTreePayload
 from pyanaconda.nm import nm_device_hwaddress
 from blivet import platform
 from pyanaconda.i18n import _, N_
@@ -2355,6 +2356,23 @@ def writeSysconfigKernel(storage, version):
         f.write("HYPERVISOR_ARGS=logging=vga,serial,memory\n")
     f.close()
 
+def writeBootLoaderFinal(storage, payload, instClass, ksdata):
+    """ Do the final write of the bootloader. """
+
+    from pyanaconda.errors import errorHandler, ERROR_RAISE
+
+    # set up dracut/fips boot args
+    # XXX FIXME: do this from elsewhere?
+    storage.bootloader.set_boot_args(storage=storage,
+                                     payload=payload,
+                                     keyboard=ksdata.keyboard)
+    try:
+        storage.bootloader.write()
+    except BootLoaderError as e:
+        log.error("bootloader.write failed: %s" % e)
+        if errorHandler.cb(e) == ERROR_RAISE:
+            raise
+
 def writeBootLoader(storage, payload, instClass, ksdata):
     """ Write bootloader configuration to disk.
 
@@ -2362,13 +2380,18 @@ def writeBootLoader(storage, payload, instClass, ksdata):
         image. We only have to add images for the non-default kernels and
         adjust the default to reflect whatever the default variant is.
     """
-    from pyanaconda.errors import errorHandler, ERROR_RAISE
-
     if not storage.bootloader.skip_bootloader:
         stage1_device = storage.bootloader.stage1_device
         log.info("bootloader stage1 target device is %s" % stage1_device.name)
         stage2_device = storage.bootloader.stage2_device
         log.info("bootloader stage2 target device is %s" % stage2_device.name)
+
+    if isinstance(payload, RPMOSTreePayload):
+        if storage.bootloader.skip_bootloader:
+            log.info("skipping bootloader install per user request")
+            return
+        writeBootLoaderFinal(storage, payload, instClass, ksdata)
+        return
 
     # get a list of installed kernel packages
     kernel_versions = payload.kernelVersionList
@@ -2414,19 +2437,4 @@ def writeBootLoader(storage, payload, instClass, ksdata):
                                          label=label, short=short)
         storage.bootloader.add_image(image)
 
-    # set up dracut/fips boot args
-    # XXX FIXME: do this from elsewhere?
-    #storage.bootloader.set_boot_args(keyboard=anaconda.keyboard,
-    #                                 storage=anaconda.storage,
-    #                                 language=anaconda.instLanguage,
-    #                                 network=anaconda.network)
-    storage.bootloader.set_boot_args(storage=storage,
-                                     payload=payload,
-                                     keyboard=ksdata.keyboard)
-
-    try:
-        storage.bootloader.write()
-    except BootLoaderError as e:
-        if errorHandler.cb(e) == ERROR_RAISE:
-            raise
-
+    writeBootLoaderFinal(storage, payload, instClass, ksdata)

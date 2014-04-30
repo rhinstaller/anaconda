@@ -128,6 +128,12 @@ class Payload(object):
         """ Reset the instance, not including ksdata. """
         pass
 
+    def prepareMountTargets(self, storage):
+        """Run when physical storage is mounted, but other mount points may
+        not exist.  Used by the RPMOSTreePayload subclass.
+        """
+        pass
+
     ###
     ### METHODS FOR WORKING WITH REPOSITORIES
     ###
