@@ -69,7 +69,7 @@ def exitHandler(rebootData, storage, exitCode=None):
             time.sleep(10000)
 
     if image_count or flags.dirInstall:
-        anaconda.storage.umountFilesystems(ignoreErrors=True, swapoff=False)
+        anaconda.storage.umountFilesystems(swapoff=False)
         devicetree = anaconda.storage.devicetree
         devicetree.teardownAll()
         for imageName in devicetree.diskImages:
