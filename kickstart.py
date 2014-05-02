@@ -685,6 +685,9 @@ class NetworkData(commands.network.RHEL6_NetworkData):
             anaconda.id.network.setHostname(self.hostname)
             anaconda.id.network.overrideDHCPhostname = True
 
+        if self.domain
+            dev.set(("DOMAIN", self.domain))
+
         activate_new_device = False
         if not dev:
             if self.bondslaves:

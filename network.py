@@ -580,6 +580,9 @@ class Network:
                 separator = "," if all(',' not in opt for opt in bondopts) else ";"
                 line += " --bondopts %s" % separator.join(bondopts)
 
+            if dev.get("DOMAIN"):
+                line += " --domain %s" % dev.get("DOMAIN")
+
             line += "\n"
             f.write(line)
 

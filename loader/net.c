@@ -1749,6 +1749,8 @@ void setKickstartNetwork(struct loaderData_s * loaderData, int argc,
         { "vlanid", 0, 0, G_OPTION_ARG_INT, &vlanid, NULL, NULL },
         { "bondslaves", 0, 0, G_OPTION_ARG_STRING, &loaderData->bonding_slaves, NULL, NULL},
         { "bondopts", 0, 0, G_OPTION_ARG_STRING, &loaderData->bonding_opts, NULL, NULL},
+        { "domain", 'd', 0, G_OPTION_ARG_STRING, &loaderData->domain,
+          NULL, NULL },
         { NULL },
     };
 
@@ -1782,6 +1784,8 @@ void setKickstartNetwork(struct loaderData_s * loaderData, int argc,
     loaderData->bonding_slaves = NULL;
     free(loaderData->bonding_opts);
     loaderData->bonding_opts = NULL;
+    free(loaderData->domain);
+    loaderData->domain = NULL;
 
 #ifdef ENABLE_IPV6
     free(loaderData->ipv6);
