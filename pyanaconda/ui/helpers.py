@@ -16,7 +16,7 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-# Red Hat Author(s): David Shea <dshea@redhat.com
+# Red Hat Author(s): David Shea <dshea@redhat.com>
 #
 
 # This file contains abstract base classes that provide specific functionality
@@ -64,8 +64,6 @@ from pyanaconda.i18n import _
 
 import logging
 import copy
-
-from gi.repository import Gtk
 
 class StorageChecker(object):
     __metaclass__ = ABCMeta
@@ -384,99 +382,3 @@ class InputCheckHandler(object):
     def checks(self):
         """An iterator over all input checks"""
         return self._check_list.__iter__()
-
-# Inherit abstract methods from InputCheckHandler
-# pylint: disable=abstract-method
-class GUIInputCheckHandler(InputCheckHandler):
-    """Provide InputCheckHandler functionality for Gtk input screens.
-
-       This class assumes that all input objects are of type GtkEditable and
-       attaches InputCheck.update_check_status to the changed signal.
-    """
-
-    __metaclass__ = ABCMeta
-
-    def _update_check_status(self, editable, inputcheck):
-        inputcheck.update_check_status()
-
-    def get_input(self, input_obj):
-        return input_obj.get_text()
-
-    def add_check(self, input_obj, run_check, data=None):
-        checkRef = InputCheckHandler.add_check(self, input_obj, run_check, data)
-        input_obj.connect_after("changed", self._update_check_status, checkRef)
-        return checkRef
-
-class GUIDialogInputCheckHandler(GUIInputCheckHandler):
-    """Provide InputCheckHandler functionality for Gtk dialogs.
-
-       This class provides a helper method for setting an error message
-       on an entry field. Implementors of this class must still provide
-       a set_status method in order to control the sensitivty of widgets or
-       ignore activated signals.
-    """
-
-    __metaclass__ = ABCMeta
-
-    @abstractmethod
-    def set_status(self, inputcheck):
-        if inputcheck.check_status in (InputCheck.CHECK_OK, InputCheck.CHECK_SILENT):
-            inputcheck.input_obj.set_icon_from_icon_name(Gtk.EntryIconPosition.SECONDARY, None)
-            inputcheck.input_obj.set_icon_tooltip_text(Gtk.EntryIconPosition.SECONDARY, "")
-        else:
-            inputcheck.input_obj.set_icon_from_icon_name(Gtk.EntryIconPosition.SECONDARY,
-                    "gtk-dialog-error")
-            inputcheck.input_obj.set_icon_tooltip_text(Gtk.EntryIconPosition.SECONDARY,
-                inputcheck.check_status)
-
-class GUISpokeInputCheckHandler(GUIInputCheckHandler):
-    """Provide InputCheckHandler functionality for graphical spokes.
-
-       This class implements set_status to set a message in the warning area of
-       the spoke window and provides an implementation of on_back_clicked to
-       prevent the user from exiting a spoke with bad input.
-    """
-
-    __metaclass__ = ABCMeta
-
-    def set_status(self, inputcheck):
-        """Update the warning with the input validation error from the first
-           error message.
-        """
-        failed_check = next(self.failed_checks_with_message, None)
-
-        self.clear_info()
-        if failed_check:
-            self.set_warning(failed_check.check_status)
-            self.window.show_all()
-
-    # Implemented by GUIObject
-    @abstractmethod
-    def clear_info(self):
-        pass
-
-    # Implemented by GUIObject
-    @abstractmethod
-    def set_warning(self, msg):
-        pass
-
-    # Implemented by GUIObject
-    @abstractproperty
-    def window(self):
-        pass
-
-    @abstractmethod
-    def on_back_clicked(self, window):
-        """Check whether the input validation checks allow the spoke to be exited.
-
-           Unlike NormalSpoke.on_back_clicked, this function returns a boolean value.
-           Classes implementing this class should run GUISpokeInputCheckHandler.on_back_clicked,
-           and if it succeeded, run NormalSpoke.on_back_clicked.
-        """
-        failed_check = next(self.failed_checks, None)
-
-        if failed_check:
-            failed_check.input_obj.grab_focus()
-            return False
-        else:
-            return True

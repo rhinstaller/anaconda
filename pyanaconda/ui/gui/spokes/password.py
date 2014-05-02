@@ -26,8 +26,9 @@ from pyanaconda.users import cryptPassword, validatePassword
 
 from pyanaconda.ui.gui.spokes import NormalSpoke
 from pyanaconda.ui.gui.categories.user_settings import UserSettingsCategory
+from pyanaconda.ui.gui.helpers import GUISpokeInputCheckHandler
 from pyanaconda.ui.common import FirstbootSpokeMixIn
-from pyanaconda.ui.helpers import GUISpokeInputCheckHandler, InputCheck
+from pyanaconda.ui.helpers import InputCheck
 
 from pyanaconda.constants import PASSWORD_EMPTY_ERROR, PASSWORD_CONFIRM_ERROR_GUI,\
         PASSWORD_STRENGTH_DESC, PASSWORD_WEAK, PASSWORD_WEAK_WITH_ERROR,\

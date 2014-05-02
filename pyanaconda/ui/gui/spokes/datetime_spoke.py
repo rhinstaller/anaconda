@@ -30,7 +30,8 @@ from pyanaconda.ui.gui import GUIObject
 from pyanaconda.ui.gui.spokes import NormalSpoke
 from pyanaconda.ui.gui.categories.localization import LocalizationCategory
 from pyanaconda.ui.gui.utils import enlightbox, gtk_action_nowait, gtk_call_once
-from pyanaconda.ui.helpers import GUIDialogInputCheckHandler, InputCheck
+from pyanaconda.ui.gui.helpers import GUIDialogInputCheckHandler
+from pyanaconda.ui.helpers import InputCheck
 
 from pyanaconda.i18n import _, CN_
 from pyanaconda.timezone import NTP_SERVICE, get_all_regions_and_timezones, is_valid_timezone

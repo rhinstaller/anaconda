@@ -31,7 +31,8 @@ from pyanaconda.ui.gui import GUIObject
 from pyanaconda.ui.gui.categories.user_settings import UserSettingsCategory
 from pyanaconda.ui.common import FirstbootSpokeMixIn
 from pyanaconda.ui.gui.utils import enlightbox
-from pyanaconda.ui.helpers import GUISpokeInputCheckHandler, GUIDialogInputCheckHandler, InputCheck
+from pyanaconda.ui.helpers import InputCheck
+from pyanaconda.ui.gui.helpers import GUISpokeInputCheckHandler, GUIDialogInputCheckHandler
 
 from pykickstart.constants import FIRSTBOOT_RECONFIG
 from pyanaconda.constants import ANACONDA_ENVIRON, FIRSTBOOT_ENVIRON,\
