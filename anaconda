@@ -903,6 +903,7 @@ if __name__ == "__main__":
             continue
 
         kickstart.preScriptPass(f)
+        log.info("Parsing kickstart: " + f)
         ksdata = kickstart.parseKickstart(f)
 
         # Only load the first defaults file we find.
@@ -911,6 +912,10 @@ if __name__ == "__main__":
     if not ksdata:
         ksdata = kickstart.AnacondaKSHandler(addon_paths["ks"])
 
+    # Pick up any changes from interactive-defaults.ks that would
+    # otherwise be covered by the dracut KS parser.
+    if ksdata.bootloader.extlinux:
+        flags.extlinux = True
     if ksdata.rescue.rescue:
         anaconda.rescue = True
 
