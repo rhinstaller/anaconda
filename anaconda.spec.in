@@ -302,6 +302,40 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Mon May 05 2014 Brian C. Lane <bcl@redhat.com> - 21.35-1
+- Use format strings in the new kickstart error message translations. (clumens)
+- Mark kickstart errors as translatable, and hopefully make them more useful
+  too. (clumens)
+- install: Move Payload postInstall() after bootloader (walters)
+- iutil: Transparently redirect anyone who asks root=/mnt/sysimage to sysroot
+  (walters)
+- Fix the way categories are handled in text mode. (sbueno+anaconda)
+- Move GUI-specific helper classes to a separate module (#1091542) (dshea)
+- Fix license in parse-kickstart (mkolman)
+- main: Set flags.extlinux if extlinux is used in interactive-defaults.ks
+  (walters)
+- anaconda.service: Set GIO_USE_VFS=local (walters)
+- Use a gettext context where necessary when retranslating (#1091207) (dshea)
+- Update makebumpver for python-bugzilla 1.0.0 (bcl)
+- Skip source and software spoke in text live installations (#1092763) (bcl)
+- Add correct kernel params if rootfs is btrfs on s390x. (#874622)
+  (sbueno+anaconda)
+- Don't crash on anaconda-yum output containing multiple colons (#1092441)
+  (mkolman)
+- Revert chrooting when setting user/root password (vpodzime)
+- network: fix device configuration in text mode (#1058336) (rvykydal)
+- Change order in which packages/groups are selected/excluded (#1091952)
+  (vpodzime)
+- Check the correct button when saving changes in the Custom spoke (#1090786)
+  (vpodzime)
+- Fix unloading modules in driver-updates (#1085099) (wwoods)
+- Re-saved some of the glade files with a newer version of glade. (dshea)
+- Add viewports for the ListBoxes in the software spoke. (dshea)
+- Extend format string checks to translated format strings. (dshea)
+- Fix typo in nm_is_connected method check. (rvykydal)
+- iutil: Introduce getSysroot()/getTargetPhysicalRoot(), use instead of
+  ROOT_PATH (walters)
+
 * Thu Apr 24 2014 Brian C. Lane <bcl@redhat.com> - 21.34-1
 - Improve the "adding yum repo" message structure (mkolman)
 - Fix missing log message about adding a repository (#1089297) (mkolman)
