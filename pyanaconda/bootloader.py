@@ -2242,10 +2242,10 @@ class EXTLINUX(BootLoader):
                   "menu hidden\n\n"
                   "timeout %(timeout)d\n"
                   "#totaltimeout 9000\n\n"
-                  "default %(default)s\n\n"
-                  % { "productName": productName, "timeout": self.timeout *10,
-                     "default": self.image_label(self.default)})
+                  % { "productName": productName, "timeout": self.timeout *10 })
         config.write(header)
+        if self.default is not None:
+            config.write("default %(default)s\n\n" % { "default" : self.image_label(self.default) })
         self.write_config_password(config)
 
     def write_config_password(self, config):
