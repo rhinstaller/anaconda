@@ -21,16 +21,11 @@ import logging
 import os, sys
 import re
 
-# Can't import from a directory with a dash in its name.  This is good enough.
-execfile("/usr/share/doc/python-blivet/examples/common.py")
+import blivet
 
-# Set up logging before blivet or anaconda are imported.
-# pylint: disable=undefined-variable
-set_up_logging()
+blivet.util.set_up_logging()
 blivet_log = logging.getLogger("blivet")
 blivet_log.info(sys.argv[0])
-
-import blivet
 
 from pyanaconda.installclass import DefaultInstall
 from pyanaconda.kickstart import AnacondaKSHandler, AnacondaKSParser, doKickstartStorage
@@ -152,7 +147,7 @@ class TestCaseComponent(object):
         self._blivet._bootloader = get_bootloader()
 
         for (name, size) in self.disksToCreate:
-            self._disks[name] = create_sparse_file(self._blivet, name, size)
+            self._disks[name] = blivet.util.create_sparse_tempfile(name, size)
             self._blivet.config.diskImages[name] = self._disks[name]
 
         self._blivet.reset()
@@ -164,7 +159,7 @@ class TestCaseComponent(object):
            the images get destroyed.
         """
         # pylint: disable=undefined-variable
-        tear_down_disk_images(self._blivet)
+        self._blivet.devicetree.tearDownDiskImages()
 
         for d in self._disks.values():
             os.unlink(d)

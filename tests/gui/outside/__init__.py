@@ -19,9 +19,6 @@
 
 __all__ = ["Creator", "OutsideMixin"]
 
-# Can't import from a directory with a dash in its name.  This will have to do.
-execfile("/usr/share/doc/python-blivet/examples/common.py")
-
 import blivet
 
 from contextlib import contextmanager
@@ -133,7 +130,7 @@ class Creator(object):
         b = blivet.Blivet()
 
         # pylint: disable=undefined-variable
-        disk1_path = create_sparse_file(b, "suite", blivet.size.Size("11 MB"))
+        disk1_path = blivet.util.create_sparse_tempfile("suite", blivet.size.Size("11 MB"))
         b.config.diskImages["suite"] = disk1_path
 
         b.reset()
@@ -170,7 +167,7 @@ class Creator(object):
                                          "anacondaArgs": config.get("anacondaArgs", "")})
         finally:
             # pylint: disable=undefined-variable
-            tear_down_disk_images(b)
+            b.devicetree.tearDownDiskImages()
             shutil.rmtree(self.mountpoint)
 
         # This ensures it gets passed to qemu-kvm as a disk arg.
@@ -200,7 +197,7 @@ class Creator(object):
         finally:
             part.format.unmount()
             # pylint: disable=undefined-variable
-            tear_down_disk_images(b)
+            b.devicetree.tearDownDiskImages()
 
     def run(self):
         """Given disk images previously created by Creator.makeDrives and
