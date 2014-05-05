@@ -380,7 +380,8 @@ class BTRFSData(commands.btrfs.F17_BTRFSData):
 
             if dev and dev.format.type != "btrfs":
                 raise KickstartValueError(formatErrorMsg(self.lineno,
-                        msg=_("BTRFS partition \"%s\" has a format of \"%s\", but should have a format of \"btrfs\".") % (member, dev.format.type)))
+                        msg=_("BTRFS partition \"%(device)s\" has a format of \"%(format)s\", but should have a format of \"btrfs\".") %
+                             {"device": member, "format": dev.format.type}))
 
             if not dev:
                 raise KickstartValueError(formatErrorMsg(self.lineno,
@@ -668,7 +669,8 @@ class Iscsi(commands.iscsi.F17_Iscsi):
         if tg.iface:
             if not network.wait_for_network_devices([tg.iface]):
                 raise KickstartValueError(formatErrorMsg(self.lineno,
-                        msg=_("Network interface \"%s\" required by iSCSI \"%s\" target is not up.") % (tg.iface, tg.target)))
+                        msg=_("Network interface \"%(nic)s\" required by iSCSI \"%(iscsiTarget)s\" target is not up.") %
+                             {"nic": tg.iface, "iscsiTarget": tg.target}))
 
         mode = blivet.iscsi.iscsi().mode
         if mode == "none":
@@ -788,7 +790,8 @@ class LogVolData(commands.logvol.F20_LogVolData):
                         devicetree.registerAction(ActionResizeDevice(dev, size))
                     except ValueError:
                         raise KickstartValueError(formatErrorMsg(self.lineno,
-                                msg=_("Target size \"%s\" for device \"%s\" is invalid.") % (self.size, dev.name)))
+                                msg=_("Target size \"%(size)s\" for device \"%(device)s\" is invalid.") %
+                                     {"size": self.size, "device": dev.name}))
                 else:
                     # grow
                     try:
@@ -796,7 +799,8 @@ class LogVolData(commands.logvol.F20_LogVolData):
                         devicetree.registerAction(ActionResizeFormat(dev, size))
                     except ValueError:
                         raise KickstartValueError(formatErrorMsg(self.lineno,
-                                msg=_("Target size \"%s\" for device \"%s\" is invalid.") % (self.size, dev.name)))
+                                msg=_("Target size \"%(size)s\" for device \"%(device)s\" is invalid.") %
+                                     {"size": self.size, "device": dev.name}))
 
             dev.format.mountpoint = self.mountpoint
             dev.format.mountopts = self.fsopts
@@ -809,7 +813,8 @@ class LogVolData(commands.logvol.F20_LogVolData):
             tmp = devicetree.getDeviceByName("%s-%s" % (vg.name, self.name))
             if tmp:
                 raise KickstartValueError(formatErrorMsg(self.lineno,
-                        msg=_("Logical volume name \"%s\" is already in use in volume group \"%s\".") % (self.name, vg.name)))
+                        msg=_("Logical volume name \"%(logvol)s\" is already in use in volume group \"%(volgroup)s\".") %
+                             {"logvol": self.name, "volgroup": vg.name}))
 
             # Size specification checks
             if not self.percent:
@@ -818,7 +823,8 @@ class LogVolData(commands.logvol.F20_LogVolData):
                             msg=_("No size given for logical volume \"%s\".  Use one of --useexisting, --size, or --percent.") % self.name))
                 elif not self.grow and size < vg.peSize:
                     raise KickstartValueError(formatErrorMsg(self.lineno,
-                            msg=_("Logical volume size \"%s\" must be larger than the volume group extent size of \"%s\".") % (size, vg.peSize)))
+                            msg=_("Logical volume size \"%(logvolSize)s\" must be larger than the volume group extent size of \"%(extentSize)s\".") %
+                                 {"logvolSize": size, "extentSize": vg.peSize}))
             elif self.percent <= 0 or self.percent > 100:
                 raise KickstartValueError(formatErrorMsg(self.lineno,
                         msg=_("Percentage must be between 0 and 100.")))
@@ -850,7 +856,8 @@ class LogVolData(commands.logvol.F20_LogVolData):
                     devicetree.registerAction(ActionResizeDevice(device, size))
                 except ValueError:
                     raise KickstartValueError(formatErrorMsg(self.lineno,
-                            msg=_("Target size \"%s\" for device \"%s\" is invalid.") % (self.size, device.name)))
+                            msg=_("Target size \"%(size)s\" for device \"%(device)s\" is invalid.") %
+                                 {"size": self.size, "device": device.name}))
 
             devicetree.registerAction(ActionCreateFormat(device, fmt))
             if ty == "swap":
@@ -1079,7 +1086,8 @@ class PartitionData(commands.partition.F18_PartData):
                         devicetree.registerAction(ActionResizeDevice(dev, size))
                     except ValueError:
                         raise KickstartValueError(formatErrorMsg(self.lineno,
-                                msg=_("Target size \"%s\" for device \"%s\" is invalid.") % (self.size, dev.name)))
+                                msg=_("Target size \"%(size)s\" for device \"%(device)s\" is invalid.") %
+                                     {"size": self.size, "device": dev.name}))
                 else:
                     # grow
                     try:
@@ -1087,7 +1095,8 @@ class PartitionData(commands.partition.F18_PartData):
                         devicetree.registerAction(ActionResizeFormat(dev, size))
                     except ValueError:
                         raise KickstartValueError(formatErrorMsg(self.lineno,
-                                msg=_("Target size \"%s\" for device \"%s\" is invalid.") % (self.size, dev.name)))
+                                msg=_("Target size \"%(size)s\" for device \"%(device)s\" is invalid.") %
+                                     {"size": self.size, "device": dev.name}))
 
             dev.format.mountpoint = self.mountpoint
             dev.format.mountopts = self.fsopts
@@ -1168,7 +1177,8 @@ class PartitionData(commands.partition.F18_PartData):
                     devicetree.registerAction(ActionResizeDevice(device, size))
                 except ValueError:
                     raise KickstartValueError(formatErrorMsg(self.lineno,
-                            msg=_("Target size \"%s\" for device \"%s\" is invalid.") % (self.size, device.name)))
+                            msg=_("Target size \"%(size)s\" for device \"%(device)s\" is invalid.") %
+                                 {"size": self.size, "device": device.name}))
 
             devicetree.registerAction(ActionCreateFormat(device, kwargs["format"]))
             if ty == "swap":
@@ -1305,7 +1315,8 @@ class RaidData(commands.raid.F18_RaidData):
 
             if dev and dev.format.type != "mdmember":
                 raise KickstartValueError(formatErrorMsg(self.lineno,
-                        msg=_("RAID device \"%s\" has a format of \"%s\", but should have a format of \"mdmember\".") % (member, dev.format.type)))
+                        msg=_("RAID device \"%(device)s\" has a format of \"%(format)s\", but should have a format of \"mdmember\".") %
+                             {"device": member, "format": dev.format.type}))
 
             if not dev:
                 raise KickstartValueError(formatErrorMsg(self.lineno,
@@ -1543,7 +1554,8 @@ class VolGroupData(commands.volgroup.FC16_VolGroupData):
 
             if dev and dev.format.type != "lvmpv":
                 raise KickstartValueError(formatErrorMsg(self.lineno,
-                        msg=_("Physical volume \"%s\" has a format of \"%s\", but should have a format of \"lvmpv\".") % (pv, dev.format.type)))
+                        msg=_("Physical volume \"%(device)s\" has a format of \"%(format)s\", but should have a format of \"lvmpv\".") %
+                             {"device": pv, "format": dev.format.type}))
 
             if not dev:
                 raise KickstartValueError(formatErrorMsg(self.lineno,
@@ -1558,7 +1570,8 @@ class VolGroupData(commands.volgroup.FC16_VolGroupData):
         pesize = Size(spec="%d KiB" % self.pesize)
         if pesize not in getPossiblePhysicalExtents():
             raise KickstartValueError(formatErrorMsg(self.lineno,
-                    msg=_("Volume group given physical size of \"%s\", but must be one of:\n%s.") % (pesize, ", ".join([str(e) for e in getPossiblePhysicalExtents()]))))
+                    msg=_("Volume group given physical size of \"%(extentSize)s\", but must be one of:\n%(validExtentSizes)s.") %
+                         {"extentSize": pesize, "validExtentSizes": ", ".join([str(e) for e in getPossiblePhysicalExtents()])}))
 
         # If --noformat or --useexisting was given, there's really nothing to do.
         if not self.format or self.preexist:
