@@ -693,7 +693,8 @@ class NetworkData(commands.network.RHEL6_NetworkData):
                     return
                 activate_new_device = True
                 dev = anaconda.id.network.enableBondingDevice(device)
-                dev.set(("BONDING_OPTS", self.bondopts))
+                bondopts = " ".join(self.bondopts.split(";" if ';' in self.bondopts else ","))
+                dev.set(("BONDING_OPTS", bondopts))
                 slaves = self.bondslaves.split(',')
                 for slave in slaves:
                     slavedev = devices.get(slave, None)
