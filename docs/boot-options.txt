@@ -107,12 +107,14 @@ Locations may be specified using any of the formats allowed for
 
 For any format the `<path>` component defaults to `/ks.cfg` if it is omitted.
 
+For NFS kickstarts, if the `<path>` ends in `/`, `<ip>-kickstart` is added.
+
 If `inst.ks` is used without a value, the installer will look for
 `nfs:<next_server>:/<filename>`:
 
 * `<next_server>` is the DHCP "next-server" option, or the IP of the DHCP server itself,
 * `<filename>` is the DHCP "filename" option, or `/kickstart/`, and
-* if the filename given ends in `/`, `<ip>-kickstart` is added
+* if the filename given ends in `/`, `<ip>-kickstart` is added (as above)
 * example:
 ** DHCP server: `192.168.122.1`
 ** client address: `192.168.122.100`

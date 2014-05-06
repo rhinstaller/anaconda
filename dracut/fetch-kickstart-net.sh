@@ -36,10 +36,10 @@ if [ "$kickstart" = "nfs:auto" ]; then
     kickstart="nfs:$server:$filename"
 fi
 
-# kickstart is appended with '$IP_ADDR-kickstart' if ending in '/'
-if [ "${kickstart%/}" != "$kickstart" ]; then
-    kickstart="${kickstart}${new_ip_address}-kickstart"
-fi
+# NFS kickstart URLs that end in '/' get '$IP_ADDR-kickstart' appended
+case "$kickstart" in
+    nfs*/) kickstart="${kickstart}${new_ip_address}-kickstart" ;;
+esac
 
 info "anaconda fetching kickstart from $kickstart"
 if fetch_url "$kickstart" /tmp/ks.cfg; then
