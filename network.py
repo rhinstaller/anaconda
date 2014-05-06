@@ -571,6 +571,15 @@ class Network:
             if dev.get("TYPE") == "Vlan":
                 line += " --vlanid %s" % vlanid
 
+            # bonding
+            if dev.get('TYPE') == "Bond":
+                slaves = [dname for dname, d in self.netdevices.items()
+                          if d.get('MASTER') == devName]
+                line += " --bondslaves %s" % ",".join(slaves)
+                bondopts = dev.get('BONDING_OPTS').split()
+                separator = "," if all(',' not in opt for opt in bondopts) else ";"
+                line += " --bondopts %s" % separator.join(bondopts)
+
             line += "\n"
             f.write(line)
 
