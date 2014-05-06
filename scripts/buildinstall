@@ -34,6 +34,7 @@ usage() {
 
 CWD="$(pwd)"
 PRODUCTPATH="anaconda"
+BUILDARCH=""
 
 while [ $# -gt 0 ]; do
     case $1 in
@@ -91,6 +92,10 @@ while [ $# -gt 0 ]; do
         --mirrorlist)
             MIRRORLIST="$MIRRORLIST $2"
             shift; shift
+        ;;
+        --buildarch)
+            BUILDARCH=$2
+            shift; shift;
         ;;
 
         *)
@@ -200,11 +205,12 @@ if [ "$LOCALSCRIPTS" = "yes" ]; then
     BUILDINSTALL="$CWD/buildinstall"
 else
     pushd $BUILDINSTDIR
-    BUILDARCH=`repoquery -c $yumconf --qf "%{ARCH}\n" anaconda`
+    if [ -z "$BUILDARCH" ]; then
+        BUILDARCH=`repoquery -c $yumconf --qf "%{ARCH}\n" anaconda`
+    fi
     # lets use rpmutils to make sure we have the canonical basearch
     # BUILDARCH != BASEARCH (e.g. i586 != i386, sparcv9 != sparc)
-    BASEARCH=`python -c "import rpmUtils.arch; \
-      print rpmUtils.arch.getBaseArch(myarch=rpmUtils.arch.getCanonArch(skipRpmPlatform = True));"`
+    BASEARCH=`python -c "import rpmUtils.arch; print rpmUtils.arch.getBaseArch(myarch='$BUILDARCH');"`
     yumdownloader -c $yumconf anaconda || exit 1
     rpm2cpio anaconda*rpm | cpio --quiet -iumd './usr*'
     rm -f anaconda*rpm
