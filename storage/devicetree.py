@@ -200,6 +200,7 @@ class DeviceTree(object):
 
     def pruneActions(self):
         """ Prune loops and redundant actions from the queue. """
+
         # handle device destroy actions
         actions = self.findActions(type="destroy", object="device")
         for a in actions:
@@ -246,26 +247,26 @@ class DeviceTree(object):
                     start = first_create_idx
                     stop_action = destroys[-1]
 
-            dev_actions = self.findActions(devid=a.device.id)
+            prune_actions = self.findActions(devid=a.device.id)
             if start is None:
                 # only one device destroy, so prune preceding resizes and
                 # format creates and migrates
-                for _a in dev_actions[:]:
+                for _a in prune_actions[:]:
                     if _a.isResize() or (_a.isFormat() and not _a.isDestroy()):
                         continue
 
-                    dev_actions.remove(_a)
+                    prune_actions.remove(_a)
 
-                if not dev_actions:
+                if not prune_actions:
                     # nothing to prune
                     continue
 
-                start = self._actions.index(dev_actions[0])
-                stop_action = dev_actions[-1]
+                start = self._actions.index(prune_actions[0])
+                stop_action = prune_actions[-1]
 
             # now we remove all actions on this device between the start
             # index (into self._actions) and stop_action.
-            for rem in dev_actions:
+            for rem in prune_actions:
                 end = self._actions.index(stop_action)
                 if start <= self._actions.index(rem) <= end:
                     log.debug(" removing action '%s' (%s)" % (rem, id(rem)))
@@ -319,8 +320,8 @@ class DeviceTree(object):
 
             # remove all actions on this from after the first destroy up
             # to the last create
-            dev_actions = self.findActions(devid=a.device.id)
-            for rem in dev_actions:
+            prune_actions = self.findActions(devid=a.device.id)
+            for rem in prune_actions:
                 if rem == stop_action:
                     break
 
@@ -397,9 +398,9 @@ class DeviceTree(object):
 
             # now we remove all actions on this device's format between
             # the start index (into self._actions) and stop_action.
-            dev_actions = self.findActions(devid=a.device.id,
+            prune_actions = self.findActions(devid=a.device.id,
                                            object="format")
-            for rem in dev_actions:
+            for rem in prune_actions:
                 end = self._actions.index(stop_action)
                 if start <= self._actions.index(rem) <= end:
                     log.debug(" removing action '%s' (%s)" % (rem, id(rem)))
