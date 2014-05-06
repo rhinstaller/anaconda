@@ -747,7 +747,7 @@ class Network:
             and not [dev for dev in devices
                      if dev.get('IPV6INIT') == "yes"]):
             if os.path.exists(ipv6ConfFile):
-                log.warning('Not disabling ipv6, %s exists' % ipv6ConfFile)
+                log.debug('%s exists' % ipv6ConfFile)
             else:
                 log.info('Disabling ipv6 on target system')
                 f = open(ipv6ConfFile, "w")
