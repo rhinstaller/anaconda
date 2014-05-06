@@ -249,13 +249,16 @@ class DeviceTree(object):
 
             prune_actions = self.findActions(devid=a.device.id)
             if start is None:
-                # only one device destroy, so prune preceding resizes and
-                # format creates and migrates
-                for _a in prune_actions[:]:
-                    if _a.isResize() or (_a.isFormat() and not _a.isDestroy()):
+                # only one device destroy, so prune preceding resizes and format
+                # creates and migrates and the destroy itself if the device
+                # doesn't exist
+                for act in prune_actions[:]:
+                    if act.isResize() or \
+                       (act.isFormat() and not act.isDestroy()) or \
+                       (act.isDestroy() and not act.device.exists):
                         continue
 
-                    prune_actions.remove(_a)
+                    prune_actions.remove(act)
 
                 if not prune_actions:
                     # nothing to prune
