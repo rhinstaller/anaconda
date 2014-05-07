@@ -678,6 +678,17 @@ def cleanPStore():
     dir_tree_map("/sys/fs/pstore", os.unlink, files=True, dirs=False)
 
 if __name__ == "__main__":
+    # check if the CLI help is requested and return it at once,
+    # without importing random stuff and spamming stdout
+    if ("--help" in sys.argv) or ("-h" in sys.argv) or ("--version" in sys.argv):
+        # we skip the full logging initialisation, but we need to do at least
+        # this much (redirect any log messages to stdout) to get rid of the
+        # harmless but annoying "no handlers found" message on stdout
+        import logging
+        log = logging.getLogger("anaconda")
+        log.addHandler(logging.StreamHandler(stream=sys.stdout))
+        parseOptions()
+
     print "Starting installer, one moment..."
 
     # Allow a file to be loaded as early as possible
