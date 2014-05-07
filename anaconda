@@ -142,7 +142,7 @@ def assureLogoImage():
     replacement_image_path = None
     logo_path = "/usr/share/anaconda/pixmaps/logo.png"
     header_path = "/usr/share/anaconda/pixmaps/anaconda_header.png"
-    sad_smiley_path = "/usr/share/icons/gnome/48x48/emotes/face-crying.png"
+    sad_smiley_path = "/usr/share/icons/Adwaita/48x48/emotes/face-crying.png"
     if not os.path.exists(logo_path):
         # first try to replace the missing logo with the Anaconda header image
         if os.path.exists(header_path):

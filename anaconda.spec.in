@@ -162,7 +162,7 @@ Summary: Graphical user interface for the Anaconda installer
 Requires: anaconda-core = %{version}-%{release}
 Requires: anaconda-widgets = %{version}-%{release}
 Requires: python-meh-gui >= %{mehver}
-Requires: gnome-icon-theme-symbolic
+Requires: adwaita-icon-theme
 Requires: system-logos
 Requires: tigervnc-server-minimal
 Requires: libxklavier >= %{libxklavierver}
