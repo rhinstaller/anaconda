@@ -131,8 +131,8 @@ def doInstall(storage, payload, ksdata, instClass):
 
     # We really only care about actions that affect filesystems, since
     # those are the ones that take the most time.
-    steps = len(storage.devicetree.findActions(action_type="create", action_object="format")) + \
-            len(storage.devicetree.findActions(action_type="resize", action_object="format"))
+    steps = len(storage.devicetree.findActions(action_type="create", object_type="format")) + \
+            len(storage.devicetree.findActions(action_type="resize", object_type="format"))
 
     # pre setup phase, post install
     steps += 2
