@@ -149,14 +149,6 @@ class Network(commands.network.F21_Network):
                 net.device = self.handler.ksdevice
             # tell dracut to bring this device up
             netline = ksnet_to_dracut(args, lineno, net, bootdev=True)
-
-            # HACK: current dracut dies if you have BOOTIF= and ip= together.
-            # Until that gets fixed upstream, we have to defer to dracut.
-            # XXX FIXME: remove this when dracut can handle BOOTIF+ip!
-            if 'BOOTIF' in proc_cmdline:
-                # let dracut use BOOTIF to bring up the network
-                netline = None
-
         else:
             # all subsequent 'network' lines require '--device'
             if not net.device or net.device == "link":
