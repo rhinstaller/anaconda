@@ -241,8 +241,8 @@ class HelpTextParser(object):
             self._help_text = {}
             try:
                 with open(self._path) as lines:
-                    for option, text in self.read(lines):
-                        self._help_text[option] = text
+                    for parsed_option, parsed_text in self.read(lines):
+                        self._help_text[parsed_option] = parsed_text
             except StandardError:
                 log.error("error reading help text file %s", self._path)
 
