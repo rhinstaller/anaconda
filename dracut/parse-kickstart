@@ -307,13 +307,6 @@ def ksnet_to_dracut(args, lineno, net, bootdev=False):
         if ns:
             line.append("nameserver=%s" % ns)
 
-    if net.mtu:
-        # XXX FIXME: dracut doesn't support mtu= (yet)
-        if net.device:
-            line.append("mtu=%s:%s" % (net.device, net.mtu))
-        else:
-            line.append("mtu=%s" % net.mtu)
-
     if bootdev:
         if net.device:
             line.append("bootdev=%s" % net.device)
