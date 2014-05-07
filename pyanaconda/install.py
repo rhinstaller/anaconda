@@ -143,8 +143,8 @@ def doInstall(storage, payload, ksdata, instClass):
 
     # We really only care about actions that affect filesystems, since
     # those are the ones that take the most time.
-    steps = len(storage.devicetree.findActions(action_type="create", action_object="format")) + \
-            len(storage.devicetree.findActions(action_type="resize", action_object="format"))
+    steps = len(storage.devicetree.findActions(action_type="create", object_type="format")) + \
+            len(storage.devicetree.findActions(action_type="resize", object_type="format"))
 
     # Update every 10% of packages installed.  We don't know how many packages
     # we are installing until it's too late (see realmd later on) so this is
