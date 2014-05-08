@@ -633,10 +633,11 @@ reposdir=%s
     def _configureAddOnRepo(self, repo):
         """ Configure a single ksdata repo. """
         url = repo.baseurl
-        if url and url.startswith("nfs:"):
-            (opts, server, path) = iutil.parseNfsUrl(url)
+        if url and url.startswith("nfs://"):
+            # Let the assignment throw ValueError for bad NFS urls from kickstart
+            (server, path) = url.strip("nfs://").split(":", 1)
             mountpoint = "%s/%s.nfs" % (MOUNT_DIR, repo.name)
-            self._setupNFS(mountpoint, server, path, opts)
+            self._setupNFS(mountpoint, server, path, None)
 
             url = "file://" + mountpoint
 
