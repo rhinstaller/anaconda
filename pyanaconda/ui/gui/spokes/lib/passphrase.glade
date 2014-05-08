@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Generated with glade 3.18.1 -->
+<!-- Generated with glade 3.18.2 -->
 <interface>
-  <requires lib="gtk+" version="3.0"/>
+  <requires lib="gtk+" version="3.6"/>
   <requires lib="AnacondaWidgets" version="1.0"/>
   <object class="GtkDialog" id="passphrase_dialog">
     <property name="can_focus">False</property>
@@ -54,6 +54,7 @@
                 <property name="label" translatable="yes" context="GUI|Passphrase Dialog">_Save Passphrase</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
+                <property name="can_default">True</property>
                 <property name="receives_default">True</property>
                 <property name="use_underline">True</property>
                 <signal name="clicked" handler="on_save_clicked" swapped="no"/>
@@ -159,7 +160,17 @@
                 <property name="can_focus">False</property>
                 <property name="spacing">6</property>
                 <child>
-                  <placeholder/>
+                  <object class="GtkLevelBar" id="strength_bar">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="max_value">4</property>
+                    <property name="mode">discrete</property>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">True</property>
+                    <property name="position">0</property>
+                  </packing>
                 </child>
                 <child>
                   <object class="GtkLabel" id="strength_label">
