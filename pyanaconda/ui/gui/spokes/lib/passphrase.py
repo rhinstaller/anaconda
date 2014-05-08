@@ -19,11 +19,13 @@
 # Red Hat Author(s): David Lehman <dlehman@redhat.com>
 #
 
-from gi.repository import Gtk, Gdk
+from gi.repository import Gtk
 
 import pwquality
 
+from pyanaconda.ui.helpers import InputCheck
 from pyanaconda.ui.gui import GUIObject
+from pyanaconda.ui.gui.helpers import GUIInputCheckHandler
 from pyanaconda.constants import PW_ASCII_CHARS
 from pyanaconda.i18n import _, N_
 
@@ -32,13 +34,14 @@ __all__ = ["PassphraseDialog"]
 ERROR_WEAK = N_("You have provided a weak passphrase: %s")
 ERROR_NOT_MATCHING = N_("Passphrases do not match.")
 
-class PassphraseDialog(GUIObject):
+class PassphraseDialog(GUIObject, GUIInputCheckHandler):
     builderObjects = ["passphrase_dialog"]
     mainWidgetName = "passphrase_dialog"
     uiFile = "spokes/lib/passphrase.glade"
 
     def __init__(self, data):
         GUIObject.__init__(self, data)
+        GUIInputCheckHandler.__init__(self)
 
         self._confirm_entry = self.builder.get_object("confirm_pw_entry")
         self._passphrase_entry = self.builder.get_object("passphrase_entry")
@@ -47,6 +50,9 @@ class PassphraseDialog(GUIObject):
 
         self._strength_bar = self.builder.get_object("strength_bar")
         self._strength_label = self.builder.get_object("strength_label")
+
+        self._passphrase_warning_image = self.builder.get_object("passphrase_warning_image")
+        self._passphrase_warning_label = self.builder.get_object("passphrase_warning_label")
 
         # Set the offset values for the strength bar colors
         self._strength_bar.add_offset_value("low", 2)
@@ -58,16 +64,17 @@ class PassphraseDialog(GUIObject):
         self._pwq_error = None
         self.passphrase = ""
 
+        self._passphrase_match_check = self.add_check(self._passphrase_entry, self._checkMatch)
+        self._confirm_match_check = self.add_check(self._confirm_entry, self._checkMatch)
+        self._strength_check = self.add_check(self._passphrase_entry, self._checkStrength)
+        self._ascii_check = self.add_check(self._passphrase_entry, self._checkASCII)
+
     def refresh(self):
         super(PassphraseDialog, self).refresh()
 
-        # disable input methods for the passphrase Entry widgets and make sure
-        # the focus change mask is enabled
+        # disable input methods for the passphrase Entry widgets
         self._passphrase_entry.set_property("im-module", "")
-        self._passphrase_entry.set_icon_from_icon_name(Gtk.EntryIconPosition.SECONDARY, None)
-        self._passphrase_entry.add_events(Gdk.EventMask.FOCUS_CHANGE_MASK)
         self._confirm_entry.set_property("im-module", "")
-        self._confirm_entry.add_events(Gdk.EventMask.FOCUS_CHANGE_MASK)
 
         # set up passphrase quality checker
         self._pwq = pwquality.PWQSettings()
@@ -83,6 +90,12 @@ class PassphraseDialog(GUIObject):
         self._confirm_entry.set_text(self.passphrase)
 
         self._update_passphrase_strength()
+
+        # Update the check states and force a status update
+        self._passphrase_match_check.update_check_status()
+        self._strength_check.update_check_status()
+        self._ascii_check.update_check_status()
+        self.set_status(None)
 
     def run(self):
         self.refresh()
@@ -116,55 +129,63 @@ class PassphraseDialog(GUIObject):
         self._strength_bar.set_value(val)
         self._strength_label.set_text(text)
 
-    def _set_entry_icon(self, entry, icon, msg):
-        entry.set_icon_from_icon_name(Gtk.EntryIconPosition.SECONDARY, icon)
-        entry.set_icon_tooltip_text(Gtk.EntryIconPosition.SECONDARY, msg)
+    def set_status(self, inputcheck):
+        # Set the warning message with the result from the first failed check
+        failed_check = next(self.failed_checks_with_message, None)
 
-    def on_passphrase_changed(self, entry):
-        self._update_passphrase_strength()
-        passphrase = entry.get_text()
-        if passphrase and passphrase == self._confirm_entry.get_text():
-            self._set_entry_icon(self._confirm_entry, None, "")
+        if failed_check:
+            result_icon, result_message = failed_check.check_status
+            self._passphrase_warning_image.set_from_icon_name(result_icon, Gtk.IconSize.BUTTON)
+            self._passphrase_warning_label.set_text(result_message)
+            self._passphrase_warning_image.set_visible(True)
+            self._passphrase_warning_label.set_visible(True)
+        else:
+            self._passphrase_warning_image.set_visible(False)
+            self._passphrase_warning_label.set_visible(False)
+
+        # The save button should only be sensitive if the match check passes
+        if self._passphrase_match_check.check_status == InputCheck.CHECK_OK and \
+                self._confirm_match_check.check_status == InputCheck.CHECK_OK:
             self._save_button.set_sensitive(True)
         else:
             self._save_button.set_sensitive(False)
 
-        if not self._pwq_error:
-            self._set_entry_icon(entry, None, "")
+    def _checkASCII(self, inputcheck):
+        passphrase = self.get_input(inputcheck.input_obj)
 
-        can_override_icon = entry.get_icon_name(Gtk.EntryIconPosition.SECONDARY)\
-                            in ["gtk-dialog-warning", "", None]
-        if can_override_icon:
-            # no other icon set, make non-ASCII warning (lowest priority) effective
-            if passphrase and any(char not in PW_ASCII_CHARS for char in passphrase):
-                self._set_entry_icon(entry, "gtk-dialog-warning",
-                                     _("contains non-ASCII characters"))
-            else:
-                self._set_entry_icon(entry, None, "")
+        if passphrase and any(char not in PW_ASCII_CHARS for char in passphrase):
+            return ("gtk-dialog-warning", _("Passphrase contains non-ASCII characters"))
+        else:
+            return InputCheck.CHECK_OK
 
-    def on_passphrase_editing_done(self, entry, *args):
+    def _checkStrength(self, inputcheck):
         if self._pwq_error:
-            icon = "gtk-dialog-error"
-            msg = _(ERROR_WEAK) % self._pwq_error
-            self._set_entry_icon(entry, icon, msg)
-
-    def on_confirm_changed(self, entry):
-        if entry.get_text() and entry.get_text() == self._passphrase_entry.get_text():
-            self._set_entry_icon(entry, None, "")
-            self._save_button.set_sensitive(True)
+            return ("gtk-dialog-error", _(ERROR_WEAK) % self._pwq_error)
         else:
-            self._save_button.set_sensitive(False)
+            return InputCheck.CHECK_OK
 
-    def on_confirm_editing_done(self, entry, *args):
+    def _checkMatch(self, inputcheck):
         passphrase = self._passphrase_entry.get_text()
         confirm = self._confirm_entry.get_text()
         if passphrase != confirm:
-            icon = "gtk-dialog-error"
-            msg = ERROR_NOT_MATCHING
-            self._set_entry_icon(entry, icon, _(msg))
-            self._save_button.set_sensitive(False)
+            result = ("gtk-dialog-error", _(ERROR_NOT_MATCHING))
         else:
-            self._set_entry_icon(entry, None, "")
+            result = InputCheck.CHECK_OK
+
+        # If the check succeeded, reset the status of the other check object
+        # Disable the current check to prevent a cycle
+        if result == InputCheck.CHECK_OK:
+            inputcheck.enabled = False
+            if inputcheck == self._passphrase_match_check:
+                self._confirm_match_check.update_check_status()
+            else:
+                self._passphrase_match_check.update_check_status()
+            inputcheck.enabled = True
+
+        return result
+
+    def on_passphrase_changed(self, entry):
+        self._update_passphrase_strength()
 
     def on_save_clicked(self, button):
         self.passphrase = self._passphrase_entry.get_text()
