@@ -159,7 +159,7 @@ class TestCaseComponent(object):
            the images get destroyed.
         """
         # pylint: disable=undefined-variable
-        self._blivet.devicetree.tearDownDiskImages()
+        self._blivet.devicetree.teardownDiskImages()
 
         for d in self._disks.values():
             os.unlink(d)

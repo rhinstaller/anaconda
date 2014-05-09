@@ -167,7 +167,7 @@ class Creator(object):
                                          "anacondaArgs": config.get("anacondaArgs", "")})
         finally:
             # pylint: disable=undefined-variable
-            b.devicetree.tearDownDiskImages()
+            b.devicetree.teardownDiskImages()
             shutil.rmtree(self.mountpoint)
 
         # This ensures it gets passed to qemu-kvm as a disk arg.
@@ -197,7 +197,7 @@ class Creator(object):
         finally:
             part.format.unmount()
             # pylint: disable=undefined-variable
-            b.devicetree.tearDownDiskImages()
+            b.devicetree.teardownDiskImages()
 
     def run(self):
         """Given disk images previously created by Creator.makeDrives and
