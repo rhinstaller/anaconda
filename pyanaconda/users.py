@@ -29,8 +29,7 @@ import os.path
 from pyanaconda import iutil
 import pwquality
 from pyanaconda.iutil import strip_accents
-from pyanaconda.i18n import _
-from pyanaconda.constants import PASSWORD_MIN_LEN, PW_ASCII_CHARS
+from pyanaconda.constants import PASSWORD_MIN_LEN
 
 import logging
 log = logging.getLogger("anaconda")
@@ -161,14 +160,6 @@ def validatePassword(pw, user="root", settings=None):
             validatePassword.pwqsettings.read_config()
             validatePassword.pwqsettings.minlen = PASSWORD_MIN_LEN
         settings = validatePassword.pwqsettings
-
-    for letter in pw:
-        if letter not in PW_ASCII_CHARS:
-            message = _("Requested password contains "
-                      "non-ASCII characters, which are "
-                      "not allowed.")
-            valid = False
-            break
 
     if valid:
         try:

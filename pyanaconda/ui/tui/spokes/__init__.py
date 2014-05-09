@@ -26,7 +26,7 @@ import re
 from collections import namedtuple
 from pyanaconda.iutil import setdeepattr, getdeepattr
 from pyanaconda.i18n import N_, _
-from pyanaconda.constants import PASSWORD_CONFIRM_ERROR_TUI
+from pyanaconda.constants import PASSWORD_CONFIRM_ERROR_TUI, PW_ASCII_CHARS
 
 __all__ = ["TUISpoke", "EditTUISpoke", "EditTUIDialog", "EditTUISpokeEntry",
            "StandaloneSpoke", "NormalTUISpoke"]
@@ -145,6 +145,10 @@ class EditTUIDialog(NormalTUISpoke):
                 self._app.switch_screen_modal(question_window)
                 if not question_window.answer:
                     return None
+
+            if any(char not in PW_ASCII_CHARS for char in pw):
+                print(_("You have provided a password containing non-ASCII characters.\n"
+                        "You may not be able to switch between keyboard layouts to login.\n"))
 
             self.value = cryptPassword(pw)
             return None

@@ -38,7 +38,7 @@ from pykickstart.constants import FIRSTBOOT_RECONFIG
 from pyanaconda.constants import ANACONDA_ENVIRON, FIRSTBOOT_ENVIRON,\
         PASSWORD_EMPTY_ERROR, PASSWORD_CONFIRM_ERROR_GUI, PASSWORD_STRENGTH_DESC,\
         PASSWORD_WEAK, PASSWORD_WEAK_WITH_ERROR, PASSWORD_WEAK_CONFIRM,\
-        PASSWORD_WEAK_CONFIRM_WITH_ERROR
+        PASSWORD_WEAK_CONFIRM_WITH_ERROR, PW_ASCII_CHARS, PASSWORD_ASCII
 from pyanaconda.regexes import GECOS_VALID, USERNAME_VALID, GROUPNAME_VALID, GROUPLIST_FANCY_PARSE
 
 __all__ = ["UserSpoke", "AdvancedUserDialog"]
@@ -247,8 +247,9 @@ class UserSpoke(FirstbootSpokeMixIn, NormalSpoke, GUISpokeInputCheckHandler):
         self.usepassword = self.builder.get_object("c_usepassword")
         self.b_advanced = self.builder.get_object("b_advanced")
 
-        # Counter for the click Done twice check
-        self._waivePasswordClicks = 0
+        # Counters for checks that ask the user to click Done to confirm
+        self._waiveStrengthClicks = 0
+        self._waiveASCIIClicks = 0
 
         self.guesser = {
             self.username: True
@@ -283,6 +284,7 @@ class UserSpoke(FirstbootSpokeMixIn, NormalSpoke, GUISpokeInputCheckHandler):
         # - if a password is required, is one specified?
         # - if a password is specified and there is data in the confirm box, do they match?
         # - if a password is specified and the confirm box is empty or match, how strong is it?
+        # - if a strong password is specified, does it contain non-ASCII data?
         # - if a password is required, is there any data in the confirm box?
         self.add_check(self.pw, self._checkPasswordEmpty)
 
@@ -295,9 +297,10 @@ class UserSpoke(FirstbootSpokeMixIn, NormalSpoke, GUISpokeInputCheckHandler):
         self._confirm_check = self.add_check(self.confirm, self._checkPasswordConfirm)
         self._password_check = self.add_check(self.pw, self._checkPasswordConfirm)
 
-        # Keep a reference to this check, since it has to be manually run for the
+        # Keep a reference to these checks, since they have to be manually run for the
         # click Done twice check.
         self._pwStrengthCheck = self.add_check(self.pw, self._checkPasswordStrength)
+        self._pwASCIICheck = self.add_check(self.pw, self._checkPasswordASCII)
 
         self.add_check(self.confirm, self._checkPasswordEmpty)
 
@@ -413,8 +416,9 @@ class UserSpoke(FirstbootSpokeMixIn, NormalSpoke, GUISpokeInputCheckHandler):
         pwtext = self.pw.get_text()
         username = self.username.get_text()
 
-        # Reset the counter used for the "press Done twice" logic
-        self._waivePasswordClicks = 0
+        # Reset the counters used for the "press Done twice" logic
+        self._waiveStrengthClicks = 0
+        self._waiveASCIIClicks = 0
 
         self._pwq_valid, strength, self._pwq_error = validatePassword(pwtext, username)
 
@@ -530,7 +534,7 @@ class UserSpoke(FirstbootSpokeMixIn, NormalSpoke, GUISpokeInputCheckHandler):
            into an error message.
 
            The password strength check can be waived by pressing "Done" twice. This
-           is controlled through the self._waivePasswordClicks counter. The counter
+           is controlled through the self._waiveStrengthClicks counter. The counter
            is set in on_back_clicked, which also re-runs this check manually.
          """
 
@@ -547,9 +551,9 @@ class UserSpoke(FirstbootSpokeMixIn, NormalSpoke, GUISpokeInputCheckHandler):
 
         if pwstrength < 2:
             # If Done has been clicked twice, waive the check
-            if self._waivePasswordClicks > 1:
+            if self._waiveStrengthClicks > 1:
                 return InputCheck.CHECK_OK
-            elif self._waivePasswordClicks == 1:
+            elif self._waiveStrengthClicks == 1:
                 if self._pwq_error:
                     return _(PASSWORD_WEAK_CONFIRM_WITH_ERROR) % self._pwq_error
                 else:
@@ -561,6 +565,23 @@ class UserSpoke(FirstbootSpokeMixIn, NormalSpoke, GUISpokeInputCheckHandler):
                     return _(PASSWORD_WEAK)
         else:
             return InputCheck.CHECK_OK
+
+    def _checkPasswordASCII(self, inputcheck):
+        """Set an error message if the password contains non-ASCII characters.
+
+           Like the password strength check, this check can be bypassed by
+           pressing Done twice.
+        """
+
+        # If Done has been clicked, waive the check
+        if self._waiveASCIIClicks > 0:
+            return InputCheck.CHECK_OK
+
+        password = self.get_input(inputcheck.input_obj)
+        if password and any(char not in PW_ASCII_CHARS for char in password):
+            return _(PASSWORD_ASCII)
+
+        return InputCheck.CHECK_OK
 
     def on_advanced_clicked(self, _button, data=None):
         """Handler for the Advanced.. button. It starts the Advanced dialog
@@ -583,9 +604,15 @@ class UserSpoke(FirstbootSpokeMixIn, NormalSpoke, GUISpokeInputCheckHandler):
         self.admin.set_active(self._wheel.name in self._user.groups)
 
     def on_back_clicked(self, button):
-        # Add a click and re-check the password strength
-        self._waivePasswordClicks += 1
-        self._pwStrengthCheck.update_check_status()
+        # If the failed check is for password strength or non-ASCII
+        # characters, add a click to the counter and check again
+        failed_check = next(self.failed_checks_with_message, None)
+        if failed_check == self._pwStrengthCheck:
+            self._waiveStrengthClicks += 1
+            self._pwStrengthCheck.update_check_status()
+        elif failed_check == self._pwASCIICheck:
+            self._waiveASCIIClicks += 1
+            self._pwASCIICheck.update_check_status()
 
         # If there is no user set, skip the checks
         if not self.username.get_text():
