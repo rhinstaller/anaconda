@@ -241,6 +241,18 @@ class ErrorHandler(object):
         self.ui.showDetailedError(message, details)
         return ERROR_RAISE
 
+    def _bootLoaderErrorHandler(self, exn):
+        message = _("The following error occurred while installing the bootloader. "
+                    "The system will not be bootable. "
+                    "Would you like to ignore this and continue with "
+                    "installation?")
+        message += "\n\n" + str(exn)
+
+        if self.ui.showYesNoQuestion(message):
+            return ERROR_CONTINUE
+        else:
+            return ERROR_RAISE
+
     def cb(self, exn):
         """This method is the callback that all error handling should pass
            through.  The return value is one of the ERROR_* constants defined
@@ -269,7 +281,8 @@ class ErrorHandler(object):
                 "NoSuchPackage": self._noSuchPackageHandler,
                 "ScriptError": self._scriptErrorHandler,
                 "PayloadInstallError": self._payloadInstallHandler,
-                "DependencyError": self._dependencyErrorHandler}
+                "DependencyError": self._dependencyErrorHandler,
+                "BootLoaderError": self._bootLoaderErrorHandler}
 
         if exn.__class__.__name__ in _map:
             rc = _map[exn.__class__.__name__](exn)

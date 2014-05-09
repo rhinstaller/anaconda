@@ -2391,6 +2391,7 @@ def writeBootLoader(storage, payload, instClass, ksdata):
     try:
         storage.bootloader.write()
     except BootLoaderError as e:
+        log.error("bootloader.write failed: %s", e)
         if errorHandler.cb(e) == ERROR_RAISE:
             raise
 
