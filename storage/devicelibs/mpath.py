@@ -212,9 +212,9 @@ def identifyMultipaths(devices):
 
     # this is the list of devices we want to keep from the original
     # device list, but we want to maintain its original order.
-    singlepath_disks = filter(lambda d: d in devices, singlepath_disks)
-    #multipaths = filter(lambda d: d in devices, multipaths)
-    partition_devices = filter(lambda d: d in devices, partition_devices)
+    singlepath_disks = filter(lambda d: d in singlepath_disks, devices)
+    #multipaths = filter(lambda d: d in multipaths, devices)
+    partition_devices = filter(lambda d: d in partition_devices, devices)
 
     mpathStr = "["
     for mpath in multipaths:
