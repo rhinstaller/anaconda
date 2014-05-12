@@ -33,7 +33,9 @@ import re
 from pyanaconda.product import productName
 from pyanaconda.iutil import lowerASCII
 from pyanaconda.storage_utils import size_from_input, get_supported_raid_levels
+from pyanaconda.ui.helpers import InputCheck
 from pyanaconda.ui.gui import GUIObject
+from pyanaconda.ui.gui.helpers import GUIDialogInputCheckHandler
 from pyanaconda.ui.gui.utils import fancy_set_sensitive, really_hide, really_show
 from pyanaconda.i18n import _, N_, C_
 
@@ -54,7 +56,6 @@ log = logging.getLogger("anaconda")
 RAID_NOT_ENOUGH_DISKS = N_("The RAID level you have selected (%(level)s) "
                            "requires more disks (%(min)d) than you "
                            "currently have selected (%(count)d).")
-EMPTY_NAME_MSG = N_("Please enter a valid name.")
 
 CONTAINER_DIALOG_TITLE = N_("CONFIGURE %(container_type)s")
 CONTAINER_DIALOG_TEXT = N_("Please create a name for this %(container_type)s "
@@ -300,7 +301,7 @@ class DisksDialog(GUIObject):
     def run(self):
         return self.window.run()
 
-class ContainerDialog(GUIObject):
+class ContainerDialog(GUIObject, GUIDialogInputCheckHandler):
     builderObjects = ["container_dialog", "disk_store", "container_disk_view",
                       "containerRaidStoreFiltered", "containerRaidLevelLabel",
                       "containerRaidLevelCombo", "raidLevelStore",
@@ -310,12 +311,15 @@ class ContainerDialog(GUIObject):
     uiFile = "spokes/lib/custom_storage_helpers.glade"
 
     def __init__(self, *args, **kwargs):
+        GUIDialogInputCheckHandler.__init__(self)
+
         # these are all absolutely required. not getting them is fatal.
         self._disks = kwargs.pop("disks")
         free = kwargs.pop("free")
         self.selected = kwargs.pop("selected")[:]
         self.name = kwargs.pop("name") or "" # make sure it's a string
         self.device_type = kwargs.pop("device_type")
+        self.storage = kwargs.pop("storage")
 
         # these are less critical
         self.raid_level = kwargs.pop("raid_level", None) or None # not ""
@@ -387,6 +391,9 @@ class ContainerDialog(GUIObject):
             fancy_set_sensitive(self._sizeCombo, False)
             self._sizeEntry.set_sensitive(False)
 
+        # Check that the container name configured is valid
+        self.add_check(self._name_entry, self._checkNameEntry)
+
     def _grabObjects(self):
         self._title_label = self.builder.get_object("container_dialog_title_label")
         self._dialog_label = self.builder.get_object("container_dialog_label")
@@ -406,6 +413,8 @@ class ContainerDialog(GUIObject):
         self._raidLevelCombo = self.builder.get_object("containerRaidLevelCombo")
         self._raidLevelLabel = self.builder.get_object("containerRaidLevelLabel")
 
+        self._save_button = self.builder.get_object("container_save_button")
+
     def _get_disk_by_id(self, disk_id):
         for disk in self._disks:
             if disk.id == disk_id:
@@ -414,14 +423,6 @@ class ContainerDialog(GUIObject):
     def on_save_clicked(self, button):
         if self.exists:
             self.window.destroy()
-            return
-
-        # If no name was entered, quit the dialog as if they did nothing.
-        name = self._name_entry.get_text().strip()
-        if not name:
-            self._error = _(EMPTY_NAME_MSG)
-            self._error_label.set_text(self._error)
-            self.window.show_all()
             return
 
         model, paths = self._treeview.get_selection().get_selected_rows()
@@ -459,7 +460,7 @@ class ContainerDialog(GUIObject):
             disk_id = model.get_value(itr, 4)
             self.selected.append(self._get_disk_by_id(disk_id))
 
-        self.name = name
+        self.name = self._name_entry.get_text().strip()
         self.raid_level = raid_level
         self.encrypted = self._encryptCheckbutton.get_active()
         self.size_policy = size
@@ -514,6 +515,23 @@ class ContainerDialog(GUIObject):
 
         map(really_show, [self._raidLevelLabel, self._raidLevelCombo])
         fancy_set_sensitive(self._raidLevelCombo, not self.exists)
+
+    def _checkNameEntry(self, inputcheck):
+        container_name = self.get_input(inputcheck.input_obj).strip()
+
+        # Check that the container name is valid
+        safename = self.storage.safeDeviceName(container_name)
+        if container_name != safename:
+            return _("Invalid container name")
+
+        return InputCheck.CHECK_OK
+
+    def set_status(self, inputcheck):
+        # Use the superclass set_status to set the error message
+        GUIDialogInputCheckHandler.set_status(self, inputcheck)
+
+        # Change the sensitivity of the Save button
+        self._save_button.set_sensitive(next(self.failed_checks, None) == None)
 
 class HelpDialog(GUIObject):
     builderObjects = ["help_dialog", "help_text_view", "help_text_buffer"]

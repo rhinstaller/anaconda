@@ -1894,6 +1894,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
                                  disks=self._clearpartDevices,
                                  free=self._currentFreeInfo,
                                  selected=self._device_disks,
+                                 storage=self._storage_playground,
                                  exists=getattr(container, "exists", False))
 
         with enlightbox(self.window, dialog.window):
