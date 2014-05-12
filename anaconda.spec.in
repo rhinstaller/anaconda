@@ -222,6 +222,27 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Mon May 12 2014 Samantha N. Bueno <sbueno+anaconda@redhat.com> - 13.21.216-1
+- Add buildarch option to buildinstall (bcl)
+  Related: rhbz#1087466
+  Resolves: rhbz#1087466
+- Remove actions that try to remove non-existing devices (vpodzime)
+  Resolves: rhbz#906807
+- Rename dev_actions to prune_actions (vpodzime)
+  Related: rhbz#906807
+- Add dm-raid45 to initrd (mmatsuya)
+  Resolves: rhbz#1056830
+- Fix echo typo (bcl)
+  Resolves: rhbz#969339
+- Copy firmware updates to rootPath (bcl)
+  Resolves: rhbz#1043372
+- Skip comments in dmidecode output (bcl)
+  Resolves: rhbz#1064701
+- Replace hard-coded console device in generic.prm. (sbueno+anaconda)
+  Resolves: rhbz#1081596
+- Don't remove the .efi files from buildinstall (vpodzime)
+  Resolves: rhbz#1076369
+
 * Tue Oct 22 2013 Samantha N. Bueno <sbueno+anaconda@redhat.com> - 13.21.215-1
 - Explicitly load dm-raid.ko for lvm raid segment types. (dlehman)
   Resolves: rhbz#873281

@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: anaconda 13.21.214\n"
+"Project-Id-Version: anaconda 13.21.215\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
-"POT-Creation-Date: 2013-10-22 16:14-0400\n"
+"POT-Creation-Date: 2014-05-12 15:22-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -45,8 +45,8 @@ msgstr ""
 #: loader/net.c:1798 loader/net.c:1822 loader/net.c:2180 loader/net.c:2199
 #: loader/net.c:2211 loader/nfsinstall.c:91 loader/nfsinstall.c:279
 #: loader/nfsinstall.c:296 loader/nfsinstall.c:384 loader/telnetd.c:92
-#: loader/urlinstall.c:137 loader/urlinstall.c:159 loader/urlinstall.c:221
-#: loader/urlinstall.c:374 loader/urlinstall.c:385 loader/urlinstall.c:392
+#: loader/urlinstall.c:142 loader/urlinstall.c:164 loader/urlinstall.c:226
+#: loader/urlinstall.c:379 loader/urlinstall.c:390 loader/urlinstall.c:397
 #: loader/urls.c:268 loader/urls.c:339 loader/urls.c:345 loader/urls.c:354
 #: textw/constants_text.py:44
 msgid "OK"
@@ -85,12 +85,12 @@ msgstr ""
 msgid "DISPLAY variable not set. Starting text mode."
 msgstr ""
 
-#: backend.py:142
+#: backend.py:144
 #, python-format
 msgid "Upgrading %s\n"
 msgstr ""
 
-#: backend.py:144
+#: backend.py:146
 #, python-format
 msgid "Installing %s\n"
 msgstr ""
@@ -113,7 +113,7 @@ msgid ""
 msgstr ""
 
 #: bootloader.py:60 gui.py:1166 gui.py:1289 gui.py:1521 image.py:101
-#: installinterfacebase.py:109 livecd.py:205 livecd.py:447 packages.py:162
+#: installinterfacebase.py:109 livecd.py:143 livecd.py:385 packages.py:162
 #: upgrade.py:58 upgrade.py:199 yuminstall.py:272 yuminstall.py:1109
 #: yuminstall.py:1114 yuminstall.py:1197 yuminstall.py:1203 yuminstall.py:1355
 #: yuminstall.py:1382 yuminstall.py:1443 yuminstall.py:1630 yuminstall.py:1660
@@ -371,7 +371,7 @@ msgstr ""
 msgid "_Exit"
 msgstr ""
 
-#: gui.py:1433 image.py:176 image.py:208 livecd.py:205 yuminstall.py:976
+#: gui.py:1433 image.py:176 image.py:208 livecd.py:143 yuminstall.py:976
 #: yuminstall.py:1382 yuminstall.py:1443 yuminstall.py:1660
 msgid "_Retry"
 msgstr ""
@@ -388,7 +388,7 @@ msgstr ""
 msgid "Exiting"
 msgstr ""
 
-#: gui.py:1518 installinterfacebase.py:55 livecd.py:126 text.py:267
+#: gui.py:1518 installinterfacebase.py:55 livecd.py:64 text.py:267
 #: upgrade.py:190
 msgid "Exit installer"
 msgstr ""
@@ -462,13 +462,13 @@ msgid ""
 "need to abort the installation and exit please select \"Reboot\"."
 msgstr ""
 
-#: image.py:265 livecd.py:446 packages.py:374 upgrade.py:198
+#: image.py:265 livecd.py:384 packages.py:374 upgrade.py:198
 #: yuminstall.py:1114 yuminstall.py:1203 yuminstall.py:1632 yuminstall.py:1683
 #: yuminstall.py:1701 storage/__init__.py:114 ui/anaconda.glade.h:2
 msgid "_Back"
 msgstr ""
 
-#: image.py:304 livecd.py:198 livecd.py:440 partIntfHelpers.py:240 text.py:359
+#: image.py:304 livecd.py:136 livecd.py:378 partIntfHelpers.py:240 text.py:359
 #: text.py:363 yuminstall.py:447 yuminstall.py:992 yuminstall.py:1107
 #: yuminstall.py:1112 yuminstall.py:1386 yuminstall.py:1453 yuminstall.py:1654
 #: yuminstall.py:1676 iw/advanced_storage.py:385 iw/advanced_storage.py:398
@@ -485,8 +485,8 @@ msgstr ""
 #: loader/loader.c:1246 loader/mediacheck.c:46 loader/mediacheck.c:85
 #: loader/mediacheck.c:92 loader/mediacheck.c:96 loader/method.c:277
 #: loader/method.c:351 loader/nfsinstall.c:279 loader/nfsinstall.c:296
-#: loader/telnetd.c:92 loader/urlinstall.c:137 loader/urlinstall.c:159
-#: loader/urlinstall.c:221 loader/urls.c:339 loader/urls.c:345
+#: loader/telnetd.c:92 loader/urlinstall.c:142 loader/urlinstall.c:164
+#: loader/urlinstall.c:226 loader/urls.c:339 loader/urls.c:345
 #: loader/urls.c:354 storage/__init__.py:271 storage/__init__.py:1907
 #: storage/__init__.py:1994 storage/zfcp.py:375 textw/upgrade_text.py:184
 #: textw/upgrade_text.py:191
@@ -567,15 +567,15 @@ msgstr ""
 msgid "Hardware Error Encountered"
 msgstr ""
 
-#: iutil.py:873
+#: iutil.py:874
 msgid "Error determining boot device's disk name"
 msgstr ""
 
-#: iutil.py:896
+#: iutil.py:897
 msgid "the device containing /boot"
 msgstr ""
 
-#: iutil.py:898
+#: iutil.py:899
 #, python-format
 msgid ""
 "After shutdown, please perform a manual IPL from %s to continue installation."
@@ -619,7 +619,7 @@ msgstr ""
 msgid "Unknown error processing %%ksappend lines: %s"
 msgstr ""
 
-#: kickstart.py:1518 livecd.py:228
+#: kickstart.py:1518 livecd.py:166
 msgid "Post-Installation"
 msgstr ""
 
@@ -674,21 +674,21 @@ msgid ""
 "%s"
 msgstr ""
 
-#: livecd.py:121
+#: livecd.py:59
 msgid "Unable to find image"
 msgstr ""
 
-#: livecd.py:122
+#: livecd.py:60
 #, python-format
 msgid ""
 "The given location isn't a valid %s live CD to use as an installation source."
 msgstr ""
 
-#: livecd.py:180
+#: livecd.py:118
 msgid "Copying live image to hard drive."
 msgstr ""
 
-#: livecd.py:199
+#: livecd.py:137
 msgid ""
 "There was an error installing the live image to your hard drive.  This could "
 "be due to bad media.  Please verify your installation media.\n"
@@ -697,13 +697,13 @@ msgid ""
 "require reinstallation."
 msgstr ""
 
-#: livecd.py:229
+#: livecd.py:167
 msgid ""
 "Performing post-installation filesystem changes.  This may take several "
 "minutes."
 msgstr ""
 
-#: livecd.py:441
+#: livecd.py:379
 #, python-format
 msgid ""
 "The root filesystem you created is not large enough for this live image "
@@ -3601,8 +3601,8 @@ msgstr ""
 #: loader/kickstart.c:140 loader/kickstart.c:150 loader/kickstart.c:192
 #: loader/kickstart.c:197 loader/kickstart.c:526 loader/kickstart.c:572
 #: loader/kickstart.c:588 loader/net.c:1798 loader/net.c:1822
-#: loader/nfsinstall.c:384 loader/urlinstall.c:374 loader/urlinstall.c:385
-#: loader/urlinstall.c:392
+#: loader/nfsinstall.c:384 loader/urlinstall.c:379 loader/urlinstall.c:390
+#: loader/urlinstall.c:397
 msgid "Kickstart Error"
 msgstr ""
 
@@ -4215,25 +4215,25 @@ msgstr ""
 msgid "Running anaconda via telnet."
 msgstr ""
 
-#: loader/urlinstall.c:138
+#: loader/urlinstall.c:143
 #, c-format
 msgid "Unable to retrieve %s."
 msgstr ""
 
-#: loader/urlinstall.c:222
+#: loader/urlinstall.c:227
 msgid "Unable to retrieve the install image."
 msgstr ""
 
-#: loader/urlinstall.c:375
+#: loader/urlinstall.c:380
 #, c-format
 msgid "Bad argument to URL kickstart method command: %s"
 msgstr ""
 
-#: loader/urlinstall.c:386
+#: loader/urlinstall.c:391
 msgid "Must supply a --url argument to Url kickstart method."
 msgstr ""
 
-#: loader/urlinstall.c:393
+#: loader/urlinstall.c:398
 #, c-format
 msgid "Unknown Url method %s"
 msgstr ""
@@ -4716,7 +4716,7 @@ msgid ""
 "installation."
 msgstr ""
 
-#: storage/devicetree.py:1985 storage/devicetree.py:2033
+#: storage/devicetree.py:1989 storage/devicetree.py:2037
 msgid "This partition is part of an inconsistent LVM Volume Group."
 msgstr ""
 
