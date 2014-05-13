@@ -37,9 +37,6 @@ def partitionObjectsInitialize(anaconda):
     # clean slate about drives
     isys.flushDriveDict()
 
-    if anaconda.dir == DISPATCH_BACK:
-        return
-
     # ensure iscsi devs are up
     anaconda.id.iscsi.startup(anaconda.intf)
 
