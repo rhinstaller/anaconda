@@ -947,7 +947,10 @@ class DeviceTree(object):
                udev_device_get_md_name(info):
             md_name = udev_device_get_md_name(info)
             for i in range(0, len(self.exclusiveDisks)):
-                if re.match("isw_[a-z]*_%s" % md_name, self.exclusiveDisks[i]):
+                # Udev changes special characters in md device names
+                # Substitute them in name from exclusiveDisks before matching
+                disk_name = re.sub('[ \t]', '_', self.exclusiveDisks[i]).replace('/', '-')
+                if re.match("isw_[a-z]*_%s" % md_name, disk_name):
                     self.exclusiveDisks[i] = name
                     return False
 
