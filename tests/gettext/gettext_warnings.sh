@@ -1,11 +1,23 @@
 #!/bin/sh -e
 
-: "${top_srcdir:=$(dirname "$0")/../..}"
-podir="${top_srcdir}/po"
+if [ -z "$top_srcdir" ]; then
+    top_srcdir="$(dirname "$0")/../.."
+    . "${top_srcdir}/tests/testenv.sh"
+fi
+podir="${top_builddir}/po"
+POTFILES="${podir}/POTFILES"
 
 # Extract XGETTEXT_OPTIONS from po/Makevars
+# Makevars is one of our files, so it's in $srcdir
 XGETTEXT_OPTIONS="$(sed -n 's/^[[:space:]]*XGETTEXT_OPTIONS[[:space:]]*=[[:space:]]*\(.*\)/\1/p' \
-    "${podir}/Makevars")"
+    "${top_srcdir}/po/Makevars")"
+
+# Fail if POTFILES doesn't exist, since set -e doesn't catch this for some
+# dumb reason that I'm sure has a long and storied history
+if [ ! -f "${POTFILES}" ] ; then
+    echo "POTFILES does not exist"
+    exit 1
+fi
 
 status=0
 # For each file in POTFILES, run xgettext and look for warnings
@@ -27,6 +39,6 @@ while read -r potfile ; do
         echo "$xgettext_output"
         status=1
     fi
-done < "${top_srcdir}/po/POTFILES"
+done < "$POTFILES"
 
 exit "$status"
