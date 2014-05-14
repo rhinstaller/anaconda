@@ -115,8 +115,8 @@ class RPMOSTreePayload(ArchivePayload):
 
         repo = sysroot.get_repo(None)[1]
         repo.set_disable_fsync(True)
-        progressQ.send_message(_("Starting pull of %s from %s") % \
-                               (ostreesetup.ref, ostreesetup.remote))
+        progressQ.send_message(_("Starting pull of %(branchName)s from %(source)s") % \
+                               {"branchName": ostreesetup.ref, "source": ostreesetup.remote})
 
         progress = OSTree.AsyncProgress.new()
         progress.connect('changed', self._pullProgressCb)
