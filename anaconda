@@ -381,7 +381,7 @@ def setupPythonPath():
 
 def setupEnvironment():
     # Silly GNOME stuff
-    if os.environ.has_key('HOME') and not os.environ.has_key("XAUTHORITY"):
+    if 'HOME' in os.environ and not "XAUTHORITY" in os.environ:
         os.environ['XAUTHORITY'] = os.environ['HOME'] + '/.Xauthority'
     os.environ['HOME'] = '/tmp'
     os.environ['LC_NUMERIC'] = 'C'
@@ -395,7 +395,7 @@ def setupEnvironment():
 
     # we can't let the LD_PRELOAD hang around because it will leak into
     # rpm %post and the like.  ick :/
-    if os.environ.has_key("LD_PRELOAD"):
+    if "LD_PRELOAD" in os.environ:
         del os.environ["LD_PRELOAD"]
 
 def setupLoggingFromOpts(options):
@@ -405,7 +405,7 @@ def setupLoggingFromOpts(options):
         options.loglevel = "debug"
         want_yum_lock_logs = options.debug
 
-    if options.loglevel and anaconda_log.logLevelMap.has_key(options.loglevel):
+    if options.loglevel and options.loglevel in anaconda_log.logLevelMap:
         level = anaconda_log.logLevelMap[opts.loglevel]
         anaconda_log.logger.tty_loglevel = level
         anaconda_log.setHandlersLevel(log, level)
@@ -585,7 +585,7 @@ def setupDisplay(anaconda, options, addons=None):
         stdoutLog.warning("Not asking for VNC because we don't have Xvnc")
         flags.vncquestion = False
 
-    if os.environ.has_key('DISPLAY'):
+    if 'DISPLAY' in os.environ:
         flags.preexisting_x11 = True
 
     # Should we try to start Xorg?

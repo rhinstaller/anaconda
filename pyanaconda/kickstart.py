@@ -1864,7 +1864,7 @@ def runPostScripts(scripts):
 
     # Remove environment variables that cause problems for %post scripts.
     for var in ["LIBUSER_CONF"]:
-        if os.environ.has_key(var):
+        if var in os.environ:
             del(os.environ[var])
 
     log.info("Running kickstart %%post script(s)")

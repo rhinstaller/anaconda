@@ -181,7 +181,7 @@ def availableClasses(showHidden=0):
         if fileName[-3:] != ".py" and fileName[-4:-1] != ".py":
             continue
         mainName = fileName.split(".")[0]
-        if done.has_key(mainName):
+        if mainName in done:
             continue
         done[mainName] = 1
 
@@ -197,7 +197,7 @@ def availableClasses(showHidden=0):
 
             obj = loaded.InstallClass
 
-            if obj.__dict__.has_key('sortPriority'):
+            if 'sortPriority' in obj.__dict__:
                 sortOrder = obj.sortPriority
             else:
                 sortOrder = 0
