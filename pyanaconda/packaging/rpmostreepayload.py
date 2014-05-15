@@ -147,26 +147,6 @@ class RPMOSTreePayload(ArchivePayload):
         deployment_path = sysroot.get_deployment_directory(deployment)
         iutil.setSysroot(deployment_path.get_path())
 
-        varroot = iutil.getTargetPhysicalRoot() + '/ostree/deploy/' + ostreesetup.osname + '/var'
-
-        # This is a bit of a hack; we precreate the targets of
-        # possible mounts of legacy paths like /home and /opt so the
-        # installer/%post scripts can find them.  In particular,
-        # Anaconda itself writes to /root/anaconda-ks.cfg.  What we
-        # really should do is export this data in some way the
-        # installer can read reliably.  Right now it's just encoded in
-        # systemd-tmpfiles.
-        for (dname, mode) in [('root', 0700), ('home', 0755),
-                              ('opt', 0755), ('srv', 0755),
-                              ('media', 0755), ('mnt', 0755)]:
-            linksrc = iutil.getSysroot() + '/' + dname
-            if os.path.islink(linksrc) and not os.path.isdir(linksrc):
-                linkdata = os.readlink(linksrc)
-                if linkdata.startswith('var/'):
-                    linkdest = varroot + '/' + linkdata[4:]
-                    log.info("Creating %s" % linkdest)
-                    os.mkdir(linkdest, mode)
-
         # Copy specific bootloader data files from the deployment
         # checkout to the target root.  See
         # https://bugzilla.gnome.org/show_bug.cgi?id=726757 This
@@ -203,6 +183,19 @@ class RPMOSTreePayload(ArchivePayload):
             if dest is None:
                 self._safeExecWithRedirect("mount",
                                            ["--bind", "-o", "ro", src, src])
+
+        # Now, ensure that all other potential mount point directories such as
+        # (/home) are created.  We run through the full tmpfiles here in order
+        # to also allow Anaconda and %post scripts to write to directories like
+        # /root.  We don't iterate *all* tmpfiles because we don't have the
+        # matching NSS configuration inside Anaconda, and we can't "chroot" to
+        # get it because that would require mounting the API filesystems in the
+        # target.
+        for varsubdir in ('home', 'roothome', 'lib/rpm', 'opt', 'srv',
+                          'usrlocal', 'mnt', 'media'):
+            self._safeExecWithRedirect("systemd-tmpfiles",
+                                       ["--create", "--boot", "--root=" + iutil.getSysroot(),
+                                        "--prefix=/var/" + varsubdir])
 
     def postInstall(self):
         super(RPMOSTreePayload, self).postInstall()
