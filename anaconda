@@ -97,7 +97,7 @@ def exitHandler(rebootData, storage, exitCode=None):
             subprocess.Popen(["systemctl", "--no-wall", "poweroff"])
         elif rebootData.action == KS_WAIT:
             subprocess.Popen(["systemctl", "--no-wall", "halt"])
-        else: # reboot action is KS_REBOOT or None
+        else:  # reboot action is KS_REBOOT or None
             subprocess.Popen(["systemctl", "--no-wall", "reboot"])
 
 def startSpiceVDAgent():
@@ -164,7 +164,7 @@ def doStartupX11Actions():
     # try to make sure a logo image is present
     assureLogoImage()
 
-    global wm_pid # pid of the anaconda fork where the window manager is running
+    global wm_pid  # pid of the anaconda fork where the window manager is running
     # now start up the window manager
     wm_pid = startMetacityWM()
     log.info("Starting window manager, pid %s.", wm_pid)
@@ -173,7 +173,7 @@ def set_x_resolution(runres):
     # cant do this if no window manager is running because otherwise when we
     # open and close an X connection in the xutils calls the X server will exit
     # since this is the first X connection (if no window manager is running)
-    if runres and opts.display_mode == 'g' and not flags.usevnc and wm_pid :
+    if runres and opts.display_mode == 'g' and not flags.usevnc and wm_pid:
         try:
             log.info("Setting the screen resolution to: %s.", runres)
             iutil.execWithRedirect("xrandr",
@@ -421,8 +421,8 @@ def setupLoggingFromOpts(options):
 
 def gtk_warning(title, reason):
     from gi.repository import Gtk
-    dialog = Gtk.MessageDialog(type = Gtk.MessageType.ERROR,
-                               buttons = Gtk.ButtonsType.CLOSE,
+    dialog = Gtk.MessageDialog(type=Gtk.MessageType.ERROR,
+                               buttons=Gtk.ButtonsType.CLOSE,
                                message_format=reason)
     dialog.set_title(title)
     dialog.run()
@@ -438,9 +438,9 @@ def check_memory(anaconda, options, display_mode=None):
     reboot_extra = _('\n'
                      'Press <return> to reboot your system.\n')
     livecd_title = _("Not enough RAM")
-    livecd_extra =_(" Try the text mode installer by running:\n\n"
-                    "'/usr/bin/liveinst -T'\n\n from a root "
-                    "terminal.")
+    livecd_extra = _(" Try the text mode installer by running:\n\n"
+                     "'/usr/bin/liveinst -T'\n\n from a root "
+                     "terminal.")
     nolivecd_extra = _(" Starting text mode.")
 
     if options.rescue:
@@ -461,9 +461,9 @@ def check_memory(anaconda, options, display_mode=None):
         log.warning("CHECK_MEMORY DISABLED")
         return
 
-    reason_args = {"product_name" : product.productName,
-                   "needed_ram" : needed_ram,
-                   "total_ram" : total_ram }
+    reason_args = {"product_name": product.productName,
+                   "needed_ram": needed_ram,
+                   "total_ram": total_ram}
     if needed_ram > total_ram:
         from snack import SnackScreen, ButtonChoiceWindow
         if options.liveinst:
@@ -877,7 +877,7 @@ if __name__ == "__main__":
     # Default is to prompt to mount the installed system.
     anaconda.rescue_mount = not opts.rescue_nomount
 
-    if opts.dlabel: #autodetected driverdisc in use
+    if opts.dlabel:  # autodetected driverdisc in use
         flags.dlabel = True
 
     if opts.proxy:
@@ -942,11 +942,11 @@ if __name__ == "__main__":
         startAuditDaemon()
 
     # setup links required for all install types
-    for i in ( "services", "protocols", "nsswitch.conf", "joe", "selinux",
-               "mke2fs.conf" ):
+    for i in ("services", "protocols", "nsswitch.conf", "joe", "selinux",
+              "mke2fs.conf"):
         try:
             if os.path.exists("/mnt/runtime/etc/" + i):
-                os.symlink ("../mnt/runtime/etc/" + i, "/etc/" + i)
+                os.symlink("../mnt/runtime/etc/" + i, "/etc/" + i)
         except OSError:
             pass
 
@@ -1166,7 +1166,7 @@ if __name__ == "__main__":
 
     # add our own additional signal handlers
     signal.signal(signal.SIGUSR1, lambda signum, frame:
-                                         exception.test_exception_handling())
+                  exception.test_exception_handling())
     signal.signal(signal.SIGUSR2, lambda signum, frame: anaconda.dumpState())
     atexit.register(exitHandler, ksdata.reboot, anaconda.storage)
 
@@ -1189,7 +1189,7 @@ if __name__ == "__main__":
 
     threadMgr.add(AnacondaThread(name=constants.THREAD_WAIT_FOR_CONNECTING_NM, target=wait_for_connecting_NM_thread, args=(ksdata,)))
     threadMgr.add(AnacondaThread(name=constants.THREAD_PAYLOAD, target=payloadInitialize,
-        args=(anaconda.storage, ksdata, anaconda.payload, anaconda.instClass)))
+                  args=(anaconda.storage, ksdata, anaconda.payload, anaconda.instClass)))
 
     # check if geolocation should be enabled for this type of installation
     use_geolocation = True
@@ -1201,7 +1201,6 @@ if __name__ == "__main__":
         # 0, no, off and also nogeoloc as False
         # and other values or geoloc not being present as True
         use_geolocation = flags.cmdline.getbool('geoloc', True)
-
 
     if use_geolocation:
         provider_id = constants.GEOLOC_DEFAULT_PROVIDER
