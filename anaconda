@@ -257,17 +257,16 @@ def getAnacondaVersion():
     from pyanaconda import _isys
     return _isys.getAnacondaVersion()
 
-def parseOptions(argv=None, cmdline=None):
-    from pyanaconda.anaconda_optparse import AnacondaOptionParser
-    from pyanaconda.anaconda_optparse import HelpTextParser
+def parseArguments(argv=None, boot_cmdline=None):
+    from pyanaconda.anaconda_argparse import AnacondaArgumentParser
+    from pyanaconda.anaconda_argparse import HelpTextParser
 
     # NOTE: for each long option (like '--repo'), AnacondaOptionParser
     # checks the boot arguments for bootarg_prefix+option ('inst.repo').
     # If require_prefix is False, it also accepts the option without the
     # bootarg_prefix ('repo').
     # See anaconda_optparse.py and BootArgs (in flags.py) for details.
-    op = AnacondaOptionParser(version="%prog " + getAnacondaVersion(),
-                              bootarg_prefix="inst.", require_prefix=False)
+    ap = AnacondaArgumentParser(bootarg_prefix="inst.", require_prefix=False)
     help_parser = HelpTextParser("/usr/share/anaconda/anaconda_options.txt")
 
     # NOTE: store_false options will *not* get negated when the user does
@@ -279,96 +278,98 @@ def parseOptions(argv=None, cmdline=None):
     # b) be prepared to maintain it for a very long time
     # If this seems like too much trouble, *don't add a new option*!
 
+    # Version
+    ap.add_argument('--version', action='version', version="%(prog)s " + getAnacondaVersion())
+
     # Interface
-    op.add_option("-C", "--cmdline", dest="display_mode", action="store_const", const="c",
-                  default="g")
-    op.add_option("-G", "--graphical", dest="display_mode", action="store_const", const="g")
-    op.add_option("-T", "--text", dest="display_mode", action="store_const", const="t")
-    op.add_option("-S", "--script", dest="display_mode", action="store_const", const="s")
+    ap.add_argument("-C", "--cmdline", dest="display_mode", action="store_const", const="c",
+                    default="g")
+    ap.add_argument("-G", "--graphical", dest="display_mode", action="store_const", const="g")
+    ap.add_argument("-T", "--text", dest="display_mode", action="store_const", const="t")
+    ap.add_argument("-S", "--script", dest="display_mode", action="store_const", const="s")
 
     # Network
-    op.add_option("--noipv4", action="store_true", default=False)
-    op.add_option("--noipv6", action="store_true", default=False)
-    op.add_option("--proxy")
+    ap.add_argument("--noipv4", action="store_true", default=False)
+    ap.add_argument("--noipv6", action="store_true", default=False)
+    ap.add_argument("--proxy")
 
     # Method of operation
-    op.add_option("--autostep", action="store_true", default=False)
-    op.add_option("-d", "--debug", dest="debug", action="store_true", default=False)
-    op.add_option("--ks", dest="ksfile", action="store_const", const="/run/install/ks.cfg")
-    op.add_option("--kickstart", dest="ksfile")
-    op.add_option("--rescue", dest="rescue", action="store_true", default=False)
-    op.add_option("--targetarch", "rpmarch", dest="targetArch", type="string")
-    op.add_option("--armplatform", dest="armPlatform", type="string")
-    op.add_option("--multilib", dest="multiLib", action="store_true", default=False)
+    ap.add_argument("--autostep", action="store_true", default=False)
+    ap.add_argument("-d", "--debug", dest="debug", action="store_true", default=False)
+    ap.add_argument("--ks", dest="ksfile", action="store_const", const="/run/install/ks.cfg")
+    ap.add_argument("--kickstart", dest="ksfile")
+    ap.add_argument("--rescue", dest="rescue", action="store_true", default=False)
+    ap.add_argument("--targetarch", "rpmarch", dest="targetArch", type=str)
+    ap.add_argument("--armplatform", dest="armPlatform", type=str)
+    ap.add_argument("--multilib", dest="multiLib", action="store_true", default=False)
 
-    op.add_option("-m", "--method", dest="method", default=None)
-    op.add_option("--askmethod", dest="askmethod", action="store_true", default=False)
-    op.add_option("--repo", dest="method", default=None)
-    op.add_option("--stage2", dest="stage2", default=None)
-    op.add_option("--noverifyssl", action="store_true", default=False)
-
-    op.add_option("--liveinst", action="store_true", default=False)
+    ap.add_argument("-m", "--method", dest="method", default=None)
+    ap.add_argument("--askmethod", dest="askmethod", action="store_true", default=False)
+    ap.add_argument("--repo", dest="method", default=None)
+    ap.add_argument("--stage2", dest="stage2", default=None)
+    ap.add_argument("--noverifyssl", action="store_true", default=False)
+    ap.add_argument("--liveinst", action="store_true", default=False)
 
     # Display
-    op.add_option("--headless", dest="isHeadless", action="store_true", default=False)
-    op.add_option("--nofb")
-    op.add_option("--resolution", dest="runres", default=None)
-    op.add_option("--usefbx", dest="xdriver", action="store_const", const="fbdev")
-    op.add_option("--vnc", action="store_true", default=False)
-    op.add_option("--vncconnect")
-    op.add_option("--vncpassword", default="")
-    op.add_option("--xdriver", dest="xdriver", action="store", type="string", default=None)
+    ap.add_argument("--headless", dest="isHeadless", action="store_true", default=False)
+    ap.add_argument("--nofb")
+    ap.add_argument("--resolution", dest="runres", default=None)
+    ap.add_argument("--usefbx", dest="xdriver", action="store_const", const="fbdev")
+    ap.add_argument("--vnc", action="store_true", default=False)
+    ap.add_argument("--vncconnect")
+    ap.add_argument("--vncpassword", default="")
+    ap.add_argument("--xdriver", dest="xdriver", action="store", type=str, default=None)
 
     # Language
-    op.add_option("--keymap")
-    op.add_option("--kbdtype")
-    op.add_option("--lang")
+    ap.add_argument("--keymap")
+    ap.add_argument("--kbdtype")
+    ap.add_argument("--lang")
 
     # Obvious
-    op.add_option("--loglevel")
-    op.add_option("--syslog")
+    ap.add_argument("--loglevel")
+    ap.add_argument("--syslog")
 
-    op.add_option("--noselinux", dest="selinux", action="store_false", default=True)
-    op.add_option("--selinux", action="store_true")
+    ap.add_argument("--noselinux", dest="selinux", action="store_false", default=True)
+    ap.add_argument("--selinux", action="store_true")
 
-    op.add_option("--nompath", dest="mpath", action="store_false", default=True)
-    op.add_option("--mpath", action="store_true")
+    ap.add_argument("--nompath", dest="mpath", action="store_false", default=True)
+    ap.add_argument("--mpath", action="store_true")
 
-    op.add_option("--nodmraid", dest="dmraid", action="store_false", default=True)
-    op.add_option("--dmraid", action="store_true")
+    ap.add_argument("--nodmraid", dest="dmraid", action="store_false", default=True)
+    ap.add_argument("--dmraid", action="store_true")
 
-    op.add_option("--noibft", dest="ibft", action="store_false", default=True)
-    op.add_option("--ibft", action="store_true")
-    op.add_option("--noiscsi", dest="iscsi", action="store_false", default=False)
-    op.add_option("--iscsi", action="store_true")
+    ap.add_argument("--noibft", dest="ibft", action="store_false", default=True)
+    ap.add_argument("--ibft", action="store_true")
+    ap.add_argument("--noiscsi", dest="iscsi", action="store_false", default=False)
+    ap.add_argument("--iscsi", action="store_true")
 
     # Geolocation
-    op.add_option("--geoloc")
+    ap.add_argument("--geoloc")
 
     # Miscellaneous
-    op.add_option("--module", action="append", default=[])
-    op.add_option("--nomount", dest="rescue_nomount", action="store_true", default=False)
-    op.add_option("--updates", dest="updateSrc", action="store", type="string")
-    op.add_option("--dlabel", action="store_true", default=False)
-    op.add_option("--image", action="append", dest="images", default=[],
-       metavar="IMAGE_SPEC", help=help_parser.help_text("image"))
-    op.add_option("--dirinstall", action="store_true", default=False,
-       help=help_parser.help_text("dirinstall"))
-    op.add_option("--memcheck", action="store_true", default=True)
-    op.add_option("--nomemcheck", action="store_false", dest="memcheck")
-    op.add_option("--leavebootorder", action="store_true", default=False)
-    op.add_option("--noeject", action="store_false", dest="eject", default=True)
-    op.add_option("--extlinux", action="store_true", default=False)
-    op.add_option("--dnf", action="store_true", default=False)
-    op.add_option("--mpathfriendlynames", action="store_true", default=True)
+    ap.add_argument("--module", action="append", default=[])
+    ap.add_argument("--nomount", dest="rescue_nomount", action="store_true", default=False)
+    ap.add_argument("--updates", dest="updateSrc", action="store", type=str)
+    ap.add_argument("--dlabel", action="store_true", default=False)
+    ap.add_argument("--image", action="append", dest="images", default=[],
+                    metavar="IMAGE_SPEC", help=help_parser.help_text("image"))
+    ap.add_argument("--dirinstall", action="store_true", default=False,
+                    help=help_parser.help_text("dirinstall"))
+    ap.add_argument("--memcheck", action="store_true", default=True)
+    ap.add_argument("--nomemcheck", action="store_false", dest="memcheck")
+    ap.add_argument("--leavebootorder", action="store_true", default=False)
+    ap.add_argument("--noeject", action="store_false", dest="eject", default=True)
+    ap.add_argument("--extlinux", action="store_true", default=False)
+    ap.add_argument("--dnf", action="store_true", default=False)
+    ap.add_argument("--mpathfriendlynames", action="store_true", default=True)
 
     # some defaults change based on cmdline flags
-    if cmdline is not None:
-        if "console" in cmdline:
-            op.set_defaults(display_mode="t")
+    if boot_cmdline is not None:
+        if "console" in boot_cmdline:
+            ap.set_defaults(display_mode="t")
 
-    (options, extraArgs) = op.parse_args(argv, cmdline=cmdline)
-    return (options, extraArgs, op.deprecated_bootargs)
+    namespace = ap.parse_args(argv, boot_cmdline=boot_cmdline)
+    return (namespace, ap.deprecated_bootargs)
 
 def setupPythonPath():
     # First add our updates path
@@ -747,7 +748,7 @@ if __name__ == "__main__":
     # check if the CLI help is requested and return it at once,
     # without importing random stuff and spamming stdout
     if ("--help" in sys.argv) or ("-h" in sys.argv):
-        parseOptions()
+        parseArguments()
 
     print "Starting installer, one moment..."
 
@@ -777,7 +778,7 @@ if __name__ == "__main__":
 
     # do this early so we can set flags before initializing logging
     from pyanaconda.flags import flags, can_touch_runtime_system
-    (opts, args, depr) = parseOptions(cmdline=flags.cmdline)
+    (opts, depr) = parseArguments(boot_cmdline=flags.cmdline)
 
     if opts.askmethod:
         flags.askmethod = True
@@ -1143,7 +1144,7 @@ if __name__ == "__main__":
     if anaconda.displayMode == 'c':
         flags.ksprompt = False
 
-    from pyanaconda.anaconda_optparse import name_path_pairs
+    from pyanaconda.anaconda_argparse import name_path_pairs
 
     image_count = 0
     try:

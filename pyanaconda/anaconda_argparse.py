@@ -18,38 +18,44 @@
 #
 # Authors:
 #   Will Woods <wwoods@redhat.com>
+#   Martin Kolman <mkolman@redhat.com>
+
+DESCRIPTION = "Anaconda is the installation program used by Fedora," \
+              "Red Hat Enterprise Linux and some other distributions."
 
 import itertools
 import os
 
-from optparse import OptionParser, OptionConflictError
+from argparse import ArgumentParser, ArgumentError
 
 from pyanaconda.flags import BootArgs
 
 import logging
 log = logging.getLogger("anaconda")
 
-class AnacondaOptionParser(OptionParser):
+class AnacondaArgumentParser(ArgumentParser):
     """
-    Subclass of OptionParser that also examines boot arguments.
-
-    If the "bootarg_prefix" keyword argument is set, it's assumed that all
-    bootargs will start with that prefix.
-
-    "require_prefix" is a bool:
-        False: accept the argument with or without the prefix.
-        True: ignore the argument without the prefix. (default)
+    Subclass of ArgumentParser that also examines boot arguments.
     """
+
     def __init__(self, *args, **kwargs):
+        """
+        If the "bootarg_prefix" keyword argument is set, it's assumed that all
+        bootargs will start with that prefix.
+
+        "require_prefix" is a bool:
+            False: accept the argument with or without the prefix.
+            True: ignore the argument without the prefix. (default)
+        """
         self._boot_arg = dict()
         self.deprecated_bootargs = []
-        self.bootarg_prefix = kwargs.pop("bootarg_prefix","")
-        self.require_prefix = kwargs.pop("require_prefix",True)
-        OptionParser.__init__(self, *args, **kwargs)
+        self.bootarg_prefix = kwargs.pop("bootarg_prefix", "")
+        self.require_prefix = kwargs.pop("require_prefix", True)
+        ArgumentParser.__init__(self, description=DESCRIPTION, *args, **kwargs)
 
-    def add_option(self, *args, **kwargs):
+    def add_argument(self, *args, **kwargs):
         """
-        Add a new option - like OptionParser.add_option.
+        Add a new option - like ArgumentParser.add_argument.
 
         The long options will be added to the list of boot args, unless
         the keyword argument 'bootarg' is set to False.
@@ -58,25 +64,34 @@ class AnacondaOptionParser(OptionParser):
         boot args to look for.
 
         NOTE: conflict_handler is currently ignored for boot args - they will
-        always raise OptionConflictError if they conflict.
+        always raise ArgumentError if they conflict.
         """
         # TODO: add kwargs to make an option commandline-only or boot-arg-only
         flags = [a for a in args if a.startswith('-')]
         bootargs = [a for a in args if not a.startswith('-')]
         do_bootarg = kwargs.pop("bootarg", True)
-        option = OptionParser.add_option(self, *flags, **kwargs)
-        bootargs += (flag[2:] for flag in option._long_opts)
+        option = super(AnacondaArgumentParser, self).add_argument(*flags, **kwargs)
+        # make a generator that returns only the long opts without the -- prefix
+        long_opts = (o[2:] for o in option.option_strings if o.startswith("--"))
+        bootargs += (flag for flag in long_opts)
         if do_bootarg:
             for b in bootargs:
                 if b in self._boot_arg:
-                    raise OptionConflictError(
-                          "conflicting bootopt string: %s" % b, option)
+                    raise ArgumentError(
+                        "conflicting bootopt string: %s" % b, option)
                 else:
                     self._boot_arg[b] = option
         return option
 
     def _get_bootarg_option(self, arg):
-        """Find the correct Option for a given bootarg (if one exists)"""
+        """
+        Find the correct Option for a given bootarg (if one exists)
+
+        :param string arg: boot option
+
+        :returns: argparse option object or None if no suitable option is found
+        :rtype argparse option or None
+        """
         if self.bootarg_prefix and arg.startswith(self.bootarg_prefix):
             prefixed_option = True
             arg = arg[len(self.bootarg_prefix):]
@@ -90,49 +105,81 @@ class AnacondaOptionParser(OptionParser):
             self.deprecated_bootargs.append(arg)
         return option
 
-    def parse_boot_cmdline(self, cmdline, values=None):
+    def parse_boot_cmdline(self, boot_cmdline, namespace):
         """
-        Parse the boot cmdline and set appropriate values according to
-        the options set by add_option.
+        Parse the boot cmdline and set appropriate namespace according to
+        the options set by add_argument.
 
-        cmdline can be given as a string (to be parsed by BootArgs), or a
+        boot_cmdline can be given as a string (to be parsed by BootArgs), or a
         dict (or any object with .iteritems()) of {bootarg:value} pairs.
 
-        If cmdline is None, the cmdline data will be whatever BootArgs reads
+        If boot_cmdline is None, the boot_cmdline data will be whatever BootArgs reads
         by default (/proc/cmdline, /run/initramfs/etc/cmdline, /etc/cmdline).
 
         If an option requires a value but the boot arg doesn't provide one,
         we'll quietly not set anything.
+
+        :param boot_cmdline: the Anaconda boot command line arguments
+        :type boot_cmdline: string, dict or None
+
+        :param namespace: argparse Namespace instance
+        :type namespace: argparse Namespace
+
+        :returns: an argparse Namespace instance
+        :rtype: Namespace
         """
-        if cmdline is None or type(cmdline) is str:
-            bootargs = BootArgs(cmdline)
+        if boot_cmdline is None or type(boot_cmdline) is str:
+            bootargs = BootArgs(boot_cmdline)
         else:
-            bootargs = cmdline
+            bootargs = boot_cmdline
         self.deprecated_bootargs = []
+        # go over all options corresponding to current boot cmdline
+        # and do any modifications necessary
+        # NOTE: program cmdline overrides boot cmdline
         for arg, val in bootargs.iteritems():
             option = self._get_bootarg_option(arg)
             if option is None:
+                # this boot option is unknown to Anaconda, skip it
                 continue
-            if option.takes_value() and val is None:
-                continue # TODO: emit a warning or something there?
-            if option.action == "store_true" and val in ("0", "no", "off"):
+            if getattr(namespace, option.dest) is not None:
+                # if the option is already set on program command line,
+                # we ignore any boot options that might modify it
+                continue
+            if option.nargs != 0 and val is None:
+                # nargs == 0 -> option does not take any values, skip it
+                continue  # TODO: emit a warning or something there?
+            if option.nargs == 0 and option.const is True and val in ("0", "no", "off"):
+                # nargs == 0 & constr == True -> store_true
+                # (we could also check the class, but it begins with an
+                # underscore, so it would be ugly)
                 # special case: "mpath=0" would otherwise set mpath to True
-                setattr(values, option.dest, False)
+                setattr(namespace, option.dest, False)
                 continue
-            option.process(arg, val, values, self)
-        return values
+            setattr(namespace, option.dest, val)
+        return namespace
 
     # pylint: disable=arguments-differ
-    def parse_args(self, args=None, values=None, cmdline=None):
+    def parse_args(self, args=None, boot_cmdline=None):
         """
-        Like OptionParser.parse_args(), but also parses the boot cmdline.
+        Like ArgumentParser.parse_args(), but also parses the boot cmdline.
         (see parse_boot_cmdline for details on that process.)
-        Commandline arguments will override boot arguments.
+        Program cmdline arguments will override boot cmdline arguments.
+
+        :param args: program command line arguments
+        :type args: string or None
+
+        :param boot_cmdline: the Anaconda boot command line arguments
+        :type boot_cmdline: string, dict or None
+
+        :returns: an argparse Namespace instance
+        :rtype: Namespace
         """
-        if values is None:
-            values = self.get_default_values()
-        v = self.parse_boot_cmdline(cmdline, values)
-        return OptionParser.parse_args(self, args, v)
+        # parse arguments (if any) and return the resulting namespace
+        namespace = ArgumentParser.parse_args(self, args)
+        # now parse boot options (if any) and modify the namespace accordingly
+        namespace = self.parse_boot_cmdline(boot_cmdline, namespace)
+        # and return the resulting namespace
+        return namespace
 
 def name_path_pairs(image_specs):
     """Processes and verifies image file specifications. Generates pairs
