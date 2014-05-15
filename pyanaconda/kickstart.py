@@ -21,7 +21,7 @@
 from pyanaconda.errors import ScriptError, errorHandler
 from blivet.deviceaction import ActionCreateFormat, ActionDestroyFormat, ActionResizeDevice, ActionResizeFormat
 from blivet.devices import LUKSDevice
-from blivet.devicelibs.lvm import getPossiblePhysicalExtents
+from blivet.devicelibs.lvm import getPossiblePhysicalExtents, LVM_PE_SIZE
 from blivet.devicelibs import swap as swap_lib
 from blivet.formats import getFormat
 from blivet.partitioning import doPartitioning
@@ -1455,12 +1455,12 @@ class User(commands.user.F19_User):
             if not users.createUser(usr.name, **kwargs):
                 log.error("User %s already exists, not creating.", usr.name)
 
-class VolGroup(commands.volgroup.F20_VolGroup):
+class VolGroup(commands.volgroup.RHEL7_VolGroup):
     def execute(self, storage, ksdata, instClass):
         for v in self.vgList:
             v.execute(storage, ksdata, instClass)
 
-class VolGroupData(commands.volgroup.FC16_VolGroupData):
+class VolGroupData(commands.volgroup.RHEL7_VolGroupData):
     def execute(self, storage, ksdata, instClass):
         pvs = []
 
@@ -1491,6 +1491,10 @@ class VolGroupData(commands.volgroup.FC16_VolGroupData):
 
         if len(pvs) == 0 and not self.preexist:
             raise KickstartValueError(formatErrorMsg(self.lineno, msg="Volume group defined without any physical volumes.  Either specify physical volumes or use --useexisting."))
+
+        if self.pesize == 0:
+            # default PE size requested -- we use blivet's default in KiB
+            self.pesize = LVM_PE_SIZE * 1024
 
         if self.pesize not in getPossiblePhysicalExtents(floor=1024):
             raise KickstartValueError(formatErrorMsg(self.lineno, msg="Volume group specified invalid pesize"))
