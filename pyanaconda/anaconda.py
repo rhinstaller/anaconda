@@ -65,7 +65,6 @@ class Anaconda(object):
         self.proxyUsername = None
         self.proxyPassword = None
         self.reIPLMessage = None
-        self.rescue = False
         self.rescue_mount = True
         self.rootParts = None
 

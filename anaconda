@@ -503,7 +503,7 @@ def setupDisplay(anaconda, opts, addon_paths=None):
         anaconda.xdriver = opts.xdriver
         anaconda.writeXdriver(root="/")
 
-    if anaconda.rescue:
+    if flags.rescue_mode:
         return
 
     if anaconda.ksdata.vnc.enabled:
@@ -920,7 +920,7 @@ if __name__ == "__main__":
     if ksdata.bootloader.extlinux:
         flags.extlinux = True
     if ksdata.rescue.rescue:
-        anaconda.rescue = True
+        flags.rescue_mode = True
 
     # Some kickstart commands must be executed immediately, as they affect
     # how anaconda operates.
@@ -1053,7 +1053,7 @@ if __name__ == "__main__":
         else:
             anaconda.ksdata.displaymode.displayMode = DISPLAY_MODE_TEXT
 
-    if anaconda.rescue:
+    if flags.rescue_mode:
         from pyanaconda import rescue
         anaconda.intf = rescue.RescueInterface()
 
@@ -1093,7 +1093,7 @@ if __name__ == "__main__":
     from pyanaconda.network import networkInitialize, wait_for_connecting_NM_thread
     from pyanaconda.timezone import time_initialize
 
-    if anaconda.rescue:
+    if flags.rescue_mode:
         rescue.doRescue(anaconda.intf, anaconda.rescue_mount, ksdata)
     else:
         cleanPStore()
