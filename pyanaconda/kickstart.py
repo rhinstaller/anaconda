@@ -1571,10 +1571,11 @@ class VolGroupData(commands.volgroup.F21_VolGroupData):
             self.pesize = LVM_PE_SIZE.convertTo(spec="KiB")
 
         pesize = Size("%d KiB" % self.pesize)
-        if pesize not in getPossiblePhysicalExtents():
+        possible_extents = getPossiblePhysicalExtents()
+        if pesize not in possible_extents:
             raise KickstartValueError(formatErrorMsg(self.lineno,
-                    msg=_("Volume group given physical size of \"%(extentSize)s\", but must be one of:\n%(validExtentSizes)s.") %
-                         {"extentSize": pesize, "validExtentSizes": ", ".join([str(e) for e in getPossiblePhysicalExtents()])}))
+                    msg=_("Volume group given physical extent size of \"%(extentSize)s\", but must be one of:\n%(validExtentSizes)s.") %
+                         {"extentSize": pesize, "validExtentSizes": ", ".join(str(e) for e in possible_extents)}))
 
         # If --noformat or --useexisting was given, there's really nothing to do.
         if not self.format or self.preexist:
