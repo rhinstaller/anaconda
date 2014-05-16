@@ -875,48 +875,45 @@ def copyDhclientConfFiles(destPath):
         copyFileToPath(dhclientfile, destPath)
 
 def ks_spec_to_device_name(ksspec=""):
-
-    ksdevice = ksspec
-
     bootif_mac = ''
-    if ksdevice == 'bootif' and "BOOTIF" in flags.cmdline:
+    if ksspec == 'bootif' and "BOOTIF" in flags.cmdline:
         bootif_mac = flags.cmdline["BOOTIF"][3:].replace("-", ":").upper()
     for dev in sorted(nm.nm_devices()):
         # "eth0"
-        if ksdevice == dev:
+        if ksspec == dev:
             break
         # "link"
-        elif ksdevice == 'link':
+        elif ksspec == 'link':
             try:
                 link_up = nm.nm_device_carrier(dev)
             except ValueError as e:
                 log.debug("ks_spec_to_device_name: %s", e)
                 continue
             if link_up:
-                ksdevice = dev
+                ksspec = dev
                 break
         # "XX:XX:XX:XX:XX:XX" (mac address)
-        elif ':' in ksdevice:
+        elif ':' in ksspec:
             try:
                 hwaddr = nm.nm_device_perm_hwaddress(dev)
             except ValueError as e:
                 log.debug("ks_spec_to_device_name: %s", e)
                 continue
-            if ksdevice.lower() == hwaddr.lower():
-                ksdevice = dev
+            if ksspec.lower() == hwaddr.lower():
+                ksspec = dev
                 break
         # "bootif" and BOOTIF==XX:XX:XX:XX:XX:XX
-        elif ksdevice == 'bootif':
+        elif ksspec == 'bootif':
             try:
                 hwaddr = nm.nm_device_perm_hwaddress(dev)
             except ValueError as e:
                 log.debug("ks_spec_to_device_name: %s", e)
                 continue
             if bootif_mac.lower() == hwaddr.lower():
-                ksdevice = dev
+                ksspec = dev
                 break
 
-    return ksdevice
+    return ksspec
 
 def set_hostname(hn):
     if can_touch_runtime_system("set hostname", touch_live=True):
