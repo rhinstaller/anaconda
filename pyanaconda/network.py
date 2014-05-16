@@ -338,8 +338,8 @@ def dracutBootArguments(devname, ifcfg, storage_ipaddr, hostname=None):
                     gateway = "[%s]" % ifcfg.get('IPV6_DEFAULTGW')
                 else:
                     gateway = ""
-                netargs.add("ip=%s::%s:%s:%s:%s:none" % (ipaddr, gateway,
-                           ifcfg.get('PREFIX'), hostname, devname))
+                netargs.add("ip=%s::%s::%s:%s:none" % (ipaddr, gateway,
+                            hostname, devname))
         else:
             if iutil.lowerASCII(ifcfg.get('bootproto')) == 'dhcp':
                 netargs.add("ip=%s:dhcp" % devname)
