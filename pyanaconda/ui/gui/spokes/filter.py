@@ -23,7 +23,7 @@ from collections import namedtuple
 import itertools
 
 from blivet import arch
-from blivet.devices import DASDDevice, FcoeDiskDevice, iScsiDiskDevice, MultipathDevice, MDRaidArrayDevice, ZFCPDiskDevice
+from blivet.devices import DASDDevice, FcoeDiskDevice, iScsiDiskDevice, MultipathDevice, ZFCPDiskDevice
 from blivet.fcoe import has_fcoe
 
 from pyanaconda.flags import flags
@@ -360,23 +360,6 @@ class OtherPage(FilterPage):
         device = self.storage.devicetree.getDeviceByName(obj.name, hidden=True)
         return self.ismember(device) and self._filter_func(device)
 
-class RaidPage(FilterPage):
-    def __init__(self, storage, builder):
-        FilterPage.__init__(self, storage, builder)
-        self.model = self.builder.get_object("raidModel")
-        self.model.set_visible_func(self.visible_func)
-
-    def ismember(self, device):
-        return isinstance(device, MDRaidArrayDevice) and device.isDisk
-
-    def visible_func(self, model, itr, *args):
-        if not flags.dmraid:
-            return False
-
-        obj = DiskStoreRow(*model[itr])
-        device = self.storage.devicetree.getDeviceByName(obj.name, hidden=True)
-        return self.ismember(device)
-
 class ZPage(FilterPage):
     def __init__(self, storage, builder):
         FilterPage.__init__(self, storage, builder)
@@ -399,7 +382,7 @@ class ZPage(FilterPage):
 
 class FilterSpoke(NormalSpoke):
     builderObjects = ["diskStore", "filterWindow",
-                      "searchModel", "multipathModel", "otherModel", "raidModel", "zModel"]
+                      "searchModel", "multipathModel", "otherModel", "zModel"]
     mainWidgetName = "filterWindow"
     uiFile = "spokes/filter.glade"
 
@@ -439,7 +422,6 @@ class FilterSpoke(NormalSpoke):
         self.pages = [SearchPage(self.storage, self.builder),
                       MultipathPage(self.storage, self.builder),
                       OtherPage(self.storage, self.builder),
-                      RaidPage(self.storage, self.builder),
                       ZPage(self.storage, self.builder)]
 
         self._notebook = self.builder.get_object("advancedNotebook")
@@ -473,7 +455,6 @@ class FilterSpoke(NormalSpoke):
         allDisks = []
         multipathDisks = []
         otherDisks = []
-        raidDisks = []
         zDisks = []
 
         # Now all all the non-local disks to the store.  Everything has been set up
@@ -487,8 +468,6 @@ class FilterSpoke(NormalSpoke):
             elif self.pages[2].ismember(disk):
                 otherDisks.append(disk)
             elif self.pages[3].ismember(disk):
-                raidDisks.append(disk)
-            elif self.pages[4].ismember(disk):
                 zDisks.append(disk)
 
             allDisks.append(disk)
@@ -496,8 +475,7 @@ class FilterSpoke(NormalSpoke):
         self.pages[0].setup(self._store, self.selected_disks, allDisks)
         self.pages[1].setup(self._store, self.selected_disks, multipathDisks)
         self.pages[2].setup(self._store, self.selected_disks, otherDisks)
-        self.pages[3].setup(self._store, self.selected_disks, raidDisks)
-        self.pages[4].setup(self._store, self.selected_disks, zDisks)
+        self.pages[3].setup(self._store, self.selected_disks, zDisks)
 
         self._update_summary()
 

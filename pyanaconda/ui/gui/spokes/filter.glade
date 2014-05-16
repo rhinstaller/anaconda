@@ -45,9 +45,6 @@
   <object class="GtkTreeModelFilter" id="otherModel">
     <property name="child_model">diskStore</property>
   </object>
-  <object class="GtkTreeModelFilter" id="raidModel">
-    <property name="child_model">diskStore</property>
-  </object>
   <object class="GtkTreeModelFilter" id="searchModel">
     <property name="child_model">diskStore</property>
   </object>
@@ -1189,28 +1186,6 @@
                       </object>
                       <packing>
                         <property name="position">2</property>
-                        <property name="tab_fill">False</property>
-                      </packing>
-                    </child>
-                    <child>
-                      <object class="GtkLabel" id="label9">
-                        <property name="visible">True</property>
-                        <property name="can_focus">False</property>
-                        <property name="label" translatable="yes">Nothing here yet.</property>
-                      </object>
-                      <packing>
-                        <property name="position">3</property>
-                      </packing>
-                    </child>
-                    <child type="tab">
-                      <object class="GtkLabel" id="label4">
-                        <property name="visible">True</property>
-                        <property name="can_focus">False</property>
-                        <property name="label" translatable="yes" context="GUI|Installation Destination|Filter">Firmware _RAID</property>
-                        <property name="use_underline">True</property>
-                      </object>
-                      <packing>
-                        <property name="position">3</property>
                         <property name="tab_fill">False</property>
                       </packing>
                     </child>
