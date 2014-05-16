@@ -385,6 +385,12 @@ EOF
         rm -rf $MMB_DIR/lib/modules/$KDIR/kernel/drivers/media
         rm -rf $MMB_DIR/lib/modules/$KDIR/kernel/drivers/mac80211
         rm -rf $MMB_DIR/lib/modules/$KDIR/kernel/drivers/isdn
+
+        # Remove more (#1098486)
+        rm -f $MMB_DIR/lib/modules/$KDIR/kernel/drivers/scsi/scsi_debug.ko
+        rm -rf $MMB_DIR/lib/modules/$KDIR/kernel/drivers/gpu/drm/nouveau
+        rm -rf $MMB_DIR/lib/modules/$KDIR/kernel/drivers/gpu/drm/radeon
+        rm -rf $MMB_DIR/lib/modules/$KDIR/kernel/drivers/gpu/drm/drm
     fi
 
     # clean up leftover cruft
