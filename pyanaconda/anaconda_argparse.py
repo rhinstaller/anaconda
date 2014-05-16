@@ -25,13 +25,50 @@ DESCRIPTION = "Anaconda is the installation program used by Fedora," \
 
 import itertools
 import os
+import sys
+import fcntl
+import termios
+import struct
 
-from argparse import ArgumentParser, ArgumentError
+from argparse import ArgumentParser, ArgumentError, HelpFormatter
 
 from pyanaconda.flags import BootArgs
 
 import logging
 log = logging.getLogger("anaconda")
+
+# Help text formatting constants
+
+LEFT_PADDING = 8  # the help text will start after 8 spaces
+RIGHT_PADDING = 8  # there will be 8 spaces left on the right
+DEFAULT_HELP_WIDTH = 80
+
+def get_help_width():
+    """
+    Try to detect the terminal window width size and use it to
+    compute optimal help text width. If it can't be detected
+    a default values is returned.
+
+    :returns: optimal help text width in number of characters
+    :rtype: integer
+    """
+
+    help_width = DEFAULT_HELP_WIDTH
+    try:
+        data = fcntl.ioctl(sys.stdout, termios.TIOCGWINSZ, '1234')
+        columns = int(struct.unpack('hh', data)[1])
+        # apply the right padding
+        columns = columns - RIGHT_PADDING
+        if columns > 0:
+            help_width = columns
+    # pylint: disable=broad-except
+    except Exception as e:
+        # detection failed, use the default
+        # NOTE: this could be caused by the COLUMNS string having a value
+        # that can't be converted to an integer
+        print("anaconda argparse: terminal size detection failed, using default width")
+        print(e)
+    return help_width
 
 class AnacondaArgumentParser(ArgumentParser):
     """
@@ -47,11 +84,15 @@ class AnacondaArgumentParser(ArgumentParser):
             False: accept the argument with or without the prefix.
             True: ignore the argument without the prefix. (default)
         """
+        help_width = get_help_width()
         self._boot_arg = dict()
         self.deprecated_bootargs = []
         self.bootarg_prefix = kwargs.pop("bootarg_prefix", "")
         self.require_prefix = kwargs.pop("require_prefix", True)
-        ArgumentParser.__init__(self, description=DESCRIPTION, *args, **kwargs)
+        ArgumentParser.__init__(self, description=DESCRIPTION,
+                                formatter_class=lambda prog: HelpFormatter(
+                                    prog, max_help_position=LEFT_PADDING, width=help_width),
+                                *args, **kwargs)
 
     def add_argument(self, *args, **kwargs):
         """
