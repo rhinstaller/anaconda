@@ -80,7 +80,6 @@ static PyObject * py_bind_textdomain_codeset(PyObject * o, PyObject * args);
 static PyObject * doSegvHandler(PyObject *s, PyObject *args);
 static PyObject * doAuditDaemon(PyObject *s);
 static PyObject * doIsCapsLockEnabled(PyObject * s, PyObject * args);
-static PyObject * doGetAnacondaVersion(PyObject * s, PyObject * args);
 static PyObject * doInitLog(PyObject * s);
 static PyObject * doTotalMemory(PyObject * s);
 
@@ -94,7 +93,6 @@ static PyMethodDef isysModuleMethods[] = {
     { "handleSegv", (PyCFunction) doSegvHandler, METH_VARARGS, NULL },
     { "auditdaemon", (PyCFunction) doAuditDaemon, METH_NOARGS, NULL },
     { "isCapsLockEnabled", (PyCFunction) doIsCapsLockEnabled, METH_VARARGS, NULL },
-    { "getAnacondaVersion", (PyCFunction) doGetAnacondaVersion, METH_VARARGS, NULL },
     { "initLog", (PyCFunction) doInitLog, METH_VARARGS, NULL },
     { "total_memory", (PyCFunction) doTotalMemory, METH_NOARGS, NULL },
     { NULL, NULL, 0, NULL }
@@ -248,10 +246,6 @@ static PyObject * doIsCapsLockEnabled(PyObject * s, PyObject * args) {
     }
 
     return PyBool_FromLong(state.locked_mods & LockMask);
-}
-
-static PyObject * doGetAnacondaVersion(PyObject * s, PyObject * args) {
-    return Py_BuildValue("s", VERSION);
 }
 
 static PyObject * doInitLog(PyObject * s) {

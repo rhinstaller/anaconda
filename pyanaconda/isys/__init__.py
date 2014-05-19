@@ -1,7 +1,7 @@
 #
 # isys.py - installer utility functions and glue for C module
 #
-# Copyright (C) 2001, 2002, 2003, 2004, 2005, 2006, 2007  Red Hat, Inc.
+# Copyright (C) 2001-2014  Red Hat, Inc.
 # All rights reserved.
 #
 # This program is free software; you can redistribute it and/or modify
@@ -108,8 +108,6 @@ def isPaeAvailable():
 
     return isPAE
 
-def getAnacondaVersion():
-    return _isys.getAnacondaVersion()
 
 auditDaemon = _isys.auditdaemon
 

@@ -23,8 +23,7 @@ ISYS_SRCS = isofs.c linkdetect.c auditd.c log.c mem.c
 
 dist_noinst_HEADERS = $(srcdir)/*.h
 
-ISYS_CFLAGS = -DVERSION='"$(PACKAGE_VERSION)-$(PACKAGE_RELEASE)"' \
-              $(NETWORKMANAGER_CFLAGS) $(LIBNL_CFLAGS) $(LIBNM_GLIB_CFLAGS) \
+ISYS_CFLAGS = $(NETWORKMANAGER_CFLAGS) $(LIBNL_CFLAGS) $(LIBNM_GLIB_CFLAGS) \
               $(SELINUX_CFLAGS)
 ISYS_LIBS   = $(RESOLV_LIBS) $(ZLIB_LIBS) \
               $(DEVMAPPER_LIBS) $(X11_LIBS) $(SELINUX_LIBS) \

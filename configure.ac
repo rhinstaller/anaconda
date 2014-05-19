@@ -236,6 +236,7 @@ AC_CONFIG_FILES([Makefile
                  po/Makefile.in
                  scripts/Makefile
                  pyanaconda/Makefile
+                 pyanaconda/version.py
                  pyanaconda/isys/Makefile
                  pyanaconda/packaging/Makefile
                  pyanaconda/ui/Makefile
