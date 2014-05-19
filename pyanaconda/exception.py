@@ -24,7 +24,7 @@
 from meh import Config
 from meh.handler import ExceptionHandler
 from meh.dump import ReverseExceptionDump
-from pyanaconda import isys, iutil, kickstart
+from pyanaconda import iutil, kickstart
 import sys
 import os
 import shutil
@@ -41,6 +41,7 @@ from pyanaconda.constants import THREAD_EXCEPTION_HANDLING_TEST
 from pyanaconda.threads import threadMgr
 from pyanaconda.i18n import _
 from pyanaconda import flags
+from pyanaconda import startup_utils
 
 from gi.repository import GLib
 
@@ -228,7 +229,7 @@ def initExceptionHandling(anaconda):
         fileList.extend([anaconda.opts.ksfile])
 
     conf = Config(programName="anaconda",
-                  programVersion=isys.getAnacondaVersion(),
+                  programVersion=startup_utils.get_anaconda_version_string(),
                   programArch=os.uname()[4],
                   attrSkipList=["_intf._actions",
                                 "_intf._currentAction._xklwrapper",

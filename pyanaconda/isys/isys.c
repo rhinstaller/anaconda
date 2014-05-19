@@ -31,13 +31,11 @@
 
 static PyObject * doSync(PyObject * s, PyObject * args);
 static PyObject * doSegvHandler(PyObject *s, PyObject *args);
-static PyObject * doGetAnacondaVersion(PyObject * s, PyObject * args);
 static PyObject * doSetSystemTime(PyObject *s, PyObject *args);
 
 static PyMethodDef isysModuleMethods[] = {
     { "sync", (PyCFunction) doSync, METH_VARARGS, NULL},
     { "handleSegv", (PyCFunction) doSegvHandler, METH_VARARGS, NULL },
-    { "getAnacondaVersion", (PyCFunction) doGetAnacondaVersion, METH_VARARGS, NULL },
     { "set_system_time", (PyCFunction) doSetSystemTime, METH_VARARGS, NULL},
     { NULL, NULL, 0, NULL }
 } ;
@@ -74,10 +72,6 @@ static PyObject * doSegvHandler(PyObject *s, PyObject *args) {
      
     free (strings);
     exit(1);
-}
-
-static PyObject * doGetAnacondaVersion(PyObject * s, PyObject * args) {
-    return Py_BuildValue("s", VERSION_RELEASE);
 }
 
 static PyObject * doSetSystemTime(PyObject *s, PyObject  *args) {

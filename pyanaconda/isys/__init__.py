@@ -106,9 +106,6 @@ def isLpaeAvailable():
 
     return False
 
-def getAnacondaVersion():
-    return _isys.getAnacondaVersion()
-
 def set_system_time(secs):
     """
     Set system time to time given as a number of seconds since the Epoch.

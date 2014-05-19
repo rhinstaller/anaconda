@@ -251,11 +251,13 @@ def symlink_updates(dest_dir, update_dir):
                 continue
             os.symlink(dest_path, update_path)
 
-def getAnacondaVersion():
-    # Using _isys here so we don't drag in the logging stuff, which is always
-    # complicated.
-    from pyanaconda import _isys
-    return _isys.getAnacondaVersion()
+def getAnacondaVersionString():
+    # we are importing the startup module directly so that it can be replaced
+    # by updates image, if it was replaced before the updates image can be
+    # loaded, it could not be easily replaced
+    from pyanaconda import startup_utils
+    return startup_utils.get_anaconda_version_string()
+
 
 def parseArguments(argv=None, boot_cmdline=None):
     from pyanaconda.anaconda_argparse import AnacondaArgumentParser
@@ -279,7 +281,7 @@ def parseArguments(argv=None, boot_cmdline=None):
     # If this seems like too much trouble, *don't add a new option*!
 
     # Version
-    ap.add_argument('--version', action='version', version="%(prog)s " + getAnacondaVersion())
+    ap.add_argument('--version', action='version', version="%(prog)s " + getAnacondaVersionString())
 
     # Interface
     ap.add_argument("-C", "--cmdline", dest="display_mode", action="store_const", const="c",
@@ -818,7 +820,7 @@ if __name__ == "__main__":
         if "RUNKS" in flags.cmdline:
             opts.display_mode = 'c'
 
-    log.info("%s %s", sys.argv[0], getAnacondaVersion())
+    log.info("%s %s", sys.argv[0], getAnacondaVersionString())
 
     # TODO: uncomment this when we're sure that we're doing the right thing
     # with flags.cmdline *everywhere* it appears...
@@ -840,7 +842,7 @@ if __name__ == "__main__":
     from pyanaconda import keyboard
     from pyanaconda.iutil import ProxyString, ProxyStringError
 
-    verdesc = "%s for %s %s" % (getAnacondaVersion(),
+    verdesc = "%s for %s %s" % (getAnacondaVersionString(),
                                 product.productName, product.productVersion)
     if product.isFinal:
         print("anaconda %s started." % verdesc)

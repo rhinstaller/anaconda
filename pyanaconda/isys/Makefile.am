@@ -21,13 +21,11 @@ pkgpyexecdir = $(pyexecdir)/py$(PACKAGE_NAME)
 
 dist_noinst_HEADERS = $(srcdir)/*.h
 
-ISYS_CFLAGS = -DVERSION_RELEASE='"$(PACKAGE_VERSION)-$(PACKAGE_RELEASE)"'
-
 isysdir     = $(pkgpyexecdir)/isys
 isys_PYTHON = $(srcdir)/*.py
 
 pkgpyexec_LTLIBRARIES = _isys.la
-_isys_la_CFLAGS       = $(PYTHON_CFLAGS) $(ISYS_CFLAGS)
+_isys_la_CFLAGS       = $(PYTHON_CFLAGS)
 _isys_la_LDFLAGS      = -module -avoid-version
 _isys_la_LIBADD       = $(PYTHON_LIBS)
 _isys_la_SOURCES      = isys.c
