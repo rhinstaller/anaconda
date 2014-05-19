@@ -164,6 +164,7 @@ class NetworkKSDataTests(unittest.TestCase):
         ksdata = self.ksdata_mock
 
         # network --hostname oldhostname
+        # pylint: disable=no-member
         nd = handler.NetworkData(hostname="oldhostname", bootProto="")
         ksdata.network.network = [nd]
         network.update_hostname_data(ksdata, "newhostname")
@@ -177,6 +178,7 @@ class NetworkKSDataTests(unittest.TestCase):
         self.assertEqual(ksdata.network.network[0].hostname, "newhostname")
 
         # network --bootproto dhcp --onboot no --device em1 --hostname oldhostname
+        # pylint: disable=no-member
         nd = handler.NetworkData(bootProto="dhcp", onboot="no", device="em1", hostname="oldhostname")
         ksdata.network.network = [nd]
         network.update_hostname_data(ksdata, "newhostname")
@@ -185,6 +187,7 @@ class NetworkKSDataTests(unittest.TestCase):
         self.assertEqual(len(ksdata.network.network), 1)
 
         # network --bootproto dhcp --onboot no --device em1
+        # pylint: disable=no-member
         nd = handler.NetworkData(bootProto="dhcp", onboot="no", device="em1")
         ksdata.network.network = [nd]
         network.update_hostname_data(ksdata, "newhostname")
@@ -195,7 +198,9 @@ class NetworkKSDataTests(unittest.TestCase):
 
         # network --bootproto dhcp --onboot no --device em1
         # network --hostname oldhostname
+        # pylint: disable=no-member
         nd1 = handler.NetworkData(bootProto="dhcp", onboot="no", device="em1")
+        # pylint: disable=no-member
         nd2 = handler.NetworkData(hostname="oldhostname", bootProto="")
         ksdata.network.network = [nd1, nd2]
         network.update_hostname_data(ksdata, "newhostname")
