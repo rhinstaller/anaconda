@@ -222,6 +222,22 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Tue May 20 2014 Samantha N. Bueno <sbueno+anaconda@redhat.com> - 13.21.217-1
+- Correct matching of md raid names containing special characters
+  (artur.paszkiewicz)
+  Resolves: rhbz#1096889
+- network: hide (debug) confusing log message for ipv6.conf (rvykydal)
+  Resolves: rhbz#1031481
+- network: write bond options in generated kickstart (rvykydal)
+  Resolves: rhbz#1009376
+- network: fix --bondopts used in kickstart %pre section (rvykydal)
+  Resolves: rhbz#1038001
+- Add ping to initrd for NM's GATEWAY_PING_TIMEOUT / nicdelay (rvykydal)
+  Related: rhbz#979163
+  Resolves: rhbz#979163
+- Remove more drivers on ppc64 to reduce initrd size (bcl)
+  Resolves: rhbz#1098486
+
 * Mon May 12 2014 Samantha N. Bueno <sbueno+anaconda@redhat.com> - 13.21.216-1
 - Add buildarch option to buildinstall (bcl)
   Related: rhbz#1087466

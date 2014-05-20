@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: anaconda 13.21.215\n"
+"Project-Id-Version: anaconda 13.21.216\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
-"POT-Creation-Date: 2014-05-12 15:22-0400\n"
+"POT-Creation-Date: 2014-05-20 14:10-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -96,7 +96,7 @@ msgid "Installing %s\n"
 msgstr ""
 
 #: bootloader.py:55 bootloader.py:244 bootloader.py:250 bootloader.py:257
-#: gui.py:1253 image.py:92 installinterfacebase.py:66 network.py:928
+#: gui.py:1253 image.py:92 installinterfacebase.py:66 network.py:937
 #: text.py:490 text.py:550 yuminstall.py:1634 yuminstall.py:1843
 #: yuminstall.py:1878 iw/blpasswidget.py:154 iw/upgrade_swap_gui.py:190
 #: iw/upgrade_swap_gui.py:198 iw/upgrade_swap_gui.py:205
@@ -123,8 +123,8 @@ msgstr ""
 msgid "_Exit installer"
 msgstr ""
 
-#: bootloader.py:60 image.py:102 image.py:265 kickstart.py:1578
-#: kickstart.py:1622 upgrade.py:58 yuminstall.py:1448 yuminstall.py:1630
+#: bootloader.py:60 image.py:102 image.py:265 kickstart.py:1579
+#: kickstart.py:1623 upgrade.py:58 yuminstall.py:1448 yuminstall.py:1630
 #: iw/partition_gui.py:1643 storage/__init__.py:2089
 msgid "_Continue"
 msgstr ""
@@ -162,8 +162,8 @@ msgstr ""
 msgid "In progress"
 msgstr ""
 
-#: cmdline.py:88 gui.py:1284 kickstart.py:1360 kickstart.py:1440
-#: kickstart.py:1448 kickstart.py:1487 kickstart.py:1495 text.py:396
+#: cmdline.py:88 gui.py:1284 kickstart.py:1361 kickstart.py:1441
+#: kickstart.py:1449 kickstart.py:1488 kickstart.py:1496 text.py:396
 #, python-format
 msgid ""
 "The following error was found while parsing the kickstart configuration "
@@ -609,63 +609,63 @@ msgid ""
 "%s"
 msgstr ""
 
-#: kickstart.py:1459
+#: kickstart.py:1460
 #, python-format
 msgid "Error processing %%ksappend lines: %s"
 msgstr ""
 
-#: kickstart.py:1462
+#: kickstart.py:1463
 #, python-format
 msgid "Unknown error processing %%ksappend lines: %s"
 msgstr ""
 
-#: kickstart.py:1518 livecd.py:166
+#: kickstart.py:1519 livecd.py:166
 msgid "Post-Installation"
 msgstr ""
 
-#: kickstart.py:1519
+#: kickstart.py:1520
 msgid "Running post-installation scripts"
 msgstr ""
 
-#: kickstart.py:1535
+#: kickstart.py:1536
 msgid "Pre-Installation"
 msgstr ""
 
-#: kickstart.py:1536
+#: kickstart.py:1537
 msgid "Running pre-installation scripts"
 msgstr ""
 
-#: kickstart.py:1569
+#: kickstart.py:1570
 msgid "Missing Package"
 msgstr ""
 
-#: kickstart.py:1570
+#: kickstart.py:1571
 #, python-format
 msgid ""
 "You have specified that the package '%s' should be installed.  This package "
 "does not exist. Would you like to continue or abort this installation?"
 msgstr ""
 
-#: kickstart.py:1576 kickstart.py:1620
+#: kickstart.py:1577 kickstart.py:1621
 msgid "_Abort"
 msgstr ""
 
-#: kickstart.py:1577 kickstart.py:1621
+#: kickstart.py:1578 kickstart.py:1622
 msgid "_Ignore All"
 msgstr ""
 
-#: kickstart.py:1612
+#: kickstart.py:1613
 msgid "Missing Group"
 msgstr ""
 
-#: kickstart.py:1613
+#: kickstart.py:1614
 #, python-format
 msgid ""
 "You have specified that the group '%s' should be installed. This group does "
 "not exist. Would you like to continue or abort this installation?"
 msgstr ""
 
-#: kickstart.py:1736
+#: kickstart.py:1737
 #, python-format
 msgid ""
 "The kickstart configuration file is missing required information that "
@@ -745,17 +745,17 @@ msgstr ""
 msgid "'%s' is an invalid IP address."
 msgstr ""
 
-#: network.py:929
+#: network.py:938
 msgid ""
 "You do not have an active network connection.  This is required by some "
 "exception saving methods.  Would you like to configure your network now?"
 msgstr ""
 
-#: network.py:935 rescue.py:262 yuminstall.py:1350 iw/task_gui.py:311
+#: network.py:944 rescue.py:262 yuminstall.py:1350 iw/task_gui.py:311
 msgid "No Network Available"
 msgstr ""
 
-#: network.py:936
+#: network.py:945
 msgid "Remote exception saving methods will not work."
 msgstr ""
 
@@ -4716,7 +4716,7 @@ msgid ""
 "installation."
 msgstr ""
 
-#: storage/devicetree.py:1989 storage/devicetree.py:2037
+#: storage/devicetree.py:1992 storage/devicetree.py:2040
 msgid "This partition is part of an inconsistent LVM Volume Group."
 msgstr ""
 
