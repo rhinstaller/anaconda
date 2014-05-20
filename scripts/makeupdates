@@ -233,7 +233,8 @@ def copyUpdatedFiles(tag, updates, cwd):
         status = fields[0]
         gitfile = fields[1]
 
-        if status == "D":
+        # R is followed by a number that doesn't matter to us.
+        if status == "D" or status[0] == "R":
             if gitfile.startswith('pyanaconda/') and gitfile.endswith(".py"):
                 # deleted python module, write out a stub raising RemovedModuleError
                 file_path = os.path.join(tmpupdates, gitfile)
@@ -243,7 +244,10 @@ def copyUpdatedFiles(tag, updates, cwd):
                     fobj.write('from pyanaconda.errors import RemovedModuleError\n')
                     fobj.write('raise RemovedModuleError("This module no longer exists!")\n')
 
-            continue
+            if status == "D":
+                continue
+            elif status[0] == "R":
+                gitfile = fields[2]
 
         if gitfile.endswith('.spec.in') or (gitfile.find('Makefile') != -1) or \
            gitfile.endswith('.c') or gitfile.endswith('.h') or \
