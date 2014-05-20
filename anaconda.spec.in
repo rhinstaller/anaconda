@@ -302,6 +302,51 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue May 20 2014 Brian C. Lane <bcl@redhat.com> - 21.37-1
+- Chain up to parent size_allocate functions in our standalone widgets.
+  (clumens)
+- Format the help text to properly fit to the terminal window (mkolman)
+- Call getPossiblePhysicalExtents() only once (vpodzime)
+- Default PE size to blivet's default when requested from kickstart (#1098139)
+  (vpodzime)
+- A couple of anaconda whitespace fixes (mkolman)
+- Replace the deprecated has_key() by in (mkolman)
+- Disable pylint errors on NetworkData in the new network_test.py. (clumens)
+- Tweak borders on the filter UI. (clumens)
+- network: add tests (rvykydal)
+- network: don't use ifcfg PREFIX when generating ipv6 dracut args (rvykydal)
+- network: cleanup - remove ksdevice variable (rvykydal)
+- Horizontally center the user creation spoke contents. (clumens)
+- Un-indent the reclaim space checkbox. (clumens)
+- Remove the RAID page from the filter UI. (clumens)
+- install -> installation in a string on the source spoke. (clumens)
+- Switch Anaconda to argparse (mkolman)
+- rpmostreepayload: Use systemd-tmpfiles rather than handrolling mkdir
+  (walters)
+- Add some padding to the custom partitioning note. (dshea)
+- Wrap the custom partitioning note (#1031850) (dshea)
+- Make an ostree string easier for translators to deal with. (clumens)
+- Fix the gettext warnings test for VPATH builds (dshea)
+- network: fix crash on empty ksdevice boot option (#1096846) (rvykydal)
+- Add RPMOSTreePayload (walters)
+- bootloader: Allow extlinux loader configuration to handle RPMOSTreePayload
+  case (walters)
+- install: Handle distinct physical root/sysroot (walters)
+- parse-kickstart: drop "mtu=" args (wwoods)
+- Drop workaround for old dracut BOOTIF+ip problem (wwoods)
+- Fix behavior (and docs) for ks=nfs:<path>/ (#1094645) (wwoods)
+- Allow non-ASCII characters in passwords (#960837) (dshea)
+- Use a separate label for passphrase warnings. (dshea)
+- Move more of the passphrase dialog into the glade file. (dshea)
+- Don't add redundant grub installs if stage1 is not a disk (dshea)
+- Let the user continue on bootloader errors (#1006304) (bcl)
+- Fix the parsing of NFS addon URLs (#966240) (dshea)
+- Remove redundant import (mkolman)
+- Don't overwrite function argument when parsing help texts (mkolman)
+- Return CLI help text at once (mkolman)
+- Fix typo in previous commit adjusting to blivet API change. (dlehman)
+- Adjust for movement of functions from examples into blivet proper. (dlehman)
+
 * Thu May 08 2014 Brian C. Lane <bcl@redhat.com> - 21.36-1
 - Switch to adwaita-icon-theme (kalevlember)
 - Hook up the TUI categories to autoconf/make. (#1095220) (dshea)
