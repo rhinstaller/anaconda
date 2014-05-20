@@ -44,20 +44,20 @@ def check_glade_file(glade_file_path):
 
         # no entry should have visibility specified multiple times
         if len(visibility_props) > 1:
-            print "Visibility specified multiple times for the entry %s (%s)" % (entry_id, fpath)
+            print("Visibility specified multiple times for the entry %s (%s)" % (entry_id, fpath))
             succ = False
 
         # password entry should have visibility set to False
         if any(ind in entry_id.lower() for ind in PW_ID_INDICATORS):
             if not visibility_props:
-                print "Visibility not specified for the password entry %s (%s)" % (entry_id, fpath)
+                print("Visibility not specified for the password entry %s (%s)" % (entry_id, fpath))
                 succ = False
             elif visibility_props[0].text.strip() != "False":
-                print "Visibility not set properly for the password entry %s (%s)" % (entry_id, fpath)
+                print("Visibility not set properly for the password entry %s (%s)" % (entry_id, fpath))
                 succ = False
         # only password entries should have the visibility set to False
         elif visibility_props and visibility_props[0].text.strip() == "False":
-            print "Non-password entry %s (%s) has the visibility set to False (bad id?)" % (entry_id, fpath)
+            print("Non-password entry %s (%s) has the visibility set to False (bad id?)" % (entry_id, fpath))
             succ = False
 
         return succ

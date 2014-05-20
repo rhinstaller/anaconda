@@ -166,47 +166,47 @@ class MakeBumpVer:
         bzentry = self._queryBug(bug)
 
         if not bzentry:
-            print "*** Bugzilla query for %s failed.\n" % bug
+            print("*** Bugzilla query for %s failed.\n" % bug)
             return False
 
         if bzentry.product.startswith('Red Hat Enterprise Linux'):
             return True
         else:
-            print "*** Bug %s is not a RHEL bug." % bug
-            print "***     Commit: %s" % commit
-            print "***     %s\n" % summary
+            print("*** Bug %s is not a RHEL bug." % bug)
+            print("***     Commit: %s" % commit)
+            print("***     %s\n" % summary)
             return False
 
     def _isRHELBugInCorrectState(self, bug, commit, summary):
         bzentry = self._queryBug(bug)
 
         if not bzentry:
-            print "*** Bugzilla query for %s failed.\n" % bug
+            print("*** Bugzilla query for %s failed.\n" % bug)
             return False
 
         if bzentry.bug_status in ['MODIFIED', 'ON_QA']:
             return True
         else:
-            print "*** Bug %s is not in MODIFIED or ON_QA." % bug
-            print "***     Commit: %s" % commit
-            print "***     %s\n" % summary
+            print("*** Bug %s is not in MODIFIED or ON_QA." % bug)
+            print("***     Commit: %s" % commit)
+            print("***     %s\n" % summary)
             return False
 
     def _isRHELBugFixedInVersion(self, bug, commit, summary, fixedIn):
         bzentry = self._queryBug(bug)
 
         if not bzentry:
-            print "*** Bugzilla query for %s failed.\n" % bug
+            print("*** Bugzilla query for %s failed.\n" % bug)
             return False
 
         if bzentry.fixed_in == fixedIn:
             return True
         else:
-            print "*** Bug %s does not have correct Fixed In Version." % bug
-            print "***     Found:     %s" % bzentry.fixed_in
-            print "***     Expected:  %s" % fixedIn
-            print "***     Commit:    %s" % commit
-            print "***     %s\n" % summary
+            print("*** Bug %s does not have correct Fixed In Version." % bug)
+            print("***     Found:     %s" % bzentry.fixed_in)
+            print("***     Expected:  %s" % fixedIn)
+            print("***     Commit:    %s" % commit)
+            print("***     %s\n" % summary)
             return False
 
     def _isRHELBugAcked(self, bug, commit, summary):
@@ -221,9 +221,9 @@ class MakeBumpVer:
             if re.match(ack_pattern, f['name']) and f['status'] == '+':
                 return True
 
-        print "*** Bug %s does not have ACK" % bug
-        print "***     Commit: %s" % commit
-        print "***     %s\n" % summary
+        print("*** Bug %s does not have ACK" % bug)
+        print("***     Commit: %s" % commit)
+        print("***     %s\n" % summary)
         return False
 
     def _rpmLog(self, fixedIn):
@@ -346,12 +346,12 @@ class MakeBumpVer:
                             bad = True
                         elif valid and action == 'Related' and \
                             self._isRHELBugAcked(ckbug, commit, summary):
-                            print "*** Bug %s Related commit %s is allowed\n" % (bug, commit)
+                            print("*** Bug %s Related commit %s is allowed\n" % (bug, commit))
                             # Related bugs only need to be valid and have an ack
                             bad = False
 
                 if len(rhbz) == 0:
-                    print "*** No bugs referenced in commit %s\n" % commit
+                    print("*** No bugs referenced in commit %s\n" % commit)
                     bad = True
 
                 rpm_log.append((summary.strip(), list(rhbz)))

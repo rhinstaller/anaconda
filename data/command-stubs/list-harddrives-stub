@@ -35,7 +35,7 @@ def main(argv):
     lst = list(lst)
     lst.sort()
     for dev, size in lst:
-        print dev, size
+        print(dev, size)
 
 if __name__ == "__main__":
     main(sys.argv)

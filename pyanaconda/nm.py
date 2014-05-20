@@ -978,11 +978,11 @@ def nm_dbus_int_to_ipv4(address):
     return socket.inet_ntop(socket.AF_INET, struct.pack('=L', address))
 
 def test():
-    print "NM state: %s:" % nm_state()
-    print "NM is connected: %s" % nm_is_connected()
+    print("NM state: %s:" % nm_state())
+    print("NM is connected: %s" % nm_is_connected())
 
-    print "Devices: %s" % nm_devices()
-    print "Activated devices: %s" % nm_activated_devices()
+    print("Devices: %s" % nm_devices())
+    print("Activated devices: %s" % nm_activated_devices())
 
     wireless_device = ""
 
@@ -990,108 +990,108 @@ def test():
     devs.append("nonexisting")
     for devname in devs:
 
-        print devname
+        print(devname)
 
         try:
             devtype = nm_device_type(devname)
         except UnknownDeviceError as e:
-            print "     %s" % e
+            print("     %s" % e)
             devtype = None
         if devtype == NetworkManager.DeviceType.ETHERNET:
-            print "     type %s" % "ETHERNET"
+            print("     type %s" % "ETHERNET")
         elif devtype == NetworkManager.DeviceType.WIFI:
-            print "     type %s" % "WIFI"
+            print("     type %s" % "WIFI")
             wireless_device = devname
 
         try:
-            print "     Wifi device: %s" % nm_device_type_is_wifi(devname)
+            print("     Wifi device: %s" % nm_device_type_is_wifi(devname))
         except UnknownDeviceError as e:
-            print "     %s" % e
+            print("     %s" % e)
 
         try:
             hwaddr = nm_device_hwaddress(devname)
-            print "     HwAaddress: %s" % hwaddr
+            print("     HwAaddress: %s" % hwaddr)
         except ValueError as e:
-            print "     %s" % e
+            print("     %s" % e)
             hwaddr = ""
 
         try:
-            print "     Carrier: %s" % nm_device_carrier(devname)
+            print("     Carrier: %s" % nm_device_carrier(devname))
         except ValueError as e:
-            print "     %s" % e
+            print("     %s" % e)
 
         try:
-            print "     IP4 config: %s" % nm_device_ip_config(devname)
-            print "     IP6 config: %s" % nm_device_ip_config(devname, version=6)
-            print "     IP4 addrs: %s" % nm_device_ip_addresses(devname)
-            print "     IP6 addrs: %s" % nm_device_ip_addresses(devname, version=6)
-            print "     Udi: %s" % nm_device_property(devname, "Udi")
+            print("     IP4 config: %s" % nm_device_ip_config(devname))
+            print("     IP6 config: %s" % nm_device_ip_config(devname, version=6))
+            print("     IP4 addrs: %s" % nm_device_ip_addresses(devname))
+            print("     IP6 addrs: %s" % nm_device_ip_addresses(devname, version=6))
+            print("     Udi: %s" % nm_device_property(devname, "Udi"))
         except UnknownDeviceError as e:
-            print "     %s" % e
+            print("     %s" % e)
 
         if devname in nm_devices():
             try:
-                print "     Nonexisting: %s" % nm_device_property(devname, "Nonexisting")
+                print("     Nonexisting: %s" % nm_device_property(devname, "Nonexisting"))
             except PropertyNotFoundError as e:
-                print "     %s" % e
+                print("     %s" % e)
         try:
-            print "     Nonexisting: %s" % nm_device_property(devname, "Nonexisting")
+            print("     Nonexisting: %s" % nm_device_property(devname, "Nonexisting"))
         except ValueError as e:
-            print "     %s" % e
+            print("     %s" % e)
 
         try:
-            print "     Settings: %s" % _device_settings(devname)
+            print("     Settings: %s" % _device_settings(devname))
         except UnknownDeviceError as e:
-            print "     %s" % e
+            print("     %s" % e)
         try:
-            print "     Settings for hwaddr %s: %s" % (hwaddr, _settings_for_hwaddr(hwaddr))
+            print("     Settings for hwaddr %s: %s" % (hwaddr, _settings_for_hwaddr(hwaddr)))
         except UnknownDeviceError as e:
-            print "     %s" % e
+            print("     %s" % e)
         try:
-            print "     Setting value %s %s: %s" % ("ipv6", "method", nm_device_setting_value(devname, "ipv6", "method"))
+            print("     Setting value %s %s: %s" % ("ipv6", "method", nm_device_setting_value(devname, "ipv6", "method")))
         except ValueError as e:
-            print "     %s" % e
+            print("     %s" % e)
         try:
-            print "     Setting value %s %s: %s" % ("ipv7", "method", nm_device_setting_value(devname, "ipv7", "method"))
+            print("     Setting value %s %s: %s" % ("ipv7", "method", nm_device_setting_value(devname, "ipv7", "method")))
         except ValueError as e:
-            print "     %s" % e
+            print("     %s" % e)
 
     ssid = "Red Hat Guest"
-    print "Settings for AP %s: %s" % (ssid, _settings_for_ap(ssid))
+    print("Settings for AP %s: %s" % (ssid, _settings_for_ap(ssid)))
     ssid = "nonexisting"
-    print "Settings for AP %s: %s" % (ssid, _settings_for_ap(ssid))
+    print("Settings for AP %s: %s" % (ssid, _settings_for_ap(ssid)))
 
     devname = devs[0]
     key1 = "connection"
     key2 = "autoconnect"
     original_value = nm_device_setting_value(devname, key1, key2)
-    print "Value of setting %s %s: %s" % (key1, key2, original_value)
+    print("Value of setting %s %s: %s" % (key1, key2, original_value))
     # None means default in this case, which is true
     if original_value in (None, True):
         new_value = False
     else:
         new_value = True
 
-    print "Updating to %s" % new_value
+    print("Updating to %s" % new_value)
     nm_update_settings_of_device(devname, [[key1, key2, new_value, None]])
-    print "Value of setting %s %s: %s" % (key1, key2, nm_device_setting_value(devname, key1, key2))
+    print("Value of setting %s %s: %s" % (key1, key2, nm_device_setting_value(devname, key1, key2)))
     nm_update_settings_of_device(devname, [[key1, key2, original_value, None]])
-    print "Value of setting %s %s: %s" % (key1, key2, nm_device_setting_value(devname, key1, key2))
+    print("Value of setting %s %s: %s" % (key1, key2, nm_device_setting_value(devname, key1, key2)))
     nm_update_settings_of_device(devname, [[key1, key2, original_value, "b"]])
-    print "Value of setting %s %s: %s" % (key1, key2, nm_device_setting_value(devname, key1, key2))
+    print("Value of setting %s %s: %s" % (key1, key2, nm_device_setting_value(devname, key1, key2)))
 
     nm_update_settings_of_device(devname, [[key1, "nonexisting", new_value, None]])
     nm_update_settings_of_device(devname, [["nonexisting", "nonexisting", new_value, None]])
     try:
         nm_update_settings_of_device("nonexixting", [[key1, key2, new_value, None]])
     except UnknownDeviceError as e:
-        print "%s" % e
+        print("%s" % e)
 
     if wireless_device:
         try:
             nm_update_settings_of_device(wireless_device, [[key1, key2, new_value, None]])
         except SettingsNotFoundError as e:
-            print "%s" % e
+            print("%s" % e)
 
     #nm_update_settings_of_device(devname, [["connection", "id", "test", None]])
     #nm_update_settings_of_device(devname, [["connection", "timestamp", 11111111, None]])

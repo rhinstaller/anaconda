@@ -374,7 +374,7 @@ class StorageSpoke(NormalTUISpoke):
             doKickstartStorage(self.storage, self.data, self.instclass)
         except (StorageError, KickstartValueError) as e:
             log.error("storage configuration failed: %s", e)
-            print _("storage configuration failed: %s") % e
+            print(_("storage configuration failed: %s") % e)
             self.errors = [str(e)]
             self.data.bootloader.bootDrive = ""
             self.data.clearpart.type = CLEARPART_TYPE_ALL
@@ -387,7 +387,7 @@ class StorageSpoke(NormalTUISpoke):
             self._ready = True
         except BootLoaderError as e:
             log.error("BootLoader setup failed: %s", e)
-            print _("storage configuration failed: %s") % e
+            print(_("storage configuration failed: %s") % e)
             self.errors = [str(e)]
             self.data.bootloader.bootDrive = ""
             self._ready = True

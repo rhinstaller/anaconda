@@ -138,15 +138,15 @@ class VNCPassSpoke(NormalTUISpoke):
         p2 = getpass.getpass(_("Password (confirm): "))
 
         if p1 != p2:
-            print _("Passwords do not match!")
+            print(_("Passwords do not match!"))
             return None
         elif 0 < len(p1) < 6:
-            print _("The password must be at least "
-                    "six characters long.")
+            print(_("The password must be at least "
+                    "six characters long."))
             return None
         elif len(p1) > 8:
-            print _("The password cannot be more than "
-                    "eight characters long.")
+            print(_("The password cannot be more than "
+                    "eight characters long."))
             return None
         else:
             self._password = p1

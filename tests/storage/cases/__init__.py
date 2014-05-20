@@ -70,7 +70,7 @@ class TestCase(object):
         failures = 0
 
         if self.platforms and blivet.platform.getPlatform().__class__.__name__ not in self.platforms:
-            print "Test %s skipped:  not valid for this platform" % self.name
+            print("Test %s skipped:  not valid for this platform" % self.name)
             return
 
         for c in self.components:
@@ -79,16 +79,16 @@ class TestCase(object):
             try:
                 obj._run()
             except FailedTest as e:
-                print "Test %s-%s failed:\n\tExpected: %s\n\tGot:      %s" % (self.name, obj.name, e.expected, e.got)
+                print("Test %s-%s failed:\n\tExpected: %s\n\tGot:      %s" % (self.name, obj.name, e.expected, e.got))
                 failures += 1
                 continue
 
-            print "Test %s-%s succeeded" % (self.name, obj.name)
+            print("Test %s-%s succeeded" % (self.name, obj.name))
             successes += 1
 
-        print "Test %s summary:" % self.name
-        print "\tSuccesses: %s" % successes
-        print "\tFailures:  %s" % failures
+        print("Test %s summary:" % self.name)
+        print("\tSuccesses: %s" % successes)
+        print("\tFailures:  %s" % failures)
         return failures
 
 class TestCaseComponent(object):

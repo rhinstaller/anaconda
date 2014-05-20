@@ -177,7 +177,7 @@ def runShell(screen = None, msg=""):
 
     print
     if msg:
-        print (msg)
+        print(msg)
 
     if flags.imageInstall:
         print(_("Run %s to unmount the system when you are finished.")

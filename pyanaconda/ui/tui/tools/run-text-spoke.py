@@ -5,7 +5,7 @@ import os.path
 
 # Check command line arguments
 if len(sys.argv)<2:
-    print "Usage: $0 <spoke module name> [<spoke widget class>]"
+    print("Usage: $0 <spoke module name> [<spoke widget class>]")
     sys.exit(1)
 
 # Logging always needs to be set up first thing, or there'll be tracebacks.
@@ -42,7 +42,7 @@ elif os.path.basename(sys.argv[0]) == "run-text-hub.py":
     spokeText = "hub"
     SpokeText = "Hub"
 else:
-    print "You have to run this command as run-spoke.py or run-hub.py."
+    print("You have to run this command as run-spoke.py or run-hub.py.")
     sys.exit(1)
 
 # Set default spoke class
@@ -61,7 +61,7 @@ except IndexError:
     spokeModule = sys.modules[spokeModuleName]
     for k,v in vars(spokeModule).iteritems():
         try:
-            print k,v
+            print(k,v)
             if issubclass(v, spokeBaseClass) and v != spokeBaseClass:
                 spokeClassName = k
                 spokeClass = v
@@ -72,11 +72,11 @@ if not spokeClass:
     try:
         spokeClass = getattr(spokeModule, spokeClassName)
     except KeyError:
-        print "%s %s could not be found in %s" % (SpokeText, spokeClassName, spokeModuleName)
+        print("%s %s could not be found in %s" % (SpokeText, spokeClassName, spokeModuleName))
         sys.exit(1)
 
 
-print "Running %s %s from %s" % (spokeText, spokeClass, spokeModule)
+print("Running %s %s from %s" % (spokeText, spokeClass, spokeModule))
 
 ksdata = makeVersion()
 storage = Blivet(ksdata=ksdata)
@@ -91,13 +91,13 @@ payload.install_log = sys.stdout
 spoke = spokeClass(app, ksdata, storage, payload, instclass)
 
 if not spoke.showable:
-    print "This %s is not showable, but I'll continue anyway." % spokeText
+    print("This %s is not showable, but I'll continue anyway." % spokeText)
 
 app.schedule_screen(spoke)
 app.run()
 
 if hasattr(spoke, "status"):
-    print "%s status:\n%s\n" % (SpokeText, spoke.status)
+    print("%s status:\n%s\n" % (SpokeText, spoke.status))
 if hasattr(spoke, "completed"):
-    print "%s completed:\n%s\n" % (SpokeText, spoke.completed)
-print "%s kickstart fragment:\n%s" % (SpokeText, ksdata)
+    print("%s completed:\n%s\n" % (SpokeText, spoke.completed))
+print("%s kickstart fragment:\n%s" % (SpokeText, ksdata))

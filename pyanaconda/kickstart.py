@@ -1813,7 +1813,7 @@ def preScriptPass(f):
     except KickstartError as e:
         # We do not have an interface here yet, so we cannot use our error
         # handling callback.
-        print e
+        print(e)
         sys.exit(1)
 
     # run %pre scripts
@@ -1840,7 +1840,7 @@ def parseKickstart(f):
     except KickstartError as e:
         # We do not have an interface here yet, so we cannot use our error
         # handling callback.
-        print e
+        print(e)
         sys.exit(1)
 
     return handler

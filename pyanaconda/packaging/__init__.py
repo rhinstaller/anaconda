@@ -27,7 +27,7 @@
         - document all methods
 
 """
-
+from __future__ import print_function
 import os, sys
 from urlgrabber.grabber import URLGrabber
 from urlgrabber.grabber import URLGrabError
@@ -1049,21 +1049,21 @@ def show_groups(payload):
 
     import pprint
 
-    print "==== DESKTOPS ===="
+    print("==== DESKTOPS ====")
     pprint.pprint(desktops)
-    print "==== ADDONS ===="
+    print("==== ADDONS ====")
     pprint.pprint(addons)
 
-    print payload.groups
+    print(payload.groups)
 
 def print_txmbrs(payload, f=None):
     if f is None:
         f = sys.stdout
 
-    print >> f, "###########"
+    print("###########", file=f)
     for txmbr in payload._yum.tsInfo.getMembers():
-        print >> f, txmbr
-    print >> f, "###########"
+        print(txmbr, file=f)
+    print("###########", file=f)
 
 def write_txmbrs(payload, filename):
     if os.path.exists(filename):

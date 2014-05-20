@@ -322,7 +322,7 @@ class App(object):
             # if redraw is needed, separate the content on the screen from the
             # stuff we are about to display now
             if self._redraw:
-                print self._spacer
+                print(self._spacer)
 
             try:
                 # draw the screen if redraw is needed or the screen changed
@@ -550,7 +550,7 @@ class UIScreen(object):
 
         if num_lines < self._screen_height - 2:
             # widget plus prompt are shorter than screen height, just print the widget
-            print u"\n".join(lines)
+            print(u"\n".join(lines))
             return
 
         # long widget, print it in steps and prompt user to continue
@@ -560,12 +560,12 @@ class UIScreen(object):
                 # enough space to print the rest of the widget plus regular
                 # prompt (2 lines)
                 for line in lines[pos:]:
-                    print line
+                    print(line)
                 pos += self._screen_height - 1
             else:
                 # print part with a prompt to continue
                 for line in lines[pos:(pos + self._screen_height - 2)]:
-                    print line
+                    print(line)
                 self._app.raw_input(_("Press ENTER to continue"))
                 pos += self._screen_height - 1
 
@@ -579,10 +579,10 @@ class UIScreen(object):
             if isinstance(w, Widget):
                 self._print_long_widget(w)
             elif type(w) == str:
-                print w.decode("utf-8")
+                print(w.decode("utf-8"))
             else:
                 # not a widget, just print its unicode representation
-                print unicode(w)
+                print(unicode(w))
     show = show_all
 
     def hide(self):
@@ -825,7 +825,7 @@ class Widget(object):
 if __name__ == "__main__":
     class HelloWorld(UIScreen):
         def show(self, args = None):
-            print """Hello World\nquit by typing 'quit'"""
+            print("""Hello World\nquit by typing 'quit'""")
             return True
 
     a = App("Hello World")

@@ -205,10 +205,10 @@ if __name__ == "__main__":
 
     c = ColumnWidget([(15, [t1, t2, t3]), (10, [t4, t5])], spacing = 1)
     c.render(80)
-    print u"\n".join(c.get_lines())
+    print(u"\n".join(c.get_lines()))
 
-    print 80*"-"
+    print(80*"-")
 
     c = ColumnWidget([(20, [t1, t2, t3]), (25, [t4, t5]), (15, [t1, t2, t3])], spacing = 3)
     c.render(80)
-    print u"\n".join(c.get_lines())
+    print(u"\n".join(c.get_lines()))

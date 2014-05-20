@@ -63,8 +63,8 @@ def exitHandler(rebootData, storage, exitCode=None):
 
     if "nokill" in flags.cmdline:
         iutil.vtActivate(1)
-        print "anaconda halting due to nokill flag."
-        print "The system will be rebooted when you press Ctrl-Alt-Delete."
+        print("anaconda halting due to nokill flag.")
+        print("The system will be rebooted when you press Ctrl-Alt-Delete.")
         while True:
             time.sleep(10000)
 
@@ -750,7 +750,7 @@ if __name__ == "__main__":
     if ("--help" in sys.argv) or ("-h" in sys.argv):
         parseArguments()
 
-    print "Starting installer, one moment..."
+    print("Starting installer, one moment...")
 
     # Allow a file to be loaded as early as possible
     try:
@@ -843,9 +843,9 @@ if __name__ == "__main__":
     verdesc = "%s for %s %s" % (getAnacondaVersion(),
                                 product.productName, product.productVersion)
     if product.isFinal:
-        print "anaconda %s started." % verdesc
+        print("anaconda %s started." % verdesc)
     else:
-        print "anaconda %s (pre-release) started." % verdesc
+        print("anaconda %s (pre-release) started." % verdesc)
 
     from pyanaconda.anaconda import Anaconda
     anaconda = Anaconda()

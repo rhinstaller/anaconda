@@ -46,11 +46,11 @@ for script in sys.argv[1:]:
             mods.append(moddir)
 
 # Include some bits that the python install itself needs
-print get_makefile_filename()
-print get_config_h_filename()
-print os.path.join(libdir,'site.py')
-print os.path.join(libdir,'sysconfig.py')
+print(get_makefile_filename())
+print(get_config_h_filename())
+print(os.path.join(libdir,'site.py'))
+print(os.path.join(libdir,'sysconfig.py'))
 
 # And print the list of deps.
 for d in deps:
-    print d
+    print(d)

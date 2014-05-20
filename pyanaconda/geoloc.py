@@ -863,30 +863,30 @@ class WiFiAccessPoint(object):
                "(signal strength): %d" % (self.bssid, self.ssid, self.rssi)
 
 if __name__ == "__main__":
-    print "GeoIP directly started"
+    print("GeoIP directly started")
 
-    print "trying the default backend"
+    print("trying the default backend")
     location_info = LocationInfo()
     location_info.refresh()
-    print "  provider used: %s" % location_info._provider
-    print "  territory code: %s" % location_info.get_territory_code()
+    print("  provider used: %s" % location_info._provider)
+    print("  territory code: %s" % location_info.get_territory_code())
 
-    print "trying the Fedora GeoIP backend"
+    print("trying the Fedora GeoIP backend")
     location_info = LocationInfo(provider_id=
                                  constants.GEOLOC_PROVIDER_FEDORA_GEOIP)
     location_info.refresh()
-    print "  provider used: %s" % location_info._provider
-    print "  territory code: %s" % location_info.get_territory_code()
+    print("  provider used: %s" % location_info._provider)
+    print("  territory code: %s" % location_info.get_territory_code())
 
-    print "trying the Google WiFi location backend"
+    print("trying the Google WiFi location backend")
     location_info = LocationInfo(provider_id=
                                  constants.GEOLOC_PROVIDER_GOOGLE_WIFI)
     location_info.refresh()
-    print "  provider used: %s" % location_info._provider
-    print "  territory code: %s" % location_info.get_territory_code()
+    print("  provider used: %s" % location_info._provider)
+    print("  territory code: %s" % location_info.get_territory_code())
 
-    print "trying the Hostip backend"
+    print("trying the Hostip backend")
     location_info = LocationInfo(provider_id=constants.GEOLOC_PROVIDER_HOSTIP)
     location_info.refresh()
-    print "  provider used: %s" % location_info._provider
-    print "  territory code: %s" % location_info.get_territory_code()
+    print("  provider used: %s" % location_info._provider)
+    print("  territory code: %s" % location_info.get_territory_code())

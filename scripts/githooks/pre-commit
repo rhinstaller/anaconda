@@ -25,7 +25,7 @@ def is_python(filename):
 OTHER_MODULES_PATH = ".:../blivet/:../pykickstart/"
 
 if "NOPYLINT" in os.environ:
-    print "Skipping pre-commit pylint run"
+    print("Skipping pre-commit pylint run")
     sys.exit(0)
 
 # run pylint on all the python files changed by this commit
@@ -63,11 +63,11 @@ if not pylint_files:
 env = os.environ.copy()
 env["PYTHONPATH"] = OTHER_MODULES_PATH
 
-print "Running pylint on %s" % " ".join(pylint_files)
+print("Running pylint on %s" % " ".join(pylint_files))
 try:
     check_output(["./tests/pylint/runpylint.sh"] + pylint_files, env=env)
 except CalledProcessError as e:
-    print e.output
+    print(e.output)
     sys.exit(1)
 
 sys.exit(0)

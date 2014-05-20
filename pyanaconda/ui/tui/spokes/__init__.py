@@ -163,8 +163,8 @@ class EditTUIDialog(NormalTUISpoke):
             self.close()
             return True
         else:
-            print _("You have provided an invalid username: %s\n"
-                    "Do not use spaces or capital letters.\n") % key
+            print(_("You have provided an invalid username: %s\n"
+                    "Do not use spaces or capital letters.\n") % key)
             return NormalTUISpoke.input(self, entry, key)
 
 class OneShotEditTUIDialog(EditTUIDialog):
