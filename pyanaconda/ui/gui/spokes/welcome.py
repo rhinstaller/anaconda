@@ -81,9 +81,6 @@ class WelcomeLanguageSpoke(LangLocaleHandler, StandaloneSpoke):
             # current language
             self.data.timezone.timezone = loc_timezones[0]
 
-        # setup Gtk direction (RTL/LTR) now that we have the language
-        # configuration applied
-        setup_gtk_direction()
         self._set_keyboard_defaults(self.data.lang.lang)
 
     def _set_keyboard_defaults(self, locale):
@@ -299,6 +296,12 @@ class WelcomeLanguageSpoke(LangLocaleHandler, StandaloneSpoke):
             lang = store[selected[0]][1]
             localization.setup_locale(lang)
             self.retranslate(lang)
+
+            # Reset the text direction
+            setup_gtk_direction()
+
+            # Redraw the window to reset the sidebar to where it needs to be
+            self.window.queue_draw()
 
     # Override the default in StandaloneSpoke so we can display the beta
     # warning dialog first.
