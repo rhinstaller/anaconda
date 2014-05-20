@@ -1471,7 +1471,10 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         return self._error == ""
 
     def on_back_clicked(self, button):
-        # First, save anything from the currently displayed mountpoint.
+        # Clear any existing errors
+        self.clear_errors()
+
+        # Save anything from the currently displayed mountpoint.
         self._save_right_side(self._current_selector)
 
         # And then display the summary screen.  From there, the user will either
@@ -1484,6 +1487,11 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         # run the storage check now.  This handles displaying any errors in the info bar.
         if not self._back_already_clicked:
             self._back_already_clicked = True
+
+            # If we hit any errors while saving things above, stop and let the
+            # user think about what they have done
+            if self._error is not None:
+                return
 
             new_luks = [d for d in self._storage_playground.devices
                        if d.format.type == "luks" and not d.format.exists]
