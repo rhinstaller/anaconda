@@ -158,6 +158,8 @@ static void anaconda_hub_window_size_allocate (GtkWidget *window, GtkAllocation 
     GtkWidget *child;
     int sidebar_width;
 
+    GTK_WIDGET_CLASS(anaconda_hub_window_parent_class)->size_allocate(window, allocation);
+
     gtk_widget_set_allocation(window, allocation);
     sidebar_width = get_sidebar_width(window);
     child_allocation.y = allocation->y;

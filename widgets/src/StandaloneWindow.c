@@ -129,6 +129,8 @@ static void anaconda_standalone_window_size_allocate (GtkWidget *window, GtkAllo
     GtkWidget *child;
     int sidebar_width;
 
+    GTK_WIDGET_CLASS(anaconda_standalone_window_parent_class)->size_allocate(window, allocation);
+
     /*
      * For RTL languages, the width is reduced by the same amount, but the
      * start of the window does not need to move.
