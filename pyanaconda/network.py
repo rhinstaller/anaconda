@@ -847,7 +847,7 @@ def ifaceForHostIP(host):
     return routeInfo[routeInfo.index("dev") + 1]
 
 def default_route_device():
-    routes = iutil.execWithCapture("ip", [ "route", "show"])
+    routes = iutil.execWithCapture("ip", ["route", "show"])
     if not routes:
         log.error("Could not get default route device")
         return None
@@ -855,10 +855,10 @@ def default_route_device():
     for line in routes.split("\n"):
         if line.startswith("default"):
             parts = line.split()
-            if parts[3] == "dev":
+            if len(parts) >= 5 and parts[3] == "dev":
                 return parts[4]
             else:
-                log.error("Could not parse default route device")
+                log.error("Could not parse default route device: %s", line)
                 return None
 
     return None
@@ -1331,3 +1331,34 @@ def status_message():
 
 def default_ks_vlan_interface_name(parent, vlanid):
     return "%s.%s" % (parent, vlanid)
+
+def has_some_wired_autoconnect_device():
+    """Is there a wired network device with autoconnect?"""
+    for dev in nm.nm_devices():
+        if nm.nm_device_type_is_wifi(dev):
+            continue
+        try:
+            onboot = nm.nm_device_setting_value(dev, "connection", "autoconnect")
+        except nm.SettingsNotFoundError:
+            continue
+        # None means the setting was not found, which means NM is using
+        # default (True)
+        if onboot == True or onboot is None:
+            return True
+    return False
+
+def update_onboot_value(devname, value, ksdata):
+    """Update onboot value in ifcfg files and ksdata"""
+    log.debug("network: setting ONBOOT value of %s to %s", devname, value)
+    ifcfg_path = find_ifcfg_file_of_device(devname, root_path=iutil.getSysroot())
+    if not ifcfg_path:
+        log.debug("network: can't find ifcfg file of %s", devname)
+        return
+    ifcfg = IfcfgFile(ifcfg_path)
+    ifcfg.read()
+    ifcfg.set(('ONBOOT', 'yes'))
+    ifcfg.write()
+    for nd in ksdata.network.network:
+        if nd.device == devname:
+            nd.onboot = True
+            break

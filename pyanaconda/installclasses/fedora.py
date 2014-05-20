@@ -20,7 +20,6 @@
 from pyanaconda.installclass import BaseInstallClass
 from pyanaconda.product import productName
 from pyanaconda import network
-from pyanaconda import iutil
 from pyanaconda import nm
 from pyanaconda.i18n import N_
 
@@ -43,37 +42,18 @@ class InstallClass(BaseInstallClass):
         BaseInstallClass.setDefaultPartitioning(self, anaconda.storage)
 
     def setNetworkOnbootDefault(self, ksdata):
-        # if something's already enabled, we can just leave the config alone
-        for devName in nm.nm_devices():
-            if nm.nm_device_type_is_wifi(devName):
+        if network.has_some_wired_autoconnect_device():
+            return
+        # choose first wired device having link
+        for dev in nm.nm_devices():
+            if nm.nm_device_type_is_wifi(dev):
                 continue
             try:
-                onboot = nm.nm_device_setting_value(devName, "connection", "autoconnect")
-            except nm.SettingsNotFoundError:
-                continue
-            if not onboot == False:
-                return
-
-        # the default otherwise: bring up the first wired netdev with link
-        for devName in nm.nm_devices():
-            if nm.nm_device_type_is_wifi(devName):
-                continue
-            try:
-                link_up = nm.nm_device_carrier(devName)
-            except ValueError:
+                link_up = nm.nm_device_carrier(dev)
+            except (nm.UnknownDeviceError, nm.PropertyNotFoundError):
                 continue
             if link_up:
-                ifcfg_path = network.find_ifcfg_file_of_device(devName, root_path=iutil.getSysroot())
-                if not ifcfg_path:
-                    continue
-                ifcfg = network.IfcfgFile(ifcfg_path)
-                ifcfg.read()
-                ifcfg.set(('ONBOOT', 'yes'))
-                ifcfg.write()
-                for nd in ksdata.network.network:
-                    if nd.device == devName:
-                        nd.onboot = True
-                        break
+                network.update_onboot_value(dev, "yes", ksdata)
                 break
 
     def __init__(self):
