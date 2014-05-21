@@ -28,7 +28,7 @@ from pyanaconda.ui.tui.spokes import NormalTUISpoke
 from pyanaconda.ui.tui.simpleline import TextWidget, CheckboxWidget
 from pyanaconda.ui.tui.tuiobject import YesNoDialog
 
-from pykickstart.constants import AUTOPART_TYPE_LVM, AUTOPART_TYPE_BTRFS, AUTOPART_TYPE_PLAIN
+from pykickstart.constants import AUTOPART_TYPE_LVM, AUTOPART_TYPE_BTRFS, AUTOPART_TYPE_PLAIN, AUTOPART_TYPE_LVM_THINP
 from blivet import storageInitialize, arch
 from blivet.size import Size
 from blivet.errors import StorageError, DasdFormatError
@@ -508,7 +508,9 @@ class PartitionSchemeSpoke(NormalTUISpoke):
     def __init__(self, app, data, storage, payload, instclass):
         NormalTUISpoke.__init__(self, app, data, storage, payload, instclass)
         self.partschemes = OrderedDict([("Standard Partition", AUTOPART_TYPE_PLAIN),
-                        ("LVM", AUTOPART_TYPE_LVM), ("BTRFS", AUTOPART_TYPE_BTRFS)])
+                                        ("LVM", AUTOPART_TYPE_LVM),
+                                        ("LVM Thin Provisioning", AUTOPART_TYPE_LVM_THINP),
+                                        ("BTRFS", AUTOPART_TYPE_BTRFS)])
 
     @property
     def indirect(self):
