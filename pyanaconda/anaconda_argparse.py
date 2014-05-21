@@ -189,12 +189,21 @@ class AnacondaArgumentParser(ArgumentParser):
             if option.nargs != 0 and val is None:
                 # nargs == 0 -> option does not take any values, skip it
                 continue  # TODO: emit a warning or something there?
-            if option.nargs == 0 and option.const is True and val in ("0", "no", "off"):
+            if option.nargs == 0 and option.const is not None:
                 # nargs == 0 & constr == True -> store_true
                 # (we could also check the class, but it begins with an
                 # underscore, so it would be ugly)
                 # special case: "mpath=0" would otherwise set mpath to True
-                setattr(namespace, option.dest, False)
+                if option.const is True and val in ("0", "no", "off"):
+                    setattr(namespace, option.dest, False)
+                # Set all other set_const cases to the const specified
+                else:
+                    setattr(namespace, option.dest, option.const)
+
+                # anaconda considers cases such as noselinux=off to be a negative
+                # concord, which is to say that selinux will be set to False and
+                # we hate you.
+
                 continue
             setattr(namespace, option.dest, val)
         return namespace
