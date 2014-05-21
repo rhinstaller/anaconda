@@ -77,8 +77,10 @@ class TUISpoke(TUIObject, tui.Widget, Spoke):
 
         if self.mandatory and not self.completed:
             key = "!"
-        else:
+        elif self.completed:
             key = "x"
+        else:
+            key = " "
 
         # always set completed = True here; otherwise key value won't be
         # displayed if completed (spoke value from above) is False
