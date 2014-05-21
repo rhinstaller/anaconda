@@ -109,11 +109,13 @@ class InstallOptionsDialogBase(GUIObject):
         return True
 
     def _get_sw_needs_text(self, required_space, auto_swap):
-        sw_text = (_("Your current <a href=\"\"><b>%(product)s</b> software "
+        tooltip = _("Please wait... software metadata still loading.")
+        sw_text = (_("Your current <a href=\"\" title=\"%(tooltip)s\"><b>%(product)s</b> software "
                      "selection</a> requires <b>%(total)s</b> of available "
                      "space, including <b>%(software)s</b> for software and "
                      "<b>%(swap)s</b> for swap space.")
-                   % {"product": escape_markup(productName),
+                   % {"tooltip": escape_markup(tooltip),
+                      "product": escape_markup(productName),
                       "total": escape_markup(str(required_space + auto_swap)),
                       "software": escape_markup(str(required_space)),
                       "swap": escape_markup(str(auto_swap))})
@@ -131,20 +133,18 @@ class InstallOptionsDialogBase(GUIObject):
     def _check_for_storage_thread(self, button):
         if self._software_is_ready():
             button.set_has_tooltip(False)
-            button.show_all()
 
             # False means this function should never be called again.
             return False
         else:
             return True
 
-    def _add_modify_watcher(self, widgetName):
+    def _add_modify_watcher(self, widget):
         # If the payload fetching thread is still running, the user can't go to
         # modify the software selection screen.  Thus, we have to set the button
         # insensitive and wait until software selection is ready to go.
-        modify_widget = self.builder.get_object(widgetName)
         if not self._software_is_ready():
-            GLib.timeout_add_seconds(1, self._check_for_storage_thread, modify_widget)
+            GLib.timeout_add_seconds(1, self._check_for_storage_thread, widget)
 
 class NeedSpaceDialog(InstallOptionsDialogBase):
     builderObjects = ["need_space_dialog"]
@@ -165,7 +165,6 @@ class NeedSpaceDialog(InstallOptionsDialogBase):
                        "amounts of free space:") % sw_text
         label = self.builder.get_object("need_space_desc_label")
         label.set_markup(label_text)
-        label.set_tooltip_text(_("Please wait... software metadata still loading."))
         label.connect("activate-link", self._modify_sw_link_clicked)
 
         self._set_free_space_labels(disk_free, fs_free)
@@ -177,7 +176,7 @@ class NeedSpaceDialog(InstallOptionsDialogBase):
                        "interface.") % escape_markup(productName)
         self.builder.get_object("need_space_options_label").set_markup(label_text)
 
-        self._add_modify_watcher("need_space_desc_label")
+        self._add_modify_watcher(label)
 
 class NoSpaceDialog(InstallOptionsDialogBase):
     builderObjects = ["no_space_dialog"]
@@ -201,7 +200,6 @@ class NoSpaceDialog(InstallOptionsDialogBase):
                          "product": escape_markup(productName)})
         label = self.builder.get_object("no_space_desc_label")
         label.set_markup(label_text)
-        label.set_tooltip_text(_("Please wait... software metadata still loading."))
         label.connect("activate-link", self._modify_sw_link_clicked)
 
         self._set_free_space_labels(disk_free, fs_free)
@@ -215,7 +213,7 @@ class NoSpaceDialog(InstallOptionsDialogBase):
                                {"productName": escape_markup(productName)}
         self.builder.get_object("no_space_options_label").set_markup(label_text)
 
-        self._add_modify_watcher("no_space_desc_label")
+        self._add_modify_watcher(label)
 
 class StorageSpoke(NormalSpoke, StorageChecker):
     builderObjects = ["storageWindow", "addSpecializedImage"]
