@@ -747,7 +747,7 @@ def cleanPStore():
 if __name__ == "__main__":
     # check if the CLI help is requested and return it at once,
     # without importing random stuff and spamming stdout
-    if ("--help" in sys.argv) or ("-h" in sys.argv):
+    if ("--help" in sys.argv) or ("-h" in sys.argv) or ("--version" in sys.argv):
         parseArguments()
 
     print("Starting installer, one moment...")
