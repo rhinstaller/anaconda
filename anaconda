@@ -1070,7 +1070,8 @@ if __name__ == "__main__":
             ksdata.method.partition = device
             ksdata.method.dir = path
         elif anaconda.methodstr.startswith("http") or \
-             anaconda.methodstr.startswith("ftp"):
+             anaconda.methodstr.startswith("ftp") or \
+             anaconda.methodstr.startswith("file"):
             ksdata.method.method = "url"
             ksdata.method.url = anaconda.methodstr
             # installation source specified by bootoption
