@@ -137,6 +137,7 @@
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="show_tabs">False</property>
+                <property name="show_border">False</property>
                 <child>
                   <object class="GtkButton" id="rescanButton">
                     <property name="label" translatable="yes" context="GUI|Refresh Dialog|Rescan">_Rescan Disks</property>
