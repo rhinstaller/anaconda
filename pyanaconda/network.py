@@ -1142,7 +1142,7 @@ def networkInitialize(ksdata):
     log.debug("network: devices found %s", nm.nm_devices())
     logIfcfgFiles("network initialization")
 
-    if not flags.imageInstall:
+    if not flags.imageInstall and not flags.dirInstall:
         devnames = apply_kickstart(ksdata)
         if devnames:
             msg = "kickstart pre section applied for devices %s" % devnames
@@ -1154,14 +1154,14 @@ def networkInitialize(ksdata):
             log.debug("network: %s", msg)
             logIfcfgFiles(msg)
 
-    # For kickstart network --activate option we set ONBOOT=yes
-    # in dracut to get devices activated by NM. The real network --onboot
-    # value is set here.
-    devnames = setOnboot(ksdata)
-    if devnames:
-        msg = "setting real kickstart ONBOOT value for devices %s" % devnames
-        log.debug("network: %s", msg)
-        logIfcfgFiles(msg)
+        # For kickstart network --activate option we set ONBOOT=yes
+        # in dracut to get devices activated by NM. The real network --onboot
+        # value is set here.
+        devnames = setOnboot(ksdata)
+        if devnames:
+            msg = "setting real kickstart ONBOOT value for devices %s" % devnames
+            log.debug("network: %s", msg)
+            logIfcfgFiles(msg)
 
     if ksdata.network.hostname is None:
         hostname = getHostname()
