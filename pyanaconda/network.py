@@ -1029,12 +1029,9 @@ def write_network_config(storage, ksdata, instClass, rootpath):
     set_hostname(ksdata.network.hostname)
     write_sysconfig_network(rootpath, overwrite=flags.livecdInstall)
     disableIPV6(rootpath)
-    if not flags.imageInstall:
-        copyIfcfgFiles(rootpath)
-        copyDhclientConfFiles(rootpath)
-        copyFileToPath("/etc/resolv.conf", rootpath, overwrite=flags.livecdInstall)
-    # TODO the default for ONBOOT needs to be lay down
-    # before newui we didn't set it for kickstart installs
+    copyIfcfgFiles(rootpath)
+    copyDhclientConfFiles(rootpath)
+    copyFileToPath("/etc/resolv.conf", rootpath, overwrite=flags.livecdInstall)
     instClass.setNetworkOnbootDefault(ksdata)
     # NM_CONTROLLED is not mirrored in ksdata
     disableNMForStorageDevices(rootpath, storage)
