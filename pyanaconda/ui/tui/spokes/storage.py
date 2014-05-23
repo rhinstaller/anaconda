@@ -380,7 +380,7 @@ class StorageSpoke(NormalTUISpoke):
             self.data.clearpart.type = CLEARPART_TYPE_ALL
             self.data.clearpart.initAll = False
             self.storage.config.update(self.data)
-            self.storage.autoPartType = self.data.clearpart.type
+            self.storage.autoPartType = self.data.autopart.type
             self.storage.reset()
             # now set ksdata back to the user's specified config
             applyDiskSelection(self.storage, self.data, self.selected_disks)
