@@ -1,5 +1,5 @@
 #
-# anaconda_optparse.py: option parsing for anaconda (CLI and boot args)
+# anaconda_argparse.py: option parsing for anaconda (CLI and boot args)
 #
 # Copyright (C) 2012 Red Hat, Inc.  All rights reserved.
 #
@@ -30,7 +30,7 @@ import fcntl
 import termios
 import struct
 
-from argparse import ArgumentParser, ArgumentError, HelpFormatter
+from argparse import ArgumentParser, ArgumentError, HelpFormatter, Namespace
 
 from pyanaconda.flags import BootArgs
 
@@ -146,10 +146,10 @@ class AnacondaArgumentParser(ArgumentParser):
             self.deprecated_bootargs.append(arg)
         return option
 
-    def parse_boot_cmdline(self, boot_cmdline, namespace):
+    def parse_boot_cmdline(self, boot_cmdline):
         """
-        Parse the boot cmdline and set appropriate namespace according to
-        the options set by add_argument.
+        Parse the boot cmdline and create an appropriate Namespace instance
+        according to the option definitions set by add_argument.
 
         boot_cmdline can be given as a string (to be parsed by BootArgs), or a
         dict (or any object with .iteritems()) of {bootarg:value} pairs.
@@ -158,17 +158,17 @@ class AnacondaArgumentParser(ArgumentParser):
         by default (/proc/cmdline, /run/initramfs/etc/cmdline, /etc/cmdline).
 
         If an option requires a value but the boot arg doesn't provide one,
-        we'll quietly not set anything.
+        we'll quietly not set anything in the Namespace. We also skip any boot options
+        that were not specified by add_argument as we don't care about them
+        (there will usually be quite a lot of them (rd.*, etc.).
 
         :param boot_cmdline: the Anaconda boot command line arguments
         :type boot_cmdline: string, dict or None
 
-        :param namespace: argparse Namespace instance
-        :type namespace: argparse Namespace
-
         :returns: an argparse Namespace instance
         :rtype: Namespace
         """
+        namespace = Namespace()
         if boot_cmdline is None or type(boot_cmdline) is str:
             bootargs = BootArgs(boot_cmdline)
         else:
@@ -182,13 +182,12 @@ class AnacondaArgumentParser(ArgumentParser):
             if option is None:
                 # this boot option is unknown to Anaconda, skip it
                 continue
-            if getattr(namespace, option.dest) is not None:
-                # if the option is already set on program command line,
-                # we ignore any boot options that might modify it
-                continue
             if option.nargs != 0 and val is None:
-                # nargs == 0 -> option does not take any values, skip it
-                continue  # TODO: emit a warning or something there?
+                # nargs == 0 -> the option expects one or more arguments but the
+                # boot option was not given any, so we skip it
+                log.warning("boot option specified without expected number of "
+                            "arguments and will be ignored: %s", arg)
+                continue
             if option.nargs == 0 and option.const is not None:
                 # nargs == 0 & constr == True -> store_true
                 # (we could also check the class, but it begins with an
@@ -224,11 +223,13 @@ class AnacondaArgumentParser(ArgumentParser):
         :returns: an argparse Namespace instance
         :rtype: Namespace
         """
-        # parse arguments (if any) and return the resulting namespace
-        namespace = ArgumentParser.parse_args(self, args)
-        # now parse boot options (if any) and modify the namespace accordingly
-        namespace = self.parse_boot_cmdline(boot_cmdline, namespace)
-        # and return the resulting namespace
+        # parse boot options first
+        namespace = self.parse_boot_cmdline(boot_cmdline)
+        # parse CLI arguments (if any) and add them to the namespace
+        # created from parsing boot options, overriding any options
+        # with the same destination already present in the namespace
+        # NOTE: this means that CLI options override boot options
+        namespace = ArgumentParser.parse_args(self, args, namespace)
         return namespace
 
 def name_path_pairs(image_specs):
