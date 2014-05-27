@@ -70,7 +70,10 @@ def get_anaconda_version_string():
     # non-necessary stuff; we also need to handle the possibility of the
     # import itself failing
     if module_exists("pyanaconda.version"):
-        from pyanaconda import version
+        # Ignore pylint not finding the version module, since thanks to automake
+        # there's a good chance that version.py is not in the same directory as
+        # the rest of pyanaconda.
+        from pyanaconda import version # pylint: disable=no-name-in-module
         return version.__version__
     else:
         return "unknown"
