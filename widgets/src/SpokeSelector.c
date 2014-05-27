@@ -304,7 +304,12 @@ static void anaconda_spoke_selector_init(AnacondaSpokeSelector *spoke) {
 
     gtk_container_add(GTK_CONTAINER(spoke), spoke->priv->grid);
 
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wdeprecated-declarations"
+    /* No existing role is appropriate for this, so ignore the warning raised
+       by registering a new role. */
     role = atk_role_register("spoke selector");
+#pragma GCC diagnostic pop
 
     atk = gtk_widget_get_accessible(GTK_WIDGET(spoke));
     atk_object_set_name(atk, _(DEFAULT_TITLE));
