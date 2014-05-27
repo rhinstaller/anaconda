@@ -144,18 +144,18 @@ class LiveImagePayload(ImagePayload):
             self.pct = 100
         threadMgr.wait(THREAD_LIVE_PROGRESS)
 
+        # Live needs to create the rescue image before bootloader is written
+        for kernel in self.kernelVersionList:
+            log.info("Generating rescue image for %s", kernel)
+            iutil.execInSysroot("new-kernel-pkg",
+                                ["--rpmposttrans", kernel])
+
     def postInstall(self):
         """ Perform post-installation tasks. """
         progressQ.send_message(_("Performing post-installation setup tasks"))
         blivet.util.umount(INSTALL_TREE)
 
         super(LiveImagePayload, self).postInstall()
-
-        # Live needs to create the rescue image before bootloader is written
-        for kernel in self.kernelVersionList:
-            log.info("Generating rescue image for %s", kernel)
-            iutil.execInSysroot("new-kernel-pkg",
-                                ["--rpmposttrans", kernel])
 
         # Make sure the new system has a machine-id, it won't boot without it
         if not os.path.exists(iutil.getSysroot()+"/etc/machine-id"):
