@@ -1353,7 +1353,8 @@ class GRUB(BootLoader):
         # If the stage2 device is on a raid1, check that the stage1 device is also redundant,
         # either by also being part of an array or by being a disk (which is expanded
         # to every disk in the array by install_targets).
-        if self.stage2_device.type == "mdarray" and \
+        if self.stage1_device and self.stage2_device and \
+                self.stage2_device.type == "mdarray" and \
                 self.stage2_device.level == raid.RAID1 and \
                 self.stage1_device.type != "mdarray":
             if not self.stage1_device.isDisk:
