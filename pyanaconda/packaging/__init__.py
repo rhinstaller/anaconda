@@ -372,9 +372,8 @@ class Payload(object):
 
     @property
     def rescueKernelList(self):
-        if not self._kernelVersionList:
-            self._updateKernelVersionList()
-
+        # do re-scan if looking for rescue kernel
+        self._updateKernelVersionList()
         return self._kernelVersionList[1]
 
     ##
