@@ -277,6 +277,32 @@ class GraphicalUserInterface(UserInterface):
                       for path in pathlist]
             }
 
+    def _assureLogoImage(self):
+        # make sure there is a logo image present,
+        # otherwise the console will get spammed by errors
+        replacement_image_path = None
+        logo_path = "/usr/share/anaconda/pixmaps/logo.png"
+        header_path = "/usr/share/anaconda/pixmaps/anaconda_header.png"
+        sad_smiley_path = "/usr/share/icons/Adwaita/48x48/emotes/face-crying.png"
+        if not os.path.exists(logo_path):
+            # first try to replace the missing logo with the Anaconda header image
+            if os.path.exists(header_path):
+                replacement_image_path = header_path
+            # if the header image is not present, use a sad smiley from GTK icons
+            elif os.path.exists(sad_smiley_path):
+                replacement_image_path = sad_smiley_path
+
+            if replacement_image_path:
+                log.warning("logo image is missing, using a substitute")
+
+                # Add a new stylesheet overriding the background-image for .logo
+                provider = Gtk.CssProvider()
+                provider.load_from_data(".logo { background-image: url('%s'); }" % replacement_image_path)
+                Gtk.StyleContext.add_provider_for_screen(Gdk.Screen.get_default(), provider,
+                        Gtk.STYLE_PROVIDER_PRIORITY_USER)
+            else:
+                log.warning("logo image is missing")
+
     @property
     def tty_num(self):
         return 6
@@ -394,6 +420,9 @@ class GraphicalUserInterface(UserInterface):
         provider.load_from_path("/usr/share/anaconda/anaconda-gtk.css")
         Gtk.StyleContext.add_provider_for_screen(Gdk.Screen.get_default(), provider,
                 Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION)
+
+        # try to make sure a logo image is present
+        self._assureLogoImage()
 
         self._currentAction.window.show_all()
 
