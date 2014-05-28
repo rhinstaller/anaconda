@@ -31,6 +31,7 @@ import shutil
 import uuid
 import glob
 from pykickstart.parser import KickstartParser, preprocessKickstart
+from pykickstart.sections import NullSection
 from pykickstart.version import returnClassForVersion
 from pykickstart.errors import KickstartError
 # pylint: disable=wildcard-import
@@ -477,6 +478,7 @@ def process_kickstart(ksfile):
     handler = DracutHandler()
     handler.ksdevice = os.environ.get('ksdevice')
     parser = KickstartParser(handler, missingIncludeIsFatal=False, errorsAreFatal=False)
+    parser.registerSection(NullSection(handler, sectionOpen="%addon"))
     log.info("processing kickstart file %s", ksfile)
     processed_file = preprocessKickstart(ksfile)
     try:
