@@ -150,7 +150,7 @@ def nm_devices():
         device_type = _get_property(device, "DeviceType", ".Device")
         if device_type not in supported_device_types:
             continue
-        iface = _get_property(device, "IpInterface", ".Device")
+        iface = _get_property(device, "Interface", ".Device")
         interfaces.append(iface)
 
     return interfaces
@@ -175,6 +175,8 @@ def nm_activated_devices():
         devices = _get_property(ac, "Devices", ".Connection.Active")
         for device in devices:
             iface = _get_property(device, "IpInterface", ".Device")
+            if not iface:
+                iface = _get_property(device, "Interface", ".Device")
             interfaces.append(iface)
 
     return interfaces
@@ -498,7 +500,7 @@ def nm_device_slaves(name):
 
     slave_ifaces = []
     for slave in slaves:
-        iface = _get_property(slave, "IpInterface", ".Device")
+        iface = _get_property(slave, "Interface", ".Device")
         slave_ifaces.append(iface)
 
     return slave_ifaces
