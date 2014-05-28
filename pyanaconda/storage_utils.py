@@ -40,18 +40,6 @@ from pykickstart.constants import AUTOPART_TYPE_LVM, AUTOPART_TYPE_LVM_THINP
 import logging
 log = logging.getLogger("anaconda")
 
-# should this and the get_supported_raid_levels go to blivet.devicefactory???
-SUPPORTED_RAID_LEVELS = {DEVICE_TYPE_LVM: {"none", "raid0", "raid1"},
-                         DEVICE_TYPE_LVM_THINP: {"none", "raid0", "raid1"},
-                         DEVICE_TYPE_MD: {"raid0", "raid1", "raid4", "raid5",
-                                          "raid6", "raid10"},
-                         DEVICE_TYPE_BTRFS: {"none", "raid0", "raid1",
-                                             "raid10"},
-                         # no device type for LVM VG
-                         # VG: {"none", "raid0", "raid1", "raid4",
-                         #      "raid5", "raid6", "raid10"},
-                        }
-
 # TODO: all those constants and mappings should go to blivet
 DEVICE_TEXT_LVM = N_("LVM")
 DEVICE_TEXT_LVM_THINP = N_("LVM Thin Provisioning")
@@ -118,11 +106,6 @@ def size_from_input(input_str):
             size = Size("1 MiB")
 
     return size
-
-def get_supported_raid_levels(device_type):
-    """Get supported RAID levels for the given device type."""
-
-    return SUPPORTED_RAID_LEVELS.get(device_type, set())
 
 def device_type_from_autopart(autopart_type):
     """Get device type matching the given autopart type."""

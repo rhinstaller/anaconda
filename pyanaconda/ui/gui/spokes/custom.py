@@ -50,7 +50,6 @@ from blivet.devicefactory import DEVICE_TYPE_PARTITION
 from blivet.devicefactory import DEVICE_TYPE_MD
 from blivet.devicefactory import DEVICE_TYPE_DISK
 from blivet.devicefactory import DEVICE_TYPE_LVM_THINP
-from blivet.devicefactory import get_raid_level
 from blivet.devicefactory import SIZE_POLICY_AUTO
 from blivet import findExistingInstallations
 from blivet.partitioning import doAutoPartition
@@ -60,11 +59,11 @@ from blivet.errors import NotEnoughFreeSpaceError
 from blivet.errors import SanityError
 from blivet.errors import SanityWarning
 from blivet.errors import LUKSDeviceWithoutKeyError
-from blivet.devicelibs import mdraid
+from blivet.devicelibs import raid
 from blivet.devices import LUKSDevice
 
-from pyanaconda.storage_utils import get_supported_raid_levels, ui_storage_logger, device_type_from_autopart
-from pyanaconda.storage_utils import DEVICE_TEXT_PARTITION, DEVICE_TEXT_MD, DEVICE_TEXT_MAP
+from pyanaconda.storage_utils import ui_storage_logger, device_type_from_autopart
+from pyanaconda.storage_utils import DEVICE_TEXT_PARTITION, DEVICE_TEXT_MAP
 from pyanaconda.storage_utils import PARTITION_ONLY_FORMAT_TYPES, MOUNTPOINT_DESCRIPTIONS
 from pyanaconda.storage_utils import NAMED_DEVICE_TYPES, CONTAINER_DEVICE_TYPES
 
@@ -78,7 +77,8 @@ from pyanaconda.ui.gui.spokes.lib.refresh import RefreshDialog
 from pyanaconda.ui.gui.spokes.lib.summary import ActionSummaryDialog
 
 from pyanaconda.ui.gui.spokes.lib.custom_storage_helpers import size_from_entry
-from pyanaconda.ui.gui.spokes.lib.custom_storage_helpers import validate_label, validate_mountpoint, selectedRaidLevel
+from pyanaconda.ui.gui.spokes.lib.custom_storage_helpers import validate_label, validate_mountpoint, get_raid_level
+from pyanaconda.ui.gui.spokes.lib.custom_storage_helpers import selectedRaidLevel, raidLevelSelection, defaultRaidLevel, requiresRaidSelection, containerRaidLevelsSupported, raidLevelsSupported, defaultContainerRaidLevel
 from pyanaconda.ui.gui.spokes.lib.custom_storage_helpers import get_container_type_name, RAID_NOT_ENOUGH_DISKS
 from pyanaconda.ui.gui.spokes.lib.custom_storage_helpers import AddDialog, ConfirmDeleteDialog, DisksDialog, ContainerDialog, HelpDialog
 
@@ -609,6 +609,16 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
 
     def _validate_mountpoint(self, mountpoint, device, device_type, new_fs_type,
                             reformat, encrypted, raid_level):
+        """ Validate various aspects of a mountpoint.
+
+            :param str mountpoint: the mountpoint
+            :param device: blivet.devices.Device instance
+            :param int device_type: one of an enumeration of device types
+            :param str new_fs_type: string representing the new filesystem type
+            :param bool reformat: whether the device is to be reformatted
+            :param bool encrypted: whether the device is to be encrypted
+            :param raid_level: instance of blivet.devicelibs.raid.RAIDLevel or None
+        """
         error = None
         if device_type != DEVICE_TYPE_PARTITION and mountpoint == "/boot/efi":
             error = (_("/boot/efi must be on a device of type %s")
@@ -623,14 +633,16 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
             error = _("%s cannot be encrypted") % new_fs_type
         elif mountpoint == "/" and device.format.exists and not reformat:
             error = _("You must create a new filesystem on the root device.")
-        elif device_type == DEVICE_TYPE_MD and raid_level in (None, "single"):
-            error = _("Devices of type %s require a valid RAID level selection.") % _(DEVICE_TEXT_MD)
 
-        if not error and raid_level not in (None, "single"):
-            md_level = mdraid.getRaidLevel(raid_level)
-            min_disks = md_level.min_members
+        if not error and \
+           (raid_level is not None or requiresRaidSelection(device_type)) and \
+           raid_level not in raidLevelsSupported(device_type):
+            error = _("Device does not support RAID level selection %s.") % raid_level
+
+        if not error and raid_level is not None:
+            min_disks = raid_level.min_members
             if len(self._device_disks) < min_disks:
-                error = _(RAID_NOT_ENOUGH_DISKS) % {"level": md_level,
+                error = _(RAID_NOT_ENOUGH_DISKS) % {"level": raid_level,
                                                     "min" : min_disks,
                                                     "count": len(self._device_disks)}
 
@@ -852,9 +864,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         old_device_info = dict()
 
         new_device_info["device"] = device
-        use_dev = device
-        if device.type == "luks/dm-crypt":
-            use_dev = device.slave
+        use_dev = device.raw_device
 
         log.info("ui: saving changes to device %s", device.name)
 
@@ -1031,8 +1041,8 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         changed_container_encrypted = (container_encrypted != old_container_encrypted)
 
         container_raid_level = self._device_container_raid_level
-        if container_raid_level == "single" and device_type != DEVICE_TYPE_BTRFS:
-            container_raid_level = None
+        if container_raid_level not in containerRaidLevelsSupported(device_type):
+            container_raid_level = defaultContainerRaidLevel(device_type)
 
         old_device_info["container_raid_level"] = old_container_raid_level
         new_device_info["container_raid_level"] = container_raid_level
@@ -1175,26 +1185,28 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
 
     def _raid_level_visible(self, model, itr, user_data):
         device_type = self._get_current_device_type()
-        raid_level = model[itr][1]
-        return raid_level in get_supported_raid_levels(device_type)
+        raid_level = raid.getRaidLevel(model[itr][1])
+        return raid_level in raidLevelsSupported(device_type)
 
     def _populate_raid(self, raid_level):
-        """ Set up the raid-specific portion of the device details. """
+        """ Set up the raid-specific portion of the device details.
+
+            :param raid_level: RAID level
+            :type raid_level: instance of blivet.devicelibs.raid.RAIDLevel or None
+        """
         device_type = self._get_current_device_type()
         log.debug("populate_raid: %s, %s", device_type, raid_level)
 
-        if device_type == DEVICE_TYPE_MD:
-            base_level = "raid1"
-        else:
+        if not raidLevelsSupported(device_type):
             map(really_hide, [self._raidLevelLabel, self._raidLevelCombo])
             return
 
-        if not raid_level:
-            raid_level = base_level
+        raid_level = raid_level or defaultRaidLevel(device_type)
+        raid_level_name = raidLevelSelection(raid_level)
 
         # Set a default RAID level in the combo.
         for (i, row) in enumerate(self._raidLevelCombo.get_model()):
-            if row[1] == raid_level:
+            if row[1] == raid_level_name:
                 self._raidLevelCombo.set_active(i)
                 break
 
@@ -1225,6 +1237,9 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
             self._device_container_raid_level = None
             self._device_container_encrypted = False
             self._device_container_size = SIZE_POLICY_AUTO
+
+        self._device_container_raid_level = self._device_container_raid_level \
+           or defaultContainerRaidLevel(devicefactory.get_device_type(use_dev))
 
     def _setup_fstype_combo(self, device):
         # remove any fs types that aren't supported
@@ -1321,10 +1336,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         log.debug("populate_right_side: %s", selector.device)
 
         device = selector.device
-        if device.type == "luks/dm-crypt":
-            use_dev = device.slave
-        else:
-            use_dev = device
+        use_dev = device.raw_device
 
         if hasattr(use_dev, "req_disks") and not use_dev.exists:
             self._device_disks = use_dev.req_disks[:]
@@ -1410,8 +1422,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         else:
             self._sizeEntry.set_tooltip_text(_("This file system may not be resized."))
 
-        raid_level = devicefactory.get_raid_level(device)
-        self._populate_raid(raid_level)
+        self._populate_raid(get_raid_level(device))
         self._populate_container(device=use_dev)
         # do this last in case this was set sensitive in on_device_type_changed
         if use_dev.exists or use_dev.type == "btrfs volume":
@@ -2231,9 +2242,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
 
         self._encryptCheckbox.set_sensitive(active)
         if self._current_selector:
-            device = self._current_selector.device
-            if device.type == "luks/dm-crypt":
-                device = device.slave
+            device = self._current_selector.device.raw_device
 
             ancestors = device.ancestors
             ancestors.remove(device)
@@ -2269,8 +2278,8 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
                 return
 
             device = self._current_selector.device
-            if isinstance(device, LUKSDevice):
-                device = device.slave
+            if device:
+                device = device.raw_device
 
         container_size_policy = SIZE_POLICY_AUTO
         if device_type not in CONTAINER_DEVICE_TYPES:
@@ -2382,18 +2391,8 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
             test_fmt = getFormat("btrfs")
             should_be_btrfs = test_fmt.supported and test_fmt.formattable
             fs_type_sensitive = False
-            with ui_storage_logger():
-                factory = devicefactory.get_device_factory(self._storage_playground,
-                                                         DEVICE_TYPE_BTRFS, 0)
-                container = factory.get_container()
-
-            if container:
-                raid_level = container.dataLevel or "single"
-            else:
-                # here I suppose we could alter the default based on disk count
-                raid_level = "single"
         elif new_type == DEVICE_TYPE_MD:
-            raid_level = "raid1"
+            raid_level = defaultRaidLevel(new_type)
 
         # lvm uses the RHS to set disk set. no foolish minds here.
         exists = self._current_selector and self._current_selector.device.exists
