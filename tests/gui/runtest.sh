@@ -18,6 +18,15 @@
 #
 # Red Hat Author(s): Chris Lumens <clumens@redhat.com>
 
+function doit() {
+    nosetests -s \
+              -v \
+              --nologcapture \
+              --tc=resultsdir:$(mktemp -d --tmpdir=/var/tmp autogui-results-XXXXXX) \
+              --tc=liveImage:"$1" $2 \
+              outside
+}
+
 # We require the test_config plugin for nose, which is not currently packaged
 # but is installable via pip.
 if [ -z "$(nosetests -p | grep test_config)" ]; then
@@ -55,9 +64,13 @@ else
     EXTRA=""
 fi
 
-nosetests -s \
-          -v \
-          --nologcapture \
-          --tc=resultsdir:$(mktemp -d --tmpdir=/var/tmp autogui-results-XXXXXX) \
-          --tc=liveImage:"${LIVECD}" ${EXTRA} \
-          outside
+# If we're being called from "make check", we will be outside the gui test directory.
+# Unfortunately, everything is written assuming that's where we will be.  So cd there.
+if [ -d gui ]; then
+    ( cd gui && doit "${LIVECD}" ${EXTRA} )
+elif [ -d outside ]; then
+    doit "${LIVECD}" ${EXTRA}
+else
+    echo "Could not find test contents"
+    exit 3
+fi
