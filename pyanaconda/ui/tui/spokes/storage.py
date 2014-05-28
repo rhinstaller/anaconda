@@ -547,10 +547,4 @@ class PartitionSchemeSpoke(NormalTUISpoke):
         """ Apply our selections. """
 
         schemelist = self.partschemes.values()
-        try:
-            self.data.autopart.type = schemelist[self._selection]
-        except IndexError:
-            # we shouldn't ever see this, but just in case, don't crash.
-            # when autopart.type is detected as None in AutoPartSpoke.apply(),
-            # it'll automatically just be set to LVM
-            pass
+        self.data.autopart.type = schemelist[self._selection]
