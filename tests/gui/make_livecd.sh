@@ -54,9 +54,9 @@ REPO="$3"
 # (1) Remove the first two / partitions we inherit.
 # (2) Remove rawhide as a repo because it's already the installation source.
 # (3) Don't remove /boot/initramfs*.  Do what now?
-ksflatten anaconda-autogui-testing.ks | sed -e '\|part /.*--size=3.*|,+1 d' \
-                                            -e '/repo --name="rawhide"/ d' \
-                                            -e '/^# save a little/,+1 d' > livecd.ks
+ksflatten -c anaconda-autogui-testing.ks | sed -e '\|part /.*--size=3.*|,+1 d' \
+                                               -e '/repo --name="rawhide"/ d' \
+                                               -e '/^# save a little/,+1 d' > livecd.ks
 
 # Add a repo location for the updated anaconda RPMs.
 echo -e "\nrepo --name=updated-anaconda --baseurl=${REPO}\n" >> livecd.ks
