@@ -36,7 +36,7 @@ class LiveCDSummaryTestCase(UITestCase):
         self.click_button("No")
 
     def check_begin_installation_button(self):
-        button = self.find("Begin Installation", "button")
+        button = self.find("Begin Installation", "push button")
         self.assertIsNotNone(button, msg="Begin Installation button not found")
         self.assertTrue(button.showing, msg="Begin Installation button should be displayed")
         self.assertFalse(button.sensitive, msg="Begin Installation button should not be sensitive")

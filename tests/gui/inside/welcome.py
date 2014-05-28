@@ -44,12 +44,12 @@ class BasicWelcomeTestCase(UITestCase):
 #                         msg="Default locale (%s) is not selected")
 
     def check_quit_button(self):
-        self.click_button("Quit")
+        self.click_button("_Quit")
         self.check_dialog_displayed("Quit")
         self.click_button("No")
 
     def check_continue_button(self):
-        self.click_button("Continue")
+        self.click_button("_Continue")
         self.check_dialog_displayed("Beta Warn")
         self.click_button("I accept my fate.")
 

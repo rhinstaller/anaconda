@@ -25,7 +25,7 @@ class BasicKeyboardTestCase(UITestCase):
 
     def check_options_dialog(self):
         # Click the options button.
-        self.click_button("Layout Options")
+        self.click_button("Options")
         self.check_dialog_displayed("Layout Options")
         self.click_button("Cancel")
 
@@ -37,30 +37,30 @@ class BasicKeyboardTestCase(UITestCase):
         self.assertEqual(len(self._get_enabled_layouts(view)), 1, msg="An unexpected number of keyboard layouts are enabled")
 
     def check_layout_buttons_initial(self):
-        button = self.find("Add layout", "button")
+        button = self.find("Add layout", "push button")
         self.assertIsNotNone(button, msg="Add layout button not found")
         self.assertTrue(button.sensitive, msg="Add layout button should be sensitive")
 
         # When no layouts are selected in the view, none of these buttons mean anything.
-        button = self.find("Remove layout", "button")
+        button = self.find("Remove layout", "push button")
         self.assertIsNotNone(button, msg="Remove layout button not found")
         self.assertFalse(button.sensitive, msg="Remove layout button should not be sensitive")
 
-        button = self.find("Move selected layout up", "button")
+        button = self.find("Move selected layout up", "push button")
         self.assertIsNotNone(button, msg="Move layout up button not found")
         self.assertFalse(button.sensitive, msg="Move layout up button should not be sensitive")
 
-        button = self.find("Move selected layout down", "button")
+        button = self.find("Move selected layout down", "push button")
         self.assertIsNotNone(button, msg="Move layout down button not found")
         self.assertFalse(button.sensitive, msg="Move layout down button should not be sensitive")
 
-        button = self.find("Preview layout", "button")
+        button = self.find("Preview layout", "push button")
         self.assertIsNotNone(button, msg="Preview layout button not found")
         self.assertFalse(button.sensitive, msg="Preview layout button should not be sensitive")
 
     def check_add_layout_dialog(self):
         self.click_button("Add layout")
-        self.check_dialog_displayed("Add layout")
+        self.check_dialog_displayed("Add Layout")
         self.click_button("Cancel")
 
     def check_layout_buttons_after_click(self):
@@ -71,26 +71,26 @@ class BasicKeyboardTestCase(UITestCase):
         self.assertIsNotNone(view, msg="Selected Layouts view not found")
         view.children[1].click()
 
-        button = self.find("Add layout", "button")
+        button = self.find("Add layout", "push button")
         self.assertIsNotNone(button, msg="Add layout button not found")
         self.assertTrue(button.sensitive, msg="Add layout button should be sensitive")
 
-        button = self.find("Remove layout", "button")
+        button = self.find("Remove layout", "push button")
         self.assertIsNotNone(button, msg="Remove layout button not found")
         self.assertTrue(button.sensitive, msg="Remove layout button should be sensitive")
 
         # These two should still not be sensitive - we've only got one layout.
         # We ensured that with check_num_layouts.
         # FIXME:  This encodes default information.
-        button = self.find("Move selected layout up", "button")
+        button = self.find("Move selected layout up", "push button")
         self.assertIsNotNone(button, msg="Move layout up button not found")
         self.assertFalse(button.sensitive, msg="Move layout up button should not be sensitive")
 
-        button = self.find("Move selected layout down", "button")
+        button = self.find("Move selected layout down", "push button")
         self.assertIsNotNone(button, msg="Move layout down button not found")
         self.assertFalse(button.sensitive, msg="Move layout down button should not be sensitive")
 
-        button = self.find("Preview layout", "button")
+        button = self.find("Preview layout", "push button")
         self.assertIsNotNone(button, msg="Preview layout button not found")
         self.assertTrue(button.sensitive, msg="Preview layout button should be sensitive")
 

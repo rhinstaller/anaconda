@@ -20,7 +20,7 @@ from . import UITestCase
 class LiveCDNetworkTestCase(UITestCase):
     def check_hostname_entry(self):
         # Only the live install hint and hostname box should be visible.
-        self.assertTrue(self.ana.childLabelled("Please use the live desktop environment's tools for customizing your network configuration.  You can set the hostname here.").showing)
+        self.assertTrue(self.find("Please use the live desktop environment's tools for customizing your network configuration.  You can set the hostname here.").showing)
 
         box = self.find("Network Config Box")
         self.assertIsNotNone(box, "Network Config box not found")
@@ -30,7 +30,7 @@ class LiveCDNetworkTestCase(UITestCase):
         self.assertIsNotNone(box, "More Network Config box not found")
         self.assertFalse(box.showing, msg="More Network Config box should not be displayed")
 
-        entry = self.find("Hostname", "textentry")
+        entry = self.find("Hostname", "text")
         self.assertIsNotNone(entry , "Hostname entry not found")
         self.assertTrue(entry.showing, msg="Hostname entry should be displayed")
 

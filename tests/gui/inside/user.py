@@ -19,13 +19,13 @@ from . import UITestCase
 
 class BasicUserTestCase(UITestCase):
     def check_enter_name(self):
-        entry = self.find("Full Name", "textentry")
+        entry = self.find("Full Name", "text")
         self.assertIsNotNone(entry, msg="Full name entry not found")
         entry.grabFocus()
         entry.text = "Bobby Good User"
 
         # We base the username on the full name entered
-        entry = self.find("Username", "textentry")
+        entry = self.find("Username", "text")
         self.assertIsNotNone(entry, msg="Username entry not found")
         self.assertEqual(entry.text, "buser", msg="Generated username does not match expectation")
 
@@ -33,7 +33,7 @@ class BasicUserTestCase(UITestCase):
         # The warning bar starts off telling us there's no password set.
         self.check_warning_bar("The password is empty")
 
-        entry = self.find("Password", "textentry")
+        entry = self.find("Password", "text")
         self.assertIsNotNone(entry, msg="Password entry should be displayed")
         entry.grabFocus()
         entry.text = "asdfasdf"
@@ -43,7 +43,7 @@ class BasicUserTestCase(UITestCase):
         self.check_warning_bar("it does not contain enough DIFFERENT characters")
 
         # Let's confirm that terrible password.
-        entry = self.find("Confirm Password", "textentry")
+        entry = self.find("Confirm Password", "text")
         self.assertIsNotNone(entry, msg="Confirm password should be displayed")
         entry.grabFocus()
         entry.text = "asdfasdf"
@@ -55,7 +55,7 @@ class BasicUserTestCase(UITestCase):
     def check_click_done(self):
         # Press the Done button once, which won't take us anywhere but will change the
         # warning label at the bottom.
-        self.click_button("Done")
+        self.click_button("_Done")
         self.check_warning_bar("Press Done again")
 
         # Pressing Done again should take us back to the progress hub.

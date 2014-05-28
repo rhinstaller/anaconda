@@ -24,7 +24,7 @@ class BasicRootPasswordTestCase(UITestCase):
         # The warning bar starts off telling us there's no password set.
         self.check_warning_bar("The password is empty")
 
-        entry = self.find("Password", "textentry")
+        entry = self.find("Password", "text")
         self.assertIsNotNone(entry, msg="Password entry should be displayed")
         entry.grabFocus()
         entry.text = "asdfasdf"
@@ -35,7 +35,7 @@ class BasicRootPasswordTestCase(UITestCase):
         self.check_warning_bar("it does not contain enough DIFFERENT characters")
 
         # Let's confirm that terrible password.
-        entry = self.find("Confirm Password", "textentry")
+        entry = self.find("Confirm Password", "text")
         self.assertIsNotNone(entry, msg="Confirm password should be displayed")
         entry.grabFocus()
         entry.text = "asdfasdf"
@@ -48,7 +48,7 @@ class BasicRootPasswordTestCase(UITestCase):
     def check_click_done(self):
         # Press the Done button once, which won't take us anywhere but will change the
         # warning label at the bottom.
-        self.click_button("Done")
+        self.click_button("_Done")
         self.check_warning_bar("Press Done again")
 
         # Pressing Done again should take us back to the progress hub.

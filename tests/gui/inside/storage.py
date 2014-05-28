@@ -59,15 +59,15 @@ class BasicStorageTestCase(UITestCase):
         pass
 
     def check_storage_options(self):
-        button = self.find("Automatically configure partitioning.", "button")
+        button = self.find("Automatically configure partitioning.", "radio button")
         self.assertIsNotNone(button, msg="Autopart button not found")
         self.assertTrue(button.checked, msg="Autopart should be selected")
 
-        button = self.find("I would like to make additional space available.", "button")
+        button = self.find("I would like to make additional space available.", "check box")
         self.assertIsNotNone(button, msg="Reclaim button not found")
         self.assertFalse(button.checked, msg="Reclaim button should not be selected")
 
-        button = self.find("Encrypt my data.", "button")
+        button = self.find("Encrypt my data.", "check box")
         self.assertIsNotNone(button, msg="Encrypt button not found")
         self.assertFalse(button.checked, msg="Encrypt button should not be selected")
 
@@ -81,16 +81,16 @@ class BasicStorageTestCase(UITestCase):
         # Given that we attach a second disk to the system (for storing the test
         # suite and results), anaconda will not select disks by default.  Thus,
         # the storage options panel should currently be insensitive.
-        button = self.find("Storage Options", "button")
-        self.assertIsNotNone(button, "Storage Options button not found")
-        self.assertFalse(button.sensitive, msg="Storage options should be insensitive")
+        area = self.find("Storage Options")
+        self.assertIsNotNone(area, "Storage Options not found")
+        self.assertFalse(area.sensitive, msg="Storage options should be insensitive")
 
         # Select disk overviews.  In the basic case, this means uninitialized
         # disks that we're going to do autopart on.
         self.check_select_disks()
 
         # And now with disks selected, the storage options should be sensitive.
-        self.assertTrue(button.sensitive, msg="Storage options should be sensitive")
+        self.assertTrue(area.sensitive, msg="Storage options should be sensitive")
 
         self.check_shopping_cart()
         self.check_storage_options()

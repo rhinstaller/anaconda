@@ -156,7 +156,7 @@ class UITestCase(unittest.TestCase):
         """Verify that a button with the given name exists and is sensitive,
            and then click it.
         """
-        b = self.find(name, "button")
+        b = self.find(name, "push button")
         self.assertIsNotNone(b, msg="%s button not found" % name)
         self.assertTrue(b.sensitive, msg="%s button should be sensitive" % name)
         b.click()
@@ -175,7 +175,7 @@ class UITestCase(unittest.TestCase):
            are off the summary hub, that's the default.  If we are not back
            on the hub, the current test case will be failed.
         """
-        button = self.find("Done", "button")
+        button = self.find("_Done", "push button")
         self.assertIsNotNone(button, msg="Done button not found")
         button.click()
         doDelay(5)

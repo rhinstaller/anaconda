@@ -23,7 +23,7 @@ from . import UITestCase
 
 class LiveCDProgressTestCase(UITestCase):
     def check_begin_installation_button(self):
-        button = self.find("Begin Installation", "button")
+        button = self.find("Begin Installation", "push button")
         self.assertIsNotNone(button, msg="Begin Installation button does not exist")
         self.assertTrue(button.sensitive, msg="Begin Installation button should be sensitive")
 
@@ -85,7 +85,7 @@ class LiveCDProgressTestCase(UITestCase):
         # If we got here, installation completed successfully.  Since we've not
         # done a password or created a user yet, we still have to do that.  The
         # finish configuration button should still be insensitive.
-        button = self.find("Finish configuration", "button")
+        button = self.find("Finish configuration", "push button")
         self.assertIsNotNone(button, msg="Finish configuration button not found")
         self.assertFalse(button.sensitive, msg="Finish Configuration button should not be sensitive")
 
@@ -112,7 +112,7 @@ class LiveCDFinishTestCase(UITestCase):
         signal.alarm(5*60)
 
         while True:
-            button = self.find("Quit", "button")
+            button = self.find("Quit", "push button")
             if button:
                 signal.alarm(0)
                 break
