@@ -454,9 +454,8 @@ class AutoPartSpoke(NormalTUISpoke):
             # Default to clearing everything.
             self.clearPartType = CLEARPART_TYPE_ALL
 
-        for parttype in self.parttypelist:
-            c = CheckboxWidget(title="%i) %s" % (self.parttypelist.index(parttype) + 1,
-                                                 _(parttype)),
+        for i, parttype in enumerate(self.parttypelist):
+            c = CheckboxWidget(title="%i) %s" % (i + 1, _(parttype)),
                                completed=(PARTTYPES[parttype] == self.clearPartType))
             self._window += [c, ""]
 
@@ -520,10 +519,8 @@ class PartitionSchemeSpoke(NormalTUISpoke):
         NormalTUISpoke.refresh(self, args)
 
         schemelist = self.partschemes.keys()
-        for sch in schemelist:
-            box = CheckboxWidget(title="%i) %s" %(schemelist.index(sch) \
-                                 + 1, sch), completed=(schemelist.index(sch) \
-                                 == self._selection))
+        for i, sch in enumerate(schemelist):
+            box = CheckboxWidget(title="%i) %s" %(i + 1, sch), completed=(i == self._selection))
             self._window += [box, ""]
 
         message = _("Select a partition scheme configuration.")
