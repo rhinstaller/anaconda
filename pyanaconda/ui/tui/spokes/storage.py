@@ -39,7 +39,7 @@ from blivet.devicelibs.dasd import format_dasd, make_unformatted_dasd_list
 from pyanaconda.flags import flags
 from pyanaconda.kickstart import doKickstartStorage
 from pyanaconda.threads import threadMgr, AnacondaThread
-from pyanaconda.constants import THREAD_STORAGE, THREAD_STORAGE_WATCHER, THREAD_DASDFMT
+from pyanaconda.constants import THREAD_STORAGE, THREAD_STORAGE_WATCHER, THREAD_DASDFMT, DEFAULT_AUTOPART_TYPE
 from pyanaconda.constants_text import INPUT_PROCESSED
 from pyanaconda.i18n import _, P_, N_
 from pyanaconda.bootloader import BootLoaderError
@@ -501,15 +501,17 @@ class PartitionSchemeSpoke(NormalTUISpoke):
     title = N_("Partition Scheme Options")
     category = SystemCategory
 
-    # set default FS to LVM, for consistency with graphical behavior
-    _selection = 1
-
     def __init__(self, app, data, storage, payload, instclass):
         NormalTUISpoke.__init__(self, app, data, storage, payload, instclass)
-        self.partschemes = OrderedDict([("Standard Partition", AUTOPART_TYPE_PLAIN),
-                                        ("LVM", AUTOPART_TYPE_LVM),
-                                        ("LVM Thin Provisioning", AUTOPART_TYPE_LVM_THINP),
-                                        ("BTRFS", AUTOPART_TYPE_BTRFS)])
+        self.partschemes = OrderedDict()
+        pre_select = self.data.autopart.type or DEFAULT_AUTOPART_TYPE
+        for i, item in enumerate([("Standard Partition", AUTOPART_TYPE_PLAIN),
+                                  ("LVM", AUTOPART_TYPE_LVM),
+                                  ("LVM Thin Provisioning", AUTOPART_TYPE_LVM_THINP),
+                                  ("BTRFS", AUTOPART_TYPE_BTRFS)]):
+            self.partschemes[item[0]] = item[1]
+            if item[1] == pre_select:
+                self._selection = i
 
     @property
     def indirect(self):

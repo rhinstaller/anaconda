@@ -164,3 +164,5 @@ TAR_SUFFIX = (".tar", ".tbz", ".tgz", ".txz", ".tar.bz2", "tar.gz", "tar.xz")
 
 # cmdline arguments that append instead of overwrite
 CMDLINE_APPEND = ["modprobe.blacklist"]
+
+DEFAULT_AUTOPART_TYPE = AUTOPART_TYPE_LVM
