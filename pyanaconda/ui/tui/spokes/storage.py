@@ -27,8 +27,8 @@ from pyanaconda.ui.tui.categories.system import SystemCategory
 from pyanaconda.ui.tui.spokes import NormalTUISpoke
 from pyanaconda.ui.tui.simpleline import TextWidget, CheckboxWidget
 from pyanaconda.ui.tui.tuiobject import YesNoDialog
+from pyanaconda.storage_utils import AUTOPART_CHOICES
 
-from pykickstart.constants import AUTOPART_TYPE_LVM, AUTOPART_TYPE_BTRFS, AUTOPART_TYPE_PLAIN, AUTOPART_TYPE_LVM_THINP
 from blivet import storageInitialize, arch
 from blivet.size import Size
 from blivet.errors import StorageError, DasdFormatError
@@ -44,7 +44,7 @@ from pyanaconda.constants_text import INPUT_PROCESSED
 from pyanaconda.i18n import _, P_, N_
 from pyanaconda.bootloader import BootLoaderError
 
-from pykickstart.constants import CLEARPART_TYPE_ALL, CLEARPART_TYPE_LINUX, CLEARPART_TYPE_NONE
+from pykickstart.constants import CLEARPART_TYPE_ALL, CLEARPART_TYPE_LINUX, CLEARPART_TYPE_NONE, AUTOPART_TYPE_LVM
 from pykickstart.errors import KickstartValueError
 
 from collections import OrderedDict
@@ -505,10 +505,7 @@ class PartitionSchemeSpoke(NormalTUISpoke):
         NormalTUISpoke.__init__(self, app, data, storage, payload, instclass)
         self.partschemes = OrderedDict()
         pre_select = self.data.autopart.type or DEFAULT_AUTOPART_TYPE
-        for i, item in enumerate([("Standard Partition", AUTOPART_TYPE_PLAIN),
-                                  ("LVM", AUTOPART_TYPE_LVM),
-                                  ("LVM Thin Provisioning", AUTOPART_TYPE_LVM_THINP),
-                                  ("BTRFS", AUTOPART_TYPE_BTRFS)]):
+        for i, item in enumerate(AUTOPART_CHOICES):
             self.partschemes[item[0]] = item[1]
             if item[1] == pre_select:
                 self._selection = i
@@ -522,7 +519,7 @@ class PartitionSchemeSpoke(NormalTUISpoke):
 
         schemelist = self.partschemes.keys()
         for i, sch in enumerate(schemelist):
-            box = CheckboxWidget(title="%i) %s" %(i + 1, sch), completed=(i == self._selection))
+            box = CheckboxWidget(title="%i) %s" %(i + 1, _(sch)), completed=(i == self._selection))
             self._window += [box, ""]
 
         message = _("Select a partition scheme configuration.")

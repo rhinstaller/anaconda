@@ -24,9 +24,8 @@
 from pyanaconda.i18n import _
 from pyanaconda.product import productName, productVersion
 from pyanaconda.ui.gui.utils import escape_markup, really_hide, really_show
-from pykickstart.constants import AUTOPART_TYPE_PLAIN, AUTOPART_TYPE_BTRFS
-from pykickstart.constants import AUTOPART_TYPE_LVM, AUTOPART_TYPE_LVM_THINP
 from pyanaconda.constants import DEFAULT_AUTOPART_TYPE
+from pyanaconda.storage_utils import AUTOPART_CHOICES
 
 from gi.repository.AnacondaWidgets import MountpointSelector
 from gi.repository import Gtk
@@ -328,11 +327,8 @@ class CreateNewPage(Page):
         self._createBox.attach(label, 0, 4, 2, 1)
         label.set_mnemonic_widget(combo)
 
-        for item in ([_("Standard Partition"), AUTOPART_TYPE_PLAIN],
-                     [_("BTRFS"), AUTOPART_TYPE_BTRFS],
-                     [_("LVM"), AUTOPART_TYPE_LVM],
-                     [_("LVM Thin Provisioning"), AUTOPART_TYPE_LVM_THINP]):
-            itr = store.append(item)
+        for item in (AUTOPART_CHOICES):
+            itr = store.append([_(item[0]), item[1]])
             if item[1] == DEFAULT_AUTOPART_TYPE:
                 default = itr
 

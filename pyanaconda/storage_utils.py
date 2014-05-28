@@ -83,6 +83,11 @@ MOUNTPOINT_DESCRIPTIONS = {"Swap": N_("The 'swap' area on your computer is used 
                                            "bootloader configuration on some PPC platforms.")
                             }
 
+AUTOPART_CHOICES = ((N_("Standard Partition"), AUTOPART_TYPE_PLAIN),
+                    (N_("BTRFS"), AUTOPART_TYPE_BTRFS),
+                    (N_("LVM"), AUTOPART_TYPE_LVM),
+                    (N_("LVM Thin Provisioning"), AUTOPART_TYPE_LVM_THINP))
+
 AUTOPART_DEVICE_TYPES = {AUTOPART_TYPE_LVM: DEVICE_TYPE_LVM,
                          AUTOPART_TYPE_LVM_THINP: DEVICE_TYPE_LVM_THINP,
                          AUTOPART_TYPE_PLAIN: DEVICE_TYPE_PARTITION,
