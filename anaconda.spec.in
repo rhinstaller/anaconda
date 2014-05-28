@@ -302,6 +302,41 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Wed May 28 2014 Brian C. Lane <bcl@redhat.com> - 21.38-1
+- Parse boot options before parsing CLI options (#1101341) (mkolman)
+- Check that bootloader devices are configured before validating (#1100928)
+  (dshea)
+- network: use IpInterface only for activated devices (#1101781) (rvykydal)
+- Enable LVM Thin Provisioning in text mode (vpodzime)
+- Remove the executable bit from anaconda.spec.in. (clumens)
+- Fix the nm test for big-endian results (dshea)
+- Fix issues with auto* and version.py (dshea)
+- Allow file:// url handler in --repo arg (bcl)
+- Ignore deprecation warnings for atk_role_register (dshea)
+- Handle renames in makeupdates. (pjones)
+- Move Anaconda version detection from isys to Python code (mkolman)
+- network: use IpInterface instead of Interface (#1058906, #1029214) (rvykydal)
+- network: don't modify network config for dirInstall and imageInstall
+  (rvykydal)
+- network: remove redundant image install guard (rvykydal)
+- network: add first tests for nm.py (rvykydal)
+- network: consolidate setNetworkOnbootDefault (rvykydal)
+- Set ONBOOT=yes for the device used for installation (#1002544). (rvykydal)
+- Use proper data for autopart type initialization (vpodzime)
+- Line up the right side of the FCOE dialog. (clumens)
+- Use default_width and _height on dialogs instead of _request. (clumens)
+- Remove the border around the refresh storage dialog's button. (clumens)
+- Short-circuit initialization when printing out Anaconda version (mkolman)
+- Make print statements Python 3 compatible (mkolman)
+- Fix the handling of set_const options pulled in from the boot cmdline (dshea)
+- Fix the modify software tooltip on the installation options dialogs.
+  (clumens)
+- Better visually distinguish TUI spokes states (vpodzime)
+- Reset the text direction as soon as the locale is changed (dshea)
+- Show errors from the displayed mountpoint when exiting the custom spoke
+  (dshea)
+- Check that container names input by the user are valid (dshea)
+
 * Tue May 20 2014 Brian C. Lane <bcl@redhat.com> - 21.37-1
 - Chain up to parent size_allocate functions in our standalone widgets.
   (clumens)
