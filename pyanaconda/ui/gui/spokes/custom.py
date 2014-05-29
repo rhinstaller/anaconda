@@ -459,7 +459,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
             page = CreateNewPage(translated_new_install_name(),
                                  self.on_create_clicked,
                                  self._change_autopart_type,
-                                 partitionsToReuse=bool(ui_roots))
+                                 partitionsToReuse=bool(ui_roots) or bool(self.unusedDevices))
             self._accordion.addPage(page, cb=self.on_page_clicked)
 
             self._partitionsNotebook.set_current_page(NOTEBOOK_LABEL_PAGE)
