@@ -1422,17 +1422,20 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
     ###
 
     def on_key_pressed(self, window, event, *args):
-        # Handle any keyboard events.  Right now this is just delete for
-        # removing an existing mountpoint, but it could include more later.
         if not event or event and event.type != Gdk.EventType.KEY_RELEASE:
             return
 
-        if event.keyval == Gdk.KEY_Delete:
+        if event.keyval in [Gdk.KEY_Delete, Gdk.KEY_minus]:
             # But we only want delete to work if you have focused a MountpointSelector,
             # and not just any random widget.  For those, it's likely the user wants
             # to delete a character.
             if isinstance(window.get_focus(), MountpointSelector):
                 self._removeButton.emit("clicked")
+        elif event.keyval == Gdk.KEY_plus:
+            # And we only want '+' to work if you don't have a text entry focused, since
+            # the user might be entering some free-form text that can include a plus.
+            if not isinstance(window.get_focus(), Gtk.Entry):
+                self._addButton.emit("clicked")
 
     def _do_check(self):
         self.clear_errors()
