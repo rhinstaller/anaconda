@@ -164,7 +164,7 @@ class Creator(object):
 
                 f.write(self.template % {"imports": "\n".join(imports),
                                          "addtests": "\n".join(addtests),
-                                         "anacondaArgs": config.get("anacondaArgs", "")})
+                                         "anacondaArgs": config.get("anacondaArgs", "").strip('"')})
         finally:
             # pylint: disable=undefined-variable
             b.devicetree.teardownDiskImages()

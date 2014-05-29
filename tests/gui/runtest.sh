@@ -19,12 +19,17 @@
 # Red Hat Author(s): Chris Lumens <clumens@redhat.com>
 
 function doit() {
-    nosetests -s \
-              -v \
-              --nologcapture \
-              --tc=resultsdir:$(mktemp -d --tmpdir=/var/tmp autogui-results-XXXXXX) \
-              --tc=liveImage:"$1" $2 \
-              outside
+    ARGS="-s \
+          -v \
+          --nologcapture \
+          --tc=resultsdir:$(mktemp -d --tmpdir=/var/tmp autogui-results-XXXXXX) \
+          --tc=liveImage:$1"
+
+    if [ -z "$2" ]; then
+        nosetests ${ARGS} outside
+    else
+        nosetests ${ARGS} "${2}" outside
+    fi
 }
 
 # We require the test_config plugin for nose, which is not currently packaged
@@ -42,9 +47,9 @@ fi
 # (1) $GUI_TEST_LIVECD, if this script is being called from "make check"
 # (2) The command line, if this script is being called directly.
 if [[ "${GUI_TEST_LIVECD}" != "" ]]; then
-    LIVECD="${GUI_TEST_LIVECD}"
+    LIVECD=${GUI_TEST_LIVECD}
 elif [[ $# != 0 ]]; then
-    LIVECD="$1"
+    LIVECD=$1
     shift
 else
     echo "usage: $0 <livecd.iso> [anaconda args...]"
@@ -67,9 +72,9 @@ fi
 # If we're being called from "make check", we will be outside the gui test directory.
 # Unfortunately, everything is written assuming that's where we will be.  So cd there.
 if [ -d gui ]; then
-    ( cd gui && doit "${LIVECD}" ${EXTRA} )
+    ( cd gui && doit ${LIVECD} "${EXTRA}" )
 elif [ -d outside ]; then
-    doit "${LIVECD}" ${EXTRA}
+    doit ${LIVECD} "${EXTRA}"
 else
     echo "Could not find test contents"
     exit 3
