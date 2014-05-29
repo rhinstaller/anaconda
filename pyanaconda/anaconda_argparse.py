@@ -186,7 +186,7 @@ class AnacondaArgumentParser(ArgumentParser):
                 # nargs == 0 -> the option expects one or more arguments but the
                 # boot option was not given any, so we skip it
                 log.warning("boot option specified without expected number of "
-                            "arguments and will be ignored: ", arg)
+                            "arguments and will be ignored: %s", arg)
                 continue
             if option.nargs == 0 and option.const is not None:
                 # nargs == 0 & constr == True -> store_true
