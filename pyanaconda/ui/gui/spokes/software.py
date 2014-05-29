@@ -464,13 +464,14 @@ class SoftwareSelectionSpoke(NormalSpoke):
         if not self._errorMsgs:
             return
 
-        label = _("The following software marked for installation has errors.  "
-                  "This is likely caused by an error with\nyour installation source.  "
-                  "You can change your installation source or quit the installer.")
+        label = _("The software marked for installation has the following errors.  "
+                  "This is likely caused by an error with your installation source.  "
+                  "You can quit the installer, change your software source, or change "
+                  "your software selections.")
         dialog = DetailedErrorDialog(self.data,
                 buttons=[C_("GUI|Software Selection|Error Dialog", "_Quit"),
-                         C_("GUI|Software Selection|Error Dialog", "_Cancel"),
-                         C_("GUI|Software Selection|Error Dialog", "_Modify Software Source")],
+                         C_("GUI|Software Selection|Error Dialog", "_Modify Software Source"),
+                         C_("GUI|Software Selection|Error Dialog", "Modify _Selections")],
                 label=label)
         with enlightbox(self.window, dialog.window):
             dialog.refresh(self._errorMsgs)
@@ -482,11 +483,11 @@ class SoftwareSelectionSpoke(NormalSpoke):
             # Quit.
             sys.exit(0)
         elif rc == 1:
-            # Close the dialog so the user can change selections.
-            pass
-        elif rc == 2:
             # Send the user to the installation source spoke.
             self.skipTo = "SourceSpoke"
             self.window.emit("button-clicked")
+        elif rc == 2:
+            # Close the dialog so the user can change selections.
+            pass
         else:
             pass
