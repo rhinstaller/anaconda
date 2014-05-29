@@ -754,7 +754,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
             device = device.slave
             selector.device = device
             self._update_device_in_selectors(old_device, device)
-        elif encrypted:
+        else:
             log.info("applying encryption to %s", device.name)
             old_device = device
             new_fmt = getFormat("luks", device=device.path)
