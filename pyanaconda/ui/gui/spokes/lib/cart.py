@@ -120,15 +120,12 @@ class SelectedDisksDialog(GUIObject):
 
     def _update_summary(self):
         count = 0
-        size = 0
-        free = 0
+        size = Size(0)
+        free = Size(0)
         for row in self._store:
             count += 1
             size += Size(row[SIZE_COL])
             free += Size(row[FREE_SPACE_COL])
-
-        size = str(Size(long(size))).upper()
-        free = str(Size(long(free))).upper()
 
         # pylint: disable=unescaped-markup
         text = P_("<b>%(count)d disk; %(size)s capacity; %(free)s free space</b> "
