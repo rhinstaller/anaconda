@@ -20,7 +20,7 @@
 #
 
 AC_PREREQ([2.63])
-AC_INIT([AnacondaWidgets], [2.0], [clumens@redhat.com])
+AC_INIT([AnacondaWidgets], [3.0], [clumens@redhat.com])
 AM_INIT_AUTOMAKE([foreign])
 AM_SILENT_RULES([yes])
 
