@@ -1562,8 +1562,7 @@ class GRUB2(GRUB):
             log.error("bootloader password setup failed: %s", e)
 
         # make sure the default entry is the OS we are installing
-        entry_title = "%s Linux, with Linux %s" % (productName,
-                                                   self.default.version)
+        entry_title = "0"
         rc = iutil.execInSysroot("grub2-set-default", [entry_title])
         if rc:
             log.error("failed to set default menu entry to %s", productName)
