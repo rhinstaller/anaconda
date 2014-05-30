@@ -345,6 +345,7 @@
                                       <object class="GtkTreeViewColumn" id="searchSelectedCol">
                                         <child>
                                           <object class="GtkCellRendererToggle" id="searchSelectedRenderer">
+                                            <property name="activatable">True</property>
                                             <signal name="toggled" handler="on_row_toggled" swapped="no"/>
                                           </object>
                                           <attributes>
@@ -726,6 +727,7 @@
                                       <object class="GtkTreeViewColumn" id="multipathSelectedCol">
                                         <child>
                                           <object class="GtkCellRendererToggle" id="multipathSelectedRenderer">
+                                            <property name="activatable">True</property>
                                             <signal name="toggled" handler="on_row_toggled" swapped="no"/>
                                           </object>
                                           <attributes>
@@ -1072,6 +1074,7 @@
                                       <object class="GtkTreeViewColumn" id="otherSelectedCol">
                                         <child>
                                           <object class="GtkCellRendererToggle" id="otherSelectedRenderer">
+                                            <property name="activatable">True</property>
                                             <signal name="toggled" handler="on_row_toggled" swapped="no"/>
                                           </object>
                                           <attributes>
@@ -1308,6 +1311,7 @@
                                       <object class="GtkTreeViewColumn" id="zSelectedCol">
                                         <child>
                                           <object class="GtkCellRendererToggle" id="zSelectedRenderer">
+                                            <property name="activatable">True</property>
                                             <signal name="toggled" handler="on_row_toggled" swapped="no"/>
                                           </object>
                                           <attributes>

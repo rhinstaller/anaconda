@@ -98,6 +98,7 @@
                     <property name="model">disk_store</property>
                     <child internal-child="selection">
                       <object class="GtkTreeSelection" id="disk_selection">
+                        <property name="mode">single</property>
                         <signal name="changed" handler="on_selection_changed" swapped="no"/>
                       </object>
                     </child>
