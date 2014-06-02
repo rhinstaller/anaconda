@@ -290,8 +290,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
     def unusedDevices(self):
         unused_devices = [d for d in self._storage_playground.unusedDevices
                                 if d.disks and d.mediaPresent and
-                                not d.partitioned and
-                                (d.isleaf or d.type.startswith("btrfs"))]
+                                not d.partitioned and d.direct]
         # add incomplete VGs and MDs
         incomplete = [d for d in self._storage_playground.devicetree._devices
                             if not getattr(d, "complete", True)]
@@ -422,9 +421,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
 
     def get_new_devices(self):
         # A device scheduled for formatting only belongs in the new root.
-        new_devices = [d for d in self._devices if (d.isleaf or
-                                                    d.type.startswith("btrfs"))
-                                                   and
+        new_devices = [d for d in self._devices if d.direct and
                                                    not d.format.exists and
                                                    not d.partitioned]
 
@@ -1694,7 +1691,11 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         try:
             if device.isDisk:
                 self._storage_playground.initializeDisk(device)
-            elif device.type.startswith("btrfs") and not device.isleaf:
+            elif device.direct and not device.isleaf:
+                # we shouldn't call this method for with non-leaf devices except
+                # for those which are also directly accessible like lvm
+                # snapshot origins and btrfs subvolumes that contain other
+                # subvolumes
                 self._storage_playground.recursiveRemove(device)
             else:
                 self._storage_playground.destroyDevice(device)
@@ -1808,8 +1809,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
             # on it.  Thus, we first need to confirm with the user and then
             # schedule actions to delete the thing.
             dialog = ConfirmDeleteDialog(self.data)
-            subvols = (device.type.startswith("btrfs") and
-                       not device.isleaf)
+            subvols = (device.direct and not device.isleaf)
             dialog.refresh(getattr(device.format, "mountpoint", ""),
                            device.name, root_name, subvols=subvols)
             with enlightbox(self.window, dialog.window):
