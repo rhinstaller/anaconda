@@ -1808,9 +1808,9 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
             # on it.  Thus, we first need to confirm with the user and then
             # schedule actions to delete the thing.
             dialog = ConfirmDeleteDialog(self.data)
-            subvols = (device.direct and not device.isleaf)
+            snapshots = (device.direct and not device.isleaf)
             dialog.refresh(getattr(device.format, "mountpoint", ""),
-                           device.name, root_name, subvols=subvols)
+                           device.name, root_name, snapshots=snapshots)
             with enlightbox(self.window, dialog.window):
                 rc = dialog.run()
 

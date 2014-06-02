@@ -346,7 +346,7 @@ class ConfirmDeleteDialog(GUIObject):
         self.window.destroy()
 
     # pylint: disable=arguments-differ
-    def refresh(self, mountpoint, device, rootName, subvols=False):
+    def refresh(self, mountpoint, device, rootName, snapshots=False):
         GUIObject.refresh(self)
         label = self.builder.get_object("confirmLabel")
 
@@ -363,10 +363,10 @@ class ConfirmDeleteDialog(GUIObject):
         else:
             txt = device
 
-        if not subvols:
+        if not snapshots:
             label_text = _("Are you sure you want to delete all of the data on %s?") % txt
         else:
-            label_text = _("Are you sure you want to delete all of the data on %s, including subvolumes and/or snapshots?") % txt
+            label_text = _("Are you sure you want to delete all of the data on %s, including snapshots and/or subvolumes?") % txt
 
         label.set_text(label_text)
 
