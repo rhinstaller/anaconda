@@ -1359,7 +1359,7 @@ class GRUB(BootLoader):
                 self.stage2_device.level == raid.RAID1 and \
                 self.stage1_device.type != "mdarray":
             if not self.stage1_device.isDisk:
-                msg = _("bootloader stage2 device %(stage2dev)s in on a multi-disk array, but bootloader stage1 device %(stage1dev)s is not. " \
+                msg = _("bootloader stage2 device %(stage2dev)s is on a multi-disk array, but bootloader stage1 device %(stage1dev)s is not. " \
                         "A drive failure in %(stage2dev)s could render the system unbootable.") % \
                         {"stage1dev" : self.stage1_device.name,
                          "stage2dev" : self.stage2_device.name}
