@@ -31,6 +31,7 @@ __all__ = ["size_from_entry", "populate_mountpoint_store", "validate_label",
            "AddDialog", "ConfirmDeleteDialog", "DisksDialog", "ContainerDialog",
            "HelpDialog"]
 
+import functools
 import re
 
 from pyanaconda.product import productName
@@ -219,6 +220,26 @@ def requiresRaidSelection(device_type):
     """ Whether GUI requires a RAID level be selected for this device type."""
     return device_type == DEVICE_TYPE_MD
 
+def memoizer(f):
+    """ A simple decorator that memoizes by means of the shared default
+        value for cache in the result function.
+
+        :param f: a function of a single argument
+        :returns: a memoizing version of f
+    """
+    @functools.wraps(f)
+    def new_func(arg, cache={}):
+        # pylint: disable=dangerous-default-value
+        if arg in cache:
+            return cache[arg]
+
+        result = f(arg)
+        cache[arg] = result
+        return result
+
+    return new_func
+
+@memoizer
 def raidLevelsSupported(device_type):
     """ The raid levels anaconda supports for this device type.
 
@@ -241,6 +262,7 @@ def raidLevelsSupported(device_type):
         supported = set()
     return get_supported_raid_levels(device_type).intersection(supported)
 
+@memoizer
 def containerRaidLevelsSupported(device_type):
     """ The raid levels anaconda supports for a container for this
         device_type.
