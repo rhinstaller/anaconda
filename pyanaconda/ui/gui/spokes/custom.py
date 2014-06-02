@@ -1370,9 +1370,8 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         self._sizeEntry.set_text(self._device_size_text)
 
         self._reformatCheckbox.set_active(not device.format.exists)
-        fancy_set_sensitive(self._reformatCheckbox, not device.protected and
-                                                          use_dev.exists and
-                                                          not use_dev.type.startswith("btrfs"))
+        fancy_set_sensitive(self._reformatCheckbox,
+                            use_dev.exists and not use_dev.formatImmutable)
 
         self._encryptCheckbox.set_active(isinstance(device, LUKSDevice))
         self._encryptCheckbox.set_sensitive(self._reformatCheckbox.get_active())
