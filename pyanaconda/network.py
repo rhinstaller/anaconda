@@ -344,18 +344,20 @@ def dracutBootArguments(devname, ifcfg, storage_ipaddr, hostname=None):
             if iutil.lowerASCII(ifcfg.get('bootproto')) == 'dhcp':
                 netargs.add("ip=%s:dhcp" % devname)
             else:
-                if ifcfg.get('GATEWAY'):
-                    gateway = ifcfg.get('GATEWAY')
+                cfgidx = ''
+                if ifcfg.get('IPADDR0'):
+                    cfgidx = '0'
+                if ifcfg.get('GATEWAY%s' % cfgidx):
+                    gateway = ifcfg.get('GATEWAY%s' % cfgidx)
                 else:
                     gateway = ""
-
-                netmask = ifcfg.get('netmask')
-                prefix  = ifcfg.get('prefix')
+                netmask = ifcfg.get('NETMASK%s' % cfgidx)
+                prefix  = ifcfg.get('PREFIX%s' % cfgidx)
                 if not netmask and prefix:
                     netmask = prefix2netmask(int(prefix))
-
-                netargs.add("ip=%s::%s:%s:%s:%s:none" % (ifcfg.get('ipaddr'),
-                           gateway, netmask, hostname, devname))
+                ipaddr = ifcfg.get('IPADDR%s' % cfgidx)
+                netargs.add("ip=%s::%s:%s:%s:%s:none" %
+                            (ipaddr, gateway, netmask, hostname, devname))
 
         hwaddr = ifcfg.get("HWADDR")
         if hwaddr:
