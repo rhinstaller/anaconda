@@ -887,6 +887,8 @@ if __name__ == "__main__":
             log.info("Unable to connect to DBus session bus: %s", e)
         else:
             anaconda.dbus_inhibit_id = inhibit_screensaver(anaconda.dbus_session_connection)
+    elif "LIVECMD" in os.environ:
+        log.warning("Running via liveinst, but not setting flags.livecdInstall - this is for testing only")
 
     if opts.module:
         for mod in opts.module:

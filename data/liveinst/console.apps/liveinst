@@ -4,5 +4,5 @@ SESSION=true
 # has to be here otherwise consolehelper switches off the waiting cursor too early
 STARTUP_NOTIFICATION_NAME="Starting Install to Hard Drive"
 DOMAIN=anaconda
-# DBus session connections fail when running setuid unless we pass this through
-KEEP_ENV_VARS=DBUS_SESSION_BUS_ADDRESS
+# DBus session connections fail when running setuid unless we pass DBUS_SESSION_BUS_ADDRESS through
+KEEP_ENV_VARS=DBUS_SESSION_BUS_ADDRESS,LIVECMD

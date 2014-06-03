@@ -47,6 +47,8 @@ def suite():
     return s
 
 if __name__ == "__main__":
+%(environ)s
+
     s = suite()
     result = unittest.TextTestRunner(verbosity=2, failfast=True).run(s)
 

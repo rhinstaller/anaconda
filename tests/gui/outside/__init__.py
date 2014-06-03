@@ -38,6 +38,8 @@ class Creator(object):
 
        drives       -- A list of tuples describing disk images to create.  Each
                        tuple is the name and size, in GB.
+       environ      -- A dictionary of environment variables that should be added
+                       to the environment the test suite will run under.
        name         -- A unique string that names a Creator.  This name will
                        be used in creating the results directory (and perhaps
                        other places in the future) so make sure it doesn't
@@ -52,6 +54,7 @@ class Creator(object):
                        run in the order provided.
     """
     drives = []
+    environ = {}
     name = "Creator"
     reqMemory = 2048
     tests = []
@@ -162,7 +165,8 @@ class Creator(object):
                 imports = map(lambda (path, cls): "    from inside.%s import %s" % (path, cls), self.tests)
                 addtests = map(lambda (path, cls): "    s.addTest(%s())" % cls, self.tests)
 
-                f.write(self.template % {"imports": "\n".join(imports),
+                f.write(self.template % {"environ": "    os.environ.update(%s)" % self.environ,
+                                         "imports": "\n".join(imports),
                                          "addtests": "\n".join(addtests),
                                          "anacondaArgs": config.get("anacondaArgs", "").strip('"')})
         finally:
