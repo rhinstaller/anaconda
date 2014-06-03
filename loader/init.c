@@ -172,7 +172,7 @@ static void startSyslog(void) {
     klogctl(8, NULL, 1);
     /* now we really start the daemon. */
     int status;
-    status = system("/sbin/rsyslogd -c 4");
+    status = system("/sbin/rsyslogd");
     if (status < 0 || 
         !WIFEXITED(status) || 
         WEXITSTATUS(status)  != 0) {
