@@ -302,6 +302,35 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Mon Jun 02 2014 Brian C. Lane <bcl@redhat.com> - 21.39-1
+- eu_ES has been dropped from the supported languages (bcl)
+- Change 'elif encrypted' statement to 'else' statement. (amulhern)
+- Work around a parsing bug in GtkBuilder (dshea)
+- Don't uppercase the size values in the disk shopping cart. (clumens)
+- Display the sentence about being able to reuse partitions even without roots.
+  (clumens)
+- Allow a couple more keyboard shortcuts on the custom part spoke. (clumens)
+- Reword the close button on the software spoke's error dialog. (clumens)
+- Fix up quoting around passing args to anaconda in the gui test. (clumens)
+- Don't hide a serious issue (vpodzime)
+- Move autopart choices to one place and use them in both GUI and TUI
+  (vpodzime)
+- Define default autopart type as a constant (vpodzime)
+- Use enumerate() instead of getting indices of iterated items (vpodzime)
+- Preserve net.ifnames cmdline arg (#1102401) (bcl)
+- Revert the dialog sizing chunk from resize.glade. (clumens)
+- Update GUI tests for changes in gtk/atk/anaconda/whatever. (clumens)
+- Fix gui/runtest.sh to work under either "make check" or being run manually.
+  (clumens)
+- Add a -c argument to the ksflatten invocation. (clumens)
+- Do basic logging setup when short circuiting the normal Anaconda init
+  (mkolman)
+- Fix boot option warning string formatting (mkolman)
+- always rescan for vmlinuz if rescueKernelList (gczarcinski)
+- move new-kernel-pkg rpmposttrans to end of install (gczarcinski)
+- allow /boot on btrfs subvol or filesystem (gczarcinski)
+- Allow /boot on LVMlv (gczarcinski)
+
 * Wed May 28 2014 Brian C. Lane <bcl@redhat.com> - 21.38-1
 - Parse boot options before parsing CLI options (#1101341) (mkolman)
 - Check that bootloader devices are configured before validating (#1100928)
