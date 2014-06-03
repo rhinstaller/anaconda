@@ -960,7 +960,6 @@
                                 <property name="enable_search">False</property>
                                 <child internal-child="selection">
                                   <object class="GtkTreeSelection" id="repoSelection">
-                                    <property name="mode">single</property>
                                     <signal name="changed" handler="on_repoSelection_changed" swapped="no"/>
                                   </object>
                                 </child>
@@ -969,7 +968,6 @@
                                     <property name="title" translatable="yes">Enabled</property>
                                     <child>
                                       <object class="GtkCellRendererToggle" id="repoEnableRenderer">
-                                        <property name="activatable">True</property>
                                         <signal name="toggled" handler="on_repoEnable_toggled" swapped="no"/>
                                       </object>
                                       <attributes>

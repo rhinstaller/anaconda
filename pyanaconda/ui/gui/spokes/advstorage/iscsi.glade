@@ -728,7 +728,6 @@
                               <object class="GtkTreeViewColumn" id="nodeSelectedColumn">
                                 <child>
                                   <object class="GtkCellRendererToggle" id="nodeSelectedRenderer">
-                                    <property name="activatable">True</property>
                                     <signal name="toggled" handler="on_row_toggled" swapped="no"/>
                                   </object>
                                   <attributes>

@@ -144,7 +144,6 @@
                     <signal name="row-activated" handler="on_row_clicked" swapped="no"/>
                     <child internal-child="selection">
                       <object class="GtkTreeSelection" id="diskView-selection">
-                        <property name="mode">single</property>
                         <signal name="changed" handler="on_selection_changed" swapped="no"/>
                       </object>
                     </child>

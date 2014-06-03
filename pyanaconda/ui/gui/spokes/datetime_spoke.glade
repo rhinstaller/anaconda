@@ -204,7 +204,6 @@
                     <property name="title" translatable="yes">Use</property>
                     <child>
                       <object class="GtkCellRendererToggle" id="removeRenderer">
-                        <property name="activatable">True</property>
                         <signal name="toggled" handler="on_use_server_toggled" swapped="no"/>
                       </object>
                       <attributes>

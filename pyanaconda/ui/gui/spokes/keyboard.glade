@@ -145,7 +145,6 @@
                                 <property name="search_column">0</property>
                                 <child internal-child="selection">
                                   <object class="GtkTreeSelection" id="layoutSelection">
-                                    <property name="mode">single</property>
                                     <signal name="changed" handler="on_selection_changed" swapped="no"/>
                                   </object>
                                 </child>
@@ -708,7 +707,6 @@
                         <property name="title" translatable="yes">use</property>
                         <child>
                           <object class="GtkCellRendererToggle" id="useRenderer">
-                            <property name="activatable">True</property>
                             <signal name="toggled" handler="on_use_option_toggled" swapped="no"/>
                           </object>
                           <attributes>

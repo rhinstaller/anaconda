@@ -117,7 +117,6 @@
                             <property name="search_column">0</property>
                             <child internal-child="selection">
                               <object class="GtkTreeSelection" id="languageViewSelection">
-                                <property name="mode">single</property>
                                 <signal name="changed" handler="on_lang_selection_changed" swapped="no"/>
                               </object>
                             </child>
@@ -216,7 +215,6 @@
                                 <property name="title" translatable="yes">checked</property>
                                 <child>
                                   <object class="GtkCellRendererToggle" id="checkedRenderer">
-                                    <property name="activatable">True</property>
                                     <signal name="toggled" handler="on_locale_toggled" swapped="no"/>
                                   </object>
                                   <attributes>
