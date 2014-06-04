@@ -40,6 +40,9 @@ import booty
 import checkbootloader
 from util import getDiskPart
 
+import logging
+log = logging.getLogger("anaconda")
+
 if not iutil.isS390():
     import block
 
