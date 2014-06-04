@@ -905,6 +905,8 @@ class FS(DeviceFormat):
         if self.fsprofile:
             f.write(" --fsprofile=\"%s\"" % self.fsprofile)
 
+        if self.mountpoint != "/boot/efi/" and self.mountopts:
+            f.write(" --fsoptions=\"%s\"" % self.mountopts)
 
 class Ext2FS(FS):
     """ ext2 filesystem. """
