@@ -222,6 +222,14 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Wed Jun 04 2014 Samantha N. Bueno <sbueno+anaconda@redhat.com> - 13.21.218-1
+- Fix rsyslogd calls to remove deprecated flag. (sbueno+anaconda)
+  Resolves: rhbz#1104234
+- Maintain original device order in identifyMultipaths (artur.paszkiewicz)
+  Resolves: rhbz#868182
+- network: add kickstart --domain (ifcfg DOMAIN) option (rvykydal)
+  Resolves: rhbz#1039051
+
 * Tue May 20 2014 Samantha N. Bueno <sbueno+anaconda@redhat.com> - 13.21.217-1
 - Correct matching of md raid names containing special characters
   (artur.paszkiewicz)

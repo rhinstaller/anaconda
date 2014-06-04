@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: anaconda 13.21.216\n"
+"Project-Id-Version: anaconda 13.21.217\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
-"POT-Creation-Date: 2014-05-20 14:10-0400\n"
+"POT-Creation-Date: 2014-06-04 15:12-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -42,8 +42,8 @@ msgstr ""
 #: loader/loader.c:1490 loader/mediacheck.c:46 loader/mediacheck.c:85
 #: loader/mediacheck.c:92 loader/mediacheck.c:96 loader/mediacheck.c:105
 #: loader/method.c:277 loader/method.c:351 loader/net.c:607 loader/net.c:991
-#: loader/net.c:1798 loader/net.c:1822 loader/net.c:2180 loader/net.c:2199
-#: loader/net.c:2211 loader/nfsinstall.c:91 loader/nfsinstall.c:279
+#: loader/net.c:1802 loader/net.c:1826 loader/net.c:2184 loader/net.c:2203
+#: loader/net.c:2215 loader/nfsinstall.c:91 loader/nfsinstall.c:279
 #: loader/nfsinstall.c:296 loader/nfsinstall.c:384 loader/telnetd.c:92
 #: loader/urlinstall.c:142 loader/urlinstall.c:164 loader/urlinstall.c:226
 #: loader/urlinstall.c:379 loader/urlinstall.c:390 loader/urlinstall.c:397
@@ -96,7 +96,7 @@ msgid "Installing %s\n"
 msgstr ""
 
 #: bootloader.py:55 bootloader.py:244 bootloader.py:250 bootloader.py:257
-#: gui.py:1253 image.py:92 installinterfacebase.py:66 network.py:937
+#: gui.py:1253 image.py:92 installinterfacebase.py:66 network.py:940
 #: text.py:490 text.py:550 yuminstall.py:1634 yuminstall.py:1843
 #: yuminstall.py:1878 iw/blpasswidget.py:154 iw/upgrade_swap_gui.py:190
 #: iw/upgrade_swap_gui.py:198 iw/upgrade_swap_gui.py:205
@@ -123,8 +123,8 @@ msgstr ""
 msgid "_Exit installer"
 msgstr ""
 
-#: bootloader.py:60 image.py:102 image.py:265 kickstart.py:1579
-#: kickstart.py:1623 upgrade.py:58 yuminstall.py:1448 yuminstall.py:1630
+#: bootloader.py:60 image.py:102 image.py:265 kickstart.py:1582
+#: kickstart.py:1626 upgrade.py:58 yuminstall.py:1448 yuminstall.py:1630
 #: iw/partition_gui.py:1643 storage/__init__.py:2089
 msgid "_Continue"
 msgstr ""
@@ -162,8 +162,8 @@ msgstr ""
 msgid "In progress"
 msgstr ""
 
-#: cmdline.py:88 gui.py:1284 kickstart.py:1361 kickstart.py:1441
-#: kickstart.py:1449 kickstart.py:1488 kickstart.py:1496 text.py:396
+#: cmdline.py:88 gui.py:1284 kickstart.py:1364 kickstart.py:1444
+#: kickstart.py:1452 kickstart.py:1491 kickstart.py:1499 text.py:396
 #, python-format
 msgid ""
 "The following error was found while parsing the kickstart configuration "
@@ -609,63 +609,63 @@ msgid ""
 "%s"
 msgstr ""
 
-#: kickstart.py:1460
+#: kickstart.py:1463
 #, python-format
 msgid "Error processing %%ksappend lines: %s"
 msgstr ""
 
-#: kickstart.py:1463
+#: kickstart.py:1466
 #, python-format
 msgid "Unknown error processing %%ksappend lines: %s"
 msgstr ""
 
-#: kickstart.py:1519 livecd.py:166
+#: kickstart.py:1522 livecd.py:166
 msgid "Post-Installation"
 msgstr ""
 
-#: kickstart.py:1520
+#: kickstart.py:1523
 msgid "Running post-installation scripts"
 msgstr ""
 
-#: kickstart.py:1536
+#: kickstart.py:1539
 msgid "Pre-Installation"
 msgstr ""
 
-#: kickstart.py:1537
+#: kickstart.py:1540
 msgid "Running pre-installation scripts"
 msgstr ""
 
-#: kickstart.py:1570
+#: kickstart.py:1573
 msgid "Missing Package"
 msgstr ""
 
-#: kickstart.py:1571
+#: kickstart.py:1574
 #, python-format
 msgid ""
 "You have specified that the package '%s' should be installed.  This package "
 "does not exist. Would you like to continue or abort this installation?"
 msgstr ""
 
-#: kickstart.py:1577 kickstart.py:1621
+#: kickstart.py:1580 kickstart.py:1624
 msgid "_Abort"
 msgstr ""
 
-#: kickstart.py:1578 kickstart.py:1622
+#: kickstart.py:1581 kickstart.py:1625
 msgid "_Ignore All"
 msgstr ""
 
-#: kickstart.py:1613
+#: kickstart.py:1616
 msgid "Missing Group"
 msgstr ""
 
-#: kickstart.py:1614
+#: kickstart.py:1617
 #, python-format
 msgid ""
 "You have specified that the group '%s' should be installed. This group does "
 "not exist. Would you like to continue or abort this installation?"
 msgstr ""
 
-#: kickstart.py:1737
+#: kickstart.py:1740
 #, python-format
 msgid ""
 "The kickstart configuration file is missing required information that "
@@ -745,17 +745,17 @@ msgstr ""
 msgid "'%s' is an invalid IP address."
 msgstr ""
 
-#: network.py:938
+#: network.py:941
 msgid ""
 "You do not have an active network connection.  This is required by some "
 "exception saving methods.  Would you like to configure your network now?"
 msgstr ""
 
-#: network.py:944 rescue.py:262 yuminstall.py:1350 iw/task_gui.py:311
+#: network.py:947 rescue.py:262 yuminstall.py:1350 iw/task_gui.py:311
 msgid "No Network Available"
 msgstr ""
 
-#: network.py:945
+#: network.py:948
 msgid "Remote exception saving methods will not work."
 msgstr ""
 
@@ -3492,7 +3492,7 @@ msgstr ""
 #: loader/driverselect.c:178 loader/hdinstall.c:214 loader/hdinstall.c:268
 #: loader/kbd.c:119 loader/loader.c:520 loader/loader.c:537
 #: loader/loader.c:1490 loader/loader.c:1523 loader/net.c:607 loader/net.c:991
-#: loader/net.c:2180 loader/net.c:2199 loader/nfsinstall.c:91
+#: loader/net.c:2184 loader/net.c:2203 loader/nfsinstall.c:91
 #: loader/urls.c:268 storage/__init__.py:166 storage/devicetree.py:93
 #: textw/constants_text.py:52
 msgid "Back"
@@ -3600,7 +3600,7 @@ msgstr ""
 #: loader/driverdisk.c:802 loader/driverdisk.c:840 loader/hdinstall.c:362
 #: loader/kickstart.c:140 loader/kickstart.c:150 loader/kickstart.c:192
 #: loader/kickstart.c:197 loader/kickstart.c:526 loader/kickstart.c:572
-#: loader/kickstart.c:588 loader/net.c:1798 loader/net.c:1822
+#: loader/kickstart.c:588 loader/net.c:1802 loader/net.c:1826
 #: loader/nfsinstall.c:384 loader/urlinstall.c:379 loader/urlinstall.c:390
 #: loader/urlinstall.c:397
 msgid "Kickstart Error"
@@ -4105,62 +4105,62 @@ msgstr ""
 msgid "You must enter both a valid IPv6 address and a CIDR prefix."
 msgstr ""
 
-#: loader/net.c:1799
+#: loader/net.c:1803
 #, c-format
 msgid "Bad argument to kickstart network command: %s"
 msgstr ""
 
-#: loader/net.c:1823
+#: loader/net.c:1827
 #, c-format
 msgid "Bad bootproto %s specified in network command"
 msgstr ""
 
-#: loader/net.c:1956
+#: loader/net.c:1960
 msgid "Seconds:"
 msgstr ""
 
-#: loader/net.c:2175
+#: loader/net.c:2179
 msgid "Networking Device"
 msgstr ""
 
-#: loader/net.c:2176
+#: loader/net.c:2180
 msgid ""
 "You have multiple network devices on this system. Which would you like to "
 "install through?"
 msgstr ""
 
-#: loader/net.c:2180
+#: loader/net.c:2184
 msgid "Identify"
 msgstr ""
 
-#: loader/net.c:2189
+#: loader/net.c:2193
 msgid "You can identify the physical port for"
 msgstr ""
 
-#: loader/net.c:2191
+#: loader/net.c:2195
 msgid ""
 "by flashing the LED lights for a number of seconds.  Enter a number between "
 "1 and 30 to set the duration to flash the LED port lights."
 msgstr ""
 
-#: loader/net.c:2198
+#: loader/net.c:2202
 msgid "Identify NIC"
 msgstr ""
 
-#: loader/net.c:2211
+#: loader/net.c:2215
 msgid "Invalid Duration"
 msgstr ""
 
-#: loader/net.c:2212
+#: loader/net.c:2216
 msgid "You must enter the number of seconds as an integer between 1 and 30."
 msgstr ""
 
-#: loader/net.c:2224
+#: loader/net.c:2228
 #, c-format
 msgid "Flashing %s port lights for %d seconds."
 msgstr ""
 
-#: loader/net.c:2455 loader/net.c:2459
+#: loader/net.c:2459 loader/net.c:2463
 #, c-format
 msgid "Waiting for NetworkManager to configure %s.\n"
 msgstr ""
