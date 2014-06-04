@@ -1017,8 +1017,12 @@ if __name__ == "__main__":
         if not ksdata.keyboard.keyboard:
             ksdata.keyboard.keyboard = opts.keymap
 
-    if ksdata.keyboard.keyboard and can_touch_runtime_system("activate keyboard"):
-        keyboard.activate_keyboard(ksdata.keyboard)
+    if ksdata.keyboard.keyboard:
+        if can_touch_runtime_system("activate keyboard"):
+            keyboard.activate_keyboard(ksdata.keyboard)
+        else:
+            # at least make sure we have all the values
+            keyboard.populate_missing_items(ksdata.keyboard)
 
     # Some post-install parts of anaconda are implemented as kickstart
     # scripts.  Add those to the ksdata now.

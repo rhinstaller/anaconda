@@ -138,15 +138,19 @@ def normalize_layout_variant(layout_str):
 
 def populate_missing_items(keyboard):
     """
-    Function that populates keyboard.vc_keymap and keyboard.x_layouts if
-    they are missing. By invoking LocaledWrapper's methods this function
-    MODIFIES CONFIGURATION FILES.
+    Function that populates keyboard.vc_keymap and keyboard.x_layouts if they
+    are missing. By invoking LocaledWrapper's methods this function READS AND
+    WRITES CONFIGURATION FILES (but tries to keep their content unchanged).
 
     :type keyboard: ksdata.keyboard object
 
     """
 
     localed = LocaledWrapper()
+
+    if keyboard._keyboard and not (keyboard.vc_keymap or keyboard.x_layouts):
+        # we were given just a value in the old format, use it as a vc_keymap
+        keyboard.vc_keymap = keyboard._keyboard
 
     if keyboard.x_layouts and not keyboard.vc_keymap:
         keyboard.vc_keymap = localed.convert_layout(keyboard.x_layouts[0])
