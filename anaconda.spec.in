@@ -222,6 +222,15 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Thu Jun 05 2014 Samantha N. Bueno <sbueno+anaconda@redhat.com> - 13.21.219-1
+- Fix typo from commit ed3caa7b (bcl)
+  Related: rhbz#1039051
+  Resolves: rhbz#1039051
+- Write fsoptions to anaconda-ks.cfg (bcl)
+  Resolves: rhbz#1002924
+- Add logging to bootloaderInfo (bcl)
+  Resolves: rhbz#974996
+
 * Wed Jun 04 2014 Samantha N. Bueno <sbueno+anaconda@redhat.com> - 13.21.218-1
 - Fix rsyslogd calls to remove deprecated flag. (sbueno+anaconda)
   Resolves: rhbz#1104234
