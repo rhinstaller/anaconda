@@ -1350,7 +1350,7 @@ class DeviceTree(object):
             log.debug("%s is an md device" % name)
             if device is None and uuid:
                 # try to find the device by uuid
-                device = self.getDeviceByUuid(uuid)
+                device = self.getDeviceByUuid(info.get("MD_UUID"))
 
             if device is None:
                 device = self.addUdevMDDevice(info)
