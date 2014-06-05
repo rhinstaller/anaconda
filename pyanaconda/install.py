@@ -116,7 +116,7 @@ def moveBootMntToPhysical(storage):
         return
     bootmnt.format.teardown()
     bootmnt.teardown()
-    bootmnt.format.setup(bootmnt.format.options, chroot=iutil.getTargetPhysicalRoot())
+    bootmnt.format.setup(options=bootmnt.format.options, chroot=iutil.getTargetPhysicalRoot())
 
 def doInstall(storage, payload, ksdata, instClass):
     """Perform an installation.  This method takes the ksdata as prepared by
@@ -198,7 +198,7 @@ def doInstall(storage, payload, ksdata, instClass):
             # Explicitly mount the root on the physical sysroot
             rootmnt = storage.mountpoints.get('/')
             rootmnt.setup()
-            rootmnt.format.setup(rootmnt.format.options, chroot=iutil.getTargetPhysicalRoot())
+            rootmnt.format.setup(options=rootmnt.format.options, chroot=iutil.getTargetPhysicalRoot())
 
             payload.prepareMountTargets(storage)
 
