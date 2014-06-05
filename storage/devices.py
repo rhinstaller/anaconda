@@ -2355,6 +2355,7 @@ class LVMLogicalVolumeDevice(DMDevice):
 
         self.uuid = uuid
         self.snapshotSpace = snapshotSpace
+        self.snapshots = []
         self.copies = copies
         self.logSize = logSize
         self.metaDataSize = 0
@@ -2579,6 +2580,9 @@ class LVMLogicalVolumeDevice(DMDevice):
         log_method_call(self, self.name, status=self.status)
         if not self.exists:
             raise DeviceError("device has not been created", self.name)
+
+        for snap in self.snapshots:
+            lvm.lvremove(self.vg.name, snap)
 
         self.teardown()
         # set up the vg's pvs so lvm can remove the lv

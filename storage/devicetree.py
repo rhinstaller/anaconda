@@ -1592,6 +1592,7 @@ class DeviceTree(object):
                 log.debug("adding %dMB to %s snapshot total"
                             % (lv_sizes[index], origin.name))
                 origin.snapshotSpace += lv_sizes[index]
+                origin.snapshots.append(lv_name)
                 continue
             elif lv_attr[index][0] == 'v':
                 # skip vorigins
