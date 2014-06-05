@@ -1,3 +1,170 @@
+cmdline
+Force command line installation mode. This mode simply prints out text and does not allow any interactivity.
+All options must be specified either in a kickstart file or on the command line. If all required options
+are not specified, the installation will terminate immediately. If running in PXE, network or media
+installation mode Anaconda will also reboot the machine. This can be prevented by passing the "inst.nokill"
+boot option.
+
+graphical
+Force graphical installation. A graphical installation implies that the installed system will
+boot up into graphical.target, using whichever display manager is in use by the default desktop
+(gdm for GNOME, kdm for KDE).
+
+text
+Force text mode installation. This also implies that the installed system will boot up in text mode
+instead of to the graphical login screen.
+
+proxy
+Use the given proxy settings when performing an installation from a HTTP/HTTPS/FTP source.
+The PROXY_URL can be specified like this: [PROTOCOL://][USERNAME[:PASSWORD]@]HOST[:PORT]
+
+debug
+Show debug level messages in the log watching consoles.
+This basically a shortcut for for loglevel=debug.
+
+kickstart
+Gives the location of the kickstart file to be used for installation. The KICKSTART_URL
+supports fetching kickstarts from HTTP/S, FTP, NFS, from a local file, from a local
+harddrive, from an optical disk and from BIOS RAID sets. For details on the KICKSTART_URL
+syntax see the Anaconda options wiki page: http://fedoraproject.org/wiki/Anaconda_Boot_Options
+
+rescue
+Start the rescue environment instead of installation.
+
+armplatform
+Can be used to specify the ARM platform for the installation by passing the appropriate PLATFORM_ID.
+
+multilib
+Enable yum's multlib_policy of "all" instead of the default of "best".
+
+method
+This option is deprecated in favor of the repo option. For now, it does the same thing as repo,
+but will be removed in the future.
+
+askmethod
+Do not automatically configure the Installation Source spoke, but require the user to enter it and
+choose an option. If you don't want to wait for the default configuration to be processed before
+you can enter the spoke and change it, you can pass this option.
+
+repo
+This option tells Anaconda where to find the packages for installation. This option must point to a
+valid yum repository (or, for some protocols, a Fedora DVD ISO image). It is analogous to the older
+method option, but repo makes it more clear exactly what is meant. This option may appear only once
+on the command line. It corresponds to the kickstart command install (whereas kickstart command repo
+is used for additional repositories). As of Fedora 16, you can (optionally) add a specific .iso file
+to the path. If no inst.root or inst.stage2 parameter is passed, this location will also be used
+as the source for the installer runtime image.
+For more information about the REPO_URL format check the Anaconda option documentation, available on:
+http://fedoraproject.org/wiki/Anaconda_Boot_Options
+
+stage2
+The STAGE2_URL specifies a path to a repository containing a stage2 (squashfs.img) file instead of to an
+installation source. Follows the same syntax as the repo option. If this parameter is provided,
+it takes precedence over all other methods of finding the install.img. Otherwise, Anaconda will attempt
+to find the install.img first on any existing CD, and then from the location given by repo.
+If only the stage2 option is given without repo, Anaconda will use whatever repos the installed
+system would have enabled by default for installation. For instance, an install of a Fedora release
+will attempt to use the Fedora mirrorlist given by /etc/yum.repos.d/fedora.repo from that release.
+
+noverifyssl
+Prevents Anaconda from verifying the ssl certificate for all HTTPS connections with an exception of the
+additional kickstart repos (where --noverifyssl can be set per repo).
+
+liveinst
+Run in live installation mode.
+
+resolution
+Run GUI installer in the resolution specified, "1024x768" for example.
+
+usefbx
+Use the framebuffer X driver instead of attempting to use a hardware-specific one.
+
+vnc
+Enable VNC-based installation. You will need to connect to the machine using a VNC client application.
+A VNC install implies that the installed system will boot up in runlevel 3 instead of to the graphical
+login screen. The VNC session will be shared. Consider setting a VNC password using the vncpassword
+option.
+
+vncconnect
+Once installation is up and running, connect to the VNC client named HOST, and optionally use port PORT.
+
+vncpassword
+Enable a password for the VNC connection. This will prevent someone from inadvertently connecting
+to the vnc-based installation. Requires the VNC option to be specified as well. If you have specified
+vncconnect the PASSWORD will not be used unless connection to host is not possible. Please note that
+the password needs to be 6 to 8 characters long (limitation of the VNC protocol).
+
+xdriver
+Use DRIVER as the X driver to use during installation as well as on the installed system.
+
+keymap
+Keyboard layout to use during installation and on the installed system. Valid KEYMAP values
+are those which can be used for the keyboard kickstart command.
+
+lang
+Language to use for the installation. LANG should be a language code which is valid to be used
+with the lang kickstart command.
+
+loglevel
+Set the minimum level required for messages to be logged on a terminal (log files always
+contain messages of all levels). Values for LEVEL are "debug", "info", "warning", "error",
+"critical" and "lock" (the "lock" level has been added in F21 and is used for debugging YUM locking).
+The default value is "info".
+
+syslog
+Once installation is up and running, send log messages to the syslog process on HOST,
+and optionally, on TCP port PORT. Requires the remote syslog process to accept incoming
+connections.
+
+noselinux
+Disable SELinux usage on the installed system.
+
+selinux
+Enable SELinux usage in the installed system (default). Note that when used as a boot option,
+"selinux" and "inst.selinux" are not the same. The "selinux" option is picked up by both the kernel
+and Anaconda, but "inst.selinux" is processed only by Anaconda. So when "selinux=0" is used,
+SELinux will be disabled both in the installation environment and in the installed system,
+but when "inst.selinux=0" is used SELinux will only be disabled in the installed system.
+Also note that while SELinux is running in the installation environment by default, it is
+running in permissive mode so disabling it there does not make much sense.
+
+nompath
+Disable support for multipath devices. This is for systems on which a false-positive is encountered
+which erroneously identifies a normal block device as a multipath device. There is no other reason
+to use this option. Warning: Don't use nompath with actual multipath hardware! Using this to attempt
+to install to a single path of a multipath is ill-advised, and not supported.
+
+mpath
+Enable multipath support during the installation (default)
+
+nodmraid
+Disable dmraid usage during the installation.
+
+dmraid
+Enable dmraid (Device Mapper software RAID) usage during the installation (default).
+
+noibft
+Disable iBFT usage during the installation.
+
+ibft
+Enable iBFT (iSCSI Boot Firmware Table) usage during the installation (default).
+
+geoloc
+Configure geolocation usage in Anaconda. Geolocation is used to pre-set language and time zone.
+The following values for PROVIDER_ID are supported: 0 - disable geolocation, "provider_fedora_geoip"
+- use the Fedora GeoIP API (default) and "provider_hostip" - use the Hostip.info GeoIP API.
+
+nomount
+Don't automatically mount any installed Linux partitions in rescue mode.
+
+updates
+Path to an updates image that is on local filesystem or available over FTP or HTTP.
+UPDATES_URL must be either a local filesystem path, a network URL or <disk>:<path> where
+<disk> can be one of sdX, /dev/sdX, LABEL=xxx, UUID=xxx and <path> defaults
+to /updates.img if missing. See the Anaconda docs for more details about the path specification.
+Please note that the updates image only updates the installation environment and is completely
+unrelated to package updates.
+
 dirinstall
 Use the device mounted at /mnt/sysimage as the installation
 destination. The --dirinstall and --image options are mutually
@@ -17,3 +184,38 @@ This option may be used multiple times to specify multiple disk
 images. It is an error to specify the same <path> twice or to use
 duplicate names. The --image and --dirinstall options are
 mutually exclusive.
+
+memcheck
+Check if the system has enough RAM to complete the installation
+and abort if it doesn't. Please note that this check is approximate
+and that memory usage during installation depends on the package
+selection, user interface (graphical vs text) and other parameters.
+
+nomemcheck
+Do not check if the system has enough RAM to complete the installation.
+Of course, any attempt to install with less than the safe minimum amount
+of memory may fail and is unsupported.
+
+leavebootorder
+Boot the drives in their existing order, to override the default of booting
+into the newly installed drive on Power Systems servers and EFI systems.
+This is useful for systems that, for example, should network boot first
+before falling back to a local boot.
+
+noeject
+Don't eject the installation CD/DVD (if any) once the installation
+has been completed. Ignored for image, directory and livecd installs.
+
+extlinux
+Use extlinux as the bootloader. Note that there's no attempt to validate
+that this will work for your platform or anything; it assumes that if you
+ask for it, you want to try.
+
+dnf
+Use the experimental DNF package management backend instead of the YUM backend
+that is used by default. For more information about the DNF project see:
+http://dnf.baseurl.org
+
+mpathfriendlynames
+Tell multipathd to use user friendly names when naming devices during the installation.
+See the multipathd documentation for more info.
