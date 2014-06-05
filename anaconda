@@ -242,20 +242,15 @@ def parseArguments(argv=None, boot_cmdline=None):
                     default="g")
     ap.add_argument("-G", "--graphical", dest="display_mode", action="store_const", const="g")
     ap.add_argument("-T", "--text", dest="display_mode", action="store_const", const="t")
-    ap.add_argument("-S", "--script", dest="display_mode", action="store_const", const="s")
 
     # Network
-    ap.add_argument("--noipv4", action="store_true", default=False)
-    ap.add_argument("--noipv6", action="store_true", default=False)
     ap.add_argument("--proxy")
 
     # Method of operation
-    ap.add_argument("--autostep", action="store_true", default=False)
     ap.add_argument("-d", "--debug", dest="debug", action="store_true", default=False)
     ap.add_argument("--ks", dest="ksfile", action="store_const", const="/run/install/ks.cfg")
     ap.add_argument("--kickstart", dest="ksfile")
     ap.add_argument("--rescue", dest="rescue", action="store_true", default=False)
-    ap.add_argument("--targetarch", "rpmarch", dest="targetArch", type=str)
     ap.add_argument("--armplatform", dest="armPlatform", type=str)
     ap.add_argument("--multilib", dest="multiLib", action="store_true", default=False)
 
@@ -267,8 +262,6 @@ def parseArguments(argv=None, boot_cmdline=None):
     ap.add_argument("--liveinst", action="store_true", default=False)
 
     # Display
-    ap.add_argument("--headless", dest="isHeadless", action="store_true", default=False)
-    ap.add_argument("--nofb")
     ap.add_argument("--resolution", dest="runres", default=None)
     ap.add_argument("--usefbx", dest="xdriver", action="store_const", const="fbdev")
     ap.add_argument("--vnc", action="store_true", default=False)
@@ -278,7 +271,6 @@ def parseArguments(argv=None, boot_cmdline=None):
 
     # Language
     ap.add_argument("--keymap")
-    ap.add_argument("--kbdtype")
     ap.add_argument("--lang")
 
     # Obvious
@@ -296,17 +288,13 @@ def parseArguments(argv=None, boot_cmdline=None):
 
     ap.add_argument("--noibft", dest="ibft", action="store_false", default=True)
     ap.add_argument("--ibft", action="store_true")
-    ap.add_argument("--noiscsi", dest="iscsi", action="store_false", default=False)
-    ap.add_argument("--iscsi", action="store_true")
 
     # Geolocation
     ap.add_argument("--geoloc")
 
     # Miscellaneous
-    ap.add_argument("--module", action="append", default=[])
     ap.add_argument("--nomount", dest="rescue_nomount", action="store_true", default=False)
     ap.add_argument("--updates", dest="updateSrc", action="store", type=str)
-    ap.add_argument("--dlabel", action="store_true", default=False)
     ap.add_argument("--image", action="append", dest="images", default=[],
                     metavar="IMAGE_SPEC", help=help_parser.help_text("image"))
     ap.add_argument("--dirinstall", action="store_true", default=False,
@@ -462,7 +450,7 @@ def setupDisplay(anaconda, opts, addon_paths=None):
     vncS.anaconda = anaconda
 
     anaconda.displayMode = opts.display_mode
-    anaconda.isHeadless = opts.isHeadless or arch.isS390()
+    anaconda.isHeadless = arch.isS390()
 
     if opts.vnc:
         flags.usevnc = 1
@@ -826,9 +814,6 @@ if __name__ == "__main__":
     # Default is to prompt to mount the installed system.
     anaconda.rescue_mount = not opts.rescue_nomount
 
-    if opts.dlabel: #autodetected driverdisc in use
-        flags.dlabel = True
-
     if opts.noipv4:
         flags.useIPv4 = False
 
@@ -853,19 +838,8 @@ if __name__ == "__main__":
     if opts.liveinst:
         flags.livecdInstall = True
 
-    if opts.module:
-        for mod in opts.module:
-            (path, name) = string.split(mod, ":")
-            anaconda.extraModules.append((path, name))
-
     if opts.ibft:
         flags.ibft = 1
-
-    if opts.iscsi:
-        flags.iscsi = 1
-
-    if opts.targetArch:
-        flags.targetarch = opts.targetArch
 
     if opts.armPlatform:
         flags.armPlatform = opts.armPlatform

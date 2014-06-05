@@ -45,16 +45,13 @@ class Flags(object):
     def __init__(self, read_cmdline=True):
         self.__dict__['_in_init'] = True
         self.livecdInstall = 0
-        self.dlabel = 0
         self.ibft = 1
-        self.iscsi = 0
         self.usevnc = 0
         self.vncquestion = True
         self.mpath = 1
         self.dmraid = 1
         self.selinux = SELINUX_DEFAULT
         self.debug = 0
-        self.targetarch = None
         self.useIPv4 = True
         self.useIPv6 = True
         self.armPlatform = None
@@ -82,9 +79,6 @@ class Flags(object):
     def read_cmdline(self):
         for f in ("selinux", "debug", "leavebootorder", "testing"):
             self.set_cmdline_bool(f)
-
-        if "rpmarch" in self.cmdline:
-            self.targetarch = self.cmdline.get("rpmarch")
 
         if not selinux.is_selinux_enabled():
             self.selinux = 0

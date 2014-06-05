@@ -52,9 +52,7 @@ changed.
 Automatic DriverDisc detection
 ------------------------------
 
-Anaconda can be told to look for driverdisc automatically by using 'dlabel=on'
-kernel command line argument. This is enabled by default in Red Hat Enterprise
-Linux version of Anaconda.
+Anaconda automatically looks for driverdiscs during startup.
 
 The DriverDisc has to be on partition or filesystem which has been labeled
 with 'oemdrv' label.
