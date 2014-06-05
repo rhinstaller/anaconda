@@ -1,3 +1,14 @@
+nomount
+Don't automatically mount any installed Linux partitions in rescue mode.
+
+updates
+Path to an updates image that is on local filesystem or available over FTP or HTTP.
+UPDATES_URL must be either a local filesystem path, a network URL or <disk>:<path> where
+<disk> can be one of sdX, /dev/sdX, LABEL=xxx, UUID=xxx and <path> defaults
+to /updates.img if missing. See the Anaconda docs for more details about the path specification.
+Please note that the updates image only updates the installation environment and is completely
+unrelated to package updates.
+
 dirinstall
 Use the device mounted at /mnt/sysimage as the installation
 destination. The --dirinstall and --image options are mutually
@@ -17,3 +28,34 @@ This option may be used multiple times to specify multiple disk
 images. It is an error to specify the same <path> twice or to use
 duplicate names. The --image and --dirinstall options are
 mutually exclusive.
+
+memcheck
+Check if the system has enough RAM to complete the installation
+and abort if it doesn't. Please note that this check is approximate
+and that memory usage during installation depends on the package
+selection, user interface (graphical vs text) and other parameters.
+
+nomemcheck
+Do not check if the system has enough RAM to complete the installation.
+Of course, any attempt to install with less than the safe minimum amount
+of memory may fail and is unsupported.
+
+leavebootorder
+Boot the drives in their existing order, to override the default of booting
+into the newly installed drive on Power Systems servers and EFI systems.
+This is useful for systems that, for example, should network boot first
+before falling back to a local boot.
+
+noeject
+Don't eject the installation CD/DVD (if any) once the installation
+has been completed. Ignored for image, directory and livecd installs.
+
+extlinux
+Use extlinux as the bootloader. Note that there's no attempt to validate
+that this will work for your platform or anything; it assumes that if you
+ask for it, you want to try.
+
+dnf
+Use the experimental DNF package management backend instead of the YUM backend
+that is used by default. For more information about the DNF project see:
+http://dnf.baseurl.org
