@@ -148,6 +148,14 @@ class PartitionTypeWindow(InstallWindow):
     def _isInteractiveKS(self):
         return self.anaconda.isKickstart and self.anaconda.id.ksdata.interactive.interactive
 
+    def _partitioningSpecified(self):
+        # see if any device create actions have been scheduled other than
+        # reformatting disks
+        create_actions = (a for a in self.storage.findActions(type="create")
+                            if not (a.isFormat() and
+                                    a.format.type == "disklabel"))
+        return any(create_actions)
+
     def getNext(self):
         if self.storage.checkNoDisks():
             raise gui.StayOnScreen
@@ -156,7 +164,7 @@ class PartitionTypeWindow(InstallWindow):
         # temporarily unset storage.clearPartType so that all devices will be
         # found during storage reset
         if not self._isInteractiveKS() or \
-               (self._isInteractiveKS() and len(self.storage.devicetree.findActions(type="create")) == 0):
+               (self._isInteractiveKS() and not self._partitioningSpecified()):
             self.anaconda.id.storage.reset(examine_all=True)
 
         self.storage.clearPartChoice = self.buttonGroup.getCurrent()
@@ -196,7 +204,7 @@ class PartitionTypeWindow(InstallWindow):
                 self.storage.encryptedAutoPart = False
 
             if not self._isInteractiveKS() or \
-               (self._isInteractiveKS() and len(self.storage.devicetree.findActions(type="create")) == 0):
+               (self._isInteractiveKS() and not self._partitioningSpecified()):
                 self.storage.doAutoPart = True
 
             self.dispatch.skipStep("cleardiskssel", skip = 0)
