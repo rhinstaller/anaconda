@@ -197,8 +197,10 @@ def doInstall(storage, payload, ksdata, instClass):
     if not ksdata.bootloader.disabled:
         packages += storage.bootloader.packages
 
-    # don't try to install packages from the install class' ignored list
-    packages = [p for p in packages if p not in instClass.ignoredPackages]
+    # don't try to install packages from the install class' ignored list and the
+    # explicitly excluded ones (user takes the responsibility)
+    packages = [p for p in packages
+                if p not in instClass.ignoredPackages and p not in ksdata.packages.excludedList]
     payload.preInstall(packages=packages, groups=payload.languageGroups())
     payload.install()
 
