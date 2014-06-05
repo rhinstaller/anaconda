@@ -985,7 +985,7 @@ class PartitionData(commands.partition.RHEL6_PartData):
 
             cert = getEscrowCertificate(anaconda, self.escrowcert)
             if self.onPart:
-                luksformat = format
+                luksformat = kwargs["format"]
                 device.format = getFormat("luks", passphrase=self.passphrase, device=device.path,
                                           cipher=self.cipher,
                                           escrow_cert=cert,
@@ -1136,7 +1136,7 @@ class RaidData(commands.raid.RHEL6_RaidData):
 
             cert = getEscrowCertificate(anaconda, self.escrowcert)
             if self.preexist:
-                luksformat = format
+                luksformat = kwargs["format"]
                 device.format = getFormat("luks", passphrase=self.passphrase, device=device.path,
                                           cipher=self.cipher,
                                           escrow_cert=cert,
