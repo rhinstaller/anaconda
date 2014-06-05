@@ -328,7 +328,6 @@ def parseArguments(argv=None, boot_cmdline=None):
     ap.add_argument("--module", action="append", default=[])
     ap.add_argument("--nomount", dest="rescue_nomount", action="store_true", default=False)
     ap.add_argument("--updates", dest="updateSrc", action="store", type=str)
-    ap.add_argument("--dlabel", action="store_true", default=False)
     ap.add_argument("--image", action="append", dest="images", default=[],
                     metavar="IMAGE_SPEC", help=help_parser.help_text("image"))
     ap.add_argument("--dirinstall", action="store_true", default=False,
@@ -860,9 +859,6 @@ if __name__ == "__main__":
 
     # Default is to prompt to mount the installed system.
     anaconda.rescue_mount = not opts.rescue_nomount
-
-    if opts.dlabel:  # autodetected driverdisc in use
-        flags.dlabel = True
 
     if opts.proxy:
         anaconda.proxy = opts.proxy

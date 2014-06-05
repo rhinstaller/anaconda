@@ -45,7 +45,6 @@ class Flags(object):
     def __init__(self, read_cmdline=True):
         self.__dict__['_in_init'] = True
         self.livecdInstall = 0
-        self.dlabel = 0
         self.ibft = 1
         self.iscsi = 0
         self.usevnc = 0
