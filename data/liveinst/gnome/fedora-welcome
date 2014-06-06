@@ -88,7 +88,7 @@ const WelcomeWindow = new Lang.Class({
 
       let tryContent = new Gtk.Box({ orientation: Gtk.Orientation.VERTICAL,
                                      spacing: 16 });
-      tryContent.add(new Gtk.Image({ icon_name: 'media-cdrom',
+      tryContent.add(new Gtk.Image({ icon_name: 'media-optical',
                                      pixel_size: 256 }));
       tryContent.add(makeLabel(_("Try Fedora"), true));
 
