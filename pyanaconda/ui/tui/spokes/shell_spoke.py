@@ -20,7 +20,7 @@
 
 """Text mode shell spoke"""
 
-from pyanaconda.ui.tui.categories.system import SystemCategory
+from pyanaconda.ui.categories.system import SystemCategory
 from pyanaconda.ui.tui.spokes import NormalTUISpoke
 from pyanaconda.ui.tui.simpleline.widgets import TextWidget
 from pyanaconda.i18n import N_, _

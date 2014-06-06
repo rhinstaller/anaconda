@@ -22,7 +22,7 @@
 
 
 from pyanaconda.flags import can_touch_runtime_system
-from pyanaconda.ui.tui.categories.system import SystemCategory
+from pyanaconda.ui.categories.system import SystemCategory
 from pyanaconda.ui.tui.spokes import EditTUISpoke, OneShotEditTUIDialog
 from pyanaconda.ui.tui.spokes import EditTUISpokeEntry as Entry
 from pyanaconda.ui.tui.simpleline import TextWidget, ColumnWidget

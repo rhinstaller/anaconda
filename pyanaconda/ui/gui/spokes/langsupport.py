@@ -25,7 +25,7 @@ from pyanaconda.flags import flags
 from pyanaconda.i18n import CN_
 from pyanaconda.ui.gui.spokes import NormalSpoke
 from pyanaconda.ui.gui.utils import escape_markup
-from pyanaconda.ui.gui.categories.localization import LocalizationCategory
+from pyanaconda.ui.categories.localization import LocalizationCategory
 from pyanaconda.ui.gui.spokes.lib.lang_locale_handler import LangLocaleHandler
 from pyanaconda import localization
 

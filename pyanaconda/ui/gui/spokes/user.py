@@ -28,7 +28,7 @@ from pyanaconda.users import cryptPassword, validatePassword, guess_username
 
 from pyanaconda.ui.gui.spokes import NormalSpoke
 from pyanaconda.ui.gui import GUIObject
-from pyanaconda.ui.gui.categories.user_settings import UserSettingsCategory
+from pyanaconda.ui.categories.user_settings import UserSettingsCategory
 from pyanaconda.ui.common import FirstbootSpokeMixIn
 from pyanaconda.ui.gui.utils import enlightbox
 from pyanaconda.ui.helpers import InputCheck

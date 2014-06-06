@@ -103,7 +103,7 @@ if hasattr(spoke, "register_event_cb"):
 
 if hasattr(spoke, "set_path"):
     spoke.set_path("categories", [
-        ("pyanaconda.ui.gui.categories.%s",
+        ("pyanaconda.ui.categories.%s",
          os.path.join(os.path.dirname(__file__),"..", "categories"))
          ])
     spoke.set_path("spokes", [

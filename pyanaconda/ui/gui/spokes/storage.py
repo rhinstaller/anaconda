@@ -50,7 +50,7 @@ from pyanaconda.ui.gui.spokes.lib.passphrase import PassphraseDialog
 from pyanaconda.ui.gui.spokes.lib.detailederror import DetailedErrorDialog
 from pyanaconda.ui.gui.spokes.lib.resize import ResizeDialog
 from pyanaconda.ui.gui.spokes.lib.dasdfmt import DasdFormatDialog
-from pyanaconda.ui.gui.categories.system import SystemCategory
+from pyanaconda.ui.categories.system import SystemCategory
 from pyanaconda.ui.gui.utils import enlightbox, escape_markup, gtk_action_nowait, ignoreEscape
 from pyanaconda.ui.helpers import StorageChecker
 

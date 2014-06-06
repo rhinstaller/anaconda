@@ -20,7 +20,7 @@
 #                    Chris Lumens <clumens@redhat.com>
 #
 
-from pyanaconda.ui.tui.categories.user_settings import UserSettingsCategory
+from pyanaconda.ui.categories.user_settings import UserSettingsCategory
 from pyanaconda.ui.tui.spokes import EditTUISpoke
 from pyanaconda.ui.tui.spokes import EditTUISpokeEntry as Entry
 from pyanaconda.ui.common import FirstbootSpokeMixIn

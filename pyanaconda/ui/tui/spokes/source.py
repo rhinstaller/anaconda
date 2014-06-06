@@ -20,7 +20,7 @@
 #
 
 from pyanaconda.flags import flags
-from pyanaconda.ui.tui.categories.software import SoftwareCategory
+from pyanaconda.ui.categories.software import SoftwareCategory
 from pyanaconda.ui.tui.spokes import EditTUISpoke, NormalTUISpoke
 from pyanaconda.ui.tui.spokes import EditTUISpokeEntry as Entry
 from pyanaconda.ui.tui.simpleline import TextWidget, ColumnWidget

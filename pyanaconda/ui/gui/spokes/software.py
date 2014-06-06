@@ -31,7 +31,7 @@ from pyanaconda.ui.communication import hubQ
 from pyanaconda.ui.gui.spokes import NormalSpoke
 from pyanaconda.ui.gui.spokes.lib.detailederror import DetailedErrorDialog
 from pyanaconda.ui.gui.utils import enlightbox, gtk_action_wait, escape_markup
-from pyanaconda.ui.gui.categories.software import SoftwareCategory
+from pyanaconda.ui.categories.software import SoftwareCategory
 
 import logging
 log = logging.getLogger("anaconda")

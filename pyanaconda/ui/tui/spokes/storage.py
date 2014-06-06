@@ -23,7 +23,7 @@
 #
 
 from pyanaconda.ui.lib.disks import getDisks, applyDiskSelection
-from pyanaconda.ui.tui.categories.system import SystemCategory
+from pyanaconda.ui.categories.system import SystemCategory
 from pyanaconda.ui.tui.spokes import NormalTUISpoke
 from pyanaconda.ui.tui.simpleline import TextWidget, CheckboxWidget
 from pyanaconda.ui.tui.tuiobject import YesNoDialog

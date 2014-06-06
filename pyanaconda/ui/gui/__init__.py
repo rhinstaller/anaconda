@@ -258,9 +258,9 @@ class GraphicalUserInterface(UserInterface):
         self._mehInterface = GraphicalExceptionHandlingIface(
                                     self.lightbox_over_current_action)
 
-    basemask = "pyanaconda.ui.gui"
+    basemask = "pyanaconda.ui"
     basepath = os.path.dirname(__file__)
-    updatepath = "/tmp/updates/pyanaconda/ui/gui"
+    updatepath = "/tmp/updates/pyanaconda/ui"
     sitepackages = [os.path.join(dir, "pyanaconda", "ui", "gui")
                     for dir in site.getsitepackages()]
     pathlist = set([updatepath, basepath] + sitepackages)
@@ -269,10 +269,10 @@ class GraphicalUserInterface(UserInterface):
             "categories": [(basemask + ".categories.%s",
                         os.path.join(path, "categories"))
                         for path in pathlist],
-            "spokes": [(basemask + ".spokes.%s",
+            "spokes": [(basemask + ".gui.spokes.%s",
                         os.path.join(path, "spokes"))
                         for path in pathlist],
-            "hubs": [(basemask + ".hubs.%s",
+            "hubs": [(basemask + ".gui.hubs.%s",
                       os.path.join(path, "hubs"))
                       for path in pathlist]
             }

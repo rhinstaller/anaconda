@@ -24,7 +24,7 @@ from gi.repository import Gkbd, Gdk, Gtk
 
 from pyanaconda.ui.gui import GUIObject
 from pyanaconda.ui.gui.spokes import NormalSpoke
-from pyanaconda.ui.gui.categories.localization import LocalizationCategory
+from pyanaconda.ui.categories.localization import LocalizationCategory
 from pyanaconda.ui.gui.utils import enlightbox, gtk_call_once, escape_markup, gtk_batch_map, timed_action
 from pyanaconda import keyboard
 from pyanaconda import flags

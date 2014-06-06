@@ -25,7 +25,7 @@ from pyanaconda.i18n import _, CN_
 from pyanaconda.users import cryptPassword, validatePassword
 
 from pyanaconda.ui.gui.spokes import NormalSpoke
-from pyanaconda.ui.gui.categories.user_settings import UserSettingsCategory
+from pyanaconda.ui.categories.user_settings import UserSettingsCategory
 from pyanaconda.ui.gui.helpers import GUISpokeInputCheckHandler
 from pyanaconda.ui.common import FirstbootSpokeMixIn
 from pyanaconda.ui.helpers import InputCheck

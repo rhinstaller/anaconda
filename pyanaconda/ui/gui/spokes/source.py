@@ -37,7 +37,7 @@ from pyanaconda.ui.helpers import InputCheck, InputCheckHandler
 from pyanaconda.ui.gui import GUIObject
 from pyanaconda.ui.gui.helpers import GUIDialogInputCheckHandler, GUISpokeInputCheckHandler
 from pyanaconda.ui.gui.spokes import NormalSpoke
-from pyanaconda.ui.gui.categories.software import SoftwareCategory
+from pyanaconda.ui.categories.software import SoftwareCategory
 from pyanaconda.ui.gui.utils import enlightbox, fire_gtk_action
 from pyanaconda.iutil import ProxyString, ProxyStringError, cmp_obj_attrs
 from pyanaconda.ui.gui.utils import gtk_call_once, really_hide, really_show

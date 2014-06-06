@@ -84,7 +84,7 @@ from pyanaconda.ui.gui.spokes.lib.custom_storage_helpers import AddDialog, Confi
 
 from pyanaconda.ui.gui.utils import setViewportBackground, enlightbox, fancy_set_sensitive, ignoreEscape
 from pyanaconda.ui.gui.utils import really_hide, really_show, GtkActionList, timed_action
-from pyanaconda.ui.gui.categories.system import SystemCategory
+from pyanaconda.ui.categories.system import SystemCategory
 
 from gi.repository import Gdk, Gtk
 from gi.repository.AnacondaWidgets import MountpointSelector
