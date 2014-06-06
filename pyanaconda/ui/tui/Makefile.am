@@ -15,7 +15,7 @@
 #
 # Author: Chris Lumens <clumens@redhat.com>
 
-SUBDIRS = categories hubs spokes simpleline tools
+SUBDIRS = hubs spokes simpleline tools
 
 MAINTAINERCLEANFILES = Makefile.in
 

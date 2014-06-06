@@ -15,7 +15,7 @@
 #
 # Author: Chris Lumens <clumens@redhat.com>
 
-SUBDIRS = categories hubs spokes tools
+SUBDIRS = hubs spokes tools
 
 MAINTAINERCLEANFILES = Makefile.in
 

@@ -15,7 +15,7 @@
 #
 # Author: Chris Lumens <clumens@redhat.com>
 
-SUBDIRS = gui lib tui
+SUBDIRS = categories gui lib tui
 
 MAINTAINERCLEANFILES = Makefile.in
 

@@ -208,15 +208,14 @@ AC_CONFIG_FILES([Makefile
                  pyanaconda/isys/Makefile
                  pyanaconda/packaging/Makefile
                  pyanaconda/ui/Makefile
+                 pyanaconda/ui/categories/Makefile
                  pyanaconda/ui/lib/Makefile
-                 pyanaconda/ui/gui/categories/Makefile
                  pyanaconda/ui/gui/hubs/Makefile
                  pyanaconda/ui/gui/spokes/Makefile
                  pyanaconda/ui/gui/spokes/advstorage/Makefile
                  pyanaconda/ui/gui/spokes/lib/Makefile
                  pyanaconda/ui/gui/tools/Makefile
                  pyanaconda/ui/gui/Makefile
-                 pyanaconda/ui/tui/categories/Makefile
                  pyanaconda/ui/tui/hubs/Makefile
                  pyanaconda/ui/tui/simpleline/Makefile
                  pyanaconda/ui/tui/spokes/Makefile
