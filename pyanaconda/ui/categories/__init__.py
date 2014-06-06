@@ -33,14 +33,17 @@ class SpokeCategory(object):
 
        Class attributes:
 
-       displayOnHub  -- The Hub subclass to display this Category on.  If
-                        None, this Category will be skipped.
+       displayOnHubGUI  -- The GUI Hub subclass to display this Category on.
+                           If None, this Category will be skipped.
+       displayOnHubTUI  -- The TUI Hub subclass to display this Category on.
+                           If None, this Category will be skipped.
        sortOrder     -- A number indicating the order in which this Category
                         will be displayed.  A lower number indicates display
                         higher up in the Hub.
        title         -- The title of this SpokeCategory, to be displayed above
                         the grid.
     """
-    displayOnHub = None
+    displayOnHubGUI = None
+    displayOnHubTUI = None
     sortOrder = 1000
     title = N_("DEFAULT TITLE")

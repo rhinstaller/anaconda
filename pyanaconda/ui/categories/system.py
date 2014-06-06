@@ -1,6 +1,6 @@
-# User settings category classes
+# Storage category classes
 #
-# Copyright (C) 2011, 2013  Red Hat, Inc.
+# Copyright (C) 2011, 2013 Red Hat, Inc.
 #
 # This copyrighted material is made available to anyone wishing to use,
 # modify, copy, or redistribute it subject to the terms and conditions of
@@ -17,16 +17,16 @@
 # Red Hat, Inc.
 #
 # Red Hat Author(s): Chris Lumens <clumens@redhat.com>
-#                    Martin Sivak <msivak@redhat.com>
+#                    David Lehman <dlehman@redhat.com>
 #
 
 from pyanaconda.i18n import N_
-from pyanaconda.ui.tui.categories import SpokeCategory
-from pyanaconda.ui.tui.hubs.summary import SummaryHub
+from pyanaconda.ui.categories import SpokeCategory
 
-__all__ = ["UserSettingsCategory"]
+__all__ = ["SystemCategory"]
 
-class UserSettingsCategory(SpokeCategory):
-    displayOnHub = SummaryHub
-    sortOrder = 200
-    title = N_("USER SETTINGS")
+class SystemCategory(SpokeCategory):
+    displayOnHubGUI = "SummaryHub"
+    displayOnHubTUI = "SummaryHub"
+    sortOrder = 300
+    title = N_("SYSTEM")

@@ -1,4 +1,4 @@
-# Localization category classes
+# Software category classes
 #
 # Copyright (C) 2011, 2013  Red Hat, Inc.
 #
@@ -20,12 +20,12 @@
 #
 
 from pyanaconda.i18n import N_
-from pyanaconda.ui.gui.categories import SpokeCategory
-from pyanaconda.ui.gui.hubs.summary import SummaryHub
+from pyanaconda.ui.categories import SpokeCategory
 
-__all__ = ["LocalizationCategory"]
+__all__ = ["SoftwareCategory"]
 
-class LocalizationCategory(SpokeCategory):
-    displayOnHub = SummaryHub
-    sortOrder = 100
-    title = N_("LOCALIZATION")
+class SoftwareCategory(SpokeCategory):
+    displayOnHubGUI = "SummaryHub"
+    displayOnHubTUI = "SummaryHub"
+    sortOrder = 200
+    title = N_("SOFTWARE")
