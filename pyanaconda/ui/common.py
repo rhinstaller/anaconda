@@ -28,7 +28,7 @@ import types
 
 from pyanaconda.constants import ANACONDA_ENVIRON, FIRSTBOOT_ENVIRON
 from pyanaconda.errors import RemovedModuleError
-from pykickstart.constants import FIRSTBOOT_RECONFIG
+from pykickstart.constants import FIRSTBOOT_RECONFIG, DISPLAY_MODE_TEXT
 
 import logging
 log = logging.getLogger("anaconda")
@@ -529,7 +529,7 @@ class Hub(UIObject):
            by a custom collect method.
            One example of such usage is the Initial Setup application.
         """
-        return collectCategoriesAndSpokes(self.paths, self.__class__)
+        return collectCategoriesAndSpokes(self.paths, self.__class__, self.data.displaymode.displayMode)
 
     def exit_logger(self):
         """Log when a user leaves the hub.  Subclasses may override this
@@ -708,7 +708,7 @@ def collect_categories(mask_paths):
 
     return categories
 
-def collectCategoriesAndSpokes(paths, klass):
+def collectCategoriesAndSpokes(paths, klass, displaymode):
     """collects categories and spokes to be displayed on this Hub
 
        :param paths: dictionary mapping categories, spokes, and hubs to their
@@ -719,8 +719,12 @@ def collectCategoriesAndSpokes(paths, klass):
     ret = {}
     # Collect all the categories this hub displays, then collect all the
     # spokes belonging to all those categories.
-    categories = sorted(filter(lambda c: c.displayOnHub == klass, collect_categories(paths["categories"])),
-                        key=lambda c: c.sortOrder)
+    if displaymode == DISPLAY_MODE_TEXT:
+        categories = sorted(filter(lambda c: c.displayOnHubTUI == klass.__name__, collect_categories(paths["categories"])),
+                            key=lambda c: c.sortOrder)
+    else:
+        categories = sorted(filter(lambda c: c.displayOnHubGUI == klass.__name__, collect_categories(paths["categories"])),
+                            key=lambda c: c.sortOrder)
     for c in categories:
         ret[c] = collect_spokes(paths["spokes"], c.__name__)
 
