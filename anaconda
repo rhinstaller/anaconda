@@ -267,7 +267,6 @@ def parseArguments(argv=None, boot_cmdline=None):
     ap.add_argument("-S", "--script", dest="display_mode", action="store_const", const="s")
 
     # Network
-    ap.add_argument("--noipv4", action="store_true", default=False)
     ap.add_argument("--noipv6", action="store_true", default=False)
     ap.add_argument("--proxy")
 
