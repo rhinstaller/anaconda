@@ -50,7 +50,6 @@ class Anaconda(object):
         self.desktop = desktop.Desktop()
         self.dir = None
         self.displayMode = None
-        self.extraModules = []
         self.id = None
         self._instClass = None
         self._intf = None
