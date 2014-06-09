@@ -698,13 +698,17 @@ def collect_spokes(mask_paths, category):
 
     return spokes
 
-def collect_categories(mask_paths):
+def collect_categories(mask_paths, displaymode):
     """Return a list of all category subclasses. Look for them in modules
        imported as module_mask % basename(f) where f is name of all files in path.
     """
     categories = []
-    for mask, path in mask_paths:
-        categories.extend(collect(mask, path, lambda obj: getattr(obj, "displayOnHub", None) is not None))
+    if displaymode == DISPLAY_MODE_TEXT:
+        for mask, path in mask_paths:
+            categories.extend(collect(mask, path, lambda obj: getattr(obj, "displayOnHubTUI", None) is not None))
+    else:
+        for mask, path in mask_paths:
+            categories.extend(collect(mask, path, lambda obj: getattr(obj, "displayOnHubGUI", None) is not None))
 
     return categories
 
@@ -720,10 +724,10 @@ def collectCategoriesAndSpokes(paths, klass, displaymode):
     # Collect all the categories this hub displays, then collect all the
     # spokes belonging to all those categories.
     if displaymode == DISPLAY_MODE_TEXT:
-        categories = sorted(filter(lambda c: c.displayOnHubTUI == klass.__name__, collect_categories(paths["categories"])),
+        categories = sorted(filter(lambda c: c.displayOnHubTUI == klass.__name__, collect_categories(paths["categories"], displaymode)),
                             key=lambda c: c.sortOrder)
     else:
-        categories = sorted(filter(lambda c: c.displayOnHubGUI == klass.__name__, collect_categories(paths["categories"])),
+        categories = sorted(filter(lambda c: c.displayOnHubGUI == klass.__name__, collect_categories(paths["categories"], displaymode)),
                             key=lambda c: c.sortOrder)
     for c in categories:
         ret[c] = collect_spokes(paths["spokes"], c.__name__)
