@@ -272,7 +272,6 @@ def parseArguments(argv=None, boot_cmdline=None):
     ap.add_argument("--proxy")
 
     # Method of operation
-    ap.add_argument("--autostep", action="store_true", default=False)
     ap.add_argument("-d", "--debug", dest="debug", action="store_true", default=False)
     ap.add_argument("--ks", dest="ksfile", action="store_const", const="/run/install/ks.cfg")
     ap.add_argument("--kickstart", dest="ksfile")
