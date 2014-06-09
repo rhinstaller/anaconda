@@ -297,7 +297,6 @@ def parseArguments(argv=None, boot_cmdline=None):
 
     # Language
     ap.add_argument("--keymap")
-    ap.add_argument("--kbdtype")
     ap.add_argument("--lang")
 
     # Obvious
