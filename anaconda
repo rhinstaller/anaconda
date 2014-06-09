@@ -290,7 +290,6 @@ def parseArguments(argv=None, boot_cmdline=None):
 
     # Display
     ap.add_argument("--headless", dest="isHeadless", action="store_true", default=False)
-    ap.add_argument("--nofb")
     ap.add_argument("--resolution", dest="runres", default=None)
     ap.add_argument("--usefbx", dest="xdriver", action="store_const", const="fbdev")
     ap.add_argument("--vnc", action="store_true", default=False)
