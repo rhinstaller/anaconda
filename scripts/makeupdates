@@ -374,10 +374,10 @@ def copyUpdatedIsys(updates, srcdir, builddir):
 def copyUpdatedWidgets(updates, srcdir, builddir):
     os.chdir(srcdir)
 
-    if os.path.isdir("/lib64"):
-        libdir = "/lib64/"
+    if os.path.isdir("/usr/lib64"):
+        libdir = "/usr/lib64/"
     else:
-        libdir = "/lib/"
+        libdir = "/usr/lib/"
 
     if not os.path.isdir(updates + libdir):
         os.makedirs(updates + libdir)
