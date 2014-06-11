@@ -314,8 +314,6 @@ def parseArguments(argv=None, boot_cmdline=None):
 
     ap.add_argument("--noibft", dest="ibft", action="store_false", default=True)
     ap.add_argument("--ibft", action="store_true")
-    ap.add_argument("--noiscsi", dest="iscsi", action="store_false", default=False)
-    ap.add_argument("--iscsi", action="store_true")
 
     # Geolocation
     ap.add_argument("--geoloc")
@@ -892,9 +890,6 @@ if __name__ == "__main__":
 
     if opts.ibft:
         flags.ibft = 1
-
-    if opts.iscsi:
-        flags.iscsi = 1
 
     if opts.targetArch:
         flags.targetarch = opts.targetArch

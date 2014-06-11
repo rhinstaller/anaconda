@@ -46,7 +46,6 @@ class Flags(object):
         self.__dict__['_in_init'] = True
         self.livecdInstall = 0
         self.ibft = 1
-        self.iscsi = 0
         self.usevnc = 0
         self.vncquestion = True
         self.mpath = 1
