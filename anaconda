@@ -309,8 +309,9 @@ def parseArguments(argv=None, boot_cmdline=None):
     ap.add_argument("--nompath", dest="mpath", action="store_false", default=True)
     ap.add_argument("--mpath", action="store_true")
 
-    ap.add_argument("--nodmraid", dest="dmraid", action="store_false", default=True)
-    ap.add_argument("--dmraid", action="store_true")
+    ap.add_argument("--nodmraid", dest="dmraid", action="store_false", default=True,
+                    help=help_parser.help_text("nodmraid"))
+    ap.add_argument("--dmraid", action="store_true", help=help_parser.help_text("dmraid"))
 
     ap.add_argument("--noibft", dest="ibft", action="store_false", default=True,
                     help=help_parser.help_text("noibft"))
