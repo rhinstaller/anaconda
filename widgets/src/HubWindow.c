@@ -26,12 +26,11 @@
  * @title: AnacondaHubWindow
  * @short_description: Window for displaying a Hub
  *
- * A #AnacondaHubWindow is a top-level window that displays a hub on the
- * entire screen.  A Hub allows selection of multiple configuration spokes
- * from a single interface, as well as a place to display current configuration
- * selections.
+ * A #AnacondaHubWindow is a widget that displays a hub on the screen.  A Hub
+ * allows selection of multiple configuration spokes from a single interface,
+ * as well as a place to display current configuration selections.
  *
- * The window consists of three areas:
+ * The AnacondaHubWindow consists of three areas:
  *
  * - A navigation area in the top of the screen, inherited from #AnacondaBaseWindow.
  *

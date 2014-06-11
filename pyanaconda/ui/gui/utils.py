@@ -302,7 +302,7 @@ def enlightbox(mainWindow, dialog):
     # importing globally would cause a circular dependency
     from pyanaconda.ui.gui import ANACONDA_WINDOW_GROUP
 
-    lightbox = AnacondaWidgets.Lightbox(parent_window=mainWindow)
+    lightbox = AnacondaWidgets.Lightbox(parent_window=mainWindow.get_toplevel())
     ANACONDA_WINDOW_GROUP.add_window(lightbox)
     dialog.set_position(Gtk.WindowPosition.CENTER_ALWAYS)
     dialog.set_transient_for(lightbox)

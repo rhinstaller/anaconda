@@ -84,7 +84,6 @@ class NormalSpoke(Spoke, common.NormalSpoke):
         common.NormalSpoke.__init__(self, data, storage, payload, instclass)
 
     def on_back_clicked(self, window):
-        from gi.repository import Gtk
-
-        self.window.hide()
-        Gtk.main_quit()
+        # Notify the hub that we're finished.
+        # The hub will be the current-action of the main window.
+        self.main_window.current_action.spoke_done(self)

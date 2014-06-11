@@ -29,12 +29,12 @@
  * @title: AnacondaStandaloneWindow
  * @short_description: Window for displaying standalone spokes
  *
- * A #AnacondaStandaloneWindow is a top-level window that displays a standalone
+ * A #AnacondaStandaloneWindow is a widget that displays a standalone
  * spoke.  A standalone spoke is like a normal spoke, but is not entered via a
  * hub.  Instead, it is displayed by itself.  Examples include the welcome and
  * network configuration screens at the beginning of installation.
  *
- * The window consist of three areas:
+ * The AnacondaStandaloneWindow consist of three areas:
  *
  * - A navigation area in the top of the screen, inherited from #AnacondaBaseWindow.
  *
@@ -60,8 +60,6 @@ enum {
 };
 
 static void anaconda_standalone_window_get_property(GObject *object, guint prop_id, GValue *value, GParamSpec *pspec);
-static void anaconda_standalone_window_realize(GtkWidget *widget,
-                                               AnacondaStandaloneWindow *win);
 
 G_DEFINE_TYPE(AnacondaStandaloneWindow, anaconda_standalone_window, ANACONDA_TYPE_BASE_STANDALONE)
 
@@ -165,23 +163,6 @@ static void anaconda_standalone_window_init(AnacondaStandaloneWindow *win) {
     gtk_container_add(GTK_CONTAINER(win->priv->button_box), win->priv->continue_button);
 
     gtk_box_pack_start(GTK_BOX(main_box), win->priv->button_box, FALSE, TRUE, 0);
-
-    /* It would be handy for F12 to continue to work like it did in the old
-     * UI, by skipping you to the next screen.
-     */
-    g_signal_connect(win, "realize", G_CALLBACK(anaconda_standalone_window_realize), win);
-}
-
-static void anaconda_standalone_window_realize(GtkWidget *widget,
-                                               AnacondaStandaloneWindow *win) {
-    GtkAccelGroup *accel_group = gtk_accel_group_new();
-    gtk_window_add_accel_group(GTK_WINDOW(win), accel_group);
-    gtk_widget_add_accelerator(win->priv->continue_button,
-                               "clicked",
-                               accel_group,
-                               GDK_KEY_F12,
-                               0,
-                               0);
 }
 
 /**

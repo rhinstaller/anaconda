@@ -226,7 +226,7 @@ class Spoke(UIObject):
         self.instclass = instclass
         self.applyOnSkip = False
 
-        self._visitedSinceApplied = True
+        self.visitedSinceApplied = True
 
     @property
     def storage(self):

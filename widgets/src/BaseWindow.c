@@ -31,11 +31,11 @@
  * @title: AnacondaBaseWindow
  * @short_description: Top-level, non-resizeable window
  *
- * A #AnacondaBaseWindow is a top-level, non-resizeable window that contains
- * other widgets and serves as the base class from which all other specialized
- * Anaconda windows are derived.  It is undecorated.
+ * A #AnacondaBaseWindow is a widget that contains other widgets and serves as
+ * the base class from which all other specialized Anaconda windows are
+ * derived.
  *
- * The window consists of two areas:
+ * The AnacondaBaseWindow consists of two areas:
  *
  * - A navigation area in the top of the screen, consisting of some basic
  *   information about what is being displayed and what is being installed.
@@ -127,7 +127,7 @@ static void format_beta_label(AnacondaBaseWindow *window, const char *markup);
 
 static gboolean anaconda_base_window_info_bar_clicked(GtkWidget *widget, GdkEvent *event, AnacondaBaseWindow *win);
 
-G_DEFINE_TYPE_WITH_CODE(AnacondaBaseWindow, anaconda_base_window, GTK_TYPE_WINDOW,
+G_DEFINE_TYPE_WITH_CODE(AnacondaBaseWindow, anaconda_base_window, GTK_TYPE_BIN,
                         G_IMPLEMENT_INTERFACE(GTK_TYPE_BUILDABLE, anaconda_base_window_buildable_init))
 
 static void anaconda_base_window_class_init(AnacondaBaseWindowClass *klass) {
@@ -223,9 +223,7 @@ static void anaconda_base_window_init(AnacondaBaseWindow *win) {
     win->priv->orig_distro = NULL;
     win->priv->orig_beta = NULL;
 
-    /* Set properties on the parent (Gtk.Window) class. */
-    gtk_window_set_decorated(GTK_WINDOW(win), FALSE);
-    gtk_window_maximize(GTK_WINDOW(win));
+    /* Set properties on the parent (Gtk.Bin) class. */
     gtk_widget_set_hexpand(GTK_WIDGET(win), TRUE);
     gtk_widget_set_vexpand(GTK_WIDGET(win), TRUE);
     gtk_container_set_border_width(GTK_CONTAINER(win), 0);

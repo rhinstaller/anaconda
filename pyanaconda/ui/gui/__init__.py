@@ -123,7 +123,6 @@ class GUIObject(common.UIObject):
         else:
             self.builder.add_from_file(self._findUIFile())
 
-        ANACONDA_WINDOW_GROUP.add_window(self.window)
         self.builder.connect_signals(self)
 
         # Keybinder from GI needs to be initialized before use
@@ -169,7 +168,7 @@ class GUIObject(common.UIObject):
 
     @property
     def window(self):
-        """Return the top-level object out of the GtkBuilder representation
+        """Return the object out of the GtkBuilder representation
            previously loaded by the load method.
         """
 
@@ -179,6 +178,11 @@ class GUIObject(common.UIObject):
             self._window = self.builder.get_object(self.mainWidgetName)
 
         return self._window
+
+    @property
+    def main_window(self):
+        """Return the top-level window containing this GUIObject."""
+        return self.window.get_toplevel()
 
     def clear_info(self):
         """Clear any info bar from the bottom of the screen."""
@@ -236,6 +240,80 @@ class ErrorDialog(GUIObject):
         rc = self.window.run()
         return rc
 
+class MainWindow(Gtk.Window):
+    """This is a top-level, full size window containing the Anaconda screens."""
+
+    def __init__(self):
+        Gtk.Window.__init__(self)
+
+        # Create a stack and a list of what's been added to the stack
+        self._stack = Gtk.Stack()
+        self._stack_contents = set()
+
+        # Create an accel group for the F12 accelerators added after window transitions
+        self._accel_group = Gtk.AccelGroup()
+        self.add_accel_group(self._accel_group)
+
+        # Set properties on the window
+        self.set_decorated(False)
+        self.maximize()
+        self.add(self._stack)
+        self.show_all()
+
+        self._current_action = None
+
+    @property
+    def current_action(self):
+        return self._current_action
+
+    def _setVisibleChild(self, child):
+        # Remove the F12 accelerator from the old window
+        old_screen = self._stack.get_visible_child()
+        if old_screen:
+            old_screen.remove_accelerator(self._accel_group, Gdk.KEY_F12, 0)
+
+        # Check if the widget is already on the stack
+        if child not in self._stack_contents:
+            self._stack.add(child.window)
+            self._stack_contents.add(child)
+            child.window.show_all()
+
+        # It would be handy for F12 to continue to work like it did in the old
+        # UI, by skipping you to the next screen or sending you back to the hub
+        if isinstance(child.window, AnacondaWidgets.BaseStandalone):
+            child.window.add_accelerator("continue-clicked", self._accel_group,
+                    Gdk.KEY_F12, 0, 0)
+        elif isinstance(child.window, AnacondaWidgets.SpokeWindow):
+            child.window.add_accelerator("button-clicked", self._accel_group,
+                    Gdk.KEY_F12, 0, 0)
+
+        self._stack.set_visible_child(child.window)
+
+    def setCurrentAction(self, standalone):
+        """Set the current standalone widget.
+
+           This changes the currently displayed screen and, if the standalone
+           is a hub, sets the hub as the screen to which spokes will return.
+
+           :param AnacondaWidgets.BaseStandalone standalone: the new standalone action
+        """
+        self._current_action = standalone
+        self._setVisibleChild(standalone)
+
+    def enterSpoke(self, spoke):
+        """Enter a spoke.
+
+           The spoke will be displayed as the current screen, but the current-action
+           to which the spoke will return will not be changed.
+
+           :param AnacondaWidgets.SpokeWindow spoke: a spoke to enter
+        """
+        self._setVisibleChild(spoke)
+
+    def returnToHub(self):
+        """Exit a spoke and return to a hub."""
+        self._setVisibleChild(self._current_action)
+
 class GraphicalUserInterface(UserInterface):
     """This is the standard GTK+ interface we try to steer everything to using.
        It is suitable for use both directly and via VNC.
@@ -252,11 +330,15 @@ class GraphicalUserInterface(UserInterface):
 
         self.data = None
 
+        self.mainWindow = MainWindow()
+
         self._distributionText = distributionText
         self._isFinal = isFinal
         self._quitDialog = quitDialog
         self._mehInterface = GraphicalExceptionHandlingIface(
                                     self.lightbox_over_current_action)
+
+        ANACONDA_WINDOW_GROUP.add_window(self.mainWindow)
 
     basemask = "pyanaconda.ui"
     basepath = os.path.dirname(__file__)
@@ -349,7 +431,7 @@ class GraphicalUserInterface(UserInterface):
 
         # if there are no actions (not populated yet), we can do nothing
         if len(self._actions) > 0 and self._currentAction:
-            lightbox = AnacondaWidgets.Lightbox(parent_window=self._currentAction.window)
+            lightbox = AnacondaWidgets.Lightbox(parent_window=self.mainWindow)
             ANACONDA_WINDOW_GROUP.add_window(lightbox)
             window.main_window.set_transient_for(lightbox)
 
@@ -423,7 +505,7 @@ class GraphicalUserInterface(UserInterface):
         # try to make sure a logo image is present
         self._assureLogoImage()
 
-        self._currentAction.window.show_all()
+        self.mainWindow.setCurrentAction(self._currentAction)
 
         # Do this at the last possible minute.
         unbusyCursor()
@@ -529,8 +611,7 @@ class GraphicalUserInterface(UserInterface):
 
         # Do this last.  Setting up curAction could take a while, and we want
         # to leave something on the screen while we work.
-        nextAction.window.show_all()
-        self._currentAction.window.hide()
+        self.mainWindow.setCurrentAction(nextAction)
         self._currentAction = nextAction
         self._actions.pop(0)
 
@@ -572,10 +653,7 @@ class GraphicalExceptionHandlingIface(meh.ui.gui.GraphicalIntf):
 
         self._lightbox_func(exc_window)
 
-        # without a new GtkWindowGroup, python-meh's window is insensitive if it
-        # appears above a spoke (Gtk.Window running its own Gtk.main loop)
-        window_group = Gtk.WindowGroup()
-        window_group.add_window(exc_window.main_window)
+        ANACONDA_WINDOW_GROUP.add_window(exc_window.main_window)
 
         # the busy cursor may be set
         unbusyCursor()

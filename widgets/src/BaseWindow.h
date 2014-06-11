@@ -42,7 +42,7 @@ typedef struct _AnacondaBaseWindowPrivate AnacondaBaseWindowPrivate;
  * be directly accessed.
  */
 struct _AnacondaBaseWindow {
-    GtkWindow                  parent;
+    GtkBin                     parent;
 
     /*< private >*/
     AnacondaBaseWindowPrivate *priv;
@@ -53,12 +53,12 @@ struct _AnacondaBaseWindow {
  * @parent_class: The object class structure needs to be the first element in
  *                the widget class structure in order for the class mechanism
  *                to work correctly.  This allows a AnacondaBaseWindowClass
- *                pointer to be cast to a #GtkWindow pointer.
+ *                pointer to be cast to a #GtkBin pointer.
  * @info_bar_clicked : Function pointer called when the #AnacondaBaseWindow::info-bar-clicked
  *                     signal is emitted.
  */
 struct _AnacondaBaseWindowClass {
-    GtkWindowClass parent_class;
+    GtkBinClass parent_class;
 
     void (* info_bar_clicked) (AnacondaBaseWindow *window);
 };

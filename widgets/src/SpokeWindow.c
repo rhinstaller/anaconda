@@ -30,11 +30,11 @@
  * @title: AnacondaSpokeWindow
  * @short_description: Window for displaying single spokes
  *
- * A #AnacondaSpokeWindow is a top-level window that displays a single spoke
- * on the entire screen.  Examples include the keyboard and language
- * configuration screens off the first hub.
+ * A #AnacondaSpokeWindow is a widget that displays a single spoke on the
+ * screen.  Examples include the keyboard and language configuration screens
+ * off the first hub.
  *
- * The window consists of two areas:
+ * The AnacondaSpokeWindow consists of two areas:
  *
  * - A navigation area in the top of the screen, inherited from #AnacondaBaseWindow
  *   and augmented with a button in the upper left corner.
@@ -58,7 +58,6 @@ struct _AnacondaSpokeWindowPrivate {
 
 G_DEFINE_TYPE(AnacondaSpokeWindow, anaconda_spoke_window, ANACONDA_TYPE_BASE_WINDOW)
 
-static void anaconda_spoke_window_realize(GtkWidget *widget, gpointer user_data);
 static void anaconda_spoke_window_button_clicked(GtkButton *button,
                                                  AnacondaSpokeWindow *win);
 
@@ -113,11 +112,6 @@ static void anaconda_spoke_window_init(AnacondaSpokeWindow *win) {
                                             ANACONDA_TYPE_SPOKE_WINDOW,
                                             AnacondaSpokeWindowPrivate);
 
-    g_signal_connect(win, "map", G_CALLBACK(anaconda_spoke_window_realize), NULL);
-
-    /* Set some default properties. */
-    gtk_window_set_modal(GTK_WINDOW(win), TRUE);
-
     /* Create the button. */
     win->priv->button = gtk_button_new_with_mnemonic(DEFAULT_BUTTON_LABEL);
     gtk_widget_set_halign(win->priv->button, GTK_ALIGN_START);
@@ -141,21 +135,6 @@ static void anaconda_spoke_window_init(AnacondaSpokeWindow *win) {
     /* And then put the button into the navigation area. */
     nav_area = anaconda_base_window_get_nav_area(ANACONDA_BASE_WINDOW(win));
     gtk_grid_attach(GTK_GRID(nav_area), win->priv->button, 0, 1, 1, 2);
-}
-
-static void anaconda_spoke_window_realize(GtkWidget *widget, gpointer user_data) {
-    GtkAccelGroup *accel_group;
-    AnacondaSpokeWindow *window = ANACONDA_SPOKE_WINDOW(widget);
-
-    /* Pressing F12 should send you back to the hub, similar to how the old UI worked. */
-    accel_group = gtk_accel_group_new();
-    gtk_window_add_accel_group(GTK_WINDOW(window), accel_group);
-    gtk_widget_add_accelerator(window->priv->button,
-                               "clicked",
-                               accel_group,
-                               GDK_KEY_F12,
-                               0,
-                               0);
 }
 
 static void anaconda_spoke_window_button_clicked(GtkButton *button,

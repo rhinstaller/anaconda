@@ -95,40 +95,6 @@ class Hub(GUIObject, common.Hub):
 
         self._checker = None
 
-    def _runSpoke(self, action):
-        from gi.repository import Gtk
-
-        # This duplicates code in widgets/src/BaseWindow.c, but we want to make sure
-        # maximize gets called every time a spoke is displayed to prevent the 25%
-        # UI from showing up.
-        action.window.maximize()
-        action.window.set_property("expand", True)
-
-        action.entry_logger()
-
-        action.refresh()
-
-        action.window.set_transient_for(self.window)
-        action.window.show_all()
-
-        # Start a recursive main loop for this spoke, which will prevent
-        # signals from going to the underlying (but still displayed) Hub and
-        # prevent the user from switching away.  It's up to the spoke's back
-        # button handler to kill its own layer of main loop.
-        Gtk.main()
-        action.window.set_transient_for(None)
-
-        action._visitedSinceApplied = True
-
-        # Don't take _visitedSinceApplied into account here.  It will always be
-        # True from the line above.
-        if action.changed and (not action.skipTo or (action.skipTo and action.applyOnSkip)):
-            action.apply()
-            action.execute()
-            action._visitedSinceApplied = False
-
-        action.exit_logger()
-
     def _createBox(self):
         from gi.repository import Gtk, AnacondaWidgets
         from pyanaconda.ui.gui.utils import setViewportBackground
@@ -198,9 +164,9 @@ class Hub(GUIObject, common.Hub):
 
                 # If this is a kickstart install, attempt to execute any provided ksdata now.
                 if flags.automatedInstall and spoke.ready and spoke.changed and \
-                   spoke._visitedSinceApplied:
+                   spoke.visitedSinceApplied:
                     spoke.execute()
-                    spoke._visitedSinceApplied = False
+                    spoke.visitedSinceApplied = False
 
                 selectors.append(spoke.selector)
 
@@ -327,9 +293,9 @@ class Hub(GUIObject, common.Hub):
                     # _createBox skipped.  Now that it's become ready, do it.  Note
                     # that we also provide a way to skip this processing (see comments
                     # communication.py) to prevent getting caught in a loop.
-                    if not args[1] and spoke.changed and spoke._visitedSinceApplied:
+                    if not args[1] and spoke.changed and spoke.visitedSinceApplied:
                         spoke.execute()
-                        spoke._visitedSinceApplied = False
+                        spoke.visitedSinceApplied = False
 
                     if self.continuePossible:
                         if self._inSpoke:
@@ -383,8 +349,24 @@ class Hub(GUIObject, common.Hub):
         # that he is done configuring by pressing the continue button.
         self._autoContinue = False
 
+        # Enter the spoke
         self._inSpoke = True
-        self._runSpoke(spoke)
+        spoke.entry_logger()
+        spoke.refresh()
+        self.main_window.enterSpoke(spoke)
+
+    def spoke_done(self, spoke):
+        spoke.visitedSinceApplied = True
+
+        # Don't take visitedSinceApplied into account here.  It will always be
+        # True from the line above.
+        if spoke.changed and (not spoke.skipTo or (spoke.skipTo and spoke.applyOnSkip)):
+            spoke.apply()
+            spoke.execute()
+            spoke.visitedSinceApplied = False
+
+        spoke.exit_logger()
+
         self._inSpoke = False
 
         # Now update the selector with the current status and completeness.
@@ -403,5 +385,7 @@ class Hub(GUIObject, common.Hub):
             spoke.skipTo = None
 
             self._on_spoke_clicked(self._spokes[dest].selector, None, self._spokes[dest])
-
+        # Otherwise, switch back to the hub (that's us!)
+        else:
+            self.main_window.returnToHub()
 
