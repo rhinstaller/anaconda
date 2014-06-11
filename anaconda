@@ -888,9 +888,6 @@ if __name__ == "__main__":
     elif "LIVECMD" in os.environ:
         log.warning("Running via liveinst, but not setting flags.livecdInstall - this is for testing only")
 
-    if opts.ibft:
-        flags.ibft = 1
-
     if opts.targetArch:
         flags.targetarch = opts.targetArch
 
@@ -908,6 +905,7 @@ if __name__ == "__main__":
     # set flags
     flags.dmraid = opts.dmraid
     flags.mpath = opts.mpath
+    flags.ibft = opts.ibft
     flags.selinux = opts.selinux
     flags.eject = opts.eject
 
