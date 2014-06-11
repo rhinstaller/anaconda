@@ -109,10 +109,10 @@ class TextUserInterface(ui.UserInterface):
                         os.path.join(path, "categories"))
                         for path in pathlist],
             "spokes": [(basemask + ".tui.spokes.%s",
-                        os.path.join(path, "spokes"))
+                        os.path.join(path, "tui/spokes"))
                         for path in pathlist],
             "hubs": [(basemask + ".tui.hubs.%s",
-                      os.path.join(path, "hubs"))
+                      os.path.join(path, "tui/hubs"))
                       for path in pathlist]
             }
 

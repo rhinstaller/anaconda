@@ -270,10 +270,10 @@ class GraphicalUserInterface(UserInterface):
                         os.path.join(path, "categories"))
                         for path in pathlist],
             "spokes": [(basemask + ".gui.spokes.%s",
-                        os.path.join(path, "spokes"))
+                        os.path.join(path, "gui/spokes"))
                         for path in pathlist],
             "hubs": [(basemask + ".gui.hubs.%s",
-                      os.path.join(path, "hubs"))
+                      os.path.join(path, "gui/hubs"))
                       for path in pathlist]
             }
 
