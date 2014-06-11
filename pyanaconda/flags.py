@@ -49,7 +49,7 @@ class Flags(object):
         self.usevnc = 0
         self.vncquestion = True
         self.mpath = 1
-        self.dmraid = 1
+        self.dmraid = True
         self.selinux = SELINUX_DEFAULT
         self.debug = 0
         self.targetarch = None
