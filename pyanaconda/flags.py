@@ -44,14 +44,14 @@ class Flags(object):
 
     def __init__(self, read_cmdline=True):
         self.__dict__['_in_init'] = True
-        self.livecdInstall = 0
-        self.ibft = 1
-        self.usevnc = 0
+        self.livecdInstall = False
+        self.ibft = True
+        self.usevnc = False
         self.vncquestion = True
-        self.mpath = 1
-        self.dmraid = 1
+        self.mpath = True
+        self.dmraid = True
         self.selinux = SELINUX_DEFAULT
-        self.debug = 0
+        self.debug = False
         self.useIPv4 = True
         self.useIPv6 = True
         self.armPlatform = None

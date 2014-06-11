@@ -453,7 +453,7 @@ def setupDisplay(anaconda, opts, addon_paths=None):
     anaconda.isHeadless = arch.isS390()
 
     if opts.vnc:
-        flags.usevnc = 1
+        flags.usevnc = True
         anaconda.displayMode = 'g'
         vncS.password = opts.vncpassword
 
@@ -473,7 +473,7 @@ def setupDisplay(anaconda, opts, addon_paths=None):
         return
 
     if anaconda.ksdata.vnc.enabled:
-        flags.usevnc = 1
+        flags.usevnc = True
         anaconda.displayMode = 'g'
 
         if vncS.password == "":
@@ -547,7 +547,7 @@ def setupDisplay(anaconda, opts, addon_paths=None):
 
         if anaconda.ksdata.vnc.enabled:
             anaconda.displayMode = 'g'
-            flags.usevnc = 1
+            flags.usevnc = True
             vncS.password = anaconda.ksdata.vnc.password
         else:
             # user has explicitly specified text mode
@@ -610,7 +610,7 @@ def setupDisplay(anaconda, opts, addon_paths=None):
 
         if anaconda.ksdata.vnc.enabled:
             anaconda.displayMode = 'g'
-            flags.usevnc = 1
+            flags.usevnc = True
             vncS.password = anaconda.ksdata.vnc.password
 
     # if they want us to use VNC do that now
@@ -712,9 +712,6 @@ if __name__ == "__main__":
     from pyanaconda.flags import flags, can_touch_runtime_system
     (opts, depr) = parseArguments(boot_cmdline=flags.cmdline)
 
-    if opts.askmethod:
-        flags.askmethod = True
-
     # Set up logging as early as possible.
     import logging
     from pyanaconda import anaconda_log
@@ -814,44 +811,27 @@ if __name__ == "__main__":
     # Default is to prompt to mount the installed system.
     anaconda.rescue_mount = not opts.rescue_nomount
 
-    if opts.noipv4:
-        flags.useIPv4 = False
+    # assign the other anaconda variables from options
+    anaconda.proxy = opts.proxy
+    anaconda.updateSrc = opts.updateSrc
+    anaconda.methodstr = opts.method
+    anaconda.stage2 = opts.stage2
+    anaconda.rescue = opts.rescue
 
-    if opts.noipv6:
-        flags.useIPv6 = False
-
-    if opts.proxy:
-        anaconda.proxy = opts.proxy
-
-    if opts.updateSrc:
-        anaconda.updateSrc = opts.updateSrc
-
-    if opts.method:
-        anaconda.methodstr = opts.method
-
-    if opts.stage2:
-        anaconda.stage2 = opts.stage2
-
-    if opts.noverifyssl:
-        flags.noverifyssl = True
 
     if opts.liveinst:
         flags.livecdInstall = True
 
-    if opts.ibft:
-        flags.ibft = 1
-
-    if opts.armPlatform:
-        flags.armPlatform = opts.armPlatform
-
-    if opts.extlinux:
-        flags.extlinux = opts.extlinux
-
-    flags.mpathFriendlyNames = opts.mpathfriendlynames
-
     # set flags
+    flags.noverifyssl = opts.noverifyssl
+    flags.armPlatform = opts.armPlatform
+    flags.extlinux = opts.extlinux
+    flags.mpathFriendlyNames = opts.mpathfriendlynames
+    flags.debug = opts.debug
+    flags.askmethod = opts.askmethod
     flags.dmraid = opts.dmraid
     flags.mpath = opts.mpath
+    flags.ibft = opts.ibft
     flags.selinux = opts.selinux
     flags.eject = opts.eject
 
@@ -866,12 +846,6 @@ if __name__ == "__main__":
                 os.symlink ("../mnt/runtime/etc/" + i, "/etc/" + i)
         except OSError:
             pass
-
-    if opts.debug:
-        flags.debug = True
-
-    if opts.rescue:
-        anaconda.rescue = True
 
     log.info("anaconda called with cmdline = %s", sys.argv)
     log.info("Default encoding = %s ", sys.getdefaultencoding())
