@@ -56,6 +56,16 @@
             <!-- Not a typo - we really can use the same functions here (for now) -->
             <post-create-function>anaconda_standalone_window_post_create</post-create-function>
 
+            <properties>
+              <property since="3.0" id="quit-button" />
+              <property since="3.0" id="continue-button" />
+            </properties>
+
+            <signals>
+              <signal since="3.0" id="quit-clicked" />
+              <signal since="3.0" id="continue-clicked" />
+            </signals>
+
             <internal-children>
                 <object name="main_box">
                     <object name="nav_box">

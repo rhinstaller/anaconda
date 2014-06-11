@@ -17,7 +17,7 @@
  * Author: Chris Lumens <clumens@redhat.com>
  */
 
-#include "BaseWindow.h"
+#include "BaseStandalone.h"
 #include "HubWindow.h"
 #include "intl.h"
 
@@ -97,91 +97,12 @@ struct _AnacondaHubWindowPrivate {
 
 static void anaconda_hub_window_buildable_init(GtkBuildableIface *iface);
 
-G_DEFINE_TYPE_WITH_CODE(AnacondaHubWindow, anaconda_hub_window, ANACONDA_TYPE_BASE_WINDOW,
+G_DEFINE_TYPE_WITH_CODE(AnacondaHubWindow, anaconda_hub_window, ANACONDA_TYPE_BASE_STANDALONE,
                         G_IMPLEMENT_INTERFACE(GTK_TYPE_BUILDABLE, anaconda_hub_window_buildable_init))
-
-static int get_sidebar_width(GtkWidget *window) {
-    GtkAllocation allocation;
-
-    /* change value below to make sidebar bigger / smaller */
-    float sidebar_width_percentage = 0.15;
-
-    gtk_widget_get_allocation(window, &allocation);
-    return allocation.width * sidebar_width_percentage;
-}
-
-static int get_sidebar_height(GtkWidget *window) {
-    GtkAllocation allocation;
-    gtk_widget_get_allocation(window, &allocation);
-    return allocation.height;
-}
-
-/* function to override default drawing to insert sidebar image */
-static gboolean anaconda_hub_window_on_draw(GtkWidget *win, cairo_t *cr) {
-    GtkStyleContext *context;
-    gdouble sidebar_x;
-    gdouble sidebar_width;
-
-    /* calls parent class' draw handler */
-    GTK_WIDGET_CLASS(anaconda_hub_window_parent_class)->draw(win,cr);
-
-    sidebar_width = get_sidebar_width(win);
-
-    /* For RTL languages, move the sidebar to the right edge */
-    if (gtk_get_locale_direction() == GTK_TEXT_DIR_LTR) {
-        sidebar_x = 0;
-    } else {
-        GtkAllocation allocation;
-        gtk_widget_get_allocation(win, &allocation);
-        sidebar_x = allocation.width - sidebar_width;
-    }
-
-    context = gtk_widget_get_style_context(win);
-    gtk_style_context_save (context);
-
-    gtk_style_context_add_class(context, "logo-sidebar");
-    gtk_render_background(context, cr, sidebar_x, 0, sidebar_width, get_sidebar_height(win));
-    gtk_style_context_remove_class(context, "logo-sidebar");
-
-    gtk_style_context_add_class(context, "logo");
-    gtk_render_background(context, cr, sidebar_x, 0, sidebar_width, get_sidebar_height(win));
-    gtk_style_context_remove_class(context, "logo");
-
-    gtk_style_context_restore (context);
-
-    return TRUE; /* TRUE to avoid default draw handler */
-}
-
-/* Move base window content appropriate amount of space to make room for sidebar */
-static void anaconda_hub_window_size_allocate (GtkWidget *window, GtkAllocation *allocation) {
-    GtkAllocation child_allocation;
-    GtkWidget *child;
-    int sidebar_width;
-
-    GTK_WIDGET_CLASS(anaconda_hub_window_parent_class)->size_allocate(window, allocation);
-
-    gtk_widget_set_allocation(window, allocation);
-    sidebar_width = get_sidebar_width(window);
-    child_allocation.y = allocation->y;
-    child_allocation.width = allocation->width-sidebar_width;
-    child_allocation.height = allocation->height;
-
-    if (gtk_get_locale_direction() == GTK_TEXT_DIR_LTR)
-        child_allocation.x = allocation->x+sidebar_width;
-    else
-        child_allocation.x = allocation->x;
-
-    child = gtk_bin_get_child (GTK_BIN (window));
-    if (child && gtk_widget_get_visible (child))
-        gtk_widget_size_allocate (child, &child_allocation);
-}
 
 static void anaconda_hub_window_class_init(AnacondaHubWindowClass *klass) {
     GObjectClass *object_class = G_OBJECT_CLASS(klass);
-    GtkWidgetClass *widget_class = GTK_WIDGET_CLASS(klass);
 
-    widget_class->draw = anaconda_hub_window_on_draw;
-    widget_class->size_allocate = anaconda_hub_window_size_allocate;
     g_type_class_add_private(object_class, sizeof(AnacondaHubWindowPrivate));
 }
 

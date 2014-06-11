@@ -22,7 +22,7 @@
 
 #include <gtk/gtk.h>
 
-#include "BaseWindow.h"
+#include "BaseStandalone.h"
 
 G_BEGIN_DECLS
 
@@ -44,7 +44,7 @@ typedef struct _AnacondaStandaloneWindowPrivate   AnacondaStandaloneWindowPrivat
  * be directly accessed.
  */
 struct _AnacondaStandaloneWindow {
-    AnacondaBaseWindow           parent;
+    AnacondaBaseStandalone       parent;
 
     /*< private >*/
     AnacondaStandaloneWindowPrivate  *priv;
@@ -56,22 +56,13 @@ struct _AnacondaStandaloneWindow {
  *                the widget class structure in order for the class mechanism
  *                to work correctly.  This allows an AnacondaStandaloneWindowClass
  *                pointer to be cast to an #AnacondaBaseWindow pointer.
- * @quit_clicked: Function pointer called when the #AnacondaStandaloneWindow::quit-clicked
- *                signal is emitted.
- * @continue_clicked: Function pointer called when the #AnacondaStandaloneWindow::continue-clicked
- *                    signal is emitted.
  */
 struct _AnacondaStandaloneWindowClass {
-    AnacondaBaseWindowClass parent_class;
-
-    void (* quit_clicked)     (AnacondaStandaloneWindow *window);
-    void (* continue_clicked) (AnacondaStandaloneWindow *window);
+    AnacondaBaseStandaloneClass parent_class;
 };
 
 GType       anaconda_standalone_window_get_type (void);
 GtkWidget  *anaconda_standalone_window_new      ();
-gboolean    anaconda_standalone_window_get_may_continue  (AnacondaStandaloneWindow *win);
-void        anaconda_standalone_window_set_may_continue  (AnacondaStandaloneWindow *win, gboolean may_continue);
 void        anaconda_standalone_window_retranslate       (AnacondaStandaloneWindow *win, const char *lang);
 
 G_END_DECLS

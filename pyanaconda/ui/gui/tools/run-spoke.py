@@ -96,10 +96,11 @@ instclass = DefaultInstall()
 payload = YumPayload(ksdata)
 payload.setup(storage)
 
+from pyanaconda.ui.gui.spokes import StandaloneSpoke
 spoke = spokeClass(ksdata, storage, payload, instclass)
-if hasattr(spoke, "register_event_cb"):
-    spoke.register_event_cb("continue", Gtk.main_quit)
-    spoke.register_event_cb("quit", Gtk.main_quit)
+if isinstance(spoke, StandaloneSpoke):
+    spoke.window.connect_after("continue-clicked", Gtk.main_quit)
+    spoke.window.connect("quit-clicked", Gtk.main_quit)
 
 if hasattr(spoke, "set_path"):
     spoke.set_path("categories", [

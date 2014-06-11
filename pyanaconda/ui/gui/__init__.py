@@ -370,8 +370,9 @@ class GraphicalUserInterface(UserInterface):
             del(obj)
             return None
 
-        obj.register_event_cb("continue", self._on_continue_clicked)
-        obj.register_event_cb("quit", self._on_quit_clicked)
+        # Use connect_after so classes can add actions before we change screens
+        obj.window.connect_after("continue-clicked", self._on_continue_clicked)
+        obj.window.connect_after("quit-clicked", self._on_quit_clicked)
 
         return obj
 
@@ -471,7 +472,10 @@ class GraphicalUserInterface(UserInterface):
     ###
     ### SIGNAL HANDLING METHODS
     ###
-    def _on_continue_clicked(self):
+    def _on_continue_clicked(self, win, user_data=None):
+        if not win.get_may_continue():
+            return
+
         # If we're on the last screen, clicking Continue quits.
         if len(self._actions) == 1:
             Gtk.main_quit()
@@ -515,7 +519,7 @@ class GraphicalUserInterface(UserInterface):
         if not nextAction.showable:
             self._currentAction.window.hide()
             self._actions.pop(0)
-            self._on_continue_clicked()
+            self._on_continue_clicked(nextAction)
             return
 
         self._currentAction.exit_logger()
@@ -530,7 +534,10 @@ class GraphicalUserInterface(UserInterface):
         self._currentAction = nextAction
         self._actions.pop(0)
 
-    def _on_quit_clicked(self):
+    def _on_quit_clicked(self, win, userData=None):
+        if not win.get_quit_button():
+            return
+
         dialog = self._quitDialog(None)
         with enlightbox(self._currentAction.window, dialog.window):
             rc = dialog.run()

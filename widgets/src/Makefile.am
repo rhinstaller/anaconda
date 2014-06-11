@@ -34,6 +34,7 @@ GISOURCES = BaseWindow.c \
 	 StandaloneWindow.c \
 	 LayoutIndicator.c \
 	 Lightbox.c \
+	 BaseStandalone.c \
 	 widgets-common.c
 
 GIHDRS = BaseWindow.h \
@@ -45,6 +46,7 @@ GIHDRS = BaseWindow.h \
 	 StandaloneWindow.h \
 	 LayoutIndicator.h \
 	 Lightbox.h \
+	 BaseStandalone.h \
 	 widgets-common.h
 
 NONGISOURCES =

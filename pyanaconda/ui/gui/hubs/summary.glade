@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Generated with glade 3.18.1 -->
+<!-- Generated with glade 3.18.3 -->
 <interface>
   <requires lib="gtk+" version="3.0"/>
-  <requires lib="AnacondaWidgets" version="1.0"/>
+  <requires lib="AnacondaWidgets" version="3.0"/>
   <object class="AnacondaHubWindow" id="summaryWindow">
     <property name="can_focus">False</property>
     <property name="window_name" translatable="yes">INSTALLATION SUMMARY</property>
+    <property name="quit_button">quitButton</property>
+    <property name="continue_button">continueButton</property>
     <child internal-child="main_box">
       <object class="GtkBox" id="AnacondaHubWindow-main_box1">
         <property name="can_focus">False</property>

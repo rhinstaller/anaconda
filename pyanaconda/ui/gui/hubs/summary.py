@@ -59,10 +59,3 @@ class SummaryHub(Hub):
         else:
             self._checker = DirInstallSpaceChecker(storage, payload)
 
-    @property
-    def continueButton(self):
-        return self.builder.get_object("continueButton")
-
-    @property
-    def quitButton(self):
-        return self.builder.get_object("quitButton")

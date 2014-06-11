@@ -133,8 +133,7 @@ class ProgressHub(Hub):
 
         # kickstart install, continue automatically if reboot or shutdown selected
         if flags.automatedInstall and self.data.reboot.action in [KS_REBOOT, KS_SHUTDOWN]:
-            self.continueButton.emit("clicked")
-
+            self.window.emit("continue-clicked")
 
     def _install_done(self):
         # package installation done, check personalization spokes
@@ -208,7 +207,7 @@ class ProgressHub(Hub):
             continueText.set_text(_("%s is now successfully installed on your system and ready "
                                     "for you to use!  When you are ready, reboot your system to start using it!"))
             continueText.set_line_wrap(True)
-            self.continueButton.set_label(C_("GUI|Progress", "_Quit"))
+            self.window.get_continue_button().set_label(C_("GUI|Progress", "_Quit"))
 
         self._progressBar = self.builder.get_object("progressBar")
         self._progressLabel = self.builder.get_object("progressLabel")
@@ -258,13 +257,9 @@ class ProgressHub(Hub):
 
     def _updateContinueButton(self):
         if self._configurationDone:
-            self.continueButton.set_sensitive(self.continuePossible)
+            self.window.set_may_continue(self.continuePossible)
         else:
             self.builder.get_object("configureButton").set_sensitive(self.continuePossible)
-
-    @property
-    def continueButton(self):
-        return self.builder.get_object("rebootButton")
 
     def _init_progress_bar(self, steps):
         self._totalSteps = steps

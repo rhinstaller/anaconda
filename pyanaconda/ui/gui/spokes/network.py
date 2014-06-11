@@ -1446,7 +1446,7 @@ class NetworkStandaloneSpoke(StandaloneSpoke):
         StandaloneSpoke.refresh(self)
         self.network_control_box.refresh()
 
-    def _on_continue_clicked(self, cb):
+    def _on_continue_clicked(self, window, user_data=None):
         hostname = self.network_control_box.hostname
         (valid, error) = network.sanityCheckHostname(hostname)
         if not valid:
@@ -1457,7 +1457,7 @@ class NetworkStandaloneSpoke(StandaloneSpoke):
             self.window.show_all()
         else:
             self.clear_info()
-            StandaloneSpoke._on_continue_clicked(self, cb)
+            StandaloneSpoke._on_continue_clicked(self, window, user_data)
 
     # Use case: slow dhcp has connected when on spoke
     def on_nm_state_changed(self, *args):

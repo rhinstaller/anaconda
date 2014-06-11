@@ -22,7 +22,7 @@
 
 #include <gtk/gtk.h>
 
-#include "BaseWindow.h"
+#include "BaseStandalone.h"
 
 G_BEGIN_DECLS
 
@@ -44,7 +44,7 @@ typedef struct _AnacondaHubWindowPrivate   AnacondaHubWindowPrivate;
  * be directly accessed.
  */
 struct _AnacondaHubWindow {
-    AnacondaBaseWindow           parent;
+    AnacondaBaseStandalone     parent;
 
     /*< private >*/
     AnacondaHubWindowPrivate  *priv;
@@ -58,7 +58,7 @@ struct _AnacondaHubWindow {
  *                pointer to be cast to an #AnacondaBaseWindow pointer.
  */
 struct _AnacondaHubWindowClass {
-    AnacondaBaseWindowClass parent_class;
+    AnacondaBaseStandaloneClass parent_class;
 };
 
 GType       anaconda_hub_window_get_type (void);

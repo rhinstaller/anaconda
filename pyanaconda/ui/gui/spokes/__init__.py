@@ -67,15 +67,11 @@ class StandaloneSpoke(Spoke, common.StandaloneSpoke):
         Spoke.__init__(self, data)
         common.StandaloneSpoke.__init__(self, data, storage, payload, instclass)
 
-    def _on_continue_clicked(self, cb):
-        self.apply()
-        cb()
+        # Add a continue-clicked handler to save the data before leaving the window
+        self.window.connect("continue-clicked", self._on_continue_clicked)
 
-    def register_event_cb(self, event, cb):
-        if event == "continue":
-            self.window.connect("continue-clicked", lambda *args: self._on_continue_clicked(cb))
-        elif event == "quit":
-            self.window.connect("quit-clicked", lambda *args: cb())
+    def _on_continue_clicked(self, win, user_data=None):
+        self.apply()
 
 # Inherit abstract methods from common.NormalSpoke
 # pylint: disable=abstract-method

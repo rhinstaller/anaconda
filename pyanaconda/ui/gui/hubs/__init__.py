@@ -273,10 +273,7 @@ class Hub(GUIObject, common.Hub):
         return len(self._incompleteSpokes) == 0 and len(self._notReadySpokes) == 0 and getattr(self._checker, "success", True)
 
     def _updateContinueButton(self):
-        if not self.continueButton:
-            return
-
-        self.continueButton.set_sensitive(self.continuePossible)
+        self.window.set_may_continue(self.continuePossible)
 
     def _update_spokes(self):
         from pyanaconda.ui.communication import hubQ
@@ -284,10 +281,10 @@ class Hub(GUIObject, common.Hub):
 
         q = hubQ.q
 
-        if not self._spokes and self.continueButton:
+        if not self._spokes and self.window.get_may_continue():
             # no spokes, move on
             log.info("no spokes available on %s, continuing automatically", self)
-            gtk_call_once(self.continueButton.emit, "clicked")
+            gtk_call_once(self.window.emit, "continue-clicked")
 
         click_continue = False
         # Grab all messages that may have appeared since last time this method ran.
@@ -347,10 +344,10 @@ class Hub(GUIObject, common.Hub):
             q.task_done()
 
         # queue is now empty, should continue be clicked?
-        if self._autoContinue and click_continue and self.continueButton:
+        if self._autoContinue and click_continue and self.window.get_may_continue():
             # enqueue the emit to the Gtk message queue
             log.info("_autoContinue clicking continue button")
-            gtk_call_once(self.continueButton.emit, "clicked")
+            gtk_call_once(self.window.emit, "continue-clicked")
 
         return True
 
@@ -360,21 +357,7 @@ class Hub(GUIObject, common.Hub):
 
         GLib.timeout_add(100, self._update_spokes)
 
-    @property
-    def continueButton(self):
-        return None
-
-    @property
-    def quitButton(self):
-        return None
-
     ### SIGNAL HANDLERS
-
-    def register_event_cb(self, event, cb):
-        if event == "continue" and self.continueButton:
-            self.continueButton.connect("clicked", lambda *args: cb())
-        elif event == "quit" and self.quitButton:
-            self.quitButton.connect("clicked", lambda *args: cb())
 
     def _on_spoke_clicked(self, selector, event, spoke):
         from gi.repository import Gdk

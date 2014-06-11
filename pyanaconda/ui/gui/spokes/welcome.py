@@ -305,7 +305,7 @@ class WelcomeLanguageSpoke(LangLocaleHandler, StandaloneSpoke):
 
     # Override the default in StandaloneSpoke so we can display the beta
     # warning dialog first.
-    def _on_continue_clicked(self, cb):
+    def _on_continue_clicked(self, window, user_data=None):
         # Don't display the betanag dialog if this is the final release.
         if not isFinal:
             dlg = self.builder.get_object("betaWarnDialog")
@@ -324,4 +324,4 @@ class WelcomeLanguageSpoke(LangLocaleHandler, StandaloneSpoke):
             if rc != 1:
                 sys.exit(0)
 
-        StandaloneSpoke._on_continue_clicked(self, cb)
+        StandaloneSpoke._on_continue_clicked(self, window, user_data)
