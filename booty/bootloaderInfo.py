@@ -287,7 +287,11 @@ class BootImages:
             self.default = storage.rootDevice.name
             (label, longlabel, type) = self.images[self.default]
             if not label:
-                self.images[self.default] = ("linux", productName, type)
+                # use the productNameMajorVersion as distribution name
+                # so that users can discern which major version of RHEL
+                # the given entry is (for example if there is RHEL5 or 7
+                # on the machine and in the boot menu)
+                self.images[self.default] = ("linux", productNameMajorVersion, type)
 
     # Return a list of (storage.Device, string) tuples that are bootable
     # devices.  The string is the type of the device, which is just a string
@@ -661,7 +665,8 @@ class efiBootloaderInfo(bootloaderInfo):
             fields = string.split(line)
             if len(fields) < 2:
                 continue
-            if string.join(fields[1:], " ") == productName:
+            potential_efi_product_name = " ".join(fields[1:])
+            if potential_efi_product_name in (productName, productNameMajorVersion):
                 entry = fields[0][4:8]
                 rc = iutil.execWithRedirect('efibootmgr',
                                             ["-b", entry, "-B"],
@@ -705,7 +710,7 @@ class efiBootloaderInfo(bootloaderInfo):
 
         for d in bootdevlist:
             argv = [ "efibootmgr", "-c" , "-w", "-L",
-                     productName, "-d", "%s" % (d.path,),
+                     productNameMajorVersion, "-d", "%s" % (d.path,),
                      "-p", "%s" % (bootpart,),
                      "-l", "\\EFI\\redhat\\" + self.bootloader ]
             rc = iutil.execWithRedirect(argv[0], argv[1:], root = instRoot,
@@ -715,7 +720,7 @@ class efiBootloaderInfo(bootloaderInfo):
         # return last rc, the API doesn't provide anything better than this
         return rc
 
-    def getEfiProductPath(self, productName, force=False):
+    def getEfiProductPath(self, force=False):
         """ Return the full EFI path of the installed product.
             eg. HD(4,2c8800,64000,902c1655-2677-4455-b2a5-29d0ce835610)
 
@@ -733,8 +738,15 @@ class efiBootloaderInfo(bootloaderInfo):
             line = line.strip()
             if not line:
                 continue
-            if productName in line:
-                efiProductPath = line[line.rfind(productName)+len(productName):].strip()
+            if productNameMajorVersion in line:
+                name_start_index = line.rfind(productNameMajorVersion)
+                name_offset = len(productNameMajorVersion)
+                efiProductPath = line[name_start_index + name_offset:].strip()
+                break
+            elif productName in line:
+                name_start_index = line.rfind(productName)
+                name_offset = len(productName)
+                efiProductPath = line[name_start_index + name_offset:].strip()
                 break
 
         if efiProductPath:

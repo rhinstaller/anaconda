@@ -279,11 +279,10 @@ class x86BootloaderInfo(efiBootloaderInfo):
         f.write("#boot=/dev/%s\n" % (grubTarget))
 
         if iutil.isEfi():
-            from product import productName
             # Map the target device to the full EFI path
-            if self.getEfiProductPath(productName):
+            if self.getEfiProductPath():
                 (n, pn) = getDiskPart(bootDevs[0], self.storage)
-                f.write("device (%s) %s\n" % (self.grubbyDiskName(n), self.getEfiProductPath(productName)))
+                f.write("device (%s) %s\n" % (self.grubbyDiskName(n), self.getEfiProductPath()))
 
         # get the default image to boot... we have to walk and find it
         # since grub indexes by where it is in the config file

@@ -32,6 +32,7 @@ else:
 productStamp = ""
 productName = "anaconda"
 productVersion = "bluesky"
+productNameMajorVersion = "anaconda bluesky"
 productPath = "Packages"
 productArch = None
 bugUrl = "your distribution provided bug reporting tool."
@@ -46,6 +47,9 @@ if path is not None:
         productArch = productStamp[productStamp.index(".")+1:]
         productName = lines[1][:-1]
         productVersion = lines[2][:-1]
+        versionSplit = productVersion.split(".")
+        if len(versionSplit):
+            productNameMajorVersion = "%s %s" % (productName, versionSplit[0])
 
         # set productIsFinal
         isfinal = lines[3].strip().lower()
