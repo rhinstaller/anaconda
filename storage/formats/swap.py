@@ -185,8 +185,8 @@ class SwapSpace(DeviceFormat):
         if self.label:
             f.write(" --label=\"%s\"" % self.label)
 
-        if self.mountopts:
-            f.write(" --fsoptions=\"%s\"" % self.mountopts)
+        if self.options:
+            f.write(" --fsoptions=\"%s\"" % self.options)
 
 register_device_format(SwapSpace)
 
