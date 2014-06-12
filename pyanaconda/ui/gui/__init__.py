@@ -261,7 +261,7 @@ class GraphicalUserInterface(UserInterface):
     basemask = "pyanaconda.ui"
     basepath = os.path.dirname(__file__)
     updatepath = "/tmp/updates/pyanaconda/ui"
-    sitepackages = [os.path.join(dir, "pyanaconda", "ui", "gui")
+    sitepackages = [os.path.join(dir, "pyanaconda", "ui")
                     for dir in site.getsitepackages()]
     pathlist = set([updatepath, basepath] + sitepackages)
 
