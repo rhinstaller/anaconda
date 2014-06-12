@@ -302,6 +302,15 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Wed Jun 11 2014 Brian C. Lane <bcl@redhat.com> - 21.41-1
+- Use /usr/lib* in updates images. (dshea)
+- Fix the paths we check for spokes. (sbueno+anaconda)
+- Remove the kbdtype option (mkolman)
+- Remove the noipv4 option (mkolman)
+- Remove the autostep option (mkolman)
+- Remove the disused nofb option (mkolman)
+- Remove the module option (mkolman)
+
 * Tue Jun 10 2014 Brian C. Lane <bcl@redhat.com> - 21.40-1
 - fedora-welcome: Correct an icon name after the switch to Adwaita
   (kalevlember)
