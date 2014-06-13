@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: anaconda 21.40\n"
+"Project-Id-Version: anaconda 21.41\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
-"POT-Creation-Date: 2014-06-11 17:09-0700\n"
+"POT-Creation-Date: 2014-06-12 18:11-0700\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -760,7 +760,7 @@ msgid ""
 "'-'."
 msgstr ""
 
-#: pyanaconda/network.py:1264 pyanaconda/ui/gui/spokes/custom.py:516
+#: pyanaconda/network.py:1264 pyanaconda/ui/gui/spokes/custom.py:513
 #: pyanaconda/ui/gui/spokes/network.py:297
 #: pyanaconda/ui/gui/spokes/lib/accordion.py:61
 msgid "Unknown"
@@ -1973,7 +1973,7 @@ msgstr ""
 msgid "MANUAL PARTITIONING"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:338
+#: pyanaconda/ui/gui/spokes/custom.py:337
 #, python-format
 msgctxt "GUI|Custom Partitioning"
 msgid "%d _storage device selected"
@@ -1981,83 +1981,83 @@ msgid_plural "%d _storage devices selected"
 msgstr[0] ""
 msgstr[1] ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:466
+#: pyanaconda/ui/gui/spokes/custom.py:463
 #, python-format
 msgid ""
 "When you create mount points for your %(name)s %(version)s installation, "
 "you'll be able to view their details here."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:624
+#: pyanaconda/ui/gui/spokes/custom.py:621
 #, python-format
 msgid "/boot/efi must be on a device of type %s"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:628
+#: pyanaconda/ui/gui/spokes/custom.py:625
 #, python-format
 msgid "%(fs)s must be on a device of type %(type)s"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:631
-#: pyanaconda/ui/gui/spokes/custom.py:633
+#: pyanaconda/ui/gui/spokes/custom.py:628
+#: pyanaconda/ui/gui/spokes/custom.py:630
 #, python-format
 msgid "%s cannot be encrypted"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:635
+#: pyanaconda/ui/gui/spokes/custom.py:632
 msgid "You must create a new filesystem on the root device."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:640
+#: pyanaconda/ui/gui/spokes/custom.py:637
 #, python-format
 msgid "Device does not support RAID level selection %s."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:741
+#: pyanaconda/ui/gui/spokes/custom.py:738
 msgid "Device resize request failed. Click for details."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:812
+#: pyanaconda/ui/gui/spokes/custom.py:809
 msgid "Device reformat request failed. Click for details."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:1180
+#: pyanaconda/ui/gui/spokes/custom.py:1177
 #, python-format
 msgid "Specified name %s already in use."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:1421
+#: pyanaconda/ui/gui/spokes/custom.py:1417
 msgid ""
 "The space available to this mountpoint can be changed by modifying the "
 "volume below."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:1423
+#: pyanaconda/ui/gui/spokes/custom.py:1419
 msgid "This file system may not be resized."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:1476
+#: pyanaconda/ui/gui/spokes/custom.py:1472
 msgid ""
 "Error checking storage configuration.  Click for details or press Done again "
 "to continue."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:1478
+#: pyanaconda/ui/gui/spokes/custom.py:1474
 msgid ""
 "Warning checking storage configuration.  Click for details or press Done "
 "again to continue."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:1583
+#: pyanaconda/ui/gui/spokes/custom.py:1579
 #, python-format
 msgid "Added new %(type)s to existing container %(name)s."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:1595
+#: pyanaconda/ui/gui/spokes/custom.py:1591
 msgid "Failed to add new device. Click for details."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:1601
+#: pyanaconda/ui/gui/spokes/custom.py:1597
 msgid "Invalid partition size set. Use a valid integer."
 msgstr ""
 
@@ -2065,58 +2065,58 @@ msgstr ""
 msgid "Device removal request failed. Click for details."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:1940
+#: pyanaconda/ui/gui/spokes/custom.py:1939
 #, python-format
 msgid "Volume Group name %s is already in use. Not saving changes."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:1968
+#: pyanaconda/ui/gui/spokes/custom.py:1967
 #, python-format
 msgid "(%s free)"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:2101
+#: pyanaconda/ui/gui/spokes/custom.py:2100
 #, python-format
 msgid ""
 "This Software RAID array is missing %(missingMembers)d of %(totalMembers)d "
 "member partitions. You can remove it or select a different device."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:2107
+#: pyanaconda/ui/gui/spokes/custom.py:2106
 #, python-format
 msgid ""
 "This LVM Volume Group is missing %(missingPVs)d of %(totalPVs)d physical "
 "volumes. You can remove it or select a different device."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:2184
+#: pyanaconda/ui/gui/spokes/custom.py:2183
 msgid "No disks selected."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:2190
+#: pyanaconda/ui/gui/spokes/custom.py:2189
 msgid "Not enough free space on selected disks."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:2196
-#: pyanaconda/ui/gui/spokes/custom.py:2222
+#: pyanaconda/ui/gui/spokes/custom.py:2195
+#: pyanaconda/ui/gui/spokes/custom.py:2221
 msgid "Automatic partitioning failed. Click for details."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:2425
+#: pyanaconda/ui/gui/spokes/custom.py:2424
 msgid ""
 "Continuing with this action will reset all your partitioning selections to "
 "their current on-disk state."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:2433
+#: pyanaconda/ui/gui/spokes/custom.py:2432
 msgid "_Reset selections"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:2433
+#: pyanaconda/ui/gui/spokes/custom.py:2432
 msgid "_Preserve current selections"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:2508
+#: pyanaconda/ui/gui/spokes/custom.py:2507
 msgid "Failed to unlock encrypted block device. Click for details"
 msgstr ""
 
@@ -2795,8 +2795,8 @@ msgstr ""
 #: pyanaconda/ui/gui/spokes/lib/custom_storage_helpers.py:369
 #, python-format
 msgid ""
-"Are you sure you want to delete all of the data on %s, including subvolumes "
-"and/or snapshots?"
+"Are you sure you want to delete all of the data on %s, including snapshots "
+"and/or subvolumes?"
 msgstr ""
 
 #: pyanaconda/ui/gui/spokes/lib/custom_storage_helpers.py:646

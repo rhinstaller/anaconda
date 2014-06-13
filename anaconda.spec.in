@@ -302,6 +302,13 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Thu Jun 12 2014 Brian C. Lane <bcl@redhat.com> - 21.42-1
+- Adjust the ui package paths to find hubs and spokes (bcl)
+- Change emphasis from subvolumes to snapshots in removal warning. (dlehman)
+- Reflect the fact that some block devices cannot be reformatted. (dlehman)
+- Use StorageDevice.direct to detemine if a device is directly accessible.
+  (dlehman)
+
 * Wed Jun 11 2014 Brian C. Lane <bcl@redhat.com> - 21.41-1
 - Use /usr/lib* in updates images. (dshea)
 - Fix the paths we check for spokes. (sbueno+anaconda)
