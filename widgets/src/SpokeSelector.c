@@ -239,7 +239,23 @@ static void set_icon(AnacondaSpokeSelector *widget, const char *icon_name) {
     icon_info = gtk_icon_theme_lookup_by_gicon(icon_theme,
                                                icon,
                                                64, 0);
-    pixbuf = gtk_icon_info_load_icon(icon_info, NULL);
+    if (NULL == icon_info) {
+        gchar *icon_str = g_icon_to_string(icon);
+        fprintf(stderr, "unable to lookup icon %s\n", icon_str);
+        if (NULL != icon_str) {
+            g_free(icon_str);
+        }
+        return;
+    }
+
+    pixbuf = gtk_icon_info_load_icon(icon_info, &err);
+    g_object_unref(icon_info);
+
+    if (NULL == pixbuf) {
+        fprintf(stderr, "could not load icon: %s\n", err->message);
+        g_error_free(err);
+        return;
+    }
 
     widget->priv->icon = gtk_image_new_from_pixbuf(pixbuf);
     gtk_image_set_pixel_size(GTK_IMAGE(widget->priv->icon), 64);
