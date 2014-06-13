@@ -53,7 +53,7 @@ enum {
     PROP_TITLE,
 };
 
-#define DEFAULT_ICON    "gtk-missing-image"
+#define DEFAULT_ICON    "image-missing"
 #define DEFAULT_STATUS  N_("None")
 #define DEFAULT_TITLE   N_("New Selector")
 
