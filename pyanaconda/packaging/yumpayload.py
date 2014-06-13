@@ -63,7 +63,8 @@ except ImportError:
     log.error("import of yum failed")
     yum = None
 
-from pyanaconda.constants import BASE_REPO_NAME, DRACUT_ISODIR, INSTALL_TREE, ISO_DIR, MOUNT_DIR
+from pyanaconda.constants import BASE_REPO_NAME, DRACUT_ISODIR, INSTALL_TREE, ISO_DIR, MOUNT_DIR, \
+                                 LOGLVL_LOCK
 from pyanaconda.flags import flags
 
 from pyanaconda import iutil
@@ -101,16 +102,16 @@ class YumLock(object):
         frame = inspect.stack()[2]
         threadName = threading.currentThread().name
 
-        log.debug("about to acquire _yum_lock for %s at %s:%s (%s)", threadName, frame[1], frame[2], frame[3])
+        log.log(LOGLVL_LOCK, "about to acquire _yum_lock for %s at %s:%s (%s)", threadName, frame[1], frame[2], frame[3])
         _private_yum_lock.acquire()
-        log.debug("have _yum_lock for %s", threadName)
+        log.log(LOGLVL_LOCK, "have _yum_lock for %s", threadName)
         return _private_yum_lock
 
     def __exit__(self, exc_type, exc_val, exc_tb):
         _private_yum_lock.release()
 
         if not isFinal:
-            log.debug("gave up _yum_lock for %s", threading.currentThread().name)
+            log.log(LOGLVL_LOCK, "gave up _yum_lock for %s", threading.currentThread().name)
 
 def refresh_base_repo(cond_fn=None):
     """
