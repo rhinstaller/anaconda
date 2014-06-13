@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: anaconda 13.21.218\n"
+"Project-Id-Version: anaconda 13.21.219\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
-"POT-Creation-Date: 2014-06-05 15:45-0400\n"
+"POT-Creation-Date: 2014-06-13 13:59-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -2041,11 +2041,11 @@ msgstr ""
 msgid "%(name)s: %(msg)s"
 msgstr ""
 
-#: iw/autopart_type.py:257
+#: iw/autopart_type.py:265
 msgid "Use All Space"
 msgstr ""
 
-#: iw/autopart_type.py:259
+#: iw/autopart_type.py:267
 msgid ""
 "Removes all partitions on the selected device(s).  This includes partitions "
 "created by other operating systems.\n"
@@ -2054,11 +2054,11 @@ msgid ""
 "sure you have backups."
 msgstr ""
 
-#: iw/autopart_type.py:265
+#: iw/autopart_type.py:273
 msgid "Replace Existing Linux System(s)"
 msgstr ""
 
-#: iw/autopart_type.py:267
+#: iw/autopart_type.py:275
 msgid ""
 "Removes only Linux partitions (created from a previous Linux installation).  "
 "This does not remove other partitions you may have on your storage device(s) "
@@ -2068,31 +2068,31 @@ msgid ""
 "sure you have backups."
 msgstr ""
 
-#: iw/autopart_type.py:275
+#: iw/autopart_type.py:283
 msgid "Shrink Current System"
 msgstr ""
 
-#: iw/autopart_type.py:277
+#: iw/autopart_type.py:285
 msgid ""
 "Shrinks existing partitions to create free space for the default layout."
 msgstr ""
 
-#: iw/autopart_type.py:279
+#: iw/autopart_type.py:287
 msgid "Use Free Space"
 msgstr ""
 
-#: iw/autopart_type.py:281
+#: iw/autopart_type.py:289
 msgid ""
 "Retains your current data and partitions and uses only the unpartitioned "
 "space on the selected device(s), assuming you have enough free space "
 "available."
 msgstr ""
 
-#: iw/autopart_type.py:285
+#: iw/autopart_type.py:293
 msgid "Create Custom Layout"
 msgstr ""
 
-#: iw/autopart_type.py:287
+#: iw/autopart_type.py:295
 msgid ""
 "Manually create your own custom layout on the selected device(s) using our "
 "partitioning tool."
@@ -4669,36 +4669,36 @@ msgid_plural "Preparing %d DASD devices for use with Linux..."
 msgstr[0] ""
 msgstr[1] ""
 
-#: storage/devicelibs/lvm.py:323
+#: storage/devicelibs/lvm.py:320
 #, python-format
 msgid "vginfo failed for %s"
 msgstr ""
 
-#: storage/devices.py:823 storage/devices.py:1547 storage/devices.py:2620
+#: storage/devices.py:823 storage/devices.py:1547 storage/devices.py:2624
 msgid "large"
 msgstr ""
 
-#: storage/devices.py:825 storage/devices.py:1553 storage/devices.py:2626
+#: storage/devices.py:825 storage/devices.py:1553 storage/devices.py:2630
 msgid "small"
 msgstr ""
 
-#: storage/devices.py:1323 storage/devices.py:2085 storage/devices.py:2553
-#: storage/devices.py:3138 storage/devices.py:3625
+#: storage/devices.py:1323 storage/devices.py:2085 storage/devices.py:2554
+#: storage/devices.py:3142 storage/devices.py:3629
 msgid "Creating"
 msgstr ""
 
-#: storage/devices.py:1324 storage/devices.py:2086 storage/devices.py:2554
-#: storage/devices.py:3139
+#: storage/devices.py:1324 storage/devices.py:2086 storage/devices.py:2555
+#: storage/devices.py:3143
 #, python-format
 msgid "Creating device %s"
 msgstr ""
 
-#: storage/devices.py:2669
+#: storage/devices.py:2673
 #, python-format
 msgid "A RAID%d set requires atleast %d members"
 msgstr ""
 
-#: storage/devices.py:3626
+#: storage/devices.py:3630
 #, python-format
 msgid "Creating file %s"
 msgstr ""
@@ -4716,7 +4716,7 @@ msgid ""
 "installation."
 msgstr ""
 
-#: storage/devicetree.py:1992 storage/devicetree.py:2040
+#: storage/devicetree.py:1993 storage/devicetree.py:2041
 msgid "This partition is part of an inconsistent LVM Volume Group."
 msgstr ""
 

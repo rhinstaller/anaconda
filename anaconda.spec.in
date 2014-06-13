@@ -222,6 +222,21 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Fri Jun 13 2014 Samantha N. Bueno <sbueno+anaconda@redhat.com> - 13.21.220-1
+- Fix wrong attribute name in swap ks line (bcl)
+  Resolves: rhbz#1002924
+  Related: rhbz#1002924
+- Look up MD arrays by MD UUID, not FS UUID. (dlehman)
+  Related: rhbz#868182
+- Remove snapshots as needed when removing LVs. (dlehman)
+  Resolves: rhbz#1043916
+- Let LVM determine alignment for PV data areas. (dlehman)
+  Resolves: rhbz#962961
+- Correctly determine whether any partitioning has been done. (dlehman)
+  Resolves: rhbz#842920
+- Fix handling of LUKS when using onpart. (dlehman)
+  Resolves: rhbz#840890
+
 * Thu Jun 05 2014 Samantha N. Bueno <sbueno+anaconda@redhat.com> - 13.21.219-1
 - Fix typo from commit ed3caa7b (bcl)
   Related: rhbz#1039051
