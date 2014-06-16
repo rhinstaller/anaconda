@@ -246,6 +246,9 @@ class MainWindow(Gtk.Window):
     def __init__(self):
         Gtk.Window.__init__(self)
 
+        # Treat an attempt to close the window the same as hitting quit
+        self.connect("delete-event", self._on_delete_event)
+
         # Create a stack and a list of what's been added to the stack
         self._stack = Gtk.Stack()
         self._stack_contents = set()
@@ -261,6 +264,15 @@ class MainWindow(Gtk.Window):
         self.show_all()
 
         self._current_action = None
+
+    def _on_delete_event(self, widget, event, user_data=None):
+        # Use the quit-clicked signal on the the current standalone, even if the
+        # standalone is not currently displayed.
+        if self.current_action:
+            self.current_action.window.emit("quit-clicked")
+
+        # Stop the window from being closed here
+        return True
 
     @property
     def current_action(self):
