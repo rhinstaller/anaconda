@@ -2416,6 +2416,8 @@ class LVMLogicalVolumeDevice(DMDevice):
 
             if self.req_max_size > 0:
                 args.append("--maxsize=%s" % self.req_max_size)
+            if self.req_percent > 0:
+                args.append("--percent=%s" % self.req_percent)
         else:
             if self.req_percent > 0:
                 args.append("--percent=%s" % self.req_percent)
