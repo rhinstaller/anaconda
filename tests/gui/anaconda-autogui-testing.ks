@@ -3,7 +3,7 @@
 url --mirrorlist=https://mirrors.fedoraproject.org/metalink?repo=rawhide&arch=x86_64
 
 shutdown
-network --bootproto=dhcp --activate
+network --bootproto=dhcp --activate --device=link
 rootpw qweqwe
 
 # Override dumb values from the spin-kickstarts.
