@@ -260,7 +260,8 @@ static void set_icon(AnacondaSpokeSelector *widget, const char *icon_name) {
     widget->priv->icon = gtk_image_new_from_pixbuf(pixbuf);
     gtk_image_set_pixel_size(GTK_IMAGE(widget->priv->icon), 64);
     gtk_widget_set_valign(widget->priv->icon, GTK_ALIGN_START);
-    gtk_misc_set_padding(GTK_MISC(widget->priv->icon), 12, 0);
+    gtk_widget_set_margin_start(widget->priv->icon, 12);
+    gtk_widget_set_margin_end(widget->priv->icon, 12);
     gtk_grid_attach(GTK_GRID(widget->priv->grid), widget->priv->icon, 0, 0, 1, 2);
 }
 
@@ -300,14 +301,19 @@ static void anaconda_spoke_selector_init(AnacondaSpokeSelector *spoke) {
     format_title_label(spoke, _(DEFAULT_TITLE));
     gtk_label_set_justify(GTK_LABEL(spoke->priv->title_label), GTK_JUSTIFY_LEFT);
     gtk_label_set_mnemonic_widget(GTK_LABEL(spoke->priv->title_label), GTK_WIDGET(spoke));
+G_GNUC_BEGIN_IGNORE_DEPRECATIONS
+    /* gtk+ did a garbage job of "deprecating" GtkMisc, so keep using it for now */
     gtk_misc_set_alignment(GTK_MISC(spoke->priv->title_label), 0, 1);
+G_GNUC_END_IGNORE_DEPRECATIONS
     gtk_widget_set_hexpand(GTK_WIDGET(spoke->priv->title_label), FALSE);
 
     /* Create the status label. */
     spoke->priv->status_label = gtk_label_new(NULL);
     format_status_label(spoke, _(DEFAULT_STATUS));
     gtk_label_set_justify(GTK_LABEL(spoke->priv->status_label), GTK_JUSTIFY_LEFT);
+G_GNUC_BEGIN_IGNORE_DEPRECATIONS
     gtk_misc_set_alignment(GTK_MISC(spoke->priv->status_label), 0, 0);
+G_GNUC_END_IGNORE_DEPRECATIONS
     gtk_label_set_ellipsize(GTK_LABEL(spoke->priv->status_label), PANGO_ELLIPSIZE_MIDDLE);
     gtk_label_set_max_width_chars(GTK_LABEL(spoke->priv->status_label), 45);
     gtk_widget_set_hexpand(GTK_WIDGET(spoke->priv->status_label), FALSE);
@@ -320,12 +326,11 @@ static void anaconda_spoke_selector_init(AnacondaSpokeSelector *spoke) {
 
     gtk_container_add(GTK_CONTAINER(spoke), spoke->priv->grid);
 
-#pragma GCC diagnostic push
-#pragma GCC diagnostic ignored "-Wdeprecated-declarations"
+G_GNUC_BEGIN_IGNORE_DEPRECATIONS
     /* No existing role is appropriate for this, so ignore the warning raised
        by registering a new role. */
     role = atk_role_register("spoke selector");
-#pragma GCC diagnostic pop
+G_GNUC_END_IGNORE_DEPRECATIONS
 
     atk = gtk_widget_get_accessible(GTK_WIDGET(spoke));
     atk_object_set_name(atk, _(DEFAULT_TITLE));

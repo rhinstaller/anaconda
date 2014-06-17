@@ -259,7 +259,13 @@ static void anaconda_base_window_init(AnacondaBaseWindow *win) {
      * to control the amount of space the Window's content takes up on the
      * screen.
      */
+G_GNUC_BEGIN_IGNORE_DEPRECATIONS
+    /*
+     * GtkAlignment is deprecated, but getting rid of it would have severe downstream
+     * repurcusions, so put that off for as long as we can.
+     */
     win->priv->alignment = gtk_alignment_new(0.5, 0.0, 1.0, 1.0);
+G_GNUC_END_IGNORE_DEPRECATIONS
     gtk_box_pack_start(GTK_BOX(win->priv->main_box), win->priv->alignment, TRUE, TRUE, 0);
 
     /* The action_area goes inside the alignment and represents the main
@@ -277,7 +283,13 @@ static void anaconda_base_window_init(AnacondaBaseWindow *win) {
     markup = g_markup_printf_escaped("<span weight='bold' size='large'>%s</span>", _(DEFAULT_WINDOW_NAME));
     gtk_label_set_markup(GTK_LABEL(win->priv->name_label), markup);
     g_free(markup);
+G_GNUC_BEGIN_IGNORE_DEPRECATIONS
+    /*
+     * GtkMisc is deprecated, but if you don't set the GtkMisc properties then they
+     * still default to everything being centered. A+ work everyone.
+     */
     gtk_misc_set_alignment(GTK_MISC(win->priv->name_label), 0, 0);
+G_GNUC_END_IGNORE_DEPRECATIONS
     gtk_widget_set_hexpand(win->priv->name_label, TRUE);
 
     win->priv->orig_name = g_strdup(DEFAULT_WINDOW_NAME);
@@ -287,14 +299,18 @@ static void anaconda_base_window_init(AnacondaBaseWindow *win) {
     markup = g_markup_printf_escaped("<span size='large'>%s</span>", _(DEFAULT_DISTRIBUTION));
     gtk_label_set_markup(GTK_LABEL(win->priv->distro_label), markup);
     g_free(markup);
+G_GNUC_BEGIN_IGNORE_DEPRECATIONS
     gtk_misc_set_alignment(GTK_MISC(win->priv->distro_label), 0, 0);
+G_GNUC_END_IGNORE_DEPRECATIONS
 
     win->priv->orig_distro = g_strdup(DEFAULT_DISTRIBUTION);
 
     /* Create the beta label. */
     win->priv->beta_label = gtk_label_new(NULL);
     format_beta_label(win, _(DEFAULT_BETA));
+G_GNUC_BEGIN_IGNORE_DEPRECATIONS
     gtk_misc_set_alignment(GTK_MISC(win->priv->beta_label), 0, 0);
+G_GNUC_END_IGNORE_DEPRECATIONS
     gtk_widget_set_no_show_all(win->priv->beta_label, TRUE);
 
     win->priv->orig_beta = g_strdup(DEFAULT_BETA);

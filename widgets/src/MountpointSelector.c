@@ -208,7 +208,10 @@ static void anaconda_mountpoint_selector_init(AnacondaMountpointSelector *mountp
     /* Create the name label. */
     mountpoint->priv->name_label = gtk_label_new(NULL);
     format_name_label(mountpoint, _(DEFAULT_NAME));
+G_GNUC_BEGIN_IGNORE_DEPRECATIONS
+    /* gtk+ did a garbage job of "deprecating" GtkMisc, so keep using it for now */
     gtk_misc_set_alignment(GTK_MISC(mountpoint->priv->name_label), 0, 0);
+G_GNUC_END_IGNORE_DEPRECATIONS
     gtk_label_set_ellipsize(GTK_LABEL(mountpoint->priv->name_label), PANGO_ELLIPSIZE_MIDDLE);
     gtk_label_set_max_width_chars(GTK_LABEL(mountpoint->priv->name_label), 25);
     gtk_widget_set_hexpand(GTK_WIDGET(mountpoint->priv->name_label), TRUE);
@@ -216,12 +219,16 @@ static void anaconda_mountpoint_selector_init(AnacondaMountpointSelector *mountp
     /* Create the size label. */
     mountpoint->priv->size_label = gtk_label_new(NULL);
     format_size_label(mountpoint, _(DEFAULT_SIZE));
+G_GNUC_BEGIN_IGNORE_DEPRECATIONS
     gtk_misc_set_alignment(GTK_MISC(mountpoint->priv->size_label), 0, 0.5);
+G_GNUC_END_IGNORE_DEPRECATIONS
 
     /* Create the mountpoint label. */
     mountpoint->priv->mountpoint_label = gtk_label_new(NULL);
     format_mountpoint_label(mountpoint, DEFAULT_MOUNTPOINT);
+G_GNUC_BEGIN_IGNORE_DEPRECATIONS
     gtk_misc_set_alignment(GTK_MISC(mountpoint->priv->mountpoint_label), 0, 0);
+G_GNUC_END_IGNORE_DEPRECATIONS
     gtk_widget_set_hexpand(GTK_WIDGET(mountpoint->priv->mountpoint_label), TRUE);
 
     /* Add everything to the grid, add the grid to the widget. */

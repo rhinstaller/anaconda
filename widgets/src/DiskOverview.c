@@ -327,12 +327,11 @@ static void anaconda_disk_overview_init(AnacondaDiskOverview *widget) {
     /* And this one is to handle when you select a DiskOverview via keyboard. */
     g_signal_connect(widget, "key-release-event", G_CALLBACK(anaconda_disk_overview_clicked), NULL);
 
-#pragma GCC diagnostic push
-#pragma GCC diagnostic ignored "-Wdeprecated-declarations"
+G_GNUC_BEGIN_IGNORE_DEPRECATIONS
     /* No existing role is appropriate for this, so ignore the warning raised
        by registering a new role. */
     role = atk_role_register("disk overview");
-#pragma GCC diagnostic pop
+G_GNUC_END_IGNORE_DEPRECATIONS
 
     atk = gtk_widget_get_accessible(GTK_WIDGET(widget));
     atk_object_set_role(atk, role);
