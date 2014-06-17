@@ -272,7 +272,7 @@ class EFI(Platform):
             NOTE: X86 does not have a separate checkBootRequest method,
                   so this one must work for x86 as well as EFI.
         """
-        if not req and self.isEfi:
+        if self.isEfi and (not req or not req.format.mountpoint):
             return [_("You have not created a /boot/efi partition.")]
         elif not req:
             return [_("You have not created a bootable partition.")]
@@ -291,6 +291,9 @@ class EFI(Platform):
             # partition or with / on extX. Get the format of whatever /boot is on
             boot_errors = Platform.checkBootRequest(self, boot_device)
             errors += boot_errors
+
+        if not boot_device:
+            return errors
 
         # Limit /boot to 2TB
         if boot_device.size > 2*1024*1024:
