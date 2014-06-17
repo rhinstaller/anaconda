@@ -354,8 +354,6 @@ class GraphicalUserInterface(UserInterface):
             window.main_window.set_transient_for(lightbox)
 
     def _instantiateAction(self, actionClass):
-        from pyanaconda.ui.gui.spokes import StandaloneSpoke
-
         # Instantiate an action on-demand, passing the arguments defining our
         # spoke API and setting up continue/quit signal handlers.
         obj = actionClass(self.data, self.storage, self.payload, self.instclass)
