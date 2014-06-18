@@ -40,7 +40,7 @@ from pyanaconda.ui.gui.spokes import NormalSpoke
 from pyanaconda.ui.categories.software import SoftwareCategory
 from pyanaconda.ui.gui.utils import enlightbox, fire_gtk_action
 from pyanaconda.iutil import ProxyString, ProxyStringError, cmp_obj_attrs
-from pyanaconda.ui.gui.utils import gtk_call_once, really_hide, really_show
+from pyanaconda.ui.gui.utils import gtk_call_once, really_hide, really_show, fancy_set_sensitive
 from pyanaconda.threads import threadMgr, AnacondaThread
 from pyanaconda.packaging import PayloadError, MetadataError, PackagePayload
 from pyanaconda.regexes import REPO_NAME_VALID, URL_PARSE, HOSTNAME_PATTERN_WITHOUT_ANCHORS
@@ -68,7 +68,8 @@ REPO_OBJ = 2
 
 REPO_PROTO = {PROTOCOL_HTTP:  "http://",
               PROTOCOL_HTTPS: "https://",
-              PROTOCOL_FTP:   "ftp://"
+              PROTOCOL_FTP:   "ftp://",
+              PROTOCOL_NFS:   "nfs://"
               }
 
 def _validateProxy(proxy_string, username_set, password_set):
@@ -976,6 +977,10 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler):
         return InputCheck.CHECK_OK
 
     def _checkRepoProxy(self, inputcheck):
+        # If nfs is selected as the protocol, skip the proxy check
+        if self._repoProtocolComboBox.get_active_id() == PROTOCOL_NFS:
+            return InputCheck.CHECK_OK
+
         # Empty proxies are OK, as long as the username and password are empty too
         proxy_string = self.get_input(inputcheck.input_obj).strip()
         username_set = self._repoProxyUsernameEntry.is_sensitive() and self._repoProxyUsernameEntry.get_text().strip()
@@ -1393,3 +1398,17 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler):
         self._repoNameChecks[repo] = InputCheckHandler.add_check(self, self._repoNameEntry, self._checkRepoName, Gtk.TreeRowReference.new(model, path))
         self._repoURLChecks[repo] = InputCheckHandler.add_check(self, self._repoUrlEntry, self._checkRepoURL, Gtk.TreeRowReference.new(model, path))
         self._repoProxyChecks[repo] = InputCheckHandler.add_check(self, self._repoProxyUrlEntry, self._checkRepoProxy, Gtk.TreeRowReference.new(model, path))
+
+    def on_repoProtocolComboBox_changed(self, combobox, user_data=None):
+        # Set the mirrorlist and proxy fields sensitivity depending on whether NFS was selected
+        sensitive = not(self._repoProtocolComboBox.get_active_id() == PROTOCOL_NFS)
+        fancy_set_sensitive(self._repoMirrorlistCheckbox, sensitive)
+        fancy_set_sensitive(self._repoProxyUrlEntry, sensitive)
+        fancy_set_sensitive(self._repoProxyUsernameEntry, sensitive)
+        fancy_set_sensitive(self._repoProxyPasswordEntry, sensitive)
+
+        # Re-run the proxy check
+        itr = self._repoSelection.get_selected()[1]
+        if itr:
+            repo = self._repoStore[itr][REPO_OBJ]
+            self._repoProxyChecks[repo].update_check_status()
