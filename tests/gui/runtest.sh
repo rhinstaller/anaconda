@@ -22,7 +22,7 @@ function doit() {
     ARGS="-s \
           -v \
           --nologcapture \
-          --tc=resultsdir:$(mktemp -d --tmpdir=/var/tmp autogui-results-XXXXXX) \
+          --tc=resultsdir:$(mktemp -d --tmpdir=$(pwd) autogui-results-XXXXXX) \
           --tc=liveImage:$1"
 
     if [ -z "$2" ]; then
