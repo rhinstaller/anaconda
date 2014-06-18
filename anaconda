@@ -494,7 +494,7 @@ def setupDisplay(anaconda, options, addons=None):
     anaconda.isHeadless = options.isHeadless or arch.isS390()
 
     if options.vnc:
-        flags.usevnc = 1
+        flags.usevnc = True
         anaconda.displayMode = 'g'
         vncS.password = options.vncpassword
 
@@ -514,7 +514,7 @@ def setupDisplay(anaconda, options, addons=None):
         return
 
     if anaconda.ksdata.vnc.enabled:
-        flags.usevnc = 1
+        flags.usevnc = True
         anaconda.displayMode = 'g'
 
         if vncS.password == "":
@@ -534,7 +534,7 @@ def setupDisplay(anaconda, options, addons=None):
         if "pyanaconda.ui.gui" not in mods:
             stdoutLog.warning("Graphical user interface not available, falling back to text mode")
             anaconda.displayMode = "t"
-            flags.usevnc = 0
+            flags.usevnc = False
             flags.vncquestion = False
 
     # disable VNC over text question when not enough memory is available
@@ -599,7 +599,7 @@ def setupDisplay(anaconda, options, addons=None):
 
         if anaconda.ksdata.vnc.enabled:
             anaconda.displayMode = 'g'
-            flags.usevnc = 1
+            flags.usevnc = True
             vncS.password = anaconda.ksdata.vnc.password
 
     log.info("Display mode = %s", anaconda.displayMode)
@@ -660,7 +660,7 @@ def setupDisplay(anaconda, options, addons=None):
 
         if anaconda.ksdata.vnc.enabled:
             anaconda.displayMode = 'g'
-            flags.usevnc = 1
+            flags.usevnc = True
             vncS.password = anaconda.ksdata.vnc.password
 
     # if they want us to use VNC do that now
