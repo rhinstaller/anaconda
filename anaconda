@@ -763,9 +763,6 @@ if __name__ == "__main__":
     from pyanaconda.flags import flags, can_touch_runtime_system
     (opts, depr) = parseArguments(boot_cmdline=flags.cmdline)
 
-    if opts.askmethod:
-        flags.askmethod = True
-
     # Set up logging as early as possible.
     import logging
     from pyanaconda import anaconda_log
@@ -872,9 +869,6 @@ if __name__ == "__main__":
     if opts.stage2:
         anaconda.stage2 = opts.stage2
 
-    if opts.noverifyssl:
-        flags.noverifyssl = True
-
     if opts.liveinst:
         from pyanaconda.screensaver import inhibit_screensaver
         from pyanaconda import safe_dbus
@@ -890,21 +884,15 @@ if __name__ == "__main__":
     elif "LIVECMD" in os.environ:
         log.warning("Running via liveinst, but not setting flags.livecdInstall - this is for testing only")
 
-    if opts.targetArch:
-        flags.targetarch = opts.targetArch
-
-    if opts.armPlatform:
-        flags.armPlatform = opts.armPlatform
-
-    if opts.extlinux:
-        flags.extlinux = opts.extlinux
-
-    if opts.dnf:
-        flags.dnf = opts.dnf
-
-    flags.mpathFriendlyNames = opts.mpathfriendlynames
-
     # set flags
+    flags.noverifyssl = opts.noverifyssl
+    flags.targetarch = opts.targetArch
+    flags.armPlatform = opts.armPlatform
+    flags.extlinux = opts.extlinux
+    flags.dnf = opts.dnf
+    flags.mpathFriendlyNames = opts.mpathfriendlynames
+    flags.debug = opts.debug
+    flags.askmethod = opts.askmethod
     flags.dmraid = opts.dmraid
     flags.mpath = opts.mpath
     flags.ibft = opts.ibft
@@ -922,9 +910,6 @@ if __name__ == "__main__":
                 os.symlink("../mnt/runtime/etc/" + i, "/etc/" + i)
         except OSError:
             pass
-
-    if opts.debug:
-        flags.debug = True
 
     if opts.rescue:
         anaconda.rescue = True
