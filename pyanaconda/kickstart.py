@@ -28,6 +28,7 @@ from blivet.partitioning import doPartitioning
 from blivet.partitioning import growLVM
 from blivet.size import Size
 from blivet import udev
+from blivet.platform import platform
 import blivet.iscsi
 import blivet.fcoe
 import blivet.zfcp
@@ -508,12 +509,17 @@ class Realm(commands.realm.F19_Realm):
         log.info("Joined realm %s", self.join_realm)
 
 
-class ClearPart(commands.clearpart.F17_ClearPart):
+class ClearPart(commands.clearpart.F21_ClearPart):
     def parse(self, args):
-        retval = commands.clearpart.F17_ClearPart.parse(self, args)
+        retval = commands.clearpart.F21_ClearPart.parse(self, args)
 
         if self.type is None:
             self.type = CLEARPART_TYPE_NONE
+
+        if self.disklabel and self.disklabel not in platform.diskLabelTypes:
+            raise KickstartValueError(formatErrorMsg(self.lineno,
+                    msg=_("Disklabel \"%s\" given in clearpart command is not "
+                          "supported on this platform.") % self.disklabel))
 
         # Do any glob expansion now, since we need to have the real list of
         # disks available before the execute methods run.
@@ -550,6 +556,11 @@ class ClearPart(commands.clearpart.F17_ClearPart):
 
         if self.initAll:
             storage.config.initializeDisks = self.initAll
+
+        if self.disklabel:
+            if not platform.setDefaultDiskLabelType(self.disklabel):
+                log.warn("%s is not a supported disklabel type on this platform. "
+                         "Using default disklabel %s instead.", self.disklabel, platform.defaultDiskLabelType)
 
         storage.clearPartitions()
 
