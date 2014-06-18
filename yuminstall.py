@@ -1324,6 +1324,12 @@ debuglevel=6
         if not anaconda.mediaDevice and os.path.ismount(self.ayum.tree):
             isys.umount(self.ayum.tree)
 
+        # Attempt to clean up Yum so that running yum in post will work (#1110148)
+        self.ayum.closeRpmDB()
+        del self.ayum.tsInfo
+        del self.ayum.ts
+        self.ayum.close()
+
         # clean up rpmdb locks so that kickstart %post scripts aren't
         # unhappy (#496961)
         iutil.resetRpmDb(anaconda.rootPath)
