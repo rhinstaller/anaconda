@@ -3339,7 +3339,7 @@ class DMRaidArrayDevice(DMDevice):
 class MultipathDevice(DMDevice):
     """ A multipath device """
     _type = "dm-multipath"
-    _packages = ["device-mapper-multipath"]
+    _packages = ["device-mapper-multipath", "dracut-network"]
     _services = ["multipathd"]
     _partitionable = True
     _isDisk = True
