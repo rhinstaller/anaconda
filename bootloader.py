@@ -210,7 +210,8 @@ def writeBootloader(anaconda):
     for (version, arch, nick) in \
             anaconda.backend.kernelVersionList(anaconda.rootPath):
         if nick != 'base':
-            defkern = "kernel-%s" %(nick,)
+            if nick != 'kdump':
+                defkern = "kernel-%s" %(nick,)
             kernelList.append(("%s-%s" %(kernelLabel, nick),
                                "%s-%s" %(kernelLongLabel, nick),
                                version))
