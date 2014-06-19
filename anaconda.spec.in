@@ -55,6 +55,7 @@ BuildRequires: e2fsprogs-devel >= %{e2fsver}
 BuildRequires: elfutils-devel
 BuildRequires: gettext >= %{gettextver}
 BuildRequires: gtk2-devel
+BuildRequires: gdk-pixbuf2-devel
 BuildRequires: intltool >= %{intltoolver}
 BuildRequires: isomd5sum-devel >= %{isomd5sumver}
 BuildRequires: libarchive-devel
