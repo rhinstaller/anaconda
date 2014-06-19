@@ -223,6 +223,21 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Wed Jun 18 2014 Samantha N. Bueno <sbueno+anaconda@redhat.com> - 13.21.221-1
+- Add BuildRequires: gdk-pixbuf2-devel (sbueno+anaconda)
+  Resolves: rhbz#1109298
+- If kernel-kdump is installed, don't set it as the default kernel.
+  (sbueno+anaconda)
+  Resolves: rhbz#734121
+- Close yum objects before running post scripts (bcl)
+  Resolves: rhbz#1110148
+- Catch custom partitioning problems on UEFI (bcl)
+  Resolves: rhbz#991620
+- Mark dracut-network for installation on mpath. (sbueno+anaconda)
+  Resolves: rhbz#1007463
+- Write --percent to kickstart output even if --grow was used (mkolman)
+  Resolves: rhbz#1046320
+
 * Fri Jun 13 2014 Samantha N. Bueno <sbueno+anaconda@redhat.com> - 13.21.220-1
 - Fix wrong attribute name in swap ks line (bcl)
   Resolves: rhbz#1002924
