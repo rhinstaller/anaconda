@@ -287,7 +287,6 @@ def parseArguments(argv=None, boot_cmdline=None):
     ap.add_argument("--liveinst", action="store_true", default=False)
 
     # Display
-    ap.add_argument("--headless", dest="isHeadless", action="store_true", default=False)
     ap.add_argument("--resolution", dest="runres", default=None)
     ap.add_argument("--usefbx", dest="xdriver", action="store_const", const="fbdev")
     ap.add_argument("--vnc", action="store_true", default=False)
@@ -491,7 +490,7 @@ def setupDisplay(anaconda, options, addons=None):
     vncS.anaconda = anaconda
 
     anaconda.displayMode = options.display_mode
-    anaconda.isHeadless = options.isHeadless or arch.isS390()
+    anaconda.isHeadless = arch.isS390()
 
     if options.vnc:
         flags.usevnc = True
