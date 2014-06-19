@@ -280,34 +280,47 @@ def parseArguments(argv=None, boot_cmdline=None):
     ap.add_argument("--armplatform", dest="armPlatform", type=str)
     ap.add_argument("--multilib", dest="multiLib", action="store_true", default=False)
 
-    ap.add_argument("-m", "--method", dest="method", default=None)
-    ap.add_argument("--askmethod", dest="askmethod", action="store_true", default=False)
-    ap.add_argument("--repo", dest="method", default=None)
-    ap.add_argument("--stage2", dest="stage2", default=None)
-    ap.add_argument("--noverifyssl", action="store_true", default=False)
-    ap.add_argument("--liveinst", action="store_true", default=False)
+    ap.add_argument("-m", "--method", dest="method", default=None, metavar="METHOD",
+                    help=help_parser.help_text("method"))
+    ap.add_argument("--askmethod", dest="askmethod", action="store_true", default=False,
+                    help=help_parser.help_text("askmethod"))
+    ap.add_argument("--repo", dest="method", default=None, metavar="REPO_URL",
+                    help=help_parser.help_text("repo"))
+    ap.add_argument("--stage2", dest="stage2", default=None, metavar="STAGE2_URL",
+                    help=help_parser.help_text("stage2"))
+    ap.add_argument("--noverifyssl", action="store_true", default=False,
+                    help=help_parser.help_text("noverifyssl"))
+    ap.add_argument("--liveinst", action="store_true", default=False,
+                    help=help_parser.help_text("liveinst"))
 
     # Display
-    ap.add_argument("--resolution", dest="runres", default=None)
-    ap.add_argument("--usefbx", dest="xdriver", action="store_const", const="fbdev")
-    ap.add_argument("--vnc", action="store_true", default=False)
-    ap.add_argument("--vncconnect")
-    ap.add_argument("--vncpassword", default="")
-    ap.add_argument("--xdriver", dest="xdriver", action="store", type=str, default=None)
+    ap.add_argument("--resolution", dest="runres", default=None, metavar="WIDTHxHEIGHT",
+                    help=help_parser.help_text("resolution"))
+    ap.add_argument("--usefbx", dest="xdriver", action="store_const", const="fbdev",
+                    help=help_parser.help_text("usefbx"))
+    ap.add_argument("--vnc", action="store_true", default=False,
+                    help=help_parser.help_text("vnc"))
+    ap.add_argument("--vncconnect", metavar="HOST:PORT", help=help_parser.help_text("vncconnect"))
+    ap.add_argument("--vncpassword", default="", metavar="PASSWORD",
+                    help=help_parser.help_text("vncpassword"))
+    ap.add_argument("--xdriver", dest="xdriver", action="store", type=str,
+                    default=None, metavar="DRIVER", help=help_parser.help_text("xdriver"))
 
     # Language
-    ap.add_argument("--keymap")
-    ap.add_argument("--lang")
+    ap.add_argument("--keymap", metavar="KEYMAP", help=help_parser.help_text("keymap"))
+    ap.add_argument("--lang", metavar="LANG", help=help_parser.help_text("lang"))
 
     # Obvious
-    ap.add_argument("--loglevel")
-    ap.add_argument("--syslog")
+    ap.add_argument("--loglevel", metavar="LEVEL", help=help_parser.help_text("loglevel"))
+    ap.add_argument("--syslog", metavar="HOST[:PORT]", help=help_parser.help_text("syslog"))
 
-    ap.add_argument("--noselinux", dest="selinux", action="store_false", default=True)
-    ap.add_argument("--selinux", action="store_true")
+    ap.add_argument("--noselinux", dest="selinux", action="store_false",
+                    default=True, help=help_parser.help_text("noselinux"))
+    ap.add_argument("--selinux", action="store_true", help=help_parser.help_text("selinux"))
 
-    ap.add_argument("--nompath", dest="mpath", action="store_false", default=True)
-    ap.add_argument("--mpath", action="store_true")
+    ap.add_argument("--nompath", dest="mpath", action="store_false", default=True,
+                    help=help_parser.help_text("nompath"))
+    ap.add_argument("--mpath", action="store_true", help=help_parser.help_text("mpath"))
 
     ap.add_argument("--nodmraid", dest="dmraid", action="store_false", default=True,
                     help=help_parser.help_text("nodmraid"))
