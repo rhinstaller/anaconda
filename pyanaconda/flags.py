@@ -52,7 +52,6 @@ class Flags(object):
         self.dmraid = True
         self.selinux = SELINUX_DEFAULT
         self.debug = False
-        self.targetarch = None
         self.armPlatform = None
         self.preexisting_x11 = False
         self.noverifyssl = False
@@ -80,9 +79,6 @@ class Flags(object):
         for f in ("selinux", "debug", "leavebootorder", "testing", "extlinux",
                   "gpt", "dnf"):
             self.set_cmdline_bool(f)
-
-        if "rpmarch" in self.cmdline:
-            self.targetarch = self.cmdline.get("rpmarch")
 
         if not selinux.is_selinux_enabled():
             self.selinux = 0
