@@ -239,13 +239,15 @@ def parseArguments(argv=None, boot_cmdline=None):
     from pyanaconda.anaconda_argparse import AnacondaArgumentParser
     from pyanaconda.anaconda_argparse import HelpTextParser
 
+    datadir = os.environ.get("ANACONDA_DATADIR", "/usr/share/anaconda")
+
     # NOTE: for each long option (like '--repo'), AnacondaOptionParser
     # checks the boot arguments for bootarg_prefix+option ('inst.repo').
     # If require_prefix is False, it also accepts the option without the
     # bootarg_prefix ('repo').
     # See anaconda_optparse.py and BootArgs (in flags.py) for details.
     ap = AnacondaArgumentParser(bootarg_prefix="inst.", require_prefix=False)
-    help_parser = HelpTextParser("/usr/share/anaconda/anaconda_options.txt")
+    help_parser = HelpTextParser(os.path.join(datadir, "anaconda_options.txt"))
 
     # NOTE: store_false options will *not* get negated when the user does
     # "option=0" on the boot commandline (store_true options do, though).

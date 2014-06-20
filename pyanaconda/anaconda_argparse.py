@@ -295,8 +295,6 @@ class HelpTextParser(object):
         """ Initializer
             :param path: The absolute path to the help text file
         """
-        if not os.path.isabs(path):
-            raise ValueError("path %s is not an absolute path" % path)
         self._path = path
 
         self._help_text = None
