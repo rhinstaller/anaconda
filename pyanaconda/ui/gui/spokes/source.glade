@@ -947,45 +947,37 @@
                         <property name="shadow_type">in</property>
                         <property name="min_content_width">250</property>
                         <child>
-                          <object class="GtkViewport" id="reposViewport">
+                          <object class="GtkTreeView" id="repoTreeView">
                             <property name="visible">True</property>
-                            <property name="can_focus">False</property>
-                            <property name="hexpand">True</property>
-                            <property name="vexpand">True</property>
+                            <property name="can_focus">True</property>
+                            <property name="model">repoStore</property>
+                            <property name="enable_search">False</property>
+                            <child internal-child="selection">
+                              <object class="GtkTreeSelection" id="repoSelection">
+                                <signal name="changed" handler="on_repoSelection_changed" swapped="no"/>
+                              </object>
+                            </child>
                             <child>
-                              <object class="GtkTreeView" id="repoTreeView">
-                                <property name="visible">True</property>
-                                <property name="can_focus">True</property>
-                                <property name="model">repoStore</property>
-                                <property name="enable_search">False</property>
-                                <child internal-child="selection">
-                                  <object class="GtkTreeSelection" id="repoSelection">
-                                    <signal name="changed" handler="on_repoSelection_changed" swapped="no"/>
-                                  </object>
-                                </child>
+                              <object class="GtkTreeViewColumn" id="repoEnabledColumn">
+                                <property name="title" translatable="yes">Enabled</property>
                                 <child>
-                                  <object class="GtkTreeViewColumn" id="repoEnabledColumn">
-                                    <property name="title" translatable="yes">Enabled</property>
-                                    <child>
-                                      <object class="GtkCellRendererToggle" id="repoEnableRenderer">
-                                        <signal name="toggled" handler="on_repoEnable_toggled" swapped="no"/>
-                                      </object>
-                                      <attributes>
-                                        <attribute name="active">0</attribute>
-                                      </attributes>
-                                    </child>
+                                  <object class="GtkCellRendererToggle" id="repoEnableRenderer">
+                                    <signal name="toggled" handler="on_repoEnable_toggled" swapped="no"/>
                                   </object>
+                                  <attributes>
+                                    <attribute name="active">0</attribute>
+                                  </attributes>
                                 </child>
+                              </object>
+                            </child>
+                            <child>
+                              <object class="GtkTreeViewColumn" id="repoNameColumn">
+                                <property name="title" translatable="yes">Name</property>
                                 <child>
-                                  <object class="GtkTreeViewColumn" id="repoNameColumn">
-                                    <property name="title" translatable="yes">Name</property>
-                                    <child>
-                                      <object class="GtkCellRendererText" id="repoNameRenderer"/>
-                                      <attributes>
-                                        <attribute name="text">1</attribute>
-                                      </attributes>
-                                    </child>
-                                  </object>
+                                  <object class="GtkCellRendererText" id="repoNameRenderer"/>
+                                  <attributes>
+                                    <attribute name="text">1</attribute>
+                                  </attributes>
                                 </child>
                               </object>
                             </child>
