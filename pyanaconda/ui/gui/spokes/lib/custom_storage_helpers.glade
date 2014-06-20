@@ -210,6 +210,7 @@
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
                     <property name="model">disk_store</property>
+                    <property name="rubber_banding">True</property>
                     <child internal-child="selection">
                       <object class="GtkTreeSelection" id="disk_view_selection">
                         <property name="mode">multiple</property>
@@ -774,6 +775,7 @@ use.  Try something else?</property>
                     <property name="can_focus">True</property>
                     <property name="model">disk_store</property>
                     <property name="search_column">0</property>
+                    <property name="rubber_banding">True</property>
                     <child internal-child="selection">
                       <object class="GtkTreeSelection" id="treeview-selection3">
                         <property name="mode">multiple</property>
