@@ -1,7 +1,371 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Generated with glade 3.16.1 -->
+<!-- Generated with glade 3.18.3 -->
 <interface>
   <requires lib="gtk+" version="3.2"/>
+  <object class="GtkDialog" id="confirmDeleteDialog">
+    <property name="can_focus">False</property>
+    <property name="border_width">6</property>
+    <property name="type_hint">dialog</property>
+    <property name="decorated">False</property>
+    <child internal-child="vbox">
+      <object class="GtkBox" id="dialog-vbox2">
+        <property name="can_focus">False</property>
+        <property name="orientation">vertical</property>
+        <property name="spacing">2</property>
+        <child internal-child="action_area">
+          <object class="GtkButtonBox" id="dialog-action_area2">
+            <property name="can_focus">False</property>
+            <property name="layout_style">end</property>
+            <child>
+              <object class="GtkButton" id="deleteCancelButton">
+                <property name="label" translatable="yes" context="GUI|Custom Partitioning|Confirm Delete Dialog">_Cancel</property>
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="can_default">True</property>
+                <property name="has_default">True</property>
+                <property name="receives_default">True</property>
+                <property name="use_underline">True</property>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">True</property>
+                <property name="position">0</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkButton" id="deleteConfirmButton">
+                <property name="label" translatable="yes" context="GUI|Custom Partitioning|Confirm Delete Dialog">_Delete It</property>
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="receives_default">True</property>
+                <property name="use_underline">True</property>
+                <signal name="clicked" handler="on_delete_confirm_clicked" swapped="no"/>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">True</property>
+                <property name="position">1</property>
+              </packing>
+            </child>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+            <property name="pack_type">end</property>
+            <property name="position">2</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkLabel" id="confirmLabel">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="xalign">0</property>
+            <property name="yalign">0</property>
+            <property name="wrap">True</property>
+            <attributes>
+              <attribute name="font-desc" value="Cantarell 11"/>
+            </attributes>
+          </object>
+          <packing>
+            <property name="expand">True</property>
+            <property name="fill">True</property>
+            <property name="position">0</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkCheckButton" id="removeAllCheckbox">
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <property name="receives_default">False</property>
+            <property name="use_underline">True</property>
+            <property name="xalign">0</property>
+            <property name="draw_indicator">True</property>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+            <property name="position">1</property>
+          </packing>
+        </child>
+      </object>
+    </child>
+    <action-widgets>
+      <action-widget response="0">deleteCancelButton</action-widget>
+      <action-widget response="1">deleteConfirmButton</action-widget>
+    </action-widgets>
+  </object>
+  <object class="GtkListStore" id="disk_store">
+    <columns>
+      <!-- column-name disk_col -->
+      <column type="gchararray"/>
+      <!-- column-name capacity_col -->
+      <column type="gchararray"/>
+      <!-- column-name free_col -->
+      <column type="gchararray"/>
+      <!-- column-name serial_col -->
+      <column type="gchararray"/>
+      <!-- column-name id_col -->
+      <column type="gint"/>
+    </columns>
+  </object>
+  <object class="GtkDialog" id="disks_dialog">
+    <property name="width_request">400</property>
+    <property name="height_request">200</property>
+    <property name="can_focus">False</property>
+    <property name="border_width">6</property>
+    <property name="type_hint">dialog</property>
+    <property name="decorated">False</property>
+    <child internal-child="vbox">
+      <object class="GtkBox" id="dialog-vbox4">
+        <property name="can_focus">False</property>
+        <property name="orientation">vertical</property>
+        <property name="spacing">6</property>
+        <child internal-child="action_area">
+          <object class="GtkButtonBox" id="dialog-action_area4">
+            <property name="can_focus">False</property>
+            <property name="layout_style">end</property>
+            <child>
+              <object class="GtkButton" id="cancel_button">
+                <property name="label" translatable="yes" context="GUI|Custom Partitioning|Configure Dialog">_Cancel</property>
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="receives_default">True</property>
+                <property name="use_underline">True</property>
+                <signal name="clicked" handler="on_cancel_clicked" swapped="no"/>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">True</property>
+                <property name="position">0</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkButton" id="select_button">
+                <property name="label" translatable="yes" context="GUI|Custom Partitioning|Configure Dialog">_Select</property>
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="receives_default">True</property>
+                <property name="use_underline">True</property>
+                <signal name="clicked" handler="on_select_clicked" swapped="no"/>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">True</property>
+                <property name="position">1</property>
+              </packing>
+            </child>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+            <property name="pack_type">end</property>
+            <property name="position">0</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkBox" id="box1">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="orientation">vertical</property>
+            <property name="spacing">6</property>
+            <child>
+              <object class="GtkLabel" id="disk_selection_title_label">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="xalign">0</property>
+                <property name="label" translatable="yes">CONFIGURE MOUNT POINT</property>
+                <attributes>
+                  <attribute name="weight" value="bold"/>
+                </attributes>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">True</property>
+                <property name="position">0</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkLabel" id="label11">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="label" translatable="yes">Select one or more disks this device may reside on.</property>
+                <property name="wrap">True</property>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">True</property>
+                <property name="position">1</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkScrolledWindow" id="scrolledwindow1">
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="hexpand">True</property>
+                <property name="vexpand">True</property>
+                <property name="shadow_type">in</property>
+                <child>
+                  <object class="GtkViewport" id="viewport1">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <child>
+                      <object class="GtkTreeView" id="disk_view">
+                        <property name="visible">True</property>
+                        <property name="can_focus">True</property>
+                        <property name="model">disk_store</property>
+                        <child internal-child="selection">
+                          <object class="GtkTreeSelection" id="disk_view_selection">
+                            <property name="mode">multiple</property>
+                          </object>
+                        </child>
+                        <child>
+                          <object class="GtkTreeViewColumn" id="disk_column">
+                            <property name="spacing">6</property>
+                            <property name="title" translatable="yes">Disk</property>
+                            <property name="clickable">True</property>
+                            <child>
+                              <object class="GtkCellRendererText" id="disk_renderer"/>
+                              <attributes>
+                                <attribute name="text">0</attribute>
+                              </attributes>
+                            </child>
+                          </object>
+                        </child>
+                        <child>
+                          <object class="GtkTreeViewColumn" id="capacity_column">
+                            <property name="spacing">6</property>
+                            <property name="title" translatable="yes">Capacity</property>
+                            <property name="clickable">True</property>
+                            <child>
+                              <object class="GtkCellRendererText" id="capacity_renderer"/>
+                              <attributes>
+                                <attribute name="text">1</attribute>
+                              </attributes>
+                            </child>
+                          </object>
+                        </child>
+                        <child>
+                          <object class="GtkTreeViewColumn" id="free_column">
+                            <property name="spacing">6</property>
+                            <property name="title" translatable="yes">Free</property>
+                            <property name="clickable">True</property>
+                            <child>
+                              <object class="GtkCellRendererText" id="free_renderer"/>
+                              <attributes>
+                                <attribute name="text">2</attribute>
+                              </attributes>
+                            </child>
+                          </object>
+                        </child>
+                        <child>
+                          <object class="GtkTreeViewColumn" id="id_column">
+                            <property name="spacing">6</property>
+                            <property name="title" translatable="yes">ID</property>
+                            <property name="clickable">True</property>
+                            <child>
+                              <object class="GtkCellRendererText" id="id_renderer"/>
+                              <attributes>
+                                <attribute name="text">3</attribute>
+                              </attributes>
+                            </child>
+                          </object>
+                        </child>
+                      </object>
+                    </child>
+                  </object>
+                </child>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">True</property>
+                <property name="position">2</property>
+              </packing>
+            </child>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+            <property name="position">1</property>
+          </packing>
+        </child>
+      </object>
+    </child>
+    <action-widgets>
+      <action-widget response="0">cancel_button</action-widget>
+      <action-widget response="1">select_button</action-widget>
+    </action-widgets>
+  </object>
+  <object class="GtkTextBuffer" id="help_text_buffer"/>
+  <object class="GtkDialog" id="help_dialog">
+    <property name="width_request">600</property>
+    <property name="height_request">400</property>
+    <property name="can_focus">False</property>
+    <property name="border_width">6</property>
+    <property name="title" translatable="yes">Help</property>
+    <property name="modal">True</property>
+    <property name="window_position">center-on-parent</property>
+    <property name="type_hint">dialog</property>
+    <signal name="close" handler="on_close" swapped="no"/>
+    <child internal-child="vbox">
+      <object class="GtkBox" id="dialog-vbox6">
+        <property name="can_focus">False</property>
+        <property name="orientation">vertical</property>
+        <property name="spacing">2</property>
+        <child internal-child="action_area">
+          <object class="GtkButtonBox" id="dialog-action_area6">
+            <property name="can_focus">False</property>
+            <property name="layout_style">end</property>
+            <child>
+              <object class="GtkButton" id="help_close_button">
+                <property name="label" translatable="yes" context="GUI|Custom Partitioning|Help">_Close</property>
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="receives_default">True</property>
+                <property name="use_underline">True</property>
+                <signal name="clicked" handler="on_close" swapped="no"/>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">True</property>
+                <property name="position">0</property>
+              </packing>
+            </child>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+            <property name="pack_type">end</property>
+            <property name="position">0</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkScrolledWindow" id="scrolledwindow3">
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <property name="shadow_type">in</property>
+            <child>
+              <object class="GtkTextView" id="help_text_view">
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="editable">False</property>
+                <property name="wrap_mode">word</property>
+                <property name="cursor_visible">False</property>
+                <property name="buffer">help_text_buffer</property>
+              </object>
+            </child>
+          </object>
+          <packing>
+            <property name="expand">True</property>
+            <property name="fill">True</property>
+            <property name="position">1</property>
+          </packing>
+        </child>
+      </object>
+    </child>
+    <action-widgets>
+      <action-widget response="0">help_close_button</action-widget>
+    </action-widgets>
+  </object>
   <object class="GtkEntryBuffer" id="mountPointEntryBuffer"/>
   <object class="GtkListStore" id="mountPointStore">
     <columns>
@@ -11,48 +375,6 @@
   </object>
   <object class="GtkEntryCompletion" id="mountPointCompletion">
     <property name="model">mountPointStore</property>
-  </object>
-  <object class="GtkListStore" id="raidLevelStore">
-    <columns>
-      <!-- column-name raidLevel -->
-      <column type="gchararray"/>
-      <!-- column-name canonRaidLevel -->
-      <column type="gchararray"/>
-    </columns>
-    <data>
-      <row>
-        <col id="0" translatable="yes">None</col>
-        <col id="1">none</col>
-      </row>
-      <row>
-        <col id="0" translatable="yes">Single &lt;span foreground="grey"&gt;(No Redundancy, No Striping)&lt;/span&gt;</col>
-        <col id="1">single</col>
-      </row>
-      <row>
-        <col id="0" translatable="yes">RAID0 &lt;span foreground="grey"&gt;(Performance)&lt;/span&gt;</col>
-        <col id="1">raid0</col>
-      </row>
-      <row>
-        <col id="0" translatable="yes">RAID1 &lt;span foreground="grey"&gt;(Redundancy)&lt;/span&gt;</col>
-        <col id="1">raid1</col>
-      </row>
-      <row>
-        <col id="0" translatable="yes">RAID4 &lt;span foreground="grey"&gt;(Error Checking)&lt;/span&gt;</col>
-        <col id="1">raid4</col>
-      </row>
-      <row>
-        <col id="0" translatable="yes">RAID5 &lt;span foreground="grey"&gt;(Distributed Error Checking)&lt;/span&gt;</col>
-        <col id="1">raid5</col>
-      </row>
-      <row>
-        <col id="0" translatable="yes">RAID6 &lt;span foreground="grey"&gt;(Redundant Error Checking)&lt;/span&gt;</col>
-        <col id="1">raid6</col>
-      </row>
-      <row>
-        <col id="0" translatable="yes">RAID10 &lt;span foreground="grey"&gt;(Performance, Redundancy)&lt;/span&gt;</col>
-        <col id="1">raid10</col>
-      </row>
-    </data>
   </object>
   <object class="GtkDialog" id="addDialog">
     <property name="can_focus">False</property>
@@ -129,8 +451,6 @@
               <packing>
                 <property name="left_attach">0</property>
                 <property name="top_attach">4</property>
-                <property name="width">1</property>
-                <property name="height">1</property>
               </packing>
             </child>
             <child>
@@ -148,8 +468,6 @@
               <packing>
                 <property name="left_attach">0</property>
                 <property name="top_attach">2</property>
-                <property name="width">1</property>
-                <property name="height">1</property>
               </packing>
             </child>
             <child>
@@ -168,7 +486,6 @@
                 <property name="left_attach">0</property>
                 <property name="top_attach">0</property>
                 <property name="width">2</property>
-                <property name="height">1</property>
               </packing>
             </child>
             <child>
@@ -187,7 +504,6 @@ after creating the mount point below.</property>
                 <property name="left_attach">0</property>
                 <property name="top_attach">1</property>
                 <property name="width">2</property>
-                <property name="height">1</property>
               </packing>
             </child>
             <child>
@@ -230,8 +546,6 @@ use.  Try something else?</property>
               <packing>
                 <property name="left_attach">1</property>
                 <property name="top_attach">3</property>
-                <property name="width">1</property>
-                <property name="height">1</property>
               </packing>
             </child>
             <child>
@@ -244,8 +558,6 @@ use.  Try something else?</property>
               <packing>
                 <property name="left_attach">1</property>
                 <property name="top_attach">4</property>
-                <property name="width">1</property>
-                <property name="height">1</property>
               </packing>
             </child>
             <child>
@@ -264,8 +576,6 @@ use.  Try something else?</property>
               <packing>
                 <property name="left_attach">1</property>
                 <property name="top_attach">2</property>
-                <property name="width">1</property>
-                <property name="height">1</property>
               </packing>
             </child>
             <child>
@@ -285,97 +595,47 @@ use.  Try something else?</property>
       <action-widget response="1">addConfirmButton</action-widget>
     </action-widgets>
   </object>
-  <object class="GtkDialog" id="confirmDeleteDialog">
-    <property name="can_focus">False</property>
-    <property name="border_width">6</property>
-    <property name="type_hint">dialog</property>
-    <property name="decorated">False</property>
-    <child internal-child="vbox">
-      <object class="GtkBox" id="dialog-vbox2">
-        <property name="can_focus">False</property>
-        <property name="orientation">vertical</property>
-        <property name="spacing">2</property>
-        <child>
-          <object class="GtkLabel" id="confirmLabel">
-            <property name="visible">True</property>
-            <property name="can_focus">False</property>
-            <property name="xalign">0</property>
-            <property name="yalign">0</property>
-            <property name="wrap">True</property>
-            <attributes>
-              <attribute name="font-desc" value="Cantarell 11"/>
-            </attributes>
-          </object>
-          <packing>
-            <property name="expand">True</property>
-            <property name="fill">True</property>
-            <property name="position">0</property>
-          </packing>
-        </child>
-        <child>
-          <object class="GtkCheckButton" id="removeAllCheckbox">
-            <property name="visible">True</property>
-            <property name="can_focus">True</property>
-            <property name="receives_default">False</property>
-            <property name="use_underline">True</property>
-            <property name="xalign">0</property>
-            <property name="draw_indicator">True</property>
-          </object>
-          <packing>
-            <property name="expand">False</property>
-            <property name="fill">True</property>
-            <property name="position">1</property>
-          </packing>
-        </child>
-        <child internal-child="action_area">
-          <object class="GtkButtonBox" id="dialog-action_area2">
-            <property name="can_focus">False</property>
-            <property name="layout_style">end</property>
-            <child>
-              <object class="GtkButton" id="deleteCancelButton">
-                <property name="label" translatable="yes" context="GUI|Custom Partitioning|Confirm Delete Dialog">_Cancel</property>
-                <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <property name="can_default">True</property>
-                <property name="has_default">True</property>
-                <property name="receives_default">True</property>
-                <property name="use_underline">True</property>
-              </object>
-              <packing>
-                <property name="expand">False</property>
-                <property name="fill">True</property>
-                <property name="position">0</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkButton" id="deleteConfirmButton">
-                <property name="label" translatable="yes" context="GUI|Custom Partitioning|Confirm Delete Dialog">_Delete It</property>
-                <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <property name="receives_default">True</property>
-                <property name="use_underline">True</property>
-                <signal name="clicked" handler="on_delete_confirm_clicked" swapped="no"/>
-              </object>
-              <packing>
-                <property name="expand">False</property>
-                <property name="fill">True</property>
-                <property name="position">1</property>
-              </packing>
-            </child>
-          </object>
-          <packing>
-            <property name="expand">False</property>
-            <property name="fill">True</property>
-            <property name="pack_type">end</property>
-            <property name="position">2</property>
-          </packing>
-        </child>
-      </object>
-    </child>
-    <action-widgets>
-      <action-widget response="0">deleteCancelButton</action-widget>
-      <action-widget response="1">deleteConfirmButton</action-widget>
-    </action-widgets>
+  <object class="GtkListStore" id="raidLevelStore">
+    <columns>
+      <!-- column-name raidLevel -->
+      <column type="gchararray"/>
+      <!-- column-name canonRaidLevel -->
+      <column type="gchararray"/>
+    </columns>
+    <data>
+      <row>
+        <col id="0" translatable="yes">None</col>
+        <col id="1">none</col>
+      </row>
+      <row>
+        <col id="0" translatable="yes">Single &lt;span foreground="grey"&gt;(No Redundancy, No Striping)&lt;/span&gt;</col>
+        <col id="1">single</col>
+      </row>
+      <row>
+        <col id="0" translatable="yes">RAID0 &lt;span foreground="grey"&gt;(Performance)&lt;/span&gt;</col>
+        <col id="1">raid0</col>
+      </row>
+      <row>
+        <col id="0" translatable="yes">RAID1 &lt;span foreground="grey"&gt;(Redundancy)&lt;/span&gt;</col>
+        <col id="1">raid1</col>
+      </row>
+      <row>
+        <col id="0" translatable="yes">RAID4 &lt;span foreground="grey"&gt;(Error Checking)&lt;/span&gt;</col>
+        <col id="1">raid4</col>
+      </row>
+      <row>
+        <col id="0" translatable="yes">RAID5 &lt;span foreground="grey"&gt;(Distributed Error Checking)&lt;/span&gt;</col>
+        <col id="1">raid5</col>
+      </row>
+      <row>
+        <col id="0" translatable="yes">RAID6 &lt;span foreground="grey"&gt;(Redundant Error Checking)&lt;/span&gt;</col>
+        <col id="1">raid6</col>
+      </row>
+      <row>
+        <col id="0" translatable="yes">RAID10 &lt;span foreground="grey"&gt;(Performance, Redundancy)&lt;/span&gt;</col>
+        <col id="1">raid10</col>
+      </row>
+    </data>
   </object>
   <object class="GtkTreeModelFilter" id="containerRaidStoreFiltered">
     <property name="child_model">raidLevelStore</property>
@@ -758,278 +1018,6 @@ use.  Try something else?</property>
     <action-widgets>
       <action-widget response="0">container_cancel_button</action-widget>
       <action-widget response="1">container_save_button</action-widget>
-    </action-widgets>
-  </object>
-  <object class="GtkListStore" id="disk_store">
-    <columns>
-      <!-- column-name disk_col -->
-      <column type="gchararray"/>
-      <!-- column-name capacity_col -->
-      <column type="gchararray"/>
-      <!-- column-name free_col -->
-      <column type="gchararray"/>
-      <!-- column-name serial_col -->
-      <column type="gchararray"/>
-      <!-- column-name id_col -->
-      <column type="gint"/>
-    </columns>
-  </object>
-  <object class="GtkDialog" id="disks_dialog">
-    <property name="width_request">400</property>
-    <property name="height_request">200</property>
-    <property name="can_focus">False</property>
-    <property name="border_width">6</property>
-    <property name="type_hint">dialog</property>
-    <property name="decorated">False</property>
-    <child internal-child="vbox">
-      <object class="GtkBox" id="dialog-vbox4">
-        <property name="can_focus">False</property>
-        <property name="orientation">vertical</property>
-        <property name="spacing">6</property>
-        <child internal-child="action_area">
-          <object class="GtkButtonBox" id="dialog-action_area4">
-            <property name="can_focus">False</property>
-            <property name="layout_style">end</property>
-            <child>
-              <object class="GtkButton" id="cancel_button">
-                <property name="label" translatable="yes" context="GUI|Custom Partitioning|Configure Dialog">_Cancel</property>
-                <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <property name="receives_default">True</property>
-                <property name="use_underline">True</property>
-                <signal name="clicked" handler="on_cancel_clicked" swapped="no"/>
-              </object>
-              <packing>
-                <property name="expand">False</property>
-                <property name="fill">True</property>
-                <property name="position">0</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkButton" id="select_button">
-                <property name="label" translatable="yes" context="GUI|Custom Partitioning|Configure Dialog">_Select</property>
-                <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <property name="receives_default">True</property>
-                <property name="use_underline">True</property>
-                <signal name="clicked" handler="on_select_clicked" swapped="no"/>
-              </object>
-              <packing>
-                <property name="expand">False</property>
-                <property name="fill">True</property>
-                <property name="position">1</property>
-              </packing>
-            </child>
-          </object>
-          <packing>
-            <property name="expand">False</property>
-            <property name="fill">True</property>
-            <property name="pack_type">end</property>
-            <property name="position">0</property>
-          </packing>
-        </child>
-        <child>
-          <object class="GtkBox" id="box1">
-            <property name="visible">True</property>
-            <property name="can_focus">False</property>
-            <property name="orientation">vertical</property>
-            <property name="spacing">6</property>
-            <child>
-              <object class="GtkLabel" id="disk_selection_title_label">
-                <property name="visible">True</property>
-                <property name="can_focus">False</property>
-                <property name="xalign">0</property>
-                <property name="label" translatable="yes">CONFIGURE MOUNT POINT</property>
-                <attributes>
-                  <attribute name="weight" value="bold"/>
-                </attributes>
-              </object>
-              <packing>
-                <property name="expand">False</property>
-                <property name="fill">True</property>
-                <property name="position">0</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkLabel" id="label11">
-                <property name="visible">True</property>
-                <property name="can_focus">False</property>
-                <property name="label" translatable="yes">Select one or more disks this device may reside on.</property>
-                <property name="wrap">True</property>
-              </object>
-              <packing>
-                <property name="expand">False</property>
-                <property name="fill">True</property>
-                <property name="position">1</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkScrolledWindow" id="scrolledwindow1">
-                <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <property name="hexpand">True</property>
-                <property name="vexpand">True</property>
-                <property name="shadow_type">in</property>
-                <child>
-                  <object class="GtkViewport" id="viewport1">
-                    <property name="visible">True</property>
-                    <property name="can_focus">False</property>
-                    <child>
-                      <object class="GtkTreeView" id="disk_view">
-                        <property name="visible">True</property>
-                        <property name="can_focus">True</property>
-                        <property name="model">disk_store</property>
-                        <child internal-child="selection">
-                          <object class="GtkTreeSelection" id="disk_view_selection">
-                            <property name="mode">multiple</property>
-                          </object>
-                        </child>
-                        <child>
-                          <object class="GtkTreeViewColumn" id="disk_column">
-                            <property name="spacing">6</property>
-                            <property name="title" translatable="yes">Disk</property>
-                            <property name="clickable">True</property>
-                            <child>
-                              <object class="GtkCellRendererText" id="disk_renderer"/>
-                              <attributes>
-                                <attribute name="text">0</attribute>
-                              </attributes>
-                            </child>
-                          </object>
-                        </child>
-                        <child>
-                          <object class="GtkTreeViewColumn" id="capacity_column">
-                            <property name="spacing">6</property>
-                            <property name="title" translatable="yes">Capacity</property>
-                            <property name="clickable">True</property>
-                            <child>
-                              <object class="GtkCellRendererText" id="capacity_renderer"/>
-                              <attributes>
-                                <attribute name="text">1</attribute>
-                              </attributes>
-                            </child>
-                          </object>
-                        </child>
-                        <child>
-                          <object class="GtkTreeViewColumn" id="free_column">
-                            <property name="spacing">6</property>
-                            <property name="title" translatable="yes">Free</property>
-                            <property name="clickable">True</property>
-                            <child>
-                              <object class="GtkCellRendererText" id="free_renderer"/>
-                              <attributes>
-                                <attribute name="text">2</attribute>
-                              </attributes>
-                            </child>
-                          </object>
-                        </child>
-                        <child>
-                          <object class="GtkTreeViewColumn" id="id_column">
-                            <property name="spacing">6</property>
-                            <property name="title" translatable="yes">ID</property>
-                            <property name="clickable">True</property>
-                            <child>
-                              <object class="GtkCellRendererText" id="id_renderer"/>
-                              <attributes>
-                                <attribute name="text">3</attribute>
-                              </attributes>
-                            </child>
-                          </object>
-                        </child>
-                      </object>
-                    </child>
-                  </object>
-                </child>
-              </object>
-              <packing>
-                <property name="expand">False</property>
-                <property name="fill">True</property>
-                <property name="position">2</property>
-              </packing>
-            </child>
-          </object>
-          <packing>
-            <property name="expand">False</property>
-            <property name="fill">True</property>
-            <property name="position">1</property>
-          </packing>
-        </child>
-      </object>
-    </child>
-    <action-widgets>
-      <action-widget response="0">cancel_button</action-widget>
-      <action-widget response="1">select_button</action-widget>
-    </action-widgets>
-  </object>
-  <object class="GtkTextBuffer" id="help_text_buffer"/>
-  <object class="GtkDialog" id="help_dialog">
-    <property name="width_request">600</property>
-    <property name="height_request">400</property>
-    <property name="can_focus">False</property>
-    <property name="border_width">6</property>
-    <property name="title" translatable="yes">Help</property>
-    <property name="modal">True</property>
-    <property name="window_position">center-on-parent</property>
-    <property name="type_hint">dialog</property>
-    <signal name="close" handler="on_close" swapped="no"/>
-    <child internal-child="vbox">
-      <object class="GtkBox" id="dialog-vbox6">
-        <property name="can_focus">False</property>
-        <property name="orientation">vertical</property>
-        <property name="spacing">2</property>
-        <child internal-child="action_area">
-          <object class="GtkButtonBox" id="dialog-action_area6">
-            <property name="can_focus">False</property>
-            <property name="layout_style">end</property>
-            <child>
-              <object class="GtkButton" id="help_close_button">
-                <property name="label" translatable="yes" context="GUI|Custom Partitioning|Help">_Close</property>
-                <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <property name="receives_default">True</property>
-                <property name="use_underline">True</property>
-                <signal name="clicked" handler="on_close" swapped="no"/>
-              </object>
-              <packing>
-                <property name="expand">False</property>
-                <property name="fill">True</property>
-                <property name="position">0</property>
-              </packing>
-            </child>
-          </object>
-          <packing>
-            <property name="expand">False</property>
-            <property name="fill">True</property>
-            <property name="pack_type">end</property>
-            <property name="position">0</property>
-          </packing>
-        </child>
-        <child>
-          <object class="GtkScrolledWindow" id="scrolledwindow3">
-            <property name="visible">True</property>
-            <property name="can_focus">True</property>
-            <property name="shadow_type">in</property>
-            <child>
-              <object class="GtkTextView" id="help_text_view">
-                <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <property name="editable">False</property>
-                <property name="wrap_mode">word</property>
-                <property name="cursor_visible">False</property>
-                <property name="buffer">help_text_buffer</property>
-              </object>
-            </child>
-          </object>
-          <packing>
-            <property name="expand">True</property>
-            <property name="fill">True</property>
-            <property name="position">1</property>
-          </packing>
-        </child>
-      </object>
-    </child>
-    <action-widgets>
-      <action-widget response="0">help_close_button</action-widget>
     </action-widgets>
   </object>
 </interface>
