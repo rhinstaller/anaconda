@@ -154,6 +154,8 @@ def copyUpdatedFiles(tag, updates, cwd):
             install_to_dir(gitfile, "usr/share/anaconda")
         elif gitfile == "data/interactive-defaults.ks":
             install_to_dir(gitfile, "usr/share/anaconda")
+        elif gitfile == "data/anaconda_options.txt":
+            install_to_dir(gitfile, "usr/share/anaconda")
         elif gitfile == "data/liveinst/liveinst":
             install_to_dir(gitfile, "usr/sbin")
         elif gitfile.startswith("data/pixmaps"):
