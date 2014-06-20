@@ -263,20 +263,27 @@ def parseArguments(argv=None, boot_cmdline=None):
 
     # Interface
     ap.add_argument("-C", "--cmdline", dest="display_mode", action="store_const", const="c",
-                    default="g")
-    ap.add_argument("-G", "--graphical", dest="display_mode", action="store_const", const="g")
-    ap.add_argument("-T", "--text", dest="display_mode", action="store_const", const="t")
+                    default="g", help=help_parser.help_text("cmdline"))
+    ap.add_argument("-G", "--graphical", dest="display_mode", action="store_const", const="g",
+                    help=help_parser.help_text("graphical"))
+    ap.add_argument("-T", "--text", dest="display_mode", action="store_const", const="t",
+                    help=help_parser.help_text("text"))
 
     # Network
-    ap.add_argument("--proxy")
+    ap.add_argument("--proxy", metavar='PROXY_URL', help=help_parser.help_text("proxy"))
 
     # Method of operation
-    ap.add_argument("-d", "--debug", dest="debug", action="store_true", default=False)
-    ap.add_argument("--ks", dest="ksfile", action="store_const", const="/run/install/ks.cfg")
-    ap.add_argument("--kickstart", dest="ksfile")
-    ap.add_argument("--rescue", dest="rescue", action="store_true", default=False)
-    ap.add_argument("--armplatform", dest="armPlatform", type=str)
-    ap.add_argument("--multilib", dest="multiLib", action="store_true", default=False)
+    ap.add_argument("-d", "--debug", dest="debug", action="store_true",
+                    default=False, help=help_parser.help_text("debug"))
+    ap.add_argument("--ks", "--kickstart", dest="ksfile", action="store_const",
+                    metavar="KICKSTART_URL", const="/run/install/ks.cfg",
+                    help=help_parser.help_text("kickstart"))
+    ap.add_argument("--rescue", dest="rescue", action="store_true", default=False,
+                    help=help_parser.help_text("rescue"))
+    ap.add_argument("--armplatform", dest="armPlatform", type=str, metavar="PLATFORM_ID",
+                    help=help_parser.help_text("armplatform"))
+    ap.add_argument("--multilib", dest="multiLib", action="store_true", default=False,
+                    help=help_parser.help_text("multilib"))
 
     ap.add_argument("-m", "--method", dest="method", default=None, metavar="METHOD",
                     help=help_parser.help_text("method"))
@@ -329,7 +336,7 @@ def parseArguments(argv=None, boot_cmdline=None):
     ap.add_argument("--ibft", action="store_true", help=help_parser.help_text("ibft"))
 
     # Geolocation
-    ap.add_argument("--geoloc")
+    ap.add_argument("--geoloc", metavar="PROVIDER_ID", help=help_parser.help_text("geoloc"))
 
     # Miscellaneous
     ap.add_argument("--nomount", dest="rescue_nomount", action="store_true", default=False,
@@ -352,7 +359,8 @@ def parseArguments(argv=None, boot_cmdline=None):
                     help=help_parser.help_text("extlinux"))
     ap.add_argument("--dnf", action="store_true", default=False,
                     help=help_parser.help_text("dnf"))
-    ap.add_argument("--mpathfriendlynames", action="store_true", default=True)
+    ap.add_argument("--mpathfriendlynames", action="store_true", default=True,
+                    help=help_parser.help_text("mpathfriendlynames"))
 
     # some defaults change based on cmdline flags
     if boot_cmdline is not None:

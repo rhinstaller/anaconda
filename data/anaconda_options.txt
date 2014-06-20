@@ -1,3 +1,42 @@
+cmdline
+Force command line installation mode. This mode simply prints out text and does not allow any interactivity.
+All options must be specified either in a kickstart file or on the command line. If all required options
+are not specified, the installation will terminate immediately. If running in PXE, network or media
+installation mode Anaconda will also reboot the machine. This can be prevented by passing the "inst.nokill"
+boot option.
+
+graphical
+Force graphical installation. A graphical installation implies that the installed system will
+boot up into graphical.target, using whichever display manager is in use by the default desktop
+(gdm for GNOME, kdm for KDE).
+
+text
+Force text mode installation. This also implies that the installed system will boot up in text mode
+instead of to the graphical login screen.
+
+proxy
+Use the given proxy settings when performing an installation from a HTTP/HTTPS/FTP source.
+The PROXY_URL can be specified like this: [PROTOCOL://][USERNAME[:PASSWORD]@]HOST[:PORT]
+
+debug
+Show debug level messages in the log watching consoles.
+This basically a shortcut for for loglevel=debug.
+
+kickstart
+Gives the location of the kickstart file to be used for installation. The KICKSTART_URL
+supports fetching kickstarts from HTTP/S, FTP, NFS, from a local file, from a local
+harddrive, from an optical disk and from BIOS RAID sets. For details on the KICKSTART_URL
+syntax see the Anaconda options wiki page: http://fedoraproject.org/wiki/Anaconda_Boot_Options
+
+rescue
+Start the rescue environment instead of installation.
+
+armplatform
+Can be used to specify the ARM platform for the installation by passing the appropriate PLATFORM_ID.
+
+multilib
+Enable yum's multlib_policy of "all" instead of the default of "best".
+
 method
 This option is deprecated in favor of the repo option. For now, it does the same thing as repo,
 but will be removed in the future.
@@ -110,6 +149,11 @@ Disable iBFT usage during the installation.
 ibft
 Enable iBFT (iSCSI Boot Firmware Table) usage during the installation (default).
 
+geoloc
+Configure geolocation usage in Anaconda. Geolocation is used to pre-set language and time zone.
+The following values for PROVIDER_ID are supported: 0 - disable geolocation, "provider_fedora_geoip"
+- use the Fedora GeoIP API (default) and "provider_hostip" - use the Hostip.info GeoIP API.
+
 nomount
 Don't automatically mount any installed Linux partitions in rescue mode.
 
@@ -171,3 +215,7 @@ dnf
 Use the experimental DNF package management backend instead of the YUM backend
 that is used by default. For more information about the DNF project see:
 http://dnf.baseurl.org
+
+mpathfriendlynames
+Tell multipathd to use user friendly names when naming devices during the installation.
+See the multipathd documentation for more info.
