@@ -18,8 +18,9 @@
 #
 # Red Hat Author(s): David Lehman <dlehman@redhat.com>
 #
-
+import os
 from blivet.size import Size
+from pyanaconda import iutil
 
 from pyanaconda.i18n import _, N_
 
@@ -72,6 +73,37 @@ class FileSystemSpaceChecker(object):
         """
         self.reset()
         free = Size(self.storage.fileSystemFreeSpace)
+        needed = self.payload.spaceRequired
+        log.info("fs space: %s  needed: %s", free, needed)
+        self.success = (free >= needed)
+        if not self.success:
+            self.deficit = needed - free
+            self.error_message = _(self.error_template) % self.deficit
+
+        return self.success
+
+class DirInstallSpaceChecker(FileSystemSpaceChecker):
+    """Use the amount of space available at ROOT_PATH to calculate free space.
+
+    This is used for the --dirinstall option where no storage is mounted and it
+    is using space from the host's filesystem.
+    """
+    def check(self):
+        """Check configured storage against software selections.  When this
+           method is complete (which should be pretty quickly), the following
+           attributes are available for inspection:
+
+           success       -- A simple boolean defining whether there's enough
+                            space or not.
+           deficit       -- If unsuccessful, how much space the system is
+                            short for current software selections (in MB).
+           error_message -- If unsuccessful, an error message describing the
+                            situation.  This message is suitable for putting
+                            in the info bar at the bottom of a Hub.
+        """
+        self.reset()
+        stat = os.statvfs(iutil.getSysroot())
+        free = Size(stat.f_bsize * stat.f_bfree)
         needed = self.payload.spaceRequired
         log.info("fs space: %s  needed: %s", free, needed)
         self.success = (free >= needed)
