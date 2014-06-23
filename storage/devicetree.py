@@ -710,6 +710,10 @@ class DeviceTree(object):
         for action in self._actions:
             log.debug("action: %s" % action)
 
+            # Remove lvm filters for devices we are operating on
+            for device in (d for d in self._devices if d.dependsOn(action.device)):
+                lvm.lvm_cc_removeFilterRejectRegexp(device.name)
+
         for action in self._actions:
             log.info("executing action: %s" % action)
             if not dryRun:

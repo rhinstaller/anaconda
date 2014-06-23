@@ -100,6 +100,16 @@ def lvm_cc_addFilterRejectRegexp(regexp):
     # compoes config once more.
     _composeConfig()
 
+def lvm_cc_removeFilterRejectRegexp(regexp):
+    """ Remove a regular expression from the --config string. """
+    global config_args_data
+    log.debug("lvm filter: removing %s from the reject list", regexp)
+    try:
+        config_args_data["filterRejects"].remove(regexp)
+    except ValueError:
+        log.debug("%s wasn't in the reject list", regexp)
+        return
+
 def lvm_cc_resetFilter():
     global config_args, config_args_data
     config_args_data["filterRejects"] = []
