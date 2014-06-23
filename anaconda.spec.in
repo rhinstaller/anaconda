@@ -223,6 +223,12 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Mon Jun 23 2014 Samantha N. Bueno <sbueno+anaconda@redhat.com> - 13.21.222-1
+- Rm device from lvm reject filter if in action list. (sbueno+anaconda)
+  Resolves: rhbz#885755
+- The boot menu entry should contain the RHEL major release number (mkolman)
+  Resolves: rhbz#1001960
+
 * Wed Jun 18 2014 Samantha N. Bueno <sbueno+anaconda@redhat.com> - 13.21.221-1
 - Add BuildRequires: gdk-pixbuf2-devel (sbueno+anaconda)
   Resolves: rhbz#1109298
