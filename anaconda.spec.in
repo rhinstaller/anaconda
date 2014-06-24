@@ -223,6 +223,13 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Tue Jun 24 2014 Samantha N. Bueno <sbueno+anaconda@redhat.com> - 13.21.223-1
+- Change pixbuf loaders path. (sbueno+anaconda)
+  Resolves: rhbz#1110834
+- Remove unnecessary drivers to contain the size of ppc64.img.
+  (sbueno+anaconda)
+  Resolves: rhbz#1112405
+
 * Mon Jun 23 2014 Samantha N. Bueno <sbueno+anaconda@redhat.com> - 13.21.222-1
 - Rm device from lvm reject filter if in action list. (sbueno+anaconda)
   Resolves: rhbz#885755
