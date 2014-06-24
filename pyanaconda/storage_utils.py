@@ -55,7 +55,7 @@ DEVICE_TEXT_MAP = {DEVICE_TYPE_LVM: DEVICE_TEXT_LVM,
                    DEVICE_TYPE_LVM_THINP: DEVICE_TEXT_LVM_THINP,
                    DEVICE_TYPE_DISK: DEVICE_TEXT_DISK}
 
-PARTITION_ONLY_FORMAT_TYPES = ("efi", "macefi", "prepboot", "biosboot", "appleboot")
+PARTITION_ONLY_FORMAT_TYPES = ("macefi", "prepboot", "biosboot", "appleboot")
 
 MOUNTPOINT_DESCRIPTIONS = {"Swap": N_("The 'swap' area on your computer is used by the operating\n"
                                       "system when running low on memory."),

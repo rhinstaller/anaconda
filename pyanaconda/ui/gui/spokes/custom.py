@@ -63,7 +63,7 @@ from blivet.devicelibs import raid
 from blivet.devices import LUKSDevice
 
 from pyanaconda.storage_utils import ui_storage_logger, device_type_from_autopart
-from pyanaconda.storage_utils import DEVICE_TEXT_PARTITION, DEVICE_TEXT_MAP
+from pyanaconda.storage_utils import DEVICE_TEXT_PARTITION, DEVICE_TEXT_MAP, DEVICE_TEXT_MD
 from pyanaconda.storage_utils import PARTITION_ONLY_FORMAT_TYPES, MOUNTPOINT_DESCRIPTIONS
 from pyanaconda.storage_utils import NAMED_DEVICE_TYPES, CONTAINER_DEVICE_TYPES
 
@@ -617,9 +617,10 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
             :param raid_level: instance of blivet.devicelibs.raid.RAIDLevel or None
         """
         error = None
-        if device_type != DEVICE_TYPE_PARTITION and mountpoint == "/boot/efi":
-            error = (_("/boot/efi must be on a device of type %s")
-                     % _(DEVICE_TEXT_PARTITION))
+        if device_type not in (DEVICE_TYPE_PARTITION, DEVICE_TYPE_MD) and \
+           mountpoint == "/boot/efi":
+            error = (_("/boot/efi must be on a device of type %s or %s")
+                     % (_(DEVICE_TEXT_PARTITION), _(DEVICE_TEXT_MD)))
         elif device_type != DEVICE_TYPE_PARTITION and \
              new_fs_type in PARTITION_ONLY_FORMAT_TYPES:
             error = (_("%(fs)s must be on a device of type %(type)s")

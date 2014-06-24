@@ -1713,16 +1713,9 @@ class EFIGRUB(GRUB2):
         ret = self._config_dir.replace('efi/', '')
         return "\\" + ret.replace('/', '\\')
 
-    def add_efi_boot_target(self):
-        if self.stage1_device.type == "partition":
-            boot_disk = self.stage1_device.disk
-            boot_part_num = self.stage1_device.partedPartition.number
-        elif self.stage1_device.type == "mdarray":
-            # FIXME: I'm just guessing here. This probably needs the full
-            #        treatment, ie: multiple targets for each member.
-            boot_disk = self.stage1_device.parents[0].disk
-            boot_part_num = self.stage1_device.parents[0].partedPartition.number
-        boot_part_num = str(boot_part_num)
+    def _add_single_efi_boot_target(self, partition):
+        boot_disk = partition.disk
+        boot_part_num = str(partition.partedPartition.number)
 
         rc = self.efibootmgr("-c", "-w", "-L", productName,
                              "-d", boot_disk.path, "-p", boot_part_num,
@@ -1731,6 +1724,13 @@ class EFIGRUB(GRUB2):
                              root=iutil.getSysroot())
         if rc:
             raise BootLoaderError("failed to set new efi boot target. This is most likely a kernel bug.")
+
+    def add_efi_boot_target(self):
+        if self.stage1_device.type == "partition":
+            self._add_single_efi_boot_target(self.stage1_device)
+        elif self.stage1_device.type == "mdarray":
+            for parent in self.stage1_device.parents:
+                self._add_single_efi_boot_target(parent)
 
     def install(self, args=None):
         if not flags.leavebootorder:
