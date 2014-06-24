@@ -168,7 +168,7 @@ PACKAGES="GConf2 NetworkManager NetworkManager-gnome ORBit2 acl anaconda
     elfutils-libelf expat fcoe-utils fipscheck fipscheck-lib
     firstboot fontconfig freetype gail gawk gdb-gdbserver
     gdk-pixbuf gfs2-utils glib2 glibc-common gnome-python2-canvas gnome-python2-gconf
-    gnome-themes gpm grep gtk2 gtk2-engines hal
+    gdk-pixbuf2 gnome-themes gpm grep gtk2 gtk2-engines hal
     hdparm hwdata initscripts iproute iputils iscsi-initiator-utils
     jfsutils kbd kpartx keyutils-libs krb5-libs libICE libSM libX11 libXau
     libXaw libXcursor libXdmcp libXevie libXext libXfixes libXfont libXft
@@ -504,10 +504,8 @@ usr/$LIBDIR/gconv
 usr/$LIBDIR/gdk-pixbuf/loaders/*la*
 usr/$LIBDIR/gdk-pixbuf/loaders/*png*
 usr/$LIBDIR/gdk-pixbuf/loaders/*xpm*
+usr/$LIBDIR/gdk-pixbuf-2.0/*/loaders/*xpm*
 usr/$LIBDIR/gtk-2.0/*/engines/libclearlooks.so
-usr/$LIBDIR/gtk-2.0/*/loaders/*la*
-usr/$LIBDIR/gtk-2.0/*/loaders/*png*
-usr/$LIBDIR/gtk-2.0/*/loaders/*xpm*
 usr/$LIBDIR/gtk-2.0/immodules
 usr/$LIBDIR/kernel-wrapper/*
 usr/$LIBDIR/hal
