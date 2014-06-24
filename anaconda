@@ -266,7 +266,6 @@ def parseArguments(argv=None, boot_cmdline=None):
                     default="g")
     ap.add_argument("-G", "--graphical", dest="display_mode", action="store_const", const="g")
     ap.add_argument("-T", "--text", dest="display_mode", action="store_const", const="t")
-    ap.add_argument("-S", "--script", dest="display_mode", action="store_const", const="s")
 
     # Network
     ap.add_argument("--noipv6", action="store_true", default=False)
