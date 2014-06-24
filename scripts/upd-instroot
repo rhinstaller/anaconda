@@ -194,7 +194,7 @@ PACKAGES="GConf2 NetworkManager NetworkManager-gnome ORBit2 acl anaconda
     reiserfs-utils libreport libreport-cli libreport-python libreport-gtk libreport-newt
     libreport-plugin-rhtsupport libreport-plugin-logger libreport-plugin-bugzilla
     rpm rpm-libs rpm-python rsyslog sed selinux-policy-targeted
-    setup sg3_utils sg3_utils-libs slang smc-meera-fonts specspo sqlite startup-notification
+    setup sg3_utils sg3_utils-libs shared-mime-info slang smc-meera-fonts specspo sqlite startup-notification
     subscription-manager synaptics system-config-date
     system-config-keyboard ${brandpkgname}-logos ${brandpkgname}-release
     sysvinit-tools tcp_wrappers tcp_wrappers-libs telnet
@@ -719,6 +719,7 @@ usr/share/locale/*/LC_MESSAGES/system-config-date.mo
 usr/share/locale/*/LC_MESSAGES/system-config-keyboard.mo
 usr/share/locale/*/LC_MESSAGES/zenity.mo
 usr/share/locale/locale.alias
+usr/share/mime/mime.cache
 usr/share/nm-applet/*
 usr/share/pixmaps/comps/*.png
 usr/share/pixmaps/gnome-default-dlg.png
