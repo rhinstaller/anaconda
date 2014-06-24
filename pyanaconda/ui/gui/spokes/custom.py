@@ -2175,6 +2175,9 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         self._storage_playground.doAutoPart = True
         self.clear_errors()
         try:
+            # doAutoPartitions needs stage1_disk setup so it will reuse existing partitions
+            self._storage_playground.setUpBootLoader(early=True)
+
             doAutoPartition(self._storage_playground, self.data)
         except NoDisksError as e:
             # No handling should be required for this.
