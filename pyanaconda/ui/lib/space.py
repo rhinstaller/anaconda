@@ -66,7 +66,7 @@ class FileSystemSpaceChecker(object):
            success       -- A simple boolean defining whether there's enough
                             space or not.
            deficit       -- If unsuccessful, how much space the system is
-                            short for current software selections (in MB).
+                            short for current software selections.
            error_message -- If unsuccessful, an error message describing the
                             situation.  This message is suitable for putting
                             in the info bar at the bottom of a Hub.
@@ -96,7 +96,7 @@ class DirInstallSpaceChecker(FileSystemSpaceChecker):
            success       -- A simple boolean defining whether there's enough
                             space or not.
            deficit       -- If unsuccessful, how much space the system is
-                            short for current software selections (in MB).
+                            short for current software selections.
            error_message -- If unsuccessful, an error message describing the
                             situation.  This message is suitable for putting
                             in the info bar at the bottom of a Hub.
