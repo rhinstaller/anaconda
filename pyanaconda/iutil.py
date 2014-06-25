@@ -34,7 +34,7 @@ from Queue import Queue, Empty
 from urllib import quote, unquote
 
 from pyanaconda.flags import flags
-from pyanaconda.constants import DRACUT_SHUTDOWN_EJECT, ROOT_PATH, TRANSLATIONS_UPDATE_DIR, UNSUPPORTED_HW
+from pyanaconda.constants import DRACUT_SHUTDOWN_EJECT, TRANSLATIONS_UPDATE_DIR, UNSUPPORTED_HW
 from pyanaconda.regexes import URL_PARSE
 
 from pyanaconda.i18n import _
@@ -52,9 +52,11 @@ def augmentEnv():
                })
     return env
 
+_root_path = "/mnt/sysimage"
+
 def getTargetPhysicalRoot():
     """Returns the path to the "physical" storage root, traditionally /mnt/sysimage.
-    
+
     This may be distinct from the sysroot, which could be a
     chroot-type subdirectory of the physical root.  This is used for
     example by all OSTree-based installations.
@@ -64,13 +66,21 @@ def getTargetPhysicalRoot():
     # target is never mounted anywhere else.  This API call just
     # allows us to have a clean "git grep ROOT_PATH" in other parts of
     # the code.
-    return ROOT_PATH
+    return _root_path
 
-_sysroot = ROOT_PATH
+def setTargetPhysicalRoot(path):
+    """Change the physical root path
+
+    :param string path: Path to use instead of /mnt/sysimage/
+    """
+    global _root_path
+    _root_path = path
+
+_sysroot = _root_path
 
 def getSysroot():
     """Returns the path to the target OS installation.
-    
+
     For ordinary package-based installations, this is the same as the
     target root.
     """
@@ -100,10 +110,10 @@ def _run_program(argv, root='/', stdin=None, stdout=None, env_prune=None, log_ou
     if env_prune is None:
         env_prune = []
 
-    # Transparently redirect callers requesting root=ROOT_PATH to the
+    # Transparently redirect callers requesting root=_root_path to the
     # configured system root.
     target_root = root
-    if target_root == ROOT_PATH:
+    if target_root == _root_path:
         target_root = getSysroot()
 
     def chroot():
