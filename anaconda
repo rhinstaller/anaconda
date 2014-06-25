@@ -1039,6 +1039,19 @@ if __name__ == "__main__":
     flags.selinux = opts.selinux
     flags.eject = opts.eject
 
+    # Switch to tty1 on exception in case something goes wrong during X start.
+    # This way if, for example, metacity doesn't start, we switch back to a
+    # text console with a traceback instead of being left looking at a blank
+    # screen. python-meh will replace this excepthook with its own handler
+    # once it gets going.
+    if not flags.imageInstall and not flags.livecdInstall \
+       and not flags.dirInstall:
+        def _earlyExceptionHandler(ty, value, traceback):
+            iutil.vtActivate(1)
+            return sys.__excepthook__(ty, value, traceback)
+
+        sys.excepthook = _earlyExceptionHandler
+
     if can_touch_runtime_system("start audit daemon"):
         startAuditDaemon()
 
