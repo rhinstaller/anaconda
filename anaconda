@@ -44,9 +44,80 @@ if ("debug=1" in proc_cmdline) or ("debug" in proc_cmdline):
     cov.start()
 
 
-import atexit, sys, os, time, subprocess
-# keep up with process ID of the window manager if we start it
-wm_pid = None
+import atexit, sys, os, time, subprocess, signal, errno
+
+# Install a global SIGCHLD handler to keep track of things that should be
+# running for as long as anaconda does. The dictionary is of the form
+# {pid: name, ...}. The handler will raise ExitError (defined below), so if
+# not caught a SIGCHLD from a watched process will halt anaconda.
+forever_pids = {}
+
+class ExitError(RuntimeError):
+    pass
+
+def sigchld_handler(num, frame):
+    # Check whether anything in the list of processes being watched has
+    # exited. We don't want to call waitpid(-1), since that would break
+    # anything else using wait/waitpid (like the subprocess module).
+    exited_pids = []
+    exn_message = []
+
+    for child_pid in forever_pids:
+        try:
+            pid_result, status = os.waitpid(child_pid, os.WNOHANG)
+        except OSError as e:
+            if e.errno == errno.ECHILD:
+                continue
+
+        if pid_result:
+            proc_name = forever_pids[child_pid]
+            exited_pids.append(child_pid)
+
+            if os.WIFEXITED(status):
+                status_str = "with status %s" % os.WEXITSTATUS(status)
+            elif os.WIFSIGNALED(status):
+                status_str = "on signal %s" % os.WTERMSIG(status)
+            else:
+                status_str = "with unknown status code %s" % status
+
+            exn_message.append("%s exited %s" % (proc_name, status_str))
+
+    for child_pid in exited_pids:
+        del forever_pids[child_pid]
+
+    if exn_message:
+        raise ExitError(", ".join(exn_message))
+
+signal.signal(signal.SIGCHLD, sigchld_handler)
+
+# Fork a new process and add it to forever_pids. The return values are the
+# the same as os.fork, but neither the parent nor the child will return
+# until the process is watched.
+def start_watched_pid(proc_name):
+    readpipe, writepipe = os.pipe()
+    childpid = os.fork()
+    if childpid == 0:
+        # No need for the write pipe in the child
+        os.close(writepipe)
+
+        # Wait for the parent to signal that it's ready to return
+        os.read(readpipe, 1)
+
+        # Ready to go
+        os.close(readpipe)
+        return childpid
+    else:
+        # No need for the read pipe in the parent
+        os.close(readpipe)
+
+        # Add the pid to the list of watched pids
+        forever_pids[childpid] = proc_name
+
+        # Signal to the child that we're ready to return
+        # D is for Done
+        os.write(writepipe, 'D')
+        os.close(writepipe)
+        return childpid
 
 def exitHandler(rebootData, storage, exitCode=None):
     # stop and save coverage here b/c later the file system may be unavailable
@@ -108,20 +179,105 @@ def startSpiceVDAgent():
     else:
         log.info("Started spice-vdagent.")
 
+def startX11():
+    # Start X11 with its USR1 handler set to ignore, which will make it send
+    # us SIGUSR1 if it succeeds. If it fails, catch SIGCHLD and bomb out.
+    # Use a list so the value can be modified from the handler
+    x11_started = [False]
+    def sigusr1_handler(num, frame):
+        log.debug("X server has signalled a successful start.")
+        x11_started[0] = True
+
+    # Fail after, let's say a minute, in case something weird happens
+    # and we don't receive SIGUSR1
+    def sigalrm_handler(num, frame):
+        # Check that it didn't make it under the wire
+        if x11_started[0]:
+            return
+        log.error("Timeout trying to start the X server")
+        raise ExitError("Timeout trying to start the X server")
+
+    try:
+        old_sigusr1_handler = signal.signal(signal.SIGUSR1, sigusr1_handler)
+        old_sigalrm_handler = signal.signal(signal.SIGALRM, sigalrm_handler)
+
+        childpid = start_watched_pid("Xorg")
+
+        if not childpid:
+            # after this point the method should never return (or throw an exception
+            # outside)
+            try:
+                # dup /dev/tty5 to stdout and stderr
+                xfd = os.open("/dev/tty5", os.O_WRONLY | os.O_APPEND)
+                os.dup2(xfd, sys.stdout.fileno())
+                os.dup2(xfd, sys.stderr.fileno())
+
+                # Close all other file descriptors
+                try:
+                    maxfd = os.sysconf("SC_OPEN_MAX")
+                except ValueError:
+                    maxfd = 1024
+
+                os.closerange(3, maxfd)
+
+                # Replace the SIGUSR1 handler with SIG_IGN as described above
+                signal.signal(signal.SIGUSR1, signal.SIG_IGN)
+
+                # Run it
+                os.execlp("Xorg", "Xorg", "-br",
+                          "-logfile", "/tmp/X.log",
+                          ":1", "vt6", "-s", "1440", "-ac",
+                          "-nolisten", "tcp", "-dpi", "96",
+                          "-noreset")
+
+                # We should never get here
+                raise OSError(0, "Unable to exec")
+            except BaseException as e:
+                # catch all possible exceptions
+                # Reopen the logger in case it was closed by closerange.
+                # Use a different name because assigning to variables across a
+                # fork confuses the hell out of python.
+                child_log = logging.getLogger("anaconda")
+                child_log.error("Problems running Xorg: %s", e)
+                os._exit(1)
+
+        # Parent process
+        # Start the timer
+        signal.alarm(60)
+
+        # Wait for SIGUSR1
+        while not x11_started[0]:
+            signal.pause()
+
+        # Now that X is started, make $DISPLAY available
+        os.environ["DISPLAY"] = ":1"
+    finally:
+        # Put everything back where it was
+        signal.alarm(0)
+        signal.signal(signal.SIGUSR1, old_sigusr1_handler)
+        signal.signal(signal.SIGALRM, old_sigalrm_handler)
+
 def startMetacityWM():
-    childpid = os.fork()
+    # When metacity actually connects to the X server is unknowable, but
+    # fortunately it doesn't matter. metacity does not need to be the first
+    # connection to Xorg, and if anaconda starts up before metacity, metacity
+    # will just take over and maximize the window and make everything right,
+    # fingers crossed.
+
+    childpid = start_watched_pid("metacity")
     if not childpid:
         # after this point the method should never return (or throw an exception
         # outside)
         try:
-            iutil.execWithRedirect('metacity', ["--display", ":1", "--sm-disable"])
+            returncode = iutil.execWithRedirect('metacity', ["--display", ":1", "--sm-disable"])
         except BaseException as e:
             # catch all possible exceptions
             log.error("Problems running the window manager: %s", e)
             os._exit(1)
 
         log.info("The window manager has terminated.")
-        os._exit(0)
+        os._exit(returncode)
+
     return childpid
 
 def startAuditDaemon():
@@ -140,16 +296,12 @@ def startAuditDaemon():
 def doStartupX11Actions():
     """Start window manager"""
 
-    global wm_pid  # pid of the anaconda fork where the window manager is running
     # now start up the window manager
     wm_pid = startMetacityWM()
     log.info("Starting window manager, pid %s.", wm_pid)
 
 def set_x_resolution(runres):
-    # cant do this if no window manager is running because otherwise when we
-    # open and close an X connection in the xutils calls the X server will exit
-    # since this is the first X connection (if no window manager is running)
-    if runres and opts.display_mode == 'g' and not flags.usevnc and wm_pid:
+    if runres and opts.display_mode == 'g' and not flags.usevnc:
         try:
             log.info("Setting the screen resolution to: %s.", runres)
             iutil.execWithRedirect("xrandr",
@@ -625,47 +777,15 @@ def setupDisplay(anaconda, options, addons=None):
     check_memory(anaconda, options)
 
     if want_x:
-        # The following code depends on no SIGCHLD being delivered,
-        # possibly only except the one from a failing X.org. Thus
-        # make sure before entering this section that all the other
-        # children of anaconda have terminated or were forked into
-        # an orphan (which won't deliver a SIGCHLD to mess up the
-        # fragile signaling below). start X with its USR1 handler
-        # set to ignore.  this will make it send us SIGUSR1 if it
-        # succeeds.  if it fails, catch SIGCHLD and bomb out.
-        def sigchld_handler(num, frame):
-            raise OSError(0, "SIGCHLD caught when trying to start the X server.")
-
-        def sigusr1_handler(num, frame):
-            log.debug("X server has signalled a successful start.")
-
-        def preexec_fn():
-            signal.signal(signal.SIGUSR1, signal.SIG_IGN)
-
-        old_sigusr1 = signal.signal(signal.SIGUSR1, sigusr1_handler)
-        old_sigchld = signal.signal(signal.SIGCHLD, sigchld_handler)
-        xout = open("/dev/tty5", "w")
         try:
-            subprocess.Popen(["Xorg", "-br",
-                              "-logfile", "/tmp/X.log",
-                              ":1", "vt6", "-s", "1440", "-ac",
-                              "-nolisten", "tcp", "-dpi", "96",
-                              "-noreset"],
-                              close_fds=True,
-                              stdout=xout, stderr=xout,
-                              preexec_fn=preexec_fn)
-
-            signal.pause()
-            os.environ["DISPLAY"] = ":1"
+            startX11()
             doStartupX11Actions()
-        except (OSError, RuntimeError):
+        except (OSError, RuntimeError) as e:
+            log.warning("X startup failed: %s", e)
             stdoutLog.warning("X startup failed, falling back to text mode")
             anaconda.displayMode = 't'
             graphical_failed = 1
             time.sleep(2)
-        finally:
-            signal.signal(signal.SIGUSR1, old_sigusr1)
-            signal.signal(signal.SIGCHLD, old_sigchld)
 
         if not graphical_failed:
             doExtraX11Actions(options.runres)
@@ -822,7 +942,7 @@ if __name__ == "__main__":
 
     from pyanaconda import isys
 
-    import signal, string
+    import string
 
     from pyanaconda import iutil
 
