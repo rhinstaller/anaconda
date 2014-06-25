@@ -223,6 +223,10 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Wed Jun 25 2014 Samantha N. Bueno <sbueno+anaconda@redhat.com> - 13.21.224-1
+- Add shared-mime-info to the instroot (dshea)
+  Resolves: rhbz#1110834
+
 * Tue Jun 24 2014 Samantha N. Bueno <sbueno+anaconda@redhat.com> - 13.21.223-1
 - Change pixbuf loaders path. (sbueno+anaconda)
   Resolves: rhbz#1110834
