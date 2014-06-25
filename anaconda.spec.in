@@ -302,6 +302,29 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Wed Jun 25 2014 Brian C. Lane <bcl@redhat.com> - 21.44-1
+- Fix storage checker docstring (bcl)
+- Modify --dirinstall to take a path (bcl)
+- Drop ROOT_PATH, add a method to set it (bcl)
+- Call setUpBootLoader in custom autopart (#1086811) (bcl)
+- Remove the noipv6 Anaconda option (mkolman)
+- Remove the -s/--script Anaconda option (mkolman)
+- Make rescue_mode part of flags, hence more publicly available (#1090009)
+  (amulhern)
+- Check host filesystem space for dirinstall (bcl)
+- Remove the viewport from the addon repo tree view (dshea)
+- Add a check for GtkScrollables contained in GtkViewports (dshea)
+- Enable rubber-banding in the disk tree views (dshea)
+- Make the configure mount point dialog taller. (#924182) (dshea)
+- Add the disk TreeViews directly to the scrolled windows (dshea)
+- Opened up custom_storage_helpers.glade and hit Save (dshea)
+- Add help texts for more Anaconda CLI options (mkolman)
+- Remove the targetarch Anaconda option (mkolman)
+- Add anaconda_options.txt to makeupdates (dshea)
+- Allow the location of anaconda_options.txt to be overridden (dshea)
+- Remove an unused import. (dshea)
+- Remove the headless Anaconda option (mkolman)
+
 * Thu Jun 19 2014 Brian C. Lane <bcl@redhat.com> - 21.43-1
 - Allow NFS addon repos (#985080) (dshea)
 - Add --disklabel support to clearpart (#1078537) (bcl)
