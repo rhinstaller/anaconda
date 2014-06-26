@@ -31,6 +31,7 @@ import logging
 import multiprocessing
 import operator
 import pyanaconda.constants as constants
+from pykickstart.constants import GROUP_ALL, GROUP_DEFAULT
 import pyanaconda.errors as errors
 import pyanaconda.iutil
 import pyanaconda.localization
@@ -220,9 +221,9 @@ class DNFPayload(packaging.PackagePayload):
 
         for group in self.data.packages.groupList:
             try:
-                default = group.include in (constants.GROUP_ALL,
-                                            constants.GROUP_DEFAULT)
-                optional = group.include == constants.GROUP_ALL
+                default = group.include in (GROUP_ALL,
+                                            GROUP_DEFAULT)
+                optional = group.include == GROUP_ALL
                 self._select_group(group.name, default=default, optional=optional)
             except packaging.NoSuchGroup as e:
                 self._miss(e)

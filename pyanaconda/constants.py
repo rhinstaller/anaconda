@@ -28,9 +28,7 @@ SELINUX_DEFAULT = -1
 # where to look for 3rd party addons
 ADDON_PATHS = ["/usr/share/anaconda/addons"]
 
-# pull in kickstart constants as well
-# pylint: disable=wildcard-import
-from pykickstart.constants import *
+from pykickstart.constants import AUTOPART_TYPE_LVM
 
 # common string needs to be easy to change
 from pyanaconda import product

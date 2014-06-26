@@ -39,7 +39,9 @@ if __name__ == "__main__":
     from pyanaconda import anaconda_log
     anaconda_log.init()
 
-from pyanaconda.constants import DRACUT_ISODIR, DRACUT_REPODIR, GROUP_ALL, GROUP_DEFAULT, GROUP_REQUIRED, DD_ALL, DD_FIRMWARE, DD_RPMS, INSTALL_TREE, ISO_DIR, THREAD_STORAGE, THREAD_WAIT_FOR_CONNECTING_NM
+from pyanaconda.constants import DRACUT_ISODIR, DRACUT_REPODIR, DD_ALL, DD_FIRMWARE, DD_RPMS, INSTALL_TREE, ISO_DIR
+from pyanaconda.constants import THREAD_STORAGE, THREAD_WAIT_FOR_CONNECTING_NM
+from pykickstart.constants import GROUP_ALL, GROUP_DEFAULT, GROUP_REQUIRED
 from pyanaconda.flags import flags
 
 from pyanaconda import iutil
