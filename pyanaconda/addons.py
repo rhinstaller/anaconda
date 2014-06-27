@@ -22,6 +22,7 @@
 __all__ = ["AddonSection", "AddonRegistry", "AddonData", "collect_addon_paths"]
 
 import os
+import functools
 from pykickstart.sections import Section
 from pykickstart.errors import KickstartParseError, formatErrorMsg
 from pyanaconda.i18n import _
@@ -75,8 +76,8 @@ class AddonRegistry(object):
         self.__dict__ = dictionary
 
     def __str__(self):
-        return reduce(lambda acc,(id, addon): acc + str(addon),
-                      self.__dict__.iteritems(), "")
+        return functools.reduce(lambda acc, (id, addon): acc + str(addon),
+                                self.__dict__.iteritems(), "")
 
     def execute(self, storage, ksdata, instClass, users):
         """This method calls execute on all the registered addons."""

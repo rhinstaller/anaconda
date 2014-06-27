@@ -25,6 +25,7 @@ import sys
 import Queue
 import getpass
 import threading
+import functools
 from pyanaconda.threads import threadMgr, AnacondaThread
 from pyanaconda.ui.communication import hubQ
 from pyanaconda import constants
@@ -653,7 +654,7 @@ class Widget(object):
     def width(self):
         """The current width of the internal buffer
            (id of the first empty column)."""
-        return reduce(lambda acc,l: max(acc, len(l)), self._buffer, 0)
+        return functools.reduce(lambda acc, l: max(acc, len(l)), self._buffer, 0)
 
     def clear(self):
         """Clears this widgets buffer and resets cursor."""
