@@ -31,7 +31,7 @@ import logging
 import multiprocessing
 import operator
 import pyanaconda.constants as constants
-from pykickstart.constants import GROUP_ALL, GROUP_DEFAULT
+from pykickstart.constants import GROUP_ALL, GROUP_DEFAULT, KS_MISSING_IGNORE
 import pyanaconda.errors as errors
 import pyanaconda.iutil
 import pyanaconda.localization
@@ -280,7 +280,7 @@ class DNFPayload(packaging.PackagePayload):
             raise packaging.NoSuchPackage(pkg_name, required=required)
 
     def _miss(self, exn):
-        if self.data.packages.handleMissing == constants.KS_MISSING_IGNORE:
+        if self.data.packages.handleMissing == KS_MISSING_IGNORE:
             return
 
         log.error('Missed: %r', exn)
