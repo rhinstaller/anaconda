@@ -132,7 +132,7 @@ def run_yum_transaction(release, arch, yum_conf, install_root, ts_file, script_l
             # retry count > 0  -> retry
             if retry_count:
                 # retry after waiting a bit
-                time.sleep(xdelay.next())
+                time.sleep(next(xdelay))
                 print("PROGRESS_INSTALL: error populating transaction, retrying (%d/%d)"
                       % (retry_count, MAX_DOWNLOAD_RETRIES))
             try:
@@ -296,7 +296,7 @@ class RPMCallback(object):
             # retry count == 0 -> first attempt
             # retry count > 0  -> retry
             if retry_count and retry_message:
-                time.sleep(xdelay.next())  # wait a bit before retry
+                time.sleep(next(xdelay))  # wait a bit before retry
                 print("PROGRESS_INSTALL: %s (%d/%d)" % (retry_message, retry_count, MAX_DOWNLOAD_RETRIES))
 
             try:

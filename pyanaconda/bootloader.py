@@ -2322,7 +2322,7 @@ def writeSysconfigKernel(storage, version, instClass):
     ts = rpm.TransactionSet(iutil.getSysroot())
     mi = ts.dbMatch('basenames', kernel_file)
     try:
-        h = mi.next()
+        h = next(mi)
     except StopIteration:
         log.error("failed to get package name for default kernel")
         return

@@ -191,7 +191,7 @@ class ProgressHub(Hub):
         # image's filename.  Note that self._rnotesPages is an infinite list,
         # so this will cycle through the images indefinitely.
         try:
-            nxt = self._rnotesPages.next()
+            nxt = next(self._rnotesPages)
         except StopIteration:
             # there are no rnotes
             pass

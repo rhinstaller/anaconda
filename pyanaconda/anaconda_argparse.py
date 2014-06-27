@@ -281,7 +281,7 @@ def name_path_pairs(image_specs):
 
         if name in names_seen:
             names = ("%s_%d" % (name, n) for n in itertools.count())
-            name = itertools.dropwhile(lambda n: n in names_seen, names).next()
+            name = next(itertools.dropwhile(lambda n: n in names_seen, names))
         names_seen.append(name)
 
         yield name, path
