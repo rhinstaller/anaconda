@@ -273,10 +273,10 @@ def copyUpdatedFiles(tag, updates, cwd):
             install_to_dir(gitfile, "usr/sbin")
         elif gitfile.endswith('.service') or gitfile.endswith(".target"):
             # same for systemd services
-            install_to_dir(gitfile, "lib/systemd/system")
+            install_to_dir(gitfile, "usr/lib/systemd/system")
         elif gitfile.endswith('/anaconda-generator'):
             # yeah, this should probably be more clever..
-            install_to_dir(gitfile, "lib/systemd/system-generators")
+            install_to_dir(gitfile, "usr/lib/systemd/system-generators")
         elif gitfile == "data/tmux.conf":
             install_to_dir(gitfile, "usr/share/anaconda")
         elif gitfile == "data/anaconda-gtk.css":
