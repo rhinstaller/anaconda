@@ -1289,7 +1289,7 @@ reposdir=%s
                 if not rpms:
                     continue
                 log.info("Running createrepo on %s", repo)
-                iutil.execWithRedirect("createrepo", [repo])
+                iutil.execWithRedirect("createrepo_c", [repo])
 
             ks_repo = self.data.RepoData(name="DD-%d" % dir_num,
                                          baseurl="file://"+repo,
