@@ -326,7 +326,7 @@ def mkdirChain(directory):
     """
 
     try:
-        os.makedirs(directory, 0755)
+        os.makedirs(directory, 0o755)
     except OSError as e:
         try:
             if e.errno == errno.EEXIST and stat.S_ISDIR(os.stat(directory).st_mode):
@@ -474,7 +474,7 @@ def dracut_eject(device):
 
         f.write("eject %s\n" % (device,))
         f.close()
-        os.chmod(DRACUT_SHUTDOWN_EJECT, 0755)
+        os.chmod(DRACUT_SHUTDOWN_EJECT, 0o755)
         log.info("Wrote dracut shutdown eject hook for %s", device)
     except (IOError, OSError) as e:
         log.error("Error writing dracut shutdown eject hook for %s: %s", device, e)

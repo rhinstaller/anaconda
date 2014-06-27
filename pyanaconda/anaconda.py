@@ -230,7 +230,7 @@ class Anaconda(object):
         if root is None:
             root = iutil.getSysroot()
         if not os.path.isdir("%s/etc/X11" %(root,)):
-            os.makedirs("%s/etc/X11" %(root,), mode=0755)
+            os.makedirs("%s/etc/X11" %(root,), mode=0o755)
         f = open("%s/etc/X11/xorg.conf" %(root,), 'w')
         f.write('Section "Device"\n\tIdentifier "Videocard0"\n\tDriver "%s"\nEndSection\n' % self.xdriver)
         f.close()

@@ -226,7 +226,7 @@ class BootLoader(object):
     name = "Generic Bootloader"
     packages = []
     config_file = None
-    config_file_mode = 0600
+    config_file_mode = 0o600
     can_dual_boot = False
     can_update = False
     image_label_attr = "label"
@@ -1398,7 +1398,7 @@ class GRUB2(GRUB):
     packages = ["grub2"]
     _config_file = "grub.cfg"
     _config_dir = "grub2"
-    config_file_mode = 0600
+    config_file_mode = 0o600
     defaults_file = "/etc/default/grub"
     can_dual_boot = True
     can_update = True
@@ -1542,7 +1542,7 @@ class GRUB2(GRUB):
         header.write("%s\n" % password_line)
         header.write("EOF\n")
         header.close()
-        os.chmod(users_file, 0700)
+        os.chmod(users_file, 0o700)
 
     def write_config(self):
         self.add_crash_args()

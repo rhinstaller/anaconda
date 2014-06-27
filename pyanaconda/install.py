@@ -48,7 +48,7 @@ def _writeKS(ksdata):
         f.write(str(ksdata))
 
     # Make it so only root can read - could have passwords
-    os.chmod(path, 0600)
+    os.chmod(path, 0o600)
 
 def doConfiguration(storage, payload, ksdata, instClass):
     from pyanaconda.kickstart import runPostScripts

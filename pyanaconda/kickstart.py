@@ -98,7 +98,7 @@ class AnacondaKSScript(KSScript):
 
         os.write(fd, self.script)
         os.close(fd)
-        os.chmod(path, 0700)
+        os.chmod(path, 0o700)
 
         # Always log stdout/stderr from scripts.  Using --log just lets you
         # pick where it goes.  The script will also be logged to program.log
@@ -1067,7 +1067,7 @@ class PartitionData(commands.partition.F18_PartData):
                 ty = "macefi"
             else:
                 ty = "EFI System Partition"
-                self.fsopts = "defaults,uid=0,gid=0,umask=0077,shortname=winnt"
+                self.fsopts = "defaults,uid=0,gid=0,umask=0o077,shortname=winnt"
         else:
             if self.fstype != "":
                 ty = self.fstype
@@ -1671,7 +1671,7 @@ class SpokeRegistry(dict):
     def execute(self, storage, ksdata, instClass, users):
         path = os.path.join(iutil.getSysroot(), "var", "lib", "inital-setup")
         try:
-            os.makedirs(path, 0755)
+            os.makedirs(path, 0o755)
         except OSError:
             pass
         f = open(os.path.join(path, "configured.ini"), "a")

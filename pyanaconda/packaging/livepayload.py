@@ -334,7 +334,7 @@ class LiveImageKSPayload(LiveImagePayload):
                     img_file = os.path.basename(sorted(img_files)[0])
 
                     # move the mount to IMAGE_DIR
-                    os.makedirs(IMAGE_DIR, 0755)
+                    os.makedirs(IMAGE_DIR, 0o755)
                     # work around inability to move shared filesystems
                     iutil.execWithRedirect("mount",
                                            ["--make-rprivate", "/"])
