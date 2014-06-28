@@ -249,13 +249,31 @@ class Authconfig(commands.authconfig.FC3_Authconfig):
         except RuntimeError as msg:
             log.error("Error running %s %s: %s", cmd, args, msg)
 
-class AutoPart(commands.autopart.F20_AutoPart):
+class AutoPart(commands.autopart.F21_AutoPart):
+    def parse(self, args):
+        retval = commands.autopart.F21_AutoPart.parse(self, args)
+
+        if self.fstype:
+            fmt = blivet.formats.getFormat(self.fstype)
+            if not fmt or fmt.type is None:
+                raise KickstartValueError(formatErrorMsg(self.lineno,
+                        msg=_("autopart fstype of %s is invalid.") % self.fstype))
+
+        return retval
+
     def execute(self, storage, ksdata, instClass):
         from blivet.partitioning import doAutoPartition
         from blivet.partitioning import sanityCheck
 
         if not self.autopart:
             return
+
+        if self.fstype:
+            try:
+                storage.setDefaultFSType(self.fstype)
+            except ValueError:
+                raise KickstartValueError(formatErrorMsg(self.lineno,
+                        msg=_("Settings default fstype to %s failed.") % self.fstype))
 
         # sets up default autopartitioning.  use clearpart separately
         # if you want it
