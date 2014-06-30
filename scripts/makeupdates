@@ -391,17 +391,17 @@ def copyUpdatedWidgets(updates, srcdir, builddir):
 
     os.system('make -C %s' % builddir)
 
-    files = ["libAnacondaWidgets.so", "libAnacondaWidgets.so.1", "libAnacondaWidgets.so.1.0.0"]
-    for f in files:
-        path = os.path.normpath(builddir + "/widgets/src/.libs/" + f)
+    libglob = os.path.normpath(builddir + "/widgets/src/.libs") + "/libAnacondaWidgets.so*"
+    for path in glob.glob(libglob):
         if os.path.islink(path) and not os.path.exists(updates + libdir + os.path.basename(path)):
             os.symlink(os.readlink(path), updates + libdir + os.path.basename(path))
         elif os.path.isfile(path):
             shutil.copy2(path, updates + libdir)
 
-    typelib = os.path.realpath(builddir + "/widgets/src/AnacondaWidgets-1.0.typelib")
-    if os.path.isfile(typelib):
-        shutil.copy2(typelib, updates + libdir + "girepository-1.0")
+    typeglob = os.path.realpath(builddir + "/widgets/src") + "/AnacondaWidgets-*.typelib"
+    for typelib in glob.glob(typeglob):
+        if os.path.isfile(typelib):
+            shutil.copy2(typelib, updates + libdir + "girepository-1.0")
 
 def copyTranslations(updates, srcdir, builddir):
     localedir = "/usr/share/locale/"
