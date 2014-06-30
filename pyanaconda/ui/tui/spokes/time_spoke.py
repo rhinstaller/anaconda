@@ -104,7 +104,7 @@ class TimeZoneSpoke(FirstbootSpokeMixIn, NormalTUISpoke):
                     self.apply()
                     self.close()
                 else:
-                    self.app.switch_screen(self, self._regions[id])
+                    self.app.switch_screen(self, self._regions[index])
                 return INPUT_PROCESSED
             elif key.lower() == "b":
                 self.app.switch_screen(self, None)
