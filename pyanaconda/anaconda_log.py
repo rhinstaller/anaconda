@@ -67,6 +67,11 @@ def setHandlersLevel(logr, level):
         filter (lambda hdlr: hasattr(hdlr, "autoSetLevel") and hdlr.autoSetLevel, logr.handlers))
 
 class AnacondaSyslogHandler(SysLogHandler):
+    # syslog doesn't understand these level names
+    levelMap = { "ERR": "error",
+                 "CRIT": "critical",
+                 "LOCK": "debug"}
+
     def __init__(self,
                  address=('localhost', SYSLOG_UDP_PORT),
                  facility=SysLogHandler.LOG_USER,
@@ -79,6 +84,10 @@ class AnacondaSyslogHandler(SysLogHandler):
         record.msg = '%s: %s' %(self.tag, original_msg)
         SysLogHandler.emit(self, record)
         record.msg = original_msg
+
+    def mapPriority(self, level):
+        """Map the priority level to a syslog level """
+        return self.levelMap.get(level, SysLogHandler.mapPriority(self, level))
 
 class AnacondaLog:
     SYSLOG_CFGFILE  = "/etc/rsyslog.conf"
