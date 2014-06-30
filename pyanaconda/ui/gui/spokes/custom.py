@@ -82,7 +82,7 @@ from pyanaconda.ui.gui.spokes.lib.custom_storage_helpers import selectedRaidLeve
 from pyanaconda.ui.gui.spokes.lib.custom_storage_helpers import get_container_type_name, RAID_NOT_ENOUGH_DISKS
 from pyanaconda.ui.gui.spokes.lib.custom_storage_helpers import AddDialog, ConfirmDeleteDialog, DisksDialog, ContainerDialog, HelpDialog
 
-from pyanaconda.ui.gui.utils import setViewportBackground, enlightbox, fancy_set_sensitive, ignoreEscape
+from pyanaconda.ui.gui.utils import setViewportBackground, fancy_set_sensitive, ignoreEscape
 from pyanaconda.ui.gui.utils import really_hide, really_show, GtkActionList, timed_action
 from pyanaconda.ui.categories.system import SystemCategory
 
@@ -1508,7 +1508,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
                        if d.format.type == "luks" and not d.format.exists]
             if new_luks:
                 dialog = PassphraseDialog(self.data)
-                with enlightbox(self.window, dialog.window):
+                with self.main_window.enlightbox(dialog.window):
                     rc = dialog.run()
 
                 if rc != 1:
@@ -1527,7 +1527,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         if len(self._storage_playground.devicetree.findActions()) > 0:
             dialog = ActionSummaryDialog(self.data)
             dialog.refresh(self._storage_playground.devicetree.findActions())
-            with enlightbox(self.window, dialog.window):
+            with self.main_window.enlightbox(dialog.window):
                 rc = dialog.run()
 
             if rc != 1:
@@ -1605,7 +1605,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         dialog = AddDialog(self.data,
                            mountpoints=self._storage_playground.mountpoints.keys())
         dialog.refresh()
-        with enlightbox(self.window, dialog.window):
+        with self.main_window.enlightbox(dialog.window):
             rc = dialog.run()
 
             if rc != 1:
@@ -1812,7 +1812,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
             snapshots = (device.direct and not device.isleaf)
             dialog.refresh(getattr(device.format, "mountpoint", ""),
                            device.name, root_name, snapshots=snapshots)
-            with enlightbox(self.window, dialog.window):
+            with self.main_window.enlightbox(dialog.window):
                 rc = dialog.run()
 
                 if rc != 1:
@@ -1837,12 +1837,12 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         dialog = SelectedDisksDialog(self.data)
         dialog.refresh(self._clearpartDevices, self._currentFreeInfo,
                        showRemove=False, setBoot=False)
-        with enlightbox(self.window, dialog.window):
+        with self.main_window.enlightbox(dialog.window):
             dialog.run()
 
     def on_help_clicked(self, button):
         help_window = HelpDialog(self.data)
-        with enlightbox(self.window, help_window.window):
+        with self.main_window.enlightbox(help_window.window):
             help_window.run()
 
     def on_configure_clicked(self, button):
@@ -1864,7 +1864,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
                              disks=self._clearpartDevices,
                              free=self._currentFreeInfo,
                              selected=self._device_disks)
-        with enlightbox(self.window, dialog.window):
+        with self.main_window.enlightbox(dialog.window):
             rc = dialog.run()
 
         if rc != 1:
@@ -1919,7 +1919,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
                                  storage=self._storage_playground,
                                  exists=getattr(container, "exists", False))
 
-        with enlightbox(self.window, dialog.window):
+        with self.main_window.enlightbox(dialog.window):
             rc = dialog.run()
             dialog.window.destroy()
 
@@ -2436,7 +2436,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         dlg.add_buttons(_("_Reset selections"), 0, _("_Preserve current selections"), 1)
         dlg.set_default_response(1)
 
-        with enlightbox(self.window, dlg):
+        with self.main_window.enlightbox(dlg):
             rc = dlg.run()
             dlg.destroy()
 
@@ -2448,7 +2448,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
     def on_refresh_clicked(self, *args):
         dialog = RefreshDialog(self.data, self.storage)
         ignoreEscape(dialog.window)
-        with enlightbox(self.window, dialog.window):
+        with self.main_window.enlightbox(dialog.window):
             rc = dialog.run()
             dialog.window.destroy()
 
@@ -2481,7 +2481,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
                                 message_format=str(self._error))
         dlg.set_decorated(False)
 
-        with enlightbox(self.window, dlg):
+        with self.main_window.enlightbox(dlg):
             dlg.run()
             dlg.destroy()
 

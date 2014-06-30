@@ -26,7 +26,7 @@ import langtable
 
 from pyanaconda.ui.gui.hubs.summary import SummaryHub
 from pyanaconda.ui.gui.spokes import StandaloneSpoke
-from pyanaconda.ui.gui.utils import enlightbox, setup_gtk_direction, escape_markup
+from pyanaconda.ui.gui.utils import setup_gtk_direction, escape_markup
 from pyanaconda.ui.gui.spokes.lib.lang_locale_handler import LangLocaleHandler
 
 from pyanaconda import localization
@@ -309,7 +309,7 @@ class WelcomeLanguageSpoke(LangLocaleHandler, StandaloneSpoke):
         # Don't display the betanag dialog if this is the final release.
         if not isFinal:
             dlg = self.builder.get_object("betaWarnDialog")
-            with enlightbox(self.window, dlg):
+            with self.main_window.enlightbox(dlg):
                 rc = dlg.run()
                 dlg.destroy()
             if rc != 1:
@@ -318,7 +318,7 @@ class WelcomeLanguageSpoke(LangLocaleHandler, StandaloneSpoke):
         if productName.startswith("Red Hat ") and \
           is_unsupported_hw() and not self.data.unsupportedhardware.unsupported_hardware:
             dlg = self.builder.get_object("unsupportedHardwareDialog")
-            with enlightbox(self.window, dlg):
+            with self.main_window.enlightbox(dlg):
                 rc = dlg.run()
                 dlg.destroy()
             if rc != 1:

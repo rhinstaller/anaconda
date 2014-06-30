@@ -30,7 +30,6 @@ from pyanaconda.ui.gui.spokes import NormalSpoke
 from pyanaconda.ui.gui import GUIObject
 from pyanaconda.ui.categories.user_settings import UserSettingsCategory
 from pyanaconda.ui.common import FirstbootSpokeMixIn
-from pyanaconda.ui.gui.utils import enlightbox
 from pyanaconda.ui.helpers import InputCheck
 from pyanaconda.ui.gui.helpers import GUISpokeInputCheckHandler, GUIDialogInputCheckHandler
 
@@ -598,7 +597,7 @@ class UserSpoke(FirstbootSpokeMixIn, NormalSpoke, GUISpokeInputCheckHandler):
             self._user.groups.remove(self._wheel.name)
 
         self._advanced.refresh()
-        with enlightbox(self.window, self._advanced.window):
+        with self.main_window.enlightbox(self._advanced.window):
             self._advanced.run()
 
         self.admin.set_active(self._wheel.name in self._user.groups)

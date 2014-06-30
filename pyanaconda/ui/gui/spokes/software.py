@@ -30,7 +30,7 @@ from pyanaconda import constants
 from pyanaconda.ui.communication import hubQ
 from pyanaconda.ui.gui.spokes import NormalSpoke
 from pyanaconda.ui.gui.spokes.lib.detailederror import DetailedErrorDialog
-from pyanaconda.ui.gui.utils import enlightbox, gtk_action_wait, escape_markup
+from pyanaconda.ui.gui.utils import gtk_action_wait, escape_markup
 from pyanaconda.ui.categories.software import SoftwareCategory
 
 import logging
@@ -473,7 +473,7 @@ class SoftwareSelectionSpoke(NormalSpoke):
                          C_("GUI|Software Selection|Error Dialog", "_Modify Software Source"),
                          C_("GUI|Software Selection|Error Dialog", "Modify _Selections")],
                 label=label)
-        with enlightbox(self.window, dialog.window):
+        with self.main_window.enlightbox(dialog.window):
             dialog.refresh(self._errorMsgs)
             rc = dialog.run()
 

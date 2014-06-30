@@ -30,7 +30,6 @@ from pyanaconda.flags import flags
 from pyanaconda.i18n import CN_, CP_
 
 from pyanaconda.ui.lib.disks import getDisks, isLocalDisk
-from pyanaconda.ui.gui.utils import enlightbox
 from pyanaconda.ui.gui.spokes import NormalSpoke
 from pyanaconda.ui.gui.spokes.advstorage.fcoe import FCoEDialog
 from pyanaconda.ui.gui.spokes.advstorage.iscsi import ISCSIDialog
@@ -511,7 +510,7 @@ class FilterSpoke(NormalSpoke):
         disks = [disk for disk in self.disks if disk.name in self.selected_disks]
         free_space = self.storage.getFreeSpace(disks=disks)
 
-        with enlightbox(self.window, dialog.window):
+        with self.main_window.enlightbox(dialog.window):
             dialog.refresh(disks, free_space, showRemove=False, setBoot=False)
             dialog.run()
 
@@ -550,7 +549,7 @@ class FilterSpoke(NormalSpoke):
     def on_add_iscsi_clicked(self, widget, *args):
         dialog = ISCSIDialog(self.data, self.storage)
 
-        with enlightbox(self.window, dialog.window):
+        with self.main_window.enlightbox(dialog.window):
             dialog.refresh()
             dialog.run()
 
@@ -561,7 +560,7 @@ class FilterSpoke(NormalSpoke):
     def on_add_fcoe_clicked(self, widget, *args):
         dialog = FCoEDialog(self.data, self.storage)
 
-        with enlightbox(self.window, dialog.window):
+        with self.main_window.enlightbox(dialog.window):
             dialog.refresh()
             dialog.run()
 

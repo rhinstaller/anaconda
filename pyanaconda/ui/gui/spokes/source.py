@@ -38,7 +38,7 @@ from pyanaconda.ui.gui import GUIObject
 from pyanaconda.ui.gui.helpers import GUIDialogInputCheckHandler, GUISpokeInputCheckHandler
 from pyanaconda.ui.gui.spokes import NormalSpoke
 from pyanaconda.ui.categories.software import SoftwareCategory
-from pyanaconda.ui.gui.utils import enlightbox, fire_gtk_action
+from pyanaconda.ui.gui.utils import fire_gtk_action
 from pyanaconda.iutil import ProxyString, ProxyStringError, cmp_obj_attrs
 from pyanaconda.ui.gui.utils import gtk_call_once, really_hide, really_show, fancy_set_sensitive
 from pyanaconda.threads import threadMgr, AnacondaThread
@@ -1040,7 +1040,7 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler):
         else:
             dialog.refresh()
 
-        with enlightbox(self.window, dialog.window):
+        with self.main_window.enlightbox(dialog.window):
             f = dialog.run(self._get_selected_partition())
 
         if f and f.endswith(".iso"):
@@ -1051,7 +1051,7 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler):
 
     def on_proxy_clicked(self, button):
         dialog = ProxyDialog(self.data, self._proxyUrl)
-        with enlightbox(self.window, dialog.window):
+        with self.main_window.enlightbox(dialog.window):
             dialog.refresh()
             dialog.run()
 
@@ -1067,7 +1067,7 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler):
             return
 
         dialog = MediaCheckDialog(self.data)
-        with enlightbox(self.window, dialog.window):
+        with self.main_window.enlightbox(dialog.window):
             unmount = not p.format.status
             mounts = get_mount_paths(p.path)
             # We have to check both ISO_DIR and the DRACUT_ISODIR because we
@@ -1085,7 +1085,7 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler):
             return
 
         dialog = MediaCheckDialog(self.data)
-        with enlightbox(self.window, dialog.window):
+        with self.main_window.enlightbox(dialog.window):
             dialog.run("/dev/" + self._cdrom.name)
 
     def on_protocol_changed(self, combo):

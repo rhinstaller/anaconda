@@ -21,13 +21,15 @@
 import inspect, os, sys, time, site
 import meh.ui.gui
 
-from gi.repository import Gdk, Gtk, AnacondaWidgets, Keybinder
+from contextlib import contextmanager
+
+from gi.repository import Gdk, Gtk, AnacondaWidgets, Keybinder, GdkPixbuf
 
 from pyanaconda.i18n import _
 from pyanaconda import product
 
 from pyanaconda.ui import UserInterface, common
-from pyanaconda.ui.gui.utils import enlightbox, gtk_action_wait, busyCursor, unbusyCursor
+from pyanaconda.ui.gui.utils import gtk_action_wait, busyCursor, unbusyCursor
 import os.path
 
 import logging
@@ -249,6 +251,15 @@ class MainWindow(Gtk.Window):
         # Treat an attempt to close the window the same as hitting quit
         self.connect("delete-event", self._on_delete_event)
 
+        # Create a black, 50% opacity pixel that will be scaled to fit the lightbox overlay
+        self._transparent_base  = AnacondaWidgets.make_pixbuf([0, 0, 0, 127], True, 1, 1, 1)
+
+        # Contain everything in an overlay so the window can be overlayed with the transparency
+        # for the lightbox effect
+        self._overlay = Gtk.Overlay()
+        self._overlay_img = None
+        self._overlay.connect("get-child-position", self._on_overlay_get_child_position)
+
         # Create a stack and a list of what's been added to the stack
         self._stack = Gtk.Stack()
         self._stack_contents = set()
@@ -260,7 +271,9 @@ class MainWindow(Gtk.Window):
         # Set properties on the window
         self.set_decorated(False)
         self.maximize()
-        self.add(self._stack)
+
+        self._overlay.add(self._stack)
+        self.add(self._overlay)
         self.show_all()
 
         self._current_action = None
@@ -272,6 +285,21 @@ class MainWindow(Gtk.Window):
             self.current_action.window.emit("quit-clicked")
 
         # Stop the window from being closed here
+        return True
+
+    def _on_overlay_get_child_position(self, overlay_container, overlayed_widget, allocation, user_data=None):
+        overlay_allocation = overlay_container.get_allocation()
+
+        # Scale the overlayed image's pixbuf to the size of the GtkOverlay
+        overlayed_widget.set_from_pixbuf(self._transparent_base.scale_simple(
+            overlay_allocation.width, overlay_allocation.height, GdkPixbuf.InterpType.NEAREST))
+
+        # Set the allocation for the overlayed image to the full size of the GtkOverlay
+        allocation.x = 0
+        allocation.y = 0
+        allocation.width = overlay_allocation.width
+        allocation.height = overlay_allocation.height
+
         return True
 
     @property
@@ -326,6 +354,34 @@ class MainWindow(Gtk.Window):
         """Exit a spoke and return to a hub."""
         self._setVisibleChild(self._current_action)
 
+    def lightbox_on(self):
+        # Add an overlay image that will be filled and scaled in get-child-position
+        self._overlay_img = Gtk.Image()
+        self._overlay_img.show_all()
+        self._overlay.add_overlay(self._overlay_img)
+
+    def lightbox_off(self):
+        # Remove the overlay image
+        self._overlay_img.destroy()
+        self._overlay_img = None
+
+    @contextmanager
+    def enlightbox(self, dialog):
+        """Display a dialog in a lightbox over the main window.
+
+           :param GtkDialog: the dialog to display
+        """
+        self.lightbox_on()
+
+        # Set the dialog as transient for ourself
+        ANACONDA_WINDOW_GROUP.add_window(dialog)
+        dialog.set_position(Gtk.WindowPosition.CENTER_ALWAYS)
+        dialog.set_transient_for(self)
+
+        yield
+
+        self.lightbox_off()
+
 class GraphicalUserInterface(UserInterface):
     """This is the standard GTK+ interface we try to steer everything to using.
        It is suitable for use both directly and via VNC.
@@ -348,7 +404,7 @@ class GraphicalUserInterface(UserInterface):
         self._isFinal = isFinal
         self._quitDialog = quitDialog
         self._mehInterface = GraphicalExceptionHandlingIface(
-                                    self.lightbox_over_current_action)
+                                    self.mainWindow.lightbox_on)
 
         ANACONDA_WINDOW_GROUP.add_window(self.mainWindow)
 
@@ -434,19 +490,6 @@ class GraphicalUserInterface(UserInterface):
         # Second, order them according to their relationship
         return self._orderActionClasses(standalones, hubs)
 
-    def lightbox_over_current_action(self, window):
-        """
-        Creates lightbox over current action for the given window. Or
-        DOES NOTHING IF THERE ARE NO ACTIONS.
-
-        """
-
-        # if there are no actions (not populated yet), we can do nothing
-        if len(self._actions) > 0 and self._currentAction:
-            lightbox = AnacondaWidgets.Lightbox(parent_window=self.mainWindow)
-            ANACONDA_WINDOW_GROUP.add_window(lightbox)
-            window.main_window.set_transient_for(lightbox)
-
     def _instantiateAction(self, actionClass):
         # Instantiate an action on-demand, passing the arguments defining our
         # spoke API and setting up continue/quit signal handlers.
@@ -531,7 +574,7 @@ class GraphicalUserInterface(UserInterface):
     def showError(self, message):
         dlg = ErrorDialog(None)
 
-        with enlightbox(self._currentAction.window, dlg.window):
+        with self.mainWindow.enlightbox(dlg.window):
             dlg.refresh(message)
             dlg.run()
             dlg.window.destroy()
@@ -542,7 +585,7 @@ class GraphicalUserInterface(UserInterface):
         dlg = DetailedErrorDialog(None, buttons=[_("_Quit")],
                                   label=message)
 
-        with enlightbox(self._currentAction.window, dlg.window):
+        with self.mainWindow.enlightbox(dlg.window):
             dlg.refresh(details)
             rc = dlg.run()
             dlg.window.destroy()
@@ -557,7 +600,7 @@ class GraphicalUserInterface(UserInterface):
         dlg.add_buttons(_("_No"), 0, _("_Yes"), 1)
         dlg.set_default_response(1)
 
-        with enlightbox(self._currentAction.window, dlg):
+        with self.mainWindow.enlightbox(dlg):
             rc = dlg.run()
             dlg.destroy()
 
@@ -632,7 +675,7 @@ class GraphicalUserInterface(UserInterface):
             return
 
         dialog = self._quitDialog(None)
-        with enlightbox(self._currentAction.window, dialog.window):
+        with self.mainWindow.enlightbox(dialog.window):
             rc = dialog.run()
             dialog.window.destroy()
 
@@ -651,7 +694,7 @@ class GraphicalExceptionHandlingIface(meh.ui.gui.GraphicalIntf):
         """
         :param lightbox_func: a function that creates lightbox for a given
                               window
-        :type lightbox_func: GtkWindow -> None
+        :type lightbox_func: None -> None
 
         """
         meh.ui.gui.GraphicalIntf.__init__(self)
@@ -663,7 +706,7 @@ class GraphicalExceptionHandlingIface(meh.ui.gui.GraphicalIntf):
         exc_window = meh_intf.mainExceptionWindow(text, exn_file)
         exc_window.main_window.set_decorated(False)
 
-        self._lightbox_func(exc_window)
+        self._lightbox_func()
 
         ANACONDA_WINDOW_GROUP.add_window(exc_window.main_window)
 

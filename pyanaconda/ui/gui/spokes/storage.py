@@ -51,7 +51,7 @@ from pyanaconda.ui.gui.spokes.lib.detailederror import DetailedErrorDialog
 from pyanaconda.ui.gui.spokes.lib.resize import ResizeDialog
 from pyanaconda.ui.gui.spokes.lib.dasdfmt import DasdFormatDialog
 from pyanaconda.ui.categories.system import SystemCategory
-from pyanaconda.ui.gui.utils import enlightbox, escape_markup, gtk_action_nowait, ignoreEscape
+from pyanaconda.ui.gui.utils import escape_markup, gtk_action_nowait, ignoreEscape
 from pyanaconda.ui.helpers import StorageChecker
 
 from pyanaconda.kickstart import doKickstartStorage, getAvailableDiskSpace
@@ -681,7 +681,7 @@ class StorageSpoke(NormalSpoke, StorageChecker):
             self.clear_info()
 
     def run_lightbox_dialog(self, dialog):
-        with enlightbox(self.window, dialog.window):
+        with self.main_window.enlightbox(dialog.window):
             rc = dialog.run()
 
         return rc
@@ -908,7 +908,7 @@ class StorageSpoke(NormalSpoke, StorageChecker):
                     C_("GUI|Storage|Error Dialog", "_Quit"),
                     C_("GUI|Storage|Error Dialog", "_Modify Storage Layout")],
                 label=label)
-            with enlightbox(self.window, dialog.window):
+            with self.main_window.enlightbox(dialog.window):
                 errors = "\n".join(self.errors)
                 dialog.refresh(errors)
                 rc = dialog.run()
@@ -924,7 +924,7 @@ class StorageSpoke(NormalSpoke, StorageChecker):
                       "changes to your storage layout.")
 
             dialog = DetailedErrorDialog(self.data, buttons=[_("_OK")], label=label)
-            with enlightbox(self.window, dialog.window):
+            with self.main_window.enlightbox(dialog.window):
                 warnings = "\n".join(self.warnings)
                 dialog.refresh(warnings)
                 rc = dialog.run()

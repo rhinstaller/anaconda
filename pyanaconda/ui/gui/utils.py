@@ -24,8 +24,7 @@
 from pyanaconda.threads import threadMgr, AnacondaThread
 
 from pyanaconda.constants import NOTICEABLE_FREEZE
-from contextlib import contextmanager
-from gi.repository import Gdk, Gtk, GLib, AnacondaWidgets
+from gi.repository import Gdk, Gtk, GLib
 import Queue
 import time
 import threading
@@ -296,18 +295,6 @@ def busyCursor():
 def unbusyCursor():
     window = Gdk.get_default_root_window()
     window.set_cursor(Gdk.Cursor(Gdk.CursorType.ARROW))
-
-@contextmanager
-def enlightbox(mainWindow, dialog):
-    # importing globally would cause a circular dependency
-    from pyanaconda.ui.gui import ANACONDA_WINDOW_GROUP
-
-    lightbox = AnacondaWidgets.Lightbox(parent_window=mainWindow.get_toplevel())
-    ANACONDA_WINDOW_GROUP.add_window(lightbox)
-    dialog.set_position(Gtk.WindowPosition.CENTER_ALWAYS)
-    dialog.set_transient_for(lightbox)
-    yield
-    lightbox.destroy()
 
 def ignoreEscape(dlg):
     """Prevent a dialog from accepting the escape keybinding, which emits a

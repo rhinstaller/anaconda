@@ -39,7 +39,7 @@ from pyanaconda.ui.gui import GUIObject
 from pyanaconda.ui.gui.spokes import NormalSpoke, StandaloneSpoke
 from pyanaconda.ui.categories.system import SystemCategory
 from pyanaconda.ui.gui.hubs.summary import SummaryHub
-from pyanaconda.ui.gui.utils import gtk_call_once, enlightbox, escape_markup
+from pyanaconda.ui.gui.utils import gtk_call_once, escape_markup
 from pyanaconda.ui.common import FirstbootSpokeMixIn
 
 from pyanaconda import network
@@ -1204,7 +1204,7 @@ class SecretAgent(dbus.service.Object):
 
         content = self._get_content(setting_name, connection_hash)
         dialog = SecretAgentDialog(self.spoke.data, content=content)
-        with enlightbox(self.spoke.window, dialog.window):
+        with self.spoke.main_window.enlightbox(dialog.window):
             rc = dialog.run()
 
         secrets = dbus.Dictionary()

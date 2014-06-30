@@ -25,7 +25,7 @@ from gi.repository import Gkbd, Gdk, Gtk
 from pyanaconda.ui.gui import GUIObject
 from pyanaconda.ui.gui.spokes import NormalSpoke
 from pyanaconda.ui.categories.localization import LocalizationCategory
-from pyanaconda.ui.gui.utils import enlightbox, gtk_call_once, escape_markup, gtk_batch_map, timed_action
+from pyanaconda.ui.gui.utils import gtk_call_once, escape_markup, gtk_batch_map, timed_action
 from pyanaconda import keyboard
 from pyanaconda import flags
 from pyanaconda.i18n import _, N_, CN_
@@ -424,7 +424,7 @@ class KeyboardSpoke(NormalSpoke):
     def on_add_clicked(self, button):
         self._add_dialog.refresh()
 
-        with enlightbox(self.window, self._add_dialog.window):
+        with self.main_window.enlightbox(self._add_dialog.window):
             response = self._add_dialog.run()
 
         if response == 1:
@@ -541,7 +541,7 @@ class KeyboardSpoke(NormalSpoke):
                                                lay_var_spec)
         dialog.set_size_request(750, 350)
         dialog.set_position(Gtk.WindowPosition.CENTER_ALWAYS)
-        with enlightbox(self.window, dialog):
+        with self.main_window.enlightbox(dialog):
             dialog.show_all()
             dialog.run()
 
@@ -581,7 +581,7 @@ class KeyboardSpoke(NormalSpoke):
     def on_options_clicked(self, *args):
         self._switching_dialog.refresh()
 
-        with enlightbox(self.window, self._switching_dialog.window):
+        with self.main_window.enlightbox(self._switching_dialog.window):
             response = self._switching_dialog.run()
 
         if response != 1:
