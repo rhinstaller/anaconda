@@ -33,7 +33,6 @@ GISOURCES = BaseWindow.c \
 	 SpokeWindow.c \
 	 StandaloneWindow.c \
 	 LayoutIndicator.c \
-	 Lightbox.c \
 	 BaseStandalone.c \
 	 widgets-common.c
 
@@ -45,7 +44,6 @@ GIHDRS = BaseWindow.h \
 	 SpokeWindow.h \
 	 StandaloneWindow.h \
 	 LayoutIndicator.h \
-	 Lightbox.h \
 	 BaseStandalone.h \
 	 widgets-common.h
 
