@@ -1106,7 +1106,7 @@ if __name__ == "__main__":
 
     # check if geolocation should be enabled for this type of installation
     use_geolocation = True
-    if flags.imageInstall or flags.dirInstall:
+    if flags.imageInstall or flags.dirInstall or flags.automatedInstall:
         use_geolocation = False
     # and also check if it was not disabled by boot option
     else:
