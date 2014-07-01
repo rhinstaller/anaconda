@@ -554,6 +554,7 @@ class DNFPayload(packaging.PackagePayload):
         super(DNFPayload, self).preInstall()
         self.requiredPackages = packages
         self.requiredGroups = groups
+        self.addDriverRepos()
 
     def release(self):
         pass

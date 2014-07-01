@@ -40,7 +40,6 @@ import os
 import shutil
 import sys
 import time
-from glob import glob
 from pyanaconda.iutil import execReadlines
 from functools import wraps
 
@@ -1256,53 +1255,6 @@ reposdir=%s
         self._select_kernel_package()
         self.selectRequiredPackages()
 
-    def _addDriverRepos(self):
-        """ Add driver repositories and packages
-        """
-        # Drivers are loaded by anaconda-dracut, their repos are copied
-        # into /run/install/DD-X where X is a number starting at 1. The list of
-        # packages that were selected is in /run/install/dd_packages
-
-        # Add repositories
-        dir_num = 0
-        while True:
-            dir_num += 1
-            repo = "/run/install/DD-%d/" % dir_num
-            if not os.path.isdir(repo):
-                break
-
-            # Drivers are under /<arch>/ or /DD-net/
-            if os.path.isdir(repo+"DD-net"):
-                repo += "DD-net"
-            elif os.path.isdir(repo+blivet.arch.getArch()):
-                repo += blivet.arch.getArch()
-            else:
-                log.debug("No driver repo in %s", repo)
-                continue
-
-            # Run createrepo if there are rpms and no repodata
-            if not os.path.isdir(repo+"/repodata"):
-                rpms = glob(repo+"/*rpm")
-                if not rpms:
-                    continue
-                log.info("Running createrepo on %s", repo)
-                iutil.execWithRedirect("createrepo_c", [repo])
-
-            ks_repo = self.data.RepoData(name="DD-%d" % dir_num,
-                                         baseurl="file://"+repo,
-                                         enabled=True)
-            self.addRepo(ks_repo)
-
-        # Add packages
-        if not os.path.exists("/run/install/dd_packages"):
-            return
-        with open("/run/install/dd_packages", "r") as f:
-            for line in f:
-                package = line.strip()
-                if package not in self._requiredPackages:
-                    self._requiredPackages.append(package)
-        log.debug("required packages = %s", self._requiredPackages)
-
     def checkSoftwareSelection(self):
         log.info("checking software selection")
         self.txID = time.time()
@@ -1386,7 +1338,7 @@ reposdir=%s
         self.requiredPackages = packages
         self.requiredGroups = groups
 
-        self._addDriverRepos()
+        self.addDriverRepos()
 
         if self.install_device:
             self._setupMedia(self.install_device)
