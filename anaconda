@@ -427,7 +427,7 @@ def parseArguments(argv=None, boot_cmdline=None):
     # Method of operation
     ap.add_argument("-d", "--debug", dest="debug", action="store_true",
                     default=False, help=help_parser.help_text("debug"))
-    ap.add_argument("--ks", "--kickstart", dest="ksfile", action="store_const",
+    ap.add_argument("--ks", "--kickstart", dest="ksfile", nargs="?",
                     metavar="KICKSTART_URL", const="/run/install/ks.cfg",
                     help=help_parser.help_text("kickstart"))
     ap.add_argument("--rescue", dest="rescue", action="store_true", default=False,
