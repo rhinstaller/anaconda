@@ -619,8 +619,8 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         error = None
         if device_type not in (DEVICE_TYPE_PARTITION, DEVICE_TYPE_MD) and \
            mountpoint == "/boot/efi":
-            error = (_("/boot/efi must be on a device of type %s or %s")
-                     % (_(DEVICE_TEXT_PARTITION), _(DEVICE_TEXT_MD)))
+            error = (_("/boot/efi must be on a device of type %(oneFsType)s or %(anotherFsType)s")
+                       % {"oneFsType": _(DEVICE_TEXT_PARTITION), "anotherFsType": _(DEVICE_TEXT_MD)})
         elif device_type != DEVICE_TYPE_PARTITION and \
              new_fs_type in PARTITION_ONLY_FORMAT_TYPES:
             error = (_("%(fs)s must be on a device of type %(type)s")
