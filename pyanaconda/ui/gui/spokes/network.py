@@ -1282,7 +1282,8 @@ def register_secret_agent(spoke):
 
     global secret_agent
     if not secret_agent:
-        secret_agent = SecretAgent(spoke)
+        # Ignore an error from pylint incorrectly analyzing types in dbus-python
+        secret_agent = SecretAgent(spoke) # pylint: disable=no-value-for-parameter
         bus = dbus.SystemBus()
         proxy = bus.get_object(NM_SERVICE, AGENT_MANAGER_PATH)
         proxy.Register("anaconda", dbus_interface=AGENT_MANAGER_IFACE)
