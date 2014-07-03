@@ -192,7 +192,7 @@ class RPMOSTreePayload(ArchivePayload):
         # get it because that would require mounting the API filesystems in the
         # target.
         for varsubdir in ('home', 'roothome', 'lib/rpm', 'opt', 'srv',
-                          'usrlocal', 'mnt', 'media'):
+                          'usrlocal', 'mnt', 'media', 'spool'):
             self._safeExecWithRedirect("systemd-tmpfiles",
                                        ["--create", "--boot", "--root=" + iutil.getSysroot(),
                                         "--prefix=/var/" + varsubdir])
