@@ -121,6 +121,8 @@ class YumLock(object):
 
 _yum_lock = YumLock()
 _yum_cache_dir = "/tmp/yum.cache"
+_yum_installer_langpack_conf = "/tmp/yum.pluginconf.d/langpacks.conf"
+_yum_target_langpack_conf = "/etc/yum/pluginconf.d/langpacks.conf"
 
 class YumPayload(PackagePayload):
     """ A YumPayload installs packages onto the target system using yum.
@@ -240,9 +242,16 @@ class YumPayload(PackagePayload):
     def _writeLangpacksConfig(self):
         langs = [self.data.lang.lang] + self.data.lang.addsupport
         log.debug("configuring langpacks for %s", langs)
-        with open("/etc/yum/pluginconf.d/langpacks.conf", "a") as f:
+        iutil.mkdirChain(os.path.dirname(_yum_installer_langpack_conf))
+        shutil.copy2(_yum_target_langpack_conf,
+                     _yum_installer_langpack_conf)
+        with open(_yum_installer_langpack_conf, "a") as f:
             f.write("# Added by Anaconda\n")
             f.write("langpack_locales = %s\n" % ", ".join(langs))
+
+    def _copyLangpacksConfigToTarget(self):
+        shutil.copy2(_yum_installer_langpack_conf,
+                     iutil.getSysroot()+_yum_target_langpack_conf)
 
     def _writeYumConfig(self):
         """ Write out anaconda's main yum configuration file. """
@@ -253,12 +262,13 @@ keepcache=0
 logfile=/tmp/yum.log
 metadata_expire=never
 pluginpath=/usr/lib/yum-plugins,/tmp/updates/yum-plugins
-pluginconfpath=/etc/yum/pluginconf.d,/tmp/updates/pluginconf.d
+pluginconfpath=%s,/etc/yum/pluginconf.d,/tmp/updates/pluginconf.d
 plugins=1
 debuglevel=3
 errorlevel=6
 reposdir=%s
-""" % (_yum_cache_dir, self._repos_dir)
+""" % (_yum_cache_dir, os.path.dirname(_yum_installer_langpack_conf),
+       self._repos_dir)
 
         if flags.noverifyssl:
             buf += "sslverify=0\n"
@@ -1732,6 +1742,7 @@ reposdir=%s
         self._removeTxSaveFile()
 
         self.writeMultiLibConfig()
+        self._copyLangpacksConfigToTarget()
 
         # Write selected kickstart repos to target system
         for ks_repo in (ks for ks in (self.getAddOnRepo(r) for r in self.addOns) if ks.install):
