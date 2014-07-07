@@ -62,7 +62,7 @@ TESTS = nosetests.sh \
 	gettext/gettext_warnings.sh \
 	gettext/gettext_potfiles.py \
 	storage/run_storage_tests.py \
-	gui/runtest.sh \
+	gui/run_gui_tests.sh \
 	glade/run_glade_tests.sh
 
 clean-local:
