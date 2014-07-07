@@ -42,7 +42,7 @@ class TUIHub(TUIObject, common.Hub):
 
     def __init__(self, app, data, storage, payload, instclass):
         TUIObject.__init__(self, app, data)
-        common.Hub.__init__(self, data, storage, payload, instclass)
+        common.Hub.__init__(self, storage, payload, instclass)
 
         self._spokes = {}     # holds spokes referenced by their class name
         self._keys = {}       # holds spokes referenced by their user input key

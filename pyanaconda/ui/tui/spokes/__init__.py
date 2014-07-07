@@ -53,7 +53,7 @@ class TUISpoke(TUIObject, tui.Widget, Spoke):
 
         TUIObject.__init__(self, app, data)
         tui.Widget.__init__(self)
-        Spoke.__init__(self, data, storage, payload, instclass)
+        Spoke.__init__(self, storage, payload, instclass)
 
     @property
     def status(self):

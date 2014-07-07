@@ -81,7 +81,7 @@ class Hub(GUIObject, common.Hub):
                            selections and default partitioning.
         """
         GUIObject.__init__(self, data)
-        common.Hub.__init__(self, data, storage, payload, instclass)
+        common.Hub.__init__(self, storage, payload, instclass)
 
         # enable the autoContinue feature if we are in kickstart
         # mode, but if the user interacts with the hub, it will be

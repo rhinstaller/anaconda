@@ -26,6 +26,8 @@ import inspect
 import sys
 import types
 
+from abc import ABCMeta, abstractproperty
+
 from pyanaconda.constants import ANACONDA_ENVIRON, FIRSTBOOT_ENVIRON
 from pyanaconda.errors import RemovedModuleError
 from pykickstart.constants import FIRSTBOOT_RECONFIG, DISPLAY_MODE_TEXT
@@ -164,7 +166,7 @@ class FirstbootOnlySpokeMixIn(object):
         else:
             return False
 
-class Spoke(UIObject):
+class Spoke(object):
     """A Spoke is a single configuration screen.  There are several different
        places where a Spoke can be displayed, each of which will have its own
        unique class.  A Spoke is typically used when an element in the Hub is
@@ -191,11 +193,14 @@ class Spoke(UIObject):
                      corresponding to this Spoke instance.  If no title is
                      given, the default from SpokeSelector will be used.
     """
+
+    __metaclass__ = ABCMeta
+
     category = None
     icon = None
     title = None
 
-    def __init__(self, data, storage, payload, instclass):
+    def __init__(self, storage, payload, instclass):
         """Create a new Spoke instance.
 
            The arguments this base class accepts defines the API that spokes
@@ -205,7 +210,9 @@ class Spoke(UIObject):
 
            data         -- An instance of a pykickstart Handler object.  The
                            Spoke uses this to populate its UI with defaults
-                           and to pass results back after it has run.
+                           and to pass results back after it has run. The data
+                           property must be implemented by classes inherting
+                           from Spoke.
            storage      -- An instance of storage.Storage.  This is useful for
                            determining what storage devices are present and how
                            they are configured.
@@ -217,16 +224,16 @@ class Spoke(UIObject):
                            installation information like default package
                            selections and default partitioning.
         """
-        if self.__class__ is Spoke:
-            raise TypeError("Spoke is an abstract class")
-
-        UIObject.__init__(self, data)
         self._storage = storage
         self.payload = payload
         self.instclass = instclass
         self.applyOnSkip = False
 
         self.visitedSinceApplied = True
+
+    @abstractproperty
+    def data(self):
+        pass
 
     @property
     def storage(self):
@@ -363,12 +370,9 @@ class NormalSpoke(Spoke):
        installing, how to get back to the Hub) at the top of the screen.
     """
 
-    def __init__(self, data, storage, payload, instclass):
+    def __init__(self, storage, payload, instclass):
         """Create a NormalSpoke instance."""
-        if self.__class__ is NormalSpoke:
-            raise TypeError("NormalSpoke is an abstract class")
-
-        Spoke.__init__(self, data, storage, payload, instclass)
+        Spoke.__init__(self, storage, payload, instclass)
         self.selector = None
 
     @property
@@ -403,7 +407,7 @@ class NormalSpoke(Spoke):
 
 # Inherit abstract methods from NormalSpoke
 # pylint: disable=abstract-method
-class StandaloneSpoke(NormalSpoke):
+class StandaloneSpoke(Spoke):
     """A StandaloneSpoke is a Spoke subclass that is displayed apart from any
        Hub.  It is suitable to be used as a Welcome screen.
 
@@ -429,15 +433,12 @@ class StandaloneSpoke(NormalSpoke):
     preForHub = None
     postForHub = None
 
-    def __init__(self, data, storage, payload, instclass):
+    def __init__(self, storage, payload, instclass):
         """Create a StandaloneSpoke instance."""
-        if self.__class__ is StandaloneSpoke:
-            raise TypeError("StandaloneSpoke is an abstract class")
-
         if self.preForHub and self.postForHub:
             raise AttributeError("StandaloneSpoke instance %s may not have both preForHub and postForHub set" % self)
 
-        NormalSpoke.__init__(self, data, storage, payload, instclass)
+        Spoke.__init__(self, storage, payload, instclass)
 
     # Standalone spokes are not part of a hub, and thus have no status.
     # Provide a concrete implementation of status here so that subclasses
@@ -446,7 +447,7 @@ class StandaloneSpoke(NormalSpoke):
     def status(self):
         return None
 
-class Hub(UIObject):
+class Hub(object):
     """A Hub is an overview UI screen.  A Hub consists of one or more grids of
        configuration options that the user may choose from.  Each grid is
        provided by a SpokeCategory, and each option is provided by a Spoke.
@@ -468,7 +469,9 @@ class Hub(UIObject):
        additional standalone screens either before or after them.
     """
 
-    def __init__(self, data, storage, payload, instclass):
+    __metaclass__ = ABCMeta
+
+    def __init__(self, storage, payload, instclass):
         """Create a new Hub instance.
 
            The arguments this base class accepts defines the API that Hubs
@@ -478,7 +481,9 @@ class Hub(UIObject):
 
            data         -- An instance of a pykickstart Handler object.  The
                            Hub uses this to populate its UI with defaults
-                           and to pass results back after it has run.
+                           and to pass results back after it has run. The data
+                           property must be implemented by classes inheriting
+                           from Hub.
            storage      -- An instance of storage.Storage.  This is useful for
                            determining what storage devices are present and how
                            they are configured.
@@ -490,8 +495,6 @@ class Hub(UIObject):
                            installation information like default package
                            selections and default partitioning.
         """
-        UIObject.__init__(self, data)
-
         self._storage = storage
         self.payload = payload
         self.instclass = instclass
@@ -501,6 +504,10 @@ class Hub(UIObject):
 
         # spokes for which environments this hub should collect?
         self._environs = [ANACONDA_ENVIRON]
+
+    @abstractproperty
+    def data(self):
+        pass
 
     @property
     def storage(self):
