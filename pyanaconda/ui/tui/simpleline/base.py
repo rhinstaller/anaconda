@@ -279,7 +279,7 @@ class App(object):
             # get the widget tree from the screen and show it in the screen
             try:
                 input_needed = screen.refresh(args)
-                screen.window.show_all()
+                screen.show_all()
                 self._redraw = False
             except ExitMainLoop:
                 raise
@@ -530,11 +530,6 @@ class UIScreen(object):
 
         self._window = [_(self.title), u""]
         return True
-
-    @property
-    def window(self):
-        """Return reference to the window instance. In TUI, just return self."""
-        return self
 
     def _print_long_widget(self, widget):
         """Prints a long widget (possibly longer than the screen height) with

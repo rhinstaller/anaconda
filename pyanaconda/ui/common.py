@@ -102,13 +102,6 @@ class UIObject(object):
         pass
 
     @property
-    def window(self):
-        """Return an object with show_all and hide methods that is to be used
-           to display this UI object.
-        """
-        raise TypeError("UIObject.window has to be overriden")
-
-    @property
     def data(self):
         return self._data
 
