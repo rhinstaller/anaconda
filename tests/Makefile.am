@@ -49,6 +49,7 @@ dist_check_SCRIPTS = $(srcdir)/glade/*/*.py \
 		     gettext/gettext_warnings.sh \
 		     gettext/gettext_potfiles.py \
 		     storage/run_storage_tests.py \
+		     ostree/run_ostree_tests.sh \
 		     $(srcdir)/gui/*.ks \
 		     $(srcdir)/gui/*.sh \
 		     $(srcdir)/gui/inside/*.py \
@@ -63,7 +64,8 @@ TESTS = nosetests.sh \
 	gettext/gettext_potfiles.py \
 	storage/run_storage_tests.py \
 	gui/run_gui_tests.sh \
-	glade/run_glade_tests.sh
+	glade/run_glade_tests.sh \
+	ostree/run_ostree_tests.sh
 
 clean-local:
 	-rm -rf pylint/.pylint.d
