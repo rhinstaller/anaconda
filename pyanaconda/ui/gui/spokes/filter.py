@@ -27,7 +27,7 @@ import itertools
 from blivet import arch
 from blivet.devices import DASDDevice, FcoeDiskDevice, iScsiDiskDevice, MultipathDevice, MDRaidArrayDevice, ZFCPDiskDevice
 from blivet.fcoe import has_fcoe
-from blivet.udev import udev_get_device, udev_device_get_wwid
+from blivet.udev import get_device, device_get_wwid
 
 from pyanaconda.flags import flags
 from pyanaconda.i18n import N_, P_
@@ -140,8 +140,8 @@ class FilterPage(object):
         # For FCoE devices that have a serial number, we want to display that as
         # the WWID.  If nothing's found, just default to the link or name below.
         if isinstance(disk, FcoeDiskDevice):
-            info = udev_get_device(disk.sysfsPath)
-            wwid = udev_device_get_wwid(info)
+            info = get_device(disk.sysfsPath)
+            wwid = device_get_wwid(info)
             if wwid:
                 return wwid
 

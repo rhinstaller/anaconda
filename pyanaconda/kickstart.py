@@ -176,9 +176,9 @@ def deviceMatches(spec):
         full_spec = os.path.normpath("/dev/" + full_spec)
 
     # the regular case
-    matches = udev.udev_resolve_glob(full_spec)
-    dev = udev.udev_resolve_devspec(full_spec)
-    # udev_resolve_devspec returns None if there's no match, but we don't
+    matches = udev.resolve_glob(full_spec)
+    dev = udev.resolve_devspec(full_spec)
+    # udev.resolve_devspec returns None if there's no match, but we don't
     # want that ending up in the list.
     if dev and dev not in matches:
         matches.append(dev)
@@ -1776,7 +1776,7 @@ def parseKickstart(f):
     ksparser = AnacondaKSParser(handler)
 
     # We need this so all the /dev/disk/* stuff is set up before parsing.
-    udev.udev_trigger(subsystem="block", action="change")
+    udev.trigger(subsystem="block", action="change")
     # So that drives onlined by these can be used in the ks file
     blivet.iscsi.iscsi().startup()
     blivet.fcoe.fcoe().startup()
