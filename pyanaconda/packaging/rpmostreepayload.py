@@ -235,11 +235,3 @@ class RPMOSTreePayload(ArchivePayload):
         set_kargs_args.extend(self.storage.bootloader.boot_args)
         set_kargs_args.append("root=" + self.storage.rootDevice.fstabSpec)
         self._safeExecWithRedirect("ostree", set_kargs_args)
-
-        # This command iterates over all files we might have created
-        # and ensures they're labeled. It's like running
-        # chroot(iutil.getTargetPhysicalRoot()) + fixfiles, except
-        # with a better name and semantics.
-        self._safeExecWithRedirect("ostree",
-            ["admin", "--sysroot=" + iutil.getTargetPhysicalRoot(),
-             "instutil", "selinux-ensure-labeled", iutil.getTargetPhysicalRoot(), ""])
