@@ -1,0 +1,11 @@
+[Unit]
+Description=Service enabling compressing RAM with zRam
+ConditionKernelCommandLine=!inst.zram=off
+ConditionKernelCommandLine=!inst.zram=0
+
+[Service]
+Type=oneshot
+ExecStart=/usr/libexec/anaconda/zramswapon
+ExecStop=/usr/libexec/anaconda/zramswapoff
+RemainAfterExit=yes
+
