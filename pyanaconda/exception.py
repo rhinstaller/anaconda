@@ -84,7 +84,7 @@ class AnacondaExceptionHandler(ExceptionHandler):
 
         log.debug("running handleException")
         exception_lines = traceback.format_exception(*dump_info.exc_info)
-        log.debug("\n".join(exception_lines))
+        log.critical("\n".join(exception_lines))
 
         ty = dump_info.exc_info.type
         value = dump_info.exc_info.value
