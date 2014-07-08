@@ -220,6 +220,8 @@ class DNFPayload(packaging.PackagePayload):
                 self._miss(e)
 
         for group in self.data.packages.groupList:
+            if group.name == 'core':
+                continue
             try:
                 default = group.include in (GROUP_ALL,
                                             GROUP_DEFAULT)
