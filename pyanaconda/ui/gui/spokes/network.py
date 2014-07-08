@@ -596,9 +596,8 @@ class NetworkControlBox(GObject.GObject):
 
     def on_add_device_clicked(self, *args):
         dialog = self.builder.get_object("add_device_dialog")
-        if self.spoke:
-            dialog.set_transient_for(self.spoke.window)
-        rc = dialog.run()
+        with self.spoke.main_window.enlightbox(dialog):
+            rc = dialog.run()
         dialog.hide()
         if rc == 1:
             ai = self.builder.get_object("combobox_add_device").get_active_iter()
