@@ -77,7 +77,7 @@ def getDisks(devicetree, fake=False):
                               vendor="SanDisk", model="Cruzer", serial="00003"))
 
     # Remove duplicate names from the list.
-    return sorted(list(set(disks)), key=lambda d: d.name)
+    return sorted(set(disks), key=lambda d: d.name)
 
 def isLocalDisk(disk):
     return (not isinstance(disk, MultipathDevice)
