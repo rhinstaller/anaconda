@@ -44,10 +44,10 @@ if [ ${EUID} != 0 ]; then
 fi
 
 # The livecd location can come from one of two different places:
-# (1) $GUI_TEST_LIVECD, if this script is being called from "make check"
+# (1) $TEST_LIVECD, if this script is being called from "make check"
 # (2) The command line, if this script is being called directly.
-if [[ "${GUI_TEST_LIVECD}" != "" ]]; then
-    LIVECD=${GUI_TEST_LIVECD}
+if [[ "${TEST_LIVECD}" != "" ]]; then
+    LIVECD=${TEST_LIVECD}
 elif [[ $# != 0 ]]; then
     LIVECD=$1
     shift
@@ -61,8 +61,8 @@ if [ ! -e "${LIVECD}" ]; then
     exit 2
 fi
 
-if [[ "${GUI_TEST_ANACONDA_ARGS}" != "" ]]; then
-    EXTRA="--tc=anacondaArgs:\"${GUI_TEST_ANACONDA_ARGS}\""
+if [[ "${TEST_ANACONDA_ARGS}" != "" ]]; then
+    EXTRA="--tc=anacondaArgs:\"${TEST_ANACONDA_ARGS}\""
 elif [[ $# != 0 ]]; then
     EXTRA="--tc=anacondaArgs:\"$*\""
 else
