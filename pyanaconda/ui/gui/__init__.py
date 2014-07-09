@@ -268,15 +268,30 @@ class MainWindow(Gtk.Window):
         self._accel_group = Gtk.AccelGroup()
         self.add_accel_group(self._accel_group)
 
-        # Set properties on the window
-        self.set_decorated(False)
-        self.maximize()
+        # Connect to window-state-event changes to catch when the user
+        # maxmizes/unmaximizes the window.
+        self.connect("window-state-event", self._on_window_state_event)
+
+        # Start the window as full screen
+        self.fullscreen()
 
         self._overlay.add(self._stack)
         self.add(self._overlay)
         self.show_all()
 
         self._current_action = None
+
+    def _on_window_state_event(self, window, event, user_data=None):
+        # If the window is being maximized, fullscreen it instead
+        if (Gdk.WindowState.MAXIMIZED & event.changed_mask) and \
+                (Gdk.WindowState.MAXIMIZED & event.new_window_state):
+            self.fullscreen()
+
+            # Return true to stop the signal handler since we're changing
+            # state mid-stream here
+            return True
+
+        return False
 
     def _on_delete_event(self, widget, event, user_data=None):
         # Use the quit-clicked signal on the the current standalone, even if the
