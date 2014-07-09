@@ -438,9 +438,9 @@ void anaconda_spoke_selector_set_incomplete(AnacondaSpokeSelector *spoke, gboole
 static gboolean anaconda_spoke_selector_focus_changed(GtkWidget *widget, GdkEventFocus *event, gpointer user_data) {
     GtkStateFlags new_state;
 
-    new_state = gtk_widget_get_state_flags(widget) & ~GTK_STATE_FOCUSED;
+    new_state = gtk_widget_get_state_flags(widget) & ~GTK_STATE_FLAG_SELECTED;
     if (event->in)
-        new_state |= GTK_STATE_FOCUSED;
+        new_state |= GTK_STATE_FLAG_SELECTED;
     gtk_widget_set_state_flags(widget, new_state, TRUE);
     return FALSE;
 }
