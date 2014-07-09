@@ -309,6 +309,8 @@ class SoftwareSelectionSpoke(NormalSpoke):
             firstEnvironment = False
 
         self.refreshAddons()
+        self._environmentListBox.show_all()
+        self._addonListBox.show_all()
 
     def _addAddon(self, grp):
         (name, desc) = self.payload.groupDescription(grp)
