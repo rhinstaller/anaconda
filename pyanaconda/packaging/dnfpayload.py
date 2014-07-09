@@ -269,7 +269,7 @@ class DNFPayload(packaging.PackagePayload):
         self._base = dnf.Base()
         conf = self._base.conf
         conf.cachedir = DNF_CACHE_DIR
-        conf.logdir = '/tmp/payload-logs'
+        conf.logdir = '/tmp/'
         # disable console output completely:
         conf.debuglevel = 0
         conf.errorlevel = 0
