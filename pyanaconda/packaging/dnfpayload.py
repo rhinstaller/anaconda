@@ -383,7 +383,7 @@ class DNFPayload(packaging.PackagePayload):
 
     @property
     def mirrorEnabled(self):
-        return False
+        return True
 
     @property
     def repos(self):
