@@ -107,9 +107,6 @@ def _pick_mpoint(df, requested):
                    and reasonable_mpoint(key)}
     log.info('Sufficient mountpoints found: %s', sufficients)
 
-    # prefer /tmp:
-    if '/tmp' in sufficients:
-        return '/tmp'
     if not len(sufficients):
         return None
     # default to the biggest one:
