@@ -189,11 +189,15 @@ class DNFPayload(packaging.PackagePayload):
             raise packaging.PayloadError("unsupported payload type")
 
         self._base = None
-        self._required_groups = []
-        self._required_pkgs = []
         self._configure()
 
     def _add_repo(self, ksrepo):
+        """Add a repo to the dnf repo object
+
+           :param ksrepo: Kickstart Repository to add
+           :type ksrepo: Kickstart RepoData object.
+           :returns: None
+        """
         repo = dnf.repo.Repo(ksrepo.name, DNF_CACHE_DIR)
         url = ksrepo.baseurl
         mirrorlist = ksrepo.mirrorlist
@@ -205,6 +209,16 @@ class DNFPayload(packaging.PackagePayload):
         repo.enable()
         self._base.repos.add(repo)
         log.info("added repo: '%s'", ksrepo.name)
+
+    def addRepo(self, ksrepo):
+        """Add a repo to dnf and kickstart repo lists
+
+           :param ksrepo: Kickstart Repository to add
+           :type ksrepo: Kickstart RepoData object.
+           :returns: None
+        """
+        self._add_repo(ksrepo)
+        super(DNFPayload, self).addRepo(ksrepo)
 
     def _apply_selections(self):
         if self.data.packages.nocore:
@@ -230,10 +244,10 @@ class DNFPayload(packaging.PackagePayload):
             except packaging.NoSuchGroup as e:
                 self._miss(e)
 
-        for package in self._required_pkgs:
+        for package in self.requiredPackages:
             self._install_package(package, required=True)
 
-        for group in self._required_groups:
+        for group in self.requiredGroups:
             self._select_group(group, required=True)
 
         self._select_kernel_package()
@@ -342,11 +356,6 @@ class DNFPayload(packaging.PackagePayload):
                 raise packaging.MetadataError(str(e))
             log.info('_sync_metadata: addon repo error: %s', e)
             self.disableRepo(id_)
-
-    @property
-    def addOns(self):
-        # addon repos via kickstart
-        return [r.name for r in self.data.repo.dataList()]
 
     @property
     def baseRepo(self):
@@ -543,8 +552,8 @@ class DNFPayload(packaging.PackagePayload):
 
     def preInstall(self, packages=None, groups=None):
         super(DNFPayload, self).preInstall()
-        self._required_pkgs = packages
-        self._required_groups = groups
+        self.requiredPackages = packages
+        self.requiredGroups = groups
 
     def release(self):
         pass
@@ -576,7 +585,7 @@ class DNFPayload(packaging.PackagePayload):
                 base_ksrepo = self.data.RepoData(
                     name=constants.BASE_REPO_NAME, baseurl=url,
                     mirrorlist=mirrorlist, noverifyssl=not sslverify)
-                self._add_repo(base_ksrepo)
+                self.addRepo(base_ksrepo)
             else:
                 log.debug("disabling ksdata method, doesn't provide a valid repo")
                 method.method = None

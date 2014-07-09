@@ -171,9 +171,6 @@ class YumPayload(PackagePayload):
         self._yum = None
         self._setup = False
 
-        self._requiredPackages = []
-        self._requiredGroups = []
-
         # base repo caching
         self._base_repo = None
         self._base_repo_lock = threading.RLock()
@@ -1373,10 +1370,10 @@ reposdir=%s
 
     def selectRequiredPackages(self):
         try:
-            for package in self._requiredPackages:
+            for package in self.requiredPackages:
                 self._selectYumPackage(package, required=True)
 
-            for group in self._requiredGroups:
+            for group in self.requiredGroups:
                 self._selectYumGroup(group, required=True)
         except (NoSuchPackage, NoSuchGroup) as e:
             self._handleMissing(e)
@@ -1386,8 +1383,8 @@ reposdir=%s
         super(YumPayload, self).preInstall()
         progressQ.send_message(_("Starting package installation process"))
 
-        self._requiredPackages = packages
-        self._requiredGroups = groups
+        self.requiredPackages = packages
+        self.requiredGroups = groups
 
         self._addDriverRepos()
 

@@ -690,6 +690,9 @@ class PackagePayload(Payload):
         self.install_device = None
         self._rpm_macros = []
 
+        self.requiredPackages = []
+        self.requiredGroups = []
+
         # Used to determine which add-ons to display for each environment.
         # The dictionary keys are environment IDs. The dictionary values are two-tuples
         # consisting of lists of add-on group IDs. The first list is the add-ons specific
