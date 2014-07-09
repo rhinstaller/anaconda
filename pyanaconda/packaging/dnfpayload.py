@@ -25,6 +25,7 @@ from pyanaconda.flags import flags
 from pyanaconda.i18n import _
 from pyanaconda.progress import progressQ
 
+import ConfigParser
 import collections
 import itertools
 import logging
@@ -208,6 +209,13 @@ class DNFPayload(packaging.PackagePayload):
         repo.sslverify = not (ksrepo.noverifyssl or flags.noverifyssl)
         repo.enable()
         self._base.repos.add(repo)
+
+        # Load the metadata to verify that the repo is valid
+        try:
+            self._base.repos[repo.id].load()
+        except dnf.exceptions.RepoError as e:
+            raise packaging.MetadataError(e)
+
         log.info("added repo: '%s'", ksrepo.name)
 
     def addRepo(self, ksrepo):
@@ -580,16 +588,33 @@ class DNFPayload(packaging.PackagePayload):
         url, mirrorlist, sslverify = self._setupInstallDevice(self.storage,
                                                               checkmount)
         method = self.data.method
+
         if method.method:
-            self._base.conf.releasever = self._getReleaseVersion(url)
-            if url or mirrorlist:
+            try:
+                self._base.conf.releasever = self._getReleaseVersion(url)
+                log.debug("releasever from %s is %s", url, self._base.conf.releasever)
+            except ConfigParser.MissingSectionHeaderError as e:
+                log.error("couldn't set releasever from base repo (%s): %s",
+                          method.method, e)
+
+            try:
                 base_ksrepo = self.data.RepoData(
                     name=constants.BASE_REPO_NAME, baseurl=url,
                     mirrorlist=mirrorlist, noverifyssl=not sslverify)
-                self.addRepo(base_ksrepo)
-            else:
-                log.debug("disabling ksdata method, doesn't provide a valid repo")
+                self._add_repo(base_ksrepo)
+            except (packaging.MetadataError, packaging.PayloadError) as e:
+                log.error("base repo (%s/%s) not valid -- removing it",
+                          method.method, url)
+                self._base.repos.pop(constants.BASE_REPO_NAME, None)
+                if not fallback:
+                    for repo in self._base.repos.iter_enabled():
+                        self.disableRepo(repo.id)
+                    return
+
+                # this preserves the method details while disabling it
                 method.method = None
+                self.install_device = None
+
         if not method.method:
             # only when there's no repo set via method use the repos from the
             # install image itself:
