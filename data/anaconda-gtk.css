@@ -156,3 +156,30 @@ AnacondaSpokeWindow #layout-indicator {
 AnacondaSpokeWindow #nav-box {
     background-color: @fedora;
 }
+
+/* These rules were removed when the Adwaita theme moved from
+ * gnome-themes-standard to gtk, and they were replaced with much more specific
+ * selectors. We need something like this for the selection highlights and
+ * shading for insensitivity to appear on the MountpointSelector, DiskOverview
+ * and SpokeSelector widgets. We could probably be specific to the Anaconda
+ * widgets, but on the other hand gtk can go to hell.
+ */
+@define-color anaconda_selected_bg_color #4a90d9;
+@define-color anaconda_selected_fg_color #ffffff;
+
+*:selected,
+*:selected:focus {
+    background-color: @anaconda_selected_bg_color;
+    color: @anaconda_selected_fg_color;
+}
+
+@define-color anaconda_insensitive_bg_color #f4f4f2;
+@define-color anaconda_insensitive_fg_color #a7aba7;
+@define-color anaconda_internal_element_color #888a85;
+@define-color anaconda_insensitive_borders shade(@anaconda_internal_element_color, 1.37);
+
+*:insensitive {
+    background-color: @anaconda_insensitive_bg_color;
+    color: @anaconda_insensitive_fg_color;
+    border-color: @anaconda_insensitive_borders;
+}
