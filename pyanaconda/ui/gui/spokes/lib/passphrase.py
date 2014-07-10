@@ -154,13 +154,13 @@ class PassphraseDialog(GUIObject, GUIInputCheckHandler):
         passphrase = self.get_input(inputcheck.input_obj)
 
         if passphrase and any(char not in PW_ASCII_CHARS for char in passphrase):
-            return ("gtk-dialog-warning", _("Passphrase contains non-ASCII characters"))
+            return ("dialog-warning", _("Passphrase contains non-ASCII characters"))
         else:
             return InputCheck.CHECK_OK
 
     def _checkStrength(self, inputcheck):
         if self._pwq_error:
-            return ("gtk-dialog-error", _(ERROR_WEAK) % self._pwq_error)
+            return ("dialog-error", _(ERROR_WEAK) % self._pwq_error)
         else:
             return InputCheck.CHECK_OK
 
@@ -168,7 +168,7 @@ class PassphraseDialog(GUIObject, GUIInputCheckHandler):
         passphrase = self._passphrase_entry.get_text()
         confirm = self._confirm_entry.get_text()
         if passphrase != confirm:
-            result = ("gtk-dialog-error", _(ERROR_NOT_MATCHING))
+            result = ("dialog-error", _(ERROR_NOT_MATCHING))
         else:
             result = InputCheck.CHECK_OK
 

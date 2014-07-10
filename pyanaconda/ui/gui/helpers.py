@@ -67,7 +67,7 @@ class GUIDialogInputCheckHandler(GUIInputCheckHandler):
             inputcheck.input_obj.set_icon_tooltip_text(Gtk.EntryIconPosition.SECONDARY, "")
         else:
             inputcheck.input_obj.set_icon_from_icon_name(Gtk.EntryIconPosition.SECONDARY,
-                    "gtk-dialog-error")
+                    "dialog-error")
             inputcheck.input_obj.set_icon_tooltip_text(Gtk.EntryIconPosition.SECONDARY,
                 inputcheck.check_status)
 
