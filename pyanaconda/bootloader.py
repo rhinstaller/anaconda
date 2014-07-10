@@ -1604,15 +1604,17 @@ class GRUB2(GRUB):
             self.update()
             return
 
-        self.write_device_map()
-        self.stage2_device.format.sync(root=iutil.getTargetPhysicalRoot())
-        sync()
-        self.install()
-        sync()
-        self.stage2_device.format.sync(root=iutil.getTargetPhysicalRoot())
-        self.write_config()
-        sync()
-        self.stage2_device.format.sync(root=iutil.getTargetPhysicalRoot())
+        try:
+            self.write_device_map()
+            self.stage2_device.format.sync(root=iutil.getTargetPhysicalRoot())
+            sync()
+            self.install()
+            sync()
+            self.stage2_device.format.sync(root=iutil.getTargetPhysicalRoot())
+        finally:
+            self.write_config()
+            sync()
+            self.stage2_device.format.sync(root=iutil.getTargetPhysicalRoot())
 
     def check(self):
         """ When installing to the mbr of a disk grub2 needs enough space
@@ -1752,10 +1754,12 @@ class EFIGRUB(GRUB2):
             self.update()
             return
 
-        sync()
-        self.stage2_device.format.sync(root=iutil.getTargetPhysicalRoot())
-        self.install()
-        self.write_config()
+        try:
+            sync()
+            self.stage2_device.format.sync(root=iutil.getTargetPhysicalRoot())
+            self.install()
+        finally:
+            self.write_config()
 
     def check(self):
         return True
