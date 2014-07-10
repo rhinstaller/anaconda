@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Generated with glade 3.18.1 -->
+<!-- Generated with glade 3.18.3 -->
 <interface>
   <requires lib="gtk+" version="3.0"/>
   <object class="GtkListStore" id="disk_store">
@@ -105,11 +105,11 @@
                       <object class="GtkTreeViewColumn" id="boot_column">
                         <property name="title" translatable="yes">Boot</property>
                         <child>
-                          <object class="GtkCellRendererPixbuf" id="boot_renderer">
-                            <property name="stock_id">gtk-apply</property>
+                          <object class="GtkCellRendererToggle" id="boot_renderer">
+                            <property name="activatable">False</property>
                           </object>
                           <attributes>
-                            <attribute name="visible">0</attribute>
+                            <attribute name="active">0</attribute>
                           </attributes>
                         </child>
                       </object>

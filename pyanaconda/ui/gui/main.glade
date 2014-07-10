@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Generated with glade 3.16.1 -->
+<!-- Generated with glade 3.18.3 -->
 <interface>
   <requires lib="gtk+" version="3.0"/>
   <object class="GtkTextBuffer" id="errorTextBuffer"/>
@@ -10,11 +10,6 @@
     <property name="modal">True</property>
     <property name="type_hint">dialog</property>
     <property name="decorated">False</property>
-    <child internal-child="accessible">
-      <object class="AtkObject" id="errorDialog-atkobject">
-        <property name="AtkObject::accessible-name" translatable="yes">Error</property>
-      </object>
-    </child>
     <child internal-child="vbox">
       <object class="GtkBox" id="dialog-vbox2">
         <property name="can_focus">False</property>
@@ -72,16 +67,16 @@
         </child>
       </object>
     </child>
+    <child internal-child="accessible">
+      <object class="AtkObject" id="errorDialog-atkobject">
+        <property name="AtkObject::accessible-name" translatable="yes">Error</property>
+      </object>
+    </child>
   </object>
   <object class="GtkDialog" id="quitDialog">
     <property name="can_focus">False</property>
     <property name="type_hint">dialog</property>
     <property name="decorated">False</property>
-    <child internal-child="accessible">
-      <object class="AtkObject" id="quitDialog-atkobject">
-        <property name="AtkObject::accessible-name" translatable="yes">Quit</property>
-      </object>
-    </child>
     <child internal-child="vbox">
       <object class="GtkBox" id="quitDialog-vbox1">
         <property name="can_focus">False</property>
@@ -137,7 +132,7 @@
               <object class="GtkImage" id="image1">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
-                <property name="stock">gtk-quit</property>
+                <property name="icon_name">application-exit</property>
                 <property name="icon_size">6</property>
               </object>
               <packing>
@@ -172,5 +167,10 @@ installation process?</property>
       <action-widget response="0">cancelButton</action-widget>
       <action-widget response="1">quitButton</action-widget>
     </action-widgets>
+    <child internal-child="accessible">
+      <object class="AtkObject" id="quitDialog-atkobject">
+        <property name="AtkObject::accessible-name" translatable="yes">Quit</property>
+      </object>
+    </child>
   </object>
 </interface>
