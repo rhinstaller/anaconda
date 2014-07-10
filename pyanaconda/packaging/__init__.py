@@ -1011,9 +1011,9 @@ class PackagePayload(Payload):
         with open("/run/install/dd_packages", "r") as f:
             for line in f:
                 package = line.strip()
-                if package not in self._requiredPackages:
-                    self._requiredPackages.append(package)
-        log.debug("required packages = %s", self._requiredPackages)
+                if package not in self.requiredPackages:
+                    self.requiredPackages.append(package)
+        log.debug("required packages = %s", self.requiredPackages)
 
     ###
     ### METHODS FOR WORKING WITH ENVIRONMENTS
