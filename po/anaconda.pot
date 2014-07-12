@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: anaconda 21.45\n"
+"Project-Id-Version: anaconda 21.46\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
-"POT-Creation-Date: 2014-07-02 17:36-0700\n"
+"POT-Creation-Date: 2014-07-11 18:07-0700\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -424,8 +424,8 @@ msgid "Installing bootloader"
 msgstr ""
 
 #: pyanaconda/install.py:238 pyanaconda/packaging/livepayload.py:155
-#: pyanaconda/packaging/yumpayload.py:1425
-#: pyanaconda/packaging/dnfpayload.py:519
+#: pyanaconda/packaging/yumpayload.py:1374
+#: pyanaconda/packaging/dnfpayload.py:536
 msgid "Performing post-installation setup tasks"
 msgstr ""
 
@@ -1145,37 +1145,37 @@ msgstr ""
 msgid "Checking image checksum"
 msgstr ""
 
-#: pyanaconda/packaging/yumpayload.py:1195
+#: pyanaconda/packaging/yumpayload.py:1191
 #, python-format
 msgid "CmdlineError: Missing package: %s"
 msgstr ""
 
-#: pyanaconda/packaging/yumpayload.py:1387
-#: pyanaconda/packaging/dnfpayload.py:473
+#: pyanaconda/packaging/yumpayload.py:1336
+#: pyanaconda/packaging/dnfpayload.py:490
 msgid "Starting package installation process"
 msgstr ""
 
-#: pyanaconda/packaging/yumpayload.py:1423
-#: pyanaconda/packaging/dnfpayload.py:502
+#: pyanaconda/packaging/yumpayload.py:1372
+#: pyanaconda/packaging/dnfpayload.py:519
 msgid "Preparing transaction from installation source"
 msgstr ""
 
-#: pyanaconda/packaging/yumpayload.py:1424
+#: pyanaconda/packaging/yumpayload.py:1373
 msgid "Installing"
 msgstr ""
 
-#: pyanaconda/packaging/dnfpayload.py:148
+#: pyanaconda/packaging/dnfpayload.py:146
 #, python-format
 msgid ""
 "Downloading %(total_files)s RPMs, %(downloaded)s / %(total_size)s "
 "(%(percent)d%%) done."
 msgstr ""
 
-#: pyanaconda/packaging/dnfpayload.py:490
+#: pyanaconda/packaging/dnfpayload.py:507
 msgid "Downloading packages"
 msgstr ""
 
-#: pyanaconda/packaging/dnfpayload.py:512
+#: pyanaconda/packaging/dnfpayload.py:529
 #, python-format
 msgid "Installing %s"
 msgstr ""
@@ -1320,11 +1320,11 @@ msgctxt "TUI|Spoke Navigation"
 msgid "q"
 msgstr ""
 
-#: pyanaconda/ui/tui/simpleline/base.py:570
+#: pyanaconda/ui/tui/simpleline/base.py:565
 msgid "Press ENTER to continue"
 msgstr ""
 
-#: pyanaconda/ui/tui/simpleline/base.py:620
+#: pyanaconda/ui/tui/simpleline/base.py:615
 msgid ""
 "  Please make your choice from above ['q' to quit | 'c' to continue |\n"
 "  'r' to refresh]: "
@@ -1430,8 +1430,8 @@ msgid "Can't apply configuration, device activation failed."
 msgstr ""
 
 #: pyanaconda/ui/tui/spokes/network.py:234
-#: pyanaconda/ui/gui/spokes/network.py:1381
-#: pyanaconda/ui/gui/spokes/network.py:1455
+#: pyanaconda/ui/gui/spokes/network.py:1380
+#: pyanaconda/ui/gui/spokes/network.py:1454
 #, python-format
 msgid "Hostname is not valid: %s"
 msgstr ""
@@ -1917,15 +1917,15 @@ msgstr ""
 msgid "Password set."
 msgstr ""
 
-#: pyanaconda/ui/gui/__init__.py:585 widgets/src/StandaloneWindow.c:49
+#: pyanaconda/ui/gui/__init__.py:600 widgets/src/StandaloneWindow.c:49
 msgid "_Quit"
 msgstr ""
 
-#: pyanaconda/ui/gui/__init__.py:600
+#: pyanaconda/ui/gui/__init__.py:615
 msgid "_No"
 msgstr ""
 
-#: pyanaconda/ui/gui/__init__.py:600
+#: pyanaconda/ui/gui/__init__.py:615
 msgid "_Yes"
 msgstr ""
 
@@ -2282,51 +2282,51 @@ msgid "Team"
 msgstr ""
 
 #. TRANSLATORS: ethernet cable is unplugged
-#: pyanaconda/ui/gui/spokes/network.py:696
+#: pyanaconda/ui/gui/spokes/network.py:695
 msgid "unplugged"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.py:786
+#: pyanaconda/ui/gui/spokes/network.py:785
 #: pyanaconda/ui/gui/spokes/network.glade:536
 #: pyanaconda/ui/gui/spokes/network.glade:837
 msgid "IPv4 Address"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.py:787
+#: pyanaconda/ui/gui/spokes/network.py:786
 #: pyanaconda/ui/gui/spokes/network.glade:512
 #: pyanaconda/ui/gui/spokes/network.glade:849
 #: pyanaconda/ui/gui/spokes/network.glade:1417
 msgid "IPv6 Address"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.py:789
-#: pyanaconda/ui/gui/spokes/network.py:791
+#: pyanaconda/ui/gui/spokes/network.py:788
+#: pyanaconda/ui/gui/spokes/network.py:790
 #: pyanaconda/ui/gui/spokes/network.glade:1405
 msgid "IP Address"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.py:880
+#: pyanaconda/ui/gui/spokes/network.py:879
 #, python-format
 msgid "%d Mb/s"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.py:1084
+#: pyanaconda/ui/gui/spokes/network.py:1083
 msgid "WEP"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.py:1087
+#: pyanaconda/ui/gui/spokes/network.py:1086
 msgid "WPA"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.py:1090
+#: pyanaconda/ui/gui/spokes/network.py:1089
 msgid "WPA2"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.py:1094
+#: pyanaconda/ui/gui/spokes/network.py:1093
 msgid "Enterprise"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.py:1099 widgets/src/SpokeSelector.c:57
+#: pyanaconda/ui/gui/spokes/network.py:1098 widgets/src/SpokeSelector.c:57
 #: pyanaconda/ui/gui/spokes/filter.glade:158
 #: pyanaconda/ui/gui/spokes/filter.glade:560
 #: pyanaconda/ui/gui/spokes/filter.glade:904
@@ -2334,29 +2334,29 @@ msgstr ""
 msgid "None"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.py:1223
+#: pyanaconda/ui/gui/spokes/network.py:1222
 #: pyanaconda/ui/gui/spokes/network.glade:2438
 msgid "Authentication required by wireless network"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.py:1224
+#: pyanaconda/ui/gui/spokes/network.py:1223
 #, python-format
 msgid ""
 "Passwords or encryption keys are required to access\n"
 "the wireless network '%(network_id)s'."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.py:1237
+#: pyanaconda/ui/gui/spokes/network.py:1236
 msgctxt "GUI|Network|Secrets Dialog"
 msgid "_Password:"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.py:1245
+#: pyanaconda/ui/gui/spokes/network.py:1244
 msgctxt "GUI|Network|Secrets Dialog"
 msgid "_Key:"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.py:1301
+#: pyanaconda/ui/gui/spokes/network.py:1300
 msgctxt "GUI|Spoke"
 msgid "_NETWORK & HOSTNAME"
 msgstr ""
@@ -2406,28 +2406,28 @@ msgstr ""
 msgid "Downloading group metadata..."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/software.py:364
+#: pyanaconda/ui/gui/spokes/software.py:366
 msgid "Error checking software dependencies.  Click for details."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/software.py:467
+#: pyanaconda/ui/gui/spokes/software.py:469
 msgid ""
 "The software marked for installation has the following errors.  This is "
 "likely caused by an error with your installation source.  You can quit the "
 "installer, change your software source, or change your software selections."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/software.py:472
+#: pyanaconda/ui/gui/spokes/software.py:474
 msgctxt "GUI|Software Selection|Error Dialog"
 msgid "_Quit"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/software.py:473
+#: pyanaconda/ui/gui/spokes/software.py:475
 msgctxt "GUI|Software Selection|Error Dialog"
 msgid "_Modify Software Source"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/software.py:474
+#: pyanaconda/ui/gui/spokes/software.py:476
 msgctxt "GUI|Software Selection|Error Dialog"
 msgid "Modify _Selections"
 msgstr ""
@@ -3247,7 +3247,7 @@ msgstr ""
 
 #: pyanaconda/ui/gui/spokes/filter.glade:58
 #: pyanaconda/ui/gui/spokes/storage.glade:446
-#: pyanaconda/ui/gui/spokes/storage.glade:1001
+#: pyanaconda/ui/gui/spokes/storage.glade:1026
 msgid "INSTALLATION DESTINATION"
 msgstr ""
 
@@ -3825,67 +3825,67 @@ msgstr ""
 msgid "Local Standard Disks"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/storage.glade:603
-#: pyanaconda/ui/gui/spokes/storage.glade:734
+#: pyanaconda/ui/gui/spokes/storage.glade:610
+#: pyanaconda/ui/gui/spokes/storage.glade:750
 msgid "Disks left unselected here will not be touched."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/storage.glade:620
+#: pyanaconda/ui/gui/spokes/storage.glade:629
 msgid "Specialized & Network Disks"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/storage.glade:690
+#: pyanaconda/ui/gui/spokes/storage.glade:699
 msgctxt "GUI|Storage"
 msgid "_Add a disk..."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/storage.glade:707
+#: pyanaconda/ui/gui/spokes/storage.glade:716
 msgid "Add Specialized Disk"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/storage.glade:751
+#: pyanaconda/ui/gui/spokes/storage.glade:769
 msgid "Other Storage Options"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/storage.glade:777
+#: pyanaconda/ui/gui/spokes/storage.glade:795
 msgid "Partitioning"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/storage.glade:794
+#: pyanaconda/ui/gui/spokes/storage.glade:812
 msgid "Encryption"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/storage.glade:807
+#: pyanaconda/ui/gui/spokes/storage.glade:825
 msgid "A_utomatically configure partitioning."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/storage.glade:823
+#: pyanaconda/ui/gui/spokes/storage.glade:841
 msgid "_I will configure partitioning."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/storage.glade:855
+#: pyanaconda/ui/gui/spokes/storage.glade:873
 msgid "_Encrypt my data."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/storage.glade:870
+#: pyanaconda/ui/gui/spokes/storage.glade:888
 msgid "You'll set a passphrase next."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/storage.glade:891
+#: pyanaconda/ui/gui/spokes/storage.glade:909
 msgid "I would like to _make additional space available."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/storage.glade:907
+#: pyanaconda/ui/gui/spokes/storage.glade:925
 msgid "Storage Options"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/storage.glade:950
-msgctxt "GUI|Storage"
-msgid "_Full disk summary and bootloader..."
+#: pyanaconda/ui/gui/spokes/storage.glade:957
+msgid "summary"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/storage.glade:971
-msgid "summary"
+#: pyanaconda/ui/gui/spokes/storage.glade:990
+msgctxt "GUI|Storage"
+msgid "_Full disk summary and bootloader..."
 msgstr ""
 
 #: pyanaconda/ui/gui/spokes/keyboard.glade:15
