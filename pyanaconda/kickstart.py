@@ -1085,7 +1085,7 @@ class PartitionData(commands.partition.F18_PartData):
                 ty = "macefi"
             else:
                 ty = "EFI System Partition"
-                self.fsopts = "defaults,uid=0,gid=0,umask=0o077,shortname=winnt"
+                self.fsopts = "defaults,uid=0,gid=0,umask=077,shortname=winnt"
         else:
             if self.fstype != "":
                 ty = self.fstype
