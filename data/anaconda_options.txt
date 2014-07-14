@@ -22,11 +22,15 @@ debug
 Show debug level messages in the log watching consoles.
 This basically a shortcut for for loglevel=debug.
 
-kickstart
+ks
 Gives the location of the kickstart file to be used for installation. The KICKSTART_URL
 supports fetching kickstarts from HTTP/S, FTP, NFS, from a local file, from a local
 harddrive, from an optical disk and from BIOS RAID sets. For details on the KICKSTART_URL
 syntax see the Anaconda options wiki page: http://fedoraproject.org/wiki/Anaconda_Boot_Options
+
+kickstart
+Gives the local file path to use for kickstart. Normally only used when running anaconda
+from the cmdline.
 
 rescue
 Start the rescue environment instead of installation.
