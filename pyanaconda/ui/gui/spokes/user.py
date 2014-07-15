@@ -79,7 +79,6 @@ class AdvancedUserDialog(GUIObject, GUIDialogInputCheckHandler):
         self._groupDict = groupDict
 
     def _grabObjects(self):
-        self._cHome = self.builder.get_object("c_home")
         self._cUid = self.builder.get_object("c_uid")
         self._cGid = self.builder.get_object("c_gid")
         self._tHome = self.builder.get_object("t_home")
@@ -104,12 +103,9 @@ class AdvancedUserDialog(GUIObject, GUIDialogInputCheckHandler):
         checkbox states on the screen. It is called from
         the toggled Gtk event.
         """
-        c_home = self._cHome.get_active()
         c_uid = self._cUid.get_active()
         c_gid = self._cGid.get_active()
 
-        self._tHome.set_sensitive(c_home)
-        self._lHome.set_sensitive(c_home)
         self._spinUid.set_sensitive(c_uid)
         self._spinGid.set_sensitive(c_gid)
 
@@ -138,7 +134,6 @@ class AdvancedUserDialog(GUIObject, GUIDialogInputCheckHandler):
             self._tHome.set_text(homedir)
             self._user.homedir = homedir
 
-        self._cHome.set_active(bool(self._user.homedir))
         self._cUid.set_active(bool(self._user.uid))
         self._cGid.set_active(bool(self._user.gid))
         self._apply_checkboxes()
@@ -166,10 +161,7 @@ class AdvancedUserDialog(GUIObject, GUIDialogInputCheckHandler):
 
         #OK clicked
         if rc == 1:
-            if self._cHome.get_active():
-                self._user.homedir = self._tHome.get_text()
-            else:
-                self._user.homedir = None
+            self._user.homedir = self._tHome.get_text()
 
             if self._cUid.get_active():
                 self._user.uid = int(self._uid.get_value())
