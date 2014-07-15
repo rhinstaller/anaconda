@@ -78,6 +78,11 @@ class AdvancedUserDialog(GUIObject, GUIDialogInputCheckHandler):
         self._user = user
         self._groupDict = groupDict
 
+        # Track whether the user has requested a home directory other
+        # than the default.
+        self._origHome = None
+        self._homeSet = False
+
     def _grabObjects(self):
         self._cUid = self.builder.get_object("c_uid")
         self._cGid = self.builder.get_object("c_gid")
@@ -128,11 +133,12 @@ class AdvancedUserDialog(GUIObject, GUIDialogInputCheckHandler):
 
     def refresh(self):
         if self._user.homedir:
-            self._tHome.set_text(self._user.homedir)
+            homedir = self._user.homedir
         elif self._user.name:
             homedir = "/home/" + self._user.name
-            self._tHome.set_text(homedir)
-            self._user.homedir = homedir
+
+        self._tHome.set_text(homedir)
+        self._origHome = homedir
 
         self._cUid.set_active(bool(self._user.uid))
         self._cGid.set_active(bool(self._user.gid))
@@ -161,7 +167,13 @@ class AdvancedUserDialog(GUIObject, GUIDialogInputCheckHandler):
 
         #OK clicked
         if rc == 1:
-            self._user.homedir = self._tHome.get_text()
+            # If the user changed the home directory input, either this time or
+            # during any earlier run of the dialog, set homedir to the value
+            # in the input box.
+            homedir = self._tHome.get_text()
+            if self._homeSet or self._origHome != homedir:
+                self._homeSet = True
+                self._user.homedir = homedir
 
             if self._cUid.get_active():
                 self._user.uid = int(self._uid.get_value())
