@@ -67,7 +67,7 @@ class s390HWclock(unittest.TestCase):
         timezone.save_hw_clock(mock.Mock())
         self.assertFalse(self.iutil_mock.execWithRedirect.called)
 
-    def s390_time_initalize_test(self):
+    def s390_time_initialize_test(self):
         """Check that time_initialize doesn't call hwclock on s390."""
 
         timezone.time_initialize(mock.Mock(), mock.Mock(), mock.Mock())

@@ -181,7 +181,7 @@ def guess_username(fullname):
     else:
         username = u""
 
-    # and prefix it with the first name inital
+    # and prefix it with the first name initial
     if len(fullname) > 1:
         username = fullname[0].decode("utf-8")[0].lower() + username
 

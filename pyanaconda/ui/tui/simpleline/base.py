@@ -311,7 +311,7 @@ class App(object):
         # ask for redraw by default
         self._redraw = True
 
-        # inital state
+        # initial state
         last_screen = None
         error_counter = 0
 
