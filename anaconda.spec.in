@@ -303,6 +303,30 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Wed Jul 16 2014 Brian C. Lane <bcl@redhat.com> - 21.48-1
+- Fix the custom accelerators in custom partitioning (#1118999) (dshea)
+- Revert "Reset dnf package sack" (bcl)
+- Ignore the home directory setting if no change was requested (#1119900)
+  (dshea)
+- Set an upper limit on uids and gids. (dshea)
+- Remove the "Create a home directory" checkbox (dshea)
+- Fix a typo: inital -> initial (mkolman)
+- Don't create the configured.ini file (#1119166) (mkolman)
+- zRAM swap for Anaconda (vpodzime)
+- Split kickstart arg handling (bcl)
+- Update icon names used within python code. (dshea)
+- Add a check for whether icons used in glade files are valid (dshea)
+- Load icons by name instead of stock-id. (dshea)
+- Remove extra list() call with no effect (vpodzime)
+- Add NetworkManager-wifi dependency for the GUI subpackage (#1111417)
+  (mkolman)
+- Python's octals changed; mount's didn't. (pjones)
+- Add a basic test for ostree-based installs. (clumens)
+- Print out exceptions at log level critical. (clumens)
+- Rename environment variables in run_gui_tests.sh. (clumens)
+- Rename gui/runtest.sh to fit in with the other test names. (clumens)
+- Write the grub config even on errors (#1114774) (bcl)
+
 * Fri Jul 11 2014 Brian C. Lane <bcl@redhat.com> - 21.47-1
 - Fix references to requiredPackages (bcl)
 - Drop anaconda. prefix from copied logs (bcl)
