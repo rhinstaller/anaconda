@@ -1429,7 +1429,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
     ### SIGNAL HANDLERS
     ###
 
-    def on_key_pressed(self, window, event, *args):
+    def on_key_pressed(self, widget, event, *args):
         if not event or event and event.type != Gdk.EventType.KEY_RELEASE:
             return
 
@@ -1437,12 +1437,12 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
             # But we only want delete to work if you have focused a MountpointSelector,
             # and not just any random widget.  For those, it's likely the user wants
             # to delete a character.
-            if isinstance(window.get_focus(), MountpointSelector):
+            if isinstance(self.main_window.get_focus(), MountpointSelector):
                 self._removeButton.emit("clicked")
         elif event.keyval == Gdk.KEY_plus:
             # And we only want '+' to work if you don't have a text entry focused, since
             # the user might be entering some free-form text that can include a plus.
-            if not isinstance(window.get_focus(), Gtk.Entry):
+            if not isinstance(self.main_window.get_focus(), Gtk.Entry):
                 self._addButton.emit("clicked")
 
     def _do_check(self):
