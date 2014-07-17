@@ -107,7 +107,6 @@ THREAD_GEOLOCATION_REFRESH = "AnaGeolocationRefreshThread"
 THREAD_DATE_TIME = "AnaDateTimeThread"
 THREAD_TIME_INIT = "AnaTimeInitThread"
 THREAD_DASDFMT = "AnaDasdfmtThread"
-THREAD_XKL_WRAPPER_INIT = "AnaXklWrapperInitThread"
 THREAD_KEYBOARD_INIT = "AnaKeyboardThread"
 THREAD_ADD_LAYOUTS_INIT = "AnaAddLayoutsInitThread"
 

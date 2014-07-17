@@ -26,6 +26,7 @@ from pyanaconda.ui.gui import GUIObject
 from pyanaconda.ui.gui.spokes import NormalSpoke
 from pyanaconda.ui.categories.localization import LocalizationCategory
 from pyanaconda.ui.gui.utils import gtk_call_once, escape_markup, gtk_batch_map, timed_action
+from pyanaconda.ui.gui.xkl_wrapper import XklWrapper, XklWrapperError
 from pyanaconda import keyboard
 from pyanaconda import flags
 from pyanaconda.i18n import _, N_, CN_
@@ -65,7 +66,7 @@ class AddLayoutDialog(GUIObject):
 
     def __init__(self, *args):
         GUIObject.__init__(self, *args)
-        self._xkl_wrapper = keyboard.XklWrapper.get_instance()
+        self._xkl_wrapper = XklWrapper.get_instance()
         self._chosen_layouts = []
 
     def matches_entry(self, model, itr, user_data=None):
@@ -184,7 +185,7 @@ class ConfigureSwitchingDialog(GUIObject):
 
     def __init__(self, *args):
         GUIObject.__init__(self, *args)
-        self._xkl_wrapper = keyboard.XklWrapper.get_instance()
+        self._xkl_wrapper = XklWrapper.get_instance()
 
         self._switchingOptsStore = self.builder.get_object("switchingOptsStore")
 
@@ -273,7 +274,7 @@ class KeyboardSpoke(NormalSpoke):
         NormalSpoke.__init__(self, *args)
         self._remove_last_attempt = False
         self._confirmed = False
-        self._xkl_wrapper = keyboard.XklWrapper.get_instance()
+        self._xkl_wrapper = XklWrapper.get_instance()
         self._add_dialog = None
         self._ready = False
 
@@ -607,7 +608,7 @@ class KeyboardSpoke(NormalSpoke):
             try:
                 self._addLayout(self._store, layout)
                 valid_layouts += layout
-            except keyboard.XklWrapperError:
+            except XklWrapperError:
                 log.error("Failed to add layout '%s'", layout)
 
         if not valid_layouts:

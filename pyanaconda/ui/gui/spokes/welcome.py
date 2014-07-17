@@ -27,6 +27,7 @@ import langtable
 from pyanaconda.ui.gui.hubs.summary import SummaryHub
 from pyanaconda.ui.gui.spokes import StandaloneSpoke
 from pyanaconda.ui.gui.utils import setup_gtk_direction, escape_markup
+from pyanaconda.ui.gui.xkl_wrapper import XklWrapper
 from pyanaconda.ui.gui.spokes.lib.lang_locale_handler import LangLocaleHandler
 
 from pyanaconda import localization
@@ -55,7 +56,7 @@ class WelcomeLanguageSpoke(LangLocaleHandler, StandaloneSpoke):
     def __init__(self, *args, **kwargs):
         StandaloneSpoke.__init__(self, *args, **kwargs)
         LangLocaleHandler.__init__(self)
-        self._xklwrapper = keyboard.XklWrapper.get_instance()
+        self._xklwrapper = XklWrapper.get_instance()
         self._origStrings = {}
 
     def apply(self):
