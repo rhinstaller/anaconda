@@ -61,7 +61,6 @@ from blivet.errors import StorageError
 import blivet.util
 import blivet.arch
 from blivet.platform import platform
-#from pyanaconda.progress import progress
 
 from pyanaconda.product import productName, productVersion
 import urlgrabber
