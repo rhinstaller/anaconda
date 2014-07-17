@@ -210,6 +210,7 @@ class Creator(object):
         from testconfig import config
 
         args = ["/usr/bin/qemu-kvm",
+                "-vnc", "localhost:2",
                 "-m", str(self.reqMemory),
                 "-boot", "d",
                 "-drive", "file=%s,media=cdrom" % config["liveImage"]]
