@@ -318,8 +318,6 @@ def doExtraX11Actions(runres):
 
     startSpiceVDAgent()
 
-    keyboard.background_XklWrapper_initialize()
-
 def setupPythonUpdates():
     from distutils.sysconfig import get_python_lib
     import gi.overrides
