@@ -657,7 +657,7 @@ def collect(module_pattern, path, pred):
             if module_path and "pyanaconda" in module_path:
                 # failure when importing our own module:
                 raise
-            log.error("Failed to import module in collect: %s", imperr)
+            log.error("Failed to import module %s from path %s in collect: %s", mod_name, module_path, imperr)
             continue
         finally:
             imp.release_lock()
