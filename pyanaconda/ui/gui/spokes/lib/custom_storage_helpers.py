@@ -72,6 +72,9 @@ CONTAINER_TYPE_NAMES = {DEVICE_TYPE_LVM: N_("Volume Group"),
                         DEVICE_TYPE_LVM_THINP: N_("Volume Group"),
                         DEVICE_TYPE_BTRFS: N_("Volume")}
 
+# These cannot be specified as mountpoints
+system_mountpoints = ["/dev", "/proc", "/run", "/sys"]
+
 def size_from_entry(entry):
     size_text = entry.get_text().decode("utf-8").strip()
     return size_from_input(size_text)
@@ -127,8 +130,7 @@ def validate_mountpoint(mountpoint, used_mountpoints, strict=True):
         return _("That mount point is already in use. Try something else?")
     elif not mountpoint:
         return _("Please enter a valid mountpoint.")
-    elif mountpoint.startswith("/dev") or mountpoint.startswith("/proc") or \
-         mountpoint.startswith("/sys"):
+    elif mountpoint in system_mountpoints:
         return _("That mount point is invalid. Try something else?")
     elif (lowerASCII(mountpoint) not in fake_mountpoints and
           ((len(mountpoint) > 1 and mountpoint.endswith("/")) or
