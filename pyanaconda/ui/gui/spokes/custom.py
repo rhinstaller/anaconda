@@ -169,6 +169,9 @@ device_text_map = {DEVICE_TYPE_LVM: DEVICE_TEXT_LVM,
 partition_only_format_types = ["efi", "hfs+", "prepboot", "biosboot",
                                "appleboot"]
 
+# These cannot be specified as mountpoints
+system_mountpoints = ["/dev", "/proc", "/run", "/sys"]
+
 def size_from_entry(entry):
     size_text = entry.get_text().decode("utf-8").strip()
 
@@ -257,8 +260,7 @@ def validate_mountpoint(mountpoint, used_mountpoints, strict=True):
         valid = MOUNTPOINT_IN_USE
     elif not mountpoint:
         valid = MOUNTPOINT_EMPTY
-    elif mountpoint.startswith("/dev") or mountpoint.startswith("/proc") or \
-         mountpoint.startswith("/sys"):
+    elif mountpoint in system_mountpoints:
         valid = MOUNTPOINT_INVALID
     elif (mountpoint.lower() not in fake_mountpoints and
           ((len(mountpoint) > 1 and mountpoint.endswith("/")) or
