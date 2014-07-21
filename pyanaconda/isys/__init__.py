@@ -53,7 +53,6 @@ else:
     GUI_INSTALL_EXTRA_RAM = 0
 
 MIN_GUI_RAM = MIN_RAM + GUI_INSTALL_EXTRA_RAM
-EARLY_SWAP_RAM = 896 * 1024
 
 ## Flush filesystem buffers.
 def sync ():
