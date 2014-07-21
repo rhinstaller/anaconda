@@ -202,6 +202,7 @@ class UserSpoke(FirstbootSpokeMixIn, NormalSpoke, GUISpokeInputCheckHandler):
     builderObjects = ["userCreationWindow"]
 
     mainWidgetName = "userCreationWindow"
+    focusWidgetName = "t_fullname"
     uiFile = "spokes/user.glade"
 
     category = UserSettingsCategory

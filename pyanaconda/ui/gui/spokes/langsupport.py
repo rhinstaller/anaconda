@@ -39,6 +39,7 @@ __all__ = ["LangsupportSpoke"]
 class LangsupportSpoke(LangLocaleHandler, NormalSpoke):
     builderObjects = ["languageStore", "languageStoreFilter", "localeStore", "langsupportWindow"]
     mainWidgetName = "langsupportWindow"
+    focusWidgetName = "languageEntry"
     uiFile = "spokes/langsupport.glade"
 
     category = LocalizationCategory
