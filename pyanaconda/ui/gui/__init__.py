@@ -68,6 +68,8 @@ class GUIObject(common.UIObject):
        mainWidgetName   -- The name of the top-level widget this object
                            object implements.  This will be the widget searched
                            for in uiFile by the window property.
+       focusWidgetName  -- The name of the widget to focus when the object is entered,
+                           or None.
        uiFile           -- The location of an XML file that describes the layout
                            of widgets shown by this object.  UI files are
                            searched for relative to the same directory as this
@@ -81,6 +83,12 @@ class GUIObject(common.UIObject):
     """
     builderObjects = []
     mainWidgetName = None
+
+    # Since many of the builder files do not define top-level widgets, the usual
+    # {get,can,is,has}_{focus,default} properties don't work real good. Define the
+    # widget to be focused in python, instead.
+    focusWidgetName = None
+
     uiFile = ""
     translationDomain = "anaconda"
 
@@ -343,6 +351,9 @@ class MainWindow(Gtk.Window):
                     Gdk.KEY_F12, 0, 0)
 
         self._stack.set_visible_child(child.window)
+
+        if child.focusWidgetName:
+            child.builder.get_object(child.focusWidgetName).grab_focus()
 
     def setCurrentAction(self, standalone):
         """Set the current standalone widget.
