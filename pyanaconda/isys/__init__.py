@@ -49,8 +49,8 @@ if blivet.arch.getArch() in ["ppc64", "ppc64le"]:
     MIN_RAM = 768 * 1024
     GUI_INSTALL_EXTRA_RAM = 512 * 1024
 else:
-    MIN_RAM = 512 * 1024
-    GUI_INSTALL_EXTRA_RAM = 0
+    MIN_RAM = 320 * 1024
+    GUI_INSTALL_EXTRA_RAM = 90 * 1024
 
 MIN_GUI_RAM = MIN_RAM + GUI_INSTALL_EXTRA_RAM
 
