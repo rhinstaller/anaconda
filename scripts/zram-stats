@@ -1,0 +1,64 @@
+#!/bin/bash
+
+##
+# Show stats for all (initialized) zram devices
+# Author: Nitin Gupta
+#
+
+stats=(
+	"disksize"
+	"num_reads"
+	"num_writes"
+	"invalid_io"
+#	"discard"
+	"notify_free"
+	"zero_pages"
+	"orig_data_size"
+	"compr_data_size"
+	"mem_used_total"
+)
+
+function get_stat()
+{
+	local _dev=$1
+	local _stat=$2
+	cat $dev/$_stat
+}
+
+function show_stat()
+{
+	local _name=$1
+	local _val=$2
+	local _unit=$3
+	printf "%-16s %11d %s\n" "$_name:" "$_val" "$_unit"
+}
+
+#for dev in `find /sys/block -name 'zram*'`; do
+find /sys/block -name 'zram*' | while read dev; do
+	orig=0
+	compr=0
+	total=0
+	is_init=$(get_stat $dev initstate)
+
+	# Show stats only for initialized devices
+	[ "$is_init" == 1 ] || continue
+
+	echo "$dev"
+	for stat in "${stats[@]}"; do
+		val=$(get_stat $dev $stat)
+		eval __$stat=$val	# ex: __disksize=$disksize
+		show_stat $stat $val
+	done
+
+	[ "$__orig_data_size" == "0" ] && continue;
+
+	cratio=$(echo "print $__compr_data_size*100/$__orig_data_size" | python | tr -d '\n')
+	show_stat "avg_compr_ratio" $cratio "%"
+
+	# Memory wasted due to fragmentation, metadata overhead etc.
+	ovhd=$(echo "print ($__mem_used_total - $__compr_data_size) * 100 / \
+						$__compr_data_size" | python | tr -d '\n')
+	show_stat "mem_overhead" $ovhd "%"
+	echo
+done
+
