@@ -227,15 +227,6 @@ AC_CONFIG_FILES([Makefile
                  pyanaconda/ui/tui/tools/Makefile
                  pyanaconda/ui/tui/Makefile
                  tests/Makefile
-                 tests/mock/Makefile
-                 tests/kickstart_test/Makefile
-                 tests/pylint/Makefile
-                 tests/regex/Makefile
-                 tests/pyanaconda_test/Makefile
-                 tests/logpicker_test/Makefile
-                 tests/logpicker_test/sending_test/Makefile
-                 tests/logpicker_test/archiving_test/Makefile
-                 tests/logpicker_test/logmining_test/Makefile
                  data/post-scripts/Makefile
                  utils/Makefile
                  utils/dd/Makefile

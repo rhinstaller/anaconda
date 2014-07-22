@@ -27,7 +27,8 @@ EXTRA_DIST = config.rpath COPYING \
 
 MAINTAINERCLEANFILES = Makefile.in config.guess config.h.in config.sub \
                        depcomp install-sh ltmain.sh missing ABOUT-NLS \
-                       INSTALL aclocal.m4 configure *.pyc py-compile
+                       INSTALL aclocal.m4 configure *.pyc py-compile \
+                       test-driver
 
 CLEANFILES = *~ anaconda.spec
 
@@ -121,9 +122,6 @@ updates:
 	scripts/makeupdates $${opts}
 
 # UNIT TESTING TARGETS
-unittest:
-	PYTHONPATH=tests/:. nosetests --exclude=logpicker -a \!acceptance,\!slow  tests/
-
 unittests-logpicker:
 	PYTHONPATH=tests/:.:utils/ nosetests tests/logpicker_test
 
