@@ -56,10 +56,8 @@ class LangLocaleHandler(object):
     def initialize(self):
         # Render an arrow for the chosen language
         datadir = os.environ.get("ANACONDA_WIDGETS_DATADIR", "/usr/share/anaconda")
-        if Gtk.get_locale_direction() == Gtk.TextDirection.LTR:
-            self._arrow = Gtk.Image.new_from_file(os.path.join(datadir, "pixmaps", "right-arrow-icon.png"))
-        else:
-            self._arrow = Gtk.Image.new_from_file(os.path.join(datadir, "pixmaps", "left-arrow-icon.png"))
+        self._right_arrow = Gtk.Image.new_from_file(os.path.join(datadir, "pixmaps", "right-arrow-icon.png"))
+        self._left_arrow = Gtk.Image.new_from_file(os.path.join(datadir, "pixmaps", "left-arrow-icon.png"))
         self._langSelectedColumn.set_cell_data_func(self._langSelectedRenderer,
                                                     self._render_lang_selected)
 
@@ -97,8 +95,13 @@ class LangLocaleHandler(object):
     def _render_lang_selected(self, column, renderer, model, itr, user_data=None):
         (lang_store, sel_itr) = self._langSelection.get_selected()
 
+        if Gtk.get_locale_direction() == Gtk.TextDirection.LTR:
+            _arrow = self._right_arrow
+        else:
+            _arrow = self._left_arrow
+
         if sel_itr and lang_store[sel_itr][2] == model[itr][2]:
-            renderer.set_property("pixbuf", self._arrow.get_pixbuf())
+            renderer.set_property("pixbuf", _arrow.get_pixbuf())
         else:
             renderer.set_property("pixbuf", None)
 
