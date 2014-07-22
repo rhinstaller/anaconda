@@ -780,6 +780,8 @@ def setupDisplay(anaconda, options, addons=None):
     log.info("Display mode = %s", anaconda.displayMode)
     check_memory(anaconda, options)
 
+    # check_memory may have changed the display mode
+    want_x = want_x and (anaconda.displayMode == "g")
     if want_x:
         try:
             startX11()
