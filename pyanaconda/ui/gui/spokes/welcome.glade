@@ -197,6 +197,9 @@
                   <object class="GtkLabel" id="welcomeLabel">
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
+                    <property name="margin_left">36</property>
+                    <property name="margin_right">36</property>
+                    <property name="xalign">0</property>
                     <property name="ypad">6</property>
                     <property name="label">WELCOME TO %(name)s %(version)s.</property>
                     <attributes>
@@ -215,6 +218,9 @@
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
                     <property name="valign">start</property>
+                    <property name="margin_left">36</property>
+                    <property name="margin_right">36</property>
+                    <property name="xalign">0</property>
                     <property name="ypad">6</property>
                     <property name="label" translatable="yes">What language would you like to use during the installation process?</property>
                     <attributes>
@@ -231,11 +237,13 @@
                   <object class="GtkGrid" id="mainGrid">
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
-                    <property name="halign">center</property>
+                    <property name="margin_left">36</property>
+                    <property name="margin_right">36</property>
                     <property name="hexpand">True</property>
                     <property name="vexpand">True</property>
                     <property name="row_spacing">6</property>
-                    <property name="column_spacing">6</property>
+                    <property name="column_spacing">24</property>
+                    <property name="column_homogeneous">True</property>
                     <child>
                       <object class="GtkScrolledWindow" id="languageWindow">
                         <property name="visible">True</property>
@@ -243,6 +251,7 @@
                         <property name="hexpand">True</property>
                         <property name="vexpand">True</property>
                         <property name="hscrollbar_policy">never</property>
+                        <property name="vscrollbar_policy">always</property>
                         <property name="shadow_type">in</property>
                         <child>
                           <object class="GtkTreeView" id="languageView">
@@ -267,7 +276,7 @@
                                 <property name="sort_column_id">0</property>
                                 <child>
                                   <object class="GtkCellRendererText" id="nativeNameRenderer">
-                                    <property name="xalign">0.89999997615814209</property>
+                                    <property name="xalign">0.10000000149011612</property>
                                     <property name="font">Cantarell 12</property>
                                   </object>
                                   <attributes>
@@ -284,7 +293,7 @@
                                 <property name="sort_column_id">1</property>
                                 <child>
                                   <object class="GtkCellRendererText" id="englishNameRenderer">
-                                    <property name="xalign">0.10000000149011612</property>
+                                    <property name="xalign">0.89999997615814209</property>
                                     <property name="font">Cantarell Italic 14</property>
                                     <property name="foreground">gray</property>
                                   </object>
