@@ -315,6 +315,8 @@ Forward logs through the named virtio port (a character device at
 `/dev/virtio-ports/<name>`). A port named `org.fedoraproject.anaconda.log.0`
 will be used by default, if found.
 
+=== inst.zram ===
+Forces/disables (on/off) usage of zRAM swap for the installation process.
 
 Deprecated Options
 ------------------
