@@ -581,7 +581,7 @@ def check_memory(anaconda, options, display_mode=None):
     reason_strict = _("%(product_name)s requires %(needed_ram)s MB of memory to "
                       "install, but you only have %(total_ram)s MB on this machine.\n")
     reason_graphical = _("The %(product_name)s graphical installer requires %(needed_ram)s "
-                         "MB of memory, but you only have %(total_ram)s MB.")
+                         "MB of memory, but you only have %(total_ram)s MB\n.")
 
     reboot_extra = _('\n'
                      'Press <return> to reboot your system.\n')
@@ -615,7 +615,8 @@ def check_memory(anaconda, options, display_mode=None):
     if needed_ram > total_ram:
         from snack import SnackScreen, ButtonChoiceWindow
         if options.liveinst:
-            stdoutLog.warning(reason, **reason_args)
+            # pylint: disable=logging-not-lazy
+            stdoutLog.warning(reason % reason_args)
             gtk_warning(livecd_title, reason % reason_args)
         else:
             reason += reboot_extra
@@ -635,13 +636,15 @@ def check_memory(anaconda, options, display_mode=None):
         if needed_ram > total_ram:
             if options.liveinst:
                 reason += livecd_extra
-                stdoutLog.warning(reason, **reason_args)
+                # pylint: disable=logging-not-lazy
+                stdoutLog.warning(reason % reason_args)
                 title = livecd_title
                 gtk_warning(title, reason % reason_args)
                 sys.exit(1)
             else:
                 reason += nolivecd_extra
-                stdoutLog.warning(reason, **reason_args)
+                # pylint: disable=logging-not-lazy
+                stdoutLog.warning(reason % reason_args)
                 anaconda.displayMode = 't'
                 time.sleep(2)
 
