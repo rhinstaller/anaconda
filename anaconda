@@ -628,6 +628,7 @@ def check_memory(anaconda, options, display_mode=None):
 
     # override display mode if machine cannot nicely run X
     if display_mode not in ('t', 'c', 's') and not flags.usevnc:
+        needed_ram = graphical_ram
         reason_args["needed_ram"] = graphical_ram
         reason = reason_graphical
 
