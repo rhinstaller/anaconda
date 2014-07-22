@@ -878,3 +878,22 @@ def xprogressive_delay():
     while True:
         yield 0.25*(2**counter)
         counter += 1
+
+def get_platform_groupid():
+    """ Return a platform group id string
+
+        This runs systemd-detect-virt and if the result is not 'none' it
+        prefixes the lower case result with "platform-" for use as a group id.
+
+        :returns: Empty string or a group id for the detected platform
+        :rtype: str
+    """
+    try:
+        platform = execWithCapture("systemd-detect-virt", []).strip()
+    except (IOError, AttributeError):
+        return ""
+
+    if platform == "none":
+        return ""
+
+    return "platform-" + platform.lower()

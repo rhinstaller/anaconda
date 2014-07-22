@@ -556,7 +556,7 @@ class DNFPayload(packaging.PackagePayload):
         return list(gids)
 
     def preInstall(self, packages=None, groups=None):
-        super(DNFPayload, self).preInstall()
+        super(DNFPayload, self).preInstall(packages, groups)
         self.requiredPackages = packages
         self.requiredGroups = groups
         self.addDriverRepos()

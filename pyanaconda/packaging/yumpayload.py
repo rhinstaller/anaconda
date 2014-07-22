@@ -1332,7 +1332,7 @@ reposdir=%s
 
     def preInstall(self, packages=None, groups=None):
         """ Perform pre-installation tasks. """
-        super(YumPayload, self).preInstall()
+        super(YumPayload, self).preInstall(packages, groups)
         progressQ.send_message(_("Starting package installation process"))
 
         self.requiredPackages = packages

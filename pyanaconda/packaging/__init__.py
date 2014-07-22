@@ -725,6 +725,17 @@ class PackagePayload(Payload):
         else:
             self.rpmMacros.append(('__file_context_path', '%{nil}'))
 
+        # Add platform specific group
+        groupid = iutil.get_platform_groupid()
+        if groupid and groupid in self.groups:
+            if isinstance(groups, list):
+                log.info("Adding platform group %s", groupid)
+                groups.append(groupid)
+            else:
+                log.warning("Could not add %s to groups, not a list.", groupid)
+        elif groupid:
+            log.warning("Platform group %s not available.", groupid)
+
     @property
     def kernelPackages(self):
         if "kernel" in self.data.packages.excludedList:
