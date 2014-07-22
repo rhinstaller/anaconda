@@ -659,9 +659,9 @@ class Group(commands.group.F12_Group):
             if not users.createGroup(grp.name, **kwargs):
                 log.error("Group %s already exists, not creating." % grp.name)
 
-class IgnoreDisk(commands.ignoredisk.RHEL6_IgnoreDisk):
+class IgnoreDisk(commands.ignoredisk.F14_IgnoreDisk):
     def parse(self, args):
-        retval = commands.ignoredisk.RHEL6_IgnoreDisk.parse(self, args)
+        retval = commands.ignoredisk.F14_IgnoreDisk.parse(self, args)
 
         # See comment in ClearPart.parse
         drives = []
@@ -1171,7 +1171,7 @@ class PartitionData(commands.partition.F18_PartData):
                                      parents=request)
             storage.createDevice(luksdev)
 
-class Raid(commands.raid.F19_Raid):
+class Raid(commands.raid.F20_Raid):
     def execute(self, storage, ksdata, instClass):
         for r in self.raidList:
             r.execute(storage, ksdata, instClass)
@@ -1452,7 +1452,7 @@ class User(commands.user.F19_User):
             if not users.createUser(usr.name, **kwargs):
                 log.error("User %s already exists, not creating." % usr.name)
 
-class VolGroup(commands.volgroup.FC16_VolGroup):
+class VolGroup(commands.volgroup.F20_VolGroup):
     def execute(self, storage, ksdata, instClass):
         for v in self.vgList:
             v.execute(storage, ksdata, instClass)
