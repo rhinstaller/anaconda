@@ -40,7 +40,7 @@
 """
 
 # pylint: disable-msg=E0611
-from gi.repository import Gdk, GLib, Gtk, AnacondaWidgets
+from gi.repository import Gdk, GLib, AnacondaWidgets
 
 from pyanaconda.ui.communication import hubQ
 from pyanaconda.ui.lib.disks import getDisks, isLocalDisk, size_str, applyDiskSelection
@@ -52,7 +52,7 @@ from pyanaconda.ui.gui.spokes.lib.detailederror import DetailedErrorDialog
 from pyanaconda.ui.gui.spokes.lib.resize import ResizeDialog
 from pyanaconda.ui.gui.spokes.lib.dasdfmt import DasdFormatDialog
 from pyanaconda.ui.gui.categories.system import SystemCategory
-from pyanaconda.ui.gui.utils import enlightbox, gtk_call_once, gtk_action_wait, gtk_action_nowait, ignoreEscape
+from pyanaconda.ui.gui.utils import enlightbox, gtk_action_nowait, ignoreEscape
 
 from pyanaconda.kickstart import doKickstartStorage, refreshAutoSwapSize
 from blivet import storageInitialize, arch

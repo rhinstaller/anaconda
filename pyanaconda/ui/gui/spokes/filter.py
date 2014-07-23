@@ -31,9 +31,9 @@ from blivet.fcoe import has_fcoe
 from blivet.udev import udev_get_device, udev_device_get_wwid
 
 from pyanaconda.flags import flags
-from pyanaconda.i18n import _, N_, P_
+from pyanaconda.i18n import N_, P_
 
-from pyanaconda.ui.lib.disks import getDisks, isLocalDisk, size_str
+from pyanaconda.ui.lib.disks import getDisks, size_str
 from pyanaconda.ui.gui.utils import enlightbox
 from pyanaconda.ui.gui.spokes import NormalSpoke
 from pyanaconda.ui.gui.spokes.advstorage.fcoe import FCoEDialog

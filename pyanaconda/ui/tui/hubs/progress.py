@@ -19,7 +19,6 @@
 # Red Hat Author(s): Jesse Keating <jkeating@redhat.com>
 #
 
-import time
 import sys
 
 from pyanaconda.flags import flags

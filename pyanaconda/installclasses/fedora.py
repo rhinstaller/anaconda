@@ -22,9 +22,9 @@ from pyanaconda.product import productName
 from pyanaconda import network
 from pyanaconda import iutil
 from pyanaconda import nm
-from pyanaconda.i18n import _, N_
+from pyanaconda.i18n import N_
 
-import os, types
+import os
 
 class InstallClass(BaseInstallClass):
     # name has underscore used for mnemonics, strip if you dont need it

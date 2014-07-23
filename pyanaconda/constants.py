@@ -19,7 +19,7 @@
 # Author(s): Erik Troan <ewt@redhat.com>
 #
 
-from pyanaconda.i18n import _, N_
+from pyanaconda.i18n import _
 
 import re
 

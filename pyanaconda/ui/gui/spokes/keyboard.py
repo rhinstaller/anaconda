@@ -21,7 +21,7 @@
 #
 
 # pylint: disable-msg=E0611
-from gi.repository import GLib, Gkbd, Gtk, Gdk
+from gi.repository import Gkbd, Gtk, Gdk
 
 from pyanaconda.ui.gui import GUIObject
 from pyanaconda.ui.gui.spokes import NormalSpoke

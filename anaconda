@@ -43,8 +43,7 @@ if ("debug=1" in proc_cmdline) or ("debug" in proc_cmdline):
     cov.start()
 
 
-import atexit, sys, os, re, time, subprocess
-from tempfile import mkstemp
+import atexit, sys, os, time, subprocess
 # keep up with process ID of the window manager if we start it
 wm_pid = None
 
@@ -683,6 +682,7 @@ if __name__ == "__main__":
 
     # Allow a file to be loaded as early as possible
     try:
+        # pylint: disable-msg=F0401,W0611
         import updates_disk_hook
     except ImportError:
         pass
@@ -753,7 +753,6 @@ if __name__ == "__main__":
 
     # pull this in to get product name and versioning
     from pyanaconda import product
-    from pyanaconda.constants import ROOT_PATH, DEFAULT_LANG
 
     from pyanaconda import isys
     isys.initLog()

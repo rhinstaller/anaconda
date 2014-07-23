@@ -60,7 +60,6 @@ from .ui.common import collect
 from .addons import AddonSection, AddonData, AddonRegistry, collect_addon_paths
 from pyanaconda.bootloader import GRUB2, get_bootloader
 
-from pykickstart.base import KickstartCommand
 from pykickstart.constants import *
 from pykickstart.errors import formatErrorMsg, KickstartError, KickstartValueError
 from pykickstart.parser import KickstartParser

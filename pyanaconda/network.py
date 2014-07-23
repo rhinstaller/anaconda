@@ -30,8 +30,6 @@ import iutil
 import socket
 import os
 import time
-import tempfile
-import simpleconfig
 import re
 import IPy
 import uuid

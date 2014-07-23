@@ -1,4 +1,3 @@
-import os
 import subprocess
 from log_picker.sending.senderbaseclass import SenderBaseClass
 from log_picker.sending.senderbaseclass import SenderError

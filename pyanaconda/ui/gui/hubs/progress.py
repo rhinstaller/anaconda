@@ -29,11 +29,11 @@ import sys
 import glob
 
 from pyanaconda.i18n import _
-from pyanaconda.localization import langcode_matches_locale, find_best_locale_match
+from pyanaconda.localization import find_best_locale_match
 from pyanaconda.product import productName
 from pyanaconda.flags import flags
 from pyanaconda.constants import THREAD_INSTALL, THREAD_CONFIGURATION, DEFAULT_LANG, eulaLocation
-from pykickstart.constants import KS_WAIT, KS_SHUTDOWN, KS_REBOOT
+from pykickstart.constants import KS_SHUTDOWN, KS_REBOOT
 
 from pyanaconda.ui.gui.hubs import Hub
 from pyanaconda.ui.gui.utils import gtk_action_nowait, gtk_call_once

@@ -21,14 +21,13 @@
 #
 
 # pylint: disable-msg=E0611
-from gi.repository import Gtk, Pango, Gdk
+from gi.repository import Pango, Gdk
 from pyanaconda.flags import flags
-from pyanaconda.i18n import _, N_
-from pyanaconda.iutil import strip_accents
+from pyanaconda.i18n import N_
 from pyanaconda.ui.gui.spokes import NormalSpoke
 from pyanaconda.ui.gui.spokes.lib.lang_locale_handler import LangLocaleHandler
 from pyanaconda.ui.gui.categories.localization import LocalizationCategory
-from pyanaconda.ui.gui.utils import set_treeview_selection, override_cell_property
+from pyanaconda.ui.gui.utils import override_cell_property
 from pyanaconda import localization
 
 import re

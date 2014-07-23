@@ -24,7 +24,7 @@
 from pyanaconda.threads import threadMgr
 
 from contextlib import contextmanager
-from gi.repository import Gdk, Gtk, GLib
+from gi.repository import Gtk, GLib
 import Queue
 
 def gtk_call_once(func, *args):

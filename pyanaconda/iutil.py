@@ -32,7 +32,6 @@ from threading import Thread
 from Queue import Queue, Empty
 
 from flags import flags
-from pyanaconda.i18n import _
 from constants import *
 
 import logging

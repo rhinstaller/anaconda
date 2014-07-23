@@ -23,7 +23,6 @@ from pyanaconda.product import *
 from pyanaconda import network
 from pyanaconda import nm
 from pyanaconda import iutil
-import types
 
 class InstallClass(BaseInstallClass):
     # name has underscore used for mnemonics, strip if you dont need it

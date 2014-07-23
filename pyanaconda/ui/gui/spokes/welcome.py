@@ -24,10 +24,9 @@ import sys
 import re
 import langtable
 
-from gi.repository import Gtk, Pango
 from pyanaconda.ui.gui.hubs.summary import SummaryHub
 from pyanaconda.ui.gui.spokes import StandaloneSpoke
-from pyanaconda.ui.gui.utils import enlightbox, set_treeview_selection
+from pyanaconda.ui.gui.utils import enlightbox
 from pyanaconda.ui.gui.spokes.lib.lang_locale_handler import LangLocaleHandler
 
 from pyanaconda import localization
@@ -36,7 +35,7 @@ from pyanaconda import keyboard
 from pyanaconda import flags
 from pyanaconda import geoloc
 from pyanaconda.i18n import _
-from pyanaconda.iutil import is_unsupported_hw, strip_accents
+from pyanaconda.iutil import is_unsupported_hw
 from pyanaconda.constants import DEFAULT_LANG
 
 import logging

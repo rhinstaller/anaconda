@@ -19,15 +19,11 @@
 # Red Hat Author(s): Chris Lumens <clumens@redhat.com>
 #
 
-# pylint: disable-msg=E0611
-from gi.repository import Gtk
-
 from pyanaconda import constants
 from pyanaconda.threads import threadMgr, AnacondaThread
 from pyanaconda.ui.gui import GUIObject
 from pyanaconda.ui.gui.utils import gtk_action_wait
 from pyanaconda import nm
-from pyanaconda.i18n import _
 
 __all__ = ["FCoEDialog"]
 

@@ -27,10 +27,7 @@ from pyanaconda.ui.tui.spokes import EditTUISpokeEntry as Entry
 from pyanaconda.ui.tui.simpleline import TextWidget, ColumnWidget
 from pyanaconda.i18n import N_, _
 from pyanaconda import network
-from pyanaconda.nm import nm_activated_devices, nm_state, nm_devices, nm_device_type_is_ethernet, nm_device_ip_config, nm_activate_device_connection, nm_device_setting_value, UnmanagedDeviceError, UnknownConnectionError
-
-# pylint: disable-msg=E0611
-from gi.repository import NetworkManager
+from pyanaconda.nm import nm_activated_devices, nm_devices, nm_device_type_is_ethernet, nm_device_ip_config, nm_activate_device_connection, nm_device_setting_value, UnmanagedDeviceError, UnknownConnectionError
 
 import re
 IPV4_PATTERN_WITHOUT_ANCHORS=r'(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)'

@@ -20,7 +20,7 @@
 #
 
 # pylint: disable-msg=E0611
-from gi.repository import Gdk, Gtk
+from gi.repository import Gdk
 
 from pyanaconda.flags import flags
 from pyanaconda.i18n import _, N_
@@ -33,8 +33,6 @@ from pyanaconda.ui.gui.spokes import NormalSpoke
 from pyanaconda.ui.gui.spokes.lib.detailederror import DetailedErrorDialog
 from pyanaconda.ui.gui.utils import enlightbox, gtk_action_wait
 from pyanaconda.ui.gui.categories.software import SoftwareCategory
-
-from pykickstart.parser import Group
 
 import sys
 

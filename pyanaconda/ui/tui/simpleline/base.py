@@ -22,7 +22,6 @@
 __all__ = ["App", "UIScreen", "Widget"]
 
 import sys
-import readline
 import Queue
 import getpass
 import threading

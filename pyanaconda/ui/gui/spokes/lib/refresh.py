@@ -20,12 +20,11 @@
 #
 
 # pylint: disable-msg=E0611
-from gi.repository import GLib, Gtk
+from gi.repository import GLib
 
 from pyanaconda.threads import threadMgr, AnacondaThread
 from pyanaconda.ui.gui import GUIObject
 from pyanaconda import constants
-from pyanaconda.i18n import _
 
 from blivet import storageInitialize
 

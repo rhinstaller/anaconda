@@ -18,10 +18,9 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-import os
 import sys
 
-from pyanaconda import anaconda_log, fsset, raid, isys
+from pyanaconda import isys
 from sys import argv
 
 if len(argv) != 2 or argv[1][:7] != "/dev/md":

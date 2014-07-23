@@ -19,9 +19,6 @@
 # Red Hat Author(s): Chris Lumens <clumens@redhat.com>
 #
 
-from gi.repository import Gtk
-
-from pyanaconda.i18n import _
 from pyanaconda.ui.gui import GUIObject
 
 from blivet.deviceaction import ACTION_TYPE_DESTROY, ACTION_TYPE_RESIZE, ACTION_OBJECT_FORMAT

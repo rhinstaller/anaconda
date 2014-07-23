@@ -20,9 +20,6 @@
 #                    Chris Lumens <clumens@redhat.com>
 #
 
-# pylint: disable-msg=E0611
-from gi.repository import Gtk
-
 from pyanaconda.flags import flags
 from pyanaconda.i18n import _, N_
 from pyanaconda.users import cryptPassword, validatePassword, checkPassword

@@ -22,12 +22,11 @@
 # pylint: disable-msg=E0611
 from gi.repository import Gtk, Gdk
 
-import gettext
 import pwquality
 
 from pyanaconda.ui.gui import GUIObject
 
-from pyanaconda.i18n import _, N_, P_
+from pyanaconda.i18n import _, N_
 
 __all__ = ["PassphraseDialog"]
 

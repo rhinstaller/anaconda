@@ -51,7 +51,6 @@ log = logging.getLogger("packaging")
 
 try:
     import rpm
-    import rpmUtils
 except ImportError:
     log.error("import of rpm failed")
     rpm = None
@@ -88,7 +87,6 @@ from pyanaconda.packaging import NoSuchGroup, NoSuchPackage
 from pyanaconda.progress import progressQ
 
 from pyanaconda.localization import langcode_matches_locale
-import itertools
 
 from pykickstart.constants import KS_MISSING_IGNORE
 
