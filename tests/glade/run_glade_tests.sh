@@ -1,5 +1,10 @@
 #!/bin/sh
 
+if ! type parallel 2>&1 > /dev/null; then
+    echo "parallel must be installed"
+    exit 99
+fi
+
 : "${top_srcdir:=$(dirname "$0")/../..}"
 . "${top_srcdir}/tests/testenv.sh"
 srcdir="${top_srcdir}/tests/glade"
@@ -22,7 +27,7 @@ fi
 
 status=0
 for check in ${srcdir}/*/check_*.py ; do
-    findtestfiles -name '*.glade' | xargs "${check}" "$@"
+    findtestfiles -name '*.glade' | parallel --gnu -j0 "${check}" "$@" {}
     if [ "$?" -ne 0 ]; then
         status=1
     fi

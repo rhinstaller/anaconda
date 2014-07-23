@@ -12,8 +12,6 @@ if grep -q '# pylint: skip-file' $1; then
     exit 0
 fi
 
-file_suffix="$(eval echo \$$#|sed s?/?_?g)"
-
 pylint_output="$(pylint \
     --msg-template='{msg_id}:{line:3d},{column}: {obj}: {msg}' \
     -r n --disable=C,R --rcfile=/dev/null \
@@ -33,6 +31,8 @@ gi.overrides.__path__[0:0] = (os.environ["ANACONDA_WIDGETS_OVERRIDES"].split(":"
 if [ -n "$(echo "$pylint_output" | fgrep -v '************* Module ')" ]; then
     # Replace the Module line with the actual filename
     pylint_output="$(echo "$pylint_output" | sed "s|\* Module .*|* Module $(eval echo \$$#)|")"
-    echo "$pylint_output" > pylint-out_$file_suffix
-    touch "pylint-$file_suffix-failed"
+    echo "$pylint_output"
+    exit 1
+else
+    exit 0
 fi

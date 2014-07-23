@@ -8,6 +8,11 @@
 # to stdout and this script will exit with a status of 1, if no (non filtered)
 # warnings are found it exits with a status of 0
 
+if ! type parallel 2>&1 > /dev/null; then
+    echo "parallel must be installed"
+    exit 99
+fi
+
 # XDG_RUNTIME_DIR is "required" to be set, so make one up in case something
 # actually tries to do something with it
 if [ -z "$XDG_RUNTIME_DIR" ]; then
@@ -114,27 +119,13 @@ if [ -z "$FILES" ]; then
             egrep -v '(|/)old_tests/')
 fi
 
-num_cpus=$(getconf _NPROCESSORS_ONLN)
 # run pylint in paralel
-echo $FILES | xargs --max-procs=$num_cpus -n 1 "$srcdir"/pylint-one.sh $ARGS || exit 1
+output=$(echo -n $FILES | parallel -d' ' --gnu "$srcdir"/pylint-one.sh $ARGS {})
+exit_status=$?
 
-for file in $(find -name 'pylint-out*'); do
-    cat "$file" >> pylint-log
-    rm "$file"
-done
-
-fails=$(find -name 'pylint*failed' -print -exec rm '{}' \;)
-if [ -z "$fails" ]; then
-    exit_status=0
-else
-    exit_status=1
-fi
-
-if [ -s pylint-log ]; then
+if [ "$output" != '\n' -a "$output" != "" ]; then
     echo "pylint reports the following issues:"
-    cat pylint-log
-elif [ -e pylint-log ]; then
-    rm pylint-log
+    echo "$output" | tee pylint-log
 fi
 
 exit "$exit_status"

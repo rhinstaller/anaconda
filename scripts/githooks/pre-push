@@ -6,6 +6,11 @@
 
 exec 1>&2
 
+if ! type parallel 2>&1 > /dev/null; then
+    echo "parallel must be installed"
+    exit 99
+fi
+
 # git gives us these on STDIN
 read more_args
 local_ref=$(echo ${more_args}|cut -d' ' -f1)
@@ -72,11 +77,10 @@ fi
 
 ## main ##
 # fork separate process for every commit, querying bugzilla takes time
-num_commits=$(echo ${commits}|wc -w)
-echo ${commits}|xargs -n1 --max-procs=${num_commits} .git/hooks/check_commit_msg.sh ${release}
-xargs_ret=$?
+echo -n ${commits}|parallel -d' ' --gnu -j0 .git/hooks/check_commit_msg.sh ${release} {}
+ret=$?
 if [ ${ACK_FATAL} == "0" ]; then
-    test ${xargs_ret} -eq 0
+    test ${ret} -eq 0
     exit $?
 else
     exit 0
