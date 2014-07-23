@@ -34,7 +34,7 @@ class Desktop(SimpleConfigFile):
 #
     def setDefaultRunLevel(self, runlevel):
         if int(runlevel) not in RUNLEVELS:
-            raise RuntimeError, "Desktop::setDefaultRunLevel() - Must specify runlevel as 3 or 5!"
+            raise RuntimeError("Desktop::setDefaultRunLevel() - Must specify runlevel as 3 or 5!")
         self.runlevel = runlevel
 
     def getDefaultRunLevel(self):

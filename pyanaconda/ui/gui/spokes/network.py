@@ -138,14 +138,14 @@ class CellRendererSignal(Gtk.CellRendererPixbuf):
         if prop.name == 'signal':
             return self.signal
         else:
-            raise AttributeError, 'unknown property %s' % prop.name
+            raise AttributeError('unknown property %s' % prop.name)
 
     def do_set_property(self, prop, value):
         if prop.name == 'signal':
             self.signal = value
             self._set_icon_name(value)
         else:
-            raise AttributeError, 'unknown property %s' % prop.name
+            raise AttributeError('unknown property %s' % prop.name)
 
     def _set_icon_name(self, value):
 
@@ -192,14 +192,14 @@ class CellRendererSecurity(Gtk.CellRendererPixbuf):
         if prop.name == 'security':
             return self.security
         else:
-            raise AttributeError, 'unknown property %s' % prop.name
+            raise AttributeError('unknown property %s' % prop.name)
 
     def do_set_property(self, prop, value):
         if prop.name == 'security':
             self.security = value
             self._set_icon_name(value)
         else:
-            raise AttributeError, 'unknown property %s' % prop.name
+            raise AttributeError('unknown property %s' % prop.name)
 
     def _set_icon_name(self, security):
         self.icon_name = ""

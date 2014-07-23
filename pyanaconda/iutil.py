@@ -266,7 +266,7 @@ def execConsole():
         proc = subprocess.Popen(["/bin/sh"])
         proc.wait()
     except OSError as e:
-        raise RuntimeError, "Error running /bin/sh: " + e.strerror
+        raise RuntimeError("Error running /bin/sh: " + e.strerror)
 
 def getDirSize(directory):
     """ Get the size of a directory and all its subdirectories.

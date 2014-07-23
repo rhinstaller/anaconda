@@ -239,7 +239,7 @@ def getBaseInstallClass():
 
     # Default to the base installclass if nothing else is found.
     else:
-        raise RuntimeError, "Unable to find an install class to use!!!"
+        raise RuntimeError("Unable to find an install class to use!!!")
 
     return cobject
 

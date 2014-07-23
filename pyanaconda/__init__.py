@@ -201,7 +201,7 @@ class Anaconda(object):
 
     def initInterface(self, addon_paths=None):
         if self._intf:
-            raise RuntimeError, "Second attempt to initialize the InstallInterface"
+            raise RuntimeError("Second attempt to initialize the InstallInterface")
 
         if self.displayMode == 'g':
             from pyanaconda.ui.gui import GraphicalUserInterface
