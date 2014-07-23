@@ -115,7 +115,7 @@ class ThreadManager(object):
         for name in self._objs.keys():
             if self.get(name) == threading.current_thread():
                 continue
-            log.debug("Waiting for thread %s to exit" % name)
+            log.debug("Waiting for thread %s to exit", name)
             self.wait(name)
 
         if self.any_errors:
@@ -206,7 +206,7 @@ class AnacondaThread(threading.Thread):
         # http://bugs.python.org/issue1230540#msg25696
         import sys
 
-        log.info("Running Thread: %s (%s)" % (self.name, self.ident))
+        log.info("Running Thread: %s (%s)", self.name, self.ident)
         try:
             threading.Thread.run(self, *args, **kwargs)
         except:
@@ -215,7 +215,7 @@ class AnacondaThread(threading.Thread):
                 sys.excepthook(*sys.exc_info())
         finally:
             threadMgr.remove(self.name)
-            log.info("Thread Done: %s (%s)" % (self.name, self.ident))
+            log.info("Thread Done: %s (%s)", self.name, self.ident)
 
 def initThreading():
     """Set up threading for anaconda's use. This method must be called before

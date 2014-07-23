@@ -52,7 +52,7 @@ def shutdownServer():
         iutil.execWithCapture("killall", [XVNC_BINARY_NAME])
         log.info("The XVNC server has been shut down.")
     except OSError as e:
-        log.error("Shutdown of the XVNC server failed with exception:\n%s" % e)
+        log.error("Shutdown of the XVNC server failed with exception:\n%s", e)
 
 
 class VncServer:
@@ -113,8 +113,7 @@ class VncServer:
         try:
             hinfo = socket.gethostbyaddr(ipstr)
         except Exception as e:
-            log.debug("Exception caught trying to get host name of %s: %s" %
-                      (ipstr, e))
+            log.debug("Exception caught trying to get host name of %s: %s", ipstr, e)
             self.name = network.getHostname()
         else:
             if len(hinfo) == 3:
@@ -151,7 +150,7 @@ class VncServer:
         """Attempt to connect to self.vncconnecthost"""
 
         maxTries = 10
-        self.log.info(_("Attempting to connect to vnc client on host %s...") % (self.vncconnecthost,))
+        self.log.info(_("Attempting to connect to vnc client on host %s..."), self.vncconnecthost)
 
         if self.vncconnectport != "":
             hostarg = self.vncconnecthost + ":" + self.vncconnectport
@@ -199,7 +198,7 @@ class VncServer:
         try:
             self.initialize()
         except Exception, e:
-            stdoutLog.critical("Could not initialize the VNC server: %s" % e)
+            stdoutLog.critical("Could not initialize the VNC server: %s", e)
             sys.exit(1)
 
         if self.password and (len(self.password) < 6 or len(self.password) > 8):

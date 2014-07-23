@@ -168,7 +168,7 @@ class GUIObject(common.UIObject):
                                                 root_window.get_width(),
                                                 root_window.get_height())
             pixbuf.savev(fn, 'png', [], [])
-            log.info("screenshot nr. %d taken" % _screenshotIndex)
+            log.info("screenshot nr. %d taken", _screenshotIndex)
             _screenshotIndex += 1
             # start counting from the time the screenshot operation is done
             _last_screenshot_timestamp = time.time()

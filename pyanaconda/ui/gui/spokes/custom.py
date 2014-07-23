@@ -619,7 +619,7 @@ class ContainerDialog(GUIObject):
 
         # Set a default RAID level in the combo.
         for (i, row) in enumerate(raid_combo.get_model()):
-            log.debug("container dialog: raid level %s" % row[0])
+            log.debug("container dialog: raid level %s", row[0])
             if row[0].upper().startswith(raid_level.upper()):
                 raid_combo.set_active(i)
                 break
@@ -946,9 +946,9 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
 
         new_devices = list(set(new_devices))
 
-        log.debug("ui: devices=%s" % [d.name for d in self._devices])
-        log.debug("ui: unused=%s" % [d.name for d in self.unusedDevices])
-        log.debug("ui: new_devices=%s" % [d.name for d in new_devices])
+        log.debug("ui: devices=%s", [d.name for d in self._devices])
+        log.debug("ui: unused=%s", [d.name for d in self.unusedDevices])
+        log.debug("ui: new_devices=%s", [d.name for d in new_devices])
 
         ui_roots = self.__storage.roots[:]
 
@@ -1112,7 +1112,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
                     break
 
             if not replaced:
-                log.warning("failed to replace device: %s" % s._device)
+                log.warning("failed to replace device: %s", s._device)
 
     def _save_right_side(self, selector):
         """ Save settings from RHS and apply changes to the device.
@@ -1136,7 +1136,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         if device.type == "luks/dm-crypt":
             use_dev = device.slave
 
-        log.info("ui: saving changes to device %s" % device.name)
+        log.info("ui: saving changes to device %s", device.name)
 
         # TODO: member type (as a device type?)
 
@@ -1151,8 +1151,8 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
             # name entry insensitive means we don't control the name
             name = None
 
-        log.debug("old name: %s" % old_name)
-        log.debug("new name: %s" % name)
+        log.debug("old name: %s", old_name)
+        log.debug("new name: %s", name)
 
         # SIZE
         old_size = device.size
@@ -1161,19 +1161,19 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
             size = int(size.convertTo(spec="MB"))
         changed_size = ((use_dev.resizable or not use_dev.exists) and
                         size != int(old_size))
-        log.debug("old size: %s" % old_size)
-        log.debug("new size: %s" % size)
+        log.debug("old size: %s", old_size)
+        log.debug("new size: %s", size)
 
         # DEVICE TYPE
         device_type = self._get_current_device_type()
         old_device_type = devicefactory.get_device_type(device)
         changed_device_type = (old_device_type != device_type)
-        log.debug("old device type: %s" % old_device_type)
-        log.debug("new device type: %s" % device_type)
+        log.debug("old device type: %s", old_device_type)
+        log.debug("new device type: %s", device_type)
 
         # REFORMAT
         reformat = self._reformatCheckbox.get_active()
-        log.debug("reformat: %s" % reformat)
+        log.debug("reformat: %s", reformat)
 
         # FS TYPE
         old_fs_type = device.format.type
@@ -1182,22 +1182,22 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         new_fs = getFormat(fs_type)
         new_fs_type = new_fs.type
         changed_fs_type = (old_fs_type != new_fs_type)
-        log.debug("old fs type: %s" % old_fs_type)
-        log.debug("new fs type: %s" % new_fs_type)
+        log.debug("old fs type: %s", old_fs_type)
+        log.debug("new fs type: %s", new_fs_type)
 
         # ENCRYPTION
         old_encrypted = isinstance(device, LUKSDevice)
         encrypted = self._encryptCheckbox.get_active()
         changed_encryption = (old_encrypted != encrypted)
-        log.debug("old encryption setting: %s" % old_encrypted)
-        log.debug("new encryption setting: %s" % encrypted)
+        log.debug("old encryption setting: %s", old_encrypted)
+        log.debug("new encryption setting: %s", encrypted)
 
         # FS LABEL
         label = self._labelEntry.get_text()
         old_label = getattr(device.format, "label", "")
         changed_label = (label != old_label)
-        log.debug("old label: %s" % old_label)
-        log.debug("new_label: %s" % label)
+        log.debug("old label: %s", old_label)
+        log.debug("new_label: %s", label)
         if changed_label or changed_fs_type:
             error = validate_label(label, new_fs)
             if error:
@@ -1213,8 +1213,8 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
             mountpoint = self._mountPointEntry.get_text()
 
         old_mountpoint = getattr(device.format, "mountpoint", "") or ""
-        log.debug("old mountpoint: %s" % old_mountpoint)
-        log.debug("new mountpoint: %s" % (mountpoint or ""))
+        log.debug("old mountpoint: %s", old_mountpoint)
+        log.debug("new mountpoint: %s", (mountpoint or ""))
         if mountpoint is not None and (reformat or
                                        mountpoint != old_mountpoint):
             mountpoints = self.__storage.mountpoints.copy()
@@ -1242,8 +1242,8 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
                               device_type in (DEVICE_TYPE_MD,
                                               DEVICE_TYPE_BTRFS) and
                               old_raid_level != raid_level)
-        log.debug("old raid level: %s" % old_raid_level)
-        log.debug("new raid level: %s" % raid_level)
+        log.debug("old raid level: %s", old_raid_level)
+        log.debug("new raid level: %s", raid_level)
 
         ##
         ## VALIDATION
@@ -1318,25 +1318,25 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
             if old_container and container_name != old_container.name:
                 changed_container = True
 
-        log.debug("old container: %s" % old_container_name)
-        log.debug("new container: %s" % container_name)
+        log.debug("old container: %s", old_container_name)
+        log.debug("new container: %s", container_name)
 
         container_encrypted = self._device_container_encrypted
-        log.debug("old container encrypted: %s" % old_container_encrypted)
-        log.debug("new container encrypted: %s" % container_encrypted)
+        log.debug("old container encrypted: %s", old_container_encrypted)
+        log.debug("new container encrypted: %s", container_encrypted)
         changed_container_encrypted = (container_encrypted != old_container_encrypted)
 
         container_raid_level = self._device_container_raid_level
         if container_raid_level == "single" and device_type != DEVICE_TYPE_BTRFS:
             container_raid_level = None
 
-        log.debug("old container raid level: %s" % old_container_raid_level)
-        log.debug("new container raid level: %s" % container_raid_level)
+        log.debug("old container raid level: %s", old_container_raid_level)
+        log.debug("new container raid level: %s", container_raid_level)
         changed_container_raid_level = (old_container_raid_level != container_raid_level)
 
         container_size = self._device_container_size
-        log.debug("old container size request: %s" % old_container_size)
-        log.debug("new container size request: %s" % container_size)
+        log.debug("old container size request: %s", old_container_size)
+        log.debug("new container size request: %s", container_size)
         changed_container_size = (old_container_size != container_size)
 
         # DISK SET
@@ -1349,8 +1349,8 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
             log.debug("overriding disk set with container's")
             disks = container.disks[:]
         changed_disk_set = (set(old_disks) != set(disks))
-        log.debug("old disks: %s" % [d.name for d in old_disks])
-        log.debug("new disks: %s" % [d.name for d in disks])
+        log.debug("old disks: %s", [d.name for d in old_disks])
+        log.debug("new disks: %s", [d.name for d in disks])
 
         # XXX prevent multiple raid or encryption layers?
 
@@ -1398,7 +1398,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
                                          device=_device,
                                          selector=selector)
                 except StorageError as e:
-                    log.error("factoryDevice failed: %s" % e)
+                    log.error("factoryDevice failed: %s", e)
                     # the factory's error handling has replaced all of the
                     # devices with copies, so update the selectors' devices
                     # accordingly
@@ -1464,7 +1464,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
             else:
                 original_device = device
 
-            log.debug("resetting device %s" % original_device.name)
+            log.debug("resetting device %s", original_device.name)
 
             with ui_storage_logger():
                 self.__storage.resetDevice(original_device)
@@ -1498,7 +1498,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
                     try:
                         self.__storage.resizeDevice(device, size)
                     except StorageError as e:
-                        log.error("failed to schedule device resize: %s" % e)
+                        log.error("failed to schedule device resize: %s", e)
                         device.size = old_size
                         self._error = e
                         self.set_warning(_("Device resize request failed. "
@@ -1534,7 +1534,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
             old_device = None
             if changed_encryption:
                 if not encrypted:
-                    log.info("removing encryption from %s" % device.name)
+                    log.info("removing encryption from %s", device.name)
                     with ui_storage_logger():
                         self.__storage.destroyDevice(device)
                         self._devices.remove(device)
@@ -1543,7 +1543,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
                         selector._device = device
                         self._update_device_in_selectors(old_device, device)
                 elif encrypted:
-                    log.info("applying encryption to %s" % device.name)
+                    log.info("applying encryption to %s", device.name)
                     with ui_storage_logger():
                         old_device = device
                         new_fmt = getFormat("luks", device=device.path)
@@ -1561,8 +1561,8 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
             #
             # FORMATTING
             #
-            log.info("scheduling reformat of %s as %s" % (device.name,
-                                                          new_fs_type))
+            log.info("scheduling reformat of %s as %s", device.name,
+                                                        new_fs_type)
             with ui_storage_logger():
                 old_format = device.format
                 new_format = getFormat(fs_type,
@@ -1571,7 +1571,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
                 try:
                     self.__storage.formatDevice(device, new_format)
                 except StorageError as e:
-                    log.error("failed to register device format action: %s" % e)
+                    log.error("failed to register device format action: %s", e)
                     device.format = old_format
                     self._error = e
                     self.set_warning(_("Device reformat request failed. "
@@ -1588,7 +1588,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
 
                             page.removeSelector(_selector)
                             if not page.members:
-                                log.debug("removing empty page %s" % page.pageTitle)
+                                log.debug("removing empty page %s", page.pageTitle)
                                 self._accordion.removePage(page.pageTitle)
 
                     # either update the existing selector or add a new one
@@ -1602,13 +1602,13 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
             if old_label != label and hasattr(device.format, "label") and \
                validate_label(label, device.format) == LABEL_OK:
                 self.clear_errors()
-                log.debug("updating label on %s to %s" % (device.name, label))
+                log.debug("updating label on %s to %s", device.name, label)
                 device.format.label = label
 
             if mountpoint and old_mountpoint != mountpoint:
                 self.clear_errors()
-                log.debug("updating mountpoint of %s to %s" % (device.name,
-                                                               mountpoint))
+                log.debug("updating mountpoint of %s to %s", device.name,
+                                                             mountpoint)
                 device.format.mountpoint = mountpoint
                 if old_mountpoint:
                     selectorFromDevice(device, selector=selector)
@@ -1624,7 +1624,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
             self.clear_errors()
             use_dev._name = name
             new_name = use_dev.name
-            log.debug("changing name of %s to %s" % (old_name, new_name))
+            log.debug("changing name of %s to %s", old_name, new_name)
             if new_name in self.__storage.names:
                 use_dev._name = old_name
                 self.set_info(_("Specified name %s already in use.") % new_name)
@@ -1663,7 +1663,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
     def _populate_raid(self, raid_level):
         """ Set up the raid-specific portion of the device details. """
         device_type = self._get_current_device_type()
-        log.debug("populate_raid: %s, %s" % (device_type, raid_level))
+        log.debug("populate_raid: %s, %s", device_type, raid_level)
 
         if device_type == DEVICE_TYPE_MD:
             base_level = "raid1"
@@ -1684,7 +1684,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
 
     def _get_current_device_type(self):
         device_type_text = self._typeCombo.get_active_text()
-        log.info("getting device type for %s" % device_type_text)
+        log.info("getting device type for %s", device_type_text)
         device_type = None
         if device_type_text == _(DEVICE_TEXT_LVM):
             device_type = DEVICE_TYPE_LVM
@@ -1699,12 +1699,12 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         elif device_type_text == _(DEVICE_TEXT_LVM_THINP):
             device_type = DEVICE_TYPE_LVM_THINP
         else:
-            log.error("unknown device type: '%s'" % device_type_text)
+            log.error("unknown device type: '%s'", device_type_text)
 
         return device_type
 
     def _populate_right_side(self, selector):
-        log.debug("populate_right_side: %s" % selector._device)
+        log.debug("populate_right_side: %s", selector._device)
         selectedDeviceLabel = self.builder.get_object("selectedDeviceLabel")
         selectedDeviceDescLabel = self.builder.get_object("selectedDeviceDescLabel")
 
@@ -1719,7 +1719,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         else:
             self._device_disks = device.disks[:]
 
-        log.debug("updated device_disks to %s" % [d.name for d in self._device_disks])
+        log.debug("updated device_disks to %s", [d.name for d in self._device_disks])
 
         if hasattr(use_dev, "vg"):
             self._device_container_name = use_dev.vg.name
@@ -1738,10 +1738,10 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
             self._device_container_encrypted = False
             self._device_container_size = SIZE_POLICY_AUTO
 
-        log.debug("updated device_container_name to %s" % self._device_container_name)
-        log.debug("updated device_container_raid_level to %s" % self._device_container_raid_level)
-        log.debug("updated device_container_encrypted to %s" % self._device_container_encrypted)
-        log.debug("updated device_container_size to %s" % self._device_container_size)
+        log.debug("updated device_container_name to %s", self._device_container_name)
+        log.debug("updated device_container_raid_level to %s", self._device_container_raid_level)
+        log.debug("updated device_container_encrypted to %s", self._device_container_encrypted)
+        log.debug("updated device_container_size to %s", self._device_container_size)
 
         selectedDeviceLabel.set_text(selector.props.name)
         selectedDeviceDescLabel.set_text(self._description(selector.props.name))
@@ -1971,7 +1971,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         try:
             self.storage.setUpBootLoader()
         except BootLoaderError as e:
-            log.error("storage configuration failed: %s" % e)
+            log.error("storage configuration failed: %s", e)
             StorageChecker.errors = str(e).split("\n")
             self.data.bootloader.bootDrive = ""
 
@@ -2055,8 +2055,8 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         # create a device of the default type, using any disks, with an
         # appropriate fstype and mountpoint
         mountpoint = dialog.mountpoint
-        log.debug("requested size = %s  ; available space = %s"
-                    % (dialog.size, self._free_space))
+        log.debug("requested size = %s  ; available space = %s",
+                  dialog.size, self._free_space)
 
         # if no size was entered, request as much of the free space as possible
         if dialog.size is not None and dialog.size.convertTo(spec="mb") < 1:
@@ -2129,10 +2129,10 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
                                          disks=disks,
                                          **kwargs)
             except StorageError as e:
-                log.error("factoryDevice failed: %s" % e)
+                log.error("factoryDevice failed: %s", e)
                 log.debug("trying to find an existing container to use")
                 container = factory.get_container(allow_existing=True)
-                log.debug("found container %s" % container)
+                log.debug("found container %s", container)
                 if container:
                     # don't override user-initiated changes to a defined container
                     disks = container.disks
@@ -2150,7 +2150,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
                                                  container_name=container.name,
                                                  **kwargs)
                     except StorageError as e2:
-                        log.error("factoryDevice failed w/ old container: %s" % e2)
+                        log.error("factoryDevice failed w/ old container: %s", e2)
                     else:
                         type_str = device_text_map[device_type]
                         self.set_info(_("Added new %s to existing "
@@ -2194,7 +2194,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
                 else:
                     self.__storage.destroyDevice(device)
             except StorageError as e:
-                log.error("failed to schedule device removal: %s" % e)
+                log.error("failed to schedule device removal: %s", e)
                 self._error = e
                 self.set_warning(_("Device removal request failed. Click "
                                    "for details."))
@@ -2255,7 +2255,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         if not page:
             page = self._current_page
 
-        log.debug("show mountpoint: %s" % page.pageTitle)
+        log.debug("show mountpoint: %s", page.pageTitle)
         if not page.members:
             self._clear_current_selector()
             return
@@ -2283,7 +2283,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         elif page:
             root_name = page.pageTitle
 
-        log.debug("removing device '%s' from page %s" % (device, root_name))
+        log.debug("removing device '%s' from page %s", device, root_name)
 
         if root_name == self.translated_new_install_name:
             if device.exists:
@@ -2293,7 +2293,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
                 with ui_storage_logger():
                     self.__storage.resetDevice(device)
 
-                log.debug("updated device: %s" % device)
+                log.debug("updated device: %s", device)
             else:
                 # Destroying a non-existing device doesn't require any
                 # confirmation.
@@ -2320,7 +2320,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
             else:
                 self._destroy_device(device)
 
-        log.info("ui: removed device %s" % device.name)
+        log.info("ui: removed device %s", device.name)
 
         # Now that devices have been removed from the installation root,
         # refreshing the display will have the effect of making them disappear.
@@ -2367,8 +2367,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
             return
 
         disks = dialog.selected
-        log.debug("new disks for %s: %s" % (device.name,
-                                            [d.name for d in disks]))
+        log.debug("new disks for %s: %s", device.name, [d.name for d in disks])
         if not disks:
             self._error = "No disks selected. Keeping previous disk set."
             self.set_info(self._error)
@@ -2417,14 +2416,14 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
 
         disks = dialog.selected
         name = dialog.name
-        log.debug("new disks for %s: %s" % (name, [d.name for d in disks]))
+        log.debug("new disks for %s: %s", name, [d.name for d in disks])
         if not disks:
             self._error = "No disks selected. Not saving changes."
             self.set_info(self._error)
             self.window.show_all()
             return
 
-        log.debug("new container name: %s" % name)
+        log.debug("new container name: %s", name)
         if name != container_name and name in self.__storage.names:
             self._error = _("Volume Group name %s is already in use. Not "
                             "saving changes.") % name
@@ -2439,9 +2438,9 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
             dialog.size_policy != self._device_container_size):
             self._applyButton.set_sensitive(True)
 
-        log.debug("new container raid level: %s" % dialog.raid_level)
-        log.debug("new container encrypted: %s" % dialog.encrypted)
-        log.debug("new container size: %s" % dialog.size_policy)
+        log.debug("new container raid level: %s", dialog.raid_level)
+        log.debug("new container encrypted: %s", dialog.encrypted)
+        log.debug("new container size: %s", dialog.size_policy)
 
         self._device_disks = disks
         self._device_container_name = name
@@ -2463,11 +2462,11 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         # vg that hasn't been instantiated yet
         self.run_container_editor(container=container, name=container_name)
 
-        log.debug("%s -> %s" % (container_name, self._device_container_name))
+        log.debug("%s -> %s", container_name, self._device_container_name)
         if container_name == self._device_container_name:
             return
 
-        log.debug("renaming container %s to %s" % (container_name, self._device_container_name))
+        log.debug("renaming container %s to %s", container_name, self._device_container_name)
         if container:
             # btrfs volume name/label does not go in the name list
             if container.name in self.__storage.devicetree.names:
@@ -2550,9 +2549,9 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         self._modifyContainerButton.set_sensitive(not container_exists)
 
     def _save_current_selector(self):
-        log.debug("current selector: %s" % self._current_selector._device)
+        log.debug("current selector: %s", self._current_selector._device)
         nb_page = self._partitionsNotebook.get_current_page()
-        log.debug("notebook page = %s" % nb_page)
+        log.debug("notebook page = %s", nb_page)
         if nb_page == NOTEBOOK_DETAILS_PAGE:
             self._save_right_side(self._current_selector)
             self._back_already_clicked = False
@@ -2568,7 +2567,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
             # unselect the previously chosen selector
             self._current_selector.set_chosen(False)
             self._save_current_selector()
-            log.debug("new selector: %s" % selector._device)
+            log.debug("new selector: %s", selector._device)
 
         no_edit = False
         if selector._device.format.type == "luks" and \
@@ -2632,7 +2631,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         if not self._initialized:
             return
 
-        log.debug("page clicked: %s" % page.pageTitle)
+        log.debug("page clicked: %s", page.pageTitle)
         if self._current_selector:
             self._save_current_selector()
 
@@ -2666,18 +2665,18 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
                 doAutoPartition(self.__storage, self.data)
             except NoDisksError as e:
                 # No handling should be required for this.
-                log.error("doAutoPartition failed: %s" % e)
+                log.error("doAutoPartition failed: %s", e)
                 self._error = e
                 self.set_error(_("No disks selected."))
                 self.window.show_all()
             except NotEnoughFreeSpaceError as e:
                 # No handling should be required for this.
-                log.error("doAutoPartition failed: %s" % e)
+                log.error("doAutoPartition failed: %s", e)
                 self._error = e
                 self.set_error(_("Not enough free space on selected disks."))
                 self.window.show_all()
             except (StorageError, BootLoaderError) as e:
-                log.error("doAutoPartition failed: %s" % e)
+                log.error("doAutoPartition failed: %s", e)
                 self._reset_storage()
                 self._error = e
                 self.set_error(_("Automatic partitioning failed. Click "
@@ -2755,7 +2754,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         new_type = combo.get_active_text()
         if new_type is None:
             return
-        log.debug("fs type changed: %s" % new_type)
+        log.debug("fs type changed: %s", new_type)
         fmt = getFormat(new_type)
         fancy_set_sensitive(self._mountPointEntry, fmt.mountable)
 
@@ -2807,7 +2806,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
                 hostname = self.data.network.hostname
                 default_container = self.__storage.suggestContainerName(hostname=hostname)
 
-            log.debug("default container is %s" % default_container)
+            log.debug("default container is %s", default_container)
             self._device_container_name = default_container
             self._device_container_size = container_size_policy
 
@@ -2836,8 +2835,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
             return
 
         new_type = self._get_current_device_type()
-        log.debug("device_type_changed: %s %s" % (new_type,
-                                                  combo.get_active_text()))
+        log.debug("device_type_changed: %s %s", new_type, combo.get_active_text())
         if new_type is None:
             return
 
@@ -2945,7 +2943,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         NormalSpoke.on_back_clicked(self, None)
 
     def on_info_bar_clicked(self, *args):
-        log.debug("info bar clicked: %s (%s)" % (self._error, args))
+        log.debug("info bar clicked: %s (%s)", self._error, args)
         if not self._error:
             return
 
@@ -2969,7 +2967,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         """ try to open the luks device, populate, then call _do_refresh. """
         self.clear_errors()
         device = self._current_selector._device
-        log.info("trying to unlock %s..." % device.name)
+        log.info("trying to unlock %s...", device.name)
         entry = self.builder.get_object("passphraseEntry")
         passphrase = entry.get_text()
         device.format.passphrase = passphrase
@@ -2977,7 +2975,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
             device.setup()
             device.format.setup()
         except StorageError as e:
-            log.error("failed to unlock %s: %s" % (device.name, e))
+            log.error("failed to unlock %s: %s", device.name, e)
             device.teardown(recursive=True)
             self._error = e
             device.format.passphrase = None
@@ -2987,7 +2985,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
             self.window.show_all()
             return
 
-        log.info("unlocked %s, now going to populate devicetree..." % device.name)
+        log.info("unlocked %s, now going to populate devicetree...", device.name)
         with ui_storage_logger():
             luks_dev = LUKSDevice(device.format.mapName,
                                   parents=[device],

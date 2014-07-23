@@ -134,7 +134,7 @@ def getIPs():
             ipv6_addresses += nm.nm_device_ip_addresses(devname, version=6)
         except Exception as e:
             log.warning("Got an exception trying to get the ip addr "
-                        "of %s: %s" % (devname, e))
+                        "of %s: %s", devname, e)
     # prefer IPv4 addresses to IPv6 addresses
     return ipv4_addresses + ipv6_addresses
 
@@ -153,7 +153,7 @@ def get_default_device_ip():
             ip = nm.nm_device_ip_addresses(devname, version=4)[0]
         except Exception as e:
             log.warning("Got an exception trying to get the ip addr "
-                        "of %s: %s" % (devname, e))
+                        "of %s: %s", devname, e)
     return ip
 
 def netmask2prefix(netmask):
@@ -193,8 +193,8 @@ def getHostname():
             try:
                 hinfo = socket.gethostbyaddr(ipaddr)
             except Exception as e:
-                log.debug("Exception caught trying to get host name of %s: %s" %
-                          (ipaddr, e))
+                log.debug("Exception caught trying to get host name of %s: %s",
+                          ipaddr, e)
             else:
                 if len(hinfo) == 3:
                     hn = hinfo[0]
@@ -216,7 +216,7 @@ def logIfcfgFile(path, message=""):
         f.close()
     else:
         content = "file not found"
-    ifcfglog.debug("%s%s:\n%s" % (message, path, content))
+    ifcfglog.debug("%s%s:\n%s", message, path, content)
 
 def _ifcfg_files(directory):
     rv = []
@@ -228,13 +228,13 @@ def _ifcfg_files(directory):
     return rv
 
 def logIfcfgFiles(message=""):
-    ifcfglog.debug("content of files (%s):" % message)
+    ifcfglog.debug("content of files (%s):", message)
     for path in _ifcfg_files(netscriptsDir):
-        ifcfglog.debug("%s:" % path)
+        ifcfglog.debug("%s:", path)
         with open(path, "r") as f:
             for line in f:
-                ifcfglog.debug("  %s" % line.strip())
-    ifcfglog.debug("all settings: %s" % nm.nm_get_all_settings())
+                ifcfglog.debug("  %s", line.strip())
+    ifcfglog.debug("all settings: %s", nm.nm_get_all_settings())
 
 class IfcfgFile(SimpleConfigFile):
     def __init__(self, filename):
@@ -243,7 +243,7 @@ class IfcfgFile(SimpleConfigFile):
 
     def read(self):
         self.reset()
-        ifcfglog.debug("IfcfFile.read %s" % self.filename)
+        ifcfglog.debug("IfcfFile.read %s", self.filename)
         SimpleConfigFile.read(self)
         self._dirty = False
 
@@ -251,7 +251,7 @@ class IfcfgFile(SimpleConfigFile):
         if self._dirty or filename:
             # ifcfg-rh is using inotify IN_CLOSE_WRITE event so we don't use
             # temporary file for new configuration
-            ifcfglog.debug("IfcfgFile.write %s:\n%s" % (self.filename, self.__str__()))
+            ifcfglog.debug("IfcfgFile.write %s:\n%s", self.filename, self.__str__())
             SimpleConfigFile.write(self, filename, use_tmp=False)
             self._dirty = False
 
@@ -261,7 +261,7 @@ class IfcfgFile(SimpleConfigFile):
                 break
         else:
             return
-        ifcfglog.debug("IfcfgFile.set %s: %s" % (self.filename, args))
+        ifcfglog.debug("IfcfgFile.set %s: %s", self.filename, args)
         SimpleConfigFile.set(self, *args)
         self._dirty = True
 
@@ -272,7 +272,7 @@ class IfcfgFile(SimpleConfigFile):
                 break
         else:
             return
-        ifcfglog.debug("IfcfgFile.unset %s: %s" % (self.filename, args))
+        ifcfglog.debug("IfcfgFile.unset %s: %s", self.filename, args)
         SimpleConfigFile.unset(self, *args)
 
 
@@ -311,12 +311,12 @@ def dracutSetupArgs(networkStorageDevice):
         nic = networkStorageDevice.nic
 
     if nic not in nm.nm_devices():
-        log.error('Unknown network interface: %s' % nic)
+        log.error('Unknown network interface: %s', nic)
         return ""
 
     ifcfg_path = find_ifcfg_file_of_device(nic)
     if not ifcfg_path:
-        log.error("dracutSetupArgs: can't find ifcfg file for %s" % nic)
+        log.error("dracutSetupArgs: can't find ifcfg file for %s", nic)
         return ""
     ifcfg = IfcfgFile(ifcfg_path)
     ifcfg.read()
@@ -801,7 +801,7 @@ def get_bond_slaves_from_ifcfgs(master_specs):
                     try:
                         h = nm.nm_device_property(devname, "PermHwAddress")
                     except nm.PropertyNotFoundError:
-                        log.debug("can't get PermHwAddress of devname %s" % devname)
+                        log.debug("can't get PermHwAddress of devname %s", devname)
                         continue
                     if h.upper() == hwaddr.upper():
                         slaves.append(devname)
@@ -837,21 +837,21 @@ def get_team_slaves(master_specs):
                 slaves.append((devname, cfg))
             else:
                 uuid = settings["connection"].get("uuid")
-                log.debug("network: can't get team slave device name of %s" % uuid)
+                log.debug("network: can't get team slave device name of %s", uuid)
 
     return slaves
 
 def ifaceForHostIP(host):
     route = iutil.execWithCapture("ip", [ "route", "get", "to", host ])
     if not route:
-        log.error("Could not get interface for route to %s" % host)
+        log.error("Could not get interface for route to %s", host)
         return ""
 
     routeInfo = route.split()
     if routeInfo[0] != host or len(routeInfo) < 5 or \
        "dev" not in routeInfo or routeInfo.index("dev") > 3:
-        log.error('Unexpected "ip route get to %s" reply: %s' %
-                  (host, routeInfo))
+        log.error('Unexpected "ip route get to %s" reply: %s',
+                  host, routeInfo)
         return ""
 
     return routeInfo[routeInfo.index("dev") + 1]
@@ -917,7 +917,7 @@ def ks_spec_to_device_name(ksspec=""):
             try:
                 link_up = nm.nm_device_carrier(dev)
             except ValueError as e:
-                log.debug("ks_spec_to_device_name: %s" % e)
+                log.debug("ks_spec_to_device_name: %s", e)
                 continue
             if link_up:
                 ksdevice = dev
@@ -927,7 +927,7 @@ def ks_spec_to_device_name(ksspec=""):
             try:
                 hwaddr = nm.nm_device_perm_hwaddress(dev)
             except ValueError as e:
-                log.debug("ks_spec_to_device_name: %s" % e)
+                log.debug("ks_spec_to_device_name: %s", e)
                 continue
             if ksdevice.lower() == hwaddr.lower():
                 ksdevice = dev
@@ -937,7 +937,7 @@ def ks_spec_to_device_name(ksspec=""):
             try:
                 hwaddr = nm.nm_device_perm_hwaddress(dev)
             except ValueError as e:
-                log.debug("ks_spec_to_device_name: %s" % e)
+                log.debug("ks_spec_to_device_name: %s", e)
                 continue
             if bootif_mac.lower() == hwaddr.lower():
                 ksdevice = dev
@@ -950,7 +950,7 @@ def set_hostname(hn):
         log.info("image install -- not setting hostname")
         return
 
-    log.info("setting installation environment hostname to %s" % hn)
+    log.info("setting installation environment hostname to %s", hn)
     iutil.execWithRedirect("hostname", [hn])
 
 def write_hostname(rootpath, ksdata, overwrite=False):
@@ -981,7 +981,7 @@ def disableNMForStorageDevices(rootpath, storage):
             usedByRootOnISCSI(devname, storage)):
             ifcfg_path = find_ifcfg_file_of_device(devname, root_path=rootpath)
             if not ifcfg_path:
-                log.warning("disableNMForStorageDevices: ifcfg file for %s not found" %
+                log.warning("disableNMForStorageDevices: ifcfg file for %s not found",
                             devname)
                 continue
             ifcfg = IfcfgFile(ifcfg_path)
@@ -989,7 +989,7 @@ def disableNMForStorageDevices(rootpath, storage):
             ifcfg.set(('NM_CONTROLLED', 'no'))
             ifcfg.write()
             log.info("network device %s used by storage will not be "
-                     "controlled by NM" % devname)
+                     "controlled by NM", devname)
 
 # sets ONBOOT=yes (and its mirror value in ksdata) for devices used by FCoE
 def autostartFCoEDevices(rootpath, storage, ksdata):
@@ -997,14 +997,14 @@ def autostartFCoEDevices(rootpath, storage, ksdata):
         if usedByFCoE(devname, storage):
             ifcfg_path = find_ifcfg_file_of_device(devname, root_path=rootpath)
             if not ifcfg_path:
-                log.warning("autoconnectFCoEDevices: ifcfg file for %s not found" % devname)
+                log.warning("autoconnectFCoEDevices: ifcfg file for %s not found", devname)
                 continue
 
             ifcfg = IfcfgFile(ifcfg_path)
             ifcfg.read()
             ifcfg.set(('ONBOOT', 'yes'))
             ifcfg.write()
-            log.debug("setting ONBOOT=yes for network device %s used by fcoe" % devname)
+            log.debug("setting ONBOOT=yes for network device %s used by fcoe", devname)
             for nd in ksdata.network.network:
                 if nd.device == devname:
                     nd.onboot = True
@@ -1059,7 +1059,7 @@ def write_network_config(storage, ksdata, instClass, rootpath):
 def wait_for_network_devices(devices, timeout=NETWORK_CONNECTION_TIMEOUT):
     devices = set(devices)
     i = 0
-    log.debug("waiting for connection of devices %s for iscsi" % devices)
+    log.debug("waiting for connection of devices %s for iscsi", devices)
     while  i < timeout:
         if not devices - set(nm.nm_activated_devices()):
             return True
@@ -1084,14 +1084,14 @@ def wait_for_connecting_NM():
         i += 1
         time.sleep(1)
         if nm.nm_is_connected():
-            log.debug("connected, waited %d seconds" % i)
+            log.debug("connected, waited %d seconds", i)
             return True
 
-    log.debug("not connected, waited %d of %d secs" % (i, NETWORK_CONNECTION_TIMEOUT))
+    log.debug("not connected, waited %d of %d secs", i, NETWORK_CONNECTION_TIMEOUT)
     return False
 
 def update_hostname_data(ksdata, hostname):
-    log.debug("updating hostname %s" % hostname)
+    log.debug("updating hostname %s", hostname)
     hostname_found = False
     for nd in ksdata.network.network:
         if nd.hostname:
@@ -1122,14 +1122,14 @@ def setOnboot(ksdata):
 
         devname = get_device_name(network_data)
         if not devname:
-            log.warning("network: set ONBOOT: --device %s does not exist" % network_data.device)
+            log.warning("network: set ONBOOT: --device %s does not exist", network_data.device)
             continue
 
         updated_devices.append(devname)
         try:
             nm.nm_update_settings_of_device(devname, [['connection', 'autoconnect', network_data.onboot, None]])
         except (nm.SettingsNotFoundError, nm.UnknownDeviceError) as e:
-            log.debug("setOnboot: %s" % e)
+            log.debug("setOnboot: %s", e)
     return updated_devices
 
 def apply_kickstart(ksdata):
@@ -1143,7 +1143,7 @@ def apply_kickstart(ksdata):
 
         dev_name = get_device_name(network_data)
         if not dev_name:
-            log.warning("network: apply kickstart: --device %s does not exist" % network_data.device)
+            log.warning("network: apply kickstart: --device %s does not exist", network_data.device)
             continue
 
         ifcfg_path = find_ifcfg_file_of_device(dev_name)
@@ -1160,12 +1160,12 @@ def apply_kickstart(ksdata):
                         if con_uuid != nm.nm_device_active_con_uuid(dev_name):
                             # apply it overriding configuration generated by NM
                             # taking over connection activated in initramfs
-                            log.debug("network: kickstart - reactivating device %s with %s" % (dev_name, con_uuid))
+                            log.debug("network: kickstart - reactivating device %s with %s", dev_name, con_uuid)
                             try:
                                 nm.nm_activate_device_connection(dev_name, con_uuid)
                             except nm.UnknownConnectionError:
-                                log.warning("network: pre kickstart: can't activate connection %s on %s" %
-                                            (con_uuid, dev_name))
+                                log.warning("network: pre kickstart: can't activate connection %s on %s",
+                                            con_uuid, dev_name)
                     continue
 
         # If we don't have kickstart ifcfg from initramfs the command was added
@@ -1173,11 +1173,11 @@ def apply_kickstart(ksdata):
         applied_devices.append(dev_name)
         if ifcfg_path:
             # if the device was already configured in initramfs update the settings
-            log.debug("network: pre kickstart - updating settings of device %s" % dev_name)
+            log.debug("network: pre kickstart - updating settings of device %s", dev_name)
             con_uuid = update_settings_with_ksdata(dev_name, network_data)
             added_connections = [(con_uuid, dev_name)]
         else:
-            log.debug("network: pre kickstart - adding connection for %s" % dev_name)
+            log.debug("network: pre kickstart - adding connection for %s", dev_name)
             # Virtual devices (eg vlan, bond) return dev_name == None
             added_connections = add_connection_for_ksdata(network_data, dev_name)
 
@@ -1186,25 +1186,25 @@ def apply_kickstart(ksdata):
                 try:
                     nm.nm_activate_device_connection(dev_name, con_uuid)
                 except nm.UnknownConnectionError:
-                    log.warning("network: pre kickstart: can't activate connection %s on %s" %
-                               (con_uuid, dev_name))
+                    log.warning("network: pre kickstart: can't activate connection %s on %s",
+                                con_uuid, dev_name)
     return applied_devices
 
 def networkInitialize(ksdata):
 
-    log.debug("network: devices found %s" % nm.nm_devices())
+    log.debug("network: devices found %s", nm.nm_devices())
     logIfcfgFiles("network initialization")
 
     if not flags.imageInstall:
         devnames = apply_kickstart(ksdata)
         if devnames:
             msg = "kickstart pre section applied for devices %s" % devnames
-            log.debug("network: %s" % msg)
+            log.debug("network: %s", msg)
             logIfcfgFiles(msg)
         devnames = dumpMissingDefaultIfcfgs()
         if devnames:
             msg = "missing ifcfgs created for devices %s" % devnames
-            log.debug("network: %s" % msg)
+            log.debug("network: %s", msg)
             logIfcfgFiles(msg)
 
     # For kickstart network --activate option we set ONBOOT=yes
@@ -1213,7 +1213,7 @@ def networkInitialize(ksdata):
     devnames = setOnboot(ksdata)
     if devnames:
         msg = "setting real kickstart ONBOOT value for devices %s" % devnames
-        log.debug("network: %s" % msg)
+        log.debug("network: %s", msg)
         logIfcfgFiles(msg)
 
     if ksdata.network.hostname is None:
@@ -1224,15 +1224,15 @@ def _get_ntp_servers_from_dhcp(ksdata):
     """Check if some NTP servers were returned from DHCP and set them
     to ksdata (if not NTP servers were specified in the kickstart)"""
     ntp_servers = nm.nm_ntp_servers_from_dhcp()
-    log.info("got %d NTP servers from DHCP" % len(ntp_servers))
+    log.info("got %d NTP servers from DHCP", len(ntp_servers))
     hostnames = []
     for server_address in ntp_servers:
         try:
             hostname = socket.gethostbyaddr(server_address)[0]
         except socket.error:
             # getting hostname failed, just use the address returned from DHCP
-            log.debug("getting NTP server hostname failed for address: %s"
-                      % server_address)
+            log.debug("getting NTP server hostname failed for address: %s",
+                      server_address)
             hostname = server_address
         hostnames.append(hostname)
     # check if some NTP servers were specified from kickstart

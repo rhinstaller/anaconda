@@ -290,7 +290,7 @@ class NTPconfigDialog(GUIObject):
 
         (valid, error) = network.sanityCheckHostname(server)
         if not valid:
-            log.error("'%s' is not a valid hostname: %s" % (server, error))
+            log.error("'%s' is not a valid hostname: %s", server, error)
             return
 
         for row in self._serversStore:
@@ -326,7 +326,7 @@ class NTPconfigDialog(GUIObject):
 
         (valid, error) = network.sanityCheckHostname(new_text)
         if not valid:
-            log.error("'%s' is not a valid hostname: %s" % (new_text, error))
+            log.error("'%s' is not a valid hostname: %s", new_text, error)
             return
 
         itr = self._serversStore.get_iter(path)
@@ -440,7 +440,7 @@ class DatetimeSpoke(FirstbootSpokeMixIn, NormalSpoke):
             self._set_timezone(self.data.timezone.timezone)
         elif not flags.flags.automatedInstall:
             log.warning("%s is not a valid timezone, falling back to default "\
-                        "(%s)" % (self.data.timezone.timezone, DEFAULT_TZ))
+                        "(%s)", self.data.timezone.timezone, DEFAULT_TZ)
             self._set_timezone(DEFAULT_TZ)
             self.data.timezone.timezone = DEFAULT_TZ
 

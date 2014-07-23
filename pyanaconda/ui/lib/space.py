@@ -73,7 +73,7 @@ class FileSystemSpaceChecker(object):
         self.reset()
         free = Size(spec="%.2f MB" % self.storage.fileSystemFreeSpace)
         needed = self.payload.spaceRequired
-        log.info("fs space: %s  needed: %s" % (free, needed))
+        log.info("fs space: %s  needed: %s", free, needed)
         self.success = (free >= needed)
         if not self.success:
             self.deficit = needed - free

@@ -91,7 +91,7 @@ class RPMOSTreePayload(ArchivePayload):
         cancellable = None
         from gi.repository import OSTree
         ostreesetup = self.data.ostreesetup
-        log.info("executing ostreesetup=%r" % ostreesetup)
+        log.info("executing ostreesetup=%r", ostreesetup)
 
         # Initialize the filesystem - this will create the repo as well
         self._safeExecWithRedirect("ostree",
@@ -219,7 +219,7 @@ class RPMOSTreePayload(ArchivePayload):
             assert os.path.isdir(physboot_loader)
             orig_extlinux_conf = physboot_extlinux + '/extlinux.conf'
             target_syslinux_cfg = physboot_loader + '/syslinux.cfg'
-            log.info("Moving %s -> %s" % (orig_extlinux_conf, target_syslinux_cfg))
+            log.info("Moving %s -> %s", orig_extlinux_conf, target_syslinux_cfg)
             os.rename(orig_extlinux_conf, target_syslinux_cfg)
             # A compatibility bit for OSTree
             os.mkdir(physboot_syslinux)

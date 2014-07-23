@@ -50,18 +50,16 @@ def createLuserConf(instPath, algoname='sha512'):
     try:
         fn = os.environ["LIBUSER_CONF"]
         if os.access(fn, os.F_OK):
-            log.info("removing libuser.conf at %s" % (os.getenv("LIBUSER_CONF")))
+            log.info("removing libuser.conf at %s", os.getenv("LIBUSER_CONF"))
             os.unlink(fn)
-        log.info("created new libuser.conf at %s with instPath=\"%s\"" % \
-                (fn,instPath))
+        log.info("created new libuser.conf at %s with instPath=\"%s\"", fn, instPath)
         fd = open(fn, 'w')
     except (OSError, IOError, KeyError):
         createTmp = True
 
     if createTmp:
         (fp, fn) = tempfile.mkstemp(prefix="libuser.")
-        log.info("created new libuser.conf at %s with instPath=\"%s\"" % \
-                (fn,instPath))
+        log.info("created new libuser.conf at %s with instPath=\"%s\"", fn, instPath)
         fd = os.fdopen(fp, 'w')
 
     buf = """
@@ -220,13 +218,13 @@ class Users:
                 self.admin.addGroup(groupEnt)
                 os._exit(0)
             except Exception as e:
-                log.critical("Error when creating new group: %s" % str(e))
+                log.critical("Error when creating new group: %s", str(e))
                 os._exit(1)
 
         try:
             (pid, status) = os.waitpid(childpid, 0)
         except OSError as e:
-            log.critical("exception from waitpid while creating a group: %s %s" % (e.errno, e.strerror))
+            log.critical("exception from waitpid while creating a group: %s %s", e.errno, e.strerror)
             return False
 
         if os.WIFEXITED(status) and (os.WEXITSTATUS(status) == 0):
@@ -318,7 +316,7 @@ class Users:
                     orig_gid = stats.st_gid
 
                     log.info("Home directory for the user %s already existed, "
-                             "fixing the owner." % user_name)
+                             "fixing the owner.", user_name)
                     # home directory already existed, change owner of it properly
                     iutil.chown_dir_tree(userEnt.get(libuser.HOMEDIRECTORY)[0],
                                          userEnt.get(libuser.UIDNUMBER)[0],
@@ -335,11 +333,11 @@ class Users:
                 elif pw == "":
                     # Setup the account with *NO* password
                     self.admin.unlockUser(userEnt)
-                    log.info("user account %s setup with no password" % user_name)
+                    log.info("user account %s setup with no password", user_name)
 
                 if kwargs.get("lock", False):
                     self.admin.lockUser(userEnt)
-                    log.info("user account %s locked" % user_name)
+                    log.info("user account %s locked", user_name)
 
 
                 # Add the user to all the groups they should be part of.
@@ -350,13 +348,13 @@ class Users:
 
                 os._exit(0)
             except Exception as e:
-                log.critical("Error when creating new user: %s" % str(e))
+                log.critical("Error when creating new user: %s", str(e))
                 os._exit(1)
 
         try:
             (pid, status) = os.waitpid(childpid, 0)
         except OSError as e:
-            log.critical("exception from waitpid while creating a user: %s %s" % (e.errno, e.strerror))
+            log.critical("exception from waitpid while creating a user: %s %s", e.errno, e.strerror)
             return False
 
         if os.WIFEXITED(status) and (os.WEXITSTATUS(status) == 0):
@@ -379,13 +377,13 @@ class Users:
                 if self.admin.lookupUserByName(username):
                     os._exit(0)
             except Exception as e:
-                log.critical("Error when searching for user: %s" % str(e))
+                log.critical("Error when searching for user: %s", str(e))
             os._exit(1)
 
         try:
             (pid, status) = os.waitpid(childpid, 0)
         except OSError as e:
-            log.critical("exception from waitpid while creating a user: %s %s" % (e.errno, e.strerror))
+            log.critical("exception from waitpid while creating a user: %s %s", e.errno, e.strerror)
             return False
 
         if os.WIFEXITED(status) and (os.WEXITSTATUS(status) == 0):

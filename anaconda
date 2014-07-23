@@ -109,7 +109,7 @@ def startMetacityWM():
             iutil.execWithRedirect('metacity', args)
         except BaseException as e:
             # catch all possible exceptions
-            log.error("Problems running the window manager: %s" % str(e))
+            log.error("Problems running the window manager: %s", str(e))
             os._exit(1)
 
         log.info("The window manager has terminated.")
@@ -123,7 +123,7 @@ def startAuditDaemon():
         try:
             os.execl(cmd, cmd)
         except OSError as e:
-            log.error("Error running the audit daemon: %s" % str(e))
+            log.error("Error running the audit daemon: %s", str(e))
         os._exit(0)
     # auditd will turn into a daemon so catch the immediate child pid now:
     os.waitpid(childpid, 0)
@@ -136,7 +136,7 @@ def doStartupX11Actions():
 
     # now start up the window manager
     wm_pid = startMetacityWM()
-    log.info("Starting window manager, pid %s." % (wm_pid,))
+    log.info("Starting window manager, pid %s.", wm_pid)
 
 def set_x_resolution(runres):
     # cant do this if no window manager is running because otherwise when we
@@ -396,8 +396,8 @@ def check_memory(anaconda, opts, display_mode=None):
     needed_ram = int(isys.MIN_RAM / 1024)
     graphical_ram = needed_ram + int(isys.GUI_INSTALL_EXTRA_RAM / 1024)
 
-    log.info("check_memory(): total:%s, needed:%s, graphical:%s" % \
-            (total_ram, needed_ram, graphical_ram))
+    log.info("check_memory(): total:%s, needed:%s, graphical:%s",
+             total_ram, needed_ram, graphical_ram)
 
     if not opts.memcheck:
         log.warning("CHECK_MEMORY DISABLED")
@@ -406,7 +406,7 @@ def check_memory(anaconda, opts, display_mode=None):
     if needed_ram > total_ram:
         from snack import SnackScreen, ButtonChoiceWindow
         if opts.liveinst:
-            stdoutLog.warning(reason % (product.productName, needed_ram, total_ram))
+            stdoutLog.warning(reason, product.productName, needed_ram, total_ram)
             gtk_warning(livecd_title, reason % (product.productName, needed_ram, total_ram))
         else:
             reason += reboot_extra
@@ -425,13 +425,13 @@ def check_memory(anaconda, opts, display_mode=None):
         if needed_ram > total_ram:
             if opts.liveinst:
                 reason += livecd_extra
-                stdoutLog.warning(reason % (product.productName, needed_ram, total_ram))
+                stdoutLog.warning(reason, product.productName, needed_ram, total_ram)
                 title = livecd_title
                 gtk_warning(title, reason % (product.productName, needed_ram, total_ram))
                 sys.exit(1)
             else:
                 reason += nolivecd_extra
-                stdoutLog.warning(reason % (product.productName, needed_ram, total_ram))
+                stdoutLog.warning(reason, product.productName, needed_ram, total_ram)
                 anaconda.displayMode = 't'
                 time.sleep(2)
 
@@ -485,7 +485,7 @@ def setupDisplay(anaconda, opts, addon_paths=None):
 
     # disable VNC over text question when not enough memory is available
     if blivet.util.total_memory() < isys.MIN_GUI_RAM:
-        stdoutLog.warning("Not asking for VNC because current memory (%d) < MIN_GUI_RAM (%d)" % (blivet.util.total_memory(), isys.MIN_GUI_RAM))
+        stdoutLog.warning("Not asking for VNC because current memory (%d) < MIN_GUI_RAM (%d)", blivet.util.total_memory(), isys.MIN_GUI_RAM)
         flags.vncquestion = False
 
     # disable VNC question if text mode is requested and this is a ks install
@@ -551,7 +551,7 @@ def setupDisplay(anaconda, opts, addon_paths=None):
             # user has explicitly specified text mode
             flags.vncquestion = False
 
-    log.info("Display mode = %s" % anaconda.displayMode)
+    log.info("Display mode = %s", anaconda.displayMode)
     check_memory(anaconda, opts)
 
     if want_x:
@@ -641,8 +641,8 @@ def prompt_for_ssh():
     try:
         hinfo = socket.gethostbyaddr(ipstr)
     except Exception as e:
-        stdoutLog.debug("Exception caught trying to get host name of %s: %s" %
-                  (ipstr, e))
+        stdoutLog.debug("Exception caught trying to get host name of %s: %s",
+                        ipstr, e)
         name = network.getHostname()
     else:
         if len(hinfo) == 3:
@@ -659,7 +659,7 @@ def prompt_for_ssh():
         connxinfo = None
 
     if connxinfo:
-        stdoutLog.info(_("Please ssh install@%s to begin the install.") % connxinfo)
+        stdoutLog.info(_("Please ssh install@%s to begin the install."), connxinfo)
     else:
         stdoutLog.info(_("Please ssh install@<host> to continue installation."))
 
@@ -743,7 +743,7 @@ if __name__ == "__main__":
         if "RUNKS" in flags.cmdline:
             opts.display_mode = 'c'
 
-    log.info("%s %s" % (sys.argv[0], getAnacondaVersion()))
+    log.info("%s %s", sys.argv[0], getAnacondaVersion())
 
     # TODO: uncomment this when we're sure that we're doing the right thing
     # with flags.cmdline *everywhere* it appears...
@@ -878,8 +878,8 @@ if __name__ == "__main__":
     if opts.rescue:
         anaconda.rescue = True
 
-    log.info("anaconda called with cmdline = %s" %(sys.argv,))
-    log.info("Default encoding = %s " % sys.getdefaultencoding())
+    log.info("anaconda called with cmdline = %s", sys.argv)
+    log.info("Default encoding = %s ", sys.getdefaultencoding())
 
     os.system("udevadm control --env=ANACONDA=1")
 
@@ -947,7 +947,7 @@ if __name__ == "__main__":
         try:
             proxy = ProxyString(anaconda.proxy)
         except ProxyStringError as e:
-            log.info("Failed to parse proxy \"%s\": %s" % (anaconda.proxy, e))
+            log.info("Failed to parse proxy \"%s\": %s", anaconda.proxy, e)
         else:
             # Set environmental variables to be used by pre/post scripts
             os.environ["PROXY"] = proxy.noauth_url
@@ -1028,7 +1028,7 @@ if __name__ == "__main__":
             localization.setup_locale(locales[0], ksdata.lang)
             ksdata.lang.seen = True
         else:
-            log.error("Invalid locale '%s' given on command line or in kickstart" % requested_lang)
+            log.error("Invalid locale '%s' given on command line or in kickstart", requested_lang)
     else:
         # no kickstart or bootoption - use default
         localization.setup_locale(constants.DEFAULT_LANG, ksdata.lang)
@@ -1122,8 +1122,8 @@ if __name__ == "__main__":
         if opts.geoloc is not None:
             parsed_id = geoloc.get_provider_id_from_option(opts.geoloc)
             if parsed_id is None:
-                log.error('geoloc: wrong provider id specified: %s' %
-                        opts.geoloc)
+                log.error('geoloc: wrong provider id specified: %s',
+                          opts.geoloc)
             else:
                 provider_id = parsed_id
         # instantiate the geolocation module and start location data refresh

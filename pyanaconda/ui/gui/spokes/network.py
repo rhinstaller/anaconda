@@ -262,11 +262,10 @@ class DeviceConfiguration(object):
         try:
             value = settings[0][key1][key2]
         except IndexError as e:
-            log.debug("network: can't find connection with uuid %s"
-                        % self.con_uuid)
+            log.debug("network: can't find connection with uuid %s", self.con_uuid)
         except KeyError as e:
-            log.debug("network: can't find '%s' '%s' in connection %s"
-                        % (key1, key2, self.con_uuid))
+            log.debug("network: can't find '%s' '%s' in connection %s",
+                      key1, key2, self.con_uuid)
         else:
             return value
 
@@ -427,7 +426,7 @@ class NetworkControlBox(GObject.GObject):
 
         for setting in nm.nm_get_all_settings():
             uuid = setting["connection"]["uuid"]
-            log.debug("network: GUI, connection %s found" % uuid)
+            log.debug("network: GUI, connection %s found", uuid)
             if self.dev_cfg(uuid=uuid):
                 continue
             dev_cfg = DeviceConfiguration(con_uuid=uuid)
@@ -489,15 +488,15 @@ class NetworkControlBox(GObject.GObject):
         if ap_obj_path == "ap-other...":
             return
 
-        log.info("network: selected access point: %s" % ssid_target)
+        log.info("network: selected access point: %s", ssid_target)
 
         try:
             uuid = nm.nm_ap_setting_value(ssid_target, "connection", "uuid")
             nm.nm_activate_device_connection(dev_cfg.device.get_iface(), uuid)
         except nm.UnmanagedDeviceError as e:
-            log.debug("network: on_wireless_ap_changed: %s" % e)
+            log.debug("network: on_wireless_ap_changed: %s", e)
         except nm.SettingsNotFoundError as e:
-            log.debug("network: on_wireless_ap_changed: %s" % e)
+            log.debug("network: on_wireless_ap_changed: %s", e)
             self.client.add_and_activate_connection(None, dev_cfg.device, ap_obj_path,
                                                     None, None)
 
@@ -521,7 +520,7 @@ class NetworkControlBox(GObject.GObject):
                 try:
                     uuid = nm.nm_ap_setting_value(self.selected_ssid, "connection", "uuid")
                 except nm.SettingsNotFoundError as e:
-                    log.debug("network: on_edit_connection: %s" % e)
+                    log.debug("network: on_edit_connection: %s", e)
                 else:
                     # 871132 auto activate wireless connection after editing if it is not
                     # already activated (assume entering secrets)
@@ -529,11 +528,11 @@ class NetworkControlBox(GObject.GObject):
                         activate = (uuid, devname)
 
         if not uuid:
-            log.debug("network: on_edit_connection: can't find connection for device %s" % devname)
+            log.debug("network: on_edit_connection: can't find connection for device %s", devname)
             return
 
-        log.info("network: configuring connection %s device %s ssid %s" %
-                 (uuid, devname, self.selected_ssid))
+        log.info("network: configuring connection %s device %s ssid %s",
+                 uuid, devname, self.selected_ssid)
         self.kill_nmce(msg="Configure button clicked")
         proc = subprocess.Popen(["nm-connection-editor", "--edit", "%s" % uuid])
         self._running_nmce = proc
@@ -544,8 +543,7 @@ class NetworkControlBox(GObject.GObject):
         if not self._running_nmce:
             return False
 
-        log.debug("network: killing running nm-c-e %s: %s"
-                  % (self._running_nmce.pid, msg))
+        log.debug("network: killing running nm-c-e %s: %s", self._running_nmce.pid, msg)
         self._running_nmce.kill()
         self._running_nmce = None
         return True
@@ -578,8 +576,8 @@ class NetworkControlBox(GObject.GObject):
         if not dev_cfg:
             return
 
-        log.info("network: device %s switched %s" %
-                   (dev_cfg.get_iface(), "on" if active else "off"))
+        log.info("network: device %s switched %s",
+                 dev_cfg.get_iface(), "on" if active else "off")
 
         if dev_cfg.device_type == NetworkManager.DeviceType.WIFI:
             self.client.wireless_set_enabled(active)
@@ -587,18 +585,18 @@ class NetworkControlBox(GObject.GObject):
             if active:
                 dev_name = dev_cfg.device and dev_cfg.device.get_iface()
                 if not dev_cfg.con_uuid:
-                    log.debug("network: on_device_off_toggled: no connection for %s"
-                               % dev_name)
+                    log.debug("network: on_device_off_toggled: no connection for %s",
+                              dev_name)
                     return
                 try:
                     nm.nm_activate_device_connection(dev_name, dev_cfg.con_uuid)
                 except (nm.UnmanagedDeviceError, nm.UnknownDeviceError, nm.UnknownConnectionError) as e:
-                    log.debug("network: on_device_off_toggled: %s" % e)
+                    log.debug("network: on_device_off_toggled: %s", e)
             else:
                 try:
                     nm.nm_disconnect_device(dev_cfg.get_iface())
                 except (nm.UnmanagedDeviceError, nm.DeviceNotActiveError) as e:
-                    log.debug("network: on_device_off_toggled: %s" % e)
+                    log.debug("network: on_device_off_toggled: %s", e)
 
     def on_add_device_clicked(self, *args):
         dialog = self.builder.get_object("add_device_dialog")
@@ -622,7 +620,7 @@ class NetworkControlBox(GObject.GObject):
         nm.nm_delete_connection(dev_cfg.con_uuid)
 
     def add_device(self, ty):
-        log.info("network: adding device of type %s" % ty)
+        log.info("network: adding device of type %s", ty)
         self.kill_nmce(msg="Add device button clicked")
         proc = subprocess.Popen(["nm-connection-editor", "--create", "--type=%s" % ty])
         self._running_nmce = proc
@@ -643,8 +641,8 @@ class NetworkControlBox(GObject.GObject):
         return model[iter][DEVICES_COLUMN_OBJECT]
 
     def add_dev_cfg(self, dev_cfg):
-        log.debug ("network: GUI, device configuration added: connection %s device %s"
-                     % (dev_cfg.con_uuid, dev_cfg.get_iface()))
+        log.debug ("network: GUI, device configuration added: connection %s device %s",
+                   dev_cfg.con_uuid, dev_cfg.get_iface())
         self.dev_cfg_store.append([
             self._dev_icon_name(dev_cfg),
             self.device_type_sort_value.get(dev_cfg.device_type, "100"),
@@ -726,7 +724,7 @@ class NetworkControlBox(GObject.GObject):
     def remove_device(self, device):
         # This should not concern wifi and ethernet devices,
         # just virtual devices e.g. vpn probably
-        log.debug("network: GUI, device removed: %s" % (device.get_iface()))
+        log.debug("network: GUI, device removed: %s", device.get_iface())
         dev_cfg = self.dev_cfg(device=device)
         if dev_cfg:
             dev_cfg.device = None
@@ -1206,8 +1204,8 @@ class SecretAgent(dbus.service.Object):
         if uid != 0:
             raise NotAuthorizedException("UID %d not authorized" % uid)
 
-        log.debug("network: secrets requested path '%s' setting '%s' hints '%s' new %d"
-                  % (connection_path, setting_name, str(hints), flags))
+        log.debug("network: secrets requested path '%s' setting '%s' hints '%s' new %d",
+                  connection_path, setting_name, str(hints), flags)
         if not (flags & NM_SECRET_AGENT_GET_SECRETS_FLAG_ALLOW_INTERACTION):
             return
 
@@ -1235,7 +1233,7 @@ class SecretAgent(dbus.service.Object):
                                    % {'network_id':str(connection_hash['connection']['id'])}
             content['secrets'] = self._get_wireless_secrets(connection_hash[setting_name])
         else:
-            log.info("Connection type %s not supported by secret agent" % connection_type)
+            log.info("Connection type %s not supported by secret agent", connection_type)
 
         return content
 
@@ -1258,7 +1256,7 @@ class SecretAgent(dbus.service.Object):
                             'validate' : self._validate_staticwep,
                             'password' : True})
         else:
-            log.info("Unsupported wireless key management: %s" % key_mgmt)
+            log.info("Unsupported wireless key management: %s", key_mgmt)
 
         return secrets
 
@@ -1322,7 +1320,7 @@ class NetworkSpoke(FirstbootSpokeMixIn, NormalSpoke):
 
     def apply(self):
         _update_network_data(self.data, self.network_control_box)
-        log.debug("network: apply ksdata %s" % self.data.network)
+        log.debug("network: apply ksdata %s", self.data.network)
         self.network_control_box.kill_nmce(msg="leaving network spoke")
 
     @property
@@ -1410,17 +1408,17 @@ class NetworkStandaloneSpoke(StandaloneSpoke):
                                          self.on_nm_state_changed)
 
         self._initially_available = self.completed
-        log.debug("network standalone spoke (init): completed: %s" % self._initially_available)
+        log.debug("network standalone spoke (init): completed: %s", self._initially_available)
         self._now_available = False
 
     def apply(self):
         _update_network_data(self.data, self.network_control_box)
 
-        log.debug("network: apply ksdata %s" % self.data.network)
+        log.debug("network: apply ksdata %s", self.data.network)
 
         self._now_available = self.completed
 
-        log.debug("network standalone spoke (apply) payload: %s completed: %s" % (self.payload.baseRepo, self._now_available))
+        log.debug("network standalone spoke (apply) payload: %s completed: %s", self.payload.baseRepo, self._now_available)
         if not self.payload.baseRepo and not self._initially_available and self._now_available:
             from pyanaconda.packaging import payloadInitialize
             from pyanaconda.threads import threadMgr, AnacondaThread

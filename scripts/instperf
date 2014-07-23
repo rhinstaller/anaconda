@@ -43,7 +43,7 @@ def logit():
          "swapUsed": int(swapTotal)-int(swapFree),
          "procs": topProcesses()}
 
-    mem_logger.debug("%(memUsed)d %(swapUsed)d %(procs)s" % d)
+    mem_logger.debug("%(memUsed)d %(swapUsed)d %(procs)s", d)
 
 mem_logger = logging.getLogger("memLog")
 mem_logger.setLevel(logging.DEBUG)

@@ -108,7 +108,7 @@ def _run_program(argv, root='/', stdin=None, stdout=None, env_prune=None, log_ou
             os.chdir("/")
 
     with program_log_lock:
-        program_log.info("Running... %s" % " ".join(argv))
+        program_log.info("Running... %s", " ".join(argv))
 
         env = augmentEnv()
         for var in env_prune:
@@ -138,10 +138,10 @@ def _run_program(argv, root='/', stdin=None, stdout=None, env_prune=None, log_ou
                         stdout.write(line)
 
         except OSError as e:
-            program_log.error("Error running %s: %s" % (argv[0], e.strerror))
+            program_log.error("Error running %s: %s", argv[0], e.strerror)
             raise
 
-        program_log.debug("Return code: %d" % proc.returncode)
+        program_log.debug("Return code: %d", proc.returncode)
 
     return (proc.returncode, output_string)
 
@@ -170,8 +170,8 @@ def execWithRedirect(command, argv, stdin=None, stdout=None,
         @return The return code of the command
     """
     if flags.testing:
-        log.info("not running command because we're testing: %s %s"
-                   % (command, " ".join(argv)))
+        log.info("not running command because we're testing: %s %s",
+                 command, " ".join(argv))
         return 0
 
     argv = [command] + argv
@@ -191,8 +191,8 @@ def execWithCapture(command, argv, stdin=None, stderr=None, root='/',
         @return The output of the command
     """
     if flags.testing:
-        log.info("not running command because we're testing: %s %s"
-                    % (command, " ".join(argv)))
+        log.info("not running command because we're testing: %s %s",
+                 command, " ".join(argv))
         return ""
 
     argv = [command] + argv
@@ -229,7 +229,7 @@ def execReadlines(command, argv, stdin=None, root='/', env_prune=None):
 
     argv = [command] + argv
     with program_log_lock:
-        program_log.info("Running... %s" % " ".join(argv))
+        program_log.info("Running... %s", " ".join(argv))
 
     env = augmentEnv()
     for var in env_prune:
@@ -242,7 +242,7 @@ def execReadlines(command, argv, stdin=None, root='/', env_prune=None):
                                 bufsize=1,
                                 preexec_fn=chroot, cwd=root, env=env)
     except OSError as e:
-        program_log.error("Error running %s: %s" % (argv[0], e.strerror))
+        program_log.error("Error running %s: %s", argv[0], e.strerror)
         raise
 
     q = Queue()
@@ -279,13 +279,13 @@ def getDirSize(dir):
         try:
             mydev = os.lstat(dir)[stat.ST_DEV]
         except OSError as e:
-            log.debug("failed to stat %s: %s" % (dir, e))
+            log.debug("failed to stat %s: %s", dir, e)
             return 0
 
         try:
             dirlist = os.listdir(dir)
         except OSError as e:
-            log.debug("failed to listdir %s: %s" % (dir, e))
+            log.debug("failed to listdir %s: %s", dir, e)
             return 0
 
         dsize = 0
@@ -294,7 +294,7 @@ def getDirSize(dir):
             try:
                 sinfo = os.lstat(curpath)
             except OSError as e:
-                log.debug("failed to stat %s/%s: %s" % (dir, f, e))
+                log.debug("failed to stat %s/%s: %s", dir, f, e)
                 continue
 
             if stat.S_ISDIR(sinfo[stat.ST_MODE]):
@@ -320,7 +320,7 @@ def mkdirChain(dir):
         except OSError:
             pass
 
-        log.error("could not create directory %s: %s" % (dir, e.strerror))
+        log.error("could not create directory %s: %s", dir, e.strerror)
 
 def get_active_console(dev="console"):
     '''Find the active console device.
@@ -377,7 +377,7 @@ def resetRpmDb():
         try:
             os.unlink(rpmfile)
         except OSError as e:
-            log.debug("error %s removing file: %s" %(e,rpmfile))
+            log.debug("error %s removing file: %s", e, rpmfile)
 
 def parseNfsUrl(nfsurl):
     options = ''
@@ -406,7 +406,7 @@ def add_po_path(module, dir):
         for basename in os.listdir("%s/%s/LC_MESSAGES" %(dir,d)):
             if not basename.endswith(".mo"):
                 continue
-            log.info("setting %s as translation source for %s" %(dir, basename[:-3]))
+            log.info("setting %s as translation source for %s", dir, basename[:-3])
             module.bindtextdomain(basename[:-3], dir)
 
 def setup_translations(module):
@@ -477,9 +477,9 @@ def dracut_eject(device):
         f.write("eject %s\n" % (device,))
         f.close()
         os.chmod(DRACUT_SHUTDOWN_EJECT, 0755)
-        log.info("Wrote dracut shutdown eject hook for %s" % (device,))
+        log.info("Wrote dracut shutdown eject hook for %s", device)
     except Exception, e:
-        log.error("Error writing dracut shutdown eject hook for %s: %s" % (device, e))
+        log.error("Error writing dracut shutdown eject hook for %s: %s", device, e)
 
 def vtActivate(num):
     """

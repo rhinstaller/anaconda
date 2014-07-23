@@ -149,7 +149,7 @@ class LiveImagePayload(ImagePayload):
 
         # Live needs to create the rescue image before bootloader is written
         for kernel in self.kernelVersionList:
-            log.info("Generating rescue image for %s" % kernel)
+            log.info("Generating rescue image for %s", kernel)
             iutil.execInSysroot("new-kernel-pkg",
                                 ["--rpmposttrans", kernel])
 
@@ -230,14 +230,14 @@ class LiveImageKSPayload(LiveImagePayload):
                 self._proxies = {"http": proxy.url,
                                  "https": proxy.url}
             except ProxyStringError as e:
-                log.info("Failed to parse proxy for liveimg --proxy=\"%s\": %s" \
-                         % (self.data.method.proxy, e))
+                log.info("Failed to parse proxy for liveimg --proxy=\"%s\": %s",
+                         self.data.method.proxy, e)
 
         error = None
         try:
             req = urllib.urlopen(self.data.method.url, proxies=self._proxies)
         except IOError as e:
-            log.error("Error opening liveimg: %s" % e)
+            log.error("Error opening liveimg: %s", e)
             error = e
         else:
             # If it is a http request we need to check the code
@@ -256,7 +256,7 @@ class LiveImageKSPayload(LiveImagePayload):
         if req.info().get("content-length"):
             self._min_size = int(req.info().get("content-length")) * 4
 
-        log.debug("liveimg size is %s" % self._min_size)
+        log.debug("liveimg size is %s", self._min_size)
 
     def preInstall(self, *args, **kwargs):
         """ Download image and loopback mount it.
@@ -278,7 +278,7 @@ class LiveImageKSPayload(LiveImagePayload):
             ug = URLGrabber()
             ug.urlgrab(self.data.method.url, self.image_path, **ugopts)
         except URLGrabError as e:
-            log.error("Error downloading liveimg: %s" % e)
+            log.error("Error downloading liveimg: %s", e)
             error = e
         else:
             if not os.path.exists(self.image_path):
@@ -303,10 +303,10 @@ class LiveImageKSPayload(LiveImagePayload):
                         break
                     sha256.update(data)
             filesum = sha256.hexdigest()
-            log.debug("sha256 of %s is %s" % (self.data.method.url, filesum))
+            log.debug("sha256 of %s is %s", self.data.method.url, filesum)
 
             if self.data.method.checksum.lower() != filesum:
-                log.error("%s does not match checksum." % self.data.method.checksum)
+                log.error("%s does not match checksum.", self.data.method.checksum)
                 exn = PayloadInstallError("Checksum of image does not match")
                 if errorHandler.cb(exn) == ERROR_RAISE:
                     raise exn

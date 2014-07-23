@@ -37,7 +37,7 @@ import textwrap
 
 class MakeBumpVer:
     def __init__(self, *args, **kwargs):
-        log.debug("%s" % (kwargs,))
+        log.debug("%s", kwargs)
         self.bzserver = 'bugzilla.redhat.com'
         self.bzurl = "https://%s/xmlrpc.cgi" % self.bzserver
         self.username = None
@@ -148,13 +148,13 @@ class MakeBumpVer:
 
         if not self.bz.logged_in:
             rc = self.bz.login(self.username, self.password)
-            log.debug("login rc = %s" % (rc,))
+            log.debug("login rc = %s", rc)
 
         if bug in self._bz_cache:
             return self._bz_cache[bug]
 
         bugs = self.bz.query({'bug_id': bug})
-        log.debug("bugs = %s" % (bugs))
+        log.debug("bugs = %s", bugs)
 
         if len(bugs) != 1:
             return None

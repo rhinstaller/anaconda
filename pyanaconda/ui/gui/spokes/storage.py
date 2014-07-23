@@ -355,7 +355,7 @@ class StorageSpoke(NormalSpoke, StorageChecker):
         try:
             doKickstartStorage(self.storage, self.data, self.instclass)
         except (StorageError, KickstartValueError) as e:
-            log.error("storage configuration failed: %s" % e)
+            log.error("storage configuration failed: %s", e)
             StorageChecker.errors = str(e).split("\n")
             hubQ.send_message(self.__class__.__name__, _("Failed to save storage configuration..."))
             self.data.bootloader.bootDrive = ""
@@ -831,8 +831,8 @@ class StorageSpoke(NormalSpoke, StorageChecker):
         if disk_labels and platform_labels.isdisjoint(disk_labels):
             disk_free = 0
             fs_free = 0
-            log.debug("Need disklabel: %s have: %s" % (", ".join(platform_labels),
-                                                       ", ".join(disk_labels)))
+            log.debug("Need disklabel: %s have: %s", ", ".join(platform_labels),
+                      ", ".join(disk_labels))
         else:
             free_space = self.storage.getFreeSpace(disks=disks,
                                                    clearPartType=CLEARPART_TYPE_NONE)
@@ -845,8 +845,8 @@ class StorageSpoke(NormalSpoke, StorageChecker):
             if autoreq.fstype == "swap":
                 auto_swap += Size(spec="%d MB" % autoreq.size)
 
-        log.debug("disk free: %s  fs free: %s  sw needs: %s  auto swap: %s"
-                        % (disk_free, fs_free, required_space, auto_swap))
+        log.debug("disk free: %s  fs free: %s  sw needs: %s  auto swap: %s",
+                  disk_free, fs_free, required_space, auto_swap)
         if disk_free >= required_space + auto_swap:
             dialog = None
         elif disks_size >= required_space:

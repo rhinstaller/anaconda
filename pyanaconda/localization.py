@@ -456,13 +456,13 @@ def load_firmware_language(lang):
     d += '.UTF-8'
 
     if not is_supported_locale(d):
-        log.debug("PlatformLang was '%s', which is unsupported." % d)
+        log.debug("PlatformLang was '%s', which is unsupported.", d)
         return
 
     locales = get_language_locales(d)
     if not locales:
-        log.debug("No locales found for the PlatformLang '%s'." % d)
+        log.debug("No locales found for the PlatformLang '%s'.", d)
         return
 
-    log.debug("Using UEFI PlatformLang '%s' ('%s') as our language." % (d, locales[0]))
+    log.debug("Using UEFI PlatformLang '%s' ('%s') as our language.", d, locales[0])
     setup_locale(locales[0], lang)

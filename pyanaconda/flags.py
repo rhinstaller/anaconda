@@ -200,19 +200,19 @@ def can_touch_runtime_system(msg):
     """
 
     if flags.livecdInstall:
-        log.info("Not doing '%s' in live installation" % msg)
+        log.info("Not doing '%s' in live installation", msg)
         return False
 
     if flags.imageInstall:
-        log.info("Not doing '%s' in image installation" % msg)
+        log.info("Not doing '%s' in image installation", msg)
         return False
 
     if flags.dirInstall:
-        log.info("Not doing '%s' in directory installation" % msg)
+        log.info("Not doing '%s' in directory installation", msg)
         return False
 
     if flags.testing:
-        log.info("Not doing '%s', because we are just testing" % msg)
+        log.info("Not doing '%s', because we are just testing", msg)
         return False
 
     return True

@@ -55,7 +55,7 @@ def findFirstIsoImage(path):
 
     for fn in files:
         what = path + '/' + fn
-        log.debug("Checking %s" % (what))
+        log.debug("Checking %s", what)
         if not isys.isIsoImage(what):
             continue
 
@@ -76,28 +76,28 @@ def findFirstIsoImage(path):
         discArch = f.readline().strip() # read architecture
         f.close()
 
-        log.debug("discArch = %s" % discArch)
+        log.debug("discArch = %s", discArch)
         if discArch != arch:
-            log.warning("findFirstIsoImage: architectures mismatch: %s, %s" %
-                        (discArch, arch))
+            log.warning("findFirstIsoImage: architectures mismatch: %s, %s",
+                        discArch, arch)
             blivet.util.umount("/mnt/install/cdimage")
             continue
 
         # If there's no repodata, there's no point in trying to
         # install from it.
         if not os.access("/mnt/install/cdimage/repodata", os.R_OK):
-            log.warning("%s doesn't have repodata, skipping" %(what,))
+            log.warning("%s doesn't have repodata, skipping", what)
             blivet.util.umount("/mnt/install/cdimage")
             continue
 
         # warn user if images appears to be wrong size
         if os.stat(what)[stat.ST_SIZE] % 2048:
-            log.warning("%s appears to be corrupted" % what)
+            log.warning("%s appears to be corrupted", what)
             exn = InvalidImageSizeError("size is not a multiple of 2048 bytes")
             if errorHandler.cb(exn) == ERROR_RAISE:
                 raise exn
 
-        log.info("Found disc at %s" % fn)
+        log.info("Found disc at %s", fn)
         blivet.util.umount("/mnt/install/cdimage")
         return fn
 
@@ -134,7 +134,7 @@ def mountImageDirectory(method, storage):
                 device.setup()
                 device.format.setup(mountpoint=ISO_DIR)
             except StorageError as e:
-                log.error("couldn't mount ISO source directory: %s" % e)
+                log.error("couldn't mount ISO source directory: %s", e)
                 exn = MediaMountError(str(e))
                 if errorHandler.cb(exn) == ERROR_RAISE:
                     raise exn
@@ -153,7 +153,7 @@ def mountImageDirectory(method, storage):
             try:
                 blivet.util.mount(url, ISO_DIR, fstype="nfs", options=method.options)
             except OSError as e:
-                log.error("couldn't mount ISO source directory: %s" % e)
+                log.error("couldn't mount ISO source directory: %s", e)
                 exn = MediaMountError(str(e))
                 if errorHandler.cb(exn) == ERROR_RAISE:
                     raise exn
@@ -239,7 +239,7 @@ def unmountCD(dev):
         try:
             dev.format.unmount()
         except Exception as e:
-            log.error("exception in _unmountCD: %s" %(e,))
+            log.error("exception in _unmountCD: %s", e)
             exn = MediaUnmountError()
             errorHandler.cb(exn, dev)
         else:

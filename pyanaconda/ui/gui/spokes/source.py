@@ -98,8 +98,8 @@ class ProxyDialog(GUIObject):
             proxy = ProxyString(url=url, username=username, password=password)
             self.proxyUrl = proxy.url
         except ProxyStringError as e:
-            log.error("Failed to parse proxy for ProxyDialog Add - %s:%s@%s: %s" \
-                      % (username, password, url, e))
+            log.error("Failed to parse proxy for ProxyDialog Add - %s:%s@%s: %s",
+                      username, password, url, e)
             # TODO - tell the user they entered an invalid proxy and let them retry
             self.proxyUrl = ""
 
@@ -138,7 +138,7 @@ class ProxyDialog(GUIObject):
                 self._proxyPasswordEntry.set_text(proxy.password)
             self._proxyURLEntry.set_text(proxy.noauth_url)
         except ProxyStringError as e:
-            log.error("Failed to parse proxy for ProxyDialog.refresh %s: %s" % (self.proxyUrl, e))
+            log.error("Failed to parse proxy for ProxyDialog.refresh %s: %s", self.proxyUrl, e)
             return
 
         self._proxyCheck.set_active(True)
@@ -399,7 +399,7 @@ class SourceSpoke(NormalSpoke):
             try:
                 (self.data.method.server, self.data.method.dir) = url.split(":", 2)
             except ValueError as e:
-                log.error("ValueError: %s" % (e,))
+                log.error("ValueError: %s", e)
                 gtk_call_once(self.set_warning, _("Failed to set up installation source; check the repo url"))
                 self._error = True
                 return
@@ -443,7 +443,7 @@ class SourceSpoke(NormalSpoke):
         try:
             self.payload.updateBaseRepo(fallback=False, checkmount=False)
         except (OSError, PayloadError) as e:
-            log.error("PayloadError: %s" % (e,))
+            log.error("PayloadError: %s", e)
             self._error = True
             hubQ.send_message(self.__class__.__name__, _("Failed to set up installation source"))
             if not (hasattr(self.data.method, "proxy") and self.data.method.proxy):
@@ -927,7 +927,7 @@ class SourceSpoke(NormalSpoke):
         """
         self._repoStore.clear()
         repos = self.payload.addOns
-        log.debug("Setting up repos: %s" % repos)
+        log.debug("Setting up repos: %s", repos)
         for name in repos:
             repo = self.payload.getAddOnRepo(name)
             ks_repo = self.data.RepoData(name=repo.name,
@@ -1024,7 +1024,7 @@ class SourceSpoke(NormalSpoke):
                     self._repoProxyPasswordEntry.set_text(proxy.password)
                 self._repoProxyUrlEntry.set_text(proxy.noauth_url)
             except ProxyStringError as e:
-                log.error("Failed to parse proxy for repo %s: %s" % (repo.name, e))
+                log.error("Failed to parse proxy for repo %s: %s", repo.name, e)
                 return
 
     def _verify_repo_names(self):
@@ -1199,5 +1199,4 @@ class SourceSpoke(NormalSpoke):
             proxy = ProxyString(url=url, username=username, password=password)
             repo.proxy = proxy.url
         except ProxyStringError as e:
-            log.error("Failed to parse proxy - %s:%s@%s: %s" \
-                      % (username, password, url, e))
+            log.error("Failed to parse proxy - %s:%s@%s: %s", username, password, url, e)

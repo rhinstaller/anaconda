@@ -118,7 +118,7 @@ class WelcomeLanguageSpoke(LangLocaleHandler, StandaloneSpoke):
                 # does not support typing ASCII chars, append the 'us' layout
                 new_layouts.append("us")
         else:
-            log.error("Failed to get layout for chosen locale '%s'" % locale)
+            log.error("Failed to get layout for chosen locale '%s'", locale)
             new_layouts = ["us"]
 
         self.data.keyboard.x_layouts = new_layouts

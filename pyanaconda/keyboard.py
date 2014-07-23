@@ -307,8 +307,8 @@ def activate_keyboard(keyboard):
     if keyboard.vc_keymap:
         valid_keymap = _try_to_load_keymap(keyboard.vc_keymap)
         if not valid_keymap:
-            log.error("'%s' is not a valid VConsole keymap, not loading" % \
-                        keyboard.vc_keymap)
+            log.error("'%s' is not a valid VConsole keymap, not loading",
+                      keyboard.vc_keymap)
             keyboard.vc_keymap = None
         else:
             # activate VConsole keymap and get converted layout and variant
@@ -398,7 +398,7 @@ class XklWrapper(object):
                                            self._rec.layouts,
                                            self._rec.variants))
                 log.error("Failed to activate layouts: '%s', "
-                          "falling back to default 'us'" % lay_var_str)
+                          "falling back to default 'us'", lay_var_str)
                 self._rec.set_layouts(["us"])
                 self._rec.set_variants([""])
 

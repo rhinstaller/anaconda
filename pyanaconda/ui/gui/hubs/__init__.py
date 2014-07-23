@@ -335,7 +335,7 @@ class Hub(GUIObject, common.Hub):
                     self._notReadySpokes.append(spoke)
 
                 self._updateContinueButton()
-                log.info("spoke is not ready: %s" % spoke)
+                log.info("spoke is not ready: %s", spoke)
             elif code == hubQ.HUB_CODE_READY:
                 self._updateCompleteness(spoke)
 
@@ -343,7 +343,7 @@ class Hub(GUIObject, common.Hub):
                     self._notReadySpokes.remove(spoke)
 
                 self._updateContinueButton()
-                log.info("spoke is ready: %s" % spoke)
+                log.info("spoke is ready: %s", spoke)
 
                 # If this is a real kickstart install (the kind with an input ks file)
                 # and all spokes are now completed, we should skip ahead to the next
@@ -366,7 +366,7 @@ class Hub(GUIObject, common.Hub):
 
             elif code == hubQ.HUB_CODE_MESSAGE:
                 spoke.selector.set_property("status", args[1])
-                log.info("setting %s status to: %s" % (spoke, args[1]))
+                log.info("setting %s status to: %s", spoke, args[1])
 
             q.task_done()
 
