@@ -349,8 +349,8 @@ class UserSpoke(FirstbootSpokeMixIn, NormalSpoke):
         try:
             strength = self._pwq.check(self.pw.get_text(), None, None)
             _pwq_error = None
-        except pwquality.PWQError as (e, msg):
-            _pwq_error = msg
+        except pwquality.PWQError as e:
+            _pwq_error = e[1]
             strength = 0
 
         if strength < 50:
@@ -462,7 +462,7 @@ class UserSpoke(FirstbootSpokeMixIn, NormalSpoke):
 
         self._advanced.refresh()
         with enlightbox(self.window, self._advanced.window):
-            response = self._advanced.run()
+            self._advanced.run()
 
         self.admin.set_active(self._wheel.name in self._user.groups)
 

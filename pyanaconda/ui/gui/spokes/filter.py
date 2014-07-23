@@ -316,7 +316,6 @@ class OtherPage(FilterPage):
         interconnects = []
 
         for disk in disks:
-            paths = [d.name for d in disk.parents]
             selected = disk.name in selectedNames
 
             if not disk.vendor in vendors:

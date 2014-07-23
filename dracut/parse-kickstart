@@ -46,7 +46,7 @@ def read_cmdline(f):
         lines = []
     for line in lines:
         for arg in line.split():
-            k,e,v = arg.partition("=")
+            k,_e,v = arg.partition("=")
             args[k] = v
     return args
 

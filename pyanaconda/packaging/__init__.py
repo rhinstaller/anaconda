@@ -565,8 +565,6 @@ class Payload(object):
         import glob
         import shutil
 
-        new_firmware = False
-
         # Multiple driver disks may be loaded, so we need to glob for all
         # the firmware files in the common DD firmware directory
         for f in glob.glob(DD_FIRMWARE+"/*"):
@@ -574,8 +572,6 @@ class Payload(object):
                 shutil.copyfile(f, "%s/lib/firmware/" % iutil.getSysroot())
             except IOError as e:
                 log.error("Could not copy firmware file %s: %s", f, e.strerror)
-            else:
-                new_firmware = True
 
         #copy RPMS
         for d in glob.glob(DD_RPMS):

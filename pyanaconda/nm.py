@@ -732,7 +732,7 @@ def nm_delete_connection(uuid):
     if not settings_paths:
         return False
     proxy = _get_proxy(object_path=settings_paths[0], interface_name="org.freedesktop.NetworkManager.Settings.Connection")
-    settings = proxy.Delete()
+    proxy.Delete()
 
 def nm_update_settings_of_device(name, new_values):
     """Update setting of device.

@@ -74,7 +74,7 @@ class AddLayoutDialog(GUIObject):
                     value.index(word)
                 return True
             return False
-        except ValueError as valerr:
+        except ValueError:
             return False
 
     def compare_layouts(self, model, itr1, itr2, user_data=None):
@@ -561,7 +561,7 @@ class KeyboardSpoke(NormalSpoke):
             try:
                 self._addLayout(self._store, layout)
                 valid_layouts += layout
-            except keyboard.XklWrapperError as xklerr:
+            except keyboard.XklWrapperError:
                 log.error("Failed to add layout '%s'", layout)
 
         if not valid_layouts:

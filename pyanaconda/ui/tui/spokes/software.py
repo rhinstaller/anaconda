@@ -63,7 +63,7 @@ class SoftwareSpoke(NormalTUISpoke):
             threadMgr.wait(THREAD_PAYLOAD_MD)
         else:
             try:
-                env = self.payload.environments
+                self.payload.environments
             except MetadataError:
                 self.errors.append(_("No installation source available"))
                 return
@@ -136,7 +136,7 @@ class SoftwareSpoke(NormalTUISpoke):
 
         displayed = []
         for env in environments:
-            (name, desc) = self.payload.environmentDescription(env)
+            name = self.payload.environmentDescription(env)[0]
 
             displayed.append(CheckboxWidget(title="%s" % name, completed=(environments.index(env) == self._selection)))
 

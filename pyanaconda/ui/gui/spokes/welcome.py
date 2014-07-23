@@ -249,7 +249,7 @@ class WelcomeLanguageSpoke(LangLocaleHandler, StandaloneSpoke):
 
     # Signal handlers.
     def on_lang_selection_changed(self, selection):
-        (store, selected) = selection.get_selected_rows()
+        selected = selection.get_selected_rows()[1]
         LangLocaleHandler.on_lang_selection_changed(self, selection)
 
         if not selected and hasattr(self.window, "set_may_continue"):

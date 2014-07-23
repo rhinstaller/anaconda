@@ -108,8 +108,8 @@ class SelectedDisksDialog(GUIObject):
     def _get_selection_refs(self):
         selected_refs = []
         if self._selection.count_selected_rows():
-            model, selected_paths = self._selection.get_selected_rows()
-            selected_refs = [Gtk.TreeRowReference() for p in selected_paths]
+            selected_paths = self._selection.get_selected_rows()[1]
+            selected_refs = [Gtk.TreeRowReference() for _p in selected_paths]
 
         return selected_refs
 
@@ -134,7 +134,7 @@ class SelectedDisksDialog(GUIObject):
 
     # signal handlers
     def on_remove_clicked(self, button):
-        model, itr = self._selection.get_selected()
+        itr = self._selection.get_selected()[1]
         if not itr:
             return
 
@@ -186,14 +186,14 @@ class SelectedDisksDialog(GUIObject):
             self._set_button.set_label(_("_Set as Boot Device"))
 
     def on_selection_changed(self, *args):
-        model, itr = self._selection.get_selected()
+        itr = self._selection.get_selected()[1]
         if not itr:
             return
 
         self._toggle_button_text(self._store[itr])
 
     def on_set_as_boot_clicked(self, button):
-        model, itr = self._selection.get_selected()
+        itr = self._selection.get_selected()[1]
         if not itr:
             return
 

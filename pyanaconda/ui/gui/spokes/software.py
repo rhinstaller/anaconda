@@ -250,7 +250,6 @@ class SoftwareSelectionSpoke(NormalSpoke):
         if self.environment not in self.payload.environments:
             self.environment = None
 
-        clasess = []
         firstEnvironment = True
         for environment in self.payload.environments:
             (name, desc) = self.payload.environmentDescription(environment)
@@ -329,7 +328,7 @@ class SoftwareSelectionSpoke(NormalSpoke):
     # left hand panel, or None if nothing's selected.
     def _get_selected_environment(self):
         environmentView = self.builder.get_object("environmentView")
-        (store, itr) = environmentView.get_selection().get_selected()
+        itr = environmentView.get_selection().get_selected()[1]
         if not itr:
             return None
 
@@ -385,7 +384,7 @@ class SoftwareSelectionSpoke(NormalSpoke):
         # If the user clicked on the first column, they've clicked on the checkbox which was
         # handled separately from this signal handler.  Handling it again here will result in
         # the checkbox being toggled yet again.  So, we need to return in that case.
-        (path, col) = view.get_cursor()
+        col = view.get_cursor()[1]
         if not col or col.get_title() == "Selected":
             return
 
@@ -394,7 +393,7 @@ class SoftwareSelectionSpoke(NormalSpoke):
 
     def on_custom_clicked(self, button):
         with enlightbox(self.window, self._addRepoDialog.window):
-            response =  self._addRepoDialog.run()
+            self._addRepoDialog.run()
 
     def on_info_bar_clicked(self, *args):
         if not self._errorMsgs:

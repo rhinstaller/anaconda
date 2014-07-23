@@ -712,7 +712,7 @@ reposdir=%s
             #    isodev and device are both None
             # 4. The repo may not contain an iso, in that case use it as is
             if isodev:
-                options, host, path = iutil.parseNfsUrl('nfs:%s' % isodev)
+                _options, host, path = iutil.parseNfsUrl('nfs:%s' % isodev)
                 # See if the dir holding the iso is what we want
                 # and also if we have an iso mounted to /run/install/repo
                 if path and path in isodev and DRACUT_ISODIR in device:
@@ -722,7 +722,7 @@ reposdir=%s
                 # see if the nfs dir is mounted
                 needmount = True
                 if device:
-                    options, host, path = iutil.parseNfsUrl('nfs:%s' % device)
+                    _options, host, path = iutil.parseNfsUrl('nfs:%s' % device)
                     if path and path in device:
                         needmount = False
                         path = DRACUT_REPODIR
@@ -787,8 +787,7 @@ reposdir=%s
                         # prepend nfs: to the url as that's what the parser
                         # wants.  Note we don't get options from this, but
                         # that's OK for the UI at least.
-                        options, host, path = iutil.parseNfsUrl("nfs:%s" %
-                                                                device)
+                        _options, host, path = iutil.parseNfsUrl("nfs:%s" % device)
                         method.method = "nfs"
                         method.server = host
                         method.dir = path
@@ -1059,9 +1058,6 @@ reposdir=%s
     @property
     def environments(self):
         """ List of environment ids. """
-        from yum.Errors import RepoError
-        from yum.Errors import GroupsError
-
         environments = []
         yum_groups = self._yumGroups
         if yum_groups:
@@ -1186,9 +1182,6 @@ reposdir=%s
     @property
     def groups(self):
         """ List of group ids. """
-        from yum.Errors import RepoError
-        from yum.Errors import GroupsError
-
         groups = []
         yum_groups = self._yumGroups
         if yum_groups:
@@ -1306,7 +1299,7 @@ reposdir=%s
         log.debug("select package %s", pkgid)
         with _yum_lock:
             try:
-                mbrs = self._yum.install(pattern=pkgid)
+                self._yum.install(pattern=pkgid)
             except yum.Errors.InstallError:
                 raise NoSuchPackage(pkgid)
 
@@ -1522,7 +1515,7 @@ reposdir=%s
             try:
                 # XXX might need explicit arch specification
                 self._selectYumPackage(kernel)
-            except NoSuchPackage as e:
+            except NoSuchPackage:
                 log.info("no %s package", kernel)
                 continue
             else:

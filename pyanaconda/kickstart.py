@@ -509,7 +509,7 @@ class Realm(commands.realm.F19_Realm):
         try:
             proc = subprocess.Popen(argv, stdout=subprocess.PIPE,
                                     stderr=subprocess.PIPE)
-            output, stderr = proc.communicate()
+            stderr = proc.communicate()[1]
             # might contain useful information for users who use
             # use the realm kickstart command
             log.info("Realm join stderr:\n%s", stderr)
@@ -649,8 +649,6 @@ class Firstboot(commands.firstboot.FC3_Firstboot):
 
 class Group(commands.group.F12_Group):
     def execute(self, storage, ksdata, instClass, users):
-        algo = getPassAlgo(ksdata.authconfig.authconfig)
-
         for grp in self.groupList:
             kwargs = grp.__dict__
             kwargs.update({"root": iutil.getSysroot()})
@@ -829,11 +827,11 @@ class LogVolData(commands.logvol.F20_LogVolData):
                 raise KickstartValueError(formatErrorMsg(self.lineno, msg="Percentage must be between 0 and 100"))
 
         # Now get a format to hold a lot of these extra values.
-        fm = getFormat(ty,
-                       mountpoint=self.mountpoint,
-                       label=self.label,
-                       fsprofile=self.fsprofile,
-                       mountopts=self.fsopts)
+        fmt = getFormat(ty,
+                        mountpoint=self.mountpoint,
+                        label=self.label,
+                        fsprofile=self.fsprofile,
+                        mountopts=self.fsopts)
         if not fmt.type and not self.thin_pool:
             raise KickstartValueError(formatErrorMsg(self.lineno, msg="The \"%s\" filesystem type is not supported." % ty))
 

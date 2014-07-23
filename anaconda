@@ -48,7 +48,6 @@ import atexit, sys, os, time, subprocess
 wm_pid = None
 
 def exitHandler(rebootData, storage, exitCode=None):
-    from pyanaconda import isys
     from pyanaconda.flags import flags
 
     # stop and save coverage here b/c later the file system may be unavailable
@@ -82,7 +81,7 @@ def exitHandler(rebootData, storage, exitCode=None):
 
     if not flags.imageInstall and not flags.livecdInstall \
        and not flags.dirInstall:
-        from pykickstart.constants import KS_SHUTDOWN, KS_WAIT, KS_REBOOT
+        from pykickstart.constants import KS_SHUTDOWN, KS_WAIT
         from pyanaconda.iutil import dracut_eject, get_mount_paths
 
         if flags.eject or rebootData.eject:
@@ -146,7 +145,7 @@ def set_x_resolution(runres):
             log.info("Setting the screen resolution to: %s.", runres)
             iutil.execWithRedirect("xrandr",
                                    ["-d", ":1", "-s", runres])
-        except RuntimeError as e:
+        except RuntimeError:
             log.error("The X resolution not set")
             iutil.execWithRedirect("xrandr",
                                    ["-d", ":1", "-q"])
@@ -575,14 +574,14 @@ def setupDisplay(anaconda, opts, addon_paths=None):
         old_sigchld = signal.signal(signal.SIGCHLD, sigchld_handler)
         xout = open("/dev/tty5", "w")
         try:
-            proc = subprocess.Popen(["Xorg", "-br",
-                                     "-logfile", "/tmp/X.log",
-                                     ":1", "vt6", "-s", "1440", "-ac",
-                                     "-nolisten", "tcp", "-dpi", "96",
-                                     "-noreset"],
-                                     close_fds=True,
-                                     stdout=xout, stderr=xout,
-                                     preexec_fn=preexec_fn)
+            subprocess.Popen(["Xorg", "-br",
+                              "-logfile", "/tmp/X.log",
+                              ":1", "vt6", "-s", "1440", "-ac",
+                              "-nolisten", "tcp", "-dpi", "96",
+                              "-noreset"],
+                              close_fds=True,
+                              stdout=xout, stderr=xout,
+                              preexec_fn=preexec_fn)
 
             signal.pause()
             os.environ["DISPLAY"] = ":1"
@@ -624,7 +623,6 @@ def prompt_for_ssh():
     # Do some work here to get the ip addr / hostname to pass
     # to the user.
     from pyanaconda import network
-    from pyanaconda import isys
     import socket
     import gettext
     _ = lambda x: gettext.ldgettext("anaconda", x)
@@ -671,7 +669,7 @@ def cleanPStore():
     # take effect immediately, which is the best case.  Unfortunately on some,
     # an intervening reboot is needed."""
     try:
-        for root, dirs, files in os.walk("/sys/fs/pstore"):
+        for root, _dirs, files in os.walk("/sys/fs/pstore"):
             for f in files:
                 os.unlink("%s/%s" % (root,f))
     except OSError:

@@ -49,7 +49,7 @@ def exception_msg_handler(event, data):
     """
 
     # get data from the event data structure
-    (event_type, msg_data) = event
+    msg_data = event[1]
 
     # msg_data is a list
     sys.excepthook(*msg_data[0])

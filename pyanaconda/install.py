@@ -123,8 +123,6 @@ def doInstall(storage, payload, ksdata, instClass):
        The two main tasks for this are putting filesystems onto disks and
        installing packages onto those filesystems.
     """
-    from pyanaconda.kickstart import runPostScripts
-
     # First save system time to HW clock.
     if flags.can_touch_runtime_system("save system time to HW clock"):
         timezone.save_hw_clock(ksdata.timezone)

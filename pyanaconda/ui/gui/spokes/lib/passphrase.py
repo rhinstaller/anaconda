@@ -93,8 +93,8 @@ class PassphraseDialog(GUIObject):
         self._pwq_error = ""
         try:
             strength = self._pwq.check(passphrase, None, None)
-        except pwquality.PWQError as (e, msg):
-            self._pwq_error = msg
+        except pwquality.PWQError as e:
+            self._pwq_error = e[1]
 
         if strength < 50:
             val = 1
@@ -154,7 +154,6 @@ class PassphraseDialog(GUIObject):
         passphrase = self._passphrase_entry.get_text()
         confirm = self._confirm_entry.get_text()
         if passphrase != confirm:
-            match = False
             icon = "gtk-dialog-error"
             msg = ERROR_NOT_MATCHING
             self._set_entry_icon(entry, icon, _(msg))

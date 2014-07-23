@@ -101,7 +101,7 @@ class AnacondaExceptionHandler(ExceptionHandler):
                 # initialize. Horay! But will it stay like this? Let's be
                 # cautious and raise the exception on our own to work in both
                 # cases
-                (initialized, args) = Gtk.init_check(None)
+                initialized = Gtk.init_check(None)[0]
                 if not initialized:
                     raise RuntimeError()
 

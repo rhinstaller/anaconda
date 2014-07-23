@@ -159,9 +159,9 @@ class VncServer:
 
         vncconfigcommand = [self.root+"/usr/bin/vncconfig", "-display", ":%s"%self.display, "-connect", hostarg]
 
-        for i in range(maxTries):
+        for _i in range(maxTries):
             vncconfp = subprocess.Popen(vncconfigcommand, stdout=subprocess.PIPE, stderr=subprocess.PIPE) # vncconfig process
-            (out, err) = vncconfp.communicate()
+            err = vncconfp.communicate()[1]
 
             if err == '':
                 self.log.info(_("Connected!"))
@@ -211,7 +211,7 @@ class VncServer:
             SecurityTypes = "VncAuth"
             rfbauth = self.pw_file
             # Create the password file.
-            rc = self.setVNCPassword()
+            self.setVNCPassword()
 
         # Lets start the xvnc.
         xvnccommand =  [ XVNC_BINARY_NAME, ":%s" % self.display,

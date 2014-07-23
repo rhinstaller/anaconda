@@ -185,7 +185,7 @@ class NTPconfigDialog(GUIObject):
             try:
                 for server in ntp.get_servers_from_config():
                     self._add_server(server)
-            except ntp.NTPconfigError as ntperr:
+            except ntp.NTPconfigError:
                 log.warning("Failed to load NTP servers configuration")
 
     def refresh(self):
@@ -588,7 +588,7 @@ class DatetimeSpoke(FirstbootSpokeMixIn, NormalSpoke):
         try:
             datetime.date(year, self._months_nums[month], day)
             return True
-        except ValueError as valerr:
+        except ValueError:
             return False
 
     def _get_active_city(self):

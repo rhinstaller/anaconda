@@ -81,13 +81,13 @@ class AddonRegistry(object):
     # pylint: disable-msg=C0103
     def execute(self, storage, ksdata, instClass, users):
         """This method calls execute on all the registered addons."""
-        for k, v in self.__dict__.iteritems():
+        for v in self.__dict__.itervalues():
             if hasattr(v, "execute"):
                 v.execute(storage, ksdata, instClass, users)
 
     def setup(self, storage, ksdata, instClass):
         """This method calls setup on all the registered addons."""
-        for k, v in self.__dict__.iteritems():
+        for v in self.__dict__.itervalues():
             if hasattr(v, "setup"):
                 v.setup(storage, ksdata, instClass)
 

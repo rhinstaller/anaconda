@@ -41,7 +41,7 @@ class StrataSender(SenderBaseClass):
             mnode = dom.getElementsByTagName("response")[0]
             title = mnode.getElementsByTagName("title")[0].childNodes[0].data
             body = mnode.getElementsByTagName("body")[0].childNodes[0].data
-        except Exception as e:
+        except Exception:
             raise SenderError("Sending log to the Red Hat Ticket System fail.")
         
         if title == "File Attachment Failed":

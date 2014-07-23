@@ -65,7 +65,7 @@ class InstallClass(BaseInstallClass):
                 continue
             try:
                 link_up = nm.nm_device_carrier(devName)
-            except ValueError as e:
+            except ValueError:
                 continue
             if link_up:
                 ifcfg_path = network.find_ifcfg_file_of_device(devName, root_path=iutil.getSysroot())

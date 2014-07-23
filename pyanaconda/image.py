@@ -40,7 +40,7 @@ def findFirstIsoImage(path):
     Returns the basename of the image
     """
     try:
-        flush = os.stat(path)
+        os.stat(path)
     except OSError:
         return None
 
@@ -249,7 +249,8 @@ def verifyMedia(tree, timestamp=None):
         f = open("%s/.discinfo" % tree)
 
         newStamp = f.readline().strip()
-        descr = f.readline().strip()
+        # Next is the description, which we just want to throw away.
+        f.readline()
         arch = f.readline().strip()
         f.close()
 

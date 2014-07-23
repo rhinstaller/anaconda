@@ -104,7 +104,6 @@ def sanityCheckHostname(hostname):
         return (False, _("Hostname must be 255 or fewer characters in length."))
 
     validStart = string.ascii_letters + string.digits
-    validAll = validStart + ".-"
 
     if hostname[0] not in validStart:
         return (False, _("Hostname must start with a valid character in the "
@@ -168,7 +167,7 @@ def netmask2prefix(netmask):
 def prefix2netmask(prefix):
     """ Convert prefix (CIDR bits) to netmask """
     _bytes = []
-    for i in range(4):
+    for _i in range(4):
         if prefix >= 8:
             _bytes.append(255)
             prefix -= 8
@@ -286,7 +285,7 @@ def dumpMissingDefaultIfcfgs():
             continue
 
         try:
-            con_uuid = nm.nm_device_setting_value(devname, "connection", "uuid")
+            nm.nm_device_setting_value(devname, "connection", "uuid")
         except nm.SettingsNotFoundError:
             if find_ifcfg_file_of_device(devname):
                 continue
@@ -469,7 +468,7 @@ def add_connection_for_ksdata(networkdata, devname):
         values.append(['bond', 'interface-name', devname, 's'])
         options = bond_options_ksdata_to_dbus(networkdata.bondopts)
         values.append(['bond', 'options', options, 'a{ss}'])
-        for i, slave in enumerate(networkdata.bondslaves.split(","), 1):
+        for _i, slave in enumerate(networkdata.bondslaves.split(","), 1):
 
             #slave_name = "%s slave %d" % (devname, i)
             slave_name = slave
@@ -502,7 +501,7 @@ def add_connection_for_ksdata(networkdata, devname):
         values.append(['connection', 'id', devname, 's'])
         values.append(['team', 'interface-name', devname, 's'])
         values.append(['team', 'config', networkdata.teamconfig, 's'])
-        for i, (slave, cfg) in enumerate(networkdata.teamslaves):
+        for _i, (slave, cfg) in enumerate(networkdata.teamslaves):
 
             # assume ethernet, TODO: infiniband, wifi, vlan
             #slave_name = "%s slave %d" % (devname, i)
@@ -720,7 +719,6 @@ def ifcfg_to_ksdata(ifcfg, devname):
 def hostname_ksdata(hostname):
     from pyanaconda.kickstart import AnacondaKSHandler
     handler = AnacondaKSHandler()
-    kwargs = {}
     return handler.NetworkData(hostname=hostname, bootProto="")
 
 def find_ifcfg_file_of_device(devname, root_path=""):
@@ -820,7 +818,7 @@ def get_team_slaves(master_specs):
         for settings in slave_settings:
             try:
                 cfg = settings["team-port"]["config"]
-            except KeyError as e:
+            except KeyError:
                 cfg = ""
             devname = settings["connection"].get("interface-name")
             #nm-c-e doesn't save device name

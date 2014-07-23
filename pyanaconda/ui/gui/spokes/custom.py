@@ -1371,7 +1371,6 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
             #
             if changed_device_type or changed_container:
                 # remove the current device
-                root = self._current_selector._root
                 self._destroy_device(device)
                 if device in self._devices:
                     # the removal failed. don't continue.
@@ -2383,12 +2382,10 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         size_policy = self._device_container_size
         if container:
             container_name = container.name
-            raid_level = get_raid_level(container)
             size = container.size
             size_policy = container.size_policy
         elif name:
             container_name = name
-            raid_level = None
             if name != self._device_container_name:
                 # creating a new container -- switch to the default
                 size_policy = SIZE_POLICY_AUTO

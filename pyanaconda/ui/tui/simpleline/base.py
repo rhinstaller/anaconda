@@ -173,7 +173,7 @@ class App(object):
 
         """
 
-        oldscr, oldattr, oldloop = self._screens.pop()
+        oldloop = self._screens.pop()[2]
 
         # we have to keep the oldloop value so we stop
         # dialog's mainloop if it ever uses switch_screen
@@ -232,7 +232,7 @@ class App(object):
         :type scr: UIScreen instance
         """
 
-        oldscr, oldattr, oldloop = self._screens.pop()
+        oldscr, _oldattr, oldloop = self._screens.pop()
         if scr is not None:
             assert oldscr == scr
 
@@ -721,7 +721,7 @@ class Widget(object):
 
         # fill up rows to accomodate for w.height
         if self.height < row + w.height:
-            for i in range(row + w.height - self.height):
+            for _i in range(row + w.height - self.height):
                 self._buffer.append(list())
 
         # append columns to accomodate for w.width
@@ -791,7 +791,7 @@ class Widget(object):
 
             # if the line is not in buffer, create it
             if x >= len(self._buffer):
-                for i in range(x - len(self._buffer) + 1):
+                for _i in range(x - len(self._buffer) + 1):
                     self._buffer.append(list())
 
             # if the line's length is not enough, fill it with spaces

@@ -326,8 +326,10 @@ class SourceSpoke(SourceSwitchHandler, EditTUISpoke):
                 self.errors.append(_("Error downloading package metadata"))
             else:
                 try:
-                    env = self.payload.environments
-                    grp = self.payload.groups
+                    # pylint: disable-msg=W0104
+                    self.payload.environments
+                    # pylint: disable-msg=W0104
+                    self.payload.groups
                     self.errors = []
                 except MetadataError:
                     self.errors.append(_("No installation source available"))

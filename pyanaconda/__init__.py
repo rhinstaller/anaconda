@@ -45,7 +45,6 @@ stdoutLog = logging.getLogger("anaconda.stdout")
 class Anaconda(object):
     def __init__(self):
         import desktop
-        from flags import flags
 
         self._bootloader = None
         self.canReIPL = False

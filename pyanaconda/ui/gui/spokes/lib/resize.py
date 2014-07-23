@@ -336,15 +336,15 @@ class ResizeDialog(GUIObject):
         return False
 
     def on_preserve_clicked(self, button):
-        (model, itr) = self._selection.get_selected()
+        itr = self._selection.get_selected()[1]
         self._actionChanged(itr, PRESERVE)
 
     def on_shrink_clicked(self, button):
-        (model, itr) = self._selection.get_selected()
+        itr = self._selection.get_selected()[1]
         self._actionChanged(itr, SHRINK)
 
     def on_delete_clicked(self, button):
-        (model, itr) = self._selection.get_selected()
+        itr = self._selection.get_selected()[1]
         self._actionChanged(itr, DELETE)
 
     def _actionChanged(self, itr, newAction):
@@ -463,7 +463,7 @@ class ResizeDialog(GUIObject):
         # selection.  Thus, clicking on a disk header to collapse it and then
         # immediately clicking on it again to expand it would not work when
         # dealt with here.
-        (model, itr) = selection.get_selected()
+        itr = selection.get_selected()[1]
 
         if not itr:
             return

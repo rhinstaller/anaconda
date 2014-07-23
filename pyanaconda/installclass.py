@@ -127,8 +127,8 @@ def availableClasses(showHidden=0):
     global allClasses_hidden
 
     def _ordering(first, second):
-        ((name1, obj), priority1) = first
-        ((name2, obj), priority2) = second
+        ((name1, _), priority1) = first
+        ((name2, _), priority2) = second
 
         if priority1 < priority2:
             return -1
@@ -184,7 +184,7 @@ def availableClasses(showHidden=0):
 
         try:
             found = imputil.imp.find_module(mainName)
-        except ImportError as e:
+        except ImportError:
             log.warning ("module import of %s failed: %s", mainName, sys.exc_type)
             continue
 
@@ -200,13 +200,13 @@ def availableClasses(showHidden=0):
 
             if obj.hidden == 0 or showHidden == 1:
                 lst.append(((obj.name, obj), sortOrder))
-        except ImportError as e:
+        except ImportError:
             log.warning ("module import of %s failed: %s", mainName, sys.exc_type)
             if flags.debug: raise
             else: continue
 
     lst.sort(_ordering)
-    for (item, priority) in lst:
+    for (item, _) in lst:
         if showHidden:
             allClasses_hidden.append(item)
         else:

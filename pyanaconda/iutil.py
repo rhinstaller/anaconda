@@ -694,7 +694,7 @@ def dir_tree_map(root, func, files=True, dirs=True):
 
     """
 
-    for (dir_ent, dir_items, file_items) in os.walk(root):
+    for (dir_ent, _dir_items, file_items) in os.walk(root):
         if dirs:
             # try to call the function on the directory entry
             try:

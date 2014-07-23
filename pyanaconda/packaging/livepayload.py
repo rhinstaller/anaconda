@@ -241,7 +241,7 @@ class LiveImageKSPayload(LiveImagePayload):
             error = e
         else:
             # If it is a http request we need to check the code
-            method, x = self.data.method.url.split(":", 1)
+            method = self.data.method.url.split(":", 1)[0]
             if method.startswith("http") and req.getcode() != 200:
                 error = "http request returned %s" % req.getcode()
 

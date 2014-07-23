@@ -413,7 +413,7 @@ def dd_extract(driver, dest_path="/updates/", kernel_ver=None):
     filelist = []
 
     # Copy *.ko files over to /updates/lib/modules/<kernel>/updates/
-    for root, dirs, files in os.walk(dest_path+"/lib/modules/"):
+    for root, _dirs, files in os.walk(dest_path+"/lib/modules/"):
         if root.endswith("/updates") and os.path.isdir(root):
             continue
         for f in (f for f in files if f.endswith(".ko")):
@@ -423,7 +423,7 @@ def dd_extract(driver, dest_path="/updates/", kernel_ver=None):
             move_file(src, initrd_updates)
 
     # Copy the firmware updates
-    for root, dirs, files in os.walk(dest_path+"/lib/firmware/"):
+    for root, _dirs, files in os.walk(dest_path+"/lib/firmware/"):
         if root.endswith("/updates") and os.path.isdir(root):
             continue
         for f in (f for f in files):

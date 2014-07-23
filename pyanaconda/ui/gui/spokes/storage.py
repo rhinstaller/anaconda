@@ -110,7 +110,6 @@ class InstallOptionsDialogBase(GUIObject):
         return True
 
     def _get_sw_needs_text(self, required_space, auto_swap):
-        required_space_text = size_str(required_space)
         sw_text = (_("Your current <a href=\"\"><b>%(product)s</b> software "
                      "selection</a> requires <b>%(total)s</b> of available "
                      "space, including <b>%(software)s</b> for software and "
@@ -553,8 +552,6 @@ class StorageSpoke(NormalSpoke, StorageChecker):
             self.set_warning(_("Warning checking storage configuration.  Click for details."))
 
     def initialize(self):
-        from pyanaconda.ui.gui.utils import setViewportBackground
-
         NormalSpoke.initialize(self)
 
         # Wouldn't it be nice if glade knew how to do this?
@@ -717,7 +714,7 @@ class StorageSpoke(NormalSpoke, StorageChecker):
         dialog = SelectedDisksDialog(self.data,)
         dialog.refresh([d for d in self.disks if d.name in self.selected_disks],
                        free_space)
-        rc = self.run_lightbox_dialog(dialog)
+        self.run_lightbox_dialog(dialog)
 
         # update selected disks since some may have been removed
         self.selected_disks = [d.name for d in dialog.disks]

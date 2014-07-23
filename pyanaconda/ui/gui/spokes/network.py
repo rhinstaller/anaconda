@@ -257,9 +257,9 @@ class DeviceConfiguration(object):
         settings = nm.nm_get_settings(self.con_uuid, "connection", "uuid")
         try:
             value = settings[0][key1][key2]
-        except IndexError as e:
+        except IndexError:
             log.debug("network: can't find connection with uuid %s", self.con_uuid)
-        except KeyError as e:
+        except KeyError:
             log.debug("network: can't find '%s' '%s' in connection %s",
                       key1, key2, self.con_uuid)
         else:

@@ -150,7 +150,7 @@ class SimpleConfigFile(object):
         oldkeys = []
         s = ""
         for line in self._lines:
-            key, val = self._parseline(line)
+            key = self._parseline(line)[0]
             if key is None:
                 s += line
             else:

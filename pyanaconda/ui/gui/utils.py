@@ -76,7 +76,7 @@ def gtk_action_nowait(func):
     def _idle_method(args):
         """This method contains the code for the main loop to execute.
         """
-        ret = func(*args)
+        func(*args)
         return False
 
     def _call_method(*args):

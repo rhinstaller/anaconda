@@ -91,23 +91,12 @@ def doGitDiff(tag, args=[]):
     return lines
 
 def copyUpdatedFiles(tag, updates, cwd):
-    def pruneFile(src, names):
-        lst = []
-
-        for name in names:
-            if name.startswith('Makefile') or name.endswith('.pyc'):
-                lst.append(name)
-
-        return lst
-
     def install_to_dir(fname, relpath):
         sys.stdout.write("Including %s\n" % fname)
         outdir = os.path.join(updates, relpath)
         if not os.path.isdir(outdir):
             os.makedirs(outdir)
         shutil.copy2(fname, outdir)
-
-    subdirs = []
 
     # Updates get overlaid onto the runtime filesystem. Anaconda expects them
     # to be in /run/install/updates, so put them in
@@ -306,9 +295,9 @@ def main(argv):
     add_rpms = []
 
     try:
-        opts, args = getopt.getopt(sys.argv[1:], 'a:t:o:kc?',
-                                   ['add=', 'tag=', 'offset=',
-                                    'keep', 'compile', 'help'])
+        opts, _args = getopt.getopt(sys.argv[1:], 'a:t:o:kc?',
+                                    ['add=', 'tag=', 'offset=',
+                                     'keep', 'compile', 'help'])
     except getopt.GetoptError:
         h = True
 
