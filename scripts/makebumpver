@@ -107,7 +107,7 @@ class MakeBumpVer:
         fields = lines[0].split(' ')
 
         if len(fields) == 2 and fields[1].startswith('rhel'):
-            branch_pattern="^rhel(\d+)-(.*)"
+            branch_pattern=r"^rhel(\d+)-(.*)"
             m = re.match(branch_pattern, fields[1])
             if m:
                 return m.group(1)
@@ -216,7 +216,7 @@ class MakeBumpVer:
             return True
 
         bzentry = self._queryBug(bug)
-        ack_pattern="rhel-%s\.\d+\.\d+" % self.rhel
+        ack_pattern=r"rhel-%s\.\d+\.\d+" % self.rhel
         for f in bzentry.flags:
             if re.match(ack_pattern, f['name']) and f['status'] == '+':
                 return True
@@ -261,7 +261,7 @@ class MakeBumpVer:
                 bad = False
 
                 # look for a bug in the summary line, validate if found
-                m = re.search("\(#\d+(\,.*)*\)", summary)
+                m = re.search(r"\(#\d+(\,.*)*\)", summary)
                 if m:
                     fullbug = summary[m.start():m.end()]
                     bugstr = summary[m.start()+2:m.end()-1]
@@ -311,14 +311,14 @@ class MakeBumpVer:
                     summary_bug = None
 
                 for bodyline in body:
-                    m = re.match("^(Resolves|Related|Conflicts):\ +rhbz#\d+.*$",
+                    m = re.match(r"^(Resolves|Related|Conflicts):\ +rhbz#\d+.*$",
                                  bodyline)
                     if not m:
                         continue
 
-                    actionre = re.search("(Resolves|Related|Conflicts)",
+                    actionre = re.search(r"(Resolves|Related|Conflicts)",
                                          bodyline)
-                    bugre = re.search("\d+", bodyline)
+                    bugre = re.search(r"\d+", bodyline)
                     if actionre and bugre:
                         action = actionre.group()
                         bug = bugre.group()
