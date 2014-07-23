@@ -210,7 +210,7 @@ class Page(Gtk.Box):
 
         if event and event.type == Gdk.EventType.KEY_RELEASE and \
            event.keyval not in [Gdk.KEY_space, Gdk.KEY_Return, Gdk.KEY_ISO_Enter, Gdk.KEY_KP_Enter, Gdk.KEY_KP_Space]:
-              return
+            return
 
         # Then, this callback will set up the right hand side of the screen to
         # show the details for the newly selected object.

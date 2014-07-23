@@ -440,7 +440,7 @@ class StorageSpoke(NormalSpoke, StorageChecker):
 
         if event.type == Gdk.EventType.KEY_RELEASE and \
            event.keyval not in [Gdk.KEY_space, Gdk.KEY_Return, Gdk.KEY_ISO_Enter, Gdk.KEY_KP_Enter, Gdk.KEY_KP_Space]:
-              return
+            return
 
         if event.type == Gdk.EventType.BUTTON_PRESS and \
                 event.state & Gdk.ModifierType.SHIFT_MASK:

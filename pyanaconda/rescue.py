@@ -75,36 +75,36 @@ class RescueInterface(InstallInterfaceBase):
 
     def messageWindow(self, title, text, type = "ok", default = None,
                       custom_icon=None, custom_buttons=[]):
-	if type == "ok":
-	    ButtonChoiceWindow(self.screen, title, text,
-			       buttons=[TEXT_OK_BUTTON])
+        if type == "ok":
+            ButtonChoiceWindow(self.screen, title, text,
+                               buttons=[TEXT_OK_BUTTON])
         elif type == "yesno":
             if default and default == "no":
                 btnlist = [TEXT_NO_BUTTON, TEXT_YES_BUTTON]
             else:
                 btnlist = [TEXT_YES_BUTTON, TEXT_NO_BUTTON]
-	    rc = ButtonChoiceWindow(self.screen, title, text,
-			       buttons=btnlist)
+            rc = ButtonChoiceWindow(self.screen, title, text,
+                                    buttons=btnlist)
             if rc == "yes":
                 return 1
             else:
                 return 0
-	elif type == "custom":
-	    tmpbut = []
-	    for but in custom_buttons:
-		tmpbut.append(but.replace("_",""))
+        elif type == "custom":
+            tmpbut = []
+            for but in custom_buttons:
+                tmpbut.append(but.replace("_",""))
 
-	    rc = ButtonChoiceWindow(self.screen, title, text, width=60,
-				    buttons=tmpbut)
+            rc = ButtonChoiceWindow(self.screen, title, text, width=60,
+                                    buttons=tmpbut)
 
-	    idx = 0
-	    for b in tmpbut:
-		if b.lower() == rc:
-		    return idx
-		idx = idx + 1
-	    return 0
-	else:
-	    return OkCancelWindow(self.screen, title, text)
+            idx = 0
+            for b in tmpbut:
+                if b.lower() == rc:
+                    return idx
+                idx = idx + 1
+            return 0
+        else:
+            return OkCancelWindow(self.screen, title, text)
 
     def passphraseEntryWindow(self, device):
         w = PassphraseEntryWindow(self.screen, device)
@@ -285,10 +285,10 @@ def doRescue(intf, rescue_mount, ksdata):
         # the %post should be responsible for mounting all needed file systems
         # NOTE: 1st script must be bash or simple python as nothing else might be available in the rescue image
         if flags.automatedInstall and ksdata.scripts:
-           from kickstart import runPostScripts
-           runPostScripts(ksdata.scripts)
+            from kickstart import runPostScripts
+            runPostScripts(ksdata.scripts)
         else:
-           runShell()
+            runShell()
 
         sys.exit(0)
 

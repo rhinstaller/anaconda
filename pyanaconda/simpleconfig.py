@@ -109,12 +109,12 @@ class SimpleConfigFile(object):
 
     def set(self, *args):
         for key, value in args:
-           self.info[uppercase_ASCII_string(key)] = value
+            self.info[uppercase_ASCII_string(key)] = value
 
     def unset(self, *keys):
         for key in (uppercase_ASCII_string(k) for k in keys):
             if key in self.info:
-               del self.info[key]
+                del self.info[key]
 
     def get(self, key):
         return self.info.get(uppercase_ASCII_string(key), "")

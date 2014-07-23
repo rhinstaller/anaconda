@@ -402,7 +402,7 @@ class Hub(GUIObject, common.Hub):
 
         if event and event.type == Gdk.EventType.KEY_RELEASE and \
            event.keyval not in [Gdk.KEY_space, Gdk.KEY_Return, Gdk.KEY_ISO_Enter, Gdk.KEY_KP_Enter, Gdk.KEY_KP_Space]:
-              return
+            return
 
         if selector:
             selector.grab_focus()

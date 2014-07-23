@@ -41,7 +41,7 @@ class InstallClass(BaseInstallClass):
     efi_dir = "fedora"
 
     def configure(self, anaconda):
-	BaseInstallClass.configure(self, anaconda)
+        BaseInstallClass.configure(self, anaconda)
         BaseInstallClass.setDefaultPartitioning(self, anaconda.storage)
 
     def setGroupSelection(self, anaconda):
@@ -82,4 +82,4 @@ class InstallClass(BaseInstallClass):
                 break
 
     def __init__(self):
-	BaseInstallClass.__init__(self)
+        BaseInstallClass.__init__(self)

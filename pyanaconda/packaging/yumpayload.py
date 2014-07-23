@@ -658,7 +658,7 @@ reposdir=%s
         # we don't need to mount it again
         elif method.method == "cdrom" and \
              blivet.util.get_mount_paths(device.path):
-                return
+            return
         else:
             device.format.setup(mountpoint=INSTALL_TREE)
 

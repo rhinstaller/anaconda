@@ -2169,11 +2169,11 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
                                      "details."))
                     self.window.show_all()
             except OverflowError as e:
-                 log.error("invalid size set for partition")
-                 self._error = e
-                 self.set_error(_("Invalid partition size set. Use a "
-                                  "valid integer."))
-                 self.window.show_all()
+                log.error("invalid size set for partition")
+                self._error = e
+                self.set_error(_("Invalid partition size set. Use a "
+                                 "valid integer."))
+                self.window.show_all()
 
         self._devices = self.__storage.devices
         if not self._error:

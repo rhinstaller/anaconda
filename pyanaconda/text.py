@@ -27,40 +27,41 @@ from pyanaconda.i18n import _
 
 class WaitWindow:
     def pop(self):
-	self.screen.popWindow()
-	self.screen.refresh()
+        self.screen.popWindow()
+        self.screen.refresh()
 
     def refresh(self):
         pass
 
     def __init__(self, screen, title, text):
-	self.screen = screen
-	width = 40
-	if (len(text) < width): width = len(text)
+        self.screen = screen
+        width = 40
+        if (len(text) < width):
+            width = len(text)
 
-	t = TextboxReflowed(width, text)
+        t = TextboxReflowed(width, text)
 
-	g = GridForm(self.screen, title, 1, 1)
-	g.add(t, 0, 0)
-	g.draw()
-	self.screen.refresh()
+        g = GridForm(self.screen, title, 1, 1)
+        g.add(t, 0, 0)
+        g.draw()
+        self.screen.refresh()
 
 class OkCancelWindow:
     def getrc(self):
-	return self.rc
+        return self.rc
 
     def __init__(self, screen, title, text):
-	rc = ButtonChoiceWindow(screen, title, text,
-			        buttons=[TEXT_OK_BUTTON, _("Cancel")])
-	if rc == string.lower(_("Cancel")):
-	    self.rc = 1
-	else:
-	    self.rc = 0
+        rc = ButtonChoiceWindow(screen, title, text,
+                                buttons=[TEXT_OK_BUTTON, _("Cancel")])
+        if rc == string.lower(_("Cancel")):
+            self.rc = 1
+        else:
+            self.rc = 0
 
 class ProgressWindow:
     def pop(self):
-	self.screen.popWindow()
-	self.screen.refresh()
+        self.screen.popWindow()
+        self.screen.refresh()
         del self.scale
         self.scale = None
 
@@ -78,21 +79,22 @@ class ProgressWindow:
         self.multiplier = 1
         if total == 1.0:
             self.multiplier = 100
-	self.screen = screen
-	width = 55
-	if (len(text) > width): width = len(text)
+        self.screen = screen
+        width = 55
+        if (len(text) > width):
+            width = len(text)
 
-	t = TextboxReflowed(width, text)
+        t = TextboxReflowed(width, text)
 
-	g = GridForm(self.screen, title, 1, 2)
-	g.add(t, 0, 0, (0, 0, 0, 1), anchorLeft=1)
+        g = GridForm(self.screen, title, 1, 2)
+        g.add(t, 0, 0, (0, 0, 0, 1), anchorLeft=1)
 
         self.scale = Scale(int(width), int(float(total) * self.multiplier))
         if not pulse:
             g.add(self.scale, 0, 1)
                 
-	g.draw()
-	self.screen.refresh()
+        g.draw()
+        self.screen.refresh()
 
 class PassphraseEntryWindow:
     def __init__(self, screen, device):

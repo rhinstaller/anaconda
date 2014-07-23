@@ -36,9 +36,9 @@ drives.sort (isys.compareDrives)
 raidDevices = raid.scanForRaid(drives)
 for (minor, devices, level, totalDisks) in raidDevices:
     if targMinor == minor:
-    	devName = "md%d" % (minor,)
-	isys.raidstart(devName, devices[0])
-	sys.exit(0)
+        devName = "md%d" % (minor,)
+        isys.raidstart(devName, devices[0])
+        sys.exit(0)
 
 print "could not find devices associated with raid device md%d" % targMinor
 sys.exit(1)

@@ -331,9 +331,9 @@ class StorageSpoke(NormalTUISpoke):
         self.data.bootloader.location = "mbr"
 
         if self.data.bootloader.bootDrive and \
-            self.data.bootloader.bootDrive not in self.selected_disks:
-                self.data.bootloader.bootDrive = ""
-                self.storage.bootloader.reset()
+           self.data.bootloader.bootDrive not in self.selected_disks:
+            self.data.bootloader.bootDrive = ""
+            self.storage.bootloader.reset()
 
         self.storage.config.update(self.data)
 
