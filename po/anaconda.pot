@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: anaconda 21.47\n"
+"Project-Id-Version: anaconda 21.48.0\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
-"POT-Creation-Date: 2014-07-16 16:53-0700\n"
+"POT-Creation-Date: 2014-07-23 17:32-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -197,7 +197,7 @@ msgstr ""
 
 #: pyanaconda/constants_text.py:40 pyanaconda/rescue.py:333
 #: pyanaconda/rescue.py:365 pyanaconda/rescue.py:378 pyanaconda/rescue.py:446
-#: pyanaconda/rescue.py:462 pyanaconda/rescue.py:473 anaconda:627
+#: pyanaconda/rescue.py:462 pyanaconda/rescue.py:473 anaconda:628
 msgid "OK"
 msgstr ""
 
@@ -1816,7 +1816,7 @@ msgstr ""
 msgid "User creation"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/user.py:112 pyanaconda/ui/gui/spokes/user.py:345
+#: pyanaconda/ui/tui/spokes/user.py:112 pyanaconda/ui/gui/spokes/user.py:346
 msgid "No user will be created"
 msgstr ""
 
@@ -1824,12 +1824,12 @@ msgstr ""
 msgid "You must set a password"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/user.py:116 pyanaconda/ui/gui/spokes/user.py:347
+#: pyanaconda/ui/tui/spokes/user.py:116 pyanaconda/ui/gui/spokes/user.py:348
 #, python-format
 msgid "Administrator %s will be created"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/user.py:118 pyanaconda/ui/gui/spokes/user.py:349
+#: pyanaconda/ui/tui/spokes/user.py:118 pyanaconda/ui/gui/spokes/user.py:350
 #, python-format
 msgid "User %s will be created"
 msgstr ""
@@ -1839,7 +1839,7 @@ msgid "Warnings"
 msgstr ""
 
 #: pyanaconda/ui/tui/spokes/warnings.py:44
-#: pyanaconda/ui/gui/spokes/welcome.glade:507
+#: pyanaconda/ui/gui/spokes/welcome.glade:518
 msgid ""
 "This hardware (or a combination thereof) is not supported by Red Hat.  For "
 "more information on supported hardware, please refer to http://www.redhat."
@@ -1910,22 +1910,22 @@ msgstr ""
 #, python-format
 msgid ""
 "You have provided an invalid username: %s\n"
-"Do not use spaces or capital letters.\n"
+"Tip: Keep your username shorter than 32 characters and do not use spaces.\n"
 msgstr ""
 
 #: pyanaconda/ui/tui/spokes/__init__.py:277
 msgid "Password set."
 msgstr ""
 
-#: pyanaconda/ui/gui/__init__.py:600 widgets/src/StandaloneWindow.c:49
+#: pyanaconda/ui/gui/__init__.py:611 widgets/src/StandaloneWindow.c:49
 msgid "_Quit"
 msgstr ""
 
-#: pyanaconda/ui/gui/__init__.py:615
+#: pyanaconda/ui/gui/__init__.py:626
 msgid "_No"
 msgstr ""
 
-#: pyanaconda/ui/gui/__init__.py:615
+#: pyanaconda/ui/gui/__init__.py:626
 msgid "_Yes"
 msgstr ""
 
@@ -2204,7 +2204,7 @@ msgstr ""
 msgid "Layout switching not configured."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/langsupport.py:47
+#: pyanaconda/ui/gui/spokes/langsupport.py:48
 msgctxt "GUI|Spoke"
 msgid "_LANGUAGE SUPPORT"
 msgstr ""
@@ -2361,25 +2361,25 @@ msgctxt "GUI|Spoke"
 msgid "_NETWORK & HOSTNAME"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/password.py:49
+#: pyanaconda/ui/gui/spokes/password.py:50
 msgctxt "GUI|Spoke"
 msgid "_ROOT PASSWORD"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/password.py:96
 #: pyanaconda/ui/gui/spokes/password.py:97
+#: pyanaconda/ui/gui/spokes/password.py:98
 msgid "The password is set."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/password.py:119
+#: pyanaconda/ui/gui/spokes/password.py:120
 msgid "Root password is set"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/password.py:121
+#: pyanaconda/ui/gui/spokes/password.py:122
 msgid "Root account is disabled"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/password.py:123
+#: pyanaconda/ui/gui/spokes/password.py:124
 msgid "Root password is not set"
 msgstr ""
 
@@ -2661,24 +2661,24 @@ msgstr ""
 msgid "Invalid group name: %s"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/user.py:210
+#: pyanaconda/ui/gui/spokes/user.py:211
 msgctxt "GUI|Spoke"
 msgid "_USER CREATION"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/user.py:283 pyanaconda/ui/gui/spokes/user.py:284
+#: pyanaconda/ui/gui/spokes/user.py:284 pyanaconda/ui/gui/spokes/user.py:285
 msgid "The password was set by kickstart."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/user.py:312
+#: pyanaconda/ui/gui/spokes/user.py:313
 msgid "Invalid username"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/user.py:314
+#: pyanaconda/ui/gui/spokes/user.py:315
 msgid "Full name cannot contain colon characters"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/welcome.py:251
+#: pyanaconda/ui/gui/spokes/welcome.py:252
 #, python-format
 msgid "WELCOME TO %(name)s %(version)s."
 msgstr ""
@@ -2770,58 +2770,58 @@ msgstr ""
 msgid "Volume"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/lib/custom_storage_helpers.py:110
+#: pyanaconda/ui/gui/spokes/lib/custom_storage_helpers.py:113
 msgid "Can not relabel already existing filesystem."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/lib/custom_storage_helpers.py:115
+#: pyanaconda/ui/gui/spokes/lib/custom_storage_helpers.py:118
 msgid "Can not set label on filesystem."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/lib/custom_storage_helpers.py:117
+#: pyanaconda/ui/gui/spokes/lib/custom_storage_helpers.py:120
 msgid "Unacceptable label format for filesystem."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/lib/custom_storage_helpers.py:127
+#: pyanaconda/ui/gui/spokes/lib/custom_storage_helpers.py:130
 msgid "That mount point is already in use. Try something else?"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/lib/custom_storage_helpers.py:129
+#: pyanaconda/ui/gui/spokes/lib/custom_storage_helpers.py:132
 msgid "Please enter a valid mountpoint."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/lib/custom_storage_helpers.py:132
-#: pyanaconda/ui/gui/spokes/lib/custom_storage_helpers.py:144
+#: pyanaconda/ui/gui/spokes/lib/custom_storage_helpers.py:134
+#: pyanaconda/ui/gui/spokes/lib/custom_storage_helpers.py:146
 msgid "That mount point is invalid. Try something else?"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/lib/custom_storage_helpers.py:285
+#: pyanaconda/ui/gui/spokes/lib/custom_storage_helpers.py:287
 msgid "container"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/lib/custom_storage_helpers.py:357
+#: pyanaconda/ui/gui/spokes/lib/custom_storage_helpers.py:359
 #, python-format
 msgctxt "GUI|Custom Partitioning|Confirm Delete Dialog"
 msgid "Delete _all other filesystems in the %s root as well."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/lib/custom_storage_helpers.py:367
+#: pyanaconda/ui/gui/spokes/lib/custom_storage_helpers.py:369
 #, python-format
 msgid "Are you sure you want to delete all of the data on %s?"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/lib/custom_storage_helpers.py:369
+#: pyanaconda/ui/gui/spokes/lib/custom_storage_helpers.py:371
 #, python-format
 msgid ""
 "Are you sure you want to delete all of the data on %s, including snapshots "
 "and/or subvolumes?"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/lib/custom_storage_helpers.py:646
+#: pyanaconda/ui/gui/spokes/lib/custom_storage_helpers.py:648
 msgid "Invalid container name"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/lib/custom_storage_helpers.py:671
+#: pyanaconda/ui/gui/spokes/lib/custom_storage_helpers.py:673
 #, python-format
 msgid ""
 "You have chosen to manually set up the filesystems for your new "
@@ -4011,33 +4011,33 @@ msgstr ""
 msgid "LANGUAGE SUPPORT"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/langsupport.glade:77
+#: pyanaconda/ui/gui/spokes/langsupport.glade:79
 msgid "Select additional language support to be installed:"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/langsupport.glade:125
-#: pyanaconda/ui/gui/spokes/langsupport.glade:229
-#: pyanaconda/ui/gui/spokes/welcome.glade:264
-#: pyanaconda/ui/gui/spokes/welcome.glade:362
+#: pyanaconda/ui/gui/spokes/langsupport.glade:130
+#: pyanaconda/ui/gui/spokes/langsupport.glade:234
+#: pyanaconda/ui/gui/spokes/welcome.glade:273
+#: pyanaconda/ui/gui/spokes/welcome.glade:373
 msgid "nativeName"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/langsupport.glade:142
-#: pyanaconda/ui/gui/spokes/welcome.glade:281
+#: pyanaconda/ui/gui/spokes/langsupport.glade:147
+#: pyanaconda/ui/gui/spokes/welcome.glade:290
 msgid "englishName"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/langsupport.glade:160
-#: pyanaconda/ui/gui/spokes/welcome.glade:299
+#: pyanaconda/ui/gui/spokes/langsupport.glade:165
+#: pyanaconda/ui/gui/spokes/welcome.glade:308
 msgid "selected"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/langsupport.glade:181
-#: pyanaconda/ui/gui/spokes/welcome.glade:326
+#: pyanaconda/ui/gui/spokes/langsupport.glade:186
+#: pyanaconda/ui/gui/spokes/welcome.glade:337
 msgid "Type here to search."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/langsupport.glade:215
+#: pyanaconda/ui/gui/spokes/langsupport.glade:220
 msgid "checked"
 msgstr ""
 
@@ -4330,37 +4330,37 @@ msgstr ""
 msgid "Beta Warn"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/welcome.glade:219
+#: pyanaconda/ui/gui/spokes/welcome.glade:225
 msgid "What language would you like to use during the installation process?"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/welcome.glade:307
+#: pyanaconda/ui/gui/spokes/welcome.glade:316
 msgid "Languages"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/welcome.glade:378
+#: pyanaconda/ui/gui/spokes/welcome.glade:389
 msgid "Locales"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/welcome.glade:412
+#: pyanaconda/ui/gui/spokes/welcome.glade:423
 msgid "WELCOME"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/welcome.glade:433
+#: pyanaconda/ui/gui/spokes/welcome.glade:444
 msgctxt "GUI|Welcome|Unsupported Hardware Dialog"
 msgid "_Quit"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/welcome.glade:447
+#: pyanaconda/ui/gui/spokes/welcome.glade:458
 msgctxt "GUI|Welcome|Unsupported Hardware Dialog"
 msgid "_Continue"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/welcome.glade:478
+#: pyanaconda/ui/gui/spokes/welcome.glade:489
 msgid "Unsupported Hardware Detected"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/welcome.glade:536
+#: pyanaconda/ui/gui/spokes/welcome.glade:547
 msgid "Unsupported Hardware"
 msgstr ""
 
@@ -5287,7 +5287,7 @@ msgstr ""
 msgid "Install the live CD to your hard disk"
 msgstr ""
 
-#: /root/anaconda/data/liveinst/console.apps/liveinst:5
+#: /home/sbueno/scm/anaconda/data/liveinst/console.apps/liveinst:5
 msgid "Starting Install to Hard Drive"
 msgstr ""
 
@@ -5307,7 +5307,8 @@ msgstr ""
 #, python-format
 msgid ""
 "The %(product_name)s graphical installer requires %(needed_ram)s MB of "
-"memory, but you only have %(total_ram)s MB."
+"memory, but you only have %(total_ram)s MB\n"
+"."
 msgstr ""
 
 #: anaconda:588
@@ -5333,31 +5334,31 @@ msgstr ""
 msgid " Starting text mode."
 msgstr ""
 
-#: anaconda:625
+#: anaconda:626
 msgid "Fatal Error"
 msgstr ""
 
-#: anaconda:747
+#: anaconda:751
 msgid "DISPLAY variable not set. Starting text mode."
 msgstr ""
 
-#: anaconda:755
+#: anaconda:759
 msgid "Graphical installation is not available. Starting text mode."
 msgstr ""
 
-#: anaconda:763
+#: anaconda:767
 msgid ""
 "Text mode provides a limited set of installation options. It does not offer "
 "custom partitioning for full control over the disk layout. Would you like to "
 "use VNC mode instead?"
 msgstr ""
 
-#: anaconda:850
+#: anaconda:856
 #, python-format
 msgid "Please ssh install@%s to begin the install."
 msgstr ""
 
-#: anaconda:852
+#: anaconda:858
 msgid "Please ssh install@<host> to continue installation."
 msgstr ""
 
