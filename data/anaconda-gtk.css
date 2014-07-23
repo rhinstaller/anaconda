@@ -190,3 +190,12 @@ AnacondaSpokeSelector:insensitive {
     color: @anaconda_insensitive_fg_color;
     border-color: @anaconda_insensitive_borders;
 }
+
+/* When multi-column GtkTreeViews set a row separator, the horizontal-separator
+ * style property is still applied to the row separator, breaking the row
+ * separator up for each column. It looks kind of dumb. Provide a way to not do
+ * that.
+ */
+GtkTreeView.solid-separator {
+    -GtkTreeView-horizontal-separator: 0;
+}
