@@ -629,7 +629,7 @@ class StorageSpoke(NormalSpoke, StorageChecker):
         # actions on storage devices
         threadMgr.wait(constants.THREAD_STORAGE)
 
-        to_format = make_unformatted_dasd_list(self.selected_disks)
+        to_format = make_unformatted_dasd_list(d.name for d in getDisks(self.storage.devicetree))
         if not to_format:
             # nothing to do here; bail
             return
