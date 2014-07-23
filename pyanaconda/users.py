@@ -283,7 +283,7 @@ class Users:
                     groupEnt.set(libuser.GIDNUMBER, kwargs["gid"])
 
                 grpLst = filter(lambda grp: grp,
-                                map(lambda name: self.admin.lookupGroupByName(name), kwargs.get("groups", [])))
+                                map(self.admin.lookupGroupByName, kwargs.get("groups", [])))
                 userEnt.set(libuser.GIDNUMBER, [groupEnt.get(libuser.GIDNUMBER)[0]] +
                             map(lambda grp: grp.get(libuser.GIDNUMBER)[0], grpLst))
 
