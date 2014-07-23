@@ -167,15 +167,15 @@ def netmask2prefix(netmask):
 
 def prefix2netmask(prefix):
     """ Convert prefix (CIDR bits) to netmask """
-    bytes = []
+    _bytes = []
     for i in range(4):
         if prefix >= 8:
-            bytes.append(255)
+            _bytes.append(255)
             prefix -= 8
         else:
-            bytes.append(256 - 2**(8-prefix))
+            _bytes.append(256 - 2**(8-prefix))
             prefix = 0
-    netmask = ".".join(str(byte) for byte in bytes)
+    netmask = ".".join(str(byte) for byte in _bytes)
     return netmask
 
 # Try to determine what the hostname should be for this system
@@ -826,8 +826,8 @@ def get_team_slaves(master_specs):
             #nm-c-e doesn't save device name
             # TODO: wifi, infiniband
             if not devname:
-                type = settings["connection"]["type"]
-                if type == "802-3-ethernet":
+                ty = settings["connection"]["type"]
+                if ty == "802-3-ethernet":
                     hwaddr = settings["802-3-ethernet"]["mac-address"]
                     hwaddr = ":".join("%02X" % b for b in hwaddr)
                     devname = nm.nm_hwaddr_to_device_name(hwaddr)
@@ -871,15 +871,15 @@ def default_route_device():
 
     return None
 
-def copyFileToPath(file, destPath='', overwrite=False):
-    if not os.path.isfile(file):
+def copyFileToPath(fileName, destPath='', overwrite=False):
+    if not os.path.isfile(fileName):
         return False
-    destfile = os.path.join(destPath, file.lstrip('/'))
+    destfile = os.path.join(destPath, fileName.lstrip('/'))
     if (os.path.isfile(destfile) and not overwrite):
         return False
     if not os.path.isdir(os.path.dirname(destfile)):
         iutil.mkdirChain(os.path.dirname(destfile))
-    shutil.copy(file, destfile)
+    shutil.copy(fileName, destfile)
     return True
 
 # /etc/sysconfig/network-scripts/ifcfg-*

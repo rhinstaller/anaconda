@@ -82,10 +82,10 @@ def sync ():
     return _isys.sync ()
 
 ## Determine if a file is an ISO image or not.
-# @param file The full path to a file to check.
+# @param path The full path to a file to check.
 # @return True if ISO image, False otherwise.
-def isIsoImage(file):
-    return _isys.isisoimage(file)
+def isIsoImage(path):
+    return _isys.isisoimage(path)
 
 isPAE = None
 def isPaeAvailable():

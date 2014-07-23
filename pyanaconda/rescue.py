@@ -64,18 +64,18 @@ class RescueInterface(InstallInterfaceBase):
     def progressWindow(self, title, text, total, updpct = 0.05, pulse = False):
         return ProgressWindow(self.screen, title, text, total, updpct, pulse)
 
-    def detailedMessageWindow(self, title, text, longText=None, type="ok",
+    def detailedMessageWindow(self, title, text, longText=None, ty="ok",
                               default=None, custom_icon=None,
                               custom_buttons=[], expanded=False):
-        return self.messageWindow(title, text, type, default, custom_icon,
+        return self.messageWindow(title, text, ty, default, custom_icon,
                                   custom_buttons)
 
-    def messageWindow(self, title, text, type = "ok", default = None,
+    def messageWindow(self, title, text, ty = "ok", default = None,
                       custom_icon=None, custom_buttons=[]):
-        if type == "ok":
+        if ty == "ok":
             ButtonChoiceWindow(self.screen, title, text,
                                buttons=[TEXT_OK_BUTTON])
-        elif type == "yesno":
+        elif ty == "yesno":
             if default and default == "no":
                 btnlist = [TEXT_NO_BUTTON, TEXT_YES_BUTTON]
             else:
@@ -86,7 +86,7 @@ class RescueInterface(InstallInterfaceBase):
                 return 1
             else:
                 return 0
-        elif type == "custom":
+        elif ty == "custom":
             tmpbut = []
             for but in custom_buttons:
                 tmpbut.append(but.replace("_",""))
@@ -270,10 +270,10 @@ def doRescue(intf, rescue_mount, ksdata):
                                                                     intf.screen,
                                                                     ty, val, tb)
 
-    for file in [ "services", "protocols", "group", "joe", "man.config",
-                  "nsswitch.conf", "selinux", "mke2fs.conf" ]:
+    for f in [ "services", "protocols", "group", "joe", "man.config",
+               "nsswitch.conf", "selinux", "mke2fs.conf" ]:
         try:
-            os.symlink('/mnt/runtime/etc/' + file, '/etc/' + file)
+            os.symlink('/mnt/runtime/etc/' + f, '/etc/' + f)
         except OSError:
             pass
 

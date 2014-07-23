@@ -153,12 +153,12 @@ def availableClasses(showHidden=0):
     if "ANACONDA_INSTALL_CLASSES" in os.environ:
         env_path += os.environ["ANACONDA_INSTALL_CLASSES"].split(":")
 
-    for dir in env_path + ["installclasses",
+    for d in env_path + ["installclasses",
                 "/tmp/updates/pyanaconda/installclasses",
                 "/tmp/product/pyanaconda/installclasses",
                 "%s/pyanaconda/installclasses" % get_python_lib(plat_specific=1) ]:
-        if os.access(dir, os.R_OK):
-            path.append(dir)
+        if os.access(d, os.R_OK):
+            path.append(d)
 
     # append the location of installclasses to the python path so we
     # can import them
@@ -169,15 +169,15 @@ def availableClasses(showHidden=0):
         files += os.listdir(p)
 
     done = {}
-    list = []
-    for file in files:
-        if file[0] == '.':
+    lst = []
+    for fileName in files:
+        if fileName[0] == '.':
             continue
-        if len (file) < 4:
+        if len (fileName) < 4:
             continue
-        if file[-3:] != ".py" and file[-4:-1] != ".py":
+        if fileName[-3:] != ".py" and fileName[-4:-1] != ".py":
             continue
-        mainName = string.split(file, ".")[0]
+        mainName = string.split(fileName, ".")[0]
         if done.has_key(mainName):
             continue
         done[mainName] = 1
@@ -199,14 +199,14 @@ def availableClasses(showHidden=0):
                 sortOrder = 0
 
             if obj.hidden == 0 or showHidden == 1:
-                list.append(((obj.name, obj), sortOrder))
+                lst.append(((obj.name, obj), sortOrder))
         except ImportError as e:
             log.warning ("module import of %s failed: %s", mainName, sys.exc_type)
             if flags.debug: raise
             else: continue
 
-    list.sort(_ordering)
-    for (item, priority) in list:
+    lst.sort(_ordering)
+    for (item, priority) in lst:
         if showHidden:
             allClasses_hidden.append(item)
         else:

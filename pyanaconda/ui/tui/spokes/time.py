@@ -104,21 +104,21 @@ class TimeZoneSpoke(FirstbootSpokeMixIn, NormalTUISpoke):
             pass
 
         if key.lower().replace("_", " ") in self._lower_zones:
-            id = self._lower_zones.index(key.lower().replace("_", " "))
-            self._selection = self._zones[id]
+            index = self._lower_zones.index(key.lower().replace("_", " "))
+            self._selection = self._zones[index]
             self.apply()
             self.close()
             return True
 
         elif key.lower() in self._lower_regions:
-            id = self._lower_regions.index(key.lower())
-            if len(self._timezones[self._regions[id]]) == 1:
-                self._selection = "%s/%s" % (self._regions[id],
-                                             self._timezones[self._regions[id]][0])
+            index = self._lower_regions.index(key.lower())
+            if len(self._timezones[self._regions[index]]) == 1:
+                self._selection = "%s/%s" % (self._regions[index],
+                                             self._timezones[self._regions[index]][0])
                 self.apply()
                 self.close()
             else:
-                self.app.switch_screen(self, self._regions[id])
+                self.app.switch_screen(self, self._regions[index])
             return True
 
         elif key.lower() == "b":

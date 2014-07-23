@@ -268,32 +268,32 @@ def execConsole():
     except OSError as e:
         raise RuntimeError, "Error running /bin/sh: " + e.strerror
 
-def getDirSize(dir):
+def getDirSize(directory):
     """ Get the size of a directory and all its subdirectories.
-    @param dir The name of the directory to find the size of.
+    @param directory The name of the directory to find the size of.
     @return The size of the directory in kilobytes.
     """
-    def getSubdirSize(dir):
+    def getSubdirSize(directory):
         # returns size in bytes
         try:
-            mydev = os.lstat(dir)[stat.ST_DEV]
+            mydev = os.lstat(directory)[stat.ST_DEV]
         except OSError as e:
-            log.debug("failed to stat %s: %s", dir, e)
+            log.debug("failed to stat %s: %s", directory, e)
             return 0
 
         try:
-            dirlist = os.listdir(dir)
+            dirlist = os.listdir(directory)
         except OSError as e:
-            log.debug("failed to listdir %s: %s", dir, e)
+            log.debug("failed to listdir %s: %s", directory, e)
             return 0
 
         dsize = 0
         for f in dirlist:
-            curpath = '%s/%s' % (dir, f)
+            curpath = '%s/%s' % (directory, f)
             try:
                 sinfo = os.lstat(curpath)
             except OSError as e:
-                log.debug("failed to stat %s/%s: %s", dir, f, e)
+                log.debug("failed to stat %s/%s: %s", directory, f, e)
                 continue
 
             if stat.S_ISDIR(sinfo[stat.ST_MODE]):
@@ -305,21 +305,21 @@ def getDirSize(dir):
                 dsize += sinfo[stat.ST_SIZE]
 
         return dsize
-    return getSubdirSize(dir)/1024
+    return getSubdirSize(directory)/1024
 
 ## Create a directory path.  Don't fail if the directory already exists.
-# @param dir The directory path to create.
-def mkdirChain(dir):
+# @param directory The directory path to create.
+def mkdirChain(directory):
     try:
-        os.makedirs(dir, 0755)
+        os.makedirs(directory, 0755)
     except OSError as e:
         try:
-            if e.errno == errno.EEXIST and stat.S_ISDIR(os.stat(dir).st_mode):
+            if e.errno == errno.EEXIST and stat.S_ISDIR(os.stat(directory).st_mode):
                 return
         except OSError:
             pass
 
-        log.error("could not create directory %s: %s", dir, e.strerror)
+        log.error("could not create directory %s: %s", directory, e.strerror)
 
 def get_active_console(dev="console"):
     '''Find the active console device.
@@ -394,19 +394,19 @@ def parseNfsUrl(nfsurl):
 
     return (options, host, path)
 
-def add_po_path(module, dir):
+def add_po_path(module, directory):
     """ Looks to see what translations are under a given path and tells
     the gettext module to use that path as the base dir """
-    for d in os.listdir(dir):
-        if not os.path.isdir("%s/%s" %(dir,d)):
+    for d in os.listdir(directory):
+        if not os.path.isdir("%s/%s" %(directory,d)):
             continue
-        if not os.path.exists("%s/%s/LC_MESSAGES" %(dir,d)):
+        if not os.path.exists("%s/%s/LC_MESSAGES" %(directory,d)):
             continue
-        for basename in os.listdir("%s/%s/LC_MESSAGES" %(dir,d)):
+        for basename in os.listdir("%s/%s/LC_MESSAGES" %(directory,d)):
             if not basename.endswith(".mo"):
                 continue
-            log.info("setting %s as translation source for %s", dir, basename[:-3])
-            module.bindtextdomain(basename[:-3], dir)
+            log.info("setting %s as translation source for %s", directory, basename[:-3])
+            module.bindtextdomain(basename[:-3], directory)
 
 def setup_translations(module):
     if os.path.isdir(TRANSLATIONS_UPDATE_DIR):

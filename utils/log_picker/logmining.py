@@ -118,9 +118,9 @@ class AnacondaLogMiner(LogMinerBaseClass):
         if not len(tbpfiles):
             raise LogMinerError('Error: No anaconda traceback file exist')
             
-        for file in tbpfiles:
-            if file.startswith('anaconda-tb-'):
-                tbpfile_name = file
+        for f in tbpfiles:
+            if f.startswith('anaconda-tb-'):
+                tbpfile_name = f
                 break
         else:
             raise LogMinerError('Error: No anaconda traceback file exist')

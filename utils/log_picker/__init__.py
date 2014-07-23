@@ -72,13 +72,13 @@ class LogPicker(object):
             raise LogPickerError('More than one file to send. ' + \
                     'You have to create archive. Use create_archive() method.')
                
-        file = self.files[0]
+        f = self.files[0]
         contenttype = "text/plain"
         if self.archive:
-            file = self.archive
+            f = self.archive
             contenttype = self.archive_obj.mimetype
         
-        self.sender_obj.sendfile(file, contenttype)
+        self.sender_obj.sendfile(f, contenttype)
 
     
     def getlogs(self):
@@ -141,6 +141,6 @@ class LogPicker(object):
         del files[actual_file]
         
         # Write other individual files
-        for file in files:
-            open(self._get_tmp_file(file), 'w').writelines(files[file])
+        for f in files:
+            open(self._get_tmp_file(f), 'w').writelines(files[f])
         

@@ -73,8 +73,8 @@ class Bzip2Archive(ArchiveBaseClass):
             raise NoFilesArchivationError("No files to archive.")
         
         size = 0
-        for file in filelist:
-            size += os.path.getsize(file)
+        for f in filelist:
+            size += os.path.getsize(f)
         if size <= 0:
             raise NoFilesArchivationError("No files to archive.")
             

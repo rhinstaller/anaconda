@@ -105,7 +105,7 @@ def copyUpdatedFiles(tag, updates, cwd):
         outdir = os.path.join(updates, relpath)
         if not os.path.isdir(outdir):
             os.makedirs(outdir)
-        shutil.copy2(file, outdir)
+        shutil.copy2(fname, outdir)
 
     subdirs = []
 
@@ -124,68 +124,68 @@ def copyUpdatedFiles(tag, updates, cwd):
             continue
 
         status = fields[0]
-        file = fields[1]
+        gitfile = fields[1]
 
         if status == "D":
             continue
 
-        if file.endswith('.spec.in') or (file.find('Makefile') != -1) or \
-           file.endswith('.c') or file.endswith('.h') or \
-           file.endswith('.sh') or file == 'configure.ac':
+        if gitfile.endswith('.spec.in') or (gitfile.find('Makefile') != -1) or \
+           gitfile.endswith('.c') or gitfile.endswith('.h') or \
+           gitfile.endswith('.sh') or gitfile == 'configure.ac':
             continue
 
-        if file.endswith('.glade'):
+        if gitfile.endswith('.glade'):
             # Some UI files should go under ui/<dir> where dir is the
             # directory above the file.glade
-            dir_parts = os.path.dirname(file).split(os.path.sep)
+            dir_parts = os.path.dirname(gitfile).split(os.path.sep)
             g_idx = dir_parts.index("gui")
             uidir = os.path.sep.join(dir_parts[g_idx+1:])
             path_comps = [tmpupdates, "ui"]
             if uidir:
                 path_comps.append(uidir)
-            install_to_dir(file, os.path.join(*path_comps))
-        elif file.startswith('pyanaconda/'):
+            install_to_dir(gitfile, os.path.join(*path_comps))
+        elif gitfile.startswith('pyanaconda/'):
             # pyanaconda stuff goes into /tmp/updates/[path]
-            dirname = os.path.join(tmpupdates, os.path.dirname(file))
-            install_to_dir(file, dirname)
-        elif file == 'anaconda':
+            dirname = os.path.join(tmpupdates, os.path.dirname(gitfile))
+            install_to_dir(gitfile, dirname)
+        elif gitfile == 'anaconda':
             # anaconda itself we just overwrite
-            install_to_dir(file, "usr/sbin")
-        elif file.endswith('.service') or file.endswith(".target"):
+            install_to_dir(gitfile, "usr/sbin")
+        elif gitfile.endswith('.service') or gitfile.endswith(".target"):
             # same for systemd services
-            install_to_dir(file, "lib/systemd/system")
-        elif file.endswith('/anaconda-generator'):
+            install_to_dir(gitfile, "lib/systemd/system")
+        elif gitfile.endswith('/anaconda-generator'):
             # yeah, this should probably be more clever..
-            install_to_dir(file, "lib/systemd/system-generators")
-        elif file == "data/tmux.conf":
-            install_to_dir(file, "usr/share/anaconda")
-        elif file == "data/anaconda-gtk.css":
-            install_to_dir(file, "usr/share/anaconda")
-        elif file == "data/interactive-defaults.ks":
-            install_to_dir(file, "usr/share/anaconda")
-        elif file == "data/liveinst/liveinst":
-            install_to_dir(file, "usr/sbin")
-        elif file.startswith("data/pixmaps"):
-            install_to_dir(file, "usr/share/anaconda/pixmaps")
-        elif file.startswith("data/ui/"):
-            install_to_dir(file, "usr/share/anaconda/ui")
-        elif file.startswith("data/post-scripts/"):
-            install_to_dir(file, "usr/share/anaconda/post-scripts")
-        elif file.endswith("anaconda-yum"):
-            install_to_dir(file, "usr/libexec/anaconda")
-        elif file.find('/') != -1:
-            fields = file.split('/')
+            install_to_dir(gitfile, "lib/systemd/system-generators")
+        elif gitfile == "data/tmux.conf":
+            install_to_dir(gitfile, "usr/share/anaconda")
+        elif gitfile == "data/anaconda-gtk.css":
+            install_to_dir(gitfile, "usr/share/anaconda")
+        elif gitfile == "data/interactive-defaults.ks":
+            install_to_dir(gitfile, "usr/share/anaconda")
+        elif gitfile == "data/liveinst/liveinst":
+            install_to_dir(gitfile, "usr/sbin")
+        elif gitfile.startswith("data/pixmaps"):
+            install_to_dir(gitfile, "usr/share/anaconda/pixmaps")
+        elif gitfile.startswith("data/ui/"):
+            install_to_dir(gitfile, "usr/share/anaconda/ui")
+        elif gitfile.startswith("data/post-scripts/"):
+            install_to_dir(gitfile, "usr/share/anaconda/post-scripts")
+        elif gitfile.endswith("anaconda-yum"):
+            install_to_dir(gitfile, "usr/libexec/anaconda")
+        elif gitfile.find('/') != -1:
+            fields = gitfile.split('/')
             subdir = fields[0]
             if subdir in ['po', 'scripts','command-stubs', 'tests',
                           'docs', 'fonts', 'utils',
                           'liveinst', 'dracut', 'data']:
                 continue
             else:
-                sys.stdout.write("Including %s\n" % (file,))
-                install_to_dir(file, tmpupdates)
+                sys.stdout.write("Including %s\n" % (gitfile,))
+                install_to_dir(gitfile, tmpupdates)
         else:
-            sys.stdout.write("Including %s\n" % (file,))
-            install_to_dir(file, tmpupdates)
+            sys.stdout.write("Including %s\n" % (gitfile,))
+            install_to_dir(gitfile, tmpupdates)
 
 def _compilableChanged(tag, compilable):
     lines = doGitDiff(tag, [compilable])
@@ -197,13 +197,13 @@ def _compilableChanged(tag, compilable):
             continue
 
         status = fields[0]
-        file = fields[1]
+        gitfile = fields[1]
 
         if status == "D":
             continue
 
-        if file.startswith('Makefile') or file.endswith('.h') or \
-           file.endswith('.c') or file.endswith('.py'):
+        if gitfile.startswith('Makefile') or gitfile.endswith('.h') or \
+           gitfile.endswith('.c') or gitfile.endswith('.py'):
             return True
 
     return False
@@ -299,7 +299,7 @@ def main(argv):
     configure = os.path.realpath(cwd + '/configure.ac')
     spec = os.path.realpath(cwd + '/anaconda.spec.in')
     updates = cwd + '/updates'
-    keep, compile, help, unknown = False, False, False, False
+    keep, comp, h, unknown = False, False, False, False
     tag = None
     opts = []
     offset = 0
@@ -310,15 +310,15 @@ def main(argv):
                                    ['add=', 'tag=', 'offset=',
                                     'keep', 'compile', 'help'])
     except getopt.GetoptError:
-        help = True
+        h = True
 
     for o, a in opts:
         if o in ('-k', '--keep'):
             keep = True
         elif o in ('-c', '--compile'):
-            compile = True
+            comp = True
         elif o in ('-?', '--help'):
-            help = True
+            h = True
         elif o in ('-t', '--tag'):
             tag = a
         elif o in ('-o', '--offset'):
@@ -328,7 +328,7 @@ def main(argv):
         else:
             unknown = True
 
-    if help:
+    if h:
         usage(prog)
         sys.exit(0)
     elif unknown:
@@ -352,7 +352,7 @@ def main(argv):
 
     copyUpdatedFiles(tag, updates, cwd)
 
-    if compile:
+    if comp:
         if isysChanged(tag):
             copyUpdatedIsys(updates, cwd)
 
