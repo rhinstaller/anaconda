@@ -98,6 +98,12 @@ int audit_daemonize(void) {
 #ifdef USESELINUX
     int fd;
     pid_t child;
+
+/* I guess we should actually do something with the output of AC_FUNC_FORK */
+#ifndef HAVE_WORKING_FORK
+#error "Autoconf could not find a working fork. Please fix this."
+#endif
+
     if ((child = fork()) > 0)
         return 0;
 
