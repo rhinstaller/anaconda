@@ -580,6 +580,9 @@ def gtk_warning(title, reason):
 
 # pylint: disable=redefined-outer-name
 def check_memory(anaconda, options, display_mode=None):
+    from pyanaconda import isys
+    from pyanaconda.iutil import persistent_root_image
+
     reason_strict = _("%(product_name)s requires %(needed_ram)s MB of memory to "
                       "install, but you only have %(total_ram)s MB on this machine.\n")
     reason_graphical = _("The %(product_name)s graphical installer requires %(needed_ram)s "
@@ -603,6 +606,11 @@ def check_memory(anaconda, options, display_mode=None):
     total_ram = int(isys.total_memory() / 1024)
     needed_ram = int(isys.MIN_RAM / 1024)
     graphical_ram = int(isys.MIN_GUI_RAM / 1024)
+
+    # count the squashfs.img in if it is kept in RAM
+    if not persistent_root_image():
+        needed_ram += isys.SQUASHFS_RAM
+        graphical_ram += isys.SQUASHFS_RAM
 
     log.info("check_memory(): total:%s, needed:%s, graphical:%s",
              total_ram, needed_ram, graphical_ram)

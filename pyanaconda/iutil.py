@@ -29,6 +29,7 @@ import subprocess
 import unicodedata
 import string
 import types
+import re
 from threading import Thread
 from Queue import Queue, Empty
 from urllib import quote, unquote
@@ -878,3 +879,16 @@ def xprogressive_delay():
     while True:
         yield 0.25*(2**counter)
         counter += 1
+
+def persistent_root_image():
+    """:returns: whether we are running from a persistent (not in RAM) root.img"""
+
+    for line in execReadlines("losetup", ["--list"]):
+        # if there is an active loop device for a curl-fetched file that has
+        # been deleted, it means we run from a non-persistent root image
+        # EXAMPLE line:
+        # /dev/loop0  0 0 0 1 /tmp/curl_fetch_url0/my_comps_squashfs.img (deleted)
+        if re.match(r'.*curl_fetch_url.*\(deleted\)\s*$', line):
+            return False
+
+    return True
