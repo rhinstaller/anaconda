@@ -29,6 +29,9 @@ AC_CONFIG_MACRO_DIR([m4])
 AC_DEFINE_UNQUOTED([BUILD_DATE], ["`date +%m%d%Y`"], [Date of anaconda build])
 AM_SILENT_RULES([yes]) # make --enable-silent-rules the default.
 
+AC_USE_SYSTEM_EXTENSIONS
+AC_SYS_LARGEFILE
+
 # Checks for programs.
 AC_PROG_CC
 AC_PROG_LN_S
@@ -102,37 +105,12 @@ PKG_CHECK_MODULES([PYTHON], [python], [
 PKG_CHECK_MODULES([RPM], [rpm >= 4.10.0])
 PKG_CHECK_MODULES([LIBARCHIVE], [libarchive >= 3.0.4])
 
-# Set $RPM_OPT_FLAGS if we don't have it
-if test -z $RPM_OPT_FLAGS ; then
-    CFLAGS="$CFLAGS -g -pipe -Wp,-D_FORTIFY_SOURCE=2 -fexceptions"
-else
-    CFLAGS="$CFLAGS $RPM_OPT_FLAGS"
-fi
-
 # GCC likes to bomb out on some ridiculous warnings.  Add your favorites
 # here.
 SHUT_UP_GCC="-Wno-unused-result"
 
 # Add remaining compiler flags we want to use
-CFLAGS="$CFLAGS -Wall -Werror $SHUT_UP_GCC -D_GNU_SOURCE -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE"
-
-# Filter CFLAGS (remove duplicate flags)
-cflags_filter() {
-    have=
-    first=1
-    for flag in $* ; do
-        if test -z "`echo $have | grep -- $flag`" ; then
-            if test x$first == x1 ; then
-                first=2
-            else
-                echo -n " "
-            fi
-            echo -n $flag
-            have="$have $flag"
-        fi
-    done
-}
-CFLAGS="`cflags_filter $CFLAGS`"
+CFLAGS="$CFLAGS -Wall -Werror $SHUT_UP_GCC"
 
 # Get the release number from the spec file
 rel="`awk '/Release:/ { split($2, r, "%"); print r[[1]] }' $srcdir/anaconda.spec.in`"
