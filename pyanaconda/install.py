@@ -88,7 +88,6 @@ def doConfiguration(storage, payload, ksdata, instClass):
 
     with progress_report(_("Configuring addons")):
         ksdata.addons.execute(storage, ksdata, instClass, u)
-        ksdata.configured_spokes.execute(storage, ksdata, instClass, u)
 
     with progress_report(_("Generating initramfs")):
         payload.recreateInitrds(force=True)
