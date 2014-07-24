@@ -34,9 +34,7 @@ AC_CONFIG_MACRO_DIR([m4])
 AC_TYPE_SIZE_T
 
 AC_PROG_CC
-AC_PROG_CXX
 AC_PROG_LIBTOOL
-AC_PROG_LN_S
 
 AM_GNU_GETTEXT([external])
 
@@ -58,15 +56,12 @@ AC_SUBST([HTML_DIR])
 
 PKG_CHECK_MODULES([GLADEUI], [gladeui-2.0 >= 3.10])
 PKG_CHECK_MODULES([GTK], [gtk+-x11-3.0 >= 3.11.3])
-PKG_CHECK_MODULES([GLIB], [glib-2.0])
 PKG_CHECK_MODULES([LIBXKLAVIER], [libxklavier >= 5.2.1])
 PKG_CHECK_EXISTS([gobject-introspection-1.0 >= 1.30])
 
 AC_CHECK_HEADERS([libintl.h stdlib.h string.h unistd.h locale.h])
 
-AC_STRUCT_TIMEZONE
-
-AC_CHECK_FUNCS([pow setenv setlocale strchr])
+AC_CHECK_FUNCS([setenv setlocale])
 AC_CONFIG_FILES([Makefile
                  doc/Makefile
                  glade/Makefile

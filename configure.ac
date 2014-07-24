@@ -30,12 +30,8 @@ AC_DEFINE_UNQUOTED([BUILD_DATE], ["`date +%m%d%Y`"], [Date of anaconda build])
 AM_SILENT_RULES([yes]) # make --enable-silent-rules the default.
 
 # Checks for programs.
-AC_PROG_AWK
-AC_PROG_GREP
 AC_PROG_CC
-AC_PROG_INSTALL
 AC_PROG_LN_S
-AC_PROG_MAKE_SET
 AC_PROG_LIBTOOL
 AC_PROG_MKDIR_P
 
@@ -69,7 +65,6 @@ AM_GNU_GETTEXT([external])
 AM_GNU_GETTEXT_VERSION([0.18.3])
 
 # Checks for header files.
-AC_PATH_X
 AC_CHECK_HEADERS([fcntl.h stdlib.h string.h sys/time.h unistd.h],
                  [],
                  [AC_MSG_FAILURE([*** Header file $ac_header not found.])],
@@ -104,7 +99,6 @@ PKG_CHECK_MODULES([PYTHON], [python], [
     [AC_MSG_FAILURE([*** Unable to find python library])])
 
 # Check for libraries we need that provide pkg-config scripts
-PKG_PROG_PKG_CONFIG([0.23])
 PKG_CHECK_MODULES([RPM], [rpm >= 4.10.0])
 PKG_CHECK_MODULES([LIBARCHIVE], [libarchive >= 3.0.4])
 
@@ -113,23 +107,6 @@ if test -z $RPM_OPT_FLAGS ; then
     CFLAGS="$CFLAGS -g -pipe -Wp,-D_FORTIFY_SOURCE=2 -fexceptions"
 else
     CFLAGS="$CFLAGS $RPM_OPT_FLAGS"
-fi
-
-# NFS support can, in theory, be enabled or disabled
-AC_ARG_ENABLE(nfs,
-    AC_HELP_STRING([--enable-nfs],
-                   [enable NFS support (default is yes)]),
-    [nfs=$enableval],
-    [nfs=yes])
-
-# IPv6 support can be enabled or disabled
-AC_ARG_ENABLE(ipv6,
-    AC_HELP_STRING([--enable-ipv6],
-                   [enable IPv6 support (default is yes)]),
-    [ipv6=$enableval],
-    [ipv6=yes])
-if test x$ipv6 = xyes ; then
-    AC_SUBST(IPV6_CFLAGS, [-DENABLE_IPV6])
 fi
 
 # GCC likes to bomb out on some ridiculous warnings.  Add your favorites
@@ -156,11 +133,6 @@ cflags_filter() {
     done
 }
 CFLAGS="`cflags_filter $CFLAGS`"
-
-# Unset $(LIBS) because different programs and libraries will have different
-# lists of libraries to link with, we don't want everything linking against
-# all libraries we checked for.
-LIBS=
 
 # Get the release number from the spec file
 rel="`awk '/Release:/ { split($2, r, "%"); print r[[1]] }' $srcdir/anaconda.spec.in`"
