@@ -44,7 +44,7 @@ AC_PROG_MKDIR_P
 AC_PATH_PROG([INTLTOOL_EXTRACT], [intltool-extract])
 AC_PATH_PROG([INTLTOOL_MERGE], [intltool-merge])
 AS_IF([test -z "$INTLTOOL_EXTRACT" -o -z "$INTLTOOL_MERGE"],
-      [AC_MSG_ERROR([*** intltool not found])])
+      [ANACONDA_SOFT_FAILURE([intltool not found])])
 
 # Add the bits for Makefile rules
 INTLTOOL_V_MERGE='$(INTLTOOL__v_MERGE_$(V))'
@@ -70,7 +70,7 @@ AM_GNU_GETTEXT_VERSION([0.18.3])
 # Checks for header files.
 AC_CHECK_HEADERS([fcntl.h stdlib.h string.h sys/time.h unistd.h],
                  [],
-                 [AC_MSG_FAILURE([*** Header file $ac_header not found.])],
+                 [ANACONDA_SOFT_FAILURE([Header file $ac_header not found.])],
                  [])
 
 # Checks for typedefs, structures, and compiler characteristics.
@@ -84,7 +84,7 @@ AC_TYPE_INT64_T
 AC_FUNC_FORK
 AC_CHECK_FUNCS([getcwd memset mkdir strchr strdup],
                [],
-               [AC_MSG_FAILURE([*** Required function $ac_func not found.])])
+               [ANACONDA_SOFT_FAILURE([Function $ac_func not found.])])
 
 AM_PATH_PYTHON(python_required_version)
 
@@ -96,14 +96,14 @@ PKG_CHECK_MODULES([PYTHON], [python], [
     AC_TRY_LINK_FUNC([Py_Initialize], 
                      [AC_MSG_RESULT([yes])], 
                      [AC_MSG_RESULT([no])
-                      AC_MSG_FAILURE([*** Unable to use python library])])
+                      ANACONDA_SOFT_FAILURE([Unable to use python library])])
     LIBS="$LIBS_save"
     ],
-    [AC_MSG_FAILURE([*** Unable to find python library])])
+    [ANACONDA_SOFT_FAILURE([Unable to find python library])])
 
 # Check for libraries we need that provide pkg-config scripts
-PKG_CHECK_MODULES([RPM], [rpm >= 4.10.0])
-PKG_CHECK_MODULES([LIBARCHIVE], [libarchive >= 3.0.4])
+ANACONDA_PKG_CHECK_MODULES([RPM], [rpm >= 4.10.0])
+ANACONDA_PKG_CHECK_MODULES([LIBARCHIVE], [libarchive >= 3.0.4])
 
 # GCC likes to bomb out on some ridiculous warnings.  Add your favorites
 # here.
@@ -176,3 +176,6 @@ AC_CONFIG_FILES([Makefile
                  utils/Makefile
                  utils/dd/Makefile])
 AC_OUTPUT
+
+# Gently advise the user about the build failures they are about to encounter
+ANACONDA_FAILURES
