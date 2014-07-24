@@ -31,6 +31,8 @@ AC_CONFIG_HEADERS([config.h])
 
 AC_CONFIG_MACRO_DIR([m4])
 
+AC_TYPE_SIZE_T
+
 AC_PROG_CC
 AC_PROG_CXX
 AC_PROG_LIBTOOL
@@ -60,7 +62,7 @@ PKG_CHECK_MODULES([GLIB], [glib-2.0])
 PKG_CHECK_MODULES([LIBXKLAVIER], [libxklavier >= 5.2.1])
 PKG_CHECK_EXISTS([gobject-introspection-1.0 >= 1.30])
 
-AC_CHECK_HEADERS([libintl.h stdlib.h string.h unistd.h])
+AC_CHECK_HEADERS([libintl.h stdlib.h string.h unistd.h locale.h])
 
 AC_STRUCT_TIMEZONE
 
