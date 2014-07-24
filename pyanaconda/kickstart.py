@@ -1330,7 +1330,7 @@ class RaidData(commands.raid.F18_RaidData):
                                      parents=request)
             storage.createDevice(luksdev)
 
-class RepoData(commands.repo.F15_RepoData):
+class RepoData(commands.repo.RHEL7_RepoData):
     def __init__(self, *args, **kwargs):
         """ Add enabled kwarg
 
@@ -1339,7 +1339,7 @@ class RepoData(commands.repo.F15_RepoData):
         """
         self.enabled = kwargs.pop("enabled", True)
 
-        commands.repo.F15_RepoData.__init__(self, *args, **kwargs)
+        commands.repo.RHEL7_RepoData.__init__(self, *args, **kwargs)
 
 class RootPw(commands.rootpw.F18_RootPw):
     def execute(self, storage, ksdata, instClass, users):
