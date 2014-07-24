@@ -1,7 +1,6 @@
 #!/bin/bash -e
 [ -d m4 ] || mkdir m4
 libtoolize --copy --force
-gtkdocize --copy
 aclocal -I m4
 autoconf
 autoheader --force
