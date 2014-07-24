@@ -47,10 +47,12 @@ GOBJECT_INTROSPECTION_CHECK([0.6.7])
 AS_IF([test "x$found_introspection" = xyes], [:],
       [AC_MSG_ERROR([*** GObject introspection must be enabled])])
 
-dnl A missing GTK_DOC_CHECK should fail in autogen.sh running gtkdocize, but
-dnl might as well check it here too
-m4_pattern_forbid([GTK_DOC_CHECK])dnl
-GTK_DOC_CHECK([1.14], [--flavour no-tmpl])
+# Add gtk-doc's html-dir option without pulling in the rest of gtk-doc
+AC_ARG_WITH([html-dir],
+            AS_HELP_STRING([--with-html-dir=PATH], [path to installed docs]),,
+            [with_html_dir='${datadir}/gtk-doc/html'])
+HTML_DIR="$with_html_dir"
+AC_SUBST([HTML_DIR])
 
 PKG_CHECK_MODULES([GLADEUI], [gladeui-2.0 >= 3.10])
 PKG_CHECK_MODULES([GTK], [gtk+-x11-3.0 >= 3.11.3])
