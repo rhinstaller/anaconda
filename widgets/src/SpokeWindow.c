@@ -17,6 +17,8 @@
  * Author: Chris Lumens <clumens@redhat.com>
  */
 
+#include "config.h"
+
 #include "BaseWindow.h"
 #include "SpokeWindow.h"
 #include "intl.h"

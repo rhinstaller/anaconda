@@ -17,6 +17,9 @@
  * Author(s):   Martin Sivak <msivak@redhat.com>
  *              Brian C. Lane <bcl@redhat.com>
  */
+
+#include "config.h"
+
 #include <ctype.h>
 #include <stdio.h>
 #include <stdlib.h>

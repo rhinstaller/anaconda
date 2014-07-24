@@ -20,6 +20,8 @@
  *
  */
 
+#include "config.h"
+
 #include "widgets-common.h"
 
 #include <stdlib.h>

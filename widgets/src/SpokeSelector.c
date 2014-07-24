@@ -17,6 +17,8 @@
  * Author: Chris Lumens <clumens@redhat.com>
  */
 
+#include "config.h"
+
 #include <atk/atk.h>
 #include <gdk/gdk.h>
 #include <gio/gio.h>

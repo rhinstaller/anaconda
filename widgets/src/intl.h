@@ -20,7 +20,7 @@
 #ifndef _INTL_H
 #define _INTL_H
 
-#include "../config.h"
+#include "config.h"
 #include "gettext.h"
 
 #define _(x) dgettext("anaconda", x)

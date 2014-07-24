@@ -17,6 +17,8 @@
  * Author: David Shea <dshea@redhat.com>
  */
 
+#include "config.h"
+
 #include "BaseWindow.h"
 #include "BaseStandalone.h"
 #include "intl.h"

@@ -17,6 +17,8 @@
  * Author: Chris Lumens <clumens@redhat.com>
  */
 
+#include "config.h"
+
 #include <unistd.h>
 #include <gdk/gdk.h>
 #include <glib.h>

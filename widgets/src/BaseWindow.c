@@ -17,6 +17,8 @@
  * Author: Chris Lumens <clumens@redhat.com>
  */
 
+#include "config.h"
+
 #include <libintl.h>
 #include <locale.h>
 #include <stdlib.h>

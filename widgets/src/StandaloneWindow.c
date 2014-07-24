@@ -17,6 +17,8 @@
  * Author: Chris Lumens <clumens@redhat.com>
  */
 
+#include "config.h"
+
 #include "BaseStandalone.h"
 #include "StandaloneWindow.h"
 #include "intl.h"

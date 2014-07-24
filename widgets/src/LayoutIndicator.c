@@ -19,6 +19,8 @@
  * Author: Vratislav Podzimek <vpodzime@redhat.com>
  */
 
+#include "config.h"
+
 #include <atk/atk.h>
 #include <glib.h>
 #include <gdk/gdk.h>

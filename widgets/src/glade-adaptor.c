@@ -17,6 +17,8 @@
  * Author: Chris Lumens <clumens@redhat.com>
  */
 
+#include "config.h"
+
 /* This file contains code called by glade when it creates, reads, writes, or
  * otherwise manipulates anaconda-specific widgets.  Each function in this file
  * that glade should call must be referenced in a glade-widget-class stanza of
