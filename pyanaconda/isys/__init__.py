@@ -53,6 +53,7 @@ else:
     GUI_INSTALL_EXTRA_RAM = 90 * 1024
 
 MIN_GUI_RAM = MIN_RAM + GUI_INSTALL_EXTRA_RAM
+SQUASHFS_EXTRA_RAM = 750 * 1024
 
 ## Flush filesystem buffers.
 def sync ():
