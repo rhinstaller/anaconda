@@ -18,8 +18,9 @@
 # Author: Kalev Lember <kalevlember@gmail.com>
 
 welcomedir              = $(datadir)/$(PACKAGE_NAME)/gnome
-dist_welcome_DATA       = fedora-welcome.desktop install-button.png
+dist_welcome_DATA       = install-button.png
 dist_welcome_SCRIPTS    = fedora-welcome
+welcome_DATA            = fedora-welcome.desktop
 
 EXTRA_DIST = fedora-welcome.desktop.in
 
