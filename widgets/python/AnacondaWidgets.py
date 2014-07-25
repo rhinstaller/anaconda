@@ -24,8 +24,8 @@ where necessary.  For instance instead of creating a class and then
 setting a bunch of properties, these classes allow passing the properties
 at creation time.
 """
-from ..importer import modules
-from ..overrides import override
+from gi.importer import modules
+from gi.overrides import override
 
 Anaconda = modules['AnacondaWidgets']._introspection_module
 __all__ = []
@@ -77,6 +77,7 @@ class DiskOverview(Anaconda.DiskOverview):
 DiskOverview = override(DiskOverview)
 __all__.append('DiskOverview')
 
+# pylint: disable-msg=W0232
 class TimezoneMap(Anaconda.TimezoneMap):
     def set_timezone(self, timezone, no_signal=False):
         Anaconda.TimezoneMap.set_timezone(self, timezone, no_signal)

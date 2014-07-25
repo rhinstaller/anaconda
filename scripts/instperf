@@ -22,8 +22,6 @@ def logit():
     swapTotal = 0
     swapFree = 0
 
-    global mem_logger
-
     with open("/proc/meminfo") as f:
         for line in f.readlines():
             if line.startswith("Buffers:"):

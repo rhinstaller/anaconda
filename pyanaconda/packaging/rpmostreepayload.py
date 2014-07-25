@@ -120,6 +120,7 @@ class RPMOSTreePayload(ArchivePayload):
         progressQ.send_message(_("Starting pull of %(branchName)s from %(source)s") % \
                                {"branchName": ostreesetup.ref, "source": ostreesetup.remote})
 
+        # pylint: disable-msg=E1120
         progress = OSTree.AsyncProgress.new()
         progress.connect('changed', self._pullProgressCb)
         repo.pull(ostreesetup.remote, [ostreesetup.ref], 0, progress, cancellable)

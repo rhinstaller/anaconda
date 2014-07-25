@@ -218,6 +218,5 @@ def can_touch_runtime_system(msg):
 
     return True
 
-global flags
 flags = Flags()
 

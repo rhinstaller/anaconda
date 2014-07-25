@@ -495,6 +495,7 @@ class KeyboardSpoke(NormalSpoke):
         else:
             lay_var_spec = layout
 
+        # pylint: disable-msg=E1120
         dialog = Gkbd.KeyboardDrawing.dialog_new()
         Gkbd.KeyboardDrawing.dialog_set_layout(dialog, self._xkl_wrapper.configreg,
                                                lay_var_spec)

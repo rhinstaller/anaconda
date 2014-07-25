@@ -206,9 +206,9 @@ def availableClasses(showHidden=0):
     lst.sort(_ordering)
     for (item, _) in lst:
         if showHidden:
-            allClasses_hidden.append(item)
+            allClasses_hidden += [item]
         else:
-            allClasses.append(item)
+            allClasses += [item]
 
     if showHidden:
         return allClasses_hidden
