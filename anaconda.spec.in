@@ -259,6 +259,16 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Fri Jul 25 2014 Brian C. Lane <bcl@redhat.com> - 19.31.80-1
+- Retranslate language filtering placeholder texts (vpodzime)
+  Resolves: rhbz#1091885
+- Set the selinux state from the command line (dshea)
+  Resolves: rhbz#1084524
+- Don't create the configured.ini file (mkolman)
+  Resolves: rhbz#1119166
+- Don't crash on anaconda-yum output containing multiple colons (mkolman)
+  Resolves: rhbz#1092473
+
 * Tue Apr 29 2014 Brian C. Lane <bcl@redhat.com> - 19.31.79-1
 - network: fix device configuration in text mode (rvykydal)
   Resolves: rhbz#1091434

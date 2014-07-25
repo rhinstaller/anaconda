@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: anaconda 19.31.78\n"
+"Project-Id-Version: anaconda 19.31.79\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
-"POT-Creation-Date: 2014-04-29 09:27-0700\n"
+"POT-Creation-Date: 2014-07-25 16:40-0700\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -163,26 +163,26 @@ msgid ""
 "using the %(fsType)s filesystem on %(deviceType)s"
 msgstr ""
 
-#: pyanaconda/constants.py:60
+#: pyanaconda/constants.py:61
 msgid ""
 "An unhandled exception has occurred.  This is most likely a bug.  Please "
 "save a copy of the detailed exception and file a bug report"
 msgstr ""
 
-#: pyanaconda/constants.py:66
+#: pyanaconda/constants.py:67
 msgid " with the provider of this software."
 msgstr ""
 
-#: pyanaconda/constants.py:70
+#: pyanaconda/constants.py:71
 #, python-format
 msgid " against anaconda at %s"
 msgstr ""
 
-#: pyanaconda/constants.py:98
+#: pyanaconda/constants.py:99
 msgid "Start VNC"
 msgstr ""
 
-#: pyanaconda/constants.py:99
+#: pyanaconda/constants.py:100
 msgid "Use text mode"
 msgstr ""
 
@@ -202,38 +202,38 @@ msgstr ""
 msgid "Configuring addons"
 msgstr ""
 
-#: pyanaconda/install.py:93
+#: pyanaconda/install.py:92
 msgid "Generating initramfs"
 msgstr ""
 
-#: pyanaconda/install.py:97
+#: pyanaconda/install.py:96
 #, python-format
 msgid "Joining realm: %s"
 msgstr ""
 
-#: pyanaconda/install.py:100
+#: pyanaconda/install.py:99
 msgid "Running post-installation scripts"
 msgstr ""
 
-#: pyanaconda/install.py:137
+#: pyanaconda/install.py:136
 #, python-format
 msgid "Waiting for %s threads to finish"
 msgstr ""
 
-#: pyanaconda/install.py:141
+#: pyanaconda/install.py:140
 msgid "Setting up the installation environment"
 msgstr ""
 
-#: pyanaconda/install.py:159
+#: pyanaconda/install.py:158
 msgid "Discovering realm to join"
 msgstr ""
 
-#: pyanaconda/install.py:175 pyanaconda/packaging/livepayload.py:145
+#: pyanaconda/install.py:174 pyanaconda/packaging/livepayload.py:145
 #: pyanaconda/packaging/yumpayload.py:1629
 msgid "Performing post-installation setup tasks"
 msgstr ""
 
-#: pyanaconda/install.py:180
+#: pyanaconda/install.py:179
 msgid "Installing bootloader"
 msgstr ""
 
@@ -299,7 +299,7 @@ msgid ""
 "is provided through redhat-upgrade-tool."
 msgstr ""
 
-#: pyanaconda/kickstart.py:1761
+#: pyanaconda/kickstart.py:1734
 msgid "Running pre-installation scripts"
 msgstr ""
 
@@ -3142,6 +3142,11 @@ msgstr ""
 msgid "selected"
 msgstr ""
 
+#: pyanaconda/ui/gui/spokes/langsupport.glade:173
+#: pyanaconda/ui/gui/spokes/welcome.glade:454
+msgid "Type here to search."
+msgstr ""
+
 #: pyanaconda/ui/gui/spokes/langsupport.glade:208
 msgid "checked"
 msgstr ""
@@ -3434,10 +3439,6 @@ msgstr ""
 
 #: pyanaconda/ui/gui/spokes/welcome.glade:350
 msgid "What language would you like to use during the installation process?"
-msgstr ""
-
-#: pyanaconda/ui/gui/spokes/welcome.glade:454
-msgid "Type here to search."
 msgstr ""
 
 #: pyanaconda/ui/gui/spokes/user.glade:11
