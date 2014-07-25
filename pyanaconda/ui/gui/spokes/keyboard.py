@@ -25,7 +25,7 @@ from gi.repository import Gkbd, Gtk, Gdk
 from pyanaconda.ui.gui import GUIObject
 from pyanaconda.ui.gui.spokes import NormalSpoke
 from pyanaconda.ui.gui.categories.localization import LocalizationCategory
-from pyanaconda.ui.gui.utils import enlightbox, gtk_call_once, override_cell_property
+from pyanaconda.ui.gui.utils import enlightbox, gtk_call_once, escape_markup, override_cell_property
 from pyanaconda import keyboard
 from pyanaconda import flags
 from pyanaconda.i18n import _, N_
@@ -44,7 +44,7 @@ def _show_layout(column, renderer, model, itr, wrapper):
 def _show_description(column, renderer, model, itr, wrapper):
     value = wrapper.get_switch_opt_description(model[itr][0])
     if model[itr][1]:
-        value = "<b>%s</b>" % value
+        value = "<b>%s</b>" % escape_markup(value)
     return value
 
 class AddLayoutDialog(GUIObject):

@@ -254,7 +254,7 @@ class ConfigureNetworkSpoke(EditTUISpoke):
     category = "network"
 
     edit_fields = [
-        Entry(N_('IPv4 address or %s for DHCP' % '"dhcp"'), "ip",
+        Entry(N_('IPv4 address or %s for DHCP') % '"dhcp"', "ip",
               re.compile("^" + IPV4_PATTERN_WITHOUT_ANCHORS + "|dhcp$"), True),
         Entry(N_("IPv4 netmask"), "netmask", re.compile("^" + IPV4_PATTERN_WITHOUT_ANCHORS + "$"), True),
         Entry(N_("IPv4 gateway"), "gateway", re.compile("^" + IPV4_PATTERN_WITHOUT_ANCHORS + "$"), True),
@@ -279,7 +279,7 @@ class ConfigureNetworkSpoke(EditTUISpoke):
     def refresh(self, args=None):
         """ Refresh window. """
         EditTUISpoke.refresh(self, args)
-        message = _("Configuring device %s." % self.args.device)
+        message = _("Configuring device %s.") % self.args.device
         self._window += [TextWidget(message), ""]
         return True
 

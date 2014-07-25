@@ -229,3 +229,15 @@ def override_cell_property(tree_column, cell_renderer, propname, property_func, 
         tree_column.set_cell_data_func(cell_renderer, _cell_data_func)
 
     _override_cell_property_map[(tree_column, cell_renderer)][propname] = (property_func, data)
+
+def escape_markup(value):
+    """
+    Escape strings for use within Pango markup.
+
+    This function converts the value to a string before passing markup_escape_text().
+    """
+
+    if isinstance(value, unicode):
+        value = value.encode("utf-8")
+
+    return GLib.markup_escape_text(str(value))

@@ -23,6 +23,7 @@
 from gi.repository import Pango, Gdk
 from pyanaconda.flags import flags
 from pyanaconda.i18n import N_
+from pyanaconda.ui.gui.utils import escape_markup
 from pyanaconda.ui.gui.spokes import NormalSpoke
 from pyanaconda.ui.gui.spokes.lib.lang_locale_handler import LangLocaleHandler
 from pyanaconda.ui.gui.categories.localization import LocalizationCategory
@@ -127,11 +128,14 @@ class LangsupportSpoke(LangLocaleHandler, NormalSpoke):
         return True
 
     def _add_language(self, store, native, english, lang):
-        native_span = '<span lang="%s">%s</span>' % (lang, native)
+        native_span = '<span lang="%s">%s</span>' % \
+                      (escape_markup(lang), escape_markup(native))
         store.append([native_span, english, lang])
 
     def _add_locale(self, store, native, locale):
-        native_span = '<span lang="%s">%s</span>' % (re.sub(r'\..*', '', locale), native)
+        native_span = '<span lang="%s">%s</span>' % \
+                      (escape_markup(re.sub(r'\..*', '', locale)),
+                       escape_markup(native))
 
         # native, locale, selected, additional
         store.append([native_span, locale, locale in self._selected_locales,

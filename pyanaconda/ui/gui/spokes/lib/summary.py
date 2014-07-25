@@ -21,6 +21,7 @@
 
 from pyanaconda.ui.gui import GUIObject
 from pyanaconda.i18n import _
+from pyanaconda.ui.gui.utils import escape_markup
 
 from blivet.deviceaction import ACTION_TYPE_DESTROY, ACTION_TYPE_RESIZE, ACTION_OBJECT_FORMAT
 
@@ -36,9 +37,9 @@ class ActionSummaryDialog(GUIObject):
             mountpoint = ""
 
             if action.type in [ACTION_TYPE_DESTROY, ACTION_TYPE_RESIZE]:
-                typeString = """<span foreground='red'>%s</span>""" % action.typeDesc.title()
+                typeString = """<span foreground='red'>%s</span>""" % escape_markup(action.typeDesc.title())
             else:
-                typeString = """<span foreground='green'>%s</span>""" % action.typeDesc.title()
+                typeString = """<span foreground='green'>%s</span>""" % escape_markup(action.typeDesc.title())
                 if action.obj == ACTION_OBJECT_FORMAT:
                     mountpoint = getattr(action.device.format, "mountpoint", "")
 

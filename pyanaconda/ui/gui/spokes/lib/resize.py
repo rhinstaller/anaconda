@@ -28,6 +28,7 @@ from gi.repository import Gdk, Gtk
 from pyanaconda.i18n import _, N_, P_
 from pyanaconda.ui.lib.disks import size_str
 from pyanaconda.ui.gui import GUIObject
+from pyanaconda.ui.gui.utils import escape_markup
 from blivet.size import Size
 
 __all__ = ["ResizeDialog"]
@@ -161,7 +162,7 @@ class ResizeDialog(GUIObject):
                             canShrinkSomething = True
                     else:
                         freeSize = dev.size
-                        resizeString = "<span foreground='grey'>%s</span>" % _("Not resizeable")
+                        resizeString = "<span foreground='grey'>%s</span>" % escape_markup(_("Not resizeable"))
 
                     if dev.protected:
                         ty = TY_PROTECTED
@@ -188,7 +189,7 @@ class ResizeDialog(GUIObject):
                 self._diskStore.append(itr, [disk.id,
                                              _("""<span foreground='grey' style='italic'>Free space</span>"""),
                                              "",
-                                             "<span foreground='grey' style='italic'>%s</span>" % size_str(diskFree),
+                                             "<span foreground='grey' style='italic'>%s</span>" % escape_markup(size_str(diskFree)),
                                              NOTHING,
                                              False,
                                              TY_FREE_SPACE,
@@ -224,11 +225,11 @@ class ResizeDialog(GUIObject):
         if nDisks is not None and totalReclaimable is not None:
             text = P_("<b>%s disk; %s reclaimable space</b> (in filesystems)",
                       "<b>%s disks; %s reclaimable space</b> (in filesystems)",
-                      nDisks) % (nDisks, size_str(totalReclaimable))
+                      escape_markup(nDisks)) % (escape_markup(nDisks), escape_markup(size_str(totalReclaimable)))
             self._reclaimable_label.set_markup(text)
 
         if selectedReclaimable is not None:
-            text = _("Total selected space to reclaim: <b>%s</b>") % size_str(selectedReclaimable)
+            text = _("Total selected space to reclaim: <b>%s</b>") % escape_markup(size_str(selectedReclaimable))
             self._selected_label.set_markup(text)
 
     def _setup_slider(self, device, value):

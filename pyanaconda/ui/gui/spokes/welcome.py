@@ -26,7 +26,7 @@ import langtable
 
 from pyanaconda.ui.gui.hubs.summary import SummaryHub
 from pyanaconda.ui.gui.spokes import StandaloneSpoke
-from pyanaconda.ui.gui.utils import enlightbox
+from pyanaconda.ui.gui.utils import enlightbox, escape_markup
 from pyanaconda.ui.gui.spokes.lib.lang_locale_handler import LangLocaleHandler
 
 from pyanaconda import localization
@@ -245,11 +245,11 @@ class WelcomeLanguageSpoke(LangLocaleHandler, StandaloneSpoke):
         self._languageStoreFilter.refilter()
 
     def _add_language(self, store, native, english, lang):
-        native_span = '<span lang="%s">%s</span>' % (lang, native)
+        native_span = '<span lang="%s">%s</span>' % (escape_markup(lang), escape_markup(native))
         store.append([native_span, english, lang, False])
 
     def _add_locale(self, store, native, locale):
-        native_span = '<span lang="%s">%s</span>' % (re.sub(r'\..*', '', locale), native)
+        native_span = '<span lang="%s">%s</span>' % (escape_markup(re.sub(r'\..*', '', locale)), escape_markup(native))
         store.append([native_span, locale])
 
     # Signal handlers.

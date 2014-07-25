@@ -158,7 +158,7 @@ def getEscrowCertificate(escrowCerts, url):
     try:
         f = urlgrabber.urlopen(url)
     except urlgrabber.grabber.URLGrabError as e:
-        msg = _("The following error was encountered while downloading the escrow certificate:\n\n%s" % e)
+        msg = _("The following error was encountered while downloading the escrow certificate:\n\n%s") % e
         raise KickstartError(msg)
 
     try:

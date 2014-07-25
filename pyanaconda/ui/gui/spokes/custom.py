@@ -78,7 +78,7 @@ from pyanaconda.ui.gui.spokes.lib.accordion import Accordion, Page, CreateNewPag
 from pyanaconda.ui.gui.spokes.lib.refresh import RefreshDialog
 from pyanaconda.ui.gui.spokes.lib.summary import ActionSummaryDialog
 from pyanaconda.ui.gui.utils import setViewportBackground, gtk_action_wait, enlightbox, fancy_set_sensitive, ignoreEscape,\
-        really_hide, really_show
+        really_hide, really_show, escape_markup
 from pyanaconda.ui.gui.categories.system import SystemCategory
 from pyanaconda.ui.lib.disks import size_str
 from pyanaconda.kickstart import refreshAutoSwapSize
@@ -845,7 +845,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
                      count) % count
 
         summaryLabel.set_use_markup(True)
-        summaryLabel.set_markup("<span foreground='blue'><u>%s</u></span>" % summary)
+        summaryLabel.set_markup("<span foreground='blue'><u>%s</u></span>" % escape_markup(summary))
         summaryLabel.set_use_underline(True)
 
     def _reset_storage(self):

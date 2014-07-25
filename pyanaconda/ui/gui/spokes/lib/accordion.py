@@ -24,6 +24,7 @@ from blivet.size import Size
 
 from pyanaconda.i18n import _
 from pyanaconda.product import productName, productVersion
+from pyanaconda.ui.gui.utils import escape_markup
 
 from gi.repository.AnacondaWidgets import MountpointSelector
 from gi.repository import Gtk
@@ -82,7 +83,7 @@ class Accordion(Gtk.Box):
 
     def addPage(self, contents, cb=None):
         label = Gtk.Label()
-        label.set_markup("""<span size='large' weight='bold' fgcolor='black'>%s</span>""" % contents.pageTitle)
+        label.set_markup("""<span size='large' weight='bold' fgcolor='black'>%s</span>""" % escape_markup(contents.pageTitle))
         label.set_alignment(0, 0.5)
         label.set_line_wrap(True)
 
@@ -167,7 +168,7 @@ class Page(Gtk.Box):
 
     def _make_category_label(self, name):
         label = Gtk.Label()
-        label.set_markup("""<span fgcolor='dark grey' size='large' weight='bold'>%s</span>""" % name)
+        label.set_markup("""<span fgcolor='dark grey' size='large' weight='bold'>%s</span>""" % escape_markup(name))
         label.set_halign(Gtk.Align.START)
         label.set_margin_left(24)
         return label

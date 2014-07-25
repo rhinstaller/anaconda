@@ -39,7 +39,7 @@ from pyanaconda.ui.gui import GUIObject
 from pyanaconda.ui.gui.spokes import NormalSpoke, StandaloneSpoke
 from pyanaconda.ui.gui.categories.system import SystemCategory
 from pyanaconda.ui.gui.hubs.summary import SummaryHub
-from pyanaconda.ui.gui.utils import gtk_call_once, enlightbox
+from pyanaconda.ui.gui.utils import gtk_call_once, enlightbox, escape_markup
 from pyanaconda.ui.common import FirstbootSpokeMixIn
 
 from pyanaconda import network
@@ -292,12 +292,12 @@ class NetworkControlBox(GObject.GObject):
     }
 
     device_type_name = {
-        NetworkManager.DeviceType.UNKNOWN: _("Unknown"),
-        NetworkManager.DeviceType.ETHERNET: _("Ethernet"),
-        NetworkManager.DeviceType.WIFI: _("Wireless"),
-        NetworkManager.DeviceType.BOND: _("Bond"),
-        NetworkManager.DeviceType.VLAN: _("Vlan"),
-        NetworkManager.DeviceType.TEAM: _("Team"),
+        NetworkManager.DeviceType.UNKNOWN: N_("Unknown"),
+        NetworkManager.DeviceType.ETHERNET: N_("Ethernet"),
+        NetworkManager.DeviceType.WIFI: N_("Wireless"),
+        NetworkManager.DeviceType.BOND: N_("Bond"),
+        NetworkManager.DeviceType.VLAN: N_("Vlan"),
+        NetworkManager.DeviceType.TEAM: N_("Team"),
     }
 
     def __init__(self, builder, spoke=None):
@@ -691,16 +691,16 @@ class NetworkControlBox(GObject.GObject):
                 and dev_cfg.device.get_device_type() == NetworkManager.DeviceType.ETHERNET
                 and not dev_cfg.device.get_carrier()):
                 # TRANSLATORS: ethernet cable is unplugged
-                unplugged = ', <i>%s</i>' % _("unplugged")
+                unplugged = ', <i>%s</i>' % escape_markup(_("unplugged"))
         title = '<span size="large">%s (%s%s)</span>' % \
-                 (self.device_type_name.get(dev_cfg.device_type, ""),
-                  dev_cfg.get_iface(),
-                  unplugged)
+                 (escape_markup(_(self.device_type_name.get(dev_cfg.device_type, ""))),
+                  escape_markup(dev_cfg.get_iface()),
+                  escape_markup(unplugged))
 
         if dev_cfg.device:
             title += '\n<span size="small">%s %s</span>' % \
-                    (dev_cfg.device.get_vendor() or "",
-                     dev_cfg.device.get_product() or "")
+                    (escape_markup(dev_cfg.device.get_vendor() or ""),
+                     escape_markup(dev_cfg.device.get_product() or ""))
         return title
 
     def dev_cfg(self, uuid=None, device=None):
@@ -932,7 +932,7 @@ class NetworkControlBox(GObject.GObject):
             img.set_from_icon_name(self._dev_icon_name(dev_cfg), Gtk.IconSize.DIALOG)
 
         # TODO: is this necessary? Isn't it static from glade?
-        device_type_label = self.device_type_name.get(dev_cfg.device_type, "")
+        device_type_label = _(self.device_type_name.get(dev_cfg.device_type, ""))
         self.builder.get_object("label_%s_device" % dev_type_str).set_label(
             "%s (%s)" % (device_type_label, dev_cfg.get_iface()))
 
@@ -1123,7 +1123,7 @@ class SecretAgentDialog(GUIObject):
         img.set_from_icon_name("dialog-password-symbolic", Gtk.IconSize.DIALOG)
         self.builder.get_object("label_message").set_text(self._content['message'])
         self.builder.get_object("label_title").set_use_markup(True)
-        self.builder.get_object("label_title").set_markup("<b>%s</b>" % self._content['title'])
+        self.builder.get_object("label_title").set_markup("<b>%s</b>" % escape_markup(self._content['title']))
         self._connect_button = self.builder.get_object("connect_button")
 
     def initialize(self):

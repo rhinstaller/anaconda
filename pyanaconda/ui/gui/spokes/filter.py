@@ -33,7 +33,7 @@ from pyanaconda.flags import flags
 from pyanaconda.i18n import N_, P_
 
 from pyanaconda.ui.lib.disks import getDisks, size_str
-from pyanaconda.ui.gui.utils import enlightbox
+from pyanaconda.ui.gui.utils import enlightbox, escape_markup
 from pyanaconda.ui.gui.spokes import NormalSpoke
 from pyanaconda.ui.gui.spokes.advstorage.fcoe import FCoEDialog
 from pyanaconda.ui.gui.spokes.advstorage.iscsi import ISCSIDialog
@@ -584,7 +584,7 @@ class FilterSpoke(NormalSpoke):
                      count) % count
 
         label.set_use_markup(True)
-        label.set_markup("<span foreground='blue'><u>%s</u></span>" % summary)
+        label.set_markup("<span foreground='blue'><u>%s</u></span>" % escape_markup(summary))
         label.set_use_underline(True)
 
         summaryButton.set_visible(count > 0)

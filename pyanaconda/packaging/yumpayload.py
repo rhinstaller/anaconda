@@ -1355,7 +1355,7 @@ reposdir=%s
         # If we're doing non-interactive ks install, raise CmdlineError,
         # otherwise the system will just reboot automatically
         if flags.automatedInstall and not flags.ksprompt:
-            errtxt = _("CmdlineError: Missing package: %s" % str(exn))
+            errtxt = _("CmdlineError: Missing package: %s") % str(exn)
             log.error(errtxt)
             raise CmdlineError(errtxt)
         elif errorHandler.cb(exn, str(exn), adding) == ERROR_RAISE:

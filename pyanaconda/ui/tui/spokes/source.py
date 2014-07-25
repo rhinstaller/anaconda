@@ -441,7 +441,7 @@ class SpecifyNFSRepoSpoke(SourceSwitchHandler, EditTUISpoke):
 class SelectDeviceSpoke(NormalTUISpoke):
     """ Select device containing the install source ISO file. """
 
-    title = _("Select device containing the ISO file")
+    title = N_("Select device containing the ISO file")
     category = "source"
 
     def __init__(self, app, data, storage, payload, instclass):
@@ -529,7 +529,7 @@ class SelectDeviceSpoke(NormalTUISpoke):
 class SelectISOSpoke(SourceSwitchHandler, NormalTUISpoke):
     """ Select an ISO to use as install source. """
 
-    title = _("Select an ISO to use as install source")
+    title = N_("Select an ISO to use as install source")
     category = "source"
 
     def __init__(self, app, data, storage, payload, instclass, device):

@@ -51,7 +51,7 @@ from pyanaconda.ui.gui.spokes.lib.detailederror import DetailedErrorDialog
 from pyanaconda.ui.gui.spokes.lib.resize import ResizeDialog
 from pyanaconda.ui.gui.spokes.lib.dasdfmt import DasdFormatDialog
 from pyanaconda.ui.gui.categories.system import SystemCategory
-from pyanaconda.ui.gui.utils import enlightbox, gtk_action_nowait, ignoreEscape
+from pyanaconda.ui.gui.utils import enlightbox, gtk_action_nowait, ignoreEscape, escape_markup
 
 from pyanaconda.kickstart import doKickstartStorage, refreshAutoSwapSize
 from blivet import storageInitialize, arch
@@ -113,9 +113,10 @@ class InstallOptionsDialogBase(GUIObject):
                      "selection</a> requires <b>%(total)s</b> of available "
                      "space, including <b>%(software)s</b> for software and "
                      "<b>%(swap)s</b> for swap space.")
-                   % {"product": productName,
-                      "total": required_space + auto_swap,
-                      "software": required_space, "swap": auto_swap})
+                   % {"product": escape_markup(productName),
+                      "total": escape_markup(str(required_space + auto_swap)),
+                      "software": escape_markup(str(required_space)),
+                      "swap": escape_markup(str(auto_swap))})
         return sw_text
 
     # Methods to handle sensitivity of the modify button.
@@ -175,7 +176,7 @@ class InstallOptions1Dialog(InstallOptionsDialogBase):
                        "%s</b>.  You can shrink or remove existing partitions "
                        "via our guided reclaim space tool, or you can adjust your "
                        "partitions on your own in the custom partitioning "
-                       "interface.") % productName
+                       "interface.") % escape_markup(productName)
         self.builder.get_object("options1_label2").set_markup(label_text)
 
         self._add_modify_watcher("options1_label1")
@@ -198,7 +199,8 @@ class InstallOptions2Dialog(InstallOptionsDialogBase):
         label_text = (_("%(sw_text)s You don't have enough space available to install "
                         "<b>%(product)s</b>, even if you used all of the free space "
                         "available on the selected disks.")
-                      % {"sw_text": sw_text, "product": productName})
+                      % {"sw_text": escape_markup(sw_text),
+                         "product": escape_markup(productName)})
         label = self.builder.get_object("options2_label1")
         label.set_markup(label_text)
         label.set_tooltip_text(_("Please wait... software metadata still loading."))
@@ -213,7 +215,8 @@ class InstallOptions2Dialog(InstallOptionsDialogBase):
                        "available on the selected disks.  You could add more "
                        "disks for additional space, "
                        "modify your software selection to install a smaller "
-                       "version of <b>%s</b>, or quit the installer.") % (productName, productName)
+                       "version of <b>%s</b>, or quit the installer.") % \
+                      (escape_markup(productName), escape_markup(productName))
         self.builder.get_object("options2_label2").set_markup(label_text)
 
         self._add_modify_watcher("options2_label1")
@@ -555,7 +558,7 @@ class StorageSpoke(NormalSpoke, StorageChecker):
 
         # Wouldn't it be nice if glade knew how to do this?
         label = self.builder.get_object("summary_button").get_children()[0]
-        markup = "<span foreground='blue'><u>%s</u></span>" % label.get_text()
+        markup = "<span foreground='blue'><u>%s</u></span>" % escape_markup(label.get_text())
         label.set_use_markup(True)
         label.set_markup(markup)
 
@@ -563,7 +566,7 @@ class StorageSpoke(NormalSpoke, StorageChecker):
 
         # It's uh... uh... it's down there somewhere, let me take another look.
         label = specializedButton.get_children()[0].get_children()[0].get_children()[1]
-        markup = "<span size='large'><b>%s</b></span>" % label.get_text()
+        markup = "<span size='large'><b>%s</b></span>" % escape_markup(label.get_text())
         label.set_use_markup(True)
         label.set_markup(markup)
         specializedButton.show_all()

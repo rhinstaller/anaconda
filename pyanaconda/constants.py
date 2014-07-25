@@ -19,7 +19,7 @@
 # Author(s): Erik Troan <ewt@redhat.com>
 #
 
-from pyanaconda.i18n import _
+from pyanaconda.i18n import N_
 
 import re
 
@@ -56,18 +56,6 @@ shortProductName = productName.lower()
 if productName.count(" "):
     shortProductName = ''.join(s[0] for s in shortProductName.split())
 
-exceptionText = _("An unhandled exception has occurred.  This "
-                  "is most likely a bug.  Please save a copy of "
-                  "the detailed exception and file a bug report")
-if not bugzillaUrl:
-    # this string will be combined with "An unhandled exception"...
-    # the leading space is not a typo.
-    exceptionText += _(" with the provider of this software.")
-else:
-    # this string will be combined with "An unhandled exception"...
-    # the leading space is not a typo.
-    exceptionText += _(" against anaconda at %s") %(bugzillaUrl,)
-
 # DriverDisc Paths
 DD_ALL = "/tmp/DD"
 DD_EXTRACTED = re.compile("/lib/modules/[^/]+/updates/DD/(?P<moduledir>.*/)?(?P<modulename>[^/.]+).ko.*")
@@ -96,8 +84,8 @@ DEFAULT_VC_FONT = "latarcyrheb-sun16"
 DRACUT_SHUTDOWN_EJECT = "/run/initramfs/usr/lib/dracut/hooks/shutdown/99anaconda-eject.sh"
 
 # VNC questions
-USEVNC = _("Start VNC")
-USETEXT = _("Use text mode")
+USEVNC = N_("Start VNC")
+USETEXT = N_("Use text mode")
 
 # Runlevel files
 RUNLEVELS = {3: 'multi-user.target', 5: 'graphical.target'}
