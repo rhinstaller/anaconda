@@ -123,6 +123,10 @@ class AnacondaKSScript(KSScript):
         if rc != 0:
             log.error("Error code %s running the kickstart script at line %s", rc, self.lineno)
             if self.errorOnFail:
+                err = ""
+                with open(messages, "r") as fp:
+                    err = "".join(fp.readlines())
+
                 errorHandler.cb(ScriptError(), self.lineno, err)
                 sys.exit(0)
 

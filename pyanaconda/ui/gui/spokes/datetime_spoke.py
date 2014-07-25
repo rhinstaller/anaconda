@@ -814,7 +814,6 @@ class DatetimeSpoke(FirstbootSpokeMixIn, NormalSpoke):
         minutes = int(self._minutesLabel.get_text())
         minutes_str = "%0.2d" % ((minutes + 1) % 60)
         self._minutesLabel.set_text(minutes_str)
-        pass
 
     def on_down_minutes_clicked(self, *args):
         self._stop_and_maybe_start_time_updating()

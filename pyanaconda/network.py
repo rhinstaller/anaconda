@@ -1273,6 +1273,7 @@ def status_message():
             nonslaves = [dev for dev in active_devs if dev not in all_slaves]
 
             if len(nonslaves) == 1:
+                devname = nonslaves[0]
                 if nm.nm_device_type_is_ethernet(devname):
                     msg = _("Wired (%(interface_name)s) connected") \
                           % {"interface_name": devname}

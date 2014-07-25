@@ -27,14 +27,14 @@
 
 """
 
+import logging
+log = logging.getLogger("anaconda")
+
 try:
     import tarfile
 except ImportError:
     log.error("import of tarfile failed")
     tarfile = None
-
-import logging
-log = logging.getLogger("anaconda")
 
 from pyanaconda import iutil
 from pyanaconda.packaging import ArchivePayload, PayloadError

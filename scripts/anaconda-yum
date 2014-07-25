@@ -92,7 +92,9 @@ def run_yum_transaction(release, arch, yum_conf, install_root, ts_file, script_l
 
     # remove some environmental variables that can cause problems with package scripts
     env_remove = ('DISPLAY', 'DBUS_SESSION_BUS_ADDRESS')
-    [os.environ.pop(k) for k in env_remove if k in os.environ]
+    for k in env_remove:
+        if k in os.environ:
+            os.environ.pop(k)
 
     # Initialize the rpm macros
     if macros:

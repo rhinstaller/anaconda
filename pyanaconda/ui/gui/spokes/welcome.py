@@ -155,7 +155,7 @@ class WelcomeLanguageSpoke(LangLocaleHandler, StandaloneSpoke):
         self._languageEntry = self.builder.get_object("languageEntry")
         self._langSelection = self.builder.get_object("languageViewSelection")
         self._langSelectedRenderer = self.builder.get_object("langSelectedRenderer")
-        self._langSelectedColumn = self.builder.get_object("langSelectedColumn");
+        self._langSelectedColumn = self.builder.get_object("langSelectedColumn")
         self._langView = self.builder.get_object("languageView")
         self._localeView = self.builder.get_object("localeView")
         self._localeStore = self.builder.get_object("localeStore")

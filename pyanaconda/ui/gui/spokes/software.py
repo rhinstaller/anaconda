@@ -208,7 +208,9 @@ class SoftwareSelectionSpoke(NormalSpoke):
             # involves side effects like network access.  We need to reference
             # them here, outside of the main thread, to not block the UI.
             try:
+                # pylint: disable-msg=W0104
                 self.payload.environments
+                # pylint: disable-msg=W0104
                 self.payload.groups
             except MetadataError:
                 hubQ.send_message(self.__class__.__name__,

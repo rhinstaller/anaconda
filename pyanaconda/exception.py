@@ -164,7 +164,6 @@ class AnacondaExceptionHandler(ExceptionHandler):
                 shutil.copyfile(self.exnFile, dest)
             except (shutil.Error, IOError):
                 log.error("Failed to copy %s to %s/root", self.exnFile, iutil.getSysroot())
-                pass
 
         # run kickstart traceback scripts (if necessary)
         try:
