@@ -38,7 +38,7 @@ class TextWidget(base.Widget):
         base.Widget.__init__(self)
         self._text = text
 
-    def render(self, width):
+    def render(self, width = None):
         """Renders the text widget limited to width number of columns
         (wraps to the next line when the text is longer).
 
@@ -62,7 +62,7 @@ class CenterWidget(base.Widget):
         base.Widget.__init__(self)
         self._w = w
 
-    def render(self, width):
+    def render(self, width = None):
         """
         Render the centered widget to internal buffer.
 
@@ -89,7 +89,7 @@ class ColumnWidget(base.Widget):
         self._spacing = spacing
         self._columns = columns
 
-    def render(self, width):
+    def render(self, width = None):
         """Render the widget to it's internal buffer
 
         :param width: the maximum width the widget can use
@@ -150,7 +150,7 @@ class CheckboxWidget(base.Widget):
         self._text = text
         self._completed = completed
 
-    def render(self, width):
+    def render(self, width = None):
         """Render the widget to internal buffer. It should be max width
            characters wide."""
         base.Widget.render(self, width)

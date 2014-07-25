@@ -488,6 +488,11 @@ class FilterSpoke(NormalSpoke):
     def indirect(self):
         return True
 
+    # This spoke has no status since it's not in a hub.
+    @property
+    def status(self):
+        return None
+
     def apply(self):
         onlyuse = self.selected_disks[:]
         for disk in [d for d in self.storage.disks if d.name in onlyuse]:

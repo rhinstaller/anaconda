@@ -79,7 +79,7 @@ class YesNoDialog(tui.UIScreen):
         self._window.append(u"")
         return True
 
-    def prompt(self, args):
+    def prompt(self, args = None):
         return _("Please respond 'yes' or 'no': ")
 
     def input(self, args, key):

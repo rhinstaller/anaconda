@@ -960,10 +960,6 @@ class BootLoader(object):
         config.close()
         self.write_config_post()
 
-    def read(self):
-        """ Read an existing bootloader configuration. """
-        raise NotImplementedError()
-
     @property
     def trusted_boot(self):
         return self._trusted_boot
@@ -1789,6 +1785,8 @@ class MacEFIGRUB(EFIGRUB):
         self.mactel_config()
 
 
+# Inherit abstract methods from BootLoader
+# pylint: disable-msg=W0223
 class YabootBase(BootLoader):
     def write_config_password(self, config):
         if self.password:

@@ -31,6 +31,8 @@ from pyanaconda.i18n import N_, _
 __all__ = ["TUISpoke", "EditTUISpoke", "EditTUIDialog", "EditTUISpokeEntry", "StandaloneSpoke", "NormalSpoke", "PersonalizationSpoke",
            "collect_spokes", "collect_categories"]
 
+# Inherit abstract methods from Spoke
+# pylint: disable-msg=W0223
 class TUISpoke(TUIObject, tui.Widget, Spoke):
     """Base TUI Spoke class implementing the pyanaconda.ui.common.Spoke API.
     It also acts as a Widget so we can easily add it to Hub, where is shows
@@ -67,7 +69,7 @@ class TUISpoke(TUIObject, tui.Widget, Spoke):
         """Handle the input, the base class just forwards it to the App level."""
         return key
 
-    def render(self, width):
+    def render(self, width = None):
         """Render the summary representation for Hub to internal buffer."""
         tui.Widget.render(self, width)
 
@@ -88,6 +90,8 @@ class NormalTUISpoke(TUISpoke, NormalSpoke):
 
 EditTUISpokeEntry = namedtuple("EditTUISpokeEntry", ["title", "attribute", "aux", "visible"])
 
+# Inherit abstract methods from NormalTUISpoke
+# pylint: disable-msg=W0223
 class EditTUIDialog(NormalTUISpoke):
     """Spoke/dialog used to read new value of textual or password data"""
 
@@ -98,12 +102,15 @@ class EditTUIDialog(NormalTUISpoke):
         NormalTUISpoke.__init__(self, app, data, storage, payload, instclass)
         self.value = None
 
-    def refresh(self, args):
+    def refresh(self, args = None):
         self._window = []
         self.value = None
         return True
 
-    def prompt(self, entry):
+    def prompt(self, entry = None):
+        if not entry:
+            return None
+
         if entry.aux == self.PASSWORD:
             pw = self._app.raw_input(_("%s: ") % entry.title, hidden=True)
             confirm = self._app.raw_input(_("%s (confirm): ") % entry.title, hidden=True)
@@ -144,12 +151,14 @@ class OneShotEditTUIDialog(EditTUIDialog):
        the value is read
     """
 
-    def prompt(self, entry):
+    def prompt(self, entry = None):
         ret = EditTUIDialog.prompt(self, entry)
         if ret is None:
             self.close()
         return ret
 
+# Inherit abstract methods from NormalTUISpoke
+# pylint: disable-msg=W0223
 class EditTUISpoke(NormalTUISpoke):
     """Spoke with declarative semantics, it contains
        a list of titles, attribute names and regexps

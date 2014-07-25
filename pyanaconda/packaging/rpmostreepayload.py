@@ -37,6 +37,8 @@ log = logging.getLogger("anaconda")
 from pyanaconda.packaging import ArchivePayload, PayloadInstallError
 import pyanaconda.errors as errors
 
+# Inherit abstract methods from ArchivePayload
+# pylint: disable-msg=W0223
 class RPMOSTreePayload(ArchivePayload):
     """ A RPMOSTreePayload deploys a tree (possibly with layered packages) onto the target system. """
     def __init__(self, data):

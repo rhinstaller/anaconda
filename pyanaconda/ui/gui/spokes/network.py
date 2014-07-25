@@ -1430,6 +1430,11 @@ class NetworkStandaloneSpoke(StandaloneSpoke):
                 or nm.nm_activated_devices()
                 or self.data.method.method not in ("url", "nfs"))
 
+    # This spoke has no status since it's not in a hub
+    @property
+    def status(self):
+        return None
+
     def initialize(self):
         register_secret_agent(self)
         StandaloneSpoke.initialize(self)

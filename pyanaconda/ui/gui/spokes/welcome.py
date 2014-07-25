@@ -141,6 +141,11 @@ class WelcomeLanguageSpoke(LangLocaleHandler, StandaloneSpoke):
         else:
             return False
 
+    # This spoke has no status since it's not in a hub
+    @property
+    def status(self):
+        return None
+
     def _row_is_separator(self, model, itr, *args):
         return model[itr][3]
 

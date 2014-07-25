@@ -700,6 +700,11 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
     def indirect(self):
         return True
 
+    # This spoke has no status since it's not in a hub
+    @property
+    def status(self):
+        return None
+
     def _grabObjects(self):
         self._configureBox = self.builder.get_object("configureBox")
 

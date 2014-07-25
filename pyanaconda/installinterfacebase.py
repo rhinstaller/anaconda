@@ -18,17 +18,10 @@
 #
 # Author(s): Hans de Goede <hdegoede@redhat.com>
 
-import sys
-
-from pyanaconda.i18n import _
-
 import logging
 log = logging.getLogger("anaconda")
 
 class InstallInterfaceBase(object):
-    def reinitializeWindow(self, title, path, size, description):
-        raise NotImplementedError
-
     def messageWindow(self, title, text, ty="ok", default = None,
              custom_buttons=None,  custom_icon=None):
         raise NotImplementedError
@@ -37,36 +30,3 @@ class InstallInterfaceBase(object):
                               default=None, custom_icon=None,
                               custom_buttons=None, expanded=False):
         raise NotImplementedError
-
-    def methodstrRepoWindow(self, methodstr, exception):
-        """ Called when the repo specified by methodstr could not be found.
-
-            Depending on the interface implementation terminates the program or
-            gives user a chance to specify a new repo path it then returns. The
-            default implementation is to terminate.
-        """
-        self.messageWindow(
-            _("Error Setting Up Repository"),
-            _("The following error occurred while setting up the "
-              "installation repository:\n\n%(e)s\n\n"
-              "Installation can not continue.")
-            % {'e': exception},
-            ty = "custom",
-            custom_icon="info",
-            custom_buttons=[_("Exit installer")])
-        sys.exit(0)
-
-    def hardwareError(self, exception):
-        text=_("The installation was stopped due to what seems to be a problem "
-               "with your hardware. The exact error message is:\n\n%s.\n\n "
-               "The installer will now terminate.") % str(exception)
-        self.messageWindow(title=_("Hardware Error Encountered"),
-                           text=text,
-                           ty="custom",
-                           custom_icon="error",
-                           custom_buttons=[_("_Exit installer")])
-        sys.exit(0)
-
-    def unsupported_steps(self):
-        """ List of steps this interface is unable to carry out. """
-        return []

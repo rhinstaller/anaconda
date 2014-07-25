@@ -522,6 +522,10 @@ class SelectDeviceSpoke(NormalTUISpoke):
             # we don't have the disk for the given number
             return key
 
+    # Override Spoke.apply
+    def apply(self):
+        pass
+
 class SelectISOSpoke(SourceSwitchHandler, NormalTUISpoke):
     """ Select an ISO to use as install source. """
 

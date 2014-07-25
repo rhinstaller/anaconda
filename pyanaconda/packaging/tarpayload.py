@@ -39,6 +39,8 @@ log = logging.getLogger("anaconda")
 from pyanaconda import iutil
 from pyanaconda.packaging import ArchivePayload, PayloadError
 
+# TarPayload is not yet fully implemented.
+# pylint: disable-msg=W0223
 class TarPayload(ArchivePayload):
     """ A TarPayload unpacks a single tar archive onto the target system. """
     def __init__(self, data):

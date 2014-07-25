@@ -345,6 +345,8 @@ class Spoke(UIObject):
         """
         raise NotImplementedError
 
+# Inherit abstract methods from Spoke
+# pylint: disable-msg=W0223
 class NormalSpoke(Spoke):
     """A NormalSpoke is a Spoke subclass that is displayed when the user
        selects something on a Hub.  This is what most Spokes in anaconda will
@@ -396,6 +398,8 @@ class NormalSpoke(Spoke):
         """
         return True
 
+# Inherit abstract methods from NormalSpoke
+# pylint: disable-msg=W0223
 class StandaloneSpoke(NormalSpoke):
     """A StandaloneSpoke is a Spoke subclass that is displayed apart from any
        Hub.  It is suitable to be used as a Welcome screen.
@@ -430,10 +434,10 @@ class StandaloneSpoke(NormalSpoke):
         if self.preForHub and self.postForHub:
             raise AttributeError("StandaloneSpoke instance %s may not have both preForHub and postForHub set" % self)
 
-        Spoke.__init__(self, data, storage, payload, instclass)
+        NormalSpoke.__init__(self, data, storage, payload, instclass)
 
-
-
+# Inherit abstract methods from Spoke
+# pylint: disable-msg=W0223
 class PersonalizationSpoke(Spoke):
     """A PersonalizationSpoke is a Spoke subclass that is displayed when the
        user selects something on the Hub during package installation.

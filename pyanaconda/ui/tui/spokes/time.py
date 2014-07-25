@@ -128,7 +128,7 @@ class TimeZoneSpoke(FirstbootSpokeMixIn, NormalTUISpoke):
         else:
             return key
 
-    def prompt(self, args):
+    def prompt(self, args = None):
         return _("Please select the timezone.\nUse numbers or type names directly [b to region list, c to continue, q to quit]: ")
 
     def apply(self):
