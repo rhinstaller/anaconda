@@ -21,7 +21,6 @@
 import inspect, os, sys, time, site
 import meh.ui.gui
 
-# pylint: disable-msg=E0611
 from gi.repository import Gdk, Gtk, AnacondaWidgets, Keybinder
 
 from pyanaconda.i18n import _

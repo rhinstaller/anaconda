@@ -27,7 +27,6 @@ log = logging.getLogger("anaconda")
 
 import os, signal, string
 
-# pylint: disable-msg=E0611
 from gi.repository import GLib
 
 from pyanaconda.flags import flags

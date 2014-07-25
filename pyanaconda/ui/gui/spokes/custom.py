@@ -83,7 +83,6 @@ from pyanaconda.ui.lib.disks import size_str
 from pyanaconda.kickstart import refreshAutoSwapSize
 
 
-# pylint: disable-msg=E0611
 from gi.repository import Gdk, Gtk
 from gi.repository.AnacondaWidgets import MountpointSelector
 

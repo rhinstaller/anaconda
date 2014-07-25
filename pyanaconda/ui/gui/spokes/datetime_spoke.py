@@ -22,7 +22,6 @@
 import logging
 log = logging.getLogger("anaconda")
 
-# pylint: disable-msg=E0611
 from gi.repository import GLib, Gdk
 
 from pyanaconda.ui.communication import hubQ

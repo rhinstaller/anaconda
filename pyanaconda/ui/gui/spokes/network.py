@@ -29,7 +29,6 @@
 # - NMClient.CLIENT_WIRELESS_ENABLED callback (hw switch?) - test
 # - nm-c-e run: blocking? logging?
 
-# pylint: disable-msg=E0611
 from gi.repository import Gtk
 
 from pyanaconda import flags
@@ -46,7 +45,6 @@ from pyanaconda.ui.common import FirstbootSpokeMixIn
 from pyanaconda import network
 from pyanaconda import nm
 
-# pylint: disable-msg=E0611
 from gi.repository import GLib, GObject, Pango, Gio, NetworkManager, NMClient
 import dbus
 import dbus.service

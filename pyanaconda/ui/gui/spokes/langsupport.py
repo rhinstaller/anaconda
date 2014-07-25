@@ -20,7 +20,6 @@
 #                    Vratislav Podzimek <vpodzime@redhat.com>
 #
 
-# pylint: disable-msg=E0611
 from gi.repository import Pango, Gdk
 from pyanaconda.flags import flags
 from pyanaconda.i18n import N_

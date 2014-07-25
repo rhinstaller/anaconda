@@ -19,7 +19,6 @@
 # Red Hat Author(s): Chris Lumens <clumens@redhat.com>
 #
 
-# pylint: disable-msg=E0611
 from gi.repository import GLib
 
 from pyanaconda.threads import threadMgr, AnacondaThread

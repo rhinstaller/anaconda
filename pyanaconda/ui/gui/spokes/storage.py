@@ -39,7 +39,6 @@
 
 """
 
-# pylint: disable-msg=E0611
 from gi.repository import Gdk, GLib, AnacondaWidgets
 
 from pyanaconda.ui.communication import hubQ

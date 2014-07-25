@@ -19,7 +19,6 @@
 # Red Hat Author(s): David Lehman <dlehman@redhat.com>
 #
 
-# pylint: disable-msg=E0611
 from gi.repository import Gtk, Gdk
 
 import pwquality

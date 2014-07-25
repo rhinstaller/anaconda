@@ -47,7 +47,6 @@ from pyanaconda.safe_dbus import dbus_call_safe_sync, dbus_get_property_safe_syn
 from pyanaconda.safe_dbus import DBUS_SYSTEM_BUS_ADDR, DBusPropertyError
 from pyanaconda.constants import DEFAULT_VC_FONT
 
-# pylint: disable-msg=E0611
 from gi.repository import Xkl, Gio, GLib
 
 import logging
@@ -373,7 +372,6 @@ class XklWrapper(object):
         return XklWrapper._instance
 
     def __init__(self):
-        # pylint: disable-msg=E0611
         from gi.repository import GdkX11
 
         #initialize Xkl-related stuff

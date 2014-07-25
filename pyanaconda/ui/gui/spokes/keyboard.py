@@ -20,7 +20,6 @@
 #                    Vratislav Podzimek <vpodzime@redhat.com>
 #
 
-# pylint: disable-msg=E0611
 from gi.repository import Gkbd, Gtk, Gdk
 
 from pyanaconda.ui.gui import GUIObject
