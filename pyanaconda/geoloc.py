@@ -106,7 +106,6 @@ import json
 import dbus
 import threading
 import time
-import timezone
 
 import logging
 log = logging.getLogger("anaconda")
@@ -114,6 +113,7 @@ log = logging.getLogger("anaconda")
 from pyanaconda import constants
 from pyanaconda.threads import AnacondaThread, threadMgr
 from pyanaconda import nm
+from pyanaconda import timezone
 
 location_info_instance = None
 

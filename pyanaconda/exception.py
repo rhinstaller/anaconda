@@ -21,16 +21,17 @@
 #            David Cantrell <dcantrell@redhat.com>
 #            Vratislav Podzimek <vpodzime@redhat.com>
 #
-from meh.handler import *
-from meh.dump import *
-import isys
-import iutil
+from meh import Config
+from meh.handler import ExceptionHandler
+from meh.dump import ReverseExceptionDump
+from pyanaconda import isys
+from pyanaconda import iutil
 import sys
 import os
 import shutil
 import signal
 import time
-import kickstart
+from pyanaconda import kickstart
 import blivet.errors
 from pyanaconda.errors import CmdlineError
 from pyanaconda.ui.communication import hubQ

@@ -69,7 +69,7 @@ from pyanaconda.i18n import _, N_, P_
 from pyanaconda import constants
 from pyanaconda.bootloader import BootLoaderError
 
-from pykickstart.constants import *
+from pykickstart.constants import CLEARPART_TYPE_NONE, AUTOPART_TYPE_LVM
 from pykickstart.errors import KickstartValueError
 
 import sys

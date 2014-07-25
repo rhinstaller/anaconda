@@ -29,7 +29,7 @@ import sys
 import types
 import warnings
 
-from flags import flags
+from pyanaconda.flags import flags
 
 DEFAULT_TTY_LEVEL = logging.INFO
 ENTRY_FORMAT = "%(asctime)s,%(msecs)03d %(levelname)s %(name)s: %(message)s"

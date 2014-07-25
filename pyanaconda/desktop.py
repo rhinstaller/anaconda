@@ -20,7 +20,7 @@
 #
 
 import os
-from simpleconfig import SimpleConfigFile
+from pyanaconda.simpleconfig import SimpleConfigFile
 from pyanaconda.constants import RUNLEVELS
 from pyanaconda import iutil
 

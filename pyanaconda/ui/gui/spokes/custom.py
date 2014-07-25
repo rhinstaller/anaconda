@@ -32,7 +32,8 @@ from contextlib import contextmanager
 import re
 import locale
 
-from pykickstart.constants import *
+from pykickstart.constants import AUTOPART_TYPE_LVM, AUTOPART_TYPE_LVM_THINP, AUTOPART_TYPE_PLAIN, \
+                                  AUTOPART_TYPE_BTRFS, CLEARPART_TYPE_NONE
 
 from pyanaconda.i18n import _, N_, P_
 from pyanaconda.product import productName, productVersion
@@ -73,7 +74,7 @@ from pyanaconda.ui.gui.spokes import NormalSpoke
 from pyanaconda.ui.gui.spokes.storage import StorageChecker
 from pyanaconda.ui.gui.spokes.lib.cart import SelectedDisksDialog
 from pyanaconda.ui.gui.spokes.lib.passphrase import PassphraseDialog
-from pyanaconda.ui.gui.spokes.lib.accordion import *
+from pyanaconda.ui.gui.spokes.lib.accordion import Accordion, Page, CreateNewPage, UnknownPage, selectorFromDevice
 from pyanaconda.ui.gui.spokes.lib.refresh import RefreshDialog
 from pyanaconda.ui.gui.spokes.lib.summary import ActionSummaryDialog
 from pyanaconda.ui.gui.utils import setViewportBackground, gtk_action_wait, enlightbox, fancy_set_sensitive, ignoreEscape,\

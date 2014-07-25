@@ -50,7 +50,8 @@ import dbus
 import dbus.service
 import subprocess
 import string
-dbus.mainloop.glib.DBusGMainLoop(set_as_default=True)
+from dbus.mainloop.glib import DBusGMainLoop
+DBusGMainLoop(set_as_default=True)
 
 import logging
 log = logging.getLogger("anaconda")

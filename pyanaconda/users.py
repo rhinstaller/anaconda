@@ -26,7 +26,7 @@ import random
 import tempfile
 import os
 import os.path
-import iutil
+from pyanaconda import iutil
 import pwquality
 import re
 from pyanaconda.iutil import strip_accents

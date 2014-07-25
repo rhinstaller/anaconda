@@ -33,8 +33,8 @@ import sys
 from tempfile import mkstemp
 
 from pyanaconda.bootloader import get_bootloader
-from pyanaconda import constants
 from pyanaconda import iutil
+from pyanaconda.constants import ADDON_PATHS
 from pyanaconda import addons
 from pyanaconda.i18n import _
 
@@ -44,7 +44,7 @@ stdoutLog = logging.getLogger("anaconda.stdout")
 
 class Anaconda(object):
     def __init__(self):
-        import desktop
+        from pyanaconda import desktop
 
         self._bootloader = None
         self.canReIPL = False
@@ -88,7 +88,7 @@ class Anaconda(object):
     @property
     def instClass(self):
         if not self._instClass:
-            from installclass import DefaultInstall
+            from pyanaconda.installclass import DefaultInstall
             self._instClass = DefaultInstall()
 
         return self._instClass
@@ -108,7 +108,7 @@ class Anaconda(object):
     @property
     def network(self):
         if not self._network:
-            import network
+            from pyanaconda import network
             self._network = network.Network()
 
         return self._network
@@ -121,7 +121,7 @@ class Anaconda(object):
             klass = self.instClass.getBackend()
 
             if not klass:
-                from flags import flags
+                from pyanaconda.flags import flags
 
                 if self.ksdata.ostreesetup.seen:
                     from pyanaconda.packaging.rpmostreepayload import RPMOSTreePayload
@@ -208,7 +208,7 @@ class Anaconda(object):
                                                 self.instClass)
 
             # needs to be refreshed now we know if gui or tui will take place
-            addon_paths = addons.collect_addon_paths(constants.ADDON_PATHS,
+            addon_paths = addons.collect_addon_paths(ADDON_PATHS,
                                                      ui_subdir="gui")
         elif self.displayMode in ['t', 'c']: # text and command line are the same
             from pyanaconda.ui.tui import TextUserInterface
@@ -216,7 +216,7 @@ class Anaconda(object):
                                            self.instClass)
 
             # needs to be refreshed now we know if gui or tui will take place
-            addon_paths = addons.collect_addon_paths(constants.ADDON_PATHS,
+            addon_paths = addons.collect_addon_paths(ADDON_PATHS,
                                                      ui_subdir="tui")
         else:
             raise RuntimeError("Unsupported displayMode: %s" % self.displayMode)
@@ -238,7 +238,7 @@ class Anaconda(object):
         f.close()
 
     def write(self):
-        import network
+        from pyanaconda import network
         self.writeXdriver()
 
         network.write_sysconfig_network()

@@ -26,16 +26,14 @@ import os, sys
 import string
 import imputil
 
-from constants import *
-from product import *
-from blivet.partspec import *
+from blivet.partspec import PartSpec
 from blivet.devicelibs import swap
 from blivet.platform import platform
 
 import logging
 log = logging.getLogger("anaconda")
 
-from flags import flags
+from pyanaconda.flags import flags
 from pyanaconda.kickstart import getAvailableDiskSpace
 
 class BaseInstallClass(object):

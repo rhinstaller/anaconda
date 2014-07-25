@@ -42,11 +42,8 @@ SKIP_KEY = -50
 # where to look for 3rd party addons
 ADDON_PATHS = ["/usr/share/anaconda/addons"]
 
-# pull in kickstart constants as well
-from pykickstart.constants import *
-
 # common string needs to be easy to change
-import product
+from pyanaconda import product
 productName = product.productName
 productVersion = product.productVersion
 productArch = product.productArch

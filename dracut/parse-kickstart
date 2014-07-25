@@ -20,6 +20,7 @@ from pykickstart.parser import KickstartParser, preprocessKickstart
 from pykickstart.sections import NullSection
 from pykickstart.version import returnClassForVersion, RHEL7
 from pykickstart.errors import KickstartError
+# pylint: disable-msg=W0401
 from pykickstart.constants import *
 from pykickstart import commands
 from collections import OrderedDict

@@ -24,18 +24,17 @@ import meh.ui.gui
 from gi.repository import Gdk, Gtk, AnacondaWidgets, Keybinder
 
 from pyanaconda.i18n import _
-from pyanaconda.product import distributionText, isFinal
 
 from pyanaconda.ui import UserInterface, common
 from pyanaconda.ui.gui.utils import enlightbox, gtk_action_wait
-from pyanaconda.product import isFinal, productName, productVersion
+from pyanaconda.product import distributionText, isFinal, productName, productVersion
 from pyanaconda import iutil
 import os.path
 
 import logging
 log = logging.getLogger("anaconda")
 
-__all__ = ["GraphicalUserInterface", "UIObject", "busyCursor", "unbusyCursor", "QuitDialog"]
+__all__ = ["GraphicalUserInterface", "GUIObject", "busyCursor", "unbusyCursor", "QuitDialog"]
 
 _screenshotIndex = 0
 _last_screenshot_timestamp = 0
@@ -263,16 +262,6 @@ class GraphicalUserInterface(UserInterface):
         self._mehInterface = GraphicalExceptionHandlingIface(
                                     self.lightbox_over_current_action)
 
-        # This is a hack to make sure the AnacondaWidgets library gets loaded
-        # before glade tries to use Anaconda types
-        # glade file should contain the following line to make this seamless
-        #
-        # <requires lib="AnacondaWidgets" version="1.0"/>
-        #
-        # but the current (3.4) version of GtkBuilder does not support
-        # requires elements with 3rd party libraries
-        from gi.repository import AnacondaWidgets
-
     basemask = "pyanaconda.ui.gui"
     basepath = os.path.dirname(__file__)
     updatepath = "/tmp/updates/pyanaconda/ui/gui"
@@ -335,9 +324,6 @@ class GraphicalUserInterface(UserInterface):
         DOES NOTHING IF THERE ARE NO ACTIONS.
 
         """
-
-        from gi.repository import AnacondaWidgets
-
         # if there are no actions (not populated yet), we can do nothing
         if len(self._actions) > 0 and self._currentAction:
             lightbox = AnacondaWidgets.lb_show_over(self._currentAction.window)
@@ -345,7 +331,7 @@ class GraphicalUserInterface(UserInterface):
             window.main_window.set_transient_for(lightbox)
 
     def _instantiateAction(self, actionClass):
-        from spokes import StandaloneSpoke
+        from pyanaconda.ui.gui.spokes import StandaloneSpoke
 
         # Instantiate an action on-demand, passing the arguments defining our
         # spoke API and setting up continue/quit signal handlers.
@@ -443,7 +429,6 @@ class GraphicalUserInterface(UserInterface):
 
     @gtk_action_wait
     def showYesNoQuestion(self, message):
-        from gi.repository import AnacondaWidgets, Gtk
         dlg = Gtk.MessageDialog(flags=Gtk.DialogFlags.MODAL,
                                 message_type=Gtk.MessageType.QUESTION,
                                 buttons=Gtk.ButtonsType.NONE,

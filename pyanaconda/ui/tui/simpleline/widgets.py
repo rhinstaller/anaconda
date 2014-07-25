@@ -23,7 +23,7 @@
 
 __all__ = ["TextWidget", "ColumnWidget", "CheckboxWidget", "CenterWidget"]
 
-import base
+from pyanaconda.ui.tui.simpleline import base
 from pyanaconda.i18n import _
 
 class TextWidget(base.Widget):

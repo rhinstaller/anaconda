@@ -19,5 +19,7 @@
 # Red Hat Author(s): Martin Sivak <msivak@redhat.com>
 #
 
-from base import *
-from widgets import *
+# pylint: disable-msg=W0401
+from pyanaconda.ui.tui.simpleline.base import *
+# pylint: disable-msg=W0401
+from pyanaconda.ui.tui.simpleline.widgets import *

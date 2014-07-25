@@ -26,17 +26,17 @@
 
 import string
 import shutil
-import iutil
+from pyanaconda import iutil
 import socket
 import os
 import time
 import re
 import IPy
 import uuid
-from flags import flags
+from pyanaconda.flags import flags
 import itertools
 
-from simpleconfig import SimpleConfigFile
+from pyanaconda.simpleconfig import SimpleConfigFile
 from blivet.devices import FcoeDiskDevice, iScsiDiskDevice
 import blivet.arch
 

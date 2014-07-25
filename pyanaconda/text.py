@@ -19,10 +19,9 @@
 #            Matt Wilson <msw@redhat.com>
 #
 
-from snack import *
+from snack import ButtonBar, ButtonChoiceWindow, Entry, GridForm, Scale, TextboxReflowed
 import string
-from constants_text import *
-from constants import *
+from pyanaconda.constants_text import TEXT_OK_BUTTON, TEXT_CANCEL_BUTTON, TEXT_OK_CHECK
 from pyanaconda.i18n import _
 
 class WaitWindow:

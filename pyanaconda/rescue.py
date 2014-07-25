@@ -19,18 +19,9 @@
 # Author(s): Mike Fulbright <msf@redhat.com>
 #            Jeremy Katz <katzj@redhat.com>
 #
-
-from snack import *
-from constants import *
-from constants_text import *
-from text import WaitWindow, OkCancelWindow, ProgressWindow, PassphraseEntryWindow
-from flags import flags
 import sys
 import os
-from blivet import mountExistingSystem
-from blivet.errors import StorageError
-from installinterfacebase import InstallInterfaceBase
-import iutil
+from pyanaconda import iutil
 import shutil
 import time
 import re
@@ -38,12 +29,12 @@ import subprocess
 
 from snack import ButtonChoiceWindow, ListboxChoiceWindow,SnackScreen
 
-from constants import ANACONDA_CLEANUP
-from constants_text import TEXT_OK_BUTTON, TEXT_NO_BUTTON, TEXT_YES_BUTTON
-from text import WaitWindow, OkCancelWindow, ProgressWindow, PassphraseEntryWindow
-from flags import flags
-from installinterfacebase import InstallInterfaceBase
-from i18n import _
+from pyanaconda.constants import ANACONDA_CLEANUP
+from pyanaconda.constants_text import TEXT_OK_BUTTON, TEXT_NO_BUTTON, TEXT_YES_BUTTON
+from pyanaconda.text import WaitWindow, OkCancelWindow, ProgressWindow, PassphraseEntryWindow
+from pyanaconda.flags import flags
+from pyanaconda.installinterfacebase import InstallInterfaceBase
+from pyanaconda.i18n import _
 
 from blivet import mountExistingSystem
 from blivet.errors import StorageError
@@ -52,7 +43,6 @@ from blivet.devices import LUKSDevice
 from pykickstart.constants import KS_REBOOT, KS_SHUTDOWN
 
 import meh.ui.text
-from pyanaconda.i18n import _
 
 import logging
 log = logging.getLogger("anaconda")
@@ -285,7 +275,7 @@ def doRescue(intf, rescue_mount, ksdata):
         # the %post should be responsible for mounting all needed file systems
         # NOTE: 1st script must be bash or simple python as nothing else might be available in the rescue image
         if flags.automatedInstall and ksdata.scripts:
-            from kickstart import runPostScripts
+            from pyanaconda.kickstart import runPostScripts
             runPostScripts(ksdata.scripts)
         else:
             runShell()
@@ -494,7 +484,7 @@ def doRescue(intf, rescue_mount, ksdata):
 
     # run %post if we've mounted everything
     if rootmounted and not readOnly and flags.automatedInstall:
-        from kickstart import runPostScripts
+        from pyanaconda.kickstart import runPostScripts
         runPostScripts(ksdata.scripts)
 
     # start shell if reboot wasn't requested

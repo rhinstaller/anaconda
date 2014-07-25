@@ -35,7 +35,7 @@
 
 """
 
-from ConfigParser import MissingSectionHeaderError
+import ConfigParser
 
 import os
 import shutil
@@ -43,8 +43,6 @@ import sys
 import time
 from glob import glob
 from pyanaconda.iutil import execReadlines
-
-from . import *
 
 import logging
 log = logging.getLogger("packaging")
@@ -67,13 +65,14 @@ except ImportError:
     log.error("import of yum failed")
     yum = None
 
-from pyanaconda.constants import *
+from pyanaconda.constants import BASE_REPO_NAME, DRACUT_ISODIR, DRACUT_REPODIR, INSTALL_TREE, ISO_DIR, MOUNT_DIR
 from pyanaconda.flags import flags
 
 from pyanaconda import iutil
 from pyanaconda.iutil import ProxyString, ProxyStringError
 from pyanaconda.i18n import _
 from pyanaconda.nm import nm_is_connected
+from pyanaconda.product import isFinal, productName
 from blivet.size import Size
 import blivet.util
 import blivet.arch
@@ -82,13 +81,15 @@ from pyanaconda.image import opticalInstallMedia
 from pyanaconda.image import mountImage
 from pyanaconda.image import findFirstIsoImage
 
-from pyanaconda.errors import *
-from pyanaconda.packaging import NoSuchGroup, NoSuchPackage
+from pyanaconda.errors import ERROR_RAISE, errorHandler, CmdlineError
+from pyanaconda.packaging import DependencyError, MetadataError, NoNetworkError, NoSuchGroup, \
+                                 NoSuchPackage, PackagePayload, PayloadError, PayloadInstallError, \
+                                 PayloadSetupError
 from pyanaconda.progress import progressQ
 
 from pyanaconda.localization import langcode_matches_locale
 
-from pykickstart.constants import KS_MISSING_IGNORE
+from pykickstart.constants import GROUP_ALL, GROUP_DEFAULT, KS_MISSING_IGNORE
 
 YUM_PLUGINS = ["fastestmirror", "langpacks"]
 YUM_REPOS_DIR = "/etc/yum.repos.d/"
@@ -207,7 +208,6 @@ class YumPayload(PackagePayload):
 
             Setup _yum.preconf -- DO NOT TOUCH IT OUTSIDE THIS METHOD
         """
-        import shutil
         if root is None:
             root = self._root_dir
 
@@ -484,7 +484,7 @@ reposdir=%s
             try:
                 releasever = self._getReleaseVersion(url)
                 log.debug("releasever from %s is %s", url, releasever)
-            except MissingSectionHeaderError as e:
+            except ConfigParser.MissingSectionHeaderError as e:
                 log.error("couldn't set releasever from base repo (%s): %s",
                           method.method, e)
 

@@ -28,7 +28,7 @@
 
 """
 
-import os
+import os, sys
 from urlgrabber.grabber import URLGrabber
 from urlgrabber.grabber import URLGrabError
 import ConfigParser
@@ -39,24 +39,24 @@ if __name__ == "__main__":
     from pyanaconda import anaconda_log
     anaconda_log.init()
 
-from pyanaconda.constants import *
+from pyanaconda.constants import DRACUT_ISODIR, DRACUT_REPODIR, DD_ALL, DD_FIRMWARE, DD_RPMS, INSTALL_TREE, ISO_DIR, ROOT_PATH, \
+                                 THREAD_STORAGE, THREAD_WAIT_FOR_CONNECTING_NM
 from pyanaconda.flags import flags
 
 from pyanaconda import iutil
 from pyanaconda import isys
 from pyanaconda.iutil import ProxyString, ProxyStringError
 
+from pykickstart.constants import GROUP_ALL, GROUP_DEFAULT, GROUP_REQUIRED
 from pykickstart.parser import Group
 
 import logging
 log = logging.getLogger("packaging")
 
-from pyanaconda.errors import *
 from blivet.errors import StorageError
 import blivet.util
 import blivet.arch
 from blivet.platform import platform
-#from pyanaconda.progress import progress
 
 from pyanaconda.product import productName, productVersion
 import urlgrabber
@@ -563,7 +563,6 @@ class Payload(object):
 
     def _copyDriverDiskFiles(self):
         import glob
-        import shutil
 
         # Multiple driver disks may be loaded, so we need to glob for all
         # the firmware files in the common DD firmware directory
@@ -802,7 +801,6 @@ def write_txmbrs(payload, filename):
 ### MAIN
 ###
 if __name__ == "__main__":
-    import os
     import sys
     import blivet
     from pykickstart.version import makeVersion

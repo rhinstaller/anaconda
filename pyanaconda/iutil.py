@@ -31,14 +31,14 @@ import unicodedata
 from threading import Thread
 from Queue import Queue, Empty
 
-from flags import flags
-from constants import *
+from pyanaconda.flags import flags
+from pyanaconda.constants import DRACUT_SHUTDOWN_EJECT, ROOT_PATH, TRANSLATIONS_UPDATE_DIR, UNSUPPORTED_HW
 
 import logging
 log = logging.getLogger("anaconda")
 program_log = logging.getLogger("program")
 
-from anaconda_log import program_log_lock
+from pyanaconda.anaconda_log import program_log_lock
 
 def augmentEnv():
     env = os.environ.copy()

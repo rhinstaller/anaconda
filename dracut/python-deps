@@ -3,6 +3,7 @@
 
 import os, sys
 from modulefinder import ModuleFinder
+# pylint: disable-msg=W0401
 from distutils.sysconfig import *
 
 sitedir = get_python_lib()

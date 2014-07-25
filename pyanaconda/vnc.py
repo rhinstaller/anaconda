@@ -21,12 +21,9 @@
 
 import os, sys
 import time
-from constants import *
-import network
-import product
+from pyanaconda import network, product, iutil
 import socket
 import subprocess
-import iutil
 
 from pyanaconda.i18n import _, P_
 from pyanaconda.ui.tui.simpleline import App

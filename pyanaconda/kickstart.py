@@ -19,7 +19,7 @@
 #
 
 from pyanaconda.errors import ScriptError, errorHandler
-from blivet.deviceaction import *
+from blivet.deviceaction import ActionCreateFormat, ActionDestroyFormat, ActionResizeDevice, ActionResizeFormat
 from blivet.devices import LUKSDevice
 from blivet.devicelibs.lvm import getPossiblePhysicalExtents
 from blivet.devicelibs import swap as swap_lib
@@ -33,14 +33,14 @@ import blivet.zfcp
 import blivet.arch
 
 import glob
-import iutil
+from pyanaconda import iutil
 import os
 import os.path
 import tempfile
 import subprocess
-import flags as flags_module
-from flags import flags
-from constants import ADDON_PATHS
+import pyanaconda.flags as flags_module
+from pyanaconda.flags import flags
+from pyanaconda.constants import ADDON_PATHS
 import shlex
 import sys
 import urlgrabber
@@ -60,11 +60,12 @@ from .ui.common import collect
 from .addons import AddonSection, AddonData, AddonRegistry, collect_addon_paths
 from pyanaconda.bootloader import GRUB2, get_bootloader
 
-from pykickstart.constants import *
+from pykickstart.constants import CLEARPART_TYPE_NONE, FIRSTBOOT_SKIP, FIRSTBOOT_RECONFIG, KS_SCRIPT_POST, KS_SCRIPT_PRE, \
+                                  KS_SCRIPT_TRACEBACK, SELINUX_DISABLED, SELINUX_ENFORCING, SELINUX_PERMISSIVE
 from pykickstart.errors import formatErrorMsg, KickstartError, KickstartValueError
 from pykickstart.parser import KickstartParser
 from pykickstart.parser import Script as KSScript
-from pykickstart.sections import *
+from pykickstart.sections import NullSection, PackageSection, PostScriptSection, PreScriptSection, TracebackScriptSection
 from pykickstart.version import returnClassForVersion, RHEL7
 
 import logging
@@ -72,8 +73,7 @@ log = logging.getLogger("anaconda")
 stderrLog = logging.getLogger("anaconda.stderr")
 storage_log = logging.getLogger("blivet")
 stdoutLog = logging.getLogger("anaconda.stdout")
-from anaconda_log import logger, logLevelMap, setHandlersLevel,\
-    DEFAULT_TTY_LEVEL
+from pyanaconda.anaconda_log import logger, logLevelMap, setHandlersLevel, DEFAULT_TTY_LEVEL
 
 class AnacondaKSScript(KSScript):
     """ Execute a kickstart script

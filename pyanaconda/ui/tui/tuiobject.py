@@ -21,7 +21,7 @@
 
 from pyanaconda.i18n import N_, _
 from pyanaconda.ui import common
-import simpleline as tui
+from pyanaconda.ui.tui import simpleline as tui
 
 class ErrorDialog(tui.UIScreen):
     """Dialog screen for reporting errors to user."""

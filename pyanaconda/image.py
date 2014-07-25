@@ -17,15 +17,15 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-import isys
+from pyanaconda import isys
 import os, os.path, stat, tempfile
-from constants import *
+from pyanaconda.constants import ISO_DIR
 
-from errors import *
+from pyanaconda.errors import errorHandler, ERROR_RAISE, InvalidImageSizeError, MediaMountError, MediaUnmountError, MissingImageError
 
 import blivet.util
 import blivet.arch
-from blivet.errors import StorageError
+from blivet.errors import FSError, StorageError
 
 import logging
 log = logging.getLogger("anaconda")
