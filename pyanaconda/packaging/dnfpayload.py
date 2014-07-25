@@ -19,6 +19,7 @@
 #
 # Red Hat Author(s): Ales Kozumplik <akozumpl@redhat.com>
 #
+import os
 
 from blivet.size import Size
 from pyanaconda.flags import flags
@@ -39,6 +40,7 @@ import pyanaconda.localization
 import pyanaconda.packaging as packaging
 import sys
 import time
+from pyanaconda.iutil import ProxyString, ProxyStringError
 
 log = logging.getLogger("packaging")
 
@@ -66,6 +68,7 @@ REPO_DIRS = ['/etc/yum.repos.d',
              '/etc/anaconda.repos.d',
              '/tmp/updates/anaconda.repos.d',
              '/tmp/product/anaconda.repos.d']
+YUM_REPOS_DIR = "/etc/yum.repos.d/"
 
 def _failure_limbo():
     progressQ.send_quit(1)
@@ -537,6 +540,10 @@ class DNFPayload(packaging.PackagePayload):
         process.join()
         self._base.close()
 
+    def getRepo(self, repo_id):
+        """ Return the yum repo object. """
+        return self._base.repos[repo_id]
+
     def isRepoEnabled(self, repo_id):
         try:
             return self._base.repos[repo_id].enabled
@@ -629,3 +636,67 @@ class DNFPayload(packaging.PackagePayload):
                 self.disableRepo(id_)
             elif constants.isFinal and 'rawhide' in id_:
                 self.disableRepo(id_)
+
+    def _writeDNFRepo(self, repo, repo_path):
+        """ Write a repo object to a DNF repo.conf file
+
+            :param repo: DNF repository object
+            :param string repo_path: Path to write the repo to
+            :raises: PayloadSetupError if the repo doesn't have a url
+        """
+        with open(repo_path, "w") as f:
+            f.write("[%s]\n" % repo.id)
+            f.write("name=%s\n" % repo.id)
+            if self.isRepoEnabled(repo.id):
+                f.write("enabled=1\n")
+            else:
+                f.write("enabled=0\n")
+
+            if repo.mirrorlist:
+                f.write("mirrorlist=%s\n" % repo.mirrorlist)
+            elif repo.metalink:
+                f.write("metalink=%s\n" % repo.metalink)
+            elif repo.baseurl:
+                f.write("baseurl=%s\n" % repo.baseurl[0])
+            else:
+                f.close()
+                os.unlink(repo_path)
+                raise packaging.PayloadSetupError("repo %s has no baseurl, mirrorlist or metalink", repo.id)
+
+            # kickstart repo modifiers
+            ks_repo = self.getAddOnRepo(repo.id)
+            if not ks_repo:
+                return
+
+            if ks_repo.noverifyssl:
+                f.write("sslverify=0\n")
+
+            if ks_repo.proxy:
+                try:
+                    proxy = ProxyString(ks_repo.proxy)
+                    f.write("proxy=%s\n" % proxy.url)
+                except ProxyStringError as e:
+                    log.error("Failed to parse proxy for _writeInstallConfig %s: %s",
+                              ks_repo.proxy, e)
+
+            if ks_repo.cost:
+                f.write("cost=%d\n" % ks_repo.cost)
+
+    def postInstall(self):
+        """ Perform post-installation tasks. """
+        # Write selected kickstart repos to target system
+        for ks_repo in (ks for ks in (self.getAddOnRepo(r) for r in self.addOns) if ks.install):
+            try:
+                repo = self.getRepo(ks_repo.name)
+                if not repo:
+                    continue
+            except (dnf.exceptions.RepoError, KeyError):
+                continue
+            repo_path = pyanaconda.iutil.getSysroot() + YUM_REPOS_DIR + "%s.repo" % repo.id
+            try:
+                log.info("Writing %s.repo to target system.", repo.id)
+                self._writeDNFRepo(repo, repo_path)
+            except packaging.PayloadSetupError as e:
+                log.error(e)
+
+        super(DNFPayload, self).postInstall()
