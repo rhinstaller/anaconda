@@ -162,13 +162,14 @@ class AnacondaExceptionHandler(ExceptionHandler):
             try:
                 dest = iutil.getSysroot() + "/root/%s" % os.path.basename(self.exnFile)
                 shutil.copyfile(self.exnFile, dest)
-            except:
+            except (shutil.Error, IOError):
                 log.error("Failed to copy %s to %s/root", self.exnFile, iutil.getSysroot())
                 pass
 
         # run kickstart traceback scripts (if necessary)
         try:
             kickstart.runTracebackScripts(anaconda.ksdata.scripts)
+        # pylint: disable-msg=W0702
         except:
             pass
 

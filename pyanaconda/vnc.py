@@ -24,6 +24,7 @@ import time
 from pyanaconda import network, product, iutil
 import socket
 import subprocess
+import dbus
 
 from pyanaconda.i18n import _, P_
 from pyanaconda.ui.tui.simpleline import App
@@ -109,7 +110,7 @@ class VncServer:
         ipstr = self.ip
         try:
             hinfo = socket.gethostbyaddr(ipstr)
-        except Exception as e:
+        except socket.herror as e:
             log.debug("Exception caught trying to get host name of %s: %s", ipstr, e)
             self.name = network.getHostname()
         else:
@@ -194,7 +195,7 @@ class VncServer:
         # Lets call it from here for now.
         try:
             self.initialize()
-        except Exception, e:
+        except (socket.herror, dbus.DBusException, ValueError) as e:
             stdoutLog.critical("Could not initialize the VNC server: %s", e)
             sys.exit(1)
 

@@ -492,7 +492,7 @@ class Payload(object):
             else:
                 try:
                     blivet.util.umount(realMountpoint)
-                except Exception as e:
+                except OSError as e:
                     log.error(str(e))
                     log.info("umount failed -- mounting on top of it")
 

@@ -23,5 +23,6 @@ try:
     readline.parse_and_bind("tab: complete")
     del rlcompleter
     del readline
+# pylint: disable-msg=W0702
 except:
     pass

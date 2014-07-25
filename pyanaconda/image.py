@@ -237,7 +237,7 @@ def unmountCD(dev):
     while True:
         try:
             dev.format.unmount()
-        except Exception as e:
+        except FSError as e:
             log.error("exception in _unmountCD: %s", e)
             exn = MediaUnmountError()
             errorHandler.cb(exn, dev)

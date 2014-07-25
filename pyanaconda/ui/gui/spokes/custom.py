@@ -184,7 +184,7 @@ def size_from_entry(entry):
 
     try:
         size = Size(spec=size_text)
-    except Exception:
+    except ValueError:
         return None
     else:
         # Minimium size for ui-created partitions is 1MB.

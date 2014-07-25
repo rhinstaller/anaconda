@@ -35,6 +35,7 @@ import IPy
 import uuid
 from pyanaconda.flags import flags
 import itertools
+import dbus
 
 from pyanaconda.simpleconfig import SimpleConfigFile
 from blivet.devices import FcoeDiskDevice, iScsiDiskDevice
@@ -129,7 +130,7 @@ def getIPs():
         try:
             ipv4_addresses += nm.nm_device_ip_addresses(devname, version=4)
             ipv6_addresses += nm.nm_device_ip_addresses(devname, version=6)
-        except Exception as e:
+        except (dbus.DBusException, ValueError) as e:
             log.warning("Got an exception trying to get the ip addr "
                         "of %s: %s", devname, e)
     # prefer IPv4 addresses to IPv6 addresses
@@ -148,7 +149,7 @@ def get_default_device_ip():
     if devname:
         try:
             ip = nm.nm_device_ip_addresses(devname, version=4)[0]
-        except Exception as e:
+        except (dbus.DBusException, ValueError) as e:
             log.warning("Got an exception trying to get the ip addr "
                         "of %s: %s", devname, e)
     return ip
@@ -189,7 +190,7 @@ def getHostname():
         for ipaddr in addrs:
             try:
                 hinfo = socket.gethostbyaddr(ipaddr)
-            except Exception as e:
+            except socket.herror as e:
                 log.debug("Exception caught trying to get host name of %s: %s",
                           ipaddr, e)
             else:

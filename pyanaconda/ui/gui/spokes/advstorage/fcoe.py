@@ -82,7 +82,7 @@ class FCoEDialog(GUIObject):
     def _add(self):
         try:
             self._addError = self.fcoe.addSan(self.nic, self.use_dcb, self.use_auto_vlan)
-        except Exception as e:
+        except (IOError, OSError) as e:
             self._addError = str(e)
 
         self._after_add()

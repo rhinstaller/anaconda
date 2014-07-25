@@ -477,7 +477,7 @@ def dracut_eject(device):
         f.close()
         os.chmod(DRACUT_SHUTDOWN_EJECT, 0755)
         log.info("Wrote dracut shutdown eject hook for %s", device)
-    except Exception, e:
+    except (IOError, OSError) as e:
         log.error("Error writing dracut shutdown eject hook for %s: %s", device, e)
 
 def vtActivate(num):
@@ -699,7 +699,7 @@ def dir_tree_map(root, func, files=True, dirs=True):
             # try to call the function on the directory entry
             try:
                 func(dir_ent)
-            except:
+            except OSError:
                 pass
 
         if files:
@@ -707,7 +707,7 @@ def dir_tree_map(root, func, files=True, dirs=True):
             for file_ent in (os.path.join(dir_ent, f) for f in file_items):
                 try:
                     func(file_ent)
-                except:
+                except OSError:
                     pass
 
         # directories under the directory entry will appear as directory entries

@@ -460,7 +460,7 @@ reposdir=%s
         """ Return True if repo is enabled. """
         try:
             return self.getRepo(repo_id).enabled
-        except Exception:
+        except RepoError:
             return super(YumPayload, self).isRepoEnabled(repo_id)
 
     def updateBaseRepo(self, fallback=True, root=None, checkmount=True):
@@ -1703,7 +1703,7 @@ reposdir=%s
 
         try:
             yb.conf.write(open(yum_conf, "w"))
-        except Exception as e:
+        except IOError as e:
             log.error("failed to write out yum.conf: %s", e)
 
     def postInstall(self):

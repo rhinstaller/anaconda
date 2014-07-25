@@ -419,13 +419,13 @@ class UserSpoke(FirstbootSpokeMixIn, NormalSpoke):
 
         try:
             self._error = validatePassword(pw, confirm)
-        except PWQError as (_e, msg):
+        except PWQError as e:
             if pw == self._oldweak:
                 # We got a second attempt with the same weak password
                 pass
             else:
                 self._error = _("You have provided a weak password: %s. "
-                                " Press Done again to use anyway.") % msg
+                                " Press Done again to use anyway.") % e[1]
                 self._oldweak = pw
                 return False
 
