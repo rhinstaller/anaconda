@@ -268,6 +268,8 @@ def execReadlines(command, argv, stdin=None, root='/', env_prune=None):
             q.task_done()
         except Empty:
             if proc.poll() is not None:
+                if os.WIFSIGNALED(proc.returncode):
+                    raise OSError("process '%s' was killed" % argv)
                 break
     q.join()
 
