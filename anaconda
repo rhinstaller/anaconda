@@ -601,14 +601,14 @@ def check_memory(anaconda, options, display_mode=None):
         display_mode = anaconda.displayMode
 
     reason = reason_strict
-    total_ram = int(isys.total_memory() / 1024)
-    needed_ram = int(isys.MIN_RAM / 1024)
-    graphical_ram = int(isys.MIN_GUI_RAM / 1024)
+    total_ram = int(isys.total_memory())
+    needed_ram = int(isys.MIN_RAM)
+    graphical_ram = int(isys.MIN_GUI_RAM)
 
     # count the squashfs.img in if it is kept in RAM
     if not persistent_root_image():
-        needed_ram += isys.SQUASHFS_RAM
-        graphical_ram += isys.SQUASHFS_RAM
+        needed_ram += isys.SQUASHFS_EXTRA_RAM
+        graphical_ram += isys.SQUASHFS_EXTRA_RAM
 
     log.info("check_memory(): total:%s, needed:%s, graphical:%s",
              total_ram, needed_ram, graphical_ram)
