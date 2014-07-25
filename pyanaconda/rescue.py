@@ -66,12 +66,15 @@ class RescueInterface(InstallInterfaceBase):
 
     def detailedMessageWindow(self, title, text, longText=None, ty="ok",
                               default=None, custom_icon=None,
-                              custom_buttons=[], expanded=False):
+                              custom_buttons=None, expanded=False):
         return self.messageWindow(title, text, ty, default, custom_icon,
                                   custom_buttons)
 
     def messageWindow(self, title, text, ty = "ok", default = None,
-                      custom_icon=None, custom_buttons=[]):
+                      custom_icon=None, custom_buttons=None):
+        if custom_buttons is None:
+            custom_buttons = []
+
         if ty == "ok":
             ButtonChoiceWindow(self.screen, title, text,
                                buttons=[TEXT_OK_BUTTON])

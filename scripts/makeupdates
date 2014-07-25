@@ -82,7 +82,9 @@ def getArchiveTagOffset(configure, spec, offset):
     except IndexError:
         return tag
 
-def doGitDiff(tag, args=[]):
+def doGitDiff(tag, args=None):
+    if args is None:
+        args=[]
     proc = subprocess.Popen(['git', 'diff', '--name-status', tag] + args,
                             stdout=subprocess.PIPE,
                             stderr=subprocess.PIPE).communicate()

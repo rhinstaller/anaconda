@@ -101,13 +101,15 @@ class BootArgs(OrderedDict):
     """
     Hold boot arguments as an OrderedDict.
     """
-    def __init__(self, cmdline=None, files=cmdline_files):
+    def __init__(self, cmdline=None, files=None):
         """
         Create a BootArgs object.
         Reads each of the "files", then parses "cmdline" if it was provided.
         """
         OrderedDict.__init__(self)
-        if files:
+        if files is None:
+            self.read(cmdline_files)
+        elif files:
             self.read(files)
         if cmdline:
             self.readstr(cmdline)

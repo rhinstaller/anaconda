@@ -155,7 +155,7 @@ def execInSysroot(command, argv, stdin=None):
     return execWithRedirect(command, argv, stdin=stdin, root=getSysroot())
 
 def execWithRedirect(command, argv, stdin=None, stdout=None,
-                     stderr=None, root='/', env_prune=[], log_output=True, binary_output=False):
+                     stderr=None, root='/', env_prune=None, log_output=True, binary_output=False):
     """ Run an external program and redirect the output to a file.
         @param command The command to run
         @param argv The argument list

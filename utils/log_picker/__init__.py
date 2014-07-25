@@ -19,11 +19,15 @@ class LogPickerError(Exception):
 
 class LogPicker(object):
 
-    def __init__(self, archive_obj=None, sender_obj=None, miners=[], 
+    def __init__(self, archive_obj=None, sender_obj=None, miners=None, 
                     use_one_file=False):
         self.sender_obj = sender_obj
         self.archive_obj = archive_obj
-        self.miners = miners
+
+        if miners is None:
+            self.miners = []
+        else:
+            self.miners = miners
         
         self.archive = None
         self.tmpdir = None

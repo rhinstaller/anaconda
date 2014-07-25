@@ -725,7 +725,7 @@ def select_iso():
 
     return (os.path.join(mnt, dd_iso), "/media/DD-search")
 
-def dd_scan(skip_dds=set(), scan_dd_args=True, skip_device_menu=False):
+def dd_scan(skip_dds=None, scan_dd_args=True, skip_device_menu=False):
     """ Scan the system for OEMDRV devices and and specified by dd=/dev/<device>
 
         :param skip_dds:     devices to skip when checking for OEMDRV label
@@ -735,6 +735,9 @@ def dd_scan(skip_dds=set(), scan_dd_args=True, skip_device_menu=False):
         :returns:            None
     """
     dd_todo = set(oemdrv_list())
+
+    if skip_dds is None:
+        skip_dds = set()
 
     if skip_dds:
         dd_todo.difference_update(skip_dds)
@@ -770,7 +773,7 @@ def dd_scan(skip_dds=set(), scan_dd_args=True, skip_device_menu=False):
         else:
             break
 
-def dd_load(dd_todo, skip_dds=set()):
+def dd_load(dd_todo, skip_dds=None):
     """ Process each Driver Disk, checking for new disks after each one.
         Return the set of devices that loaded stuff from.
 
@@ -780,6 +783,9 @@ def dd_load(dd_todo, skip_dds=set()):
         :type skip_dds:     set
         :returns:           set of devices that have been loaded
     """
+    if skip_dds is None:
+        skip_dds = set()
+
     dd_finished = set()
     while dd_todo:
         device = dd_todo.pop()
