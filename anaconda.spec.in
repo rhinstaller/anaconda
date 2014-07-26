@@ -303,6 +303,31 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Fri Jul 25 2014 Brian C. Lane <bcl@redhat.com> - 22.1-1
+- Add platform specific group selection (#884385) (bcl)
+- Use parallel instead of xargs (vpodzime)
+- Solidify the row separator in the welcome spoke. (dshea)
+- Don't skip cpfmtxa formatted dasds if zerombr specified in ks. (#1073982)
+  (sbueno+anaconda)
+- Fix TUI error message regarding username creation. (#1058637)
+  (sbueno+anaconda)
+- Determine the lang selected arrow direction at render time (dshea)
+- Lessen the visible resize when entering the welcome and lang spokes (dshea)
+- Reset the want_x flag after the memory check (vpodzime)
+- Fix crash caused by passing kwargs to log functions (vpodzime)
+- Check graphical RAM requirements if running graphical installation (vpodzime)
+- Document the inst.zram boot option (vpodzime)
+- Adapt the memory requirements to zRAM swap usage (vpodzime)
+- Remove an unused MEM-related constant and use the other one (vpodzime)
+- Add a script for showing stats about zRAM (vpodzime)
+- Set widgets to be focused when entering a spoke. (#1121285) (dshea)
+- Allow a wider variety of mountpoints (#1109143) (dshea)
+- Restrict the selected and insensitive style rules to anaconda widgets (dshea)
+- Log more details about collect failure (bcl)
+- Prevent crashes due to accessing X server from multiple threads (vpodzime)
+- Add vnc to the arguments to qemu for the GUI testing. (clumens)
+- Remove a commented out import (mkolman)
+
 * Wed Jul 16 2014 Brian C. Lane <bcl@redhat.com> - 21.48-1
 - Fix the custom accelerators in custom partitioning (#1118999) (dshea)
 - Revert "Reset dnf package sack" (bcl)
