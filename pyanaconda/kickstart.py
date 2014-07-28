@@ -26,6 +26,7 @@ from blivet.devicelibs import swap
 from blivet.formats import getFormat
 from blivet.partitioning import doPartitioning
 from blivet.partitioning import growLVM
+from blivet.errors import PartitioningError
 from blivet.size import Size
 from blivet import udev
 from blivet.platform import platform
@@ -263,7 +264,7 @@ class AutoPart(commands.autopart.F21_AutoPart):
 
     def execute(self, storage, ksdata, instClass):
         from blivet.partitioning import doAutoPartition
-        from blivet.partitioning import sanityCheck
+        from pyanaconda.storage_utils import sanity_check
 
         if not self.autopart:
             return
@@ -291,7 +292,9 @@ class AutoPart(commands.autopart.F21_AutoPart):
             storage.autoPartType = self.type
 
         doAutoPartition(storage, ksdata)
-        sanityCheck(storage)
+        errors = sanity_check(storage)
+        if errors:
+            raise PartitioningError("autopart failed:\n" + "\n".join(error.message for error in errors))
 
 class Bootloader(commands.bootloader.F21_Bootloader):
     def __init__(self, *args, **kwargs):

@@ -25,7 +25,10 @@ import locale
 
 from contextlib import contextmanager
 
+from blivet import arch
+from blivet import util
 from blivet.size import Size
+from blivet.platform import platform as _platform
 from blivet.devicefactory import DEVICE_TYPE_LVM
 from blivet.devicefactory import DEVICE_TYPE_LVM_THINP
 from blivet.devicefactory import DEVICE_TYPE_BTRFS
@@ -33,7 +36,10 @@ from blivet.devicefactory import DEVICE_TYPE_MD
 from blivet.devicefactory import DEVICE_TYPE_PARTITION
 from blivet.devicefactory import DEVICE_TYPE_DISK
 
-from pyanaconda.i18n import N_
+from pyanaconda.i18n import _, N_
+from pyanaconda import isys
+from pyanaconda.constants import productName
+
 from pykickstart.constants import AUTOPART_TYPE_PLAIN, AUTOPART_TYPE_BTRFS
 from pykickstart.constants import AUTOPART_TYPE_LVM, AUTOPART_TYPE_LVM_THINP
 
@@ -128,3 +134,184 @@ def ui_storage_logger():
     storage_log.addFilter(storage_filter)
     yield
     storage_log.removeFilter(storage_filter)
+
+class SanityException(Exception):
+    pass
+
+class SanityError(SanityException):
+    pass
+
+class SanityWarning(SanityException):
+    pass
+
+class LUKSDeviceWithoutKeyError(SanityError):
+    pass
+
+def sanity_check(storage):
+    """
+    Run a series of tests to verify the storage configuration.
+
+    This function is called at the end of partitioning so that
+    we can make sure you don't have anything silly (like no /,
+    a really small /, etc).
+
+    :rtype: a list of SanityExceptions
+    :return: a list of accumulated errors and warnings
+
+    """
+
+    exns = []
+
+    checkSizes = [('/usr', 250), ('/tmp', 50), ('/var', 384),
+                  ('/home', 100), ('/boot', 75)]
+    mustbeonlinuxfs = ['/', '/var', '/tmp', '/usr', '/home', '/usr/share', '/usr/lib']
+    mustbeonroot = ['/bin','/dev','/sbin','/etc','/lib','/root', '/mnt', 'lost+found', '/proc']
+
+    filesystems = storage.mountpoints
+    root = storage.fsset.rootDevice
+    swaps = storage.fsset.swapDevices
+
+    if root:
+        if root.size < 250:
+            exns.append(
+               SanityWarning(_("Your root partition is less than 250 "
+                              "megabytes which is usually too small to "
+                              "install %s.") % (productName,)))
+    else:
+        exns.append(
+           SanityError(_("You have not defined a root partition (/), "
+                        "which is required for installation of %s "
+                        "to continue.") % (productName,)))
+
+    # Prevent users from installing on s390x with (a) no /boot volume, (b) the
+    # root volume on LVM, and (c) the root volume not restricted to a single
+    # PV
+    # NOTE: There is not really a way for users to create a / volume
+    # restricted to a single PV.  The backend support is there, but there are
+    # no UI hook-ups to drive that functionality, but I do not personally
+    # care.  --dcantrell
+    if arch.isS390() and '/boot' not in storage.mountpoints and root:
+        if root.type == 'lvmlv' and not root.singlePV:
+            exns.append(
+               SanityError(_("This platform requires /boot on a dedicated "
+                            "partition or logical volume.  If you do not "
+                            "want a /boot volume, you must place / on a "
+                            "dedicated non-LVM partition.")))
+
+    # FIXME: put a check here for enough space on the filesystems. maybe?
+
+    for (mount, size) in checkSizes:
+        if mount in filesystems and filesystems[mount].size < size:
+            exns.append(
+               SanityWarning(_("Your %(mount)s partition is less than "
+                              "%(size)s megabytes which is lower than "
+                              "recommended for a normal %(productName)s "
+                              "install.")
+                            % {'mount': mount, 'size': size,
+                               'productName': productName}))
+
+    for (mount, device) in filesystems.items():
+        problem = filesystems[mount].checkSize()
+        if problem < 0:
+            exns.append(
+               SanityError(_("Your %(mount)s partition is too small for %(format)s formatting "
+                            "(allowable size is %(minSize)s to %(maxSize)s)")
+                          % {"mount": mount, "format": device.format.name,
+                             "minSize": device.minSize, "maxSize": device.maxSize}))
+        elif problem > 0:
+            exns.append(
+               SanityError(_("Your %(mount)s partition is too large for %(format)s formatting "
+                            "(allowable size is %(minSize)s to %(maxSize)s)")
+                          % {"mount":mount, "format": device.format.name,
+                             "minSize": device.minSize, "maxSize": device.maxSize}))
+
+    if storage.bootloader and not storage.bootloader.skip_bootloader:
+        stage1 = storage.bootloader.stage1_device
+        if not stage1:
+            exns.append(
+               SanityError(_("No valid bootloader target device found. "
+                            "See below for details.")))
+            pe = _platform.stage1MissingError
+            if pe:
+                exns.append(SanityError(_(pe)))
+        else:
+            storage.bootloader.is_valid_stage1_device(stage1)
+            exns.extend(SanityError(msg) for msg in storage.bootloader.errors)
+            exns.extend(SanityWarning(msg) for msg in storage.bootloader.warnings)
+
+        stage2 = storage.bootloader.stage2_device
+        if stage1 and not stage2:
+            exns.append(SanityError(_("You have not created a bootable partition.")))
+        else:
+            storage.bootloader.is_valid_stage2_device(stage2)
+            exns.extend(SanityError(msg) for msg in storage.bootloader.errors)
+            exns.extend(SanityWarning(msg) for msg in storage.bootloader.warnings)
+            if not storage.bootloader.check():
+                exns.extend(SanityError(msg) for msg in storage.bootloader.errors)
+
+        #
+        # check that GPT boot disk on BIOS system has a BIOS boot partition
+        #
+        if _platform.weight(fstype="biosboot") and \
+           stage1 and stage1.isDisk and \
+           getattr(stage1.format, "labelType", None) == "gpt":
+            missing = True
+            for part in [p for p in storage.partitions if p.disk == stage1]:
+                if part.format.type == "biosboot":
+                    missing = False
+                    break
+
+            if missing:
+                exns.append(
+                   SanityError(_("Your BIOS-based system needs a special "
+                                "partition to boot from a GPT disk label. "
+                                "To continue, please create a 1MiB "
+                                "'biosboot' type partition.")))
+
+    if not swaps:
+        installed = util.total_memory()
+        required = Size("%s KiB" % isys.EARLY_SWAP_RAM)
+
+        if installed < required:
+            exns.append(
+               SanityError(_("You have not specified a swap partition.  "
+                            "%(requiredMem)s of memory is required to continue installation "
+                            "without a swap partition, but you only have %(installedMem)s.")
+                          % {"requiredMem": required,
+                             "installedMem": installed}))
+        else:
+            exns.append(
+               SanityWarning(_("You have not specified a swap partition.  "
+                              "Although not strictly required in all cases, "
+                              "it will significantly improve performance "
+                              "for most installations.")))
+    no_uuid = [s for s in swaps if s.format.exists and not s.format.uuid]
+    if no_uuid:
+        exns.append(
+           SanityWarning(_("At least one of your swap devices does not have "
+                          "a UUID, which is common in swap space created "
+                          "using older versions of mkswap. These devices "
+                          "will be referred to by device path in "
+                          "/etc/fstab, which is not ideal since device "
+                          "paths can change under a variety of "
+                          "circumstances. ")))
+
+    for (mountpoint, dev) in filesystems.items():
+        if mountpoint in mustbeonroot:
+            exns.append(
+               SanityError(_("This mount point is invalid.  The %s directory must "
+                            "be on the / file system.") % mountpoint))
+
+        if mountpoint in mustbeonlinuxfs and (not dev.format.mountable or not dev.format.linuxNative):
+            exns.append(
+               SanityError(_("The mount point %s must be on a linux file system.") % mountpoint))
+
+    if storage.rootDevice and storage.rootDevice.format.exists:
+        e = storage.mustFormat(storage.rootDevice)
+        if e:
+            exns.append(SanityError(e))
+
+    exns += storage._verifyLUKSDevicesHaveKey()
+
+    return exns
+
