@@ -56,8 +56,6 @@ from blivet.partitioning import doAutoPartition
 from blivet.errors import StorageError
 from blivet.errors import NoDisksError
 from blivet.errors import NotEnoughFreeSpaceError
-from blivet.errors import SanityError
-from blivet.errors import SanityWarning
 from blivet.errors import LUKSDeviceWithoutKeyError
 from blivet.devicelibs import raid
 from blivet.devices import LUKSDevice
@@ -66,6 +64,8 @@ from pyanaconda.storage_utils import ui_storage_logger, device_type_from_autopar
 from pyanaconda.storage_utils import DEVICE_TEXT_PARTITION, DEVICE_TEXT_MAP, DEVICE_TEXT_MD
 from pyanaconda.storage_utils import PARTITION_ONLY_FORMAT_TYPES, MOUNTPOINT_DESCRIPTIONS
 from pyanaconda.storage_utils import NAMED_DEVICE_TYPES, CONTAINER_DEVICE_TYPES
+from pyanaconda.storage_utils import SanityError, SanityWarning
+from pyanaconda import storage_utils
 
 from pyanaconda.ui.communication import hubQ
 from pyanaconda.ui.gui.spokes import NormalSpoke
@@ -2167,7 +2167,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
     def _do_autopart(self):
         """Helper function for on_create_clicked.
            Assumes a non-final context in which at least some errors
-           discovered by sanityCheck are not considered fatal because they
+           discovered by sanity_check are not considered fatal because they
            will be dealt with later.
 
            Note: There are never any non-existent devices around when this runs.
@@ -2209,7 +2209,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
             self._storage_playground.doAutoPart = False
             log.debug("finished automatic partitioning")
 
-        exns = self._storage_playground.sanityCheck()
+        exns = storage_utils.sanity_check(self._storage_playground)
         errors = [exn for exn in exns if isinstance(exn, SanityError) and not isinstance(exn, LUKSDeviceWithoutKeyError)]
         warnings = [exn for exn in exns if isinstance(exn, SanityWarning)]
         for error in errors:

@@ -84,14 +84,13 @@ class StorageChecker(object):
                                      target=self.checkStorage))
 
     def checkStorage(self):
-        from blivet.errors import SanityError
-        from blivet.errors import SanityWarning
+        from pyanaconda.storage_utils import sanity_check, SanityError, SanityWarning
 
         threadMgr.wait(constants.THREAD_EXECUTE_STORAGE)
 
         hubQ.send_not_ready(self._mainSpokeClass)
         hubQ.send_message(self._mainSpokeClass, _("Checking storage configuration..."))
-        exns = self.storage.sanityCheck()
+        exns = sanity_check(self.storage)
         errors = [exn.message for exn in exns if isinstance(exn, SanityError)]
         warnings = [exn.message for exn in exns if isinstance(exn, SanityWarning)]
         (StorageChecker.errors, StorageChecker.warnings) = (errors, warnings)
