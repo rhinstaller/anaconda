@@ -34,6 +34,6 @@ auditddir             = $(libexecdir)/$(PACKAGE_NAME)
 auditd_PROGRAMS       = auditd
 auditd_SOURCES        = auditd.c
 auditd_CFLAGS         = -DSTANDALONE $(SELINUX_CFLAGS)
-auditd_LDADD          = $(SELINUX_LIBS) $(LIBNL_LIBS)
+auditd_LDFLAGS        = -laudit
 
 MAINTAINERCLEANFILES = Makefile.in

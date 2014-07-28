@@ -86,6 +86,9 @@ AC_CHECK_FUNCS([getcwd memset mkdir strchr strdup],
                [],
                [ANACONDA_SOFT_FAILURE([Function $ac_func not found.])])
 
+AC_CHECK_LIB([audit], [audit_open], [:],
+             [ANACONDA_SOFT_FAILURE([libaudit not found])])
+
 AM_PATH_PYTHON(python_required_version)
 
 # Check for the python extension paths

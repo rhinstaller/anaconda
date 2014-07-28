@@ -38,7 +38,6 @@
 
 #include "auditd.h"
 
-#ifdef USESELINUX
 static int done;
 
 static void sig_done(int sig)
@@ -92,10 +91,8 @@ static void do_auditd(int fd) {
     }
     return;
 }
-#endif /* USESELINUX */
 
 int audit_daemonize(void) {
-#ifdef USESELINUX
     int fd;
     pid_t child;
 
@@ -118,8 +115,8 @@ int audit_daemonize(void) {
     signal(SIGTSTP, SIG_IGN);
 #endif /* !defined(STANDALONE) */
 
-    if ((fd = open("/proc/self/oom_adj", O_RDWR)) >= 0) {
-        write(fd, "-17", 3);
+    if ((fd = open("/proc/self/oom_score_adj", O_RDWR)) >= 0) {
+        write(fd, "-1000", 5);
         close(fd);
     }
     fd = audit_open();
@@ -130,7 +127,6 @@ int audit_daemonize(void) {
     exit(0);
 #endif /* !defined(STANDALONE) */
 
-#endif /* USESELINUX */
     return 0;
 }
 
