@@ -49,6 +49,7 @@ class TarPayload(ArchivePayload):
 
         super(TarPayload, self).__init__(data)
         self.archive = None
+        self.image_file = None
 
     def setup(self, storage):
         super(TarPayload, self).setup(storage)

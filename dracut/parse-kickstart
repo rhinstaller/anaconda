@@ -195,6 +195,7 @@ class DracutHandler(handlerclass):
         obj = handlerclass.dispatcher(self, args, lineno)
         # and execute any specified dracut_args
         cmd = args[0]
+        # pylint: disable-msg=E1101
         command = self.commands[cmd]
         if hasattr(command, "dracut_args"):
             log.debug("kickstart line %u: handling %s", lineno, cmd)

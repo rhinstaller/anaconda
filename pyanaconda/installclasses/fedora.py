@@ -42,9 +42,6 @@ class InstallClass(BaseInstallClass):
         BaseInstallClass.configure(self, anaconda)
         BaseInstallClass.setDefaultPartitioning(self, anaconda.storage)
 
-    def setGroupSelection(self, anaconda):
-        BaseInstallClass.setGroupSelection(self, anaconda)
-
     def setNetworkOnbootDefault(self, ksdata):
         # if something's already enabled, we can just leave the config alone
         for devName in nm.nm_devices():

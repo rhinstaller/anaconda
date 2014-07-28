@@ -106,14 +106,6 @@ class Anaconda(object):
     intf = property(_getInterface, _setInterface, _delInterface)
 
     @property
-    def network(self):
-        if not self._network:
-            from pyanaconda import network
-            self._network = network.Network()
-
-        return self._network
-
-    @property
     def payload(self):
         # Try to find the packaging payload class.  First try the install
         # class.  If it doesn't give us one, fall back to the default.
@@ -236,14 +228,3 @@ class Anaconda(object):
         f = open("%s/etc/X11/xorg.conf" %(root,), 'w')
         f.write('Section "Device"\n\tIdentifier "Videocard0"\n\tDriver "%s"\nEndSection\n' % self.xdriver)
         f.close()
-
-    def write(self):
-        from pyanaconda import network
-        self.writeXdriver()
-
-        network.write_sysconfig_network()
-        network.disableIPV6()
-        network.copyConfigToPath(iutil.getSysroot())
-        if not self.ksdata:
-            self.instClass.setNetworkOnbootDefault()
-        self.desktop.write()

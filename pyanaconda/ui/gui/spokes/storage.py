@@ -231,6 +231,11 @@ class StorageChecker(object):
     warnings = []
     _mainSpokeClass = "StorageSpoke"
 
+    def __init__(self):
+        # This is provided by the StorageSpoke class, which is a subclass of
+        # this one.  Backwards, I know.
+        self.storage  = None
+
     def run(self):
         threadMgr.add(AnacondaThread(name=constants.THREAD_CHECK_STORAGE,
                                      target=self.checkStorage))
@@ -262,6 +267,7 @@ class StorageSpoke(NormalSpoke, StorageChecker):
     title = N_("INSTALLATION _DESTINATION")
 
     def __init__(self, *args, **kwargs):
+        StorageChecker.__init__(self)
         NormalSpoke.__init__(self, *args, **kwargs)
         self.applyOnSkip = True
 

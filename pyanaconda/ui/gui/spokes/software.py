@@ -393,10 +393,6 @@ class SoftwareSelectionSpoke(NormalSpoke):
         # Always do something here, since addons can be toggled.
         self.on_addon_toggled(None, model.get_path(itr))
 
-    def on_custom_clicked(self, button):
-        with enlightbox(self.window, self._addRepoDialog.window):
-            self._addRepoDialog.run()
-
     def on_info_bar_clicked(self, *args):
         if not self._errorMsgs:
             return

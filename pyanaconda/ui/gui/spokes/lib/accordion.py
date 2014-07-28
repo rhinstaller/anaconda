@@ -181,6 +181,7 @@ class Page(Gtk.Box):
         selector.set_margin_bottom(6)
         self.members.append(selector)
 
+        # pylint: disable-msg=E1101
         if self._mountpointType(selector.props.mountpoint) == DATA_DEVICE:
             self._dataBox.add(selector)
         else:

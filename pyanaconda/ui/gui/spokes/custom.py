@@ -655,6 +655,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
     title = N_("MANUAL PARTITIONING")
 
     def __init__(self, data, storage, payload, instclass):
+        StorageChecker.__init__(self)
         NormalSpoke.__init__(self, data, storage, payload, instclass)
 
         self._back_already_clicked = False
