@@ -43,6 +43,9 @@ class RefreshDialog(GUIObject):
         self._cancel_button = self.builder.get_object("refreshCancelButton")
         self._ok_button = self.builder.get_object("refreshOKButton")
 
+        self._elapsed = 0
+        self._watcher_id = None
+
     def run(self):
         rc = self.window.run()
         self.window.destroy()

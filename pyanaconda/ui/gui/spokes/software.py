@@ -66,6 +66,9 @@ class SoftwareSelectionSpoke(NormalSpoke):
         # switches between environments
         self._user_decided_addons = {}
 
+        self._environmentStore = self.builder.get_object("environmentStore")
+        self._addonStore = self.builder.get_object("addonStore")
+
     def _apply(self):
         row = self._get_selected_environment()
         if not row:
@@ -246,7 +249,6 @@ class SoftwareSelectionSpoke(NormalSpoke):
 
         threadMgr.wait(constants.THREAD_PAYLOAD_MD)
 
-        self._environmentStore = self.builder.get_object("environmentStore")
         self._environmentStore.clear()
         if self.environment not in self.payload.environments:
             self.environment = None
@@ -287,7 +289,6 @@ class SoftwareSelectionSpoke(NormalSpoke):
         self._addonStore.append([selected, "<b>%s</b>\n%s" % (escape_markup(name), escape_markup(desc)), grp, False])
 
     def refreshAddons(self):
-        self._addonStore = self.builder.get_object("addonStore")
         self._addonStore.clear()
         if self.environment:
             # First, we make up two lists:  One of addons specific to this environment,

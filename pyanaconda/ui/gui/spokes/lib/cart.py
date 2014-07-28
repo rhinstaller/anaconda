@@ -42,6 +42,17 @@ class SelectedDisksDialog(GUIObject):
     mainWidgetName = "selected_disks_dialog"
     uiFile = "spokes/lib/cart.glade"
 
+    def __init__(self, data):
+        GUIObject.__init__(self, data)
+
+        self._view = self.builder.get_object("disk_tree_view")
+        self._store = self.builder.get_object("disk_store")
+        self._selection = self.builder.get_object("disk_selection")
+        self._summary_label = self.builder.get_object("summary_label")
+
+        self._set_button = self.builder.get_object("set_as_boot_button")
+        self._remove_button = self.builder.get_object("remove_button")
+
     def initialize(self, disks, free, showRemove=True, setBoot=True):
         self._previousID = None
 
@@ -88,14 +99,6 @@ class SelectedDisksDialog(GUIObject):
 
     def refresh(self, disks, free, showRemove=True, setBoot=True):
         super(SelectedDisksDialog, self).refresh()
-
-        self._view = self.builder.get_object("disk_tree_view")
-        self._store = self.builder.get_object("disk_store")
-        self._selection = self.builder.get_object("disk_selection")
-        self._summary_label = self.builder.get_object("summary_label")
-
-        self._set_button = self.builder.get_object("set_as_boot_button")
-        self._remove_button = self.builder.get_object("remove_button")
 
         # clear out the store and repopulate it from the devicetree
         self._store.clear()

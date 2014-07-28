@@ -295,6 +295,8 @@ class AddDialog(GUIObject):
         completion.set_text_column(0)
         completion.set_popup_completion(True)
 
+        self._warningLabel = self.builder.get_object("mountPointWarningLabel")
+
     def on_add_confirm_clicked(self, button, *args):
         self.mountpoint = self.builder.get_object("addMountPointEntry").get_active_text()
         self._error = validate_mountpoint(self.mountpoint, self.mountpoints,
@@ -309,7 +311,6 @@ class AddDialog(GUIObject):
 
     def refresh(self):
         GUIObject.refresh(self)
-        self._warningLabel = self.builder.get_object("mountPointWarningLabel")
         self._warningLabel.set_text("")
 
     def run(self):
@@ -324,6 +325,10 @@ class ConfirmDeleteDialog(GUIObject):
     mainWidgetName = "confirmDeleteDialog"
     uiFile = "spokes/custom.glade"
 
+    def __init__(self, *args, **kwargs):
+        GUIObject.__init__(self, *args, **kwargs)
+        self._removeAll = self.builder.get_object("removeAllCheckbox")
+
     @property
     def deleteAll(self):
         return self._removeAll.get_active()
@@ -335,7 +340,6 @@ class ConfirmDeleteDialog(GUIObject):
         GUIObject.refresh(self)
         label = self.builder.get_object("confirmLabel")
 
-        self._removeAll = self.builder.get_object("removeAllCheckbox")
         if rootName and "_" in rootName:
             rootName = rootName.replace("_", "__")
         self._removeAll.set_label(self._removeAll.get_label() % rootName)
@@ -654,10 +658,14 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         NormalSpoke.__init__(self, data, storage, payload, instclass)
 
         self._back_already_clicked = False
+        self.__storage = None
+
+        self.passphrase = ""
 
         self._current_selector = None
         self._when_create_text = ""
         self._devices = []
+        self._error = None
         self._media_disks = []
         self._fs_types = []             # list of supported fstypes
         self._free_space = Size(bytes=0)
@@ -665,6 +673,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         self._device_disks = []
         self._device_container_name = None
         self._device_container_raid_level = None
+        self._device_container_encrypted = False
         self._device_container_size = SIZE_POLICY_AUTO
         self._device_name_dict = {DEVICE_TYPE_LVM: None,
                                   DEVICE_TYPE_MD: None,
@@ -712,6 +721,10 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         self._partitionsNotebook = self.builder.get_object("partitionsNotebook")
 
         self._whenCreateLabel = self.builder.get_object("whenCreateLabel")
+
+        self._availableSpaceLabel = self.builder.get_object("availableSpaceLabel")
+        self._totalSpaceLabel = self.builder.get_object("totalSpaceLabel")
+        self._summaryButton = self.builder.get_object("summary_button")
 
         # Buttons
         self._addButton = self.builder.get_object("addButton")
@@ -831,9 +844,6 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
     def _updateSpaceDisplay(self):
         # Set up the free space/available space displays in the bottom left.
         self._setCurrentFreeSpace()
-        self._availableSpaceLabel = self.builder.get_object("availableSpaceLabel")
-        self._totalSpaceLabel = self.builder.get_object("totalSpaceLabel")
-        self._summaryButton = self.builder.get_object("summary_button")
 
         self._availableSpaceLabel.set_text(str(self._free_space))
         self._totalSpaceLabel.set_text(str(self._currentTotalSpace()))

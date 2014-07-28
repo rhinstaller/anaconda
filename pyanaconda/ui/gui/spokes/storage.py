@@ -267,6 +267,8 @@ class StorageSpoke(NormalSpoke, StorageChecker):
 
         self._ready = False
         self.selected_disks = self.data.ignoredisk.onlyuse[:]
+        self.encrypted = False
+        self.passphrase = ""
 
         # This list contains all possible disks that can be included in the install.
         # All types of advanced disks should be set up for us ahead of time, so

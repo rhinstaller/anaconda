@@ -119,7 +119,6 @@ class ISCSIDialog(GUIObject):
         self._discoveredNodes = []
         self._update_devicetree = False
 
-    def refresh(self):
         self._authTypeCombo = self.builder.get_object("authTypeCombo")
         self._authNotebook = self.builder.get_object("authNotebook")
         self._iscsiNotebook = self.builder.get_object("iscsiNotebook")
@@ -134,24 +133,27 @@ class ISCSIDialog(GUIObject):
         self._conditionNotebook = self.builder.get_object("conditionNotebook")
 
         self._bindCheckbox = self.builder.get_object("bindCheckbutton")
-        self._bindCheckbox.set_active(bool(self.iscsi.ifaces))
-        self._bindCheckbox.set_sensitive(self.iscsi.mode == "none")
 
         self._startButton = self.builder.get_object("startButton")
         self._okButton = self.builder.get_object("okButton")
         self._cancelButton = self.builder.get_object("cancelButton")
 
+        self._initiatorEntry = self.builder.get_object("initiatorEntry")
+
         self._store = self.builder.get_object("nodeStore")
+        self._storeFilter = self.builder.get_object("nodeStoreFiltered")
+
+    def refresh(self):
+        self._bindCheckbox.set_active(bool(self.iscsi.ifaces))
+        self._bindCheckbox.set_sensitive(self.iscsi.mode == "none")
 
         self._authTypeCombo.set_active(0)
         self._startButton.set_sensitive(True)
 
         self._loginAuthTypeCombo.set_active(0)
 
-        self._storeFilter = self.builder.get_object("nodeStoreFiltered")
         self._storeFilter.set_visible_column(1)
 
-        self._initiatorEntry = self.builder.get_object("initiatorEntry")
         self._initiatorEntry.set_text(self.iscsi.initiator)
         self._initiatorEntry.set_sensitive(not self.iscsi.initiatorSet)
 

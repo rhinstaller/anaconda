@@ -104,6 +104,7 @@ class Payload(object):
         """ data is a kickstart.AnacondaKSHandler class
         """
         self.data = data
+        self.storage = None
         self._kernelVersionList = []
         self._createdInitrds = False
 

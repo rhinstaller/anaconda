@@ -41,6 +41,7 @@ class AnacondaOptionParser(OptionParser):
     """
     def __init__(self, *args, **kwargs):
         self._boot_arg = dict()
+        self.deprecated_bootargs = []
         self.bootarg_prefix = kwargs.pop("bootarg_prefix","")
         self.require_prefix = kwargs.pop("require_prefix",True)
         OptionParser.__init__(self, *args, **kwargs)

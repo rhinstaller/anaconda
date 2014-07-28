@@ -146,6 +146,8 @@ class YumPayload(PackagePayload):
         self._yum = None
         self._setup = False
 
+        self.txID = None
+
         self._requiredPackages = []
         self._requiredGroups = []
 

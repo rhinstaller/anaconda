@@ -71,6 +71,9 @@ class StorageSpoke(NormalTUISpoke):
         self._ready = False
         self.selected_disks = self.data.ignoredisk.onlyuse[:]
 
+        self.autopart = None
+        self.clearPartType = None
+
         # This list gets set up once in initialize and should not be modified
         # except perhaps to add advanced devices. It will remain the full list
         # of disks that can be included in the install.

@@ -441,7 +441,6 @@ class UserSpoke(FirstbootSpokeMixIn, NormalSpoke):
             return False
 
         # if no errors, clear the info for next time we go into the spoke
-        self._password = pw
         self.clear_info()
         self._error = False
         return True

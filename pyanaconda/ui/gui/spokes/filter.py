@@ -168,8 +168,9 @@ class SearchPage(FilterPage):
         self._portCombo = self.builder.get_object("searchPortCombo")
         self._targetEntry = self.builder.get_object("searchTargetEntry")
 
-    def setup(self, store, selectedNames, disks):
         self._combo = self.builder.get_object("searchTypeCombo")
+
+    def setup(self, store, selectedNames, disks):
         self._combo.set_active(0)
         self._combo.emit("changed")
 
@@ -240,6 +241,8 @@ class MultipathPage(FilterPage):
         self._vendorCombo = self.builder.get_object("multipathVendorCombo")
         self._wwidEntry = self.builder.get_object("multipathWWIDEntry")
 
+        self._combo = self.builder.get_object("multipathTypeCombo")
+
     def ismember(self, device):
         return isinstance(device, MultipathDevice)
 
@@ -262,7 +265,6 @@ class MultipathPage(FilterPage):
             if not disk.bus in interconnects:
                 interconnects.append(disk.bus)
 
-        self._combo = self.builder.get_object("multipathTypeCombo")
         self._combo.set_active(0)
         self._combo.emit("changed")
 
@@ -307,6 +309,8 @@ class OtherPage(FilterPage):
         self._idEntry = self.builder.get_object("otherIDEntry")
         self._vendorCombo = self.builder.get_object("otherVendorCombo")
 
+        self._combo = self.builder.get_object("otherTypeCombo")
+
     def ismember(self, device):
         return isinstance(device, iScsiDiskDevice) or isinstance(device, FcoeDiskDevice)
 
@@ -342,7 +346,6 @@ class OtherPage(FilterPage):
             if not disk.bus in interconnects:
                 interconnects.append(disk.bus)
 
-        self._combo = self.builder.get_object("otherTypeCombo")
         self._combo.set_active(0)
         self._combo.emit("changed")
 
@@ -405,6 +408,8 @@ class ZPage(FilterPage):
         self._wwpnEntry = self.builder.get_object("zWWPNEntry")
         self._lunEntry = self.builder.get_object("zLUNEntry")
 
+        self._combo = self.builder.get_object("zTypeCombo")
+
         self._isS390 = arch.isS390()
 
     def clear(self):
@@ -424,7 +429,6 @@ class ZPage(FilterPage):
             wwpns = []
             luns = []
 
-            self._combo = self.builder.get_object("zTypeCombo")
             self._combo.set_active(0)
             self._combo.emit("changed")
 
@@ -483,6 +487,10 @@ class FilterSpoke(NormalSpoke):
     def __init__(self, *args):
         NormalSpoke.__init__(self, *args)
         self.applyOnSkip = True
+
+        self.ancestors = []
+        self.disks = []
+        self.selected_disks = []
 
     @property
     def indirect(self):

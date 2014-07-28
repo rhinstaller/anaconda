@@ -67,6 +67,9 @@ class ResizeDialog(GUIObject):
         self.storage = storage
         self.payload = payload
 
+        self._initialFreeSpace = Size(0)
+        self._selectedReclaimableSpace = 0
+
         self._actionStore = self.builder.get_object("actionStore")
         self._diskStore = self.builder.get_object("diskStore")
 

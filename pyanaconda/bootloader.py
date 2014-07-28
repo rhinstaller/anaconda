@@ -286,6 +286,7 @@ class BootLoader(object):
         self.skip_bootloader = False
 
         self.errors = []
+        self.problems = []
         self.warnings = []
 
         self.reset()

@@ -37,31 +37,42 @@ class PassphraseDialog(GUIObject):
     mainWidgetName = "passphrase_dialog"
     uiFile = "spokes/lib/passphrase.glade"
 
+    def __init__(self, data):
+        GUIObject.__init__(self, data)
+
+        self._confirm_entry = self.builder.get_object("confirm_entry")
+        self._passphrase_entry = self.builder.get_object("passphrase_entry")
+
+        self._save_button = self.builder.get_object("passphrase_save_button")
+
+        self._strength_bar = Gtk.LevelBar()
+        self._strength_label = self.builder.get_object("strength_label")
+
+        # These will be set up later.
+        self._pwq = None
+        self._pwq_error = None
+        self.passphrase = ""
+
     def refresh(self):
         super(PassphraseDialog, self).refresh()
 
         # disable input methods for the passphrase Entry widgets and make sure
         # the focus change mask is enabled
-        self._passphrase_entry = self.builder.get_object("passphrase_entry")
         self._passphrase_entry.set_property("im-module", "")
         self._passphrase_entry.set_icon_from_stock(Gtk.EntryIconPosition.SECONDARY, "")
         self._passphrase_entry.add_events(Gdk.EventMask.FOCUS_CHANGE_MASK)
-        self._confirm_entry = self.builder.get_object("confirm_entry")
         self._confirm_entry.set_property("im-module", "")
         self._confirm_entry.add_events(Gdk.EventMask.FOCUS_CHANGE_MASK)
 
-        self._save_button = self.builder.get_object("passphrase_save_button")
         self._save_button.set_can_default(True)
 
         # add the passphrase strength meter
-        self._strength_bar = Gtk.LevelBar()
         self._strength_bar.set_mode(Gtk.LevelBarMode.DISCRETE)
         self._strength_bar.set_min_value(0)
         self._strength_bar.set_max_value(4)
         box = self.builder.get_object("strength_box")
         box.pack_start(self._strength_bar, False, True, 0)
         box.show_all()
-        self._strength_label = self.builder.get_object("strength_label")
 
         # set up passphrase quality checker
         self._pwq = pwquality.PWQSettings()

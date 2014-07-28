@@ -74,6 +74,15 @@ class ProxyDialog(GUIObject):
         GUIObject.__init__(self, data)
         self.proxyUrl = proxy_url
 
+        self._proxyCheck = self.builder.get_object("enableProxyCheck")
+        self._proxyInfoBox = self.builder.get_object("proxyInfoBox")
+        self._authCheck = self.builder.get_object("enableAuthCheck")
+        self._proxyAuthBox = self.builder.get_object("proxyAuthBox")
+
+        self._proxyURLEntry = self.builder.get_object("proxyURLEntry")
+        self._proxyUsernameEntry = self.builder.get_object("proxyUsernameEntry")
+        self._proxyPasswordEntry = self.builder.get_object("proxyPasswordEntry")
+
     def on_proxy_cancel_clicked(self, *args):
         self.window.destroy()
 
@@ -112,15 +121,6 @@ class ProxyDialog(GUIObject):
 
     def refresh(self):
         GUIObject.refresh(self)
-
-        self._proxyCheck = self.builder.get_object("enableProxyCheck")
-        self._proxyInfoBox = self.builder.get_object("proxyInfoBox")
-        self._authCheck = self.builder.get_object("enableAuthCheck")
-        self._proxyAuthBox = self.builder.get_object("proxyAuthBox")
-
-        self._proxyURLEntry = self.builder.get_object("proxyURLEntry")
-        self._proxyUsernameEntry = self.builder.get_object("proxyUsernameEntry")
-        self._proxyPasswordEntry = self.builder.get_object("proxyPasswordEntry")
 
         if not self.proxyUrl:
             self._proxyCheck.set_active(False)
@@ -231,6 +231,10 @@ class IsoChooser(GUIObject):
     builderObjects = ["isoChooserDialog", "isoFilter"]
     mainWidgetName = "isoChooserDialog"
     uiFile = "spokes/source.glade"
+
+    def __init__(self, data):
+        GUIObject.__init__(self, data)
+        self._chooser = self.builder.get_object("isoChooser")
 
     def refresh(self, currentFile=""):
         GUIObject.refresh(self)

@@ -360,6 +360,9 @@ class DatetimeSpoke(FirstbootSpokeMixIn, NormalSpoke):
         # taking values from the kickstart file?
         self._kickstarted = flags.flags.automatedInstall
 
+        self._update_datetime_timer_id = None
+        self._start_updating_timer_id = None
+
     def initialize(self):
         NormalSpoke.initialize(self)
         self._daysStore = self.builder.get_object("days")
@@ -396,6 +399,8 @@ class DatetimeSpoke(FirstbootSpokeMixIn, NormalSpoke):
 
         self._regions_zones = timezone.get_all_regions_and_timezones()
 
+        self._months_nums = dict()
+
         # Set the initial sensitivity of the AM/PM toggle based on the time-type selected
         self._radioButton24h.emit("toggled")
 
@@ -412,7 +417,6 @@ class DatetimeSpoke(FirstbootSpokeMixIn, NormalSpoke):
         for day in xrange(1, 32):
             self.add_to_store(self._daysStore, day)
 
-        self._months_nums = dict()
         for i in xrange(1, 13):
             #a bit hacky way, but should return the translated string
             #TODO: how to handle language change? Clear and populate again?

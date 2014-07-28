@@ -381,7 +381,7 @@ class Hub(GUIObject, common.Hub):
         GUIObject.refresh(self)
         self._createBox()
 
-        self._update_spoke_id = GLib.timeout_add(100, self._update_spokes)
+        GLib.timeout_add(100, self._update_spokes)
 
     ### SIGNAL HANDLERS
 

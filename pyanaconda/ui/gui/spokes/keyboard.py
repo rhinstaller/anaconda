@@ -56,6 +56,7 @@ class AddLayoutDialog(GUIObject):
     def __init__(self, *args):
         GUIObject.__init__(self, *args)
         self._xkl_wrapper = keyboard.XklWrapper.get_instance()
+        self._chosen_layouts = []
 
     def matches_entry(self, model, itr, user_data=None):
         value = model[itr][0]
@@ -264,6 +265,11 @@ class KeyboardSpoke(NormalSpoke):
         self._remove_last_attempt = False
         self._xkl_wrapper = keyboard.XklWrapper.get_instance()
 
+        self._upButton = self.builder.get_object("upButton")
+        self._downButton = self.builder.get_object("downButton")
+        self._removeButton = self.builder.get_object("removeLayoutButton")
+        self._previewButton = self.builder.get_object("previewButton")
+
     def apply(self):
         # Clear and repopulate self.data with actual values
         self.data.keyboard.x_layouts = list()
@@ -336,11 +342,6 @@ class KeyboardSpoke(NormalSpoke):
         # Clear and repopulate addedLayoutStore with values from self.data
         self._store.clear()
         self._add_data_layouts()
-
-        self._upButton = self.builder.get_object("upButton")
-        self._downButton = self.builder.get_object("downButton")
-        self._removeButton = self.builder.get_object("removeLayoutButton")
-        self._previewButton = self.builder.get_object("previewButton")
 
         # Start with no buttons enabled, since nothing is selected.
         self._upButton.set_sensitive(False)

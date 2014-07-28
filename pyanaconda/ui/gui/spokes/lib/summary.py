@@ -32,6 +32,10 @@ class ActionSummaryDialog(GUIObject):
     mainWidgetName = "summaryDialog"
     uiFile = "spokes/lib/summary.glade"
 
+    def __init__(self, data):
+        GUIObject.__init__(self, data)
+        self._store = self.builder.get_object("actionStore")
+
     def initialize(self, actions):
         for (i, action) in enumerate(actions, start=1):
             mountpoint = ""
@@ -64,8 +68,6 @@ class ActionSummaryDialog(GUIObject):
 
     def refresh(self, actions):
         GUIObject.refresh(self)
-
-        self._store = self.builder.get_object("actionStore")
 
         self._store.clear()
         self.initialize(actions)
