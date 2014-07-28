@@ -125,7 +125,7 @@ class Payload(object):
         """
         pass
 
-    def reset(self):
+    def reset(self, root=None, releasever=None):
         """ Reset the instance, not including ksdata. """
         pass
 
@@ -209,7 +209,7 @@ class Payload(object):
         self.data.method.proxy = ""
         self.data.method.opts = None
 
-    def updateBaseRepo(self):
+    def updateBaseRepo(self, fallback=True, root=None, checkmount=True):
         """ Update the base repository from ksdata.method. """
         pass
 

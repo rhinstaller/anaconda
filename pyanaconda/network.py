@@ -239,18 +239,18 @@ class IfcfgFile(SimpleConfigFile):
         SimpleConfigFile.__init__(self, always_quote=True, filename=filename)
         self._dirty = False
 
-    def read(self):
+    def read(self, filename=None):
         self.reset()
         ifcfglog.debug("IfcfFile.read %s", self.filename)
         SimpleConfigFile.read(self)
         self._dirty = False
 
-    def write(self, filename=None):
+    def write(self, filename=None, use_tmp=False):
         if self._dirty or filename:
             # ifcfg-rh is using inotify IN_CLOSE_WRITE event so we don't use
             # temporary file for new configuration
             ifcfglog.debug("IfcfgFile.write %s:\n%s", self.filename, self.__str__())
-            SimpleConfigFile.write(self, filename, use_tmp=False)
+            SimpleConfigFile.write(self, filename, use_tmp=use_tmp)
             self._dirty = False
 
     def set(self, *args):

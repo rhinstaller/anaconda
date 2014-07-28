@@ -121,6 +121,7 @@ class AnacondaOptionParser(OptionParser):
             option.process(arg, val, values, self)
         return values
 
+    # pylint: disable-msg=W0221
     def parse_args(self, args=None, values=None, cmdline=None):
         """
         Like OptionParser.parse_args(), but also parses the boot cmdline.

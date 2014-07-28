@@ -298,6 +298,7 @@ class ResizeDialog(GUIObject):
     def _update_reclaim_button(self, got):
         self._resizeButton.set_sensitive(got+self._initialFreeSpace >= self.payload.spaceRequired)
 
+    # pylint: disable-msg=W0221
     def refresh(self, disks):
         super(ResizeDialog, self).refresh()
 

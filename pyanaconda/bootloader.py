@@ -986,7 +986,7 @@ class BootLoader(object):
         self.stage2_device.format.sync(root=iutil.getTargetPhysicalRoot())
         self.install()
 
-    def install(self):
+    def install(self, args=None):
         raise NotImplementedError()
 
     def update(self):
@@ -1737,7 +1737,7 @@ class EFIGRUB(GRUB2):
         if rc:
             raise BootLoaderError("failed to set new efi boot target")
 
-    def install(self):
+    def install(self, args=None):
         if not flags.leavebootorder:
             self.remove_efi_boot_target()
         self.add_efi_boot_target()
@@ -1781,7 +1781,7 @@ class MacEFIGRUB(EFIGRUB):
             if rc:
                 log.error("failed to configure Mac bootloader")
 
-    def install(self):
+    def install(self, args=None):
         super(MacEFIGRUB, self).install()
         self.mactel_config()
 
@@ -1911,7 +1911,7 @@ class Yaboot(YabootBase):
     # installation
     #
 
-    def install(self):
+    def install(self, args=None):
         args = ["-f", "-C", self.config_file]
         rc = iutil.execInSysroot(self.prog, args)
         if rc:
@@ -1933,7 +1933,7 @@ class IPSeriesYaboot(Yaboot):
     # installation
     #
 
-    def install(self):
+    def install(self, args=None):
         self.updatePowerPCBootList()
 
         super(IPSeriesYaboot, self).install()
@@ -1989,7 +1989,7 @@ class IPSeriesGRUB2(GRUB2):
     # installation
     #
 
-    def install(self):
+    def install(self, args=None):
         if flags.leavebootorder:
             log.info("leavebootorder passed as an option. Will not update the NVRAM boot list.")
         else:
@@ -2198,7 +2198,7 @@ class UBOOT(BootLoader):
     # installation
     #
 
-    def install(self):
+    def install(self, args=None):
         # a-b-c is a tool that generates a generic boor.scr that works in most situations.
         # not perfect but is better than doing nothing
         rc = iutil.execWithRedirect("a-b-c", [], root=iutil.getSysroot())
@@ -2297,7 +2297,7 @@ class EXTLINUX(BootLoader):
     # installation
     #
 
-    def install(self):
+    def install(self, args=None):
         args = ["--install", self._config_dir]
         rc = iutil.execInSysroot("extlinux", args)
 

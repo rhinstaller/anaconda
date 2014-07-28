@@ -36,6 +36,7 @@ class ActionSummaryDialog(GUIObject):
         GUIObject.__init__(self, data)
         self._store = self.builder.get_object("actionStore")
 
+    # pylint: disable-msg=W0221
     def initialize(self, actions):
         for (i, action) in enumerate(actions, start=1):
             mountpoint = ""
@@ -66,6 +67,7 @@ class ActionSummaryDialog(GUIObject):
                                 mountpoint,
                                 serial])
 
+    # pylint: disable-msg=W0221
     def refresh(self, actions):
         GUIObject.refresh(self)
 
