@@ -48,8 +48,6 @@ import atexit, sys, os, time, subprocess
 wm_pid = None
 
 def exitHandler(rebootData, storage, exitCode=None):
-    from pyanaconda.flags import flags
-
     # stop and save coverage here b/c later the file system may be unavailable
     if coverage is not None:
         cov.stop()
@@ -73,11 +71,11 @@ def exitHandler(rebootData, storage, exitCode=None):
         anaconda.storage.umountFilesystems(ignoreErrors=True, swapoff=False)
         devicetree = anaconda.storage.devicetree
         devicetree.teardownAll()
-        for name in devicetree.diskImages:
-            device = devicetree.getDeviceByName(name)
-            for loop in device.parents:
+        for imageName in devicetree.diskImages:
+            dev = devicetree.getDeviceByName(imageName)
+            for loop in dev.parents:
                 loop.controllable = True
-            device.deactivate(recursive=True)
+            dev.deactivate(recursive=True)
 
     if not flags.imageInstall and not flags.livecdInstall \
        and not flags.dirInstall:
@@ -102,9 +100,7 @@ def startMetacityWM():
         # after this point the method should never return (or throw an exception
         # outside)
         try:
-            args = ['--display', ':1',
-                    '--sm-disable']
-            iutil.execWithRedirect('metacity', args)
+            iutil.execWithRedirect('metacity', ["--display", ":1", "--sm-disable"])
         except BaseException as e:
             # catch all possible exceptions
             log.error("Problems running the window manager: %s", str(e))
@@ -319,8 +315,8 @@ def parseOptions(argv=None, cmdline=None):
         if "console" in cmdline:
             op.set_defaults(display_mode="t")
 
-    (opts, args) = op.parse_args(argv, cmdline=cmdline)
-    return (opts, args, op.deprecated_bootargs)
+    (opts_, args_) = op.parse_args(argv, cmdline=cmdline)
+    return (opts_, args_, op.deprecated_bootargs)
 
 def setupPythonPath():
     # First add our updates path
@@ -349,16 +345,16 @@ def setupEnvironment():
     if os.environ.has_key("LD_PRELOAD"):
         del os.environ["LD_PRELOAD"]
 
-def setupLoggingFromOpts(opts):
-    if opts.loglevel and anaconda_log.logLevelMap.has_key(opts.loglevel):
-        level = anaconda_log.logLevelMap[opts.loglevel]
+def setupLoggingFromOpts(options):
+    if options.loglevel and anaconda_log.logLevelMap.has_key(options.loglevel):
+        level = anaconda_log.logLevelMap[options.loglevel]
         anaconda_log.logger.tty_loglevel = level
         anaconda_log.setHandlersLevel(log, level)
         storage_log = logging.getLogger("storage")
         anaconda_log.setHandlersLevel(storage_log, level)
 
-    if opts.syslog:
-        anaconda_log.logger.updateRemote(opts.syslog)
+    if options.syslog:
+        anaconda_log.logger.updateRemote(options.syslog)
 
 def gtk_warning(title, reason):
     from gi.repository import Gtk
@@ -369,6 +365,7 @@ def gtk_warning(title, reason):
     dialog.run()
     dialog.destroy()
 
+# pylint: disable-msg=W0621
 def check_memory(anaconda, opts, display_mode=None):
     reason_strict = _("%s requires %s MB of memory to install, but you only have "
                       "%s MB on this machine.\n")
@@ -433,6 +430,7 @@ def check_memory(anaconda, opts, display_mode=None):
                 anaconda.displayMode = 't'
                 time.sleep(2)
 
+# pylint: disable-msg=W0621
 def setupDisplay(anaconda, opts, addon_paths=None):
     from pyanaconda.ui.tui.simpleline import App
     from pyanaconda.ui.tui.spokes.askvnc import AskVNCSpoke
@@ -622,10 +620,7 @@ def setupDisplay(anaconda, opts, addon_paths=None):
 def prompt_for_ssh():
     # Do some work here to get the ip addr / hostname to pass
     # to the user.
-    from pyanaconda import network
     import socket
-    import gettext
-    _ = lambda x: gettext.ldgettext("anaconda", x)
 
     ip = network.get_default_device_ip() or network.getFirstRealIP()
 
@@ -668,12 +663,8 @@ def cleanPStore():
     # is sufficient free space on the flash part.  On some machines this will
     # take effect immediately, which is the best case.  Unfortunately on some,
     # an intervening reboot is needed."""
-    try:
-        for root, _dirs, files in os.walk("/sys/fs/pstore"):
-            for f in files:
-                os.unlink("%s/%s" % (root,f))
-    except OSError:
-        pass
+    from pyanaconda.iutil import dir_tree_map
+    dir_tree_map("/sys/fs/pstore", os.unlink, files=True, dirs=False)
 
 if __name__ == "__main__":
     print "Starting installer, one moment..."
@@ -895,13 +886,13 @@ if __name__ == "__main__":
         files = ["/tmp/updates/interactive-defaults.ks",
                  "/usr/share/anaconda/interactive-defaults.ks"]
 
-    for f in files:
-        if not os.path.exists(f):
+    for ks in files:
+        if not os.path.exists(ks):
             continue
 
-        kickstart.preScriptPass(f)
-        log.info("Parsing kickstart: " + f)
-        ksdata = kickstart.parseKickstart(f)
+        kickstart.preScriptPass(ks)
+        log.info("Parsing kickstart: " + ks)
+        ksdata = kickstart.parseKickstart(ks)
 
         # Only load the first defaults file we find.
         break
@@ -968,10 +959,10 @@ if __name__ == "__main__":
             ksdata.method.method = "cdrom"
         elif anaconda.methodstr.startswith("nfs"):
             ksdata.method.method = "nfs"
-            (options, server, path) = iutil.parseNfsUrl(anaconda.methodstr)
+            (nfsOptions, server, path) = iutil.parseNfsUrl(anaconda.methodstr)
             ksdata.method.server = server
             ksdata.method.dir = path
-            ksdata.method.opts = options
+            ksdata.method.opts = nfsOptions
         elif anaconda.methodstr.startswith("hd:"):
             ksdata.method.method = "harddrive"
             url = anaconda.methodstr.split(":", 1)[1]

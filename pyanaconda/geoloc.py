@@ -113,7 +113,7 @@ log = logging.getLogger("anaconda")
 from pyanaconda import constants
 from pyanaconda.threads import AnacondaThread, threadMgr
 from pyanaconda import nm
-from pyanaconda import timezone
+from pyanaconda.timezone import get_preferred_timezone, is_valid_timezone
 
 location_info_instance = None
 
@@ -484,9 +484,9 @@ class FedoraGeoIPProvider(GeolocationBackend):
                     timezone_code = timezone_code.encode("utf8")
 
                 # check if the timezone returned by the API is valid
-                if not timezone.is_valid_timezone(timezone_code):
+                if not is_valid_timezone(timezone_code):
                     # try to get a timezone from the territory code
-                    timezone_code = timezone.get_preferred_timezone(territory)
+                    timezone_code = get_preferred_timezone(territory)
                     timezone_source = "territory code"
                 if territory or timezone_code:
                     self._set_result(LocationResult(

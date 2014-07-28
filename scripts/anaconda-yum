@@ -406,8 +406,8 @@ class RPMCallback(object):
 
 
 if __name__ == "__main__":
-    parser = setup_parser()
-    args = parser.parse_args()
+    arg_parser = setup_parser()
+    args = arg_parser.parse_args()
 
     # force output to be flushed
     sys.stdout = os.fdopen(sys.stdout.fileno(), 'w', 0)

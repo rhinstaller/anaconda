@@ -45,6 +45,7 @@ def read_cmdline(f):
         lines = open(f).readlines()
     except IOError:
         lines = []
+    # pylint: disable-msg=W0621
     for line in lines:
         for arg in line.split():
             k,_e,v = arg.partition("=")
@@ -238,6 +239,7 @@ def s390_settings(device):
     #NETTYPE="qeth"
     #OPTIONS="layer2=1 portname=FOOBAR portno=0"
     with open('/etc/ccw.conf') as f:
+        # pylint: disable-msg=W0621
         for line in f:
             if cfg['SUBCHANNELS'] in line:
                 items = line.strip().split(',')
@@ -249,6 +251,7 @@ def s390_settings(device):
 
 def ksnet_to_dracut(args, lineno, net, bootdev=False):
     '''Translate the kickstart network data into dracut network data.'''
+    # pylint: disable-msg=W0621
     line = []
     ip=""
     autoconf=""

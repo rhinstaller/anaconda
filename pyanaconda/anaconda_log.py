@@ -57,9 +57,9 @@ def autoSetLevel(handler, value):
     handler.autoSetLevel = value
 
 # all handlers of given logger with autoSetLevel == True are set to level
-def setHandlersLevel(logger, level):
+def setHandlersLevel(logr, level):
     map(lambda hdlr: hdlr.setLevel(level),
-        filter (lambda hdlr: hasattr(hdlr, "autoSetLevel") and hdlr.autoSetLevel, logger.handlers))
+        filter (lambda hdlr: hasattr(hdlr, "autoSetLevel") and hdlr.autoSetLevel, logr.handlers))
 
 class AnacondaSyslogHandler(SysLogHandler):
     def __init__(self,
@@ -99,14 +99,14 @@ class AnacondaLog:
                             minLevel=logging.DEBUG)
 
         # Set the common parameters for anaconda and storage loggers.
-        for logger in [self.anaconda_logger, storage_logger]:
-            logger.setLevel(logging.DEBUG)
-            self.forwardToSyslog(logger)
+        for logr in [self.anaconda_logger, storage_logger]:
+            logr.setLevel(logging.DEBUG)
+            self.forwardToSyslog(logr)
             # Logging of basic stuff and storage to tty3.
             # XXX Use os.uname here since it's too early to be importing the
             #     storage module.
             if not os.uname()[4].startswith('s390') and os.access(MAIN_LOG_TTY, os.W_OK):
-                self.addFileHandler(MAIN_LOG_TTY, logger,
+                self.addFileHandler(MAIN_LOG_TTY, logr,
                                     fmtStr=TTY_FORMAT,
                                     autoLevel=True)
 
@@ -167,7 +167,7 @@ class AnacondaLog:
         except IOError:
             pass
 
-    def forwardToSyslog(self, logger):
+    def forwardToSyslog(self, logr):
         """Forward everything that goes in the logger to the syslog daemon.
         """
         if flags.imageInstall:
@@ -177,9 +177,9 @@ class AnacondaLog:
         syslogHandler = AnacondaSyslogHandler(
             '/dev/log',
             ANACONDA_SYSLOG_FACILITY,
-            logger.name)
+            logr.name)
         syslogHandler.setLevel(logging.DEBUG)
-        logger.addHandler(syslogHandler)
+        logr.addHandler(syslogHandler)
 
     # pylint: disable-msg=W0622
     def showwarning(self, message, category, filename, lineno,

@@ -32,7 +32,7 @@ import os
 import time
 import re
 import IPy
-import uuid
+from uuid import uuid4
 from pyanaconda.flags import flags
 import itertools
 import dbus
@@ -454,7 +454,7 @@ def bond_options_ksdata_to_dbus(opts_str):
 def add_connection_for_ksdata(networkdata, devname):
 
     added_connections = []
-    con_uuid = str(uuid.uuid4())
+    con_uuid = str(uuid4())
     values = _get_ip_setting_values_from_ksdata(networkdata)
     # HACK preventing NM to autoactivate the connection
     #values.append(['connection', 'autoconnect', networkdata.onboot, 'b'])
@@ -475,7 +475,7 @@ def add_connection_for_ksdata(networkdata, devname):
             slave_name = slave
 
             svalues = []
-            suuid =  str(uuid.uuid4())
+            suuid =  str(uuid4())
             svalues.append(['connection', 'uuid', suuid, 's'])
             svalues.append(['connection', 'id', slave_name, 's'])
             svalues.append(['connection', 'slave-type', 'bond', 's'])
@@ -509,7 +509,7 @@ def add_connection_for_ksdata(networkdata, devname):
             slave_name = slave
 
             svalues = []
-            suuid =  str(uuid.uuid4())
+            suuid =  str(uuid4())
             svalues.append(['connection', 'uuid', suuid, 's'])
             svalues.append(['connection', 'id', slave_name, 's'])
             svalues.append(['connection', 'slave-type', 'team', 's'])

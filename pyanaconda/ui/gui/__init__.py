@@ -24,10 +24,10 @@ import meh.ui.gui
 from gi.repository import Gdk, Gtk, AnacondaWidgets, Keybinder
 
 from pyanaconda.i18n import _
+from pyanaconda import product
 
 from pyanaconda.ui import UserInterface, common
 from pyanaconda.ui.gui.utils import enlightbox, gtk_action_wait
-from pyanaconda.product import distributionText, isFinal, productName, productVersion
 from pyanaconda import iutil
 import os.path
 
@@ -245,7 +245,7 @@ class GraphicalUserInterface(UserInterface):
        It is suitable for use both directly and via VNC.
     """
     def __init__(self, storage, payload, instclass,
-                 distributionText = distributionText, isFinal = isFinal,
+                 distributionText = product.distributionText, isFinal = product.isFinal,
                  quitDialog = QuitDialog):
 
         UserInterface.__init__(self, storage, payload, instclass)

@@ -845,8 +845,7 @@ def nm_dbus_int_to_ipv4(address):
     """Convert ipv4 address from int from dbus (switched endianess) to string."""
     return socket.inet_ntop(socket.AF_INET, struct.pack('=L', address))
 
-
-if __name__ == "__main__":
+def test():
     print "NM state: %s:" % nm_state()
     print "NM is connected: %s" % nm_is_connected()
 
@@ -969,3 +968,6 @@ if __name__ == "__main__":
     #nm_update_settings_of_device(devname, [["ipv6", "addressess", [[[32,1,0,0,0,0,0,0,0,0,0,0,0,0,0,a], 64, [0]*16]], None]])
     #nm_update_settings_of_device(devname, [["connection", "autoconnect", True, None]])
     #nm_update_settings_of_device(devname, [["connection", "autoconnect", False, "b"]])
+
+if __name__ == "__main__":
+    test()

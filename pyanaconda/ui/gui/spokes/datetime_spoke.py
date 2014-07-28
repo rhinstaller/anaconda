@@ -33,8 +33,7 @@ from pyanaconda.ui.gui.utils import enlightbox, gtk_action_nowait, gtk_call_once
 from pyanaconda.ui.gui.utils import override_cell_property
 
 from pyanaconda.i18n import _, N_
-from pyanaconda import timezone
-from pyanaconda.timezone import NTP_SERVICE
+from pyanaconda.timezone import NTP_SERVICE, get_all_regions_and_timezones, is_valid_timezone
 from pyanaconda.localization import get_xlated_timezone
 from pyanaconda import iutil
 from pyanaconda import network
@@ -397,7 +396,7 @@ class DatetimeSpoke(FirstbootSpokeMixIn, NormalSpoke):
 
         self._ntpSwitch = self.builder.get_object("networkTimeSwitch")
 
-        self._regions_zones = timezone.get_all_regions_and_timezones()
+        self._regions_zones = get_all_regions_and_timezones()
 
         self._months_nums = dict()
 
@@ -439,7 +438,7 @@ class DatetimeSpoke(FirstbootSpokeMixIn, NormalSpoke):
             self.add_to_store_xlated(self._citiesStore, city, xlated)
 
         self._update_datetime_timer_id = None
-        if timezone.is_valid_timezone(self.data.timezone.timezone):
+        if is_valid_timezone(self.data.timezone.timezone):
             self._set_timezone(self.data.timezone.timezone)
         elif not flags.flags.automatedInstall:
             log.warning("%s is not a valid timezone, falling back to default "\
@@ -458,7 +457,7 @@ class DatetimeSpoke(FirstbootSpokeMixIn, NormalSpoke):
     @property
     def status(self):
         if self.data.timezone.timezone:
-            if timezone.is_valid_timezone(self.data.timezone.timezone):
+            if is_valid_timezone(self.data.timezone.timezone):
                 return _("%s timezone") % get_xlated_timezone(self.data.timezone.timezone)
             else:
                 return _("Invalid timezone")
@@ -505,7 +504,7 @@ class DatetimeSpoke(FirstbootSpokeMixIn, NormalSpoke):
             # taking values from kickstart, but not specified
             return False
         else:
-            return timezone.is_valid_timezone(self.data.timezone.timezone)
+            return is_valid_timezone(self.data.timezone.timezone)
 
     @property
     def mandatory(self):
@@ -517,7 +516,7 @@ class DatetimeSpoke(FirstbootSpokeMixIn, NormalSpoke):
                                                     self._update_datetime)
         self._start_updating_timer_id = None
 
-        if timezone.is_valid_timezone(self.data.timezone.timezone):
+        if is_valid_timezone(self.data.timezone.timezone):
             self._set_timezone(self.data.timezone.timezone)
 
         self._update_datetime()

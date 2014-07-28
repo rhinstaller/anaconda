@@ -19,6 +19,7 @@ def moduledir(pyfile):
         if modname not in ('..', 'site-packages'):
             return os.path.join(topdir, modname)
 
+# pylint: disable-msg=W0621
 def pyfiles(moddir):
     '''basically, "find $moddir -type f -name "*.py"'''
     for curdir, _dirs, files in os.walk(moddir):

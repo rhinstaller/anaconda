@@ -118,14 +118,14 @@ if __name__ == "__main__":
         sys.exit(1)
         
     # Application scope
-    scope = ApplicationScope(options)
-    if scope.sender == sending.RHBZ or scope.sender == sending.STRATA or \
-       (scope.sender == sending.FTP and scope.login):
-        scope.password = getpass.getpass("Password: ")
+    ascope = ApplicationScope(options)
+    if ascope.sender == sending.RHBZ or ascope.sender == sending.STRATA or \
+       (ascope.sender == sending.FTP and ascope.login):
+        ascope.password = getpass.getpass("Password: ")
     
     # Application
     try:
-        app = Injector.inject_main_helper(scope)
+        app = Injector.inject_main_helper(ascope)
         app.run()
     except (NoFilesArchivationError):
         sys.stderr.write("Nothing to report.\n")

@@ -31,7 +31,7 @@
 
 from gi.repository import Gtk
 
-from pyanaconda import flags
+from pyanaconda.flags import can_touch_runtime_system
 from pyanaconda.i18n import _, N_
 from pyanaconda import constants
 from pyanaconda.ui.communication import hubQ
@@ -1280,7 +1280,7 @@ class SecretAgent(dbus.service.Object):
 
 def register_secret_agent(spoke):
 
-    if not flags.can_touch_runtime_system("register anaconda secret agent"):
+    if not can_touch_runtime_system("register anaconda secret agent"):
         return False
 
     global secret_agent
@@ -1322,7 +1322,7 @@ class NetworkSpoke(FirstbootSpokeMixIn, NormalSpoke):
     @property
     def completed(self):
         # TODO: check also if source requires updates when implemented
-        return (not flags.can_touch_runtime_system("require network connection")
+        return (not can_touch_runtime_system("require network connection")
                 or nm.nm_activated_devices())
 
     @property
@@ -1338,7 +1338,7 @@ class NetworkSpoke(FirstbootSpokeMixIn, NormalSpoke):
         register_secret_agent(self)
         NormalSpoke.initialize(self)
         self.network_control_box.initialize()
-        if not flags.can_touch_runtime_system("hide hint to use network configuration in DE"):
+        if not can_touch_runtime_system("hide hint to use network configuration in DE"):
             self.builder.get_object("network_config_vbox").set_no_show_all(True)
             self.builder.get_object("network_config_vbox").hide()
         else:
@@ -1427,7 +1427,7 @@ class NetworkStandaloneSpoke(StandaloneSpoke):
 
     @property
     def completed(self):
-        return (not flags.can_touch_runtime_system("require network connection")
+        return (not can_touch_runtime_system("require network connection")
                 or nm.nm_activated_devices()
                 or self.data.method.method not in ("url", "nfs"))
 
@@ -1481,7 +1481,7 @@ def _update_network_data(data, ncb):
     hostname = ncb.hostname
     network.update_hostname_data(data, hostname)
 
-if __name__ == "__main__":
+def test():
     win = Gtk.Window()
     win.connect("delete-event", Gtk.main_quit)
 
@@ -1498,3 +1498,6 @@ if __name__ == "__main__":
 
     win.show_all()
     Gtk.main()
+
+if __name__ == "__main__":
+    test()
