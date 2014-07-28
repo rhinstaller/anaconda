@@ -57,7 +57,7 @@ GTKDOC_RUN = $(LIBTOOL) --mode=execute
 SETUP_FILES = $(DOC_MAIN_SGML_FILE)
 GTK_DOC_V_SETUP=$(GTK_DOC_V_SETUP_$(V))
 GTK_DOC_V_SETUP_=$(GTK_DOC_V_SETUP_$(AM_DEFAULT_VERBOSITY))
-GTK_DOC_V_SETUP_0=@echo " DOC   Preparing build";
+GTK_DOC_V_SETUP_0=@echo "  DOC      Preparing build";
 
 setup-build.stamp:
 	$(GTK_DOC_V_SETUP)if test "$(abs_srcdir)" != "$(abs_builddir)" ; then \
@@ -68,7 +68,7 @@ setup-build.stamp:
 
 GTK_DOC_V_BUILD=$(GTK_DOC_V_BUILD_$(V))
 GTK_DOC_V_BUILD_=$(GTK_DOC_V_BUILD_$(AM_DEFAULT_VERBOSITY))
-GTK_DOC_V_BUILD_0=@echo "DOC   Building docs";
+GTK_DOC_V_BUILD_0=@echo "  DOC      Building docs";
 
 noinst_DATA = gtkdoc.stamp
 dist_noinst_SCRIPTS = run-gtkdoc.sh
