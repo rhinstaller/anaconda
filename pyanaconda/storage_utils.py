@@ -147,7 +147,7 @@ class SanityWarning(SanityException):
 class LUKSDeviceWithoutKeyError(SanityError):
     pass
 
-def sanity_check(storage):
+def sanity_check(storage, min_ram=isys.MIN_RAM):
     """
     Run a series of tests to verify the storage configuration.
 
@@ -155,6 +155,9 @@ def sanity_check(storage):
     we can make sure you don't have anything silly (like no /,
     a really small /, etc).
 
+    :param storage: an instance of the :class:`blivet.Blivet` class to check
+    :param min_ram: minimum RAM (in MiB) needed for the installation with swap
+                    space available
     :rtype: a list of SanityExceptions
     :return: a list of accumulated errors and warnings
 
@@ -270,7 +273,7 @@ def sanity_check(storage):
 
     if not swaps:
         installed = util.total_memory()
-        required = Size("%s KiB" % isys.EARLY_SWAP_RAM)
+        required = Size("%s MiB" % (min_ram + isys.NO_SWAP_EXTRA_RAM))
 
         if installed < required:
             exns.append(

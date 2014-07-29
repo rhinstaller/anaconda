@@ -61,6 +61,7 @@ from pyanaconda import constants
 from pyanaconda.threads import threadMgr, AnacondaThread
 from pyanaconda.ui.communication import hubQ
 from pyanaconda.i18n import _
+from pyanaconda import isys
 
 import logging
 import copy
@@ -72,8 +73,9 @@ class StorageChecker(object):
     errors = []
     warnings = []
 
-    def __init__(self, mainSpokeClass="StorageSpoke"):
+    def __init__(self, min_ram=isys.MIN_RAM, mainSpokeClass="StorageSpoke"):
         self._mainSpokeClass = mainSpokeClass
+        self._min_ram = min_ram
 
     @abstractproperty
     def storage(self):
@@ -90,7 +92,7 @@ class StorageChecker(object):
 
         hubQ.send_not_ready(self._mainSpokeClass)
         hubQ.send_message(self._mainSpokeClass, _("Checking storage configuration..."))
-        exns = sanity_check(self.storage)
+        exns = sanity_check(self.storage, min_ram=self._min_ram)
         errors = [exn.message for exn in exns if isinstance(exn, SanityError)]
         warnings = [exn.message for exn in exns if isinstance(exn, SanityWarning)]
         (StorageChecker.errors, StorageChecker.warnings) = (errors, warnings)

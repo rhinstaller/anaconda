@@ -67,6 +67,7 @@ from pyanaconda.product import productName
 from pyanaconda.flags import flags
 from pyanaconda.i18n import _, C_, CN_, P_
 from pyanaconda import constants
+from pyanaconda import isys
 from pyanaconda.bootloader import BootLoaderError
 
 from pykickstart.constants import CLEARPART_TYPE_NONE, AUTOPART_TYPE_LVM
@@ -227,7 +228,7 @@ class StorageSpoke(NormalSpoke, StorageChecker):
     title = CN_("GUI|Spoke", "INSTALLATION _DESTINATION")
 
     def __init__(self, *args, **kwargs):
-        StorageChecker.__init__(self)
+        StorageChecker.__init__(self, min_ram=isys.MIN_GUI_RAM)
         NormalSpoke.__init__(self, *args, **kwargs)
         self.applyOnSkip = True
 

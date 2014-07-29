@@ -37,6 +37,7 @@ from pyanaconda.threads import AnacondaThread, threadMgr
 from pyanaconda.constants import THREAD_EXECUTE_STORAGE, THREAD_STORAGE, THREAD_CUSTOM_STORAGE_INIT
 from pyanaconda.iutil import lowerASCII
 from pyanaconda.bootloader import BootLoaderError
+from pyanaconda import isys
 
 from blivet import devicefactory
 from blivet.formats import device_formats
@@ -69,7 +70,7 @@ from pyanaconda import storage_utils
 
 from pyanaconda.ui.communication import hubQ
 from pyanaconda.ui.gui.spokes import NormalSpoke
-from pyanaconda.ui.gui.spokes.storage import StorageChecker
+from pyanaconda.ui.helpers import StorageChecker
 from pyanaconda.ui.gui.spokes.lib.cart import SelectedDisksDialog
 from pyanaconda.ui.gui.spokes.lib.passphrase import PassphraseDialog
 from pyanaconda.ui.gui.spokes.lib.accordion import updateSelectorFromDevice, Accordion, Page, CreateNewPage, UnknownPage
@@ -133,7 +134,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
     title = N_("MANUAL PARTITIONING")
 
     def __init__(self, data, storage, payload, instclass):
-        StorageChecker.__init__(self)
+        StorageChecker.__init__(self, min_ram=isys.MIN_GUI_RAM)
         NormalSpoke.__init__(self, data, storage, payload, instclass)
 
         self._back_already_clicked = False
@@ -2209,7 +2210,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
             self._storage_playground.doAutoPart = False
             log.debug("finished automatic partitioning")
 
-        exns = storage_utils.sanity_check(self._storage_playground)
+        exns = storage_utils.sanity_check(self._storage_playground, min_ram=isys.MIN_GUI_RAM)
         errors = [exn for exn in exns if isinstance(exn, SanityError) and not isinstance(exn, LUKSDeviceWithoutKeyError)]
         warnings = [exn for exn in exns if isinstance(exn, SanityWarning)]
         for error in errors:
