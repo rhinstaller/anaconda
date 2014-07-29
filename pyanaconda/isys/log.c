@@ -145,14 +145,6 @@ void logMessage(loglevel_t level, const char * s, ...) {
     va_end(args);
 }
 
-void logProgramMessage(loglevel_t level, const char * s, ...) {
-    va_list args;
-
-    va_start(args, s);
-    logMessageV(PROGRAM_LOG, level, s, args);
-    va_end(args);
-}
-
 int tty_logfd = -1;
 int file_logfd = -1;
 
@@ -184,34 +176,6 @@ void openLog() {
         flags = fcntl(fd, F_GETFD, 0) | FD_CLOEXEC;
         fcntl(file_logfd, F_SETFD, flags);
     }
-}
-
-void closeLog(void) {
-    if (main_log_tty)
-        fclose(main_log_tty);
-    if (main_log_file)
-        fclose(main_log_file);
-    if (program_log_file)
-        fclose(program_log_file);
-    main_log_tty = main_log_file = program_log_file = NULL;
-    
-    /* close syslog logger */
-    closelog();
-}
-
-/* set the level.  higher means you see more verbosity */
-void setLogLevel(loglevel_t level) {
-    minLevel = level;
-}
-
-loglevel_t getLogLevel(void) {
-    return minLevel;
-}
-
-/* returns non-null if logging has been initialized */
-int loggingReady(void)
-{
-    return main_log_tty != NULL;
 }
 
 /* vim:set shiftwidth=4 softtabstop=4: */

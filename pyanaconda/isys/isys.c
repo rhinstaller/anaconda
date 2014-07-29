@@ -62,11 +62,7 @@
 #include <X11/XKBlib.h>
 #include <X11/keysym.h>
 
-#include "iface.h"
 #include "isys.h"
-#include "ethtool.h"
-#include "lang.h"
-#include "eddsupport.h"
 #include "auditd.h"
 #include "log.h"
 #include "mem.h"
@@ -77,7 +73,6 @@
 
 static PyObject * doDevSpaceFree(PyObject * s, PyObject * args);
 static PyObject * doisPseudoTTY(PyObject * s, PyObject * args);
-static PyObject * doisVioConsole(PyObject * s);
 static PyObject * doSync(PyObject * s, PyObject * args);
 static PyObject * doisIsoImage(PyObject * s, PyObject * args);
 static PyObject * printObject(PyObject * s, PyObject * args);
@@ -92,7 +87,6 @@ static PyObject * doTotalMemory(PyObject * s);
 static PyMethodDef isysModuleMethods[] = {
     { "devSpaceFree", (PyCFunction) doDevSpaceFree, METH_VARARGS, NULL },
     { "isPseudoTTY", (PyCFunction) doisPseudoTTY, METH_VARARGS, NULL},
-    { "isVioConsole", (PyCFunction) doisVioConsole, METH_NOARGS, NULL},
     { "sync", (PyCFunction) doSync, METH_VARARGS, NULL},
     { "isisoimage", (PyCFunction) doisIsoImage, METH_VARARGS, NULL},
     { "printObject", (PyCFunction) printObject, METH_VARARGS, NULL},
@@ -109,6 +103,7 @@ static PyMethodDef isysModuleMethods[] = {
 #define BOOT_SIGNATURE	0xaa55	/* boot signature */
 #define BOOT_SIG_OFFSET	510	/* boot signature offset */
 
+/* cppcheck-suppress unusedFunction */
 void init_isys(void) {
     Py_InitModule("_isys", isysModuleMethods);
 }
@@ -156,10 +151,6 @@ static PyObject * doisPseudoTTY(PyObject * s, PyObject * args) {
 
     /* XXX close enough for now */
     return Py_BuildValue("i", ((major(sb.st_rdev) >= 136) && (major(sb.st_rdev) <= 143)));
-}
-
-static PyObject * doisVioConsole(PyObject * s) {
-    return Py_BuildValue("i", isVioConsole());
 }
 
 static PyObject * doSync(PyObject * s, PyObject * args) {

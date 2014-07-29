@@ -19,9 +19,7 @@
 
 pkgpyexecdir = $(pyexecdir)/py$(PACKAGE_NAME)
 
-ISYS_SRCS = devices.c lang.c \
-            isofs.c linkdetect.c vio.c ethtool.c eddsupport.c iface.c \
-            auditd.c log.c mem.c
+ISYS_SRCS = isofs.c linkdetect.c auditd.c log.c mem.c
 
 dist_noinst_HEADERS = *.h
 
