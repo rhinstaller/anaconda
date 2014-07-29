@@ -30,6 +30,8 @@
 
 import os
 import sys
+import stat
+from glob import glob
 from tempfile import mkstemp
 
 from pyanaconda.bootloader import get_bootloader
@@ -140,7 +142,6 @@ class Anaconda(object):
 
     @property
     def protected(self):
-        import stat
         specs = []
         if os.path.exists("/run/initramfs/livedev") and \
            stat.S_ISBLK(os.stat("/run/initramfs/livedev")[stat.ST_MODE]):
@@ -151,6 +152,10 @@ class Anaconda(object):
 
         if self.stage2 and self.stage2.startswith("hd:"):
             specs.append(self.stage2[3:].split(":", 3)[0])
+
+        # zRAM swap devices need to be protected
+        for zram_dev in glob("/dev/zram*"):
+            specs.append(zram_dev)
 
         return specs
 
