@@ -58,8 +58,7 @@ def getDisks(devicetree, fake=False):
 
         disks = []
         for d in devices:
-            if d.isDisk and not d.format.hidden and not (d.protected and d.removable) \
-               and "zram" not in d.name:
+            if d.isDisk and not d.format.hidden and not d.protected:
                 # unformatted DASDs are detected with a size of 0, but they should
                 # still show up as valid disks if this function is called, since we
                 # can still use them; anaconda will know how to handle them, so they
