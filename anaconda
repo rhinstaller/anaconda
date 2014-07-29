@@ -367,10 +367,10 @@ def gtk_warning(title, reason):
 
 # pylint: disable-msg=W0621
 def check_memory(anaconda, opts, display_mode=None):
-    reason_strict = _("%s requires %s MB of memory to install, but you only have "
-                      "%s MB on this machine.\n")
-    reason_graphical = _("The %s graphical installer requires %s MB of memory, but "
-                         "you only have %s MB.")
+    reason_strict = _("%(product_name)s requires %(needed_ram)s MB of memory to install, but you only have "
+                      "%(total_ram)s MB on this machine.\n")
+    reason_graphical = _("The %(product_name)s graphical installer requires %(needed_ram)s MB of memory, but "
+                         "you only have %(total_ram)s MB.")
 
     reboot_extra = _('\n'
                      'Press <return> to reboot your system.\n')
@@ -398,16 +398,20 @@ def check_memory(anaconda, opts, display_mode=None):
         log.warning("CHECK_MEMORY DISABLED")
         return
 
+    reason_args = {"product_name": product.productName,
+                   "needed_ram": needed_ram,
+                   "total_ram": total_ram}
     if needed_ram > total_ram:
         from snack import SnackScreen, ButtonChoiceWindow
         if opts.liveinst:
-            stdoutLog.warning(reason, product.productName, needed_ram, total_ram)
-            gtk_warning(livecd_title, reason % (product.productName, needed_ram, total_ram))
+            # pylint: disable-msg=W1201
+            stdoutLog.warning(reason % reason_args)
+            gtk_warning(livecd_title, reason % reason_args)
         else:
             reason += reboot_extra
             screen = SnackScreen()
             ButtonChoiceWindow(screen, _('Fatal Error'),
-                               reason % (product.productName, needed_ram, total_ram),
+                               reason % reason_args,
                                buttons = (_("OK"),))
             screen.finish()
         sys.exit(1)
@@ -415,18 +419,21 @@ def check_memory(anaconda, opts, display_mode=None):
     # override display mode if machine cannot nicely run X
     if display_mode not in ('t', 'c', 's') and not flags.usevnc:
         needed_ram = graphical_ram
+        reason_args["needed_ram"] = graphical_ram
         reason = reason_graphical
 
         if needed_ram > total_ram:
             if opts.liveinst:
                 reason += livecd_extra
-                stdoutLog.warning(reason, product.productName, needed_ram, total_ram)
+                # pylint: disable-msg=W1201
+                stdoutLog.warning(reason % reason_args)
                 title = livecd_title
-                gtk_warning(title, reason % (product.productName, needed_ram, total_ram))
+                gtk_warning(title, reason % reason_args)
                 sys.exit(1)
             else:
                 reason += nolivecd_extra
-                stdoutLog.warning(reason, product.productName, needed_ram, total_ram)
+                # pylint: disable-msg=W1201
+                stdoutLog.warning(reason % reason_args)
                 anaconda.displayMode = 't'
                 time.sleep(2)
 

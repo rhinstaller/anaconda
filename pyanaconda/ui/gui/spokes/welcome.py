@@ -225,7 +225,7 @@ class WelcomeLanguageSpoke(LangLocaleHandler, StandaloneSpoke):
             self._origStrings[welcomeLabel] = welcomeLabel.get_label()
 
         before = self._origStrings[welcomeLabel]
-        xlated = _(before) % (productName.upper(), productVersion)
+        xlated = _(before) % {"name": productName.upper(), "version": productVersion}
         welcomeLabel.set_label(xlated)
 
         # Retranslate the language (filtering) entry's placeholder text

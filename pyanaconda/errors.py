@@ -223,9 +223,9 @@ class ErrorHandler(object):
         lineno = args[0]
         details = args[1]
         message = _("There was an error running the kickstart script at line "
-                    "%s.  This is a fatal error and installation will be "
-                    "aborted.  The details of this error are:\n\n%s") % \
-                   (lineno, details)
+                    "%(lineno)s.  This is a fatal error and installation will be "
+                    "aborted.  The details of this error are:\n\n%(details)s") % \
+                   {"lineno": lineno, "details": details}
         self.ui.showError(message)
         return ERROR_RAISE
 

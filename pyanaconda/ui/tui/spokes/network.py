@@ -105,7 +105,8 @@ class NetworkSpoke(EditTUISpoke):
             dnss_str = ",".join(ipv4config[1])
         else:
             addr_str = dnss_str = gateway_str = netmask_str = ""
-        msg += _(" IPv4 Address: %s Netmask: %s Gateway: %s\n") % (addr_str, netmask_str, gateway_str)
+        msg += _(" IPv4 Address: %(addr)s Netmask: %(netmask)s Gateway: %(gateway)s\n") % \
+                {"addr": addr_str, "netmask": netmask_str, "gateway": gateway_str}
         msg += _(" DNS: %s\n") % dnss_str
 
         if ipv6config and ipv6config[0]:
@@ -113,7 +114,8 @@ class NetworkSpoke(EditTUISpoke):
                 addr_str, prefix, gateway_str = ipv6addr
                 # Do not display link-local addresses
                 if not addr_str.startswith("fe80:"):
-                    msg += _(" IPv6 Address: %s/%d\n") % (addr_str, prefix)
+                    msg += _(" IPv6 Address: %(addr)s/%(prefix)d\n") % \
+                            {"addr": addr_str, "prefix": prefix}
 
             dnss_str = ",".join(ipv6config[1])
 
@@ -258,8 +260,8 @@ class ConfigureNetworkSpoke(EditTUISpoke):
               re.compile("^" + IPV4_PATTERN_WITHOUT_ANCHORS + "|dhcp$"), True),
         Entry(N_("IPv4 netmask"), "netmask", re.compile("^" + IPV4_PATTERN_WITHOUT_ANCHORS + "$"), True),
         Entry(N_("IPv4 gateway"), "gateway", re.compile("^" + IPV4_PATTERN_WITHOUT_ANCHORS + "$"), True),
-        Entry(N_('IPv6 address or %s for automatic, %s for DHCP, %s to turn off')
-              % ('"auto"', '"dhcp"', '"ignore"'), "ipv6",
+        Entry(N_('IPv6 address or %(auto)s for automatic, %(dhcp)s for DHCP, %(ignore)s to turn off')
+              % {"auto": '"auto"', "dhcp": '"dhcp"', "ignore": '"ignore"'}, "ipv6",
               Fake_RE_IPV6(allow_prefix=True, whitelist=["auto", "dhcp", "ignore"]), True),
         Entry(N_("IPv6 default gateway"), "ipv6gateway", re.compile(".*$"), True),
         Entry(N_("Nameservers (comma separated)"), "nameserver", re.compile(".*$"), True),

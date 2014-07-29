@@ -798,7 +798,6 @@ use.  Try something else?</property>
                           <object class="GtkLabel" id="whenCreateLabel">
                             <property name="visible">True</property>
                             <property name="can_focus">False</property>
-                            <property name="label" translatable="yes">When you create mount points for your %s %s installation, you'll be able to view their details here.</property>
                             <property name="wrap">True</property>
                           </object>
                         </child>
@@ -1593,7 +1592,6 @@ until you click on the main menu's 'Begin Installation' button.</property>
                                 <property name="visible">True</property>
                                 <property name="can_focus">False</property>
                                 <property name="yalign">0.43000000715255737</property>
-                                <property name="label" translatable="yes">This %s device is missing %d of %d %s. You can remove it or select a different device.</property>
                                 <property name="wrap">True</property>
                                 <attributes>
                                   <attribute name="font-desc" value="Cantarell 11"/>

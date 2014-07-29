@@ -211,12 +211,12 @@ class InstallOptions2Dialog(InstallOptionsDialogBase):
         self._set_free_space_labels(disk_free, fs_free)
 
         label_text = _("<b>You don't have enough space available to install "
-                       "%s</b>, even if you used all of the free space "
+                       "%(productName)s</b>, even if you used all of the free space "
                        "available on the selected disks.  You could add more "
                        "disks for additional space, "
                        "modify your software selection to install a smaller "
-                       "version of <b>%s</b>, or quit the installer.") % \
-                      (escape_markup(productName), escape_markup(productName))
+                       "version of <b>%(productName)s</b>, or quit the installer.") % \
+                      {"productName": escape_markup(productName)}
         self.builder.get_object("options2_label2").set_markup(label_text)
 
         self._add_modify_watcher("options2_label1")
@@ -655,9 +655,11 @@ class StorageSpoke(NormalSpoke, StorageChecker):
             free += free_space[disk.name][0]
             count += 1
 
-        summary = (P_("%d disk selected; %s capacity; %s free",
-                      "%d disks selected; %s capacity; %s free",
-                      count) % (count, str(Size(spec="%f MB" % capacity)), free))
+        summary = (P_("%(count)d disk selected; %(capacity)s capacity; %(free)s free",
+                      "%(count)d disks selected; %(capacity)s capacity; %(free)s free",
+                      count) % {"count": count,
+                                "capacity": str(Size(spec="%f MB" % capacity)),
+                                "free": free})
         summary_label = self.builder.get_object("summary_label")
         summary_label.set_text(summary)
         summary_label.set_sensitive(count > 0)

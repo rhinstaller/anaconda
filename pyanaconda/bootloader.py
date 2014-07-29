@@ -400,26 +400,26 @@ class BootLoader(object):
 
         if raid_levels and device.level not in raid_levels:
             levels_str = ",".join("RAID%d" % l for l in raid_levels)
-            self.errors.append(_("RAID sets that contain '%s' must have one "
-                                 "of the following raid levels: %s.")
-                               % (desc, levels_str))
+            self.errors.append(_("RAID sets that contain '%(desc)s' must have one "
+                                 "of the following raid levels: %(raid_level)s.")
+                               % {"desc": desc, "raid_level": levels_str})
             ret = False
 
         # new arrays will be created with an appropriate metadata format
         if device.exists and \
            metadata and device.metadataVersion not in metadata:
-            self.errors.append(_("RAID sets that contain '%s' must have one "
-                                 "of the following metadata versions: %s.")
-                               % (desc, ",".join(metadata)))
+            self.errors.append(_("RAID sets that contain '%(desc)s' must have one "
+                                 "of the following metadata versions: %(metadata_version)s.")
+                               % {"desc": desc, "metadata_version": ",".join(metadata)})
             ret = False
 
         if member_types:
             for member in device.devices:
                 if not self._device_type_match(member, member_types):
-                    self.errors.append(_("RAID sets that contain '%s' must "
+                    self.errors.append(_("RAID sets that contain '%(desc)s' must "
                                          "have one of the following device "
-                                         "types: %s.")
-                                       % (desc, ",".join(member_types)))
+                                         "types: %(types)s.")
+                                       % {"desc": desc, "types": ",".join(member_types)})
                     ret = False
 
         log.debug("_is_valid_md(%s) returning %s", device.name, ret)
@@ -432,9 +432,9 @@ class BootLoader(object):
                 label_type = getattr(disk.format, "labelType", None)
                 if not label_type or label_type not in self.disklabel_types:
                     types_str = ",".join(disklabel_types)
-                    self.errors.append(_("%s must have one of the following "
-                                         "disklabel types: %s.")
-                                       % (device.name, types_str))
+                    self.errors.append(_("%(name)s must have one of the following "
+                                         "disklabel types: %(types)s.")
+                                       % {"name": device.name, "types": types_str})
                     ret = False
 
         log.debug("_is_valid_disklabel(%s) returning %s", device.name, ret)
@@ -444,14 +444,14 @@ class BootLoader(object):
                          desc=""):
         ret = True
         if format_types and device.format.type not in format_types:
-            self.errors.append(_("%s cannot be of type %s.")
-                               % (desc, device.format.type))
+            self.errors.append(_("%(desc)s cannot be of type %(types)s.")
+                               % {"desc": desc, "types": device.format.type})
             ret = False
 
         if mountpoints and hasattr(device.format, "mountpoint") \
            and device.format.mountpoint not in mountpoints:
-            self.errors.append(_("%s must be mounted on one of %s.")
-                               % (desc, ", ".join(mountpoints)))
+            self.errors.append(_("%(desc)s must be mounted on one of %(mountpoints)s.")
+                               % {"desc": desc, "mountpoints": ", ".join(mountpoints)})
             ret = False
 
         log.debug("_is_valid_format(%s) returning %s", device.name, ret)
@@ -462,13 +462,13 @@ class BootLoader(object):
         msg = None
         errors = []
         if device.format.minSize and device.format.maxSize:
-            msg = (_("%s must be between %d and %d MB in size")
-                   % (desc, device.format.minSize, device.format.maxSize))
+            msg = (_("%(desc)s must be between %(min)d and %(max)d MB in size")
+                   % {"desc": desc, "min": device.format.minSize, "max": device.format.maxSize})
 
         if device.format.minSize and device.size < device.format.minSize:
             if msg is None:
-                errors.append(_("%s must not be smaller than %dMB.")
-                              % (desc, device.format.minSize))
+                errors.append(_("%(desc)s must not be smaller than %(min)dMB.")
+                              % {"desc": desc, "min": device.format.minSize})
             else:
                 errors.append(msg)
 
@@ -476,8 +476,8 @@ class BootLoader(object):
 
         if device.format.maxSize and device.size > device.format.maxSize:
             if msg is None:
-                errors.append(_("%s must not be larger than %dMB.")
-                              % (desc, device.format.maxSize))
+                errors.append(_("%(desc)s must not be larger than %(max)dMB.")
+                              % {"desc": desc, "max": device.format.maxSize})
             elif msg not in errors:
                 # don't add the same error string twice
                 errors.append(msg)
@@ -494,8 +494,8 @@ class BootLoader(object):
             sector_size = device.partedPartition.disk.device.sectorSize
             end_mb = (sector_size * end_sector) / (1024.0 * 1024.0)
             if end_mb > max_mb:
-                self.errors.append(_("%s must be within the first %dMB of "
-                                     "the disk.") % (desc, max_mb))
+                self.errors.append(_("%(desc)s must be within the first %(max_end)dMB of "
+                                     "the disk.") % {"desc": desc, "max_end": max_mb})
                 ret = False
 
         log.debug("_is_valid_location(%s) returning %s", device.name, ret)
@@ -701,8 +701,8 @@ class BootLoader(object):
             valid = False
 
         if not self._device_type_match(device, self.stage2_device_types):
-            self.errors.append(_("%s cannot be of type %s")
-                               % (self.stage2_description, device.type))
+            self.errors.append(_("%(desc)s cannot be of type %(type)s")
+                               % {"desc": self.stage2_description, "type": device.type})
             valid = False
 
         if not self._is_valid_disklabel(device,

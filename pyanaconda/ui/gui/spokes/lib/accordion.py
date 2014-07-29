@@ -262,7 +262,9 @@ class CreateNewPage(Page):
         self._createBox.set_column_spacing(6)
         self._createBox.set_margin_left(16)
 
-        label = Gtk.Label(_("You haven't created any mount points for your %s %s installation yet.  You can:") % (productName, productVersion))
+        label = Gtk.Label(_("You haven't created any mount points for your "
+                            "%(product)s %(version)s installation yet.  "
+                            "You can:") % {"product": productName, "version": productVersion})
         label.set_line_wrap(True)
         label.set_alignment(0, 0.5)
         self._createBox.attach(label, 0, 0, 2, 1)
