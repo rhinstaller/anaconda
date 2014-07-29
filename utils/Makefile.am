@@ -17,8 +17,8 @@
 #
 # Author: David Cantrell <dcantrell@redhat.com>
 
-SUBDIRS = log_picker dd
+SUBDIRS = dd
 
-dist_sbin_SCRIPTS    = logpicker handle-sshpw
+dist_sbin_SCRIPTS    = handle-sshpw
 
 MAINTAINERCLEANFILES = Makefile.in

@@ -229,7 +229,5 @@ AC_CONFIG_FILES([Makefile
                  tests/Makefile
                  data/post-scripts/Makefile
                  utils/Makefile
-                 utils/dd/Makefile
-                 utils/log_picker/Makefile
-                 utils/log_picker/sending/Makefile])
+                 utils/dd/Makefile])
 AC_OUTPUT

@@ -121,10 +121,6 @@ updates:
 	fi ; \
 	scripts/makeupdates $${opts}
 
-# UNIT TESTING TARGETS
-unittests-logpicker:
-	PYTHONPATH=tests/:.:utils/ nosetests tests/logpicker_test
-
 # GUI TESTING
 runspoke:
 	ANACONDA_DATA=${PWD}/data \
