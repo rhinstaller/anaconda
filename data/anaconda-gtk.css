@@ -159,11 +159,9 @@ AnacondaSpokeWindow #nav-box {
 
 /* These rules were removed when the Adwaita theme moved from
  * gnome-themes-standard to gtk. The selectors had been wildcards, but after
- * the move they were replaced with more specific selectors, because gtk is
- * maintained by garbage people who don't care about how anyone else's
- * applications look. We need to apply the old style to anconda's custom
- * widgets in order for the selection highlight and insensitive shading to
- * appear.
+ * the move they were replaced with more specific selectors. We need to apply
+ * the old style to anconda's custom widgets in order for the selection
+ * highlight and insensitive shading to appear.
  */
 @define-color anaconda_selected_bg_color #4a90d9;
 @define-color anaconda_selected_fg_color #ffffff;
