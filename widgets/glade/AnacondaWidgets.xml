@@ -1,6 +1,6 @@
 <glade-catalog name="AnacondaWidgets"
-               version="3.0"
-               targetable="2.0,1.0"
+               version="3.1"
+               targetable="3.0,2.0,1.0"
                library="AnacondaWidgets"
                domain="glade-3"
                depends="gtk+">
@@ -25,6 +25,11 @@
                 <property id="distribution" translatable="True" />
                 <property id="window-name" translatable="True" />
             </properties>
+
+            <signals>
+              <signal since="3.1" id="help-button-clicked" />
+            </signals>
+
         </glade-widget-class>
 
         <glade-widget-class title="Standalone Spoke Window"

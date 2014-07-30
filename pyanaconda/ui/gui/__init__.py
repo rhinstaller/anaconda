@@ -30,6 +30,7 @@ from pyanaconda import product
 
 from pyanaconda.ui import UserInterface, common
 from pyanaconda.ui.gui.utils import gtk_action_wait, busyCursor, unbusyCursor
+from pyanaconda import ihelp
 import os.path
 
 import logging
@@ -80,6 +81,10 @@ class GUIObject(common.UIObject):
                            that use GUI elements (Hubs & Spokes) from Anaconda
                            can override the translation domain with their own,
                            so that their subclasses are properly translated.
+       helpFile         -- The location of the yelp-compatible help file for the
+                           given GUI object. The default value of "" indicates
+                           that the object has not specific help file assigned
+                           and the default help file should be used.
     """
     builderObjects = []
     mainWidgetName = None
@@ -90,6 +95,7 @@ class GUIObject(common.UIObject):
     focusWidgetName = None
 
     uiFile = ""
+    helpFile = None
     translationDomain = "anaconda"
 
     screenshots_directory = "/tmp/anaconda-screenshots"
@@ -583,6 +589,7 @@ class GraphicalUserInterface(UserInterface):
 
         # Use connect_after so classes can add actions before we change screens
         obj.window.connect_after("continue-clicked", self._on_continue_clicked)
+        obj.window.connect_after("help-button-clicked", self._on_help_clicked, obj)
         obj.window.connect_after("quit-clicked", self._on_quit_clicked)
 
         return obj
@@ -746,6 +753,11 @@ class GraphicalUserInterface(UserInterface):
         self.mainWindow.setCurrentAction(nextAction)
         self._currentAction = nextAction
         self._actions.pop(0)
+
+    def _on_help_clicked(self, window, obj):
+        # the help button has been clicked, start the yelp viewer with
+        # content for the current screen
+        ihelp.start_yelp(ihelp.get_help_path(obj.helpFile, self.instclass))
 
     def _on_quit_clicked(self, win, userData=None):
         if not win.get_quit_button():

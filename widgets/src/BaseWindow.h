@@ -56,11 +56,14 @@ struct _AnacondaBaseWindow {
  *                pointer to be cast to a #GtkBin pointer.
  * @info_bar_clicked : Function pointer called when the #AnacondaBaseWindow::info-bar-clicked
  *                     signal is emitted.
+ * @help_button_clicked: Function pointer called when the #AnacondaSpokeWindow::help-button-clicked
+ *                       signal is emitted.
  */
 struct _AnacondaBaseWindowClass {
     GtkBinClass parent_class;
 
     void (* info_bar_clicked) (AnacondaBaseWindow *window);
+    void (* help_button_clicked) (AnacondaBaseWindow *window);
 };
 
 GType       anaconda_base_window_get_type (void);

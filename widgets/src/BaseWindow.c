@@ -26,6 +26,8 @@
 #include "BaseWindow.h"
 #include "intl.h"
 
+ #include <atk/atk.h>
+
 /**
  * SECTION: BaseWindow
  * @title: AnacondaBaseWindow
@@ -93,6 +95,7 @@
 
 enum {
     SIGNAL_INFO_BAR_CLICKED,
+    SIGNAL_HELP_BUTTON_CLICKED,
     LAST_SIGNAL
 };
 
@@ -107,6 +110,7 @@ enum {
 #define DEFAULT_WINDOW_NAME   N_("SPOKE NAME")
 #define DEFAULT_BETA          N_("PRE-RELEASE / TESTING")
 #define LAYOUT_INDICATOR_LABEL_WIDTH 10
+#define HELP_BUTTON_LABEL N_("Help!")
 
 struct _AnacondaBaseWindowPrivate {
     gboolean    is_beta, info_shown;
@@ -115,6 +119,7 @@ struct _AnacondaBaseWindowPrivate {
     GtkWidget  *nav_box, *nav_area, *action_area;
     GtkWidget  *name_label, *distro_label, *beta_label;
     GtkWidget  *layout_indicator;
+    GtkWidget  *help_button;
 
     /* Untranslated versions of various things. */
     gchar *orig_name, *orig_distro, *orig_beta;
@@ -126,6 +131,7 @@ static void anaconda_base_window_buildable_init(GtkBuildableIface *iface);
 static void format_beta_label(AnacondaBaseWindow *window, const char *markup);
 
 static gboolean anaconda_base_window_info_bar_clicked(GtkWidget *widget, GdkEvent *event, AnacondaBaseWindow *win);
+static void anaconda_base_window_help_button_clicked(GtkButton *button, AnacondaBaseWindow *win);
 
 G_DEFINE_TYPE_WITH_CODE(AnacondaBaseWindow, anaconda_base_window, GTK_TYPE_BIN,
                         G_IMPLEMENT_INTERFACE(GTK_TYPE_BUILDABLE, anaconda_base_window_buildable_init))
@@ -171,6 +177,7 @@ static void anaconda_base_window_class_init(AnacondaBaseWindowClass *klass) {
                                                         G_PARAM_READWRITE));
 
     klass->info_bar_clicked = NULL;
+    klass->help_button_clicked = NULL;
 
     /**
      * AnacondaBaseWindow::info-bar-clicked:
@@ -190,6 +197,24 @@ static void anaconda_base_window_class_init(AnacondaBaseWindowClass *klass) {
                                                            g_cclosure_marshal_VOID__VOID,
                                                            G_TYPE_NONE, 0);
 
+    /**
+     * AnacondaBaseWindow::help-button-clicked:
+     * @window: the window that received the signal
+     *
+     * Emitted when the help button in the right corner has been activated
+     * (pressed and released). This is commonly used to open the help view with
+     * help content for the given spoke or hub
+     *
+     * Since: 3.1
+     */
+    window_signals[SIGNAL_HELP_BUTTON_CLICKED] = g_signal_new("help-button-clicked",
+                                                              G_TYPE_FROM_CLASS(object_class),
+                                                              G_SIGNAL_RUN_FIRST | G_SIGNAL_ACTION,
+                                                              G_STRUCT_OFFSET(AnacondaBaseWindowClass, help_button_clicked),
+                                                              NULL, NULL,
+                                                              g_cclosure_marshal_VOID__VOID,
+                                                              G_TYPE_NONE, 0);
+
     g_type_class_add_private(object_class, sizeof(AnacondaBaseWindowPrivate));
 }
 
@@ -208,6 +233,7 @@ GtkWidget *anaconda_base_window_new() {
 
 static void anaconda_base_window_init(AnacondaBaseWindow *win) {
     char *markup;
+    AtkObject *atk;
 
     win->priv = G_TYPE_INSTANCE_GET_PRIVATE(win,
                                             ANACONDA_TYPE_BASE_WINDOW,
@@ -323,11 +349,28 @@ G_GNUC_END_IGNORE_DEPRECATIONS
     gtk_widget_set_margin_top(win->priv->layout_indicator, 6);
     gtk_widget_set_margin_bottom(win->priv->layout_indicator, 6);
 
+    /* Create the help button. */
+    win->priv->help_button = gtk_button_new_with_label(HELP_BUTTON_LABEL);
+    gtk_widget_set_halign(win->priv->help_button, GTK_ALIGN_START);
+    gtk_widget_set_vexpand(win->priv->help_button, FALSE);
+    gtk_widget_set_valign(win->priv->help_button, GTK_ALIGN_END);
+    gtk_widget_set_margin_bottom(win->priv->help_button, 6);
+
+    atk = gtk_widget_get_accessible(win->priv->help_button);
+    atk_object_set_name(atk, HELP_BUTTON_LABEL);
+
+    /* Hook up some signals for that button.  The signal handlers here will
+     * just raise our own custom signals for the whole window.
+     */
+    g_signal_connect(win->priv->help_button, "clicked",
+                     G_CALLBACK(anaconda_base_window_help_button_clicked), win);
+
     /* Add everything to the nav area. */
     gtk_grid_attach(GTK_GRID(win->priv->nav_area), win->priv->name_label, 0, 0, 1, 1);
     gtk_grid_attach(GTK_GRID(win->priv->nav_area), win->priv->distro_label, 1, 0, 1, 1);
     gtk_grid_attach(GTK_GRID(win->priv->nav_area), win->priv->beta_label, 1, 1, 1, 1);
     gtk_grid_attach(GTK_GRID(win->priv->nav_area), win->priv->layout_indicator, 1, 2, 1, 1);
+    gtk_grid_attach(GTK_GRID(win->priv->nav_area), win->priv->help_button, 2, 1, 1, 2);
 }
 
 static void anaconda_base_window_get_property(GObject *object, guint prop_id, GValue *value, GParamSpec *pspec) {
@@ -583,6 +626,11 @@ void anaconda_base_window_set_warning(AnacondaBaseWindow *win, const char *msg) 
 static gboolean anaconda_base_window_info_bar_clicked(GtkWidget *wiget, GdkEvent *event, AnacondaBaseWindow *win) {
     g_signal_emit(win, window_signals[SIGNAL_INFO_BAR_CLICKED], 0);
     return FALSE;
+}
+
+static void anaconda_base_window_help_button_clicked(GtkButton *button,
+                                                     AnacondaBaseWindow *win) {
+        g_signal_emit(win, window_signals[SIGNAL_HELP_BUTTON_CLICKED], 0);
 }
 
 /**

@@ -43,6 +43,9 @@ class RHELBaseInstallClass(BaseInstallClass):
 
     efi_dir = "redhat"
 
+    help_placeholder = "RHEL7Placeholder.html"
+    help_placeholder_with_links = "RHEL7PlaceholderWithLinks.html"
+
     def configure(self, anaconda):
         BaseInstallClass.configure(self, anaconda)
         BaseInstallClass.setDefaultPartitioning(self, anaconda.storage)
