@@ -24,7 +24,7 @@ from gi.repository import Pango
 from pyanaconda.flags import flags
 from pyanaconda.i18n import CN_
 from pyanaconda.ui.gui.spokes import NormalSpoke
-from pyanaconda.ui.gui.utils import escape_markup
+from pyanaconda.ui.gui.utils import escape_markup, override_cell_property
 from pyanaconda.ui.categories.localization import LocalizationCategory
 from pyanaconda.ui.gui.spokes.lib.lang_locale_handler import LangLocaleHandler
 from pyanaconda import localization
@@ -68,14 +68,14 @@ class LangsupportSpoke(LangLocaleHandler, NormalSpoke):
         # mark selected locales and languages with selected locales bold
         localeNativeColumn = self.builder.get_object("localeNativeName")
         localeNativeNameRenderer = self.builder.get_object("localeNativeNameRenderer")
-        localeNativeColumn.set_cell_data_func(localeNativeNameRenderer,
-                                              self._mark_selected_locale_bold)
+        override_cell_property(localeNativeColumn, localeNativeNameRenderer,
+                "weight", self._mark_selected_locale_bold)
 
         for col, rend in [("nativeName", "nativeNameRenderer"),
                           ("englishName", "englishNameRenderer")]:
             column = self.builder.get_object(col)
             renderer = self.builder.get_object(rend)
-            column.set_cell_data_func(renderer, self._mark_selected_language_bold)
+            override_cell_property(column, renderer, "weight", self._mark_selected_language_bold)
 
     def apply(self):
         # store only additional langsupport locales
@@ -125,16 +125,16 @@ class LangsupportSpoke(LangLocaleHandler, NormalSpoke):
 
     def _mark_selected_locale_bold(self, column, renderer, model, itr, user_data=None):
         if model[itr][2]:
-            renderer.set_property("weight", Pango.Weight.BOLD.real)
+            return Pango.Weight.BOLD.real
         else:
-            renderer.set_property("weight", Pango.Weight.NORMAL.real)
+            return Pango.Weight.NORMAL.real
 
     def _mark_selected_language_bold(self, column, renderer, model, itr, user_data=None):
         lang_locales = set(localization.get_language_locales(model[itr][2]))
         if not lang_locales.isdisjoint(self._selected_locales):
-            renderer.set_property("weight", Pango.Weight.BOLD.real)
+            return Pango.Weight.BOLD.real
         else:
-            renderer.set_property("weight", Pango.Weight.NORMAL.real)
+            return Pango.Weight.NORMAL.real
 
     # Signal handlers.
     def on_locale_toggled(self, renderer, path):

@@ -29,7 +29,7 @@ from pyanaconda.ui.common import FirstbootSpokeMixIn
 from pyanaconda.ui.gui import GUIObject
 from pyanaconda.ui.gui.spokes import NormalSpoke
 from pyanaconda.ui.categories.localization import LocalizationCategory
-from pyanaconda.ui.gui.utils import gtk_action_nowait, gtk_call_once
+from pyanaconda.ui.gui.utils import gtk_action_nowait, gtk_call_once, override_cell_property
 from pyanaconda.ui.gui.helpers import GUIDialogInputCheckHandler
 from pyanaconda.ui.helpers import InputCheck
 
@@ -151,18 +151,19 @@ class NTPconfigDialog(GUIObject, GUIDialogInputCheckHandler):
         value = model[itr][1]
 
         if value == SERVER_QUERY:
-            renderer.set_property("icon-name", "dialog-question")
+            return "dialog-question"
         elif value == SERVER_OK:
-            renderer.set_property("icon-name", "emblem-default")
+            return "emblem-default"
         else:
-            renderer.set_property("icon-name", "dialog-error")
+            return "dialog-error"
 
     def initialize(self):
         self.window.set_size_request(500, 400)
 
         workingColumn = self.builder.get_object("workingColumn")
         workingRenderer = self.builder.get_object("workingRenderer")
-        workingColumn.set_cell_data_func(workingRenderer, self._render_working)
+        override_cell_property(workingColumn, workingRenderer, "icon-name",
+                self._render_working)
 
         self._serverEntry = self.builder.get_object("serverEntry")
         self._serversStore = self.builder.get_object("serversStore")

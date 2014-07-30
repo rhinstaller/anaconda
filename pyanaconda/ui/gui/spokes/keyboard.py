@@ -26,6 +26,7 @@ from pyanaconda.ui.gui import GUIObject
 from pyanaconda.ui.gui.spokes import NormalSpoke
 from pyanaconda.ui.categories.localization import LocalizationCategory
 from pyanaconda.ui.gui.utils import gtk_call_once, escape_markup, gtk_batch_map, timed_action
+from pyanaconda.ui.gui.utils import override_cell_property
 from pyanaconda.ui.gui.xkl_wrapper import XklWrapper, XklWrapperError
 from pyanaconda import keyboard
 from pyanaconda import flags
@@ -49,14 +50,13 @@ LAYOUT_SWITCHING_INFO = N_("%s to switch layouts.")
 ADD_LAYOUTS_INITIALIZE_THREAD = "AnaAddLayoutsInitializeThread"
 
 def _show_layout(column, renderer, model, itr, wrapper):
-    value = wrapper.get_layout_variant_description(model[itr][0])
-    renderer.set_property("text", value)
+    return wrapper.get_layout_variant_description(model[itr][0])
 
 def _show_description(column, renderer, model, itr, wrapper):
     value = wrapper.get_switch_opt_description(model[itr][0])
     if model[itr][1]:
         value = "<b>%s</b>" % escape_markup(value)
-    renderer.set_property("markup", value)
+    return value
 
 class AddLayoutDialog(GUIObject):
     builderObjects = ["addLayoutDialog", "newLayoutStore",
@@ -109,8 +109,8 @@ class AddLayoutDialog(GUIObject):
         self._entry = self.builder.get_object("addLayoutEntry")
         layoutColumn = self.builder.get_object("newLayoutColumn")
         layoutRenderer = self.builder.get_object("newLayoutRenderer")
-        layoutColumn.set_cell_data_func(layoutRenderer, _show_layout,
-                                            self._xkl_wrapper)
+        override_cell_property(layoutColumn, layoutRenderer, "text", _show_layout,
+                               self._xkl_wrapper)
         self._treeModelFilter = self.builder.get_object("newLayoutStoreFilter")
         self._treeModelFilter.set_visible_func(self.matches_entry, None)
         self._treeModelSort = self.builder.get_object("newLayoutStoreSort")
@@ -193,7 +193,7 @@ class ConfigureSwitchingDialog(GUIObject):
         # we want to display "Alt + Shift" rather than "grp:alt_shift_toggle"
         descColumn = self.builder.get_object("descColumn")
         descRenderer = self.builder.get_object("descRenderer")
-        descColumn.set_cell_data_func(descRenderer, _show_description,
+        override_cell_property(descColumn, descRenderer, "markup", _show_description,
                                             self._xkl_wrapper)
 
         self._switchingOptsSort = self.builder.get_object("switchingOptsSort")
@@ -332,7 +332,7 @@ class KeyboardSpoke(NormalSpoke):
         # 'language (description)'.
         layoutColumn = self.builder.get_object("layoutColumn")
         layoutRenderer = self.builder.get_object("layoutRenderer")
-        layoutColumn.set_cell_data_func(layoutRenderer, _show_layout,
+        override_cell_property(layoutColumn, layoutRenderer, "text", _show_layout,
                                             self._xkl_wrapper)
 
         self._store = self.builder.get_object("addedLayoutStore")
