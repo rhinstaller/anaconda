@@ -193,3 +193,39 @@ def set_treeview_selection(treeview, item, col=0):
     treeview.scroll_to_cell(path, use_align=True, row_align=0.5)
 
     return itr
+
+# This will be populated by override_cell_property. Keys are tuples of (column, renderer).
+# Values are a dict of the form {property-name: (property-func, property-data)}.
+_override_cell_property_map = {}
+
+def override_cell_property(tree_column, cell_renderer, propname, property_func, data=None):
+    """
+    Override a single property of a cell renderer.
+
+    property_func takes the same arguments as GtkTreeCellDataFunc:
+    (TreeViewColumn, CellRenderer, TreeModel, TreeIter, data). Instead of being
+    expected to manipulate the CellRenderer itself, this method should instead
+    return the value to which the property should be set.
+
+    This method calls set_cell_data_func on the column and renderer.
+
+    :param GtkTreeViewColumn column: the column to override
+    :param GtkCellRenderer cell_renderer: the cell renderer to override
+    :param str propname: the property to set on the renderer
+    :param function property_func: a function that returns the value of the property to set
+    :param data: Optional data to pass to property_func
+    """
+
+    def _cell_data_func(tree_column, cell_renderer, tree_model, tree_iter, _data=None):
+        overrides = _override_cell_property_map[(tree_column, cell_renderer)]
+        for property_name in overrides:
+            property_func, property_func_data = overrides[property_name]
+            property_value = property_func(tree_column, cell_renderer,
+                    tree_model, tree_iter, property_func_data)
+            cell_renderer.set_property(property_name, property_value)
+
+    if (tree_column, cell_renderer) not in _override_cell_property_map:
+        _override_cell_property_map[(tree_column, cell_renderer)] = {}
+        tree_column.set_cell_data_func(cell_renderer, _cell_data_func)
+
+    _override_cell_property_map[(tree_column, cell_renderer)][propname] = (property_func, data)

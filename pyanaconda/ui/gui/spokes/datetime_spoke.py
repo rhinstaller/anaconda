@@ -31,6 +31,7 @@ from pyanaconda.ui.gui import GUIObject
 from pyanaconda.ui.gui.spokes import NormalSpoke
 from pyanaconda.ui.gui.categories.localization import LocalizationCategory
 from pyanaconda.ui.gui.utils import enlightbox, gtk_action_nowait, gtk_action_wait, gtk_call_once
+from pyanaconda.ui.gui.utils import override_cell_property
 
 from pyanaconda.i18n import _, N_
 from pyanaconda import timezone
@@ -153,18 +154,19 @@ class NTPconfigDialog(GUIObject):
         value = model[itr][1]
 
         if value == SERVER_QUERY:
-            renderer.set_property("stock-id", "gtk-dialog-question")
+            return "gtk-dialog-question"
         elif value == SERVER_OK:
-            renderer.set_property("stock-id", "gtk-yes")
+            return "gtk-yes"
         else:
-            renderer.set_property("stock-id", "gtk-no")
+            return "gtk-no"
 
     def initialize(self):
         self.window.set_size_request(500, 400)
 
         workingColumn = self.builder.get_object("workingColumn")
         workingRenderer = self.builder.get_object("workingRenderer")
-        workingColumn.set_cell_data_func(workingRenderer, self._render_working)
+        override_cell_property(workingColumn, workingRenderer, "icon-name",
+                self._render_working)
 
         self._serverEntry = self.builder.get_object("serverEntry")
         self._serversStore = self.builder.get_object("serversStore")

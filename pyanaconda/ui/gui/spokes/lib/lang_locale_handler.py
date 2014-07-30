@@ -27,7 +27,7 @@ screens handling languages or locales configuration.
 from gi.repository import Gtk, Pango
 from pyanaconda import localization
 from pyanaconda.iutil import strip_accents
-from pyanaconda.ui.gui.utils import set_treeview_selection
+from pyanaconda.ui.gui.utils import set_treeview_selection, override_cell_property
 
 class LangLocaleHandler(object):
     """
@@ -53,8 +53,8 @@ class LangLocaleHandler(object):
     def initialize(self):
         # Render a right arrow for the chosen language
         self._right_arrow = Gtk.Image.new_from_file("/usr/share/anaconda/pixmaps/right-arrow-icon.png")
-        self._langSelectedColumn.set_cell_data_func(self._langSelectedRenderer,
-                                                    self._render_lang_selected)
+        override_cell_property(self._langSelectedColumn, self._langSelectedRenderer,
+                               "pixbuf", self._render_lang_selected)
 
         # fill the list with available translations
         for lang in localization.get_available_translations():
@@ -91,9 +91,9 @@ class LangLocaleHandler(object):
         (lang_store, sel_itr) = self._langSelection.get_selected()
 
         if sel_itr and lang_store[sel_itr][2] == model[itr][2]:
-            renderer.set_property("pixbuf", self._right_arrow.get_pixbuf())
+            return self._right_arrow.get_pixbuf()
         else:
-            renderer.set_property("pixbuf", None)
+            return None
 
     def _add_language(self, store, native, english, lang):
         """Override this method with a valid implementation"""
