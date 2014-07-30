@@ -20,7 +20,7 @@
 #                    Vratislav Podzimek <vpodzime@redhat.com>
 #
 
-from gi.repository import Pango
+from gi.repository import Pango, Gdk
 from pyanaconda.flags import flags
 from pyanaconda.i18n import CN_
 from pyanaconda.ui.gui.spokes import NormalSpoke
@@ -35,6 +35,11 @@ import logging
 log = logging.getLogger("anaconda")
 
 __all__ = ["LangsupportSpoke"]
+
+# #fdfbc0
+# Sure would be nice if gdk_rgba_parse returned a new object instead of
+# modifying an existing one.
+_HIGHLIGHT_COLOR = Gdk.RGBA(red=0.992157, green=0.984314, blue=0.752941, alpha=1.0)
 
 class LangsupportSpoke(LangLocaleHandler, NormalSpoke):
     builderObjects = ["languageStore", "languageStoreFilter", "localeStore", "langsupportWindow"]
@@ -76,6 +81,19 @@ class LangsupportSpoke(LangLocaleHandler, NormalSpoke):
             column = self.builder.get_object(col)
             renderer = self.builder.get_object(rend)
             override_cell_property(column, renderer, "weight", self._mark_selected_language_bold)
+
+        # If a language has selected locales, highlight every column so that
+        # the row appears highlighted
+        for col in self._langView.get_columns():
+            for rend in col.get_cells():
+                override_cell_property(col, rend, "cell-background-rgba",
+                        self._highlight_selected_language)
+
+        # and also set an icon so that we don't depend on a color to convey information
+        highlightedColumn = self.builder.get_object("highlighted")
+        highlightedRenderer = self.builder.get_object("highlightedRenderer")
+        override_cell_property(highlightedColumn, highlightedRenderer,
+                "icon-name", self._render_lang_highlighted)
 
     def apply(self):
         # store only additional langsupport locales
@@ -129,12 +147,27 @@ class LangsupportSpoke(LangLocaleHandler, NormalSpoke):
         else:
             return Pango.Weight.NORMAL.real
 
+    def _is_lang_selected(self, lang):
+        lang_locales = set(localization.get_language_locales(lang))
+        return not lang_locales.isdisjoint(self._selected_locales)
+
     def _mark_selected_language_bold(self, column, renderer, model, itr, user_data=None):
-        lang_locales = set(localization.get_language_locales(model[itr][2]))
-        if not lang_locales.isdisjoint(self._selected_locales):
+        if self._is_lang_selected(model[itr][2]):
             return Pango.Weight.BOLD.real
         else:
             return Pango.Weight.NORMAL.real
+
+    def _highlight_selected_language(self, column, renderer, model, itr, user_data=None):
+        if self._is_lang_selected(model[itr][2]):
+            return _HIGHLIGHT_COLOR
+        else:
+            return None
+
+    def _render_lang_highlighted(self, column, renderer, model, itr, user_data=None):
+        if self._is_lang_selected(model[itr][2]):
+            return "emblem-ok-symbolic"
+        else:
+            return None
 
     # Signal handlers.
     def on_locale_toggled(self, renderer, path):

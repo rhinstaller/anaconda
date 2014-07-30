@@ -126,6 +126,14 @@
                               </object>
                             </child>
                             <child>
+                              <object class="GtkTreeViewColumn" id="highlighted">
+                                <property name="title">highlighted</property>
+                                <child>
+                                  <object class="GtkCellRendererPixbuf" id="highlightedRenderer"/>
+                                </child>
+                              </object>
+                            </child>
+                            <child>
                               <object class="GtkTreeViewColumn" id="nativeName">
                                 <property name="title" translatable="yes">nativeName</property>
                                 <property name="expand">True</property>
