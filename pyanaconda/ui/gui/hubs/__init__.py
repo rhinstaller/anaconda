@@ -396,11 +396,13 @@ class Hub(GUIObject, common.Hub):
 
     ### SIGNAL HANDLERS
 
-    def register_event_cb(self, event, cb):
+    def register_event_cb(self, event, cb, *args):
         if event == "continue" and self.continueButton:
             self.continueButton.connect("clicked", lambda *args: cb())
         elif event == "quit" and self.quitButton:
             self.quitButton.connect("clicked", lambda *args: cb())
+        elif event == "help-button":
+            self.window.connect("help-button-clicked", cb, *args)
 
     def _on_spoke_clicked(self, selector, event, spoke):
         from gi.repository import Gdk

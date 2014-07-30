@@ -23,6 +23,7 @@ from pyanaconda.ui import common
 from pyanaconda.ui.common import collect
 from pyanaconda.ui.gui import GUIObject
 import os.path
+from pyanaconda import ihelp
 
 __all__ = ["StandaloneSpoke", "NormalSpoke", "PersonalizationSpoke",
            "collect_spokes"]
@@ -73,11 +74,13 @@ class StandaloneSpoke(Spoke, common.StandaloneSpoke):
         self.apply()
         cb()
 
-    def register_event_cb(self, event, cb):
+    def register_event_cb(self, event, cb, *args):
         if event == "continue":
             self.window.connect("continue-clicked", lambda *args: self._on_continue_clicked(cb))
         elif event == "quit":
             self.window.connect("quit-clicked", lambda *args: cb())
+        elif event == "help-button":
+            self.window.connect("help-button-clicked", cb, *args)
 
 # Inherit abstract methods from common.NormalSpoke
 # pylint: disable-msg=W0223
@@ -85,6 +88,14 @@ class NormalSpoke(Spoke, common.NormalSpoke):
     def __init__(self, data, storage, payload, instclass):
         Spoke.__init__(self, data)
         common.NormalSpoke.__init__(self, data, storage, payload, instclass)
+
+        # Add a help handler
+        self.window.connect_after("help-button-clicked", self._on_help_clicked)
+
+    def _on_help_clicked(self, window):
+        # the help button has been clicked, start the yelp viewer with
+        # content for the current spoke
+        ihelp.start_yelp(ihelp.get_help_path(self.helpFile, self.instclass))
 
     def on_back_clicked(self, window):
         from gi.repository import Gtk

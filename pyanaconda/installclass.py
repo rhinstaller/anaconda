@@ -63,6 +63,12 @@ class BaseInstallClass(object):
     # don't select this class by default
     default = 0
 
+    # help
+    help_folder = "/usr/share/doc/anaconda"
+    help_main_page = "Installation_Guide.xml"
+    help_placeholder = None
+    help_placeholder_with_links = None
+
     @property
     def l10n_domain(self):
         if self._l10n_domain is None:

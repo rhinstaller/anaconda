@@ -29,6 +29,7 @@ from pyanaconda import product, iutil
 
 from pyanaconda.ui import UserInterface, common
 from pyanaconda.ui.gui.utils import enlightbox, gtk_action_wait, busyCursor, unbusyCursor
+from pyanaconda import ihelp
 import os.path
 
 import logging
@@ -78,10 +79,15 @@ class GUIObject(common.UIObject):
                            that use GUI elements (Hubs & Spokes) from Anaconda
                            can override the translation domain with their own,
                            so that their subclasses are properly translated.
+       helpFile         -- The location of the yelp-compatible help file for the
+                           given GUI object. The default value of "" indicates
+                           that the object has not specific help file assigned
+                           and the default help file should be used.
     """
     builderObjects = []
     mainWidgetName = None
     uiFile = ""
+    helpFile = None
     translationDomain = "anaconda"
 
     screenshots_directory = "/tmp/anaconda-screenshots"
@@ -351,6 +357,7 @@ class GraphicalUserInterface(UserInterface):
 
         obj.register_event_cb("continue", self._on_continue_clicked)
         obj.register_event_cb("quit", self._on_quit_clicked)
+        obj.register_event_cb("help-button", self._on_help_clicked, obj)
 
         return obj
 
@@ -501,6 +508,11 @@ class GraphicalUserInterface(UserInterface):
         self._currentAction.window.hide()
         self._currentAction = nextAction
         self._actions.pop(0)
+
+    def _on_help_clicked(self, window, obj):
+        # the help button has been clicked, start the yelp viewer with
+        # content for the current screen
+        ihelp.start_yelp(ihelp.get_help_path(obj.helpFile, self.instclass))
 
     def _on_quit_clicked(self):
         dialog = self._quitDialog(None)

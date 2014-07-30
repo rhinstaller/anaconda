@@ -20,8 +20,8 @@
 #
 
 AC_PREREQ([2.63])
-AC_INIT([AnacondaWidgets], [1.0], [clumens@redhat.com])
-AM_INIT_AUTOMAKE(AnacondaWidgets, 1.0)
+AC_INIT([AnacondaWidgets], [1.1], [clumens@redhat.com])
+AM_INIT_AUTOMAKE(AnacondaWidgets, 1.1)
 AM_SILENT_RULES([yes])
 
 AM_PATH_PYTHON
