@@ -82,7 +82,7 @@ static PyObject * doSetSystemTime(PyObject *s, PyObject  *args) {
         return NULL;
 
     if (settimeofday(&tv, NULL) != 0)
-        PyErr_SetFromErrno(PyExc_SystemError);
+        return PyErr_SetFromErrno(PyExc_SystemError);
 
     Py_INCREF(Py_None);
     return Py_None;
