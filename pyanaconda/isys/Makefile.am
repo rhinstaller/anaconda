@@ -33,7 +33,7 @@ _isys_la_SOURCES      = isys.c
 auditddir             = $(libexecdir)/$(PACKAGE_NAME)
 auditd_PROGRAMS       = auditd
 auditd_SOURCES        = auditd.c
-auditd_CFLAGS         = -DSTANDALONE $(SELINUX_CFLAGS)
+auditd_CFLAGS         = $(SELINUX_CFLAGS)
 auditd_LDFLAGS        = -laudit
 
 MAINTAINERCLEANFILES = Makefile.in

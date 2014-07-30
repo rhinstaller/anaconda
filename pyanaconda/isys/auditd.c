@@ -107,14 +107,6 @@ int audit_daemonize(void) {
     if (child < 0)
         return -1;
 
-#ifndef STANDALONE 
-    for (fd = 0; fd < getdtablesize(); fd++)
-        close(fd);
-    signal(SIGTTOU, SIG_IGN);
-    signal(SIGTTIN, SIG_IGN);
-    signal(SIGTSTP, SIG_IGN);
-#endif /* !defined(STANDALONE) */
-
     if ((fd = open("/proc/self/oom_score_adj", O_RDWR)) >= 0) {
         write(fd, "-1000", 5);
         close(fd);
@@ -123,14 +115,9 @@ int audit_daemonize(void) {
     do_auditd(fd);
     audit_close(fd);
 
-#ifndef STANDALONE
-    exit(0);
-#endif /* !defined(STANDALONE) */
-
     return 0;
 }
 
-#ifdef STANDALONE
 int main(void) {
     if (audit_daemonize() < 0)
     {
@@ -140,7 +127,6 @@ int main(void) {
 
     return 0;
 }
-#endif /* STANDALONE */
 
 /*
  * vim:ts=8:sw=4:sts=4:et
