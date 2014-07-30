@@ -34,6 +34,9 @@ class FedoraBaseInstallClass(BaseInstallClass):
 
     efi_dir = "fedora"
 
+    help_placeholder = "FedoraPlaceholder.html"
+    help_placeholder_with_links = "FedoraPlaceholderWithLinks.html"
+
     def configure(self, anaconda):
         BaseInstallClass.configure(self, anaconda)
         BaseInstallClass.setDefaultPartitioning(self, anaconda.storage)

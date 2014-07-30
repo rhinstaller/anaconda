@@ -21,6 +21,7 @@
 
 from pyanaconda.ui import common
 from pyanaconda.ui.gui import GUIObject
+from pyanaconda import ihelp
 
 __all__ = ["StandaloneSpoke", "NormalSpoke"]
 
@@ -43,6 +44,14 @@ class NormalSpoke(GUIObject, common.NormalSpoke):
     def __init__(self, data, storage, payload, instclass):
         GUIObject.__init__(self, data)
         common.NormalSpoke.__init__(self, storage, payload, instclass)
+
+        # Add a help handler
+        self.window.connect_after("help-button-clicked", self._on_help_clicked)
+
+    def _on_help_clicked(self, window):
+        # the help button has been clicked, start the yelp viewer with
+        # content for the current spoke
+        ihelp.start_yelp(ihelp.get_help_path(self.helpFile, self.instclass))
 
     def on_back_clicked(self, window):
         # Notify the hub that we're finished.
