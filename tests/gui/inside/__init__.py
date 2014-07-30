@@ -17,12 +17,10 @@
 #
 # Author: Chris Lumens <clumens@redhat.com>
 from dogtail.config import config
-from dogtail.predicate import GenericPredicate
 from dogtail.tree import SearchError, root
 from dogtail.utils import doDelay, screenshot
 
 import glob
-import os
 import unittest
 
 class UITestCase(unittest.TestCase):

@@ -26,7 +26,6 @@ import os
 import shutil
 import subprocess
 import tempfile
-import unittest
 
 class Creator(object):
     """A Creator subclass defines all the parameters for making a VM to run a

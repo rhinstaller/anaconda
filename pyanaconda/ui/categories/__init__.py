@@ -19,7 +19,6 @@
 # Red Hat Author(s): Chris Lumens <clumens@redhat.com>
 #
 
-import os.path
 from pyanaconda.i18n import N_
 
 __all__ = ["SpokeCategory"]

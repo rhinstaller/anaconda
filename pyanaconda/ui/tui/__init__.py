@@ -149,7 +149,6 @@ class TextUserInterface(ui.UserInterface):
         _hubs = self._list_hubs()
 
         # First, grab a list of all the standalone spokes.
-        path = os.path.join(os.path.dirname(__file__), "spokes")
         spokes = self._collectActionClasses(self.paths["spokes"], StandaloneSpoke)
         actionClasses = self._orderActionClasses(spokes, _hubs)
 

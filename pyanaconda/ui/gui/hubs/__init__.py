@@ -19,8 +19,6 @@
 # Red Hat Author(s): Chris Lumens <clumens@redhat.com>
 #
 
-import os
-
 from gi.repository import GLib
 
 from pyanaconda.flags import flags
@@ -29,9 +27,7 @@ from pyanaconda.product import distributionText
 
 from pyanaconda.ui import common
 from pyanaconda.ui.gui import GUIObject
-from pyanaconda.ui.gui.spokes import StandaloneSpoke
 from pyanaconda.ui.gui.utils import gtk_call_once, escape_markup
-from pyanaconda.constants import ANACONDA_ENVIRON
 
 import logging
 log = logging.getLogger("anaconda")

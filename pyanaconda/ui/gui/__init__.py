@@ -613,7 +613,7 @@ class GraphicalUserInterface(UserInterface):
 
         with self.mainWindow.enlightbox(dlg.window):
             dlg.refresh(details)
-            rc = dlg.run()
+            dlg.run()
             dlg.window.destroy()
 
     @gtk_action_wait

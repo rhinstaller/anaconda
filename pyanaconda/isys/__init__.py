@@ -29,16 +29,7 @@ except ImportError:
     # up PYTHONPATH and just do this basic import.
     import _isys
 
-import os
-import os.path
-import socket
-import stat
-import sys
-from pyanaconda import iutil
 import blivet.arch
-import re
-import struct
-import dbus
 import time
 import datetime
 
