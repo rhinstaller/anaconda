@@ -314,7 +314,25 @@ def sanity_check(storage, min_ram=isys.MIN_RAM):
         if e:
             exns.append(SanityError(e))
 
-    exns += storage._verifyLUKSDevicesHaveKey()
+    exns += verify_LUKS_devices_have_key(storage)
 
     return exns
 
+
+def verify_LUKS_devices_have_key(storage):
+    """
+    Verify that all non-existant LUKS devices have some way of obtaining
+    a key.
+
+    Note: LUKS device creation will fail without a key.
+
+    :rtype: generator of str
+    :returns: a generator of error messages, may yield no error messages
+
+    """
+
+    for dev in (d for d in storage.devices if \
+       d.format.type == "luks" and \
+       not d.format.exists and \
+       not d.format.hasKey):
+        yield LUKSDeviceWithoutKeyError(_("LUKS device %s has no encryption key") % (dev.name,))
