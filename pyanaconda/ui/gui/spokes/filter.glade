@@ -497,7 +497,7 @@
                                 </child>
                                 <child>
                                   <object class="GtkButton" id="searchFindButton">
-                                    <property name="label">gtk-find</property>
+                                    <property name="label" translatable="yes">_Find</property>
                                     <property name="visible">True</property>
                                     <property name="can_focus">True</property>
                                     <property name="receives_default">True</property>
@@ -521,7 +521,7 @@
                       <object class="GtkLabel" id="searchLabel">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
-                        <property name="label" translatable="yes">_Search</property>
+                        <property name="label" translatable="yes">Searc_h</property>
                         <property name="use_underline">True</property>
                       </object>
                       <packing>
@@ -551,7 +551,7 @@
                                     <property name="visible">True</property>
                                     <property name="can_focus">False</property>
                                     <property name="xalign">0</property>
-                                    <property name="label" translatable="yes">_Filter By:</property>
+                                    <property name="label" translatable="yes">Filter _By:</property>
                                     <property name="use_underline">True</property>
                                     <property name="mnemonic_widget">multipathTypeCombo</property>
                                   </object>
@@ -609,7 +609,7 @@
                                           <object class="GtkLabel" id="label7">
                                             <property name="visible">True</property>
                                             <property name="can_focus">False</property>
-                                            <property name="label" translatable="yes">_Show Only Devices From:</property>
+                                            <property name="label" translatable="yes">Show Only _Devices From:</property>
                                             <property name="use_underline">True</property>
                                             <property name="mnemonic_widget">multipathVendorCombo</property>
                                           </object>
@@ -649,7 +649,7 @@
                                           <object class="GtkLabel" id="label16">
                                             <property name="visible">True</property>
                                             <property name="can_focus">False</property>
-                                            <property name="label" translatable="yes">_Show Only Devices With:</property>
+                                            <property name="label" translatable="yes">Show Only _Devices With:</property>
                                             <property name="use_underline">True</property>
                                             <property name="mnemonic_widget">multipathInterconnectCombo</property>
                                           </object>
@@ -689,7 +689,7 @@
                                           <object class="GtkLabel" id="label17">
                                             <property name="visible">True</property>
                                             <property name="can_focus">False</property>
-                                            <property name="label" translatable="yes">_Show Only Devices Containing:</property>
+                                            <property name="label" translatable="yes">Show Only _Devices Containing:</property>
                                             <property name="use_underline">True</property>
                                             <property name="mnemonic_widget">multipathWWIDEntry</property>
                                           </object>
@@ -838,7 +838,7 @@
                                 </child>
                                 <child>
                                   <object class="GtkButton" id="multipathFindButton">
-                                    <property name="label">gtk-find</property>
+                                    <property name="label" translatable="yes">_Find</property>
                                     <property name="visible">True</property>
                                     <property name="can_focus">True</property>
                                     <property name="receives_default">True</property>
@@ -1024,7 +1024,7 @@
                                 </child>
                                 <child>
                                   <object class="GtkButton" id="otherFindButton">
-                                    <property name="label">gtk-find</property>
+                                    <property name="label" translatable="yes">_Find</property>
                                     <property name="visible">True</property>
                                     <property name="can_focus">True</property>
                                     <property name="receives_default">True</property>
@@ -1064,7 +1064,7 @@
                                           <object class="GtkLabel" id="label12">
                                             <property name="visible">True</property>
                                             <property name="can_focus">False</property>
-                                            <property name="label" translatable="yes">_Show Only Devices From:</property>
+                                            <property name="label" translatable="yes">Show Only _Devices From:</property>
                                             <property name="use_underline">True</property>
                                             <property name="mnemonic_widget">otherVendorCombo</property>
                                           </object>
@@ -1104,7 +1104,7 @@
                                           <object class="GtkLabel" id="label20">
                                             <property name="visible">True</property>
                                             <property name="can_focus">False</property>
-                                            <property name="label" translatable="yes">_Show Only Devices With:</property>
+                                            <property name="label" translatable="yes">Show Only _Devices With:</property>
                                             <property name="use_underline">True</property>
                                             <property name="mnemonic_widget">otherInterconnectCombo</property>
                                           </object>
@@ -1144,7 +1144,7 @@
                                           <object class="GtkLabel" id="label21">
                                             <property name="visible">True</property>
                                             <property name="can_focus">False</property>
-                                            <property name="label" translatable="yes">_Show Only Devices Containing:</property>
+                                            <property name="label" translatable="yes">Show Only _Devices Containing:</property>
                                             <property name="use_underline">True</property>
                                             <property name="mnemonic_widget">otherIDEntry</property>
                                           </object>
@@ -1252,7 +1252,7 @@
                                     <property name="visible">True</property>
                                     <property name="can_focus">False</property>
                                     <property name="xalign">0</property>
-                                    <property name="label" translatable="yes">_Filter By:</property>
+                                    <property name="label" translatable="yes">Filter _By:</property>
                                     <property name="use_underline">True</property>
                                   </object>
                                   <packing>
@@ -1602,7 +1602,7 @@
                       <object class="GtkLabel" id="zLabel">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
-                        <property name="label" translatable="yes">_System z Devices</property>
+                        <property name="label" translatable="yes">System _z Devices</property>
                         <property name="use_underline">True</property>
                       </object>
                       <packing>
@@ -1625,7 +1625,7 @@
                     <property name="layout_style">end</property>
                     <child>
                       <object class="GtkButton" id="addZFCPButton">
-                        <property name="label" translatable="yes">Add _ZFCP LUN...</property>
+                        <property name="label" translatable="yes">_Add ZFCP LUN...</property>
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
                         <property name="receives_default">True</property>
@@ -1677,7 +1677,6 @@
                 </child>
                 <child>
                   <object class="GtkButton" id="summary_button">
-                    <property name="label" translatable="yes">summary</property>
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
                     <property name="receives_default">True</property>
@@ -1687,6 +1686,18 @@
                     <property name="focus_on_click">False</property>
                     <property name="xalign">0</property>
                     <signal name="clicked" handler="on_summary_clicked" swapped="no"/>
+                    <child>
+                      <object class="GtkLabel" id="summary_button_label">
+                        <property name="visible">True</property>
+                        <property name="can_focus">False</property>
+                        <property name="label" translatable="yes">%d _storage devices selected</property>
+                        <property name="use_underline">True</property>
+                        <attributes>
+                          <attribute name="underline" value="True"/>
+                          <attribute name="foreground" value="#00000000ffff"/>
+                        </attributes>
+                      </object>
+                    </child>
                   </object>
                   <packing>
                     <property name="expand">False</property>

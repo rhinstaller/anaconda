@@ -82,7 +82,7 @@
             <property name="layout_style">end</property>
             <child>
               <object class="GtkButton" id="cancelButton">
-                <property name="label">gtk-no</property>
+                <property name="label" translatable="yes">_No</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
@@ -97,7 +97,7 @@
             </child>
             <child>
               <object class="GtkButton" id="quitButton">
-                <property name="label">gtk-yes</property>
+                <property name="label" translatable="yes">_Yes</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>

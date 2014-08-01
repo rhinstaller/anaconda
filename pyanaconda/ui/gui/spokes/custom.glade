@@ -67,10 +67,12 @@
                 <property name="can_focus">False</property>
                 <property name="margin_top">6</property>
                 <property name="xalign">1</property>
-                <property name="label" translatable="yes">&lt;b&gt;_Desired Capacity:&lt;/b&gt;</property>
-                <property name="use_markup">True</property>
+                <property name="label" translatable="yes">_Desired Capacity:</property>
                 <property name="use_underline">True</property>
                 <property name="mnemonic_widget">addSizeEntry</property>
+                <attributes>
+                  <attribute name="weight" value="bold"/>
+                </attributes>
               </object>
               <packing>
                 <property name="left_attach">0</property>
@@ -84,10 +86,12 @@
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
                 <property name="xalign">0</property>
-                <property name="label" translatable="yes">&lt;b&gt;Mount _Point:&lt;/b&gt;</property>
-                <property name="use_markup">True</property>
+                <property name="label" translatable="yes">Mount _Point:</property>
                 <property name="use_underline">True</property>
                 <property name="mnemonic_widget">addMountPointEntry</property>
+                <attributes>
+                  <attribute name="weight" value="bold"/>
+                </attributes>
               </object>
               <packing>
                 <property name="left_attach">0</property>
@@ -417,7 +421,7 @@ use.  Try something else?</property>
                 <property name="can_focus">False</property>
                 <property name="spacing">6</property>
                 <child>
-                  <object class="GtkLabel" id="nameLabel">
+                  <object class="GtkLabel" id="containerNameLabel">
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
                     <property name="label" translatable="yes">_Name:</property>
@@ -459,71 +463,65 @@ use.  Try something else?</property>
                 <property name="vexpand">True</property>
                 <property name="shadow_type">in</property>
                 <child>
-                  <object class="GtkViewport" id="viewport2">
+                  <object class="GtkTreeView" id="container_disk_view">
                     <property name="visible">True</property>
-                    <property name="can_focus">False</property>
+                    <property name="can_focus">True</property>
+                    <property name="model">disk_store</property>
+                    <property name="search_column">0</property>
+                    <child internal-child="selection">
+                      <object class="GtkTreeSelection" id="treeview-selection3">
+                        <property name="mode">multiple</property>
+                      </object>
+                    </child>
                     <child>
-                      <object class="GtkTreeView" id="container_disk_view">
-                        <property name="visible">True</property>
-                        <property name="can_focus">True</property>
-                        <property name="model">disk_store</property>
-                        <property name="search_column">0</property>
-                        <child internal-child="selection">
-                          <object class="GtkTreeSelection" id="treeview-selection3">
-                            <property name="mode">multiple</property>
-                          </object>
-                        </child>
+                      <object class="GtkTreeViewColumn" id="disk_column1">
+                        <property name="spacing">6</property>
+                        <property name="title" translatable="yes">Disk</property>
+                        <property name="clickable">True</property>
                         <child>
-                          <object class="GtkTreeViewColumn" id="disk_column1">
-                            <property name="spacing">6</property>
-                            <property name="title" translatable="yes">Disk</property>
-                            <property name="clickable">True</property>
-                            <child>
-                              <object class="GtkCellRendererText" id="disk_renderer1"/>
-                              <attributes>
-                                <attribute name="text">0</attribute>
-                              </attributes>
-                            </child>
-                          </object>
+                          <object class="GtkCellRendererText" id="disk_renderer1"/>
+                          <attributes>
+                            <attribute name="text">0</attribute>
+                          </attributes>
                         </child>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkTreeViewColumn" id="capacity_column1">
+                        <property name="spacing">6</property>
+                        <property name="title" translatable="yes">Capacity</property>
+                        <property name="clickable">True</property>
                         <child>
-                          <object class="GtkTreeViewColumn" id="capacity_column1">
-                            <property name="spacing">6</property>
-                            <property name="title" translatable="yes">Capacity</property>
-                            <property name="clickable">True</property>
-                            <child>
-                              <object class="GtkCellRendererText" id="capacity_renderer1"/>
-                              <attributes>
-                                <attribute name="text">1</attribute>
-                              </attributes>
-                            </child>
-                          </object>
+                          <object class="GtkCellRendererText" id="capacity_renderer1"/>
+                          <attributes>
+                            <attribute name="text">1</attribute>
+                          </attributes>
                         </child>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkTreeViewColumn" id="free_column1">
+                        <property name="spacing">6</property>
+                        <property name="title" translatable="yes">Free</property>
+                        <property name="clickable">True</property>
                         <child>
-                          <object class="GtkTreeViewColumn" id="free_column1">
-                            <property name="spacing">6</property>
-                            <property name="title" translatable="yes">Free</property>
-                            <property name="clickable">True</property>
-                            <child>
-                              <object class="GtkCellRendererText" id="free_renderer1"/>
-                              <attributes>
-                                <attribute name="text">2</attribute>
-                              </attributes>
-                            </child>
-                          </object>
+                          <object class="GtkCellRendererText" id="free_renderer1"/>
+                          <attributes>
+                            <attribute name="text">2</attribute>
+                          </attributes>
                         </child>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkTreeViewColumn" id="id_column1">
+                        <property name="spacing">6</property>
+                        <property name="title" translatable="yes">ID</property>
+                        <property name="clickable">True</property>
                         <child>
-                          <object class="GtkTreeViewColumn" id="id_column1">
-                            <property name="spacing">6</property>
-                            <property name="title" translatable="yes">ID</property>
-                            <property name="clickable">True</property>
-                            <child>
-                              <object class="GtkCellRendererText" id="id_renderer1"/>
-                              <attributes>
-                                <attribute name="text">3</attribute>
-                              </attributes>
-                            </child>
-                          </object>
+                          <object class="GtkCellRendererText" id="id_renderer1"/>
+                          <attributes>
+                            <attribute name="text">3</attribute>
+                          </attributes>
                         </child>
                       </object>
                     </child>
@@ -645,7 +643,7 @@ use.  Try something else?</property>
                   <object class="GtkLabel" id="containerSizeLabel">
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
-                    <property name="label" translatable="yes">_Size policy:</property>
+                    <property name="label" translatable="yes">Si_ze policy:</property>
                     <property name="use_underline">True</property>
                     <property name="mnemonic_widget">containerSizeCombo</property>
                   </object>
@@ -879,10 +877,12 @@ use.  Try something else?</property>
                                     <property name="visible">True</property>
                                     <property name="can_focus">False</property>
                                     <property name="xalign">0</property>
-                                    <property name="label" translatable="yes">&lt;b&gt;Mount _Point:&lt;/b&gt;</property>
-                                    <property name="use_markup">True</property>
+                                    <property name="label" translatable="yes">Mount _Point:</property>
                                     <property name="use_underline">True</property>
                                     <property name="mnemonic_widget">mountPointEntry</property>
+                                    <attributes>
+                                      <attribute name="weight" value="bold"/>
+                                    </attributes>
                                   </object>
                                   <packing>
                                     <property name="left_attach">0</property>
@@ -912,10 +912,12 @@ use.  Try something else?</property>
                                     <property name="visible">True</property>
                                     <property name="can_focus">False</property>
                                     <property name="xalign">0</property>
-                                    <property name="label" translatable="yes">&lt;b&gt;_Label:&lt;/b&gt;</property>
-                                    <property name="use_markup">True</property>
+                                    <property name="label" translatable="yes">_Label:</property>
                                     <property name="use_underline">True</property>
                                     <property name="mnemonic_widget">labelEntry</property>
+                                    <attributes>
+                                      <attribute name="weight" value="bold"/>
+                                    </attributes>
                                   </object>
                                   <packing>
                                     <property name="left_attach">0</property>
@@ -978,10 +980,12 @@ use.  Try something else?</property>
                                     <property name="can_focus">False</property>
                                     <property name="halign">end</property>
                                     <property name="xalign">0</property>
-                                    <property name="label" translatable="yes">&lt;b&gt;_Desired Capacity:&lt;/b&gt;</property>
-                                    <property name="use_markup">True</property>
+                                    <property name="label" translatable="yes">_Desired Capacity:</property>
                                     <property name="use_underline">True</property>
                                     <property name="mnemonic_widget">sizeEntry</property>
+                                    <attributes>
+                                      <attribute name="weight" value="bold"/>
+                                    </attributes>
                                   </object>
                                   <packing>
                                     <property name="left_attach">0</property>
@@ -1017,10 +1021,12 @@ use.  Try something else?</property>
                                         <property name="visible">True</property>
                                         <property name="can_focus">False</property>
                                         <property name="xalign">0</property>
-                                        <property name="label" translatable="yes">&lt;b&gt;Device _Type:&lt;/b&gt;</property>
-                                        <property name="use_markup">True</property>
+                                        <property name="label" translatable="yes">Device _Type:</property>
                                         <property name="use_underline">True</property>
                                         <property name="mnemonic_widget">deviceTypeCombo</property>
+                                        <attributes>
+                                          <attribute name="weight" value="bold"/>
+                                        </attributes>
                                       </object>
                                       <packing>
                                         <property name="left_attach">0</property>
@@ -1034,10 +1040,12 @@ use.  Try something else?</property>
                                         <property name="visible">True</property>
                                         <property name="can_focus">False</property>
                                         <property name="xalign">0</property>
-                                        <property name="label" translatable="yes">&lt;b&gt;File _System:&lt;/b&gt;</property>
-                                        <property name="use_markup">True</property>
+                                        <property name="label" translatable="yes">File S_ystem:</property>
                                         <property name="use_underline">True</property>
                                         <property name="mnemonic_widget">fileSystemTypeCombo</property>
+                                        <attributes>
+                                          <attribute name="weight" value="bold"/>
+                                        </attributes>
                                       </object>
                                       <packing>
                                         <property name="left_attach">0</property>
@@ -1108,7 +1116,7 @@ use.  Try something else?</property>
                                     </child>
                                     <child>
                                       <object class="GtkCheckButton" id="reformatCheckbox">
-                                        <property name="label" translatable="yes">Refor_mat</property>
+                                        <property name="label" translatable="yes">Ref_ormat</property>
                                         <property name="visible">True</property>
                                         <property name="can_focus">True</property>
                                         <property name="receives_default">False</property>
@@ -1130,7 +1138,7 @@ use.  Try something else?</property>
                                         <property name="visible">True</property>
                                         <property name="can_focus">False</property>
                                         <property name="xalign">0</property>
-                                        <property name="label" translatable="yes">_Volume Group:</property>
+                                        <property name="label" translatable="yes">Volume _Group:</property>
                                         <property name="use_underline">True</property>
                                         <property name="mnemonic_widget">containerCombo</property>
                                         <attributes>
@@ -1165,7 +1173,7 @@ use.  Try something else?</property>
                                         <property name="visible">True</property>
                                         <property name="can_focus">False</property>
                                         <property name="xalign">0</property>
-                                        <property name="label" translatable="yes">_RAID Level:</property>
+                                        <property name="label" translatable="yes">RA_ID Level:</property>
                                         <property name="use_underline">True</property>
                                         <property name="mnemonic_widget">raidLevelCombo</property>
                                         <attributes>
@@ -1637,7 +1645,7 @@ until you click on the main menu's 'Begin Installation' button.</property>
                             <property name="visible">True</property>
                             <property name="can_focus">False</property>
                             <property name="tooltip_text" translatable="yes">Add a new mountpoint.</property>
-                            <property name="label" translatable="yes">addButton</property>
+                            <property name="label" translatable="yes">_Add</property>
                             <property name="use_underline">True</property>
                             <property name="icon_name">list-add-symbolic</property>
                             <signal name="clicked" handler="on_add_clicked" swapped="no"/>
@@ -1654,7 +1662,7 @@ until you click on the main menu's 'Begin Installation' button.</property>
                             <property name="visible">True</property>
                             <property name="can_focus">False</property>
                             <property name="tooltip_text" translatable="yes">Remove the selected mountpoint(s).</property>
-                            <property name="label" translatable="yes">removeButton</property>
+                            <property name="label" translatable="yes">Remo_ve</property>
                             <property name="use_underline">True</property>
                             <property name="icon_name">list-remove-symbolic</property>
                             <signal name="clicked" handler="on_remove_clicked" swapped="no"/>
@@ -1671,7 +1679,7 @@ until you click on the main menu's 'Begin Installation' button.</property>
                             <property name="visible">True</property>
                             <property name="can_focus">False</property>
                             <property name="tooltip_text" translatable="yes">Configure selected mountpoint.</property>
-                            <property name="label" translatable="yes">configureButton</property>
+                            <property name="label" translatable="yes">_Configure</property>
                             <property name="use_underline">True</property>
                             <property name="icon_name">preferences-system-symbolic</property>
                             <signal name="clicked" handler="on_configure_clicked" swapped="no"/>
@@ -1688,7 +1696,7 @@ until you click on the main menu's 'Begin Installation' button.</property>
                             <property name="visible">True</property>
                             <property name="can_focus">False</property>
                             <property name="tooltip_text" translatable="yes">Reload storage configuration from disk.</property>
-                            <property name="label" translatable="yes">Refresh</property>
+                            <property name="label" translatable="yes">Re_fresh</property>
                             <property name="use_underline">True</property>
                             <property name="icon_name">view-refresh-symbolic</property>
                             <signal name="clicked" handler="on_refresh_clicked" swapped="no"/>
@@ -1705,7 +1713,7 @@ until you click on the main menu's 'Begin Installation' button.</property>
                             <property name="visible">True</property>
                             <property name="can_focus">False</property>
                             <property name="tooltip_text" translatable="yes">Click for help.</property>
-                            <property name="label" translatable="yes">Help</property>
+                            <property name="label" translatable="yes">_Help</property>
                             <property name="use_underline">True</property>
                             <property name="icon_name">system-help-symbolic</property>
                             <signal name="clicked" handler="on_help_clicked" swapped="no"/>
@@ -1753,8 +1761,11 @@ until you click on the main menu's 'Begin Installation' button.</property>
                                 <property name="visible">True</property>
                                 <property name="can_focus">False</property>
                                 <property name="xalign">0</property>
-                                <property name="label" translatable="yes">&lt;span size="small" foreground="white"&gt;AVAILABLE SPACE&lt;/span&gt;</property>
-                                <property name="use_markup">True</property>
+                                <property name="label" translatable="yes">AVAILABLE SPACE</property>
+                                <attributes>
+                                  <attribute name="scale" value="0.83333333333329995"/>
+                                  <attribute name="foreground" value="#ffffffffffff"/>
+                                </attributes>
                               </object>
                               <packing>
                                 <property name="expand">False</property>
@@ -1805,8 +1816,11 @@ until you click on the main menu's 'Begin Installation' button.</property>
                                 <property name="visible">True</property>
                                 <property name="can_focus">False</property>
                                 <property name="xalign">0</property>
-                                <property name="label" translatable="yes">&lt;span size="small" foreground="white"&gt;TOTAL SPACE&lt;/span&gt;</property>
-                                <property name="use_markup">True</property>
+                                <property name="label" translatable="yes">TOTAL SPACE</property>
+                                <attributes>
+                                  <attribute name="scale" value="0.83333333333329995"/>
+                                  <attribute name="foreground" value="#ffffffffffff"/>
+                                </attributes>
                               </object>
                               <packing>
                                 <property name="expand">False</property>
@@ -1863,7 +1877,6 @@ until you click on the main menu's 'Begin Installation' button.</property>
                     </child>
                     <child>
                       <object class="GtkButton" id="summary_button">
-                        <property name="label" translatable="yes">summary</property>
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
                         <property name="receives_default">True</property>
@@ -1873,6 +1886,18 @@ until you click on the main menu's 'Begin Installation' button.</property>
                         <property name="focus_on_click">False</property>
                         <property name="xalign">0</property>
                         <signal name="clicked" handler="on_summary_clicked" swapped="no"/>
+                        <child>
+                          <object class="GtkLabel" id="summary_label">
+                            <property name="visible">True</property>
+                            <property name="can_focus">False</property>
+                            <property name="label" translatable="yes">%d _storage devices selected</property>
+                            <property name="use_underline">True</property>
+                            <attributes>
+                              <attribute name="underline" value="True"/>
+                              <attribute name="foreground" value="#00000000ffff"/>
+                            </attributes>
+                          </object>
+                        </child>
                       </object>
                       <packing>
                         <property name="left_attach">0</property>
@@ -2014,70 +2039,64 @@ until you click on the main menu's 'Begin Installation' button.</property>
                 <property name="vexpand">True</property>
                 <property name="shadow_type">in</property>
                 <child>
-                  <object class="GtkViewport" id="viewport1">
+                  <object class="GtkTreeView" id="disk_view">
                     <property name="visible">True</property>
-                    <property name="can_focus">False</property>
+                    <property name="can_focus">True</property>
+                    <property name="model">disk_store</property>
+                    <child internal-child="selection">
+                      <object class="GtkTreeSelection" id="disk_view_selection">
+                        <property name="mode">multiple</property>
+                      </object>
+                    </child>
                     <child>
-                      <object class="GtkTreeView" id="disk_view">
-                        <property name="visible">True</property>
-                        <property name="can_focus">True</property>
-                        <property name="model">disk_store</property>
-                        <child internal-child="selection">
-                          <object class="GtkTreeSelection" id="disk_view_selection">
-                            <property name="mode">multiple</property>
-                          </object>
-                        </child>
+                      <object class="GtkTreeViewColumn" id="disk_column">
+                        <property name="spacing">6</property>
+                        <property name="title" translatable="yes">Disk</property>
+                        <property name="clickable">True</property>
                         <child>
-                          <object class="GtkTreeViewColumn" id="disk_column">
-                            <property name="spacing">6</property>
-                            <property name="title" translatable="yes">Disk</property>
-                            <property name="clickable">True</property>
-                            <child>
-                              <object class="GtkCellRendererText" id="disk_renderer"/>
-                              <attributes>
-                                <attribute name="text">0</attribute>
-                              </attributes>
-                            </child>
-                          </object>
+                          <object class="GtkCellRendererText" id="disk_renderer"/>
+                          <attributes>
+                            <attribute name="text">0</attribute>
+                          </attributes>
                         </child>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkTreeViewColumn" id="capacity_column">
+                        <property name="spacing">6</property>
+                        <property name="title" translatable="yes">Capacity</property>
+                        <property name="clickable">True</property>
                         <child>
-                          <object class="GtkTreeViewColumn" id="capacity_column">
-                            <property name="spacing">6</property>
-                            <property name="title" translatable="yes">Capacity</property>
-                            <property name="clickable">True</property>
-                            <child>
-                              <object class="GtkCellRendererText" id="capacity_renderer"/>
-                              <attributes>
-                                <attribute name="text">1</attribute>
-                              </attributes>
-                            </child>
-                          </object>
+                          <object class="GtkCellRendererText" id="capacity_renderer"/>
+                          <attributes>
+                            <attribute name="text">1</attribute>
+                          </attributes>
                         </child>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkTreeViewColumn" id="free_column">
+                        <property name="spacing">6</property>
+                        <property name="title" translatable="yes">Free</property>
+                        <property name="clickable">True</property>
                         <child>
-                          <object class="GtkTreeViewColumn" id="free_column">
-                            <property name="spacing">6</property>
-                            <property name="title" translatable="yes">Free</property>
-                            <property name="clickable">True</property>
-                            <child>
-                              <object class="GtkCellRendererText" id="free_renderer"/>
-                              <attributes>
-                                <attribute name="text">2</attribute>
-                              </attributes>
-                            </child>
-                          </object>
+                          <object class="GtkCellRendererText" id="free_renderer"/>
+                          <attributes>
+                            <attribute name="text">2</attribute>
+                          </attributes>
                         </child>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkTreeViewColumn" id="id_column">
+                        <property name="spacing">6</property>
+                        <property name="title" translatable="yes">ID</property>
+                        <property name="clickable">True</property>
                         <child>
-                          <object class="GtkTreeViewColumn" id="id_column">
-                            <property name="spacing">6</property>
-                            <property name="title" translatable="yes">ID</property>
-                            <property name="clickable">True</property>
-                            <child>
-                              <object class="GtkCellRendererText" id="id_renderer"/>
-                              <attributes>
-                                <attribute name="text">3</attribute>
-                              </attributes>
-                            </child>
-                          </object>
+                          <object class="GtkCellRendererText" id="id_renderer"/>
+                          <attributes>
+                            <attribute name="text">3</attribute>
+                          </attributes>
                         </child>
                       </object>
                     </child>
