@@ -303,6 +303,16 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Fri Aug 01 2014 Samantha N. Bueno <sbueno+anaconda@redhat.com> - 21.48.2-1
+- Mark zRAM devices as protected and ignore them (vpodzime)
+- Make storage sanity check aware of base RAM requirements (#1123466)
+  (vpodzime)
+- Move sanityCheck code to anaconda's codebase (vpodzime)
+- Do not multiply/divide RAM sizes by 1024 back and forth (vpodzime)
+- Raise exception if reading lines from a killed process (vpodzime)
+- Use zRAM swap up to 2 GB of RAM (vpodzime)
+- RAM requirements depend on squashfs.img's origin (vpodzime)
+
 * Wed Jul 23 2014 Samantha N. Bueno <sbueno+anaconda@redhat.com> - 21.48.1-1
 
 * Wed Jul 16 2014 Brian C. Lane <bcl@redhat.com> - 21.48-1
