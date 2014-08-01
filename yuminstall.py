@@ -267,7 +267,7 @@ class AnacondaCallback:
                     _("A fatal error occurred when installing the %s "
                       "package.  This could indicate errors when reading "
                       "the installation media.  Installation cannot "
-                      "continue.") % hdr['name'],
+                      "continue.") % hdr,
                     type="custom", custom_icon="error",
                     custom_buttons=[_("_Exit installer")])
                 sys.exit(1)
