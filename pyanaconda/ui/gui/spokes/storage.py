@@ -54,7 +54,7 @@ from pyanaconda.ui.categories.system import SystemCategory
 from pyanaconda.ui.gui.utils import escape_markup, gtk_action_nowait, ignoreEscape
 from pyanaconda.ui.helpers import StorageChecker
 
-from pyanaconda.kickstart import doKickstartStorage, getAvailableDiskSpace
+from pyanaconda.kickstart import doKickstartStorage, refreshAutoSwapSize
 from blivet import storageInitialize, arch
 from blivet.size import Size
 from blivet.devices import MultipathDevice
@@ -294,13 +294,6 @@ class StorageSpoke(NormalSpoke, StorageChecker):
         # If custom is selected, we want to leave alone any storage layout the
         # user may have set up before now.
         self.storage.config.clearNonExistent = self.data.autopart.autopart
-
-        # refresh the autopart swap size suggestion with currently selected disks
-        for request in self.storage.autoPartitionRequests:
-            if request.fstype == "swap":
-                disk_space = getAvailableDiskSpace(self.storage)
-                request.size = swap_lib.swapSuggestion(disk_space=disk_space)
-                break
 
     @gtk_action_nowait
     def execute(self):
@@ -871,6 +864,8 @@ class StorageSpoke(NormalSpoke, StorageChecker):
             # catch-all.  Just stay on this spoke.
             return
 
+        if self.autopart:
+            refreshAutoSwapSize(self.storage)
         self.applyOnSkip = True
         NormalSpoke.on_back_clicked(self, button)
 
