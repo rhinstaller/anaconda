@@ -351,8 +351,10 @@ class UserSpoke(FirstbootSpokeMixIn, NormalSpoke, GUISpokeInputCheckHandler):
 
     @property
     def mandatory(self):
-        # mandatory only if root account is disabled
-        return (not self.data.rootpw.password) or self.data.rootpw.lock
+        """ Only mandatory if the root pw hasn't been set in the UI
+            eg. not mandatory if the root account was locked in a kickstart
+        """
+        return not self.data.rootpw.password and not self.data.rootpw.lock
 
     def apply(self):
         # set the password only if the user enters anything to the text entry
