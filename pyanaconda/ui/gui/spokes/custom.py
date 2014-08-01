@@ -37,6 +37,7 @@ from pyanaconda.threads import AnacondaThread, threadMgr
 from pyanaconda.constants import THREAD_EXECUTE_STORAGE, THREAD_STORAGE, THREAD_CUSTOM_STORAGE_INIT
 from pyanaconda.iutil import lowerASCII
 from pyanaconda.bootloader import BootLoaderError
+from pyanaconda.kickstart import refreshAutoSwapSize
 from pyanaconda import isys
 
 from blivet import devicefactory
@@ -2180,6 +2181,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
             # doAutoPartitions needs stage1_disk setup so it will reuse existing partitions
             self._storage_playground.setUpBootLoader(early=True)
 
+            refreshAutoSwapSize(self._storage_playground)
             doAutoPartition(self._storage_playground, self.data)
         except NoDisksError as e:
             # No handling should be required for this.
