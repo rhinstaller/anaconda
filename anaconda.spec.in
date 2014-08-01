@@ -303,6 +303,32 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Thu Jul 31 2014 Brian C. Lane <bcl@redhat.com> - 22.2-1
+- Return NULL on error in doSetSystemTime. (dshea)
+- Remove the /usr/bin/liveinst symlink during uninstall (dshea)
+- Highlight languages in langsupport that contain selected locales (dshea)
+- Add a wrapper function for GtkTreeViewColumn.set_cell_data_func (dshea)
+- Remove the STANDALONE #ifdef from auditd. (dshea)
+- Mark zRAM devices as protected and ignore them (vpodzime)
+- Make storage sanity check aware of base RAM requirements (#1123466)
+  (vpodzime)
+- Move sanityCheck code to anaconda's codebase (vpodzime)
+- Clean up stylesheet comments (dshea)
+- Resurrect auditd (dshea)
+- Fix the spacing on the non-verbose doc building messages (dshea)
+- Switch to kinder, gentler autoconf errors (dshea)
+- Clean up the handling of CFLAGS (dshea)
+- Remove unused parts of the configure.ac files. (dshea)
+- Add a couple of configure checks from autoscan (dshea)
+- Include config.h in every C file. (dshea)
+- Use the result from AC_FUNC_FORK at build time (dshea)
+- Don't distribute the gnome desktop file with translations (dshea)
+- Build documentation during build instead of dist (dshea)
+- Do not multiply/divide RAM sizes by 1024 back and forth (vpodzime)
+- Raise exception if reading lines from a killed process (vpodzime)
+- Use zRAM swap up to 2 GB of RAM (vpodzime)
+- RAM requirements depend on squashfs.img's origin (vpodzime)
+
 * Fri Jul 25 2014 Brian C. Lane <bcl@redhat.com> - 22.1-1
 - Add platform specific group selection (#884385) (bcl)
 - Use parallel instead of xargs (vpodzime)
