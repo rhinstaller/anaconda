@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: anaconda 19.31.79\n"
+"Project-Id-Version: anaconda 19.31.80\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
-"POT-Creation-Date: 2014-07-25 16:40-0700\n"
+"POT-Creation-Date: 2014-08-01 17:33-0700\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -82,159 +82,175 @@ msgstr ""
 msgid "/boot filesystem"
 msgstr ""
 
-#: pyanaconda/bootloader.py:402
+#: pyanaconda/bootloader.py:403
 #, python-format
 msgid ""
 "RAID sets that contain '%s' must have one of the following raid levels: %s."
 msgstr ""
 
-#: pyanaconda/bootloader.py:410
+#: pyanaconda/bootloader.py:411
 #, python-format
 msgid ""
 "RAID sets that contain '%s' must have one of the following metadata "
 "versions: %s."
 msgstr ""
 
-#: pyanaconda/bootloader.py:418
+#: pyanaconda/bootloader.py:419
 #, python-format
 msgid ""
 "RAID sets that contain '%s' must have one of the following device types: %s."
 msgstr ""
 
-#: pyanaconda/bootloader.py:434
+#: pyanaconda/bootloader.py:435
 #, python-format
 msgid "%s must have one of the following disklabel types: %s."
 msgstr ""
 
-#: pyanaconda/bootloader.py:446
+#: pyanaconda/bootloader.py:447
 #, python-format
 msgid "%s cannot be of type %s."
 msgstr ""
 
-#: pyanaconda/bootloader.py:452
+#: pyanaconda/bootloader.py:453
 #, python-format
 msgid "%s must be mounted on one of %s."
 msgstr ""
 
-#: pyanaconda/bootloader.py:464
+#: pyanaconda/bootloader.py:465
 #, python-format
 msgid "%s must be between %d and %d MB in size"
 msgstr ""
 
-#: pyanaconda/bootloader.py:469
+#: pyanaconda/bootloader.py:470
 #, python-format
 msgid "%s must not be smaller than %dMB."
 msgstr ""
 
-#: pyanaconda/bootloader.py:478
+#: pyanaconda/bootloader.py:479
 #, python-format
 msgid "%s must not be larger than %dMB."
 msgstr ""
 
-#: pyanaconda/bootloader.py:496
+#: pyanaconda/bootloader.py:497
 #, python-format
 msgid "%s must be within the first %dMB of the disk."
 msgstr ""
 
-#: pyanaconda/bootloader.py:506
+#: pyanaconda/bootloader.py:507
 #, python-format
 msgid "%s must be on a primary partition."
 msgstr ""
 
-#: pyanaconda/bootloader.py:644 pyanaconda/bootloader.py:746
+#: pyanaconda/bootloader.py:645 pyanaconda/bootloader.py:747
 #, python-format
 msgid "%s cannot be on an encrypted block device."
 msgstr ""
 
-#: pyanaconda/bootloader.py:700
+#: pyanaconda/bootloader.py:701
 #, python-format
 msgid "%s cannot be on an iSCSI disk on s390(x)"
 msgstr ""
 
-#: pyanaconda/bootloader.py:704
+#: pyanaconda/bootloader.py:705
 #, python-format
 msgid "%s cannot be of type %s"
 msgstr ""
 
-#: pyanaconda/bootloader.py:1642
+#: pyanaconda/bootloader.py:1372
+#, python-format
+msgid ""
+"bootloader stage2 device %(stage2dev)s in on a multi-disk array, but "
+"bootloader stage1 device %(stage1dev)s is not. A drive failure in "
+"%(stage2dev)s could render the system unbootable."
+msgstr ""
+
+#: pyanaconda/bootloader.py:1378
+#, python-format
+msgid ""
+"bootloader stage2 device %(stage2dev)s is on a multi-disk array, but "
+"bootloader stage1 device %(stage1dev)s is not part of this array. The stage1 "
+"bootloader will only be installed to a single drive."
+msgstr ""
+
+#: pyanaconda/bootloader.py:1657
 #, python-format
 msgid ""
 "%(deviceName)s may not have enough space for grub2 to embed core.img when "
 "using the %(fsType)s filesystem on %(deviceType)s"
 msgstr ""
 
-#: pyanaconda/constants.py:61
+#: pyanaconda/constants.py:62
 msgid ""
 "An unhandled exception has occurred.  This is most likely a bug.  Please "
 "save a copy of the detailed exception and file a bug report"
 msgstr ""
 
-#: pyanaconda/constants.py:67
+#: pyanaconda/constants.py:68
 msgid " with the provider of this software."
 msgstr ""
 
-#: pyanaconda/constants.py:71
+#: pyanaconda/constants.py:72
 #, python-format
 msgid " against anaconda at %s"
 msgstr ""
 
-#: pyanaconda/constants.py:99
+#: pyanaconda/constants.py:102
 msgid "Start VNC"
 msgstr ""
 
-#: pyanaconda/constants.py:100
+#: pyanaconda/constants.py:103
 msgid "Use text mode"
 msgstr ""
 
-#: pyanaconda/install.py:65
+#: pyanaconda/install.py:66
 msgid "Configuring installed system"
 msgstr ""
 
-#: pyanaconda/install.py:78
+#: pyanaconda/install.py:79
 msgid "Writing network configuration"
 msgstr ""
 
-#: pyanaconda/install.py:82
+#: pyanaconda/install.py:83
 msgid "Creating users"
 msgstr ""
 
-#: pyanaconda/install.py:89
+#: pyanaconda/install.py:90
 msgid "Configuring addons"
 msgstr ""
 
-#: pyanaconda/install.py:92
+#: pyanaconda/install.py:93
 msgid "Generating initramfs"
 msgstr ""
 
-#: pyanaconda/install.py:96
+#: pyanaconda/install.py:97
 #, python-format
 msgid "Joining realm: %s"
 msgstr ""
 
-#: pyanaconda/install.py:99
+#: pyanaconda/install.py:100
 msgid "Running post-installation scripts"
 msgstr ""
 
-#: pyanaconda/install.py:136
+#: pyanaconda/install.py:148
 #, python-format
 msgid "Waiting for %s threads to finish"
 msgstr ""
 
-#: pyanaconda/install.py:140
+#: pyanaconda/install.py:152
 msgid "Setting up the installation environment"
 msgstr ""
 
-#: pyanaconda/install.py:158
+#: pyanaconda/install.py:172
 msgid "Discovering realm to join"
 msgstr ""
 
-#: pyanaconda/install.py:174 pyanaconda/packaging/livepayload.py:145
-#: pyanaconda/packaging/yumpayload.py:1629
-msgid "Performing post-installation setup tasks"
+#: pyanaconda/install.py:213
+msgid "Installing bootloader"
 msgstr ""
 
-#: pyanaconda/install.py:179
-msgid "Installing bootloader"
+#: pyanaconda/install.py:216 pyanaconda/packaging/livepayload.py:145
+#: pyanaconda/packaging/yumpayload.py:1629
+msgid "Performing post-installation setup tasks"
 msgstr ""
 
 #: pyanaconda/installinterfacebase.py:49
@@ -288,18 +304,28 @@ msgid ""
 "%s"
 msgstr ""
 
-#: pyanaconda/kickstart.py:585
+#: pyanaconda/kickstart.py:247
+#, python-format
+msgid "autopart fstype of %s is invalid."
+msgstr ""
+
+#: pyanaconda/kickstart.py:263
+#, python-format
+msgid "Settings default fstype to %s failed."
+msgstr ""
+
+#: pyanaconda/kickstart.py:604
 #, python-format
 msgid "%s is missing. Cannot setup firewall."
 msgstr ""
 
-#: pyanaconda/kickstart.py:1528
+#: pyanaconda/kickstart.py:1544
 msgid ""
 "The upgrade kickstart command is no longer supported. Upgrade functionality "
 "is provided through redhat-upgrade-tool."
 msgstr ""
 
-#: pyanaconda/kickstart.py:1734
+#: pyanaconda/kickstart.py:1750
 msgid "Running pre-installation scripts"
 msgstr ""
 
@@ -324,55 +350,55 @@ msgid ""
 "'-'."
 msgstr ""
 
-#: pyanaconda/network.py:1254 pyanaconda/ui/gui/spokes/custom.py:1008
+#: pyanaconda/network.py:1255 pyanaconda/ui/gui/spokes/custom.py:1008
 #: pyanaconda/ui/gui/spokes/network.py:301
 #: pyanaconda/ui/gui/spokes/lib/accordion.py:59
 msgid "Unknown"
 msgstr ""
 
-#: pyanaconda/network.py:1258
+#: pyanaconda/network.py:1259
 msgid "Connecting..."
 msgstr ""
 
-#: pyanaconda/network.py:1260
+#: pyanaconda/network.py:1261
 msgid "Disconnecting..."
 msgstr ""
 
-#: pyanaconda/network.py:1279
+#: pyanaconda/network.py:1280
 #, python-format
 msgid "Wired (%(interface_name)s) connected"
 msgstr ""
 
-#: pyanaconda/network.py:1282
+#: pyanaconda/network.py:1283
 #, python-format
 msgid "Wireless connected to %(access_point)s"
 msgstr ""
 
-#: pyanaconda/network.py:1285
+#: pyanaconda/network.py:1286
 #, python-format
 msgid "Bond %(interface_name)s (%(list_of_slaves)s) connected"
 msgstr ""
 
-#: pyanaconda/network.py:1289
+#: pyanaconda/network.py:1290
 #, python-format
 msgid "Team%(interface_name)s (%(list_of_slaves)s) connected"
 msgstr ""
 
-#: pyanaconda/network.py:1295
+#: pyanaconda/network.py:1296
 #, python-format
 msgid "Vlan %(interface_name)s (%(parent_device)s, ID %(vlanid)s) connected"
 msgstr ""
 
-#: pyanaconda/network.py:1310
+#: pyanaconda/network.py:1311
 #, python-format
 msgid "Connected: %(list_of_interface_names)s"
 msgstr ""
 
-#: pyanaconda/network.py:1313
+#: pyanaconda/network.py:1314
 msgid "Not connected"
 msgstr ""
 
-#: pyanaconda/network.py:1316 pyanaconda/ui/gui/spokes/network.glade:2342
+#: pyanaconda/network.py:1317 pyanaconda/ui/gui/spokes/network.glade:2342
 msgid "No network devices available"
 msgstr ""
 
@@ -590,7 +616,7 @@ msgstr ""
 msgid "_Fedora"
 msgstr ""
 
-#: pyanaconda/installclasses/rhel.py:30
+#: pyanaconda/installclasses/rhel.py:31
 msgid "Red Hat Enterprise Linux"
 msgstr ""
 
@@ -599,13 +625,13 @@ msgstr ""
 msgid "Installing software"
 msgstr ""
 
-#: pyanaconda/packaging/livepayload.py:202
-#: pyanaconda/packaging/livepayload.py:211
+#: pyanaconda/packaging/livepayload.py:201
+#: pyanaconda/packaging/livepayload.py:210
 #, python-format
 msgid "Downloading %(url)s (%(pct)d%%)"
 msgstr ""
 
-#: pyanaconda/packaging/livepayload.py:298
+#: pyanaconda/packaging/livepayload.py:297
 msgid "Checking image checksum"
 msgstr ""
 
@@ -628,6 +654,26 @@ msgstr ""
 
 #: pyanaconda/packaging/yumpayload.py:1628
 msgid "Installing"
+msgstr ""
+
+#: pyanaconda/packaging/rpmostreepayload.py:118
+#, python-format
+msgid "Starting pull of %(branchName)s from %(source)s"
+msgstr ""
+
+#: pyanaconda/packaging/rpmostreepayload.py:125
+#, python-format
+msgid "Preparing deployment of %s"
+msgstr ""
+
+#: pyanaconda/packaging/rpmostreepayload.py:137
+#, python-format
+msgid "Deployment starting: %s"
+msgstr ""
+
+#: pyanaconda/packaging/rpmostreepayload.py:140
+#, python-format
+msgid "Deployment complete: %s"
 msgstr ""
 
 #: pyanaconda/ui/lib/space.py:36
@@ -1026,8 +1072,8 @@ msgid "Timezone settings"
 msgstr ""
 
 #: pyanaconda/ui/tui/spokes/time.py:56
-#: pyanaconda/ui/gui/spokes/datetime_spoke.py:457
-#: pyanaconda/ui/gui/spokes/datetime_spoke.py:461
+#: pyanaconda/ui/gui/spokes/datetime_spoke.py:459
+#: pyanaconda/ui/gui/spokes/datetime_spoke.py:463
 #, python-format
 msgid "%s timezone"
 msgstr ""
@@ -1082,7 +1128,7 @@ msgstr ""
 
 #: pyanaconda/ui/tui/spokes/source.py:203
 #: pyanaconda/ui/tui/spokes/software.py:100
-#: pyanaconda/ui/gui/spokes/datetime_spoke.py:463
+#: pyanaconda/ui/gui/spokes/datetime_spoke.py:465
 #: pyanaconda/ui/gui/spokes/software.py:188
 #: pyanaconda/ui/gui/spokes/source.py:532
 msgid "Nothing selected"
@@ -1734,27 +1780,27 @@ msgid ""
 "appropriate type for that disk.\n"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/datetime_spoke.py:61
+#: pyanaconda/ui/gui/spokes/datetime_spoke.py:62
 msgid "Note: pool servers may not be available all the time"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/datetime_spoke.py:354
+#: pyanaconda/ui/gui/spokes/datetime_spoke.py:356
 msgid "DATE & _TIME"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/datetime_spoke.py:448
+#: pyanaconda/ui/gui/spokes/datetime_spoke.py:450
 msgid "Restoring hardware time..."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/datetime_spoke.py:459
+#: pyanaconda/ui/gui/spokes/datetime_spoke.py:461
 msgid "Invalid timezone"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/datetime_spoke.py:971
+#: pyanaconda/ui/gui/spokes/datetime_spoke.py:973
 msgid "You need to set up networking first if you want to use NTP"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/datetime_spoke.py:976
+#: pyanaconda/ui/gui/spokes/datetime_spoke.py:978
 msgid "You have no working NTP server configured"
 msgstr ""
 
@@ -1767,19 +1813,19 @@ msgstr ""
 msgid "%s to switch layouts."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/keyboard.py:262
+#: pyanaconda/ui/gui/spokes/keyboard.py:261
 msgid "_KEYBOARD"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/keyboard.py:324
+#: pyanaconda/ui/gui/spokes/keyboard.py:323
 msgid "Testing layouts configuration not available."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/keyboard.py:381
+#: pyanaconda/ui/gui/spokes/keyboard.py:380
 msgid "Layout switching not configured."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/langsupport.py:49
+#: pyanaconda/ui/gui/spokes/langsupport.py:54
 msgid "_LANGUAGE SUPPORT"
 msgstr ""
 
@@ -3125,29 +3171,29 @@ msgstr ""
 msgid "Select additional language support to be installed:"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/langsupport.glade:114
-#: pyanaconda/ui/gui/spokes/langsupport.glade:222
+#: pyanaconda/ui/gui/spokes/langsupport.glade:122
+#: pyanaconda/ui/gui/spokes/langsupport.glade:230
 #: pyanaconda/ui/gui/spokes/welcome.glade:395
 #: pyanaconda/ui/gui/spokes/welcome.glade:491
 msgid "nativeName"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/langsupport.glade:131
+#: pyanaconda/ui/gui/spokes/langsupport.glade:139
 #: pyanaconda/ui/gui/spokes/welcome.glade:412
 msgid "englishName"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/langsupport.glade:149
+#: pyanaconda/ui/gui/spokes/langsupport.glade:157
 #: pyanaconda/ui/gui/spokes/welcome.glade:430
 msgid "selected"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/langsupport.glade:173
+#: pyanaconda/ui/gui/spokes/langsupport.glade:181
 #: pyanaconda/ui/gui/spokes/welcome.glade:454
 msgid "Type here to search."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/langsupport.glade:208
+#: pyanaconda/ui/gui/spokes/langsupport.glade:216
 msgid "checked"
 msgstr ""
 

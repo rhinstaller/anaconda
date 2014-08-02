@@ -259,6 +259,65 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Fri Aug 01 2014 Brian C. Lane <bcl@redhat.com> - 19.31.81-1
+- Highlight languages in langsupport that contain selected locales (dshea)
+  Resolves: rhbz#1072355
+- Add a wrapper function for GtkTreeViewColumn.set_cell_data_func (dshea)
+  Related: rhbz#1072355
+- Don't add redundant grub installs if stage1 is not a disk (dshea)
+  Resolves: rhbz#1070283
+- Don't use dhcp ntpservers for dir or image installation (bcl)
+  Resolves: rhbz#1088506
+- Preserve net.ifnames cmdline arg (bcl)
+  Resolves: rhbz#1102410
+- Add autopart --fstype support (bcl)
+  Resolves: rhbz#1112697
+- Don't skip cpfmtxa formatted dasds if zerombr specified in ks.
+  (sbueno+anaconda)
+  Resolves: rhbz#1073982
+- rpmostreepayload: create /var/spool/mail required when adding user (rvykydal)
+  Resolves: rhbz#1113535
+- rpmostreepayload: Don't recreateInitrds for this payload (walters)
+  Resolves: rhbz#1113535
+- Use absolute path for extlinux/menu.c32 (rvykydal)
+  Resolves: rhbz#1113535
+- Only fail on a missing firewalld command if the firewall is enabled.
+  (clumens)
+  Resolves: rhbz#1113535
+- Make sure /var/log/anaconda gets copied under the right root. (clumens)
+  Resolves: rhbz#1113535
+- format.setup in blivet takes only kwargs. (clumens)
+  Resolves: rhbz#1113535
+- rpmostreepayload: Use systemd-tmpfiles rather than handrolling mkdir
+  (walters)
+  Resolves: rhbz#1113535
+- Make an ostree string easier for translators to deal with. (clumens)
+  Resolves: rhbz#1113535
+- Add RPMOSTreePayload (walters)
+  Resolves: rhbz#1113535
+- bootloader: Allow extlinux loader configuration to handle RPMOSTreePayload
+  case (walters)
+  Resolves: rhbz#1113535
+- install: Handle distinct physical root/sysroot (walters)
+  Resolves: rhbz#1113535
+- install: Move Payload postInstall() after bootloader (walters)
+  Resolves: rhbz#1113535
+- iutil: Transparently redirect anyone who asks root=/mnt/sysimage to sysroot
+  (walters)
+  Resolves: rhbz#1113535
+- main: Set flags.extlinux if extlinux is used in interactive-defaults.ks
+  (walters)
+  Resolves: rhbz#1113535
+- iutil: Introduce getSysroot()/getTargetPhysicalRoot(), use instead of
+  ROOT_PATH (walters)
+  Resolves: rhbz#1113535
+- Use ROOT_PATH not /mnt/sysimage (bcl)
+  Resolves: rhbz#1113535
+- Override ROOT_PATH with environmental variable (bcl)
+  Resolves: rhbz#1113535
+- gui/spokes/software: Enable iff payload is PackagePayload (walters)
+  Resolves: rhbz#1113535
+
 * Fri Jul 25 2014 Brian C. Lane <bcl@redhat.com> - 19.31.80-1
 - Retranslate language filtering placeholder texts (vpodzime)
   Resolves: rhbz#1091885
