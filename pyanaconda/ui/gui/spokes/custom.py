@@ -57,7 +57,6 @@ from blivet.partitioning import doAutoPartition
 from blivet.errors import StorageError
 from blivet.errors import NoDisksError
 from blivet.errors import NotEnoughFreeSpaceError
-from blivet.errors import LUKSDeviceWithoutKeyError
 from blivet.devicelibs import raid
 from blivet.devices import LUKSDevice
 
@@ -65,7 +64,7 @@ from pyanaconda.storage_utils import ui_storage_logger, device_type_from_autopar
 from pyanaconda.storage_utils import DEVICE_TEXT_PARTITION, DEVICE_TEXT_MAP, DEVICE_TEXT_MD
 from pyanaconda.storage_utils import PARTITION_ONLY_FORMAT_TYPES, MOUNTPOINT_DESCRIPTIONS
 from pyanaconda.storage_utils import NAMED_DEVICE_TYPES, CONTAINER_DEVICE_TYPES
-from pyanaconda.storage_utils import SanityError, SanityWarning
+from pyanaconda.storage_utils import SanityError, SanityWarning, LUKSDeviceWithoutKeyError
 from pyanaconda import storage_utils
 
 from pyanaconda.ui.communication import hubQ
