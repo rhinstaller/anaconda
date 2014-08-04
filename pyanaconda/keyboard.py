@@ -33,6 +33,7 @@ import shutil
 from pyanaconda import iutil
 from pyanaconda import safe_dbus
 from pyanaconda.constants import DEFAULT_VC_FONT, DEFAULT_KEYBOARD
+from pyanaconda.flags import can_touch_runtime_system
 
 from gi.repository import GLib
 
@@ -329,7 +330,14 @@ class LocaledWrapper(object):
     """
 
     def __init__(self):
-        self._connection = safe_dbus.get_new_system_connection()
+        try:
+            self._connection = safe_dbus.get_new_system_connection()
+        except GLib.GError as e:
+            if can_touch_runtime_system("raise GLib.GError", touch_live=True):
+                raise
+
+            log.error("Failed to get safe_dbus connection: %s", e)
+            self._connection = None
 
     @property
     def keymap(self):
@@ -339,7 +347,7 @@ class LocaledWrapper(object):
                                                  LOCALED_IFACE,
                                                  "VConsoleKeymap",
                                                  self._connection)
-        except safe_dbus.DBusPropertyError:
+        except (safe_dbus.DBusPropertyError, safe_dbus.DBusCallError):
             # no value for the property
             log.error("Failed to get the value for the systemd-localed's "
                       "VConsoleKeymap property")
@@ -356,7 +364,7 @@ class LocaledWrapper(object):
                                                   LOCALED_IFACE,
                                                   "X11Layout",
                                                   self._connection)
-        except safe_dbus.DBusPropertyError:
+        except (safe_dbus.DBusPropertyError, safe_dbus.DBusCallError):
             # no value for the property
             log.error("Failed to get the value for the systemd-localed's "
                       "X11Layout property")
@@ -368,7 +376,7 @@ class LocaledWrapper(object):
                                                    LOCALED_IFACE,
                                                    "X11Variant",
                                                    self._connection)
-        except safe_dbus.DBusPropertyError:
+        except (safe_dbus.DBusPropertyError, safe_dbus.DBusCallError):
             # no value for the property
             log.error("Failed to get the value for the systemd-localed's "
                       "X11Variant property")
@@ -399,7 +407,7 @@ class LocaledWrapper(object):
                                                   LOCALED_IFACE,
                                                   "X11Options",
                                                   self._connection)
-        except safe_dbus.DBusPropertyError:
+        except (safe_dbus.DBusPropertyError, safe_dbus.DBusCallError):
             # no value for the property
             log.error("Failed to get the value for the systemd-localed's "
                       "X11Options property")
@@ -426,8 +434,11 @@ class LocaledWrapper(object):
         # should ask for credentials or not
         args = GLib.Variant('(ssbb)', (keymap, "", convert, False))
 
-        safe_dbus.call_sync(LOCALED_SERVICE, LOCALED_OBJECT_PATH, LOCALED_IFACE,
-                            "SetVConsoleKeyboard", args, self._connection)
+        try:
+            safe_dbus.call_sync(LOCALED_SERVICE, LOCALED_OBJECT_PATH, LOCALED_IFACE,
+                                "SetVConsoleKeyboard", args, self._connection)
+        except safe_dbus.DBusCallError as e:
+            log.error("Failed to set keymap: %s", e)
 
     def convert_keymap(self, keymap):
         """
@@ -503,8 +514,11 @@ class LocaledWrapper(object):
         # should ask for credentials or not
         args = GLib.Variant("(ssssbb)", (layouts_str, "", variants_str, opts_str,
                                          convert, False))
-        safe_dbus.call_sync(LOCALED_SERVICE, LOCALED_OBJECT_PATH, LOCALED_IFACE,
-                            "SetX11Keyboard", args, self._connection)
+        try:
+            safe_dbus.call_sync(LOCALED_SERVICE, LOCALED_OBJECT_PATH, LOCALED_IFACE,
+                                "SetX11Keyboard", args, self._connection)
+        except safe_dbus.DBusCallError as e:
+            log.error("Failed to set layouts: %s", e)
 
     def set_and_convert_layout(self, layout_variant):
         """
