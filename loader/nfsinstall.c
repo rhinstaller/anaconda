@@ -428,6 +428,7 @@ void setKickstartNfs(struct loaderData_s * loaderData, int argc,
 int getFileFromNfs(char * url, char * dest, struct loaderData_s * loaderData) {
     char * host = NULL, *path = NULL, * file = NULL, * opts = NULL;
     char * chk = NULL, *ip = NULL;
+    char *devicename;
     int failed = 0, i = 0;
     iface_t iface;
     NMClient *client = NULL;
@@ -519,8 +520,12 @@ int getFileFromNfs(char * url, char * dest, struct loaderData_s * loaderData) {
     }
 
     /* get the IP of the target system */
-    if ((ip = iface_ip2str(loaderData->netDev, AF_INET)) == NULL) {
-        logMessage(ERROR, "iface_ip2str returned NULL");
+    devicename = loaderData->netDev;
+    if (loaderData->vlanid){
+        checked_asprintf(&devicename,"%s.%d",loaderData->netDev, loaderData->vlanid);
+    }
+    if ((ip = iface_ip2str(devicename, AF_INET)) == NULL) {
+        logMessage(ERROR, "iface_ip2str returned NULL for %s", devicename);
         return 1;
     }
 
