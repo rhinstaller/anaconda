@@ -1140,8 +1140,7 @@ def apply_kickstart(ksdata):
     return applied_devices
 
 def networkInitialize(ksdata):
-    if flags.imageInstall or flags.dirInstall:
-        log.info("Skipping networkInitialize for image/dir installation")
+    if not can_touch_runtime_system("networkInitialize", touch_live=True):
         return
 
     log.debug("network: devices found %s", nm.nm_devices())

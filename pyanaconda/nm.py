@@ -25,8 +25,11 @@ import IPy
 import struct
 import socket
 import re
+import logging
+log = logging.getLogger("anaconda")
 
 from pyanaconda.constants import DEFAULT_DBUS_TIMEOUT
+from pyanaconda.flags import flags, can_touch_runtime_system
 
 supported_device_types = [
     NetworkManager.DeviceType.ETHERNET,
@@ -75,24 +78,35 @@ class UnknownConnectionError(Exception):
         return self.__repr__()
 
 def _get_proxy(bus_type=Gio.BusType.SYSTEM,
-               flags=Gio.DBusProxyFlags.NONE,
+               proxy_flags=Gio.DBusProxyFlags.NONE,
                info=None,
                name="org.freedesktop.NetworkManager",
                object_path="/org/freedesktop/NetworkManager",
                interface_name="org.freedesktop.NetworkManager",
                cancellable=None):
-    proxy = Gio.DBusProxy.new_for_bus_sync(bus_type,
-                                           flags,
-                                           info,
-                                           name,
-                                           object_path,
-                                           interface_name,
-                                           cancellable)
+    try:
+        proxy = Gio.DBusProxy.new_for_bus_sync(bus_type,
+                                               proxy_flags,
+                                               info,
+                                               name,
+                                               object_path,
+                                               interface_name,
+                                               cancellable)
+    except GLib.GError as e:
+        if can_touch_runtime_system("raise GLib.GError", touch_live=True):
+            raise
+
+        log.error("_get_proxy failed: %s", e)
+        proxy = None
+
     return proxy
 
 def _get_property(object_path, prop, interface_name_suffix=""):
     interface_name = "org.freedesktop.NetworkManager" + interface_name_suffix
     proxy = _get_proxy(object_path=object_path, interface_name="org.freedesktop.DBus.Properties")
+    if not proxy:
+        return None
+
     try:
         prop = proxy.Get('(ss)', interface_name, prop)
     except GLib.GError as e:
@@ -111,7 +125,13 @@ def nm_state():
     :return: state of NetworkManager
     :rtype: integer
     """
-    return _get_property("/org/freedesktop/NetworkManager", "State")
+    prop = _get_property("/org/freedesktop/NetworkManager", "State")
+
+    # If this is an image/dir install assume the network is up
+    if not prop and (flags.imageInstall or flags.dirInstall):
+        return NetworkManager.State.CONNECTED_GLOBAL
+    else:
+        return prop
 
 # FIXME - use just GLOBAL? There is some connectivity checking
 # for GLOBAL in NM (nm_connectivity_get_connected), not sure if
@@ -145,6 +165,9 @@ def nm_devices():
     interfaces = []
 
     proxy = _get_proxy()
+    if not proxy:
+        return []
+
     devices = proxy.GetDevices()
     for device in devices:
         device_type = _get_property(device, "DeviceType", ".Device")
@@ -165,6 +188,9 @@ def nm_activated_devices():
     interfaces = []
 
     active_connections = _get_property("/org/freedesktop/NetworkManager", "ActiveConnections")
+    if not active_connections:
+        return []
+
     for ac in active_connections:
         try:
             state = _get_property(ac, "State", ".Connection.Active")
