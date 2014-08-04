@@ -373,7 +373,7 @@
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
                         <property name="xalign">0</property>
-                        <property name="label" translatable="yes" context="GUI|Software Source|Proxy Dialog">User_name</property>
+                        <property name="label" translatable="yes" context="GUI|Software Source|Proxy Dialog">User _name</property>
                         <property name="use_underline">True</property>
                         <property name="mnemonic_widget">proxyUsernameEntry</property>
                         <attributes>
@@ -1117,8 +1117,8 @@
                                       <object class="GtkEntry" id="repoProxyUsernameEntry">
                                         <property name="visible">True</property>
                                         <property name="can_focus">True</property>
-                                        <property name="tooltip_markup" translatable="yes">Optional proxy username.</property>
-                                        <property name="tooltip_text" translatable="yes">Optional proxy username.</property>
+                                        <property name="tooltip_markup" translatable="yes">Optional proxy user name.</property>
+                                        <property name="tooltip_text" translatable="yes">Optional proxy user name.</property>
                                         <property name="invisible_char">●</property>
                                         <signal name="changed" handler="on_repoProxy_changed" swapped="no"/>
                                       </object>
@@ -1218,7 +1218,7 @@
                                         <property name="visible">True</property>
                                         <property name="can_focus">False</property>
                                         <property name="xalign">0</property>
-                                        <property name="label" translatable="yes" context="GUI|Software Source">U_sername:</property>
+                                        <property name="label" translatable="yes" context="GUI|Software Source">U_ser name:</property>
                                         <property name="use_underline">True</property>
                                         <property name="mnemonic_widget">repoProxyUsernameEntry</property>
                                         <attributes>

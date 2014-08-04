@@ -301,7 +301,7 @@ class NetworkControlBox(GObject.GObject):
         NetworkManager.DeviceType.ETHERNET: N_("Ethernet"),
         NetworkManager.DeviceType.WIFI: N_("Wireless"),
         NetworkManager.DeviceType.BOND: N_("Bond"),
-        NetworkManager.DeviceType.VLAN: N_("Vlan"),
+        NetworkManager.DeviceType.VLAN: N_("VLAN"),
         NetworkManager.DeviceType.TEAM: N_("Team"),
         NetworkManager.DeviceType.BRIDGE: N_("Bridge"),
     }
@@ -1381,7 +1381,7 @@ class NetworkSpoke(FirstbootSpokeMixIn, NormalSpoke):
     uiFile = "spokes/network.glade"
     helpFile = "NetworkSpoke.xml"
 
-    title = CN_("GUI|Spoke", "_NETWORK & HOSTNAME")
+    title = CN_("GUI|Spoke", "_NETWORK & HOST NAME")
     icon = "network-transmit-receive-symbolic"
 
     category = SystemCategory
@@ -1461,7 +1461,7 @@ class NetworkSpoke(FirstbootSpokeMixIn, NormalSpoke):
         (valid, error) = network.sanityCheckHostname(hostname)
         if not valid:
             self.clear_info()
-            msg = _("Hostname is not valid: %s") % error
+            msg = _("Host name is not valid: %s") % error
             self.set_warning(msg)
             self.network_control_box.entry_hostname.grab_focus()
             self.window.show_all()
@@ -1531,7 +1531,7 @@ class NetworkStandaloneSpoke(StandaloneSpoke):
         (valid, error) = network.sanityCheckHostname(hostname)
         if not valid:
             self.clear_info()
-            msg = _("Hostname is not valid: %s") % error
+            msg = _("Host name is not valid: %s") % error
             self.set_warning(msg)
             self.network_control_box.entry_hostname.grab_focus()
             self.window.show_all()

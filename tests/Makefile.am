@@ -48,6 +48,7 @@ dist_check_SCRIPTS = $(srcdir)/glade/*/*.py \
 		     testenv.sh \
 		     gettext/gettext_warnings.sh \
 		     gettext/gettext_potfiles.py \
+		     gettext/style_guide.py \
 		     storage/run_storage_tests.py \
 		     ostree/run_ostree_tests.sh \
 		     $(srcdir)/storage/cases/*.py \
@@ -58,6 +59,7 @@ TESTS = nosetests.sh \
 	cppcheck/runcppcheck.sh \
 	gettext/gettext_warnings.sh \
 	gettext/gettext_potfiles.py \
+	gettext/style_guide.py \
 	storage/run_storage_tests.py \
 	glade/run_glade_tests.sh \
 	ostree/run_ostree_tests.sh

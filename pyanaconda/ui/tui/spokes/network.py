@@ -137,7 +137,7 @@ class NetworkSpoke(EditTUISpoke):
 
         summary = self._summary_text()
         self._window += [TextWidget(summary), ""]
-        hostname = _("Hostname: %s\n") % self.data.network.hostname
+        hostname = _("Host name: %s\n") % self.data.network.hostname
         self._window += [TextWidget(hostname), ""]
 
         # if we have any errors, display them
@@ -149,7 +149,7 @@ class NetworkSpoke(EditTUISpoke):
             number = TextWidget("%2d)" % (i + 1))
             return ColumnWidget([(4, [number]), (None, [w])], 1)
 
-        _opts = [_("Set hostname")]
+        _opts = [_("Set host name")]
         for devname in self.supported_devices:
             _opts.append(_("Configure device %s") % devname)
         text = [TextWidget(o) for o in _opts]
@@ -170,7 +170,7 @@ class NetworkSpoke(EditTUISpoke):
 
         if num == 1:
             # set hostname
-            self.app.switch_screen_modal(self.hostname_dialog, Entry(_("Hostname"),
+            self.app.switch_screen_modal(self.hostname_dialog, Entry(_("Host name"),
                                 "hostname", re.compile(".*$"), True))
             self.apply()
             return INPUT_PROCESSED
@@ -231,7 +231,7 @@ class NetworkSpoke(EditTUISpoke):
         if valid:
             hostname = self.hostname_dialog.value
         else:
-            self.errors.append(_("Hostname is not valid: %s") % error)
+            self.errors.append(_("Host name is not valid: %s") % error)
             self.hostname_dialog.value = hostname
         network.update_hostname_data(self.data, hostname)
 

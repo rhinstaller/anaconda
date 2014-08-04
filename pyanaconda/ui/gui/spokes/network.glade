@@ -24,7 +24,7 @@
         <col id="1" translatable="yes">team</col>
       </row>
       <row>
-        <col id="0" translatable="yes">Vlan</col>
+        <col id="0" translatable="yes">VLAN</col>
         <col id="1" translatable="yes">vlan</col>
       </row>
     </data>
@@ -162,7 +162,7 @@
   </object>
   <object class="AnacondaSpokeWindow" id="networkWindow">
     <property name="can_focus">False</property>
-    <property name="window_name" translatable="yes">NETWORK &amp; HOSTNAME</property>
+    <property name="window_name" translatable="yes">NETWORK &amp; HOST NAME</property>
     <signal name="button-clicked" handler="on_back_clicked" swapped="no"/>
     <child internal-child="main_box">
       <object class="GtkBox" id="AnacondaSpokeWindow-main_box1">
@@ -201,7 +201,7 @@
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
                     <property name="halign">start</property>
-                    <property name="label" translatable="yes">Please use the live desktop environment's tools for customizing your network configuration.  You can set the hostname here.</property>
+                    <property name="label" translatable="yes">Please use the live desktop environment's tools for customizing your network configuration.  You can set the host name here.</property>
                     <property name="ellipsize">start</property>
                   </object>
                   <packing>
@@ -621,7 +621,7 @@
                                             <property name="visible">True</property>
                                             <property name="can_focus">False</property>
                                             <property name="xalign">1</property>
-                                            <property name="label" translatable="yes">Vlan ID</property>
+                                            <property name="label" translatable="yes">VLAN ID</property>
                                           </object>
                                           <packing>
                                             <property name="left_attach">0</property>
@@ -1627,7 +1627,7 @@
                                             <property name="visible">True</property>
                                             <property name="can_focus">False</property>
                                             <property name="xalign">1</property>
-                                            <property name="label" translatable="yes">Username</property>
+                                            <property name="label" translatable="yes">User name</property>
                                           </object>
                                           <packing>
                                             <property name="left_attach">0</property>
@@ -2219,7 +2219,7 @@
                           <object class="GtkLabel" id="label_hostname">
                             <property name="visible">True</property>
                             <property name="can_focus">False</property>
-                            <property name="label" translatable="yes" context="GUI|Network">_Hostname:</property>
+                            <property name="label" translatable="yes" context="GUI|Network">_Host name:</property>
                             <property name="use_underline">True</property>
                             <property name="mnemonic_widget">entry_hostname</property>
                           </object>
@@ -2237,7 +2237,7 @@
                             <property name="width_chars">35</property>
                             <child internal-child="accessible">
                               <object class="AtkObject" id="entry_hostname-atkobject">
-                                <property name="AtkObject::accessible-name" translatable="yes">Hostname</property>
+                                <property name="AtkObject::accessible-name" translatable="yes">Host name</property>
                               </object>
                             </child>
                           </object>

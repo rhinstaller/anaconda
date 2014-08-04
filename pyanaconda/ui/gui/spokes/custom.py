@@ -1444,7 +1444,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         if self._sizeEntry.get_sensitive():
             self._sizeEntry.props.has_tooltip = False
         elif device.format.type == "btrfs":
-            self._sizeEntry.set_tooltip_text(_("The space available to this mountpoint can be changed by modifying the volume below."))
+            self._sizeEntry.set_tooltip_text(_("The space available to this mount point can be changed by modifying the volume below."))
         else:
             self._sizeEntry.set_tooltip_text(_("This file system may not be resized."))
 

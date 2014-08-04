@@ -95,13 +95,13 @@ def sanityCheckHostname(hostname):
     """
 
     if not hostname:
-        return (False, _("Hostname cannot be None or an empty string."))
+        return (False, _("Host name cannot be None or an empty string."))
 
     if len(hostname) > 255:
-        return (False, _("Hostname must be 255 or fewer characters in length."))
+        return (False, _("Host name must be 255 or fewer characters in length."))
 
     if not (re.match('^' + HOSTNAME_PATTERN_WITHOUT_ANCHORS + '$', hostname)):
-        return (False, _("Hostnames can only contain the characters 'a-z', "
+        return (False, _("Host names can only contain the characters 'a-z', "
                          "'A-Z', '0-9', '-', or '.', parts between periods "
                          "must contain something and cannot start or end with "
                          "'-'."))
@@ -1366,7 +1366,7 @@ def status_message():
                 elif nm.nm_device_type_is_vlan(devname):
                     parent = nm.nm_device_setting_value(devname, "vlan", "parent")
                     vlanid = nm.nm_device_setting_value(devname, "vlan", "id")
-                    msg = _("Vlan %(interface_name)s (%(parent_device)s, ID %(vlanid)s) connected") \
+                    msg = _("VLAN %(interface_name)s (%(parent_device)s, ID %(vlanid)s) connected") \
                           % {"interface_name": devname, "parent_device": parent, "vlanid": vlanid}
             elif len(nonslaves) > 1:
                 devlist = []

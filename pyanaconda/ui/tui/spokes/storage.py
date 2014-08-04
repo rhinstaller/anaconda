@@ -302,7 +302,7 @@ class StorageSpoke(NormalTUISpoke):
         # ask user to verify they want to format if zerombr not in ks file
         if not self.data.zerombr.zerombr:
             # prepare our msg strings; copied directly from dasdfmt.glade
-            summary = _("The following unformatted DASDs have been detected on your system. You can choose to format them now with dasdfmt or cancel to leave them unformatted. Unformatted DASDs can not be used during installation.\n\n")
+            summary = _("The following unformatted DASDs have been detected on your system. You can choose to format them now with dasdfmt or cancel to leave them unformatted. Unformatted DASDs cannot be used during installation.\n\n")
 
             warntext = _("Warning: All storage changes made using the installer will be lost when you choose to format.\n\nProceed to run dasdfmt?\n")
 
