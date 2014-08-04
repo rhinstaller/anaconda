@@ -100,13 +100,13 @@ def sanityCheckHostname(hostname):
     """
 
     if not hostname:
-        return (False, _("Hostname cannot be None or an empty string."))
+        return (False, _("Host name cannot be None or an empty string."))
 
     if len(hostname) > 255:
-        return (False, _("Hostname must be 255 or fewer characters in length."))
+        return (False, _("Host name must be 255 or fewer characters in length."))
 
     if not (re.match('^' + HOSTNAME_PATTERN_WITHOUT_ANCHORS + '$', hostname)):
-        return (False, _("Hostnames can only contain the characters 'a-z', "
+        return (False, _("Host names can only contain the characters 'a-z', "
                          "'A-Z', '0-9', '-', or '.', parts between periods "
                          "must contain something and cannot start or end with "
                          "'-'."))
@@ -936,7 +936,7 @@ def ks_spec_to_device_name(ksspec=""):
 
 def set_hostname(hn):
     if can_touch_runtime_system("set hostname", touch_live=True):
-        log.info("setting installation environment hostname to %s", hn)
+        log.info("setting installation environment host name to %s", hn)
         iutil.execWithRedirect("hostnamectl", ["set-hostname", hn])
 
 def write_hostname(rootpath, ksdata, overwrite=False):
@@ -1040,7 +1040,7 @@ def write_network_config(storage, ksdata, instClass, rootpath):
     autostartFCoEDevices(rootpath, storage, ksdata)
 
 def update_hostname_data(ksdata, hostname):
-    log.debug("updating hostname %s", hostname)
+    log.debug("updating host name %s", hostname)
     hostname_found = False
     for nd in ksdata.network.network:
         if nd.hostname:
@@ -1180,7 +1180,7 @@ def _get_ntp_servers_from_dhcp(ksdata):
             hostname = socket.gethostbyaddr(server_address)[0]
         except socket.error:
             # getting hostname failed, just use the address returned from DHCP
-            log.debug("getting NTP server hostname failed for address: %s",
+            log.debug("getting NTP server host name failed for address: %s",
                       server_address)
             hostname = server_address
         hostnames.append(hostname)
@@ -1303,7 +1303,7 @@ def status_message():
                 elif nm.nm_device_type_is_vlan(devname):
                     parent = nm.nm_device_setting_value(devname, "vlan", "parent")
                     vlanid = nm.nm_device_setting_value(devname, "vlan", "id")
-                    msg = _("Vlan %(interface_name)s (%(parent_device)s, ID %(vlanid)s) connected") \
+                    msg = _("VLAN %(interface_name)s (%(parent_device)s, ID %(vlanid)s) connected") \
                           % {"interface_name": devname, "parent_device": parent, "vlanid": vlanid}
             elif len(nonslaves) > 1:
                 devlist = []

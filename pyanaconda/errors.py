@@ -132,7 +132,7 @@ class ErrorHandler(object):
         # FIXME: include the two types in the message instead of including
         #        the raw exception text
         message = _("There is an entry in your /etc/fstab file that contains "
-                    "an invalid or incorrect filesystem type:\n\n")
+                    "an invalid or incorrect file system type:\n\n")
         message += " " + str(exn)
         self.ui.showError(message)
 
@@ -242,7 +242,7 @@ class ErrorHandler(object):
         return ERROR_RAISE
 
     def _bootLoaderErrorHandler(self, exn):
-        message = _("The following error occurred while installing the bootloader. "
+        message = _("The following error occurred while installing the boot loader. "
                     "The system will not be bootable. "
                     "Would you like to ignore this and continue with "
                     "installation?")

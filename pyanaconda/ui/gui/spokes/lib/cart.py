@@ -129,9 +129,9 @@ class SelectedDisksDialog(GUIObject):
 
         # pylint: disable=unescaped-markup
         text = P_("<b>%(count)d disk; %(size)s capacity; %(free)s free space</b> "
-                   "(unpartitioned and in filesystems)",
+                   "(unpartitioned and in file systems)",
                   "<b>%(count)d disks; %(size)s capacity; %(free)s free space</b> "
-                   "(unpartitioned and in filesystems)",
+                   "(unpartitioned and in file systems)",
                    count) % {"count" : count,
                              "size" : escape_markup(size),
                              "free" : escape_markup(free)}
@@ -187,7 +187,7 @@ class SelectedDisksDialog(GUIObject):
     def _toggle_button_text(self, row):
         if row[IS_BOOT_COL]:
             self._set_button.set_label(C_("GUI|Selected Disks Dialog",
-                "_Do not install bootloader"))
+                "_Do not install boot loader"))
         else:
             self._set_button.set_label(C_("GUI|Selected Disks Dialog",
                 "_Set as Boot Device"))

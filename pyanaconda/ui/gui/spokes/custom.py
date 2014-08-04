@@ -630,7 +630,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         elif encrypted and new_fs_type in PARTITION_ONLY_FORMAT_TYPES:
             error = _("%s cannot be encrypted") % new_fs_type
         elif mountpoint == "/" and device.format.exists and not reformat:
-            error = _("You must create a new filesystem on the root device.")
+            error = _("You must create a new file system on the root device.")
 
         if not error and \
            (raid_level is not None or requiresRaidSelection(device_type)) and \
@@ -1415,7 +1415,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         if self._sizeEntry.get_sensitive():
             self._sizeEntry.props.has_tooltip = False
         elif device.format.type == "btrfs":
-            self._sizeEntry.set_tooltip_text(_("The space available to this mountpoint can be changed by modifying the volume below."))
+            self._sizeEntry.set_tooltip_text(_("The space available to this mount point can be changed by modifying the volume below."))
         else:
             self._sizeEntry.set_tooltip_text(_("This file system may not be resized."))
 

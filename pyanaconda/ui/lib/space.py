@@ -29,12 +29,12 @@ log = logging.getLogger("anaconda")
 
 class FileSystemSpaceChecker(object):
     """This object provides for a way to verify that enough space is available
-       on configured filesystems to support the current software selections.
+       on configured file systems to support the current software selections.
        It is run as part of completeness checking every time a spoke changes,
        therefore moving this step up out of both the storage and software
        spokes.
     """
-    error_template = N_("Not enough space in filesystems for the current "
+    error_template = N_("Not enough space in file systems for the current "
                         "software selection. An additional %s is needed.")
 
     def __init__(self, storage, payload):

@@ -132,7 +132,7 @@ class AnacondaExceptionHandler(ExceptionHandler):
                         cmdline_error_msg = _("\nThe installation was stopped due to "
                                               "incomplete spokes detected while running "
                                               "in non-interactive cmdline mode. Since there "
-                                              "can not be any questions in cmdline mode, "
+                                              "cannot be any questions in cmdline mode, "
                                               "edit your kickstart file and retry "
                                               "installation.\nThe exact error message is: "
                                               "\n\n%s.\n\nThe installer will now terminate.") % str(value)

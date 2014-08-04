@@ -401,12 +401,12 @@ class BTRFSData(commands.btrfs.F17_BTRFSData):
 
             if dev and dev.format.type != "btrfs":
                 raise KickstartValueError(formatErrorMsg(self.lineno,
-                        msg=_("BTRFS partition \"%(device)s\" has a format of \"%(format)s\", but should have a format of \"btrfs\".") %
+                        msg=_("Btrfs partition \"%(device)s\" has a format of \"%(format)s\", but should have a format of \"btrfs\".") %
                              {"device": member, "format": dev.format.type}))
 
             if not dev:
                 raise KickstartValueError(formatErrorMsg(self.lineno,
-                        msg=_("Tried to use undefined partition \"%s\" in BTRFS volume specification.") % member))
+                        msg=_("Tried to use undefined partition \"%s\" in Btrfs volume specification.") % member))
 
             members.append(dev)
 
@@ -419,7 +419,7 @@ class BTRFSData(commands.btrfs.F17_BTRFSData):
 
         if len(members) == 0 and not self.preexist:
             raise KickstartValueError(formatErrorMsg(self.lineno,
-                    msg=_("BTRFS volume defined without any member devices.  Either specify member devices or use --useexisting.")))
+                    msg=_("Btrfs volume defined without any member devices.  Either specify member devices or use --useexisting.")))
 
         # allow creating btrfs vols/subvols without specifying mountpoint
         if self.mountpoint in ("none", "None"):
@@ -443,7 +443,7 @@ class BTRFSData(commands.btrfs.F17_BTRFSData):
             device = devicetree.resolveDevice(self.name)
             if not device:
                 raise KickstartValueError(formatErrorMsg(self.lineno,
-                        msg=_("BTRFS volume \"%s\" specified with --useexisting does not exist.") % self.name))
+                        msg=_("Btrfs volume \"%s\" specified with --useexisting does not exist.") % self.name))
 
             device.format.mountpoint = self.mountpoint
         else:
@@ -868,7 +868,7 @@ class LogVolData(commands.logvol.F20_LogVolData):
                         mountopts=self.fsopts)
         if not fmt.type and not self.thin_pool:
             raise KickstartValueError(formatErrorMsg(self.lineno,
-                    msg=_("The \"%s\" filesystem type is not supported.") % ty))
+                    msg=_("The \"%s\" file system type is not supported.") % ty))
 
         # If we were given a pre-existing LV to create a filesystem on, we need
         # to verify it and its VG exists and then schedule a new format action
@@ -1079,7 +1079,7 @@ class PartitionData(commands.partition.F18_PartData):
 
             if devicetree.getDeviceByName(kwargs["name"]):
                 raise KickstartValueError(formatErrorMsg(self.lineno,
-                        msg=_("BTRFS partition \"%s\" is defined multiple times.") % kwargs["name"]))
+                        msg=_("Btrfs partition \"%s\" is defined multiple times.") % kwargs["name"]))
 
             if self.onPart:
                 ksdata.onPart[kwargs["name"]] = self.onPart
@@ -1144,7 +1144,7 @@ class PartitionData(commands.partition.F18_PartData):
            size=size)
         if not kwargs["fmt"].type:
             raise KickstartValueError(formatErrorMsg(self.lineno,
-                    msg=_("The \"%s\" filesystem type is not supported.") % ty))
+                    msg=_("The \"%s\" file system type is not supported.") % ty))
 
         # If we were given a specific disk to create the partition on, verify
         # that it exists first.  If it doesn't exist, see if it exists with
@@ -1298,7 +1298,7 @@ class RaidData(commands.raid.F18_RaidData):
 
             if devicetree.getDeviceByName(kwargs["name"]):
                 raise KickstartValueError(formatErrorMsg(self.lineno,
-                        msg=_("BTRFS partition \"%s\" is defined multiple times.") % kwargs["name"]))
+                        msg=_("Btrfs partition \"%s\" is defined multiple times.") % kwargs["name"]))
 
             self.mountpoint = ""
         else:
@@ -1363,7 +1363,7 @@ class RaidData(commands.raid.F18_RaidData):
            mountopts=self.fsopts)
         if not kwargs["fmt"].type:
             raise KickstartValueError(formatErrorMsg(self.lineno,
-                    msg=_("The \"%s\" filesystem type is not supported.") % ty))
+                    msg=_("The \"%s\" file system type is not supported.") % ty))
 
         kwargs["name"] = devicename
         kwargs["level"] = self.level

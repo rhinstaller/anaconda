@@ -171,7 +171,7 @@
                     </child>
                     <child>
                       <object class="GtkTreeViewColumn" id="fsColumn">
-                        <property name="title" translatable="yes">Filesystem</property>
+                        <property name="title" translatable="yes">File System</property>
                         <child>
                           <object class="GtkCellRendererText" id="fsRenderer"/>
                           <attributes>
@@ -310,7 +310,7 @@
                 <property name="can_focus">False</property>
                 <property name="halign">start</property>
                 <property name="margin_bottom">6</property>
-                <property name="label">&lt;b&gt;%s disks; %s reclaimable space&lt;/b&gt; (in filesystems)</property>
+                <property name="label">&lt;b&gt;%s disks; %s reclaimable space&lt;/b&gt; (in file systems)</property>
                 <property name="use_markup">True</property>
               </object>
               <packing>

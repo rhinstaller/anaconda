@@ -24,7 +24,7 @@
         <col id="1">DEVICE_TYPE_PARTITION</col>
       </row>
       <row>
-        <col id="0" translatable="yes">BTRFS</col>
+        <col id="0" translatable="yes">Btrfs</col>
         <col id="1">DEVICE_TYPE_BTRFS</col>
       </row>
       <row>
@@ -977,7 +977,7 @@ until you click on the main menu's 'Begin Installation' button.</property>
                             <property name="height_request">36</property>
                             <property name="visible">True</property>
                             <property name="can_focus">False</property>
-                            <property name="tooltip_text" translatable="yes">Add a new mountpoint.</property>
+                            <property name="tooltip_text" translatable="yes">Add a new mount point.</property>
                             <property name="label" translatable="yes" context="GUI|Custom Partitioning">_Add</property>
                             <property name="use_underline">True</property>
                             <property name="icon_name">list-add-symbolic</property>
@@ -994,7 +994,7 @@ until you click on the main menu's 'Begin Installation' button.</property>
                             <property name="height_request">36</property>
                             <property name="visible">True</property>
                             <property name="can_focus">False</property>
-                            <property name="tooltip_text" translatable="yes">Remove the selected mountpoint(s).</property>
+                            <property name="tooltip_text" translatable="yes">Remove the selected mount point(s).</property>
                             <property name="label" translatable="yes" context="GUI|Custom Partitioning">Remo_ve</property>
                             <property name="use_underline">True</property>
                             <property name="icon_name">list-remove-symbolic</property>
@@ -1011,7 +1011,7 @@ until you click on the main menu's 'Begin Installation' button.</property>
                             <property name="height_request">36</property>
                             <property name="visible">True</property>
                             <property name="can_focus">False</property>
-                            <property name="tooltip_text" translatable="yes">Configure selected mountpoint.</property>
+                            <property name="tooltip_text" translatable="yes">Configure selected mount point.</property>
                             <property name="label" translatable="yes" context="GUI|Custom Partitioning">_Configure</property>
                             <property name="use_underline">True</property>
                             <property name="icon_name">preferences-system-symbolic</property>
