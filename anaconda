@@ -916,6 +916,11 @@ if __name__ == "__main__":
     from pyanaconda.flags import flags, can_touch_runtime_system
     (opts, depr) = parseArguments(boot_cmdline=flags.cmdline)
 
+    if opts.images:
+        flags.imageInstall = True
+    elif opts.dirinstall:
+        flags.dirInstall = True
+
     # Set up logging as early as possible.
     import logging
     from pyanaconda import anaconda_log
@@ -963,10 +968,7 @@ if __name__ == "__main__":
     if opts.images and opts.dirinstall:
         stdoutLog.error("--images and --dirinstall cannot be used at the same time")
         sys.exit(1)
-    elif opts.images:
-        flags.imageInstall = True
     elif opts.dirinstall:
-        flags.dirInstall = True
         if opts.dirinstall is True:
             root_path = os.environ.get("ANACONDA_ROOT_PATH", "/mnt/sysimage")
         else:

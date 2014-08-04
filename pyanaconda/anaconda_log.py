@@ -194,7 +194,7 @@ class AnacondaLog:
     def forwardToSyslog(self, logr):
         """Forward everything that goes in the logger to the syslog daemon.
         """
-        if flags.imageInstall:
+        if flags.imageInstall or flags.dirInstall:
             # don't clutter up the system logs when doing an image install
             return
 
