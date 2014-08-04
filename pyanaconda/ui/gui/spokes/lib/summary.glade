@@ -13,6 +13,8 @@
       <column type="gchararray"/>
       <!-- column-name actionMountpoint -->
       <column type="gchararray"/>
+      <!-- column-name diskTooltip -->
+      <column type="gchararray"/>
     </columns>
   </object>
   <object class="GtkDialog" id="summaryDialog">
@@ -120,6 +122,7 @@
                     <property name="can_focus">True</property>
                     <property name="model">actionStore</property>
                     <property name="headers_clickable">False</property>
+                    <property name="tooltip_column">5</property>
                     <child internal-child="selection">
                       <object class="GtkTreeSelection" id="treeview-selection1"/>
                     </child>
@@ -158,7 +161,7 @@
                     </child>
                     <child>
                       <object class="GtkTreeViewColumn" id="deviceNameColumn">
-                        <property name="title" translatable="yes">Device Name</property>
+                        <property name="title" translatable="yes">Device</property>
                         <child>
                           <object class="GtkCellRendererText" id="deviceNameRenderer"/>
                           <attributes>

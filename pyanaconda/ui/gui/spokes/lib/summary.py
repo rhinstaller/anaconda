@@ -1,6 +1,6 @@
 # Action summary dialog
 #
-# Copyright (C) 2013  Red Hat, Inc.
+# Copyright (C) 2013-2014  Red Hat, Inc.
 #
 # This copyrighted material is made available to anyone wishing to use,
 # modify, copy, or redistribute it subject to the terms and conditions of
@@ -44,11 +44,24 @@ class ActionSummaryDialog(GUIObject):
                 if action.obj == ACTION_OBJECT_FORMAT:
                     mountpoint = getattr(action.device.format, "mountpoint", "")
 
+            if hasattr(action.device, "description"):
+                desc = _("%(description)s (%(deviceName)s)") % {"deviceName": action.device.name,
+                                                                "description": action.device.description}
+                serial = action.device.serial
+            elif hasattr(action.device, "disk"):
+                desc = _("%(deviceName)s on %(container)s") % {"deviceName": action.device.name,
+                                                               "container": action.device.disk.description}
+                serial = action.device.disk.serial
+            else:
+                desc = action.device.name
+                serial = action.device.serial
+
             self._store.append([i,
                                 typeString,
                                 action.objectTypeString,
-                                action.device.name,
-                                mountpoint])
+                                desc,
+                                mountpoint,
+                                serial])
 
     def refresh(self, actions):
         GUIObject.refresh(self)
