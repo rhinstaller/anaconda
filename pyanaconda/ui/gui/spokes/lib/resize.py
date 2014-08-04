@@ -210,13 +210,13 @@ class ResizeDialog(GUIObject):
 
         self._update_labels(totalDisks, totalReclaimableSpace, 0)
 
-        description = _("You can remove existing filesystems you no longer need to free up space "
-                        "for this installation.  Removing a filesystem will permanently delete all "
+        description = _("You can remove existing file systems you no longer need to free up space "
+                        "for this installation.  Removing a file system will permanently delete all "
                         "of the data it contains.")
 
         if canShrinkSomething:
             description += "\n\n"
-            description += _("There is also free space available in pre-existing filesystems.  "
+            description += _("There is also free space available in pre-existing file systems.  "
                              "While it's risky and we recommend you back up your data first, you "
                              "can recover that free disk space and make it available for this "
                              "installation below.")
@@ -226,8 +226,8 @@ class ResizeDialog(GUIObject):
 
     def _update_labels(self, nDisks=None, totalReclaimable=None, selectedReclaimable=None):
         if nDisks is not None and totalReclaimable is not None:
-            text = P_("<b>%(count)s disk; %(size)s reclaimable space</b> (in filesystems)",
-                      "<b>%(count)s disks; %(size)s reclaimable space</b> (in filesystems)",
+            text = P_("<b>%(count)s disk; %(size)s reclaimable space</b> (in file systems)",
+                      "<b>%(count)s disks; %(size)s reclaimable space</b> (in file systems)",
                       escape_markup(nDisks)) % {"count": escape_markup(nDisks),
                                                 "size": escape_markup(size_str(totalReclaimable))}
             self._reclaimable_label.set_markup(text)

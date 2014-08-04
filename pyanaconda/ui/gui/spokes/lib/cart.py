@@ -132,9 +132,9 @@ class SelectedDisksDialog(GUIObject):
         free = str(Size(bytes=long(free))).upper()
 
         text = P_("<b>%(count)s disk; %(size)s capacity; %(free)s free space</b> "
-                   "(unpartitioned and in filesystems)",
+                   "(unpartitioned and in file systems)",
                   "<b>%(count)s disks; %(size)s capacity; %(free)s free space</b> "
-                   "(unpartitioned and in filesystems)",
+                   "(unpartitioned and in file systems)",
                   count) % {"count": escape_markup(count),
                             "size": escape_markup(size),
                             "free": escape_markup(free)}
@@ -189,7 +189,7 @@ class SelectedDisksDialog(GUIObject):
 
     def _toggle_button_text(self, row):
         if row[IS_BOOT_COL]:
-            self._set_button.set_label(_("_Do not install bootloader"))
+            self._set_button.set_label(_("_Do not install boot loader"))
         else:
             self._set_button.set_label(_("_Set as Boot Device"))
 

@@ -124,8 +124,8 @@ class AnacondaExceptionHandler(ExceptionHandler):
                     if (issubclass (ty, CmdlineError)):
                         cmdline_error_msg = _("\nThe installation was stopped due to an "
                                               "error which occurred while running in "
-                                              "non-interactive cmdline mode. Since there can "
-                                              "not be any questions in cmdline mode, edit "
+                                              "non-interactive cmdline mode. Since there cannot"
+                                              "be any questions in cmdline mode, edit "
                                               "your kickstart file and retry installation. "
                                               "\nThe exact error message is: \n\n%s. \n\nThe "
                                               "installer will now terminate.") % str(value)

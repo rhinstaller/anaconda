@@ -242,7 +242,7 @@ class BootLoader(object):
     stage2_mountpoints = ["/boot", "/"]
     stage2_bootable = False
     stage2_must_be_primary = True
-    stage2_description = N_("/boot filesystem")
+    stage2_description = N_("/boot file system")
     stage2_max_end_mb = 2 * 1024 * 1024
 
     @property
@@ -786,7 +786,7 @@ class BootLoader(object):
     @update_only.setter
     def update_only(self, value):
         if value and not self.can_update:
-            raise ValueError("this bootloader does not support updates")
+            raise ValueError("this boot loader does not support updates")
         elif self.can_update:
             self._update_only = value
 
@@ -947,7 +947,7 @@ class BootLoader(object):
     def write_config(self):
         """ Write the bootloader configuration. """
         if not self.config_file:
-            raise BootLoaderError("no config file defined for this bootloader")
+            raise BootLoaderError("no config file defined for this boot loader")
 
         self.add_crash_args()
 
@@ -1312,7 +1312,7 @@ class GRUB(BootLoader):
     def install(self, args=None):
         rc = iutil.execInSysroot("grub-install", ["--just-copy"])
         if rc:
-            raise BootLoaderError("bootloader install failed")
+            raise BootLoaderError("boot loader install failed")
 
         for (stage1dev, stage2dev) in self.install_targets:
             cmd = ("root %(stage2dev)s\n"
@@ -1333,7 +1333,7 @@ class GRUB(BootLoader):
             rc = iutil.execInSysroot("grub", args, stdin=pread)
             os.close(pread)
             if rc:
-                raise BootLoaderError("bootloader install failed")
+                raise BootLoaderError("boot loader install failed")
 
     def update(self):
         self.install()
@@ -1364,14 +1364,14 @@ class GRUB(BootLoader):
                 self.stage2_device.level == mdraid.RAID1 and \
                 self.stage1_device.type != "mdarray":
             if not self.stage1_device.isDisk:
-                msg = _("bootloader stage2 device %(stage2dev)s in on a multi-disk array, but bootloader stage1 device %(stage1dev)s is not. " \
+                msg = _("boot loader stage2 device %(stage2dev)s in on a multi-disk array, but boot loader stage1 device %(stage1dev)s is not. " \
                         "A drive failure in %(stage2dev)s could render the system unbootable.") % \
                         {"stage1dev" : self.stage1_device.name,
                          "stage2dev" : self.stage2_device.name}
                 self.warnings.append(msg)
             elif not self.stage2_device.dependsOn(self.stage1_device):
-                msg = _("bootloader stage2 device %(stage2dev)s is on a multi-disk array, but bootloader stage1 device %(stage1dev)s is not part of this array. " \
-                        "The stage1 bootloader will only be installed to a single drive.") % \
+                msg = _("boot loader stage2 device %(stage2dev)s is on a multi-disk array, but boot loader stage1 device %(stage1dev)s is not part of this array. " \
+                        "The stage1 boot loader will only be installed to a single drive.") % \
                         {"stage1dev" : self.stage1_device.name,
                          "stage2dev" : self.stage2_device.name}
                 self.warnings.append(msg)
@@ -1395,7 +1395,7 @@ class GRUB2(GRUB):
 
         - BIOS boot partition (GPT)
             - parted /dev/sda set <partition_number> bios_grub on
-            - can't contain a filesystem
+            - can't contain a file system
             - 31KiB min, 1MiB recommended
 
     """
@@ -1528,7 +1528,7 @@ class GRUB2(GRUB):
         os.close(pread)
         self.encrypted_password = buf.split()[-1].strip()
         if not self.encrypted_password.startswith("grub.pbkdf2."):
-            raise BootLoaderError("failed to encrypt bootloader password")
+            raise BootLoaderError("failed to encrypt boot loader password")
 
     def write_password_config(self):
         if not self.password and not self.encrypted_password:
@@ -1563,7 +1563,7 @@ class GRUB2(GRUB):
         try:
             self.write_password_config()
         except (BootLoaderError, OSError, RuntimeError) as e:
-            log.error("bootloader password setup failed: %s", e)
+            log.error("boot loader password setup failed: %s", e)
 
         # make sure the default entry is the OS we are installing
         entry_title = "%s Linux, with Linux %s" % (productName,
@@ -1576,7 +1576,7 @@ class GRUB2(GRUB):
         rc = iutil.execInSysroot("grub2-mkconfig",
                                  ["-o", self.config_file])
         if rc:
-            raise BootLoaderError("failed to write bootloader configuration")
+            raise BootLoaderError("failed to write boot loader configuration")
 
     #
     # installation
@@ -1598,7 +1598,7 @@ class GRUB2(GRUB):
                                         root=iutil.getSysroot(),
                                         env_prune=['MALLOC_PERTURB_'])
             if rc:
-                raise BootLoaderError("bootloader install failed")
+                raise BootLoaderError("boot loader install failed")
 
     def write(self):
         """ Write the bootloader configuration and install the bootloader. """
@@ -1650,7 +1650,7 @@ class GRUB2(GRUB):
             start = p.geometry.start * p.disk.device.sectorSize
             if not p.getFlag(PARTITION_BIOS_GRUB) and start < min_start:
                 msg = _("%(deviceName)s may not have enough space for grub2 to embed "
-                        "core.img when using the %(fsType)s filesystem on %(deviceType)s") \
+                        "core.img when using the %(fsType)s file system on %(deviceType)s") \
                         % {"deviceName": self.stage1_device.name, "fsType": self.stage2_device.format.type,
                            "deviceType": self.stage2_device.type}
                 log.error(msg)
@@ -1779,7 +1779,7 @@ class MacEFIGRUB(EFIGRUB):
         if os.path.exists(iutil.getSysroot() + "/usr/libexec/mactel-boot-setup"):
             rc = iutil.execInSysroot("/usr/libexec/mactel-boot-setup", [])
             if rc:
-                log.error("failed to configure Mac bootloader")
+                log.error("failed to configure Mac boot loader")
 
     def install(self, args=None):
         super(MacEFIGRUB, self).install()
@@ -1915,7 +1915,7 @@ class Yaboot(YabootBase):
         args = ["-f", "-C", self.config_file]
         rc = iutil.execInSysroot(self.prog, args)
         if rc:
-            raise BootLoaderError("bootloader installation failed")
+            raise BootLoaderError("boot loader installation failed")
 
 
 class IPSeriesYaboot(Yaboot):
@@ -2204,7 +2204,7 @@ class UBOOT(BootLoader):
         rc = iutil.execWithRedirect("a-b-c", [], root=iutil.getSysroot())
 
         if rc:
-            raise BootLoaderError("bootloader install failed")
+            raise BootLoaderError("boot loader install failed")
 
 class EXTLINUX(BootLoader):
     name = "EXTLINUX"
@@ -2302,7 +2302,7 @@ class EXTLINUX(BootLoader):
         rc = iutil.execInSysroot("extlinux", args)
 
         if rc:
-            raise BootLoaderError("bootloader install failed")
+            raise BootLoaderError("boot loader install failed")
 
 
 # every platform that wants a bootloader needs to be in this dict
@@ -2323,7 +2323,7 @@ def get_bootloader():
         cls = EXTLINUX
     else:
         cls = bootloader_by_platform.get(platform.platform.__class__, BootLoader)
-    log.info("bootloader %s on %s platform", cls.__name__, platform_name)
+    log.info("boot loader %s on %s platform", cls.__name__, platform_name)
     return cls()
 
 
@@ -2397,13 +2397,13 @@ def writeBootLoader(storage, payload, instClass, ksdata):
     """
     if not storage.bootloader.skip_bootloader:
         stage1_device = storage.bootloader.stage1_device
-        log.info("bootloader stage1 target device is %s", stage1_device.name)
+        log.info("boot loader stage1 target device is %s", stage1_device.name)
         stage2_device = storage.bootloader.stage2_device
-        log.info("bootloader stage2 target device is %s", stage2_device.name)
+        log.info("boot loader stage2 target device is %s", stage2_device.name)
 
     if isinstance(payload, RPMOSTreePayload):
         if storage.bootloader.skip_bootloader:
-            log.info("skipping bootloader install per user request")
+            log.info("skipping boot loader install per user request")
             return
         writeBootLoaderFinal(storage, payload, instClass, ksdata)
         return
@@ -2411,7 +2411,7 @@ def writeBootLoader(storage, payload, instClass, ksdata):
     # get a list of installed kernel packages
     kernel_versions = payload.kernelVersionList
     if not kernel_versions:
-        log.warning("no kernel was installed -- bootloader config unchanged")
+        log.warning("no kernel was installed -- boot loader config unchanged")
         return
 
     # all the linux images' labels are based on the default image's
@@ -2434,7 +2434,7 @@ def writeBootLoader(storage, payload, instClass, ksdata):
     writeSysconfigKernel(storage, version)
 
     if storage.bootloader.skip_bootloader:
-        log.info("skipping bootloader install per user request")
+        log.info("skipping boot loader install per user request")
         return
 
     # now add an image for each of the other kernels

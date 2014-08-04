@@ -133,7 +133,7 @@ class ErrorHandler(object):
         # FIXME: include the two types in the message instead of including
         #        the raw exception text
         message = _("There is an entry in your /etc/fstab file that contains "
-                    "an invalid or incorrect filesystem type:\n\n")
+                    "an invalid or incorrect file system type:\n\n")
         message += " " + str(kwargs["exception"])
         self.ui.showError(message)
 

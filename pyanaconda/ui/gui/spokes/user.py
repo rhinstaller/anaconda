@@ -470,11 +470,11 @@ class UserSpoke(FirstbootSpokeMixIn, NormalSpoke):
         # if an invalid username was given, that's the biggest issue
         if username and not USERNAME_VALID.match(username):
             self.clear_info()
-            self.set_warning(_("Invalid username"))
+            self.set_warning(_("Invalid user name"))
             self.username.grab_focus()
             self.window.show_all()
         # Return if:
-        # - no user is requested (empty username)
+        # - no user is requested (empty user name)
         # - no password is required
         # - password is set by kickstart and password text entry is empty
         # - password is set by dialog and _validatePassword returns True

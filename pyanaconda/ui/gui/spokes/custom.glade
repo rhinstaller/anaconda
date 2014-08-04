@@ -265,7 +265,7 @@ use.  Try something else?</property>
         </child>
         <child>
           <object class="GtkCheckButton" id="removeAllCheckbox">
-            <property name="label" translatable="yes">Delete _all other filesystems in the %s root as well.</property>
+            <property name="label" translatable="yes">Delete _all other file systems in the %s root as well.</property>
             <property name="visible">True</property>
             <property name="can_focus">True</property>
             <property name="receives_default">False</property>
@@ -1063,7 +1063,7 @@ use.  Try something else?</property>
                                         <property name="id_column">1</property>
                                         <items>
                                           <item translatable="yes">Standard Partition</item>
-                                          <item translatable="yes">BTRFS</item>
+                                          <item translatable="yes">Btrfs</item>
                                           <item translatable="yes">LVM</item>
                                           <item translatable="yes">RAID</item>
                                           <item translatable="yes">LVM Thin Provisioning</item>
@@ -1644,7 +1644,7 @@ until you click on the main menu's 'Begin Installation' button.</property>
                             <property name="height_request">36</property>
                             <property name="visible">True</property>
                             <property name="can_focus">False</property>
-                            <property name="tooltip_text" translatable="yes">Add a new mountpoint.</property>
+                            <property name="tooltip_text" translatable="yes">Add a new mount point.</property>
                             <property name="label" translatable="yes">_Add</property>
                             <property name="use_underline">True</property>
                             <property name="icon_name">list-add-symbolic</property>
@@ -1661,7 +1661,7 @@ until you click on the main menu's 'Begin Installation' button.</property>
                             <property name="height_request">36</property>
                             <property name="visible">True</property>
                             <property name="can_focus">False</property>
-                            <property name="tooltip_text" translatable="yes">Remove the selected mountpoint(s).</property>
+                            <property name="tooltip_text" translatable="yes">Remove the selected mount point(s).</property>
                             <property name="label" translatable="yes">Remo_ve</property>
                             <property name="use_underline">True</property>
                             <property name="icon_name">list-remove-symbolic</property>
@@ -1678,7 +1678,7 @@ until you click on the main menu's 'Begin Installation' button.</property>
                             <property name="height_request">36</property>
                             <property name="visible">True</property>
                             <property name="can_focus">False</property>
-                            <property name="tooltip_text" translatable="yes">Configure selected mountpoint.</property>
+                            <property name="tooltip_text" translatable="yes">Configure selected mount point.</property>
                             <property name="label" translatable="yes">_Configure</property>
                             <property name="use_underline">True</property>
                             <property name="icon_name">preferences-system-symbolic</property>

@@ -742,7 +742,7 @@ class StorageSpoke(NormalSpoke, StorageChecker):
         self.data.bootloader.seen = True
 
         if self.data.bootloader.location == "none":
-            self.set_warning(_("You have chosen to skip bootloader installation.  Your system may not be bootable."))
+            self.set_warning(_("You have chosen to skip boot loader installation.  Your system may not be bootable."))
             self.window.show_all()
         else:
             self.clear_info()

@@ -111,11 +111,11 @@ unrecoverable_error_msg = N_("Storage configuration reset due to unrecoverable "
 device_configuration_error_msg = N_("Device reconfiguration failed. Click for "
                                     "details.")
 
-label_format_invalid_msg = N_("Unacceptable label format for filesystem.")
-label_application_unavailable_msg = N_("Can not set label on filesystem.")
-label_resetting_forbidden_msg = N_("Can not relabel already existing filesystem.")
+label_format_invalid_msg = N_("Unacceptable label format for file system.")
+label_application_unavailable_msg = N_("Cannot set label on file system.")
+label_resetting_forbidden_msg = N_("Cannot relabel already existing file system.")
 
-empty_mountpoint_msg = N_("Please enter a valid mountpoint.")
+empty_mountpoint_msg = N_("Please enter a valid mount point.")
 invalid_mountpoint_msg = N_("That mount point is invalid. Try something else?")
 mountpoint_in_use_msg = N_("That mount point is already in use. Try something else?")
 
@@ -155,7 +155,7 @@ DEVICE_TEXT_LVM = N_("LVM")
 DEVICE_TEXT_LVM_THINP = N_("LVM Thin Provisioning")
 DEVICE_TEXT_MD = N_("RAID")
 DEVICE_TEXT_PARTITION = N_("Standard Partition")
-DEVICE_TEXT_BTRFS = N_("BTRFS")
+DEVICE_TEXT_BTRFS = N_("Btrfs")
 DEVICE_TEXT_DISK = N_("Disk")
 
 device_text_map = {DEVICE_TYPE_LVM: DEVICE_TEXT_LVM,
@@ -226,7 +226,7 @@ def populate_mountpoint_store(store, used_mountpoints):
 
 def validate_label(label, fmt):
     """Returns a code indicating either that the given label can be set for
-       this filesystem or the reason why it can not.
+       this file system or the reason why it can not.
 
        In the case where the format can not assign a label, the empty string
        stands for accept the default, but in the case where the format can
@@ -1063,7 +1063,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
                      "from GPT-partitioned disks on BIOS hardware.")
         elif name == "PReP Boot":
             return _("The PReP boot partition is required as part of the\n"
-                     "bootloader configuration on some PPC platforms.")
+                     "boot loader configuration on some PPC platforms.")
         else:
             return ""
 
@@ -1276,7 +1276,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         elif encrypted and new_fs_type in partition_only_format_types:
             error = _("%s cannot be encrypted") % fs_type
         elif mountpoint == "/" and device.format.exists and not reformat:
-            error = _("You must create a new filesystem on the root device.")
+            error = _("You must create a new file system on the root device.")
         elif device_type == DEVICE_TYPE_MD and raid_level in (None, "single"):
             error = _("Devices of type %s require a valid RAID level selection.") % DEVICE_TEXT_MD
 
@@ -1940,7 +1940,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         if self._sizeEntry.get_sensitive():
             self._sizeEntry.props.has_tooltip = False
         elif device.format.type == "btrfs":
-            self._sizeEntry.set_tooltip_text(_("The space available to this mountpoint can be changed by modifying the volume below."))
+            self._sizeEntry.set_tooltip_text(_("The space available to this mount point can be changed by modifying the volume below."))
         else:
             self._sizeEntry.set_tooltip_text(_("This file system may not be resized."))
 
@@ -3017,47 +3017,47 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
     def on_value_changed(self, *args):
         self._applyButton.set_sensitive(True)
 
-help_text_template = N_("""You have chosen to manually set up the filesystems for your new %(productName)s installation. Before you begin, you might want to take a minute to learn the lay of the land. Quite a bit has changed.
+help_text_template = N_("""You have chosen to manually set up the file systems for your new %(productName)s installation. Before you begin, you might want to take a minute to learn the lay of the land. Quite a bit has changed.
 
-The most important change is that creation of new filesystems has been streamlined. You no longer have to build complex devices like LVM logical volumes in stages (physical volume, then volume group, then logical volume) -- now you just create a logical volume and we'll handle the legwork of setting up the physical volumes and volume group to contain it. We'll also handle adjusting the volume group as you add, remove, and resize logical volumes so you don't have to worry about the mundane details.
+The most important change is that creation of new file systems has been streamlined. You no longer have to build complex devices like LVM logical volumes in stages (physical volume, then volume group, then logical volume) -- now you just create a logical volume and we'll handle the legwork of setting up the physical volumes and volume group to contain it. We'll also handle adjusting the volume group as you add, remove, and resize logical volumes so you don't have to worry about the mundane details.
 
 
 Screen Layout
 
-The left-hand side of the screen shows the OS installations we were able to find on this computer. The new %(productName)s installation is at the top of the list. You can click on the names of the installations to see what filesystems they contain.
+The left-hand side of the screen shows the OS installations we were able to find on this computer. The new %(productName)s installation is at the top of the list. You can click on the names of the installations to see what file systems they contain.
 
-Below the various installations and mountpoints on the left-hand side there are buttons to add a new filesystem, remove the selected filesystem, or configure the selected filesystem.
+Below the various installations and mount points on the left-hand side there are buttons to add a new file system, remove the selected file system, or configure the selected file system.
 
-The right-hand side of the screen is where you can customize the currently-selected mountpoint.
+The right-hand side of the screen is where you can customize the currently-selected mount point.
 
 On the bottom-left you will see a summary of the disks you have chosen to use for the installation. You can click on the blue text to see more detailed information about your selected disks.
 
 
-How to create a new filesystem on a new device
+How to create a new file system on a new device
 
 1. Click on the + button.
-2. Enter the mountpoint and size. (Hint: Hover the mouse pointer over either of the text entry areas for help.)
-3. Select the new mountpoint under "New %(productName)s Installation" on the left-hand side of the screen and customize it to suit your needs.
+2. Enter the mount point and size. (Hint: Hover the mouse pointer over either of the text entry areas for help.)
+3. Select the new mount point under "New %(productName)s Installation" on the left-hand side of the screen and customize it to suit your needs.
 
 
-How to reformat a device/filesystem that already exists on your disk
+How to reformat a device/file system that already exists on your disk
 
-1. Select the filesystem from the left-hand side of the screen.
-2. Click on the "Customize" expander in the mountpoint customization area on the right-hand side of the screen.
-3. Activate the "Reformat" checkbutton, select a filesystem type and, if applicable, enter a mountpoint above in the "Mountpoint" text entry area.
+1. Select the file system from the left-hand side of the screen.
+2. Click on the "Customize" expander in the mount point customization area on the right-hand side of the screen.
+3. Activate the "Reformat" checkbutton, select a file system type and, if applicable, enter a mount point above in the "Mount point" text entry area.
 4. Click on "Apply changes"
 
 
-How to set a mountpoint for a filesystem that already exists on your disk
+How to set a mount point for a file system that already exists on your disk
 
-1. Select the filesystem from the left-hand side of the screen.
-2. Enter a mountpoint in the "Mountpoint" text entry area in the mountpoint customization area.
+1. Select the file system from the left-hand side of the screen.
+2. Enter a mount point in the "Mount point" text entry area in the mount point customization area.
 3. Click on "Apply changes"
 
 
-How to remove a filesystem that already exists on your disk
+How to remove a file system that already exists on your disk
 
-1. Select the filesystem you wish to remove on the left-hand side of the screen.
+1. Select the file system you wish to remove on the left-hand side of the screen.
 2. Click the - button.
 
 Hint: Removing a device that already exists on your disk from the "New %(productName)s Installation" does not remove it from the disk. It only resets that device to its original state. To remove a device that already exists on your disk, you must select it from under any of the other detected installations (or "Unknown") and hit the - button.
@@ -3065,13 +3065,13 @@ Hint: Removing a device that already exists on your disk from the "New %(product
 
 Tips and hints
 
-You can enter sizes for new filesystems that are greater than the total available free space. The installer will come as close as possible to the size you request.
+You can enter sizes for new file systems that are greater than the total available free space. The installer will come as close as possible to the size you request.
 
 By default, new devices use any/all of your selected disks.
 
 You can change which disks a new device may be allocated from by clicking the configure button (the one with a tools graphic) while that device is selected.
 
-When adding a new mountpoint by clicking the + button, leave the size entry blank to make the new device use all available free space.
+When adding a new mount point by clicking the + button, leave the size entry blank to make the new device use all available free space.
 
 When you remove the last device from a container device like an LVM volume group, we will automatically remove that container device to make room for new devices.
 

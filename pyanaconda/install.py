@@ -210,7 +210,7 @@ def doInstall(storage, payload, ksdata, instClass):
 
     # Do bootloader.
     if not flags.flags.dirInstall:
-        with progress_report(_("Installing bootloader")):
+        with progress_report(_("Installing boot loader")):
             writeBootLoader(storage, payload, instClass, ksdata)
 
     with progress_report(_("Performing post-installation setup tasks")):

@@ -323,7 +323,7 @@ class CreateNewPage(Page):
 
         label.set_mnemonic_widget(combo)
         combo.append_text(_("Standard Partition"))
-        combo.append_text(_("BTRFS"))
+        combo.append_text(_("Btrfs"))
         combo.append_text(_("LVM"))
         combo.append_text(_("LVM Thin Provisioning"))
         combo.set_active(2)
