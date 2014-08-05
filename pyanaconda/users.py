@@ -30,6 +30,7 @@ from pyanaconda import iutil
 import pwquality
 from pyanaconda.iutil import strip_accents
 from pyanaconda.constants import PASSWORD_MIN_LEN
+from pyanaconda.errors import errorHandler, PasswordCryptError, ERROR_RAISE
 
 import logging
 log = logging.getLogger("anaconda")
@@ -113,7 +114,13 @@ def cryptPassword(password, algo=None):
         saltstr = saltstr + random.choice (string.letters +
                                            string.digits + './')
 
-    return crypt.crypt (password, saltstr)
+    cryptpw = crypt.crypt (password, saltstr)
+    if cryptpw is None:
+        exn = PasswordCryptError(algo=algo)
+        if errorHandler.cb(exn) == ERROR_RAISE:
+            raise exn
+
+    return cryptpw
 
 def validatePassword(pw, user="root", settings=None):
     """Check the quality of a password.
