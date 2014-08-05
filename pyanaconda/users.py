@@ -31,6 +31,7 @@ import pwquality
 import re
 from pyanaconda.iutil import strip_accents
 from pyanaconda.i18n import _
+from pyanaconda.errors import errorHandler, PasswordCryptError, ERROR_RAISE
 
 import logging
 log = logging.getLogger("anaconda")
@@ -116,7 +117,13 @@ def cryptPassword(password, algo=None):
         saltstr = saltstr + random.choice (string.letters +
                                            string.digits + './')
 
-    return crypt.crypt (password, saltstr)
+    cryptpw = crypt.crypt (password, saltstr)
+    if cryptpw is None:
+        exn = PasswordCryptError(algo=algo)
+        if errorHandler.cb(exn) == ERROR_RAISE:
+            raise exn
+
+    return cryptpw
 
 def validatePassword(pw, confirm, minlen=6):
     # Do various steps to validate the password
