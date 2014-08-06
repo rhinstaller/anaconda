@@ -1067,9 +1067,11 @@ class PackagePayload(Payload):
             # Determine which groups are specific to this environment and which other groups
             # are available in this environment.
             for grp in self.groups:
-                if self.environmentHasOption(environment, grp):
+                if not self._groupHasInstallableMembers(grp):
+                    continue
+                elif self.environmentHasOption(environment, grp):
                     self._environmentAddons[environment][0].append(grp)
-                elif self._isGroupVisible(grp) and self._groupHasInstallableMembers(grp):
+                elif self._isGroupVisible(grp):
                     self._environmentAddons[environment][1].append(grp)
 
     ###
