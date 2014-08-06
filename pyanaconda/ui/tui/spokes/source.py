@@ -32,9 +32,9 @@ from pyanaconda.iutil import DataHolder
 
 from pyanaconda.constants import THREAD_SOURCE_WATCHER, THREAD_SOFTWARE_WATCHER, THREAD_PAYLOAD
 from pyanaconda.constants import THREAD_PAYLOAD_MD, THREAD_STORAGE, THREAD_STORAGE_WATCHER
-from pyanaconda.constants import THREAD_CHECK_SOFTWARE, ISO_DIR, DRACUT_ISODIR
+from pyanaconda.constants import THREAD_CHECK_SOFTWARE, ISO_DIR, DRACUT_ISODIR, DRACUT_REPODIR
 
-from blivet.util import get_mount_paths
+from blivet.util import get_mount_device, get_mount_paths
 
 import re
 import os
@@ -238,6 +238,12 @@ class SourceSpoke(SourceSwitchHandler, EditTUISpoke):
             message = _("Installation source refresh in progress, try again later.")
             self._window += [TextWidget(message), ""]
             return True
+
+        if self.data.method.method == "harddrive" and \
+           get_mount_device(DRACUT_ISODIR) == get_mount_device(DRACUT_REPODIR):
+               message = _("The installation source is in use by the installer and cannot be changed.")
+               self._window += [TextWidget(message), ""]
+               return True
 
         _methods = [_("CD/DVD"), _("Local ISO file"), _("Network")]
         if args == 3:

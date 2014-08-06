@@ -483,7 +483,11 @@ reposdir=%s
               retrieval fails.
         """
         log.info("configuring base repo")
-        url, mirrorlist, sslverify = self._setupInstallDevice(self.storage, checkmount)
+
+        try:
+            url, mirrorlist, sslverify = self._setupInstallDevice(self.storage, checkmount)
+        except PayloadSetupError:
+            self.data.method.method = None
 
         releasever = None
         method = self.data.method
@@ -702,8 +706,12 @@ reposdir=%s
                     needmount = False
                     # We don't setup an install_device here
                     # because we can't tear it down
+
             isodevice = storage.devicetree.resolveDevice(devspec)
             if needmount:
+                if not isodevice:
+                    raise PayloadSetupError("device for HDISO install %s does not exist" % devspec)
+
                 self._setUpMedia(isodevice)
                 url = "file://" + INSTALL_TREE
                 self.install_device = isodevice
