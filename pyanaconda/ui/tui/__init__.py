@@ -33,6 +33,8 @@ import sys
 import site
 import Queue
 import meh.ui.text
+import logging
+log = logging.getLogger("anaconda")
 
 def exception_msg_handler(event, data):
     """
@@ -259,6 +261,11 @@ class TextUserInterface(ui.UserInterface):
     def _showError(self, message):
         """Internal helper function that MUST BE CALLED FROM THE MAIN THREAD"""
 
+        if flags.automatedInstall and not flags.ksprompt:
+            log.error(message)
+            # If we're in cmdline mode, just exit.
+            return
+
         error_window = ErrorDialog(self._app, message)
         self._app.switch_screen_modal(error_window)
 
@@ -289,6 +296,7 @@ class TextUserInterface(ui.UserInterface):
         """Internal helper function that MUST BE CALLED FROM THE MAIN THREAD"""
 
         if flags.automatedInstall and not flags.ksprompt:
+            log.error(message)
             # If we're in cmdline mode, just say no.
             return False
 
