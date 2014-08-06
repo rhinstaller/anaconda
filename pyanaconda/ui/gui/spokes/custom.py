@@ -1115,6 +1115,8 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
 
             This method must never trigger a call to self._do_refresh.
         """
+        self.clear_errors()
+
         if not self._initialized or not selector:
             return
 
