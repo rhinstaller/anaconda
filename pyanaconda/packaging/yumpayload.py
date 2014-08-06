@@ -498,7 +498,11 @@ reposdir=%s
               retrieval fails.
         """
         log.info("configuring base repo")
-        url, mirrorlist, sslverify = self._setupInstallDevice(self.storage, checkmount)
+
+        try:
+            url, mirrorlist, sslverify = self._setupInstallDevice(self.storage, checkmount)
+        except PayloadSetupError:
+            self.data.method.method = None
 
         releasever = None
         method = self.data.method

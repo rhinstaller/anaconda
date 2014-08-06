@@ -860,8 +860,12 @@ class PackagePayload(Payload):
                     needmount = False
                     # We don't setup an install_device here
                     # because we can't tear it down
+
             isodevice = storage.devicetree.resolveDevice(devspec)
             if needmount:
+                if not isodevice:
+                    raise PayloadSetupError("device for HDISO install %s does not exist" % devspec)
+
                 self._setupMedia(isodevice)
                 url = "file://" + INSTALL_TREE
                 self.install_device = isodevice
