@@ -301,9 +301,11 @@ class SoftwareSelectionSpoke(NormalSpoke):
             generic = []
 
             for grp in self.payload.groups:
-                if self.payload.environmentHasOption(self.environment, grp):
+                if not self.payload._groupHasInstallableMembers(grp):
+                    continue
+                elif self.payload.environmentHasOption(self.environment, grp):
                     specific.append(grp)
-                elif self.payload._isGroupVisible(grp) and self.payload._groupHasInstallableMembers(grp):
+                elif self.payload._isGroupVisible(grp):
                     generic.append(grp)
 
             for grp in specific:
