@@ -1917,6 +1917,21 @@ class FSSet(object):
             else:
                 sys.exit(0)
 
+        def swapMissingDialog(msg, device):
+            if not anaconda.intf:
+                sys.exit(0)
+
+            buttons = [_("Skip"), _("Exit")]
+            ret = anaconda.intf.messageWindow(_("Error"), msg, type="custom",
+                                              custom_buttons=buttons,
+                                              custom_icon="warning")
+
+            if ret == 0:
+                self.devicetree._removeDevice(device)
+                return False
+            else:
+                sys.exit(0)
+
         for device in self.swapDevices:
             if isinstance(device, FileDevice):
                 # set up FileDevices' parents now that they are accessible
@@ -1976,24 +1991,24 @@ class FSSet(object):
                     if swapErrorDialog(msg, device):
                         continue
                 except DeviceError as (msg, name):
-                    if anaconda.intf:
-                        if upgrading:
-                            err = _("Error enabling swap device %(name)s: "
-                                    "%(msg)s\n\n"
-                                    "The /etc/fstab on your upgrade partition "
-                                    "does not reference a valid swap "
-                                    "device.\n\nPress OK to exit the "
-                                    "installer") % {'name': name, 'msg': msg}
-                        else:
+                    if upgrading:
+                        msg = _("Error enabling swap device %(name)s: "
+                                "%(msg)s\n\n"
+                                "The /etc/fstab on your upgrade partition "
+                                "does not reference a valid swap "
+                                "device.") % {'name': name, 'msg': msg}
+
+                        swapMissingDialog(msg, device)
+                    else:
+                        if anaconda.intf:
                             err = _("Error enabling swap device %(name)s: "
                                     "%(msg)s\n\n"
                                     "This most likely means this swap "
                                     "device has not been initialized.\n\n"
                                     "Press OK to exit the installer.") % \
                                   {'name': name, 'msg': msg}
-                        anaconda.intf.messageWindow(_("Error"), err)
-                    sys.exit(0)
-
+                            anaconda.intf.messageWindow(_("Error"), err)
+                        sys.exit(0)
                 break
 
     def mountFilesystems(self, anaconda, raiseErrors=None, readOnly=None,
