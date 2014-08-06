@@ -47,7 +47,7 @@ from pyanaconda.regexes import REPO_NAME_VALID, URL_PARSE, HOSTNAME_PATTERN_WITH
 from pyanaconda import constants
 from pyanaconda import nm
 
-from blivet.util import get_mount_paths
+from blivet.util import get_mount_device, get_mount_paths
 
 __all__ = ["SourceSpoke"]
 
@@ -300,7 +300,7 @@ class IsoChooser(GUIObject):
 
     def __init__(self, data):
         GUIObject.__init__(self, data)
-        self._chooser = self.builder.get_object("isoChooserDialog")
+        self._chooser = self.builder.get_object("isoChooser")
 
     # pylint: disable=arguments-differ
     def refresh(self, currentFile=""):
@@ -409,8 +409,8 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler):
             # The / gets stripped off by payload.ISOImage
             self.data.method.dir = "/" + self._currentIsoFile
             if (old_source.method == "harddrive" and
-                old_source.partition == self.data.method.partition and
-                old_source.dir == self.data.method.dir):
+                self.storage.devicetree.resolveDevice(old_source.partition) == part and
+                old_source.dir in [self._currentIsoFile, "/" + self._currentIsoFile]):
                 return False
 
             # Make sure anaconda doesn't touch this device.
@@ -744,6 +744,10 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler):
         added = False
         active = 0
         idx = 0
+
+        if self.data.method.method == "harddrive":
+            methodDev = self.storage.devicetree.resolveDevice(self.data.method.partition)
+
         for dev in potentialHdisoSources(self.storage.devicetree):
             # path model size format type uuid of format
             dev_info = { "model" : self._sanitize_model(dev.disk.model),
@@ -759,7 +763,7 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler):
                 dev_info["label"] = "\n" + dev_info["label"]
 
             store.append([dev, "%(model)s %(path)s (%(size)s MB) %(format)s %(label)s" % dev_info])
-            if self.data.method.method == "harddrive" and self.data.method.partition in [dev.path, dev.name]:
+            if self.data.method.method == "harddrive" and dev == methodDev:
                 active = idx
             added = True
             idx += 1
@@ -845,10 +849,20 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler):
         # Setup the addon repos
         self._reset_repoStore()
 
-        # Then, some widgets get enabled/disabled/greyed out depending on
-        # how others are set up.  We can use the signal handlers to handle
-        # that condition here too.
-        self.on_protocol_changed(self._protocolComboBox)
+        if self.data.method.method == "harddrive" and \
+           get_mount_device(constants.DRACUT_ISODIR) == get_mount_device(constants.DRACUT_REPODIR):
+            # If the stage2 image is mounted from an HDISO source, there's really
+            # no way we can tear down that source to allow the user to change it.
+            # Thus, this portion of the spoke should be insensitive.
+            for widget in [self._autodetectButton, self._autodetectBox, self._isoButton,
+                           self._isoBox, self._networkButton, self._networkBox]:
+                widget.set_sensitive(False)
+                widget.set_tooltip_text(_("The installation source is in use by the installer and cannot be changed."))
+        else:
+            # Then, some widgets get enabled/disabled/greyed out depending on
+            # how others are set up.  We can use the signal handlers to handle
+            # that condition here too.
+            self.on_protocol_changed(self._protocolComboBox)
 
         if not nm.nm_is_connected():
             self._networkButton.set_sensitive(False)
