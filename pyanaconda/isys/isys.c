@@ -34,8 +34,8 @@ static PyObject * doSegvHandler(PyObject *s, PyObject *args);
 static PyObject * doSetSystemTime(PyObject *s, PyObject *args);
 
 static PyMethodDef isysModuleMethods[] = {
-    { "sync", (PyCFunction) doSync, METH_VARARGS, NULL},
-    { "handleSegv", (PyCFunction) doSegvHandler, METH_VARARGS, NULL },
+    { "sync", (PyCFunction) doSync, METH_NOARGS, NULL},
+    { "handleSegv", (PyCFunction) doSegvHandler, METH_NOARGS, NULL },
     { "set_system_time", (PyCFunction) doSetSystemTime, METH_VARARGS, NULL},
     { NULL, NULL, 0, NULL }
 } ;
@@ -46,9 +46,6 @@ void init_isys(void) {
 }
 
 static PyObject * doSync(PyObject * s, PyObject * args) {
-    int fd;
-
-    if (!PyArg_ParseTuple(args, "", &fd)) return NULL;
     sync();
 
     Py_INCREF(Py_None);
