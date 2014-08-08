@@ -23,8 +23,12 @@ from pyanaconda import iutil
 import unittest
 import types
 import os
+import tempfile
+import signal
 import shutil
 from test_constants import ANACONDA_TEST_DIR
+
+from timer import timer
 
 class UpcaseFirstLetterTests(unittest.TestCase):
 
@@ -105,6 +109,164 @@ class RunProgramTests(unittest.TestCase):
                               types.GeneratorType)
         self.assertIsInstance(iutil.execReadlines("true", []),
                               types.GeneratorType)
+
+    def exec_readlines_test_normal_output(self):
+        """Test the output of execReadlines."""
+
+        # Test regular-looking output
+        with tempfile.NamedTemporaryFile() as testscript:
+            testscript.write("""#!/bin/sh
+echo "one"
+echo "two"
+echo "three"
+exit 0
+""")
+            testscript.flush()
+
+            with timer(5):
+                rl_generator = iutil.execReadlines("/bin/sh", [testscript.name])
+                self.assertEqual(rl_generator.next(), "one")
+                self.assertEqual(rl_generator.next(), "two")
+                self.assertEqual(rl_generator.next(), "three")
+                self.assertRaises(StopIteration, rl_generator.next)
+
+        # Test output with no end of line
+        with tempfile.NamedTemporaryFile() as testscript:
+            testscript.write("""#!/bin/sh
+echo "one"
+echo "two"
+echo -n "three"
+exit 0
+""")
+            testscript.flush()
+
+            with timer(5):
+                rl_generator = iutil.execReadlines("/bin/sh", [testscript.name])
+                self.assertEqual(rl_generator.next(), "one")
+                self.assertEqual(rl_generator.next(), "two")
+                self.assertEqual(rl_generator.next(), "three")
+                self.assertRaises(StopIteration, rl_generator.next)
+
+    def exec_readlines_test_exits(self):
+        """Test execReadlines in different child exit situations."""
+
+        # These tests raise OSError once output has been consumed
+
+        # Test a normal, non-0 exit
+        with tempfile.NamedTemporaryFile() as testscript:
+            testscript.write("""#!/bin/sh
+echo "one"
+echo "two"
+echo "three"
+exit 1
+""")
+            testscript.flush()
+
+            with timer(5):
+                rl_generator = iutil.execReadlines("/bin/sh", [testscript.name])
+                self.assertEqual(rl_generator.next(), "one")
+                self.assertEqual(rl_generator.next(), "two")
+                self.assertEqual(rl_generator.next(), "three")
+                self.assertRaises(OSError, rl_generator.next)
+
+        # Test exit on signal
+        with tempfile.NamedTemporaryFile() as testscript:
+            testscript.write("""#!/bin/sh
+echo "one"
+echo "two"
+echo "three"
+kill -TERM $$
+""")
+            testscript.flush()
+
+            with timer(5):
+                rl_generator = iutil.execReadlines("/bin/sh", [testscript.name])
+                self.assertEqual(rl_generator.next(), "one")
+                self.assertEqual(rl_generator.next(), "two")
+                self.assertEqual(rl_generator.next(), "three")
+                self.assertRaises(OSError, rl_generator.next)
+
+        # Repeat the above two tests, but exit before a final newline
+        with tempfile.NamedTemporaryFile() as testscript:
+            testscript.write("""#!/bin/sh
+echo "one"
+echo "two"
+echo -n "three"
+exit 1
+""")
+            testscript.flush()
+
+            with timer(5):
+                rl_generator = iutil.execReadlines("/bin/sh", [testscript.name])
+                self.assertEqual(rl_generator.next(), "one")
+                self.assertEqual(rl_generator.next(), "two")
+                self.assertEqual(rl_generator.next(), "three")
+                self.assertRaises(OSError, rl_generator.next)
+
+        with tempfile.NamedTemporaryFile() as testscript:
+            testscript.write("""#!/bin/sh
+echo "one"
+echo "two"
+echo -n "three"
+kill -TERM $$
+""")
+            testscript.flush()
+
+            with timer(5):
+                rl_generator = iutil.execReadlines("/bin/sh", [testscript.name])
+                self.assertEqual(rl_generator.next(), "one")
+                self.assertEqual(rl_generator.next(), "two")
+                self.assertEqual(rl_generator.next(), "three")
+                self.assertRaises(OSError, rl_generator.next)
+
+    def exec_readlines_test_signals(self):
+        """Test execReadlines and signal receipt."""
+
+        # ignored signal
+        old_HUP_handler = signal.signal(signal.SIGHUP, signal.SIG_IGN)
+        try:
+            with tempfile.NamedTemporaryFile() as testscript:
+                testscript.write("""#!/bin/sh
+echo "one"
+kill -HUP $PPID
+echo "two"
+echo -n "three"
+exit 0
+""")
+                testscript.flush()
+
+                with timer(5):
+                    rl_generator = iutil.execReadlines("/bin/sh", [testscript.name])
+                    self.assertEqual(rl_generator.next(), "one")
+                    self.assertEqual(rl_generator.next(), "two")
+                    self.assertEqual(rl_generator.next(), "three")
+                    self.assertRaises(StopIteration, rl_generator.next)
+        finally:
+            signal.signal(signal.SIGHUP, old_HUP_handler)
+
+        # caught signal
+        def _hup_handler(signum, frame):
+            pass
+        old_HUP_handler = signal.signal(signal.SIGHUP, _hup_handler)
+        try:
+            with tempfile.NamedTemporaryFile() as testscript:
+                testscript.write("""#!/bin/sh
+echo "one"
+kill -HUP $PPID
+echo "two"
+echo -n "three"
+exit 0
+""")
+                testscript.flush()
+
+                with timer(5):
+                    rl_generator = iutil.execReadlines("/bin/sh", [testscript.name])
+                    self.assertEqual(rl_generator.next(), "one")
+                    self.assertEqual(rl_generator.next(), "two")
+                    self.assertEqual(rl_generator.next(), "three")
+                    self.assertRaises(StopIteration, rl_generator.next)
+        finally:
+            signal.signal(signal.SIGHUP, old_HUP_handler)
 
 class MiscTests(unittest.TestCase):
     def get_dir_size_test(self):
