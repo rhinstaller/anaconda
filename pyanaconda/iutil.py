@@ -416,21 +416,6 @@ def setup_translations(module):
         add_po_path(module, TRANSLATIONS_UPDATE_DIR)
     module.textdomain("anaconda")
 
-def fork_orphan():
-    """Forks an orphan.
-
-    Returns 1 in the parent and 0 in the orphaned child.
-    """
-    intermediate = os.fork()
-    if not intermediate:
-        if os.fork():
-            # the intermediate child dies
-            os._exit(0)
-        return 0
-    # the original process waits for the intermediate child
-    os.waitpid(intermediate, 0)
-    return 1
-
 def _run_systemctl(command, service):
     """
     Runs 'systemctl command service.service'
