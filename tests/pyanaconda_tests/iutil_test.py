@@ -268,6 +268,46 @@ exit 0
         finally:
             signal.signal(signal.SIGHUP, old_HUP_handler)
 
+    def start_program_preexec_fn_test(self):
+        """Test passing preexec_fn to startProgram."""
+
+        marker_text = "yo wassup man"
+        # Create a temporary file that will be written before exec
+        with tempfile.NamedTemporaryFile() as testfile:
+
+            # Write something to testfile to show this method was run
+            def preexec():
+                # Open a copy of the file here since close_fds has already closed the descriptor
+                testcopy = open(testfile.name, 'w')
+                testcopy.write(marker_text)
+                testcopy.close()
+
+            with timer(5):
+                # Start a program that does nothing, with a preexec_fn
+                proc = iutil.startProgram(["/bin/true"], preexec_fn=preexec)
+                proc.communicate()
+
+            # Rewind testfile and look for the text
+            testfile.seek(0, os.SEEK_SET)
+            self.assertEqual(testfile.read(), marker_text)
+
+    def start_program_stdout_test(self):
+        """Test redirecting stdout with startProgram."""
+
+        marker_text = "yo wassup man"
+        # Create a temporary file that will be written by the program
+        with tempfile.NamedTemporaryFile() as testfile:
+            # Open a new copy of the file so that the child doesn't close and
+            # delete the NamedTemporaryFile
+            stdout = open(testfile.name, 'w')
+            with timer(5):
+                proc = iutil.startProgram(["/bin/echo", marker_text], stdout=stdout)
+                proc.communicate()
+
+            # Rewind testfile and look for the text
+            testfile.seek(0, os.SEEK_SET)
+            self.assertEqual(testfile.read().strip(), marker_text)
+
 class MiscTests(unittest.TestCase):
     def get_dir_size_test(self):
         """Test the getDirSize."""
