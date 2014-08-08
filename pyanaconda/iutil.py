@@ -98,6 +98,58 @@ def setSysroot(path):
     global _sysroot
     _sysroot = path
 
+def startProgram(argv, root='/', stdin=None, stdout=subprocess.PIPE, stderr=subprocess.STDOUT,
+        env_prune=None, **kwargs):
+    """ Start an external program and return the Popen object.
+
+        The root argument is handled by passing a preexec_fn argument to
+        subprocess.Popen, but an additional preexec_fn can still be specified
+        and will be run. The user preexec_fn will be run last.
+
+        :param argv: The command to run and argument
+        :param root: The directory to chroot to before running command.
+        :param stdin: The file object to read stdin from.
+        :param stdout: The file object to write stdout to.
+        :param stderr: The file object to write stderr to.
+        :param env_prune: environment variable to remove before execution
+        :param kwargs: Additional parameters to pass to subprocess.Popen
+        :return: A Popen object for the running command.
+    """
+    if env_prune is None:
+        env_prune = []
+
+    # Transparently redirect callers requesting root=_root_path to the
+    # configured system root.
+    target_root = root
+    if target_root == _root_path:
+        target_root = getSysroot()
+
+    # Check for and save a preexec_fn argument
+    preexec_fn = kwargs.pop("preexec_fn", None)
+
+    def preexec():
+        # If a target root was specificed, chroot into it
+        if target_root and target_root != '/':
+            os.chroot(target_root)
+            os.chdir("/")
+
+        # If the user specified an additional preexec_fn argument, run it
+        if preexec_fn is not None:
+            preexec_fn()
+
+    with program_log_lock:
+        program_log.info("Running... %s", " ".join(argv))
+
+    env = augmentEnv()
+    for var in env_prune:
+        env.pop(var, None)
+
+    return subprocess.Popen(argv,
+                            stdin=stdin,
+                            stdout=stdout,
+                            stderr=stderr,
+                            preexec_fn=preexec, cwd=root, env=env, **kwargs)
+
 def _run_program(argv, root='/', stdin=None, stdout=None, env_prune=None, log_output=True, binary_output=False):
     """ Run an external program, log the output and return it to the caller
         :param argv: The command to run and argument
@@ -109,33 +161,8 @@ def _run_program(argv, root='/', stdin=None, stdout=None, env_prune=None, log_ou
         :param binary_output: whether to treat the output of command as binary data
         :return: The return code of the command and the output
     """
-    if env_prune is None:
-        env_prune = []
-
-    # Transparently redirect callers requesting root=_root_path to the
-    # configured system root.
-    target_root = root
-    if target_root == _root_path:
-        target_root = getSysroot()
-
-    def chroot():
-        if target_root and target_root != '/':
-            os.chroot(target_root)
-            os.chdir("/")
-
-    with program_log_lock:
-        program_log.info("Running... %s", " ".join(argv))
-
-    env = augmentEnv()
-    for var in env_prune:
-        env.pop(var, None)
-
     try:
-        proc = subprocess.Popen(argv,
-                                stdin=stdin,
-                                stdout=subprocess.PIPE,
-                                stderr=subprocess.STDOUT,
-                                preexec_fn=chroot, cwd=root, env=env)
+        proc = startProgram(argv, root=root, stdin=stdin, env_prune=env_prune)
 
         output_string = proc.communicate()[0]
         if output_string:
@@ -228,36 +255,19 @@ def execReadlines(command, argv, stdin=None, root='/', env_prune=None):
         Output from the file is not logged to program.log
         This returns a generator with the lines from the command until it has finished
     """
-    if env_prune is None:
-        env_prune = []
-
     # Return the lines from stdout via a Queue
     def queue_lines(out, queue):
         for line in iter(out.readline, b''):
             queue.put(line.strip())
         out.close()
 
-    def chroot():
-        if root and root != '/':
-            os.chroot(root)
-            os.chdir("/")
-
     argv = [command] + argv
-    with program_log_lock:
-        program_log.info("Running... %s", " ".join(argv))
 
-    env = augmentEnv()
-    for var in env_prune:
-        env.pop(var, None)
     try:
-        proc = subprocess.Popen(argv,
-                                stdin=stdin,
-                                stdout=subprocess.PIPE,
-                                stderr=subprocess.STDOUT,
-                                bufsize=1,
-                                preexec_fn=chroot, cwd=root, env=env)
+        proc = startProgram(argv, root=root, stdin=stdin, env_prune=env_prune, bufsize=1)
     except OSError as e:
-        program_log.error("Error running %s: %s", argv[0], e.strerror)
+        with program_log_lock:
+            program_log.error("Error running %s: %s", argv[0], e.strerror)
         raise
 
     q = Queue()
@@ -281,7 +291,7 @@ def execReadlines(command, argv, stdin=None, root='/', env_prune=None):
 ## Run a shell.
 def execConsole():
     try:
-        proc = subprocess.Popen(["/bin/sh"])
+        proc = startProgram(["/bin/sh"], stdout=None, stderr=None)
         proc.wait()
     except OSError as e:
         raise RuntimeError("Error running /bin/sh: " + e.strerror)
