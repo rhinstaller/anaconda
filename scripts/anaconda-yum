@@ -152,8 +152,8 @@ def run_yum_transaction(release, arch, yum_conf, install_root, ts_file, script_l
         yb.ts.clean()
 
         # Write scriptlet output to a file to be logged later
-        logfile = open(script_log, "w")
-        yb.ts.ts.scriptFd = logfile.fileno()
+        logfile = os.open(script_log, os.O_WRONLY|os.O_CREAT)
+        yb.ts.ts.scriptFd = logfile
         rpm.setLogFile(logfile)
 
         # create the install callback
@@ -179,7 +179,7 @@ def run_yum_transaction(release, arch, yum_conf, install_root, ts_file, script_l
             print("INFO: transaction complete")
         finally:
             yb.ts.close()
-            logfile.close()
+            os.close(logfile)
     except Exception as e:
         print("ERROR: transaction error: %s" % e)
     finally:
@@ -210,14 +210,14 @@ class RPMCallback(object):
     def __init__(self, yb, arch, log, debug=False):
         """ :param yb: YumBase object
             :type yb: YumBase
-            :param log: script logfile
-            :type log: string
+            :param log: file-descriptor of script logfile
+            :type log: int
             :param statusQ: status communication back to other process
             :type statusQ: Queue
         """
         self.yb = yb                # yum.YumBase
         self.base_arch = arch
-        self.install_log = log      # logfile for yum script logs
+        self.install_log = log      # fd of logfile for yum script logs
         self.debug = debug
 
         self.package_file = None    # file instance (package file management)
@@ -273,7 +273,7 @@ class RPMCallback(object):
             log_msg = msg_format % (txmbr.po,
                                     self.completed_actions,
                                     self.total_actions)
-            self.install_log.write(log_msg+"\n")
+            os.write(self.install_log, log_msg+"\n")
             print("PROGRESS_INSTALL: %s" % progress_msg)
 
         try:
