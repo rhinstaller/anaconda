@@ -40,7 +40,7 @@ import tempfile
 import subprocess
 import pyanaconda.flags as flags_module
 from pyanaconda.flags import flags
-from pyanaconda.constants import ADDON_PATHS
+from pyanaconda.constants import ADDON_PATHS, IPMI_ABORTED
 import shlex
 import sys
 import urlgrabber
@@ -128,6 +128,7 @@ class AnacondaKSScript(KSScript):
                     err = "".join(fp.readlines())
 
                 errorHandler.cb(ScriptError(), self.lineno, err)
+                iutil.ipmi_report(IPMI_ABORTED)
                 sys.exit(0)
 
 class AnacondaInternalScript(AnacondaKSScript):
@@ -1557,6 +1558,7 @@ class Upgrade(commands.upgrade.F20_Upgrade):
     def parse(self, *args):
         log.error("The upgrade kickstart command is no longer supported. Upgrade functionality is provided through redhat-upgrade-tool.")
         sys.stderr.write(_("The upgrade kickstart command is no longer supported. Upgrade functionality is provided through redhat-upgrade-tool."))
+        iutil.ipmi_report(IPMI_ABORTED)
         sys.exit(1)
 
 ###
@@ -1701,7 +1703,8 @@ def preScriptPass(f):
     except KickstartError as e:
         # We do not have an interface here yet, so we cannot use our error
         # handling callback.
-        print e
+        print(e)
+        iutil.ipmi_report(IPMI_ABORTED)
         sys.exit(1)
 
     # run %pre scripts
@@ -1728,7 +1731,8 @@ def parseKickstart(f):
     except KickstartError as e:
         # We do not have an interface here yet, so we cannot use our error
         # handling callback.
-        print e
+        print(e)
+        iutil.ipmi_report(IPMI_ABORTED)
         sys.exit(1)
 
     return handler

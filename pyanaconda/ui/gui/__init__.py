@@ -24,11 +24,11 @@ import meh.ui.gui
 from gi.repository import Gdk, Gtk, AnacondaWidgets, Keybinder
 
 from pyanaconda.i18n import _
-from pyanaconda import product
+from pyanaconda.constants import IPMI_ABORTED
+from pyanaconda import product, iutil
 
 from pyanaconda.ui import UserInterface, common
 from pyanaconda.ui.gui.utils import enlightbox, gtk_action_wait
-from pyanaconda import iutil
 import os.path
 
 import logging
@@ -509,6 +509,7 @@ class GraphicalUserInterface(UserInterface):
             dialog.window.destroy()
 
         if rc == 1:
+            iutil.ipmi_report(IPMI_ABORTED)
             sys.exit(0)
 
 class GraphicalExceptionHandlingIface(meh.ui.gui.GraphicalIntf):

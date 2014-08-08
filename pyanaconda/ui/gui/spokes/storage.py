@@ -66,7 +66,7 @@ from pyanaconda.threads import threadMgr, AnacondaThread
 from pyanaconda.product import productName
 from pyanaconda.flags import flags
 from pyanaconda.i18n import _, N_, P_
-from pyanaconda import constants
+from pyanaconda import constants, iutil
 from pyanaconda.bootloader import BootLoaderError
 
 from pykickstart.constants import CLEARPART_TYPE_NONE, AUTOPART_TYPE_LVM
@@ -985,6 +985,7 @@ class StorageSpoke(NormalSpoke, StorageChecker):
             if rc == 0:
                 # Quit.
                 sys.exit(0)
+                iutil.ipmi_report(constants.IPMI_ABORTED)
         elif self.warnings:
             label = _("The following warnings were encountered when checking your storage "
                       "configuration.  These are not fatal, but you may wish to make "

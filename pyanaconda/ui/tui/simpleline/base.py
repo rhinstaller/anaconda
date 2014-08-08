@@ -27,7 +27,7 @@ import getpass
 import threading
 from pyanaconda.threads import threadMgr, AnacondaThread
 from pyanaconda.ui.communication import hubQ
-from pyanaconda import constants
+from pyanaconda import constants, iutil
 from pyanaconda.i18n import _, N_
 
 RAW_INPUT_LOCK = threading.Lock()
@@ -462,6 +462,8 @@ class App(object):
                 self.switch_screen_modal(d)
                 if d.answer:
                     raise ExitAllMainLoops()
+
+            iutil.ipmi_report(constants.IPMI_ABORTED)
             return True
 
         return False

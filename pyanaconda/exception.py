@@ -35,7 +35,7 @@ from pyanaconda import kickstart
 import blivet.errors
 from pyanaconda.errors import CmdlineError
 from pyanaconda.ui.communication import hubQ
-from pyanaconda.constants import THREAD_EXCEPTION_HANDLING_TEST
+from pyanaconda.constants import THREAD_EXCEPTION_HANDLING_TEST, IPMI_FAILED
 from pyanaconda.threads import threadMgr
 from pyanaconda.i18n import _
 from pyanaconda import flags
@@ -171,6 +171,8 @@ class AnacondaExceptionHandler(ExceptionHandler):
         # pylint: disable-msg=W0702
         except:
             pass
+
+        iutil.ipmi_report(IPMI_FAILED)
 
     def runDebug(self, exc_info):
         if flags.can_touch_runtime_system("switch console") \

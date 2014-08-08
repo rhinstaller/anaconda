@@ -1,7 +1,7 @@
 #
 # iutil.py - generic install utility functions
 #
-# Copyright (C) 1999, 2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007
+# Copyright (C) 1999-2014
 # Red Hat, Inc.  All rights reserved.
 #
 # This program is free software; you can redistribute it and/or modify
@@ -26,6 +26,7 @@ import stat
 import os.path
 import errno
 import subprocess
+import tempfile
 import unicodedata
 from threading import Thread
 from Queue import Queue, Empty
@@ -831,3 +832,27 @@ def get_platform_groupid():
         return ""
 
     return "platform-" + platform.lower()
+
+_supports_ipmi = None
+
+def ipmi_report(event):
+    global _supports_ipmi
+    if _supports_ipmi is None:
+        _supports_ipmi = os.path.exists("/dev/ipmi0") and os.path.exists("/usr/bin/ipmitool")
+
+    if not _supports_ipmi:
+        return
+
+    (fd, path) = tempfile.mkstemp()
+
+    # EVM revision - always 0x4
+    # Sensor type - always 0x1F for Base OS Boot/Installation Status
+    # Sensor num - passed in event
+    # Event dir & type - always 0x0 for anaconda's purposes
+    # Event data 1, 2, 3 - 0x0 for now
+    os.write(fd, "0x4 0x1F %#x 0x0 0x0 0x0 0x0\n" % event)
+    os.close(fd)
+
+    execWithCapture("ipmitool", ["sel", "add", path])
+
+    os.remove(path)
