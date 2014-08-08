@@ -106,6 +106,7 @@ class RunProgramTests(unittest.TestCase):
         self.assertIsInstance(iutil.execReadlines("true", []),
                               types.GeneratorType)
 
+class MiscTests(unittest.TestCase):
     def get_dir_size_test(self):
         """Test the getDirSize."""
 
@@ -219,11 +220,16 @@ class RunProgramTests(unittest.TestCase):
         def raise_os_error(*args, **kwargs):
             raise OSError
 
-        # chvt does not exist on all platforms
-        # and the function needs to correctly survie that
-        iutil.vtActivate.func_globals['execWithRedirect'] = raise_os_error
+        _execWithRedirect = iutil.vtActivate.func_globals['execWithRedirect']
 
-        self.assertEqual(iutil.vtActivate(2), False)
+        try:
+            # chvt does not exist on all platforms
+            # and the function needs to correctly survie that
+            iutil.vtActivate.func_globals['execWithRedirect'] = raise_os_error
+
+            self.assertEqual(iutil.vtActivate(2), False)
+        finally:
+            iutil.vtActivate.func_globals['execWithRedirect'] = _execWithRedirect
 
     def get_deep_attr_test(self):
         """Test getdeepattr."""
