@@ -76,7 +76,9 @@ class LiveImagePayload(ImagePayload):
             exn = PayloadSetupError("%s is not a valid block device" % (self.data.method.partition,))
             if errorHandler.cb(exn) == ERROR_RAISE:
                 raise exn
-        blivet.util.mount(osimg.path, INSTALL_TREE, fstype="auto", options="ro")
+        rc = blivet.util.mount(osimg.path, INSTALL_TREE, fstype="auto", options="ro")
+        if rc != 0:
+            raise PayloadInstallError("Failed to mount the install tree")
 
         source = os.statvfs(INSTALL_TREE)
         self.source_size = source.f_frsize * (source.f_blocks - source.f_bfree)
@@ -110,6 +112,10 @@ class LiveImagePayload(ImagePayload):
 
     def install(self):
         """ Install the payload. """
+
+        if self.source_size <= 0:
+            raise PayloadInstallError("Nothing to install")
+
         self.pct_lock = Lock()
         self.pct = 0
         threadMgr.add(AnacondaThread(name=THREAD_LIVE_PROGRESS,
