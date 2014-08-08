@@ -347,6 +347,11 @@ class Bootloader(commands.bootloader.F21_Bootloader):
             raise KickstartValueError(formatErrorMsg(self.lineno,
                     msg=_("GRUB2 does not support installation to a partition.")))
 
+        if self.isCrypted and isinstance(get_bootloader(), GRUB2):
+            if not self.password.startswith("grub.pbkdf2."):
+                raise KickstartValueError(formatErrorMsg(self.lineno,
+                        msg="GRUB2 encrypted password must be in grub.pbkdf2 format."))
+
         return self
 
     def execute(self, storage, ksdata, instClass):
