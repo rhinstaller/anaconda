@@ -25,7 +25,7 @@ from pyanaconda.flags import flags
 from pyanaconda.i18n import _, C_, CN_
 from pyanaconda.packaging import MetadataError, PackagePayload
 from pyanaconda.threads import threadMgr, AnacondaThread
-from pyanaconda import constants
+from pyanaconda import constants, iutil
 
 from pyanaconda.ui.communication import hubQ
 from pyanaconda.ui.gui.spokes import NormalSpoke
@@ -483,6 +483,7 @@ class SoftwareSelectionSpoke(NormalSpoke):
 
         if rc == 0:
             # Quit.
+            iutil.ipmi_report(constants.IPMI_ABORTED)
             sys.exit(0)
         elif rc == 1:
             # Send the user to the installation source spoke.

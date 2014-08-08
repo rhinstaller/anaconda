@@ -42,7 +42,7 @@ import os.path
 import tempfile
 import subprocess
 from pyanaconda.flags import flags, can_touch_runtime_system
-from pyanaconda.constants import ADDON_PATHS
+from pyanaconda.constants import ADDON_PATHS, IPMI_ABORTED
 import shlex
 import sys
 import urlgrabber
@@ -131,6 +131,7 @@ class AnacondaKSScript(KSScript):
                     err = "".join(fp.readlines())
 
                 errorHandler.cb(ScriptError(self.lineno, err))
+                iutil.ipmi_report(IPMI_ABORTED)
                 sys.exit(0)
 
 class AnacondaInternalScript(AnacondaKSScript):
@@ -1689,6 +1690,7 @@ class Upgrade(commands.upgrade.F20_Upgrade):
     def parse(self, *args):
         log.error("The upgrade kickstart command is no longer supported. Upgrade functionality is provided through fedup.")
         sys.stderr.write(_("The upgrade kickstart command is no longer supported. Upgrade functionality is provided through fedup."))
+        iutil.ipmi_report(IPMI_ABORTED)
         sys.exit(1)
 
 ###
@@ -1834,6 +1836,7 @@ def preScriptPass(f):
         # We do not have an interface here yet, so we cannot use our error
         # handling callback.
         print(e)
+        iutil.ipmi_report(IPMI_ABORTED)
         sys.exit(1)
 
     # run %pre scripts
@@ -1861,6 +1864,7 @@ def parseKickstart(f):
         # We do not have an interface here yet, so we cannot use our error
         # handling callback.
         print(e)
+        iutil.ipmi_report(IPMI_ABORTED)
         sys.exit(1)
 
     return handler

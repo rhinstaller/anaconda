@@ -161,3 +161,9 @@ DEFAULT_AUTOPART_TYPE = AUTOPART_TYPE_LVM
 
 import logging
 LOGLVL_LOCK = logging.DEBUG-1
+
+# Constants for reporting status to IPMI.  These are from the IPMI spec v2 rev1.1, page 512.
+IPMI_STARTED  = 0x7
+IPMI_FINISHED = 0x8
+IPMI_ABORTED  = 0x9
+IPMI_FAILED   = 0xA

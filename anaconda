@@ -633,6 +633,8 @@ def check_memory(anaconda, options, display_mode=None):
                                reason % reason_args,
                                buttons = (_("OK"),))
             screen.finish()
+
+        iutil.ipmi_report(constants.IPMI_ABORTED)
         sys.exit(1)
 
     # override display mode if machine cannot nicely run X
@@ -648,6 +650,7 @@ def check_memory(anaconda, options, display_mode=None):
                 stdoutLog.warning(reason % reason_args)
                 title = livecd_title
                 gtk_warning(title, reason % reason_args)
+                iutil.ipmi_report(constants.IPMI_ABORTED)
                 sys.exit(1)
             else:
                 reason += nolivecd_extra
@@ -835,6 +838,7 @@ def prompt_for_ssh():
 
     if not ip:
         stdoutLog.error("No IP addresses found, cannot continue installation.")
+        iutil.ipmi_report(constants.IPMI_ABORTED)
         sys.exit(1)
 
     ipstr = ip
@@ -965,8 +969,11 @@ if __name__ == "__main__":
 
     from pyanaconda import iutil
 
+    iutil.ipmi_report(constants.IPMI_STARTED)
+
     if opts.images and opts.dirinstall:
         stdoutLog.error("--images and --dirinstall cannot be used at the same time")
+        iutil.ipmi_report(constants.IPMI_ABORTED)
         sys.exit(1)
     elif opts.dirinstall:
         if opts.dirinstall is True:
@@ -1284,6 +1291,7 @@ if __name__ == "__main__":
             flags.imageInstall = True
     except ValueError as e:
         stdoutLog.error("error specifying image file: %s", e)
+        iutil.ipmi_report(constants.IPMI_ABORTED)
         sys.exit(1)
 
     if image_count:

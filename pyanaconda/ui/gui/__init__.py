@@ -26,7 +26,8 @@ from contextlib import contextmanager
 from gi.repository import Gdk, Gtk, AnacondaWidgets, Keybinder, GdkPixbuf
 
 from pyanaconda.i18n import _
-from pyanaconda import product
+from pyanaconda.constants import IPMI_ABORTED
+from pyanaconda import product, iutil
 
 from pyanaconda.ui import UserInterface, common
 from pyanaconda.ui.gui.utils import gtk_action_wait, busyCursor, unbusyCursor
@@ -707,6 +708,7 @@ class GraphicalUserInterface(UserInterface):
 
         if rc == 1:
             self._currentAction.exit_logger()
+            iutil.ipmi_report(IPMI_ABORTED)
             sys.exit(0)
 
 class GraphicalExceptionHandlingIface(meh.ui.gui.GraphicalIntf):
