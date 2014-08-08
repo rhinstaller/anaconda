@@ -23,7 +23,8 @@ import sys
 
 from pyanaconda.flags import flags
 from pyanaconda.i18n import N_, _
-from pyanaconda.constants import THREAD_INSTALL, THREAD_CONFIGURATION
+from pyanaconda import iutil
+from pyanaconda.constants import THREAD_INSTALL, THREAD_CONFIGURATION, IPMI_FINISHED
 from pykickstart.constants import KS_SHUTDOWN, KS_REBOOT
 
 from pyanaconda.ui.tui.spokes import StandaloneTUISpoke
@@ -123,6 +124,8 @@ class ProgressSpoke(StandaloneTUISpoke):
 
         # This will run until we're all done with the configuration thread.
         self._update_progress()
+
+        iutil.ipmi_report(IPMI_FINISHED)
 
         # kickstart install, continue automatically if reboot or shutdown selected
         if flags.automatedInstall and self.data.reboot.action in [KS_REBOOT, KS_SHUTDOWN]:

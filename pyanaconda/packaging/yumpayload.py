@@ -63,7 +63,7 @@ except ImportError:
     yum = None
 
 from pyanaconda.constants import BASE_REPO_NAME, DRACUT_ISODIR, INSTALL_TREE, ISO_DIR, MOUNT_DIR, \
-                                 LOGLVL_LOCK
+                                 LOGLVL_LOCK, IPMI_ABORTED
 from pyanaconda.flags import flags
 
 from pyanaconda import iutil
@@ -1440,6 +1440,7 @@ reposdir=%s
             exn = PayloadInstallError(str(e))
             if errorHandler.cb(exn) == ERROR_RAISE:
                 progressQ.send_quit(1)
+                iutil.ipmi_report(IPMI_ABORTED)
                 sys.exit(1)
         finally:
             # log the contents of the scriptlet logfile if any
@@ -1455,6 +1456,7 @@ reposdir=%s
             exn = PayloadInstallError("\n".join(install_errors))
             if errorHandler.cb(exn) == ERROR_RAISE:
                 progressQ.send_quit(1)
+                iutil.ipmi_report(IPMI_ABORTED)
                 sys.exit(1)
 
     def writeMultiLibConfig(self):

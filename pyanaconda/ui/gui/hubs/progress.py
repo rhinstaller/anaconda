@@ -32,7 +32,8 @@ from pyanaconda.i18n import _, C_
 from pyanaconda.localization import find_best_locale_match
 from pyanaconda.product import productName
 from pyanaconda.flags import flags
-from pyanaconda.constants import THREAD_INSTALL, THREAD_CONFIGURATION, DEFAULT_LANG
+from pyanaconda import iutil
+from pyanaconda.constants import THREAD_INSTALL, THREAD_CONFIGURATION, DEFAULT_LANG, IPMI_FINISHED
 from pykickstart.constants import KS_SHUTDOWN, KS_REBOOT
 
 from pyanaconda.ui.gui.hubs import Hub
@@ -131,6 +132,8 @@ class ProgressHub(Hub):
 
         GLib.source_remove(self._rnotes_id)
         self._progressNotebook.set_current_page(1)
+
+        iutil.ipmi_report(IPMI_FINISHED)
 
         # kickstart install, continue automatically if reboot or shutdown selected
         if flags.automatedInstall and self.data.reboot.action in [KS_REBOOT, KS_SHUTDOWN]:

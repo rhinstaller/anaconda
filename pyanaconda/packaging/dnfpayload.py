@@ -31,7 +31,7 @@ import itertools
 import logging
 import multiprocessing
 import operator
-import pyanaconda.constants as constants
+from pyanaconda import constants
 from pykickstart.constants import GROUP_ALL, GROUP_DEFAULT, KS_MISSING_IGNORE
 import pyanaconda.errors as errors
 import pyanaconda.iutil
@@ -315,6 +315,7 @@ class DNFPayload(packaging.PackagePayload):
             # Doing a sys.exit also ensures the running thread quits before
             # it can do anything else.
             progressQ.send_quit(1)
+            pyanaconda.iutil.ipmi_report(constants.IPMI_ABORTED)
             sys.exit(1)
 
     def _pick_download_location(self):

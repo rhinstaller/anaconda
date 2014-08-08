@@ -1,7 +1,7 @@
 #
 # iutil.py - generic install utility functions
 #
-# Copyright (C) 1999, 2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007
+# Copyright (C) 1999-2014
 # Red Hat, Inc.  All rights reserved.
 #
 # This program is free software; you can redistribute it and/or modify
@@ -28,6 +28,7 @@ import errno
 import subprocess
 import unicodedata
 import string
+import tempfile
 import types
 import re
 from threading import Thread
@@ -911,3 +912,28 @@ def eintr_retry_call(func, *args):
             if e.errno == errno.EINTR:
                 continue
             raise
+
+_supports_ipmi = None
+
+def ipmi_report(event):
+    global _supports_ipmi
+    if _supports_ipmi is None:
+        _supports_ipmi = os.path.exists("/dev/ipmi0") and os.path.exists("/usr/bin/ipmitool")
+
+    if not _supports_ipmi:
+        return
+
+    (fd, path) = tempfile.mkstemp()
+
+    # EVM revision - always 0x4
+    # Sensor type - always 0x1F for Base OS Boot/Installation Status
+    # Sensor num - always 0x0 for us
+    # Event dir & type - always 0x6f for us
+    # Event data 1 - the event code passed in
+    # Event data 2 & 3 - always 0x0 for us
+    eintr_retry_call(os.write, fd, "0x4 0x1F 0x0 0x6f %#x 0x0 0x0\n" % event)
+    eintr_retry_call(os.close, fd)
+
+    execWithCapture("ipmitool", ["sel", "add", path])
+
+    os.remove(path)
