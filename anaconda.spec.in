@@ -259,6 +259,37 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Fri Aug 08 2014 Brian C. Lane <bcl@redhat.com> - 19.31.82-1
+- Use low level file i/o for rpm callback logging (bcl)
+  Resolves: rhbz#1035745
+- Allow AddonData classes to parse options in the %%addon line (dshea)
+  Resolves: rhbz#1065674
+- Display a fatal error if unable to encrypt a password. (dshea)
+  Resolves: rhbz#1057032
+- Filter empty comps groups from both specific and generic lists (dshea)
+  Resolves: rhbz#1071359
+- Let Gtk pick the size for the isoChooserDialog (clumens)
+  Resolves: rhbz#1063840
+- Give a more correct error for missing groups/packages on exclude (clumens).
+  Resolves: rhbz#1060194
+- Clear out errors at the beginning of _save_right_side. (clumens)
+  Resolves: rhbz#1070504
+- Add more information to the custom part summary dialog. (clumens)
+  Resolves: rhbz#975804
+- Check that bootloader devices are configured before validating (dshea)
+  Related: rhbz#1070283
+- Fix the User subclass using an old version of the pykickstart superclass.
+  (clumens)
+  Resolves: rhbz#1083928
+- Don't require user creation when root is locked (bcl)
+  Resolves: rhbz#1030626
+- Add platform specific group selection (bcl)
+  Resolves: rhbz#884385
+- Make parse-kickstart aware of the %%addon section (vpodzime)
+  Resolves: rhbz#1083002
+- Don't install implicitly added but explicitly excluded packages (vpodzime)
+  Resolves: rhbz#1105013
+
 * Fri Aug 01 2014 Brian C. Lane <bcl@redhat.com> - 19.31.81-1
 - Highlight languages in langsupport that contain selected locales (dshea)
   Resolves: rhbz#1072355
