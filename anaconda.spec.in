@@ -223,6 +223,24 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Tue Aug 12 2014 Brian C. Lane <bcl@redhat.com> - 13.21.225-1
+- Allow missing swap devices to be skipped during upgrade (dshea)
+  Resolves: rhbz#1044716
+- Don't force installation of authconfig, chkconfig, or system-config-firewall.
+  (clumens)
+  Resolves: rhbz#1123481
+- Provide ways in kickstart to skip kernel and bootloader. (clumens)
+  Related: rhbz#1123481
+- Implement %packages --instLangs. (clumens)
+  Related: rhbz#1123481
+- Allow skipping installation of the core group, if asked for in kickstart.
+  (clumens)
+  Related: rhbz#1123481
+- Fix ks fetching on nfs via vlan (sbueno+anaconda)
+  Resolves: rhbz#1067857
+- Fix traceback when rpm scriptlets fail during pkg install. (sbueno+anaconda)
+  Resolves: rhbz#1122532
+
 * Wed Jun 25 2014 Samantha N. Bueno <sbueno+anaconda@redhat.com> - 13.21.224-1
 - Add shared-mime-info to the instroot (dshea)
   Resolves: rhbz#1110834
