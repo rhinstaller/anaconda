@@ -232,7 +232,6 @@ class ISCSIDialog(GUIObject):
             # that subscreen.
             self._add_nodes(self._discoveredNodes)
             self._iscsiNotebook.set_current_page(1)
-            self._okButton.set_sensitive(True)
 
             # If some form of login credentials were used for discovery,
             # default to using the same for login.
