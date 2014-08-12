@@ -211,7 +211,7 @@ def getAvailableDiskSpace(storage):
 
 
     free_space = storage.getFreeSpace()
-    return sum(disk_free.convertTo("MiB") for disk_free, fs_free in free_space.values())
+    return int(sum(disk_free.convertTo("MiB") for disk_free, fs_free in free_space.values()))
 
 def refreshAutoSwapSize(storage):
     """
