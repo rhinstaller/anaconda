@@ -928,7 +928,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
 
         # ENCRYPTION
         old_encrypted = isinstance(device, LUKSDevice)
-        encrypted = self._encryptCheckbox.get_active()
+        encrypted = self._encryptCheckbox.get_active() and self._encryptCheckbox.is_sensitive()
         changed_encryption = (old_encrypted != encrypted)
         old_device_info["encrypted"] = old_encrypted
         new_device_info["encrypted"] = encrypted
@@ -1406,6 +1406,10 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
             # The encryption checkbutton should not be sensitive if there is
             # existing encryption below the leaf layer.
             self._encryptCheckbox.set_sensitive(False)
+            self._encryptCheckbox.set_active(True)
+            self._encryptCheckbox.set_tooltip_text(_("The container is encrypted."))
+        else:
+            self._encryptCheckbox.set_tooltip_text("")
 
         # Set up the filesystem type combo.
         self._setup_fstype_combo(device)
@@ -2008,6 +2012,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
 
         log.debug("%s -> %s", container_name, self._device_container_name)
         if container_name == self._device_container_name:
+            self.on_apply_clicked(None)
             return
 
         log.debug("renaming container %s to %s", container_name, self._device_container_name)
@@ -2045,6 +2050,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         self._containerStore.remove(self._containerStore.get_iter_from_string("%s" % (idx + 1)))
 
         self._update_selectors()
+        self.on_apply_clicked(None)
 
     def on_container_changed(self, combo):
         ndx = combo.get_active()
