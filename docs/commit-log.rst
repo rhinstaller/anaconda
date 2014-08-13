@@ -1,3 +1,6 @@
+Rules for commit messages
+==========================
+
 git commit messages for anaconda should follow a consistent format.  The
 following are rules to follow when committing a change to the git repo:
 
@@ -36,7 +39,7 @@ following are rules to follow when committing a change to the git repo:
 
    b)  If you have a patch that is Related to or Conflicts with another bug,
        you may add those lines to the end of the long commit message in this
-       format:
+       format::
 
            Related: rhbz#BUGNUMBER
            Conflicts: rhbz#BUGNUMBER
