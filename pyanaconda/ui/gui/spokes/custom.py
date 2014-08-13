@@ -1202,7 +1202,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
 
         # ENCRYPTION
         old_encrypted = isinstance(device, LUKSDevice)
-        encrypted = self._encryptCheckbox.get_active()
+        encrypted = self._encryptCheckbox.get_active() and self._encryptCheckbox.is_sensitive()
         changed_encryption = (old_encrypted != encrypted)
         log.debug("old encryption setting: %s", old_encrypted)
         log.debug("new encryption setting: %s", encrypted)
@@ -1785,10 +1785,14 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         self._encryptCheckbox.set_sensitive(self._reformatCheckbox.get_active())
         ancestors = use_dev.ancestors
         ancestors.remove(use_dev)
-        if any(a.format.type == "luks" and a.format.exists for a in ancestors):
+        if any(a.format.type == "luks" for a in ancestors):
             # The encryption checkbutton should not be sensitive if there is
             # existing encryption below the leaf layer.
             self._encryptCheckbox.set_sensitive(False)
+            self._encryptCheckbox.set_active(True)
+            self._encryptCheckbox.set_tooltip_text(_("The container is encrypted."))
+        else:
+            self._encryptCheckbox.set_tooltip_text("")
 
         ##
         ## Set up the filesystem type combo.
@@ -2488,6 +2492,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
 
         log.debug("%s -> %s", container_name, self._device_container_name)
         if container_name == self._device_container_name:
+            self.on_apply_clicked(None)
             return
 
         log.debug("renaming container %s to %s", container_name, self._device_container_name)
@@ -2522,6 +2527,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
             self._containerStore.remove(self._containerStore.get_iter_from_string("%s" % found))
 
         self._update_selectors()
+        self.on_apply_clicked(None)
 
     def on_container_changed(self, combo):
         ndx = combo.get_active()
