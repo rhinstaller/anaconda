@@ -258,6 +258,7 @@ class StorageSpoke(NormalSpoke, StorageChecker):
     builderObjects = ["storageWindow", "addSpecializedImage"]
     mainWidgetName = "storageWindow"
     uiFile = "spokes/storage.glade"
+    helpFile = "StorageSpoke.xml"
 
     category = SystemCategory
 

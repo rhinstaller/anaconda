@@ -46,6 +46,7 @@ __all__ = ["WelcomeLanguageSpoke"]
 class WelcomeLanguageSpoke(LangLocaleHandler, StandaloneSpoke):
     mainWidgetName = "welcomeWindow"
     uiFile = "spokes/welcome.glade"
+    helpFile = "WelcomeSpoke.xml"
     builderObjects = ["languageStore", "languageStoreFilter", "localeStore",
                       "welcomeWindow", "betaWarnDialog", "unsupportedHardwareDialog"]
 

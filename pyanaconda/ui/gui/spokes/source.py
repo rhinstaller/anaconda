@@ -284,6 +284,7 @@ class SourceSpoke(NormalSpoke):
     builderObjects = ["isoChooser", "isoFilter", "partitionStore", "sourceWindow", "dirImage", "repoStore"]
     mainWidgetName = "sourceWindow"
     uiFile = "spokes/source.glade"
+    helpFile = "SourceSpoke.xml"
 
     category = SoftwareCategory
 

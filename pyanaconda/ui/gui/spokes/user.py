@@ -141,6 +141,7 @@ class UserSpoke(FirstbootSpokeMixIn, NormalSpoke):
 
     mainWidgetName = "userCreationWindow"
     uiFile = "spokes/user.glade"
+    helpFile = "UserSpoke.xml"
 
     category = UserSettingsCategory
 
