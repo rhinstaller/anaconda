@@ -1,7 +1,8 @@
-==================
 iSCSI and Anaconda
 ==================
 
+:Authors:
+   Ales Kozumplik <akozumpl@redhat.com>
 
 Introduction
 ------------
@@ -154,16 +155,11 @@ Future of iSCSI in Anaconda
   that needs to be done before RHEL7. Difficulty medium.
 - improve libiscsi's logging capabilities. Difficulty easy.
 
+.. [1] http://www.open-iscsi.org/
+.. [2] /usr/share/doc/iscsi-initiator-utils-6.*/README
+.. [3] man 7 dracut.kernel
+.. [4] Anaconda git repository, anaconda/loader/ibft.c
+.. [5] Anaconda git repository, anaconda/loader/net.c, chooseNetworkInterface()
+.. [6] Anaconda git repository, anaconda/storage/iscsi.py
+.. [7] 'man 8 iscsiadm'
 
-
-[1] http://www.open-iscsi.org/
-[2] /usr/share/doc/iscsi-initiator-utils-6.*/README
-[3] man 7 dracut.kernel
-[4] Anaconda git repository, anaconda/loader/ibft.c
-[5] Anaconda git repository, anaconda/loader/net.c, chooseNetworkInterface()
-[6] Anaconda git repository, anaconda/storage/iscsi.py
-[7] 'man 8 iscsiadm'
-
-
----
-Red Hat Author(s): Ales Kozumplik <akozumpl@redhat.com>

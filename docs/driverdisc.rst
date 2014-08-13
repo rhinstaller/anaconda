@@ -9,10 +9,11 @@ many reasons for it:
 - the old DD wasn't particulary easy to create
 - the old DD had two copys of modules, one for anaconda and one for
   instalation
-- the modules in old DD weren't checked for kernel version 
+- the modules in old DD weren't checked for kernel version
 
 We also changed the feature internal code to enable some functionality that
 was missing from the old version. More about it below.
+
 
 Devices which can contain DDs
 -----------------------------
@@ -21,6 +22,7 @@ The best place to save your DriverDisc to is USB flash device. We also support
 (or plan to) IDE and SATA block devices with or without partitions, DriverDisc
 image stored on block device, initrd overlay (see documentation below) and for
 special cases even network retrieval of DriverDisc image.
+
 
 What can be updated using DDs?
 ------------------------------
@@ -35,6 +37,7 @@ official repository, the newer package will get used.
 We also plan to support anaconda's updates.img placement on the DriverDisc to
 update stage2 behaviour of anaconda.
 
+
 Selecting DD manually
 ---------------------
 
@@ -43,6 +46,7 @@ If no argument is specified, the UI will prompt for the location of the driver
 rpm. Otherwise, the rpm will be fetched from the specified location.
 
 Please consult the appropriate Installer Guide for further information.
+
 
 Automatic DriverDisc detection
 ------------------------------
@@ -59,17 +63,20 @@ DDv3 structure
 The new DriverDisc format uses simple layout which can be created on top of
 any anaconda's supported filesystem (vfat, squashfs, ext2 and ext3).
 
-/
-|rhdd3   - DD marker, contains the DD's description string
-/rpms
-|  /i386 - contains RPMs for this arch and acts as Yum repo
-|  /i586
-|  /x86_64
-|  /ppc
-|  /...  - any other architecture the DD provides drivers for
+::
+
+    /
+    |rhdd3   - DD marker, contains the DD's description string
+    /rpms
+      |  /i386 - contains RPMs for this arch and acts as Yum repo
+      |  /i586
+      |  /x86_64
+      |  /ppc
+      |  /...  - any other architecture the DD provides drivers for
 
 There is a special requirement for the RPMs used to update drivers. Anaconda
 picks up only RPMs which provide "kernel-modules = <running kernel version>".
+
 
 Initrd overlay driverdisc image
 -------------------------------
@@ -89,6 +96,7 @@ to respect some rules.
 - The rpm repo with updated packages belongs to /tmp/DD-initrd/
 - The (empty) trigger file /.rundepmod must be present
 
+
 Firmware and module update
 --------------------------
 
@@ -101,6 +109,7 @@ you are updating some modules with second (or later) DriverDisc, the updated
 modules will be loaded. There is one exception though, if your module depends
 on a module which is only present in built-in module directory, that built-in
 module gets also loaded.
+
 
 Package installation
 --------------------
@@ -115,4 +124,3 @@ Summary
 
 This new DriverDisc format should simplify the DD creation and usage a lot. We
 will gladly hear any comments as this is partially still work in progress.
-

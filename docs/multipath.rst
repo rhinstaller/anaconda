@@ -1,7 +1,8 @@
-======================
 Multipath and Anaconda
 ======================
 
+:Authors:
+   Ales Kozumplik <akozumpl@redhat.com>
 
 Introduction
 ------------
@@ -10,10 +11,10 @@ If there are two block devices in your /dev for which udev reports the same
 'ID_SERIAL' then you can create a certain device mapper device which arbitrarily
 uses those devices to access the physical device. And that is Multipath [1].
 
-For instance, suppose there are
+For instance, suppose there are::
 
-/dev/sda, with ID_SERIAL of 20090ef12700001d2, and
-/dev/sdb, with the same ID_SERIAL.
+  /dev/sda, with ID_SERIAL of 20090ef12700001d2, and
+  /dev/sdb, with the same ID_SERIAL.
 
 Those are probably some adapters in the system that just connect your box to a
 storage area network (SAN) somewhere. There are perhaps two cables, one for sda,
@@ -28,7 +29,6 @@ either sda or sdb depending on the load of the line or network congestion on the
 particular network etc.
 
 The nomenclature I will use here is:
-
 - 'multipath device' for the smart /dev/mapper/mpathX device.
 - 'multipath member device' for the '/dev/sdX' devices. Also 'a path'.
 
@@ -83,7 +83,7 @@ make it to the sysimage before the dracut image is generated.
 
 
 Debugging multipath bugs
-------------------------
+-------------------------
 
 Unlike with iSCSI, to reproduce a multipath bug one does not need the same
 specific hardware as the reporter. Just found any box connected to a multipathed
@@ -108,7 +108,7 @@ particularly look at are:
 
 
 Future of multipath in Anaconda
--------------------------------
+--------------------------------
 
 Overall as of RHEL6.2, the shape of multipath in Anaconda is good and what's
 more important it is flexible enough to sustain new RFEs and bugs. Those are
@@ -132,12 +132,7 @@ however bugs that I expect to appear sometime soon:
   debugging possible on any virt machine with multiple virt NICs.
 
 
+.. [1] http://akozumpl.fedorapeople.org/archive/Multipass.jpg
+.. [2] http://christophe.varoqui.free.fr/
+.. [3] 'man 8 multipath'
 
-[1] http://akozumpl.fedorapeople.org/archive/Multipass.jpg
-[2] http://christophe.varoqui.free.fr/
-[3] 'man 8 multipath'
-
-
-
----
-Red Hat Author(s): Ales Kozumplik <akozumpl@redhat.com>
