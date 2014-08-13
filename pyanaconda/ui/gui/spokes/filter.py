@@ -384,6 +384,7 @@ class FilterSpoke(NormalSpoke):
                       "searchModel", "multipathModel", "otherModel", "zModel"]
     mainWidgetName = "filterWindow"
     uiFile = "spokes/filter.glade"
+    helpFile = "FilterSpoke.xml"
 
     category = SystemCategory
 

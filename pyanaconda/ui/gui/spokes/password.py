@@ -43,6 +43,7 @@ class PasswordSpoke(FirstbootSpokeMixIn, NormalSpoke, GUISpokeInputCheckHandler)
     mainWidgetName = "passwordWindow"
     focusWidgetName = "pw"
     uiFile = "spokes/password.glade"
+    helpFile = "PasswordSpoke.xml"
 
     category = UserSettingsCategory
 

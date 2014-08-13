@@ -44,6 +44,7 @@ class ProgressHub(Hub):
     builderObjects = ["progressWindow"]
     mainWidgetName = "progressWindow"
     uiFile = "hubs/progress.glade"
+    helpFile = "ProgressHub.xml"
 
     def __init__(self, data, storage, payload, instclass):
         Hub.__init__(self, data, storage, payload, instclass)

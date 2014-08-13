@@ -130,6 +130,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
                       "mountPointCompletion", "mountPointStore"]
     mainWidgetName = "customStorageWindow"
     uiFile = "spokes/custom.glade"
+    helpFile = "CustomSpoke.xml"
 
     category = SystemCategory
     title = N_("MANUAL PARTITIONING")
