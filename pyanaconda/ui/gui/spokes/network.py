@@ -1355,6 +1355,7 @@ class NetworkSpoke(FirstbootSpokeMixIn, NormalSpoke):
     builderObjects = ["networkWindow", "liststore_wireless_network", "liststore_devices", "add_device_dialog", "liststore_add_device"]
     mainWidgetName = "networkWindow"
     uiFile = "spokes/network.glade"
+    helpFile = "NetworkSpoke.xml"
 
     title = CN_("GUI|Spoke", "_NETWORK & HOST NAME")
     icon = "network-transmit-receive-symbolic"
