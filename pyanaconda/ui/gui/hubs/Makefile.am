@@ -23,3 +23,6 @@ hubs_PYTHON    = $(srcdir)/*.py
 
 uidir          = $(datadir)/$(PACKAGE_NAME)/ui/hubs
 dist_ui_DATA   = $(srcdir)/*.glade
+
+# Files generated for gettext need to be included in the distribution
+EXTRA_DIST = $(srcdir)/*.glade.h
