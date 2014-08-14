@@ -342,7 +342,10 @@ def ksnet_to_ifcfg(net, filename=None):
         if not os.path.isdir("/tmp/ifcfg"):
             os.makedirs("/tmp/ifcfg")
     ifcfg['DEVICE'] = dev
-    ifcfg['HWADDR'] = readsysfile("/sys/class/net/%s/address" % dev)
+    hwaddr = readsysfile("/sys/class/net/%s/address" % dev)
+    if "ifname={0}:{1}".format(dev, hwaddr).upper() in open("/proc/cmdline").read().upper():
+        # rename by initscript's 60-net-rules on target system after switchroot
+        ifcfg['HWADDR'] = hwaddr
     ifcfg['UUID'] = str(uuid.uuid4())
     # we set real ONBOOT value in anaconda, here
     # we use it to activate devcies by NM on start
@@ -350,7 +353,7 @@ def ksnet_to_ifcfg(net, filename=None):
 
     s390cfg = s390_settings(dev)
     if s390cfg['SUBCHANNELS']:
-        ifcfg.pop('HWADDR')
+        ifcfg.pop('HWADDR', None)
         ifcfg['SUBCHANNELS'] = s390cfg['SUBCHANNELS']
     if s390cfg['NETTYPE']:
         ifcfg['NETTYPE'] = s390cfg['NETTYPE']

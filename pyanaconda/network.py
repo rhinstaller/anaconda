@@ -537,11 +537,16 @@ def add_connection_for_ksdata(networkdata, devname):
         dev_spec = None
     # type "802-3-ethernet"
     else:
+        mac = nm.nm_device_perm_hwaddress(devname)
+        if flags.cmdline.get("ifname", "").upper() == "{0}:{1}".format(devname, mac).upper():
+            mac = [int(b, 16) for b in mac.split(":")]
+            values.append(['802-3-ethernet', 'mac-address', mac, 'ay'])
+        else:
+            values.append(['802-3-ethernet', 'name', devname, 's'])
         values.append(['connection', 'type', '802-3-ethernet', 's'])
         values.append(['connection', 'id', devname, 's'])
-        mac = nm.nm_device_perm_hwaddress(devname)
-        mac = [int(b, 16) for b in mac.split(":")]
-        values.append(['802-3-ethernet', 'mac-address', mac, 'ay'])
+        values.append(['connection', 'interface-name', devname, 's'])
+
         dev_spec = devname
 
     nm.nm_add_connection(values)
