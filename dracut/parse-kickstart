@@ -78,8 +78,13 @@ class NFS(commands.nfs.FC6_NFS):
 
 class URL(commands.url.F18_Url):
     def dracut_args(self, args, lineno, obj):
-        # FIXME: self.proxy, self.noverifyssl
-        return "inst.repo=%s" % self.url
+        args = ["inst.repo=%s" % self.url]
+        if self.noverifyssl:
+            args.append("rd.noverifyssl")
+        if self.proxy:
+            args.append("proxy=%s" % self.proxy)
+
+        return "\n".join(args)
 
 class Updates(commands.updates.F7_Updates):
     def dracut_args(self, args, lineno, obj):
