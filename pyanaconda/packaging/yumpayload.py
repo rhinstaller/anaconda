@@ -326,6 +326,10 @@ reposdir=%s
 
             # kickstart repo modifiers
             ks_repo = self.getAddOnRepo(repo.id)
+
+            if not ks_repo and not repo.sslverify:
+                f.write("sslverify=0\n")
+
             if not ks_repo:
                 return
 
