@@ -257,6 +257,155 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Fri Aug 15 2014 Brian C. Lane <bcl@redhat.com> - 19.31.83-1
+- Write storage after liveimg install (bcl)
+  Related: rhbz#1080396
+- Add some sanity checking to live payload (vpodzime)
+  Related: rhbz#1080396
+- Add support for tarfiles to liveimg kickstart command (bcl)
+  Resolves: rhbz#1080396
+- Mountpoint encrypted checkbox reflects container state (bcl)
+  Resolves: rhbz#1076171
+- Block leaf device encryption if container is encrypted consistently
+  (vpodzime)
+  Related: rhbz#1076171
+- Fix gettext_potfiles.py for rhel7-branch (dshea). (clumens)
+  Related: rhbz#1121678
+- Add an option to makebumpver to skip all checks. (clumens)
+  Related: rhbz#1121678
+- Include .glade.h in the source distribution (dshea). (clumens)
+  Related: rhbz#1121678
+- Pass --enable-gtk-doc to configure in distcheck (dshea)
+  Related: rhbz#1121678
+- Fix the handling of files generated for xgettext (dshea)
+  Related: rhbz#1121678
+- Fix the liveinst install/uninstall hooks (dshea)
+  Related: rhbz#1121678
+- Always use $prefix in directory names. (dshea)
+  Related: rhbz#1121678
+- Use libtool with gtkdoc-scanobj (dshea)
+  Related: rhbz#1121678
+- Move the intltool Makefile rules into configure.ac (dshea)
+  Related: rhbz#1121678
+- Fix the wildcard usage in automake files. (dshea)
+  Related: rhbz#1121678
+- Write sslverify=0 for url kickstart method (bcl)
+  Resolves: rhbz#1116858
+- Add noverifyssl and proxy support to dracut ks handling (bcl)
+  Resolves: rhbz#1116858
+- Log installation successes and failures via ipmitool. (clumens)
+  Resolves: rhbz#782019
+- Suppress selinux error log when using default (bcl)
+  Resolves: rhbz#1083239
+- Skip source and software spoke in text live installations (bcl)
+  Resolves: rhbz#1092763
+- Default the OK button on the iscsi dialog to insensitive. (clumens)
+  Resolves: rhbz#975823
+- Change strings per stylistic advice from ECS (dshea)
+  Resolves: rhbz#1035898
+- Untranslate the type column of the network device type combobox (dshea)
+  Related: rhbz#1035898
+- Always define a continueButton and quitButton property. (clumens)
+  Related: rhbz#1121678
+- Resolve problems detected by our glade tests. (clumens)
+  Related: rhbz#1121678
+- Remove log_picker. (clumens)
+  Related: rhbz#1121678
+- Add missing files to dist (dshea)
+  Related: rhbz#1121678
+- Fix pre-processing of files for xgettext. (dshea)
+  Related: rhbz#1121678
+- Take care of strings with multiple substitutions. (clumens)
+  Related: rhbz#1121678
+- Remove lots of unused code from isys. (clumens)
+  Related: rhbz#1121678
+- Ignore a couple places where pylint warns us about accessing yum. (clumens)
+  Related: rhbz#1121678
+- Deal with all the methods where argument numbers differ. (clumens)
+  Related: rhbz#1121678
+- The Desktop class doesn't need to inherit from SimpleConfigFile. (clumens)
+  Related: rhbz#1121678
+- Fix up most of the "has no member" errors. (clumens)
+  Related: rhbz#1121678
+- Fix up all the redefined attribute errors. (clumens)
+  Related: rhbz#1121678
+- Make sure variables are defined in a __init__ method. (clumens)
+  Related: rhbz#1121678
+- Take care of some one-off pylint errors. (clumens)
+  Related: rhbz#1121678
+- Avoid the use of NamedTuple._make (dshea)
+  Related: rhbz#1121678
+- Modify the gtk_warning function in anaconda to use gtk3. (clumens)
+  Related: rhbz#1121678
+- Fix translation errors caught by our custom pylint tests. (clumens)
+  Related: rhbz#1121678
+- Take care of some one-off pylint errors. (clumens)
+  Related: rhbz#1121678
+- Get rid of too-general exception handling. (clumens)
+  Related: rhbz#1121678
+- Fix warnings about abstract methods not being overridden. (clumens)
+  Related: rhbz#1121678
+- Remove the lines to ignore E0611. (clumens)
+  Related: rhbz#1121678
+- Do not use sets or lists as default arguments to functions. (clumens)
+  Related: rhbz#1121678
+- Get rid of unnecessary lambdas. (clumens)
+  Related: rhbz#1121678
+- Get rid of unused variables. (clumens)
+  Related: rhbz#1121678
+- Use r"" for certain regular expressions. (clumens)
+  Related: rhbz#1121678
+- Use "raise Exception()" instead of "raise Exception, ..." (clumens)
+  Related: rhbz#1121678
+- Don't redefine built-in python keywords and methods. (clumens)
+  Related: rhbz#1121678
+- Get rid of all unused imports. (clumens)
+  Related: rhbz#1121678
+- Fix all indentation errors. (clumens)
+  Related: rhbz#1121678
+- Convert logging calls to not do string substitution. (clumens)
+  Related: rhbz#1121678
+- Add missing source files to po/POTFILES.in. (clumens)
+  Related: rhbz#1121678
+- Use the RHEL7 versions of kickstart command objects. (clumens)
+  Related: rhbz#1121678
+- Hook up the new test cases to automake/autoconf. (clumens)
+  Related: rhbz#1121678
+- Copy the tests/ directory from master over, less the gui tests. (clumens)
+  Related: rhbz#1121678
+- Remove the existing tests/ directory. (clumens)
+  Related: rhbz#1121678
+- Return int instead of Decimal when getting available free space (vpodzime)
+  Related: rhbz#1053462
+- Set rpm macro information in anaconda-yum. (dshea)
+  Resolves: rhbz#1114586
+- Keep selection when switching environments (mkolman)
+  Related: rhbz#1043655
+- Populate the repo store before changed can ever be called (clumens).
+  Related: rhbz#1119867
+- Install selected ks repos to target (bcl)
+  Resolves: rhbz#1119867
+- Add check for the format of grub2 encrypted password (bcl)
+  Related: rhbz#1070327
+- Don't use geolocation when installing with kickstart (mkolman)
+  Resolves: rhbz#1111717
+- Check xconfig before setting the installed displaymode (dshea)
+  Resolves: rhbz#1081768
+- Allow a wider variety of mountpoints (dshea)
+  Resolves: rhbz#1109140
+- Fix the handling of kickstart NFS repos with options (dshea)
+  Resolves: rhbz#1121008
+- Wrap the custom partitioning note (dshea)
+  Resolves: rhbz#1098320
+- Add support ppc64le (hamzy)
+  Resolves: rhbz#1125474
+- Cleanup arch tests (dshea)
+  Related: rhbz#1125474
+- Do not write out the vconsole.* boot options (vpodzime)
+  Resolves: rhbz#1111405
+- Use blivet's getFreeSpace for limitting automatic swap size (vpodzime)
+  Resolves: rhbz#1053462
+
 * Fri Aug 08 2014 Brian C. Lane <bcl@redhat.com> - 19.31.82-1
 - Use low level file i/o for rpm callback logging (bcl)
   Resolves: rhbz#1035745
