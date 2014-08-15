@@ -78,6 +78,10 @@ class MakeBumpVer:
         self.configure = kwargs.get('configure')
         self.spec = kwargs.get('spec')
         self.skip_acks = kwargs.get('skip_acks', False)
+        self.skip_all = kwargs.get('skip_all', False)
+
+        if self.skip_all:
+            self.skip_acks = True
 
         # RHEL release number or None
         self.rhel = self._isRHEL()
@@ -286,22 +290,24 @@ class MakeBumpVer:
                             author = tmp
 
                     ckbug = self.bugmap.get(bug, bug)
-                    valid = self._isRHELBug(ckbug, commit, summary)
+
+                    valid = self.skip_all or self._isRHELBug(ckbug, commit, summary)
 
                     if valid:
                         summary = summary.replace(fullbug, "(%s)" % author)
                         rhbz.add("Resolves: rhbz#%s" % ckbug)
 
-                        if not self._isRHELBugInCorrectState(ckbug, commit,
-                                                             summary):
-                            bad = True
+                        if not self.skip_all:
+                            if not self._isRHELBugInCorrectState(ckbug, commit,
+                                                                 summary):
+                                bad = True
 
-                        if not self._isRHELBugFixedInVersion(ckbug, commit,
-                                                             summary, fixedIn):
-                            bad = True
+                            if not self._isRHELBugFixedInVersion(ckbug, commit,
+                                                                 summary, fixedIn):
+                                bad = True
 
-                        if not self._isRHELBugAcked(ckbug, commit, summary):
-                            bad = True
+                            if not self._isRHELBugAcked(ckbug, commit, summary):
+                                bad = True
                     else:
                         bad = True
                     summary_bug = ckbug
@@ -323,7 +329,8 @@ class MakeBumpVer:
                         action = actionre.group()
                         bug = bugre.group()
                         ckbug = self.bugmap.get(bug, bug)
-                        valid = self._isRHELBug(ckbug, commit, summary)
+
+                        valid = self.skip_all or self._isRHELBug(ckbug, commit, summary)
 
                         if valid:
                             rhbz.add("%s: rhbz#%s" % (action, ckbug))
@@ -335,6 +342,10 @@ class MakeBumpVer:
                                     rhbz.remove(summary_str)
                         else:
                             bad = True
+
+                        if self.skip_all:
+                            print "*** Bug %s Related commit %s is allowed\n" % (bug, commit)
+                            continue
 
                         if valid and action == 'Resolves' and \
                            (not self._isRHELBugInCorrectState(ckbug, commit,
@@ -350,7 +361,7 @@ class MakeBumpVer:
                             # Related bugs only need to be valid and have an ack
                             bad = False
 
-                if len(rhbz) == 0:
+                if len(rhbz) == 0 and not self.skip_all:
                     print("*** No bugs referenced in commit %s\n" % commit)
                     bad = True
 
@@ -435,6 +446,7 @@ def usage(cmd):
     sys.stdout.write("    -i, --ignore     Comma separated list of git commits to ignore.\n")
     sys.stdout.write("    -m, --map        Comma separated list of FEDORA_BZ=RHEL_BZ mappings.\n")
     sys.stdout.write("    -s, --skip-acks  Skip checking for rhel-X.X.X ack flag\n")
+    sys.stdout.write("    -S, --skip-all   Skip all checks\n")
     sys.stdout.write("    -d, --debug      Turn on debug logging to stdout\n")
     sys.stdout.write("\nThe -i switch is intended for use with utility commits that we do not need to\n")
     sys.stdout.write("reference in the spec file changelog.  The -m switch is used to map a Fedora\n")
@@ -449,11 +461,11 @@ def main(argv):
     spec = os.path.realpath(cwd + '/anaconda.spec.in')
     name, version, release, bugreport = None, None, None, None
     ignore, bugmap = None, None
-    show_help, unknown, skip_acks = False, False, False
+    show_help, unknown, skip_acks, skip_all = False, False, False, False
     opts = []
 
     try:
-        opts, _args = getopt.getopt(sys.argv[1:], 'n:v:r:b:i:m:d?',
+        opts, _args = getopt.getopt(sys.argv[1:], 'n:v:r:b:i:m:sSd?',
                                    ['name=', 'version=', 'release=',
                                     'bugreport=', 'ignore=', 'map=',
                                     'debug', 'help'])
@@ -475,6 +487,8 @@ def main(argv):
             bugmap = a
         elif o in ('-s', '--skip-acks'):
             skip_acks = True
+        elif o in ('-S', '--skip-all'):
+            skip_all = True
         elif o in ('-d', '--debug'):
             log.setLevel(logging.DEBUG)
         elif o in ('-?', '--help'):
@@ -512,7 +526,8 @@ def main(argv):
 
     mbv = MakeBumpVer(name=name, version=version, release=release,
                       bugreport=bugreport, ignore=ignore, bugmap=bugmap,
-                      configure=configure, spec=spec, skip_acks=skip_acks)
+                      configure=configure, spec=spec, skip_acks=skip_acks,
+                      skip_all=skip_all)
     mbv.run()
 
 if __name__ == "__main__":
