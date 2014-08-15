@@ -72,7 +72,7 @@ scratch: po-pull
 	git checkout -- po/$(PACKAGE_NAME).pot
 
 scratch-bumpver: po-pull
-	@opts="-n $(PACKAGE_NAME) -v $(PACKAGE_VERSION) -r $(PACKAGE_RELEASE) -b $(PACKAGE_BUGREPORT)" ; \
+	@opts="-S -n $(PACKAGE_NAME) -v $(PACKAGE_VERSION) -r $(PACKAGE_RELEASE) -b $(PACKAGE_BUGREPORT)" ; \
 	if [ ! -z "$(IGNORE)" ]; then \
 		opts="$${opts} -i $(IGNORE)" ; \
 	fi ; \
@@ -81,9 +81,6 @@ scratch-bumpver: po-pull
 	fi ; \
 	if [ ! -z "$(BZDEBUG)" ]; then \
 		opts="$${opts} -d" ; \
-	fi ; \
-	if [ ! -z "$(SKIP_ACKS)" ]; then \
-		opts="$${opts} -s" ; \
 	fi ; \
 	scripts/makebumpver $${opts} || exit 1 ; \
 	$(MAKE) -C po $(PACKAGE_NAME).pot-update ; 
