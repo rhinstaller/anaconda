@@ -134,7 +134,7 @@ class MakeBumpVer:
 
         return ret
 
-    def _queryBug(self, bug):
+    def _queryBug(self, bugid):
         if not self.bz:
             sys.stdout.write("Connecting to %s...\n" % self.bzserver)
 
@@ -154,17 +154,17 @@ class MakeBumpVer:
             rc = self.bz.login(self.username, self.password)
             log.debug("login rc = %s", rc)
 
-        if bug in self._bz_cache:
-            return self._bz_cache[bug]
+        if bugid in self._bz_cache:
+            return self._bz_cache[bugid]
 
-        bugs = self.bz.query({'bug_id': bug})
-        log.debug("bugs = %s", bugs)
+        bug = self.bz.getbug(bugid, extra_fields="flags")
+        log.debug("bug = %s", bug)
 
-        if len(bugs) != 1:
+        if not bug:
             return None
         else:
-            self._bz_cache[bug] = bugs[0]
-            return bugs[0]
+            self._bz_cache[bugid] = bug
+            return bug
 
     def _isRHELBug(self, bug, commit, summary):
         bzentry = self._queryBug(bug)
