@@ -32,10 +32,10 @@ def check_potfile(checkfile, potlist):
         # Check whether the file includes intl.h
         if subprocess.call(["grep", "-q", "#include .intl\\.h.", checkfile]) == 0:
             potcheckfile = checkfile
-    elif checkfile.endswith(".glade.h"):
+    elif checkfile.endswith(".glade"):
         # Look for a "translatable=yes" attribute
         if ET.parse(checkfile).findall(".//*[@translatable='yes']"):
-            potcheckfile = checkfile
+            potcheckfile = checkfile + ".h"
     elif checkfile.endswith(".desktop.in"):
         # These are handled by intltool, make sure the .h version is present
         potcheckfile = checkfile + ".h"
@@ -59,6 +59,7 @@ with open(os.path.join(os.environ["top_srcdir"], "po", "POTFILES.in")) as f:
 
 # Walk the source tree and look for files with translatable strings
 for testfile in testfilelist():
+    sys.stderr.write(testfile + "\n")
     check_potfile(testfile, POTFILES)
 
 if not success:
