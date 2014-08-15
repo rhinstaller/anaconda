@@ -177,6 +177,7 @@ def doInstall(storage, payload, ksdata, instClass):
 
     turnOnFilesystems(storage, mountOnly=flags.flags.dirInstall)
     write_storage_late = (flags.flags.livecdInstall or ksdata.ostreesetup.seen
+                          or ksdata.method.method == "liveimg"
                           and not flags.flags.dirInstall)
     if not write_storage_late:
         storage.write()
