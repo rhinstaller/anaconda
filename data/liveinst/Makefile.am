@@ -27,6 +27,13 @@ desktop_DATA       = liveinst.desktop
 
 xinitdir           = $(sysconfdir)/X11/xinit/xinitrc.d
 dist_xinit_SCRIPTS = zz-liveinst.sh
+
+install-exec-local:
+	$(MKDIR_P) $(DESTDIR)$(bindir)
+	$(LN_S) consolehelper $(DESTDIR)$(bindir)/liveinst
+
+uninstall-local:
+	rm -f $(DESTDIR)$(bindir)/liveinst
 endif
 
 EXTRA_DIST = README liveinst.desktop.in
@@ -41,7 +48,3 @@ MAINTAINERCLEANFILES = Makefile.in
 EXTRA_DIST += $(srcdir)/liveinst.desktop.in.h
 $(srcdir)/liveinst.desktop.in.h: $(srcdir)/liveinst.desktop.in
 	@$(MAKE) -C $(top_builddir)/po $(abs_top_srcdir)/$(subdir)/$$(basename $@)
-
-install-exec-local:
-	$(MKDIR_P) $(DESTDIR)$(bindir)
-	$(LN_S) consolehelper $(DESTDIR)$(bindir)/liveinst
