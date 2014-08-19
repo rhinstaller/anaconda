@@ -28,4 +28,7 @@ typedef enum {
         DELAYED_REBOOT
 } reboot_action;
 
+/* When there is less than this amount of ram, set the tmpfs size to 250M */
+#define MIN_TMPFS_RAM   524288
+
 #endif /* INIT_H */

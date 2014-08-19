@@ -64,6 +64,7 @@
 #include "devices.h"
 #include "modules.h"
 #include "log.h"
+#include "totalmemory.h"
 
 #endif
 
@@ -759,8 +760,19 @@ int main(int argc, char **argv) {
 
     printf("mounting /tmp as tmpfs... ");
     fflush(stdout);
-    if (mount("none", "/tmp", "tmpfs", 0, "size=250m"))
-        fatal_error(1);
+
+    /* On systems with small memory tmpfs needs to be at least 250M so that
+     * there is space for install.img and the logs.
+     * On larger systems it should be 50% of available RAM so that there is
+     * room for more logs, driver disks, etc.
+     */
+    if (totalMemory() < MIN_TMPFS_RAM) {
+        if (mount("none", "/tmp", "tmpfs", 0, "size=250m"))
+            fatal_error(1);
+    } else {
+        if (mount("none", "/tmp", "tmpfs", 0, "size=50%"))
+            fatal_error(1);
+    }
     printf("done\n");
 
     copyDirectory("/oldtmp", "/tmp", copyErrorFn, copyErrorFn);
