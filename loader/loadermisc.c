@@ -96,53 +96,6 @@ int simpleStringCmp(const void * a, const void * b) {
     return strverscmp(first, second);
 }
 
-/* report total system memory in kB (given to us by /proc/meminfo) */
-guint64 totalMemory(void) {
-    int i = 0, len = 0;
-    uint64_t total = 0;
-    gchar *contents = NULL;
-    gchar **lines = NULL, **fields = NULL;
-    GError *fileErr = NULL;
-
-    if (!g_file_get_contents(MEMINFO, &contents, NULL, &fileErr)) {
-        logMessage(ERROR, "error reading %s: %s", MEMINFO, fileErr->message);
-        g_error_free(fileErr);
-        return total;
-    }
-
-    lines = g_strsplit(contents, "\n", 0);
-    g_free(contents);
-
-    for (i = 0; i < g_strv_length(lines); i++) {
-        if (g_str_has_prefix(lines[i], "MemTotal:")) {
-            fields = g_strsplit(lines[i], " ", 0);
-            len = g_strv_length(fields);
-
-            if (len < 3) {
-                logMessage(ERROR, "unknown format for MemTotal line in %s", MEMINFO);
-                g_strfreev(fields);
-                g_strfreev(lines);
-                return total;
-            }
-
-            errno = 0;
-            total = g_ascii_strtoull(fields[len - 2], NULL, 10);
-
-            if ((errno == ERANGE && total == G_MAXUINT64) ||
-                (errno == EINVAL && total == 0)) {
-                logMessage(ERROR, "%s: %d: %m", __func__, __LINE__);
-                abort();
-            }
-
-            g_strfreev(fields);
-            break;
-        }
-    }
-
-    g_strfreev(lines);
-    return total;
-}
-
 int replaceChars(char *str, char old, char new) {
     char *pos = str;
     int count = 0;

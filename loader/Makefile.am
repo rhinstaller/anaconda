@@ -52,7 +52,7 @@ loader_SOURCES     = loader.c copy.c log.c moduleinfo.c loadermisc.c \
                      getparts.c dirbrowser.c fwloader.c ibft.c hardware.c \
                      method.c cdinstall.c hdinstall.c nfsinstall.c \
                      urlinstall.c net.c urls.c telnet.c telnetd.c \
-                     rpmextract.c
+                     rpmextract.c totalmemory.c
 
 init_CFLAGS        = $(COMMON_CFLAGS) $(GLIB_CFLAGS)
 init_LDADD	   = $(GLIB_LIBS)
