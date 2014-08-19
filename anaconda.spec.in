@@ -257,6 +257,10 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Mon Aug 18 2014 Brian C. Lane <bcl@redhat.com> - 19.31.84-1
+- Only install liveinst symlink on supported arches (bcl)
+  Related: rhbz#1121678
+
 * Fri Aug 15 2014 Brian C. Lane <bcl@redhat.com> - 19.31.83-1
 - Write storage after liveimg install (bcl)
   Related: rhbz#1080396
