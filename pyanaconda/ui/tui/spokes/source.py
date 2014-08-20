@@ -241,9 +241,9 @@ class SourceSpoke(SourceSwitchHandler, EditTUISpoke):
 
         if self.data.method.method == "harddrive" and \
            get_mount_device(DRACUT_ISODIR) == get_mount_device(DRACUT_REPODIR):
-               message = _("The installation source is in use by the installer and cannot be changed.")
-               self._window += [TextWidget(message), ""]
-               return True
+            message = _("The installation source is in use by the installer and cannot be changed.")
+            self._window += [TextWidget(message), ""]
+            return True
 
         _methods = [_("CD/DVD"), _("Local ISO file"), _("Network")]
         if args == 3:
