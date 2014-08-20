@@ -59,6 +59,7 @@ PROTOCOL_HTTP = 'http'
 PROTOCOL_HTTPS = 'https'
 PROTOCOL_FTP = 'ftp'
 PROTOCOL_NFS = 'nfs'
+PROTOCOL_FILE = 'file'
 PROTOCOL_MIRROR = 'Closest mirror'
 
 # Repo Store Columns
@@ -69,7 +70,8 @@ REPO_OBJ = 2
 REPO_PROTO = {PROTOCOL_HTTP:  "http://",
               PROTOCOL_HTTPS: "https://",
               PROTOCOL_FTP:   "ftp://",
-              PROTOCOL_NFS:   "nfs://"
+              PROTOCOL_NFS:   "nfs://",
+              PROTOCOL_FILE:  "file://"
               }
 
 def _validateProxy(proxy_string, username_set, password_set):

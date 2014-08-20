@@ -1187,6 +1187,7 @@
                                           <item id="https">https://</item>
                                           <item id="ftp">ftp://</item>
                                           <item id="nfs">nfs</item>
+                                          <item id="file">file://</item>
                                         </items>
                                         <signal name="changed" handler="on_repoProtocolComboBox_changed" swapped="no"/>
                                         <signal name="changed" handler="on_repoUrl_changed" swapped="no"/>
