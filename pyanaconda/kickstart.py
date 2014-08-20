@@ -837,14 +837,8 @@ class LogVolData(commands.logvol.F20_LogVolData):
             if tmp:
                 raise KickstartValueError(formatErrorMsg(self.lineno, msg="Logical volume name already used in volume group %s" % vg.name))
 
-            # Size specification checks
-            if not self.percent:
-                if not size:
-                    raise KickstartValueError(formatErrorMsg(self.lineno, msg="Size required"))
-                elif not self.grow and size < vg.peSize:
-                    raise KickstartValueError(formatErrorMsg(self.lineno, msg="Logical volume size must be larger than the volume group physical extent size."))
-            elif self.percent <= 0 or self.percent > 100:
-                raise KickstartValueError(formatErrorMsg(self.lineno, msg="Percentage must be between 0 and 100"))
+            if not self.percent and size and not self.grow and size < vg.peSize:
+                raise KickstartValueError(formatErrorMsg(self.lineno, msg="Logical volume size must be larger than the volume group physical extent size."))
 
         # Now get a format to hold a lot of these extra values.
         fmt = getFormat(ty,
