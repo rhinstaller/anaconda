@@ -581,12 +581,6 @@ class DNFPayload(packaging.PackagePayload):
         env = self._base.comps.environment_by_pattern(environmentid)
         map(self.selectGroup, (id_.name for id_ in env.group_ids))
 
-    def setup(self, storage, instClass):
-        # must end up with the base repo (and its metadata) ready
-        super(DNFPayload, self).setup(storage, instClass)
-        self.updateBaseRepo()
-        self.gatherRepoMetadata()
-
     def updateBaseRepo(self, fallback=True, root=None, checkmount=True):
         log.info('configuring base repo')
         self.reset()
