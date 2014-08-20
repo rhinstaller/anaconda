@@ -2567,6 +2567,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
             fancy_set_sensitive(self._encryptCheckbox, True)
 
     def run_container_editor(self, container=None, name=None):
+        """ Run container edit dialog and return True if changes were made. """
         size = Size(0)
         size_policy = self._device_container_size
         if container:
@@ -2634,6 +2635,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         self._device_container_raid_level = dialog.raid_level
         self._device_container_encrypted = dialog.encrypted
         self._device_container_size = dialog.size_policy
+        return True
 
         self._set_devices_label()
 
@@ -2649,7 +2651,8 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
 
         # pass the name along with any found vg since we could be modifying a
         # vg that hasn't been instantiated yet
-        self.run_container_editor(container=container, name=container_name)
+        if not self.run_container_editor(container=container, name=container_name):
+            return
 
         log.debug("%s -> %s", container_name, self._device_container_name)
         if container_name == self._device_container_name:
@@ -2711,15 +2714,18 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
             # run the vg editor dialog with a default name and disk set
             hostname = self.data.network.hostname
             name = self.__storage.suggestContainerName(hostname=hostname)
-            self.run_container_editor(name=name)
+            new = self.run_container_editor(name=name)
             for idx, data in enumerate(self._containerStore):
-                if data[0] == new_text:
+                if new and data[0] == new_text:
                     c = self.__storage.devicetree.getDeviceByName(self._device_container_name)
                     freeSpace = getattr(c, "freeSpace", None)
                     row = self._container_store_row(self._device_container_name, freeSpace)
 
                     self._containerStore.insert(idx, row)
                     combo.set_active(idx)   # triggers a call to this method
+                    return
+                elif not new and data[0] == self._device_container_name:
+                    combo.set_active(idx)
                     return
         else:
             self._device_container_name = container_name
