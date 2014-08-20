@@ -867,18 +867,10 @@ class LogVolData(commands.logvol.F20_LogVolData):
                         msg=_("Logical volume name \"%(logvol)s\" is already in use in volume group \"%(volgroup)s\".") %
                              {"logvol": self.name, "volgroup": vg.name}))
 
-            # Size specification checks
-            if not self.percent:
-                if not size:
-                    raise KickstartValueError(formatErrorMsg(self.lineno,
-                            msg=_("No size given for logical volume \"%s\".  Use one of --useexisting, --size, or --percent.") % self.name))
-                elif not self.grow and size < vg.peSize:
-                    raise KickstartValueError(formatErrorMsg(self.lineno,
-                            msg=_("Logical volume size \"%(logvolSize)s\" must be larger than the volume group extent size of \"%(extentSize)s\".") %
-                                 {"logvolSize": size, "extentSize": vg.peSize}))
-            elif self.percent <= 0 or self.percent > 100:
+            if not self.percent and size and not self.grow and size < vg.peSize:
                 raise KickstartValueError(formatErrorMsg(self.lineno,
-                        msg=_("Percentage must be between 0 and 100.")))
+                        msg=_("Logical volume size \"%(logvolSize)s\" must be larger than the volume group extent size of \"%(extentSize)s\".") %
+                             {"logvolSize": size, "extentSize": vg.peSize}))
 
         # Now get a format to hold a lot of these extra values.
         fmt = getFormat(ty,
