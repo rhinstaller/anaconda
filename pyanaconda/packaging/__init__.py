@@ -36,15 +36,18 @@ import shutil
 import time
 from glob import glob
 import re
+import threading
 
 if __name__ == "__main__":
     from pyanaconda import anaconda_log
     anaconda_log.init()
 
 from pyanaconda.constants import DRACUT_ISODIR, DRACUT_REPODIR, DD_ALL, DD_FIRMWARE, DD_RPMS, INSTALL_TREE, ISO_DIR
-from pyanaconda.constants import THREAD_STORAGE, THREAD_WAIT_FOR_CONNECTING_NM
+from pyanaconda.constants import THREAD_STORAGE, THREAD_WAIT_FOR_CONNECTING_NM, THREAD_PAYLOAD
+from pyanaconda.constants import THREAD_PAYLOAD_RESTART
 from pykickstart.constants import GROUP_ALL, GROUP_DEFAULT, GROUP_REQUIRED
 from pyanaconda.flags import flags
+from pyanaconda.i18n import _, N_
 
 from pyanaconda import iutil
 from pyanaconda import isys
@@ -53,6 +56,7 @@ from pyanaconda.image import mountImage
 from pyanaconda.image import opticalInstallMedia
 from pyanaconda.iutil import ProxyString, ProxyStringError
 from pyanaconda.regexes import VERSION_DIGITS
+from pyanaconda.threads import threadMgr, AnacondaThread
 
 from pykickstart.parser import Group
 
@@ -1078,16 +1082,199 @@ class PackagePayload(Payload):
     def groupDescription(self, groupid):
         raise NotImplementedError()
 
-def payloadInitialize(storage, ksdata, payload, instClass):
-    from pyanaconda.threads import threadMgr
+class PayloadManager(object):
+    """Framework for starting and watching the payload thread.
 
-    threadMgr.wait(THREAD_STORAGE)
+       This class defines several states, and events can be triggered upon
+       reaching a state. Depending on whether a state has already been reached
+       when a listener is added, the event code may be run in either the
+       calling thread or the payload thread. The event code will block the
+       payload thread regardless, so try not to run anything that takes a long
+       time.
 
-    # FIXME: condition for cases where we don't want network
-    # (set and use payload.needsNetwork ?)
-    threadMgr.wait(THREAD_WAIT_FOR_CONNECTING_NM)
+       All states except STATE_ERROR are expected to happen linearly, and adding
+       a listener for a state that has already been reached or passed will
+       immediately trigger that listener. For example, if the payload thread is
+       currently in STATE_GROUP_MD, adding a listener for STATE_NETWORK will
+       immediately run the code being added for STATE_NETWORK.
 
-    payload.setup(storage, instClass)
+       The payload thread data should be accessed using the payloadMgr object,
+       and the running thread can be accessed using threadMgr with the
+       THREAD_PAYLOAD constant, if you need to wait for it or something. The
+       thread should be started using payloadMgr.restartThread.
+    """
+
+    STATE_START = 0
+    # Waiting on storage
+    STATE_STORAGE = 1
+    # Waiting on network
+    STATE_NETWORK = 2
+    # Downloading package metadata
+    STATE_PACKAGE_MD = 3
+    # Downloading group metadata
+    STATE_GROUP_MD = 4
+    # All done
+    STATE_FINISHED = 5
+
+    # Error
+    STATE_ERROR = -1
+
+    # Error strings
+    ERROR_SETUP = N_("Failed to set up installation source")
+    ERROR_MD = N_("Error downloading package metadata")
+    ERROR_SOURCE = N_("No installation source avaialble")
+
+    def __init__(self):
+        self._event_lock = threading.Lock()
+        self._event_listeners = {}
+        self._thread_state = self.STATE_START
+        self._error = None
+
+        # Initialize a list for each event state
+        for event_id in range(self.STATE_ERROR, self.STATE_FINISHED + 1):
+            self._event_listeners[event_id] = []
+
+    @property
+    def error(self):
+        return _(self._error)
+
+    def addListener(self, event_id, func):
+        """Add a listener for an event.
+
+           :param int event_id: The event to listen for, one of the EVENT_* constants
+           :param function func: An object to call when the event is reached
+        """
+
+        # Check that the event_id is valid
+        assert isinstance(event_id, int)
+        assert event_id <= self.STATE_FINISHED
+        assert event_id >= self.STATE_ERROR
+
+        # Add the listener inside the lock in case we need to run immediately,
+        # to make sure the listener isn't triggered twice
+        with self._event_lock:
+            self._event_listeners[event_id].append(func)
+
+            # If an error event was requested, run it if currently in an error state
+            if event_id == self.STATE_ERROR:
+                if event_id == self._thread_state:
+                    func()
+            # Otherwise, run if the requested event has already occurred
+            elif event_id <= self._thread_state:
+                func()
+
+    def restartThread(self, storage, ksdata, payload, instClass, fallback=False, checkmount=True):
+        """Start or restart the payload thread.
+
+           This method starts a new thread to restart the payload thread, so
+           this method's return is not blocked by waiting on the previous payload
+           thread. If there is already a payload thread restart pending, this method
+           has no effect.
+
+           :param blivet.Blivet storage: The blivet storage instance
+           :param kickstart.AnacondaKSHandler ksdata: The kickstart data instance
+           :param packaging.Payload payload: The payload instance
+           :param installclass.BaseInstallClass instClass: The install class instance
+           :param bool fallback: Whether to fall back to the default repo in case of error
+           :param bool checkmount: Whether to check for valid mounted media
+        """
+
+        log.debug("Restarting payload thread")
+
+        # If a restart thread is already running, don't start a new one
+        if threadMgr.get(THREAD_PAYLOAD_RESTART):
+            return
+
+        # Launch a new thread so that this method can return immediately
+        threadMgr.add(AnacondaThread(name=THREAD_PAYLOAD_RESTART, target=self._restartThread,
+            args=(storage, ksdata, payload, instClass, fallback, checkmount)))
+
+    def _restartThread(self, storage, ksdata, payload, instClass, fallback, checkmount):
+        # Wait for the old thread to finish
+        threadMgr.wait(THREAD_PAYLOAD)
+
+        # Start a new payload thread
+        threadMgr.add(AnacondaThread(name=THREAD_PAYLOAD, target=self._runThread,
+            args=(storage, ksdata, payload, instClass, fallback, checkmount)))
+
+    def _setState(self, event_id):
+        # Update the current state
+        log.debug("Updating payload thread state: %d", event_id)
+        with self._event_lock:
+            # Update the state within the lock to avoid a race with listeners
+            # currently being added
+            self._thread_state = event_id
+
+            # Run any listeners for the new state
+            for func in self._event_listeners[event_id]:
+                func()
+
+    def _runThread(self, storage, ksdata, payload, instClass, fallback, checkmount):
+        # This is the thread entry
+        # Set the initial state
+        self._error = None
+        self._setState(self.STATE_START)
+
+        # Wait for storage
+        self._setState(self.STATE_STORAGE)
+        threadMgr.wait(THREAD_STORAGE)
+
+        # Wait for network
+        self._setState(self.STATE_NETWORK)
+        # FIXME: condition for cases where we don't want network
+        # (set and use payload.needsNetwork ?)
+        threadMgr.wait(THREAD_WAIT_FOR_CONNECTING_NM)
+
+        self._setState(self.STATE_PACKAGE_MD)
+        payload.setup(storage, instClass)
+
+        # If this is a non-package Payload, we're done
+        if not isinstance(payload, PackagePayload):
+            self._setState(self.STATE_FINISHED)
+            return
+
+        # Keep setting up package-based repositories
+        # Download package metadata
+        try:
+            payload.updateBaseRepo(fallback=fallback, checkmount=checkmount)
+        except (OSError, PayloadError) as e:
+            log.error("PayloadError: %s", e)
+            self._error = self.ERROR_SETUP
+            self._setState(self.STATE_ERROR)
+            return
+
+        # Gather the group data
+        self._setState(self.STATE_GROUP_MD)
+        payload.gatherRepoMetadata()
+        payload.release()
+
+        # Check if that failed
+        if not payload.baseRepo:
+            log.error("No base repo configured")
+            self._error = self.ERROR_MD
+            self._setState(self.STATE_ERROR)
+            return
+
+        try:
+            # Grabbing the list of groups could potentially take a long time the
+            # first time (yum does a lot of magic property stuff, some of which
+            # involves side effects like network access) so go ahead and grab
+            # them now. These are properties with side-effects, just accessing
+            # them will trigger yum.
+            # pylint: disable=pointless-statement
+            payload.environments
+            # pylint: disable=pointless-statement
+            payload.groups
+        except MetadataError as e:
+            log.error("MetadataError: %s", e)
+            self._error = self.ERROR_SOURCE
+            self._setState(self.STATE_ERROR)
+            return
+
+        self._setState(self.STATE_FINISHED)
+
+# Initialize the PayloadManager instance
+payloadMgr = PayloadManager()
 
 def show_groups(payload):
     #repo = ksdata.RepoData(name="anaconda", baseurl="http://cannonball/install/rawhide/os/")

@@ -23,7 +23,7 @@ from gi.repository import Gtk, Pango
 
 from pyanaconda.flags import flags
 from pyanaconda.i18n import _, C_, CN_
-from pyanaconda.packaging import MetadataError, PackagePayload
+from pyanaconda.packaging import PackagePayload, payloadMgr
 from pyanaconda.threads import threadMgr, AnacondaThread
 from pyanaconda import constants
 
@@ -80,6 +80,25 @@ class SoftwareSelectionSpoke(NormalSpoke):
         self._origAddons = []
         self._origEnvironment = None
 
+        # Register event listeners to update our status on payload events
+        payloadMgr.addListener(payloadMgr.STATE_PACKAGE_MD, self._downloading_package_md)
+        payloadMgr.addListener(payloadMgr.STATE_GROUP_MD, self._downloading_group_md)
+        payloadMgr.addListener(payloadMgr.STATE_FINISHED, self._payload_finished)
+        payloadMgr.addListener(payloadMgr.STATE_ERROR, self._payload_error)
+
+    # Payload event handlers
+    def _downloading_package_md(self):
+        hubQ.send_message(self.__class__.__name__, _("Downloading package metadata..."))
+
+    def _downloading_group_md(self):
+        hubQ.send_message(self.__class__.__name__, _("Downloading group metadata..."))
+
+    def _payload_finished(self):
+        self.environment = self.data.packages.environment
+
+    def _payload_error(self):
+        hubQ.send_message(self.__class__.__name__, payloadMgr.error)
+
     def _apply(self):
         env = self._get_selected_environment()
         if not env:
@@ -129,7 +148,7 @@ class SoftwareSelectionSpoke(NormalSpoke):
     @property
     def completed(self):
         processingDone = bool(not threadMgr.get(constants.THREAD_CHECK_SOFTWARE) and
-                              not threadMgr.get(constants.THREAD_PAYLOAD_MD) and
+                              not threadMgr.get(constants.THREAD_PAYLOAD) and
                               not self._errorMsgs and self.txid_valid)
 
         # we should always check processingDone before checking the other variables,
@@ -166,7 +185,7 @@ class SoftwareSelectionSpoke(NormalSpoke):
         # repo metadata from the mirror list, or we detected a DVD/CD.
 
         return bool(not threadMgr.get(constants.THREAD_SOFTWARE_WATCHER) and
-                    not threadMgr.get(constants.THREAD_PAYLOAD_MD) and
+                    not threadMgr.get(constants.THREAD_PAYLOAD) and
                     not threadMgr.get(constants.THREAD_CHECK_SOFTWARE) and
                     self.payload.baseRepo is not None)
 
@@ -203,43 +222,16 @@ class SoftwareSelectionSpoke(NormalSpoke):
                       target=self._initialize))
 
     def _initialize(self):
-        hubQ.send_message(self.__class__.__name__, _("Downloading package metadata..."))
-
         threadMgr.wait(constants.THREAD_PAYLOAD)
 
-        hubQ.send_message(self.__class__.__name__, _("Downloading group metadata..."))
-
-        self.environment = self.data.packages.environment
-
-        if flags.automatedInstall and self.data.packages.seen:
-            # We don't want to do a full refresh, just join the metadata thread
-            threadMgr.wait(constants.THREAD_PAYLOAD_MD)
-        else:
-            # Grabbing the list of groups could potentially take a long time
-            # at first (yum does a lot of magic property stuff, some of which
-            # involves side effects like network access.  We need to reference
-            # them here, outside of the main thread, to not block the UI.
-            try:
-                # pylint: disable=pointless-statement
-                self.payload.environments
-                # pylint: disable=pointless-statement
-                self.payload.groups
-
-                # Parse the environments and groups into the form we want
-                self._parseEnvironments()
-            except MetadataError:
-                hubQ.send_message(self.__class__.__name__,
-                                  _("No installation source available"))
-                return
-
-            # And then having done all that slow downloading, we need to do the first
-            # refresh of the UI here so there's an environment selected by default.
-            # This happens inside the main thread by necessity.  We can't do anything
-            # that takes any real amount of time, or it'll block the UI from updating.
+        if not flags.automatedInstall or not self.data.packages.seen:
+            # having done all the slow downloading, we need to do the first refresh
+            # of the UI here so there's an environment selected by default.  This
+            # happens inside the main thread by necessity.  We can't do anything
+            # that takes any real amount of time, or it'll block the UI from
+            # updating.
             if not self._first_refresh():
                 return
-
-        self.payload.release()
 
         hubQ.send_ready(self.__class__.__name__, False)
 
@@ -255,12 +247,8 @@ class SoftwareSelectionSpoke(NormalSpoke):
 
     @gtk_action_wait
     def _first_refresh(self):
-        try:
-            self.refresh()
-            return True
-        except MetadataError:
-            hubQ.send_message(self.__class__.__name__, _("No installation source available"))
-            return False
+        self.refresh()
+        return True
 
     def _add_row(self, listbox, name, desc, button, clicked):
         row = Gtk.ListBoxRow()
@@ -281,7 +269,7 @@ class SoftwareSelectionSpoke(NormalSpoke):
     def refresh(self):
         NormalSpoke.refresh(self)
 
-        threadMgr.wait(constants.THREAD_PAYLOAD_MD)
+        threadMgr.wait(constants.THREAD_PAYLOAD)
 
         if self.environment not in self.payload.environments:
             self.environment = None

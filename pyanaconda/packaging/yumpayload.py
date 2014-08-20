@@ -196,13 +196,6 @@ class YumPayload(PackagePayload):
         self._writeYumConfig()
         self._setup = True
 
-        self.updateBaseRepo(fallback=not flags.automatedInstall)
-
-        # When setup is called, it's already in a separate thread. That thread
-        # will try to select groups right after this returns, so make sure we
-        # have group info ready.
-        self.gatherRepoMetadata()
-
     def _resetYum(self, root=None, keep_cache=False, releasever=None):
         """ Delete and recreate the payload's YumBase instance.
 
