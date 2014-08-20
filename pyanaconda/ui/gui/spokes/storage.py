@@ -372,7 +372,7 @@ class StorageSpoke(NormalSpoke, StorageChecker):
         msg = _("No disks selected")
 
         if flags.automatedInstall and not self.storage.rootDevice:
-            return msg
+            msg = _("Kickstart insufficient")
         elif threadMgr.get(constants.THREAD_DASDFMT):
             msg = _("Formatting DASDs")
         elif self.data.ignoredisk.onlyuse:
