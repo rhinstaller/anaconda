@@ -411,6 +411,8 @@ class StorageSpoke(NormalSpoke, StorageChecker):
 
         if not self._confirmed:
             msg = _("Not configured")
+        elif flags.automatedInstall and not self.storage.rootDevice:
+            msg = _("Kickstart insufficient")
         elif threadMgr.get(constants.THREAD_DASDFMT):
             msg = _("Formatting DASDs")
         elif flags.automatedInstall and not self.storage.rootDevice:

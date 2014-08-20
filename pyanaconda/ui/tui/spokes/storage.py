@@ -118,7 +118,7 @@ class StorageSpoke(NormalTUISpoke):
         msg = _("No disks selected")
 
         if flags.automatedInstall and not self.storage.rootDevice:
-            return msg
+            msg = _("Kickstart insufficient")
         elif self.data.ignoredisk.onlyuse:
             msg = P_(("%d disk selected"),
                      ("%d disks selected"),
