@@ -1214,6 +1214,7 @@
                               <item translatable="yes">http://</item>
                               <item translatable="yes">https://</item>
                               <item translatable="yes">ftp://</item>
+                              <item translatable="yes">file://</item>
                             </items>
                             <signal name="changed" handler="on_repoUrl_changed" swapped="no"/>
                           </object>

@@ -62,7 +62,7 @@ REPO_ENABLED_COL = 0
 REPO_NAME_COL = 1
 REPO_OBJ = 2
 
-REPO_PROTO = [(0, "http://"), (1, "https://"), (2, "ftp://")]
+REPO_PROTO = [(0, "http://"), (1, "https://"), (2, "ftp://"), (3, "file://")]
 
 class ProxyDialog(GUIObject):
     builderObjects = ["proxyDialog"]
@@ -963,6 +963,7 @@ class SourceSpoke(NormalSpoke):
         enabled = not self._repoStore[path][REPO_ENABLED_COL]
         self._repoStore[path][REPO_ENABLED_COL] = enabled
         self._repoStore[path][REPO_OBJ].enabled = enabled
+        self._repoEntryBox.set_sensitive(enabled)
 
     def _clear_repo_info(self):
         """ Clear the text from the repo entry fields

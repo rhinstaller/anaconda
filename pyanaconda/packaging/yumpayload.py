@@ -536,6 +536,7 @@ reposdir=%s
 
                 self._addYumRepo(BASE_REPO_NAME, url, mirrorlist=mirrorlist,
                                  proxyurl=proxyurl, sslverify=sslverify)
+                self._addAddons(self._yum.repos.getRepo(BASE_REPO_NAME), url, proxyurl, sslverify)
             except (MetadataError, PayloadError) as e:
                 log.error("base repo (%s/%s) not valid -- removing it",
                           method.method, url)
@@ -557,6 +558,7 @@ reposdir=%s
                 if self._yum.conf.yumvar['releasever'] == "rawhide" and \
                    "rawhide" in self.repos:
                     self.enableRepo("rawhide")
+                    self._addAddons(self._yum.repos.getRepo("rawhide"), url, proxyurl, sslverify)
 
         # set up addon repos
         # FIXME: driverdisk support
@@ -856,7 +858,9 @@ reposdir=%s
         self._addYumRepo(repo.name, url, repo.mirrorlist, cost=repo.cost,
                          exclude=repo.excludepkgs, includepkgs=repo.includepkgs,
                          proxyurl=proxy, sslverify=sslverify)
+        self._addAddons(repo, url, proxy, sslverify)
 
+    def _addAddons(self, repo, url, proxy, sslverify):
         addons = self._getAddons(url or repo.mirrorlist,
                                  proxy,
                                  sslverify)
@@ -865,12 +869,12 @@ reposdir=%s
         for addon in addons:
             # Does this repo already exist? If so, it was already added and may have
             # been edited by the user so skip adding it again.
-            if self.getAddOnRepo(addon[1]):
-                log.debug("Skipping %s, already exists.", addon[1])
+            if self.getAddOnRepo(addon[0]):
+                log.debug("Skipping %s, already exists.", addon[0])
                 continue
 
-            log.info("Adding addon repo %s", addon[1])
-            ks_repo = self.data.RepoData(name=addon[1],
+            log.info("Adding addon repo %s", addon[0])
+            ks_repo = self.data.RepoData(name=addon[0],
                                          baseurl=addon[2],
                                          proxy=repo.proxy,
                                          enabled=False)
@@ -906,15 +910,15 @@ reposdir=%s
             return retval
 
         section = "variant-%s" % variant
-        if c.has_section(section) and c.has_option(section, "addons"):
-            validAddons = c.get(section, "addons").split(",")
+        if c.has_section(section) and c.has_option(section, "variants"):
+            validAddons = c.get(section, "variants").split(",")
         else:
             return retval
         log.debug("Addons found: %s", validAddons)
 
         for addon in validAddons:
-            addonSection = "addon-%s" % addon
-            if not c.has_section(addonSection) or not c.has_option(addonSection, "repository"):
+            addonSection = "variant-%s" % addon
+            if not c.has_section(addonSection) or c.get(addonSection, "type") != "addon" or not c.has_option(addonSection, "repository"):
                 continue
 
             url = "%s/%s" % (baseurl, c.get(addonSection, "repository"))
