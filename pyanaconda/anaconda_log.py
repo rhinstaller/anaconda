@@ -32,16 +32,13 @@ import warnings
 from pyanaconda.flags import flags
 from pyanaconda.constants import LOGLVL_LOCK
 
-DEFAULT_TTY_LEVEL = logging.INFO
+DEFAULT_LEVEL = logging.INFO
 ENTRY_FORMAT = "%(asctime)s,%(msecs)03d %(levelname)s %(name)s: %(message)s"
-TTY_FORMAT = "%(levelname)s %(name)s: %(message)s"
 STDOUT_FORMAT = "%(asctime)s %(message)s"
 DATE_FORMAT = "%H:%M:%S"
 
 MAIN_LOG_FILE = "/tmp/anaconda.log"
-MAIN_LOG_TTY = "/dev/tty3"
 PROGRAM_LOG_FILE = "/tmp/program.log"
-PROGRAM_LOG_TTY = "/dev/tty5"
 STORAGE_LOG_FILE = "/tmp/storage.log"
 PACKAGING_LOG_FILE = "/tmp/packaging.log"
 SENSITIVE_INFO_LOG_FILE = "/tmp/sensitive-info.log"
@@ -94,7 +91,7 @@ class AnacondaLog:
     VIRTIO_PORT = "/dev/virtio-ports/org.fedoraproject.anaconda.log.0"
 
     def __init__ (self):
-        self.tty_loglevel = DEFAULT_TTY_LEVEL
+        self.loglevel = DEFAULT_LEVEL
         self.remote_syslog = None
         # Rename the loglevels so they are the same as in syslog.
         logging.addLevelName(logging.WARNING, "WARN")
@@ -117,22 +114,12 @@ class AnacondaLog:
         for logr in [self.anaconda_logger, storage_logger]:
             logr.setLevel(logging.DEBUG)
             self.forwardToSyslog(logr)
-            # Logging of basic stuff and storage to tty3.
-            # XXX Use os.uname here since it's too early to be importing the
-            #     storage module.
-            if not os.uname()[4].startswith('s390') and os.access(MAIN_LOG_TTY, os.W_OK):
-                self.addFileHandler(MAIN_LOG_TTY, logr,
-                                    fmtStr=TTY_FORMAT,
-                                    autoLevel=True)
 
         # External program output log
         program_logger = logging.getLogger("program")
         program_logger.setLevel(logging.DEBUG)
         self.addFileHandler(PROGRAM_LOG_FILE, program_logger,
                             minLevel=logging.DEBUG)
-        self.addFileHandler(PROGRAM_LOG_TTY, program_logger,
-                            fmtStr=TTY_FORMAT,
-                            autoLevel=True)
         self.forwardToSyslog(program_logger)
 
         # Create the packaging logger.
@@ -175,7 +162,7 @@ class AnacondaLog:
                             fmtStr=STDOUT_FORMAT, minLevel=logging.INFO)
 
     # Add a simple handler - file or stream, depending on what we're given.
-    def addFileHandler (self, dest, addToLogger, minLevel=DEFAULT_TTY_LEVEL,
+    def addFileHandler (self, dest, addToLogger, minLevel=DEFAULT_LEVEL,
                         fmtStr=ENTRY_FORMAT,
                         autoLevel=False):
         try:
