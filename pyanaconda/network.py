@@ -71,11 +71,6 @@ def setup_ifcfg_log():
     logger = logging.getLogger("ifcfg")
     logger.setLevel(logging.DEBUG)
     anaconda_log.logger.addFileHandler(ifcfgLogFile, logger, logging.DEBUG)
-    if os.access("/dev/tty3", os.W_OK):
-        anaconda_log.logger.addFileHandler("/dev/tty3", logger,
-                                           anaconda_log.DEFAULT_TTY_LEVEL,
-                                           anaconda_log.TTY_FORMAT,
-                                           autoLevel=True)
     anaconda_log.logger.forwardToSyslog(logger)
 
     ifcfglog = logging.getLogger("ifcfg")
@@ -140,9 +135,9 @@ def get_default_device_ip():
     if devname:
         try:
             ip = nm.nm_device_ip_addresses(devname, version=4)[0]
-        except Exception as e:
+        except (dbus.DBusException, ValueError) as e:
             log.warning("Got an exception trying to get the ip addr "
-                        "of %s: %s" % (devname, e))
+                        "of %s: %s", devname, e)
     return ip
 
 def netmask2prefix(netmask):
