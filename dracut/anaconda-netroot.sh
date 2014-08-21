@@ -27,9 +27,14 @@ case $repo in
         . /lib/nfs-lib.sh
         info "anaconda mounting NFS repo at $repo"
         str_starts "$repo" "nfsiso:" && repo=nfs:${repo#nfsiso:}
+
+        # Replace hex space with a real one. All uses of repo need to be quoted
+        # after this point.
+        repo=${repo//\\x20/ }
+
         # HACK: work around some Mysterious NFS4 Badness (#811242 and friends)
         # by defaulting to nfsvers=3 when no version is requested
-        nfs_to_var $repo $netif
+        nfs_to_var "$repo" $netif
         if [ "$nfs" != "nfs4" ] && ! strstr "$options" "vers="; then
             repo="nfs:$options,nfsvers=3:$server:$path"
         fi
