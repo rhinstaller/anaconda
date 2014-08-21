@@ -73,7 +73,7 @@ log = logging.getLogger("anaconda")
 stderrLog = logging.getLogger("anaconda.stderr")
 storage_log = logging.getLogger("blivet")
 stdoutLog = logging.getLogger("anaconda.stdout")
-from pyanaconda.anaconda_log import logger, logLevelMap, setHandlersLevel, DEFAULT_TTY_LEVEL
+from pyanaconda.anaconda_log import logger, logLevelMap, setHandlersLevel, DEFAULT_LEVEL
 
 class AnacondaKSScript(KSScript):
     """ Execute a kickstart script
@@ -920,10 +920,10 @@ class LogVolData(commands.logvol.F20_LogVolData):
 
 class Logging(commands.logging.FC6_Logging):
     def execute(self, *args):
-        if logger.tty_loglevel == DEFAULT_TTY_LEVEL:
+        if logger.loglevel == DEFAULT_LEVEL:
             # not set from the command line
             level = logLevelMap[self.level]
-            logger.tty_loglevel = level
+            logger.loglevel = level
             setHandlersLevel(log, level)
             setHandlersLevel(storage_log, level)
 

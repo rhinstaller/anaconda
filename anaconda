@@ -348,7 +348,7 @@ def setupEnvironment():
 def setupLoggingFromOpts(options):
     if options.loglevel and anaconda_log.logLevelMap.has_key(options.loglevel):
         level = anaconda_log.logLevelMap[options.loglevel]
-        anaconda_log.logger.tty_loglevel = level
+        anaconda_log.logger.loglevel = level
         anaconda_log.setHandlersLevel(log, level)
         storage_log = logging.getLogger("storage")
         anaconda_log.setHandlersLevel(storage_log, level)

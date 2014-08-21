@@ -42,7 +42,6 @@ void logMessage(loglevel_t level, const char * s, ...)
     __attribute__ ((format (printf, 2, 3)));
 void openLog();
 
-extern int tty_logfd;
 extern int file_logfd;
 
 #endif /* _LOG_H_ */

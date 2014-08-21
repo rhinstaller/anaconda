@@ -34,10 +34,8 @@
 
 #include "log.h"
 
-static FILE * main_log_tty = NULL;
 static FILE * main_log_file = NULL;
 static FILE * program_log_file = NULL;
-static loglevel_t minLevel = INFO;
 static const char * main_tag = "anaconda";
 static const char * program_tag = "program";
 static const int syslog_facility = LOG_LOCAL1;
@@ -104,12 +102,9 @@ static void retagSyslog(const char* new_tag)
 }
 
 void logMessageV(enum logger_t logger, loglevel_t level, const char * s, va_list ap) {
-    FILE *log_tty = main_log_tty;
     FILE *log_file = main_log_file;
     const char *tag = main_tag;
     if (logger == PROGRAM_LOG) {
-        /* tty output is done directly for programs */
-        log_tty = NULL;
         log_file = program_log_file;
         tag = program_tag;
         /* close and reopen syslog so we get the tagging right */
@@ -122,12 +117,7 @@ void logMessageV(enum logger_t logger, loglevel_t level, const char * s, va_list
     vsyslog(mapLogLevel(level), s, apc);
     va_end(apc);
 
-    /* Only log to the screen things that are above the minimum level. */
-    if (main_log_tty && level >= minLevel && log_tty) {
-        printLogMessage(level, tag, log_tty, s, ap);
-    }
-
-    /* But log everything to the file. */
+    /* Log everything to the file. */
     if (main_log_file) {
         printLogMessage(level, tag, log_file, s, ap);
     }
@@ -145,7 +135,6 @@ void logMessage(loglevel_t level, const char * s, ...) {
     va_end(args);
 }
 
-int tty_logfd = -1;
 int file_logfd = -1;
 
 void openLog() {
@@ -154,15 +143,8 @@ void openLog() {
     openlog(main_tag, 0, syslog_facility);
 
     int flags;
-    main_log_tty = fopen("/dev/tty3", "a");
     main_log_file = fopen("/tmp/anaconda.log", "a");
     program_log_file = fopen("/tmp/program.log", "a");
-
-    if (main_log_tty) {
-        tty_logfd = fileno(main_log_tty);
-        flags = fcntl(tty_logfd, F_GETFD, 0) | FD_CLOEXEC;
-        fcntl(tty_logfd, F_SETFD, flags);
-    }
 
     if (main_log_file) {
         file_logfd = fileno(main_log_file);
