@@ -74,11 +74,16 @@ class NFS(commands.nfs.FC6_NFS):
         else:
             method="nfs:%s:%s" % (self.server, self.dir)
 
+        # Spaces on the cmdline need to be \x20
+        method = method.replace(" ", "\\x20")
         return "inst.repo=%s" % method
 
 class URL(commands.url.F18_Url):
     def dracut_args(self, args, lineno, obj):
-        args = ["inst.repo=%s" % self.url]
+        # Spaces in the url need to be %20
+        method = self.url.replace(" ", "%20")
+        args = ["inst.repo=%s" % method]
+
         if self.noverifyssl:
             args.append("rd.noverifyssl")
         if self.proxy:
