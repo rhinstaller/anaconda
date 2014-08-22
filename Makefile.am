@@ -136,43 +136,6 @@ unittests-logpicker:
 	PYTHONPATH=$(builddir)/pyanaconda/isys/.libs:tests/:$(srcdir):utils/ nosetests -v old_tests/logpicker_test
 
 # GUI TESTING
-runspoke:
-	ANACONDA_DATA=$(srcdir)/data \
-	ANACONDA_WIDGETS_OVERRIDES=$(srcdir)/widgets/python \
-	ANACONDA_WIDGETS_DATA=$(srcdir)/widgets/data \
-	ANACONDA_INSTALL_CLASSES=$(srcdir)/pyanaconda/installclasses \
-	PYTHONPATH=$(srcdir):$(builddir)/pyanaconda/isys/.libs:$(srcdir)/widgets/python/:$(builddir)/widgets/src/.libs/ \
-	LD_LIBRARY_PATH=$(builddir)/widgets/src/.libs \
-	UIPATH=$(srcdir)/pyanaconda/ui/gui/ \
-	GI_TYPELIB_PATH=$(builddir)/widgets/src/ \
-	$(srcdir)/pyanaconda/ui/gui/tools/run-spoke.py ${SPOKE_MODULE} ${SPOKE_CLASS}
-
-runhub:
-	ANACONDA_DATA=$(srcdir)/data \
-	ANACONDA_WIDGETS_OVERRIDES=$(srcdir)/widgets/python \
-	ANACONDA_WIDGETS_DATA=$(srcdir)/widgets/data \
-	ANACONDA_INSTALL_CLASSES=$(srcdir)/pyanaconda/installclasses \
-	PYTHONPATH=$(srcdir):$(builddir)/pyanaconda/isys/.libs:$(srcdir)/widgets/python/:$(builddir)/widgets/src/.libs/ \
-	LD_LIBRARY_PATH=$(builddir)/widgets/src/.libs \
-	UIPATH=$(srcdir)/pyanaconda/ui/gui/ \
-	GI_TYPELIB_PATH=$(builddir)/widgets/src/ \
-	$(srcdir)/pyanaconda/ui/gui/tools/run-hub.py ${HUB_MODULE} ${HUB_CLASS}
-
-runtextspoke:
-	ANACONDA_DATA=$(srcdir)/data \
-	ANACONDA_INSTALL_CLASSES=$(srcdir)/pyanaconda/installclasses \
-	PYTHONPATH=$(srcdir):$(builddir)/pyanaconda/isys/.libs:$(srcdir)/widgets/python/:$(builddir)/widgets/src/.libs/ \
-	LD_LIBRARY_PATH=$(builddir)/widgets/src/.libs \
-	$(srcdir)/pyanaconda/ui/tui/tools/run-text-spoke.py ${SPOKE_MODULE} ${SPOKE_CLASS}
-
-runtexthub:
-	ANACONDA_DATA=$(srcdir)/data \
-	ANACONDA_INSTALL_CLASSES=$(srcdir)/pyanaconda/installclasses \
-	PYTHONPATH=$(srcdir):$(builddir)/pyanaconda/isys/.libs:$(srcdir)/widgets/python/:$(builddir)/widgets/src/.libs/ \
-	LD_LIBRARY_PATH=$(builddir)/widgets/src/.libs \
-	$(srcdir)/pyanaconda/ui/tui/tools/run-text-hub.py ${HUB_MODULE} ${HUB_CLASS}
-
-
 runglade:
 	ANACONDA_DATA=$(srcdir)/data \
 	ANACONDA_WIDGETS_OVERRIDES=$(srcdir)/widgets/python \
