@@ -215,17 +215,6 @@ class Payload(object):
     def needsNetwork(self):
         return any(self._repoNeedsNetwork(r) for r in self.data.repo.dataList())
 
-    def _resetMethod(self):
-        self.data.method.method = ""
-        self.data.method.url = None
-        self.data.method.server = None
-        self.data.method.dir = None
-        self.data.method.partition = None
-        self.data.method.biospart = None
-        self.data.method.noverifyssl = False
-        self.data.method.proxy = ""
-        self.data.method.opts = None
-
     def updateBaseRepo(self, fallback=True, root=None, checkmount=True):
         """ Update the base repository from ksdata.method. """
         pass
@@ -309,37 +298,6 @@ class Payload(object):
     ###
     ### METHODS FOR WORKING WITH PACKAGES
     ###
-    def packageSelected(self, pkgid):
-        return pkgid in self.data.packages.packageList
-
-    def selectPackage(self, pkgid):
-        """Mark a package for installation.
-
-           pkgid - The name of a package to be installed.  This could include
-                   a version or architecture component.
-        """
-        if pkgid in self.data.packages.packageList:
-            return
-
-        if pkgid in self.data.packages.excludedList:
-            self.data.packages.excludedList.remove(pkgid)
-
-        self.data.packages.packageList.append(pkgid)
-
-    def deselectPackage(self, pkgid):
-        """Mark a package to be excluded from installation.
-
-           pkgid - The name of a package to be excluded.  This could include
-                   a version or architecture component.
-        """
-        if pkgid in self.data.packages.excludedList:
-            return
-
-        if pkgid in self.data.packages.packageList:
-            self.data.packages.packageList.remove(pkgid)
-
-        self.data.packages.excludedList.append(pkgid)
-
     def _updateKernelVersionList(self):
         try:
             import yum
