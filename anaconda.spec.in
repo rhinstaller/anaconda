@@ -257,6 +257,16 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Fri Aug 22 2014 Brian C. Lane <bcl@redhat.com> - 19.31.85-1
+- Check host filesystem space for dirinstall (bcl)
+  Resolves: rhbz#1078876
+- Fix bad indentation in my last commit. (clumens)
+  Related: rhbz#980483
+- Fix problems with the hdiso method. (clumens)
+  Resolves: rhbz#980483
+- Write the grub config even on errors
+  Related: rhbz#1129435
+
 * Mon Aug 18 2014 Brian C. Lane <bcl@redhat.com> - 19.31.84-1
 - Only install liveinst symlink on supported arches (bcl)
   Related: rhbz#1121678
