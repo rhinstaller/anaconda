@@ -23,7 +23,7 @@ import meh.ui.gui
 
 from contextlib import contextmanager
 
-from gi.repository import Gdk, Gtk, AnacondaWidgets, Keybinder, GdkPixbuf
+from gi.repository import Gdk, Gtk, AnacondaWidgets, Keybinder, GdkPixbuf, GLib
 
 from pyanaconda.i18n import _
 from pyanaconda.constants import IPMI_ABORTED
@@ -261,7 +261,12 @@ class MainWindow(Gtk.Window):
         self.connect("delete-event", self._on_delete_event)
 
         # Create a black, 50% opacity pixel that will be scaled to fit the lightbox overlay
-        self._transparent_base  = AnacondaWidgets.make_pixbuf([0, 0, 0, 127], True, 1, 1, 1)
+        # The confusing list of unnamed parameters is:
+        # bytes, colorspace (there is no other colorspace), has-alpha,
+        # bits-per-sample (has to be 8), width, height,
+        # rowstride (bytes between row starts, but we only have one row)
+        self._transparent_base = GdkPixbuf.Pixbuf.new_from_bytes(GLib.Bytes.new([0, 0, 0, 127]),
+                GdkPixbuf.Colorspace.RGB, True, 8, 1, 1, 1)
 
         # Contain everything in an overlay so the window can be overlayed with the transparency
         # for the lightbox effect
