@@ -237,6 +237,9 @@ desktop-file-install ---dir=%{buildroot}%{_datadir}/applications %{buildroot}%{_
 
 %find_lang %{name}
 
+%post widgets -p /sbin/ldconfig
+%postun widgets -p /sbin/ldconfig
+
 
 %ifarch %livearches
 %post
