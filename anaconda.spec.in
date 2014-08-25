@@ -198,6 +198,7 @@ This package contains a set of custom GTK+ widgets used by the anaconda installe
 Summary: Development files for anaconda-widgets
 Group: Development/Libraries
 Requires: glade
+Requires: %{name}-widgets%{?_isa} = %{version}-%{release}
 
 %description widgets-devel
 This package contains libraries and header files needed for writing the anaconda
