@@ -262,8 +262,8 @@ update-desktop-database &> /dev/null || :
 %exclude %{_datadir}/anaconda/tzmapdata
 %{_prefix}/libexec/anaconda
 %{_libdir}/python*/site-packages/pyanaconda/*
-%exclude %{_libdir}/python*/site-packages/pyanaconda/rescue.py
-%exclude %{_libdir}/python*/site-packages/pyanaconda/text.py
+%exclude %{_libdir}/python*/site-packages/pyanaconda/rescue.py*
+%exclude %{_libdir}/python*/site-packages/pyanaconda/text.py*
 %exclude %{_libdir}/python*/site-packages/pyanaconda/ui/gui/*
 %exclude %{_libdir}/python*/site-packages/pyanaconda/ui/tui/*
 %{_bindir}/analog
