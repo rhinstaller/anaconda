@@ -123,7 +123,6 @@ class InstallOptionsDialogBase(GUIObject):
     def _software_is_ready(self):
         # FIXME:  Would be nicer to just ask the spoke if it's ready.
         return (not threadMgr.get(constants.THREAD_PAYLOAD) and
-                not threadMgr.get(constants.THREAD_PAYLOAD_MD) and
                 not threadMgr.get(constants.THREAD_SOFTWARE_WATCHER) and
                 not threadMgr.get(constants.THREAD_CHECK_SOFTWARE) and
                 self.payload.baseRepo is not None)

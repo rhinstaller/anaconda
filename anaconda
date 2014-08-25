@@ -1088,7 +1088,7 @@ if __name__ == "__main__":
     atexit.register(exitHandler, ksdata.reboot, anaconda.storage)
 
     from blivet import storageInitialize
-    from pyanaconda.packaging import payloadInitialize
+    from pyanaconda.packaging import payloadMgr
     from pyanaconda.network import networkInitialize, wait_for_connecting_NM_thread
     from pyanaconda.timezone import time_initialize
 
@@ -1105,7 +1105,8 @@ if __name__ == "__main__":
                                      args=(ksdata.timezone, anaconda.storage, anaconda.bootloader)))
 
     threadMgr.add(AnacondaThread(name=constants.THREAD_WAIT_FOR_CONNECTING_NM, target=wait_for_connecting_NM_thread, args=(ksdata,)))
-    threadMgr.add(AnacondaThread(name=constants.THREAD_PAYLOAD, target=payloadInitialize, args=(anaconda.storage, ksdata, anaconda.payload)))
+    payloadMgr.restartThread(anaconda.storage, ksdata, anaconda.payload,
+            fallback=not flags.automatedInstall)
 
     # check if geolocation should be enabled for this type of installation
     use_geolocation = True

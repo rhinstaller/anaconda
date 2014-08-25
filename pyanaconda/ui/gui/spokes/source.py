@@ -40,7 +40,7 @@ from pyanaconda.ui.gui.utils import enlightbox, gtk_action_wait
 from pyanaconda.iutil import ProxyString, ProxyStringError, cmp_obj_attrs
 from pyanaconda.ui.gui.utils import gtk_call_once, really_hide, really_show
 from pyanaconda.threads import threadMgr, AnacondaThread
-from pyanaconda.packaging import PayloadError, MetadataError, PackagePayload
+from pyanaconda.packaging import PackagePayload, payloadMgr
 from pyanaconda import constants
 
 from blivet.util import get_mount_device, get_mount_paths
@@ -49,7 +49,6 @@ __all__ = ["SourceSpoke"]
 
 BASEREPO_SETUP_MESSAGE = N_("Setting up installation source...")
 METADATA_DOWNLOAD_MESSAGE = N_("Downloading package metadata...")
-METADATA_ERROR_MESSAGE = N_("Error downloading package metadata...")
 
 # These need to be in the same order as the items in protocolComboBox in source.glade.
 PROTOCOL_HTTP = 0
@@ -305,7 +304,7 @@ class SourceSpoke(NormalSpoke):
         if flags.askmethod:
             flags.askmethod = False
 
-        threadMgr.add(AnacondaThread(name=constants.THREAD_PAYLOAD_MD, target=self.getRepoMetadata))
+        payloadMgr.restartThread(self.storage, self.data, self.payload, checkmount=False)
         self.clear_info()
 
     def _method_changed(self):
@@ -434,55 +433,6 @@ class SourceSpoke(NormalSpoke):
 
         return True
 
-    def getRepoMetadata(self):
-        hubQ.send_not_ready("SoftwareSelectionSpoke")
-        hubQ.send_not_ready(self.__class__.__name__)
-        hubQ.send_message(self.__class__.__name__, _(BASEREPO_SETUP_MESSAGE))
-        # this sleep is lame, but without it the message above doesn't seem
-        # to get processed by the hub in time, and is never shown.
-        # FIXME this should get removed when we figure out how to ensure
-        # that the message takes effect on the hub before we try to mount
-        # a bad NFS server.
-        time.sleep(1)
-        try:
-            self.payload.updateBaseRepo(fallback=False, checkmount=False)
-        except (OSError, PayloadError) as e:
-            log.error("PayloadError: %s", e)
-            self._error = True
-            hubQ.send_message(self.__class__.__name__, _("Failed to set up installation source"))
-            if not (hasattr(self.data.method, "proxy") and self.data.method.proxy):
-                gtk_call_once(self.set_warning, _("Failed to set up installation source; check the repo url"))
-            else:
-                gtk_call_once(self.set_warning, _("Failed to set up installation source; check the repo url and proxy settings"))
-        else:
-            self._error = False
-            hubQ.send_message(self.__class__.__name__, _(METADATA_DOWNLOAD_MESSAGE))
-            self.payload.gatherRepoMetadata()
-            self.payload.release()
-            if not self.payload.baseRepo:
-                hubQ.send_message(self.__class__.__name__, _(METADATA_ERROR_MESSAGE))
-                hubQ.send_ready(self.__class__.__name__, False)
-                self._error = True
-                gtk_call_once(self.set_warning, _("Failed to set up installation source; check the repo url"))
-            else:
-                try:
-                    # Grabbing the list of groups could potentially take a long time the
-                    # first time (yum does a lot of magic property stuff, some of which
-                    # involves side effects like network access) so go ahead and grab
-                    # them now. These are properties with side-effects, just accessing
-                    # them will trigger yum.
-                    # pylint: disable-msg=W0104
-                    self.payload.environments
-                    # pylint: disable-msg=W0104
-                    self.payload.groups
-                except MetadataError:
-                    hubQ.send_message("SoftwareSelectionSpoke",
-                                      _("No installation source available"))
-                else:
-                    hubQ.send_ready("SoftwareSelectionSpoke", False)
-        finally:
-            hubQ.send_ready(self.__class__.__name__, False)
-
     @property
     def changed(self):
         method_changed = self._method_changed()
@@ -506,7 +456,7 @@ class SourceSpoke(NormalSpoke):
     @property
     def ready(self):
         return (self._ready and
-                not threadMgr.get(constants.THREAD_PAYLOAD_MD) and
+                not threadMgr.get(constants.THREAD_PAYLOAD) and
                 not threadMgr.get(constants.THREAD_SOFTWARE_WATCHER) and
                 not threadMgr.get(constants.THREAD_CHECK_SOFTWARE))
 
@@ -597,13 +547,48 @@ class SourceSpoke(NormalSpoke):
 
         threadMgr.add(AnacondaThread(name=constants.THREAD_SOURCE_WATCHER, target=self._initialize))
 
-    def _initialize(self):
+        # Register listeners for payload events
+        payloadMgr.addListener(payloadMgr.STATE_START, self._payload_refresh)
+        payloadMgr.addListener(payloadMgr.STATE_STORAGE, self._probing_storage)
+        payloadMgr.addListener(payloadMgr.STATE_GROUP_MD, self._downloading_package_md)
+        payloadMgr.addListener(payloadMgr.STATE_FINISHED, self._payload_finished)
+        payloadMgr.addListener(payloadMgr.STATE_ERROR, self._payload_error)
+
+    def _payload_refresh(self):
+        hubQ.send_not_ready("SoftwareSelectionSpoke")
+        hubQ.send_not_ready(self.__class__.__name__)
+        hubQ.send_message(self.__class__.__name__, _(BASEREPO_SETUP_MESSAGE))
+
+        # this sleep is lame, but without it the message above doesn't seem
+        # to get processed by the hub in time, and is never shown.
+        # FIXME this should get removed when we figure out how to ensure
+        # that the message takes effect on the hub before we try to mount
+        # a bad NFS server.
+        time.sleep(1)
+
+    def _probing_storage(self):
         hubQ.send_message(self.__class__.__name__, _("Probing storage..."))
 
-        threadMgr.wait(constants.THREAD_STORAGE)
+    def _downloading_package_md(self):
+        # Reset the error state from previous payloads
+        self._error = False
 
         hubQ.send_message(self.__class__.__name__, _(METADATA_DOWNLOAD_MESSAGE))
 
+    def _payload_finished(self):
+        hubQ.send_ready("SoftwareSelectionSpoke", False)
+        hubQ.send_ready(self.__class__.__name__, False)
+
+    def _payload_error(self):
+        self._error = True
+        hubQ.send_message(self.__class__.__name__, payloadMgr.error)
+        if not (hasattr(self.data.method, "proxy") and self.data.method.proxy):
+            gtk_call_once(self.set_warning, _("Failed to set up installation source; check the repo url"))
+        else:
+            gtk_call_once(self.set_warning, _("Failed to set up installation source; check the repo url and proxy settings"))
+        hubQ.send_ready(self.__class__.__name__, False)
+
+    def _initialize(self):
         threadMgr.wait(constants.THREAD_PAYLOAD)
 
         added = False

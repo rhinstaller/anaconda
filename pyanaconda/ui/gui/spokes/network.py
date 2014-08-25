@@ -32,8 +32,8 @@
 from gi.repository import Gtk
 
 from pyanaconda.flags import can_touch_runtime_system
+from pyanaconda.flags import flags as anaconda_flags
 from pyanaconda.i18n import _, N_
-from pyanaconda import constants
 from pyanaconda.ui.communication import hubQ
 from pyanaconda.ui.gui import GUIObject
 from pyanaconda.ui.gui.spokes import NormalSpoke, StandaloneSpoke
@@ -1416,12 +1416,9 @@ class NetworkStandaloneSpoke(StandaloneSpoke):
 
         log.debug("network standalone spoke (apply) payload: %s completed: %s", self.payload.baseRepo, self._now_available)
         if not self.payload.baseRepo and not self._initially_available and self._now_available:
-            from pyanaconda.packaging import payloadInitialize
-            from pyanaconda.threads import threadMgr, AnacondaThread
-
-            threadMgr.wait(constants.THREAD_PAYLOAD)
-
-            threadMgr.add(AnacondaThread(name=constants.THREAD_PAYLOAD, target=payloadInitialize, args=(self.storage, self.data, self.payload)))
+            from pyanaconda.packaging import payloadMgr
+            payloadMgr.restartThread(self.storage, self.data, self.payload,
+                    fallback=not anaconda_flags.automatedInstall)
 
         self.network_control_box.kill_nmce(msg="leaving standalone network spoke")
 

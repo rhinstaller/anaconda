@@ -23,11 +23,11 @@ from pyanaconda.flags import flags
 from pyanaconda.ui.tui.spokes import NormalTUISpoke
 from pyanaconda.ui.tui.simpleline import TextWidget, ColumnWidget, CheckboxWidget
 from pyanaconda.threads import threadMgr, AnacondaThread
-from pyanaconda.packaging import MetadataError, DependencyError
+from pyanaconda.packaging import DependencyError
 from pyanaconda.i18n import N_, _
 
-from pyanaconda.constants import THREAD_PAYLOAD, THREAD_PAYLOAD_MD
-from pyanaconda.constants import THREAD_CHECK_SOFTWARE, THREAD_SOFTWARE_WATCHER
+from pyanaconda.constants import THREAD_PAYLOAD
+from pyanaconda.constants import THREAD_CHECK_SOFTWARE
 
 __all__ = ["SoftwareSpoke"]
 
@@ -39,7 +39,6 @@ class SoftwareSpoke(NormalTUISpoke):
 
     def __init__(self, app, data, storage, payload, instclass):
         NormalTUISpoke.__init__(self, app, data, storage, payload, instclass)
-        self._ready = False
         self.errors = []
         self._tx_id = None
         # default to first selection (Gnome) in list of environments
@@ -51,25 +50,6 @@ class SoftwareSpoke(NormalTUISpoke):
 
         # are we taking values (package list) from a kickstart file?
         self._kickstarted = flags.automatedInstall and self.data.packages.seen
-
-    def initialize(self):
-        NormalTUISpoke.initialize(self)
-        threadMgr.add(AnacondaThread(name=THREAD_SOFTWARE_WATCHER, target=self._initialize))
-
-    def _initialize(self):
-        """ Private initialize. """
-        threadMgr.wait(THREAD_PAYLOAD)
-        if self._kickstarted:
-            threadMgr.wait(THREAD_PAYLOAD_MD)
-        else:
-            try:
-                self.payload.environments
-            except MetadataError:
-                self.errors.append(_("No installation source available"))
-                return
-        self.payload.release()
-
-        self._ready = True
 
     @property
     def showable(self):
@@ -175,8 +155,7 @@ class SoftwareSpoke(NormalTUISpoke):
     @property
     def ready(self):
         """ If we're ready to move on. """
-        return (not threadMgr.get(THREAD_SOFTWARE_WATCHER) and
-                not threadMgr.get(THREAD_PAYLOAD_MD) and
+        return (not threadMgr.get(THREAD_PAYLOAD) and
                 not threadMgr.get(THREAD_CHECK_SOFTWARE))
 
     def apply(self):

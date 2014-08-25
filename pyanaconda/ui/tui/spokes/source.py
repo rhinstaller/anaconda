@@ -25,13 +25,13 @@ from pyanaconda.ui.tui.spokes import EditTUISpoke, NormalTUISpoke
 from pyanaconda.ui.tui.spokes import EditTUISpokeEntry as Entry
 from pyanaconda.ui.tui.simpleline import TextWidget, ColumnWidget
 from pyanaconda.threads import threadMgr, AnacondaThread
-from pyanaconda.packaging import PayloadError, MetadataError
+from pyanaconda.packaging import payloadMgr
 from pyanaconda.i18n import N_, _
 from pyanaconda.image import opticalInstallMedia, potentialHdisoSources
 from pyanaconda.iutil import DataHolder
 
-from pyanaconda.constants import THREAD_SOURCE_WATCHER, THREAD_SOFTWARE_WATCHER, THREAD_PAYLOAD
-from pyanaconda.constants import THREAD_PAYLOAD_MD, THREAD_STORAGE, THREAD_STORAGE_WATCHER
+from pyanaconda.constants import THREAD_SOURCE_WATCHER, THREAD_PAYLOAD
+from pyanaconda.constants import THREAD_STORAGE_WATCHER
 from pyanaconda.constants import THREAD_CHECK_SOFTWARE, ISO_DIR, DRACUT_ISODIR, DRACUT_REPODIR
 
 from blivet.util import get_mount_device, get_mount_paths
@@ -165,10 +165,10 @@ class SourceSpoke(SourceSwitchHandler, EditTUISpoke):
 
         threadMgr.add(AnacondaThread(name=THREAD_SOURCE_WATCHER,
                                      target=self._initialize))
+        payloadMgr.addListener(payloadMgr.STATE_ERROR, self._payload_error)
 
     def _initialize(self):
         """ Private initialize. """
-        threadMgr.wait(THREAD_STORAGE)
         threadMgr.wait(THREAD_PAYLOAD)
         # If we've previously set up to use a CD/DVD method, the media has
         # already been mounted by payload.setup.  We can't try to mount it
@@ -184,6 +184,9 @@ class SourceSpoke(SourceSwitchHandler, EditTUISpoke):
             self._protocols.pop()
 
         self._ready = True
+
+    def _payload_error(self):
+        self.errors.append(payloadMgr.error)
 
     def _repo_status(self):
         """ Return a string describing repo url or lack of one. """
@@ -322,35 +325,11 @@ class SourceSpoke(SourceSwitchHandler, EditTUISpoke):
         except (ValueError, IndexError):
             return key
 
-    def getRepoMetadata(self):
-        """ Pull down yum repo metadata """
-        try:
-            self.payload.updateBaseRepo(fallback=False, checkmount=False)
-        except (OSError, PayloadError) as err:
-            LOG.error("Error: %s", err)
-            self.errors.append(_("Failed to set up installation source"))
-        else:
-            self.payload.gatherRepoMetadata()
-            self.payload.release()
-            if not self.payload.baseRepo:
-                self.errors.append(_("Error downloading package metadata"))
-            else:
-                try:
-                    # pylint: disable-msg=W0104
-                    self.payload.environments
-                    # pylint: disable-msg=W0104
-                    self.payload.groups
-                    self.errors = []
-                except MetadataError:
-                    self.errors.append(_("No installation source available"))
-
     @property
     def ready(self):
         """ Check if the spoke is ready. """
         return (self._ready and
                 not threadMgr.get(THREAD_PAYLOAD) and
-                not threadMgr.get(THREAD_PAYLOAD_MD) and
-                not threadMgr.get(THREAD_SOFTWARE_WATCHER) and
                 not threadMgr.get(THREAD_CHECK_SOFTWARE))
 
     def apply(self):
@@ -360,8 +339,7 @@ class SourceSpoke(SourceSwitchHandler, EditTUISpoke):
         if flags.askmethod:
             flags.askmethod = False
 
-        threadMgr.add(AnacondaThread(name=THREAD_PAYLOAD_MD,
-                      target=self.getRepoMetadata))
+        payloadMgr.restartThread(self.storage, self.data, self.payload, checkmount=False)
 
 class SpecifyRepoSpoke(SourceSwitchHandler, EditTUISpoke):
     """ Specify the repo URL here if closest mirror not selected. """

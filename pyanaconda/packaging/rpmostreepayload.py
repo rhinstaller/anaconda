@@ -44,9 +44,6 @@ class RPMOSTreePayload(ArchivePayload):
     def __init__(self, data):
         super(RPMOSTreePayload, self).__init__(data)
 
-    def setup(self, storage):
-        super(RPMOSTreePayload, self).setup(storage)
-
     @property
     def handlesBootloaderConfiguration(self):
         return True
