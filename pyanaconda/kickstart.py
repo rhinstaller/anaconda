@@ -210,13 +210,13 @@ def getAvailableDiskSpace(storage):
 
     :param storage: blivet.Blivet instance
     :return: overall disk space available in MiB
-    :rtype: int
+    :rtype: :class:`blivet.size.Size`
 
     """
 
 
     free_space = storage.getFreeSpace()
-    return int(sum(disk_free.convertTo("MiB") for disk_free, fs_free in free_space.values()))
+    return sum((disk_free for disk_free, fs_free in free_space.values()), Size(0))
 
 def refreshAutoSwapSize(storage):
     """
