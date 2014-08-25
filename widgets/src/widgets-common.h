@@ -26,8 +26,6 @@
 G_BEGIN_DECLS
 
 const gchar *anaconda_get_widgets_datadir(void);
-GdkPixbuf * anaconda_make_pixbuf(const guint8 *data, gboolean has_alpha,
-        int width, int height, int rowstride);
 
 G_END_DECLS
 
