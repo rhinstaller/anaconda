@@ -779,7 +779,7 @@ if __name__ == "__main__":
     import gettext
     _ = lambda x: gettext.ldgettext("anaconda", x)
 
-    from pyanaconda import Anaconda
+    from pyanaconda.anaconda import Anaconda
     anaconda = Anaconda()
     iutil.setup_translations(gettext)
 
