@@ -151,7 +151,7 @@ class PartitionTypeWindow(InstallWindow):
     def _partitioningSpecified(self):
         # see if any device create actions have been scheduled other than
         # reformatting disks
-        create_actions = (a for a in self.storage.findActions(type="create")
+        create_actions = (a for a in self.storage.devicetree.findActions(type="create")
                             if not (a.isFormat() and
                                     a.format.type == "disklabel"))
         return any(create_actions)
