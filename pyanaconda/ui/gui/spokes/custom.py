@@ -31,6 +31,7 @@
 from contextlib import contextmanager
 import re
 import locale
+import functools
 
 from pykickstart.constants import AUTOPART_TYPE_LVM, AUTOPART_TYPE_LVM_THINP, AUTOPART_TYPE_PLAIN, \
                                   AUTOPART_TYPE_BTRFS, CLEARPART_TYPE_NONE
@@ -171,6 +172,25 @@ partition_only_format_types = ["efi", "hfs+", "prepboot", "biosboot",
 # These cannot be specified as mountpoints
 system_mountpoints = ["/dev", "/proc", "/run", "/sys"]
 
+def memoizer(f):
+    """ A simple decorator that memoizes by means of the shared default
+        value for cache in the result function.
+
+        :param f: a function of a single argument
+        :returns: a memoizing version of f
+    """
+    @functools.wraps(f)
+    def new_func(arg, cache={}):
+        # pylint: disable=dangerous-default-value
+        if arg in cache:
+            return cache[arg]
+
+        result = f(arg)
+        cache[arg] = result
+        return result
+
+    return new_func
+
 def get_raid_level(device):
     use_dev = device.raw_device
 
@@ -246,6 +266,7 @@ def requiresRaidSelection(device_type):
     """ Whether GUI requires a RAID level be selected for this device type."""
     return device_type == DEVICE_TYPE_MD
 
+@memoizer
 def raidLevelsSupported(device_type):
     """ The raid levels anaconda supports for this device type.
 
@@ -268,6 +289,7 @@ def raidLevelsSupported(device_type):
         supported = set()
     return get_supported_raid_levels(device_type).intersection(supported)
 
+@memoizer
 def containerRaidLevelsSupported(device_type):
     """ The raid levels anaconda supports for a container for this
         device_type.
