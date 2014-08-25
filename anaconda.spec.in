@@ -223,6 +223,13 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Mon Aug 25 2014 Samantha N. Bueno <sbueno+anaconda@redhat.com> - 13.21.226-1
+- Let tmp use more than 250M when there is more RAM (bcl)
+  Resolves: rhbz#1123791
+- Move totalMemory into its own file (bcl)
+  Related: rhbz#1123791
+  Resolves: rhbz#1123791
+
 * Tue Aug 12 2014 Brian C. Lane <bcl@redhat.com> - 13.21.225-1
 - Allow missing swap devices to be skipped during upgrade (dshea)
   Resolves: rhbz#1044716
