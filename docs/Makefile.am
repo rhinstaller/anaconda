@@ -17,9 +17,7 @@
 #
 # Author: David Cantrell <dcantrell@redhat.com>
 
-EXTRA_DIST = boot-options.txt mediacheck.txt \
-             lvm_sanity_checks.txt rescue-mode api.cfg making-screenshots \
-             threads.txt gettext.txt transifex.txt
+EXTRA_DIST = *.rst *.txt
 
 CLEANFILES = api *.xml
 
