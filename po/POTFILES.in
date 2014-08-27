@@ -44,6 +44,7 @@ pyanaconda/ui/categories/user_settings.py
 
 # Common stuff
 pyanaconda/ui/lib/space.py
+pyanaconda/ui/lib/entropy.py
 
 # Text interface
 pyanaconda/ui/tui/hubs/summary.py
@@ -94,6 +95,7 @@ pyanaconda/ui/gui/spokes/lib/passphrase.py
 pyanaconda/ui/gui/spokes/lib/refresh.py
 pyanaconda/ui/gui/spokes/lib/resize.py
 pyanaconda/ui/gui/spokes/lib/summary.py
+pyanaconda/ui/gui/spokes/lib/entropy.py
 
 # Custom widgets.
 widgets/src/BaseWindow.c
@@ -133,6 +135,7 @@ pyanaconda/ui/gui/spokes/lib/passphrase.glade
 pyanaconda/ui/gui/spokes/lib/refresh.glade
 pyanaconda/ui/gui/spokes/lib/resize.glade
 pyanaconda/ui/gui/spokes/lib/summary.glade
+pyanaconda/ui/gui/spokes/lib/entropy_dialog.glade
 pyanaconda/ui/gui/main.glade
 pyanaconda/ui/gui/hubs/summary.glade
 pyanaconda/ui/gui/hubs/progress.glade

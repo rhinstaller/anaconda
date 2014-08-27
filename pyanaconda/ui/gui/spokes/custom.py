@@ -58,7 +58,7 @@ from blivet.partitioning import doAutoPartition
 from blivet.errors import StorageError
 from blivet.errors import NoDisksError
 from blivet.errors import NotEnoughFreeSpaceError
-from blivet.devicelibs import raid
+from blivet.devicelibs import raid, crypto
 from blivet.devices import LUKSDevice
 
 from pyanaconda.storage_utils import ui_storage_logger, device_type_from_autopart
@@ -865,9 +865,10 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         self._back_already_clicked = False
 
         # dictionaries for many, many pieces of information about the device and
-        # requested changes
-        new_device_info = dict()
-        old_device_info = dict()
+        # requested changes, minimum required entropy for LUKS creation is
+        # always the same
+        new_device_info = {"min_luks_entropy": crypto.MIN_CREATE_ENTROPY}
+        old_device_info = {"min_luks_entropy": crypto.MIN_CREATE_ENTROPY}
 
         new_device_info["device"] = device
         use_dev = device.raw_device
@@ -1014,7 +1015,8 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
                                                       device_type, size,
                                                       disks=device.disks,
                                                       encrypted=encrypted,
-                                                      raid_level=raid_level)
+                                                      raid_level=raid_level,
+                                                      min_luks_entropy=crypto.MIN_CREATE_ENTROPY)
 
         # CONTAINER
         changed_container = False
@@ -1551,7 +1553,8 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
     @ui_storage_logged
     def _add_device(self, dev_info):
         factory = devicefactory.get_device_factory(self._storage_playground,
-                                                   dev_info["device_type"], dev_info["size"])
+                                                   dev_info["device_type"], dev_info["size"],
+                                                   min_luks_entropy=crypto.MIN_CREATE_ENTROPY)
         container = factory.get_container()
         if container:
             # don't override user-initiated changes to a defined container
@@ -1628,8 +1631,9 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         self._back_already_clicked = False
 
         ## gather data about the added mountpoint
+        # minimum entropy required for LUKS creation is always the same
         # TODO: use instance of a class with properly named attributes
-        dev_info = dict()
+        dev_info = {"min_luks_entropy": crypto.MIN_CREATE_ENTROPY}
 
         # create a device of the default type, using any disks, with an
         # appropriate fstype and mountpoint
@@ -1758,7 +1762,8 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
                                         container_name=cont_name,
                                         container_encrypted=cont_encrypted,
                                         container_raid_level=cont_raid,
-                                        container_size=cont_size)
+                                        container_size=cont_size,
+                                        min_luks_entropy=crypto.MIN_CREATE_ENTROPY)
             factory.configure()
 
         self._remove_empty_parents(device)
@@ -2202,7 +2207,8 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
             self._storage_playground.setUpBootLoader(early=True)
 
             refreshAutoSwapSize(self._storage_playground)
-            doAutoPartition(self._storage_playground, self.data)
+            doAutoPartition(self._storage_playground, self.data,
+                            min_luks_entropy=crypto.MIN_CREATE_ENTROPY)
         except NoDisksError as e:
             # No handling should be required for this.
             log.error("doAutoPartition failed: %s", e)
@@ -2323,7 +2329,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         with ui_storage_logger():
             factory = devicefactory.get_device_factory(self._storage_playground,
                                                      device_type,
-                                                     0)
+                                                     0, min_luks_entropy=crypto.MIN_CREATE_ENTROPY)
             container = factory.get_container(device=_device)
             default_container_name = getattr(container, "name", None)
             if container:
