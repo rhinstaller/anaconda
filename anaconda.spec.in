@@ -307,6 +307,22 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Wed Aug 27 2014 Samantha N. Bueno <sbueno+anaconda@redhat.com> - 21.48.3-1
+- Prevent crashes due to accessing X server from multiple threads (#1134507)
+  (vpodzime)
+- Remove anaconda_make_pixbuf (dshea)
+- Require anaconda-widgets from anaconda-widgets-devel (dshea)
+- Run /sbin/ldconfig when installing or uninstalling anaconda-widgets (dshea)
+- Remove the shebang from anaconda.py (dshea)
+- Exclude the compiled text and rescue files from anaconda-core (dshea)
+- Update our copy of the GPL (dshea)
+- Rearrange the entry, example and tip on Advanced User dialog (vpodzime)
+- Write storage after liveimg install (#1080396) (bcl)
+- Add some sanity checking to live payload (vpodzime)
+- Use blivet's getFreeSpace for limitting automatic swap size (vpodzime)
+- Ask users for enough space right at the first time (#876916) (vpodzime)
+- Don't require user creation when root is locked (#1030626) (bcl)
+
 * Fri Aug 01 2014 Samantha N. Bueno <sbueno+anaconda@redhat.com> - 21.48.2-1
 - Mark zRAM devices as protected and ignore them (vpodzime)
 - Make storage sanity check aware of base RAM requirements (#1123466)
