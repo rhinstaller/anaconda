@@ -273,6 +273,7 @@ class AutoPart(commands.autopart.F21_AutoPart):
 
     def execute(self, storage, ksdata, instClass):
         from blivet.partitioning import doAutoPartition
+        from blivet.devicelibs.crypto import MIN_CREATE_ENTROPY
         from pyanaconda.storage_utils import sanity_check
 
         if not self.autopart:
@@ -300,7 +301,7 @@ class AutoPart(commands.autopart.F21_AutoPart):
         if self.type is not None:
             storage.autoPartType = self.type
 
-        doAutoPartition(storage, ksdata)
+        doAutoPartition(storage, ksdata, min_luks_entropy=MIN_CREATE_ENTROPY)
         errors = sanity_check(storage)
         if errors:
             raise PartitioningError("autopart failed:\n" + "\n".join(error.message for error in errors))

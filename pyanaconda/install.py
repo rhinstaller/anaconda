@@ -29,6 +29,7 @@ from pyanaconda import iutil
 from pyanaconda import timezone
 from pyanaconda.i18n import _
 from pyanaconda.threads import threadMgr
+from pyanaconda.ui.lib.entropy import wait_for_entropy
 import logging
 import blivet
 log = logging.getLogger("anaconda")
@@ -178,10 +179,12 @@ def doInstall(storage, payload, ksdata, instClass):
     # callbacks for blivet
     message_clbk = lambda clbk_data: progress_message(clbk_data.msg)
     step_clbk = lambda clbk_data: progress_step(clbk_data.msg)
+    entropy_wait_clbk = lambda msg, ent: wait_for_entropy(msg, ent, ksdata)
     callbacks_reg = callbacks.create_new_callbacks_register(create_format_pre=message_clbk,
                                                             create_format_post=step_clbk,
                                                             resize_format_pre=message_clbk,
-                                                            resize_format_post=step_clbk)
+                                                            resize_format_post=step_clbk,
+                                                            wait_for_entropy=entropy_wait_clbk)
 
     turnOnFilesystems(storage, mountOnly=flags.flags.dirInstall, callbacks=callbacks_reg)
     write_storage_late = (flags.flags.livecdInstall or ksdata.ostreesetup.seen
