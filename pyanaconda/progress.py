@@ -45,7 +45,20 @@ progressQ.addMessage("quit", 1)             # exit_code
 # Afterwards, the progress bar is updated to reflect that the task is done.
 @contextmanager
 def progress_report(message):
+    progress_message(message)
+    yield
+    progress_step(message)
+
+def progress_message(message):
     progressQ.send_message(message)
     log.info(message)
-    yield
+
+def progress_step(message):
     progressQ.send_step()
+    log.info(message)
+
+def progress_init(steps):
+    progressQ.send_init(steps)
+
+def progress_complete():
+    progressQ.send_complete()
