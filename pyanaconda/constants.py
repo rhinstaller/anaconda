@@ -51,7 +51,7 @@ DD_RPMS = "/tmp/DD-*"
 TRANSLATIONS_UPDATE_DIR="/tmp/updates/po"
 
 ANACONDA_CLEANUP = "anaconda-cleanup"
-MOUNT_DIR = "/mnt/install"
+MOUNT_DIR = "/run/install"
 DRACUT_REPODIR = "/run/install/repo"
 DRACUT_ISODIR = "/run/install/source"
 ISO_DIR = MOUNT_DIR + "/isodir"

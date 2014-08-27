@@ -52,7 +52,7 @@ from pyanaconda import iutil
 from pyanaconda import isys
 from pyanaconda.image import findFirstIsoImage
 from pyanaconda.image import mountImage
-from pyanaconda.image import opticalInstallMedia
+from pyanaconda.image import opticalInstallMedia, verifyMedia
 from pyanaconda.iutil import ProxyString, ProxyStringError
 from pyanaconda.threads import threadMgr, AnacondaThread
 
@@ -728,6 +728,10 @@ class PackagePayload(Payload):
         self._rpm_macros = value
 
     def reset(self, root=None, releasever=None):
+        self.reset_install_device()
+
+    def reset_install_device(self):
+        """ Unmount the previous base repo and reset the install_device """
         # cdrom: install_device.teardown (INSTALL_TREE)
         # hd: umount INSTALL_TREE, install_device.teardown (ISO_DIR)
         # nfs: umount INSTALL_TREE
@@ -906,6 +910,11 @@ class PackagePayload(Payload):
         elif method.method == "cdrom" or (checkmount and not method.method):
             # Did dracut leave the DVD or NFS mounted for us?
             device = blivet.util.get_mount_device(DRACUT_REPODIR)
+
+            # Check for valid optical media if we didn't boot from one
+            if not verifyMedia(DRACUT_REPODIR):
+                self.install_device = opticalInstallMedia(storage.devicetree)
+
             # Only look at the dracut mount if we don't already have a cdrom
             if device and not self.install_device:
                 self.install_device = storage.devicetree.getDeviceByPath(device)
@@ -923,9 +932,6 @@ class PackagePayload(Payload):
                     else:
                         method.method = "cdrom"
             else:
-                # cdrom or no method specified -- check for media
-                if not self.install_device:
-                    self.install_device = opticalInstallMedia(storage.devicetree)
                 if self.install_device:
                     if not method.method:
                         method.method = "cdrom"

@@ -172,6 +172,9 @@ class YumPayload(PackagePayload):
         self._yum = None
         self._setup = False
 
+        self._groups = None
+        self._packages = []
+
         # base repo caching
         self._base_repo = None
         self._base_repo_lock = threading.RLock()
@@ -186,9 +189,6 @@ class YumPayload(PackagePayload):
         # is meant as a best first guess only.  Once package metadata is
         # available we can use that as a better value.
         self._space_required = Size("3000 MB")
-
-        self._groups = None
-        self._packages = []
 
         self._resetYum(root=root, releasever=releasever)
 
@@ -205,6 +205,9 @@ class YumPayload(PackagePayload):
             NOTE:  This is enforced by tests/pylint/preconf.py.  If the name
             of this method changes, change it there too.
         """
+        self._groups = None
+        self._packages = []
+
         if root is None:
             root = self._root_dir
 
@@ -492,6 +495,7 @@ reposdir=%s
         """
         log.info("configuring base repo")
 
+        self.reset_install_device()
         try:
             url, mirrorlist, sslverify = self._setupInstallDevice(self.storage, checkmount)
         except PayloadSetupError:
@@ -508,11 +512,8 @@ reposdir=%s
                           method.method, e)
 
         # start with a fresh YumBase instance & tear down old install device
-        self.reset(root=root, releasever=releasever)
+        self._resetYum(root=root, releasever=releasever)
         self._yumCacheDirHack()
-
-        # This needs to be done again, reset tore it down.
-        url, mirrorlist, sslverify = self._setupInstallDevice(self.storage, checkmount)
 
         # If this is a kickstart install and no method has been set up, or
         # askmethod was given on the command line, we don't want to do
