@@ -78,7 +78,7 @@ from blivet.size import Size
 import blivet.util
 import blivet.arch
 
-from pyanaconda.image import opticalInstallMedia
+from pyanaconda.image import opticalInstallMedia, verifyMedia
 from pyanaconda.image import mountImage
 from pyanaconda.image import findFirstIsoImage
 
@@ -151,14 +151,15 @@ class YumPayload(PackagePayload):
 
         self.txID = None
 
+        self._groups = None
+        self._packages = []
         self._requiredPackages = []
         self._requiredGroups = []
 
         self.reset()
 
-    def reset(self, root=None, releasever=None):
-        """ Reset this instance to its initial (unconfigured) state. """
-
+    def _reset_install_device(self):
+        """ Unmount the previous base repo and reset the install_device """
         # cdrom: install_device.teardown (INSTALL_TREE)
         # hd: umount INSTALL_TREE, install_device.teardown (ISO_DIR)
         # nfs: umount INSTALL_TREE
@@ -185,13 +186,14 @@ class YumPayload(PackagePayload):
 
         self.install_device = None
 
+    def reset(self, root=None, releasever=None):
+        """ Reset this instance to its initial (unconfigured) state. """
+        self._reset_install_device()
+
         # This value comes from a default install of the x86_64 Fedora 18.  It
         # is meant as a best first guess only.  Once package metadata is
         # available we can use that as a better value.
         self._space_required = Size(spec="3000 MB")
-
-        self._groups = None
-        self._packages = []
 
         self._resetYum(root=root, releasever=releasever)
 
@@ -206,6 +208,9 @@ class YumPayload(PackagePayload):
 
             Setup _yum.preconf -- DO NOT TOUCH IT OUTSIDE THIS METHOD
         """
+        self._groups = None
+        self._packages = []
+
         if root is None:
             root = self._root_dir
 
@@ -487,6 +492,7 @@ reposdir=%s
         """
         log.info("configuring base repo")
 
+        self._reset_install_device()
         try:
             url, mirrorlist, sslverify = self._setupInstallDevice(self.storage, checkmount)
         except PayloadSetupError:
@@ -503,11 +509,8 @@ reposdir=%s
                           method.method, e)
 
         # start with a fresh YumBase instance & tear down old install device
-        self.reset(root=root, releasever=releasever)
+        self._resetYum(root=root, releasever=releasever)
         self._yumCacheDirHack()
-
-        # This needs to be done again, reset tore it down.
-        url, mirrorlist, sslverify = self._setupInstallDevice(self.storage, checkmount)
 
         # If this is a kickstart install and no method has been set up, or
         # askmethod was given on the command line, we don't want to do
@@ -795,6 +798,11 @@ reposdir=%s
         elif method.method == "cdrom" or (checkmount and not method.method):
             # Did dracut leave the DVD or NFS mounted for us?
             device = blivet.util.get_mount_device(DRACUT_REPODIR)
+
+            # Check for valid optical media if we didn't boot from one
+            if not verifyMedia(DRACUT_REPODIR):
+                self.install_device = opticalInstallMedia(storage.devicetree)
+
             # Only look at the dracut mount if we don't already have a cdrom
             if device and not self.install_device:
                 self.install_device = storage.devicetree.getDeviceByPath(device)
@@ -812,9 +820,6 @@ reposdir=%s
                     else:
                         method.method = "cdrom"
             else:
-                # cdrom or no method specified -- check for media
-                if not self.install_device:
-                    self.install_device = opticalInstallMedia(storage.devicetree)
                 if self.install_device:
                     if not method.method:
                         method.method = "cdrom"

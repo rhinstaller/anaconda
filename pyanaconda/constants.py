@@ -66,7 +66,7 @@ ANACONDA_CLEANUP = "anaconda-cleanup"
 # This is a legacy variable; new code should use iutil.getSysroot()
 # or iutil.getTargetPhysicalRoot().
 ROOT_PATH = os.environ.get("ANACONDA_ROOT_PATH", "/mnt/sysimage")
-MOUNT_DIR = "/mnt/install"
+MOUNT_DIR = "/run/install"
 DRACUT_REPODIR = "/run/install/repo"
 DRACUT_ISODIR = "/run/install/source"
 ISO_DIR = MOUNT_DIR + "/isodir"
