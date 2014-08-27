@@ -20,9 +20,9 @@
 # Red Hat Author(s): Chris Lumens <clumens@redhat.com>
 #
 
-from blivet import turnOnFilesystems
+from blivet import turnOnFilesystems, callbacks
 from pyanaconda.bootloader import writeBootLoader
-from pyanaconda.progress import progress_report, progressQ
+from pyanaconda.progress import progress_report, progress_message, progress_step, progress_complete, progress_init
 from pyanaconda.users import createLuserConf, getPassAlgo, Users
 from pyanaconda import flags
 from pyanaconda import iutil
@@ -69,7 +69,7 @@ def doConfiguration(storage, payload, ksdata, instClass):
     if willRunRealmd:
         step_count += 1
 
-    progressQ.send_init(step_count)
+    progress_init(step_count)
 
     # Now run the execute methods of ksdata that require an installed system
     # to be present first.
@@ -114,7 +114,7 @@ def doConfiguration(storage, payload, ksdata, instClass):
     # kickstart file over if one exists).
     _writeKS(ksdata)
 
-    progressQ.send_complete()
+    progress_complete()
 
 def moveBootMntToPhysical(storage):
     """Move the /boot mount to /mnt/sysimage/boot."""
@@ -158,13 +158,13 @@ def doInstall(storage, payload, ksdata, instClass):
 
     # This should be the only thread running, wait for the others to finish if not.
     if threadMgr.running > 1:
-        progressQ.send_init(steps+1)
+        progress_init(steps+1)
 
         with progress_report(_("Waiting for %s threads to finish") % (threadMgr.running-1)):
             map(log.debug, ("Thread %s is running" % n for n in threadMgr.names))
             threadMgr.wait_all()
     else:
-        progressQ.send_init(steps)
+        progress_init(steps)
 
     with progress_report(_("Setting up the installation environment")):
         ksdata.firstboot.setup(storage, ksdata, instClass)
@@ -175,7 +175,15 @@ def doInstall(storage, payload, ksdata, instClass):
     # Do partitioning.
     payload.preStorage()
 
-    turnOnFilesystems(storage, mountOnly=flags.flags.dirInstall)
+    # callbacks for blivet
+    message_clbk = lambda clbk_data: progress_message(clbk_data.msg)
+    step_clbk = lambda clbk_data: progress_step(clbk_data.msg)
+    callbacks_reg = callbacks.create_new_callbacks_register(create_format_pre=message_clbk,
+                                                            create_format_post=step_clbk,
+                                                            resize_format_pre=message_clbk,
+                                                            resize_format_post=step_clbk)
+
+    turnOnFilesystems(storage, mountOnly=flags.flags.dirInstall, callbacks=callbacks_reg)
     write_storage_late = (flags.flags.livecdInstall or ksdata.ostreesetup.seen
                           or ksdata.method.method == "liveimg"
                           and not flags.flags.dirInstall)
@@ -241,4 +249,4 @@ def doInstall(storage, payload, ksdata, instClass):
         moveBootMntToPhysical(storage)
         payload.postInstall()
 
-    progressQ.send_complete()
+    progress_complete()
