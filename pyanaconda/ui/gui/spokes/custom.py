@@ -69,6 +69,7 @@ from blivet.errors import LUKSDeviceWithoutKeyError
 from blivet.devicelibs import btrfs
 from blivet.devicelibs import mdraid
 from blivet.devicelibs import raid
+from blivet.devicelibs import crypto
 from blivet.devices import LUKSDevice
 
 from pyanaconda.ui.communication import hubQ
@@ -1438,7 +1439,8 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
                                                       device_type, size,
                                                       disks=device.disks,
                                                       encrypted=encrypted,
-                                                      raid_level=raid_level)
+                                                      raid_level=raid_level,
+                                                      min_luks_entropy=crypto.MIN_CREATE_ENTROPY)
 
         # CONTAINER
         changed_container = False
@@ -1539,7 +1541,8 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
                                          container_raid_level=container_raid_level,
                                          container_size=container_size,
                                          device=_device,
-                                         selector=selector)
+                                         selector=selector,
+                                         min_luks_entropy=crypto.MIN_CREATE_ENTROPY)
                 except StorageError as e:
                     log.error("factoryDevice failed: %s", e)
                     # the factory's error handling has replaced all of the
@@ -1573,7 +1576,8 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
                                                  container_encrypted=old_container_encrypted,
                                                  container_raid_level=old_container_raid_level,
                                                  container_size=old_container_size,
-                                                 selector=selector)
+                                                 selector=selector,
+                                                 min_luks_entropy=crypto.MIN_CREATE_ENTROPY)
                         except StorageError as e:
                             # failed to recover.
                             self.refresh()  # this calls self.clear_errors
@@ -2275,7 +2279,8 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
 
         with ui_storage_logger():
             factory = devicefactory.get_device_factory(self.__storage,
-                                                     device_type, size)
+                                                       device_type, size,
+                                                       min_luks_entropy=crypto.MIN_CREATE_ENTROPY)
             container = factory.get_container()
             kwargs = {}
             if container:
@@ -2293,6 +2298,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
                                          mountpoint=mountpoint,
                                          encrypted=encrypted,
                                          disks=disks,
+                                         min_luks_entropy=crypto.MIN_CREATE_ENTROPY,
                                          **kwargs)
             except StorageError as e:
                 log.error("factoryDevice failed: %s", e)
@@ -2407,7 +2413,8 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
                                             container_name=cont_name,
                                             container_encrypted=cont_encrypted,
                                             container_raid_level=cont_raid,
-                                            container_size=cont_size)
+                                            container_size=cont_size,
+                                            min_luks_entropy=crypto.MIN_CREATE_ENTROPY)
                 factory.configure()
 
         # if this device has parents with no other children, remove them too
@@ -2847,7 +2854,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
             try:
                 self.__storage.createFreeSpaceSnapshot()
                 refreshAutoSwapSize(self.__storage)
-                doAutoPartition(self.__storage, self.data)
+                doAutoPartition(self.__storage, self.data, min_luks_entropy=crypto.MIN_CREATE_ENTROPY)
             except NoDisksError as e:
                 # No handling should be required for this.
                 log.error("doAutoPartition failed: %s", e)
@@ -2963,8 +2970,8 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
 
             with ui_storage_logger():
                 factory = devicefactory.get_device_factory(self.__storage,
-                                                         device_type,
-                                                         0)
+                                                           device_type,
+                                                           0, min_luks_entropy=crypto.MIN_CREATE_ENTROPY)
                 container = factory.get_container(device=_device)
                 default_container = getattr(container, "name", None)
                 if container:

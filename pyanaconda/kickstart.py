@@ -276,6 +276,7 @@ class AutoPart(commands.autopart.RHEL7_AutoPart):
     def execute(self, storage, ksdata, instClass):
         from blivet.partitioning import doAutoPartition
         from blivet.partitioning import sanityCheck
+        from blivet.devicelibs.crypto import MIN_CREATE_ENTROPY
 
         if not self.autopart:
             return
@@ -302,7 +303,7 @@ class AutoPart(commands.autopart.RHEL7_AutoPart):
         if self.type is not None:
             storage.autoPartType = self.type
 
-        doAutoPartition(storage, ksdata)
+        doAutoPartition(storage, ksdata, min_luks_entropy=MIN_CREATE_ENTROPY)
         sanityCheck(storage)
 
 class Bootloader(commands.bootloader.RHEL7_Bootloader):
