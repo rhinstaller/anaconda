@@ -27,6 +27,7 @@ from pyanaconda.users import createLuserConf, getPassAlgo, Users
 from pyanaconda import flags
 from pyanaconda import iutil
 from pyanaconda import timezone
+from pyanaconda import network
 from pyanaconda.i18n import _
 from pyanaconda.threads import threadMgr
 import logging
@@ -194,6 +195,10 @@ def doInstall(storage, payload, ksdata, instClass):
     if willRunRealmd:
         with progress_report(_("Discovering realm to join")):
             ksdata.realm.setup()
+
+    # make name resolution work for rpm scripts in chroot
+    if flags.can_touch_runtime_system("copy /etc/resolv.conf to sysroot"):
+        network.copyFileToPath("/etc/resolv.conf", iutil.getSysroot())
 
     # anaconda requires storage packages in order to make sure the target
     # system is bootable and configurable, and some other packages in order
