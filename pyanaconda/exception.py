@@ -136,7 +136,7 @@ class AnacondaExceptionHandler(ExceptionHandler):
                         # for a few seconds before exiting the installer
                         print(cmdline_error_msg)
                         time.sleep(180)
-                        sys.exit()
+                        sys.exit(1)
                     else:
                         print "An unknown error has occured, look at the "\
                             "/tmp/anaconda-tb* file(s) for more details"
