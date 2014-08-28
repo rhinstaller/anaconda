@@ -74,6 +74,15 @@ class UnknownConnectionError(Exception):
     def __str__(self):
         return self.__repr__()
 
+class AddConnectionError(Exception):
+    """Connection is not available for the device"""
+    def __str__(self):
+        return self.__repr__()
+
+# bug #1039006
+class BondOptionsError(AddConnectionError):
+    pass
+
 def _get_proxy(bus_type=Gio.BusType.SYSTEM,
                flags=Gio.DBusProxyFlags.NONE,
                info=None,
@@ -716,7 +725,12 @@ def nm_add_connection(values):
 
     proxy = _get_proxy(object_path="/org/freedesktop/NetworkManager/Settings",
                        interface_name="org.freedesktop.NetworkManager.Settings")
-    connection = proxy.AddConnection('(a{sa{sv}})', settings)
+    try:
+        connection = proxy.AddConnection('(a{sa{sv}})', settings)
+    except GLib.GError as e:
+        if "bond.options: invalid option" in e.message:
+            raise BondOptionsError(e)
+        raise
     return connection
 
 def nm_delete_connection(uuid):

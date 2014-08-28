@@ -549,7 +549,11 @@ def add_connection_for_ksdata(networkdata, devname):
 
         dev_spec = devname
 
-    nm.nm_add_connection(values)
+    try:
+        nm.nm_add_connection(values)
+    except nm.BondOptionsError as e:
+        log.error(e)
+        return []
     added_connections.insert(0, (con_uuid, dev_spec))
     return added_connections
 
