@@ -239,6 +239,14 @@ def refreshAutoSwapSize(storage):
 
 class Authconfig(commands.authconfig.FC3_Authconfig):
     def execute(self, *args):
+        cmd = "/usr/sbin/authconfig"
+        if not os.path.lexists(iutil.getSysroot()+cmd):
+            if self.seen:
+                msg = _("%s is missing. Cannot setup authentication.") % cmd
+                raise KickstartError(msg)
+            else:
+                return
+
         args = ["--update", "--nostart"] + shlex.split(self.authconfig)
 
         if not flags.automatedInstall and \
@@ -247,9 +255,9 @@ class Authconfig(commands.authconfig.FC3_Authconfig):
             args += ["--enablefingerprint"]
 
         try:
-            iutil.execInSysroot("/usr/sbin/authconfig", args)
+            iutil.execInSysroot(cmd, args)
         except OSError as msg:
-            log.error("Error running /usr/sbin/authconfig %s: %s",  args, msg)
+            log.error("Error running %s %s: %s", cmd, args, msg)
 
 class AutoPart(commands.autopart.RHEL7_AutoPart):
     def parse(self, args):
