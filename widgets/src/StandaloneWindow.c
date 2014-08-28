@@ -133,6 +133,7 @@ GtkWidget *anaconda_standalone_window_new() {
 static void anaconda_standalone_window_init(AnacondaStandaloneWindow *win) {
     AtkObject *atk;
     GtkWidget *main_box = anaconda_base_window_get_main_box(ANACONDA_BASE_WINDOW(win));
+    GtkStyleContext *context;
 
     win->priv = G_TYPE_INSTANCE_GET_PRIVATE(win,
                                             ANACONDA_TYPE_STANDALONE_WINDOW,
@@ -146,6 +147,10 @@ static void anaconda_standalone_window_init(AnacondaStandaloneWindow *win) {
     win->priv->continue_button = gtk_button_new_with_mnemonic(_(CONTINUE_TEXT));
     atk = gtk_widget_get_accessible(win->priv->continue_button);
     atk_object_set_name(atk, _(CONTINUE_TEXT));
+
+    /* Set the Continue button to the blue 'suggested-action' style class */
+    context = gtk_widget_get_style_context(win->priv->continue_button);
+    gtk_style_context_add_class(context, "suggested-action");
 
     /* Set the properties on AnacondaBaseStandalone */
     g_object_set(G_OBJECT(win), "AnacondaBaseStandalone::quit-button", win->priv->quit_button, NULL);
