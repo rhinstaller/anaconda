@@ -307,6 +307,29 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Wed Aug 27 2014 Brian C. Lane <bcl@redhat.com> - 22.4-1
+- jwb would like us to be clear that bugs could be the system firmware...
+  (pjones)
+- Fix installing from a second iso (#1040722) (bcl)
+- Remove anaconda_make_pixbuf (dshea)
+- Trick automake into taking our wildcards (dshea)
+- Distribute the right docs files (vpodzime)
+- Require anaconda-widgets from anaconda-widgets-devel (dshea)
+- Run /sbin/ldconfig when installing or uninstalling anaconda-widgets (dshea)
+- Remove the shebang from anaconda.py (dshea)
+- Exclude the compiled text and rescue files from anaconda-core (dshea)
+- Update our copy of the GPL (dshea)
+- Remove unused methods from packaging.Payload (dshea)
+- Rearrange the entry, example and tip on Advanced User dialog (vpodzime)
+- Change our docs that are close to ReST to proper ReST (vpodzime)
+- Remove old outdated docs nobody should read (vpodzime)
+- Send run-hub and run-spoke into the great beyond (dshea)
+- Use one thread for payload setup. (dshea)
+- Remove logging to tty3 and tty5 (#1073336) (bcl)
+- Make missing encryption key error message more helpful (#1074441) (amulhern)
+- Fix problems with the hdiso method. (clumens)
+- Update makebumpver to include flags on first request (bcl)
+
 * Fri Aug 15 2014 Brian C. Lane <bcl@redhat.com> - 22.3-1
 - Add some tests for execReadlines (dshea)
 - Remove iutil.fork_orphan (dshea)
