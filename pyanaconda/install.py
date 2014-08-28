@@ -27,6 +27,7 @@ from pyanaconda.users import createLuserConf, getPassAlgo, Users
 from pyanaconda import flags
 from pyanaconda import iutil
 from pyanaconda import timezone
+from pyanaconda import network
 from pyanaconda.i18n import _
 from pyanaconda.threads import threadMgr
 from pyanaconda.ui.lib.entropy import wait_for_entropy
@@ -202,6 +203,10 @@ def doInstall(storage, payload, ksdata, instClass):
     if willRunRealmd:
         with progress_report(_("Discovering realm to join")):
             ksdata.realm.setup()
+
+    # make name resolution work for rpm scripts in chroot
+    if flags.can_touch_runtime_system("copy /etc/resolv.conf to sysroot"):
+        network.copyFileToPath("/etc/resolv.conf", iutil.getSysroot())
 
     # Check for additional packages
     ksdata.authconfig.setup()
