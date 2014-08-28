@@ -110,15 +110,26 @@ class InstallOptionsDialogBase(GUIObject):
 
     def _get_sw_needs_text(self, required_space, auto_swap):
         tooltip = _("Please wait... software metadata still loading.")
-        sw_text = (_("Your current <a href=\"\" title=\"%(tooltip)s\"><b>%(product)s</b> software "
-                     "selection</a> requires <b>%(total)s</b> of available "
-                     "space, including <b>%(software)s</b> for software and "
-                     "<b>%(swap)s</b> for swap space.")
-                   % {"tooltip": escape_markup(tooltip),
-                      "product": escape_markup(productName),
-                      "total": escape_markup(str(required_space + auto_swap)),
-                      "software": escape_markup(str(required_space)),
-                      "swap": escape_markup(str(auto_swap))})
+
+        if flags.livecdInstall:
+            sw_text = (_("Your current <b>%(product)s</b> software "
+                         "selection requires <b>%(total)s</b> of available "
+                         "space, including <b>%(software)s</b> for software and "
+                         "<b>%(swap)s</b> for swap space.")
+                       % {"product": escape_markup(productName),
+                          "total": escape_markup(str(required_space + auto_swap)),
+                          "software": escape_markup(str(required_space)),
+                          "swap": escape_markup(str(auto_swap))})
+        else:
+            sw_text = (_("Your current <a href=\"\" title=\"%(tooltip)s\"><b>%(product)s</b> software "
+                         "selection</a> requires <b>%(total)s</b> of available "
+                         "space, including <b>%(software)s</b> for software and "
+                         "<b>%(swap)s</b> for swap space.")
+                       % {"tooltip": escape_markup(tooltip),
+                          "product": escape_markup(productName),
+                          "total": escape_markup(str(required_space + auto_swap)),
+                          "software": escape_markup(str(required_space)),
+                          "swap": escape_markup(str(auto_swap))})
         return sw_text
 
     # Methods to handle sensitivity of the modify button.
@@ -164,7 +175,9 @@ class NeedSpaceDialog(InstallOptionsDialogBase):
                        "amounts of free space:") % sw_text
         label = self.builder.get_object("need_space_desc_label")
         label.set_markup(label_text)
-        label.connect("activate-link", self._modify_sw_link_clicked)
+
+        if not flags.livecdInstall:
+            label.connect("activate-link", self._modify_sw_link_clicked)
 
         self._set_free_space_labels(disk_free, fs_free)
 
@@ -199,7 +212,9 @@ class NoSpaceDialog(InstallOptionsDialogBase):
                          "product": escape_markup(productName)})
         label = self.builder.get_object("no_space_desc_label")
         label.set_markup(label_text)
-        label.connect("activate-link", self._modify_sw_link_clicked)
+
+        if not flags.livecdInstall:
+            label.connect("activate-link", self._modify_sw_link_clicked)
 
         self._set_free_space_labels(disk_free, fs_free)
 
