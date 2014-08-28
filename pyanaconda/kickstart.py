@@ -215,7 +215,7 @@ def getAvailableDiskSpace(storage):
     """
 
 
-    free_space = storage.getFreeSpace()
+    free_space = storage.freeSpaceSnapshot
     return sum((disk_free for disk_free, fs_free in free_space.values()), Size(0))
 
 def refreshAutoSwapSize(storage):
@@ -1851,6 +1851,10 @@ def doKickstartStorage(storage, ksdata, instClass):
     if not any(d for d in storage.disks
                if not d.format.hidden and not d.protected):
         return
+
+    # snapshot free space now so that we know how much we had available
+    storage.createFreeSpaceSnapshot()
+
     ksdata.bootloader.execute(storage, ksdata, instClass)
     ksdata.autopart.execute(storage, ksdata, instClass)
     ksdata.partition.execute(storage, ksdata, instClass)
