@@ -152,6 +152,9 @@ Finish it and then click the Finish configuration button please.</property>
                                 <property name="hexpand">True</property>
                                 <property name="use_underline">True</property>
                                 <signal name="clicked" handler="_do_configuration" swapped="no"/>
+                                <style>
+                                  <class name="suggested-action"/>
+                                </style>
                               </object>
                               <packing>
                                 <property name="left_attach">1</property>
@@ -201,6 +204,9 @@ Go ahead and reboot to start using it!</property>
                                 <property name="valign">end</property>
                                 <property name="hexpand">True</property>
                                 <property name="use_underline">True</property>
+                                <style>
+                                  <class name="suggested-action"/>
+                                </style>
                               </object>
                               <packing>
                                 <property name="left_attach">1</property>
