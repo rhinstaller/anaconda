@@ -166,7 +166,7 @@ def sanity_check(storage, min_ram=isys.MIN_RAM):
     exns = []
 
     checkSizes = [('/usr', 250), ('/tmp', 50), ('/var', 384),
-                  ('/home', 100), ('/boot', 75)]
+                  ('/home', 100), ('/boot', 200)]
     mustbeonlinuxfs = ['/', '/var', '/tmp', '/usr', '/home', '/usr/share', '/usr/lib']
     mustbeonroot = ['/bin','/dev','/sbin','/etc','/lib','/root', '/mnt', 'lost+found', '/proc']
 
