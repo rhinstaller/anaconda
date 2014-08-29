@@ -223,6 +223,10 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Fri Aug 29 2014 Samantha N. Bueno <sbueno+anaconda@redhat.com> - 13.21.227-1
+- Fix typo in previous patch "Correctly determine whether...". (dlehman)
+  Related: rhbz#842920
+
 * Mon Aug 25 2014 Samantha N. Bueno <sbueno+anaconda@redhat.com> - 13.21.226-1
 - Let tmp use more than 250M when there is more RAM (bcl)
   Resolves: rhbz#1123791
