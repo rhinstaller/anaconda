@@ -80,7 +80,7 @@ from pyanaconda.ui.gui.spokes.lib.summary import ActionSummaryDialog
 from pyanaconda.ui.gui.spokes.lib.custom_storage_helpers import size_from_entry
 from pyanaconda.ui.gui.spokes.lib.custom_storage_helpers import validate_label, validate_mountpoint, get_raid_level
 from pyanaconda.ui.gui.spokes.lib.custom_storage_helpers import selectedRaidLevel, raidLevelSelection, defaultRaidLevel, requiresRaidSelection, containerRaidLevelsSupported, raidLevelsSupported, defaultContainerRaidLevel
-from pyanaconda.ui.gui.spokes.lib.custom_storage_helpers import get_container_type_name, RAID_NOT_ENOUGH_DISKS
+from pyanaconda.ui.gui.spokes.lib.custom_storage_helpers import get_container_type, RAID_NOT_ENOUGH_DISKS
 from pyanaconda.ui.gui.spokes.lib.custom_storage_helpers import AddDialog, ConfirmDeleteDialog, DisksDialog, ContainerDialog, HelpDialog
 
 from pyanaconda.ui.gui.utils import setViewportBackground, fancy_set_sensitive, ignoreEscape
@@ -2042,8 +2042,8 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
             return
 
         device_type = self._get_current_device_type()
-        container_type = get_container_type_name(device_type).lower()
-        new_text = _(NEW_CONTAINER_TEXT) % {"container_type": container_type}
+        container_type_name = get_container_type(device_type).name.lower()
+        new_text = _(NEW_CONTAINER_TEXT) % {"container_type": container_type_name}
         create_new_container = container_name == new_text
         if create_new_container:
             # run the vg editor dialog with a default name and disk set
@@ -2317,8 +2317,9 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
             if container:
                 container_size_policy = container.size_policy
 
-        container_type_text = get_container_type_name(device_type)
-        self._containerLabel.set_text(container_type_text.title())
+        container_type = get_container_type(device_type)
+        self._containerLabel.set_text(container_type.label.title())
+        self._containerLabel.set_use_underline(True)
         self._containerStore.clear()
         if device_type == DEVICE_TYPE_BTRFS:
             containers = self._storage_playground.btrfsVolumes
@@ -2344,8 +2345,8 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
             self._containerStore.append(self._container_store_row(default_container_name))
             self._containerCombo.set_active(len(self._containerStore) - 1)
 
-        self._containerStore.append(self._container_store_row(_(NEW_CONTAINER_TEXT) % {"container_type": container_type_text.lower()}))
-        self._containerCombo.set_tooltip_text(_(CONTAINER_TOOLTIP) % {"container_type": container_type_text.lower()})
+        self._containerStore.append(self._container_store_row(_(NEW_CONTAINER_TEXT) % {"container_type": container_type.name.lower()}))
+        self._containerCombo.set_tooltip_text(_(CONTAINER_TOOLTIP) % {"container_type": container_type.name.lower()})
         if default_container_name is None:
             self._containerCombo.set_active(len(self._containerStore) - 1)
 

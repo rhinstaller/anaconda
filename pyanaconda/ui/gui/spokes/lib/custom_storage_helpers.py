@@ -27,10 +27,11 @@ __all__ = ["size_from_entry", "populate_mountpoint_store", "validate_label",
            "validate_mountpoint", "get_raid_level",
            "selectedRaidLevel", "raidLevelSelection",
            "defaultRaidLevel", "requiresRaidSelection", "defaultContainerRaidLevel",
-           "containerRaidLevelsSupported", "raidLevelsSupported", "get_container_type_name",
+           "containerRaidLevelsSupported", "raidLevelsSupported", "get_container_type",
            "AddDialog", "ConfirmDeleteDialog", "DisksDialog", "ContainerDialog",
            "HelpDialog"]
 
+from collections import namedtuple
 import functools
 import re
 
@@ -68,9 +69,11 @@ CONTAINER_DIALOG_TITLE = N_("CONFIGURE %(container_type)s")
 CONTAINER_DIALOG_TEXT = N_("Please create a name for this %(container_type)s "
                            "and select at least one disk below.")
 
-CONTAINER_TYPE_NAMES = {DEVICE_TYPE_LVM: N_("Volume Group"),
-                        DEVICE_TYPE_LVM_THINP: N_("Volume Group"),
-                        DEVICE_TYPE_BTRFS: N_("Volume")}
+ContainerType = namedtuple("ContainerType", ["name", "label"])
+
+CONTAINER_TYPES = {DEVICE_TYPE_LVM:       ContainerType(N_("Volume Group"), N_("_Volume Group:")),
+                   DEVICE_TYPE_LVM_THINP: ContainerType(N_("Volume Group"), N_("_Volume Group:")),
+                   DEVICE_TYPE_BTRFS:     ContainerType(N_("Volume"), N_("_Volume:"))}
 
 # These cannot be specified as mountpoints
 system_mountpoints = ["/dev", "/proc", "/run", "/sys"]
@@ -283,8 +286,8 @@ def containerRaidLevelsSupported(device_type):
         return get_supported_raid_levels(DEVICE_TYPE_BTRFS).intersection(supported)
     return set()
 
-def get_container_type_name(device_type):
-    return CONTAINER_TYPE_NAMES.get(device_type, _("container"))
+def get_container_type(device_type):
+    return CONTAINER_TYPES.get(device_type, ContainerType(_("container"), _("container")))
 
 class AddDialog(GUIObject):
     builderObjects = ["addDialog", "mountPointStore", "mountPointCompletion", "mountPointEntryBuffer"]
@@ -462,11 +465,11 @@ class ContainerDialog(GUIObject, GUIDialogInputCheckHandler):
         self._grabObjects()
 
         # set up the dialog labels with device-type-specific text
-        container_type = get_container_type_name(self.device_type)
-        title_text = _(CONTAINER_DIALOG_TITLE) % {"container_type": container_type.upper()}
+        container_type = get_container_type(self.device_type)
+        title_text = _(CONTAINER_DIALOG_TITLE) % {"container_type": container_type.name.upper()}
         self._title_label.set_text(title_text)
 
-        dialog_text = _(CONTAINER_DIALOG_TEXT) % {"container_type": container_type.lower()}
+        dialog_text = _(CONTAINER_DIALOG_TEXT) % {"container_type": container_type.name.lower()}
         self._dialog_label.set_text(dialog_text)
 
         # populate the dialog widgets
