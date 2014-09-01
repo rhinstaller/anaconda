@@ -653,6 +653,9 @@ class NetworkControlBox(GObject.GObject):
         try:
             con_uuid = nm.nm_device_setting_value(device.get_iface(), "connection", "uuid")
             dev_cfg = self.dev_cfg(uuid=con_uuid)
+        except nm.UnknownDeviceError as e:
+            log.error(e)
+            return
         except nm.SettingsNotFoundError:
             # wireless devices
             dev_cfg = None
