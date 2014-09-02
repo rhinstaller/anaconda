@@ -170,20 +170,30 @@ def check_package_version(filename, package, check_release_id=True):
 def doGitDiff(tag, args=None):
     if args is None:
         args=[]
-    proc = subprocess.Popen(['git', 'diff', '--name-status', tag] + args,
+    cmd = ['git', 'diff', '--name-status', tag] + args
+    proc = subprocess.Popen(cmd,
                             stdout=subprocess.PIPE,
-                            stderr=subprocess.PIPE).communicate()
+                            stderr=subprocess.PIPE)
+    output = proc.communicate()
 
-    lines = proc[0].split('\n')
+    if proc.returncode:
+        raise RuntimeError("Error running %s: %s" % (" ".join(cmd), output[1]))
+
+    lines = output[0].split('\n')
     return lines
 
 def doGitContentDiff(tag, args=None):
     if args is None:
         args = []
-    proc = subprocess.Popen(['git', 'diff', tag] + args,
+    cmd = ['git', 'diff', tag] + args
+    proc = subprocess.Popen(cmd,
                             stdout=subprocess.PIPE,
-                            stderr=subprocess.PIPE).communicate()
-    lines = proc[0].split('\n')
+                            stderr=subprocess.PIPE)
+    output = proc.communicate()
+    if proc.returncode:
+        raise RuntimeError("Error running %s: %s" % (" ".join(cmd), output[1]))
+
+    lines = output[0].split('\n')
     return lines
 
 def download_to_file(url, path):
@@ -223,7 +233,12 @@ def copyUpdatedFiles(tag, updates, cwd):
     if not tmpupdates.endswith("/run/install/updates"):
         tmpupdates = os.path.join(tmpupdates, "run/install/updates")
 
-    lines = doGitDiff(tag)
+    try:
+        lines = doGitDiff(tag)
+    except RuntimeError as e:
+        print("ERROR: %s" % e)
+        return
+
     for line in lines:
         fields = line.split()
 
@@ -316,7 +331,11 @@ def copyUpdatedFiles(tag, updates, cwd):
             install_to_dir(gitfile, tmpupdates)
 
 def _compilableChanged(tag, compilable):
-    lines = doGitDiff(tag, [compilable])
+    try:
+        lines = doGitDiff(tag, [compilable])
+    except RuntimeError as e:
+        print("ERROR: %s" % e)
+        return
 
     for line in lines:
         fields = line.split()
@@ -460,7 +479,12 @@ def check_for_new_packages(tag, arch, added_rpms, specfile_path):
 
     Package = namedtuple("Package", "name version version_request req_tuple")
 
-    diff = doGitContentDiff(tag, ["anaconda.spec.in"])
+    try:
+        diff = doGitContentDiff(tag, ["anaconda.spec.in"])
+    except RuntimeError as e:
+        print("ERROR: %s" % e)
+        return
+
     new_requires = filter(lambda x: x.startswith("+Requires:"), diff)
     new_defines = filter(lambda x: x.startswith("+%define"), diff)
     with open(specfile_path) as f:
