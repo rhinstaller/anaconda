@@ -978,8 +978,7 @@ until you click on the main menu's 'Begin Installation' button.</property>
                             <property name="visible">True</property>
                             <property name="can_focus">False</property>
                             <property name="tooltip_text" translatable="yes">Add a new mount point.</property>
-                            <property name="label" translatable="yes" context="GUI|Custom Partitioning">_Add</property>
-                            <property name="use_underline">True</property>
+                            <property name="label" translatable="yes" context="GUI|Custom Partitioning">Add</property>
                             <property name="icon_name">list-add-symbolic</property>
                             <signal name="clicked" handler="on_add_clicked" swapped="no"/>
                           </object>
@@ -995,8 +994,7 @@ until you click on the main menu's 'Begin Installation' button.</property>
                             <property name="visible">True</property>
                             <property name="can_focus">False</property>
                             <property name="tooltip_text" translatable="yes">Remove the selected mount point(s).</property>
-                            <property name="label" translatable="yes" context="GUI|Custom Partitioning">Remo_ve</property>
-                            <property name="use_underline">True</property>
+                            <property name="label" translatable="yes" context="GUI|Custom Partitioning">Remove</property>
                             <property name="icon_name">list-remove-symbolic</property>
                             <signal name="clicked" handler="on_remove_clicked" swapped="no"/>
                           </object>
@@ -1012,8 +1010,7 @@ until you click on the main menu's 'Begin Installation' button.</property>
                             <property name="visible">True</property>
                             <property name="can_focus">False</property>
                             <property name="tooltip_text" translatable="yes">Configure selected mount point.</property>
-                            <property name="label" translatable="yes" context="GUI|Custom Partitioning">_Configure</property>
-                            <property name="use_underline">True</property>
+                            <property name="label" translatable="yes" context="GUI|Custom Partitioning">Configure</property>
                             <property name="icon_name">preferences-system-symbolic</property>
                             <signal name="clicked" handler="on_configure_clicked" swapped="no"/>
                           </object>
@@ -1029,8 +1026,7 @@ until you click on the main menu's 'Begin Installation' button.</property>
                             <property name="visible">True</property>
                             <property name="can_focus">False</property>
                             <property name="tooltip_text" translatable="yes">Reload storage configuration from disk.</property>
-                            <property name="label" translatable="yes" context="GUI|Custom Partitioning">Re_fresh</property>
-                            <property name="use_underline">True</property>
+                            <property name="label" translatable="yes" context="GUI|Custom Partitioning">Refresh</property>
                             <property name="icon_name">view-refresh-symbolic</property>
                             <signal name="clicked" handler="on_refresh_clicked" swapped="no"/>
                           </object>
@@ -1046,8 +1042,7 @@ until you click on the main menu's 'Begin Installation' button.</property>
                             <property name="visible">True</property>
                             <property name="can_focus">False</property>
                             <property name="tooltip_text" translatable="yes">Click for help.</property>
-                            <property name="label" translatable="yes" context="GUI|Custom Partitioning">_Help</property>
-                            <property name="use_underline">True</property>
+                            <property name="label" translatable="yes" context="GUI|Custom Partitioning">Help</property>
                             <property name="icon_name">system-help-symbolic</property>
                             <signal name="clicked" handler="on_help_clicked" swapped="no"/>
                           </object>
