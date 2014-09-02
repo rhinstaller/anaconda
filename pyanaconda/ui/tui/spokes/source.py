@@ -385,7 +385,7 @@ class SpecifyNFSRepoSpoke(SourceSwitchHandler, EditTUISpoke):
     category = "software"
 
     edit_fields = [
-        Entry(N_("NFS <server>:/<path>"), "server", re.compile(".*$"), True),
+        Entry(N_("<server>:/<path>"), "server", re.compile(".*$"), True),
         Entry(N_("NFS mount options"), "opts", re.compile(".*$"), True)
     ]
 
