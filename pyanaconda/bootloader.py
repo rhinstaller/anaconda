@@ -1958,6 +1958,9 @@ class IPSeriesYaboot(Yaboot):
         super(IPSeriesYaboot, self).install()
 
     def updatePowerPCBootList(self):
+        if flags.imageInstall or flags.dirInstall:
+            log.info("Skipping updatePowerPCBootList for image/directory install.")
+            return
 
         log.debug("updatePowerPCBootList: self.stage1_device.path = %s", self.stage1_device.path)
 
@@ -2018,6 +2021,9 @@ class IPSeriesGRUB2(GRUB2):
 
     # This will update the PowerPC's (ppc) bios boot devive order list
     def updateNVRAMBootList(self):
+        if flags.imageInstall or flags.dirInstall:
+            log.info("Skipping updateNVRAMBootList for image/directory install.")
+            return
 
         log.debug("updateNVRAMBootList: self.stage1_device.path = %s", self.stage1_device.path)
 
