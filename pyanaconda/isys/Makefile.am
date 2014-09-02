@@ -26,7 +26,7 @@ dist_noinst_HEADERS = $(srcdir)/*.h
 ISYS_CFLAGS = $(NETWORKMANAGER_CFLAGS) $(LIBNL_CFLAGS) $(LIBNM_GLIB_CFLAGS) \
               $(SELINUX_CFLAGS)
 ISYS_LIBS   = $(RESOLV_LIBS) $(ZLIB_LIBS) \
-              $(DEVMAPPER_LIBS) $(X11_LIBS) $(SELINUX_LIBS) \
+              $(DEVMAPPER_LIBS) $(SELINUX_LIBS) \
               $(LIBNL_LIBS) $(LIBNM_GLIB_LIBS)
 
 isysdir     = $(pkgpyexecdir)/isys

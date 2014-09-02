@@ -67,10 +67,6 @@ AC_SUBST(INTLTOOL_DESKTOP_RULE)
 AM_GNU_GETTEXT([external])
 
 # Checks for libraries.
-AC_CHECK_LIB([X11], [XGetWindowAttributes],
-             [AC_SUBST(X11_LIBS, [-lX11])],
-             [AC_MSG_FAILURE([*** libX11 not usable.])])
-
 AC_CHECK_LIB([audit], [audit_open],
              [AC_SUBST(AUDIT_LIBS, [-laudit])],
              [AC_MSG_FAILURE([*** libaudit not usable.])])

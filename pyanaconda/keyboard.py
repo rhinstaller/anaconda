@@ -47,7 +47,7 @@ from pyanaconda.safe_dbus import dbus_call_safe_sync, dbus_get_property_safe_syn
 from pyanaconda.safe_dbus import DBUS_SYSTEM_BUS_ADDR, DBusPropertyError
 from pyanaconda.constants import DEFAULT_VC_FONT
 
-from gi.repository import Xkl, Gio, GLib
+from gi.repository import Gio, GLib
 
 import logging
 log = logging.getLogger("anaconda")
@@ -372,7 +372,7 @@ class XklWrapper(object):
         return XklWrapper._instance
 
     def __init__(self):
-        from gi.repository import GdkX11
+        from gi.repository import GdkX11, Xkl
 
         #initialize Xkl-related stuff
         display = GdkX11.x11_get_default_xdisplay()

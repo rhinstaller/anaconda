@@ -58,10 +58,6 @@
 #include <signal.h>
 #include <execinfo.h>
 
-#include <X11/Xlib.h>
-#include <X11/XKBlib.h>
-#include <X11/keysym.h>
-
 #include "isys.h"
 #include "auditd.h"
 #include "log.h"
@@ -79,7 +75,6 @@ static PyObject * printObject(PyObject * s, PyObject * args);
 static PyObject * py_bind_textdomain_codeset(PyObject * o, PyObject * args);
 static PyObject * doSegvHandler(PyObject *s, PyObject *args);
 static PyObject * doAuditDaemon(PyObject *s);
-static PyObject * doIsCapsLockEnabled(PyObject * s, PyObject * args);
 static PyObject * doInitLog(PyObject * s);
 static PyObject * doTotalMemory(PyObject * s);
 
@@ -92,7 +87,6 @@ static PyMethodDef isysModuleMethods[] = {
     { "bind_textdomain_codeset", (PyCFunction) py_bind_textdomain_codeset, METH_VARARGS, NULL},
     { "handleSegv", (PyCFunction) doSegvHandler, METH_VARARGS, NULL },
     { "auditdaemon", (PyCFunction) doAuditDaemon, METH_NOARGS, NULL },
-    { "isCapsLockEnabled", (PyCFunction) doIsCapsLockEnabled, METH_VARARGS, NULL },
     { "initLog", (PyCFunction) doInitLog, METH_VARARGS, NULL },
     { "total_memory", (PyCFunction) doTotalMemory, METH_NOARGS, NULL },
     { NULL, NULL, 0, NULL }
@@ -226,26 +220,6 @@ static PyObject * doAuditDaemon(PyObject *s) {
     audit_daemonize();
     Py_INCREF(Py_None);
     return Py_None;
-}
-
-static PyObject * doIsCapsLockEnabled(PyObject * s, PyObject * args) {
-    Display *d = NULL;
-    XkbStateRec state;
-
-    if ((d = XOpenDisplay(NULL)) == NULL) {
-        PyErr_SetString(PyExc_RuntimeError, "XOpenDisplay failed");
-        return NULL;
-    }
-
-    memset(&state, 0, sizeof(state));
-    XkbGetState(d, XkbUseCoreKbd, &state);
-
-    if (XCloseDisplay(d)) {
-        PyErr_SetString(PyExc_RuntimeError, "XCloseDisplay failed");
-        return NULL;
-    }
-
-    return PyBool_FromLong(state.locked_mods & LockMask);
 }
 
 static PyObject * doInitLog(PyObject * s) {

@@ -18,7 +18,6 @@ Source0: %{name}-%{version}.tar.bz2
 # Versions of required components (done so we make sure the buildrequires
 # match the requires versions of things).
 %define gettextver 0.11
-%define gconfversion 2.28.1
 %define intltoolver 0.31.2-3
 %define libnlver 1.0
 %define pykickstartver  1.99.43.13
@@ -50,9 +49,6 @@ BuildRequires: gobject-introspection-devel
 BuildRequires: glade-devel
 BuildRequires: pygobject3
 BuildRequires: intltool >= %{intltoolver}
-BuildRequires: libX11-devel
-BuildRequires: libXt-devel
-BuildRequires: libXxf86misc-devel
 BuildRequires: libgnomekbd-devel
 BuildRequires: libnl-devel >= %{libnlver}
 BuildRequires: libxklavier-devel
@@ -79,9 +75,17 @@ BuildRequires: desktop-file-utils
 BuildRequires: s390utils-devel
 %endif
 
-Requires: anaconda-widgets = %{version}-%{release}
+
+Requires: anaconda-core = %{version}-%{release}
+Requires: anaconda-gui = %{version}-%{release}
+Requires: anaconda-tui = %{version}-%{release}
+
+%description
+The anaconda package is a metapackage for the Anaconda installer.
+
+%package core
+Summary: Core of the Anaconda installer
 Requires: python-blivet >= 0.61.0.2-1
-Requires: gnome-icon-theme-symbolic
 Requires: python-meh >= %{mehver}
 Requires: libreport-anaconda >= 2.0.21-1
 Requires: libreport-rhel-anaconda-bugzilla >= 2.1.11-1
@@ -91,7 +95,6 @@ Requires: parted >= %{partedver}
 Requires: pyparted >= %{pypartedver}
 Requires: yum >= %{yumver}
 Requires: python-urlgrabber >= %{pythonurlgrabberver}
-Requires: system-logos
 Requires: pykickstart >= %{pykickstartver}
 Requires: langtable-data >= %{langtablever}
 Requires: langtable-python >= %{langtablever}
@@ -103,18 +106,13 @@ Requires: dbus-python
 Requires: python-pwquality
 Requires: python-IPy
 Requires: python-nss
-Requires: tigervnc-server-minimal
 Requires: pytz
-Requires: libxklavier
-Requires: libgnomekbd
 Requires: realmd
 Requires: teamd
 Requires: keybinder3
 %ifarch %livearches
 Requires: usermode
-Requires: zenity
 %endif
-Requires: GConf2 >= %{gconfversion}
 %ifarch s390 s390x
 Requires: openssh
 %endif
@@ -122,7 +120,6 @@ Requires: isomd5sum >= %{isomd5sum}
 Requires: yum-utils >= %{yumutilsver}
 Requires: createrepo
 Requires: NetworkManager >= %{nmver}
-Requires: nm-connection-editor
 Requires: dhclient
 Requires: kbd
 Requires: chrony
@@ -141,6 +138,9 @@ Requires: hfsplus-tools
 %endif
 %endif
 
+# required because of the rescue mode and VNC question
+Requires: anaconda-tui = %{version}-%{release}
+
 Requires: python-coverage
 
 Obsoletes: anaconda-images <= 10
@@ -149,9 +149,34 @@ Obsoletes: anaconda-runtime < %{version}-%{release}
 Provides: anaconda-runtime = %{version}-%{release}
 Obsoletes: booty <= 0.107-1
 
-%description
-The anaconda package contains the program which was used to install your
+%description core
+The anaconda-core package contains the program which was used to install your
 system.
+
+%package gui
+Summary: Graphical user interface for the Anaconda installer
+Requires: anaconda-core = %{version}-%{release}
+Requires: anaconda-widgets = %{version}-%{release}
+Requires: python-meh-gui >= %{mehver}
+Requires: gnome-icon-theme-symbolic
+Requires: system-logos
+Requires: tigervnc-server-minimal
+Requires: libxklavier
+Requires: libgnomekbd
+Requires: nm-connection-editor
+%ifarch %livearches
+Requires: zenity
+%endif
+
+%description gui
+This package contains graphical user interface for the Anaconda installer.
+
+%package tui
+Summary: Textual user interface for the Anaconda installer
+Requires: anaconda-core = %{version}-%{release}
+
+%description tui
+This package contains textual user interface for the Anaconda installer.
 
 %package widgets
 Summary: A set of custom GTK+ widgets for use with anaconda
@@ -217,16 +242,23 @@ update-desktop-database &> /dev/null || :
 update-desktop-database &> /dev/null || :
 %endif
 
-%files -f %{name}.lang
+%files
 %doc COPYING
+
+%files core -f %{name}.lang
 %{_unitdir}/*
 %{_prefix}/lib/systemd/system-generators/*
 %{_bindir}/instperf
 %{_sbindir}/anaconda
 %{_sbindir}/handle-sshpw
 %{_datadir}/anaconda
+%exclude %{_datadir}/anaconda/tzmapdata
 %{_prefix}/libexec/anaconda
 %{_libdir}/python*/site-packages/pyanaconda/*
+%exclude %{_libdir}/python*/site-packages/pyanaconda/rescue.py
+%exclude %{_libdir}/python*/site-packages/pyanaconda/text.py
+%exclude %{_libdir}/python*/site-packages/pyanaconda/ui/gui/*
+%exclude %{_libdir}/python*/site-packages/pyanaconda/ui/tui/*
 %{_bindir}/analog
 %{_bindir}/anaconda-cleanup
 %ifarch %livearches
@@ -238,6 +270,14 @@ update-desktop-database &> /dev/null || :
 %{_datadir}/applications/*.desktop
 %{_datadir}/icons/hicolor/*
 %endif
+
+%files gui
+%{_libdir}/python*/site-packages/pyanaconda/ui/gui/*
+
+%files tui
+%{_libdir}/python*/site-packages/pyanaconda/rescue.py
+%{_libdir}/python*/site-packages/pyanaconda/text.py
+%{_libdir}/python*/site-packages/pyanaconda/ui/tui/*
 
 %files widgets
 %{_libdir}/libAnacondaWidgets.so.*

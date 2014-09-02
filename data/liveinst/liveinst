@@ -47,7 +47,14 @@ if [ -z "$LIVE_BLOCK" ]; then
 fi
 
 if [ $LIVE_INSTALL = 1 -a ! -b "$LIVE_BLOCK" ]; then
-  zenity --error --title="Not a Live image" --text "Can't do live image installation unless running from a live image"
+  title="Not a Live image"
+  text="Can't do live image installation unless running from a live image"
+  if which zenity &> /dev/null; then
+      zenity --error --title="$title" --text="$text"
+  else
+      echo "$title" >&2
+      echo "$text" >&2
+  fi
   exit 1
 fi
 
@@ -112,7 +119,14 @@ anaconda-cleanup $ANACONDA $*
 # Set up the updates, if provided.
 if [ ! -z "$UPDATES" ]; then
     if [ -e /tmp/updates.img -o -e /tmp/updates ]; then
-        zenity --error --title="Updates already exist" --text "updates= was provided, but an updates image already exists.  Please remove /tmp/updates.img and /tmp/updates and try again."
+        title="Updates already exist"
+        text="updates= was provided, but an updates image already exists.  Please remove /tmp/updates.img and /tmp/updates and try again."
+        if which zenity &> /dev/null; then
+            zenity --error --title="$title" --text="$text"
+        else
+            echo "$title" >&2
+            echo "$text" >&2
+        fi
         exit 1
     fi
 
