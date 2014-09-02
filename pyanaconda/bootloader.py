@@ -32,7 +32,7 @@ from pyanaconda import iutil
 from blivet.devicelibs import raid
 from pyanaconda.isys import sync
 from pyanaconda.product import productName
-from pyanaconda.flags import flags
+from pyanaconda.flags import flags, can_touch_runtime_system
 from blivet.errors import StorageError
 from blivet.fcoe import fcoe
 import pyanaconda.network
@@ -1951,6 +1951,8 @@ class IPSeriesYaboot(Yaboot):
         super(IPSeriesYaboot, self).install()
 
     def updatePowerPCBootList(self):
+        if not can_touch_runtime_system("updatePowerPCBootList", touch_live=True):
+            return
 
         log.debug("updatePowerPCBootList: self.stage1_device.path = %s", self.stage1_device.path)
 
@@ -2011,6 +2013,8 @@ class IPSeriesGRUB2(GRUB2):
 
     # This will update the PowerPC's (ppc) bios boot devive order list
     def updateNVRAMBootList(self):
+        if not can_touch_runtime_system("updateNVRAMBootList", touch_live=True):
+            return
 
         log.debug("updateNVRAMBootList: self.stage1_device.path = %s", self.stage1_device.path)
 
