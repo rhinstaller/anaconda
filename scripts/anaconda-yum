@@ -380,6 +380,9 @@ class RPMCallback(object):
         # display the message.
         if self.completed_actions == self.total_actions:
             print("PROGRESS_POST:")
+        elif self.completed_actions is not None and self.total_actions is not None:
+            pct = 100 * (self.completed_actions / float(self.total_actions))
+            print("PERCENT: %f" % pct)
 
     def cpio_error(self, amount, total, key, data):
         name = self._get_txmbr(key)[0]

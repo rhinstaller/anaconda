@@ -1414,6 +1414,7 @@ reposdir=%s
         log.info("Running anaconda-yum to install packages")
         # Watch output for progress, debug and error information
         install_errors = []
+        prev = 0
         try:
             for line in execReadlines("/usr/libexec/anaconda/anaconda-yum", args):
                 if line.startswith("PROGRESS_"):
@@ -1421,6 +1422,12 @@ reposdir=%s
                     msg = progress_map[key] + text
                     progressQ.send_message(msg)
                     log.debug(msg)
+                elif line.startswith("PERCENT:"):
+                    _key, pct = line.split(":", 1)
+
+                    if float(pct) // 10 > prev // 10:
+                        progressQ.send_step()
+                        prev = float(pct)
                 elif line.startswith("DEBUG:"):
                     log.debug(line[6:])
                 elif line.startswith("INFO:"):

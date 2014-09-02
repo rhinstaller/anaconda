@@ -145,6 +145,11 @@ def doInstall(storage, payload, ksdata, instClass):
     steps = len(storage.devicetree.findActions(action_type="create", object_type="format")) + \
             len(storage.devicetree.findActions(action_type="resize", object_type="format"))
 
+    # Update every 10% of packages installed.  We don't know how many packages
+    # we are installing until it's too late (see realmd later on) so this is
+    # the best we can do.
+    steps += 10
+
     # pre setup phase, post install
     steps += 2
 
