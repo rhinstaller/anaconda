@@ -1321,6 +1321,10 @@ def status_message():
                     msg = _("Team%(interface_name)s (%(list_of_slaves)s) connected") \
                           % {"interface_name": devname, \
                              "list_of_slaves": ",".join(slaves[devname])}
+                elif nm.nm_device_type_is_bridge(devname):
+                    msg = _("Bridge%(interface_name)s (%(list_of_slaves)s) connected") \
+                          % {"interface_name": devname, \
+                             "list_of_slaves": ",".join(slaves[devname])}
                 elif nm.nm_device_type_is_vlan(devname):
                     parent = nm.nm_device_setting_value(devname, "vlan", "parent")
                     vlanid = nm.nm_device_setting_value(devname, "vlan", "id")
@@ -1336,6 +1340,8 @@ def status_message():
                     elif nm.nm_device_type_is_bond(devname):
                         devlist.append("%s (%s)" % (devname, ",".join(slaves[devname])))
                     elif nm.nm_device_type_is_team(devname):
+                        devlist.append("%s (%s)" % (devname, ",".join(slaves[devname])))
+                    elif nm.nm_device_type_is_bridge(devname):
                         devlist.append("%s (%s)" % (devname, ",".join(slaves[devname])))
                     elif nm.nm_device_type_is_vlan(devname):
                         devlist.append("%s" % devname)
