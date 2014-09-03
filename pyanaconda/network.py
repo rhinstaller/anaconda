@@ -595,6 +595,8 @@ def ksdata_from_ifcfg(devname, uuid=None):
         nd.device = devname
     elif nm.nm_device_type_is_team(devname):
         nd.device = devname
+    elif nm.nm_device_type_is_bridge(devname):
+        nd.device = devname
     elif nm.nm_device_type_is_vlan(devname):
         if devname != default_ks_vlan_interface_name(nd.device, nd.vlanid):
             nd.interfacename = devname
@@ -612,6 +614,9 @@ def ifcfg_to_ksdata(ifcfg, devname):
         return None
     # no network command for team slaves
     if ifcfg.get("TEAM_MASTER"):
+        return None
+    # no network command for bridge slaves
+    if ifcfg.get("BRIDGE"):
         return None
 
     # ipv4 and ipv6
@@ -691,7 +696,7 @@ def ifcfg_to_ksdata(ifcfg, devname):
     # bonding
     # FIXME: dracut has only BOND_OPTS
     if ifcfg.get("BONDING_MASTER") == "yes" or ifcfg.get("TYPE") == "Bond":
-        slaves = get_bond_slaves_from_ifcfgs([devname, ifcfg.get("UUID")])
+        slaves = get_slaves_from_ifcfgs("MASTER", [devname, ifcfg.get("UUID")])
         if slaves:
             kwargs["bondslaves"] = ",".join(slaves)
         bondopts = ifcfg.get("BONDING_OPTS")
@@ -705,6 +710,20 @@ def ifcfg_to_ksdata(ifcfg, devname):
     if ifcfg.get("VLAN") == "yes" or ifcfg.get("TYPE") == "Vlan":
         kwargs["device"] = ifcfg.get("PHYSDEV")
         kwargs["vlanid"] = ifcfg.get("VLAN_ID")
+
+    # bridging
+    if ifcfg.get("TYPE") == "Bridge":
+        slaves = get_slaves_from_ifcfgs("BRIDGE", [devname, ifcfg.get("UUID")])
+        if slaves:
+            kwargs["bridgeslaves"] = ",".join(slaves)
+
+        bridgeopts = ifcfg.get("BRIDGING_OPTS").replace('_', '-').split()
+        if ifcfg.get("STP"):
+            bridgeopts.append("%s=%s" % ("stp", ifcfg.get("STP")))
+        if ifcfg.get("DELAY"):
+            bridgeopts.append("%s=%s" % ("forward-delay", ifcfg.get("DELAY")))
+        if bridgeopts:
+            kwargs["bridgeopts"] = ",".join(bridgeopts)
 
     # pylint: disable=no-member
     nd = handler.NetworkData(**kwargs)
@@ -743,6 +762,8 @@ def find_ifcfg_file_of_device(devname, root_path=""):
         ifcfg_path = find_ifcfg_file([("DEVICE", devname)])
     elif nm.nm_device_type_is_vlan(devname):
         ifcfg_path = find_ifcfg_file([("DEVICE", devname)])
+    elif nm.nm_device_type_is_bridge(devname):
+        ifcfg_path = find_ifcfg_file([("DEVICE", devname)])
     elif nm.nm_device_type_is_ethernet(devname):
         try:
             hwaddr = nm.nm_device_perm_hwaddress(devname)
@@ -758,6 +779,10 @@ def find_ifcfg_file_of_device(devname, root_path=""):
             if not ifcfg_path:
                 ifcfg_path = find_ifcfg_file([("HWADDR", hwaddr_check),
                                               ("TEAM_MASTER", nonempty)],
+                                             root_path)
+            if not ifcfg_path:
+                ifcfg_path = find_ifcfg_file([("HWADDR", hwaddr_check),
+                                              ("BRIDGE", nonempty)],
                                              root_path)
             if not ifcfg_path:
                 ifcfg_path = find_ifcfg_file([("HWADDR", hwaddr_check)], root_path)
@@ -781,9 +806,10 @@ def find_ifcfg_file(values, root_path=""):
             return filepath
     return None
 
-def get_bond_slaves_from_ifcfgs(master_specs):
-    """List of slave device names of master specified by master_specs.
+def get_slaves_from_ifcfgs(master_option, master_specs):
+    """List of slaves of master specified by master_specs in master_option.
 
+       master_option is ifcfg option containing spec of master
        master_specs is a list containing device name of master (dracut)
        and/or master's connection uuid
     """
@@ -792,7 +818,7 @@ def get_bond_slaves_from_ifcfgs(master_specs):
     for filepath in _ifcfg_files(netscriptsDir):
         ifcfg = IfcfgFile(filepath)
         ifcfg.read()
-        master = ifcfg.get("MASTER")
+        master = ifcfg.get(master_option)
         if master in master_specs:
             device = ifcfg.get("DEVICE")
             if device:
