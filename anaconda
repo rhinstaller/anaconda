@@ -475,9 +475,12 @@ def parseArguments(argv=None, boot_cmdline=None):
     ap.add_argument("--loglevel", metavar="LEVEL", help=help_parser.help_text("loglevel"))
     ap.add_argument("--syslog", metavar="HOST[:PORT]", help=help_parser.help_text("syslog"))
 
-    ap.add_argument("--noselinux", dest="selinux", action="store_false",
-                    default=True, help=help_parser.help_text("noselinux"))
-    ap.add_argument("--selinux", action="store_true", help=help_parser.help_text("selinux"))
+    from pykickstart.constants import SELINUX_DISABLED, SELINUX_ENFORCING
+    ap.add_argument("--noselinux", dest="selinux", action="store_const",
+                    const=SELINUX_DISABLED, default=constants.SELINUX_DEFAULT,
+                    help=help_parser.help_text("noselinux"))
+    ap.add_argument("--selinux", action="store_const",
+                    const=SELINUX_ENFORCING, help=help_parser.help_text("selinux"))
 
     ap.add_argument("--nompath", dest="mpath", action="store_false", default=True,
                     help=help_parser.help_text("nompath"))
