@@ -348,7 +348,7 @@ def ksnet_to_ifcfg(net, filename=None):
     if not dev:
         return
     if (not os.path.isdir("/sys/class/net/%s" % dev)
-        and not net.bondslaves and not net.teamslaves):
+        and not net.bondslaves and not net.teamslaves and not net.bridgeslaves):
         log.info("can't find device %s" % dev)
         return
     ifcfg = dict()
@@ -432,7 +432,7 @@ def ksnet_to_ifcfg(net, filename=None):
                             'NAME' : "%s slave %s" % (dev, i),
                             'UUID' : str(uuid.uuid4()),
                             'ONBOOT' : "yes",
-                            'MASTER' : dev,
+                            'MASTER' : ifcfg['UUID'],
                             'HWADDR' : readsysfile("/sys/class/net/%s/address" % slave),
                           }
             add_s390_settings(slave, slave_ifcfg)
@@ -462,6 +462,43 @@ def ksnet_to_ifcfg(net, filename=None):
 
             slave_filename = "/tmp/ifcfg/ifcfg-%s" % "_".join(slave_ifcfg['NAME'].split(" "))
             log.info("writing ifcfg %s for slave %s of team %s" % (slave_filename, slave, dev))
+            write_ifcfg(slave_filename, slave_ifcfg)
+
+    if net.bridgeslaves:
+
+        ifcfg.pop('HWADDR', None)
+        ifcfg['TYPE'] = "Bridge"
+        ifcfg['NAME'] = "Bridge connection %s" % dev
+
+        options = {}
+        for opt in net.bridgeopts.split(","):
+            key, _sep, value = opt.partition("=")
+            if not value:
+                log.error("Invalid bridge option %s", opt)
+                continue
+            key = key.replace('-', '_')
+            options[key] = value
+        stp = options.pop("stp", None)
+        if stp:
+            ifcfg['STP'] = stp
+        delay = options.pop("forward_delay", None)
+        if delay:
+            ifcfg['DELAY'] = delay
+        if options:
+            keyvalues = ["%s=%s" % (key, options[key]) for key in options]
+            ifcfg['BRIDGING_OPTS'] = '"' + " ".join(keyvalues) + '"'
+
+        for i, slave in enumerate(net.bridgeslaves.split(","), 1):
+            slave_ifcfg = {
+                            'TYPE' : "Ethernet",
+                            'NAME' : "%s slave %s" % (dev, i),
+                            'UUID' : str(uuid.uuid4()),
+                            'ONBOOT' : "yes",
+                            'BRIDGE' : dev,
+                            'HWADDR' : readsysfile("/sys/class/net/%s/address" % slave),
+                          }
+            slave_filename = "/tmp/ifcfg/ifcfg-%s" % "_".join(slave_ifcfg['NAME'].split(" "))
+            log.info("writing ifcfg %s for slave %s of bridge %s", slave_filename, slave, dev)
             write_ifcfg(slave_filename, slave_ifcfg)
 
     if net.vlanid:
