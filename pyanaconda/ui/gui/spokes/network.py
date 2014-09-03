@@ -216,6 +216,7 @@ class DeviceConfiguration(object):
         'vlan': NetworkManager.DeviceType.VLAN,
         'bond': NetworkManager.DeviceType.BOND,
         'team': NetworkManager.DeviceType.TEAM,
+        'bridge': NetworkManager.DeviceType.BRIDGE,
         }
 
     def __init__(self, device=None, con_uuid=None):
@@ -278,6 +279,7 @@ class NetworkControlBox(GObject.GObject):
         NetworkManager.DeviceType.TEAM,
         NetworkManager.DeviceType.BOND,
         NetworkManager.DeviceType.VLAN,
+        NetworkManager.DeviceType.BRIDGE,
     ]
 
     wired_ui_device_types = [
@@ -285,6 +287,7 @@ class NetworkControlBox(GObject.GObject):
         NetworkManager.DeviceType.TEAM,
         NetworkManager.DeviceType.BOND,
         NetworkManager.DeviceType.VLAN,
+        NetworkManager.DeviceType.BRIDGE,
     ]
 
     device_type_sort_value = {
@@ -299,6 +302,7 @@ class NetworkControlBox(GObject.GObject):
         NetworkManager.DeviceType.BOND: N_("Bond"),
         NetworkManager.DeviceType.VLAN: N_("VLAN"),
         NetworkManager.DeviceType.TEAM: N_("Team"),
+        NetworkManager.DeviceType.BRIDGE: N_("Bridge"),
     }
 
     def __init__(self, builder, spoke=None):
@@ -871,7 +875,8 @@ class NetworkControlBox(GObject.GObject):
 
     def _refresh_slaves(self, dev_cfg):
         if dev_cfg.device_type in [NetworkManager.DeviceType.BOND,
-                                   NetworkManager.DeviceType.TEAM]:
+                                   NetworkManager.DeviceType.TEAM,
+                                   NetworkManager.DeviceType.BRIDGE]:
             slaves = ""
             if dev_cfg.device:
                 slaves = ",".join(s.get_iface() for s in dev_cfg.device.get_slaves())
@@ -927,7 +932,8 @@ class NetworkControlBox(GObject.GObject):
             self.builder.get_object("label_wired_parent").hide()
             self.builder.get_object("remove_toolbutton").set_sensitive(False)
         elif dev_type in [NetworkManager.DeviceType.BOND,
-                          NetworkManager.DeviceType.TEAM]:
+                          NetworkManager.DeviceType.TEAM,
+                          NetworkManager.DeviceType.BRIDGE]:
             notebook.set_current_page(0)
             self.builder.get_object("heading_wired_slaves").show()
             self.builder.get_object("label_wired_slaves").show()
