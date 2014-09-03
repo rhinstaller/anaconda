@@ -439,6 +439,7 @@ reposdir=%s
             else:
                 # didn't find any base repo set and enabled
                 with self._base_repo_lock:
+                    log.debug("No base_repo found in %s", BASE_REPO_NAMES)
                     self._base_repo = None
 
     @property
