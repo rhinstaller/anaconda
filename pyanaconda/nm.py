@@ -319,6 +319,18 @@ def nm_device_type_is_team(name):
     """
     return nm_device_type(name) == NetworkManager.DeviceType.TEAM
 
+def nm_device_type_is_bridge(name):
+    """Is the type of device bridge?
+
+       :param name: name of device
+       :type name: str
+       :return: True if type of device is BRIDGE, False otherwise
+       :rtype: bool
+       :raise UnknownDeviceError: if device is not found
+       :raise PropertyNotFoundError: if property is not found
+    """
+    return nm_device_type(name) == NetworkManager.DeviceType.BRIDGE
+
 def nm_device_type_is_vlan(name):
     """Is the type of device vlan?
 
