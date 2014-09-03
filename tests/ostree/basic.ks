@@ -13,6 +13,9 @@ timezone America/New_York
 rootpw qweqwe
 shutdown
 
+# Graphical installs aren't working in jenkins right now.
+text
+
 %post
 cat <<EOF > /etc/systemd/system/default.target.wants/run-test.service
 [Unit]
