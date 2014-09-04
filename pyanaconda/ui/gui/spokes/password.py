@@ -130,16 +130,20 @@ class PasswordSpoke(FirstbootSpokeMixIn, NormalSpoke, GUISpokeInputCheckHandler)
 
     def apply(self):
         pw = self.pw.get_text()
-        if not pw:
-            return
-
-        self.data.rootpw.password = cryptPassword(pw)
-        self.data.rootpw.isCrypted = True
-        self.data.rootpw.lock = False
 
         # value from the kickstart changed
         self.data.rootpw.seen = False
         self._kickstarted = False
+
+        self.data.rootpw.lock = False
+
+        if not pw:
+            self.data.rootpw.password = None
+            self.data.rootpw.isCrypted = False
+            return
+
+        self.data.rootpw.password = cryptPassword(pw)
+        self.data.rootpw.isCrypted = True
 
         self.pw.set_placeholder_text("")
         self.confirm.set_placeholder_text("")
