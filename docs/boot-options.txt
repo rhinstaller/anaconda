@@ -312,8 +312,13 @@ Requires the remote syslog process to accept incoming connections.
 
 === inst.virtiolog ===
 Forward logs through the named virtio port (a character device at
-`/dev/virtio-ports/<name>`). A port named `org.fedoraproject.anaconda.log.0`
+`/dev/virtio-ports/<name>`).
+
+If not provided, a port named `org.fedoraproject.anaconda.log.0`
 will be used by default, if found.
+
+See https://fedoraproject.org/wiki/Anaconda/Logging for more info on setting
+up logging via virtio.
 
 === inst.zram ===
 Forces/disables (on/off) usage of zRAM swap for the installation process.
