@@ -130,6 +130,11 @@ class EditTUIDialog(NormalTUISpoke):
                 print(_(PASSWORD_CONFIRM_ERROR_TUI))
                 return None
 
+            # If an empty password was provided, unset the value
+            if not pw:
+                self.value = ""
+                return None
+
             valid, strength, message = validatePassword(pw, user=None)
 
             if not valid:
