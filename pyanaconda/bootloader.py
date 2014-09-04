@@ -1699,7 +1699,7 @@ class EFIGRUB(GRUB2):
             except ValueError:
                 continue
 
-            if _product == productName:
+            if _product == productName.split("-")[0]:
                 slot_id = slot[4:8]
                 # slot_id is hex, we can't use .isint and use this regex:
                 if not re.match("^[0-9a-fA-F]+$", slot_id):
@@ -1719,7 +1719,7 @@ class EFIGRUB(GRUB2):
         boot_disk = partition.disk
         boot_part_num = str(partition.partedPartition.number)
 
-        rc = self.efibootmgr("-c", "-w", "-L", productName,
+        rc = self.efibootmgr("-c", "-w", "-L", productName.split("-")[0],
                              "-d", boot_disk.path, "-p", boot_part_num,
                              "-l",
                              self.efi_dir_as_efifs_dir + self._efi_binary,
