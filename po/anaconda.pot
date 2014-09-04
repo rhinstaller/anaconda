@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: anaconda 19.31.85\n"
+"Project-Id-Version: anaconda 19.31.86\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
-"POT-Creation-Date: 2014-08-28 20:10-0700\n"
+"POT-Creation-Date: 2014-09-03 18:01-0700\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -136,7 +136,7 @@ msgstr ""
 
 #: pyanaconda/constants_text.py:40 pyanaconda/rescue.py:336
 #: pyanaconda/rescue.py:369 pyanaconda/rescue.py:382 pyanaconda/rescue.py:450
-#: pyanaconda/rescue.py:466 pyanaconda/rescue.py:477 anaconda:415
+#: pyanaconda/rescue.py:466 pyanaconda/rescue.py:477 anaconda:445
 msgid "OK"
 msgstr ""
 
@@ -324,53 +324,53 @@ msgid ""
 "The installer will now terminate."
 msgstr ""
 
-#: pyanaconda/install.py:66
+#: pyanaconda/install.py:77
 msgid "Configuring installed system"
 msgstr ""
 
-#: pyanaconda/install.py:79
+#: pyanaconda/install.py:90
 msgid "Writing network configuration"
 msgstr ""
 
-#: pyanaconda/install.py:83
+#: pyanaconda/install.py:94
 msgid "Creating users"
 msgstr ""
 
-#: pyanaconda/install.py:90
+#: pyanaconda/install.py:101
 msgid "Configuring addons"
 msgstr ""
 
-#: pyanaconda/install.py:93
+#: pyanaconda/install.py:104
 msgid "Generating initramfs"
 msgstr ""
 
-#: pyanaconda/install.py:97
+#: pyanaconda/install.py:108
 #, python-format
 msgid "Joining realm: %s"
 msgstr ""
 
-#: pyanaconda/install.py:100
+#: pyanaconda/install.py:111
 msgid "Running post-installation scripts"
 msgstr ""
 
-#: pyanaconda/install.py:146
+#: pyanaconda/install.py:169
 #, python-format
 msgid "Waiting for %s threads to finish"
 msgstr ""
 
-#: pyanaconda/install.py:150
+#: pyanaconda/install.py:175
 msgid "Setting up the installation environment"
 msgstr ""
 
-#: pyanaconda/install.py:171
+#: pyanaconda/install.py:196
 msgid "Discovering realm to join"
 msgstr ""
 
-#: pyanaconda/install.py:216
+#: pyanaconda/install.py:245
 msgid "Installing boot loader"
 msgstr ""
 
-#: pyanaconda/install.py:219 pyanaconda/packaging/livepayload.py:157
+#: pyanaconda/install.py:248 pyanaconda/packaging/livepayload.py:157
 #: pyanaconda/packaging/yumpayload.py:1638
 msgid "Performing post-installation setup tasks"
 msgstr ""
@@ -1322,7 +1322,7 @@ msgid "Repo URL"
 msgstr ""
 
 #: pyanaconda/ui/tui/spokes/source.py:388
-msgid "NFS <server>:/<path>"
+msgid "<server>:/<path>"
 msgstr ""
 
 #: pyanaconda/ui/tui/spokes/source.py:389
@@ -4364,31 +4364,31 @@ msgstr ""
 msgid "Welcome to Fedora"
 msgstr ""
 
-#: anaconda:370
+#: anaconda:400
 #, python-format
 msgid ""
 "%(product_name)s requires %(needed_ram)s MB of memory to install, but you "
 "only have %(total_ram)s MB on this machine.\n"
 msgstr ""
 
-#: anaconda:372
+#: anaconda:402
 #, python-format
 msgid ""
 "The %(product_name)s graphical installer requires %(needed_ram)s MB of "
 "memory, but you only have %(total_ram)s MB."
 msgstr ""
 
-#: anaconda:375
+#: anaconda:405
 msgid ""
 "\n"
 "Press <return> to reboot your system.\n"
 msgstr ""
 
-#: anaconda:377
+#: anaconda:407
 msgid "Not enough RAM"
 msgstr ""
 
-#: anaconda:378
+#: anaconda:408
 msgid ""
 " Try the text mode installer by running:\n"
 "\n"
@@ -4397,35 +4397,35 @@ msgid ""
 " from a root terminal."
 msgstr ""
 
-#: anaconda:381
+#: anaconda:411
 msgid " Starting text mode."
 msgstr ""
 
-#: anaconda:413
+#: anaconda:443
 msgid "Fatal Error"
 msgstr ""
 
-#: anaconda:526
+#: anaconda:556
 msgid "DISPLAY variable not set. Starting text mode."
 msgstr ""
 
-#: anaconda:534
+#: anaconda:564
 msgid "Graphical installation is not available. Starting text mode."
 msgstr ""
 
-#: anaconda:542
+#: anaconda:572
 msgid ""
 "Text mode provides a limited set of installation options. It does not offer "
 "custom partitioning for full control over the disk layout. Would you like to "
 "use VNC mode instead?"
 msgstr ""
 
-#: anaconda:665
+#: anaconda:695
 #, python-format
 msgid "Please ssh install@%s to begin the install."
 msgstr ""
 
-#: anaconda:667
+#: anaconda:697
 msgid "Please ssh install@<host> to continue installation."
 msgstr ""
 

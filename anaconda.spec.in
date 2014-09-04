@@ -257,6 +257,49 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Wed Sep 03 2014 Brian C. Lane <bcl@redhat.com> - 19.31.87-1
+- Filter out devices with no media from custom (bcl)
+  Resolves: rhbz#1049446
+- Skip nvram update on ppc64 image/dir installations (bcl)
+  Resolves: rhbz#1136486
+- For yum-based installs, move the progress bar while packages are installing.
+  (clumens)
+  Related: rhbz#1024403
+- Sync up step counts in install.py with reality. (clumens)
+  Related: rhbz#1024403
+- Change a confusing string in TUI NFS configuration screen. (sbueno+anaconda)
+  Resolves: rhbz#1057690
+- Split kickstart arg handling (bcl)
+  Related: rhbz#1088459
+- Fix --kickstart option (bcl)
+  Related: rhbz#1088459
+- Add anaconda_options.txt to makeupdates (dshea)
+  Related: rhbz#1088459
+- Allow the location of anaconda_options.txt to be overridden (dshea)
+  Related: rhbz#1088459
+- Add help texts to Anaconda CLI options (mkolman)
+  Related: rhbz#1088459
+- Use booleans and direct assignments for flags (mkolman)
+  Related: rhbz#1088459
+- Remove obsolete and disused Anaconda options (mkolman)
+  Related: rhbz#1088459
+- Move Anaconda version detection from isys to Python code (mkolman)
+  Related: rhbz#1088459
+- Parse boot options before parsing CLI options (mkolman)
+  Related: rhbz#1088459
+- Format the help text to properly fit to the terminal window (mkolman)
+  Related: rhbz#1088459
+- Switch Anaconda to argparse (mkolman)
+  Related: rhbz#1088459
+- Don't overwrite function argument when parsing help texts (mkolman)
+  Related: rhbz#1088459
+- Return CLI help text and version without delay (mkolman)
+  Related: rhbz#1088459
+- network: copy resolv.conf to chroot before installing packages (rvykydal)
+  Resolves: rhbz#1048520
+- network: fix crash on empty ksdevice boot option (rvykydal)
+  Resolves: rhbz#1096846
+
 * Thu Aug 28 2014 Brian C. Lane <bcl@redhat.com> - 19.31.86-1
 - CmdlineError should exit with a 1 (bcl)
   Related: rhbz#1102318
