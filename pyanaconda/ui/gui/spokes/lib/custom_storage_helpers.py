@@ -505,7 +505,7 @@ class ContainerDialog(GUIObject, GUIDialogInputCheckHandler):
         self._populate_raid()
 
         self._original_size = self.size
-        self._original_size_text = self.size.humanReadable(max_places=None)
+        self._original_size_text = self.size.humanReadable(max_places=2)
         self._sizeEntry.set_text(self._original_size_text)
         if self.size_policy == SIZE_POLICY_AUTO:
             self._sizeCombo.set_active(0)
