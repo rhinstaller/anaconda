@@ -200,12 +200,13 @@ class AnacondaLog:
         """
         TEMPLATE = "*.* %s;anaconda_syslog\n"
 
-        if not os.path.exists(self.VIRTIO_PORT) \
-           or not os.access(self.VIRTIO_PORT, os.W_OK):
+        vport = flags.cmdline.get('virtiolog', self.VIRTIO_PORT)
+
+        if not os.access(vport, os.W_OK):
             return
 
         with open(self.SYSLOG_CFGFILE, 'a') as cfgfile:
-            cfgfile.write(TEMPLATE % (self.VIRTIO_PORT,))
+            cfgfile.write(TEMPLATE % (vport,))
         self.restartSyslog()
 
 
