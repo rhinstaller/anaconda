@@ -72,7 +72,8 @@ for ks in ostree/*ks; do
                       --releasever 21 \
                       --ram 2048 \
                       --vcpus 2 \
-                      --vnc vnc
+                      --vnc vnc \
+                      --kernel-args text
     if [ $? != 0 ]; then
         status=1
         echo $(grep CRIT ${logdir}/virt-install.log)
