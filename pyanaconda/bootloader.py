@@ -1480,7 +1480,6 @@ class GRUB2(GRUB):
         defaults_file = "%s%s" % (iutil.getSysroot(), self.defaults_file)
         defaults = open(defaults_file, "w+")
         defaults.write("GRUB_TIMEOUT=%d\n" % self.timeout)
-        defaults.write("GRUB_DISTRIBUTOR=\"$(sed 's, release .*$,,g' /etc/system-release)\"\n")
         defaults.write("GRUB_DEFAULT=saved\n")
         defaults.write("GRUB_DISABLE_SUBMENU=true\n")
         if self.console and self.has_serial_console:
