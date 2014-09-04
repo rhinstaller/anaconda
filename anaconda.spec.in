@@ -307,6 +307,11 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Thu Sep 04 2014 Samantha N. Bueno <sbueno+anaconda@redhat.com> - 21.48.4-1
+- Use first part of Product for UEFI entry (#1128474) (bcl)
+- Use first part of Product as repo name (#1128474) (bcl)
+- makeupdates: Report git diff errors (bcl)
+
 * Wed Aug 27 2014 Samantha N. Bueno <sbueno+anaconda@redhat.com> - 21.48.3-1
 - Prevent crashes due to accessing X server from multiple threads (#1134507)
   (vpodzime)
