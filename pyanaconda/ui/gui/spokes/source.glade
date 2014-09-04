@@ -299,7 +299,7 @@
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
                         <property name="xalign">0</property>
-                        <property name="label" translatable="yes" context="GUI|Software Source|Proxy Dialog">_Proxy URL</property>
+                        <property name="label" translatable="yes" context="GUI|Software Source|Proxy Dialog">_Proxy URL:</property>
                         <property name="use_underline">True</property>
                         <property name="mnemonic_widget">proxyURLEntry</property>
                         <attributes>
@@ -375,7 +375,7 @@
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
                         <property name="xalign">0</property>
-                        <property name="label" translatable="yes" context="GUI|Software Source|Proxy Dialog">User _name</property>
+                        <property name="label" translatable="yes" context="GUI|Software Source|Proxy Dialog">User _name:</property>
                         <property name="use_underline">True</property>
                         <property name="mnemonic_widget">proxyUsernameEntry</property>
                         <attributes>
@@ -392,7 +392,7 @@
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
                         <property name="xalign">0</property>
-                        <property name="label" translatable="yes" context="GUI|Software Source|Proxy Dialog">Pass_word</property>
+                        <property name="label" translatable="yes" context="GUI|Software Source|Proxy Dialog">Pass_word:</property>
                         <property name="use_underline">True</property>
                         <property name="mnemonic_widget">proxyPasswordEntry</property>
                         <attributes>
@@ -1068,6 +1068,7 @@
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
                         <property name="hexpand">True</property>
+                        <property name="row_spacing">6</property>
                         <property name="column_spacing">6</property>
                         <child>
                           <object class="GtkEntry" id="repoUrlEntry">
