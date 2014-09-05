@@ -257,6 +257,24 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Fri Sep 05 2014 David Lehman <dlehman@redhat.com> - 19.31.88-1
+- Adjust to python-blivet-0.61.0.1
+  Related: rhbz#1075561
+- Make rescue_mode part of flags, hence more publicly available (amulhern)
+  Related: rhbz#1090009
+  Related: rhbz#1075561
+- Use human readable sizes with two decimal spaces in the GUI (vpodzime)
+  Resolves: rhbz#1067080
+  Related: rhbz#1075561
+- fix inst.virtiolog (wwoods)
+  Resolves: rhbz#1074499
+- network: don't crash, just log for unrecognized bond options (rvykydal)
+  Resolves: rhbz#1039006
+- network: don't traceback on invalid team options (rvykydal)
+  Resolves: rhbz#1114282
+- Add a Licensing category (mkolman)
+  Related: rhbz#1039677
+
 * Wed Sep 03 2014 Brian C. Lane <bcl@redhat.com> - 19.31.87-1
 - Filter out devices with no media from custom (bcl)
   Resolves: rhbz#1049446
