@@ -223,6 +223,10 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Fri Sep 05 2014 Samantha N. Bueno <sbueno+anaconda@redhat.com> - 13.21.228-1
+- Prevent duplicate snapshot accounting. (dlehman)
+  Related: rhbz#1043916
+
 * Fri Aug 29 2014 Samantha N. Bueno <sbueno+anaconda@redhat.com> - 13.21.227-1
 - Fix typo in previous patch "Correctly determine whether...". (dlehman)
   Related: rhbz#842920
