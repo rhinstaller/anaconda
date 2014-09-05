@@ -26,7 +26,7 @@ from pyanaconda.i18n import _, N_
 
 import os, types
 
-class InstallClass(BaseInstallClass):
+class FedoraBaseInstallClass(BaseInstallClass):
     # name has underscore used for mnemonics, strip if you dont need it
     id = "fedora"
     name = N_("_Fedora")

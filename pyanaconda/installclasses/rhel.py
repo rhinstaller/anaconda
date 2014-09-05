@@ -25,7 +25,7 @@ from pyanaconda import nm
 from pyanaconda import iutil
 import types
 
-class InstallClass(BaseInstallClass):
+class RHELBaseInstallClass(BaseInstallClass):
     # name has underscore used for mnemonics, strip if you dont need it
     id = "rhel"
     name = N_("Red Hat Enterprise Linux")
