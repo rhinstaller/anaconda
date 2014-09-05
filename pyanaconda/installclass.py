@@ -185,7 +185,6 @@ def availableClasses(showHidden=0):
             continue
         done[mainName] = 1
 
-
         try:
             found = imputil.imp.find_module(mainName)
         except ImportError:
@@ -195,15 +194,12 @@ def availableClasses(showHidden=0):
         try:
             loaded = imputil.imp.load_module(mainName, found[0], found[1], found[2])
 
-            obj = loaded.InstallClass
-
-            if 'sortPriority' in obj.__dict__:
-                sortOrder = obj.sortPriority
-            else:
-                sortOrder = 0
-
-            if obj.hidden == 0 or showHidden == 1:
-                lst.append(((obj.name, obj), sortOrder))
+            for (_key, obj) in loaded.__dict__.items():
+                # If it's got these two methods, it's an InstallClass.
+                if hasattr(obj, "setDefaultPartitioning") and hasattr(obj, "setPackageSelection"):
+                    sortOrder = getattr(obj, "sortPriority", 0)
+                    if obj.hidden == 0 or showHidden == 1:
+                        lst.append(((obj.name, obj), sortOrder))
         except (ImportError, AttributeError):
             log.warning ("module import of %s failed: %s", mainName, sys.exc_type)
 
