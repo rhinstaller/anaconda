@@ -1593,6 +1593,9 @@ class DeviceTree(object):
                                                    vg_name, origin_name))
                     continue
 
+                if lv_name in origin.snapshots:
+                    continue
+
                 log.debug("adding %dMB to %s snapshot total"
                             % (lv_sizes[index], origin.name))
                 origin.snapshotSpace += lv_sizes[index]
