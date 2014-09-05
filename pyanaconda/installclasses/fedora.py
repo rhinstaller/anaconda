@@ -23,7 +23,7 @@ from pyanaconda import network
 from pyanaconda import nm
 from pyanaconda.i18n import N_
 
-class InstallClass(BaseInstallClass):
+class FedoraBaseInstallClass(BaseInstallClass):
     # name has underscore used for mnemonics, strip if you dont need it
     id = "fedora"
     name = N_("_Fedora")

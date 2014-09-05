@@ -23,7 +23,7 @@ from pyanaconda.product import productName
 from pyanaconda import network
 from pyanaconda import nm
 
-class InstallClass(BaseInstallClass):
+class RHELBaseInstallClass(BaseInstallClass):
     # name has underscore used for mnemonics, strip if you dont need it
     id = "rhel"
     name = N_("Red Hat Enterprise Linux")
