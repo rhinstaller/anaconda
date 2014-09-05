@@ -933,24 +933,10 @@ class BootLoader(object):
         except OSError as e:
             log.error("failed to set config file permissions: %s", e)
 
-    def add_crash_args(self):
-        buf = ""
-        if os.access("%s%s" % (iutil.getSysroot(), "/usr/sbin/rhcrashkernel-param"), \
-                     os.X_OK):
-            (pread, pwrite) = os.pipe()
-            os.close(pwrite)
-            buf = iutil.execWithCapture("/usr/sbin/rhcrashkernel-param", [],
-                                        stdin=pread,
-                                        root=iutil.getSysroot())
-            os.close(pread)
-        self.boot_args.add(buf.replace('\n', ' '))
-
     def write_config(self):
         """ Write the bootloader configuration. """
         if not self.config_file:
             raise BootLoaderError("no config file defined for this boot loader")
-
-        self.add_crash_args()
 
         config_path = os.path.normpath(iutil.getSysroot() + self.config_file)
         if os.access(config_path, os.R_OK):
@@ -1550,8 +1536,6 @@ class GRUB2(GRUB):
         os.chmod(users_file, 0700)
 
     def write_config(self):
-        self.add_crash_args()
-
         self.write_config_console(None)
         # See if we have a password and if so update the boot args before we
         # write out the defaults file.
