@@ -54,9 +54,6 @@ def exitHandler(rebootData, storage, exitCode=None):
         if os.path.isdir('/mnt/sysimage/root'):
             cov.save()
 
-    if flags.usevnc:
-        vnc.shutdownServer()
-
     if exitCode:
         anaconda.intf.shutdown()
 
@@ -93,6 +90,11 @@ def exitHandler(rebootData, storage, exitCode=None):
             subprocess.Popen(["systemctl", "--no-wall", "halt"])
         else: # reboot action is KS_REBOOT or None
             subprocess.Popen(["systemctl", "--no-wall", "reboot"])
+
+    # NOTE: anaconda may terminate early (via XIOErrorHandler) when you kill
+    # the X server, so this should happen last.
+    if flags.usevnc:
+        vnc.shutdownServer()
 
 def startMetacityWM():
     childpid = os.fork()
