@@ -1445,6 +1445,21 @@
                       </packing>
                     </child>
                     <child>
+                      <object class="GtkButton" id="addDASDButton">
+                        <property name="label" translatable="yes">Add _DASD...</property>
+                        <property name="visible">True</property>
+                        <property name="can_focus">True</property>
+                        <property name="receives_default">True</property>
+                        <property name="use_underline">True</property>
+                        <signal name="clicked" handler="on_add_dasd_clicked" swapped="no"/>
+                      </object>
+                      <packing>
+                        <property name="expand">False</property>
+                        <property name="fill">True</property>
+                        <property name="position">1</property>
+                      </packing>
+                    </child>
+                    <child>
                       <object class="GtkButton" id="addISCSIButton">
                         <property name="label" translatable="yes" context="GUI|Installation Destination|Filter">Add _iSCSI Target...</property>
                         <property name="visible">True</property>
@@ -1456,7 +1471,7 @@
                       <packing>
                         <property name="expand">False</property>
                         <property name="fill">True</property>
-                        <property name="position">1</property>
+                        <property name="position">2</property>
                       </packing>
                     </child>
                     <child>
@@ -1471,7 +1486,7 @@
                       <packing>
                         <property name="expand">False</property>
                         <property name="fill">True</property>
-                        <property name="position">2</property>
+                        <property name="position">3</property>
                       </packing>
                     </child>
                   </object>
