@@ -575,7 +575,7 @@ class FilterSpoke(NormalSpoke):
     def on_add_dasd_clicked(self, widget, *args):
         dialog = DASDDialog(self.data, self.storage)
 
-        with enlightbox(self.window, dialog.window):
+        with self.main_window.enlightbox(self.window, dialog.window):
             dialog.refresh()
             dialog.run()
 
