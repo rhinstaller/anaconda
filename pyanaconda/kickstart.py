@@ -1319,7 +1319,7 @@ class RaidData(commands.raid.F18_RaidData):
            mountopts=self.fsopts)
         if not kwargs["fmt"].type:
             raise KickstartValueError(formatErrorMsg(self.lineno,
-                    msg=_("The \"%s\" filesystem type is not supported.") % ty))
+                    msg=_("The \"%s\" file system type is not supported.") % ty))
 
         kwargs["name"] = devicename
         kwargs["level"] = self.level
