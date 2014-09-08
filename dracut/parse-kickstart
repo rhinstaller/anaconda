@@ -322,6 +322,16 @@ def ksnet_to_dracut(args, lineno, net, bootdev=False):
 
     return " ".join(line)
 
+def add_s390_settings(dev, ifcfg):
+    s390cfg = s390_settings(dev)
+    if s390cfg['SUBCHANNELS']:
+        ifcfg.pop('HWADDR', None)
+        ifcfg['SUBCHANNELS'] = s390cfg['SUBCHANNELS']
+    if s390cfg['NETTYPE']:
+        ifcfg['NETTYPE'] = s390cfg['NETTYPE']
+    if s390cfg['OPTIONS']:
+        ifcfg['OPTIONS'] = s390cfg['OPTIONS']
+
 def ksnet_to_ifcfg(net, filename=None):
     '''Write an ifcfg file for the given kickstart network config'''
     dev = net.device
@@ -348,14 +358,7 @@ def ksnet_to_ifcfg(net, filename=None):
     # we use it to activate devcies by NM on start
     ifcfg['ONBOOT'] = "yes" if net.activate else "no"
 
-    s390cfg = s390_settings(dev)
-    if s390cfg['SUBCHANNELS']:
-        ifcfg.pop('HWADDR', None)
-        ifcfg['SUBCHANNELS'] = s390cfg['SUBCHANNELS']
-    if s390cfg['NETTYPE']:
-        ifcfg['NETTYPE'] = s390cfg['NETTYPE']
-    if s390cfg['OPTIONS']:
-        ifcfg['OPTIONS'] = s390cfg['OPTIONS']
+    add_s390_settings(dev, ifcfg)
 
     # dhcp etc.
     ifcfg['BOOTPROTO'] = net.bootProto
@@ -424,6 +427,7 @@ def ksnet_to_ifcfg(net, filename=None):
                             'MASTER' : dev,
                             'HWADDR' : readsysfile("/sys/class/net/%s/address" % slave),
                           }
+            add_s390_settings(slave, slave_ifcfg)
             slave_filename = "/tmp/ifcfg/ifcfg-%s" % "_".join(slave_ifcfg['NAME'].split(" "))
             log.info("writing ifcfg %s for slave %s of bond %s" % (slave_filename, slave, dev))
             write_ifcfg(slave_filename, slave_ifcfg)
