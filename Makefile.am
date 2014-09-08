@@ -44,7 +44,7 @@ dist_sbin_SCRIPTS     = anaconda
 
 ARCHIVE_TAG   = $(PACKAGE_NAME)-$(PACKAGE_VERSION)-$(PACKAGE_RELEASE)
 
-TX_PULL_ARGS = -a --disable-overwrite
+TX_PULL_ARGS = -a
 TX_PUSH_ARGS = -s
 
 tag:
