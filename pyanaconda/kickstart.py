@@ -853,7 +853,7 @@ class LogVolData(commands.logvol.F20_LogVolData):
                         fsprofile=self.fsprofile,
                         mountopts=self.fsopts)
         if not fmt.type and not self.thin_pool:
-            raise KickstartValueError(formatErrorMsg(self.lineno, msg="The \"%s\" filesystem type is not supported." % ty))
+            raise KickstartValueError(formatErrorMsg(self.lineno, msg="The \"%s\" file system type is not supported." % ty))
 
         # If we were given a pre-existing LV to create a filesystem on, we need
         # to verify it and its VG exists and then schedule a new format action
@@ -1115,7 +1115,7 @@ class PartitionData(commands.partition.F18_PartData):
            size=size)
         if not kwargs["fmt"].type:
             raise KickstartValueError(formatErrorMsg(self.lineno,
-                    msg=_("The \"%s\" filesystem type is not supported.") % ty))
+                    msg=_("The \"%s\" file system type is not supported.") % ty))
 
         # If we were given a specific disk to create the partition on, verify
         # that it exists first.  If it doesn't exist, see if it exists with
