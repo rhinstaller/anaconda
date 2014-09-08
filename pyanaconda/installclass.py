@@ -37,7 +37,7 @@ from pyanaconda.kickstart import getAvailableDiskSpace
 
 class BaseInstallClass(object):
     # default to not being hidden
-    hidden = 0
+    hidden = False
     name = "base"
     bootloaderTimeoutDefault = None
     bootloaderExtraArgs = []
@@ -57,9 +57,6 @@ class BaseInstallClass(object):
     # The default filesystem type to use.  If None, we will use whatever
     # Blivet uses by default.
     defaultFS = None
-
-    # don't select this class by default
-    default = 0
 
     @property
     def l10n_domain(self):
@@ -122,8 +119,8 @@ class BaseInstallClass(object):
 allClasses = []
 allClasses_hidden = []
 
-# returns ( className, classObject, classLogo ) tuples
-def availableClasses(showHidden=0):
+# returns ( className, classObject ) tuples
+def availableClasses(showHidden=False):
     global allClasses
     global allClasses_hidden
 
@@ -198,7 +195,7 @@ def availableClasses(showHidden=0):
                 # If it's got these two methods, it's an InstallClass.
                 if hasattr(obj, "setDefaultPartitioning") and hasattr(obj, "setPackageSelection"):
                     sortOrder = getattr(obj, "sortPriority", 0)
-                    if obj.hidden == 0 or showHidden == 1:
+                    if not obj.hidden or showHidden:
                         lst.append(((obj.name, obj), sortOrder))
         except (ImportError, AttributeError):
             log.warning ("module import of %s failed: %s", mainName, sys.exc_type)
@@ -217,8 +214,8 @@ def availableClasses(showHidden=0):
 
 def getBaseInstallClass():
     # figure out what installclass we should base on.
-    allavail = availableClasses(showHidden = 1)
-    avail = availableClasses(showHidden = 0)
+    allavail = availableClasses(showHidden=True)
+    avail = availableClasses(showHidden=False)
 
     if len(avail) == 1:
         (cname, cobject) = avail[0]

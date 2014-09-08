@@ -17,19 +17,16 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-from pyanaconda.i18n import N_
 from pyanaconda.installclass import BaseInstallClass
 from pyanaconda.product import productName
 from pyanaconda import network
 from pyanaconda import nm
 
 class RHELBaseInstallClass(BaseInstallClass):
-    # name has underscore used for mnemonics, strip if you dont need it
-    id = "rhel"
-    name = N_("Red Hat Enterprise Linux")
+    name = "Red Hat Enterprise Linux"
     sortPriority = 10000
     if not productName.startswith("Red Hat "):
-        hidden = 1
+        hidden = True
     defaultFS = "xfs"
 
     bootloaderTimeoutDefault = 5
