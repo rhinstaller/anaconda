@@ -26,12 +26,10 @@ from pyanaconda import iutil
 import types
 
 class RHELBaseInstallClass(BaseInstallClass):
-    # name has underscore used for mnemonics, strip if you dont need it
-    id = "rhel"
-    name = N_("Red Hat Enterprise Linux")
+    name = "Red Hat Enterprise Linux"
     sortPriority = 20000
     if not productName.startswith(("Red Hat ", "RHEL Atomic")):
-        hidden = 1
+        hidden = True
     defaultFS = "xfs"
 
     bootloaderTimeoutDefault = 5

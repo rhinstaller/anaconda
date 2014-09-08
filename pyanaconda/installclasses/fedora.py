@@ -22,17 +22,13 @@ from pyanaconda.product import productName
 from pyanaconda import network
 from pyanaconda import iutil
 from pyanaconda import nm
-from pyanaconda.i18n import _, N_
-
 import os, types
 
 class FedoraBaseInstallClass(BaseInstallClass):
-    # name has underscore used for mnemonics, strip if you dont need it
-    id = "fedora"
-    name = N_("_Fedora")
+    name = "Fedora"
     sortPriority = 10000
     if productName.startswith("Red Hat "):
-        hidden = 1
+        hidden = True
 
     _l10n_domain = "anaconda"
 
