@@ -223,6 +223,11 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Mon Sep 08 2014 Samantha N. Bueno <sbueno+anaconda@redhat.com> - 13.21.229-1
+- Revert "Use edd fcoe boot option instead of enumerating all ifaces"
+  (rvykydal)
+  Resolves: rhbz#1103920
+
 * Fri Sep 05 2014 Samantha N. Bueno <sbueno+anaconda@redhat.com> - 13.21.228-1
 - Prevent duplicate snapshot accounting. (dlehman)
   Related: rhbz#1043916
