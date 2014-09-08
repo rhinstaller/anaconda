@@ -38,6 +38,7 @@ from pyanaconda.ui.gui.spokes import NormalSpoke
 from pyanaconda.ui.gui.spokes.advstorage.fcoe import FCoEDialog
 from pyanaconda.ui.gui.spokes.advstorage.iscsi import ISCSIDialog
 from pyanaconda.ui.gui.spokes.advstorage.zfcp import ZFCPDialog
+from pyanaconda.ui.gui.spokes.advstorage.dasd import DASDDialog
 from pyanaconda.ui.gui.spokes.lib.cart import SelectedDisksDialog
 from pyanaconda.ui.gui.categories.system import SystemCategory
 
@@ -668,6 +669,17 @@ class FilterSpoke(NormalSpoke):
 
     def on_add_zfcp_clicked(self, widget, *args):
         dialog = ZFCPDialog(self.data, self.storage)
+
+        with enlightbox(self.window, dialog.window):
+            dialog.refresh()
+            dialog.run()
+
+        # We now need to refresh so any new disks picked up by adding advanced
+        # storage are displayed in the UI.
+        self.refresh()
+
+    def on_add_dasd_clicked(self, widget, *args):
+        dialog = DASDDialog(self.data, self.storage)
 
         with enlightbox(self.window, dialog.window):
             dialog.refresh()
