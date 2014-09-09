@@ -1749,7 +1749,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
             cont_size = container.size_policy
             cont_name = container.name
             factory = devicefactory.get_device_factory(self._storage_playground,
-                                        device_type, 0,
+                                        device_type, Size(0),
                                         disks=container.disks,
                                         container_name=cont_name,
                                         container_encrypted=cont_encrypted,
