@@ -30,6 +30,7 @@ from pyanaconda.flags import flags
 from pyanaconda.i18n import CN_, CP_
 
 from pyanaconda.ui.lib.disks import getDisks, isLocalDisk
+from pyanaconda.ui.gui.utils import timed_action
 from pyanaconda.ui.gui.spokes import NormalSpoke
 from pyanaconda.ui.gui.spokes.advstorage.fcoe import FCoEDialog
 from pyanaconda.ui.gui.spokes.advstorage.iscsi import ISCSIDialog
@@ -548,6 +549,11 @@ class FilterSpoke(NormalSpoke):
             self.selected_disks.remove(self._store[itr][3])
 
         self._update_summary()
+
+    @timed_action(delay=50, threshold=100)
+    def on_refresh_clicked(self, widget, *args):
+        self.storage.devicetree.populate()
+        self.refresh()
 
     def on_add_iscsi_clicked(self, widget, *args):
         dialog = ISCSIDialog(self.data, self.storage)
