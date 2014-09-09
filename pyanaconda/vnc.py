@@ -120,7 +120,9 @@ class VncServer:
         if self.ip.find(':') != -1:
             ipstr = "[%s]" % (self.ip,)
 
-        if (self.name is not None) and (not self.name.startswith('localhost')) and (ipstr is not None):
+        name_ips = [i[4][0] for i in socket.getaddrinfo(self.name, 0)]
+        if self.name is not None and not self.name.startswith('localhost') \
+           and ipstr is not None and self.ip in name_ips:
             self.connxinfo = "%s:%s (%s:%s)" % (socket.getfqdn(name=self.name), self.display, ipstr, self.display)
         elif ipstr is not None:
             self.connxinfo = "%s:%s" % (ipstr, self.display,)
