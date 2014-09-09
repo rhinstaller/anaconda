@@ -656,6 +656,13 @@ class Firstboot(commands.firstboot.FC3_Firstboot):
 
     def execute(self, *args):
         action = "enable"
+        services = ["initial-setup-graphical.service",
+                    "initial-setup-text.service"]
+
+        if not any(os.path.exists(iutil.getSysroot() + "/lib/systemd/system/" + path)
+                   for path in services):
+            # none of the first boot utilities installed, nothing to do here
+            return
 
         if self.firstboot == FIRSTBOOT_SKIP:
             action = "disable"
@@ -663,8 +670,7 @@ class Firstboot(commands.firstboot.FC3_Firstboot):
             f = open(iutil.getSysroot() + "/etc/reconfigSys", "w+")
             f.close()
 
-        iutil.execInSysroot("systemctl", [action, "initial-setup-graphical.service",
-                                          "initial-setup-text.service"])
+        iutil.execInSysroot("systemctl", [action] + services)
 
 class Group(commands.group.F12_Group):
     def execute(self, storage, ksdata, instClass, users):
