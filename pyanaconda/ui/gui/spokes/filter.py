@@ -157,6 +157,11 @@ class FilterPage(object):
 
         return disk.name
 
+    def _on_entry_activated(self, _entry, find_button):
+        # User pressed enter on a search related entry box, trigger search by emitting
+        # the "clicked" signal from the corresponding find button
+        find_button.emit("clicked")
+
 class SearchPage(FilterPage):
     def __init__(self, storage, builder):
         FilterPage.__init__(self, storage, builder)
@@ -170,6 +175,11 @@ class SearchPage(FilterPage):
         self._targetEntry = self.builder.get_object("searchTargetEntry")
 
         self._combo = self.builder.get_object("searchTypeCombo")
+
+        find_button = self.builder.get_object("searchFindButton")
+        self._lunEntry.connect("activate", self._on_entry_activated, find_button)
+        self._wwidEntry.connect("activate", self._on_entry_activated, find_button)
+        self._targetEntry.connect("activate", self._on_entry_activated, find_button)
 
     def setup(self, store, selectedNames, disks):
         self._combo.set_active(0)
@@ -244,6 +254,9 @@ class MultipathPage(FilterPage):
 
         self._combo = self.builder.get_object("multipathTypeCombo")
 
+        find_button = self.builder.get_object("multipathFindButton")
+        self._wwidEntry.connect("activate", self._on_entry_activated, find_button)
+
     def ismember(self, device):
         return isinstance(device, MultipathDevice)
 
@@ -311,6 +324,9 @@ class OtherPage(FilterPage):
         self._vendorCombo = self.builder.get_object("otherVendorCombo")
 
         self._combo = self.builder.get_object("otherTypeCombo")
+
+        find_button = self.builder.get_object("otherFindButton")
+        self._idEntry.connect("activate", self._on_entry_activated, find_button)
 
     def ismember(self, device):
         return isinstance(device, iScsiDiskDevice) or isinstance(device, FcoeDiskDevice)
@@ -412,6 +428,11 @@ class ZPage(FilterPage):
         self._combo = self.builder.get_object("zTypeCombo")
 
         self._isS390 = arch.isS390()
+
+        find_button = self.builder.get_object("zFindButton")
+        self._ccwEntry.connect("activate", self._on_entry_activated, find_button)
+        self._wwpnEntry.connect("activate", self._on_entry_activated, find_button)
+        self._lunEntry.connect("activate", self._on_entry_activated, find_button)
 
     def clear(self):
         self._lunEntry.set_text("")
