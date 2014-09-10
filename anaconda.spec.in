@@ -309,6 +309,47 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Wed Sep 10 2014 Brian C. Lane <bcl@redhat.com> - 22.5-1
+- Fix noselinux cmdline default (#1137049) (bcl)
+- Revert productName repo name change (#1128474) (bcl)
+- Remove the --disable-overwrite parameter for the Transifex client (mkolman)
+- Do not try to disable no firstboot services (#1139621) (vpodzime)
+- Snapshot free space after clearpart for swap suggestion (#1132436) (vpodzime)
+- Really fix an enlightbox call. (dshea)
+- Correct issues merged from rhel-7 (dshea)
+- A couple updates to installclasses. (clumens)
+- Clear the kickstart password if cleared by the user (#1133185) (dshea)
+- Change the accelerator key for Add DASD label. (sbueno+anaconda)
+- Add dialog box for adding DASDs. (sbueno+anaconda)
+- Add a button for adding an ECKD DASD. (sbueno+anaconda)
+- Let finding install classes be more flexible for Fedora (#1138820). (clumens)
+- fix inst.virtiolog (#1074499) (wwoods)
+- Display container sizes to just two places, as well. (clumens)
+- Fix two minor things on the source spoke. (clumens)
+- border_width=5 -> border_width=6 in dasdfmt.glade. (clumens)
+- Use first part of Product for UEFI entry (#1128474) (bcl)
+- We can't pass "text" in the ostree .ks file because lmc doesn't like that.
+  (clumens)
+- Remove inactive languages from LINGUAS. (dshea)
+- Do the ostree test in text mode for now. (clumens)
+- Skip nvram update on ppc64 image/dir installations (#1136486) (bcl)
+- Use first part of Product as repo name (#1128474) (bcl)
+- makeupdates: Report git diff errors (bcl)
+- For yum-based installs, move the progress bar while packages are installing.
+  (clumens)
+- Remove the mnemonics from the custom part toolbar. (clumens)
+- Remove references to ia64. (clumens)
+- Change a confusing string in TUI NFS configuration screen. (#1057690)
+  (sbueno+anaconda)
+- Fix two problems with the volume label and combo on custom partitioning.
+  (clumens)
+- Disable the Modify SW link on livecd installs (#1133726). (clumens)
+- Require dmidecode for ARM (#1134651, jdisnard). (clumens)
+- Require a larger /boot (#1129629). (clumens)
+- Use suggested-action on more buttons (#1131254) (dshea)
+- CmdlineError should exit with a 1 (bcl)
+- Let gtk determine the allocation for overlays. (dshea)
+
 * Wed Aug 27 2014 Brian C. Lane <bcl@redhat.com> - 22.4-1
 - jwb would like us to be clear that bugs could be the system firmware...
   (pjones)
