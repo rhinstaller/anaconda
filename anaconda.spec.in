@@ -307,6 +307,11 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Sep 09 2014 Samantha N. Bueno <sbueno+anaconda@redhat.com> - 21.48.5-1
+- Revert productName repo name change (#1128474) (bcl)
+- Do not try to disable no firstboot services (#1139621) (vpodzime)
+- Let finding install classes be more flexible for Fedora (#1138820). (clumens)
+
 * Thu Sep 04 2014 Samantha N. Bueno <sbueno+anaconda@redhat.com> - 21.48.4-1
 - Use first part of Product for UEFI entry (#1128474) (bcl)
 - Use first part of Product as repo name (#1128474) (bcl)
