@@ -245,7 +245,7 @@ class Hub(GUIObject, common.Hub):
 
         if not self._spokes and self.window.get_may_continue():
             # no spokes, move on
-            log.info("no spokes available on %s, continuing automatically", self)
+            log.debug("no spokes available on %s, continuing automatically", self)
             gtk_call_once(self.window.emit, "continue-clicked")
 
         click_continue = False
@@ -270,7 +270,7 @@ class Hub(GUIObject, common.Hub):
                     self._notReadySpokes.append(spoke)
 
                 self._updateContinueButton()
-                log.info("spoke is not ready: %s", spoke)
+                log.debug("spoke is not ready: %s", spoke)
             elif code == hubQ.HUB_CODE_READY:
                 self._updateCompleteness(spoke)
 
@@ -278,13 +278,18 @@ class Hub(GUIObject, common.Hub):
                     self._notReadySpokes.remove(spoke)
 
                 self._updateContinueButton()
-                log.info("spoke is ready: %s", spoke)
+                log.debug("spoke is ready: %s", spoke)
 
                 # If this is a real kickstart install (the kind with an input ks file)
                 # and all spokes are now completed, we should skip ahead to the next
                 # hub automatically.  Take into account the possibility the user is
                 # viewing a spoke right now, though.
                 if flags.automatedInstall:
+                    # Users might find it helpful to know why a kickstart install
+                    # went interactive.  Log that here.
+                    if not spoke.completed:
+                        log.info("kickstart installation stopped for info: %s", spoke.title.replace("_", ""))
+
                     # Spokes that were not initially ready got the execute call in
                     # _createBox skipped.  Now that it's become ready, do it.  Note
                     # that we also provide a way to skip this processing (see comments
@@ -301,14 +306,14 @@ class Hub(GUIObject, common.Hub):
 
             elif code == hubQ.HUB_CODE_MESSAGE:
                 spoke.selector.set_property("status", args[1])
-                log.info("setting %s status to: %s", spoke, args[1])
+                log.debug("setting %s status to: %s", spoke, args[1])
 
             q.task_done()
 
         # queue is now empty, should continue be clicked?
         if self._autoContinue and click_continue and self.window.get_may_continue():
             # enqueue the emit to the Gtk message queue
-            log.info("_autoContinue clicking continue button")
+            log.debug("_autoContinue clicking continue button")
             gtk_call_once(self.window.emit, "continue-clicked")
 
         return True

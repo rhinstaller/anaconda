@@ -64,7 +64,10 @@ class SummaryHub(TUIHub):
             self.close()
             return None
 
-        if not flags.ksprompt:
+        if flags.ksprompt:
+            for spoke in incompleteSpokes:
+                log.info("kickstart installation stopped for info: %s", spoke.title)
+        else:
             errtxt = _("The following mandatory spokes are not completed:") + \
                      "\n" + "\n".join(spoke.title for spoke in incompleteSpokes)
             log.error("CmdlineError: %s", errtxt)
