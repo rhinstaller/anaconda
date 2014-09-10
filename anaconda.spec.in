@@ -257,6 +257,26 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Wed Sep 10 2014 Brian C. Lane <bcl@redhat.com> - 19.31.89-1
+- Fix noselinux cmdline default (bcl)
+  Resolves: rhbz#1137049
+- Snapshot free space after clearpart for swap suggestion (vpodzime)
+  Resolves: rhbz#1132436
+- tui: show software and source spoke iff payload is PackagePayload (rvykydal)
+  Resolves: rhbz#1139142
+- filesystem -> file system in a few more places. (clumens)
+  Related: rhbz#1121678
+- filesystem -> file system (clumens)
+  Related: rhbz#1121678
+- Change the accelerator key for Add DASD label. (sbueno+anaconda)
+  Related: rhbz#1070115
+- Add dialog box for adding DASDs. (sbueno+anaconda)
+  Resolves: rhbz#1070115
+- Add a button for adding an ECKD DASD. (sbueno+anaconda)
+  Resolves: rhbz#1070115
+- network: add s390 network ifcfg options also for bond slaves (rvykydal)
+  Resolves: rhbz#1090558
+
 * Fri Sep 05 2014 David Lehman <dlehman@redhat.com> - 19.31.88-1
 - Adjust to python-blivet-0.61.0.1
   Related: rhbz#1075561
