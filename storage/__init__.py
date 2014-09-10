@@ -369,24 +369,36 @@ class Storage(object):
             bootDevs = []
         else:
             for dev in bootDevs:
-                if hasattr(dev, "bootable"):
-                    # Dos labels can only have one partition marked as active
-                    # and unmarking ie the windows partition is not a good idea
-                    skip = False
-                    if dev.disk.format.partedDisk.type == "msdos":
-                        for p in dev.disk.format.partedDisk.partitions:
-                            if p.type == parted.PARTITION_NORMAL and \
-                               p.getFlag(parted.PARTITION_BOOT):
-                                skip = True
-                                break
-                    if skip:
-                         log.info("not setting boot flag on %s as there is"
-                                  "another active partition" % dev.name)
-                         continue
-                    log.info("setting boot flag on %s" % dev.name)
-                    dev.bootable = True
-                    dev.disk.setup()
-                    dev.disk.format.commitToDisk()
+                if not hasattr(dev, "bootable"):
+                    log.info("Skipping %s, not bootable", dev)
+                    continue
+
+                # Dos labels can only have one partition marked as active
+                # and unmarking ie the windows partition is not a good idea
+                skip = False
+                if dev.disk.format.partedDisk.type == "msdos":
+                    for p in dev.disk.format.partedDisk.partitions:
+                        if p.type == parted.PARTITION_NORMAL and \
+                           p.getFlag(parted.PARTITION_BOOT):
+                            skip = True
+                            break
+
+                # GPT labeled disks should only have bootable set on the
+                # EFI system partition (parted sets the EFI System GUID on
+                # GPT partitions with the boot flag, overwriting any other
+                # GUID that has already been set)
+                if dev.disk.format.partedDisk.type == "gpt" and \
+                   dev.format.type != "efi":
+                    skip = True
+
+                if skip:
+                    log.info("Skipping setting bootable on %s", dev.name)
+                    continue
+
+                log.info("setting boot flag on %s" % dev.name)
+                dev.bootable = True
+                dev.disk.setup()
+                dev.disk.format.commitToDisk()
 
         self.dumpState("final")
 
