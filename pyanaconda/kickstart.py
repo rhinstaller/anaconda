@@ -32,6 +32,7 @@ import blivet.iscsi
 import blivet.fcoe
 import blivet.zfcp
 import blivet.arch
+import blivet.errors
 
 import glob
 from pyanaconda import iutil
@@ -454,12 +455,15 @@ class BTRFSData(commands.btrfs.F17_BTRFSData):
 
             device.format.mountpoint = self.mountpoint
         else:
-            request = storage.newBTRFS(name=name,
+            try:
+                request = storage.newBTRFS(name=name,
                                        subvol=self.subvol,
                                        mountpoint=self.mountpoint,
                                        metaDataLevel=self.metaDataLevel,
                                        dataLevel=self.dataLevel,
                                        parents=members)
+            except blivet.errors.BTRFSValueError as e:
+                raise KickstartValueError(formatErrorMsg(self.lineno, msg=e.message))
 
             storage.createDevice(request)
 
