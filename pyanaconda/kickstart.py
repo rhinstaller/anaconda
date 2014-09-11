@@ -927,11 +927,12 @@ class LogVolData(commands.logvol.F20_LogVolData):
             else:
                 parents = [vg]
 
+            pool_args = {}
             if self.thin_pool:
-                pool_args = { "metadatasize": Size("%d MiB" % self.metadata_size),
-                              "chunksize": Size("%d KiB" % self.chunk_size) }
-            else:
-                pool_args = {}
+                if self.metadata_size:
+                    pool_args["metadatasize"] =  Size("%d MiB" % self.metadata_size)
+                if self.chunk_size:
+                    pool_args["chunksize"] = Size("%d KiB" % self.chunk_size)
 
             if self.maxSizeMB:
                 try:
