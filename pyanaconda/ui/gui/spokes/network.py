@@ -50,7 +50,7 @@ import dbus
 import dbus.service
 import subprocess
 import string
-
+from uuid import uuid4
 from dbus.mainloop.glib import DBusGMainLoop
 DBusGMainLoop(set_as_default=True)
 
@@ -494,7 +494,20 @@ class NetworkControlBox(GObject.GObject):
             log.debug("network: on_wireless_ap_changed: %s", e)
         except nm.SettingsNotFoundError as e:
             log.debug("network: on_wireless_ap_changed: %s", e)
-            self.client.add_and_activate_connection(None, dev_cfg.device, ap_obj_path,
+            if self._ap_is_enterprise_dbus(ap_obj_path):
+                # Create a connection for the ap and [Configure] it later with nm-c-e
+                values = []
+                values.append(['connection', 'uuid', str(uuid4()), 's'])
+                values.append(['connection', 'id', ssid_target, 's'])
+                values.append(['connection', 'type', '802-11-wireless', 's'])
+                ssid = [ord(c) for c in ssid_target]
+                values.append(['802-11-wireless', 'ssid', ssid, 'ay'])
+                values.append(['802-11-wireless', 'mode', 'infrastructure', 's'])
+                log.debug("network: adding connection for WPA-Enterprise AP %s", ssid_target)
+                nm.nm_add_connection(values)
+                self.builder.get_object("button_wireless_options").set_sensitive(True)
+            else:
+                self.client.add_and_activate_connection(None, dev_cfg.device, ap_obj_path,
                                                     None, None)
 
     def on_device_added(self, client, device, *args):
@@ -1067,6 +1080,13 @@ class NetworkControlBox(GObject.GObject):
 #
 #        return sec_str
 
+    def _ap_is_enterprise_dbus(self, ap_path):
+        ap = dbus.SystemBus().get_object(NM_SERVICE, ap_path)
+        wpa_flags = getNMObjProperty(ap, ".AccessPoint", "WpaFlags")
+        rsn_flags = getNMObjProperty(ap, ".AccessPoint", "RsnFlags")
+        return ((wpa_flags & NM_802_11_AP_SEC_KEY_MGMT_802_1X) or
+                (rsn_flags & NM_802_11_AP_SEC_KEY_MGMT_802_1X))
+
     def _ap_security_string_dbus(self, ap):
         if ap.object_path == "/":
             return ""
@@ -1135,10 +1155,16 @@ class SecretAgentDialog(GUIObject):
         for row, secret in enumerate(self._content['secrets']):
             label = Gtk.Label(label=secret['label'], halign=Gtk.Align.START)
             entry = Gtk.Entry(visibility=False, hexpand=True)
+            entry.set_text(secret['value'])
+            if secret['key']:
+                self._entries[secret['key']] = entry
+            else:
+                entry.set_sensitive(False)
+            if secret['password']:
+                entry.set_visibility(False)
             self._validate(entry, secret)
             entry.connect("changed", self._validate, secret)
             entry.connect("activate", self._password_entered_cb)
-            self._entries[secret['key']] = entry
             label.set_use_underline(True)
             label.set_mnemonic_widget(entry)
             grid.attach(label, 0, row, 1, 1)
@@ -1151,13 +1177,14 @@ class SecretAgentDialog(GUIObject):
         self.window.show_all()
         rc = self.window.run()
         for secret in self._content['secrets']:
-            secret['value'] = self._entries[secret['key']].get_text()
+            if secret['key']:
+                secret['value'] = self._entries[secret['key']].get_text()
         self.window.destroy()
         return rc
 
     @property
     def valid(self):
-        return all(secret['valid'] for secret in self._content['secrets'])
+        return all(secret.get('valid', False) for secret in self._content['secrets'])
 
     def _validate(self, entry, secret):
         secret['value'] = entry.get_text()
@@ -1209,7 +1236,8 @@ class SecretAgent(dbus.service.Object):
         secrets = dbus.Dictionary()
         if rc == 1:
             for secret in content['secrets']:
-                secrets[secret['key']] = secret['value']
+                if secret['key']:
+                    secrets[secret['key']] = secret['value']
 
         settings = dbus.Dictionary({setting_name: secrets})
 
@@ -1223,15 +1251,16 @@ class SecretAgent(dbus.service.Object):
             content['message'] = _("Passwords or encryption keys are required to access\n"
                                    "the wireless network '%(network_id)s'.") \
                                    % {'network_id':str(connection_hash['connection']['id'])}
-            content['secrets'] = self._get_wireless_secrets(connection_hash[setting_name])
+            content['secrets'] = self._get_wireless_secrets(setting_name, connection_hash)
         else:
             log.info("Connection type %s not supported by secret agent", connection_type)
 
         return content
 
-    def _get_wireless_secrets(self, original_secrets):
+    def _get_wireless_secrets(self, setting_name, connection_hash):
+        key_mgmt = connection_hash['802-11-wireless-security']['key-mgmt']
+        original_secrets = connection_hash[setting_name]
         secrets = []
-        key_mgmt = original_secrets['key-mgmt']
         if key_mgmt in ['wpa-none', 'wpa-psk']:
             secrets.append({'label'     : C_('GUI|Network|Secrets Dialog', '_Password:'),
                             'key'      : 'psk',
@@ -1247,6 +1276,31 @@ class SecretAgent(dbus.service.Object):
                             'wep_key_type': original_secrets.get('wep-key-type', ''),
                             'validate' : self._validate_staticwep,
                             'password' : True})
+        # WPA-Enterprise
+        elif key_mgmt == 'wpa-eap':
+            eap = original_secrets['eap'][0]
+            if eap in ('md5', 'leap', 'ttls', 'peap'):
+                secrets.append({'label'    : _('Username: '),
+                                'key'      : None,
+                                'value'    : original_secrets.get('identity', ''),
+                                'validate' : None,
+                                'password' : False})
+                secrets.append({'label'    : _('Password: '),
+                                'key'      : 'password',
+                                'value'    : original_secrets.get('password', ''),
+                                'validate' : None,
+                                'password' : True})
+            elif eap == 'tls':
+                secrets.append({'label'    : _('Identity: '),
+                                'key'      : None,
+                                'value'    : original_secrets.get('identity', ''),
+                                'validate' : None,
+                                'password' : False})
+                secrets.append({'label'    : _('Private ksy password: '),
+                                'key'      : 'private-key-password',
+                                'value'    : original_secrets.get('private-key-password', ''),
+                                'validate' : None,
+                                'password' : True})
         else:
             log.info("Unsupported wireless key management: %s", key_mgmt)
 
