@@ -535,8 +535,8 @@ class NetworkControlBox(GObject.GObject):
                 else:
                     # 871132 auto activate wireless connection after editing if it is not
                     # already activated (assume entering secrets)
-                    if self.selected_ssid != nm.nm_device_active_ssid(devname):
-                        activate = (uuid, devname)
+                    condition = lambda: self.selected_ssid != nm.nm_device_active_ssid(devname)
+                    activate = (uuid, devname, condition)
 
         if not uuid:
             log.debug("network: on_edit_connection: can't find connection for device %s", devname)
@@ -565,8 +565,9 @@ class NetworkControlBox(GObject.GObject):
             if self._running_nmce and self._running_nmce.pid == pid:
                 self._running_nmce = None
             if activate:
-                uuid, devname = activate
-                gtk_call_once(self._activate_connection_cb, uuid, devname)
+                uuid, devname, activate_condition = activate
+                if activate_condition():
+                    gtk_call_once(self._activate_connection_cb, uuid, devname)
             network.logIfcfgFiles("nm-c-e run")
 
     def _activate_connection_cb(self, uuid, devname):
