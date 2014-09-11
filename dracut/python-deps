@@ -9,6 +9,8 @@ from distutils.sysconfig import *
 sitedir = get_python_lib()
 libdir = get_config_var('LIBDEST')
 
+alsoNeeded = { libdir+"/urllib.py": libdir+"/urllib2.py" }
+
 # A couple helper functions...
 def moduledir(pyfile):
     '''Given a python file, return the module dir it belongs to, or None.'''
@@ -33,7 +35,7 @@ deps = []
 for script in sys.argv[1:]:
     finder = ModuleFinder()
     finder.run_script(script) # parse the script
-    for name, mod in finder.modules.iteritems():
+    for mod in finder.modules.itervalues():
         if not mod.__file__: # this module is builtin, so we can skip it
             continue
 
@@ -44,6 +46,9 @@ for script in sys.argv[1:]:
         if moddir and moddir not in mods: #
             deps += list(pyfiles(moddir)) # ...get the whole module
             mods.append(moddir)
+
+        if mod.__file__ in alsoNeeded:
+            deps.append(alsoNeeded[mod.__file__])
 
 # Include some bits that the python install itself needs
 print(get_makefile_filename())
