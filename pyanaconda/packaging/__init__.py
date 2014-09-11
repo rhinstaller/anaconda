@@ -36,6 +36,7 @@ import shutil
 import time
 from glob import glob
 import threading
+import re
 
 if __name__ == "__main__":
     from pyanaconda import anaconda_log
@@ -55,6 +56,7 @@ from pyanaconda.image import mountImage
 from pyanaconda.image import opticalInstallMedia, verifyMedia
 from pyanaconda.iutil import ProxyString, ProxyStringError
 from pyanaconda.threads import threadMgr, AnacondaThread
+from pyanaconda.regexes import VERSION_DIGITS
 
 from pykickstart.parser import Group
 
@@ -391,7 +393,10 @@ class Payload(object):
 
     def _getReleaseVersion(self, url):
         """ Return the release version of the tree at the specified URL. """
-        version = productVersion.split("-")[0]
+        try:
+            version = re.match(VERSION_DIGITS, productVersion).group(1)
+        except AttributeError:
+            version = "rawhide"
 
         log.debug("getting release version from tree at %s (%s)", url, version)
 
@@ -405,7 +410,9 @@ class Payload(object):
             c.read(treeinfo)
             try:
                 # Trim off any -Alpha or -Beta
-                version = c.get("general", "version").split("-")[0]
+                version = re.match(VERSION_DIGITS, c.get("general", "version")).group(1)
+            except AttributeError:
+                version = "rawhide"
             except ConfigParser.Error:
                 pass
 

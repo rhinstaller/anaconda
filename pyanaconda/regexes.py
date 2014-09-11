@@ -132,3 +132,6 @@ URL_PARSE = re.compile(r'^(?P<protocol>' + URL_SCHEME_PATTERN_WITHOUT_ANCHORS + 
 
 # Valid characters for repository names
 REPO_NAME_VALID = re.compile(r'^[a-zA-Z0-9_.:-]+$')
+
+# Product Version string, just the starting numbers like 21 or 21.1
+VERSION_DIGITS = r'([\d.]+)'
