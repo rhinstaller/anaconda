@@ -751,6 +751,9 @@ if __name__ == "__main__":
     initThreading()
     from pyanaconda.threads import threadMgr
 
+    import gettext
+    _ = lambda x: gettext.ldgettext("anaconda", x)
+
     from pyanaconda import constants
     from pyanaconda import addons
     from pyanaconda import geoloc
@@ -826,9 +829,6 @@ if __name__ == "__main__":
         print "anaconda %s started." % verdesc
     else:
         print "anaconda %s (pre-release) started." % verdesc
-
-    import gettext
-    _ = lambda x: gettext.ldgettext("anaconda", x)
 
     from pyanaconda.anaconda import Anaconda
     anaconda = Anaconda()
