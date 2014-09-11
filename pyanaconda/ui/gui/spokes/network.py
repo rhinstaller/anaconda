@@ -534,8 +534,8 @@ class NetworkControlBox(GObject.GObject):
                 else:
                     # 871132 auto activate wireless connection after editing if it is not
                     # already activated (assume entering secrets)
-                    if self.selected_ssid != nm.nm_device_active_ssid(devname):
-                        activate = (uuid, devname)
+                    condition = lambda: self.selected_ssid != nm.nm_device_active_ssid(devname)
+                    activate = (uuid, devname, condition)
 
         if not uuid:
             log.debug("network: on_edit_connection: can't find connection for device %s", devname)
@@ -567,8 +567,9 @@ class NetworkControlBox(GObject.GObject):
         if condition == 0:
             if activate:
                 # The default of None confuses pylint
-                uuid, devname = activate # pylint: disable=unpacking-non-sequence
-                gtk_call_once(self._activate_connection_cb, uuid, devname)
+                uuid, devname, activate_condition = activate # pylint: disable=unpacking-non-sequence
+                if activate_condition():
+                    gtk_call_once(self._activate_connection_cb, uuid, devname)
             network.logIfcfgFiles("nm-c-e run")
 
     def _activate_connection_cb(self, uuid, devname):
