@@ -25,7 +25,7 @@ from pyanaconda.ui.tui.spokes import EditTUISpoke, NormalTUISpoke
 from pyanaconda.ui.tui.spokes import EditTUISpokeEntry as Entry
 from pyanaconda.ui.tui.simpleline import TextWidget, ColumnWidget
 from pyanaconda.threads import threadMgr, AnacondaThread
-from pyanaconda.packaging import PayloadError, MetadataError
+from pyanaconda.packaging import PayloadError, MetadataError, PackagePayload
 from pyanaconda.i18n import N_, _
 from pyanaconda.image import opticalInstallMedia, potentialHdisoSources
 from pyanaconda.iutil import DataHolder
@@ -204,7 +204,7 @@ class SourceSpoke(SourceSwitchHandler, EditTUISpoke):
 
     @property
     def showable(self):
-        return not flags.livecdInstall and not self.data.method.method == "liveimg"
+        return isinstance(self.payload, PackagePayload)
 
     @property
     def status(self):
