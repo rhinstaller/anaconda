@@ -1,6 +1,7 @@
 #!/usr/bin/python
 # python-deps - find the dependencies of a given python script.
 
+import copy
 import os, sys
 from modulefinder import ModuleFinder
 # pylint: disable=wildcard-import
@@ -32,7 +33,12 @@ def pyfiles(moddir):
 # OK. Use modulefinder to find all the modules etc. this script uses!
 mods = []
 deps = []
-for script in sys.argv[1:]:
+
+scripts = copy.copy(sys.argv[1:])
+
+while scripts:
+    script = scripts.pop()
+
     finder = ModuleFinder()
     finder.run_script(script) # parse the script
     for mod in finder.modules.itervalues():
@@ -47,8 +53,8 @@ for script in sys.argv[1:]:
             deps += list(pyfiles(moddir)) # ...get the whole module
             mods.append(moddir)
 
-        if mod.__file__ in alsoNeeded:
-            deps.append(alsoNeeded[mod.__file__])
+        if mod.__file__ in alsoNeeded and alsoNeeded[mod.__file__] not in deps:
+            scripts.append(alsoNeeded[mod.__file__])
 
 # Include some bits that the python install itself needs
 print(get_makefile_filename())
