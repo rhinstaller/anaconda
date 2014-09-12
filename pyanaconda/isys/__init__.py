@@ -171,4 +171,4 @@ def total_memory():
         log.error("MemTotal: line not found in /proc/meminfo")
         raise RuntimeError("MemTotal: line not found in /proc/meminfo")
 
-handleSegv = _isys.handleSegv
+installSyncSignalHandlers = _isys.installSyncSignalHandlers

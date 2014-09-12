@@ -1005,8 +1005,12 @@ if __name__ == "__main__":
 
     # reset python's default SIGINT handler
     signal.signal(signal.SIGINT, signal.SIG_IGN)
-    signal.signal(signal.SIGSEGV, isys.handleSegv)
     signal.signal(signal.SIGTERM, lambda num, frame: sys.exit(1))
+
+    # synchronously-delivered signals such as SIGSEGV and SIGILL cannot be
+    # handled property from python, so install signal handlers from the C
+    # function in isys.
+    isys.installSyncSignalHandlers()
 
     setupEnvironment()
     # make sure we have /var/log soon, some programs fail to start without it

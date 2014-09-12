@@ -28,14 +28,15 @@
 #include <signal.h>
 #include <execinfo.h>
 #include <stdlib.h>
+#include <string.h>
 
 static PyObject * doSync(PyObject * s, PyObject * args);
-static PyObject * doSegvHandler(PyObject *s, PyObject *args);
+static PyObject * doSignalHandlers(PyObject *s, PyObject *args);
 static PyObject * doSetSystemTime(PyObject *s, PyObject *args);
 
 static PyMethodDef isysModuleMethods[] = {
     { "sync", (PyCFunction) doSync, METH_NOARGS, NULL},
-    { "handleSegv", (PyCFunction) doSegvHandler, METH_NOARGS, NULL },
+    { "installSyncSignalHandlers", (PyCFunction) doSignalHandlers, METH_NOARGS, NULL},
     { "set_system_time", (PyCFunction) doSetSystemTime, METH_VARARGS, NULL},
     { NULL, NULL, 0, NULL }
 } ;
@@ -52,23 +53,58 @@ static PyObject * doSync(PyObject * s, PyObject * args) {
     return Py_None;
 }
 
-static PyObject * doSegvHandler(PyObject *s, PyObject *args) {
+static void sync_signal_handler(int signum) {
     void *array[20];
     size_t size;
     char **strings;
     size_t i;
 
-    signal(SIGSEGV, SIG_DFL); /* back to default */
-    
     size = backtrace (array, 20);
     strings = backtrace_symbols (array, size);
     
-    printf ("Anaconda received SIGSEGV!.  Backtrace:\n");
+    printf ("Anaconda received signal %d!.  Backtrace:\n", signum);
     for (i = 0; i < size; i++)
         printf ("%s\n", strings[i]);
      
     free (strings);
     exit(1);
+}
+
+static PyObject * doSignalHandlers(PyObject *s, PyObject *args) {
+    /* Install a signal handler for all synchronous signals */
+    struct sigaction sa;
+
+    memset(&sa, 0, sizeof(struct sigaction));
+    sa.sa_handler = sync_signal_handler;
+
+    /* Use these flags to ensure that a crash within the signal handler will
+     * just crash anaconda and not get stuck in a loop. RESETHAND resets the
+     * handler to SIG_DFL when the handler is entered, so that further signals
+     * will exit the program, and NODEFER ensures that the signal is not blocked
+     * during the signal handler, so a SIGSEGV triggered by handling a SIGSEGV will
+     * be processed and will use the default handler. The Linux kernel forces
+     * both of these things during a signal handler crash, but this makes it
+     * explicit.
+     *
+     * These flags also mean that a SIGSEGV from a second thread could abort
+     * the processing of a SIGSEGV from a first, but too bad.
+     */
+    sa.sa_flags = SA_RESETHAND | SA_NODEFER;
+
+    if (sigaction(SIGILL, &sa, NULL) != 0) {
+        return PyErr_SetFromErrno(PyExc_SystemError);
+    }
+
+    if (sigaction(SIGFPE, &sa, NULL) != 0) {
+        return PyErr_SetFromErrno(PyExc_SystemError);
+    }
+
+    if (sigaction(SIGSEGV, &sa, NULL) != 0) {
+        return PyErr_SetFromErrno(PyExc_SystemError);
+    }
+
+    Py_INCREF(Py_None);
+    return Py_None;
 }
 
 static PyObject * doSetSystemTime(PyObject *s, PyObject  *args) {
