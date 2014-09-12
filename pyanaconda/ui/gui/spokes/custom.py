@@ -2186,6 +2186,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         self._storage_playground.doAutoPart = True
         self.clear_errors()
         try:
+            self._storage_playground.createFreeSpaceSnapshot()
             # doAutoPartitions needs stage1_disk setup so it will reuse existing partitions
             self._storage_playground.setUpBootLoader(early=True)
 
