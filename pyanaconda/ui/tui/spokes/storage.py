@@ -35,7 +35,7 @@ from blivet.errors import StorageError, DasdFormatError
 from blivet.devices import DASDDevice, FcoeDiskDevice, iScsiDiskDevice, MultipathDevice, ZFCPDiskDevice
 from blivet.devicelibs.dasd import format_dasd, make_unformatted_dasd_list
 from pyanaconda.flags import flags
-from pyanaconda.kickstart import doKickstartStorage
+from pyanaconda.kickstart import doKickstartStorage, resetCustomStorageData
 from pyanaconda.threads import threadMgr, AnacondaThread
 from pyanaconda.constants import THREAD_STORAGE, THREAD_STORAGE_WATCHER, THREAD_DASDFMT, DEFAULT_AUTOPART_TYPE
 from pyanaconda.constants_text import INPUT_PROCESSED
@@ -382,26 +382,26 @@ class StorageSpoke(NormalTUISpoke):
             self.storage.reset()
             # now set ksdata back to the user's specified config
             applyDiskSelection(self.storage, self.data, self.selected_disks)
-            self._ready = True
         except BootLoaderError as e:
             log.error("BootLoader setup failed: %s", e)
             print(_("storage configuration failed: %s") % e)
             self.errors = [str(e)]
             self.data.bootloader.bootDrive = ""
-            self._ready = True
         else:
             print(_("Checking storage configuration..."))
             exns = sanity_check(self.storage)
             errors = [exn.message for exn in exns if isinstance(exn, SanityError)]
             warnings = [exn.message for exn in exns if isinstance(exn, SanityWarning)]
             (self.errors, self.warnings) = (errors, warnings)
-            self._ready = True
             for e in self.errors:
                 log.error(e)
                 print(e)
             for w in self.warnings:
                 log.warning(w)
                 print(w)
+        finally:
+            resetCustomStorageData(self.data)
+            self._ready = True
 
     def initialize(self):
         NormalTUISpoke.initialize(self)
