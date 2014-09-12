@@ -21,9 +21,10 @@
 
 from pyanaconda.ui.tui.spokes import NormalTUISpoke
 from pyanaconda.ui.tui.simpleline import TextWidget, ColumnWidget
+from pyanaconda.ui.tui.tuiobject import YesNoDialog
 from pyanaconda.constants import USEVNC, USETEXT
 from pyanaconda.i18n import N_, _
-import getpass
+import getpass, subprocess
 
 class AskVNCSpoke(NormalTUISpoke):
     title = N_("VNC")
@@ -68,22 +69,28 @@ class AskVNCSpoke(NormalTUISpoke):
         """Override input so that we can launch the VNC password spoke"""
 
         try:
-            number = int(key)
-            choice = self._choices[number -1]
+            choice = self._choices[int(key) - 1]
+            if choice == USETEXT:
+                self._usevnc = False
+            else:
+                self._usevnc = True
+                newspoke = VNCPassSpoke(self.app, self.data, self.storage,
+                                        self.payload, self.instclass)
+                self.app.switch_screen_modal(newspoke)
+
+            self.apply()
+            self.close()
+            return None
         except (ValueError, KeyError, IndexError):
-            return key
+            pass
 
-        if choice == USETEXT:
-            self._usevnc = False
+        if key.lower() == _('q'):
+            d = YesNoDialog(self.app, _(self.app.quit_message))
+            self.app.switch_screen_modal(d)
+            if d.answer:
+                subprocess.Popen(["systemctl", "--no-wall", "reboot"])
         else:
-            self._usevnc = True
-            newspoke = VNCPassSpoke(self.app, self.data, self.storage,
-                                    self.payload, self.instclass)
-            self.app.switch_screen_modal(newspoke)
-
-        self.apply()
-        self.close()
-        return None
+            return key
 
     def apply(self):
         self.data.vnc.enabled = self._usevnc
