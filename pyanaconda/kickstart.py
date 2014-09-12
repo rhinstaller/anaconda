@@ -1870,6 +1870,12 @@ def runTracebackScripts(scripts):
         script.run("/")
     log.info("All kickstart %%traceback script(s) have been run")
 
+def resetCustomStorageData(ksdata):
+    cmds = ["partition", "raid", "volgroup", "logvol", "btrfs"]
+    map(ksdata.resetCommand, cmds)
+
+    ksdata.clearpart.type = CLEARPART_TYPE_NONE
+
 def doKickstartStorage(storage, ksdata, instClass):
     """ Setup storage state from the kickstart data """
     ksdata.clearpart.execute(storage, ksdata, instClass)

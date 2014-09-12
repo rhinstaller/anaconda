@@ -53,7 +53,7 @@ from pyanaconda.ui.gui.spokes.lib.dasdfmt import DasdFormatDialog
 from pyanaconda.ui.gui.categories.system import SystemCategory
 from pyanaconda.ui.gui.utils import enlightbox, gtk_action_nowait, ignoreEscape, escape_markup
 
-from pyanaconda.kickstart import doKickstartStorage, refreshAutoSwapSize
+from pyanaconda.kickstart import doKickstartStorage, refreshAutoSwapSize, resetCustomStorageData
 from blivet import arch
 from blivet.size import Size
 from blivet.devices import MultipathDevice, ZFCPDiskDevice
@@ -384,6 +384,7 @@ class StorageSpoke(NormalSpoke, StorageChecker):
             if self.autopart:
                 self.run()
         finally:
+            resetCustomStorageData(self.data)
             self._ready = True
             hubQ.send_ready(self.__class__.__name__, True)
 
