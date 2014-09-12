@@ -21,12 +21,13 @@
 
 from pyanaconda.ui.tui.spokes import NormalTUISpoke
 from pyanaconda.ui.tui.simpleline import TextWidget, ColumnWidget
+from pyanaconda.ui.tui.tuiobject import YesNoDialog
 from pyanaconda.constants import USEVNC, USETEXT
 from pyanaconda.constants_text import INPUT_PROCESSED
 from pyanaconda.i18n import N_, _
 from pyanaconda.ui.communication import hubQ
 from pyanaconda.ui.tui import exception_msg_handler
-import getpass
+import getpass, subprocess
 import sys
 
 def exception_msg_handler_and_exit(event, data):
@@ -83,25 +84,29 @@ class AskVNCSpoke(NormalTUISpoke):
 
         try:
             keyid = int(key) - 1
-        except ValueError:
-            return key
+            if 0 <= keyid < len(self._choices):
+                choice = self._choices[keyid]
+                if choice == _(USETEXT):
+                    self._usevnc = False
+                else:
+                    self._usevnc = True
+                    newspoke = VNCPassSpoke(self.app, self.data, self.storage,
+                                            self.payload, self.instclass)
+                    self.app.switch_screen_modal(newspoke)
 
-        if 0 <= keyid < len(self._choices):
-            choice = self._choices[keyid]
-        else:
+                self.apply()
+                self.close()
             return INPUT_PROCESSED
+        except ValueError:
+            pass
 
-        if choice == _(USETEXT):
-            self._usevnc = False
+        if key.lower() == _('q'):
+            d = YesNoDialog(self.app, _(self.app.quit_message))
+            self.app.switch_screen_modal(d)
+            if d.answer:
+                subprocess.Popen(["systemctl", "--no-wall", "reboot"])
         else:
-            self._usevnc = True
-            newspoke = VNCPassSpoke(self.app, self.data, self.storage,
-                                    self.payload, self.instclass)
-            self.app.switch_screen_modal(newspoke)
-
-        self.apply()
-        self.close()
-        return INPUT_PROCESSED
+            return key
 
     def apply(self):
         self.data.vnc.enabled = self._usevnc
