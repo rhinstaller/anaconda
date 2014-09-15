@@ -490,6 +490,8 @@ class StorageSpoke(NormalSpoke, StorageChecker):
             name = overview.get_property("name")
             overview.set_chosen(name in self.selected_disks)
 
+        self._customPart.set_active(not self.autopart)
+
         self._update_summary()
 
         if self.errors:
