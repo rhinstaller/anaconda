@@ -1281,7 +1281,7 @@ class SecretAgent(dbus.service.Object):
         elif key_mgmt == 'wpa-eap':
             eap = original_secrets['eap'][0]
             if eap in ('md5', 'leap', 'ttls', 'peap'):
-                secrets.append({'label'    : _('Username: '),
+                secrets.append({'label'    : _('User name: '),
                                 'key'      : None,
                                 'value'    : original_secrets.get('identity', ''),
                                 'validate' : None,
