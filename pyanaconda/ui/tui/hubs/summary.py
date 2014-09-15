@@ -20,6 +20,7 @@
 #                    Jesse Keating <jkeating@redhat.com>
 #
 
+from pyanaconda.ui.lib.space import FileSystemSpaceChecker, DirInstallSpaceChecker
 from pyanaconda.ui.tui.hubs import TUIHub
 from pyanaconda.flags import flags
 from pyanaconda.errors import CmdlineError
@@ -32,6 +33,14 @@ log = logging.getLogger("anaconda")
 
 class SummaryHub(TUIHub):
     title = N_("Installation")
+
+    def __init__(self, app, data, storage, payload, instclass):
+        super(SummaryHub, self).__init__(app, data, storage, payload, instclass)
+
+        if not flags.dirInstall:
+            self._checker = FileSystemSpaceChecker(storage, payload)
+        else:
+            self._checker = DirInstallSpaceChecker(storage, payload)
 
     def setup(self, environment="anaconda"):
         should_schedule = TUIHub.setup(self, environment=environment)
@@ -60,9 +69,14 @@ class SummaryHub(TUIHub):
         incompleteSpokes = [spoke for spoke in self._keys.values()
                                       if spoke.mandatory and not spoke.completed]
 
-        if flags.automatedInstall and not incompleteSpokes:
-            self.close()
-            return None
+        # do a bit of final sanity checking, make sure pkg selection
+        # size < available fs space
+        if flags.automatedInstall:
+            if self._checker and not self._checker.check():
+                print(self._checker.error_message)
+            if not incompleteSpokes:
+                self.close()
+                return None
 
         if flags.ksprompt:
             for spoke in incompleteSpokes:
@@ -95,6 +109,11 @@ class SummaryHub(TUIHub):
                     if not spoke.completed and spoke.mandatory:
                         print(_("Please complete all spokes before continuing"))
                         return False
+                # do a bit of final sanity checking, making sure pkg selection
+                # size < available fs space
+                if self._checker and not self._checker.check():
+                    print(self._checker.error_message)
+                    return False
                 if self.app._screens:
                     self.app.close_screen()
                     return True
