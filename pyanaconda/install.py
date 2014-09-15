@@ -139,7 +139,8 @@ def doInstall(storage, payload, ksdata, instClass):
        installing packages onto those filesystems.
     """
     willRunRealmd = ksdata.realm.join_realm
-    willInstallBootloader = not flags.flags.dirInstall and not ksdata.bootloader.disabled
+    willInstallBootloader = not flags.flags.dirInstall and (not ksdata.bootloader.disabled
+                                                            and ksdata.bootloader != "none")
 
     # First save system time to HW clock.
     if flags.can_touch_runtime_system("save system time to HW clock"):
@@ -217,7 +218,7 @@ def doInstall(storage, payload, ksdata, instClass):
     # system is bootable and configurable, and some other packages in order
     # to finish setting up the system.
     packages = storage.packages + ksdata.realm.packages
-    if not ksdata.bootloader.disabled:
+    if willInstallBootloader:
         packages += storage.bootloader.packages
 
     # don't try to install packages from the install class' ignored list and the
