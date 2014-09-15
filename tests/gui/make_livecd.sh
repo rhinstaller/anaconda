@@ -84,6 +84,7 @@ livemedia-creator --make-iso \
                   --vnc vnc \
                   --lorax-templates ${TEMPLATES} \
                   --ram 2048 \
-                  --vcpus 2
+                  --vcpus 2 \
+                  --kernel-args nomodeset
 rm livecd.ks
 rm -r ${TEMPLATES}
