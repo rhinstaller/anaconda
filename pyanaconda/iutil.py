@@ -128,37 +128,40 @@ def _run_program(argv, root='/', stdin=None, stdout=None, env_prune=None, log_ou
     with program_log_lock:
         program_log.info("Running... %s", " ".join(argv))
 
-        env = augmentEnv()
-        for var in env_prune:
-            env.pop(var, None)
+    env = augmentEnv()
+    for var in env_prune:
+        env.pop(var, None)
 
-        try:
-            proc = subprocess.Popen(argv,
-                                    stdin=stdin,
-                                    stdout=subprocess.PIPE,
-                                    stderr=subprocess.STDOUT,
-                                    preexec_fn=chroot, cwd=root, env=env)
+    try:
+        proc = subprocess.Popen(argv,
+                                stdin=stdin,
+                                stdout=subprocess.PIPE,
+                                stderr=subprocess.STDOUT,
+                                preexec_fn=chroot, cwd=root, env=env)
 
-            output_string = proc.communicate()[0]
-            if output_string:
-                if binary_output:
-                    output_lines = [output_string]
-                else:
-                    if output_string[-1] != "\n":
-                        output_string = output_string + "\n"
-                    output_lines = output_string.splitlines(True)
+        output_string = proc.communicate()[0]
+        if output_string:
+            if binary_output:
+                output_lines = [output_string]
+            else:
+                if output_string[-1] != "\n":
+                    output_string = output_string + "\n"
+                output_lines = output_string.splitlines(True)
 
-                for line in output_lines:
-                    if log_output:
+            if log_output:
+                with program_log_lock:
+                    for line in output_lines:
                         program_log.info(line.strip())
 
-                    if stdout:
-                        stdout.write(line)
+            if stdout:
+                stdout.write(output_string)
 
-        except OSError as e:
+    except OSError as e:
+        with program_log_lock:
             program_log.error("Error running %s: %s", argv[0], e.strerror)
-            raise
+        raise
 
+    with program_log_lock:
         program_log.debug("Return code: %d", proc.returncode)
 
     return (proc.returncode, output_string)
