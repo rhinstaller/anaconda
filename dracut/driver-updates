@@ -43,6 +43,7 @@ import os
 import subprocess
 import time
 import glob
+import readline # pylint:disable=unused-import
 
 log = logging.getLogger("DD")
 
