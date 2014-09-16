@@ -34,6 +34,7 @@ import re
 from threading import Thread
 from Queue import Queue, Empty
 from urllib import quote, unquote
+import signal
 
 from pyanaconda.flags import flags
 from pyanaconda.constants import DRACUT_SHUTDOWN_EJECT, TRANSLATIONS_UPDATE_DIR, UNSUPPORTED_HW
@@ -99,12 +100,13 @@ def setSysroot(path):
     _sysroot = path
 
 def startProgram(argv, root='/', stdin=None, stdout=subprocess.PIPE, stderr=subprocess.STDOUT,
-        env_prune=None, **kwargs):
+        env_prune=None, reset_handlers=True, **kwargs):
     """ Start an external program and return the Popen object.
 
-        The root argument is handled by passing a preexec_fn argument to
-        subprocess.Popen, but an additional preexec_fn can still be specified
-        and will be run. The user preexec_fn will be run last.
+        The root and reset_handlers arguments are handled by passing a
+        preexec_fn argument to subprocess.Popen, but an additional preexec_fn
+        can still be specified and will be run. The user preexec_fn will be run
+        last.
 
         :param argv: The command to run and argument
         :param root: The directory to chroot to before running command.
@@ -112,6 +114,7 @@ def startProgram(argv, root='/', stdin=None, stdout=subprocess.PIPE, stderr=subp
         :param stdout: The file object to write stdout to.
         :param stderr: The file object to write stderr to.
         :param env_prune: environment variable to remove before execution
+        :param reset_handlers: whether to reset to SIG_DFL any signal handlers set to SIG_IGN
         :param kwargs: Additional parameters to pass to subprocess.Popen
         :return: A Popen object for the running command.
     """
@@ -132,6 +135,14 @@ def startProgram(argv, root='/', stdin=None, stdout=subprocess.PIPE, stderr=subp
         if target_root and target_root != '/':
             os.chroot(target_root)
             os.chdir("/")
+
+        # Signal handlers set to SIG_IGN persist across exec. Reset
+        # these to SIG_DFL if requested. In particular this will include the
+        # SIGPIPE handler set by python.
+        if reset_handlers:
+            for signum in range(1, signal.NSIG):
+                if signal.getsignal(signum) == signal.SIG_IGN:
+                    signal.signal(signum, signal.SIG_DFL)
 
         # If the user specified an additional preexec_fn argument, run it
         if preexec_fn is not None:

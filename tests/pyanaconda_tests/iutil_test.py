@@ -233,6 +233,37 @@ exit 0
             testfile.seek(0, os.SEEK_SET)
             self.assertEqual(testfile.read().strip(), marker_text)
 
+    def start_program_reset_handlers_test(self):
+        """Test the reset_handlers parameter of startProgram."""
+
+        with tempfile.NamedTemporaryFile() as testscript:
+            testscript.write("""#!/bin/sh
+# Just hang out and do nothing, forever
+while true ; do sleep 1 ; done
+""")
+            testscript.flush()
+
+            # Start a program with reset_handlers
+            proc = iutil.startProgram(["/bin/sh", testscript.name])
+
+            with timer(5):
+                # Kill with SIGPIPE and check that the python's SIG_IGN was not inheritted
+                # The process should die on the signal.
+                proc.send_signal(signal.SIGPIPE)
+                proc.communicate()
+                self.assertEqual(proc.returncode, -(signal.SIGPIPE))
+
+            # Start another copy without reset_handlers
+            proc = iutil.startProgram(["/bin/sh", testscript.name], reset_handlers=False)
+
+            with timer(5):
+                # Kill with SIGPIPE, then SIGTERM, and make sure SIGTERM was the one
+                # that worked.
+                proc.send_signal(signal.SIGPIPE)
+                proc.terminate()
+                proc.communicate()
+                self.assertEqual(proc.returncode, -(signal.SIGTERM))
+
 class MiscTests(unittest.TestCase):
     def get_dir_size_test(self):
         """Test the getDirSize."""
