@@ -21,11 +21,11 @@
 Anaconda built-in help module
 """
 import os
-import subprocess
 
 from pyanaconda.flags import flags
 from pyanaconda.localization import find_best_locale_match
 from pyanaconda.constants import DEFAULT_LANG
+from pyanaconda.iutil import startProgram
 
 import logging
 log = logging.getLogger("anaconda")
@@ -124,7 +124,7 @@ def start_yelp(help_path):
     # under some extreme circumstances (placeholders missing)
     # the help path can be None and we need to prevent Popen
     # receiving None as an argument instead of a string
-    yelp_process = subprocess.Popen(["yelp", help_path or ""])
+    yelp_process = startProgram(["yelp", help_path or ""])
 
 def kill_yelp():
     """Try to kill any existing yelp processes"""

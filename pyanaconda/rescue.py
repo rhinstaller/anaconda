@@ -25,7 +25,6 @@ from pyanaconda import iutil
 import shutil
 import time
 import re
-import subprocess
 
 from snack import ButtonChoiceWindow, ListboxChoiceWindow,SnackScreen
 
@@ -190,8 +189,7 @@ def runShell(screen = None, msg=""):
     proc = None
 
     if os.path.exists("/usr/bin/firstaidkit-qs"):
-        proc = subprocess.Popen(["/usr/bin/firstaidkit-qs"])
-        proc.wait()
+        iutil.execWithRedirect("/usr/bin/firstaidkit-qs", [])
 
     if proc is None or proc.returncode!=0:
         if os.path.exists("/bin/bash"):

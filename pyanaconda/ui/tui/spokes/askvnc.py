@@ -27,7 +27,8 @@ from pyanaconda.constants_text import INPUT_PROCESSED
 from pyanaconda.i18n import N_, _
 from pyanaconda.ui.communication import hubQ
 from pyanaconda.ui.tui import exception_msg_handler
-import getpass, subprocess
+from pyanaconda.iutil import execWithRedirect
+import getpass
 import sys
 
 def exception_msg_handler_and_exit(event, data):
@@ -104,7 +105,7 @@ class AskVNCSpoke(NormalTUISpoke):
             d = YesNoDialog(self.app, _(self.app.quit_message))
             self.app.switch_screen_modal(d)
             if d.answer:
-                subprocess.Popen(["systemctl", "--no-wall", "reboot"])
+                execWithRedirect("systemctl", ["--no-wall", "reboot"])
         else:
             return key
 

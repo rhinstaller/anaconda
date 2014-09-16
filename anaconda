@@ -44,7 +44,7 @@ if ("debug=1" in proc_cmdline) or ("debug" in proc_cmdline):
     cov.start()
 
 
-import atexit, sys, os, time, subprocess, signal
+import atexit, sys, os, time, signal
 
 def exitHandler(rebootData, storage, exitCode=None):
     # Clear the list of watched PIDs.
@@ -87,7 +87,7 @@ def exitHandler(rebootData, storage, exitCode=None):
     if not flags.imageInstall and not flags.livecdInstall \
        and not flags.dirInstall:
         from pykickstart.constants import KS_SHUTDOWN, KS_WAIT
-        from pyanaconda.iutil import dracut_eject, get_mount_paths
+        from pyanaconda.iutil import dracut_eject, get_mount_paths, execWithRedirect
 
         if flags.eject or rebootData.eject:
             for cdrom in storage.devicetree.getDevicesByType("cdrom"):
@@ -95,11 +95,11 @@ def exitHandler(rebootData, storage, exitCode=None):
                     dracut_eject(cdrom.path)
 
         if rebootData.action == KS_SHUTDOWN:
-            subprocess.Popen(["systemctl", "--no-wall", "poweroff"])
+            execWithRedirect("systemctl", ["--no-wall", "poweroff"])
         elif rebootData.action == KS_WAIT:
-            subprocess.Popen(["systemctl", "--no-wall", "halt"])
+            execWithRedirect("systemctl", ["--no-wall", "halt"])
         else:  # reboot action is KS_REBOOT or None
-            subprocess.Popen(["systemctl", "--no-wall", "reboot"])
+            execWithRedirect("systemctl", ["--no-wall", "reboot"])
 
 def startSpiceVDAgent():
     status = iutil.execWithRedirect("spice-vdagent", [])
@@ -133,18 +133,6 @@ def doStartupX11Actions():
     # fingers crossed.
     childproc = iutil.startProgram(["metacity", "--display", ":1", "--sm-disable"])
     iutil.watchProcess(childproc, "metacity")
-
-def startAuditDaemon():
-    childpid = os.fork()
-    if not childpid:
-        cmd = '/sbin/auditd'
-        try:
-            os.execl(cmd, cmd)
-        except OSError as e:
-            log.error("Error running the audit daemon: %s", e)
-        os._exit(0)
-    # auditd will turn into a daemon so catch the immediate child pid now:
-    iutil.eintr_retry_call(os.waitpid, childpid, 0)
 
 def set_x_resolution(runres):
     if runres and opts.display_mode == 'g' and not flags.usevnc:
@@ -952,7 +940,11 @@ if __name__ == "__main__":
         sys.excepthook = _earlyExceptionHandler
 
     if can_touch_runtime_system("start audit daemon"):
-        startAuditDaemon()
+        # auditd will turn into a daemon and exit. Ignore startup errors
+        try:
+            iutil.execWithRedirect("/sbin/auditd", [])
+        except OSError:
+            pass
 
     # setup links required for all install types
     for i in ("services", "protocols", "nsswitch.conf", "joe", "selinux",
@@ -966,7 +958,7 @@ if __name__ == "__main__":
     log.info("anaconda called with cmdline = %s", sys.argv)
     log.info("Default encoding = %s ", sys.getdefaultencoding())
 
-    os.system("udevadm control --env=ANACONDA=1")
+    iutil.execWithRedirect("udevadm", ["control", "--env=ANACONDA=1"])
 
     # Collect all addon paths
     addon_paths = collect_addon_paths(constants.ADDON_PATHS)

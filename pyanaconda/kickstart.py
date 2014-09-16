@@ -41,7 +41,6 @@ from pyanaconda import iutil
 import os
 import os.path
 import tempfile
-import subprocess
 from pyanaconda.flags import flags, can_touch_runtime_system
 from pyanaconda.constants import ADDON_PATHS, IPMI_ABORTED
 import shlex
@@ -515,17 +514,13 @@ class Realm(commands.realm.F19_Realm):
             return
 
         try:
-            argv = ["realm", "discover", "--verbose"] + \
+            argv = ["discover", "--verbose"] + \
                     self.discover_options + [self.join_realm]
-            proc = subprocess.Popen(argv, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-            output, stderr = proc.communicate()
-            # might contain useful information for users who use
-            # use the realm kickstart command
-            log.info("Realm discover stderr:\n%s", stderr)
-        except OSError as msg:
+            output = iutil.execWithCapture("realm", argv, filter_stderr=True)
+        except OSError:
             # TODO: A lousy way of propagating what will usually be
             # 'no such realm'
-            log.error("Error running realm %s: %s", argv, msg)
+            # The error message is logged by iutil
             return
 
         # Now parse the output for the required software. First line is the
@@ -561,21 +556,12 @@ class Realm(commands.realm.F19_Realm):
                pw_args + self.join_args
         rc = -1
         try:
-            proc = subprocess.Popen(argv, stdout=subprocess.PIPE,
-                                    stderr=subprocess.PIPE)
-            stderr = proc.communicate()[1]
-            # might contain useful information for users who use
-            # use the realm kickstart command
-            log.info("Realm join stderr:\n%s", stderr)
-            rc = proc.returncode
-        except OSError as msg:
-            log.error("Error running %s: %s", argv, msg)
+            rc = iutil.execWithRedirect("realm", argv)[0]
+        except OSError:
+            pass
 
-        if rc != 0:
-            log.error("Command failure: %s: %d", argv, rc)
-            return
-
-        log.info("Joined realm %s", self.join_realm)
+        if rc == 0:
+            log.info("Joined realm %s", self.join_realm)
 
 
 class ClearPart(commands.clearpart.F21_ClearPart):
