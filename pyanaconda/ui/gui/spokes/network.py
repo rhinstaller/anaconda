@@ -41,6 +41,7 @@ from pyanaconda.ui.categories.system import SystemCategory
 from pyanaconda.ui.gui.hubs.summary import SummaryHub
 from pyanaconda.ui.gui.utils import gtk_call_once, escape_markup
 from pyanaconda.ui.common import FirstbootSpokeMixIn
+from pyanaconda.iutil import startProgram
 
 from pyanaconda import network
 from pyanaconda import nm
@@ -48,7 +49,6 @@ from pyanaconda import nm
 from gi.repository import GLib, GObject, Pango, Gio, NetworkManager, NMClient
 import dbus
 import dbus.service
-import subprocess
 # Used for ascii_letters and hexdigits constants
 import string # pylint: disable=deprecated-module
 from uuid import uuid4
@@ -546,7 +546,7 @@ class NetworkControlBox(GObject.GObject):
         log.info("network: configuring connection %s device %s ssid %s",
                  uuid, devname, self.selected_ssid)
         self.kill_nmce(msg="Configure button clicked")
-        proc = subprocess.Popen(["nm-connection-editor", "--edit", "%s" % uuid])
+        proc = startProgram(["nm-connection-editor", "--edit", "%s" % uuid])
         self._running_nmce = proc
 
         GLib.child_watch_add(proc.pid, self.on_nmce_exited, activate)
@@ -633,7 +633,7 @@ class NetworkControlBox(GObject.GObject):
     def add_device(self, ty):
         log.info("network: adding device of type %s", ty)
         self.kill_nmce(msg="Add device button clicked")
-        proc = subprocess.Popen(["nm-connection-editor", "--create", "--type=%s" % ty])
+        proc = startProgram(["nm-connection-editor", "--create", "--type=%s" % ty])
         self._running_nmce = proc
 
         GLib.child_watch_add(proc.pid, self.on_nmce_adding_exited)

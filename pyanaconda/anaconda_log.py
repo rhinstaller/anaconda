@@ -204,7 +204,9 @@ class AnacondaLog:
                 message, category, filename, lineno, line))
 
     def restartSyslog(self):
-        os.system("systemctl restart rsyslog.service")
+        # Import here instead of at the module level to avoid an import loop
+        from pyanaconda.iutil import execWithRedirect
+        execWithRedirect("systemctl", ["restart", "rsyslog.service"])
 
     def updateRemote(self, remote_syslog):
         """Updates the location of remote rsyslogd to forward to.

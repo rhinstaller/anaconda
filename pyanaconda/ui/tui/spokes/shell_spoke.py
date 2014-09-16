@@ -26,9 +26,8 @@ from pyanaconda.ui.tui.simpleline.widgets import TextWidget
 from pyanaconda.i18n import N_, _
 from pyanaconda.constants import ANACONDA_ENVIRON
 from pyanaconda.flags import flags
+from pyanaconda.iutil import execConsole
 from blivet import arch
-
-import subprocess
 
 class ShellSpoke(NormalTUISpoke):
     title = N_("Shell")
@@ -59,8 +58,7 @@ class ShellSpoke(NormalTUISpoke):
 
     def prompt(self, args=None):
         # run shell instead of printing prompt and close window on shell exit
-        proc = subprocess.Popen(["bash", "--login"], shell=True, cwd="/")
-        proc.wait()
+        execConsole()
         self.close()
 
         # suppress the prompt
