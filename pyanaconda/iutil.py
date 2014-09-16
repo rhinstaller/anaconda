@@ -32,8 +32,6 @@ import string # pylint: disable=deprecated-module
 import tempfile
 import types
 import re
-from threading import Thread
-from Queue import Queue, Empty
 from urllib import quote, unquote
 import gettext
 import signal
@@ -267,13 +265,42 @@ def execReadlines(command, argv, stdin=None, root='/', env_prune=None):
         :param env_prune: environment variable to remove before execution
 
         Output from the file is not logged to program.log
-        This returns a generator with the lines from the command until it has finished
+        This returns an iterator with the lines from the command until it has finished
     """
-    # Return the lines from stdout via a Queue
-    def queue_lines(out, queue):
-        for line in iter(out.readline, b''):
-            queue.put(line.strip())
-        out.close()
+
+    class ExecLineReader(object):
+        """Iterator class for returning lines from a process and cleaning
+           up the process when the output is no longer needed.
+        """
+
+        def __init__(self, proc, argv):
+            self._proc = proc
+            self._argv = argv
+
+        def __iter__(self):
+            return self
+
+        def __del__(self):
+            # See if the process is still running
+            if self._proc.poll() is None:
+                # Stop the process and ignore any problems that might arise
+                try:
+                    self._proc.terminate()
+                except OSError:
+                    pass
+
+        def next(self):
+            # Read the next line, blocking if a line is not yet available
+            line = self._proc.stdout.readline()
+            if line == '':
+                # Output finished, check for the process dying unexpectedly
+                # and stop the iteration
+                if self._proc.poll() is not None:
+                    if os.WIFSIGNALED(self._proc.returncode):
+                        raise OSError("process '%s' was killed" % self._argv)
+                raise StopIteration
+
+            return line.strip()
 
     argv = [command] + argv
 
@@ -284,23 +311,7 @@ def execReadlines(command, argv, stdin=None, root='/', env_prune=None):
             program_log.error("Error running %s: %s", argv[0], e.strerror)
         raise
 
-    q = Queue()
-    t = Thread(target=queue_lines, args=(proc.stdout, q))
-    t.daemon = True # thread dies with the program
-    t.start()
-
-    while True:
-        try:
-            line = q.get(timeout=.1)
-            yield line
-            q.task_done()
-        except Empty:
-            if proc.poll() is not None:
-                if os.WIFSIGNALED(proc.returncode):
-                    raise OSError("process '%s' was killed" % argv)
-                break
-    q.join()
-
+    return ExecLineReader(proc, argv)
 
 ## Run a shell.
 def execConsole():

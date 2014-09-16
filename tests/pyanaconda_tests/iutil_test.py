@@ -21,7 +21,6 @@
 
 from pyanaconda import iutil
 import unittest
-import types
 import os
 import tempfile
 import signal
@@ -103,12 +102,10 @@ class RunProgramTests(unittest.TestCase):
         # test some lines are returned
         self.assertGreater(len(list(iutil.execReadlines("ls", ["--help"]))), 0)
 
-        # check that it always returns a generator for both
+        # check that it always returns an iterator for both
         # if there is some output and if there isn't any
-        self.assertIsInstance(iutil.execReadlines("ls", ["--help"]),
-                              types.GeneratorType)
-        self.assertIsInstance(iutil.execReadlines("true", []),
-                              types.GeneratorType)
+        self.assertTrue(hasattr(iutil.execReadlines("ls", ["--help"]), "__iter__"))
+        self.assertTrue(hasattr(iutil.execReadlines("true", []), "__iter__"))
 
     def exec_readlines_test_normal_output(self):
         """Test the output of execReadlines."""
@@ -124,11 +121,11 @@ exit 0
             testscript.flush()
 
             with timer(5):
-                rl_generator = iutil.execReadlines("/bin/sh", [testscript.name])
-                self.assertEqual(rl_generator.next(), "one")
-                self.assertEqual(rl_generator.next(), "two")
-                self.assertEqual(rl_generator.next(), "three")
-                self.assertRaises(StopIteration, rl_generator.next)
+                rl_iterator = iutil.execReadlines("/bin/sh", [testscript.name])
+                self.assertEqual(rl_iterator.next(), "one")
+                self.assertEqual(rl_iterator.next(), "two")
+                self.assertEqual(rl_iterator.next(), "three")
+                self.assertRaises(StopIteration, rl_iterator.next)
 
         # Test output with no end of line
         with tempfile.NamedTemporaryFile() as testscript:
@@ -141,11 +138,11 @@ exit 0
             testscript.flush()
 
             with timer(5):
-                rl_generator = iutil.execReadlines("/bin/sh", [testscript.name])
-                self.assertEqual(rl_generator.next(), "one")
-                self.assertEqual(rl_generator.next(), "two")
-                self.assertEqual(rl_generator.next(), "three")
-                self.assertRaises(StopIteration, rl_generator.next)
+                rl_iterator = iutil.execReadlines("/bin/sh", [testscript.name])
+                self.assertEqual(rl_iterator.next(), "one")
+                self.assertEqual(rl_iterator.next(), "two")
+                self.assertEqual(rl_iterator.next(), "three")
+                self.assertRaises(StopIteration, rl_iterator.next)
 
     def exec_readlines_test_exits(self):
         """Test execReadlines in different child exit situations."""
@@ -163,11 +160,11 @@ exit 1
             testscript.flush()
 
             with timer(5):
-                rl_generator = iutil.execReadlines("/bin/sh", [testscript.name])
-                self.assertEqual(rl_generator.next(), "one")
-                self.assertEqual(rl_generator.next(), "two")
-                self.assertEqual(rl_generator.next(), "three")
-                self.assertRaises(OSError, rl_generator.next)
+                rl_iterator = iutil.execReadlines("/bin/sh", [testscript.name])
+                self.assertEqual(rl_iterator.next(), "one")
+                self.assertEqual(rl_iterator.next(), "two")
+                self.assertEqual(rl_iterator.next(), "three")
+                self.assertRaises(OSError, rl_iterator.next)
 
         # Test exit on signal
         with tempfile.NamedTemporaryFile() as testscript:
@@ -180,11 +177,11 @@ kill -TERM $$
             testscript.flush()
 
             with timer(5):
-                rl_generator = iutil.execReadlines("/bin/sh", [testscript.name])
-                self.assertEqual(rl_generator.next(), "one")
-                self.assertEqual(rl_generator.next(), "two")
-                self.assertEqual(rl_generator.next(), "three")
-                self.assertRaises(OSError, rl_generator.next)
+                rl_iterator = iutil.execReadlines("/bin/sh", [testscript.name])
+                self.assertEqual(rl_iterator.next(), "one")
+                self.assertEqual(rl_iterator.next(), "two")
+                self.assertEqual(rl_iterator.next(), "three")
+                self.assertRaises(OSError, rl_iterator.next)
 
         # Repeat the above two tests, but exit before a final newline
         with tempfile.NamedTemporaryFile() as testscript:
@@ -197,11 +194,11 @@ exit 1
             testscript.flush()
 
             with timer(5):
-                rl_generator = iutil.execReadlines("/bin/sh", [testscript.name])
-                self.assertEqual(rl_generator.next(), "one")
-                self.assertEqual(rl_generator.next(), "two")
-                self.assertEqual(rl_generator.next(), "three")
-                self.assertRaises(OSError, rl_generator.next)
+                rl_iterator = iutil.execReadlines("/bin/sh", [testscript.name])
+                self.assertEqual(rl_iterator.next(), "one")
+                self.assertEqual(rl_iterator.next(), "two")
+                self.assertEqual(rl_iterator.next(), "three")
+                self.assertRaises(OSError, rl_iterator.next)
 
         with tempfile.NamedTemporaryFile() as testscript:
             testscript.write("""#!/bin/sh
@@ -213,11 +210,11 @@ kill -TERM $$
             testscript.flush()
 
             with timer(5):
-                rl_generator = iutil.execReadlines("/bin/sh", [testscript.name])
-                self.assertEqual(rl_generator.next(), "one")
-                self.assertEqual(rl_generator.next(), "two")
-                self.assertEqual(rl_generator.next(), "three")
-                self.assertRaises(OSError, rl_generator.next)
+                rl_iterator = iutil.execReadlines("/bin/sh", [testscript.name])
+                self.assertEqual(rl_iterator.next(), "one")
+                self.assertEqual(rl_iterator.next(), "two")
+                self.assertEqual(rl_iterator.next(), "three")
+                self.assertRaises(OSError, rl_iterator.next)
 
     def exec_readlines_test_signals(self):
         """Test execReadlines and signal receipt."""
@@ -236,11 +233,11 @@ exit 0
                 testscript.flush()
 
                 with timer(5):
-                    rl_generator = iutil.execReadlines("/bin/sh", [testscript.name])
-                    self.assertEqual(rl_generator.next(), "one")
-                    self.assertEqual(rl_generator.next(), "two")
-                    self.assertEqual(rl_generator.next(), "three")
-                    self.assertRaises(StopIteration, rl_generator.next)
+                    rl_iterator = iutil.execReadlines("/bin/sh", [testscript.name])
+                    self.assertEqual(rl_iterator.next(), "one")
+                    self.assertEqual(rl_iterator.next(), "two")
+                    self.assertEqual(rl_iterator.next(), "three")
+                    self.assertRaises(StopIteration, rl_iterator.next)
         finally:
             signal.signal(signal.SIGHUP, old_HUP_handler)
 
@@ -260,11 +257,11 @@ exit 0
                 testscript.flush()
 
                 with timer(5):
-                    rl_generator = iutil.execReadlines("/bin/sh", [testscript.name])
-                    self.assertEqual(rl_generator.next(), "one")
-                    self.assertEqual(rl_generator.next(), "two")
-                    self.assertEqual(rl_generator.next(), "three")
-                    self.assertRaises(StopIteration, rl_generator.next)
+                    rl_iterator = iutil.execReadlines("/bin/sh", [testscript.name])
+                    self.assertEqual(rl_iterator.next(), "one")
+                    self.assertEqual(rl_iterator.next(), "two")
+                    self.assertEqual(rl_iterator.next(), "three")
+                    self.assertRaises(StopIteration, rl_iterator.next)
         finally:
             signal.signal(signal.SIGHUP, old_HUP_handler)
 
@@ -338,6 +335,35 @@ while true ; do sleep 1 ; done
                 proc.terminate()
                 proc.communicate()
                 self.assertEqual(proc.returncode, -(signal.SIGTERM))
+
+    def exec_readlines_auto_kill_test(self):
+        """Test execReadlines with reading only part of the output"""
+
+        with tempfile.NamedTemporaryFile() as testscript:
+            testscript.write("""#!/bin/sh
+# Output forever
+while true; do
+echo hey
+done
+""")
+            testscript.flush()
+
+            with timer(5):
+                rl_iterator = iutil.execReadlines("/bin/sh", [testscript.name])
+
+                # Save the process context
+                proc = rl_iterator._proc
+
+                # Read two lines worth
+                self.assertEqual(rl_iterator.next(), "hey")
+                self.assertEqual(rl_iterator.next(), "hey")
+
+                # Delete the iterator and wait for the process to be killed
+                del rl_iterator
+                proc.communicate()
+
+            # Check that the process is gone
+            self.assertIsNotNone(proc.poll())
 
 class MiscTests(unittest.TestCase):
     def get_dir_size_test(self):
