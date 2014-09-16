@@ -297,6 +297,42 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Mon Sep 15 2014 Brian C. Lane <bcl@redhat.com> - 19.31.90-1
+- Fix TUI error message regarding user name creation (sbueno+anaconda)
+  Resolves: rhbz#1058637
+- Warn if software selection size exceeds available space (sbueno+anaconda)
+  Resolves: rhbz#1010070
+- Fix up a string style issue found in the last network commits. (clumens)
+  Related: rhbz#1120374
+- network: WPA Enterprise: don't ask twice for password (rvykydal)
+  Related: rhbz#1120374
+- network: add support for WPA Enterprise (rvykydal)
+  Resolves: rhbz#1120374
+- Handle spaces in inst.repo, kickstart nfs, and url commands (bcl)
+  Resolves: rhbz#1109933
+- Fix q for quit issue in text mode (sbueno+anaconda)
+  Resolves: rhbz#997405
+- Additional message if kickstart was used but did not finish (amulhern)
+  Related: rhbz#1117908
+- Move some statically detectable kickstart errors out of anaconda (amulhern)
+  Related: rhbz#1117908
+- Exclude hfsplus-tools from rhel (bcl)
+  Resolves: rhbz#1119305
+- Allow to search specialized and network devices after pressing Enter
+  (mkolman)
+  Resolves: rhbz#1058364
+- Fix hang at reboot with VNC installs (wwoods)
+  Resolves: rhbz#1036572
+- Define the gettext method earlier (dshea)
+  Resolves: rhbz#1140605
+- mountExistingSystem raises an exception with dirty FS (vpodzime)
+  Resolves: rhbz#1080210
+- Don't care about crash args in bootloader (vpodzime)
+  Resolves: rhbz#1116338
+- Split out anaconda's user interfaces into separate packages (vpodzime)
+  Resolves: rhbz#1012509
+  Related: rhbz#999464
+
 * Wed Sep 10 2014 Brian C. Lane <bcl@redhat.com> - 19.31.89-1
 - Fix noselinux cmdline default (bcl)
   Resolves: rhbz#1137049
