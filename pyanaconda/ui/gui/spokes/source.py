@@ -457,10 +457,7 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler):
         elif self._nfs_active():
             url = self._urlEntry.get_text().strip()
 
-            # If the user didn't fill in the URL entry, or it does not contain
-            # a ':' (so, no host/directory split), just return as if they
-            # selected nothing.
-            if url == "" or not ':' in url:
+            if url == "":
                 return False
 
             self.data.method.method = "nfs"
