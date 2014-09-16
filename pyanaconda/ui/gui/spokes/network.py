@@ -1301,7 +1301,7 @@ class SecretAgent(dbus.service.Object):
                                 'value'    : original_secrets.get('identity', ''),
                                 'validate' : None,
                                 'password' : False})
-                secrets.append({'label'    : _('Private ksy password: '),
+                secrets.append({'label'    : _('Private key password: '),
                                 'key'      : 'private-key-password',
                                 'value'    : original_secrets.get('private-key-password', ''),
                                 'validate' : None,
