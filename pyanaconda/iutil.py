@@ -159,6 +159,7 @@ def startProgram(argv, root='/', stdin=None, stdout=subprocess.PIPE, stderr=subp
                             stdin=stdin,
                             stdout=stdout,
                             stderr=stderr,
+                            close_fds=True,
                             preexec_fn=preexec, cwd=root, env=env, **kwargs)
 
 def _run_program(argv, root='/', stdin=None, stdout=None, env_prune=None, log_output=True, binary_output=False):
