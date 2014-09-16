@@ -241,7 +241,7 @@ class Authconfig(commands.authconfig.FC3_Authconfig):
     def execute(self, *args):
         cmd = "/usr/sbin/authconfig"
         if not os.path.lexists(iutil.getSysroot()+cmd):
-            if self.seen:
+            if flags.automatedInstall and self.seen:
                 msg = _("%s is missing. Cannot setup authentication.") % cmd
                 raise KickstartError(msg)
             else:
