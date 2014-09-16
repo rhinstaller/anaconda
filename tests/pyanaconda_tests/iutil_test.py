@@ -144,6 +144,78 @@ exit 0
                 self.assertEqual(rl_iterator.next(), "three")
                 self.assertRaises(StopIteration, rl_iterator.next)
 
+    def exec_readlines_test_exits(self):
+        """Test execReadlines in different child exit situations."""
+
+        # These tests raise OSError once output has been consumed
+
+        # Test a normal, non-0 exit
+        with tempfile.NamedTemporaryFile() as testscript:
+            testscript.write("""#!/bin/sh
+echo "one"
+echo "two"
+echo "three"
+exit 1
+""")
+            testscript.flush()
+
+            with timer(5):
+                rl_iterator = iutil.execReadlines("/bin/sh", [testscript.name])
+                self.assertEqual(rl_iterator.next(), "one")
+                self.assertEqual(rl_iterator.next(), "two")
+                self.assertEqual(rl_iterator.next(), "three")
+                self.assertRaises(OSError, rl_iterator.next)
+
+        # Test exit on signal
+        with tempfile.NamedTemporaryFile() as testscript:
+            testscript.write("""#!/bin/sh
+echo "one"
+echo "two"
+echo "three"
+kill -TERM $$
+""")
+            testscript.flush()
+
+            with timer(5):
+                rl_iterator = iutil.execReadlines("/bin/sh", [testscript.name])
+                self.assertEqual(rl_iterator.next(), "one")
+                self.assertEqual(rl_iterator.next(), "two")
+                self.assertEqual(rl_iterator.next(), "three")
+                self.assertRaises(OSError, rl_iterator.next)
+
+        # Repeat the above two tests, but exit before a final newline
+        with tempfile.NamedTemporaryFile() as testscript:
+            testscript.write("""#!/bin/sh
+echo "one"
+echo "two"
+echo -n "three"
+exit 1
+""")
+            testscript.flush()
+
+            with timer(5):
+                rl_iterator = iutil.execReadlines("/bin/sh", [testscript.name])
+                self.assertEqual(rl_iterator.next(), "one")
+                self.assertEqual(rl_iterator.next(), "two")
+                self.assertEqual(rl_iterator.next(), "three")
+                self.assertRaises(OSError, rl_iterator.next)
+
+        with tempfile.NamedTemporaryFile() as testscript:
+            testscript.write("""#!/bin/sh
+echo "one"
+echo "two"
+echo -n "three"
+kill -TERM $$
+""")
+            testscript.flush()
+
+            with timer(5):
+                rl_iterator = iutil.execReadlines("/bin/sh", [testscript.name])
+                self.assertEqual(rl_iterator.next(), "one")
+                self.assertEqual(rl_iterator.next(), "two")
+                self.assertEqual(rl_iterator.next(), "three")
+                self.assertRaises(OSError, rl_iterator.next)
+
     def exec_readlines_test_signals(self):
         """Test execReadlines and signal receipt."""
 
@@ -263,6 +335,35 @@ while true ; do sleep 1 ; done
                 proc.terminate()
                 proc.communicate()
                 self.assertEqual(proc.returncode, -(signal.SIGTERM))
+
+    def exec_readlines_auto_kill_test(self):
+        """Test execReadlines with reading only part of the output"""
+
+        with tempfile.NamedTemporaryFile() as testscript:
+            testscript.write("""#!/bin/sh
+# Output forever
+while true; do
+echo hey
+done
+""")
+            testscript.flush()
+
+            with timer(5):
+                rl_iterator = iutil.execReadlines("/bin/sh", [testscript.name])
+
+                # Save the process context
+                proc = rl_iterator._proc
+
+                # Read two lines worth
+                self.assertEqual(rl_iterator.next(), "hey")
+                self.assertEqual(rl_iterator.next(), "hey")
+
+                # Delete the iterator and wait for the process to be killed
+                del rl_iterator
+                proc.communicate()
+
+            # Check that the process is gone
+            self.assertIsNotNone(proc.poll())
 
 class MiscTests(unittest.TestCase):
     def get_dir_size_test(self):
