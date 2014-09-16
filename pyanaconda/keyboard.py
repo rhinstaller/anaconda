@@ -290,7 +290,7 @@ def activate_keyboard(keyboard):
     """
 
     localed = LocaledWrapper()
-    c_lay_var = ""
+    c_lays_vars = []
     c_keymap = ""
 
     if keyboard._keyboard and not (keyboard.vc_keymap or keyboard.x_layouts):
@@ -311,12 +311,15 @@ def activate_keyboard(keyboard):
             keyboard.vc_keymap = None
         else:
             # activate VConsole keymap and get converted layout and variant
-            c_lay_var = localed.set_and_convert_keymap(keyboard.vc_keymap)
+            converted = localed.set_and_convert_keymap(keyboard.vc_keymap)
+
+            # localed may give us multiple comma-separated layouts+variants
+            c_lays_vars = converted.split(",")
 
     if not keyboard.x_layouts:
-        if c_lay_var:
+        if c_lays_vars:
             # suggested by systemd-localed for a requested VConsole keymap
-            keyboard.x_layouts.append(c_lay_var)
+            keyboard.x_layouts += c_lays_vars
         elif keyboard.vc_keymap:
             # nothing suggested by systemd-localed, but we may try to use the
             # same string for both VConsole keymap and X layout (will fail
