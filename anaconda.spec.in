@@ -20,7 +20,7 @@ Source0: %{name}-%{version}.tar.bz2
 %define gettextver 0.11
 %define intltoolver 0.31.2-3
 %define libnlver 1.0
-%define pykickstartver  1.99.43.13
+%define pykickstartver  1.99.43.14
 %define yumver 3.4.3-91
 %define partedver 1.8.1
 %define pypartedver 2.5-2
@@ -85,7 +85,7 @@ The anaconda package is a metapackage for the Anaconda installer.
 
 %package core
 Summary: Core of the Anaconda installer
-Requires: python-blivet >= 0.61.0.5-1
+Requires: python-blivet >= 0.61.0.6-1
 Requires: python-meh >= %{mehver}
 Requires: libreport-anaconda >= 2.0.21-1
 Requires: libreport-rhel-anaconda-bugzilla >= 2.1.11-1
