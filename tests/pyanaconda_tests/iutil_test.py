@@ -93,6 +93,25 @@ class RunProgramTests(unittest.TestCase):
         # check no output is returned
         self.assertEqual(len(iutil.execWithCapture('true', [])), 0)
 
+    def exec_with_capture_no_stderr_test(self):
+        """Test execWithCapture with no stderr"""
+
+        with tempfile.NamedTemporaryFile() as testscript:
+            testscript.write("""#!/bin/sh
+echo "output"
+echo "error" >&2
+""")
+            testscript.flush()
+
+            # check that only the output is captured
+            self.assertEqual(
+                    iutil.execWithCapture("/bin/sh", [testscript.name], filter_stderr=True),
+                    "output\n")
+
+            # check that both output and error are captured
+            self.assertEqual(iutil.execWithCapture("/bin/sh", [testscript.name]),
+                    "output\nerror\n")
+
     def exec_readlines_test(self):
         """Test execReadlines."""
 
