@@ -160,21 +160,29 @@ def startProgram(argv, root='/', stdin=None, stdout=subprocess.PIPE, stderr=subp
                             close_fds=True,
                             preexec_fn=preexec, cwd=root, env=env, **kwargs)
 
-def _run_program(argv, root='/', stdin=None, stdout=None, env_prune=None, log_output=True, binary_output=False):
+def _run_program(argv, root='/', stdin=None, stdout=None, env_prune=None, log_output=True,
+        binary_output=False, filter_stderr=False):
     """ Run an external program, log the output and return it to the caller
         :param argv: The command to run and argument
         :param root: The directory to chroot to before running command.
         :param stdin: The file object to read stdin from.
-        :param stdout: Optional file object to write stdout and stderr to.
+        :param stdout: Optional file object to write the output to.
         :param env_prune: environment variable to remove before execution
         :param log_output: whether to log the output of command
         :param binary_output: whether to treat the output of command as binary data
+        :param filter_stderr: whether to exclude the contents of stderr from the returned output
         :return: The return code of the command and the output
     """
     try:
-        proc = startProgram(argv, root=root, stdin=stdin, env_prune=env_prune)
+        if filter_stderr:
+            stderr = subprocess.PIPE
+        else:
+            stderr = subprocess.STDOUT
 
-        output_string = proc.communicate()[0]
+        proc = startProgram(argv, root=root, stdin=stdin, stdout=subprocess.PIPE, stderr=stderr,
+                env_prune=env_prune)
+
+        (output_string, err_string) = proc.communicate()
         if output_string:
             if binary_output:
                 output_lines = [output_string]
@@ -190,6 +198,14 @@ def _run_program(argv, root='/', stdin=None, stdout=None, env_prune=None, log_ou
 
             if stdout:
                 stdout.write(output_string)
+
+        # If stderr was filtered, log it separately
+        if filter_stderr and err_string and log_output:
+            err_lines = err_string.splitlines(True)
+
+            with program_log_lock:
+                for line in err_lines:
+                    program_log.info(line.strip())
 
     except OSError as e:
         with program_log_lock:
@@ -233,13 +249,14 @@ def execWithRedirect(command, argv, stdin=None, stdout=None,
     return _run_program(argv, stdin=stdin, stdout=stdout, root=root, env_prune=env_prune,
             log_output=log_output, binary_output=binary_output)[0]
 
-def execWithCapture(command, argv, stdin=None, root='/', log_output=True):
+def execWithCapture(command, argv, stdin=None, root='/', log_output=True, filter_stderr=False):
     """ Run an external program and capture standard out and err.
         :param command: The command to run
         :param argv: The argument list
         :param stdin: The file object to read stdin from.
         :param root: The directory to chroot to before running command.
         :param log_output: Whether to log the output of command
+        :param filter_stderr: Whether stderr should be excluded from the returned output
         :return: The output of the command
     """
     if flags.testing:
@@ -248,7 +265,8 @@ def execWithCapture(command, argv, stdin=None, root='/', log_output=True):
         return ""
 
     argv = [command] + argv
-    return _run_program(argv, stdin=stdin, root=root, log_output=log_output)[1]
+    return _run_program(argv, stdin=stdin, root=root, log_output=log_output,
+            filter_stderr=filter_stderr)[1]
 
 def execReadlines(command, argv, stdin=None, root='/', env_prune=None):
     """ Execute an external command and return the line output of the command
