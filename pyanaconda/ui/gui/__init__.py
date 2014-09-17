@@ -346,6 +346,7 @@ class MainWindow(Gtk.Window):
         if old_screen:
             old_screen.remove_accelerator(self._accel_group, Gdk.KEY_F12, 0)
             old_screen.remove_accelerator(self._accel_group, Gdk.KEY_F1, 0)
+            old_screen.remove_accelerator(self._accel_group, Gdk.KEY_F1, Gdk.ModifierType.MOD1_MASK)
 
         # Check if the widget is already on the stack
         if child not in self._stack_contents:
@@ -360,11 +361,15 @@ class MainWindow(Gtk.Window):
                     Gdk.KEY_F12, 0, 0)
             child.window.add_accelerator("help-button-clicked", self._accel_group,
                     Gdk.KEY_F1, 0, 0)
+            child.window.add_accelerator("help-button-clicked", self._accel_group,
+                    Gdk.KEY_F1, Gdk.ModifierType.MOD1_MASK, 0)
         elif isinstance(child.window, AnacondaWidgets.SpokeWindow):
             child.window.add_accelerator("button-clicked", self._accel_group,
                     Gdk.KEY_F12, 0, 0)
             child.window.add_accelerator("help-button-clicked", self._accel_group,
                     Gdk.KEY_F1, 0, 0)
+            child.window.add_accelerator("help-button-clicked", self._accel_group,
+                    Gdk.KEY_F1, Gdk.ModifierType.MOD1_MASK, 0)
 
         self._stack.set_visible_child(child.window)
 
