@@ -23,7 +23,7 @@ import meh.ui.gui
 
 from contextlib import contextmanager
 
-from gi.repository import Gdk, Gtk, AnacondaWidgets, Keybinder, GdkPixbuf, GLib
+from gi.repository import Gdk, Gtk, AnacondaWidgets, Keybinder, GdkPixbuf, GLib, GObject
 
 from pyanaconda.i18n import _
 from pyanaconda.constants import IPMI_ABORTED
@@ -498,6 +498,45 @@ class GraphicalUserInterface(UserInterface):
             else:
                 log.warning("logo image is missing")
 
+    def _widgetScale(self):
+        # First, check if the GDK_SCALE environment variable is already set. If so,
+        # leave it alone.
+        if "GDK_SCALE" in os.environ:
+            log.debug("GDK_SCALE already set to %s, not scaling", os.environ["GDK_SCALE"])
+            return
+
+        # Next, check if a scaling factor is already being applied via XSETTINGS,
+        # such as by gnome-settings-daemon
+        display = Gdk.Display.get_default()
+        screen = display.get_default_screen()
+        val = GObject.Value()
+        val.init(GObject.TYPE_INT)
+        if screen.get_setting("gdk-window-scaling-factor", val):
+            log.debug("Window scale set to %s by XSETTINGS, not scaling", val.get_int())
+            return
+
+        # Get the primary monitor dimensions in pixels and mm from Gdk
+        primary = screen.get_primary_monitor()
+        monitor_geometry = screen.get_monitor_geometry(primary)
+        monitor_scale = screen.get_monitor_scale_factor(primary)
+        monitor_width_mm = screen.get_monitor_width_mm(primary)
+        monitor_height_mm = screen.get_monitor_height_mm(primary)
+
+        # Check if this monitor is high DPI, using heuristics from gnome-settings-dpi.
+        # If the monitor has a height >= 1200 pixels and a resolution > 192 dpi in both
+        # x and y directions, apply a scaling factor of 2 so that anaconda isn't all tiny
+        monitor_width_px = monitor_geometry.width * monitor_scale
+        monitor_height_px = monitor_geometry.height * monitor_scale
+        monitor_dpi_x = monitor_width_px / (monitor_width_mm / 25.4)
+        monitor_dpi_y = monitor_height_px / (monitor_height_mm / 25.4)
+
+        log.debug("Detected primary monitor: %dx%d %ddpix %ddpiy", monitor_width_px,
+                monitor_height_px, monitor_dpi_x, monitor_dpi_y)
+        if monitor_height_px >= 1200 and monitor_dpi_x > 192 and monitor_dpi_y > 192:
+            display.set_window_scale(2)
+            # Export the scale so that Gtk programs launched by anaconda are also scaled
+            os.environ["GDK_SCALE"] = "2"
+
     @property
     def tty_num(self):
         return 6
@@ -575,6 +614,9 @@ class GraphicalUserInterface(UserInterface):
                 time.sleep(2)
 
             sys.exit(0)
+
+        # Apply a widget-scale to hidpi monitors
+        self._widgetScale()
 
         while not self._currentAction:
             self._currentAction = self._instantiateAction(self._actions[0])

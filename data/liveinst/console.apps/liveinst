@@ -5,4 +5,5 @@ SESSION=true
 STARTUP_NOTIFICATION_NAME="Starting Install to Hard Drive"
 DOMAIN=anaconda
 # DBus session connections fail when running setuid unless we pass DBUS_SESSION_BUS_ADDRESS through
-KEEP_ENV_VARS=DBUS_SESSION_BUS_ADDRESS,LIVECMD
+# Keep the Gdk scale settings from the user environment
+KEEP_ENV_VARS=DBUS_SESSION_BUS_ADDRESS,LIVECMD,GDK_SCALE
