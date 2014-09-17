@@ -215,6 +215,14 @@ Use extlinux as the bootloader. Note that there's no attempt to validate
 that this will work for your platform or anything; it assumes that if you
 ask for it, you want to try.
 
+nombr
+
+If nombr is specified the grub2 bootloader will be installed but the
+MBR will not be updated.  Therefore, when the system reboot, a previously
+installed OS will be booted.  /etc/grub.d/40_custom can be used with
+manually created menuentrys which can use configfile to point to the
+grub.cfg on the newly installed OS.
+
 dnf
 Use the experimental DNF package management backend instead of the YUM backend
 that is used by default. For more information about the DNF project see:

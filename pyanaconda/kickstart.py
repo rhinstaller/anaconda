@@ -382,6 +382,9 @@ class Bootloader(commands.bootloader.F21_Bootloader):
         if self.leavebootorder:
             flags.leavebootorder = True
 
+        if self.nombr:
+            flags.nombr = True
+
 class BTRFS(commands.btrfs.F17_BTRFS):
     def execute(self, storage, ksdata, instClass):
         for b in self.btrfsList:

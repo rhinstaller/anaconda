@@ -1588,6 +1588,12 @@ class GRUB2(GRUB):
                 # This is hopefully a temporary hack. GRUB2 currently refuses
                 # to install to a partition's boot block without --force.
                 grub_args.insert(0, '--force')
+            else:
+                if flags.nombr:
+                    grub_args.insert(0,'--grub-setup=/bin/true')
+                    log.info("bootloader.py: mbr update by grub2 disabled")
+                else:
+                    log.info("bootloader.py: mbr will be updated for grub2")
 
             rc = iutil.execWithRedirect("grub2-install", grub_args,
                                         root=iutil.getSysroot(),
