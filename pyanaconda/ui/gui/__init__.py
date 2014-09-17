@@ -301,8 +301,6 @@ class GraphicalUserInterface(UserInterface):
         return isinstance(obj, StandaloneSpoke)
 
     def setup(self, data):
-        busyCursor()
-
         self._actions = self.getActionClasses(self._list_hubs())
         self.data = data
 
