@@ -472,8 +472,9 @@ def parseArguments(argv=None, boot_cmdline=None):
     ap.add_argument("--syslog", metavar="HOST[:PORT]", help=help_parser.help_text("syslog"))
 
     from pykickstart.constants import SELINUX_DISABLED, SELINUX_ENFORCING
+    from pyanaconda.constants import SELINUX_DEFAULT
     ap.add_argument("--noselinux", dest="selinux", action="store_const",
-                    const=SELINUX_DISABLED, default=constants.SELINUX_DEFAULT,
+                    const=SELINUX_DISABLED, default=SELINUX_DEFAULT,
                     help=help_parser.help_text("noselinux"))
     ap.add_argument("--selinux", action="store_const",
                     const=SELINUX_ENFORCING, help=help_parser.help_text("selinux"))
@@ -1230,8 +1231,7 @@ if __name__ == "__main__":
             log.error("Unknown method: %s", anaconda.methodstr)
 
     # Override the selinux state from kickstart if set on the command line
-    from pyanaconda.constants import SELINUX_DEFAULT
-    if flags.selinux != SELINUX_DEFAULT:
+    if flags.selinux != constants.SELINUX_DEFAULT:
         ksdata.selinux.selinux = flags.selinux
 
     from pyanaconda import localization
