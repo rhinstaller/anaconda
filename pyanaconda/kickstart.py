@@ -755,7 +755,7 @@ class Lang(commands.lang.F19_Lang):
 # no overrides needed here
 Eula = commands.eula.F20_Eula
 
-class LogVol(commands.logvol.F20_LogVol):
+class LogVol(commands.logvol.F21_LogVol):
     def execute(self, storage, ksdata, instClass):
         for l in self.lvList:
             l.execute(storage, ksdata, instClass)
@@ -772,13 +772,16 @@ class LogVolData(commands.logvol.F20_LogVolData):
         # we might have truncated or otherwise changed the specified vg name
         vgname = ksdata.onPart.get(self.vgname, self.vgname)
 
-        try:
-            size = Size("%d MiB" % self.size)
-        except ValueError:
-            raise KickstartValueError(formatErrorMsg(self.lineno,
-                    msg="The size \"%s\" is invalid." % self.size))
-        except TypeError:
-            pass
+        if self.percent:
+            size = Size(0)
+        else:
+            try:
+                size = Size("%d MiB" % self.size)
+            except ValueError:
+                raise KickstartValueError(formatErrorMsg(self.lineno,
+                        msg="The size \"%s\" is invalid." % self.size))
+            except TypeError:
+                pass
 
         if self.mountpoint == "swap":
             ty = "swap"
