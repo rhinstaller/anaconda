@@ -348,6 +348,8 @@ def parseArguments(argv=None, boot_cmdline=None):
                     help=help_parser.help_text("noeject"))
     ap.add_argument("--extlinux", action="store_true", default=False,
                     help=help_parser.help_text("extlinux"))
+    ap.add_argument("--nombr", action="store_true", default=False,
+                    help=help_parser.help_text("nombr"))
     ap.add_argument("--dnf", action="store_true", default=False,
                     help=help_parser.help_text("dnf"))
     ap.add_argument("--mpathfriendlynames", action="store_true", default=True,
@@ -960,6 +962,7 @@ if __name__ == "__main__":
     flags.noverifyssl = opts.noverifyssl
     flags.armPlatform = opts.armPlatform
     flags.extlinux = opts.extlinux
+    flags.nombr = opts.nombr
     flags.dnf = opts.dnf
     flags.mpathFriendlyNames = opts.mpathfriendlynames
     flags.debug = opts.debug

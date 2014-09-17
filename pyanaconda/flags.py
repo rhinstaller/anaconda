@@ -61,6 +61,7 @@ class Flags(object):
         self.askmethod = False
         self.eject = True
         self.extlinux = False
+        self.nombr = False
         self.gpt = False
         self.leavebootorder = False
         self.testing = False
@@ -79,7 +80,7 @@ class Flags(object):
 
     def read_cmdline(self):
         for f in ("selinux", "debug", "leavebootorder", "testing", "extlinux",
-                  "gpt", "dnf", "noefi"):
+                  "nombr", "gpt", "dnf", "noefi"):
             self.set_cmdline_bool(f)
 
         if not selinux.is_selinux_enabled():
