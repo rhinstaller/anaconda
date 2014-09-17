@@ -489,6 +489,20 @@ GtkWidget *anaconda_base_window_get_nav_area(AnacondaBaseWindow *win) {
 }
 
 /**
+ * anaconda_base_window_get_help_button:
+ * @win: a #AnacondaBaseWindow
+ *
+ * Returns the help button.
+ *
+ * Returns: (transfer none): the help button
+ *
+ * Since: 3.1
+ */
+GtkWidget *anaconda_base_window_get_help_button(AnacondaBaseWindow *win) {
+    return win->priv->help_button;
+}
+
+/**
  * anaconda_base_window_get_nav_area_background_window:
  * @win: a #AnacondaBaseWindow
  *
