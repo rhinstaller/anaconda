@@ -862,7 +862,7 @@ if __name__ == "__main__":
     anaconda.updateSrc = opts.updateSrc
     anaconda.methodstr = opts.method
     anaconda.stage2 = opts.stage2
-    anaconda.rescue = opts.rescue
+    flags.rescue_mode = opts.rescue
 
 
     if opts.liveinst:
