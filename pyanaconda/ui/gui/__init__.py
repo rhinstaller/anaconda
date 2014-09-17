@@ -445,6 +445,8 @@ class GraphicalUserInterface(UserInterface):
                                     self.mainWindow.lightbox_on)
 
         ANACONDA_WINDOW_GROUP.add_window(self.mainWindow)
+        # we have a sensible initial value, just in case
+        self._saved_help_button_label = _("Help!")
 
     basemask = "pyanaconda.ui"
     basepath = os.path.dirname(__file__)
@@ -546,6 +548,7 @@ class GraphicalUserInterface(UserInterface):
         # Use connect_after so classes can add actions before we change screens
         obj.window.connect_after("continue-clicked", self._on_continue_clicked)
         obj.window.connect_after("help-button-clicked", self._on_help_clicked, obj)
+        self.mainWindow.connect("notify::mnemonics-visible", self._on_mnemonics_visible_changed, obj)
         obj.window.connect_after("quit-clicked", self._on_quit_clicked)
 
         return obj
@@ -711,6 +714,20 @@ class GraphicalUserInterface(UserInterface):
         # the help button has been clicked, start the yelp viewer with
         # content for the current screen
         ihelp.start_yelp(ihelp.get_help_path(obj.helpFile, self.instclass))
+
+    def _on_mnemonics_visible_changed(self, window, property, obj):
+        # mnemonics display has been activated or deactivated,
+        # add or remove the F1 mnemonics display from the help button
+        help_button = obj.window.get_help_button()
+        if window.props.mnemonics_visible:
+            # save current label
+            old_label = help_button.get_label()
+            self._saved_help_button_label = old_label
+            # add the (F1) "mnemonics" to the help button
+            help_button.set_label("%s (F1)" % old_label)
+        else:
+            # restore the old label
+            help_button.set_label(self._saved_help_button_label)
 
     def _on_quit_clicked(self, win, userData=None):
         if not win.get_quit_button():
