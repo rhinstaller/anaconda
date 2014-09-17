@@ -996,7 +996,15 @@ class NetworkControlBox(GObject.GObject):
 
         # TODO NM_GI_BUGS
         ap_dbus = dbus.SystemBus().get_object(NM_SERVICE, ap.get_path())
-        mode = getNMObjProperty(ap_dbus, ".AccessPoint", "Mode")
+        try:
+            mode = getNMObjProperty(ap_dbus, ".AccessPoint", "Mode")
+        except dbus.DBusException as e:
+            # object has became invalid (race)
+            if e.get_dbus_name() == "org.freedesktop.DBus.Error.UnknownMethod":
+                return
+            else:
+                raise
+
 
         security = self._ap_security_dbus(ap)
 
