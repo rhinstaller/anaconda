@@ -1923,7 +1923,7 @@ def runTracebackScripts(scripts):
 
 def resetCustomStorageData(ksdata):
     cmds = ["partition", "raid", "volgroup", "logvol", "btrfs"]
-    map(lambda c: ksdata.resetCommand(c), cmds)
+    map(ksdata.resetCommand, cmds)
 
     ksdata.clearpart.type = CLEARPART_TYPE_NONE
 
