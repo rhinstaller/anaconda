@@ -194,9 +194,8 @@ def doInstall(storage, payload, ksdata, instClass):
 
     turnOnFilesystems(storage, mountOnly=flags.flags.dirInstall, callbacks=callbacks_reg)
     write_storage_late = (flags.flags.livecdInstall or ksdata.ostreesetup.seen
-                          or ksdata.method.method == "liveimg"
-                          and not flags.flags.dirInstall)
-    if not write_storage_late:
+                          or ksdata.method.method == "liveimg")
+    if not write_storage_late and not flags.flags.dirInstall:
         storage.write()
 
     # Do packaging.
@@ -225,7 +224,7 @@ def doInstall(storage, payload, ksdata, instClass):
     payload.preInstall(packages=packages, groups=payload.languageGroups())
     payload.install()
 
-    if write_storage_late:
+    if write_storage_late and not flags.flags.dirInstall:
         if iutil.getSysroot() != iutil.getTargetPhysicalRoot():
             blivet.setSysroot(iutil.getTargetPhysicalRoot(),
                               iutil.getSysroot())
