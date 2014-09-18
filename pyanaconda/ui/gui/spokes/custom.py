@@ -883,6 +883,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         self._modifyContainerButton = self.builder.get_object("modifyContainerButton")
         self._containerCombo = self.builder.get_object("containerCombo")
         self._containerStore = self.builder.get_object("containerStore")
+        self._deviceDescLabel = self.builder.get_object("deviceDescLabel")
 
         # Stores
         self._raidStoreFilter = self.builder.get_object("raidStoreFiltered")
@@ -1548,6 +1549,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
                     self._error = e
                     self.set_warning(_(device_configuration_error_msg)) 
                     self.window.show_all()
+                    self._device_disks = old_disks
 
                     if _device is None:
                         # in this case we have removed the old device so we now have
@@ -1844,6 +1846,18 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
 
         return device_type
 
+    def _set_devices_label(self):
+        device_disks = self._device_disks
+        if not device_disks:
+            devices_desc = _("No disks assigned")
+        else:
+            devices_desc = "%s (%s)" % (device_disks[0].description, device_disks[0].name)
+            num_disks = len(device_disks)
+            if num_disks > 1:
+                devices_desc += P_(" and %d other", " and %d others",
+                                   num_disks - 1) % (num_disks -1 )
+        self._deviceDescLabel.set_text(devices_desc)
+
     def _populate_right_side(self, selector):
         log.debug("populate_right_side: %s", selector._device)
         selectedDeviceLabel = self.builder.get_object("selectedDeviceLabel")
@@ -1884,9 +1898,17 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         log.debug("updated device_container_encrypted to %s", self._device_container_encrypted)
         log.debug("updated device_container_size to %s", self._device_container_size)
 
+        ##
+        ## Set up the header and device info
+        ##
         selectedDeviceLabel.set_text(selector.props.name)
         selectedDeviceDescLabel.set_text(self._description(selector.props.name))
 
+        self._set_devices_label()
+
+        ##
+        ## Set up device name, mountpoint, label and reformat/encrypt checkboxes
+        ##
         device_name = getattr(use_dev, "lvname", use_dev.name)
         self._nameEntry.set_text(device_name)
 
@@ -2525,6 +2547,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
             self._applyButton.set_sensitive(True)
 
         self._device_disks = disks
+        self._set_devices_label()
         self._populate_raid(selectedRaidLevel(self._raidLevelCombo))
 
     def _container_encryption_change(self, old_encrypted, new_encrypted):
@@ -2604,6 +2627,8 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         self._device_container_raid_level = dialog.raid_level
         self._device_container_encrypted = dialog.encrypted
         self._device_container_size = dialog.size_policy
+
+        self._set_devices_label()
 
     def _container_store_row(self, name, freeSpace=None):
         if freeSpace is not None:
