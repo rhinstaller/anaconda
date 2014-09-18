@@ -754,7 +754,7 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler):
             if dev_info["label"] != "":
                 dev_info["label"] = "\n" + dev_info["label"]
 
-            store.append([dev, "%(model)s %(path)s (%(size)s MB) %(format)s %(label)s" % dev_info])
+            store.append([dev, "%(model)s %(path)s (%(size)s) %(format)s %(label)s" % dev_info])
             if self.data.method.method == "harddrive" and dev == methodDev:
                 active = idx
             added = True
