@@ -31,7 +31,8 @@ bad_strings = {'(?i)bootloader': 'boot loader',
                'BTRFS':          'Btrfs',
                'btrfs':          'Btrfs',
                '[Cc]an not':     'cannot',
-               '(?i)mountpoint': 'mount point'}
+               '(?i)mountpoint': 'mount point',
+               'Ok':             'OK'}
 
 # Sometimes we need to use a bad string, or it's just too much of a pain to
 # write a more specific regex. List occurrences here.
