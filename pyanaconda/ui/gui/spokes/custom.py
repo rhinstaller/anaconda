@@ -2820,6 +2820,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         self.clear_errors()
         with ui_storage_logger():
             try:
+                self.__storage.createFreeSpaceSnapshot()
                 refreshAutoSwapSize(self.__storage)
                 doAutoPartition(self.__storage, self.data)
             except NoDisksError as e:
