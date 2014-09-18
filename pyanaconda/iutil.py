@@ -339,6 +339,100 @@ def execConsole():
     except OSError as e:
         raise RuntimeError("Error running /bin/sh: " + e.strerror)
 
+# Dictionary of processes to watch in the form {pid: name, ...}
+_forever_pids = {}
+_watch_process_handler_set = False
+
+class ExitError(RuntimeError):
+    pass
+
+# Raise an error on process exit. The argument is a list of tuples
+# of the form [(name, status), ...] with statuses in the subprocess
+# format (>=0 is return codes, <0 is signal)
+def _raise_exit_error(statuses):
+    exn_message = []
+
+    for proc_name, status in statuses:
+        if status >= 0:
+            status_str = "with status %s" % status
+        else:
+            status_str = "on signal %s" % -status
+
+        exn_message.append("%s exited %s" % (proc_name, status_str))
+
+    raise ExitError(", ".join(exn_message))
+
+# Signal handler used with watchProcess
+def _sigchld_handler(num=None, frame=None):
+    # Check whether anything in the list of processes being watched has
+    # exited. We don't want to call waitpid(-1), since that would break
+    # anything else using wait/waitpid (like the subprocess module).
+    exited_pids = []
+    exit_statuses = []
+
+    for child_pid in _forever_pids:
+        try:
+            pid_result, status = os.waitpid(child_pid, os.WNOHANG)
+        except OSError as e:
+            if e.errno == errno.ECHILD:
+                continue
+
+        if pid_result:
+            proc_name = _forever_pids[child_pid]
+            exited_pids.append(child_pid)
+
+            # Convert the wait-encoded status to the format used by subprocess
+            if os.WIFEXITED(status):
+                sub_status = os.WEXITSTATUS(status)
+            else:
+                sub_status = -os.WTERMSIG(status)
+
+            exit_statuses.append((proc_name, sub_status))
+
+    for child_pid in exited_pids:
+        del _forever_pids[child_pid]
+
+    if exit_statuses:
+        _raise_exit_error(exit_statuses)
+
+def watchProcess(proc, name):
+    """Watch for a process exit, and raise a ExitError when it does.
+
+       This method installs a SIGCHLD signal handler and thus cannot be
+       used with the child_watch_add methods in GLib. Since the SIGCHLD
+       handler calls wait() on the watched process, this call cannot be
+       combined with Popen.wait() or Popen.communicate, and also doing
+       so wouldn't make a whole lot of sense.
+
+       :param proc: The Popen object for the process
+       :param name: The name of the process
+    """
+    global _watch_process_handler_set
+
+    if not _watch_process_handler_set:
+        signal.signal(signal.SIGCHLD, _sigchld_handler)
+        _watch_process_handler_set = True
+
+    # Add the PID to the dictionary
+    _forever_pids[proc.pid] = name
+
+    # Check that the process didn't already exit
+    if proc.poll() is not None:
+        del _forever_pids[proc.pid]
+        _raise_exit_error([(name, proc.returncode)])
+
+def unwatchProcess(proc):
+    """Unwatch a process watched by watchProcess.
+
+       :param proc: The Popen object for the process.
+    """
+    del _forever_pids[proc.pid]
+
+def unwatchAllProcesses():
+    """Clear the watched process list."""
+    global _forever_pids
+    _forever_pids = {}
+
 def getDirSize(directory):
     """ Get the size of a directory and all its subdirectories.
     :param dir: The name of the directory to find the size of.
