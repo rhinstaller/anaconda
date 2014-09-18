@@ -297,6 +297,39 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Wed Sep 17 2014 Brian C. Lane <bcl@redhat.com> - 19.31.91-1
+- Don't call BusyCursor before Gdk is setup (bcl)
+  Resolves: rhbz#1078868
+- Fix SELINUX_DEFAULT import (bcl)
+  Resolves: rhbz#1137049
+- Actually show an error message for bad passwords in TUI. (sbueno+anaconda)
+  Resolves: rhbz#1066988
+- Catch and rethrow BTRFSValueError as KickstartException (amulhern)
+  Related: rhbz#1019685
+- Bump version so BTRFSValueError is found (amulhern)
+  Related: rhbz#1019685
+- Re-order the tz's in text mode to mirror the graphical order.
+  (sbueno+anaconda)
+  Resolves: rhbz#1032560
+- Apply a better check for whether to fail if authconfig is missing. (clumens)
+  Resolves: rhbz#1140640
+- driver-updates: fix backspace/delete in dd menus (wwoods)
+  Resolves: rhbz#1080380
+- Fix an issue with bad NFS info specified in source spoke. (sbueno+anaconda)
+  Resolves: rhbz#1097432
+- gui: add Refresh button to network storage UI (rvykydal)
+  Resolves: rhbz#1065716
+- Use timing decorator for more actions (vpodzime)
+  Related: rhbz#1065716
+- Make the LUKS unlock callback a timed action (vpodzime)
+  Related: rhbz#1065716
+- A nice decorator making Anaconda's GUI more responsive (vpodzime)
+  Related: rhbz#1065716
+- network: fix typo 'Private ksy pasword' (rvykydal)
+  Related: rhbz#1120374
+- Anaconda requires new python-meh split into multiple packages (vpodzime)
+  Related: rhbz#1012509
+
 * Mon Sep 15 2014 Brian C. Lane <bcl@redhat.com> - 19.31.90-1
 - Fix TUI error message regarding user name creation (sbueno+anaconda)
   Resolves: rhbz#1058637

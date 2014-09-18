@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: anaconda 19.31.89\n"
+"Project-Id-Version: anaconda 19.31.90\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
-"POT-Creation-Date: 2014-09-15 17:26-0700\n"
+"POT-Creation-Date: 2014-09-17 17:11-0700\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -136,7 +136,7 @@ msgstr ""
 
 #: pyanaconda/constants_text.py:40 pyanaconda/rescue.py:336
 #: pyanaconda/rescue.py:368 pyanaconda/rescue.py:381 pyanaconda/rescue.py:449
-#: pyanaconda/rescue.py:465 pyanaconda/rescue.py:476 anaconda:450
+#: pyanaconda/rescue.py:465 pyanaconda/rescue.py:476 anaconda:451
 msgid "OK"
 msgstr ""
 
@@ -375,12 +375,12 @@ msgstr ""
 msgid "Performing post-installation setup tasks"
 msgstr ""
 
-#: pyanaconda/kickstart.py:155
+#: pyanaconda/kickstart.py:156
 #, python-format
 msgid "Escrow certificate %s requires the network."
 msgstr ""
 
-#: pyanaconda/kickstart.py:163
+#: pyanaconda/kickstart.py:164
 #, python-format
 msgid ""
 "The following error was encountered while downloading the escrow "
@@ -389,38 +389,38 @@ msgid ""
 "%s"
 msgstr ""
 
-#: pyanaconda/kickstart.py:246
+#: pyanaconda/kickstart.py:247
 #, python-format
 msgid "%s is missing. Cannot setup authentication."
 msgstr ""
 
-#: pyanaconda/kickstart.py:271
+#: pyanaconda/kickstart.py:272
 #, python-format
 msgid "autopart fstype of %s is invalid."
 msgstr ""
 
-#: pyanaconda/kickstart.py:287
+#: pyanaconda/kickstart.py:288
 #, python-format
 msgid "Settings default fstype to %s failed."
 msgstr ""
 
-#: pyanaconda/kickstart.py:631
+#: pyanaconda/kickstart.py:635
 #, python-format
 msgid "%s is missing. Cannot setup firewall."
 msgstr ""
 
-#: pyanaconda/kickstart.py:1112 pyanaconda/kickstart.py:1316
+#: pyanaconda/kickstart.py:1116 pyanaconda/kickstart.py:1320
 #, python-format
 msgid "The \"%s\" file system type is not supported."
 msgstr ""
 
-#: pyanaconda/kickstart.py:1612
+#: pyanaconda/kickstart.py:1616
 msgid ""
 "The upgrade kickstart command is no longer supported. Upgrade functionality "
 "is provided through redhat-upgrade-tool."
 msgstr ""
 
-#: pyanaconda/kickstart.py:1830
+#: pyanaconda/kickstart.py:1834
 msgid "Running pre-installation scripts"
 msgstr ""
 
@@ -1150,7 +1150,7 @@ msgstr ""
 
 #: pyanaconda/ui/tui/spokes/storage.py:188
 #: pyanaconda/ui/tui/spokes/source.py:470
-#: pyanaconda/ui/gui/spokes/source.py:570
+#: pyanaconda/ui/gui/spokes/source.py:567
 #: pyanaconda/ui/gui/spokes/storage.py:629
 msgid "Probing storage..."
 msgstr ""
@@ -1214,27 +1214,27 @@ msgstr ""
 msgid "Timezone settings"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/time.py:56
+#: pyanaconda/ui/tui/spokes/time.py:60
 #: pyanaconda/ui/gui/spokes/datetime_spoke.py:461
 #: pyanaconda/ui/gui/spokes/datetime_spoke.py:465
 #, python-format
 msgid "%s timezone"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/time.py:58
+#: pyanaconda/ui/tui/spokes/time.py:62
 msgid "Timezone is not set."
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/time.py:66
+#: pyanaconda/ui/tui/spokes/time.py:70
 #, python-format
 msgid "Available timezones in region %s"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/time.py:69
+#: pyanaconda/ui/tui/spokes/time.py:73
 msgid "Available regions"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/time.py:132
+#: pyanaconda/ui/tui/spokes/time.py:136
 msgid ""
 "Please select the timezone.\n"
 "Use numbers or type names directly [b to region list, c to continue, q to "
@@ -1259,25 +1259,25 @@ msgstr ""
 
 #: pyanaconda/ui/tui/spokes/source.py:151
 #: pyanaconda/ui/tui/spokes/source.py:204
-#: pyanaconda/ui/gui/spokes/source.py:484
+#: pyanaconda/ui/gui/spokes/source.py:481
 #: pyanaconda/ui/gui/spokes/source.glade.h:26
 msgid "Closest mirror"
 msgstr ""
 
 #: pyanaconda/ui/tui/spokes/source.py:196
-#: pyanaconda/ui/gui/spokes/source.py:476
+#: pyanaconda/ui/gui/spokes/source.py:473
 #, python-format
 msgid "NFS server %s"
 msgstr ""
 
 #: pyanaconda/ui/tui/spokes/source.py:198
-#: pyanaconda/ui/gui/spokes/source.py:478
+#: pyanaconda/ui/gui/spokes/source.py:475
 msgid "Local media"
 msgstr ""
 
 #: pyanaconda/ui/tui/spokes/source.py:201
 #: pyanaconda/ui/tui/spokes/source.py:215
-#: pyanaconda/ui/gui/spokes/source.py:472
+#: pyanaconda/ui/gui/spokes/source.py:469
 msgid "Error setting up software source"
 msgstr ""
 
@@ -1285,7 +1285,7 @@ msgstr ""
 #: pyanaconda/ui/tui/spokes/software.py:84
 #: pyanaconda/ui/gui/spokes/datetime_spoke.py:467
 #: pyanaconda/ui/gui/spokes/software.py:206
-#: pyanaconda/ui/gui/spokes/source.py:486
+#: pyanaconda/ui/gui/spokes/source.py:483
 msgid "Nothing selected"
 msgstr ""
 
@@ -1304,7 +1304,7 @@ msgid "Installation source refresh in progress, try again later."
 msgstr ""
 
 #: pyanaconda/ui/tui/spokes/source.py:247
-#: pyanaconda/ui/gui/spokes/source.py:760
+#: pyanaconda/ui/gui/spokes/source.py:757
 msgid ""
 "The installation source is in use by the installer and cannot be changed."
 msgstr ""
@@ -1477,7 +1477,7 @@ msgstr ""
 msgid "Password set."
 msgstr ""
 
-#: pyanaconda/ui/gui/__init__.py:422 pyanaconda/ui/gui/spokes/software.py:394
+#: pyanaconda/ui/gui/__init__.py:420 pyanaconda/ui/gui/spokes/software.py:394
 #: pyanaconda/ui/gui/spokes/storage.py:975
 #: pyanaconda/ui/gui/spokes/lib/detailederror.py:59
 #: widgets/src/StandaloneWindow.c:54
@@ -1486,11 +1486,11 @@ msgstr ""
 msgid "_Quit"
 msgstr ""
 
-#: pyanaconda/ui/gui/__init__.py:437 pyanaconda/ui/gui/main.glade.h:2
+#: pyanaconda/ui/gui/__init__.py:435 pyanaconda/ui/gui/main.glade.h:2
 msgid "_No"
 msgstr ""
 
-#: pyanaconda/ui/gui/__init__.py:437 pyanaconda/ui/gui/main.glade.h:3
+#: pyanaconda/ui/gui/__init__.py:435 pyanaconda/ui/gui/main.glade.h:3
 msgid "_Yes"
 msgstr ""
 
@@ -1855,11 +1855,11 @@ msgstr ""
 msgid "Automatic partitioning failed. Click for details."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:3130
+#: pyanaconda/ui/gui/spokes/custom.py:3131
 msgid "Failed to unlock encrypted block device. Click for details"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:3155
+#: pyanaconda/ui/gui/spokes/custom.py:3156
 #, python-format
 msgid ""
 "You have chosen to manually set up the file systems for your new "
@@ -1992,15 +1992,15 @@ msgstr ""
 msgid "%s to switch layouts."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/keyboard.py:261
+#: pyanaconda/ui/gui/spokes/keyboard.py:262
 msgid "_KEYBOARD"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/keyboard.py:328
+#: pyanaconda/ui/gui/spokes/keyboard.py:329
 msgid "Testing layouts configuration not available."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/keyboard.py:380
+#: pyanaconda/ui/gui/spokes/keyboard.py:381
 msgid "Layout switching not configured."
 msgstr ""
 
@@ -2157,7 +2157,7 @@ msgid "Identity: "
 msgstr ""
 
 #: pyanaconda/ui/gui/spokes/network.py:1307
-msgid "Private ksy password: "
+msgid "Private key password: "
 msgstr ""
 
 #: pyanaconda/ui/gui/spokes/network.py:1361
@@ -2264,7 +2264,7 @@ msgid "Downloading group metadata..."
 msgstr ""
 
 #: pyanaconda/ui/gui/spokes/software.py:120
-#: pyanaconda/ui/gui/spokes/source.py:466
+#: pyanaconda/ui/gui/spokes/source.py:463
 msgid "Checking software dependencies..."
 msgstr ""
 
@@ -2314,53 +2314,53 @@ msgstr ""
 msgid "_INSTALLATION SOURCE"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.py:406
-#: pyanaconda/ui/gui/spokes/source.py:586
+#: pyanaconda/ui/gui/spokes/source.py:403
+#: pyanaconda/ui/gui/spokes/source.py:583
 msgid "Failed to set up installation source; check the repo url"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.py:470
+#: pyanaconda/ui/gui/spokes/source.py:467
 msgid "Error setting up base repository"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.py:481
+#: pyanaconda/ui/gui/spokes/source.py:478
 msgid "Error setting up ISO file"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.py:588
+#: pyanaconda/ui/gui/spokes/source.py:585
 msgid ""
 "Failed to set up installation source; check the repo url and proxy settings"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.py:613
+#: pyanaconda/ui/gui/spokes/source.py:610
 #, python-format
 msgid "Device: %s"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.py:614
+#: pyanaconda/ui/gui/spokes/source.py:611
 #, python-format
 msgid "Label: %s"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.py:1036
+#: pyanaconda/ui/gui/spokes/source.py:1033
 msgid "Duplicate repository names."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.py:1047
+#: pyanaconda/ui/gui/spokes/source.py:1044
 msgid ""
 "Duplicate repository names not allowed; choose a unique name for each "
 "repository."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.py:1069
+#: pyanaconda/ui/gui/spokes/source.py:1066
 msgid "Empty repository name."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.py:1073
+#: pyanaconda/ui/gui/spokes/source.py:1070
 msgid "Invalid repository name."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.py:1076
+#: pyanaconda/ui/gui/spokes/source.py:1073
 msgid "Repository name conflicts with internal repository name."
 msgstr ""
 
@@ -2967,7 +2967,11 @@ msgstr ""
 msgid "Add FCo_E SAN..."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/filter.glade.h:45
+#: pyanaconda/ui/gui/spokes/filter.glade.h:44
+msgid "Refres_h"
+msgstr ""
+
+#: pyanaconda/ui/gui/spokes/filter.glade.h:46
 #: pyanaconda/ui/gui/spokes/custom.glade.h:68
 #, c-format, python-format
 msgid "%d _storage devices selected"
@@ -4430,31 +4434,31 @@ msgstr ""
 msgid "Welcome to Fedora"
 msgstr ""
 
-#: anaconda:405
+#: anaconda:406
 #, python-format
 msgid ""
 "%(product_name)s requires %(needed_ram)s MB of memory to install, but you "
 "only have %(total_ram)s MB on this machine.\n"
 msgstr ""
 
-#: anaconda:407
+#: anaconda:408
 #, python-format
 msgid ""
 "The %(product_name)s graphical installer requires %(needed_ram)s MB of "
 "memory, but you only have %(total_ram)s MB."
 msgstr ""
 
-#: anaconda:410
+#: anaconda:411
 msgid ""
 "\n"
 "Press <return> to reboot your system.\n"
 msgstr ""
 
-#: anaconda:412
+#: anaconda:413
 msgid "Not enough RAM"
 msgstr ""
 
-#: anaconda:413
+#: anaconda:414
 msgid ""
 " Try the text mode installer by running:\n"
 "\n"
@@ -4463,35 +4467,35 @@ msgid ""
 " from a root terminal."
 msgstr ""
 
-#: anaconda:416
+#: anaconda:417
 msgid " Starting text mode."
 msgstr ""
 
-#: anaconda:448
+#: anaconda:449
 msgid "Fatal Error"
 msgstr ""
 
-#: anaconda:571
+#: anaconda:572
 msgid "DISPLAY variable not set. Starting text mode."
 msgstr ""
 
-#: anaconda:579
+#: anaconda:580
 msgid "Graphical installation is not available. Starting text mode."
 msgstr ""
 
-#: anaconda:587
+#: anaconda:588
 msgid ""
 "Text mode provides a limited set of installation options. It does not offer "
 "custom partitioning for full control over the disk layout. Would you like to "
 "use VNC mode instead?"
 msgstr ""
 
-#: anaconda:710
+#: anaconda:711
 #, python-format
 msgid "Please ssh install@%s to begin the install."
 msgstr ""
 
-#: anaconda:712
+#: anaconda:713
 msgid "Please ssh install@<host> to continue installation."
 msgstr ""
 
