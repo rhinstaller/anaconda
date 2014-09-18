@@ -384,6 +384,25 @@ done
             # Check that the process is gone
             self.assertIsNotNone(proc.poll())
 
+    def watch_process_test(self):
+        """Test watchProcess"""
+
+        def test_still_running():
+            with timer(5):
+                # Run something forever so we can kill it
+                proc = iutil.startProgram(["/bin/sh", "-c", "while true; do sleep 1; done"])
+                iutil.watchProcess(proc, "test1")
+                proc.kill()
+                # Wait for the SIGCHLD
+                signal.pause()
+        self.assertRaises(iutil.ExitError, test_still_running)
+
+        # Make sure watchProcess checks that the process has not already exited
+        with timer(5):
+            proc = iutil.startProgram(["true"])
+            proc.communicate()
+        self.assertRaises(iutil.ExitError, iutil.watchProcess, proc, "test2")
+
 class MiscTests(unittest.TestCase):
     def get_dir_size_test(self):
         """Test the getDirSize."""
