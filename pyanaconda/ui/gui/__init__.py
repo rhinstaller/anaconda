@@ -720,7 +720,7 @@ class GraphicalUserInterface(UserInterface):
         # content for the current screen
         ihelp.start_yelp(ihelp.get_help_path(obj.helpFile, self.instclass))
 
-    def _on_mnemonics_visible_changed(self, window, property, obj):
+    def _on_mnemonics_visible_changed(self, window, property_type, obj):
         # mnemonics display has been activated or deactivated,
         # add or remove the F1 mnemonics display from the help button
         help_button = obj.window.get_help_button()
