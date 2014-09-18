@@ -792,13 +792,9 @@ if __name__ == "__main__":
     # see if we're on s390x and if we've got an ssh connection
     uname = os.uname()
     if uname[4] == 's390x':
-        if 'TMUX' not in os.environ and "RUNKS" not in flags.cmdline and not flags.imageInstall:
+        if 'TMUX' not in os.environ and flags.ksprompt and not flags.imageInstall:
             prompt_for_ssh()
             sys.exit(0)
-        # If we get RUNKS, we default to cmdline display mode, because nothing
-        # else will work.  Kickstart options can still override.
-        if "RUNKS" in flags.cmdline:
-            opts.display_mode = 'c'
 
     log.info("%s %s", sys.argv[0], getAnacondaVersionString())
 

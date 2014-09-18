@@ -124,7 +124,7 @@ class ProgressHub(TUIHub):
             # what it gets, it just quits.
             self.input(None, None)
         # cmdline mode, continue automatically
-        if flags.automatedInstall and "RUNKS" in flags.cmdline:
+        if flags.automatedInstall and not flags.ksprompt:
             # As above, pretend like we got input and just quit
             self.input(None, None)
         
