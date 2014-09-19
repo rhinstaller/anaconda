@@ -297,6 +297,45 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Fri Sep 19 2014 Brian C. Lane <bcl@redhat.com> - 19.31.92-1
+- Ignore one accelerator conflict on the new custom part RHS. (clumens)
+  Related: rhbz#1094856
+- The new Device(s) label has no mnemonic, so remove use_underline. (clumens)
+  Related: rhbz#1094856
+- Really fix string formatting of zFCP devices (sbueno+anaconda)
+  Related: rhbz#1024902
+- Don't call storage.write for dirinstall (bcl)
+  Related: rhbz#1120206
+- Convert devices size to str for GUI for zFCP devices (amulhern)
+  Resolves: rhbz#1144464
+- Fix string formatting of zFCP devices (sbueno+anaconda)
+  Related: rhbz#1024902
+- Fix the POTFILES.in list (vpodzime)
+  Related: rhbz#1073679
+- Make the Find button not jump out of the visible area (vpodzime)
+  Resolves: rhbz#1074183
+- Require minimum random data entropy when creating LUKS (vpodzime)
+  Resolves: rhbz#1073679
+- Give blivet callbacks for reporting partitioning progress (vpodzime)
+  Related: rhbz#1073679
+- Change how we test if the GUI is available in the anaconda script. (clumens)
+  Related: rhbz#1078868
+- Revert "Don't call BusyCursor before Gdk is setup (vpodzime)"
+  Related: rhbz#1078868
+- Reorganize the right side of the Custom spoke (vpodzime)
+  Resolves: rhbz#1094856
+- Fix the way zFCP devices are displayed in storage spoke. (sbueno+anaconda)
+  Resolves: rhbz#1024902
+- Set flags.rescue_mode not anaconda.rescue (amulhern)
+  Related: rhbz#1090009
+  Resolves: rhbz#1143056
+- Split localed's converted layouts and variants (vpodzime)
+  Resolves: rhbz#1073825
+- Create free space snapshot before doing custom->autopart (vpodzime)
+  Related: rhbz#1132436
+- Deprecate RUNKS cmdline option. (sbueno+anaconda)
+  Resolves: rhbz#1040933
+
 * Wed Sep 17 2014 Brian C. Lane <bcl@redhat.com> - 19.31.91-1
 - Don't call BusyCursor before Gdk is setup (bcl)
   Resolves: rhbz#1078868
