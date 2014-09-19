@@ -175,16 +175,10 @@ def timed_action(delay=300, threshold=750, busy_cursor=True):
 
 def busyCursor():
     window = Gdk.get_default_root_window()
-    if not window:
-        return
-
     window.set_cursor(Gdk.Cursor(Gdk.CursorType.WATCH))
 
 def unbusyCursor():
     window = Gdk.get_default_root_window()
-    if not window:
-        return
-
     window.set_cursor(Gdk.Cursor(Gdk.CursorType.ARROW))
 
 @contextmanager
