@@ -34,6 +34,7 @@ import re
 from threading import Thread
 from Queue import Queue, Empty
 from urllib import quote, unquote
+import gettext
 
 from pyanaconda.flags import flags
 from pyanaconda.constants import DRACUT_SHUTDOWN_EJECT, TRANSLATIONS_UPDATE_DIR, UNSUPPORTED_HW
@@ -397,7 +398,7 @@ def parseNfsUrl(nfsurl):
 
     return (options, host, path)
 
-def add_po_path(module, directory):
+def add_po_path(directory):
     """ Looks to see what translations are under a given path and tells
     the gettext module to use that path as the base dir """
     for d in os.listdir(directory):
@@ -409,12 +410,12 @@ def add_po_path(module, directory):
             if not basename.endswith(".mo"):
                 continue
             log.info("setting %s as translation source for %s", directory, basename[:-3])
-            module.bindtextdomain(basename[:-3], directory)
+            gettext.bindtextdomain(basename[:-3], directory)
 
-def setup_translations(module):
+def setup_translations():
     if os.path.isdir(TRANSLATIONS_UPDATE_DIR):
-        add_po_path(module, TRANSLATIONS_UPDATE_DIR)
-    module.textdomain("anaconda")
+        add_po_path(TRANSLATIONS_UPDATE_DIR)
+    gettext.textdomain("anaconda")
 
 def _run_systemctl(command, service):
     """
