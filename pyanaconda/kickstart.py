@@ -21,7 +21,7 @@
 from pyanaconda.errors import ScriptError, errorHandler
 from blivet.deviceaction import ActionCreateFormat, ActionDestroyFormat, ActionResizeDevice, ActionResizeFormat
 from blivet.devices import LUKSDevice
-from blivet.devicelibs.lvm import getPossiblePhysicalExtents, LVM_PE_SIZE
+from blivet.devicelibs.lvm import getPossiblePhysicalExtents, LVM_PE_SIZE, KNOWN_THPOOL_PROFILES
 from blivet.devicelibs import swap as swap_lib
 from blivet.formats import getFormat
 from blivet.partitioning import doPartitioning
@@ -752,7 +752,7 @@ class LogVol(commands.logvol.RHEL7_LogVol):
         if self.lvList:
             growLVM(storage)
 
-class LogVolData(commands.logvol.F20_LogVolData):
+class LogVolData(commands.logvol.RHEL7_LogVolData):
     def execute(self, storage, ksdata, instClass):
         devicetree = storage.devicetree
 
@@ -895,11 +895,21 @@ class LogVolData(commands.logvol.F20_LogVolData):
             else:
                 parents = [vg]
 
+            pool_args = {}
             if self.thin_pool:
-                pool_args = { "metadatasize": Size("%d MiB" % self.metadata_size),
-                              "chunksize": Size("%d KiB" % self.chunk_size) }
-            else:
-                pool_args = {}
+                if self.profile:
+                    matching = (p for p in KNOWN_THPOOL_PROFILES if p.name == self.profile)
+                    profile = next(matching, None)
+                    if profile:
+                        pool_args["profile"] = profile
+                    else:
+                        log.warning("No matching profile for %s found in LVM configuration", self.profile)
+
+                if self.metadata_size:
+                    pool_args["metadatasize"] = Size("%d MiB" % self.metadata_size)
+
+                if self.chunk_size:
+                    pool_args["chunksize"] = Size("%d KiB" % self.chunk_size)
 
             if self.maxSizeMB:
                 try:
