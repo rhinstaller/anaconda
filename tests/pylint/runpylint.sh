@@ -77,6 +77,10 @@ export DISABLED_ERR_OPTIONS="--disable=E1103"
 # I0013 - Ignoring entire file (i.e., pylint: skip-file)
 export DISABLED_WARN_OPTIONS="--disable=W0110,W0123,W0141,W0142,W0511,W0603,W0613,W0614,I0011,I0012,I0013"
 
+# string is about half-deprecated, so add it to the list of deprecated modules
+# and handle the valid cases with pragma comments.
+export EXTRA_OPTIONS="--deprecated-modules=string,regsub,TERMIOS,Bastion,rexec"
+
 usage () {
   echo "usage: `basename $0` [--strict] [--help] [files...]"
   exit $1

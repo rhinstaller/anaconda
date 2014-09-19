@@ -27,7 +27,8 @@ import os.path
 import errno
 import subprocess
 import unicodedata
-import string
+# Used for ascii_lowercase, ascii_uppercase constants
+import string # pylint: disable=deprecated-module
 import tempfile
 import types
 import re

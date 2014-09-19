@@ -1,7 +1,6 @@
 #!/usr/bin/python
 
 import logging
-from string import split
 from subprocess import Popen, PIPE
 import time
 
@@ -12,7 +11,7 @@ import time
 def topProcesses():
     output = Popen(["ps", "-eo", "comm,rss", "--sort", "-rss", "--no-headers"], stdout=PIPE).communicate()[0]
     top5 = output.split("\n")[:5]
-    return ",".join(map(lambda (a,b): a+":"+b, map(split, top5)))
+    return ",".join("%s:%s" % (proc[0], proc[1]) for proc in (s.split() for s in top5))
 
 def logit():
     buffers = 0

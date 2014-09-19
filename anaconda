@@ -690,7 +690,7 @@ def setupDisplay(anaconda, options, addons=None):
 
         # Only consider vncconnect when vnc is a param
         if options.vncconnect:
-            cargs = string.split(options.vncconnect, ":")
+            cargs = options.vncconnect.split(":")
             vncS.vncconnecthost = cargs[0]
             if len(cargs) > 1 and len(cargs[1]) > 0:
                 if len(cargs[1]) > 0:
@@ -963,8 +963,6 @@ if __name__ == "__main__":
     from pyanaconda import product
 
     from pyanaconda import isys
-
-    import string
 
     from pyanaconda import iutil
 

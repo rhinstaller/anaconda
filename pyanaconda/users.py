@@ -20,7 +20,8 @@
 #
 
 import libuser
-import string
+# Used for ascii_letters and digits constants
+import string # pylint: disable=deprecated-module
 import crypt
 import random
 import tempfile
@@ -115,7 +116,7 @@ def cryptPassword(password, algo=None):
     saltstr = salts[algo]
 
     for _i in range(saltlen):
-        saltstr = saltstr + random.choice (string.letters +
+        saltstr = saltstr + random.choice (string.ascii_letters +
                                            string.digits + './')
 
     cryptpw = crypt.crypt (password, saltstr)

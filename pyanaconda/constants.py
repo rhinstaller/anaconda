@@ -19,7 +19,8 @@
 # Author(s): Erik Troan <ewt@redhat.com>
 #
 
-import string
+# Used for digits, ascii_letters, punctuation constants
+import string # pylint: disable=deprecated-module
 from pyanaconda.i18n import N_
 
 # Use -1 to indicate that the selinux configuration is unset

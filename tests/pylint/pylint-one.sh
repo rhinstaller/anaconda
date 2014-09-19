@@ -24,6 +24,7 @@ pylint_output="$(pylint \
 gi.overrides.__path__[0:0] = (os.environ["ANACONDA_WIDGETS_OVERRIDES"].split(":") if "ANACONDA_WIDGETS_OVERRIDES" in os.environ else [])' \
     $DISABLED_WARN_OPTIONS \
     $DISABLED_ERR_OPTIONS \
+    $EXTRA_OPTIONS \
     $NON_STRICT_OPTIONS "$@" 2>&1 | \
     egrep -v -f "$FALSE_POSITIVES" \
     )"

@@ -49,7 +49,8 @@ from gi.repository import GLib, GObject, Pango, Gio, NetworkManager, NMClient
 import dbus
 import dbus.service
 import subprocess
-import string
+# Used for ascii_letters and hexdigits constants
+import string # pylint: disable=deprecated-module
 from uuid import uuid4
 
 from dbus.mainloop.glib import DBusGMainLoop
@@ -1325,7 +1326,7 @@ class SecretAgent(dbus.service.Object):
             if len(value) in (10, 26):
                 return all(c in string.hexdigits for c in value)
             elif len(value) in (5, 13):
-                return all(c in string.letters for c in value)
+                return all(c in string.ascii_letters for c in value)
             else:
                 return False
         elif secret['wep_key_type'] == NetworkManager.WepKeyType.PASSPHRASE:
