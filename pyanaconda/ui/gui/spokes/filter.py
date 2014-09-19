@@ -470,7 +470,7 @@ class ZPage(FilterPage):
 
                     # now add it to our store
                     store.append([True, selected, not disk.protected,
-                                  disk.name, "", disk.model, disk.size,
+                                  disk.name, "", disk.model, str(disk.size),
                                   disk.vendor, disk.bus, disk.serial, "", "\n".join(paths),
                                   "", "", disk.fcp_lun, disk.hba_id, disk.wwpn])
 
