@@ -119,7 +119,7 @@ def start_watched_pid(proc_name):
         os.close(writepipe)
         return childpid
 
-def exitHandler(rebootData, storage, exitCode=None):
+def exitHandler(rebootData, storage):
     # stop and save coverage here b/c later the file system may be unavailable
     if coverage is not None:
         cov.stop()
@@ -128,9 +128,6 @@ def exitHandler(rebootData, storage, exitCode=None):
 
     if flags.usevnc:
         vnc.shutdownServer()
-
-    if exitCode:
-        anaconda.intf.shutdown()
 
     if "nokill" in flags.cmdline:
         iutil.vtActivate(1)
