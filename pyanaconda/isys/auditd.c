@@ -104,6 +104,11 @@ int audit_daemonize(void) {
     if (child < 0)
         return -1;
 
+    /* Close stdin and friends */
+    close(STDIN_FILENO);
+    close(STDOUT_FILENO);
+    close(STDERR_FILENO);
+
 #ifndef STANDALONE 
     for (fd = 0; fd < getdtablesize(); fd++)
         close(fd);
