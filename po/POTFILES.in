@@ -97,7 +97,6 @@ pyanaconda/ui/gui/spokes/lib/passphrase.py
 pyanaconda/ui/gui/spokes/lib/refresh.py
 pyanaconda/ui/gui/spokes/lib/resize.py
 pyanaconda/ui/gui/spokes/lib/summary.py
-pyanaconda/ui/gui/spokes/lib/entropy.py
 
 # Custom widgets.
 widgets/src/BaseWindow.c
@@ -110,35 +109,8 @@ widgets/src/StandaloneWindow.c
 widgets/src/TimezoneMap.c
 widgets/src/LayoutIndicator.c
 widgets/src/glade-adaptor.c
-widgets/src/widgets-common.c
-
-# Interface files.
-pyanaconda/ui/gui/spokes/advanced_user.glade
-pyanaconda/ui/gui/spokes/datetime_spoke.glade
-pyanaconda/ui/gui/spokes/filter.glade
-pyanaconda/ui/gui/spokes/network.glade
-pyanaconda/ui/gui/spokes/software.glade
-pyanaconda/ui/gui/spokes/storage.glade
-pyanaconda/ui/gui/spokes/keyboard.glade
-pyanaconda/ui/gui/spokes/langsupport.glade
-pyanaconda/ui/gui/spokes/password.glade
-pyanaconda/ui/gui/spokes/source.glade
-pyanaconda/ui/gui/spokes/welcome.glade
-pyanaconda/ui/gui/spokes/user.glade
-pyanaconda/ui/gui/spokes/custom.glade
-pyanaconda/ui/gui/spokes/advstorage/fcoe.glade
-pyanaconda/ui/gui/spokes/advstorage/iscsi.glade
-pyanaconda/ui/gui/spokes/lib/cart.glade
-pyanaconda/ui/gui/spokes/lib/custom_storage_helpers.glade
-pyanaconda/ui/gui/spokes/lib/dasdfmt.glade
-pyanaconda/ui/gui/spokes/lib/detailederror.glade
-pyanaconda/ui/gui/spokes/lib/passphrase.glade
-pyanaconda/ui/gui/spokes/lib/refresh.glade
-pyanaconda/ui/gui/spokes/lib/resize.glade
-pyanaconda/ui/gui/spokes/lib/summary.glade
-pyanaconda/ui/gui/main.glade
-pyanaconda/ui/gui/hubs/summary.glade
-pyanaconda/ui/gui/hubs/progress.glade
+widgets/src/lightbox.c
+widgets/src/tz.c
 
 # For file types that gettext doesn't understand, list <filename>.h and
 # use Rules-extract to extract the strings into a C-style header.
@@ -169,7 +141,7 @@ pyanaconda/ui/gui/spokes/lib/passphrase.glade.h
 pyanaconda/ui/gui/spokes/lib/refresh.glade.h
 pyanaconda/ui/gui/spokes/lib/resize.glade.h
 pyanaconda/ui/gui/spokes/lib/summary.glade.h
-pyanaconda/ui/gui/spokes/lib/entropy_dialog.glade
+pyanaconda/ui/gui/spokes/lib/entropy_dialog.glade.h
 pyanaconda/ui/gui/main.glade.h
 pyanaconda/ui/gui/hubs/summary.glade.h
 pyanaconda/ui/gui/hubs/progress.glade.h
