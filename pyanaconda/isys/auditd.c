@@ -107,6 +107,11 @@ int audit_daemonize(void) {
     if (child < 0)
         return -1;
 
+    /* Close stdin and friends */
+    close(STDIN_FILENO);
+    close(STDOUT_FILENO);
+    close(STDERR_FILENO);
+
     if ((fd = open("/proc/self/oom_score_adj", O_RDWR)) >= 0) {
         write(fd, "-1000", 5);
         close(fd);
