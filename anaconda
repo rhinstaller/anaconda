@@ -913,8 +913,7 @@ if __name__ == "__main__":
     initThreading()
     from pyanaconda.threads import threadMgr
 
-    import gettext
-    _ = lambda x: gettext.ldgettext("anaconda", x)
+    from pyanaconda.i18n import _
 
     from pyanaconda import constants
     from pyanaconda.addons import collect_addon_paths
