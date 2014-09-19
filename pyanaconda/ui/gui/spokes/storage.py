@@ -605,7 +605,7 @@ class StorageSpoke(NormalSpoke, StorageChecker):
         elif isinstance(disk, ZFCPDiskDevice):
             # manually mangle the desc of a zFCP device to be multi-line since
             # it's so long it makes the disk selection screen look odd
-            description = _("FCP device %(hba_id)s\nWWPN %(wwpn)s\nLUN %(lun)s") % \                                          
+            description = _("FCP device %(hba_id)s\nWWPN %(wwpn)s\nLUN %(lun)s") % \
                             {"hba_id": disk.hba_id, "wwpn": disk.wwpn, "lun": disk.fcp_lun}
         else:
             description = disk.description
