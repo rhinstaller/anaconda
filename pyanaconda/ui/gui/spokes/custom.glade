@@ -1793,6 +1793,7 @@ use.  Try something else?</property>
                                     </child>
                                     <child>
                                       <object class="GtkButton" id="configureButton">
+                                        <!-- check_accelerators: modifyContainerButton -->
                                         <property name="label" translatable="yes" context="GUI|Custom Partitioning|Configure|Devices">_Modify...</property>
                                         <property name="visible">True</property>
                                         <property name="can_focus">True</property>
