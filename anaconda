@@ -110,55 +110,17 @@ def startSpiceVDAgent():
         log.info("Started spice-vdagent.")
 
 def startX11():
-    # Start X11 with its USR1 handler set to ignore, which will make it send
-    # us SIGUSR1 if it succeeds. If it fails, catch SIGCHLD and bomb out.
-    # Use a list so the value can be modified from the handler
-    x11_started = [False]
-    def sigusr1_handler(num, frame):
-        log.debug("X server has signalled a successful start.")
-        x11_started[0] = True
+    # Open /dev/tty5 for stdout and stderr redirects
+    xfd = open("/dev/tty5", "a")
 
-    # Fail after, let's say a minute, in case something weird happens
-    # and we don't receive SIGUSR1
-    def sigalrm_handler(num, frame):
-        # Check that it didn't make it under the wire
-        if x11_started[0]:
-            return
-        log.error("Timeout trying to start the X server")
-        raise iutil.ExitError("Timeout trying to start the X server")
+    # Start Xorg and wait for it become ready
+    iutil.startX(["Xorg", "-br", "-logfile", "/tmp/X.log",
+                  ":1", "vt6", "-s", "1440", "-ac",
+                  "-nolisten", "tcp", "-dpi", "96",
+                  "-noreset"], output_redirect=xfd)
 
-    # preexec_fn to add the SIGUSR1 handler in the child
-    def sigusr1_preexec():
-        signal.signal(signal.SIGUSR1, signal.SIG_IGN)
-
-    try:
-        old_sigusr1_handler = signal.signal(signal.SIGUSR1, sigusr1_handler)
-        old_sigalrm_handler = signal.signal(signal.SIGALRM, sigalrm_handler)
-
-        # Open /dev/tty5 for stdout and stderr redirects
-        xfd = open("/dev/tty5", "a")
-
-        # Start the timer
-        signal.alarm(60)
-
-        childproc = iutil.startProgram(["Xorg", "-br", "-logfile", "/tmp/X.log",
-                                        ":1", "vt6", "-s", "1440", "-ac",
-                                        "-nolisten", "tcp", "-dpi", "96",
-                                        "-noreset"], stdout=xfd, stderr=xfd,
-                                        preexec_fn=sigusr1_preexec)
-        iutil.watchProcess(childproc, "Xorg")
-
-        # Wait for SIGUSR1
-        while not x11_started[0]:
-            signal.pause()
-
-        # Now that X is started, make $DISPLAY available
-        os.environ["DISPLAY"] = ":1"
-    finally:
-        # Put everything back where it was
-        signal.alarm(0)
-        signal.signal(signal.SIGUSR1, old_sigusr1_handler)
-        signal.signal(signal.SIGALRM, old_sigalrm_handler)
+    # Now that X is started, make $DISPLAY available
+    os.environ["DISPLAY"] = ":1"
 
 # function to handle X startup special issues for anaconda
 def doStartupX11Actions():

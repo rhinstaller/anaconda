@@ -223,21 +223,13 @@ class VncServer:
                         "SecurityTypes=%s" % SecurityTypes, "rfbauth=%s" % rfbauth ]
 
         try:
-            xvncp = subprocess.Popen(xvnccommand, stdout=self.openlogfile(), stderr=subprocess.STDOUT)
+            iutil.startX(xvnccommand, output_redirect=self.openlogfile())
         except OSError:
             stdoutLog.critical("Could not start the VNC server.  Aborting.")
             iutil.ipmi_report(constants.IPMI_ABORTED)
             sys.exit(1)
 
-        # Lets give the xvnc time to initialize
-        time.sleep(1)
-
-        # Make sure it hasn't blown up
-        if xvncp.poll() != None:
-            iutil.ipmi_report(constants.IPMI_ABORTED)
-            sys.exit(1)
-        else:
-            self.log.info(_("The VNC server is now running."))
+        self.log.info(_("The VNC server is now running."))
 
         # Lets tell the user what we are going to do.
         if self.vncconnecthost != "":
