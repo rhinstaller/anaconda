@@ -162,6 +162,58 @@ def startProgram(argv, root='/', stdin=None, stdout=subprocess.PIPE, stderr=subp
                             close_fds=True,
                             preexec_fn=preexec, cwd=root, env=env, **kwargs)
 
+def startX(argv, output_redirect=None):
+    """ Start X and return once X is ready to accept connections.
+
+        X11, if SIGUSR1 is set to SIG_IGN, will send SIGUSR1 to the parent
+        process once it is ready to accept client connections. This method
+        sets that up and waits for the signal or bombs out if nothing happens
+        for a minute. The process will also be added to the list of watched
+        processes.
+
+        :param argv: The command line to run, as a list
+        :param output_redirect: file or file descriptor to redirect stdout and stderr to
+    """
+    # Use a list so the value can be modified from the handler function
+    x11_started = [False]
+    def sigusr1_handler(num, frame):
+        log.debug("X server has signalled a successful start.")
+        x11_started[0] = True
+
+    # Fail after, let's say a minute, in case something weird happens
+    # and we don't receive SIGUSR1
+    def sigalrm_handler(num, frame):
+        # Check that it didn't make it under the wire
+        if x11_started[0]:
+            return
+        log.error("Timeout trying to start %s", argv[0])
+        raise ExitError("Timeout trying to start %s" % argv[0])
+
+    # preexec_fn to add the SIGUSR1 handler in the child
+    def sigusr1_preexec():
+        signal.signal(signal.SIGUSR1, signal.SIG_IGN)
+
+    try:
+        old_sigusr1_handler = signal.signal(signal.SIGUSR1, sigusr1_handler)
+        old_sigalrm_handler = signal.signal(signal.SIGALRM, sigalrm_handler)
+
+        # Start the timer
+        signal.alarm(60)
+
+        childproc = startProgram(argv, stdout=output_redirect, stderr=output_redirect,
+                preexec_fn=sigusr1_preexec)
+        watchProcess(childproc, argv[0])
+
+        # Wait for SIGUSR1
+        while not x11_started[0]:
+            signal.pause()
+
+    finally:
+        # Put everything back where it was
+        signal.alarm(0)
+        signal.signal(signal.SIGUSR1, old_sigusr1_handler)
+        signal.signal(signal.SIGALRM, old_sigalrm_handler)
+
 def _run_program(argv, root='/', stdin=None, stdout=None, env_prune=None, log_output=True,
         binary_output=False, filter_stderr=False):
     """ Run an external program, log the output and return it to the caller
