@@ -2074,7 +2074,7 @@ class ZIPL(BootLoader):
             return ["ext4", "ext3", "ext2", "xfs"]
 
     image_label_attr = "short_label"
-    preserve_args = ["cio_ignore"]
+    preserve_args = ["cio_ignore", "rd.znet", "rd_ZNET"]
 
     def __init__(self):
         super(ZIPL, self).__init__()
