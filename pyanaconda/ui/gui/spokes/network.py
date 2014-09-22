@@ -426,6 +426,9 @@ class NetworkControlBox(GObject.GObject):
             log.debug("network: GUI, connection %s found", uuid)
             if self.dev_cfg(uuid=uuid):
                 continue
+            if setting["connection"]["read-only"]:
+                log.debug("network: GUI, not adding read-only connection %s", uuid)
+                continue
             dev_cfg = DeviceConfiguration(con_uuid=uuid)
             if dev_cfg.device_type in self.supported_device_types:
                 # Configs for ethernet has been already added,
@@ -672,6 +675,10 @@ class NetworkControlBox(GObject.GObject):
             return
 
         try:
+            read_only = nm.nm_device_setting_value(device.get_iface(), "connection", "read-only")
+            if read_only:
+                log.debug("network: not adding read-only connection for device %s", device.get_iface())
+                return
             con_uuid = nm.nm_device_setting_value(device.get_iface(), "connection", "uuid")
             dev_cfg = self.dev_cfg(uuid=con_uuid)
         except nm.UnknownDeviceError as e:
