@@ -430,6 +430,7 @@ class FilterSpoke(NormalSpoke):
         if not arch.isS390():
             self._notebook.remove_page(-1)
             self.builder.get_object("addZFCPButton").destroy()
+            self.builder.get_object("addDASDButton").destroy()
 
         if not has_fcoe():
             self.builder.get_object("addFCOEButton").destroy()
