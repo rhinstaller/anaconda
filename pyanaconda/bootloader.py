@@ -1753,14 +1753,11 @@ class EFIGRUB(GRUB2):
     def check(self):
         return True
 
-# FIXME: We need to include grubby, and omit the shim package
-#        on aarch64 until we get all the EFI bits in place.
+# FIXME: We need to include grubby
 class Aarch64EFIGRUB(EFIGRUB):
-    packages = ["grub2-efi", "efibootmgr", "grubby"]
+    packages = ["grub2-efi", "efibootmgr", "shim", "grubby"]
 
     _serial_consoles = ["ttyAMA", "ttyS"]
-
-    _efi_binary = "\\grubaa64.efi"
 
 class MacEFIGRUB(EFIGRUB):
     def mactel_config(self):
