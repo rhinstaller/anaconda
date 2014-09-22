@@ -50,8 +50,17 @@ def get_help_width():
     a default values is returned.
 
     :returns: optimal help text width in number of characters
-    :rtype: integer
+    :rtype: int
     """
+    # don't do terminal size detection on s390, it is not supported
+    # by its arcane TTY system and only results in cryptic error messages
+    # ending on the standard output
+    # (we do the s390 detection here directly to avoid
+    #  the delay caused by importing the Blivet module
+    #  just for this single call)
+    is_s390 = os.uname()[4].startswith('s390')
+    if is_s390:
+        return DEFAULT_HELP_WIDTH
 
     help_width = DEFAULT_HELP_WIDTH
     try:
