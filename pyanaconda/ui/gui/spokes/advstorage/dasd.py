@@ -89,6 +89,7 @@ class DASDDialog(GUIObject):
             self.builder.get_object("deviceErrorLabel").set_text(_config_error)
             self._conditionNotebook.set_current_page(2)
             self._configureGrid.set_sensitive(True)
+            self._cancelButton.set_sensitive(True)
             return
 
         self._spinner.start()
