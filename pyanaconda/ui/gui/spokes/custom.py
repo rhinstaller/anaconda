@@ -1427,7 +1427,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         # If the device is a btrfs volume, the only things we can set/update
         # are mountpoint and container-wide settings.
         if device_type == DEVICE_TYPE_BTRFS and hasattr(use_dev, "subvolumes"):
-            size = 0
+            size = Size(0)
             changed_size = False
             encrypted = False
             changed_encryption = False
