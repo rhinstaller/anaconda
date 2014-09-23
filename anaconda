@@ -1005,7 +1005,7 @@ if __name__ == "__main__":
     signal.signal(signal.SIGTERM, lambda num, frame: sys.exit(1))
 
     # synchronously-delivered signals such as SIGSEGV and SIGILL cannot be
-    # handled property from python, so install signal handlers from the C
+    # handled properly from python, so install signal handlers from the C
     # function in isys.
     isys.installSyncSignalHandlers()
 
