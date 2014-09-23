@@ -26,7 +26,7 @@ from blivet.devicelibs import swap as swap_lib
 from blivet.formats import getFormat
 from blivet.partitioning import doPartitioning
 from blivet.partitioning import growLVM
-from blivet.errors import PartitioningError
+from blivet.errors import PartitioningError, StorageError, BTRFSValueError
 from blivet.size import Size
 from blivet import udev
 from blivet.platform import platform
@@ -34,7 +34,6 @@ import blivet.iscsi
 import blivet.fcoe
 import blivet.zfcp
 import blivet.arch
-import blivet.errors
 
 import glob
 from pyanaconda import iutil
@@ -468,7 +467,7 @@ class BTRFSData(commands.btrfs.F17_BTRFSData):
                                        metaDataLevel=self.metaDataLevel,
                                        dataLevel=self.dataLevel,
                                        parents=members)
-            except blivet.errors.BTRFSValueError as e:
+            except BTRFSValueError as e:
                 raise KickstartValueError(formatErrorMsg(self.lineno, msg=e.message))
 
             storage.createDevice(request)
@@ -930,7 +929,8 @@ class LogVolData(commands.logvol.F20_LogVolData):
             else:
                 maxsize = None
 
-            request = storage.newLV(fmt=fmt,
+            try:
+                request = storage.newLV(fmt=fmt,
                                     name=self.name,
                                     parents=parents,
                                     size=size,
@@ -940,6 +940,8 @@ class LogVolData(commands.logvol.F20_LogVolData):
                                     maxsize=maxsize,
                                     percent=self.percent,
                                     **pool_args)
+            except (StorageError, ValueError) as e:
+                raise KickstartValueError(formatErrorMsg(self.lineno, msg=e.message))
 
             storage.createDevice(request)
             if ty == "swap":
@@ -1222,7 +1224,10 @@ class PartitionData(commands.partition.F18_PartData):
         # tmpfs mounts are not disks and don't occupy a disk partition,
         # so handle them here
         elif self.fstype == "tmpfs":
-            request = storage.newTmpFS(**kwargs)
+            try:
+                request = storage.newTmpFS(**kwargs)
+            except (StorageError, ValueError) as e:
+                raise KickstartValueError(formatErrorMsg(self.lineno, msg=e.message))
             storage.createDevice(request)
         else:
             # If a previous device has claimed this mount point, delete the
@@ -1234,7 +1239,11 @@ class PartitionData(commands.partition.F18_PartData):
             except KeyError:
                 pass
 
-            request = storage.newPartition(**kwargs)
+            try:
+                request = storage.newPartition(**kwargs)
+            except (StorageError, ValueError) as e:
+                raise KickstartValueError(formatErrorMsg(self.lineno, msg=e.message))
+
             storage.createDevice(request)
             if ty == "swap":
                 storage.addFstabSwap(request)
@@ -1404,8 +1413,8 @@ class RaidData(commands.raid.F18_RaidData):
 
             try:
                 request = storage.newMDArray(**kwargs)
-            except ValueError as e:
-                raise KickstartValueError(formatErrorMsg(self.lineno, msg=str(e)))
+            except (StorageError, ValueError) as e:
+                raise KickstartValueError(formatErrorMsg(self.lineno, msg=e.message))
 
             storage.createDevice(request)
 
@@ -1628,9 +1637,12 @@ class VolGroupData(commands.volgroup.F21_VolGroupData):
             raise KickstartValueError(formatErrorMsg(self.lineno,
                     msg=_("The volume group name \"%s\" is already in use.") % self.vgname))
         else:
-            request = storage.newVG(parents=pvs,
+            try:
+                request = storage.newVG(parents=pvs,
                                     name=self.vgname,
                                     peSize=pesize)
+            except (StorageError, ValueError) as e:
+                raise KickstartValueError(formatErrorMsg(self.lineno, msg=e.message))
 
             storage.createDevice(request)
             if self.reserved_space:
