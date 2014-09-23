@@ -268,7 +268,6 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
 
     def _initialize(self):
         self._fs_types = []
-        actions = GtkActionList()
         for cls in device_formats.itervalues():
             obj = cls()
 
@@ -279,8 +278,13 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
                             (isinstance(obj, FS) or
                              obj.type in ["biosboot", "prepboot", "swap"]))
             if supported_fs:
-                actions.add_action(self._fsCombo.append_text, obj.name)
                 self._fs_types.append(obj.name)
+
+        # Display the file system types in alphabetical order.
+        actions = GtkActionList()
+        self._fs_types.sort()
+        for ty in self._fs_types:
+            actions.add_action(self._fsCombo.append_text, ty)
 
         actions.fire()
 
