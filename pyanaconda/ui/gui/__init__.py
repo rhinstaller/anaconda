@@ -684,6 +684,9 @@ class GraphicalUserInterface(UserInterface):
         # so convert them all to GLib signal handlers.
         self._convertSignals()
 
+        # Convert process watching to GLib mode so we can use GLib.child_watch_add
+        iutil.watchProcessGLib()
+
         # try to make sure a logo image is present
         self._assureLogoImage()
 

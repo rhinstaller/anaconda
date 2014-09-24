@@ -36,6 +36,8 @@ from urllib import quote, unquote
 import gettext
 import signal
 
+from gi.repository import GLib
+
 from pyanaconda.flags import flags
 from pyanaconda.constants import DRACUT_SHUTDOWN_EJECT, TRANSLATIONS_UPDATE_DIR, UNSUPPORTED_HW
 from pyanaconda.regexes import URL_PARSE
@@ -400,8 +402,10 @@ def execConsole():
     except OSError as e:
         raise RuntimeError("Error running /bin/sh: " + e.strerror)
 
-# Dictionary of processes to watch in the form {pid: name, ...}
+# Dictionary of processes to watch in the form {pid: [name, GLib event source id], ...}
 _forever_pids = {}
+# Set to True if process watching is handled by GLib
+_watch_process_glib = False
 _watch_process_handler_set = False
 
 class ExitError(RuntimeError):
@@ -439,59 +443,105 @@ def _sigchld_handler(num=None, frame=None):
                 continue
 
         if pid_result:
-            proc_name = _forever_pids[child_pid]
+            proc_name = _forever_pids[child_pid][0]
             exited_pids.append(child_pid)
 
             # Convert the wait-encoded status to the format used by subprocess
             if os.WIFEXITED(status):
                 sub_status = os.WEXITSTATUS(status)
             else:
+                # subprocess uses negative return codes to indicate signal exit
                 sub_status = -os.WTERMSIG(status)
 
             exit_statuses.append((proc_name, sub_status))
 
     for child_pid in exited_pids:
+        if _forever_pids[child_pid][1]:
+            GLib.source_remove(_forever_pids[child_pid][1])
         del _forever_pids[child_pid]
 
     if exit_statuses:
         _raise_exit_error(exit_statuses)
 
+# GLib callback used with watchProcess
+def _watch_process_cb(pid, status, proc_name):
+    # Convert the wait-encoded status to the format used by subprocess
+    if os.WIFEXITED(status):
+        sub_status = os.WEXITSTATUS(status)
+    else:
+        # subprocess uses negative return codes to indicate signal exit
+        sub_status = -os.WTERMSIG(status)
+
+    _raise_exit_error([(proc_name, sub_status)])
+
 def watchProcess(proc, name):
     """Watch for a process exit, and raise a ExitError when it does.
 
-       This method installs a SIGCHLD signal handler and thus cannot be
-       used with the child_watch_add methods in GLib. Since the SIGCHLD
-       handler calls wait() on the watched process, this call cannot be
-       combined with Popen.wait() or Popen.communicate, and also doing
-       so wouldn't make a whole lot of sense.
+       This method installs a SIGCHLD signal handler and thus interferes
+       the child_watch_add methods in GLib. Use watchProcessGLib to convert
+       to GLib mode if using a GLib main loop.
+
+       Since the SIGCHLD handler calls wait() on the watched process, this call
+       cannot be combined with Popen.wait() or Popen.communicate, and also
+       doing so wouldn't make a whole lot of sense.
 
        :param proc: The Popen object for the process
        :param name: The name of the process
     """
     global _watch_process_handler_set
 
-    if not _watch_process_handler_set:
+    if not _watch_process_glib and not _watch_process_handler_set:
         signal.signal(signal.SIGCHLD, _sigchld_handler)
         _watch_process_handler_set = True
 
     # Add the PID to the dictionary
-    _forever_pids[proc.pid] = name
+    # The second item in the list is for the GLib event source id and will be
+    # replaced with the id once we have one.
+    _forever_pids[proc.pid] = [name, None]
 
-    # Check that the process didn't already exit
-    if proc.poll() is not None:
-        del _forever_pids[proc.pid]
-        _raise_exit_error([(name, proc.returncode)])
+    # If GLib is watching processes, add a watcher. child_watch_add checks if
+    # the process has already exited.
+    if _watch_process_glib:
+        _forever_pids[proc.id][1] = GLib.child_watch_add(proc.pid, _watch_process_cb, name)
+    else:
+        # Check that the process didn't already exit
+        if proc.poll() is not None:
+            del _forever_pids[proc.pid]
+            _raise_exit_error([(name, proc.returncode)])
+
+def watchProcessGLib():
+    """Convert process watching to GLib mode.
+
+       This allows anaconda modes that use GLib main loops to use
+       GLib.child_watch_add and continue to watch processes started before the
+       main loop.
+    """
+
+    global _watch_process_glib
+
+    # The first call to child_watch_add will replace our SIGCHLD handler, and
+    # child_watch_add checks if the process has already exited before it returns,
+    # which will handle processes that exit while we're in the loop.
+
+    _watch_process_glib = True
+    for child_pid in _forever_pids:
+        _forever_pids[child_pid][1] = GLib.child_watch_add(child_pid, _watch_process_cb,
+                _forever_pids[child_pid])
 
 def unwatchProcess(proc):
     """Unwatch a process watched by watchProcess.
 
        :param proc: The Popen object for the process.
     """
+    if _forever_pids[proc.pid][1]:
+        GLib.source_remove(_forever_pids[proc.pid][1])
     del _forever_pids[proc.pid]
 
 def unwatchAllProcesses():
     """Clear the watched process list."""
     global _forever_pids
+    for child_pid in _forever_pids:
+        GLib.source_remove(_forever_pids[child_pid][1])
     _forever_pids = {}
 
 def getDirSize(directory):
