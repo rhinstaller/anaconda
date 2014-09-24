@@ -18,7 +18,7 @@
 #
 # Red Hat Author(s): Chris Lumens <clumens@redhat.com>
 #
-import inspect, os, sys, time, site
+import inspect, os, sys, time, site, signal
 import meh.ui.gui
 
 from contextlib import contextmanager
@@ -541,6 +541,38 @@ class GraphicalUserInterface(UserInterface):
             # Export the scale so that Gtk programs launched by anaconda are also scaled
             os.environ["GDK_SCALE"] = "2"
 
+    def _convertSignals(self):
+        # What tends to happen when we receive a signal is that the signal will
+        # be received by the python interpreter's C handler, python will do
+        # what it needs to do to set the python handler we registered to run,
+        # the C handler returns, and then nothing happens because Gtk is
+        # holding the global interpreter lock. The signal then gets delivered
+        # to our python code when you move the mouse or something. We can get
+        # around this by doing signals the GLib way. The conversion assumes
+        # that none of our signal handlers care about the frame parameter,
+        # which is generally true.
+        #
+        # After the unix_signal_add call, signal.getsignal will tell a half
+        # truth: the method returned will still be called, by way of
+        # _signal_converter, but GLib will have replaced the actual signal
+        # handler for that signal.
+
+        # Convert everything except SIGCHLD, because that's a different can of worms
+
+        def _signal_converter(user_data):
+            (handler, signum) = user_data
+            handler(signum, None)
+
+        for signum in range(1, signal.SIGCHLD) + range(signal.SIGCHLD + 1, signal.NSIG):
+            handler = signal.getsignal(signum)
+            if handler and handler not in (signal.SIG_DFL, signal.SIG_IGN):
+                # NB: if you are looking at the glib documentation you are in for
+                # some surprises because gobject-introspection is a minefield.
+                # g_unix_signal_add_full comes out as GLib.unix_signal_add, and
+                # g_unix_signal_add doesn't come out at all.
+                GLib.unix_signal_add(GLib.PRIORITY_DEFAULT, signum,
+                        _signal_converter, (handler, signum))
+
     @property
     def tty_num(self):
         return 6
@@ -647,6 +679,10 @@ class GraphicalUserInterface(UserInterface):
         provider.load_from_path("/usr/share/anaconda/anaconda-gtk.css")
         Gtk.StyleContext.add_provider_for_screen(Gdk.Screen.get_default(), provider,
                 Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION)
+
+        # The interaction between python signal handlers and Gtk is problematic,
+        # so convert them all to GLib signal handlers.
+        self._convertSignals()
 
         # try to make sure a logo image is present
         self._assureLogoImage()
