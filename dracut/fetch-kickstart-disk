@@ -14,13 +14,24 @@ info "anaconda: fetching kickstart from $dev:$path"
 mnt="$(find_mount $dev)"
 
 if [ -n "$mnt" ]; then
-    cp $mnt$path /tmp/ks.cfg
+    cp $mnt$path /tmp/ks.cfg 2>&1
 else
     tmpmnt="$(mkuniqdir /run/install tmpmnt)"
     if mount -o ro $dev $tmpmnt; then
-        cp $tmpmnt$path /tmp/ks.cfg
+        cp $tmpmnt/$path /tmp/ks.cfg 2>&1
         umount $tmpmnt
         rmdir $tmpmnt
+    fi
+fi
+
+
+# if we're waiting for a cdrom kickstart, tell the user so they can swap discs
+if str_starts "$kickstart" "cdrom"; then
+    if [ ! -f /tmp/ks.cfg ]; then
+        tell_user "Please insert CDROM containing '$path'..."
+        exit 0
+    elif [ -f /tmp/anaconda-on-cdrom ]; then
+        tell_user "Kickstart loaded. Please re-insert installation media."
     fi
 fi
 

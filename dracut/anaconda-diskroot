@@ -35,6 +35,17 @@ path="$2" # optional, could be empty
 
 [ -e "/dev/root" ] && exit 1 # we already have a root device!
 
+# If we're waiting for a cdrom kickstart, the user might need to swap discs.
+# So if this is a CDROM drive, make a note of it, but don't mount it (yet).
+# Once we get the kickstart either the udev trigger or disk-reinsertion will
+# retrigger this script, and we'll mount the disk as normal.
+if str_starts "$kickstart" "cdrom" && [ ! -e /tmp/ks.cfg.done ]; then
+    if dev_is_cdrom "$dev"; then
+        > /tmp/anaconda-on-cdrom
+        exit 0
+    fi
+fi
+
 info "anaconda using disk root at $dev"
 mount $dev $repodir || warn "Couldn't mount $dev"
 anaconda_live_root_dir $repodir $path
