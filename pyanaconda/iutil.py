@@ -366,7 +366,7 @@ def execReadlines(command, argv, stdin=None, root='/', env_prune=None):
                 # Output finished, check for the process dying unexpectedly
                 # and stop the iteration
                 if self._proc.poll() is not None:
-                    if os.WIFSIGNALED(self._proc.returncode):
+                    if self._proc.returncode < 0:
                         raise OSError("process '%s' was killed" % self._argv)
                 raise StopIteration
 

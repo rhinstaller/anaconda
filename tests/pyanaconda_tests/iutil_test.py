@@ -166,7 +166,8 @@ exit 0
     def exec_readlines_test_exits(self):
         """Test execReadlines in different child exit situations."""
 
-        # These tests raise OSError once output has been consumed
+        # Tests that exit on signal will raise OSError once output
+        # has been consumed, otherwise the test will exit normally.
 
         # Test a normal, non-0 exit
         with tempfile.NamedTemporaryFile() as testscript:
@@ -183,7 +184,7 @@ exit 1
                 self.assertEqual(rl_iterator.next(), "one")
                 self.assertEqual(rl_iterator.next(), "two")
                 self.assertEqual(rl_iterator.next(), "three")
-                self.assertRaises(OSError, rl_iterator.next)
+                self.assertRaises(StopIteration, rl_iterator.next)
 
         # Test exit on signal
         with tempfile.NamedTemporaryFile() as testscript:
@@ -217,7 +218,7 @@ exit 1
                 self.assertEqual(rl_iterator.next(), "one")
                 self.assertEqual(rl_iterator.next(), "two")
                 self.assertEqual(rl_iterator.next(), "three")
-                self.assertRaises(OSError, rl_iterator.next)
+                self.assertRaises(StopIteration, rl_iterator.next)
 
         with tempfile.NamedTemporaryFile() as testscript:
             testscript.write("""#!/bin/sh
