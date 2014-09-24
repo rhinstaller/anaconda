@@ -522,6 +522,10 @@ class GraphicalUserInterface(UserInterface):
         monitor_width_mm = screen.get_monitor_width_mm(primary)
         monitor_height_mm = screen.get_monitor_height_mm(primary)
 
+        # Sometimes gdk returns 0 for physical widths and heights
+        if monitor_height_mm == 0 or monitor_width_mm == 0:
+            return
+
         # Check if this monitor is high DPI, using heuristics from gnome-settings-dpi.
         # If the monitor has a height >= 1200 pixels and a resolution > 192 dpi in both
         # x and y directions, apply a scaling factor of 2 so that anaconda isn't all tiny
