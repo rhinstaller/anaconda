@@ -2635,9 +2635,9 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         self._device_container_raid_level = dialog.raid_level
         self._device_container_encrypted = dialog.encrypted
         self._device_container_size = dialog.size_policy
-        return True
 
         self._set_devices_label()
+        return True
 
     def _container_store_row(self, name, freeSpace=None):
         if freeSpace is not None:
