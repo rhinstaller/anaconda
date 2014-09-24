@@ -1,6 +1,6 @@
 # Miscellaneous UI functions
 #
-# Copyright (C) 2012, 2013 Red Hat, Inc.
+# Copyright (C) 2012-2014 Red Hat, Inc.
 #
 # This copyrighted material is made available to anyone wishing to use,
 # modify, copy, or redistribute it subject to the terms and conditions of
@@ -20,6 +20,8 @@
 #                    Martin Sivak <msivak@redhat.com>
 #                    Vratislav Podzimek <vpodzime@redhat.com>
 #
+
+from contextlib import contextmanager
 
 from pyanaconda.threads import threadMgr, AnacondaThread
 
@@ -287,6 +289,15 @@ def timed_action(delay=300, threshold=750, busy_cursor=True):
         return inner_func
 
     return decorator
+
+@contextmanager
+def blockedHandler(obj, func):
+    """Prevent a GLib signal handling function from being called during some
+       block of code.
+    """
+    obj.handler_block_by_func(func)
+    yield
+    obj.handler_unblock_by_func(func)
 
 def busyCursor():
     window = Gdk.get_default_root_window()

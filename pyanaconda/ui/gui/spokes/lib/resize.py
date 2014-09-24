@@ -26,7 +26,7 @@ from gi.repository import Gdk, Gtk
 
 from pyanaconda.i18n import _, C_, N_, P_
 from pyanaconda.ui.gui import GUIObject
-from pyanaconda.ui.gui.utils import escape_markup, timed_action
+from pyanaconda.ui.gui.utils import blockedHandler, escape_markup, timed_action
 from blivet.size import Size
 
 __all__ = ["ResizeDialog"]
@@ -261,9 +261,9 @@ class ResizeDialog(GUIObject):
         fivePercent = int(distance / 20)
         twentyPercent = int(distance / 5)
 
-        self._resizeSlider.handler_block_by_func(self.on_resize_value_changed)
-        self._resizeSlider.set_range(minSize, size)
-        self._resizeSlider.handler_unblock_by_func(self.on_resize_value_changed)
+        with blockedHandler(self._resizeSlider, self.on_resize_value_changed):
+            self._resizeSlider.set_range(minSize, size)
+
         self._resizeSlider.set_value(default_value)
 
         adjustment = self.builder.get_object("resizeAdjustment")

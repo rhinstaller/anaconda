@@ -38,7 +38,7 @@ from pyanaconda.ui.gui import GUIObject
 from pyanaconda.ui.gui.helpers import GUIDialogInputCheckHandler, GUISpokeInputCheckHandler
 from pyanaconda.ui.gui.spokes import NormalSpoke
 from pyanaconda.ui.categories.software import SoftwareCategory
-from pyanaconda.ui.gui.utils import fire_gtk_action
+from pyanaconda.ui.gui.utils import blockedHandler, fire_gtk_action
 from pyanaconda.iutil import ProxyString, ProxyStringError, cmp_obj_attrs
 from pyanaconda.ui.gui.utils import gtk_call_once, really_hide, really_show, fancy_set_sensitive
 from pyanaconda.threads import threadMgr, AnacondaThread
@@ -1198,9 +1198,10 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler):
             and reset the checkbox and combobox.
         """
         self._repoNameEntry.set_text("")
-        self._repoMirrorlistCheckbox.handler_block_by_func(self.on_repoMirrorlistCheckbox_toggled)
-        self._repoMirrorlistCheckbox.set_active(False)
-        self._repoMirrorlistCheckbox.handler_unblock_by_func(self.on_repoMirrorlistCheckbox_toggled)
+
+        with blockedHandler(self._repoMirrorlistCheckbox, self.on_repoMirrorlistCheckbox_toggled):
+            self._repoMirrorlistCheckbox.set_active(False)
+
         self._repoUrlEntry.set_text("")
         self._repoProtocolComboBox.set_active(0)
         self._repoProxyUrlEntry.set_text("")
@@ -1215,14 +1216,13 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler):
         """
         self._repoNameEntry.set_text(repo.name)
 
-        self._repoMirrorlistCheckbox.handler_block_by_func(self.on_repoMirrorlistCheckbox_toggled)
-        if repo.mirrorlist:
-            url = repo.mirrorlist
-            self._repoMirrorlistCheckbox.set_active(True)
-        else:
-            url = repo.baseurl
-            self._repoMirrorlistCheckbox.set_active(False)
-        self._repoMirrorlistCheckbox.handler_unblock_by_func(self.on_repoMirrorlistCheckbox_toggled)
+        with blockedHandler(self._repoMirrorlistCheckbox, self.on_repoMirrorlistCheckbox_toggled):
+            if repo.mirrorlist:
+                url = repo.mirrorlist
+                self._repoMirrorlistCheckbox.set_active(True)
+            else:
+                url = repo.baseurl
+                self._repoMirrorlistCheckbox.set_active(False)
 
         if url:
             for idx, proto in REPO_PROTO.iteritems():

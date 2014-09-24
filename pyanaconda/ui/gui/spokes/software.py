@@ -30,7 +30,7 @@ from pyanaconda import constants, iutil
 from pyanaconda.ui.communication import hubQ
 from pyanaconda.ui.gui.spokes import NormalSpoke
 from pyanaconda.ui.gui.spokes.lib.detailederror import DetailedErrorDialog
-from pyanaconda.ui.gui.utils import gtk_action_wait, escape_markup
+from pyanaconda.ui.gui.utils import blockedHandler, gtk_action_wait, escape_markup
 from pyanaconda.ui.categories.software import SoftwareCategory
 
 import logging
@@ -410,9 +410,8 @@ class SoftwareSelectionSpoke(NormalSpoke):
         box = row.get_children()[0]
         button = box.get_children()[0]
 
-        button.handler_block_by_func(self.on_radio_button_toggled)
-        button.set_active(True)
-        button.handler_unblock_by_func(self.on_radio_button_toggled)
+        with blockedHandler(button, self.on_radio_button_toggled):
+            button.set_active(True)
 
         # Remove all the groups that were selected by the previously
         # selected environment.
@@ -436,9 +435,8 @@ class SoftwareSelectionSpoke(NormalSpoke):
 
         wasActive = group in self.selectedGroups
 
-        button.handler_block_by_func(self.on_checkbox_toggled)
-        button.set_active(not wasActive)
-        button.handler_unblock_by_func(self.on_checkbox_toggled)
+        with blockedHandler(button, self.on_checkbox_toggled):
+            button.set_active(not wasActive)
 
         if wasActive:
             self.selectedGroups.remove(group)
