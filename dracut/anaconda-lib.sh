@@ -165,6 +165,26 @@ when_any_cdrom_appears() {
       >> $rulesfile
 }
 
+plymouth_running() {
+    type plymouth >/dev/null 2>&1 && plymouth --ping 2>/dev/null
+}
+
+# print something to the display (and put it in the log so we know what's up)
+tell_user() {
+    if plymouth_running; then
+        # NOTE: if we're doing graphical splash but we don't have all the
+        # font-rendering libraries, no message will appear.
+        plymouth display-message --text="$*"
+        echo "$*"     # this goes to journal only
+    else
+        echo "$*" >&2 # this goes to journal+console
+    fi
+}
+
+dev_is_cdrom() {
+    udevadm info --query=property --name=$1 | grep -q 'ID_CDROM=1'
+}
+
 # dracut doesn't bring up the network unless:
 #   a) $netroot is set (i.e. you have a network root device), or
 #   b) /tmp/net.ifaces exists.
