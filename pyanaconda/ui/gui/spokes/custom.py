@@ -2438,14 +2438,11 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         should_be_btrfs = False
         fs_type_sensitive = True
 
-        raid_level = None
         if new_type == DEVICE_TYPE_BTRFS:
             # add btrfs to the fstype combo and lock it in
             test_fmt = getFormat("btrfs")
             should_be_btrfs = test_fmt.supported and test_fmt.formattable
             fs_type_sensitive = False
-        elif new_type == DEVICE_TYPE_MD:
-            raid_level = defaultRaidLevel(new_type)
 
         # lvm uses the RHS to set disk set. no foolish minds here.
         exists = self._current_selector and self._current_selector.device.exists
@@ -2456,7 +2453,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         # device type
         self._raidStoreFilter.refilter()
 
-        self._populate_raid(raid_level)
+        self._populate_raid(defaultRaidLevel(new_type))
         self._populate_container()
 
         fancy_set_sensitive(self._nameEntry, new_type in NAMED_DEVICE_TYPES)
