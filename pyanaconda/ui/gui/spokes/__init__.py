@@ -22,6 +22,7 @@
 from pyanaconda.ui import common
 from pyanaconda.ui.common import collect
 from pyanaconda.ui.gui import GUIObject
+from pyanaconda.ui.gui.utils import gtk_call_once
 import os.path
 from pyanaconda import ihelp
 
@@ -66,6 +67,9 @@ class Spoke(GUIObject):
 # Inherit abstract methods from common.StandaloneSpoke
 # pylint: disable-msg=W0223
 class StandaloneSpoke(Spoke, common.StandaloneSpoke):
+
+    handles_autostep = True
+
     def __init__(self, data, storage, payload, instclass):
         Spoke.__init__(self, data)
         common.StandaloneSpoke.__init__(self, data, storage, payload, instclass)
@@ -81,6 +85,11 @@ class StandaloneSpoke(Spoke, common.StandaloneSpoke):
             self.window.connect("quit-clicked", lambda *args: cb())
         elif event == "help-button":
             self.window.connect("help-button-clicked", cb, *args)
+
+    def _doPostAutostep(self):
+        # we are done, re-emit the continue clicked signal we "consumed" previously
+        # so that the Anaconda GUI can switch to the next screen
+        gtk_call_once(self.window.emit, "continue-clicked")
 
 # Inherit abstract methods from common.NormalSpoke
 # pylint: disable-msg=W0223

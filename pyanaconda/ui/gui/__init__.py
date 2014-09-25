@@ -25,10 +25,10 @@ from gi.repository import Gdk, Gtk, AnacondaWidgets, Keybinder
 
 from pyanaconda.i18n import _
 from pyanaconda.constants import IPMI_ABORTED
-from pyanaconda import product, iutil
+from pyanaconda import product, iutil, constants
 
 from pyanaconda.ui import UserInterface, common
-from pyanaconda.ui.gui.utils import enlightbox, gtk_action_wait, busyCursor, unbusyCursor
+from pyanaconda.ui.gui.utils import enlightbox, gtk_action_wait, gtk_call_once, busyCursor, unbusyCursor
 from pyanaconda import ihelp
 import os.path
 
@@ -90,7 +90,7 @@ class GUIObject(common.UIObject):
     helpFile = None
     translationDomain = "anaconda"
 
-    screenshots_directory = "/tmp/anaconda-screenshots"
+    handles_autostep = False
 
     def __init__(self, data):
         """Create a new UIObject instance, including loading its uiFile and
@@ -138,6 +138,9 @@ class GUIObject(common.UIObject):
         Keybinder.init()
         Keybinder.bind("<Shift>Print", self._handlePrntScreen, [])
 
+        self._automaticEntry = False
+        self._autostepRunning = False
+        self._autostepDone = False
 
     def _findUIFile(self):
         path = os.environ.get("UIPATH", "./:/tmp/updates/:/tmp/updates/ui/:/usr/share/anaconda/ui/")
@@ -154,28 +157,105 @@ class GUIObject(common.UIObject):
         raise IOError("Could not load UI file '%s' for object '%s'" % (self.uiFile, self))
 
     def _handlePrntScreen(self, *args, **kwargs):
-        global _screenshotIndex
         global _last_screenshot_timestamp
         # as a single press of the assigned key generates
         # multiple callbacks, we need to skip additional
         # callbacks for some time once a screenshot is taken
         if (time.time() - _last_screenshot_timestamp) >= SCREENSHOT_DELAY:
-            # Make sure the screenshot directory exists.
-            if not os.access(self.screenshots_directory, os.W_OK):
-                os.makedirs(self.screenshots_directory)
-
-            fn = os.path.join(self.screenshots_directory,
-                              "screenshot-%04d.png" % _screenshotIndex)
-
-            root_window = Gdk.get_default_root_window()
-            pixbuf = Gdk.pixbuf_get_from_window(root_window, 0, 0,
-                                                root_window.get_width(),
-                                                root_window.get_height())
-            pixbuf.savev(fn, 'png', [], [])
-            log.info("screenshot nr. %d taken", _screenshotIndex)
-            _screenshotIndex += 1
+            self.take_screenshot()
             # start counting from the time the screenshot operation is done
             _last_screenshot_timestamp = time.time()
+
+    def take_screenshot(self, name=None):
+        """Take a screenshot of the whole screen (works even with multiple displays)
+
+        :param name: optional name for the screenshot that will be appended to the filename,
+                     after the standard prefix & screenshot number
+        :type name: str or NoneType
+        """
+        global _screenshotIndex
+        # Make sure the screenshot directory exists.
+        iutil.mkdirChain(constants.SCREENSHOTS_DIRECTORY)
+
+        if name is None:
+            screenshot_filename = "screenshot-%04d.png" % _screenshotIndex
+        else:
+            screenshot_filename = "screenshot-%04d-%s.png" % (_screenshotIndex, name)
+
+        fn = os.path.join(constants.SCREENSHOTS_DIRECTORY, screenshot_filename)
+
+        root_window = Gdk.get_default_root_window()
+        pixbuf = Gdk.pixbuf_get_from_window(root_window, 0, 0,
+                                            root_window.get_width(),
+                                            root_window.get_height())
+        pixbuf.savev(fn, 'png', [], [])
+        log.info("%s taken", screenshot_filename)
+        _screenshotIndex += 1
+
+    @property
+    def automaticEntry(self):
+        """Report if the given GUIObject has been displayed under automatic control
+
+        This is needed for example for installations with an incomplete kickstart,
+        as we need to differentiate the automatic screenshot pass from the user
+        entering a spoke to manually configure things. We also need to skip applying
+        changes if the spoke is entered automatically.
+        """
+        return self._automaticEntry
+
+    @automaticEntry.setter
+    def automaticEntry(self, value):
+        self._automaticEntry = value
+
+    @property
+    def autostepRunning(self):
+        """Report if the GUIObject is currently running autostep"""
+        return self._autostepRunning
+
+    @autostepRunning.setter
+    def autostepRunning(self, value):
+        self._autostepRunning = value
+
+    @property
+    def autostepDone(self):
+        """Report if autostep for this GUIObject has been finished"""
+        return self._autostepDone
+
+    @autostepDone.setter
+    def autostepDone(self, value):
+        self._autostepDone = value
+
+    def autostep(self):
+        """Autostep through this graphical object and through
+        any graphical objects managed by it (such as through spokes for a hub)
+        """
+        # report that autostep is running to prevent another from starting
+        self.autostepRunning = True
+        # take a screenshot of the current graphical object
+        if self.data.autostep.autoscreenshot:
+            # as autostep is triggered just before leaving a screen,
+            # we can safely take a screenshot of the "parent" object at once
+            # without using idle_add
+            self.take_screenshot(self.__class__.__name__)
+        self._doAutostep()
+        # done
+        self.autostepRunning = False
+        self.autostepDone = True
+        self._doPostAutostep()
+
+    def _doPostAutostep(self):
+        """To be overridden by the given GUIObject sub-class with custom code
+        that brings the GUI from the autostepping mode back to the normal mode.
+        This usually means to "click" the continue button or its equivalent.
+        """
+        pass
+
+    def _doAutostep(self):
+        """To be overridden by the given GUIObject sub-class with customized
+        autostepping code - if needed
+        (this is for example used to step through spokes in a hub)
+        """
+        pass
 
     @property
     def window(self):
@@ -454,8 +534,26 @@ class GraphicalUserInterface(UserInterface):
     ### SIGNAL HANDLING METHODS
     ###
     def _on_continue_clicked(self):
+        # Autostep needs to be triggered just before switching to the next screen
+        # (or before quiting the installation if there are no more screens) to be consistent
+        # in both fully automatic kickstart installation and for installation with an incomplete
+        # kickstart. Therefore we basically "hook" the continue-clicked signal, start autostepping
+        # and ignore any other continue-clicked signals until autostep is done.
+        # Once autostep finishes, it emits the appropriate continue-clicked signal itself,
+        # switching to the next screen (if any).
+        if self.data.autostep.seen and self._currentAction.handles_autostep:
+            if self._currentAction.autostepRunning:
+                log.debug("ignoring the continue-clicked signal - autostep is running")
+                return
+            elif not self._currentAction.autostepDone:
+                self._currentAction.autostep()
+                return
+
         # If we're on the last screen, clicking Continue quits.
         if len(self._actions) == 1:
+            # save the screenshots to the installed system before killing Anaconda
+            # (the kickstart post scripts run to early, so we need to copy the screenshots now)
+            iutil.save_screenshots()
             Gtk.main_quit()
             return
 

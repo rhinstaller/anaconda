@@ -60,6 +60,8 @@ class Hub(GUIObject, common.Hub):
        additional standalone screens either before or after them.
     """
 
+    handles_autostep = True
+
     def __init__(self, data, storage, payload, instclass):
         """Create a new Hub instance.
 
@@ -111,12 +113,22 @@ class Hub(GUIObject, common.Hub):
         action.window.set_transient_for(self.window)
         action.window.show_all()
 
+        # step through the spoke if required
+        if action.automaticEntry:
+            # we need to use idle_add here to give GTK time to render the spoke
+            gtk_call_once(self._autostep_spoke, action)
+
         # Start a recursive main loop for this spoke, which will prevent
         # signals from going to the underlying (but still displayed) Hub and
         # prevent the user from switching away.  It's up to the spoke's back
         # button handler to kill its own layer of main loop.
         Gtk.main()
         action.window.set_transient_for(None)
+
+        # don't apply any actions if the spoke was visited automatically
+        if action.automaticEntry:
+            action.automaticEntry = False
+            return
 
         action._visitedSinceApplied = True
 
@@ -393,6 +405,36 @@ class Hub(GUIObject, common.Hub):
     @property
     def quitButton(self):
         return None
+
+    def _doAutostep(self):
+        """Autostep through all spokes managed by this hub"""
+        log.info("autostepping through all spokes on hub %s" % self.__class__.__name__)
+        spoke_count = len(self._spokes)
+        sorted_spokes = sorted(self._spokes.values(), key=lambda x: x.__class__.__name__)
+        # take a screenshot of all spokes in the alphabetical order of their names
+        for i, spoke in enumerate(sorted_spokes, start=1):
+            log.debug("stepping to spoke %s (%d/%d)" % (spoke.__class__.__name__, i, spoke_count))
+            spoke.automaticEntry = True
+            self._on_spoke_clicked(None, None, spoke)
+        log.info("autostep for hub %s finished" % self.__class__.__name__)
+
+    def _autostep_spoke(self, spoke):
+        """Step through a spoke and make a screenshot if required and
+        then kill it's recursive GTK main loop. :)
+        This will return control back to the primary main loop,
+        so it can show another spoke or got to next hub.
+        """
+        from gi.repository import Gtk
+        # it might be possible that autostep is specified, but autoscreenshot isn't
+        if self.data.autostep.autoscreenshot:
+            self.take_screenshot(spoke.__class__.__name__)
+        spoke.window.hide()
+        Gtk.main_quit()
+
+    def _doPostAutostep(self):
+        # we are done, re-emit the continue clicked signal we "consumed" previously
+        # so that the Anaconda GUI can switch to the next screen
+        gtk_call_once(self.continueButton.emit, "clicked")
 
     ### SIGNAL HANDLERS
 

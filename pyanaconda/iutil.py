@@ -28,11 +28,13 @@ import errno
 import subprocess
 import tempfile
 import unicodedata
+import shutil
 from threading import Thread
 from Queue import Queue, Empty
 
 from pyanaconda.flags import flags
 from pyanaconda.constants import DRACUT_SHUTDOWN_EJECT, ROOT_PATH, TRANSLATIONS_UPDATE_DIR, UNSUPPORTED_HW
+from pyanaconda.constants import SCREENSHOTS_DIRECTORY, SCREENSHOTS_TARGET_DIRECTORY
 from pyanaconda.regexes import PROXY_URL_PARSE
 
 import logging
@@ -81,6 +83,14 @@ def setSysroot(path):
     """
     global _sysroot
     _sysroot = path
+
+def sysroot_path(path):
+    """Make the given relative or absolute path "sysrooted"
+    :param str path: path to be sysrooted
+    :returns: sysrooted path
+    :rtype: str
+    """
+    return os.path.join(getSysroot(), path.lstrip(os.path.sep))
 
 def _run_program(argv, root='/', stdin=None, stdout=None, env_prune=None, log_output=True, binary_output=False):
     """ Run an external program, log the output and return it to the caller
@@ -856,3 +866,20 @@ def ipmi_report(event):
     execWithCapture("ipmitool", ["sel", "add", path])
 
     os.remove(path)
+
+def save_screenshots():
+    """Save screenshots to the installed system"""
+    if not os.path.exists(SCREENSHOTS_DIRECTORY):
+        # there are no screenshots to copy
+        return
+    target_path = sysroot_path(SCREENSHOTS_TARGET_DIRECTORY)
+    log.info("saving screenshots taken during the installation to: %s" % target_path)
+    try:
+        # create the screenshots directory
+        mkdirChain(target_path)
+        # copy all screenshots
+        for filename in os.listdir(SCREENSHOTS_DIRECTORY):
+            shutil.copy(os.path.join(SCREENSHOTS_DIRECTORY, filename), target_path)
+
+    except OSError:
+        log.exception("saving screenshots to installed system failed")

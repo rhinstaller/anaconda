@@ -150,3 +150,7 @@ IPMI_FAILED   = 0xA
 
 # Recognizing a tarfile
 TAR_SUFFIX = (".tar", ".tbz", ".tgz", ".txz", ".tar.bz2", "tar.gz", "tar.xz")
+
+# screenshots
+SCREENSHOTS_DIRECTORY = "/tmp/anaconda-screenshots"
+SCREENSHOTS_TARGET_DIRECTORY = "/root/anaconda-screenshots"
