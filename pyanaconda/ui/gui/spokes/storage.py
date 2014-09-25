@@ -815,6 +815,9 @@ class StorageSpoke(NormalSpoke, StorageChecker):
             # check for unformatted DASDs and launch dasdfmt if any discovered
             dasds = make_unformatted_dasd_list(self.selected_disks)
             if len(dasds) > 0:
+                # We want to apply current selection before running dasdfmt to
+                # prevent this information from being lost afterward
+                applyDiskSelection(self.storage, self.data, self.selected_disks)
                 dialog = DasdFormatDialog(self.data, self.storage, dasds)
                 ignoreEscape(dialog.window)
                 rc = self.run_lightbox_dialog(dialog)
