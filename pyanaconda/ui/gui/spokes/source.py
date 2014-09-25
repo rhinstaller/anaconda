@@ -42,6 +42,7 @@ from pyanaconda.ui.gui.utils import gtk_call_once, really_hide, really_show
 from pyanaconda.threads import threadMgr, AnacondaThread
 from pyanaconda.packaging import PackagePayload, payloadMgr
 from pyanaconda import constants
+from pyanaconda import nm
 
 from blivet.util import get_mount_device, get_mount_paths
 
@@ -692,6 +693,9 @@ class SourceSpoke(NormalSpoke):
             self._urlEntry.set_sensitive(True)
 
         # Set up the default state of UI elements.
+        self._networkButton.set_sensitive(True)
+        self._networkBox.set_sensitive(True)
+
         if self.data.method.method == "url":
             self._networkButton.set_active(True)
 
@@ -761,6 +765,13 @@ class SourceSpoke(NormalSpoke):
             # that condition here too.
             self.on_protocol_changed(self._protocolComboBox)
 
+        if not nm.nm_is_connected():
+            self._networkButton.set_sensitive(False)
+            self._networkBox.set_sensitive(False)
+
+            self.clear_info()
+            self.set_warning(_("You need to configure the network to use a network installation source."))
+
     @property
     def showable(self):
         return isinstance(self.payload, PackagePayload)
@@ -806,6 +817,7 @@ class SourceSpoke(NormalSpoke):
         if len(ui_repo_names) != len(frozenset(ui_repo_names)):
             return
         else:
+            self.clear_info()
             NormalSpoke.on_back_clicked(self, button)
 
     def on_chooser_clicked(self, button):
