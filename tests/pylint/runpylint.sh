@@ -124,7 +124,7 @@ if [ -z "$FILES" ]; then
 fi
 
 # run pylint in paralel
-output=$(echo -n $FILES | parallel -d' ' --gnu "$srcdir"/pylint-one.sh $ARGS {})
+output=$(echo -n $FILES | parallel --no-notice -d' ' --gnu "$srcdir"/pylint-one.sh $ARGS {})
 exit_status=$?
 
 if [ "$output" != '\n' -a "$output" != "" ]; then

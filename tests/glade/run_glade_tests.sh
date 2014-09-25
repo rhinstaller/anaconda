@@ -27,7 +27,7 @@ fi
 
 status=0
 for check in ${srcdir}/*/check_*.py ; do
-    findtestfiles -name '*.glade' | parallel --gnu -j0 "${check}" "$@" {}
+    findtestfiles -name '*.glade' | parallel --no-notice --gnu -j0 "${check}" "$@" {}
     if [ "$?" -ne 0 ]; then
         status=1
     fi

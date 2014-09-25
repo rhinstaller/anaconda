@@ -77,7 +77,7 @@ fi
 
 ## main ##
 # fork separate process for every commit, querying bugzilla takes time
-echo -n ${commits}|parallel -d' ' --gnu -j0 .git/hooks/check_commit_msg.sh ${release} {}
+echo -n ${commits}|parallel --no-notice -d' ' --gnu -j0 .git/hooks/check_commit_msg.sh ${release} {}
 ret=$?
 if [ ${ACK_FATAL} == "0" ]; then
     test ${ret} -eq 0
