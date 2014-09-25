@@ -2360,7 +2360,12 @@ def writeSysconfigKernel(storage, version):
     f.write("\n")
     f.write("# DEFAULTKERNEL specifies the default kernel package type\n")
     f.write("DEFAULTKERNEL=%s\n" % kernel)
+    f.write("\n")
+    f.write("# MAKEDEBUG specifies if new-kernel-pkg should create non-default\n")
+    f.write("# \"debug\" entries for new kernels.\n")
+    f.write("MAKEDEBUG=yes\n")
     if storage.bootloader.trusted_boot:
+        f.write("\n")
         f.write("# HYPERVISOR specifies the default multiboot kernel\n")
         f.write("HYPERVISOR=/boot/tboot.gz\n")
         f.write("HYPERVISOR_ARGS=logging=vga,serial,memory\n")
