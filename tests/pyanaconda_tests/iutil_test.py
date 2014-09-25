@@ -184,7 +184,7 @@ exit 1
                 self.assertEqual(rl_iterator.next(), "one")
                 self.assertEqual(rl_iterator.next(), "two")
                 self.assertEqual(rl_iterator.next(), "three")
-                self.assertRaises(StopIteration, rl_iterator.next)
+                self.assertRaises(OSError, rl_iterator.next)
 
         # Test exit on signal
         with tempfile.NamedTemporaryFile() as testscript:
@@ -218,7 +218,7 @@ exit 1
                 self.assertEqual(rl_iterator.next(), "one")
                 self.assertEqual(rl_iterator.next(), "two")
                 self.assertEqual(rl_iterator.next(), "three")
-                self.assertRaises(StopIteration, rl_iterator.next)
+                self.assertRaises(OSError, rl_iterator.next)
 
         with tempfile.NamedTemporaryFile() as testscript:
             testscript.write("""#!/bin/sh

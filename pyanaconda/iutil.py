@@ -326,6 +326,10 @@ def execReadlines(command, argv, stdin=None, root='/', env_prune=None):
     """ Execute an external command and return the line output of the command
         in real-time.
 
+        This method assumes that there is a reasonably low delay between the
+        end of output and the process exiting. If the child process closes
+        stdout and then keeps on truckin' there will be problems.
+
         :param command: The command to run
         :param argv: The argument list
         :param stdin: The file object to read stdin from.
@@ -363,11 +367,16 @@ def execReadlines(command, argv, stdin=None, root='/', env_prune=None):
             # Read the next line, blocking if a line is not yet available
             line = self._proc.stdout.readline()
             if line == '':
-                # Output finished, check for the process dying unexpectedly
-                # and stop the iteration
-                if self._proc.poll() is not None:
-                    if self._proc.returncode < 0:
-                        raise OSError("process '%s' was killed" % self._argv)
+                # Output finished, wait for the process to end
+                self._proc.communicate()
+
+                # Check for successful exit
+                if self._proc.returncode < 0:
+                    raise OSError("process '%s' was killed by signal %s" %
+                            (self._argv, -self._proc.returncode))
+                elif self._proc.returncode > 0:
+                    raise OSError("process '%s' exited with status %s" %
+                            (self._argv, self._proc.returncode))
                 raise StopIteration
 
             return line.strip()
