@@ -764,13 +764,14 @@ class LogVolData(commands.logvol.F20_LogVolData):
         if self.percent:
             size = Size(0)
         else:
+            if not self.size:
+                raise KickstartValueError(formatErrorMsg(self.lineno,
+                    msg="Size must be specified."))
             try:
                 size = Size("%d MiB" % self.size)
             except ValueError:
                 raise KickstartValueError(formatErrorMsg(self.lineno,
                         msg="The size \"%s\" is invalid." % self.size))
-            except TypeError:
-                pass
 
         if self.mountpoint == "swap":
             ty = "swap"
@@ -905,8 +906,6 @@ class LogVolData(commands.logvol.F20_LogVolData):
                     maxsize = Size("%d MiB" % self.maxSizeMB)
                 except ValueError:
                     raise KickstartValueError(formatErrorMsg(self.lineno, msg="The maximum size %s is not valid." % self.maxSizeMB))
-                except TypeError:
-                    pass
             else:
                 maxsize = None
 
@@ -993,12 +992,14 @@ class PartitionData(commands.partition.F18_PartData):
 
         storage.doAutoPart = False
 
-        try:
-            size = Size("%d MiB" % self.size)
-        except ValueError:
-            raise KickstartValueError(formatErrorMsg(self.lineno, msg="The size %s is not valid." % self.size))
-        except TypeError:
-            pass
+        if self.size:
+            try:
+                size = Size("%d MiB" % self.size)
+            except ValueError:
+                raise KickstartValueError(formatErrorMsg(self.lineno, msg="The size %s is not valid." % self.size))
+        else:
+            # Have blivet determine a default value
+            size = None
 
         if self.onbiosdisk != "":
             for (disk, biosdisk) in storage.eddDict.iteritems():
@@ -1152,8 +1153,6 @@ class PartitionData(commands.partition.F18_PartData):
                 maxsize = Size("%d MiB" % self.maxSizeMB)
             except ValueError:
                 raise KickstartValueError(formatErrorMsg(self.lineno, msg="The maximum size %s is not valid." % self.maxSizeMB))
-            except TypeError:
-                pass
         else:
             maxsize = None
 
