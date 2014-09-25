@@ -1189,9 +1189,9 @@ def apply_kickstart(ksdata):
             for con_uuid, dev_name in added_connections:
                 try:
                     nm.nm_activate_device_connection(dev_name, con_uuid)
-                except nm.UnknownConnectionError:
-                    log.warning("network: pre kickstart: can't activate connection %s on %s",
-                               con_uuid, dev_name)
+                except (nm.UnknownConnectionError, nm.UnknownDeviceError) as e:
+                    log.warning("network: pre kickstart: can't activate connection %s on %s: %s",
+                                con_uuid, dev_name, e)
     return applied_devices
 
 def networkInitialize(ksdata):
