@@ -97,10 +97,6 @@ class DasdFormatDialog(GUIObject):
                 log.error(str(err))
                 continue
 
-        # And now to fire up the storage reinitialization.
-        protectedNames = [d.name for d in self.storage.protectedDevices]
-        storageInitialize(self.storage, self.data, protectedNames)
-
         with self._epoch_lock:
             self.update_dialog(epoch_started)
 
