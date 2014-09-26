@@ -31,3 +31,5 @@ for tty in hvc0 hvc1 xvc0 hvsi0 hvsi1 hvsi2; do
         service_on_tty anaconda-shell@.service $tty
     fi
 done
+
+ln -sf $systemd_dir/anaconda-nm-config.service $target_dir/anaconda-nm-config.service
