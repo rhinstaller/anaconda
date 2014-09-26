@@ -44,3 +44,5 @@ done
 if getargbool 0 sshd inst.sshd || [ $(uname -m) = "s390x" ]; then
     ln -sf $systemd_dir/anaconda-sshd.service $target_dir/anaconda-sshd.service
 fi
+
+ln -sf $systemd_dir/anaconda-nm-config.service $target_dir/anaconda-nm-config.service

@@ -27,6 +27,7 @@ dist_systemd_DATA = anaconda.service \
 		    anaconda-tmux@.service \
 		    anaconda-shell@.service \
 		    instperf.service \
+		    anaconda-nm-config.service \
 		    anaconda-sshd.service
 
 dist_generator_SCRIPTS = anaconda-generator
