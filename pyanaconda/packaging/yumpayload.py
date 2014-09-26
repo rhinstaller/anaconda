@@ -746,7 +746,8 @@ reposdir=%s
                 needmount = True
                 if device:
                     _options, host, path = iutil.parseNfsUrl('nfs:%s' % device)
-                    if path and path in device:
+                    if method.server and method.server == host and \
+                       method.dir and method.dir == path:
                         needmount = False
                         path = DRACUT_REPODIR
                 if needmount:
