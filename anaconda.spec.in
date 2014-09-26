@@ -262,6 +262,7 @@ update-desktop-database &> /dev/null || :
 %{_unitdir}/*
 %{_prefix}/lib/systemd/system-generators/*
 %{_bindir}/instperf
+%{_bindir}/anaconda-disable-nm-ibft-plugin
 %{_sbindir}/anaconda
 %{_sbindir}/handle-sshpw
 %{_datadir}/anaconda
