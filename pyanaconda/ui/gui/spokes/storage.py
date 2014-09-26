@@ -757,11 +757,7 @@ class StorageSpoke(NormalSpoke, StorageChecker):
                 ignoreEscape(dialog.window)
                 rc = self.run_lightbox_dialog(dialog)
                 if rc == 1:
-                    # User hit OK on the dialog, indicating they stayed on the
-                    # dialog until formatting completed; make sure we stay on
-                    # the storage spoke and don't return to the summary hub
-                    self.skipTo = "StorageSpoke"
-                    # we have to manaually call refresh so changes are picked up
+                    # User hit OK on the dialog
                     self.refresh()
                 elif rc == 2:
                     # User clicked uri to return to hub.
