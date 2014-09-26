@@ -2091,7 +2091,8 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         # new devices that are not btrfs subvolumes.
         # Do this after the device type combo is set since
         # on_device_type_changed doesn't account for device existence.
-        fancy_set_sensitive(self._sizeEntry, device.resizable or (not device.exists and device.format.type != "btrfs"))
+        fancy_set_sensitive(self._sizeEntry, (device.resizable and not device.protected) \
+                            or (not device.exists and device.format.type != "btrfs"))
 
         if self._sizeEntry.get_sensitive():
             self._sizeEntry.props.has_tooltip = False
@@ -2359,6 +2360,8 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         with ui_storage_logger():
             is_logical_partition = getattr(device, "isLogical", False)
             try:
+                if device.protected:
+                    raise StorageError("Device %s is protected" % device.name)
                 if device.isDisk:
                     self.__storage.initializeDisk(device)
                 elif device.direct and not device.isleaf:
@@ -2375,6 +2378,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
                 self.set_warning(_("Device removal request failed. Click "
                                    "for details."))
                 self.window.show_all()
+                return
             else:
                 if is_logical_partition:
                     self.__storage.removeEmptyExtendedPartitions()
@@ -2842,8 +2846,6 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
             # instead of device/mountpoint details.
             self._partitionsNotebook.set_current_page(NOTEBOOK_LABEL_PAGE)
             self._removeButton.set_sensitive(False)
-        else:
-            self._removeButton.set_sensitive(True)
 
     def _do_autopart(self):
         """Helper function for on_create_clicked.
