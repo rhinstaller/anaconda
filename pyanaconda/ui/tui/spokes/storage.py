@@ -326,10 +326,6 @@ class StorageSpoke(NormalTUISpoke):
                 log.error(str(err))
                 continue
 
-        # when finished formatting we need to reinitialize storage
-        protectedNames = [d.name for d in self.storage.protectedDevices]
-        storageInitialize(self.storage, self.data, protectedNames)
-
     def apply(self):
         self.autopart = self.data.autopart.autopart
         self.data.ignoredisk.onlyuse = self.selected_disks[:]

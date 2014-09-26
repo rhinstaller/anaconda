@@ -654,10 +654,6 @@ class StorageSpoke(NormalSpoke, StorageChecker):
                 log.error(str(err))
                 continue
 
-        # now re-initialize storage to pick up the newly formatted disks
-        protectedNames = [d.name for d in self.storage.protectedDevices]
-        storageInitialize(self.storage, self.data, protectedNames)
-
         # I really hate doing this, but the way is the way; probably the most
         # correct way to kajigger the storage spoke into becoming ready
         self.execute()
