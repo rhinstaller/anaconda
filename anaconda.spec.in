@@ -297,6 +297,29 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Thu Sep 25 2014 Brian C. Lane <bcl@redhat.com> - 19.31.93-1
+- s390x: Apply disk selection before dasdfmt to preserve data.
+  (sbueno+anaconda)
+  Resolves: rhbz#1078892
+- Fix an error in recent commit 4518009. (dlehman)
+  Related: rhbz#1027224
+- Adapt to corrected interpetation of logvol --percent. (dlehman)
+  Resolves: rhbz#1116435
+- Fix accelerator collision of Refresh button (rvykydal)
+  Related: rhbz#1065716
+- Handle cancellation of new container creation. (dlehman)
+  Resolves: rhbz#1027224
+- Don't attempt terminal size detection on the s390 (mkolman)
+  Resolves: rhbz#1145065
+- Don't show the Add DASD button unless on s390x. (sbueno+anaconda)
+  Related: rhbz#1070115
+- Don't show the Add DASD button unless on s390x. (sbueno+anaconda)
+  Related: rhbz#1070115
+- Preserve network args on s390x. (sbueno+anaconda)
+  Resolves: rhbz#1087502
+- Don't set GRUB_DISTRIBUTOR here. (pjones)
+  Related: rhbz#996794
+
 * Fri Sep 19 2014 Brian C. Lane <bcl@redhat.com> - 19.31.92-1
 - Ignore one accelerator conflict on the new custom part RHS. (clumens)
   Related: rhbz#1094856

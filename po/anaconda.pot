@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: anaconda 19.31.91\n"
+"Project-Id-Version: anaconda 19.31.92\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
-"POT-Creation-Date: 2014-09-19 16:33-0700\n"
+"POT-Creation-Date: 2014-09-25 17:16-0700\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -119,7 +119,7 @@ msgid ""
 "boot loader will only be installed to a single drive."
 msgstr ""
 
-#: pyanaconda/bootloader.py:1639
+#: pyanaconda/bootloader.py:1638
 #, python-format
 msgid ""
 "%(deviceName)s may not have enough space for grub2 to embed core.img when "
@@ -409,18 +409,18 @@ msgstr ""
 msgid "%s is missing. Cannot setup firewall."
 msgstr ""
 
-#: pyanaconda/kickstart.py:1117 pyanaconda/kickstart.py:1321
+#: pyanaconda/kickstart.py:1121 pyanaconda/kickstart.py:1325
 #, python-format
 msgid "The \"%s\" file system type is not supported."
 msgstr ""
 
-#: pyanaconda/kickstart.py:1617
+#: pyanaconda/kickstart.py:1621
 msgid ""
 "The upgrade kickstart command is no longer supported. Upgrade functionality "
 "is provided through redhat-upgrade-tool."
 msgstr ""
 
-#: pyanaconda/kickstart.py:1835
+#: pyanaconda/kickstart.py:1839
 msgid "Running pre-installation scripts"
 msgstr ""
 
@@ -1496,7 +1496,7 @@ msgid "Password set."
 msgstr ""
 
 #: pyanaconda/ui/gui/__init__.py:422 pyanaconda/ui/gui/spokes/software.py:394
-#: pyanaconda/ui/gui/spokes/storage.py:980
+#: pyanaconda/ui/gui/spokes/storage.py:983
 #: pyanaconda/ui/gui/spokes/lib/detailederror.py:59
 #: widgets/src/StandaloneWindow.c:54
 #: pyanaconda/ui/gui/spokes/welcome.glade.h:1
@@ -1705,7 +1705,7 @@ msgid "MANUAL PARTITIONING"
 msgstr ""
 
 #: pyanaconda/ui/gui/spokes/custom.py:982
-#: pyanaconda/ui/gui/spokes/filter.py:612
+#: pyanaconda/ui/gui/spokes/filter.py:613
 #, python-format
 msgid "%d _storage device selected"
 msgid_plural "%d _storage devices selected"
@@ -1847,48 +1847,48 @@ msgstr ""
 msgid "Device removal request failed. Click for details."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:2612
+#: pyanaconda/ui/gui/spokes/custom.py:2613
 #, python-format
 msgid "Volume Group name %s is already in use. Not saving changes."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:2642
+#: pyanaconda/ui/gui/spokes/custom.py:2644
 #, python-format
 msgid "(%s free)"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:2779
+#: pyanaconda/ui/gui/spokes/custom.py:2785
 #, python-format
 msgid ""
 "This Software RAID array is missing %(missingMembers)d of %(totalMembers)d "
 "member partitions. You can remove it or select a different device."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:2785
+#: pyanaconda/ui/gui/spokes/custom.py:2791
 #, python-format
 msgid ""
 "This LVM Volume Group is missing %(missingPVs)d of %(totalPVs)d physical "
 "volumes. You can remove it or select a different device."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:2862
+#: pyanaconda/ui/gui/spokes/custom.py:2868
 msgid "No disks selected."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:2868
+#: pyanaconda/ui/gui/spokes/custom.py:2874
 msgid "Not enough free space on selected disks."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:2874
-#: pyanaconda/ui/gui/spokes/custom.py:2900
+#: pyanaconda/ui/gui/spokes/custom.py:2880
+#: pyanaconda/ui/gui/spokes/custom.py:2906
 msgid "Automatic partitioning failed. Click for details."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:3164
+#: pyanaconda/ui/gui/spokes/custom.py:3170
 msgid "Failed to unlock encrypted block device. Click for details"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:3189
+#: pyanaconda/ui/gui/spokes/custom.py:3195
 #, python-format
 msgid ""
 "You have chosen to manually set up the file systems for your new "
@@ -2491,28 +2491,28 @@ msgid ""
 "bootable."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/storage.py:960
+#: pyanaconda/ui/gui/spokes/storage.py:963
 msgid "You'll be able to make space available during custom partitioning."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/storage.py:976
+#: pyanaconda/ui/gui/spokes/storage.py:979
 msgid ""
 "The following errors were encountered when checking your storage "
 "configuration.  You can modify your storage layout or quit the installer."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/storage.py:980
+#: pyanaconda/ui/gui/spokes/storage.py:983
 msgid "_Modify Storage Layout"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/storage.py:993
+#: pyanaconda/ui/gui/spokes/storage.py:996
 msgid ""
 "The following warnings were encountered when checking your storage "
 "configuration.  These are not fatal, but you may wish to make changes to "
 "your storage layout."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/storage.py:997
+#: pyanaconda/ui/gui/spokes/storage.py:1000
 #: pyanaconda/ui/gui/spokes/advstorage/dasd.glade.h:2
 #: pyanaconda/ui/gui/spokes/lib/dasdfmt.glade.h:11
 msgid "_OK"
@@ -3005,7 +3005,7 @@ msgid "Add FCo_E SAN..."
 msgstr ""
 
 #: pyanaconda/ui/gui/spokes/filter.glade.h:44
-msgid "Refres_h"
+msgid "Refresh _List"
 msgstr ""
 
 #: pyanaconda/ui/gui/spokes/filter.glade.h:46
