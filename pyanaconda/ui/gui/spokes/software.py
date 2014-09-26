@@ -23,7 +23,7 @@ from gi.repository import Gdk
 
 from pyanaconda.flags import flags
 from pyanaconda.i18n import _, N_
-from pyanaconda.packaging import PackagePayload, payloadMgr
+from pyanaconda.packaging import PackagePayload, payloadMgr, NoSuchGroup
 from pyanaconda.threads import threadMgr, AnacondaThread
 from pyanaconda import constants, iutil
 
@@ -201,7 +201,17 @@ class SoftwareSelectionSpoke(NormalSpoke):
             # they did an install without a desktop environment.  This should
             # catch that one case.
             if flags.automatedInstall and self.data.packages.seen:
-                return _("Custom software selected")
+                # the environment store that is normally used to obtain the currently
+                # selected environment name is not loaded before the software spoke
+                # is first entered, so we show the name directly in such case
+                early_environment = _("Custom software selected")
+                if self.environment is not None:
+                    try:
+                        early_environment = self.payload.environmentDescription(self.environment)[0]
+                    except NoSuchGroup:
+                        # the currently set environment is unknown to our packaging backend
+                        early_environment = _("Unknown custom software selected")
+                return early_environment
 
             return _("Nothing selected")
 
@@ -241,8 +251,20 @@ class SoftwareSelectionSpoke(NormalSpoke):
         threadMgr.wait(constants.THREAD_PAYLOAD)
 
         self._environmentStore.clear()
-        if self.environment not in self.payload.environments:
+
+        # the environment might be totally unknown to our packaging backend
+        try:
+            current_normalized_environment = self.payload.environmentDescription(self.environment)[0]
+        except NoSuchGroup:
+            current_normalized_environment = None
+
+        # check if currently set environment is compatible with the currently available environments
+        normalized_environments = [self.payload.environmentDescription(env)[0] for env in self.payload.environments]
+
+        if not current_normalized_environment or current_normalized_environment not in normalized_environments:
+            # environment is invalid, clear it
             self.environment = None
+            current_normalized_environment = None
 
         firstEnvironment = True
         for environment in self.payload.environments:
@@ -254,7 +276,7 @@ class SoftwareSelectionSpoke(NormalSpoke):
             #     time this spoke was displayed; or
             # (2) Select the first environment given by display order as the
             #     default if nothing is selected.
-            if (environment == self.environment) or \
+            if (name == current_normalized_environment) or \
                (not self.environment and firstEnvironment):
                 self.environment = environment
                 sel = self.builder.get_object("environmentSelector")
