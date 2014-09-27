@@ -297,6 +297,33 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Fri Sep 26 2014 Brian C. Lane <bcl@redhat.com> - 19.31.94-1
+- yumpayload: handle new NFS install source with inst.stage2=nfs:... (wwoods)
+  Resolves: rhbz#1001638
+- Allow cdrom-swapping when doing "inst.ks=cdrom[:...]" (wwoods)
+  Resolves: rhbz#1122104
+- anaconda-lib.sh: add tell_user() and dev_is_cdrom() (wwoods)
+  Related: rhbz#1122104
+- anaconda-lib.sh: add tell_user() and dev_is_cdrom() (wwoods)
+- Use shim on uefi now. (pjones)
+  Related: rhbz#1100048
+- Enable MAKEDEBUG in /etc/sysconfig/kernel . (pjones)
+  Related: rhbz#957681
+- Don't force a user to return to the storage spoke after dasdfmt
+  (sbueno+anaconda)
+  Related: rhbz#1074010
+- Don't run storageInitialize after dasdfmt (sbueno+anaconda)
+  Resolves: rhbz#1074010
+- If the network is disabled, also disable the network part of the source
+  spoke. (clumens)
+  Resolves: rhbz#1072453
+- Fix position of Refresh List button in filter spoke (rvykydal)
+  Related: rhbz#1065716
+- network: handle dbus UnknownMethod exception on invalid objects (rvykydal)
+  Resolves: rhbz#1061796
+- Avoid the possibility of size variables being unset (dshea)
+  Related: rhbz#1116435
+
 * Thu Sep 25 2014 Brian C. Lane <bcl@redhat.com> - 19.31.93-1
 - s390x: Apply disk selection before dasdfmt to preserve data.
   (sbueno+anaconda)
