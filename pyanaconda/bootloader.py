@@ -41,7 +41,6 @@ from pyanaconda.nm import nm_device_hwaddress
 from blivet import platform
 from blivet.size import Size
 from pyanaconda.i18n import _, N_
-from blivet.errors import SinglePhysicalVolumeError
 
 import logging
 log = logging.getLogger("anaconda")
@@ -2061,7 +2060,7 @@ class ZIPL(BootLoader):
     packages = ["s390utils-base"]
 
     # stage2 device requirements
-    stage2_device_types = ["partition", "lvmlv"]
+    stage2_device_types = ["partition"]
 
     @property
     def stage2_format_types(self):
@@ -2080,23 +2079,6 @@ class ZIPL(BootLoader):
     #
     # configuration
     #
-
-    def is_valid_stage2_device(self, device, linux=True, non_linux=False):
-        valid = super(ZIPL, self).is_valid_stage2_device(self.stage2_device)
-
-        # s390x can only have /boot on a single PV; or if there is no /boot
-        # partition, / must be on a single PV, so check for that here
-        if self.stage2_device.type == "lvmlv":
-            try:
-                self.stage2_device._getSinglePV()
-            except SinglePhysicalVolumeError as e:
-                msg = str(e)
-                self.errors.append(msg)
-                valid = False
-
-        log.debug("ZIPL.is_valid_stage2_device(%s) returning %s", \
-                  device.name, valid)
-        return valid
 
     @property
     def boot_dir(self):
