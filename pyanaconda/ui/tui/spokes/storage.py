@@ -28,7 +28,7 @@ from pyanaconda.ui.tui.simpleline import TextWidget, CheckboxWidget
 from pyanaconda.ui.tui.tuiobject import YesNoDialog
 
 from pykickstart.constants import AUTOPART_TYPE_LVM, AUTOPART_TYPE_BTRFS, AUTOPART_TYPE_PLAIN
-from blivet import storageInitialize, arch
+from blivet import arch
 from blivet.size import Size
 from blivet.errors import StorageError, DasdFormatError
 from blivet.errors import SanityError

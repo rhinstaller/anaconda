@@ -54,7 +54,7 @@ from pyanaconda.ui.gui.categories.system import SystemCategory
 from pyanaconda.ui.gui.utils import enlightbox, gtk_action_nowait, ignoreEscape, escape_markup
 
 from pyanaconda.kickstart import doKickstartStorage, refreshAutoSwapSize
-from blivet import storageInitialize, arch
+from blivet import arch
 from blivet.size import Size
 from blivet.devices import MultipathDevice, ZFCPDiskDevice
 from blivet.errors import StorageError, DasdFormatError
