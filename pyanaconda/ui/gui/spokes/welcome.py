@@ -136,7 +136,7 @@ class WelcomeLanguageSpoke(LangLocaleHandler, StandaloneSpoke):
 
     @property
     def completed(self):
-        if flags.flags.automatedInstall:
+        if flags.flags.automatedInstall and self.data.lang.seen:
             return self.data.lang.lang and self.data.lang.lang != ""
         else:
             return False
