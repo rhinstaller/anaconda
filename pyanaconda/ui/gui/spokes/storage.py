@@ -55,7 +55,7 @@ from pyanaconda.ui.gui.utils import escape_markup, gtk_action_nowait, ignoreEsca
 from pyanaconda.ui.helpers import StorageChecker
 
 from pyanaconda.kickstart import doKickstartStorage, refreshAutoSwapSize, resetCustomStorageData
-from blivet import storageInitialize, arch
+from blivet import arch
 from blivet.size import Size
 from blivet.devices import MultipathDevice
 from blivet.errors import StorageError, DasdFormatError

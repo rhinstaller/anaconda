@@ -29,7 +29,7 @@ from pyanaconda.ui.tui.simpleline import TextWidget, CheckboxWidget
 from pyanaconda.ui.tui.tuiobject import YesNoDialog
 from pyanaconda.storage_utils import AUTOPART_CHOICES, sanity_check, SanityError, SanityWarning
 
-from blivet import storageInitialize, arch
+from blivet import arch
 from blivet.size import Size
 from blivet.errors import StorageError, DasdFormatError
 from blivet.devices import DASDDevice, FcoeDiskDevice, iScsiDiskDevice, MultipathDevice, ZFCPDiskDevice

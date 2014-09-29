@@ -27,7 +27,6 @@ from pyanaconda import constants
 from pyanaconda.i18n import _
 import threading
 
-from blivet import storageInitialize
 from blivet.devicelibs.dasd import format_dasd
 from blivet.errors import DasdFormatError
 
