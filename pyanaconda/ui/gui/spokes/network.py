@@ -546,6 +546,13 @@ class NetworkControlBox(GObject.GObject):
             log.debug("network: on_edit_connection: can't find connection for device %s", devname)
             return
 
+        if dev_cfg.device_type != NetworkManager.DeviceType.WIFI \
+           and dev_cfg.get_iface() in nm.nm_activated_devices():
+            # Reactivate the connection after configuring it (if it changed)
+            settings = nm.nm_get_settings(uuid, "connection", "uuid")
+            settings_changed = lambda: settings != nm.nm_get_settings(uuid, "connection", "uuid")
+            activate = (uuid, devname, settings_changed)
+
         log.info("network: configuring connection %s device %s ssid %s",
                  uuid, devname, self.selected_ssid)
         self.kill_nmce(msg="Configure button clicked")
