@@ -298,6 +298,51 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Mon Sep 29 2014 Brian C. Lane <bcl@redhat.com> - 19.31.95-1
+- Bump blivet version Requires so default s390x boot change is picked up
+  (sbueno+anaconda)
+  Related: rhbz#1035201
+- Don't allow /boot on lvm on s390x. (sbueno+anaconda)
+  Resolves: rhbz#1035201
+- Handle failures to instantiate storage devices when parsing kickstart.
+  (dlehman)
+  Related: rhbz#1072285
+- Fix pylint problem for #1066988. (sbueno+anaconda)
+  Related: rhbz#1066988
+- Protect protected devices in custom spoke (bcl)
+  Resolves: rhbz#1052883
+- network: Catch exception from NM failing to create a bridge device (rvykydal)
+  Related: rhbz#1075195
+- network: add bridge support for kickstart %%pre phase (rvykydal)
+  Resolves: rhbz#1075195
+- network: generate kickstart commands for bridge devices (rvykydal)
+  Resolves: rhbz#1075195
+- network: add bridge support to kickstart (rvykydal)
+  Resolves: rhbz#1075195
+- network: support for adding bridge devices (rvykydal)
+  Resolves: rhbz#1075195
+- network: display bridge devices in status (rvykydal)
+  Resolves: rhbz#1075195
+- Fix PWQError issue when checking TUI passwords. (sbueno+anaconda)
+  Related: rhbz#1066988
+- parent is unused, so mark it as such. (clumens)
+  Related: rhbz#804511
+- Add the new langsupport.py TUI spoke to POTFILES.in. (clumens)
+  Related: rhbz#1000326
+- network: GUI: reactivate connection automatically after configuration
+  (rvykydal)
+  Resolves: rhbz#1033063
+- Remove the now-unused imports of storageInitialize. (clumens)
+  Related: rhbz#1074010
+- Ignore two accelerator collisions on the filter screen. (clumens)
+  Related: rhbz#1065716
+- network: enable NM ibft plugin only for ip=ibft boot option (rvykydal)
+  Resolves: rhbz#804511
+- network: add support for vlan tag in iBFT (rvykydal)
+  Resolves: rhbz#804511
+- Add support for language selection in text mode. (sbueno+anaconda)
+  Resolves: rhbz#1000326
+
 * Fri Sep 26 2014 Brian C. Lane <bcl@redhat.com> - 19.31.94-1
 - yumpayload: handle new NFS install source with inst.stage2=nfs:... (wwoods)
   Resolves: rhbz#1001638
