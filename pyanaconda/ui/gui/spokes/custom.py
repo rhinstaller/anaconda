@@ -1619,36 +1619,44 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
                 self.__storage.resetDevice(original_device)
 
         if changed_size:
+            # If a LUKS device is being displayed, adjust the size
+            # to the appropriate size for the raw device.
+            use_size = size
+            use_old_size = old_size
+            if use_dev is not device:
+                use_size = size + crypto.LUKS_METADATA_SIZE
+                use_old_size = use_dev.size
+
             # If no size was specified, we just want to grow to
             # the maximum.  But resizeDevice doesn't take None for
             # a value.
-            if not size:
-                size = device.maxSize
-            elif size < device.minSize:
-                size = device.minSize
-            elif size > device.maxSize:
-                size = device.maxSize
+            if not use_size:
+                use_size = use_dev.maxSize
+            elif use_size < use_dev.minSize:
+                use_size = use_dev.minSize
+            elif use_size > use_dev.maxSize:
+                use_size = use_dev.maxSize
 
             # And then we need to re-check that the max size is actually
             # different from the current size.
             _changed_size = False
-            if size != device.size and size == device.currentSize:
+            if use_size != use_dev.size and use_size == use_dev.currentSize:
                 # size has been set back to its original value
                 actions = self.__storage.devicetree.findActions(action_type="resize",
-                                                                devid=device.id)
+                                                                devid=use_dev.id)
                 with ui_storage_logger():
                     for action in reversed(actions):
                         self.__storage.devicetree.cancelAction(action)
                         _changed_size = True
-            elif size != device.size:
-                log.debug("scheduling resize of device %s to %s", device.name, size)
+            elif use_size != use_dev.size:
+                log.debug("scheduling resize of device %s to %s", use_dev.name, use_size)
 
                 with ui_storage_logger():
                     try:
-                        self.__storage.resizeDevice(device, size)
+                        self.__storage.resizeDevice(use_dev, use_size)
                     except StorageError as e:
                         log.error("failed to schedule device resize: %s", e)
-                        device.size = old_size
+                        use_dev.size = use_old_size
                         self._error = e
                         self.set_warning(_("Device resize request failed. "
                                            "Click for details."))
@@ -1657,10 +1665,13 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
                         _changed_size = True
 
             if _changed_size:
-                log.debug("new size: %s", device.size)
-                log.debug("target size: %s", device.targetSize)
+                log.debug("new size: %s", use_dev.size)
+                log.debug("target size: %s", use_dev.targetSize)
 
                 # update the selector's size property
+                # The selector shows the visible disk, so it is necessary
+                # to use device and size, which are the values visible to
+                # the user.
                 for s in self._accordion.allSelectors:
                     if s._device == device:
                         s.size = str(device.size)
