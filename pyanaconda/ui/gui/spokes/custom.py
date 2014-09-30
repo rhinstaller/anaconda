@@ -1279,6 +1279,25 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
            device.originalFormat.type not in self._fs_types:
             self._fsCombo.append_text(device.originalFormat.name)
 
+    def _btrfs_in_typecombo(self, device):
+        """ Whether BTRFS should appear in device type combo box.
+
+            :param device: the device being displayed
+            :type device: :class:`blivet.devices.StorageDevice`
+            :rtype: bool
+            :returns: True if BTRFS should appear, otherwise False
+        """
+        device = device.raw_device
+
+        # The device is btrfs, so btrfs must be shown.
+        if device.format.type == "btrfs":
+            return True
+
+        # Return True if btrfs filesystem is both allowed and supported.
+        fmt = getFormat("btrfs")
+        return fmt.supported and fmt.formattable and \
+           device.format.type not in PARTITION_ONLY_FORMAT_TYPES + ("swap",)
+
     def _setup_device_type_combo(self, device, use_dev, device_name):
         # these device types should always be listed
         should_appear = {"DEVICE_TYPE_PARTITION", "DEVICE_TYPE_LVM", "DEVICE_TYPE_LVM_THINP"}
@@ -1287,8 +1306,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         if (use_dev.type == "mdarray" or len(self._clearpartDevices) > 1):
             should_appear.add("DEVICE_TYPE_MD")
 
-        # if the format is swap the device type can't be btrfs
-        if use_dev.format.type not in PARTITION_ONLY_FORMAT_TYPES + ("swap",):
+        if self._btrfs_in_typecombo(device):
             should_appear.add("DEVICE_TYPE_BTRFS")
 
         # only include disk if the current device is a disk
