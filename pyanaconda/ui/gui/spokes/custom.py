@@ -2415,27 +2415,55 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         container_exists = getattr(container, "exists", False)
         self._modifyContainerButton.set_sensitive(not container_exists)
 
-    def _resolve_btrfs_restrictions(self, should_be_btrfs):
-        model = self._fsCombo.get_model()
-        btrfs_pos = None
-        for idx, data in enumerate(model):
-            if data[0] == "btrfs":
-                btrfs_pos = idx
+    def _update_fstype_combo(self, device_type):
+        """ Set up device type dependent portion of filesystem combo.
 
-        active_index = self._fsCombo.get_active()
-        current_fstype = self._fsCombo.get_active_text()
-        if btrfs_pos and not should_be_btrfs:
-            self._fsCombo.remove(btrfs_pos)
-            if current_fstype == "btrfs":
-                for i, row in enumerate(model):
-                    if row[0] == self.storage.defaultFSType:
-                        active_index = i
-                        break
-        elif should_be_btrfs and not btrfs_pos:
-            self._fsCombo.append_text("btrfs")
-            active_index = len(self._fsCombo.get_model()) - 1
+            :param int device_type: an int representing the device type
+
+            Generally speaking, the filesystem combo can be set up without
+            reference to the device type because the choice of filesystem
+            combo and of device type is orthogonal.
+
+            However, choice of btrfs device type requires choice of btrfs
+            filesystem type, and choice of any other device type precludes
+            choice of btrfs filesystem type.
+
+            Preconditions are:
+            * the filesystem combo contains at least the default filesystem
+            * the default filesystem is not the same as btrfs
+            * if device_type is DEVICE_TYPE_BTRFS, btrfs is supported
+        """
+        # Find unique instance of btrfs in fsCombo, if any.
+        btrfs_idx = next((idx for idx, data in enumerate(self._fsCombo.get_model()) if data[0] == "btrfs"), None)
+
+        if device_type == DEVICE_TYPE_BTRFS:
+            # If no btrfs entry, add one, and select the new entry
+            if btrfs_idx is None:
+                self._fsCombo.append_text("btrfs")
+                active_index = len(self._fsCombo.get_model()) - 1
+            # Otherwise, select the already located btrfs entry
+            else:
+                active_index = btrfs_idx
+        else:
+            # Get the currently active index
+            active_index = self._fsCombo.get_active()
+
+            # If there is a btrfs entry, remove and adjust active_index
+            if btrfs_idx is not None:
+                self._fsCombo.remove(btrfs_idx)
+
+                # If btrfs previously selected, select default filesystem
+                if active_index == btrfs_idx:
+                    active_index = next(idx for idx, data in enumerate(self._fsCombo.get_model()) if data[0] == self.storage.defaultFSType)
+                # Otherwise, shift index left by one if after removed entry
+                elif active_index > btrfs_idx:
+                    active_index = active_index - 1
+            # If there is no btrfs entry, stick with user's previous choice
+            else:
+                pass
 
         self._fsCombo.set_active(active_index)
+        fancy_set_sensitive(self._fsCombo, self._reformatCheckbox.get_active() and device_type != DEVICE_TYPE_BTRFS)
 
     def on_device_type_changed(self, combo):
         if not self._initialized:
@@ -2450,17 +2478,6 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         log.debug("device_type_changed: %s %s", new_type, active_dev_type)
         if new_type is None:
             return
-
-        # if device type is not btrfs we want to make sure btrfs is not in the
-        # fstype combo
-        should_be_btrfs = False
-        fs_type_sensitive = True
-
-        if new_type == DEVICE_TYPE_BTRFS:
-            # add btrfs to the fstype combo and lock it in
-            test_fmt = getFormat("btrfs")
-            should_be_btrfs = test_fmt.supported and test_fmt.formattable
-            fs_type_sensitive = False
 
         # lvm uses the RHS to set disk set. no foolish minds here.
         exists = self._current_selector and self._current_selector.device.exists
@@ -2478,10 +2495,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         self._nameEntry.set_text(self._device_name_dict[new_type])
         fancy_set_sensitive(self._sizeEntry, new_type != DEVICE_TYPE_BTRFS)
 
-        fancy_set_sensitive(self._fsCombo, self._reformatCheckbox.get_active() and
-                                           fs_type_sensitive)
-
-        self._resolve_btrfs_restrictions(should_be_btrfs)
+        self._update_fstype_combo(new_type)
 
     def clear_errors(self):
         self._error = None
