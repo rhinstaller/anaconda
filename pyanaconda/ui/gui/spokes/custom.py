@@ -1618,7 +1618,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
             with ui_storage_logger():
                 self.__storage.resetDevice(original_device)
 
-        if changed_size and device.resizable:
+        if changed_size:
             # If no size was specified, we just want to grow to
             # the maximum.  But resizeDevice doesn't take None for
             # a value.
