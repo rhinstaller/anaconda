@@ -728,28 +728,36 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
 
     @ui_storage_logged
     def _handle_size_change(self, size, old_size, device, use_dev):
+        # If a LUKS device is being displayed, adjust the size
+        # to the appropriate size for the raw device.
+        use_size = size
+        use_old_size = old_size
+        if use_dev is not device:
+            use_size = size + crypto.LUKS_METADATA_SIZE
+            use_old_size = use_dev.size
+
         # bound size to boundaries given by the device
-        size = self._bound_size(size, device)
-        size = device.alignTargetSize(size)
+        use_size = self._bound_size(use_size, use_dev)
+        use_size = use_dev.alignTargetSize(use_size)
 
         # And then we need to re-check that the max size is actually
         # different from the current size.
         _changed_size = False
-        if size != device.size and size == device.currentSize:
+        if use_size != use_dev.size and use_size == use_dev.currentSize:
             # size has been set back to its original value
             actions = self._storage_playground.devicetree.findActions(action_type="resize",
-                                                            devid=device.id)
+                                                            devid=use_dev.id)
             for action in reversed(actions):
                 self._storage_playground.devicetree.cancelAction(action)
                 _changed_size = True
-        elif size != device.size:
-            log.debug("scheduling resize of device %s to %s", device.name, size)
+        elif use_size != use_dev.size:
+            log.debug("scheduling resize of device %s to %s", use_dev.name, use_size)
 
             try:
-                self._storage_playground.resizeDevice(device, size)
+                self._storage_playground.resizeDevice(use_dev, use_size)
             except StorageError as e:
                 log.error("failed to schedule device resize: %s", e)
-                device.size = old_size
+                use_dev.size = use_old_size
                 self._error = e
                 self.set_warning(_("Device resize request failed. "
                                    "<a href=\"\">Click for details.</a>"))
@@ -758,10 +766,13 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
                 _changed_size = True
 
         if _changed_size:
-            log.debug("new size: %s", device.size)
-            log.debug("target size: %s", device.targetSize)
+            log.debug("new size: %s", use_dev.size)
+            log.debug("target size: %s", use_dev.targetSize)
 
             # update the selector's size property
+            # The selector shows the visible disk, so it is necessary
+            # to use device and size, which are the values visible to
+            # the user.
             for s in self._accordion.allSelectors:
                 if s._device == device:
                     s.size = str(device.size)
