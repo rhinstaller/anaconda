@@ -16,7 +16,7 @@ if [ -z "$initramfs" ]; then
     gzip=$(type -P pigz || type -P gzip)
     # Prune out things we don't need - modules & firmware, python, overlay file
     find / -xdev | \
-      grep -Ev 'lib/modules|lib/firmware|python|overlay|etc/ssl|fsck' | \
+      grep -Ev 'tmp/|lib/modules|lib/firmware|python|overlay|etc/ssl|fsck' | \
       cpio -co 2>/dev/null | $gzip -c1 > $initramfs
 fi
 
