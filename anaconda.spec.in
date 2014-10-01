@@ -299,6 +299,21 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Sep 30 2014 Brian C. Lane <bcl@redhat.com> - 19.31.96-1
+- network: support for bridge, require pykickstart with the support (rvykydal)
+  Related: rhbz#1075195
+- Specify help file names for hubs and spokes (mkolman)
+  Related: rhbz#1072033
+- Add a help button to every Anaconda screen (mkolman)
+  Resolves: rhbz#1072033
+- Show environment specified in kickstart as selected in the GUI (mkolman)
+  Resolves: rhbz#1087831
+- Fix Welcome spoke not showing up during kickstart installation (mkolman)
+  Resolves: rhbz#1147943
+- network: display only actual fqdn of ip we offer for vnc connection
+  (rvykydal)
+  Resolves: rhbz#1089429
+
 * Mon Sep 29 2014 Brian C. Lane <bcl@redhat.com> - 19.31.95-1
 - Bump blivet version Requires so default s390x boot change is picked up
   (sbueno+anaconda)
