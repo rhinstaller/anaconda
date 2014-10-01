@@ -120,4 +120,4 @@ class SummaryHub(TUIHub):
                 # which is the global TUI key to close the current screen
                 return False
             else:
-                super(SummaryHub, self).input(args, key)
+                return super(SummaryHub, self).input(args, key)
