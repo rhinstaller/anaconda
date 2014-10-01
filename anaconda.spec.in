@@ -173,7 +173,9 @@ Requires: nm-connection-editor
 Requires: zenity
 %endif
 Requires: keybinder3
+%ifnarch s390 s390x
 Requires: NetworkManager-wifi
+%endif
 Requires: yelp
 
 %description gui
