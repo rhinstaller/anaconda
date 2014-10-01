@@ -71,6 +71,7 @@ class SourceSpoke(EditTUISpoke, SourceSwitchHandler):
 
         threadMgr.add(AnacondaThread(name=THREAD_SOURCE_WATCHER,
                                      target=self._initialize))
+        payloadMgr.addListener(payloadMgr.STATE_GROUP_MD, self._downloading_package_md)
         payloadMgr.addListener(payloadMgr.STATE_ERROR, self._payload_error)
 
     def _initialize(self):
@@ -90,6 +91,10 @@ class SourceSpoke(EditTUISpoke, SourceSwitchHandler):
             self._protocols.pop()
 
         self._ready = True
+
+    def _downloading_package_md(self):
+        # Reset the error state from previous payloads
+        self.errors = []
 
     def _payload_error(self):
         self._error = True
