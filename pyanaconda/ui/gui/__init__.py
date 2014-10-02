@@ -503,6 +503,9 @@ class GraphicalUserInterface(UserInterface):
             dlg.run()
             dlg.window.destroy()
 
+        # the dialog has the only button -- "Exit installer", so just do so
+        sys.exit(1)
+
     @gtk_action_wait
     def showDetailedError(self, message, details):
         from pyanaconda.ui.gui.spokes.lib.detailederror import DetailedErrorDialog

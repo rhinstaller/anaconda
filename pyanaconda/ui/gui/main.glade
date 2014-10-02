@@ -66,6 +66,9 @@
         </child>
       </object>
     </child>
+    <action-widgets>
+      <action-widget response="0">exitButton</action-widget>
+    </action-widgets>
   </object>
   <object class="GtkDialog" id="quitDialog">
     <property name="can_focus">False</property>
