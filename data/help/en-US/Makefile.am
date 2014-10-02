@@ -17,7 +17,7 @@
 #
 # Author: Martin Kolman <mkolman@redhat.com>
 
-enplacholderdir               = $(docdir)/en-US
+enplaceholderdir              = $(docdir)/en-US
 dist_enplaceholder_DATA       = FedoraPlaceholder.html FedoraPlaceholderWithLinks.html RHEL7Placeholder.html RHEL7PlaceholderWithLinks.html
 
 MAINTAINERCLEANFILES = Makefile.in

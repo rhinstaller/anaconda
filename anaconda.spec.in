@@ -271,6 +271,7 @@ update-desktop-database &> /dev/null || :
 %{_sysconfdir}/X11/xinit/xinitrc.d/*
 %{_datadir}/applications/*.desktop
 %{_datadir}/icons/hicolor/*
+%{_datadir}/doc/anaconda/*
 %endif
 
 %files gui

@@ -17,7 +17,7 @@
 #
 # Author: Martin Sivak <msivak@redhat.com>
 
-SUBDIRS = command-stubs icons liveinst pixmaps systemd post-scripts
+SUBDIRS = command-stubs icons liveinst pixmaps systemd post-scripts help
 
 CLEANFILES = *~
 
