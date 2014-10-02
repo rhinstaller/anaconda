@@ -18,5 +18,5 @@
 # Author: Chris Lumens <clumens@redhat.com>
 
 postscriptsdir = $(datadir)/$(PACKAGE_NAME)/post-scripts
-dist_postscripts_DATA = 80-setfilecons.ks 90-copy-screenshots.ks 99-copy-logs.ks
+dist_postscripts_DATA = 80-setfilecons.ks 99-copy-logs.ks
 MAINTAINERCLEAFILES = Makefile.in
