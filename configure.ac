@@ -154,6 +154,8 @@ AC_CONFIG_FILES([Makefile
                  data/icons/hicolor/256x256/Makefile
                  data/icons/hicolor/256x256/apps/Makefile
                  data/systemd/Makefile
+                 data/help/Makefile
+                 data/help/en-US/Makefile
                  po/Makefile.in
                  scripts/Makefile
                  pyanaconda/Makefile
