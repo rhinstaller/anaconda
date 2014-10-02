@@ -16,6 +16,6 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 # Author: Martin Kolman <mkolman@redhat.com>
+SUBDIRS = en-US
 
 MAINTAINERCLEANFILES = Makefile.in
-SUBDIRS = en-US
