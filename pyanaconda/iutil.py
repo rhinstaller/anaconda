@@ -873,7 +873,7 @@ def save_screenshots():
         # there are no screenshots to copy
         return
     target_path = sysroot_path(SCREENSHOTS_TARGET_DIRECTORY)
-    log.info("saving screenshots taken during the installation to: %s" % target_path)
+    log.info("saving screenshots taken during the installation to: %s", target_path)
     try:
         # create the screenshots directory
         mkdirChain(target_path)

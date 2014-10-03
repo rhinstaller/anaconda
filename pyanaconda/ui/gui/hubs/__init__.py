@@ -408,15 +408,15 @@ class Hub(GUIObject, common.Hub):
 
     def _doAutostep(self):
         """Autostep through all spokes managed by this hub"""
-        log.info("autostepping through all spokes on hub %s" % self.__class__.__name__)
+        log.info("autostepping through all spokes on hub %s", self.__class__.__name__)
         spoke_count = len(self._spokes)
         sorted_spokes = sorted(self._spokes.values(), key=lambda x: x.__class__.__name__)
         # take a screenshot of all spokes in the alphabetical order of their names
         for i, spoke in enumerate(sorted_spokes, start=1):
-            log.debug("stepping to spoke %s (%d/%d)" % (spoke.__class__.__name__, i, spoke_count))
+            log.debug("stepping to spoke %s (%d/%d)", spoke.__class__.__name__, i, spoke_count)
             spoke.automaticEntry = True
             self._on_spoke_clicked(None, None, spoke)
-        log.info("autostep for hub %s finished" % self.__class__.__name__)
+        log.info("autostep for hub %s finished", self.__class__.__name__)
 
     def _autostep_spoke(self, spoke):
         """Step through a spoke and make a screenshot if required and
