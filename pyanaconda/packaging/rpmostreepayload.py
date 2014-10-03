@@ -22,7 +22,9 @@
 
 import os
 import shutil
+import sys
 
+from pyanaconda import constants
 from pyanaconda import iutil
 from pyanaconda.i18n import _
 from pyanaconda.progress import progressQ
@@ -87,6 +89,9 @@ class RPMOSTreePayload(ArchivePayload):
             progressQ.send_message("Writing objects")
 
     def install(self):
+        mainctx = GLib.MainContext.new()
+        mainctx.push_thread_default()
+
         cancellable = None
         from gi.repository import OSTree
         ostreesetup = self.data.ostreesetup
@@ -120,7 +125,16 @@ class RPMOSTreePayload(ArchivePayload):
         # pylint: disable-msg=E1120
         progress = OSTree.AsyncProgress.new()
         progress.connect('changed', self._pullProgressCb)
-        repo.pull(ostreesetup.remote, [ostreesetup.ref], 0, progress, cancellable)
+
+        try:
+            repo.pull(ostreesetup.remote, [ostreesetup.ref], 0, progress, cancellable)
+        except GLib.GError as e:
+            exn = PayloadInstallError("Failed to pull from repository: %s" % e)
+            log.error(str(exn))
+            if errors.errorHandler.cb(exn) == errors.ERROR_RAISE:
+                progressQ.send_quit(1)
+                iutil.ipmi_report(constants.IPMI_ABORTED)
+                sys.exit(1)
 
         progressQ.send_message(_("Preparing deployment of %s") % (ostreesetup.ref, ))
 
@@ -163,6 +177,8 @@ class RPMOSTreePayload(ArchivePayload):
             if os.path.isdir(srcpath):
                 log.info("Copying bootloader data: " + fname)
                 shutil.copytree(srcpath, os.path.join(physboot, fname))
+
+        mainctx.pop_thread_default()
 
     def prepareMountTargets(self, storage):
         ostreesetup = self.data.ostreesetup
