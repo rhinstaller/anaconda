@@ -299,6 +299,23 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Thu Oct 02 2014 Brian C. Lane <bcl@redhat.com> - 19.31.97-1
+- Remove a reference to the depreciated copy-screenshots script (mkolman)
+  Related: rhbz#1059295
+- Clear errors when downloading new MD in text (bcl)
+  Related: rhbz#1125927
+- Return result of default key handling in text summary hub (bcl)
+  Related: rhbz#997405
+- Bump up the required version of pykickstart (vpodzime)
+  Related: rhbz#869456
+- Add support for thin pool profile specification in kickstart (vpodzime)
+  Resolves: rhbz#869456
+- Add support for autostep and --autoscreenshot (mkolman)
+  Resolves: rhbz#1059295
+- Don't crash if escrow certificate is requested without network access
+  (mkolman)
+  Resolves: rhbz#1085265
+
 * Tue Sep 30 2014 Brian C. Lane <bcl@redhat.com> - 19.31.96-1
 - network: support for bridge, require pykickstart with the support (rvykydal)
   Related: rhbz#1075195

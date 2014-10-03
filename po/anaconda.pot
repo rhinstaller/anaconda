@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: anaconda 19.31.95\n"
+"Project-Id-Version: anaconda 19.31.96\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
-"POT-Creation-Date: 2014-09-30 18:41-0700\n"
+"POT-Creation-Date: 2014-10-02 18:04-0700\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -377,7 +377,7 @@ msgstr ""
 
 #: pyanaconda/kickstart.py:156
 #, python-format
-msgid "Escrow certificate %s requires the network."
+msgid "Escrow certificate %s requires network access."
 msgstr ""
 
 #: pyanaconda/kickstart.py:164
@@ -409,18 +409,18 @@ msgstr ""
 msgid "%s is missing. Cannot setup firewall."
 msgstr ""
 
-#: pyanaconda/kickstart.py:1125 pyanaconda/kickstart.py:1334
+#: pyanaconda/kickstart.py:1135 pyanaconda/kickstart.py:1344
 #, python-format
 msgid "The \"%s\" file system type is not supported."
 msgstr ""
 
-#: pyanaconda/kickstart.py:1633
+#: pyanaconda/kickstart.py:1643
 msgid ""
 "The upgrade kickstart command is no longer supported. Upgrade functionality "
 "is provided through redhat-upgrade-tool."
 msgstr ""
 
-#: pyanaconda/kickstart.py:1851
+#: pyanaconda/kickstart.py:1861
 msgid "Running pre-installation scripts"
 msgstr ""
 
@@ -1196,7 +1196,7 @@ msgid "No disks selected; please select at least one disk to install to."
 msgstr ""
 
 #: pyanaconda/ui/tui/spokes/storage.py:188
-#: pyanaconda/ui/tui/spokes/source.py:470
+#: pyanaconda/ui/tui/spokes/source.py:475
 #: pyanaconda/ui/gui/spokes/source.py:569
 #: pyanaconda/ui/gui/spokes/storage.py:635
 msgid "Probing storage..."
@@ -1305,30 +1305,30 @@ msgid "Installation source"
 msgstr ""
 
 #: pyanaconda/ui/tui/spokes/source.py:151
-#: pyanaconda/ui/tui/spokes/source.py:204
+#: pyanaconda/ui/tui/spokes/source.py:209
 #: pyanaconda/ui/gui/spokes/source.py:483
 #: pyanaconda/ui/gui/spokes/source.glade.h:26
 msgid "Closest mirror"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/source.py:196
+#: pyanaconda/ui/tui/spokes/source.py:201
 #: pyanaconda/ui/gui/spokes/source.py:475
 #, python-format
 msgid "NFS server %s"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/source.py:198
+#: pyanaconda/ui/tui/spokes/source.py:203
 #: pyanaconda/ui/gui/spokes/source.py:477
 msgid "Local media"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/source.py:201
-#: pyanaconda/ui/tui/spokes/source.py:215
+#: pyanaconda/ui/tui/spokes/source.py:206
+#: pyanaconda/ui/tui/spokes/source.py:220
 #: pyanaconda/ui/gui/spokes/source.py:471
 msgid "Error setting up software source"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/source.py:206
+#: pyanaconda/ui/tui/spokes/source.py:211
 #: pyanaconda/ui/tui/spokes/software.py:84
 #: pyanaconda/ui/gui/spokes/datetime_spoke.py:468
 #: pyanaconda/ui/gui/spokes/software.py:217
@@ -1336,76 +1336,76 @@ msgstr ""
 msgid "Nothing selected"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/source.py:217
+#: pyanaconda/ui/tui/spokes/source.py:222
 #: pyanaconda/ui/tui/spokes/software.py:64
 msgid "Processing..."
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/source.py:223
+#: pyanaconda/ui/tui/spokes/source.py:228
 #, python-format
 msgid "Repo URL set to: %s"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/source.py:241
+#: pyanaconda/ui/tui/spokes/source.py:246
 msgid "Installation source refresh in progress, try again later."
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/source.py:247
+#: pyanaconda/ui/tui/spokes/source.py:252
 #: pyanaconda/ui/gui/spokes/source.py:762
 msgid ""
 "The installation source is in use by the installer and cannot be changed."
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/source.py:251
+#: pyanaconda/ui/tui/spokes/source.py:256
 msgid "CD/DVD"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/source.py:251
+#: pyanaconda/ui/tui/spokes/source.py:256
 msgid "Local ISO file"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/source.py:251
+#: pyanaconda/ui/tui/spokes/source.py:256
 msgid "Network"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/source.py:255
+#: pyanaconda/ui/tui/spokes/source.py:260
 msgid "Choose an installation source type."
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/source.py:346
-#: pyanaconda/ui/tui/spokes/source.py:384
+#: pyanaconda/ui/tui/spokes/source.py:351
+#: pyanaconda/ui/tui/spokes/source.py:389
 msgid "Specify Repo Options"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/source.py:350
+#: pyanaconda/ui/tui/spokes/source.py:355
 msgid "Repo URL"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/source.py:388
+#: pyanaconda/ui/tui/spokes/source.py:393
 msgid "<server>:/<path>"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/source.py:389
+#: pyanaconda/ui/tui/spokes/source.py:394
 msgid "NFS mount options"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/source.py:423
+#: pyanaconda/ui/tui/spokes/source.py:428
 msgid "Failed to set up installation source. Check the source address."
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/source.py:432
+#: pyanaconda/ui/tui/spokes/source.py:437
 msgid "Select device containing the ISO file"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/source.py:491
+#: pyanaconda/ui/tui/spokes/source.py:496
 msgid "No mountable devices found"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/source.py:520
+#: pyanaconda/ui/tui/spokes/source.py:525
 msgid "Select an ISO to use as install source"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/source.py:549
+#: pyanaconda/ui/tui/spokes/source.py:554
 msgid "No *.iso files found in device root folder"
 msgstr ""
 
@@ -1530,7 +1530,7 @@ msgstr ""
 msgid "Password set."
 msgstr ""
 
-#: pyanaconda/ui/gui/__init__.py:429 pyanaconda/ui/gui/spokes/software.py:417
+#: pyanaconda/ui/gui/__init__.py:509 pyanaconda/ui/gui/spokes/software.py:417
 #: pyanaconda/ui/gui/spokes/storage.py:976
 #: pyanaconda/ui/gui/spokes/lib/detailederror.py:59
 #: widgets/src/StandaloneWindow.c:54
@@ -1539,11 +1539,11 @@ msgstr ""
 msgid "_Quit"
 msgstr ""
 
-#: pyanaconda/ui/gui/__init__.py:444 pyanaconda/ui/gui/main.glade.h:2
+#: pyanaconda/ui/gui/__init__.py:524 pyanaconda/ui/gui/main.glade.h:2
 msgid "_No"
 msgstr ""
 
-#: pyanaconda/ui/gui/__init__.py:444 pyanaconda/ui/gui/main.glade.h:3
+#: pyanaconda/ui/gui/__init__.py:524 pyanaconda/ui/gui/main.glade.h:3
 msgid "_Yes"
 msgstr ""
 
@@ -1576,7 +1576,7 @@ msgstr ""
 msgid "LICENSING"
 msgstr ""
 
-#: pyanaconda/ui/gui/hubs/__init__.py:291
+#: pyanaconda/ui/gui/hubs/__init__.py:303
 msgid ""
 "Please complete items marked with this icon before continuing to the next "
 "step."
