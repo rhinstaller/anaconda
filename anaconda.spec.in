@@ -254,6 +254,7 @@ update-desktop-database &> /dev/null || :
 %{_sbindir}/anaconda
 %{_sbindir}/handle-sshpw
 %{_datadir}/anaconda
+%{_datadir}/doc/anaconda/*
 %exclude %{_datadir}/anaconda/tzmapdata
 %{_prefix}/libexec/anaconda
 %{_libdir}/python*/site-packages/pyanaconda/*
@@ -271,7 +272,6 @@ update-desktop-database &> /dev/null || :
 %{_sysconfdir}/X11/xinit/xinitrc.d/*
 %{_datadir}/applications/*.desktop
 %{_datadir}/icons/hicolor/*
-%{_datadir}/doc/anaconda/*
 %endif
 
 %files gui
