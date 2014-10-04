@@ -300,6 +300,16 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Fri Oct 03 2014 Brian C. Lane <bcl@redhat.com> - 19.31.98-1
+- Really exit when "Exit installer" in the error dialog is clicked (vpodzime)
+  Related: rhbz#1131382
+- Graphically handle errors arising from ostree repo pull problems. (clumens)
+  Resolves: rhbz#1131382
+- Fix log message formating introduced by autostep support (mkolman)
+  Related: rhbz#1059295
+- Fix autotools rules to properly include help placeholders (mkolman)
+  Related: rhbz#1072033
+
 * Thu Oct 02 2014 Brian C. Lane <bcl@redhat.com> - 19.31.97-1
 - Remove a reference to the depreciated copy-screenshots script (mkolman)
   Related: rhbz#1059295
