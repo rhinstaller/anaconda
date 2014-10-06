@@ -177,6 +177,16 @@ class VncServer:
                           maxTries), maxTries)
         return False
 
+    def startVncConfig(self):
+        """Attempt to start vncconfig"""
+
+        self.log.info(_("Attempting to start vncconfig"))
+
+        vncconfigcommand = [self.root+"/usr/bin/vncconfig", "-nowin", "-display", ":%s" % self.display]
+
+        # Use startProgram to run vncconfig in the background
+        iutil.startProgram(vncconfigcommand, stdout=self.openlogfile(), stderr=subprocess.STDOUT)
+
     def VNCListen(self):
         """Put the server in listening mode.
 
@@ -255,6 +265,9 @@ class VncServer:
             self.VNCListen()
 
         os.environ["DISPLAY"]=":%s" % self.display
+
+        # Start vncconfig for copy/paste
+        self.startVncConfig()
 
     def changeVNCPasswdWindow(self):
         """ Change the password to a sane parameter.
