@@ -89,6 +89,7 @@ class RPMOSTreePayload(ArchivePayload):
             progressQ.send_message("Writing objects")
 
     def install(self):
+        # pylint: disable=no-value-for-parameter
         mainctx = GLib.MainContext.new()
         mainctx.push_thread_default()
 
