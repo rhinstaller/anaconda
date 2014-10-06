@@ -55,6 +55,9 @@ class CmdlineError(Exception):
 class RemovedModuleError(ImportError):
     pass
 
+class ZIPLError(Exception):
+    pass
+
 # These constants are returned by the callback in the ErrorHandler class.
 # Each represents a different kind of action the caller can take:
 #
@@ -253,6 +256,15 @@ class ErrorHandler(object):
         else:
             return ERROR_RAISE
 
+    def _ziplErrorHandler(self, *args, **kwargs):
+        details = kwargs["exception"]
+        message = _("Installation was stopped due to an error installing the "
+                    "boot loader. The exact error message is:\n\n%s\n\n"
+                    "The installer will now terminate.") % details
+
+        self.ui.showError(message)
+        return ERROR_RAISE
+
     def cb(self, exn):
         """This method is the callback that all error handling should pass
            through.  The return value is one of the ERROR_* constants defined
@@ -282,7 +294,8 @@ class ErrorHandler(object):
                 "ScriptError": self._scriptErrorHandler,
                 "PayloadInstallError": self._payloadInstallHandler,
                 "DependencyError": self._dependencyErrorHandler,
-                "BootLoaderError": self._bootLoaderErrorHandler}
+                "BootLoaderError": self._bootLoaderErrorHandler,
+                "ZIPLError": self._ziplErrorHandler}
 
         if exn.__class__.__name__ in _map:
             rc = _map[exn.__class__.__name__](exn)
