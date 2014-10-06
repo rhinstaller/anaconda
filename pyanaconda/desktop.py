@@ -45,9 +45,8 @@ class Desktop(object):
 
     def write(self):
         if self.desktop:
-            f = open(iutil.getSysroot() + "/etc/sysconfig/desktop", "w")
-            f.write(str(self))
-            f.close()
+            with open(iutil.getSysroot() + "/etc/sysconfig/desktop", "w") as f:
+                f.write("DESKTOP=%s\n" % self.desktop)
 
         if not os.path.isdir(iutil.getSysroot() + '/etc/systemd/system'):
             log.warning("there is no /etc/systemd/system directory, cannot update default.target!")
