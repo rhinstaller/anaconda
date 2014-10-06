@@ -695,6 +695,7 @@
                                         </child>
                                         <child>
                                           <object class="GtkButton" id="modifyContainerButton">
+                                            <!-- check_accelerators: configureButton -->
                                             <property name="label" translatable="yes" context="GUI|Custom Partitioning|Configure">_Modify...</property>
                                             <property name="visible">True</property>
                                             <property name="can_focus">True</property>
