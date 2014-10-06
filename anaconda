@@ -44,7 +44,7 @@ if ("debug=1" in proc_cmdline) or ("debug" in proc_cmdline):
     cov.start()
 
 
-import atexit, sys, os, time, signal
+import atexit, sys, os, time, signal, stat, errno
 
 def exitHandler(rebootData, storage):
     # Clear the list of watched PIDs.
@@ -80,6 +80,10 @@ def exitHandler(rebootData, storage):
         from pyanaconda.screensaver import uninhibit_screensaver
         uninhibit_screensaver(anaconda.dbus_session_connection, anaconda.dbus_inhibit_id)
         anaconda.dbus_inhibit_id = None
+
+    # Clean up the PID file
+    if pidfile_created:
+        os.unlink(pidfile_path)
 
     if not flags.imageInstall and not flags.livecdInstall \
        and not flags.dirInstall:
@@ -841,9 +845,81 @@ if __name__ == "__main__":
     # make sure we have /var/log soon, some programs fail to start without it
     iutil.mkdirChain("/var/log")
 
-    pidfile = open("/var/run/anaconda.pid", "w")
-    pidfile.write("%s\n" % (os.getpid(),))
-    del pidfile
+    # Share these with the exit handler, installed later
+    pidfile_path = '/var/run/anaconda.pid'
+    pidfile_created = False
+
+    # Look for a stale pid file
+    try:
+        with open(pidfile_path, 'r') as pidfile:
+            pid = int(pidfile.read())
+    except IOError as e:
+        # Ignore errors due to the file not existing. Other errors mean (most
+        # likely) that we're not running as root, there's a filesystem error,
+        # or someone filled our PID file with garbage, so just let those be
+        # raised.
+        if e.errno != errno.ENOENT:
+            raise
+    else:
+        # Is the PID still running?
+        if not os.path.isdir("/proc/%s" % pid):
+            log.info("Removing stale PID file: %s no longer running", pid)
+            os.unlink(pidfile_path)
+        # Is the PID anaconda?
+        else:
+            try:
+                with open("/proc/%s/stat" % pid, "r") as pidstat:
+                    # The part we care about is in the start, "PID (name) ..."
+                    procname = pidstat.read().split(' ', 2)[1]
+                    if procname != "(anaconda)":
+                        log.info("Removing stale PID file: PID %s is now %s", pid, procname)
+                        os.unlink(pidfile_path)
+                    # If it is anaconda, let the pidfile creation below fail
+                    # and print an error
+            except IOError as e:
+                # Ignore failures due to the file not existing in case the
+                # process ended while we were trying to read about it. Assume
+                # in this case that the process was another anaconda instance,
+                # and the PID file was cleaned up.
+                # If the process ended between open and read, we'll get ESRCH
+                if e.errno not in (errno.ENOENT, errno.ESRCH):
+                    raise
+
+    # Attempt to create the pidfile
+    try:
+        # Set all of the read/write bits and let umask make it make sense
+        pidfile = os.open(pidfile_path, os.O_WRONLY|os.O_CREAT|os.O_EXCL,
+                stat.S_IRUSR|stat.S_IWUSR|stat.S_IRGRP|stat.S_IWGRP|stat.S_IROTH|stat.S_IWOTH)
+        pidfile_created = True
+        os.write(pidfile, "%s\n" % os.getpid())
+        os.close(pidfile)
+    except OSError as e:
+        # If the failure was anything other than EEXIST during the open call,
+        # just re-raise the exception
+        if e.errno != errno.EEXIST:
+            raise
+
+        log.error("%s already exists, exiting", pidfile_path)
+
+        # If we have a $DISPLAY and zenity is available, we may be running in
+        # a live environment and we can display an error dialog. Otherwise
+        # just print an error.
+        if "DISPLAY" in os.environ and os.access("/usr/bin/zenity", os.X_OK):
+            # The module-level _() calls are ok here because the language may
+            # be set from the live environment in this case, and anaconda's
+            # language setup hasn't happened yet.
+            # pylint: disable=found-_-in-module-class
+            iutil.execWithRedirect("zenity",
+                ["--error", "--title", _("Unable to create PID file"), "--text",
+                    _("Anaconda is unable to create %s because the file" +
+                      " already exists. Anaconda is already running, or a previous instance" +
+                      " of anaconda has crashed.") % pidfile_path])
+        else:
+            print("%s already exists, exiting" % pidfile_path)
+
+        iutil.ipmi_report(constants.IPMI_FAILED)
+        sys.exit(1)
+
     # add our own additional signal handlers
     signal.signal(signal.SIGHUP, startDebugger)
 
