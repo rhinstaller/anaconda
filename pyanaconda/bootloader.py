@@ -36,6 +36,7 @@ from pyanaconda.flags import flags, can_touch_runtime_system
 from blivet.errors import StorageError
 from blivet.fcoe import fcoe
 import pyanaconda.network
+from pyanaconda.errors import errorHandler, ERROR_RAISE, ZIPLError
 from pyanaconda.packaging.rpmostreepayload import RPMOSTreePayload
 from pyanaconda.nm import nm_device_hwaddress
 from blivet import platform
@@ -2146,6 +2147,11 @@ class ZIPL(BootLoader):
                 # We want to extract the device name and pass that.
                 name = re.sub(r".+?: ", "", line)
                 self.stage1_name = re.sub(r"(\s\(.+\))?\.$", "", name)
+            # a limitation of s390x is that the kernel parameter list must not
+            # exceed 896 bytes; there is nothing we can do about this, so just
+            # catch the error and show it to the user instead of crashing
+            elif line.startswith("Error: The length of the parameters "):
+                errorHandler.cb(ZIPLError(line))
 
         if not self.stage1_name:
             raise BootLoaderError("could not find IPL device")
@@ -2323,8 +2329,6 @@ def writeSysconfigKernel(storage, version, instClass):
 
 def writeBootLoaderFinal(storage, payload, instClass, ksdata):
     """ Do the final write of the bootloader. """
-
-    from pyanaconda.errors import errorHandler, ERROR_RAISE
 
     # set up dracut/fips boot args
     # XXX FIXME: do this from elsewhere?
