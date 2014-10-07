@@ -560,6 +560,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
 
             # also pull in biosboot and prepboot that are on our boot disk
             devices.extend(self.bootLoaderDevices)
+            devices = list(set(devices))
 
         for _device in devices:
             page.addSelector(_device, self.on_selector_clicked)
