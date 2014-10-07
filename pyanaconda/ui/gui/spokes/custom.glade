@@ -487,7 +487,6 @@
                                               <object class="GtkComboBox" id="deviceTypeCombo">
                                                 <property name="visible">True</property>
                                                 <property name="can_focus">False</property>
-                                                <property name="hexpand">True</property>
                                                 <property name="model">deviceTypeStore</property>
                                                 <signal name="changed" handler="on_device_type_changed" swapped="no"/>
                                                 <signal name="changed" handler="on_value_changed" swapped="no"/>
@@ -571,7 +570,6 @@
                                               <object class="GtkComboBoxText" id="fileSystemTypeCombo">
                                                 <property name="visible">True</property>
                                                 <property name="can_focus">False</property>
-                                                <property name="hexpand">True</property>
                                                 <signal name="changed" handler="on_fs_type_changed" swapped="no"/>
                                                 <signal name="changed" handler="on_value_changed" swapped="no"/>
                                               </object>
