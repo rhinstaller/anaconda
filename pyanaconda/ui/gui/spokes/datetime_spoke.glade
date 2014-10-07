@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Generated with glade 3.18.1 -->
+<!-- Generated with glade 3.18.3 -->
 <interface>
   <requires lib="gtk+" version="3.2"/>
   <requires lib="AnacondaWidgets" version="1.0"/>
@@ -33,8 +33,10 @@
   </object>
   <object class="GtkListStore" id="days">
     <columns>
-      <!-- column-name number -->
+      <!-- column-name idx -->
       <column type="guint"/>
+      <!-- column-name day -->
+      <column type="gchararray"/>
     </columns>
   </object>
   <object class="GtkTreeModelFilter" id="daysFilter">
@@ -57,6 +59,8 @@
   </object>
   <object class="GtkListStore" id="months">
     <columns>
+      <!-- column-name idx -->
+      <column type="guint"/>
       <!-- column-name name -->
       <column type="gchararray"/>
     </columns>
@@ -95,6 +99,46 @@
         <property name="can_focus">False</property>
         <property name="orientation">vertical</property>
         <property name="spacing">6</property>
+        <child internal-child="action_area">
+          <object class="GtkButtonBox" id="dialog-action_area1">
+            <property name="can_focus">False</property>
+            <property name="layout_style">end</property>
+            <child>
+              <object class="GtkButton" id="cancelButton">
+                <property name="label" translatable="yes" context="GUI|Date and Time|NTP">_Cancel</property>
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="receives_default">True</property>
+                <property name="use_underline">True</property>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">True</property>
+                <property name="position">0</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkButton" id="okButton">
+                <property name="label" translatable="yes" context="GUI|Date and Time|NTP">_OK</property>
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="receives_default">True</property>
+                <property name="use_underline">True</property>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">True</property>
+                <property name="position">1</property>
+              </packing>
+            </child>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+            <property name="pack_type">end</property>
+            <property name="position">4</property>
+          </packing>
+        </child>
         <child>
           <object class="GtkLabel" id="configHeadingLabel">
             <property name="visible">True</property>
@@ -221,46 +265,6 @@
             <property name="position">2</property>
           </packing>
         </child>
-        <child internal-child="action_area">
-          <object class="GtkButtonBox" id="dialog-action_area1">
-            <property name="can_focus">False</property>
-            <property name="layout_style">end</property>
-            <child>
-              <object class="GtkButton" id="cancelButton">
-                <property name="label" translatable="yes" context="GUI|Date and Time|NTP">_Cancel</property>
-                <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <property name="receives_default">True</property>
-                <property name="use_underline">True</property>
-              </object>
-              <packing>
-                <property name="expand">False</property>
-                <property name="fill">True</property>
-                <property name="position">0</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkButton" id="okButton">
-                <property name="label" translatable="yes" context="GUI|Date and Time|NTP">_OK</property>
-                <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <property name="receives_default">True</property>
-                <property name="use_underline">True</property>
-              </object>
-              <packing>
-                <property name="expand">False</property>
-                <property name="fill">True</property>
-                <property name="position">1</property>
-              </packing>
-            </child>
-          </object>
-          <packing>
-            <property name="expand">False</property>
-            <property name="fill">True</property>
-            <property name="pack_type">end</property>
-            <property name="position">4</property>
-          </packing>
-        </child>
       </object>
     </child>
     <action-widgets>
@@ -287,12 +291,6 @@
     <property name="visible">True</property>
     <property name="can_focus">False</property>
     <property name="icon_name">go-up-symbolic</property>
-  </object>
-  <object class="GtkListStore" id="years">
-    <columns>
-      <!-- column-name number -->
-      <column type="guint"/>
-    </columns>
   </object>
   <object class="AnacondaSpokeWindow" id="datetimeWindow">
     <property name="can_focus">False</property>
@@ -818,66 +816,19 @@
                                 <property name="yscale">0.20000000298023224</property>
                                 <property name="right_padding">24</property>
                                 <child>
-                                  <object class="GtkBox" id="box5">
+                                  <object class="GtkBox" id="dateBox">
                                     <property name="visible">True</property>
                                     <property name="can_focus">False</property>
                                     <property name="halign">end</property>
+                                    <property name="spacing">3</property>
                                     <child>
-                                      <object class="GtkComboBox" id="monthCombobox">
-                                        <property name="visible">True</property>
-                                        <property name="can_focus">False</property>
-                                        <property name="model">months</property>
-                                        <signal name="changed" handler="on_month_changed" swapped="no"/>
-                                        <child>
-                                          <object class="GtkCellRendererText" id="monthsComboRenderer"/>
-                                          <attributes>
-                                            <attribute name="text">0</attribute>
-                                          </attributes>
-                                        </child>
-                                      </object>
-                                      <packing>
-                                        <property name="expand">False</property>
-                                        <property name="fill">True</property>
-                                        <property name="position">0</property>
-                                      </packing>
+                                      <placeholder/>
                                     </child>
                                     <child>
-                                      <object class="GtkComboBox" id="dayCombobox">
-                                        <property name="visible">True</property>
-                                        <property name="can_focus">False</property>
-                                        <property name="model">daysFilter</property>
-                                        <signal name="changed" handler="on_day_changed" swapped="no"/>
-                                        <child>
-                                          <object class="GtkCellRendererText" id="daysComboRenderer"/>
-                                          <attributes>
-                                            <attribute name="text">0</attribute>
-                                          </attributes>
-                                        </child>
-                                      </object>
-                                      <packing>
-                                        <property name="expand">False</property>
-                                        <property name="fill">True</property>
-                                        <property name="position">1</property>
-                                      </packing>
+                                      <placeholder/>
                                     </child>
                                     <child>
-                                      <object class="GtkComboBox" id="yearCombobox">
-                                        <property name="visible">True</property>
-                                        <property name="can_focus">False</property>
-                                        <property name="model">years</property>
-                                        <signal name="changed" handler="on_year_changed" swapped="no"/>
-                                        <child>
-                                          <object class="GtkCellRendererText" id="yearsComboRenderer"/>
-                                          <attributes>
-                                            <attribute name="text">0</attribute>
-                                          </attributes>
-                                        </child>
-                                      </object>
-                                      <packing>
-                                        <property name="expand">False</property>
-                                        <property name="fill">True</property>
-                                        <property name="position">2</property>
-                                      </packing>
+                                      <placeholder/>
                                     </child>
                                   </object>
                                 </child>
@@ -928,5 +879,13 @@
         <property name="AtkObject::accessible-name" translatable="yes">TIME &amp; DATE</property>
       </object>
     </child>
+  </object>
+  <object class="GtkListStore" id="years">
+    <columns>
+      <!-- column-name idx -->
+      <column type="guint"/>
+      <!-- column-name year -->
+      <column type="gchararray"/>
+    </columns>
   </object>
 </interface>
