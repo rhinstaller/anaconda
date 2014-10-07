@@ -29,7 +29,7 @@ class InstallClass(BaseInstallClass):
     id = "rhel"
     name = N_("Red Hat Enterprise Linux")
     sortPriority = 20000
-    if not productName.startswith("Red Hat "):
+    if not productName.startswith(("Red Hat ", "RHEL Atomic")):
         hidden = 1
     defaultFS = "xfs"
 
