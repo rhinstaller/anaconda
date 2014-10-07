@@ -19,6 +19,8 @@
 #
 
 from pyanaconda import localization
+from pyanaconda.iutil import execReadlines
+import locale as locale_mod
 import unittest
 
 class ParsingTests(unittest.TestCase):
@@ -139,3 +141,18 @@ class LangcodeLocaleMatchingTests(unittest.TestCase):
         # no matches
         self.assertIsNone(localization.find_best_locale_match("pt_BR", ["en_BR", "en"]))
         self.assertIsNone(localization.find_best_locale_match("cs_CZ.UTF-8", ["en", "en.UTF-8"]))
+
+    def resolve_date_format_test(self):
+        """All locales' date formats should be properly resolved."""
+
+        locales = (line.strip() for line in execReadlines("locale", ["-a"]))
+        for locale in locales:
+            try:
+                locale_mod.setlocale(locale_mod.LC_ALL, locale)
+            except locale_mod.Error:
+                # cannot set locale (a bug in the locale module?)
+                continue
+
+            (order, formats) = localization.resolve_date_format(1, 2, 3, fail_safe=False)
+            for i in (1, 2, 3):
+                self.assertIn(i, order)
