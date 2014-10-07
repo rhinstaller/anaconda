@@ -96,7 +96,8 @@ for ks in ostree/*ks; do
         # need to worry with that here.
         /usr/bin/qemu-kvm -m 2048 \
                           -smp 2 \
-                          -hda ${trimmed}
+                          -hda ${trimmed} \
+                          -vnc localhost:3
 
         # There should be a /root/RESULT file with results in it.  Check
         # its contents and decide whether the test finally succeeded or
