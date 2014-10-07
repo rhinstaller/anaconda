@@ -56,14 +56,12 @@ SOURCES = $(GISOURCES) $(NONGISOURCES)
 HDRS = $(GIHDRS) $(NONGIHDRS)
 
 WIDGETSDATA = '"$(datadir)/anaconda"'
-TZMAPDATA = '"tzmapdata"'
 
 noinst_HEADERS = gettext.h intl.h
 
 lib_LTLIBRARIES = libAnacondaWidgets.la
 libAnacondaWidgets_la_CFLAGS = $(GTK_CFLAGS) $(GLADEUI_CFLAGS) $(LIBXKLAVIER_CFLAGS) -Wall -g\
-			       -DWIDGETS_DATADIR=$(WIDGETSDATA)\
-			       -DTZMAP_DATADIR=$(TZMAPDATA)
+			       -DWIDGETS_DATADIR=$(WIDGETSDATA)
 libAnacondaWidgets_la_LIBADD = $(GTK_LIBS) $(GLADEUI_LIBS) $(LIBXKLAVIER_LIBS)
 libAnacondaWidgets_la_LDFLAGS = $(LTLIBINTL) -version-info 3:0:1
 libAnacondaWidgets_la_SOURCES = $(SOURCES) $(HDRS) \
