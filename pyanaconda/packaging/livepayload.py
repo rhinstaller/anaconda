@@ -242,12 +242,10 @@ class LiveImageKSPayload(LiveImagePayload):
         """ Return True if the url ends with a tar suffix """
         return any(self.data.method.url.endswith(suffix) for suffix in TAR_SUFFIX)
 
-    def setup(self, storage, instClass):
-        """ Check the availability and size of the image.
+    def _setup_url_image(self):
+        """ Check to make sure the url is available and estimate the space
+            needed to download and install it.
         """
-        # This is on purpose, we don't want to call LiveImagePayload's setup method.
-        ImagePayload.setup(self, storage, instClass)
-
         self._proxies = {}
         if self.data.method.proxy:
             try:
@@ -261,6 +259,12 @@ class LiveImageKSPayload(LiveImagePayload):
         error = None
         try:
             req = urllib.urlopen(self.data.method.url, proxies=self._proxies)
+
+            # At this point we know we can get the image and what its size is
+            # Make a guess as to minimum size needed:
+            # Enough space for image and image * 3
+            if req.info().get("content-length"):
+                self._min_size = int(req.info().get("content-length")) * 4
         except IOError as e:
             log.error("Error opening liveimg: %s", e)
             error = e
@@ -270,16 +274,33 @@ class LiveImageKSPayload(LiveImagePayload):
             if method.startswith("http") and req.getcode() != 200:
                 error = "http request returned %s" % req.getcode()
 
+        return error
+
+    def _setup_file_image(self):
+        """ Check to make sure the file is available and estimate the space
+            needed to install it.
+        """
+        if not os.path.exists(self.data.method.url[7:]):
+            return "file does not exist: %s" % self.data.method.url
+
+        self._min_size = os.stat(self.data.method.url[7:])[stat.ST_SIZE] * 3
+        return None
+
+    def setup(self, storage, instClass):
+        """ Check the availability and size of the image.
+        """
+        # This is on purpose, we don't want to call LiveImagePayload's setup method.
+        ImagePayload.setup(self, storage, instClass)
+
+        if self.data.method.url.startswith("file://"):
+            error = self._setup_file_image()
+        else:
+            error = self._setup_url_image()
+
         if error:
             exn = PayloadInstallError(str(error))
             if errorHandler.cb(exn) == ERROR_RAISE:
                 raise exn
-
-        # At this point we know we can get the image and what its size is
-        # Make a guess as to minimum size needed:
-        # Enough space for image and image * 3
-        if req.info().get("content-length"):
-            self._min_size = int(req.info().get("content-length")) * 4
 
         log.debug("liveimg size is %s", self._min_size)
 
@@ -287,13 +308,8 @@ class LiveImageKSPayload(LiveImagePayload):
         # Skip LiveImagePayload's unsetup method
         ImagePayload.unsetup(self)
 
-    def preInstall(self, *args, **kwargs):
-        """ Download image and loopback mount it.
-
-            This is called after partitioning is setup, we now have space
-            to grab the image. Download it to sysroot and provide feedback
-            during the download (using urlgrabber callback).
-        """
+    def _preInstall_url_image(self):
+        """ Download the image using urlgrabber """
         # Setup urlgrabber and call back to download image to sysroot
         progress = URLGrabberProgress()
         ugopts = {"ssl_verify_peer": not self.data.method.noverifyssl,
@@ -313,6 +329,22 @@ class LiveImageKSPayload(LiveImagePayload):
             if not os.path.exists(self.image_path):
                 error = "Failed to download %s, file doesn't exist" % self.data.method.url
                 log.error(error)
+
+    def preInstall(self, *args, **kwargs):
+        """ Get image and loopback mount it.
+
+            This is called after partitioning is setup, we now have space to
+            grab the image. If it is a network source Download it to sysroot
+            and provide feedback during the download (using urlgrabber
+            callback).
+
+            If it is a file:// source then use the file directly.
+        """
+        error = None
+        if self.data.method.url.startswith("file://"):
+            self.image_path = self.data.method.url[7:]
+        else:
+            error = self._preInstall_url_image()
 
         if error:
             exn = PayloadInstallError(str(error))
