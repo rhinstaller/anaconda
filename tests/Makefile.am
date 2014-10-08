@@ -51,6 +51,7 @@ dist_check_SCRIPTS = $(srcdir)/glade/*/*.py \
 		     gettext/style_guide.py \
 		     storage/run_storage_tests.py \
 		     ostree/run_ostree_tests.sh \
+		     install/run_install_test.sh \
 		     $(srcdir)/gui/*.ks \
 		     $(srcdir)/gui/*.sh \
 		     $(srcdir)/gui/inside/*.py \
@@ -67,7 +68,8 @@ TESTS = nosetests.sh \
 	storage/run_storage_tests.py \
 	gui/run_gui_tests.sh \
 	glade/run_glade_tests.sh \
-	ostree/run_ostree_tests.sh
+	ostree/run_ostree_tests.sh \
+	install/run_install_test.sh
 
 clean-local:
 	-rm -rf pylint/.pylint.d
