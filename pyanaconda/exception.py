@@ -50,7 +50,7 @@ log = logging.getLogger("anaconda")
 
 class AnacondaExceptionHandler(ExceptionHandler):
 
-    def __init__(self, confObj, intfClass, exnClass, tty_num):
+    def __init__(self, confObj, intfClass, exnClass, tty_num, gui_lock):
         """
         :see: python-meh's ExceptionHandler
         :param tty_num: the number of tty the interface is running on
@@ -58,6 +58,7 @@ class AnacondaExceptionHandler(ExceptionHandler):
         """
 
         ExceptionHandler.__init__(self, confObj, intfClass, exnClass)
+        self._gui_lock = gui_lock
         self._intf_tty_num = tty_num
 
     def run_handleException(self, dump_info):
@@ -110,9 +111,10 @@ class AnacondaExceptionHandler(ExceptionHandler):
                 if not initialized:
                     raise RuntimeError()
 
-                if Gtk.main_level() > 0:
-                    # main loop is running, don't crash it by running another one
-                    # potentially from a different thread
+                # Attempt to grab the GUI initializing lock, do not block
+                if not self._gui_lock.acquire(False):
+                    # the graphical interface is running, don't crash it by
+                    # running another one potentially from a different thread
                     log.debug("Gtk running, queuing exception handler to the "
                              "main loop")
                     GLib.idle_add(self.run_handleException, dump_info)
@@ -267,7 +269,8 @@ def initExceptionHandling(anaconda):
         conf.register_callback("journalctl", journalctl_callback, attchmnt_only=False)
 
     handler = AnacondaExceptionHandler(conf, anaconda.intf.meh_interface,
-                                       ReverseExceptionDump, anaconda.intf.tty_num)
+                                       ReverseExceptionDump, anaconda.intf.tty_num,
+                                       anaconda.gui_initialized)
     handler.install(anaconda)
 
     return conf

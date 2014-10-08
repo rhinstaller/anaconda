@@ -58,7 +58,7 @@ class TextUserInterface(ui.UserInterface):
 
     ENVIRONMENT = "anaconda"
 
-    def __init__(self, storage, payload, instclass,
+    def __init__(self, storage, payload, instclass, gui_lock,
                  productTitle = u"Anaconda", isFinal = True,
                  quitMessage = None):
         """
@@ -91,7 +91,7 @@ class TextUserInterface(ui.UserInterface):
 
         """
 
-        ui.UserInterface.__init__(self, storage, payload, instclass)
+        ui.UserInterface.__init__(self, storage, payload, instclass, gui_lock)
         self._app = None
         self._meh_interface = meh.ui.text.TextIntf()
 
