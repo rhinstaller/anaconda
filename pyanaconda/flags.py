@@ -69,6 +69,7 @@ class Flags(object):
         # ksprompt is whether or not to prompt for missing ksdata
         self.ksprompt = True
         self.rescue_mode = False
+        self.noefi = False
         # parse the boot commandline
         self.cmdline = BootArgs()
         # Lock it down: no more creating new flags!
@@ -78,7 +79,7 @@ class Flags(object):
 
     def read_cmdline(self):
         for f in ("selinux", "debug", "leavebootorder", "testing", "extlinux",
-                  "gpt", "dnf"):
+                  "gpt", "dnf", "noefi"):
             self.set_cmdline_bool(f)
 
         if not selinux.is_selinux_enabled():

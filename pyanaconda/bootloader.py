@@ -1670,6 +1670,10 @@ class EFIGRUB(GRUB2):
             log.info("Skipping efibootmgr for image/directory install.")
             return ""
 
+        if "noefi" in flags.cmdline:
+            log.info("Skipping efibootmgr for noefi")
+            return ""
+
         if kwargs.pop("capture", False):
             exec_func = iutil.execWithCapture
         else:
