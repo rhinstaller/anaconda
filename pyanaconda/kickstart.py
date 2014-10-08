@@ -1506,6 +1506,7 @@ class Timezone(commands.timezone.F18_Timezone):
 
         self._added_chrony = False
         self._enabled_chrony = False
+        self._disabled_chrony = False
 
     def setup(self, ksdata):
         if self.nontp:
@@ -1519,9 +1520,15 @@ class Timezone(commands.timezone.F18_Timezone):
                 ksdata.packages.packageList.remove(NTP_PACKAGE)
                 self._added_chrony = False
 
+            # Both un-enable and disable chrony, because sometimes it's installed
+            # off by default (packages) and sometimes not (liveimg).
             if self._enabled_chrony and NTP_SERVICE in ksdata.services.enabled:
                 ksdata.services.enabled.remove(NTP_SERVICE)
                 self._enabled_chrony = False
+
+            if NTP_SERVICE not in ksdata.services.disabled:
+                ksdata.services.disabled.append(NTP_SERVICE)
+                self._disabled_chrony = True
 
         else:
             if not iutil.service_running(NTP_SERVICE) and \
@@ -1533,6 +1540,10 @@ class Timezone(commands.timezone.F18_Timezone):
             if not NTP_PACKAGE in ksdata.packages.packageList:
                 ksdata.packages.packageList.append(NTP_PACKAGE)
                 self._added_chrony = True
+
+            if self._disabled_chrony and NTP_SERVICE in ksdata.service.disabled:
+                ksdata.services.disabled.remove(NTP_SERVICE)
+                self._disabled_chrony = False
 
             if not NTP_SERVICE in ksdata.services.enabled and \
                     not NTP_SERVICE in ksdata.services.disabled:
