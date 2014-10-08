@@ -280,6 +280,8 @@ class MainWindow(Gtk.Window):
         self._overlay_img = None
         self._overlay.connect("get-child-position", self._on_overlay_get_child_position)
 
+        self._overlay_depth = 0
+
         # Create a stack and a list of what's been added to the stack
         self._stack = Gtk.Stack()
         self._stack_contents = set()
@@ -398,15 +400,19 @@ class MainWindow(Gtk.Window):
         self._setVisibleChild(self._current_action)
 
     def lightbox_on(self):
-        # Add an overlay image that will be filled and scaled in get-child-position
-        self._overlay_img = Gtk.Image()
-        self._overlay_img.show_all()
-        self._overlay.add_overlay(self._overlay_img)
+        self._overlay_depth += 1
+        if not self._overlay_img:
+            # Add an overlay image that will be filled and scaled in get-child-position
+            self._overlay_img = Gtk.Image()
+            self._overlay_img.show_all()
+            self._overlay.add_overlay(self._overlay_img)
 
     def lightbox_off(self):
-        # Remove the overlay image
-        self._overlay_img.destroy()
-        self._overlay_img = None
+        self._overlay_depth -= 1
+        if self._overlay_depth == 0 and self._overlay_img:
+            # Remove the overlay image
+            self._overlay_img.destroy()
+            self._overlay_img = None
 
     @contextmanager
     def enlightbox(self, dialog):
