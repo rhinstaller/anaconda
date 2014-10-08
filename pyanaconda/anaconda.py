@@ -31,6 +31,7 @@ import sys
 import stat
 from glob import glob
 from tempfile import mkstemp
+import threading
 
 from pyanaconda.bootloader import get_bootloader
 from pyanaconda import constants
@@ -77,6 +78,11 @@ class Anaconda(object):
         # Data for inhibiting the screensaver
         self.dbus_session_connection = None
         self.dbus_inhibit_id = None
+
+        # This is used to synchronize Gtk.main calls between the graphical
+        # interface and error dialogs. Whoever gets to their initialization code
+        # first will lock gui_initializing
+        self.gui_initialized = threading.Lock()
 
     @property
     def bootloader(self):
@@ -206,7 +212,7 @@ class Anaconda(object):
         if self.displayMode == 'g':
             from pyanaconda.ui.gui import GraphicalUserInterface
             self._intf = GraphicalUserInterface(self.storage, self.payload,
-                                                self.instClass)
+                                                self.instClass, self.gui_initialized)
 
             # needs to be refreshed now we know if gui or tui will take place
             addon_paths = addons.collect_addon_paths(constants.ADDON_PATHS,
@@ -214,7 +220,7 @@ class Anaconda(object):
         elif self.displayMode in ['t', 'c']: # text and command line are the same
             from pyanaconda.ui.tui import TextUserInterface
             self._intf = TextUserInterface(self.storage, self.payload,
-                                           self.instClass)
+                                           self.instClass, self.gui_initialized)
 
             # needs to be refreshed now we know if gui or tui will take place
             addon_paths = addons.collect_addon_paths(constants.ADDON_PATHS,

@@ -42,7 +42,7 @@ class UserInterface(object):
        defines what kinds of dialogs and entry widgets every interface must
        provide that the rest of anaconda may rely upon.
     """
-    def __init__(self, storage, payload, instclass):
+    def __init__(self, storage, payload, instclass, gui_lock):
         """Create a new UserInterface instance.
 
            The arguments this base class accepts defines the API that interfaces
@@ -60,6 +60,8 @@ class UserInterface(object):
                            is useful for determining distribution-specific
                            installation information like default package
                            selections and default partitioning.
+           gui_lock     -- A lock object acquired by the first thread to initialize
+                           a GUI.
         """
         if self.__class__ is UserInterface:
             raise TypeError("UserInterface is an abstract class.")
@@ -67,6 +69,7 @@ class UserInterface(object):
         self.storage = storage
         self.payload = payload
         self.instclass = instclass
+        self.gui_lock = gui_lock
 
         # Register this interface with the top-level ErrorHandler.
         from pyanaconda.errors import errorHandler
