@@ -300,6 +300,19 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Oct 07 2014 Brian C. Lane <bcl@redhat.com> - 19.31.99-1
+- Use the /usr/share/anaconda/help for help content (mkolman)
+  Related: rhbz#1072033
+- Fix the value written to /etc/sysconfig/desktop (dshea)
+  Related: rhbz#1121678
+- s390x: show dialog if kernel cmdline in zipl.conf is too long.
+  (sbueno+anaconda)
+  Resolves: rhbz#885011
+- Ignore the "No value passed for parameter self" warning. (clumens)
+  Related: rhbz#1131382
+- Move help docs outside of livearch block in spec file (bcl)
+  Related: rhbz#1072033
+
 * Fri Oct 03 2014 Brian C. Lane <bcl@redhat.com> - 19.31.98-1
 - Really exit when "Exit installer" in the error dialog is clicked (vpodzime)
   Related: rhbz#1131382

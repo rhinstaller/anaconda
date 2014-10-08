@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: anaconda 19.31.97\n"
+"Project-Id-Version: anaconda 19.31.98\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
-"POT-Creation-Date: 2014-10-03 17:27-0700\n"
+"POT-Creation-Date: 2014-10-07 18:36-0700\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -23,87 +23,87 @@ msgstr ""
 msgid "Unhandled arguments on %%addon line for %s"
 msgstr ""
 
-#: pyanaconda/bootloader.py:245
+#: pyanaconda/bootloader.py:246
 msgid "/boot file system"
 msgstr ""
 
-#: pyanaconda/bootloader.py:403
+#: pyanaconda/bootloader.py:404
 #, python-format
 msgid ""
 "RAID sets that contain '%(desc)s' must have one of the following raid "
 "levels: %(raid_level)s."
 msgstr ""
 
-#: pyanaconda/bootloader.py:411
+#: pyanaconda/bootloader.py:412
 #, python-format
 msgid ""
 "RAID sets that contain '%(desc)s' must have one of the following metadata "
 "versions: %(metadata_version)s."
 msgstr ""
 
-#: pyanaconda/bootloader.py:419
+#: pyanaconda/bootloader.py:420
 #, python-format
 msgid ""
 "RAID sets that contain '%(desc)s' must have one of the following device "
 "types: %(types)s."
 msgstr ""
 
-#: pyanaconda/bootloader.py:435
+#: pyanaconda/bootloader.py:436
 #, python-format
 msgid "%(name)s must have one of the following disklabel types: %(types)s."
 msgstr ""
 
-#: pyanaconda/bootloader.py:447
+#: pyanaconda/bootloader.py:448
 #, python-format
 msgid "%(desc)s cannot be of type %(types)s."
 msgstr ""
 
-#: pyanaconda/bootloader.py:453
+#: pyanaconda/bootloader.py:454
 #, python-format
 msgid "%(desc)s must be mounted on one of %(mountpoints)s."
 msgstr ""
 
-#: pyanaconda/bootloader.py:465
+#: pyanaconda/bootloader.py:466
 #, python-format
 msgid "%(desc)s must be between %(min)d and %(max)d MB in size"
 msgstr ""
 
-#: pyanaconda/bootloader.py:470
+#: pyanaconda/bootloader.py:471
 #, python-format
 msgid "%(desc)s must not be smaller than %(min)dMB."
 msgstr ""
 
-#: pyanaconda/bootloader.py:479
+#: pyanaconda/bootloader.py:480
 #, python-format
 msgid "%(desc)s must not be larger than %(max)dMB."
 msgstr ""
 
-#: pyanaconda/bootloader.py:497
+#: pyanaconda/bootloader.py:498
 #, python-format
 msgid "%(desc)s must be within the first %(max_end)s of the disk."
 msgstr ""
 
-#: pyanaconda/bootloader.py:507
+#: pyanaconda/bootloader.py:508
 #, python-format
 msgid "%s must be on a primary partition."
 msgstr ""
 
-#: pyanaconda/bootloader.py:645 pyanaconda/bootloader.py:746
+#: pyanaconda/bootloader.py:646 pyanaconda/bootloader.py:747
 #, python-format
 msgid "%s cannot be on an encrypted block device."
 msgstr ""
 
-#: pyanaconda/bootloader.py:700
+#: pyanaconda/bootloader.py:701
 #, python-format
 msgid "%s cannot be on an iSCSI disk on s390(x)"
 msgstr ""
 
-#: pyanaconda/bootloader.py:704
+#: pyanaconda/bootloader.py:705
 #, python-format
 msgid "%(desc)s cannot be of type %(type)s"
 msgstr ""
 
-#: pyanaconda/bootloader.py:1353
+#: pyanaconda/bootloader.py:1354
 #, python-format
 msgid ""
 "boot loader stage2 device %(stage2dev)s in on a multi-disk array, but boot "
@@ -111,7 +111,7 @@ msgid ""
 "could render the system unbootable."
 msgstr ""
 
-#: pyanaconda/bootloader.py:1359
+#: pyanaconda/bootloader.py:1360
 #, python-format
 msgid ""
 "boot loader stage2 device %(stage2dev)s is on a multi-disk array, but boot "
@@ -119,7 +119,7 @@ msgid ""
 "boot loader will only be installed to a single drive."
 msgstr ""
 
-#: pyanaconda/bootloader.py:1637
+#: pyanaconda/bootloader.py:1638
 #, python-format
 msgid ""
 "%(deviceName)s may not have enough space for grub2 to embed core.img when "
@@ -152,7 +152,7 @@ msgstr ""
 msgid "No"
 msgstr ""
 
-#: pyanaconda/errors.py:95
+#: pyanaconda/errors.py:98
 #, python-format
 msgid ""
 "The following error was found while parsing the kickstart configuration "
@@ -161,7 +161,7 @@ msgid ""
 "%s"
 msgstr ""
 
-#: pyanaconda/errors.py:101
+#: pyanaconda/errors.py:104
 #, python-format
 msgid ""
 "The following errors occurred with your partitioning:\n"
@@ -171,18 +171,18 @@ msgid ""
 "The installation will now terminate."
 msgstr ""
 
-#: pyanaconda/errors.py:107
+#: pyanaconda/errors.py:110
 #, python-format
 msgid "An error occurred while resizing the device %s."
 msgstr ""
 
-#: pyanaconda/errors.py:116
+#: pyanaconda/errors.py:119
 msgid ""
 "An error has occurred - no valid devices were found on which to create new "
 "file systems.  Please check your hardware for the cause of this problem."
 msgstr ""
 
-#: pyanaconda/errors.py:124
+#: pyanaconda/errors.py:127
 #, python-format
 msgid ""
 "The following file systems for your Linux system were not unmounted "
@@ -190,14 +190,14 @@ msgid ""
 "%s"
 msgstr ""
 
-#: pyanaconda/errors.py:135
+#: pyanaconda/errors.py:138
 msgid ""
 "There is an entry in your /etc/fstab file that contains an invalid or "
 "incorrect file system type:\n"
 "\n"
 msgstr ""
 
-#: pyanaconda/errors.py:142
+#: pyanaconda/errors.py:145
 #, python-format
 msgid ""
 "The ISO image %s has a size which is not a multiple of 2048 bytes.  This may "
@@ -208,7 +208,7 @@ msgid ""
 "using this image?"
 msgstr ""
 
-#: pyanaconda/errors.py:156
+#: pyanaconda/errors.py:159
 msgid ""
 "The installer has tried to mount the installation image, but cannot find it "
 "on the hard drive.\n"
@@ -216,19 +216,19 @@ msgid ""
 "Should I try again to locate the image?"
 msgstr ""
 
-#: pyanaconda/errors.py:167
+#: pyanaconda/errors.py:170
 #, python-format
 msgid "An error occurred mounting the source device %s. Retry?"
 msgstr ""
 
-#: pyanaconda/errors.py:176
+#: pyanaconda/errors.py:179
 #, python-format
 msgid ""
 "An error occurred unmounting the disc.  Please make sure you're not "
 "accessing %s from the shell on tty2 and then click OK to retry."
 msgstr ""
 
-#: pyanaconda/errors.py:187
+#: pyanaconda/errors.py:190
 #, python-format
 msgid ""
 "You have specified that the group '%s' should be installed.  This group does "
@@ -236,7 +236,7 @@ msgid ""
 "installation?"
 msgstr ""
 
-#: pyanaconda/errors.py:192
+#: pyanaconda/errors.py:195
 #, python-format
 msgid ""
 "You have specified that the group '%s' should be excluded from "
@@ -244,7 +244,7 @@ msgid ""
 "group and continue with installation?"
 msgstr ""
 
-#: pyanaconda/errors.py:207
+#: pyanaconda/errors.py:210
 #, python-format
 msgid ""
 "You have specified that the package '%s' should be installed.  This package "
@@ -252,7 +252,7 @@ msgid ""
 "installation?"
 msgstr ""
 
-#: pyanaconda/errors.py:212
+#: pyanaconda/errors.py:215
 #, python-format
 msgid ""
 "You have specified that the package '%s' should be excluded from "
@@ -260,7 +260,7 @@ msgid ""
 "package and continue with installation?"
 msgstr ""
 
-#: pyanaconda/errors.py:225
+#: pyanaconda/errors.py:228
 #, python-format
 msgid ""
 "There was an error running the kickstart script at line %(lineno)s.  This is "
@@ -270,29 +270,40 @@ msgid ""
 "%(details)s"
 msgstr ""
 
-#: pyanaconda/errors.py:235
+#: pyanaconda/errors.py:238
 #, python-format
 msgid ""
 "There was an error installing the %s package.  This is a fatal error and "
 "installation will be aborted."
 msgstr ""
 
-#: pyanaconda/errors.py:239
+#: pyanaconda/errors.py:242
 msgid ""
 "The following error occurred while installing.  This is a fatal error and "
 "installation will be aborted."
 msgstr ""
 
-#: pyanaconda/errors.py:247
+#: pyanaconda/errors.py:250
 msgid ""
 "The following software marked for installation has errors.  This is likely "
 "caused by an error with\n"
 "your installation source."
 msgstr ""
 
-#: pyanaconda/errors.py:255
+#: pyanaconda/errors.py:258
 #, python-format
 msgid "Unable to encrypt password: unsupported algorithm %s"
+msgstr ""
+
+#: pyanaconda/errors.py:265
+#, python-format
+msgid ""
+"Installation was stopped due to an error installing the boot loader. The "
+"exact error message is:\n"
+"\n"
+"%s\n"
+"\n"
+"The installer will now terminate."
 msgstr ""
 
 #: pyanaconda/exception.py:89
@@ -794,22 +805,22 @@ msgstr ""
 msgid "Installing"
 msgstr ""
 
-#: pyanaconda/packaging/rpmostreepayload.py:122
+#: pyanaconda/packaging/rpmostreepayload.py:123
 #, python-format
 msgid "Starting pull of %(branchName)s from %(source)s"
 msgstr ""
 
-#: pyanaconda/packaging/rpmostreepayload.py:139
+#: pyanaconda/packaging/rpmostreepayload.py:140
 #, python-format
 msgid "Preparing deployment of %s"
 msgstr ""
 
-#: pyanaconda/packaging/rpmostreepayload.py:151
+#: pyanaconda/packaging/rpmostreepayload.py:152
 #, python-format
 msgid "Deployment starting: %s"
 msgstr ""
 
-#: pyanaconda/packaging/rpmostreepayload.py:154
+#: pyanaconda/packaging/rpmostreepayload.py:155
 #, python-format
 msgid "Deployment complete: %s"
 msgstr ""
