@@ -1254,16 +1254,15 @@ if __name__ == "__main__":
     # now start the interface
     setupDisplay(anaconda, opts, addon_paths)
 
+    # we now know in which mode we are going to run so store the information
+    from pykickstart.constants import DISPLAY_MODE_GRAPHICAL, DISPLAY_MODE_CMDLINE, DISPLAY_MODE_TEXT
+    mode_char_to_const = {'g': DISPLAY_MODE_GRAPHICAL, 't': DISPLAY_MODE_TEXT, 'c': DISPLAY_MODE_CMDLINE}
+    ksdata.displaymode.displayMode = mode_char_to_const[anaconda.displayMode]
+
     # if we're in text mode, the resulting system should be too
     # ...unless the kickstart specified otherwise
-    if anaconda.displayMode != 'g':
-        if not anaconda.ksdata.xconfig.startX:
-            anaconda.ksdata.skipx.skipx = True
-        from pykickstart.constants import DISPLAY_MODE_CMDLINE, DISPLAY_MODE_TEXT
-        if anaconda.displayMode == 'c':
-            anaconda.ksdata.displaymode.displayMode = DISPLAY_MODE_CMDLINE
-        else:
-            anaconda.ksdata.displaymode.displayMode = DISPLAY_MODE_TEXT
+    if anaconda.displayMode != 'g' and not anaconda.ksdata.xconfig.startX:
+        anaconda.ksdata.skipx.skipx = True
 
     if flags.rescue_mode:
         from pyanaconda import rescue
