@@ -312,6 +312,32 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Wed Oct 08 2014 Brian C. Lane <bcl@redhat.com> - 22.8-1
+- Add a test case for if all anaconda's Requires exist. (clumens)
+- Only allow one anaconda instance (#1146735) (dshea)
+- Ignore partition start if there is a biosboot partition (#1044849) (bcl)
+- Remove duplicates when adding new devices (#887526) (bcl)
+- Trim changelog entries from spec file (bcl)
+- We now need to specify an epoch for the python-blivet version requires.
+  (clumens)
+- Remove the last references to tzmapdata (dshea)
+- Add VNC to the ostree test arguments. (clumens)
+- Fix autotools rules to properly include help placeholders (#1072033)
+  (mkolman)
+- Ignore an accelerator conflict between two Modify labels. (clumens)
+- s390x: show dialog if kernel cmdline in zipl.conf is too long.
+  (sbueno+anaconda)
+- Convert process watching to use GLib before we start a main loop (dshea)
+- Convert python signal handlers to GLib signal handlers (dshea)
+- Reorganize the right side of the Custom spoke (#1094856) (vpodzime)
+- Graphically handle errors arising from ostree repo pull problems. (clumens)
+- Fix file name of the entropy dialog in POTFILES.in (vpodzime)
+- Add support for thin pool profile specification in kickstart (vpodzime)
+- Require minimum random data entropy when creating LUKS (#1073679) (vpodzime)
+- Give blivet callbacks for reporting partitioning progress (vpodzime)
+- Really exit when "Exit installer" in the error dialog is clicked (vpodzime)
+- NM-wifi is missing on s390(x) (dan)
+
 * Tue Sep 30 2014 Brian C. Lane <bcl@redhat.com> - 22.7-1
 - Fix Welcome spoke not showing up during kickstart installation (#1147943)
   (mkolman)
