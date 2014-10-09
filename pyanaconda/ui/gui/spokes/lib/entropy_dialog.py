@@ -24,9 +24,17 @@ import time
 from gi.repository import Gtk, GLib
 
 from pyanaconda.ui.gui import GUIObject
+from pyanaconda.ui.gui.utils import gtk_action_wait
 from blivet.util import get_current_entropy
 
-__all__ = ["EntropyDialog"]
+__all__ = ["run_entropy_dialog"]
+
+@gtk_action_wait
+def run_entropy_dialog(ksdata, desired_entropy):
+    """Show dialog with waiting for entropy"""
+
+    dialog = EntropyDialog(ksdata, desired_entropy)
+    dialog.run()
 
 class EntropyDialog(GUIObject):
     builderObjects = ["entropyDialog"]
