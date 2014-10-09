@@ -434,3 +434,7 @@ class RunProgramTests(unittest.TestCase):
         self.assertFalse(iutil.have_word_match("", None))
         self.assertFalse(iutil.have_word_match(None, ""))
         self.assertFalse(iutil.have_word_match(None, None))
+
+        # Compare unicode and str and make sure nothing crashes
+        self.assertTrue(iutil.have_word_match("fête", u"fête champêtre"))
+        self.assertTrue(iutil.have_word_match(u"fête", "fête champêtre"))
