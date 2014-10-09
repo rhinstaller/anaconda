@@ -29,10 +29,8 @@ import select
 import sys
 import termios
 
-from gi.repository import Gtk
-from pyanaconda.ui.gui.spokes.lib.entropy_dialog import EntropyDialog
-from pyanaconda.ui.gui.utils import gtk_action_wait
 from pyanaconda.progress import progress_message
+from pykickstart.constants import DISPLAY_MODE_GRAPHICAL
 from blivet.util import get_current_entropy
 
 from pyanaconda.i18n import _
@@ -48,20 +46,14 @@ def wait_for_entropy(msg, desired_entropy, ksdata):
 
     """
 
-    (succ, _args) = Gtk.init_check(None)
-    if succ:
-        # Gtk initialized, set progress message and run the GUI dialog
+    if ksdata.displaymode.displayMode == DISPLAY_MODE_GRAPHICAL:
+        # cannot import globally because GUI code may be missing for text mode
+        # in some cases
+        from pyanaconda.ui.gui.spokes.lib.entropy_dialog import run_entropy_dialog
         progress_message(_("The system needs more random data entropy"))
-        _gui_wait(ksdata, desired_entropy)
+        run_entropy_dialog(ksdata, desired_entropy)
     else:
         _tui_wait(msg, desired_entropy)
-
-@gtk_action_wait
-def _gui_wait(ksdata, desired_entropy):
-    """Show dialog with waiting for entropy"""
-
-    dialog = EntropyDialog(ksdata, desired_entropy)
-    dialog.run()
 
 def _tui_wait(msg, desired_entropy):
     """Tell user we are waiting for entropy"""
