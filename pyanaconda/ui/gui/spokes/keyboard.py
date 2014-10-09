@@ -79,10 +79,10 @@ class AddLayoutDialog(GUIObject):
         eng_value = self._xkl_wrapper.get_layout_variant_description(value, xlated=False)
         xlated_value = self._xkl_wrapper.get_layout_variant_description(value)
         translit_value = strip_accents(xlated_value).lower()
-        translit_text = strip_accents(unicode(entry_text, "utf-8")).lower()
+        entry_text = unicode(entry_text, "utf-8").lower()
 
         return have_word_match(entry_text, eng_value) or have_word_match(entry_text, xlated_value) \
-            or have_word_match(translit_text, translit_value)
+            or have_word_match(entry_text, translit_value)
 
     def compare_layouts(self, model, itr1, itr2, user_data=None):
         """
