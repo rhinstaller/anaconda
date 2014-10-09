@@ -59,7 +59,7 @@ class BaseInstallClass(object):
     defaultFS = None
 
     # help
-    help_folder = "/usr/share/doc/anaconda"
+    help_folder = "/usr/share/anaconda/help"
     help_main_page = "Installation_Guide.xml"
     help_placeholder = None
     help_placeholder_with_links = None
