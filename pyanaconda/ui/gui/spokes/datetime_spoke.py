@@ -29,7 +29,7 @@ from pyanaconda.ui.common import FirstbootSpokeMixIn
 from pyanaconda.ui.gui import GUIObject
 from pyanaconda.ui.gui.spokes import NormalSpoke
 from pyanaconda.ui.gui.categories.localization import LocalizationCategory
-from pyanaconda.ui.gui.utils import enlightbox, gtk_action_nowait, gtk_call_once
+from pyanaconda.ui.gui.utils import enlightbox, gtk_action_nowait, gtk_action_wait, gtk_call_once
 from pyanaconda.ui.gui.utils import override_cell_property
 
 from pyanaconda.i18n import _, N_
@@ -558,7 +558,7 @@ class DatetimeSpoke(FirstbootSpokeMixIn, NormalSpoke):
         self._start_updating_timer_id = None
 
         if is_valid_timezone(self.data.timezone.timezone):
-            self._set_timezone(self.data.timezone.timezone)
+            self._tzmap.set_timezone(self.data.timezone.timezone)
 
         self._update_datetime()
 
@@ -576,7 +576,7 @@ class DatetimeSpoke(FirstbootSpokeMixIn, NormalSpoke):
 
         self._ntpSwitch.set_active(ntp_working)
 
-    @gtk_action_nowait
+    @gtk_action_wait
     def _set_timezone(self, timezone):
         """
         Sets timezone to the city/region comboboxes and the timezone map.
