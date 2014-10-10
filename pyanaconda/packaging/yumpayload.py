@@ -438,7 +438,12 @@ reposdir=%s
     @property
     def mirrorEnabled(self):
         with _yum_lock:
-            return "fastestmirror" in self._yum.plugins.enabledPlugins
+            # yum initializes with plugins disabled, and when plugins are disabled
+            # _yum.plugins is a DummyYumPlugins object, which has no useful attributes.
+            if hasattr(self._yum.plugins, "enabledPlugins"):
+                return "fastestmirror" in self._yum.plugins.enabledPlugins
+            else:
+                return False
 
     def getRepo(self, repo_id):
         """ Return the yum repo object. """
