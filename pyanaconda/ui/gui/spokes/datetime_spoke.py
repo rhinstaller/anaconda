@@ -457,10 +457,6 @@ class DatetimeSpoke(FirstbootSpokeMixIn, NormalSpoke):
 
         self._regions_zones = get_all_regions_and_timezones()
 
-        self._days_nums = dict()
-        self._months_nums = dict()
-        self._years_nums = dict()
-
         # Set the initial sensitivity of the AM/PM toggle based on the time-type selected
         self._radioButton24h.emit("toggled")
 
@@ -742,11 +738,11 @@ class DatetimeSpoke(FirstbootSpokeMixIn, NormalSpoke):
         if not flags.can_touch_runtime_system("save system time"):
             return False
 
-        month, month_str = self._get_combo_selection(self._monthCombo)
+        month = self._get_combo_selection(self._monthCombo)[0]
         if not month:
             return False
 
-        year, year_str = self._get_combo_selection(self._yearCombo)
+        year = self._get_combo_selection(self._yearCombo)[0]
         if not year:
             return False
 
@@ -756,7 +752,7 @@ class DatetimeSpoke(FirstbootSpokeMixIn, NormalSpoke):
 
         minutes = int(self._minutesLabel.get_text())
 
-        day, day_str = self._get_combo_selection(self._dayCombo)
+        day = self._get_combo_selection(self._dayCombo)[0]
         #day may be None if there is no such in the selected year and month
         if day:
             isys.set_system_date_time(year, month, day, hours, minutes)
