@@ -439,15 +439,16 @@ class GraphicalUserInterface(UserInterface):
     """This is the standard GTK+ interface we try to steer everything to using.
        It is suitable for use both directly and via VNC.
     """
-    def __init__(self, storage, payload, instclass, gui_lock,
+    def __init__(self, storage, payload, instclass,
                  distributionText = product.distributionText, isFinal = product.isFinal,
-                 quitDialog = QuitDialog):
+                 quitDialog = QuitDialog, gui_lock = None):
 
-        UserInterface.__init__(self, storage, payload, instclass, gui_lock)
+        UserInterface.__init__(self, storage, payload, instclass)
 
         self._actions = []
         self._currentAction = None
         self._ui = None
+        self._gui_lock = gui_lock
 
         self.data = None
 
@@ -619,7 +620,7 @@ class GraphicalUserInterface(UserInterface):
             raise RuntimeError("Failed to initialize Gtk")
 
         # Check if the GUI lock has already been taken
-        if not self.gui_lock.acquire(False):
+        if self._gui_lock and not self._gui_lock.acquire(False):
             # Gtk main loop running. That means python-meh caught exception
             # and runs its main loop. Do not crash Gtk by running another one
             # from a different thread and just wait until python-meh is
