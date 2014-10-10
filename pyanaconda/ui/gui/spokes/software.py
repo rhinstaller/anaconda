@@ -285,8 +285,9 @@ class SoftwareSelectionSpoke(NormalSpoke):
 
             radio = Gtk.RadioButton(group=firstRadio)
 
+            # automatically select an environment if this is an interactive install
             active = environment == self.environment or \
-                     not self.environment and firstEnvironment
+                     not flags.automatedInstall and not self.environment and firstEnvironment
             radio.set_active(active)
             if active:
                 self.environment = environment
