@@ -153,6 +153,6 @@ class LangcodeLocaleMatchingTests(unittest.TestCase):
                 # cannot set locale (a bug in the locale module?)
                 continue
 
-            (order, formats) = localization.resolve_date_format(1, 2, 3, fail_safe=False)
+            order = localization.resolve_date_format(1, 2, 3, fail_safe=False)[0]
             for i in (1, 2, 3):
                 self.assertIn(i, order)
