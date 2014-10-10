@@ -437,8 +437,11 @@ class DatetimeSpoke(FirstbootSpokeMixIn, NormalSpoke):
 
         # create widgets for displaying/configuring date
         day_box, self._dayCombo, day_label = _new_date_field_box(self._daysFilter)
+        self._dayCombo.connect("changed", self.on_day_changed)
         month_box, self._monthCombo, month_label = _new_date_field_box(self._monthsStore)
+        self._monthCombo.connect("changed", self.on_month_changed)
         year_box, self._yearCombo, year_label = _new_date_field_box(self._yearsStore)
+        self._yearCombo.connect("changed", self.on_year_changed)
 
         # get the right order for date widgets and respective formats and put
         # widgets in place
