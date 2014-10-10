@@ -75,7 +75,7 @@ class SoftwareSpoke(NormalTUISpoke):
         # default, and it really should be so we can maintain consistency
         # with graphical behavior
         if self._selection >= 0 and not self.environment \
-                and not self._kickstarted:
+                and not flags.automatedInstall:
             self.apply()
 
         if not self.environment:
