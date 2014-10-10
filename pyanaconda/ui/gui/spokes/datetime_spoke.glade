@@ -14,8 +14,10 @@
   </object>
   <object class="GtkListStore" id="days">
     <columns>
-      <!-- column-name number -->
+      <!-- column-name idx -->
       <column type="guint"/>
+      <!-- column-name day -->
+      <column type="gchararray"/>
     </columns>
   </object>
   <object class="GtkTreeModelFilter" id="daysFilter">
@@ -524,66 +526,18 @@
                                 <property name="yscale">0.20000000298023224</property>
                                 <property name="right_padding">24</property>
                                 <child>
-                                  <object class="GtkBox" id="box5">
+                                  <object class="GtkBox" id="dateBox">
                                     <property name="visible">True</property>
                                     <property name="can_focus">False</property>
                                     <property name="halign">end</property>
                                     <child>
-                                      <object class="GtkComboBox" id="monthCombobox">
-                                        <property name="visible">True</property>
-                                        <property name="can_focus">False</property>
-                                        <property name="model">months</property>
-                                        <signal name="changed" handler="on_month_changed" swapped="no"/>
-                                        <child>
-                                          <object class="GtkCellRendererText" id="monthsComboRenderer"/>
-                                          <attributes>
-                                            <attribute name="text">0</attribute>
-                                          </attributes>
-                                        </child>
-                                      </object>
-                                      <packing>
-                                        <property name="expand">False</property>
-                                        <property name="fill">True</property>
-                                        <property name="position">0</property>
-                                      </packing>
+                                      <placeholder/>
                                     </child>
                                     <child>
-                                      <object class="GtkComboBox" id="dayCombobox">
-                                        <property name="visible">True</property>
-                                        <property name="can_focus">False</property>
-                                        <property name="model">daysFilter</property>
-                                        <signal name="changed" handler="on_day_changed" swapped="no"/>
-                                        <child>
-                                          <object class="GtkCellRendererText" id="daysComboRenderer"/>
-                                          <attributes>
-                                            <attribute name="text">0</attribute>
-                                          </attributes>
-                                        </child>
-                                      </object>
-                                      <packing>
-                                        <property name="expand">False</property>
-                                        <property name="fill">True</property>
-                                        <property name="position">1</property>
-                                      </packing>
+                                      <placeholder/>
                                     </child>
                                     <child>
-                                      <object class="GtkComboBox" id="yearCombobox">
-                                        <property name="visible">True</property>
-                                        <property name="can_focus">False</property>
-                                        <property name="model">years</property>
-                                        <signal name="changed" handler="on_year_changed" swapped="no"/>
-                                        <child>
-                                          <object class="GtkCellRendererText" id="yearsComboRenderer"/>
-                                          <attributes>
-                                            <attribute name="text">0</attribute>
-                                          </attributes>
-                                        </child>
-                                      </object>
-                                      <packing>
-                                        <property name="expand">False</property>
-                                        <property name="fill">True</property>
-                                        <property name="position">2</property>
-                                      </packing>
+                                      <placeholder/>
                                     </child>
                                   </object>
                                 </child>
@@ -655,6 +609,8 @@
   </object>
   <object class="GtkListStore" id="months">
     <columns>
+      <!-- column-name idx -->
+      <column type="guint"/>
       <!-- column-name name -->
       <column type="gchararray"/>
     </columns>
@@ -873,8 +829,10 @@
   </object>
   <object class="GtkListStore" id="years">
     <columns>
-      <!-- column-name number -->
+      <!-- column-name idx -->
       <column type="guint"/>
+      <!-- column-name year -->
+      <column type="gchararray"/>
     </columns>
   </object>
 </interface>
