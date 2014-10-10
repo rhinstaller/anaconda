@@ -1238,8 +1238,11 @@ if __name__ == "__main__":
                                      args=(ksdata.timezone, anaconda.storage, anaconda.bootloader)))
 
     threadMgr.add(AnacondaThread(name=constants.THREAD_WAIT_FOR_CONNECTING_NM, target=wait_for_connecting_NM_thread, args=(ksdata,)))
+
+    # Fallback to default for interactive or for a kickstart with no installation method.
+    fallback = not (flags.automatedInstall and ksdata.method.method)
     payloadMgr.restartThread(anaconda.storage, ksdata, anaconda.payload, anaconda.instClass,
-            fallback=not flags.automatedInstall)
+            fallback=fallback)
 
     # check if geolocation should be enabled for this type of installation
     use_geolocation = True

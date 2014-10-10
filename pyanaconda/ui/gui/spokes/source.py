@@ -507,7 +507,7 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler):
         """ WARNING: This can be called before _initialize is done, make sure that it
             doesn't access things that are not setup (eg. payload.*) until it is ready
         """
-        if flags.automatedInstall and self.ready and (not self.data.method.method or not self.payload.baseRepo):
+        if flags.automatedInstall and self.ready and not self.payload.baseRepo:
             return False
         else:
             return not self._error and self.ready and (self.data.method.method or self.payload.baseRepo)
