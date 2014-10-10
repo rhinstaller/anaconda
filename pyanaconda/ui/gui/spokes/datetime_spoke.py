@@ -692,9 +692,9 @@ class DatetimeSpoke(FirstbootSpokeMixIn, NormalSpoke):
 
     def _to_amPm(self, hours):
         if hours >= 12:
-            day_phase = "PM"
+            day_phase = _("PM")
         else:
-            day_phase = "AM"
+            day_phase = _("AM")
 
         new_hours = ((hours - 1) % 12) + 1
 
@@ -703,10 +703,10 @@ class DatetimeSpoke(FirstbootSpokeMixIn, NormalSpoke):
     def _to_24h(self, hours, day_phase):
         correction = 0
 
-        if day_phase == "AM" and hours == 12:
+        if day_phase == _("AM") and hours == 12:
             correction = -12
 
-        elif day_phase == "PM" and hours != 12:
+        elif day_phase == _("PM") and hours != 12:
             correction = 12
 
         return (hours + correction) % 24
