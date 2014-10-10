@@ -77,8 +77,8 @@ scratch-bumpver: po-empty
 	if [ ! -z "$(BZDEBUG)" ]; then \
 		opts="$${opts} -d" ; \
 	fi ; \
-	( cd $(srcdir) && scripts/makebumpver $${opts} ) || exit 1 ; \
-	$(MAKE) -C po $(PACKAGE_NAME).pot-update ; 
+	( cd $(srcdir) && scripts/makebumpver --skip-tx $${opts} ) || exit 1 ; \
+	$(MAKE) -C po $(PACKAGE_NAME).pot-update ;
 
 release:
 	$(MAKE) dist && $(MAKE) tag && git checkout -- $(srcdir)/po/$(PACKAGE_NAME).pot

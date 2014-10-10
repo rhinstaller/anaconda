@@ -3,7 +3,7 @@
 # makebumpver - Increment version number and add in RPM spec file changelog
 #               block.  Ensures rhel*-branch commits reference RHEL bugs.
 #
-# Copyright (C) 2009  Red Hat, Inc.
+# Copyright (C) 2009-2014  Red Hat, Inc.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU Lesser General Public License as published
@@ -34,6 +34,7 @@ import re
 import subprocess
 import sys
 import textwrap
+from ConfigParser import ConfigParser
 
 class MakeBumpVer:
     def __init__(self, *args, **kwargs):
@@ -79,11 +80,16 @@ class MakeBumpVer:
         self.spec = kwargs.get('spec')
         self.skip_acks = kwargs.get('skip_acks', False)
         self.skip_all = kwargs.get('skip_all', False)
+        self.tx_config = kwargs.get('tx_config')
+        self.skip_tx = kwargs.get("skip_tx", False)
 
         if self.skip_all:
             self.skip_acks = True
+            self.skip_tx = True
 
-        # RHEL release number or None
+        self.git_branch = None
+
+        # RHEL release number or None (also fills in self.git_branch)
         self.rhel = self._isRHEL()
 
     def _gitConfig(self, field):
@@ -109,6 +115,9 @@ class MakeBumpVer:
             return False
 
         fields = lines[0].split(' ')
+
+        if len(fields) == 2:
+            self.git_branch = fields[1]
 
         if len(fields) == 2 and fields[1].startswith('rhel'):
             branch_pattern=r"^rhel(\d+)-(.*)"
@@ -428,7 +437,40 @@ class MakeBumpVer:
         f.writelines(bottom)
         f.close()
 
+    def check_transifex(self):
+        """
+        Make sure that the transifex branch matches the current git branch
+
+        This is to prevent accidentally pushing translations to the wrong branch,
+        eg. when branching for a new release and .tx/config hasn't been updated
+        """
+        if not self.git_branch:
+            log.error("No git branch, cannot check transifex config")
+            return False
+
+        ret = True
+        section_name = "anaconda."+self.git_branch
+
+        config = ConfigParser()
+        config.read(self.tx_config)
+
+        if section_name not in config.sections():
+            log.error(".tx/config is missing the section for this branch: %s", section_name)
+            ret = False
+
+        # There should only be anaconda.<branch_name> and main sections
+        valid_sections = (section_name, "main")
+        for section in config.sections():
+            if section not in valid_sections:
+                log.error(".tx/config has an invalid section: %s", section)
+                ret = False
+
+        return ret
+
     def run(self):
+        if not self.skip_tx and not self.check_transifex():
+            sys.exit(1)
+
         newVersion = self._incrementVersion()
         fixedIn = "%s-%s-%s" % (self.name, newVersion, self.release)
         rpmlog = self._rpmLog(fixedIn)
@@ -448,6 +490,7 @@ def usage(cmd):
     sys.stdout.write("    -s, --skip-acks  Skip checking for rhel-X.X.X ack flag\n")
     sys.stdout.write("    -S, --skip-all   Skip all checks\n")
     sys.stdout.write("    -d, --debug      Turn on debug logging to stdout\n")
+    sys.stdout.write("    --skip-tx        Skip checking Transifex config for branch name\n")
     sys.stdout.write("\nThe -i switch is intended for use with utility commits that we do not need to\n")
     sys.stdout.write("reference in the spec file changelog.  The -m switch is used to map a Fedora\n")
     sys.stdout.write("BZ number to a RHEL BZ number for the spec file changelog.  Use -m if you have\n")
@@ -459,16 +502,17 @@ def main(argv):
     cwd = os.getcwd()
     configure = os.path.realpath(cwd + '/configure.ac')
     spec = os.path.realpath(cwd + '/anaconda.spec.in')
+    tx_config = os.path.realpath(cwd + '/.tx/config')
     name, version, release, bugreport = None, None, None, None
     ignore, bugmap = None, None
-    show_help, unknown, skip_acks, skip_all = False, False, False, False
+    show_help, unknown, skip_acks, skip_all, skip_tx = False, False, False, False, False
     opts = []
 
     try:
         opts, _args = getopt.getopt(sys.argv[1:], 'n:v:r:b:i:m:sSd?',
                                    ['name=', 'version=', 'release=',
                                     'bugreport=', 'ignore=', 'map=',
-                                    'debug', 'help'])
+                                    'debug', 'help', 'skip-tx'])
     except getopt.GetoptError:
         show_help = True
 
@@ -491,6 +535,8 @@ def main(argv):
             skip_all = True
         elif o in ('-d', '--debug'):
             log.setLevel(logging.DEBUG)
+        elif o in ('--skip-tx'):
+            skip_tx = True
         elif o in ('-?', '--help'):
             show_help = True
         else:
@@ -527,7 +573,7 @@ def main(argv):
     mbv = MakeBumpVer(name=name, version=version, release=release,
                       bugreport=bugreport, ignore=ignore, bugmap=bugmap,
                       configure=configure, spec=spec, skip_acks=skip_acks,
-                      skip_all=skip_all)
+                      skip_all=skip_all, tx_config=tx_config, skip_tx=skip_tx)
     mbv.run()
 
 if __name__ == "__main__":
