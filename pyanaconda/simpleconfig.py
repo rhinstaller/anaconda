@@ -47,6 +47,30 @@ def quote(s, always=False):
             return s
     return '"'+s.replace('"', '\\"')+'"'
 
+def find_comment(s):
+    """ Look for a # comment outside of a quoted string.
+        If there are no quotes, find the last # in the string.
+
+        :param str s: string to check for comment and quotes
+        :returns: index of comment or None
+        :rtype: int or None
+
+        Handles comments inside quotes and quotes inside quotes.
+    """
+    q = None
+    for i in range(len(s)):
+        if not q and s[i] == '#':
+            return i
+
+        # Ignore quotes inside other quotes
+        if s[i] in "'\"":
+            if s[i] == q:
+                q = None
+            elif q is None:
+                q = s[i]
+    return None
+
+
 class SimpleConfigFile(object):
     """ Edit values in a configuration file without changing comments.
         Supports KEY=VALUE lines and ignores everything else.
@@ -77,7 +101,7 @@ class SimpleConfigFile(object):
         with open(filename) as f:
             for line in f:
                 self._lines.append(line)
-                key, value = self._parseline(line)
+                key, value, _comment = self._parseline(line)
                 if key:
                     self.info[key] = value
 
@@ -120,27 +144,40 @@ class SimpleConfigFile(object):
         return self.info.get(uppercase_ASCII_string(key), "")
 
     def _parseline(self, line):
-        """ parse a line into a key, value pair
+        """ parse a line into a key, value and comment
+
+            :param str line: Line to be parsed
+            :returns: Tuple of key, value, comment
+            :rtype: tuple
+
             Handle comments and optionally unquote quoted strings
-            Returns (key, value) or (None, None)
-            key is always UPPERCASE
+            Returns (key, value, comment) or (None, None, comment)
+            key is always UPPERCASE and comment may by "" if none was found.
         """
         s = line.strip()
-        if '#' in s:
-            s = s[:s.find('#')] # remove from comment to EOL
-            s = s.strip()       # and any unnecessary whitespace
+        # Look for a # outside any quotes
+        comment = ""
+        comment_index = find_comment(s)
+        if comment_index is not None:
+            comment = s[comment_index:]
+            s = s[:comment_index]   # remove from comment to EOL
+
         key, eq, val = s.partition('=')
+        key = key.strip()
+        val = val.strip()
         if self.read_unquote:
             val = unquote(val)
         if key != '' and eq == '=':
-            return (uppercase_ASCII_string(key), val)
+            return (uppercase_ASCII_string(key), val, comment)
         else:
-            return (None, None)
+            return (None, None, comment)
 
     def _kvpair(self, key, comment=""):
         value = self.info[key]
         if self.write_quote or self.always_quote:
             value = quote(value, self.always_quote)
+        if comment:
+            comment = " " + comment
         return key + '=' + value + comment + "\n"
 
     def __str__(self):
@@ -150,17 +187,13 @@ class SimpleConfigFile(object):
         oldkeys = []
         s = ""
         for line in self._lines:
-            key = self._parseline(line)[0]
+            key, _value, comment = self._parseline(line)
             if key is None:
                 s += line
             else:
                 if key not in self.info:
                     continue
                 oldkeys.append(key)
-                if "#" in line:
-                    comment = " " + line[line.find("#"):]
-                else:
-                    comment = ""
                 s += self._kvpair(key, comment)
 
         # Add new keys
@@ -169,6 +202,3 @@ class SimpleConfigFile(object):
                 s += self._kvpair(key)
 
         return s
-
-
-
