@@ -300,6 +300,25 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Fri Oct 10 2014 Brian C. Lane <bcl@redhat.com> - 19.31.100-1
+- Get rid of an unused variable in the localization test. (clumens)
+  Related: rhbz#1044233
+- Import GUI-specific stuff only when running GUI in entropy handling
+  (vpodzime)
+  Related: rhbz#1073679
+- Always store the information about display mode in ksdata (vpodzime)
+  Related: rhbz#1073679
+- Make the date format locale-dependent in our GUI (vpodzime)
+  Resolves: rhbz#1044233
+- A function for resolving date format and order (vpodzime)
+  Related: rhbz#1044233
+- Switch to using the new help content path (mkolman)
+  Related: rhbz#1072033
+- Clear out custom storage ksdata after first attempt to apply it. (dlehman)
+  Resolves: rhbz#1144604
+- Take "RHEL Atomic Host" as rhel installclass (rvykydal)
+  Resolves: rhbz#1150410
+
 * Tue Oct 07 2014 Brian C. Lane <bcl@redhat.com> - 19.31.99-1
 - Use the /usr/share/anaconda/help for help content (mkolman)
   Related: rhbz#1072033

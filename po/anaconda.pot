@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: anaconda 19.31.98\n"
+"Project-Id-Version: anaconda 19.31.99\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
-"POT-Creation-Date: 2014-10-07 18:36-0700\n"
+"POT-Creation-Date: 2014-10-10 17:28-0700\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -832,21 +832,21 @@ msgid ""
 "additional %s is needed."
 msgstr ""
 
-#: pyanaconda/ui/lib/entropy.py:54
+#: pyanaconda/ui/lib/entropy.py:53
 msgid "The system needs more random data entropy"
 msgstr ""
 
-#: pyanaconda/ui/lib/entropy.py:70
+#: pyanaconda/ui/lib/entropy.py:62
 msgid "Entropy can be increased by typing randomly on keyboard"
 msgstr ""
 
-#: pyanaconda/ui/lib/entropy.py:81 pyanaconda/ui/lib/entropy.py:88
+#: pyanaconda/ui/lib/entropy.py:73 pyanaconda/ui/lib/entropy.py:80
 #, python-format
 msgid ""
 "Available entropy: %(av_entr)s, Required entropy: %(req_entr)s [%(pct)d %%]"
 msgstr ""
 
-#: pyanaconda/ui/lib/entropy.py:91
+#: pyanaconda/ui/lib/entropy.py:83
 msgid "Enough entropy gathered, please stop typing."
 msgstr ""
 
@@ -1165,51 +1165,51 @@ msgid "Install Destination"
 msgstr ""
 
 #: pyanaconda/ui/tui/spokes/storage.py:118
-#: pyanaconda/ui/gui/spokes/storage.py:411
+#: pyanaconda/ui/gui/spokes/storage.py:412
 msgid "No disks selected"
 msgstr ""
 
 #: pyanaconda/ui/tui/spokes/storage.py:121
-#: pyanaconda/ui/gui/spokes/storage.py:416
+#: pyanaconda/ui/gui/spokes/storage.py:417
 msgid "Kickstart insufficient"
 msgstr ""
 
 #: pyanaconda/ui/tui/spokes/storage.py:128
-#: pyanaconda/ui/gui/spokes/storage.py:427
+#: pyanaconda/ui/gui/spokes/storage.py:428
 msgid "Error checking storage configuration"
 msgstr ""
 
 #: pyanaconda/ui/tui/spokes/storage.py:130
-#: pyanaconda/ui/gui/spokes/storage.py:429
+#: pyanaconda/ui/gui/spokes/storage.py:430
 msgid "Warning checking storage configuration"
 msgstr ""
 
 #: pyanaconda/ui/tui/spokes/storage.py:133
-#: pyanaconda/ui/gui/spokes/storage.py:431
+#: pyanaconda/ui/gui/spokes/storage.py:432
 msgid "Automatic partitioning selected"
 msgstr ""
 
 #: pyanaconda/ui/tui/spokes/storage.py:135
-#: pyanaconda/ui/gui/spokes/storage.py:433
+#: pyanaconda/ui/gui/spokes/storage.py:434
 msgid "Custom partitioning selected"
 msgstr ""
 
 #: pyanaconda/ui/tui/spokes/storage.py:171
-#: pyanaconda/ui/gui/spokes/storage.py:677
+#: pyanaconda/ui/gui/spokes/storage.py:678
 msgid ""
 "No disks detected.  Please shut down the computer, connect at least one "
 "disk, and restart to complete installation."
 msgstr ""
 
 #: pyanaconda/ui/tui/spokes/storage.py:173
-#: pyanaconda/ui/gui/spokes/storage.py:679
+#: pyanaconda/ui/gui/spokes/storage.py:680
 msgid "No disks selected; please select at least one disk to install to."
 msgstr ""
 
 #: pyanaconda/ui/tui/spokes/storage.py:188
 #: pyanaconda/ui/tui/spokes/source.py:475
 #: pyanaconda/ui/gui/spokes/source.py:569
-#: pyanaconda/ui/gui/spokes/storage.py:635
+#: pyanaconda/ui/gui/spokes/storage.py:636
 msgid "Probing storage..."
 msgstr ""
 
@@ -1240,12 +1240,12 @@ msgid "Generating updated storage configuration"
 msgstr ""
 
 #: pyanaconda/ui/tui/spokes/storage.py:351
-#: pyanaconda/ui/tui/spokes/storage.py:364
+#: pyanaconda/ui/tui/spokes/storage.py:363
 #, python-format
 msgid "storage configuration failed: %s"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/storage.py:369
+#: pyanaconda/ui/tui/spokes/storage.py:367
 #: pyanaconda/ui/gui/spokes/storage.py:246
 msgid "Checking storage configuration..."
 msgstr ""
@@ -1273,8 +1273,8 @@ msgid "Timezone settings"
 msgstr ""
 
 #: pyanaconda/ui/tui/spokes/time.py:60
-#: pyanaconda/ui/gui/spokes/datetime_spoke.py:462
-#: pyanaconda/ui/gui/spokes/datetime_spoke.py:466
+#: pyanaconda/ui/gui/spokes/datetime_spoke.py:502
+#: pyanaconda/ui/gui/spokes/datetime_spoke.py:506
 #, python-format
 msgid "%s timezone"
 msgstr ""
@@ -1341,7 +1341,7 @@ msgstr ""
 
 #: pyanaconda/ui/tui/spokes/source.py:211
 #: pyanaconda/ui/tui/spokes/software.py:84
-#: pyanaconda/ui/gui/spokes/datetime_spoke.py:468
+#: pyanaconda/ui/gui/spokes/datetime_spoke.py:508
 #: pyanaconda/ui/gui/spokes/software.py:217
 #: pyanaconda/ui/gui/spokes/source.py:485
 msgid "Nothing selected"
@@ -1542,7 +1542,7 @@ msgid "Password set."
 msgstr ""
 
 #: pyanaconda/ui/gui/__init__.py:512 pyanaconda/ui/gui/spokes/software.py:417
-#: pyanaconda/ui/gui/spokes/storage.py:976
+#: pyanaconda/ui/gui/spokes/storage.py:977
 #: pyanaconda/ui/gui/spokes/lib/detailederror.py:59
 #: widgets/src/StandaloneWindow.c:54
 #: pyanaconda/ui/gui/spokes/welcome.glade.h:1
@@ -2038,23 +2038,40 @@ msgstr ""
 msgid "Note: pool servers may not be available all the time"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/datetime_spoke.py:355
+#: pyanaconda/ui/gui/spokes/datetime_spoke.py:376
 msgid "DATE & _TIME"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/datetime_spoke.py:453
+#: pyanaconda/ui/gui/spokes/datetime_spoke.py:493
 msgid "Restoring hardware time..."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/datetime_spoke.py:464
+#: pyanaconda/ui/gui/spokes/datetime_spoke.py:504
 msgid "Invalid timezone"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/datetime_spoke.py:975
+#: pyanaconda/ui/gui/spokes/datetime_spoke.py:674
+#: pyanaconda/ui/gui/spokes/datetime_spoke.py:688
+#: pyanaconda/ui/gui/spokes/datetime_spoke.py:872
+#: pyanaconda/ui/gui/spokes/datetime_spoke.py:880
+#: pyanaconda/ui/gui/spokes/datetime_spoke.glade.h:8
+msgid "PM"
+msgstr ""
+
+#: pyanaconda/ui/gui/spokes/datetime_spoke.py:676
+#: pyanaconda/ui/gui/spokes/datetime_spoke.py:685
+#: pyanaconda/ui/gui/spokes/datetime_spoke.py:871
+#: pyanaconda/ui/gui/spokes/datetime_spoke.py:874
+#: pyanaconda/ui/gui/spokes/datetime_spoke.py:879
+#: pyanaconda/ui/gui/spokes/datetime_spoke.py:882
+msgid "AM"
+msgstr ""
+
+#: pyanaconda/ui/gui/spokes/datetime_spoke.py:1014
 msgid "You need to set up networking first if you want to use NTP"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/datetime_spoke.py:980
+#: pyanaconda/ui/gui/spokes/datetime_spoke.py:1019
 msgid "You have no working NTP server configured"
 msgstr ""
 
@@ -2502,24 +2519,24 @@ msgstr ""
 msgid "Failed to save storage configuration..."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/storage.py:414
+#: pyanaconda/ui/gui/spokes/storage.py:415
 msgid "Not configured"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/storage.py:418
-#: pyanaconda/ui/gui/spokes/storage.py:710
+#: pyanaconda/ui/gui/spokes/storage.py:419
+#: pyanaconda/ui/gui/spokes/storage.py:711
 msgid "Formatting DASDs"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/storage.py:562
+#: pyanaconda/ui/gui/spokes/storage.py:563
 msgid "Error checking storage configuration.  Click for details."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/storage.py:564
+#: pyanaconda/ui/gui/spokes/storage.py:565
 msgid "Warning checking storage configuration.  Click for details."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/storage.py:609
+#: pyanaconda/ui/gui/spokes/storage.py:610
 #, python-format
 msgid ""
 "FCP device %(hba_id)s\n"
@@ -2527,46 +2544,46 @@ msgid ""
 "LUN %(lun)s"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/storage.py:619
+#: pyanaconda/ui/gui/spokes/storage.py:620
 #, python-format
 msgid "%s free"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/storage.py:664
+#: pyanaconda/ui/gui/spokes/storage.py:665
 #, python-format
 msgid "%(count)d disk selected; %(capacity)s capacity; %(free)s free"
 msgid_plural "%(count)d disks selected; %(capacity)s capacity; %(free)s free"
 msgstr[0] ""
 msgstr[1] ""
 
-#: pyanaconda/ui/gui/spokes/storage.py:747
+#: pyanaconda/ui/gui/spokes/storage.py:748
 msgid ""
 "You have chosen to skip boot loader installation.  Your system may not be "
 "bootable."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/storage.py:956
+#: pyanaconda/ui/gui/spokes/storage.py:957
 msgid "You'll be able to make space available during custom partitioning."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/storage.py:972
+#: pyanaconda/ui/gui/spokes/storage.py:973
 msgid ""
 "The following errors were encountered when checking your storage "
 "configuration.  You can modify your storage layout or quit the installer."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/storage.py:976
+#: pyanaconda/ui/gui/spokes/storage.py:977
 msgid "_Modify Storage Layout"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/storage.py:989
+#: pyanaconda/ui/gui/spokes/storage.py:990
 msgid ""
 "The following warnings were encountered when checking your storage "
 "configuration.  These are not fatal, but you may wish to make changes to "
 "your storage layout."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/storage.py:993
+#: pyanaconda/ui/gui/spokes/storage.py:994
 #: pyanaconda/ui/gui/spokes/advstorage/dasd.glade.h:2
 #: pyanaconda/ui/gui/spokes/lib/dasdfmt.glade.h:11
 msgid "_OK"
@@ -2859,10 +2876,6 @@ msgstr ""
 
 #: pyanaconda/ui/gui/spokes/datetime_spoke.glade.h:7
 msgid " "
-msgstr ""
-
-#: pyanaconda/ui/gui/spokes/datetime_spoke.glade.h:8
-msgid "PM"
 msgstr ""
 
 #: pyanaconda/ui/gui/spokes/datetime_spoke.glade.h:9
