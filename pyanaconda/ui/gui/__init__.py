@@ -18,7 +18,7 @@
 #
 # Red Hat Author(s): Chris Lumens <clumens@redhat.com>
 #
-import inspect, os, sys, time, site, signal, threading
+import inspect, os, sys, time, site, signal
 import meh.ui.gui
 
 from contextlib import contextmanager
