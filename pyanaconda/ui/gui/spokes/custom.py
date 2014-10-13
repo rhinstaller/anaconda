@@ -1165,7 +1165,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
             self._revert_reformat(device)
 
         # Handle size change
-        if changed_size and device.resizable:
+        if changed_size:
             self._handle_size_change(size, old_size, device)
 
         # it's possible that reformat is active but fstype is unchanged, in
