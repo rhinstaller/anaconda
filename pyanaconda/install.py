@@ -202,10 +202,16 @@ def doInstall(storage, payload, ksdata, instClass):
         with progress_report(_("Discovering realm to join")):
             ksdata.realm.setup()
 
+    # Check for additional packages
+    ksdata.authconfig.setup()
+    ksdata.firewall.setup()
+
     # anaconda requires storage packages in order to make sure the target
     # system is bootable and configurable, and some other packages in order
     # to finish setting up the system.
     packages = storage.packages + ksdata.realm.packages
+    packages += ksdata.authconfig.packages + ksdata.firewall.packages
+
     if willInstallBootloader:
         packages += storage.bootloader.packages
 
