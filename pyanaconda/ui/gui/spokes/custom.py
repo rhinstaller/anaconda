@@ -112,6 +112,13 @@ UNRECOVERABLE_ERROR_MSG = N_("Storage configuration reset due to unrecoverable "
                              "error. Click for details.")
 
 def dev_type_from_const(dev_type_const):
+    """ Return integer corresponding to name for device type defined as
+        a constant in blivet.devicefactory.
+
+        :param str dev_type_const: the name of a DEVICE_TYPE_*
+        :returns: the corresponding integer code, if there is one
+        :rtype: int or NoneType
+    """
     return getattr(devicefactory, dev_type_const, None)
 
 def ui_storage_logged(func):
@@ -1236,13 +1243,28 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
 
         map(really_show, [self._raidLevelLabel, self._raidLevelCombo])
 
-    def _get_current_device_type(self):
+    def _get_current_device_type_name(self):
+        """ Return name for type combo selection.
+
+            :returns: the corresponding name extracted from the combo
+            :rtype: str or NoneType
+        """
         itr = self._typeCombo.get_active_iter()
         if not itr:
             return None
 
         # we have the constant name in the second column of the store
-        return dev_type_from_const(self._typeStore[itr][1])
+        return self._typeStore[itr][1]
+
+    def _get_current_device_type(self):
+        """ Return integer for type combo selection.
+
+            :returns: the corresponding integer code, a constant in
+            blivet.devicefactory.
+            :rtype: int or NoneType
+        """
+        device_type_name = self._get_current_device_type_name()
+        return dev_type_from_const(device_type_name) if device_type_name else None
 
     def _update_container_info(self, use_dev):
         if hasattr(use_dev, "vg"):
