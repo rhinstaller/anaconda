@@ -722,18 +722,6 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         log.debug("resetting device %s", original_device.name)
         self._storage_playground.resetDevice(original_device)
 
-    def _bound_size(self, size, device):
-        # If no size was specified, we just want to grow to the maximum.
-        # But resizeDevice doesn't take None for a value.
-        if not size:
-            size = device.maxSize
-        elif size < device.minSize:
-            size = device.minSize
-        elif size > device.maxSize:
-            size = device.maxSize
-
-        return size
-
     @ui_storage_logged
     def _handle_size_change(self, size, old_size, device):
         """ Handle size change.
@@ -752,7 +740,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
             use_old_size = use_dev.size
 
         # bound size to boundaries given by the device
-        size = self._bound_size(use_size, use_dev)
+        size = storage_utils.bound_size(use_size, use_dev, use_old_size)
 
         # And then we need to re-check that the max size is actually
         # different from the current size.
