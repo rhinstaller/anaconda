@@ -985,7 +985,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         changed_raid_level = (old_device_type == device_type and
                               device_type in (DEVICE_TYPE_MD,
                                               DEVICE_TYPE_BTRFS) and
-                              old_raid_level != raid_level)
+                              old_raid_level is not raid_level)
         old_device_info["raid_level"] = old_raid_level
         new_device_info["raid_level"] = raid_level
 
