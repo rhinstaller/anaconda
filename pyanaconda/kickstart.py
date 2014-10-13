@@ -240,6 +240,14 @@ def refreshAutoSwapSize(storage):
 ###
 
 class Authconfig(commands.authconfig.FC3_Authconfig):
+    def __init__(self, *args, **kwargs):
+        commands.authconfig.FC3_Authconfig.__init__(self, *args, **kwargs)
+        self.packages = []
+
+    def setup(self):
+        if self.seen:
+            self.packages = ["authconfig"]
+
     def execute(self, *args):
         cmd = "/usr/sbin/authconfig"
         if not os.path.lexists(iutil.getSysroot()+cmd):
@@ -605,6 +613,14 @@ class Fcoe(commands.fcoe.RHEL7_Fcoe):
         return fc
 
 class Firewall(commands.firewall.F20_Firewall):
+    def __init__(self, *args, **kwargs):
+        commands.firewall.F20_Firewall.__init__(self, *args, **kwargs)
+        self.packages = []
+
+    def setup(self):
+        if self.seen:
+            self.packages = ["firewalld"]
+
     def execute(self, storage, ksdata, instClass):
         args = []
         # enabled is None if neither --enable or --disable is passed
