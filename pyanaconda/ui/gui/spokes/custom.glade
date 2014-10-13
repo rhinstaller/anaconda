@@ -2,7 +2,7 @@
 <!-- Generated with glade 3.18.3 -->
 <interface>
   <requires lib="gtk+" version="3.2"/>
-  <requires lib="AnacondaWidgets" version="1.0"/>
+  <requires lib="AnacondaWidgets" version="3.0"/>
   <object class="GtkListStore" id="containerStore">
     <columns>
       <!-- column-name description -->
@@ -10,82 +10,6 @@
       <!-- column-name freeSpace -->
       <column type="gchararray"/>
     </columns>
-  </object>
-  <object class="GtkListStore" id="deviceTypeStore">
-    <columns>
-      <!-- column-name description -->
-      <column type="gchararray"/>
-      <!-- column-name const_name -->
-      <column type="gchararray"/>
-    </columns>
-    <data>
-      <row>
-        <col id="0" translatable="yes">Standard Partition</col>
-        <col id="1">DEVICE_TYPE_PARTITION</col>
-      </row>
-      <row>
-        <col id="0" translatable="yes">BTRFS</col>
-        <col id="1">DEVICE_TYPE_BTRFS</col>
-      </row>
-      <row>
-        <col id="0" translatable="yes">LVM</col>
-        <col id="1">DEVICE_TYPE_LVM</col>
-      </row>
-      <row>
-        <col id="0" translatable="yes">RAID</col>
-        <col id="1">DEVICE_TYPE_MD</col>
-      </row>
-      <row>
-        <col id="0" translatable="yes">LVM Thin Provisioning</col>
-        <col id="1">DEVICE_TYPE_LVM_THINP</col>
-      </row>
-    </data>
-  </object>
-  <object class="GtkListStore" id="mountPointStore">
-    <columns>
-      <!-- column-name path -->
-      <column type="gchararray"/>
-    </columns>
-  </object>
-  <object class="GtkEntryCompletion" id="mountPointCompletion">
-    <property name="model">mountPointStore</property>
-  </object>
-  <object class="GtkListStore" id="raidLevelStore">
-    <columns>
-      <!-- column-name raidLevel -->
-      <column type="gchararray"/>
-      <!-- column-name canonRaidLevel -->
-      <column type="gchararray"/>
-    </columns>
-    <data>
-      <row>
-        <col id="0" translatable="yes">RAID0 &lt;span foreground="grey"&gt;(Performance)&lt;/span&gt;</col>
-        <col id="1">raid0</col>
-      </row>
-      <row>
-        <col id="0" translatable="yes">RAID1 &lt;span foreground="grey"&gt;(Redundancy)&lt;/span&gt;</col>
-        <col id="1">raid1</col>
-      </row>
-      <row>
-        <col id="0" translatable="yes">RAID4 &lt;span foreground="grey"&gt;(Error Checking)&lt;/span&gt;</col>
-        <col id="1">raid4</col>
-      </row>
-      <row>
-        <col id="0" translatable="yes">RAID5 &lt;span foreground="grey"&gt;(Distributed Error Checking)&lt;/span&gt;</col>
-        <col id="1">raid5</col>
-      </row>
-      <row>
-        <col id="0" translatable="yes">RAID6 &lt;span foreground="grey"&gt;(Redundant Error Checking)&lt;/span&gt;</col>
-        <col id="1">raid6</col>
-      </row>
-      <row>
-        <col id="0" translatable="yes">RAID10 &lt;span foreground="grey"&gt;(Performance, Redundancy)&lt;/span&gt;</col>
-        <col id="1">raid10</col>
-      </row>
-    </data>
-  </object>
-  <object class="GtkTreeModelFilter" id="raidStoreFiltered">
-    <property name="child_model">raidLevelStore</property>
   </object>
   <object class="AnacondaSpokeWindow" id="customStorageWindow">
     <property name="can_focus">False</property>
@@ -182,26 +106,54 @@
                           <placeholder/>
                         </child>
                         <child>
-                          <object class="GtkBox" id="configureBox">
+                          <object class="GtkBox" id="configSpecBox">
                             <property name="visible">True</property>
                             <property name="can_focus">False</property>
-                            <property name="hexpand">True</property>
                             <property name="orientation">vertical</property>
                             <property name="spacing">6</property>
                             <child>
-                              <object class="GtkBox" id="box2">
+                              <object class="GtkBox" id="headerBox">
                                 <property name="visible">True</property>
                                 <property name="can_focus">False</property>
+                                <property name="orientation">vertical</property>
                                 <child>
-                                  <object class="GtkLabel" id="selectedDeviceLabel">
+                                  <object class="GtkBox" id="titleBox">
                                     <property name="visible">True</property>
                                     <property name="can_focus">False</property>
-                                    <property name="yalign">0</property>
-                                    <property name="label" translatable="yes">Selected Device</property>
-                                    <attributes>
-                                      <attribute name="weight" value="bold"/>
-                                      <attribute name="scale" value="1.2"/>
-                                    </attributes>
+                                    <child>
+                                      <object class="GtkLabel" id="selectedDeviceLabel">
+                                        <property name="visible">True</property>
+                                        <property name="can_focus">False</property>
+                                        <property name="yalign">0</property>
+                                        <property name="label" translatable="yes">Selected Device</property>
+                                        <attributes>
+                                          <attribute name="weight" value="bold"/>
+                                          <attribute name="scale" value="1.2"/>
+                                        </attributes>
+                                      </object>
+                                      <packing>
+                                        <property name="expand">False</property>
+                                        <property name="fill">True</property>
+                                        <property name="position">0</property>
+                                      </packing>
+                                    </child>
+                                    <child>
+                                      <object class="GtkLabel" id="selectedDeviceDescLabel">
+                                        <property name="visible">True</property>
+                                        <property name="can_focus">False</property>
+                                        <property name="halign">end</property>
+                                        <property name="yalign">0</property>
+                                        <property name="label" translatable="yes">Device description</property>
+                                        <attributes>
+                                          <attribute name="style" value="italic"/>
+                                        </attributes>
+                                      </object>
+                                      <packing>
+                                        <property name="expand">True</property>
+                                        <property name="fill">True</property>
+                                        <property name="position">1</property>
+                                      </packing>
+                                    </child>
                                   </object>
                                   <packing>
                                     <property name="expand">False</property>
@@ -210,19 +162,14 @@
                                   </packing>
                                 </child>
                                 <child>
-                                  <object class="GtkLabel" id="selectedDeviceDescLabel">
+                                  <object class="GtkSeparator" id="separator1">
                                     <property name="visible">True</property>
                                     <property name="can_focus">False</property>
-                                    <property name="halign">end</property>
-                                    <property name="yalign">0</property>
-                                    <property name="label" translatable="yes">Device description</property>
-                                    <attributes>
-                                      <attribute name="style" value="italic"/>
-                                    </attributes>
                                   </object>
                                   <packing>
-                                    <property name="expand">True</property>
+                                    <property name="expand">False</property>
                                     <property name="fill">True</property>
+                                    <property name="padding">6</property>
                                     <property name="position">1</property>
                                   </packing>
                                 </child>
@@ -234,354 +181,650 @@
                               </packing>
                             </child>
                             <child>
-                              <object class="GtkSeparator" id="separator1">
+                              <object class="GtkGrid" id="grid4">
                                 <property name="visible">True</property>
                                 <property name="can_focus">False</property>
+                                <property name="row_spacing">36</property>
+                                <property name="column_spacing">24</property>
+                                <child>
+                                  <object class="GtkBox" id="firstLeftBox">
+                                    <property name="visible">True</property>
+                                    <property name="can_focus">False</property>
+                                    <property name="orientation">vertical</property>
+                                    <property name="spacing">6</property>
+                                    <child>
+                                      <object class="GtkBox" id="mountPointBox">
+                                        <property name="visible">True</property>
+                                        <property name="can_focus">False</property>
+                                        <property name="orientation">vertical</property>
+                                        <property name="spacing">3</property>
+                                        <child>
+                                          <object class="GtkLabel" id="mountPointLabel">
+                                            <property name="visible">True</property>
+                                            <property name="can_focus">False</property>
+                                            <property name="halign">start</property>
+                                            <property name="xalign">0</property>
+                                            <property name="label" translatable="yes">Mount _Point:</property>
+                                            <property name="use_underline">True</property>
+                                            <property name="mnemonic_widget">mountPointEntry</property>
+                                            <attributes>
+                                              <attribute name="weight" value="bold"/>
+                                            </attributes>
+                                          </object>
+                                          <packing>
+                                            <property name="expand">False</property>
+                                            <property name="fill">True</property>
+                                            <property name="position">0</property>
+                                          </packing>
+                                        </child>
+                                        <child>
+                                          <object class="GtkEntry" id="mountPointEntry">
+                                            <property name="visible">True</property>
+                                            <property name="can_focus">True</property>
+                                            <property name="halign">start</property>
+                                            <property name="invisible_char">●</property>
+                                            <property name="width_chars">20</property>
+                                            <property name="completion">mountPointCompletion</property>
+                                            <signal name="changed" handler="on_value_changed" swapped="no"/>
+                                          </object>
+                                          <packing>
+                                            <property name="expand">False</property>
+                                            <property name="fill">True</property>
+                                            <property name="position">1</property>
+                                          </packing>
+                                        </child>
+                                      </object>
+                                      <packing>
+                                        <property name="expand">False</property>
+                                        <property name="fill">True</property>
+                                        <property name="position">0</property>
+                                      </packing>
+                                    </child>
+                                    <child>
+                                      <object class="GtkBox" id="capacityBox">
+                                        <property name="visible">True</property>
+                                        <property name="can_focus">False</property>
+                                        <property name="orientation">vertical</property>
+                                        <property name="spacing">3</property>
+                                        <child>
+                                          <object class="GtkLabel" id="sizeLabel">
+                                            <property name="visible">True</property>
+                                            <property name="can_focus">False</property>
+                                            <property name="halign">start</property>
+                                            <property name="xalign">0</property>
+                                            <property name="label" translatable="yes">_Desired Capacity:</property>
+                                            <property name="use_underline">True</property>
+                                            <property name="mnemonic_widget">sizeEntry</property>
+                                            <attributes>
+                                              <attribute name="weight" value="bold"/>
+                                            </attributes>
+                                          </object>
+                                          <packing>
+                                            <property name="expand">False</property>
+                                            <property name="fill">True</property>
+                                            <property name="position">0</property>
+                                          </packing>
+                                        </child>
+                                        <child>
+                                          <object class="GtkEntry" id="sizeEntry">
+                                            <property name="visible">True</property>
+                                            <property name="can_focus">True</property>
+                                            <property name="halign">start</property>
+                                            <property name="invisible_char">●</property>
+                                            <property name="width_chars">10</property>
+                                            <signal name="changed" handler="on_value_changed" swapped="no"/>
+                                          </object>
+                                          <packing>
+                                            <property name="expand">False</property>
+                                            <property name="fill">True</property>
+                                            <property name="position">1</property>
+                                          </packing>
+                                        </child>
+                                      </object>
+                                      <packing>
+                                        <property name="expand">False</property>
+                                        <property name="fill">True</property>
+                                        <property name="position">1</property>
+                                      </packing>
+                                    </child>
+                                  </object>
+                                  <packing>
+                                    <property name="left_attach">0</property>
+                                    <property name="top_attach">0</property>
+                                  </packing>
+                                </child>
+                                <child>
+                                  <object class="GtkBox" id="labelBox">
+                                    <property name="visible">True</property>
+                                    <property name="can_focus">False</property>
+                                    <property name="orientation">vertical</property>
+                                    <property name="spacing">3</property>
+                                    <child>
+                                      <object class="GtkLabel" id="labelLabel">
+                                        <property name="visible">True</property>
+                                        <property name="can_focus">False</property>
+                                        <property name="xalign">0</property>
+                                        <property name="label" translatable="yes">_Label:</property>
+                                        <property name="use_underline">True</property>
+                                        <property name="mnemonic_widget">labelEntry</property>
+                                        <attributes>
+                                          <attribute name="weight" value="bold"/>
+                                        </attributes>
+                                      </object>
+                                      <packing>
+                                        <property name="expand">False</property>
+                                        <property name="fill">True</property>
+                                        <property name="position">0</property>
+                                      </packing>
+                                    </child>
+                                    <child>
+                                      <object class="GtkEntry" id="labelEntry">
+                                        <property name="visible">True</property>
+                                        <property name="can_focus">True</property>
+                                        <property name="halign">start</property>
+                                        <property name="max_length">20</property>
+                                        <property name="invisible_char">●</property>
+                                        <signal name="changed" handler="on_value_changed" swapped="no"/>
+                                      </object>
+                                      <packing>
+                                        <property name="expand">False</property>
+                                        <property name="fill">True</property>
+                                        <property name="position">1</property>
+                                      </packing>
+                                    </child>
+                                  </object>
+                                  <packing>
+                                    <property name="left_attach">0</property>
+                                    <property name="top_attach">2</property>
+                                  </packing>
+                                </child>
+                                <child>
+                                  <object class="GtkBox" id="devicesBox">
+                                    <property name="visible">True</property>
+                                    <property name="can_focus">False</property>
+                                    <property name="valign">start</property>
+                                    <property name="orientation">vertical</property>
+                                    <property name="spacing">3</property>
+                                    <child>
+                                      <object class="GtkLabel" id="devicesLabel">
+                                        <property name="visible">True</property>
+                                        <property name="can_focus">False</property>
+                                        <property name="halign">start</property>
+                                        <property name="valign">start</property>
+                                        <property name="xalign">0</property>
+                                        <property name="label" translatable="yes">Device(s):</property>
+                                        <attributes>
+                                          <attribute name="weight" value="bold"/>
+                                        </attributes>
+                                      </object>
+                                      <packing>
+                                        <property name="expand">False</property>
+                                        <property name="fill">True</property>
+                                        <property name="position">0</property>
+                                      </packing>
+                                    </child>
+                                    <child>
+                                      <object class="GtkLabel" id="deviceDescLabel">
+                                        <property name="visible">True</property>
+                                        <property name="can_focus">False</property>
+                                        <property name="valign">start</property>
+                                        <property name="xalign">0</property>
+                                        <property name="wrap">True</property>
+                                        <property name="width_chars">35</property>
+                                        <property name="angle">0.01</property>
+                                        <property name="max_width_chars">35</property>
+                                      </object>
+                                      <packing>
+                                        <property name="expand">False</property>
+                                        <property name="fill">True</property>
+                                        <property name="position">1</property>
+                                      </packing>
+                                    </child>
+                                    <child>
+                                      <object class="GtkButton" id="configureButton">
+                                        <property name="label" translatable="yes" context="GUI|Custom Partitioning|Configure|Devices">_Modify...</property>
+                                        <property name="visible">True</property>
+                                        <property name="can_focus">True</property>
+                                        <property name="receives_default">True</property>
+                                        <property name="halign">start</property>
+                                        <property name="valign">start</property>
+                                        <property name="use_underline">True</property>
+                                        <signal name="clicked" handler="on_configure_clicked" swapped="no"/>
+                                      </object>
+                                      <packing>
+                                        <property name="expand">False</property>
+                                        <property name="fill">True</property>
+                                        <property name="position">2</property>
+                                      </packing>
+                                    </child>
+                                  </object>
+                                  <packing>
+                                    <property name="left_attach">1</property>
+                                    <property name="top_attach">0</property>
+                                  </packing>
+                                </child>
+                                <child>
+                                  <object class="GtkBox" id="nameBox">
+                                    <property name="visible">True</property>
+                                    <property name="can_focus">False</property>
+                                    <property name="orientation">vertical</property>
+                                    <property name="spacing">3</property>
+                                    <child>
+                                      <object class="GtkLabel" id="nameLabel">
+                                        <property name="visible">True</property>
+                                        <property name="can_focus">False</property>
+                                        <property name="xalign">0</property>
+                                        <property name="label" translatable="yes">_Name:</property>
+                                        <property name="use_underline">True</property>
+                                        <property name="mnemonic_widget">nameEntry</property>
+                                        <attributes>
+                                          <attribute name="weight" value="bold"/>
+                                        </attributes>
+                                      </object>
+                                      <packing>
+                                        <property name="expand">False</property>
+                                        <property name="fill">True</property>
+                                        <property name="position">0</property>
+                                      </packing>
+                                    </child>
+                                    <child>
+                                      <object class="GtkEntry" id="nameEntry">
+                                        <property name="visible">True</property>
+                                        <property name="can_focus">True</property>
+                                        <property name="halign">start</property>
+                                        <property name="invisible_char">●</property>
+                                        <property name="width_chars">20</property>
+                                        <signal name="changed" handler="on_value_changed" swapped="no"/>
+                                      </object>
+                                      <packing>
+                                        <property name="expand">False</property>
+                                        <property name="fill">True</property>
+                                        <property name="position">1</property>
+                                      </packing>
+                                    </child>
+                                  </object>
+                                  <packing>
+                                    <property name="left_attach">1</property>
+                                    <property name="top_attach">2</property>
+                                  </packing>
+                                </child>
+                                <child>
+                                  <object class="GtkBox" id="secondLeftBox">
+                                    <property name="visible">True</property>
+                                    <property name="can_focus">False</property>
+                                    <property name="orientation">vertical</property>
+                                    <property name="spacing">6</property>
+                                    <child>
+                                      <object class="GtkBox" id="deviceSpecBox">
+                                        <property name="visible">True</property>
+                                        <property name="can_focus">False</property>
+                                        <property name="spacing">6</property>
+                                        <child>
+                                          <object class="GtkBox" id="deviceTypeBox">
+                                            <property name="visible">True</property>
+                                            <property name="can_focus">False</property>
+                                            <property name="orientation">vertical</property>
+                                            <property name="spacing">3</property>
+                                            <child>
+                                              <object class="GtkLabel" id="deviceTypeLabel">
+                                                <property name="visible">True</property>
+                                                <property name="can_focus">False</property>
+                                                <property name="xalign">0</property>
+                                                <property name="label" translatable="yes" context="GUI|Custom Partitioning|Configure">Device _Type:</property>
+                                                <property name="use_underline">True</property>
+                                                <property name="mnemonic_widget">deviceTypeCombo</property>
+                                                <attributes>
+                                                  <attribute name="weight" value="bold"/>
+                                                </attributes>
+                                              </object>
+                                              <packing>
+                                                <property name="expand">False</property>
+                                                <property name="fill">True</property>
+                                                <property name="position">0</property>
+                                              </packing>
+                                            </child>
+                                            <child>
+                                              <object class="GtkComboBox" id="deviceTypeCombo">
+                                                <property name="visible">True</property>
+                                                <property name="can_focus">False</property>
+                                                <property name="model">deviceTypeStore</property>
+                                                <signal name="changed" handler="on_device_type_changed" swapped="no"/>
+                                                <signal name="changed" handler="on_value_changed" swapped="no"/>
+                                                <child>
+                                                  <object class="GtkCellRendererText" id="deviceTypeRenderer"/>
+                                                  <attributes>
+                                                    <attribute name="text">0</attribute>
+                                                  </attributes>
+                                                </child>
+                                              </object>
+                                              <packing>
+                                                <property name="expand">False</property>
+                                                <property name="fill">True</property>
+                                                <property name="position">1</property>
+                                              </packing>
+                                            </child>
+                                          </object>
+                                          <packing>
+                                            <property name="expand">False</property>
+                                            <property name="fill">True</property>
+                                            <property name="position">0</property>
+                                          </packing>
+                                        </child>
+                                        <child>
+                                          <object class="GtkCheckButton" id="encryptCheckbox">
+                                            <property name="label" translatable="yes" context="GUI|Custom Partitioning|Configure">_Encrypt</property>
+                                            <property name="visible">True</property>
+                                            <property name="can_focus">True</property>
+                                            <property name="receives_default">False</property>
+                                            <property name="halign">start</property>
+                                            <property name="valign">end</property>
+                                            <property name="margin_bottom">3</property>
+                                            <property name="use_underline">True</property>
+                                            <property name="xalign">0</property>
+                                            <property name="draw_indicator">True</property>
+                                            <signal name="toggled" handler="on_value_changed" swapped="no"/>
+                                          </object>
+                                          <packing>
+                                            <property name="expand">False</property>
+                                            <property name="fill">True</property>
+                                            <property name="position">1</property>
+                                          </packing>
+                                        </child>
+                                      </object>
+                                      <packing>
+                                        <property name="expand">False</property>
+                                        <property name="fill">True</property>
+                                        <property name="position">0</property>
+                                      </packing>
+                                    </child>
+                                    <child>
+                                      <object class="GtkBox" id="fsSpecBox">
+                                        <property name="visible">True</property>
+                                        <property name="can_focus">False</property>
+                                        <property name="spacing">6</property>
+                                        <child>
+                                          <object class="GtkBox" id="fsBox">
+                                            <property name="visible">True</property>
+                                            <property name="can_focus">False</property>
+                                            <property name="orientation">vertical</property>
+                                            <property name="spacing">3</property>
+                                            <child>
+                                              <object class="GtkLabel" id="fileSystemTypeLabel">
+                                                <property name="visible">True</property>
+                                                <property name="can_focus">False</property>
+                                                <property name="xalign">0</property>
+                                                <property name="label" translatable="yes" context="GUI|Custom Partitioning|Configure">File S_ystem:</property>
+                                                <property name="use_underline">True</property>
+                                                <property name="mnemonic_widget">fileSystemTypeCombo</property>
+                                                <attributes>
+                                                  <attribute name="weight" value="bold"/>
+                                                </attributes>
+                                              </object>
+                                              <packing>
+                                                <property name="expand">False</property>
+                                                <property name="fill">True</property>
+                                                <property name="position">0</property>
+                                              </packing>
+                                            </child>
+                                            <child>
+                                              <object class="GtkComboBoxText" id="fileSystemTypeCombo">
+                                                <property name="visible">True</property>
+                                                <property name="can_focus">False</property>
+                                                <signal name="changed" handler="on_fs_type_changed" swapped="no"/>
+                                                <signal name="changed" handler="on_value_changed" swapped="no"/>
+                                              </object>
+                                              <packing>
+                                                <property name="expand">False</property>
+                                                <property name="fill">True</property>
+                                                <property name="position">1</property>
+                                              </packing>
+                                            </child>
+                                          </object>
+                                          <packing>
+                                            <property name="expand">False</property>
+                                            <property name="fill">True</property>
+                                            <property name="position">0</property>
+                                          </packing>
+                                        </child>
+                                        <child>
+                                          <object class="GtkCheckButton" id="reformatCheckbox">
+                                            <property name="label" translatable="yes" context="GUI|Custom Partitioning|Configure">Ref_ormat</property>
+                                            <property name="visible">True</property>
+                                            <property name="can_focus">True</property>
+                                            <property name="receives_default">False</property>
+                                            <property name="valign">end</property>
+                                            <property name="margin_bottom">3</property>
+                                            <property name="use_underline">True</property>
+                                            <property name="xalign">0</property>
+                                            <property name="draw_indicator">True</property>
+                                            <signal name="toggled" handler="on_reformat_toggled" swapped="no"/>
+                                            <signal name="toggled" handler="on_value_changed" swapped="no"/>
+                                          </object>
+                                          <packing>
+                                            <property name="expand">False</property>
+                                            <property name="fill">True</property>
+                                            <property name="position">1</property>
+                                          </packing>
+                                        </child>
+                                      </object>
+                                      <packing>
+                                        <property name="expand">False</property>
+                                        <property name="fill">True</property>
+                                        <property name="position">1</property>
+                                      </packing>
+                                    </child>
+                                  </object>
+                                  <packing>
+                                    <property name="left_attach">0</property>
+                                    <property name="top_attach">1</property>
+                                  </packing>
+                                </child>
+                                <child>
+                                  <object class="GtkBox" id="secondRightBox">
+                                    <property name="visible">True</property>
+                                    <property name="can_focus">False</property>
+                                    <property name="orientation">vertical</property>
+                                    <property name="spacing">6</property>
+                                    <child>
+                                      <object class="GtkBox" id="vgSpecBox">
+                                        <property name="visible">True</property>
+                                        <property name="can_focus">False</property>
+                                        <property name="orientation">vertical</property>
+                                        <property name="spacing">6</property>
+                                        <child>
+                                          <object class="GtkBox" id="vgBox">
+                                            <property name="visible">True</property>
+                                            <property name="can_focus">False</property>
+                                            <property name="orientation">vertical</property>
+                                            <property name="spacing">3</property>
+                                            <child>
+                                              <object class="GtkLabel" id="containerLabel">
+                                                <property name="visible">True</property>
+                                                <property name="can_focus">False</property>
+                                                <property name="xalign">0</property>
+                                                <property name="label" translatable="yes" context="GUI|Custom Partitioning|Configure">_Volume Group:</property>
+                                                <property name="use_underline">True</property>
+                                                <property name="mnemonic_widget">containerCombo</property>
+                                                <attributes>
+                                                  <attribute name="weight" value="bold"/>
+                                                </attributes>
+                                              </object>
+                                              <packing>
+                                                <property name="expand">False</property>
+                                                <property name="fill">True</property>
+                                                <property name="position">0</property>
+                                              </packing>
+                                            </child>
+                                            <child>
+                                              <object class="GtkComboBox" id="containerCombo">
+                                                <property name="visible">True</property>
+                                                <property name="can_focus">False</property>
+                                                <property name="model">containerStore</property>
+                                                <signal name="changed" handler="on_container_changed" swapped="no"/>
+                                                <signal name="changed" handler="on_value_changed" swapped="no"/>
+                                                <child>
+                                                  <object class="GtkCellRendererText" id="descRenderer"/>
+                                                  <attributes>
+                                                    <attribute name="text">0</attribute>
+                                                  </attributes>
+                                                </child>
+                                                <child>
+                                                  <object class="GtkCellRendererText" id="freeSpaceRenderer">
+                                                    <property name="xalign">1</property>
+                                                    <property name="foreground">grey</property>
+                                                  </object>
+                                                  <attributes>
+                                                    <attribute name="markup">1</attribute>
+                                                  </attributes>
+                                                </child>
+                                              </object>
+                                              <packing>
+                                                <property name="expand">False</property>
+                                                <property name="fill">True</property>
+                                                <property name="position">1</property>
+                                              </packing>
+                                            </child>
+                                          </object>
+                                          <packing>
+                                            <property name="expand">False</property>
+                                            <property name="fill">True</property>
+                                            <property name="position">0</property>
+                                          </packing>
+                                        </child>
+                                        <child>
+                                          <object class="GtkButton" id="modifyContainerButton">
+                                            <!-- check_accelerators: configureButton -->
+                                            <property name="label" translatable="yes" context="GUI|Custom Partitioning|Configure">_Modify...</property>
+                                            <property name="visible">True</property>
+                                            <property name="can_focus">True</property>
+                                            <property name="receives_default">True</property>
+                                            <property name="halign">start</property>
+                                            <property name="use_underline">True</property>
+                                            <signal name="clicked" handler="on_modify_container_clicked" swapped="no"/>
+                                          </object>
+                                          <packing>
+                                            <property name="expand">False</property>
+                                            <property name="fill">True</property>
+                                            <property name="position">1</property>
+                                          </packing>
+                                        </child>
+                                      </object>
+                                      <packing>
+                                        <property name="expand">False</property>
+                                        <property name="fill">True</property>
+                                        <property name="position">0</property>
+                                      </packing>
+                                    </child>
+                                    <child>
+                                      <object class="GtkBox" id="raidBox">
+                                        <property name="visible">True</property>
+                                        <property name="can_focus">False</property>
+                                        <property name="orientation">vertical</property>
+                                        <property name="spacing">3</property>
+                                        <child>
+                                          <object class="GtkLabel" id="raidLevelLabel">
+                                            <property name="visible">True</property>
+                                            <property name="can_focus">False</property>
+                                            <property name="xalign">0</property>
+                                            <property name="label" translatable="yes" context="GUI|Custom Partitioning|Configure">RA_ID Level:</property>
+                                            <property name="use_underline">True</property>
+                                            <property name="mnemonic_widget">raidLevelCombo</property>
+                                            <attributes>
+                                              <attribute name="weight" value="bold"/>
+                                            </attributes>
+                                          </object>
+                                          <packing>
+                                            <property name="expand">False</property>
+                                            <property name="fill">True</property>
+                                            <property name="position">0</property>
+                                          </packing>
+                                        </child>
+                                        <child>
+                                          <object class="GtkComboBox" id="raidLevelCombo">
+                                            <property name="visible">True</property>
+                                            <property name="can_focus">False</property>
+                                            <property name="model">raidStoreFiltered</property>
+                                            <signal name="changed" handler="on_value_changed" swapped="no"/>
+                                            <child>
+                                              <object class="GtkCellRendererText" id="raidLevelRenderer"/>
+                                              <attributes>
+                                                <attribute name="markup">0</attribute>
+                                              </attributes>
+                                            </child>
+                                          </object>
+                                          <packing>
+                                            <property name="expand">False</property>
+                                            <property name="fill">True</property>
+                                            <property name="position">1</property>
+                                          </packing>
+                                        </child>
+                                      </object>
+                                      <packing>
+                                        <property name="expand">False</property>
+                                        <property name="fill">True</property>
+                                        <property name="position">1</property>
+                                      </packing>
+                                    </child>
+                                  </object>
+                                  <packing>
+                                    <property name="left_attach">1</property>
+                                    <property name="top_attach">1</property>
+                                  </packing>
+                                </child>
                               </object>
                               <packing>
                                 <property name="expand">False</property>
                                 <property name="fill">True</property>
-                                <property name="padding">6</property>
                                 <property name="position">1</property>
                               </packing>
                             </child>
                             <child>
-                              <object class="GtkGrid" id="grid5">
+                              <object class="GtkBox" id="updateBox">
                                 <property name="visible">True</property>
                                 <property name="can_focus">False</property>
-                                <property name="row_spacing">6</property>
-                                <property name="column_spacing">6</property>
+                                <property name="valign">end</property>
+                                <property name="hexpand">True</property>
+                                <property name="vexpand">True</property>
+                                <property name="orientation">vertical</property>
+                                <property name="spacing">6</property>
                                 <child>
-                                  <object class="GtkLabel" id="mountPointLabel">
+                                  <object class="GtkButton" id="applyButton">
+                                    <property name="label" translatable="yes">_Update Settings</property>
                                     <property name="visible">True</property>
-                                    <property name="can_focus">False</property>
-                                    <property name="xalign">0</property>
-                                    <property name="label" translatable="yes" context="GUI|Custom Partitioning|Configure">Mount _Point:</property>
-                                    <property name="use_underline">True</property>
-                                    <property name="mnemonic_widget">mountPointEntry</property>
-                                    <attributes>
-                                      <attribute name="weight" value="bold"/>
-                                    </attributes>
-                                  </object>
-                                  <packing>
-                                    <property name="left_attach">0</property>
-                                    <property name="top_attach">1</property>
-                                  </packing>
-                                </child>
-                                <child>
-                                  <object class="GtkEntry" id="mountPointEntry">
-                                    <property name="visible">True</property>
+                                    <property name="sensitive">False</property>
                                     <property name="can_focus">True</property>
-                                    <property name="hexpand">True</property>
-                                    <property name="invisible_char">●</property>
-                                    <property name="completion">mountPointCompletion</property>
-                                    <signal name="changed" handler="on_value_changed" swapped="no"/>
-                                  </object>
-                                  <packing>
-                                    <property name="left_attach">1</property>
-                                    <property name="top_attach">1</property>
-                                  </packing>
-                                </child>
-                                <child>
-                                  <object class="GtkLabel" id="labelLabel">
-                                    <property name="visible">True</property>
-                                    <property name="can_focus">False</property>
-                                    <property name="xalign">0</property>
-                                    <property name="label" translatable="yes" context="GUI|Custom Partitioning|Configure">_Label:</property>
+                                    <property name="receives_default">True</property>
+                                    <property name="halign">end</property>
+                                    <property name="valign">start</property>
+                                    <property name="margin_top">30</property>
                                     <property name="use_underline">True</property>
-                                    <property name="mnemonic_widget">labelEntry</property>
-                                    <attributes>
-                                      <attribute name="weight" value="bold"/>
-                                    </attributes>
+                                    <signal name="clicked" handler="on_update_settings_clicked" swapped="no"/>
                                   </object>
                                   <packing>
-                                    <property name="left_attach">0</property>
-                                    <property name="top_attach">2</property>
+                                    <property name="expand">False</property>
+                                    <property name="fill">True</property>
+                                    <property name="position">0</property>
                                   </packing>
                                 </child>
                                 <child>
-                                  <object class="GtkEntry" id="labelEntry">
-                                    <property name="visible">True</property>
-                                    <property name="can_focus">True</property>
-                                    <property name="hexpand">True</property>
-                                    <property name="invisible_char">●</property>
-                                    <signal name="changed" handler="on_value_changed" swapped="no"/>
-                                  </object>
-                                  <packing>
-                                    <property name="left_attach">1</property>
-                                    <property name="top_attach">2</property>
-                                  </packing>
-                                </child>
-                                <child>
-                                  <object class="GtkLabel" id="nameLabel1">
-                                    <property name="visible">True</property>
-                                    <property name="can_focus">False</property>
-                                    <property name="xalign">0</property>
-                                    <property name="label" translatable="yes" context="GUI|Custom Partitioning|Configure">_Name:</property>
-                                    <property name="use_underline">True</property>
-                                    <property name="mnemonic_widget">nameEntry</property>
-                                    <attributes>
-                                      <attribute name="weight" value="bold"/>
-                                    </attributes>
-                                  </object>
-                                  <packing>
-                                    <property name="left_attach">0</property>
-                                    <property name="top_attach">0</property>
-                                  </packing>
-                                </child>
-                                <child>
-                                  <object class="GtkEntry" id="nameEntry">
-                                    <property name="visible">True</property>
-                                    <property name="can_focus">True</property>
-                                    <property name="invisible_char">●</property>
-                                    <signal name="changed" handler="on_value_changed" swapped="no"/>
-                                  </object>
-                                  <packing>
-                                    <property name="left_attach">1</property>
-                                    <property name="top_attach">0</property>
-                                  </packing>
-                                </child>
-                                <child>
-                                  <object class="GtkLabel" id="sizeLabel">
+                                  <object class="GtkLabel" id="label4">
                                     <property name="visible">True</property>
                                     <property name="can_focus">False</property>
                                     <property name="halign">end</property>
-                                    <property name="xalign">0</property>
-                                    <property name="label" translatable="yes" context="GUI|Custom Partitioning|Configure">_Desired Capacity:</property>
-                                    <property name="use_underline">True</property>
-                                    <property name="mnemonic_widget">sizeEntry</property>
+                                    <property name="xalign">1</property>
+                                    <property name="label" translatable="yes">Note:  The settings you make on this screen will not be applied until you click on the main menu's 'Begin Installation' button.</property>
+                                    <property name="justify">right</property>
+                                    <property name="wrap">True</property>
+                                    <property name="width_chars">39</property>
+                                    <property name="max_width_chars">39</property>
                                     <attributes>
-                                      <attribute name="weight" value="bold"/>
+                                      <attribute name="font-desc" value="Cantarell Italic 10"/>
                                     </attributes>
                                   </object>
                                   <packing>
-                                    <property name="left_attach">0</property>
-                                    <property name="top_attach">3</property>
-                                  </packing>
-                                </child>
-                                <child>
-                                  <object class="GtkEntry" id="sizeEntry">
-                                    <property name="visible">True</property>
-                                    <property name="can_focus">True</property>
-                                    <property name="halign">start</property>
-                                    <property name="invisible_char">●</property>
-                                    <property name="width_chars">20</property>
-                                    <signal name="changed" handler="on_value_changed" swapped="no"/>
-                                  </object>
-                                  <packing>
-                                    <property name="left_attach">1</property>
-                                    <property name="top_attach">3</property>
-                                  </packing>
-                                </child>
-                                <child>
-                                  <object class="GtkGrid" id="grid3">
-                                    <property name="visible">True</property>
-                                    <property name="can_focus">False</property>
-                                    <property name="row_spacing">6</property>
-                                    <property name="column_spacing">6</property>
-                                    <child>
-                                      <object class="GtkLabel" id="deviceTypeLabel">
-                                        <property name="visible">True</property>
-                                        <property name="can_focus">False</property>
-                                        <property name="xalign">0</property>
-                                        <property name="label" translatable="yes" context="GUI|Custom Partitioning|Configure">Device _Type:</property>
-                                        <property name="use_underline">True</property>
-                                        <property name="mnemonic_widget">deviceTypeCombo</property>
-                                        <attributes>
-                                          <attribute name="weight" value="bold"/>
-                                        </attributes>
-                                      </object>
-                                      <packing>
-                                        <property name="left_attach">0</property>
-                                        <property name="top_attach">0</property>
-                                      </packing>
-                                    </child>
-                                    <child>
-                                      <object class="GtkLabel" id="fileSystemTypeLabel">
-                                        <property name="visible">True</property>
-                                        <property name="can_focus">False</property>
-                                        <property name="xalign">0</property>
-                                        <property name="label" translatable="yes" context="GUI|Custom Partitioning|Configure">File S_ystem:</property>
-                                        <property name="use_underline">True</property>
-                                        <property name="mnemonic_widget">fileSystemTypeCombo</property>
-                                        <attributes>
-                                          <attribute name="weight" value="bold"/>
-                                        </attributes>
-                                      </object>
-                                      <packing>
-                                        <property name="left_attach">0</property>
-                                        <property name="top_attach">1</property>
-                                      </packing>
-                                    </child>
-                                    <child>
-                                      <object class="GtkComboBox" id="deviceTypeCombo">
-                                        <property name="visible">True</property>
-                                        <property name="can_focus">False</property>
-                                        <property name="hexpand">True</property>
-                                        <property name="model">deviceTypeStore</property>
-                                        <signal name="changed" handler="on_device_type_changed" swapped="no"/>
-                                        <signal name="changed" handler="on_value_changed" swapped="no"/>
-                                        <child>
-                                          <object class="GtkCellRendererText" id="deviceTypeRenderer"/>
-                                          <attributes>
-                                            <attribute name="text">0</attribute>
-                                          </attributes>
-                                        </child>
-                                      </object>
-                                      <packing>
-                                        <property name="left_attach">1</property>
-                                        <property name="top_attach">0</property>
-                                      </packing>
-                                    </child>
-                                    <child>
-                                      <object class="GtkComboBoxText" id="fileSystemTypeCombo">
-                                        <property name="visible">True</property>
-                                        <property name="can_focus">False</property>
-                                        <property name="hexpand">True</property>
-                                        <signal name="changed" handler="on_fs_type_changed" swapped="no"/>
-                                        <signal name="changed" handler="on_value_changed" swapped="no"/>
-                                      </object>
-                                      <packing>
-                                        <property name="left_attach">1</property>
-                                        <property name="top_attach">1</property>
-                                      </packing>
-                                    </child>
-                                    <child>
-                                      <object class="GtkCheckButton" id="encryptCheckbox">
-                                        <property name="label" translatable="yes" context="GUI|Custom Partitioning|Configure">_Encrypt</property>
-                                        <property name="visible">True</property>
-                                        <property name="can_focus">True</property>
-                                        <property name="receives_default">False</property>
-                                        <property name="halign">start</property>
-                                        <property name="use_underline">True</property>
-                                        <property name="xalign">0</property>
-                                        <property name="draw_indicator">True</property>
-                                        <signal name="toggled" handler="on_value_changed" swapped="no"/>
-                                      </object>
-                                      <packing>
-                                        <property name="left_attach">2</property>
-                                        <property name="top_attach">0</property>
-                                      </packing>
-                                    </child>
-                                    <child>
-                                      <object class="GtkCheckButton" id="reformatCheckbox">
-                                        <property name="label" translatable="yes" context="GUI|Custom Partitioning|Configure">Ref_ormat</property>
-                                        <property name="visible">True</property>
-                                        <property name="can_focus">True</property>
-                                        <property name="receives_default">False</property>
-                                        <property name="use_underline">True</property>
-                                        <property name="xalign">0</property>
-                                        <property name="draw_indicator">True</property>
-                                        <signal name="toggled" handler="on_reformat_toggled" swapped="no"/>
-                                        <signal name="toggled" handler="on_value_changed" swapped="no"/>
-                                      </object>
-                                      <packing>
-                                        <property name="left_attach">2</property>
-                                        <property name="top_attach">1</property>
-                                      </packing>
-                                    </child>
-                                    <child>
-                                      <object class="GtkLabel" id="containerLabel">
-                                        <property name="visible">True</property>
-                                        <property name="can_focus">False</property>
-                                        <property name="xalign">0</property>
-                                        <property name="label" translatable="yes" context="GUI|Custom Partitioning|Configure">Volume _Group:</property>
-                                        <property name="use_underline">True</property>
-                                        <property name="mnemonic_widget">containerCombo</property>
-                                        <attributes>
-                                          <attribute name="weight" value="bold"/>
-                                        </attributes>
-                                      </object>
-                                      <packing>
-                                        <property name="left_attach">0</property>
-                                        <property name="top_attach">2</property>
-                                      </packing>
-                                    </child>
-                                    <child>
-                                      <object class="GtkButton" id="modifyContainerButton">
-                                        <property name="label" translatable="yes" context="GUI|Custom Partitioning|Configure">_Modify...</property>
-                                        <property name="visible">True</property>
-                                        <property name="can_focus">True</property>
-                                        <property name="receives_default">True</property>
-                                        <property name="use_underline">True</property>
-                                        <signal name="clicked" handler="on_modify_container_clicked" swapped="no"/>
-                                      </object>
-                                      <packing>
-                                        <property name="left_attach">2</property>
-                                        <property name="top_attach">2</property>
-                                      </packing>
-                                    </child>
-                                    <child>
-                                      <object class="GtkLabel" id="raidLevelLabel">
-                                        <property name="visible">True</property>
-                                        <property name="can_focus">False</property>
-                                        <property name="xalign">0</property>
-                                        <property name="label" translatable="yes" context="GUI|Custom Partitioning|Configure">RA_ID Level:</property>
-                                        <property name="use_underline">True</property>
-                                        <property name="mnemonic_widget">raidLevelCombo</property>
-                                        <attributes>
-                                          <attribute name="weight" value="bold"/>
-                                        </attributes>
-                                      </object>
-                                      <packing>
-                                        <property name="left_attach">0</property>
-                                        <property name="top_attach">3</property>
-                                      </packing>
-                                    </child>
-                                    <child>
-                                      <object class="GtkComboBox" id="raidLevelCombo">
-                                        <property name="visible">True</property>
-                                        <property name="can_focus">False</property>
-                                        <property name="model">raidStoreFiltered</property>
-                                        <signal name="changed" handler="on_value_changed" swapped="no"/>
-                                        <child>
-                                          <object class="GtkCellRendererText" id="raidLevelRenderer"/>
-                                          <attributes>
-                                            <attribute name="markup">0</attribute>
-                                          </attributes>
-                                        </child>
-                                      </object>
-                                      <packing>
-                                        <property name="left_attach">1</property>
-                                        <property name="top_attach">3</property>
-                                      </packing>
-                                    </child>
-                                    <child>
-                                      <object class="GtkComboBox" id="containerCombo">
-                                        <property name="visible">True</property>
-                                        <property name="can_focus">False</property>
-                                        <property name="model">containerStore</property>
-                                        <signal name="changed" handler="on_container_changed" swapped="no"/>
-                                        <signal name="changed" handler="on_value_changed" swapped="no"/>
-                                        <child>
-                                          <object class="GtkCellRendererText" id="descRenderer"/>
-                                          <attributes>
-                                            <attribute name="text">0</attribute>
-                                          </attributes>
-                                        </child>
-                                        <child>
-                                          <object class="GtkCellRendererText" id="freeSpaceRenderer">
-                                            <property name="xalign">1</property>
-                                            <property name="foreground">grey</property>
-                                          </object>
-                                          <attributes>
-                                            <attribute name="markup">1</attribute>
-                                          </attributes>
-                                        </child>
-                                      </object>
-                                      <packing>
-                                        <property name="left_attach">1</property>
-                                        <property name="top_attach">2</property>
-                                      </packing>
-                                    </child>
-                                    <child>
-                                      <placeholder/>
-                                    </child>
-                                  </object>
-                                  <packing>
-                                    <property name="left_attach">0</property>
-                                    <property name="top_attach">4</property>
-                                    <property name="width">2</property>
+                                    <property name="expand">False</property>
+                                    <property name="fill">True</property>
+                                    <property name="position">1</property>
                                   </packing>
                                 </child>
                               </object>
@@ -589,45 +832,6 @@
                                 <property name="expand">False</property>
                                 <property name="fill">True</property>
                                 <property name="position">2</property>
-                              </packing>
-                            </child>
-                            <child>
-                              <object class="GtkButton" id="applyButton">
-                                <property name="label" translatable="yes" context="GUI|Custom Partitioning|Configure">_Update Settings</property>
-                                <property name="visible">True</property>
-                                <property name="sensitive">False</property>
-                                <property name="can_focus">True</property>
-                                <property name="receives_default">True</property>
-                                <property name="halign">end</property>
-                                <property name="valign">start</property>
-                                <property name="margin_top">30</property>
-                                <property name="use_underline">True</property>
-                                <signal name="clicked" handler="on_update_settings_clicked" swapped="no"/>
-                              </object>
-                              <packing>
-                                <property name="expand">False</property>
-                                <property name="fill">True</property>
-                                <property name="position">3</property>
-                              </packing>
-                            </child>
-                            <child>
-                              <object class="GtkLabel" id="label3">
-                                <property name="visible">True</property>
-                                <property name="can_focus">False</property>
-                                <property name="xalign">1</property>
-                                <property name="xpad">4</property>
-                                <property name="label" translatable="yes">Note:  The settings you make on this screen will not be applied
-until you click on the main menu's 'Begin Installation' button.</property>
-                                <property name="justify">right</property>
-                                <property name="wrap">True</property>
-                                <attributes>
-                                  <attribute name="font-desc" value="Cantarell Italic 10"/>
-                                </attributes>
-                              </object>
-                              <packing>
-                                <property name="expand">False</property>
-                                <property name="fill">True</property>
-                                <property name="position">4</property>
                               </packing>
                             </child>
                           </object>
@@ -977,9 +1181,8 @@ until you click on the main menu's 'Begin Installation' button.</property>
                             <property name="height_request">36</property>
                             <property name="visible">True</property>
                             <property name="can_focus">False</property>
-                            <property name="tooltip_text" translatable="yes">Add a new mountpoint.</property>
-                            <property name="label" translatable="yes" context="GUI|Custom Partitioning">_Add</property>
-                            <property name="use_underline">True</property>
+                            <property name="tooltip_text" translatable="yes">Add a new mount point.</property>
+                            <property name="label" translatable="yes" context="GUI|Custom Partitioning">Add</property>
                             <property name="icon_name">list-add-symbolic</property>
                             <signal name="clicked" handler="on_add_clicked" swapped="no"/>
                           </object>
@@ -994,28 +1197,10 @@ until you click on the main menu's 'Begin Installation' button.</property>
                             <property name="height_request">36</property>
                             <property name="visible">True</property>
                             <property name="can_focus">False</property>
-                            <property name="tooltip_text" translatable="yes">Remove the selected mountpoint(s).</property>
-                            <property name="label" translatable="yes" context="GUI|Custom Partitioning">Remo_ve</property>
-                            <property name="use_underline">True</property>
+                            <property name="tooltip_text" translatable="yes">Remove the selected mount point(s).</property>
+                            <property name="label" translatable="yes" context="GUI|Custom Partitioning">Remove</property>
                             <property name="icon_name">list-remove-symbolic</property>
                             <signal name="clicked" handler="on_remove_clicked" swapped="no"/>
-                          </object>
-                          <packing>
-                            <property name="expand">False</property>
-                            <property name="homogeneous">True</property>
-                          </packing>
-                        </child>
-                        <child>
-                          <object class="GtkToolButton" id="configureButton">
-                            <property name="width_request">42</property>
-                            <property name="height_request">36</property>
-                            <property name="visible">True</property>
-                            <property name="can_focus">False</property>
-                            <property name="tooltip_text" translatable="yes">Configure selected mountpoint.</property>
-                            <property name="label" translatable="yes" context="GUI|Custom Partitioning">_Configure</property>
-                            <property name="use_underline">True</property>
-                            <property name="icon_name">preferences-system-symbolic</property>
-                            <signal name="clicked" handler="on_configure_clicked" swapped="no"/>
                           </object>
                           <packing>
                             <property name="expand">False</property>
@@ -1029,8 +1214,7 @@ until you click on the main menu's 'Begin Installation' button.</property>
                             <property name="visible">True</property>
                             <property name="can_focus">False</property>
                             <property name="tooltip_text" translatable="yes">Reload storage configuration from disk.</property>
-                            <property name="label" translatable="yes" context="GUI|Custom Partitioning">Re_fresh</property>
-                            <property name="use_underline">True</property>
+                            <property name="label" translatable="yes" context="GUI|Custom Partitioning">Refresh</property>
                             <property name="icon_name">view-refresh-symbolic</property>
                             <signal name="clicked" handler="on_refresh_clicked" swapped="no"/>
                           </object>
@@ -1046,8 +1230,7 @@ until you click on the main menu's 'Begin Installation' button.</property>
                             <property name="visible">True</property>
                             <property name="can_focus">False</property>
                             <property name="tooltip_text" translatable="yes">Click for help.</property>
-                            <property name="label" translatable="yes" context="GUI|Custom Partitioning">_Help</property>
-                            <property name="use_underline">True</property>
+                            <property name="label" translatable="yes" context="GUI|Custom Partitioning">Help</property>
                             <property name="icon_name">system-help-symbolic</property>
                             <signal name="clicked" handler="on_help_clicked" swapped="no"/>
                           </object>
@@ -1255,5 +1438,81 @@ until you click on the main menu's 'Begin Installation' button.</property>
         </child>
       </object>
     </child>
+  </object>
+  <object class="GtkListStore" id="deviceTypeStore">
+    <columns>
+      <!-- column-name description -->
+      <column type="gchararray"/>
+      <!-- column-name const_name -->
+      <column type="gchararray"/>
+    </columns>
+    <data>
+      <row>
+        <col id="0" translatable="yes">Standard Partition</col>
+        <col id="1">DEVICE_TYPE_PARTITION</col>
+      </row>
+      <row>
+        <col id="0" translatable="yes">Btrfs</col>
+        <col id="1">DEVICE_TYPE_BTRFS</col>
+      </row>
+      <row>
+        <col id="0" translatable="yes">LVM</col>
+        <col id="1">DEVICE_TYPE_LVM</col>
+      </row>
+      <row>
+        <col id="0" translatable="yes">RAID</col>
+        <col id="1">DEVICE_TYPE_MD</col>
+      </row>
+      <row>
+        <col id="0" translatable="yes">LVM Thin Provisioning</col>
+        <col id="1">DEVICE_TYPE_LVM_THINP</col>
+      </row>
+    </data>
+  </object>
+  <object class="GtkListStore" id="mountPointStore">
+    <columns>
+      <!-- column-name path -->
+      <column type="gchararray"/>
+    </columns>
+  </object>
+  <object class="GtkEntryCompletion" id="mountPointCompletion">
+    <property name="model">mountPointStore</property>
+  </object>
+  <object class="GtkListStore" id="raidLevelStore">
+    <columns>
+      <!-- column-name raidLevel -->
+      <column type="gchararray"/>
+      <!-- column-name canonRaidLevel -->
+      <column type="gchararray"/>
+    </columns>
+    <data>
+      <row>
+        <col id="0" translatable="yes">RAID0 &lt;span foreground="grey"&gt;(Performance)&lt;/span&gt;</col>
+        <col id="1">raid0</col>
+      </row>
+      <row>
+        <col id="0" translatable="yes">RAID1 &lt;span foreground="grey"&gt;(Redundancy)&lt;/span&gt;</col>
+        <col id="1">raid1</col>
+      </row>
+      <row>
+        <col id="0" translatable="yes">RAID4 &lt;span foreground="grey"&gt;(Error Checking)&lt;/span&gt;</col>
+        <col id="1">raid4</col>
+      </row>
+      <row>
+        <col id="0" translatable="yes">RAID5 &lt;span foreground="grey"&gt;(Distributed Error Checking)&lt;/span&gt;</col>
+        <col id="1">raid5</col>
+      </row>
+      <row>
+        <col id="0" translatable="yes">RAID6 &lt;span foreground="grey"&gt;(Redundant Error Checking)&lt;/span&gt;</col>
+        <col id="1">raid6</col>
+      </row>
+      <row>
+        <col id="0" translatable="yes">RAID10 &lt;span foreground="grey"&gt;(Performance, Redundancy)&lt;/span&gt;</col>
+        <col id="1">raid10</col>
+      </row>
+    </data>
+  </object>
+  <object class="GtkTreeModelFilter" id="raidStoreFiltered">
+    <property name="child_model">raidLevelStore</property>
   </object>
 </interface>

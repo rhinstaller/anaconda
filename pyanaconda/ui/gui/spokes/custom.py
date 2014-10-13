@@ -229,6 +229,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         self._modifyContainerButton = self.builder.get_object("modifyContainerButton")
         self._containerCombo = self.builder.get_object("containerCombo")
         self._containerStore = self.builder.get_object("containerStore")
+        self._deviceDescLabel = self.builder.get_object("deviceDescLabel")
 
         self._passphraseEntry = self.builder.get_object("passphraseEntry")
 
@@ -1335,6 +1336,19 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
 
         return device_type
 
+    def _set_devices_label(self):
+        device_disks = self._device_disks
+        if not device_disks:
+            devices_desc = _("No disks assigned")
+        else:
+            devices_desc = "%s (%s)" % (device_disks[0].description, device_disks[0].name)
+            num_disks = len(device_disks)
+            if num_disks > 1:
+                devices_desc += CP_("GUI|Custom Partitioning|Devices",
+                                    " and %d other", " and %d others",
+                                    num_disks - 1) % (num_disks -1 )
+        self._deviceDescLabel.set_text(devices_desc)
+
     def _populate_right_side(self, selector):
         log.debug("populate_right_side: %s", selector.device)
 
@@ -1357,6 +1371,8 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         self._selectedDeviceLabel.set_text(selector.props.name)
         desc = _(MOUNTPOINT_DESCRIPTIONS.get(selector.props.name, ""))
         self._selectedDeviceDescLabel.set_text(desc)
+
+        self._set_devices_label()
 
         device_name = getattr(use_dev, "lvname", use_dev.name)
         self._nameEntry.set_text(device_name)
@@ -1890,6 +1906,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
             self._applyButton.set_sensitive(True)
 
         self._device_disks = disks
+        self._set_devices_label()
         self._populate_raid(selectedRaidLevel(self._raidLevelCombo))
 
     def _container_encryption_change(self, old_encrypted, new_encrypted):
@@ -1971,6 +1988,8 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         self._device_container_raid_level = dialog.raid_level
         self._device_container_encrypted = dialog.encrypted
         self._device_container_size = dialog.size_policy
+        self._set_devices_label()
+
         return True
 
     def _container_store_row(self, name, freeSpace=None):
