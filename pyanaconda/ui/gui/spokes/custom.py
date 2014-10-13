@@ -2513,16 +2513,19 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         fancy_set_sensitive(self._fsCombo, self._reformatCheckbox.get_active() and device_type != DEVICE_TYPE_BTRFS)
 
     def on_device_type_changed(self, combo):
+        if combo is not self._typeCombo:
+            return
+
         if not self._initialized:
             return
 
-        new_type = self._get_current_device_type()
-        itr = combo.get_active_iter()
-        if not itr:
-            return
+        # The name of the device type is more informative than the numeric id
+        new_type = self._get_current_device_type_name()
+        log.debug("device_type_changed: %s", new_type)
 
-        active_dev_type = self._typeStore[itr]
-        log.debug("device_type_changed: %s %s", new_type, active_dev_type)
+        # But the numeric id of the device is what is needed by blivet
+        new_type = dev_type_from_const(new_type)
+
         if new_type is None:
             return
 
