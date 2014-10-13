@@ -698,7 +698,14 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
                     return False
 
     @ui_storage_logged
-    def _revert_reformat(self, device, use_dev):
+    def _revert_reformat(self, device):
+        """ Revert reformat.
+
+            :param device: the device being displayed
+            :type device: :class:`blivet.devices.StorageDevice`
+        """
+        use_dev = device.raw_device
+
         # figure out the existing device and reset it
         if not use_dev.format.exists:
             original_device = use_dev
@@ -721,7 +728,14 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         return size
 
     @ui_storage_logged
-    def _handle_size_change(self, size, old_size, device, use_dev):
+    def _handle_size_change(self, size, old_size, device):
+        """ Handle size change.
+
+            :param device: the device being displayed
+            :type device: :class:`blivet.devices.StorageDevice`
+        """
+        use_dev = device.raw_device
+
         # bound size to boundaries given by the device
         size = self._bound_size(size, device)
 
@@ -1141,11 +1155,11 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         # a reformat.
         if not reformat and (not use_dev.format.exists or
                              not device.format.exists):
-            self._revert_reformat(device, use_dev)
+            self._revert_reformat(device)
 
         # Handle size change
         if changed_size and device.resizable:
-            self._handle_size_change(size, old_size, device, use_dev)
+            self._handle_size_change(size, old_size, device)
 
         # it's possible that reformat is active but fstype is unchanged, in
         # which case we're not going to schedule another reformat unless
@@ -1298,7 +1312,18 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         return fmt.supported and fmt.formattable and \
            device.format.type not in PARTITION_ONLY_FORMAT_TYPES + ("swap",)
 
-    def _setup_device_type_combo(self, device, use_dev, device_name):
+    def _setup_device_type_combo(self, device, device_name):
+        """ Set up device type combo.
+
+            :param device: the device
+            :type device: :class:`blivet.devices.StorageDevice`
+            :param str device_name: the device name
+
+            :returns: the device type that was decided on
+            :rtype: int (an enumeration defined in blivet.devicefactory)
+        """
+        use_dev = device.raw_device
+
         # these device types should always be listed
         should_appear = {"DEVICE_TYPE_PARTITION", "DEVICE_TYPE_LVM", "DEVICE_TYPE_LVM_THINP"}
 
@@ -1436,7 +1461,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         self._setup_fstype_combo(device)
 
         # Set up the device type combo.
-        device_type = self._setup_device_type_combo(device, use_dev, device_name)
+        device_type = self._setup_device_type_combo(device, device_name)
 
         fancy_set_sensitive(self._fsCombo, self._reformatCheckbox.get_active() and
                                            device_type != DEVICE_TYPE_BTRFS)
