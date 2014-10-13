@@ -122,12 +122,15 @@ def moveBootMntToPhysical(storage):
     """Move the /boot mount to /mnt/sysimage/boot."""
     if iutil.getSysroot() == iutil.getTargetPhysicalRoot():
         return
-    bootmnt = storage.mountpoints.get('/boot')
-    if bootmnt is None:
-        return
-    bootmnt.format.teardown()
-    bootmnt.teardown()
-    bootmnt.format.setup(options=bootmnt.format.options, chroot=iutil.getTargetPhysicalRoot())
+
+    mounts = [storage.mountpoints.get("/boot/efi"), storage.mountpoints.get("/boot")]
+    for mnt in mounts:
+        if mnt is None:
+            return
+
+        mnt.format.teardown()
+        mnt.teardown()
+        mnt.format.setup(options=mnt.format.options, chroot=iutil.getTargetPhysicalRoot())
 
 def doInstall(storage, payload, ksdata, instClass):
     """Perform an installation.  This method takes the ksdata as prepared by
