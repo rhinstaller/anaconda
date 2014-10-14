@@ -1117,9 +1117,10 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
                    changed_container or changed_container_encrypted or
                    changed_container_raid_level or changed_container_size)
 
-        ##
-        ## Handle changes to an existing device
-        ##
+        # If something has changed but the device does not exist,
+        # there is no need to schedule actions on the device.
+        # It is only necessary to create a new device object
+        # which reflects the current choices.
         if not use_dev.exists:
             if not changed:
                 log.debug("nothing changed for new device")
