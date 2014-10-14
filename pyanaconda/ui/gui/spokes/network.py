@@ -560,13 +560,16 @@ class NetworkControlBox(GObject.GObject):
         self._running_nmce = None
         return True
 
-    def on_nmce_exited(self, pid, condition, activate):
+    def on_nmce_exited(self, pid, condition, activate=None):
+        # waitpid() has been called, make sure we don't do anything else with the proc
+        self._running_nmce = None
+        log.debug("nm-c-e exited with status %s", condition)
+
         # nm-c-e was closed normally, not killed by anaconda
         if condition == 0:
-            if self._running_nmce and self._running_nmce.pid == pid:
-                self._running_nmce = None
             if activate:
-                uuid, devname, activate_condition = activate
+                # The default of None confuses pylint
+                uuid, devname, activate_condition = activate # pylint: disable=unpacking-non-sequence
                 if activate_condition():
                     gtk_call_once(self._activate_connection_cb, uuid, devname)
             network.logIfcfgFiles("nm-c-e run")
@@ -636,13 +639,7 @@ class NetworkControlBox(GObject.GObject):
         proc = startProgram(["nm-connection-editor", "--create", "--type=%s" % ty])
         self._running_nmce = proc
 
-        GLib.child_watch_add(proc.pid, self.on_nmce_adding_exited)
-
-    def on_nmce_adding_exited(self, pid, condition):
-        if condition == 0:
-            if self._running_nmce and self._running_nmce.pid == pid:
-                self._running_nmce = None
-            network.logIfcfgFiles("nm-c-e run")
+        GLib.child_watch_add(proc.pid, self.on_nmce_exited)
 
     def selected_dev_cfg(self):
         selection = self.builder.get_object("treeview_devices").get_selection()
