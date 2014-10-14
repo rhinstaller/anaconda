@@ -1551,11 +1551,12 @@ class GRUB2(GRUB):
             log.error("bootloader password setup failed: %s" % e)
 
         # make sure the default entry is the OS we are installing
-        entry_title = "%s Linux, with Linux %s" % (productName,
-                                                   self.default.version)
-        rc = iutil.execInSysroot("grub2-set-default", [entry_title])
-        if rc:
-            log.error("failed to set default menu entry to %s" % productName)
+        if self.default is not None:
+            entry_title = "%s Linux, with Linux %s" % (productName,
+                                                       self.default.version)
+            rc = iutil.execInSysroot("grub2-set-default", [entry_title])
+            if rc:
+                log.error("failed to set default menu entry to %s" % productName)
 
         # now tell grub2 to generate the main configuration file
         rc = iutil.execInSysroot("grub2-mkconfig",
