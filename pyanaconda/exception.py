@@ -28,7 +28,6 @@ from pyanaconda import iutil, kickstart
 import sys
 import os
 import shutil
-import signal
 import time
 import re
 import errno
@@ -187,14 +186,6 @@ class AnacondaExceptionHandler(ExceptionHandler):
         if flags.can_touch_runtime_system("switch console") \
                 and self._intf_tty_num != 1:
             iutil.vtActivate(1)
-
-        pidfl = "/tmp/vncshell.pid"
-        if os.path.exists(pidfl) and os.path.isfile(pidfl):
-            pf = open(pidfl, "r")
-            for pid in pf.readlines():
-                if not int(pid) == os.getpid():
-                    os.kill(int(pid), signal.SIGKILL)
-            pf.close()
 
         os.open("/dev/console", os.O_RDWR)   # reclaim stdin
         os.dup2(0, 1)                        # reclaim stdout
