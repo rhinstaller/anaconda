@@ -118,20 +118,6 @@ def doConfiguration(storage, payload, ksdata, instClass):
 
     progress_complete()
 
-def moveBootMntToPhysical(storage):
-    """Move the /boot mount to /mnt/sysimage/boot."""
-    if iutil.getSysroot() == iutil.getTargetPhysicalRoot():
-        return
-
-    mounts = [storage.mountpoints.get("/boot/efi"), storage.mountpoints.get("/boot")]
-    for mnt in mounts:
-        if mnt is None:
-            return
-
-        mnt.format.teardown()
-        mnt.teardown()
-        mnt.format.setup(options=mnt.format.options, chroot=iutil.getTargetPhysicalRoot())
-
 def doInstall(storage, payload, ksdata, instClass):
     """Perform an installation.  This method takes the ksdata as prepared by
        the UI (the first hub, in graphical mode) and applies it to the disk.
@@ -265,9 +251,6 @@ def doInstall(storage, payload, ksdata, instClass):
             writeBootLoader(storage, payload, instClass, ksdata)
 
     with progress_report(_("Performing post-installation setup tasks")):
-        # Now, let's reset the state here so that the payload has
-        # /boot in the system root.
-        moveBootMntToPhysical(storage)
         payload.postInstall()
 
     progress_complete()

@@ -223,32 +223,36 @@ class RPMOSTreePayload(ArchivePayload):
     def postInstall(self):
         super(RPMOSTreePayload, self).postInstall()
 
-        physboot = iutil.getTargetPhysicalRoot() + '/boot'
+        boot = iutil.getSysroot() + '/boot'
 
         # If we're using extlinux, rename extlinux.conf to
         # syslinux.cfg, since that's what OSTree knows about.
         # syslinux upstream supports both, but I'd say that upstream
         # using syslinux.cfg is somewhat preferred.
-        physboot_extlinux = physboot + '/extlinux'
-        if os.path.isdir(physboot_extlinux):
-            physboot_syslinux = physboot + '/syslinux'
-            physboot_loader = physboot + '/loader'
-            assert os.path.isdir(physboot_loader)
-            orig_extlinux_conf = physboot_extlinux + '/extlinux.conf'
-            target_syslinux_cfg = physboot_loader + '/syslinux.cfg'
+        boot_extlinux = boot + '/extlinux'
+        if os.path.isdir(boot_extlinux):
+            boot_syslinux = boot + '/syslinux'
+            boot_loader = boot + '/loader'
+            orig_extlinux_conf = boot_extlinux + '/extlinux.conf'
+            target_syslinux_cfg = boot_loader + '/syslinux.cfg'
             log.info("Moving %s -> %s", orig_extlinux_conf, target_syslinux_cfg)
-            os.rename(orig_extlinux_conf, target_syslinux_cfg)
-            # A compatibility bit for OSTree
-            os.mkdir(physboot_syslinux)
-            os.symlink('../loader/syslinux.cfg', physboot_syslinux + '/syslinux.cfg')
-            # And *also* tell syslinux that the config is really in /boot/loader
-            os.symlink('loader/syslinux.cfg', physboot + '/syslinux.cfg')
+            os.symlink('loader/syslinux.cfg', boot + '/syslinux.cfg')
+
+        # And if we're using GRUB2, move its config file, also with a
+        # compatibility symlink.
+        boot_grub2 = boot + '/grub2'
+        if os.path.isdir(boot_grub2):
+            boot_loader = boot + '/loader'
+            orig_grub_cfg = boot_grub2 + '/grub.cfg'
+            target_grub_cfg = boot_loader + '/grub.cfg'
+            log.info("Moving %s -> %s", orig_grub_cfg, target_grub_cfg)
+            os.rename(orig_grub_cfg, target_grub_cfg)
+            os.symlink('../loader/grub.cfg', orig_grub_cfg)
 
         # OSTree owns the bootloader configuration, so here we give it
         # the argument list we computed from storage, architecture and
         # such.
-        set_kargs_args = ["admin", "--sysroot=" + iutil.getTargetPhysicalRoot(),
-                          "instutil", "set-kargs"]
+        set_kargs_args = ["admin", "instutil", "set-kargs"]
         set_kargs_args.extend(self.storage.bootloader.boot_args)
         set_kargs_args.append("root=" + self.storage.rootDevice.fstabSpec)
-        self._safeExecWithRedirect("ostree", set_kargs_args)
+        self._safeExecWithRedirect("ostree", set_kargs_args, root=iutil.getSysroot())
