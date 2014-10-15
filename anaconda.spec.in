@@ -300,6 +300,17 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Oct 14 2014 Brian C. Lane <bcl@redhat.com> - 19.31.101-1
+- Update pykickstart ver to bring in fix for bug (amulhern)
+  Related: rhbz#1149718
+- Fix a typo from 73d3a8e5. (sbueno+anaconda)
+  Resolves: rhbz#1040933
+- Fix a bug unmounting /boot on efi+atomic installs. (clumens)
+  Resolves: rhbz#1150588
+- Fix issues with the date&time not being updated on timezone changes
+  (vpodzime)
+  Resolves: rhbz#1151479
+
 * Fri Oct 10 2014 Brian C. Lane <bcl@redhat.com> - 19.31.100-1
 - Get rid of an unused variable in the localization test. (clumens)
   Related: rhbz#1044233
