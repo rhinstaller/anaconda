@@ -789,6 +789,8 @@ if __name__ == "__main__":
             sys.exit(0)
 
     log.info("%s %s", sys.argv[0], getAnacondaVersionString())
+    if os.path.exists("/tmp/updates"):
+        log.info("Using updates in /tmp/updates/ from %s", opts.updateSrc)
 
     # TODO: uncomment this when we're sure that we're doing the right thing
     # with flags.cmdline *everywhere* it appears...
