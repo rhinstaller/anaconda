@@ -2525,9 +2525,14 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         new_type = self._get_current_device_type_name()
         log.debug("device_type_changed: %s", new_type)
 
-        # But the numeric id of the device is what is needed by blivet
+        # Quit if no device type is selected.
+        if new_type is None:
+            return
+
+        # The numeric id of the device is what is needed by blivet.
         new_type = dev_type_from_const(new_type)
 
+        # Quit if device type name is unrecognized by blivet.
         if new_type is None:
             return
 
