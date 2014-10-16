@@ -807,7 +807,7 @@ class PayloadManager(object):
     # Error strings
     ERROR_SETUP = N_("Failed to set up installation source")
     ERROR_MD = N_("Error downloading package metadata")
-    ERROR_SOURCE = N_("No installation source avaialble")
+    ERROR_SOURCE = N_("No installation source available")
 
     def __init__(self):
         self._event_lock = threading.Lock()
