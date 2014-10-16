@@ -141,6 +141,9 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
     category = SystemCategory
     title = N_("MANUAL PARTITIONING")
 
+    # The maximum number of places to show when displaying a size
+    MAX_SIZE_PLACES = 2
+
     def __init__(self, data, storage, payload, instclass):
         StorageChecker.__init__(self, min_ram=isys.MIN_GUI_RAM)
         NormalSpoke.__init__(self, data, storage, payload, instclass)
@@ -157,7 +160,6 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         self._fs_types = []             # list of supported fstypes
         self._free_space = Size(0)
 
-        self._device_size_text = None
         self._device_disks = []
         self._device_container_name = None
         self._device_container_raid_level = None
@@ -918,15 +920,16 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         # SIZE
         old_size = device.size
 
-        # we are interested in size human readable representation change because
-        # that's what the user sees
-        same_size = self._device_size_text == self._sizeEntry.get_text()
-        if same_size:
+        # If the size text hasn't changed at all from that displayed,
+        # assume no change intended.
+        if old_size.humanReadable(max_places=self.MAX_SIZE_PLACES) == self._sizeEntry.get_text():
             size = old_size
         else:
+            # Note that this size may not correspond to user's entry,
+            # as size_from_entry has a default lower limit.
             size = size_from_entry(self._sizeEntry)
         changed_size = ((use_dev.resizable or not use_dev.exists) and
-                        not same_size)
+                        size != old_size)
         old_device_info["size"] = old_size
         new_device_info["size"] = size
 
@@ -1461,8 +1464,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
             self._labelEntry.set_text("")
         fancy_set_sensitive(self._labelEntry, True)
 
-        self._device_size_text = device.size.humanReadable(max_places=2)
-        self._sizeEntry.set_text(self._device_size_text)
+        self._sizeEntry.set_text(device.size.humanReadable(max_places=self.MAX_SIZE_PLACES))
 
         self._reformatCheckbox.set_active(not device.format.exists)
         fancy_set_sensitive(self._reformatCheckbox,
