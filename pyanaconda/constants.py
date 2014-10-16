@@ -160,6 +160,9 @@ CMDLINE_APPEND = ["modprobe.blacklist"]
 
 DEFAULT_AUTOPART_TYPE = AUTOPART_TYPE_LVM
 
+# Default to these units when reading user input when no units given
+SIZE_UNITS_DEFAULT = "MiB"
+
 import logging
 LOGLVL_LOCK = logging.DEBUG-1
 

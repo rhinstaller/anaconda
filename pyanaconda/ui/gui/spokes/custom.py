@@ -35,6 +35,7 @@ from pyanaconda.i18n import _, N_, CP_
 from pyanaconda.product import productName, productVersion, translated_new_install_name
 from pyanaconda.threads import AnacondaThread, threadMgr
 from pyanaconda.constants import THREAD_EXECUTE_STORAGE, THREAD_STORAGE, THREAD_CUSTOM_STORAGE_INIT
+from pyanaconda.constants import SIZE_UNITS_DEFAULT
 from pyanaconda.iutil import lowerASCII
 from pyanaconda.bootloader import BootLoaderError
 from pyanaconda.kickstart import refreshAutoSwapSize
@@ -143,6 +144,9 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
 
     # The maximum number of places to show when displaying a size
     MAX_SIZE_PLACES = 2
+
+    # If the user enters a smaller size, the GUI changes it to this value
+    MIN_SIZE_ENTRY = Size("1 MiB")
 
     def __init__(self, data, storage, payload, instclass):
         StorageChecker.__init__(self, min_ram=isys.MIN_GUI_RAM)
@@ -925,9 +929,11 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         if old_size.humanReadable(max_places=self.MAX_SIZE_PLACES) == self._sizeEntry.get_text():
             size = old_size
         else:
-            # Note that this size may not correspond to user's entry,
-            # as size_from_entry has a default lower limit.
-            size = size_from_entry(self._sizeEntry)
+            size = size_from_entry(
+               self._sizeEntry,
+               lower_bound=self.MIN_SIZE_ENTRY,
+               units=SIZE_UNITS_DEFAULT
+            )
         changed_size = ((use_dev.resizable or not use_dev.exists) and
                         size != old_size)
         old_device_info["size"] = old_size

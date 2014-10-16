@@ -90,26 +90,30 @@ AUTOPART_DEVICE_TYPES = {AUTOPART_TYPE_LVM: DEVICE_TYPE_LVM,
 NAMED_DEVICE_TYPES = (DEVICE_TYPE_BTRFS, DEVICE_TYPE_LVM, DEVICE_TYPE_MD, DEVICE_TYPE_LVM_THINP)
 CONTAINER_DEVICE_TYPES = (DEVICE_TYPE_LVM, DEVICE_TYPE_BTRFS, DEVICE_TYPE_LVM_THINP)
 
-def size_from_input(input_str):
-    """Get size from user's input"""
+def size_from_input(input_str, units=None):
+    """ Get a Size object from an input string.
+
+        :param str input_str: a string forming some representation of a size
+        :param units: use these units if none specified in input_str
+        :type units: str or NoneType
+        :returns: a Size object corresponding to input_str
+        :rtype: :class:`blivet.size.Size` or NoneType
+
+        Units default to bytes if no units in input_str or units.
+    """
 
     if not input_str:
         # Nothing to parse
         return None
 
-    # if no unit was specified, default to MiB. Assume that a string
-    # ending with anything other than a digit has a unit suffix
+    # A string ending with a digit contains no units information.
     if re.search(r'[\d.%s]$' % locale.nl_langinfo(locale.RADIXCHAR), input_str):
-        input_str += "MiB"
+        input_str += units or ""
 
     try:
         size = Size(input_str)
     except ValueError:
         return None
-    else:
-        # Minimium size for ui-created partitions is 1MiB.
-        if size.convertTo(spec="MiB") < 1:
-            size = Size("1 MiB")
 
     return size
 

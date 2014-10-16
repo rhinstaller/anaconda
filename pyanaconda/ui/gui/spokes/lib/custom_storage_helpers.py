@@ -35,6 +35,7 @@ from collections import namedtuple
 import functools
 import re
 
+from pyanaconda.constants import SIZE_UNITS_DEFAULT
 from pyanaconda.product import productName
 from pyanaconda.iutil import lowerASCII
 from pyanaconda.storage_utils import size_from_input
@@ -78,9 +79,29 @@ CONTAINER_TYPES = {DEVICE_TYPE_LVM:       ContainerType(N_("Volume Group"), N_("
 # These cannot be specified as mountpoints
 system_mountpoints = ["/dev", "/proc", "/run", "/sys"]
 
-def size_from_entry(entry):
+def size_from_entry(entry, lower_bound=None, units=None):
+    """ Get a Size object from an entry field.
+
+        :param lower_bound: lower bound for size returned,
+        :type lower_bound: :class:`blivet.size.Size` or NoneType
+        :param units: units to use if none obtained from entry
+        :type units: str or NoneType
+        :returns: a Size object corresponding to the text in the entry field
+        :rtype: :class:`blivet.size.Size` or NoneType
+
+        Units default to bytes if no units specified in entry or units.
+
+        Rounds up to lower_bound, if value in entry field corresponds
+        to a smaller value. The default for lower_bound is None, yielding
+        no rounding.
+    """
     size_text = entry.get_text().decode("utf-8").strip()
-    return size_from_input(size_text)
+    size = size_from_input(size_text, units=units)
+    if size is None:
+        return None
+    if lower_bound is not None and size < lower_bound:
+        return lower_bound
+    return size
 
 def populate_mountpoint_store(store, used_mountpoints):
     # sure, add whatever you want to this list. this is just a start.
@@ -294,6 +315,9 @@ class AddDialog(GUIObject):
     mainWidgetName = "addDialog"
     uiFile = "spokes/lib/custom_storage_helpers.glade"
 
+    # If the user enters a smaller size, the GUI changes it to this value
+    MIN_SIZE_ENTRY = Size("1 MiB")
+
     def __init__(self, *args, **kwargs):
         self.mountpoints = kwargs.pop("mountpoints", [])
         GUIObject.__init__(self, *args, **kwargs)
@@ -320,7 +344,11 @@ class AddDialog(GUIObject):
         if self._error:
             return
 
-        self.size = size_from_entry(self.builder.get_object("addSizeEntry"))
+        self.size = size_from_entry(
+           self.builder.get_object("addSizeEntry"),
+           lower_bound=self.MIN_SIZE_ENTRY,
+           units=SIZE_UNITS_DEFAULT
+        )
         self.window.destroy()
 
     def refresh(self):
@@ -439,6 +467,9 @@ class ContainerDialog(GUIObject, GUIDialogInputCheckHandler):
                       "containerSizeLabel", "containerEncryptedCheckbox"]
     mainWidgetName = "container_dialog"
     uiFile = "spokes/lib/custom_storage_helpers.glade"
+
+    # If the user enters a smaller size, the GUI changes it to this value
+    MIN_SIZE_ENTRY = Size("1 MiB")
 
     def __init__(self, *args, **kwargs):
         GUIDialogInputCheckHandler.__init__(self)
@@ -575,7 +606,11 @@ class ContainerDialog(GUIObject, GUIDialogInputCheckHandler):
             size = SIZE_POLICY_MAX
         elif idx == 2:
             if self._original_size_text != self._sizeEntry.get_text():
-                size = size_from_entry(self._sizeEntry)
+                size = size_from_entry(
+                   self._sizeEntry,
+                   lower_bound=self.MIN_SIZE_ENTRY,
+                   units=SIZE_UNITS_DEFAULT
+                )
                 if size is None:
                     size = SIZE_POLICY_MAX
             else:
