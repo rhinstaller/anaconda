@@ -168,7 +168,7 @@ class AnacondaExceptionHandler(ExceptionHandler):
         # run kickstart traceback scripts (if necessary)
         try:
             kickstart.runTracebackScripts(anaconda.ksdata.scripts)
-        # pylint: disable-msg=W0702
+        # pylint: disable=W0702
         except:
             pass
 

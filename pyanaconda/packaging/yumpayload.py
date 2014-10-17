@@ -1727,7 +1727,7 @@ reposdir=%s
         #        all yumvars and writing out the expanded pairs to the conf
         yb = yum.YumBase()
         yum_conf_path = "/etc/yum.conf"
-        # pylint: disable-msg=W9910
+        # pylint: disable=W9910
         yb.preconf.fn = iutil.getSysroot() + yum_conf_path
         yb.conf.multilib_policy = "all"
 

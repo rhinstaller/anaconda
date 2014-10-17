@@ -78,7 +78,7 @@ class AddonRegistry(object):
         return reduce(lambda acc,(id, addon): acc + str(addon),
                       self.__dict__.iteritems(), "")
 
-    # pylint: disable-msg=C0103
+    # pylint: disable=C0103
     def execute(self, storage, ksdata, instClass, users):
         """This method calls execute on all the registered addons."""
         for v in self.__dict__.itervalues():
@@ -115,7 +115,7 @@ class AddonData(object):
     def __str__(self):
         return "%%addon %s\n%s%%end\n" % (self.name, self.content)
 
-    # pylint: disable-msg=C0103
+    # pylint: disable=C0103
     def setup(self, storage, ksdata, instClass):
         """Make the changes to the install system.
 

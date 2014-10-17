@@ -20,7 +20,7 @@ from pykickstart.parser import KickstartParser, preprocessKickstart
 from pykickstart.sections import NullSection
 from pykickstart.version import returnClassForVersion, RHEL7
 from pykickstart.errors import KickstartError
-# pylint: disable-msg=W0401
+# pylint: disable=W0401
 from pykickstart.constants import *
 from pykickstart import commands
 from collections import OrderedDict
@@ -45,7 +45,7 @@ def read_cmdline(f):
         lines = open(f).readlines()
     except IOError:
         lines = []
-    # pylint: disable-msg=W0621
+    # pylint: disable=W0621
     for line in lines:
         for arg in line.split():
             k,_e,v = arg.partition("=")
@@ -205,7 +205,7 @@ class DracutHandler(handlerclass):
         obj = handlerclass.dispatcher(self, args, lineno)
         # and execute any specified dracut_args
         cmd = args[0]
-        # pylint: disable-msg=E1101
+        # pylint: disable=E1101
         command = self.commands[cmd]
         if hasattr(command, "dracut_args"):
             log.debug("kickstart line %u: handling %s", lineno, cmd)
@@ -250,7 +250,7 @@ def s390_settings(device):
     #NETTYPE="qeth"
     #OPTIONS="layer2=1 portname=FOOBAR portno=0"
     with open('/etc/ccw.conf') as f:
-        # pylint: disable-msg=W0621
+        # pylint: disable=W0621
         for line in f:
             if cfg['SUBCHANNELS'] in line:
                 items = line.strip().split(',')
@@ -262,7 +262,7 @@ def s390_settings(device):
 
 def ksnet_to_dracut(args, lineno, net, bootdev=False):
     '''Translate the kickstart network data into dracut network data.'''
-    # pylint: disable-msg=W0621
+    # pylint: disable=W0621
     line = []
     ip=""
     autoconf=""

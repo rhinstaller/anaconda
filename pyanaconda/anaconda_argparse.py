@@ -216,7 +216,7 @@ class AnacondaArgumentParser(ArgumentParser):
             setattr(namespace, option.dest, val)
         return namespace
 
-    # pylint: disable-msg=W0221
+    # pylint: disable=W0221
     def parse_args(self, args=None, boot_cmdline=None):
         """
         Like ArgumentParser.parse_args(), but also parses the boot cmdline.

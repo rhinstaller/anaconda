@@ -349,7 +349,7 @@ class NetworkControlBox(GObject.GObject):
         # to prevent UI update signals races
         self._updating_device = False
 
-        # pylint: disable-msg=E1120
+        # pylint: disable=E1120
         self.client = NMClient.Client.new()
 
         # devices list

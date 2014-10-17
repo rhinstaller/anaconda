@@ -40,7 +40,7 @@ from pyanaconda.packaging import ArchivePayload, PayloadInstallError
 import pyanaconda.errors as errors
 
 # Inherit abstract methods from ArchivePayload
-# pylint: disable-msg=W0223
+# pylint: disable=W0223
 class RPMOSTreePayload(ArchivePayload):
     """ A RPMOSTreePayload deploys a tree (possibly with layered packages) onto the target system. """
     def __init__(self, data):
@@ -123,7 +123,7 @@ class RPMOSTreePayload(ArchivePayload):
         progressQ.send_message(_("Starting pull of %(branchName)s from %(source)s") % \
                                {"branchName": ostreesetup.ref, "source": ostreesetup.remote})
 
-        # pylint: disable-msg=E1120
+        # pylint: disable=E1120
         progress = OSTree.AsyncProgress.new()
         progress.connect('changed', self._pullProgressCb)
 

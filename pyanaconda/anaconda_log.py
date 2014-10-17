@@ -168,7 +168,7 @@ class AnacondaLog:
         syslogHandler.setLevel(logging.DEBUG)
         logr.addHandler(syslogHandler)
 
-    # pylint: disable-msg=W0622
+    # pylint: disable=W0622
     def showwarning(self, message, category, filename, lineno,
                       file=sys.stderr, line=None):
         """ Make sure messages sent through python's warnings module get logged.

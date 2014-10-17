@@ -65,7 +65,7 @@ class Spoke(GUIObject):
         pass
 
 # Inherit abstract methods from common.StandaloneSpoke
-# pylint: disable-msg=W0223
+# pylint: disable=W0223
 class StandaloneSpoke(Spoke, common.StandaloneSpoke):
 
     handles_autostep = True
@@ -92,7 +92,7 @@ class StandaloneSpoke(Spoke, common.StandaloneSpoke):
         gtk_call_once(self.window.emit, "continue-clicked")
 
 # Inherit abstract methods from common.NormalSpoke
-# pylint: disable-msg=W0223
+# pylint: disable=W0223
 class NormalSpoke(Spoke, common.NormalSpoke):
     def __init__(self, data, storage, payload, instclass):
         Spoke.__init__(self, data)
@@ -113,7 +113,7 @@ class NormalSpoke(Spoke, common.NormalSpoke):
         Gtk.main_quit()
 
 # Inherit abstract methods from common.PersonalizationSpoke
-# pylint: disable-msg=W0223
+# pylint: disable=W0223
 class PersonalizationSpoke(Spoke, common.PersonalizationSpoke):
     def __init__(self, data, storage, payload, instclass):
         Spoke.__init__(self, data)

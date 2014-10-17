@@ -67,7 +67,7 @@ class DetailedErrorDialog(GUIObject):
         if label:
             self.builder.get_object("detailedLabel").set_text(label)
 
-    # pylint: disable-msg=W0221
+    # pylint: disable=W0221
     def refresh(self, msg):
         buf = self.builder.get_object("detailedTextBuffer")
         buf.set_text(msg, -1)

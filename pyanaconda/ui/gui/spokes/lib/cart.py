@@ -52,7 +52,7 @@ class SelectedDisksDialog(GUIObject):
         self._set_button = self.builder.get_object("set_as_boot_button")
         self._remove_button = self.builder.get_object("remove_button")
 
-    # pylint: disable-msg=W0221
+    # pylint: disable=W0221
     def initialize(self, disks, free, showRemove=True, setBoot=True):
         self._previousID = None
 
@@ -97,7 +97,7 @@ class SelectedDisksDialog(GUIObject):
                 row[IS_BOOT_COL] = True
                 break
 
-    # pylint: disable-msg=W0221
+    # pylint: disable=W0221
     def refresh(self, disks, free, showRemove=True, setBoot=True):
         super(SelectedDisksDialog, self).refresh()
 

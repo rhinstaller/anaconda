@@ -157,7 +157,7 @@ class InstallOptions1Dialog(InstallOptionsDialogBase):
         self.disk_free_label.set_text(str(disk_free))
         self.fs_free_label.set_text(str(fs_free))
 
-    # pylint: disable-msg=W0221
+    # pylint: disable=W0221
     def refresh(self, required_space, auto_swap, disk_free, fs_free):
         sw_text = self._get_sw_needs_text(required_space, auto_swap)
         label_text = _("%s The disks you've selected have the following "
@@ -192,7 +192,7 @@ class InstallOptions2Dialog(InstallOptionsDialogBase):
         self.disk_free_label.set_text(str(disk_free))
         self.fs_free_label.set_text(str(fs_free))
 
-    # pylint: disable-msg=W0221
+    # pylint: disable=W0221
     def refresh(self, required_space, auto_swap, disk_free, fs_free):
         sw_text = self._get_sw_needs_text(required_space, auto_swap)
         label_text = (_("%(sw_text)s You don't have enough space available to install "

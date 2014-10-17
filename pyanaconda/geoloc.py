@@ -418,7 +418,7 @@ class GeolocationBackend(object):
                 self._refresh()
                 log.info("Geolocation lookup finished in %1.1f seconds",
                          time.time() - start_time)
-            # pylint: disable-msg=W0703
+            # pylint: disable=W0703
             except Exception as e:
                 message = "GeoIP lookup ended with exception"
                 message += "\n%s" % e

@@ -77,7 +77,7 @@ class DiskOverview(Anaconda.DiskOverview):
 DiskOverview = override(DiskOverview)
 __all__.append('DiskOverview')
 
-# pylint: disable-msg=W0232
+# pylint: disable=W0232
 class TimezoneMap(Anaconda.TimezoneMap):
     def set_timezone(self, timezone, no_signal=False):
         Anaconda.TimezoneMap.set_timezone(self, timezone, no_signal)

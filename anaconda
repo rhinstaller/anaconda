@@ -401,7 +401,7 @@ def gtk_warning(title, reason):
     dialog.run()
     dialog.destroy()
 
-# pylint: disable-msg=W0621
+# pylint: disable=W0621
 def check_memory(anaconda, opts, display_mode=None):
     reason_strict = _("%(product_name)s requires %(needed_ram)s MB of memory to install, but you only have "
                       "%(total_ram)s MB on this machine.\n")
@@ -440,7 +440,7 @@ def check_memory(anaconda, opts, display_mode=None):
     if needed_ram > total_ram:
         from snack import SnackScreen, ButtonChoiceWindow
         if opts.liveinst:
-            # pylint: disable-msg=W1201
+            # pylint: disable=W1201
             stdoutLog.warning(reason % reason_args)
             gtk_warning(livecd_title, reason % reason_args)
         else:
@@ -463,7 +463,7 @@ def check_memory(anaconda, opts, display_mode=None):
         if needed_ram > total_ram:
             if opts.liveinst:
                 reason += livecd_extra
-                # pylint: disable-msg=W1201
+                # pylint: disable=W1201
                 stdoutLog.warning(reason % reason_args)
                 title = livecd_title
                 gtk_warning(title, reason % reason_args)
@@ -471,12 +471,12 @@ def check_memory(anaconda, opts, display_mode=None):
                 sys.exit(1)
             else:
                 reason += nolivecd_extra
-                # pylint: disable-msg=W1201
+                # pylint: disable=W1201
                 stdoutLog.warning(reason % reason_args)
                 anaconda.displayMode = 't'
                 time.sleep(2)
 
-# pylint: disable-msg=W0621
+# pylint: disable=W0621
 def setupDisplay(anaconda, opts, addon_paths=None):
     from pyanaconda.ui.tui.simpleline import App
     from pyanaconda.ui.tui.spokes.askvnc import AskVNCSpoke
@@ -740,7 +740,7 @@ if __name__ == "__main__":
 
     # Allow a file to be loaded as early as possible
     try:
-        # pylint: disable-msg=F0401,W0611
+        # pylint: disable=F0401,W0611
         import updates_disk_hook
     except ImportError:
         pass

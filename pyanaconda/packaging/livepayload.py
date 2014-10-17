@@ -58,7 +58,7 @@ from pyanaconda.threads import threadMgr, AnacondaThread
 from pyanaconda.i18n import _
 
 # Inherit abstract methods from ImagePayload
-# pylint: disable-msg=W0223
+# pylint: disable=W0223
 class LiveImagePayload(ImagePayload):
     """ A LivePayload copies the source image onto the target system. """
     def __init__(self, *args, **kwargs):
@@ -223,7 +223,7 @@ class URLGrabberProgress(object):
                 {"url" : self.url, "pct" : 100})
 
 # Inherit abstract methods from LiveImagePayload
-# pylint: disable-msg=W0223
+# pylint: disable=W0223
 class LiveImageKSPayload(LiveImagePayload):
     """ Install using a live filesystem image from the network """
     def __init__(self, *args, **kwargs):
