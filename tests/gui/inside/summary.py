@@ -43,7 +43,7 @@ class LiveCDSummaryTestCase(UITestCase):
 
     def check_shown_spoke_selectors(self):
         # FIXME:  This forces English.
-        validSelectors = ["DATE & TIME", "KEYBOARD", "INSTALLATION DESTINATION", "NETWORK & HOSTNAME"]
+        validSelectors = ["DATE & TIME", "KEYBOARD", "INSTALLATION DESTINATION", "NETWORK & HOST NAME"]
         selectors = self.ana.findChildren(GenericPredicate(roleName="spoke selector"))
 
         self.assertEqual(len(selectors), len(validSelectors), msg="Incorrect number of spoke selectors shown")
@@ -64,7 +64,7 @@ class LiveCDSummaryTestCase(UITestCase):
                 # one, it selects none.
                 self.assertIn(selector.description, ["Automatic partitioning selected",
                                                      "No disks selected"])
-            elif selector.name == "NETWORK & HOSTNAME":
+            elif selector.name == "NETWORK & HOST NAME":
                 self.assertRegexpMatches(selector.description, "Wired (.+) connected")
             else:
                 self.fail("Invalid spoke selector shown on livecd: %s" % selector.name)
