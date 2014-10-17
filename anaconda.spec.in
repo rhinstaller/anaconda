@@ -300,6 +300,10 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Thu Oct 16 2014 Brian C. Lane <bcl@redhat.com> - 19.31.102-1
+- Fix a spelling error (dshea)
+  Related: rhbz#1072619
+
 * Tue Oct 14 2014 Brian C. Lane <bcl@redhat.com> - 19.31.101-1
 - Update pykickstart ver to bring in fix for bug (amulhern)
   Related: rhbz#1149718
