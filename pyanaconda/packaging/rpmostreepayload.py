@@ -89,6 +89,41 @@ class RPMOSTreePayload(ArchivePayload):
         else:
             progressQ.send_message("Writing objects")
 
+    def _copyBootloaderData(self):
+        # Copy bootloader data files from the deployment
+        # checkout to the target root.  See
+        # https://bugzilla.gnome.org/show_bug.cgi?id=726757 This
+        # happens once, at installation time.
+        # extlinux ships its modules directly in the RPM in /boot.
+        # For GRUB2, Anaconda installs device.map there.  We may need
+        # to add other bootloaders here though (if they can't easily
+        # be fixed to *copy* data into /boot at install time, instead
+        # of shipping it in the RPM).
+        physboot = iutil.getTargetPhysicalRoot() + '/boot'
+        ostree_boot_source = iutil.getSysroot() + '/usr/lib/ostree-boot'
+        if not os.path.isdir(ostree_boot_source):
+            ostree_boot_source = iutil.getSysroot() + '/boot'
+        for fname in os.listdir(ostree_boot_source):
+            srcpath = os.path.join(ostree_boot_source, fname)
+            destpath = os.path.join(physboot, fname)
+
+            # We're only copying directories
+            if not os.path.isdir(srcpath):
+                continue
+
+            # Special handling for EFI, as it's a mount point that's
+            # expected to already exist (so if we used copytree, we'd
+            # traceback).  If it doesn't, we're not on a UEFI system,
+            # so we don't want to copy the data.
+            if fname == 'efi' and os.path.isdir(destpath):
+                for subname in os.listdir(srcpath):
+                    sub_srcpath = os.path.join(srcpath, subname)
+                    sub_destpath = os.path.join(destpath, subname)
+                    self._safeExecWithRedirect('cp', ['-r', '-p', sub_srcpath, sub_destpath])
+            else:
+                log.info("Copying bootloader data: " + fname)
+                shutil.copytree(srcpath, destpath)
+
     def install(self):
         mainctx = GLib.MainContext.new()
         mainctx.push_thread_default()
@@ -161,22 +196,15 @@ class RPMOSTreePayload(ArchivePayload):
         deployment_path = sysroot.get_deployment_directory(deployment)
         iutil.setSysroot(deployment_path.get_path())
 
-        # Copy specific bootloader data files from the deployment
-        # checkout to the target root.  See
-        # https://bugzilla.gnome.org/show_bug.cgi?id=726757 This
-        # happens once, at installation time.
-        # extlinux ships its modules directly in the RPM in /boot.
-        # For GRUB2, Anaconda installs device.map there.  We may need
-        # to add other bootloaders here though (if they can't easily
-        # be fixed to *copy* data into /boot at install time, instead
-        # of shipping it in the RPM).
-        physboot = iutil.getTargetPhysicalRoot() + '/boot'
-        sysboot = iutil.getSysroot() + '/boot'
-        for fname in ['extlinux', 'grub2']:
-            srcpath = os.path.join(sysboot, fname)
-            if os.path.isdir(srcpath):
-                log.info("Copying bootloader data: " + fname)
-                shutil.copytree(srcpath, os.path.join(physboot, fname))
+        try:
+            self._copyBootloaderData()
+        except (OSError, RuntimeError) as e:
+            exn = PayloadInstallError("Failed to copy bootloader data: %s" % e)
+            log.error(str(exn))
+            if errors.errorHandler.cb(exn) == errors.ERROR_RAISE:
+                progressQ.send_quit(1)
+                iutil.ipmi_report(constants.IPMI_ABORTED)
+                sys.exit(1)
 
         mainctx.pop_thread_default()
 
