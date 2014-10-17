@@ -176,7 +176,7 @@ def validatePassword(pw, user="root", settings=None):
             # Leave valid alone here: the password is weak but can still
             # be accepted.
             # PWQError values are built as a tuple of (int, str)
-            message = e[1]
+            message = e.message
 
     return (valid, strength, message)
 

@@ -176,10 +176,10 @@ class UserInterface(object):
 
         actionClasses = []
         for hub in hubs:
-            actionClasses.extend(sorted(filter(lambda obj: getattr(obj, "preForHub", None) == hub, spokes),
+            actionClasses.extend(sorted(filter(lambda obj, h=hub: getattr(obj, "preForHub", None) == h, spokes),
                                         key=lambda obj: obj.priority))
             actionClasses.append(hub)
-            actionClasses.extend(sorted(filter(lambda obj: getattr(obj, "postForHub", None) == hub, spokes),
+            actionClasses.extend(sorted(filter(lambda obj, h=hub: getattr(obj, "postForHub", None) == h, spokes),
                                         key=lambda obj: obj.priority))
 
         return actionClasses
