@@ -284,7 +284,7 @@ class App(object):
                 self._redraw = False
             except ExitMainLoop:
                 raise
-            except Exception:
+            except Exception:    # pylint: disable=W0703
                 send_exception(self.queue, sys.exc_info())
                 return False
 
@@ -343,7 +343,7 @@ class App(object):
                     prompt = last_screen.prompt(self._screens[-1][1])
                 except ExitMainLoop:
                     raise
-                except Exception:
+                except Exception:    # pylint: disable=W0703
                     send_exception(self.queue, sys.exc_info())
                     continue
 
@@ -400,7 +400,7 @@ class App(object):
                         handler(event, data)
                     except ExitMainLoop:
                         raise
-                    except Exception:
+                    except Exception:    # pylint: disable=W0703
                         send_exception(self.queue, sys.exc_info())
 
     def raw_input(self, prompt, hidden=False):
@@ -441,7 +441,7 @@ class App(object):
                     return True
             except ExitMainLoop:
                 raise
-            except Exception:
+            except Exception:    # pylint: disable=W0703
                 send_exception(self.queue, sys.exc_info())
                 return False
 

@@ -242,7 +242,7 @@ class MakeBumpVer:
 
         if self.ignore and self.ignore != '':
             for commit in self.ignore.split(','):
-                lines = filter(lambda x: not x.startswith(commit), lines)
+                lines = filter(lambda x, c=commit: not x.startswith(c), lines)
 
         rpm_log = []
         bad_bump = False

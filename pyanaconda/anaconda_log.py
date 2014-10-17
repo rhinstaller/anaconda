@@ -176,8 +176,7 @@ class AnacondaLog:
             The warnings mechanism is used by some libraries we use,
             notably pykickstart.
         """
-        self.anaconda_logger.warning("%s" % warnings.formatwarning(
-                message, category, filename, lineno, line))
+        self.anaconda_logger.warning(warnings.formatwarning(message, category, filename, lineno, line))
 
     def restartSyslog(self):
         os.system("systemctl restart rsyslog.service")

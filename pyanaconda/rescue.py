@@ -430,7 +430,7 @@ def doRescue(intf, rescue_mount, ksdata):
                     pass
         except (ValueError, LookupError, SyntaxError, NameError):
             raise
-        except Exception as e:
+        except Exception as e:    # pylint: disable=W0703
             log.error("doRescue caught exception: %s", e)
             if flags.automatedInstall:
                 log.error("An error occurred trying to mount some or all of your system")

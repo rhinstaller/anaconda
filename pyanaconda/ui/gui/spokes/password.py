@@ -117,7 +117,7 @@ class PasswordSpoke(FirstbootSpokeMixIn, NormalSpoke):
             strength = checkPassword(self.pw.get_text())
             _pwq_error = None
         except PWQError as e:
-            _pwq_error = e[1]
+            _pwq_error = e.message
             strength = 0
 
         if strength < 50:
@@ -183,7 +183,7 @@ class PasswordSpoke(FirstbootSpokeMixIn, NormalSpoke):
                 pass
             else:
                 self._error = _("You have provided a weak password: %s. "
-                                " Press Done again to use anyway.") % e[1]
+                                " Press Done again to use anyway.") % e.message
                 self._oldweak = pw
                 return False
 
