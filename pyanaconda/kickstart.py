@@ -761,17 +761,10 @@ class LogVolData(commands.logvol.RHEL7_LogVolData):
         # we might have truncated or otherwise changed the specified vg name
         vgname = ksdata.onPart.get(self.vgname, self.vgname)
 
+        size = None
+
         if self.percent:
             size = Size(0)
-        else:
-            if not self.size:
-                raise KickstartValueError(formatErrorMsg(self.lineno,
-                    msg="Size must be specified."))
-            try:
-                size = Size("%d MiB" % self.size)
-            except ValueError:
-                raise KickstartValueError(formatErrorMsg(self.lineno,
-                        msg="The size \"%s\" is invalid." % self.size))
 
         if self.mountpoint == "swap":
             ty = "swap"
@@ -785,6 +778,16 @@ class LogVolData(commands.logvol.RHEL7_LogVolData):
                 ty = self.fstype
             else:
                 ty = storage.defaultFSType
+
+        if size is None:
+            if not self.size:
+                raise KickstartValueError(formatErrorMsg(self.lineno,
+                    msg="Size can not be decided on from kickstart nor obtained from device."))
+            try:
+                size = Size("%d MiB" % self.size)
+            except ValueError:
+                raise KickstartValueError(formatErrorMsg(self.lineno,
+                        msg="The size \"%s\" is invalid." % self.size))
 
         if self.thin_pool:
             self.mountpoint = ""
@@ -1005,15 +1008,6 @@ class PartitionData(commands.partition.F18_PartData):
 
         storage.doAutoPart = False
 
-        if self.size:
-            try:
-                size = Size("%d MiB" % self.size)
-            except ValueError:
-                raise KickstartValueError(formatErrorMsg(self.lineno, msg="The size %s is not valid." % self.size))
-        else:
-            # Have blivet determine a default value
-            size = None
-
         if self.onbiosdisk != "":
             for (disk, biosdisk) in storage.eddDict.iteritems():
                 if "%x" % biosdisk == self.onbiosdisk:
@@ -1022,6 +1016,8 @@ class PartitionData(commands.partition.F18_PartData):
 
             if not self.disk:
                 raise KickstartValueError(formatErrorMsg(self.lineno, msg="Specified BIOS disk %s cannot be determined" % self.onbiosdisk))
+
+        size = None
 
         if self.mountpoint == "swap":
             ty = "swap"
@@ -1090,6 +1086,12 @@ class PartitionData(commands.partition.F18_PartData):
                 ty = storage.defaultBootFSType
             else:
                 ty = storage.defaultFSType
+
+        if not size and self.size:
+            try:
+                size = Size("%d MiB" % self.size)
+            except ValueError:
+                raise KickstartValueError(formatErrorMsg(self.lineno, msg="The size %s is not valid." % self.size))
 
         # If this specified an existing request that we should not format,
         # quit here after setting up enough information to mount it later.
