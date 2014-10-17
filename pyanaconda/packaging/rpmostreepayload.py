@@ -140,16 +140,17 @@ class RPMOSTreePayload(ArchivePayload):
 
         repo_arg = "--repo=" + iutil.getTargetPhysicalRoot() + '/ostree/repo'
 
-        # Set up the chosen remote
-        remote_args = [repo_arg, "remote", "add"]
+        # Store this for use in postInstall too, where we need to
+        # undo/redo this step.
+        self._base_remote_args = ["remote", "add"]
         if ((hasattr(ostreesetup, 'noGpg') and ostreesetup.noGpg) or
             (hasattr(ostreesetup, 'nogpg') and ostreesetup.nogpg)):
-            remote_args.append("--set=gpg-verify=false")
-        remote_args.extend([ostreesetup.remote,
-                            ostreesetup.url])
-        self._safeExecWithRedirect("ostree", remote_args)
+            self._base_remote_args.append("--set=gpg-verify=false")
+        self._base_remote_args.extend([ostreesetup.remote,
+                                     ostreesetup.url])
+        self._safeExecWithRedirect("ostree", [repo_arg] + self._base_remote_args)
 
-        sysroot_path = Gio.File.new_for_path(iutil.getTargetPhysicalRoot())
+        self._sysroot_path = sysroot_path = Gio.File.new_for_path(iutil.getTargetPhysicalRoot())
         sysroot = OSTree.Sysroot.new(sysroot_path)
         sysroot.load(cancellable)
 
@@ -250,6 +251,24 @@ class RPMOSTreePayload(ArchivePayload):
     def postInstall(self):
         super(RPMOSTreePayload, self).postInstall()
 
+        from gi.repository import OSTree
+        cancellable = None
+
+        # Reload this data - we couldn't keep it open across
+        # the remounts happening.
+        sysroot = OSTree.Sysroot.new(self._sysroot_path)
+        sysroot.load(cancellable)
+        repo = sysroot.get_repo(None)[1]
+
+        # This is an ugly hack - we didn't have /etc/ostree/remotes.d,
+        # so the remote went into /ostree/repo/config.  But we want it
+        # in /etc, so delete that remote, then re-add it to
+        # /etc/ostree/remotes.d, executing ostree inside the sysroot
+        # so that it understands it's a "system repository" and should
+        # modify /etc.
+        repo.remote_delete(self.data.ostreesetup.remote, None)
+        self._safeExecWithRedirect("ostree", self._base_remote_args, root=iutil.getSysroot())
+
         boot = iutil.getSysroot() + '/boot'
 
         # If we're using extlinux, rename extlinux.conf to
@@ -275,6 +294,7 @@ class RPMOSTreePayload(ArchivePayload):
             log.info("Moving %s -> %s", orig_grub_cfg, target_grub_cfg)
             os.rename(orig_grub_cfg, target_grub_cfg)
             os.symlink('../loader/grub.cfg', orig_grub_cfg)
+
 
         # OSTree owns the bootloader configuration, so here we give it
         # the argument list we computed from storage, architecture and
