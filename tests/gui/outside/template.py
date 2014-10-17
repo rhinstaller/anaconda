@@ -63,6 +63,9 @@ if __name__ == "__main__":
         for log in glob.glob("/tmp/*.log"):
             shutil.copy(log, "/mnt/anactest/result/anaconda/")
 
+        if os.path.exists("/tmp/memory.dat"):
+            shutil.copy("/tmp/memory.dat", "/mnt/anactest/result/anaconda/")
+
         # anaconda writes out traceback files with restricted permissions, so
         # we have to go out of our way to grab them.
         for tb in glob.glob("/tmp/anaconda-tb-*"):
