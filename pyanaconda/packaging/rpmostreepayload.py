@@ -268,14 +268,13 @@ class RPMOSTreePayload(ArchivePayload):
 
         # And if we're using GRUB2, move its config file, also with a
         # compatibility symlink.
-        boot_grub2 = boot + '/grub2'
-        if os.path.isdir(boot_grub2):
+        boot_grub2_cfg = boot + '/grub2/grub.cfg'
+        if os.path.isfile(boot_grub2_cfg):
             boot_loader = boot + '/loader'
-            orig_grub_cfg = boot_grub2 + '/grub.cfg'
             target_grub_cfg = boot_loader + '/grub.cfg'
-            log.info("Moving %s -> %s", orig_grub_cfg, target_grub_cfg)
-            os.rename(orig_grub_cfg, target_grub_cfg)
-            os.symlink('../loader/grub.cfg', orig_grub_cfg)
+            log.info("Moving %s -> %s", boot_grub2_cfg, target_grub_cfg)
+            os.rename(boot_grub2_cfg, target_grub_cfg)
+            os.symlink('../loader/grub.cfg', boot_grub2_cfg)
 
         # OSTree owns the bootloader configuration, so here we give it
         # the argument list we computed from storage, architecture and
