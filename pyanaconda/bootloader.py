@@ -2387,6 +2387,10 @@ def writeBootLoader(storage, payload, instClass, ksdata):
         stage2_device = storage.bootloader.stage2_device
         log.info("bootloader stage2 target device is %s" % stage2_device.name)
 
+    # Bridge storage EFI configuration to bootloader
+    if hasattr(storage.bootloader, 'efi_dir'):
+        storage.bootloader.efi_dir = instClass.efi_dir
+
     if isinstance(payload, RPMOSTreePayload):
         if storage.bootloader.skip_bootloader:
             log.info("skipping bootloader install per user request")
@@ -2413,8 +2417,6 @@ def writeBootLoader(storage, payload, instClass, ksdata):
                                          short=base_short_label)
     storage.bootloader.add_image(default_image)
     storage.bootloader.default = default_image
-    if hasattr(storage.bootloader, 'efi_dir'):
-        storage.bootloader.efi_dir = instClass.efi_dir
 
     # write out /etc/sysconfig/kernel
     writeSysconfigKernel(storage, version)
