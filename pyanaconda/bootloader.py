@@ -1276,16 +1276,28 @@ class GRUB(BootLoader):
         # add the redundant targets if installing stage1 to a disk that is
         # a member of the stage2 array.
 
+        # Look for both mdraid and btrfs raid
         if self.stage2_device.type == "mdarray" and \
-           self.stage2_device.level == raid.RAID1 and \
+           self.stage2_device.level == raid.RAID1:
+            stage2_raid = True
+            # Set parents to the list of partitions in the RAID
+            stage2_parents = self.stage2_device.parents
+        elif self.stage2_device.type == "btrfs subvolume" and \
+           self.stage2_device.parents[0].dataLevel == raid.RAID1:
+            stage2_raid = True
+            # Set parents to the list of partitions in the parent volume
+            stage2_parents = self.stage2_device.parents[0].parents
+        else:
+            stage2_raid = False
+
+        if stage2_raid and \
            self.stage1_device.isDisk and \
            self.stage2_device.dependsOn(self.stage1_device):
-            for stage2dev in self.stage2_device.parents:
+            for stage2dev in stage2_parents:
                 # if target disk contains any of /boot array's member
                 # partitions, set up stage1 on each member's disk
-                # and stage2 on each member partition
                 stage1dev = stage2dev.disk
-                targets.append((stage1dev, stage2dev))
+                targets.append((stage1dev, self.stage2_device))
         else:
             targets.append((self.stage1_device, self.stage2_device))
 
