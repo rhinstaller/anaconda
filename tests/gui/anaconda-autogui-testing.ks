@@ -1,4 +1,4 @@
-%include /usr/share/spin-kickstarts/fedora-livecd-desktop.ks
+%include /usr/share/spin-kickstarts/fedora-live-workstation.ks
 
 url --mirrorlist=https://mirrors.fedoraproject.org/metalink?repo=rawhide&arch=x86_64
 
@@ -10,7 +10,7 @@ rootpw qweqwe
 bootloader --location=mbr
 zerombr
 clearpart --all
-part / --fstype="ext4" --size=4400
+part / --fstype="ext4" --size=5000
 
 %post
 cat >> /etc/rc.d/init.d/livesys << EOF
@@ -42,6 +42,8 @@ EOF
 %end
 
 %packages
+@^workstation-product-environment
+-@fedora-release-nonproduct
 dogtail
 -@libreoffice
 -java*
