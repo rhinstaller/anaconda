@@ -300,6 +300,22 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Mon Oct 20 2014 Brian C. Lane <bcl@redhat.com> - 19.31.103-1
+- Really fix issue with starting in cmdline mode on s390x. (sbueno+anaconda)
+  Resolves: rhbz#1040933
+- Add authconfig and firewalld packages when used in ks (bcl)
+  Resolves: rhbz#1147687
+- Fix the rest of the new pylint error messages. (clumens)
+  Related: rhbz#1121678
+- Change disable-msg to disable for the new pylint. (clumens)
+  Related: rhbz#1121678
+- Don't panic prematurely on a missing size (amulhern)
+  Resolves: rhbz#1154068
+- Get rid of some unnecessary text from dasdfmt dialog. (sbueno+anaconda)
+  Resolves: rhbz#1153050
+- rpmostreepayload: Drop selinux-ensure-labeled call (walters)
+  Related: rhbz#1113535
+
 * Thu Oct 16 2014 Brian C. Lane <bcl@redhat.com> - 19.31.102-1
 - Fix a spelling error (dshea)
   Related: rhbz#1072619

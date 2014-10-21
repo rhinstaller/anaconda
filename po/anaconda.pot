@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: anaconda 19.31.101\n"
+"Project-Id-Version: anaconda 19.31.102\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
-"POT-Creation-Date: 2014-10-16 17:32-0700\n"
+"POT-Creation-Date: 2014-10-20 17:31-0700\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -377,11 +377,11 @@ msgstr ""
 msgid "Discovering realm to join"
 msgstr ""
 
-#: pyanaconda/install.py:258
+#: pyanaconda/install.py:264
 msgid "Installing boot loader"
 msgstr ""
 
-#: pyanaconda/install.py:261 pyanaconda/packaging/livepayload.py:157
+#: pyanaconda/install.py:267 pyanaconda/packaging/livepayload.py:157
 #: pyanaconda/packaging/yumpayload.py:1642
 msgid "Performing post-installation setup tasks"
 msgstr ""
@@ -400,38 +400,38 @@ msgid ""
 "%s"
 msgstr ""
 
-#: pyanaconda/kickstart.py:247
+#: pyanaconda/kickstart.py:255
 #, python-format
 msgid "%s is missing. Cannot setup authentication."
 msgstr ""
 
-#: pyanaconda/kickstart.py:272
+#: pyanaconda/kickstart.py:280
 #, python-format
 msgid "autopart fstype of %s is invalid."
 msgstr ""
 
-#: pyanaconda/kickstart.py:289
+#: pyanaconda/kickstart.py:297
 #, python-format
 msgid "Settings default fstype to %s failed."
 msgstr ""
 
-#: pyanaconda/kickstart.py:636
+#: pyanaconda/kickstart.py:652
 #, python-format
 msgid "%s is missing. Cannot setup firewall."
 msgstr ""
 
-#: pyanaconda/kickstart.py:1135 pyanaconda/kickstart.py:1344
+#: pyanaconda/kickstart.py:1153 pyanaconda/kickstart.py:1362
 #, python-format
 msgid "The \"%s\" file system type is not supported."
 msgstr ""
 
-#: pyanaconda/kickstart.py:1643
+#: pyanaconda/kickstart.py:1661
 msgid ""
 "The upgrade kickstart command is no longer supported. Upgrade functionality "
 "is provided through redhat-upgrade-tool."
 msgstr ""
 
-#: pyanaconda/kickstart.py:1861
+#: pyanaconda/kickstart.py:1879
 msgid "Running pre-installation scripts"
 msgstr ""
 
@@ -2386,7 +2386,7 @@ msgstr ""
 #: pyanaconda/ui/gui/spokes/source.glade.h:4
 #: pyanaconda/ui/gui/spokes/custom.glade.h:5
 #: pyanaconda/ui/gui/spokes/advstorage/dasd.glade.h:1
-#: pyanaconda/ui/gui/spokes/lib/dasdfmt.glade.h:10
+#: pyanaconda/ui/gui/spokes/lib/dasdfmt.glade.h:9
 msgid "_Cancel"
 msgstr ""
 
@@ -2585,7 +2585,7 @@ msgstr ""
 
 #: pyanaconda/ui/gui/spokes/storage.py:994
 #: pyanaconda/ui/gui/spokes/advstorage/dasd.glade.h:2
-#: pyanaconda/ui/gui/spokes/lib/dasdfmt.glade.h:11
+#: pyanaconda/ui/gui/spokes/lib/dasdfmt.glade.h:10
 msgid "_OK"
 msgstr ""
 
@@ -4309,13 +4309,6 @@ msgstr ""
 msgid "Disk formatting complete."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/lib/dasdfmt.glade.h:9
-#: pyanaconda/ui/gui/spokes/lib/refresh.glade.h:12
-msgid ""
-"Pressing 'OK' below will take you to the disk selection screen where you "
-"will need to re-select your disks."
-msgstr ""
-
 #: pyanaconda/ui/gui/spokes/lib/detailederror.glade.h:1
 msgid "An unknown error occurred during installation.  Details are below."
 msgstr ""
@@ -4385,6 +4378,12 @@ msgstr ""
 
 #: pyanaconda/ui/gui/spokes/lib/refresh.glade.h:11
 msgid "Disk rescan complete."
+msgstr ""
+
+#: pyanaconda/ui/gui/spokes/lib/refresh.glade.h:12
+msgid ""
+"Pressing 'OK' below will take you to the disk selection screen where you "
+"will need to re-select your disks."
 msgstr ""
 
 #: pyanaconda/ui/gui/spokes/lib/refresh.glade.h:13
