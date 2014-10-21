@@ -165,8 +165,8 @@ def sanity_check(storage, min_ram=isys.MIN_RAM):
 
     exns = []
 
-    checkSizes = [('/usr', 250), ('/tmp', 50), ('/var', 384),
-                  ('/home', 100), ('/boot', 200)]
+    checkSizes = [('/usr', Size("250 MiB")), ('/tmp', Size("50 MiB")), ('/var', Size("384 MiB")),
+                  ('/home', Size("100 MiB")), ('/boot', Size("200 MiB"))]
     mustbeonlinuxfs = ['/', '/var', '/tmp', '/usr', '/home', '/usr/share', '/usr/lib']
     mustbeonroot = ['/bin','/dev','/sbin','/etc','/lib','/root', '/mnt', 'lost+found', '/proc']
 
@@ -175,7 +175,7 @@ def sanity_check(storage, min_ram=isys.MIN_RAM):
     swaps = storage.fsset.swapDevices
 
     if root:
-        if root.size < 250:
+        if root.size < Size("250 MiB"):
             exns.append(
                SanityWarning(_("Your root partition is less than 250 "
                               "megabytes which is usually too small to "
@@ -207,9 +207,8 @@ def sanity_check(storage, min_ram=isys.MIN_RAM):
         if mount in filesystems and filesystems[mount].size < size:
             exns.append(
                SanityWarning(_("Your %(mount)s partition is less than "
-                              "%(size)s megabytes which is lower than "
-                              "recommended for a normal %(productName)s "
-                              "install.")
+                              "%(size)s which is lower than recommended "
+                              "for a normal %(productName)s install.")
                             % {'mount': mount, 'size': size,
                                'productName': productName}))
 
