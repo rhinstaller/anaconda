@@ -111,9 +111,10 @@ class AddonData(object):
     def __init__(self, name):
         self.name = name
         self.content = ""
+        self.header_args = ""
 
     def __str__(self):
-        return "%%addon %s\n%s%%end\n" % (self.name, self.content)
+        return "%%addon %s %s\n%s%%end\n" % (self.name, self.header_args, self.content)
 
     def setup(self, storage, ksdata, instClass):
         """Make the changes to the install system.
@@ -141,16 +142,13 @@ class AddonData(object):
 
            This function would be called with args=["--argument='example'"].
 
-           By default AddonData.handle_header will fail if passed any arguments,
-           so addon sections that take arguments must override this method.
+           By default AddonData.handle_header just preserves the passed
+           arguments by storing them and adding them to the __str__ output.
+
         """
 
         if args:
-            msg = _("Unhandled arguments on %%addon line for %s") % self.name
-            if lineno != None:
-                raise KickstartParseError(formatErrorMsg(lineno, msg=msg))
-            else:
-                raise KickstartParseError(msg)
+            self.header_args += " ".join(args)
 
     def handle_line(self, line):
         """Process one kickstart line."""
