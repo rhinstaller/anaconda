@@ -24,11 +24,15 @@ from pyanaconda import network
 from pyanaconda import nm
 from pyanaconda import iutil
 import types
+from pyanaconda.kickstart import getAvailableDiskSpace
+from blivet.partspec import PartSpec
+from blivet.platform import platform
+from blivet.devicelibs import swap
 
 class RHELBaseInstallClass(BaseInstallClass):
     name = "Red Hat Enterprise Linux"
     sortPriority = 20000
-    if not productName.startswith(("Red Hat ", "RHEL Atomic")):
+    if not productName.startswith("Red Hat "):
         hidden = True
     defaultFS = "xfs"
 
@@ -45,7 +49,7 @@ class RHELBaseInstallClass(BaseInstallClass):
 
     def configure(self, anaconda):
         BaseInstallClass.configure(self, anaconda)
-        BaseInstallClass.setDefaultPartitioning(self, anaconda.storage)
+        self.setDefaultPartitioning(anaconda.storage)
 
     # Set first boot policy regarding ONBOOT value
     # (i.e. which network devices should be activated automatically after reboot)
@@ -84,3 +88,31 @@ class RHELBaseInstallClass(BaseInstallClass):
 
     def __init__(self):
         BaseInstallClass.__init__(self)
+
+class RHELAtomicInstallClass(RHELBaseInstallClass):
+    name = "RHEL Atomic Host"
+    if productName.startswith("RHEL Atomic"):
+        hidden = False
+
+    def setDefaultPartitioning(self, storage):
+        autorequests = [PartSpec(mountpoint="/", fstype=storage.defaultFSType,
+                                size=1024, maxSize=3*1024, grow=True, lv=True)]
+
+        bootreqs = platform.setDefaultPartitioning()
+        if bootreqs:
+            autorequests.extend(bootreqs)
+
+        disk_space = getAvailableDiskSpace(storage)
+        swp = swap.swapSuggestion(disk_space=disk_space)
+        autorequests.append(PartSpec(fstype="swap", size=swp, grow=False,
+                                    lv=True, encrypted=True))
+
+        for autoreq in autorequests:
+            if autoreq.fstype is None:
+                if autoreq.mountpoint == "/boot":
+                    autoreq.fstype = storage.defaultBootFSType
+                    autoreq.size = 300
+                else:
+                    autoreq.fstype = storage.defaultFSType
+
+        storage.autoPartitionRequests = autorequests
