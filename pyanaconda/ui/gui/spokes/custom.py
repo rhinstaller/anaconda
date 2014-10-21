@@ -750,6 +750,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         # bound size to boundaries given by the device
         use_size = use_dev.alignTargetSize(use_size)
         size = storage_utils.bound_size(use_size, use_dev, use_old_size)
+        size = use_dev.alignTargetSize(size)
 
         # And then we need to re-check that the max size is actually
         # different from the current size.
