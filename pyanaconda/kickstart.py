@@ -878,6 +878,7 @@ class LogVolData(commands.logvol.F21_LogVolData):
                         msg=_("Logical volume \"%s\" given in logvol command does not exist.") % self.name))
 
             if self.resize:
+                size = dev.raw_device.alignTargetSize(size)
                 if size < dev.currentSize:
                     # shrink
                     try:
@@ -947,6 +948,7 @@ class LogVolData(commands.logvol.F21_LogVolData):
             removeExistingFormat(device, storage)
 
             if self.resize:
+                size = device.raw_device.alignTargetSize(size)
                 try:
                     devicetree.registerAction(ActionResizeDevice(device, size))
                 except ValueError:
@@ -1181,6 +1183,7 @@ class PartitionData(commands.partition.F18_PartData):
                         msg=_("Partition \"%s\" given in part command does not exist.") % self.onPart))
 
             if self.resize:
+                size = dev.raw_device.alignTargetSize(size)
                 if size < dev.currentSize:
                     # shrink
                     try:
@@ -1273,6 +1276,7 @@ class PartitionData(commands.partition.F18_PartData):
 
             removeExistingFormat(device, storage)
             if self.resize:
+                size = device.raw_device.alignTargetSize(size)
                 try:
                     devicetree.registerAction(ActionResizeDevice(device, size))
                 except ValueError:

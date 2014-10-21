@@ -722,6 +722,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
     def _handle_size_change(self, size, old_size, device, use_dev):
         # bound size to boundaries given by the device
         size = self._bound_size(size, device)
+        size = self.alignTargetSize(size)
 
         # And then we need to re-check that the max size is actually
         # different from the current size.

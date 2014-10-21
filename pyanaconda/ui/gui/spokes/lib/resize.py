@@ -435,8 +435,8 @@ class ResizeDialog(GUIObject):
             return False
         elif obj.action == _(SHRINK) and int(device.size) != int(obj.target):
             if device.resizable:
-                # round this up to nearest MB? MiB? Maybe in targetSize setter.
-                self.storage.resizeDevice(device, Size(obj.target))
+                aligned = device.alignTargetSize(Size(obj.target))
+                self.storage.resizeDevice(device, aligned)
             else:
                 self._recursiveRemove(device)
         elif obj.action == _(DELETE):
