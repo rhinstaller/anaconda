@@ -294,7 +294,7 @@
   </object>
   <object class="AnacondaSpokeWindow" id="datetimeWindow">
     <property name="can_focus">False</property>
-    <property name="window_name" translatable="yes">DATE &amp; TIME</property>
+    <property name="window_name" translatable="yes">TIME &amp; DATE</property>
     <signal name="button-clicked" handler="on_back_clicked" swapped="no"/>
     <child internal-child="main_box">
       <object class="GtkBox" id="AnacondaSpokeWindow-main_box1">
