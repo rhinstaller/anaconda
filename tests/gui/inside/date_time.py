@@ -45,10 +45,10 @@ class LiveCDDateTimeTestCase(UITestCase):
 
     def _run(self):
         # First, we need to click on the network spoke selector.
-        self.enter_spoke("DATE & TIME")
+        self.enter_spoke("TIME & DATE")
 
         # Now verify we are on the right screen.
-        self.check_window_displayed("DATE & TIME")
+        self.check_window_displayed("TIME & DATE")
 
         # And now we can check everything else on the screen.
         self.check_region_city()
