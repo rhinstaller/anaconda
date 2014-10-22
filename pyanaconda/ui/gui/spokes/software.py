@@ -416,9 +416,10 @@ class SoftwareSelectionSpoke(NormalSpoke):
 
         # Remove all the groups that were selected by the previously
         # selected environment.
-        for groupid in self.payload.environmentGroups(self.environment):
-            if groupid in self.selectedGroups:
-                self.selectedGroups.remove(groupid)
+        if self.environment:
+            for groupid in self.payload.environmentGroups(self.environment):
+                if groupid in self.selectedGroups:
+                    self.selectedGroups.remove(groupid)
 
         # Then mark the clicked environment as selected and update the screen.
         self.environment = self.payload.environments[row.get_index()]
