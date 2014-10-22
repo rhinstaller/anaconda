@@ -91,7 +91,6 @@ class RPMOSTreePayload(ArchivePayload):
         # checkout to the target root.  See
         # https://bugzilla.gnome.org/show_bug.cgi?id=726757 This
         # happens once, at installation time.
-        # extlinux ships its modules directly in the RPM in /boot.
         # For GRUB2, Anaconda installs device.map there.  We may need
         # to add other bootloaders here though (if they can't easily
         # be fixed to *copy* data into /boot at install time, instead
@@ -249,20 +248,7 @@ class RPMOSTreePayload(ArchivePayload):
 
         boot = iutil.getSysroot() + '/boot'
 
-        # If we're using extlinux, rename extlinux.conf to
-        # syslinux.cfg, since that's what OSTree knows about.
-        # syslinux upstream supports both, but I'd say that upstream
-        # using syslinux.cfg is somewhat preferred.
-        boot_extlinux = boot + '/extlinux'
-        if os.path.isdir(boot_extlinux):
-            boot_syslinux = boot + '/syslinux'
-            boot_loader = boot + '/loader'
-            orig_extlinux_conf = boot_extlinux + '/extlinux.conf'
-            target_syslinux_cfg = boot_loader + '/syslinux.cfg'
-            log.info("Moving %s -> %s", orig_extlinux_conf, target_syslinux_cfg)
-            os.symlink('loader/syslinux.cfg', boot + '/syslinux.cfg')
-
-        # And if we're using GRUB2, move its config file, also with a
+        # If we're using GRUB2, move its config file, also with a
         # compatibility symlink.
         boot_grub2_cfg = boot + '/grub2/grub.cfg'
         if os.path.isfile(boot_grub2_cfg):
