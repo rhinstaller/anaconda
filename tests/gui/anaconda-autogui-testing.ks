@@ -45,6 +45,7 @@ EOF
 @^workstation-product-environment
 -@fedora-release-nonproduct
 dogtail
+syslinux
 -@libreoffice
 -java*
 %end
