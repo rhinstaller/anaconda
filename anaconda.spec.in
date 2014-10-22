@@ -300,6 +300,21 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Wed Oct 22 2014 Brian C. Lane <bcl@redhat.com> - 19.31.104-1
+- Remove an extlinux-related block from rpmostreepayload.py. (clumens)
+  Related: rhbz#1153409
+- bootloader: Bridge efi_dir configuration earlier for rpmostreepayload
+  (walters)
+  Related: rhbz#1153409
+- rpmostreepayload: Handle grub2+EFI layout (walters)
+  Related: rhbz#1153409
+- rpmostreepayload: Copy all subdirectories of /usr/lib/ostree-boot (walters)
+  Related: rhbz#1153409
+- Handle the case of rpmostreepayload + GRUB2 (walters)
+  Related: rhbz#1153409
+- Enable dmidecode on aarch64 (jdisnard). (clumens)
+  Resolves: rhbz#1134651
+
 * Mon Oct 20 2014 Brian C. Lane <bcl@redhat.com> - 19.31.103-1
 - Really fix issue with starting in cmdline mode on s390x. (sbueno+anaconda)
   Resolves: rhbz#1040933
