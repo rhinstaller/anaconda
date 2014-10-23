@@ -135,9 +135,6 @@ Requires: systemd
 Requires: fcoe-utils >= %{fcoeutilsver}
 %endif
 Requires: iscsi-initiator-utils >= %{iscsiver}
-%ifarch %{ix86} x86_64 aarch64
-Requires: dmidecode
-%endif
 %ifarch %{ix86} x86_64
 %if ! 0%{?rhel}
 Requires: hfsplus-tools
