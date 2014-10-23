@@ -364,11 +364,11 @@ class MakeBumpVer:
                                                               fixedIn) or \
                             not self._isRHELBugAcked(ckbug, commit, summary)):
                             bad = True
-                        elif valid and action == 'Related' and \
-                            self._isRHELBugAcked(ckbug, commit, summary):
-                            print("*** Bug %s Related commit %s is allowed\n" % (bug, commit))
-                            # Related bugs only need to be valid and have an ack
-                            bad = False
+                        elif valid and action == 'Related':
+                            if self._isRHELBugAcked(ckbug, commit, summary):
+                                print("*** Bug %s Related commit %s is allowed\n" % (bug, commit))
+                            else:
+                                bad = True
 
                 if len(rhbz) == 0 and not self.skip_all:
                     print("*** No bugs referenced in commit %s\n" % commit)
