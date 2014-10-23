@@ -311,6 +311,10 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Thu Oct 23 2014 Samantha N. Bueno <sbueno+anaconda@redhat.com> - 21.48.12-1
+- Fix a spelling error (#1153672) (dshea)
+- Update checkSizes to work in terms of Size objects (#1129629). (clumens)
+
 * Mon Oct 20 2014 Samantha N. Bueno <sbueno+anaconda@redhat.com> - 21.48.11-1
 - Don't panic prematurely on a missing size (#1154190) (amulhern)
 - Log when using updates from /tmp/updates/ (bcl)
