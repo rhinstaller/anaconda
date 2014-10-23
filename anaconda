@@ -1212,9 +1212,10 @@ if __name__ == "__main__":
     if image_count:
         anaconda.storage.setupDiskImages()
 
-    from pyanaconda import exception
-    # comment out the next line to make exceptions non-fatal
-    anaconda.mehConfig = exception.initExceptionHandling(anaconda)
+    # only install interactive exception handler in interactive modes
+    if ksdata.displaymode.displayMode != DISPLAY_MODE_CMDLINE or flags.debug:
+        from pyanaconda import exception
+        anaconda.mehConfig = exception.initExceptionHandling(anaconda)
 
     # add our own additional signal handlers
     signal.signal(signal.SIGUSR1, lambda signum, frame:
