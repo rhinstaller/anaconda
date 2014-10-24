@@ -139,7 +139,7 @@ class PasswordSpoke(FirstbootSpokeMixIn, NormalSpoke, GUISpokeInputCheckHandler)
         self.data.rootpw.lock = False
 
         if not pw:
-            self.data.rootpw.password = None
+            self.data.rootpw.password = ''
             self.data.rootpw.isCrypted = False
             return
 
