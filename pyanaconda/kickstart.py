@@ -170,14 +170,34 @@ def getEscrowCertificate(escrowCerts, url):
 
     return escrowCerts[url]
 
-def deviceMatches(spec):
+def deviceMatches(spec, devicetree=None):
+    """ Return names of block devices matching the provided specification.
+
+        :param str spec: a device identifier (name, UUID=<uuid>, &c)
+        :keyword devicetree: device tree to look up devices in (optional)
+        :type devicetree: :class:`blivet.DeviceTree`
+        :returns: names of matching devices
+        :rtype: list of str
+
+        parse methods will not have access to a devicetree, while execute
+        methods will. The devicetree is superior in that it can resolve md
+        array names and in that it reflects scheduled device removals, but for
+        normal local disks udev.resolve_devspec should suffice.
+    """
     full_spec = spec
     if not full_spec.startswith("/dev/"):
         full_spec = os.path.normpath("/dev/" + full_spec)
 
     # the regular case
     matches = udev.resolve_glob(full_spec)
-    dev = udev.resolve_devspec(full_spec)
+
+    # Use spec here instead of full_spec to preserve the spec and let the
+    # called code decide whether to treat the spec as a path instead of a name.
+    if devicetree is None:
+        dev = udev.resolve_devspec(spec)
+    else:
+        dev = getattr(devicetree.resolveDevice(spec), "name", None)
+
     # udev.resolve_devspec returns None if there's no match, but we don't
     # want that ending up in the list.
     if dev and dev not in matches:
@@ -370,7 +390,7 @@ class Bootloader(commands.bootloader.F21_Bootloader):
         diskSet = set(disk_names)
 
         for drive in self.driveorder[:]:
-            matches = set(deviceMatches(drive))
+            matches = set(deviceMatches(drive, devicetree=storage.devicetree))
             if matches.isdisjoint(diskSet):
                 log.warning("requested drive %s in boot drive order doesn't exist or cannot be used", drive)
                 self.driveorder.remove(drive)
@@ -378,7 +398,8 @@ class Bootloader(commands.bootloader.F21_Bootloader):
         storage.bootloader.disk_order = self.driveorder
 
         if self.bootDrive:
-            matches = set(deviceMatches(self.bootDrive))
+            matches = set(deviceMatches(self.bootDrive,
+                                        devicetree=storage.devicetree))
             if len(matches) > 1:
                 raise KickstartValueError(formatErrorMsg(self.lineno,
                         msg=_("More than one match found for given boot drive \"%s\".") % self.bootDrive))
