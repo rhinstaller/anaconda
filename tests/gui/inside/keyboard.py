@@ -110,7 +110,7 @@ class BasicKeyboardTestCase(UITestCase):
         self.enter_spoke("KEYBOARD")
 
         # Now verify we are on the right screen.
-        self.check_window_displayed("KEYBOARD")
+        self.check_window_displayed("KEYBOARD LAYOUT")
 
         # And now we can check everything else on the screen.
         self.check_options_dialog()

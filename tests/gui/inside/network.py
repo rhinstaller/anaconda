@@ -20,7 +20,7 @@ from . import UITestCase
 class LiveCDNetworkTestCase(UITestCase):
     def check_hostname_entry(self):
         # Only the live install hint and hostname box should be visible.
-        self.assertTrue(self.find("Please use the live desktop environment's tools for customizing your network configuration.  You can set the hostname here.").showing)
+        self.assertTrue(self.find("Please use the live desktop environment's tools for customizing your network configuration.  You can set the host name here.").showing)
 
         box = self.find("Network Config Box")
         self.assertIsNotNone(box, "Network Config box not found")
@@ -30,16 +30,16 @@ class LiveCDNetworkTestCase(UITestCase):
         self.assertIsNotNone(box, "More Network Config box not found")
         self.assertFalse(box.showing, msg="More Network Config box should not be displayed")
 
-        entry = self.find("Hostname", "text")
+        entry = self.find("Host Name", "text")
         self.assertIsNotNone(entry , "Hostname entry not found")
         self.assertTrue(entry.showing, msg="Hostname entry should be displayed")
 
     def _run(self):
         # First, we need to click on the network spoke selector.
-        self.enter_spoke("NETWORK & HOSTNAME")
+        self.enter_spoke("NETWORK & HOST NAME")
 
         # Now verify we are on the right screen.
-        self.check_window_displayed("NETWORK & HOSTNAME")
+        self.check_window_displayed("NETWORK & HOST NAME")
 
         # And now we can check everything else on the screen.
         self.check_hostname_entry()
