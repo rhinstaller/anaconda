@@ -15,14 +15,9 @@
 #
 # Author: Chris Lumens <clumens@redhat.com>
 
-from dogtail.predicate import GenericPredicate
-
 from . import UITestCase
 
 class BasicKeyboardTestCase(UITestCase):
-    def _get_view_contents(self, view):
-        return [child for child in view.findChildren(GenericPredicate(roleName="table cell"))]
-
     def check_options_dialog(self, spoke):
         # No layout switching should be configured yet.
         self.assertTrue(self.find("Layout switching not configured.", node=spoke).showing)
@@ -35,7 +30,7 @@ class BasicKeyboardTestCase(UITestCase):
         view = self.find("Layout Options", node=dlg)
         self.assertIsNotNone(view, "Layout Switching Options view not found")
 
-        children = self._get_view_contents(view)
+        children = self.view_children(view)
         children[0].click()
 
         # Leave the dialog and make sure the layout switching hint on the spoke has changed.
@@ -47,7 +42,7 @@ class BasicKeyboardTestCase(UITestCase):
         # FIXME:  This encodes default information.
         view = self.find("Selected Layouts", node=spoke)
         self.assertIsNotNone(view, "Selected Layouts view not found")
-        self.assertEqual(len(self._get_view_contents(view)), 1, msg="An unexpected number of keyboard layouts are enabled")
+        self.assertEqual(len(self.view_children(view)), 1, msg="An unexpected number of keyboard layouts are enabled")
 
     def check_layout_buttons_initial(self, spoke):
         button = self.find("Add layout", "push button", node=spoke)

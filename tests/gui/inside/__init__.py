@@ -17,6 +17,7 @@
 #
 # Author: Chris Lumens <clumens@redhat.com>
 from dogtail.config import config
+from dogtail.predicate import GenericPredicate
 from dogtail.tree import SearchError, root
 from dogtail.utils import doDelay, screenshot
 
@@ -106,6 +107,12 @@ class UITestCase(unittest.TestCase):
             return node.child(name=name, roleName=roleName)
         except SearchError:
             return None
+
+    def view_children(self, view):
+        return [child for child in view.findChildren(GenericPredicate(roleName="table cell"))]
+
+    def selected_view_children(self, view):
+        return [child for child in self.view_children(view) if child.selected]
 
     ###
     ### METHODS FOR CHECKING A SINGLE WIDGET

@@ -15,8 +15,6 @@
 #
 # Author: Chris Lumens <clumens@redhat.com>
 
-from dogtail.predicate import GenericPredicate
-
 from . import UITestCase
 
 # This test case handles the basic case on the welcome language spoke where
@@ -34,9 +32,6 @@ from . import UITestCase
 #     contents of the left hand view.
 
 class BasicWelcomeTestCase(UITestCase):
-    def _get_enabled(self, view):
-        return [child for child in view.findChildren(GenericPredicate(roleName="table cell")) if child.selected]
-
     def check_lang_locale_views(self, spoke):
         # FIXME:  This encodes default information.
         lang = "English"
@@ -44,14 +39,14 @@ class BasicWelcomeTestCase(UITestCase):
 
         view = self.find("Languages", node=spoke)
         self.assertIsNotNone(view, "Language view not found")
-        enabled = self._get_enabled(view)
+        enabled = self.selected_view_children(view)
         # We get back a list of [native name, english name, language setting] for each actual language.
         self.assertEqual(len(enabled), 3, msg="An unexpected number of languages are selected")
         self.assertEqual(enabled[0].text, lang)
 
         view = self.find("Locales", node=spoke)
         self.assertIsNotNone(view, "Locale view not found")
-        enabled = self._get_enabled(view)
+        enabled = self.selected_view_children(view)
         self.assertEqual(len(enabled), 1, msg="An unexpected number of locales are selected")
         self.assertEqual(enabled[0].text, locale)
 
