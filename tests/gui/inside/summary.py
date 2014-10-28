@@ -30,21 +30,21 @@ from . import UITestCase
 #   spoke selectors are visible.
 
 class LiveCDSummaryTestCase(UITestCase):
-    def check_quit_button(self):
-        self.click_button("Quit")
-        self.check_dialog_displayed("Quit")
-        self.click_button("No")
+    def check_quit_button(self, spoke):
+        self.click_button("Quit", node=spoke)
+        dlg = self.check_dialog_displayed("Quit")
+        self.click_button("No", node=dlg)
 
-    def check_begin_installation_button(self):
-        button = self.find("Begin Installation", "push button")
+    def check_begin_installation_button(self, spoke):
+        button = self.find("Begin Installation", "push button", node=spoke)
         self.assertIsNotNone(button, msg="Begin Installation button not found")
         self.assertTrue(button.showing, msg="Begin Installation button should be displayed")
         self.assertFalse(button.sensitive, msg="Begin Installation button should not be sensitive")
 
-    def check_shown_spoke_selectors(self):
+    def check_shown_spoke_selectors(self, spoke):
         # FIXME:  This forces English.
         validSelectors = ["TIME & DATE", "KEYBOARD", "INSTALLATION DESTINATION", "NETWORK & HOST NAME"]
-        selectors = self.ana.findChildren(GenericPredicate(roleName="spoke selector"))
+        selectors = spoke.findChildren(GenericPredicate(roleName="spoke selector"))
 
         self.assertEqual(len(selectors), len(validSelectors), msg="Incorrect number of spoke selectors shown")
 
@@ -72,10 +72,10 @@ class LiveCDSummaryTestCase(UITestCase):
     def _run(self):
         # Before doing anything, verify we are on the right screen.
         doDelay(5)
-        self.check_window_displayed("INSTALLATION SUMMARY")
+        w = self.check_window_displayed("INSTALLATION SUMMARY")
 
         # And now we can check everything else on the screen.
-        self.check_quit_button()
-        self.check_begin_installation_button()
-        self.check_shown_spoke_selectors()
-        self.check_warning_bar()
+        self.check_quit_button(w)
+        self.check_begin_installation_button(w)
+        self.check_shown_spoke_selectors(w)
+        self.check_warning_bar(node=w)

@@ -18,9 +18,9 @@
 from . import UITestCase
 
 class LiveCDDateTimeTestCase(UITestCase):
-    def check_region_city(self):
+    def check_region_city(self, spoke):
         # FIXME:  This encodes default information.
-        entry = self.find("Region", "text")
+        entry = self.find("Region", "text", node=spoke)
         self.assertIsNotNone(entry, "Region entry does not exist")
         self.assertEqual(entry.text, "Americas", msg="Region should be set to default")
 
@@ -28,18 +28,18 @@ class LiveCDDateTimeTestCase(UITestCase):
         self.assertIsNotNone(entry, "City entry does not exist")
         self.assertEqual(entry.text, "New York", msg="City should be set to default")
 
-    def check_ntp(self):
+    def check_ntp(self, spoke):
         # NTP should be enabled given that we started up with networking.
         # FIXME:  This encodes default information.
-        button = self.find("Use Network Time", "toggle button")
+        button = self.find("Use Network Time", "toggle button", node=spoke)
         self.assertIsNotNone(button, msg="Use Network Time button not found")
         self.assertTrue(button.checked, msg="NTP should be enabled")
 
-        button = self.find("Configure NTP", "push button")
+        button = self.find("Configure NTP", "push button", node=spoke)
         self.assertIsNotNone(button, msg="Configure NTP button not found")
         self.assertTrue(button.sensitive, msg="Configure NTP button should be sensitive")
 
-        area = self.find("Set Date & Time")
+        area = self.find("Set Date & Time", node=spoke)
         self.assertIsNotNone(area, msg="Set Date & Time not found")
         self.assertFalse(area.sensitive, msg="Date & Time region should not be sensitive")
 
@@ -48,12 +48,12 @@ class LiveCDDateTimeTestCase(UITestCase):
         self.enter_spoke("TIME & DATE")
 
         # Now verify we are on the right screen.
-        self.check_window_displayed("TIME & DATE")
+        w = self.check_window_displayed("TIME & DATE")
 
         # And now we can check everything else on the screen.
-        self.check_region_city()
-        self.check_ntp()
+        self.check_region_city(w)
+        self.check_ntp(w)
 
         # And then we click the Done button to go back to the hub, verifying
         # that's where we ended up.
-        self.exit_spoke()
+        self.exit_spoke(node=w)

@@ -22,15 +22,15 @@ from dogtail.utils import doDelay
 from . import UITestCase
 
 class LiveCDProgressTestCase(UITestCase):
-    def check_begin_installation_button(self):
-        button = self.find("Begin Installation", "push button")
+    def check_begin_installation_button(self, hub):
+        button = self.find("Begin Installation", "push button", node=hub)
         self.assertIsNotNone(button, msg="Begin Installation button does not exist")
         self.assertTrue(button.sensitive, msg="Begin Installation button should be sensitive")
 
-    def check_shown_spoke_selectors(self):
+    def check_shown_spoke_selectors(self, hub):
         # FIXME:  This forces English.
         validSelectors = ["ROOT PASSWORD", "USER CREATION"]
-        selectors = self.ana.findChildren(GenericPredicate(roleName="spoke selector"))
+        selectors = hub.findChildren(GenericPredicate(roleName="spoke selector"))
 
         self.assertEqual(len(selectors), len(validSelectors), msg="Incorrect number of spoke selectors shown")
 
@@ -52,18 +52,18 @@ class LiveCDProgressTestCase(UITestCase):
 
     def _run(self):
         # Before doing anything, verify we are still on the summary hub.
-        self.check_window_displayed("INSTALLATION SUMMARY")
+        w = self.check_window_displayed("INSTALLATION SUMMARY")
         # All spokes should have been visited and satisfied now.
-        self.check_no_warning_bar()
-        self.check_begin_installation_button()
+        self.check_no_warning_bar(w)
+        self.check_begin_installation_button(w)
 
         # Click the begin installation button, wait a moment, and now we should
         # be on the progress hub.
-        self.click_button("Begin Installation")
-        self.check_window_displayed("CONFIGURATION")
+        self.click_button("Begin Installation", node=w)
 
-        self.check_shown_spoke_selectors()
-        self.check_warning_bar()
+        w = self.check_window_displayed("CONFIGURATION")
+        self.check_shown_spoke_selectors(w)
+        self.check_warning_bar(node=w)
 
         # Now we need to wait for installation to finish.  We're doing that two ways:
         # (1) Set a 30 minute timeout.  Should we hit that, anaconda's clearly not
@@ -75,7 +75,7 @@ class LiveCDProgressTestCase(UITestCase):
         signal.alarm(30*60)
 
         while True:
-            label = self.find("Complete!")
+            label = self.find("Complete!", node=w)
             if label:
                 signal.alarm(0)
                 break
@@ -85,25 +85,25 @@ class LiveCDProgressTestCase(UITestCase):
         # If we got here, installation completed successfully.  Since we've not
         # done a password or created a user yet, we still have to do that.  The
         # finish configuration button should still be insensitive.
-        button = self.find("Finish configuration", "push button")
+        button = self.find("Finish configuration", "push button", node=w)
         self.assertIsNotNone(button, msg="Finish configuration button not found")
         self.assertFalse(button.sensitive, msg="Finish Configuration button should not be sensitive")
 
 class LiveCDFinishTestCase(UITestCase):
-    def check_finish_config_button(self):
+    def check_finish_config_button(self, hub):
         # Click the Finish Configuration button.
-        self.click_button("Finish configuration")
+        self.click_button("Finish configuration", node=hub)
 
     def _timer_expired(self, signum, frame):
         self.fail("anaconda did not finish in 5 minutes")
 
     def _run(self):
         # Before doing anything, verify we are still on the progress hub.
-        self.check_window_displayed("CONFIGURATION")
+        w = self.check_window_displayed("CONFIGURATION")
 
-        self.check_finish_config_button()
+        self.check_finish_config_button(w)
         # We've completed configuration, so the warning bar should be gone.
-        self.check_no_warning_bar()
+        self.check_no_warning_bar(node=w)
 
         # And now we wait for configuration to finish.  Then we check the
         # reboot button, but don't click it.  The end of the test case shuts
@@ -112,11 +112,11 @@ class LiveCDFinishTestCase(UITestCase):
         signal.alarm(5*60)
 
         while True:
-            button = self.find("Quit", "push button")
-            if button:
+            button = self.find("Quit", "push button", node=w)
+            if button and button.showing:
                 signal.alarm(0)
                 break
 
             doDelay(20)
 
-        self.click_button("Quit")
+        self.click_button("Quit", node=w)

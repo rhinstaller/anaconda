@@ -20,7 +20,7 @@ from dogtail.predicate import GenericPredicate
 from . import UITestCase
 
 class BasicStorageTestCase(UITestCase):
-    def check_select_disks(self):
+    def check_select_disks(self, spoke):
         # FIXME:  This is a really roundabout way of determining whether a disk is
         # selected or not.  For some reason when a DiskOverview is selected, its icon
         # loses the name "Hard Disk".  For now, we can use this to check.
@@ -39,7 +39,7 @@ class BasicStorageTestCase(UITestCase):
             return True
 
         # There should be some disks displayed on the screen.
-        overviews = self.ana.findChildren(GenericPredicate(roleName="disk overview"))
+        overviews = spoke.findChildren(GenericPredicate(roleName="disk overview"))
         self.assertGreater(len(overviews), 0, msg="No disks are displayed")
 
         if len(overviews) == 1:
@@ -55,19 +55,19 @@ class BasicStorageTestCase(UITestCase):
                 overview.click()
                 self.assertTrue(_selected(overview))
 
-    def check_shopping_cart(self):
+    def check_shopping_cart(self, spoke):
         pass
 
-    def check_storage_options(self):
-        button = self.find("Automatically configure partitioning.", "radio button")
+    def check_storage_options(self, spoke):
+        button = self.find("Automatically configure partitioning.", "radio button", node=spoke)
         self.assertIsNotNone(button, msg="Autopart button not found")
         self.assertTrue(button.checked, msg="Autopart should be selected")
 
-        button = self.find("I would like to make additional space available.", "check box")
+        button = self.find("I would like to make additional space available.", "check box", node=spoke)
         self.assertIsNotNone(button, msg="Reclaim button not found")
         self.assertFalse(button.checked, msg="Reclaim button should not be selected")
 
-        button = self.find("Encrypt my data.", "check box")
+        button = self.find("Encrypt my data.", "check box", node=spoke)
         self.assertIsNotNone(button, msg="Encrypt button not found")
         self.assertFalse(button.checked, msg="Encrypt button should not be selected")
 
@@ -76,26 +76,26 @@ class BasicStorageTestCase(UITestCase):
         self.enter_spoke("INSTALLATION DESTINATION")
 
         # Now verify we are on the right screen.
-        self.check_window_displayed("INSTALLATION DESTINATION")
+        w = self.check_window_displayed("INSTALLATION DESTINATION")
 
         # Given that we attach a second disk to the system (for storing the test
         # suite and results), anaconda will not select disks by default.  Thus,
         # the storage options panel should currently be insensitive.
-        area = self.find("Storage Options")
+        area = self.find("Storage Options", node=w)
         self.assertIsNotNone(area, "Storage Options not found")
         self.assertFalse(area.sensitive, msg="Storage options should be insensitive")
 
         # Select disk overviews.  In the basic case, this means uninitialized
         # disks that we're going to do autopart on.
-        self.check_select_disks()
+        self.check_select_disks(w)
 
         # And now with disks selected, the storage options should be sensitive.
         self.assertTrue(area.sensitive, msg="Storage options should be sensitive")
 
-        self.check_shopping_cart()
-        self.check_storage_options()
+        self.check_shopping_cart(w)
+        self.check_storage_options(w)
 
         # And then we click the Done button which should take the user right back to
         # the hub.  There's no need to display any other dialogs given that this is
         # an install against empty disks and no other options were checked.
-        self.exit_spoke()
+        self.exit_spoke(node=w)

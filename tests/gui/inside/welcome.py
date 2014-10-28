@@ -32,7 +32,7 @@ from . import UITestCase
 #     contents of the left hand view.
 
 class BasicWelcomeTestCase(UITestCase):
-    def check_lang_locale_views(self):
+    def check_lang_locale_views(self, spoke):
         # FIXME:  This encodes default information.
 #        lang = "English"
 #        locale = "English (United States)"
@@ -43,22 +43,22 @@ class BasicWelcomeTestCase(UITestCase):
 #        self.assertEqual(ldtp.verifytablecell("frmWelcome", "tblLocales", 0, 0, locale), 1,
 #                         msg="Default locale (%s) is not selected")
 
-    def check_quit_button(self):
-        self.click_button("_Quit")
-        self.check_dialog_displayed("Quit")
-        self.click_button("No")
+    def check_quit_button(self, spoke):
+        self.click_button("_Quit", node=spoke)
+        dlg = self.check_dialog_displayed("Quit")
+        self.click_button("No", node=dlg)
 
-    def check_continue_button(self):
-        self.click_button("_Continue")
-        self.check_dialog_displayed("Beta Warn")
-        self.click_button("I accept my fate.")
+    def check_continue_button(self, spoke):
+        self.click_button("_Continue", node=spoke)
+        dlg = self.check_dialog_displayed("Beta Warn")
+        self.click_button("I accept my fate.", dlg)
 
     def _run(self):
         # Before doing anything, verify we are on the right screen.
-        self.check_window_displayed("WELCOME")
+        w = self.check_window_displayed("WELCOME")
 
         # And now we can check everything else on the screen.
-        self.check_keyboard_layout_indicator("us")
-        self.check_lang_locale_views()
-        self.check_quit_button()
-        self.check_continue_button()
+        self.check_keyboard_layout_indicator("us", node=w)
+        self.check_lang_locale_views(w)
+        self.check_quit_button(w)
+        self.check_continue_button(w)
