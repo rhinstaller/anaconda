@@ -15,6 +15,7 @@
 #
 # Author: Chris Lumens <clumens@redhat.com>
 from dogtail.predicate import GenericPredicate
+from dogtail.tree import SearchError, root
 from dogtail.utils import doDelay
 
 from . import UITestCase
@@ -30,6 +31,17 @@ from . import UITestCase
 #   spoke selectors are visible.
 
 class LiveCDSummaryTestCase(UITestCase):
+    def check_help_button(self, spoke):
+        self.click_button("Help!", node=spoke)
+
+        try:
+            yelp = root.application("yelp")
+        except SearchError:
+            self.fail("Help view is not displayed.")
+
+        doDelay(5)
+        yelp.keyCombo("<Alt>F4")
+
     def check_quit_button(self, spoke):
         self.click_button("Quit", node=spoke)
         dlg = self.check_dialog_displayed("Quit")
@@ -75,6 +87,7 @@ class LiveCDSummaryTestCase(UITestCase):
         w = self.check_window_displayed("INSTALLATION SUMMARY")
 
         # And now we can check everything else on the screen.
+        self.check_help_button(w)
         self.check_quit_button(w)
         self.check_begin_installation_button(w)
         self.check_shown_spoke_selectors(w)
