@@ -80,7 +80,6 @@
     <property name="window_position">center-on-parent</property>
     <property name="type_hint">dialog</property>
     <property name="decorated">False</property>
-    <property name="has_resize_grip">False</property>
     <signal name="close" handler="on_close" swapped="no"/>
     <child internal-child="vbox">
       <object class="GtkBox" id="dialog-vbox1">
@@ -211,7 +210,6 @@
     <property name="window_position">center-on-parent</property>
     <property name="type_hint">dialog</property>
     <property name="decorated">False</property>
-    <property name="has_resize_grip">False</property>
     <child internal-child="vbox">
       <object class="GtkBox" id="dialog-vbox4">
         <property name="can_focus">False</property>
@@ -484,6 +482,9 @@
             <child internal-child="nav_area">
               <object class="GtkGrid" id="AnacondaSpokeWindow-nav_area1">
                 <property name="can_focus">False</property>
+                <child>
+                  <placeholder/>
+                </child>
               </object>
             </child>
           </object>
@@ -500,768 +501,794 @@
             <property name="vexpand">True</property>
             <property name="yalign">0</property>
             <property name="left_padding">24</property>
-            <property name="right_padding">24</property>
             <child internal-child="action_area">
               <object class="GtkBox" id="sourceWindow-actionArea">
                 <property name="can_focus">False</property>
                 <property name="hexpand">True</property>
                 <property name="vexpand">True</property>
                 <property name="orientation">vertical</property>
-                <property name="spacing">6</property>
                 <child>
-                  <object class="GtkLabel" id="label1">
-                    <property name="visible">True</property>
-                    <property name="can_focus">False</property>
-                    <property name="halign">start</property>
-                    <property name="label" translatable="yes">Which installation source would you like to use?</property>
-                    <attributes>
-                      <attribute name="font-desc" value="Cantarell 10"/>
-                      <attribute name="weight" value="bold"/>
-                    </attributes>
-                  </object>
-                  <packing>
-                    <property name="expand">False</property>
-                    <property name="fill">True</property>
-                    <property name="position">0</property>
-                  </packing>
-                </child>
-                <child>
-                  <object class="GtkRadioButton" id="autodetectRadioButton">
-                    <property name="label" translatable="yes" context="GUI|Software Source">_Auto-detected installation media:</property>
-                    <property name="can_focus">True</property>
-                    <property name="receives_default">False</property>
-                    <property name="no_show_all">True</property>
-                    <property name="margin_left">12</property>
-                    <property name="use_underline">True</property>
-                    <property name="xalign">0</property>
-                    <property name="draw_indicator">True</property>
-                    <property name="group">isoRadioButton</property>
-                  </object>
-                  <packing>
-                    <property name="expand">False</property>
-                    <property name="fill">True</property>
-                    <property name="position">1</property>
-                  </packing>
-                </child>
-                <child>
-                  <object class="GtkGrid" id="autodetectBox">
-                    <property name="sensitive">False</property>
-                    <property name="can_focus">False</property>
-                    <property name="no_show_all">True</property>
-                    <property name="margin_left">24</property>
-                    <child>
-                      <object class="GtkLabel" id="autodetectDeviceLabel">
-                        <property name="visible">True</property>
-                        <property name="can_focus">False</property>
-                        <property name="xalign">0</property>
-                        <property name="label" translatable="yes">Device:</property>
-                      </object>
-                      <packing>
-                        <property name="left_attach">0</property>
-                        <property name="top_attach">0</property>
-                      </packing>
-                    </child>
-                    <child>
-                      <object class="GtkLabel" id="autodetectLabel">
-                        <property name="visible">True</property>
-                        <property name="can_focus">False</property>
-                        <property name="xalign">0</property>
-                        <property name="label" translatable="yes">Label:</property>
-                      </object>
-                      <packing>
-                        <property name="left_attach">0</property>
-                        <property name="top_attach">1</property>
-                      </packing>
-                    </child>
-                    <child>
-                      <object class="GtkButton" id="verifyMediaButton">
-                        <property name="label" translatable="yes" context="GUI|Software Source">_Verify</property>
-                        <property name="visible">True</property>
-                        <property name="can_focus">True</property>
-                        <property name="receives_default">True</property>
-                        <property name="valign">center</property>
-                        <property name="margin_left">12</property>
-                        <property name="use_underline">True</property>
-                        <signal name="clicked" handler="on_verify_media_clicked" swapped="no"/>
-                      </object>
-                      <packing>
-                        <property name="left_attach">1</property>
-                        <property name="top_attach">0</property>
-                        <property name="height">2</property>
-                      </packing>
-                    </child>
-                  </object>
-                  <packing>
-                    <property name="expand">False</property>
-                    <property name="fill">True</property>
-                    <property name="position">2</property>
-                  </packing>
-                </child>
-                <child>
-                  <object class="GtkRadioButton" id="isoRadioButton">
-                    <property name="label" translatable="yes" context="GUI|Software Source">_ISO file:</property>
-                    <property name="can_focus">True</property>
-                    <property name="receives_default">False</property>
-                    <property name="no_show_all">True</property>
-                    <property name="margin_left">12</property>
-                    <property name="use_underline">True</property>
-                    <property name="xalign">0</property>
-                    <property name="active">True</property>
-                    <property name="draw_indicator">True</property>
-                  </object>
-                  <packing>
-                    <property name="expand">False</property>
-                    <property name="fill">True</property>
-                    <property name="position">4</property>
-                  </packing>
-                </child>
-                <child>
-                  <object class="GtkBox" id="isoBox">
-                    <property name="sensitive">False</property>
-                    <property name="can_focus">False</property>
-                    <property name="no_show_all">True</property>
-                    <property name="margin_left">24</property>
-                    <property name="spacing">6</property>
-                    <child>
-                      <object class="GtkLabel" id="label6">
-                        <property name="visible">True</property>
-                        <property name="can_focus">False</property>
-                        <property name="valign">start</property>
-                        <property name="label" translatable="yes" context="GUI|Software Source">D_evice:</property>
-                        <property name="use_underline">True</property>
-                        <property name="mnemonic_widget">isoPartitionCombo</property>
-                      </object>
-                      <packing>
-                        <property name="expand">False</property>
-                        <property name="fill">True</property>
-                        <property name="position">0</property>
-                      </packing>
-                    </child>
-                    <child>
-                      <object class="GtkComboBox" id="isoPartitionCombo">
-                        <property name="visible">True</property>
-                        <property name="can_focus">False</property>
-                        <property name="valign">start</property>
-                        <property name="model">partitionStore</property>
-                        <child>
-                          <object class="GtkCellRendererText" id="partitionRenderer"/>
-                          <attributes>
-                            <attribute name="text">1</attribute>
-                          </attributes>
-                        </child>
-                      </object>
-                      <packing>
-                        <property name="expand">True</property>
-                        <property name="fill">True</property>
-                        <property name="position">1</property>
-                      </packing>
-                    </child>
-                    <child>
-                      <object class="GtkButton" id="isoChooserButton">
-                        <property name="label" translatable="yes" context="GUI|Software Source">_Choose an ISO</property>
-                        <property name="visible">True</property>
-                        <property name="can_focus">True</property>
-                        <property name="receives_default">True</property>
-                        <property name="valign">start</property>
-                        <property name="use_underline">True</property>
-                        <signal name="clicked" handler="on_chooser_clicked" swapped="no"/>
-                      </object>
-                      <packing>
-                        <property name="expand">False</property>
-                        <property name="fill">True</property>
-                        <property name="position">2</property>
-                      </packing>
-                    </child>
-                    <child>
-                      <object class="GtkButton" id="verifyIsoButton">
-                        <!-- check_accelerators: verifyMediaButton -->
-                        <property name="label" translatable="yes" context="GUI|Software Source">_Verify</property>
-                        <property name="visible">True</property>
-                        <property name="sensitive">False</property>
-                        <property name="can_focus">True</property>
-                        <property name="receives_default">True</property>
-                        <property name="valign">start</property>
-                        <property name="use_underline">True</property>
-                        <signal name="clicked" handler="on_verify_iso_clicked" object="isoChooserButton" swapped="no"/>
-                      </object>
-                      <packing>
-                        <property name="expand">False</property>
-                        <property name="fill">True</property>
-                        <property name="position">3</property>
-                      </packing>
-                    </child>
-                  </object>
-                  <packing>
-                    <property name="expand">False</property>
-                    <property name="fill">True</property>
-                    <property name="position">5</property>
-                  </packing>
-                </child>
-                <child>
-                  <object class="GtkRadioButton" id="networkRadioButton">
-                    <property name="label" translatable="yes" context="GUI|Software Source">_On the network:</property>
+                  <object class="GtkScrolledWindow" id="scrolledwindow1">
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
-                    <property name="receives_default">False</property>
-                    <property name="margin_left">12</property>
-                    <property name="use_underline">True</property>
-                    <property name="xalign">0</property>
-                    <property name="active">True</property>
-                    <property name="draw_indicator">True</property>
-                    <property name="group">isoRadioButton</property>
-                  </object>
-                  <packing>
-                    <property name="expand">False</property>
-                    <property name="fill">True</property>
-                    <property name="position">6</property>
-                  </packing>
-                </child>
-                <child>
-                  <object class="GtkBox" id="networkBox">
-                    <property name="visible">True</property>
-                    <property name="sensitive">False</property>
-                    <property name="can_focus">False</property>
-                    <property name="margin_left">24</property>
-                    <property name="orientation">vertical</property>
-                    <property name="spacing">6</property>
+                    <property name="hscrollbar_policy">never</property>
                     <child>
-                      <object class="GtkGrid" id="urlBox">
+                      <object class="GtkViewport" id="viewport1">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
-                        <property name="row_spacing">6</property>
-                        <property name="column_spacing">6</property>
+                        <property name="margin_right">24</property>
+                        <property name="shadow_type">none</property>
                         <child>
-                          <object class="GtkComboBoxText" id="protocolComboBox">
+                          <object class="GtkBox" id="box4">
                             <property name="visible">True</property>
                             <property name="can_focus">False</property>
-                            <property name="active">0</property>
-                            <items>
-                              <item id="http">http://</item>
-                              <item id="https">https://</item>
-                              <item id="ftp">ftp://</item>
-                              <item id="nfs">nfs</item>
-                              <item id="Closest mirror" translatable="yes">Closest mirror</item>
-                            </items>
-                            <signal name="changed" handler="on_protocol_changed" swapped="no"/>
-                          </object>
-                          <packing>
-                            <property name="left_attach">0</property>
-                            <property name="top_attach">0</property>
-                          </packing>
-                        </child>
-                        <child>
-                          <object class="GtkEntry" id="urlEntry">
-                            <property name="visible">True</property>
-                            <property name="can_focus">True</property>
-                            <property name="hexpand">True</property>
-                            <property name="invisible_char">●</property>
-                          </object>
-                          <packing>
-                            <property name="left_attach">1</property>
-                            <property name="top_attach">0</property>
-                          </packing>
-                        </child>
-                        <child>
-                          <object class="GtkButton" id="proxyButton">
-                            <property name="label" translatable="yes" context="GUI|Software Source">_Proxy setup...</property>
-                            <property name="use_action_appearance">False</property>
-                            <property name="visible">True</property>
-                            <property name="can_focus">True</property>
-                            <property name="receives_default">True</property>
-                            <property name="use_underline">True</property>
-                            <signal name="clicked" handler="on_proxy_clicked" swapped="no"/>
-                          </object>
-                          <packing>
-                            <property name="left_attach">2</property>
-                            <property name="top_attach">0</property>
-                          </packing>
-                        </child>
-                        <child>
-                          <object class="GtkCheckButton" id="mirrorlistCheckbox">
-                            <property name="label" translatable="yes" context="GUI|Software Source">This URL refers to a _mirror list.</property>
-                            <property name="use_action_appearance">False</property>
-                            <property name="visible">True</property>
-                            <property name="can_focus">True</property>
-                            <property name="receives_default">False</property>
-                            <property name="no_show_all">True</property>
-                            <property name="hexpand">True</property>
-                            <property name="use_underline">True</property>
-                            <property name="xalign">0</property>
-                            <property name="draw_indicator">True</property>
-                          </object>
-                          <packing>
-                            <property name="left_attach">1</property>
-                            <property name="top_attach">1</property>
-                          </packing>
-                        </child>
-                        <child>
-                          <placeholder/>
-                        </child>
-                        <child>
-                          <placeholder/>
-                        </child>
-                      </object>
-                      <packing>
-                        <property name="expand">False</property>
-                        <property name="fill">True</property>
-                        <property name="position">0</property>
-                      </packing>
-                    </child>
-                    <child>
-                      <object class="GtkBox" id="nfsOptsBox">
-                        <property name="can_focus">False</property>
-                        <property name="no_show_all">True</property>
-                        <property name="spacing">6</property>
-                        <child>
-                          <object class="GtkLabel" id="label3">
-                            <property name="visible">True</property>
-                            <property name="can_focus">False</property>
-                            <property name="label" translatable="yes" context="GUI|Software Source">N_FS mount options:</property>
-                            <property name="use_underline">True</property>
-                            <property name="mnemonic_widget">nfsOptsEntry</property>
-                          </object>
-                          <packing>
-                            <property name="expand">False</property>
-                            <property name="fill">True</property>
-                            <property name="position">0</property>
-                          </packing>
-                        </child>
-                        <child>
-                          <object class="GtkEntry" id="nfsOptsEntry">
-                            <property name="visible">True</property>
-                            <property name="can_focus">True</property>
-                            <property name="has_tooltip">True</property>
-                            <property name="tooltip_markup" translatable="yes">This field is optional.</property>
-                            <property name="tooltip_text" translatable="yes">This field is optional.</property>
-                            <property name="invisible_char">●</property>
-                          </object>
-                          <packing>
-                            <property name="expand">True</property>
-                            <property name="fill">True</property>
-                            <property name="position">1</property>
-                          </packing>
-                        </child>
-                      </object>
-                      <packing>
-                        <property name="expand">False</property>
-                        <property name="fill">True</property>
-                        <property name="position">1</property>
-                      </packing>
-                    </child>
-                  </object>
-                  <packing>
-                    <property name="expand">False</property>
-                    <property name="fill">True</property>
-                    <property name="position">7</property>
-                  </packing>
-                </child>
-                <child>
-                  <object class="GtkBox" id="updatesBox">
-                    <property name="can_focus">False</property>
-                    <property name="orientation">vertical</property>
-                    <property name="spacing">6</property>
-                    <child>
-                      <object class="GtkLabel" id="label2">
-                        <property name="visible">True</property>
-                        <property name="can_focus">False</property>
-                        <property name="halign">start</property>
-                        <property name="margin_top">12</property>
-                        <property name="label" translatable="yes">Updates</property>
-                        <attributes>
-                          <attribute name="font-desc" value="Cantarell 10"/>
-                          <attribute name="weight" value="bold"/>
-                        </attributes>
-                      </object>
-                      <packing>
-                        <property name="expand">False</property>
-                        <property name="fill">True</property>
-                        <property name="position">0</property>
-                      </packing>
-                    </child>
-                    <child>
-                      <object class="GtkCheckButton" id="noUpdatesCheckbox">
-                        <property name="visible">True</property>
-                        <property name="can_focus">True</property>
-                        <property name="receives_default">False</property>
-                        <property name="margin_left">12</property>
-                        <property name="margin_bottom">12</property>
-                        <property name="use_underline">True</property>
-                        <property name="xalign">0</property>
-                        <property name="draw_indicator">True</property>
-                        <signal name="toggled" handler="on_noUpdatesCheckbox_toggled" swapped="no"/>
-                        <child>
-                          <object class="GtkLabel" id="label10">
-                            <property name="visible">True</property>
-                            <property name="can_focus">False</property>
-                            <property name="label" translatable="yes" context="GUI|Software Source">Don't install the latest available software _updates. Install the default versions provided by the installation source above.</property>
-                            <property name="use_underline">True</property>
-                            <property name="wrap">True</property>
-                          </object>
-                        </child>
-                      </object>
-                      <packing>
-                        <property name="expand">False</property>
-                        <property name="fill">True</property>
-                        <property name="position">1</property>
-                      </packing>
-                    </child>
-                  </object>
-                  <packing>
-                    <property name="expand">False</property>
-                    <property name="fill">True</property>
-                    <property name="position">9</property>
-                  </packing>
-                </child>
-                <child>
-                  <object class="GtkLabel" id="label11">
-                    <property name="visible">True</property>
-                    <property name="can_focus">False</property>
-                    <property name="halign">start</property>
-                    <property name="xalign">0.50999999046325684</property>
-                    <property name="label" translatable="yes">Additional repositories</property>
-                    <attributes>
-                      <attribute name="font-desc" value="Cantarell 10"/>
-                      <attribute name="weight" value="bold"/>
-                    </attributes>
-                  </object>
-                  <packing>
-                    <property name="expand">False</property>
-                    <property name="fill">True</property>
-                    <property name="position">10</property>
-                  </packing>
-                </child>
-                <child>
-                  <object class="GtkGrid" id="grid2">
-                    <property name="visible">True</property>
-                    <property name="can_focus">False</property>
-                    <property name="valign">start</property>
-                    <property name="margin_left">12</property>
-                    <property name="hexpand">True</property>
-                    <property name="vexpand">True</property>
-                    <property name="column_spacing">24</property>
-                    <child>
-                      <object class="GtkScrolledWindow" id="reposScrolledWindow">
-                        <property name="visible">True</property>
-                        <property name="can_focus">True</property>
-                        <property name="vexpand">True</property>
-                        <property name="shadow_type">in</property>
-                        <property name="min_content_width">250</property>
-                        <child>
-                          <object class="GtkTreeView" id="repoTreeView">
-                            <property name="visible">True</property>
-                            <property name="can_focus">True</property>
-                            <property name="model">repoStore</property>
-                            <property name="enable_search">False</property>
-                            <child internal-child="selection">
-                              <object class="GtkTreeSelection" id="repoSelection">
-                                <signal name="changed" handler="on_repoSelection_changed" swapped="no"/>
+                            <property name="orientation">vertical</property>
+                            <property name="spacing">6</property>
+                            <child>
+                              <object class="GtkLabel" id="label1">
+                                <property name="visible">True</property>
+                                <property name="can_focus">False</property>
+                                <property name="halign">start</property>
+                                <property name="label" translatable="yes">Which installation source would you like to use?</property>
+                                <attributes>
+                                  <attribute name="font-desc" value="Cantarell 10"/>
+                                  <attribute name="weight" value="bold"/>
+                                </attributes>
                               </object>
+                              <packing>
+                                <property name="expand">False</property>
+                                <property name="fill">True</property>
+                                <property name="position">0</property>
+                              </packing>
                             </child>
                             <child>
-                              <object class="GtkTreeViewColumn" id="repoEnabledColumn">
-                                <property name="title" translatable="yes">Enabled</property>
+                              <object class="GtkRadioButton" id="autodetectRadioButton">
+                                <property name="label" translatable="yes" context="GUI|Software Source">_Auto-detected installation media:</property>
+                                <property name="can_focus">True</property>
+                                <property name="receives_default">False</property>
+                                <property name="no_show_all">True</property>
+                                <property name="margin_left">12</property>
+                                <property name="use_underline">True</property>
+                                <property name="xalign">0</property>
+                                <property name="draw_indicator">True</property>
+                                <property name="group">isoRadioButton</property>
+                              </object>
+                              <packing>
+                                <property name="expand">False</property>
+                                <property name="fill">True</property>
+                                <property name="position">1</property>
+                              </packing>
+                            </child>
+                            <child>
+                              <object class="GtkGrid" id="autodetectBox">
+                                <property name="sensitive">False</property>
+                                <property name="can_focus">False</property>
+                                <property name="no_show_all">True</property>
+                                <property name="margin_left">24</property>
                                 <child>
-                                  <object class="GtkCellRendererToggle" id="repoEnableRenderer">
-                                    <signal name="toggled" handler="on_repoEnable_toggled" swapped="no"/>
+                                  <object class="GtkLabel" id="autodetectDeviceLabel">
+                                    <property name="visible">True</property>
+                                    <property name="can_focus">False</property>
+                                    <property name="xalign">0</property>
+                                    <property name="label" translatable="yes">Device:</property>
                                   </object>
-                                  <attributes>
-                                    <attribute name="active">0</attribute>
-                                  </attributes>
+                                  <packing>
+                                    <property name="left_attach">0</property>
+                                    <property name="top_attach">0</property>
+                                  </packing>
+                                </child>
+                                <child>
+                                  <object class="GtkLabel" id="autodetectLabel">
+                                    <property name="visible">True</property>
+                                    <property name="can_focus">False</property>
+                                    <property name="xalign">0</property>
+                                    <property name="label" translatable="yes">Label:</property>
+                                  </object>
+                                  <packing>
+                                    <property name="left_attach">0</property>
+                                    <property name="top_attach">1</property>
+                                  </packing>
+                                </child>
+                                <child>
+                                  <object class="GtkButton" id="verifyMediaButton">
+                                    <property name="label" translatable="yes" context="GUI|Software Source">_Verify</property>
+                                    <property name="visible">True</property>
+                                    <property name="can_focus">True</property>
+                                    <property name="receives_default">True</property>
+                                    <property name="valign">center</property>
+                                    <property name="margin_left">12</property>
+                                    <property name="use_underline">True</property>
+                                    <signal name="clicked" handler="on_verify_media_clicked" swapped="no"/>
+                                  </object>
+                                  <packing>
+                                    <property name="left_attach">1</property>
+                                    <property name="top_attach">0</property>
+                                    <property name="height">2</property>
+                                  </packing>
                                 </child>
                               </object>
+                              <packing>
+                                <property name="expand">False</property>
+                                <property name="fill">True</property>
+                                <property name="position">2</property>
+                              </packing>
                             </child>
                             <child>
-                              <object class="GtkTreeViewColumn" id="repoNameColumn">
-                                <property name="title" translatable="yes">Name</property>
+                              <object class="GtkRadioButton" id="isoRadioButton">
+                                <property name="label" translatable="yes" context="GUI|Software Source">_ISO file:</property>
+                                <property name="can_focus">True</property>
+                                <property name="receives_default">False</property>
+                                <property name="no_show_all">True</property>
+                                <property name="margin_left">12</property>
+                                <property name="use_underline">True</property>
+                                <property name="xalign">0</property>
+                                <property name="active">True</property>
+                                <property name="draw_indicator">True</property>
+                              </object>
+                              <packing>
+                                <property name="expand">False</property>
+                                <property name="fill">True</property>
+                                <property name="position">3</property>
+                              </packing>
+                            </child>
+                            <child>
+                              <object class="GtkBox" id="isoBox">
+                                <property name="sensitive">False</property>
+                                <property name="can_focus">False</property>
+                                <property name="no_show_all">True</property>
+                                <property name="margin_left">24</property>
+                                <property name="spacing">6</property>
                                 <child>
-                                  <object class="GtkCellRendererText" id="repoNameRenderer"/>
-                                  <attributes>
-                                    <attribute name="text">1</attribute>
-                                  </attributes>
+                                  <object class="GtkLabel" id="label6">
+                                    <property name="visible">True</property>
+                                    <property name="can_focus">False</property>
+                                    <property name="valign">start</property>
+                                    <property name="label" translatable="yes" context="GUI|Software Source">D_evice:</property>
+                                    <property name="use_underline">True</property>
+                                    <property name="mnemonic_widget">isoPartitionCombo</property>
+                                  </object>
+                                  <packing>
+                                    <property name="expand">False</property>
+                                    <property name="fill">True</property>
+                                    <property name="position">0</property>
+                                  </packing>
+                                </child>
+                                <child>
+                                  <object class="GtkComboBox" id="isoPartitionCombo">
+                                    <property name="visible">True</property>
+                                    <property name="can_focus">False</property>
+                                    <property name="valign">start</property>
+                                    <property name="model">partitionStore</property>
+                                    <child>
+                                      <object class="GtkCellRendererText" id="partitionRenderer"/>
+                                      <attributes>
+                                        <attribute name="text">1</attribute>
+                                      </attributes>
+                                    </child>
+                                  </object>
+                                  <packing>
+                                    <property name="expand">True</property>
+                                    <property name="fill">True</property>
+                                    <property name="position">1</property>
+                                  </packing>
+                                </child>
+                                <child>
+                                  <object class="GtkButton" id="isoChooserButton">
+                                    <property name="label" translatable="yes" context="GUI|Software Source">_Choose an ISO</property>
+                                    <property name="visible">True</property>
+                                    <property name="can_focus">True</property>
+                                    <property name="receives_default">True</property>
+                                    <property name="valign">start</property>
+                                    <property name="use_underline">True</property>
+                                    <signal name="clicked" handler="on_chooser_clicked" swapped="no"/>
+                                  </object>
+                                  <packing>
+                                    <property name="expand">False</property>
+                                    <property name="fill">True</property>
+                                    <property name="position">2</property>
+                                  </packing>
+                                </child>
+                                <child>
+                                  <object class="GtkButton" id="verifyIsoButton">
+                                    <!-- check_accelerators: verifyMediaButton -->
+                                    <property name="label" translatable="yes" context="GUI|Software Source">_Verify</property>
+                                    <property name="visible">True</property>
+                                    <property name="sensitive">False</property>
+                                    <property name="can_focus">True</property>
+                                    <property name="receives_default">True</property>
+                                    <property name="valign">start</property>
+                                    <property name="use_underline">True</property>
+                                    <signal name="clicked" handler="on_verify_iso_clicked" object="isoChooserButton" swapped="no"/>
+                                  </object>
+                                  <packing>
+                                    <property name="expand">False</property>
+                                    <property name="fill">True</property>
+                                    <property name="position">3</property>
+                                  </packing>
                                 </child>
                               </object>
+                              <packing>
+                                <property name="expand">False</property>
+                                <property name="fill">True</property>
+                                <property name="position">4</property>
+                              </packing>
+                            </child>
+                            <child>
+                              <object class="GtkRadioButton" id="networkRadioButton">
+                                <property name="label" translatable="yes" context="GUI|Software Source">_On the network:</property>
+                                <property name="visible">True</property>
+                                <property name="can_focus">True</property>
+                                <property name="receives_default">False</property>
+                                <property name="margin_left">12</property>
+                                <property name="use_underline">True</property>
+                                <property name="xalign">0</property>
+                                <property name="active">True</property>
+                                <property name="draw_indicator">True</property>
+                                <property name="group">isoRadioButton</property>
+                              </object>
+                              <packing>
+                                <property name="expand">False</property>
+                                <property name="fill">True</property>
+                                <property name="position">5</property>
+                              </packing>
+                            </child>
+                            <child>
+                              <object class="GtkBox" id="networkBox">
+                                <property name="visible">True</property>
+                                <property name="sensitive">False</property>
+                                <property name="can_focus">False</property>
+                                <property name="margin_left">24</property>
+                                <property name="orientation">vertical</property>
+                                <property name="spacing">6</property>
+                                <child>
+                                  <object class="GtkGrid" id="urlBox">
+                                    <property name="visible">True</property>
+                                    <property name="can_focus">False</property>
+                                    <property name="row_spacing">6</property>
+                                    <property name="column_spacing">6</property>
+                                    <child>
+                                      <object class="GtkComboBoxText" id="protocolComboBox">
+                                        <property name="visible">True</property>
+                                        <property name="can_focus">False</property>
+                                        <property name="active">0</property>
+                                        <items>
+                                          <item id="http">http://</item>
+                                          <item id="https">https://</item>
+                                          <item id="ftp">ftp://</item>
+                                          <item id="nfs">nfs</item>
+                                          <item id="Closest mirror" translatable="yes">Closest mirror</item>
+                                        </items>
+                                        <signal name="changed" handler="on_protocol_changed" swapped="no"/>
+                                      </object>
+                                      <packing>
+                                        <property name="left_attach">0</property>
+                                        <property name="top_attach">0</property>
+                                      </packing>
+                                    </child>
+                                    <child>
+                                      <object class="GtkEntry" id="urlEntry">
+                                        <property name="visible">True</property>
+                                        <property name="can_focus">True</property>
+                                        <property name="hexpand">True</property>
+                                        <property name="invisible_char">●</property>
+                                      </object>
+                                      <packing>
+                                        <property name="left_attach">1</property>
+                                        <property name="top_attach">0</property>
+                                      </packing>
+                                    </child>
+                                    <child>
+                                      <object class="GtkButton" id="proxyButton">
+                                        <property name="label" translatable="yes" context="GUI|Software Source">_Proxy setup...</property>
+                                        <property name="use_action_appearance">False</property>
+                                        <property name="visible">True</property>
+                                        <property name="can_focus">True</property>
+                                        <property name="receives_default">True</property>
+                                        <property name="use_underline">True</property>
+                                        <signal name="clicked" handler="on_proxy_clicked" swapped="no"/>
+                                      </object>
+                                      <packing>
+                                        <property name="left_attach">2</property>
+                                        <property name="top_attach">0</property>
+                                      </packing>
+                                    </child>
+                                    <child>
+                                      <object class="GtkCheckButton" id="mirrorlistCheckbox">
+                                        <property name="label" translatable="yes" context="GUI|Software Source">This URL refers to a _mirror list.</property>
+                                        <property name="use_action_appearance">False</property>
+                                        <property name="visible">True</property>
+                                        <property name="can_focus">True</property>
+                                        <property name="receives_default">False</property>
+                                        <property name="no_show_all">True</property>
+                                        <property name="hexpand">True</property>
+                                        <property name="use_underline">True</property>
+                                        <property name="xalign">0</property>
+                                        <property name="draw_indicator">True</property>
+                                      </object>
+                                      <packing>
+                                        <property name="left_attach">1</property>
+                                        <property name="top_attach">1</property>
+                                      </packing>
+                                    </child>
+                                    <child>
+                                      <placeholder/>
+                                    </child>
+                                    <child>
+                                      <placeholder/>
+                                    </child>
+                                  </object>
+                                  <packing>
+                                    <property name="expand">False</property>
+                                    <property name="fill">True</property>
+                                    <property name="position">0</property>
+                                  </packing>
+                                </child>
+                                <child>
+                                  <object class="GtkBox" id="nfsOptsBox">
+                                    <property name="can_focus">False</property>
+                                    <property name="no_show_all">True</property>
+                                    <property name="spacing">6</property>
+                                    <child>
+                                      <object class="GtkLabel" id="label3">
+                                        <property name="visible">True</property>
+                                        <property name="can_focus">False</property>
+                                        <property name="label" translatable="yes" context="GUI|Software Source">N_FS mount options:</property>
+                                        <property name="use_underline">True</property>
+                                        <property name="mnemonic_widget">nfsOptsEntry</property>
+                                      </object>
+                                      <packing>
+                                        <property name="expand">False</property>
+                                        <property name="fill">True</property>
+                                        <property name="position">0</property>
+                                      </packing>
+                                    </child>
+                                    <child>
+                                      <object class="GtkEntry" id="nfsOptsEntry">
+                                        <property name="visible">True</property>
+                                        <property name="can_focus">True</property>
+                                        <property name="has_tooltip">True</property>
+                                        <property name="tooltip_markup" translatable="yes">This field is optional.</property>
+                                        <property name="tooltip_text" translatable="yes">This field is optional.</property>
+                                        <property name="invisible_char">●</property>
+                                      </object>
+                                      <packing>
+                                        <property name="expand">True</property>
+                                        <property name="fill">True</property>
+                                        <property name="position">1</property>
+                                      </packing>
+                                    </child>
+                                  </object>
+                                  <packing>
+                                    <property name="expand">False</property>
+                                    <property name="fill">True</property>
+                                    <property name="position">1</property>
+                                  </packing>
+                                </child>
+                              </object>
+                              <packing>
+                                <property name="expand">False</property>
+                                <property name="fill">True</property>
+                                <property name="position">6</property>
+                              </packing>
+                            </child>
+                            <child>
+                              <object class="GtkBox" id="updatesBox">
+                                <property name="can_focus">False</property>
+                                <property name="orientation">vertical</property>
+                                <property name="spacing">6</property>
+                                <child>
+                                  <object class="GtkLabel" id="label2">
+                                    <property name="visible">True</property>
+                                    <property name="can_focus">False</property>
+                                    <property name="halign">start</property>
+                                    <property name="margin_top">12</property>
+                                    <property name="label" translatable="yes">Updates</property>
+                                    <attributes>
+                                      <attribute name="font-desc" value="Cantarell 10"/>
+                                      <attribute name="weight" value="bold"/>
+                                    </attributes>
+                                  </object>
+                                  <packing>
+                                    <property name="expand">False</property>
+                                    <property name="fill">True</property>
+                                    <property name="position">0</property>
+                                  </packing>
+                                </child>
+                                <child>
+                                  <object class="GtkCheckButton" id="noUpdatesCheckbox">
+                                    <property name="visible">True</property>
+                                    <property name="can_focus">True</property>
+                                    <property name="receives_default">False</property>
+                                    <property name="margin_left">12</property>
+                                    <property name="margin_bottom">12</property>
+                                    <property name="use_underline">True</property>
+                                    <property name="xalign">0</property>
+                                    <property name="draw_indicator">True</property>
+                                    <signal name="toggled" handler="on_noUpdatesCheckbox_toggled" swapped="no"/>
+                                    <child>
+                                      <object class="GtkLabel" id="label10">
+                                        <property name="visible">True</property>
+                                        <property name="can_focus">False</property>
+                                        <property name="label" translatable="yes" context="GUI|Software Source">Don't install the latest available software _updates. Install the default versions provided by the installation source above.</property>
+                                        <property name="use_underline">True</property>
+                                        <property name="wrap">True</property>
+                                      </object>
+                                    </child>
+                                  </object>
+                                  <packing>
+                                    <property name="expand">False</property>
+                                    <property name="fill">True</property>
+                                    <property name="position">1</property>
+                                  </packing>
+                                </child>
+                              </object>
+                              <packing>
+                                <property name="expand">False</property>
+                                <property name="fill">True</property>
+                                <property name="position">7</property>
+                              </packing>
+                            </child>
+                            <child>
+                              <object class="GtkLabel" id="label11">
+                                <property name="visible">True</property>
+                                <property name="can_focus">False</property>
+                                <property name="halign">start</property>
+                                <property name="xalign">0.50999999046325684</property>
+                                <property name="label" translatable="yes">Additional repositories</property>
+                                <attributes>
+                                  <attribute name="font-desc" value="Cantarell 10"/>
+                                  <attribute name="weight" value="bold"/>
+                                </attributes>
+                              </object>
+                              <packing>
+                                <property name="expand">False</property>
+                                <property name="fill">True</property>
+                                <property name="position">8</property>
+                              </packing>
+                            </child>
+                            <child>
+                              <object class="GtkGrid" id="grid2">
+                                <property name="visible">True</property>
+                                <property name="can_focus">False</property>
+                                <property name="valign">start</property>
+                                <property name="margin_left">12</property>
+                                <property name="hexpand">True</property>
+                                <property name="vexpand">True</property>
+                                <property name="column_spacing">24</property>
+                                <child>
+                                  <object class="GtkScrolledWindow" id="reposScrolledWindow">
+                                    <property name="visible">True</property>
+                                    <property name="can_focus">True</property>
+                                    <property name="vexpand">True</property>
+                                    <property name="shadow_type">in</property>
+                                    <property name="min_content_width">250</property>
+                                    <child>
+                                      <object class="GtkTreeView" id="repoTreeView">
+                                        <property name="visible">True</property>
+                                        <property name="can_focus">True</property>
+                                        <property name="model">repoStore</property>
+                                        <property name="enable_search">False</property>
+                                        <child internal-child="selection">
+                                          <object class="GtkTreeSelection" id="repoSelection">
+                                            <signal name="changed" handler="on_repoSelection_changed" swapped="no"/>
+                                          </object>
+                                        </child>
+                                        <child>
+                                          <object class="GtkTreeViewColumn" id="repoEnabledColumn">
+                                            <property name="title" translatable="yes">Enabled</property>
+                                            <child>
+                                              <object class="GtkCellRendererToggle" id="repoEnableRenderer">
+                                                <signal name="toggled" handler="on_repoEnable_toggled" swapped="no"/>
+                                              </object>
+                                              <attributes>
+                                                <attribute name="active">0</attribute>
+                                              </attributes>
+                                            </child>
+                                          </object>
+                                        </child>
+                                        <child>
+                                          <object class="GtkTreeViewColumn" id="repoNameColumn">
+                                            <property name="title" translatable="yes">Name</property>
+                                            <child>
+                                              <object class="GtkCellRendererText" id="repoNameRenderer"/>
+                                              <attributes>
+                                                <attribute name="text">1</attribute>
+                                              </attributes>
+                                            </child>
+                                          </object>
+                                        </child>
+                                      </object>
+                                    </child>
+                                  </object>
+                                  <packing>
+                                    <property name="left_attach">0</property>
+                                    <property name="top_attach">0</property>
+                                  </packing>
+                                </child>
+                                <child>
+                                  <object class="GtkToolbar" id="toolbar1">
+                                    <property name="height_request">36</property>
+                                    <property name="visible">True</property>
+                                    <property name="can_focus">False</property>
+                                    <property name="toolbar_style">icons</property>
+                                    <property name="show_arrow">False</property>
+                                    <property name="icon_size">1</property>
+                                    <child>
+                                      <object class="GtkToolButton" id="addButton">
+                                        <property name="width_request">42</property>
+                                        <property name="height_request">36</property>
+                                        <property name="visible">True</property>
+                                        <property name="can_focus">False</property>
+                                        <property name="has_tooltip">True</property>
+                                        <property name="tooltip_markup" translatable="yes">Add a new repository.</property>
+                                        <property name="tooltip_text" translatable="yes">Add a new repository.</property>
+                                        <property name="label" translatable="yes" context="GUI|Software Source">A_dd</property>
+                                        <property name="use_underline">True</property>
+                                        <property name="icon_name">list-add-symbolic</property>
+                                        <signal name="clicked" handler="on_addRepo_clicked" swapped="no"/>
+                                      </object>
+                                      <packing>
+                                        <property name="expand">False</property>
+                                        <property name="homogeneous">True</property>
+                                      </packing>
+                                    </child>
+                                    <child>
+                                      <object class="GtkToolButton" id="removeButton">
+                                        <property name="width_request">42</property>
+                                        <property name="height_request">36</property>
+                                        <property name="visible">True</property>
+                                        <property name="can_focus">False</property>
+                                        <property name="has_tooltip">True</property>
+                                        <property name="tooltip_markup" translatable="yes">Remove the selected repository.</property>
+                                        <property name="tooltip_text" translatable="yes">Remove the selected repository.</property>
+                                        <property name="label" translatable="yes" context="GUI|Software Source">_Remove</property>
+                                        <property name="use_underline">True</property>
+                                        <property name="icon_name">list-remove-symbolic</property>
+                                        <signal name="clicked" handler="on_removeRepo_clicked" swapped="no"/>
+                                      </object>
+                                      <packing>
+                                        <property name="expand">False</property>
+                                        <property name="homogeneous">True</property>
+                                      </packing>
+                                    </child>
+                                    <child>
+                                      <object class="GtkToolButton" id="resetButton">
+                                        <property name="width_request">42</property>
+                                        <property name="height_request">36</property>
+                                        <property name="visible">True</property>
+                                        <property name="can_focus">False</property>
+                                        <property name="has_tooltip">True</property>
+                                        <property name="tooltip_markup" translatable="yes">Revert to the previous list of repositories.</property>
+                                        <property name="tooltip_text" translatable="yes">Revert to the previous list of repositories.</property>
+                                        <property name="label" translatable="yes" context="GUI|Software Source">Rese_t</property>
+                                        <property name="use_underline">True</property>
+                                        <property name="icon_name">view-refresh</property>
+                                        <signal name="clicked" handler="on_resetRepos_clicked" swapped="no"/>
+                                      </object>
+                                      <packing>
+                                        <property name="expand">False</property>
+                                        <property name="homogeneous">True</property>
+                                      </packing>
+                                    </child>
+                                    <style>
+                                      <class name="inline-toolbar"/>
+                                    </style>
+                                  </object>
+                                  <packing>
+                                    <property name="left_attach">0</property>
+                                    <property name="top_attach">1</property>
+                                  </packing>
+                                </child>
+                                <child>
+                                  <object class="GtkGrid" id="repoEntryBox">
+                                    <property name="visible">True</property>
+                                    <property name="can_focus">False</property>
+                                    <property name="hexpand">True</property>
+                                    <property name="row_spacing">6</property>
+                                    <property name="column_spacing">6</property>
+                                    <child>
+                                      <object class="GtkEntry" id="repoUrlEntry">
+                                        <property name="visible">True</property>
+                                        <property name="can_focus">True</property>
+                                        <property name="tooltip_markup" translatable="yes">URL for the repository, without protocol.</property>
+                                        <property name="tooltip_text" translatable="yes">URL for the repository, without protocol.</property>
+                                        <property name="invisible_char">●</property>
+                                        <signal name="changed" handler="on_repoUrl_changed" swapped="no"/>
+                                      </object>
+                                      <packing>
+                                        <property name="left_attach">1</property>
+                                        <property name="top_attach">1</property>
+                                      </packing>
+                                    </child>
+                                    <child>
+                                      <object class="GtkEntry" id="repoProxyUrlEntry">
+                                        <property name="visible">True</property>
+                                        <property name="can_focus">True</property>
+                                        <property name="tooltip_markup" translatable="yes">URL of proxy in the form of protocol://host:[port]</property>
+                                        <property name="tooltip_text" translatable="yes">URL of proxy in the form of protocol://host:[port]</property>
+                                        <property name="invisible_char">●</property>
+                                        <signal name="changed" handler="on_repoProxy_changed" swapped="no"/>
+                                      </object>
+                                      <packing>
+                                        <property name="left_attach">1</property>
+                                        <property name="top_attach">3</property>
+                                      </packing>
+                                    </child>
+                                    <child>
+                                      <object class="GtkEntry" id="repoProxyUsernameEntry">
+                                        <property name="visible">True</property>
+                                        <property name="can_focus">True</property>
+                                        <property name="tooltip_markup" translatable="yes">Optional proxy user name.</property>
+                                        <property name="tooltip_text" translatable="yes">Optional proxy user name.</property>
+                                        <property name="invisible_char">●</property>
+                                        <signal name="changed" handler="on_repoProxy_changed" swapped="no"/>
+                                      </object>
+                                      <packing>
+                                        <property name="left_attach">1</property>
+                                        <property name="top_attach">4</property>
+                                      </packing>
+                                    </child>
+                                    <child>
+                                      <object class="GtkEntry" id="repoProxyPasswordEntry">
+                                        <property name="visible">True</property>
+                                        <property name="can_focus">True</property>
+                                        <property name="tooltip_markup" translatable="yes">Optional proxy password.</property>
+                                        <property name="visibility">False</property>
+                                        <property name="invisible_char">●</property>
+                                        <signal name="changed" handler="on_repoProxy_changed" swapped="no"/>
+                                      </object>
+                                      <packing>
+                                        <property name="left_attach">1</property>
+                                        <property name="top_attach">5</property>
+                                      </packing>
+                                    </child>
+                                    <child>
+                                      <object class="GtkCheckButton" id="repoMirrorlistCheckbox">
+                                        <property name="label" translatable="yes" context="GUI|Software Source">This URL refers to a mirror _list.</property>
+                                        <property name="visible">True</property>
+                                        <property name="can_focus">True</property>
+                                        <property name="receives_default">False</property>
+                                        <property name="margin_left">12</property>
+                                        <property name="use_underline">True</property>
+                                        <property name="xalign">0</property>
+                                        <property name="draw_indicator">True</property>
+                                        <signal name="toggled" handler="on_repoMirrorlistCheckbox_toggled" swapped="no"/>
+                                      </object>
+                                      <packing>
+                                        <property name="left_attach">1</property>
+                                        <property name="top_attach">2</property>
+                                      </packing>
+                                    </child>
+                                    <child>
+                                      <object class="GtkLabel" id="label14">
+                                        <property name="visible">True</property>
+                                        <property name="can_focus">False</property>
+                                        <property name="xalign">0</property>
+                                        <property name="label" translatable="yes" context="GUI|Software Source">_Name:</property>
+                                        <property name="use_underline">True</property>
+                                        <property name="mnemonic_widget">repoNameEntry</property>
+                                        <attributes>
+                                          <attribute name="weight" value="bold"/>
+                                        </attributes>
+                                      </object>
+                                      <packing>
+                                        <property name="left_attach">0</property>
+                                        <property name="top_attach">0</property>
+                                      </packing>
+                                    </child>
+                                    <child>
+                                      <object class="GtkComboBoxText" id="repoProtocolComboBox">
+                                        <property name="visible">True</property>
+                                        <property name="can_focus">False</property>
+                                        <property name="tooltip_markup" translatable="yes">Protocol for the repository URL.</property>
+                                        <property name="tooltip_text" translatable="yes">Protocol for the repository URL.</property>
+                                        <property name="active">0</property>
+                                        <items>
+                                          <item id="http">http://</item>
+                                          <item id="https">https://</item>
+                                          <item id="ftp">ftp://</item>
+                                          <item id="nfs">nfs</item>
+                                        </items>
+                                        <signal name="changed" handler="on_repoProtocolComboBox_changed" swapped="no"/>
+                                        <signal name="changed" handler="on_repoUrl_changed" swapped="no"/>
+                                      </object>
+                                      <packing>
+                                        <property name="left_attach">0</property>
+                                        <property name="top_attach">1</property>
+                                      </packing>
+                                    </child>
+                                    <child>
+                                      <object class="GtkLabel" id="label15">
+                                        <property name="visible">True</property>
+                                        <property name="can_focus">False</property>
+                                        <property name="xalign">0</property>
+                                        <property name="label" translatable="yes" context="GUI|Software Source">Pro_xy URL:</property>
+                                        <property name="use_underline">True</property>
+                                        <property name="mnemonic_widget">repoProxyUrlEntry</property>
+                                        <attributes>
+                                          <attribute name="weight" value="bold"/>
+                                        </attributes>
+                                      </object>
+                                      <packing>
+                                        <property name="left_attach">0</property>
+                                        <property name="top_attach">3</property>
+                                      </packing>
+                                    </child>
+                                    <child>
+                                      <object class="GtkLabel" id="label16">
+                                        <property name="visible">True</property>
+                                        <property name="can_focus">False</property>
+                                        <property name="xalign">0</property>
+                                        <property name="label" translatable="yes" context="GUI|Software Source">U_ser name:</property>
+                                        <property name="use_underline">True</property>
+                                        <property name="mnemonic_widget">repoProxyUsernameEntry</property>
+                                        <attributes>
+                                          <attribute name="weight" value="bold"/>
+                                        </attributes>
+                                      </object>
+                                      <packing>
+                                        <property name="left_attach">0</property>
+                                        <property name="top_attach">4</property>
+                                      </packing>
+                                    </child>
+                                    <child>
+                                      <object class="GtkLabel" id="label17">
+                                        <property name="visible">True</property>
+                                        <property name="can_focus">False</property>
+                                        <property name="xalign">0</property>
+                                        <property name="label" translatable="yes" context="GUI|Software Source">Pass_word:</property>
+                                        <property name="use_underline">True</property>
+                                        <property name="mnemonic_widget">repoProxyPasswordEntry</property>
+                                        <attributes>
+                                          <attribute name="weight" value="bold"/>
+                                        </attributes>
+                                      </object>
+                                      <packing>
+                                        <property name="left_attach">0</property>
+                                        <property name="top_attach">5</property>
+                                      </packing>
+                                    </child>
+                                    <child>
+                                      <object class="GtkEntry" id="repoNameEntry">
+                                        <property name="visible">True</property>
+                                        <property name="can_focus">True</property>
+                                        <property name="tooltip_markup" translatable="yes">Name of the repository.</property>
+                                        <property name="tooltip_text" translatable="yes">Name of the repository.</property>
+                                        <property name="hexpand">True</property>
+                                        <property name="invisible_char">●</property>
+                                        <signal name="changed" handler="on_repoNameEntry_changed" swapped="no"/>
+                                      </object>
+                                      <packing>
+                                        <property name="left_attach">1</property>
+                                        <property name="top_attach">0</property>
+                                      </packing>
+                                    </child>
+                                    <child>
+                                      <placeholder/>
+                                    </child>
+                                  </object>
+                                  <packing>
+                                    <property name="left_attach">1</property>
+                                    <property name="top_attach">0</property>
+                                    <property name="height">2</property>
+                                  </packing>
+                                </child>
+                              </object>
+                              <packing>
+                                <property name="expand">True</property>
+                                <property name="fill">True</property>
+                                <property name="position">9</property>
+                              </packing>
                             </child>
                           </object>
                         </child>
                       </object>
-                      <packing>
-                        <property name="left_attach">0</property>
-                        <property name="top_attach">0</property>
-                      </packing>
-                    </child>
-                    <child>
-                      <object class="GtkToolbar" id="toolbar1">
-                        <property name="height_request">36</property>
-                        <property name="visible">True</property>
-                        <property name="can_focus">False</property>
-                        <property name="toolbar_style">icons</property>
-                        <property name="show_arrow">False</property>
-                        <property name="icon_size">1</property>
-                        <child>
-                          <object class="GtkToolButton" id="addButton">
-                            <property name="width_request">42</property>
-                            <property name="height_request">36</property>
-                            <property name="visible">True</property>
-                            <property name="can_focus">False</property>
-                            <property name="has_tooltip">True</property>
-                            <property name="tooltip_markup" translatable="yes">Add a new repository.</property>
-                            <property name="tooltip_text" translatable="yes">Add a new repository.</property>
-                            <property name="label" translatable="yes" context="GUI|Software Source">A_dd</property>
-                            <property name="use_underline">True</property>
-                            <property name="icon_name">list-add-symbolic</property>
-                            <signal name="clicked" handler="on_addRepo_clicked" swapped="no"/>
-                          </object>
-                          <packing>
-                            <property name="expand">False</property>
-                            <property name="homogeneous">True</property>
-                          </packing>
-                        </child>
-                        <child>
-                          <object class="GtkToolButton" id="removeButton">
-                            <property name="width_request">42</property>
-                            <property name="height_request">36</property>
-                            <property name="visible">True</property>
-                            <property name="can_focus">False</property>
-                            <property name="has_tooltip">True</property>
-                            <property name="tooltip_markup" translatable="yes">Remove the selected repository.</property>
-                            <property name="tooltip_text" translatable="yes">Remove the selected repository.</property>
-                            <property name="label" translatable="yes" context="GUI|Software Source">_Remove</property>
-                            <property name="use_underline">True</property>
-                            <property name="icon_name">list-remove-symbolic</property>
-                            <signal name="clicked" handler="on_removeRepo_clicked" swapped="no"/>
-                          </object>
-                          <packing>
-                            <property name="expand">False</property>
-                            <property name="homogeneous">True</property>
-                          </packing>
-                        </child>
-                        <child>
-                          <object class="GtkToolButton" id="resetButton">
-                            <property name="width_request">42</property>
-                            <property name="height_request">36</property>
-                            <property name="visible">True</property>
-                            <property name="can_focus">False</property>
-                            <property name="has_tooltip">True</property>
-                            <property name="tooltip_markup" translatable="yes">Revert to the previous list of repositories.</property>
-                            <property name="tooltip_text" translatable="yes">Revert to the previous list of repositories.</property>
-                            <property name="label" translatable="yes" context="GUI|Software Source">Rese_t</property>
-                            <property name="use_underline">True</property>
-                            <property name="icon_name">view-refresh</property>
-                            <signal name="clicked" handler="on_resetRepos_clicked" swapped="no"/>
-                          </object>
-                          <packing>
-                            <property name="expand">False</property>
-                            <property name="homogeneous">True</property>
-                          </packing>
-                        </child>
-                        <style>
-                          <class name="inline-toolbar"/>
-                        </style>
-                      </object>
-                      <packing>
-                        <property name="left_attach">0</property>
-                        <property name="top_attach">1</property>
-                      </packing>
-                    </child>
-                    <child>
-                      <object class="GtkGrid" id="repoEntryBox">
-                        <property name="visible">True</property>
-                        <property name="can_focus">False</property>
-                        <property name="hexpand">True</property>
-                        <property name="row_spacing">6</property>
-                        <property name="column_spacing">6</property>
-                        <child>
-                          <object class="GtkEntry" id="repoUrlEntry">
-                            <property name="visible">True</property>
-                            <property name="can_focus">True</property>
-                            <property name="tooltip_markup" translatable="yes">URL for the repository, without protocol.</property>
-                            <property name="tooltip_text" translatable="yes">URL for the repository, without protocol.</property>
-                            <property name="invisible_char">●</property>
-                            <signal name="changed" handler="on_repoUrl_changed" swapped="no"/>
-                          </object>
-                          <packing>
-                            <property name="left_attach">1</property>
-                            <property name="top_attach">1</property>
-                          </packing>
-                        </child>
-                        <child>
-                          <object class="GtkEntry" id="repoProxyUrlEntry">
-                            <property name="visible">True</property>
-                            <property name="can_focus">True</property>
-                            <property name="tooltip_markup" translatable="yes">URL of proxy in the form of protocol://host:[port]</property>
-                            <property name="tooltip_text" translatable="yes">URL of proxy in the form of protocol://host:[port]</property>
-                            <property name="invisible_char">●</property>
-                            <signal name="changed" handler="on_repoProxy_changed" swapped="no"/>
-                          </object>
-                          <packing>
-                            <property name="left_attach">1</property>
-                            <property name="top_attach">3</property>
-                          </packing>
-                        </child>
-                        <child>
-                          <object class="GtkEntry" id="repoProxyUsernameEntry">
-                            <property name="visible">True</property>
-                            <property name="can_focus">True</property>
-                            <property name="tooltip_markup" translatable="yes">Optional proxy user name.</property>
-                            <property name="tooltip_text" translatable="yes">Optional proxy user name.</property>
-                            <property name="invisible_char">●</property>
-                            <signal name="changed" handler="on_repoProxy_changed" swapped="no"/>
-                          </object>
-                          <packing>
-                            <property name="left_attach">1</property>
-                            <property name="top_attach">4</property>
-                          </packing>
-                        </child>
-                        <child>
-                          <object class="GtkEntry" id="repoProxyPasswordEntry">
-                            <property name="visible">True</property>
-                            <property name="can_focus">True</property>
-                            <property name="tooltip_markup" translatable="yes">Optional proxy password.</property>
-                            <property name="visibility">False</property>
-                            <property name="invisible_char">●</property>
-                            <signal name="changed" handler="on_repoProxy_changed" swapped="no"/>
-                          </object>
-                          <packing>
-                            <property name="left_attach">1</property>
-                            <property name="top_attach">5</property>
-                          </packing>
-                        </child>
-                        <child>
-                          <object class="GtkCheckButton" id="repoMirrorlistCheckbox">
-                            <property name="label" translatable="yes" context="GUI|Software Source">This URL refers to a mirror _list.</property>
-                            <property name="visible">True</property>
-                            <property name="can_focus">True</property>
-                            <property name="receives_default">False</property>
-                            <property name="margin_left">12</property>
-                            <property name="use_underline">True</property>
-                            <property name="xalign">0</property>
-                            <property name="draw_indicator">True</property>
-                            <signal name="toggled" handler="on_repoMirrorlistCheckbox_toggled" swapped="no"/>
-                          </object>
-                          <packing>
-                            <property name="left_attach">1</property>
-                            <property name="top_attach">2</property>
-                          </packing>
-                        </child>
-                        <child>
-                          <object class="GtkLabel" id="label14">
-                            <property name="visible">True</property>
-                            <property name="can_focus">False</property>
-                            <property name="xalign">0</property>
-                            <property name="label" translatable="yes" context="GUI|Software Source">_Name:</property>
-                            <property name="use_underline">True</property>
-                            <property name="mnemonic_widget">repoNameEntry</property>
-                            <attributes>
-                              <attribute name="weight" value="bold"/>
-                            </attributes>
-                          </object>
-                          <packing>
-                            <property name="left_attach">0</property>
-                            <property name="top_attach">0</property>
-                          </packing>
-                        </child>
-                        <child>
-                          <object class="GtkComboBoxText" id="repoProtocolComboBox">
-                            <property name="visible">True</property>
-                            <property name="can_focus">False</property>
-                            <property name="tooltip_markup" translatable="yes">Protocol for the repository URL.</property>
-                            <property name="tooltip_text" translatable="yes">Protocol for the repository URL.</property>
-                            <property name="active">0</property>
-                            <items>
-                              <item id="http">http://</item>
-                              <item id="https">https://</item>
-                              <item id="ftp">ftp://</item>
-                              <item id="nfs">nfs</item>
-                            </items>
-                            <signal name="changed" handler="on_repoProtocolComboBox_changed" swapped="no"/>
-                            <signal name="changed" handler="on_repoUrl_changed" swapped="no"/>
-                          </object>
-                          <packing>
-                            <property name="left_attach">0</property>
-                            <property name="top_attach">1</property>
-                          </packing>
-                        </child>
-                        <child>
-                          <object class="GtkLabel" id="label15">
-                            <property name="visible">True</property>
-                            <property name="can_focus">False</property>
-                            <property name="xalign">0</property>
-                            <property name="label" translatable="yes" context="GUI|Software Source">Pro_xy URL:</property>
-                            <property name="use_underline">True</property>
-                            <property name="mnemonic_widget">repoProxyUrlEntry</property>
-                            <attributes>
-                              <attribute name="weight" value="bold"/>
-                            </attributes>
-                          </object>
-                          <packing>
-                            <property name="left_attach">0</property>
-                            <property name="top_attach">3</property>
-                          </packing>
-                        </child>
-                        <child>
-                          <object class="GtkLabel" id="label16">
-                            <property name="visible">True</property>
-                            <property name="can_focus">False</property>
-                            <property name="xalign">0</property>
-                            <property name="label" translatable="yes" context="GUI|Software Source">U_ser name:</property>
-                            <property name="use_underline">True</property>
-                            <property name="mnemonic_widget">repoProxyUsernameEntry</property>
-                            <attributes>
-                              <attribute name="weight" value="bold"/>
-                            </attributes>
-                          </object>
-                          <packing>
-                            <property name="left_attach">0</property>
-                            <property name="top_attach">4</property>
-                          </packing>
-                        </child>
-                        <child>
-                          <object class="GtkLabel" id="label17">
-                            <property name="visible">True</property>
-                            <property name="can_focus">False</property>
-                            <property name="xalign">0</property>
-                            <property name="label" translatable="yes" context="GUI|Software Source">Pass_word:</property>
-                            <property name="use_underline">True</property>
-                            <property name="mnemonic_widget">repoProxyPasswordEntry</property>
-                            <attributes>
-                              <attribute name="weight" value="bold"/>
-                            </attributes>
-                          </object>
-                          <packing>
-                            <property name="left_attach">0</property>
-                            <property name="top_attach">5</property>
-                          </packing>
-                        </child>
-                        <child>
-                          <object class="GtkEntry" id="repoNameEntry">
-                            <property name="visible">True</property>
-                            <property name="can_focus">True</property>
-                            <property name="tooltip_markup" translatable="yes">Name of the repository.</property>
-                            <property name="tooltip_text" translatable="yes">Name of the repository.</property>
-                            <property name="hexpand">True</property>
-                            <property name="invisible_char">●</property>
-                            <signal name="changed" handler="on_repoNameEntry_changed" swapped="no"/>
-                          </object>
-                          <packing>
-                            <property name="left_attach">1</property>
-                            <property name="top_attach">0</property>
-                          </packing>
-                        </child>
-                        <child>
-                          <placeholder/>
-                        </child>
-                      </object>
-                      <packing>
-                        <property name="left_attach">1</property>
-                        <property name="top_attach">0</property>
-                        <property name="height">2</property>
-                      </packing>
                     </child>
                   </object>
                   <packing>
                     <property name="expand">True</property>
                     <property name="fill">True</property>
-                    <property name="position">11</property>
+                    <property name="position">0</property>
                   </packing>
                 </child>
               </object>
