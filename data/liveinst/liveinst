@@ -113,6 +113,17 @@ for opt in `cat /proc/cmdline` $*; do
     --inst.updates=*)
         UPDATES="${opt#--inst.updates=}"
         ;;
+    --updates)
+        title="updates error"
+        text="liveinst requires --updates=<url> instead of --updates <url>"
+        if which zenity &> /dev/null; then
+            zenity --error --no-markup --title="$title" --text="$text"
+        else
+            echo "$title" >&2
+            echo "$text" >&2
+        fi
+        exit 1
+        ;;
     ks=*|kickstart=*|--ks=*|--kickstart=*|inst.ks=*|--inst.ks=*|inst.kickstart=*|--inst-kickstart=*)
         title="Configuration not supported"
         text="Kickstart is not supported on live installs.  This installation will continue interactively."
