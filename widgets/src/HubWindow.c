@@ -133,8 +133,8 @@ static void anaconda_hub_window_init(AnacondaHubWindow *win) {
 
     /* The hub has different alignment requirements than a spoke. */
 G_GNUC_BEGIN_IGNORE_DEPRECATIONS
-    gtk_alignment_set(GTK_ALIGNMENT(anaconda_base_window_get_alignment(ANACONDA_BASE_WINDOW(win))),
-                      0.5, 0.0, 0.5, 1.0);
+    gtk_alignment_set_padding(GTK_ALIGNMENT(anaconda_base_window_get_alignment(ANACONDA_BASE_WINDOW(win))),
+            0, 0, 12, 6);
 G_GNUC_END_IGNORE_DEPRECATIONS
 }
 

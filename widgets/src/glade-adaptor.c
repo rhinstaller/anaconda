@@ -62,15 +62,14 @@ void anaconda_standalone_window_post_create(GladeWidgetAdaptor *adaptor,
 
     alignment_widget = glade_widget_get_from_gobject(anaconda_base_window_get_alignment(window));
 
+    glade_widget_property_set(alignment_widget, "xalign", 0.5);
+    glade_widget_property_set(alignment_widget, "yalign", 0.0);
+    glade_widget_property_set(alignment_widget, "xscale", 1.0);
+    glade_widget_property_set(alignment_widget, "yscale", 1.0);
+
+    /* Set padding on hubs */
     if (ANACONDA_IS_HUB_WINDOW(object)) {
-        glade_widget_property_set(alignment_widget, "xalign", 0.5);
-        glade_widget_property_set(alignment_widget, "yalign", 0.0);
-        glade_widget_property_set(alignment_widget, "xscale", 0.5);
-        glade_widget_property_set(alignment_widget, "yscale", 1.0);
-    } else {
-        glade_widget_property_set(alignment_widget, "xalign", 0.5);
-        glade_widget_property_set(alignment_widget, "yalign", 0.0);
-        glade_widget_property_set(alignment_widget, "xscale", 1.0);
-        glade_widget_property_set(alignment_widget, "yscale", 1.0);
+        glade_widget_property_set(alignment_widget, "left-padding", 12);
+        glade_widget_property_set(alignment_widget, "right-padding", 6);
     }
 }
