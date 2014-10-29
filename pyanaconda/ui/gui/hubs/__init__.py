@@ -154,7 +154,7 @@ class Hub(GUIObject, common.Hub):
 
                 # Set some default values on the associated selector that
                 # affect its display on the hub.
-                self._updateCompleteness(spoke)
+                self._updateCompleteness(spoke, update_continue=False)
                 spoke.selector.connect("button-press-event", self._on_spoke_clicked, spoke)
                 spoke.selector.connect("key-release-event", self._on_spoke_clicked, spoke)
 
@@ -194,6 +194,7 @@ class Hub(GUIObject, common.Hub):
         spokeArea.add(viewport)
 
         setViewportBackground(viewport)
+        self._updateContinue()
 
     def _updateCompleteness(self, spoke, update_continue=True):
         spoke.selector.set_sensitive(spoke.sensitive and spoke.ready)
