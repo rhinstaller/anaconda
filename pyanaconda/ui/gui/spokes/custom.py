@@ -325,8 +325,10 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
             if device.format.type not in format_types:
                 continue
 
-            disk_names = [d.name for d in device.disks]
-            if self.data.bootloader.bootDrive in disk_names:
+            disk_names = (d.name for d in device.disks)
+            # bootDrive may not be setup because it IS one of these.
+            if not self.data.bootloader.bootDrive or \
+               self.data.bootloader.bootDrive in disk_names:
                 devices.append(device)
 
         return devices
