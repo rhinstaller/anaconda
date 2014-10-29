@@ -148,6 +148,17 @@ class UITestCase(unittest.TestCase):
         self.assertEqual(indicator.description, layout,
                          msg="keyboard layout indicator not set to %s" % layout)
 
+    def check_help_button(self, node=None):
+        self.click_button("Help!", node=node)
+
+        try:
+            yelp = root.application("yelp")
+        except SearchError:
+            self.fail("Help view is not displayed.")
+
+        doDelay(2)
+        yelp.keyCombo("<Alt>F4")
+
     def check_no_warning_bar(self, node=None):
         """Verify that the warning bar is not currently displayed."""
         self.assertIsNone(self.find("Warning", node=node), msg="Warning bar should not be displayed")

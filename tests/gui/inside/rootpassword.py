@@ -62,5 +62,6 @@ class BasicRootPasswordTestCase(UITestCase):
         w = self.check_window_displayed("ROOT PASSWORD")
 
         # And now we can check everything else on the screen.
+        self.check_help_button(w)
         self.check_enter_password(w)
         self.check_click_done(w)

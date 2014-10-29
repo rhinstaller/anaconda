@@ -121,6 +121,7 @@ class BasicKeyboardTestCase(UITestCase):
         w = self.check_window_displayed("KEYBOARD LAYOUT")
 
         # And now we can check everything else on the screen.
+        self.check_help_button(w)
         self.check_options_dialog(w)
         self.check_num_layouts(w)
         self.check_layout_buttons_initial(w)

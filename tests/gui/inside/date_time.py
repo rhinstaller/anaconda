@@ -51,6 +51,7 @@ class LiveCDDateTimeTestCase(UITestCase):
         w = self.check_window_displayed("TIME & DATE")
 
         # And now we can check everything else on the screen.
+        self.check_help_button(w)
         self.check_region_city(w)
         self.check_ntp(w)
 

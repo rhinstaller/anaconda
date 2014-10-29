@@ -64,6 +64,7 @@ class LiveCDProgressTestCase(UITestCase):
         w = self.check_window_displayed("CONFIGURATION")
         self.check_shown_spoke_selectors(w)
         self.check_warning_bar(node=w)
+        self.check_help_button(w)
 
         # Now we need to wait for installation to finish.  We're doing that two ways:
         # (1) Set a 30 minute timeout.  Should we hit that, anaconda's clearly not

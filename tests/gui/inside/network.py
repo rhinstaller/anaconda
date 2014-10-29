@@ -42,6 +42,7 @@ class LiveCDNetworkTestCase(UITestCase):
         w = self.check_window_displayed("NETWORK & HOST NAME")
 
         # And now we can check everything else on the screen.
+        self.check_help_button(w)
         self.check_hostname_entry(w)
 
         # And then we click the Done button to go back to the hub, verifying

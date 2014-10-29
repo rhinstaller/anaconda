@@ -77,6 +77,7 @@ class BasicStorageTestCase(UITestCase):
 
         # Now verify we are on the right screen.
         w = self.check_window_displayed("INSTALLATION DESTINATION")
+        self.check_help_button(w)
 
         # Given that we attach a second disk to the system (for storing the test
         # suite and results), anaconda will not select disks by default.  Thus,
