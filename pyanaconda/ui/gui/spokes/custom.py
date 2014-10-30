@@ -1512,6 +1512,9 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         return self._error == ""
 
     def on_back_clicked(self, button):
+        # Preserve back_clicked across save_right_side/clear_errors calls
+        back_already_clicked = self._back_already_clicked
+
         # Clear any existing errors
         self.clear_errors()
 
@@ -1526,8 +1529,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
 
         # If back has been clicked on once already and no other changes made on the screen,
         # run the storage check now.  This handles displaying any errors in the info bar.
-        if not self._back_already_clicked:
-            self._back_already_clicked = True
+        if not back_already_clicked:
 
             # If we hit any errors while saving things above, stop and let the
             # user think about what they have done
@@ -1552,6 +1554,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
                     luks.format.passphrase = self.passphrase
 
             if not self._do_check():
+                self._back_already_clicked = True
                 return
 
         if len(self._storage_playground.devicetree.findActions()) > 0:
@@ -2464,6 +2467,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
     def clear_errors(self):
         self._error = None
         self.clear_info()
+        self._back_already_clicked = False
 
     # This callback is for the button that just resets the UI to anaconda's
     # current understanding of the disk layout.
