@@ -2176,6 +2176,8 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         return bool(self._error == "")
 
     def on_back_clicked(self, button):
+        # Preserve back_clicked across save_right_side since it calls clear_errors
+        back_already_clicked = self._back_already_clicked
         # First, save anything from the currently displayed mountpoint.
         self._save_right_side(self._current_selector)
 
@@ -2187,8 +2189,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
 
         # If back has been clicked on once already and no other changes made on the screen,
         # run the storage check now.  This handles displaying any errors in the info bar.
-        if not self._back_already_clicked:
-            self._back_already_clicked = True
+        if not back_already_clicked:
 
             new_luks = [d for d in self.__storage.devices
                        if d.format.type == "luks" and not d.format.exists]
@@ -2208,6 +2209,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
                     luks.format.passphrase = self.passphrase
 
             if not self._do_check():
+                self._back_already_clicked = True
                 return
 
         if len(self.__storage.devicetree.findActions()) > 0:
@@ -3109,6 +3111,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
     def clear_errors(self):
         self._error = None
         self.clear_info()
+        self._back_already_clicked = False
 
     # This callback is for the button that just resets the UI to anaconda's
     # current understanding of the disk layout.
