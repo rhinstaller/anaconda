@@ -351,7 +351,7 @@ G_GNUC_END_IGNORE_DEPRECATIONS
 
     /* Create the help button. */
     win->priv->help_button = gtk_button_new_with_label(HELP_BUTTON_LABEL);
-    gtk_widget_set_halign(win->priv->help_button, GTK_ALIGN_START);
+    gtk_widget_set_halign(win->priv->help_button, GTK_ALIGN_END);
     gtk_widget_set_vexpand(win->priv->help_button, FALSE);
     gtk_widget_set_valign(win->priv->help_button, GTK_ALIGN_END);
     gtk_widget_set_margin_bottom(win->priv->help_button, 6);
@@ -367,7 +367,7 @@ G_GNUC_END_IGNORE_DEPRECATIONS
 
     /* Add everything to the nav area. */
     gtk_grid_attach(GTK_GRID(win->priv->nav_area), win->priv->name_label, 0, 0, 1, 1);
-    gtk_grid_attach(GTK_GRID(win->priv->nav_area), win->priv->distro_label, 1, 0, 1, 1);
+    gtk_grid_attach(GTK_GRID(win->priv->nav_area), win->priv->distro_label, 1, 0, 2, 1);
     gtk_grid_attach(GTK_GRID(win->priv->nav_area), win->priv->beta_label, 1, 1, 1, 1);
     gtk_grid_attach(GTK_GRID(win->priv->nav_area), win->priv->layout_indicator, 1, 2, 1, 1);
     gtk_grid_attach(GTK_GRID(win->priv->nav_area), win->priv->help_button, 2, 1, 1, 2);
