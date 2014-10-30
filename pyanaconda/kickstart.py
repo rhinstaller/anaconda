@@ -309,6 +309,7 @@ class AutoPart(commands.autopart.F21_AutoPart):
         if self.fstype:
             try:
                 storage.setDefaultFSType(self.fstype)
+                storage.setDefaultBootFSType(self.fstype)
             except ValueError:
                 raise KickstartValueError(formatErrorMsg(self.lineno,
                         msg=_("Settings default fstype to %s failed.") % self.fstype))
