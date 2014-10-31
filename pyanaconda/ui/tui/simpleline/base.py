@@ -156,8 +156,12 @@ class App(object):
                 return
             else:
                 # lock acquired, we can run raw_input
-                data = raw_input()
-                RAW_INPUT_LOCK.release()
+                try:
+                    data = raw_input()
+                except EOFError:
+                    data = ""
+                finally:
+                    RAW_INPUT_LOCK.release()
 
         queue.put((hubQ.HUB_CODE_INPUT, [data]))
 
