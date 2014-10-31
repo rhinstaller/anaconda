@@ -248,14 +248,40 @@ class EFI(Platform):
         Return the boot device. The bootloader.drivelist is used to
         set the precedence in cases where multiple partitions are
         available from multiple devices.
+
+        Return the first ESP with a mountpoint, if there is one.
+        Otherwise, return the first ESP.
+
+        bootDevice() is called in a number of contexts, and the strategy
+        above is supposed to be the best for all.
+
+        A boot device with a mountpoint set is always preferred, as it
+        is assumed that that mountpoint will be valid to boot from,
+        and that it was set deliberately by some sort of user intervention.
+
+        Only a subset of the contexts in which bootDevice() can be called
+        require that the device's mountpoint be set for it to be useful.
+        During sanity checking, which occurs shortly before execution of
+        scheduled actions on storage, there are some conditions under which
+        the mountpoint must be set to prevent failure when storage
+        actions are executed.
         """
         drive = self.anaconda.id.bootloader.drivelist[0]
-        for part in self.anaconda.id.storage.partitions:
-           if part.disk and part.disk.name == drive \
-               and part.format.type == "efi" \
-               and self.validBootPartSize(part.size):
-                return part
-        return None
+
+        def _isESP(part):
+            return part.disk and \
+               part.disk.name == drive and \
+               part.format.type == "efi" and \
+               self.validBootPartSize(part.size)
+        esps = (p for p in self.anaconda.id.storage.partitions if _isESP(p))
+
+        bootDevice = None
+        for part in esps:
+            if part.format.mountpoint:
+                bootDevice = part
+                break
+            bootDevice = bootDevice or part
+        return bootDevice
 
     def bootloaderChoices(self, bl):
         bootDev = self.bootDevice()
