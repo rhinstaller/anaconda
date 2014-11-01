@@ -300,6 +300,14 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Fri Oct 31 2014 Brian C. Lane <bcl@redhat.com> - 19.31.105-1
+- custom: Clearing errors should also clear Done clicked state (bcl)
+  Resolves: rhbz#1158609
+- Set the autopart fstype for boot too (bcl)
+  Resolves: rhbz#1112697
+- Lightly rearrange the nav_area (dshea)
+  Resolves: rhbz#1158969
+
 * Wed Oct 22 2014 Brian C. Lane <bcl@redhat.com> - 19.31.104-1
 - Remove an extlinux-related block from rpmostreepayload.py. (clumens)
   Related: rhbz#1153409
