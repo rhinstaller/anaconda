@@ -24,7 +24,7 @@
             <property name="margin_top">6</property>
             <property name="margin_bottom">6</property>
             <property name="orientation">vertical</property>
-            <property name="spacing">6</property>
+            <property name="spacing">3</property>
             <child>
               <object class="GtkLabel" id="messageLabel">
                 <property name="visible">True</property>
@@ -32,7 +32,7 @@
                 <property name="valign">center</property>
                 <property name="vexpand">True</property>
                 <property name="xalign">0</property>
-                <property name="label" translatable="yes">The system needs better quality of random data, you can improve it by typing randomly on keyboard and moving your mouse</property>
+                <property name="label" translatable="yes">The system needs better quality of random data, you can improve it by typing randomly on keyboard and moving your mouse. The installation will continue automatically regardless of random data quality when time runs out.</property>
                 <property name="wrap">True</property>
                 <property name="width_chars">60</property>
                 <property name="max_width_chars">60</property>
@@ -44,6 +44,25 @@
               </packing>
             </child>
             <child>
+              <object class="GtkLabel" id="headerLabel">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="valign">center</property>
+                <property name="vexpand">True</property>
+                <property name="xalign">0</property>
+                <property name="label" translatable="yes">Random data quality:</property>
+                <property name="wrap">True</property>
+                <property name="width_chars">60</property>
+                <property name="max_width_chars">60</property>
+                <property name="margin_top">3</property>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">True</property>
+                <property name="position">1</property>
+              </packing>
+            </child>
+            <child>
               <object class="GtkProgressBar" id="progressBar">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
@@ -52,7 +71,7 @@
               <packing>
                 <property name="expand">False</property>
                 <property name="fill">True</property>
-                <property name="position">1</property>
+                <property name="position">2</property>
               </packing>
             </child>
           </object>

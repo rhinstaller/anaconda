@@ -161,3 +161,7 @@ DEFAULT_AUTOPART_TYPE = AUTOPART_TYPE_LVM
 
 import logging
 LOGLVL_LOCK = logging.DEBUG-1
+
+# for how long (in seconds) we try to wait for enough entropy for LUKS
+# keep this a multiple of 60 (minutes)
+MAX_ENTROPY_WAIT = 10 * 60
