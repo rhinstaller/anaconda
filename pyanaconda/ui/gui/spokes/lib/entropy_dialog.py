@@ -20,14 +20,20 @@
 #
 
 import time
+import math
 
 from gi.repository import Gtk, GLib
 
+from pyanaconda.i18n import P_
+from pyanaconda.constants import MAX_ENTROPY_WAIT
 from pyanaconda.ui.gui import GUIObject
 from pyanaconda.ui.gui.utils import gtk_action_wait
 from blivet.util import get_current_entropy
 
 __all__ = ["run_entropy_dialog"]
+
+# in milliseconds
+LOOP_TIMEOUT = 250
 
 @gtk_action_wait
 def run_entropy_dialog(ksdata, desired_entropy):
@@ -35,6 +41,8 @@ def run_entropy_dialog(ksdata, desired_entropy):
 
     dialog = EntropyDialog(ksdata, desired_entropy)
     dialog.run()
+
+    return dialog.force_cont
 
 class EntropyDialog(GUIObject):
     builderObjects = ["entropyDialog"]
@@ -46,10 +54,18 @@ class EntropyDialog(GUIObject):
         self._desired_entropy = desired_entropy
         self._progress_bar = self.builder.get_object("progressBar")
         self._terminate = False
+        self._started = 0
+        self.force_cont = False
+        self._num_loops = 0
 
     def run(self):
         self.window.show_all()
-        GLib.timeout_add(250, self._update_progress)
+
+        # XXX: Is it better to rely on Gtk running the self._update_progress
+        # method every ~250msec or rely on NTP not changing system time right
+        # now and use time.time()?
+        self._num_loops = 0
+        GLib.timeout_add(LOOP_TIMEOUT, self._update_progress)
         Gtk.main()
         self.window.destroy()
 
@@ -61,13 +77,21 @@ class EntropyDialog(GUIObject):
             # remove the method from idle queue
             return False
         else:
+            self._num_loops += 1
             current_entropy = get_current_entropy()
             current_fraction = min(float(current_entropy) / self._desired_entropy, 1.0)
-            self._progress_bar.set_fraction(current_fraction)
+            remaining = (MAX_ENTROPY_WAIT * 1000 - self._num_loops * LOOP_TIMEOUT) / 1000 / 60.0
 
-            # if we have enough, terminate the dialog, but let the progress_bar
-            # refresh in the main loop
-            self._terminate = current_entropy >= self._desired_entropy
+            self._progress_bar.set_fraction(current_fraction)
+            self._progress_bar.set_text("%(pct)d %% (%(rem)d %(min)s remaining)" % {"pct": (int(current_fraction * 100)),
+                                                                                    "rem": math.ceil(remaining),
+                                                                                    "min": P_("minute", "minutes", int(remaining))})
+
+            # if we have enough our time ran out, terminate the dialog, but let
+            # the progress_bar refresh in the main loop
+            self._terminate = (current_entropy >= self._desired_entropy) or (remaining <= 0)
+
+            self.force_cont = (remaining <= 0)
 
             # keep updating
             return True

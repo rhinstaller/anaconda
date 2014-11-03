@@ -154,3 +154,7 @@ TAR_SUFFIX = (".tar", ".tbz", ".tgz", ".txz", ".tar.bz2", "tar.gz", "tar.xz")
 # screenshots
 SCREENSHOTS_DIRECTORY = "/tmp/anaconda-screenshots"
 SCREENSHOTS_TARGET_DIRECTORY = "/root/anaconda-screenshots"
+
+# for how long (in seconds) we try to wait for enough entropy for LUKS
+# keep this a multiple of 60 (minutes)
+MAX_ENTROPY_WAIT = 10 * 60
