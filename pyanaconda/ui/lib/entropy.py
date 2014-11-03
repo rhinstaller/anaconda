@@ -28,12 +28,14 @@ import time
 import select
 import sys
 import termios
+import math
 
 from pyanaconda.progress import progress_message
+from pyanaconda.constants import MAX_ENTROPY_WAIT
 from pykickstart.constants import DISPLAY_MODE_GRAPHICAL
 from blivet.util import get_current_entropy
 
-from pyanaconda.i18n import _
+from pyanaconda.i18n import _, P_
 
 def wait_for_entropy(msg, desired_entropy, ksdata):
     """
@@ -43,6 +45,8 @@ def wait_for_entropy(msg, desired_entropy, ksdata):
     :type ksdata: pykickstart.base.BaseHandler
     :param desired_entropy: entropy level to wait for
     :type desired_entropy: int
+    :returns: whether to force continuing regardless of the available entropy level
+    :rtype: bool
 
     """
 
@@ -51,15 +55,17 @@ def wait_for_entropy(msg, desired_entropy, ksdata):
         # in some cases
         from pyanaconda.ui.gui.spokes.lib.entropy_dialog import run_entropy_dialog
         progress_message(_("The system needs more random data entropy"))
-        run_entropy_dialog(ksdata, desired_entropy)
+        return run_entropy_dialog(ksdata, desired_entropy)
     else:
-        _tui_wait(msg, desired_entropy)
+        return _tui_wait(msg, desired_entropy)
 
 def _tui_wait(msg, desired_entropy):
     """Tell user we are waiting for entropy"""
 
     print(msg)
     print(_("Entropy can be increased by typing randomly on keyboard"))
+    print(_("After %d minutes, the installation will continue regardless of the "
+            "amount of available entropy") % (MAX_ENTROPY_WAIT / 60))
     fd = sys.stdin.fileno()
     old = termios.tcgetattr(fd)
     new = termios.tcgetattr(fd)
@@ -67,20 +73,31 @@ def _tui_wait(msg, desired_entropy):
     new[6][termios.VMIN] = 1
     termios.tcsetattr(fd, termios.TCSANOW, new)
 
-    # wait for the entropy to become high enough
+    # wait for the entropy to become high enough or time has run out
     cur_entr = get_current_entropy()
-    while cur_entr < desired_entropy:
-        print(_("Available entropy: %(av_entr)s, Required entropy: %(req_entr)s [%(pct)d %%]")
+    secs = 0
+    while cur_entr < desired_entropy and secs <= MAX_ENTROPY_WAIT:
+        remaining = (MAX_ENTROPY_WAIT - secs) / 60.0
+        print(_("Available entropy: %(av_entr)s, Required entropy: %(req_entr)s [%(pct)d %%] (%(rem)d %(min)s remaining)")
                 % {"av_entr": cur_entr, "req_entr": desired_entropy,
-                   "pct": int((float(cur_entr) / desired_entropy) * 100)})
+                   "pct": int((float(cur_entr) / desired_entropy) * 100),
+                   "min": P_("minute", "minutes", remaining),
+                   "rem": math.ceil(remaining)})
         time.sleep(1)
         cur_entr = get_current_entropy()
+        secs += 1
 
     # print the final state as well
     print(_("Available entropy: %(av_entr)s, Required entropy: %(req_entr)s [%(pct)d %%]")
             % {"av_entr": cur_entr, "req_entr": desired_entropy,
                "pct": int((float(cur_entr) / desired_entropy) * 100)})
-    print(_("Enough entropy gathered, please stop typing."))
+
+    if secs <= MAX_ENTROPY_WAIT:
+        print(_("Enough entropy gathered, please stop typing."))
+        force_cont = False
+    else:
+        print(_("Giving up, time (%d minutes) ran out.") % (MAX_ENTROPY_WAIT / 60))
+        force_cont = True
 
     # we are done
     # first let the user notice we are done and stop typing
@@ -91,3 +108,5 @@ def _tui_wait(msg, desired_entropy):
     while sys.stdin in select.select([sys.stdin], [], [], 0)[0]:
         _in_data = sys.stdin.read(1)
     termios.tcsetattr(fd, termios.TCSAFLUSH, old)
+
+    return force_cont
