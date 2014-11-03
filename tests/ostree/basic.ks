@@ -1,7 +1,7 @@
 # Substitute something in for REPO or this will all come crashing down.
 ostreesetup --nogpg --osname=fedora-atomic --remote=fedora-atomic --url=REPO --ref=fedora-atomic/rawhide/x86_64/base/core
 
-bootloader --timeout=1 --extlinux
+bootloader --timeout=1
 zerombr
 clearpart --all
 part --fstype=ext4 --size=4400 /
@@ -14,7 +14,7 @@ rootpw qweqwe
 shutdown
 
 %post
-cat <<EOF > /etc/systemd/system/default.target.wants/run-test.service
+cat <<EOF > /lib/systemd/system/default.target.wants/run-test.service
 [Unit]
 Description=Run a test to see if anaconda+ostree worked
 After=basic.target
