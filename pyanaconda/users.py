@@ -219,7 +219,7 @@ class Users:
     def _finishChroot(self, childpid):
         assert childpid > 0
         try:
-            status = os.waitpid(childpid, 0)[1]
+            status = iutil.eintr_retry_call(os.waitpid, childpid, 0)[1]
         except OSError as e:
             log.critical("exception from waitpid: %s %s", e.errno, e.strerror)
             return False

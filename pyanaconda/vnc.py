@@ -80,15 +80,15 @@ class VncServer:
         """Set the vnc server password. Output to file. """
 
         r, w = os.pipe()
-        os.write(w, "%s\n" % self.password)
+        iutil.eintr_retry_call(os.write, w, "%s\n" % self.password)
 
         with open(self.pw_file, "w") as pw_file:
             # the -f option makes sure vncpasswd does not ask for the password again
             rc = iutil.execWithRedirect("vncpasswd", ["-f"],
                     stdin=r, stdout=pw_file, binary_output=True, log_output=False)
 
-            os.close(r)
-            os.close(w)
+            iutil.eintr_retry_call(os.close, r)
+            iutil.eintr_retry_call(os.close, w)
 
         return rc
 
@@ -137,7 +137,7 @@ class VncServer:
 
     def openlogfile(self):
         try:
-            fd = os.open(self.log_file, os.O_RDWR | os.O_CREAT)
+            fd = iutil.eintr_retry_call(os.open, self.log_file, os.O_RDWR | os.O_CREAT)
         except OSError as e:
             sys.stderr.write("error opening %s: %s\n", (self.log_file, e))
             fd = None

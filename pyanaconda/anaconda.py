@@ -197,8 +197,8 @@ class Anaconda(object):
         dump_text = exn.traceback_and_object_dump(self)
         dump_text += threads
         dump_text = dump_text.encode("utf-8")
-        os.write(fd, dump_text)
-        os.close(fd)
+        iutil.eintr_retry_call(os.write, fd, dump_text)
+        iutil.eintr_retry_call(os.close, fd)
 
         # append to a given file
         with open("/tmp/anaconda-tb-all.log", "a+") as f:

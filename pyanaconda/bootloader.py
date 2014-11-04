@@ -54,11 +54,11 @@ def get_boot_block(device, seek_blocks=0):
         except StorageError:
             return ""
     block_size = device.partedDevice.sectorSize
-    fd = os.open(device.path, os.O_RDONLY)
+    fd = iutil.eintr_retry_call(os.open, device.path, os.O_RDONLY)
     if seek_blocks:
         os.lseek(fd, seek_blocks * block_size, 0)
-    block = os.read(fd, 512)
-    os.close(fd)
+    block = iutil.eintr_retry_call(os.read, fd, 512)
+    iutil.eintr_retry_call(os.close, fd)
     if not status:
         try:
             device.teardown(recursive=True)
@@ -923,7 +923,7 @@ class BootLoader(object):
 
     def write_config_post(self):
         try:
-            os.chmod(iutil.getSysroot() + self.config_file, self.config_file_mode)
+            iutil.eintr_retry_call(os.chmod, iutil.getSysroot() + self.config_file, self.config_file_mode)
         except OSError as e:
             log.error("failed to set config file permissions: %s", e)
 
@@ -1320,12 +1320,12 @@ class GRUB(BootLoader):
                       "stage1dev": self.grub_device_name(stage1dev),
                       "stage2dev": self.grub_device_name(stage2dev)})
             (pread, pwrite) = os.pipe()
-            os.write(pwrite, cmd)
-            os.close(pwrite)
+            iutil.eintr_retry_call(os.write, pwrite, cmd)
+            iutil.eintr_retry_call(os.close, pwrite)
             args = ["--batch", "--no-floppy",
                     "--device-map=%s" % self.device_map_file]
             rc = iutil.execInSysroot("grub", args, stdin=pread)
-            os.close(pread)
+            iutil.eintr_retry_call(os.close, pread)
             if rc:
                 raise BootLoaderError("boot loader install failed")
 
@@ -1515,12 +1515,12 @@ class GRUB2(GRUB):
             raise RuntimeError("cannot encrypt empty password")
 
         (pread, pwrite) = os.pipe()
-        os.write(pwrite, "%s\n%s\n" % (self.password, self.password))
-        os.close(pwrite)
+        iutil.eintr_retry_call(os.write, pwrite, "%s\n%s\n" % (self.password, self.password))
+        iutil.eintr_retry_call(os.close, pwrite)
         buf = iutil.execWithCapture("grub2-mkpasswd-pbkdf2", [],
                                     stdin=pread,
                                     root=iutil.getSysroot())
-        os.close(pread)
+        iutil.eintr_retry_call(os.close, pread)
         self.encrypted_password = buf.split()[-1].strip()
         if not self.encrypted_password.startswith("grub.pbkdf2."):
             raise BootLoaderError("failed to encrypt boot loader password")
@@ -1541,7 +1541,7 @@ class GRUB2(GRUB):
         header.write("%s\n" % password_line)
         header.write("EOF\n")
         header.close()
-        os.chmod(users_file, 0o700)
+        iutil.eintr_retry_call(os.chmod, users_file, 0o700)
 
     def write_config(self):
         self.write_config_console(None)

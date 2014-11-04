@@ -27,7 +27,7 @@ import shutil
 import shlex
 from pipes import _safechars
 import tempfile
-from pyanaconda.iutil import upperASCII
+from pyanaconda.iutil import upperASCII, eintr_retry_call
 
 def unquote(s):
     return ' '.join(shlex.split(s))
@@ -121,7 +121,7 @@ class SimpleConfigFile(object):
             else:
                 m = int('0100644', 8)
             shutil.move(tmpf.name, filename)
-            os.chmod(filename, m)
+            eintr_retry_call(os.chmod, filename, m)
         else:
             # write directly to the file
             with open(filename, "w") as fobj:

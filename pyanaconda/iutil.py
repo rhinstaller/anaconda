@@ -437,7 +437,7 @@ def _sigchld_handler(num=None, frame=None):
 
     for child_pid in _forever_pids:
         try:
-            pid_result, status = os.waitpid(child_pid, os.WNOHANG)
+            pid_result, status = eintr_retry_call(os.waitpid, child_pid, os.WNOHANG)
         except OSError as e:
             if e.errno == errno.ECHILD:
                 continue
@@ -724,7 +724,7 @@ def dracut_eject(device):
 
         f.write("eject %s\n" % (device,))
         f.close()
-        os.chmod(DRACUT_SHUTDOWN_EJECT, 0o755)
+        eintr_retry_call(os.chmod, DRACUT_SHUTDOWN_EJECT, 0o755)
         log.info("Wrote dracut shutdown eject hook for %s", device)
     except (IOError, OSError) as e:
         log.error("Error writing dracut shutdown eject hook for %s: %s", device, e)
@@ -985,11 +985,11 @@ def chown_dir_tree(root, uid, gid, from_uid_only=None, from_gid_only=None):
             return
 
         # UID and GID matching or not required
-        os.chown(path, uid, gid)
+        eintr_retry_call(os.chown, path, uid, gid)
 
     if not from_uid_only and not from_gid_only:
         # the easy way
-        dir_tree_map(root, lambda path: os.chown(path, uid, gid))
+        dir_tree_map(root, lambda path: eintr_retry_call(os.chown, path, uid, gid))
     else:
         # conditional chown
         dir_tree_map(root, lambda path: conditional_chown(path, uid, gid,
@@ -1184,9 +1184,20 @@ def ipmi_report(event):
     # Sensor num - passed in event
     # Event dir & type - always 0x0 for anaconda's purposes
     # Event data 1, 2, 3 - 0x0 for now
-    os.write(fd, "0x4 0x1F %#x 0x0 0x0 0x0 0x0\n" % event)
-    os.close(fd)
+    eintr_retry_call(os.write, fd, "0x4 0x1F %#x 0x0 0x0 0x0 0x0\n" % event)
+    eintr_retry_call(os.close, fd)
 
     execWithCapture("ipmitool", ["sel", "add", path])
 
     os.remove(path)
+
+# Copied from python's subprocess.py
+def eintr_retry_call(func, *args):
+    """Retry an interruptible system call if interrupted."""
+    while True:
+        try:
+            return func(*args)
+        except (OSError, IOError) as e:
+            if e.errno == errno.EINTR:
+                continue
+            raise

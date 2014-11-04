@@ -31,6 +31,7 @@ import ntplib
 import socket
 
 from pyanaconda import isys
+from pyanaconda import iutil
 from pyanaconda.threads import threadMgr, AnacondaThread
 from pyanaconda.constants import THREAD_SYNC_TIME_BASENAME
 
@@ -157,7 +158,7 @@ def save_servers_to_config(servers, conf_file_path=NTP_CONFIG_FILE,
             stat = os.stat(conf_file_path)
             # Use copy rather then move to get the correct selinux context
             shutil.copy(temp_path, conf_file_path)
-            os.chmod(conf_file_path, stat.st_mode)
+            iutil.eintr_retry_call(os.chmod, conf_file_path, stat.st_mode)
             os.unlink(temp_path)
 
         except OSError as oserr:

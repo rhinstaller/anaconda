@@ -892,11 +892,11 @@ if __name__ == "__main__":
     # Attempt to create the pidfile
     try:
         # Set all of the read/write bits and let umask make it make sense
-        pidfile = os.open(pidfile_path, os.O_WRONLY|os.O_CREAT|os.O_EXCL,
+        pidfile = iutil.eintr_retry_call(os.open, pidfile_path, os.O_WRONLY|os.O_CREAT|os.O_EXCL,
                 stat.S_IRUSR|stat.S_IWUSR|stat.S_IRGRP|stat.S_IWGRP|stat.S_IROTH|stat.S_IWOTH)
         pidfile_created = True
-        os.write(pidfile, "%s\n" % os.getpid())
-        os.close(pidfile)
+        iutil.eintr_retry_call(os.write, pidfile, "%s\n" % os.getpid())
+        iutil.eintr_retry_call(os.close, pidfile)
     except OSError as e:
         # If the failure was anything other than EEXIST during the open call,
         # just re-raise the exception
