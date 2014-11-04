@@ -20,7 +20,7 @@ pylint_output="$(pylint \
     --dummy-variables-rgx=_ \
     --ignored-classes=DefaultInstall,Popen,QueueFactory,TransactionSet \
     --defining-attr-methods=__init__,_grabObjects,initialize,reset,start,setUp \
-    --load-plugins=intl,preconf,markup \
+    --load-plugins=intl,preconf,markup,eintr \
     --init-hook=\
 'import gi.overrides, os;
 gi.overrides.__path__[0:0] = (os.environ["ANACONDA_WIDGETS_OVERRIDES"].split(":") if "ANACONDA_WIDGETS_OVERRIDES" in os.environ else [])' \
