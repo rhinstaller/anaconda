@@ -174,7 +174,8 @@ def doInstall(storage, payload, ksdata, instClass):
     # callbacks for blivet
     message_clbk = lambda clbk_data: progress_message(clbk_data.msg)
     step_clbk = lambda clbk_data: progress_step(clbk_data.msg)
-    entropy_wait_clbk = lambda msg, ent: wait_for_entropy(msg, ent, ksdata)
+    entropy_wait_clbk = lambda clbk_data: wait_for_entropy(clbk_data.msg,
+                                                           clbk_data.min_entropy, ksdata)
     callbacks_reg = callbacks.create_new_callbacks_register(create_format_pre=message_clbk,
                                                             create_format_post=step_clbk,
                                                             resize_format_pre=message_clbk,
