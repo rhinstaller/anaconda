@@ -427,7 +427,7 @@ def fork_orphan():
             os._exit(0)
         return 0
     # the original process waits for the intermediate child
-    os.waitpid(intermediate, 0)
+    eintr_retry_call(os.waitpid, intermediate, 0)
     return 1
 
 def _run_systemctl(command, service):
@@ -477,7 +477,7 @@ def dracut_eject(device):
 
         f.write("eject %s\n" % (device,))
         f.close()
-        os.chmod(DRACUT_SHUTDOWN_EJECT, 0o755)
+        eintr_retry_call(os.chmod, DRACUT_SHUTDOWN_EJECT, 0o755)
         log.info("Wrote dracut shutdown eject hook for %s", device)
     except (IOError, OSError) as e:
         log.error("Error writing dracut shutdown eject hook for %s: %s", device, e)
@@ -738,11 +738,11 @@ def chown_dir_tree(root, uid, gid, from_uid_only=None, from_gid_only=None):
             return
 
         # UID and GID matching or not required
-        os.chown(path, uid, gid)
+        eintr_retry_call(os.chown, path, uid, gid)
 
     if not from_uid_only and not from_gid_only:
         # the easy way
-        dir_tree_map(root, lambda path: os.chown(path, uid, gid))
+        dir_tree_map(root, lambda path: eintr_retry_call(os.chown, path, uid, gid))
     else:
         # conditional chown
         dir_tree_map(root, lambda path: conditional_chown(path, uid, gid,
@@ -900,3 +900,14 @@ def persistent_root_image():
             return False
 
     return True
+
+# Copied from python's subprocess.py
+def eintr_retry_call(func, *args):
+    """Retry an interruptible system call if interrupted."""
+    while True:
+        try:
+            return func(*args)
+        except (OSError, IOError) as e:
+            if e.errno == errno.EINTR:
+                continue
+            raise

@@ -80,7 +80,7 @@ class LiveImagePayload(ImagePayload):
         if rc != 0:
             raise PayloadInstallError("Failed to mount the install tree")
 
-        source = os.statvfs(INSTALL_TREE)
+        source = iutil.eintr_retry_call(os.statvfs, INSTALL_TREE)
         self.source_size = source.f_frsize * (source.f_blocks - source.f_bfree)
 
     def preInstall(self, packages=None, groups=None):
@@ -97,7 +97,7 @@ class LiveImagePayload(ImagePayload):
         while self.pct < 100:
             dest_size = 0
             for mnt in mountpoints:
-                mnt_stat = os.statvfs(iutil.getSysroot()+mnt)
+                mnt_stat = iutil.eintr_retry_call(os.statvfs, iutil.getSysroot()+mnt)
                 dest_size += mnt_stat.f_frsize * (mnt_stat.f_blocks - mnt_stat.f_bfree)
             if dest_size >= self._adj_size:
                 dest_size -= self._adj_size
@@ -349,7 +349,7 @@ class LiveImageKSPayload(LiveImagePayload):
                     blivet.util.mount(IMAGE_DIR+"/LiveOS/"+img_file, INSTALL_TREE,
                                       fstype="auto", options="ro")
 
-                    source = os.statvfs(INSTALL_TREE)
+                    source = iutil.eintr_retry_call(os.statvfs, INSTALL_TREE)
                     self.source_size = source.f_frsize * (source.f_blocks - source.f_bfree)
 
     def install(self):

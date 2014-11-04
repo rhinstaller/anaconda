@@ -27,6 +27,18 @@ import shutil
 import subprocess
 import tempfile
 import unittest
+import errno
+
+# Copied from python's subprocess.py
+def eintr_retry_call(func, *args):
+    """Retry an interruptible system call if interrupted."""
+    while True:
+        try:
+            return func(*args)
+        except (OSError, IOError) as e:
+            if e.errno == errno.EINTR:
+                continue
+            raise
 
 class Creator(object):
     """A Creator subclass defines all the parameters for making a VM to run a
@@ -99,7 +111,7 @@ class Creator(object):
         """
         for (drive, size) in self.drives:
             (fd, diskimage) = tempfile.mkstemp(dir=self.tempdir)
-            os.close(fd)
+            eintr_retry_call(os.close, fd)
 
             subprocess.call(["/usr/bin/qemu-img", "create", "-f", "qcow2", diskimage, "%sG" % size],
                             stdout=open("/dev/null", "w"))

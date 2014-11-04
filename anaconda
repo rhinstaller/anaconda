@@ -64,7 +64,7 @@ def sigchld_handler(num, frame):
 
     for child_pid in forever_pids:
         try:
-            pid_result, status = os.waitpid(child_pid, os.WNOHANG)
+            pid_result, status = iutil.eintr_retry_call(os.waitpid, child_pid, os.WNOHANG)
         except OSError as e:
             if e.errno == errno.ECHILD:
                 continue
@@ -98,25 +98,25 @@ def start_watched_pid(proc_name):
     childpid = os.fork()
     if childpid == 0:
         # No need for the write pipe in the child
-        os.close(writepipe)
+        iutil.eintr_retry_call(os.close, writepipe)
 
         # Wait for the parent to signal that it's ready to return
-        os.read(readpipe, 1)
+        iutil.eintr_retry_call(os.read, readpipe, 1)
 
         # Ready to go
-        os.close(readpipe)
+        iutil.eintr_retry_call(os.close, readpipe)
         return childpid
     else:
         # No need for the read pipe in the parent
-        os.close(readpipe)
+        iutil.eintr_retry_call(os.close, readpipe)
 
         # Add the pid to the list of watched pids
         forever_pids[childpid] = proc_name
 
         # Signal to the child that we're ready to return
         # D is for Done
-        os.write(writepipe, 'D')
-        os.close(writepipe)
+        iutil.eintr_retry_call(os.write, writepipe, 'D')
+        iutil.eintr_retry_call(os.close, writepipe)
         return childpid
 
 def exitHandler(rebootData, storage, exitCode=None):
@@ -212,9 +212,9 @@ def startX11():
             # outside)
             try:
                 # dup /dev/tty5 to stdout and stderr
-                xfd = os.open("/dev/tty5", os.O_WRONLY | os.O_APPEND)
-                os.dup2(xfd, sys.stdout.fileno())
-                os.dup2(xfd, sys.stderr.fileno())
+                xfd = iutil.eintr_retry_call(os.open, "/dev/tty5", os.O_WRONLY | os.O_APPEND)
+                iutil.eintr_retry_call(os.dup2, xfd, sys.stdout.fileno())
+                iutil.eintr_retry_call(os.dup2, xfd, sys.stderr.fileno())
 
                 # Close all other file descriptors
                 try:
@@ -294,7 +294,7 @@ def startAuditDaemon():
             log.error("Error running the audit daemon: %s", e)
         os._exit(0)
     # auditd will turn into a daemon so catch the immediate child pid now:
-    os.waitpid(childpid, 0)
+    iutil.eintr_retry_call(os.waitpid, childpid, 0)
 
 # function to handle X startup special issues for anaconda
 def doStartupX11Actions():
