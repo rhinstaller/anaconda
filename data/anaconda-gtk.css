@@ -113,15 +113,15 @@
 /* vendor-specific colors/images */
 
 @define-color redhat #41413e;
-@define-color fedora #006eb4;
+@define-color fedora #2f4265;
 
-/* swap these into logo & sidebar classes for RHEL */
-/*
 .logo-sidebar {
     background-image: url('/usr/share/anaconda/pixmaps/sidebar-bg.png');
-    background-color: @redhat;
+    background-color: @fedora;
+    background-repeat: no-repeat;
 }
 
+/* logo and sidebar classes for Fedora */
 .logo {
     background-image: url('/usr/share/anaconda/pixmaps/sidebar-logo.png');
     background-position: 50% 20px;
@@ -130,27 +130,16 @@
 }
 
 AnacondaSpokeWindow #nav-box {
-    background-color: @redhat;
+    background-color: @fedora;
     background-image: url('/usr/share/anaconda/pixmaps/topbar-bg.png');
     background-repeat: repeat;
     color: white;
 }
 
-AnacondaSpokeWindow #layout-indicator {
-    color: black;
-}
-*/
-
-/* logo and sidebar classes for Fedora */
-.logo {
-    background-image: url('/usr/share/anaconda/pixmaps/logo.png');
-    background-position: 50% 20px;
-    background-repeat: no-repeat;
-    background-color: transparent;
-}
-
-.logo-sidebar {
-    background-color: @fedora;
+/* Remove the box-shadow from buttons in the nav-box because it adds a white stripe
+ * below the buttons and makes them look dumb */
+AnacondaSpokeWindow #nav-box GtkButton {
+    box-shadow: none;
 }
 
 AnacondaSpokeWindow #nav-box {
