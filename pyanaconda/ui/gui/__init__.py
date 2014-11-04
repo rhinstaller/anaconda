@@ -487,7 +487,7 @@ class GraphicalUserInterface(UserInterface):
         # make sure there is a logo image present,
         # otherwise the console will get spammed by errors
         replacement_image_path = None
-        logo_path = "/usr/share/anaconda/pixmaps/logo.png"
+        logo_path = "/usr/share/anaconda/pixmaps/sidebar-logo.png"
         header_path = "/usr/share/anaconda/pixmaps/anaconda_header.png"
         sad_smiley_path = "/usr/share/icons/Adwaita/48x48/emotes/face-crying.png"
         if not os.path.exists(logo_path):
@@ -508,6 +508,22 @@ class GraphicalUserInterface(UserInterface):
                         Gtk.STYLE_PROVIDER_PRIORITY_USER)
             else:
                 log.warning("logo image is missing")
+
+        # Look for the top and sidebar images. If missing remove the background-image
+        topbar_path = "/usr/share/anaconda/pixmaps/topbar-bg.png"
+        sidebar_path = "/usr/share/anaconda/pixmaps/sidebar-bg.png"
+        if not os.path.exists(topbar_path):
+            provider = Gtk.CssProvider()
+            provider.load_from_data("AnacondaSpokeWindow #nav-box { background-image: none; }")
+            Gtk.StyleContext.add_provider_for_screen(Gdk.Screen.get_default(), provider,
+                    Gtk.STYLE_PROVIDER_PRIORITY_USER)
+
+        if not os.path.exists(sidebar_path):
+            provider = Gtk.CssProvider()
+            provider.load_from_data(".logo-sidebar { background-image: none; }")
+            Gtk.StyleContext.add_provider_for_screen(Gdk.Screen.get_default(), provider,
+                    Gtk.STYLE_PROVIDER_PRIORITY_USER)
+
 
     def _widgetScale(self):
         # First, check if the GDK_SCALE environment variable is already set. If so,
