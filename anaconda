@@ -825,10 +825,42 @@ if __name__ == "__main__":
 
     verdesc = "%s for %s %s" % (getAnacondaVersionString(),
                                 product.productName, product.productVersion)
+
+    logs_note = " * installation log files are stored in /tmp during the installation"
+    shell_and_tmux_note = " * shell is available on TTY2"
+    shell_only_note = " * shell is available on TTY2 and in second TMUX pane (ctrl+b, then press 2)"
+    tmux_only_note = " * shell is available in second TMUX pane (ctrl+b, then press 2)"
+    text_mode_note = " * if the graphical installation interface fails to start, try again with the\n"\
+                     "   inst.text bootoption to start text installation"
+    separate_attachements_note = " * when reporting a bug add logs from /tmp as separate text/plain attachments"
+
     if product.isFinal:
         print "anaconda %s started." % verdesc
     else:
         print "anaconda %s (pre-release) started." % verdesc
+
+    # we are past the --version and --help shortcut so we can import Blivet
+    # now without slowing down anything critical
+
+    # pylint: disable=import-error
+    from blivet import arch
+
+    if not opts.images and not opts.dirinstall:
+        print(logs_note)
+        # no fancy stuff like TTYs on a s390...
+        if not arch.isS390():
+            if "TMUX" in os.environ and os.environ.get("TERM") == "screen":
+                print(shell_and_tmux_note)
+            else:
+                print(shell_only_note)  # TMUX is not running
+        # ...but there is apparently TMUX during the manual installation on s390!
+        elif not opts.ksfile:
+            print(tmux_only_note)  # but not during kickstart installation
+        # no need to tell users how to switch to text mode
+        # if already in text mode
+        if opts.display_mode == 'g':
+            print(text_mode_note)
+        print(separate_attachements_note)
 
     from pyanaconda.anaconda import Anaconda
     anaconda = Anaconda()
