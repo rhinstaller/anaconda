@@ -295,7 +295,7 @@ def copyUpdatedFiles(tag, updates, cwd):
         elif gitfile == "data/tmux.conf":
             install_to_dir(gitfile, "usr/share/anaconda")
         elif gitfile == "data/anaconda-gtk.css":
-            install_to_dir(gitfile, "usr/share/anaconda")
+            install_to_dir(gitfile, "run/install/updates")
         elif gitfile == "data/interactive-defaults.ks":
             install_to_dir(gitfile, "usr/share/anaconda")
         elif gitfile == "data/anaconda_options.txt":
