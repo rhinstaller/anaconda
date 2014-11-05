@@ -45,6 +45,16 @@ SCREENSHOT_DELAY = 1  # in seconds
 
 ANACONDA_WINDOW_GROUP = Gtk.WindowGroup()
 
+# Stylesheet priorities to use for product-specific stylesheets and our
+# missing icon overrides. The missing icon rules should be higher than
+# the regular stylesheet, applied at GTK_STYLE_PROVIDER_PRIORITY_APPLICATION,
+# and stylesheets from updates.img and product.img should be higher than that,
+# so that they can override background images and not get re-overriden by us.
+# Both should be lower than GTK_STYLE_PROVIDER_PRIORITY_USER.
+STYLE_PROVIDER_PRIORITY_MISSING_ICON = Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION + 10
+STYLE_PROVIDER_PRIORITY_UPDATES = Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION + 20
+assert STYLE_PROVIDER_PRIORITY_UPDATES < Gtk.STYLE_PROVIDER_PRIORITY_USER
+
 class GUIObject(common.UIObject):
     """This is the base class from which all other GUI classes are derived.  It
        thus contains only attributes and methods that are common to everything
@@ -501,7 +511,7 @@ class GraphicalUserInterface(UserInterface):
                 provider = Gtk.CssProvider()
                 provider.load_from_data(".logo { background-image: url('%s'); }" % replacement_image_path)
                 Gtk.StyleContext.add_provider_for_screen(Gdk.Screen.get_default(), provider,
-                        Gtk.STYLE_PROVIDER_PRIORITY_USER)
+                        STYLE_PROVIDER_PRIORITY_MISSING_ICON)
             else:
                 log.warning("logo image is missing")
 
@@ -512,13 +522,13 @@ class GraphicalUserInterface(UserInterface):
             provider = Gtk.CssProvider()
             provider.load_from_data("AnacondaSpokeWindow #nav-box { background-image: none; }")
             Gtk.StyleContext.add_provider_for_screen(Gdk.Screen.get_default(), provider,
-                    Gtk.STYLE_PROVIDER_PRIORITY_USER)
+                    STYLE_PROVIDER_PRIORITY_MISSING_ICON)
 
         if not os.path.exists(sidebar_path):
             provider = Gtk.CssProvider()
             provider.load_from_data(".logo-sidebar { background-image: none; }")
             Gtk.StyleContext.add_provider_for_screen(Gdk.Screen.get_default(), provider,
-                    Gtk.STYLE_PROVIDER_PRIORITY_USER)
+                    STYLE_PROVIDER_PRIORITY_MISSING_ICON)
 
 
     def _widgetScale(self):
@@ -704,12 +714,14 @@ class GraphicalUserInterface(UserInterface):
         Gtk.StyleContext.add_provider_for_screen(Gdk.Screen.get_default(), provider,
                 Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION)
 
-        # The interaction between python signal handlers and Gtk is problematic,
-        # so convert them all to GLib signal handlers.
-        self._convertSignals()
-
-        # Convert process watching to GLib mode so we can use GLib.child_watch_add
-        iutil.watchProcessGLib()
+        # Look for updates to the stylesheet and apply them at a higher priority
+        for updates_dir in ("updates", "product"):
+            updates_css = "/run/install/%s/anaconda-gtk.css" % updates_dir
+            if os.path.exists(updates_css):
+                provider = Gtk.CssProvider()
+                provider.load_from_path(updates_css)
+                Gtk.StyleContext.add_provider_for_screen(Gdk.Screen.get_default(), provider,
+                        STYLE_PROVIDER_PRIORITY_UPDATES)
 
         # try to make sure a logo image is present
         self._assureLogoImage()
