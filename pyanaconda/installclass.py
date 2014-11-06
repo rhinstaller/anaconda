@@ -237,8 +237,6 @@ def getBaseInstallClass():
     elif len(allavail) > 1:
         (cname, cobject) = allavail.pop()
         log.info('%s is the highest priority installclass, using it', cname)
-
-    # Default to the base installclass if nothing else is found.
     else:
         raise RuntimeError("Unable to find an install class to use!!!")
 
