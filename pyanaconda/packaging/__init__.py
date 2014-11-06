@@ -688,7 +688,7 @@ class ArchivePayload(ImagePayload):
 class PackagePayload(Payload):
     """ A PackagePayload installs a set of packages onto the target system. """
 
-    DEFAULT_REPOS = [productName.lower(), "rawhide"]
+    DEFAULT_REPOS = [productName.split('-')[0].lower(), "rawhide"]
 
     def __init__(self, data):
         if self.__class__ is PackagePayload:
