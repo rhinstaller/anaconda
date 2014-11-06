@@ -261,6 +261,10 @@ static gboolean anaconda_base_standalone_on_draw(GtkWidget *win, cairo_t *cr) {
     gtk_render_background(context, cr, sidebar_x, 0, sidebar_width, get_sidebar_height(win));
     gtk_style_context_remove_class(context, "logo");
 
+    gtk_style_context_add_class(context, "product-logo");
+    gtk_render_background(context, cr, sidebar_x, 0, sidebar_width, get_sidebar_height(win));
+    gtk_style_context_remove_class(context, "product-logo");
+
     gtk_style_context_restore (context);
 
     return TRUE; /* TRUE to avoid default draw handler */
