@@ -20,7 +20,7 @@ else
     LD_LIBRARY_PATH="${LD_LIBRARY_PATH}:${top_builddir}/widgets/src/.libs"
 fi
 
-ANACONDA_INSTALL_CLASSES="${top_builddir}/pyanaconda/installclasses"
+ANACONDA_INSTALL_CLASSES="${top_srcdir}/pyanaconda/installclasses"
 GI_TYPELIB_PATH="${top_builddir}/widgets/src"
 
 export ANACONDA_INSTALL_CLASSES
