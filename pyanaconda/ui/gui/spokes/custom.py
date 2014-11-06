@@ -1002,6 +1002,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
                 self.__storage.devicetree.hide(disk)
 
         self._devices = self.__storage.devices
+        self._dasd = self.__storage.dasd
 
     def refresh(self):
         self.clear_errors()
@@ -2147,6 +2148,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         self.storage.devicetree._devices = self.__storage.devicetree._devices
         self.storage.devicetree._actions = self.__storage.devicetree._actions
         self.storage.devicetree._hidden = self.__storage.devicetree._hidden
+        self.storage.devicetree.dasd = self.__storage.devicetree.dasd
         self.storage.devicetree.names = self.__storage.devicetree.names
         self.storage.roots = self.__storage.roots
 
