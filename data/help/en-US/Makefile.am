@@ -17,7 +17,7 @@
 #
 # Author: Martin Kolman <mkolman@redhat.com>
 
-enplaceholderdir              = $(datadir)/anaconda/help/en-US
-dist_enplaceholder_DATA       = FedoraPlaceholder.html FedoraPlaceholderWithLinks.html RHEL7Placeholder.html RHEL7PlaceholderWithLinks.html
+enhelpcontentdir              = $(datadir)/anaconda/help/en-US
+dist_enhelpcontent_DATA       = *.html *.xml
 
 MAINTAINERCLEANFILES = Makefile.in
