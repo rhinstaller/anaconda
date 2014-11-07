@@ -1593,7 +1593,7 @@ class Timezone(commands.timezone.F18_Timezone):
                 ksdata.packages.packageList.append(NTP_PACKAGE)
                 self._added_chrony = True
 
-            if self._disabled_chrony and NTP_SERVICE in ksdata.service.disabled:
+            if self._disabled_chrony and NTP_SERVICE in ksdata.services.disabled:
                 ksdata.services.disabled.remove(NTP_SERVICE)
                 self._disabled_chrony = False
 
