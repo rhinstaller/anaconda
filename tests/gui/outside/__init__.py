@@ -112,7 +112,7 @@ class Creator(object):
             (fd, diskimage) = tempfile.mkstemp(dir=self.tempdir)
             eintr_retry_call(os.close, fd)
 
-            subprocess.call(["/usr/bin/qemu-img", "create", "-f", "qcow2", diskimage, "%sG" % size],
+            subprocess.call(["/usr/bin/qemu-img", "create", "-f", "raw", diskimage, "%sG" % size],
                             stdout=open("/dev/null", "w"))
             self._drivePaths[drive] = diskimage
 
