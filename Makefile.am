@@ -47,6 +47,8 @@ ARCHIVE_TAG   = $(PACKAGE_NAME)-$(PACKAGE_VERSION)-$(PACKAGE_RELEASE)
 TX_PULL_ARGS = -a
 TX_PUSH_ARGS = -s
 
+INSTALLATION_GUIDE_REPO_URL = git://git.fedorahosted.org/git/docs/install-guide.git
+
 tag:
 	@git tag -s -a -m "Tag as $(ARCHIVE_TAG)" $(ARCHIVE_TAG)
 	@echo "Tagged as $(ARCHIVE_TAG)"
@@ -62,11 +64,11 @@ po-empty:
 		exit 1 ; \
 	done
 
-scratch: po-empty
+scratch: po-empty get-help
 	$(MAKE) ARCHIVE_TAG=HEAD dist
 	git checkout -- $(srcdir)/po/$(PACKAGE_NAME).pot
 
-scratch-bumpver: po-empty
+scratch-bumpver: po-empty get-help
 	@opts="-S -n $(PACKAGE_NAME) -v $(PACKAGE_VERSION) -r $(PACKAGE_RELEASE) -b $(PACKAGE_BUGREPORT)" ; \
 	if [ ! -z "$(IGNORE)" ]; then \
 		opts="$${opts} -i $(IGNORE)" ; \
@@ -80,7 +82,7 @@ scratch-bumpver: po-empty
 	( cd $(srcdir) && scripts/makebumpver --skip-tx $${opts} ) || exit 1 ; \
 	$(MAKE) -C po $(PACKAGE_NAME).pot-update ;
 
-release:
+release: get-help
 	$(MAKE) dist && $(MAKE) tag && git checkout -- $(srcdir)/po/$(PACKAGE_NAME).pot
 
 bumpver: po-pull
@@ -145,3 +147,24 @@ runglade:
 	GLADE_CATALOG_SEARCH_PATH=$(srcdir)/widgets/glade \
 	GLADE_MODULE_SEARCH_PATH=$(builddir)/widgets/src/.libs \
 	glade ${GLADE_FILE}
+
+
+# Get content for the Anaconda built-in help system by cloning the
+# installation guide git repository and running the help processing
+# script (it is part of the repository).
+# Once the help content has been generated copy it to our help folder,
+# so that it can be included in the tarball.
+# Skip the git clone if the repository already exists but run git pull
+# to make sure it is up to date. We also clone the repository
+# without history as it si rather big (>400 MB!), which is quite
+# an overkill for <100 kB of help conent. :)
+get-help:
+	if [ ! -d "install-guide" ]; then \
+		if [ -f "installation_guide_repo_url" ]; then \
+			git clone --depth=1 `cat installation_guide_repo_url` ; \
+	    else \
+			git clone --depth=1 $(INSTALLATION_GUIDE_REPO_URL) ; \
+		fi ; \
+	fi ; \
+	( cd install-guide && git pull --rebase && python prepare_anaconda_help_content.py )
+	cp -r install-guide/anaconda_help_content/* $(srcdir)/data/help
