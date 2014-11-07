@@ -1002,7 +1002,6 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
                 self.__storage.devicetree.hide(disk)
 
         self._devices = self.__storage.devices
-        self._dasd = self.__storage.dasd
 
     def refresh(self):
         self.clear_errors()
