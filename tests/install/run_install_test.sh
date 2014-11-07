@@ -23,7 +23,7 @@ if [ ${EUID} != 0 ]; then
    exit 77
 fi
 
-tmpdir=$(mktemp -d)
+tmpdir=$(mktemp -d -p /var/tmp)
 
 # The anaconda repo can come from one of two different places:
 # (1) $TEST_ANACONDA_REPO, if this script is being called from "make check"
