@@ -26,20 +26,22 @@ function doit() {
           --tc=liveImage:$1"
 
     if [ -z "$2" ]; then
-        nosetests ${ARGS} outside
+        nosetests ${ARGS} ${GUI_TESTS:-outside}
     else
-        nosetests ${ARGS} "${2}" outside
+        nosetests ${ARGS} "${2}" ${GUI_TESTS:-outside}
     fi
 }
 
 # We require the test_config plugin for nose, which is not currently packaged
 # but is installable via pip.
 if [ -z "$(nosetests -p | grep test_config)" ]; then
+    echo "test_config plugin is not available; exiting."
     exit 99
 fi
 
 # Have to be root to run this test, as it requires creating disk iamges.
 if [ ${EUID} != 0 ]; then
+   echo "You must be root to run the GUI tests; skipping."
    exit 77
 fi
 
