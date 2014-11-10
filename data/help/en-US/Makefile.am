@@ -18,6 +18,9 @@
 # Author: Martin Kolman <mkolman@redhat.com>
 
 enhelpcontentdir              = $(datadir)/anaconda/help/en-US
-dist_enhelpcontent_DATA       = *.html *.xml
+# The $(srcdir)/*.*ml expression matches both the *.html placeholders and *.xml help
+# content files. It also works around the fact that autotools complain if the xml files
+# are not present but $(srcdir)/*.xml is used.
+dist_enhelpcontent_DATA       = $(srcdir)/*.*ml
 
 MAINTAINERCLEANFILES = Makefile.in
