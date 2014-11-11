@@ -186,20 +186,6 @@ AC_CONFIG_FILES([Makefile
                  data/liveinst/console.apps/Makefile
                  data/liveinst/gnome/Makefile
                  data/liveinst/pam.d/Makefile
-                 data/icons/Makefile
-                 data/icons/hicolor/Makefile
-                 data/icons/hicolor/16x16/Makefile
-                 data/icons/hicolor/16x16/apps/Makefile
-                 data/icons/hicolor/22x22/Makefile
-                 data/icons/hicolor/22x22/apps/Makefile
-                 data/icons/hicolor/24x24/Makefile
-                 data/icons/hicolor/24x24/apps/Makefile
-                 data/icons/hicolor/32x32/Makefile
-                 data/icons/hicolor/32x32/apps/Makefile
-                 data/icons/hicolor/48x48/Makefile
-                 data/icons/hicolor/48x48/apps/Makefile
-                 data/icons/hicolor/256x256/Makefile
-                 data/icons/hicolor/256x256/apps/Makefile
                  data/systemd/Makefile
                  data/help/Makefile
                  data/help/en-US/Makefile
