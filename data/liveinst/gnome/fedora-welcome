@@ -40,14 +40,14 @@ function makeLabel(label, button) {
     let widget = new Gtk.Label();
 
     if (button)
-        widget.set_markup('<b><span size="x-large" color="white">' + label + '</span></b>');
+        widget.set_markup('<b><span size="x-large">' + label + '</span></b>');
     else {
         widget.set_line_wrap(true);
         widget.set_justify(Gtk.Justification.CENTER);
         widget.set_margin_top(32);
         widget.set_margin_bottom(32);
 
-        widget.set_markup('<span size="large" color="white">' + label + '</span>');
+        widget.set_markup('<span size="large">' + label + '</span>');
     }
 
     return widget;
@@ -61,6 +61,7 @@ const WelcomeWindow = new Lang.Class({
                                                 type: Gtk.WindowType.TOPLEVEL,
                                                 default_width: 600,
                                                 default_height: 550,
+                                                skip_taskbar_hint: true,
                                                 title: _("Welcome to Fedora"),
                                                 window_position: Gtk.WindowPosition.CENTER });
       this.window.connect('key-press-event', Lang.bind(this,
@@ -99,10 +100,8 @@ const WelcomeWindow = new Lang.Class({
                                          spacing: 16 });
 
       // provided by the 'fedora-logos' package
-      let pix = GdkPixbuf.Pixbuf.new_from_file_at_size(
-          '/usr/share/icons/Fedora/scalable/apps/anaconda.svg',
-          256, 256);
-      installContent.add(new Gtk.Image({ pixbuf: pix }));
+      installContent.add(new Gtk.Image({ icon_name: 'anaconda',
+                                         pixel_size: 256 }));
       installContent.add(makeLabel(anacondaApp.get_name(), true));
 
       let installButton = new Gtk.Button({ child: installContent });
