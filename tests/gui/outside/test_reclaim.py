@@ -23,8 +23,10 @@ from . import Creator, OutsideMixin
 import subprocess
 import unittest
 
+from blivet.size import Size
+
 class BasicReclaimLiveCDCreator(Creator):
-    drives = [("one", 8)]
+    drives = [("one", Size("8 GB"))]
     name = "basicreclaimlivecd"
 
     # This does not test every spoke, as we only need to do enough to satisfy anaconda
@@ -45,7 +47,7 @@ class BasicReclaimLiveCDCreator(Creator):
             subprocess.call(["/sbin/parted", "-s", self._drivePaths[drive], "mklabel", "msdos"],
                             stdout=open("/dev/null", "w"),
                             stderr=open("/dev/null", "w"))
-            subprocess.call(["/sbin/parted", "-s", self._drivePaths[drive], "mkpart", "p", "ext2", "0", str(size) + "G"],
+            subprocess.call(["/sbin/parted", "-s", self._drivePaths[drive], "mkpart", "p", "ext2", "0", str(size)],
                             stdout=open("/dev/null", "w"),
                             stderr=open("/dev/null", "w"))
             subprocess.call(["/sbin/mkfs.ext4", "-F", self._drivePaths[drive]],

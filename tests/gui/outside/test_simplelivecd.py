@@ -22,8 +22,10 @@ __all__ = ["SimpleLiveCDCreator", "SimpleLiveCD_OutsideTest"]
 from . import Creator, OutsideMixin
 import unittest
 
+from blivet.size import Size
+
 class SimpleLiveCDCreator(Creator):
-    drives = [("one", 8)]
+    drives = [("one", Size("8 GB"))]
     name = "simplelivecd"
     tests = [("welcome", "BasicWelcomeTestCase"),
              ("summary", "LiveCDSummaryTestCase"),

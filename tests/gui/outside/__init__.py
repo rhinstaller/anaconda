@@ -49,7 +49,7 @@ class Creator(object):
        attributes:
 
        drives       -- A list of tuples describing disk images to create.  Each
-                       tuple is the name and size, in GB.
+                       tuple is the name of the drive and its size as a blivet.Size.
        environ      -- A dictionary of environment variables that should be added
                        to the environment the test suite will run under.
        name         -- A unique string that names a Creator.  This name will
@@ -118,7 +118,10 @@ class Creator(object):
             (fd, diskimage) = tempfile.mkstemp(dir=self.tempdir)
             eintr_retry_call(os.close, fd)
 
-            subprocess.call(["/usr/bin/qemu-img", "create", "-f", "raw", diskimage, "%sG" % size],
+            # For now we are using qemu-img to create these files but specifying
+            # sizes in blivet Size objects.  Unfortunately, qemu-img wants sizes
+            # as xM or xG, not xMB or xGB.  That's what the conversion here is for.
+            subprocess.call(["/usr/bin/qemu-img", "create", "-f", "raw", diskimage, "%sM" % size.convertTo(spec="MB")],
                             stdout=open("/dev/null", "w"))
             self._drivePaths[drive] = diskimage
 
