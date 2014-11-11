@@ -487,7 +487,7 @@ def add_connection_for_ksdata(networkdata, devname):
         values.append(['vlan', 'id', int(networkdata.vlanid), 'u'])
         dev_spec = None
     # type "bridge"
-    if networkdata.bridgeslaves:
+    elif networkdata.bridgeslaves:
         # bridge connection is autoactivated
         values.append(['connection', 'type', 'bridge', 's'])
         values.append(['connection', 'id', devname, 's'])
