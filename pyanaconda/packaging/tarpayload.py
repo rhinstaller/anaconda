@@ -61,6 +61,10 @@ class TarPayload(ArchivePayload):
             log.error("opening tar archive %s: %s", self.image_file, e)
             raise PayloadError("invalid payload format")
 
+    def unsetup(self):
+        super(TarPayload, self).unsetup()
+        self.archive = None
+
     @property
     def requiredSpace(self):
         byte_count = sum(m.size for m in self.archive.getmembers())

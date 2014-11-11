@@ -138,6 +138,11 @@ class Payload(object):
         self.storage = storage
         self.instclass = instClass
 
+    def unsetup(self):
+        """ Invalidate a previously setup paylaod. """
+        self.storage = None
+        self.instclass = None
+
     def preStorage(self):
         """ Do any payload-specific work necessary before writing the storage
             configuration.  This method need not be provided by all payloads.
@@ -1243,6 +1248,7 @@ class PayloadManager(object):
             log.error("PayloadError: %s", e)
             self._error = self.ERROR_SETUP
             self._setState(self.STATE_ERROR)
+            payload.unsetup()
             return
 
         # Gather the group data
@@ -1255,6 +1261,7 @@ class PayloadManager(object):
             log.error("No base repo configured")
             self._error = self.ERROR_MD
             self._setState(self.STATE_ERROR)
+            payload.unsetup()
             return
 
         try:
@@ -1271,6 +1278,7 @@ class PayloadManager(object):
             log.error("MetadataError: %s", e)
             self._error = self.ERROR_SOURCE
             self._setState(self.STATE_ERROR)
+            payload.unsetup()
             return
 
         self._setState(self.STATE_FINISHED)
