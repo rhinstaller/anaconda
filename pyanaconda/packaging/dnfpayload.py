@@ -192,6 +192,10 @@ class DNFPayload(packaging.PackagePayload):
         self._base = None
         self._configure()
 
+    def unsetup(self):
+        super(DNFPayload, self).unsetup()
+        self._base = None
+
     def _add_repo(self, ksrepo):
         """Add a repo to the dnf repo object
 

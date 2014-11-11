@@ -200,6 +200,10 @@ class YumPayload(PackagePayload):
         self._writeYumConfig()
         self._setup = True
 
+    def unsetup(self):
+        super(YumPayload, self).unsetup()
+        self._setup = False
+
     def _resetYum(self, root=None, keep_cache=False, releasever=None):
         """ Delete and recreate the payload's YumBase instance.
 
@@ -1030,6 +1034,9 @@ reposdir=%s
     @property
     def _yumGroups(self):
         """ yum.comps.Comps instance. """
+        if not self._setup:
+            return []
+
         with _yum_lock:
             if not self._groups:
                 if not self.needsNetwork or nm_is_connected():

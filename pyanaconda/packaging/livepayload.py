@@ -83,6 +83,15 @@ class LiveImagePayload(ImagePayload):
         source = iutil.eintr_retry_call(os.statvfs, INSTALL_TREE)
         self.source_size = source.f_frsize * (source.f_blocks - source.f_bfree)
 
+    def unsetup(self):
+        super(LiveImagePayload, self).unsetup()
+
+        # Unmount a previously mounted live tree
+        try:
+            blivet.util.umount(INSTALL_TREE)
+        except OSError:
+            pass
+
     def preInstall(self, packages=None, groups=None):
         """ Perform pre-installation tasks. """
         super(LiveImagePayload, self).preInstall(packages=packages, groups=groups)
@@ -273,6 +282,10 @@ class LiveImageKSPayload(LiveImagePayload):
             self._min_size = int(req.info().get("content-length")) * 4
 
         log.debug("liveimg size is %s", self._min_size)
+
+    def unsetup(self):
+        # Skip LiveImagePayload's unsetup method
+        ImagePayload.unsetup(self)
 
     def preInstall(self, *args, **kwargs):
         """ Download image and loopback mount it.
