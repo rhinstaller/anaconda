@@ -22,6 +22,7 @@ __all__ = ["Creator", "OutsideMixin"]
 import blivet
 
 from contextlib import contextmanager
+from nose.plugins.multiprocess import TimedOutException
 import os
 import shutil
 import subprocess
@@ -76,6 +77,10 @@ class Creator(object):
         self._proc = None
         self._tempdir = None
 
+        self._storage = None
+
+        blivet.util.set_up_logging(log_file=self.tempdir + "/blivet-" + self.name + ".log")
+
     def archive(self):
         """Copy all log files and other test results to a subdirectory of the
            given resultsdir.  If logs are no longer available, this method
@@ -93,8 +98,9 @@ class Creator(object):
         """Remove all disk images used during this test case and the temporary
            directory they were stored in.
         """
+        self._storage.devicetree.teardownDiskImages()
         shutil.rmtree(self.tempdir, ignore_errors=True)
-        os.unlink(self._drivePaths["suite"])
+        os.unlink(self._drivePaths[self.suitename])
 
     def die(self):
         """Kill any running qemu process previously started by this test."""
@@ -141,26 +147,26 @@ class Creator(object):
         from testconfig import config
 
         # First, create a disk image and put a filesystem on it.
-        b = blivet.Blivet()
+        self._storage = blivet.Blivet()
 
         # pylint: disable=undefined-variable
-        disk1_path = blivet.util.create_sparse_tempfile("suite", blivet.size.Size("11 MB"))
-        b.config.diskImages["suite"] = disk1_path
+        disk1_path = blivet.util.create_sparse_tempfile(self.suitename, blivet.size.Size("11 MB"))
+        self._storage.config.diskImages[self.suitename] = disk1_path
 
-        b.reset()
+        self._storage.reset()
 
         try:
-            disk1 = b.devicetree.getDeviceByName("suite")
-            b.initializeDisk(disk1)
+            disk1 = self._storage.devicetree.getDeviceByName(self.suitename)
+            self._storage.initializeDisk(disk1)
 
-            part = b.newPartition(size=blivet.size.Size("10 MB"), parents=[disk1])
-            b.createDevice(part)
+            part = self._storage.newPartition(size=blivet.size.Size("10 MB"), parents=[disk1])
+            self._storage.createDevice(part)
 
             fmt = blivet.formats.getFormat("ext4", label="ANACTEST", mountpoint=self.mountpoint)
-            b.formatDevice(part, fmt)
+            self._storage.formatDevice(part, fmt)
 
-            blivet.partitioning.doPartitioning(b)
-            b.doIt()
+            blivet.partitioning.doPartitioning(self._storage)
+            self._storage.doIt()
 
             fmt.mount()
 
@@ -182,26 +188,23 @@ class Creator(object):
                                          "anacondaArgs": config.get("anacondaArgs", "").strip('"')})
         finally:
             # pylint: disable=undefined-variable
-            b.devicetree.teardownDiskImages()
+            self._storage.devicetree.teardownDiskImages()
             shutil.rmtree(self.mountpoint)
 
         # This ensures it gets passed to qemu-kvm as a disk arg.
-        self._drivePaths["suite"] = disk1_path
+        self._drivePaths[self.suitename] = disk1_path
 
     @contextmanager
     def suiteMounted(self):
         """This context manager allows for wrapping code that needs to access the
            suite.  It mounts the disk image beforehand and unmounts it afterwards.
         """
-        if self._drivePaths.get("suite", "") == "":
+        if self._drivePaths.get(self.suitename, "") == "":
             return
 
-        b = blivet.Blivet()
-        b.config.diskImages["suite"] = self._drivePaths["suite"]
-        b.reset()
+        self._storage.setupDiskImages()
 
-        disk = b.devicetree.getDeviceByName("suite")
-        part = b.devicetree.getChildren(disk)[0]
+        part = self._storage.devicetree.getDeviceByName(self.suitename + "1")
         part.format.mountpoint = self.mountpoint
         part.format.mount()
 
@@ -211,8 +214,6 @@ class Creator(object):
             raise
         finally:
             part.format.unmount()
-            # pylint: disable=undefined-variable
-            b.devicetree.teardownDiskImages()
 
     def run(self):
         """Given disk images previously created by Creator.makeDrives and
@@ -221,10 +222,10 @@ class Creator(object):
         from testconfig import config
 
         args = ["/usr/bin/qemu-kvm",
-                "-vnc", "localhost:2",
+                "-vnc", "none",
                 "-m", str(self.reqMemory),
                 "-boot", "d",
-                "-drive", "file=%s,media=cdrom" % config["liveImage"]]
+                "-drive", "file=%s,media=cdrom,readonly" % config["liveImage"]]
 
         for drive in self._drivePaths.values():
             args += ["-drive", "file=%s,media=disk" % drive]
@@ -233,8 +234,14 @@ class Creator(object):
         # it if necessary.  For now, the only reason we'd want to kill it is
         # an expired timer.
         self._proc = subprocess.Popen(args)
-        self._proc.wait()
-        self._proc = None
+
+        try:
+            self._proc.wait()
+        except TimedOutException:
+            self.die()
+            self._storage.devicetree.teardownDiskImages()
+        finally:
+            self._proc = None
 
     @property
     def mountpoint(self):
@@ -257,6 +264,10 @@ class Creator(object):
             self._tempdir = tempfile.mkdtemp(prefix="%s-" % self.name, dir="/var/tmp")
 
         return self._tempdir
+
+    @property
+    def suitename(self):
+        return self.name + "_suite"
 
 class OutsideMixin(object):
     """A BaseOutsideTestCase subclass is the interface between the unittest framework

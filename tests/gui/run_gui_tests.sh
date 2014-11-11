@@ -22,6 +22,8 @@ function doit() {
     ARGS="-s \
           -v \
           --nologcapture \
+          --process-timeout=1200 \
+          --processes=2 \
           --tc=resultsdir:$(mktemp -d --tmpdir=$(pwd) autogui-results-XXXXXX) \
           --tc=liveImage:$1"
 
