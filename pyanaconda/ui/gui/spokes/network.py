@@ -428,7 +428,7 @@ class NetworkControlBox(GObject.GObject):
             log.debug("network: GUI, connection %s found", uuid)
             if self.dev_cfg(uuid=uuid):
                 continue
-            if setting["connection"]["read-only"]:
+            if setting["connection"].get("read-only", False):
                 log.debug("network: GUI, not adding read-only connection %s", uuid)
                 continue
             dev_cfg = DeviceConfiguration(con_uuid=uuid)
