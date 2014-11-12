@@ -22,6 +22,7 @@ from pyanaconda.errors import ScriptError, errorHandler
 from blivet.deviceaction import ActionCreateFormat, ActionDestroyFormat, ActionResizeDevice, ActionResizeFormat
 from blivet.devices import LUKSDevice
 from blivet.devicelibs.lvm import getPossiblePhysicalExtents, LVM_PE_SIZE, KNOWN_THPOOL_PROFILES
+from blivet.devicelibs.crypto import MIN_CREATE_ENTROPY
 from blivet.devicelibs import swap as swap_lib
 from blivet.formats import getFormat
 from blivet.partitioning import doPartitioning
@@ -284,7 +285,6 @@ class AutoPart(commands.autopart.RHEL7_AutoPart):
     def execute(self, storage, ksdata, instClass):
         from blivet.partitioning import doAutoPartition
         from blivet.partitioning import sanityCheck
-        from blivet.devicelibs.crypto import MIN_CREATE_ENTROPY
 
         if not self.autopart:
             return
@@ -970,13 +970,15 @@ class LogVolData(commands.logvol.RHEL7_LogVolData):
                                           add_backup_passphrase=self.backuppassphrase)
                 luksdev = LUKSDevice("luks%d" % storage.nextID,
                                      fmt=luksformat,
-                                     parents=device)
+                                     parents=device,
+                                     min_luks_entropy=MIN_CREATE_ENTROPY)
             else:
                 luksformat = request.format
                 request.format = getFormat("luks", passphrase=self.passphrase,
                                            cipher=self.cipher,
                                            escrow_cert=cert,
-                                           add_backup_passphrase=self.backuppassphrase)
+                                           add_backup_passphrase=self.backuppassphrase,
+                                           min_luks_entropy=MIN_CREATE_ENTROPY)
                 luksdev = LUKSDevice("luks%d" % storage.nextID,
                                      fmt=luksformat,
                                      parents=request)
@@ -1249,7 +1251,8 @@ class PartitionData(commands.partition.F18_PartData):
                 device.format = getFormat("luks", passphrase=self.passphrase, device=device.path,
                                           cipher=self.cipher,
                                           escrow_cert=cert,
-                                          add_backup_passphrase=self.backuppassphrase)
+                                          add_backup_passphrase=self.backuppassphrase,
+                                          min_luks_entropy=MIN_CREATE_ENTROPY)
                 luksdev = LUKSDevice("luks%d" % storage.nextID,
                                      fmt=luksformat,
                                      parents=device)
@@ -1258,7 +1261,8 @@ class PartitionData(commands.partition.F18_PartData):
                 request.format = getFormat("luks", passphrase=self.passphrase,
                                            cipher=self.cipher,
                                            escrow_cert=cert,
-                                           add_backup_passphrase=self.backuppassphrase)
+                                           add_backup_passphrase=self.backuppassphrase,
+                                           min_luks_entropy=MIN_CREATE_ENTROPY)
                 luksdev = LUKSDevice("luks%d" % storage.nextID,
                                      fmt=luksformat,
                                      parents=request)
