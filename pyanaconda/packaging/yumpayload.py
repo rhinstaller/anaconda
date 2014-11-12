@@ -230,9 +230,8 @@ class YumPayload(PackagePayload):
 
             # Set some configuration parameters that don't get set through a config
             # file.  yum will know what to do with these.
-            # Enable all types of yum plugins. We're somewhat careful about what
-            # plugins we put in the environment.
-            self._yum.preconf.plugin_types = yum.plugins.ALL_TYPES
+            # Only enable non-interactive yum plugins
+            self._yum.preconf.plugin_types = yum.plugins.TYPE_CORE
             self._yum.preconf.enabled_plugins = YUM_PLUGINS
             self._yum.preconf.fn = "/tmp/anaconda-yum.conf"
             self._yum.preconf.root = root
