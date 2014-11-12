@@ -28,6 +28,7 @@ import time
 import select
 import sys
 import termios
+import errno
 import math
 
 from pyanaconda.progress import progress_message
@@ -67,11 +68,21 @@ def _tui_wait(msg, desired_entropy):
     print(_("After %d minutes, the installation will continue regardless of the "
             "amount of available entropy") % (MAX_ENTROPY_WAIT / 60))
     fd = sys.stdin.fileno()
-    old = termios.tcgetattr(fd)
-    new = termios.tcgetattr(fd)
-    new[3] = new[3] & ~termios.ICANON & ~termios.ECHO
-    new[6][termios.VMIN] = 1
-    termios.tcsetattr(fd, termios.TCSANOW, new)
+    termios_attrs_changed = False
+
+    try:
+        old = termios.tcgetattr(fd)
+        new = termios.tcgetattr(fd)
+        new[3] = new[3] & ~termios.ICANON & ~termios.ECHO
+        new[6][termios.VMIN] = 1
+        termios.tcsetattr(fd, termios.TCSANOW, new)
+        termios_attrs_changed = True
+    except termios.error as term_err:
+        if term_err.args[0] == errno.ENOTTY:
+            # "Inappropriate ioctl for device" --> terminal attributes not supported
+            pass
+        else:
+            raise
 
     # wait for the entropy to become high enough or time has run out
     cur_entr = get_current_entropy()
@@ -106,7 +117,10 @@ def _tui_wait(msg, desired_entropy):
     # and then just read everything from the input buffer and revert the
     # termios state
     while sys.stdin in select.select([sys.stdin], [], [], 0)[0]:
-        _in_data = sys.stdin.read(1)
-    termios.tcsetattr(fd, termios.TCSAFLUSH, old)
+        # just read from stdin and scratch the read data
+        sys.stdin.read(1)
+
+    if termios_attrs_changed:
+        termios.tcsetattr(fd, termios.TCSAFLUSH, old)
 
     return force_cont
