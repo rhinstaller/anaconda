@@ -204,12 +204,11 @@ class NoSpaceDialog(InstallOptionsDialogBase):
 
     # pylint: disable=arguments-differ
     def refresh(self, required_space, auto_swap, disk_free, fs_free):
-        sw_text = self._get_sw_needs_text(required_space, auto_swap)
-        label_text = (_("%(sw_text)s You don't have enough space available to install "
-                        "<b>%(product)s</b>, even if you used all of the free space "
-                        "available on the selected disks.")
-                      % {"sw_text": escape_markup(sw_text),
-                         "product": escape_markup(productName)})
+        label_text = self._get_sw_needs_text(required_space, auto_swap)
+        label_text += (_("  You don't have enough space available to install "
+                         "<b>%(product)s</b>, even if you used all of the free space "
+                         "available on the selected disks.")
+                       % {"product": escape_markup(productName)})
         label = self.builder.get_object("no_space_desc_label")
         label.set_markup(label_text)
 
