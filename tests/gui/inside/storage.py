@@ -72,7 +72,7 @@ class BasicStorageTestCase(UITestCase):
         self.assertIsNotNone(button, msg="Encrypt button not found")
         self.assertFalse(button.checked, msg="Encrypt button should not be selected")
 
-    def _run(self):
+    def _common_run(self):
         # First, we need to click on the storage spoke selector.
         self.enter_spoke("INSTALLATION DESTINATION")
 
@@ -96,6 +96,10 @@ class BasicStorageTestCase(UITestCase):
 
         self.check_shopping_cart(w)
         self.check_storage_options(w)
+        return w
+
+    def _run(self):
+        w = self._common_run()
 
         # And then we click the Done button which should take the user right back to
         # the hub.  There's no need to display any other dialogs given that this is
@@ -178,29 +182,7 @@ class BasicReclaimTestCase(BasicStorageTestCase):
         self.check_window_displayed("INSTALLATION SUMMARY")
 
     def _run(self):
-        # First, we need to click on the storage spoke selector.
-        self.enter_spoke("INSTALLATION DESTINATION")
-
-        # Now verify we are on the right screen.
-        w = self.check_window_displayed("INSTALLATION DESTINATION")
-        self.check_help_button(w)
-
-        # Given that we attach a second disk to the system (for storing the test
-        # suite and results), anaconda will not select disks by default.  Thus,
-        # the storage options panel should currently be insensitive.
-        area = self.find("Storage Options", node=w)
-        self.assertIsNotNone(area, "Storage Options not found")
-        self.assertFalse(area.sensitive, msg="Storage options should be insensitive")
-
-        # Select disk overviews.  In the basic case, this means uninitialized
-        # disks that we're going to do autopart on.
-        self.check_select_disks(w)
-
-        # And now with disks selected, the storage options should be sensitive.
-        self.assertTrue(area.sensitive, msg="Storage options should be sensitive")
-
-        self.check_shopping_cart(w)
-        self.check_storage_options(w)
+        w = self._common_run()
 
         # Clicking the Done button should bring up the installation options dialog
         # indicating there's not currently enough space to install, but more space
@@ -208,3 +190,15 @@ class BasicReclaimTestCase(BasicStorageTestCase):
         self.click_button("_Done", node=w)
         optionsDlg = self.check_dialog_displayed("Need Space")
         self.check_reclaim(optionsDlg)
+
+class CantReclaimTestCase(BasicStorageTestCase):
+    def _run(self):
+        w = self._common_run()
+
+        # Clicking the Done button should bring up the installation options dialog
+        # indicating there's never going to be enough space to install.  There's nothing
+        # to do now but quit.
+        self.click_button("_Done", node=w)
+        doDelay(5)
+        optionsDlg = self.check_dialog_displayed("No Space")
+        self.click_button("Quit installer", node=optionsDlg)

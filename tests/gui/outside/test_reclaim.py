@@ -17,7 +17,8 @@
 #
 # Author: Chris Lumens <clumens@redhat.com>
 
-__all__ = ["BasicReclaimLiveCDCreator", "BasicReclaimLiveCD_OutsideTest"]
+__all__ = ["BasicReclaimLiveCDCreator", "BasicReclaimLiveCD_OutsideTest",
+           "CantReclaimLiveCDCreator", "CantReclaimLiveCD_OutsideTest"]
 
 from . import Creator, OutsideMixin
 import subprocess
@@ -56,3 +57,15 @@ class BasicReclaimLiveCDCreator(Creator):
 
 class BasicReclaimLiveCD_OutsideTest(OutsideMixin, unittest.TestCase):
     creatorClass = BasicReclaimLiveCDCreator
+
+class CantReclaimLiveCDCreator(BasicReclaimLiveCDCreator):
+    drives = [("one", Size("2 GB"))]
+    name = "cantreclaimlivecd"
+
+    # We don't get to test much here, since the reclaim test shuts down anaconda.
+    tests = [("welcome", "BasicWelcomeTestCase"),
+             ("summary", "LiveCDSummaryTestCase"),
+             ("storage", "CantReclaimTestCase")]
+
+class CantReclaimLiveCD_OutsideTest(OutsideMixin, unittest.TestCase):
+    creatorClass = CantReclaimLiveCDCreator
