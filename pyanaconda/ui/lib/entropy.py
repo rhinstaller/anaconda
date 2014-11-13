@@ -116,9 +116,10 @@ def _tui_wait(msg, desired_entropy):
 
     # and then just read everything from the input buffer and revert the
     # termios state
-    while sys.stdin in select.select([sys.stdin], [], [], 0)[0]:
+    data = "have something"
+    while sys.stdin in select.select([sys.stdin], [], [], 0)[0] and data:
         # just read from stdin and scratch the read data
-        sys.stdin.read(1)
+        data = sys.stdin.read(1)
 
     if termios_attrs_changed:
         termios.tcsetattr(fd, termios.TCSAFLUSH, old)
