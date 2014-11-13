@@ -541,7 +541,8 @@ def unwatchAllProcesses():
     """Clear the watched process list."""
     global _forever_pids
     for child_pid in _forever_pids:
-        GLib.source_remove(_forever_pids[child_pid][1])
+        if _forever_pids[child_pid][1]:
+            GLib.source_remove(_forever_pids[child_pid][1])
     _forever_pids = {}
 
 def getDirSize(directory):
