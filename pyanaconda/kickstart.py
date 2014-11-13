@@ -1592,7 +1592,7 @@ class VolGroupData(commands.volgroup.RHEL7_VolGroupData):
 
         if self.pesize == 0:
             # default PE size requested -- we use blivet's default in KiB
-            self.pesize = LVM_PE_SIZE * 1024
+            self.pesize = LVM_PE_SIZE.convertTo("KiB")
 
         pesize = Size("%d KiB" % self.pesize)
         if pesize not in getPossiblePhysicalExtents():
