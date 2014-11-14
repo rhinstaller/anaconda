@@ -25,7 +25,7 @@ import unittest
 from blivet.size import Size
 
 class SimpleLiveCDCreator(Creator):
-    drives = [("one", Size("8 GB"))]
+    drives = [("one", Size("8 GiB"))]
     name = "simplelivecd"
     tests = [("welcome", "BasicWelcomeTestCase"),
              ("summary", "LiveCDSummaryTestCase"),

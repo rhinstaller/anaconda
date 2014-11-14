@@ -27,7 +27,7 @@ import unittest
 from blivet.size import Size
 
 class BasicReclaimLiveCDCreator(Creator):
-    drives = [("one", Size("8 GB"))]
+    drives = [("one", Size("8 GiB"))]
     name = "basicreclaimlivecd"
 
     # This does not test every spoke, as we only need to do enough to satisfy anaconda
@@ -59,7 +59,7 @@ class BasicReclaimLiveCD_OutsideTest(OutsideMixin, unittest.TestCase):
     creatorClass = BasicReclaimLiveCDCreator
 
 class CantReclaimLiveCDCreator(BasicReclaimLiveCDCreator):
-    drives = [("one", Size("2 GB"))]
+    drives = [("one", Size("2 GiB"))]
     name = "cantreclaimlivecd"
 
     # We don't get to test much here, since the reclaim test shuts down anaconda.

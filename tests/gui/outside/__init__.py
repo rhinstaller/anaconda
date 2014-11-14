@@ -153,7 +153,7 @@ class Creator(object):
         self._storage = blivet.Blivet()
 
         # pylint: disable=undefined-variable
-        disk1_path = blivet.util.create_sparse_tempfile(self.suitename, blivet.size.Size("11 MB"))
+        disk1_path = blivet.util.create_sparse_tempfile(self.suitename, blivet.size.Size("11 MiB"))
         self._storage.config.diskImages[self.suitename] = disk1_path
 
         self._storage.reset()
@@ -162,7 +162,7 @@ class Creator(object):
             disk1 = self._storage.devicetree.getDeviceByName(self.suitename)
             self._storage.initializeDisk(disk1)
 
-            part = self._storage.newPartition(size=blivet.size.Size("10 MB"), parents=[disk1])
+            part = self._storage.newPartition(size=blivet.size.Size("10 MiB"), parents=[disk1])
             self._storage.createDevice(part)
 
             fmt = blivet.formats.getFormat("ext4", label="ANACTEST", mountpoint=self.mountpoint)
