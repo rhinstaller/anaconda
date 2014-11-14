@@ -1202,3 +1202,7 @@ def eintr_retry_call(func, *args):
             if e.errno == errno.EINTR:
                 continue
             raise
+
+def parent_dir(directory):
+    """Return the parent's path"""
+    return "/".join(os.path.normpath(directory).split("/")[:-1])

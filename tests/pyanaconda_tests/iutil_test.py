@@ -742,3 +742,12 @@ class MiscTests(unittest.TestCase):
         # Compare unicode and str and make sure nothing crashes
         self.assertTrue(iutil.have_word_match("fête", u"fête champêtre"))
         self.assertTrue(iutil.have_word_match(u"fête", "fête champêtre"))
+
+    def parent_dir_test(self):
+        """Test the parent_dir function"""
+        dirs = [("", ""), ("/", ""), ("/home/", ""), ("/home/bcl", "/home"), ("home/bcl", "home"),
+                ("/home/bcl/", "/home"), ("/home/extra/bcl", "/home/extra"),
+                ("/home/extra/bcl/", "/home/extra"), ("/home/extra/../bcl/", "/home")]
+
+        for d, r in dirs:
+            self.assertEquals(iutil.parent_dir(d), r)
