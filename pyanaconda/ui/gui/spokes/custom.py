@@ -81,7 +81,7 @@ from pyanaconda.ui.gui.spokes.lib.custom_storage_helpers import size_from_entry
 from pyanaconda.ui.gui.spokes.lib.custom_storage_helpers import validate_label, validate_mountpoint, get_raid_level
 from pyanaconda.ui.gui.spokes.lib.custom_storage_helpers import selectedRaidLevel, raidLevelSelection, defaultRaidLevel, requiresRaidSelection, containerRaidLevelsSupported, raidLevelsSupported, defaultContainerRaidLevel
 from pyanaconda.ui.gui.spokes.lib.custom_storage_helpers import get_container_type_name, RAID_NOT_ENOUGH_DISKS
-from pyanaconda.ui.gui.spokes.lib.custom_storage_helpers import AddDialog, ConfirmDeleteDialog, DisksDialog, ContainerDialog, HelpDialog
+from pyanaconda.ui.gui.spokes.lib.custom_storage_helpers import AddDialog, ConfirmDeleteDialog, DisksDialog, ContainerDialog
 
 from pyanaconda.ui.gui.utils import setViewportBackground, fancy_set_sensitive, ignoreEscape
 from pyanaconda.ui.gui.utils import really_hide, really_show, GtkActionList, timed_action
@@ -1867,11 +1867,6 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
                        showRemove=False, setBoot=False)
         with self.main_window.enlightbox(dialog.window):
             dialog.run()
-
-    def on_help_clicked(self, button):
-        help_window = HelpDialog(self.data)
-        with self.main_window.enlightbox(help_window.window):
-            help_window.run()
 
     def on_configure_clicked(self, button):
         selector = self._current_selector
