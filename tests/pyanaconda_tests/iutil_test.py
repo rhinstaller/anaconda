@@ -363,3 +363,12 @@ class RunProgramTests(unittest.TestCase):
         self.assertFalse(iutil.cmp_obj_attrs(a, b, ["b", "c"]))
         self.assertFalse(iutil.cmp_obj_attrs(b, a, ["b", "c"]))
         self.assertFalse(iutil.cmp_obj_attrs(b, a, ["c", "b"]))
+
+    def parent_dir_test(self):
+        """Test the parent_dir function"""
+        dirs = [("", ""), ("/", ""), ("/home/", ""), ("/home/bcl", "/home"), ("home/bcl", "home"),
+                ("/home/bcl/", "/home"), ("/home/extra/bcl", "/home/extra"),
+                ("/home/extra/bcl/", "/home/extra"), ("/home/extra/../bcl/", "/home")]
+
+        for d, r in dirs:
+            self.assertEquals(iutil.parent_dir(d), r)

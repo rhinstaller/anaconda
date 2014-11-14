@@ -20,6 +20,7 @@
 #                    Chris Lumens <clumens@redhat.com>
 #
 
+import os
 from pyanaconda.flags import flags
 from pyanaconda.i18n import _, N_
 from pyanaconda.users import cryptPassword, validatePassword, guess_username, USERNAME_VALID
@@ -107,6 +108,8 @@ class AdvancedUserDialog(GUIObject):
         if rc == 1:
             if self.builder.get_object("c_home").get_active():
                 self._user.homedir = self.builder.get_object("t_home").get_text()
+                if not os.path.isabs(self._user.homedir):
+                    self._user.homedir = "/" + self._user.homedir
             else:
                 self._user.homedir = None
 

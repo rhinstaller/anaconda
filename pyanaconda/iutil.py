@@ -883,3 +883,7 @@ def save_screenshots():
 
     except OSError:
         log.exception("saving screenshots to installed system failed")
+
+def parent_dir(directory):
+    """Return the parent's path"""
+    return "/".join(os.path.normpath(directory).split("/")[:-1])
