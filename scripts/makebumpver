@@ -356,8 +356,12 @@ class MakeBumpVer:
                             not self._isRHELBugAcked(ckbug, commit, summary)):
                             bad = True
                         elif valid and action == 'Related':
+                            # A related bug needs to have acks, and if it is the same as the summary
+                            # It overrides the summary having different fixed-in or state
                             if self._isRHELBugAcked(ckbug, commit, summary):
                                 print "*** Bug %s Related commit %s is allowed\n" % (bug, commit)
+                                if ckbug == summary_bug:
+                                    bad = False
                             else:
                                 bad = True
 
