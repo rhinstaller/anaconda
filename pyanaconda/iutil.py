@@ -35,7 +35,7 @@ from Queue import Queue, Empty
 from pyanaconda.flags import flags
 from pyanaconda.constants import DRACUT_SHUTDOWN_EJECT, ROOT_PATH, TRANSLATIONS_UPDATE_DIR, UNSUPPORTED_HW
 from pyanaconda.constants import SCREENSHOTS_DIRECTORY, SCREENSHOTS_TARGET_DIRECTORY
-from pyanaconda.regexes import PROXY_URL_PARSE
+from pyanaconda.regexes import PROXY_URL_PARSE, GROUP_STR_PARSE, GROUPNAME_VALID
 
 import logging
 log = logging.getLogger("anaconda")
@@ -887,3 +887,27 @@ def save_screenshots():
 def parent_dir(directory):
     """Return the parent's path"""
     return "/".join(os.path.normpath(directory).split("/")[:-1])
+
+def parse_group_str(group_str):
+    """Parse the group string for advanced user setup.
+
+    :param str group_str: group string
+    :returns: tuple of group name and group id
+
+    The string can be one of:
+      group
+      group (gid)
+      group(gid)
+
+    If there is no gid it will return None for it.
+    If there is an error parsing it will return ("", None)
+    """
+    m = GROUP_STR_PARSE.match(group_str)
+    if not m or not GROUPNAME_VALID.match(m.group(1)):
+        return ("", None)
+
+    gid = None
+    if m.group(3):
+        gid = int(m.group(3))
+
+    return (m.group(1), gid)

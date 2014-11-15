@@ -31,6 +31,7 @@ from pyanaconda.ui.gui import GUIObject
 from pyanaconda.ui.gui.categories.user_settings import UserSettingsCategory
 from pyanaconda.ui.common import FirstbootSpokeMixIn
 from pyanaconda.ui.gui.utils import enlightbox
+from pyanaconda.iutil import parse_group_str
 
 from pykickstart.constants import FIRSTBOOT_RECONFIG
 from pyanaconda.constants import ANACONDA_ENVIRON, FIRSTBOOT_ENVIRON
@@ -127,9 +128,12 @@ class AdvancedUserDialog(GUIObject):
             self._user.groups = []
             for group in groups:
                 group = group.strip()
-                if group not in self._groupDict:
-                    self._groupDict[group] = self.data.GroupData(name = group)
-                self._user.groups.append(group)
+                name, gid = parse_group_str(group)
+                if not name:
+                    continue
+                if name not in self._groupDict or self._groupDict[name].gid != gid:
+                    self._groupDict[name] = self.data.GroupData(name=name, gid=gid)
+                self._user.groups.append(name)
 
         #Cancel clicked, window destroyed...
         else:

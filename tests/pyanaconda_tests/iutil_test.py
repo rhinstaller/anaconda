@@ -372,3 +372,12 @@ class RunProgramTests(unittest.TestCase):
 
         for d, r in dirs:
             self.assertEquals(iutil.parent_dir(d), r)
+
+    def parse_group_str_test(self):
+        groups = [("acme", "acme", None), ("acme (2911)", "acme", 2911),
+                  ("acme(2911)", "acme", 2911), ("acme (2911)(569)", "acme", 2911),
+                  ("acme ()", "acme", None), ("", "", None), ("()", "", None),
+                  ("(2911)", "", None)]
+
+        for group_str, name, gid in groups:
+            self.assertEquals(iutil.parse_group_str(group_str), (name, gid))

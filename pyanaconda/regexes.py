@@ -56,3 +56,10 @@ GROUPLIST_SIMPLE_VALID = re.compile(r'^\s*(' + _USERNAME_BASE + r'(\s*,\s*' + _U
 
 # Proxy parsing
 PROXY_URL_PARSE = re.compile("([A-Za-z]+://)?(([A-Za-z0-9]+)(:[^:@]+)?@)?([^:/]+)(:[0-9]+)?(/.*)?")
+
+# Group string parsing
+# It can be a group name by itself or a group name followed by a gid inside ()
+# match.group(1) = group name
+# match.group(2) = (gid)
+# match.group(3) = gid
+GROUP_STR_PARSE = re.compile(r'^\s*([a-zA-Z0-9._-]+)\s*(\((\d+)\))?')
