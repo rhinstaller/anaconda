@@ -443,14 +443,16 @@ class LiveImageKSPayload(LiveImagePayload):
         threadMgr.wait(THREAD_LIVE_PROGRESS)
 
     def postInstall(self):
-        """ Unmount image, remove image file from target
+        """ Unmount and remove image
+
+            If file:// was used, just unmount it.
         """
         super(LiveImageKSPayload, self).postInstall()
 
         if os.path.exists(IMAGE_DIR+"/LiveOS"):
             blivet.util.umount(IMAGE_DIR)
 
-        if os.path.exists(self.image_path):
+        if os.path.exists(self.image_path) and not self.data.method.url.startswith("file://"):
             os.unlink(self.image_path)
 
     @property
