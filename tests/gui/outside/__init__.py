@@ -56,9 +56,6 @@ class Creator(object):
                        be used in creating the results directory (and perhaps
                        other places in the future) so make sure it doesn't
                        conflict with another object.
-       reqMemory    -- The amount of memory this VM needs, in MB.  The default
-                       is 2048, which seems to be the minimum required to
-                       make things run quickly.  Redefine if you need more.
        tests        -- A list of tuples describing which test cases make up
                        this test.  Each tuple is the name of the module
                        containing the test case (minus the leading "inside."
@@ -68,7 +65,6 @@ class Creator(object):
     drives = []
     environ = {}
     name = "Creator"
-    reqMemory = 2048
     tests = []
 
     def __init__(self):
@@ -76,6 +72,8 @@ class Creator(object):
         self._mountpoint = None
         self._proc = None
         self._tempdir = None
+
+        self._reqMemory = 1536
 
     def _call(self, args):
         subprocess.call(args, stdout=open("/dev/null", "w"), stderr=open("/dev/null", "w"))
@@ -196,7 +194,7 @@ class Creator(object):
 
         args = ["/usr/bin/qemu-kvm",
                 "-vnc", "none",
-                "-m", str(self.reqMemory),
+                "-m", str(self._reqMemory),
                 "-boot", "d",
                 "-drive", "file=%s,media=cdrom,readonly" % config["liveImage"]]
 
