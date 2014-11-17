@@ -77,9 +77,8 @@ class Creator(object):
         self._proc = None
         self._tempdir = None
 
-        self._storage = None
-
-        blivet.util.set_up_logging(log_file=self.tempdir + "/blivet-" + self.name + ".log")
+    def _call(self, args):
+        subprocess.call(args, stdout=open("/dev/null", "w"), stderr=open("/dev/null", "w"))
 
     def archive(self):
         """Copy all log files and other test results to a subdirectory of the
@@ -98,9 +97,7 @@ class Creator(object):
         """Remove all disk images used during this test case and the temporary
            directory they were stored in.
         """
-        self._storage.devicetree.teardownDiskImages()
         shutil.rmtree(self.tempdir, ignore_errors=True)
-        os.unlink(self._drivePaths[self.suitename])
 
     def die(self):
         """Kill any running qemu process previously started by this test."""
@@ -121,8 +118,7 @@ class Creator(object):
             # For now we are using qemu-img to create these files but specifying
             # sizes in blivet Size objects.  Unfortunately, qemu-img wants sizes
             # as xM or xG, not xMB or xGB.  That's what the conversion here is for.
-            subprocess.call(["/usr/bin/qemu-img", "create", "-f", "raw", diskimage, "%sM" % size.convertTo(spec="MB")],
-                            stdout=open("/dev/null", "w"))
+            self._call(["/usr/bin/qemu-img", "create", "-f", "raw", diskimage, "%sM" % size.convertTo(spec="MB")])
             self._drivePaths[drive] = diskimage
 
     @property
@@ -149,53 +145,31 @@ class Creator(object):
         """
         from testconfig import config
 
-        # First, create a disk image and put a filesystem on it.
-        self._storage = blivet.Blivet()
+        self._call(["/usr/bin/qemu-img", "create", "-f", "raw", self.suitepath, "10M"])
+        self._call(["/sbin/mkfs.ext4", "-F", self.suitepath, "-L", "ANACTEST"])
+        self._call(["/usr/bin/mount", "-o", "loop", self.suitepath, self.mountpoint])
 
-        # pylint: disable=undefined-variable
-        disk1_path = blivet.util.create_sparse_tempfile(self.suitename, blivet.size.Size("11 MiB"))
-        self._storage.config.diskImages[self.suitename] = disk1_path
+        # Create the directory structure needed for storing results.
+        os.makedirs(self.mountpoint + "/result/anaconda")
 
-        self._storage.reset()
+        # Copy all the inside stuff into the mountpoint.
+        shutil.copytree("inside", self.mountpoint + "/inside")
 
-        try:
-            disk1 = self._storage.devicetree.getDeviceByName(self.suitename)
-            self._storage.initializeDisk(disk1)
+        # Create the suite file, which contains all the test cases to run and is how
+        # the VM will figure out what to run.
+        with open(self.mountpoint + "/suite.py", "w") as f:
+            imports = map(lambda (path, cls): "    from inside.%s import %s" % (path, cls), self.tests)
+            addtests = map(lambda (path, cls): "    s.addTest(%s())" % cls, self.tests)
 
-            part = self._storage.newPartition(size=blivet.size.Size("10 MiB"), parents=[disk1])
-            self._storage.createDevice(part)
+            f.write(self.template % {"environ": "    os.environ.update(%s)" % self.environ,
+                                     "imports": "\n".join(imports),
+                                     "addtests": "\n".join(addtests),
+                                     "anacondaArgs": config.get("anacondaArgs", "").strip('"')})
 
-            fmt = blivet.formats.getFormat("ext4", label="ANACTEST", mountpoint=self.mountpoint)
-            self._storage.formatDevice(part, fmt)
-
-            blivet.partitioning.doPartitioning(self._storage)
-            self._storage.doIt()
-
-            fmt.mount()
-
-            # Create the directory structure needed for storing results.
-            os.makedirs(self.mountpoint + "/result/anaconda")
-
-            # Copy all the inside stuff into the mountpoint.
-            shutil.copytree("inside", self.mountpoint + "/inside")
-
-            # Create the suite file, which contains all the test cases to run and is how
-            # the VM will figure out what to run.
-            with open(self.mountpoint + "/suite.py", "w") as f:
-                imports = map(lambda (path, cls): "    from inside.%s import %s" % (path, cls), self.tests)
-                addtests = map(lambda (path, cls): "    s.addTest(%s())" % cls, self.tests)
-
-                f.write(self.template % {"environ": "    os.environ.update(%s)" % self.environ,
-                                         "imports": "\n".join(imports),
-                                         "addtests": "\n".join(addtests),
-                                         "anacondaArgs": config.get("anacondaArgs", "").strip('"')})
-        finally:
-            # pylint: disable=undefined-variable
-            self._storage.devicetree.teardownDiskImages()
-            shutil.rmtree(self.mountpoint)
+        self._call(["/usr/bin/umount", self.mountpoint])
 
         # This ensures it gets passed to qemu-kvm as a disk arg.
-        self._drivePaths[self.suitename] = disk1_path
+        self._drivePaths[self.suitename] = self.suitepath
 
     @contextmanager
     def suiteMounted(self):
@@ -205,18 +179,14 @@ class Creator(object):
         if self._drivePaths.get(self.suitename, "") == "":
             return
 
-        self._storage.setupDiskImages()
-
-        part = self._storage.devicetree.getDeviceByName(self.suitename + "1")
-        part.format.mountpoint = self.mountpoint
-        part.format.mount()
+        self._call(["/usr/bin/mount", "-o", "loop", self.suitepath, self.mountpoint])
 
         try:
             yield
         except:
             raise
         finally:
-            part.format.unmount()
+            self._call(["/usr/bin/umount", self.mountpoint])
 
     def run(self):
         """Given disk images previously created by Creator.makeDrives and
@@ -242,7 +212,8 @@ class Creator(object):
             self._proc.wait()
         except TimedOutException:
             self.die()
-            self._storage.devicetree.teardownDiskImages()
+            self.cleanup()
+            raise
         finally:
             self._proc = None
 
@@ -271,6 +242,10 @@ class Creator(object):
     @property
     def suitename(self):
         return self.name + "_suite"
+
+    @property
+    def suitepath(self):
+        return self.tempdir + "/" + self.suitename
 
 class OutsideMixin(object):
     """A BaseOutsideTestCase subclass is the interface between the unittest framework
