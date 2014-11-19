@@ -22,8 +22,10 @@
 from pyanaconda.ui.tui.spokes import NormalTUISpoke
 from pyanaconda.ui.tui.simpleline import TextWidget, ColumnWidget
 from pyanaconda.ui.tui.tuiobject import YesNoDialog
-from pyanaconda.constants import USEVNC, USETEXT
+from pyanaconda import iutil
+from pyanaconda.constants import USEVNC, USETEXT, IPMI_ABORTED
 from pyanaconda.i18n import N_, _
+from pyanaconda.flags import can_touch_runtime_system
 import getpass, subprocess
 
 class AskVNCSpoke(NormalTUISpoke):
@@ -88,7 +90,11 @@ class AskVNCSpoke(NormalTUISpoke):
             d = YesNoDialog(self.app, _(self.app.quit_message))
             self.app.switch_screen_modal(d)
             if d.answer:
-                subprocess.Popen(["systemctl", "--no-wall", "reboot"])
+                iutil.ipmi_report(IPMI_ABORTED)
+                if can_touch_runtime_system("Quit and Reboot"):
+                    subprocess.Popen(["systemctl", "--no-wall", "reboot"])
+                else:
+                    exit(1)
         else:
             return key
 
