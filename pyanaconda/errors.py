@@ -254,8 +254,9 @@ class ErrorHandler(object):
         self.ui.showDetailedError(message, details)
         return ERROR_RAISE
 
-    def _passwordCryptErrorHandler(self, exn):
-        message = _("Unable to encrypt password: unsupported algorithm %s") % exn.algo
+    def _passwordCryptErrorHandler(self, *args, **kwargs):
+        message = _("Unable to encrypt password: unsupported algorithm %s") % \
+                kwargs["exception"].algo
 
         self.ui.showError(message)
         return ERROR_RAISE
