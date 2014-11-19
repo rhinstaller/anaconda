@@ -34,7 +34,7 @@ class BasicStorageTestCase(UITestCase):
         # size.
         def _real_disk(do):
             for child in do.findChildren(GenericPredicate()):
-                if child.name.startswith("10."):
+                if child.name == "10 MiB":
                     return False
 
             return True
