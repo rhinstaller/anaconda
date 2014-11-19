@@ -311,6 +311,17 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Nov 18 2014 Samantha N. Bueno <sbueno+anaconda@redhat.com> - 21.48.15-1
+- do not delete liveimg --url=file:/// file (gczarcinski)
+- Provide useful hints on TTY1 during the installation (mkolman)
+- Fix typo from commit 9b3259874. (#1120964) (dlehman)
+- Remove the old custom partitioning help dialog (mkolman)
+- Check if we read something when emptying stdin queue (vpodzime)
+- Require min entropy for 'part --encrypted' devices (#1162695) (vpodzime)
+- Don't rely on terminal attributes being configurable (#1162702) (vpodzime)
+- Disable payloads that failed to setup (#1162732) (dshea)
+- Don't change langpacks config of installer environment (#1066017) (rvykydal)
+
 * Tue Nov 11 2014 Samantha N. Bueno <sbueno+anaconda@redhat.com> - 21.48.14-1
 - Add support for doing a liveimg kickstart with local file (#1140358) (bcl)
 - Add a placeholder for a product-specific logo (dshea)
