@@ -17,6 +17,8 @@
 #
 # Author: Chris Lumens <clumens@redhat.com>
 
+__all__ = ["BZ1067707_TestCase"]
+
 from . import TestCase, TestCaseComponent
 from blivet.size import Size
 
@@ -25,21 +27,25 @@ class SwapWithRecommendedSizeComponent(TestCaseComponent):
 
     def __init__(self, *args, **kwargs):
         TestCaseComponent.__init__(self, *args, **kwargs)
-        self.disksToCreate = [("anatest-disk1", Size("1GiB"))]
+        self.disksToCreate = [("recommended-swap-disk1", Size("1GiB"))]
 
     @property
     def ks(self):
         return """
+bootloader --location=none
 zerombr
 clearpart --all --initlabel
 part swap --recommended
 """
 
 class BZ1067707_TestCase(TestCase):
-    components = [SwapWithRecommendedSizeComponent]
     name = "1067707"
     desc = """Partition lines do not necessarily require a size to be
 specified.  There are plenty of reasons why a user might not do this:  putting
 a filesystem on a given pre-existing partition, giving a resize or maxsize
 option, or (in this case) asking for the recommended swap size.
 """
+
+    def __init__(self):
+        TestCase.__init__(self)
+        self.components = [SwapWithRecommendedSizeComponent()]

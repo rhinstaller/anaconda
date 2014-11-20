@@ -9,9 +9,16 @@ if os.geteuid() != 0:
 
 from cases.bz1014545 import BZ1014545_TestCase
 from cases.bz1067707 import BZ1067707_TestCase
+from cases.reuse import PartitionReuse_TestCase, LVMReuse_TestCase, BTRFSReuse_TestCase, ThinpReuse_TestCase
 
-for tc in [BZ1014545_TestCase(),
+failures = 0
+
+for tc in [PartitionReuse_TestCase(),
+           LVMReuse_TestCase(),
+           BTRFSReuse_TestCase(),
+           ThinpReuse_TestCase(),
+           BZ1014545_TestCase(),
            BZ1067707_TestCase()]:
-    failures = tc.run()
+    failures += tc.run()
 
 os._exit(failures)

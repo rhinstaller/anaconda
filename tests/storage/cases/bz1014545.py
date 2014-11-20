@@ -17,6 +17,8 @@
 #
 # Author: Chris Lumens <clumens@redhat.com>
 
+__all__ = ["BZ1014545_TestCase"]
+
 from . import TestCase, TestCaseComponent
 
 from blivet.size import Size
@@ -27,14 +29,15 @@ class BTRFSOnNonBTRFSComponent(TestCaseComponent):
 
     def __init__(self, *args, **kwargs):
         TestCaseComponent.__init__(self, *args, **kwargs)
-        self.disksToCreate = [("anatest-disk1", Size("1GiB"))]
+        self.disksToCreate = [("btrfs-on-non-btrfs-disk1", Size("1GiB"))]
 
     @property
     def ks(self):
         return """
+bootloader --location=none
 zerombr
 clearpart --all --initlabel
-btrfs none --data=0 --metadata=1 anatest-disk1
+btrfs none --data=0 --metadata=1 btrfs-on-non-btrfs-disk1
 """
 
     @property
@@ -43,21 +46,22 @@ btrfs none --data=0 --metadata=1 anatest-disk1
 
     @property
     def expectedExceptionText(self):
-        return "BTRFS partition .* has incorrect format"
+        return "Btrfs partition .* has a format of \"disklabel\", but should have a format of \"btrfs\""
 
 class VolGroupOnNonPVsComponent(TestCaseComponent):
     name = "VolGroupOnNonPVs"
 
     def __init__(self, *args, **kwargs):
         TestCaseComponent.__init__(self, *args, **kwargs)
-        self.disksToCreate = [("anatest-disk1", Size("1GiB"))]
+        self.disksToCreate = [("volgroup-on-non-pv-disk1", Size("1GiB"))]
 
     @property
     def ks(self):
         return """
+bootloader --location=none
 zerombr
 clearpart --all --initlabel
-volgroup myvg anatest-disk1
+volgroup myvg volgroup-on-non-pv-disk1
 """
 
     @property
@@ -66,22 +70,23 @@ volgroup myvg anatest-disk1
 
     @property
     def expectedExceptionText(self):
-        return "Physical Volume .* has incorrect format"
+        return "Physical volume .* has a format of \"disklabel\", but should have a format of \"lvmpv\""
 
 class RaidOnNonRaidMembersComponent(TestCaseComponent):
     name = "RaidOnNonRaidMembers"
 
     def __init__(self, *args, **kwargs):
         TestCaseComponent.__init__(self, *args, **kwargs)
-        self.disksToCreate = [("anatest-disk1", Size("1GiB")),
-                              ("anatest-disk2", Size("1GiB"))]
+        self.disksToCreate = [("raid-on-non-raid-disk1", Size("1GiB")),
+                              ("raid-on-non-raid-disk2", Size("1GiB"))]
 
     @property
     def ks(self):
         return """
+bootloader --location=none
 zerombr
 clearpart --all --initlabel
-raid / --level=1 --device=md0 anatest-disk1 anatest-disk2
+raid / --level=1 --device=md0 raid-on-non-raid-disk1 raid-on-non-raid-disk2
 """
 
     @property
@@ -90,12 +95,9 @@ raid / --level=1 --device=md0 anatest-disk1 anatest-disk2
 
     @property
     def expectedExceptionText(self):
-        return "RAID member .* has incorrect format"
+        return "RAID device .* has a format of \"disklabel\", but should have a format of \"mdmember\""
 
 class BZ1014545_TestCase(TestCase):
-    components = [BTRFSOnNonBTRFSComponent,
-                  RaidOnNonRaidMembersComponent,
-                  VolGroupOnNonPVsComponent]
     name = "1014545"
     desc = """The members of various commands must have the correct format.
 For instance, raid members must have mdmember, and volgroup members must have
@@ -108,3 +110,9 @@ much further in installation - during bootloader installation.  The real
 bug is that this condition should be detected when the kickstart storage
 commands are being converted to actions.
 """
+
+    def __init__(self):
+        TestCase.__init__(self)
+        self.components = [BTRFSOnNonBTRFSComponent(),
+                           RaidOnNonRaidMembersComponent(),
+                           VolGroupOnNonPVsComponent()]

@@ -1,6 +1,6 @@
 #!/usr/bin/python
 #
-# Copyright (C) 2013  Red Hat, Inc.
+# Copyright (C) 2013-2014  Red Hat, Inc.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU Lesser General Public License as published
@@ -17,6 +17,8 @@
 #
 # Author: Chris Lumens <clumens@redhat.com>
 
+from __future__ import print_function
+
 import logging
 import os, sys
 import re
@@ -27,6 +29,7 @@ blivet.util.set_up_logging()
 blivet_log = logging.getLogger("blivet")
 blivet_log.info(sys.argv[0])
 
+from pyanaconda.bootloader import BootLoaderError
 from pyanaconda.installclass import DefaultInstall
 from pyanaconda.kickstart import AnacondaKSHandler, AnacondaKSParser, doKickstartStorage
 from pykickstart.errors import KickstartError
@@ -45,7 +48,6 @@ class TestCase(object):
 
        Class attributes:
 
-       components   -- A list of TestCaseComponent classes.
        desc         -- A description of what this test is supposed to be
                        testing.
        name         -- An identifying string given to this TestCase.
@@ -54,13 +56,12 @@ class TestCase(object):
                        matching platforms.  If the list is empty, it is assumed
                        to be valid for all platforms.
     """
-    components  = []
     desc        = ""
     name        = ""
     platforms   = []
 
     def __init__(self):
-        pass
+        self.components = []
 
     def run(self):
         """Iterate over all components, running each, and collecting the
@@ -70,25 +71,23 @@ class TestCase(object):
         failures = 0
 
         if self.platforms and blivet.platform.getPlatform().__class__.__name__ not in self.platforms:
-            print("Test %s skipped:  not valid for this platform" % self.name)
+            print("Test %s skipped:  not valid for this platform" % self.name, file=sys.stderr)
             return
 
-        for c in self.components:
-            obj = c()
-
+        for obj in self.components:
             try:
                 obj._run()
             except FailedTest as e:
-                print("Test %s-%s failed:\n\tExpected: %s\n\tGot:      %s" % (self.name, obj.name, e.expected, e.got))
+                print("Test %s-%s failed:\n\tExpected: %s\n\tGot:      %s" % (self.name, obj.name, e.expected, e.got), file=sys.stderr)
                 failures += 1
                 continue
 
-            print("Test %s-%s succeeded" % (self.name, obj.name))
+            print("Test %s-%s succeeded" % (self.name, obj.name), file=sys.stderr)
             successes += 1
 
-        print("Test %s summary:" % self.name)
-        print("\tSuccesses: %s" % successes)
-        print("\tFailures:  %s" % failures)
+        print("Test %s summary:" % self.name, file=sys.stderr)
+        print("\tSuccesses: %s" % successes, file=sys.stderr)
+        print("\tFailures:  %s\n" % failures, file=sys.stderr)
         return failures
 
 class TestCaseComponent(object):
@@ -132,12 +131,12 @@ class TestCaseComponent(object):
         """
         return ""
 
-    def setupDisks(self):
+    def setupDisks(self, ksdata):
         """Create all disk images given by self.disksToCreate and initialize
            the storage module.  Subclasses may override this method, but they
            should be sure to call the base method as well.
         """
-        self._blivet = blivet.Blivet()
+        self._blivet = blivet.Blivet(ksdata=ksdata)
 
         # blivet only sets up the bootloader in installer_mode.  We don't
         # want installer_mode, though, because that involves running lots
@@ -197,8 +196,6 @@ class TestCaseComponent(object):
 
         # Set up disks/blivet.
         try:
-            self.setupDisks()
-
             # Parse the kickstart using anaconda's parser, since it has more
             # advanced error detection.  This also requires having storage set
             # up first.
@@ -207,10 +204,13 @@ class TestCaseComponent(object):
 
             instClass = DefaultInstall()
 
+            self.setupDisks(parser.handler)
+
             doKickstartStorage(self._blivet, parser.handler, instClass)
             self._blivet.updateKSData()
+            self._blivet.devicetree.teardownAll()
             self._blivet.doIt()
-        except (KickstartError, StorageError) as e:
+        except (BootLoaderError, KickstartError, StorageError) as e:
             # anaconda handles expected kickstart errors (like parsing busted
             # input files) by printing the error and quitting.  For testing, an
             # error might be expected so we should compare the result here with
@@ -234,4 +234,78 @@ class TestCaseComponent(object):
         if self.expectedExceptionType:
             raise FailedTest(None, self.expectedExceptionType)
 
-        return
+class ReusableTestCaseComponent(TestCaseComponent):
+    """A version of TestCaseComponent that does not remove its disk images
+       after use.  In this way, a later TestCaseComponent can reuse them.
+       This is handy for test cases that need pre-existing partitioning.
+
+       See further comments in ReusingTestCaseComponent.
+    """
+
+    def tearDownDisks(self):
+        # Don't destroy disks here, since a later component will want to
+        # use them.
+        self._blivet.devicetree.teardownDiskImages()
+
+class ReusingTestCaseComponent(TestCaseComponent):
+    """A version of TestCaseComponent that reuses existing disk images
+       rather than create its own.  It will, however, delete these disk images
+       after use.
+
+       This class knows which disk images to reuse by the reusedComponents
+       parameter passed in at object instantiation.  This is a list of other
+       TestCaseComponent instances.  This class will reuse all disk images
+       from each instance in that list, in the order given.
+
+       A typical pipeline of components would thus look like this:
+
+           class ComponentA(ReusableTestCaseComponent):
+               ...
+
+           class ComponentB(ReusingTestCaseComponent):
+               ...
+
+           ComponentA -> ComponentB
+
+       A component may also derive from both, if it's in the middle of the
+       pipeline:
+
+           class ComponentA(ReusableTestCaseComponent):
+               ...
+
+           class ComponentB(ReusableTestCaseComponent, ReusingTestCaseComponent):
+               ...
+
+           class ComponentC(ReusingTestCaseComponent):
+               ...
+
+           ComponentA -> ComponentB -> ComponentC
+    """
+
+    def __init__(self, reusedComponents=None):
+        """Create a new ReusingTestCaseComponent.  reusedComponents is a list
+           of other TestCaseComponent objects that this instance should make
+           use of.  All disk images in that list will be used by this instance,
+           and all will be cleaned up at the end of the test.
+        """
+        TestCaseComponent.__init__(self)
+
+        if reusedComponents is None:
+            self._reusedComponents = []
+        else:
+            self._reusedComponents = reusedComponents
+
+    def setupDisks(self, ksdata):
+        self._blivet = blivet.Blivet(ksdata=ksdata)
+
+        # See comment in super class's method.
+        from pyanaconda.bootloader import get_bootloader
+        self._blivet._bootloader = get_bootloader()
+
+        for component in self._reusedComponents:
+            self._disks.update(component._disks)
+
+        for (name, image) in self._disks.items():
+            self._blivet.config.diskImages[name] = image
+
+        self._blivet.reset()
