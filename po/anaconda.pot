@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: anaconda 19.31.106\n"
+"Project-Id-Version: anaconda 19.31.107\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
-"POT-Creation-Date: 2014-11-13 17:28-0800\n"
+"POT-Creation-Date: 2014-11-19 16:32-0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -295,7 +295,7 @@ msgstr ""
 msgid "Unable to encrypt password: unsupported algorithm %s"
 msgstr ""
 
-#: pyanaconda/errors.py:265
+#: pyanaconda/errors.py:266
 #, python-format
 msgid ""
 "Installation was stopped due to an error installing the boot loader. The "
@@ -1482,7 +1482,7 @@ msgstr ""
 msgid "Create user"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/user.py:113 pyanaconda/ui/gui/spokes/user.py:242
+#: pyanaconda/ui/tui/spokes/user.py:113 pyanaconda/ui/gui/spokes/user.py:249
 msgid "No user will be created"
 msgstr ""
 
@@ -1490,12 +1490,12 @@ msgstr ""
 msgid "You must set a password"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/user.py:117 pyanaconda/ui/gui/spokes/user.py:244
+#: pyanaconda/ui/tui/spokes/user.py:117 pyanaconda/ui/gui/spokes/user.py:251
 #, python-format
 msgid "Administrator %s will be created"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/user.py:119 pyanaconda/ui/gui/spokes/user.py:246
+#: pyanaconda/ui/tui/spokes/user.py:119 pyanaconda/ui/gui/spokes/user.py:253
 #, python-format
 msgid "User %s will be created"
 msgstr ""
@@ -1536,7 +1536,7 @@ msgstr ""
 
 #: pyanaconda/ui/tui/spokes/__init__.py:127
 #: pyanaconda/ui/gui/spokes/password.py:126
-#: pyanaconda/ui/gui/spokes/user.py:360
+#: pyanaconda/ui/gui/spokes/user.py:367
 msgid "The password you have provided is weak"
 msgstr ""
 
@@ -2313,57 +2313,57 @@ msgid "Root password is not set"
 msgstr ""
 
 #: pyanaconda/ui/gui/spokes/password.py:125
-#: pyanaconda/ui/gui/spokes/user.py:359
+#: pyanaconda/ui/gui/spokes/user.py:366
 #: pyanaconda/ui/gui/spokes/lib/passphrase.py:111
 #: pyanaconda/ui/gui/spokes/lib/passphrase.glade.h:6
 msgid "Weak"
 msgstr ""
 
 #: pyanaconda/ui/gui/spokes/password.py:131
-#: pyanaconda/ui/gui/spokes/user.py:365
+#: pyanaconda/ui/gui/spokes/user.py:372
 msgid "You will have to press Done twice to confirm it."
 msgstr ""
 
 #: pyanaconda/ui/gui/spokes/password.py:134
-#: pyanaconda/ui/gui/spokes/user.py:368
+#: pyanaconda/ui/gui/spokes/user.py:375
 #: pyanaconda/ui/gui/spokes/lib/passphrase.py:114
 msgid "Fair"
 msgstr ""
 
 #: pyanaconda/ui/gui/spokes/password.py:138
-#: pyanaconda/ui/gui/spokes/user.py:372
+#: pyanaconda/ui/gui/spokes/user.py:379
 #: pyanaconda/ui/gui/spokes/lib/passphrase.py:117
 msgid "Good"
 msgstr ""
 
 #: pyanaconda/ui/gui/spokes/password.py:142
-#: pyanaconda/ui/gui/spokes/user.py:376
+#: pyanaconda/ui/gui/spokes/user.py:383
 #: pyanaconda/ui/gui/spokes/lib/passphrase.py:120
 msgid "Strong"
 msgstr ""
 
 #: pyanaconda/ui/gui/spokes/password.py:147
-#: pyanaconda/ui/gui/spokes/user.py:381
+#: pyanaconda/ui/gui/spokes/user.py:388
 msgid "Empty"
 msgstr ""
 
 #: pyanaconda/ui/gui/spokes/password.py:148
-#: pyanaconda/ui/gui/spokes/user.py:382
+#: pyanaconda/ui/gui/spokes/user.py:389
 msgid "The password is empty."
 msgstr ""
 
 #: pyanaconda/ui/gui/spokes/password.py:150
-#: pyanaconda/ui/gui/spokes/user.py:384
+#: pyanaconda/ui/gui/spokes/user.py:391
 msgid "The passwords do not match."
 msgstr ""
 
 #: pyanaconda/ui/gui/spokes/password.py:175
-#: pyanaconda/ui/gui/spokes/user.py:418
+#: pyanaconda/ui/gui/spokes/user.py:425
 msgid "You must provide and confirm a password."
 msgstr ""
 
 #: pyanaconda/ui/gui/spokes/password.py:185
-#: pyanaconda/ui/gui/spokes/user.py:428
+#: pyanaconda/ui/gui/spokes/user.py:435
 #, python-format
 msgid "You have provided a weak password: %s.  Press Done again to use anyway."
 msgstr ""
@@ -2615,20 +2615,20 @@ msgstr ""
 msgid "_OK"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/user.py:149
+#: pyanaconda/ui/gui/spokes/user.py:156
 msgid "_USER CREATION"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/user.py:212 pyanaconda/ui/gui/spokes/user.py:213
+#: pyanaconda/ui/gui/spokes/user.py:219 pyanaconda/ui/gui/spokes/user.py:220
 msgid "The password was set by kickstart."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/user.py:240
+#: pyanaconda/ui/gui/spokes/user.py:247
 #, python-format
 msgid "Error creating user account: %s"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/user.py:474
+#: pyanaconda/ui/gui/spokes/user.py:481
 msgid "Invalid user name"
 msgstr ""
 

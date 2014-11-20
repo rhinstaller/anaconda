@@ -300,6 +300,14 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Wed Nov 19 2014 Brian C. Lane <bcl@redhat.com> - 19.31.108-1
+- Fix a bad cherry-pick in an error handler (dshea)
+  Related: rhbz#1057032
+- Add support for custom gid to advanced user setup (bcl)
+  Resolves: rhbz#1163803
+- Create missing parent directories for user's home directory (bcl)
+  Resolves: rhbz#1163775
+
 * Thu Nov 13 2014 Brian C. Lane <bcl@redhat.com> - 19.31.107-1
 - Convert LVM_PE_SIZE to KiB (vpodzime)
   Resolves: rhbz#1163081
