@@ -50,9 +50,14 @@
         <property name="can_focus">False</property>
         <property name="orientation">vertical</property>
         <property name="spacing">6</property>
-        <child internal-child="nav_area">
-          <object class="GtkGrid" id="AnacondaSpokeWindow-nav_area1">
+        <child internal-child="nav_box">
+          <object class="GtkEventBox" id="AnacondaSpokeWindow-nav_box1">
             <property name="can_focus">False</property>
+            <child internal-child="nav_area">
+              <object class="GtkGrid" id="AnacondaSpokeWindow-nav_area1">
+                <property name="can_focus">False</property>
+              </object>
+            </child>
           </object>
           <packing>
             <property name="expand">False</property>
