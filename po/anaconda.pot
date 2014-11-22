@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: anaconda 19.31.107\n"
+"Project-Id-Version: anaconda 19.31.108\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
-"POT-Creation-Date: 2014-11-19 16:32-0800\n"
+"POT-Creation-Date: 2014-11-21 17:04-0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -963,7 +963,7 @@ msgid "r"
 msgstr ""
 
 #: pyanaconda/ui/tui/simpleline/base.py:459
-#: pyanaconda/ui/tui/spokes/askvnc.py:87
+#: pyanaconda/ui/tui/spokes/askvnc.py:89
 msgid "q"
 msgstr ""
 
@@ -977,45 +977,45 @@ msgid ""
 "  'r' to refresh]: "
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/askvnc.py:30
+#: pyanaconda/ui/tui/spokes/askvnc.py:32
 msgid "VNC"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/askvnc.py:41
+#: pyanaconda/ui/tui/spokes/askvnc.py:43
 msgid ""
 "X was unable to start on your machine.  Would you like to start VNC to "
 "connect to this computer from another computer and perform a graphical "
 "installation or continue with a text mode installation?"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/askvnc.py:99
+#: pyanaconda/ui/tui/spokes/askvnc.py:105
 msgid "VNC Password"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/askvnc.py:108
+#: pyanaconda/ui/tui/spokes/askvnc.py:114
 msgid ""
 "Please provide VNC password (must be six to eight characters long).\n"
 "You will have to type it twice. Leave blank for no password"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/askvnc.py:127
+#: pyanaconda/ui/tui/spokes/askvnc.py:133
 #: pyanaconda/ui/gui/spokes/network.py:1324
 msgid "Password: "
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/askvnc.py:128
+#: pyanaconda/ui/tui/spokes/askvnc.py:134
 msgid "Password (confirm): "
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/askvnc.py:131
+#: pyanaconda/ui/tui/spokes/askvnc.py:137
 msgid "Passwords do not match!"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/askvnc.py:134
+#: pyanaconda/ui/tui/spokes/askvnc.py:140
 msgid "The password must be at least six characters long."
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/askvnc.py:138
+#: pyanaconda/ui/tui/spokes/askvnc.py:144
 msgid "The password cannot be more than eight characters long."
 msgstr ""
 
@@ -1234,7 +1234,7 @@ msgstr ""
 
 #: pyanaconda/ui/tui/spokes/storage.py:188
 #: pyanaconda/ui/tui/spokes/source.py:475
-#: pyanaconda/ui/gui/spokes/source.py:569
+#: pyanaconda/ui/gui/spokes/source.py:568
 #: pyanaconda/ui/gui/spokes/storage.py:636
 msgid "Probing storage..."
 msgstr ""
@@ -1343,25 +1343,25 @@ msgstr ""
 
 #: pyanaconda/ui/tui/spokes/source.py:151
 #: pyanaconda/ui/tui/spokes/source.py:209
-#: pyanaconda/ui/gui/spokes/source.py:483
+#: pyanaconda/ui/gui/spokes/source.py:482
 #: pyanaconda/ui/gui/spokes/source.glade.h:26
 msgid "Closest mirror"
 msgstr ""
 
 #: pyanaconda/ui/tui/spokes/source.py:201
-#: pyanaconda/ui/gui/spokes/source.py:475
+#: pyanaconda/ui/gui/spokes/source.py:474
 #, python-format
 msgid "NFS server %s"
 msgstr ""
 
 #: pyanaconda/ui/tui/spokes/source.py:203
-#: pyanaconda/ui/gui/spokes/source.py:477
+#: pyanaconda/ui/gui/spokes/source.py:476
 msgid "Local media"
 msgstr ""
 
 #: pyanaconda/ui/tui/spokes/source.py:206
 #: pyanaconda/ui/tui/spokes/source.py:220
-#: pyanaconda/ui/gui/spokes/source.py:471
+#: pyanaconda/ui/gui/spokes/source.py:470
 msgid "Error setting up software source"
 msgstr ""
 
@@ -1369,7 +1369,7 @@ msgstr ""
 #: pyanaconda/ui/tui/spokes/software.py:84
 #: pyanaconda/ui/gui/spokes/datetime_spoke.py:508
 #: pyanaconda/ui/gui/spokes/software.py:217
-#: pyanaconda/ui/gui/spokes/source.py:485
+#: pyanaconda/ui/gui/spokes/source.py:484
 msgid "Nothing selected"
 msgstr ""
 
@@ -1388,7 +1388,7 @@ msgid "Installation source refresh in progress, try again later."
 msgstr ""
 
 #: pyanaconda/ui/tui/spokes/source.py:252
-#: pyanaconda/ui/gui/spokes/source.py:762
+#: pyanaconda/ui/gui/spokes/source.py:761
 msgid ""
 "The installation source is in use by the installer and cannot be changed."
 msgstr ""
@@ -2382,7 +2382,7 @@ msgid "Downloading group metadata..."
 msgstr ""
 
 #: pyanaconda/ui/gui/spokes/software.py:121
-#: pyanaconda/ui/gui/spokes/source.py:465
+#: pyanaconda/ui/gui/spokes/source.py:464
 msgid "Checking software dependencies..."
 msgstr ""
 
@@ -2432,61 +2432,61 @@ msgstr ""
 msgid "This media is not good to install from."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.py:292
+#: pyanaconda/ui/gui/spokes/source.py:291
 msgid "_INSTALLATION SOURCE"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.py:405
-#: pyanaconda/ui/gui/spokes/source.py:585
+#: pyanaconda/ui/gui/spokes/source.py:404
+#: pyanaconda/ui/gui/spokes/source.py:584
 msgid "Failed to set up installation source; check the repo url"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.py:469
+#: pyanaconda/ui/gui/spokes/source.py:468
 msgid "Error setting up base repository"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.py:480
+#: pyanaconda/ui/gui/spokes/source.py:479
 msgid "Error setting up ISO file"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.py:587
+#: pyanaconda/ui/gui/spokes/source.py:586
 msgid ""
 "Failed to set up installation source; check the repo url and proxy settings"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.py:612
+#: pyanaconda/ui/gui/spokes/source.py:611
 #, python-format
 msgid "Device: %s"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.py:613
+#: pyanaconda/ui/gui/spokes/source.py:612
 #, python-format
 msgid "Label: %s"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.py:774
+#: pyanaconda/ui/gui/spokes/source.py:773
 msgid "You need to configure the network to use a network installation source."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.py:1046
+#: pyanaconda/ui/gui/spokes/source.py:1045
 msgid "Duplicate repository names."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.py:1057
+#: pyanaconda/ui/gui/spokes/source.py:1056
 msgid ""
 "Duplicate repository names not allowed; choose a unique name for each "
 "repository."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.py:1079
+#: pyanaconda/ui/gui/spokes/source.py:1078
 msgid "Empty repository name."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.py:1083
+#: pyanaconda/ui/gui/spokes/source.py:1082
 msgid "Invalid repository name."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.py:1086
+#: pyanaconda/ui/gui/spokes/source.py:1085
 msgid "Repository name conflicts with internal repository name."
 msgstr ""
 

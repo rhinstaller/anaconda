@@ -300,6 +300,12 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Fri Nov 21 2014 Brian C. Lane <bcl@redhat.com> - 19.31.109-1
+- Skip tui askvnc reboot for dirinstall (bcl)
+  Resolves: rhbz#1164254
+- Fix the ISO chooser dialog (dshea)
+  Resolves: rhbz#1163026
+
 * Wed Nov 19 2014 Brian C. Lane <bcl@redhat.com> - 19.31.108-1
 - Fix a bad cherry-pick in an error handler (dshea)
   Related: rhbz#1057032
