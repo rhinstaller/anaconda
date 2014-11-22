@@ -308,6 +308,53 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Fri Nov 21 2014 Brian C. Lane <bcl@redhat.com> - 22.11-1
+- Skip tui askvnc reboot for dirinstall (#1164254) (bcl)
+- If a message is for a spoke not on the current hub, throw it away. (clumens)
+- Find storage test cases automatically. (clumens)
+- Add new storage test cases that reuse results of earlier autopart runs.
+  (clumens)
+- Support high contrast mode in fedora-welcome (#1160499) (dshea)
+- How the GUI test suite disk is displayed has changed. (clumens)
+- do not delete liveimg --url=file:/// file (gczarcinski)
+- Add support for doing a liveimg kickstart with local file (#1140358) (bcl)
+- Create missing parent directories for user's home directory (#1163775) (bcl)
+- Related bug can have different fixed-in and state (bcl)
+- Provide useful hints on TTY1 during the installation (mkolman)
+- Decrease memory requirements on gui tests, and make that attr private.
+  (clumens)
+- Don't use blivet in the gui tests. (clumens)
+- Use MiB/GiB instead of MB/GB in GUI tests. (clumens)
+- Make the No Space dialog look less terrible. (clumens)
+- Add a test case where it's impossible to reclaim. (clumens)
+- Use blivet's Size class instead of ints and such. (clumens)
+- Get the gui tests running in parallel. (clumens)
+- Add a basic test of the reclaim dialog. (clumens)
+- Make images in raw format instead of qcow2. (clumens)
+- Allow specifying which of the GUI tests you want to run. (clumens)
+- Check if we read something when emptying stdin queue (vpodzime)
+- Require min entropy for 'part --encrypted' devices (#1162695) (vpodzime)
+- Don't rely on terminal attributes being configurable (#1162702) (vpodzime)
+- Check for a GLib source ID of None in unwatchAllProcesses. (dshea)
+- Disable payloads that failed to setup (#1162732) (dshea)
+- Only enable non-interactive yum plugins (#1111535) (dshea)
+- Add a placeholder for a product-specific logo (dshea)
+- Load a stylesheet from product.img (dshea)
+- Fix make distcheck (mkolman)
+- Include help content in the Anaconda tarball (mkolman)
+- Fix typo causing traceback when NTP is turned ON/OFF (vpodzime)
+- Use /var/tmp for the temp directory when installing anaconda. (clumens)
+- Prevent tb on s390x when de-selecting a DASD and doing custom part.
+  (sbueno+anaconda)
+- Revert "Revert productName repo name change (#1128474)" (bcl)
+- Remove a comment that is a blatant lie. (clumens)
+- Fix an environment variable setting in the test environment. (clumens)
+- Update the background image paths used in Fedora. (dshea)
+- Add a pylint module to detect uses of interruptible system calls. (dshea)
+- Wrap interruptible system calls in a loop (#1160041) (dshea)
+- Unpack the callback data given to us by blivet (vpodzime)
+- Add timeout to callbacks waiting for enough entropy (#1073679) (vpodzime)
+
 * Tue Nov 04 2014 Brian C. Lane <bcl@redhat.com> - 22.10-1
 - Remove gui, install, and ostree tests from TESTS. (clumens)
 - Update the ostree test for the new ostree+grub patches. (clumens)
