@@ -126,7 +126,7 @@ class EditTUIDialog(NormalTUISpoke):
                 if strength < 50:
                     error = _("The password you have provided is weak")
             except PWQError as e:
-                error = e.message
+                error = e.args[1]
             if error:
                 error = _("You have provided a weak password: %s. ") % error
                 error += _("\nWould you like to use it anyway?")
