@@ -898,6 +898,15 @@ def copyDhclientConfFiles(destPath):
         copyFileToPath(dhclientfile, destPath)
 
 def ks_spec_to_device_name(ksspec=""):
+    """
+    Find the first network device which matches the kickstart specification.
+    Will not match derived types such as bonds and vlans.
+
+    :param ksspec: kickstart-specified device name
+    :returns: a string naming a physical device, or "" meaning none matched
+    :rtype: str
+
+    """
     bootif_mac = ''
     if ksspec == 'bootif' and "BOOTIF" in flags.cmdline:
         bootif_mac = flags.cmdline["BOOTIF"][3:].replace("-", ":").upper()
@@ -905,7 +914,7 @@ def ks_spec_to_device_name(ksspec=""):
         # "eth0"
         if ksspec == dev:
             break
-        # "link"
+        # "link" - match the first device which is plugged (has a carrier)
         elif ksspec == 'link':
             try:
                 link_up = nm.nm_device_carrier(dev)
@@ -1055,7 +1064,14 @@ def update_hostname_data(ksdata, hostname):
         ksdata.network.network.append(nd)
 
 def get_device_name(network_data):
+    """
+    Find the first network device which matches the kickstart specification.
 
+    :param network_data: A pykickstart NetworkData object
+    :returns: a string naming a physical device, or "" meaning none matched
+    :rtype: str
+
+    """
     ksspec = network_data.device or flags.cmdline.get('ksdevice') or ""
     dev_name = ks_spec_to_device_name(ksspec)
     if not dev_name:
