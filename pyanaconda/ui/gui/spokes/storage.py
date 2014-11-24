@@ -512,6 +512,7 @@ class StorageSpoke(NormalSpoke, StorageChecker):
             self.set_warning(_("Error checking storage configuration.  Click for details."))
         elif self.warnings:
             self.set_warning(_("Warning checking storage configuration.  Click for details."))
+        self.window.show_all()
 
     def initialize(self):
         NormalSpoke.initialize(self)
