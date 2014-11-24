@@ -1598,6 +1598,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
 
         # Save anything from the currently displayed mountpoint.
         self._save_right_side(self._current_selector)
+        self._applyButton.set_sensitive(False)
 
         # And then display the summary screen.  From there, the user will either
         # head back to the hub, or stay on the custom screen.
