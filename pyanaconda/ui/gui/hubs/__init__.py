@@ -260,7 +260,7 @@ class Hub(GUIObject, common.Hub):
             # The first argument to all codes is the name of the spoke we are
             # acting on.  If no such spoke exists, throw the message away.
             spoke = self._spokes.get(args[0], None)
-            if not spoke or spoke.title not in self._spokes:
+            if not spoke or spoke.__class__.__name__ not in self._spokes:
                 q.task_done()
                 continue
 
