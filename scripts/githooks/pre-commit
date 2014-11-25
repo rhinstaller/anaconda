@@ -8,6 +8,7 @@
 import os
 import sys
 from subprocess import check_output, CalledProcessError
+import tempfile
 
 def is_python(filename):
     if filename.endswith(".py"):
@@ -36,6 +37,7 @@ except CalledProcessError:
 
 git_files = git_files.strip('\0').split('\0')
 
+pylint_names = []
 pylint_files = []
 # Lines look like: MM tests/pylint/runpylint.sh
 # The first character is the status in the index (or our side of a merge),
@@ -54,11 +56,17 @@ for gf in git_iter:
         git_iter.next()
 
     if is_python(gf[3:]):
-        # If the file is unmerged or changed locally, raise an error
-        if gf[0] == 'U' or gf[1] in ('U', 'M'):
-            print("ERROR: %s in commit does not match tree" % gf[3:])
-            sys.exit(1)
-        pylint_files.append(gf[3:])
+        pylint_names.append(gf[3:])
+
+        # If the file is unmerged, changed, or deleted locally, create a
+        # temporary file with the actual content that will be committed
+        if gf[0] == 'U' or gf[1] in ('U', 'M', 'D'):
+            tmpfile = tempfile.NamedTemporaryFile(prefix=gf[3:].replace('/', '.'))
+            tmpfile.write(check_output(["git", "show", ":%s" % gf[3:]]))
+            tmpfile.flush()
+            pylint_files.append(tmpfile.name)
+        else:
+            pylint_files.append(gf[3:])
 
 if not pylint_files:
     sys.exit(0)
@@ -68,7 +76,7 @@ if not pylint_files:
 env = os.environ.copy()
 env["PYTHONPATH"] = OTHER_MODULES_PATH
 
-print("Running pylint on %s" % " ".join(pylint_files))
+print("Running pylint on %s" % " ".join(pylint_names))
 try:
     check_output(["./tests/pylint/runpylint.sh"] + pylint_files, env=env)
 except CalledProcessError as e:
