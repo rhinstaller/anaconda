@@ -300,6 +300,12 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Mon Nov 24 2014 Brian C. Lane <bcl@redhat.com> - 19.31.110-1
+- Fix PWQError issues. (sbueno+anaconda)
+  Resolves: rhbz#1066988
+- Just preserve the %%addon header args if an addon is missing (vpodzime)
+  Resolves: rhbz#1155955
+
 * Fri Nov 21 2014 Brian C. Lane <bcl@redhat.com> - 19.31.109-1
 - Skip tui askvnc reboot for dirinstall (bcl)
   Resolves: rhbz#1164254
