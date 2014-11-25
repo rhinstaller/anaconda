@@ -738,6 +738,8 @@ class DatetimeSpoke(FirstbootSpokeMixIn, NormalSpoke):
 
         """
 
+        self._start_updating_timer_id = None
+
         if not flags.can_touch_runtime_system("save system time"):
             return False
 
@@ -790,6 +792,7 @@ class DatetimeSpoke(FirstbootSpokeMixIn, NormalSpoke):
 
         #stop time updating
         GLib.source_remove(self._update_datetime_timer_id)
+        self._update_datetime_timer_id = None
 
         #stop previous $interval seconds timer (see below)
         if self._start_updating_timer_id:
