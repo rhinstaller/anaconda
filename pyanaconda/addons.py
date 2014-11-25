@@ -23,8 +23,6 @@ __all__ = ["AddonSection", "AddonRegistry", "AddonData", "collect_addon_paths"]
 
 import os
 from pykickstart.sections import Section
-from pykickstart.errors import KickstartParseError, formatErrorMsg
-from pyanaconda.i18n import _
 
 def collect_addon_paths(toplevel_addon_paths, ui_subdir="gui"):
     """This method looks into the directories present
