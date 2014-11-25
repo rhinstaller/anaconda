@@ -30,25 +30,30 @@ if "NOPYLINT" in os.environ:
 
 # run pylint on all the python files changed by this commit
 try:
-    git_files = check_output("git status --porcelain", shell=True)
+    git_files = check_output(["git", "status", "--porcelain", "-z"])
 except CalledProcessError:
     sys.exit(1)
+
+git_files = git_files.strip('\0').split('\0')
 
 pylint_files = []
 # Lines look like: MM tests/pylint/runpylint.sh
 # The first character is the status in the index (or our side of a merge),
 # the second character is the status in the tree (or their side of a merge).
-for gf in git_files.splitlines():
+# Use an iterator so we can skip lines in the case of renames
+git_iter = iter(git_files)
+for gf in git_iter:
     # If the file is being removed, or is not in git, or is not part of this
     # commit, ignore it
     if gf[0] in ('D', '?', ' '):
         continue
-    # If the file is being renamed, grab the target filename
+
+    # If the file is being renamed, the target filename (which we want) is on
+    # the current line, and the next line is the source, which we want to skip
     if gf[0] == 'R':
-        target = gf[3:].split(' -> ')[1]
-        if is_python(target):
-            pylint_files.append(target)
-    elif is_python(gf[3:]):
+        git_iter.next()
+
+    if is_python(gf[3:]):
         # If the file is unmerged or changed locally, raise an error
         if gf[0] == 'U' or gf[1] in ('U', 'M'):
             print("ERROR: %s in commit does not match tree" % gf[3:])
