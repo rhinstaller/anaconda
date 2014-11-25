@@ -93,7 +93,6 @@ class Hub(GUIObject, common.Hub):
 
     def _createBox(self):
         from gi.repository import Gtk, AnacondaWidgets
-        from pyanaconda.ui.gui.utils import setViewportBackground
 
         cats_and_spokes = self._collectCategoriesAndSpokes()
         categories = cats_and_spokes.keys()
@@ -193,7 +192,6 @@ class Hub(GUIObject, common.Hub):
         viewport.add(grid)
         spokeArea.add(viewport)
 
-        setViewportBackground(viewport)
         self._updateContinue()
 
     def _updateCompleteness(self, spoke, update_continue=True):
