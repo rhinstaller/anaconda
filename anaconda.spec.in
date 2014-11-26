@@ -300,6 +300,12 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Nov 25 2014 Brian C. Lane <bcl@redhat.com> - 19.31.111-1
+- Fix pylint errors in the last addons.py commit. (clumens)
+  Related: rhbz#1155955
+- Provide useful hints on TTY1 during the installation
+  Resolves: rhbz#1166834
+
 * Mon Nov 24 2014 Brian C. Lane <bcl@redhat.com> - 19.31.110-1
 - Fix PWQError issues. (sbueno+anaconda)
   Resolves: rhbz#1066988
