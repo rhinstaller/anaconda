@@ -8,12 +8,15 @@ License: GPLv2+
 Group:   Applications/System
 URL:     http://fedoraproject.org/wiki/Anaconda
 
+%define anacondabuild %{name}-#VERSION#
+%define helpver 7.1.1
 # To generate Source0 do:
 # git clone http://git.fedorahosted.org/git/anaconda.git
 # git checkout -b archive-branch anaconda-%%{version}-%%{release}
 # ./autogen.sh
 # make dist
 Source0: %{name}-%{version}.tar.bz2
+Source1: anaconda-user-help-%{helpver}.tar.gz
 
 # Versions of required components (done so we make sure the buildrequires
 # match the requires versions of things).
@@ -68,6 +71,8 @@ BuildRequires: dbus-devel >= %{dbusver}
 BuildRequires: dbus-python
 BuildRequires: rpm-devel >= %{rpmver}
 BuildRequires: libarchive-devel >= %{libarchivever}
+# required for help content generation
+BuildRequires: python-lxml
 %ifarch %livearches
 BuildRequires: desktop-file-utils
 %endif
@@ -157,6 +162,7 @@ system.
 Summary: Graphical user interface for the Anaconda installer
 Requires: anaconda-core = %{version}-%{release}
 Requires: anaconda-widgets = %{version}-%{release}
+Requires: anaconda-user-help = %{helpver}
 Requires: python-meh-gui >= %{mehver}
 Requires: gnome-icon-theme-symbolic
 Requires: system-logos
@@ -211,8 +217,16 @@ The 'anaconda' dracut module handles installer-specific boot tasks and
 options. This includes driver disks, kickstarts, and finding the anaconda
 runtime on NFS/HTTP/FTP servers or local disks.
 
+%package user-help
+Version: %{helpver}
+Summary: Content for the Anaconda built-in help system
+
+%description user-help
+This package hold the content for the Anaconda built-in help system.
+
 %prep
 %setup -q
+%setup -a 1
 
 %build
 %configure --disable-static \
@@ -220,9 +234,16 @@ runtime on NFS/HTTP/FTP servers or local disks.
            --enable-gtk-doc
 %{__make} %{?_smp_mflags}
 
+# generate content for the help system
+( cd anaconda-user-help-%{helpver} && python prepare_anaconda_help_content.py )
+
 %install
 %{make_install}
 find %{buildroot} -type f -name "*.la" | xargs %{__rm}
+
+# install the help content
+mkdir -p %{buildroot}%{_datadir}/anaconda/help
+cp -r %{_builddir}/%{anacondabuild}/anaconda-user-help-%{helpver}/anaconda_help_content/* %{buildroot}%{_datadir}/anaconda/help
 
 %ifarch %livearches
 desktop-file-install ---dir=%{buildroot}%{_datadir}/applications %{buildroot}%{_datadir}/applications/liveinst.desktop
@@ -298,6 +319,9 @@ update-desktop-database &> /dev/null || :
 %dir %{_prefix}/lib/dracut/modules.d/80%{name}
 %{_prefix}/lib/dracut/modules.d/80%{name}/*
 %{_prefix}/libexec/anaconda/dd_*
+
+%files user-help
+%{_datadir}/anaconda/help/*
 
 %changelog
 * Tue Nov 25 2014 Brian C. Lane <bcl@redhat.com> - 19.31.111-1
