@@ -113,6 +113,6 @@ commands are being converted to actions.
 
     def __init__(self):
         TestCase.__init__(self)
-        self.components = [#BTRFSOnNonBTRFSComponent(),
+        self.components = [BTRFSOnNonBTRFSComponent(),
                            RaidOnNonRaidMembersComponent(),
                            VolGroupOnNonPVsComponent()]
