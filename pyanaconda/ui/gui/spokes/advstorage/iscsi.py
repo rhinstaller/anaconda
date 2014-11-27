@@ -38,7 +38,7 @@ Credentials = namedtuple("Credentials", ["style",
                                          "targetIP", "initiator", "username",
                                          "password", "rUsername", "rPassword"])
 
-NodeStoreRow = namedtuple("NodeStoreRow", ["selected", "notLoggedIn", "name", "iface"])
+NodeStoreRow = namedtuple("NodeStoreRow", ["selected", "notLoggedIn", "name", "iface", "portal"])
 
 def discover_no_credentials(builder):
     return Credentials(STYLE_NONE,
@@ -309,7 +309,8 @@ class ISCSIDialog(GUIObject):
     def _add_nodes(self, nodes):
         for node in nodes:
             iface =  self.iscsi.ifaces.get(node.iface, node.iface)
-            self._store.append([False, True, node.name, iface])
+            portal = "%s:%s" % (node.address, node.port)
+            self._store.append([False, True, node.name, iface, portal])
 
         # We should select the first node by default.
         self._store[0][0] = True
@@ -338,7 +339,8 @@ class ISCSIDialog(GUIObject):
                 continue
 
             for node in self._discoveredNodes:
-                if obj.notLoggedIn and node.name == obj.name:
+                if obj.notLoggedIn and node.name == obj.name \
+                   and obj.portal == "%s:%s" % (node.address, node.port):
                     # when binding interfaces match also interface
                     if self.iscsi.ifaces and \
                        obj.iface != self.iscsi.ifaces[node.iface]:
