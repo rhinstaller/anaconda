@@ -310,6 +310,11 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Thu Nov 27 2014 Vratislav Podzimek <vpodzime@redhat.com> - 21.48.18-1
+- Tell curl it should follow redirects when fetching updates.img (#1168561)
+  (vpodzime)
+- Snapshot free space after clearpart for swap suggestion (#1167965) (vpodzime)
+
 * Wed Nov 26 2014 Samantha N. Bueno <sbueno+anaconda@redhat.com> - 21.48.17-1
 - Make sure storage info bar is displayed (#1166730) (bcl)
 - Fix SELINUX_DEFAULT import (#1167047) (bcl)
