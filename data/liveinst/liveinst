@@ -154,7 +154,7 @@ if [ ! -z "$UPDATES" ]; then
         exit 1
     fi
 
-    curl -o /tmp/updates.img $UPDATES
+    curl -L -o /tmp/updates.img $UPDATES
 
     # We officially support two updates.img formats:  a filesystem image, and
     # a compressed cpio blob.
