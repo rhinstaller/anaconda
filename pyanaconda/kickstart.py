@@ -379,9 +379,20 @@ class Bootloader(commands.bootloader.F21_Bootloader):
         if self.timeout is not None:
             storage.bootloader.timeout = self.timeout
 
+        # try to reduce the set of possible 'boot disks' to the disks containing
+        # a valid stage1 mount point, if there are any, because those disks
+        # should be searched for a stage1_valid device
+        disks = storage.disks
+        if platform.bootStage1ConstraintDict["mountpoints"]:
+            disks = [p.disk for p in storage.devices if getattr(p.format, "mountpoint", None) in platform.bootStage1ConstraintDict["mountpoints"]]
+            if not disks:
+                # but if not, just go ahead and use the set of all disks or
+                # else we'll error out later
+                disks = storage.disks
+
         # Throw out drives specified that don't exist or cannot be used (iSCSI
         # device on an s390 machine)
-        disk_names = [d.name for d in storage.disks
+        disk_names = [d.name for d in disks
                       if not d.format.hidden and not d.protected and
                       (not blivet.arch.isS390() or not isinstance(d, blivet.devices.iScsiDiskDevice))]
         diskSet = set(disk_names)
