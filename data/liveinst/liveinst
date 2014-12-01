@@ -173,6 +173,12 @@ if [ ! -z "$UPDATES" ]; then
     export PATH=/tmp/updates:$PATH
 fi
 
+if [ -z $LC_ALL ]; then
+    # LC_ALL not set, set it to $LANG to make Python's default encoding
+    # detection work
+    export LC_ALL=$LANG
+fi
+
 if [ -x /usr/bin/udisks ]; then
     /usr/bin/udisks --inhibit -- $ANACONDA $*
 else
