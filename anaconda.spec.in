@@ -324,6 +324,18 @@ update-desktop-database &> /dev/null || :
 %{_datadir}/anaconda/help/*
 
 %changelog
+* Mon Dec 01 2014 Brian C. Lane <bcl@redhat.com> - 19.31.112-1
+- Update the nav_box internal child for datetime_spoke. (dshea)
+  Resolves: rhbz#1155548
+- Remove the spacing properties from GtkLevelBar (dshea)
+  Resolves: rhbz#1155548
+- Put the cityCompletion back on the list of widgets (vpodzime)
+  Resolves: rhbz#1155548
+- Remove the "other" tab in the network spoke. (dshea)
+  Resolves: rhbz#1155548
+- Add help content subpackage (mkolman)
+  Related: rhbz#1072033
+
 * Tue Nov 25 2014 Brian C. Lane <bcl@redhat.com> - 19.31.111-1
 - Fix pylint errors in the last addons.py commit. (clumens)
   Related: rhbz#1155955

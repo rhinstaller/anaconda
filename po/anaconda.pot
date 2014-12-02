@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: anaconda 19.31.110\n"
+"Project-Id-Version: anaconda 19.31.111\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
-"POT-Creation-Date: 2014-11-25 17:00-0800\n"
+"POT-Creation-Date: 2014-12-01 17:16-0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1294,8 +1294,8 @@ msgid "Timezone settings"
 msgstr ""
 
 #: pyanaconda/ui/tui/spokes/time.py:60
-#: pyanaconda/ui/gui/spokes/datetime_spoke.py:502
-#: pyanaconda/ui/gui/spokes/datetime_spoke.py:506
+#: pyanaconda/ui/gui/spokes/datetime_spoke.py:503
+#: pyanaconda/ui/gui/spokes/datetime_spoke.py:507
 #, python-format
 msgid "%s timezone"
 msgstr ""
@@ -1362,7 +1362,7 @@ msgstr ""
 
 #: pyanaconda/ui/tui/spokes/source.py:211
 #: pyanaconda/ui/tui/spokes/software.py:84
-#: pyanaconda/ui/gui/spokes/datetime_spoke.py:508
+#: pyanaconda/ui/gui/spokes/datetime_spoke.py:509
 #: pyanaconda/ui/gui/spokes/software.py:217
 #: pyanaconda/ui/gui/spokes/source.py:484
 msgid "Nothing selected"
@@ -2059,40 +2059,40 @@ msgstr ""
 msgid "Note: pool servers may not be available all the time"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/datetime_spoke.py:376
+#: pyanaconda/ui/gui/spokes/datetime_spoke.py:377
 msgid "DATE & _TIME"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/datetime_spoke.py:493
+#: pyanaconda/ui/gui/spokes/datetime_spoke.py:494
 msgid "Restoring hardware time..."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/datetime_spoke.py:504
+#: pyanaconda/ui/gui/spokes/datetime_spoke.py:505
 msgid "Invalid timezone"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/datetime_spoke.py:674
-#: pyanaconda/ui/gui/spokes/datetime_spoke.py:688
-#: pyanaconda/ui/gui/spokes/datetime_spoke.py:872
-#: pyanaconda/ui/gui/spokes/datetime_spoke.py:880
+#: pyanaconda/ui/gui/spokes/datetime_spoke.py:675
+#: pyanaconda/ui/gui/spokes/datetime_spoke.py:689
+#: pyanaconda/ui/gui/spokes/datetime_spoke.py:873
+#: pyanaconda/ui/gui/spokes/datetime_spoke.py:881
 #: pyanaconda/ui/gui/spokes/datetime_spoke.glade.h:8
 msgid "PM"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/datetime_spoke.py:676
-#: pyanaconda/ui/gui/spokes/datetime_spoke.py:685
-#: pyanaconda/ui/gui/spokes/datetime_spoke.py:871
-#: pyanaconda/ui/gui/spokes/datetime_spoke.py:874
-#: pyanaconda/ui/gui/spokes/datetime_spoke.py:879
-#: pyanaconda/ui/gui/spokes/datetime_spoke.py:882
+#: pyanaconda/ui/gui/spokes/datetime_spoke.py:677
+#: pyanaconda/ui/gui/spokes/datetime_spoke.py:686
+#: pyanaconda/ui/gui/spokes/datetime_spoke.py:872
+#: pyanaconda/ui/gui/spokes/datetime_spoke.py:875
+#: pyanaconda/ui/gui/spokes/datetime_spoke.py:880
+#: pyanaconda/ui/gui/spokes/datetime_spoke.py:883
 msgid "AM"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/datetime_spoke.py:1014
+#: pyanaconda/ui/gui/spokes/datetime_spoke.py:1015
 msgid "You need to set up networking first if you want to use NTP"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/datetime_spoke.py:1019
+#: pyanaconda/ui/gui/spokes/datetime_spoke.py:1020
 msgid "You have no working NTP server configured"
 msgstr ""
 
