@@ -310,6 +310,10 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Dec 02 2014 Vratislav Podzimek <vpodzime@redhat.com> - 21.48.21-1
+- Revert "Make Python's default encoding detection work on Live installations
+  (#1169019)" (awilliam)
+
 * Mon Dec 01 2014 Samantha N. Bueno <sbueno+anaconda@redhat.com> - 21.48.20-1
 - Revert "Search for a valid stage1 device on disks with stage1 mount points
   (#1168118)" (sbueno+anaconda)
