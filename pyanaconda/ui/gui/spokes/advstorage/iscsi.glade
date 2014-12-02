@@ -708,6 +708,17 @@
                                 </child>
                               </object>
                             </child>
+                            <child>
+                              <object class="GtkTreeViewColumn" id="nodePortal">
+                                <property name="title" translatable="yes">Portal</property>
+                                <child>
+                                  <object class="GtkCellRendererText" id="nodePortalRenderer"/>
+                                  <attributes>
+                                    <attribute name="text">4</attribute>
+                                  </attributes>
+                                </child>
+                              </object>
+                            </child>
                           </object>
                         </child>
                       </object>
