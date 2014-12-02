@@ -129,8 +129,6 @@ class IntlStringFormatChecker(StringFormatChecker):
                        string format messages extended for translated strings")
            }
 
-    options = ()
-
     @check_messages('translated-format')
     def visit_binop(self, node):
         if node.op != '%':

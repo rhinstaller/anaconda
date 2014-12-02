@@ -116,15 +116,6 @@ class TUIObject(tui.UIScreen, common.UIObject):
     def showable(self):
         return True
 
-    def teardown(self):
-        pass
-
-    def initialize(self):
-        """This method gets called whenever Hub or UserInterface prepares
-        all found objects for use. It is called only once and has no direct
-        connection to rendering."""
-        pass
-
     def refresh(self, args = None):
         """Put everything to display into self.window list."""
         tui.UIScreen.refresh(self, args)

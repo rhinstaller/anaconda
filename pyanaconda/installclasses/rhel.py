@@ -30,7 +30,6 @@ class RHELBaseInstallClass(BaseInstallClass):
     defaultFS = "xfs"
 
     bootloaderTimeoutDefault = 5
-    bootloaderExtraArgs = []
 
     ignoredPackages = ["ntfsprogs"]
 
