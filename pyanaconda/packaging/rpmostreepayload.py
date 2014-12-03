@@ -118,7 +118,7 @@ class RPMOSTreePayload(ArchivePayload):
                     self._safeExecWithRedirect('cp', ['-r', '-p', sub_srcpath, sub_destpath])
             else:
                 log.info("Copying bootloader data: " + fname)
-                shutil.copytree(srcpath, destpath)
+                self._safeExecWithRedirect('cp', ['-r', '-p', srcpath, destpath])
 
     def install(self):
         mainctx = GLib.MainContext.new()
