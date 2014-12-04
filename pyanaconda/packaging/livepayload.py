@@ -442,6 +442,12 @@ class LiveImageKSPayload(LiveImagePayload):
             self.pct = 100
         threadMgr.wait(THREAD_LIVE_PROGRESS)
 
+        # Live needs to create the rescue image before bootloader is written
+        for kernel in self.kernelVersionList:
+            log.info("Generating rescue image for %s", kernel)
+            iutil.execInSysroot("new-kernel-pkg",
+                                ["--rpmposttrans", kernel])
+
     def postInstall(self):
         """ Unmount and remove image
 
