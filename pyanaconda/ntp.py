@@ -27,6 +27,7 @@ import re
 import os
 import tempfile
 import shutil
+import subprocess
 
 from pyanaconda import iutil
 from pyanaconda.threads import threadMgr, AnacondaThread
@@ -50,11 +51,11 @@ def ntp_server_working(server):
 
     """
 
-    #FIXME: It would be nice to use execWithRedirect here, but it is not
-    #       thread-safe and hangs if this function is called from threads.
-    #       By using tee (and block-buffered pipes) it is also much slower.
-    #we just need to know the exit status
-    retc = os.system("ntpdate -q %s &>/dev/null" % server)
+    # using iutil.execWithRedirect here would mean that if this function was run
+    # multiple times from multiple threads in the same time, the execution would
+    # be serialized because of the program_log lock
+    with open("/dev/null", "w") as dev_null:
+        retc = subprocess.call(["ntpdate", "-q", server], stdout=dev_null, close_fds=True)
 
     return retc == 0
 
