@@ -45,14 +45,10 @@ SCREENSHOT_DELAY = 1  # in seconds
 
 ANACONDA_WINDOW_GROUP = Gtk.WindowGroup()
 
-# Stylesheet priorities to use for product-specific stylesheets and our
-# missing icon overrides. The missing icon rules should be higher than
-# the regular stylesheet, applied at GTK_STYLE_PROVIDER_PRIORITY_APPLICATION,
-# and stylesheets from the installclass, updates.img and product.img should be
-# higher than that, so that they can override background images and not get
-# re-overriden by us.  Both should be lower than
-# GTK_STYLE_PROVIDER_PRIORITY_USER.
-STYLE_PROVIDER_PRIORITY_MISSING_ICON = Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION + 10
+# Stylesheet priorities to use for product-specific stylesheets.
+# installclass stylesheets should be higher than our base stylesheet, and
+# stylesheets from updates.img and product.img should be higher than that.  All
+# levels should be lower than GTK_STYLE_PROVIDER_PRIORITY_USER.
 STYLE_PROVIDER_PRIORITY_INSTALLCLASS = Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION + 15
 STYLE_PROVIDER_PRIORITY_UPDATES = Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION + 20
 assert STYLE_PROVIDER_PRIORITY_UPDATES < Gtk.STYLE_PROVIDER_PRIORITY_USER
@@ -491,48 +487,6 @@ class GraphicalUserInterface(UserInterface):
                       for path in pathlist]
             }
 
-    def _assureLogoImage(self):
-        # make sure there is a logo image present,
-        # otherwise the console will get spammed by errors
-        replacement_image_path = None
-        logo_path = "/usr/share/anaconda/pixmaps/sidebar-logo.png"
-        header_path = "/usr/share/anaconda/pixmaps/anaconda_header.png"
-        sad_smiley_path = "/usr/share/icons/Adwaita/48x48/emotes/face-crying.png"
-        if not os.path.exists(logo_path):
-            # first try to replace the missing logo with the Anaconda header image
-            if os.path.exists(header_path):
-                replacement_image_path = header_path
-            # if the header image is not present, use a sad smiley from GTK icons
-            elif os.path.exists(sad_smiley_path):
-                replacement_image_path = sad_smiley_path
-
-            if replacement_image_path:
-                log.warning("logo image is missing, using a substitute")
-
-                # Add a new stylesheet overriding the background-image for .logo
-                provider = Gtk.CssProvider()
-                provider.load_from_data(".logo { background-image: url('%s'); }" % replacement_image_path)
-                Gtk.StyleContext.add_provider_for_screen(Gdk.Screen.get_default(), provider,
-                        STYLE_PROVIDER_PRIORITY_MISSING_ICON)
-            else:
-                log.warning("logo image is missing")
-
-        # Look for the top and sidebar images. If missing remove the background-image
-        topbar_path = "/usr/share/anaconda/pixmaps/topbar-bg.png"
-        sidebar_path = "/usr/share/anaconda/pixmaps/sidebar-bg.png"
-        if not os.path.exists(topbar_path):
-            provider = Gtk.CssProvider()
-            provider.load_from_data("AnacondaSpokeWindow #nav-box { background-image: none; }")
-            Gtk.StyleContext.add_provider_for_screen(Gdk.Screen.get_default(), provider,
-                    STYLE_PROVIDER_PRIORITY_MISSING_ICON)
-
-        if not os.path.exists(sidebar_path):
-            provider = Gtk.CssProvider()
-            provider.load_from_data(".logo-sidebar { background-image: none; }")
-            Gtk.StyleContext.add_provider_for_screen(Gdk.Screen.get_default(), provider,
-                    STYLE_PROVIDER_PRIORITY_MISSING_ICON)
-
-
     def _widgetScale(self):
         # First, check if the GDK_SCALE environment variable is already set. If so,
         # leave it alone.
@@ -731,9 +685,6 @@ class GraphicalUserInterface(UserInterface):
                 provider.load_from_path(updates_css)
                 Gtk.StyleContext.add_provider_for_screen(Gdk.Screen.get_default(), provider,
                         STYLE_PROVIDER_PRIORITY_UPDATES)
-
-        # try to make sure a logo image is present
-        self._assureLogoImage()
 
         self.mainWindow.setCurrentAction(self._currentAction)
 
