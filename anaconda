@@ -1049,6 +1049,11 @@ if __name__ == "__main__":
     # shipped with the installation media.
     ksdata = None
     if opts.ksfile and not opts.liveinst:
+        if not os.path.exists(opts.ksfile):
+            stdoutLog.error("Kickstart file %s is missing.", opts.ksfile)
+            iutil.ipmi_report(constants.IPMI_ABORTED)
+            sys.exit(1)
+
         flags.automatedInstall = True
         flags.eject = False
         ksFiles = [opts.ksfile]
