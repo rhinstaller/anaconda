@@ -129,7 +129,8 @@ def _run_program(argv, root='/', stdin=None, stdout=None, env_prune=None, log_ou
                                     stdin=stdin,
                                     stdout=subprocess.PIPE,
                                     stderr=subprocess.STDOUT,
-                                    preexec_fn=chroot, cwd=root, env=env)
+                                    preexec_fn=chroot, cwd=root, env=env,
+                                    close_fds=True)
 
             output_string = proc.communicate()[0]
             if output_string:
