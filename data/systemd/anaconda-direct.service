@@ -11,7 +11,7 @@ Environment=HOME=/root MALLOC_CHECK_=2 MALLOC_PERTURB_=204 PATH=/usr/bin:/bin:/s
 Type=oneshot
 WorkingDirectory=/root
 ExecStart=/usr/sbin/anaconda
-StandardInput=null
+StandardInput=tty
 StandardOutput=journal+console
 StandardError=journal+console
 TimeoutSec=0
