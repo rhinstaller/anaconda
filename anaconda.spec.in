@@ -308,6 +308,27 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Thu Dec 04 2014 Brian C. Lane <bcl@redhat.com> - 22.12-1
+- add code so that initramfs created for rescue kernel (#1170589) (gczarcinski)
+- Start vncconfig for cutNpaste (hamzy)
+- Handle unstaged changes in the pre-commit hook. (dshea)
+- Use git status -z (dshea)
+- Make Python's default encoding detection work on Live installations
+  (#1169019) (vpodzime)
+- Force translation files download instead of skipping them (#1169023)
+  (vpodzime)
+- Completely disable storage tests for the moment. (clumens)
+- datetime_spoke: Fix warnings about removing nonexistent source (walters)
+- Temporarily disable the BTRFSOnNonBTRFSComponent test. (clumens)
+- Remove a slightly lighter grey background from the center of the hubs.
+  (clumens)
+- Actually fix the message dropping commit. (clumens)
+- Make sure storage info bar is displayed (#1166730) (bcl)
+- Clear Update Settings when Done clicked (#1167014) (bcl)
+- Fix PWQError issues. (sbueno+anaconda)
+- network: Add some doc strings (walters)
+- It's spoke.title, not spoke.name (#1167036). (clumens)
+
 * Fri Nov 21 2014 Brian C. Lane <bcl@redhat.com> - 22.11-1
 - Skip tui askvnc reboot for dirinstall (#1164254) (bcl)
 - If a message is for a spoke not on the current hub, throw it away. (clumens)
