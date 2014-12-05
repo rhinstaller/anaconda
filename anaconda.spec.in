@@ -234,7 +234,7 @@ This package hold the content for the Anaconda built-in help system.
 %{__make} %{?_smp_mflags}
 
 # generate content for the help system
-( cd anaconda-user-help-%{helpver} && python prepare_anaconda_help_content.py )
+( cd anaconda-user-help-%{helpver} && python prepare_anaconda_help_content.py %{helpver})
 
 %install
 %{make_install}
