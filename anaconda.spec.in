@@ -323,6 +323,12 @@ update-desktop-database &> /dev/null || :
 %{_datadir}/anaconda/help/*
 
 %changelog
+* Fri Dec 05 2014 Brian C. Lane <bcl@redhat.com> - 19.31.114-1
+- Pass the help content version to the script that generates it (mkolman)
+  Related: rhbz#1072033
+- Use Anaconda version for the help subpackage (mkolman)
+  Related: rhbz#1072033
+
 * Thu Dec 04 2014 Brian C. Lane <bcl@redhat.com> - 19.31.113-1
 - Make sure help content files are not part of the core sub-package (mkolman)
   Related: rhbz#1072033
