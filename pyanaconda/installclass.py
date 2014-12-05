@@ -64,6 +64,9 @@ class BaseInstallClass(object):
     help_placeholder = None
     help_placeholder_with_links = None
 
+    # path to the installclass stylesheet, if any
+    stylesheet = None
+
     @property
     def l10n_domain(self):
         if self._l10n_domain is None:
