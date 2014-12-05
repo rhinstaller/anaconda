@@ -2545,6 +2545,36 @@ class LVMLogicalVolumeDevice(DMDevice):
 
         return [validpvs[0].path]
 
+    def _preCreate(self):
+        """ Adjust the size of the LV if there isn't enough space in the VG.
+
+        size calculations sometimes don't match what lvm actually creates,
+        so check the actual free space of the VG and use that if the LV is
+        too big.
+        """
+        try:
+            vg_info = lvm.vginfo(self.vg.name)
+        except errors.LVMError as lvmerr:
+            log.error("Failed to get free space for the %s VG: %s", self.vg.name, lvmerr)
+            # nothing more can be done, we don't know the VG's free space
+            return
+
+        try:
+            extent_size = float(vg_info["pe_size"])
+            extents_free = int(vg_info["pe_free"])
+        except ValueError as e:
+            log.error("Failed to get PE information for the %s VG: %s", self.vg.name, e)
+            return
+
+        log.debug("VG has %s free PEs of size %s", extents_free, extent_size)
+
+        can_use = extent_size * extents_free
+        if self.size > can_use:
+            msg = ("%s LV's size (%s) exceeds the VG's usable free space (%s),"
+                    "shrinking the LV") % (self.name, self.size, can_use)
+            log.warning(msg)
+            self.size = can_use
+
     def create(self, intf=None):
         """ Create the device. """
         log_method_call(self, self.name, status=self.status)
@@ -2560,6 +2590,9 @@ class LVMLogicalVolumeDevice(DMDevice):
         try:
             self.createParents()
             self.setupParents()
+
+            # Make sure the LV will fit into the real VG size
+            self._preCreate()
 
             # should we use --zero for safety's sake?
             if self.singlePV:
