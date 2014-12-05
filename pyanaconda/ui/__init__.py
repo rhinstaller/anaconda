@@ -72,9 +72,6 @@ class UserInterface(object):
         from pyanaconda.errors import errorHandler
         errorHandler.ui = self
 
-
-    basepath = os.path.dirname(__file__)
-    basemask = "pyanaconda.ui"
     paths = PathDict({})
 
     @property
