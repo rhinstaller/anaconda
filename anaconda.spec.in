@@ -324,6 +324,12 @@ update-desktop-database &> /dev/null || :
 %{_datadir}/anaconda/help/*
 
 %changelog
+* Thu Dec 04 2014 Brian C. Lane <bcl@redhat.com> - 19.31.113-1
+- Make sure help content files are not part of the core sub-package (mkolman)
+  Related: rhbz#1072033
+- iscsi: when logging into nodes consider ip:port of node (rvykydal)
+  Resolves: rhbz#1114820
+
 * Mon Dec 01 2014 Brian C. Lane <bcl@redhat.com> - 19.31.112-1
 - Update the nav_box internal child for datetime_spoke. (dshea)
   Resolves: rhbz#1155548
