@@ -162,7 +162,7 @@ system.
 Summary: Graphical user interface for the Anaconda installer
 Requires: anaconda-core = %{version}-%{release}
 Requires: anaconda-widgets = %{version}-%{release}
-Requires: anaconda-user-help = %{helpver}
+Requires: anaconda-user-help = %{version}-%{release}
 Requires: python-meh-gui >= %{mehver}
 Requires: gnome-icon-theme-symbolic
 Requires: system-logos
@@ -218,7 +218,6 @@ options. This includes driver disks, kickstarts, and finding the anaconda
 runtime on NFS/HTTP/FTP servers or local disks.
 
 %package user-help
-Version: %{helpver}
 Summary: Content for the Anaconda built-in help system
 
 %description user-help
