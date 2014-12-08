@@ -108,14 +108,14 @@ bumpver: po-pull
 install-buildrequires:
 	srcdir="$(srcdir)" && \
 	: $${srcdir:=.} && \
-	yum install $$(grep BuildRequires: $${srcdir}/anaconda.spec.in | cut -d ' ' -f 2)
+	yum install $$(grep ^BuildRequires: $${srcdir}/anaconda.spec.in | cut -d ' ' -f 2)
 
 # Install all packages specified as Requires in the Anaconda specfile
 # -> installs packages needed to run Anaconda and the Anaconda unit tests
 install-requires:
 	srcdir="$(srcdir)" && \
 	: $${srcdir:=.} && \
-	yum install $$(grep Requires: $${srcdir}/anaconda.spec.in | cut -d ' ' -f 2 | grep -v ^anaconda)
+	yum install $$(grep ^Requires: $${srcdir}/anaconda.spec.in | cut -d ' ' -f 2 | grep -v ^anaconda)
 
 # Generate an updates.img based on the changed files since the release
 # was tagged.  Updates are copied to ./updates-img and then the image is
