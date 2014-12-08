@@ -77,7 +77,7 @@ fi
 
 export ANACONDA_BUGURL=${ANACONDA_BUGURL:="https://bugzilla.redhat.com/bugzilla/"}
 
-RELEASE=$(rpm -q --qf '%{Release}' fedora-release)
+RELEASE=$(rpm -q --qf '%{Release}' --whatprovides system-release)
 if [ "${RELEASE:0:2}" = "0." ]; then
     export ANACONDA_ISFINAL="false"
 else
