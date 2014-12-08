@@ -310,6 +310,12 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Mon Dec 08 2014 Samantha N. Bueno <sbueno+anaconda@redhat.com> - 21.48.22-1
+- Really fix issue with starting in cmdline mode on s390x. (#1040933)
+  (sbueno+anaconda)
+- Fix EOF error that occurs if user input required in x3270. (#1171135)
+  (jstodola)
+
 * Tue Dec 02 2014 Vratislav Podzimek <vpodzime@redhat.com> - 21.48.21-1
 - Revert "Make Python's default encoding detection work on Live installations
   (#1169019)" (awilliam)
