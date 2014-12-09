@@ -21,7 +21,6 @@
 
 from gi.repository import Gio, GLib
 from gi.repository import NetworkManager
-import IPy
 import struct
 import socket
 import re
@@ -492,7 +491,8 @@ def nm_device_ip_config(name, version=4):
 
     addr_list = []
     for addr, prefix, gateway in addresses:
-        # TODO - look for a library function (could have used IPy but byte order!)
+        # NOTE: There is IPy for python2, ipaddress for python3 but
+        # byte order of dbus value would need to be switched
         if version == 4:
             addr_str = nm_dbus_int_to_ipv4(addr)
             gateway_str = nm_dbus_int_to_ipv4(gateway)
@@ -987,7 +987,7 @@ def nm_ipv6_to_dbus_ay(address):
     :return: address in format 'ay' for NM dbus setting
     :rtype: list of bytes
     """
-    return [int(byte, 16) for byte in re.findall('.{1,2}', IPy.IP(address).strFullsize().replace(':', ''))]
+    return [int(byte) for byte in bytearray(socket.inet_pton(socket.AF_INET6, address))]
 
 def nm_ipv4_to_dbus_int(address):
     """Convert ipv4 address from string to int for dbus (switched endianess).
