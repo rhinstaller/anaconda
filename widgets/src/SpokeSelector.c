@@ -284,7 +284,7 @@ static void anaconda_spoke_selector_init(AnacondaSpokeSelector *spoke) {
     g_signal_connect(spoke, "focus-out-event", G_CALLBACK(anaconda_spoke_selector_focus_changed), NULL);
 
     /* Set "hand" cursor shape when over the selector */
-    spoke->priv->cursor = gdk_cursor_new(GDK_HAND2);
+    spoke->priv->cursor = gdk_cursor_new_for_display(gdk_display_get_default(), GDK_HAND2);
     g_signal_connect(spoke, "realize", G_CALLBACK(anaconda_spoke_selector_realize), NULL);
 
     /* Set property defaults. */

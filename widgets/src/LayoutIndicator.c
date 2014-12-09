@@ -183,7 +183,7 @@ static void anaconda_layout_indicator_init(AnacondaLayoutIndicator *self) {
                      NULL);
 
     /* layout indicator should have a hand cursor so that looks like clickable widget */
-    self->priv->cursor = gdk_cursor_new(GDK_HAND2);
+    self->priv->cursor = gdk_cursor_new_for_display(gdk_display_get_default(), GDK_HAND2);
     g_signal_connect(self, "realize",
                      G_CALLBACK(anaconda_layout_indicator_realize),
                      NULL);
