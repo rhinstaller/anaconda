@@ -85,7 +85,7 @@ from pyanaconda.ui.gui.spokes.lib.custom_storage_helpers import get_container_ty
 from pyanaconda.ui.gui.spokes.lib.custom_storage_helpers import AddDialog, ConfirmDeleteDialog, DisksDialog, ContainerDialog, HelpDialog
 
 from pyanaconda.ui.gui.utils import setViewportBackground, fancy_set_sensitive, ignoreEscape
-from pyanaconda.ui.gui.utils import really_hide, really_show, GtkActionList, timed_action
+from pyanaconda.ui.gui.utils import really_hide, really_show, timed_action
 from pyanaconda.ui.categories.system import SystemCategory
 
 from gi.repository import Gdk, Gtk
@@ -161,7 +161,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         self._devices = []
         self._error = None
         self._hidden_disks = []
-        self._fs_types = []             # list of supported fstypes
+        self._fs_types = set()             # set of supported fstypes
         self._free_space = Size(0)
 
         self._device_disks = []
@@ -273,15 +273,14 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         self._accordion = Accordion()
         self._partitionsViewport.add(self._accordion)
 
-        # Populate the list of valid filesystem types from the format classes.
-        # Unfortunately, we have to narrow them down a little bit more because
-        # this list will include things like PVs and RAID members.
-        self._fsCombo.remove_all()
-
         threadMgr.add(AnacondaThread(name=THREAD_CUSTOM_STORAGE_INIT, target=self._initialize))
 
     def _initialize(self):
-        self._fs_types = []
+        """ Populate the set of valid filesystem types from the format classes.
+
+            Restrict the set to ones that we might allow users to select.
+        """
+        _fs_types = []
         for cls in device_formats.itervalues():
             obj = cls()
 
@@ -292,15 +291,9 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
                             (isinstance(obj, FS) or
                              obj.type in ["biosboot", "prepboot", "swap"]))
             if supported_fs:
-                self._fs_types.append(obj.name)
+                _fs_types.append(obj.name)
 
-        # Display the file system types in alphabetical order.
-        actions = GtkActionList()
-        self._fs_types.sort()
-        for ty in self._fs_types:
-            actions.add_action(self._fsCombo.append_text, ty)
-
-        actions.fire()
+        self._fs_types = set(_fs_types)
 
     @property
     def _clearpartDevices(self):
@@ -1303,32 +1296,34 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
            or defaultContainerRaidLevel(devicefactory.get_device_type(use_dev))
 
     def _setup_fstype_combo(self, device):
-        # remove any fs types that aren't supported
-        remove_indices = []
-        for idx, row in enumerate(self._fsCombo.get_model()):
-            fs_type = row[0]
-            if fs_type not in self._fs_types:
-                remove_indices.append(idx)
-                continue
+        """ Setup the filesystem combo box.
 
-            if fs_type == device.format.name:
-                self._fsCombo.set_active(idx)
+            :param device: blivet.devices.Device instance
+        """
+        type_name = device.format.name
 
-        # remove items from the combobox in reversed order so that item 3
-        # doesn't become item 2 by removing item 1 etc.
-        map(self._fsCombo.remove, reversed(remove_indices))
-
-        # if the current device has unsupported formatting, add an entry for it
-        if device.format.name not in self._fs_types:
-            self._fsCombo.append_text(device.format.name)
-            self._fsCombo.set_active(len(self._fsCombo.get_model()) - 1)
-
-        # Give them a way to reset to original formatting. Whenever we add a
-        # "reformat this" widget this will need revisiting.
+        # Possibly unsupported but still required filesystem names
         if device.exists and \
            device.format.type != device.originalFormat.type and \
            device.originalFormat.type not in self._fs_types:
-            self._fsCombo.append_text(device.originalFormat.name)
+            extra_names = (type_name, device.originalFormat.name)
+        else:
+            extra_names = (type_name,)
+
+        names = list(self._fs_types.union(extra_names))
+        names.sort()
+
+        # Add all desired fileystem type names to the box, sorted alphabetically
+        self._fsCombo.remove_all()
+        for ty in names:
+            self._fsCombo.append_text(ty)
+
+        # set the active filesystem type
+        idx = next(i for i, data in enumerate(self._fsCombo.get_model()) if data[0] == type_name)
+        self._fsCombo.set_active(idx)
+
+        # do additional updating handled by other method
+        self._update_fstype_combo(devicefactory.get_device_type(device))
 
     def _btrfs_in_typecombo(self, device):
         """ Whether BTRFS should appear in device type combo box.
@@ -2495,6 +2490,8 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
             * the filesystem combo contains at least the default filesystem
             * the default filesystem is not the same as btrfs
             * if device_type is DEVICE_TYPE_BTRFS, btrfs is supported
+
+            This method is idempotent, and must remain so.
         """
         # Find unique instance of btrfs in fsCombo, if any.
         btrfs_idx = next((idx for idx, data in enumerate(self._fsCombo.get_model()) if data[0] == "btrfs"), None)
