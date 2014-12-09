@@ -21,7 +21,6 @@
 #
 
 import os
-import shutil
 import sys
 
 from pyanaconda import constants
