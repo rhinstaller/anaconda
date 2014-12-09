@@ -157,13 +157,17 @@ class Page(Gtk.Box):
         self._dataLabel = self._make_category_label(_("DATA"))
         really_hide(self._dataLabel)
         self._dataBox.add(self._dataLabel)
-        self._dataBox.connect("add", self._onDataAdded)
-        self._dataBox.connect("remove", self._onDataRemoved)
+        self._dataBox.connect("add", self._onSelectorAdded, self._dataLabel)
+        self._dataBox.connect("remove", self._onSelectorRemoved, self._dataLabel)
         self.add(self._dataBox)
 
         # Create the System label and a box to store all its members in.
         self._systemBox = Gtk.Box(orientation=Gtk.Orientation.VERTICAL)
-        self._systemBox.add(self._make_category_label(_("SYSTEM")))
+        self._systemLabel = self._make_category_label(_("SYSTEM"))
+        really_hide(self._systemLabel)
+        self._systemBox.add(self._systemLabel)
+        self._systemBox.connect("add", self._onSelectorAdded, self._systemLabel)
+        self._systemBox.connect("remove", self._onSelectorRemoved, self._systemLabel)
         self.add(self._systemBox)
 
         self.members = []
@@ -227,14 +231,14 @@ class Page(Gtk.Box):
         # _onSelectorClicked
         cb(selector)
 
-    def _onDataAdded(self, container, widget):
-        really_show(self._dataLabel)
+    def _onSelectorAdded(self, container, widget, label):
+        really_show(label)
 
-    def _onDataRemoved(self, container, widget):
+    def _onSelectorRemoved(self, container, widget, label):
         # This runs before widget is removed from container, so if it's the last
         # item then the container will still not be empty.
         if len(container.get_children()) == 1:
-            really_hide(self._dataLabel)
+            really_hide(label)
 
 class UnknownPage(Page):
     def __init__(self, title):
