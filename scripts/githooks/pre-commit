@@ -35,6 +35,10 @@ try:
 except CalledProcessError:
     sys.exit(1)
 
+# If git status returned nothing, return
+if not git_files:
+    sys.exit(0)
+
 git_files = git_files.strip('\0').split('\0')
 
 pylint_names = []
