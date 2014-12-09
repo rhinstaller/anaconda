@@ -264,6 +264,42 @@ def _unlock_devices(intf, storage):
                         device.format.passphrase = None
                         try_passphrase = None
 
+def findExistingOstreePartitions(devicetree):
+    import blivet
+    if not os.path.exists(blivet.getTargetPhysicalRoot()):
+        util.makedirs(blivet.getTargetPhysicalRoot())
+
+    roots = []
+    for device in devicetree.leaves:
+        if not device.format.linuxNative or not device.format.mountable or \
+           not device.controllable:
+            continue
+
+        try:
+            device.setup()
+        except Exception: # pylint: disable=broad-except
+            log.warning("setup of %s failed", [device.name])
+            continue
+
+        options = device.format.options + ",ro"
+        try:
+            device.format.mount(options=options, mountpoint=iutil.getSysroot())
+        except Exception: # pylint: disable=broad-except
+            log.warning("mount of %s as %s failed", device.name, device.format.type)
+            device.teardown()
+            continue
+
+        if not os.access(iutil.getSysroot() + "/ostree", os.R_OK):
+            device.teardown(recursive=True)
+            continue
+
+        name = _("Ostree on %s") % device.name
+        roots.append(blivet.Root(mounts=None, swaps=None, name=device.name))
+
+    return roots
+
+
+
 def doRescue(intf, rescue_mount, ksdata):
     import blivet
 
@@ -323,6 +359,7 @@ def doRescue(intf, rescue_mount, ksdata):
     blivet.storageInitialize(sto, ksdata, [])
     _unlock_devices(intf, sto)
     roots = blivet.findExistingInstallations(sto.devicetree)
+    roots.extend(findExistingOstreePartitions(sto.devicetree))
 
     if not roots:
         root = None
