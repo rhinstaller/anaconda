@@ -198,3 +198,9 @@ AnacondaSpokeSelector:insensitive {
 GtkTreeView.solid-separator {
     -GtkTreeView-horizontal-separator: 0;
 }
+
+/* Set the layout indicator colors */
+AnacondaLayoutIndicator {
+    background-color: #fdfdfd;
+    color: black;
+}

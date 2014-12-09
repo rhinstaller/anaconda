@@ -143,7 +143,6 @@ GtkWidget *anaconda_layout_indicator_new() {
 static void anaconda_layout_indicator_init(AnacondaLayoutIndicator *self) {
     AtkObject *atk;
     GdkDisplay *display;
-    GdkRGBA background_color = { 0.0, 0.0, 0.0, 0.0 };
     AnacondaLayoutIndicatorClass *klass = ANACONDA_LAYOUT_INDICATOR_GET_CLASS(self);
 
     if (!klass->engine) {
@@ -164,8 +163,6 @@ static void anaconda_layout_indicator_init(AnacondaLayoutIndicator *self) {
          */
         gdk_window_add_filter(NULL, (GdkFilterFunc) handle_xevent, klass->engine);
     }
-
-    g_return_if_fail(gdk_rgba_parse(&background_color, "#fdfdfd"));
 
     self->priv = G_TYPE_INSTANCE_GET_PRIVATE(self,
                                              ANACONDA_TYPE_LAYOUT_INDICATOR,
@@ -190,11 +187,6 @@ static void anaconda_layout_indicator_init(AnacondaLayoutIndicator *self) {
     g_signal_connect(self, "realize",
                      G_CALLBACK(anaconda_layout_indicator_realize),
                      NULL);
-
-    /* layout indicator should have a different background color
-       TODO: should be "exported" to allow changes in glade from code? */
-    gtk_widget_override_background_color(GTK_WIDGET(self),
-                                         GTK_STATE_FLAG_NORMAL, &background_color);
 
     /* initialize XklConfigRec instance providing data */
     self->priv->config_rec = xkl_config_rec_new();
