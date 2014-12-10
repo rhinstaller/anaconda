@@ -45,16 +45,11 @@ from pyanaconda.iutil import ProxyString, ProxyStringError
 
 log = logging.getLogger("packaging")
 
-try:
-    import dnf
-    import dnf.exceptions
-    import dnf.repo
-    import dnf.callback
-    import rpm
-except ImportError as e:
-    log.error("dnfpayload: component import failed: %s", e)
-    dnf = None
-    rpm = None
+import dnf
+import dnf.exceptions
+import dnf.repo
+import dnf.callback
+import rpm
 
 DNF_CACHE_DIR = '/tmp/dnf.cache'
 DNF_PACKAGE_CACHE_DIR_SUFFIX = 'dnf.package.cache'
@@ -256,34 +251,74 @@ class DNFPayload(packaging.PackagePayload):
         if self.data.packages.nocore:
             log.info("skipping core group due to %%packages --nocore; system may not be complete")
         else:
-            self._select_group('core')
-
-        for pkg_name in self.data.packages.packageList:
-            log.info("selecting package: '%s'", pkg_name)
             try:
-                self._install_package(pkg_name)
-            except packaging.NoSuchPackage as e:
+                self._select_group('core', required=True)
+                log.info("selected group: core")
+            except packaging.NoSuchGroup as e:
+                self._miss(e)
+
+        env = None
+
+        if self.data.packages.default and self.environments:
+            env = self.environments[0]
+        elif self.data.packages.environment:
+            env = self.data.packages.environment
+
+        if env:
+            try:
+                self._select_environment(env)
+                log.info("selected env: %s", env)
+            except packaging.NoSuchGroup as e:
                 self._miss(e)
 
         for group in self.data.packages.groupList:
             if group.name == 'core':
                 continue
+            default = group.include in (GROUP_ALL,
+                                        GROUP_DEFAULT)
+            optional = group.include == GROUP_ALL
             try:
-                default = group.include in (GROUP_ALL,
-                                            GROUP_DEFAULT)
-                optional = group.include == GROUP_ALL
                 self._select_group(group.name, default=default, optional=optional)
+                log.info("selected group: %s", group.name)
             except packaging.NoSuchGroup as e:
                 self._miss(e)
 
-        for package in self.requiredPackages:
-            self._install_package(package, required=True)
+        for group in self.data.packages.excludedGroupList:
+            try:
+                self._deselect_group(group.name)
+                log.info("deselected group: %s", group.name)
+            except packaging.NoSuchGroup:
+                log.info("skipped removing nonexistant group: %s", group.name)
 
-        for group in self.requiredGroups:
-            self._select_group(group, required=True)
+        for pkg_name in self.data.packages.packageList:
+            try:
+                self._install_package(pkg_name)
+                log.info("selected package: '%s'", pkg_name)
+            except packaging.NoSuchPackage as e:
+                self._miss(e)
+
+        for pkg_name in self.data.packages.excludedList:
+            try:
+                self._remove_package(pkg_name)
+                log.info("removed package: %s", pkg_name)
+            except packaging.NoSuchPackage:
+                log.info("skipped removing nonexistant package: %s", pkg_name)
 
         self._select_kernel_package()
-        self._install_package('dnf')
+
+        for pkg_name in self.requiredPackages:
+            try:
+                self._install_package(pkg_name, required=True)
+                log.debug("selected required package: %s", pkg_name)
+            except packaging.NoSuchPackage as e:
+                self._miss(e)
+
+        for group in self.requiredGroups:
+            try:
+                self._select_group(group, required=True)
+                log.debug("selected required group: %s", group)
+            except packaging.NoSuchGroup as e:
+                self._miss(e)
 
     def _bump_tx_id(self):
         if self.txID is None:
@@ -327,6 +362,12 @@ class DNFPayload(packaging.PackagePayload):
         except dnf.exceptions.MarkingError:
             raise packaging.NoSuchPackage(pkg_name, required=required)
 
+    def _remove_package(self, pkg_name):
+        try:
+            return self._base.remove(pkg_name)
+        except dnf.exceptions.PackagesNotInstalledError:
+            raise packaging.NoSuchPackage(pkg_name)
+
     def _miss(self, exn):
         if self.data.packages.handleMissing == KS_MISSING_IGNORE:
             return
@@ -365,7 +406,47 @@ class DNFPayload(packaging.PackagePayload):
         if optional:
             types.add('optional')
         exclude = self.data.packages.excludedList
-        self._base.group_install(grp, types, exclude=exclude)
+        try:
+            self._base.group_install(grp, types, exclude=exclude)
+        except dnf.exceptions.CompsError as e:
+            # DNF raises this when it is already selected
+            log.debug(e)
+
+    def _deselect_group(self, group_id):
+        grp = self._base.comps.group_by_pattern(group_id)
+        if grp is None:
+            raise packaging.NoSuchGroup(group_id)
+        try:
+            self._base.group_remove(grp)
+        except dnf.exceptions.CompsError as e:
+            # DNF raises this when it is already not selected
+            log.debug(e)
+
+    def _select_environment(self, env_id, default=True, optional=False, required=False):
+        env = self._base.comps.environment_by_pattern(env_id)
+        if env is None:
+            raise packaging.NoSuchGroup(env_id, required=required)
+        types = {'mandatory'}
+        if default:
+            types.add('default')
+        if optional:
+            types.add('optional')
+        exclude = self.data.packages.excludedList
+        try:
+            self._base.environment_install(env, types, exclude=exclude)
+        except dnf.exceptions.CompsError as e:
+            # DNF raises this when it is already selected
+            log.debug(e)
+
+    def _deselect_environment(self, env_id):
+        env = self._base.comps.environment_by_pattern(env_id)
+        if env is None:
+            raise packaging.NoSuchGroup(env_id)
+        try:
+            self._base.environment_remove(env)
+        except dnf.exceptions.CompsError as e:
+            # DNF raises this when it is already not selected
+            log.debug(e)
 
     def _select_kernel_package(self):
         kernels = self.kernelPackages
@@ -530,7 +611,7 @@ class DNFPayload(packaging.PackagePayload):
                 _failure_limbo()
 
         pkgs_to_download = self._base.transaction.install_set
-        log.info('Downloading pacakges.')
+        log.info('Downloading packages.')
         progressQ.send_message(_('Downloading packages'))
         progress = DownloadProgress()
         try:
@@ -589,7 +670,9 @@ class DNFPayload(packaging.PackagePayload):
 
     def preInstall(self, packages=None, groups=None):
         super(DNFPayload, self).preInstall(packages, groups)
-        self.requiredPackages = packages
+        self.requiredPackages = ["dnf"]
+        if packages:
+            self.requiredPackages += packages
         self.requiredGroups = groups
         self.addDriverRepos()
 
@@ -598,9 +681,8 @@ class DNFPayload(packaging.PackagePayload):
         self.txID = None
         self._base.reset(sack=True, repos=True)
 
-    def selectEnvironment(self, environmentid):
-        env = self._base.comps.environment_by_pattern(environmentid)
-        map(self.selectGroup, (id_.name for id_ in env.group_ids))
+    def selectEnvironment(self, env_id):
+        self._select_environment(env_id)
 
     def updateBaseRepo(self, fallback=True, root=None, checkmount=True):
         log.info('configuring base repo')
