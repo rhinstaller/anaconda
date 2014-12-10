@@ -22,6 +22,7 @@
 import os
 
 from blivet.size import Size
+import blivet.arch
 from pyanaconda.flags import flags
 from pyanaconda.i18n import _
 from pyanaconda.progress import progressQ
@@ -196,6 +197,25 @@ class DNFPayload(packaging.PackagePayload):
         super(DNFPayload, self).unsetup()
         self._base = None
 
+    def _replace_vars(self, url):
+        """ Replace url variables with their values
+
+            :param url: url string to do replacement on
+            :type url:  string
+            :returns:   string with variables substituted
+            :rtype:     string or None
+
+            Currently supports $releasever and $basearch
+        """
+        if not url:
+            return url
+
+        url = url.replace("$releasever", self._base.conf.releasever)
+        url = url.replace("$basearch", blivet.arch.getArch())
+
+        return url
+
+
     def _add_repo(self, ksrepo):
         """Add a repo to the dnf repo object
 
@@ -204,8 +224,8 @@ class DNFPayload(packaging.PackagePayload):
            :returns: None
         """
         repo = dnf.repo.Repo(ksrepo.name, DNF_CACHE_DIR)
-        url = ksrepo.baseurl
-        mirrorlist = ksrepo.mirrorlist
+        url = self._replace_vars(ksrepo.baseurl)
+        mirrorlist = self._replace_vars(ksrepo.mirrorlist)
         if url:
             repo.baseurl = [url]
         if mirrorlist:
@@ -220,7 +240,7 @@ class DNFPayload(packaging.PackagePayload):
         except dnf.exceptions.RepoError as e:
             raise packaging.MetadataError(e)
 
-        log.info("added repo: '%s'", ksrepo.name)
+        log.info("added repo: '%s' - %s", ksrepo.name, url or mirrorlist)
 
     def addRepo(self, ksrepo):
         """Add a repo to dnf and kickstart repo lists
