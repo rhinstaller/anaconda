@@ -816,6 +816,11 @@ class LogVolData(commands.logvol.F21_LogVolData):
 
         storage.doAutoPart = False
 
+        # FIXME: we should be running sanityCheck on partitioning that is not ks
+        # autopart, but that's likely too invasive for #873135 at this moment
+        if self.mountpoint == "/boot" and blivet.arch.isS390():
+            raise KickstartValueError(formatErrorMsg(self.lineno, msg="/boot can not be of type 'lvmlv' on s390x"))
+
         # we might have truncated or otherwise changed the specified vg name
         vgname = ksdata.onPart.get(self.vgname, self.vgname)
 
