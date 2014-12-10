@@ -96,13 +96,13 @@
   </object>
   <object class="GtkListStore" id="disk_store">
     <columns>
-      <!-- column-name disk_col -->
+      <!-- column-name description_col -->
       <column type="gchararray"/>
       <!-- column-name capacity_col -->
       <column type="gchararray"/>
       <!-- column-name free_col -->
       <column type="gchararray"/>
-      <!-- column-name serial_col -->
+      <!-- column-name name_col -->
       <column type="gchararray"/>
       <!-- column-name id_col -->
       <column type="gint"/>
@@ -217,14 +217,27 @@
                       </object>
                     </child>
                     <child>
-                      <object class="GtkTreeViewColumn" id="disk_column">
+                      <object class="GtkTreeViewColumn" id="description_column">
                         <property name="spacing">6</property>
-                        <property name="title" translatable="yes">Disk</property>
+                        <property name="title" translatable="yes">Description</property>
                         <property name="clickable">True</property>
                         <child>
-                          <object class="GtkCellRendererText" id="disk_renderer"/>
+                          <object class="GtkCellRendererText" id="description_renderer"/>
                           <attributes>
                             <attribute name="text">0</attribute>
+                          </attributes>
+                        </child>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkTreeViewColumn" id="name_column">
+                        <property name="spacing">6</property>
+                        <property name="title" translatable="yes">Name</property>
+                        <property name="clickable">True</property>
+                        <child>
+                          <object class="GtkCellRendererText" id="name_renderer"/>
+                          <attributes>
+                            <attribute name="text">3</attribute>
                           </attributes>
                         </child>
                       </object>
@@ -251,19 +264,6 @@
                           <object class="GtkCellRendererText" id="free_renderer"/>
                           <attributes>
                             <attribute name="text">2</attribute>
-                          </attributes>
-                        </child>
-                      </object>
-                    </child>
-                    <child>
-                      <object class="GtkTreeViewColumn" id="id_column">
-                        <property name="spacing">6</property>
-                        <property name="title" translatable="yes">ID</property>
-                        <property name="clickable">True</property>
-                        <child>
-                          <object class="GtkCellRendererText" id="id_renderer"/>
-                          <attributes>
-                            <attribute name="text">3</attribute>
                           </attributes>
                         </child>
                       </object>

@@ -388,10 +388,10 @@ class DisksDialog(GUIObject):
         self._store = self.builder.get_object("disk_store")
         # populate the store
         for disk in self._disks:
-            self._store.append([disk.description,
+            self._store.append(["%s (%s)" % (disk.description, disk.serial),
                                 str(disk.size),
                                 str(free[disk.name][0]),
-                                disk.serial,
+                                disk.name,
                                 disk.id])
 
         treeview = self.builder.get_object("disk_view")
