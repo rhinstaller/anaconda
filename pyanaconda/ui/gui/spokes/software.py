@@ -162,20 +162,21 @@ class SoftwareSelectionSpoke(NormalSpoke):
         if not self.environment:
             return
 
-        addons = self._get_selected_addons()
-        for group in addons:
-            if group not in self.selectedGroups:
-                self.selectedGroups.append(group)
+        if not (flags.automatedInstall and self.data.packages.seen):
+            addons = self._get_selected_addons()
+            for group in addons:
+                if group not in self.selectedGroups:
+                    self.selectedGroups.append(group)
 
-        self._selectFlag = False
-        self.payload.data.packages.groupList = []
-        self.payload.selectEnvironment(self.environment)
-        for group in self.selectedGroups:
-            self.payload.selectGroup(group)
+            self._selectFlag = False
+            self.payload.data.packages.groupList = []
+            self.payload.selectEnvironment(self.environment)
+            for group in self.selectedGroups:
+                self.payload.selectGroup(group)
 
-        # And then save these values so we can check next time.
-        self._origAddons = addons
-        self._origEnvironment = self.environment
+            # And then save these values so we can check next time.
+            self._origAddons = addons
+            self._origEnvironment = self.environment
 
         hubQ.send_not_ready(self.__class__.__name__)
         hubQ.send_not_ready("SourceSpoke")
