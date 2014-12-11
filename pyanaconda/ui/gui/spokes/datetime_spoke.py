@@ -434,6 +434,7 @@ class DatetimeSpoke(FirstbootSpokeMixIn, NormalSpoke):
         self._amPmDown = self.builder.get_object("amPmDownButton")
         self._amPmLabel = self.builder.get_object("amPmLabel")
         self._radioButton24h = self.builder.get_object("timeFormatRB")
+        self._amPmRevealer = self.builder.get_object("amPmRevealer")
 
         # create widgets for displaying/configuring date
         day_box, self._dayCombo, day_label = _new_date_field_box(self._daysFilter)
@@ -1026,11 +1027,12 @@ class DatetimeSpoke(FirstbootSpokeMixIn, NormalSpoke):
         if button24h.get_active():
             self._set_amPm_part_sensitive(False)
             new_hours = self._to_24h(hours, amPm)
-
+            self._amPmRevealer.set_reveal_child(False)
         else:
             self._set_amPm_part_sensitive(True)
             new_hours, new_amPm = self._to_amPm(hours)
             self._amPmLabel.set_text(new_amPm)
+            self._amPmRevealer.set_reveal_child(True)
 
         self._hoursLabel.set_text("%0.2d" % new_hours)
 

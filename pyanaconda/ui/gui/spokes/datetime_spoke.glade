@@ -143,8 +143,8 @@
           <object class="GtkLabel" id="configHeadingLabel">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
-            <property name="xalign">0</property>
             <property name="label" translatable="yes">Add and mark for usage NTP servers</property>
+            <property name="xalign">0</property>
             <attributes>
               <attribute name="font-desc" value="Sans Bold 12"/>
             </attributes>
@@ -633,24 +633,6 @@
                                   </packing>
                                 </child>
                                 <child>
-                                  <object class="GtkButton" id="amPmUpButton">
-                                    <property name="visible">True</property>
-                                    <property name="can_focus">True</property>
-                                    <property name="receives_default">True</property>
-                                    <property name="image">upImage1</property>
-                                    <signal name="clicked" handler="on_updown_ampm_clicked" swapped="no"/>
-                                    <child internal-child="accessible">
-                                      <object class="AtkObject" id="amPmUpButton-atkobject">
-                                        <property name="AtkObject::accessible-name" translatable="yes">AM/PM Up</property>
-                                      </object>
-                                    </child>
-                                  </object>
-                                  <packing>
-                                    <property name="left_attach">4</property>
-                                    <property name="top_attach">0</property>
-                                  </packing>
-                                </child>
-                                <child>
                                   <object class="GtkButton" id="minutesUpButton">
                                     <property name="visible">True</property>
                                     <property name="can_focus">True</property>
@@ -666,24 +648,6 @@
                                   <packing>
                                     <property name="left_attach">2</property>
                                     <property name="top_attach">0</property>
-                                  </packing>
-                                </child>
-                                <child>
-                                  <object class="GtkButton" id="amPmDownButton">
-                                    <property name="visible">True</property>
-                                    <property name="can_focus">True</property>
-                                    <property name="receives_default">True</property>
-                                    <property name="image">downImage1</property>
-                                    <signal name="clicked" handler="on_updown_ampm_clicked" swapped="no"/>
-                                    <child internal-child="accessible">
-                                      <object class="AtkObject" id="amPmDownButton-atkobject">
-                                        <property name="AtkObject::accessible-name" translatable="yes">AM/PM Down</property>
-                                      </object>
-                                    </child>
-                                  </object>
-                                  <packing>
-                                    <property name="left_attach">4</property>
-                                    <property name="top_attach">2</property>
                                   </packing>
                                 </child>
                                 <child>
@@ -719,17 +683,79 @@
                                   </packing>
                                 </child>
                                 <child>
-                                  <object class="GtkLabel" id="amPmLabel">
+                                  <object class="GtkRevealer" id="amPmRevealer">
                                     <property name="visible">True</property>
                                     <property name="can_focus">False</property>
-                                    <property name="label" translatable="yes">PM</property>
-                                    <attributes>
-                                      <attribute name="scale" value="1.5"/>
-                                    </attributes>
+                                    <property name="transition_type">crossfade</property>
+                                    <property name="reveal_child">True</property>
+                                    <child>
+                                      <object class="GtkBox" id="amPmBox">
+                                        <property name="visible">True</property>
+                                        <property name="can_focus">False</property>
+                                        <property name="valign">center</property>
+                                        <property name="orientation">vertical</property>
+                                        <child>
+                                          <object class="GtkButton" id="amPmUpButton">
+                                            <property name="visible">True</property>
+                                            <property name="can_focus">True</property>
+                                            <property name="receives_default">True</property>
+                                            <property name="image">upImage1</property>
+                                            <signal name="clicked" handler="on_updown_ampm_clicked" swapped="no"/>
+                                            <child internal-child="accessible">
+                                              <object class="AtkObject" id="amPmUpButton-atkobject">
+                                                <property name="AtkObject::accessible-name" translatable="yes">AM/PM Up</property>
+                                              </object>
+                                            </child>
+                                          </object>
+                                          <packing>
+                                            <property name="expand">False</property>
+                                            <property name="fill">True</property>
+                                            <property name="position">0</property>
+                                          </packing>
+                                        </child>
+                                        <child>
+                                          <object class="GtkLabel" id="amPmLabel">
+                                            <property name="visible">True</property>
+                                            <property name="can_focus">False</property>
+                                            <property name="label" translatable="yes">PM</property>
+                                            <property name="margin_top">4</property>
+                                            <property name="margin_bottom">5</property>
+                                            <attributes>
+                                              <attribute name="scale" value="1.5"/>
+                                            </attributes>
+                                          </object>
+                                          <packing>
+                                            <property name="expand">False</property>
+                                            <property name="fill">True</property>
+                                            <property name="position">1</property>
+                                          </packing>
+                                        </child>
+                                        <child>
+                                          <object class="GtkButton" id="amPmDownButton">
+                                            <property name="visible">True</property>
+                                            <property name="can_focus">True</property>
+                                            <property name="receives_default">True</property>
+                                            <property name="image">downImage1</property>
+                                            <signal name="clicked" handler="on_updown_ampm_clicked" swapped="no"/>
+                                            <child internal-child="accessible">
+                                              <object class="AtkObject" id="amPmDownButton-atkobject">
+                                                <property name="AtkObject::accessible-name" translatable="yes">AM/PM Down</property>
+                                              </object>
+                                            </child>
+                                          </object>
+                                          <packing>
+                                            <property name="expand">False</property>
+                                            <property name="fill">True</property>
+                                            <property name="position">2</property>
+                                          </packing>
+                                        </child>
+                                      </object>
+                                   </child>
                                   </object>
                                   <packing>
                                     <property name="left_attach">4</property>
-                                    <property name="top_attach">1</property>
+                                    <property name="top_attach">0</property>
+                                    <property name="height">3</property>
                                   </packing>
                                 </child>
                                 <child>
