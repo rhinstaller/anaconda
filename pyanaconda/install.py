@@ -98,6 +98,7 @@ def doConfiguration(storage, payload, ksdata, instClass):
         ksdata.rootpw.execute(storage, ksdata, instClass, u)
         ksdata.group.execute(storage, ksdata, instClass, u)
         ksdata.user.execute(storage, ksdata, instClass, u)
+        ksdata.sshkey.execute(storage, ksdata, instClass, u)
 
     with progress_report(_("Configuring addons")):
         ksdata.addons.execute(storage, ksdata, instClass, u)

@@ -426,3 +426,36 @@ class Users:
 
     def setRootPassword(self, password, isCrypted=False, isLocked=False, algo=None):
         return self.setUserPassword("root", password, isCrypted, isLocked, algo)
+
+    def setUserSshKey(self, username, key, **kwargs):
+        childpid = self._prepareChroot(kwargs.get("root", iutil.getSysroot()))
+
+        if childpid == 0:
+            user = self.admin.lookupUserByName(username)
+            if not user:
+                log.error("setUserSshKey: user %s does not exist", username)
+                os._exit(1)
+
+            homedir = user.get(libuser.HOMEDIRECTORY)[0]
+            if not os.path.exists(homedir):
+                log.error("setUserSshKey: home directory for %s does not exist", username)
+                os._exit(1)
+
+            sshdir = os.path.join(homedir, ".ssh")
+            if not os.path.isdir(sshdir):
+                os.mkdir(sshdir, 0o700)
+                iutil.eintr_retry_call(os.chown, sshdir, user.get(libuser.UIDNUMBER)[0], user.get(libuser.GIDNUMBER)[0])
+
+            authfile = os.path.join(sshdir, "authorized_keys")
+            authfile_existed = os.path.exists(authfile)
+            with open(authfile, "a") as f:
+                f.write(key + "\n")
+
+            # Only change mode and ownership if we created it
+            if not authfile_existed:
+                iutil.eintr_retry_call(os.chmod, authfile, 0o600)
+                iutil.eintr_retry_call(os.chown, authfile, user.get(libuser.UIDNUMBER)[0], user.get(libuser.GIDNUMBER)[0])
+                iutil.execWithRedirect("restorecon", ["-r", sshdir])
+            os._exit(0)
+        else:
+            return self._finishChroot(childpid)
