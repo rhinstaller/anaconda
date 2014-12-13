@@ -1601,6 +1601,11 @@ class Services(commands.services.FC6_Services):
 
             iutil.execInSysroot("systemctl", ["enable", svc])
 
+class SshKey(commands.sshkey.F22_SshKey):
+    def execute(self, storage, ksdata, instClass, users):
+        for usr in self.sshUserList:
+            users.setUserSshKey(usr.username, usr.key)
+
 class Timezone(commands.timezone.F18_Timezone):
     def __init__(self, *args):
         commands.timezone.F18_Timezone.__init__(self, *args)
@@ -1853,6 +1858,7 @@ commandMap = {
         "rootpw": RootPw,
         "selinux": SELinux,
         "services": Services,
+        "sshkey": SshKey,
         "skipx": SkipX,
         "timezone": Timezone,
         "upgrade": Upgrade,
