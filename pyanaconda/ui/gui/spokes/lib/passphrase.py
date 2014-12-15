@@ -28,6 +28,7 @@ from pyanaconda.ui.gui import GUIObject
 from pyanaconda.ui.gui.helpers import GUIInputCheckHandler
 from pyanaconda.constants import PW_ASCII_CHARS
 from pyanaconda.i18n import _, N_
+from pyanaconda.ui.gui.utils import really_hide, really_show
 
 __all__ = ["PassphraseDialog"]
 
@@ -137,11 +138,11 @@ class PassphraseDialog(GUIObject, GUIInputCheckHandler):
             result_icon, result_message = failed_check.check_status
             self._passphrase_warning_image.set_from_icon_name(result_icon, Gtk.IconSize.BUTTON)
             self._passphrase_warning_label.set_text(result_message)
-            self._passphrase_warning_image.set_visible(True)
-            self._passphrase_warning_label.set_visible(True)
+            really_show(self._passphrase_warning_image)
+            really_show(self._passphrase_warning_label)
         else:
-            self._passphrase_warning_image.set_visible(False)
-            self._passphrase_warning_label.set_visible(False)
+            really_hide(self._passphrase_warning_image)
+            really_hide(self._passphrase_warning_label)
 
         # The save button should only be sensitive if the match check passes
         if self._passphrase_match_check.check_status == InputCheck.CHECK_OK and \
