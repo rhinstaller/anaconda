@@ -404,6 +404,7 @@ class DatetimeSpoke(FirstbootSpokeMixIn, NormalSpoke):
 
         self._update_datetime_timer_id = None
         self._start_updating_timer_id = None
+        self._shown = False
 
     def initialize(self):
         NormalSpoke.initialize(self)
@@ -530,6 +531,8 @@ class DatetimeSpoke(FirstbootSpokeMixIn, NormalSpoke):
                 return _("Nothing selected")
 
     def apply(self):
+        self._shown = False
+
         # we could use self._tzmap.get_timezone() here, but it returns "" if
         # Etc/XXXXXX timezone is selected
         region = self._get_active_region()
@@ -574,6 +577,8 @@ class DatetimeSpoke(FirstbootSpokeMixIn, NormalSpoke):
         return True
 
     def refresh(self):
+        self._shown = True
+
         #update the displayed time
         self._update_datetime_timer_id = GLib.timeout_add_seconds(1,
                                                     self._update_datetime)
@@ -764,7 +769,7 @@ class DatetimeSpoke(FirstbootSpokeMixIn, NormalSpoke):
             isys.set_system_date_time(year, month, day, hours, minutes)
 
         #start the timer only when the spoke is shown
-        if self._update_datetime_timer_id is not None:
+        if self._shown and not self._update_datetime_timer_id:
             self._update_datetime_timer_id = GLib.timeout_add_seconds(1,
                                                         self._update_datetime)
 
@@ -786,14 +791,15 @@ class DatetimeSpoke(FirstbootSpokeMixIn, NormalSpoke):
         """
 
         #do not start timers if the spoke is not shown
-        if self._update_datetime_timer_id is None:
+        if not self._shown:
             self._update_datetime()
             self._save_system_time()
             return
 
         #stop time updating
-        GLib.source_remove(self._update_datetime_timer_id)
-        self._update_datetime_timer_id = None
+        if self._update_datetime_timer_id:
+            GLib.source_remove(self._update_datetime_timer_id)
+            self._update_datetime_timer_id = None
 
         #stop previous $interval seconds timer (see below)
         if self._start_updating_timer_id:
