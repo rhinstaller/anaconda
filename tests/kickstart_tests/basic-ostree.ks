@@ -9,6 +9,7 @@ part --fstype=ext4 --size=500 /boot
 part --fstype=swap --size=500 swap
 
 keyboard us
+lang en
 timezone America/New_York
 rootpw qweqwe
 shutdown

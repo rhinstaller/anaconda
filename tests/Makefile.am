@@ -50,9 +50,9 @@ dist_check_SCRIPTS = $(srcdir)/glade/*/*.py \
 		     gettext/gettext_potfiles.py \
 		     gettext/style_guide.py \
 		     storage/run_storage_tests.py \
-		     ostree/run_ostree_tests.sh \
 		     install/run_install_test.sh \
-		     kickstart_tests/run_kickstart_tests.sh \
+		     $(srcdir)/kickstart_tests/*.ks \
+		     $(srcdir)/kickstart_tests/*.sh \
 		     $(srcdir)/gui/*.ks \
 		     $(srcdir)/gui/*.sh \
 		     $(srcdir)/gui/inside/*.py \
