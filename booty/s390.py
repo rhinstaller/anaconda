@@ -145,6 +145,7 @@ class s390BootloaderInfo(bootloaderInfo):
         f = open(instRoot + cf, "w+")        
 
         f.write('[defaultboot]\n')
+        f.write('defaultauto\nprompt=1\n')
         if self.timeout:
             f.write('timeout=%d\n' % self.timeout)
         defaultList = filter(lambda x: not (x[0].endswith('debug') or x[0].endswith('kdump')), kernelList)
