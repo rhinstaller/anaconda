@@ -81,6 +81,10 @@ def exitHandler(rebootData, storage):
         uninhibit_screensaver(anaconda.dbus_session_connection, anaconda.dbus_inhibit_id)
         anaconda.dbus_inhibit_id = None
 
+    # Unsetup the payload, which most usefully unmounts live images
+    if anaconda.payload:
+        anaconda.payload.unsetup()
+
     # Clean up the PID file
     if pidfile_created:
         os.unlink(pidfile_path)
