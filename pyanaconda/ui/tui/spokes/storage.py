@@ -86,8 +86,10 @@ class StorageSpoke(NormalTUISpoke):
 
         if self.data.zerombr.zerombr and arch.isS390():
             # if zerombr is specified in a ks file and there are unformatted
-            # dasds, automatically format them
-            to_format = make_unformatted_dasd_list(self.selected_disks)
+            # dasds, automatically format them. pass in storage.devicetree here
+            # instead of storage.disks since mediaPresent is checked on disks;
+            # a dasd needing dasdfmt will fail this media check though
+            to_format = make_unformatted_dasd_list(d.name for d in getDisks(self.storage.devicetree))
             if to_format:
                 self.run_dasdfmt(to_format)
 
