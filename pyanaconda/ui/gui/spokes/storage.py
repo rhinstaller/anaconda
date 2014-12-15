@@ -654,10 +654,6 @@ class StorageSpoke(NormalSpoke, StorageChecker):
                 log.error(str(err))
                 continue
 
-        # I really hate doing this, but the way is the way; probably the most
-        # correct way to kajigger the storage spoke into becoming ready
-        self.execute()
-
     # signal handlers
     def on_summary_clicked(self, button):
         # show the selected disks dialog
