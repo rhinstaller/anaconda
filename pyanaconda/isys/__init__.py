@@ -120,20 +120,17 @@ def set_system_time(secs):
     log.info("System time set to %s", time.ctime(secs))
 
 def set_system_date_time(year=None, month=None, day=None, hour=None, minute=None,
-                         second=None, utc=False):
+                         second=None):
     """
     Set system date and time given by the parameters as numbers. If some
     parameter is missing or None, the current system date/time field is used
     instead (i.e. the value is not changed by this function).
 
     :type year, month, ..., second: int
-    :param utc: wheter the other parameters specify UTC or local time
-    :type utc: bool
 
     """
 
     # get the right values
-    local = 0 if utc else 1
     now = datetime.datetime.now()
     year = year or now.year
     month = month or now.month
@@ -142,8 +139,8 @@ def set_system_date_time(year=None, month=None, day=None, hour=None, minute=None
     minute = minute or now.minute
     second = second or now.second
 
-    # struct fields -> year, month, day, hour, minute, second, week_day, year_day, local
-    time_struct = time.struct_time((year, month, day, hour, minute, second, 0, 0, local))
+    # struct fields -> year, month, day, hour, minute, second, week_day, year_day, dst
+    time_struct = time.struct_time((year, month, day, hour, minute, second, 0, 0, -1))
     set_system_time(int(time.mktime(time_struct)))
 
 def total_memory():
