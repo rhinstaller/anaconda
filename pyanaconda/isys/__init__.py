@@ -123,12 +123,12 @@ def set_system_date_time(year=None, month=None, day=None, hour=None, minute=None
 
     # get the right values
     now = datetime.datetime.now()
-    year = year or now.year
-    month = month or now.month
-    day = day or now.day
-    hour = hour or now.hour
-    minute = minute or now.minute
-    second = second or now.second
+    year = year if year is not None else now.year
+    month = month if month is not None else now.month
+    day = day if day is not None else now.day
+    hour = hour if hour is not None else now.hour
+    minute = minute if minute is not None else now.minute
+    second = second if second is not None else now.second
 
     # struct fields -> year, month, day, hour, minute, second, week_day, year_day, dst
     time_struct = time.struct_time((year, month, day, hour, minute, second, 0, 0, -1))
