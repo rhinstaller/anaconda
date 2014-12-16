@@ -17,7 +17,7 @@
 #
 # Author: Martin Sivak <msivak@redhat.com>
 
-SUBDIRS = command-stubs liveinst systemd post-scripts help
+SUBDIRS = command-stubs liveinst systemd post-scripts
 
 CLEANFILES = *~
 

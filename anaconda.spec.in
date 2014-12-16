@@ -44,6 +44,7 @@ Source0: %{name}-%{version}.tar.bz2
 %define langtablever 0.0.18-1
 %define libxklavierver 5.4
 %define libtimezonemapver 0.4.1-2
+%define helpver 22.1-1
 
 BuildRequires: audit-libs-devel
 BuildRequires: gettext >= %{gettextver}
@@ -174,6 +175,7 @@ Requires: keybinder3
 %ifnarch s390 s390x
 Requires: NetworkManager-wifi
 %endif
+Requires: anaconda-user-help >= %{helpver}
 Requires: yelp
 
 %description gui
@@ -264,7 +266,6 @@ update-desktop-database &> /dev/null || :
 %{_sbindir}/anaconda
 %{_sbindir}/handle-sshpw
 %{_datadir}/anaconda
-%{_datadir}/anaconda/help/*
 %{_prefix}/libexec/anaconda
 %{_libdir}/python*/site-packages/pyanaconda/*
 %exclude %{_libdir}/python*/site-packages/pyanaconda/rescue.py*

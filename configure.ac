@@ -140,8 +140,6 @@ AC_CONFIG_FILES([Makefile
                  data/liveinst/gnome/Makefile
                  data/liveinst/pam.d/Makefile
                  data/systemd/Makefile
-                 data/help/Makefile
-                 data/help/en-US/Makefile
                  po/Makefile.in
                  scripts/Makefile
                  pyanaconda/Makefile
