@@ -38,66 +38,9 @@ if [[ ! -e "${IMAGE}" ]]; then
     exit 77
 fi
 
-run() {
-    tmpdir=$1
-    ks=$2
-
-    ksfile=$(prepare ${ks} ${tmpdir})
-    if [[ $? != 0 ]]; then
-        echo Test prep failed: ${ksfile}
-        return 1
-    fi
-
-    kargs=$(kernel_args)
-    if [[ ${kargs} != "" ]]; then
-        kargs="--kernel-args ${kargs}"
-    fi
-
-    livemedia-creator ${kargs} \
-                      --make-disk \
-                      --iso "${IMAGE}" \
-                      --ks ${ksfile} \
-                      --tmp ${tmpdir} \
-                      --logfile ${tmpdir}/livemedia.log \
-                      --title Fedora \
-                      --project Fedora \
-                      --releasever 22 \
-                      --ram 2048 \
-                      --vcpus 2 \
-                      --vnc vnc
-    if [[ $? != 0 ]]; then
-        echo $(grep CRIT ${tmpdir}/virt-install.log)
-        return 1
-    elif [[ -f ${tmpdir}/livemedia.log ]]; then
-        img=$(grep disk_img ${tmpdir}/livemedia.log | cut -d= -f2)
-        trimmed=${img## }
-
-        if [[ ! -f ${trimmed} ]]; then
-            echo Disk image ${trimmed} does not exist.
-            return 1
-        fi
-
-        validate ${trimmed}
-        if [[ $? != 0 ]]; then
-            echo FAILED
-            return 1
-        elif [[ "${result}" != "SUCCESS" ]]; then
-            echo ${result}
-            return 1
-        fi
-    fi
-
-    echo SUCCESS
-    return 0
-}
-
-status=0
-for t in kickstart_tests/*sh; do
-    # Skip this file, and also provide a way to skip tests by only running
-    # those that are executable.
-    if [[ $t == "kickstart_tests/run_kickstart_tests.sh"  || ! -x $t ]]; then
-        continue
-    fi
+runone() {
+    img=$1
+    t=$2
 
     ks=${t/.sh/.ks}
     . $t
@@ -109,13 +52,70 @@ for t in kickstart_tests/*sh; do
     tmpdir=$(mktemp -d --tmpdir=/var/tmp)
     chmod 755 ${tmpdir}
 
-    run ${tmpdir} ${ks}
-    if [[ $? = 1 ]]; then
-        status=1
+    ksfile=$(prepare ${ks} ${tmpdir})
+    if [[ $? != 0 ]]; then
+        echo Test prep failed: ${ksfile}
+        rm -rf ${tmpdir}
+        unset kernel_args prep validate
+        return 1
     fi
 
+    kargs=$(kernel_args)
+    if [[ ${kargs} != "" ]]; then
+        kargs="--kernel-args ${kargs}"
+    fi
+
+    livemedia-creator ${kargs} \
+                      --make-disk \
+                      --iso "${img}" \
+                      --ks ${ksfile} \
+                      --tmp ${tmpdir} \
+                      --logfile ${tmpdir}/livemedia.log \
+                      --title Fedora \
+                      --project Fedora \
+                      --releasever 22 \
+                      --ram 2048 \
+                      --vcpus 2 \
+                      --vnc vnc
+    if [[ $? != 0 ]]; then
+        echo $(grep CRIT ${tmpdir}/virt-install.log)
+        rm -rf ${tmpdir}
+        unset kernel_args prep validate
+        return 1
+    elif [[ -f ${tmpdir}/livemedia.log ]]; then
+        img=$(grep disk_img ${tmpdir}/livemedia.log | cut -d= -f2)
+        trimmed=${img## }
+
+        if [[ ! -f ${trimmed} ]]; then
+            echo Disk image ${trimmed} does not exist.
+            rm -rf ${tmpdir}
+            unset kernel_args prep validate
+            return 1
+        fi
+
+        validate ${trimmed}
+        if [[ $? != 0 ]]; then
+            echo FAILED
+            rm -rf ${tmpdir}
+            unset kernel_args prep validate
+            return 1
+        elif [[ "${result}" != "SUCCESS" ]]; then
+            echo ${result}
+            rm -rf ${tmpdir}
+            unset kernel_args prep validate
+            return 1
+        fi
+    fi
+
+    echo SUCCESS
     rm -rf ${tmpdir}
     unset kernel_args prep validate
-done
+    return 0
+}
 
-exit ${status}
+export -f runone
+
+# Round up all the kickstart tests we want to run, skipping those that are not
+# executable as well as this file itself.
+find kickstart_tests -name '*sh' -a -perm -o+x -a \! -wholename 'kickstart_tests/run_kickstart_tests.sh' | \
+parallel --jobs 2 runone ${IMAGE} {}
