@@ -255,8 +255,15 @@ class YumPayload(PackagePayload):
             f.write("langpack_locales = %s\n" % ", ".join(langs))
 
     def _copyLangpacksConfigToTarget(self):
-        shutil.copy2(_yum_installer_langpack_conf,
-                     iutil.getSysroot()+_yum_target_langpack_conf)
+        target_langpack_conf = iutil.getSysroot() + _yum_target_langpack_conf
+
+        # The directory for the config may not exist if yum was not installed
+        # to the target. If this is the case, skip installing the config.
+        if not os.path.exists(os.path.dirname(target_langpack_conf)):
+            log.debug("langpack directory not found, not copying langpacks.conf to taget")
+        else:
+            shutil.copy2(_yum_installer_langpack_conf,
+                         target_langpack_conf)
 
     def _writeYumConfig(self):
         """ Write out anaconda's main yum configuration file. """
