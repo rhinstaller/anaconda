@@ -34,8 +34,8 @@ elif [[ $# != 0 ]]; then
 fi
 
 if [[ ! -e "${IMAGE}" ]]; then
-    echo "Required boot.iso does not exist."
-    exit 2
+    echo "Required boot.iso does not exist; skipping."
+    exit 77
 fi
 
 run() {
