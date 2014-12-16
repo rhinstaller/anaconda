@@ -44,8 +44,8 @@ import tempfile
 from pyanaconda.flags import flags, can_touch_runtime_system
 from pyanaconda.constants import ADDON_PATHS, IPMI_ABORTED
 import shlex
+import requests
 import sys
-import urlgrabber
 import pykickstart.commands as commands
 from pyanaconda import keyboard
 from pyanaconda import ntp
@@ -159,15 +159,18 @@ def getEscrowCertificate(escrowCerts, url):
     log.info("escrow: downloading %s", url)
 
     try:
-        f = urlgrabber.urlopen(url)
-    except urlgrabber.grabber.URLGrabError as e:
+        request = requests.get(url, verify=True)
+    except requests.exceptions.SSLError as e:
+        msg = _("SSL error while downloading the escrow certificate:\n\n%s") % e
+        raise KickstartError(msg)
+    except requests.exceptions.RequestException as e:
         msg = _("The following error was encountered while downloading the escrow certificate:\n\n%s") % e
         raise KickstartError(msg)
 
     try:
-        escrowCerts[url] = f.read()
+        escrowCerts[url] = request.content
     finally:
-        f.close()
+        request.close()
 
     return escrowCerts[url]
 

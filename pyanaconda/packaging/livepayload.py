@@ -33,8 +33,7 @@ import os
 import stat
 from time import sleep
 from threading import Lock
-from urlgrabber.grabber import URLGrabber
-from urlgrabber.grabber import URLGrabError
+import requests
 from pyanaconda.iutil import ProxyString, ProxyStringError, lowerASCII
 import urllib
 import hashlib
@@ -197,27 +196,19 @@ class LiveImagePayload(ImagePayload):
     def kernelVersionList(self):
         return self._kernelVersionList
 
-class URLGrabberProgress(object):
-    """ Provide methods for urlgrabber progress."""
-    def start(self, filename, url, basename, size, text):
-        """ Start of urlgrabber download
+class DownloadProgress(object):
+    """ Provide methods for download progress reporting."""
 
-            :param filename: path and file that download will be saved to
-            :type filename:  string
-            :param url:      url to download from
-            :type url:       string
-            :param basename: file that it will be saved to
-            :type basename:  string
+    def start(self, url, size):
+        """ Start of download
+
+            :param url:      url of the download
+            :type url:       str
             :param size:     length of the file
             :type size:      int
-            :param text:     unknown
-            :type text:      unknown
         """
-        self.filename = filename
         self.url = url
-        self.basename = basename
         self.size = size
-        self.text = text
         self._pct = -1
 
     def update(self, bytes_read):
@@ -233,7 +224,6 @@ class URLGrabberProgress(object):
         if pct == self._pct:
             return
         self._pct = pct
-
         progressQ.send_message(_("Downloading %(url)s (%(pct)d%%)") % \
                 {"url" : self.url, "pct" : pct})
 
@@ -326,20 +316,37 @@ class LiveImageKSPayload(LiveImagePayload):
         ImagePayload.unsetup(self)
 
     def _preInstall_url_image(self):
-        """ Download the image using urlgrabber """
-        # Setup urlgrabber and call back to download image to sysroot
-        progress = URLGrabberProgress()
-        ugopts = {"ssl_verify_peer": not self.data.method.noverifyssl,
-                  "ssl_verify_host": not self.data.method.noverifyssl,
-                  "proxies" : self._proxies,
-                  "progress_obj" : progress,
-                  "copy_local" : True}
+        """ Download the image using Requests with progress reporting"""
 
         error = None
+        progress = DownloadProgress()
         try:
-            ug = URLGrabber()
-            ug.urlgrab(self.data.method.url, self.image_path, **ugopts)
-        except URLGrabError as e:
+            log.info("Starting image download")
+            with open(self.image_path, "wb") as f:
+                ssl_verify = not self.data.method.noverifyssl
+                response = requests.get(self.data.method.url, proxies=self._proxies, verify=ssl_verify, stream=True)
+                total_length = response.headers.get('content-length')
+                if total_length is None:  # no content length header
+                    # just download the file in one go and fake the progress reporting once done
+                    log.warning("content-length header is missing for the installation image, "
+                                "download progress reporting will not be available")
+                    f.write(response.content)
+                    size = f.tell()
+                    progress.start(self.data.method.url, size)
+                    progress.end(size)
+                else:
+                    # requests return headers as strings, so convert total_length to int
+                    progress.start(self.data.method.url, int(total_length))
+                    bytes_read = 0
+                    for buf in response.iter_content(1024 * 1024):  # 1 MB chunks
+                        if buf:
+                            f.write(buf)
+                            f.flush()
+                            bytes_read += len(buf)
+                            progress.update(bytes_read)
+                    progress.end(bytes_read)
+                log.info("Image download finished")
+        except requests.exceptions.RequestException as e:
             log.error("Error downloading liveimg: %s", e)
             error = e
         else:

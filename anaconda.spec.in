@@ -33,7 +33,6 @@ Source0: %{name}-%{version}.tar.bz2
 %define mehver 0.23-1
 %define sckeyboardver 1.3.1
 %define firewalldver 0.3.5-1
-%define pythonurlgrabberver 3.9.1-5
 %define utillinuxver 2.15.1
 %define dracutver 034-7
 %define isomd5sum 1.0.10
@@ -64,7 +63,7 @@ BuildRequires: pykickstart >= %{pykickstartver}
 BuildRequires: python-bugzilla
 %endif
 BuildRequires: python-devel
-BuildRequires: python-urlgrabber >= %{pythonurlgrabberver}
+BuildRequires: python-requests
 BuildRequires: python-nose
 BuildRequires: systemd
 BuildRequires: yum >= %{yumver}
@@ -100,7 +99,7 @@ Requires: rpm-python >= %{rpmver}
 Requires: parted >= %{partedver}
 Requires: pyparted >= %{pypartedver}
 Requires: yum >= %{yumver}
-Requires: python-urlgrabber >= %{pythonurlgrabberver}
+Requires: python-requests
 Requires: pykickstart >= %{pykickstartver}
 Requires: langtable-data >= %{langtablever}
 Requires: langtable-python >= %{langtablever}
