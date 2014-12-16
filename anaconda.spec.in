@@ -323,6 +323,14 @@ update-desktop-database &> /dev/null || :
 %{_datadir}/anaconda/help/*
 
 %changelog
+* Mon Dec 15 2014 Brian C. Lane <bcl@redhat.com> - 19.31.116-1
+- Fix the way we create the list of DASDs needing dasdfmt. (sbueno+anaconda)
+  Related: rhbz#1073982
+- Fix threading issues for dasdfmt in gui storage. (sbueno+anaconda)
+  Resolves: rhbz#1073982
+- Make sure /boot is not LVM LV if we're on s390x (sbueno+anaconda)
+  Resolves: rhbz#873135
+
 * Tue Dec 09 2014 Brian C. Lane <bcl@redhat.com> - 19.31.115-1
 - Fix EOF error that occurs if user input required in x3270. (jstodola)
   Resolves: rhbz#1171135
