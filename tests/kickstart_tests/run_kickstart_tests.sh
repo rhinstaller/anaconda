@@ -45,11 +45,13 @@ runone() {
     ks=${t/.sh/.ks}
     . $t
 
+    name=$(basename ${t%.sh})
+
     echo ${ks}
     echo ==============================
 
     # qemu user needs to be able to read the directory.
-    tmpdir=$(mktemp -d --tmpdir=/var/tmp)
+    tmpdir=$(mktemp -d --tmpdir=/var/tmp kstest-${name}.XXXXXXXX)
     chmod 755 ${tmpdir}
 
     ksfile=$(prepare ${ks} ${tmpdir})
@@ -93,14 +95,10 @@ runone() {
             return 1
         fi
 
-        validate ${trimmed}
+        result=$(validate ${trimmed})
         if [[ $? != 0 ]]; then
-            echo FAILED
-            rm -rf ${tmpdir}
-            unset kernel_args prep validate
-            return 1
-        elif [[ "${result}" != "SUCCESS" ]]; then
             echo ${result}
+            echo FAILED
             rm -rf ${tmpdir}
             unset kernel_args prep validate
             return 1
