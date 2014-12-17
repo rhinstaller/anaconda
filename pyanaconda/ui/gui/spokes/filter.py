@@ -33,6 +33,7 @@ from pyanaconda.ui.lib.disks import getDisks, isLocalDisk
 from pyanaconda.ui.gui.spokes import NormalSpoke
 from pyanaconda.ui.gui.spokes.advstorage.fcoe import FCoEDialog
 from pyanaconda.ui.gui.spokes.advstorage.iscsi import ISCSIDialog
+from pyanaconda.ui.gui.spokes.advstorage.zfcp import ZFCPDialog
 from pyanaconda.ui.gui.spokes.advstorage.dasd import DASDDialog
 from pyanaconda.ui.gui.spokes.lib.cart import SelectedDisksDialog
 from pyanaconda.ui.categories.system import SystemCategory
@@ -43,7 +44,7 @@ DiskStoreRow = namedtuple("DiskStoreRow", ["visible", "selected", "mutable",
                                            "name", "type", "model", "capacity",
                                            "vendor", "interconnect", "serial",
                                            "wwid", "paths", "port", "target",
-                                           "lun", "ccw"])
+                                           "lun", "ccw", "wwpn"])
 
 class FilterPage(object):
     """A FilterPage is the logic behind one of the notebook tabs on the filter
@@ -244,7 +245,7 @@ class MultipathPage(FilterPage):
                           disk.name, "", disk.model, str(disk.size),
                           disk.vendor, disk.bus, disk.serial,
                           disk.wwid, "\n".join(paths), "", "",
-                          "", ""])
+                          "", "", ""])
             if not disk.vendor in vendors:
                 vendors.append(disk.vendor)
 
@@ -304,6 +305,7 @@ class OtherPage(FilterPage):
         interconnects = []
 
         for disk in disks:
+            paths = [d.name for d in disk.parents]
             selected = disk.name in selectedNames
 
             if hasattr(disk, "node"):
@@ -317,7 +319,7 @@ class OtherPage(FilterPage):
                           disk.name, "", disk.model, str(disk.size),
                           disk.vendor, disk.bus, disk.serial,
                           self._long_identifier(disk), "", port, getattr(disk, "initiator", ""),
-                          lun, ""])
+                          lun, "", ""])
 
             if not disk.vendor in vendors:
                 vendors.append(disk.vendor)
@@ -366,19 +368,74 @@ class ZPage(FilterPage):
         self.model = self.builder.get_object("zModel")
         self.model.set_visible_func(self.visible_func)
 
+        self._ccwEntry = self.builder.get_object("zCCWEntry")
+        self._wwpnEntry = self.builder.get_object("zWWPNEntry")
+        self._lunEntry = self.builder.get_object("zLUNEntry")
+
         self._isS390 = arch.isS390()
+
+    def clear(self):
+        self._lunEntry.set_text("")
+        self._ccwEntry.set_text("")
+        self._wwpnEntry.set_text("")
 
     def ismember(self, device):
         return isinstance(device, ZFCPDiskDevice) or isinstance(device, DASDDevice)
 
     def setup(self, store, selectedNames, disks):
+        """ Set up our Z-page, but only if we're running on s390x. """
         if not self._isS390:
             return
+        else:
+            ccws = []
+            wwpns = []
+            luns = []
+
+            self._combo = self.builder.get_object("zTypeCombo")
+            self._combo.set_active(0)
+            self._combo.emit("changed")
+
+            for disk in disks:
+                paths = [d.name for d in disk.parents]
+                selected = disk.name in selectedNames
+
+                if getattr(disk, "type") == "zfcp":
+                    # remember to store all of the zfcp-related junk so we can
+                    # see it in the UI
+                    if not disk.fcp_lun in luns:
+                        luns.append(disk.fcp_lun)
+                    if not disk.wwpn in wwpns:
+                        wwpns.append(disk.wwpn)
+                    if not disk.hba_id in ccws:
+                        ccws.append(disk.hba_id)
+
+                    # now add it to our store
+                    store.append([True, selected, not disk.protected,
+                                  disk.name, "", disk.model, size_str(disk.size),
+                                  disk.vendor, disk.bus, disk.serial, "", "\n".join(paths),
+                                  "", "", disk.fcp_lun, disk.hba_id, disk.wwpn])
+
+    def _filter_func(self, device):
+        if not self.filterActive:
+            return True
+
+        filterBy = self._combo.get_active()
+
+        if filterBy == 0:
+            return True
+        elif filterBy == 1:
+            return self._ccwEntry.get_text() in device.hba_id
+        elif filterBy == 2:
+            return self._wwpnEntry.get_text() in device.wwpn
+        elif filterBy == 3:
+            return self._lunEntry.get_text() in device.fcp_lun
+
+        return False
 
     def visible_func(self, model, itr, *args):
         obj = DiskStoreRow(*model[itr])
         device = self.storage.devicetree.getDeviceByName(obj.name, hidden=True)
-        return self.ismember(device)
+        return self.ismember(device) and self._filter_func(device)
 
 class FilterSpoke(NormalSpoke):
     builderObjects = ["diskStore", "filterWindow",
@@ -464,7 +521,7 @@ class FilterSpoke(NormalSpoke):
         # these lists of disks, then call setup on each individual page.  This is
         # because there could be page-specific setup to do that requires a complete
         # view of all the disks on that page.
-        for disk in itertools.ifilterfalse(isLocalDisk, self.disks):
+        for disk in self.disks:
             if self.pages[1].ismember(disk):
                 multipathDisks.append(disk)
             elif self.pages[2].ismember(disk):
@@ -572,7 +629,15 @@ class FilterSpoke(NormalSpoke):
         self.refresh()
 
     def on_add_zfcp_clicked(self, widget, *args):
-        pass
+        dialog = ZFCPDialog(self.data, self.storage)
+
+        with enlightbox(self.window, dialog.window):
+            dialog.refresh()
+            dialog.run()
+
+        # We now need to refresh so any new disks picked up by adding advanced
+        # storage are displayed in the UI.
+        self.refresh()
 
     def on_add_dasd_clicked(self, widget, *args):
         dialog = DASDDialog(self.data, self.storage)
@@ -622,6 +687,20 @@ class FilterSpoke(NormalSpoke):
         notebook = self.builder.get_object("otherTypeNotebook")
         findButton = self.builder.get_object("otherFindButton")
         clearButton = self.builder.get_object("otherClearButton")
+
+        findButton.set_sensitive(ndx != 0)
+        clearButton.set_sensitive(ndx != 0)
+        notebook.set_current_page(ndx)
+
+    ##
+    ## Z TAB SIGNAL HANDLERS
+    ##
+    def on_z_type_combo_changed(self, combo):
+        ndx = combo.get_active()
+
+        notebook = self.builder.get_object("zTypeNotebook")
+        findButton = self.builder.get_object("zFindButton")
+        clearButton = self.builder.get_object("zClearButton")
 
         findButton.set_sensitive(ndx != 0)
         clearButton.set_sensitive(ndx != 0)
