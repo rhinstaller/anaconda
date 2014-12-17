@@ -37,12 +37,16 @@ cat <<EOF > /usr/bin/run-test.sh
 
 # We don't have a way of determining if a group/env is installed or not.
 # These sentinel packages will have to do.
-if [[ \$(rpm -q httpd) != 0 ]]; then
-    echo FAILURE > /root/RESULT
-elif [[ \$(rpm -q gcc) != 0 ]]; then
-    echo FAILURE > /root/RESULT
+rpm -q httpd
+if [[ \$? != 0 ]]; then
+    echo '*** web-server-environment was not installed' > /root/RESULT
 else
-    echo SUCCESS > /root/RESULT
+    rpm -q gcc
+    if [[ \$? != 0 ]]; then
+        echo '*** c-development was not installed' > /root/RESULT
+    else
+        echo SUCCESS > /root/RESULT
+    fi
 fi
 
 shutdown -h now

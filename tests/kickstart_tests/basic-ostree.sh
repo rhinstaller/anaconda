@@ -52,7 +52,7 @@ validate() {
     result=$(virt-cat -a ${img} -m /dev/sda2 /ostree/deploy/fedora-atomic/var/roothome/RESULT)
     if [[ $? != 0 ]]; then
         status=1
-        echo /root/RESULT does not exist in VM image.
+        echo '*** /root/RESULT does not exist in VM image.'
     elif [[ "${result}" != "SUCCESS" ]]; then
         status=1
         echo ${result}
