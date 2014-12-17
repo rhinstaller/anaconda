@@ -1784,14 +1784,20 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         #
         if changed_name:
             self.clear_errors()
-            use_dev._name = name
-            new_name = use_dev.name
-            log.debug("changing name of %s to %s", old_name, new_name)
-            if new_name in self.__storage.names:
-                use_dev._name = old_name
-                self.set_info(_("Specified name %s already in use.") % new_name)
+            try:
+                use_dev.name = name
+            except ValueError as e:
+                self._error = e
+                self.set_error(_("Invalid device name: %s") % name)
+                self.window.show_all()
             else:
-                selectorFromDevice(device, selector=selector)
+                new_name = use_dev.name
+                log.debug("changing name of %s to %s", old_name, new_name)
+                if new_name in self.__storage.names:
+                    use_dev.name = old_name
+                    self.set_info(_("Specified name %s already in use.") % new_name)
+                else:
+                    selectorFromDevice(device, selector=selector)
 
         self._populate_right_side(selector)
 
@@ -2687,10 +2693,17 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
                 self.__storage.devicetree.names.remove(container.name)
                 self.__storage.devicetree.names.append(self._device_container_name)
 
-            # until there's a setter for btrfs volume name 
-            container._name = self._device_container_name
-            if container.format.type == "btrfs":
-                container.format.label = self._device_container_name
+            try:
+                container.name = self._device_container_name
+            except ValueError as e:
+                self._error = e
+                self.set_error(_("Invalid device name: %s") % self._device_container_name)
+                self.window.show_all()
+                self._device_container_name = container_name
+                return
+            else:
+                if container.format.type == "btrfs":
+                    container.format.label = self._device_container_name
 
         container_exists = getattr(container, "exists", False)
         found = None
