@@ -42,6 +42,8 @@ class RPMOSTreePayload(ArchivePayload):
     """ A RPMOSTreePayload deploys a tree (possibly with layered packages) onto the target system. """
     def __init__(self, data):
         super(RPMOSTreePayload, self).__init__(data)
+        self._remoteOptions = None
+        self._sysroot_path = None
 
     @property
     def handlesBootloaderConfiguration(self):
@@ -256,7 +258,7 @@ class RPMOSTreePayload(ArchivePayload):
 
     def postInstall(self):
         super(RPMOSTreePayload, self).postInstall()
-        
+
         from gi.repository import OSTree
         cancellable = None
 
