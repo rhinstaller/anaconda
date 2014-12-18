@@ -244,6 +244,15 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         self._containerStore = self.builder.get_object("containerStore")
         self._deviceDescLabel = self.builder.get_object("deviceDescLabel")
 
+        # Set the fixed-size properties on the volume group ComboBox renderers to
+        # False so that the "Create a new..." row can overlap with the free space
+        # on the other rows. These properties are not accessible from glade.
+        cell_area = self._containerCombo.get_area()
+        descRenderer = self.builder.get_object("descRenderer")
+        freeSpaceRenderer = self.builder.get_object("freeSpaceRenderer")
+        cell_area.cell_set_property(descRenderer, "fixed-size", False)
+        cell_area.cell_set_property(freeSpaceRenderer, "fixed-size", False)
+
         self._passphraseEntry = self.builder.get_object("passphraseEntry")
 
         # Stores
