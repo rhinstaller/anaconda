@@ -26,6 +26,7 @@ fi
 # The boot.iso location can come from one of two different places:
 # (1) $TEST_BOOT_ISO, if this script is being called from "make check"
 # (2) The command line, if this script is being called directly.
+IMAGE=""
 if [[ "${TEST_BOOT_ISO}" != "" ]]; then
     IMAGE=${TEST_BOOT_ISO}
 elif [[ $# != 0 ]]; then
@@ -38,9 +39,28 @@ if [[ ! -e "${IMAGE}" ]]; then
     exit 77
 fi
 
+# Possible values for this parameter:
+# 0 - Keep nothing (the default)
+# 1 - Keep log files
+# 2 - Keep log files and disk images (will take up a lot of space)
+KEEPIT=${KEEPIT:-0}
+
+export IMAGE KEEPIT
+
+cleanup() {
+    d=$1
+
+    if [[ ${KEEPIT} == 2 ]]; then
+        return
+    elif [[ ${KEEPIT} == 1 ]]; then
+        rm -f ${d}/*img ${d}/*ks
+    elif [[ ${KEEPIT} == 0 ]]; then
+        rm -rf ${d}
+    fi
+}
+
 runone() {
-    img=$1
-    t=$2
+    t=$1
 
     ks=${t/.sh/.ks}
     . $t
@@ -57,7 +77,7 @@ runone() {
     ksfile=$(prepare ${ks} ${tmpdir})
     if [[ $? != 0 ]]; then
         echo Test prep failed: ${ksfile}
-        rm -rf ${tmpdir}
+        cleanup ${tmpdir}
         unset kernel_args prep validate
         return 1
     fi
@@ -69,7 +89,7 @@ runone() {
 
     livemedia-creator ${kargs} \
                       --make-disk \
-                      --iso "${img}" \
+                      --iso "${IMAGE}" \
                       --ks ${ksfile} \
                       --tmp ${tmpdir} \
                       --logfile ${tmpdir}/livemedia.log \
@@ -81,7 +101,7 @@ runone() {
                       --vnc vnc
     if [[ $? != 0 ]]; then
         echo $(grep CRIT ${tmpdir}/virt-install.log)
-        rm -rf ${tmpdir}
+        cleanup ${tmpdir}
         unset kernel_args prep validate
         return 1
     elif [[ -f ${tmpdir}/livemedia.log ]]; then
@@ -90,30 +110,30 @@ runone() {
 
         if [[ ! -f ${trimmed} ]]; then
             echo Disk image ${trimmed} does not exist.
-            rm -rf ${tmpdir}
+            cleanup ${tmpdir}
             unset kernel_args prep validate
             return 1
         fi
 
         result=$(validate ${trimmed})
         if [[ $? != 0 ]]; then
-            echo ${result}
+            echo '${result}'
             echo FAILED
-            rm -rf ${tmpdir}
+            cleanup ${tmpdir}
             unset kernel_args prep validate
             return 1
         fi
     fi
 
     echo SUCCESS
-    rm -rf ${tmpdir}
+    cleanup ${tmpdir}
     unset kernel_args prep validate
     return 0
 }
 
-export -f runone
+export -f cleanup runone
 
 # Round up all the kickstart tests we want to run, skipping those that are not
 # executable as well as this file itself.
 find kickstart_tests -name '*sh' -a -perm -o+x -a \! -wholename 'kickstart_tests/run_kickstart_tests.sh' | \
-parallel --jobs 2 runone ${IMAGE} {}
+parallel --jobs 2 runone {}
