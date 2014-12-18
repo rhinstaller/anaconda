@@ -108,9 +108,6 @@
                 <property name="margin_left">6</property>
                 <property name="margin_right">6</property>
                 <property name="margin_top">6</property>
-                <child>
-                  <placeholder/>
-                </child>
               </object>
             </child>
           </object>
@@ -661,7 +658,9 @@
                                                         <signal name="changed" handler="on_device_type_changed" swapped="no"/>
                                                         <signal name="changed" handler="on_value_changed" swapped="no"/>
                                                         <child>
-                                                          <object class="GtkCellRendererText" id="deviceTypeRenderer"/>
+                                                          <object class="GtkCellRendererText" id="deviceTypeRenderer">
+                                                            <property name="ellipsize">end</property>
+                                                          </object>
                                                           <attributes>
                                                             <attribute name="text">0</attribute>
                                                           </attributes>
@@ -833,7 +832,9 @@
                                                         <signal name="changed" handler="on_container_changed" swapped="no"/>
                                                         <signal name="changed" handler="on_value_changed" swapped="no"/>
                                                         <child>
-                                                          <object class="GtkCellRendererText" id="descRenderer"/>
+                                                          <object class="GtkCellRendererText" id="descRenderer">
+                                                            <property name="ellipsize">middle</property>
+                                                          </object>
                                                           <attributes>
                                                             <attribute name="text">0</attribute>
                                                           </attributes>
@@ -916,7 +917,9 @@
                                                     <property name="model">raidStoreFiltered</property>
                                                     <signal name="changed" handler="on_value_changed" swapped="no"/>
                                                     <child>
-                                                      <object class="GtkCellRendererText" id="raidLevelRenderer"/>
+                                                      <object class="GtkCellRendererText" id="raidLevelRenderer">
+                                                        <property name="ellipsize">end</property>
+                                                      </object>
                                                       <attributes>
                                                         <attribute name="markup">0</attribute>
                                                       </attributes>
