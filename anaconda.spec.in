@@ -323,6 +323,10 @@ update-desktop-database &> /dev/null || :
 %{_datadir}/anaconda/help/*
 
 %changelog
+* Thu Dec 18 2014 Brian C. Lane <bcl@redhat.com> - 19.31.117-1
+- Don't install langpacks.conf if nowhere to install to (dshea)
+  Resolves: rhbz#1172004
+
 * Mon Dec 15 2014 Brian C. Lane <bcl@redhat.com> - 19.31.116-1
 - Fix the way we create the list of DASDs needing dasdfmt. (sbueno+anaconda)
   Related: rhbz#1073982
