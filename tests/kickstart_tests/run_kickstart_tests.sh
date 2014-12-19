@@ -117,7 +117,7 @@ runone() {
 
         result=$(validate ${trimmed})
         if [[ $? != 0 ]]; then
-            echo '${result}'
+            echo "${result}"
             echo FAILED
             cleanup ${tmpdir}
             unset kernel_args prep validate
