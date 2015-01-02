@@ -831,7 +831,7 @@ class LogVolData(commands.logvol.F21_LogVolData):
             else:
                 ty = storage.defaultFSType
 
-        if size is None:
+        if size is None and not self.preexist:
             if not self.size:
                 raise KickstartValueError(formatErrorMsg(self.lineno,
                     msg="Size can not be decided on from kickstart nor obtained from device."))
