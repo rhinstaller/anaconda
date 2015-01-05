@@ -80,12 +80,12 @@ class InstallInterfaceBase(object):
         title = P_("Unformatted DASD Device Found",
                    "Unformatted DASD Devices Found", c)
         msg = P_("Format uninitialized DASD device?\n\n"
-                 "There is %d uninitialized DASD device on this "
+                 "There is %d uninitialized or LDL DASD device on this "
                  "system.  To continue installation, the device must "
                  "be formatted.  Formatting will remove any data on "
                  "this device." % c,
                  "Format uninitialized DASD devices?\n\n"
-                 "There are %d uninitialized DASD devices on this "
+                 "There are %d uninitialized or LDL DASD devices on this "
                  "system.  To continue installation, the devices must "
                  "be formatted.  Formatting will remove any data on "
                  "these devices." % c,

@@ -20,6 +20,7 @@
 #
 
 import iutil
+import isys
 import sys
 import os
 from storage.errors import DasdFormatError
@@ -59,6 +60,9 @@ class DASD:
     def startup(self, intf, exclusiveDisks, zeroMbr):
         """ Look for any unformatted DASDs in the system and offer the user
             the option for format them with dasdfmt or exit the installer.
+
+            Also check if any DASDs are LDL formatted and show a warning to
+            users, since these disks will not be usable during installation.
         """
         if self.started:
             return
@@ -73,7 +77,7 @@ class DASD:
         # Trigger udev data about the dasd devices on the system
         udev_trigger(action="change", name="dasd*")
 
-        log.info("Checking for unformatted DASD devices:")
+        log.info("Checking for unformatted and LDL DASD devices:")
 
         for device in os.listdir("/sys/block"):
             if not device.startswith("dasd"):
@@ -87,18 +91,23 @@ class DASD:
             status = f.read().strip()
             f.close()
 
-            if status in ["unformatted"] and device not in exclusiveDisks:
-                bypath = deviceNameToDiskByPath(device)
-                if not bypath:
-                    bypath = "/dev/" + device
+            bypath = deviceNameToDiskByPath(device)
+            if not bypath:
+                bypath = "/dev/" + device
 
+            if status in ["unformatted"] and device not in exclusiveDisks:
                 log.info("    %s (%s) status is %s, needs dasdfmt" % (device,
                                                                       bypath,
                                                                       status,))
                 self._dasdlist.append((device, bypath))
 
+            elif isys.isLdlDasd(device):
+                log.info("     %s (%s) is an LDL DASD, needs dasdfmt" % (device,
+                                                                         bypath))
+                self._dasdlist.append((device, bypath))
+
         if not len(self._dasdlist):
-            log.info("    no unformatted DASD devices found")
+            log.info("    no unformatted or LDL DASD devices found")
             return
 
         askUser = True
