@@ -127,15 +127,6 @@ class ErrorHandler(object):
         self.ui.showError(message)
         return ERROR_RAISE
 
-    def _dirtyFSHandler(self, exn):
-        message = _("The following file systems for your Linux system were "
-                    "not unmounted cleanly.  Would you like to mount them "
-                    "anyway?\n%s") % exn.devices
-        if self.ui.showYesNoQuestion(message):
-            return ERROR_CONTINUE
-        else:
-            return ERROR_RAISE
-
     def _fstabTypeMismatchHandler(self, exn):
         # FIXME: include the two types in the message instead of including
         #        the raw exception text
@@ -294,7 +285,6 @@ class ErrorHandler(object):
         _map = {"PartitioningError": self._partitionErrorHandler,
                 "FSResizeError": self._fsResizeHandler,
                 "NoDisksError": self._noDisksHandler,
-                "DirtyFSError": self._dirtyFSHandler,
                 "FSTabTypeMismatchError": self._fstabTypeMismatchHandler,
                 "InvalidImageSizeError": self._invalidImageSizeHandler,
                 "MissingImageError": self._missingImageHandler,
