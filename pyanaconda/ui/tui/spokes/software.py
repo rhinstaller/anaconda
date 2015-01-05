@@ -57,7 +57,6 @@ class SoftwareSpoke(NormalTUISpoke):
     def showable(self):
         return isinstance(self.payload, PackagePayload)
 
-
     @property
     def status(self):
         """ Where we are in the process """
@@ -107,6 +106,8 @@ class SoftwareSpoke(NormalTUISpoke):
         """ Refresh screen. """
         NormalTUISpoke.refresh(self, args)
 
+        threadMgr.wait(THREAD_PAYLOAD)
+
         if not self.payload.baseRepo:
             message = TextWidget(_("Installation source needs to be set up first."))
             self._window.append(message)
@@ -128,7 +129,6 @@ class SoftwareSpoke(NormalTUISpoke):
             name = self.payload.environmentDescription(env)[0]
 
             displayed.append(CheckboxWidget(title="%s" % name, completed=(environments.index(env) == self._selection)))
-        print(_("Base environment"))
 
         def _prep(i, w):
             """ Do some format magic for display. """
