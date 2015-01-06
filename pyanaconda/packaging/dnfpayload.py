@@ -189,6 +189,7 @@ class DNFPayload(packaging.PackagePayload):
     def unsetup(self):
         super(DNFPayload, self).unsetup()
         self._base = None
+        self._configure()
 
     def _replace_vars(self, url):
         """ Replace url variables with their values
@@ -342,6 +343,12 @@ class DNFPayload(packaging.PackagePayload):
         # NSS won't survive the forking we do to shield out chroot during
         # transaction, disable it in RPM:
         conf.tsflags.append('nocrypto')
+
+        # Start with an empty comps so we can go ahead and use the environment
+        # and group properties. Unset reposdir to ensure dnf has nothing it can
+        # check automatically
+        conf.reposdir = []
+        self._base.read_comps()
 
         conf.reposdir = REPO_DIRS
 
