@@ -183,7 +183,7 @@ class YumPayload(PackagePayload):
 
         self.reset()
 
-    def reset(self, root=None, releasever=None):
+    def reset(self):
         """ Reset this instance to its initial (unconfigured) state. """
 
         super(YumPayload, self).reset()
@@ -192,7 +192,7 @@ class YumPayload(PackagePayload):
         # available we can use that as a better value.
         self._space_required = Size("3000 MB")
 
-        self._resetYum(root=root, releasever=releasever)
+        self._resetYum()
 
     def setup(self, storage, instClass):
         super(YumPayload, self).setup(storage, instClass)
@@ -500,7 +500,7 @@ reposdir=%s
             return super(YumPayload, self).isRepoEnabled(repo_id)
 
     @refresh_base_repo()
-    def updateBaseRepo(self, fallback=True, root=None, checkmount=True):
+    def updateBaseRepo(self, fallback=True, checkmount=True):
         """ Update the base repo based on self.data.method.
 
             - Tear down any previous base repo devices, symlinks, &c.
@@ -531,7 +531,7 @@ reposdir=%s
                           method.method, e)
 
         # start with a fresh YumBase instance & tear down old install device
-        self._resetYum(root=root, releasever=releasever)
+        self._resetYum(releasever=releasever)
         self._yumCacheDirHack()
 
         # If this is a kickstart install and no method has been set up, or

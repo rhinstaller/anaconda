@@ -676,7 +676,7 @@ class DNFPayload(packaging.PackagePayload):
         self.requiredGroups = groups
         self.addDriverRepos()
 
-    def reset(self, root=None, releasever=None):
+    def reset(self):
         super(DNFPayload, self).reset()
         self.txID = None
         self._base.reset(sack=True, repos=True)
@@ -684,7 +684,7 @@ class DNFPayload(packaging.PackagePayload):
     def selectEnvironment(self, env_id):
         self._select_environment(env_id)
 
-    def updateBaseRepo(self, fallback=True, root=None, checkmount=True):
+    def updateBaseRepo(self, fallback=True, checkmount=True):
         log.info('configuring base repo')
         self.reset()
         url, mirrorlist, sslverify = self._setupInstallDevice(self.storage,

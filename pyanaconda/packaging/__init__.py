@@ -130,7 +130,6 @@ class Payload(object):
         self.instclass = None
         self._kernelVersionList = []
         self._rescueVersionList = []
-        self._createdInitrds = False
         self.txID = None
 
     def setup(self, storage, instClass):
@@ -156,7 +155,7 @@ class Payload(object):
         """
         pass
 
-    def reset(self, root=None, releasever=None):
+    def reset(self):
         """ Reset the instance, not including ksdata. """
         pass
 
@@ -222,7 +221,7 @@ class Payload(object):
     def needsNetwork(self):
         return any(self._repoNeedsNetwork(r) for r in self.data.repo.dataList())
 
-    def updateBaseRepo(self, fallback=True, root=None, checkmount=True):
+    def updateBaseRepo(self, fallback=True, checkmount=True):
         """ Update the base repository from ksdata.method. """
         pass
 
@@ -541,19 +540,14 @@ class Payload(object):
                 # XXX TODO: real error handling, as this is probably going to
                 #           prevent boot on some systems
 
-    def recreateInitrds(self, force=False):
+    def recreateInitrds(self):
         """ Recreate the initrds by calling new-kernel-pkg
 
             This needs to be done after all configuration files have been
             written, since dracut depends on some of them.
 
-            :param force: Always recreate, default is to only do it on first call
-            :type force: bool
             :returns: None
         """
-        if not force and self._createdInitrds:
-            return
-
         for kernel in self.kernelVersionList:
             log.info("recreating initrd for %s", kernel)
             if not flags.imageInstall:
@@ -568,9 +562,6 @@ class Payload(object):
                                      "--persistent-policy", "by-uuid",
                                      "-f", "/boot/initramfs-%s.img" % kernel,
                                     kernel])
-
-        self._createdInitrds = True
-
 
     def _setDefaultBootTarget(self):
         """ Set the default systemd target for the system. """
@@ -739,7 +730,7 @@ class PackagePayload(Payload):
     def rpmMacros(self, value):
         self._rpm_macros = value
 
-    def reset(self, root=None, releasever=None):
+    def reset(self):
         self.reset_install_device()
 
     def reset_install_device(self):
@@ -1265,42 +1256,3 @@ class PayloadManager(object):
 
 # Initialize the PayloadManager instance
 payloadMgr = PayloadManager()
-
-def show_groups(payload):
-    #repo = ksdata.RepoData(name="anaconda", baseurl="http://cannonball/install/rawhide/os/")
-    #obj.addRepo(repo)
-
-    desktops = []
-    addons = []
-
-    for grp in payload.groups:
-        if grp.endswith("-desktop"):
-            desktops.append(payload.description(grp))
-        elif not grp.endswith("-support"):
-            addons.append(payload.description(grp))
-
-    import pprint
-
-    print("==== DESKTOPS ====")
-    pprint.pprint(desktops)
-    print("==== ADDONS ====")
-    pprint.pprint(addons)
-
-    print(payload.groups)
-
-def print_txmbrs(payload, f=None):
-    if f is None:
-        f = sys.stdout
-
-    print("###########", file=f)
-    for txmbr in payload._yum.tsInfo.getMembers():
-        print(txmbr, file=f)
-    print("###########", file=f)
-
-def write_txmbrs(payload, filename):
-    if os.path.exists(filename):
-        os.unlink(filename)
-
-    f = open(filename, 'w')
-    print_txmbrs(payload, f)
-    f.close()

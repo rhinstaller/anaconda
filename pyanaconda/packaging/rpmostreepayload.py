@@ -250,7 +250,7 @@ class RPMOSTreePayload(ArchivePayload):
                                        ["--create", "--boot", "--root=" + iutil.getSysroot(),
                                         "--prefix=/var/" + varsubdir])
 
-    def recreateInitrds(self, force=False):
+    def recreateInitrds(self):
         # For rpmostree payloads, we're replicating an initramfs from
         # a compose server, and should never be regenerating them
         # per-machine.

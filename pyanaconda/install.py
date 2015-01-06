@@ -104,7 +104,7 @@ def doConfiguration(storage, payload, ksdata, instClass):
         ksdata.addons.execute(storage, ksdata, instClass, u)
 
     with progress_report(_("Generating initramfs")):
-        payload.recreateInitrds(force=True)
+        payload.recreateInitrds()
 
     if willRunRealmd:
         with progress_report(_("Joining realm: %s") % ksdata.realm.discovered):
