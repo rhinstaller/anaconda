@@ -22,7 +22,6 @@
 __all__ = ["UserInterface"]
 
 import copy
-import os
 from pyanaconda.ui.common import collect
 
 class PathDict(dict):
