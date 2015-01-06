@@ -56,9 +56,9 @@ def collect_addon_paths(toplevel_addon_paths, ui_subdir="gui"):
             if os.path.isdir(addon_spoke_path):
                 module_paths["spokes"].append(("%s.%s.spokes.%%s" % (addon_id, ui_subdir), addon_spoke_path))
 
-            addon_category_path = os.path.join(path, addon_id, ui_subdir, "categories")
-            if os.path.isdir(addon_spoke_path):
-                module_paths["categories"].append(("%s.%s.categories.%%s" % (addon_id, ui_subdir), addon_category_path))
+            addon_category_path = os.path.join(path, addon_id, "categories")
+            if os.path.isdir(addon_category_path):
+                module_paths["categories"].append(("%s.categories.%%s" % addon_id, addon_category_path))
 
     return module_paths
 
