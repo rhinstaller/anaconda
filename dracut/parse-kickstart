@@ -103,8 +103,8 @@ class NFS(commands.nfs.FC6_NFS):
         else:
             method="nfs:%s:%s" % (self.server, self.dir)
 
-        # Spaces on the cmdline need to be \x20
-        method = method.replace(" ", "\\x20")
+        # Spaces on the cmdline need to be '\ '
+        method = method.replace(" ", "\\ ")
         return "inst.repo=%s" % method
 
 class URL(commands.url.F18_Url):
