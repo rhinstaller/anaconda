@@ -182,8 +182,6 @@ def do_transaction(base, queue):
 class DNFPayload(packaging.PackagePayload):
     def __init__(self, data):
         packaging.PackagePayload.__init__(self, data)
-        if rpm is None or dnf is None:
-            raise packaging.PayloadError("unsupported payload type")
 
         self._base = None
         self._configure()
