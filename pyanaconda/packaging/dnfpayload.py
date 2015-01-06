@@ -471,8 +471,6 @@ class DNFPayload(packaging.PackagePayload):
             dnf_repo.load()
         except dnf.exceptions.RepoError as e:
             id_ = dnf_repo.id
-            if id_ == self.baseRepo:
-                raise packaging.MetadataError(str(e))
             log.info('_sync_metadata: addon repo error: %s', e)
             self.disableRepo(id_)
 
