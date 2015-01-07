@@ -1585,7 +1585,7 @@
                     </child>
                     <child>
                       <object class="GtkButton" id="addDASDButton">
-                        <property name="label" translatable="yes">Add EC_KD DASD...</property>
+                        <property name="label" translatable="yes" context="GUI|Installation Destination|Filter">Add EC_KD DASD...</property>
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
                         <property name="receives_default">True</property>
