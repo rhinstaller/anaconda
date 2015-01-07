@@ -137,7 +137,7 @@
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
                         <property name="xalign">0</property>
-                        <property name="label" translatable="yes">_Device number:</property>
+                        <property name="label" translatable="yes" context="GUI|Advanced Storage|zFCP|Device Number">_Device number:</property>
                         <property name="use_underline">True</property>
                         <property name="mnemonic_widget">deviceEntry</property>
                       </object>
@@ -187,7 +187,7 @@
                         <property name="show_border">False</property>
                         <child>
                           <object class="GtkButton" id="startButton">
-                            <property name="label" translatable="yes">_Start Discovery</property>
+                            <property name="label" translatable="yes" context="GUI|Advanced Storage|zFCP|Start Discovery">_Start Discovery</property>
                             <property name="visible">True</property>
                             <property name="sensitive">False</property>
                             <property name="can_focus">True</property>
@@ -307,7 +307,7 @@
                             </child>
                             <child>
                               <object class="GtkButton" id="retryButton">
-                                <property name="label" translatable="yes">_Retry Discovery</property>
+                                <property name="label" translatable="yes" context="GUI|Advanced Storage|zFCP|Retry Discovery">_Retry Discovery</property>
                                 <property name="visible">True</property>
                                 <property name="can_focus">True</property>
                                 <property name="receives_default">True</property>
