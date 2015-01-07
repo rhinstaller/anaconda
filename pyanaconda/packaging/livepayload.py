@@ -373,29 +373,50 @@ class LiveImageKSPayload(LiveImagePayload):
                     raise exn
 
         # If this looks like a tarfile, skip trying to mount it
-        if not self.is_tarfile:
-            # Mount the image and check to see if it is a LiveOS/*.img
-            # style squashfs image. If so, move it to IMAGE_DIR and mount the real
-            # root image on INSTALL_TREE
-            blivet.util.mount(self.image_path, INSTALL_TREE, fstype="auto", options="ro")
-            if os.path.exists(INSTALL_TREE+"/LiveOS"):
-                # Find the first .img in the directory and mount that on INSTALL_TREE
-                img_files = glob.glob(INSTALL_TREE+"/LiveOS/*.img")
-                if img_files:
-                    img_file = os.path.basename(sorted(img_files)[0])
+        if self.is_tarfile:
+            return
 
-                    # move the mount to IMAGE_DIR
-                    os.makedirs(IMAGE_DIR, 0o755)
-                    # work around inability to move shared filesystems
-                    iutil.execWithRedirect("mount",
-                                           ["--make-rprivate", "/"])
-                    iutil.execWithRedirect("mount",
-                                           ["--move", INSTALL_TREE, IMAGE_DIR])
-                    blivet.util.mount(IMAGE_DIR+"/LiveOS/"+img_file, INSTALL_TREE,
-                                      fstype="auto", options="ro")
+        # Mount the image and check to see if it is a LiveOS/*.img
+        # style squashfs image. If so, move it to IMAGE_DIR and mount the real
+        # root image on INSTALL_TREE
+        rc = blivet.util.mount(self.image_path, INSTALL_TREE, fstype="auto", options="ro")
+        if rc != 0:
+            log.error("mount error (%s) with %s", rc, self.image_path)
+            exn = PayloadInstallError("mount error %s" % rc)
+            if errorHandler.cb(exn) == ERROR_RAISE:
+                raise exn
 
-                    source = iutil.eintr_retry_call(os.statvfs, INSTALL_TREE)
-                    self.source_size = source.f_frsize * (source.f_blocks - source.f_bfree)
+        # Nothing more to mount
+        if not os.path.exists(INSTALL_TREE+"/LiveOS"):
+            return
+
+        # Mount the first .img in the directory on INSTALL_TREE
+        img_files = glob.glob(INSTALL_TREE+"/LiveOS/*.img")
+        if img_files:
+            # move the mount to IMAGE_DIR
+            os.makedirs(IMAGE_DIR, 0o755)
+            # work around inability to move shared filesystems
+            rc = iutil.execWithRedirect("mount",
+                                        ["--make-rprivate", "/"])
+            if rc == 0:
+                rc = iutil.execWithRedirect("mount",
+                                            ["--move", INSTALL_TREE, IMAGE_DIR])
+            if rc != 0:
+                log.error("error %s moving mount", rc)
+                exn = PayloadInstallError("mount error %s" % rc)
+                if errorHandler.cb(exn) == ERROR_RAISE:
+                    raise exn
+
+            img_file = IMAGE_DIR+"/LiveOS/"+os.path.basename(sorted(img_files)[0])
+            rc = blivet.util.mount(img_file, INSTALL_TREE, fstype="auto", options="ro")
+            if rc != 0:
+                log.error("mount error (%s) with %s", rc, img_file)
+                exn = PayloadInstallError("mount error %s with %s" % (rc, img_file))
+                if errorHandler.cb(exn) == ERROR_RAISE:
+                    raise exn
+
+            source = iutil.eintr_retry_call(os.statvfs, INSTALL_TREE)
+            self.source_size = source.f_frsize * (source.f_blocks - source.f_bfree)
 
     def install(self):
         """ Install the payload if it is a tar.
