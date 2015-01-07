@@ -1383,7 +1383,7 @@
                                           <object class="GtkLabel" id="label23">
                                             <property name="visible">True</property>
                                             <property name="can_focus">False</property>
-                                            <property name="label" translatable="yes">_CCW:</property>
+                                            <property name="label" translatable="yes" context="GUI|Installation Destination|Filter|zSeries|CCW">_CCW:</property>
                                             <property name="use_underline">True</property>
                                             <property name="mnemonic_widget">zCCWEntry</property>
                                           </object>
@@ -1432,7 +1432,7 @@
                                           <object class="GtkLabel" id="label24">
                                             <property name="visible">True</property>
                                             <property name="can_focus">False</property>
-                                            <property name="label" translatable="yes">_WWPN:</property>
+                                            <property name="label" translatable="yes" context="GUI|Installation Destination|Filter|zSeries|WWPN">_WWPN:</property>
                                             <property name="use_underline">True</property>
                                             <property name="mnemonic_widget">zWWPNEntry</property>
                                           </object>
@@ -1475,7 +1475,7 @@
                                           <object class="GtkLabel" id="label22">
                                             <property name="visible">True</property>
                                             <property name="can_focus">False</property>
-                                            <property name="label" translatable="yes">_LUN:</property>
+                                            <property name="label" translatable="yes" context="GUI|Installation Destination|Filter|zSeries|LUN">_LUN:</property>
                                             <property name="use_underline">True</property>
                                             <property name="mnemonic_widget">zLUNEntry</property>
                                           </object>
