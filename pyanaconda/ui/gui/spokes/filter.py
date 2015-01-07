@@ -19,6 +19,9 @@
 # Red Hat Author(s): Chris Lumens <clumens@redhat.com>
 #
 
+# pylint: disable-msg=E0611
+from gi.repository import Gtk
+
 from collections import namedtuple
 import itertools
 
@@ -580,11 +583,9 @@ class FilterSpoke(NormalSpoke):
         self.pages[n].filterActive = True
         self.pages[n].model.refilter()
 
-    def on_clear_clicked(self, button):
-        n = self._notebook.get_current_page()
-        self.pages[n].filterActive = False
-        self.pages[n].model.refilter()
-        self.pages[n].clear()
+    def on_clear_icon_clicked(self, entry, icon_pos, event):
+        if icon_pos == Gtk.EntryIconPosition.SECONDARY:
+            entry.set_text("")
 
     def on_page_switched(self, notebook, newPage, newPageNum, *args):
         self.pages[newPageNum].model.refilter()
@@ -664,10 +665,8 @@ class FilterSpoke(NormalSpoke):
 
         notebook = self.builder.get_object("searchTypeNotebook")
         findButton = self.builder.get_object("searchFindButton")
-        clearButton = self.builder.get_object("searchClearButton")
 
         findButton.set_sensitive(ndx != 0)
-        clearButton.set_sensitive(ndx != 0)
         notebook.set_current_page(ndx)
 
     ##
@@ -678,10 +677,8 @@ class FilterSpoke(NormalSpoke):
 
         notebook = self.builder.get_object("multipathTypeNotebook")
         findButton = self.builder.get_object("multipathFindButton")
-        clearButton = self.builder.get_object("multipathClearButton")
 
         findButton.set_sensitive(ndx != 0)
-        clearButton.set_sensitive(ndx != 0)
         notebook.set_current_page(ndx)
 
     ##
@@ -692,10 +689,8 @@ class FilterSpoke(NormalSpoke):
 
         notebook = self.builder.get_object("otherTypeNotebook")
         findButton = self.builder.get_object("otherFindButton")
-        clearButton = self.builder.get_object("otherClearButton")
 
         findButton.set_sensitive(ndx != 0)
-        clearButton.set_sensitive(ndx != 0)
         notebook.set_current_page(ndx)
 
     ##
@@ -706,8 +701,6 @@ class FilterSpoke(NormalSpoke):
 
         notebook = self.builder.get_object("zTypeNotebook")
         findButton = self.builder.get_object("zFindButton")
-        clearButton = self.builder.get_object("zClearButton")
 
         findButton.set_sensitive(ndx != 0)
-        clearButton.set_sensitive(ndx != 0)
         notebook.set_current_page(ndx)
