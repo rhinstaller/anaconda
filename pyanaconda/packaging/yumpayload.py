@@ -1001,7 +1001,7 @@ reposdir=%s
             for group in environment.groups:
                 self.selectGroup(group)
 
-    def environmentGroups(self, environmentid):
+    def environmentGroups(self, environmentid, optional=True):
         groups = self._yumGroups
         if not groups:
             return []
@@ -1011,7 +1011,10 @@ reposdir=%s
                 raise NoSuchGroup(environmentid)
 
             environment = groups.return_environment(environmentid)
-            return environment.groups + environment.options
+            if optional:
+                return environment.groups + environment.options
+            else:
+                return environment.groups
 
     ###
     ### METHODS FOR WORKING WITH GROUPS

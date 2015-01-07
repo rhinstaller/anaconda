@@ -1020,7 +1020,7 @@ class PackagePayload(Payload):
     def selectEnvironment(self, environmentid):
         raise NotImplementedError()
 
-    def environmentGroups(self, environmentid):
+    def environmentGroups(self, environmentid, optional=True):
         raise NotImplementedError()
 
     @property
