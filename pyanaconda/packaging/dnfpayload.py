@@ -462,16 +462,6 @@ class DNFPayload(packaging.PackagePayload):
             # DNF raises this when it is already selected
             log.debug(e)
 
-    def _deselect_environment(self, env_id):
-        env = self._base.comps.environment_by_pattern(env_id)
-        if env is None:
-            raise packaging.NoSuchGroup(env_id)
-        try:
-            self._base.environment_remove(env)
-        except dnf.exceptions.CompsError as e:
-            # DNF raises this when it is already not selected
-            log.debug(e)
-
     def _select_kernel_package(self):
         kernels = self.kernelPackages
         for kernel in kernels:

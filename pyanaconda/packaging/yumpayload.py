@@ -1001,21 +1001,6 @@ reposdir=%s
             for group in environment.groups:
                 self.selectGroup(group)
 
-    def deselectEnvironment(self, environmentid):
-        groups = self._yumGroups
-        if not groups:
-            return
-
-        with _yum_lock:
-            if not groups.has_environment(environmentid):
-                raise NoSuchGroup(environmentid)
-
-            environment = groups.return_environment(environmentid)
-            for group in environment.groups:
-                self.deselectGroup(group)
-            for group in environment.options:
-                self.deselectGroup(group)
-
     def environmentGroups(self, environmentid):
         groups = self._yumGroups
         if not groups:
