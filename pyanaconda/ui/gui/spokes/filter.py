@@ -322,7 +322,7 @@ class OtherPage(FilterPage):
             store.append([True, selected, not disk.protected,
                           disk.name, "", disk.model, str(disk.size),
                           disk.vendor, disk.bus, disk.serial,
-                          self._long_identifier(disk), "", port, getattr(disk, "initiator", ""),
+                          self._long_identifier(disk), "\n".join(paths), port, getattr(disk, "initiator", ""),
                           lun, "", ""])
 
             if not disk.vendor in vendors:
