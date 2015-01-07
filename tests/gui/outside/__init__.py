@@ -20,6 +20,7 @@
 __all__ = ["Creator", "OutsideMixin"]
 
 import blivet
+from blivet.size import MiB
 
 from contextlib import contextmanager
 from nose.plugins.multiprocess import TimedOutException
@@ -116,7 +117,7 @@ class Creator(object):
             # For now we are using qemu-img to create these files but specifying
             # sizes in blivet Size objects.  Unfortunately, qemu-img wants sizes
             # as xM or xG, not xMB or xGB.  That's what the conversion here is for.
-            self._call(["/usr/bin/qemu-img", "create", "-f", "raw", diskimage, "%sM" % size.convertTo(spec="MB")])
+            self._call(["/usr/bin/qemu-img", "create", "-f", "raw", diskimage, "%sM" % size.convertTo(MiB)])
             self._drivePaths[drive] = diskimage
 
     @property

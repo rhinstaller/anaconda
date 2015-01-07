@@ -28,7 +28,7 @@ from blivet.formats import getFormat
 from blivet.partitioning import doPartitioning
 from blivet.partitioning import growLVM
 from blivet.errors import PartitioningError, StorageError, BTRFSValueError
-from blivet.size import Size
+from blivet.size import Size, KiB
 from blivet import udev
 from blivet.platform import platform
 import blivet.iscsi
@@ -1694,7 +1694,7 @@ class VolGroupData(commands.volgroup.F21_VolGroupData):
 
         if self.pesize == 0:
             # default PE size requested -- we use blivet's default in KiB
-            self.pesize = LVM_PE_SIZE.convertTo(spec="KiB")
+            self.pesize = LVM_PE_SIZE.convertTo(KiB)
 
         pesize = Size("%d KiB" % self.pesize)
         possible_extents = getPossiblePhysicalExtents()

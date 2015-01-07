@@ -1748,8 +1748,8 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         dev_info["mountpoint"] = dialog.mountpoint
         log.debug("requested size = %s  ; available space = %s", dialog.size, self._free_space)
 
-        # if no size was entered, request as much of the free space as possible
-        if dialog.size is not None and dialog.size.convertTo(spec="mb") < 1:
+        # if no requested size, or size less than 1 MB, request maximum size
+        if dialog.size is None or dialog.size < Size("1 MB"):
             dev_info["size"] = None
         else:
             dev_info["size"] = dialog.size
