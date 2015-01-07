@@ -988,19 +988,6 @@ reposdir=%s
 
             return (environment.ui_name, environment.ui_description)
 
-    def selectEnvironment(self, environmentid):
-        groups = self._yumGroups
-        if not groups:
-            return
-
-        with _yum_lock:
-            if not groups.has_environment(environmentid):
-                raise NoSuchGroup(environmentid)
-
-            environment = groups.return_environment(environmentid)
-            for group in environment.groups:
-                self.selectGroup(group)
-
     def environmentGroups(self, environmentid, optional=True):
         groups = self._yumGroups
         if not groups:

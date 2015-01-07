@@ -282,7 +282,7 @@ class DNFPayload(packaging.PackagePayload):
 
         if env:
             try:
-                self._select_environment(env)
+                self.selectEnvironment(env)
                 log.info("selected env: %s", env)
             except packaging.NoSuchGroup as e:
                 self._miss(e)
@@ -444,22 +444,6 @@ class DNFPayload(packaging.PackagePayload):
             self._base.group_remove(grp)
         except dnf.exceptions.CompsError as e:
             # DNF raises this when it is already not selected
-            log.debug(e)
-
-    def _select_environment(self, env_id, default=True, optional=False, required=False):
-        env = self._base.comps.environment_by_pattern(env_id)
-        if env is None:
-            raise packaging.NoSuchGroup(env_id, required=required)
-        types = {'mandatory'}
-        if default:
-            types.add('default')
-        if optional:
-            types.add('optional')
-        exclude = self.data.packages.excludedList
-        try:
-            self._base.environment_install(env, types, exclude=exclude)
-        except dnf.exceptions.CompsError as e:
-            # DNF raises this when it is already selected
             log.debug(e)
 
     def _select_kernel_package(self):
@@ -699,9 +683,6 @@ class DNFPayload(packaging.PackagePayload):
         super(DNFPayload, self).reset()
         self.txID = None
         self._base.reset(sack=True, repos=True)
-
-    def selectEnvironment(self, env_id):
-        self._select_environment(env_id)
 
     def updateBaseRepo(self, fallback=True, checkmount=True):
         log.info('configuring base repo')

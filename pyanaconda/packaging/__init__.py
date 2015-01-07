@@ -1018,7 +1018,12 @@ class PackagePayload(Payload):
         raise NotImplementedError()
 
     def selectEnvironment(self, environmentid):
-        raise NotImplementedError()
+        if environmentid not in self.environments:
+            raise NoSuchGroup(environmentid)
+
+        # Select each group within the environment
+        for groupid in self.environmentGroups(environmentid, optional=False):
+            self.selectGroup(groupid)
 
     def environmentGroups(self, environmentid, optional=True):
         raise NotImplementedError()
