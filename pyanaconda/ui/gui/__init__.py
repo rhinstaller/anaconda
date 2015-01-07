@@ -291,7 +291,9 @@ class MainWindow(Gtk.Window):
         self._overlay_depth = 0
 
         # Create a stack and a list of what's been added to the stack
-        self._stack = Gtk.Stack()
+        # Double the stack transition duration since the default 200ms is too
+        # quick to get the point across
+        self._stack = Gtk.Stack(transition_duration=400)
         self._stack_contents = set()
 
         # Create an accel group for the F12 accelerators added after window transitions
@@ -390,6 +392,9 @@ class MainWindow(Gtk.Window):
 
            :param AnacondaWidgets.BaseStandalone standalone: the new standalone action
         """
+        # Slide the old hub/standalone off of the new one
+        self._stack.set_transition_type(Gtk.StackTransitionType.UNDER_LEFT)
+
         self._current_action = standalone
         self._setVisibleChild(standalone)
 
@@ -401,10 +406,16 @@ class MainWindow(Gtk.Window):
 
            :param AnacondaWidgets.SpokeWindow spoke: a spoke to enter
         """
+        # Slide up, as if the spoke is under the hub
+        self._stack.set_transition_type(Gtk.StackTransitionType.UNDER_UP)
+
         self._setVisibleChild(spoke)
 
     def returnToHub(self):
         """Exit a spoke and return to a hub."""
+        # Slide back down over the spoke
+        self._stack.set_transition_type(Gtk.StackTransitionType.OVER_DOWN)
+
         self._setVisibleChild(self._current_action)
 
     def lightbox_on(self):
