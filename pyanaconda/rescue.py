@@ -37,7 +37,7 @@ from pyanaconda.i18n import _
 from pyanaconda.kickstart import runPostScripts
 
 from blivet import mountExistingSystem
-from blivet.errors import StorageError, DirtyFSError
+from blivet.errors import StorageError
 from blivet.devices import LUKSDevice
 
 from pykickstart.constants import KS_REBOOT, KS_SHUTDOWN
@@ -348,81 +348,68 @@ def doRescue(intf, rescue_mount, ksdata):
                 msg = _("Run %s to unmount the system "
                         "when you are finished.") % ANACONDA_CLEANUP
 
-            try:
-                mountExistingSystem(sto.fsset, root.device,
-                                    allowDirty = True,
-                                    readOnly = readOnly)
-            except DirtyFSError:
-                if flags.automatedInstall:
-                    log.error("System had dirty file systems which you chose not to mount")
-                else:
-                    ButtonChoiceWindow(intf.screen, _("Rescue"),
-                        _("Your system had dirty file systems which you chose not "
-                          "to mount.  Press return to get a shell from which "
-                          "you can fsck and mount your partitions. %s") % msg,
-                        [_("OK")], width = 50)
-                rootmounted = False
+            mountExistingSystem(sto.fsset, root.device, readOnly=readOnly)
+
+            if flags.automatedInstall:
+                log.info("System has been mounted under: %s", iutil.getSysroot())
             else:
-                if flags.automatedInstall:
-                    log.info("System has been mounted under: %s", iutil.getSysroot())
-                else:
-                    ButtonChoiceWindow(intf.screen, _("Rescue"),
-                       _("Your system has been mounted under %(rootPath)s.\n\n"
-                         "Press <return> to get a shell. If you would like to "
-                         "make your system the root environment, run the command:\n\n"
-                         "\tchroot %(rootPath)s\n\n%(msg)s") %
-                                       {'rootPath': iutil.getSysroot(),
-                                        'msg': msg},
-                                       [_("OK")] )
-                rootmounted = True
+                ButtonChoiceWindow(intf.screen, _("Rescue"),
+                   _("Your system has been mounted under %(rootPath)s.\n\n"
+                     "Press <return> to get a shell. If you would like to "
+                     "make your system the root environment, run the command:\n\n"
+                     "\tchroot %(rootPath)s\n\n%(msg)s") %
+                                   {'rootPath': iutil.getSysroot(),
+                                    'msg': msg},
+                                   [_("OK")] )
+            rootmounted = True
 
-                # now turn on swap
-                if not readOnly:
-                    try:
-                        sto.turnOnSwap()
-                    except StorageError:
-                        log.error("Error enabling swap")
-
-                # and selinux too
-                if flags.selinux:
-                    # we have to catch the possible exception
-                    # because we support read-only mounting
-                    try:
-                        fd = open("%s/.autorelabel" % iutil.getSysroot(), "w+")
-                        fd.close()
-                    except IOError:
-                        log.warning("cannot touch /.autorelabel")
-
-                # set a library path to use mounted fs
-                libdirs = os.environ.get("LD_LIBRARY_PATH", "").split(":")
-                mounted = map(lambda dir: "/mnt/sysimage%s" % dir, libdirs)
-                os.environ["LD_LIBRARY_PATH"] = ":".join(libdirs + mounted)
-
-                # find groff data dir
-                gversion = None
+            # now turn on swap
+            if not readOnly:
                 try:
-                    glst = os.listdir("/mnt/sysimage/usr/share/groff")
-                except OSError:
-                    pass
-                else:
-                    # find a directory which is a numeral, its where
-                    # data files are
-                    for gdir in glst:
-                        if re.match(r'\d[.\d]+\d$', gdir):
-                            gversion = gdir
-                            break
+                    sto.turnOnSwap()
+                except StorageError:
+                    log.error("Error enabling swap")
 
-                if gversion is not None:
-                    gpath = "/mnt/sysimage/usr/share/groff/"+gversion
-                    os.environ["GROFF_FONT_PATH"] = gpath + '/font'
-                    os.environ["GROFF_TMAC_PATH"] = "%s:/mnt/sysimage/usr/share/groff/site-tmac" % (gpath + '/tmac',)
-
-                # do we have bash?
+            # and selinux too
+            if flags.selinux:
+                # we have to catch the possible exception
+                # because we support read-only mounting
                 try:
-                    if os.access("/usr/bin/bash", os.R_OK):
-                        os.symlink ("/usr/bin/bash", "/bin/bash")
-                except OSError:
-                    pass
+                    fd = open("%s/.autorelabel" % iutil.getSysroot(), "w+")
+                    fd.close()
+                except IOError:
+                    log.warning("cannot touch /.autorelabel")
+
+            # set a library path to use mounted fs
+            libdirs = os.environ.get("LD_LIBRARY_PATH", "").split(":")
+            mounted = map(lambda dir: "/mnt/sysimage%s" % dir, libdirs)
+            os.environ["LD_LIBRARY_PATH"] = ":".join(libdirs + mounted)
+
+            # find groff data dir
+            gversion = None
+            try:
+                glst = os.listdir("/mnt/sysimage/usr/share/groff")
+            except OSError:
+                pass
+            else:
+                # find a directory which is a numeral, its where
+                # data files are
+                for gdir in glst:
+                    if re.match(r'\d[.\d]+\d$', gdir):
+                        gversion = gdir
+                        break
+
+            if gversion is not None:
+                gpath = "/mnt/sysimage/usr/share/groff/"+gversion
+                os.environ["GROFF_FONT_PATH"] = gpath + '/font'
+                os.environ["GROFF_TMAC_PATH"] = "%s:/mnt/sysimage/usr/share/groff/site-tmac" % (gpath + '/tmac',)
+
+            # do we have bash?
+            try:
+                if os.access("/usr/bin/bash", os.R_OK):
+                    os.symlink ("/usr/bin/bash", "/bin/bash")
+            except OSError:
+                pass
         except (ValueError, LookupError, SyntaxError, NameError):
             raise
         except Exception as e:    # pylint: disable=broad-except
