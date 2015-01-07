@@ -19,7 +19,6 @@
 # Red Hat Author(s): Chris Lumens <clumens@redhat.com>
 #
 
-# pylint: disable-msg=E0611
 from gi.repository import Gtk
 
 from collections import namedtuple
@@ -32,7 +31,7 @@ from blivet.fcoe import has_fcoe
 from pyanaconda.flags import flags
 from pyanaconda.i18n import CN_, CP_
 
-from pyanaconda.ui.lib.disks import getDisks, isLocalDisk
+from pyanaconda.ui.lib.disks import getDisks
 from pyanaconda.ui.gui.utils import timed_action
 from pyanaconda.ui.gui.spokes import NormalSpoke
 from pyanaconda.ui.gui.spokes.advstorage.fcoe import FCoEDialog
@@ -375,6 +374,7 @@ class ZPage(FilterPage):
         self._ccwEntry = self.builder.get_object("zCCWEntry")
         self._wwpnEntry = self.builder.get_object("zWWPNEntry")
         self._lunEntry = self.builder.get_object("zLUNEntry")
+        self._combo = self.builder.get_object("zTypeCombo")
 
         self._isS390 = arch.isS390()
 
@@ -395,7 +395,6 @@ class ZPage(FilterPage):
             wwpns = []
             luns = []
 
-            self._combo = self.builder.get_object("zTypeCombo")
             self._combo.set_active(0)
             self._combo.emit("changed")
 
@@ -638,7 +637,7 @@ class FilterSpoke(NormalSpoke):
     def on_add_zfcp_clicked(self, widget, *args):
         dialog = ZFCPDialog(self.data, self.storage)
 
-        with enlightbox(self.window, dialog.window):
+        with self.main_window.enlightbox(self.window, dialog.window):
             dialog.refresh()
             dialog.run()
 
