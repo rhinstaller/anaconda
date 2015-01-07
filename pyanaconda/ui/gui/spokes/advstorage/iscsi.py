@@ -302,7 +302,8 @@ class ISCSIDialog(GUIObject):
         text = widget.get_text()
 
         stripped = text.strip()
-        return "." in stripped and ":" in stripped
+        #iSCSI Naming Standards: RFC 3720 and RFC 3721
+        return "." in stripped
 
     def on_discover_field_changed(self, *args):
         # Make up a credentials object so we can test if it's valid.
