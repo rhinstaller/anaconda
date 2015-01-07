@@ -81,7 +81,11 @@ class NFS(commands.nfs.FC6_NFS):
 class URL(commands.url.F18_Url):
     def dracut_args(self, args, lineno, obj):
         # Spaces in the url need to be %20
-        method = self.url.replace(" ", "%20")
+        if self.url:
+            method = self.url.replace(" ", "%20")
+        else:
+            method = None
+
         args = ["inst.repo=%s" % method]
 
         if self.noverifyssl:
