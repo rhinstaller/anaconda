@@ -416,6 +416,7 @@ static void anaconda_disk_overview_set_property(GObject *object, guint prop_id, 
             char *markup = g_markup_printf_escaped("<span weight='bold' size='large'>%s</span>", g_value_get_string(value));
             gtk_label_set_markup(GTK_LABEL(priv->description_label), markup);
             g_free(markup);
+            gtk_label_set_justify(GTK_LABEL(priv->description_label), GTK_JUSTIFY_CENTER);
             break;
         }
 

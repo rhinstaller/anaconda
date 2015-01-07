@@ -57,7 +57,7 @@ from pyanaconda.ui.helpers import StorageChecker
 from pyanaconda.kickstart import doKickstartStorage, refreshAutoSwapSize, resetCustomStorageData
 from blivet import arch
 from blivet.size import Size
-from blivet.devices import MultipathDevice
+from blivet.devices import MultipathDevice, ZFCPDiskDevice
 from blivet.errors import StorageError, DasdFormatError
 from blivet.platform import platform
 from blivet.devicelibs import swap as swap_lib
@@ -546,6 +546,10 @@ class StorageSpoke(NormalSpoke, StorageChecker):
         if isinstance(disk, MultipathDevice):
             desc = disk.wwid.split(":")
             description = ":".join(desc[0:3]) + "..." + ":".join(desc[-4:])
+        elif isinstance(disk, ZFCPDiskDevice):
+            # manually mangle the desc of a zFCP device to be multi-line since
+            # it's so long it makes the disk selection screen look odd
+            description = _("FCP device %s\nWWPN %s\nLUN %s") % (disk.hba_id, disk.wwpn, disk.fcp_lun)
         else:
             description = disk.description
 
