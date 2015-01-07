@@ -199,6 +199,8 @@ class SearchPage(FilterPage):
                 return int(active) == device.node.tpgt
             except ValueError:
                 return True
+        elif active and hasattr(device, "fcp_lun"):
+            return active in device.fcp_lun
         else:
             return True
 
@@ -214,8 +216,6 @@ class SearchPage(FilterPage):
             return self._port_equal(device) and self._target_equal(device) and self._lun_equal(device)
         elif filterBy == 2:
             return self._wwidEntry.get_text() in getattr(device, "wwid", self._long_identifier(device))
-        elif filterBy == 3:
-            return hasattr(device, "fcp_lun") and self._lunEntry.get_text() in device.fcp_lun
 
     def visible_func(self, model, itr, *args):
         obj = DiskStoreRow(*model[itr])
