@@ -24,7 +24,7 @@ from pyanaconda.ui.tui.spokes import NormalTUISpoke
 from pyanaconda.ui.tui.simpleline import TextWidget, ColumnWidget
 from pyanaconda.ui.common import FirstbootSpokeMixIn
 from pyanaconda import localization
-from pyanaconda.i18n import N_, _
+from pyanaconda.i18n import N_, _, C_
 
 from pyanaconda import flags
 
@@ -114,7 +114,7 @@ class LangSpoke(FirstbootSpokeMixIn, NormalTUISpoke):
             pass
 
         # TRANSLATORS: 'b' to go back
-        if key.lower() == _("b"):
+        if key.lower() == C_("TUI|Spoke Navigation|Language Support", "b"):
             self.app.switch_screen(self, None)
             return True
         else:
