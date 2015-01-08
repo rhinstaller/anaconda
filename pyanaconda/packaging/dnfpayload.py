@@ -694,6 +694,16 @@ class DNFPayload(packaging.PackagePayload):
                                                               checkmount)
         method = self.data.method
 
+        # Read in all the repos from the installation environment, make a note of which
+        # are enabled, and then disable them all.  If the user gave us a method, we want
+        # to use that instead of the default repos.
+        self._base.read_all_repos()
+
+        enabled = []
+        for repo in self._base.repos.iter_enabled():
+            enabled.append(repo.id)
+            repo.disable()
+
         if method.method:
             try:
                 self._base.conf.releasever = self._getReleaseVersion(url)
@@ -720,14 +730,20 @@ class DNFPayload(packaging.PackagePayload):
                 method.method = None
                 self.install_device = None
 
+        # We need to check this again separately in case method.method was unset above.
         if not method.method:
-            # only when there's no repo set via method use the repos from the
-            # install image itself:
-            log.info('Loading repositories config on the filesystem.')
-            self._base.read_all_repos()
+            for (id_, repo) in self._base.repos.iteritems():
+                if id_ in enabled:
+                    repo.enable()
 
         for ksrepo in self.data.repo.dataList():
-            self._add_repo(ksrepo)
+            # This is a repo we already have a config file in /etc/anaconda.repos.d,
+            # so we just need to enable it here.  See the kickstart docs for the repo
+            # command.
+            if not ksrepo.baseurl and not ksrepo.mirrorlist:
+                self._base.repos[ksrepo.name].enable()
+            else:
+                self._add_repo(ksrepo)
 
         ksnames = [r.name for r in self.data.repo.dataList()]
         ksnames.append(constants.BASE_REPO_NAME)
