@@ -19,8 +19,6 @@
 # Red Hat Author(s): Samantha N. Bueno <sbueno@redhat.com>
 #
 
-# pylint: disable-msg=E0611
-
 from pyanaconda.ui.gui import GUIObject
 from pyanaconda.ui.gui.utils import gtk_action_nowait
 
