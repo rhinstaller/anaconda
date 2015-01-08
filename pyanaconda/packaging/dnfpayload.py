@@ -39,6 +39,7 @@ import pyanaconda.errors as errors
 import pyanaconda.iutil
 import pyanaconda.localization
 import pyanaconda.packaging as packaging
+import shutil
 import sys
 import time
 from pyanaconda.iutil import ProxyString, ProxyStringError
@@ -184,6 +185,7 @@ class DNFPayload(packaging.PackagePayload):
         packaging.PackagePayload.__init__(self, data)
 
         self._base = None
+        self._download_location = None
         self._configure()
 
     def unsetup(self):
@@ -401,6 +403,8 @@ class DNFPayload(packaging.PackagePayload):
         for repo in self._base.repos.iter_enabled():
             repo.pkgdir = pkgdir
 
+        return pkgdir
+
     def _select_group(self, group_id, default=True, optional=False, required=False):
         grp = self._base.comps.group_by_pattern(group_id)
         if grp is None:
@@ -608,7 +612,7 @@ class DNFPayload(packaging.PackagePayload):
             self._setupMedia(self.install_device)
         try:
             self.checkSoftwareSelection()
-            self._pick_download_location()
+            self._download_location = self._pick_download_location()
         except packaging.PayloadError as e:
             if errors.errorHandler.cb(e) == errors.ERROR_RAISE:
                 _failure_limbo()
@@ -648,6 +652,7 @@ class DNFPayload(packaging.PackagePayload):
         progressQ.send_message(post_msg)
         process.join()
         self._base.close()
+        shutil.rmtree(self._download_location)
 
     def getRepo(self, repo_id):
         """ Return the yum repo object. """
