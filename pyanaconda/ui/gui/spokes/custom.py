@@ -2127,7 +2127,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
                 self.set_error(_("Invalid device name: %s") % self._device_container_name)
                 self.window.show_all()
                 self._device_container_name = container_name
-                self._on_update_settings_clicked(None)
+                self.on_update_settings_clicked(None)
                 return
             else:
                 if container.format.type == "btrfs":
