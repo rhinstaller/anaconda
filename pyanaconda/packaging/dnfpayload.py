@@ -586,7 +586,10 @@ class DNFPayload(packaging.PackagePayload):
         env = self._base.comps.environment_by_pattern(environmentid)
         if env is None:
             raise packaging.NoSuchGroup(environmentid)
-        return False
+
+        # Look for a group in the optionlist that matches the group_id and has
+        # default set
+        return any(grp for grp in env.option_ids if grp.name == grpid and grp.default)
 
     def groupDescription(self, grpid):
         """ Return name/description tuple for the group specified by id. """
