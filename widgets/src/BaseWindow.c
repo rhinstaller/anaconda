@@ -236,6 +236,7 @@ GtkWidget *anaconda_base_window_new() {
 static void anaconda_base_window_init(AnacondaBaseWindow *win) {
     char *markup;
     AtkObject *atk;
+    GtkStyleContext *context;
 
     win->priv = G_TYPE_INSTANCE_GET_PRIVATE(win,
                                             ANACONDA_TYPE_BASE_WINDOW,
@@ -262,6 +263,13 @@ static void anaconda_base_window_init(AnacondaBaseWindow *win) {
      */
     win->priv->main_box = gtk_box_new(GTK_ORIENTATION_VERTICAL, 6);
     gtk_container_add(GTK_CONTAINER(win), win->priv->main_box);
+
+    /* GtkBoxes don't draw a background by default, which causes issues during
+     * transitions in a GtkStack. Work around this by forcing a "background"
+     * style class. See https://bugzilla.gnome.org/show_bug.cgi?id=742552
+     */
+    context = gtk_widget_get_style_context(win->priv->main_box);
+    gtk_style_context_add_class(context, "background");
 
     /* Then the navigation area that sits as the first item in the main box
      * for every Window class.
