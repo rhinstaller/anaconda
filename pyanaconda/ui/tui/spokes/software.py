@@ -25,7 +25,7 @@ from pyanaconda.ui.tui.spokes import NormalTUISpoke
 from pyanaconda.ui.tui.simpleline import TextWidget, ColumnWidget, CheckboxWidget
 from pyanaconda.threads import threadMgr, AnacondaThread
 from pyanaconda.packaging import DependencyError, PackagePayload
-from pyanaconda.i18n import N_, _
+from pyanaconda.i18n import N_, _, C_
 
 from pyanaconda.constants import THREAD_PAYLOAD
 from pyanaconda.constants import THREAD_CHECK_SOFTWARE
@@ -150,7 +150,9 @@ class SoftwareSpoke(NormalTUISpoke):
         try:
             keyid = int(key) - 1
         except ValueError:
-            if key.lower() == "c" and 0 <= self._selection < len(self.payload.environments):
+            # TRANSLATORS: 'c' to continue
+            if key.lower() == C_("TUI|Spoke Navigation", "c") and \
+                    0 <= self._selection < len(self.payload.environments):
                 self.apply()
                 self.close()
                 return INPUT_PROCESSED
