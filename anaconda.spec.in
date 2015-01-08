@@ -323,6 +323,20 @@ update-desktop-database &> /dev/null || :
 %{_datadir}/anaconda/help/*
 
 %changelog
+* Wed Jan 07 2015 Brian C. Lane <bcl@redhat.com> - 19.31.118-1
+- Fix handling of md fwraid names in kickstart bootloader command. (dlehman)
+  Resolves: rhbz#1167375
+- Do not bypass name setters in the custom spoke. (dlehman)
+  Related: rhbz#1138370
+- Don't try to use math.ceil on blivet.size.Size instances. (dlehman)
+  Resolves: rhbz#1164191
+- Preserve kickstart url behavior for mirrorlist (bcl)
+  Related: rhbz#1109933
+- Use a backslash to escape nfs spaces instead of x20 (bcl)
+  Related: rhbz#1109933
+- Allow adding prepboot to a blank disk in custom (bcl)
+  Resolves: rhbz#1176829
+
 * Thu Dec 18 2014 Brian C. Lane <bcl@redhat.com> - 19.31.117-1
 - Don't install langpacks.conf if nowhere to install to (dshea)
   Resolves: rhbz#1172004
