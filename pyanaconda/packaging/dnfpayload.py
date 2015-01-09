@@ -712,6 +712,11 @@ class DNFPayload(packaging.PackagePayload):
             enabled.append(repo.id)
             repo.disable()
 
+        # If askmethod was specified on the command-line, leave all the repos
+        # disabled and return
+        if flags.askmethod:
+            return
+
         if method.method:
             try:
                 self._base.conf.releasever = self._getReleaseVersion(url)
@@ -740,6 +745,11 @@ class DNFPayload(packaging.PackagePayload):
 
         # We need to check this again separately in case method.method was unset above.
         if not method.method:
+            # If this is a kickstart install, just return now
+            if flags.automatedInstall:
+                return
+
+            # Otherwise, fall back to the default repos that we disabled above
             for (id_, repo) in self._base.repos.iteritems():
                 if id_ in enabled:
                     repo.enable()
