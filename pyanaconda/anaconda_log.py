@@ -23,7 +23,7 @@
 #
 
 import logging
-from logging.handlers import SysLogHandler, SYSLOG_UDP_PORT
+from logging.handlers import SysLogHandler, SocketHandler, SYSLOG_UDP_PORT
 import os
 import sys
 import types
@@ -85,6 +85,10 @@ class AnacondaSyslogHandler(SysLogHandler):
     def mapPriority(self, level):
         """Map the priority level to a syslog level """
         return self.levelMap.get(level, SysLogHandler.mapPriority(self, level))
+
+class AnacondaSocketHandler(SocketHandler):
+    def makePickle(self, record):
+        return ENTRY_FORMAT % record.__dict__ + "\n"
 
 class AnacondaLog:
     SYSLOG_CFGFILE  = "/etc/rsyslog.conf"
@@ -202,6 +206,11 @@ class AnacondaLog:
         """
         self.anaconda_logger.warning("%s", warnings.formatwarning(
                 message, category, filename, lineno, line))
+
+    def setup_remotelog(self, host, port):
+        remotelog = AnacondaSocketHandler(host, port)
+        remotelog.setLevel(logging.DEBUG)
+        logging.getLogger().addHandler(remotelog)
 
     def restartSyslog(self):
         # Import here instead of at the module level to avoid an import loop

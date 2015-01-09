@@ -231,3 +231,7 @@ http://dnf.baseurl.org
 mpathfriendlynames
 Tell multipathd to use user friendly names when naming devices during the installation.
 See the multipathd documentation for more info.
+
+remotelog
+Send all the logs to a remote host:port using a TCP connection. The connection will
+be retried if there is no listener (ie. won't block the installation).

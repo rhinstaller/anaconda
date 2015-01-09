@@ -309,6 +309,7 @@ def parseArguments(argv=None, boot_cmdline=None):
     # Obvious
     ap.add_argument("--loglevel", metavar="LEVEL", help=help_parser.help_text("loglevel"))
     ap.add_argument("--syslog", metavar="HOST[:PORT]", help=help_parser.help_text("syslog"))
+    ap.add_argument("--remotelog", metavar="HOST:PORT", help=help_parser.help_text("remotelog"))
 
     from pykickstart.constants import SELINUX_DISABLED, SELINUX_ENFORCING
     from pyanaconda.constants import SELINUX_DEFAULT
@@ -409,8 +410,17 @@ def setupLoggingFromOpts(options):
         packaging_log = logging.getLogger("packaging")
         anaconda_log.setHandlersLevel(packaging_log, level)
 
-    if options.syslog:
-        anaconda_log.logger.updateRemote(options.syslog)
+    if can_touch_runtime_system("syslog setup"):
+        if options.syslog:
+            anaconda_log.logger.updateRemote(options.syslog)
+
+    if options.remotelog:
+        try:
+            host, port = options.remotelog.split(":", 1)
+            port = int(port)
+            anaconda_log.logger.setup_remotelog(host, port)
+        except ValueError:
+            log.error("Could not setup remotelog with %s", options.remotelog)
 
 def gtk_warning(title, reason):
     from gi.repository import Gtk
