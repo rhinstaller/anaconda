@@ -277,6 +277,12 @@ class SoftwareSelectionSpoke(NormalSpoke):
         if self.environment not in self.payload.environments:
             self.environment = None
 
+        # If no environment is selected, use the default from the instclass.
+        # If nothing is set in the instclass, the first environment will be
+        # selected below.
+        if not self.environment:
+            self.environment = self.payload.instclass.defaultPackageEnvironment
+
         firstEnvironment = True
         firstRadio = None
 

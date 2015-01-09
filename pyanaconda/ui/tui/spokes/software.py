@@ -69,9 +69,17 @@ class SoftwareSpoke(NormalTUISpoke):
         threadMgr.wait(THREAD_PAYLOAD)
 
         if not self._kickstarted:
-            # Select the first environment by default
+            # If an environment was specified in the instclass, use that.
+            # Otherwise, select the first environment.
             if self.payload.environments:
-                self._selection = 0
+                environments = self.payload.environments
+                instclass = self.payload.instclass
+
+                if instclass.defaultPackageEnvironment and \
+                        instclass.defaultPackageEnvironment in environments:
+                    self._selection = environments.index(instclass.defaultPackageEnvironment)
+                else:
+                    self._selection = 0
 
         # Apply the initial selection
         self._apply()

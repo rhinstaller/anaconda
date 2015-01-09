@@ -67,6 +67,9 @@ class BaseInstallClass(object):
     # path to the installclass stylesheet, if any
     stylesheet = None
 
+    # comps environment id to select by default
+    defaultPackageEnvironment = None
+
     @property
     def l10n_domain(self):
         if self._l10n_domain is None:
