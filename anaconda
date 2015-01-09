@@ -367,7 +367,7 @@ def parseArguments(argv=None, boot_cmdline=None):
     ap.add_argument("--nombr", action="store_true", default=False,
                     help=help_parser.help_text("nombr"))
     ap.add_argument("--nodnf", action="store_false", dest="dnf", default=True,
-                    help=help_parser.help_text("dnf"))
+                    help=help_parser.help_text("nodnf"))
     ap.add_argument("--mpathfriendlynames", action="store_true", default=True,
                     help=help_parser.help_text("mpathfriendlynames"))
 
