@@ -19,7 +19,7 @@
 # Red Hat Author(s): Chris Lumens <clumens@redhat.com>
 
 kernel_args() {
-    echo text
+    echo vnc
 }
 
 prepare() {

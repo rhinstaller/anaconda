@@ -18,7 +18,7 @@
 # Red Hat Author(s): Chris Lumens <clumens@redhat.com>
 
 kernel_args() {
-    echo graphical
+    echo vnc
 }
 
 prepare() {
