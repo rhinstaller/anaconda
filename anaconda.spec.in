@@ -308,6 +308,49 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Fri Jan 09 2015 Brian C. Lane <bcl@redhat.com> - 22.14-1
+- Add error checks to liveimg mount code (#1178703) (bcl)
+- Switch kickstart tests to doing VNC instead of graphical. (clumens)
+- Updates for new Size.convertTo() spec. (amulhern)
+- Force a background in the main GtkBox in anaconda windows. (dshea)
+- Animate the screen transitions. (dshea)
+- Implement DNFPayload.environmentOptionIsDefault (#1179905) (dshea)
+- Remove the directory dnf downloaded packages into. (clumens)
+- Allow specifying pre-defined repos via kickstart with dnf backend (#1177988).
+  (clumens)
+- Get rid of unnecessary python disable-msg in zfcp spoke. (sbueno+anaconda)
+- Fix typo in commit 472be66b2af2af69e7eac15ec9c94ccc818e12b5. (dlehman)
+- Fix some pylint errors in the zfcp panel. (sbueno+anaconda)
+- Fix an accelerator collision found on the filter page. (sbueno+anaconda)
+- Fix some issues pylint found. (sbueno+anaconda)
+- Show disk paths on Other page in advstorage. (sbueno+anaconda)
+- Don't treat the baserepo as special when gathering metadata (#1177502)
+  (dshea)
+- Make dnf._base and dnf._base.comps always available. (dshea)
+- Remove the checks for whether dnf and rpm were imported (dshea)
+- Remove obsolete packaging code. (dshea)
+- Do not bypass name setters in the custom spoke. (#1138370) (dlehman)
+- Preserve kickstart url behavior for mirrorlist (#1109933) (bcl)
+- Use a backslash to escape nfs spaces instead of x20 (#1109933) (bcl)
+- Add missing translation context for Add ECKD DASD button in advstorage.
+  (sbueno+anaconda)
+- Add translation contexts for z and zfcp panel in advstorage.
+  (sbueno+anaconda)
+- Convert devices size to str for GUI for zFCP devices (amulhern)
+- Fix string formatting of zFCP devices. (sbueno+anaconda)
+- Fix the way zFCP devices are displayed in storage spoke. (#1024902)
+  (sbueno+anaconda)
+- Show labels on Add zFCP dialog. (sbueno+anaconda)
+- Fix failure to search by LUN in advanced storage spoke. (sbueno+anaconda)
+- Get rid of the clear button in advanced storage spoke. (sbueno+anaconda)
+- Fix up the z Panel in advanced storage. (sbueno+anaconda)
+- Add support for adding zFCP devices in the GUI (sbueno+anaconda)
+- Remove DirtyFSError related callbacks and entries. (amulhern)
+- Remove allowDirty parameter from mountExistingSystem() call. (amulhern)
+- Remove old workaround for missing EFI bits. (dmarlin)
+- Wait for payload thread in TUI software spoke. (#1178214) (sbueno+anaconda)
+- Start the network before the display (#1167103) (dshea)
+
 * Fri Dec 19 2014 Brian C. Lane <bcl@redhat.com> - 22.13-1
 - Print the result to the log, not the variable name. (clumens)
 - Ellipsize comboboxes (#1170275) (dshea)
