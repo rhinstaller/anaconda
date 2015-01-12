@@ -251,7 +251,7 @@ def refreshAutoSwapSize(storage):
 
     for request in storage.autoPartitionRequests:
         if request.fstype == "swap":
-            disk_space = int(getAvailableDiskSpace(storage))
+            disk_space = getAvailableDiskSpace(storage)
             request.size = swap_lib.swapSuggestion(disk_space=disk_space)
             break
 
