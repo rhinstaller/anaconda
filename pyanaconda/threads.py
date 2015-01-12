@@ -182,6 +182,17 @@ class ThreadManager(object):
         with self._objs_lock:
             return self._objs.keys()
 
+    def wait_for_error_threads(self):
+        """
+        Waits for all threads that caused exceptions. In other words, waits for
+        exception handling (possibly interactive) to be finished.
+
+        """
+
+        for thread_name in self._errors.keys():
+            thread = self._objs[thread_name]
+            thread.join()
+
 class AnacondaThread(threading.Thread):
     """A threading.Thread subclass that exists only for a couple purposes:
 
