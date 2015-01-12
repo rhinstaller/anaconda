@@ -28,6 +28,7 @@ from gi.repository import Gdk, Gtk, AnacondaWidgets, Keybinder, GdkPixbuf, GLib,
 from pyanaconda.i18n import _
 from pyanaconda.constants import IPMI_ABORTED
 from pyanaconda import product, iutil
+from pyanaconda import threads
 
 from pyanaconda.ui import UserInterface, common
 from pyanaconda.ui.gui.utils import gtk_action_wait, busyCursor, unbusyCursor
@@ -644,9 +645,8 @@ class GraphicalUserInterface(UserInterface):
             log.error("Unhandled exception caught, waiting for python-meh to "\
                       "exit")
 
-            # Loop forever, meh will call sys.exit() when it's done
-            while True:
-                time.sleep(10000)
+            threads.threadMgr.wait_for_error_threads()
+            sys.exit(1)
 
         # Apply a widget-scale to hidpi monitors
         self._widgetScale()
