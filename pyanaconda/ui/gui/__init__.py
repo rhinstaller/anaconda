@@ -370,8 +370,17 @@ class ErrorDialog(GUIObject):
 class MainWindow(Gtk.Window):
     """This is a top-level, full size window containing the Anaconda screens."""
 
-    def __init__(self):
+    def __init__(self, fullscreen):
+        """Create a new anaconda main window.
+
+          :param bool fullscreen: if True, fullscreen the window, if false maximize
+        """
         Gtk.Window.__init__(self)
+
+        # Hide the titlebar when maximized if the window manager allows it.
+        # This makes anaconda look full-screenish but without covering parts
+        # needed to interact with the window manager, like the GNOME top bar.
+        self.set_hide_titlebar_when_maximized(True)
 
         # Treat an attempt to close the window the same as hitting quit
         self.connect("delete-event", self._on_delete_event)
@@ -400,12 +409,11 @@ class MainWindow(Gtk.Window):
         self._accel_group = Gtk.AccelGroup()
         self.add_accel_group(self._accel_group)
 
-        # Connect to window-state-event changes to catch when the user
-        # maxmizes/unmaximizes the window.
-        self.connect("window-state-event", self._on_window_state_event)
-
-        # Start the window as full screen
-        self.fullscreen()
+        # Make the window big
+        if fullscreen:
+            self.fullscreen()
+        else:
+            self.maximize()
 
         self._overlay.add(self._stack)
         self.add(self._overlay)
@@ -417,18 +425,6 @@ class MainWindow(Gtk.Window):
         self._mnemonic_signal = None
         # we have a sensible initial value, just in case
         self._saved_help_button_label = _("Help!")
-
-    def _on_window_state_event(self, window, event, user_data=None):
-        # If the window is being maximized, fullscreen it instead
-        if (Gdk.WindowState.MAXIMIZED & event.changed_mask) and \
-                (Gdk.WindowState.MAXIMIZED & event.new_window_state):
-            self.fullscreen()
-
-            # Return true to stop the signal handler since we're changing
-            # state mid-stream here
-            return True
-
-        return False
 
     def _on_delete_event(self, widget, event, user_data=None):
         # Use the quit-clicked signal on the the current standalone, even if the
@@ -595,7 +591,7 @@ class GraphicalUserInterface(UserInterface):
     """
     def __init__(self, storage, payload, instclass,
                  distributionText = product.distributionText, isFinal = product.isFinal,
-                 quitDialog = QuitDialog, gui_lock = None):
+                 quitDialog = QuitDialog, gui_lock = None, fullscreen=False):
 
         UserInterface.__init__(self, storage, payload, instclass)
 
@@ -606,7 +602,7 @@ class GraphicalUserInterface(UserInterface):
 
         self.data = None
 
-        self.mainWindow = MainWindow()
+        self.mainWindow = MainWindow(fullscreen=fullscreen)
 
         self._distributionText = distributionText
         self._isFinal = isFinal
