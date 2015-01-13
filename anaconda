@@ -130,13 +130,24 @@ def startX11():
 # function to handle X startup special issues for anaconda
 def doStartupX11Actions():
     """Start window manager"""
+    from copy import copy
 
     # When metacity actually connects to the X server is unknowable, but
     # fortunately it doesn't matter. metacity does not need to be the first
     # connection to Xorg, and if anaconda starts up before metacity, metacity
     # will just take over and maximize the window and make everything right,
     # fingers crossed.
+    # Add XDG_DATA_DIRS to the environment to pull in our overridden schema
+    # files.
+    env_bak = copy(os.environ)
+    if 'XDG_DATA_DIRS' in os.environ:
+        os.environ['XDG_DATA_DIRS'] = '/usr/share/anaconda/window-manager:' + \
+            os.environ['XDG_DATA_DIRS']
+    else:
+        os.environ['XDG_DATA_DIRS'] = '/usr/share/anaconda/window-manager:/usr/share'
+
     childproc = iutil.startProgram(["metacity", "--display", ":1", "--sm-disable"])
+    os.environ = env_bak
     iutil.watchProcess(childproc, "metacity")
 
 def set_x_resolution(runres):

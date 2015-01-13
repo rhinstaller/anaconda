@@ -1,6 +1,6 @@
-# data/Makefile.am for anaconda
+# data/window-manager/Makefile.am for anaconda
 #
-# Copyright (C) 2009  Red Hat, Inc.
+# Copyright (C) 2015  Red Hat, Inc.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU Lesser General Public License as published
@@ -15,17 +15,6 @@
 # You should have received a copy of the GNU Lesser General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
-# Author: Martin Sivak <msivak@redhat.com>
+# Author: David Shea <dshea@redhat.com>
 
-SUBDIRS = command-stubs liveinst systemd post-scripts window-manager
-
-CLEANFILES = *~
-
-dist_pkgdata_DATA          = interactive-defaults.ks \
-			     tmux.conf \
-			     anaconda-gtk.css
-
-helpdir               = $(datadir)/$(PACKAGE_NAME)
-dist_help_DATA        = anaconda_options.txt
-
-MAINTAINERCLEANFILES = Makefile.in
+SUBDIRS = config

@@ -179,6 +179,9 @@ Requires: NetworkManager-wifi
 Requires: anaconda-user-help >= %{helpver}
 Requires: yelp
 
+# Needed to compile the gsettings files
+BuildRequires: gsettings-desktop-schemas
+
 %description gui
 This package contains graphical user interface for the Anaconda installer.
 
@@ -286,6 +289,7 @@ update-desktop-database &> /dev/null || :
 
 %files gui
 %{_libdir}/python*/site-packages/pyanaconda/ui/gui/*
+%{_datadir}/anaconda/window-manager/glib-2.0/schemas/*
 
 %files tui
 %{_libdir}/python*/site-packages/pyanaconda/rescue.py

@@ -31,6 +31,7 @@ import urllib
 import threading
 import multiprocessing
 import argparse
+import tempfile
 from collections import namedtuple
 try:
     from rpmUtils import miscutils  # available from the yum-utils package
@@ -218,13 +219,31 @@ def create_RPM_cache_folder():
     if not os.path.exists(RPM_FOLDER_NAME):
         os.makedirs(RPM_FOLDER_NAME)
 
-def copyUpdatedFiles(tag, updates, cwd):
+def copyUpdatedFiles(tag, updates, cwd, builddir):
     def install_to_dir(fname, relpath):
         sys.stdout.write("Including %s\n" % fname)
         outdir = os.path.join(updates, relpath)
         if not os.path.isdir(outdir):
             os.makedirs(outdir)
         shutil.copy2(fname, outdir)
+
+    def install_gschema():
+        # Run make install to a temp directory and pull the compiled file out
+        # of it
+        tmpdir = tempfile.mkdtemp()
+        try:
+            os.system('make -C %s/data/window-manager/config install DESTDIR=%s' %
+                    (builddir,tmpdir))
+            # Find the .compiled file
+            for root, _dirs, files in os.walk(tmpdir):
+                for f in files:
+                    if f.endswith('.compiled'):
+                        install_to_dir(os.path.join(root, f),
+                                'usr/share/anaconda/window-manager/glib-2.0/schemas')
+        finally:
+            shutil.rmtree(tmpdir)
+
+
 
     # Updates get overlaid onto the runtime filesystem. Anaconda expects them
     # to be in /run/install/updates, so put them in
@@ -308,6 +327,8 @@ def copyUpdatedFiles(tag, updates, cwd):
             install_to_dir(gitfile, "usr/share/anaconda/pixmaps")
         elif gitfile.startswith("data/ui/"):
             install_to_dir(gitfile, "usr/share/anaconda/ui")
+        elif gitfile.startswith("data/window-manager/config"):
+            install_gschema()
         elif gitfile.startswith("data/post-scripts/"):
             install_to_dir(gitfile, "usr/share/anaconda/post-scripts")
         elif any(gitfile.endswith(libexec_script) for libexec_script in \
@@ -987,7 +1008,7 @@ def main():
     if not os.path.isdir(updates):
         os.makedirs(updates)
 
-    copyUpdatedFiles(args.tag, updates, cwd)
+    copyUpdatedFiles(args.tag, updates, cwd, builddir)
 
     if args.compile:
         if isysChanged(args.tag):
