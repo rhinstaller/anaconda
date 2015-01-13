@@ -1,4 +1,4 @@
-# data/window-manager/Makefile.am for anaconda
+# data/window-manager/config/Makefile.am for anaconda
 #
 # Copyright (C) 2015  Red Hat, Inc.
 #
@@ -17,4 +17,6 @@
 #
 # Author: David Shea <dshea@redhat.com>
 
-SUBDIRS = config theme
+themedir = $(datadir)/themes/Anaconda/metacity-1
+
+dist_theme_data = metacity-theme-1.xml

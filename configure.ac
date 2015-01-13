@@ -142,6 +142,7 @@ AC_CONFIG_FILES([Makefile
                  data/systemd/Makefile
                  data/window-manager/Makefile
                  data/window-manager/config/Makefile
+                 data/window-manager/theme/Makefile
                  po/Makefile.in
                  scripts/Makefile
                  pyanaconda/Makefile

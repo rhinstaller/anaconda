@@ -329,6 +329,8 @@ def copyUpdatedFiles(tag, updates, cwd, builddir):
             install_to_dir(gitfile, "usr/share/anaconda/ui")
         elif gitfile.startswith("data/window-manager/config"):
             install_gschema()
+        elif gitfile.startswith("data/window-manager/theme"):
+            install_to_dir(gitfile, "usr/share/themes/Anaconda/metacity-1")
         elif gitfile.startswith("data/post-scripts/"):
             install_to_dir(gitfile, "usr/share/anaconda/post-scripts")
         elif any(gitfile.endswith(libexec_script) for libexec_script in \
