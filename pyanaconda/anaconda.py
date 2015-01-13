@@ -211,8 +211,11 @@ class Anaconda(object):
 
         if self.displayMode == 'g':
             from pyanaconda.ui.gui import GraphicalUserInterface
+            # Run the GUI in non-fullscreen mode, so live installs can still
+            # use the window manager
             self._intf = GraphicalUserInterface(self.storage, self.payload,
-                                                self.instClass, gui_lock=self.gui_initialized)
+                                                self.instClass, gui_lock=self.gui_initialized,
+                                                fullscreen=False)
 
             # needs to be refreshed now we know if gui or tui will take place
             addon_paths = addons.collect_addon_paths(constants.ADDON_PATHS,
