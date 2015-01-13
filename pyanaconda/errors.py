@@ -95,8 +95,9 @@ class ErrorHandler(object):
         self.ui = ui
 
     def _kickstartErrorHandler(self, *args, **kwargs):
+        exn = kwargs["exception"]
         message = _("The following error was found while parsing the kickstart "
-                    "configuration file:\n\n%s") % args[0]
+                    "configuration file:\n\n%s") % exn
         self.ui.showError(message)
         return ERROR_RAISE
 
@@ -107,10 +108,9 @@ class ErrorHandler(object):
         return ERROR_RAISE
 
     def _fsResizeHandler(self, *args, **kwargs):
-        message = _("An error occurred while resizing the device %s.") % args[0]
-
-        if "details" in kwargs:
-            message += "\n\n%s" % kwargs["details"]
+        exn = kwargs["exception"]
+        message = _("An error occurred while resizing the device %s.") % exn.details
+        message += "\n\n%s" % exn
 
         self.ui.showError(message)
         return ERROR_RAISE
@@ -123,10 +123,10 @@ class ErrorHandler(object):
         return ERROR_RAISE
 
     def _dirtyFSHandler(self, *args, **kwargs):
-        devs = kwargs.pop("devices")
+        exn = kwargs["exception"]
         message = _("The following file systems for your Linux system were "
                     "not unmounted cleanly.  Would you like to mount them "
-                    "anyway?\n%s") % "\n".join(devs)
+                    "anyway?\n%s") % "\n".join(exn.devices)
         if self.ui.showYesNoQuestion(message):
             return ERROR_CONTINUE
         else:
@@ -141,7 +141,6 @@ class ErrorHandler(object):
         self.ui.showError(message)
 
     def _invalidImageSizeHandler(self, *args, **kwargs):
-        filename = args[0]
         message = _("The ISO image %s has a size which is not "
                     "a multiple of 2048 bytes.  This may mean "
                     "it was corrupted on transfer to this computer."
@@ -149,7 +148,7 @@ class ErrorHandler(object):
                     "It is recommended that you exit and abort your "
                     "installation, but you can choose to continue if "
                     "you think this is in error. Would you like to "
-                    "continue using this image?") % filename
+                    "continue using this image?") % ""
         if self.ui.showYesNoQuestion(message):
             return ERROR_CONTINUE
         else:
@@ -166,9 +165,8 @@ class ErrorHandler(object):
             return ERROR_RAISE
 
     def _mediaMountHandler(self, *args, **kwargs):
-        device = args[0]
         message = _("An error occurred mounting the source "
-                    "device %s. Retry?") % device.name
+                    "device %s. Retry?") % ""
         if self.ui.showYesNoQuestion(message):
             return ERROR_RETRY
         else:
