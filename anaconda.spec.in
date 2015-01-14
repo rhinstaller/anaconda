@@ -124,6 +124,7 @@ Requires: isomd5sum >= %{isomd5sum}
 Requires: yum-utils >= %{yumutilsver}
 Requires: createrepo_c
 Requires: NetworkManager >= %{nmver}
+Requires: NetworkManager-glib >= %{nmver}
 Requires: dhclient
 Requires: libselinux-python
 Requires: kbd
