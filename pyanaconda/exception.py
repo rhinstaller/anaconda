@@ -49,7 +49,7 @@ log = logging.getLogger("anaconda")
 
 class AnacondaExceptionHandler(ExceptionHandler):
 
-    def __init__(self, confObj, intfClass, exnClass, tty_num, gui_lock):
+    def __init__(self, confObj, intfClass, exnClass, tty_num, gui_lock, interactive):
         """
         :see: python-meh's ExceptionHandler
         :param tty_num: the number of tty the interface is running on
@@ -59,6 +59,7 @@ class AnacondaExceptionHandler(ExceptionHandler):
         ExceptionHandler.__init__(self, confObj, intfClass, exnClass)
         self._gui_lock = gui_lock
         self._intf_tty_num = tty_num
+        self._interactive = interactive
 
     def run_handleException(self, dump_info):
         """
@@ -128,15 +129,19 @@ class AnacondaExceptionHandler(ExceptionHandler):
                 # X not running (Gtk cannot be initialized)
                 if threadMgr.in_main_thread():
                     log.debug("In the main thread, running exception handler")
-                    if (issubclass (ty, CmdlineError)):
-
-                        cmdline_error_msg = _("\nThe installation was stopped due to "
-                                              "incomplete spokes detected while running "
-                                              "in non-interactive cmdline mode. Since there "
-                                              "cannot be any questions in cmdline mode, "
-                                              "edit your kickstart file and retry "
-                                              "installation.\nThe exact error message is: "
-                                              "\n\n%s.\n\nThe installer will now terminate.") % str(value)
+                    if issubclass(ty, CmdlineError) or not self._interactive:
+                        if issubclass(ty, CmdlineError):
+                            cmdline_error_msg = _("\nThe installation was stopped due to "
+                                                  "incomplete spokes detected while running "
+                                                  "in non-interactive cmdline mode. Since there "
+                                                  "cannot be any questions in cmdline mode, "
+                                                  "edit your kickstart file and retry "
+                                                  "installation.\nThe exact error message is: "
+                                                  "\n\n%s.\n\nThe installer will now terminate.") % str(value)
+                        else:
+                            cmdline_error_msg = _("\nRunning in cmdline mode, no interactive debugging "
+                                                  "allowed.\nThe exact error message is: "
+                                                  "\n\n%s.\n\nThe installer will now terminate.") % str(value)
 
                         # since there is no UI in cmdline mode and it is completely
                         # non-interactive, we can't show a message window asking the user
@@ -259,9 +264,10 @@ def initExceptionHandling(anaconda):
         # anaconda-tb file
         conf.register_callback("journalctl", journalctl_callback, attchmnt_only=False)
 
+    interactive = not anaconda.displayMode == 'c'
     handler = AnacondaExceptionHandler(conf, anaconda.intf.meh_interface,
                                        ReverseExceptionDump, anaconda.intf.tty_num,
-                                       anaconda.gui_initialized)
+                                       anaconda.gui_initialized, interactive)
     handler.install(anaconda)
 
     return conf
