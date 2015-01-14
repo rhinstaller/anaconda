@@ -88,7 +88,7 @@ class AnacondaSyslogHandler(SysLogHandler):
 
 class AnacondaSocketHandler(SocketHandler):
     def makePickle(self, record):
-        return ENTRY_FORMAT % record.__dict__ + "\n"
+        return self.formatter.format(record) + "\n"
 
 class AnacondaLog:
     SYSLOG_CFGFILE  = "/etc/rsyslog.conf"
@@ -209,6 +209,7 @@ class AnacondaLog:
 
     def setup_remotelog(self, host, port):
         remotelog = AnacondaSocketHandler(host, port)
+        remotelog.setFormatter(logging.Formatter(ENTRY_FORMAT, DATE_FORMAT))
         remotelog.setLevel(logging.DEBUG)
         logging.getLogger().addHandler(remotelog)
 
