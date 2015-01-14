@@ -121,6 +121,7 @@ Requires: yum-utils >= %{yumutilsver}
 Requires: createrepo
 Requires: NetworkManager >= %{nmver}
 Requires: NetworkManager-team
+Requires: NetworkManager-glib >= %{nmver}
 Requires: dhclient
 Requires: kbd
 Requires: chrony
