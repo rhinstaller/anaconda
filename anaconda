@@ -1205,10 +1205,8 @@ if __name__ == "__main__":
     else:
         cleanPStore()
 
-    # only install interactive exception handler in interactive modes
-    if ksdata.displaymode.displayMode != DISPLAY_MODE_CMDLINE or flags.debug:
-        from pyanaconda import exception
-        anaconda.mehConfig = exception.initExceptionHandling(anaconda)
+    from pyanaconda import exception
+    anaconda.mehConfig = exception.initExceptionHandling(anaconda)
 
     # add our own additional signal handlers
     signal.signal(signal.SIGUSR1, lambda signum, frame:
