@@ -63,7 +63,7 @@ BASE_REPO_NAME = "anaconda"
 # NOTE: this should be LANG_TERRITORY.CODESET, e.g. en_US.UTF-8
 DEFAULT_LANG = "en_US.UTF-8"
 
-DEFAULT_VC_FONT = "latarcyrheb-sun16"
+DEFAULT_VC_FONT = "eurlatgr"
 
 DEFAULT_KEYBOARD = "us"
 
