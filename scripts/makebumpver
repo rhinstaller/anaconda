@@ -3,7 +3,7 @@
 # makebumpver - Increment version number and add in RPM spec file changelog
 #               block.  Ensures rhel*-branch commits reference RHEL bugs.
 #
-# Copyright (C) 2009-2014  Red Hat, Inc.
+# Copyright (C) 2009-2015  Red Hat, Inc.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU Lesser General Public License as published
@@ -26,14 +26,17 @@ log = logging.getLogger("bugzilla")
 log.setLevel(logging.INFO)
 
 import bugzilla
+from contextlib import closing
 import datetime
 import getopt
 import getpass
+import json
 import os
 import re
 import subprocess
 import sys
 import textwrap
+import urllib
 from ConfigParser import ConfigParser
 
 class MakeBumpVer:
@@ -41,6 +44,7 @@ class MakeBumpVer:
         log.debug("%s", kwargs)
         self.bzserver = 'bugzilla.redhat.com'
         self.bzurl = "https://%s/xmlrpc.cgi" % self.bzserver
+        self.jenkins = None
         self.username = None
         self.password = None
         self.bz = None
@@ -57,6 +61,8 @@ class MakeBumpVer:
                     self.username = line[10:].strip('"\'')
                 elif line.startswith('RHBZ_PASSWORD='):
                     self.password = line[14:].strip('"\'')
+                elif line.startswith('JENKINS='):
+                    self.jenkins = line[8:].strip('"\'')
 
         self.gituser = self._gitConfig('user.name')
         self.gitemail = self._gitConfig('user.email')
@@ -82,9 +88,11 @@ class MakeBumpVer:
         self.skip_all = kwargs.get('skip_all', False)
         self.tx_config = kwargs.get('tx_config')
         self.skip_tx = kwargs.get("skip_tx", False)
+        self.skip_jenkins = kwargs.get("skip_jenkins", False)
 
         if self.skip_all:
             self.skip_acks = True
+            self.skip_jenkins = True
             self.skip_tx = True
 
         self.git_branch = None
@@ -441,6 +449,39 @@ class MakeBumpVer:
         f.writelines(bottom)
         f.close()
 
+    def check_jenkins(self):
+        if not self.git_branch:
+            log.error("No git branch, cannot check jenkins")
+            return False
+
+        if not self.jenkins:
+            log.warning("No jenkins defined, skipping")
+            return True
+
+        ret = False
+
+        with closing(urllib.urlopen(self.jenkins)) as f:
+            contents = f.readlines()
+
+            try:
+                j = json.loads(contents[0])
+            except (TypeError, ValueError):
+                pass
+            else:
+                # Get the name of the job we should be looking for in jenkins.
+                # This name is composed from the name of the project, plus the
+                # branch of the project without any "-branch" stuff at the end.
+                targetJob = self.name + "-" + self.git_branch
+                if targetJob.endswith("-branch"):
+                    targetJob = targetJob[:-7]
+
+                for job in j["jobs"]:
+                    if job["name"] == targetJob:
+                        ret = job["color"] == "blue"
+                        break
+
+        return ret
+
     def check_transifex(self):
         """
         Make sure that the transifex branch matches the current git branch
@@ -475,6 +516,10 @@ class MakeBumpVer:
         if not self.skip_tx and not self.check_transifex():
             sys.exit(1)
 
+        # For now, jenkins is in an advisory role so do not require it to pass.
+        if not self.skip_jenkins and not self.check_jenkins():
+            log.warning("jenkins test results do not pass; ignoring for now")
+
         newVersion = self._incrementVersion()
         fixedIn = "%s-%s-%s" % (self.name, newVersion, self.release)
         rpmlog = self._rpmLog(fixedIn)
@@ -495,6 +540,7 @@ def usage(cmd):
     sys.stdout.write("    -S, --skip-all   Skip all checks\n")
     sys.stdout.write("    -d, --debug      Turn on debug logging to stdout\n")
     sys.stdout.write("    --skip-tx        Skip checking Transifex config for branch name\n")
+    sys.stdout.write("    --skip-jenkins   Skip checking Jenkins for test results\n")
     sys.stdout.write("\nThe -i switch is intended for use with utility commits that we do not need to\n")
     sys.stdout.write("reference in the spec file changelog.  The -m switch is used to map a Fedora\n")
     sys.stdout.write("BZ number to a RHEL BZ number for the spec file changelog.  Use -m if you have\n")
@@ -509,14 +555,14 @@ def main(argv):
     tx_config = os.path.realpath(cwd + '/.tx/config')
     name, version, release, bugreport = None, None, None, None
     ignore, bugmap = None, None
-    show_help, unknown, skip_acks, skip_all, skip_tx = False, False, False, False, False
+    show_help, unknown, skip_acks, skip_all, skip_tx, skip_jenkins = False, False, False, False, False, False
     opts = []
 
     try:
         opts, _args = getopt.getopt(sys.argv[1:], 'n:v:r:b:i:m:sSd?',
                                    ['name=', 'version=', 'release=',
                                     'bugreport=', 'ignore=', 'map=',
-                                    'debug', 'help', 'skip-tx'])
+                                    'debug', 'help', 'skip-tx', 'skip-jenkins'])
     except getopt.GetoptError:
         show_help = True
 
@@ -541,6 +587,8 @@ def main(argv):
             log.setLevel(logging.DEBUG)
         elif o in ('--skip-tx'):
             skip_tx = True
+        elif o in ('--skip-jenkins'):
+            skip_jenkins = True
         elif o in ('-?', '--help'):
             show_help = True
         else:
@@ -577,7 +625,8 @@ def main(argv):
     mbv = MakeBumpVer(name=name, version=version, release=release,
                       bugreport=bugreport, ignore=ignore, bugmap=bugmap,
                       configure=configure, spec=spec, skip_acks=skip_acks,
-                      skip_all=skip_all, tx_config=tx_config, skip_tx=skip_tx)
+                      skip_all=skip_all, tx_config=tx_config, skip_tx=skip_tx,
+                      skip_jenkins=skip_jenkins)
     mbv.run()
 
 if __name__ == "__main__":
