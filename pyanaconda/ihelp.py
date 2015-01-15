@@ -27,8 +27,12 @@ from pyanaconda.localization import find_best_locale_match
 from pyanaconda.constants import DEFAULT_LANG
 from pyanaconda.iutil import startProgram
 
+from blivet import arch
+
 import logging
 log = logging.getLogger("anaconda")
+
+COMMON_HELP_FILE_VARIANT_SUFFIX = "common"
 
 yelp_process = None
 
@@ -93,8 +97,45 @@ def get_help_path(help_file, instclass):
     # help l10n handling
 
     if help_file:
+        # Some of the RHEL7 installation guide pages might be marked as "common",
+        # meaning that their content is common for all architectures, while
+        # other pages might be architecture specific. These two categories
+        # are mutually exclusive - if there is a common variant, there will be
+        # no arch specific variant and if there are arch specific variants,
+        # there will be no common variant.
+
+        # check for the common variant
+        file_head, file_tail = os.path.splitext(help_file)
+
+        help_file = "%s-%s%s" % (file_head, COMMON_HELP_FILE_VARIANT_SUFFIX, file_tail)
         help_path = _get_best_help_file(instclass.help_folder, help_file)
-        if help_path is not None:
+        if help_path:
+            log.debug("found a common help file variant at %s", help_path)
+            return help_path
+
+        # check for the arch specific variant
+
+        # the documentation files don't differentiate between 32bit and 64bit x86
+        # and just use a "x86" suffix for both
+        if arch.isX86:
+            architecture = "x86"
+        # the arm docks are the same as the x86 docs
+        elif arch.isARM() or arch.isAARCH64():
+            architecture = "x86"
+        # same thing for s390 (31 bit) and s390x (64 bit), they are just "s390"
+        elif arch.isS390():
+            architecture = "s390"
+        # 32 bit PPC is no longer supported in RHEL and both 64 bit PPC variants (BE and LE)
+        # are covered with the "ppc64" suffix
+        elif arch.isPPC():
+            architecture = "ppc64"
+        else:
+            architecture = arch.getArch()
+
+        help_file = "%s-%s%s" % (file_head, architecture, file_tail)
+        help_path = _get_best_help_file(instclass.help_folder, help_file)
+        if help_path:
+            log.debug("found arch specific help file variant at %s", help_path)
             return help_path
 
     # the screen did not have a helpFile defined or the defined help file
