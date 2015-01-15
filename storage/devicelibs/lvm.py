@@ -23,6 +23,7 @@
 import os
 import math
 import re
+from collections import namedtuple
 
 import iutil
 import logging
@@ -33,8 +34,21 @@ from constants import *
 
 import gettext
 _ = lambda x: gettext.ldgettext("anaconda", x)
+N_ = lambda x: x
 
 MAX_LV_SLOTS = 256
+
+LVM_PE_SIZE = 4 # MiB
+
+# thinp constants
+LVM_THINP_MIN_METADATA_SIZE = 2
+LVM_THINP_MAX_METADATA_SIZE = 16384
+LVM_THINP_MIN_CHUNK_SIZE = 0.0625 # 64 KiB
+LVM_THINP_MAX_CHUNK_SIZE = 1024
+
+ThPoolProfile = namedtuple("ThPoolProfile", ["name", "desc"])
+KNOWN_THPOOL_PROFILES = (ThPoolProfile("thin-generic", N_("Generic")),
+                         ThPoolProfile("thin-performance", N_("Performance")))
 
 def has_lvm():
     has_lvm = False
@@ -171,6 +185,52 @@ def clampSize(size, pesize, roundup=None):
         round = math.floor
 
     return long(round(float(size)/float(pesize)) * pesize)
+
+def get_pool_padding(size, pesize=LVM_PE_SIZE, reverse=False):
+    """ Return the size of the pad required for a pool with the given specs.
+
+        reverse means the pad is already included in the specified size and we
+        should calculate how much of the total is the pad
+    """
+    if not reverse:
+        multiplier = 0.2
+    else:
+        multiplier = 1.0 / 6
+
+    pad = min(clampSize(size * multiplier, pesize, roundup=True),
+              clampSize(LVM_THINP_MAX_METADATA_SIZE, pesize, roundup=True))
+
+    return pad
+
+def is_valid_thin_pool_metadata_size(size):
+    """ Return True if size is a valid thin pool metadata vol size.
+
+        :param size: metadata vol size (in MiB) to validate
+        :type size: int or float
+        :returns: whether the size is valid
+        :rtype: bool
+    """
+    return (LVM_THINP_MIN_METADATA_SIZE <= size <= LVM_THINP_MAX_METADATA_SIZE)
+
+# To support discard, chunk size must be a power of two. Otherwise it must be a
+# multiple of 64 KiB.
+def is_valid_thin_pool_chunk_size(size, discard=False):
+    """ Return True if size is a valid thin pool chunk size.
+
+        :param size: chunk size (in MiB) to validate
+        :type size: int or float
+        :keyword discard: whether discard support is required (default: False)
+        :type discard: bool
+        :returns: whether the size is valid
+        :rtype: bool
+    """
+    if not LVM_THINP_MIN_CHUNK_SIZE <= size <= LVM_THINP_MAX_CHUNK_SIZE:
+        return False
+
+    if discard:
+        return util.power_of_two(int(size))
+    else:
+        return (size % LVM_THINP_MIN_CHUNK_SIZE == 0)
 
 def lvm(args, progress=None):
     rc = iutil.execWithPulseProgress("lvm", args,
@@ -432,3 +492,45 @@ def lvdeactivate(vg_name, lv_name):
     except LVMError as msg:
         raise LVMError("lvdeactivate failed for %s: %s" % (lv_name, msg))
 
+def thinpoolcreate(vg_name, lv_name, size, metadatasize=None, chunksize=None, profile=None, progress=None):
+    args = ["lvcreate"] + config_args + \
+           ["--thinpool", "%s/%s" % (vg_name, lv_name), "--size", "%dm" % size]
+
+    if metadatasize:
+        # default unit is MiB
+        args += ["--poolmetadatasize", "%d" % metadatasize]
+
+    if chunksize:
+        # default unit is KiB
+        args += ["--chunksize", "%d" % (chunksize * 1024)]
+
+    if profile:
+        args += ["--profile=%s" % profile]
+
+    try:
+        lvm(args, progress=progress)
+    except LVMError as msg:
+        raise LVMError("lvcreate failed for %s/%s: %s" % (vg_name, lv_name, msg))
+
+def thinlvcreate(vg_name, pool_name, lv_name, size, progress=None):
+    args = ["lvcreate"] + config_args + \
+           ["--thinpool", "%s/%s" % (vg_name, pool_name),
+            "--virtualsize", "%dm" % size,
+            "-n", lv_name]
+
+    try:
+        lvm(args, progress=progress)
+    except LVMError as msg:
+        raise LVMError("lvcreate failed for %s/%s: %s" % (vg_name, lv_name, msg))
+
+def thinlvpoolname(vg_name, lv_name):
+    args = ["lvs"] + config_args + \
+           [ "--noheadings", "-o", "pool_lv", "%s/%s" % (vg_name, lv_name)]
+
+    lines = lvm(args, capture=True)
+    try:
+        pool = lines[0].strip()
+    except IndexError:
+        pool = ''
+
+    return pool

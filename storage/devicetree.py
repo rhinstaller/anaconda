@@ -1548,101 +1548,138 @@ class DeviceTree(object):
             log.debug("no LVs listed for VG %s" % vg_name)
             return False
 
-        def lv_attr_cmp(a, b):
-            """ Sort so that mirror images come first and snapshots last. """
-            mirror_chars = "Iil"
-            snapshot_chars = "Ss"
-            if a[0] in mirror_chars and b[0] not in mirror_chars:
-                return -1
-            elif a[0] not in mirror_chars and b[0] in mirror_chars:
-                return 1
-            elif a[0] not in snapshot_chars and b[0] in snapshot_chars:
-                return -1
-            elif a[0] in snapshot_chars and b[0] not in snapshot_chars:
-                return 1
-            else:
-                return 0
+        def addRequiredLV(name, msg):
+            """ Add a prerequisite/parent LV.
 
-        # make a list of indices with mirror volumes up front and snapshots at
-        # the end
-        indices = range(len(lv_names))
-        indices.sort(key=lambda i: lv_attr[i], cmp=lv_attr_cmp)
-        raid = {}
-        for index in indices:
-            lv_name = lv_names[index]
-            if not lv_name:
-                continue
+                The parent is strictly required in order to be able to add
+                some other LV that depends on it. For this reason, failure to
+                add the specified LV results in a DeviceTreeError with the
+                message string specified in the msg parameter.
 
+                :param str name: the full name of the LV (including vgname)
+                :param str msg: message to pass DeviceTreeError ctor on error
+                :returns: None
+                :raises: :class:`~.errors.DeviceTreeError` on failure
+
+            """
+            vol = self.getDeviceByName(name)
+            if vol is None:
+                addLV(lv_info[name])
+                vol = self.getDeviceByName(name)
+
+                if vol is None:
+                    log.error("%s: %s", msg, name)
+                    raise DeviceTreeError(msg)
+
+        def addLV(lv):
+            """ Instantiate and add an LV based on data from the VG. """
+            lv_name = udev.device_get_lv_name(lv)
+            lv_uuid = udev.device_get_lv_uuid(lv)
+            lv_attr = udev.device_get_lv_attr(lv)
+            lv_size = udev.device_get_lv_size(lv)
+            lv_type = udev.device_get_lv_type(lv)
+
+            lv_class = LVMLogicalVolumeDevice
+            lv_parents = [vg_device]
+            lv_kwargs = {}
             name = "%s-%s" % (vg_name, lv_name)
-            if lv_attr[index][0] in 'Ss':
-                log.debug("found lvm snapshot volume '%s'" % name)
+
+            if self.getDeviceByName(name):
+                # some lvs may have been added on demand below
+                log.debug("already added %s", name)
+                return
+
+            if lv_attr[0] in 'Ss':
+                log.info("found lvm snapshot volume '%s'", name)
                 origin_name = devicelibs.lvm.lvorigin(vg_name, lv_name)
                 if not origin_name:
-                    log.error("lvm snapshot '%s-%s' has unknown origin"
-                                % (vg_name, lv_name))
-                    continue
+                    log.error("lvm snapshot '%s-%s' has unknown origin",
+                                vg_name, lv_name)
+                    return
 
-                origin = self.getDeviceByName("%s-%s" % (vg_name,
-                                                         origin_name))
+                if origin_name.endswith("_vorigin]"):
+                    log.info("snapshot volume '%s' has vorigin" % name)
+                    lv_kwargs["vorigin"] = True
+                    vg_device.voriginSnapshots[lv_name] = lv_sizes[index]
+                    return
+                else:
+                    origin_device_name = "%s-%s" % (vg_name, origin_name)
+                    addRequiredLV(origin_device_name,
+                                  "failed to locate origin lv")
+                    origin = self.getDeviceByName(origin_device_name)
+
                 if not origin:
-                    if origin_name.endswith("_vorigin]"):
-                        log.info("snapshot volume '%s' has vorigin" % name)
-                        vg_device.voriginSnapshots[lv_name] = lv_sizes[index]
-                    else:
-                        log.warning("snapshot lv '%s' origin lv '%s-%s' "
-                                    "not found" % (name,
-                                                   vg_name, origin_name))
-                    continue
+                    log.warning("snapshot lv '%s' origin lv '%s-%s' "
+                                "not found" % (name, vg_name, origin_name))
+                    return
 
                 if lv_name in origin.snapshots:
-                    continue
+                    return
 
                 log.debug("adding %dMB to %s snapshot total"
                             % (lv_sizes[index], origin.name))
                 origin.snapshotSpace += lv_sizes[index]
                 origin.snapshots.append(lv_name)
-                continue
-            elif lv_attr[index][0] == 'v':
+                return
+            elif lv_attr[0] == 'v':
                 # skip vorigins
-                continue
-            elif lv_attr[index][0] in 'Ii':
+                return
+            elif lv_attr[0] in 'Ii':
                 # mirror image
-                lv_name = re.sub(r'_[rm]image.+', '', lv_name[1:-1])
-                name = "%s-%s" % (vg_name, lv_name)
-                if name not in raid:
-                    raid[name] = {"copies": 0, "log": 0, "meta": 0}
-
+                rname = re.sub(r'_[rm]image.+', '', lv_name[1:-1])
+                name = "%s-%s" % (vg_name, rname)
+                addRequiredLV(name, "failed to look up raid lv")
                 raid[name]["copies"] += 1
-                continue
-            elif lv_attr[index][0] == 'e':
+                return
+            elif lv_attr[0] == 'e':
+                if lv_name.endswith("_pmspare]"):
+                    # spare metadata area for any thin pool that needs repair
+                    return
+
                 # raid metadata volume
-                lv_name = re.sub(r'_rmeta.+', '', lv_name[1:-1])
+                lv_name = re.sub(r'_[tr]meta.*', '', lv_name[1:-1])
                 name = "%s-%s" % (vg_name, lv_name)
-                raid[name]["meta"] += lv_sizes[index]
-                continue
-            elif lv_attr[index][0] == 'l':
+                addRequiredLV(name, "failed to look up raid lv")
+                raid[name]["meta"] += lv_size
+                return
+            elif lv_attr[0] == 'l':
                 # log volume
-                lv_name = re.sub(r'_mlog.*', '', lv_name[1:-1])
-                name = "%s-%s" % (vg_name, lv_name)
-                if name not in raid:
-                    raid[name] = {"copies": 0, "log": 0, "meta": 0}
+                rname = re.sub(r'_mlog.*', '', lv_name[1:-1])
+                name = "%s-%s" % (vg_name, rname)
+                addRequiredLV(name, "failed to look up log lv")
+                raid[name]["log"] = lv_size
+                return
+            elif lv_attr[0] == 't':
+                # thin pool
+                lv_class = LVMThinPoolDevice
+            elif lv_attr[0] == 'V':
+                # thin volume
+                pool_name = devicelibs.lvm.thinlvpoolname(vg_name, lv_name)
+                pool_device_name = "%s-%s" % (vg_name, pool_name)
+                addRequiredLV(pool_device_name, "failed to look up thin pool")
 
-                raid[name]["log"] = lv_sizes[index]
-                continue
+                lv_class = LVMThinLogicalVolumeDevice
+                lv_parents = [self.getDeviceByName(pool_device_name)]
+            elif lv_name.endswith(']'):
+                # Internal LVM2 device
+                return
+            elif lv_attr[0] not in '-mMrRoO':
+                # Ignore anything else except for the following:
+                #   - normal lv
+                #   m mirrored
+                #   M mirrored without initial sync
+                #   r raid
+                #   R raid without initial sync
+                #   o origin
+                #   O origin with merging snapshot
+                return
 
-            lv_device = self.getDeviceByName(name)
-            if lv_device is None:
-                lv_uuid = lv_uuids[index]
-                lv_size = lv_sizes[index]
-                lv_type = lv_types[index]
-                lv_device = LVMLogicalVolumeDevice(lv_name,
-                                                   vg_device,
-                                                   uuid=lv_uuid,
-                                                   size=lv_size,
-                                                   segType=lv_type,
-                                                   exists=True)
+            lv_dev = self.getDeviceByUuid(lv_uuid)
+            if lv_dev is None:
+                lv_device = lv_class(lv_name, parents=lv_parents,
+                                     uuid=lv_uuid, size=lv_size,segType=lv_type,
+                                     exists=True, **lv_kwargs)
                 self._addDevice(lv_device)
-
                 try:
                     lv_device.setup()
                     ret = True
@@ -1650,15 +1687,15 @@ class DeviceTree(object):
                     log.info("setup of %s failed: %s"
                                         % (lv_device.name, msg))
 
-        for name, data in raid.items():
-            lv_dev = self.getDeviceByName(name)
-            lv_dev.copies = data["copies"]
-            lv_dev.metaDataSize = data["meta"]
-            lv_dev.logSize = data["log"]
-            log.debug("set %s copies to %d, metadata size to %dMB, log size "
-                      "to %dMB, total size %dMB"
-                        % (lv_dev.name, lv_dev.copies, lv_dev.metaDataSize,
-                           lv_dev.logSize, lv_dev.vgSpaceUsed))
+                if lv_device.status:
+                    lv_device.updateSysfsPath()
+                    lv_info = udev_get_block_device(lv_device.sysfsPath)
+                    if not lv_info:
+                        log.error("failed to get udev data for lv %s", lv_device.name)
+                        return
+
+                    # do format handling now
+                    self.addUdevDevice(lv_info)
 
         return ret
 

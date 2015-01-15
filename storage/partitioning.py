@@ -34,6 +34,7 @@ from errors import *
 from deviceaction import *
 from devices import PartitionDevice, LUKSDevice, devicePathToName
 from formats import getFormat
+from devicelibs.lvm import get_pool_padding
 
 import gettext
 _ = lambda x: gettext.ldgettext("anaconda", x)
@@ -1756,88 +1757,134 @@ def growLVM(storage):
         # figure out how much to grow each LV
         grow_amounts = {}
         lv_total = vg.size - total_free
-        log.debug("used: %dMB ; vg.size: %dMB" % (lv_total, vg.size))
+        log.debug("used: %dMB ; vg.size: %dMB" % (vg.size - total_free, vg.size))
 
-        # This first loop is to calculate percentage-based growth
-        # amounts. These are based on total free space.
-        lvs = vg.lvs
-        lvs.sort(cmp=lvCompare)
-        for lv in lvs:
-            if not lv.req_grow or not lv.req_percent:
-                continue
+        ##
+        ## First, grow non-thin LVs. Percentage-based growth comes first.
+        ##
 
-            portion = (lv.req_percent * 0.01)
-            grow = portion * vg.freeSpace
-            new_size = lv.req_size + grow
-            if lv.req_max_size and new_size > lv.req_max_size:
-                grow -= (new_size - lv.req_max_size)
+        # don't include thin lvs in the vg's growth calculation
+        fatlvs = [lv for lv in vg.lvs if lv not in vg.thinlvs]
+        for lv in fatlvs:
+            if lv in vg.thinpools:
+                # make sure the pool's base size is at least the sum of its lvs'
+                req_size = max(lv.req_size, lv.usedSpace)
 
-            if lv.format.maxSize and lv.format.maxSize < new_size:
-                grow -= (new_size - lv.format.maxSize)
+                # add the required padding to the requested pool size
+                req_size += get_pool_padding(lv.req_size, pesize=vg.peSize)
 
-            # clamp growth amount to a multiple of vg extent size
-            grow_amounts[lv.name] = vg.align(grow)
-            total_free -= grow
-            lv_total += grow
+                total_free -= req_size - lv.req_size
+                lv.req_size = req_size
 
-        # This second loop is to calculate non-percentage-based growth
-        # amounts. These are based on free space remaining after
-        # calculating percentage-based growth amounts.
+        def growPercentageLVs(vg, lvs, free, growth):
+            """ Grow percentage-based LVs within a VG or thin pool.
 
-        # keep a tab on space not allocated due to format or requested
-        # maximums -- we'll dole it out to subsequent requests
-        leftover = 0
-        for lv in lvs:
-            log.debug("checking lv %s: req_grow: %s ; req_percent: %s"
-                      % (lv.name, lv.req_grow, lv.req_percent))
-            if not lv.req_grow or lv.req_percent:
-                continue
+                :param vg: the VG, used only for aligning growth amounts
+                :param lvs: the set of lvs to consider
+                :param free: the total free space available for growth in MiB
+                :param dict growth: growth amounts for lvs (in+out)
+                :returns: remaining free space in MiB
 
-            portion = float(lv.req_size) / float(lv_total)
-            grow = portion * total_free
-            log.debug("grow is %dMB" % grow)
+                Percentages for thin volumes are relative to the free space in
+                the pool -- not the whole vg.
+            """
+            for lv in lvs:
+                if not lv.req_grow or not lv.req_percent:
+                    continue
 
-            todo = lvs[lvs.index(lv):]
-            unallocated = reduce(lambda x,y: x+y,
-                                 [l.req_size for l in todo
-                                  if l.req_grow and not l.req_percent])
-            extra_portion = float(lv.req_size) / float(unallocated)
-            extra = extra_portion * leftover
-            log.debug("%s getting %dMB (%d%%) of %dMB leftover space"
-                      % (lv.name, extra, extra_portion * 100, leftover))
-            leftover -= extra
-            grow += extra
-            log.debug("grow is now %dMB" % grow)
-            max_size = lv.req_size + grow
-            if lv.req_max_size and max_size > lv.req_max_size:
-                max_size = lv.req_max_size
+                portion = (lv.req_percent * 0.01)
+                grow = portion * free
+                new_size = lv.req_size + grow
+                if lv.req_max_size and new_size > lv.req_max_size:
+                    grow -= (new_size - lv.req_max_size)
 
-            if lv.format.maxSize and max_size > lv.format.maxSize:
-                max_size = lv.format.maxSize
+                if lv.format.maxSize and lv.format.maxSize < new_size:
+                    grow -= (new_size - lv.format.maxSize)
 
-            log.debug("max size is %dMB" % max_size)
-            max_size = max_size
-            leftover += (lv.req_size + grow) - max_size
-            grow = max_size - lv.req_size
-            log.debug("lv %s gets %dMB" % (lv.name, vg.align(grow)))
-            grow_amounts[lv.name] = vg.align(grow)
+                # clamp growth amount to a multiple of vg extent size
+                growth[lv.name] = vg.align(grow)
+                free -= grow
+
+            return free
+
+        fatlvs.sort(cmp=lvCompare)
+        total_free = growPercentageLVs(vg, fatlvs, total_free, grow_amounts)
+
+        def growLVs(vg, lvs, free, growth):
+            """ Grow LVs within a VG or thin pool.
+
+                :param vg: the VG, used only for aligning growth amounts
+                :param lvs: the set of lvs to consider
+                :param free: the total free space available for growth in MiB
+                :param dict growth: growth amounts for lvs (in+out)
+                :returns: leftover space in MiB (from requests with max size)
+            """
+            # keep a tab on space not allocated due to format or requested
+            # maximums -- we'll dole it out to subsequent requests
+            leftover = 0
+            growth_base = float(sum(lv.req_size for lv in lvs if lv.req_grow))
+            for lv in lvs:
+                log.debug("checking lv %s: req_grow: %s ; req_percent: %s"
+                          % (lv.name, lv.req_grow, lv.req_percent))
+                if not lv.req_grow or lv.req_percent:
+                    continue
+
+                portion = float(lv.req_size) / growth_base
+                grow = portion * free
+                log.debug("grow is %dMB" % grow)
+
+                todo = lvs[lvs.index(lv):]
+                unallocated = reduce(lambda x,y: x+y,
+                                     [l.req_size for l in todo
+                                      if l.req_grow and not l.req_percent])
+                extra_portion = float(lv.req_size) / float(unallocated)
+                extra = extra_portion * leftover
+                log.debug("%s getting %dMB (%d%%) of %dMB leftover space"
+                          % (lv.name, extra, extra_portion * 100, leftover))
+                leftover -= extra
+                grow += extra
+                log.debug("grow is now %dMB" % grow)
+                max_size = lv.req_size + grow
+                if lv.req_max_size and max_size > lv.req_max_size:
+                    max_size = lv.req_max_size
+
+                if lv.format.maxSize and max_size > lv.format.maxSize:
+                    max_size = lv.format.maxSize
+
+                log.debug("max size is %dMB" % max_size)
+                max_size = max_size
+                leftover += (lv.req_size + grow) - max_size
+                grow = max_size - lv.req_size
+                log.debug("lv %s gets %dMB" % (lv.name, vg.align(grow)))
+                growth[lv.name] = vg.align(grow)
+
+            return leftover
+
+        leftover = growLVs(vg, fatlvs, total_free, grow_amounts)
 
         if not grow_amounts:
             log.debug("no growable lvs in vg %s" % vg.name)
             continue
 
         # now grow the lvs by the amounts we've calculated above
-        for lv in lvs:
+        for lv in fatlvs:
             if lv.name not in grow_amounts.keys():
                 continue
-            lv.size += grow_amounts[lv.name]
+
+            size = lv.req_size + grow_amounts[lv.name]
+
+            # reduce the size of thin pools by the pad size
+            if hasattr(lv, "lvs"):
+                size -= get_pool_padding(size, pesize=vg.peSize, reverse=True)
+
+            lv.size = size
 
         # now there shouldn't be any free space left, but if there is we
         # should allocate it to one of the LVs
         vg_free = vg.freeSpace
         log.debug("vg %s has %dMB free" % (vg.name, vg_free))
         if vg_free:
-            for lv in lvs:
+            for lv in fatlvs:
                 if not lv.req_grow:
                     continue
 
@@ -1858,7 +1905,27 @@ def growLVM(storage):
                 if lv.format.maxSize and projected > lv.format.maxSize:
                     projected = lv.format.maxSize
 
+                # reduce the size of thin pools by the pad size
+                if hasattr(lv, "lvs"):
+                    projected -= get_pool_padding(projected, pesize=vg.peSize, reverse=True)
+
                 log.debug("giving leftover %dMB to %s" % (projected - lv.size,
                                                           lv.name))
                 lv.size = projected
 
+        ##
+        ## Grow thin lvs within their respective pools, percentage-based first.
+        ##
+        for pool in vg.thinpools:
+            log.debug("%s size=%d free=%d lvs=%s)", pool.lvname, pool.size, pool.freeSpace, [lv.lvname for lv in pool.lvs])
+            lvs = sorted(pool.lvs, cmp=lvCompare)
+
+            total_free = growPercentageLVs(vg, lvs, pool.freeSpace, grow_amounts)
+
+            growLVs(vg, lvs, pool.freeSpace, grow_amounts)
+
+            # now grow the thin lvs by the amounts we just calculated
+            for lv in pool.lvs:
+                if lv.name not in grow_amounts.keys():
+                    continue
+                lv.size += grow_amounts[lv.name]

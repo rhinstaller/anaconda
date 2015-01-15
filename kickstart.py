@@ -20,7 +20,7 @@
 
 from storage.deviceaction import *
 from storage.devices import LUKSDevice
-from storage.devicelibs.lvm import getPossiblePhysicalExtents
+from storage.devicelibs.lvm import getPossiblePhysicalExtents, KNOWN_THPOOL_PROFILES
 from storage.devicelibs.mpath import MultipathConfigWriter, identifyMultipaths
 from storage.devicelibs.mpath import writeMultipathConf
 from storage.formats import getFormat
@@ -516,6 +516,10 @@ class LogVolData(commands.logvol.RHEL6_LogVolData):
             else:
                 type = storage.defaultFSType
 
+        if self.thin_pool:
+            self.mountpoint = ""
+            type = None
+
         # Sanity check mountpoint
         if self.mountpoint != "" and self.mountpoint[0] != '/':
             raise KickstartValueError, formatErrorMsg(self.lineno, msg="The mount point \"%s\" is not valid." % (self.mountpoint,))
@@ -524,6 +528,16 @@ class LogVolData(commands.logvol.RHEL6_LogVolData):
         vg = devicetree.getDeviceByName(vgname)
         if not vg:
             raise KickstartValueError, formatErrorMsg(self.lineno, msg="No volume group exists with the name \"%s\".  Specify volume groups before logical volumes." % self.vgname)
+
+        pool = None
+        if self.thin_volume:
+            pool = devicetree.getDeviceByName("%s-%s" % (vg.name, self.pool_name))
+            if not pool:
+                err = formatErrorMsg(self.lineno,
+                                     msg="No thin pool exists with the name "
+                                         "\"%s\". Specify thin pools before "
+                                         "thin volumes." % self.pool_name)
+                raise KickstartValueError, err
 
         # If this specifies an existing request that we should not format,
         # quit here after setting up enough information to mount it later.
@@ -559,7 +573,7 @@ class LogVolData(commands.logvol.RHEL6_LogVolData):
         format = getFormat(type,
                            mountpoint=self.mountpoint,
                            mountopts=self.fsopts)
-        if not format:
+        if not format.type and not self.thin_pool:
             raise KickstartValueError, formatErrorMsg(self.lineno, msg="The \"%s\" filesystem type is not supported." % type)
 
         # If we were given a pre-existing LV to create a filesystem on, we need
@@ -583,14 +597,37 @@ class LogVolData(commands.logvol.RHEL6_LogVolData):
             except KeyError:
                 pass
 
+            if self.thin_volume:
+                parent = pool
+            else:
+                parent = vg
+
+            pool_args = {}
+            if self.thin_pool:
+                if self.profile:
+                    matching = (p for p in KNOWN_THPOOL_PROFILES if p.name == self.profile)
+                    profile = next(matching, None)
+                    if profile:
+                        pool_args["profile"] = profile
+                    else:
+                        log.warning("No matching profile for %s found in LVM configuration", self.profile)
+                if self.metadata_size:
+                    pool_args["metadatasize"] = self.metadata_size
+
+                if self.chunk_size:
+                    pool_args["chunksize"] = self.chunk_size / 1024.0
+
             try:
                 request = storage.newLV(format=format,
                                         name=self.name,
-                                        vg=vg,
+                                        vg=parent,
                                         size=self.size,
+                                        thin_pool=self.thin_pool,
+                                        thin_volume=self.thin_volume,
                                         grow=self.grow,
                                         maxsize=self.maxSizeMB,
-                                        percent=self.percent)
+                                        percent=self.percent,
+                                        **pool_args)
             except DeviceError as e:
                 # Promote DeviceError to KickstartError so the UI will display it
                 raise KickstartError(str(e))

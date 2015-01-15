@@ -563,6 +563,30 @@ class Storage(object):
         return lvs
 
     @property
+    def thinlvs(self):
+        """ A list of the LVM Thin Logical Volumes in the device tree.
+
+            This is based on the current state of the device tree and
+            does not necessarily reflect the actual on-disk state of the
+            system's disks.
+        """
+        thin = self.devicetree.getDevicesByType("lvmthinlv")
+        thin.sort(key=lambda d: d.name)
+        return thin
+
+    @property
+    def thinpools(self):
+        """ A list of the LVM Thin Pool Logical Volumes in the device tree.
+
+            This is based on the current state of the device tree and
+            does not necessarily reflect the actual on-disk state of the
+            system's disks.
+        """
+        pools = self.devicetree.getDevicesByType("lvmthinpool")
+        pools.sort(key=lambda d: d.name)
+        return pools
+
+    @property
     def pvs(self):
         """ A list of the LVM Physical Volumes in the device tree.
 
@@ -839,6 +863,8 @@ class Storage(object):
 
     def newLV(self, *args, **kwargs):
         """ Return a new LVMLogicalVolumeDevice instance. """
+        thin_volume = kwargs.pop("thin_volume", False)
+        thin_pool = kwargs.pop("thin_pool", False)
         if kwargs.has_key("vg"):
             vg = kwargs.pop("vg")
 
@@ -862,12 +888,20 @@ class Storage(object):
                 swap = False
             name = self.createSuggestedLVName(vg,
                                               swap=swap,
+                                              pool=thin_pool,
                                               mountpoint=mountpoint)
 
         if name in [d.name for d in self.devices]:
             raise ValueError("name already in use")
 
-        return LVMLogicalVolumeDevice(name, vg, *args, **kwargs)
+        if thin_pool:
+            device_class = LVMThinPoolDevice
+        elif thin_volume:
+            device_class = LVMThinLogicalVolumeDevice
+        else:
+            device_class = LVMLogicalVolumeDevice
+
+        return device_class(name, vg, *args, **kwargs)
 
     def createDevice(self, device):
         """ Schedule creation of a device.
@@ -962,7 +996,7 @@ class Storage(object):
 
             return tmpname
 
-    def createSuggestedLVName(self, vg, swap=None, mountpoint=None):
+    def createSuggestedLVName(self, vg, swap=None, mountpoint=None, pool=False):
         """ Return a suitable, unused name for a new logical volume. """
         # FIXME: this is not at all guaranteed to work
         if mountpoint:
@@ -988,6 +1022,18 @@ class Storage(object):
                             break
                 else:
                     lvtemplate = "lv_swap"
+            elif pool:
+                pool_count = len([p for p in self.thinpools if p in vg.lvs])
+                if pool_count:
+                    idx = pool_count
+                    while True:
+                        lvtemplate = "lv_pool%02d" % idx
+                        if lvtemplate in [lv.lvname for lv in vg.lvs]:
+                            idx += 1
+                        else:
+                            break
+                else:
+                    lvtemplate = "lv_pool"
             else:
                 idx = len(vg.lvs)
                 while True:
