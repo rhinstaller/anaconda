@@ -323,6 +323,14 @@ update-desktop-database &> /dev/null || :
 %{_datadir}/anaconda/help/*
 
 %changelog
+* Wed Jan 14 2015 Brian C. Lane <bcl@redhat.com> - 19.31.119-1
+- Update error handler classes (bcl)
+  Resolves: rhbz#1181146
+- Pass a Size instance to blivet instead of number of bytes (vpodzime)
+  Related: rhbz#1171116
+- If using pre-existing, no size needs to be specified in ksdata (amulhern)
+  Resolves: rhbz#1169783
+
 * Wed Jan 07 2015 Brian C. Lane <bcl@redhat.com> - 19.31.118-1
 - Fix handling of md fwraid names in kickstart bootloader command. (dlehman)
   Resolves: rhbz#1167375
