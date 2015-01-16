@@ -680,7 +680,6 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
             self._update_all_devices_in_selectors()
             self._error = e
             self.set_warning(_(DEVICE_CONFIGURATION_ERROR_MSG))
-            self.window.show_all()
 
             if not removed_device:
                 # nothing more to do
@@ -700,7 +699,6 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
                     self.refresh()  # this calls self.clear_errors
                     self._error = e
                     self.set_warning(_(UNRECOVERABLE_ERROR_MSG))
-                    self.window.show_all()
                     return False
 
     @ui_storage_logged
@@ -761,7 +759,6 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
                 self._error = e
                 self.set_warning(_("Device resize request failed. "
                                    "<a href=\"\">Click for details.</a>"))
-                self.window.show_all()
             else:
                 _changed_size = True
 
@@ -835,7 +832,6 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
             self._error = e
             self.set_warning(_("Device reformat request failed. "
                                "<a href=\"\">Click for details.</a>"))
-            self.window.show_all()
         else:
             # first, remove this selector from any old install page(s)
             new_selector = None
@@ -963,7 +959,6 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
             if error:
                 self._error = error
                 self.set_warning(self._error)
-                self.window.show_all()
                 self._populate_right_side(selector)
                 return
 
@@ -985,7 +980,6 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
             if error:
                 self._error = error
                 self.set_warning(self._error)
-                self.window.show_all()
                 self._populate_right_side(selector)
                 return
 
@@ -1013,7 +1007,6 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
                                           raid_level)
         if error:
             self.set_warning(error)
-            self.window.show_all()
             self._populate_right_side(selector)
             return
 
@@ -1527,7 +1520,6 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
 
         # on_info_bar_clicked requires self._error to be set, so set it to the
         # list of all errors and warnings that storage checking found.
-        self.window.show_all()
         self._error = "\n".join(self.errors + self.warnings)
 
         return self._error == ""
@@ -1635,7 +1627,6 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
                     self.set_info(_("Added new %(type)s to existing "
                                     "container %(name)s.")
                                     % {"type" : type_str, "name" : container.name})
-                    self.window.show_all()
                     e = None
 
             # the factory's error handling has replaced all of the devices
@@ -1646,12 +1637,10 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
                 self._error = e
                 self.set_error(_("Failed to add new device. <a href=\"\">Click for "
                                  "details.</a>"))
-                self.window.show_all()
         except OverflowError as e:
             log.error("invalid size set for partition")
             self._error = e
             self.set_error(_("Invalid partition size set. Use a valid integer."))
-            self.window.show_all()
 
     def on_add_clicked(self, button):
         self._save_right_side(self._current_selector)
@@ -1762,7 +1751,6 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
             self._error = e
             self.set_warning(_("Device removal request failed. <a href=\"\">Click "
                                "for details.</a>"))
-            self.window.show_all()
             return
         else:
             if is_logical_partition:
@@ -1930,7 +1918,6 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         if not disks:
             self._error = "No disks selected. Keeping previous disk set."
             self.set_info(self._error)
-            self.window.show_all()
             return
 
         if set(disks) != self._device_disks:
@@ -1989,7 +1976,6 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         if not disks:
             self._error = "No disks selected. Not saving changes."
             self.set_info(self._error)
-            self.window.show_all()
             return
 
         log.debug("new container name: %s", name)
@@ -1997,7 +1983,6 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
             self._error = _("Volume Group name %s is already in use. Not "
                             "saving changes.") % name
             self.set_info(self._error)
-            self.window.show_all()
             return
 
         if (set(disks) != set(self._device_disks) or
@@ -2258,20 +2243,17 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
             log.error("doAutoPartition failed: %s", e)
             self._error = e
             self.set_error(_("No disks selected."))
-            self.window.show_all()
         except NotEnoughFreeSpaceError as e:
             # No handling should be required for this.
             log.error("doAutoPartition failed: %s", e)
             self._error = e
             self.set_error(_("Not enough free space on selected disks."))
-            self.window.show_all()
         except (StorageError, BootLoaderError) as e:
             log.error("doAutoPartition failed: %s", e)
             self._reset_storage()
             self._error = e
             self.set_error(_("Automatic partitioning failed. <a href=\"\">Click "
                              "for details.</a>"))
-            self.window.show_all()
         else:
             self._devices = self._storage_playground.devices
             # mark all new containers for automatic size management
@@ -2297,7 +2279,6 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
             self._error = messages
             self.set_error(_("Automatic partitioning failed. <a href=\"\">Click "
                              "for details.</a>"))
-            self.window.show_all()
 
     def on_create_clicked(self, button, autopartTypeCombo):
         # Then do autopartitioning.  We do not do any clearpart first.  This is
@@ -2591,7 +2572,6 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
             self._passphraseEntry.set_text("")
             self.set_warning(_("Failed to unlock encrypted block device. "
                                "<a href=\"\">Click for details.</a>"))
-            self.window.show_all()
             return
 
         log.info("unlocked %s, now going to populate devicetree...", device.name)
