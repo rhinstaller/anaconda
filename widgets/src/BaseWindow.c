@@ -598,6 +598,7 @@ static void anaconda_base_window_set_info_bar(AnacondaBaseWindow *win, GtkMessag
     gtk_container_add(GTK_CONTAINER(content_area), label);
     gtk_info_bar_set_message_type(GTK_INFO_BAR(win->priv->info_bar), ty);
     gtk_widget_show(win->priv->info_bar);
+    gtk_widget_show(win->priv->event_box);
 
     win->priv->info_shown = TRUE;
 }

@@ -1446,7 +1446,6 @@ class NetworkSpoke(FirstbootSpokeMixIn, NormalSpoke):
             msg = _("Host name is not valid: %s") % error
             self.set_warning(msg)
             self.network_control_box.entry_hostname.grab_focus()
-            self.window.show_all()
         else:
             self.clear_info()
             NormalSpoke.on_back_clicked(self, button)
@@ -1516,7 +1515,6 @@ class NetworkStandaloneSpoke(StandaloneSpoke):
             msg = _("Host name is not valid: %s") % error
             self.set_warning(msg)
             self.network_control_box.entry_hostname.grab_focus()
-            self.window.show_all()
         else:
             self.clear_info()
             StandaloneSpoke._on_continue_clicked(self, window, user_data)
