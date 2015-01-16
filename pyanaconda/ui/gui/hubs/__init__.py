@@ -222,12 +222,10 @@ class Hub(GUIObject, common.Hub):
         if len(self._incompleteSpokes) == 0:
             if self._checker and not self._checker.check():
                 self.set_warning(self._checker.error_message)
-                self.window.show_all()
         else:
             msg = _("Please complete items marked with this icon before continuing to the next step.")
 
             self.set_warning(msg)
-            self.window.show_all()
 
         self._updateContinueButton()
 

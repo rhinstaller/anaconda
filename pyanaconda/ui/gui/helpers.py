@@ -90,7 +90,6 @@ class GUISpokeInputCheckHandler(GUIInputCheckHandler):
         self.clear_info()
         if failed_check:
             self.set_warning(failed_check.check_status)
-            self.window.show_all()
 
     # Implemented by GUIObject
     @abstractmethod
