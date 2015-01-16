@@ -227,8 +227,23 @@ class DNFPayload(packaging.PackagePayload):
         if mirrorlist:
             repo.mirrorlist = mirrorlist
         repo.sslverify = not (ksrepo.noverifyssl or flags.noverifyssl)
-        repo.enable()
-        self._base.repos.add(repo)
+
+        # If this repo is already known, it's one of two things:
+        # (1) The user is trying to do "repo --name=updates" in a kickstart file
+        #     and we should just know to enable the already existing on-disk
+        #     repo config.
+        # (2) It's a duplicate, and we need to delete the existing definition
+        #     and use this new one.  The highest profile user of this is livecd
+        #     kickstarts.
+        if repo.id in self._base.repos:
+            if not url and not mirrorlist:
+                self._base.repos[repo.id].enable()
+            else:
+                self._base.repos.pop(repo.id)
+        # If the repo's not already known, we've got to add it.
+        else:
+            self._base.repos.add(repo)
+            repo.enable()
 
         # Load the metadata to verify that the repo is valid
         try:
@@ -755,13 +770,7 @@ class DNFPayload(packaging.PackagePayload):
                     repo.enable()
 
         for ksrepo in self.data.repo.dataList():
-            # This is a repo we already have a config file in /etc/anaconda.repos.d,
-            # so we just need to enable it here.  See the kickstart docs for the repo
-            # command.
-            if not ksrepo.baseurl and not ksrepo.mirrorlist:
-                self._base.repos[ksrepo.name].enable()
-            else:
-                self._add_repo(ksrepo)
+            self._add_repo(ksrepo)
 
         ksnames = [r.name for r in self.data.repo.dataList()]
         ksnames.append(constants.BASE_REPO_NAME)
