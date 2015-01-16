@@ -9,7 +9,7 @@ Group:   Applications/System
 URL:     http://fedoraproject.org/wiki/Anaconda
 
 %define anacondabuild %{name}-#VERSION#
-%define helpver 7.1.1
+%define helpver 7.1.4
 # To generate Source0 do:
 # git clone http://git.fedorahosted.org/git/anaconda.git
 # git checkout -b archive-branch anaconda-%%{version}-%%{release}
