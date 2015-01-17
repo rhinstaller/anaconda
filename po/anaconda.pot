@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: anaconda 22.13\n"
+"Project-Id-Version: anaconda 22.14\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
-"POT-Creation-Date: 2015-01-09 17:15-0800\n"
+"POT-Creation-Date: 2015-01-16 17:17-0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -192,7 +192,7 @@ msgstr ""
 
 #: pyanaconda/constants_text.py:40 pyanaconda/rescue.py:331
 #: pyanaconda/rescue.py:363 pyanaconda/rescue.py:431 pyanaconda/rescue.py:447
-#: pyanaconda/rescue.py:458 anaconda:479
+#: pyanaconda/rescue.py:458 anaconda:500
 msgid "OK"
 msgstr ""
 
@@ -351,7 +351,7 @@ msgid ""
 "The installer will now terminate."
 msgstr ""
 
-#: pyanaconda/exception.py:95
+#: pyanaconda/exception.py:96
 #, python-format
 msgid ""
 "The installation was stopped due to what seems to be a problem with your "
@@ -362,17 +362,29 @@ msgid ""
 " The installer will now terminate."
 msgstr ""
 
-#: pyanaconda/exception.py:99
+#: pyanaconda/exception.py:100
 msgid "Hardware error occured"
 msgstr ""
 
-#: pyanaconda/exception.py:133
+#: pyanaconda/exception.py:134
 #, python-format
 msgid ""
 "\n"
 "The installation was stopped due to incomplete spokes detected while running "
 "in non-interactive cmdline mode. Since there cannot be any questions in "
 "cmdline mode, edit your kickstart file and retry installation.\n"
+"The exact error message is: \n"
+"\n"
+"%s.\n"
+"\n"
+"The installer will now terminate."
+msgstr ""
+
+#: pyanaconda/exception.py:142
+#, python-format
+msgid ""
+"\n"
+"Running in cmdline mode, no interactive debugging allowed.\n"
 "The exact error message is: \n"
 "\n"
 "%s.\n"
@@ -428,7 +440,7 @@ msgstr ""
 
 #: pyanaconda/install.py:256 pyanaconda/packaging/livepayload.py:170
 #: pyanaconda/packaging/yumpayload.py:1409
-#: pyanaconda/packaging/dnfpayload.py:654
+#: pyanaconda/packaging/dnfpayload.py:669
 msgid "Performing post-installation setup tasks"
 msgstr ""
 
@@ -1239,12 +1251,12 @@ msgid "CmdlineError: Missing package: %s"
 msgstr ""
 
 #: pyanaconda/packaging/yumpayload.py:1371
-#: pyanaconda/packaging/dnfpayload.py:608
+#: pyanaconda/packaging/dnfpayload.py:623
 msgid "Starting package installation process"
 msgstr ""
 
 #: pyanaconda/packaging/yumpayload.py:1407
-#: pyanaconda/packaging/dnfpayload.py:637
+#: pyanaconda/packaging/dnfpayload.py:652
 msgid "Preparing transaction from installation source"
 msgstr ""
 
@@ -1259,11 +1271,11 @@ msgid ""
 "(%(percent)d%%) done."
 msgstr ""
 
-#: pyanaconda/packaging/dnfpayload.py:625
+#: pyanaconda/packaging/dnfpayload.py:640
 msgid "Downloading packages"
 msgstr ""
 
-#: pyanaconda/packaging/dnfpayload.py:647
+#: pyanaconda/packaging/dnfpayload.py:662
 #, python-format
 msgid "Installing %s"
 msgstr ""
@@ -1388,9 +1400,8 @@ msgid ""
 msgstr ""
 
 #. TRANSLATORS: 'b' to begin installation
-#. TRANSLATORS: 'b' to go back
 #: pyanaconda/ui/tui/hubs/summary.py:107
-#: pyanaconda/ui/tui/spokes/langsupport.py:117
+msgctxt "TUI|Spoke Navigation"
 msgid "b"
 msgstr ""
 
@@ -1401,18 +1412,15 @@ msgstr ""
 
 #. TRANSLATORS: 'c' to continue
 #: pyanaconda/ui/tui/hubs/summary.py:121
+#: pyanaconda/ui/tui/hubs/__init__.py:111
+#: pyanaconda/ui/tui/simpleline/base.py:456
+#: pyanaconda/ui/tui/spokes/software.py:189
+msgctxt "TUI|Spoke Navigation"
 msgid "c"
 msgstr ""
 
 #: pyanaconda/ui/tui/hubs/__init__.py:41
 msgid "Default HUB title"
-msgstr ""
-
-#. TRANSLATORS: 'c' to continue
-#: pyanaconda/ui/tui/hubs/__init__.py:111
-#: pyanaconda/ui/tui/simpleline/base.py:456
-msgctxt "TUI|Spoke Navigation"
-msgid "c"
 msgstr ""
 
 #: pyanaconda/ui/tui/tuiobject.py:30 pyanaconda/ui/gui/main.glade:72
@@ -1525,6 +1533,12 @@ msgstr ""
 
 #: pyanaconda/ui/tui/spokes/langsupport.py:83
 msgid "Available languages"
+msgstr ""
+
+#. TRANSLATORS: 'b' to go back
+#: pyanaconda/ui/tui/spokes/langsupport.py:117
+msgctxt "TUI|Spoke Navigation|Language Support"
+msgid "b"
 msgstr ""
 
 #: pyanaconda/ui/tui/spokes/langsupport.py:125
@@ -1859,7 +1873,7 @@ msgid "Error setting up software source"
 msgstr ""
 
 #: pyanaconda/ui/tui/spokes/source.py:108
-#: pyanaconda/ui/tui/spokes/software.py:86
+#: pyanaconda/ui/tui/spokes/software.py:121
 #: pyanaconda/ui/gui/spokes/datetime_spoke.py:531
 #: pyanaconda/ui/gui/spokes/software.py:218
 #: pyanaconda/ui/gui/spokes/source.py:549
@@ -1867,7 +1881,7 @@ msgid "Nothing selected"
 msgstr ""
 
 #: pyanaconda/ui/tui/spokes/source.py:119
-#: pyanaconda/ui/tui/spokes/software.py:66
+#: pyanaconda/ui/tui/spokes/software.py:109
 msgid "Processing..."
 msgstr ""
 
@@ -1935,35 +1949,35 @@ msgstr ""
 msgid "No *.iso files found in device root folder"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/software.py:39
+#: pyanaconda/ui/tui/spokes/software.py:40
 msgid "Software selection"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/software.py:64
+#: pyanaconda/ui/tui/spokes/software.py:107
 #: pyanaconda/ui/gui/spokes/software.py:202
 msgid "Error checking software selection"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/software.py:68
+#: pyanaconda/ui/tui/spokes/software.py:111
 #: pyanaconda/ui/gui/spokes/software.py:205
 msgid "Installation source not set up"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/software.py:70
+#: pyanaconda/ui/tui/spokes/software.py:113
 #: pyanaconda/ui/gui/spokes/software.py:208
 msgid "Source changed - please verify"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/software.py:85
+#: pyanaconda/ui/tui/spokes/software.py:120
 #: pyanaconda/ui/gui/spokes/software.py:216
 msgid "Custom software selected"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/software.py:112
+#: pyanaconda/ui/tui/spokes/software.py:147
 msgid "Installation source needs to be set up first."
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/software.py:122
+#: pyanaconda/ui/tui/spokes/software.py:157
 msgid "Base environment"
 msgstr ""
 
@@ -2072,19 +2086,19 @@ msgstr ""
 msgid "Password set."
 msgstr ""
 
-#: pyanaconda/ui/gui/__init__.py:480 widgets/src/BaseWindow.c:115
+#: pyanaconda/ui/gui/__init__.py:476 widgets/src/BaseWindow.c:115
 msgid "Help!"
 msgstr ""
 
-#: pyanaconda/ui/gui/__init__.py:725 widgets/src/StandaloneWindow.c:51
+#: pyanaconda/ui/gui/__init__.py:721 widgets/src/StandaloneWindow.c:51
 msgid "_Quit"
 msgstr ""
 
-#: pyanaconda/ui/gui/__init__.py:740
+#: pyanaconda/ui/gui/__init__.py:736
 msgid "_No"
 msgstr ""
 
-#: pyanaconda/ui/gui/__init__.py:740
+#: pyanaconda/ui/gui/__init__.py:736
 msgid "_Yes"
 msgstr ""
 
@@ -2604,28 +2618,28 @@ msgstr ""
 msgid "Error checking software dependencies"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/software.py:358
+#: pyanaconda/ui/gui/spokes/software.py:364
 msgid "Error checking software dependencies.  Click for details."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/software.py:460
+#: pyanaconda/ui/gui/spokes/software.py:466
 msgid ""
 "The software marked for installation has the following errors.  This is "
 "likely caused by an error with your installation source.  You can quit the "
 "installer, change your software source, or change your software selections."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/software.py:465
+#: pyanaconda/ui/gui/spokes/software.py:471
 msgctxt "GUI|Software Selection|Error Dialog"
 msgid "_Quit"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/software.py:466
+#: pyanaconda/ui/gui/spokes/software.py:472
 msgctxt "GUI|Software Selection|Error Dialog"
 msgid "_Modify Software Source"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/software.py:467
+#: pyanaconda/ui/gui/spokes/software.py:473
 msgctxt "GUI|Software Selection|Error Dialog"
 msgid "Modify _Selections"
 msgstr ""
@@ -5610,14 +5624,14 @@ msgstr ""
 msgid "Welcome to Fedora"
 msgstr ""
 
-#: anaconda:429
+#: anaconda:450
 #, python-format
 msgid ""
 "%(product_name)s requires %(needed_ram)s MB of memory to install, but you "
 "only have %(total_ram)s MB on this machine.\n"
 msgstr ""
 
-#: anaconda:431
+#: anaconda:452
 #, python-format
 msgid ""
 "The %(product_name)s graphical installer requires %(needed_ram)s MB of "
@@ -5625,17 +5639,17 @@ msgid ""
 "."
 msgstr ""
 
-#: anaconda:434
+#: anaconda:455
 msgid ""
 "\n"
 "Press <return> to reboot your system.\n"
 msgstr ""
 
-#: anaconda:436
+#: anaconda:457
 msgid "Not enough RAM"
 msgstr ""
 
-#: anaconda:437
+#: anaconda:458
 msgid ""
 " Try the text mode installer by running:\n"
 "\n"
@@ -5644,43 +5658,43 @@ msgid ""
 " from a root terminal."
 msgstr ""
 
-#: anaconda:440
+#: anaconda:461
 msgid " Starting text mode."
 msgstr ""
 
-#: anaconda:477
+#: anaconda:498
 msgid "Fatal Error"
 msgstr ""
 
-#: anaconda:605
+#: anaconda:626
 msgid "DISPLAY variable not set. Starting text mode."
 msgstr ""
 
-#: anaconda:613
+#: anaconda:634
 msgid "Graphical installation is not available. Starting text mode."
 msgstr ""
 
-#: anaconda:621
+#: anaconda:642
 msgid ""
 "Text mode provides a limited set of installation options. It does not offer "
 "custom partitioning for full control over the disk layout. Would you like to "
 "use VNC mode instead?"
 msgstr ""
 
-#: anaconda:711
+#: anaconda:732
 #, python-format
 msgid "Please ssh install@%s to begin the install."
 msgstr ""
 
-#: anaconda:713
+#: anaconda:734
 msgid "Please ssh install@<host> to continue installation."
 msgstr ""
 
-#: anaconda:953
+#: anaconda:974
 msgid "Unable to create PID file"
 msgstr ""
 
-#: anaconda:954
+#: anaconda:975
 #, python-format
 msgid ""
 "Anaconda is unable to create %s because the file already exists. Anaconda is "
