@@ -494,7 +494,7 @@ class MakeBumpVer:
             return False
 
         ret = True
-        section_name = "anaconda."+self.git_branch
+        section_name = "anaconda-1."+self.git_branch
 
         config = ConfigParser()
         config.read(self.tx_config)
