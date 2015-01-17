@@ -323,6 +323,10 @@ update-desktop-database &> /dev/null || :
 %{_datadir}/anaconda/help/*
 
 %changelog
+* Fri Jan 16 2015 Brian C. Lane <bcl@redhat.com> - 19.31.120-1
+- Add support for architecture suffixes in help files (mkolman)
+  Related: rhbz#1072033
+
 * Wed Jan 14 2015 Brian C. Lane <bcl@redhat.com> - 19.31.119-1
 - Update error handler classes (bcl)
   Resolves: rhbz#1181146
