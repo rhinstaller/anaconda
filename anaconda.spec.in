@@ -290,6 +290,7 @@ update-desktop-database &> /dev/null || :
 %files gui
 %{_libdir}/python*/site-packages/pyanaconda/ui/gui/*
 %{_datadir}/anaconda/window-manager/glib-2.0/schemas/*
+%{_datadir}/themes/Anaconda/*
 
 %files tui
 %{_libdir}/python*/site-packages/pyanaconda/rescue.py

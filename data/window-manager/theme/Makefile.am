@@ -19,4 +19,4 @@
 
 themedir = $(datadir)/themes/Anaconda/metacity-1
 
-dist_theme_data = metacity-theme-1.xml
+dist_theme_DATA = metacity-theme-1.xml
