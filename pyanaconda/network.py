@@ -365,6 +365,11 @@ def dracutBootArguments(devname, ifcfg, storage_ipaddr, hostname=None):
         if hwaddr:
             netargs.add("ifname=%s:%s" % (devname, hwaddr.lower()))
 
+        if ifcfg.get("TYPE") == "Team" or ifcfg.get("DEVICETYPE") == "Team":
+            slaves = get_team_slaves([devname, ifcfg.get("UUID")])
+            netargs.add("team=%s:%s" % (devname,
+                                        ",".join(dev for dev, _cfg in slaves)))
+
     nettype = ifcfg.get("NETTYPE")
     subchannels = ifcfg.get("SUBCHANNELS")
     if blivet.arch.isS390() and nettype and subchannels:
