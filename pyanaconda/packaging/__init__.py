@@ -1001,6 +1001,21 @@ class PackagePayload(Payload):
                     self.requiredPackages.append(package)
         log.debug("required packages = %s", self.requiredPackages)
 
+    @property
+    def ISOImage(self):
+        """ The location of a mounted ISO repo, or None. """
+        if not self.data.method.method == "harddrive":
+            return None
+        # This could either be mounted to INSTALL_TREE or on
+        # DRACUT_ISODIR if dracut did the mount.
+        dev = blivet.util.get_mount_device(INSTALL_TREE)
+        if dev:
+            return dev[len(ISO_DIR)+1:]
+        dev = blivet.util.get_mount_device(DRACUT_ISODIR)
+        if dev:
+            return dev[len(DRACUT_ISODIR)+1:]
+        return None
+
     ###
     ### METHODS FOR WORKING WITH ENVIRONMENTS
     ###

@@ -63,8 +63,7 @@ except ImportError:
     log.error("import of yum failed")
     yum = None
 
-from pyanaconda.constants import BASE_REPO_NAME, DRACUT_ISODIR, INSTALL_TREE, ISO_DIR, MOUNT_DIR, \
-                                 LOGLVL_LOCK, IPMI_ABORTED
+from pyanaconda.constants import BASE_REPO_NAME, MOUNT_DIR, LOGLVL_LOCK, IPMI_ABORTED
 from pyanaconda.flags import flags
 
 from pyanaconda import iutil
@@ -650,20 +649,6 @@ reposdir=%s
         self._refreshEnvironmentAddons()
 
         log.info("metadata retrieval complete")
-
-    @property
-    def ISOImage(self):
-        if not self.data.method.method == "harddrive":
-            return None
-        # This could either be mounted to INSTALL_TREE or on
-        # DRACUT_ISODIR if dracut did the mount.
-        dev = blivet.util.get_mount_device(INSTALL_TREE)
-        if dev:
-            return dev[len(ISO_DIR)+1:]
-        dev = blivet.util.get_mount_device(DRACUT_ISODIR)
-        if dev:
-            return dev[len(DRACUT_ISODIR)+1:]
-        return None
 
     @refresh_base_repo()
     def _configureAddOnRepo(self, repo):
