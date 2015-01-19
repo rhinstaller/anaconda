@@ -41,6 +41,16 @@ case "$kickstart" in
     nfs*/) kickstart="${kickstart}${new_ip_address}-kickstart" ;;
 esac
 
+# If we're doing sendmac, we need to run after anaconda-ks-sendheaders.sh
+if getargbool 0 inst.ks.sendmac kssendmac; then
+    newjob=$hookdir/initqueue/settled/fetch-ks-${netif}.sh
+else
+    newjob=$hookdir/initqueue/fetch-ks-${netif}.sh
+fi
+
+cat > $newjob <<__EOT__
+. /lib/url-lib.sh
+. /lib/anaconda-lib.sh
 info "anaconda fetching kickstart from $kickstart"
 if fetch_url "$kickstart" /tmp/ks.cfg; then
     parse_kickstart /tmp/ks.cfg
@@ -48,3 +58,5 @@ if fetch_url "$kickstart" /tmp/ks.cfg; then
 else
     warn "failed to fetch kickstart from $kickstart"
 fi
+rm \$job # remove self from initqueue
+__EOT__
