@@ -27,6 +27,7 @@ import re
 import struct
 import blivet
 from parted import PARTITION_BIOS_GRUB
+from glob import glob
 
 from pyanaconda import iutil
 from blivet.devicelibs import raid
@@ -2387,7 +2388,11 @@ def writeBootLoader(storage, payload, instClass, ksdata):
         return
 
     # get a list of installed kernel packages
-    kernel_versions = payload.kernelVersionList + payload.rescueKernelList
+    # add whatever rescue kernels we can find to the end
+    kernel_versions = list(payload.kernelVersionList)
+    kernel_versions += glob(iutil.getSysroot() + "/boot/vmlinuz-*-rescue-*")
+    kernel_versions += glob(iutil.getSysroot() + "/boot/efi/EFI/%s/vmlinuz-*-rescue-*" % instClass.efi_dir)
+
     if not kernel_versions:
         log.warning("no kernel was installed -- boot loader config unchanged")
         return

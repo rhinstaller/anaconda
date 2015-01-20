@@ -72,7 +72,14 @@ from pyanaconda.product import productName, productVersion
 import urlgrabber
 urlgrabber.grabber.default_grabber.opts.user_agent = "%s (anaconda)/%s" %(productName, productVersion)
 
+from distutils.version import LooseVersion
+
 REPO_NOT_SET = False
+
+def versionCmp(v1, v2):
+    """ Compare two version number strings. """
+
+    return LooseVersion(v1).__cmp__(LooseVersion(v2))
 
 ###
 ### ERROR HANDLING
@@ -128,8 +135,6 @@ class Payload(object):
         self.data = data
         self.storage = None
         self.instclass = None
-        self._kernelVersionList = []
-        self._rescueVersionList = []
         self.txID = None
 
     def setup(self, storage, instClass):
@@ -302,29 +307,6 @@ class Payload(object):
         self.data.packages.excludedGroupList.append(grp)
 
     ###
-    ### METHODS FOR WORKING WITH PACKAGES
-    ###
-    def _updateKernelVersionList(self):
-        try:
-            import yum
-        except ImportError:
-            cmpfunc = cmp
-        else:
-            cmpfunc = yum.rpmUtils.miscutils.compareVerOnly
-
-        files = glob(iutil.getSysroot() + "/boot/vmlinuz-*")
-        files.extend(glob(iutil.getSysroot() + "/boot/efi/EFI/%s/vmlinuz-*" % self.instclass.efi_dir))
-
-        versions = sorted((f.split("/")[-1][8:] for f in files if os.path.isfile(f)), cmp=cmpfunc)
-        log.debug("kernel versions: %s", versions)
-
-        # Store regular and rescue kernels separately
-        self._kernelVersionList = (
-                [v for v in versions if "-rescue-" not in v],
-                [v for v in versions if "-rescue-" in v]
-                )
-
-    ###
     ### METHODS FOR QUERYING STATE
     ###
     @property
@@ -334,16 +316,8 @@ class Payload(object):
 
     @property
     def kernelVersionList(self):
-        if not self._kernelVersionList:
-            self._updateKernelVersionList()
-
-        return self._kernelVersionList[0]
-
-    @property
-    def rescueKernelList(self):
-        # do re-scan if looking for rescue kernel
-        self._updateKernelVersionList()
-        return self._kernelVersionList[1]
+        """ An iterable of the kernel versions installed by the payload. """
+        raise NotImplementedError()
 
     ##
     ## METHODS FOR TREE VERIFICATION

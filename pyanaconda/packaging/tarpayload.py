@@ -36,7 +36,7 @@ except ImportError:
     log.error("import of tarfile failed")
     tarfile = None
 
-from pyanaconda.packaging import ArchivePayload, PayloadError
+from pyanaconda.packaging import ArchivePayload, PayloadError, versionCmp
 from pyanaconda import iutil
 
 # TarPayload is not yet fully implemented
@@ -73,8 +73,10 @@ class TarPayload(ArchivePayload):
     @property
     def kernelVersionList(self):
         names = self.archive.getnames()
-        kernels = [n for n in names if "boot/vmlinuz-" in n]
-        return kernels
+
+        # Strip out vmlinuz- from the names
+        return sorted((n.split("/")[-1][8:] for n in names if "boot/vmlinuz-" in n),
+                cmp=versionCmp)
 
     def install(self):
         try:

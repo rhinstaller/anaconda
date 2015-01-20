@@ -56,6 +56,7 @@ from blivet.size import Size
 import blivet.util
 from pyanaconda.threads import threadMgr, AnacondaThread
 from pyanaconda.i18n import _
+from pyanaconda.packaging import versionCmp
 
 class LiveImagePayload(ImagePayload):
     """ A LivePayload copies the source image onto the target system. """
@@ -66,6 +67,8 @@ class LiveImagePayload(ImagePayload):
         self.pct = 0
         self.pct_lock = None
         self.source_size = 1
+
+        self._kernelVersionList = []
 
     def setup(self, storage, instClass):
         super(LiveImagePayload, self).setup(storage, instClass)
@@ -79,6 +82,9 @@ class LiveImagePayload(ImagePayload):
         rc = blivet.util.mount(osimg.path, INSTALL_TREE, fstype="auto", options="ro")
         if rc != 0:
             raise PayloadInstallError("Failed to mount the install tree")
+
+        # Grab the kernel version list now so it's available after umount
+        self._updateKernelVersionList()
 
         source = iutil.eintr_retry_call(os.statvfs, INSTALL_TREE)
         self.source_size = source.f_frsize * (source.f_blocks - source.f_bfree)
@@ -179,6 +185,17 @@ class LiveImagePayload(ImagePayload):
     @property
     def spaceRequired(self):
         return Size(iutil.getDirSize("/")*1024)
+
+    def _updateKernelVersionList(self):
+        files = glob.glob(INSTALL_TREE + "/boot/vmlinuz-*")
+        files.extend(glob.glob(INSTALL_TREE + "/boot/efi/EFI/%s/vmlinuz-*" % self.instclass.efi_dir))
+
+        self._kernelVersionList = sorted((f.split("/")[-1][8:] for f in files
+           if os.path.isfile(f) and "-rescue-" not in f), cmp=versionCmp)
+
+    @property
+    def kernelVersionList(self):
+        return self._kernelVersionList
 
 class URLGrabberProgress(object):
     """ Provide methods for urlgrabber progress."""
@@ -388,6 +405,7 @@ class LiveImageKSPayload(LiveImagePayload):
 
         # Nothing more to mount
         if not os.path.exists(INSTALL_TREE+"/LiveOS"):
+            self._updateKernelVersionList()
             return
 
         # Mount the first .img in the directory on INSTALL_TREE
@@ -414,6 +432,8 @@ class LiveImageKSPayload(LiveImagePayload):
                 exn = PayloadInstallError("mount error %s with %s" % (rc, img_file))
                 if errorHandler.cb(exn) == ERROR_RAISE:
                     raise exn
+
+            self._updateKernelVersionList()
 
             source = iutil.eintr_retry_call(os.statvfs, INSTALL_TREE)
             self.source_size = source.f_frsize * (source.f_blocks - source.f_bfree)
@@ -493,3 +513,17 @@ class LiveImageKSPayload(LiveImagePayload):
             return Size(self._min_size)
         else:
             return Size(1024*1024*1024)
+
+    @property
+    def kernelVersionList(self):
+        # If it doesn't look like a tarfile use the super's kernelVersionList
+        if not self.is_tarfile:
+            return super(LiveImageKSPayload, self).kernelVersionList
+
+        import tarfile
+        with tarfile.open(self.image_path) as archive:
+            names = archive.getnames()
+
+            # Strip out vmlinuz- from the names
+            return sorted((n.split("/")[-1][8:] for n in names if "boot/vmlinuz-" in n),
+                    cmp=versionCmp)
