@@ -240,6 +240,8 @@ class DNFPayload(packaging.PackagePayload):
                 self._base.repos[repo.id].enable()
             else:
                 self._base.repos.pop(repo.id)
+                self._base.repos.add(repo)
+                repo.enable()
         # If the repo's not already known, we've got to add it.
         else:
             self._base.repos.add(repo)
