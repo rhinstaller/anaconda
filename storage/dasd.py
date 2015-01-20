@@ -46,6 +46,7 @@ class DASD:
 
     def __init__(self):
         self._dasdlist = []
+        self._ldldasdlist = []
         self._devices = []                  # list of DASDDevice objects
         self.totalCylinders = 0
         self._completedCylinders = 0.0
@@ -68,8 +69,6 @@ class DASD:
             return
 
         self.started = True
-        out = "/dev/tty5"
-        err = "/dev/tty5"
 
         if not iutil.isS390():
             return
@@ -104,11 +103,7 @@ class DASD:
             elif isys.isLdlDasd(device):
                 log.info("     %s (%s) is an LDL DASD, needs dasdfmt" % (device,
                                                                          bypath))
-                self._dasdlist.append((device, bypath))
-
-        if not len(self._dasdlist):
-            log.info("    no unformatted or LDL DASD devices found")
-            return
+                self._ldldasdlist.append((device, bypath))
 
         askUser = True
 
@@ -119,11 +114,27 @@ class DASD:
                      "command, unable to run dasdfmt, exiting installer")
             sys.exit(0)
 
-        c = len(self._dasdlist)
+        # now onto formatting our DASDs
+        if not len(self._dasdlist):
+            log.info("    no unformatted DASD devices found")
+        else:
+            self.format_dasds(intf, askUser, self._dasdlist)
+
+        if not len(self._ldldasdlist):
+            log.info("    no LDL DASD devices found")
+        else:
+            self.format_dasds(intf, askUser, self._ldldasdlist)
+
+    def format_dasds(self, intf, askUser, dasdlist):
+        """ Iterate through a given list of DASDs and run dasdfmt on them. """
+        out = "/dev/tty5"
+        err = "/dev/tty5"
+
+        c = len(dasdlist)
 
         if intf and askUser:
             devs = ''
-            for dasd, bypath in self._dasdlist:
+            for dasd, bypath in dasdlist:
                 devs += "%s\n" % (bypath,)
 
             rc = intf.questionInitializeDASD(c, devs)
@@ -133,7 +144,7 @@ class DASD:
 
         # gather total cylinder count
         argv = ["-t", "-v"] + self.commonArgv
-        for dasd, bypath in self._dasdlist:
+        for dasd, bypath in dasdlist:
             buf = iutil.execWithCapture(self.dasdfmt, argv + ["/dev/" + dasd],
                                         stderr=err)
             for line in buf.splitlines():
@@ -158,7 +169,7 @@ class DASD:
             else:
                 pw = intf.progressWindow(title, msg, 100, pulse=True)
 
-        for dasd, bypath in self._dasdlist:
+        for dasd, bypath in dasdlist:
             log.info("Running dasdfmt on %s" % (bypath,))
             arglist = argv + ["/dev/" + dasd]
 
