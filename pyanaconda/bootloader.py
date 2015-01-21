@@ -810,6 +810,11 @@ class BootLoader(object):
             self.boot_args.add("boot=%s" % self.stage2_device.fstabSpec)
 
         #
+        # http://post-office.corp.redhat.com/archives/atomic-host-dev/2015-January/msg00051.html
+        #
+        self.boot_args.add("crashkernel=auto")
+
+        #
         # dracut
         #
 
