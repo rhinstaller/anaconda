@@ -327,6 +327,12 @@ update-desktop-database &> /dev/null || :
 %{_datadir}/anaconda/help/*
 
 %changelog
+* Tue Jan 20 2015 Brian C. Lane <bcl@redhat.com> - 19.31.121-1
+- network: adapt to NetworkManager package split-up (rvykydal)
+  Resolves: rhbz#1182633
+- network: pass team opts to dracut for netroot (rvykydal)
+  Resolves: rhbz#1075666
+
 * Fri Jan 16 2015 Brian C. Lane <bcl@redhat.com> - 19.31.120-1
 - Add support for architecture suffixes in help files (mkolman)
   Related: rhbz#1072033
