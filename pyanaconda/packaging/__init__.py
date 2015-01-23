@@ -34,6 +34,7 @@ import ConfigParser
 import shutil
 import time
 from glob import glob
+from fnmatch import fnmatch
 import threading
 import re
 
@@ -694,6 +695,28 @@ class PackagePayload(Payload):
                 kernels.insert(0, "kernel-lpae")
 
         return kernels
+
+    @property
+    def kernelVersionList(self):
+        # Find all installed rpms that provide 'kernel'
+
+        # If a PackagePayload is in use, rpm needs to be available
+        try:
+            import rpm
+        except ImportError:
+            raise PayloadError("failed to import rpm-python, cannot determine kernel versions")
+
+        files = []
+
+        ts = rpm.TransactionSet(iutil.getSysroot())
+        mi = ts.dbMatch('providename', 'kernel')
+        for hdr in mi:
+            # Find all /boot/vmlinuz- files and strip off vmlinuz-
+            files.extend((f.split("/")[-1][8:] for f in hdr.filenames
+                if fnmatch(f, "/boot/vmlinuz-*") or
+                   fnmatch(f, "/boot/efi/EFI/%s/vmlinuz-*" % self.instclass.efi_dir)))
+
+        return sorted(files, cmp=versionCmp)
 
     @property
     def rpmMacros(self):

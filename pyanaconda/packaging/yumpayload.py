@@ -988,14 +988,6 @@ reposdir=%s
             else:
                 return environment.groups
 
-    @property
-    def kernelVersionList(self):
-        with _yum_lock:
-            return ("%s-%s.%s" % (p.version, p.release, p.arch) for p in
-                    sorted(self._yum.pkgSack.searchNames(['kernel']),
-                           cmp=yum.rpmUtils.miscutils.compareEVR,
-                           key=lambda p: (p.epoch, p.version, p.release)))
-
     ###
     ### METHODS FOR WORKING WITH GROUPS
     ###

@@ -820,10 +820,3 @@ class DNFPayload(packaging.PackagePayload):
                 log.error(e)
 
         super(DNFPayload, self).postInstall()
-
-    @property
-    def kernelVersionList(self):
-        return ('%s-%s.%s' % (p.version, p.release, p.arch) for p in
-                sorted(self._base.sack.query().filter(name='kernel'),
-                       cmp=dnf.rpm.miscutils.compareEVR,
-                       key=lambda p: (p.epoch, p.version, p.release)))
