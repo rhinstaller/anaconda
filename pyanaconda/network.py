@@ -1371,3 +1371,6 @@ def status_message():
 
 def default_ks_vlan_interface_name(parent, vlanid):
     return "%s.%s" % (parent, vlanid)
+
+def is_using_team_device():
+    return any(nm.nm_device_type_is_team(d) for d in nm.nm_devices())

@@ -213,6 +213,9 @@ def doInstall(storage, payload, ksdata, instClass):
     if not ksdata.bootloader.disabled:
         packages += storage.bootloader.packages
 
+    if network.is_using_team_device:
+        packages.append("teamd")
+
     # don't try to install packages from the install class' ignored list and the
     # explicitly excluded ones (user takes the responsibility)
     packages = [p for p in packages
