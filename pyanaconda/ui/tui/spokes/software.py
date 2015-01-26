@@ -75,7 +75,7 @@ class SoftwareSpoke(NormalTUISpoke):
                 environments = self.payload.environments
                 instclass = self.payload.instclass
 
-                if instclass.defaultPackageEnvironment and \
+                if instclass and instclass.defaultPackageEnvironment and \
                         instclass.defaultPackageEnvironment in environments:
                     self._selection = environments.index(instclass.defaultPackageEnvironment)
                 else:

@@ -280,7 +280,7 @@ class SoftwareSelectionSpoke(NormalSpoke):
         # If no environment is selected, use the default from the instclass.
         # If nothing is set in the instclass, the first environment will be
         # selected below.
-        if not self.environment:
+        if not self.environment and self.payload.instclass:
             self.environment = self.payload.instclass.defaultPackageEnvironment
 
         firstEnvironment = True
