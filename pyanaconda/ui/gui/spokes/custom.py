@@ -312,7 +312,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
     def unusedDevices(self):
         unused_devices = [d for d in self._storage_playground.unusedDevices
                                 if d.disks and d.mediaPresent and
-                                not d.partitioned and d.direct]
+                                not d.partitioned and (d.direct or d.isleaf)]
         # add incomplete VGs and MDs
         incomplete = [d for d in self._storage_playground.devicetree._devices
                             if not getattr(d, "complete", True)]
