@@ -1382,3 +1382,6 @@ def update_onboot_value(devname, value, ksdata):
         if nd.device == devname:
             nd.onboot = True
             break
+
+def is_using_team_device():
+    return any(nm.nm_device_type_is_team(d) for d in nm.nm_devices())
