@@ -349,7 +349,7 @@ class HelpTextParser(object):
                 with open(self._path) as lines:
                     for parsed_option, parsed_text in self.read(lines):
                         self._help_text[parsed_option] = parsed_text
-            except StandardError:
+            except Exception:  # pylint: disable=broad-except
                 log.error("error reading help text file %s", self._path)
 
         return self._help_text.get(option, "")
