@@ -121,7 +121,7 @@ class ThreadManager(object):
             self.wait(name)
 
         if self.any_errors:
-            thread_names = ", ".join(thread_name for thread_name in self._errors.iterkeys()
+            thread_names = ", ".join(thread_name for thread_name in self._errors.keys()
                                      if self._errors[thread_name])
             msg = "Unhandled errors from the following threads detected: %s" % thread_names
             raise RuntimeError(msg)

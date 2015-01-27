@@ -95,7 +95,7 @@ class ResizeDialog(GUIObject):
         # First, try to find the partition in some known Root.  If we find
         # it, return the mountpoint as the description.
         for root in self.storage.roots:
-            for (mount, device) in root.mounts.iteritems():
+            for (mount, device) in root.mounts.items():
                 if device == part:
                     return "%s (%s)" % (mount, root.name)
 

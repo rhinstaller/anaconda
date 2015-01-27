@@ -789,8 +789,8 @@ class StorageSpoke(NormalSpoke, StorageChecker):
         else:
             free_space = self.storage.getFreeSpace(disks=disks,
                                                    clearPartType=CLEARPART_TYPE_NONE)
-            disk_free = sum(f[0] for f in free_space.itervalues())
-            fs_free = sum(f[1] for f in free_space.itervalues())
+            disk_free = sum(f[0] for f in free_space.values())
+            fs_free = sum(f[1] for f in free_space.values())
 
         required_space = self.payload.spaceRequired
         auto_swap = sum((r.size for r in self.storage.autoPartitionRequests

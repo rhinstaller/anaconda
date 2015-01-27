@@ -289,7 +289,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
             Restrict the set to ones that we might allow users to select.
         """
         _fs_types = []
-        for cls in device_formats.itervalues():
+        for cls in device_formats.values():
             obj = cls()
 
             # btrfs is always handled by on_device_type_changed
@@ -510,7 +510,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
 
             page = Page(root.name)
 
-            for (mountpoint, device) in root.mounts.iteritems():
+            for (mountpoint, device) in root.mounts.items():
                 if device not in self._devices or \
                    not device.disks or \
                    (root.name != translated_new_install_name() and not device.format.exists):
@@ -1395,7 +1395,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
 
         device_type = devicefactory.get_device_type(device)
 
-        for _type in self._device_name_dict.iterkeys():
+        for _type in self._device_name_dict.keys():
             if _type == device_type:
                 self._device_name_dict[_type] = device_name
                 continue

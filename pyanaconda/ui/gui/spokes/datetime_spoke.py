@@ -490,7 +490,7 @@ class DatetimeSpoke(FirstbootSpokeMixIn, NormalSpoke):
 
         cities = set()
         xlated_regions = ((region, get_xlated_timezone(region))
-                          for region in self._regions_zones.iterkeys())
+                          for region in self._regions_zones.keys())
         for region, xlated in sorted(xlated_regions, cmp=_compare_regions):
             self.add_to_store_xlated(self._regionsStore, region, xlated)
             for city in self._regions_zones[region]:

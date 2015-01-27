@@ -75,17 +75,17 @@ class AddonRegistry(object):
 
     def __str__(self):
         return functools.reduce(lambda acc, (id, addon): acc + str(addon),
-                                self.__dict__.iteritems(), "")
+                                self.__dict__.items(), "")
 
     def execute(self, storage, ksdata, instClass, users):
         """This method calls execute on all the registered addons."""
-        for v in self.__dict__.itervalues():
+        for v in self.__dict__.values():
             if hasattr(v, "execute"):
                 v.execute(storage, ksdata, instClass, users)
 
     def setup(self, storage, ksdata, instClass):
         """This method calls setup on all the registered addons."""
-        for v in self.__dict__.itervalues():
+        for v in self.__dict__.values():
             if hasattr(v, "setup"):
                 v.setup(storage, ksdata, instClass)
 

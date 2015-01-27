@@ -197,12 +197,12 @@ class XklWrapper(object):
     def get_available_layouts(self):
         """A generator yielding layouts (no need to store them as a bunch)"""
 
-        return self._layout_infos.iterkeys()
+        return self._layout_infos.keys()
 
     def get_switching_options(self):
         """Method returning list of available layout switching options"""
 
-        return self._switch_opt_infos.iterkeys()
+        return self._switch_opt_infos.keys()
 
     def get_layout_variant_description(self, layout_variant, with_lang=True, xlated=True):
         """

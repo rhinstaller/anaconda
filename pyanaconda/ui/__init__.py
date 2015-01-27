@@ -28,7 +28,7 @@ class PathDict(dict):
     """Dictionary class supporting + operator"""
     def __add__(self, ext):
         new_dict = copy.copy(self)
-        for key, value in ext.iteritems():
+        for key, value in ext.items():
             try:
                 new_dict[key].extend(value)
             except KeyError:
@@ -82,7 +82,7 @@ class UserInterface(object):
     def update_paths(cls, pathdict):
         """Receives pathdict and appends it's contents to the current
            class defined search path dictionary."""
-        for k,v in pathdict.iteritems():
+        for k,v in pathdict.items():
             cls.paths.setdefault(k, [])
             cls.paths[k].extend(v)
 

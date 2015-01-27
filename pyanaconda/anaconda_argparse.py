@@ -161,7 +161,7 @@ class AnacondaArgumentParser(ArgumentParser):
         according to the option definitions set by add_argument.
 
         boot_cmdline can be given as a string (to be parsed by BootArgs), or a
-        dict (or any object with .iteritems()) of {bootarg:value} pairs.
+        dict (or any object with .items()) of {bootarg:value} pairs.
 
         If boot_cmdline is None, the boot_cmdline data will be whatever BootArgs reads
         by default (/proc/cmdline, /run/initramfs/etc/cmdline, /etc/cmdline).
@@ -186,7 +186,7 @@ class AnacondaArgumentParser(ArgumentParser):
         # go over all options corresponding to current boot cmdline
         # and do any modifications necessary
         # NOTE: program cmdline overrides boot cmdline
-        for arg, val in bootargs.iteritems():
+        for arg, val in bootargs.items():
             option = self._get_bootarg_option(arg)
             if option is None:
                 # this boot option is unknown to Anaconda, skip it

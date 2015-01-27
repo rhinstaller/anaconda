@@ -1225,7 +1225,7 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler):
                 self._repoMirrorlistCheckbox.set_active(False)
 
         if url:
-            for idx, proto in REPO_PROTO.iteritems():
+            for idx, proto in REPO_PROTO.items():
                 if url.startswith(proto):
                     self._repoProtocolComboBox.set_active_id(idx)
                     self._repoUrlEntry.set_text(url[len(proto):])

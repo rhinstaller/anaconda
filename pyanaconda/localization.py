@@ -152,7 +152,7 @@ def find_best_locale_match(locale, langcodes):
         if not locale_parts or not langcode_parts:
             return score
 
-        for part, part_score in score_map.iteritems():
+        for part, part_score in score_map.items():
             if locale_parts[part] and langcode_parts[part]:
                 if locale_parts[part] == langcode_parts[part]:
                     # match

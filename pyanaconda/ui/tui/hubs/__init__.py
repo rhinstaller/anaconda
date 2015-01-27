@@ -87,8 +87,8 @@ class TUIHub(TUIObject, common.Hub):
             return tui.ColumnWidget([(3, [number]), (None, [w])], 1)
 
         # split spokes to two columns
-        left = [_prep(i, w) for i,w in self._keys.iteritems() if i % 2 == 1]
-        right = [_prep(i, w) for i,w in self._keys.iteritems() if i % 2 == 0]
+        left = [_prep(i, w) for i,w in self._keys.items() if i % 2 == 1]
+        right = [_prep(i, w) for i,w in self._keys.items() if i % 2 == 0]
 
         c = tui.ColumnWidget([(39, left), (39, right)], 2)
         self._window.append(c)

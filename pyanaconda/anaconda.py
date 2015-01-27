@@ -188,7 +188,7 @@ class Anaconda(object):
 
         # gather up info on the running threads
         threads = "\nThreads\n-------\n"
-        for thread_id, frame in sys._current_frames().iteritems():
+        for thread_id, frame in sys._current_frames().items():
             threads += "\nThread %s\n" % (thread_id,)
             threads += "".join(format_stack(frame))
 

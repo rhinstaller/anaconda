@@ -802,7 +802,7 @@ def get_RPMs_from_koji(packages, fedora_number, arch):
 
     index = 1
     print("starting %d worker threads" % len(packages))
-    for _package_name, package in packages.iteritems():
+    for _package_name, package in packages.items():
         thread = threading.Thread(name=index, target=get_rpm_from_Koji_thread,
                                   args=(package, fedora_number,
                                         arch, rpm_paths, print_lock))

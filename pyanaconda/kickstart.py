@@ -1084,7 +1084,7 @@ class PartitionData(commands.partition.F18_PartData):
         storage.doAutoPart = False
 
         if self.onbiosdisk != "":
-            for (disk, biosdisk) in storage.eddDict.iteritems():
+            for (disk, biosdisk) in storage.eddDict.items():
                 if "%x" % biosdisk == self.onbiosdisk:
                     self.disk = disk
                     break

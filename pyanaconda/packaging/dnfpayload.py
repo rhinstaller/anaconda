@@ -110,7 +110,7 @@ def _pick_mpoint(df, requested):
     if not len(sufficients):
         return None
     # default to the biggest one:
-    return sorted(sufficients.iteritems(), key=operator.itemgetter(1),
+    return sorted(sufficients.items(), key=operator.itemgetter(1),
                   reverse=True)[0][0]
 
 class PayloadRPMDisplay(dnf.callback.LoggingTransactionDisplay):
@@ -741,7 +741,7 @@ class DNFPayload(packaging.PackagePayload):
                 return
 
             # Otherwise, fall back to the default repos that we disabled above
-            for (id_, repo) in self._base.repos.iteritems():
+            for (id_, repo) in self._base.repos.items():
                 if id_ in enabled:
                     repo.enable()
 

@@ -39,8 +39,7 @@ class TimeZoneSpoke(FirstbootSpokeMixIn, NormalTUISpoke):
         # needs to be unsorted in order to display in the same order as the GUI
         # so whatever
         self._regions = timezone.get_all_regions_and_timezones().keys()
-        self._timezones = dict((k, sorted(v)) for k,v in timezone.get_all_regions_and_timezones
-().iteritems())
+        self._timezones = dict((k, sorted(v)) for k,v in timezone.get_all_regions_and_timezones().items())
         self._lower_regions = [r.lower() for r in self._timezones]
 
         self._zones = ["%s/%s" % (region, z) for region in self._timezones for z in self._timezones[region]]

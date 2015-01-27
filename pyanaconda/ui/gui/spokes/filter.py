@@ -22,7 +22,6 @@
 from gi.repository import Gtk
 
 from collections import namedtuple
-import itertools
 
 from blivet import arch
 from blivet.devices import DASDDevice, FcoeDiskDevice, iScsiDiskDevice, MultipathDevice, ZFCPDiskDevice

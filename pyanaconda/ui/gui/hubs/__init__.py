@@ -368,7 +368,7 @@ class Hub(GUIObject, common.Hub):
         self._inSpoke = False
 
         # Now update the selector with the current status and completeness.
-        for sp in self._spokes.itervalues():
+        for sp in self._spokes.values():
             if not sp.indirect:
                 self._updateCompleteness(sp, update_continue=False)
 
