@@ -327,6 +327,12 @@ update-desktop-database &> /dev/null || :
 %{_datadir}/anaconda/help/*
 
 %changelog
+* Mon Jan 26 2015 Brian C. Lane <bcl@redhat.com> - 19.31.122-1
+- Show empty VGs in the custom spoke. (dlehman)
+  Resolves: rhbz#1185832
+- network: add teamd package if team is used during installation (rvykydal)
+  Resolves: rhbz#1185670
+
 * Tue Jan 20 2015 Brian C. Lane <bcl@redhat.com> - 19.31.121-1
 - network: adapt to NetworkManager package split-up (rvykydal)
   Resolves: rhbz#1182633
