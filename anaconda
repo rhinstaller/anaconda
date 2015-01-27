@@ -1109,6 +1109,8 @@ if __name__ == "__main__":
             anaconda.id.storage.clearPartDisks = ksdata.clearpart.drives
             if ksdata.clearpart.initAll:
                 anaconda.id.storage.reinitializeDisks = ksdata.clearpart.initAll
+            if ksdata.clearpart.cdl:
+                anaconda.id.storage.cdl = ksdata.clearpart.cdl
 
         storage.storageInitialize(anaconda, examine_all=False)
 

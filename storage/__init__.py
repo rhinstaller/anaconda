@@ -318,6 +318,7 @@ class Storage(object):
         self.encryptionRetrofit = False
         self.reinitializeDisks = False
         self.zeroMbr = None
+        self.cdl = False
         self.protectedDevSpecs = []
         self.autoPartitionRequests = []
         self.eddDict = {}
@@ -344,6 +345,7 @@ class Storage(object):
                                      reinitializeDisks=self.reinitializeDisks,
                                      protected=self.protectedDevSpecs,
                                      zeroMbr=self.zeroMbr,
+                                     cdl=self.cdl,
                                      passphrase=self.encryptionPassphrase,
                                      luksDict=self.__luksDevs,
                                      iscsi=self.iscsi,
@@ -426,7 +428,7 @@ class Storage(object):
         self.iscsi.startup(self.anaconda.intf)
         self.fcoe.startup(self.anaconda.intf)
         self.zfcp.startup(self.anaconda.intf)
-        self.dasd.startup(self.anaconda.intf, self.exclusiveDisks, self.zeroMbr)
+        self.dasd.startup(self.anaconda.intf, self.exclusiveDisks, self.zeroMbr, self.cdl)
         if examine_all:
             clearPartType = CLEARPART_TYPE_NONE
         else:
@@ -444,6 +446,7 @@ class Storage(object):
                                      reinitializeDisks=self.reinitializeDisks,
                                      protected=self.protectedDevSpecs,
                                      zeroMbr=self.zeroMbr,
+                                     cdl=self.cdl,
                                      passphrase=self.encryptionPassphrase,
                                      luksDict=self.__luksDevs,
                                      iscsi=self.iscsi,

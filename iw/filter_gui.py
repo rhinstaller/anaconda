@@ -639,7 +639,8 @@ class FilterWindow(InstallWindow):
         storage.zfcp.ZFCP().startup(anaconda.intf)
         storage.dasd.DASD().startup(anaconda.intf,
                                     anaconda.id.storage.exclusiveDisks,
-                                    anaconda.id.storage.zeroMbr)
+                                    anaconda.id.storage.zeroMbr,
+                                    anaconda.id.storage.cdl)
         disks = filter(lambda d: udev_device_is_disk(d) and \
                                  not udev_device_is_dm(d) and \
                                  not udev_device_is_md(d) and \

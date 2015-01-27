@@ -338,9 +338,9 @@ class Bootloader(commands.bootloader.RHEL6_Bootloader):
         anaconda.id.ksdata.permanentSkipSteps.extend(["upgbootloader", "bootloader"])
         anaconda.id.ksdata.skipOnTextInteractive.extend(["upgbootloader", "bootloader"])
 
-class ClearPart(commands.clearpart.FC3_ClearPart):
+class ClearPart(commands.clearpart.RHEL6_ClearPart):
     def parse(self, args):
-        retval = commands.clearpart.FC3_ClearPart.parse(self, args)
+        retval = commands.clearpart.RHEL6_ClearPart.parse(self, args)
 
         if self.type is None:
             self.type = CLEARPART_TYPE_NONE

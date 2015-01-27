@@ -155,7 +155,7 @@ class DeviceTree(object):
     def __init__(self, intf=None, ignored=[], exclusive=[], type=CLEARPART_TYPE_NONE,
                  clear=[], zeroMbr=None, reinitializeDisks=None, protected=[],
                  passphrase=None, luksDict=None, iscsi=None, dasd=None,
-                 mpathFriendlyNames=True):
+                 mpathFriendlyNames=True, cdl=False):
         # internal data members
         self._devices = []
         self._actions = []
@@ -168,6 +168,7 @@ class DeviceTree(object):
         self.clearPartType = type
         self.clearPartDisks = clear
         self.zeroMbr = zeroMbr
+        self.cdl = cdl
         self.reinitializeDisks = reinitializeDisks
         self.iscsi = iscsi
         self.dasd = dasd

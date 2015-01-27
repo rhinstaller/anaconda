@@ -58,7 +58,7 @@ class DASD:
     def __call__(self):
         return self
 
-    def startup(self, intf, exclusiveDisks, zeroMbr):
+    def startup(self, intf, exclusiveDisks, zeroMbr, cdl):
         """ Look for any unformatted DASDs in the system and offer the user
             the option for format them with dasdfmt or exit the installer.
 
@@ -107,7 +107,7 @@ class DASD:
 
         askUser = True
 
-        if zeroMbr:
+        if zeroMbr or cdl:
             askUser = False
         elif not intf and not zeroMbr:
             log.info("    non-interactive kickstart install without zerombr "
