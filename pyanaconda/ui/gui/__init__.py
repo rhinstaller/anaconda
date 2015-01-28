@@ -566,7 +566,7 @@ class GraphicalUserInterface(UserInterface):
             (handler, signum) = user_data
             handler(signum, None)
 
-        for signum in range(1, signal.SIGCHLD) + range(signal.SIGCHLD + 1, signal.NSIG):
+        for signum in (s for s in range(1, signal.NSIG) if s != signal.SIGCHLD):
             handler = signal.getsignal(signum)
             if handler and handler not in (signal.SIG_DFL, signal.SIG_IGN):
                 # NB: if you are looking at the glib documentation you are in for
