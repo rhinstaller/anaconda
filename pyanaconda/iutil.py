@@ -1004,9 +1004,9 @@ def is_unsupported_hw():
         :rtype:     bool
     """
     try:
-        tainted = long(open("/proc/sys/kernel/tainted").read())
+        tainted = int(open("/proc/sys/kernel/tainted").read())
     except (IOError, ValueError):
-        tainted = 0L
+        tainted = 0
 
     status = bool(tainted & UNSUPPORTED_HW)
     if status:
