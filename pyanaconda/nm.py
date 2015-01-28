@@ -23,7 +23,6 @@ from gi.repository import Gio, GLib
 from gi.repository import NetworkManager
 import struct
 import socket
-import re
 import logging
 log = logging.getLogger("anaconda")
 
