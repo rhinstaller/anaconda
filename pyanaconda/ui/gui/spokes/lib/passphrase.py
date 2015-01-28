@@ -146,7 +146,8 @@ class PassphraseDialog(GUIObject, GUIInputCheckHandler):
 
         # The save button should only be sensitive if the match check passes
         if self._passphrase_match_check.check_status == InputCheck.CHECK_OK and \
-                self._confirm_match_check.check_status == InputCheck.CHECK_OK:
+                self._confirm_match_check.check_status == InputCheck.CHECK_OK and \
+                self._strength_check.check_status == InputCheck.CHECK_OK:
             self._save_button.set_sensitive(True)
         else:
             self._save_button.set_sensitive(False)
