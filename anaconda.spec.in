@@ -258,11 +258,8 @@ update-desktop-database &> /dev/null || :
 update-desktop-database &> /dev/null || :
 %endif
 
-%files
-%doc COPYING
-
 %files core -f %{name}.lang
-%doc COPYING
+%license COPYING
 %{_unitdir}/*
 %{_prefix}/lib/systemd/system-generators/*
 %{_bindir}/instperf
