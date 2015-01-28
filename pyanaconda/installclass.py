@@ -197,7 +197,7 @@ def availableClasses(showHidden=False):
         try:
             found = imputil.imp.find_module(mainName)
         except ImportError:
-            log.warning ("module import of %s failed: %s", mainName, sys.exc_type)
+            log.warning ("module import of %s failed: %s", mainName, sys.exc_info()[0])
             continue
 
         try:
@@ -210,7 +210,7 @@ def availableClasses(showHidden=False):
                     if not obj.hidden or showHidden:
                         lst.append(((obj.name, obj), sortOrder))
         except (ImportError, AttributeError):
-            log.warning ("module import of %s failed: %s", mainName, sys.exc_type)
+            log.warning ("module import of %s failed: %s", mainName, sys.exc_info()[0])
 
     lst.sort(_ordering)
     for (item, _) in lst:
