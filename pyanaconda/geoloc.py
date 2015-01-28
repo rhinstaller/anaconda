@@ -99,10 +99,8 @@ in a couple seconds
 * cell tower geolocation
 
 """
-
+import requests
 import urllib
-import urllib2
-import json
 import dbus
 import threading
 import time
@@ -525,10 +523,9 @@ class FedoraGeoIPProvider(GeolocationBackend):
 
     def _refresh(self):
         try:
-            reply = urllib2.urlopen(self.API_URL, timeout=
-                                    constants.NETWORK_CONNECTION_TIMEOUT)
-            if reply:
-                json_reply = json.load(reply)
+            reply = requests.get(self.API_URL, timeout=constants.NETWORK_CONNECTION_TIMEOUT, verify=True)
+            if reply.status_code == requests.codes.ok:
+                json_reply = reply.json()
                 territory = json_reply.get("country_code", None)
                 timezone_source = "GeoIP"
                 timezone_code = json_reply.get("time_zone", None)
@@ -549,10 +546,10 @@ class FedoraGeoIPProvider(GeolocationBackend):
                         territory_code=territory,
                         timezone=timezone_code,
                         timezone_source=timezone_source))
-        except urllib2.HTTPError as e:
-            log.debug("Geoloc: HTTPError for Fedora GeoIP API lookup:\n%s", e)
-        except urllib2.URLError as e:
-            log.debug("Geoloc: URLError for Fedora GeoIP API lookup:\n%s", e)
+            else:
+                log.error("Geoloc: Fedora GeoIP API lookup failed with status code: %s", reply.status_code)
+        except requests.exceptions.RequestException as e:
+            log.debug("Geoloc: RequestException for Fedora GeoIP API lookup:\n%s", e)
         except ValueError as e:
             log.debug("Geoloc: Unable to decode GeoIP JSON:\n%s", e)
 
@@ -570,10 +567,9 @@ class HostipGeoIPProvider(GeolocationBackend):
 
     def _refresh(self):
         try:
-            reply = urllib2.urlopen(self.API_URL, timeout=
-                                    constants.NETWORK_CONNECTION_TIMEOUT)
-            if reply:
-                reply_dict = json.load(reply)
+            reply = requests.get(self.API_URL, timeout=constants.NETWORK_CONNECTION_TIMEOUT, verify=True)
+            if reply.status_code == requests.codes.ok:
+                reply_dict = reply.json()
                 territory = reply_dict.get("country_code", None)
 
                 # unless at least country_code is available,
@@ -584,8 +580,13 @@ class HostipGeoIPProvider(GeolocationBackend):
                         public_ip_address=reply_dict.get("ip", None),
                         city=reply_dict.get("city", None)
                     ))
-        except urllib2.URLError as e:
-            log.debug("Geoloc: URLError during Hostip lookup:\n%s", e)
+            else:
+                log.error("Geoloc: Hostip lookup failed with status code: %s", reply.status_code)
+        except requests.exceptions.RequestException as e:
+            log.debug("Geoloc: RequestException during Hostip lookup:\n%s", e)
+        except ValueError as e:
+            log.debug("Geoloc: Unable to decode Hostip JSON:\n%s", e)
+
 
 
 class GoogleWiFiLocationProvider(GeolocationBackend):
@@ -607,9 +608,8 @@ class GoogleWiFiLocationProvider(GeolocationBackend):
         if access_points:
             try:
                 url = self._get_url(access_points)
-                reply = urllib2.urlopen(url, timeout=
-                                        constants.NETWORK_CONNECTION_TIMEOUT)
-                result_dict = json.load(reply)
+                reply = requests.get(url, timeout=constants.NETWORK_CONNECTION_TIMEOUT, verify=True)
+                result_dict = reply.json()
                 status = result_dict.get('status', 'NOT OK')
                 if status == 'OK':
                     lat = result_dict['location']['lat']
@@ -623,12 +623,13 @@ class GoogleWiFiLocationProvider(GeolocationBackend):
                     t_code = geocoding_result.territory_code
                     self._set_result(LocationResult(territory_code=t_code))
                 else:
-                    log.info("Service couldn't find current location.")
-            except urllib2.URLError as e:
-                log.debug("Geoloc: URLError during Google"
-                          "  Wifi lookup:\n%s", e)
+                    log.info("Geoloc: Service couldn't find current location.")
+            except requests.exceptions.RequestException as e:
+                log.debug("Geoloc: RequestException during Google Wifi lookup:\n%s", e)
+            except ValueError as e:
+                log.debug("Geoloc: Unable to decode Google Wifi JSON:\n%s", e)
         else:
-            log.info("No WiFi access points found - can't detect location.")
+            log.info("Geoloc: No WiFi access points found - can't detect location.")
 
     def _get_url(self, access_points):
         """Generate Google API URL for the given access points
@@ -697,18 +698,19 @@ class Geocoder(object):
             coordinates.latitude,
             coordinates.longitude)
         try:
-            reply = urllib2.urlopen(url, timeout=
-                                    constants.NETWORK_CONNECTION_TIMEOUT)
-            if reply:
-                reply_dict = json.load(reply)
+            reply = requests.get(url, timeout=constants.NETWORK_CONNECTION_TIMEOUT, verify=True)
+            if reply.status_code == requests.codes.ok:
+                reply_dict = reply.json()
                 territory_code = reply_dict['address']['country_code'].upper()
                 return GeocodingResult(coordinates=coordinates,
                                        territory_code=territory_code)
             else:
+                log.error("Geoloc: Nominatim reverse geocoding failed with status code: %s", reply.status_code)
                 return None
-        except urllib2.URLError as e:
-            log.debug("Geoloc: URLError during Nominatim reverse geocoding"
-                      " :\n%s", e)
+        except requests.exceptions.RequestException as e:
+            log.debug("Geoloc: RequestException during Nominatim reverse geocoding:\n%s", e)
+        except ValueError as e:
+            log.debug("Geoloc: Unable to decode Nominatim reverse geocoding JSON:\n%s", e)
 
 
 class GeocodingResult(object):
