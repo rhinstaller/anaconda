@@ -143,15 +143,11 @@ class EditTUIDialog(NormalTUISpoke):
 
             if strength < 50:
                 if message:
-                    error = _("You have provided a weak password: %s\n"
-                              "Would you like to use it anyway?") % message
+                    error = _("You have provided a weak password: %s\n") % message
                 else:
-                    error = _("You have provided a weak password.\n"
-                              "Would you like to use it anyway?")
-                question_window = YesNoDialog(self._app, error)
-                self._app.switch_screen_modal(question_window)
-                if not question_window.answer:
-                    return None
+                    error = _("You have provided a weak password.")
+                print(error)
+                return None
 
             if any(char not in PW_ASCII_CHARS for char in pw):
                 print(_("You have provided a password containing non-ASCII characters.\n"
