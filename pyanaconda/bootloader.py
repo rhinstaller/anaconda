@@ -1985,7 +1985,7 @@ class IPSeriesYaboot(Yaboot):
 
         # Place the disk containing the PReP partition first.
         # Remove all other occurances of it.
-        boot_list = [boot_disk] + filter(lambda x: x != boot_disk, boot_list)
+        boot_list = [boot_disk] + [x for x in boot_list if x != boot_disk]
 
         log.debug("updatePowerPCBootList: updated boot_list = %s", boot_list)
 
@@ -2046,7 +2046,7 @@ class IPSeriesGRUB2(GRUB2):
 
         # Place the disk containing the PReP partition first.
         # Remove all other occurances of it.
-        boot_list = [boot_disk] + filter(lambda x: x != boot_disk, boot_list)
+        boot_list = [boot_disk] + [x for x in boot_list if x != boot_disk]
 
         update_value = "boot-device=%s" % " ".join(boot_list)
 

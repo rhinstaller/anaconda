@@ -398,8 +398,7 @@ class StorageSpoke(NormalSpoke, StorageChecker):
 
     @property
     def advancedOverviews(self):
-        return filter(lambda child: isinstance(child, AnacondaWidgets.DiskOverview),
-                      self.specialized_disks_box.get_children())
+        return [child for child in self.specialized_disks_box.get_children() if isinstance(child, AnacondaWidgets.DiskOverview)]
 
     def _on_disk_clicked(self, overview, event):
         # This handler only runs for these two kinds of events, and only for

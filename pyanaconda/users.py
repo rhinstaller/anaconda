@@ -301,10 +301,9 @@ class Users:
             if kwargs.get("gid", -1) >= 0:
                 groupEnt.set(libuser.GIDNUMBER, kwargs["gid"])
 
-            grpLst = filter(lambda grp: grp,
-                            map(self.admin.lookupGroupByName, kwargs.get("groups", [])))
+            grpLst = [grp for grp in map(self.admin.lookupGroupByName, kwargs.get("groups", [])) if grp]
             userEnt.set(libuser.GIDNUMBER, [groupEnt.get(libuser.GIDNUMBER)[0]] +
-                        map(lambda grp: grp.get(libuser.GIDNUMBER)[0], grpLst))
+                        [grp.get(libuser.GIDNUMBER)[0] for grp in grpLst])
 
             homedir = kwargs.get("homedir", None)
             if not homedir:

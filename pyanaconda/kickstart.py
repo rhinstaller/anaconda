@@ -1972,7 +1972,7 @@ def appendPostScripts(ksdata):
     ksparser.readKickstartFromString(scripts, reset=False)
 
 def runPostScripts(scripts):
-    postScripts = filter (lambda s: s.type == KS_SCRIPT_POST, scripts)
+    postScripts = [s for s in scripts if s.type == KS_SCRIPT_POST]
 
     if len(postScripts) == 0:
         return
@@ -1987,7 +1987,7 @@ def runPostScripts(scripts):
     log.info("All kickstart %%post script(s) have been run")
 
 def runPreScripts(scripts):
-    preScripts = filter (lambda s: s.type == KS_SCRIPT_PRE, scripts)
+    preScripts = [s for s in scripts if s.type == KS_SCRIPT_PRE]
 
     if len(preScripts) == 0:
         return
