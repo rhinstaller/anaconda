@@ -384,7 +384,7 @@ def doRescue(intf, rescue_mount, ksdata):
 
             # set a library path to use mounted fs
             libdirs = os.environ.get("LD_LIBRARY_PATH", "").split(":")
-            mounted = map(lambda dir: "/mnt/sysimage%s" % dir, libdirs)
+            mounted = ["/mnt/sysimage%s" % mdir for mdir in libdirs]
             iutil.setenv("LD_LIBRARY_PATH", ":".join(libdirs + mounted))
 
             # find groff data dir

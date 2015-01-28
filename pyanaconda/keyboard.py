@@ -395,12 +395,7 @@ class LocaledWrapper(object):
         # if there are more layouts than variants, empty strings should be appended
         diff = len(layouts) - len(variants)
         variants.extend(diff * [""])
-
-        # if there are more variants than layouts, throw the trailing ones away
-        variants = variants[:len(layouts)]
-
-        # map can be used with multiple lists and works like zipWith (Haskell)
-        return map(join_layout_variant, layouts, variants)
+        return [join_layout_variant(layout, variant) for layout, variant in zip(layouts, variants)]
 
     @property
     def options(self):

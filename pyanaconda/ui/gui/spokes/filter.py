@@ -508,8 +508,7 @@ class FilterSpoke(NormalSpoke):
         self.disks = getDisks(self.storage.devicetree)
         self.selected_disks = self.data.ignoredisk.onlyuse[:]
 
-        self.ancestors = itertools.chain(*map(self._real_ancestors, self.disks))
-        self.ancestors = map(lambda d: d.name, self.ancestors)
+        self.ancestors = [d.name for disk in self.disks for d in self._real_ancestors(disk)]
 
         self._store.clear()
 
