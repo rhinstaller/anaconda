@@ -259,6 +259,8 @@ update-desktop-database &> /dev/null || :
 update-desktop-database &> /dev/null || :
 %endif
 
+%files
+
 %files core -f %{name}.lang
 %license COPYING
 %{_unitdir}/*
