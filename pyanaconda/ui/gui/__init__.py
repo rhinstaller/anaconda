@@ -904,7 +904,7 @@ class GraphicalUserInterface(UserInterface):
                 self._currentAction.autostep()
                 return
 
-        if not win.get_may_continue():
+        if not win.get_may_continue() or win != self._currentAction.window:
             return
 
         # If we're on the last screen, clicking Continue quits.
