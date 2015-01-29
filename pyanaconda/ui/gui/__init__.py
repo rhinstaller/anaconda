@@ -746,7 +746,7 @@ class GraphicalUserInterface(UserInterface):
     ### SIGNAL HANDLING METHODS
     ###
     def _on_continue_clicked(self, win, user_data=None):
-        if not win.get_may_continue():
+        if not win.get_may_continue() or win != self._currentAction.window:
             return
 
         # If we're on the last screen, clicking Continue quits.
