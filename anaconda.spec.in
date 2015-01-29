@@ -124,6 +124,7 @@ Requires: yum-utils >= %{yumutilsver}
 Requires: createrepo_c
 Requires: NetworkManager >= %{nmver}
 Requires: NetworkManager-glib >= %{nmver}
+Requires: NetworkManager-team
 Requires: dhclient
 Requires: libselinux-python
 Requires: kbd
