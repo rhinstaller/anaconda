@@ -83,11 +83,11 @@ runone() {
     fi
 
     kargs=$(kernel_args)
-    if [[ ${kargs} != "" ]]; then
-        kargs="--kernel-args ${kargs}"
+    if [[ "${kargs}" != "" ]]; then
+        kargs="--kernel-args \"$kargs\""
     fi
 
-    livemedia-creator ${kargs} \
+    eval livemedia-creator ${kargs} \
                       --make-disk \
                       --iso "${IMAGE}" \
                       --ks ${ksfile} \
