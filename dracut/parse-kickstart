@@ -354,7 +354,7 @@ def ksnet_to_ifcfg(net, filename=None):
         return
     if (not os.path.isdir("/sys/class/net/%s" % dev)
         and not net.bondslaves and not net.teamslaves and not net.bridgeslaves):
-        log.info("can't find device %s" % dev)
+        log.info("can't find device %s", dev)
         return
     ifcfg = dict()
     if filename is None:
@@ -442,7 +442,7 @@ def ksnet_to_ifcfg(net, filename=None):
                           }
             add_s390_settings(slave, slave_ifcfg)
             slave_filename = "/tmp/ifcfg/ifcfg-%s" % "_".join(slave_ifcfg['NAME'].split(" "))
-            log.info("writing ifcfg %s for slave %s of bond %s" % (slave_filename, slave, dev))
+            log.info("writing ifcfg %s for slave %s of bond %s", slave_filename, slave, dev)
             write_ifcfg(slave_filename, slave_ifcfg)
 
     if net.teamslaves:
@@ -466,7 +466,7 @@ def ksnet_to_ifcfg(net, filename=None):
                 slave_ifcfg['TEAM_PORT_CONFIG'] = "'" + cfg + "'"
 
             slave_filename = "/tmp/ifcfg/ifcfg-%s" % "_".join(slave_ifcfg['NAME'].split(" "))
-            log.info("writing ifcfg %s for slave %s of team %s" % (slave_filename, slave, dev))
+            log.info("writing ifcfg %s for slave %s of team %s", slave_filename, slave, dev)
             write_ifcfg(slave_filename, slave_ifcfg)
 
     if net.bridgeslaves:
@@ -517,7 +517,7 @@ def ksnet_to_ifcfg(net, filename=None):
         ifcfg['PHYSDEV'] = dev
         filename = "/tmp/ifcfg/ifcfg-%s" % interface_name
 
-    log.info("writing ifcfg %s for %s" % (filename, dev))
+    log.info("writing ifcfg %s for %s", filename, dev)
     if write_ifcfg(filename, ifcfg):
         return filename
 
@@ -528,7 +528,7 @@ def write_ifcfg(filename, ifcfg):
             for k,v in ifcfg.items():
                 f.write("%s=%s\n" % (k,v))
     except IOError as e:
-        log.error("can't write %s: %s" % (filename, e))
+        log.error("can't write %s: %s", filename, e)
         return False
     return True
 
