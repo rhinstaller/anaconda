@@ -45,6 +45,7 @@ class MakeBumpVer:
         self.bzserver = 'bugzilla.redhat.com'
         self.bzurl = "https://%s/xmlrpc.cgi" % self.bzserver
         self.jenkins = None
+        self.jenkins_proxy = None
         self.username = None
         self.password = None
         self.bz = None
@@ -63,6 +64,8 @@ class MakeBumpVer:
                     self.password = line[14:].strip('"\'')
                 elif line.startswith('JENKINS='):
                     self.jenkins = line[8:].strip('"\'')
+                elif line.startswith('JENKINS_PROXY='):
+                    self.jenkins_proxy = line[14:].strip('"\'')
 
         self.gituser = self._gitConfig('user.name')
         self.gitemail = self._gitConfig('user.email')
@@ -460,25 +463,34 @@ class MakeBumpVer:
 
         ret = False
 
-        with closing(urllib.urlopen(self.jenkins)) as f:
-            contents = f.readlines()
+        if self.jenkins_proxy:
+            proxies = { "http": self.jenkins_proxy }
+        else:
+            proxies = {}
 
-            try:
-                j = json.loads(contents[0])
-            except (TypeError, ValueError):
-                pass
-            else:
-                # Get the name of the job we should be looking for in jenkins.
-                # This name is composed from the name of the project, plus the
-                # branch of the project without any "-branch" stuff at the end.
-                targetJob = self.name + "-" + self.git_branch
-                if targetJob.endswith("-branch"):
-                    targetJob = targetJob[:-7]
+        try:
+            with closing(urllib.urlopen(self.jenkins, proxies=proxies)) as f:
+                contents = f.readlines()
 
-                for job in j["jobs"]:
-                    if job["name"] == targetJob:
-                        ret = job["color"] == "blue"
-                        break
+                try:
+                    j = json.loads(contents[0])
+                except (TypeError, ValueError):
+                    pass
+                else:
+                    # Get the name of the job we should be looking for in jenkins.
+                    # This name is composed from the name of the project, plus the
+                    # branch of the project without any "-branch" stuff at the end.
+                    targetJob = self.name + "-" + self.git_branch
+                    if targetJob.endswith("-branch"):
+                        targetJob = targetJob[:-7]
+
+                    for job in j["jobs"]:
+                        if job["name"] == targetJob:
+                            ret = job["color"] == "blue"
+                            break
+        except IOError as e:
+            log.error("Jenkins check failed: %s", e)
+            return False
 
         return ret
 
