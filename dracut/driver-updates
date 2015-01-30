@@ -313,7 +313,7 @@ def fake_drivers(num):
     """ Generate a number of fake drivers for testing
     """
     drivers = []
-    for i in xrange(0, num):
+    for i in range(0, num):
         d = Driver()
         d.source = "driver-%d" % i
         d.flags = "modules"
@@ -476,7 +476,7 @@ def selection_menu(items, title, info_func, multi_choice=True, refresh=False):
             num_items = page_length
         else:
             num_items = len(items) % page_length
-        for i in xrange(0, num_items):
+        for i in range(0, num_items):
             item_idx = ((page-1) * page_length) + i
             if multi_choice:
                 if items[item_idx].selected:

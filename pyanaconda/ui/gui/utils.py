@@ -176,7 +176,7 @@ def gtk_batch_map(action, items, args=(), pre_func=None, batch_size=1):
 
         # process as many batches as user shouldn't notice
         while tstamp - tstamp_start < NOTICEABLE_FREEZE:
-            for _i in xrange(batch_size):
+            for _i in range(batch_size):
                 try:
                     action_item = queue.get_nowait()
                     if action_item is TERMINATOR:

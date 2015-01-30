@@ -127,7 +127,7 @@ def run_yum_transaction(release, arch, yum_conf, install_root, ts_file, script_l
         print("INFO: populate transaction set")
         xdelay = xprogressive_delay()
 
-        for retry_count in xrange(0, MAX_DOWNLOAD_RETRIES+1):
+        for retry_count in range(0, MAX_DOWNLOAD_RETRIES+1):
             # retry count == 0 -> first attempt
             # retry count > 0  -> retry
             if retry_count:
@@ -292,7 +292,7 @@ class RPMCallback(object):
         exception_message = ""
         xdelay = xprogressive_delay()
 
-        for retry_count in xrange(0, MAX_DOWNLOAD_RETRIES+1):
+        for retry_count in range(0, MAX_DOWNLOAD_RETRIES+1):
             # retry count == 0 -> first attempt
             # retry count > 0  -> retry
             if retry_count and retry_message:
