@@ -249,6 +249,7 @@
                                           <object class="GtkLabel" id="label15">
                                             <property name="visible">True</property>
                                             <property name="can_focus">False</property>
+                                            <!-- check_accelerators: refresh -->
                                             <property name="label" translatable="yes" context="GUI|Installation Destination|Filter|Search|Port Target LUN">_LUN:</property>
                                             <property name="use_underline">True</property>
                                             <property name="mnemonic_widget">searchLUNEntry</property>
@@ -1475,6 +1476,7 @@
                                           <object class="GtkLabel" id="label22">
                                             <property name="visible">True</property>
                                             <property name="can_focus">False</property>
+                                            <!-- check_accelerators: refresh -->
                                             <property name="label" translatable="yes" context="GUI|Installation Destination|Filter|zSeries|LUN">_LUN:</property>
                                             <property name="use_underline">True</property>
                                             <property name="mnemonic_widget">zLUNEntry</property>
