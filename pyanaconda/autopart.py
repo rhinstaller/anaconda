@@ -33,7 +33,7 @@ from blivet.devices.partition import PartitionDevice
 from blivet.devices.luks import LUKSDevice
 from blivet.errors import NoDisksError, NotEnoughFreeSpaceError
 from blivet.formats import getFormat
-from blivet.partitioning import getFreeRegions
+from blivet.partitioning import doPartitioning, getFreeRegions, growLVM
 
 from pyanaconda.i18n import _
 from pykickstart.constants import AUTOPART_TYPE_BTRFS, AUTOPART_TYPE_LVM, AUTOPART_TYPE_LVM_THINP, AUTOPART_TYPE_PLAIN
