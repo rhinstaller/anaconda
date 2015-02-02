@@ -67,8 +67,10 @@ runone() {
 
     name=$(basename ${t%.sh})
 
+    echo
+    echo ============================================================
     echo ${ks}
-    echo ==============================
+    echo ============================================================
 
     # qemu user needs to be able to read the directory.
     tmpdir=$(mktemp -d --tmpdir=/var/tmp kstest-${name}.XXXXXXXX)
@@ -98,7 +100,8 @@ runone() {
                       --releasever 22 \
                       --ram 2048 \
                       --vcpus 2 \
-                      --vnc vnc
+                      --vnc vnc \
+                      --timeout 60
     if [[ $? != 0 ]]; then
         echo $(grep CRIT ${tmpdir}/virt-install.log)
         cleanup ${tmpdir}
@@ -108,8 +111,13 @@ runone() {
         img=$(grep disk_img ${tmpdir}/livemedia.log | cut -d= -f2)
         trimmed=${img## }
 
-        if [[ ! -f ${trimmed} ]]; then
-            echo Disk image ${trimmed} does not exist.
+        if [[ $(grep "due to timeout" ${tmpdir}/livemedia.log) != "" ]]; then
+           echo FAILED - Test timed out.
+           cleanup ${tmpdir}
+           unset kernel_args prep validate
+           return 1
+        elif [[ ! -f ${trimmed} ]]; then
+            echo FAILED - Disk image ${trimmed} does not exist.
             cleanup ${tmpdir}
             unset kernel_args prep validate
             return 1
@@ -117,8 +125,7 @@ runone() {
 
         result=$(validate ${trimmed})
         if [[ $? != 0 ]]; then
-            echo "${result}"
-            echo FAILED
+            echo FAILED - "${result}"
             cleanup ${tmpdir}
             unset kernel_args prep validate
             return 1
@@ -136,4 +143,4 @@ export -f cleanup runone
 # Round up all the kickstart tests we want to run, skipping those that are not
 # executable as well as this file itself.
 find kickstart_tests -name '*sh' -a -perm -o+x -a \! -wholename 'kickstart_tests/run_kickstart_tests.sh' | \
-parallel --jobs 2 runone {}
+parallel --jobs ${TEST_JOBS:-2} runone {}
