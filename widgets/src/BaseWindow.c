@@ -681,7 +681,6 @@ void anaconda_base_window_clear_info(AnacondaBaseWindow *win) {
 /**
  * anaconda_base_window_retranslate:
  * @win: a #AnacondaBaseWindow
- * @lang: target language
  *
  * Reload translations for this widget as needed.  Generally, this is not
  * needed.  However when changing the language during installation, we need
@@ -690,11 +689,8 @@ void anaconda_base_window_clear_info(AnacondaBaseWindow *win) {
  *
  * Since: 1.0
  */
-void anaconda_base_window_retranslate(AnacondaBaseWindow *win, const char *lang) {
+void anaconda_base_window_retranslate(AnacondaBaseWindow *win) {
     GValue distro = G_VALUE_INIT;
-
-    setenv("LANGUAGE", lang, 1);
-    setlocale(LC_ALL, "");
 
     /* This bit is internal gettext magic. */
     {

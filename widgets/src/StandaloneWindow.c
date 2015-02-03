@@ -175,7 +175,6 @@ static void anaconda_standalone_window_init(AnacondaStandaloneWindow *win) {
 /**
  * anaconda_standalone_window_retranslate:
  * @win: a #AnacondaStandaloneWindow
- * @lang: target language
  *
  * Reload translations for this widget as needed.  Generally, this is not
  * needed.  However when changing the language during installation, we need
@@ -184,8 +183,8 @@ static void anaconda_standalone_window_init(AnacondaStandaloneWindow *win) {
  *
  * Since: 1.0
  */
-void anaconda_standalone_window_retranslate(AnacondaStandaloneWindow *win, const char *lang) {
-    anaconda_base_window_retranslate(ANACONDA_BASE_WINDOW(win), lang);
+void anaconda_standalone_window_retranslate(AnacondaStandaloneWindow *win) {
+    anaconda_base_window_retranslate(ANACONDA_BASE_WINDOW(win));
 
     gtk_button_set_label(GTK_BUTTON(win->priv->quit_button), _(QUIT_TEXT));
     gtk_button_set_label(GTK_BUTTON(win->priv->continue_button), _(CONTINUE_TEXT));

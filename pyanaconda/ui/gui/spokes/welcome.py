@@ -23,10 +23,11 @@
 import sys
 import re
 import langtable
+import os
 
 from pyanaconda.ui.gui.hubs.summary import SummaryHub
 from pyanaconda.ui.gui.spokes import StandaloneSpoke
-from pyanaconda.ui.gui.utils import setup_gtk_direction, escape_markup
+from pyanaconda.ui.gui.utils import setup_gtk_direction, escape_markup, gtk_action_wait
 from pyanaconda.ui.gui.xkl_wrapper import XklWrapper
 from pyanaconda.ui.gui.spokes.lib.lang_locale_handler import LangLocaleHandler
 
@@ -65,6 +66,7 @@ class WelcomeLanguageSpoke(LangLocaleHandler, StandaloneSpoke):
         (store, itr) = self._localeSelection.get_selected()
 
         locale = store[itr][1]
+        self._set_lang(locale)
         localization.setup_locale(locale, self.data.lang)
 
         # Skip timezone and keyboard default setting for kickstart installs.
@@ -194,6 +196,7 @@ class WelcomeLanguageSpoke(LangLocaleHandler, StandaloneSpoke):
         # if there are no translations for the given locales,
         # use default
         if not langs_with_translations:
+            self._set_lang(DEFAULT_LANG)
             localization.setup_locale(DEFAULT_LANG, self.data.lang)
             lang_itr, _locale_itr = self._select_locale(self.data.lang.lang)
             langs_with_translations[DEFAULT_LANG] = lang_itr
@@ -218,6 +221,7 @@ class WelcomeLanguageSpoke(LangLocaleHandler, StandaloneSpoke):
         store.set(newItr, 0, "", 1, "", 2, "", 3, True)
 
         # setup the "best" locale
+        self._set_lang(locales[0])
         localization.setup_locale(locales[0], self.data.lang)
         self._select_locale(self.data.lang.lang)
 
@@ -235,7 +239,7 @@ class WelcomeLanguageSpoke(LangLocaleHandler, StandaloneSpoke):
         else:
             widget.set_label(_(before))
 
-    def retranslate(self, lang):
+    def retranslate(self):
         # Change the translations on labels and buttons that do not have
         # substitution text.
         for name in ["pickLanguageLabel", "betaWarnTitle", "betaWarnDesc"]:
@@ -263,7 +267,7 @@ class WelcomeLanguageSpoke(LangLocaleHandler, StandaloneSpoke):
 
         # And of course, don't forget the underlying window.
         self.window.set_property("distribution", distributionText().upper())
-        self.window.retranslate(lang)
+        self.window.retranslate()
 
     def refresh(self):
         self._select_locale(self.data.lang.lang)
@@ -297,8 +301,9 @@ class WelcomeLanguageSpoke(LangLocaleHandler, StandaloneSpoke):
 
         if selected:
             lang = store[selected[0]][1]
+            self._set_lang(lang)
             localization.setup_locale(lang)
-            self.retranslate(lang)
+            self.retranslate()
 
             # Reset the text direction
             setup_gtk_direction()
@@ -330,3 +335,26 @@ class WelcomeLanguageSpoke(LangLocaleHandler, StandaloneSpoke):
                 sys.exit(0)
 
         StandaloneSpoke._on_continue_clicked(self, window, user_data)
+
+    @gtk_action_wait
+    def _set_lang(self, lang):
+        # This is *hopefully* safe. The only threads that might be running
+        # outside of the GIL are those doing file operations, the Gio dbus
+        # proxy thread, and calls from the Gtk main loop. The file operations
+        # won't be doing things that may access the environment, fingers
+        # crossed, the GDbus thread shouldn't be doing anything weird since all
+        # of our dbus calls are from python and synchronous. Using
+        # gtk_action_wait ensures that this is Gtk main loop thread, and it's
+        # holding the GIL.
+        #
+        # There is a lot of uncertainty and weasliness in those statements.
+        # This is not good code.
+        #
+        # We cannot get around setting $LANG. Python's gettext implementation
+        # differs from C in that consults only the environment for the current
+        # language and not the data set via setlocale. If we want translations
+        # from python modules to work, something needs to be set in the
+        # environment when the language changes.
+
+        # pylint: disable=environment-modify
+        os.environ["LANG"] = lang

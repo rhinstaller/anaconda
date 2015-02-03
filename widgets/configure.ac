@@ -66,7 +66,7 @@ AC_CHECK_HEADERS([libintl.h stdlib.h string.h unistd.h locale.h],
                  [ANACONDA_SOFT_FAILURE([Header file $ac_header not found.])],
                  [])
 
-AC_CHECK_FUNCS([setenv setlocale],
+AC_CHECK_FUNCS([setlocale],
                [],
                [ANACONDA_SOFT_FAILURE([Function $ac_func not found.])])
 
