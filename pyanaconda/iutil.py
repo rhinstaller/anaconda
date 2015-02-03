@@ -118,7 +118,7 @@ def setSysroot(path):
     _sysroot = path
 
 def startProgram(argv, root='/', stdin=None, stdout=subprocess.PIPE, stderr=subprocess.STDOUT,
-        env_prune=None, reset_handlers=True, **kwargs):
+        env_prune=None, env_add=None, reset_handlers=True, **kwargs):
     """ Start an external program and return the Popen object.
 
         The root and reset_handlers arguments are handled by passing a
@@ -131,7 +131,8 @@ def startProgram(argv, root='/', stdin=None, stdout=subprocess.PIPE, stderr=subp
         :param stdin: The file object to read stdin from.
         :param stdout: The file object to write stdout to.
         :param stderr: The file object to write stderr to.
-        :param env_prune: environment variable to remove before execution
+        :param env_prune: environment variables to remove before execution
+        :param env_add: environment variables to add before execution
         :param reset_handlers: whether to reset to SIG_DFL any signal handlers set to SIG_IGN
         :param kwargs: Additional parameters to pass to subprocess.Popen
         :return: A Popen object for the running command.
@@ -172,6 +173,9 @@ def startProgram(argv, root='/', stdin=None, stdout=subprocess.PIPE, stderr=subp
     env = augmentEnv()
     for var in env_prune:
         env.pop(var, None)
+
+    if env_add:
+        env.update(env_add)
 
     return subprocess.Popen(argv,
                             stdin=stdin,

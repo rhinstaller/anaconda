@@ -138,12 +138,12 @@ def doStartupX11Actions():
     # files.
     env_bak = copy(os.environ)
     if 'XDG_DATA_DIRS' in os.environ:
-        os.environ['XDG_DATA_DIRS'] = '/usr/share/anaconda/window-manager:' + \
-            os.environ['XDG_DATA_DIRS']
+        xdg_data_dirs = '/usr/share/anaconda/window-manager:' + os.environ['XDG_DATA_DIRS']
     else:
-        os.environ['XDG_DATA_DIRS'] = '/usr/share/anaconda/window-manager:/usr/share'
+        xdg_data_dirs = '/usr/share/anaconda/window-manager:/usr/share'
 
-    childproc = iutil.startProgram(["metacity", "--display", ":1", "--sm-disable"])
+    childproc = iutil.startProgram(["metacity", "--display", ":1", "--sm-disable"],
+            env_add={'XDG_DATA_DIRS': xdg_data_dirs})
     os.environ = env_bak
     iutil.watchProcess(childproc, "metacity")
 
