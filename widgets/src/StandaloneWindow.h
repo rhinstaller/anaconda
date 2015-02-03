@@ -63,7 +63,7 @@ struct _AnacondaStandaloneWindowClass {
 
 GType       anaconda_standalone_window_get_type (void);
 GtkWidget  *anaconda_standalone_window_new      ();
-void        anaconda_standalone_window_retranslate       (AnacondaStandaloneWindow *win, const char *lang);
+void        anaconda_standalone_window_retranslate       (AnacondaStandaloneWindow *win);
 
 G_END_DECLS
 

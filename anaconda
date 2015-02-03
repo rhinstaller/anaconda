@@ -875,6 +875,7 @@ if __name__ == "__main__":
     signal.signal(signal.SIGTERM, lambda num, frame: sys.exit(1))
 
     setupEnvironment()
+
     # make sure we have /var/log soon, some programs fail to start without it
     iutil.mkdirChain("/var/log")
 
@@ -1101,6 +1102,11 @@ if __name__ == "__main__":
     from pyanaconda import localization
     # Set the language before loading an interface, when it may be too late.
 
+    # first, try to load firmware language if nothing is already set in
+    # the environment
+    if "LANG" not in os.environ:
+        localization.load_firmware_language(ksdata.lang)
+
     # check if the LANG environmental variable is set
     env_lang = os.environ.get("LANG")
     if env_lang is not None:
@@ -1233,9 +1239,6 @@ if __name__ == "__main__":
 
         if not anaconda.ksdata.timezone.nontp:
             iutil.start_service("chronyd")
-
-    # try to load firmware language
-    localization.load_firmware_language(ksdata.lang)
 
     # FIXME:  This will need to be made cleaner once this file starts to take
     # shape with the new UI code.

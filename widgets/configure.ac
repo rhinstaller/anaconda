@@ -62,7 +62,7 @@ AC_CHECK_HEADERS([libintl.h stdlib.h string.h unistd.h])
 
 AC_STRUCT_TIMEZONE
 
-AC_CHECK_FUNCS([pow setenv setlocale strchr])
+AC_CHECK_FUNCS([pow setlocale strchr])
 AC_CONFIG_FILES([Makefile
                  doc/Makefile
                  glade/Makefile
