@@ -32,6 +32,7 @@ import threading
 import multiprocessing
 import argparse
 import tempfile
+import fnmatch
 from collections import namedtuple
 try:
     from rpmUtils import miscutils  # available from the yum-utils package
@@ -511,7 +512,7 @@ def createUpdatesImage(cwd, updates):
     os.system("find . | cpio -c -o | pigz -9cv > %s/updates.img" % (cwd,))
     sys.stdout.write("updates.img ready\n")
 
-def check_for_new_packages(tag, arch, added_rpms, specfile_path):
+def check_for_new_packages(tag, arch, args, specfile_path):
     """Download any new packages added to Requires and Defines
     since the given tag, return list of RPM paths
     """
@@ -651,6 +652,25 @@ def check_for_new_packages(tag, arch, added_rpms, specfile_path):
                 print("%s %s %s" % (p.name, p.version_request, p.version))
             else:
                 print(p.name)
+
+        # remove ignored packages
+
+        # convert the list of lists to a flat list
+        flatly_ignored_packages = []
+        for component_list in args.ignored_packages:
+            flatly_ignored_packages.extend(component_list)
+
+        ignored_count = 0
+        for ignored_package in flatly_ignored_packages:
+            matches = fnmatch.filter(new_packages, ignored_package)
+            # the ignored package specifications support glob
+            for match in matches:
+                print("the new package %s matches %s and will be ignored" % (match, ignored_package))
+                del new_packages[match]
+                ignored_count += 1
+        if ignored_count:
+            print("%d new packages have been ignored" % ignored_count)
+
     else:
         print("no new Requires or updated %%defines for Requires found")
         return []
@@ -660,7 +680,7 @@ def check_for_new_packages(tag, arch, added_rpms, specfile_path):
 
     # get package names for RPMs added by the -a/--add flags
     added_names = {}
-    for path in added_rpms:
+    for path in args.add_rpms:
         try:
             basename = os.path.basename(path)
             name = get_pkg_tuple(basename)[0]
@@ -981,6 +1001,10 @@ def main():
     parser.add_argument('-f', '--fetch', action='store', type=str, metavar="ARCH",
                         help='autofetch new dependencies from Koji for ARCH')
 
+    parser.add_argument('-i', '--ignore', action='append', type=str, metavar="PACKAGE_NAME",
+                        dest="ignored_packages", nargs='+', default=[],
+                        help='ignore this package when autofetching dependencies (glob supported)')
+
     parser.add_argument('-b', '--builddir', action='store', type=str,
                         metavar='BUILDDIR', help='build directory for shared objects')
 
@@ -1046,7 +1070,7 @@ def main():
 
     if args.fetch:
         arch = args.fetch
-        rpm_paths = check_for_new_packages(args.tag, arch, args.add_rpms, spec)
+        rpm_paths = check_for_new_packages(args.tag, arch, args, spec)
         args.add_rpms.extend(rpm_paths)
 
     if args.add_rpms:
