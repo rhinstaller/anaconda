@@ -223,6 +223,25 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Tue Feb 03 2015 Samantha N. Bueno <sbueno+anaconda@redhat.com> - 13.21.230-1
+- Shrink the LV if the VG is out of space (bcl)
+  Resolves: rhbz#1153376
+- Only set GPT boot flag on ESP partition (bcl)
+  Resolves: rhbz#1139606
+- Add anaconda support for using clearpart --cdl option. (sbueno+anaconda)
+  Resolves: rhbz#1164240
+- Properly check and show warnings for LDL DASDs (sbueno+anaconda)
+  Resolves: rhbz#1144979
+- Add new freebl libraries (bcl)
+  Resolves: rhbz#1182595
+- Write new options to zipl.conf (sbueno+anaconda)
+  Resolves: rhbz#1171053
+- Detect and show a warning for LDL DASDs. (sbueno+anaconda)
+  Resolves: rhbz#1144979
+- Make EFI.bootDevice() return best device for several calling contexts
+  (amulhern)
+  Resolves: rhbz#1145812
+
 * Mon Sep 08 2014 Samantha N. Bueno <sbueno+anaconda@redhat.com> - 13.21.229-1
 - Revert "Use edd fcoe boot option instead of enumerating all ifaces"
   (rvykydal)
