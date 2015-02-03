@@ -124,7 +124,7 @@ def start_yelp(help_path):
     # under some extreme circumstances (placeholders missing)
     # the help path can be None and we need to prevent Popen
     # receiving None as an argument instead of a string
-    yelp_process = startProgram(["yelp", help_path or ""])
+    yelp_process = startProgram(["yelp", help_path or ""], reset_lang=False)
 
 def kill_yelp():
     """Try to kill any existing yelp processes"""

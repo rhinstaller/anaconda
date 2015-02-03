@@ -67,9 +67,7 @@ def setenv(name, value):
 
 def augmentEnv():
     env = os.environ.copy()
-    env.update({"LC_ALL": "C",
-                "ANA_INSTALL_PATH": getSysroot()
-               })
+    env.update({"ANA_INSTALL_PATH": getSysroot()})
     env.update(_child_env)
     return env
 
@@ -118,7 +116,7 @@ def setSysroot(path):
     _sysroot = path
 
 def startProgram(argv, root='/', stdin=None, stdout=subprocess.PIPE, stderr=subprocess.STDOUT,
-        env_prune=None, env_add=None, reset_handlers=True, **kwargs):
+        env_prune=None, env_add=None, reset_handlers=True, reset_lang=True, **kwargs):
     """ Start an external program and return the Popen object.
 
         The root and reset_handlers arguments are handled by passing a
@@ -134,6 +132,7 @@ def startProgram(argv, root='/', stdin=None, stdout=subprocess.PIPE, stderr=subp
         :param env_prune: environment variables to remove before execution
         :param env_add: environment variables to add before execution
         :param reset_handlers: whether to reset to SIG_DFL any signal handlers set to SIG_IGN
+        :param reset_lang: whether to set the locale of the child process to C
         :param kwargs: Additional parameters to pass to subprocess.Popen
         :return: A Popen object for the running command.
     """
@@ -173,6 +172,9 @@ def startProgram(argv, root='/', stdin=None, stdout=subprocess.PIPE, stderr=subp
     env = augmentEnv()
     for var in env_prune:
         env.pop(var, None)
+
+    if reset_lang:
+        env.update({"LC_ALL": "C"})
 
     if env_add:
         env.update(env_add)
@@ -417,7 +419,7 @@ def execReadlines(command, argv, stdin=None, root='/', env_prune=None):
 ## Run a shell.
 def execConsole():
     try:
-        proc = startProgram(["/bin/sh"], stdout=None, stderr=None)
+        proc = startProgram(["/bin/sh"], stdout=None, stderr=None, reset_lang=False)
         proc.wait()
     except OSError as e:
         raise RuntimeError("Error running /bin/sh: " + e.strerror)
