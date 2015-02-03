@@ -1035,14 +1035,14 @@ if __name__ == "__main__":
             log.info("Failed to parse proxy \"%s\": %s", anaconda.proxy, e)
         else:
             # Set environmental variables to be used by pre/post scripts
-            os.environ["PROXY"] = proxy.noauth_url
-            os.environ["PROXY_USER"] = proxy.username or ""
-            os.environ["PROXY_PASSWORD"] = proxy.password or ""
+            iutil.setenv("PROXY", proxy.noauth_url)
+            iutil.setenv("PROXY_USER", proxy.username or "")
+            iutil.setenv("PROXY_PASSWORD", proxy.password or "")
 
             # Variables used by curl, libreport, etc.
-            os.environ["http_proxy"] = proxy.url
-            os.environ["ftp_proxy"] = proxy.url
-            os.environ["HTTPS_PROXY"] = proxy.url
+            iutil.setenv("http_proxy", proxy.url)
+            iutil.setenv("ftp_proxy", proxy.url)
+            iutil.setenv("HTTPS_PROXY", proxy.url)
 
     if flags.noverifyssl:
         ksdata.method.noverifyssl = flags.noverifyssl
