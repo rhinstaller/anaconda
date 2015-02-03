@@ -55,11 +55,10 @@ def shutdownServer():
 
 class VncServer:
 
-    def __init__(self, display="1", root="/", ip=None, name=None,
+    def __init__(self, root="/", ip=None, name=None,
                 password="", vncconnecthost="",
                 vncconnectport="", log_file="/tmp/vncserver.log",
                 pw_file="/tmp/vncpassword"):
-        self.display = display
         self.root = root
         self.ip = ip
         self.name = name
@@ -123,9 +122,11 @@ class VncServer:
         name_ips = [i[4][0] for i in socket.getaddrinfo(self.name, 0)]
         if self.name is not None and not self.name.startswith('localhost') \
            and ipstr is not None and self.ip in name_ips:
-            self.connxinfo = "%s:%s (%s:%s)" % (socket.getfqdn(name=self.name), self.display, ipstr, self.display)
+            self.connxinfo = "%s:%s (%s:%s)" % \
+                    (socket.getfqdn(name=self.name), constants.X_DISPLAY_NUMBER,
+                     ipstr, constants.X_DISPLAY_NUMBER)
         elif ipstr is not None:
-            self.connxinfo = "%s:%s" % (ipstr, self.display,)
+            self.connxinfo = "%s:%s" % (ipstr, constants.X_DISPLAY_NUMBER)
         else:
             self.connxinfo = None
 
@@ -157,7 +158,7 @@ class VncServer:
         else:
             hostarg = self.vncconnecthost
 
-        vncconfigcommand = [self.root+"/usr/bin/vncconfig", "-display", ":%s"%self.display, "-connect", hostarg]
+        vncconfigcommand = [self.root+"/usr/bin/vncconfig", "-display", ":%s" % constants.X_DISPLAY_NUMBER, "-connect", hostarg]
 
         for _i in range(maxTries):
             vncconfp = iutil.startProgram(vncconfigcommand, stdout=subprocess.PIPE, stderr=subprocess.PIPE) # vncconfig process
@@ -189,7 +190,7 @@ class VncServer:
         else:
             self.log.info(_("Please manually connect your vnc client to <IP ADDRESS>:%s "
                             "to begin the install. Switch to the shell (Ctrl-B 2) and "
-                            "run 'ip addr' to find the <IP ADDRESS>."), self.display)
+                            "run 'ip addr' to find the <IP ADDRESS>."), constants.X_DISPLAY_NUMBER)
 
     def startServer(self):
         self.log.info(_("Starting VNC..."))
@@ -216,7 +217,7 @@ class VncServer:
             self.setVNCPassword()
 
         # Lets start the xvnc.
-        xvnccommand =  [ XVNC_BINARY_NAME, ":%s" % self.display,
+        xvnccommand =  [ XVNC_BINARY_NAME, ":%s" % constants.X_DISPLAY_NUMBER,
                         "-depth", "16", "-br",
                         "IdleTimeout=0", "-auth", "/dev/null", "-once",
                         "DisconnectClients=false", "desktop=%s" % (self.desktop,),
@@ -255,8 +256,6 @@ class VncServer:
                 self.VNCListen()
         else:
             self.VNCListen()
-
-        os.environ["DISPLAY"]=":%s" % self.display
 
     def changeVNCPasswdWindow(self):
         """ Change the password to a sane parameter.
