@@ -77,6 +77,13 @@ if [[ \$? != 0 ]]; then
     shutdown -h now
 fi
 
+# Make sure that more than just emacs and its dependencies were installed.
+count=\$(rpm -qa emacs\* | wc -l)
+if [[ \$count -lt 50 ]]; then
+    echo '*** emacs glob was not fully installed' > /root/RESULT
+    shutdown -h now
+fi
+
 # Testing #4 - ibus stuff should not be installed.
 rpm -qa ibus\*
 if [[ \$? == 0 ]]; then
