@@ -383,7 +383,7 @@ def doRescue(intf, rescue_mount, ksdata):
             # set a library path to use mounted fs
             libdirs = os.environ.get("LD_LIBRARY_PATH", "").split(":")
             mounted = map(lambda dir: "/mnt/sysimage%s" % dir, libdirs)
-            os.environ["LD_LIBRARY_PATH"] = ":".join(libdirs + mounted)
+            iutil.setenv("LD_LIBRARY_PATH", ":".join(libdirs + mounted))
 
             # find groff data dir
             gversion = None
@@ -401,8 +401,8 @@ def doRescue(intf, rescue_mount, ksdata):
 
             if gversion is not None:
                 gpath = "/mnt/sysimage/usr/share/groff/"+gversion
-                os.environ["GROFF_FONT_PATH"] = gpath + '/font'
-                os.environ["GROFF_TMAC_PATH"] = "%s:/mnt/sysimage/usr/share/groff/site-tmac" % (gpath + '/tmac',)
+                iutil.setenv("GROFF_FONT_PATH", gpath + '/font')
+                iutil.setenv("GROFF_TMAC_PATH", "%s:/mnt/sysimage/usr/share/groff/site-tmac" % (gpath + '/tmac',))
 
             # do we have bash?
             try:

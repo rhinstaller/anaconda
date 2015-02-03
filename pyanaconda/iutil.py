@@ -50,11 +50,27 @@ program_log = logging.getLogger("program")
 
 from pyanaconda.anaconda_log import program_log_lock
 
+_child_env = {}
+
+def setenv(name, value):
+    """ Set an environment variable to be used by child processes.
+
+        This method does not modify os.environ for the running process, which
+        is not thread-safe. If setenv has already been called for a particular
+        variable name, the old value is overwritten.
+
+        :param str name: The name of the environment variable
+        :param str value: The value of the environment variable
+    """
+
+    _child_env[name] = value
+
 def augmentEnv():
     env = os.environ.copy()
     env.update({"LC_ALL": "C",
                 "ANA_INSTALL_PATH": getSysroot()
                })
+    env.update(_child_env)
     return env
 
 _root_path = "/mnt/sysimage"
