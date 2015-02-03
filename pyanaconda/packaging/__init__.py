@@ -361,9 +361,9 @@ class Payload(object):
                 response = None
 
         if response:
-            # write the the local treeinfo file
+            # write the local treeinfo file
             with open("/tmp/.treeinfo", "w") as f:
-                f.write(response.text())
+                f.write(response.text)
 
             # and also return the treeinfo contents as a string
             return response.text
