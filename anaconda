@@ -120,12 +120,9 @@ def startX11():
 
     # Start Xorg and wait for it become ready
     iutil.startX(["Xorg", "-br", "-logfile", "/tmp/X.log",
-                  ":1", "vt6", "-s", "1440", "-ac",
+                  ":%s" % constants.X_DISPLAY_NUMBER, "vt6", "-s", "1440", "-ac",
                   "-nolisten", "tcp", "-dpi", "96",
                   "-noreset"], output_redirect=xfd)
-
-    # Now that X is started, make $DISPLAY available
-    os.environ["DISPLAY"] = ":1"
 
 # function to handle X startup special issues for anaconda
 def doStartupX11Actions():
@@ -410,6 +407,12 @@ def setupEnvironment():
     if "LD_PRELOAD" in os.environ:
         del os.environ["LD_PRELOAD"]
 
+    # Go ahead and set $DISPLAY whether we're going to use X or not
+    if 'DISPLAY' in os.environ:
+        flags.preexisting_x11 = True
+    else:
+        os.environ["DISPLAY"] = ":%s" % constants.X_DISPLAY_NUMBER
+
 def setupLoggingFromOpts(options):
     if (options.debug or options.updateSrc) and not options.loglevel:
         # debugging means debug logging if an explicit level hasn't been st
@@ -617,9 +620,6 @@ def setupDisplay(anaconda, options, addons=None):
     if not os.access('/usr/bin/Xvnc', os.X_OK):
         stdoutLog.warning("Not asking for VNC because we don't have Xvnc")
         flags.vncquestion = False
-
-    if 'DISPLAY' in os.environ:
-        flags.preexisting_x11 = True
 
     # Should we try to start Xorg?
     want_x = anaconda.displayMode == 'g' and \
@@ -966,10 +966,10 @@ if __name__ == "__main__":
 
         log.error("%s already exists, exiting", pidfile_path)
 
-        # If we have a $DISPLAY and zenity is available, we may be running in
-        # a live environment and we can display an error dialog. Otherwise
-        # just print an error.
-        if "DISPLAY" in os.environ and os.access("/usr/bin/zenity", os.X_OK):
+        # If we had a $DISPLAY at start and zenity is available, we may be
+        # running in a live environment and we can display an error dialog.
+        # Otherwise just print an error.
+        if flags.preexisting_x11 and os.access("/usr/bin/zenity", os.X_OK):
             # The module-level _() calls are ok here because the language may
             # be set from the live environment in this case, and anaconda's
             # language setup hasn't happened yet.

@@ -174,3 +174,6 @@ IPMI_FAILED   = 0xA         # installation hit an exception
 # for how long (in seconds) we try to wait for enough entropy for LUKS
 # keep this a multiple of 60 (minutes)
 MAX_ENTROPY_WAIT = 10 * 60
+
+# X display number to use
+X_DISPLAY_NUMBER = 1
