@@ -86,6 +86,6 @@ livemedia-creator --make-iso \
                   --ram 2048 \
                   --vcpus 2 \
                   --kernel-args nomodeset \
-                  --timeout 30
+                  --timeout 90
 rm livecd.ks
 rm -r ${TEMPLATES}
