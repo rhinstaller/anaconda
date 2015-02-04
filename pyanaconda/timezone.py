@@ -215,3 +215,12 @@ def is_valid_timezone(timezone):
 
     return timezone in pytz.common_timezones + etc_zones
 
+def get_timezone(timezone):
+    """
+    Return a tzinfo object for a given timezone name.
+
+    :param str timezone: the timezone name
+    :rtype: datetime.tzinfo
+    """
+
+    return pytz.timezone(timezone)

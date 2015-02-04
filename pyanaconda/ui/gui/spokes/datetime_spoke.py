@@ -34,7 +34,7 @@ from pyanaconda.ui.gui.helpers import GUIDialogInputCheckHandler
 from pyanaconda.ui.helpers import InputCheck
 
 from pyanaconda.i18n import _, CN_
-from pyanaconda.timezone import NTP_SERVICE, get_all_regions_and_timezones, is_valid_timezone
+from pyanaconda.timezone import NTP_SERVICE, get_all_regions_and_timezones, get_timezone, is_valid_timezone
 from pyanaconda.localization import get_xlated_timezone, resolve_date_format
 from pyanaconda import iutil
 from pyanaconda import isys
@@ -46,7 +46,6 @@ from pyanaconda import constants
 from pyanaconda.threads import threadMgr, AnacondaThread
 
 import datetime
-import os
 import re
 import threading
 import locale as locale_mod
@@ -405,6 +404,7 @@ class DatetimeSpoke(FirstbootSpokeMixIn, NormalSpoke):
         self._update_datetime_timer_id = None
         self._start_updating_timer_id = None
         self._shown = False
+        self._tz = None
 
     def initialize(self):
         NormalSpoke.initialize(self)
@@ -718,7 +718,7 @@ class DatetimeSpoke(FirstbootSpokeMixIn, NormalSpoke):
         return (hours + correction) % 24
 
     def _update_datetime(self):
-        now = datetime.datetime.now()
+        now = datetime.datetime.now(self._tz)
         if self._radioButton24h.get_active():
             self._hoursLabel.set_text("%0.2d" % now.hour)
         else:
@@ -766,7 +766,7 @@ class DatetimeSpoke(FirstbootSpokeMixIn, NormalSpoke):
         day = self._get_combo_selection(self._dayCombo)[0]
         #day may be None if there is no such in the selected year and month
         if day:
-            isys.set_system_date_time(year, month, day, hours, minutes)
+            isys.set_system_date_time(year, month, day, hours, minutes, tz=self._tz)
 
         #start the timer only when the spoke is shown
         if self._shown and not self._update_datetime_timer_id:
@@ -1022,7 +1022,7 @@ class DatetimeSpoke(FirstbootSpokeMixIn, NormalSpoke):
         timezone = location.get_property('zone')
         if self._set_timezone(timezone):
             # timezone successfully set
-            os.environ["TZ"] = timezone
+            self._tz = get_timezone(timezone)
             self._update_datetime()
 
     def on_timeformat_changed(self, button24h, *args):
