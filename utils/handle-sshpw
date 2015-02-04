@@ -52,5 +52,3 @@ for ud in userdata:
         kwargs = ud.__dict__
         kwargs.update({"root": "/", "mkmailspool": False})
         u.createUser(ud.username, **kwargs)
-
-del(os.environ["LIBUSER_CONF"])

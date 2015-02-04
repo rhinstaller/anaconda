@@ -388,6 +388,10 @@ def setupPythonPath():
     sys.path.extend(ADDON_PATHS)
 
 def setupEnvironment():
+    # This method is run before any threads are started, so this is the one
+    # point where it's ok to modify the environment.
+    # pylint: disable=environment-modify
+
     # Silly GNOME stuff
     if 'HOME' in os.environ and not "XAUTHORITY" in os.environ:
         os.environ['XAUTHORITY'] = os.environ['HOME'] + '/.Xauthority'
