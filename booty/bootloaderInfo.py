@@ -24,6 +24,7 @@ import shutil
 import string
 import struct
 from copy import copy
+from glob import glob
 
 import gettext
 _ = lambda x: gettext.ldgettext("anaconda", x)
@@ -161,6 +162,11 @@ class KernelArguments:
         for nic, dcb, auto_vlan in storage.fcoe.fcoe().nics:
             hwaddr = self.id.network.netdevices[nic].get("HWADDR")
             args.add("ifname=%s:%s" % (nic, hwaddr.lower()))
+
+        # Add iscsi_firmware to trigger dracut running iscsistart
+        # See rhbz#1099603 and rhbz#1185792
+        if len(glob("/sys/firmware/iscsi_boot*")) > 0:
+            args.add("iscsi_firmware")
 
         return args
 
