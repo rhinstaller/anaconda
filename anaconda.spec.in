@@ -141,6 +141,7 @@ Requires: hfsplus-tools
 %endif
 
 Requires: python-coverage
+Requires: pygobject3
 
 # required because of the rescue mode and VNC question
 Requires: anaconda-tui = %{version}-%{release}
@@ -193,7 +194,6 @@ This package contains textual user interface for the Anaconda installer.
 %package widgets
 Summary: A set of custom GTK+ widgets for use with anaconda
 Group: System Environment/Libraries
-Requires: pygobject3
 Requires: python
 
 %description widgets
