@@ -94,6 +94,9 @@ class AnacondaKSScript(KSScript):
         else:
             scriptRoot = "/"
 
+        # Environment variables that cause problems for %post scripts
+        env_prune = ["LIBUSER_CONF"]
+
         (fd, path) = tempfile.mkstemp("", "ks-script-", scriptRoot + "/tmp")
 
         iutil.eintr_retry_call(os.write, fd, self.script)
@@ -120,7 +123,8 @@ class AnacondaKSScript(KSScript):
         with open(messages, "w") as fp:
             rc = iutil.execWithRedirect(self.interp, ["/tmp/%s" % os.path.basename(path)],
                                         stdout=fp,
-                                        root = scriptRoot)
+                                        root = scriptRoot,
+                                        env_prune = env_prune)
 
         if rc != 0:
             log.error("Error code %s running the kickstart script at line %s", rc, self.lineno)
@@ -1982,11 +1986,6 @@ def runPostScripts(scripts):
 
     if len(postScripts) == 0:
         return
-
-    # Remove environment variables that cause problems for %post scripts.
-    for var in ["LIBUSER_CONF"]:
-        if var in os.environ:
-            del(os.environ[var])
 
     log.info("Running kickstart %%post script(s)")
     map (lambda s: s.run(iutil.getSysroot()), postScripts)

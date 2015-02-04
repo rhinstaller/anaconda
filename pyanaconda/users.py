@@ -40,21 +40,18 @@ def createLuserConf(instPath, algoname='sha512'):
         This must be called before User() is instantiated the first time
         so that libuser.admin will use the temporary config file.
     """
-    createTmp = False
-    try:
-        fn = os.environ["LIBUSER_CONF"]
-        if os.access(fn, os.F_OK):
-            log.info("removing libuser.conf at %s", os.getenv("LIBUSER_CONF"))
-            os.unlink(fn)
-        log.info("created new libuser.conf at %s with instPath=\"%s\"", fn, instPath)
-        fd = open(fn, 'w')
-    except (OSError, IOError, KeyError):
-        createTmp = True
 
-    if createTmp:
+    # If LIBUSER_CONF is not set, create a new temporary file
+    if "LIBUSER_CONF" not in os.environ:
         (fp, fn) = tempfile.mkstemp(prefix="libuser.")
         log.info("created new libuser.conf at %s with instPath=\"%s\"", fn, instPath)
-        fd = os.fdopen(fp, 'w')
+        fd = os.fdopen(fp, "w")
+        # This is only ok if createLuserConf is first called before threads are started
+        os.environ["LIBUSER_CONF"] = fn # pylint: disable=environment-modify
+    else:
+        fn = os.environ["LIBUSER_CONF"]
+        log.info("Clearing libuser.conf at %s", fn)
+        fd = open(fn, "w")
 
     buf = """
 [defaults]
@@ -79,7 +76,6 @@ login_defs = %(instPath)s/etc/login.defs
 
     fd.write(buf)
     fd.close()
-    os.environ["LIBUSER_CONF"] = fn
 
     return fn
 
@@ -202,7 +198,8 @@ class Users:
             if not root in ["","/"]:
                 os.chroot(root)
                 os.chdir("/")
-                del(os.environ["LIBUSER_CONF"])
+                # This is ok because it's after a fork
+                del(os.environ["LIBUSER_CONF"]) # pylint: disable=environment-modify
 
             self.admin = libuser.admin()
 
