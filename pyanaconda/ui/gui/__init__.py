@@ -281,6 +281,12 @@ class MainWindow(Gtk.Window):
         # needed to interact with the window manager, like the GNOME top bar.
         self.set_hide_titlebar_when_maximized(True)
 
+        # The Anaconda and Initial Setup windows might sometimes get decorated with
+        # a titlebar which contains the __init__.py header text by default.
+        # As all Anaconda and Initial Setup usually have a very distinct title text
+        # inside the window, the titlebar text is redundant and should be disabled.
+        self.set_title("")
+
         # Treat an attempt to close the window the same as hitting quit
         self.connect("delete-event", self._on_delete_event)
 
