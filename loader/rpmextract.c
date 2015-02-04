@@ -122,6 +122,7 @@ int explodeRPM(const char *source,
     rpmts ts;
     rpmVSFlags vsflags;
     const char *compr;
+    static int rpm_initialized = 0;
 
     int packageflags = 0;
 
@@ -135,7 +136,10 @@ int explodeRPM(const char *source,
         logMessage(ERROR, "%s: %s\n", srcname, Fstrerror(fdi));
         return EXIT_FAILURE;
     }
-    rpmReadConfigFiles(NULL, NULL);
+    if (!rpm_initialized) {
+        rpmReadConfigFiles(NULL, NULL);
+        rpm_initialized = 1;
+    }
 
     /* Initialize RPM transaction */
     ts = rpmtsCreate();
