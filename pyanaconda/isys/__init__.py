@@ -41,6 +41,7 @@ import struct
 import dbus
 import time
 import datetime
+import pytz
 
 import logging
 log = logging.getLogger("anaconda")
@@ -117,10 +118,10 @@ def set_system_time(secs):
     """
 
     _isys.set_system_time(secs)
-    log.info("System time set to %s", time.ctime(secs))
+    log.info("System time set to %s UTC", time.asctime(time.gmtime(secs)))
 
 def set_system_date_time(year=None, month=None, day=None, hour=None, minute=None,
-                         second=None):
+                         second=None, tz=None):
     """
     Set system date and time given by the parameters as numbers. If some
     parameter is missing or None, the current system date/time field is used
@@ -131,7 +132,7 @@ def set_system_date_time(year=None, month=None, day=None, hour=None, minute=None
     """
 
     # get the right values
-    now = datetime.datetime.now()
+    now = datetime.datetime.now(tz)
     year = year if year is not None else now.year
     month = month if month is not None else now.month
     day = day if day is not None else now.day
@@ -139,9 +140,13 @@ def set_system_date_time(year=None, month=None, day=None, hour=None, minute=None
     minute = minute if minute is not None else now.minute
     second = second if second is not None else now.second
 
-    # struct fields -> year, month, day, hour, minute, second, week_day, year_day, dst
-    time_struct = time.struct_time((year, month, day, hour, minute, second, 0, 0, -1))
-    set_system_time(int(time.mktime(time_struct)))
+    set_date = datetime.datetime(year, month, day, hour, minute, second, tzinfo=tz)
+
+    # Calculate the number of seconds between this time and timestamp 0
+    epoch = datetime.datetime.fromtimestamp(0, pytz.UTC)
+    timestamp = (set_date - epoch).total_seconds()
+
+    set_system_time(timestamp)
 
 def total_memory():
     """Returns total system memory in kB (given to us by /proc/meminfo)"""
