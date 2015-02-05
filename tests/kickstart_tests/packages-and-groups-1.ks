@@ -34,66 +34,49 @@ emacs*
 %end
 
 %post
-cat <<EOF > /lib/systemd/system/default.target.wants/run-test.service
-[Unit]
-Description=Run a test to see if anaconda worked
-After=basic.target
-
-[Service]
-Type=oneshot
-ExecStart=/usr/bin/run-test.sh
-EOF
-
-cat <<EOF > /usr/bin/run-test.sh
-#!/bin/bash
-
 # We don't have a way of determining if a group/env is installed or not.
 # These sentinel packages will have to do.
 
 # Testing #1 - gcc should be installed, but not valgrind
 rpm -q gcc
-if [[ \$? != 0 ]]; then
+if [[ $? != 0 ]]; then
     echo '*** c-development group was not installed' > /root/RESULT
-    shutdown -h now
+    exit 1
 fi
 
 rpm -q valgrind
-if [[ \$? == 0 ]]; then
+if [[ $? == 0 ]]; then
     echo '*** valgrind package should not have been installed' > /root/RESULT
-    shutdown -h now
+    exit 1
 fi
 
 # Testing #2 - qemu-kvm should not be installed.
 rpm -q qemu-kvm
-if [[ \$? == 0 ]]; then
+if [[ $? == 0 ]]; then
     echo '*** 3d-printing group should not have been installed' > /root/RESULT
-    shutdown -h now
+    exit 1
 fi
 
 # Testing #3 - emacs stuff should be installed.
 rpm -qa emacs\*
-if [[ \$? != 0 ]]; then
+if [[ $? != 0 ]]; then
     echo '*** emacs glob was not installed' > /root/RESULT
-    shutdown -h now
+    exit 1
 fi
 
 # Make sure that more than just emacs and its dependencies were installed.
-count=\$(rpm -qa emacs\* | wc -l)
-if [[ \$count -lt 50 ]]; then
+count=$(rpm -qa emacs\* | wc -l)
+if [[ $count -lt 50 ]]; then
     echo '*** emacs glob was not fully installed' > /root/RESULT
-    shutdown -h now
+    exit 1
 fi
 
 # Testing #4 - ibus stuff should not be installed.
 rpm -qa ibus\*
-if [[ \$? == 0 ]]; then
+if [[ $? == 0 ]]; then
     echo '*** ibus glob should not have been installed' > /root/RESULT
-    shutdown -h now
+    exit 1
 fi
 
 echo SUCCESS > /root/RESULT
-shutdown -h now
-EOF
-
-chmod +x /usr/bin/run-test.sh
 %end

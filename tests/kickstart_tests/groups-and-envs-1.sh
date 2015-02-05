@@ -31,14 +31,6 @@ prepare() {
 validate() {
     img=$1
 
-    # Now attempt to boot the resulting VM and see if the install
-    # actually worked.  The VM will shut itself down so there's no
-    # need to worry with that here.
-    timeout 5m /usr/bin/qemu-kvm -m 2048 \
-                                 -smp 2 \
-                                 -hda ${img} \
-                                 -vnc localhost:3
-
     # There should be a /root/RESULT file with results in it.  Check
     # its contents and decide whether the test finally succeeded or
     # not.

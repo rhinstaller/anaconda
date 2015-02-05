@@ -32,68 +32,51 @@ shutdown
 %end
 
 %post
-cat <<EOF > /lib/systemd/system/default.target.wants/run-test.service
-[Unit]
-Description=Run a test to see if anaconda worked
-After=basic.target
-
-[Service]
-Type=oneshot
-ExecStart=/usr/bin/run-test.sh
-EOF
-
-cat <<EOF > /usr/bin/run-test.sh
-#!/bin/bash
-
 # We don't have a way of determining if a group/env is installed or not.
 # These sentinel packages will have to do.
 
 # Testing #1 - lrzsz is only part of dial-up, and should not be installed.
 rpm -q lrzsz
-if [[ \$? == 0 ]]; then
+if [[ $? == 0 ]]; then
     echo '*** dial-up group should not have been installed' > /root/RESULT
-    shutdown -h now
+    exit 1
 fi
 
 # Testing #2 - RepetierHost is only part of 3d-printing, and should not
 # be installed.
 rpm -q RepetierHost
-if [[ \$? == 0 ]]; then
+if [[ $? == 0 ]]; then
     echo '*** 3d-printing group should not have been installed' > /root/RESULT
-    shutdown -h now
-fi
+    exit 1
+f
 
 # Testing #3 - docker-registry is only part of container-management, where
 # it is optional, so it should be installed.
 rpm -q docker-registry
-if [[ \$? != 0 ]]; then
+if [[ $? != 0 ]]; then
     echo '*** docker-registry was not installed' > /root/RESULT
-    shutdown -h now
+    exit 1
 fi
 
 # Testing #4 - rpm-build is mandatory so it should be installed.  rpmdevtools is
 # default so it should not.  rpmlint is optional so it should not.
 rpm -q rpm-build
-if [[ \$? != 0 ]]; then
+if [[ $? != 0 ]]; then
     echo '*** Mandatory package from rpm-development-tools was not installed' > /root/RESULT
-    shutdown -h now
+    exit 1
 else
     rpm -q rpmdevtools
-    if [[ \$? == 0 ]]; then
+    if [[ $? == 0 ]]; then
         echo '*** Default package from rpm-development-tools should not have been installed' > /root/RESULT
-        shutdown -h now
+        exit 1
     else
         rpm -q rpmlint
-        if [[ \$? == 0 ]]; then
+        if [[ $? == 0 ]]; then
             echo '*** Optional package from rpm-development-tools should not have been installed' > /root/RESULT
-            shutdown -h now
+            exit 1
         fi
     fi
 fi
 
 echo SUCCESS > /root/RESULT
-shutdown -h now
-EOF
-
-chmod +x /usr/bin/run-test.sh
 %end
