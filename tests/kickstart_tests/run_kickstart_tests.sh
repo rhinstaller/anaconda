@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# Copyright (C) 2014  Red Hat, Inc.
+# Copyright (C) 2014, 2015  Red Hat, Inc.
 #
 # This copyrighted material is made available to anyone wishing to use,
 # modify, copy, or redistribute it subject to the terms and conditions of
@@ -45,102 +45,72 @@ fi
 # 2 - Keep log files and disk images (will take up a lot of space)
 KEEPIT=${KEEPIT:-0}
 
-export IMAGE KEEPIT
-
-cleanup() {
-    d=$1
-
-    if [[ ${KEEPIT} == 2 ]]; then
-        return
-    elif [[ ${KEEPIT} == 1 ]]; then
-        rm -f ${d}/*img ${d}/*ks
-    elif [[ ${KEEPIT} == 0 ]]; then
-        rm -rf ${d}
-    fi
-}
-
-runone() {
-    t=$1
-
-    ks=${t/.sh/.ks}
-    . $t
-
-    name=$(basename ${t%.sh})
-
-    echo
-    echo ============================================================
-    echo ${ks}
-    echo ============================================================
-
-    # qemu user needs to be able to read the directory.
-    tmpdir=$(mktemp -d --tmpdir=/var/tmp kstest-${name}.XXXXXXXX)
-    chmod 755 ${tmpdir}
-
-    ksfile=$(prepare ${ks} ${tmpdir})
-    if [[ $? != 0 ]]; then
-        echo Test prep failed: ${ksfile}
-        cleanup ${tmpdir}
-        unset kernel_args prep validate
-        return 1
-    fi
-
-    kargs=$(kernel_args)
-    if [[ "${kargs}" != "" ]]; then
-        kargs="--kernel-args \"$kargs\""
-    fi
-
-    eval livemedia-creator ${kargs} \
-                      --make-disk \
-                      --iso "${IMAGE}" \
-                      --ks ${ksfile} \
-                      --tmp ${tmpdir} \
-                      --logfile ${tmpdir}/livemedia.log \
-                      --title Fedora \
-                      --project Fedora \
-                      --releasever 22 \
-                      --ram 2048 \
-                      --vcpus 2 \
-                      --vnc vnc \
-                      --timeout 60
-    if [[ $? != 0 ]]; then
-        echo $(grep CRIT ${tmpdir}/virt-install.log)
-        cleanup ${tmpdir}
-        unset kernel_args prep validate
-        return 1
-    elif [[ -f ${tmpdir}/livemedia.log ]]; then
-        img=$(grep disk_img ${tmpdir}/livemedia.log | cut -d= -f2)
-        trimmed=${img## }
-
-        if [[ $(grep "due to timeout" ${tmpdir}/livemedia.log) != "" ]]; then
-           echo FAILED - Test timed out.
-           cleanup ${tmpdir}
-           unset kernel_args prep validate
-           return 1
-        elif [[ ! -f ${trimmed} ]]; then
-            echo FAILED - Disk image ${trimmed} does not exist.
-            cleanup ${tmpdir}
-            unset kernel_args prep validate
-            return 1
-        fi
-
-        result=$(validate ${trimmed})
-        if [[ $? != 0 ]]; then
-            echo FAILED - "${result}"
-            cleanup ${tmpdir}
-            unset kernel_args prep validate
-            return 1
-        fi
-    fi
-
-    echo SUCCESS
-    cleanup ${tmpdir}
-    unset kernel_args prep validate
-    return 0
-}
-
-export -f cleanup runone
-
 # Round up all the kickstart tests we want to run, skipping those that are not
 # executable as well as this file itself.
-find kickstart_tests -name '*sh' -a -perm -o+x -a \! -wholename 'kickstart_tests/run_kickstart_tests.sh' | \
-parallel --jobs ${TEST_JOBS:-2} runone {}
+find kickstart_tests -name '*sh' -a -perm -o+x -a \! -wholename 'kickstart_tests/run_*.sh' | \
+if [[ "$TEST_REMOTES" != "" ]]; then
+    _IMAGE=kickstart_tests/$(basename ${IMAGE})
+
+    # (1) Copy everything to the remote systems.  We do this ourselves because
+    # parallel doesn't like globs, and we need to put the boot image somewhere
+    # that qemu on the remote systems can read.
+    for remote in ${TEST_REMOTES}; do
+        scp -r kickstart_tests ${remote}:
+        scp ${IMAGE} ${remote}:kickstart_tests/
+    done
+
+    # (1a) We also need to copy the provided image to under kickstart_tests/ on
+    # the local system too.  This is because parallel will attempt to run the
+    # same command line on every system and that requires the image to also be
+    # in the same location.
+    cp ${IMAGE} ${_IMAGE}
+
+    # (2) Run parallel.  We always add the local system to the list of machines
+    # being passed to parallel.  Don't add it yourself.
+    remote_args="--sshlogin :"
+    for remote in ${TEST_REMOTES}; do
+        remote_args="${remote_args} --sshlogin ${remote}"
+    done
+
+    parallel --filter-hosts ${remote_args} \
+             --env TEST_OSTREE_REPO --jobs ${TEST_JOBS:-2} \
+             kickstart_tests/run_one_ks.sh -i ${_IMAGE} -k ${KEEPIT} {}
+    rc=$?
+
+    # (3) Get all the results back from the remote systems, which will have already
+    # applied the KEEPIT setting.  However if KEEPIT is 0 (meaning, don't save
+    # anything) there's no point in trying.  We do this ourselves because, again,
+    # parallel doesn't like globs.
+    #
+    # We also need to clean up the stuff we copied over in step 1, and then clean up
+    # the results from the remotes too.  We don't want to keep things scattered all
+    # over the place.
+    for remote in ${TEST_REMOTES}; do
+        if [[ ${KEEPIT} > 0 ]]; then
+            scp -r ${remote}:/var/tmp/kstest-\* /var/tmp/
+        fi
+
+        ssh ${remote} rm -rf kickstart_tests /var/tmp/kstest-\*
+    done
+
+    # (3a) And then also remove the copy of the image we made earlier.
+    rm ${_IMAGE}
+
+    # (4) Exit the subshell defined by "find ... | " way up at the top.  The exit
+    # code will be caught outside and converted into the overall exit code.
+    exit ${rc}
+else
+    parallel --env TEST_OSTREE_REPO --jobs ${TEST_JOBS:-2} \
+             kickstart_tests/run_one_ks.sh -i ${IMAGE} -k ${KEEPIT} {}
+
+    # For future expansion - any cleanup code can go in between the variable
+    # setting and the exit, like in the other branch of the if-else above.
+    rc=$?
+    exit ${rc}
+fi
+
+# Catch the exit code of the subshell and return it.  This is structured for
+# future expansion, too.  Any extra global cleanup code can go in between the
+# variable setting and the exit.
+rc=$?
+exit ${rc}
