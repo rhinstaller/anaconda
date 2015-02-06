@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/python2
 # vim:set fileencoding=utf-8
 #
 # Copyright (C) 2014  Red Hat, Inc.

@@ -116,10 +116,10 @@ fi
 # run pylint one file / module at a time, otherwise it sometimes gets
 # confused
 if [ -z "$FILES" ]; then
-    # Test any file that either ends in .py or contains #!/usr/bin/python in
+    # Test any file that either ends in .py or contains #!/usr/bin/python2 in
     # the first line.  Scan everything except old_tests
     FILES=$(findtestfiles \( -name '*.py' -o \
-                -exec /bin/sh -c "head -1 {} | grep -q '#!/usr/bin/python'" \; \) -print | \
+                -exec /bin/sh -c "head -1 {} | grep -q '#!/usr/bin/python2'" \; \) -print | \
             egrep -v '(|/)old_tests/')
 fi
 
