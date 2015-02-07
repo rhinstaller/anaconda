@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: anaconda 22.16\n"
+"Project-Id-Version: anaconda 22.17\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
-"POT-Creation-Date: 2015-01-30 13:46-0800\n"
+"POT-Creation-Date: 2015-02-06 18:04-0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,6 +17,18 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+
+#: pyanaconda/autopart.py:271
+msgid "No big enough free space on disks for automatic partitioning"
+msgstr ""
+
+#: pyanaconda/autopart.py:473
+msgid "No usable disks selected"
+msgstr ""
+
+#: pyanaconda/autopart.py:481
+msgid "Not enough free space on disks for automatic partitioning"
+msgstr ""
 
 #: pyanaconda/bootloader.py:248
 msgid "/boot file system"
@@ -98,7 +110,7 @@ msgstr ""
 msgid "%(desc)s cannot be of type %(type)s"
 msgstr ""
 
-#: pyanaconda/bootloader.py:1362
+#: pyanaconda/bootloader.py:1367
 #, python-format
 msgid ""
 "boot loader stage2 device %(stage2dev)s is on a multi-disk array, but boot "
@@ -106,7 +118,7 @@ msgid ""
 "could render the system unbootable."
 msgstr ""
 
-#: pyanaconda/bootloader.py:1368
+#: pyanaconda/bootloader.py:1373
 #, python-format
 msgid ""
 "boot loader stage2 device %(stage2dev)s is on a multi-disk array, but boot "
@@ -114,7 +126,7 @@ msgid ""
 "boot loader will only be installed to a single drive."
 msgstr ""
 
-#: pyanaconda/bootloader.py:1657
+#: pyanaconda/bootloader.py:1662
 #, python-format
 msgid ""
 "%(deviceName)s may not have enough space for grub2 to embed core.img when "
@@ -425,7 +437,7 @@ msgstr ""
 msgid "Installing boot loader"
 msgstr ""
 
-#: pyanaconda/install.py:259 pyanaconda/packaging/livepayload.py:175
+#: pyanaconda/install.py:259 pyanaconda/packaging/livepayload.py:174
 #: pyanaconda/packaging/yumpayload.py:1369
 #: pyanaconda/packaging/dnfpayload.py:648
 msgid "Performing post-installation setup tasks"
@@ -1230,18 +1242,18 @@ msgstr ""
 msgid "No installation source available"
 msgstr ""
 
-#: pyanaconda/packaging/livepayload.py:103
-#: pyanaconda/packaging/livepayload.py:124
+#: pyanaconda/packaging/livepayload.py:102
+#: pyanaconda/packaging/livepayload.py:123
 msgid "Installing software"
 msgstr ""
 
-#: pyanaconda/packaging/livepayload.py:227
-#: pyanaconda/packaging/livepayload.py:236
+#: pyanaconda/packaging/livepayload.py:226
+#: pyanaconda/packaging/livepayload.py:235
 #, python-format
 msgid "Downloading %(url)s (%(pct)d%%)"
 msgstr ""
 
-#: pyanaconda/packaging/livepayload.py:382
+#: pyanaconda/packaging/livepayload.py:381
 msgid "Checking image checksum"
 msgstr ""
 
@@ -2082,19 +2094,19 @@ msgstr ""
 msgid "Password set."
 msgstr ""
 
-#: pyanaconda/ui/gui/__init__.py:477 widgets/src/BaseWindow.c:115
+#: pyanaconda/ui/gui/__init__.py:483 widgets/src/BaseWindow.c:115
 msgid "Help!"
 msgstr ""
 
-#: pyanaconda/ui/gui/__init__.py:721 widgets/src/StandaloneWindow.c:51
+#: pyanaconda/ui/gui/__init__.py:727 widgets/src/StandaloneWindow.c:51
 msgid "_Quit"
 msgstr ""
 
-#: pyanaconda/ui/gui/__init__.py:736
+#: pyanaconda/ui/gui/__init__.py:742
 msgid "_No"
 msgstr ""
 
-#: pyanaconda/ui/gui/__init__.py:736
+#: pyanaconda/ui/gui/__init__.py:742
 msgid "_Yes"
 msgstr ""
 
@@ -5624,7 +5636,7 @@ msgstr ""
 msgid "Install the live CD to your hard disk"
 msgstr ""
 
-#: /root/anaconda/data/liveinst/console.apps/liveinst:5
+#: /home/bcl/Red_Hat/projs/anaconda/data/liveinst/console.apps/liveinst:5
 msgid "Starting Install to Hard Drive"
 msgstr ""
 
