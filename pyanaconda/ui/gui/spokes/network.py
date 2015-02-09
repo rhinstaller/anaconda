@@ -67,25 +67,15 @@ DBusGMainLoop(set_as_default=True)
 import logging
 log = logging.getLogger("anaconda")
 
-# These are required for dbus API use we need because of
-# NM_GI_BUGS: 767998, 773678
+NM._80211ApFlags = getattr(NM, "80211ApFlags")
+NM._80211ApSecurityFlags = getattr(NM, "80211ApSecurityFlags")
+NM._80211Mode = getattr(NM, "80211Mode")
+
 NM_SERVICE = "org.freedesktop.NetworkManager"
-NM_802_11_AP_FLAGS_PRIVACY = 0x1
-NM_802_11_AP_SEC_NONE = 0x0
-NM_802_11_AP_SEC_KEY_MGMT_802_1X = 0x200
 NM_SECRET_AGENT_GET_SECRETS_FLAG_ALLOW_INTERACTION = 0x1
-DBUS_PROPS_IFACE = "org.freedesktop.DBus.Properties"
 SECRET_AGENT_IFACE = 'org.freedesktop.NetworkManager.SecretAgent'
 AGENT_MANAGER_IFACE = 'org.freedesktop.NetworkManager.AgentManager'
 AGENT_MANAGER_PATH = "/org/freedesktop/NetworkManager/AgentManager"
-
-
-
-def getNMObjProperty(obj, nm_iface_suffix, prop):
-    props_iface = dbus.Interface(obj, DBUS_PROPS_IFACE)
-    return props_iface.Get("org.freedesktop.NetworkManager"+nm_iface_suffix,
-                           prop)
-
 
 DEVICES_COLUMN_TITLE = 2
 DEVICES_COLUMN_OBJECT = 3
@@ -506,10 +496,8 @@ class NetworkControlBox(GObject.GObject):
         if not dev_cfg:
             return
 
-        ap_obj_path, ssid_target, ssid_bytes = combobox.get_model().get(itr, 0, 1, 6)
+        ap, ssid_target, ssid_bytes = combobox.get_model().get(itr, 0, 1, 6)
         self.selected_ssid = ssid_bytes
-        if ap_obj_path == "ap-other...":
-            return
 
         log.info("network: selected access point: %s", ssid_target)
 
@@ -520,7 +508,7 @@ class NetworkControlBox(GObject.GObject):
             log.debug("network: on_wireless_ap_changed: %s", e)
         except nm.SettingsNotFoundError as e:
             log.debug("network: on_wireless_ap_changed: %s", e)
-            if self._ap_is_enterprise_dbus(ap_obj_path):
+            if self._ap_is_enterprise(ap):
                 # Create a connection for the ap and [Configure] it later with nm-c-e
                 values = []
                 values.append(['connection', 'uuid', str(uuid4()), 's'])
@@ -532,7 +520,7 @@ class NetworkControlBox(GObject.GObject):
                 nm.nm_add_connection(values)
                 self.builder.get_object("button_wireless_options").set_sensitive(True)
             else:
-                self.client.add_and_activate_connection_async(None, dev_cfg.device, ap_obj_path,
+                self.client.add_and_activate_connection_async(None, dev_cfg.device, ap.get_path(),
                                                     None, None)
 
     def on_connection_added(self, client, connection):
@@ -852,13 +840,7 @@ class NetworkControlBox(GObject.GObject):
         else:
             active_ap = dev_cfg.device.get_active_access_point()
             if active_ap:
-                active_ap_dbus = dbus.SystemBus().get_object(NM_SERVICE,
-                                                             active_ap.get_path())
-                ap_str = self._ap_security_string_dbus(active_ap_dbus)
-                # TODO NM_GI_BUGS move to gi after fixed in NM
-                # - NetworkManager.80211ApFlags
-                # - active_ap.get_flags, get_wpa_flags, get_rsn_flags
-                #ap_str = self._ap_security_string(active_ap)
+                ap_str = self._ap_security_string(active_ap)
             else:
                 ap_str = ""
 
@@ -875,6 +857,7 @@ class NetworkControlBox(GObject.GObject):
             self._updating_device = True
             store.clear()
             aps = self._get_strongest_unique_aps(dev_cfg.device.get_access_points())
+            # TODONM - just compare the objects
             for ap in aps:
                 active = active_ap and active_ap.get_path() == ap.get_path()
                 self._add_ap(ap, active)
@@ -1024,25 +1007,16 @@ class NetworkControlBox(GObject.GObject):
             value_label.show()
             value_label.set_label(value_str)
 
-    # TODO NM_GI_BUGS use glib methods for mode and security (dbus obj or nm obj?)
     def _add_ap(self, ap, active=False):
         ssid = ap.get_ssid().get_data()
         if not ssid:
             return
 
-        # TODO NM_GI_BUGS
-        ap_dbus = dbus.SystemBus().get_object(NM_SERVICE, ap.get_path())
-        try:
-            mode = getNMObjProperty(ap_dbus, ".AccessPoint", "Mode")
-        except dbus.DBusException as e:
-            # object has became invalid (race)
-            if e.get_dbus_name() == "org.freedesktop.DBus.Error.UnknownMethod":
-                return
-            else:
-                raise
+        mode = ap.get_mode()
+        if not mode:
+            return
 
-
-        security = self._ap_security_dbus(ap)
+        security = self._ap_security(ap)
 
         store = self.builder.get_object("liststore_wireless_network")
 
@@ -1051,7 +1025,7 @@ class NetworkControlBox(GObject.GObject):
 
         # the third column is for sorting
         # the seventh column is the original, actual SSID as a bytes object
-        itr = store.append([ap.get_path(),
+        itr = store.append([ap,
                             ssid_str,
                             ssid_str,
                             ap.get_strength(),
@@ -1073,96 +1047,51 @@ class NetworkControlBox(GObject.GObject):
 
         return strongest_aps.values()
 
-    # TODO NM_GI_BUGS fix as _ap_security_string
-    def _ap_security_dbus(self, ap):
-        if ap.get_path() == "/":
-            return NM_AP_SEC_UNKNOWN
+    def _ap_security(self, ap):
+        ty = NM_AP_SEC_UNKNOWN
 
-        ap_dbus = dbus.SystemBus().get_object(NM_SERVICE, ap.get_path())
-        flags = getNMObjProperty(ap_dbus, ".AccessPoint", "Flags")
-        wpa_flags = getNMObjProperty(ap_dbus, ".AccessPoint", "WpaFlags")
-        rsn_flags = getNMObjProperty(ap_dbus, ".AccessPoint", "RsnFlags")
+        flags = ap.get_flags()
+        wpa_flags = ap.get_wpa_flags()
+        rsn_flags = ap.get_rsn_flags()
 
-        if (not (flags & NM_802_11_AP_FLAGS_PRIVACY) and
-            wpa_flags == NM_802_11_AP_SEC_NONE and
-            rsn_flags == NM_802_11_AP_SEC_NONE):
+        if (not (flags & NM._80211ApFlags.PRIVACY) and
+            wpa_flags == NM._80211ApSecurityFlags.NONE and
+            rsn_flags == NM._80211ApSecurityFlags.NONE):
             ty = NM_AP_SEC_NONE
-        elif (flags & NM_802_11_AP_FLAGS_PRIVACY and
-              wpa_flags == NM_802_11_AP_SEC_NONE and
-              rsn_flags == NM_802_11_AP_SEC_NONE):
+        elif (flags & NM._80211ApFlags.PRIVACY and
+              wpa_flags == NM._80211ApSecurityFlags.NONE and
+              rsn_flags == NM._80211ApSecurityFlags.NONE):
             ty = NM_AP_SEC_WEP
-        elif (not (flags & NM_802_11_AP_FLAGS_PRIVACY) and
-              wpa_flags != NM_802_11_AP_SEC_NONE and
-              rsn_flags != NM_802_11_AP_SEC_NONE):
+        elif (not (flags & NM._80211ApFlags.PRIVACY) and
+              wpa_flags != NM._80211ApSecurityFlags.NONE and
+              rsn_flags != NM._80211ApSecurityFlags.NONE):
             ty = NM_AP_SEC_WPA
         else:
             ty = NM_AP_SEC_WPA2
 
         return ty
 
-## TODO NM_GI_BUGS - attribute starts with number
-#    def _ap_security_string(self, ap):
-#        if ap.object_path == "/":
-#            return ""
-#
-#        flags = ap.get_flags()
-#        wpa_flags = ap.get_wpa_flags()
-#        rsn_flags = ap.get_rsn_flags()
-#
-#        sec_str = ""
-#
-#        if ((flags & NM.80211ApFlags.PRIVACY) and
-#            wpa_flags == NM.80211ApSecurityFlags.NONE and
-#            rsn_flags == NM.80211ApSecurityFlags.NONE):
-#            sec_str += "%s, " % _("WEP")
-#
-#        if wpa_flags != NM.80211ApSecurityFlags.NONE:
-#            sec_str += "%s, " % _("WPA")
-#
-#        if rsn_flags != NM.80211ApSecurityFlags.NONE:
-#            sec_str += "%s, " % _("WPA2")
-#
-#        if ((wpa_flags & NM.80211ApSecurityFlags.KEY_MGMT_802_1X) or
-#            (rsn_flags & NM.80211ApSecurityFlags.KEY_MGMT_802_1X)):
-#            sec_str += "%s, " % _("Enterprise")
-#
-#        if sec_str:
-#            sec_str = sec_str[:-2]
-#        else:
-#            sec_str = _("None")
-#
-#        return sec_str
+    def _ap_security_string(self, ap):
 
-    def _ap_is_enterprise_dbus(self, ap_path):
-        ap = dbus.SystemBus().get_object(NM_SERVICE, ap_path)
-        wpa_flags = getNMObjProperty(ap, ".AccessPoint", "WpaFlags")
-        rsn_flags = getNMObjProperty(ap, ".AccessPoint", "RsnFlags")
-        return ((wpa_flags & NM_802_11_AP_SEC_KEY_MGMT_802_1X) or
-                (rsn_flags & NM_802_11_AP_SEC_KEY_MGMT_802_1X))
-
-    def _ap_security_string_dbus(self, ap):
-        if ap.object_path == "/":
-            return ""
-
-        flags = getNMObjProperty(ap, ".AccessPoint", "Flags")
-        wpa_flags = getNMObjProperty(ap, ".AccessPoint", "WpaFlags")
-        rsn_flags = getNMObjProperty(ap, ".AccessPoint", "RsnFlags")
+        flags = ap.get_flags()
+        wpa_flags = ap.get_wpa_flags()
+        rsn_flags = ap.get_rsn_flags()
 
         sec_str = ""
 
-        if ((flags & NM_802_11_AP_FLAGS_PRIVACY) and
-            wpa_flags == NM_802_11_AP_SEC_NONE and
-            rsn_flags == NM_802_11_AP_SEC_NONE):
+        if ((flags & NM._80211ApFlags.PRIVACY) and
+            wpa_flags == NM._80211ApSecurityFlags.NONE and
+            rsn_flags == NM._80211ApSecurityFlags.NONE):
             sec_str += "%s, " % _("WEP")
 
-        if wpa_flags != NM_802_11_AP_SEC_NONE:
+        if wpa_flags != NM._80211ApSecurityFlags.NONE:
             sec_str += "%s, " % _("WPA")
 
-        if rsn_flags != NM_802_11_AP_SEC_NONE:
+        if rsn_flags != NM._80211ApSecurityFlags.NONE:
             sec_str += "%s, " % _("WPA2")
 
-        if ((wpa_flags & NM_802_11_AP_SEC_KEY_MGMT_802_1X) or
-            (rsn_flags & NM_802_11_AP_SEC_KEY_MGMT_802_1X)):
+        if ((wpa_flags & NM._80211ApSecurityFlags.KEY_MGMT_802_1X) or
+            (rsn_flags & NM._80211ApSecurityFlags.KEY_MGMT_802_1X)):
             sec_str += "%s, " % _("Enterprise")
 
         if sec_str:
@@ -1171,6 +1100,12 @@ class NetworkControlBox(GObject.GObject):
             sec_str = _("None")
 
         return sec_str
+
+    def _ap_is_enterprise(self, ap):
+        wpa_flags = ap.get_wpa_flags()
+        rsn_flags = ap.get_rsn_flags()
+        return ((wpa_flags & NM._80211ApSecurityFlags.KEY_MGMT_802_1X) or
+                (rsn_flags & NM._80211ApSecurityFlags.KEY_MGMT_802_1X))
 
     @property
     def dev_cfgs(self):
