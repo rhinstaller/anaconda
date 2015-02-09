@@ -24,11 +24,9 @@
 from __future__ import print_function
 
 import getpass
-import errno
 import optparse
 import os
 import os.path
-import signal
 import sys
 
 DEFAULT_PORT = 6080
@@ -194,9 +192,9 @@ def pid_location(unique_id):
         os.mkdir(directory)
     return location
 
-if __name__ == "__main__":
+def main():
     try:
-        (options, args) = get_opts()
+        (options, _args) = get_opts()
     except OptParserError as exc:
         exc.parser.error(str(exc))
         sys.exit(1)
@@ -205,9 +203,9 @@ if __name__ == "__main__":
     if options.output:
         options.output = os.path.abspath(options.output)
         try:
-            with open(options.output, 'w') as file:
-                file.write(config)
-        except IOError as e:
+            with open(options.output, 'w') as f:
+                f.write(config)
+        except IOError:
             print("Can't write into file %s" % options.output, file=sys.stderr)
             sys.exit(1)
         if options.stdout:
@@ -218,3 +216,6 @@ if __name__ == "__main__":
                     })
     else:
         print(config)
+
+if __name__ == "__main__":
+    main()
