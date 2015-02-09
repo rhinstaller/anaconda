@@ -957,7 +957,7 @@ EOF
     ln -sf killall5 $MBD_DIR/sbin/pidof
 
     # Indirect dependencies
-    for nsslib in freebl3 softokn3 nssdbm3 ; do
+    for nsslib in freeblpriv3 freebl3 softokn3 nssdbm3 ; do
         if [ -f $IMGPATH/$LIBDIR/lib$nsslib.so ]; then
             install -m 755 $IMGPATH/$LIBDIR/lib$nsslib.so $MBD_DIR/$LIBDIR/
         elif [ -f $IMGPATH/usr/$LIBDIR/lib$nsslib.so ]; then
