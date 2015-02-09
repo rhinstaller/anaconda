@@ -652,7 +652,7 @@ class NetworkControlBox(GObject.GObject):
             return None
         dev_cfg = model[itr][DEVICES_COLUMN_OBJECT]
         model.remove(itr)
-        nm.nm_delete_connection(dev_cfg.con_uuid)
+        self.client.get_connection_by_uuid(dev_cfg.con_uuid).delete()
 
     def add_device(self, ty):
         log.info("network: adding device of type %s", ty)

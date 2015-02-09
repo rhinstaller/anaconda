@@ -891,21 +891,6 @@ def nm_add_connection(values):
         raise
     return connection
 
-def nm_delete_connection(uuid):
-    """Delete connection specified by uuid.
-
-       :param uuid: uuid of connection to be deleted
-       :type uuid: str
-       :return: True if connection was deleted, False if it was not found
-       :rtype: bool
-    """
-
-    settings_paths = _find_settings(uuid, "connection", "uuid")
-    if not settings_paths:
-        return False
-    proxy = _get_proxy(object_path=settings_paths[0], interface_name="org.freedesktop.NetworkManager.Settings.Connection")
-    proxy.Delete()
-
 def nm_update_settings_of_device(name, new_values):
     """Update setting of device.
 
