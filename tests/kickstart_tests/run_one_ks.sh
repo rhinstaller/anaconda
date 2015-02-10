@@ -18,6 +18,12 @@
 #
 # Red Hat Author(s): Chris Lumens <clumens@redhat.com>
 
+# This script runs a single kickstart test on a single system.  It takes
+# command line arguments instead of environment variables because it is
+# designed to be driven by run_kickstart_tests.sh via parallel.  It is
+# not for direct use, though as long as you pass the right arguments there's
+# no reason it couldn't work.
+
 IMAGE=
 KEEPIT=0
 

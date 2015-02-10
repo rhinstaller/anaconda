@@ -18,6 +18,33 @@
 #
 # Red Hat Author(s): Chris Lumens <clumens@redhat.com>
 
+# This script runs the entire kickstart_tests suite.  It is an interface
+# between "make check" (which is why it takes environment variables instead
+# of arguments) and livemedia-creator.  Each test consists of a kickstart
+# file that specifies most everything about the installation, and a shell
+# script that does validation and specifies kernel boot parameters.  lmc
+# then fires up a VM and watches for tracebacks or stuck installs.
+#
+# You must be root to run this test suite.
+#
+# A boot ISO is required, which should be specified with TEST_BOOT_ISO=.
+#
+# The number of jobs corresponds to the number of VMs that will be started
+# simultaneously.  Each one wants about 2 GB of memory.  The default is
+# two simultaneous jobs, but you can control this with TEST_JOBS=.  It is
+# suggested you not run out of memory.
+#
+# You can control what logs are held onto after the test is complete via the
+# KEEPIT= variable, explained below.  By default, nothing is kept.
+#
+# Finally, you can run tests across multiple computers at the same time by
+# putting all the hostnames into TEST_REMOTES= as a space separated list.
+# Do not add localhost manually, as it will always be added for you.  You
+# must have ssh keys set up so that root can login to the remote systems
+# without a password.  TEST_JOBS= applies on a per-system basis.  KEEPIT=
+# controls how much will be kept on the master system (where "make check"
+# is run).  All results will be removed from the slave systems.
+
 # Have to be root to run this test, as it requires creating disk images.
 if [[ ${EUID} != 0 ]]; then
    exit 77
@@ -44,6 +71,11 @@ fi
 # 1 - Keep log files
 # 2 - Keep log files and disk images (will take up a lot of space)
 KEEPIT=${KEEPIT:-0}
+
+# This is for environment variables that parallel needs to pass to
+# remote systems.  Put anything here that test cases care about or
+# they won't work when run on some systems.
+env_args="--env TEST_OSTREE_REPO"
 
 # Round up all the kickstart tests we want to run, skipping those that are not
 # executable as well as this file itself.
@@ -73,7 +105,7 @@ if [[ "$TEST_REMOTES" != "" ]]; then
     done
 
     parallel --filter-hosts ${remote_args} \
-             --env TEST_OSTREE_REPO --jobs ${TEST_JOBS:-2} \
+             ${env_args} --jobs ${TEST_JOBS:-2} \
              kickstart_tests/run_one_ks.sh -i ${_IMAGE} -k ${KEEPIT} {}
     rc=$?
 
@@ -100,7 +132,7 @@ if [[ "$TEST_REMOTES" != "" ]]; then
     # code will be caught outside and converted into the overall exit code.
     exit ${rc}
 else
-    parallel --env TEST_OSTREE_REPO --jobs ${TEST_JOBS:-2} \
+    parallel ${env_args} --jobs ${TEST_JOBS:-2} \
              kickstart_tests/run_one_ks.sh -i ${IMAGE} -k ${KEEPIT} {}
 
     # For future expansion - any cleanup code can go in between the variable
