@@ -25,8 +25,6 @@
 # script that does validation and specifies kernel boot parameters.  lmc
 # then fires up a VM and watches for tracebacks or stuck installs.
 #
-# You must be root to run this test suite.
-#
 # A boot ISO is required, which should be specified with TEST_BOOT_ISO=.
 #
 # The number of jobs corresponds to the number of VMs that will be started
@@ -40,15 +38,12 @@
 # Finally, you can run tests across multiple computers at the same time by
 # putting all the hostnames into TEST_REMOTES= as a space separated list.
 # Do not add localhost manually, as it will always be added for you.  You
-# must have ssh keys set up so that root can login to the remote systems
-# without a password.  TEST_JOBS= applies on a per-system basis.  KEEPIT=
-# controls how much will be kept on the master system (where "make check"
-# is run).  All results will be removed from the slave systems.
-
-# Have to be root to run this test, as it requires creating disk images.
-if [[ ${EUID} != 0 ]]; then
-   exit 77
-fi
+# must create a user named kstest on each remote system, allow that user to
+# sudo to root for purposes of running livemedia-creator, and have ssh keys
+# set up so that the user running this script can login to the remote systems
+# as kstest without a password.  TEST_JOBS= applies on a per-system basis.
+# KEEPIT= controls how much will be kept on the master system (where "make
+# check" is run).  All results will be removed from the slave systems.
 
 # The boot.iso location can come from one of two different places:
 # (1) $TEST_BOOT_ISO, if this script is being called from "make check"
@@ -75,6 +70,10 @@ KEEPIT=${KEEPIT:-0}
 # This is for environment variables that parallel needs to pass to
 # remote systems.  Put anything here that test cases care about or
 # they won't work when run on some systems.
+#
+# NOTE:  You will also need to add these to the list in /etc/sudoers
+# if you are using env_reset there, or they will not get passed from
+# this script to parallel.
 env_args="--env TEST_OSTREE_REPO"
 
 # Round up all the kickstart tests we want to run, skipping those that are not
@@ -87,8 +86,8 @@ if [[ "$TEST_REMOTES" != "" ]]; then
     # parallel doesn't like globs, and we need to put the boot image somewhere
     # that qemu on the remote systems can read.
     for remote in ${TEST_REMOTES}; do
-        scp -r kickstart_tests ${remote}:
-        scp ${IMAGE} ${remote}:kickstart_tests/
+        scp -r kickstart_tests kstest@${remote}:
+        scp ${IMAGE} kstest@${remote}:kickstart_tests/
     done
 
     # (1a) We also need to copy the provided image to under kickstart_tests/ on
@@ -101,12 +100,12 @@ if [[ "$TEST_REMOTES" != "" ]]; then
     # being passed to parallel.  Don't add it yourself.
     remote_args="--sshlogin :"
     for remote in ${TEST_REMOTES}; do
-        remote_args="${remote_args} --sshlogin ${remote}"
+        remote_args="${remote_args} --sshlogin kstest@${remote}"
     done
 
     parallel --filter-hosts ${remote_args} \
              ${env_args} --jobs ${TEST_JOBS:-2} \
-             kickstart_tests/run_one_ks.sh -i ${_IMAGE} -k ${KEEPIT} {}
+             sudo kickstart_tests/run_one_ks.sh -i ${_IMAGE} -k ${KEEPIT} {}
     rc=$?
 
     # (3) Get all the results back from the remote systems, which will have already
@@ -119,10 +118,10 @@ if [[ "$TEST_REMOTES" != "" ]]; then
     # over the place.
     for remote in ${TEST_REMOTES}; do
         if [[ ${KEEPIT} > 0 ]]; then
-            scp -r ${remote}:/var/tmp/kstest-\* /var/tmp/
+            scp -r kstest@${remote}:/var/tmp/kstest-\* /var/tmp/
         fi
 
-        ssh ${remote} rm -rf kickstart_tests /var/tmp/kstest-\*
+        ssh kstest@${remote} rm -rf kickstart_tests /var/tmp/kstest-\*
     done
 
     # (3a) And then also remove the copy of the image we made earlier.
@@ -133,7 +132,7 @@ if [[ "$TEST_REMOTES" != "" ]]; then
     exit ${rc}
 else
     parallel ${env_args} --jobs ${TEST_JOBS:-2} \
-             kickstart_tests/run_one_ks.sh -i ${IMAGE} -k ${KEEPIT} {}
+             sudo kickstart_tests/run_one_ks.sh -i ${IMAGE} -k ${KEEPIT} {}
 
     # For future expansion - any cleanup code can go in between the variable
     # setting and the exit, like in the other branch of the if-else above.
