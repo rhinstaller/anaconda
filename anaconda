@@ -1305,7 +1305,7 @@ if __name__ == "__main__":
     signal.signal(signal.SIGUSR2, lambda signum, frame: anaconda.dumpState())
     atexit.register(exitHandler, ksdata.reboot, anaconda.storage)
 
-    from blivet import storageInitialize
+    from blivet.osinstall import storageInitialize
     from pyanaconda.packaging import payloadMgr
     from pyanaconda.timezone import time_initialize
 

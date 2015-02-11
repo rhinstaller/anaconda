@@ -20,7 +20,8 @@
 # Red Hat Author(s): Chris Lumens <clumens@redhat.com>
 #
 
-from blivet import turnOnFilesystems, callbacks
+from blivet import callbacks
+from blivet.osinstall import turnOnFilesystems
 from pyanaconda.bootloader import writeBootLoader
 from pyanaconda.progress import progress_report, progress_message, progress_step, progress_complete, progress_init
 from pyanaconda.users import createLuserConf, getPassAlgo, Users

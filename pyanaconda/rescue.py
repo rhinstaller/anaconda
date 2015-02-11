@@ -37,8 +37,10 @@ from pyanaconda.i18n import _
 from pyanaconda.kickstart import runPostScripts
 
 from blivet import mountExistingSystem
+from blivet import osinstall
 from blivet.errors import StorageError
 from blivet.devices import LUKSDevice
+from blivet.osinstall import storageInitialize
 
 from pykickstart.constants import KS_REBOOT, KS_SHUTDOWN
 
@@ -305,9 +307,9 @@ def doRescue(intf, rescue_mount, ksdata):
             break
 
     sto = blivet.Blivet(ksdata=ksdata)
-    blivet.storageInitialize(sto, ksdata, [])
+    storageInitialize(sto, ksdata, [])
     _unlock_devices(intf, sto)
-    roots = blivet.findExistingInstallations(sto.devicetree)
+    roots = osinstall.findExistingInstallations(sto.devicetree)
 
     if not roots:
         root = None

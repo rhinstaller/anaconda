@@ -46,7 +46,6 @@ from blivet.formats import device_formats
 from blivet.formats import getFormat
 from blivet.formats.fs import FS
 from blivet.size import Size
-from blivet import Root
 from blivet.devicefactory import DEVICE_TYPE_LVM
 from blivet.devicefactory import DEVICE_TYPE_BTRFS
 from blivet.devicefactory import DEVICE_TYPE_PARTITION
@@ -54,8 +53,8 @@ from blivet.devicefactory import DEVICE_TYPE_MD
 from blivet.devicefactory import DEVICE_TYPE_DISK
 from blivet.devicefactory import DEVICE_TYPE_LVM_THINP
 from blivet.devicefactory import SIZE_POLICY_AUTO
-from blivet import findExistingInstallations
-from blivet.partitioning import doAutoPartition
+from blivet.osinstall import findExistingInstallations, Root
+from blivet.autopart import doAutoPartition
 from blivet.errors import StorageError
 from blivet.errors import NoDisksError
 from blivet.errors import NotEnoughFreeSpaceError

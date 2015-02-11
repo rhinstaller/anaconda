@@ -25,7 +25,7 @@ from pyanaconda.threads import threadMgr, AnacondaThread
 from pyanaconda.ui.gui import GUIObject
 from pyanaconda import constants
 
-from blivet import storageInitialize
+from blivet.osinstall import storageInitialize
 
 __all__ = ["RefreshDialog"]
 

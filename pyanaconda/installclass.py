@@ -26,7 +26,7 @@ import os, sys
 import imputil
 
 from blivet.partspec import PartSpec
-from blivet.devicelibs import swap
+from blivet.autopart import swapSuggestion
 from blivet.platform import platform
 from blivet.size import Size
 
@@ -104,7 +104,7 @@ class BaseInstallClass(object):
 
 
         disk_space = getAvailableDiskSpace(storage)
-        swp = swap.swapSuggestion(disk_space=disk_space)
+        swp = swapSuggestion(disk_space=disk_space)
         autorequests.append(PartSpec(fstype="swap", size=swp, grow=False,
                                      lv=True, encrypted=True))
 

@@ -56,11 +56,11 @@ from pyanaconda.ui.helpers import StorageChecker
 
 from pyanaconda.kickstart import doKickstartStorage, refreshAutoSwapSize, resetCustomStorageData
 from blivet import arch
+from blivet import autopart
 from blivet.size import Size
 from blivet.devices import MultipathDevice, ZFCPDiskDevice
 from blivet.errors import StorageError, DasdFormatError
 from blivet.platform import platform
-from blivet.devicelibs import swap as swap_lib
 from blivet.devicelibs.dasd import make_unformatted_dasd_list, format_dasd
 from pyanaconda.threads import threadMgr, AnacondaThread
 from pyanaconda.product import productName
@@ -798,7 +798,7 @@ class StorageSpoke(NormalSpoke, StorageChecker):
         if self.autopart and auto_swap == Size(0):
             # autopartitioning requested, but not applied yet (=> no auto swap
             # requests), ask user for enough space to fit in the suggested swap
-            auto_swap = swap_lib.swapSuggestion()
+            auto_swap = autopart.swapSuggestion()
 
         log.debug("disk free: %s  fs free: %s  sw needs: %s  auto swap: %s",
                   disk_free, fs_free, required_space, auto_swap)
