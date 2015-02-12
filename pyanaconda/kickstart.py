@@ -23,6 +23,7 @@ from blivet.deviceaction import ActionCreateFormat, ActionDestroyFormat, ActionR
 from blivet.devices import LUKSDevice
 from blivet.devicelibs.lvm import getPossiblePhysicalExtents, LVM_PE_SIZE, KNOWN_THPOOL_PROFILES
 from blivet.devicelibs.crypto import MIN_CREATE_ENTROPY
+from blivet.devicelibs import swap as swap_lib
 from blivet.formats import getFormat
 from blivet.partitioning import doPartitioning
 from blivet.partitioning import growLVM
@@ -60,7 +61,6 @@ from pyanaconda.i18n import _
 from pyanaconda.ui.common import collect
 from pyanaconda.addons import AddonSection, AddonData, AddonRegistry, collect_addon_paths
 from pyanaconda.bootloader import GRUB2, get_bootloader
-from pyanaconda.autopart import swap_suggestion
 
 from pykickstart.constants import CLEARPART_TYPE_NONE, FIRSTBOOT_SKIP, FIRSTBOOT_RECONFIG, KS_SCRIPT_POST, KS_SCRIPT_PRE, \
                                   KS_SCRIPT_TRACEBACK, SELINUX_DISABLED, SELINUX_ENFORCING, SELINUX_PERMISSIVE
@@ -257,7 +257,7 @@ def refreshAutoSwapSize(storage):
     for request in storage.autoPartitionRequests:
         if request.fstype == "swap":
             disk_space = getAvailableDiskSpace(storage)
-            request.size = swap_suggestion(disk_space=disk_space)
+            request.size = swap_lib.swapSuggestion(disk_space=disk_space)
             break
 
 ###
@@ -830,7 +830,7 @@ class LogVolData(commands.logvol.F21_LogVolData):
             self.mountpoint = ""
             if self.recommended or self.hibernation:
                 disk_space = getAvailableDiskSpace(storage)
-                size = swap_suggestion(hibernation=self.hibernation, disk_space=disk_space)
+                size = swap_lib.swapSuggestion(hibernation=self.hibernation, disk_space=disk_space)
                 self.grow = False
         else:
             if self.fstype != "":
@@ -1100,7 +1100,7 @@ class PartitionData(commands.partition.F18_PartData):
             self.mountpoint = ""
             if self.recommended or self.hibernation:
                 disk_space = getAvailableDiskSpace(storage)
-                size = swap_suggestion(hibernation=self.hibernation, disk_space=disk_space)
+                size = swap_lib.swapSuggestion(hibernation=self.hibernation, disk_space=disk_space)
                 self.grow = False
         # if people want to specify no mountpoint for some reason, let them
         # this is really needed for pSeries boot partitions :(
