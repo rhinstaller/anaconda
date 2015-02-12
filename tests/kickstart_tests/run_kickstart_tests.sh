@@ -103,7 +103,7 @@ if [[ "$TEST_REMOTES" != "" ]]; then
         remote_args="${remote_args} --sshlogin kstest@${remote}"
     done
 
-    parallel --filter-hosts ${remote_args} \
+    parallel --no-notice ${remote_args} \
              ${env_args} --jobs ${TEST_JOBS:-2} \
              sudo kickstart_tests/run_one_ks.sh -i ${_IMAGE} -k ${KEEPIT} {}
     rc=$?
@@ -131,7 +131,7 @@ if [[ "$TEST_REMOTES" != "" ]]; then
     # code will be caught outside and converted into the overall exit code.
     exit ${rc}
 else
-    parallel ${env_args} --jobs ${TEST_JOBS:-2} \
+    parallel --no-notice ${env_args} --jobs ${TEST_JOBS:-2} \
              sudo kickstart_tests/run_one_ks.sh -i ${IMAGE} -k ${KEEPIT} {}
 
     # For future expansion - any cleanup code can go in between the variable
