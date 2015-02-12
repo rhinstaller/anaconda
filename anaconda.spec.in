@@ -223,6 +223,15 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Thu Feb 12 2015 Samantha N. Bueno <sbueno+anaconda@redhat.com> - 13.21.231-1
+- Add support for lvm thin provisioning via ks custom storage. (dlehman)
+  Resolves: rhbz#1083459
+- Make sure new freebl libs are part of initrd. (sbueno+anaconda)
+  Resolves: rhbz#1183134
+- Prevent anaconda from crashing due to repeated calls to rpmReadConfigFiles.
+  (sbueno)
+  Resolves: rhbz#1021534
+
 * Tue Feb 03 2015 Samantha N. Bueno <sbueno+anaconda@redhat.com> - 13.21.230-1
 - Shrink the LV if the VG is out of space (bcl)
   Resolves: rhbz#1153376
