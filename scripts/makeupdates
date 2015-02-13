@@ -654,14 +654,8 @@ def check_for_new_packages(tag, arch, args, specfile_path):
                 print(p.name)
 
         # remove ignored packages
-
-        # convert the list of lists to a flat list
-        flatly_ignored_packages = []
-        for component_list in args.ignored_packages:
-            flatly_ignored_packages.extend(component_list)
-
         ignored_count = 0
-        for ignored_package in flatly_ignored_packages:
+        for ignored_package in args.ignored_packages:
             matches = fnmatch.filter(new_packages, ignored_package)
             # the ignored package specifications support glob
             for match in matches:
@@ -1000,7 +994,7 @@ def main():
     parser.add_argument('-f', '--fetch', action='store', type=str, metavar="ARCH",
                         help='autofetch new dependencies from Koji for ARCH')
 
-    parser.add_argument('-i', '--ignore', action='append', type=str, metavar="PACKAGE_NAME",
+    parser.add_argument('-i', '--ignore', action=ExtendAction, type=str, metavar="PACKAGE_NAME",
                         dest="ignored_packages", nargs='+', default=[],
                         help='ignore this package when autofetching dependencies (glob supported)')
 
