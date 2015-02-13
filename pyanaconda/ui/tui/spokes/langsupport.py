@@ -53,10 +53,7 @@ class LangSpoke(FirstbootSpokeMixIn, NormalTUISpoke):
 
     @property
     def completed(self):
-        if flags.flags.automatedInstall:
-            return self.data.lang.lang and self.data.lang.lang != ""
-        else:
-            return False
+        return self.data.lang.lang
 
     @property
     def mandatory(self):
