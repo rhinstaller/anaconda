@@ -518,6 +518,10 @@ class Payload(object):
 
             :returns: None
         """
+        if not os.path.exists(iutil.getSysroot() + "/usr/sbin/new-kernel-pkg"):
+            log.error("new-kernel-pkg does not exist - grubby wasn't installed?  skipping")
+            return
+
         for kernel in self.kernelVersionList:
             log.info("recreating initrd for %s", kernel)
             if not flags.imageInstall:

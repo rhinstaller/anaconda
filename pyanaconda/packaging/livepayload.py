@@ -164,6 +164,10 @@ class LiveImagePayload(ImagePayload):
         threadMgr.wait(THREAD_LIVE_PROGRESS)
 
         # Live needs to create the rescue image before bootloader is written
+        if not os.path.exists(iutil.getSysroot() + "/usr/sbin/new-kernel-pkg"):
+            log.error("new-kernel-pkg does not exist - grubby wasn't installed?  skipping")
+            return
+
         for kernel in self.kernelVersionList:
             log.info("Generating rescue image for %s", kernel)
             iutil.execInSysroot("new-kernel-pkg",
