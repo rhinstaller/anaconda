@@ -961,6 +961,15 @@ def get_rpm_from_Koji_thread(package, fedora_number, arch,
             else:
                 print("%s %s in any version was not found in Koji" % (prefix, package.name))
 
+class ExtendAction(argparse.Action):
+    """ A parsing action that extends a list of items instead of appending to
+        it. Useful where there is an option that can be used multiple times,
+        and each time the values yielded are a list, and a single list is
+        desired.
+    """
+    def __call__(self, parser, namespace, values, option_string=None):
+        setattr(namespace, self.dest, getattr(namespace, self.dest, []) + values)
+
 def main():
     cwd = os.getcwd()
     configure = os.path.realpath(os.path.join(cwd, 'configure.ac'))
@@ -984,17 +993,7 @@ def main():
     parser.add_argument('-p', '--po', action='store_true',
                         help='update translations')
 
-    # -a/--add can be both used multiple times and multiple paths can be
-    # passed to a single -a/--add option, all provided paths will be then added
-    # to the add_rpm list
-    #
-    # Example:
-    #
-    # makeupdates -a foo.rpm -a bar.rpm baz.rpm --add spam.rpm
-    #
-    # This will add foo.rpm, bar.rpm, baz.rpm and spam.rpm to the
-    # updates image.
-    parser.add_argument('-a', '--add', action='append', type=str, nargs='+',
+    parser.add_argument('-a', '--add', action=ExtendAction, type=str, nargs='+',
                         dest='add_rpms', metavar='PATH_TO_RPM', default=[],
                         help='add contents of RPMs to the updates image')
 
@@ -1050,20 +1049,7 @@ def main():
         copyTranslations(updates, cwd, builddir)
 
     if args.add_rpms:
-        # as using -a or --add mutltiple times
-        # adds a new list to the list instead of extending the
-        # original list, we need to "normalize" to a
-        # one-level list of strings
-        normalized_rpm_paths = []
-        for item in args.add_rpms:
-            if isinstance(item, list):
-                normalized_rpm_paths.extend(item)
-            else:
-                normalized_rpm_paths.append(item)
-        # also remove any duplicated paths
-        # by converting the list into a set
-        args.add_rpms = list(set(normalized_rpm_paths))
-
+        args.add_rpms = list(set(args.add_rpms))
         print('%d RPMs added manually:' % len(args.add_rpms))
         for item in args.add_rpms:
             print(os.path.basename(item))
