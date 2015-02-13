@@ -282,45 +282,35 @@ class DNFPayload(packaging.PackagePayload):
         elif self.data.packages.environment:
             env = self.data.packages.environment
 
+        excludedGroups = [group.name for group in self.data.packages.excludedGroupList]
+
         if env:
             try:
-                self.selectEnvironment(env)
+                self.selectEnvironment(env, excludedGroups)
                 log.info("selected env: %s", env)
             except packaging.NoSuchGroup as e:
                 self._miss(e)
 
         for group in self.data.packages.groupList:
-            if group.name == 'core':
+            if group.name == 'core' or group.name in excludedGroups:
                 continue
+
             default = group.include in (GROUP_ALL,
                                         GROUP_DEFAULT)
             optional = group.include == GROUP_ALL
+
             try:
                 self._select_group(group.name, default=default, optional=optional)
                 log.info("selected group: %s", group.name)
             except packaging.NoSuchGroup as e:
                 self._miss(e)
 
-        for group in self.data.packages.excludedGroupList:
-            try:
-                self._deselect_group(group.name)
-                log.info("deselected group: %s", group.name)
-            except packaging.NoSuchGroup:
-                log.info("skipped removing nonexistant group: %s", group.name)
-
-        for pkg_name in self.data.packages.packageList:
+        for pkg_name in set(self.data.packages.packageList) - set(self.data.packages.excludedList):
             try:
                 self._install_package(pkg_name)
                 log.info("selected package: '%s'", pkg_name)
             except packaging.NoSuchPackage as e:
                 self._miss(e)
-
-        for pkg_name in self.data.packages.excludedList:
-            try:
-                self._remove_package(pkg_name)
-                log.info("removed package: %s", pkg_name)
-            except packaging.NoSuchPackage:
-                log.info("skipped removing nonexistant package: %s", pkg_name)
 
         self._select_kernel_package()
 
@@ -386,12 +376,6 @@ class DNFPayload(packaging.PackagePayload):
         except dnf.exceptions.MarkingError:
             raise packaging.NoSuchPackage(pkg_name, required=required)
 
-    def _remove_package(self, pkg_name):
-        try:
-            return self._base.remove(pkg_name)
-        except dnf.exceptions.PackagesNotInstalledError:
-            raise packaging.NoSuchPackage(pkg_name)
-
     def _miss(self, exn):
         if self.data.packages.handleMissing == KS_MISSING_IGNORE:
             return
@@ -436,16 +420,6 @@ class DNFPayload(packaging.PackagePayload):
             self._base.group_install(grp, types, exclude=exclude)
         except dnf.exceptions.CompsError as e:
             # DNF raises this when it is already selected
-            log.debug(e)
-
-    def _deselect_group(self, group_id):
-        grp = self._base.comps.group_by_pattern(group_id)
-        if grp is None:
-            raise packaging.NoSuchGroup(group_id)
-        try:
-            self._base.group_remove(grp)
-        except dnf.exceptions.CompsError as e:
-            # DNF raises this when it is already not selected
             log.debug(e)
 
     def _select_kernel_package(self):

@@ -1028,12 +1028,16 @@ class PackagePayload(Payload):
     def environmentDescription(self, environmentid):
         raise NotImplementedError()
 
-    def selectEnvironment(self, environmentid):
+    def selectEnvironment(self, environmentid, excluded=None):
         if environmentid not in self.environments:
             raise NoSuchGroup(environmentid)
 
-        # Select each group within the environment
-        for groupid in self.environmentGroups(environmentid, optional=False):
+        if excluded is None:
+            excluded = []
+
+        # Select each group within the environment, as long as that group was
+        # not explicitly excluded by the user.
+        for groupid in set(self.environmentGroups(environmentid, optional=False)) - set(excluded):
             self.selectGroup(groupid)
 
     def environmentGroups(self, environmentid, optional=True):
