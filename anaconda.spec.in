@@ -313,6 +313,29 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Fri Feb 13 2015 Brian C. Lane <bcl@redhat.com> - 22.19-1
+- Make sure yum is included in the packageset for yumpayload (#1152753) (bcl)
+- Tweak parallel args. (clumens)
+- Remove the Encoding entry from the .desktop file (dshea)
+- Add an option to startProgram to not reset the locale (dshea)
+- Set $LIBUSER_CONF early (dshea)
+- Do not set $TZ (dshea)
+- Assume that a bunch of digits in a version number is a timestamp (dshea)
+- Avoid setting $LANG and $LANGUAGE, except where we can't (dshea)
+- Add a parameter to iutil.startProgram to extend the environment (dshea)
+- Add a method to set environment variables for child processes (dshea)
+- Set $DISPLAY before threads are started. (dshea)
+- Add a pylint module to look for modifications to the environment (dshea)
+- Remotely do kickstart tests as a kstest user instead of root. (clumens)
+- Add some documentation. (clumens)
+- Do all package/group checking in %%post to save a reboot. (clumens)
+- Support kickstart test jobs out to multiple computers with parallel.
+  (clumens)
+- Make it possible to ignore individual newly added dependencies (mkolman)
+- Remove the old_tests directory (bcl)
+- Use /usr/bin/python2 in scripts (bcl)
+- Cleanup some pylint errors in analog (bcl)
+
 * Fri Feb 06 2015 Brian C. Lane <bcl@redhat.com> - 22.18-1
 - dracut needs iscsi_firmware cmdline arg (#1185792) (bcl)
 - Clear the default titlebar text (mkolman)
