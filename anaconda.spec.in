@@ -327,6 +327,10 @@ update-desktop-database &> /dev/null || :
 %{_datadir}/anaconda/help/*
 
 %changelog
+* Mon Feb 16 2015 Brian C. Lane <bcl@redhat.com> - 19.31.123-1
+- iscsi: pass rd.* options of devices to be mouted in dracut (rvykydal)
+  Resolves: rhbz#1192398
+
 * Mon Jan 26 2015 Brian C. Lane <bcl@redhat.com> - 19.31.122-1
 - Show empty VGs in the custom spoke. (dlehman)
   Resolves: rhbz#1185832
