@@ -649,7 +649,15 @@ class DNFPayload(packaging.PackagePayload):
         progressQ.send_message(post_msg)
         process.join()
         self._base.close()
-        shutil.rmtree(self._download_location)
+        if os.path.exists(self._download_location):
+            log.info("Cleaning up downloaded packages: %s" % self._download_location)
+            shutil.rmtree(self._download_location)
+        else:
+            # Some installation sources, such as NFS, don't need to download packages to
+            # local storage, so the download location might not always exist. So for now
+            # warn about this, at least until the RFE in bug 1193121 is implemented and
+            # we don't have to care about clearing the download location ourselves.
+            log.warning("Can't delete nonexistent download location: %s", self._download_location)
 
     def getRepo(self, repo_id):
         """ Return the yum repo object. """
