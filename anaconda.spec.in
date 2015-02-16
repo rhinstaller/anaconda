@@ -84,7 +84,7 @@ The anaconda package is a metapackage for the Anaconda installer.
 Summary: Core of the Anaconda installer
 Requires: dnf >= %{dnfver}
 Requires: python-dnf >= %{dnfver}
-Requires: python-blivet >= 1:1.0
+Requires: python-blivet >= 1:1.1
 Requires: python-meh >= %{mehver}
 Requires: libreport-anaconda >= 2.0.21-1
 Requires: libselinux-python

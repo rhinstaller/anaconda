@@ -21,7 +21,8 @@
 from pyanaconda.errors import ScriptError, errorHandler
 from blivet.deviceaction import ActionCreateFormat, ActionDestroyFormat, ActionResizeDevice, ActionResizeFormat
 from blivet.devices import LUKSDevice
-from blivet.devicelibs.lvm import getPossiblePhysicalExtents, LVM_PE_SIZE, KNOWN_THPOOL_PROFILES
+from blivet.devices.lvm import LVMVolumeGroupDevice
+from blivet.devicelibs.lvm import LVM_PE_SIZE, KNOWN_THPOOL_PROFILES
 from blivet.devicelibs.crypto import MIN_CREATE_ENTROPY
 from blivet.formats import getFormat
 from blivet.partitioning import doPartitioning
@@ -1741,7 +1742,7 @@ class VolGroupData(commands.volgroup.F21_VolGroupData):
             self.pesize = LVM_PE_SIZE.convertTo(KiB)
 
         pesize = Size("%d KiB" % self.pesize)
-        possible_extents = getPossiblePhysicalExtents()
+        possible_extents = LVMVolumeGroupDevice.get_supported_pe_sizes()
         if pesize not in possible_extents:
             raise KickstartValueError(formatErrorMsg(self.lineno,
                     msg=_("Volume group given physical extent size of \"%(extentSize)s\", but must be one of:\n%(validExtentSizes)s.") %
