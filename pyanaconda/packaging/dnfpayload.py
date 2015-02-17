@@ -650,7 +650,7 @@ class DNFPayload(packaging.PackagePayload):
         process.join()
         self._base.close()
         if os.path.exists(self._download_location):
-            log.info("Cleaning up downloaded packages: %s" % self._download_location)
+            log.info("Cleaning up downloaded packages: %s", self._download_location)
             shutil.rmtree(self._download_location)
         else:
             # Some installation sources, such as NFS, don't need to download packages to
