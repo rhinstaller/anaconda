@@ -707,6 +707,8 @@ class NetworkControlBox(GObject.GObject):
             # If we already have a connection for the device
             # it is a virtual device appearing
             self.dev_cfg(uuid=con.get_uuid()).device = device
+            # it might be too late for the callbacks below so refresh now
+            self.refresh_ui()
         else:
             self.add_dev_cfg(DeviceConfiguration(device=device, con=con))
 
