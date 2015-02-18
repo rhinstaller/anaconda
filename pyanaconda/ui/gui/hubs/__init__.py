@@ -246,7 +246,7 @@ class Hub(GUIObject, common.Hub):
 
     def _update_spokes(self):
         from pyanaconda.ui.communication import hubQ
-        import Queue
+        import queue
 
         q = hubQ.q
 
@@ -260,7 +260,7 @@ class Hub(GUIObject, common.Hub):
         while True:
             try:
                 (code, args) = q.get(False)
-            except Queue.Empty:
+            except queue.Empty:
                 break
 
             # The first argument to all codes is the name of the spoke we are
