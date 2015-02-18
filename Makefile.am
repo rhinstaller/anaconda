@@ -128,10 +128,6 @@ updates:
 	fi ; \
 	( cd $(srcdir) && scripts/makeupdates $${opts} -b '$(abs_builddir)' )
 
-# UNIT TESTING TARGETS
-unittests-logpicker:
-	PYTHONPATH=$(builddir)/pyanaconda/isys/.libs:tests/:$(srcdir):utils/ nosetests -v old_tests/logpicker_test
-
 # GUI TESTING
 runglade:
 	ANACONDA_DATA=$(srcdir)/data \

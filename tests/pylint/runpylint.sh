@@ -117,10 +117,9 @@ fi
 # confused
 if [ -z "$FILES" ]; then
     # Test any file that either ends in .py or contains #!/usr/bin/python2 in
-    # the first line.  Scan everything except old_tests
+    # the first line.
     FILES=$(findtestfiles \( -name '*.py' -o \
-                -exec /bin/sh -c "head -1 {} | grep -q '#!/usr/bin/python2'" \; \) -print | \
-            egrep -v '(|/)old_tests/')
+                -exec /bin/sh -c "head -1 {} | grep -q '#!/usr/bin/python2'" \; \) -print)
 fi
 
 # run pylint in paralel
