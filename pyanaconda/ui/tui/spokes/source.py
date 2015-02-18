@@ -63,7 +63,7 @@ class SourceSpoke(EditTUISpoke, SourceSwitchHandler):
         EditTUISpoke.__init__(self, app, data, storage, payload, instclass)
         SourceSwitchHandler.__init__(self)
         self._ready = False
-        self.errors = []
+        self._error = False
         self._cdrom = None
 
     def initialize(self):
@@ -88,7 +88,7 @@ class SourceSpoke(EditTUISpoke, SourceSwitchHandler):
         self._ready = True
 
     def _payload_error(self):
-        self.errors.append(payloadMgr.error)
+        self._error = True
 
     def _repo_status(self):
         """ Return a string describing repo url or lack of one. """
@@ -113,28 +113,19 @@ class SourceSpoke(EditTUISpoke, SourceSwitchHandler):
 
     @property
     def status(self):
-        if self.errors:
+        if self._error:
             return _("Error setting up software source")
         elif not self.ready:
             return _("Processing...")
         else:
             return self._repo_status()
 
-    def _update_summary(self):
-        """ Update screen with a summary. Show errors if there are any. """
-        summary = (_("Repo URL set to: %s") % self._repo_status())
-
-        if self.errors:
-            summary = summary + "\n" + "\n".join(self.errors)
-
-        return summary
-
     @property
     def completed(self):
         if flags.automatedInstall and self.ready and not self.payload.baseRepo:
             return False
         else:
-            return not self.errors and self.ready and (self.data.method.method or self.payload.baseRepo)
+            return not self._error and self.ready and (self.data.method.method or self.payload.baseRepo)
 
     def refresh(self, args=None):
         EditTUISpoke.refresh(self, args)
@@ -198,7 +189,7 @@ class SourceSpoke(EditTUISpoke, SourceSwitchHandler):
                 # preliminary NFS source switch
                 self.set_source_nfs()
                 newspoke = SpecifyNFSRepoSpoke(self.app, self.data, self.storage,
-                                        self.payload, self.instclass, self._selection, self.errors)
+                                        self.payload, self.instclass, self._selection, self._error)
                 self.app.switch_screen_modal(newspoke)
                 self.apply()
                 self.close()
@@ -239,6 +230,10 @@ class SourceSpoke(EditTUISpoke, SourceSwitchHandler):
         # spoke wipes that out.
         if flags.askmethod:
             flags.askmethod = False
+
+        # if we had any errors, e.g. from a previous attempt to set the source,
+        # clear them at this point
+        self._error = False
 
         payloadMgr.restartThread(self.storage, self.data, self.payload, self.instclass,
                 checkmount=False)
@@ -291,11 +286,11 @@ class SpecifyNFSRepoSpoke(EditTUISpoke, SourceSwitchHandler):
         Entry(N_("NFS mount options"), "opts", re.compile(".*$"), True)
     ]
 
-    def __init__(self, app, data, storage, payload, instclass, selection, errors):
+    def __init__(self, app, data, storage, payload, instclass, selection, error):
         EditTUISpoke.__init__(self, app, data, storage, payload, instclass)
         SourceSwitchHandler.__init__(self)
         self.selection = selection
-        self.errors = errors
+        self._error = error
 
         nfs = self.data.method
         self.args = DataHolder(server="", opts=nfs.opts or "")
@@ -322,7 +317,7 @@ class SpecifyNFSRepoSpoke(EditTUISpoke, SourceSwitchHandler):
             (self.data.method.server, self.data.method.dir) = self.args.server.split(":", 2)
         except ValueError as err:
             LOG.error("ValueError: %s", err)
-            self.errors.append(_("Failed to set up installation source. Check the source address."))
+            self._error = True
             return
 
         opts = self.args.opts or ""
