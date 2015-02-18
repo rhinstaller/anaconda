@@ -31,7 +31,7 @@ from pyanaconda.ui.tui.tuiobject import YesNoDialog, ErrorDialog
 import os
 import sys
 import site
-import Queue
+import queue as queue
 import meh.ui.text
 import logging
 log = logging.getLogger("anaconda")
@@ -139,7 +139,7 @@ class TextUserInterface(ui.UserInterface):
            This method must be provided by all subclasses.
         """
         self._app = tui.App(self.productTitle, yes_or_no_question=YesNoDialog,
-                            quit_message=self.quitMessage, queue=hubQ.q)
+                            quit_message=self.quitMessage, queue_instance=hubQ.q)
 
         # tell python-meh it should use our raw_input
         self._meh_interface.set_io_handler(meh.ui.text.IOHandler(in_func=self._app.raw_input))
@@ -195,7 +195,7 @@ class TextUserInterface(ui.UserInterface):
         :type args: any
         :param ret_queue: the queue which the return value of the message dialog
                           function should be put
-        :type ret_queue: a Queue.Queue instance
+        :type ret_queue: a queue.Queue instance
 
         """
 
@@ -238,7 +238,7 @@ class TextUserInterface(ui.UserInterface):
             return msg_fn(*args)
         else:
             # create a queue for the result returned by the function
-            ret_queue = Queue.Queue()
+            ret_queue = queue.Queue()
 
             # request the function to be called in the main thread
             self._send_show_message(msg_fn, args, ret_queue)

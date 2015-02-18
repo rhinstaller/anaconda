@@ -29,7 +29,7 @@
 """
 import os
 import requests
-import ConfigParser
+import configparser
 import shutil
 from glob import glob
 from fnmatch import fnmatch
@@ -387,14 +387,14 @@ class Payload(object):
             proxy = None
         treeinfo = self._getTreeInfo(url, proxy, not flags.noverifyssl)
         if treeinfo:
-            c = ConfigParser.ConfigParser()
+            c = configparser.ConfigParser()
             c.read(treeinfo)
             try:
                 # Trim off any -Alpha or -Beta
                 version = re.match(VERSION_DIGITS, c.get("general", "version")).group(1)
             except AttributeError:
                 version = "rawhide"
-            except ConfigParser.Error:
+            except configparser.Error:
                 pass
 
         log.debug("got a release version of %s", version)
