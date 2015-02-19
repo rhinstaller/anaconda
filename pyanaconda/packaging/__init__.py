@@ -329,7 +329,7 @@ class Payload(object):
             :type baseurl: string
             :param proxy_url: Optional full proxy URL of or ""
             :type proxy_url: string
-            :param sslverify: True if SSL certificate should be varified
+            :param sslverify: True if SSL certificate should be verified
             :type sslverify: bool
             :returns: Path to retrieved .treeinfo file or None
             :rtype: string or None
