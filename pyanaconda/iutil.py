@@ -31,7 +31,7 @@ import unicodedata
 import string # pylint: disable=deprecated-module
 import tempfile
 import re
-from urllib import quote, unquote
+from urllib.parse import quote, unquote
 import gettext
 import signal
 import sys
