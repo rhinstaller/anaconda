@@ -19,7 +19,7 @@
 # Red Hat Author(s): Chris Lumens <clumens@redhat.com>
 #
 
-from __future__ import division
+
 
 from gi.repository import GLib, Gtk
 
