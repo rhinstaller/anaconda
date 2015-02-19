@@ -19,7 +19,7 @@
 # Red Hat Author(s): Chris Lumens <clumens@redhat.com>
 #
 
-from __future__ import division
+
 from collections import namedtuple
 
 from gi.repository import Gdk, Gtk

@@ -17,7 +17,7 @@
 #
 # Author: Chris Lumens <clumens@redhat.com>
 
-from __future__ import print_function
+
 
 import logging
 import os, sys
