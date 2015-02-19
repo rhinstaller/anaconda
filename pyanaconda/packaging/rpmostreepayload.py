@@ -25,6 +25,7 @@ import sys
 
 from pyanaconda import constants
 from pyanaconda import iutil
+from pyanaconda.flags import flags
 from pyanaconda.i18n import _
 from pyanaconda.progress import progressQ
 from gi.repository import GLib
@@ -150,6 +151,9 @@ class RPMOSTreePayload(ArchivePayload):
         if ((hasattr(ostreesetup, 'noGpg') and ostreesetup.noGpg) or
             (hasattr(ostreesetup, 'nogpg') and ostreesetup.nogpg)):
             self._remoteOptions['gpg-verify'] = GLib.Variant('b', False)
+
+        if flags.noverifyssl:
+            self._remoteOptions['tls-permissive'] = GLib.Variant('b', True)
 
         repo.remote_change(None, OSTree.RepoRemoteChange.ADD_IF_NOT_EXISTS,
                            ostreesetup.remote, ostreesetup.url,
