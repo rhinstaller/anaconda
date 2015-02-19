@@ -26,7 +26,6 @@ import logging
 from logging.handlers import SysLogHandler, SocketHandler, SYSLOG_UDP_PORT
 import os
 import sys
-import types
 import warnings
 
 from pyanaconda.flags import flags
@@ -170,7 +169,7 @@ class AnacondaLog:
                         fmtStr=ENTRY_FORMAT,
                         autoLevel=False):
         try:
-            if isinstance(dest, types.StringTypes):
+            if isinstance(dest, str):
                 logfileHandler = logging.FileHandler(dest)
             else:
                 logfileHandler = logging.StreamHandler(dest)

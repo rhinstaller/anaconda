@@ -75,7 +75,7 @@ class TextUserInterface(ui.UserInterface):
         :type instclass: instance of install class
 
         :param productTitle: the name of the product
-        :type productTitle: unicode string
+        :type productTitle: str
 
         :param isFinal: Boolean that marks the release
                         as final (True) or development
@@ -86,7 +86,7 @@ class TextUserInterface(ui.UserInterface):
                             dialog question. It should not
                             be translated to allow for change
                             of language.
-        :type quitMessage: unicode string
+        :type quitMessage: str
 
 
         """
