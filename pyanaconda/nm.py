@@ -987,7 +987,7 @@ def _gvariant_settings(settings, updated_key1, updated_key2, value, default_type
         # infer the new value type for string and boolean
         if isinstance(value, types.BooleanType):
             type_str = 'b'
-        elif isinstance(value, types.StringType):
+        elif isinstance(value, str):
             type_str = 's'
 
     if type_str is not None:

@@ -32,7 +32,7 @@ class TextWidget(base.Widget):
     def __init__(self, text):
         """
         :param text: text to format
-        :type text: unicode
+        :type text: str
         """
 
         base.Widget.__init__(self)
@@ -135,10 +135,10 @@ class CheckboxWidget(base.Widget):
         :type key: character
 
         :param title: the title next to the [ ] box
-        :type title: unicode
+        :type title: str
 
         :param text: the description text to be shown on the second row in ()
-        :type text: unicode
+        :type text: str
 
         :param completed: is the checkbox ticked or not?
         :type completed: True|False

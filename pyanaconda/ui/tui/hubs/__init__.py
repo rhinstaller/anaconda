@@ -33,7 +33,7 @@ class TUIHub(TUIObject, common.Hub):
     :type categories: list of strings
 
     :param title: title for this Hub
-    :type title: unicode
+    :type title: str
 
     """
 
