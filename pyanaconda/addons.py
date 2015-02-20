@@ -74,7 +74,7 @@ class AddonRegistry(object):
         self.__dict__ = dictionary
 
     def __str__(self):
-        return functools.reduce(lambda acc, (id, addon): acc + str(addon),
+        return functools.reduce(lambda acc, id_addon: acc + str(id_addon[1]),
                                 self.__dict__.items(), "")
 
     def execute(self, storage, ksdata, instClass, users):

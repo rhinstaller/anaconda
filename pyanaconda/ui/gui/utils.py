@@ -237,7 +237,8 @@ def timed_action(delay=300, threshold=750, busy_cursor=True):
             self._last_start = None
             self._timer_id = None
 
-        def _run_once_one_arg(self, (args, kwargs)):
+        def _run_once_one_arg(self, arguments):
+            (args, kwargs) = arguments
             # run the function and clear stored values
             self._func(*args, **kwargs)
             self._last_start = None

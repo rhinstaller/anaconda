@@ -156,8 +156,8 @@ class Creator(object):
         # Create the suite file, which contains all the test cases to run and is how
         # the VM will figure out what to run.
         with open(self.mountpoint + "/suite.py", "w") as f:
-            imports = map(lambda (path, cls): "    from inside.%s import %s" % (path, cls), self.tests)
-            addtests = map(lambda (path, cls): "    s.addTest(%s())" % cls, self.tests)
+            imports = map(lambda path_cls: "    from inside.%s import %s" % (path_cls[0], path_cls[1]), self.tests)
+            addtests = map(lambda path_cls1: "    s.addTest(%s())" % path_cls1[1], self.tests)
 
             f.write(self.template % {"environ": "    os.environ.update(%s)" % self.environ,
                                      "imports": "\n".join(imports),
