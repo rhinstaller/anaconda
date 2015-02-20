@@ -21,28 +21,10 @@
 #
 import unittest
 
+from regexcheck import regex_match
 from pyanaconda.regexes import GECOS_VALID, USERNAME_VALID, GROUPNAME_VALID, GROUPLIST_SIMPLE_VALID
 
 class UsernameRegexTestCase(unittest.TestCase):
-    def _run_tests(self, expression, goodlist, badlist):
-        got_error = False
-        for good in goodlist:
-            try:
-                self.assertIsNotNone(expression.match(good))
-            except AssertionError:
-                got_error = True
-                print("Good string %s did not match expression" % good)
-
-        for bad in badlist:
-            try:
-                self.assertIsNone(expression.match(bad))
-            except AssertionError:
-                got_error = True
-                print("Bad string %s matched expression" % bad)
-
-        if got_error:
-            self.fail()
-
     def gecos_test(self):
         """Test a list of possible Full Name values."""
         # These are valid full names
@@ -59,7 +41,8 @@ class UsernameRegexTestCase(unittest.TestCase):
         # These are invalid full names
         bad_tests = ['George:Burdell']
 
-        self._run_tests(GECOS_VALID, good_tests, bad_tests)
+        if not regex_match(GECOS_VALID, good_tests, bad_tests):
+            self.fail()
 
     def username_test(self):
         """Test a list of possible username values."""
@@ -94,10 +77,12 @@ class UsernameRegexTestCase(unittest.TestCase):
                 '-'
                 ]
 
-        self._run_tests(USERNAME_VALID, good_tests, bad_tests)
+        if not regex_match(USERNAME_VALID, good_tests, bad_tests):
+            self.fail()
 
         # The group name checks for the same thing as the user name
-        self._run_tests(GROUPNAME_VALID, good_tests, bad_tests)
+        if not regex_match(GROUPNAME_VALID, good_tests, bad_tests):
+            self.fail()
 
     def grouplist_simple_test(self):
         good_tests = [
@@ -129,4 +114,5 @@ class UsernameRegexTestCase(unittest.TestCase):
                 'gburdell, wheel,'
                 ]
 
-        self._run_tests(GROUPLIST_SIMPLE_VALID, good_tests, bad_tests)
+        if not regex_match(GROUPLIST_SIMPLE_VALID, good_tests, bad_tests):
+            self.fail()
