@@ -28,6 +28,7 @@ import struct
 import blivet
 from parted import PARTITION_BIOS_GRUB
 from glob import glob
+from itertools import chain
 
 from pyanaconda import iutil
 from blivet.devicelibs import raid
@@ -534,7 +535,7 @@ class BootLoader(object):
         return self._device_type_index(device, types) is not None
 
     def device_description(self, device):
-        device_types = self.device_descriptions.keys()
+        device_types = list(self.device_descriptions.keys())
         idx = self._device_type_index(device, device_types)
         if idx is None:
             raise ValueError("No description available for %s" % device.type)
@@ -853,6 +854,17 @@ class BootLoader(object):
                     self.boot_args.update(setup_args)
                     self.dracut_args.update(setup_args)
 
+        # passed-in objects
+        for cfg_obj in chain(args, kwargs.values()):
+            if hasattr(cfg_obj, "dracutSetupArgs"):
+                setup_args = cfg_obj.dracutSetupArgs()
+                self.boot_args.update(setup_args)
+                self.dracut_args.update(setup_args)
+            else:
+                setup_string = cfg_obj.dracutSetupString()
+                self.boot_args.add(setup_string)
+                self.dracut_args.add(setup_string)
+
         # This is needed for FCoE, bug #743784. The case:
         # We discover LUN on an iface which is part of multipath setup.
         # If the iface is disconnected after discovery anaconda doesn't
@@ -888,7 +900,7 @@ class BootLoader(object):
             self.boot_args.add(new_arg)
 
         # passed-in objects
-        for cfg_obj in list(args) + kwargs.values():
+        for cfg_obj in chain(args, kwargs.values()):
             if hasattr(cfg_obj, "dracutSetupArgs"):
                 setup_args = cfg_obj.dracutSetupArgs()
                 self.boot_args.update(setup_args)
