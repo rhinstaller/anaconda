@@ -51,7 +51,6 @@ BuildRequires: gtk3-devel-docs
 BuildRequires: glib2-doc
 BuildRequires: gobject-introspection-devel
 BuildRequires: glade-devel
-BuildRequires: pygobject3
 BuildRequires: intltool >= %{intltoolver}
 BuildRequires: libgnomekbd-devel
 BuildRequires: libxklavier-devel >= %{libxklavierver}
@@ -61,14 +60,8 @@ BuildRequires: pykickstart >= %{pykickstartver}
 BuildRequires: python-bugzilla
 %endif
 BuildRequires: python-devel
-BuildRequires: python-requests
 BuildRequires: python-nose
 BuildRequires: systemd
-BuildRequires: yum >= %{yumver}
-BuildRequires: NetworkManager-devel >= %{nmver}
-BuildRequires: NetworkManager-glib-devel >= %{nmver}
-BuildRequires: dbus-devel >= %{dbusver}
-BuildRequires: dbus-python
 BuildRequires: rpm-devel >= %{rpmver}
 BuildRequires: libarchive-devel >= %{libarchivever}
 %ifarch %livearches
