@@ -29,14 +29,12 @@ from pyanaconda.ui.helpers import InputCheck, InputCheckHandler
 
 # Inherit abstract methods from InputCheckHandler
 # pylint: disable=abstract-method
-class GUIInputCheckHandler(InputCheckHandler):
+class GUIInputCheckHandler(InputCheckHandler, metaclass=ABCMeta):
     """Provide InputCheckHandler functionality for Gtk input screens.
 
        This class assumes that all input objects are of type GtkEditable and
        attaches InputCheck.update_check_status to the changed signal.
     """
-
-    __metaclass__ = ABCMeta
 
     def _update_check_status(self, editable, inputcheck):
         inputcheck.update_check_status()
@@ -49,7 +47,7 @@ class GUIInputCheckHandler(InputCheckHandler):
         input_obj.connect_after("changed", self._update_check_status, checkRef)
         return checkRef
 
-class GUIDialogInputCheckHandler(GUIInputCheckHandler):
+class GUIDialogInputCheckHandler(GUIInputCheckHandler, metaclass=ABCMeta):
     """Provide InputCheckHandler functionality for Gtk dialogs.
 
        This class provides a helper method for setting an error message
@@ -57,8 +55,6 @@ class GUIDialogInputCheckHandler(GUIInputCheckHandler):
        a set_status method in order to control the sensitivty of widgets or
        ignore activated signals.
     """
-
-    __metaclass__ = ABCMeta
 
     @abstractmethod
     def set_status(self, inputcheck):
@@ -71,15 +67,13 @@ class GUIDialogInputCheckHandler(GUIInputCheckHandler):
             inputcheck.input_obj.set_icon_tooltip_text(Gtk.EntryIconPosition.SECONDARY,
                 inputcheck.check_status)
 
-class GUISpokeInputCheckHandler(GUIInputCheckHandler):
+class GUISpokeInputCheckHandler(GUIInputCheckHandler, metaclass=ABCMeta):
     """Provide InputCheckHandler functionality for graphical spokes.
 
        This class implements set_status to set a message in the warning area of
        the spoke window and provides an implementation of on_back_clicked to
        prevent the user from exiting a spoke with bad input.
     """
-
-    __metaclass__ = ABCMeta
 
     def set_status(self, inputcheck):
         """Update the warning with the input validation error from the first
