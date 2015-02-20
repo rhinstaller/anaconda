@@ -141,10 +141,10 @@ exit 0
 
             with timer(5):
                 rl_iterator = iutil.execReadlines("/bin/sh", [testscript.name])
-                self.assertEqual(rl_iterator.next(), "one")
-                self.assertEqual(rl_iterator.next(), "two")
-                self.assertEqual(rl_iterator.next(), "three")
-                self.assertRaises(StopIteration, rl_iterator.next)
+                self.assertEqual(next(rl_iterator), "one")
+                self.assertEqual(next(rl_iterator), "two")
+                self.assertEqual(next(rl_iterator), "three")
+                self.assertRaises(StopIteration, rl_iterator.__next__)
 
         # Test output with no end of line
         with tempfile.NamedTemporaryFile(mode="w+t") as testscript:
@@ -158,10 +158,10 @@ exit 0
 
             with timer(5):
                 rl_iterator = iutil.execReadlines("/bin/sh", [testscript.name])
-                self.assertEqual(rl_iterator.next(), "one")
-                self.assertEqual(rl_iterator.next(), "two")
-                self.assertEqual(rl_iterator.next(), "three")
-                self.assertRaises(StopIteration, rl_iterator.next)
+                self.assertEqual(next(rl_iterator), "one")
+                self.assertEqual(next(rl_iterator), "two")
+                self.assertEqual(next(rl_iterator), "three")
+                self.assertRaises(StopIteration, rl_iterator.__next__)
 
     def exec_readlines_test_exits(self):
         """Test execReadlines in different child exit situations."""
@@ -181,10 +181,10 @@ exit 1
 
             with timer(5):
                 rl_iterator = iutil.execReadlines("/bin/sh", [testscript.name])
-                self.assertEqual(rl_iterator.next(), "one")
-                self.assertEqual(rl_iterator.next(), "two")
-                self.assertEqual(rl_iterator.next(), "three")
-                self.assertRaises(OSError, rl_iterator.next)
+                self.assertEqual(next(rl_iterator), "one")
+                self.assertEqual(next(rl_iterator), "two")
+                self.assertEqual(next(rl_iterator), "three")
+                self.assertRaises(OSError, rl_iterator.__next__)
 
         # Test exit on signal
         with tempfile.NamedTemporaryFile(mode="wt") as testscript:
@@ -198,10 +198,10 @@ kill -TERM $$
 
             with timer(5):
                 rl_iterator = iutil.execReadlines("/bin/sh", [testscript.name])
-                self.assertEqual(rl_iterator.next(), "one")
-                self.assertEqual(rl_iterator.next(), "two")
-                self.assertEqual(rl_iterator.next(), "three")
-                self.assertRaises(OSError, rl_iterator.next)
+                self.assertEqual(next(rl_iterator), "one")
+                self.assertEqual(next(rl_iterator), "two")
+                self.assertEqual(next(rl_iterator), "three")
+                self.assertRaises(OSError, rl_iterator.__next__)
 
         # Repeat the above two tests, but exit before a final newline
         with tempfile.NamedTemporaryFile(mode="wt") as testscript:
@@ -215,10 +215,10 @@ exit 1
 
             with timer(5):
                 rl_iterator = iutil.execReadlines("/bin/sh", [testscript.name])
-                self.assertEqual(rl_iterator.next(), "one")
-                self.assertEqual(rl_iterator.next(), "two")
-                self.assertEqual(rl_iterator.next(), "three")
-                self.assertRaises(OSError, rl_iterator.next)
+                self.assertEqual(next(rl_iterator), "one")
+                self.assertEqual(next(rl_iterator), "two")
+                self.assertEqual(next(rl_iterator), "three")
+                self.assertRaises(OSError, rl_iterator.__next__)
 
         with tempfile.NamedTemporaryFile(mode="wt") as testscript:
             testscript.write("""#!/bin/sh
@@ -231,10 +231,10 @@ kill -TERM $$
 
             with timer(5):
                 rl_iterator = iutil.execReadlines("/bin/sh", [testscript.name])
-                self.assertEqual(rl_iterator.next(), "one")
-                self.assertEqual(rl_iterator.next(), "two")
-                self.assertEqual(rl_iterator.next(), "three")
-                self.assertRaises(OSError, rl_iterator.next)
+                self.assertEqual(next(rl_iterator), "one")
+                self.assertEqual(next(rl_iterator), "two")
+                self.assertEqual(next(rl_iterator), "three")
+                self.assertRaises(OSError, rl_iterator.__next__)
 
     def exec_readlines_test_signals(self):
         """Test execReadlines and signal receipt."""
@@ -254,10 +254,10 @@ exit 0
 
                 with timer(5):
                     rl_iterator = iutil.execReadlines("/bin/sh", [testscript.name])
-                    self.assertEqual(rl_iterator.next(), "one")
-                    self.assertEqual(rl_iterator.next(), "two")
-                    self.assertEqual(rl_iterator.next(), "three")
-                    self.assertRaises(StopIteration, rl_iterator.next)
+                    self.assertEqual(next(rl_iterator), "one")
+                    self.assertEqual(next(rl_iterator), "two")
+                    self.assertEqual(next(rl_iterator), "three")
+                    self.assertRaises(StopIteration, rl_iterator.__next__)
         finally:
             signal.signal(signal.SIGHUP, old_HUP_handler)
 
@@ -278,10 +278,10 @@ exit 0
 
                 with timer(5):
                     rl_iterator = iutil.execReadlines("/bin/sh", [testscript.name])
-                    self.assertEqual(rl_iterator.next(), "one")
-                    self.assertEqual(rl_iterator.next(), "two")
-                    self.assertEqual(rl_iterator.next(), "three")
-                    self.assertRaises(StopIteration, rl_iterator.next)
+                    self.assertEqual(next(rl_iterator), "one")
+                    self.assertEqual(next(rl_iterator), "two")
+                    self.assertEqual(next(rl_iterator), "three")
+                    self.assertRaises(StopIteration, rl_iterator.__next__)
         finally:
             signal.signal(signal.SIGHUP, old_HUP_handler)
 
@@ -375,8 +375,8 @@ done
                 proc = rl_iterator._proc
 
                 # Read two lines worth
-                self.assertEqual(rl_iterator.next(), "hey")
-                self.assertEqual(rl_iterator.next(), "hey")
+                self.assertEqual(next(rl_iterator), "hey")
+                self.assertEqual(next(rl_iterator), "hey")
 
                 # Delete the iterator and wait for the process to be killed
                 del rl_iterator

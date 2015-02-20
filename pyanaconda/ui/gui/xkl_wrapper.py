@@ -287,7 +287,7 @@ class XklWrapper(object):
             raise XklWrapperError("Failed to add layout: %s" % ilverr)
 
         #do not add the same layout-variant combinanion multiple times
-        if (layout, variant) in zip(self._rec.layouts, self._rec.variants):
+        if (layout, variant) in list(zip(self._rec.layouts, self._rec.variants)):
             return
 
         self._rec.set_layouts(self._rec.layouts + [layout])
@@ -313,7 +313,7 @@ class XklWrapper(object):
         #we can get 'layout' or 'layout (variant)'
         (layout, variant) = parse_layout_variant(layout)
 
-        layouts_variants = zip(self._rec.layouts, self._rec.variants)
+        layouts_variants = list(zip(self._rec.layouts, self._rec.variants))
 
         if not (layout, variant) in layouts_variants:
             msg = "'%s (%s)' not in the list of added layouts" % (layout,
