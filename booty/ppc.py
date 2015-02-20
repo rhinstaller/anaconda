@@ -27,14 +27,18 @@ class ppcBootloaderInfo(bootloaderInfo):
 
         # we'd prefer a PReP partition that's on the same disk as /boot.
         bootdev = self.storage.mountpoints.get("/boot",self.storage.rootDevice)
-        if bootdev.type == "mdarray":
-            bootdisks = set(p.disk for p in bootdev.parents)
-        else:
+        if (bootdev):
             bootdisks = set([bootdev.disk])
-        for dev in prepdevs:
-            if dev.disk in bootdisks:
-                return dev
+            # most of the time we want the above, but if it's mdarray then we
+            # really want something else
+            if (hasattr(bootdev, 'type')):
+                if (bootdev.type == "mdarray"):
+                    bootdisks = set(p.disk for p in bootdev.parents)
 
+            for dev in prepdevs:
+                if dev.disk in bootdisks:
+                    return dev
+                
         # failing that, return the first PReP partition we found
         return prepdevs[0]
 
