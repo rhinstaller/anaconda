@@ -518,16 +518,16 @@ class MiscTests(unittest.TestCase):
         def raise_os_error(*args, **kwargs):
             raise OSError
 
-        _execWithRedirect = iutil.vtActivate.func_globals['execWithRedirect']
+        _execWithRedirect = iutil.vtActivate.__globals__['execWithRedirect']
 
         try:
             # chvt does not exist on all platforms
             # and the function needs to correctly survie that
-            iutil.vtActivate.func_globals['execWithRedirect'] = raise_os_error
+            iutil.vtActivate.__globals__['execWithRedirect'] = raise_os_error
 
             self.assertEqual(iutil.vtActivate(2), False)
         finally:
-            iutil.vtActivate.func_globals['execWithRedirect'] = _execWithRedirect
+            iutil.vtActivate.__globals__['execWithRedirect'] = _execWithRedirect
 
     def get_deep_attr_test(self):
         """Test getdeepattr."""

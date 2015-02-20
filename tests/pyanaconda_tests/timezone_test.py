@@ -57,9 +57,9 @@ class s390HWclock(unittest.TestCase):
         self.iutil_mock = mock.Mock()
 
         # pylint: disable=no-member
-        timezone.save_hw_clock.func_globals["arch"] = self.arch_mock
+        timezone.save_hw_clock.__globals__["arch"] = self.arch_mock
         # pylint: disable=no-member
-        timezone.save_hw_clock.func_globals["iutil"] = self.iutil_mock
+        timezone.save_hw_clock.__globals__["iutil"] = self.iutil_mock
 
     def s390_save_hw_clock_test(self):
         """Check that save_hw_clock does nothing on s390."""
