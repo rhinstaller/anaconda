@@ -27,12 +27,10 @@
         - document all methods
 
 """
-from __future__ import print_function
-import os, sys
+import os
 import requests
 import ConfigParser
 import shutil
-import time
 from glob import glob
 from fnmatch import fnmatch
 import threading
