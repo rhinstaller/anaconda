@@ -19,7 +19,6 @@
 
 __all__ = ["Creator", "OutsideMixin"]
 
-import blivet
 from blivet.size import MiB
 
 from contextlib import contextmanager
