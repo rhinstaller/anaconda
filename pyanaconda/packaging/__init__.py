@@ -393,11 +393,6 @@ class Payload(object):
             except ConfigParser.Error:
                 pass
 
-        # If the version looks like a timestamp, assume it's rawhide
-        # plz change before Fedora version 9999999
-        if version[:8].isdigit():
-            version = "rawhide"
-
         log.debug("got a release version of %s", version)
         return version
 
