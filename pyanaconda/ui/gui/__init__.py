@@ -31,7 +31,7 @@ from pyanaconda import product, iutil
 from pyanaconda import threads
 
 from pyanaconda.ui import UserInterface, common
-from pyanaconda.ui.gui.utils import gtk_action_wait, busyCursor, unbusyCursor
+from pyanaconda.ui.gui.utils import gtk_action_wait, unbusyCursor
 from pyanaconda import ihelp
 import os.path
 
