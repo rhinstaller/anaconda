@@ -22,27 +22,9 @@
 import unittest
 import re
 
+from regexcheck import regex_match
 from pyanaconda.regexes import HOSTNAME_PATTERN_WITHOUT_ANCHORS, IPV4_PATTERN_WITHOUT_ANCHORS,\
         IPV6_PATTERN_WITHOUT_ANCHORS
-
-def _run_tests(testcase, expression, goodlist, badlist):
-    got_error = False
-    for good in goodlist:
-        try:
-            testcase.assertIsNotNone(expression.match(good))
-        except AssertionError:
-            got_error = True
-            print("Good string %s did not match expression" % good)
-
-    for bad in badlist:
-        try:
-            testcase.assertIsNone(expression.match(bad))
-        except AssertionError:
-            got_error = True
-            print("Bad string %s matched expression" % bad)
-
-    if got_error:
-        testcase.fail()
 
 class HostnameRegexTestCase(unittest.TestCase):
     def hostname_test(self):
@@ -76,7 +58,8 @@ class HostnameRegexTestCase(unittest.TestCase):
                 ]
 
         hostname_re = re.compile('^' + HOSTNAME_PATTERN_WITHOUT_ANCHORS + '$')
-        _run_tests(self, hostname_re, good_tests, bad_tests)
+        if not regex_match(hostname_re, good_tests, bad_tests):
+            self.fail()
 
 class IPv4RegexTestCase(unittest.TestCase):
     def ipv4_test(self):
@@ -99,7 +82,8 @@ class IPv4RegexTestCase(unittest.TestCase):
                 ]
 
         ipv4_re = re.compile('^(' + IPV4_PATTERN_WITHOUT_ANCHORS + ')$')
-        _run_tests(self, ipv4_re, good_tests, bad_tests)
+        if not regex_match(ipv4_re, good_tests, bad_tests):
+            self.fail()
 
 class IPv6RegexTestCase(unittest.TestCase):
     def ipv6_test(self):
@@ -187,4 +171,5 @@ class IPv6RegexTestCase(unittest.TestCase):
                 ]
 
         ipv6_re = re.compile('^(' + IPV6_PATTERN_WITHOUT_ANCHORS + ')$')
-        _run_tests(self, ipv6_re, good_tests, bad_tests)
+        if not regex_match(ipv6_re, good_tests, bad_tests):
+            self.fail()

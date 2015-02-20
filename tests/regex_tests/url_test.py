@@ -21,6 +21,7 @@
 
 import unittest
 
+from regexcheck import regex_group
 from pyanaconda.regexes import URL_PARSE
 
 class URLRegexTestCase(unittest.TestCase):
@@ -165,19 +166,5 @@ class URLRegexTestCase(unittest.TestCase):
                 ]
 
 
-        got_error = False
-        for proxy, result in tests:
-            match = URL_PARSE.match(proxy)
-            if match:
-                match= match.groups()
-            else:
-                match = None
-
-            try:
-                self.assertEqual(match, result)
-            except AssertionError:
-                got_error = True
-                print("Proxy parse error: `%s' did not parse as `%s': %s" % (proxy, result, match))
-
-        if got_error:
+        if not regex_group(URL_PARSE, tests):
             self.fail()

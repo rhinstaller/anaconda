@@ -20,6 +20,7 @@
 #
 import unittest
 
+from regexcheck import regex_group
 from pyanaconda.regexes import GROUPLIST_FANCY_PARSE
 
 class GroupParseTestCase(unittest.TestCase):
@@ -49,13 +50,5 @@ class GroupParseTestCase(unittest.TestCase):
                  ("", ("", None)),
                  ]
 
-        got_error = False
-        for group, result in tests:
-            try:
-                self.assertEqual(GROUPLIST_FANCY_PARSE.match(group).groups(), result)
-            except AssertionError:
-                got_error = True
-                print("Group parse error: `%s' did not not parse as `%s'" % (group, result))
-
-        if got_error:
+        if not regex_group(GROUPLIST_FANCY_PARSE, tests):
             self.fail()

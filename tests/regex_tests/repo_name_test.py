@@ -21,26 +21,8 @@
 #
 import unittest
 
+from regexcheck import regex_match
 from pyanaconda.regexes import REPO_NAME_VALID
-
-def _run_tests(testcase, expression, goodlist, badlist):
-    got_error = False
-    for good in goodlist:
-        try:
-            testcase.assertIsNotNone(expression.match(good))
-        except AssertionError:
-            got_error = True
-            print("Good string %s did not match expression" % good)
-
-    for bad in badlist:
-        try:
-            testcase.assertIsNone(expression.match(bad))
-        except AssertionError:
-            got_error = True
-            print("Bad string %s matched expression" % bad)
-
-    if got_error:
-        testcase.fail()
 
 class RepoNameTestCase(unittest.TestCase):
     def reponame_test(self):
@@ -63,4 +45,5 @@ class RepoNameTestCase(unittest.TestCase):
                 '[reponame]'
                 ]
 
-        _run_tests(self, REPO_NAME_VALID, good_tests, bad_tests)
+        if not regex_match(REPO_NAME_VALID, good_tests, bad_tests):
+            self.fail()
