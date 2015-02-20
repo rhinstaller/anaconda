@@ -33,7 +33,6 @@ from urlgrabber.grabber import URLGrabber
 from urlgrabber.grabber import URLGrabError
 import ConfigParser
 import shutil
-import time
 from glob import glob
 import re
 import threading
@@ -462,9 +461,6 @@ class Payload(object):
                 version = "rawhide"
             except ConfigParser.Error:
                 pass
-
-        if version.startswith(time.strftime("%Y")):
-            version = "rawhide"
 
         log.debug("got a release version of %s", version)
         return version
