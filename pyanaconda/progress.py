@@ -23,7 +23,7 @@ log = logging.getLogger("anaconda")
 
 from contextlib import contextmanager
 
-from pyanaconda.queue import QueueFactory
+from pyanaconda.queuefactory import QueueFactory
 
 # A queue to be used for communicating progress information between a subthread
 # doing all the hard work and the main thread that does the GTK updates.  This

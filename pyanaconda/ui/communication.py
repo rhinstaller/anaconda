@@ -18,7 +18,7 @@
 #
 # Author(s): Chris Lumens <clumens@redhat.com>
 
-from pyanaconda.queue import QueueFactory
+from pyanaconda.queuefactory import QueueFactory
 
 # A queue to be used for communicating information from a spoke back to its
 # hub.  This information includes things like marking spokes as ready and
