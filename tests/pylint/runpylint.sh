@@ -116,10 +116,10 @@ fi
 # run pylint one file / module at a time, otherwise it sometimes gets
 # confused
 if [ -z "$FILES" ]; then
-    # Test any file that either ends in .py or contains #!/usr/bin/python2 in
+    # Test any file that either ends in .py or contains #!/usr/bin/python3 in
     # the first line.
     FILES=$(findtestfiles \( -name '*.py' -o \
-                -exec /bin/sh -c "head -1 {} | grep -q '#!/usr/bin/python2'" \; \) -print)
+                -exec /bin/sh -c "head -1 {} | grep -q '#!/usr/bin/python3'" \; \) -print)
 fi
 
 # run pylint in paralel
