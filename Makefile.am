@@ -44,8 +44,8 @@ dist_sbin_SCRIPTS     = anaconda
 
 ARCHIVE_TAG   = $(PACKAGE_NAME)-$(PACKAGE_VERSION)-$(PACKAGE_RELEASE)
 
-TX_PULL_ARGS = -a -f
-TX_PUSH_ARGS = -s
+ZANATA_PULL_ARGS = --transdir $(srcdir)/po/
+ZANATA_PUSH_ARGS = --srcdir $(srcdir)/po/ --push-type source --force
 
 INSTALLATION_GUIDE_REPO_URL = git://git.fedorahosted.org/git/docs/install-guide.git
 
@@ -54,8 +54,8 @@ tag:
 	@echo "Tagged as $(ARCHIVE_TAG)"
 
 po-pull:
-	rpm -q transifex-client &>/dev/null || ( echo "need to run: yum install transifex-client"; exit 1 )
-	tx pull $(TX_PULL_ARGS)
+	rpm -q zanata-python-client &>/dev/null || ( echo "need to run: yum install zanata-python-client"; exit 1 )
+	zanata pull $(ZANATA_PULL_ARGS)
 
 po-empty:
 	for lingua in $$(grep -v '^#' $(srcdir)/po/LINGUAS) ; do \
@@ -107,7 +107,7 @@ bumpver: po-pull
 	fi ; \
 	( cd $(srcdir) && scripts/makebumpver $${opts} ) || exit 1 ; \
 	$(MAKE) -C po $(PACKAGE_NAME).pot-update && \
-	tx push $(TX_PUSH_ARGS)
+	zanata push $(ZANATA_PUSH_ARGS)
 
 # Install all packages specified as BuildRequires in the Anaconda specfile
 # -> installs packages needed to build Anaconda
