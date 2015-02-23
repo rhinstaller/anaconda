@@ -62,6 +62,7 @@ BuildRequires: python-bugzilla
 BuildRequires: python-devel
 BuildRequires: python-nose
 BuildRequires: systemd
+# rpm and libarchive are needed for driver disk handling
 BuildRequires: rpm-devel >= %{rpmver}
 BuildRequires: libarchive-devel >= %{libarchivever}
 %ifarch %livearches
