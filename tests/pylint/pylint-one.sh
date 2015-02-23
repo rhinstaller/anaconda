@@ -12,7 +12,7 @@ if grep -q '# pylint: skip-file' $1; then
     exit 0
 fi
 
-pylint_output="$(pylint \
+pylint_output="$(python3-pylint \
     --msg-template='{msg_id}:{line:3d},{column}: {obj}: {msg}' \
     -r n --disable=C,R --rcfile=/dev/null \
     --dummy-variables-rgx=_ \
