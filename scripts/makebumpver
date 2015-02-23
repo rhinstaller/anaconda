@@ -37,7 +37,6 @@ import subprocess
 import sys
 import textwrap
 import urllib
-from ConfigParser import ConfigParser
 
 class MakeBumpVer:
     def __init__(self, *args, **kwargs):
@@ -89,14 +88,14 @@ class MakeBumpVer:
         self.spec = kwargs.get('spec')
         self.skip_acks = kwargs.get('skip_acks', False)
         self.skip_all = kwargs.get('skip_all', False)
-        self.tx_config = kwargs.get('tx_config')
-        self.skip_tx = kwargs.get("skip_tx", False)
+        self.zanata_config = kwargs.get('zanata_config')
+        self.skip_zanata = kwargs.get("skip_zanata", False)
         self.skip_jenkins = kwargs.get("skip_jenkins", False)
 
         if self.skip_all:
             self.skip_acks = True
             self.skip_jenkins = True
-            self.skip_tx = True
+            self.skip_zanata = True
 
         self.git_branch = None
 
@@ -494,38 +493,35 @@ class MakeBumpVer:
 
         return ret
 
-    def check_transifex(self):
+    def check_zanata(self):
         """
-        Make sure that the transifex branch matches the current git branch
+        Make sure that the zanata project-version matches the current git branch
 
         This is to prevent accidentally pushing translations to the wrong branch,
-        eg. when branching for a new release and .tx/config hasn't been updated
+        eg. when branching for a new release and zanata.xml hasn't been updated
         """
         if not self.git_branch:
-            log.error("No git branch, cannot check transifex config")
+            log.error("No git branch, cannot check zanata config")
             return False
 
-        ret = True
-        section_name = "anaconda."+self.git_branch
-
-        config = ConfigParser()
-        config.read(self.tx_config)
-
-        if section_name not in config.sections():
-            log.error(".tx/config is missing the section for this branch: %s", section_name)
-            ret = False
-
-        # There should only be anaconda.<branch_name> and main sections
-        valid_sections = (section_name, "main")
-        for section in config.sections():
-            if section not in valid_sections:
-                log.error(".tx/config has an invalid section: %s", section)
-                ret = False
+        version_re = re.compile("<project-version>(.*)</project-version>")
+        ret = False
+        with open(self.zanata_config, "r") as f:
+            for line in f:
+                m = version_re.match(line.strip())
+                if m and m.group(1) == self.git_branch:
+                    ret = True
+                    break
+                elif m:
+                    log.error("zanata.xml branch (%s) does not match current branch: %s", m.group(1), self.git_branch)
+                    break
+            else:
+                log.error("zanata.xml does not have a project-version")
 
         return ret
 
     def run(self):
-        if not self.skip_tx and not self.check_transifex():
+        if not self.skip_zanata and not self.check_zanata():
             sys.exit(1)
 
         # For now, jenkins is in an advisory role so do not require it to pass.
@@ -551,7 +547,7 @@ def usage(cmd):
     sys.stdout.write("    -s, --skip-acks  Skip checking for rhel-X.X.X ack flag\n")
     sys.stdout.write("    -S, --skip-all   Skip all checks\n")
     sys.stdout.write("    -d, --debug      Turn on debug logging to stdout\n")
-    sys.stdout.write("    --skip-tx        Skip checking Transifex config for branch name\n")
+    sys.stdout.write("    --skip-zanata    Skip checking Zanata config for branch name\n")
     sys.stdout.write("    --skip-jenkins   Skip checking Jenkins for test results\n")
     sys.stdout.write("\nThe -i switch is intended for use with utility commits that we do not need to\n")
     sys.stdout.write("reference in the spec file changelog.  The -m switch is used to map a Fedora\n")
@@ -564,17 +560,17 @@ def main(argv):
     cwd = os.getcwd()
     configure = os.path.realpath(cwd + '/configure.ac')
     spec = os.path.realpath(cwd + '/anaconda.spec.in')
-    tx_config = os.path.realpath(cwd + '/.tx/config')
+    zanata_config = os.path.realpath(cwd + '/zanata.xml')
     name, version, release, bugreport = None, None, None, None
     ignore, bugmap = None, None
-    show_help, unknown, skip_acks, skip_all, skip_tx, skip_jenkins = False, False, False, False, False, False
+    show_help, unknown, skip_acks, skip_all, skip_zanata, skip_jenkins = False, False, False, False, False, False
     opts = []
 
     try:
         opts, _args = getopt.getopt(sys.argv[1:], 'n:v:r:b:i:m:sSd?',
                                    ['name=', 'version=', 'release=',
                                     'bugreport=', 'ignore=', 'map=',
-                                    'debug', 'help', 'skip-tx', 'skip-jenkins'])
+                                    'debug', 'help', 'skip-zanata', 'skip-jenkins'])
     except getopt.GetoptError:
         show_help = True
 
@@ -597,9 +593,9 @@ def main(argv):
             skip_all = True
         elif o in ('-d', '--debug'):
             log.setLevel(logging.DEBUG)
-        elif o in ('--skip-tx'):
-            skip_tx = True
-        elif o in ('--skip-jenkins'):
+        elif o == '--skip-zanata':
+            skip_zanata = True
+        elif o  == '--skip-jenkins':
             skip_jenkins = True
         elif o in ('-?', '--help'):
             show_help = True
@@ -637,7 +633,7 @@ def main(argv):
     mbv = MakeBumpVer(name=name, version=version, release=release,
                       bugreport=bugreport, ignore=ignore, bugmap=bugmap,
                       configure=configure, spec=spec, skip_acks=skip_acks,
-                      skip_all=skip_all, tx_config=tx_config, skip_tx=skip_tx,
+                      skip_all=skip_all, zanata_config=zanata_config, skip_zanata=skip_zanata,
                       skip_jenkins=skip_jenkins)
     mbv.run()
 
