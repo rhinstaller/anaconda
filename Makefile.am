@@ -67,8 +67,8 @@ sed_verbose = $(sed_verbose_$(V))
 sed_verbose_ = $(sed_verbose_$(AM_DEFAULT_VERBOSITY))
 sed_verbose_0 = @echo "  SED    "$@;
 
-TX_PULL_ARGS = -a --disable-overwrite
-TX_PUSH_ARGS = -s
+ZANATA_PULL_ARGS = --transdir $(srcdir)/po/
+ZANATA_PUSH_ARGS = --srcdir $(srcdir)/po/ --push-type source --force
 
 $(PACKAGE_NAME).spec: $(PACKAGE_NAME).spec.in
 	$(sed_verbose)sed -e 's/#VERSION#/$(PACKAGE_VERSION)/' < $< > $@
@@ -89,7 +89,8 @@ tag:
 po-pull:
 	rm -f po/en@boldquot.gmo po/en@boldquot.po
 	rm -f po/en@quot.gmo po/en@quot.po
-	tx pull $(TX_PULL_ARGS)
+	rpm -q zanata-python-client &>/dev/null || ( echo "need to run: yum install zanata-python-client"; exit 1 )
+	zanata pull $(ZANATA_PULL_ARGS)
 
 scratch:
 	$(MAKE) ARCHIVE_TAG=HEAD dist
@@ -126,7 +127,7 @@ bumpver: po-pull
 	fi ; \
 	scripts/makebumpver $${opts} || exit 1 ; \
 	$(MAKE) -C po $(PACKAGE_NAME).pot-update ; \
-	tx push $(TX_PUSH_ARGS)
+	zanata push $(ZANATA_PUSH_ARGS)
 
 install-buildrequires:
 	yum install $$(grep BuildRequires: anaconda.spec.in | cut -d ' ' -f 2)
