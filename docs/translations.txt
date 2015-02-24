@@ -1,0 +1,116 @@
+Translations and anaconda Development
+24-Feb-2015
+by: David Cantrell <dcantrell@redhat.com>
+    Brian C. Lane <bcl@redhat.com>
+-----------------------------------------------------------------------------
+
+Anaconda, as of version 23.1, is using https://fedora.zanata.com for
+translations. You will need an account in order to pull translations until bug
+https://bugzilla.redhat.com/show_bug.cgi?id=1172618 (anonymous pull requests)
+has been resolved.
+
+The zanata-python-client is used by the build scripts, not the full zanata
+package.
+
+
+CLIENT SETUP
+------------
+Setting up the zanata-python-client on your system for anaconda builds.
+
+1) Install the zanata-python-client package:
+       yum install zanata-python-client
+
+2) Create a Zanata account at https://fedora.zanata.org
+   NOTE:  This system is linked to FAS, but the 'remember my login' option
+   only appears to work for about an hour, not 7 days as it claims.
+
+3) Navigate to Dashboard->Settings->Client and click 'Generate New API Key'
+
+4) Copy the contents of the Configuration text box to ~/.config/zanata.ini
+   and make sure permissions are 0600.
+
+Now zanata is set up on your system.  The translation files will only be pulled
+when a 'make release' is done.  The 'make dist' step will just create a tar
+file of the what we have in our repo.  The 'make bumpver' step will also push a
+new anaconda.pot file to Zanata, so any string changes are pushed to them on a
+regular basis.
+
+NOTE: zanata pull is slow.  This is why I only added it to the 'make bumpver'
+step.
+
+There are some other procedures related to zanata that will have to be done
+when we create new branches or when there are translation errors.
+
+
+MAKING A RELEASE
+----------------
+
+git clean -d -x -f
+./autogen.sh && ./configure --disable-static \
+--enable-introspection --enable-gtk-doc
+make bumpver                      # zanata pull by dependent po-pull target
+git commit -a -m "New version."   # DO NOT run 'git clean -d -x -f' after
+make && make release              # signed tag happens after dist now
+
+The process here is mostly the same.  I do not recommend that you run
+git clean between 'make bumpver' and 'make release'.  The reason is you
+will have to run 'zanata pull' again and that's slow, plus translations may
+have changed between the two steps.
+
+The 'make tag' step now runs after 'make dist' in case dist generation
+fails.  That way you don't end up with a partially created dist AND a
+bad tag you have to delete.
+
+The 'make scratch' and 'make po-empty' targets will now create empty
+translation files so that local test builds can be created without needing a
+zanata account.
+
+
+DEALING WITH ERRORS IN *.po FILES
+---------------------------------
+
+Translators sometimes introduce errors in the .po files.  What we generally
+do is try to fix it if it's an obvious typo, or just revert the change and
+go back to the old po file.  Reverting is harder now since we are not
+storing po files in our repo, but in severe cases we can go and fetch the
+last build and pull the affected po file from there and use it to revert the
+changes.
+
+Here's an example of a po file error that will halt a 'make release':
+
+    rm -f af.gmo && /usr/bin/msgfmt -c --statistics -o af.gmo af.po
+    af.po:7: field `Language-Team' still has initial default value
+    af.po:1614: number of format specifications in 'msgid' and 'msgstr[1]' does not match
+    /usr/bin/msgfmt: found 1 fatal error
+
+In this case, I am going to the last known good af.po.  To update Zanata,
+I do:
+
+    cp /path/to/last/known/good/af.po po/af.po
+    zanata push --push-type target --lang af
+
+
+CREATING A NEW ANACONDA BRANCH
+------------------------------
+
+When we make a new branch, we need to branch the translation files.
+
+On https://fedora.zanata.com go to the project and version to use as a base.
+Select 'New Version+' from the hidden drop down menu on the right.  Give it a
+name that matches the git branch. eg. f23-branch and select the version to copy
+from (usually master). Wait for it to finish processing documents.
+
+Create a new git branch:
+
+    git checkout master
+    git clean -xdf
+    git checkout BRANCH_NAME
+
+At https://fedora.zanata.com select the new version and then select the
+'Download Config file' from the hidden dropdown menu next to 'Settings'.  This
+will download a new zanata.xml file. Replace the zanata.xml file in the root
+directory of anaconda project with this new one.
+
+    git add -u
+    git commit -m "New Zanata config file"
+    git push --set-upstream origin BRANCH_NAME
