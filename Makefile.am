@@ -67,6 +67,13 @@ po-pull:
 	rpm -q transifex-client &>/dev/null || ( echo "need to run: yum install transifex-client"; exit 1 )
 	tx pull $(TX_PULL_ARGS)
 
+po-empty:
+	for lingua in $$(grep -v '^#' $(srcdir)/po/LINGUAS) ; do \
+		[ -f $(srcdir)/po/$$lingua.po ] || \
+		msginit -i $(srcdir)/po/$(PACKAGE_NAME).pot -o $(srcdir)/po/$$lingua.po --no-translator || \
+		exit 1 ; \
+	done
+
 scratch: po-pull
 	$(MAKE) ARCHIVE_TAG=HEAD dist
 	git checkout -- po/$(PACKAGE_NAME).pot
