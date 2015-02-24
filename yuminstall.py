@@ -1614,6 +1614,7 @@ debuglevel=6
             # New installs only - upgrades will already have all this stuff.
             self.selectBestKernel(anaconda)
             map(self.selectPackage, anaconda.platform.packages)
+            map(self.deselectPackage, anaconda.platform.excluded_packages)
             self.selectFSPackages(anaconda.id.storage)
             if anaconda.id.network.hasActiveIPoIBDevice():
                 self.selectPackage("rdma")

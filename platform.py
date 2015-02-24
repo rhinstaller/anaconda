@@ -44,6 +44,7 @@ class Platform(object):
     _isEfi = iutil.isEfi()
     _minimumSector = 0
     _packages = []
+    _excluded_packages = []
     _supportsLvmBoot = False
     _supportsMdRaidBoot = False
     _minBootPartSize = 50
@@ -190,11 +191,19 @@ class Platform(object):
     @property
     def packages (self):
         if self.anaconda.isKickstart and self.anaconda.id.ksdata.bootloader.disabled:
-            return []
+            packages = []
+        else:
+            packages = self._packages
 
         if flags.cmdline.get('fips', None) == '1':
-            return self._packages + ['dracut-fips']
-        return self._packages
+            packages += ['dracut-fips']
+        return packages
+
+    @property
+    def excluded_packages (self):
+        if flags.cmdline.get('fips', None) == '1':
+            return self._excluded_packages + ['prelink']
+        return self._excluded_packages
 
     def setDefaultPartitioning(self):
         """Return the default platform-specific partitioning information."""
