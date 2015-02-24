@@ -1,0 +1,279 @@
+#!/usr/bin/python2
+#
+# merge-pr - Rebase, merge, and close a github pull request
+#
+# Copyright (C) 2015  Red Hat, Inc.
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU Lesser General Public License as published
+# by the Free Software Foundation; either version 2.1 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU Lesser General Public License for more details.
+#
+# You should have received a copy of the GNU Lesser General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#
+# Author: David Shea <dshea@redhat.com>
+
+# A quick note on logging in to github:
+# This script uses git's credentials API for retrieving and possibly storing
+# your github user name and password. Git comes with credential-cache, which
+# stores information in memory, and credential-store, which stores information
+# in a file in your home directory. Use `git config credential.helper <helper>'
+# if you want to use one of these. See the git help pages for credential-cache
+# and credential-store for more information, and also see the help pages for
+# 'credentials' for information on how to change the thing that asks for your
+# password.
+#
+# You can use an OAuth token in place of your username and password. Create a
+# personal access token using https://github.com/settings/tokens/new, input
+# "token" as your username and put in the token as your password. Github only
+# shows you these tokens once, so OAuth makes the most sense when combined with
+# a credential helper that permanently stores your passwords. The token only
+# needs access to the public_repo scope.
+#
+# If you use 2-factor authentication and do not use an OAuth token, you will
+# be asked for your 2-factor code three times.
+#
+# Use the --nosavepw option if you don't want to try saving your credentials
+# with git.
+
+# This script expects there to be local branches that match the names of
+# the remote branches the pull request is against. So if there's a pull
+# request against f22-branch but you don't have f22-branch locally, it won't
+# work.
+
+import argparse
+import subprocess
+import sys
+import os
+import re
+import atexit
+import json
+from tempfile import NamedTemporaryFile
+
+import requests
+import six
+
+DEVNULL = open(os.devnull, 'w')
+
+def talk_to_github(request):
+    # Send a requests.Request to github, handle 2-factor auth
+    request.headers.update({'User-Agent': 'merge-pr'})
+
+    prep = request.prepare()
+    session = requests.Session()
+    response = session.send(prep)
+
+    # github sometimes uses 404 in response to unauthenticated API calls
+    if response.status_code in (401, 404) and \
+            response.headers.get('X-GitHub-OTP', '').startswith('required'):
+        try:
+            twofactor = raw_input("Input 2-factor authentication code: ")
+        except EOFError:
+            twofactor = ""
+
+        request.headers.update({'X-GitHub-OTP': twofactor})
+        prep = request.prepare()
+        response = session.send(prep)
+
+    if response.status_code not in (200, 201):
+        print("Error communicating with github: %s\n%s" % (response.status_code, response.text))
+        sys.exit(1)
+
+    return response
+
+def main():
+    parser = argparse.ArgumentParser(description='Github pull request merger')
+
+    parser.add_argument('--nosavepw', action='store_true', default=False,
+            help='Do not attempt to save the github user name and password')
+    parser.add_argument('pr_url', metavar='URL', help='Pull request URL to merge')
+
+    args = parser.parse_args()
+
+    # SANITY CHECK: are we in a git repo? We need to be in a git repo.
+    # Git's error message is probably good enough if something went wrong.
+    if subprocess.call(['git', 'rev-parse']) != 0:
+        sys.exit(1)
+
+    # Parse the web URL into something that can be used for an API call, make
+    # sure all the pieces are there.
+    pr_url = six.moves.urllib.parse.urlparse(args.pr_url)
+    # The path should be /:owner/:repo/pull/:numbero
+    # The first part of the split will be empty since path starts with /
+    pr_path = pr_url[2].split('/')
+    if len(pr_path) != 5 or pr_path[3] != 'pull' or not pr_path[4].isdigit():
+        print("Unable to parse pull request URL")
+        sys.exit(1)
+
+    pr_owner = pr_path[1]
+    pr_repo = pr_path[2]
+    pr_number = pr_path[4]
+
+    # Figure out where we are in the current repo so we can go back to it
+    try:
+        current_head = subprocess.check_output(['git', 'symbolic-ref', '-q', '--short', 'HEAD'])
+    except subprocess.CalledProcessError:
+        try:
+            current_head = subprocess.check_output(['git', 'rev-parse', 'HEAD'])
+        except subprocess.CalledProcessError:
+            # There's probably a ton of error output from git by now, so just exit
+            sys.exit(1)
+
+    current_head = current_head.rstrip('\n')
+    atexit.register(lambda: subprocess.call(['git', 'checkout', '-q', current_head]))
+
+    # Time to get a password so we can start talking to github
+    github_cred = 'protocol=https\nhost=api.github.com\n'
+    try:
+        p = subprocess.Popen(['git', 'credential', 'fill'], stdin=subprocess.PIPE, stdout=subprocess.PIPE)
+        p.stdin.write(github_cred)
+        (stdin, _stderr) = p.communicate()
+    except (OSError, IOError) as e:
+        print("Unable to get github credentials: %s" % e)
+        sys.exit(1)
+
+    # Parse the username and password
+    m = re.search('^username=(.*)$', stdin, flags=re.MULTILINE)
+    if not m:
+        print("Unable to determine github username")
+        sys.exit(1)
+    username = m.group(1)
+
+    m = re.search('^password=(.*)$', stdin, flags=re.MULTILINE)
+    if not m:
+        print("Unable to determine github password")
+        sys.exit(1)
+    password = m.group(1)
+
+    # If using a OAuth token, rearrange the auth data to let github know we're
+    # sending a token as a basic http auth
+    if username == "token":
+        username = password
+        password = "x-oauth-basic"
+
+    # Save the username and password back to git
+    if not args.nosavepw:
+        try:
+            p = subprocess.Popen(['git', 'credential', 'approve'], stdin=subprocess.PIPE)
+            p.stdin.write(stdin)
+            p.communicate()
+        except (OSError, IOError) as e:
+            print("Unable to save github credentials: %s" % e)
+            sys.exit(1)
+
+    # Now to talk to github. First, get the PR object
+    pr_req = requests.Request(method='GET',
+            url='https://api.github.com/repos/%s/%s/pulls/%s' % (pr_owner, pr_repo, pr_number),
+            auth=(username, password))
+    pr = talk_to_github(pr_req).json()
+
+    # If github reports the PR is not mergeable, give up now
+    if not pr['mergeable']:
+        print("Pull request is not mergeable, exiting")
+        sys.exit(1)
+
+    # Start messing with the git repo
+
+    # Try checking out the base of the PR. If it isn't available, do a fetch of
+    # the base repo and try again.
+    try:
+        subprocess.check_call(['git', 'checkout', '-q', pr['base']['sha']], stderr=DEVNULL)
+    except subprocess.CalledProcessError:
+        try:
+            subprocess.check_call(['git', 'fetch', '-q', pr['base']['repo']['clone_url'], pr['base']['sha']])
+            subprocess.check_call(['git', 'checkout', '-q', pr['base']['sha']])
+        except subprocess.CalledProcessError:
+            sys.exit(1)
+
+    try:
+        branch_name = 'merge-pr-%s-%s' % (pr['head']['user']['login'], pr['head']['ref'])
+        # Create a branch for the PR and pull the data into it
+        subprocess.check_call(['git', 'checkout', '-q', '-b', branch_name])
+        subprocess.check_call(['git', 'pull', '-q', '--ff-only', pr['head']['repo']['clone_url'], pr['head']['sha']])
+
+        # Rebase the PR to the current state of the target branch
+        subprocess.check_call(['git', 'rebase', '-q', pr['base']['ref']])
+
+        # Merge the PR onto the target branch and delete the PR branch
+        subprocess.check_call(['git', 'checkout', '-q', pr['base']['ref']])
+        subprocess.check_call(['git', 'merge', '-q', '--ff-only', branch_name])
+        subprocess.check_call(['git', 'branch', '-q', '-d', branch_name])
+
+        # Before we push, launch an editor for the message to use when closing
+        # the pull request
+        try:
+            editor = subprocess.check_call(['git', 'config', '--get', 'core.editor'])
+        except subprocess.CalledProcessError:
+            if 'VISUAL' in os.environ:
+                editor = os.environ['VISUAL']
+            elif 'EDITOR' in os.environ:
+                editor = os.environ['EDITOR']
+            else:
+                editor = 'vi'
+
+        with NamedTemporaryFile() as pr_msg_file:
+            # Display some information about what the merge being pushed will
+            # be, and list the commits
+            commit_list = subprocess.check_output(['git', 'log', pr['base']['ref'],
+                '--not', '--remotes=*/%s' % pr['base']['ref'], '--pretty=format:%h %s'])
+            commit_list = '\n'.join('# %s' % line for line in commit_list.splitlines())
+            pr_msg_file.write("""
+# Please enter the message with which to close the pull request. Lines
+# starting with '#' will be ignored, and an empty message aborts the merge.
+# The merged pull request will remain in your working copy under the
+# '%s' branch.
+#
+# Pull request to merge:  %s/%s/%s (%s)
+#                 into -> %s
+#
+%s
+""" % (pr['base']['ref'],
+       pr_owner, pr_repo, pr_number, pr['head']['label'],
+       subprocess.check_output(['git', 'rev-parse', '--abbrev-ref', '@{upstream}']).rstrip('\n'),
+       commit_list))
+
+            pr_msg_file.flush()
+            subprocess.check_call([editor, pr_msg_file.name])
+            pr_msg_file.seek(0)
+
+            # Strip comments and whitespace
+            pr_msg = ''.join(line for line in pr_msg_file if not line.startswith('#')).strip()
+
+        # Done with the message file at this point
+        # If the message is empty, abort
+        if not pr_msg:
+            print("Empty pull request message, aborting")
+            sys.exit(1)
+
+        # Push the commits
+        subprocess.check_call(['git', 'push', '-q'])
+
+        # Add a comment to the PR
+        pr_comment = requests.Request(method='POST',
+                url='https://api.github.com/repos/%s/%s/issues/%s/comments' % (pr_owner, pr_repo, pr_number),
+                data=json.dumps({'body': pr_msg}),
+                auth=(username, password))
+        talk_to_github(pr_comment)
+
+        # Close the PR
+        pr_close = requests.Request(method='PATCH',
+                url='https://api.github.com/repos/%s/%s/pulls/%s' % (pr_owner, pr_repo, pr_number),
+                data=json.dumps({'state': 'closed'}),
+                auth=(username, password))
+        talk_to_github(pr_close)
+
+    except subprocess.CalledProcessError:
+        sys.exit(1)
+
+if __name__ == "__main__":
+    try:
+        main()
+    except KeyboardInterrupt:
+        print("Exiting on user interrupt")
+        sys.exit(1)
