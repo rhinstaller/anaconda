@@ -48,14 +48,18 @@ class x86BootloaderInfo(efiBootloaderInfo):
         # physical disks ("hda"), and real partitions on physical disks
         # ("hda1"). Anything else gets ignored.
         dev = self.storage.devicetree.getDeviceByName(device)
-        if dev.type == "mdarray":
-            if dev.level != 1:
-                log.error("x86BootloaderInfo.getPhysicalDevices ignoring non "
-                          "level 1 raid array %s" % dev.name)
-                return []
-            devs = dev.parents
+        if dev:
+            devs = [dev]
+            # mdarray is an exception to the general rule
+            if hasattr(dev, 'type'):
+                if dev.type == "mdarray":
+                    if dev.level != 1:
+                        log.error("x86BootloaderInfo.getPhysicalDevices ignoring non "
+                                "level 1 raid array %s" % dev.name)
+                        return []
+                    devs = dev.parents
         else:
-            devs = [ dev ]
+            return []
 
         physicalDevices = []
         for dev in devs:
