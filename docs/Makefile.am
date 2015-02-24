@@ -19,7 +19,7 @@
 
 EXTRA_DIST = boot-options.txt mediacheck.txt \
              lvm_sanity_checks.txt rescue-mode api.cfg making-screenshots \
-             threads.txt gettext.txt transifex.txt
+             threads.txt gettext.txt translations.txt
 
 CLEANFILES = api *.xml
 
