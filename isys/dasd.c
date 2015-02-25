@@ -41,7 +41,7 @@
 
 #if defined(__s390__) || defined(__s390x__)
 /* s390 stuff to detect DASDs */
-static int read_vlabel(dasd_information_t *dasd_info, int fd, int blksize,
+static int read_vlabel(dasd_information2_t *dasd_info, int fd, int blksize,
                        volume_label_t *vlabel) {
     int rc;
     unsigned long vlabel_start = dasd_info->label_block * blksize;
@@ -61,16 +61,13 @@ static int read_vlabel(dasd_information_t *dasd_info, int fd, int blksize,
 }
 #endif
 
-int isUsableDasd(char *device) {
+int isLdlDasd(char *device) {
 #if !defined(__s390__) && !defined(__s390x__)
     return 0;
 #else
     char devname[16];
-    char label[5], v4_hex[9];
-    char l4ebcdic_hex[] = "d3d5e7f1";  /* LNX1 */
-    char cms1_hex[] = "c3d4e2f1";      /* CMS1 */
     int f, ret, blksize;
-    dasd_information_t dasd_info;
+    dasd_information2_t dasd_info;
     volume_label_t vlabel;
 
     memset(&dasd_info, 0, sizeof(dasd_info));
@@ -85,40 +82,21 @@ int isUsableDasd(char *device) {
         return 0;
     }
 
-    if (ioctl(f, BIODASDINFO, &dasd_info) != 0) {
+    if (ioctl(f, BIODASDINFO2, &dasd_info) != 0) {
         close(f);
         return 0;
     }
 
     ret = read_vlabel(&dasd_info, f, blksize, &vlabel);
     close(f);
-
     if (ret == 2)
         return 0;
-    else if (ret == 1) /* probably unformatted DASD */
-        return 1;
 
-    memset(label, 0, 5);
-    memset(v4_hex, 0, 9);
-    strncpy(label, vlabel.volkey, 4);
-
-    ret = sprintf(v4_hex, "%02x%02x%02x%02x", label[0], label[1],
-                                              label[2], label[3]);
-    if (ret < 0 || ret < strlen(cms1_hex))
-        return 3;
-        
-    if (!strncmp(v4_hex, cms1_hex, 9))
+    if (dasd_info.format == DASD_FORMAT_CDL) /* VOL1, CDL */
         return 0;
-
-    if (!strncmp(v4_hex, l4ebcdic_hex, 9))
-        return 2;
-
-    return 1;
+    else
+        return 1;
 #endif
-}
-
-int isLdlDasd(char * device) {
-    return (isUsableDasd(device) == 2);
 }
 
 char *getDasdPorts() {

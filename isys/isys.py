@@ -199,9 +199,6 @@ def loadKeymap(keymap):
 def getDasdPorts():
     return _isys.getDasdPorts()
 
-def isUsableDasd(device):
-    return _isys.isUsableDasd(device)
-
 def isLdlDasd(device):
     return _isys.isLdlDasd(device)
 
