@@ -96,7 +96,7 @@ class RunProgramTests(unittest.TestCase):
     def exec_with_capture_no_stderr_test(self):
         """Test execWithCapture with no stderr"""
 
-        with tempfile.NamedTemporaryFile() as testscript:
+        with tempfile.NamedTemporaryFile(mode="w+t") as testscript:
             testscript.write("""#!/bin/sh
 echo "output"
 echo "error" >&2
@@ -130,7 +130,7 @@ echo "error" >&2
         """Test the output of execReadlines."""
 
         # Test regular-looking output
-        with tempfile.NamedTemporaryFile() as testscript:
+        with tempfile.NamedTemporaryFile(mode="w+t") as testscript:
             testscript.write("""#!/bin/sh
 echo "one"
 echo "two"
@@ -147,7 +147,7 @@ exit 0
                 self.assertRaises(StopIteration, rl_iterator.next)
 
         # Test output with no end of line
-        with tempfile.NamedTemporaryFile() as testscript:
+        with tempfile.NamedTemporaryFile(mode="w+t") as testscript:
             testscript.write("""#!/bin/sh
 echo "one"
 echo "two"
@@ -170,7 +170,7 @@ exit 0
         # has been consumed, otherwise the test will exit normally.
 
         # Test a normal, non-0 exit
-        with tempfile.NamedTemporaryFile() as testscript:
+        with tempfile.NamedTemporaryFile(mode="wt") as testscript:
             testscript.write("""#!/bin/sh
 echo "one"
 echo "two"
@@ -187,7 +187,7 @@ exit 1
                 self.assertRaises(OSError, rl_iterator.next)
 
         # Test exit on signal
-        with tempfile.NamedTemporaryFile() as testscript:
+        with tempfile.NamedTemporaryFile(mode="wt") as testscript:
             testscript.write("""#!/bin/sh
 echo "one"
 echo "two"
@@ -204,7 +204,7 @@ kill -TERM $$
                 self.assertRaises(OSError, rl_iterator.next)
 
         # Repeat the above two tests, but exit before a final newline
-        with tempfile.NamedTemporaryFile() as testscript:
+        with tempfile.NamedTemporaryFile(mode="wt") as testscript:
             testscript.write("""#!/bin/sh
 echo "one"
 echo "two"
@@ -220,7 +220,7 @@ exit 1
                 self.assertEqual(rl_iterator.next(), "three")
                 self.assertRaises(OSError, rl_iterator.next)
 
-        with tempfile.NamedTemporaryFile() as testscript:
+        with tempfile.NamedTemporaryFile(mode="wt") as testscript:
             testscript.write("""#!/bin/sh
 echo "one"
 echo "two"
@@ -242,7 +242,7 @@ kill -TERM $$
         # ignored signal
         old_HUP_handler = signal.signal(signal.SIGHUP, signal.SIG_IGN)
         try:
-            with tempfile.NamedTemporaryFile() as testscript:
+            with tempfile.NamedTemporaryFile(mode="wt") as testscript:
                 testscript.write("""#!/bin/sh
 echo "one"
 kill -HUP $PPID
@@ -266,7 +266,7 @@ exit 0
             pass
         old_HUP_handler = signal.signal(signal.SIGHUP, _hup_handler)
         try:
-            with tempfile.NamedTemporaryFile() as testscript:
+            with tempfile.NamedTemporaryFile(mode="wt") as testscript:
                 testscript.write("""#!/bin/sh
 echo "one"
 kill -HUP $PPID
@@ -290,7 +290,7 @@ exit 0
 
         marker_text = "yo wassup man"
         # Create a temporary file that will be written before exec
-        with tempfile.NamedTemporaryFile() as testfile:
+        with tempfile.NamedTemporaryFile(mode="w+t") as testfile:
 
             # Write something to testfile to show this method was run
             def preexec():
@@ -313,7 +313,7 @@ exit 0
 
         marker_text = "yo wassup man"
         # Create a temporary file that will be written by the program
-        with tempfile.NamedTemporaryFile() as testfile:
+        with tempfile.NamedTemporaryFile(mode="w+t") as testfile:
             # Open a new copy of the file so that the child doesn't close and
             # delete the NamedTemporaryFile
             stdout = open(testfile.name, 'w')
@@ -328,7 +328,7 @@ exit 0
     def start_program_reset_handlers_test(self):
         """Test the reset_handlers parameter of startProgram."""
 
-        with tempfile.NamedTemporaryFile() as testscript:
+        with tempfile.NamedTemporaryFile(mode="w+t") as testscript:
             testscript.write("""#!/bin/sh
 # Just hang out and do nothing, forever
 while true ; do sleep 1 ; done
@@ -359,7 +359,7 @@ while true ; do sleep 1 ; done
     def exec_readlines_auto_kill_test(self):
         """Test execReadlines with reading only part of the output"""
 
-        with tempfile.NamedTemporaryFile() as testscript:
+        with tempfile.NamedTemporaryFile(mode="w+t") as testscript:
             testscript.write("""#!/bin/sh
 # Output forever
 while true; do
