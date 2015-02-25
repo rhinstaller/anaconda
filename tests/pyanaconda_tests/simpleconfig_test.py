@@ -34,7 +34,7 @@ KEY2="A single ' inside" # And comment "with quotes"
 """
 
     def comment_test(self):
-        with tempfile.NamedTemporaryFile() as testconfig:
+        with tempfile.NamedTemporaryFile(mode="wt") as testconfig:
             testconfig.write(self.TEST_CONFIG)
             testconfig.flush()
 
@@ -74,7 +74,7 @@ KEY2="A single ' inside" # And comment "with quotes"
         self.assertEqual(scf.get('key1'), '')
 
     def write_test(self):
-        with tempfile.NamedTemporaryFile() as testconfig:
+        with tempfile.NamedTemporaryFile(mode="wt") as testconfig:
             scf = SimpleConfigFile()
             scf.set(('key1', 'value1'))
             scf.write(testconfig.name)
@@ -82,7 +82,7 @@ KEY2="A single ' inside" # And comment "with quotes"
             self.assertEqual(open(testconfig.name).read(), 'KEY1=value1\n')
 
     def read_test(self):
-        with tempfile.NamedTemporaryFile() as testconfig:
+        with tempfile.NamedTemporaryFile(mode="wt") as testconfig:
             scf = SimpleConfigFile()
             open(testconfig.name, 'w').write('KEY1="value1"\n')
             testconfig.flush()
@@ -90,7 +90,7 @@ KEY2="A single ' inside" # And comment "with quotes"
             self.assertEqual(scf.get('key1'), 'value1')
 
     def read_write_test(self):
-        with tempfile.NamedTemporaryFile() as testconfig:
+        with tempfile.NamedTemporaryFile(mode="wt") as testconfig:
             testconfig.write(self.TEST_CONFIG)
             testconfig.flush()
 
@@ -101,7 +101,7 @@ KEY2="A single ' inside" # And comment "with quotes"
             self.assertEqual(open(testconfig.name).read(), self.TEST_CONFIG)
 
     def write_new_keys_test(self):
-        with tempfile.NamedTemporaryFile() as testconfig:
+        with tempfile.NamedTemporaryFile(mode="wt") as testconfig:
             testconfig.write(self.TEST_CONFIG)
             testconfig.flush()
 
@@ -115,7 +115,7 @@ KEY2="A single ' inside" # And comment "with quotes"
                              self.TEST_CONFIG+"KEY1=value1\n")
 
     def remove_key_test(self):
-        with tempfile.NamedTemporaryFile() as testconfig:
+        with tempfile.NamedTemporaryFile(mode="wt") as testconfig:
             testconfig.write(self.TEST_CONFIG)
             testconfig.flush()
 
