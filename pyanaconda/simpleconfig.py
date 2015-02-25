@@ -25,9 +25,11 @@
 import os
 import shutil
 import shlex
-from pipes import _safechars
+import string
 import tempfile
 from pyanaconda.iutil import upperASCII, eintr_retry_call
+
+_SAFECHARS = frozenset(string.ascii_letters + string.digits + '@%_-+=:,./')
 
 def unquote(s):
     return ' '.join(shlex.split(s))
@@ -37,7 +39,7 @@ def quote(s, always=False):
     """
     if not always:
         for c in s:
-            if c not in _safechars:
+            if c not in _SAFECHARS:
                 break
         else:
             return s
