@@ -686,10 +686,10 @@ class MiscTests(unittest.TestCase):
         self.assertEqual(iutil._toASCII(""), "")
         self.assertEqual(iutil._toASCII(" "), " ")
         self.assertEqual(iutil._toASCII("&@`'łŁ!@#$%^&*{}[]$'<>*"),
-                                        "&@`'\xc5\x82\xc5\x81!@#$%^&*{}[]$'<>*")
+                                        "&@`'!@#$%^&*{}[]$'<>*")
         self.assertEqual(iutil._toASCII("ABC"), "ABC")
         self.assertEqual(iutil._toASCII("aBC"), "aBC")
-        _out = "Heiz\xc3\xb6lr\xc3\xbccksto\xc3\x9fabd\xc3\xa4mpfung" 
+        _out = "Heizolruckstoabdampfung"
         self.assertEqual(iutil._toASCII("Heizölrückstoßabdämpfung"), _out)
 
     def upper_ascii_test(self):
@@ -700,8 +700,8 @@ class MiscTests(unittest.TestCase):
         self.assertEqual(iutil.upperASCII("A"),"A")
         self.assertEqual(iutil.upperASCII("aBc"),"ABC")
         self.assertEqual(iutil.upperASCII("_&*'@#$%^aBcžčŘ"),
-                                          "_&*'@#$%^ABC\xc5\xbe\xc4\x8d\xc5\x98")
-        _out = "HEIZ\xc3\xb6LR\xc3\xbcCKSTO\xc3\x9fABD\xc3\xa4MPFUNG"
+                                          "_&*'@#$%^ABCZCR")
+        _out = "HEIZOLRUCKSTOABDAMPFUNG"
         self.assertEqual(iutil.upperASCII("Heizölrückstoßabdämpfung"), _out)
 
 
@@ -712,8 +712,8 @@ class MiscTests(unittest.TestCase):
         self.assertEqual(iutil.lowerASCII("a"),"a")
         self.assertEqual(iutil.lowerASCII("aBc"),"abc")
         self.assertEqual(iutil.lowerASCII("_&*'@#$%^aBcžčŘ"),
-                                          "_&*'@#$%^abc\xc5\xbe\xc4\x8d\xc5\x98")
-        _out = "heiz\xc3\xb6lr\xc3\xbccksto\xc3\x9fabd\xc3\xa4mpfung"
+                                          "_&*'@#$%^abczcr")
+        _out = "heizolruckstoabdampfung"
         self.assertEqual(iutil.lowerASCII("Heizölrückstoßabdämpfung"), _out)
 
     def have_word_match_test(self):
