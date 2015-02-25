@@ -592,17 +592,9 @@ class MiscTests(unittest.TestCase):
     def strip_accents_test(self):
         """Test strip_accents."""
 
-        # string needs to be Unicode,
-        # otherwise TypeError is raised
-        with self.assertRaises(TypeError):
-            iutil.strip_accents("")
-        with self.assertRaises(TypeError):
-            iutil.strip_accents("abc")
-        with self.assertRaises(TypeError):
-            iutil.strip_accents("ěščřžýáíé")
-
-        # empty Unicode string
+        # empty string
         self.assertEquals(iutil.strip_accents(u""), u"")
+        self.assertEquals(iutil.strip_accents(""), "")
 
         # some Czech accents
         self.assertEquals(iutil.strip_accents(u"ěščřžýáíéúů"), u"escrzyaieuu")
@@ -670,17 +662,6 @@ class MiscTests(unittest.TestCase):
 
     def to_ascii_test(self):
         """Test _toASCII."""
-
-        # works with strings only, chokes on Unicode strings
-        with self.assertRaises(ValueError):
-            iutil._toASCII(u" ")
-        with self.assertRaises(ValueError):
-            iutil._toASCII(u"ABC")
-        with self.assertRaises(ValueError):
-            iutil._toASCII(u"Heizölrückstoßabdämpfung")
-
-        # but empty Unicode string is fine :)
-        iutil._toASCII(u"")
 
         # check some conversions
         self.assertEqual(iutil._toASCII(""), "")
