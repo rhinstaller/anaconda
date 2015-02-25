@@ -647,7 +647,7 @@ def getDirSize(directory):
                 dsize += sinfo[stat.ST_SIZE]
 
         return dsize
-    return getSubdirSize(directory)/1024
+    return getSubdirSize(directory) // 1024
 
 ## Create a directory path.  Don't fail if the directory already exists.
 def mkdirChain(directory):
