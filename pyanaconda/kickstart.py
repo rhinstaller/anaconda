@@ -933,6 +933,7 @@ class LogVolData(commands.logvol.F21_LogVolData):
             raise KickstartValueError(formatErrorMsg(self.lineno,
                     msg=_("The \"%s\" file system type is not supported.") % ty))
 
+        add_fstab_swap = None
         # If we were given a pre-existing LV to create a filesystem on, we need
         # to verify it and its VG exists and then schedule a new format action
         # to take place there.  Also, we only support a subset of all the
@@ -956,7 +957,7 @@ class LogVolData(commands.logvol.F21_LogVolData):
 
             devicetree.registerAction(ActionCreateFormat(device, fmt))
             if ty == "swap":
-                storage.addFstabSwap(device)
+                add_fstab_swap = device
         else:
             # If a previous device has claimed this mount point, delete the
             # old one.
@@ -1011,7 +1012,7 @@ class LogVolData(commands.logvol.F21_LogVolData):
 
             storage.createDevice(request)
             if ty == "swap":
-                storage.addFstabSwap(request)
+                add_fstab_swap = request
 
         if self.encrypted:
             if self.passphrase and not storage.encryptionPassphrase:
@@ -1038,7 +1039,15 @@ class LogVolData(commands.logvol.F21_LogVolData):
                 luksdev = LUKSDevice("luks%d" % storage.nextID,
                                      fmt=luksformat,
                                      parents=request)
+            if ty == "swap":
+                # swap is on the LUKS device not on the LUKS' parent device,
+                # override the info here
+                add_fstab_swap = luksdev
+
             storage.createDevice(luksdev)
+
+        if add_fstab_swap:
+            storage.addFstabSwap(add_fstab_swap)
 
 class Logging(commands.logging.FC6_Logging):
     def execute(self, *args):
@@ -1267,6 +1276,7 @@ class PartitionData(commands.partition.F18_PartData):
 
         kwargs["primary"] = self.primOnly
 
+        add_fstab_swap = None
         # If we were given a pre-existing partition to create a filesystem on,
         # we need to verify it exists and then schedule a new format action to
         # take place there.  Also, we only support a subset of all the options
@@ -1289,7 +1299,7 @@ class PartitionData(commands.partition.F18_PartData):
 
             devicetree.registerAction(ActionCreateFormat(device, kwargs["fmt"]))
             if ty == "swap":
-                storage.addFstabSwap(device)
+                add_fstab_swap = device
         # tmpfs mounts are not disks and don't occupy a disk partition,
         # so handle them here
         elif self.fstype == "tmpfs":
@@ -1315,7 +1325,7 @@ class PartitionData(commands.partition.F18_PartData):
 
             storage.createDevice(request)
             if ty == "swap":
-                storage.addFstabSwap(request)
+                add_fstab_swap = request
 
         if self.encrypted:
             if self.passphrase and not storage.encryptionPassphrase:
@@ -1342,7 +1352,16 @@ class PartitionData(commands.partition.F18_PartData):
                 luksdev = LUKSDevice("luks%d" % storage.nextID,
                                      fmt=luksformat,
                                      parents=request)
+
+            if ty == "swap":
+                # swap is on the LUKS device not on the LUKS' parent device,
+                # override the info here
+                add_fstab_swap = luksdev
+
             storage.createDevice(luksdev)
+
+        if add_fstab_swap:
+            storage.addFstabSwap(add_fstab_swap)
 
 class Raid(commands.raid.F20_Raid):
     def execute(self, storage, ksdata, instClass):
