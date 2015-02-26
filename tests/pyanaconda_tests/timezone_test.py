@@ -25,7 +25,7 @@ import mock
 class TimezonesListings(unittest.TestCase):
     def string_timezones_test(self):
         """Check if returned timezones are plain strings, not unicode objects."""
-        for (region, zones) in timezone.get_all_regions_and_timezones().iteritems():
+        for (region, zones) in timezone.get_all_regions_and_timezones().items():
             self.assertIsInstance(region, str)
 
             for zone in zones:
@@ -34,7 +34,7 @@ class TimezonesListings(unittest.TestCase):
     def all_timezones_valid_test(self):
         """Check if all returned timezones are considered valid timezones."""
 
-        for (region, zones) in timezone.get_all_regions_and_timezones().iteritems():
+        for (region, zones) in timezone.get_all_regions_and_timezones().items():
             for zone in zones:
                 self.assertTrue(timezone.is_valid_timezone(region + "/" + zone))
 
