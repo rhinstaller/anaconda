@@ -438,7 +438,7 @@ class LiveImageKSPayload(LiveImagePayload):
 
         cmd = "tar"
         # preserve: ACL's, xattrs, and SELinux context
-        args = ["--selinux", "--acls", "--xattrs",
+        args = ["--selinux", "--acls", "--xattrs", "--xattrs-include", "*",
                 "--exclude", "/dev/", "--exclude", "/proc/",
                 "--exclude", "/sys/", "--exclude", "/run/", "--exclude", "/boot/*rescue*",
                 "--exclude", "/etc/machine-id", "-xaf", self.image_path, "-C", iutil.getSysroot()]
