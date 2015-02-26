@@ -273,6 +273,7 @@ def _run_program(argv, root='/', stdin=None, stdout=None, env_prune=None, log_ou
             if binary_output:
                 output_lines = [output_string]
             else:
+                output_string = output_string.decode("utf-8")
                 if output_string[-1] != "\n":
                     output_string = output_string + "\n"
                 output_lines = output_string.splitlines(True)
@@ -431,7 +432,7 @@ def execReadlines(command, argv, stdin=None, root='/', env_prune=None):
 
         def next(self):
             # Read the next line, blocking if a line is not yet available
-            line = self._proc.stdout.readline()
+            line = self._proc.stdout.readline().decode("utf-8")
             if line == '':
                 # Output finished, wait for the process to end
                 self._proc.communicate()
