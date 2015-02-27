@@ -62,6 +62,9 @@ class AccountWindow (InstallWindow):
         if not self.rootPassword['isCrypted']:
             self.pw.set_text(self.rootPassword['password'])
             self.confirm.set_text(self.rootPassword['password'])
+        else:
+            self.pw.set_text("xxxxxxxx")
+            self.confirm.set_text("xxxxxxxx")
 
         # pressing Enter in confirm == clicking Next
         vbox = self.xml.get_widget("account_box")
@@ -95,6 +98,10 @@ class AccountWindow (InstallWindow):
             self.capslock.set_text("")
 
     def getNext (self):
+        # check if we already have an encrypted password from kickstart
+        if self.rootPassword["isCrypted"] and self.pw.get_text() == "xxxxxxxx":
+            return None
+
         pw = self.pw.get_text()
         confirm = self.confirm.get_text()
 
