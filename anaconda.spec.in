@@ -308,6 +308,24 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Fri Feb 27 2015 Brian C. Lane <bcl@redhat.com> - 23.1-1
+- Make sure python2 dnf is required (bcl)
+- Fix pykickstart requirement. (clumens)
+- Extract xattrs from tar payload (#1195462) (bcl)
+- Add a script to rebase and merge pull requests (dshea)
+- Update translation documentation for Zanata (bcl)
+- Switch translation support to fedora.zanata.org (bcl)
+- install.py: fix the 'is team device' check (awilliam)
+- Explain why Anaconda requires rpm-devel and libarchive-devel during build
+  (mkolman)
+- Revert "Switch to temporary transifex branch" (bcl)
+- Revert "makebumpver needs to know about anaconda-1 transifex name" (bcl)
+- Commit 23.0 anaconda.pot file (bcl)
+- Rename queue.py to queuefactory.py. (clumens)
+- Remove references to old_tests, which no longer exists. (clumens)
+- Fix package and group removing with the dnf payload. (clumens)
+- Don't try to run new-kernel-pkg if it doesn't exist. (clumens)
+
 * Fri Feb 20 2015 Brian C. Lane <bcl@redhat.com> - 23.0-1
 - Remove unused imports (dshea)
 - Check for unused imports in __init__ files (dshea)

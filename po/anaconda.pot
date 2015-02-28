@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anaconda 23.0\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
-"POT-Creation-Date: 2015-02-20 17:54-0800\n"
+"POT-Creation-Date: 2015-02-27 17:00-0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -425,9 +425,9 @@ msgstr ""
 msgid "Installing boot loader"
 msgstr ""
 
-#: pyanaconda/install.py:260 pyanaconda/packaging/livepayload.py:174
+#: pyanaconda/install.py:260 pyanaconda/packaging/livepayload.py:178
 #: pyanaconda/packaging/yumpayload.py:1371
-#: pyanaconda/packaging/dnfpayload.py:648
+#: pyanaconda/packaging/dnfpayload.py:622
 msgid "Performing post-installation setup tasks"
 msgstr ""
 
@@ -1218,15 +1218,15 @@ msgid ""
 "Please enter a new one, or leave blank for no password."
 msgstr ""
 
-#: pyanaconda/packaging/__init__.py:1113
+#: pyanaconda/packaging/__init__.py:1121
 msgid "Failed to set up installation source"
 msgstr ""
 
-#: pyanaconda/packaging/__init__.py:1114
+#: pyanaconda/packaging/__init__.py:1122
 msgid "Error downloading package metadata"
 msgstr ""
 
-#: pyanaconda/packaging/__init__.py:1115
+#: pyanaconda/packaging/__init__.py:1123
 msgid "No installation source available"
 msgstr ""
 
@@ -1235,13 +1235,13 @@ msgstr ""
 msgid "Installing software"
 msgstr ""
 
-#: pyanaconda/packaging/livepayload.py:226
-#: pyanaconda/packaging/livepayload.py:235
+#: pyanaconda/packaging/livepayload.py:230
+#: pyanaconda/packaging/livepayload.py:239
 #, python-format
 msgid "Downloading %(url)s (%(pct)d%%)"
 msgstr ""
 
-#: pyanaconda/packaging/livepayload.py:381
+#: pyanaconda/packaging/livepayload.py:385
 msgid "Checking image checksum"
 msgstr ""
 
@@ -1251,12 +1251,12 @@ msgid "CmdlineError: Missing package: %s"
 msgstr ""
 
 #: pyanaconda/packaging/yumpayload.py:1331
-#: pyanaconda/packaging/dnfpayload.py:602
+#: pyanaconda/packaging/dnfpayload.py:576
 msgid "Starting package installation process"
 msgstr ""
 
 #: pyanaconda/packaging/yumpayload.py:1369
-#: pyanaconda/packaging/dnfpayload.py:631
+#: pyanaconda/packaging/dnfpayload.py:605
 msgid "Preparing transaction from installation source"
 msgstr ""
 
@@ -1271,11 +1271,11 @@ msgid ""
 "(%(percent)d%%) done."
 msgstr ""
 
-#: pyanaconda/packaging/dnfpayload.py:619
+#: pyanaconda/packaging/dnfpayload.py:593
 msgid "Downloading packages"
 msgstr ""
 
-#: pyanaconda/packaging/dnfpayload.py:641
+#: pyanaconda/packaging/dnfpayload.py:615
 #, python-format
 msgid "Installing %s"
 msgstr ""
