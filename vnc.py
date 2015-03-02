@@ -215,7 +215,7 @@ class VncServer:
             rc = self.setVNCPassword()
 
         # Lets start the xvnc.
-        xvnccommand =  [ "Xvnc", ":%s" % self.display, "-nevershared",
+        xvnccommand =  [ "Xvnc", ":%s" % self.display,
                         "-depth", "16", "-br",
                         "IdleTimeout=0", "-auth", "/dev/null", "-once",
                         "DisconnectClients=false", "desktop=%s" % (self.desktop,),
