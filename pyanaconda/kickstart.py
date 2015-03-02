@@ -390,12 +390,12 @@ class Bootloader(commands.bootloader.F21_Bootloader):
         if self.timeout is not None:
             storage.bootloader.timeout = self.timeout
 
-        # Throw out drives specified that don't exist or cannot be used (iSCSI
-        # device on an s390 machine)
-        disk_names = [d.name for d in storage.disks
-                      if not d.format.hidden and not d.protected and
-                      (not blivet.arch.isS390() or not isinstance(d, blivet.devices.iScsiDiskDevice))]
-        diskSet = set(disk_names)
+        # Find available disks, excluding iSCSI devices on s390 (not usable).
+        disks = [d for d in storage.disks
+           if not d.format.hidden and not d.protected and
+           (not blivet.arch.isS390() or not isinstance(d, blivet.devices.iScsiDiskDevice))]
+
+        diskSet = set(d.name for d in disks)
 
         for drive in self.driveorder[:]:
             matches = set(deviceMatches(drive, devicetree=storage.devicetree))
@@ -415,7 +415,36 @@ class Bootloader(commands.bootloader.F21_Bootloader):
                 raise KickstartValueError(formatErrorMsg(self.lineno,
                         msg=_("Requested boot drive \"%s\" doesn't exist or cannot be used.") % self.bootDrive))
         else:
-            self.bootDrive = disk_names[0]
+            # Find disks that satisfy boot disk constraints for this platform.
+            s1disks = None
+            if platform.bootStage1ConstraintDict["mountpoints"]:
+                s1disks = set(vol.disk for vol in storage.devices if
+                   getattr(vol.format, "mountpoint", None) in
+                   platform.bootStage1ConstraintDict["mountpoints"])
+
+            # For now we are not applying this logic to platforms that
+            # constrain the stage1 partition's format type but not its mount
+            # point, so we only use this set to further refine the valid
+            # targets if there was also a mountpoint constraint.
+            if s1disks and platform.bootStage1ConstraintDict["format_types"]:
+                properly_formatted = set(vol.disk for vol in storage.devices if
+                   getattr(vol.format, "type", None) in
+                   platform.bootStage1ConstraintDict["format_types"])
+                s1disks = properly_formatted.intersection(s1disks)
+
+            # Pick the first satisfying disk from the available disks.
+            # s1disks is None means the platform places no constraints on
+            # the boot device, so pick the first one.
+            # s1disks is empty means no device satisfies the constraints.
+            # In either case, it is best to choose some bootDrive, rather than
+            # raise an exception. It may be that no disk satisfies the
+            # constraints because this method has been called before
+            # partitioning, so that various relevant attributes have not yet
+            # been set on the devices.
+            if s1disks is not None:
+                self.bootDrive = next((d for d in disks if d in s1disks), disks[0]).name
+            else:
+                self.bootDrive = disks[0].name
 
         drive = storage.devicetree.resolveDevice(self.bootDrive)
         storage.bootloader.stage1_disk = drive
