@@ -562,11 +562,11 @@ class Realm(commands.realm.F19_Realm):
             # no explicit password arg using implicit --no-password
             pw_args = ["--no-password"]
 
-        argv = ["realm", "join", "--install", iutil.getSysroot(), "--verbose"] + \
+        argv = ["join", "--install", iutil.getSysroot(), "--verbose"] + \
                pw_args + self.join_args
         rc = -1
         try:
-            rc = iutil.execWithRedirect("realm", argv)[0]
+            rc = iutil.execWithRedirect("realm", argv)
         except OSError:
             pass
 
