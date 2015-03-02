@@ -691,7 +691,7 @@ reposdir=%s
         url = repo.baseurl
         if url and url.startswith("nfs://"):
             # Let the assignment throw ValueError for bad NFS urls from kickstart
-            (server, path) = url.strip("nfs://").split(":", 1)
+            (server, path) = url[6:].split(":", 1)
             mountpoint = "%s/%s.nfs" % (MOUNT_DIR, repo.name)
             self._setupNFS(mountpoint, server, path, None)
 

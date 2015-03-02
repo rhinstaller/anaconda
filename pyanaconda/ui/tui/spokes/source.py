@@ -315,7 +315,7 @@ class SpecifyNFSRepoSpoke(EditTUISpoke, SourceSwitchHandler):
             return False
 
         if self.args.server.startswith("nfs://"):
-            self.args.server = self.args.server.strip("nfs://")
+            self.args.server = self.args.server[6:]
 
         try:
             (self.data.method.server, self.data.method.dir) = self.args.server.split(":", 2)
