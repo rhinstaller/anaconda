@@ -74,7 +74,7 @@ KEEPIT=${KEEPIT:-0}
 # NOTE:  You will also need to add these to the list in /etc/sudoers
 # if you are using env_reset there, or they will not get passed from
 # this script to parallel.
-env_args="--env TEST_OSTREE_REPO"
+env_args="--env TEST_OSTREE_REPO --env TEST_NFS_SERVER --env TEST_NFS_PATH --env TEST_ADDON_NFS_REPO --env TEST_ADDON_HTTP_REPO"
 
 # Round up all the kickstart tests we want to run, skipping those that are not
 # executable as well as this file itself.
