@@ -121,7 +121,7 @@ if [[ "$TEST_REMOTES" != "" ]]; then
             scp -r kstest@${remote}:/var/tmp/kstest-\* /var/tmp/
         fi
 
-        ssh kstest@${remote} rm -rf kickstart_tests /var/tmp/kstest-\*
+        ssh kstest@${remote} sudo rm -rf kickstart_tests /var/tmp/kstest-\*
     done
 
     # (3a) And then also remove the copy of the image we made earlier.
