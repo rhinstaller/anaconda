@@ -98,7 +98,7 @@ static void anaconda_disk_overview_class_init(AnacondaDiskOverviewClass *klass) 
     /**
      * AnacondaDiskOverview:kind:
      *
-     * The :kind string specifies what type of disk device this is, used to
+     * The #AnacondaDiskOverview:kind string specifies what type of disk device this is, used to
      * figure out what icon to be displayed.  This should be something like
      * "drive-harddisk", "drive-removable-media", etc.
      *
@@ -115,7 +115,7 @@ static void anaconda_disk_overview_class_init(AnacondaDiskOverviewClass *klass) 
     /**
      * AnacondaDiskOverview:description:
      *
-     * The :description string is a very basic description of the device
+     * The #AnacondaDiskOverview:description string is a very basic description of the device
      * and is displayed in bold letters under the icon.
      *
      * Since: 1.0
@@ -131,7 +131,7 @@ static void anaconda_disk_overview_class_init(AnacondaDiskOverviewClass *klass) 
     /**
      * AnacondaDiskOverview:capacity:
      *
-     * The :capacity string is the total size of the disk, plus units.
+     * The #AnacondaDiskOverview:capacity string is the total size of the disk, plus units.
      *
      * Since: 1.0
      */
@@ -146,7 +146,7 @@ static void anaconda_disk_overview_class_init(AnacondaDiskOverviewClass *klass) 
     /**
      * AnacondaDiskOverview:free:
      *
-     * The :free string is the amount of free, unpartitioned space on the disk,
+     * The #AnacondaDiskOverview:free string is the amount of free, unpartitioned space on the disk,
      * plus units.
      *
      * Since: 1.0
@@ -162,7 +162,7 @@ static void anaconda_disk_overview_class_init(AnacondaDiskOverviewClass *klass) 
     /**
      * AnacondaDiskOverview:name:
      *
-     * The :name string provides this device's node name (like 'sda').  Note
+     * The #AnacondaDiskOverview:name string provides this device's node name (like 'sda').  Note
      * that these names aren't guaranteed to be consistent across reboots but
      * their use is so ingrained that we need to continue displaying them.
      *
@@ -179,7 +179,7 @@ static void anaconda_disk_overview_class_init(AnacondaDiskOverviewClass *klass) 
     /**
      * AnacondaDiskOverview:popup-info:
      *
-     * The :popup-info string is text that should appear in a tooltip when the
+     * The #AnacondaDiskOverview:popup-info string is text that should appear in a tooltip when the
      * #AnacondaDiskOverview is hovered over.  For normal disk devices, this
      * could be available space information.  For more complex devics, this
      * could be WWID, LUN, and so forth.
