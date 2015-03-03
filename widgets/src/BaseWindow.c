@@ -131,6 +131,7 @@ static void anaconda_base_window_get_property(GObject *object, guint prop_id, GV
 static void anaconda_base_window_set_property(GObject *object, guint prop_id, const GValue *value, GParamSpec *pspec);
 static void anaconda_base_window_buildable_init(GtkBuildableIface *iface);
 static void format_beta_label(AnacondaBaseWindow *window, const char *markup);
+static gboolean anaconda_base_window_info_activate_link(GtkLabel *label, gchar *uri, gpointer user_data);
 
 static gboolean anaconda_base_window_info_bar_clicked(GtkWidget *widget, GdkEvent *event, AnacondaBaseWindow *win);
 static void anaconda_base_window_help_button_clicked(GtkButton *button, AnacondaBaseWindow *win);
@@ -188,6 +189,11 @@ static void anaconda_base_window_class_init(AnacondaBaseWindowClass *klass) {
      * Emitted when a visible info bar at the bottom of the window has been clicked
      * (pressed and released).  This allows, for instance, popping up a dialog with
      * more detailed information.
+     *
+     * Activatable info bars are encouraged to include a link in the message for the
+     * purpose of keyboard navigation.  Clicking the link will emit the
+     * info-bar-clicked signal. See anaconda_base_window_set_error() for more
+     * information.
      *
      * Since: 1.0
      */
@@ -570,7 +576,14 @@ static void anaconda_base_window_set_info_bar(AnacondaBaseWindow *win, GtkMessag
     label = gtk_label_new(_(msg));
     gtk_label_set_line_wrap(GTK_LABEL(label), TRUE);
     gtk_label_set_line_wrap_mode(GTK_LABEL(label), PANGO_WRAP_WORD);
+    gtk_label_set_use_markup(GTK_LABEL(label), TRUE);
     gtk_widget_show(label);
+
+    /* Connect the activate-link signal to ignore actual link clicks. The part
+     * of the click we care about will be handled by the event box
+     */
+    g_signal_connect(label, "activate-link",
+            G_CALLBACK(anaconda_base_window_info_activate_link), win);
 
     win->priv->info_bar = gtk_info_bar_new();
     gtk_widget_set_no_show_all(win->priv->info_bar, TRUE);
@@ -585,8 +598,8 @@ static void anaconda_base_window_set_info_bar(AnacondaBaseWindow *win, GtkMessag
      * custom signal for the whole window.  It will be disconnected when the info
      * bar is hidden.
      */
-    gtk_widget_add_events(GTK_WIDGET(win->priv->event_box), GDK_BUTTON_RELEASE_MASK);
-    g_signal_connect(win->priv->event_box, "button-release-event",
+    gtk_widget_add_events(GTK_WIDGET(win->priv->event_box), GDK_BUTTON_PRESS_MASK);
+    g_signal_connect(win->priv->event_box, "button-press-event",
                      G_CALLBACK(anaconda_base_window_info_bar_clicked), win);
 
     content_area = gtk_info_bar_get_content_area(GTK_INFO_BAR(win->priv->info_bar));
@@ -603,6 +616,12 @@ static void anaconda_base_window_set_info_bar(AnacondaBaseWindow *win, GtkMessag
     win->priv->info_shown = TRUE;
 }
 
+static gboolean anaconda_base_window_info_activate_link(GtkLabel *label, gchar *uri, gpointer win) {
+    /* Ignore the actual URI and emit info-bar-clicked on the window */
+    g_signal_emit(win, window_signals[SIGNAL_INFO_BAR_CLICKED], 0);
+    return TRUE;
+}
+
 /**
  * anaconda_base_window_set_error:
  * @win: a #AnacondaBaseWindow
@@ -611,6 +630,12 @@ static void anaconda_base_window_set_info_bar(AnacondaBaseWindow *win, GtkMessag
  * Causes an info bar to be shown at the bottom of the screen with the provided
  * message.  Only one message may be shown at a time.  In order to show
  * a second message, anaconda_base_window_clear_info() must first be called.
+ *
+ * The message will be interpreted as Pango markup. Clickable messages are
+ * encouraged to include a clickable link using the #GtkLabel syntax in order
+ * to make the info bar accessible via the keyboard. The link URI will be
+ * ignored, and all link clicks will emit the
+ * #AnacondaBaseWindow::info-bar-clicked signal on @win.
  *
  * Since: 1.0
  */
@@ -627,6 +652,12 @@ void anaconda_base_window_set_error(AnacondaBaseWindow *win, const char *msg) {
  * message.  Only one message may be shown at a time.  In order to show
  * a second message, anaconda_base_window_clear_info() must first be called.
  *
+ * The message will be interpreted as Pango markup. Clickable messages are
+ * encouraged to include a clickable link using the #GtkLabel syntax in order
+ * to make the info bar accessible via the keyboard. The link URI will be
+ * ignored, and all link clicks will emit the
+ * #AnacondaBaseWindow::info-bar-clicked signal on @win.
+ *
  * Since: 1.0
  */
 void anaconda_base_window_set_info(AnacondaBaseWindow *win, const char *msg) {
@@ -641,6 +672,12 @@ void anaconda_base_window_set_info(AnacondaBaseWindow *win, const char *msg) {
  * Causes an info bar to be shown at the bottom of the screen with the provided
  * message.  Only one message may be shown at a time.  In order to show
  * a second message, anaconda_base_window_clear_info() must first be called.
+ *
+ * The message will be interpreted as Pango markup. Clickable messages are
+ * encouraged to include a clickable link using the #GtkLabel syntax in order
+ * to make the info bar accessible via the keyboard. The link URI will be
+ * ignored, and all link clicks will emit the
+ * #AnacondaBaseWindow::info-bar-clicked signal on @win.
  *
  * Since: 1.0
  */
