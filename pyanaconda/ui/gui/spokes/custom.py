@@ -106,10 +106,10 @@ NOTEBOOK_INCOMPLETE_PAGE = 4
 NEW_CONTAINER_TEXT = N_("Create a new %(container_type)s ...")
 CONTAINER_TOOLTIP = N_("Create or select %(container_type)s")
 
-DEVICE_CONFIGURATION_ERROR_MSG = N_("Device reconfiguration failed. Click for "
-                                    "details.")
+DEVICE_CONFIGURATION_ERROR_MSG = N_("Device reconfiguration failed. <a href=\"\">Click for "
+                                    "details.</a>")
 UNRECOVERABLE_ERROR_MSG = N_("Storage configuration reset due to unrecoverable "
-                             "error. Click for details.")
+                             "error. <a href=\"\">Click for details.</a>")
 
 def dev_type_from_const(dev_type_const):
     return getattr(devicefactory, dev_type_const, None)
@@ -744,7 +744,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
                 device.size = old_size
                 self._error = e
                 self.set_warning(_("Device resize request failed. "
-                                   "Click for details."))
+                                   "<a href=\"\">Click for details.</a>"))
                 self.window.show_all()
             else:
                 _changed_size = True
@@ -815,7 +815,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
             device.format = old_format
             self._error = e
             self.set_warning(_("Device reformat request failed. "
-                               "Click for details."))
+                               "<a href=\"\">Click for details.</a>"))
             self.window.show_all()
         else:
             # first, remove this selector from any old install page(s)
@@ -1500,9 +1500,9 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         StorageChecker.checkStorage(self)
 
         if self.errors:
-            self.set_warning(_("Error checking storage configuration.  Click for details or press Done again to continue."))
+            self.set_warning(_("Error checking storage configuration.  <a href=\"\">Click for details</a> or press Done again to continue."))
         elif self.warnings:
-            self.set_warning(_("Warning checking storage configuration.  Click for details or press Done again to continue."))
+            self.set_warning(_("Warning checking storage configuration.  <a href=\"\">Click for details</a> or press Done again to continue."))
 
         # on_info_bar_clicked requires self._error to be set, so set it to the
         # list of all errors and warnings that storage checking found.
@@ -1623,8 +1623,8 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
 
             if e:
                 self._error = e
-                self.set_error(_("Failed to add new device. Click for "
-                                 "details."))
+                self.set_error(_("Failed to add new device. <a href=\"\">Click for "
+                                 "details.</a>"))
                 self.window.show_all()
         except OverflowError as e:
             log.error("invalid size set for partition")
@@ -1739,8 +1739,8 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         except StorageError as e:
             log.error("failed to schedule device removal: %s", e)
             self._error = e
-            self.set_warning(_("Device removal request failed. Click "
-                               "for details."))
+            self.set_warning(_("Device removal request failed. <a href=\"\">Click "
+                               "for details.</a>"))
             self.window.show_all()
             return
         else:
@@ -2242,8 +2242,8 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
             log.error("doAutoPartition failed: %s", e)
             self._reset_storage()
             self._error = e
-            self.set_error(_("Automatic partitioning failed. Click "
-                             "for details."))
+            self.set_error(_("Automatic partitioning failed. <a href=\"\">Click "
+                             "for details.</a>"))
             self.window.show_all()
         else:
             self._devices = self._storage_playground.devices
@@ -2268,8 +2268,8 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
             log.error("doAutoPartition failed: %s", messages)
             self._reset_storage()
             self._error = messages
-            self.set_error(_("Automatic partitioning failed. Click "
-                             "for details."))
+            self.set_error(_("Automatic partitioning failed. <a href=\"\">Click "
+                             "for details.</a>"))
             self.window.show_all()
 
     def on_create_clicked(self, button, autopartTypeCombo):
@@ -2556,7 +2556,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
             device.format.passphrase = None
             self._passphraseEntry.set_text("")
             self.set_warning(_("Failed to unlock encrypted block device. "
-                               "Click for details"))
+                               "<a href=\"\">Click for details.</a>"))
             self.window.show_all()
             return
 

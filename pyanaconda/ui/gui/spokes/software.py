@@ -353,7 +353,7 @@ class SoftwareSelectionSpoke(NormalSpoke):
         self._selectFlag = True
 
         if self._errorMsgs:
-            self.set_warning(_("Error checking software dependencies.  Click for details."))
+            self.set_warning(_("Error checking software dependencies.  <a href=\"\">Click for details.</a>"))
         else:
             self.clear_info()
 

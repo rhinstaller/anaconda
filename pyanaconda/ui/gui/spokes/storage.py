@@ -502,9 +502,9 @@ class StorageSpoke(NormalSpoke, StorageChecker):
         self._update_summary()
 
         if self.errors:
-            self.set_warning(_("Error checking storage configuration.  Click for details."))
+            self.set_warning(_("Error checking storage configuration.  <a href=\"\">Click for details.</a>"))
         elif self.warnings:
-            self.set_warning(_("Warning checking storage configuration.  Click for details."))
+            self.set_warning(_("Warning checking storage configuration.  <a href=\"\">Click for details.</a>"))
         self.window.show_all()
 
     def initialize(self):
