@@ -89,7 +89,7 @@ static void anaconda_spoke_selector_class_init(AnacondaSpokeSelectorClass *klass
     /**
      * AnacondaSpokeSelector:icon:
      *
-     * The :icon string is the standard icon name for an icon to display
+     * The #AnacondaSpokeSelector:icon string is the standard icon name for an icon to display
      * beside this spoke's :title.  It is strongly suggested that one of the
      * "-symbolic" icons be used, as that is consistent with the style we
      * are going for.
@@ -107,10 +107,11 @@ static void anaconda_spoke_selector_class_init(AnacondaSpokeSelectorClass *klass
     /**
      * AnacondaSpokeSelector:status:
      *
-     * The :status string is text displayed underneath the spoke's :title and
-     * also beside the :icon.  This text very briefly describes what has been
-     * selected on the spoke associated with this selector.  For instance, it
-     * might be set up to "English" for a language-related spoke.  Special
+     * The #AnacondaSpokeSelector:status string is text displayed underneath
+     * the spoke's #AnacondaSpokeSelector:title and also beside the
+     * #AnacondaSpokeSelector:icon.  This text very briefly describes what has
+     * been selected on the spoke associated with this selector.  For instance,
+     * it might be set up to "English" for a language-related spoke.  Special
      * formatting will be applied to error status text for incomplete spokes.
      *
      * Since: 1.0

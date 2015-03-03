@@ -84,7 +84,8 @@ static void anaconda_base_standalone_class_init(AnacondaBaseStandaloneClass *kla
      * AnacondaBaseStandalone::quit-clicked:
      * @window: the window that received the signal
      *
-     * Emitted when the quit button has been activated (pressed and released).
+     * Emitted when the #AnacondaBaseStandalone:quit-button has been activated
+     * (pressed and released).
      *
      * Since: 3.0
      */
@@ -100,7 +101,8 @@ static void anaconda_base_standalone_class_init(AnacondaBaseStandaloneClass *kla
      * AnacondaBaseStandalone::continue-clicked:
      * @window: the window that received the signal
      *
-     * Emitted when the continue button has been activated (pressed and released).
+     * Emitted when the #AnacondaBaseStandalone:continue-button has been
+     * activated (pressed and released).
      *
      * Since: 3.0
      */

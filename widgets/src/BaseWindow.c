@@ -147,7 +147,7 @@ static void anaconda_base_window_class_init(AnacondaBaseWindowClass *klass) {
     /**
      * AnacondaBaseWindow:distribution:
      *
-     * The :distribution string is displayed in the upper right corner of all
+     * The #AnacondaBaseWindow:distribution string is displayed in the upper right corner of all
      * windows throughout installation.
      *
      * Since: 1.0
@@ -610,7 +610,7 @@ static void anaconda_base_window_set_info_bar(AnacondaBaseWindow *win, GtkMessag
  *
  * Causes an info bar to be shown at the bottom of the screen with the provided
  * message.  Only one message may be shown at a time.  In order to show
- * a second message, anaconda_base_window_clear_info must first be called.
+ * a second message, anaconda_base_window_clear_info() must first be called.
  *
  * Since: 1.0
  */
@@ -625,7 +625,7 @@ void anaconda_base_window_set_error(AnacondaBaseWindow *win, const char *msg) {
  *
  * Causes an info bar to be shown at the bottom of the screen with the provided
  * message.  Only one message may be shown at a time.  In order to show
- * a second message, anaconda_base_window_clear_info must first be called.
+ * a second message, anaconda_base_window_clear_info() must first be called.
  *
  * Since: 1.0
  */
@@ -640,7 +640,7 @@ void anaconda_base_window_set_info(AnacondaBaseWindow *win, const char *msg) {
  *
  * Causes an info bar to be shown at the bottom of the screen with the provided
  * message.  Only one message may be shown at a time.  In order to show
- * a second message, anaconda_base_window_clear_info must first be called.
+ * a second message, anaconda_base_window_clear_info() must first be called.
  *
  * Since: 1.0
  */
@@ -663,7 +663,7 @@ static void anaconda_base_window_help_button_clicked(GtkButton *button,
  * @win: a #AnacondaBaseWindow
  *
  * Clear and hide any info bar being shown at the bottom of the screen.  This
- * must be called before a second call to anaconda_base_window_set_info takes
+ * must be called before a second call to anaconda_base_window_set_info() takes
  * effect.
  *
  * Since: 1.0
