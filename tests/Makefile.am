@@ -57,6 +57,7 @@ dist_check_SCRIPTS = $(srcdir)/glade/*/*.py \
 TESTS = nosetests.sh \
 	pylint/runpylint.sh \
 	cppcheck/runcppcheck.sh \
+	gettext/click.py \
 	gettext/gettext_warnings.sh \
 	gettext/gettext_potfiles.py \
 	gettext/style_guide.py \
