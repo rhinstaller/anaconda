@@ -223,6 +223,27 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Tue Mar 03 2015 Samantha N. Bueno <sbueno+anaconda@redhat.com> - 13.21.232-1
+- Remove even more drivers for ppc64 32M limit (bcl)
+  Resolves: rhbz#1198173
+- Fix detection of unformatted and LDL DASDs. (sbueno+anaconda)
+  Resolves: rhbz#1144979
+- On interactive kickstart installs, still get the password from the ks file.
+  (clumens)
+  Resolves: rhbz#995531
+- Enable sharing of the VNC server. (sbueno+anaconda)
+  Resolves: rhbz#1168024
+- RHEL6 Basic Video Driver Install to Windows2012 VM Fails (rmarshall)
+  Resolves: rhbz#1083586
+- dracut needs iscsi_firmware cmdline arg (bcl)
+  Resolves: rhbz#1185792
+- Exclude prelink package in FIPS mode (bcl)
+  Resolves: rhbz#697938
+- Handle NoneType Exception after deleting PPC partitions (rmarshall)
+  Resolves: rhbz#1021445
+- Bring support for nicdelay back using NM's GATEWAY_PING_TIMEOUT (rvykydal)
+  Resolves: rhbz#979163
+
 * Thu Feb 12 2015 Samantha N. Bueno <sbueno+anaconda@redhat.com> - 13.21.231-1
 - Add support for lvm thin provisioning via ks custom storage. (dlehman)
   Resolves: rhbz#1083459

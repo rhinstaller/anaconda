@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: anaconda 13.21.230\n"
+"Project-Id-Version: anaconda 13.21.231\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
-"POT-Creation-Date: 2015-02-12 13:37-0500\n"
+"POT-Creation-Date: 2015-03-03 14:02-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -41,9 +41,9 @@ msgstr ""
 #: loader/loader.c:591 loader/loader.c:1246 loader/loader.c:1275
 #: loader/loader.c:1490 loader/mediacheck.c:46 loader/mediacheck.c:85
 #: loader/mediacheck.c:92 loader/mediacheck.c:96 loader/mediacheck.c:105
-#: loader/method.c:277 loader/method.c:351 loader/net.c:607 loader/net.c:991
-#: loader/net.c:1802 loader/net.c:1826 loader/net.c:2184 loader/net.c:2203
-#: loader/net.c:2215 loader/nfsinstall.c:91 loader/nfsinstall.c:279
+#: loader/method.c:277 loader/method.c:351 loader/net.c:610 loader/net.c:994
+#: loader/net.c:1810 loader/net.c:1834 loader/net.c:2192 loader/net.c:2211
+#: loader/net.c:2223 loader/nfsinstall.c:91 loader/nfsinstall.c:279
 #: loader/nfsinstall.c:296 loader/nfsinstall.c:384 loader/telnetd.c:92
 #: loader/urlinstall.c:142 loader/urlinstall.c:164 loader/urlinstall.c:226
 #: loader/urlinstall.c:379 loader/urlinstall.c:390 loader/urlinstall.c:397
@@ -97,8 +97,8 @@ msgstr ""
 
 #: bootloader.py:55 bootloader.py:245 bootloader.py:251 bootloader.py:258
 #: gui.py:1253 image.py:92 installinterfacebase.py:66 network.py:940
-#: text.py:490 text.py:550 yuminstall.py:1642 yuminstall.py:1851
-#: yuminstall.py:1886 iw/blpasswidget.py:154 iw/upgrade_swap_gui.py:190
+#: text.py:490 text.py:550 yuminstall.py:1643 yuminstall.py:1852
+#: yuminstall.py:1887 iw/blpasswidget.py:154 iw/upgrade_swap_gui.py:190
 #: iw/upgrade_swap_gui.py:198 iw/upgrade_swap_gui.py:205
 #: textw/upgrade_text.py:196
 msgid "Warning"
@@ -116,15 +116,15 @@ msgstr ""
 #: installinterfacebase.py:109 livecd.py:143 livecd.py:385 packages.py:162
 #: upgrade.py:58 upgrade.py:199 yuminstall.py:272 yuminstall.py:1109
 #: yuminstall.py:1114 yuminstall.py:1197 yuminstall.py:1203 yuminstall.py:1361
-#: yuminstall.py:1388 yuminstall.py:1449 yuminstall.py:1638 yuminstall.py:1668
-#: yuminstall.py:1691 storage/__init__.py:106 storage/__init__.py:112
+#: yuminstall.py:1388 yuminstall.py:1449 yuminstall.py:1639 yuminstall.py:1669
+#: yuminstall.py:1692 storage/__init__.py:106 storage/__init__.py:112
 #: storage/__init__.py:114 storage/__init__.py:222 storage/__init__.py:275
 #: storage/__init__.py:2164
 msgid "_Exit installer"
 msgstr ""
 
 #: bootloader.py:60 image.py:102 image.py:265 kickstart.py:1619
-#: kickstart.py:1666 upgrade.py:58 yuminstall.py:1454 yuminstall.py:1638
+#: kickstart.py:1666 upgrade.py:58 yuminstall.py:1454 yuminstall.py:1639
 #: iw/partition_gui.py:1643 storage/__init__.py:2165
 msgid "_Continue"
 msgstr ""
@@ -264,7 +264,7 @@ msgid ""
 msgstr ""
 
 #: gui.py:726 gui.py:1521 partIntfHelpers.py:160 partIntfHelpers.py:345
-#: text.py:100 text.py:101 iw/account_gui.py:131 loader/dirbrowser.c:128
+#: text.py:100 text.py:101 iw/account_gui.py:138 loader/dirbrowser.c:128
 #: loader/driverdisk.c:479 loader/kickstart.c:336 loader/loader.c:479
 #: loader/loader.c:591 textw/constants_text.py:48 textw/userauth_text.py:87
 msgid "Cancel"
@@ -372,7 +372,7 @@ msgid "_Exit"
 msgstr ""
 
 #: gui.py:1433 image.py:176 image.py:208 livecd.py:143 yuminstall.py:976
-#: yuminstall.py:1388 yuminstall.py:1449 yuminstall.py:1668
+#: yuminstall.py:1388 yuminstall.py:1449 yuminstall.py:1669
 msgid "_Retry"
 msgstr ""
 
@@ -380,7 +380,7 @@ msgstr ""
 msgid "The system will now reboot."
 msgstr ""
 
-#: gui.py:1436 image.py:265 packages.py:374 yuminstall.py:1709
+#: gui.py:1436 image.py:265 packages.py:374 yuminstall.py:1710
 msgid "_Reboot"
 msgstr ""
 
@@ -463,15 +463,15 @@ msgid ""
 msgstr ""
 
 #: image.py:265 livecd.py:384 packages.py:374 upgrade.py:198
-#: yuminstall.py:1114 yuminstall.py:1203 yuminstall.py:1640 yuminstall.py:1691
-#: yuminstall.py:1709 storage/__init__.py:114 ui/anaconda.glade.h:2
+#: yuminstall.py:1114 yuminstall.py:1203 yuminstall.py:1641 yuminstall.py:1692
+#: yuminstall.py:1710 storage/__init__.py:114 ui/anaconda.glade.h:2
 msgid "_Back"
 msgstr ""
 
 #: image.py:304 livecd.py:136 livecd.py:378 partIntfHelpers.py:240 text.py:359
 #: text.py:363 yuminstall.py:447 yuminstall.py:992 yuminstall.py:1107
-#: yuminstall.py:1112 yuminstall.py:1392 yuminstall.py:1459 yuminstall.py:1662
-#: yuminstall.py:1684 iw/advanced_storage.py:385 iw/advanced_storage.py:398
+#: yuminstall.py:1112 yuminstall.py:1392 yuminstall.py:1459 yuminstall.py:1663
+#: yuminstall.py:1685 iw/advanced_storage.py:385 iw/advanced_storage.py:398
 #: iw/advanced_storage.py:458 iw/autopart_type.py:95 iw/cleardisks_gui.py:44
 #: iw/cleardisks_gui.py:54 iw/filter_gui.py:437 iw/osbootwidget.py:211
 #: iw/osbootwidget.py:221 iw/raid_dialog_gui.py:220 iw/task_gui.py:54
@@ -1105,98 +1105,98 @@ msgstr ""
 msgid "iSCSI %s Error"
 msgstr ""
 
-#: platform.py:100 platform.py:438 platform.py:506 platform.py:627
+#: platform.py:101 platform.py:447 platform.py:515 platform.py:636
 #: ui/create-storage.glade.h:15
 msgid "RAID Device"
 msgstr ""
 
-#: platform.py:101 platform.py:104 platform.py:439 platform.py:507
-#: platform.py:628 platform.py:631
+#: platform.py:102 platform.py:105 platform.py:448 platform.py:516
+#: platform.py:637 platform.py:640
 msgid "Master Boot Record (MBR)"
 msgstr ""
 
-#: platform.py:103 platform.py:630
+#: platform.py:104 platform.py:639
 msgid "First sector of boot partition"
 msgstr ""
 
-#: platform.py:115 platform.py:307
+#: platform.py:116 platform.py:316
 msgid "You have not created a bootable partition."
 msgstr ""
 
-#: platform.py:119
+#: platform.py:120
 msgid "Bootable partitions cannot be on a logical volume."
 msgstr ""
 
-#: platform.py:124
+#: platform.py:125
 msgid "Bootable partitions cannot be on a RAID device."
 msgstr ""
 
-#: platform.py:126
+#: platform.py:127
 msgid "Bootable partitions can only be on RAID1 devices."
 msgstr ""
 
-#: platform.py:133
+#: platform.py:134
 #, python-format
 msgid "Bootable partitions cannot be on an %s filesystem."
 msgstr ""
 
-#: platform.py:137 platform.py:142
+#: platform.py:138 platform.py:143
 msgid "Bootable partitions cannot be on an encrypted block device"
 msgstr ""
 
-#: platform.py:293
+#: platform.py:302
 msgid "EFI System Partition"
 msgstr ""
 
-#: platform.py:305
+#: platform.py:314
 msgid "You have not created a /boot/efi partition."
 msgstr ""
 
-#: platform.py:317
+#: platform.py:326
 msgid "/boot/efi is not EFI."
 msgstr ""
 
-#: platform.py:331
+#: platform.py:340
 msgid ""
 "/boot must be less than 2TB. Shrink / or create a separate /boot partition."
 msgstr ""
 
-#: platform.py:333
+#: platform.py:342
 msgid "/boot must be less than 2TB"
 msgstr ""
 
-#: platform.py:348
+#: platform.py:357
 #, python-format
 msgid "%s must have a %s disk label."
 msgstr ""
 
-#: platform.py:380
+#: platform.py:389
 #, python-format
 msgid "%s must have a bsd disk label."
 msgstr ""
 
-#: platform.py:392
+#: platform.py:401
 #, python-format
 msgid "The disk %s requires at least 1MB of free space at the beginning."
 msgstr ""
 
-#: platform.py:418
+#: platform.py:427
 msgid "The boot partition must be a primary partition."
 msgstr ""
 
-#: platform.py:441
+#: platform.py:450
 msgid "PPC PReP Boot"
 msgstr ""
 
-#: platform.py:457
+#: platform.py:466
 msgid "The boot partition must be within the first 4MB of the disk."
 msgstr ""
 
-#: platform.py:509 platform.py:512
+#: platform.py:518 platform.py:521
 msgid "Apple Bootstrap"
 msgstr ""
 
-#: platform.py:526
+#: platform.py:535
 #, python-format
 msgid "%s must have a mac disk label."
 msgstr ""
@@ -1394,8 +1394,8 @@ msgid ""
 "(details)s"
 msgstr ""
 
-#: text.py:633 loader/net.c:112 loader/net.c:554 loader/net.c:696
-#: loader/net.c:704 loader/net.c:1130 loader/net.c:1138
+#: text.py:633 loader/net.c:112 loader/net.c:557 loader/net.c:699
+#: loader/net.c:707 loader/net.c:1133 loader/net.c:1141
 #: textw/constants_text.py:68
 msgid "Retry"
 msgstr ""
@@ -1805,7 +1805,7 @@ msgstr ""
 msgid "Edit"
 msgstr ""
 
-#: yuminstall.py:1460 yuminstall.py:1663
+#: yuminstall.py:1460 yuminstall.py:1664
 #, python-format
 msgid ""
 "Unable to read package metadata. This may be due to a missing repodata "
@@ -1815,7 +1815,7 @@ msgid ""
 "%s"
 msgstr ""
 
-#: yuminstall.py:1643
+#: yuminstall.py:1644
 msgid ""
 "Some of the packages you have selected for install are missing dependencies "
 "or conflict with another package. You can exit the installation, go back and "
@@ -1823,7 +1823,7 @@ msgid ""
 "without their dependencies."
 msgstr ""
 
-#: yuminstall.py:1685
+#: yuminstall.py:1686
 #, python-format
 msgid ""
 "Your selected packages require %d MB of free space for installation, but you "
@@ -1831,22 +1831,22 @@ msgid ""
 "installer."
 msgstr ""
 
-#: yuminstall.py:1706
+#: yuminstall.py:1707
 msgid "Reboot?"
 msgstr ""
 
-#: yuminstall.py:1707
+#: yuminstall.py:1708
 msgid "The system will be rebooted now."
 msgstr ""
 
-#: yuminstall.py:1852
+#: yuminstall.py:1853
 #, python-format
 msgid ""
 "You appear to be upgrading from a system which is too old to upgrade to this "
 "version of %s.  Are you sure you wish to continue the upgrade process?"
 msgstr ""
 
-#: yuminstall.py:1887
+#: yuminstall.py:1888
 #, python-format
 msgid ""
 "The arch of the release of %(productName)s you are upgrading to appears to "
@@ -1855,48 +1855,48 @@ msgid ""
 "upgrade process?"
 msgstr ""
 
-#: yuminstall.py:1938
+#: yuminstall.py:1939
 msgid "Post Upgrade"
 msgstr ""
 
-#: yuminstall.py:1939
+#: yuminstall.py:1940
 msgid "Performing post-upgrade configuration"
 msgstr ""
 
-#: yuminstall.py:1941
+#: yuminstall.py:1942
 msgid "Post Installation"
 msgstr ""
 
-#: yuminstall.py:1942
+#: yuminstall.py:1943
 msgid "Performing post-installation configuration"
 msgstr ""
 
-#: yuminstall.py:2188
+#: yuminstall.py:2189
 msgid "Installation Starting"
 msgstr ""
 
-#: yuminstall.py:2189
+#: yuminstall.py:2190
 msgid "Starting installation process"
 msgstr ""
 
-#: yuminstall.py:2227
+#: yuminstall.py:2228
 msgid "Dependency Check"
 msgstr ""
 
-#: yuminstall.py:2228
+#: yuminstall.py:2229
 msgid "Checking dependencies in packages selected for installation"
 msgstr ""
 
-#: yuminstall.py:2284 yuminstall.py:2300
+#: yuminstall.py:2285 yuminstall.py:2301
 msgid "Retrieving installation information."
 msgstr ""
 
-#: yuminstall.py:2286 yuminstall.py:2302
+#: yuminstall.py:2287 yuminstall.py:2303
 #, python-format
 msgid "Retrieving installation information for %s."
 msgstr ""
 
-#: yuminstall.py:2287 yuminstall.py:2303
+#: yuminstall.py:2288 yuminstall.py:2304
 msgid "Installation Progress"
 msgstr ""
 
@@ -1966,43 +1966,43 @@ msgstr ""
 msgid "_Confirm:"
 msgstr ""
 
-#: iw/account_gui.py:92
+#: iw/account_gui.py:95
 msgid "Caps Lock is on."
 msgstr ""
 
-#: iw/account_gui.py:102 iw/account_gui.py:110 iw/account_gui.py:117
-#: iw/account_gui.py:138 textw/userauth_text.py:74
+#: iw/account_gui.py:109 iw/account_gui.py:117 iw/account_gui.py:124
+#: iw/account_gui.py:145 textw/userauth_text.py:74
 msgid "Error with Password"
 msgstr ""
 
-#: iw/account_gui.py:103
+#: iw/account_gui.py:110
 msgid ""
 "You must enter your root password and confirm it by typing it a second time "
 "to continue."
 msgstr ""
 
-#: iw/account_gui.py:111
+#: iw/account_gui.py:118
 msgid "The passwords you entered were different.  Please try again."
 msgstr ""
 
-#: iw/account_gui.py:118
+#: iw/account_gui.py:125
 msgid "The root password must be at least six characters long."
 msgstr ""
 
-#: iw/account_gui.py:127 textw/userauth_text.py:83
+#: iw/account_gui.py:134 textw/userauth_text.py:83
 msgid "Weak Password"
 msgstr ""
 
-#: iw/account_gui.py:128 textw/userauth_text.py:84
+#: iw/account_gui.py:135 textw/userauth_text.py:84
 #, python-format
 msgid "You have provided a weak password: %s"
 msgstr ""
 
-#: iw/account_gui.py:131 textw/userauth_text.py:87
+#: iw/account_gui.py:138 textw/userauth_text.py:87
 msgid "_Use Anyway"
 msgstr ""
 
-#: iw/account_gui.py:139 textw/userauth_text.py:75
+#: iw/account_gui.py:146 textw/userauth_text.py:75
 msgid ""
 "Requested password contains non-ASCII characters, which are not allowed."
 msgstr ""
@@ -3493,8 +3493,8 @@ msgstr ""
 #: loader/driverdisk.c:602 loader/driverselect.c:78 loader/driverselect.c:152
 #: loader/driverselect.c:178 loader/hdinstall.c:214 loader/hdinstall.c:268
 #: loader/kbd.c:119 loader/loader.c:520 loader/loader.c:537
-#: loader/loader.c:1490 loader/loader.c:1523 loader/net.c:607 loader/net.c:991
-#: loader/net.c:2184 loader/net.c:2203 loader/nfsinstall.c:91
+#: loader/loader.c:1490 loader/loader.c:1523 loader/net.c:610 loader/net.c:994
+#: loader/net.c:2192 loader/net.c:2211 loader/nfsinstall.c:91
 #: loader/urls.c:268 storage/__init__.py:166 storage/devicetree.py:93
 #: textw/constants_text.py:52
 msgid "Back"
@@ -3602,7 +3602,7 @@ msgstr ""
 #: loader/driverdisk.c:802 loader/driverdisk.c:840 loader/hdinstall.c:362
 #: loader/kickstart.c:140 loader/kickstart.c:150 loader/kickstart.c:192
 #: loader/kickstart.c:197 loader/kickstart.c:526 loader/kickstart.c:572
-#: loader/kickstart.c:588 loader/net.c:1802 loader/net.c:1826
+#: loader/kickstart.c:588 loader/net.c:1810 loader/net.c:1834
 #: loader/nfsinstall.c:384 loader/urlinstall.c:379 loader/urlinstall.c:390
 #: loader/urlinstall.c:397
 msgid "Kickstart Error"
@@ -4018,12 +4018,12 @@ msgid ""
 "IPv6 networks"
 msgstr ""
 
-#: loader/net.c:494 loader/net.c:555
+#: loader/net.c:496 loader/net.c:558
 #, c-format
 msgid "There was an error configuring your network interface."
 msgstr ""
 
-#: loader/net.c:496
+#: loader/net.c:498
 #, c-format
 msgid ""
 "\n"
@@ -4031,138 +4031,138 @@ msgid ""
 "Halting.\n"
 msgstr ""
 
-#: loader/net.c:554 textw/netconfig_text.py:403
+#: loader/net.c:557 textw/netconfig_text.py:403
 msgid "Network Error"
 msgstr ""
 
-#: loader/net.c:585
+#: loader/net.c:588
 msgid "Enable IPv4 support"
 msgstr ""
 
-#: loader/net.c:599
+#: loader/net.c:602
 msgid "Enable IPv6 support"
 msgstr ""
 
-#: loader/net.c:639
+#: loader/net.c:642
 msgid "Configure TCP/IP"
 msgstr ""
 
-#: loader/net.c:696
+#: loader/net.c:699
 msgid "Missing Protocol"
 msgstr ""
 
-#: loader/net.c:697
+#: loader/net.c:700
 msgid "You must select at least one protocol (IPv4 or IPv6)."
 msgstr ""
 
-#: loader/net.c:704
+#: loader/net.c:707
 msgid "IPv4 Needed for NFS"
 msgstr ""
 
-#: loader/net.c:705
+#: loader/net.c:708
 msgid "NFS installation method requires IPv4 support."
 msgstr ""
 
-#: loader/net.c:811
+#: loader/net.c:814
 msgid "IPv4 address:"
 msgstr ""
 
-#: loader/net.c:823 loader/net.c:890
+#: loader/net.c:826 loader/net.c:893
 msgid "/"
 msgstr ""
 
-#: loader/net.c:878
+#: loader/net.c:881
 msgid "IPv6 address:"
 msgstr ""
 
-#: loader/net.c:944 textw/netconfig_text.py:184 textw/netconfig_text.py:224
+#: loader/net.c:947 textw/netconfig_text.py:184 textw/netconfig_text.py:224
 msgid "Gateway:"
 msgstr ""
 
-#: loader/net.c:952
+#: loader/net.c:955
 msgid "Name Server:"
 msgstr ""
 
-#: loader/net.c:997
+#: loader/net.c:1000
 msgid ""
 "Enter the IPv4 and/or the IPv6 address and prefix (address / prefix).  For "
 "IPv4, the dotted-quad netmask or the CIDR-style prefix are acceptable. The "
 "gateway and name server fields must be valid IPv4 or IPv6 addresses."
 msgstr ""
 
-#: loader/net.c:1014
+#: loader/net.c:1017
 msgid "Manual TCP/IP Configuration"
 msgstr ""
 
-#: loader/net.c:1130 loader/net.c:1138
+#: loader/net.c:1133 loader/net.c:1141
 msgid "Missing Information"
 msgstr ""
 
-#: loader/net.c:1131
+#: loader/net.c:1134
 msgid ""
 "You must enter both a valid IPv4 address and a network mask or CIDR prefix."
 msgstr ""
 
-#: loader/net.c:1139
+#: loader/net.c:1142
 msgid "You must enter both a valid IPv6 address and a CIDR prefix."
 msgstr ""
 
-#: loader/net.c:1803
+#: loader/net.c:1811
 #, c-format
 msgid "Bad argument to kickstart network command: %s"
 msgstr ""
 
-#: loader/net.c:1827
+#: loader/net.c:1835
 #, c-format
 msgid "Bad bootproto %s specified in network command"
 msgstr ""
 
-#: loader/net.c:1960
+#: loader/net.c:1968
 msgid "Seconds:"
 msgstr ""
 
-#: loader/net.c:2179
+#: loader/net.c:2187
 msgid "Networking Device"
 msgstr ""
 
-#: loader/net.c:2180
+#: loader/net.c:2188
 msgid ""
 "You have multiple network devices on this system. Which would you like to "
 "install through?"
 msgstr ""
 
-#: loader/net.c:2184
+#: loader/net.c:2192
 msgid "Identify"
 msgstr ""
 
-#: loader/net.c:2193
+#: loader/net.c:2201
 msgid "You can identify the physical port for"
 msgstr ""
 
-#: loader/net.c:2195
+#: loader/net.c:2203
 msgid ""
 "by flashing the LED lights for a number of seconds.  Enter a number between "
 "1 and 30 to set the duration to flash the LED port lights."
 msgstr ""
 
-#: loader/net.c:2202
+#: loader/net.c:2210
 msgid "Identify NIC"
 msgstr ""
 
-#: loader/net.c:2215
+#: loader/net.c:2223
 msgid "Invalid Duration"
 msgstr ""
 
-#: loader/net.c:2216
+#: loader/net.c:2224
 msgid "You must enter the number of seconds as an integer between 1 and 30."
 msgstr ""
 
-#: loader/net.c:2228
+#: loader/net.c:2236
 #, c-format
 msgid "Flashing %s port lights for %d seconds."
 msgstr ""
 
-#: loader/net.c:2459 loader/net.c:2463
+#: loader/net.c:2467 loader/net.c:2471
 #, c-format
 msgid "Waiting for NetworkManager to configure %s.\n"
 msgstr ""
