@@ -18,9 +18,7 @@
  */
 
 #include "config.h"
-
 #include <Python.h>
-
 #include <stdio.h>
 #include <sys/time.h>
 #include <unistd.h>
@@ -35,15 +33,23 @@ static PyObject * doSignalHandlers(PyObject *s, PyObject *args);
 static PyObject * doSetSystemTime(PyObject *s, PyObject *args);
 
 static PyMethodDef isysModuleMethods[] = {
-    { "sync", (PyCFunction) doSync, METH_NOARGS, NULL},
-    { "installSyncSignalHandlers", (PyCFunction) doSignalHandlers, METH_NOARGS, NULL},
-    { "set_system_time", (PyCFunction) doSetSystemTime, METH_VARARGS, NULL},
+    { "sync", doSync, METH_NOARGS, "Synchronize storage"},
+    { "installSyncSignalHandlers", doSignalHandlers, METH_NOARGS, "Install synchronous signal handlers"},
+    { "set_system_time", doSetSystemTime, METH_VARARGS, "set system time"},
     { NULL, NULL, 0, NULL }
-} ;
+};
 
-/* cppcheck-suppress unusedFunction */
-void init_isys(void) {
-    Py_InitModule("_isys", isysModuleMethods);
+static struct PyModuleDef moduledef = {
+        PyModuleDef_HEAD_INIT,
+        "isys",
+        "The Anaconda isys module",
+        -1,
+        isysModuleMethods,
+};
+
+PyMODINIT_FUNC
+PyInit__isys(void) {
+    return PyModule_Create(&moduledef);
 }
 
 static PyObject * doSync(PyObject * s, PyObject * args) {

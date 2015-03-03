@@ -25,9 +25,9 @@ isysdir     = $(pkgpyexecdir)/isys
 isys_PYTHON = $(srcdir)/*.py
 
 pkgpyexec_LTLIBRARIES = _isys.la
-_isys_la_CFLAGS       = $(PYTHON_CFLAGS)
+_isys_la_CFLAGS       = $(PYTHON3_CFLAGS)
 _isys_la_LDFLAGS      = -module -avoid-version
-_isys_la_LIBADD       = $(PYTHON_LIBS)
+_isys_la_LIBADD       = $(PYTHON3_LIBS)
 _isys_la_SOURCES      = isys.c
 
 auditddir             = $(libexecdir)/$(PACKAGE_NAME)
