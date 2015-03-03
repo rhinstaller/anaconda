@@ -245,6 +245,10 @@ def startX(argv, output_redirect=None):
 def _run_program(argv, root='/', stdin=None, stdout=None, env_prune=None, log_output=True,
         binary_output=False, filter_stderr=False):
     """ Run an external program, log the output and return it to the caller
+
+        NOTE/WARNING: UnicodeDecodeError will be raised if the output of the of the
+                      external command can't be decoded as UTF-8.
+
         :param argv: The command to run and argument
         :param root: The directory to chroot to before running command.
         :param stdin: The file object to read stdin from.
@@ -275,7 +279,15 @@ def _run_program(argv, root='/', stdin=None, stdout=None, env_prune=None, log_ou
 
             if log_output:
                 with program_log_lock:
-                    for line in output_lines:
+                    if binary_output:
+                        # try to decode as utf-8 and replace all undecodable data by
+                        # "safe" printable representations when logging binary output
+                        decoded_output_lines = output_lines.decode("utf-8", "replace")
+                    else:
+                        # output_lines should already be a Unicode string
+                        decoded_output_lines = output_lines
+
+                    for line in decoded_output_lines:
                         program_log.info(line.strip())
 
             if stdout:
@@ -283,7 +295,10 @@ def _run_program(argv, root='/', stdin=None, stdout=None, env_prune=None, log_ou
 
         # If stderr was filtered, log it separately
         if filter_stderr and err_string and log_output:
-            err_lines = err_string.splitlines(True)
+            # try to decode as utf-8 and replace all undecodable data by
+            # "safe" printable representations when logging binary output
+            decoded_err_string = err_string.decode("utf-8", "replace")
+            err_lines = decoded_err_string.splitlines(True)
 
             with program_log_lock:
                 for line in err_lines:
@@ -350,6 +365,26 @@ def execWithCapture(command, argv, stdin=None, root='/', log_output=True, filter
     return _run_program(argv, stdin=stdin, root=root, log_output=log_output,
             filter_stderr=filter_stderr)[1]
 
+def execWithCaptureBinary(command, argv, stdin=None, root='/', log_output=False, filter_stderr=False):
+    """ Run an external program and capture standard out and err as binary data.
+        The binary data output is not logged by default but logging can be enabled.
+        :param command: The command to run
+        :param argv: The argument list
+        :param stdin: The file object to read stdin from.
+        :param root: The directory to chroot to before running command.
+        :param log_output: Whether to log the binary output of the command
+        :param filter_stderr: Whether stderr should be excluded from the returned output
+        :return: The output of the command
+    """
+    if flags.testing:
+        log.info("not running command because we're testing: %s %s",
+                 command, " ".join(argv))
+        return ""
+
+    argv = [command] + argv
+    return _run_program(argv, stdin=stdin, root=root, log_output=log_output,
+                        filter_stderr=filter_stderr, binary_output=True)[1]
+
 def execReadlines(command, argv, stdin=None, root='/', env_prune=None):
     """ Execute an external command and return the line output of the command
         in real-time.
@@ -357,6 +392,9 @@ def execReadlines(command, argv, stdin=None, root='/', env_prune=None):
         This method assumes that there is a reasonably low delay between the
         end of output and the process exiting. If the child process closes
         stdout and then keeps on truckin' there will be problems.
+
+        NOTE/WARNING: UnicodeDecodeError will be raised if the output of the
+                      external command can't be decoded as UTF-8.
 
         :param command: The command to run
         :param argv: The argument list
