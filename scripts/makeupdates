@@ -180,12 +180,13 @@ def doGitDiff(tag, args=None):
     proc = subprocess.Popen(cmd,
                             stdout=subprocess.PIPE,
                             stderr=subprocess.PIPE)
-    output = proc.communicate()
+    output, rc = proc.communicate()
+    output = output.decode("utf-8")
 
     if proc.returncode:
-        raise RuntimeError("Error running %s: %s" % (" ".join(cmd), output[1]))
+        raise RuntimeError("Error running %s: %s" % (" ".join(cmd), rc))
 
-    lines = output[0].split('\n')
+    lines = output.split('\n')
     return lines
 
 def doGitContentDiff(tag, args=None):
@@ -195,11 +196,13 @@ def doGitContentDiff(tag, args=None):
     proc = subprocess.Popen(cmd,
                             stdout=subprocess.PIPE,
                             stderr=subprocess.PIPE)
-    output = proc.communicate()
-    if proc.returncode:
-        raise RuntimeError("Error running %s: %s" % (" ".join(cmd), output[1]))
+    output, rc = proc.communicate()
+    output = output.decode("utf-8")
 
-    lines = output[0].split('\n')
+    if rc:
+        raise RuntimeError("Error running %s: %s" % (" ".join(cmd), rc))
+
+    lines = output.split('\n')
     return lines
 
 def download_to_file(url, path):
@@ -749,10 +752,11 @@ def remove_local_packages(packages, arch, release_id, added_rpms):
                                 '%{NAME} %{VERSION} %{RELEASE}', rpm_path],
                                 stdout=subprocess.PIPE,
                                 stderr=None)
-        proc_output = proc.communicate()
-        if proc.returncode != 0:
+        output, rc = proc.communicate()
+        output = output.decode("utf-8")
+        if rc != 0:
             continue
-        name, version, release = proc_output[0].split()
+        name, version, release = output.split()
         # get the build number and release id
         build_id, package_release_id = release.rsplit(".", 1)
 
