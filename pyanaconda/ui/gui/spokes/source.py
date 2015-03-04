@@ -1174,6 +1174,45 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler):
             self._clear_repo_info()
             self._repoEntryBox.set_sensitive(False)
 
+    def _unique_repo_name(self, name):
+        """ Return a unique variation of the name if it already
+            exists in the repo store.
+
+            :param str name: Name to check
+            :returns: name or name with _%d appended
+
+            The returned name will be 1 greater than any other entry in the store
+            with a _%d at the end of it.
+        """
+        # Does this name exist in the store? If not, return it.
+        if not any(r[REPO_NAME_COL] == name for r in self._repoStore):
+            return name
+
+        # If the name already ends with a _\d+ it needs to be stripped.
+        match = re.match(r"(.*)_\d+$", name)
+        if match:
+            name = match.group(1)
+
+        # Find all of the names with _\d+ at the end
+        name_re = re.compile(r"("+name+r")_(\d+)")
+
+        # Use the digits as numbers, not strings in the sort
+        def key(item):
+            m = name_re.match(item)
+            if m:
+                return m.group(1), int(m.group(2))
+            else:
+                return None
+
+        matches = sorted((r[REPO_NAME_COL] for r in self._repoStore \
+                          if name_re.match(r[REPO_NAME_COL])), key=key)
+        if not matches:
+            return name+"_1"
+
+        # Get the highest number, add 1, append to name
+        name_match = name_re.match(matches[-1])
+        next_d = int(name_match.group(2)) + 1
+        return name_match.group(1)+"_%d" % next_d
 
     def on_repoSelection_changed(self, *args):
         """ Called when the selection changed.
@@ -1269,7 +1308,8 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler):
     def on_addRepo_clicked(self, button):
         """ Add a new repository
         """
-        repo = self.data.RepoData(name="New_Repository")
+        name = self._unique_repo_name("New_Repository")
+        repo = self.data.RepoData(name=name)
         repo.ks_repo = True
         repo.orig_name = ""
 
