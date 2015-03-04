@@ -328,6 +328,11 @@ class MainWindow(Gtk.Window):
 
         self._current_action = None
 
+        # Help button mnemonics handling
+        self._mnemonic_signal = None
+        # we have a sensible initial value, just in case
+        self._saved_help_button_label = _("Help!")
+
     def _on_delete_event(self, widget, event, user_data=None):
         # Use the quit-clicked signal on the the current standalone, even if the
         # standalone is not currently displayed.
@@ -346,6 +351,20 @@ class MainWindow(Gtk.Window):
 
         # Return False to indicate that the child allocation is not yet set
         return False
+
+    def _on_mnemonics_visible_changed(self, window, property_type, obj):
+        # mnemonics display has been activated or deactivated,
+        # add or remove the F1 mnemonics display from the help button
+        help_button = obj.window.get_help_button()
+        if window.props.mnemonics_visible:
+            # save current label
+            old_label = help_button.get_label()
+            self._saved_help_button_label = old_label
+            # add the (F1) "mnemonics" to the help button
+            help_button.set_label("%s (F1)" % old_label)
+        else:
+            # restore the old label
+            help_button.set_label(self._saved_help_button_label)
 
     @property
     def current_action(self):
@@ -370,17 +389,20 @@ class MainWindow(Gtk.Window):
         if isinstance(child.window, AnacondaWidgets.BaseStandalone):
             child.window.add_accelerator("continue-clicked", self._accel_group,
                     Gdk.KEY_F12, 0, 0)
-            child.window.add_accelerator("help-button-clicked", self._accel_group,
-                    Gdk.KEY_F1, 0, 0)
-            child.window.add_accelerator("help-button-clicked", self._accel_group,
-                    Gdk.KEY_F1, Gdk.ModifierType.MOD1_MASK, 0)
         elif isinstance(child.window, AnacondaWidgets.SpokeWindow):
             child.window.add_accelerator("button-clicked", self._accel_group,
                     Gdk.KEY_F12, 0, 0)
-            child.window.add_accelerator("help-button-clicked", self._accel_group,
-                    Gdk.KEY_F1, 0, 0)
-            child.window.add_accelerator("help-button-clicked", self._accel_group,
-                    Gdk.KEY_F1, Gdk.ModifierType.MOD1_MASK, 0)
+
+        # Configure the help button
+        child.window.add_accelerator("help-button-clicked", self._accel_group,
+                Gdk.KEY_F1, 0, 0)
+        child.window.add_accelerator("help-button-clicked", self._accel_group,
+                Gdk.KEY_F1, Gdk.ModifierType.MOD1_MASK, 0)
+
+        # Connect to mnemonics-visible to add the (F1) mnemonic to the button label
+        if self._mnemonic_signal:
+            self.disconnect(self._mnemonic_signal)
+        self._mnemonic_signal = self.connect("notify::mnemonics-visible", self._on_mnemonics_visible_changed, child)
 
         self._stack.set_visible_child(child.window)
 
@@ -479,8 +501,6 @@ class GraphicalUserInterface(UserInterface):
                                     self.mainWindow.lightbox_on)
 
         ANACONDA_WINDOW_GROUP.add_window(self.mainWindow)
-        # we have a sensible initial value, just in case
-        self._saved_help_button_label = _("Help!")
 
     basemask = "pyanaconda.ui"
     basepath = os.path.dirname(__file__)
@@ -631,7 +651,6 @@ class GraphicalUserInterface(UserInterface):
         # Use connect_after so classes can add actions before we change screens
         obj.window.connect_after("continue-clicked", self._on_continue_clicked)
         obj.window.connect_after("help-button-clicked", self._on_help_clicked, obj)
-        self.mainWindow.connect("notify::mnemonics-visible", self._on_mnemonics_visible_changed, obj)
         obj.window.connect_after("quit-clicked", self._on_quit_clicked)
 
         return obj
@@ -816,20 +835,6 @@ class GraphicalUserInterface(UserInterface):
         # the help button has been clicked, start the yelp viewer with
         # content for the current screen
         ihelp.start_yelp(ihelp.get_help_path(obj.helpFile, self.instclass))
-
-    def _on_mnemonics_visible_changed(self, window, property_type, obj):
-        # mnemonics display has been activated or deactivated,
-        # add or remove the F1 mnemonics display from the help button
-        help_button = obj.window.get_help_button()
-        if window.props.mnemonics_visible:
-            # save current label
-            old_label = help_button.get_label()
-            self._saved_help_button_label = old_label
-            # add the (F1) "mnemonics" to the help button
-            help_button.set_label("%s (F1)" % old_label)
-        else:
-            # restore the old label
-            help_button.set_label(self._saved_help_button_label)
 
     def _on_quit_clicked(self, win, userData=None):
         if not win.get_quit_button():
