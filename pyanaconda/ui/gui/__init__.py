@@ -654,55 +654,61 @@ class GraphicalUserInterface(UserInterface):
             threads.threadMgr.wait_for_error_threads()
             sys.exit(1)
 
-        # Apply a widget-scale to hidpi monitors
-        self._widgetScale()
+        try:
+            # Apply a widget-scale to hidpi monitors
+            self._widgetScale()
 
-        while not self._currentAction:
-            self._currentAction = self._instantiateAction(self._actions[0])
-            if not self._currentAction:
-                self._actions.pop(0)
+            while not self._currentAction:
+                self._currentAction = self._instantiateAction(self._actions[0])
+                if not self._currentAction:
+                    self._actions.pop(0)
 
-            if not self._actions:
-                return
+                if not self._actions:
+                    return
 
-        self._currentAction.initialize()
-        self._currentAction.entry_logger()
-        self._currentAction.refresh()
+            self._currentAction.initialize()
+            self._currentAction.entry_logger()
+            self._currentAction.refresh()
 
-        self._currentAction.window.set_beta(not self._isFinal)
-        self._currentAction.window.set_property("distribution", self._distributionText().upper())
+            self._currentAction.window.set_beta(not self._isFinal)
+            self._currentAction.window.set_property("distribution", self._distributionText().upper())
 
-        # Set some program-wide settings.
-        settings = Gtk.Settings.get_default()
-        settings.set_property("gtk-font-name", "Cantarell")
-        settings.set_property("gtk-icon-theme-name", "gnome")
+            # Set some program-wide settings.
+            settings = Gtk.Settings.get_default()
+            settings.set_property("gtk-font-name", "Cantarell")
+            settings.set_property("gtk-icon-theme-name", "gnome")
 
-        # Apply the application stylesheet
-        provider = Gtk.CssProvider()
-        provider.load_from_path("/usr/share/anaconda/anaconda-gtk.css")
-        Gtk.StyleContext.add_provider_for_screen(Gdk.Screen.get_default(), provider,
-                Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION)
-
-        # Apply the installclass stylesheet
-        if self.instclass.stylesheet:
+            # Apply the application stylesheet
             provider = Gtk.CssProvider()
-            provider.load_from_path(self.instclass.stylesheet)
+            provider.load_from_path("/usr/share/anaconda/anaconda-gtk.css")
             Gtk.StyleContext.add_provider_for_screen(Gdk.Screen.get_default(), provider,
-                    STYLE_PROVIDER_PRIORITY_INSTALLCLASS)
+                    Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION)
 
-        # Look for updates to the stylesheet and apply them at a higher priority
-        for updates_dir in ("updates", "product"):
-            updates_css = "/run/install/%s/anaconda-gtk.css" % updates_dir
-            if os.path.exists(updates_css):
+            # Apply the installclass stylesheet
+            if self.instclass.stylesheet:
                 provider = Gtk.CssProvider()
-                provider.load_from_path(updates_css)
+                provider.load_from_path(self.instclass.stylesheet)
                 Gtk.StyleContext.add_provider_for_screen(Gdk.Screen.get_default(), provider,
-                        STYLE_PROVIDER_PRIORITY_UPDATES)
+                        STYLE_PROVIDER_PRIORITY_INSTALLCLASS)
 
-        self.mainWindow.setCurrentAction(self._currentAction)
+            # Look for updates to the stylesheet and apply them at a higher priority
+            for updates_dir in ("updates", "product"):
+                updates_css = "/run/install/%s/anaconda-gtk.css" % updates_dir
+                if os.path.exists(updates_css):
+                    provider = Gtk.CssProvider()
+                    provider.load_from_path(updates_css)
+                    Gtk.StyleContext.add_provider_for_screen(Gdk.Screen.get_default(), provider,
+                            STYLE_PROVIDER_PRIORITY_UPDATES)
 
-        # Do this at the last possible minute.
-        unbusyCursor()
+            self.mainWindow.setCurrentAction(self._currentAction)
+
+            # Do this at the last possible minute.
+            unbusyCursor()
+        # If anything went wrong before we start the Gtk main loop, release
+        # the gui lock and re-raise the exception so that meh can take over
+        except Exception:
+            self._gui_lock.release()
+            raise
 
         Gtk.main()
 
