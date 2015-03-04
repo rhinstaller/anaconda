@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: anaconda 22.20.1\n"
+"Project-Id-Version: anaconda 22.20.2\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
-"POT-Creation-Date: 2015-03-03 15:25-0500\n"
+"POT-Creation-Date: 2015-03-04 18:42-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -177,9 +177,9 @@ msgstr ""
 msgid "Strong"
 msgstr ""
 
-#: pyanaconda/constants_text.py:40 pyanaconda/rescue.py:333
-#: pyanaconda/rescue.py:365 pyanaconda/rescue.py:433 pyanaconda/rescue.py:449
-#: pyanaconda/rescue.py:460 anaconda:513
+#: pyanaconda/constants_text.py:40 pyanaconda/rescue.py:332
+#: pyanaconda/rescue.py:364 pyanaconda/rescue.py:432 pyanaconda/rescue.py:448
+#: pyanaconda/rescue.py:459 anaconda:513
 msgid "OK"
 msgstr ""
 
@@ -443,12 +443,12 @@ msgstr ""
 msgid "URL has no host component"
 msgstr ""
 
-#: pyanaconda/kickstart.py:160
+#: pyanaconda/kickstart.py:161
 #, python-format
 msgid "Escrow certificate %s requires the network."
 msgstr ""
 
-#: pyanaconda/kickstart.py:168
+#: pyanaconda/kickstart.py:169
 #, python-format
 msgid ""
 "SSL error while downloading the escrow certificate:\n"
@@ -456,7 +456,7 @@ msgid ""
 "%s"
 msgstr ""
 
-#: pyanaconda/kickstart.py:171
+#: pyanaconda/kickstart.py:172
 #, python-format
 msgid ""
 "The following error was encountered while downloading the escrow "
@@ -465,269 +465,269 @@ msgid ""
 "%s"
 msgstr ""
 
-#: pyanaconda/kickstart.py:280
+#: pyanaconda/kickstart.py:281
 #, python-format
 msgid "%s is missing. Cannot setup authentication."
 msgstr ""
 
-#: pyanaconda/kickstart.py:305
+#: pyanaconda/kickstart.py:306
 #, python-format
 msgid "autopart fstype of %s is invalid."
 msgstr ""
 
-#: pyanaconda/kickstart.py:322
+#: pyanaconda/kickstart.py:323
 #, python-format
 msgid "Settings default fstype to %s failed."
 msgstr ""
 
-#: pyanaconda/kickstart.py:353
+#: pyanaconda/kickstart.py:354
 msgid "GRUB2 does not support installation to a partition."
 msgstr ""
 
-#: pyanaconda/kickstart.py:413
+#: pyanaconda/kickstart.py:414
 #, python-format
 msgid "More than one match found for given boot drive \"%s\"."
 msgstr ""
 
-#: pyanaconda/kickstart.py:416
+#: pyanaconda/kickstart.py:417
 #, python-format
 msgid "Requested boot drive \"%s\" doesn't exist or cannot be used."
 msgstr ""
 
-#: pyanaconda/kickstart.py:458
+#: pyanaconda/kickstart.py:459
 #, python-format
 msgid ""
 "Btrfs partition \"%(device)s\" has a format of \"%(format)s\", but should "
 "have a format of \"btrfs\"."
 msgstr ""
 
-#: pyanaconda/kickstart.py:463
+#: pyanaconda/kickstart.py:464
 #, python-format
 msgid "Tried to use undefined partition \"%s\" in Btrfs volume specification."
 msgstr ""
 
-#: pyanaconda/kickstart.py:476
+#: pyanaconda/kickstart.py:477
 msgid ""
 "Btrfs volume defined without any member devices.  Either specify member "
 "devices or use --useexisting."
 msgstr ""
 
-#: pyanaconda/kickstart.py:485 pyanaconda/kickstart.py:858
-#: pyanaconda/kickstart.py:1420
+#: pyanaconda/kickstart.py:486 pyanaconda/kickstart.py:859
+#: pyanaconda/kickstart.py:1421
 #, python-format
 msgid "The mount point \"%s\" is not valid.  It must start with a /."
 msgstr ""
 
-#: pyanaconda/kickstart.py:500
+#: pyanaconda/kickstart.py:501
 #, python-format
 msgid "Btrfs volume \"%s\" specified with --useexisting does not exist."
 msgstr ""
 
-#: pyanaconda/kickstart.py:586
+#: pyanaconda/kickstart.py:587
 #, python-format
 msgid ""
 "Disklabel \"%s\" given in clearpart command is not supported on this "
 "platform."
 msgstr ""
 
-#: pyanaconda/kickstart.py:598
+#: pyanaconda/kickstart.py:599
 #, python-format
 msgid "Disk \"%s\" given in clearpart command does not exist."
 msgstr ""
 
-#: pyanaconda/kickstart.py:611
+#: pyanaconda/kickstart.py:612
 #, python-format
 msgid "Device \"%s\" given in clearpart device list does not exist."
 msgstr ""
 
-#: pyanaconda/kickstart.py:638
+#: pyanaconda/kickstart.py:639
 #, python-format
 msgid "NIC \"%s\" given in fcoe command does not exist."
 msgstr ""
 
-#: pyanaconda/kickstart.py:689
+#: pyanaconda/kickstart.py:690
 #, python-format
 msgid "%s is missing. Cannot setup firewall."
 msgstr ""
 
-#: pyanaconda/kickstart.py:737 pyanaconda/kickstart.py:748
+#: pyanaconda/kickstart.py:738 pyanaconda/kickstart.py:749
 #, python-format
 msgid "Disk \"%s\" given in ignoredisk command does not exist."
 msgstr ""
 
-#: pyanaconda/kickstart.py:761
+#: pyanaconda/kickstart.py:762
 #, python-format
 msgid ""
 "Network interface \"%(nic)s\" required by iSCSI \"%(iscsiTarget)s\" target "
 "is not up."
 msgstr ""
 
-#: pyanaconda/kickstart.py:771
+#: pyanaconda/kickstart.py:772
 msgid ""
 "iscsi --iface must be specified (binding used) either for all targets or for "
 "none"
 msgstr ""
 
-#: pyanaconda/kickstart.py:864
+#: pyanaconda/kickstart.py:865
 #, python-format
 msgid ""
 "No volume group exists with the name \"%s\".  Specify volume groups before "
 "logical volumes."
 msgstr ""
 
-#: pyanaconda/kickstart.py:871
+#: pyanaconda/kickstart.py:872
 #, python-format
 msgid ""
 "No thin pool exists with the name \"%s\". Specify thin pools before thin "
 "volumes."
 msgstr ""
 
-#: pyanaconda/kickstart.py:879
+#: pyanaconda/kickstart.py:880
 msgid "logvol --noformat must also use the --name= option."
 msgstr ""
 
-#: pyanaconda/kickstart.py:884 pyanaconda/kickstart.py:945
+#: pyanaconda/kickstart.py:885 pyanaconda/kickstart.py:946
 #, python-format
 msgid "Logical volume \"%s\" given in logvol command does not exist."
 msgstr ""
 
-#: pyanaconda/kickstart.py:895 pyanaconda/kickstart.py:904
-#: pyanaconda/kickstart.py:955 pyanaconda/kickstart.py:1206
-#: pyanaconda/kickstart.py:1215 pyanaconda/kickstart.py:1297
+#: pyanaconda/kickstart.py:896 pyanaconda/kickstart.py:905
+#: pyanaconda/kickstart.py:956 pyanaconda/kickstart.py:1207
+#: pyanaconda/kickstart.py:1216 pyanaconda/kickstart.py:1298
 #, python-format
 msgid "Target size \"%(size)s\" for device \"%(device)s\" is invalid."
 msgstr ""
 
-#: pyanaconda/kickstart.py:918
+#: pyanaconda/kickstart.py:919
 #, python-format
 msgid ""
 "Logical volume name \"%(logvol)s\" is already in use in volume group "
 "\"%(volgroup)s\"."
 msgstr ""
 
-#: pyanaconda/kickstart.py:923
+#: pyanaconda/kickstart.py:924
 #, python-format
 msgid ""
 "Logical volume size \"%(logvolSize)s\" must be larger than the volume group "
 "extent size of \"%(extentSize)s\"."
 msgstr ""
 
-#: pyanaconda/kickstart.py:934 pyanaconda/kickstart.py:1233
-#: pyanaconda/kickstart.py:1470
+#: pyanaconda/kickstart.py:935 pyanaconda/kickstart.py:1234
+#: pyanaconda/kickstart.py:1471
 #, python-format
 msgid "The \"%s\" file system type is not supported."
 msgstr ""
 
-#: pyanaconda/kickstart.py:1074 pyanaconda/kickstart.py:1078
+#: pyanaconda/kickstart.py:1075 pyanaconda/kickstart.py:1079
 #, python-format
 msgid "The %s kickstart command is not currently supported."
 msgstr ""
 
-#: pyanaconda/kickstart.py:1103
+#: pyanaconda/kickstart.py:1104
 #, python-format
 msgid "No disk found for specified BIOS disk \"%s\"."
 msgstr ""
 
-#: pyanaconda/kickstart.py:1138
+#: pyanaconda/kickstart.py:1139
 #, python-format
 msgid "RAID partition \"%s\" is defined multiple times."
 msgstr ""
 
-#: pyanaconda/kickstart.py:1149 pyanaconda/kickstart.py:1395
+#: pyanaconda/kickstart.py:1150 pyanaconda/kickstart.py:1396
 #, python-format
 msgid "PV partition \"%s\" is defined multiple times."
 msgstr ""
 
-#: pyanaconda/kickstart.py:1160 pyanaconda/kickstart.py:1405
+#: pyanaconda/kickstart.py:1161 pyanaconda/kickstart.py:1406
 #, python-format
 msgid "Btrfs partition \"%s\" is defined multiple times."
 msgstr ""
 
-#: pyanaconda/kickstart.py:1183
+#: pyanaconda/kickstart.py:1184
 #, python-format
 msgid "The size \"%s\" is invalid."
 msgstr ""
 
-#: pyanaconda/kickstart.py:1190
+#: pyanaconda/kickstart.py:1191
 msgid "part --noformat must also use the --onpart option."
 msgstr ""
 
-#: pyanaconda/kickstart.py:1195 pyanaconda/kickstart.py:1288
+#: pyanaconda/kickstart.py:1196 pyanaconda/kickstart.py:1289
 #, python-format
 msgid "Partition \"%s\" given in part command does not exist."
 msgstr ""
 
-#: pyanaconda/kickstart.py:1248 pyanaconda/kickstart.py:1262
+#: pyanaconda/kickstart.py:1249 pyanaconda/kickstart.py:1263
 #, python-format
 msgid "Disk \"%s\" given in part command does not exist."
 msgstr ""
 
-#: pyanaconda/kickstart.py:1251
+#: pyanaconda/kickstart.py:1252
 #, python-format
 msgid "Cannot install to unpartitionable device \"%s\"."
 msgstr ""
 
-#: pyanaconda/kickstart.py:1258
+#: pyanaconda/kickstart.py:1259
 #, python-format
 msgid "Disk \"%s\" in part command is not partitioned."
 msgstr ""
 
-#: pyanaconda/kickstart.py:1271
+#: pyanaconda/kickstart.py:1272
 #, python-format
 msgid "The maximum size \"%s\" is invalid."
 msgstr ""
 
-#: pyanaconda/kickstart.py:1427
+#: pyanaconda/kickstart.py:1428
 msgid "raid --noformat must also use the --device option."
 msgstr ""
 
-#: pyanaconda/kickstart.py:1432
+#: pyanaconda/kickstart.py:1433
 #, python-format
 msgid "RAID device  \"%s\" given in raid command does not exist."
 msgstr ""
 
-#: pyanaconda/kickstart.py:1453
+#: pyanaconda/kickstart.py:1454
 #, python-format
 msgid ""
 "RAID device \"%(device)s\" has a format of \"%(format)s\", but should have a "
 "format of \"mdmember\"."
 msgstr ""
 
-#: pyanaconda/kickstart.py:1458
+#: pyanaconda/kickstart.py:1459
 #, python-format
 msgid "Tried to use undefined partition \"%s\" in RAID specification."
 msgstr ""
 
-#: pyanaconda/kickstart.py:1486
+#: pyanaconda/kickstart.py:1487
 #, python-format
 msgid "RAID volume \"%s\" specified with --useexisting does not exist."
 msgstr ""
 
-#: pyanaconda/kickstart.py:1493
+#: pyanaconda/kickstart.py:1494
 #, python-format
 msgid "The RAID volume name \"%s\" is already in use."
 msgstr ""
 
-#: pyanaconda/kickstart.py:1708
+#: pyanaconda/kickstart.py:1709
 #, python-format
 msgid ""
 "Physical volume \"%(device)s\" has a format of \"%(format)s\", but should "
 "have a format of \"lvmpv\"."
 msgstr ""
 
-#: pyanaconda/kickstart.py:1713
+#: pyanaconda/kickstart.py:1714
 #, python-format
 msgid "Tried to use undefined partition \"%s\" in Volume Group specification"
 msgstr ""
 
-#: pyanaconda/kickstart.py:1719
+#: pyanaconda/kickstart.py:1720
 #, python-format
 msgid ""
 "Volume group \"%s\" defined without any physical volumes.  Either specify "
 "physical volumes or use --useexisting."
 msgstr ""
 
-#: pyanaconda/kickstart.py:1729
+#: pyanaconda/kickstart.py:1730
 #, python-format
 msgid ""
 "Volume group given physical extent size of \"%(extentSize)s\", but must be "
@@ -735,29 +735,29 @@ msgid ""
 "%(validExtentSizes)s."
 msgstr ""
 
-#: pyanaconda/kickstart.py:1736
+#: pyanaconda/kickstart.py:1737
 msgid ""
 "volgroup --noformat and volgroup --useexisting must also use the --name= "
 "option."
 msgstr ""
 
-#: pyanaconda/kickstart.py:1741
+#: pyanaconda/kickstart.py:1742
 #, python-format
 msgid "Volume group \"%s\" given in volgroup command does not exist."
 msgstr ""
 
-#: pyanaconda/kickstart.py:1744
+#: pyanaconda/kickstart.py:1745
 #, python-format
 msgid "The volume group name \"%s\" is already in use."
 msgstr ""
 
-#: pyanaconda/kickstart.py:1800
+#: pyanaconda/kickstart.py:1801
 msgid ""
 "The upgrade kickstart command is no longer supported. Upgrade functionality "
 "is provided through fedup."
 msgstr ""
 
-#: pyanaconda/kickstart.py:2014
+#: pyanaconda/kickstart.py:2015
 msgid "Running pre-installation scripts"
 msgstr ""
 
@@ -843,25 +843,25 @@ msgstr ""
 msgid "New %(name)s %(version)s Installation"
 msgstr ""
 
-#: pyanaconda/rescue.py:184 pyanaconda/rescue.py:350 pyanaconda/rescue.py:426
+#: pyanaconda/rescue.py:183 pyanaconda/rescue.py:349 pyanaconda/rescue.py:425
 #, python-format
 msgid "Run %s to unmount the system when you are finished."
 msgstr ""
 
-#: pyanaconda/rescue.py:187
+#: pyanaconda/rescue.py:186
 msgid "When finished please exit from the shell and your system will reboot."
 msgstr ""
 
-#: pyanaconda/rescue.py:200
+#: pyanaconda/rescue.py:199
 msgid "Unable to find /bin/sh to execute!  Not starting shell"
 msgstr ""
 
-#: pyanaconda/rescue.py:288 pyanaconda/rescue.py:358 pyanaconda/rescue.py:429
-#: pyanaconda/rescue.py:460
+#: pyanaconda/rescue.py:287 pyanaconda/rescue.py:357 pyanaconda/rescue.py:428
+#: pyanaconda/rescue.py:459
 msgid "Rescue"
 msgstr ""
 
-#: pyanaconda/rescue.py:289
+#: pyanaconda/rescue.py:288
 #, python-format
 msgid ""
 "The rescue environment will now attempt to find your Linux installation and "
@@ -875,35 +875,35 @@ msgid ""
 "\n"
 msgstr ""
 
-#: pyanaconda/rescue.py:299
+#: pyanaconda/rescue.py:298
 msgid "Continue"
 msgstr ""
 
-#: pyanaconda/rescue.py:299 pyanaconda/rescue.py:305
+#: pyanaconda/rescue.py:298 pyanaconda/rescue.py:304
 msgid "Read-Only"
 msgstr ""
 
-#: pyanaconda/rescue.py:299 pyanaconda/rescue.py:301
+#: pyanaconda/rescue.py:298 pyanaconda/rescue.py:300
 msgid "Skip"
 msgstr ""
 
-#: pyanaconda/rescue.py:330
+#: pyanaconda/rescue.py:329
 msgid "System to Rescue"
 msgstr ""
 
-#: pyanaconda/rescue.py:331
+#: pyanaconda/rescue.py:330
 msgid "Which device holds the root partition of your installation?"
 msgstr ""
 
-#: pyanaconda/rescue.py:333 pyanaconda/rescue.py:337
+#: pyanaconda/rescue.py:332 pyanaconda/rescue.py:336
 msgid "Exit"
 msgstr ""
 
-#: pyanaconda/rescue.py:347 pyanaconda/rescue.py:423
+#: pyanaconda/rescue.py:346 pyanaconda/rescue.py:422
 msgid "The system will reboot automatically when you exit from the shell."
 msgstr ""
 
-#: pyanaconda/rescue.py:359
+#: pyanaconda/rescue.py:358
 #, python-format
 msgid ""
 "Your system has been mounted under %(rootPath)s.\n"
@@ -916,7 +916,7 @@ msgid ""
 "%(msg)s"
 msgstr ""
 
-#: pyanaconda/rescue.py:430
+#: pyanaconda/rescue.py:429
 #, python-format
 msgid ""
 "An error occurred trying to mount some or all of your system. Some of it may "
@@ -925,24 +925,24 @@ msgid ""
 "Press <return> to get a shell."
 msgstr ""
 
-#: pyanaconda/rescue.py:438
+#: pyanaconda/rescue.py:437
 msgid "You don't have any Linux partitions.  Rebooting.\n"
 msgstr ""
 
-#: pyanaconda/rescue.py:442
+#: pyanaconda/rescue.py:441
 msgid " The system will reboot automatically when you exit from the shell."
 msgstr ""
 
-#: pyanaconda/rescue.py:446
+#: pyanaconda/rescue.py:445
 msgid "Rescue Mode"
 msgstr ""
 
-#: pyanaconda/rescue.py:447
+#: pyanaconda/rescue.py:446
 #, python-format
 msgid "You don't have any Linux partitions. Press return to get a shell.%s"
 msgstr ""
 
-#: pyanaconda/rescue.py:459
+#: pyanaconda/rescue.py:458
 #, python-format
 msgid "Your system is mounted under the %s directory."
 msgstr ""
