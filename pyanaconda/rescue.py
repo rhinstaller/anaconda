@@ -36,11 +36,10 @@ from pyanaconda.installinterfacebase import InstallInterfaceBase
 from pyanaconda.i18n import _
 from pyanaconda.kickstart import runPostScripts
 
-from blivet import mountExistingSystem
 from blivet import osinstall
 from blivet.errors import StorageError
 from blivet.devices import LUKSDevice
-from blivet.osinstall import storageInitialize
+from blivet.osinstall import storageInitialize, mountExistingSystem
 
 from pykickstart.constants import KS_REBOOT, KS_SHUTDOWN
 
