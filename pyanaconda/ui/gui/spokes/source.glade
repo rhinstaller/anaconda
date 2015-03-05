@@ -508,18 +508,18 @@
                 <property name="vexpand">True</property>
                 <property name="orientation">vertical</property>
                 <child>
-                  <object class="GtkScrolledWindow" id="scrolledwindow1">
+                  <object class="GtkScrolledWindow" id="mainScrolledWindow">
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
                     <property name="hscrollbar_policy">never</property>
                     <child>
-                      <object class="GtkViewport" id="viewport1">
+                      <object class="GtkViewport" id="mainViewport">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
                         <property name="margin_right">24</property>
                         <property name="shadow_type">none</property>
                         <child>
-                          <object class="GtkBox" id="box4">
+                          <object class="GtkBox" id="mainBox">
                             <property name="visible">True</property>
                             <property name="can_focus">False</property>
                             <property name="orientation">vertical</property>
