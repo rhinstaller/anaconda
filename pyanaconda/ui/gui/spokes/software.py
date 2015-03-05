@@ -72,6 +72,12 @@ class SoftwareSelectionSpoke(NormalSpoke):
         self._environmentListBox = self.builder.get_object("environmentListBox")
         self._addonListBox = self.builder.get_object("addonListBox")
 
+        # Connect viewport scrolling with listbox focus events
+        environmentViewport = self.builder.get_object("environmentViewport")
+        addonViewport = self.builder.get_object("addonViewport")
+        self._environmentListBox.set_focus_vadjustment(environmentViewport.get_vadjustment())
+        self._addonListBox.set_focus_vadjustment(addonViewport.get_vadjustment())
+
         # Used to store how the user has interacted with add-ons for the default add-on
         # selection logic. The dictionary keys are group IDs, and the values are selection
         # state constants. See refreshAddons for how the values are used.

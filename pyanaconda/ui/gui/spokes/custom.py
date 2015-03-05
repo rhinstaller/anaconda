@@ -213,6 +213,10 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         self._partitionsViewport = self.builder.get_object("partitionsViewport")
         self._partitionsNotebook = self.builder.get_object("partitionsNotebook")
 
+        # Connect partitionsNotebook focus events to scrolling in the parent viewport
+        partitionsNotebookViewport = self.builder.get_object("partitionsNotebookViewport")
+        self._partitionsNotebook.set_focus_vadjustment(partitionsNotebookViewport.get_vadjustment())
+
         self._whenCreateLabel = self.builder.get_object("whenCreateLabel")
 
         self._availableSpaceLabel = self.builder.get_object("availableSpaceLabel")
@@ -280,6 +284,10 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
 
         self._accordion = Accordion()
         self._partitionsViewport.add(self._accordion)
+
+        # Connect viewport scrolling with accordion focus events
+        self._accordion.set_focus_hadjustment(self._partitionsViewport.get_hadjustment())
+        self._accordion.set_focus_vadjustment(self._partitionsViewport.get_vadjustment())
 
         threadMgr.add(AnacondaThread(name=THREAD_CUSTOM_STORAGE_INIT, target=self._initialize))
 
