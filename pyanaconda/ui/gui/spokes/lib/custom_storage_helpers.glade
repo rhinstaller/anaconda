@@ -549,7 +549,6 @@ use.  Try something else?</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="tooltip_text" translatable="yes">eg: "20 GB", "500mb" (minus the quotation marks)</property>
-                <property name="invisible_char">●</property>
               </object>
               <packing>
                 <property name="left_attach">1</property>
@@ -745,7 +744,6 @@ use.  Try something else?</property>
                   <object class="GtkEntry" id="container_name_entry">
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
-                    <property name="invisible_char">●</property>
                   </object>
                   <packing>
                     <property name="expand">False</property>
@@ -981,7 +979,6 @@ use.  Try something else?</property>
                   <object class="GtkEntry" id="containerSizeEntry">
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
-                    <property name="invisible_char">●</property>
                   </object>
                   <packing>
                     <property name="expand">False</property>

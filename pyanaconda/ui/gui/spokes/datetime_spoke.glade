@@ -163,7 +163,6 @@
               <object class="GtkEntry" id="serverEntry">
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
-                <property name="invisible_char">●</property>
                 <signal name="activate" handler="on_entry_activated" swapped="no"/>
                 <child internal-child="accessible">
                   <object class="AtkObject" id="serverEntry-atkobject">

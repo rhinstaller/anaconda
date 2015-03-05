@@ -93,7 +93,6 @@
                       <object class="GtkEntry" id="t_fullname">
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
-                        <property name="invisible_char">●</property>
                         <property name="caps_lock_warning">False</property>
                         <signal name="changed" handler="full_name_changed" swapped="no"/>
                         <child internal-child="accessible">
@@ -111,7 +110,6 @@
                       <object class="GtkEntry" id="t_username">
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
-                        <property name="invisible_char">●</property>
                         <signal name="changed" handler="username_changed" swapped="no"/>
                         <child internal-child="accessible">
                           <object class="AtkObject" id="t_username-atkobject">
