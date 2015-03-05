@@ -189,7 +189,6 @@
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
                         <property name="valign">start</property>
-                        <property name="invisible_char">●</property>
                         <property name="secondary_icon_name">edit-clear-symbolic</property>
                         <property name="placeholder_text" translatable="yes">Type here to search.</property>
                         <signal name="changed" handler="on_entry_changed" swapped="no"/>

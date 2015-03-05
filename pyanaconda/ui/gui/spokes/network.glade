@@ -1055,7 +1055,6 @@
                                             <child internal-child="entry">
                                               <object class="GtkEntry" id="combobox-entry4">
                                                 <property name="can_focus">False</property>
-                                                <property name="invisible_char">●</property>
                                               </object>
                                             </child>
                                           </object>
@@ -1895,7 +1894,6 @@
                                           <object class="GtkEntry" id="entry_proxy_url">
                                             <property name="visible">True</property>
                                             <property name="can_focus">True</property>
-                                            <property name="invisible_char">●</property>
                                           </object>
                                           <packing>
                                             <property name="left_attach">1</property>
@@ -1978,7 +1976,6 @@
                                           <object class="GtkEntry" id="entry_proxy_http">
                                             <property name="visible">True</property>
                                             <property name="can_focus">True</property>
-                                            <property name="invisible_char">●</property>
                                           </object>
                                           <packing>
                                             <property name="left_attach">1</property>
@@ -2001,7 +1998,6 @@
                                           <object class="GtkEntry" id="entry_proxy_https">
                                             <property name="visible">True</property>
                                             <property name="can_focus">True</property>
-                                            <property name="invisible_char">●</property>
                                           </object>
                                           <packing>
                                             <property name="left_attach">1</property>
@@ -2012,7 +2008,6 @@
                                           <object class="GtkEntry" id="entry_proxy_ftp">
                                             <property name="visible">True</property>
                                             <property name="can_focus">True</property>
-                                            <property name="invisible_char">●</property>
                                           </object>
                                           <packing>
                                             <property name="left_attach">1</property>
@@ -2023,7 +2018,6 @@
                                           <object class="GtkEntry" id="entry_proxy_socks">
                                             <property name="visible">True</property>
                                             <property name="can_focus">True</property>
-                                            <property name="invisible_char">●</property>
                                           </object>
                                           <packing>
                                             <property name="left_attach">1</property>
@@ -2233,7 +2227,6 @@
                           <object class="GtkEntry" id="entry_hostname">
                             <property name="visible">True</property>
                             <property name="can_focus">True</property>
-                            <property name="invisible_char">●</property>
                             <property name="width_chars">35</property>
                             <child internal-child="accessible">
                               <object class="AtkObject" id="entry_hostname-atkobject">

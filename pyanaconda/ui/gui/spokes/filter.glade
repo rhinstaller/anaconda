@@ -235,7 +235,6 @@
                                           <object class="GtkEntry" id="searchTargetEntry">
                                             <property name="visible">True</property>
                                             <property name="can_focus">True</property>
-                                            <property name="invisible_char">●</property>
                                             <property name="secondary_icon_name">edit-clear-symbolic</property>
                                             <signal name="icon-release" handler="on_clear_icon_clicked" swapped="no"/>
                                           </object>
@@ -264,7 +263,6 @@
                                           <object class="GtkEntry" id="searchLUNEntry">
                                             <property name="visible">True</property>
                                             <property name="can_focus">True</property>
-                                            <property name="invisible_char">●</property>
                                             <property name="secondary_icon_name">edit-clear-symbolic</property>
                                             <signal name="icon-release" handler="on_clear_icon_clicked" swapped="no"/>
                                           </object>
@@ -306,7 +304,6 @@
                                           <object class="GtkEntry" id="searchWWIDEntry">
                                             <property name="visible">True</property>
                                             <property name="can_focus">True</property>
-                                            <property name="invisible_char">●</property>
                                             <property name="secondary_icon_name">edit-clear-symbolic</property>
                                             <signal name="icon-release" handler="on_clear_icon_clicked" swapped="no"/>
                                             <property name="width_chars">30</property>
@@ -695,7 +692,6 @@
                                           <object class="GtkEntry" id="multipathWWIDEntry">
                                             <property name="visible">True</property>
                                             <property name="can_focus">True</property>
-                                            <property name="invisible_char">●</property>
                                             <property name="secondary_icon_name">edit-clear-symbolic</property>
                                             <signal name="icon-release" handler="on_clear_icon_clicked" swapped="no"/>
                                             <property name="width_chars">30</property>
@@ -1137,7 +1133,6 @@
                                           <object class="GtkEntry" id="otherIDEntry">
                                             <property name="visible">True</property>
                                             <property name="can_focus">True</property>
-                                            <property name="invisible_char">●</property>
                                             <property name="secondary_icon_name">edit-clear-symbolic</property>
                                             <signal name="icon-release" handler="on_clear_icon_clicked" swapped="no"/>
                                             <property name="width_chars">30</property>
@@ -1398,11 +1393,9 @@
                                           <object class="GtkEntry" id="zCCWEntry">
                                             <property name="visible">True</property>
                                             <property name="can_focus">True</property>
-                                            <property name="invisible_char">???</property>
                                             <property name="secondary_icon_name">edit-clear-symbolic</property>
                                             <signal name="icon-release" handler="on_clear_icon_clicked" swapped="no"/>
                                             <property name="width_chars">30</property>
-                                            <property name="invisible_char_set">True</property>
                                           </object>
                                           <packing>
                                             <property name="expand">False</property>
@@ -1447,11 +1440,9 @@
                                           <object class="GtkEntry" id="zWWPNEntry">
                                             <property name="visible">True</property>
                                             <property name="can_focus">True</property>
-                                            <property name="invisible_char">???</property>
                                             <property name="secondary_icon_name">edit-clear-symbolic</property>
                                             <signal name="icon-release" handler="on_clear_icon_clicked" swapped="no"/>
                                             <property name="width_chars">30</property>
-                                            <property name="invisible_char_set">True</property>
                                           </object>
                                           <packing>
                                             <property name="expand">False</property>
@@ -1491,11 +1482,9 @@
                                           <object class="GtkEntry" id="zLUNEntry">
                                             <property name="visible">True</property>
                                             <property name="can_focus">True</property>
-                                            <property name="invisible_char">???</property>
                                             <property name="secondary_icon_name">edit-clear-symbolic</property>
                                             <signal name="icon-release" handler="on_clear_icon_clicked" swapped="no"/>
                                             <property name="width_chars">30</property>
-                                            <property name="invisible_char_set">True</property>
                                           </object>
                                           <packing>
                                             <property name="expand">False</property>
