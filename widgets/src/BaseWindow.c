@@ -115,8 +115,9 @@ enum {
 #define HELP_BUTTON_LABEL N_("Help!")
 
 struct _AnacondaBaseWindowPrivate {
-    gboolean    is_beta, info_shown;
-    GtkWidget  *main_box, *event_box, *info_bar;
+    gboolean    is_beta;
+    GtkWidget  *main_box;
+    GtkWidget  *info_revealer, *info_staging;
     GtkWidget  *alignment;
     GtkWidget  *nav_box, *nav_area, *action_area;
     GtkWidget  *name_label, *distro_label, *beta_label;
@@ -131,6 +132,8 @@ static void anaconda_base_window_get_property(GObject *object, guint prop_id, GV
 static void anaconda_base_window_set_property(GObject *object, guint prop_id, const GValue *value, GParamSpec *pspec);
 static void anaconda_base_window_buildable_init(GtkBuildableIface *iface);
 static void format_beta_label(AnacondaBaseWindow *window, const char *markup);
+static void anaconda_base_window_info_child_revealed(GObject *object, GParamSpec *pspec, gpointer user_data);
+static void anaconda_base_window_reveal_info_bar(AnacondaBaseWindow *win);
 
 static gboolean anaconda_base_window_info_bar_clicked(GtkWidget *widget, GdkEvent *event, AnacondaBaseWindow *win);
 static void anaconda_base_window_help_button_clicked(GtkButton *button, AnacondaBaseWindow *win);
@@ -243,7 +246,6 @@ static void anaconda_base_window_init(AnacondaBaseWindow *win) {
                                             AnacondaBaseWindowPrivate);
 
     win->priv->is_beta = FALSE;
-    win->priv->info_shown = FALSE;
 
     /* These store the original English strings so that when we retranslate
      * later, we have the source strings available to feed into _().
@@ -375,12 +377,24 @@ G_GNUC_END_IGNORE_DEPRECATIONS
     g_signal_connect(win->priv->help_button, "clicked",
                      G_CALLBACK(anaconda_base_window_help_button_clicked), win);
 
+
     /* Add everything to the nav area. */
     gtk_grid_attach(GTK_GRID(win->priv->nav_area), win->priv->name_label, 0, 0, 1, 1);
     gtk_grid_attach(GTK_GRID(win->priv->nav_area), win->priv->distro_label, 1, 0, 2, 1);
     gtk_grid_attach(GTK_GRID(win->priv->nav_area), win->priv->beta_label, 1, 1, 1, 1);
     gtk_grid_attach(GTK_GRID(win->priv->nav_area), win->priv->layout_indicator, 1, 2, 1, 1);
     gtk_grid_attach(GTK_GRID(win->priv->nav_area), win->priv->help_button, 2, 1, 1, 2);
+
+    /* Last thing for the main_box is a revealer for the info bar */
+    win->priv->info_revealer = gtk_revealer_new();
+    gtk_box_pack_start(GTK_BOX(win->priv->main_box), win->priv->info_revealer, FALSE, FALSE, 0);
+
+    /* Make the info bar slide up from the bottom of the window */
+    gtk_revealer_set_transition_type(GTK_REVEALER(win->priv->info_revealer), GTK_REVEALER_TRANSITION_TYPE_SLIDE_UP);
+
+    /* Watch child-revealed so we can destroy the info bar once the hide animation is finished */
+    g_signal_connect(win->priv->info_revealer, "notify::child-revealed",
+            G_CALLBACK(anaconda_base_window_info_child_revealed), win);
 }
 
 static void anaconda_base_window_get_property(GObject *object, guint prop_id, GValue *value, GParamSpec *pspec) {
@@ -561,46 +575,86 @@ GtkWidget *anaconda_base_window_get_alignment(AnacondaBaseWindow *win) {
     return win->priv->alignment;
 }
 
+/* Setting the info bar is split into two steps, to allow a new bar to be set
+ * while the animation from a previous clear is still running. This function
+ * creates a new GtkInfoBar object in info_staging, and reveal_info_bar adds
+ * the event box and shows everything.
+ */
 static void anaconda_base_window_set_info_bar(AnacondaBaseWindow *win, GtkMessageType ty, const char *msg) {
     GtkWidget *label, *image, *content_area;
 
-    if (win->priv->info_shown)
+    if (gtk_revealer_get_reveal_child(GTK_REVEALER(win->priv->info_revealer)) ||
+            win->priv->info_staging) {
         return;
+    }
 
     label = gtk_label_new(_(msg));
     gtk_label_set_line_wrap(GTK_LABEL(label), TRUE);
     gtk_label_set_line_wrap_mode(GTK_LABEL(label), PANGO_WRAP_WORD);
     gtk_widget_show(label);
 
-    win->priv->info_bar = gtk_info_bar_new();
-    gtk_widget_set_no_show_all(win->priv->info_bar, TRUE);
+    /* Create a new info bar in the staging area */
+    win->priv->info_staging = gtk_info_bar_new();
+    gtk_widget_set_no_show_all(win->priv->info_staging, TRUE);
 
-    /* Wrap the info bar in an event box so clicking on it will do something. */
-    win->priv->event_box = gtk_event_box_new();
-    gtk_container_add(GTK_CONTAINER(win->priv->event_box), win->priv->info_bar);
-
-    gtk_box_pack_end(GTK_BOX(win->priv->main_box), win->priv->event_box, FALSE, FALSE, 0);
-
-    /* Hook up the signal handler for the info bar.  It will just raise our own
-     * custom signal for the whole window.  It will be disconnected when the info
-     * bar is hidden.
-     */
-    gtk_widget_add_events(GTK_WIDGET(win->priv->event_box), GDK_BUTTON_RELEASE_MASK);
-    g_signal_connect(win->priv->event_box, "button-release-event",
-                     G_CALLBACK(anaconda_base_window_info_bar_clicked), win);
-
-    content_area = gtk_info_bar_get_content_area(GTK_INFO_BAR(win->priv->info_bar));
+    content_area = gtk_info_bar_get_content_area(GTK_INFO_BAR(win->priv->info_staging));
 
     image = gtk_image_new_from_icon_name("dialog-warning", GTK_ICON_SIZE_MENU);
     gtk_widget_show(image);
     gtk_container_add(GTK_CONTAINER(content_area), image);
 
     gtk_container_add(GTK_CONTAINER(content_area), label);
-    gtk_info_bar_set_message_type(GTK_INFO_BAR(win->priv->info_bar), ty);
-    gtk_widget_show(win->priv->info_bar);
-    gtk_widget_show(win->priv->event_box);
+    gtk_info_bar_set_message_type(GTK_INFO_BAR(win->priv->info_staging), ty);
 
-    win->priv->info_shown = TRUE;
+    /* If reveal-child is false (above) but child-revealed is true, that means
+     * the info bar has been cleared and the animation to clear it is still
+     * running. If that is the case, this function is done and the rest of the
+     * work will be done when the notify event happens. Otherwise, reveal the
+     * info bar.
+     */
+    if (!gtk_revealer_get_child_revealed(GTK_REVEALER(win->priv->info_revealer))) {
+        anaconda_base_window_reveal_info_bar(win);
+    }
+}
+
+/* Finish and display a staged info bar */
+static void anaconda_base_window_reveal_info_bar(AnacondaBaseWindow *win) {
+    GtkWidget *event_box;
+
+    if (!win->priv->info_staging)
+        return;
+
+    /* Wrap the info bar in an event box so clicking on it will do something. */
+    event_box = gtk_event_box_new();
+    gtk_container_add(GTK_CONTAINER(event_box), win->priv->info_staging);
+    gtk_widget_show(win->priv->info_staging);
+    win->priv->info_staging = NULL;
+
+    /* Hook up the signal handler for the info bar.  It will just raise our own
+     * custom signal for the whole window.  It will be disconnected when the info
+     * bar is hidden (because the event box will have been destroyed).
+     */
+    gtk_widget_add_events(GTK_WIDGET(event_box), GDK_BUTTON_RELEASE_MASK);
+    g_signal_connect(event_box, "button-release-event",
+                     G_CALLBACK(anaconda_base_window_info_bar_clicked), win);
+
+    gtk_container_add(GTK_CONTAINER(win->priv->info_revealer), event_box);
+    gtk_widget_show(event_box);
+    gtk_revealer_set_reveal_child(GTK_REVEALER(win->priv->info_revealer), TRUE);
+}
+
+static void anaconda_base_window_info_child_revealed(GObject *object, GParamSpec *pspec, gpointer user_data) {
+    AnacondaBaseWindow *win = ANACONDA_BASE_WINDOW(user_data);
+
+    /* If the value changed to false, destroy the revealer's child */
+    if (!gtk_revealer_get_child_revealed(GTK_REVEALER(object))) {
+        gtk_widget_destroy(gtk_bin_get_child(GTK_BIN(object)));
+
+        /* If there is another info bar staged, set it and reveal it */
+        if (win->priv->info_staging != NULL) {
+            anaconda_base_window_reveal_info_bar(win);
+        }
+    }
 }
 
 /**
@@ -669,13 +723,13 @@ static void anaconda_base_window_help_button_clicked(GtkButton *button,
  * Since: 1.0
  */
 void anaconda_base_window_clear_info(AnacondaBaseWindow *win) {
-    if (!win->priv->info_shown)
-        return;
+    /* If there is a staged info bar, destroy it */
+    if (win->priv->info_staging) {
+        gtk_widget_destroy(win->priv->info_staging);
+        win->priv->info_staging = NULL;
+    }
 
-    gtk_widget_hide(win->priv->info_bar);
-    gtk_widget_destroy(win->priv->info_bar);
-    gtk_widget_destroy(win->priv->event_box);
-    win->priv->info_shown = FALSE;
+    gtk_revealer_set_reveal_child(GTK_REVEALER(win->priv->info_revealer), FALSE);
 }
 
 /**
