@@ -40,8 +40,9 @@
  * configuration.
  *
  * As a #AnacondaMountpointSelector is a subclass of a #GtkEventBox, any signals
- * may be caught.  However ::button-press-event is the most important one and is
- * how we determine what should be displayed on the rest of the screen.
+ * may be caught.  However #GtkWidget::button-press-event is the most important
+ * one and is how we determine what should be displayed on the rest of the
+ * screen.
  */
 
 enum {
@@ -84,7 +85,7 @@ static void anaconda_mountpoint_selector_class_init(AnacondaMountpointSelectorCl
     /**
      * AnacondaMountpointSelector:name:
      *
-     * The :name string is the secondary text displayed for this widget.  It is
+     * The #AnacondaMountpointSelector:name string is the secondary text displayed for this widget.  It is
      * commonly going to be the name of the device node containing this
      * mountpoint.
      *
@@ -101,7 +102,7 @@ static void anaconda_mountpoint_selector_class_init(AnacondaMountpointSelectorCl
     /**
      * AnacondaMountpointSelector:size:
      *
-     * The :size string is the size of the mountpoint, including whatever units
+     * The #AnacondaMountpointSelector:size string is the size of the mountpoint, including whatever units
      * it is measured in.
      *
      * Since: 1.0
@@ -117,7 +118,7 @@ static void anaconda_mountpoint_selector_class_init(AnacondaMountpointSelectorCl
     /**
      * AnacondaMountpointSelector:mountpoint:
      *
-     * The :mountpoint string is the primary text displayed for this widget.
+     * The #AnacondaMountpointSelector:mountpoint string is the primary text displayed for this widget.
      * It shows where on the filesystem this device is mounted.
      *
      * Since: 1.0

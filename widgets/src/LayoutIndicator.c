@@ -97,7 +97,7 @@ static void anaconda_layout_indicator_class_init(AnacondaLayoutIndicatorClass *k
     /**
      * AnacondaLayoutIndicator:layout:
      *
-     * The :layout is the currently activated X layout.
+     * The #AnacondaLayoutIndicator:layout is the currently activated X layout.
      *
      * Since: 1.0
      */
