@@ -326,7 +326,6 @@
                       <object class="GtkEntry" id="proxyURLEntry">
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
-                        <property name="invisible_char">●</property>
                         <property name="width_chars">40</property>
                       </object>
                       <packing>
@@ -406,7 +405,6 @@
                       <object class="GtkEntry" id="proxyUsernameEntry">
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
-                        <property name="invisible_char">●</property>
                         <signal name="changed" handler="on_proxyUsernameEntry_changed" swapped="no"/>
                       </object>
                       <packing>
@@ -770,7 +768,6 @@
                                         <property name="visible">True</property>
                                         <property name="can_focus">True</property>
                                         <property name="hexpand">True</property>
-                                        <property name="invisible_char">●</property>
                                       </object>
                                       <packing>
                                         <property name="left_attach">1</property>
@@ -849,7 +846,6 @@
                                         <property name="has_tooltip">True</property>
                                         <property name="tooltip_markup" translatable="yes">This field is optional.</property>
                                         <property name="tooltip_text" translatable="yes">This field is optional.</property>
-                                        <property name="invisible_char">●</property>
                                       </object>
                                       <packing>
                                         <property name="expand">True</property>
@@ -1092,7 +1088,6 @@
                                         <property name="can_focus">True</property>
                                         <property name="tooltip_markup" translatable="yes">URL for the repository, without protocol.</property>
                                         <property name="tooltip_text" translatable="yes">URL for the repository, without protocol.</property>
-                                        <property name="invisible_char">●</property>
                                         <signal name="changed" handler="on_repoUrl_changed" swapped="no"/>
                                       </object>
                                       <packing>
@@ -1106,7 +1101,6 @@
                                         <property name="can_focus">True</property>
                                         <property name="tooltip_markup" translatable="yes">URL of proxy in the form of protocol://host:[port]</property>
                                         <property name="tooltip_text" translatable="yes">URL of proxy in the form of protocol://host:[port]</property>
-                                        <property name="invisible_char">●</property>
                                         <signal name="changed" handler="on_repoProxy_changed" swapped="no"/>
                                       </object>
                                       <packing>
@@ -1120,7 +1114,6 @@
                                         <property name="can_focus">True</property>
                                         <property name="tooltip_markup" translatable="yes">Optional proxy user name.</property>
                                         <property name="tooltip_text" translatable="yes">Optional proxy user name.</property>
-                                        <property name="invisible_char">●</property>
                                         <signal name="changed" handler="on_repoProxy_changed" swapped="no"/>
                                       </object>
                                       <packing>
@@ -1255,7 +1248,6 @@
                                         <property name="tooltip_markup" translatable="yes">Name of the repository.</property>
                                         <property name="tooltip_text" translatable="yes">Name of the repository.</property>
                                         <property name="hexpand">True</property>
-                                        <property name="invisible_char">●</property>
                                         <signal name="changed" handler="on_repoNameEntry_changed" swapped="no"/>
                                       </object>
                                       <packing>

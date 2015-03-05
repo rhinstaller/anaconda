@@ -546,7 +546,6 @@
               <object class="GtkEntry" id="addLayoutEntry">
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
-                <property name="invisible_char">●</property>
                 <property name="secondary_icon_name">edit-clear-symbolic</property>
                 <signal name="changed" handler="on_entry_changed" swapped="no"/>
                 <signal name="icon-press" handler="on_entry_icon_clicked" swapped="no"/>
