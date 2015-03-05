@@ -513,6 +513,17 @@ class StorageSpoke(NormalSpoke, StorageChecker):
         self.local_disks_box = self.builder.get_object("local_disks_box")
         self.specialized_disks_box = self.builder.get_object("specialized_disks_box")
 
+        # Connect the viewport adjustments to the child widgets
+        # See also https://bugzilla.gnome.org/show_bug.cgi?id=744721
+        localViewport = self.builder.get_object("localViewport")
+        specializedViewport = self.builder.get_object("specializedViewport")
+        self.local_disks_box.set_focus_hadjustment(localViewport.get_hadjustment())
+        self.specialized_disks_box.set_focus_hadjustment(specializedViewport.get_hadjustment())
+
+        mainViewport = self.builder.get_object("storageViewport")
+        mainBox = self.builder.get_object("storageMainBox")
+        mainBox.set_focus_vadjustment(mainViewport.get_vadjustment())
+
         threadMgr.add(AnacondaThread(name=constants.THREAD_STORAGE_WATCHER,
                       target=self._initialize))
 
