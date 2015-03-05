@@ -25,7 +25,7 @@ import os
 import tempfile
 import signal
 import shutil
-from test_constants import ANACONDA_TEST_DIR
+from .test_constants import ANACONDA_TEST_DIR
 
 from timer import timer
 
