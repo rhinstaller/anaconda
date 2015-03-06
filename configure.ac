@@ -161,9 +161,7 @@ CFLAGS="`cflags_filter $CFLAGS`"
 # all libraries we checked for.
 LIBS=
 
-# Get the release number from the spec file
-rel="`awk '/Release:/ { split($2, r, "%"); print r[[1]] }' $srcdir/anaconda.spec.in`"
-AC_SUBST(PACKAGE_RELEASE, [$rel])
+AC_SUBST(PACKAGE_RELEASE, [1])
 
 # Perform arch related tests
 AC_CANONICAL_BUILD
