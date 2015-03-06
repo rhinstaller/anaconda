@@ -353,6 +353,9 @@ class DNFPayload(packaging.PackagePayload):
         # transaction, disable it in RPM:
         conf.tsflags.append('nocrypto')
 
+        if self.data.packages.multiLib:
+            conf.multilib_policy = "all"
+
         # Start with an empty comps so we can go ahead and use the environment
         # and group properties. Unset reposdir to ensure dnf has nothing it can
         # check automatically
