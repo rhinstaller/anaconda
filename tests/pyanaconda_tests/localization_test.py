@@ -19,7 +19,7 @@
 #
 
 from pyanaconda import localization
-from pyanaconda.iutil import execReadlines
+from pyanaconda.iutil import execWithCaptureBinary
 import locale as locale_mod
 import unittest
 
@@ -145,10 +145,19 @@ class LangcodeLocaleMatchingTests(unittest.TestCase):
     def resolve_date_format_test(self):
         """All locales' date formats should be properly resolved."""
 
-        locales = (line.strip() for line in execReadlines("locale", ["-a"]))
+        locales = (line.strip() for line in execWithCaptureBinary("locale", ["-a"]).splitlines())
         for locale in locales:
+            # "locale -a" might return latin-1 encoded local identifiers:
+            # https://bugzilla.redhat.com/show_bug.cgi?id=1184168
+            # once that bug is fixed we should be able to remove the latin-1 decoding
+            # fallback
             try:
-                locale_mod.setlocale(locale_mod.LC_ALL, locale)
+                decoded_locale = locale.decode("utf-8")
+            except UnicodeDecodeError:
+                decoded_locale = locale.decode("latin-1")
+
+            try:
+                locale_mod.setlocale(locale_mod.LC_ALL, decoded_locale)
             except locale_mod.Error:
                 # cannot set locale (a bug in the locale module?)
                 continue
