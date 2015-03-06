@@ -72,6 +72,7 @@ class MakeBumpVer:
         self.name = kwargs.get('name')
         self.version = kwargs.get('version')
         self.release = kwargs.get('release')
+        self.new_release = kwargs.get('new_release') or self.release
         self.bugreport = kwargs.get('bugreport')
         self.ignore = kwargs.get('ignore')
 
@@ -412,6 +413,9 @@ class MakeBumpVer:
                                                 newVersion,
                                                 self.bugreport)
 
+        i = l.index("AC_SUBST(PACKAGE_RELEASE, [1])\n")
+        l[i] = "AC_SUBST(PACKAGE_RELEASE, [%s])\n" % self.new_release
+
         f = open(self.configure, 'w')
         f.writelines(l)
         f.close()
@@ -432,7 +436,7 @@ class MakeBumpVer:
         today = datetime.date.today()
         stamp = today.strftime("%a %b %d %Y")
         f.write("* %s %s <%s> - %s-%s\n" % (stamp, self.gituser, self.gitemail,
-                                            newVersion, self.release))
+                                            newVersion, self.new_release))
 
         for msg, rhbz in rpmlog:
             msg = re.sub('(?<!%)%%(?!%)|(?<!%%)%(?!%%)', '%%', msg)
@@ -529,7 +533,7 @@ class MakeBumpVer:
             log.warning("jenkins test results do not pass; ignoring for now")
 
         newVersion = self._incrementVersion()
-        fixedIn = "%s-%s-%s" % (self.name, newVersion, self.release)
+        fixedIn = "%s-%s-%s" % (self.name, newVersion, self.new_release)
         rpmlog = self._rpmLog(fixedIn)
 
         self._writeNewConfigure(newVersion)
@@ -541,6 +545,7 @@ def usage(cmd):
     sys.stdout.write("    -n, --name       Package name.\n")
     sys.stdout.write("    -v, --version    Current package version number.\n")
     sys.stdout.write("    -r, --release    Package release number.\n")
+    sys.stdout.write("        --newrelease Value for release in the .spec file.\n")
     sys.stdout.write("    -b, --bugreport  Bug reporting email address.\n")
     sys.stdout.write("    -i, --ignore     Comma separated list of git commits to ignore.\n")
     sys.stdout.write("    -m, --map        Comma separated list of FEDORA_BZ=RHEL_BZ mappings.\n")
@@ -561,14 +566,14 @@ def main(argv):
     configure = os.path.realpath(cwd + '/configure.ac')
     spec = os.path.realpath(cwd + '/anaconda.spec.in')
     zanata_config = os.path.realpath(cwd + '/zanata.xml')
-    name, version, release, bugreport = None, None, None, None
+    name, version, release, new_release, bugreport = None, None, None, None, None
     ignore, bugmap = None, None
     show_help, unknown, skip_acks, skip_all, skip_zanata, skip_jenkins = False, False, False, False, False, False
     opts = []
 
     try:
         opts, _args = getopt.getopt(sys.argv[1:], 'n:v:r:b:i:m:sSd?',
-                                   ['name=', 'version=', 'release=',
+                                   ['name=', 'version=', 'release=', "newrelease=",
                                     'bugreport=', 'ignore=', 'map=',
                                     'debug', 'help', 'skip-zanata', 'skip-jenkins'])
     except getopt.GetoptError:
@@ -581,6 +586,8 @@ def main(argv):
             version = a
         elif o in ('-r', '--release'):
             release = a
+        elif o in ('--newrelease'):
+            new_release = a
         elif o in ('-b', '--bugreport'):
             bugreport = a
         elif o in ('-i', '--ignore'):
@@ -634,7 +641,7 @@ def main(argv):
                       bugreport=bugreport, ignore=ignore, bugmap=bugmap,
                       configure=configure, spec=spec, skip_acks=skip_acks,
                       skip_all=skip_all, zanata_config=zanata_config, skip_zanata=skip_zanata,
-                      skip_jenkins=skip_jenkins)
+                      skip_jenkins=skip_jenkins, new_release=new_release)
     mbv.run()
 
 if __name__ == "__main__":
