@@ -165,7 +165,6 @@ class MakeBumpVer:
 
             bzclass = bugzilla.Bugzilla
             self.bz = bzclass(url=self.bzurl)
-            print
 
         if not self.bz.logged_in:
             rc = self.bz.login(self.username, self.password)
