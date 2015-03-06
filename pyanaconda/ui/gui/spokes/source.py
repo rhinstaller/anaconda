@@ -1194,25 +1194,13 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler):
             name = match.group(1)
 
         # Find all of the names with _\d+ at the end
-        name_re = re.compile(r"("+name+r")_(\d+)")
-
-        # Use the digits as numbers, not strings in the sort
-        def key(item):
-            m = name_re.match(item)
-            if m:
-                return m.group(1), int(m.group(2))
-            else:
-                return None
-
-        matches = sorted((r[REPO_NAME_COL] for r in self._repoStore \
-                          if name_re.match(r[REPO_NAME_COL])), key=key)
-        if not matches:
-            return name+"_1"
+        name_re = re.compile(r"("+re.escape(name)+r")_(\d+)")
+        matches = (name_re.match(r[REPO_NAME_COL]) for r in self._repoStore)
+        matches = [int(m.group(2)) for m in matches if m is not None]
 
         # Get the highest number, add 1, append to name
-        name_match = name_re.match(matches[-1])
-        next_d = int(name_match.group(2)) + 1
-        return name_match.group(1)+"_%d" % next_d
+        highest_index = max(matches) if matches else 0
+        return name + ("_%d" % (highest_index + 1))
 
     def on_repoSelection_changed(self, *args):
         """ Called when the selection changed.
