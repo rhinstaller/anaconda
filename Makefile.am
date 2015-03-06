@@ -48,6 +48,8 @@ ZANATA_PULL_ARGS = --transdir $(srcdir)/po/
 ZANATA_PUSH_ARGS = --srcdir $(srcdir)/po/ --push-type source --force
 
 INSTALLATION_GUIDE_REPO_URL = git://git.fedorahosted.org/git/docs/install-guide.git
+RC_RELEASE ?= $(shell date -u +0.1.%Y%m%d%H%M%S)
+MOCKCHROOT ?= fedora-21-x86_64
 
 tag:
 	@git tag -s -a -m "Tag as $(ARCHIVE_TAG)" $(ARCHIVE_TAG)
@@ -69,7 +71,7 @@ scratch: po-empty get-help
 	git checkout -- $(srcdir)/po/$(PACKAGE_NAME).pot
 
 scratch-bumpver: po-empty get-help
-	@opts="-n $(PACKAGE_NAME) -v $(PACKAGE_VERSION) -r $(PACKAGE_RELEASE) -b $(PACKAGE_BUGREPORT)" ; \
+	@opts="-S -n $(PACKAGE_NAME) -v $(PACKAGE_VERSION) -r $(PACKAGE_RELEASE) -b $(PACKAGE_BUGREPORT) --newrelease $(RC_RELEASE)" ; \
 	if [ ! -z "$(IGNORE)" ]; then \
 		opts="$${opts} -i $(IGNORE)" ; \
 	fi ; \
@@ -90,6 +92,12 @@ release: get-help
 
 api:
 	doxygen docs/api.cfg
+
+rc-release: scratch-bumpver scratch
+	mock -r $(MOCKCHROOT) --buildsrpm  --spec ./$(PACKAGE_NAME).spec --sources . || exit 1
+	cp /var/lib/mock/$(MOCKCHROOT)/result/*src.rpm . || exit 1
+	mock -r $(MOCKCHROOT) --rebuild *src.rpm || exit 1
+	cp /var/lib/mock/$(MOCKCHROOT)/result/*.rpm . || exit 1
 
 bumpver: po-pull
 	@opts="-n $(PACKAGE_NAME) -v $(PACKAGE_VERSION) -r $(PACKAGE_RELEASE) -b $(PACKAGE_BUGREPORT)" ; \
