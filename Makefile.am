@@ -82,8 +82,8 @@ scratch-bumpver: po-empty get-help
 	if [ ! -z "$(SKIP_ACKS)" ]; then \
 		opts="$${opts} -s" ; \
 	fi ; \
-	( cd $(srcdir) && scripts/makebumpver $${opts} ) || exit 1 ; \
-	$(MAKE) -C po $(PACKAGE_NAME).pot-update ; 
+	( cd $(srcdir) && scripts/makebumpver --skip-zanata $${opts} ) || exit 1 ; \
+	$(MAKE) -C po $(PACKAGE_NAME).pot-update
 
 release: get-help
 	$(MAKE) dist && $(MAKE) tag && git checkout -- $(srcdir)/po/$(PACKAGE_NAME).pot
