@@ -308,6 +308,32 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Fri Mar 06 2015 Brian C. Lane <bcl@redhat.com> - 23.2-1
+- Add rc-release target (bcl)
+- Change --skip-tx to --skip-zanata in scratch-bumpver (bcl)
+- Add --newrelease to makebumpver (bcl)
+- Improve the addon repo name collision code (#1125322) (bcl)
+- Fix the import of mountExistingSystem (vpodzime)
+- Fix import error in anaconda-cleanup. (sbueno+anaconda)
+- Use the new static method to get possible PE sizes (vpodzime)
+- Try using the global LUKS passphrase if none is given for LV/part (#1196112)
+  (vpodzime)
+- Fix the help button mnemonic display on spokes (dshea)
+- Only set the hub message if the message has changed (dshea)
+- Wrap the info bar in a GtkRevealer (dshea)
+- Add links to clickable warning and error messages. (dshea)
+- Add a test to look for clickable messages that aren't clickable enough.
+  (dshea)
+- Increment the widgets version number (dshea)
+- Allow markup and links in the info bar. (dshea)
+- Add more links to gtk-doc comments (dshea)
+- Handle New_Repository name collision source spoke (#1125322) (bcl)
+- Fix a bad usage of execWithRedirect (#1197290) (dshea)
+- Have to be root to delete /var/tmp/kstest-* on the remote machines. (clumens)
+- Use the LUKS device for swap in fstab (#1196200) (vpodzime)
+- Clear TUI source spoke errors that may have been leftover from a prior
+  attempt. (#1192259) (sbueno+anaconda)
+
 * Fri Feb 27 2015 Brian C. Lane <bcl@redhat.com> - 23.1-1
 - Make sure python2 dnf is required (bcl)
 - Fix pykickstart requirement. (clumens)
