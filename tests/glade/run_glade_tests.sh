@@ -5,6 +5,18 @@ if ! type parallel 2>&1 > /dev/null; then
     exit 99
 fi
 
+if ! rpm -q gnome-icon-theme &> /dev/null; then
+    # used in icons/check_icons.py;tests/lib/iconcheck.py
+    echo "gnome-icon-theme must be installed"
+    exit 99
+fi
+
+if ! rpm -q gnome-icon-theme-symbolic &> /dev/null; then
+    # used in icons/check_icons.py;tests/lib/iconcheck.py
+    echo "gnome-icon-theme-symbolic must be installed"
+    exit 99
+fi
+
 : "${top_srcdir:=$(dirname "$0")/../..}"
 . "${top_srcdir}/tests/testenv.sh"
 srcdir="${top_srcdir}/tests/glade"
