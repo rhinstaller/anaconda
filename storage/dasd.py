@@ -105,12 +105,9 @@ class DASD:
                                                                          bypath))
                 self._ldldasdlist.append((device, bypath))
 
-        askUser = True
-
-        if zeroMbr or cdl:
-            askUser = False
-        elif not intf and not zeroMbr:
+        if not intf and (not zeroMbr or not cdl):
             log.info("    non-interactive kickstart install without zerombr "
+                     "or clearpart --cdl "
                      "command, unable to run dasdfmt, exiting installer")
             sys.exit(0)
 
@@ -118,12 +115,12 @@ class DASD:
         if not len(self._dasdlist):
             log.info("    no unformatted DASD devices found")
         else:
-            self.format_dasds(intf, askUser, self._dasdlist)
+            self.format_dasds(intf, not zeroMbr, self._dasdlist)
 
         if not len(self._ldldasdlist):
             log.info("    no LDL DASD devices found")
         else:
-            self.format_dasds(intf, askUser, self._ldldasdlist)
+            self.format_dasds(intf, not cdl, self._ldldasdlist)
 
     def format_dasds(self, intf, askUser, dasdlist):
         """ Iterate through a given list of DASDs and run dasdfmt on them. """
