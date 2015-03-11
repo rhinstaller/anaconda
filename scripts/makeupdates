@@ -502,7 +502,17 @@ def addRpms(updates_path, add_rpms):
     # relative paths can be used with -a/--add
     add_rpms = map(os.path.abspath, add_rpms)
 
+    # resolve wildcards and also eliminate non-existing RPMs
+    resolved_rpms = []
     for rpm in add_rpms:
+        resolved_path = glob.glob(rpm)
+        if not(resolved_path):
+            print("warning: requested rpm %s does not exist and can't be aded" % rpm)
+        elif len(resolved_path) > 1:
+            print("wildcard %s resolved to %d paths" % (rpm, len(resolved_path)))
+        resolved_rpms.extend(resolved_path)
+
+    for rpm in resolved_rpms:
         cmd = "cd %s && rpm2cpio %s | cpio -dium" % (updates_path, rpm)
         sys.stdout.write(cmd+"\n")
         os.system(cmd)
@@ -989,7 +999,7 @@ def main():
 
     parser.add_argument('-a', '--add', action=ExtendAction, type=str, nargs='+',
                         dest='add_rpms', metavar='PATH_TO_RPM', default=[],
-                        help='add contents of RPMs to the updates image')
+                        help='add contents of RPMs to the updates image (glob supported)')
 
     parser.add_argument('-f', '--fetch', action='store', type=str, metavar="ARCH",
                         help='autofetch new dependencies from Koji for ARCH')
