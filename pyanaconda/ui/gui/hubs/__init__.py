@@ -217,6 +217,7 @@ class Hub(GUIObject, common.Hub):
             self._updateContinue()
 
     def _updateContinue(self):
+        warning = None
         if len(self._incompleteSpokes) == 0:
             if self._checker and not self._checker.check():
                 warning = self._checker.error_message
