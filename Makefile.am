@@ -87,10 +87,8 @@ release:
 	$(MAKE) dist && $(MAKE) tag && git checkout -- $(srcdir)/po/$(PACKAGE_NAME).pot
 
 rc-release: scratch-bumpver scratch
-	mock -r $(MOCKCHROOT) --buildsrpm  --spec ./$(PACKAGE_NAME).spec --sources . || exit 1
-	cp /var/lib/mock/$(MOCKCHROOT)/result/*src.rpm . || exit 1
-	mock -r $(MOCKCHROOT) --rebuild *src.rpm || exit 1
-	cp /var/lib/mock/$(MOCKCHROOT)/result/*.rpm . || exit 1
+	mock -r $(MOCKCHROOT) --buildsrpm  --spec ./$(PACKAGE_NAME).spec --sources . --resultdir $(PWD) || exit 1
+	mock -r $(MOCKCHROOT) --rebuild *src.rpm --resultdir $(PWD) || exit 1
 
 bumpver: po-pull
 	@opts="-n $(PACKAGE_NAME) -v $(PACKAGE_VERSION) -r $(PACKAGE_RELEASE) -b $(PACKAGE_BUGREPORT)" ; \
