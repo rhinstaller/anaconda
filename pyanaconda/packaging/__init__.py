@@ -36,6 +36,8 @@ from fnmatch import fnmatch
 import threading
 import re
 
+from pyanaconda.iutil import requests_session
+
 if __name__ == "__main__":
     from pyanaconda import anaconda_log
     anaconda_log.init()
@@ -133,6 +135,8 @@ class Payload(object):
         self.storage = None
         self.instclass = None
         self.txID = None
+
+        self._session = requests_session()
 
     def setup(self, storage, instClass):
         """ Do any payload-specific setup. """
@@ -350,10 +354,10 @@ class Payload(object):
         response = None
         headers = {"user-agent": USER_AGENT}
         try:
-            response = requests.get("%s/.treeinfo" % url, headers=headers, proxies=proxies, verify=sslverify)
+            response = self._session.get("%s/.treeinfo" % url, headers=headers, proxies=proxies, verify=sslverify)
         except requests.exceptions.RequestException as e:
             try:
-                response = requests.get("%s/treeinfo" % url, headers=headers, proxies=proxies, verify=sslverify)
+                response = self._session.get("%s/treeinfo" % url, headers=headers, proxies=proxies, verify=sslverify)
             except requests.exceptions.RequestException as e:
                 log.info("Error downloading treeinfo: %s", e)
                 response = None

@@ -99,6 +99,7 @@ in a couple seconds
 * cell tower geolocation
 
 """
+from pyanaconda.iutil import requests_session
 import requests
 import urllib
 import dbus
@@ -444,6 +445,7 @@ class GeolocationBackend(object):
     def __init__(self):
         self._result = None
         self._result_lock = threading.Lock()
+        self._session = requests_session()
 
     def get_name(self):
         """Get name of the backend
@@ -523,7 +525,7 @@ class FedoraGeoIPProvider(GeolocationBackend):
 
     def _refresh(self):
         try:
-            reply = requests.get(self.API_URL, timeout=constants.NETWORK_CONNECTION_TIMEOUT, verify=True)
+            reply = self._session.get(self.API_URL, timeout=constants.NETWORK_CONNECTION_TIMEOUT, verify=True)
             if reply.status_code == requests.codes.ok:
                 json_reply = reply.json()
                 territory = json_reply.get("country_code", None)
@@ -567,7 +569,7 @@ class HostipGeoIPProvider(GeolocationBackend):
 
     def _refresh(self):
         try:
-            reply = requests.get(self.API_URL, timeout=constants.NETWORK_CONNECTION_TIMEOUT, verify=True)
+            reply = self._session.get(self.API_URL, timeout=constants.NETWORK_CONNECTION_TIMEOUT, verify=True)
             if reply.status_code == requests.codes.ok:
                 reply_dict = reply.json()
                 territory = reply_dict.get("country_code", None)
@@ -608,7 +610,7 @@ class GoogleWiFiLocationProvider(GeolocationBackend):
         if access_points:
             try:
                 url = self._get_url(access_points)
-                reply = requests.get(url, timeout=constants.NETWORK_CONNECTION_TIMEOUT, verify=True)
+                reply = self._session.get(url, timeout=constants.NETWORK_CONNECTION_TIMEOUT, verify=True)
                 result_dict = reply.json()
                 status = result_dict.get('status', 'NOT OK')
                 if status == 'OK':
@@ -698,7 +700,7 @@ class Geocoder(object):
             coordinates.latitude,
             coordinates.longitude)
         try:
-            reply = requests.get(url, timeout=constants.NETWORK_CONNECTION_TIMEOUT, verify=True)
+            reply = requests_session().get(url, timeout=constants.NETWORK_CONNECTION_TIMEOUT, verify=True)
             if reply.status_code == requests.codes.ok:
                 reply_dict = reply.json()
                 territory_code = reply_dict['address']['country_code'].upper()

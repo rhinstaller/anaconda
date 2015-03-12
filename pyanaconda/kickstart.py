@@ -167,7 +167,7 @@ def getEscrowCertificate(escrowCerts, url):
     log.info("escrow: downloading %s", url)
 
     try:
-        request = requests.get(url, verify=True)
+        request = iutil.requests_session().get(url, verify=True)
     except requests.exceptions.SSLError as e:
         msg = _("SSL error while downloading the escrow certificate:\n\n%s") % e
         raise KickstartError(msg)

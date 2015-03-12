@@ -268,7 +268,7 @@ class LiveImageKSPayload(LiveImagePayload):
 
         error = None
         try:
-            response = requests.get(self.data.method.url, proxies=self._proxies, verify=True)
+            response = self._session.get(self.data.method.url, proxies=self._proxies, verify=True)
 
             # At this point we know we can get the image and what its size is
             # Make a guess as to minimum size needed:
@@ -327,7 +327,7 @@ class LiveImageKSPayload(LiveImagePayload):
             log.info("Starting image download")
             with open(self.image_path, "wb") as f:
                 ssl_verify = not self.data.method.noverifyssl
-                response = requests.get(self.data.method.url, proxies=self._proxies, verify=ssl_verify, stream=True)
+                response = self._session.get(self.data.method.url, proxies=self._proxies, verify=ssl_verify, stream=True)
                 total_length = response.headers.get('content-length')
                 if total_length is None:  # no content length header
                     # just download the file in one go and fake the progress reporting once done

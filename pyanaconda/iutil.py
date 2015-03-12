@@ -36,6 +36,10 @@ from urllib import quote, unquote
 import gettext
 import signal
 
+import requests
+from requests_file import FileAdapter
+from requests_ftp import FTPAdapter
+
 from gi.repository import GLib
 
 from pyanaconda.flags import flags
@@ -1229,3 +1233,10 @@ def eintr_retry_call(func, *args):
 def parent_dir(directory):
     """Return the parent's path"""
     return "/".join(os.path.normpath(directory).split("/")[:-1])
+
+def requests_session():
+    """Return a requests.Session object with file and ftp support."""
+    session = requests.Session()
+    session.mount("file://", FileAdapter())
+    session.mount("ftp://", FTPAdapter())
+    return session
