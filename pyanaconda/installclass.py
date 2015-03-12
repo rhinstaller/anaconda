@@ -168,7 +168,7 @@ def availableClasses(showHidden=False):
     for d in env_path + ["installclasses",
               "/tmp/updates/pyanaconda/installclasses",
               "/tmp/product/pyanaconda/installclasses",
-              "%s/pyanaconda/installclasses" % get_python_lib(plat_specific=1) ]:
+              "%s/pyanaconda/installclasses" % get_python_lib(plat_specific=1)]:
         if os.access(d, os.R_OK):
             path.append(d)
 
@@ -185,7 +185,7 @@ def availableClasses(showHidden=False):
     for fileName in files:
         if fileName[0] == '.':
             continue
-        if len (fileName) < 4:
+        if len(fileName) < 4:
             continue
         if fileName[-3:] != ".py" and fileName[-4:-1] != ".py":
             continue
@@ -197,7 +197,7 @@ def availableClasses(showHidden=False):
         try:
             found = imputil.imp.find_module(mainName)
         except ImportError:
-            log.warning ("module import of %s failed: %s", mainName, sys.exc_info()[0])
+            log.warning("module import of %s failed: %s", mainName, sys.exc_info()[0])
             continue
 
         try:
@@ -210,7 +210,7 @@ def availableClasses(showHidden=False):
                     if not obj.hidden or showHidden:
                         lst.append(((obj.name, obj), sortOrder))
         except (ImportError, AttributeError):
-            log.warning ("module import of %s failed: %s", mainName, sys.exc_info()[0])
+            log.warning("module import of %s failed: %s", mainName, sys.exc_info()[0])
 
     lst.sort(_ordering)
     for (item, _) in lst:

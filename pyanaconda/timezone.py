@@ -127,7 +127,7 @@ def write_timezone_config(timezone, root):
         lines = fobj.readlines()
         fobj.close()
     except IOError:
-        lines = [ "0.0 0 0.0\n", "0\n" ]
+        lines = ["0.0 0 0.0\n", "0\n"]
 
     try:
         with open(os.path.normpath(root + "/etc/adjtime"), "w") as fobj:

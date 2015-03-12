@@ -49,7 +49,7 @@ DD_ALL = "/tmp/DD"
 DD_FIRMWARE = "/tmp/DD/lib/firmware"
 DD_RPMS = "/tmp/DD-*"
 
-TRANSLATIONS_UPDATE_DIR="/tmp/updates/po"
+TRANSLATIONS_UPDATE_DIR = "/tmp/updates/po"
 
 ANACONDA_CLEANUP = "anaconda-cleanup"
 MOUNT_DIR = "/run/install"
@@ -165,10 +165,10 @@ import logging
 LOGLVL_LOCK = logging.DEBUG-1
 
 # Constants for reporting status to IPMI.  These are from the IPMI spec v2 rev1.1, page 512.
-IPMI_STARTED  = 0x7         # installation started
+IPMI_STARTED = 0x7          # installation started
 IPMI_FINISHED = 0x8         # installation finished successfully
-IPMI_ABORTED  = 0x9         # installation finished unsuccessfully, due to some non-exn error
-IPMI_FAILED   = 0xA         # installation hit an exception
+IPMI_ABORTED = 0x9          # installation finished unsuccessfully, due to some non-exn error
+IPMI_FAILED = 0xA           # installation hit an exception
 
 
 # for how long (in seconds) we try to wait for enough entropy for LUKS

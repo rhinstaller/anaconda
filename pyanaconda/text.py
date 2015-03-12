@@ -72,7 +72,7 @@ class ProgressWindow:
     def refresh(self):
         pass
 
-    def __init__(self, screen, title, text, total, updpct = 0.05, pulse = False):
+    def __init__(self, screen, title, text, total, updpct=0.05, pulse=False):
         self.multiplier = 1
         if total == 1.0:
             self.multiplier = 100
@@ -108,8 +108,8 @@ class PassphraseEntryWindow:
         txt = TextboxReflowed(65, self.txt)
         toplevel.add(txt, 0, 0)
 
-        passphraseentry = Entry(60, password = 1)
-        toplevel.add(passphraseentry, 0, 1, (0,0,0,1))
+        passphraseentry = Entry(60, password=1)
+        toplevel.add(passphraseentry, 0, 1, (0, 0, 0, 1))
 
         buttons = ButtonBar(self.screen, [TEXT_OK_BUTTON, TEXT_CANCEL_BUTTON])
         toplevel.add(buttons, 0, 2, growx=1)

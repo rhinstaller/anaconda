@@ -63,7 +63,7 @@ class TUISpoke(TUIObject, tui.Widget, Spoke):
     def completed(self):
         return True
 
-    def refresh(self, args = None):
+    def refresh(self, args=None):
         TUIObject.refresh(self, args)
         return True
 
@@ -84,8 +84,8 @@ class TUISpoke(TUIObject, tui.Widget, Spoke):
 
         # always set completed = True here; otherwise key value won't be
         # displayed if completed (spoke value from above) is False
-        c = tui.CheckboxWidget(key = key, completed = True,
-                               title = _(self.title), text = self.status)
+        c = tui.CheckboxWidget(key=key, completed=True,
+                               title=_(self.title), text=self.status)
         c.render(width)
         self.draw(c)
 
@@ -109,12 +109,12 @@ class EditTUIDialog(NormalTUISpoke):
         NormalTUISpoke.__init__(self, app, data, storage, payload, instclass)
         self.value = None
 
-    def refresh(self, args = None):
+    def refresh(self, args=None):
         self._window = []
         self.value = None
         return True
 
-    def prompt(self, entry = None):
+    def prompt(self, entry=None):
         if not entry:
             return None
 
@@ -173,7 +173,7 @@ class OneShotEditTUIDialog(EditTUIDialog):
        the value is read
     """
 
-    def prompt(self, entry = None):
+    def prompt(self, entry=None):
         ret = None
 
         if entry:
@@ -245,7 +245,7 @@ class EditTUISpoke(NormalTUISpoke):
 
         return ret
 
-    def refresh(self, args = None):
+    def refresh(self, args=None):
         NormalTUISpoke.refresh(self, args)
 
         if args:

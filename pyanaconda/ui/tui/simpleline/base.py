@@ -66,8 +66,8 @@ class App(object):
     STOP_MAINLOOP = False
     NOP = None
 
-    def __init__(self, title, yes_or_no_question = None, width = 80, queue = None,
-                 quit_message = None):
+    def __init__(self, title, yes_or_no_question=None, width=80, queue=None,
+                 quit_message=None):
         """
         :param title: application title for whenever we need to display app name
         :type title: unicode
@@ -106,7 +106,7 @@ class App(object):
         #   - False = already running loop, exit when window closes
         self._screens = []
 
-    def register_event_handler(self, event, callback, data = None):
+    def register_event_handler(self, event, callback, data=None):
         """This method registers a callback which will be called
            when message "event" is encountered during process_events.
 
@@ -165,7 +165,7 @@ class App(object):
 
         queue.put((hubQ.HUB_CODE_INPUT, [data]))
 
-    def switch_screen(self, ui, args = None):
+    def switch_screen(self, ui, args=None):
         """Schedules a screen to replace the current one.
 
         :param ui: screen to show
@@ -184,7 +184,7 @@ class App(object):
         self._screens.append((ui, args, oldloop))
         self.redraw()
 
-    def switch_screen_with_return(self, ui, args = None):
+    def switch_screen_with_return(self, ui, args=None):
         """Schedules a screen to show, but keeps the current one in stack
            to return to, when the new one is closed.
 
@@ -199,7 +199,7 @@ class App(object):
 
         self.redraw()
 
-    def switch_screen_modal(self, ui, args = None):
+    def switch_screen_modal(self, ui, args=None):
         """Starts a new screen right away, so the caller can collect data back.
         When the new screen is closed, the caller is redisplayed.
 
@@ -216,7 +216,7 @@ class App(object):
         self._screens.append((ui, args, self.START_MAINLOOP))
         self._do_redraw()
 
-    def schedule_screen(self, ui, args = None):
+    def schedule_screen(self, ui, args=None):
         """Add screen to the bottom of the stack. This is mostly usefull
         at the beginning to prepare the first screen hierarchy to display.
 
@@ -228,7 +228,7 @@ class App(object):
         """
         self._screens.insert(0, (ui, args, self.NOP))
 
-    def close_screen(self, scr = None):
+    def close_screen(self, scr=None):
         """Close the currently displayed screen and exit it's main loop
         if necessary. Next screen from the stack is then displayed.
 
@@ -382,7 +382,7 @@ class App(object):
             except ExitMainLoop:
                 break
 
-    def process_events(self, return_at = None):
+    def process_events(self, return_at=None):
         """This method processes incoming async messages and returns
            when a specific message is encountered or when the queue
            is empty.
@@ -491,7 +491,7 @@ class UIScreen(object):
     # title line of the screen
     title = u"Screen.."
 
-    def __init__(self, app, screen_height = 25):
+    def __init__(self, app, screen_height=25):
         """
         :param app: reference to application main class
         :type app: instance of class App
@@ -523,7 +523,7 @@ class UIScreen(object):
 
         return True
 
-    def refresh(self, args = None):
+    def refresh(self, args=None):
         """Method which prepares the content desired on the screen to self._window.
 
         :param args: optional argument passed from switch_screen calls
@@ -608,7 +608,7 @@ class UIScreen(object):
 
         return key
 
-    def prompt(self, args = None):
+    def prompt(self, args=None):
         """Return the text to be shown as prompt or handle the prompt and return None.
 
         :param args: optional argument passed from switch_screen calls
@@ -630,7 +630,7 @@ class UIScreen(object):
         self.app.close_screen(self)
 
 class Widget(object):
-    def __init__(self, max_width = None, default = None):
+    def __init__(self, max_width=None, default=None):
         """Initializes base Widgets buffer.
 
            :param max_width: server as a hint about screen size to write method with default arguments
@@ -706,7 +706,7 @@ class Widget(object):
         """Sets the cursor to first column in new line at the end."""
         self._cursor = (self.height, 0)
 
-    def draw(self, w, row = None, col = None, block = False):
+    def draw(self, w, row=None, col=None, block=False):
         """This method copies w widget's content to this widget's buffer at row, col position.
 
            :param w: widget to take content from
@@ -749,7 +749,7 @@ class Widget(object):
         else:
             self._cursor = (row + w.height, 0)
 
-    def write(self, text, row = None, col = None, width = None, block = False):
+    def write(self, text, row=None, col=None, width=None, block=False):
         """This method emulates typing machine writing to this widget's buffer.
 
            :param text: text to type
@@ -826,7 +826,7 @@ class Widget(object):
 
 if __name__ == "__main__":
     class HelloWorld(UIScreen):
-        def show(self, args = None):
+        def show(self, args=None):
             print("""Hello World\nquit by typing 'quit'""")
             return True
 

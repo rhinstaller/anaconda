@@ -227,11 +227,11 @@ class VncServer:
             self.setVNCPassword()
 
         # Lets start the xvnc.
-        xvnccommand =  [ XVNC_BINARY_NAME, ":%s" % constants.X_DISPLAY_NUMBER,
-                        "-depth", "16", "-br",
-                        "IdleTimeout=0", "-auth", "/dev/null", "-once",
-                        "DisconnectClients=false", "desktop=%s" % (self.desktop,),
-                        "SecurityTypes=%s" % SecurityTypes, "rfbauth=%s" % rfbauth ]
+        xvnccommand = [XVNC_BINARY_NAME, ":%s" % constants.X_DISPLAY_NUMBER,
+                       "-depth", "16", "-br",
+                       "IdleTimeout=0", "-auth", "/dev/null", "-once",
+                       "DisconnectClients=false", "desktop=%s" % (self.desktop,),
+                       "SecurityTypes=%s" % SecurityTypes, "rfbauth=%s" % rfbauth]
 
         try:
             iutil.startX(xvnccommand, output_redirect=self.openlogfile())

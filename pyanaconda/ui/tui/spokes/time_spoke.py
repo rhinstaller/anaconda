@@ -39,7 +39,7 @@ class TimeZoneSpoke(FirstbootSpokeMixIn, NormalTUISpoke):
         # needs to be unsorted in order to display in the same order as the GUI
         # so whatever
         self._regions = timezone.get_all_regions_and_timezones().keys()
-        self._timezones = dict((k, sorted(v)) for k,v in timezone.get_all_regions_and_timezones().items())
+        self._timezones = dict((k, sorted(v)) for k, v in timezone.get_all_regions_and_timezones().items())
         self._lower_regions = [r.lower() for r in self._timezones]
 
         self._zones = ["%s/%s" % (region, z) for region in self._timezones for z in self._timezones[region]]
@@ -63,7 +63,7 @@ class TimeZoneSpoke(FirstbootSpokeMixIn, NormalTUISpoke):
             return _("Timezone is not set.")
 
 
-    def refresh(self, args = None):
+    def refresh(self, args=None):
         """args is None if we want a list of zones or "zone" to show all timezones in that zone."""
         NormalTUISpoke.refresh(self, args)
 
@@ -80,9 +80,9 @@ class TimeZoneSpoke(FirstbootSpokeMixIn, NormalTUISpoke):
 
         # split zones to three columns
         middle = len(displayed) / 3
-        left = [_prep(i, w) for i,w in enumerate(displayed) if i <= middle]
-        center = [_prep(i, w) for i,w in enumerate(displayed) if i > middle and i <= 2*middle]
-        right = [_prep(i, w) for i,w in enumerate(displayed) if i > 2*middle]
+        left = [_prep(i, w) for i, w in enumerate(displayed) if i <= middle]
+        center = [_prep(i, w) for i, w in enumerate(displayed) if i > middle and i <= 2*middle]
+        right = [_prep(i, w) for i, w in enumerate(displayed) if i > 2*middle]
 
         c = ColumnWidget([(24, left), (24, center), (24, right)], 3)
         self._window.append(c)
@@ -129,7 +129,7 @@ class TimeZoneSpoke(FirstbootSpokeMixIn, NormalTUISpoke):
                 self.app.switch_screen(self, self._regions[keyid])
             return INPUT_PROCESSED
 
-    def prompt(self, args = None):
+    def prompt(self, args=None):
         return _("Please select the timezone.\nUse numbers or type names directly [b to region list, q to quit]: ")
 
     def apply(self):

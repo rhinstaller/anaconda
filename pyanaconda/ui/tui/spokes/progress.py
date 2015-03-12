@@ -65,7 +65,7 @@ class ProgressSpoke(StandaloneTUISpoke):
             # throwing an exception)
             while True:
                 try:
-                    (code, args) = q.get(timeout = 1)
+                    (code, args) = q.get(timeout=1)
                     break
                 except Queue.Empty:
                     pass
@@ -104,7 +104,7 @@ class ProgressSpoke(StandaloneTUISpoke):
             q.task_done()
         return True
 
-    def refresh(self, args = None):
+    def refresh(self, args=None):
         from pyanaconda.install import doInstall, doConfiguration
         from pyanaconda.threads import threadMgr, AnacondaThread
 
@@ -135,7 +135,7 @@ class ProgressSpoke(StandaloneTUISpoke):
 
         return True
 
-    def prompt(self, args = None):
+    def prompt(self, args=None):
         return(_("\tInstallation complete.  Press return to quit"))
 
     def input(self, args, key):

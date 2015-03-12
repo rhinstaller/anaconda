@@ -38,7 +38,7 @@ class Translator:
         return 2
 
 TEXT_OK_STR = N_("OK")
-TEXT_OK_CHECK  = "ok"
+TEXT_OK_CHECK = "ok"
 TEXT_OK_BUTTON = Translator(TEXT_OK_STR, TEXT_OK_CHECK)
 
 TEXT_CANCEL_STR = N_("Cancel")

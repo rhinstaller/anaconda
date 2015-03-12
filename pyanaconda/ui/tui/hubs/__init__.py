@@ -77,7 +77,7 @@ class TUIHub(TUIObject, common.Hub):
         # only schedule the hub if it has some spokes
         return self._spoke_count != 0
 
-    def refresh(self, args = None):
+    def refresh(self, args=None):
         """This methods fills the self._window list by all the objects
         we want shown on this screen. Title and Spokes mostly."""
         TUIObject.refresh(self, args)
@@ -87,8 +87,8 @@ class TUIHub(TUIObject, common.Hub):
             return tui.ColumnWidget([(3, [number]), (None, [w])], 1)
 
         # split spokes to two columns
-        left = [_prep(i, w) for i,w in self._keys.items() if i % 2 == 1]
-        right = [_prep(i, w) for i,w in self._keys.items() if i % 2 == 0]
+        left = [_prep(i, w) for i, w in self._keys.items() if i % 2 == 1]
+        right = [_prep(i, w) for i, w in self._keys.items() if i % 2 == 0]
 
         c = tui.ColumnWidget([(39, left), (39, right)], 2)
         self._window.append(c)
