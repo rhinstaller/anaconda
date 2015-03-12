@@ -562,7 +562,7 @@ class GraphicalUserInterface(UserInterface):
         if monitor_height_px >= 1200 and monitor_dpi_x > 192 and monitor_dpi_y > 192:
             display.set_window_scale(2)
             # Export the scale so that Gtk programs launched by anaconda are also scaled
-            iutil.setenv("GDK_SCALE", 2)
+            iutil.setenv("GDK_SCALE", "2")
 
     def _convertSignals(self):
         # What tends to happen when we receive a signal is that the signal will
