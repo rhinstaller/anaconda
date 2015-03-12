@@ -2395,8 +2395,10 @@ def writeBootLoader(storage, payload, instClass, ksdata):
     # get a list of installed kernel packages
     # add whatever rescue kernels we can find to the end
     kernel_versions = list(payload.kernelVersionList)
-    kernel_versions += glob(iutil.getSysroot() + "/boot/vmlinuz-*-rescue-*")
-    kernel_versions += glob(iutil.getSysroot() + "/boot/efi/EFI/%s/vmlinuz-*-rescue-*" % instClass.efi_dir)
+
+    rescue_versions = glob(iutil.getSysroot() + "/boot/vmlinuz-*-rescue-*")
+    rescue_versions += glob(iutil.getSysroot() + "/boot/efi/EFI/%s/vmlinuz-*-rescue-*" % instClass.efi_dir)
+    kernel_versions += (f.split("/")[-1][8:] for f in rescue_versions)
 
     if not kernel_versions:
         log.warning("no kernel was installed -- boot loader config unchanged")
