@@ -483,10 +483,10 @@ def nm_device_ip_config(name, version=4):
 
     if version == 4:
         dbus_iface = ".IP4Config"
-        prop= "Ip4Config"
+        prop = "Ip4Config"
     elif version == 6:
         dbus_iface = ".IP6Config"
-        prop= "Ip6Config"
+        prop = "Ip6Config"
     else:
         return []
 
@@ -642,7 +642,7 @@ def _settings_for_hwaddr(hwaddr):
     return _find_settings(hwaddr, '802-3-ethernet', 'mac-address',
             format_value=lambda ba: ":".join("%02X" % b for b in ba))
 
-def _find_settings(value, key1, key2, format_value=lambda x:x):
+def _find_settings(value, key1, key2, format_value=lambda x: x):
     """Return list of object paths of settings having given value of key1, key2 setting
 
        :param value: required value of setting
@@ -674,7 +674,7 @@ def _find_settings(value, key1, key2, format_value=lambda x:x):
 
     return retval
 
-def nm_get_settings(value, key1, key2, format_value=lambda x:x):
+def nm_get_settings(value, key1, key2, format_value=lambda x: x):
     """Return settings having given value of key1, key2 setting
 
        Returns list of settings(dicts) , None if settings were not found.

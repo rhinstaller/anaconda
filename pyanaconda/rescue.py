@@ -26,7 +26,7 @@ import shutil
 import time
 import re
 
-from snack import ButtonChoiceWindow, ListboxChoiceWindow,SnackScreen
+from snack import ButtonChoiceWindow, ListboxChoiceWindow, SnackScreen
 
 from pyanaconda.constants import ANACONDA_CLEANUP
 from pyanaconda.constants_text import TEXT_OK_BUTTON, TEXT_NO_BUTTON, TEXT_YES_BUTTON
@@ -52,7 +52,7 @@ class RescueInterface(InstallInterfaceBase):
     def waitWindow(self, title, text):
         return WaitWindow(self.screen, title, text)
 
-    def progressWindow(self, title, text, total, updpct = 0.05, pulse = False):
+    def progressWindow(self, title, text, total, updpct=0.05, pulse=False):
         return ProgressWindow(self.screen, title, text, total, updpct, pulse)
 
     def detailedMessageWindow(self, title, text, longText=None, ty="ok",
@@ -61,7 +61,7 @@ class RescueInterface(InstallInterfaceBase):
         return self.messageWindow(title, text, ty, default, custom_icon,
                                   custom_buttons)
 
-    def messageWindow(self, title, text, ty = "ok", default = None,
+    def messageWindow(self, title, text, ty="ok", default=None,
                       custom_icon=None, custom_buttons=None):
         if custom_buttons is None:
             custom_buttons = []
@@ -81,7 +81,7 @@ class RescueInterface(InstallInterfaceBase):
         elif ty == "custom":
             tmpbut = []
             for but in custom_buttons:
-                tmpbut.append(but.replace("_",""))
+                tmpbut.append(but.replace("_", ""))
 
             rc = ButtonChoiceWindow(self.screen, title, text, width=60, buttons=tmpbut)
 
@@ -108,7 +108,7 @@ class RescueInterface(InstallInterfaceBase):
     def tty_num(self):
         return 1
 
-    def shutdown (self):
+    def shutdown(self):
         self.screen.finish()
 
     def suspend(self):
@@ -122,7 +122,7 @@ class RescueInterface(InstallInterfaceBase):
         self.screen = SnackScreen()
         self._meh_interface = meh.ui.text.TextIntf()
 
-def makeFStab(instPath = ""):
+def makeFStab(instPath=""):
     if os.access("/proc/mounts", os.R_OK):
         f = open("/proc/mounts", "r")
         buf = f.read()
@@ -171,7 +171,7 @@ def makeResolvConf(instPath):
     f.write(buf)
     f.close()
 
-def runShell(screen = None, msg=""):
+def runShell(screen=None, msg=""):
     if screen:
         screen.suspend()
 
@@ -192,7 +192,7 @@ def runShell(screen = None, msg=""):
     if os.path.exists("/usr/bin/firstaidkit-qs"):
         iutil.execWithRedirect("/usr/bin/firstaidkit-qs", [])
 
-    if proc is None or proc.returncode!=0:
+    if proc is None or proc.returncode != 0:
         if os.path.exists("/bin/bash"):
             iutil.execConsole()
         else:
@@ -260,8 +260,8 @@ def doRescue(intf, rescue_mount, ksdata):
                                                                     intf.screen,
                                                                     ty, val, tb)
 
-    for f in [ "services", "protocols", "group", "joe", "man.config",
-               "nsswitch.conf", "selinux", "mke2fs.conf" ]:
+    for f in ["services", "protocols", "group", "joe", "man.config",
+              "nsswitch.conf", "selinux", "mke2fs.conf"]:
         try:
             os.symlink('/mnt/runtime/etc/' + f, '/etc/' + f)
         except OSError:
@@ -295,7 +295,7 @@ def doRescue(intf, rescue_mount, ksdata):
                   "If for some reason this process fails you can choose 'Skip' "
                   "and this step will be skipped and you will go directly to a "
                   "command shell.\n\n") % (iutil.getSysroot(),),
-                  [_("Continue"), _("Read-Only"), _("Skip")] )
+                  [_("Continue"), _("Read-Only"), _("Skip")])
 
             if rc == _("Skip").lower():
                 runShell(intf.screen)
@@ -315,7 +315,7 @@ def doRescue(intf, rescue_mount, ksdata):
     elif len(roots) == 1:
         root = roots[0]
     else:
-        height = min (len (roots), 12)
+        height = min(len(roots), 12)
         if height == 12:
             scroll = 1
         else:
@@ -329,9 +329,9 @@ def doRescue(intf, rescue_mount, ksdata):
             ListboxChoiceWindow(intf.screen, _("System to Rescue"),
                                 _("Which device holds the root partition "
                                   "of your installation?"), lst,
-                                [ _("OK"), _("Exit") ], width = 30,
-                                scroll = scroll, height = height,
-                                help = "multipleroot")
+                                [_("OK"), _("Exit")], width=30,
+                                scroll=scroll, height=height,
+                                help="multipleroot")
 
         if button == _("Exit").lower():
             root = None
@@ -361,7 +361,7 @@ def doRescue(intf, rescue_mount, ksdata):
                      "\tchroot %(rootPath)s\n\n%(msg)s") %
                                    {'rootPath': iutil.getSysroot(),
                                     'msg': msg},
-                                   [_("OK")] )
+                                   [_("OK")])
             rootmounted = True
 
             # now turn on swap
@@ -408,7 +408,7 @@ def doRescue(intf, rescue_mount, ksdata):
             # do we have bash?
             try:
                 if os.access("/usr/bin/bash", os.R_OK):
-                    os.symlink ("/usr/bin/bash", "/bin/bash")
+                    os.symlink("/usr/bin/bash", "/bin/bash")
             except OSError:
                 pass
         except (ValueError, LookupError, SyntaxError, NameError):
@@ -429,7 +429,7 @@ def doRescue(intf, rescue_mount, ksdata):
                     _("An error occurred trying to mount some or all of your "
                       "system. Some of it may be mounted under %s.\n\n"
                       "Press <return> to get a shell.") % iutil.getSysroot() + msg,
-                      [_("OK")] )
+                      [_("OK")])
     else:
         if flags.automatedInstall and ksdata.reboot.action in [KS_REBOOT, KS_SHUTDOWN]:
             log.info("No Linux partitions found")
@@ -445,7 +445,7 @@ def doRescue(intf, rescue_mount, ksdata):
             ButtonChoiceWindow(intf.screen, _("Rescue Mode"),
                                _("You don't have any Linux partitions. Press "
                                  "return to get a shell.%s") % msg,
-                               [ _("OK") ], width = 50)
+                               [_("OK")], width=50)
 
     msgStr = ""
 
@@ -456,7 +456,7 @@ def doRescue(intf, rescue_mount, ksdata):
         except (OSError, IOError) as e:
             log.error("error making a resolv.conf: %s", e)
         msgStr = _("Your system is mounted under the %s directory.") % (iutil.getSysroot(),)
-        ButtonChoiceWindow(intf.screen, _("Rescue"), msgStr, [_("OK")] )
+        ButtonChoiceWindow(intf.screen, _("Rescue"), msgStr, [_("OK")])
 
     # we do not need ncurses anymore, shut them down
     intf.shutdown()

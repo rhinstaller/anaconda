@@ -56,7 +56,7 @@ class ProgressHub(Hub):
 
         self._rnotes_id = None
 
-    def _do_configuration(self, widget = None, reenable_ransom = True):
+    def _do_configuration(self, widget=None, reenable_ransom=True):
         from pyanaconda.install import doConfiguration
         from pyanaconda.threads import threadMgr, AnacondaThread
 
@@ -82,7 +82,7 @@ class ProgressHub(Hub):
         self._cycle_rnotes()
         self._rnotes_id = GLib.timeout_add_seconds(60, self._cycle_rnotes)
 
-    def _update_progress(self, callback = None):
+    def _update_progress(self, callback=None):
         from pyanaconda.progress import progressQ
         import Queue
 
@@ -143,8 +143,7 @@ class ProgressHub(Hub):
         # package installation done, check personalization spokes
         # and start the configuration step if all is ready
         if not self._inSpoke and self.continuePossible:
-            self._do_configuration(reenable_ransom = False)
-
+            self._do_configuration(reenable_ransom=False)
         else:
             # some mandatory spokes are not ready
             # switch to configure and finish page

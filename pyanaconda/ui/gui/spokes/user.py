@@ -103,7 +103,7 @@ class AdvancedUserDialog(GUIObject, GUIDialogInputCheckHandler):
         # Validate the group input box
         self.add_check(self._tGroups, self._validateGroups)
 
-    def _apply_checkboxes(self, _editable = None, data = None):
+    def _apply_checkboxes(self, _editable=None, data=None):
         """Update the state of this screen according to the
         checkbox states on the screen. It is called from
         the toggled Gtk event.
@@ -242,7 +242,7 @@ class UserSpoke(FirstbootSpokeMixIn, NormalSpoke, GUISpokeInputCheckHandler):
             self._user = self.data.user.userList[0]
         else:
             self._user = self.data.UserData()
-        self._wheel = self.data.GroupData(name = "wheel")
+        self._wheel = self.data.GroupData(name="wheel")
         self._groupDict = {"wheel": self._wheel}
 
         # placeholders for the text boxes
@@ -444,7 +444,7 @@ class UserSpoke(FirstbootSpokeMixIn, NormalSpoke, GUISpokeInputCheckHandler):
         self.pw_bar.set_value(val)
         self.pw_label.set_text(text)
 
-    def usepassword_toggled(self, togglebutton = None, data = None):
+    def usepassword_toggled(self, togglebutton=None, data=None):
         """Called by Gtk callback when the "Use password" check
         button is toggled. It will make password entries in/sensitive."""
 
@@ -459,7 +459,7 @@ class UserSpoke(FirstbootSpokeMixIn, NormalSpoke, GUISpokeInputCheckHandler):
         """Update the password strength level bar"""
         self._updatePwQuality()
 
-    def username_changed(self, editable = None, data = None):
+    def username_changed(self, editable=None, data=None):
         """Called by Gtk callback when the username or hostname
         entry changes. It disables the guess algorithm if the
         user added his own text there and reenable it when the
@@ -476,7 +476,7 @@ class UserSpoke(FirstbootSpokeMixIn, NormalSpoke, GUISpokeInputCheckHandler):
             self.pw.emit("changed")
             self.confirm.emit("changed")
 
-    def full_name_changed(self, editable = None, data = None):
+    def full_name_changed(self, editable=None, data=None):
         """Called by Gtk callback when the full name field changes.
         It guesses the username and hostname, strips diacritics
         and make those lowercase.

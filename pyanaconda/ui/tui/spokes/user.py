@@ -39,12 +39,12 @@ class UserSpoke(FirstbootSpokeMixIn, EditTUISpoke):
 
     edit_fields = [
         Entry("Create user", "_create", EditTUISpoke.CHECK, True),
-        Entry("Fullname", "gecos", GECOS_VALID, lambda self,args: args._create),
-        Entry("Username", "name", USERNAME_VALID, lambda self,args: args._create),
-        Entry("Use password", "_use_password", EditTUISpoke.CHECK, lambda self,args: args._create),
-        Entry("Password", "_password", EditTUISpoke.PASSWORD, lambda self,args: args._use_password and args._create),
-        Entry("Administrator", "_admin", EditTUISpoke.CHECK, lambda self,args: args._create),
-        Entry("Groups", "_groups", GROUPLIST_SIMPLE_VALID, lambda self,args: args._create)
+        Entry("Fullname", "gecos", GECOS_VALID, lambda self, args: args._create),
+        Entry("Username", "name", USERNAME_VALID, lambda self, args: args._create),
+        Entry("Use password", "_use_password", EditTUISpoke.CHECK, lambda self, args: args._create),
+        Entry("Password", "_password", EditTUISpoke.PASSWORD, lambda self, args: args._use_password and args._create),
+        Entry("Administrator", "_admin", EditTUISpoke.CHECK, lambda self, args: args._create),
+        Entry("Groups", "_groups", GROUPLIST_SIMPLE_VALID, lambda self, args: args._create)
         ]
 
     @classmethod
@@ -81,7 +81,7 @@ class UserSpoke(FirstbootSpokeMixIn, EditTUISpoke):
         # so that all of the properties are set at once
         self.args._password = ""
 
-    def refresh(self, args = None):
+    def refresh(self, args=None):
         self.args._admin = "wheel" in self.args.groups
         self.args._groups = ", ".join(self.args.groups)
         return EditTUISpoke.refresh(self, args)

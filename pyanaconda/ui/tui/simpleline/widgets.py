@@ -49,7 +49,7 @@ class TextWidget(base.Widget):
         """
 
         base.Widget.render(self, width)
-        self.write(self._text, width = width)
+        self.write(self._text, width=width)
 
 class CenterWidget(base.Widget):
     """Class to handle horizontal centering of content."""
@@ -72,10 +72,10 @@ class CenterWidget(base.Widget):
 
         base.Widget.render(self, width)
         self._w.render(width)
-        self.draw(self._w, col = (width - self._w.width) / 2)
+        self.draw(self._w, col=(width - self._w.width) / 2)
 
 class ColumnWidget(base.Widget):
-    def __init__(self, columns, spacing = 0):
+    def __init__(self, columns, spacing=0):
         """Create text columns
 
            :param columns: list containing (column width, [list of widgets to put into this column])
@@ -105,7 +105,7 @@ class ColumnWidget(base.Widget):
         x = 0
 
         # iterate over tuples (column width, column content)
-        for col_width,col in self._columns:
+        for col_width, col in self._columns:
 
             # set cursor to first line and leftmost empty column
             self.setxy(0, x)
@@ -121,7 +121,7 @@ class ColumnWidget(base.Widget):
             # render and draw contents of column
             for item in col:
                 item.render(col_max_width)
-                self.draw(item, block = True)
+                self.draw(item, block=True)
 
             # recompute the leftmost empty column
             x = max((x + col_width), self.width) + self._spacing
@@ -129,7 +129,7 @@ class ColumnWidget(base.Widget):
 class CheckboxWidget(base.Widget):
     """Widget to show checkbox with (un)checked box, name and description."""
 
-    def __init__(self, key = "x", title = None, text = None, completed = None):
+    def __init__(self, key="x", title=None, text=None, completed=None):
         """
         :param key: tick character to be used inside [ ]
         :type key: character
@@ -203,12 +203,12 @@ if __name__ == "__main__":
     t4 = TextWidget(u"Krásný dlouhý text podruhé")
     t5 = TextWidget(u"Test 3")
 
-    c = ColumnWidget([(15, [t1, t2, t3]), (10, [t4, t5])], spacing = 1)
+    c = ColumnWidget([(15, [t1, t2, t3]), (10, [t4, t5])], spacing=1)
     c.render(80)
     print(u"\n".join(c.get_lines()))
 
     print(80*"-")
 
-    c = ColumnWidget([(20, [t1, t2, t3]), (25, [t4, t5]), (15, [t1, t2, t3])], spacing = 3)
+    c = ColumnWidget([(20, [t1, t2, t3]), (25, [t4, t5]), (15, [t1, t2, t3])], spacing=3)
     c.render(80)
     print(u"\n".join(c.get_lines()))

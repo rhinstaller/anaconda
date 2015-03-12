@@ -41,13 +41,13 @@ class ErrorDialog(tui.UIScreen):
         tui.UIScreen.__init__(self, app)
         self._message = message
 
-    def refresh(self, args = None):
+    def refresh(self, args=None):
         tui.UIScreen.refresh(self, args)
         text = tui.TextWidget(self._message)
         self._window.append(tui.CenterWidget(text))
         return True
 
-    def prompt(self, args = None):
+    def prompt(self, args=None):
         return _("Press enter to exit.")
 
     def input(self, args, key):
@@ -73,14 +73,14 @@ class YesNoDialog(tui.UIScreen):
         self._message = message
         self._response = None
 
-    def refresh(self, args = None):
+    def refresh(self, args=None):
         tui.UIScreen.refresh(self, args)
         text = tui.TextWidget(self._message)
         self._window.append(tui.CenterWidget(text))
         self._window.append(u"")
         return True
 
-    def prompt(self, args = None):
+    def prompt(self, args=None):
         return _("Please respond 'yes' or 'no': ")
 
     def input(self, args, key):
@@ -116,6 +116,6 @@ class TUIObject(tui.UIScreen, common.UIObject):
     def showable(self):
         return True
 
-    def refresh(self, args = None):
+    def refresh(self, args=None):
         """Put everything to display into self.window list."""
         tui.UIScreen.refresh(self, args)

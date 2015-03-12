@@ -1441,7 +1441,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
             if num_disks > 1:
                 devices_desc += CP_("GUI|Custom Partitioning|Devices",
                                     " and %d other", " and %d others",
-                                    num_disks - 1) % (num_disks -1 )
+                                    num_disks - 1) % (num_disks - 1)
         self._deviceDescLabel.set_text(devices_desc)
 
     def _populate_right_side(self, selector):

@@ -49,9 +49,9 @@ SQUASHFS_EXTRA_RAM = 750
 NO_SWAP_EXTRA_RAM = 200
 
 ## Flush filesystem buffers.
-def sync ():
+def sync():
     # TODO: This can be replaced with os.sync in Python 3.3
-    return _isys.sync ()
+    return _isys.sync()
 
 ISO_BLOCK_SIZE = 2048
 

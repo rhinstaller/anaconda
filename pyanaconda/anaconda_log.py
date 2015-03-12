@@ -61,13 +61,13 @@ def autoSetLevel(handler, value):
 # all handlers of given logger with autoSetLevel == True are set to level
 def setHandlersLevel(logr, level):
     map(lambda hdlr: hdlr.setLevel(level),
-        filter (lambda hdlr: hasattr(hdlr, "autoSetLevel") and hdlr.autoSetLevel, logr.handlers))
+        filter(lambda hdlr: hasattr(hdlr, "autoSetLevel") and hdlr.autoSetLevel, logr.handlers))
 
 class AnacondaSyslogHandler(SysLogHandler):
     # syslog doesn't understand these level names
-    levelMap = { "ERR": "error",
-                 "CRIT": "critical",
-                 "LOCK": "debug"}
+    levelMap = {"ERR": "error",
+                "CRIT": "critical",
+                "LOCK": "debug"}
 
     def __init__(self,
                  address=('localhost', SYSLOG_UDP_PORT),
@@ -91,10 +91,10 @@ class AnacondaSocketHandler(SocketHandler):
         return self.formatter.format(record) + "\n"
 
 class AnacondaLog:
-    SYSLOG_CFGFILE  = "/etc/rsyslog.conf"
+    SYSLOG_CFGFILE = "/etc/rsyslog.conf"
     VIRTIO_PORT = "/dev/virtio-ports/org.fedoraproject.anaconda.log.0"
 
-    def __init__ (self):
+    def __init__(self):
         self.loglevel = DEFAULT_LEVEL
         self.remote_syslog = None
         # Rename the loglevels so they are the same as in syslog.
@@ -166,7 +166,7 @@ class AnacondaLog:
                             fmtStr=STDOUT_FORMAT, minLevel=logging.INFO)
 
     # Add a simple handler - file or stream, depending on what we're given.
-    def addFileHandler (self, dest, addToLogger, minLevel=DEFAULT_LEVEL,
+    def addFileHandler(self, dest, addToLogger, minLevel=DEFAULT_LEVEL,
                         fmtStr=ENTRY_FORMAT,
                         autoLevel=False):
         try:

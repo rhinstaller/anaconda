@@ -70,7 +70,7 @@ class AskVNCSpoke(NormalTUISpoke):
     def indirect(self):
         return True
 
-    def refresh(self, args = None):
+    def refresh(self, args=None):
         NormalTUISpoke.refresh(self, args)
 
         self._window += [TextWidget(self._message), ""]
@@ -138,13 +138,13 @@ class VNCPassSpoke(NormalTUISpoke):
     def completed(self):
         return True # We're always complete
 
-    def refresh(self, args = None):
+    def refresh(self, args=None):
         NormalTUISpoke.refresh(self, args)
         self._window += [TextWidget(self._message), ""]
 
         return True
 
-    def prompt(self, args = None):
+    def prompt(self, args=None):
         """Override prompt as password typing is special."""
         p1 = getpass.getpass(_("Password: "))
         p2 = getpass.getpass(_("Password (confirm): "))

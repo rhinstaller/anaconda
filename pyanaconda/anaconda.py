@@ -234,7 +234,7 @@ class Anaconda(object):
         if addon_paths:
             self._intf.update_paths(addon_paths)
 
-    def writeXdriver(self, root = None):
+    def writeXdriver(self, root=None):
         # this should go away at some point, but until it does, we
         # need to keep it around.
         if self.xdriver is None:

@@ -22,8 +22,8 @@ import logging
 log = logging.getLogger("anaconda")
 
 class InstallInterfaceBase(object):
-    def messageWindow(self, title, text, ty="ok", default = None,
-             custom_buttons=None,  custom_icon=None):
+    def messageWindow(self, title, text, ty="ok", default=None,
+             custom_buttons=None, custom_icon=None):
         raise NotImplementedError
 
     def detailedMessageWindow(self, title, text, longText=None, ty="ok",

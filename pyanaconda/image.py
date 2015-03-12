@@ -173,7 +173,7 @@ def mountImage(isodir, tree):
             image = os.path.normpath("%s/%s" % (isodir, image))
 
         try:
-            blivet.util.mount(image, tree, fstype = 'iso9660', options="ro")
+            blivet.util.mount(image, tree, fstype='iso9660', options="ro")
         except OSError:
             exn = MissingImageError()
             if errorHandler.cb(exn) == ERROR_RAISE:

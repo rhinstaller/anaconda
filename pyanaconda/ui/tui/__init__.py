@@ -59,8 +59,8 @@ class TextUserInterface(ui.UserInterface):
     ENVIRONMENT = "anaconda"
 
     def __init__(self, storage, payload, instclass,
-                 productTitle = u"Anaconda", isFinal = True,
-                 quitMessage = None):
+                 productTitle=u"Anaconda", isFinal=True,
+                 quitMessage=None):
         """
         For detailed description of the arguments see
         the parent class.
@@ -138,8 +138,8 @@ class TextUserInterface(ui.UserInterface):
         """Construct all the objects required to implement this interface.
            This method must be provided by all subclasses.
         """
-        self._app = tui.App(self.productTitle, yes_or_no_question = YesNoDialog,
-                            quit_message = self.quitMessage, queue = hubQ.q)
+        self._app = tui.App(self.productTitle, yes_or_no_question=YesNoDialog,
+                            quit_message=self.quitMessage, queue=hubQ.q)
 
         # tell python-meh it should use our raw_input
         self._meh_interface.set_io_handler(meh.ui.text.IOHandler(in_func=self._app.raw_input))

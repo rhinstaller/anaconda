@@ -480,8 +480,8 @@ class GraphicalUserInterface(UserInterface):
        It is suitable for use both directly and via VNC.
     """
     def __init__(self, storage, payload, instclass,
-                 distributionText = product.distributionText, isFinal = product.isFinal,
-                 quitDialog = QuitDialog, gui_lock = None, fullscreen=False):
+                 distributionText=product.distributionText, isFinal=product.isFinal,
+                 quitDialog=QuitDialog, gui_lock=None, fullscreen=False):
 
         UserInterface.__init__(self, storage, payload, instclass)
 
