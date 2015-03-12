@@ -91,6 +91,8 @@ Requires: rpm-python >= %{rpmver}
 Requires: parted >= %{partedver}
 Requires: pyparted >= %{pypartedver}
 Requires: python-requests
+Requires: python-requests-file
+Requires: python-requests-ftp
 Requires: python-kickstart >= %{pykickstartver}
 Requires: langtable-data >= %{langtablever}
 Requires: langtable-python >= %{langtablever}
