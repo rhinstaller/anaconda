@@ -58,14 +58,14 @@ class PasswordSpoke(FirstbootSpokeMixIn, EditTUIDialog):
         else:
             return _("Password is not set.")
 
-    def refresh(self, args = None):
+    def refresh(self, args=None):
         EditTUIDialog.refresh(self, args)
 
         self._window += [TextWidget(_("Please select new root password. You will have to type it twice.")), ""]
 
         return True
 
-    def prompt(self, args = None):
+    def prompt(self, args=None):
         """Overriden prompt as password typing is special."""
         EditTUIDialog.prompt(self, EditTUISpokeEntry(_("Password"), "", EditTUIDialog.PASSWORD, True))
         if self.value == None:

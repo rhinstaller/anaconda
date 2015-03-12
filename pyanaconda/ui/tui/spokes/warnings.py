@@ -44,7 +44,7 @@ class WarningsSpoke(StandaloneTUISpoke):
         self._message = _("This hardware (or a combination thereof) is not "
                           "supported by Red Hat.  For more information on "
                           "supported hardware, please refer to "
-                          "http://www.redhat.com/hardware." )
+                          "http://www.redhat.com/hardware.")
         # Does anything need to be displayed?
         self._unsupported = productName.startswith("Red Hat ") and \
                             is_unsupported_hw() and \
@@ -54,7 +54,7 @@ class WarningsSpoke(StandaloneTUISpoke):
     def completed(self):
         return not self._unsupported
 
-    def refresh(self, args = None):
+    def refresh(self, args=None):
         StandaloneTUISpoke.refresh(self, args)
 
         self._window += [TextWidget(self._message), ""]

@@ -124,8 +124,8 @@ class AnacondaKSScript(KSScript):
         with open(messages, "w") as fp:
             rc = iutil.execWithRedirect(self.interp, ["/tmp/%s" % os.path.basename(path)],
                                         stdout=fp,
-                                        root = scriptRoot,
-                                        env_prune = env_prune)
+                                        root=scriptRoot,
+                                        env_prune=env_prune)
 
         if rc != 0:
             log.error("Error code %s running the kickstart script at line %s", rc, self.lineno)
@@ -673,16 +673,16 @@ class Firewall(commands.firewall.F20_Firewall):
             args += ["--service=ssh"]
 
         for dev in self.trusts:
-            args += [ "--trust=%s" % (dev,) ]
+            args += ["--trust=%s" % (dev,)]
 
         for port in self.ports:
-            args += [ "--port=%s" % (port,) ]
+            args += ["--port=%s" % (port,)]
 
         for remove_service in self.remove_services:
-            args += [ "--remove-service=%s" % (remove_service,) ]
+            args += ["--remove-service=%s" % (remove_service,)]
 
         for service in self.services:
-            args += [ "--service=%s" % (service,) ]
+            args += ["--service=%s" % (service,)]
 
         cmd = "/usr/bin/firewall-offline-cmd"
         if not os.path.exists(iutil.getSysroot()+cmd):
@@ -1573,9 +1573,9 @@ class RootPw(commands.rootpw.F18_RootPw):
 
 class SELinux(commands.selinux.FC3_SELinux):
     def execute(self, *args):
-        selinux_states = { SELINUX_DISABLED: "disabled",
-                           SELINUX_ENFORCING: "enforcing",
-                           SELINUX_PERMISSIVE: "permissive" }
+        selinux_states = {SELINUX_DISABLED: "disabled",
+                          SELINUX_ENFORCING: "enforcing",
+                          SELINUX_PERMISSIVE: "permissive"}
 
         if self.selinux is None:
             # Use the defaults set by the installed (or not) selinux package
@@ -1590,7 +1590,7 @@ class SELinux(commands.selinux.FC3_SELinux):
             selinux_cfg.set(("SELINUX", selinux_states[self.selinux]))
             selinux_cfg.write()
         except IOError as msg:
-            log.error ("Error setting selinux mode: %s", msg)
+            log.error("Error setting selinux mode: %s", msg)
 
 class Services(commands.services.FC6_Services):
     def execute(self, storage, ksdata, instClass):
@@ -1879,7 +1879,7 @@ superclass = returnClassForVersion()
 class AnacondaKSHandler(superclass):
     AddonClassType = AddonData
 
-    def __init__ (self, addon_paths=None, commandUpdates=None, dataUpdates=None):
+    def __init__(self, addon_paths=None, commandUpdates=None, dataUpdates=None):
         if addon_paths is None:
             addon_paths = []
 
@@ -1907,7 +1907,7 @@ class AnacondaKSHandler(superclass):
 
             classes = collect(module_name, path, lambda cls: issubclass(cls, self.AddonClassType))
             if classes:
-                addons[addon_id] = classes[0](name = addon_id)
+                addons[addon_id] = classes[0](name=addon_id)
 
         # Prepare the final structures for 3rd party addons
         self.addons = AddonRegistry(addons)
@@ -1918,11 +1918,11 @@ class AnacondaKSHandler(superclass):
 class AnacondaPreParser(KickstartParser):
     # A subclass of KickstartParser that only looks for %pre scripts and
     # sets them up to be run.  All other scripts and commands are ignored.
-    def __init__ (self, handler, followIncludes=True, errorsAreFatal=True,
-                  missingIncludeIsFatal=True):
+    def __init__(self, handler, followIncludes=True, errorsAreFatal=True,
+                 missingIncludeIsFatal=True):
         KickstartParser.__init__(self, handler, missingIncludeIsFatal=False)
 
-    def handleCommand (self, lineno, args):
+    def handleCommand(self, lineno, args):
         pass
 
     def setupSections(self):
@@ -1934,12 +1934,12 @@ class AnacondaPreParser(KickstartParser):
 
 
 class AnacondaKSParser(KickstartParser):
-    def __init__ (self, handler, followIncludes=True, errorsAreFatal=True,
-                  missingIncludeIsFatal=True, scriptClass=AnacondaKSScript):
+    def __init__(self, handler, followIncludes=True, errorsAreFatal=True,
+                 missingIncludeIsFatal=True, scriptClass=AnacondaKSScript):
         self.scriptClass = scriptClass
         KickstartParser.__init__(self, handler)
 
-    def handleCommand (self, lineno, args):
+    def handleCommand(self, lineno, args):
         if not self.handler:
             return
 
@@ -2020,7 +2020,7 @@ def runPostScripts(scripts):
         return
 
     log.info("Running kickstart %%post script(s)")
-    map (lambda s: s.run(iutil.getSysroot()), postScripts)
+    map(lambda s: s.run(iutil.getSysroot()), postScripts)
     log.info("All kickstart %%post script(s) have been run")
 
 def runPreScripts(scripts):
@@ -2032,13 +2032,13 @@ def runPreScripts(scripts):
     log.info("Running kickstart %%pre script(s)")
     stdoutLog.info(_("Running pre-installation scripts"))
 
-    map (lambda s: s.run("/"), preScripts)
+    map(lambda s: s.run("/"), preScripts)
 
     log.info("All kickstart %%pre script(s) have been run")
 
 def runTracebackScripts(scripts):
     log.info("Running kickstart %%traceback script(s)")
-    for script in filter (lambda s: s.type == KS_SCRIPT_TRACEBACK, scripts):
+    for script in filter(lambda s: s.type == KS_SCRIPT_TRACEBACK, scripts):
         script.run("/")
     log.info("All kickstart %%traceback script(s) have been run")
 

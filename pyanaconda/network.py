@@ -196,7 +196,7 @@ def _ifcfg_files(directory):
         if name.startswith("ifcfg-"):
             if name == "ifcfg-lo":
                 continue
-            rv.append(os.path.join(directory,name))
+            rv.append(os.path.join(directory, name))
     return rv
 
 def logIfcfgFiles(message=""):
@@ -278,7 +278,7 @@ def dumpMissingDefaultIfcfgs():
             nm.nm_update_settings_of_device(devname, [['connection', 'id', devname, None]])
             log.debug("network: dumping ifcfg file for default autoconnection on %s", devname)
             nm.nm_update_settings_of_device(devname, [['connection', 'autoconnect', False, None]])
-            log.debug("network: setting autoconnect of %s to False" , devname)
+            log.debug("network: setting autoconnect of %s to False", devname)
         except nm.SettingsNotFoundError:
             log.debug("network: no ifcfg file for %s", devname)
         rv.append(devname)
@@ -347,7 +347,7 @@ def dracutBootArguments(devname, ifcfg, storage_ipaddr, hostname=None):
                 else:
                     gateway = ""
                 netmask = ifcfg.get('NETMASK%s' % cfgidx)
-                prefix  = ifcfg.get('PREFIX%s' % cfgidx)
+                prefix = ifcfg.get('PREFIX%s' % cfgidx)
                 if not netmask and prefix:
                     netmask = prefix2netmask(int(prefix))
                 ipaddr = ifcfg.get('IPADDR%s' % cfgidx)
@@ -538,7 +538,7 @@ def _add_slave_connection(slave_type, slave, master, activate, values=None):
     slave_name = slave
 
     values = []
-    suuid =  str(uuid4())
+    suuid = str(uuid4())
     # assume ethernet, TODO: infiniband, wifi, vlan
     values.append(['connection', 'uuid', suuid, 's'])
     values.append(['connection', 'id', slave_name, 's'])
@@ -629,7 +629,7 @@ def ifcfg_to_ksdata(ifcfg, devname):
         return None
 
     # ipv4 and ipv6
-    if ifcfg.get("ONBOOT") and ifcfg.get("ONBOOT" ) == "no":
+    if ifcfg.get("ONBOOT") and ifcfg.get("ONBOOT") == "no":
         kwargs["onboot"] = False
     if ifcfg.get('MTU') and ifcfg.get('MTU') != "0":
         kwargs["mtu"] = ifcfg.get('MTU')
@@ -645,7 +645,7 @@ def ifcfg_to_ksdata(ifcfg, devname):
             kwargs["bootProto"] = "static"
             kwargs["ip"] = ifcfg.get('IPADDR')
             netmask = ifcfg.get('NETMASK')
-            prefix  = ifcfg.get('PREFIX')
+            prefix = ifcfg.get('PREFIX')
             if not netmask and prefix:
                 netmask = prefix2netmask(int(prefix))
             if netmask:
@@ -656,7 +656,7 @@ def ifcfg_to_ksdata(ifcfg, devname):
         elif ifcfg.get('IPADDR0'):
             kwargs["bootProto"] = "static"
             kwargs["ip"] = ifcfg.get('IPADDR0')
-            prefix  = ifcfg.get('PREFIX0')
+            prefix = ifcfg.get('PREFIX0')
             if prefix:
                 netmask = prefix2netmask(int(prefix))
                 kwargs["netmask"] = netmask
@@ -879,7 +879,7 @@ def get_team_slaves(master_specs):
     return slaves
 
 def ifaceForHostIP(host):
-    route = iutil.execWithCapture("ip", [ "route", "get", "to", host ])
+    route = iutil.execWithCapture("ip", ["route", "get", "to", host])
     if not route:
         log.error("Could not get interface for route to %s", host)
         return ""
@@ -926,7 +926,7 @@ def copyFileToPath(fileName, destPath='', overwrite=False):
 def copyIfcfgFiles(destPath):
     files = os.listdir(netscriptsDir)
     for cfgFile in files:
-        if cfgFile.startswith(("ifcfg-","keys-")):
+        if cfgFile.startswith(("ifcfg-", "keys-")):
             srcfile = os.path.join(netscriptsDir, cfgFile)
             copyFileToPath(srcfile, destPath)
 

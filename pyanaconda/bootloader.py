@@ -109,8 +109,8 @@ def parse_serial_opt(arg):
     idx = len(opts.speed)
     try:
         opts.parity = arg[idx+0]
-        opts.word   = arg[idx+1]
-        opts.flow   = arg[idx+2]
+        opts.word = arg[idx+1]
+        opts.flow = arg[idx+2]
     except IndexError:
         pass
     return opts
@@ -1591,7 +1591,7 @@ class GRUB2(GRUB):
                 grub_args.insert(0, '--force')
             else:
                 if flags.nombr:
-                    grub_args.insert(0,'--grub-setup=/bin/true')
+                    grub_args.insert(0, '--grub-setup=/bin/true')
                     log.info("bootloader.py: mbr update by grub2 disabled")
                 else:
                     log.info("bootloader.py: mbr will be updated for grub2")
@@ -1849,7 +1849,7 @@ class YabootBase(BootLoader):
                       "%(initrd_line)s"
                       "%(root_line)s"
                       "\tappend=\"%(args)s\"\n\n"
-                      % {"kernel": image.kernel,  "initrd_line": initrd_line,
+                      % {"kernel": image.kernel, "initrd_line": initrd_line,
                          "label": self.image_label(image),
                          "root_line": root_line, "args": args,
                          "boot_prefix": self.boot_prefix})
@@ -1972,7 +1972,7 @@ class IPSeriesYaboot(Yaboot):
                                     ["--print-config=boot-device"])
 
         if len(buf) == 0:
-            log.error ("FAIL: nvram --print-config=boot-device")
+            log.error("FAIL: nvram --print-config=boot-device")
             return
 
         boot_list = buf.strip().split()
@@ -2034,7 +2034,7 @@ class IPSeriesGRUB2(GRUB2):
                                     ["--print-config=boot-device"])
 
         if len(buf) == 0:
-            log.error ("Failed to determine nvram boot device")
+            log.error("Failed to determine nvram boot device")
             return
 
         boot_list = buf.strip().replace("\"", "").split()
@@ -2253,10 +2253,10 @@ class EXTLINUX(BootLoader):
                   "menu hidden\n\n"
                   "timeout %(timeout)d\n"
                   "#totaltimeout 9000\n\n"
-                  % { "productName": productName, "timeout": self.timeout *10 })
+                  % {"productName": productName, "timeout": self.timeout *10})
         config.write(header)
         if self.default is not None:
-            config.write("default %(default)s\n\n" % { "default" : self.image_label(self.default) })
+            config.write("default %(default)s\n\n" % {"default" : self.image_label(self.default)})
         self.write_config_password(config)
 
     def write_config_password(self, config):

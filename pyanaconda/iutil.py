@@ -685,11 +685,11 @@ def add_po_path(directory):
     """ Looks to see what translations are under a given path and tells
     the gettext module to use that path as the base dir """
     for d in os.listdir(directory):
-        if not os.path.isdir("%s/%s" %(directory,d)):
+        if not os.path.isdir("%s/%s" %(directory, d)):
             continue
-        if not os.path.exists("%s/%s/LC_MESSAGES" %(directory,d)):
+        if not os.path.exists("%s/%s/LC_MESSAGES" %(directory, d)):
             continue
-        for basename in os.listdir("%s/%s/LC_MESSAGES" %(directory,d)):
+        for basename in os.listdir("%s/%s/LC_MESSAGES" %(directory, d)):
             if not basename.endswith(".mo"):
                 continue
             log.info("setting %s as translation source for %s", directory, basename[:-3])
@@ -1096,7 +1096,7 @@ def upcase_first_letter(text):
 def get_mount_paths(devnode):
     '''given a device node, return a list of all active mountpoints.'''
     devno = os.stat(devnode).st_rdev
-    majmin = "%d:%d" % (os.major(devno),os.minor(devno))
+    majmin = "%d:%d" % (os.major(devno), os.minor(devno))
     mountinfo = (line.split() for line in open("/proc/self/mountinfo"))
     return [info[4] for info in mountinfo if info[2] == majmin]
 

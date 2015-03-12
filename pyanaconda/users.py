@@ -112,10 +112,10 @@ def cryptPassword(password, algo=None):
     saltstr = salts[algo]
 
     for _i in range(saltlen):
-        saltstr = saltstr + random.choice (string.ascii_letters +
-                                           string.digits + './')
+        saltstr = saltstr + random.choice(string.ascii_letters +
+                                          string.digits + './')
 
-    cryptpw = crypt.crypt (password, saltstr)
+    cryptpw = crypt.crypt(password, saltstr)
     if cryptpw is None:
         exn = PasswordCryptError(algo=algo)
         if errorHandler.cb(exn) == ERROR_RAISE:
@@ -193,7 +193,7 @@ def guess_username(fullname):
     return username
 
 class Users:
-    def __init__ (self):
+    def __init__(self):
         self.admin = libuser.admin()
 
     def _prepareChroot(self, root):
@@ -203,7 +203,7 @@ class Users:
 
         childpid = os.fork()
         if not childpid:
-            if not root in ["","/"]:
+            if not root in ["", "/"]:
                 os.chroot(root)
                 os.chdir("/")
                 # This is ok because it's after a fork
@@ -226,7 +226,7 @@ class Users:
         else:
             return False
 
-    def createGroup (self, group_name, **kwargs):
+    def createGroup(self, group_name, **kwargs):
         """Create a new user on the system with the given name.  Optional kwargs:
 
            gid       -- The GID for the new user.  If none is given, the next
@@ -257,7 +257,7 @@ class Users:
         else:
             return self._finishChroot(childpid)
 
-    def createUser (self, user_name, *args, **kwargs):
+    def createUser(self, user_name, *args, **kwargs):
         """Create a new user on the system with the given name.  Optional kwargs:
 
            algo      -- The password algorithm to use in case isCrypted=True.

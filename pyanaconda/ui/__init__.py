@@ -82,7 +82,7 @@ class UserInterface(object):
     def update_paths(cls, pathdict):
         """Receives pathdict and appends it's contents to the current
            class defined search path dictionary."""
-        for k,v in pathdict.items():
+        for k, v in pathdict.items():
             cls.paths.setdefault(k, [])
             cls.paths[k].extend(v)
 

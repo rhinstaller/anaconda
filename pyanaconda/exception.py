@@ -218,11 +218,11 @@ class AnacondaExceptionHandler(ExceptionHandler):
             iutil.vtActivate(self._intf_tty_num)
 
 def initExceptionHandling(anaconda):
-    fileList = [ "/tmp/anaconda.log", "/tmp/packaging.log",
-                 "/tmp/program.log", "/tmp/storage.log", "/tmp/ifcfg.log",
-                 "/tmp/dnf.log", "/tmp/dnf.rpm.log",
-                 "/tmp/yum.log", iutil.getSysroot() + "/root/install.log",
-                 "/proc/cmdline" ]
+    fileList = ["/tmp/anaconda.log", "/tmp/packaging.log",
+                "/tmp/program.log", "/tmp/storage.log", "/tmp/ifcfg.log",
+                "/tmp/dnf.log", "/tmp/dnf.rpm.log",
+                "/tmp/yum.log", iutil.getSysroot() + "/root/install.log",
+                "/proc/cmdline"]
 
     if os.path.exists("/tmp/syslog"):
         fileList.extend(["/tmp/syslog"])
@@ -251,7 +251,7 @@ def initExceptionHandling(anaconda):
                                 "_bootloader.password",
                                 "payload._groups",
                                 "payload._yum"],
-                  localSkipList=[ "passphrase", "password", "_oldweak", "_password" ],
+                  localSkipList=["passphrase", "password", "_oldweak", "_password"],
                   fileList=fileList)
 
     conf.register_callback("lsblk_output", lsblk_callback, attchmnt_only=True)

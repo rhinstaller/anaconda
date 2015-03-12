@@ -139,10 +139,10 @@ def find_best_locale_match(locale, langcodes):
 
     """
 
-    score_map = { "language" : 1000,
-                  "territory":  100,
-                  "script"   :   10,
-                  "encoding" :    1 }
+    score_map = {"language" : 1000,
+                 "territory":  100,
+                 "script"   :   10,
+                 "encoding" :    1}
 
     def get_match_score(locale, langcode):
         score = 0

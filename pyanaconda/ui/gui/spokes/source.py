@@ -747,11 +747,11 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler):
 
         for dev in potentialHdisoSources(self.storage.devicetree):
             # path model size format type uuid of format
-            dev_info = { "model" : self._sanitize_model(dev.disk.model),
-                         "path"  : dev.path,
-                         "size"  : dev.size,
-                         "format": dev.format.name or "",
-                         "label" : dev.format.label or dev.format.uuid or ""
+            dev_info = {"model" : self._sanitize_model(dev.disk.model),
+                        "path"  : dev.path,
+                        "size"  : dev.size,
+                        "format": dev.format.name or "",
+                        "label" : dev.format.label or dev.format.uuid or ""
                        }
 
             # With the label in here, the combo box can appear really long thus pushing the "pick an image"
@@ -1118,7 +1118,7 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler):
             :returns: True if any repo was changed, added or removed
             :rtype: bool
         """
-        REPO_ATTRS=("name", "baseurl", "mirrorlist", "proxy", "enabled")
+        REPO_ATTRS = ("name", "baseurl", "mirrorlist", "proxy", "enabled")
         changed = False
 
         ui_orig_names = [r[REPO_OBJ].orig_name for r in self._repoStore]
@@ -1130,7 +1130,7 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler):
             self.payload.data.repo.dataList().remove(repo)
             changed = True
 
-        for repo, orig_repo in [(r[REPO_OBJ],self.payload.getAddOnRepo(r[REPO_OBJ].orig_name)) for r in self._repoStore]:
+        for repo, orig_repo in [(r[REPO_OBJ], self.payload.getAddOnRepo(r[REPO_OBJ].orig_name)) for r in self._repoStore]:
             if not orig_repo:
                 # TODO: Need an API to do this w/o touching yum (not addRepo)
                 self.payload.data.repo.dataList().append(repo)

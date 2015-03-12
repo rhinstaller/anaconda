@@ -172,7 +172,7 @@ def sanity_check(storage, min_ram=isys.MIN_RAM):
     checkSizes = [('/usr', Size("250 MiB")), ('/tmp', Size("50 MiB")), ('/var', Size("384 MiB")),
                   ('/home', Size("100 MiB")), ('/boot', Size("200 MiB"))]
     mustbeonlinuxfs = ['/', '/var', '/tmp', '/usr', '/home', '/usr/share', '/usr/lib']
-    mustbeonroot = ['/bin','/dev','/sbin','/etc','/lib','/root', '/mnt', 'lost+found', '/proc']
+    mustbeonroot = ['/bin', '/dev', '/sbin', '/etc', '/lib', '/root', '/mnt', 'lost+found', '/proc']
 
     filesystems = storage.mountpoints
     root = storage.fsset.rootDevice

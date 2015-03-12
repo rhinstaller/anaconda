@@ -185,7 +185,7 @@ class StorageSpoke(NormalTUISpoke):
 
         return summary
 
-    def refresh(self, args = None):
+    def refresh(self, args=None):
         NormalTUISpoke.refresh(self, args)
 
         # Join the initialization thread to block on it
@@ -244,7 +244,7 @@ class StorageSpoke(NormalTUISpoke):
         elif isinstance(disk, DASDDevice):
             if hasattr(disk, "busid"):
                 disk_attrs.append(disk.busid)
-        elif isinstance (disk, ZFCPDiskDevice):
+        elif isinstance(disk, ZFCPDiskDevice):
             if hasattr(disk, "fcp_lun"):
                 disk_attrs.append(disk.fcp_lun)
             if hasattr(disk, "wwpn"):
@@ -441,7 +441,7 @@ class AutoPartSpoke(NormalTUISpoke):
     def indirect(self):
         return True
 
-    def refresh(self, args = None):
+    def refresh(self, args=None):
         NormalTUISpoke.refresh(self, args)
         # synchronize our local data store with the global ksdata
         self.clearPartType = self.data.clearpart.type

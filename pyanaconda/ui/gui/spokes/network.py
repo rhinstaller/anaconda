@@ -79,7 +79,7 @@ def getNMObjProperty(obj, nm_iface_suffix, prop):
                            prop)
 
 
-DEVICES_COLUMN_TITLE  = 2
+DEVICES_COLUMN_TITLE = 2
 DEVICES_COLUMN_OBJECT = 3
 
 
@@ -250,7 +250,7 @@ class DeviceConfiguration(object):
         else:
             iface = self.setting_value("connection", "interface-name")
             if not iface:
-                hwaddr = self.setting_value("802-3-ethernet","mac-address")
+                hwaddr = self.setting_value("802-3-ethernet", "mac-address")
                 if hwaddr:
                     hwaddr = ":".join("%02X" % b for b in hwaddr)
                     iface = nm.nm_hwaddr_to_device_name(hwaddr)
@@ -663,7 +663,7 @@ class NetworkControlBox(GObject.GObject):
         return model[itr][DEVICES_COLUMN_OBJECT]
 
     def add_dev_cfg(self, dev_cfg):
-        log.debug ("network: GUI, device configuration added: connection %s device %s",
+        log.debug("network: GUI, device configuration added: connection %s device %s",
                      dev_cfg.con_uuid, dev_cfg.get_iface())
         self.dev_cfg_store.append([
             self._dev_icon_name(dev_cfg),
@@ -755,7 +755,7 @@ class NetworkControlBox(GObject.GObject):
     def remove_device(self, device):
         # This should not concern wifi and ethernet devices,
         # just virtual devices e.g. vpn probably
-        log.debug("network: GUI, device removed: %s" , device.get_iface())
+        log.debug("network: GUI, device removed: %s", device.get_iface())
         dev_cfg = self.dev_cfg(device=device)
         if dev_cfg:
             dev_cfg.device = None

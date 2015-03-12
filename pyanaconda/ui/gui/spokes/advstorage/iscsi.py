@@ -317,7 +317,7 @@ class ISCSIDialog(GUIObject):
 
     def _add_nodes(self, nodes):
         for node in nodes:
-            iface =  self.iscsi.ifaces.get(node.iface, node.iface)
+            iface = self.iscsi.ifaces.get(node.iface, node.iface)
             portal = "%s:%s" % (node.address, node.port)
             self._store.append([False, True, node.name, iface, portal])
 
