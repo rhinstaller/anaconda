@@ -138,11 +138,12 @@ PASSWORD_MIN_LEN = 8
 PASSWORD_EMPTY_ERROR = N_("The password is empty.")
 PASSWORD_CONFIRM_ERROR_GUI = N_("The passwords do not match.")
 PASSWORD_CONFIRM_ERROR_TUI = N_("The passwords you entered were different.  Please try again.")
-PASSWORD_WEAK = N_("The password you have provided is weak. You will have to press Done twice to confirm it.")
-PASSWORD_WEAK_WITH_ERROR = N_("The password you have provided is weak: %s. You will have to press Done twice to confirm it.")
+PASSWORD_WEAK = N_("The password you have provided is weak. %s")
+PASSWORD_WEAK_WITH_ERROR = N_("The password you have provided is weak: %s. %s")
 PASSWORD_WEAK_CONFIRM = N_("You have provided a weak password. Press Done again to use anyway.")
 PASSWORD_WEAK_CONFIRM_WITH_ERROR = N_("You have provided a weak password: %s. Press Done again to use anyway.")
 PASSWORD_ASCII = N_("The password you have provided contains non-ASCII characters. You may not be able to switch between keyboard layouts to login. Press Done to continue.")
+PASSWORD_DONE_TWICE = N_("You will have to press Done twice to confirm it.")
 
 PASSWORD_STRENGTH_DESC = [N_("Empty"), N_("Weak"), N_("Fair"), N_("Good"), N_("Strong")]
 
