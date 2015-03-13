@@ -32,6 +32,7 @@ from pyanaconda.ui.helpers import InputCheck
 
 from pyanaconda.constants import PASSWORD_EMPTY_ERROR, PASSWORD_CONFIRM_ERROR_GUI,\
         PASSWORD_STRENGTH_DESC, PASSWORD_WEAK, PASSWORD_WEAK_WITH_ERROR,\
+        PASSWORD_WEAK_CONFIRM, PASSWORD_WEAK_CONFIRM_WITH_ERROR, PASSWORD_DONE_TWICE,\
         PW_ASCII_CHARS, PASSWORD_ASCII
 
 __all__ = ["PasswordSpoke"]
@@ -86,6 +87,7 @@ class PasswordSpoke(FirstbootSpokeMixIn, NormalSpoke, GUISpokeInputCheckHandler)
         self.add_check(self.confirm, self._checkPasswordEmpty)
 
         # Counters for checks that ask the user to click Done to confirm
+        self._waiveStrengthClicks = 0
         self._waiveASCIIClicks = 0
 
         # Password validation data
@@ -104,6 +106,11 @@ class PasswordSpoke(FirstbootSpokeMixIn, NormalSpoke, GUISpokeInputCheckHandler)
         self.pw_bar.add_offset_value("low", 2)
         self.pw_bar.add_offset_value("medium", 3)
         self.pw_bar.add_offset_value("high", 4)
+
+        # Configure the password policy, if available. Otherwise use defaults.
+        self.policy = self.data.pwpolicy.get_policy("root")
+        if not self.policy:
+            self.policy = self.data.pwpolicy.handler.PwPolicyData()
 
     def refresh(self):
         # Enable the input checks in case they were disabled on the last exit
@@ -161,7 +168,7 @@ class PasswordSpoke(FirstbootSpokeMixIn, NormalSpoke, GUISpokeInputCheckHandler)
         """Check whether a password has been specified at all."""
 
         # If the password was set by kickstart, skip this check
-        if self._kickstarted:
+        if self._kickstarted and not self.policy.changesok:
             return InputCheck.CHECK_OK
 
         if not self.get_input(inputcheck.input_obj):
@@ -208,9 +215,10 @@ class PasswordSpoke(FirstbootSpokeMixIn, NormalSpoke, GUISpokeInputCheckHandler)
         pwtext = self.pw.get_text()
 
         # Reset the counters used for the "press Done twice" logic
+        self._waiveStrengthClicks = 0
         self._waiveASCIIClicks = 0
 
-        self._pwq_valid, strength, self._pwq_error = validatePassword(pwtext, "root")
+        self._pwq_valid, strength, self._pwq_error = validatePassword(pwtext, "root", minlen=self.policy.minlen)
 
         if not pwtext:
             val = 0
@@ -244,14 +252,29 @@ class PasswordSpoke(FirstbootSpokeMixIn, NormalSpoke, GUISpokeInputCheckHandler)
         if (not self._pwq_valid) and (self._pwq_error):
             return self._pwq_error
 
-        pwstrength = self.pw_bar.get_value()
+        # use strength from policy, not bars
+        _valid, pwstrength, _error = validatePassword(pw, "root", minlen=self.policy.minlen)
 
-        if pwstrength < 2:
+        if pwstrength < self.policy.minquality:
             # If Done has been clicked twice, waive the check
-            if self._pwq_error:
-                return _(PASSWORD_WEAK_WITH_ERROR) % self._pwq_error
+            if self._waiveStrengthClicks > 1:
+                return InputCheck.CHECK_OK
+            elif self._waiveStrengthClicks == 1:
+                if self._pwq_error:
+                    return _(PASSWORD_WEAK_CONFIRM_WITH_ERROR) % self._pwq_error
+                else:
+                    return _(PASSWORD_WEAK_CONFIRM)
             else:
-                return _(PASSWORD_WEAK)
+                # non-strict allows done to be clicked twice
+                if self.policy.strict:
+                    done_msg = ""
+                else:
+                    done_msg = _(PASSWORD_DONE_TWICE)
+
+                if self._pwq_error:
+                    return _(PASSWORD_WEAK_WITH_ERROR) % (self._pwq_error, done_msg)
+                else:
+                    return _(PASSWORD_WEAK) % done_msg
         else:
             return InputCheck.CHECK_OK
 
@@ -273,10 +296,13 @@ class PasswordSpoke(FirstbootSpokeMixIn, NormalSpoke, GUISpokeInputCheckHandler)
         return InputCheck.CHECK_OK
 
     def on_back_clicked(self, button):
-        # If the failed check is for non-ASCII characters,
-        # add a click to the counter and check again
+        # If the failed check is for password strength or non-ASCII
+        # characters, add a click to the counter and check again
         failed_check = next(self.failed_checks_with_message, None)
-        if failed_check == self._pwASCIICheck:
+        if not self.policy.strict and failed_check == self._pwStrengthCheck:
+            self._waiveStrengthClicks += 1
+            self._pwStrengthCheck.update_check_status()
+        elif failed_check == self._pwASCIICheck:
             self._waiveASCIIClicks += 1
             self._pwASCIICheck.update_check_status()
 
