@@ -37,7 +37,8 @@ from pyanaconda.ui.gui.helpers import GUISpokeInputCheckHandler, GUIDialogInputC
 from pyanaconda.constants import ANACONDA_ENVIRON, FIRSTBOOT_ENVIRON,\
         PASSWORD_EMPTY_ERROR, PASSWORD_CONFIRM_ERROR_GUI, PASSWORD_STRENGTH_DESC,\
         PASSWORD_WEAK, PASSWORD_WEAK_WITH_ERROR, PASSWORD_WEAK_CONFIRM,\
-        PASSWORD_WEAK_CONFIRM_WITH_ERROR, PW_ASCII_CHARS, PASSWORD_ASCII
+        PASSWORD_WEAK_CONFIRM_WITH_ERROR, PASSWORD_DONE_TWICE,\
+        PW_ASCII_CHARS, PASSWORD_ASCII
 from pyanaconda.regexes import GECOS_VALID, USERNAME_VALID, GROUPNAME_VALID, GROUPLIST_FANCY_PARSE
 
 __all__ = ["UserSpoke", "AdvancedUserDialog"]
@@ -273,6 +274,11 @@ class UserSpoke(FirstbootSpokeMixIn, NormalSpoke, GUISpokeInputCheckHandler):
         self.pw_bar.add_offset_value("medium", 3)
         self.pw_bar.add_offset_value("high", 4)
 
+        # Configure the password policy, if available. Otherwise use defaults.
+        self.policy = self.data.pwpolicy.get_policy("user")
+        if not self.policy:
+            self.policy = self.data.pwpolicy.handler.PwPolicyData()
+
         # indicate when the password was set by kickstart
         self._user.password_kickstarted = self.data.user.seen
         if self._user.password_kickstarted:
@@ -284,6 +290,13 @@ class UserSpoke(FirstbootSpokeMixIn, NormalSpoke, GUISpokeInputCheckHandler):
                 self.usepassword.set_active(True)
                 self.pw.set_placeholder_text(_("The password was set by kickstart."))
                 self.confirm.set_placeholder_text(_("The password was set by kickstart."))
+        elif not self.policy.emptyok:
+            # Policy is that a non-empty password is required
+            self.usepassword.set_active(True)
+
+        if not self.policy.emptyok:
+            # User isn't allowed to change whether password is required or not
+            self.usepassword.set_sensitive(False)
 
         # Password checks, in order of importance:
         # - if a password is required, is one specified?
@@ -409,8 +422,10 @@ class UserSpoke(FirstbootSpokeMixIn, NormalSpoke, GUISpokeInputCheckHandler):
 
     @property
     def sensitive(self):
+        # Spoke cannot be entered if a user was set in the kickstart and the user
+        # policy doesn't allow changes.
         return not (self.completed and flags.automatedInstall
-                    and self.data.user.seen)
+                    and self.data.user.seen and not self.policy.changesok)
 
     @property
     def completed(self):
@@ -496,7 +511,7 @@ class UserSpoke(FirstbootSpokeMixIn, NormalSpoke, GUISpokeInputCheckHandler):
         """
 
         # If the password was set by kickstart, skip the strength check
-        if self._user.password_kickstarted:
+        if self._user.password_kickstarted and not self.policy.changesok:
             return InputCheck.CHECK_OK
 
         # Skip the check if no password is required
@@ -554,9 +569,12 @@ class UserSpoke(FirstbootSpokeMixIn, NormalSpoke, GUISpokeInputCheckHandler):
         if (not self._pwq_valid) and (self._pwq_error):
             return self._pwq_error
 
-        pwstrength = self.pw_bar.get_value()
+        # use strength from policy, not bars
+        pw = self.pw.get_text()
+        username = self.username.get_text()
+        _valid, pwstrength, _error = validatePassword(pw, username, minlen=self.policy.minlen)
 
-        if pwstrength < 2:
+        if pwstrength < self.policy.minquality:
             # If Done has been clicked twice, waive the check
             if self._waiveStrengthClicks > 1:
                 return InputCheck.CHECK_OK
@@ -566,10 +584,16 @@ class UserSpoke(FirstbootSpokeMixIn, NormalSpoke, GUISpokeInputCheckHandler):
                 else:
                     return _(PASSWORD_WEAK_CONFIRM)
             else:
-                if self._pwq_error:
-                    return _(PASSWORD_WEAK_WITH_ERROR) % self._pwq_error
+                # non-strict allows done to be clicked twice
+                if self.policy.strict:
+                    done_msg = ""
                 else:
-                    return _(PASSWORD_WEAK)
+                    done_msg = _(PASSWORD_DONE_TWICE)
+
+                if self._pwq_error:
+                    return _(PASSWORD_WEAK_WITH_ERROR) % (self._pwq_error, done_msg)
+                else:
+                    return _(PASSWORD_WEAK) % done_msg
         else:
             return InputCheck.CHECK_OK
 
@@ -614,7 +638,7 @@ class UserSpoke(FirstbootSpokeMixIn, NormalSpoke, GUISpokeInputCheckHandler):
         # If the failed check is for password strength or non-ASCII
         # characters, add a click to the counter and check again
         failed_check = next(self.failed_checks_with_message, None)
-        if failed_check == self._pwStrengthCheck:
+        if not self.policy.strict and failed_check == self._pwStrengthCheck:
             self._waiveStrengthClicks += 1
             self._pwStrengthCheck.update_check_status()
         elif failed_check == self._pwASCIICheck:
