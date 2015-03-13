@@ -223,6 +223,12 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Fri Mar 13 2015 Samantha N. Bueno <sbueno+anaconda@redhat.com> - 13.21.233-1
+- Keep track of whether users should be prompted to format CDL dasds.
+  (sbueno+anaconda)
+  Resolves: rhbz#1164240
+  Related: rhbz#1164240
+
 * Tue Mar 03 2015 Samantha N. Bueno <sbueno+anaconda@redhat.com> - 13.21.232-1
 - Remove even more drivers for ppc64 32M limit (bcl)
   Resolves: rhbz#1198173
