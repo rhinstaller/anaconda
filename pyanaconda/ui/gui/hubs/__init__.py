@@ -88,6 +88,8 @@ class Hub(GUIObject, common.Hub):
         self._inSpoke = False
         self._notReadySpokes = []
         self._spokes = {}
+
+        # Used to store the last result of _updateContinue
         self._warningMsg = None
 
         self._checker = None
@@ -228,8 +230,10 @@ class Hub(GUIObject, common.Hub):
         # info bar with incomplete spoke messages when the hub starts
         if warning != self._warningMsg:
             self.clear_info()
-            self.set_warning(warning)
             self._warningMsg = warning
+
+            if warning:
+                self.set_warning(warning)
 
         self._updateContinueButton()
 
