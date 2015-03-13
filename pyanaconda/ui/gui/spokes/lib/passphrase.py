@@ -60,6 +60,11 @@ class PassphraseDialog(GUIObject, GUIInputCheckHandler):
         self._strength_bar.add_offset_value("medium", 3)
         self._strength_bar.add_offset_value("high", 4)
 
+        # Configure the password policy, if available. Otherwise use defaults.
+        self.policy = self.data.pwpolicy.get_policy("luks")
+        if not self.policy:
+            self.policy = self.data.pwpolicy.handler.PwPolicyData()
+
         # These will be set up later.
         self._pwq = None
         self._pwq_error = None
@@ -80,6 +85,7 @@ class PassphraseDialog(GUIObject, GUIInputCheckHandler):
         # set up passphrase quality checker
         self._pwq = pwquality.PWQSettings()
         self._pwq.read_config()
+        self._pwq.minlen = self.policy.minlen
 
         # initialize with the previously set passphrase
         self.passphrase = self.data.autopart.passphrase
@@ -147,7 +153,7 @@ class PassphraseDialog(GUIObject, GUIInputCheckHandler):
         # The save button should only be sensitive if the match check passes
         if self._passphrase_match_check.check_status == InputCheck.CHECK_OK and \
                 self._confirm_match_check.check_status == InputCheck.CHECK_OK and \
-                self._strength_check.check_status == InputCheck.CHECK_OK:
+                (not self.policy.strict or self._strength_check.check_status == InputCheck.CHECK_OK):
             self._save_button.set_sensitive(True)
         else:
             self._save_button.set_sensitive(False)
