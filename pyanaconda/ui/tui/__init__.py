@@ -106,17 +106,22 @@ class TextUserInterface(ui.UserInterface):
                     for dir in site.getsitepackages()]
     pathlist = set([updatepath, basepath] + sitepackages)
 
+    _categories = []
+    _spokes = []
+    _hubs = []
+
+    # as list comprehension can't reference class level variables in Python 3 we
+    # need to use a for cycle (http://bugs.python.org/issue21161)
+    for path in pathlist:
+        _categories.append((basemask + ".categories.%s", os.path.join(path, "categories")))
+        _spokes.append((basemask + ".tui.spokes.%s", os.path.join(path, "tui/spokes")))
+        _hubs.append((basemask + ".tui.hubs.%s", os.path.join(path, "tui/hubs")))
+
     paths = ui.UserInterface.paths + {
-            "categories": [(basemask + ".categories.%s",
-                        os.path.join(path, "categories"))
-                        for path in pathlist],
-            "spokes": [(basemask + ".tui.spokes.%s",
-                        os.path.join(path, "tui/spokes"))
-                        for path in pathlist],
-            "hubs": [(basemask + ".tui.hubs.%s",
-                      os.path.join(path, "tui/hubs"))
-                      for path in pathlist]
-            }
+        "categories": _categories,
+        "spokes": _spokes,
+        "hubs": _hubs,
+    }
 
     @property
     def tty_num(self):
