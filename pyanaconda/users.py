@@ -108,7 +108,7 @@ def cryptPassword(password, algo=None):
 
     return cryptpw
 
-def validatePassword(pw, user="root", settings=None):
+def validatePassword(pw, user="root", settings=None, minlen=None):
     """Check the quality of a password.
 
        This function does three things: given a password and an optional
@@ -133,6 +133,8 @@ def validatePassword(pw, user="root", settings=None):
 
        :param settings: an optional PWQSettings object
        :type settings: pwquality.PWQSettings
+       :param int minlen: Minimum acceptable password length. If not passed,
+                          use the default length from PASSWORD_MIN_LEN
 
        :returns: A tuple containing (bool(valid), int(score), str(message))
        :rtype: tuple
@@ -149,6 +151,9 @@ def validatePassword(pw, user="root", settings=None):
             validatePassword.pwqsettings.read_config()
             validatePassword.pwqsettings.minlen = PASSWORD_MIN_LEN
         settings = validatePassword.pwqsettings
+
+    if minlen is not None:
+        settings.minlen = minlen
 
     if valid:
         try:
