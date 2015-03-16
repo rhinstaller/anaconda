@@ -1334,7 +1334,7 @@ class GRUB(BootLoader):
                       "stage1dev": self.grub_device_name(stage1dev),
                       "stage2dev": self.grub_device_name(stage2dev)})
             (pread, pwrite) = os.pipe()
-            iutil.eintr_retry_call(os.write, pwrite, cmd)
+            iutil.eintr_retry_call(os.write, pwrite, cmd.encode("utf-8"))
             iutil.eintr_retry_call(os.close, pwrite)
             args = ["--batch", "--no-floppy",
                     "--device-map=%s" % self.device_map_file]
@@ -1526,7 +1526,8 @@ class GRUB2(GRUB):
             raise RuntimeError("cannot encrypt empty password")
 
         (pread, pwrite) = os.pipe()
-        iutil.eintr_retry_call(os.write, pwrite, "%s\n%s\n" % (self.password, self.password))
+        passwords = "%s\n%s\n" % (self.password, self.password)
+        iutil.eintr_retry_call(os.write, pwrite, passwords.encode("utf-8"))
         iutil.eintr_retry_call(os.close, pwrite)
         buf = iutil.execWithCapture("grub2-mkpasswd-pbkdf2", [],
                                     stdin=pread,

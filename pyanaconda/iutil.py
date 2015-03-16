@@ -840,12 +840,12 @@ class ProxyString(object):
         ProxyString.url is the full url including username:password@
         ProxyString.noauth_url is the url without username:password@
         """
-        self.url = url
-        self.protocol = protocol
-        self.host = host
+        self.url = ensure_str(url, keep_none=True)
+        self.protocol = ensure_str(protocol, keep_none=True)
+        self.host = ensure_str(host, keep_none=True)
         self.port = str(port)
-        self.username = username
-        self.password = password
+        self.username = ensure_str(username, keep_none=True)
+        self.password = ensure_str(password, keep_none=True)
         self.proxy_auth = ""
         self.noauth_url = None
 
@@ -879,10 +879,10 @@ class ProxyString(object):
         self.protocol = m.group("protocol") or "http://"
 
         if m.group("username"):
-            self.username = unquote(m.group("username"))
+            self.username = ensure_str(unquote(m.group("username")))
 
         if m.group("password"):
-            self.password = unquote(m.group("password"))
+            self.password = ensure_str(unquote(m.group("password")))
 
         if m.group("host"):
             self.host = m.group("host")
@@ -897,8 +897,8 @@ class ProxyString(object):
         """ Parse the components of a proxy url into url and noauth_url
         """
         if self.username or self.password:
-            self.proxy_auth = "%s:%s@" % (quote(self.username) or "",
-                                          quote(self.password) or "")
+            self.proxy_auth = "%s:%s@" % (quote(self.username or ""),
+                                          quote(self.password or ""))
 
         self.url = self.protocol + self.proxy_auth + self.host + ":" + self.port
         self.noauth_url = self.protocol + self.host + ":" + self.port
@@ -1252,7 +1252,8 @@ def ipmi_report(event):
     # Event dir & type - always 0x6f for us
     # Event data 1 - the event code passed in
     # Event data 2 & 3 - always 0x0 for us
-    eintr_retry_call(os.write, fd, "0x4 0x1F 0x0 0x6f %#x 0x0 0x0\n" % event)
+    event_string = "0x4 0x1F 0x0 0x6f %#x 0x0 0x0\n" % event
+    eintr_retry_call(os.write, fd, event_string.encode("utf-8"))
     eintr_retry_call(os.close, fd)
 
     execWithCapture("ipmitool", ["sel", "add", path])
