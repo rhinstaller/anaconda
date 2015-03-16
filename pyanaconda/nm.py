@@ -1025,7 +1025,7 @@ def nm_dbus_ay_to_ipv6(bytelist):
     :return: IPv6 address
     :rtype: str
     """
-    return socket.inet_ntop(socket.AF_INET6, "".join(chr(byte) for byte in bytelist))
+    return socket.inet_ntop(socket.AF_INET6, bytes(bytelist))
 
 def nm_dbus_int_to_ipv4(address):
     """Convert ipv4 address from dus int 'u' (switched endianess) to string.

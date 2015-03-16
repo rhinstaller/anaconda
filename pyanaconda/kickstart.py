@@ -103,7 +103,7 @@ class AnacondaKSScript(KSScript):
 
         (fd, path) = tempfile.mkstemp("", "ks-script-", scriptRoot + "/tmp")
 
-        iutil.eintr_retry_call(os.write, fd, self.script)
+        iutil.eintr_retry_call(os.write, fd, self.script.encode("utf-8"))
         iutil.eintr_retry_call(os.close, fd)
         iutil.eintr_retry_call(os.chmod, path, 0o700)
 

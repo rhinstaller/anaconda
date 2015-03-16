@@ -79,7 +79,8 @@ class VncServer:
         """Set the vnc server password. Output to file. """
 
         r, w = os.pipe()
-        iutil.eintr_retry_call(os.write, w, "%s\n" % self.password)
+        password_string = "%s\n" % self.password
+        iutil.eintr_retry_call(os.write, w, password_string.encode("utf-8"))
 
         with open(self.pw_file, "wb") as pw_file:
             # the -f option makes sure vncpasswd does not ask for the password again
