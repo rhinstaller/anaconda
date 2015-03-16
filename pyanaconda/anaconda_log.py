@@ -236,7 +236,7 @@ class AnacondaLog:
         """
         TEMPLATE = "*.* %s;anaconda_syslog\n"
 
-        vport = flags.cmdline.get('virtiolog', self.VIRTIO_PORT)
+        vport = flags.cmdline.get('virtiolog') or self.VIRTIO_PORT
 
         if not os.access(vport, os.W_OK):
             return
