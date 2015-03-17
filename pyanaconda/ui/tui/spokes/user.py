@@ -66,7 +66,7 @@ class UserSpoke(FirstbootSpokeMixIn, EditTUISpoke):
 
     def __init__(self, app, data, storage, payload, instclass):
         FirstbootSpokeMixIn.__init__(self)
-        EditTUISpoke.__init__(self, app, data, storage, payload, instclass)
+        EditTUISpoke.__init__(self, app, data, storage, payload, instclass, "user")
 
         if self.data.user.userList:
             self.args = self.data.user.userList[0]
@@ -99,7 +99,8 @@ class UserSpoke(FirstbootSpokeMixIn, EditTUISpoke):
 
     @property
     def showable(self):
-        return not (self.completed and flags.automatedInstall)
+        return not (self.completed and flags.automatedInstall
+                    and self.data.user.seen and not self.dialog.policy.changesok)
 
     @property
     def mandatory(self):
