@@ -28,7 +28,8 @@
 
 """
 import os
-import requests
+from urlgrabber.grabber import URLGrabber
+from urlgrabber.grabber import URLGrabError
 import ConfigParser
 import shutil
 from glob import glob
@@ -67,7 +68,8 @@ import blivet.arch
 from blivet.platform import platform
 
 from pyanaconda.product import productName, productVersion
-USER_AGENT = "%s (anaconda)/%s" %(productName, productVersion)
+import urlgrabber
+urlgrabber.grabber.default_grabber.opts.user_agent = "%s (anaconda)/%s" %(productName, productVersion)
 
 from distutils.version import LooseVersion
 
@@ -337,6 +339,9 @@ class Payload(object):
         log.debug("retrieving treeinfo from %s (proxy: %s ; sslverify: %s)",
                   url, proxy_url, sslverify)
 
+        ugopts = {"ssl_verify_peer": sslverify,
+                  "ssl_verify_host": sslverify}
+
         proxies = {}
         if proxy_url:
             try:
@@ -347,26 +352,21 @@ class Payload(object):
                 log.info("Failed to parse proxy for _getTreeInfo %s: %s",
                          proxy_url, e)
 
-        response = None
-        headers = {"user-agent": USER_AGENT}
+        ug = URLGrabber()
         try:
-            response = requests.get("%s/.treeinfo" % url, headers=headers, proxies=proxies, verify=sslverify)
-        except requests.exceptions.RequestException as e:
+            treeinfo = ug.urlgrab("%s/.treeinfo" % url,
+                                  "/tmp/.treeinfo", copy_local=True,
+                                  proxies=proxies, **ugopts)
+        except URLGrabError as e:
             try:
-                response = requests.get("%s/treeinfo" % url, headers=headers, proxies=proxies, verify=sslverify)
-            except requests.exceptions.RequestException as e:
+                treeinfo = ug.urlgrab("%s/treeinfo" % url,
+                                      "/tmp/.treeinfo", copy_local=True,
+                                      proxies=proxies, **ugopts)
+            except URLGrabError as e:
                 log.info("Error downloading treeinfo: %s", e)
-                response = None
+                treeinfo = None
 
-        if response:
-            # write the local treeinfo file
-            with open("/tmp/.treeinfo", "w") as f:
-                f.write(response.text)
-
-            # and also return the treeinfo contents as a string
-            return response.text
-        else:
-            return None
+        return treeinfo
 
     def _getReleaseVersion(self, url):
         """ Return the release version of the tree at the specified URL. """
