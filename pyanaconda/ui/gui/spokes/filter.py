@@ -637,7 +637,7 @@ class FilterSpoke(NormalSpoke):
     def on_add_zfcp_clicked(self, widget, *args):
         dialog = ZFCPDialog(self.data, self.storage)
 
-        with self.main_window.enlightbox(self.window, dialog.window):
+        with self.main_window.enlightbox(dialog.window):
             dialog.refresh()
             dialog.run()
 
