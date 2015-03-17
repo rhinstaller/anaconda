@@ -62,12 +62,15 @@ from pyanaconda.i18n import _
 from pyanaconda.ui.common import collect
 from pyanaconda.addons import AddonSection, AddonData, AddonRegistry, collect_addon_paths
 from pyanaconda.bootloader import GRUB2, get_bootloader
+from pyanaconda.pwpolicy import F22_PwPolicy, F22_PwPolicyData
 
 from pykickstart.constants import CLEARPART_TYPE_NONE, FIRSTBOOT_SKIP, FIRSTBOOT_RECONFIG, KS_SCRIPT_POST, KS_SCRIPT_PRE, \
                                   KS_SCRIPT_TRACEBACK, SELINUX_DISABLED, SELINUX_ENFORCING, SELINUX_PERMISSIVE
+from pykickstart.base import BaseHandler
 from pykickstart.errors import formatErrorMsg, KickstartError, KickstartValueError
 from pykickstart.parser import KickstartParser
 from pykickstart.parser import Script as KSScript
+from pykickstart.sections import Section
 from pykickstart.sections import NullSection, PackageSection, PostScriptSection, PreScriptSection, TracebackScriptSection
 from pykickstart.version import returnClassForVersion
 
@@ -1818,6 +1821,61 @@ class Upgrade(commands.upgrade.F20_Upgrade):
         sys.exit(1)
 
 ###
+### %anaconda Section
+###
+
+class AnacondaSectionHandler(BaseHandler):
+    """A handler for only the anaconda ection's commands."""
+    commandMap = {
+        "pwpolicy": F22_PwPolicy
+    }
+
+    dataMap = {
+        "PwPolicyData": F22_PwPolicyData
+    }
+
+    def __init__(self):
+        BaseHandler.__init__(self, mapping=self.commandMap, dataMapping=self.dataMap)
+
+    def __str__(self):
+        """Return the %anaconda section"""
+        retval = ""
+        lst = sorted(self._writeOrder.keys())
+        for prio in lst:
+            for obj in self._writeOrder[prio]:
+                retval += str(obj)
+
+        if retval:
+            retval = "\n%anaconda\n" + retval + "%end\n"
+        return retval
+
+class AnacondaSection(Section):
+    """A section for anaconda specific commands."""
+    sectionOpen = "%anaconda"
+
+    def __init__(self, *args, **kwargs):
+        Section.__init__(self, *args, **kwargs)
+        self.cmdno = 0
+
+    def handleLine(self, line):
+        if not self.handler:
+            return
+
+        self.cmdno += 1
+        args = shlex.split(line, comments=True)
+        self.handler.currentCmd = args[0]
+        self.handler.currentLine = self.cmdno
+        return self.handler.dispatcher(args, self.cmdno)
+
+    def handleHeader(self, lineno, args):
+        """Process the arguments to the %anaconda header."""
+        Section.handleHeader(self, lineno, args)
+
+    def finalize(self):
+        """Let %anaconda know no additional data will come."""
+        Section.finalize(self)
+
+###
 ### HANDLERS
 ###
 
@@ -1909,8 +1967,11 @@ class AnacondaKSHandler(superclass):
         # Prepare the final structures for 3rd party addons
         self.addons = AddonRegistry(addons)
 
+        # The %anaconda section uses its own handler for a limited set of commands
+        self.anaconda = AnacondaSectionHandler()
+
     def __str__(self):
-        return superclass.__str__(self) + "\n" +  str(self.addons)
+        return superclass.__str__(self) + "\n" + str(self.addons) + str(self.anaconda)
 
 class AnacondaPreParser(KickstartParser):
     # A subclass of KickstartParser that only looks for %pre scripts and
@@ -1928,6 +1989,7 @@ class AnacondaPreParser(KickstartParser):
         self.registerSection(NullSection(self.handler, sectionOpen="%traceback"))
         self.registerSection(NullSection(self.handler, sectionOpen="%packages"))
         self.registerSection(NullSection(self.handler, sectionOpen="%addon"))
+        self.registerSection(NullSection(self.handler.anaconda, sectionOpen="%anaconda"))
 
 
 class AnacondaKSParser(KickstartParser):
@@ -1948,6 +2010,7 @@ class AnacondaKSParser(KickstartParser):
         self.registerSection(TracebackScriptSection(self.handler, dataObj=self.scriptClass))
         self.registerSection(PackageSection(self.handler))
         self.registerSection(AddonSection(self.handler))
+        self.registerSection(AnacondaSection(self.handler.anaconda))
 
 def preScriptPass(f):
     # The first pass through kickstart file processing - look for %pre scripts
