@@ -33,10 +33,10 @@ import os
 import stat
 from time import sleep
 from threading import Lock
-import requests
 from urlgrabber.grabber import URLGrabber
 from urlgrabber.grabber import URLGrabError
 from pyanaconda.iutil import ProxyString, ProxyStringError, lowerASCII
+import urllib
 import hashlib
 import glob
 
@@ -275,21 +275,21 @@ class LiveImageKSPayload(LiveImagePayload):
 
         error = None
         try:
-            response = requests.get(self.data.method.url, proxies=self._proxies, verify=True)
+            req = urllib.urlopen(self.data.method.url, proxies=self._proxies)
 
             # At this point we know we can get the image and what its size is
             # Make a guess as to minimum size needed:
             # Enough space for image and image * 3
-            if response.headers.get('content-length'):
-                self._min_size = int(response.headers.get('content-length')) * 4
+            if req.info().get("content-length"):
+                self._min_size = int(req.info().get('content-length')) * 4
         except IOError as e:
             log.error("Error opening liveimg: %s", e)
             error = e
         else:
             # If it is a http request we need to check the code
             method = self.data.method.url.split(":", 1)[0]
-            if method.startswith("http") and response.status_code != 200:
-                error = "http request returned %s" % response.getcode()
+            if method.startswith("http") and req.getcode() != 200:
+                error = "http request returned %s" % req.getcode()
 
         return error
 
