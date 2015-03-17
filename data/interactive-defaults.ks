@@ -3,7 +3,9 @@
 auth --enableshadow --passalgo=sha512
 firstboot --enable
 
+%anaconda
 # Default password policies
-pwpolicy root --strict --minlen=8 --minquality=50 --changesok --notempty
-pwpolicy user --strict --minlen=8 --minquality=50 --changesok --emptyok
-pwpolicy luks --strict --minlen=10
+pwpolicy root --strict --minlen=8 --minquality=50 --nochanges --emptyok
+pwpolicy user --strict --minlen=8 --minquality=50 --nochanges --emptyok
+pwpolicy luks --strict --minlen=8 --minquality=50 --nochanges --emptyok
+%end

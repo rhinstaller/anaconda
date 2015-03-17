@@ -111,9 +111,9 @@ class EditTUIDialog(NormalTUISpoke):
         self.value = None
 
         # Configure the password policy, if available. Otherwise use defaults.
-        self.policy = self.data.pwpolicy.get_policy(policy_name)
+        self.policy = self.data.anaconda.pwpolicy.get_policy(policy_name)
         if not self.policy:
-            self.policy = self.data.pwpolicy.handler.PwPolicyData()
+            self.policy = self.data.anaconda.PwPolicyData()
 
     def refresh(self, args = None):
         self._window = []

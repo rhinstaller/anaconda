@@ -61,9 +61,9 @@ class PassphraseDialog(GUIObject, GUIInputCheckHandler):
         self._strength_bar.add_offset_value("high", 4)
 
         # Configure the password policy, if available. Otherwise use defaults.
-        self.policy = self.data.pwpolicy.get_policy("luks")
+        self.policy = self.data.anaconda.pwpolicy.get_policy("luks")
         if not self.policy:
-            self.policy = self.data.pwpolicy.handler.PwPolicyData()
+            self.policy = self.data.anaconda.PwPolicyData()
 
         # These will be set up later.
         self._pwq = None
