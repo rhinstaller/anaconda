@@ -22,6 +22,7 @@
 
 from blivet import callbacks
 from blivet.osinstall import turnOnFilesystems
+from blivet.devices import BTRFSDevice
 from pyanaconda.bootloader import writeBootLoader
 from pyanaconda.progress import progress_report, progress_message, progress_step, progress_complete, progress_init
 from pyanaconda.users import createLuserConf, getPassAlgo, Users
@@ -106,6 +107,12 @@ def doConfiguration(storage, payload, ksdata, instClass):
 
     with progress_report(_("Generating initramfs")):
         payload.recreateInitrds()
+
+    # Work around rhbz#1200539, grubby doesn't handle grub2 missing initrd with /boot on btrfs
+    # So rerun writing the bootloader if this is live and /boot is on btrfs
+    if flags.flags.livecdInstall and (not ksdata.bootloader.disabled and ksdata.bootloader != "none") \
+       and isinstance(storage.mountpoints.get("/boot", storage.mountpoints.get("/")), BTRFSDevice):
+        writeBootLoader(storage, payload, instClass, ksdata)
 
     if willRunRealmd:
         with progress_report(_("Joining realm: %s") % ksdata.realm.discovered):
