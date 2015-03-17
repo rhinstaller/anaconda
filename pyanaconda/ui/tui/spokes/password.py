@@ -33,7 +33,7 @@ class PasswordSpoke(FirstbootSpokeMixIn, EditTUIDialog):
     category = UserSettingsCategory
 
     def __init__(self, app, data, storage, payload, instclass):
-        EditTUIDialog.__init__(self, app, data, storage, payload, instclass)
+        EditTUIDialog.__init__(self, app, data, storage, payload, instclass, "root")
         self._password = None
 
     @property
@@ -42,7 +42,7 @@ class PasswordSpoke(FirstbootSpokeMixIn, EditTUIDialog):
 
     @property
     def showable(self):
-        return not (self.completed and flags.automatedInstall)
+        return not (self.completed and flags.automatedInstall and not self.policy.changesok)
 
     @property
     def mandatory(self):

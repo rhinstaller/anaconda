@@ -19,7 +19,7 @@
 # Red Hat Author(s): Martin Sivak <msivak@redhat.com>
 #
 from pyanaconda.ui.tui import simpleline as tui
-from pyanaconda.ui.tui.tuiobject import TUIObject
+from pyanaconda.ui.tui.tuiobject import TUIObject, YesNoDialog
 from pyanaconda.ui.common import Spoke, StandaloneSpoke, NormalSpoke
 from pyanaconda.users import validatePassword, cryptPassword
 import re
@@ -27,6 +27,7 @@ from collections import namedtuple
 from pyanaconda.iutil import setdeepattr, getdeepattr
 from pyanaconda.i18n import N_, _
 from pyanaconda.constants import PASSWORD_CONFIRM_ERROR_TUI, PW_ASCII_CHARS
+from pyanaconda.constants import PASSWORD_WEAK, PASSWORD_WEAK_WITH_ERROR
 
 __all__ = ["TUISpoke", "EditTUISpoke", "EditTUIDialog", "EditTUISpokeEntry",
            "StandaloneSpoke", "NormalTUISpoke"]
@@ -102,12 +103,17 @@ class EditTUIDialog(NormalTUISpoke):
     title = N_("New value")
     PASSWORD = re.compile(".*")
 
-    def __init__(self, app, data, storage, payload, instclass):
+    def __init__(self, app, data, storage, payload, instclass, policy_name=""):
         if self.__class__ is EditTUIDialog:
             raise TypeError("EditTUIDialog is an abstract class")
 
         NormalTUISpoke.__init__(self, app, data, storage, payload, instclass)
         self.value = None
+
+        # Configure the password policy, if available. Otherwise use defaults.
+        self.policy = self.data.pwpolicy.get_policy(policy_name)
+        if not self.policy:
+            self.policy = self.data.pwpolicy.handler.PwPolicyData()
 
     def refresh(self, args = None):
         self._window = []
@@ -135,19 +141,31 @@ class EditTUIDialog(NormalTUISpoke):
                 self.value = ""
                 return None
 
-            valid, strength, message = validatePassword(pw, user=None)
+            valid, strength, message = validatePassword(pw, user=None, minlen=self.policy.minlen)
 
             if not valid:
                 print(message)
                 return None
 
-            if strength < 50:
-                if message:
-                    error = _("You have provided a weak password: %s\n") % message
+            if strength < self.policy.minquality:
+                if self.policy.strict:
+                    done_msg = ""
                 else:
-                    error = _("You have provided a weak password.")
-                print(error)
-                return None
+                    done_msg = _("\nWould you like to use it anyway?")
+
+                if message:
+                    error = _(PASSWORD_WEAK_WITH_ERROR) % (message, done_msg)
+                else:
+                    error = _(PASSWORD_WEAK) % done_msg
+
+                if not self.policy.strict:
+                    question_window = YesNoDialog(self._app, error)
+                    self._app.switch_screen_modal(question_window)
+                    if not question_window.answer:
+                        return None
+                else:
+                    print(error)
+                    return None
 
             if any(char not in PW_ASCII_CHARS for char in pw):
                 print(_("You have provided a password containing non-ASCII characters.\n"
@@ -218,12 +236,12 @@ class EditTUISpoke(NormalTUISpoke):
     edit_fields = [
     ]
 
-    def __init__(self, app, data, storage, payload, instclass):
+    def __init__(self, app, data, storage, payload, instclass, policy_name=""):
         if self.__class__ is EditTUISpoke:
             raise TypeError("EditTUISpoke is an abstract class")
 
         NormalTUISpoke.__init__(self, app, data, storage, payload, instclass)
-        self.dialog = OneShotEditTUIDialog(app, data, storage, payload, instclass)
+        self.dialog = OneShotEditTUIDialog(app, data, storage, payload, instclass, policy_name=policy_name)
 
         # self.args should hold the object this Spoke is supposed
         # to edit
