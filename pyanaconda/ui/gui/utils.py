@@ -423,9 +423,6 @@ def escape_markup(value):
     This function converts the value to a string before passing markup_escape_text().
     """
 
-    if isinstance(value, str):
-        value = value.encode("utf-8")
-
     return GLib.markup_escape_text(str(value))
 
 # This will be populated by override_cell_property. Keys are tuples of (column, renderer).

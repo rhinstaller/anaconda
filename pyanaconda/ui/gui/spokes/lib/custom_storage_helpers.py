@@ -93,7 +93,7 @@ def size_from_entry(entry, lower_bound=None, units=None):
         to a smaller value. The default for lower_bound is None, yielding
         no rounding.
     """
-    size_text = entry.get_text().decode("utf-8").strip()
+    size_text = entry.get_text().strip()
     size = size_from_input(size_text, units=units)
     if size is None:
         return None
