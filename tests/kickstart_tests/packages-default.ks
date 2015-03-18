@@ -1,7 +1,7 @@
 #version=DEVEL
 url --url="http://dl.fedoraproject.org/pub/fedora/linux/development/$releasever/$basearch/os/"
 install
-network --bootproto=dhcp --device=eth0
+network --bootproto=dhcp
 
 bootloader --timeout=1
 zerombr
