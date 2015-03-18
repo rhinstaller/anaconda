@@ -23,7 +23,7 @@
 
 from distutils.sysconfig import get_python_lib
 import os, sys
-import imputil
+import imp
 
 from blivet.partspec import PartSpec
 from blivet.autopart import swapSuggestion
@@ -195,13 +195,13 @@ def availableClasses(showHidden=False):
         done[mainName] = 1
 
         try:
-            found = imputil.imp.find_module(mainName)
+            found = imp.find_module(mainName)
         except ImportError:
             log.warning("module import of %s failed: %s", mainName, sys.exc_info()[0])
             continue
 
         try:
-            loaded = imputil.imp.load_module(mainName, found[0], found[1], found[2])
+            loaded = imp.load_module(mainName, found[0], found[1], found[2])
 
             for (_key, obj) in loaded.__dict__.items():
                 # If it's got these two methods, it's an InstallClass.
