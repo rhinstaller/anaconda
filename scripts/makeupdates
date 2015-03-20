@@ -37,8 +37,7 @@ from collections import namedtuple
 try:
     from rpmUtils import miscutils  # available from the yum-utils package
 except ImportError:
-    print("You need to install the yum-utils package to run makeupdates.")
-    exit(1)
+    print("Warning: You need to install the yum-utils package to run makeupdates -f")
 
 RPM_FOLDER_NAME = os.path.expanduser("~/.anaconda_updates_rpm_cache")
 RPM_RELEASE_DIR_TEMPLATE = "for_%s"
