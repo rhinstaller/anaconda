@@ -43,8 +43,8 @@ from pyanaconda.ui.gui.utils import gtk_action_wait
 import logging
 log = logging.getLogger("anaconda")
 
-Xkb_ = lambda x: gettext.ldgettext("xkeyboard-config", x)
-iso_ = lambda x: gettext.ldgettext("iso_639", x)
+Xkb_ = lambda x: gettext.translation("xkeyboard-config", fallback=True).gettext(x)
+iso_ = lambda x: gettext.translation("iso_639", fallback=True).gettext(x)
 
 # namedtuple for information about a keyboard layout (its language and description)
 LayoutInfo = namedtuple("LayoutInfo", ["lang", "desc"])
@@ -225,8 +225,8 @@ class XklWrapper(object):
         # translate language and upcase its first letter, translate the
         # layout-variant description
         if xlated:
-            lang = iutil.upcase_first_letter(iso_(layout_info.lang).decode("utf-8"))
-            description = Xkb_(layout_info.desc).decode("utf-8")
+            lang = iutil.upcase_first_letter(iso_(layout_info.lang))
+            description = Xkb_(layout_info.desc)
         else:
             lang = iutil.upcase_first_letter(layout_info.lang)
             description = layout_info.desc
