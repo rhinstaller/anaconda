@@ -1110,30 +1110,28 @@ if __name__ == "__main__":
     if "LANG" not in os.environ:
         localization.load_firmware_language(ksdata.lang)
 
-    # check if the LANG environmental variable is set
-    env_lang = os.environ.get("LANG")
-    if env_lang is not None:
-        # parse it using langtable
-        env_langs = localization.get_language_locales(env_lang)
-        # if parsed LANG is the same as our default language - ignore it;
-        # otherwise use it as valid language candidate
-        if env_langs and env_langs[0] != constants.DEFAULT_LANG:
-            env_lang = env_langs[0]  # the first language is the best match
-        else:
-            env_lang = None
+    # If command line options or kickstart set LANG, override the environment
+    if opts.lang:
+        os.environ["LANG"] = opts.lang # pylint: disable=environment-modify
+    elif ksdata.lang.lang:
+        os.environ["LANG"] = ksdata.lang.lang # pylint: disable=environment-modify
 
-    requested_lang = opts.lang or ksdata.lang.lang or env_lang
+    # Make sure LANG is set to something
+    if "LANG" not in os.environ:
+        os.environ["LANG"] = constants.DEFAULT_LANG # pylint: disable=environment-modify
 
-    if requested_lang:
-        locales = localization.get_language_locales(requested_lang)
-        if locales:
-            localization.setup_locale(locales[0], ksdata.lang)
-            ksdata.lang.seen = True
-        else:
-            log.error("Invalid locale '%s' given on command line or in kickstart", requested_lang)
+    # parse it using langtable and update the environment
+    # If langtable returns no locales, fall back to the default
+    env_langs = localization.get_language_locales(os.environ["LANG"])
+    if env_langs:
+        # the first language is the best match
+        os.environ["LANG"] = env_langs[0]  # pylint: disable=environment-modify
     else:
-        # no kickstart or bootoption - use default
-        localization.setup_locale(constants.DEFAULT_LANG, ksdata.lang)
+        log.error("Invalid locale '%s' given on command line or in kickstart", os.environ["LANG"])
+        os.environ["LANG"] = constants.DEFAULT_LANG # pylint: disable=environment-modify
+
+    localization.setup_locale(os.environ["LANG"], ksdata.lang)
+    ksdata.lang.seen = True
 
     import blivet
     blivet.enable_installer_mode()
