@@ -311,6 +311,28 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Fri Mar 20 2015 Brian C. Lane <bcl@redhat.com> - 23.4-1
+- Clean out the mock chroot before attempting to run the rest of the test.
+  (clumens)
+- Implement %%anaconda kickstart section for pwpolicy (bcl)
+- Add pwpolicy support to TUI interface (bcl)
+- Add pwpolicy for the LUKS passphrase dialog. (bcl)
+- Add pwpolicy for the user spoke. (bcl)
+- Use pwpolicy for the root password spoke. (bcl)
+- Add the text for weak passwords to constants (bcl)
+- Add tests with an FTP instrepo (dshea)
+- Add kickstart tests for an NFS instrepo and addon repos. (dshea)
+- Handle /boot on btrfs for live (#1200539) (bcl)
+- rpmostreepayload: write storage config after shared var is mounted (#1203234)
+  (rvykydal)
+- Tweak tmux configuration file (jkonecny)
+- Remove --device= from the new kickstart tests. (clumens)
+- Add more kickstart-based packaging tests. (clumens)
+- Fix enlightbox call in ZFCPDialog. (#1151144) (sbueno+anaconda)
+- fix crash with bare 'inst.virtiolog' in boot args (wwoods)
+- Do not attempt to set None as a warning (dshea)
+- fix inst.ks.sendmac for static ip=XXX (#826657) (wwoods)
+
 * Fri Mar 13 2015 Brian C. Lane <bcl@redhat.com> - 23.3-1
 - Only insert strings into the environment (#1201411) (dshea)
 - Fix the rescue kernel version list in writeBootLoader (#1201429) (dshea)
