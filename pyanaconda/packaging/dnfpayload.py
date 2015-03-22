@@ -227,6 +227,12 @@ class DNFPayload(packaging.PackagePayload):
         if mirrorlist:
             repo.mirrorlist = mirrorlist
         repo.sslverify = not (ksrepo.noverifyssl or flags.noverifyssl)
+        if ksrepo.proxy:
+            try:
+                repo.proxy = ProxyString(ksrepo.proxy).url
+            except ProxyStringError as e:
+                log.error("Failed to parse proxy for _add_repo %s: %s",
+                          ksrepo.proxy, e)
 
         # If this repo is already known, it's one of two things:
         # (1) The user is trying to do "repo --name=updates" in a kickstart file
@@ -725,9 +731,10 @@ class DNFPayload(packaging.PackagePayload):
                           method.method, e)
 
             try:
+                proxy = getattr(method, "proxy", None)
                 base_ksrepo = self.data.RepoData(
                     name=constants.BASE_REPO_NAME, baseurl=url,
-                    mirrorlist=mirrorlist, noverifyssl=not sslverify)
+                    mirrorlist=mirrorlist, noverifyssl=not sslverify, proxy=proxy)
                 self._add_repo(base_ksrepo)
             except (packaging.MetadataError, packaging.PayloadError) as e:
                 log.error("base repo (%s/%s) not valid -- removing it",
