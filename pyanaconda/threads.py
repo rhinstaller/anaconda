@@ -97,12 +97,15 @@ class ThreadManager(object):
         """Wait for the thread to exit and if the thread exited with an error
            re-raise it here.
         """
+
+        ret_val = True
+
         # we don't need a lock here,
         # because get() acquires it itself
         try:
             self.get(name).join()
         except AttributeError:
-            pass
+            ret_val = False
         # - if there is a thread object for the given name,
         #   we join it
         # - if there is not a thread object for the given name,
@@ -110,6 +113,9 @@ class ThreadManager(object):
         #   and return immediately
 
         self.raise_if_error(name)
+
+        # return True if we waited for the thread, False otherwise
+        return ret_val
 
     def wait_all(self):
         """Wait for all threads to exit and if there was an error re-raise it.
