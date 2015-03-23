@@ -714,8 +714,9 @@ class PackagePayload(Payload):
         ts = rpm.TransactionSet(iutil.getSysroot())
         mi = ts.dbMatch('providename', 'kernel')
         for hdr in mi:
+            unicode_fnames = (f.decode("utf-8") for f in hdr.filenames)
             # Find all /boot/vmlinuz- files and strip off vmlinuz-
-            files.extend((f.split("/")[-1][8:] for f in hdr.filenames
+            files.extend((f.split("/")[-1][8:] for f in unicode_fnames
                 if fnmatch(f, "/boot/vmlinuz-*") or
                    fnmatch(f, "/boot/efi/EFI/%s/vmlinuz-*" % self.instclass.efi_dir)))
 

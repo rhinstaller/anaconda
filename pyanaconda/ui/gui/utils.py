@@ -320,10 +320,11 @@ def ignoreEscape(dlg):
        escape key to do nothing for the given GtkDialog.
     """
     provider = Gtk.CssProvider()
-    provider.load_from_data("@binding-set IgnoreEscape {"
-                            "   unbind 'Escape';"
-                            "}"
-                            "GtkDialog { gtk-key-bindings: IgnoreEscape }")
+    provider.load_from_data(bytes("@binding-set IgnoreEscape {"
+                                  "   unbind 'Escape';"
+                                  "}"
+                                  "GtkDialog { gtk-key-bindings: IgnoreEscape }",
+                                  "utf-8"))
 
     context = dlg.get_style_context()
     context.add_provider(provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION)
@@ -335,7 +336,7 @@ def setViewportBackground(vp, color="@theme_bg_color"):
     """
 
     provider = Gtk.CssProvider()
-    provider.load_from_data("GtkViewport { background-color: %s }" % color)
+    provider.load_from_data(bytes("GtkViewport { background-color: %s }" % color, "utf-8"))
     context = vp.get_style_context()
     context.add_provider(provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION)
 
