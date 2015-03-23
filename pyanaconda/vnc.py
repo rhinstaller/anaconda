@@ -163,7 +163,7 @@ class VncServer:
 
         for _i in range(maxTries):
             vncconfp = iutil.startProgram(vncconfigcommand, stdout=subprocess.PIPE, stderr=subprocess.PIPE) # vncconfig process
-            err = vncconfp.communicate()[1]
+            err = vncconfp.communicate()[1].decode("utf-8")
 
             if err == '':
                 self.log.info(_("Connected!"))
