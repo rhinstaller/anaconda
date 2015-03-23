@@ -272,7 +272,7 @@ class PasswordSpoke(FirstbootSpokeMixIn, NormalSpoke, GUISpokeInputCheckHandler)
                     done_msg = _(PASSWORD_DONE_TWICE)
 
                 if self._pwq_error:
-                    return _(PASSWORD_WEAK_WITH_ERROR) % (self._pwq_error, done_msg)
+                    return _(PASSWORD_WEAK_WITH_ERROR) % self._pwq_error + " " + done_msg
                 else:
                     return _(PASSWORD_WEAK) % done_msg
         else:

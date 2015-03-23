@@ -120,7 +120,7 @@ class F22_PwPolicy(KickstartCommand):
 
         # Check for duplicates in the data list.
         if pd in self.dataList():
-            warnings.warn(_("A %s with the name %s has already been defined.") % ("pwpolicy", pd.name))
+            warnings.warn(_("A %(command)s with the name %(policyName)s has already been defined.") % {"command": "pwpolicy", "policyName": pd.name})
 
         return pd
 
