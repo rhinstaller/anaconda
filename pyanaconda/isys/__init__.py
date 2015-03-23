@@ -122,6 +122,10 @@ def set_system_date_time(year=None, month=None, day=None, hour=None, minute=None
 
     """
 
+    # If no timezone is set, use UTC
+    if not tz:
+        tz = pytz.UTC
+
     # get the right values
     now = datetime.datetime.now(tz)
     year = year if year is not None else now.year
