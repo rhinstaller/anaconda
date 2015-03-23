@@ -37,6 +37,7 @@ import requests
 from pyanaconda.iutil import ProxyString, ProxyStringError, lowerASCII
 import hashlib
 import glob
+import functools
 
 from pyanaconda.packaging import ImagePayload, PayloadSetupError, PayloadInstallError
 
@@ -193,7 +194,7 @@ class LiveImagePayload(ImagePayload):
         files.extend(glob.glob(INSTALL_TREE + "/boot/efi/EFI/%s/vmlinuz-*" % self.instclass.efi_dir))
 
         self._kernelVersionList = sorted((f.split("/")[-1][8:] for f in files
-           if os.path.isfile(f) and "-rescue-" not in f), cmp=versionCmp)
+           if os.path.isfile(f) and "-rescue-" not in f), key=functools.cmp_to_key(versionCmp))
 
     @property
     def kernelVersionList(self):
@@ -536,4 +537,4 @@ class LiveImageKSPayload(LiveImagePayload):
 
             # Strip out vmlinuz- from the names
             return sorted((n.split("/")[-1][8:] for n in names if "boot/vmlinuz-" in n),
-                    cmp=versionCmp)
+                    key=functools.cmp_to_key(versionCmp))
