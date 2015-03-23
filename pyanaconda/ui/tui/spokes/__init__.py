@@ -113,13 +113,15 @@ class EditTUIDialog(NormalTUISpoke):
 
         NormalTUISpoke.__init__(self, app, data, storage, payload, instclass)
         self.value = None
+        self.policy = None
+        self.policy_name = policy_name
 
         # Added to allow custom incorrect input messages
         self.wrong_input_message = None
 
     def refresh(self, args=None):
         # Configure the password policy, if available. Otherwise use defaults.
-        self.policy = self.data.anaconda.pwpolicy.get_policy(policy_name)
+        self.policy = self.data.anaconda.pwpolicy.get_policy(self.policy_name)
         if not self.policy:
             self.policy = self.data.anaconda.PwPolicyData()
 
@@ -161,7 +163,7 @@ class EditTUIDialog(NormalTUISpoke):
                     done_msg = _("\nWould you like to use it anyway?")
 
                 if message:
-                    error = _(PASSWORD_WEAK_WITH_ERROR) % (message, done_msg)
+                    error = _(PASSWORD_WEAK_WITH_ERROR) % message + " " + done_msg
                 else:
                     error = _(PASSWORD_WEAK) % done_msg
 
