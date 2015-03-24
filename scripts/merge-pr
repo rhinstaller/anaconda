@@ -198,7 +198,7 @@ def main():
         # Before we push, launch an editor for the message to use when closing
         # the pull request
         try:
-            editor = subprocess.check_call(['git', 'config', '--get', 'core.editor'])
+            editor = subprocess.check_output(['git', 'config', '--get', 'core.editor']).strip()
         except subprocess.CalledProcessError:
             if 'VISUAL' in os.environ:
                 editor = os.environ['VISUAL']
