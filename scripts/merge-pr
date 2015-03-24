@@ -180,22 +180,12 @@ def main():
 
     # Start messing with the git repo
 
-    # Try checking out the base of the PR. If it isn't available, do a fetch of
-    # the base repo and try again.
     try:
-        subprocess.check_call(['git', 'checkout', '-q', pr['base']['sha']], stderr=DEVNULL)
-    except subprocess.CalledProcessError:
-        try:
-            subprocess.check_call(['git', 'fetch', '-q', pr['base']['repo']['clone_url'], pr['base']['sha']])
-            subprocess.check_call(['git', 'checkout', '-q', pr['base']['sha']])
-        except subprocess.CalledProcessError:
-            sys.exit(1)
-
-    try:
+        # Fetch the PR branch into a new local branch.
         branch_name = 'merge-pr-%s-%s' % (pr['head']['user']['login'], pr['head']['ref'])
-        # Create a branch for the PR and pull the data into it
-        subprocess.check_call(['git', 'checkout', '-q', '-b', branch_name])
-        subprocess.check_call(['git', 'pull', '-q', '--ff-only', pr['head']['repo']['clone_url'], pr['head']['sha']])
+        subprocess.check_call(['git', 'fetch', '-q', '--no-tags', pr['head']['repo']['clone_url'],
+            '%s:%s' % (pr['head']['ref'], branch_name)])
+        subprocess.check_call(['git', 'checkout', '-q', branch_name])
 
         # Rebase the PR to the current state of the target branch
         subprocess.check_call(['git', 'rebase', '-q', pr['base']['ref']])
