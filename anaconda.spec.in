@@ -137,7 +137,7 @@ Requires: hfsplus-tools
 %endif
 
 Requires: python-coverage
-Requires: pygobject3
+Requires: pygobject3-base
 
 # Used by rescue.py and the low RAM message in /sbin/anaconda
 Requires: newt-python
@@ -176,6 +176,7 @@ Requires: NetworkManager-wifi
 %endif
 Requires: anaconda-user-help >= %{helpver}
 Requires: yelp
+Requires: pygobject3
 
 # Needed to compile the gsettings files
 BuildRequires: gsettings-desktop-schemas
