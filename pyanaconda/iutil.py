@@ -1204,10 +1204,11 @@ def ipmi_report(event):
 
     # EVM revision - always 0x4
     # Sensor type - always 0x1F for Base OS Boot/Installation Status
-    # Sensor num - passed in event
-    # Event dir & type - always 0x0 for anaconda's purposes
-    # Event data 1, 2, 3 - 0x0 for now
-    eintr_retry_call(os.write, fd, "0x4 0x1F %#x 0x0 0x0 0x0 0x0\n" % event)
+    # Sensor num - always 0x0 for us
+    # Event dir & type - always 0x6f for us
+    # Event data 1 - the event code passed in
+    # Event data 2 & 3 - always 0x0 for us
+    eintr_retry_call(os.write, fd, "0x4 0x1F 0x0 0x6f %#x 0x0 0x0\n" % event)
     eintr_retry_call(os.close, fd)
 
     execWithCapture("ipmitool", ["sel", "add", path])
