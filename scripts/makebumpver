@@ -76,6 +76,13 @@ class MakeBumpVer:
 
         self.configure = kwargs.get('configure')
         self.spec = kwargs.get('spec')
+        self.zanata_config = kwargs.get('zanata_config')
+        self.skip_zanata = kwargs.get("skip_zanata", False)
+
+        self.git_branch = None
+
+        # RHEL release number or None (also fills in self.git_branch)
+        self.rhel = self._isRHEL()
 
     def _gitConfig(self, field):
         proc = subprocess.Popen(['git', 'config', field],
@@ -101,10 +108,15 @@ class MakeBumpVer:
 
         fields = lines[0].split(' ')
 
+        if len(fields) == 2:
+            self.git_branch = fields[1]
+
         if len(fields) == 2 and fields[1].startswith('rhel'):
-            return True
-        else:
-            return False
+            branch_pattern=r"^rhel(\d+)-(.*)"
+            m = re.match(branch_pattern, fields[1])
+            if m:
+                return m.group(1)
+        return False
 
     def _getCommitDetail(self, commit, field):
         proc = subprocess.Popen(['git', 'log', '-1',
@@ -217,7 +229,6 @@ class MakeBumpVer:
 
         rpm_log = []
         bad = False
-        rhel = self._isRHEL()
 
         for line in lines:
             fields = line.split(' ')
@@ -229,7 +240,7 @@ class MakeBumpVer:
                 body = [body]
             author = self._getCommitDetail(commit, "%aE")
 
-            if rhel:
+            if self.rhel:
                 rhbz = set()
 
                 # look for a bug in the summary line, validate if found
@@ -368,7 +379,37 @@ class MakeBumpVer:
         f.writelines(bottom)
         f.close()
 
+    def check_zanata(self):
+        """
+        Make sure that the zanata project-version matches the current git branch
+
+        This is to prevent accidentally pushing translations to the wrong branch,
+        eg. when branching for a new release and zanata.xml hasn't been updated
+        """
+        if not self.git_branch:
+            log.error("No git branch, cannot check zanata config")
+            return False
+
+        version_re = re.compile("<project-version>(.*)</project-version>")
+        ret = False
+        with open(self.zanata_config, "r") as f:
+            for line in f:
+                m = version_re.match(line.strip())
+                if m and m.group(1) == self.git_branch:
+                    ret = True
+                    break
+                elif m:
+                    log.error("zanata.xml branch (%s) does not match current branch: %s", m.group(1), self.git_branch)
+                    break
+            else:
+                log.error("zanata.xml does not have a project-version")
+
+        return ret
+
     def run(self):
+        if not self.skip_zanata and not self.check_zanata():
+            sys.exit(1)
+
         newVersion = self._incrementVersion()
         fixedIn = "%s-%s-%s" % (self.name, newVersion, self.release)
         rpmlog = self._rpmLog(fixedIn)
@@ -386,6 +427,7 @@ def usage(cmd):
     sys.stdout.write("    -i, --ignore     Comma separated list of git commits to ignore.\n")
     sys.stdout.write("    -m, --map        Comma separated list of FEDORA_BZ=RHEL_BZ mappings.\n")
     sys.stdout.write("    -d, --debug      Turn on debug logging to stdout\n")
+    sys.stdout.write("    --skip-zanata    Skip checking Zanata config for branch name\n")
     sys.stdout.write("\nThe -i switch is intended for use with utility commits that we do not need to\n")
     sys.stdout.write("reference in the spec file changelog.  The -m switch is used to map a Fedora\n")
     sys.stdout.write("BZ number to a RHEL BZ number for the spec file changelog.  Use -m if you have\n")
@@ -397,16 +439,17 @@ def main(argv):
     cwd = os.getcwd()
     configure = os.path.realpath(cwd + '/configure.ac')
     spec = os.path.realpath(cwd + '/anaconda.spec.in')
+    zanata_config = os.path.realpath(cwd + '/zanata.xml')
     name, version, release, bugreport = None, None, None, None
     ignore, bugmap = None, None
-    show_help, unknown = False, False
+    show_help, unknown, skip_zanata = False, False, False
     opts, args = [], []
 
     try:
         opts, args = getopt.getopt(sys.argv[1:], 'n:v:r:b:i:m:d?',
                                    ['name=', 'version=', 'release=',
                                     'bugreport=', 'ignore=', 'map=',
-                                    'debug', 'help'])
+                                    'debug', 'help', 'skip-zanata'])
     except getopt.GetoptError:
         show_help = True
 
@@ -425,6 +468,8 @@ def main(argv):
             bugmap = a
         elif o in ('-d', '--debug'):
             log.setLevel(logging.DEBUG)
+        elif o in ('--skip-zanata'):
+            skip_zanata = True
         elif o in ('-?', '--help'):
             show_help = True
         else:
@@ -460,7 +505,8 @@ def main(argv):
 
     mbv = MakeBumpVer(name=name, version=version, release=release,
                       bugreport=bugreport, ignore=ignore, bugmap=bugmap,
-                      configure=configure, spec=spec)
+                      configure=configure, spec=spec, skip_zanata=skip_zanata,
+                      zanata_config=zanata_config)
     mbv.run()
 
 if __name__ == "__main__":
