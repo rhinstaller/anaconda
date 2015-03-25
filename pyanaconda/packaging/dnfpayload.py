@@ -674,6 +674,7 @@ class DNFPayload(packaging.PackagePayload):
 
     def reset(self):
         super(DNFPayload, self).reset()
+        shutil.rmtree(DNF_CACHE_DIR, ignore_errors=True)
         self.txID = None
         self._base.reset(sack=True, repos=True)
 
