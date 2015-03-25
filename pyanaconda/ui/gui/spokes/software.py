@@ -36,7 +36,7 @@ from pyanaconda.ui.categories.software import SoftwareCategory
 import logging
 log = logging.getLogger("anaconda")
 
-import sys
+import sys, copy
 
 __all__ = ["SoftwareSelectionSpoke"]
 
@@ -337,6 +337,12 @@ class SoftwareSelectionSpoke(NormalSpoke):
         check.set_active(selected)
         self._add_row(self._addonListBox, name, desc, check, self.on_checkbox_toggled)
 
+    @property
+    def _addSep(self):
+        """ Whether the addon list contains a separator. """
+        return len(self.payload.environmentAddons[self.environment][0]) > 0 and \
+                len(self.payload.environmentAddons[self.environment][1]) > 0
+
     def refreshAddons(self):
         if self.environment and (self.environment in self.payload.environmentAddons):
             self._clear_listbox(self._addonListBox)
@@ -351,15 +357,12 @@ class SoftwareSelectionSpoke(NormalSpoke):
             # state will be used. Otherwise, the add-on will be selected if it is a default
             # for this environment.
 
-            addSep = len(self.payload.environmentAddons[self.environment][0]) > 0 and \
-                     len(self.payload.environmentAddons[self.environment][1]) > 0
-
             for grp in self.payload.environmentAddons[self.environment][0]:
                 self._addAddon(grp)
 
             # This marks a separator in the view - only add it if there's both environment
             # specific and generic addons.
-            if addSep:
+            if self._addSep:
                 self._addonListBox.insert(Gtk.Separator(), -1)
 
             for grp in self.payload.environmentAddons[self.environment][1]:
@@ -373,9 +376,11 @@ class SoftwareSelectionSpoke(NormalSpoke):
             self.clear_info()
 
     def _allAddons(self):
-        return self.payload.environmentAddons[self.environment][0] + \
-               [""] + \
-               self.payload.environmentAddons[self.environment][1]
+        addons = copy.copy(self.payload.environmentAddons[self.environment][0])
+        if self._addSep:
+            addons.append('')
+        addons += self.payload.environmentAddons[self.environment][1]
+        return addons
 
     def _get_selected_addons(self):
         retval = []
