@@ -120,7 +120,7 @@ def startSpiceVDAgent():
 
 def startX11():
     # Open /dev/tty5 for stdout and stderr redirects
-    xfd = open("/dev/tty5", "a")
+    xfd = open("/dev/tty5", "wb")
 
     # Start Xorg and wait for it become ready
     iutil.startX(["Xorg", "-br", "-logfile", "/tmp/X.log",
