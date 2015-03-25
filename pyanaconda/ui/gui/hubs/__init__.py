@@ -364,6 +364,10 @@ class Hub(GUIObject, common.Hub):
         self.main_window.enterSpoke(spoke)
 
     def spoke_done(self, spoke):
+        # Ignore if not in a spoke
+        if not self._inSpoke:
+            return
+
         spoke.visitedSinceApplied = True
 
         # Don't take visitedSinceApplied into account here.  It will always be
