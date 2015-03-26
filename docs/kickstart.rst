@@ -1,50 +1,51 @@
 Anaconda Kickstart Documentation
 ================================
 
+:Authors:
+    Brian C. Lane <bcl@redhat.com>
+
 Anaconda uses `kickstart <https://github.com/rhinstaller/pykickstart>`_ to automate
 installation and as a data store for the user interface. It also extends the kickstart
 commands `documented here <https://fedoraproject.org/wiki/Anaconda/Kickstart>`_
 by adding a new kickstart section named %anaconda where commands to control the behavior
 of Anaconda will be defined.
 
-.. contents:: %anaconda section commands
-
 
 pwpolicy
-========
+--------
 
-pwpolicy <name> [--minlen=LENGTH] [--minquality=QUALITY] [--strict|notstrict] [--emptyok|notempty] [--changesok|nochanges]
+``program: pwpolicy <name> [--minlen=LENGTH] [--minquality=QUALITY] [--strict|notstrict] [--emptyok|notempty] [--changesok|nochanges]``
     Set the policy to use for the named password entry.
 
-    name
+    ``name``
         Name of the password entry, currently supported values are: root, user and luks
 
-    --minlen (**8**)
+    ``--minlen`` (8)
         Minimum password length. This is passed on to libpwquality.
 
-    --minquality (**50**)
+    ``--minquality`` (50)
         Minimum libpwquality to consider good. When using --strict it will not allow
         passwords with a quality lower than this.
 
-    --strict (**DEFAULT**)
+    ``--strict`` (DEFAULT)
         Strict password enforcement. Passwords not meeting the --minquality level will
         not be allowed.
 
-    --notstrict
+    ``--notstrict``
         Passwords not meeting the --minquality level will be allowed after Done is clicked
         twice.
 
-    --emptyok (**DEFAULT**)
+    ``--emptyok`` (DEFAULT)
         Allow empty password.
 
-    --notempty
+    ``--notempty``
         Don't allow an empty password
 
-    --changesok
-        Allow UI to be used to change the password/user when it has already been set in 
+    ``--changesok``
+        Allow UI to be used to change the password/user when it has already been set in
         the kickstart.
 
-    --nochanges (**DEFAULT**)
+    ``--nochanges`` (DEFAULT)
         Do not allow UI to be used to change the password/user if it has been set in
         the kickstart.
 
