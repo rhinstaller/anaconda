@@ -81,7 +81,8 @@ scratch-bumpver: po-empty
 		opts="$${opts} -d" ; \
 	fi ; \
 	( cd $(srcdir) && scripts/makebumpver --skip-zanata $${opts} ) || exit 1 ; \
-	$(MAKE) -C po $(PACKAGE_NAME).pot-update ;
+	$(MAKE) -C po $(PACKAGE_NAME).pot-update ; \
+	$(MAKE) -C docs apidoc
 
 release:
 	$(MAKE) dist && $(MAKE) tag && git checkout -- $(srcdir)/po/$(PACKAGE_NAME).pot
@@ -107,7 +108,8 @@ bumpver: po-pull
 	fi ; \
 	( cd $(srcdir) && scripts/makebumpver $${opts} ) || exit 1 ; \
 	$(MAKE) -C po $(PACKAGE_NAME).pot-update && \
-	zanata push $(ZANATA_PUSH_ARGS)
+	zanata push $(ZANATA_PUSH_ARGS) ; \
+	$(MAKE) -C docs apidoc
 
 # Install all packages specified as BuildRequires in the Anaconda specfile
 # -> installs packages needed to build Anaconda
