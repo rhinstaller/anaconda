@@ -3,5 +3,8 @@
 ^E0611:[ 0-9]*,[0-9]*: No name '_isys' in module 'pyanaconda'$
 ^E0611:[ 0-9]*,[0-9]*:.*: No name '_isys' in module 'pyanaconda'$
 ^E0712:[ 0-9]*,[0-9]*:.*: Catching an exception which doesn't inherit from BaseException: GError$
+PyGIDeprecationWarning: GLib\..* is deprecated
+PyGIDeprecationWarning: GObject\..* is deprecated
+obj = getattr\(parent, name\)$
 gi/module.py:[0-9]*: Warning: g_hash_table_insert_internal: assertion 'hash_table != NULL' failed$
 ^  g_type = info\.get_g_type\(\)$
