@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: anaconda 22.20.5\n"
+"Project-Id-Version: anaconda 22.20.6\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
-"POT-Creation-Date: 2015-03-19 13:50-0400\n"
+"POT-Creation-Date: 2015-03-26 15:28-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -142,38 +142,52 @@ msgid "The passwords you entered were different.  Please try again."
 msgstr ""
 
 #: pyanaconda/constants.py:141
-msgid "The password you have provided is weak."
+#, python-format
+msgid "The password you have provided is weak. %s"
 msgstr ""
 
 #: pyanaconda/constants.py:142
 #, python-format
-msgid "The password you have provided is weak: %s."
+msgid "The password you have provided is weak: %s. %s"
 msgstr ""
 
 #: pyanaconda/constants.py:143
+msgid "You have provided a weak password. Press Done again to use anyway."
+msgstr ""
+
+#: pyanaconda/constants.py:144
+#, python-format
+msgid "You have provided a weak password: %s. Press Done again to use anyway."
+msgstr ""
+
+#: pyanaconda/constants.py:145
 msgid ""
 "The password you have provided contains non-ASCII characters. You may not be "
 "able to switch between keyboard layouts to login. Press Done to continue."
 msgstr ""
 
-#: pyanaconda/constants.py:145
+#: pyanaconda/constants.py:146
+msgid "You will have to press Done twice to confirm it."
+msgstr ""
+
+#: pyanaconda/constants.py:148
 msgid "Empty"
 msgstr ""
 
-#: pyanaconda/constants.py:145 pyanaconda/ui/gui/spokes/lib/passphrase.py:119
+#: pyanaconda/constants.py:148 pyanaconda/ui/gui/spokes/lib/passphrase.py:125
 #: pyanaconda/ui/gui/spokes/lib/passphrase.glade:177
 msgid "Weak"
 msgstr ""
 
-#: pyanaconda/constants.py:145 pyanaconda/ui/gui/spokes/lib/passphrase.py:122
+#: pyanaconda/constants.py:148 pyanaconda/ui/gui/spokes/lib/passphrase.py:128
 msgid "Fair"
 msgstr ""
 
-#: pyanaconda/constants.py:145 pyanaconda/ui/gui/spokes/lib/passphrase.py:125
+#: pyanaconda/constants.py:148 pyanaconda/ui/gui/spokes/lib/passphrase.py:131
 msgid "Good"
 msgstr ""
 
-#: pyanaconda/constants.py:145 pyanaconda/ui/gui/spokes/lib/passphrase.py:128
+#: pyanaconda/constants.py:148 pyanaconda/ui/gui/spokes/lib/passphrase.py:134
 msgid "Strong"
 msgstr ""
 
@@ -427,7 +441,7 @@ msgstr ""
 
 #: pyanaconda/install.py:268 pyanaconda/packaging/livepayload.py:176
 #: pyanaconda/packaging/yumpayload.py:1371
-#: pyanaconda/packaging/dnfpayload.py:648
+#: pyanaconda/packaging/dnfpayload.py:654
 msgid "Performing post-installation setup tasks"
 msgstr ""
 
@@ -443,12 +457,12 @@ msgstr ""
 msgid "URL has no host component"
 msgstr ""
 
-#: pyanaconda/kickstart.py:161
+#: pyanaconda/kickstart.py:164
 #, python-format
 msgid "Escrow certificate %s requires the network."
 msgstr ""
 
-#: pyanaconda/kickstart.py:169
+#: pyanaconda/kickstart.py:172
 #, python-format
 msgid ""
 "The following error was encountered while downloading the escrow "
@@ -457,277 +471,277 @@ msgid ""
 "%s"
 msgstr ""
 
-#: pyanaconda/kickstart.py:278
+#: pyanaconda/kickstart.py:281
 #, python-format
 msgid "%s is missing. Cannot setup authentication."
 msgstr ""
 
-#: pyanaconda/kickstart.py:303
+#: pyanaconda/kickstart.py:306
 #, python-format
 msgid "autopart fstype of %s is invalid."
 msgstr ""
 
-#: pyanaconda/kickstart.py:320
+#: pyanaconda/kickstart.py:323
 #, python-format
 msgid "Settings default fstype to %s failed."
 msgstr ""
 
-#: pyanaconda/kickstart.py:351
+#: pyanaconda/kickstart.py:354
 msgid "GRUB2 does not support installation to a partition."
-msgstr ""
-
-#: pyanaconda/kickstart.py:411
-#, python-format
-msgid "More than one match found for given boot drive \"%s\"."
 msgstr ""
 
 #: pyanaconda/kickstart.py:414
 #, python-format
+msgid "More than one match found for given boot drive \"%s\"."
+msgstr ""
+
+#: pyanaconda/kickstart.py:417
+#, python-format
 msgid "Requested boot drive \"%s\" doesn't exist or cannot be used."
 msgstr ""
 
-#: pyanaconda/kickstart.py:456
+#: pyanaconda/kickstart.py:459
 #, python-format
 msgid ""
 "Btrfs partition \"%(device)s\" has a format of \"%(format)s\", but should "
 "have a format of \"btrfs\"."
 msgstr ""
 
-#: pyanaconda/kickstart.py:461
+#: pyanaconda/kickstart.py:464
 #, python-format
 msgid "Tried to use undefined partition \"%s\" in Btrfs volume specification."
 msgstr ""
 
-#: pyanaconda/kickstart.py:474
+#: pyanaconda/kickstart.py:477
 msgid ""
 "Btrfs volume defined without any member devices.  Either specify member "
 "devices or use --useexisting."
 msgstr ""
 
-#: pyanaconda/kickstart.py:483 pyanaconda/kickstart.py:856
-#: pyanaconda/kickstart.py:1436
+#: pyanaconda/kickstart.py:486 pyanaconda/kickstart.py:859
+#: pyanaconda/kickstart.py:1439
 #, python-format
 msgid "The mount point \"%s\" is not valid.  It must start with a /."
 msgstr ""
 
-#: pyanaconda/kickstart.py:498
+#: pyanaconda/kickstart.py:501
 #, python-format
 msgid "Btrfs volume \"%s\" specified with --useexisting does not exist."
 msgstr ""
 
-#: pyanaconda/kickstart.py:584
+#: pyanaconda/kickstart.py:587
 #, python-format
 msgid ""
 "Disklabel \"%s\" given in clearpart command is not supported on this "
 "platform."
 msgstr ""
 
-#: pyanaconda/kickstart.py:596
+#: pyanaconda/kickstart.py:599
 #, python-format
 msgid "Disk \"%s\" given in clearpart command does not exist."
 msgstr ""
 
-#: pyanaconda/kickstart.py:609
+#: pyanaconda/kickstart.py:612
 #, python-format
 msgid "Device \"%s\" given in clearpart device list does not exist."
 msgstr ""
 
-#: pyanaconda/kickstart.py:636
+#: pyanaconda/kickstart.py:639
 #, python-format
 msgid "NIC \"%s\" given in fcoe command does not exist."
 msgstr ""
 
-#: pyanaconda/kickstart.py:687
+#: pyanaconda/kickstart.py:690
 #, python-format
 msgid "%s is missing. Cannot setup firewall."
 msgstr ""
 
-#: pyanaconda/kickstart.py:735 pyanaconda/kickstart.py:746
+#: pyanaconda/kickstart.py:738 pyanaconda/kickstart.py:749
 #, python-format
 msgid "Disk \"%s\" given in ignoredisk command does not exist."
 msgstr ""
 
-#: pyanaconda/kickstart.py:759
+#: pyanaconda/kickstart.py:762
 #, python-format
 msgid ""
 "Network interface \"%(nic)s\" required by iSCSI \"%(iscsiTarget)s\" target "
 "is not up."
 msgstr ""
 
-#: pyanaconda/kickstart.py:769
+#: pyanaconda/kickstart.py:772
 msgid ""
 "iscsi --iface must be specified (binding used) either for all targets or for "
 "none"
 msgstr ""
 
-#: pyanaconda/kickstart.py:862
+#: pyanaconda/kickstart.py:865
 #, python-format
 msgid ""
 "No volume group exists with the name \"%s\".  Specify volume groups before "
 "logical volumes."
 msgstr ""
 
-#: pyanaconda/kickstart.py:869
+#: pyanaconda/kickstart.py:872
 #, python-format
 msgid ""
 "No thin pool exists with the name \"%s\". Specify thin pools before thin "
 "volumes."
 msgstr ""
 
-#: pyanaconda/kickstart.py:877
+#: pyanaconda/kickstart.py:880
 msgid "logvol --noformat must also use the --name= option."
 msgstr ""
 
-#: pyanaconda/kickstart.py:882 pyanaconda/kickstart.py:943
+#: pyanaconda/kickstart.py:885 pyanaconda/kickstart.py:946
 #, python-format
 msgid "Logical volume \"%s\" given in logvol command does not exist."
 msgstr ""
 
-#: pyanaconda/kickstart.py:893 pyanaconda/kickstart.py:902
-#: pyanaconda/kickstart.py:953 pyanaconda/kickstart.py:1213
-#: pyanaconda/kickstart.py:1222 pyanaconda/kickstart.py:1304
+#: pyanaconda/kickstart.py:896 pyanaconda/kickstart.py:905
+#: pyanaconda/kickstart.py:956 pyanaconda/kickstart.py:1216
+#: pyanaconda/kickstart.py:1225 pyanaconda/kickstart.py:1307
 #, python-format
 msgid "Target size \"%(size)s\" for device \"%(device)s\" is invalid."
 msgstr ""
 
-#: pyanaconda/kickstart.py:916
+#: pyanaconda/kickstart.py:919
 #, python-format
 msgid ""
 "Logical volume name \"%(logvol)s\" is already in use in volume group "
 "\"%(volgroup)s\"."
 msgstr ""
 
-#: pyanaconda/kickstart.py:921
+#: pyanaconda/kickstart.py:924
 #, python-format
 msgid ""
 "Logical volume size \"%(logvolSize)s\" must be larger than the volume group "
 "extent size of \"%(extentSize)s\"."
 msgstr ""
 
-#: pyanaconda/kickstart.py:932 pyanaconda/kickstart.py:1240
-#: pyanaconda/kickstart.py:1486
+#: pyanaconda/kickstart.py:935 pyanaconda/kickstart.py:1243
+#: pyanaconda/kickstart.py:1489
 #, python-format
 msgid "The \"%s\" file system type is not supported."
 msgstr ""
 
-#: pyanaconda/kickstart.py:1026
+#: pyanaconda/kickstart.py:1029
 msgid "No passphrase given for encrypted LV"
 msgstr ""
 
-#: pyanaconda/kickstart.py:1081 pyanaconda/kickstart.py:1085
+#: pyanaconda/kickstart.py:1084 pyanaconda/kickstart.py:1088
 #, python-format
 msgid "The %s kickstart command is not currently supported."
 msgstr ""
 
-#: pyanaconda/kickstart.py:1110
+#: pyanaconda/kickstart.py:1113
 #, python-format
 msgid "No disk found for specified BIOS disk \"%s\"."
 msgstr ""
 
-#: pyanaconda/kickstart.py:1145
+#: pyanaconda/kickstart.py:1148
 #, python-format
 msgid "RAID partition \"%s\" is defined multiple times."
 msgstr ""
 
-#: pyanaconda/kickstart.py:1156 pyanaconda/kickstart.py:1411
+#: pyanaconda/kickstart.py:1159 pyanaconda/kickstart.py:1414
 #, python-format
 msgid "PV partition \"%s\" is defined multiple times."
 msgstr ""
 
-#: pyanaconda/kickstart.py:1167 pyanaconda/kickstart.py:1421
+#: pyanaconda/kickstart.py:1170 pyanaconda/kickstart.py:1424
 #, python-format
 msgid "Btrfs partition \"%s\" is defined multiple times."
 msgstr ""
 
-#: pyanaconda/kickstart.py:1190
+#: pyanaconda/kickstart.py:1193
 #, python-format
 msgid "The size \"%s\" is invalid."
 msgstr ""
 
-#: pyanaconda/kickstart.py:1197
+#: pyanaconda/kickstart.py:1200
 msgid "part --noformat must also use the --onpart option."
 msgstr ""
 
-#: pyanaconda/kickstart.py:1202 pyanaconda/kickstart.py:1295
+#: pyanaconda/kickstart.py:1205 pyanaconda/kickstart.py:1298
 #, python-format
 msgid "Partition \"%s\" given in part command does not exist."
 msgstr ""
 
-#: pyanaconda/kickstart.py:1255 pyanaconda/kickstart.py:1269
+#: pyanaconda/kickstart.py:1258 pyanaconda/kickstart.py:1272
 #, python-format
 msgid "Disk \"%s\" given in part command does not exist."
 msgstr ""
 
-#: pyanaconda/kickstart.py:1258
+#: pyanaconda/kickstart.py:1261
 #, python-format
 msgid "Cannot install to unpartitionable device \"%s\"."
 msgstr ""
 
-#: pyanaconda/kickstart.py:1265
+#: pyanaconda/kickstart.py:1268
 #, python-format
 msgid "Disk \"%s\" in part command is not partitioned."
 msgstr ""
 
-#: pyanaconda/kickstart.py:1278
+#: pyanaconda/kickstart.py:1281
 #, python-format
 msgid "The maximum size \"%s\" is invalid."
 msgstr ""
 
-#: pyanaconda/kickstart.py:1348
+#: pyanaconda/kickstart.py:1351
 msgid "No passphrase given for encrypted part"
 msgstr ""
 
-#: pyanaconda/kickstart.py:1443
+#: pyanaconda/kickstart.py:1446
 msgid "raid --noformat must also use the --device option."
 msgstr ""
 
-#: pyanaconda/kickstart.py:1448
+#: pyanaconda/kickstart.py:1451
 #, python-format
 msgid "RAID device  \"%s\" given in raid command does not exist."
 msgstr ""
 
-#: pyanaconda/kickstart.py:1469
+#: pyanaconda/kickstart.py:1472
 #, python-format
 msgid ""
 "RAID device \"%(device)s\" has a format of \"%(format)s\", but should have a "
 "format of \"mdmember\"."
 msgstr ""
 
-#: pyanaconda/kickstart.py:1474
+#: pyanaconda/kickstart.py:1477
 #, python-format
 msgid "Tried to use undefined partition \"%s\" in RAID specification."
 msgstr ""
 
-#: pyanaconda/kickstart.py:1502
+#: pyanaconda/kickstart.py:1505
 #, python-format
 msgid "RAID volume \"%s\" specified with --useexisting does not exist."
 msgstr ""
 
-#: pyanaconda/kickstart.py:1509
+#: pyanaconda/kickstart.py:1512
 #, python-format
 msgid "The RAID volume name \"%s\" is already in use."
 msgstr ""
 
-#: pyanaconda/kickstart.py:1724
+#: pyanaconda/kickstart.py:1727
 #, python-format
 msgid ""
 "Physical volume \"%(device)s\" has a format of \"%(format)s\", but should "
 "have a format of \"lvmpv\"."
 msgstr ""
 
-#: pyanaconda/kickstart.py:1729
+#: pyanaconda/kickstart.py:1732
 #, python-format
 msgid "Tried to use undefined partition \"%s\" in Volume Group specification"
 msgstr ""
 
-#: pyanaconda/kickstart.py:1735
+#: pyanaconda/kickstart.py:1738
 #, python-format
 msgid ""
 "Volume group \"%s\" defined without any physical volumes.  Either specify "
 "physical volumes or use --useexisting."
 msgstr ""
 
-#: pyanaconda/kickstart.py:1745
+#: pyanaconda/kickstart.py:1748
 #, python-format
 msgid ""
 "Volume group given physical extent size of \"%(extentSize)s\", but must be "
@@ -735,29 +749,29 @@ msgid ""
 "%(validExtentSizes)s."
 msgstr ""
 
-#: pyanaconda/kickstart.py:1752
+#: pyanaconda/kickstart.py:1755
 msgid ""
 "volgroup --noformat and volgroup --useexisting must also use the --name= "
 "option."
 msgstr ""
 
-#: pyanaconda/kickstart.py:1757
+#: pyanaconda/kickstart.py:1760
 #, python-format
 msgid "Volume group \"%s\" given in volgroup command does not exist."
 msgstr ""
 
-#: pyanaconda/kickstart.py:1760
+#: pyanaconda/kickstart.py:1763
 #, python-format
 msgid "The volume group name \"%s\" is already in use."
 msgstr ""
 
-#: pyanaconda/kickstart.py:1816
+#: pyanaconda/kickstart.py:1819
 msgid ""
 "The upgrade kickstart command is no longer supported. Upgrade functionality "
 "is provided through fedup."
 msgstr ""
 
-#: pyanaconda/kickstart.py:2030
+#: pyanaconda/kickstart.py:2093
 msgid "Running pre-installation scripts"
 msgstr ""
 
@@ -1251,12 +1265,12 @@ msgid "CmdlineError: Missing package: %s"
 msgstr ""
 
 #: pyanaconda/packaging/yumpayload.py:1331
-#: pyanaconda/packaging/dnfpayload.py:602
+#: pyanaconda/packaging/dnfpayload.py:608
 msgid "Starting package installation process"
 msgstr ""
 
 #: pyanaconda/packaging/yumpayload.py:1369
-#: pyanaconda/packaging/dnfpayload.py:631
+#: pyanaconda/packaging/dnfpayload.py:637
 msgid "Preparing transaction from installation source"
 msgstr ""
 
@@ -1271,11 +1285,11 @@ msgid ""
 "(%(percent)d%%) done."
 msgstr ""
 
-#: pyanaconda/packaging/dnfpayload.py:619
+#: pyanaconda/packaging/dnfpayload.py:625
 msgid "Downloading packages"
 msgstr ""
 
-#: pyanaconda/packaging/dnfpayload.py:641
+#: pyanaconda/packaging/dnfpayload.py:647
 #, python-format
 msgid "Installing %s"
 msgstr ""
@@ -1976,20 +1990,20 @@ msgstr ""
 msgid "User creation"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/user.py:114 pyanaconda/ui/gui/spokes/user.py:348
+#: pyanaconda/ui/tui/spokes/user.py:115 pyanaconda/ui/gui/spokes/user.py:362
 msgid "No user will be created"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/user.py:116
+#: pyanaconda/ui/tui/spokes/user.py:117
 msgid "You must set a password"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/user.py:118 pyanaconda/ui/gui/spokes/user.py:350
+#: pyanaconda/ui/tui/spokes/user.py:119 pyanaconda/ui/gui/spokes/user.py:364
 #, python-format
 msgid "Administrator %s will be created"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/user.py:120 pyanaconda/ui/gui/spokes/user.py:352
+#: pyanaconda/ui/tui/spokes/user.py:121 pyanaconda/ui/gui/spokes/user.py:366
 #, python-format
 msgid "User %s will be created"
 msgstr ""
@@ -2014,62 +2028,59 @@ msgstr ""
 msgid "\tInstallation complete.  Press return to quit"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/__init__.py:48
+#: pyanaconda/ui/tui/spokes/__init__.py:49
 msgid "Default spoke title"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/__init__.py:60
+#: pyanaconda/ui/tui/spokes/__init__.py:61
 msgid "testing status..."
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/__init__.py:102
+#: pyanaconda/ui/tui/spokes/__init__.py:103
 msgid "New value"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/__init__.py:122
+#: pyanaconda/ui/tui/spokes/__init__.py:128
 #, python-format
 msgid "%s: "
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/__init__.py:123
+#: pyanaconda/ui/tui/spokes/__init__.py:129
 #, python-format
 msgid "%s (confirm): "
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/__init__.py:126
+#: pyanaconda/ui/tui/spokes/__init__.py:132
 msgid ""
 "You must enter your root password and confirm it by typing it a second time "
 "to continue."
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/__init__.py:146
-#, python-format
-msgid "You have provided a weak password: %s\n"
+#: pyanaconda/ui/tui/spokes/__init__.py:154
+msgid ""
+"\n"
+"Would you like to use it anyway?"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/__init__.py:148
-msgid "You have provided a weak password."
-msgstr ""
-
-#: pyanaconda/ui/tui/spokes/__init__.py:153
+#: pyanaconda/ui/tui/spokes/__init__.py:171
 msgid ""
 "You have provided a password containing non-ASCII characters.\n"
 "You may not be able to switch between keyboard layouts to login.\n"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/__init__.py:159
+#: pyanaconda/ui/tui/spokes/__init__.py:177
 #, python-format
 msgid "Enter new value for '%s' and press enter\n"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/__init__.py:167
+#: pyanaconda/ui/tui/spokes/__init__.py:185
 #, python-format
 msgid ""
 "You have provided an invalid user name: %s\n"
 "Tip: Keep your user name shorter than 32 characters and do not use spaces.\n"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/__init__.py:278
+#: pyanaconda/ui/tui/spokes/__init__.py:296
 msgid "Password set."
 msgstr ""
 
@@ -2565,25 +2576,25 @@ msgctxt "GUI|Spoke"
 msgid "_NETWORK & HOST NAME"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/password.py:51
+#: pyanaconda/ui/gui/spokes/password.py:52
 msgctxt "GUI|Spoke"
 msgid "_ROOT PASSWORD"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/password.py:97
-#: pyanaconda/ui/gui/spokes/password.py:98
+#: pyanaconda/ui/gui/spokes/password.py:99
+#: pyanaconda/ui/gui/spokes/password.py:100
 msgid "The password is set."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/password.py:120
+#: pyanaconda/ui/gui/spokes/password.py:127
 msgid "Root password is set"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/password.py:122
+#: pyanaconda/ui/gui/spokes/password.py:129
 msgid "Root account is disabled"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/password.py:124
+#: pyanaconda/ui/gui/spokes/password.py:131
 msgid "Root password is not set"
 msgstr ""
 
@@ -2871,25 +2882,25 @@ msgstr ""
 msgid "_OK"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/user.py:71
+#: pyanaconda/ui/gui/spokes/user.py:72
 #, python-format
 msgid "Invalid group name: %s"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/user.py:214
+#: pyanaconda/ui/gui/spokes/user.py:215
 msgctxt "GUI|Spoke"
 msgid "_USER CREATION"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/user.py:286 pyanaconda/ui/gui/spokes/user.py:287
+#: pyanaconda/ui/gui/spokes/user.py:293 pyanaconda/ui/gui/spokes/user.py:294
 msgid "The password was set by kickstart."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/user.py:315
+#: pyanaconda/ui/gui/spokes/user.py:329
 msgid "Invalid user name"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/user.py:317
+#: pyanaconda/ui/gui/spokes/user.py:331
 msgid "Full name cannot contain colon characters"
 msgstr ""
 
@@ -3164,7 +3175,7 @@ msgstr ""
 msgid "Passphrases do not match."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/lib/passphrase.py:159
+#: pyanaconda/ui/gui/spokes/lib/passphrase.py:165
 msgid "Passphrase contains non-ASCII characters"
 msgstr ""
 
