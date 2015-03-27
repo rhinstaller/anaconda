@@ -332,6 +332,9 @@ class Mock(object):
     def __getitem__(cls, key):
         return cls.__getattr__(key)
 
-MOCK_MODULES = ['_isys', 'pyudev']
+MOCK_MODULES = ['_isys', 'pyudev', 'blivet', 'blivet.arch', 'blivet.deviceaction',
+                'blivet.partspec', 'gi.repository', 'langtable', 'libuser', 'meh',
+                'ntplib', 'pykickstart.base', 'pykickstart.constants', 'pykickstart.sections',
+                'pytz', 'requests', 'selinux', 'snack']
 for mod_name in MOCK_MODULES:
     sys.modules[mod_name] = Mock()
