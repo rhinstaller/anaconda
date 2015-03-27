@@ -74,11 +74,11 @@ po-empty:
 			exit 1 ; \
 	done
 
-scratch: po-pull
+scratch: po-empty
 	$(MAKE) ARCHIVE_TAG=HEAD dist
 	git checkout -- po/$(PACKAGE_NAME).pot
 
-scratch-bumpver: po-pull
+scratch-bumpver: po-empty
 	@opts="-S -n $(PACKAGE_NAME) -v $(PACKAGE_VERSION) -r $(PACKAGE_RELEASE) -b $(PACKAGE_BUGREPORT)" ; \
 	if [ ! -z "$(IGNORE)" ]; then \
 		opts="$${opts} -i $(IGNORE)" ; \
