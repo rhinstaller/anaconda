@@ -1037,8 +1037,7 @@ class LogVolData(commands.logvol.F21_LogVolData):
                                           add_backup_passphrase=self.backuppassphrase)
                 luksdev = LUKSDevice("luks%d" % storage.nextID,
                                      fmt=luksformat,
-                                     parents=device,
-                                     min_luks_entropy=MIN_CREATE_ENTROPY)
+                                     parents=device)
             else:
                 luksformat = request.format
                 request.format = getFormat("luks", passphrase=self.passphrase,
