@@ -74,6 +74,13 @@ po-empty:
 			exit 1 ; \
 	done
 
+po-empty:
+	for lingua in $$(grep -v '^#' $(srcdir)/po/LINGUAS) ; do \
+		[ -f $(srcdir)/po/$$lingua.po ] || \
+		msginit -i $(srcdir)/po/$(PACKAGE_NAME).pot -o $(srcdir)/po/$$lingua.po --no-translator || \
+		exit 1 ; \
+	done
+
 scratch: po-pull
 	$(MAKE) ARCHIVE_TAG=HEAD dist
 	git checkout -- po/$(PACKAGE_NAME).pot
