@@ -71,9 +71,12 @@ help:
 clean:
 	-rm -rf $(BUILDDIR)/*
 
+# rebuild the api *rst files if SPHINXAPIDOC is available.
 apidoc:
-	-rm $(addprefix ./, $(MODULE_NAMES))
-	$(SPHINXAPIDOC) -o . $(SOURCEDIR)
+	if [ -f /usr/bin/$(SPHINXAPIDOC) ]; then \
+	    rm $(addprefix ./, $(MODULE_NAMES)) ; \
+	    $(SPHINXAPIDOC) -o . $(SOURCEDIR) ; \
+	fi
 
 html: apidoc
 	$(SPHINXBUILD) -b html $(ALLSPHINXOPTS) $(BUILDDIR)/html
