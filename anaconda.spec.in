@@ -312,6 +312,22 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Fri Mar 27 2015 Brian C. Lane <bcl@redhat.com> - 23.5-1
+- Mock external module dependencies for readthedocs (bcl)
+- Generate the pyanaconda module documentation (bcl)
+- Reformat kickstart.rst using better ReST markup (bcl)
+- Add some deprecation-related false positives. (clumens)
+- Add Sphinx documentation support (bcl)
+- Add documentation on %%anaconda kickstart command (bcl)
+- Prevent Storage spoke Done button method from multiple launch (jkonecny)
+- Prevent spokes from being exited more times. (jkonecny)
+- Only depend on pygobject3-base in anaconda-core (#1204469) (mkolman)
+- Use proxy when configured for the base repo (#1196953) (sjenning)
+- Assume UTC if setting the system time without a timezone (#1200444) (dshea)
+- Add boolean as return to ThreadManager.wait (jkonecny)
+- Make sure LANG is always set to something (#1201896) (dshea)
+- Fix pylint/translation issues from the pwpolicy patches. (clumens)
+
 * Fri Mar 20 2015 Brian C. Lane <bcl@redhat.com> - 23.4-1
 - Clean out the mock chroot before attempting to run the rest of the test.
   (clumens)

@@ -342,6 +342,14 @@ pyanaconda.users module
     :undoc-members:
     :show-inheritance:
 
+pyanaconda.version module
+-------------------------
+
+.. automodule:: pyanaconda.version
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 pyanaconda.vnc module
 ---------------------
 
