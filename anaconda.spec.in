@@ -327,6 +327,18 @@ update-desktop-database &> /dev/null || :
 %{_datadir}/anaconda/help/*
 
 %changelog
+* Fri Mar 27 2015 Brian C. Lane <bcl@redhat.com> - 19.31.124-1
+- Also, require scratch targets to run po-empty instead of po-pull. (clumens)
+  Related: rhbz#1205285
+- Add the po-empty make target from master (atodorov). (clumens)
+  Related: rhbz#1205285
+- Drop hy.po Armenian translation (bcl)
+  Related: rhbz#1205285
+- Update translation documentation for Zanata (bcl)
+  Related: rhbz#1205285
+- Switch translation support to fedora.zanata.org (bcl)
+  Resolves: rhbz#1205285
+
 * Mon Feb 16 2015 Brian C. Lane <bcl@redhat.com> - 19.31.123-1
 - iscsi: pass rd.* options of devices to be mouted in dracut (rvykydal)
   Resolves: rhbz#1192398
