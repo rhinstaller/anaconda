@@ -543,7 +543,7 @@ class DNFPayload(packaging.PackagePayload):
         except dnf.exceptions.DepsolveError as e:
             msg = str(e)
             log.warning(msg)
-            raise packaging.DependencyError([msg])
+            raise packaging.DependencyError(msg)
 
         log.info("%d packages selected totalling %s",
                  len(self._base.transaction), self.spaceRequired)

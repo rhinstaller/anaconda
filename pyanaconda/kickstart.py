@@ -343,7 +343,7 @@ class AutoPart(commands.autopart.F21_AutoPart):
         doAutoPartition(storage, ksdata, min_luks_entropy=MIN_CREATE_ENTROPY)
         errors = sanity_check(storage)
         if errors:
-            raise PartitioningError("autopart failed:\n" + "\n".join(error.message for error in errors))
+            raise PartitioningError("autopart failed:\n" + "\n".join(str(error) for error in errors))
 
 class Bootloader(commands.bootloader.F21_Bootloader):
     def __init__(self, *args, **kwargs):
@@ -513,7 +513,7 @@ class BTRFSData(commands.btrfs.F17_BTRFSData):
                                        dataLevel=self.dataLevel,
                                        parents=members)
             except BTRFSValueError as e:
-                raise KickstartValueError(formatErrorMsg(self.lineno, msg=e.message))
+                raise KickstartValueError(formatErrorMsg(self.lineno, msg=str(e)))
 
             storage.createDevice(request)
 
@@ -1012,7 +1012,7 @@ class LogVolData(commands.logvol.F21_LogVolData):
                                     percent=self.percent,
                                     **pool_args)
             except (StorageError, ValueError) as e:
-                raise KickstartValueError(formatErrorMsg(self.lineno, msg=e.message))
+                raise KickstartValueError(formatErrorMsg(self.lineno, msg=str(e)))
 
             storage.createDevice(request)
             if ty == "swap":
@@ -1318,7 +1318,7 @@ class PartitionData(commands.partition.F18_PartData):
             try:
                 request = storage.newTmpFS(**kwargs)
             except (StorageError, ValueError) as e:
-                raise KickstartValueError(formatErrorMsg(self.lineno, msg=e.message))
+                raise KickstartValueError(formatErrorMsg(self.lineno, msg=str(e)))
             storage.createDevice(request)
         else:
             # If a previous device has claimed this mount point, delete the
@@ -1333,7 +1333,7 @@ class PartitionData(commands.partition.F18_PartData):
             try:
                 request = storage.newPartition(**kwargs)
             except (StorageError, ValueError) as e:
-                raise KickstartValueError(formatErrorMsg(self.lineno, msg=e.message))
+                raise KickstartValueError(formatErrorMsg(self.lineno, msg=str(e)))
 
             storage.createDevice(request)
             if ty == "swap":
@@ -1525,7 +1525,7 @@ class RaidData(commands.raid.F18_RaidData):
             try:
                 request = storage.newMDArray(**kwargs)
             except (StorageError, ValueError) as e:
-                raise KickstartValueError(formatErrorMsg(self.lineno, msg=e.message))
+                raise KickstartValueError(formatErrorMsg(self.lineno, msg=str(e)))
 
             storage.createDevice(request)
 
@@ -1791,7 +1791,7 @@ class VolGroupData(commands.volgroup.F21_VolGroupData):
                                     name=self.vgname,
                                     peSize=pesize)
             except (StorageError, ValueError) as e:
-                raise KickstartValueError(formatErrorMsg(self.lineno, msg=e.message))
+                raise KickstartValueError(formatErrorMsg(self.lineno, msg=str(e)))
 
             storage.createDevice(request)
             if self.reserved_space:

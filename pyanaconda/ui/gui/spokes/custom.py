@@ -2343,12 +2343,12 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         errors = [exn for exn in exns if isinstance(exn, SanityError) and not isinstance(exn, LUKSDeviceWithoutKeyError)]
         warnings = [exn for exn in exns if isinstance(exn, SanityWarning)]
         for error in errors:
-            log.error(error.message)
+            log.error("%s", error)
         for warning in warnings:
-            log.warning(warning.message)
+            log.warning("%s", warning)
 
         if errors:
-            messages = "\n".join(error.message for error in errors)
+            messages = "\n".join(str(error) for error in errors)
             log.error("doAutoPartition failed: %s", messages)
             self._reset_storage()
             self._error = messages

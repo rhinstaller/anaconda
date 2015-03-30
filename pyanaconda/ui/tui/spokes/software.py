@@ -249,7 +249,7 @@ class SoftwareSpoke(NormalTUISpoke):
         try:
             self.payload.checkSoftwareSelection()
         except DependencyError as e:
-            self.errors = [e.message]
+            self.errors = [str(e)]
             self._tx_id = None
         else:
             self._tx_id = self.payload.txID
