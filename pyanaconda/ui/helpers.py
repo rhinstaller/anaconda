@@ -93,8 +93,8 @@ class StorageChecker(object):
         hubQ.send_not_ready(self._mainSpokeClass)
         hubQ.send_message(self._mainSpokeClass, _("Checking storage configuration..."))
         exns = sanity_check(self.storage, min_ram=self._min_ram)
-        errors = [exn.message for exn in exns if isinstance(exn, SanityError)]
-        warnings = [exn.message for exn in exns if isinstance(exn, SanityWarning)]
+        errors = [str(exn) for exn in exns if isinstance(exn, SanityError)]
+        warnings = [str(exn) for exn in exns if isinstance(exn, SanityWarning)]
         (StorageChecker.errors, StorageChecker.warnings) = (errors, warnings)
         hubQ.send_ready(self._mainSpokeClass, True)
         for e in StorageChecker.errors:

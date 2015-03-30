@@ -399,8 +399,8 @@ class StorageSpoke(NormalTUISpoke):
         else:
             print(_("Checking storage configuration..."))
             exns = sanity_check(self.storage)
-            errors = [exn.message for exn in exns if isinstance(exn, SanityError)]
-            warnings = [exn.message for exn in exns if isinstance(exn, SanityWarning)]
+            errors = [str(exn) for exn in exns if isinstance(exn, SanityError)]
+            warnings = [str(exn) for exn in exns if isinstance(exn, SanityWarning)]
             (self.errors, self.warnings) = (errors, warnings)
             for e in self.errors:
                 log.error(e)
