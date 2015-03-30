@@ -42,7 +42,7 @@
 from gi.repository import Gdk, GLib, AnacondaWidgets
 
 from pyanaconda.ui.communication import hubQ
-from pyanaconda.ui.lib.disks import getDisks, isLocalDisk, applyDiskSelection
+from pyanaconda.ui.lib.disks import getDisks, isLocalDisk, applyDiskSelection, checkDiskSelection
 from pyanaconda.ui.gui import GUIObject
 from pyanaconda.ui.gui.spokes import NormalSpoke
 from pyanaconda.ui.gui.spokes.lib.cart import SelectedDisksDialog
@@ -818,6 +818,16 @@ class StorageSpoke(NormalSpoke, StorageChecker):
 
         # hide disks as requested
         self._hide_disks()
+
+        # make sure no containers were split up by the user's disk selection
+        self.clear_info()
+        self.errors = checkDiskSelection(self.storage, self.selected_disks)
+        if self.errors:
+            # The disk selection has to make sense before we can proceed.
+            self.set_error(_("There was a problem with your disk selection. "
+                             "Click here for details."))
+            self.back_clicked = False
+            return
 
         # hide/unhide disks as requested
         for disk in self.disks:

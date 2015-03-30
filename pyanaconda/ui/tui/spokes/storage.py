@@ -22,7 +22,7 @@
 # which has the same license and authored by David Lehman <dlehman@redhat.com>
 #
 
-from pyanaconda.ui.lib.disks import getDisks, applyDiskSelection
+from pyanaconda.ui.lib.disks import getDisks, applyDiskSelection, checkDiskSelection
 from pyanaconda.ui.categories.system import SystemCategory
 from pyanaconda.ui.tui.spokes import NormalTUISpoke
 from pyanaconda.ui.tui.simpleline import TextWidget, CheckboxWidget
@@ -256,7 +256,7 @@ class StorageSpoke(NormalTUISpoke):
 
     def input(self, args, key):
         """Grab the disk choice and update things"""
-
+        self.errors = []
         try:
             keyid = int(key) - 1
             self.selection = keyid
@@ -280,6 +280,15 @@ class StorageSpoke(NormalTUISpoke):
                         if ldldasds:
                             self.run_dasdfmt(ldldasds)
                             return None
+
+                    # make sure no containers were split up by the user's disk
+                    # selection
+                    self.errors.extend(checkDiskSelection(self.storage,
+                                                          self.selected_disks))
+                    if self.errors:
+                        # The disk selection has to make sense before we can
+                        # proceed.
+                        return None
 
                     newspoke = AutoPartSpoke(self.app, self.data, self.storage,
                                              self.payload, self.instclass)
