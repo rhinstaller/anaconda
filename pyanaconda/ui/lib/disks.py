@@ -23,6 +23,7 @@
 from blivet.devices import MultipathDevice, iScsiDiskDevice, FcoeDiskDevice
 
 from pyanaconda.flags import flags
+from pyanaconda.i18n import P_
 
 __all__ = ["FakeDiskLabel", "FakeDisk", "getDisks", "isLocalDisk"]
 
@@ -92,3 +93,32 @@ def applyDiskSelection(storage, data, use_names):
 
     data.ignoredisk.onlyuse = onlyuse
     data.clearpart.drives = use_names[:]
+
+def checkDiskSelection(storage, selected_disks):
+    """ Return a list of errors related to a proposed disk selection.
+
+        :param :class:`blivet.Blivet` storage: storage data
+        :param selected_disks: names of proposed selected disks
+        :type selected_disks: list of str
+        :returns: a list of error messages
+        :rtype: list of str
+    """
+    errors = []
+    for name in selected_disks:
+        selected = storage.devicetree.getDeviceByName(name, hidden=True)
+        related = sorted(storage.devicetree.getRelatedDisks(selected))
+        missing = [r.name for r in related if r.name not in selected_disks]
+        if missing:
+            errors.append(P_("You selected disk %(selected)s, which contains "
+                             "devices that also use unselected disk "
+                             "%(unselected)s. You must select or de-select "
+                             "these disks as a set.",
+                             "You selected disk %(selected)s, which contains "
+                             "devices that also use unselected disks "
+                             "%(unselected)s. You must select or de-select "
+                             "these disks as a set.",
+                             len(missing)) %
+                          {"selected": selected.name,
+                           "unselected": ",".join(missing)})
+
+    return errors
