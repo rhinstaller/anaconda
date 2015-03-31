@@ -122,11 +122,6 @@ class ProxyDialog(GUIObject, GUIDialogInputCheckHandler):
         self._proxyValidate = self.add_check(self._proxyURLEntry, self._checkProxyURL)
         self._proxyValidate.update_check_status()
 
-        # Connect scroll events on the viewport with focus events on the box
-        mainViewport = self.builder.get_object("mainViewport")
-        mainBox = self.builder.get_object("mainBox")
-        mainBox.set_focus_vadjustment(mainViewport.get_vadjustment())
-
     def _checkProxyURL(self, inputcheck):
         proxy_string = self.get_input(inputcheck.input_obj)
 
@@ -609,6 +604,11 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler):
 
         self._proxyButton = self.builder.get_object("proxyButton")
         self._nfsOptsBox = self.builder.get_object("nfsOptsBox")
+
+        # Connect scroll events on the viewport with focus events on the box
+        mainViewport = self.builder.get_object("mainViewport")
+        mainBox = self.builder.get_object("mainBox")
+        mainBox.set_focus_vadjustment(mainViewport.get_vadjustment())
 
     def initialize(self):
         NormalSpoke.initialize(self)
