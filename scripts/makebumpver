@@ -36,7 +36,13 @@ import re
 import subprocess
 import sys
 import textwrap
-import urllib
+import urllib.request
+
+
+def run_program(*args):
+    """Run a program with universal newlines on"""
+    return subprocess.Popen(*args, universal_newlines=True, stdout=subprocess.PIPE,
+                            stderr=subprocess.PIPE).communicate()
 
 class MakeBumpVer:
     def __init__(self, *args, **kwargs):
@@ -104,9 +110,7 @@ class MakeBumpVer:
         self.rhel = self._isRHEL()
 
     def _gitConfig(self, field):
-        proc = subprocess.Popen(['git', 'config', field],
-                                stdout=subprocess.PIPE,
-                                stderr=subprocess.PIPE).communicate()
+        proc = run_program(['git', 'config', field])
         return proc[0].strip('\n')
 
     def _incrementVersion(self):
@@ -116,11 +120,8 @@ class MakeBumpVer:
         return new
 
     def _isRHEL(self):
-        proc = subprocess.Popen(['git', 'branch'],
-                                stdout=subprocess.PIPE,
-                                stderr=subprocess.PIPE).communicate()
-        lines = filter(lambda x: x.startswith('*'),
-                       proc[0].strip('\n').split('\n'))
+        proc = run_program(['git', 'branch'])
+        lines = [x for x in proc[0].strip('\n').split('\n') if x.startswith('*')]
 
         if lines == [] or len(lines) > 1:
             return False
@@ -138,11 +139,7 @@ class MakeBumpVer:
         return False
 
     def _getCommitDetail(self, commit, field):
-        proc = subprocess.Popen(['git', 'log', '-1',
-                                 "--pretty=format:%s" % field, commit],
-                                stdout=subprocess.PIPE,
-                                stderr=subprocess.PIPE).communicate()
-
+        proc = run_program(['git', 'log', '-1', "--pretty=format:%s" % field, commit])
         ret = proc[0].strip('\n').split('\n')
 
         if len(ret) == 1 and ret[0].find('@') != -1:
@@ -150,7 +147,7 @@ class MakeBumpVer:
         elif len(ret) == 1:
             ret = [ret[0]]
         else:
-            ret = filter(lambda x: x != '', ret)
+            ret = [x for x in ret if x != '']
 
         return ret
 
@@ -252,9 +249,7 @@ class MakeBumpVer:
 
     def _rpmLog(self, fixedIn):
         git_range = "%s-%s-%s.." % (self.name, self.version, self.release)
-        proc = subprocess.Popen(['git', 'log', '--pretty=oneline', git_range],
-                                stdout=subprocess.PIPE,
-                                stderr=subprocess.PIPE).communicate()
+        proc = run_program(['git', 'log', '--pretty=oneline', git_range])
         lines = filter(lambda x: x.find('l10n: ') != 41 and \
                                  x.find('Merge commit') != 41 and \
                                  x.find('Merge branch') != 41,
@@ -262,7 +257,7 @@ class MakeBumpVer:
 
         if self.ignore and self.ignore != '':
             for commit in self.ignore.split(','):
-                lines = filter(lambda x, c=commit: not x.startswith(c), lines)
+                lines = (x for x in lines if not x.startswith(commit))
 
         rpm_log = []
         bad_bump = False
@@ -362,7 +357,7 @@ class MakeBumpVer:
                             bad = True
 
                         if self.skip_all:
-                            print "*** Bug %s Related commit %s is allowed\n" % (bug, commit)
+                            print("*** Bug %s Related commit %s is allowed\n" % (bug, commit))
                             continue
 
                         if valid and action == 'Resolves' and \
@@ -465,12 +460,13 @@ class MakeBumpVer:
         ret = False
 
         if self.jenkins_proxy:
-            proxies = { "http": self.jenkins_proxy }
+            proxies = urllib.request.ProxyHandler({"http": self.jenkins_proxy})
         else:
-            proxies = {}
+            proxies = urllib.request.ProxyHandler({})
 
+        opener = urllib.request.build_opener(proxies)
         try:
-            with closing(urllib.urlopen(self.jenkins, proxies=proxies)) as f:
+            with closing(opener.open(self.jenkins)) as f:
                 contents = f.readlines()
 
                 try:
