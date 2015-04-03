@@ -312,6 +312,16 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Thu Apr 02 2015 Brian C. Lane <bcl@redhat.com> - 23.6-1
+- Enforce sane disk selections. (dlehman)
+- Add a test for parse-kickstart (bcl)
+- Add --tmpdir to parse-kickstart for testing (bcl)
+- Use the correct format for IPMI messages. (clumens)
+- Do not use min_luks_entropy with pre-existing devices (#1206101) (dshea)
+- Remove the dnf cache directory when resetting the repo (dshea)
+- Do not add separators to the addon list when not needed (dshea)
+- Only use the instclass environment if it actually exists. (dshea)
+
 * Fri Mar 27 2015 Brian C. Lane <bcl@redhat.com> - 23.5-1
 - Mock external module dependencies for readthedocs (bcl)
 - Generate the pyanaconda module documentation (bcl)
