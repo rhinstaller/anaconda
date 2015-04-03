@@ -1113,6 +1113,7 @@ if __name__ == "__main__":
     # If command line options or kickstart set LANG, override the environment
     if opts.lang:
         os.environ["LANG"] = opts.lang # pylint: disable=environment-modify
+        ksdata.lang.seen = True
     elif ksdata.lang.lang:
         os.environ["LANG"] = ksdata.lang.lang # pylint: disable=environment-modify
 
@@ -1131,7 +1132,6 @@ if __name__ == "__main__":
         os.environ["LANG"] = constants.DEFAULT_LANG # pylint: disable=environment-modify
 
     localization.setup_locale(os.environ["LANG"], ksdata.lang)
-    ksdata.lang.seen = True
 
     import blivet
     blivet.enable_installer_mode()
