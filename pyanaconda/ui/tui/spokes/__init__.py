@@ -113,18 +113,16 @@ class EditTUIDialog(NormalTUISpoke):
 
         NormalTUISpoke.__init__(self, app, data, storage, payload, instclass)
         self.value = None
-        self.policy = None
-        self.policy_name = policy_name
 
         # Added to allow custom incorrect input messages
         self.wrong_input_message = None
 
-    def refresh(self, args=None):
         # Configure the password policy, if available. Otherwise use defaults.
-        self.policy = self.data.anaconda.pwpolicy.get_policy(self.policy_name)
+        self.policy = self.data.anaconda.pwpolicy.get_policy(policy_name)
         if not self.policy:
             self.policy = self.data.anaconda.PwPolicyData()
 
+    def refresh(self, args=None):
         self._window = []
         self.value = None
         return True
