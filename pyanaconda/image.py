@@ -21,7 +21,7 @@ from pyanaconda import isys
 import os, os.path, stat, tempfile
 from pyanaconda.constants import ISO_DIR
 
-from pyanaconda.errors import errorHandler, ERROR_RAISE, InvalidImageSizeError, MediaMountError, MediaUnmountError, MissingImageError
+from pyanaconda.errors import errorHandler, ERROR_RAISE, InvalidImageSizeError, MediaMountError, MissingImageError
 
 import blivet.util
 import blivet.arch
@@ -212,7 +212,7 @@ def opticalInstallMedia(devicetree):
                 if not verifyMedia(mountpoint):
                     continue
             finally:
-                dev.format.unmount()
+                dev.format.unmount(mountpoint=mountpoint)
         finally:
             os.rmdir(mountpoint)
 
@@ -229,20 +229,6 @@ def potentialHdisoSources(devicetree):
 def umountImage(tree):
     if os.path.ismount(tree):
         blivet.util.umount(tree)
-
-def unmountCD(dev):
-    if not dev:
-        return
-
-    while True:
-        try:
-            dev.format.unmount()
-        except FSError as e:
-            log.error("exception in _unmountCD: %s", e)
-            exn = MediaUnmountError(dev)
-            errorHandler.cb(exn)
-        else:
-            break
 
 def verifyMedia(tree, timestamp=None):
     if os.access("%s/.discinfo" % tree, os.R_OK):
