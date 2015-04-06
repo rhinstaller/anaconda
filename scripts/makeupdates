@@ -71,7 +71,11 @@ def getArchiveTag(configure, spec):
     with open(spec, "r") as f:
         for line in f:
             if line.startswith('Release:'):
-                tag += '-' + line.split()[1].split('%')[0]
+                release = '-' + line.split()[1].split('%')[0]
+                if "@PACKAGE_RELEASE@" in release:
+                    tag += "-1"
+                else:
+                    tag += release
             else:
                 continue
 
