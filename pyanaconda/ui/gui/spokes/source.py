@@ -315,12 +315,14 @@ class IsoChooser(GUIObject):
 
         unmount = not dev.format.status
         mounts = get_mount_paths(dev.path)
+        mountpoint = None
         # We have to check both ISO_DIR and the DRACUT_ISODIR because we
         # still reference both, even though /mnt/install is a symlink to
         # /run/install.  Finding mount points doesn't handle the symlink
         if constants.ISO_DIR not in mounts and constants.DRACUT_ISODIR not in mounts:
             # We're not mounted to either location, so do the mount
-            dev.format.mount(mountpoint=constants.ISO_DIR)
+            mountpoint = constants.ISO_DIR
+            dev.format.mount(mountpoint=mountpoint)
 
         # If any directory was chosen, return that.  Otherwise, return None.
         rc = self.window.run()
@@ -330,7 +332,7 @@ class IsoChooser(GUIObject):
                 retval = f.replace(constants.ISO_DIR, "")
 
         if unmount:
-            dev.format.unmount()
+            dev.format.unmount(mountpoint=mountpoint)
 
         self.window.destroy()
         return retval
@@ -1073,15 +1075,17 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler):
         with self.main_window.enlightbox(dialog.window):
             unmount = not p.format.status
             mounts = get_mount_paths(p.path)
+            mountpoint = None
             # We have to check both ISO_DIR and the DRACUT_ISODIR because we
             # still reference both, even though /mnt/install is a symlink to
             # /run/install.  Finding mount points doesn't handle the symlink
             if constants.ISO_DIR not in mounts and constants.DRACUT_ISODIR not in mounts:
                 # We're not mounted to either location, so do the mount
-                p.format.mount(mountpoint=constants.ISO_DIR)
+                mountpoint = constants.ISO_DIR
+                p.format.mount(mountpoint=mountpoint)
             dialog.run(constants.ISO_DIR + "/" + f)
             if unmount:
-                p.format.unmount()
+                p.format.unmount(mountpoint=mountpoint)
 
     def on_verify_media_clicked(self, button):
         if not self._cdrom:
