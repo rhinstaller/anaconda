@@ -30,7 +30,6 @@ import unicodedata
 # Used for ascii_lowercase, ascii_uppercase constants
 import string # pylint: disable=deprecated-module
 import tempfile
-import types
 import re
 from urllib import quote, unquote
 import gettext
@@ -1079,13 +1078,34 @@ def is_unsupported_hw():
         log.debug("Installing on Unsupported Hardware")
     return status
 
+def ensure_str(str_or_bytes, keep_none=True):
+    """
+    Returns a str instance for given string or None if requested to keep it.
+
+    :param str_or_bytes: string to be kept or converted to str type
+    :type str_or_bytes: str or bytes
+    :param bool keep_none: whether to keep None as it is or raise ValueError if
+                           None is passed
+    :raises ValueError: if applied on an object not being of type bytes nor str
+                        (nor NoneType if :param:`keep_none` is False)
+    """
+
+    if keep_none and str_or_bytes is None:
+        return None
+    elif isinstance(str_or_bytes, str):
+        return str_or_bytes
+    elif isinstance(str_or_bytes, bytes):
+        return str_or_bytes.decode(sys.getdefaultencoding())
+    else:
+        raise ValueError("str_or_bytes must be of type 'str' or 'bytes', not '%s'" % type(str_or_bytes))
+
 # Define translations between ASCII uppercase and lowercase for
 # locale-independent string conversions. The tables are 256-byte string used
 # with str.translate. If str.translate is used with a unicode string,
 # even if the string contains only 7-bit characters, str.translate will
 # raise a UnicodeDecodeError.
-_ASCIIupper_table = string.maketrans(string.ascii_lowercase, string.ascii_uppercase)
-_ASCIIlower_table = string.maketrans(string.ascii_uppercase, string.ascii_lowercase)
+_ASCIIlower_table = str.maketrans(string.ascii_uppercase, string.ascii_lowercase)
+_ASCIIupper_table = str.maketrans(string.ascii_lowercase, string.ascii_uppercase)
 
 def _toASCII(s):
     """Convert a unicode string to ASCII"""
@@ -1106,7 +1126,12 @@ def upperASCII(s):
     The returned string will contain only ASCII characters. This function is
     locale-independent.
     """
-    return string.translate(_toASCII(s), _ASCIIupper_table)
+
+    # XXX: Python 3 has str.maketrans() and bytes.maketrans() so we should
+    # ideally use one or the other depending on the type of 's'. But it turns
+    # out we expect this function to always return string even if given bytes.
+    s = ensure_str(s)
+    return str.translate(_toASCII(s), _ASCIIupper_table)
 
 def lowerASCII(s):
     """Convert a string to lowercase using only ASCII character definitions.
@@ -1114,7 +1139,12 @@ def lowerASCII(s):
     The returned string will contain only ASCII characters. This function is
     locale-independent.
     """
-    return string.translate(_toASCII(s), _ASCIIlower_table)
+
+    # XXX: Python 3 has str.maketrans() and bytes.maketrans() so we should
+    # ideally use one or the other depending on the type of 's'. But it turns
+    # out we expect this function to always return string even if given bytes.
+    s = ensure_str(s)
+    return str.translate(_toASCII(s), _ASCIIlower_table)
 
 def upcase_first_letter(text):
     """
@@ -1158,11 +1188,9 @@ def have_word_match(str1, str2):
         # non-empty string cannot be found in an empty string
         return False
 
-    # Convert both arguments to unicode if not already
-    if isinstance(str1, str):
-        str1 = str1.decode('utf-8')
-    if isinstance(str2, str):
-        str2 = str2.decode('utf-8')
+    # Convert both arguments to string if not already
+    str1 = ensure_str(str1)
+    str2 = ensure_str(str2)
 
     str1 = str1.lower()
     str1_words = str1.split()
