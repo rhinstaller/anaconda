@@ -1414,7 +1414,10 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler):
         username = self._repoProxyUsernameEntry.get_text().strip() or None
         password = self._repoProxyPasswordEntry.get_text().strip() or None
 
-        self._repoProxyChecks[repo].update_check_status()
+        # do not update check status if checks are not yet set up
+        # (populating/refreshing the spoke)
+        if repo.name in self._repoChecks:
+            self._repoChecks[repo.name].proxy_check.update_check_status()
 
         try:
             proxy = ProxyString(url=url, username=username, password=password)
