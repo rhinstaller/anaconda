@@ -72,7 +72,7 @@ class App(object):
                  quit_message=None):
         """
         :param title: application title for whenever we need to display app name
-        :type title: unicode
+        :type title: str
 
         :param yes_or_no_question: UIScreen object class used for Quit dialog
         :type yes_or_no_question: class UIScreen accepting additional message arg
@@ -428,7 +428,7 @@ class App(object):
         :type args: anything
 
         :param key: the string entered by user
-        :type key: unicode
+        :type key: str
 
         :return: True if key was processed, False if it was not recognized
         :rtype: True|False
@@ -582,11 +582,11 @@ class UIScreen(object):
                 w.render(self.app.width)
             if isinstance(w, Widget):
                 self._print_long_widget(w)
-            elif isinstance(w, types.StringType):
-                print(w.decode("utf-8"))
+            elif type(w) == bytes:
+                print(w)
             else:
-                # not a widget, just print its unicode representation
-                print(unicode(w))
+                # not a widget or string, just print its string representation
+                print(str(w))
     show = show_all
 
     def hide(self):
@@ -597,7 +597,7 @@ class UIScreen(object):
         """Method called to process input. If the input is not handled here, return it.
 
         :param key: input string to process
-        :type key: unicode
+        :type key: str
 
         :param args: optional argument passed from switch_screen calls
         :type args: anything
@@ -605,7 +605,7 @@ class UIScreen(object):
         :return: return True or INPUT_PROCESSED (None) if key was handled,
                  INPUT_DISCARDED (False) if the screen should not process input
                  on the App and key if you want it to.
-        :rtype: True|False|None|unicode
+        :rtype: True|False|None|str
         """
 
         return key
@@ -618,7 +618,7 @@ class UIScreen(object):
 
         :return: returns text to be shown next to the prompt for input or None
                  to skip further input processing
-        :rtype: unicode|None
+        :rtype: str|None
         """
         return _(u"  Please make your choice from above ['q' to quit | 'c' to continue |\n  'r' to refresh]: ")
 
@@ -684,10 +684,10 @@ class Widget(object):
         """Get lines to write out in order to show this widget.
 
            :return: lines representing this widget
-           :rtype: list(unicode)
+           :rtype: list(str)
            """
 
-        return [unicode(u"".join(line)) for line in self._buffer]
+        return [str(u"".join(line)) for line in self._buffer]
 
     def setxy(self, row, col):
         """Sets cursor position.
@@ -755,7 +755,7 @@ class Widget(object):
         """This method emulates typing machine writing to this widget's buffer.
 
            :param text: text to type
-           :type text: unicode
+           :type text: str
 
            :param row: row number to start at (default is at the cursor position)
            :type row: int
@@ -772,13 +772,7 @@ class Widget(object):
         if not text:
             return
 
-        if isinstance(text, str):
-            try:
-                text = text.decode("utf-8")
-            except UnicodeDecodeError as e:
-                raise ValueError("Unable to decode string %s" %
-                                 str(e.object).decode("utf-8", "replace"))
-
+        text = iutil.ensure_str(text)
         if row is None:
             row = self._cursor[0]
 
