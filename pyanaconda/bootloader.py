@@ -42,6 +42,7 @@ from pyanaconda.nm import nm_device_hwaddress
 from blivet import platform
 from blivet.size import Size
 from pyanaconda.i18n import _, N_
+from pyanaconda.orderedset import OrderedSet
 
 import logging
 log = logging.getLogger("anaconda")
@@ -123,12 +124,7 @@ def _is_on_iscsi(device):
 class BootLoaderError(Exception):
     pass
 
-class Arguments(set):
-    ordering_dict = {
-        "rhgb" : 99,
-        "quiet" : 100
-        }
-
+class Arguments(OrderedSet):
     def _merge_ip(self):
         """
         Find ip= arguments targetting the same interface and merge them.
@@ -139,7 +135,7 @@ class Arguments(set):
             # automatic network setup:
             return arg.startswith("ip=") and arg.count(":") == 1
         ip_params = filter(partition_p, self)
-        rest = set(filter(lambda p: not partition_p(p), self))
+        rest = OrderedSet(filter(lambda p: not partition_p(p), self))
 
         # split at the colon:
         ip_params = map(lambda p: p.split(":"), ip_params)
@@ -161,12 +157,16 @@ class Arguments(set):
 
     def __str__(self):
         self._merge_ip()
-        # sort the elements according to their values in ordering_dict. The
-        # higher the number the closer to the final string the argument
-        # gets. The default is 50.
-        lst = sorted(self, key=lambda s: self.ordering_dict.get(s, 50))
+        return " ".join(list(self))
 
-        return " ".join(lst)
+    def add(self, key):
+        self.discard(key)
+        super(Arguments, self).add(key)
+
+    def update(self, other):
+        for key in other:
+            self.discard(key)
+            self.add(key)
 
 class BootLoaderImage(object):
     """ Base class for bootloader images. Suitable for non-linux OS images. """
@@ -844,17 +844,6 @@ class BootLoader(object):
                     self.boot_args.update(setup_args)
                     self.dracut_args.update(setup_args)
 
-        # passed-in objects
-        for cfg_obj in list(args) + kwargs.values():
-            if hasattr(cfg_obj, "dracutSetupArgs"):
-                setup_args = cfg_obj.dracutSetupArgs()
-                self.boot_args.update(setup_args)
-                self.dracut_args.update(setup_args)
-            else:
-                setup_string = cfg_obj.dracutSetupString()
-                self.boot_args.add(setup_string)
-                self.dracut_args.add(setup_string)
-
         # This is needed for FCoE, bug #743784. The case:
         # We discover LUN on an iface which is part of multipath setup.
         # If the iface is disconnected after discovery anaconda doesn't
@@ -883,6 +872,17 @@ class BootLoader(object):
                 new_arg += "=%s" % arg
 
             self.boot_args.add(new_arg)
+
+        # passed-in objects
+        for cfg_obj in list(args) + kwargs.values():
+            if hasattr(cfg_obj, "dracutSetupArgs"):
+                setup_args = cfg_obj.dracutSetupArgs()
+                self.boot_args.update(setup_args)
+                self.dracut_args.update(setup_args)
+            else:
+                setup_string = cfg_obj.dracutSetupString()
+                self.boot_args.add(setup_string)
+                self.dracut_args.add(setup_string)
 
     #
     # configuration
