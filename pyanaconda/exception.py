@@ -82,6 +82,8 @@ class AnacondaExceptionHandler(ExceptionHandler):
                              "The installer will now terminate.") % str(value)
             self.intf.messageWindow(_("Hardware error occured"), hw_error_msg)
             sys.exit(0)
+        elif isinstance(value, blivet.errors.UnusableConfigurationError):
+            sys.exit(0)
         else:
             super(AnacondaExceptionHandler, self).handleException(dump_info)
             return False
