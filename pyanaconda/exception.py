@@ -69,9 +69,12 @@ class AnacondaExceptionHandler(ExceptionHandler):
         :type dump_info: an instance of the meh.DumpInfo class
 
         """
-
-        super(AnacondaExceptionHandler, self).handleException(dump_info)
-        return False
+        if isinstance(dump_info.exc_info.value,
+                      blivet.errors.UnusableConfigurationError):
+            sys.exit(0)
+        else:
+            super(AnacondaExceptionHandler, self).handleException(dump_info)
+            return False
 
     def handleException(self, dump_info):
         """

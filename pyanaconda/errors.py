@@ -25,6 +25,12 @@ __all__ = ["ERROR_RAISE", "ERROR_CONTINUE", "ERROR_RETRY",
            "MediaMountError", "ScriptError", "CmdlineError",
            "errorHandler"]
 
+# Only run the pango markup escape if the GUI is available
+try:
+    from pyanaconda.ui.gui.utils import escape_markup
+except ImportError:
+    escape_markup = lambda x: x
+
 class InvalidImageSizeError(Exception):
     def __init__(self, message, filename):
         Exception.__init__(self, message)
@@ -114,6 +120,22 @@ class ErrorHandler(object):
 
         self.ui.showError(message)
         return ERROR_RAISE
+
+    def _storageResetHandler(self, exn):
+        message = (_("There is a problem with your existing storage "
+                     "configuration: <b>%(errortxt)s</b>\n\n"
+                     "You must resolve this matter before the installation can "
+                     "proceed. There is a shell available for use which you "
+                     "can access by pressing ctrl-alt-f1 and then ctrl-b 2."
+                     "\n\nOnce you have resolved the issue you can retry the "
+                     "storage scan. If you do not fix it you will have to exit "
+                     "the installer.") % {"errortxt": escape_markup(exn.message)})
+        details = _(exn.suggestion)
+        buttons = (_("_Exit Installer"), _("_Retry"))
+        if self.ui.showDetailedError(message, details, buttons=buttons):
+            return ERROR_RETRY
+        else:
+            return ERROR_RAISE
 
     def _noDisksHandler(self, exn):
         message = _("An error has occurred - no valid devices were found on "
@@ -282,6 +304,10 @@ class ErrorHandler(object):
 
         _map = {"PartitioningError": self._partitionErrorHandler,
                 "FSResizeError": self._fsResizeHandler,
+                "UnusableConfigurationError": self._storageResetHandler,
+                "DiskLabelScanError": self._storageResetHandler,
+                "CorruptGPTError": self._storageResetHandler,
+                "DuplicateVGError": self._storageResetHandler,
                 "NoDisksError": self._noDisksHandler,
                 "DirtyFSError": self._dirtyFSHandler,
                 "FSTabTypeMismatchError": self._fstabTypeMismatchHandler,
