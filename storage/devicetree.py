@@ -1571,14 +1571,8 @@ class DeviceTree(object):
                     log.error("%s: %s", msg, name)
                     raise DeviceTreeError(msg)
 
-        def addLV(lv):
+        def addLV(lv_name, lv_uuid, lv_size, lv_attr, lv_type):
             """ Instantiate and add an LV based on data from the VG. """
-            lv_name = udev.device_get_lv_name(lv)
-            lv_uuid = udev.device_get_lv_uuid(lv)
-            lv_attr = udev.device_get_lv_attr(lv)
-            lv_size = udev.device_get_lv_size(lv)
-            lv_type = udev.device_get_lv_type(lv)
-
             lv_class = LVMLogicalVolumeDevice
             lv_parents = [vg_device]
             lv_kwargs = {}
@@ -1676,7 +1670,7 @@ class DeviceTree(object):
 
             lv_dev = self.getDeviceByUuid(lv_uuid)
             if lv_dev is None:
-                lv_device = lv_class(lv_name, parents=lv_parents,
+                lv_device = lv_class(lv_name, lv_parents,
                                      uuid=lv_uuid, size=lv_size,segType=lv_type,
                                      exists=True, **lv_kwargs)
                 self._addDevice(lv_device)
@@ -1696,6 +1690,26 @@ class DeviceTree(object):
 
                     # do format handling now
                     self.addUdevDevice(lv_info)
+
+        raid_items = dict((n.replace("[", "").replace("]", ""),
+                     {"copies": 0, "log": 0, "meta": 0})
+                     for n in lv_names)
+        for lv in zip(lv_names, lv_uuids, lv_sizes, lv_attr, lv_types):
+            addLV(*lv)
+
+        for name, data in raid_items.items():
+            lv_dev = self.getDeviceByName(name)
+            if not lv_dev:
+                # hidden lv, eg: pool00_tdata
+                continue
+
+            lv_dev.copies = data["copies"] or 1
+            lv_dev.metaDataSize = data["meta"]
+            lv_dev.logSize = data["log"]
+            log.debug("set %s copies to %d, metadata size to %s, log size "
+                      "to %s, total size %s",
+                        lv_dev.name, lv_dev.copies, lv_dev.metaDataSize,
+                        lv_dev.logSize, lv_dev.vgSpaceUsed)
 
         return ret
 
