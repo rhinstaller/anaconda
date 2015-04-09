@@ -250,7 +250,7 @@ class StorageSpoke(NormalSpoke, StorageChecker):
         self.encrypted = False
         self.passphrase = ""
         self.selected_disks = self.data.ignoredisk.onlyuse[:]
-        self.back_clicked = False
+        self._back_clicked = False
 
         # This list contains all possible disks that can be included in the install.
         # All types of advanced disks should be set up for us ahead of time, so
@@ -462,7 +462,7 @@ class StorageSpoke(NormalSpoke, StorageChecker):
     def refresh(self):
         self.disks = getDisks(self.storage.devicetree)
 
-        self.back_clicked = False
+        self._back_clicked = False
 
         # synchronize our local data store with the global ksdata
         disk_names = [d.name for d in self.disks]
@@ -739,10 +739,10 @@ class StorageSpoke(NormalSpoke, StorageChecker):
 
         # Do not enter this method multiple times if user clicking multiple times
         # on back button
-        if self.back_clicked:
+        if self._back_clicked:
             return
         else:
-            self.back_clicked = True
+            self._back_clicked = True
 
         # Remove all non-existing devices if autopart was active when we last
         # refreshed.
