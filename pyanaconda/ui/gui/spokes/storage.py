@@ -804,6 +804,7 @@ class StorageSpoke(NormalSpoke, StorageChecker):
                     # there was no formatting done.
                     # NOTE: rc == 2 means the user clicked on the link that takes t
                     # back to the hub.
+                    self._back_clicked = False
                     return
 
         # Figure out if the existing disk labels will work on this platform
@@ -865,6 +866,7 @@ class StorageSpoke(NormalSpoke, StorageChecker):
 
                 # We might first need to ask about an encryption passphrase.
                 if not self._check_encrypted():
+                    self._back_clicked = False
                     return
 
                 # Oh and then we might also want to go to the reclaim dialog.
@@ -873,10 +875,12 @@ class StorageSpoke(NormalSpoke, StorageChecker):
                     if not self._show_resize_dialog(disks):
                         # User pressed cancel on the reclaim dialog, so don't leave
                         # the storage spoke.
+                        self._back_clicked = False
                         return
         elif rc == RESPONSE_CANCEL:
             # A cancel button was clicked on one of the dialogs.  Stay on this
             # spoke.  Generally, this is because the user wants to add more disks.
+            self._back_clicked = False
             return
         elif rc == RESPONSE_MODIFY_SW:
             # The "Fedora software selection" link was clicked on one of the
@@ -894,6 +898,7 @@ class StorageSpoke(NormalSpoke, StorageChecker):
             if not self._show_resize_dialog(disks):
                 # User pressed cancel on the reclaim dialog, so don't leave
                 # the storage spoke.
+                self._back_clicked = False
                 return
 
             # And then go to the custom partitioning spoke if they chose to
@@ -910,6 +915,7 @@ class StorageSpoke(NormalSpoke, StorageChecker):
         else:
             # I don't know how we'd get here, but might as well have a
             # catch-all.  Just stay on this spoke.
+            self._back_clicked = False
             return
 
         if self.autopart:
