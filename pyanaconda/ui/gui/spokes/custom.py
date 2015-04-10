@@ -2377,7 +2377,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
     def on_reformat_toggled(self, widget):
         active = widget.get_active()
 
-        self._encryptCheckbox.set_sensitive(active)
+        encrypt_sensitive = active
         if self._current_selector:
             device = self._current_selector.device.raw_device
 
@@ -2386,14 +2386,14 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
             if any(a.format.type == "luks" and a.format.exists for a in ancestors):
                 # The encryption checkbutton should not be sensitive if there is
                 # existing encryption below the leaf layer.
-                self._encryptCheckbox.set_sensitive(False)
+                encrypt_sensitive = False
 
         # you can't encrypt a btrfs subvolume -- only the volume/container
         device_type = self._get_current_device_type()
         if device_type == DEVICE_TYPE_BTRFS:
             self._encryptCheckbox.set_active(False)
 
-        self._encryptCheckbox.set_sensitive(device_type != DEVICE_TYPE_BTRFS)
+        self._encryptCheckbox.set_sensitive(encrypt_sensitive and device_type != DEVICE_TYPE_BTRFS)
         fancy_set_sensitive(self._fsCombo, active)
 
     def on_fs_type_changed(self, combo):
