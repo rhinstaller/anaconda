@@ -747,15 +747,16 @@ class GraphicalUserInterface(UserInterface):
         sys.exit(1)
 
     @gtk_action_wait
-    def showDetailedError(self, message, details):
+    def showDetailedError(self, message, details, buttons=None):
         from pyanaconda.ui.gui.spokes.lib.detailederror import DetailedErrorDialog
-        dlg = DetailedErrorDialog(None, buttons=[_("_Quit")],
-                                  label=message)
+        buttons = buttons or [_("_Quit")]
+        dlg = DetailedErrorDialog(None, buttons=buttons, label=message)
 
         with self.mainWindow.enlightbox(dlg.window):
             dlg.refresh(details)
-            dlg.run()
+            rc = dlg.run()
             dlg.window.destroy()
+            return rc
 
     @gtk_action_wait
     def showYesNoQuestion(self, message):
