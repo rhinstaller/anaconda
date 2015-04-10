@@ -54,23 +54,22 @@ def gtk_action_wait(func):
 
     queue = Queue.Queue()
 
-    def _idle_method(q_args):
+    def _idle_method(queue, args, kwargs):
         """This method contains the code for the main loop to execute.
         """
-        queue, args = q_args
-        ret = func(*args)
+        ret = func(*args, **kwargs)
         queue.put(ret)
         return False
 
-    def _call_method(*args):
+    def _call_method(*args, **kwargs):
         """The new body for the decorated method. If needed, it uses closure
            bound queue variable which is valid until the reference to this
            method is destroyed."""
         if threadMgr.in_main_thread():
             # nothing special has to be done in the main thread
-            return func(*args)
+            return func(*args, **kwargs)
 
-        GLib.idle_add(_idle_method, (queue, args))
+        GLib.idle_add(_idle_method, queue, args, kwargs)
         return queue.get()
 
     return _call_method
@@ -90,21 +89,21 @@ def gtk_action_nowait(func):
        thread. The new method does not wait for the callback to finish.
     """
 
-    def _idle_method(args):
+    def _idle_method(args, kwargs):
         """This method contains the code for the main loop to execute.
         """
-        func(*args)
+        func(*args, **kwargs)
         return False
 
-    def _call_method(*args):
+    def _call_method(*args, **kwargs):
         """The new body for the decorated method.
         """
         if threadMgr.in_main_thread():
             # nothing special has to be done in the main thread
-            func(*args)
+            func(*args, **kwargs)
             return
 
-        GLib.idle_add(_idle_method, args)
+        GLib.idle_add(_idle_method, args, kwargs)
 
     return _call_method
 
