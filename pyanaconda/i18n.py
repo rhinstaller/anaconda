@@ -23,9 +23,9 @@ __all__ = ["_", "N_", "P_", "C_", "CN_", "CP_"]
 
 import gettext
 
-_ = lambda x: gettext.ldgettext("anaconda", x) if x else ""
+_ = lambda x: gettext.translation("anaconda", fallback=True).ugettext(x) if x != "" else u""
 N_ = lambda x: x
-P_ = lambda x, y, z: gettext.ldngettext("anaconda", x, y, z)
+P_ = lambda x, y, z: gettext.translation("anaconda", fallback=True).ungettext(x, y, z)
 
 # This is equivalent to "pgettext" in GNU gettext. The pgettext functions
 # are not exported by Python, but all they really do is a stick a EOT

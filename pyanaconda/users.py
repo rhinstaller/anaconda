@@ -27,6 +27,7 @@ import random
 import tempfile
 import os
 import os.path
+import locale
 from pyanaconda import iutil
 import pwquality
 from pyanaconda.iutil import strip_accents
@@ -177,7 +178,8 @@ def validatePassword(pw, user="root", settings=None, minlen=None):
             # Leave valid alone here: the password is weak but can still
             # be accepted.
             # PWQError values are built as a tuple of (int, str)
-            message = e.args[1]
+            # Conver the str message (encoded to the current locale) to a unicode
+            message = e.args[1].decode(locale.nl_langinfo(locale.CODESET))
 
     return (valid, strength, message)
 
