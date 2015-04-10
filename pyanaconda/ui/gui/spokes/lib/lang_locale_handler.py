@@ -85,9 +85,13 @@ class LangLocaleHandler(object):
 
         # Otherwise, filter the list showing only what is matched by the
         # text entry.  Either the English or native names can match.
-        lowered = entry.lower()
-        translit = strip_accents(unicode(native, "utf-8")).lower()
-        if lowered in native.lower() or lowered in english.lower() or lowered in translit:
+        # Convert strings to unicode so lower() works.
+        lowered = entry.decode('utf-8').lower()
+        native = native.decode('utf-8').lower()
+        english = english.decode('utf-8').lower()
+        translit = strip_accents(native).lower()
+
+        if lowered in native or lowered in english or lowered in translit:
             return True
         else:
             return False

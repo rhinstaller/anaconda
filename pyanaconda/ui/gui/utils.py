@@ -424,7 +424,9 @@ def escape_markup(value):
     if isinstance(value, unicode):
         value = value.encode("utf-8")
 
-    return GLib.markup_escape_text(str(value))
+    escaped = GLib.markup_escape_text(str(value))
+
+    return escaped.decode("utf-8")
 
 # This will be populated by override_cell_property. Keys are tuples of (column, renderer).
 # Values are a dict of the form {property-name: (property-func, property-data)}.
