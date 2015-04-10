@@ -1226,6 +1226,23 @@ if __name__ == "__main__":
     from pyanaconda import localization
     # Set the language before loading an interface, when it may be too late.
 
+    # GNU defines four (four!) ways to set the locale via the environment.
+    # At least three of those are just going to get in the way of anaconda's
+    # ability to set the language and locale after startup. If any of, in
+    # order, $LANGUAGE, $LC_ALL, or $LC_MESSAGES is in the environment and not
+    # empty, copy the information to $LANG, and then clear the rest.
+    #
+    # If the variable is set but empty, it doesn't count, and some programs
+    # (KDE) insist on setting empty variables. Be sure not to use those.
+    for varname in ("LANGUAGE", "LC_ALL", "LC_MESSAGES"):
+        if varname in os.environ and os.environ[varname]:
+            os.environ["LANG"] = os.environ[varname] # pylint: disable=environment-modify
+            break
+
+    for varname in ("LANGUAGE", "LC_ALL", "LC_MESSAGES"):
+        if varname in os.environ:
+            del os.environ[varname] # pylint: disable=environment-modify
+
     # first, try to load firmware language if nothing is already set in
     # the environment
     if "LANG" not in os.environ:
