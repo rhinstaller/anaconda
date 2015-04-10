@@ -122,6 +122,9 @@ class UserInterface(object):
         """
         raise NotImplementedError
 
+    def showDetailedError(self, message, details, buttons=None):
+        raise NotImplementedError
+
     def showYesNoQuestion(self, message):
         """Display a dialog with the given message that presents the user a yes
            or no choice.  This method returns True if the yes choice is selected,

@@ -262,7 +262,7 @@ class TextUserInterface(ui.UserInterface):
         error_window = ErrorDialog(self._app, message)
         self._app.switch_screen_modal(error_window)
 
-    def showDetailedError(self, message, details):
+    def showDetailedError(self, message, details, buttons=None):
         return self._show_message_in_main_thread(self._showDetailedError, (message, details))
 
     def _showDetailedError(self, message, details):
