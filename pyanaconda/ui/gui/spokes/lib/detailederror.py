@@ -65,7 +65,7 @@ class DetailedErrorDialog(GUIObject):
         widget.grab_default()
 
         if label:
-            self.builder.get_object("detailedLabel").set_text(label)
+            self.builder.get_object("detailedLabel").set_markup(label)
 
     # pylint: disable=arguments-differ
     def refresh(self, msg):
