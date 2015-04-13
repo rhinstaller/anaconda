@@ -1399,7 +1399,9 @@ class GRUB2(GRUB):
 
     """
     name = "GRUB2"
-    packages = ["grub2"]
+    # grub2 is a virtual provides that's provided by grub2-pc, grub2-ppc64le,
+    # and all of the primary grub components that aren't grub2-efi-${EFIARCH}
+    packages = ["grub2", "grub2-tools"]
     _config_file = "grub.cfg"
     _config_dir = "grub2"
     defaults_file = "/etc/default/grub"
@@ -1822,22 +1824,48 @@ class EFIGRUB1(EFIBase, GRUB):
 
 
 class EFIGRUB(EFIBase, GRUB2):
-    packages = ["grub2-efi", "efibootmgr", "shim"]
+    _packages32 = [ "grub2-efi-ia32", "shim-ia32" ]
+    _packages64 = [ "grub2-efi-x64", "shim-x64" ]
+    _packages_common = [ "efibootmgr" ]
     can_dual_boot = False
     stage2_is_valid_stage1 = False
     stage2_bootable = False
 
-    _efi_binary = "\\shim.efi"
+    _is_32bit_firmware = False
 
     def __init__(self):
         super(EFIGRUB, self).__init__()
         self.efi_dir = 'BOOT'
 
+        try:
+            f = open("/sys/firmware/efi/fw_platform_size", "r")
+            value = f.readline().strip()
+        except IOError:
+            log.info("Reading /sys/firmware/efi/fw_platform_size failed, defaulting to 64-bit install.")
+            value = '64'
+        if value == '32':
+            self._is_32bit_firmware = True
+
+    def _efi_binary(self):
+        if self._is_32bit_firmware:
+            return "\\shimia32.efi"
+        return "\\shimx64.efi"
+
+    @property
+    def packages(self):
+        if self._is_32bit_firmware:
+            return self._packages32 + self._packages_common + \
+                super(EFIGRUB, self).packages
+        return self._packages64 + self._packages_common + \
+            super(EFIGRUB, self).packages
 
 class Aarch64EFIGRUB(EFIGRUB):
+    _packages64 = ["grub2-efi-aa64", "shim-aa64"]
     _serial_consoles = ["ttyAMA", "ttyS"]
+    _efi_binary = "\\shimaa64.efi"
 
 class MacEFIGRUB(EFIGRUB):
+    packages = [ "grub2-tools-efi", "mactel-boot" ]
     def mactel_config(self):
         if os.path.exists(iutil.getSysroot() + "/usr/libexec/mactel-boot-setup"):
             rc = iutil.execInSysroot("/usr/libexec/mactel-boot-setup", [])
