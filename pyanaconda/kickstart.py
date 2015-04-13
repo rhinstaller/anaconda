@@ -1518,6 +1518,28 @@ class RepoData(commands.repo.F15_RepoData):
 
         commands.repo.F15_RepoData.__init__(self, *args, **kwargs)
 
+class ReqPart(commands.reqpart.RHEL7_ReqPart):
+    def execute(self, storage, ksdata, instClass):
+        from blivet.partitioning import doReqPartition
+
+        if not self.reqpart:
+            return
+
+        reqs = platform.setPlatformBootloaderReqs()
+        if self.addBoot:
+            bootPartitions = platform.setPlatformBootPartition()
+
+            # blivet doesn't know this - anaconda sets up the default boot fstype
+            # in various places in this file, as well as in setDefaultPartitioning
+            # in the install classes.  We need to duplicate that here.
+            for part in bootPartitions:
+                if part.mountpoint == "/boot":
+                    part.fstype = storage.defaultBootFSType
+
+            reqs += bootPartitions
+
+        doReqPartition(storage, reqs)
+
 class RootPw(commands.rootpw.F18_RootPw):
     def execute(self, storage, ksdata, instClass, users):
         if not self.password and not flags.automatedInstall:
@@ -1799,6 +1821,7 @@ commandMap = {
         "partition": Partition,
         "raid": Raid,
         "realm": Realm,
+        "reqpart": ReqPart,
         "rootpw": RootPw,
         "selinux": SELinux,
         "services": Services,
@@ -2011,6 +2034,7 @@ def doKickstartStorage(storage, ksdata, instClass):
 
     ksdata.bootloader.execute(storage, ksdata, instClass)
     ksdata.autopart.execute(storage, ksdata, instClass)
+    ksdata.reqpart.execute(storage, ksdata, instClass)
     ksdata.partition.execute(storage, ksdata, instClass)
     ksdata.raid.execute(storage, ksdata, instClass)
     ksdata.volgroup.execute(storage, ksdata, instClass)
