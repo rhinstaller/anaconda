@@ -1388,7 +1388,9 @@ class GRUB2(GRUB):
 
     """
     name = "GRUB2"
-    packages = ["grub2-pc", "grub2-tools"]
+    # grub2 is a virtual provides that's provided by grub2-pc, grub2-ppc64le,
+    # and all of the primary grub components that aren't grub2-efi-${EFIARCH}
+    packages = ["grub2", "grub2-tools"]
     _config_file = "grub.cfg"
     _config_dir = "grub2"
     _passwd_file = "user.cfg"
@@ -1662,8 +1664,8 @@ class GRUB2(GRUB):
         return ret
 
 class EFIGRUB(GRUB2):
-    _packages32 = ["grub2-efi.i686", "shim.i686"]
-    _packages64 = ["grub2-efi", "shim.x86_64"]
+    _packages32 = ["grub2-efi-ia32", "shim-ia32"]
+    _packages64 = ["grub2-efi-x64", "shim-x64"]
     _packages_common = ["efibootmgr"]
     can_dual_boot = False
     stage2_is_valid_stage1 = False
@@ -1680,8 +1682,10 @@ class EFIGRUB(GRUB2):
     @property
     def packages(self):
         if self._is_32bit_firmware:
-            return self._packages32 + self._packages_common
-        return self._packages64 + self._packages_common
+            return self._packages32 + self._packages_common + \
+                    super(EFIGRUB, self).packages
+        return self._packages64 + self._packages_common + \
+                super(EFIGRUB, self).packages
 
     @property
     def _config_dir(self):
@@ -1792,6 +1796,7 @@ class EFIGRUB(GRUB2):
         return True
 
 class Aarch64EFIGRUB(EFIGRUB):
+    _packages64 = ["grub2-efi-aa64", "shim-aa64"]
     _serial_consoles = ["ttyAMA", "ttyS"]
     _efi_binary = "\\shimaa64.efi"
 
