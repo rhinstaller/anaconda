@@ -1600,10 +1600,6 @@ debuglevel=6
                                      anaconda.id.ksdata.services.enabled) or \
            anaconda.id.storage.services or anaconda.id.network.hasActiveIPoIBDevice():
             self.selectPackage("chkconfig")
-        else:
-            if not anaconda.id.ksdata.packages.nocore:
-                for pkg in ['authconfig', 'system-config-firewall-base']:
-                    self.selectPackage(pkg)
 
     def doPostSelection(self, anaconda):
         # Only solve dependencies on the way through the installer, not the way back.
