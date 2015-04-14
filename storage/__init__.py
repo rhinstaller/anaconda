@@ -1259,6 +1259,8 @@ class Storage(object):
             args += ["--drives=%s" % ",".join(self.clearPartDisks)]
         if self.reinitializeDisks:
             args += ["--initlabel"]
+        if self.cdl:
+            args += ["--cdl"]
 
         f.write("#clearpart %s\n" % " ".join(args))
 
