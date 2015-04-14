@@ -858,6 +858,12 @@ class StorageSpoke(NormalSpoke, StorageChecker):
             NormalSpoke.on_back_clicked(self, button)
             return
 
+        disks = [d for d in self.disks if d.name in self.selected_disks]
+        # No disks selected?  The user wants to back out of the storage spoke.
+        if not disks:
+            NormalSpoke.on_back_clicked(self, button)
+            return
+
         # Remove all non-existing devices if autopart was active when we last
         # refreshed.
         if self._previous_autopart:
@@ -866,12 +872,6 @@ class StorageSpoke(NormalSpoke, StorageChecker):
 
         # hide/unhide disks as requested
         self._hide_unhide_disks()
-
-        disks = [d for d in self.disks if d.name in self.selected_disks]
-        # No disks selected?  The user wants to back out of the storage spoke.
-        if not disks:
-            NormalSpoke.on_back_clicked(self, button)
-            return
 
         # make sure no containers were split up by the user's disk selection
         self.clear_info()
