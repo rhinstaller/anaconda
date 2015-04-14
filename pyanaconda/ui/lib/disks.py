@@ -106,7 +106,7 @@ def checkDiskSelection(storage, selected_disks):
     errors = []
     for name in selected_disks:
         selected = storage.devicetree.getDeviceByName(name, hidden=True)
-        related = sorted(storage.devicetree.getRelatedDisks(selected))
+        related = sorted(storage.devicetree.getRelatedDisks(selected), key=lambda d: d.name)
         missing = [r.name for r in related if r.name not in selected_disks]
         if missing:
             errors.append(P_("You selected disk %(selected)s, which contains "
