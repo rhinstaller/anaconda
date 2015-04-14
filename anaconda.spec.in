@@ -223,6 +223,21 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Tue Apr 14 2015 Samantha N. Bueno <sbueno+anaconda@redhat.com> - 13.21.234-1
+- Fix lvm detection broken with introduction of thinp support. (dlehman)
+  Resolves: rhbz#1200832
+  Related: rhbz#1083459
+- RHEL 6.6 Upgrade Fails from AttributeError on Multipath (rmarshall)
+  Resolves: rhbz#1129499
+- Drop hy.po Armenian translation (bcl)
+  Resolves: rhbz#1205286
+  Related: rhbz#1205286
+- Update translation documentation for Zanata (bcl)
+  Resolves: rhbz#1205286
+  Related: rhbz#1205286
+- Switch translation support to fedora.zanata.org (bcl)
+  Resolves: rhbz#1205286
+
 * Fri Mar 13 2015 Samantha N. Bueno <sbueno+anaconda@redhat.com> - 13.21.233-1
 - Keep track of whether users should be prompted to format CDL dasds.
   (sbueno+anaconda)
