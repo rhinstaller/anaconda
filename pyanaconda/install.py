@@ -31,6 +31,7 @@ from pyanaconda import network
 from pyanaconda.i18n import _
 from pyanaconda.threads import threadMgr
 from pyanaconda.ui.lib.entropy import wait_for_entropy
+from pyanaconda.kexec import setup_kexec
 import logging
 import blivet
 log = logging.getLogger("anaconda")
@@ -111,6 +112,10 @@ def doConfiguration(storage, payload, ksdata, instClass):
 
     with progress_report(_("Running post-installation scripts")):
         runPostScripts(ksdata.scripts)
+
+    # setup kexec reboot if requested
+    if flags.flags.kexec:
+        setup_kexec()
 
     # Write the kickstart file to the installed system (or, copy the input
     # kickstart file over if one exists).
