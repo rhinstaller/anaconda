@@ -27,8 +27,19 @@ __all__ = ["ERROR_RAISE", "ERROR_CONTINUE", "ERROR_RETRY",
 
 # Only run the pango markup escape if the GUI is available
 try:
+    from gi.repository import Gtk
+
+    # XXX: Gtk stopped raising RuntimeError if it fails to
+    # initialize. Horay! But will it stay like this? Let's be
+    # cautious and raise the exception on our own to work in both
+    # cases
+    initialized = Gtk.init_check(None)[0]
+    if not initialized:
+        raise RuntimeError()
+
+    # If we don't do the check above this import will fail within _isys
     from pyanaconda.ui.gui.utils import escape_markup
-except ImportError:
+except (RuntimeError, ImportError):
     escape_markup = lambda x: x
 
 class InvalidImageSizeError(Exception):
