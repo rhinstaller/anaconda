@@ -74,6 +74,7 @@ from pyanaconda.flags import flags
 from pyanaconda.i18n import _, C_, CN_, P_
 from pyanaconda import constants, iutil, isys
 from pyanaconda.bootloader import BootLoaderError
+from pyanaconda.storage_utils import on_disk_storage
 
 from pykickstart.constants import CLEARPART_TYPE_NONE, AUTOPART_TYPE_LVM
 from pykickstart.errors import KickstartValueError
@@ -264,6 +265,7 @@ class StorageSpoke(NormalSpoke, StorageChecker):
         self.encrypted = False
         self.passphrase = ""
         self.selected_disks = self.data.ignoredisk.onlyuse[:]
+        self._last_selected_disks = None
         self._back_clicked = False
         self.autopart_missing_passphrase = False
 
@@ -484,15 +486,19 @@ class StorageSpoke(NormalSpoke, StorageChecker):
         self._cur_clicked_overview = overview
 
     def refresh(self):
-        self.disks = getDisks(self.storage.devicetree)
-
         self._back_clicked = False
+
+        self.disks = getDisks(self.storage.devicetree)
 
         # synchronize our local data store with the global ksdata
         disk_names = [d.name for d in self.disks]
-        # don't put disks with hidden formats in selected_disks
         self.selected_disks = [d for d in self.data.ignoredisk.onlyuse
-                                    if d in disk_names]
+                               if d in disk_names]
+
+        # unhide previously hidden disks so that they don't look like being
+        # empty (because of all child devices hidden)
+        self._unhide_disks()
+
         self.autopart = self.data.autopart.autopart
         self.autoPartType = self.data.autopart.type
         if self.autoPartType is None:
@@ -762,14 +768,18 @@ class StorageSpoke(NormalSpoke, StorageChecker):
                partition in self.storage.partitions:
                 self.storage.recursiveRemove(partition)
 
-    def _hide_unhide_disks(self):
+    def _hide_disks(self):
         for disk in self.disks:
             if disk.name not in self.selected_disks and \
                disk in self.storage.devices:
                 self.storage.devicetree.hide(disk)
-            elif disk.name in self.selected_disks and \
-                 disk not in self.storage.devices:
-                self.storage.devicetree.unhide(disk)
+
+    def _unhide_disks(self):
+        if self._last_selected_disks:
+            for disk in self.disks:
+                if disk.name not in self.selected_disks and \
+                   disk.name not in self._last_selected_disks:
+                    self.storage.devicetree.unhide(disk)
 
     def _check_dasd_formats(self):
         rc = DASD_FORMAT_NO_CHANGE
@@ -853,25 +863,42 @@ class StorageSpoke(NormalSpoke, StorageChecker):
         else:
             self._back_clicked = True
 
+        # make sure the snapshot of unmodified on-disk-storage model is created
+        if not on_disk_storage.created:
+            on_disk_storage.create_snapshot(self.storage)
+
         if self.autopart_missing_passphrase:
             self._setup_passphrase()
             NormalSpoke.on_back_clicked(self, button)
             return
 
-        disks = [d for d in self.disks if d.name in self.selected_disks]
         # No disks selected?  The user wants to back out of the storage spoke.
-        if not disks:
+        if not self.selected_disks:
             NormalSpoke.on_back_clicked(self, button)
             return
 
-        # Remove all non-existing devices if autopart was active when we last
-        # refreshed.
-        if self._previous_autopart:
-            self._previous_autopart = False
-            self._remove_nonexistant_partitions()
+        disk_selection_changed = False
+        if self._last_selected_disks:
+            disk_selection_changed = (self._last_selected_disks != set(self.selected_disks))
 
-        # hide/unhide disks as requested
-        self._hide_unhide_disks()
+        # remember the disk selection for future decisions
+        self._last_selected_disks = set(self.selected_disks)
+
+        if disk_selection_changed:
+            # Changing disk selection is really, really complicated and has
+            # always been causing numerous hard bugs. Let's not play the hero
+            # game and just revert everything and start over again.
+            on_disk_storage.reset_to_snapshot(self.storage)
+            self.disks = getDisks(self.storage.devicetree)
+        else:
+            # Remove all non-existing devices if autopart was active when we last
+            # refreshed.
+            if self._previous_autopart:
+                self._previous_autopart = False
+                self._remove_nonexistant_partitions()
+
+        # hide disks as requested
+        self._hide_disks()
 
         # make sure no containers were split up by the user's disk selection
         self.clear_info()
@@ -916,6 +943,7 @@ class StorageSpoke(NormalSpoke, StorageChecker):
         # 3) we are just asked to do autopart => check free space and see if we need
         #                                        user to do anything more
         self.autopart = not self._customPart.get_active()
+        disks = [d for d in self.disks if d.name in self.selected_disks]
         dialog = None
         if not self.autopart:
             self.skipTo = "CustomPartitioningSpoke"
