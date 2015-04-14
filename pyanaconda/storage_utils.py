@@ -444,3 +444,6 @@ class StorageSnapshot(object):
         if dispose:
             self.dispose_snapshot()
 
+# a snapshot of early storage as we got it from scanning disks without doing any
+# changes
+on_disk_storage = StorageSnapshot()
