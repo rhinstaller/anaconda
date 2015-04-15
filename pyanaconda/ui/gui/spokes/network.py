@@ -506,7 +506,17 @@ class NetworkControlBox(GObject.GObject):
         self.add_connection_to_list(connection)
 
     def on_device_added(self, client, device, *args):
-        gtk_call_once(self.add_device_to_list, device)
+        # We need to wait for valid state before adding the device to our list
+        if device.get_state() == NM.DeviceState.UNKNOWN:
+            device.connect("state-changed", self.on_added_device_state_changed)
+        else:
+            self.add_device_to_list(device)
+
+    def on_added_device_state_changed(self, device, new_state, *args):
+        # We need to wait for valid state before adding the device to our list
+        if new_state != NM.DeviceState.UNKNOWN:
+            device.disconnect_by_func(self.on_added_device_state_changed)
+            self.add_device_to_list(device)
 
     def on_device_removed(self, client, device, *args):
         self.remove_device(device)
