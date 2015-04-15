@@ -77,8 +77,9 @@ REPO_NOT_SET = False
 
 def versionCmp(v1, v2):
     """ Compare two version number strings. """
-
-    return LooseVersion(v1).__cmp__(LooseVersion(v2))
+    firstVersion = LooseVersion(v1)
+    secondVersion = LooseVersion(v2)
+    return (firstVersion > secondVersion) - (firstVersion < secondVersion)
 
 ###
 ### ERROR HANDLING
