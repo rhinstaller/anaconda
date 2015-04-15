@@ -113,7 +113,7 @@ CRYPTOMODS="sha256_generic cbc xts lrw aes_generic crypto_blkcipher crc32c ecb a
 PCMCIASOCKMODS="yenta_socket i82365 tcic pcmcia"
 INFINIBANDMODS="ib_qib mlx4_ib"
 VMPVMODS="vmxnet3 vmware_balloon vmw_pvsci"
-MSPVMODS="hv_storvsc hid-hyperv hv_netvsc hv_vmbus hv_utils ata_piix"
+MSPVMODS="hv_storvsc hid-hyperv hv_netvsc hv_vmbus hv_utils ata_piix hyperv-keyboard hyperv_fb"
 INITRDMODS="$USBMODS $FIREWIREMODS $IDEMODS $SCSIMODS $FSMODS $LVMMODS $RAIDMODS $CRYPTOMODS $COMMONMODS \
             $PCMCIASOCKMODS $INFINIBANDMODS $SDMODS $VMPVMODS $MSPVMODS =scsi =net =drm"
 
