@@ -1011,6 +1011,10 @@ if __name__ == "__main__":
     if ksdata.rescue.rescue:
         flags.rescue_mode = True
 
+    # reboot with kexec
+    if ksdata.reboot.kexec:
+        flags.kexec = True
+
     # Some kickstart commands must be executed immediately, as they affect
     # how anaconda operates.
     ksdata.logging.execute()
