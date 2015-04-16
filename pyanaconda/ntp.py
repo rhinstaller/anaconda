@@ -39,7 +39,10 @@ NTP_CONFIG_FILE = "/etc/chrony.conf"
 
 #example line:
 #server 0.fedora.pool.ntp.org iburst
-SRV_LINE_REGEXP = re.compile(r"^\s*server\s*([-a-zA-Z.0-9]+)\s*[a-zA-Z]+\s*$")
+SRV_LINE_REGEXP = re.compile(r"^\s*(server|pool)\s*([-a-zA-Z.0-9]+)\s*[a-zA-Z]+\s*$")
+
+#treat pools as four servers with the same name
+SERVERS_PER_POOL = 4
 
 class NTPconfigError(Exception):
     """Exception class for NTP related problems"""
@@ -90,7 +93,10 @@ def get_servers_from_config(conf_file_path=NTP_CONFIG_FILE,
             for line in conf_file:
                 match = srv_regexp.match(line)
                 if match:
-                    ret.append(match.group(1))
+                    if match.group(1) == "pool":
+                        ret.extend([match.group(2)] * SERVERS_PER_POOL)
+                    else:
+                        ret.append(match.group(2))
 
     except IOError as ioerr:
         msg = "Cannot open config file %s for reading (%s)" % (conf_file_path,
@@ -141,9 +147,20 @@ def save_servers_to_config(servers, conf_file_path=NTP_CONFIG_FILE,
     #write info about the origin of the following lines
     new_conf_file.write(heading)
 
-    #write new servers
+    #write new servers, use the pool directive for each group of
+    #SERVERS_PER_POOL servers with the same name
+    servers_done = set()
     for server in servers:
-        new_conf_file.write("server " + server + " iburst\n")
+        if server in servers_done:
+            continue
+        num = servers.count(server)
+        while num >= SERVERS_PER_POOL:
+            new_conf_file.write("pool " + server + " iburst\n")
+            num -= SERVERS_PER_POOL
+        while num > 0:
+            new_conf_file.write("server " + server + " iburst\n")
+            num -= 1
+        servers_done.add(server)
 
     #copy non-server lines from the old config and skip our heading
     for line in old_conf_file:

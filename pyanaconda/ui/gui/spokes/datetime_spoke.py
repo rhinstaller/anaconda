@@ -328,11 +328,6 @@ class NTPconfigDialog(GUIObject, GUIDialogInputCheckHandler):
 
         """
 
-        for row in self._serversStore:
-            if row[0] == server:
-                #do not add duplicate items
-                return
-
         itr = self._serversStore.append([server, SERVER_QUERY, True])
 
         #do not block UI while starting thread (may take some time)
