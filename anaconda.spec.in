@@ -134,6 +134,7 @@ Requires: iscsi-initiator-utils >= %{iscsiver}
 Requires: hfsplus-tools
 %endif
 %endif
+Requires: kexec-tools
 
 Requires: python-coverage
 Requires: pygobject3-base
