@@ -99,7 +99,11 @@ def exitHandler(rebootData, storage):
                 if get_mount_paths(cdrom.path):
                     dracut_eject(cdrom.path)
 
-        if rebootData.action == KS_SHUTDOWN:
+        if flags.kexec:
+            execWithRedirect("systemctl", ["--no-wall", "kexec"])
+            while True:
+                time.sleep(10000)
+        elif rebootData.action == KS_SHUTDOWN:
             execWithRedirect("systemctl", ["--no-wall", "poweroff"])
         elif rebootData.action == KS_WAIT:
             execWithRedirect("systemctl", ["--no-wall", "halt"])
@@ -367,6 +371,8 @@ def parseArguments(argv=None, boot_cmdline=None):
                     help=help_parser.help_text("nodnf"))
     ap.add_argument("--mpathfriendlynames", action="store_true", default=True,
                     help=help_parser.help_text("mpathfriendlynames"))
+    ap.add_argument("--kexec", action="store_true", default=False,
+                    help=help_parser.help_text("kexec"))
 
     # some defaults change based on cmdline flags
     if boot_cmdline is not None:
@@ -1042,6 +1048,7 @@ if __name__ == "__main__":
     flags.ibft = opts.ibft
     flags.selinux = opts.selinux
     flags.eject = opts.eject
+    flags.kexec = opts.kexec
 
     # Switch to tty1 on exception in case something goes wrong during X start.
     # This way if, for example, metacity doesn't start, we switch back to a
@@ -1117,6 +1124,10 @@ if __name__ == "__main__":
         flags.extlinux = True
     if ksdata.rescue.rescue:
         flags.rescue_mode = True
+
+    # reboot with kexec
+    if ksdata.reboot.kexec:
+        flags.kexec = True
 
     # Some kickstart commands must be executed immediately, as they affect
     # how anaconda operates.
