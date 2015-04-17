@@ -2,6 +2,7 @@
 <!-- Generated with glade 3.18.3 -->
 <interface>
   <requires lib="gtk+" version="3.0"/>
+  <requires lib="AnacondaWidgets" version="3.2"/>
   <object class="GtkDialog" id="refreshDialog">
     <property name="can_focus">False</property>
     <property name="border_width">6</property>
@@ -67,8 +68,8 @@
               <object class="GtkLabel" id="label1">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
-                <property name="xalign">0</property>
                 <property name="label" translatable="yes">RESCAN DISKS</property>
+                <property name="xalign">0</property>
                 <attributes>
                   <attribute name="weight" value="bold"/>
                 </attributes>
@@ -83,9 +84,9 @@
               <object class="GtkLabel" id="label2">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
-                <property name="xalign">0</property>
                 <property name="label" translatable="yes">You can remove or insert additional disks at this time and press 'Rescan Disks' below for the changes to take effect.</property>
                 <property name="wrap">True</property>
+                <property name="xalign">0</property>
               </object>
               <packing>
                 <property name="expand">False</property>
@@ -195,17 +196,6 @@
                     <property name="row_spacing">18</property>
                     <property name="column_spacing">6</property>
                     <child>
-                      <object class="GtkSpinner" id="spinner2">
-                        <property name="visible">True</property>
-                        <property name="can_focus">False</property>
-                        <property name="active">True</property>
-                      </object>
-                      <packing>
-                        <property name="left_attach">0</property>
-                        <property name="top_attach">0</property>
-                      </packing>
-                    </child>
-                    <child>
                       <object class="GtkLabel" id="label8">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
@@ -233,6 +223,17 @@ installation options while this scan completes.</property>
                         <property name="width">2</property>
                       </packing>
                     </child>
+                    <child>
+                      <object class="AnacondaSpinner" id="spinner2">
+                        <property name="visible">True</property>
+                        <property name="can_focus">False</property>
+                        <property name="active">True</property>
+                      </object>
+                      <packing>
+                        <property name="left_attach">0</property>
+                        <property name="top_attach">0</property>
+                      </packing>
+                    </child>
                   </object>
                   <packing>
                     <property name="position">2</property>
@@ -250,8 +251,8 @@ installation options while this scan completes.</property>
                       <object class="GtkLabel" id="label11">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
-                        <property name="xalign">0</property>
                         <property name="label" translatable="yes">Disk rescan complete.</property>
+                        <property name="xalign">0</property>
                         <attributes>
                           <attribute name="weight" value="bold"/>
                         </attributes>
@@ -265,9 +266,9 @@ installation options while this scan completes.</property>
                       <object class="GtkLabel" id="label12">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
-                        <property name="xalign">0</property>
                         <property name="label" translatable="yes">Pressing 'OK' below will take you to the disk selection screen where you will need to re-select your disks.</property>
                         <property name="wrap">True</property>
+                        <property name="xalign">0</property>
                       </object>
                       <packing>
                         <property name="left_attach">1</property>

@@ -2,6 +2,7 @@
 <!-- Generated with glade 3.18.3 -->
 <interface>
   <requires lib="gtk+" version="3.0"/>
+  <requires lib="AnacondaWidgets" version="3.2"/>
   <object class="GtkDialog" id="fcoeDialog">
     <property name="can_focus">False</property>
     <property name="border_width">6</property>
@@ -52,9 +53,9 @@
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
                 <property name="margin_bottom">6</property>
-                <property name="xalign">0</property>
                 <property name="label" translatable="yes">Please select the network interface which is connected to your FCoE switch.</property>
                 <property name="wrap">True</property>
+                <property name="xalign">0</property>
               </object>
               <packing>
                 <property name="left_attach">0</property>
@@ -66,10 +67,10 @@
               <object class="GtkLabel" id="label2">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
-                <property name="xalign">0</property>
                 <property name="label" translatable="yes" context="GUI|Advanced Storage|FCoE">_NIC:</property>
                 <property name="use_underline">True</property>
                 <property name="mnemonic_widget">nicCombo</property>
+                <property name="xalign">0</property>
               </object>
               <packing>
                 <property name="left_attach">0</property>
@@ -126,7 +127,7 @@
                 <property name="can_focus">False</property>
                 <property name="spacing">6</property>
                 <child>
-                  <object class="GtkSpinner" id="addSpinner">
+                  <object class="AnacondaSpinner" id="addSpinner">
                     <property name="can_focus">False</property>
                     <property name="no_show_all">True</property>
                     <property name="halign">end</property>
@@ -183,8 +184,8 @@
                   <object class="GtkLabel" id="label3">
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
-                    <property name="xalign">0</property>
                     <property name="label" translatable="yes">Error adding FCoE SAN.</property>
+                    <property name="xalign">0</property>
                     <attributes>
                       <attribute name="weight" value="bold"/>
                     </attributes>
@@ -198,9 +199,9 @@
                   <object class="GtkLabel" id="errorLabel">
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
-                    <property name="xalign">0</property>
                     <property name="label">Error message goes here.</property>
                     <property name="wrap">True</property>
+                    <property name="xalign">0</property>
                   </object>
                   <packing>
                     <property name="left_attach">1</property>
@@ -211,9 +212,9 @@
                   <object class="GtkLabel" id="label4">
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
-                    <property name="xalign">0</property>
                     <property name="label" translatable="yes">The following error occurred while attempting to add an FCoE SAN.  Please check your configuration and try again</property>
                     <property name="wrap">True</property>
+                    <property name="xalign">0</property>
                   </object>
                   <packing>
                     <property name="left_attach">1</property>

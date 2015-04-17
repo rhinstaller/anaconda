@@ -142,14 +142,34 @@
             </properties>
         </glade-widget-class>
 
-    <glade-widget-class title="Layout Indicator"
-			            name="AnacondaLayoutIndicator"
-			            icon-name="widget-gtk-label"
-			            generic-name="AnacondaLayoutIndicator">
-      <properties>
-        <property id="label-width" default="12" />
-      </properties>
-	</glade-widget-class>
+        <glade-widget-class title="Layout Indicator"
+                            name="AnacondaLayoutIndicator"
+                            icon-name="widget-gtk-label"
+                            generic-name="AnacondaLayoutIndicator">
+            <properties>
+                <property id="label-width" default="12" />
+            </properties>
+        </glade-widget-class>
+
+        <glade-widget-class title="Spinner"
+                            name="AnacondaSpinner"
+                            icon-name="widget-gtk-spinner"
+                            generic-name="AnacondaSpinner"
+                            since="3.2">
+            <properties>
+                <!-- Remove properties inherited from GtkImage -->
+                <!-- Setting disabled doesn't hide them in the glade interface
+                     (nor does setting visible, oddly), but it keeps them being
+                     saved and that's almost as good. -->
+                <property id="stock" disabled="True"/>
+                <property id="icon-name" disabled="True"/>
+                <property id="use-fallback" disabled="True"/>
+                <property id="pixbuf" disabled="True"/>
+                <property id="resource" disabled="True"/>
+                <property id="pixel-size" disabled="True"/>
+            </properties>
+        </glade-widget-class>
+
     </glade-widget-classes>
 
     <glade-widget-group name="anaconda-windows" title="Anaconda Windows">
@@ -165,5 +185,6 @@
     <glade-widget-group name="anaconda-misc-widgets" title="Anaconda Miscellaneous Widgets">
         <glade-widget-class-ref name="AnacondaSpokeSelector" />
         <glade-widget-class-ref name="AnacondaLayoutIndicator" />
+        <glade-widget-class-ref name="AnacondaSpinner" />
     </glade-widget-group>
 </glade-catalog>
