@@ -22,17 +22,6 @@
 # Red Hat Author(s): Vratislav Podzimek <vpodzime@redhat.com>
 #
 
-# get the number of CPUs
-num_cpus=$(getconf _NPROCESSORS_ONLN)
-
-# set decremented number of CPUs
-decr_num_cpus=$((num_cpus - 1))
-
-# Switching off swap
-for i in $(seq 0 $decr_num_cpus); do
-    if [ "$(grep /dev/zram$i /proc/swaps)" ]; then
-        swapoff /dev/zram$i
-    fi
-done
-
+swapoff /dev/zram0
 rmmod zram
+exit 0

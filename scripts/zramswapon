@@ -28,7 +28,6 @@ MAX_RAM_ON=2097152
 
 # get the amount of memory in the machine
 mem_total_kb=$(grep MemTotal /proc/meminfo | grep -E --only-matching '[[:digit:]]+')
-mem_total=$((mem_total_kb * 1024))
 
 grep -E 'inst\.zram=(on|1)' /proc/cmdline > /dev/null
 force=$?
@@ -40,29 +39,23 @@ fi
 # get the number of CPUs
 num_cpus=$(getconf _NPROCESSORS_ONLN)
 
-# set decremented number of CPUs
-decr_num_cpus=$((num_cpus - 1))
-
 # load dependency modules
-modprobe zram num_devices=$num_cpus
+modprobe zram
+
+# set number of streams
+echo $num_cpus > /sys/block/zram0/max_comp_streams
 
 # initialize the devices
-for i in $(seq 0 $decr_num_cpus); do
-    echo $((mem_total / num_cpus)) > /sys/block/zram$i/disksize
-done
+echo "${mem_total_kb}K" > /sys/block/zram0/disksize
 
-# Creating swap filesystems
-for i in $(seq 0 $decr_num_cpus); do
-    mkswap /dev/zram$i
-done
-
-# Switch the swaps on
-for i in $(seq 0 $decr_num_cpus); do
-    swapon -p 100 /dev/zram$i
-done
+# create and activate swap
+mkswap /dev/zram0
+swapon -p 100 /dev/zram0
 
 if [ $mem_total_kb -le "1048576" ]; then
     # less than 1 GB or RAM -> less than 512 MB /tmp (tmpfs defaults to
     # 0.5*RAM), bump up the /tmp's size, yum may need it
     mount -o remount,size=512M /tmp
 fi
+
+exit 0
