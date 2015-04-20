@@ -64,11 +64,11 @@ from pyanaconda.addons import AddonSection, AddonData, AddonRegistry, collect_ad
 from pyanaconda.bootloader import GRUB2, get_bootloader
 
 from pykickstart.constants import CLEARPART_TYPE_NONE, FIRSTBOOT_SKIP, FIRSTBOOT_RECONFIG, KS_SCRIPT_POST, KS_SCRIPT_PRE, \
-                                  KS_SCRIPT_TRACEBACK, SELINUX_DISABLED, SELINUX_ENFORCING, SELINUX_PERMISSIVE
+                                  KS_SCRIPT_TRACEBACK, KS_SCRIPT_PREINSTALL, SELINUX_DISABLED, SELINUX_ENFORCING, SELINUX_PERMISSIVE
 from pykickstart.errors import formatErrorMsg, KickstartError, KickstartValueError
 from pykickstart.parser import KickstartParser
 from pykickstart.parser import Script as KSScript
-from pykickstart.sections import NullSection, PackageSection, PostScriptSection, PreScriptSection, TracebackScriptSection
+from pykickstart.sections import NullSection, PackageSection, PostScriptSection, PreScriptSection, PreInstallScriptSection, TracebackScriptSection
 from pykickstart.version import returnClassForVersion, RHEL7
 
 import logging
@@ -1924,6 +1924,7 @@ class AnacondaPreParser(KickstartParser):
 
     def setupSections(self):
         self.registerSection(PreScriptSection(self.handler, dataObj=AnacondaKSScript))
+        self.registerSection(NullSection(self.handler, sectionOpen="%pre-install"))
         self.registerSection(NullSection(self.handler, sectionOpen="%post"))
         self.registerSection(NullSection(self.handler, sectionOpen="%traceback"))
         self.registerSection(NullSection(self.handler, sectionOpen="%packages"))
@@ -1944,6 +1945,7 @@ class AnacondaKSParser(KickstartParser):
 
     def setupSections(self):
         self.registerSection(PreScriptSection(self.handler, dataObj=self.scriptClass))
+        self.registerSection(PreInstallScriptSection(self.handler, dataObj=self.scriptClass))
         self.registerSection(PostScriptSection(self.handler, dataObj=self.scriptClass))
         self.registerSection(TracebackScriptSection(self.handler, dataObj=self.scriptClass))
         self.registerSection(PackageSection(self.handler))
@@ -2032,6 +2034,16 @@ def runPreScripts(scripts):
     map (lambda s: s.run("/"), preScripts)
 
     log.info("All kickstart %%pre script(s) have been run")
+
+def runPreInstallScripts(scripts):
+    preInstallScripts = [s for s in scripts if s.type == KS_SCRIPT_PREINSTALL]
+
+    if len(preInstallScripts) == 0:
+        return
+
+    log.info("Running kickstart %%pre-install script(s)")
+    map(lambda s: s.run("/"), preInstallScripts)
+    log.info("All kickstart %%pre-install script(s) have been run")
 
 def runTracebackScripts(scripts):
     log.info("Running kickstart %%traceback script(s)")

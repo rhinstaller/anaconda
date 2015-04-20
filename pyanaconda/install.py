@@ -32,6 +32,7 @@ from pyanaconda.i18n import _
 from pyanaconda.threads import threadMgr
 from pyanaconda.ui.lib.entropy import wait_for_entropy
 from pyanaconda.kexec import setup_kexec
+from pyanaconda.kickstart import runPostScripts, runPreInstallScripts
 import logging
 import blivet
 log = logging.getLogger("anaconda")
@@ -54,8 +55,6 @@ def _writeKS(ksdata):
     iutil.eintr_retry_call(os.chmod, path, 0o600)
 
 def doConfiguration(storage, payload, ksdata, instClass):
-    from pyanaconda.kickstart import runPostScripts
-
     willWriteNetwork = not flags.flags.imageInstall and not flags.flags.dirInstall
     willRunRealmd = ksdata.realm.discovered
 
@@ -142,8 +141,8 @@ def doInstall(storage, payload, ksdata, instClass):
     steps = len(storage.devicetree.findActions(action_type="create", object_type="format")) + \
             len(storage.devicetree.findActions(action_type="resize", object_type="format"))
 
-    # pre setup phase, post install
-    steps += 2
+    # pre setup phase, pre install, post install
+    steps += 3
 
     # realmd, maybe
     if willRunRealmd:
@@ -188,6 +187,10 @@ def doInstall(storage, payload, ksdata, instClass):
                           or ksdata.method.method == "liveimg")
     if not write_storage_late and not flags.flags.dirInstall:
         storage.write()
+
+    # Run %pre-install scripts with the filesystem mounted and no packages
+    with progress_report(_("Running pre-installation scripts")):
+        runPreInstallScripts(ksdata.scripts)
 
     # Do packaging.
 
