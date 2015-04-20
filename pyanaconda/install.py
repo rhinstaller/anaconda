@@ -33,6 +33,7 @@ from pyanaconda import network
 from pyanaconda.i18n import _
 from pyanaconda.threads import threadMgr
 from pyanaconda.ui.lib.entropy import wait_for_entropy
+from pyanaconda.kickstart import runPostScripts, runPreInstallScripts
 import logging
 import blivet
 log = logging.getLogger("anaconda")
@@ -55,8 +56,6 @@ def _writeKS(ksdata):
     iutil.eintr_retry_call(os.chmod, path, 0o600)
 
 def doConfiguration(storage, payload, ksdata, instClass):
-    from pyanaconda.kickstart import runPostScripts
-
     willWriteNetwork = not flags.flags.imageInstall and not flags.flags.dirInstall
     willRunRealmd = ksdata.realm.discovered
 
@@ -150,7 +149,7 @@ def doInstall(storage, payload, ksdata, instClass):
     # Update every 10% of packages installed.  We don't know how many packages
     # we are installing until it's too late (see realmd later on) so this is
     # the best we can do.
-    steps += 10
+    steps += 11
 
     # pre setup phase, post install
     steps += 2
@@ -198,6 +197,10 @@ def doInstall(storage, payload, ksdata, instClass):
                           or ksdata.method.method == "liveimg")
     if not write_storage_late and not flags.flags.dirInstall:
         storage.write()
+
+    # Run %pre-install scripts with the filesystem mounted and no packages
+    with progress_report(_("Running pre-installation scripts")):
+        runPreInstallScripts(ksdata.scripts)
 
     # Do packaging.
 
