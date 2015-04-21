@@ -398,7 +398,7 @@ def get_xlated_timezone(tz_spec_part):
                                      territoryIdQuery=parts.get("territory", ""),
                                      scriptIdQuery=parts.get("script", ""))
 
-    return xlated.encode("utf-8")
+    return xlated
 
 def write_language_configuration(lang, root):
     """
