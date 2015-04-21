@@ -126,14 +126,18 @@ class FilterPage(object):
     def setupCombo(self, combo, items):
         """Populate a given GtkComboBoxText instance with a list of items.  The
            combo will first be cleared, so this method is suitable for calling
-           repeatedly.  The first item in the list will be selected by default.
+           repeatedly. The first item in the list will be empty to allow the
+           combo box criterion to be cleared. The first non-empty item in the
+           list will be selected by default.
         """
         combo.remove_all()
+        combo.append_text('')
+
         for i in sorted(set(items)):
             combo.append_text(i)
 
         if items:
-            combo.set_active(0)
+            combo.set_active(1)
 
     def _long_identifier(self, disk):
         # For iSCSI devices, we want the long ip-address:port-iscsi-tgtname-lun-XX
@@ -174,7 +178,7 @@ class SearchPage(FilterPage):
             if hasattr(disk, "node"):
                 ports.append(str(disk.node.port))
 
-        self.setupCombo(self.builder.get_object("searchPortCombo"), ports)
+        self.setupCombo(self._portCombo, ports)
 
     def clear(self):
         self._lunEntry.set_text("")
@@ -184,8 +188,11 @@ class SearchPage(FilterPage):
 
     def _port_equal(self, device):
         active = self._portCombo.get_active_text()
-        if active and hasattr(device, "node"):
-            return device.node.port == active
+        if active:
+            if hasattr(device, "node"):
+                return device.node.port == int(active)
+            else:
+                return False
         else:
             return True
 
@@ -198,13 +205,14 @@ class SearchPage(FilterPage):
 
     def _lun_equal(self, device):
         active = self._lunEntry.get_text().strip()
-        if active and hasattr(device, "node"):
-            try:
-                return int(active) == device.node.tpgt
-            except ValueError:
-                return True
-        elif active and hasattr(device, "fcp_lun"):
-            return active in device.fcp_lun
+        if active:
+            if hasattr(device, "node"):
+                try:
+                    return int(active) == device.node.tpgt
+                except ValueError:
+                    return False
+            elif hasattr(device, "fcp_lun"):
+                return active in device.fcp_lun
         else:
             return True
 
