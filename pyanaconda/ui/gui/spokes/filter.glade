@@ -157,9 +157,9 @@
                                     <property name="visible">True</property>
                                     <property name="can_focus">False</property>
                                     <items>
-                                      <item translatable="yes">None</item>
-                                      <item translatable="yes">Port / Target / LUN #</item>
-                                      <item translatable="yes">Target WWID</item>
+                                      <item id="None" translatable="yes">None</item>
+                                      <item id="PTL" translatable="yes">Port / Target / LUN #</item>
+                                      <item id="WWID" translatable="yes">Target WWID</item>
                                     </items>
                                     <signal name="changed" handler="on_search_type_changed" swapped="no"/>
                                   </object>
@@ -566,10 +566,10 @@
                                     <property name="visible">True</property>
                                     <property name="can_focus">False</property>
                                     <items>
-                                      <item translatable="yes">None</item>
-                                      <item translatable="yes">Vendor</item>
-                                      <item translatable="yes">Interconnect</item>
-                                      <item translatable="yes">WWID</item>
+                                      <item id="None" translatable="yes">None</item>
+                                      <item id="Vendor" translatable="yes">Vendor</item>
+                                      <item id="Interconnect" translatable="yes">Interconnect</item>
+                                      <item id="WWID" translatable="yes">WWID</item>
                                     </items>
                                     <signal name="changed" handler="on_multipath_type_changed" swapped="no"/>
                                   </object>
@@ -900,10 +900,10 @@
                                     <property name="visible">True</property>
                                     <property name="can_focus">False</property>
                                     <items>
-                                      <item translatable="yes">None</item>
-                                      <item translatable="yes">Vendor</item>
-                                      <item translatable="yes">Interconnect</item>
-                                      <item translatable="yes">ID</item>
+                                      <item id="None" translatable="yes">None</item>
+                                      <item id="Vendor" translatable="yes">Vendor</item>
+                                      <item id="Interconnect" translatable="yes">Interconnect</item>
+                                      <item id="ID" translatable="yes">ID</item>
                                     </items>
                                     <signal name="changed" handler="on_other_type_combo_changed" swapped="no"/>
                                   </object>
@@ -1515,10 +1515,10 @@
                                     <property name="visible">True</property>
                                     <property name="can_focus">False</property>
                                     <items>
-                                      <item translatable="yes">None</item>
-                                      <item translatable="yes">CCW</item>
-                                      <item translatable="yes">WWPN</item>
-                                      <item translatable="yes">LUN</item>
+                                      <item id="None" translatable="yes">None</item>
+                                      <item id="CCW" translatable="yes">CCW</item>
+                                      <item id="WWPN" translatable="yes">WWPN</item>
+                                      <item id="LUN" translatable="yes">LUN</item>
                                     </items>
                                     <signal name="changed" handler="on_z_type_combo_changed" swapped="no"/>
                                   </object>
