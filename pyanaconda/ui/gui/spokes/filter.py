@@ -148,6 +148,11 @@ class FilterPage(object):
         return disk.name
 
 class SearchPage(FilterPage):
+    # Match these to searchTypeCombo ids in glade
+    SEARCH_TYPE_NONE = 'None'
+    SEARCH_TYPE_PORT_TARGET_LUN = 'PTL'
+    SEARCH_TYPE_WWID = 'WWID'
+
     def __init__(self, storage, builder):
         FilterPage.__init__(self, storage, builder)
         self.model = self.builder.get_object("searchModel")
@@ -161,7 +166,7 @@ class SearchPage(FilterPage):
         self._targetEntry = self.builder.get_object("searchTargetEntry")
 
     def setup(self, store, selectedNames, disks):
-        self._combo.set_active(0)
+        self._combo.set_active_id(self.SEARCH_TYPE_NONE)
         self._combo.emit("changed")
 
         ports = []
@@ -207,13 +212,13 @@ class SearchPage(FilterPage):
         if not self.filterActive:
             return True
 
-        filterBy = self._combo.get_active()
+        filterBy = self._combo.get_active_id()
 
-        if filterBy == 0:
+        if filterBy == self.SEARCH_TYPE_NONE:
             return True
-        elif filterBy == 1:
+        elif filterBy == self.SEARCH_TYPE_PORT_TARGET_LUN:
             return self._port_equal(device) and self._target_equal(device) and self._lun_equal(device)
-        elif filterBy == 2:
+        elif filterBy == self.SEARCH_TYPE_WWID:
             return self._wwidEntry.get_text() in getattr(device, "wwid", self._long_identifier(device))
 
     def visible_func(self, model, itr, *args):
@@ -222,6 +227,12 @@ class SearchPage(FilterPage):
         return self._filter_func(device)
 
 class MultipathPage(FilterPage):
+    # Match these to multipathTypeCombo ids in glade
+    SEARCH_TYPE_NONE = 'None'
+    SEARCH_TYPE_VENDOR = 'Vendor'
+    SEARCH_TYPE_INTERCONNECT = 'Interconnect'
+    SEARCH_TYPE_WWID = 'WWID'
+
     def __init__(self, storage, builder):
         FilterPage.__init__(self, storage, builder)
         self.model = self.builder.get_object("multipathModel")
@@ -254,7 +265,7 @@ class MultipathPage(FilterPage):
             if not disk.bus in interconnects:
                 interconnects.append(disk.bus)
 
-        self._combo.set_active(0)
+        self._combo.set_active_id(self.SEARCH_TYPE_NONE)
         self._combo.emit("changed")
 
         self.setupCombo(self._vendorCombo, vendors)
@@ -269,15 +280,15 @@ class MultipathPage(FilterPage):
         if not self.filterActive:
             return True
 
-        filterBy = self._combo.get_active()
+        filterBy = self._combo.get_active_id()
 
-        if filterBy == 0:
+        if filterBy == self.SEARCH_TYPE_NONE:
             return True
-        elif filterBy == 1:
+        elif filterBy == self.SEARCH_TYPE_VENDOR:
             return device.vendor == self._vendorCombo.get_active_text()
-        elif filterBy == 2:
+        elif filterBy == self.SEARCH_TYPE_INTERCONNECT:
             return device.bus == self._icCombo.get_active_text()
-        elif filterBy == 3:
+        elif filterBy == self.SEARCH_TYPE_WWID:
             return self._wwidEntry.get_text() in device.wwid
 
     def visible_func(self, model, itr, *args):
@@ -289,6 +300,12 @@ class MultipathPage(FilterPage):
         return self.ismember(device) and self._filter_func(device)
 
 class OtherPage(FilterPage):
+    # Match these to otherTypeCombo ids in glade
+    SEARCH_TYPE_NONE = 'None'
+    SEARCH_TYPE_VENDOR = 'Vendor'
+    SEARCH_TYPE_INTERCONNECT = 'Interconnect'
+    SEARCH_TYPE_ID = 'ID'
+
     def __init__(self, storage, builder):
         FilterPage.__init__(self, storage, builder)
         self.model = self.builder.get_object("otherModel")
@@ -329,7 +346,7 @@ class OtherPage(FilterPage):
             if not disk.bus in interconnects:
                 interconnects.append(disk.bus)
 
-        self._combo.set_active(0)
+        self._combo.set_active_id(self.SEARCH_TYPE_NONE)
         self._combo.emit("changed")
 
         self.setupCombo(self._vendorCombo, vendors)
@@ -344,15 +361,15 @@ class OtherPage(FilterPage):
         if not self.filterActive:
             return True
 
-        filterBy = self._combo.get_active()
+        filterBy = self._combo.get_active_id()
 
-        if filterBy == 0:
+        if filterBy == self.SEARCH_TYPE_NONE:
             return True
-        elif filterBy == 1:
+        elif filterBy == self.SEARCH_TYPE_VENDOR:
             return device.vendor == self._vendorCombo.get_active_text()
-        elif filterBy == 2:
+        elif filterBy == self.SEARCH_TYPE_INTERCONNECT:
             return device.bus == self._icCombo.get_active_text()
-        elif filterBy == 3:
+        elif filterBy == self.SEARCH_TYPE_ID:
             for link in device.deviceLinks:
                 if "by-path" in link:
                     return self._idEntry.get_text().strip() in link
@@ -365,6 +382,12 @@ class OtherPage(FilterPage):
         return self.ismember(device) and self._filter_func(device)
 
 class ZPage(FilterPage):
+    # Match these to zTypeCombo ids in glade
+    SEARCH_TYPE_NONE = 'None'
+    SEARCH_TYPE_CCW = 'CCW'
+    SEARCH_TYPE_WWPN = 'WWPN'
+    SEARCH_TYPE_LUN = 'LUN'
+
     def __init__(self, storage, builder):
         FilterPage.__init__(self, storage, builder)
         self.model = self.builder.get_object("zModel")
@@ -394,7 +417,7 @@ class ZPage(FilterPage):
             wwpns = []
             luns = []
 
-            self._combo.set_active(0)
+            self._combo.set_active_id(self.SEARCH_TYPE_NONE)
             self._combo.emit("changed")
 
             for disk in disks:
@@ -421,15 +444,15 @@ class ZPage(FilterPage):
         if not self.filterActive:
             return True
 
-        filterBy = self._combo.get_active()
+        filterBy = self._combo.get_active_id()
 
-        if filterBy == 0:
+        if filterBy == self.SEARCH_TYPE_NONE:
             return True
-        elif filterBy == 1:
+        elif filterBy == self.SEARCH_TYPE_CCW:
             return self._ccwEntry.get_text() in device.hba_id
-        elif filterBy == 2:
+        elif filterBy == self.SEARCH_TYPE_WWPN:
             return self._wwpnEntry.get_text() in device.wwpn
-        elif filterBy == 3:
+        elif filterBy == self.SEARCH_TYPE_LUN:
             return self._lunEntry.get_text() in device.fcp_lun
 
         return False
