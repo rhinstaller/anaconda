@@ -130,7 +130,7 @@ class FilterPage(object):
            repeatedly.  The first item in the list will be selected by default.
         """
         combo.remove_all()
-        for i in sorted(items):
+        for i in sorted(set(items)):
             combo.append_text(i)
 
         if items:
