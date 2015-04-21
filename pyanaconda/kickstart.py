@@ -1567,7 +1567,7 @@ class RepoData(commands.repo.F21_RepoData):
 
 class ReqPart(commands.reqpart.F23_ReqPart):
     def execute(self, storage, ksdata, instClass):
-        from blivet.partitioning import doReqPartition
+        from blivet.autopart import doReqPartition
 
         if not self.reqpart:
             return
