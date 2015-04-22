@@ -608,6 +608,7 @@ def process_kickstart(ksfile):
         log.debug("ksdevice argument is not available")
     parser = KickstartParser(handler, missingIncludeIsFatal=False, errorsAreFatal=False)
     parser.registerSection(NullSection(handler, sectionOpen="%addon"))
+    parser.registerSection(NullSection(handler, sectionOpen="%anaconda"))
     log.info("processing kickstart file %s", ksfile)
     processed_file = preprocessKickstart(ksfile)
     try:
