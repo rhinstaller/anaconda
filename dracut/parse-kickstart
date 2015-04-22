@@ -537,6 +537,7 @@ def process_kickstart(ksfile):
     handler.ksdevice = os.environ.get('ksdevice')
     parser = KickstartParser(handler, missingIncludeIsFatal=False, errorsAreFatal=False)
     parser.registerSection(NullSection(handler, sectionOpen="%addon"))
+    parser.registerSection(NullSection(handler, sectionOpen="%anaconda"))
     log.info("processing kickstart file %s", ksfile)
     processed_file = preprocessKickstart(ksfile)
     try:
