@@ -56,15 +56,17 @@ case $repo in
           stage2=$(config_get stage2 mainimage < $treeinfo)
         if [ -z "$treeinfo" -o -z "$stage2" ]; then
             warn "can't find installer mainimage path in .treeinfo"
-            stage2="LiveOS/squashfs.img"
+            stage2="images/install.img"
         fi
-        if runtime=$(fetch_url $repo/$stage2); then
+        if runtime=$(fetch_url $repo/$stage2) || runtime=$(fetch_url $repo/LiveOS/squashfs.img); then
             # NOTE: Should be the same as anaconda_auto_updates()
             updates=$(fetch_url $repo/images/updates.img)
             [ -n "$updates" ] && unpack_updates_img $updates /updates
             product=$(fetch_url $repo/images/product.img)
             [ -n "$product" ] && unpack_updates_img $product /updates
             /sbin/dmsquash-live-root $runtime
+        else
+            warn "Could not retrieve stage2 image from $repo using $netif"
         fi
     ;;
     *)
