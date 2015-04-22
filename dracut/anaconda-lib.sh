@@ -263,7 +263,7 @@ run_kickstart() {
         udevadm trigger --action=change --subsystem-match=block
     fi
     if [ "$do_net" ]; then
-        udevadm trigger --action=online --subsystem-match=net
+        udevadm trigger --action=change --subsystem-match=net
     fi
 
     # and that's it - we're back to the mainloop.
