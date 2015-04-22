@@ -166,6 +166,14 @@ pyanaconda.iutil module
     :undoc-members:
     :show-inheritance:
 
+pyanaconda.kexec module
+-----------------------
+
+.. automodule:: pyanaconda.kexec
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 pyanaconda.keyboard module
 --------------------------
 
@@ -210,6 +218,14 @@ pyanaconda.ntp module
 ---------------------
 
 .. automodule:: pyanaconda.ntp
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+pyanaconda.orderedset module
+----------------------------
+
+.. automodule:: pyanaconda.orderedset
     :members:
     :undoc-members:
     :show-inheritance:

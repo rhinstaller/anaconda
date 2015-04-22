@@ -313,6 +313,44 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Wed Apr 22 2015 Brian C. Lane <bcl@redhat.com> - 23.7-1
+- Fix doReqPartition import from autopart (bcl)
+- Add support for reboot --kexec kickstart command (bcl)
+- Add inst.kexec and --kexec support to reboot with kexec (bcl)
+- Add setup_kexec method to prepare the system for a reboot with kexec (bcl)
+- Add kickstart %%pre-install section support (bcl)
+- Remove the custom help button from the toolbar (bcl)
+- Use multiple streams for zRAM instead of multiple devices (vpodzime)
+- iscsi: pass rd.* options of devices to be mouted in dracut (#1192398)
+  (rvykydal)
+- Remove the unused productName import from custom_storage_helpers.py.
+  (clumens)
+- Remove the old custom partitioning help dialog (mkolman)
+- Implement the new reqpart command. (clumens)
+- Sort disks by name when checking disk selection (vpodzime)
+- Set both .format's and .originalFormat's passphrase on unlock (vpodzime)
+- Make the Encrypt checkbox insensitive for encrypted non-BTRFS devices
+  (#1210254) (vpodzime)
+- Check for Gtk before importing escape_markup (bcl)
+- If the network is disabled, also disable the network part of the source
+  spoke. (#1192104) (clumens)
+- Add handling for unusable storage configurations. (dlehman)
+- Allow markup in the label/message of DetailedErrorDialog. (dlehman)
+- Allow passing an optional button list to showDetailedError. (dlehman)
+- Allow kwargs with gtk_action_wait, gtk_action_nowait decorators. (dlehman)
+- Fix makeupdates handling of Release: (bcl)
+- Make sure we unmount the path we mounted (bcl)
+- Fix up one more back_clicked reference that got missed. (clumens)
+- Don't unconditionally set ksdata.lang.seen to True (#1209927) (mkolman)
+- Reset the back_clicked flag if we stay on the Storage spoke (#1210003)
+  (vpodzime)
+- Mark the back_clicked attribute of the Storage spoke as private (vpodzime)
+- TUI pwpolicy setup was supposed to be in __init__ not refresh (#1208607)
+  (bcl)
+- Preserve the order of boot args added by kickstart. (clumens)
+- Revert "allow /boot on btrfs subvol or filesystem" (bcl)
+- Connect scroll adjustments in the right class (#1206472) (dshea)
+
 * Thu Apr 02 2015 Brian C. Lane <bcl@redhat.com> - 23.6-1
 - Enforce sane disk selections. (dlehman)
 - Add a test for parse-kickstart (bcl)
