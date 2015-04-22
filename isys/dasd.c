@@ -92,6 +92,9 @@ int isLdlDasd(char *device) {
     if (ret == 2)
         return 0;
 
+    if (strncmp(dasd_info.type, "FBA", 3) == 0)
+        return 0;
+
     if (dasd_info.format == DASD_FORMAT_CDL) /* VOL1, CDL */
         return 0;
     else
