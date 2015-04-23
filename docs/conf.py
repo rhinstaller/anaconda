@@ -75,7 +75,7 @@ release = version
 
 # List of patterns, relative to source directory, that match files and
 # directories to ignore when looking for source files.
-exclude_patterns = ['_build']
+exclude_patterns = ['_build', 'html']
 
 # The reST default role (used for this markup: `text`) to use for all documents.
 #default_role = None
@@ -301,6 +301,16 @@ epub_copyright = u'2015, Anaconda Team'
 # Example configuration for intersphinx: refer to the Python standard library.
 intersphinx_mapping = {'https://docs.python.org/2': None}
 
+# on_rtd is whether we are on readthedocs.org
+on_rtd = os.environ.get('READTHEDOCS', None) == 'True'
+
+if not on_rtd:  # only import and set the theme if we're building docs locally
+    import sphinx_rtd_theme
+    html_theme = 'sphinx_rtd_theme'
+    html_theme_path = [sphinx_rtd_theme.get_html_theme_path()]
+
+# otherwise, readthedocs.org uses their theme by default, so no need to specify it
+
 # This was taken directly from here:
 # http://read-the-docs.readthedocs.org/en/latest/faq.html#i-get-import-errors-on-libraries-that-depend-on-c-modules
 # I only added the __getitem__ method.
@@ -332,9 +342,6 @@ class Mock(object):
     def __getitem__(cls, key):
         return cls.__getattr__(key)
 
-MOCK_MODULES = ['_isys', 'pyudev', 'blivet', 'blivet.arch', 'blivet.deviceaction',
-                'blivet.partspec', 'gi.repository', 'langtable', 'libuser', 'meh',
-                'ntplib', 'pykickstart.base', 'pykickstart.constants', 'pykickstart.sections',
-                'pytz', 'requests', 'selinux', 'snack']
+MOCK_MODULES = ['_isys']
 for mod_name in MOCK_MODULES:
     sys.modules[mod_name] = Mock()
