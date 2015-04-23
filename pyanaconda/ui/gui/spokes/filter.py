@@ -608,7 +608,8 @@ class FilterSpoke(NormalSpoke):
             dialog.refresh(disks, free_space, showRemove=False, setBoot=False)
             dialog.run()
 
-    def on_find_clicked(self, button):
+    @timed_action(delay=1200, busy_cursor=False)
+    def on_filter_changed(self, *args):
         n = self._notebook.get_current_page()
         self.pages[n].filterActive = True
         self.pages[n].model.refilter()
@@ -694,10 +695,9 @@ class FilterSpoke(NormalSpoke):
         ndx = combo.get_active()
 
         notebook = self.builder.get_object("searchTypeNotebook")
-        findButton = self.builder.get_object("searchFindButton")
 
-        findButton.set_sensitive(ndx != 0)
         notebook.set_current_page(ndx)
+        self.on_filter_changed()
 
     ##
     ## MULTIPATH TAB SIGNAL HANDLERS
@@ -706,10 +706,9 @@ class FilterSpoke(NormalSpoke):
         ndx = combo.get_active()
 
         notebook = self.builder.get_object("multipathTypeNotebook")
-        findButton = self.builder.get_object("multipathFindButton")
 
-        findButton.set_sensitive(ndx != 0)
         notebook.set_current_page(ndx)
+        self.on_filter_changed()
 
     ##
     ## OTHER TAB SIGNAL HANDLERS
@@ -718,10 +717,9 @@ class FilterSpoke(NormalSpoke):
         ndx = combo.get_active()
 
         notebook = self.builder.get_object("otherTypeNotebook")
-        findButton = self.builder.get_object("otherFindButton")
 
-        findButton.set_sensitive(ndx != 0)
         notebook.set_current_page(ndx)
+        self.on_filter_changed()
 
     ##
     ## Z TAB SIGNAL HANDLERS
@@ -730,7 +728,6 @@ class FilterSpoke(NormalSpoke):
         ndx = combo.get_active()
 
         notebook = self.builder.get_object("zTypeNotebook")
-        findButton = self.builder.get_object("zFindButton")
 
-        findButton.set_sensitive(ndx != 0)
         notebook.set_current_page(ndx)
+        self.on_filter_changed()

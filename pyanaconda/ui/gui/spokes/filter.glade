@@ -195,6 +195,7 @@
                                       <object class="GtkComboBoxText" id="searchPortCombo">
                                         <property name="visible">True</property>
                                         <property name="can_focus">False</property>
+                                        <signal name="changed" handler="on_filter_changed" swapped="no"/>
                                       </object>
                                       <packing>
                                         <property name="expand">False</property>
@@ -221,6 +222,7 @@
                                         <property name="visible">True</property>
                                         <property name="can_focus">True</property>
                                         <property name="secondary_icon_name">edit-clear-symbolic</property>
+                                        <signal name="changed" handler="on_filter_changed" swapped="no"/>
                                         <signal name="icon-release" handler="on_clear_icon_clicked" swapped="no"/>
                                       </object>
                                       <packing>
@@ -248,6 +250,7 @@
                                         <property name="visible">True</property>
                                         <property name="can_focus">True</property>
                                         <property name="secondary_icon_name">edit-clear-symbolic</property>
+                                        <signal name="changed" handler="on_filter_changed" swapped="no"/>
                                         <signal name="icon-release" handler="on_clear_icon_clicked" swapped="no"/>
                                       </object>
                                       <packing>
@@ -289,6 +292,7 @@
                                         <property name="visible">True</property>
                                         <property name="can_focus">True</property>
                                         <property name="secondary_icon_name">edit-clear-symbolic</property>
+                                        <signal name="changed" handler="on_filter_changed" swapped="no"/>
                                         <signal name="icon-release" handler="on_clear_icon_clicked" swapped="no"/>
                                       </object>
                                       <packing>
@@ -310,21 +314,6 @@
                                 <property name="expand">True</property>
                                 <property name="fill">True</property>
                                 <property name="position">2</property>
-                              </packing>
-                            </child>
-                            <child>
-                              <object class="GtkButton" id="searchFindButton">
-                                <property name="label" translatable="yes" context="GUI|Installation Destination|Filter|Search">_Find</property>
-                                <property name="visible">True</property>
-                                <property name="can_focus">True</property>
-                                <property name="receives_default">True</property>
-                                <property name="use_underline">True</property>
-                                <signal name="clicked" handler="on_find_clicked" swapped="no"/>
-                              </object>
-                              <packing>
-                                <property name="expand">False</property>
-                                <property name="fill">True</property>
-                                <property name="position">3</property>
                               </packing>
                             </child>
                           </object>
@@ -620,6 +609,7 @@
                                         <property name="visible">True</property>
                                         <property name="can_focus">False</property>
                                         <property name="hexpand">True</property>
+                                        <signal name="changed" handler="on_filter_changed" swapped="no"/>
                                       </object>
                                       <packing>
                                         <property name="expand">True</property>
@@ -660,6 +650,7 @@
                                         <property name="visible">True</property>
                                         <property name="can_focus">False</property>
                                         <property name="hexpand">True</property>
+                                        <signal name="changed" handler="on_filter_changed" swapped="no"/>
                                       </object>
                                       <packing>
                                         <property name="expand">True</property>
@@ -701,6 +692,7 @@
                                         <property name="can_focus">True</property>
                                         <property name="hexpand">True</property>
                                         <property name="secondary_icon_name">edit-clear-symbolic</property>
+                                        <signal name="changed" handler="on_filter_changed" swapped="no"/>
                                         <signal name="icon-release" handler="on_clear_icon_clicked" swapped="no"/>
                                       </object>
                                       <packing>
@@ -722,21 +714,6 @@
                                 <property name="expand">True</property>
                                 <property name="fill">True</property>
                                 <property name="position">2</property>
-                              </packing>
-                            </child>
-                            <child>
-                              <object class="GtkButton" id="multipathFindButton">
-                                <property name="label" translatable="yes" context="GUI|Installation Destination|Filter|Multipath">_Find</property>
-                                <property name="visible">True</property>
-                                <property name="can_focus">True</property>
-                                <property name="receives_default">True</property>
-                                <property name="use_underline">True</property>
-                                <signal name="clicked" handler="on_find_clicked" swapped="no"/>
-                              </object>
-                              <packing>
-                                <property name="expand">False</property>
-                                <property name="fill">True</property>
-                                <property name="position">3</property>
                               </packing>
                             </child>
                           </object>
@@ -966,6 +943,7 @@
                                         <property name="visible">True</property>
                                         <property name="can_focus">False</property>
                                         <property name="hexpand">True</property>
+                                        <signal name="changed" handler="on_filter_changed" swapped="no"/>
                                       </object>
                                       <packing>
                                         <property name="expand">True</property>
@@ -1006,6 +984,7 @@
                                         <property name="visible">True</property>
                                         <property name="can_focus">False</property>
                                         <property name="hexpand">True</property>
+                                        <signal name="changed" handler="on_filter_changed" swapped="no"/>
                                       </object>
                                       <packing>
                                         <property name="expand">True</property>
@@ -1047,6 +1026,7 @@
                                         <property name="can_focus">True</property>
                                         <property name="hexpand">True</property>
                                         <property name="secondary_icon_name">edit-clear-symbolic</property>
+                                        <signal name="changed" handler="on_filter_changed" swapped="no"/>
                                         <signal name="icon-release" handler="on_clear_icon_clicked" swapped="no"/>
                                       </object>
                                       <packing>
@@ -1068,21 +1048,6 @@
                                 <property name="expand">True</property>
                                 <property name="fill">True</property>
                                 <property name="position">2</property>
-                              </packing>
-                            </child>
-                            <child>
-                              <object class="GtkButton" id="otherFindButton">
-                                <property name="label" translatable="yes" context="GUI|Installation Destination|Filter|Other">_Find</property>
-                                <property name="visible">True</property>
-                                <property name="can_focus">True</property>
-                                <property name="receives_default">True</property>
-                                <property name="use_underline">True</property>
-                                <signal name="clicked" handler="on_find_clicked" swapped="no"/>
-                              </object>
-                              <packing>
-                                <property name="expand">False</property>
-                                <property name="fill">True</property>
-                                <property name="position">3</property>
                               </packing>
                             </child>
                           </object>
@@ -1298,6 +1263,7 @@
                                         <property name="can_focus">True</property>
                                         <property name="hexpand">True</property>
                                         <property name="secondary_icon_name">edit-clear-symbolic</property>
+                                        <signal name="changed" handler="on_filter_changed" swapped="no"/>
                                         <signal name="icon-release" handler="on_clear_icon_clicked" swapped="no"/>
                                       </object>
                                       <packing>
@@ -1340,6 +1306,7 @@
                                         <property name="can_focus">True</property>
                                         <property name="hexpand">True</property>
                                         <property name="secondary_icon_name">edit-clear-symbolic</property>
+                                        <signal name="changed" handler="on_filter_changed" swapped="no"/>
                                         <signal name="icon-release" handler="on_clear_icon_clicked" swapped="no"/>
                                       </object>
                                       <packing>
@@ -1382,6 +1349,7 @@
                                         <property name="can_focus">True</property>
                                         <property name="hexpand">True</property>
                                         <property name="secondary_icon_name">edit-clear-symbolic</property>
+                                        <signal name="changed" handler="on_filter_changed" swapped="no"/>
                                         <signal name="icon-release" handler="on_clear_icon_clicked" swapped="no"/>
                                       </object>
                                       <packing>
@@ -1403,21 +1371,6 @@
                                 <property name="expand">True</property>
                                 <property name="fill">True</property>
                                 <property name="position">2</property>
-                              </packing>
-                            </child>
-                            <child>
-                              <object class="GtkButton" id="zFindButton">
-                                <property name="label" translatable="yes" context="GUI|Installation Destination|Filter|zSeries">_Find</property>
-                                <property name="visible">True</property>
-                                <property name="can_focus">True</property>
-                                <property name="receives_default">True</property>
-                                <property name="use_underline">True</property>
-                                <signal name="clicked" handler="on_find_clicked" swapped="no"/>
-                              </object>
-                              <packing>
-                                <property name="expand">False</property>
-                                <property name="fill">True</property>
-                                <property name="position">3</property>
                               </packing>
                             </child>
                           </object>
