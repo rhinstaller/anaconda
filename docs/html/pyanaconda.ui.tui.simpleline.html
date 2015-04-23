@@ -1,0 +1,893 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>pyanaconda.ui.tui.simpleline package &mdash; Anaconda 23.7 documentation</title>
+  
+
+  
+  
+
+  
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic|Roboto+Slab:400,700|Inconsolata:400,700&subset=latin,cyrillic' rel='stylesheet' type='text/css'>
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="Anaconda 23.7 documentation" href="index.html"/>
+        <link rel="up" title="pyanaconda.ui.tui package" href="pyanaconda.ui.tui.html"/>
+        <link rel="next" title="pyanaconda.ui.tui.spokes package" href="pyanaconda.ui.tui.spokes.html"/>
+        <link rel="prev" title="pyanaconda.ui.tui.hubs package" href="pyanaconda.ui.tui.hubs.html"/> 
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        
+          <a href="index.html" class="fa fa-home"> Anaconda</a>
+        
+        
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+          
+          
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="intro.html">Introduction to Anaconda</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">pyanaconda</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="pyanaconda.html">pyanaconda package</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="commit-log.html">Rules for commit messages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="driverdisc.html">Brief description of DriverDisc version 3</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="driverdisc.html#devices-which-can-contain-dds">Devices which can contain DDs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="driverdisc.html#what-can-be-updated-using-dds">What can be updated using DDs?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="driverdisc.html#selecting-dd-manually">Selecting DD manually</a></li>
+<li class="toctree-l2"><a class="reference internal" href="driverdisc.html#automatic-driverdisc-detection">Automatic DriverDisc detection</a></li>
+<li class="toctree-l2"><a class="reference internal" href="driverdisc.html#ddv3-structure">DDv3 structure</a></li>
+<li class="toctree-l2"><a class="reference internal" href="driverdisc.html#initrd-overlay-driverdisc-image">Initrd overlay driverdisc image</a></li>
+<li class="toctree-l2"><a class="reference internal" href="driverdisc.html#firmware-and-module-update">Firmware and module update</a></li>
+<li class="toctree-l2"><a class="reference internal" href="driverdisc.html#package-installation">Package installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="driverdisc.html#summary">Summary</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="iscsi.html">iSCSI and Anaconda</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="iscsi.html#introduction">Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="iscsi.html#what-is-expected-from-anaconda">What is expected from Anaconda</a></li>
+<li class="toctree-l2"><a class="reference internal" href="iscsi.html#how-anaconda-handles-iscsi">How Anaconda handles iscsi</a></li>
+<li class="toctree-l2"><a class="reference internal" href="iscsi.html#libiscsi">Libiscsi</a></li>
+<li class="toctree-l2"><a class="reference internal" href="iscsi.html#debugging-iscsi-bugs">Debugging iSCSI bugs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="iscsi.html#future-of-iscsi-in-anaconda">Future of iSCSI in Anaconda</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="multipath.html">Multipath and Anaconda</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="multipath.html#introduction">Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="multipath.html#what-is-expected-from-anaconda">What is expected from Anaconda</a></li>
+<li class="toctree-l2"><a class="reference internal" href="multipath.html#how-anaconda-handles-multipath">How Anaconda handles multipath</a></li>
+<li class="toctree-l2"><a class="reference internal" href="multipath.html#debugging-multipath-bugs">Debugging multipath bugs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="multipath.html#future-of-multipath-in-anaconda">Future of multipath in Anaconda</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="kickstart.html">Anaconda Kickstart Documentation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="kickstart.html#pwpolicy">pwpolicy</a></li>
+</ul>
+</li>
+</ul>
+
+          
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">Anaconda</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html">Docs</a> &raquo;</li>
+      
+          <li><a href="modules.html">pyanaconda</a> &raquo;</li>
+      
+          <li><a href="pyanaconda.html">pyanaconda package</a> &raquo;</li>
+      
+          <li><a href="pyanaconda.ui.html">pyanaconda.ui package</a> &raquo;</li>
+      
+          <li><a href="pyanaconda.ui.tui.html">pyanaconda.ui.tui package</a> &raquo;</li>
+      
+    <li>pyanaconda.ui.tui.simpleline package</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          <a href="_sources/pyanaconda.ui.tui.simpleline.txt" rel="nofollow"> View page source</a>
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document">
+            
+  <div class="section" id="pyanaconda-ui-tui-simpleline-package">
+<h1>pyanaconda.ui.tui.simpleline package<a class="headerlink" href="#pyanaconda-ui-tui-simpleline-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-pyanaconda.ui.tui.simpleline.base">
+<span id="pyanaconda-ui-tui-simpleline-base-module"></span><h2>pyanaconda.ui.tui.simpleline.base module<a class="headerlink" href="#module-pyanaconda.ui.tui.simpleline.base" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="pyanaconda.ui.tui.simpleline.base.App">
+<em class="property">class </em><tt class="descclassname">pyanaconda.ui.tui.simpleline.base.</tt><tt class="descname">App</tt><big>(</big><em>title</em>, <em>yes_or_no_question=None</em>, <em>width=80</em>, <em>queue=None</em>, <em>quit_message=None</em><big>)</big><a class="headerlink" href="#pyanaconda.ui.tui.simpleline.base.App" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/2/library/functions.html#object" title="(in Python v2.7)"><tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></a></p>
+<p>This is the main class for TUI screen handling. It is responsible for
+mainloop control and keeping track of the screen stack.</p>
+<p>Screens are organized in stack structure so it is possible to return
+to caller when dialog or sub-screen closes.</p>
+<p>It supports four window transitions:
+- show new screen replacing the current one (linear progression)
+- show new screen keeping the current one in stack (hub &amp; spoke)
+- show new screen and wait for it to end (dialog)
+- close current window and return to the next one in stack</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>title</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#unicode" title="(in Python v2.7)"><em>unicode</em></a>) &#8211; application title for whenever we need to display app name</li>
+<li><strong>yes_or_no_question</strong> (<em>class UIScreen accepting additional message arg</em>) &#8211; UIScreen object class used for Quit dialog</li>
+<li><strong>width</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#int" title="(in Python v2.7)"><em>int</em></a>) &#8211; screen width for rendering purposes</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="attribute">
+<dt id="pyanaconda.ui.tui.simpleline.base.App.NOP">
+<tt class="descname">NOP</tt><em class="property"> = None</em><a class="headerlink" href="#pyanaconda.ui.tui.simpleline.base.App.NOP" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="pyanaconda.ui.tui.simpleline.base.App.START_MAINLOOP">
+<tt class="descname">START_MAINLOOP</tt><em class="property"> = True</em><a class="headerlink" href="#pyanaconda.ui.tui.simpleline.base.App.START_MAINLOOP" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="pyanaconda.ui.tui.simpleline.base.App.STOP_MAINLOOP">
+<tt class="descname">STOP_MAINLOOP</tt><em class="property"> = False</em><a class="headerlink" href="#pyanaconda.ui.tui.simpleline.base.App.STOP_MAINLOOP" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyanaconda.ui.tui.simpleline.base.App.close_screen">
+<tt class="descname">close_screen</tt><big>(</big><em>scr=None</em><big>)</big><a class="headerlink" href="#pyanaconda.ui.tui.simpleline.base.App.close_screen" title="Permalink to this definition">¶</a></dt>
+<dd><p>Close the currently displayed screen and exit it&#8217;s main loop
+if necessary. Next screen from the stack is then displayed.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>scr</strong> (<em>UIScreen instance</em>) &#8211; if an UIScreen instance is passed it is checked to be the screen we are trying to close.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyanaconda.ui.tui.simpleline.base.App.header">
+<tt class="descname">header</tt><a class="headerlink" href="#pyanaconda.ui.tui.simpleline.base.App.header" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyanaconda.ui.tui.simpleline.base.App.input">
+<tt class="descname">input</tt><big>(</big><em>args</em>, <em>key</em><big>)</big><a class="headerlink" href="#pyanaconda.ui.tui.simpleline.base.App.input" title="Permalink to this definition">¶</a></dt>
+<dd><p>Method called internally to process unhandled input key presses.
+Also handles the main quit and close commands.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>args</strong> (<em>anything</em>) &#8211; optional argument passed from switch_screen calls</li>
+<li><strong>key</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#unicode" title="(in Python v2.7)"><em>unicode</em></a>) &#8211; the string entered by user</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">True if key was processed, False if it was not recognized</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">True|False</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyanaconda.ui.tui.simpleline.base.App.process_events">
+<tt class="descname">process_events</tt><big>(</big><em>return_at=None</em><big>)</big><a class="headerlink" href="#pyanaconda.ui.tui.simpleline.base.App.process_events" title="Permalink to this definition">¶</a></dt>
+<dd><p>This method processes incoming async messages and returns
+when a specific message is encountered or when the queue
+is empty.</p>
+<p>If return_at message was specified, the received
+message is returned.</p>
+<p>If the message does not fit return_at, but handlers are
+defined then it processes all handlers for this message</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyanaconda.ui.tui.simpleline.base.App.raw_input">
+<tt class="descname">raw_input</tt><big>(</big><em>prompt</em>, <em>hidden=False</em><big>)</big><a class="headerlink" href="#pyanaconda.ui.tui.simpleline.base.App.raw_input" title="Permalink to this definition">¶</a></dt>
+<dd><p>This method reads one input from user. Its basic form has only one
+line, but we might need to override it for more complex apps or testing.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyanaconda.ui.tui.simpleline.base.App.redraw">
+<tt class="descname">redraw</tt><big>(</big><big>)</big><a class="headerlink" href="#pyanaconda.ui.tui.simpleline.base.App.redraw" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set the redraw flag so the screen is refreshed as soon as possible.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyanaconda.ui.tui.simpleline.base.App.register_event_handler">
+<tt class="descname">register_event_handler</tt><big>(</big><em>event</em>, <em>callback</em>, <em>data=None</em><big>)</big><a class="headerlink" href="#pyanaconda.ui.tui.simpleline.base.App.register_event_handler" title="Permalink to this definition">¶</a></dt>
+<dd><p>This method registers a callback which will be called
+when message &#8220;event&#8221; is encountered during process_events.</p>
+<dl class="docutils">
+<dt>The callback has to accept two arguments:</dt>
+<dd><ul class="first last simple">
+<li>the received message in the form of (type, [arguments])</li>
+<li>the data registered with the handler</li>
+</ul>
+</dd>
+</dl>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>event</strong> (<em>number|string</em>) &#8211; the id of the event we want to react on</li>
+<li><strong>callback</strong> (<em>func(event_message, data)</em>) &#8211; the callback function</li>
+<li><strong>data</strong> (<em>anything</em>) &#8211; optional data to pass to callback</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyanaconda.ui.tui.simpleline.base.App.run">
+<tt class="descname">run</tt><big>(</big><big>)</big><a class="headerlink" href="#pyanaconda.ui.tui.simpleline.base.App.run" title="Permalink to this definition">¶</a></dt>
+<dd><p>This methods starts the application. Do not use self.mainloop() directly
+as run() handles all the required exceptions needed to keep nested mainloops
+working.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyanaconda.ui.tui.simpleline.base.App.schedule_screen">
+<tt class="descname">schedule_screen</tt><big>(</big><em>ui</em>, <em>args=None</em><big>)</big><a class="headerlink" href="#pyanaconda.ui.tui.simpleline.base.App.schedule_screen" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add screen to the bottom of the stack. This is mostly usefull
+at the beginning to prepare the first screen hierarchy to display.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>ui</strong> (<em>UIScreen instance</em>) &#8211; screen to show</li>
+<li><strong>args</strong> (<em>anything</em>) &#8211; optional argument, please see switch_screen for details</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyanaconda.ui.tui.simpleline.base.App.switch_screen">
+<tt class="descname">switch_screen</tt><big>(</big><em>ui</em>, <em>args=None</em><big>)</big><a class="headerlink" href="#pyanaconda.ui.tui.simpleline.base.App.switch_screen" title="Permalink to this definition">¶</a></dt>
+<dd><p>Schedules a screen to replace the current one.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>ui</strong> (<em>instance of UIScreen</em>) &#8211; screen to show</li>
+<li><strong>args</strong> (<em>anything</em>) &#8211; optional argument to pass to ui&#8217;s refresh method (can be used to select what item should be displayed or so)</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyanaconda.ui.tui.simpleline.base.App.switch_screen_modal">
+<tt class="descname">switch_screen_modal</tt><big>(</big><em>ui</em>, <em>args=None</em><big>)</big><a class="headerlink" href="#pyanaconda.ui.tui.simpleline.base.App.switch_screen_modal" title="Permalink to this definition">¶</a></dt>
+<dd><p>Starts a new screen right away, so the caller can collect data back.
+When the new screen is closed, the caller is redisplayed.</p>
+<p>This method does not return until the new screen is closed.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>ui</strong> (<em>UIScreen instance</em>) &#8211; screen to show</li>
+<li><strong>args</strong> (<em>anything</em>) &#8211; optional argument, please see switch_screen for details</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyanaconda.ui.tui.simpleline.base.App.switch_screen_with_return">
+<tt class="descname">switch_screen_with_return</tt><big>(</big><em>ui</em>, <em>args=None</em><big>)</big><a class="headerlink" href="#pyanaconda.ui.tui.simpleline.base.App.switch_screen_with_return" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="docutils">
+<dt>Schedules a screen to show, but keeps the current one in stack</dt>
+<dd>to return to, when the new one is closed.</dd>
+</dl>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>ui</strong> (<em>UIScreen instance</em>) &#8211; screen to show</li>
+<li><strong>args</strong> (<em>anything</em>) &#8211; optional argument, please see switch_screen for details</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyanaconda.ui.tui.simpleline.base.App.width">
+<tt class="descname">width</tt><a class="headerlink" href="#pyanaconda.ui.tui.simpleline.base.App.width" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the total width of screen space we have available.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="pyanaconda.ui.tui.simpleline.base.UIScreen">
+<em class="property">class </em><tt class="descclassname">pyanaconda.ui.tui.simpleline.base.</tt><tt class="descname">UIScreen</tt><big>(</big><em>app</em>, <em>screen_height=25</em><big>)</big><a class="headerlink" href="#pyanaconda.ui.tui.simpleline.base.UIScreen" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/2/library/functions.html#object" title="(in Python v2.7)"><tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></a></p>
+<p>Base class representing one TUI Screen. Shares some API with anaconda&#8217;s GUI
+to make it easy for devs to create similar UI with the familiar API.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>app</strong> (<em>instance of class App</em>) &#8211; reference to application main class</li>
+<li><strong>screen_height</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#int" title="(in Python v2.7)"><em>int</em></a>) &#8211; height of the screen (useful for printing long widgets)</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="attribute">
+<dt id="pyanaconda.ui.tui.simpleline.base.UIScreen.app">
+<tt class="descname">app</tt><a class="headerlink" href="#pyanaconda.ui.tui.simpleline.base.UIScreen.app" title="Permalink to this definition">¶</a></dt>
+<dd><p>The reference to this Screen&#8217;s assigned App instance.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyanaconda.ui.tui.simpleline.base.UIScreen.close">
+<tt class="descname">close</tt><big>(</big><big>)</big><a class="headerlink" href="#pyanaconda.ui.tui.simpleline.base.UIScreen.close" title="Permalink to this definition">¶</a></dt>
+<dd><p>Close the current screen.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyanaconda.ui.tui.simpleline.base.UIScreen.hide">
+<tt class="descname">hide</tt><big>(</big><big>)</big><a class="headerlink" href="#pyanaconda.ui.tui.simpleline.base.UIScreen.hide" title="Permalink to this definition">¶</a></dt>
+<dd><p>This does nothing in TUI, it is here to make API similar.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyanaconda.ui.tui.simpleline.base.UIScreen.input">
+<tt class="descname">input</tt><big>(</big><em>args</em>, <em>key</em><big>)</big><a class="headerlink" href="#pyanaconda.ui.tui.simpleline.base.UIScreen.input" title="Permalink to this definition">¶</a></dt>
+<dd><p>Method called to process input. If the input is not handled here, return it.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>key</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#unicode" title="(in Python v2.7)"><em>unicode</em></a>) &#8211; input string to process</li>
+<li><strong>args</strong> (<em>anything</em>) &#8211; optional argument passed from switch_screen calls</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">return True or INPUT_PROCESSED (None) if key was handled,
+INPUT_DISCARDED (False) if the screen should not process input
+on the App and key if you want it to.</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">True|False|None|unicode</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyanaconda.ui.tui.simpleline.base.UIScreen.prompt">
+<tt class="descname">prompt</tt><big>(</big><em>args=None</em><big>)</big><a class="headerlink" href="#pyanaconda.ui.tui.simpleline.base.UIScreen.prompt" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the text to be shown as prompt or handle the prompt and return None.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>args</strong> (<em>anything</em>) &#8211; optional argument passed from switch_screen calls</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">returns text to be shown next to the prompt for input or None
+to skip further input processing</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">unicode|None</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyanaconda.ui.tui.simpleline.base.UIScreen.refresh">
+<tt class="descname">refresh</tt><big>(</big><em>args=None</em><big>)</big><a class="headerlink" href="#pyanaconda.ui.tui.simpleline.base.UIScreen.refresh" title="Permalink to this definition">¶</a></dt>
+<dd><p>Method which prepares the content desired on the screen to self._window.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>args</strong> (<em>anything</em>) &#8211; optional argument passed from switch_screen calls</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">has to return True if input processing is requested, otherwise
+the screen will get printed and the main loop will continue</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">True|False</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyanaconda.ui.tui.simpleline.base.UIScreen.setup">
+<tt class="descname">setup</tt><big>(</big><em>environment</em><big>)</big><a class="headerlink" href="#pyanaconda.ui.tui.simpleline.base.UIScreen.setup" title="Permalink to this definition">¶</a></dt>
+<dd><p>Do additional setup right before this screen is used.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>environment</strong> (<em>either FIRSTBOOT_ENVIRON or ANACONDA_ENVIRON</em>) &#8211; environment (see pyanaconda.constants) the UI is running in</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">whether this screen should be scheduled or not</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">bool</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyanaconda.ui.tui.simpleline.base.UIScreen.show">
+<tt class="descname">show</tt><big>(</big><big>)</big><a class="headerlink" href="#pyanaconda.ui.tui.simpleline.base.UIScreen.show" title="Permalink to this definition">¶</a></dt>
+<dd><p>Prepares all elements of self._window for output and then prints
+them on the screen.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyanaconda.ui.tui.simpleline.base.UIScreen.show_all">
+<tt class="descname">show_all</tt><big>(</big><big>)</big><a class="headerlink" href="#pyanaconda.ui.tui.simpleline.base.UIScreen.show_all" title="Permalink to this definition">¶</a></dt>
+<dd><p>Prepares all elements of self._window for output and then prints
+them on the screen.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyanaconda.ui.tui.simpleline.base.UIScreen.title">
+<tt class="descname">title</tt><em class="property"> = u'Screen..'</em><a class="headerlink" href="#pyanaconda.ui.tui.simpleline.base.UIScreen.title" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="pyanaconda.ui.tui.simpleline.base.Widget">
+<em class="property">class </em><tt class="descclassname">pyanaconda.ui.tui.simpleline.base.</tt><tt class="descname">Widget</tt><big>(</big><em>max_width=None</em>, <em>default=None</em><big>)</big><a class="headerlink" href="#pyanaconda.ui.tui.simpleline.base.Widget" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/2/library/functions.html#object" title="(in Python v2.7)"><tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></a></p>
+<p>Initializes base Widgets buffer.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>max_width</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#int" title="(in Python v2.7)"><em>int</em></a>) &#8211; server as a hint about screen size to write method with default arguments</li>
+<li><strong>default</strong> (<a class="reference external" href="https://docs.python.org/2/library/string.html#module-string" title="(in Python v2.7)"><em>string</em></a>) &#8211; string containing the default content to fill the buffer with</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="pyanaconda.ui.tui.simpleline.base.Widget.clear">
+<tt class="descname">clear</tt><big>(</big><big>)</big><a class="headerlink" href="#pyanaconda.ui.tui.simpleline.base.Widget.clear" title="Permalink to this definition">¶</a></dt>
+<dd><p>Clears this widgets buffer and resets cursor.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyanaconda.ui.tui.simpleline.base.Widget.content">
+<tt class="descname">content</tt><a class="headerlink" href="#pyanaconda.ui.tui.simpleline.base.Widget.content" title="Permalink to this definition">¶</a></dt>
+<dd><p>This has to return list (rows) of lists (columns) with one character elements.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyanaconda.ui.tui.simpleline.base.Widget.cursor">
+<tt class="descname">cursor</tt><a class="headerlink" href="#pyanaconda.ui.tui.simpleline.base.Widget.cursor" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyanaconda.ui.tui.simpleline.base.Widget.draw">
+<tt class="descname">draw</tt><big>(</big><em>w</em>, <em>row=None</em>, <em>col=None</em>, <em>block=False</em><big>)</big><a class="headerlink" href="#pyanaconda.ui.tui.simpleline.base.Widget.draw" title="Permalink to this definition">¶</a></dt>
+<dd><p>This method copies w widget&#8217;s content to this widget&#8217;s buffer at row, col position.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>w</strong> (<em>class Widget</em>) &#8211; widget to take content from</li>
+<li><strong>row</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#int" title="(in Python v2.7)"><em>int</em></a>) &#8211; row number to start at (default is at the cursor position)</li>
+<li><strong>col</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#int" title="(in Python v2.7)"><em>int</em></a>) &#8211; column number to start at (default is at the cursor position)</li>
+<li><strong>block</strong> (<em>boolean</em>) &#8211; when printing newline, start at column col (True) or at column 0 (False)</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyanaconda.ui.tui.simpleline.base.Widget.get_lines">
+<tt class="descname">get_lines</tt><big>(</big><big>)</big><a class="headerlink" href="#pyanaconda.ui.tui.simpleline.base.Widget.get_lines" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get lines to write out in order to show this widget.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">lines representing this widget</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">list(unicode)</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyanaconda.ui.tui.simpleline.base.Widget.height">
+<tt class="descname">height</tt><a class="headerlink" href="#pyanaconda.ui.tui.simpleline.base.Widget.height" title="Permalink to this definition">¶</a></dt>
+<dd><p>The current height of the internal buffer.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyanaconda.ui.tui.simpleline.base.Widget.render">
+<tt class="descname">render</tt><big>(</big><em>width</em><big>)</big><a class="headerlink" href="#pyanaconda.ui.tui.simpleline.base.Widget.render" title="Permalink to this definition">¶</a></dt>
+<dd><p>This method has to redraw the widget&#8217;s self._buffer.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>width</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#int" title="(in Python v2.7)"><em>int</em></a>) &#8211; the width of buffer requested by the caller</td>
+</tr>
+</tbody>
+</table>
+<p>This method will commonly call render of child widgets and then draw and write
+methods to copy their contents to self._buffer</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyanaconda.ui.tui.simpleline.base.Widget.setend">
+<tt class="descname">setend</tt><big>(</big><big>)</big><a class="headerlink" href="#pyanaconda.ui.tui.simpleline.base.Widget.setend" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sets the cursor to first column in new line at the end.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyanaconda.ui.tui.simpleline.base.Widget.setxy">
+<tt class="descname">setxy</tt><big>(</big><em>row</em>, <em>col</em><big>)</big><a class="headerlink" href="#pyanaconda.ui.tui.simpleline.base.Widget.setxy" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sets cursor position.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>row</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#int" title="(in Python v2.7)"><em>int</em></a>) &#8211; row id, starts with 0 at the top of the screen</li>
+<li><strong>col</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#int" title="(in Python v2.7)"><em>int</em></a>) &#8211; column id, starts with 0 on the left side of the screen</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyanaconda.ui.tui.simpleline.base.Widget.width">
+<tt class="descname">width</tt><a class="headerlink" href="#pyanaconda.ui.tui.simpleline.base.Widget.width" title="Permalink to this definition">¶</a></dt>
+<dd><p>The current width of the internal buffer
+(id of the first empty column).</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyanaconda.ui.tui.simpleline.base.Widget.write">
+<tt class="descname">write</tt><big>(</big><em>text</em>, <em>row=None</em>, <em>col=None</em>, <em>width=None</em>, <em>block=False</em><big>)</big><a class="headerlink" href="#pyanaconda.ui.tui.simpleline.base.Widget.write" title="Permalink to this definition">¶</a></dt>
+<dd><p>This method emulates typing machine writing to this widget&#8217;s buffer.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>text</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#unicode" title="(in Python v2.7)"><em>unicode</em></a>) &#8211; text to type</li>
+<li><strong>row</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#int" title="(in Python v2.7)"><em>int</em></a>) &#8211; row number to start at (default is at the cursor position)</li>
+<li><strong>col</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#int" title="(in Python v2.7)"><em>int</em></a>) &#8211; column number to start at (default is at the cursor position)</li>
+<li><strong>width</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#int" title="(in Python v2.7)"><em>int</em></a>) &#8211; wrap at &#8220;col&#8221; + &#8220;width&#8221; column (default is at self._max_width)</li>
+<li><strong>block</strong> (<em>boolean</em>) &#8211; when printing newline, start at column col (True) or at column 0 (False)</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-pyanaconda.ui.tui.simpleline.widgets">
+<span id="pyanaconda-ui-tui-simpleline-widgets-module"></span><h2>pyanaconda.ui.tui.simpleline.widgets module<a class="headerlink" href="#module-pyanaconda.ui.tui.simpleline.widgets" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="pyanaconda.ui.tui.simpleline.widgets.TextWidget">
+<em class="property">class </em><tt class="descclassname">pyanaconda.ui.tui.simpleline.widgets.</tt><tt class="descname">TextWidget</tt><big>(</big><em>text</em><big>)</big><a class="headerlink" href="#pyanaconda.ui.tui.simpleline.widgets.TextWidget" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#pyanaconda.ui.tui.simpleline.base.Widget" title="pyanaconda.ui.tui.simpleline.base.Widget"><tt class="xref py py-class docutils literal"><span class="pre">pyanaconda.ui.tui.simpleline.base.Widget</span></tt></a></p>
+<p>Class to handle wrapped text output.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>text</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#unicode" title="(in Python v2.7)"><em>unicode</em></a>) &#8211; text to format</td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="pyanaconda.ui.tui.simpleline.widgets.TextWidget.render">
+<tt class="descname">render</tt><big>(</big><em>width</em><big>)</big><a class="headerlink" href="#pyanaconda.ui.tui.simpleline.widgets.TextWidget.render" title="Permalink to this definition">¶</a></dt>
+<dd><p>Renders the text widget limited to width number of columns
+(wraps to the next line when the text is longer).</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>width</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#int" title="(in Python v2.7)"><em>int</em></a>) &#8211; maximum width allocated to the string</td>
+</tr>
+</tbody>
+</table>
+<p>:raises</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="pyanaconda.ui.tui.simpleline.widgets.ColumnWidget">
+<em class="property">class </em><tt class="descclassname">pyanaconda.ui.tui.simpleline.widgets.</tt><tt class="descname">ColumnWidget</tt><big>(</big><em>columns</em>, <em>spacing=0</em><big>)</big><a class="headerlink" href="#pyanaconda.ui.tui.simpleline.widgets.ColumnWidget" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#pyanaconda.ui.tui.simpleline.base.Widget" title="pyanaconda.ui.tui.simpleline.base.Widget"><tt class="xref py py-class docutils literal"><span class="pre">pyanaconda.ui.tui.simpleline.base.Widget</span></tt></a></p>
+<p>Create text columns</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>columns</strong> (<em>[(int, [...]), ...]</em>) &#8211; list containing (column width, [list of widgets to put into this column])</li>
+<li><strong>spacing</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#int" title="(in Python v2.7)"><em>int</em></a>) &#8211; number of spaces to use between columns</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="pyanaconda.ui.tui.simpleline.widgets.ColumnWidget.render">
+<tt class="descname">render</tt><big>(</big><em>width</em><big>)</big><a class="headerlink" href="#pyanaconda.ui.tui.simpleline.widgets.ColumnWidget.render" title="Permalink to this definition">¶</a></dt>
+<dd><p>Render the widget to it&#8217;s internal buffer</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>width</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#int" title="(in Python v2.7)"><em>int</em></a>) &#8211; the maximum width the widget can use</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">nothing</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">None</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="pyanaconda.ui.tui.simpleline.widgets.CheckboxWidget">
+<em class="property">class </em><tt class="descclassname">pyanaconda.ui.tui.simpleline.widgets.</tt><tt class="descname">CheckboxWidget</tt><big>(</big><em>key='x'</em>, <em>title=None</em>, <em>text=None</em>, <em>completed=None</em><big>)</big><a class="headerlink" href="#pyanaconda.ui.tui.simpleline.widgets.CheckboxWidget" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#pyanaconda.ui.tui.simpleline.base.Widget" title="pyanaconda.ui.tui.simpleline.base.Widget"><tt class="xref py py-class docutils literal"><span class="pre">pyanaconda.ui.tui.simpleline.base.Widget</span></tt></a></p>
+<p>Widget to show checkbox with (un)checked box, name and description.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>key</strong> (<em>character</em>) &#8211; tick character to be used inside [ ]</li>
+<li><strong>title</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#unicode" title="(in Python v2.7)"><em>unicode</em></a>) &#8211; the title next to the [ ] box</li>
+<li><strong>text</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#unicode" title="(in Python v2.7)"><em>unicode</em></a>) &#8211; the description text to be shown on the second row in ()</li>
+<li><strong>completed</strong> (<em>True|False</em>) &#8211; is the checkbox ticked or not?</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="attribute">
+<dt id="pyanaconda.ui.tui.simpleline.widgets.CheckboxWidget.completed">
+<tt class="descname">completed</tt><a class="headerlink" href="#pyanaconda.ui.tui.simpleline.widgets.CheckboxWidget.completed" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the state of the checkbox, checked is True.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyanaconda.ui.tui.simpleline.widgets.CheckboxWidget.render">
+<tt class="descname">render</tt><big>(</big><em>width</em><big>)</big><a class="headerlink" href="#pyanaconda.ui.tui.simpleline.widgets.CheckboxWidget.render" title="Permalink to this definition">¶</a></dt>
+<dd><p>Render the widget to internal buffer. It should be max width
+characters wide.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyanaconda.ui.tui.simpleline.widgets.CheckboxWidget.text">
+<tt class="descname">text</tt><a class="headerlink" href="#pyanaconda.ui.tui.simpleline.widgets.CheckboxWidget.text" title="Permalink to this definition">¶</a></dt>
+<dd><p>Contains the description text from the second line.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyanaconda.ui.tui.simpleline.widgets.CheckboxWidget.title">
+<tt class="descname">title</tt><a class="headerlink" href="#pyanaconda.ui.tui.simpleline.widgets.CheckboxWidget.title" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the first line (main title) of the checkbox.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="pyanaconda.ui.tui.simpleline.widgets.CenterWidget">
+<em class="property">class </em><tt class="descclassname">pyanaconda.ui.tui.simpleline.widgets.</tt><tt class="descname">CenterWidget</tt><big>(</big><em>w</em><big>)</big><a class="headerlink" href="#pyanaconda.ui.tui.simpleline.widgets.CenterWidget" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#pyanaconda.ui.tui.simpleline.base.Widget" title="pyanaconda.ui.tui.simpleline.base.Widget"><tt class="xref py py-class docutils literal"><span class="pre">pyanaconda.ui.tui.simpleline.base.Widget</span></tt></a></p>
+<p>Class to handle horizontal centering of content.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>w</strong> (<em>base.Widget</em>) &#8211; widget to center</td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="pyanaconda.ui.tui.simpleline.widgets.CenterWidget.render">
+<tt class="descname">render</tt><big>(</big><em>width</em><big>)</big><a class="headerlink" href="#pyanaconda.ui.tui.simpleline.widgets.CenterWidget.render" title="Permalink to this definition">¶</a></dt>
+<dd><p>Render the centered widget to internal buffer.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>width</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#int" title="(in Python v2.7)"><em>int</em></a>) &#8211; maximum width the widget should use</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-pyanaconda.ui.tui.simpleline">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-pyanaconda.ui.tui.simpleline" title="Permalink to this headline">¶</a></h2>
+</div>
+</div>
+
+
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="pyanaconda.ui.tui.spokes.html" class="btn btn-neutral float-right" title="pyanaconda.ui.tui.spokes package">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="pyanaconda.ui.tui.hubs.html" class="btn btn-neutral" title="pyanaconda.ui.tui.hubs package"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2015, Red Hat, Inc..
+    </p>
+  </div>
+
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+  
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'23.7',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>
