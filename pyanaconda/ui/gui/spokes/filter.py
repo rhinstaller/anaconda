@@ -528,27 +528,6 @@ class FilterSpoke(NormalSpoke):
         self._store = self.builder.get_object("diskStore")
         self._addDisksButton = self.builder.get_object("addDisksButton")
 
-        # Connect focus events in scrolled viewport children to scrolling on the viewport
-        searchScrolledViewport = self.builder.get_object("searchScrolledViewport")
-        searchGrid = self.builder.get_object("searchGrid")
-        searchGrid.set_focus_hadjustment(searchScrolledViewport.get_hadjustment())
-        searchGrid.set_focus_vadjustment(searchScrolledViewport.get_vadjustment())
-
-        multipathViewport = self.builder.get_object("multipathViewport")
-        multipathGrid = self.builder.get_object("multipathGrid")
-        multipathGrid.set_focus_hadjustment(multipathViewport.get_hadjustment())
-        multipathGrid.set_focus_vadjustment(multipathViewport.get_vadjustment())
-
-        otherViewport = self.builder.get_object("otherViewport")
-        otherGrid = self.builder.get_object("otherGrid")
-        otherGrid.set_focus_hadjustment(otherViewport.get_hadjustment())
-        otherGrid.set_focus_vadjustment(otherViewport.get_vadjustment())
-
-        zViewport = self.builder.get_object("zViewport")
-        zGrid = self.builder.get_object("zGrid")
-        zGrid.set_focus_hadjustment(zViewport.get_hadjustment())
-        zGrid.set_focus_vadjustment(zViewport.get_vadjustment())
-
     def _real_ancestors(self, disk):
         # Return a list of all the ancestors of a disk, but remove the disk
         # itself from this list.
