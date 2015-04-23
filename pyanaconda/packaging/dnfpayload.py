@@ -369,6 +369,19 @@ class DNFPayload(packaging.PackagePayload):
         # transaction, disable it in RPM:
         conf.tsflags.append('nocrypto')
 
+        if hasattr(self.data.method, "proxy") and self.data.method.proxy:
+            try:
+                proxy = ProxyString(self.data.method.proxy)
+                conf.proxy = proxy.noauth_url
+                if proxy.username:
+                    conf.proxy_username = proxy.username
+                if proxy.password:
+                    conf.proxy_password = proxy.password
+                log.info("Using %s as proxy", self.data.method.proxy)
+            except ProxyStringError as e:
+                log.error("Failed to parse proxy for dnf configure %s: %s",
+                          self.data.method.proxy, e)
+
         # Start with an empty comps so we can go ahead and use the environment
         # and group properties. Unset reposdir to ensure dnf has nothing it can
         # check automatically
