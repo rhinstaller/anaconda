@@ -1,0 +1,335 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>pyanaconda.installclasses package &mdash; Anaconda 23.7 documentation</title>
+  
+
+  
+  
+
+  
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic|Roboto+Slab:400,700|Inconsolata:400,700&subset=latin,cyrillic' rel='stylesheet' type='text/css'>
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="Anaconda 23.7 documentation" href="index.html"/>
+        <link rel="up" title="pyanaconda package" href="pyanaconda.html"/>
+        <link rel="next" title="pyanaconda.isys package" href="pyanaconda.isys.html"/>
+        <link rel="prev" title="pyanaconda package" href="pyanaconda.html"/> 
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        
+          <a href="index.html" class="fa fa-home"> Anaconda</a>
+        
+        
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+          
+          
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="intro.html">Introduction to Anaconda</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">pyanaconda</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="pyanaconda.html">pyanaconda package</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="commit-log.html">Rules for commit messages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="driverdisc.html">Brief description of DriverDisc version 3</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="driverdisc.html#devices-which-can-contain-dds">Devices which can contain DDs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="driverdisc.html#what-can-be-updated-using-dds">What can be updated using DDs?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="driverdisc.html#selecting-dd-manually">Selecting DD manually</a></li>
+<li class="toctree-l2"><a class="reference internal" href="driverdisc.html#automatic-driverdisc-detection">Automatic DriverDisc detection</a></li>
+<li class="toctree-l2"><a class="reference internal" href="driverdisc.html#ddv3-structure">DDv3 structure</a></li>
+<li class="toctree-l2"><a class="reference internal" href="driverdisc.html#initrd-overlay-driverdisc-image">Initrd overlay driverdisc image</a></li>
+<li class="toctree-l2"><a class="reference internal" href="driverdisc.html#firmware-and-module-update">Firmware and module update</a></li>
+<li class="toctree-l2"><a class="reference internal" href="driverdisc.html#package-installation">Package installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="driverdisc.html#summary">Summary</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="iscsi.html">iSCSI and Anaconda</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="iscsi.html#introduction">Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="iscsi.html#what-is-expected-from-anaconda">What is expected from Anaconda</a></li>
+<li class="toctree-l2"><a class="reference internal" href="iscsi.html#how-anaconda-handles-iscsi">How Anaconda handles iscsi</a></li>
+<li class="toctree-l2"><a class="reference internal" href="iscsi.html#libiscsi">Libiscsi</a></li>
+<li class="toctree-l2"><a class="reference internal" href="iscsi.html#debugging-iscsi-bugs">Debugging iSCSI bugs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="iscsi.html#future-of-iscsi-in-anaconda">Future of iSCSI in Anaconda</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="multipath.html">Multipath and Anaconda</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="multipath.html#introduction">Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="multipath.html#what-is-expected-from-anaconda">What is expected from Anaconda</a></li>
+<li class="toctree-l2"><a class="reference internal" href="multipath.html#how-anaconda-handles-multipath">How Anaconda handles multipath</a></li>
+<li class="toctree-l2"><a class="reference internal" href="multipath.html#debugging-multipath-bugs">Debugging multipath bugs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="multipath.html#future-of-multipath-in-anaconda">Future of multipath in Anaconda</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="kickstart.html">Anaconda Kickstart Documentation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="kickstart.html#pwpolicy">pwpolicy</a></li>
+</ul>
+</li>
+</ul>
+
+          
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">Anaconda</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html">Docs</a> &raquo;</li>
+      
+          <li><a href="modules.html">pyanaconda</a> &raquo;</li>
+      
+          <li><a href="pyanaconda.html">pyanaconda package</a> &raquo;</li>
+      
+    <li>pyanaconda.installclasses package</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          <a href="_sources/pyanaconda.installclasses.txt" rel="nofollow"> View page source</a>
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document">
+            
+  <div class="section" id="pyanaconda-installclasses-package">
+<h1>pyanaconda.installclasses package<a class="headerlink" href="#pyanaconda-installclasses-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-pyanaconda.installclasses.fedora">
+<span id="pyanaconda-installclasses-fedora-module"></span><h2>pyanaconda.installclasses.fedora module<a class="headerlink" href="#module-pyanaconda.installclasses.fedora" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="pyanaconda.installclasses.fedora.FedoraBaseInstallClass">
+<em class="property">class </em><tt class="descclassname">pyanaconda.installclasses.fedora.</tt><tt class="descname">FedoraBaseInstallClass</tt><a class="headerlink" href="#pyanaconda.installclasses.fedora.FedoraBaseInstallClass" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="pyanaconda.html#pyanaconda.installclass.BaseInstallClass" title="pyanaconda.installclass.BaseInstallClass"><tt class="xref py py-class docutils literal"><span class="pre">pyanaconda.installclass.BaseInstallClass</span></tt></a></p>
+<dl class="method">
+<dt id="pyanaconda.installclasses.fedora.FedoraBaseInstallClass.configure">
+<tt class="descname">configure</tt><big>(</big><em>anaconda</em><big>)</big><a class="headerlink" href="#pyanaconda.installclasses.fedora.FedoraBaseInstallClass.configure" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="pyanaconda.installclasses.fedora.FedoraBaseInstallClass.efi_dir">
+<tt class="descname">efi_dir</tt><em class="property"> = 'fedora'</em><a class="headerlink" href="#pyanaconda.installclasses.fedora.FedoraBaseInstallClass.efi_dir" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="pyanaconda.installclasses.fedora.FedoraBaseInstallClass.help_placeholder">
+<tt class="descname">help_placeholder</tt><em class="property"> = 'FedoraPlaceholder.html'</em><a class="headerlink" href="#pyanaconda.installclasses.fedora.FedoraBaseInstallClass.help_placeholder" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="pyanaconda.installclasses.fedora.FedoraBaseInstallClass.help_placeholder_with_links">
+<tt class="descname">help_placeholder_with_links</tt><em class="property"> = 'FedoraPlaceholderWithLinks.html'</em><a class="headerlink" href="#pyanaconda.installclasses.fedora.FedoraBaseInstallClass.help_placeholder_with_links" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="pyanaconda.installclasses.fedora.FedoraBaseInstallClass.name">
+<tt class="descname">name</tt><em class="property"> = 'Fedora'</em><a class="headerlink" href="#pyanaconda.installclasses.fedora.FedoraBaseInstallClass.name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyanaconda.installclasses.fedora.FedoraBaseInstallClass.setNetworkOnbootDefault">
+<tt class="descname">setNetworkOnbootDefault</tt><big>(</big><em>ksdata</em><big>)</big><a class="headerlink" href="#pyanaconda.installclasses.fedora.FedoraBaseInstallClass.setNetworkOnbootDefault" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="pyanaconda.installclasses.fedora.FedoraBaseInstallClass.sortPriority">
+<tt class="descname">sortPriority</tt><em class="property"> = 10000</em><a class="headerlink" href="#pyanaconda.installclasses.fedora.FedoraBaseInstallClass.sortPriority" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-pyanaconda.installclasses.rhel">
+<span id="pyanaconda-installclasses-rhel-module"></span><h2>pyanaconda.installclasses.rhel module<a class="headerlink" href="#module-pyanaconda.installclasses.rhel" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="pyanaconda.installclasses.rhel.RHELBaseInstallClass">
+<em class="property">class </em><tt class="descclassname">pyanaconda.installclasses.rhel.</tt><tt class="descname">RHELBaseInstallClass</tt><a class="headerlink" href="#pyanaconda.installclasses.rhel.RHELBaseInstallClass" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="pyanaconda.html#pyanaconda.installclass.BaseInstallClass" title="pyanaconda.installclass.BaseInstallClass"><tt class="xref py py-class docutils literal"><span class="pre">pyanaconda.installclass.BaseInstallClass</span></tt></a></p>
+<dl class="attribute">
+<dt id="pyanaconda.installclasses.rhel.RHELBaseInstallClass.bootloaderTimeoutDefault">
+<tt class="descname">bootloaderTimeoutDefault</tt><em class="property"> = 5</em><a class="headerlink" href="#pyanaconda.installclasses.rhel.RHELBaseInstallClass.bootloaderTimeoutDefault" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyanaconda.installclasses.rhel.RHELBaseInstallClass.configure">
+<tt class="descname">configure</tt><big>(</big><em>anaconda</em><big>)</big><a class="headerlink" href="#pyanaconda.installclasses.rhel.RHELBaseInstallClass.configure" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="pyanaconda.installclasses.rhel.RHELBaseInstallClass.defaultFS">
+<tt class="descname">defaultFS</tt><em class="property"> = 'xfs'</em><a class="headerlink" href="#pyanaconda.installclasses.rhel.RHELBaseInstallClass.defaultFS" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="pyanaconda.installclasses.rhel.RHELBaseInstallClass.efi_dir">
+<tt class="descname">efi_dir</tt><em class="property"> = 'redhat'</em><a class="headerlink" href="#pyanaconda.installclasses.rhel.RHELBaseInstallClass.efi_dir" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="pyanaconda.installclasses.rhel.RHELBaseInstallClass.help_placeholder">
+<tt class="descname">help_placeholder</tt><em class="property"> = 'RHEL7Placeholder.html'</em><a class="headerlink" href="#pyanaconda.installclasses.rhel.RHELBaseInstallClass.help_placeholder" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="pyanaconda.installclasses.rhel.RHELBaseInstallClass.help_placeholder_with_links">
+<tt class="descname">help_placeholder_with_links</tt><em class="property"> = 'RHEL7PlaceholderWithLinks.html'</em><a class="headerlink" href="#pyanaconda.installclasses.rhel.RHELBaseInstallClass.help_placeholder_with_links" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="pyanaconda.installclasses.rhel.RHELBaseInstallClass.hidden">
+<tt class="descname">hidden</tt><em class="property"> = True</em><a class="headerlink" href="#pyanaconda.installclasses.rhel.RHELBaseInstallClass.hidden" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="pyanaconda.installclasses.rhel.RHELBaseInstallClass.ignoredPackages">
+<tt class="descname">ignoredPackages</tt><em class="property"> = ['ntfsprogs']</em><a class="headerlink" href="#pyanaconda.installclasses.rhel.RHELBaseInstallClass.ignoredPackages" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="pyanaconda.installclasses.rhel.RHELBaseInstallClass.installUpdates">
+<tt class="descname">installUpdates</tt><em class="property"> = False</em><a class="headerlink" href="#pyanaconda.installclasses.rhel.RHELBaseInstallClass.installUpdates" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="pyanaconda.installclasses.rhel.RHELBaseInstallClass.name">
+<tt class="descname">name</tt><em class="property"> = 'Red Hat Enterprise Linux'</em><a class="headerlink" href="#pyanaconda.installclasses.rhel.RHELBaseInstallClass.name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyanaconda.installclasses.rhel.RHELBaseInstallClass.setNetworkOnbootDefault">
+<tt class="descname">setNetworkOnbootDefault</tt><big>(</big><em>ksdata</em><big>)</big><a class="headerlink" href="#pyanaconda.installclasses.rhel.RHELBaseInstallClass.setNetworkOnbootDefault" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="pyanaconda.installclasses.rhel.RHELBaseInstallClass.sortPriority">
+<tt class="descname">sortPriority</tt><em class="property"> = 10000</em><a class="headerlink" href="#pyanaconda.installclasses.rhel.RHELBaseInstallClass.sortPriority" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-pyanaconda.installclasses">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-pyanaconda.installclasses" title="Permalink to this headline">¶</a></h2>
+</div>
+</div>
+
+
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="pyanaconda.isys.html" class="btn btn-neutral float-right" title="pyanaconda.isys package">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="pyanaconda.html" class="btn btn-neutral" title="pyanaconda package"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2015, Red Hat, Inc..
+    </p>
+  </div>
+
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+  
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'23.7',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>
