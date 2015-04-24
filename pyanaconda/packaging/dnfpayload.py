@@ -292,7 +292,7 @@ class DNFPayload(packaging.PackagePayload):
 
         if env:
             try:
-                self.selectEnvironment(env, excludedGroups)
+                self._select_environment(env, excludedGroups)
                 log.info("selected env: %s", env)
             except packaging.NoSuchGroup as e:
                 self._miss(e)
@@ -443,6 +443,13 @@ class DNFPayload(packaging.PackagePayload):
         except dnf.exceptions.CompsError as e:
             # DNF raises this when it is already selected
             log.debug(e)
+
+    def _select_environment(self, env_id, excluded):
+        # dnf.base.environment_install excludes on packages instead of groups,
+        # which is unhelpful. Instead, use group_install for each group in
+        # the environment so we can skip the ones that are excluded.
+        for groupid in set(self.environmentGroups(env_id, optional=False)) - set(excluded):
+            self._select_group(groupid)
 
     def _select_kernel_package(self):
         kernels = self.kernelPackages

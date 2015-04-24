@@ -1092,6 +1092,18 @@ reposdir=%s
             except yum.Errors.GroupsError:
                 raise NoSuchGroup(groupid, required=required)
 
+    def _selectYumEnvironment(self, envid):
+        # select the environment in comps
+        pkg_types = ['mandatory', 'default']
+
+        log.debug("select environment %s", envid)
+
+        with _yum_lock:
+            try:
+                self._yum.selectEnvironment(envid, pkg_types)
+            except yum.Errors.GroupsError:
+                raise NoSuchGroup(envid, required=False)
+
     def _deselectYumGroup(self, groupid):
         # deselect the group in comps
         log.debug("deselect group %s", groupid)
@@ -1214,7 +1226,7 @@ reposdir=%s
 
         if env:
             try:
-                self.selectEnvironment(env)
+                self._selectYumEnvironment(env)
             except NoSuchGroup as e:
                 self._handleMissing(e)
 
