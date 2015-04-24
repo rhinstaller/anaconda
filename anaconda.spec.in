@@ -313,6 +313,26 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Thu Apr 23 2015 Samantha N. Bueno <sbueno+anaconda@redhat.com> - 22.20.10-1
+- Ignore addon and anaconda sections in handle-sshpw (bcl)
+- Ignore %%anaconda section in parse-kickstart (bcl)
+- Remove the custom help button from the toolbar (bcl)
+- Make anaconda more unicode-y (#1205183) (dshea)
+- Consolidate the language environment variables. (#1209563) (dshea)
+- Revert "Make Python's default encoding detection work on Live installations"
+  (#1209563) (dshea)
+- iscsi: pass rd.* options of devices to be mouted in dracut (#1192398)
+  (rvykydal)
+- Remove the old custom partitioning help dialog (mkolman)
+- Reset the back_clicked flag if we stay on the Storage spoke (#1210003)
+  (vpodzime)
+- Mark the back_clicked attribute of the Storage spoke as private (vpodzime)
+- Set both .format's and .originalFormat's passphrase on unlock (#1208979)
+  (vpodzime)
+- Make the Encrypt checkbox insensitive for encrypted non-BTRFS devices
+  (#1210254) (vpodzime)
+- Don't unconditionally set ksdata.lang.seen to True (#1209927) (mkolman)
+
 * Tue Apr 07 2015 Samantha N. Bueno <sbueno+anaconda@redhat.com> - 22.20.9-1
 - Revert "allow /boot on btrfs subvol or filesystem" (bcl)
 - Connect scroll adjustments in the right class (#1206472) (dshea)
