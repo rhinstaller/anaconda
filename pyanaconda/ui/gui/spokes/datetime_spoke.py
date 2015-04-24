@@ -56,6 +56,11 @@ SERVER_OK = 0
 SERVER_NOK = 1
 SERVER_QUERY = 2
 
+SERVER_HOSTNAME = 0
+SERVER_POOL = 1
+SERVER_WORKING = 2
+SERVER_USE = 3
+
 DEFAULT_TZ = "America/New_York"
 
 SPLIT_NUMBER_SUFFIX_RE = re.compile(r'([^0-9]*)([-+])([0-9]+)')
@@ -149,26 +154,27 @@ class NTPconfigDialog(GUIObject, GUIDialogInputCheckHandler):
     @property
     def working_server(self):
         for row in self._serversStore:
-            if row[1] == SERVER_OK and row[2]:
+            if row[SERVER_WORKING] == SERVER_OK and row[SERVER_USE]:
                 #server is checked and working
-                return row[0]
+                return row[SERVER_HOSTNAME]
 
         return None
 
     @property
-    def servers(self):
-        ret = list()
+    def pools_servers(self):
+        pools = list()
+        servers = list()
 
-        for row in self._serversStore:
-            if row[2]:
-                #server checked
-                ret.append(row[0])
+        for used_row in (row for row in self._serversStore if row[SERVER_USE]):
+            if used_row[SERVER_POOL]:
+                pools.append(used_row[SERVER_HOSTNAME])
+            else:
+                servers.append(used_row[SERVER_HOSTNAME])
 
-        return ret
+        return (pools, servers)
 
     def _render_working(self, column, renderer, model, itr, user_data=None):
-        #get the value in the second column
-        value = model[itr][1]
+        value = model[itr][SERVER_WORKING]
 
         if value == SERVER_QUERY:
             return "dialog-question"
@@ -190,6 +196,8 @@ class NTPconfigDialog(GUIObject, GUIDialogInputCheckHandler):
 
         self._addButton = self.builder.get_object("addButton")
 
+        self._poolCheckButton = self.builder.get_object("poolCheckButton")
+
         # Validate the server entry box
         self._serverCheck = self.add_check(self._serverEntry, self._validateServer)
         self._serverCheck.update_check_status()
@@ -200,14 +208,19 @@ class NTPconfigDialog(GUIObject, GUIDialogInputCheckHandler):
         self._serversStore.clear()
 
         if self.data.timezone.ntpservers:
-            for server in self.data.timezone.ntpservers:
-                self._add_server(server)
+            pools, servers = ntp.internal_to_pools_and_servers(self.data.timezone.ntpservers)
         else:
             try:
-                for server in ntp.get_servers_from_config():
-                    self._add_server(server)
+                pools, servers = ntp.get_servers_from_config()
             except ntp.NTPconfigError:
                 log.warning("Failed to load NTP servers configuration")
+                return
+
+        for pool in pools:
+            self._add_server(pool, True)
+        for server in servers:
+            self._add_server(server, False)
+
 
     def _validateServer(self, inputcheck):
         server = self.get_input(inputcheck.input_obj)
@@ -246,15 +259,10 @@ class NTPconfigDialog(GUIObject, GUIDialogInputCheckHandler):
 
         #OK clicked
         if rc == 1:
-            new_servers = list()
-
-            for row in self._serversStore:
-                #if server checked
-                if row[2]:
-                    new_servers.append(row[0])
+            new_pools, new_servers = self.pools_servers
 
             if flags.can_touch_runtime_system("save NTP servers configuration"):
-                ntp.save_servers_to_config(new_servers)
+                ntp.save_servers_to_config(new_pools, new_servers)
                 iutil.restart_service(NTP_SERVICE)
 
         #Cancel clicked, window destroyed...
@@ -290,8 +298,8 @@ class NTPconfigDialog(GUIObject, GUIDialogInputCheckHandler):
             (store, itr, column, value) = arg_tuple
             store.set_value(itr, column, value)
 
-        orig_hostname = self._serversStore[itr][0]
-        server_working = ntp.ntp_server_working(self._serversStore[itr][0])
+        orig_hostname = self._serversStore[itr][SERVER_HOSTNAME]
+        server_working = ntp.ntp_server_working(self._serversStore[itr][SERVER_HOSTNAME])
 
         #do not let dialog change epoch while we are modifying data
         self._epoch_lock.acquire()
@@ -299,27 +307,27 @@ class NTPconfigDialog(GUIObject, GUIDialogInputCheckHandler):
         #check if we are in the same epoch as the dialog (and the serversStore)
         #and if the server wasn't changed meanwhile
         if epoch_started == self._epoch:
-            actual_hostname = self._serversStore[itr][0]
+            actual_hostname = self._serversStore[itr][SERVER_HOSTNAME]
 
             if orig_hostname == actual_hostname:
                 if server_working:
                     set_store_value((self._serversStore,
-                                    itr, 1, SERVER_OK))
+                                    itr, SERVER_WORKING, SERVER_OK))
                 else:
                     set_store_value((self._serversStore,
-                                    itr, 1, SERVER_NOK))
+                                    itr, SERVER_WORKING, SERVER_NOK))
         self._epoch_lock.release()
 
     @gtk_action_nowait
     def _refresh_server_working(self, itr):
         """ Runs a new thread with _set_server_ok_nok(itr) as a taget. """
 
-        self._serversStore.set_value(itr, 1, SERVER_QUERY)
+        self._serversStore.set_value(itr, SERVER_WORKING, SERVER_QUERY)
         threadMgr.add(AnacondaThread(prefix="AnaNTPserver",
                                      target=self._set_server_ok_nok,
                                      args=(itr, self._epoch)))
 
-    def _add_server(self, server):
+    def _add_server(self, server, pool=False):
         """
         Checks if a given server is a valid hostname and if yes, adds it
         to the list of servers.
@@ -328,7 +336,7 @@ class NTPconfigDialog(GUIObject, GUIDialogInputCheckHandler):
 
         """
 
-        itr = self._serversStore.append([server, SERVER_QUERY, True])
+        itr = self._serversStore.append([server, pool, SERVER_QUERY, True])
 
         #do not block UI while starting thread (may take some time)
         self._refresh_server_working(itr)
@@ -336,17 +344,24 @@ class NTPconfigDialog(GUIObject, GUIDialogInputCheckHandler):
     def on_entry_activated(self, entry, *args):
         # Check that the input check has passed
         if self._serverCheck.check_status == InputCheck.CHECK_OK:
-            self._add_server(entry.get_text())
+            self._add_server(entry.get_text(), self._poolCheckButton.get_active())
             entry.set_text("")
+            self._poolCheckButton.set_active(False)
 
     def on_add_clicked(self, *args):
         self._serverEntry.emit("activate")
 
     def on_use_server_toggled(self, renderer, path, *args):
         itr = self._serversStore.get_iter(path)
-        old_value = self._serversStore[itr][2]
+        old_value = self._serversStore[itr][SERVER_USE]
 
-        self._serversStore.set_value(itr, 2, not old_value)
+        self._serversStore.set_value(itr, SERVER_USE, not old_value)
+
+    def on_pool_toggled(self, renderer, path, *args):
+        itr = self._serversStore.get_iter(path)
+        old_value = self._serversStore[itr][SERVER_POOL]
+
+        self._serversStore.set_value(itr, SERVER_POOL, not old_value)
 
     def on_server_edited(self, renderer, path, new_text, *args):
         if not path:
@@ -359,11 +374,11 @@ class NTPconfigDialog(GUIObject, GUIDialogInputCheckHandler):
 
         itr = self._serversStore.get_iter(path)
 
-        if self._serversStore[itr][0] == new_text:
+        if self._serversStore[itr][SERVER_HOSTNAME] == new_text:
             return
 
-        self._serversStore.set_value(itr, 0, new_text)
-        self._serversStore.set_value(itr, 1, SERVER_QUERY)
+        self._serversStore.set_value(itr, SERVER_HOSTNAME, new_text)
+        self._serversStore.set_value(itr, SERVER_WORKING, SERVER_QUERY)
 
         self._refresh_server_working(itr)
 
@@ -1102,7 +1117,8 @@ class DatetimeSpoke(FirstbootSpokeMixIn, NormalSpoke):
             response = self._config_dialog.run()
 
         if response == 1:
-            self.data.timezone.ntpservers = self._config_dialog.servers
+            pools, servers = self._config_dialog.pools_servers
+            self.data.timezone.ntpservers = ntp.pools_servers_to_internal(pools, servers)
 
             if self._config_dialog.working_server is None:
                 self._show_no_ntp_server_warning()

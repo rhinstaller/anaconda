@@ -23,6 +23,8 @@ Module facilitating the work with NTP servers and NTP daemon's configuration
 
 """
 
+from __future__ import division
+
 import re
 import os
 import tempfile
@@ -75,6 +77,31 @@ def ntp_server_working(server):
 
     return True
 
+def pools_servers_to_internal(pools, servers):
+    ret = []
+    for pool in pools:
+        ret.extend(SERVERS_PER_POOL * [pool])
+    ret.extend(servers)
+
+    return ret
+
+def internal_to_pools_and_servers(pools_servers):
+    server_nums = dict()
+    pools = []
+    servers = []
+
+    for item in pools_servers:
+        server_nums[item] = server_nums.get(item, 0) + 1
+
+    for item in server_nums.keys():
+        if server_nums[item] >= SERVERS_PER_POOL:
+            pools.extend((server_nums[item] // SERVERS_PER_POOL) * [item])
+            servers.extend((server_nums[item] % SERVERS_PER_POOL) * [item])
+        else:
+            servers.extend(server_nums[item] * [item])
+
+    return (pools, servers)
+
 def get_servers_from_config(conf_file_path=NTP_CONFIG_FILE,
                             srv_regexp=SRV_LINE_REGEXP):
     """
@@ -86,7 +113,8 @@ def get_servers_from_config(conf_file_path=NTP_CONFIG_FILE,
 
     """
 
-    ret = list()
+    pools = list()
+    servers = list()
 
     try:
         with open(conf_file_path, "r") as conf_file:
@@ -94,24 +122,25 @@ def get_servers_from_config(conf_file_path=NTP_CONFIG_FILE,
                 match = srv_regexp.match(line)
                 if match:
                     if match.group(1) == "pool":
-                        ret.extend([match.group(2)] * SERVERS_PER_POOL)
+                        pools.append(match.group(2))
                     else:
-                        ret.append(match.group(2))
+                        servers.append(match.group(2))
 
     except IOError as ioerr:
         msg = "Cannot open config file %s for reading (%s)" % (conf_file_path,
                                                                ioerr.strerror)
         raise NTPconfigError(msg)
 
-    return ret
+    return (pools, servers)
 
-def save_servers_to_config(servers, conf_file_path=NTP_CONFIG_FILE,
+def save_servers_to_config(pools, servers, conf_file_path=NTP_CONFIG_FILE,
                            srv_regexp=SRV_LINE_REGEXP, out_file_path=None):
     """
-    Replaces the servers defined in the chronyd's configuration file with
-    the given ones. If the out_file is not None, then it is used for the
+    Replaces the pools and servers defined in the chronyd's configuration file
+    with the given ones. If the out_file is not None, then it is used for the
     resulting config.
 
+    :type pools: iterable
     :type servers: iterable
     :param out_file_path: path to the file used for the resulting config
 
@@ -147,20 +176,12 @@ def save_servers_to_config(servers, conf_file_path=NTP_CONFIG_FILE,
     #write info about the origin of the following lines
     new_conf_file.write(heading)
 
-    #write new servers, use the pool directive for each group of
-    #SERVERS_PER_POOL servers with the same name
-    servers_done = set()
+    #write new servers and pools
+    for pool in pools:
+        new_conf_file.write("pool " + pool + " iburst\n")
+
     for server in servers:
-        if server in servers_done:
-            continue
-        num = servers.count(server)
-        while num >= SERVERS_PER_POOL:
-            new_conf_file.write("pool " + server + " iburst\n")
-            num -= SERVERS_PER_POOL
-        while num > 0:
-            new_conf_file.write("server " + server + " iburst\n")
-            num -= 1
-        servers_done.add(server)
+        new_conf_file.write("server " + server + " iburst\n")
 
     #copy non-server lines from the old config and skip our heading
     for line in old_conf_file:
