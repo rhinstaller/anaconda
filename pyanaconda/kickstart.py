@@ -1698,9 +1698,9 @@ class Timezone(commands.timezone.F18_Timezone):
         # write out NTP configuration (if set)
         if not self.nontp and self.ntpservers:
             chronyd_conf_path = os.path.normpath(iutil.getSysroot() + ntp.NTP_CONFIG_FILE)
+            pools, servers = ntp.internal_to_pools_and_servers(self.ntpservers)
             try:
-                ntp.save_servers_to_config(self.ntpservers,
-                                           conf_file_path=chronyd_conf_path)
+                ntp.save_servers_to_config(pools, servers, conf_file_path=chronyd_conf_path)
             except ntp.NTPconfigError as ntperr:
                 log.warning("Failed to save NTP configuration: %s", ntperr)
 
