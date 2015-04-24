@@ -713,7 +713,7 @@ class BootLoader(object):
         if not self._is_valid_size(device, desc=_(self.stage2_description)):
             valid = False
 
-        if not self._is_valid_location(device,
+        if self.stage2_max_end and not self._is_valid_location(device,
                                        max_end=self.stage2_max_end,
                                        desc=_(self.stage2_description)):
             valid = False
@@ -1413,6 +1413,7 @@ class GRUB2(GRUB):
     _config_dir = "grub2"
     defaults_file = "/etc/default/grub"
     terminal_type = "console"
+    stage2_max_end = None
 
     # requirements for boot devices
     stage2_device_types = ["partition", "mdarray", "lvmlv"]
