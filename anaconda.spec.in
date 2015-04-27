@@ -313,6 +313,13 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Mon Apr 27 2015 Samantha N. Bueno <sbueno+anaconda@redhat.com> - 22.20.11-1
+- Create and use snapshot of on-disk storage with no modifications (#1166598)
+  (vpodzime)
+- Implement the class for storage snapshots (vpodzime)
+- Prevent any changes in the StorageSpoke if just going back (vpodzime)
+- Make StorageSpoke's on_back_clicked less complicated (vpodzime)
+
 * Thu Apr 23 2015 Samantha N. Bueno <sbueno+anaconda@redhat.com> - 22.20.10-1
 - Ignore addon and anaconda sections in handle-sshpw (bcl)
 - Ignore %%anaconda section in parse-kickstart (bcl)
