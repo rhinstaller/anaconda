@@ -1,0 +1,1114 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>pyanaconda.ui.gui.spokes.lib package &mdash; Anaconda 23.7 documentation</title>
+  
+
+  
+  
+
+  
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic|Roboto+Slab:400,700|Inconsolata:400,700&subset=latin,cyrillic' rel='stylesheet' type='text/css'>
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="Anaconda 23.7 documentation" href="index.html"/>
+        <link rel="up" title="pyanaconda.ui.gui.spokes package" href="pyanaconda.ui.gui.spokes.html"/>
+        <link rel="next" title="pyanaconda.ui.lib package" href="pyanaconda.ui.lib.html"/>
+        <link rel="prev" title="pyanaconda.ui.gui.spokes.advstorage package" href="pyanaconda.ui.gui.spokes.advstorage.html"/> 
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        
+          <a href="index.html" class="fa fa-home"> Anaconda</a>
+        
+        
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+          
+          
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="intro.html">Introduction to Anaconda</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">pyanaconda</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="pyanaconda.html">pyanaconda package</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="commit-log.html">Rules for commit messages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="driverdisc.html">Brief description of DriverDisc version 3</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="driverdisc.html#devices-which-can-contain-dds">Devices which can contain DDs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="driverdisc.html#what-can-be-updated-using-dds">What can be updated using DDs?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="driverdisc.html#selecting-dd-manually">Selecting DD manually</a></li>
+<li class="toctree-l2"><a class="reference internal" href="driverdisc.html#automatic-driverdisc-detection">Automatic DriverDisc detection</a></li>
+<li class="toctree-l2"><a class="reference internal" href="driverdisc.html#ddv3-structure">DDv3 structure</a></li>
+<li class="toctree-l2"><a class="reference internal" href="driverdisc.html#initrd-overlay-driverdisc-image">Initrd overlay driverdisc image</a></li>
+<li class="toctree-l2"><a class="reference internal" href="driverdisc.html#firmware-and-module-update">Firmware and module update</a></li>
+<li class="toctree-l2"><a class="reference internal" href="driverdisc.html#package-installation">Package installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="driverdisc.html#summary">Summary</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="iscsi.html">iSCSI and Anaconda</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="iscsi.html#introduction">Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="iscsi.html#what-is-expected-from-anaconda">What is expected from Anaconda</a></li>
+<li class="toctree-l2"><a class="reference internal" href="iscsi.html#how-anaconda-handles-iscsi">How Anaconda handles iscsi</a></li>
+<li class="toctree-l2"><a class="reference internal" href="iscsi.html#libiscsi">Libiscsi</a></li>
+<li class="toctree-l2"><a class="reference internal" href="iscsi.html#debugging-iscsi-bugs">Debugging iSCSI bugs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="iscsi.html#future-of-iscsi-in-anaconda">Future of iSCSI in Anaconda</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="multipath.html">Multipath and Anaconda</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="multipath.html#introduction">Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="multipath.html#what-is-expected-from-anaconda">What is expected from Anaconda</a></li>
+<li class="toctree-l2"><a class="reference internal" href="multipath.html#how-anaconda-handles-multipath">How Anaconda handles multipath</a></li>
+<li class="toctree-l2"><a class="reference internal" href="multipath.html#debugging-multipath-bugs">Debugging multipath bugs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="multipath.html#future-of-multipath-in-anaconda">Future of multipath in Anaconda</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="kickstart.html">Anaconda Kickstart Documentation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="kickstart.html#pwpolicy">pwpolicy</a></li>
+</ul>
+</li>
+</ul>
+
+          
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">Anaconda</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html">Docs</a> &raquo;</li>
+      
+          <li><a href="modules.html">pyanaconda</a> &raquo;</li>
+      
+          <li><a href="pyanaconda.html">pyanaconda package</a> &raquo;</li>
+      
+          <li><a href="pyanaconda.ui.html">pyanaconda.ui package</a> &raquo;</li>
+      
+          <li><a href="pyanaconda.ui.gui.html">pyanaconda.ui.gui package</a> &raquo;</li>
+      
+          <li><a href="pyanaconda.ui.gui.spokes.html">pyanaconda.ui.gui.spokes package</a> &raquo;</li>
+      
+    <li>pyanaconda.ui.gui.spokes.lib package</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          <a href="_sources/pyanaconda.ui.gui.spokes.lib.txt" rel="nofollow"> View page source</a>
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document">
+            
+  <div class="section" id="pyanaconda-ui-gui-spokes-lib-package">
+<h1>pyanaconda.ui.gui.spokes.lib package<a class="headerlink" href="#pyanaconda-ui-gui-spokes-lib-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-pyanaconda.ui.gui.spokes.lib.accordion">
+<span id="pyanaconda-ui-gui-spokes-lib-accordion-module"></span><h2>pyanaconda.ui.gui.spokes.lib.accordion module<a class="headerlink" href="#module-pyanaconda.ui.gui.spokes.lib.accordion" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="pyanaconda.ui.gui.spokes.lib.accordion.newSelectorFromDevice">
+<tt class="descclassname">pyanaconda.ui.gui.spokes.lib.accordion.</tt><tt class="descname">newSelectorFromDevice</tt><big>(</big><em>device</em>, <em>mountpoint=''</em><big>)</big><a class="headerlink" href="#pyanaconda.ui.gui.spokes.lib.accordion.newSelectorFromDevice" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="pyanaconda.ui.gui.spokes.lib.accordion.updateSelectorFromDevice">
+<tt class="descclassname">pyanaconda.ui.gui.spokes.lib.accordion.</tt><tt class="descname">updateSelectorFromDevice</tt><big>(</big><em>selector</em>, <em>device</em>, <em>mountpoint=''</em><big>)</big><a class="headerlink" href="#pyanaconda.ui.gui.spokes.lib.accordion.updateSelectorFromDevice" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a MountpointSelector from a Device object template.  This
+method should be used whenever constructing a new selector, or when
+setting a bunch of attributes on an existing selector.  For just
+changing the name or size, it&#8217;s probably fine to do it by hand.</p>
+<p>This method returns the selector created.</p>
+<p>If given a selector parameter, attributes will be set on that object
+instead of creating a new one.  The optional mountpoint parameter
+allows for specifying the mountpoint if it cannot be determined from
+the device (like for a Root specifying an existing installation).</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="pyanaconda.ui.gui.spokes.lib.accordion.Accordion">
+<em class="property">class </em><tt class="descclassname">pyanaconda.ui.gui.spokes.lib.accordion.</tt><tt class="descname">Accordion</tt><a class="headerlink" href="#pyanaconda.ui.gui.spokes.lib.accordion.Accordion" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">gi.overrides.Gtk.Box</span></tt></p>
+<dl class="method">
+<dt id="pyanaconda.ui.gui.spokes.lib.accordion.Accordion.addPage">
+<tt class="descname">addPage</tt><big>(</big><em>contents</em>, <em>cb</em><big>)</big><a class="headerlink" href="#pyanaconda.ui.gui.spokes.lib.accordion.Accordion.addPage" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="pyanaconda.ui.gui.spokes.lib.accordion.Accordion.allMembers">
+<tt class="descname">allMembers</tt><a class="headerlink" href="#pyanaconda.ui.gui.spokes.lib.accordion.Accordion.allMembers" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="pyanaconda.ui.gui.spokes.lib.accordion.Accordion.allPages">
+<tt class="descname">allPages</tt><a class="headerlink" href="#pyanaconda.ui.gui.spokes.lib.accordion.Accordion.allPages" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="pyanaconda.ui.gui.spokes.lib.accordion.Accordion.allSelectors">
+<tt class="descname">allSelectors</tt><a class="headerlink" href="#pyanaconda.ui.gui.spokes.lib.accordion.Accordion.allSelectors" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyanaconda.ui.gui.spokes.lib.accordion.Accordion.expandPage">
+<tt class="descname">expandPage</tt><big>(</big><em>pageTitle</em><big>)</big><a class="headerlink" href="#pyanaconda.ui.gui.spokes.lib.accordion.Accordion.expandPage" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyanaconda.ui.gui.spokes.lib.accordion.Accordion.removeAllPages">
+<tt class="descname">removeAllPages</tt><big>(</big><big>)</big><a class="headerlink" href="#pyanaconda.ui.gui.spokes.lib.accordion.Accordion.removeAllPages" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyanaconda.ui.gui.spokes.lib.accordion.Accordion.removePage">
+<tt class="descname">removePage</tt><big>(</big><em>pageTitle</em><big>)</big><a class="headerlink" href="#pyanaconda.ui.gui.spokes.lib.accordion.Accordion.removePage" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="pyanaconda.ui.gui.spokes.lib.accordion.Page">
+<em class="property">class </em><tt class="descclassname">pyanaconda.ui.gui.spokes.lib.accordion.</tt><tt class="descname">Page</tt><big>(</big><em>title</em><big>)</big><a class="headerlink" href="#pyanaconda.ui.gui.spokes.lib.accordion.Page" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">gi.overrides.Gtk.Box</span></tt></p>
+<dl class="method">
+<dt id="pyanaconda.ui.gui.spokes.lib.accordion.Page.addSelector">
+<tt class="descname">addSelector</tt><big>(</big><em>device</em>, <em>cb</em>, <em>mountpoint=''</em><big>)</big><a class="headerlink" href="#pyanaconda.ui.gui.spokes.lib.accordion.Page.addSelector" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyanaconda.ui.gui.spokes.lib.accordion.Page.removeSelector">
+<tt class="descname">removeSelector</tt><big>(</big><em>selector</em><big>)</big><a class="headerlink" href="#pyanaconda.ui.gui.spokes.lib.accordion.Page.removeSelector" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="pyanaconda.ui.gui.spokes.lib.accordion.UnknownPage">
+<em class="property">class </em><tt class="descclassname">pyanaconda.ui.gui.spokes.lib.accordion.</tt><tt class="descname">UnknownPage</tt><big>(</big><em>title</em><big>)</big><a class="headerlink" href="#pyanaconda.ui.gui.spokes.lib.accordion.UnknownPage" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#pyanaconda.ui.gui.spokes.lib.accordion.Page" title="pyanaconda.ui.gui.spokes.lib.accordion.Page"><tt class="xref py py-class docutils literal"><span class="pre">pyanaconda.ui.gui.spokes.lib.accordion.Page</span></tt></a></p>
+<dl class="method">
+<dt id="pyanaconda.ui.gui.spokes.lib.accordion.UnknownPage.addSelector">
+<tt class="descname">addSelector</tt><big>(</big><em>device</em>, <em>cb</em>, <em>mountpoint=''</em><big>)</big><a class="headerlink" href="#pyanaconda.ui.gui.spokes.lib.accordion.UnknownPage.addSelector" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyanaconda.ui.gui.spokes.lib.accordion.UnknownPage.removeSelector">
+<tt class="descname">removeSelector</tt><big>(</big><em>selector</em><big>)</big><a class="headerlink" href="#pyanaconda.ui.gui.spokes.lib.accordion.UnknownPage.removeSelector" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="pyanaconda.ui.gui.spokes.lib.accordion.CreateNewPage">
+<em class="property">class </em><tt class="descclassname">pyanaconda.ui.gui.spokes.lib.accordion.</tt><tt class="descname">CreateNewPage</tt><big>(</big><em>title</em>, <em>createClickedCB</em>, <em>autopartTypeChangedCB</em>, <em>partitionsToReuse=True</em><big>)</big><a class="headerlink" href="#pyanaconda.ui.gui.spokes.lib.accordion.CreateNewPage" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#pyanaconda.ui.gui.spokes.lib.accordion.Page" title="pyanaconda.ui.gui.spokes.lib.accordion.Page"><tt class="xref py py-class docutils literal"><span class="pre">pyanaconda.ui.gui.spokes.lib.accordion.Page</span></tt></a></p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-pyanaconda.ui.gui.spokes.lib.cart">
+<span id="pyanaconda-ui-gui-spokes-lib-cart-module"></span><h2>pyanaconda.ui.gui.spokes.lib.cart module<a class="headerlink" href="#module-pyanaconda.ui.gui.spokes.lib.cart" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="pyanaconda.ui.gui.spokes.lib.cart.SelectedDisksDialog">
+<em class="property">class </em><tt class="descclassname">pyanaconda.ui.gui.spokes.lib.cart.</tt><tt class="descname">SelectedDisksDialog</tt><big>(</big><em>data</em><big>)</big><a class="headerlink" href="#pyanaconda.ui.gui.spokes.lib.cart.SelectedDisksDialog" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">pyanaconda.ui.gui.GUIObject</span></tt></p>
+<dl class="attribute">
+<dt id="pyanaconda.ui.gui.spokes.lib.cart.SelectedDisksDialog.builderObjects">
+<tt class="descname">builderObjects</tt><em class="property"> = ['selected_disks_dialog', 'disk_store', 'disk_tree_view']</em><a class="headerlink" href="#pyanaconda.ui.gui.spokes.lib.cart.SelectedDisksDialog.builderObjects" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyanaconda.ui.gui.spokes.lib.cart.SelectedDisksDialog.initialize">
+<tt class="descname">initialize</tt><big>(</big><em>disks</em>, <em>free</em>, <em>showRemove=True</em>, <em>setBoot=True</em><big>)</big><a class="headerlink" href="#pyanaconda.ui.gui.spokes.lib.cart.SelectedDisksDialog.initialize" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="pyanaconda.ui.gui.spokes.lib.cart.SelectedDisksDialog.mainWidgetName">
+<tt class="descname">mainWidgetName</tt><em class="property"> = 'selected_disks_dialog'</em><a class="headerlink" href="#pyanaconda.ui.gui.spokes.lib.cart.SelectedDisksDialog.mainWidgetName" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyanaconda.ui.gui.spokes.lib.cart.SelectedDisksDialog.on_close_clicked">
+<tt class="descname">on_close_clicked</tt><big>(</big><em>button</em><big>)</big><a class="headerlink" href="#pyanaconda.ui.gui.spokes.lib.cart.SelectedDisksDialog.on_close_clicked" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyanaconda.ui.gui.spokes.lib.cart.SelectedDisksDialog.on_remove_clicked">
+<tt class="descname">on_remove_clicked</tt><big>(</big><em>button</em><big>)</big><a class="headerlink" href="#pyanaconda.ui.gui.spokes.lib.cart.SelectedDisksDialog.on_remove_clicked" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyanaconda.ui.gui.spokes.lib.cart.SelectedDisksDialog.on_selection_changed">
+<tt class="descname">on_selection_changed</tt><big>(</big><em>*args</em><big>)</big><a class="headerlink" href="#pyanaconda.ui.gui.spokes.lib.cart.SelectedDisksDialog.on_selection_changed" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyanaconda.ui.gui.spokes.lib.cart.SelectedDisksDialog.on_set_as_boot_clicked">
+<tt class="descname">on_set_as_boot_clicked</tt><big>(</big><em>button</em><big>)</big><a class="headerlink" href="#pyanaconda.ui.gui.spokes.lib.cart.SelectedDisksDialog.on_set_as_boot_clicked" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyanaconda.ui.gui.spokes.lib.cart.SelectedDisksDialog.refresh">
+<tt class="descname">refresh</tt><big>(</big><em>disks</em>, <em>free</em>, <em>showRemove=True</em>, <em>setBoot=True</em><big>)</big><a class="headerlink" href="#pyanaconda.ui.gui.spokes.lib.cart.SelectedDisksDialog.refresh" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyanaconda.ui.gui.spokes.lib.cart.SelectedDisksDialog.run">
+<tt class="descname">run</tt><big>(</big><big>)</big><a class="headerlink" href="#pyanaconda.ui.gui.spokes.lib.cart.SelectedDisksDialog.run" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="pyanaconda.ui.gui.spokes.lib.cart.SelectedDisksDialog.uiFile">
+<tt class="descname">uiFile</tt><em class="property"> = 'spokes/lib/cart.glade'</em><a class="headerlink" href="#pyanaconda.ui.gui.spokes.lib.cart.SelectedDisksDialog.uiFile" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-pyanaconda.ui.gui.spokes.lib.custom_storage_helpers">
+<span id="pyanaconda-ui-gui-spokes-lib-custom-storage-helpers-module"></span><h2>pyanaconda.ui.gui.spokes.lib.custom_storage_helpers module<a class="headerlink" href="#module-pyanaconda.ui.gui.spokes.lib.custom_storage_helpers" title="Permalink to this headline">¶</a></h2>
+<p>Helper functions and classes for custom partitioning.</p>
+<dl class="function">
+<dt id="pyanaconda.ui.gui.spokes.lib.custom_storage_helpers.size_from_entry">
+<tt class="descclassname">pyanaconda.ui.gui.spokes.lib.custom_storage_helpers.</tt><tt class="descname">size_from_entry</tt><big>(</big><em>entry</em>, <em>lower_bound=None</em>, <em>units=None</em><big>)</big><a class="headerlink" href="#pyanaconda.ui.gui.spokes.lib.custom_storage_helpers.size_from_entry" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get a Size object from an entry field.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>lower_bound</strong> (<tt class="xref py py-class docutils literal"><span class="pre">blivet.size.Size</span></tt> or NoneType) &#8211; lower bound for size returned,</li>
+<li><strong>units</strong> (<em>str or NoneType</em>) &#8211; units to use if none obtained from entry</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">a Size object corresponding to the text in the entry field</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><tt class="xref py py-class docutils literal"><span class="pre">blivet.size.Size</span></tt> or NoneType</p>
+</td>
+</tr>
+</tbody>
+</table>
+<p>Units default to bytes if no units specified in entry or units.</p>
+<p>Rounds up to lower_bound, if value in entry field corresponds
+to a smaller value. The default for lower_bound is None, yielding
+no rounding.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="pyanaconda.ui.gui.spokes.lib.custom_storage_helpers.populate_mountpoint_store">
+<tt class="descclassname">pyanaconda.ui.gui.spokes.lib.custom_storage_helpers.</tt><tt class="descname">populate_mountpoint_store</tt><big>(</big><em>store</em>, <em>used_mountpoints</em><big>)</big><a class="headerlink" href="#pyanaconda.ui.gui.spokes.lib.custom_storage_helpers.populate_mountpoint_store" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="pyanaconda.ui.gui.spokes.lib.custom_storage_helpers.validate_label">
+<tt class="descclassname">pyanaconda.ui.gui.spokes.lib.custom_storage_helpers.</tt><tt class="descname">validate_label</tt><big>(</big><em>label</em>, <em>fmt</em><big>)</big><a class="headerlink" href="#pyanaconda.ui.gui.spokes.lib.custom_storage_helpers.validate_label" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a code indicating either that the given label can be set for
+this filesystem or the reason why it cannot.</p>
+<p>In the case where the format cannot assign a label, the empty string
+stands for accept the default, but in the case where the format can
+assign a label the empty string represents itself.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>label</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) &#8211; The label</li>
+<li><strong>fmt</strong> (<em>DeviceFormat</em>) &#8211; The device format to label</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="pyanaconda.ui.gui.spokes.lib.custom_storage_helpers.validate_mountpoint">
+<tt class="descclassname">pyanaconda.ui.gui.spokes.lib.custom_storage_helpers.</tt><tt class="descname">validate_mountpoint</tt><big>(</big><em>mountpoint</em>, <em>used_mountpoints</em>, <em>strict=True</em><big>)</big><a class="headerlink" href="#pyanaconda.ui.gui.spokes.lib.custom_storage_helpers.validate_mountpoint" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="pyanaconda.ui.gui.spokes.lib.custom_storage_helpers.get_raid_level">
+<tt class="descclassname">pyanaconda.ui.gui.spokes.lib.custom_storage_helpers.</tt><tt class="descname">get_raid_level</tt><big>(</big><em>device</em><big>)</big><a class="headerlink" href="#pyanaconda.ui.gui.spokes.lib.custom_storage_helpers.get_raid_level" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="pyanaconda.ui.gui.spokes.lib.custom_storage_helpers.selectedRaidLevel">
+<tt class="descclassname">pyanaconda.ui.gui.spokes.lib.custom_storage_helpers.</tt><tt class="descname">selectedRaidLevel</tt><big>(</big><em>raidLevelCombo</em><big>)</big><a class="headerlink" href="#pyanaconda.ui.gui.spokes.lib.custom_storage_helpers.selectedRaidLevel" title="Permalink to this definition">¶</a></dt>
+<dd><p>Interpret the selection of a RAID level combo box.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the selected raid level, None if none selected</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">instance of blivet.devicelibs.raid.RaidLevel or NoneType</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="pyanaconda.ui.gui.spokes.lib.custom_storage_helpers.raidLevelSelection">
+<tt class="descclassname">pyanaconda.ui.gui.spokes.lib.custom_storage_helpers.</tt><tt class="descname">raidLevelSelection</tt><big>(</big><em>raid_level</em><big>)</big><a class="headerlink" href="#pyanaconda.ui.gui.spokes.lib.custom_storage_helpers.raidLevelSelection" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a string corresponding to the RAID level.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>raid_level</strong> (<em>instance of blivet.devicelibs.raid.RAID or None</em>) &#8211; a raid level</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">a string corresponding to this raid level</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="pyanaconda.ui.gui.spokes.lib.custom_storage_helpers.defaultRaidLevel">
+<tt class="descclassname">pyanaconda.ui.gui.spokes.lib.custom_storage_helpers.</tt><tt class="descname">defaultRaidLevel</tt><big>(</big><em>device_type</em><big>)</big><a class="headerlink" href="#pyanaconda.ui.gui.spokes.lib.custom_storage_helpers.defaultRaidLevel" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the default RAID level for this device type.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>device_type</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#int" title="(in Python v2.7)"><em>int</em></a>) &#8211; an int representing the device_type</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">the default RAID level for this device type or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">blivet.devicelibs.raid.RAIDLevel or NoneType</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="pyanaconda.ui.gui.spokes.lib.custom_storage_helpers.requiresRaidSelection">
+<tt class="descclassname">pyanaconda.ui.gui.spokes.lib.custom_storage_helpers.</tt><tt class="descname">requiresRaidSelection</tt><big>(</big><em>device_type</em><big>)</big><a class="headerlink" href="#pyanaconda.ui.gui.spokes.lib.custom_storage_helpers.requiresRaidSelection" title="Permalink to this definition">¶</a></dt>
+<dd><p>Whether GUI requires a RAID level be selected for this device type.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="pyanaconda.ui.gui.spokes.lib.custom_storage_helpers.defaultContainerRaidLevel">
+<tt class="descclassname">pyanaconda.ui.gui.spokes.lib.custom_storage_helpers.</tt><tt class="descname">defaultContainerRaidLevel</tt><big>(</big><em>device_type</em><big>)</big><a class="headerlink" href="#pyanaconda.ui.gui.spokes.lib.custom_storage_helpers.defaultContainerRaidLevel" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the default RAID level for this device type&#8217;s container type.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>device_type</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#int" title="(in Python v2.7)"><em>int</em></a>) &#8211; an int representing the device_type</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">the default RAID level for this device type&#8217;s container or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">blivet.devicelibs.raid.RAIDLevel or NoneType</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="pyanaconda.ui.gui.spokes.lib.custom_storage_helpers.containerRaidLevelsSupported">
+<tt class="descclassname">pyanaconda.ui.gui.spokes.lib.custom_storage_helpers.</tt><tt class="descname">containerRaidLevelsSupported</tt><big>(</big><em>arg</em>, <em>cache={}</em><big>)</big><a class="headerlink" href="#pyanaconda.ui.gui.spokes.lib.custom_storage_helpers.containerRaidLevelsSupported" title="Permalink to this definition">¶</a></dt>
+<dd><p>The raid levels anaconda supports for a container for this
+device_type.</p>
+<p>For LVM, anaconda supports LVM on RAID, but also allows no RAID.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>device_type</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#int" title="(in Python v2.7)"><em>int</em></a>) &#8211; one of an enumeration of device types</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">a set of supported raid levels</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">a set of instances of blivet.devicelibs.raid.RAIDLevel</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="pyanaconda.ui.gui.spokes.lib.custom_storage_helpers.raidLevelsSupported">
+<tt class="descclassname">pyanaconda.ui.gui.spokes.lib.custom_storage_helpers.</tt><tt class="descname">raidLevelsSupported</tt><big>(</big><em>arg</em>, <em>cache={}</em><big>)</big><a class="headerlink" href="#pyanaconda.ui.gui.spokes.lib.custom_storage_helpers.raidLevelsSupported" title="Permalink to this definition">¶</a></dt>
+<dd><p>The raid levels anaconda supports for this device type.</p>
+<p>It supports any RAID levels that it expects to support and that blivet
+supports for the given device type.</p>
+<p>Since anaconda only ever allows the user to choose RAID levels for
+device type DEVICE_TYPE_MD, hiding the RAID menu for all other device
+types, the function only returns a non-empty set for this device type.
+If this changes, then so should this function, but at this time it
+is not clear what RAID levels should be offered for other device types.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>device_type</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#int" title="(in Python v2.7)"><em>int</em></a>) &#8211; one of an enumeration of device types</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">a set of supported raid levels</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">a set of instances of blivet.devicelibs.raid.RAIDLevel</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="pyanaconda.ui.gui.spokes.lib.custom_storage_helpers.get_container_type">
+<tt class="descclassname">pyanaconda.ui.gui.spokes.lib.custom_storage_helpers.</tt><tt class="descname">get_container_type</tt><big>(</big><em>device_type</em><big>)</big><a class="headerlink" href="#pyanaconda.ui.gui.spokes.lib.custom_storage_helpers.get_container_type" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="class">
+<dt id="pyanaconda.ui.gui.spokes.lib.custom_storage_helpers.AddDialog">
+<em class="property">class </em><tt class="descclassname">pyanaconda.ui.gui.spokes.lib.custom_storage_helpers.</tt><tt class="descname">AddDialog</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#pyanaconda.ui.gui.spokes.lib.custom_storage_helpers.AddDialog" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">pyanaconda.ui.gui.GUIObject</span></tt></p>
+<dl class="attribute">
+<dt id="pyanaconda.ui.gui.spokes.lib.custom_storage_helpers.AddDialog.MIN_SIZE_ENTRY">
+<tt class="descname">MIN_SIZE_ENTRY</tt><em class="property"> = Size('1 MiB')</em><a class="headerlink" href="#pyanaconda.ui.gui.spokes.lib.custom_storage_helpers.AddDialog.MIN_SIZE_ENTRY" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="pyanaconda.ui.gui.spokes.lib.custom_storage_helpers.AddDialog.builderObjects">
+<tt class="descname">builderObjects</tt><em class="property"> = ['addDialog', 'mountPointStore', 'mountPointCompletion', 'mountPointEntryBuffer']</em><a class="headerlink" href="#pyanaconda.ui.gui.spokes.lib.custom_storage_helpers.AddDialog.builderObjects" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="pyanaconda.ui.gui.spokes.lib.custom_storage_helpers.AddDialog.mainWidgetName">
+<tt class="descname">mainWidgetName</tt><em class="property"> = 'addDialog'</em><a class="headerlink" href="#pyanaconda.ui.gui.spokes.lib.custom_storage_helpers.AddDialog.mainWidgetName" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyanaconda.ui.gui.spokes.lib.custom_storage_helpers.AddDialog.on_add_confirm_clicked">
+<tt class="descname">on_add_confirm_clicked</tt><big>(</big><em>button</em>, <em>*args</em><big>)</big><a class="headerlink" href="#pyanaconda.ui.gui.spokes.lib.custom_storage_helpers.AddDialog.on_add_confirm_clicked" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyanaconda.ui.gui.spokes.lib.custom_storage_helpers.AddDialog.refresh">
+<tt class="descname">refresh</tt><big>(</big><big>)</big><a class="headerlink" href="#pyanaconda.ui.gui.spokes.lib.custom_storage_helpers.AddDialog.refresh" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyanaconda.ui.gui.spokes.lib.custom_storage_helpers.AddDialog.run">
+<tt class="descname">run</tt><big>(</big><big>)</big><a class="headerlink" href="#pyanaconda.ui.gui.spokes.lib.custom_storage_helpers.AddDialog.run" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="pyanaconda.ui.gui.spokes.lib.custom_storage_helpers.AddDialog.uiFile">
+<tt class="descname">uiFile</tt><em class="property"> = 'spokes/lib/custom_storage_helpers.glade'</em><a class="headerlink" href="#pyanaconda.ui.gui.spokes.lib.custom_storage_helpers.AddDialog.uiFile" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="pyanaconda.ui.gui.spokes.lib.custom_storage_helpers.ConfirmDeleteDialog">
+<em class="property">class </em><tt class="descclassname">pyanaconda.ui.gui.spokes.lib.custom_storage_helpers.</tt><tt class="descname">ConfirmDeleteDialog</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#pyanaconda.ui.gui.spokes.lib.custom_storage_helpers.ConfirmDeleteDialog" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">pyanaconda.ui.gui.GUIObject</span></tt></p>
+<dl class="attribute">
+<dt id="pyanaconda.ui.gui.spokes.lib.custom_storage_helpers.ConfirmDeleteDialog.builderObjects">
+<tt class="descname">builderObjects</tt><em class="property"> = ['confirmDeleteDialog']</em><a class="headerlink" href="#pyanaconda.ui.gui.spokes.lib.custom_storage_helpers.ConfirmDeleteDialog.builderObjects" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="pyanaconda.ui.gui.spokes.lib.custom_storage_helpers.ConfirmDeleteDialog.deleteAll">
+<tt class="descname">deleteAll</tt><a class="headerlink" href="#pyanaconda.ui.gui.spokes.lib.custom_storage_helpers.ConfirmDeleteDialog.deleteAll" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="pyanaconda.ui.gui.spokes.lib.custom_storage_helpers.ConfirmDeleteDialog.mainWidgetName">
+<tt class="descname">mainWidgetName</tt><em class="property"> = 'confirmDeleteDialog'</em><a class="headerlink" href="#pyanaconda.ui.gui.spokes.lib.custom_storage_helpers.ConfirmDeleteDialog.mainWidgetName" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyanaconda.ui.gui.spokes.lib.custom_storage_helpers.ConfirmDeleteDialog.on_delete_confirm_clicked">
+<tt class="descname">on_delete_confirm_clicked</tt><big>(</big><em>button</em>, <em>*args</em><big>)</big><a class="headerlink" href="#pyanaconda.ui.gui.spokes.lib.custom_storage_helpers.ConfirmDeleteDialog.on_delete_confirm_clicked" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyanaconda.ui.gui.spokes.lib.custom_storage_helpers.ConfirmDeleteDialog.refresh">
+<tt class="descname">refresh</tt><big>(</big><em>mountpoint</em>, <em>device</em>, <em>rootName</em>, <em>snapshots=False</em><big>)</big><a class="headerlink" href="#pyanaconda.ui.gui.spokes.lib.custom_storage_helpers.ConfirmDeleteDialog.refresh" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyanaconda.ui.gui.spokes.lib.custom_storage_helpers.ConfirmDeleteDialog.run">
+<tt class="descname">run</tt><big>(</big><big>)</big><a class="headerlink" href="#pyanaconda.ui.gui.spokes.lib.custom_storage_helpers.ConfirmDeleteDialog.run" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="pyanaconda.ui.gui.spokes.lib.custom_storage_helpers.ConfirmDeleteDialog.uiFile">
+<tt class="descname">uiFile</tt><em class="property"> = 'spokes/lib/custom_storage_helpers.glade'</em><a class="headerlink" href="#pyanaconda.ui.gui.spokes.lib.custom_storage_helpers.ConfirmDeleteDialog.uiFile" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="pyanaconda.ui.gui.spokes.lib.custom_storage_helpers.DisksDialog">
+<em class="property">class </em><tt class="descclassname">pyanaconda.ui.gui.spokes.lib.custom_storage_helpers.</tt><tt class="descname">DisksDialog</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#pyanaconda.ui.gui.spokes.lib.custom_storage_helpers.DisksDialog" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">pyanaconda.ui.gui.GUIObject</span></tt></p>
+<dl class="attribute">
+<dt id="pyanaconda.ui.gui.spokes.lib.custom_storage_helpers.DisksDialog.builderObjects">
+<tt class="descname">builderObjects</tt><em class="property"> = ['disks_dialog', 'disk_store', 'disk_view']</em><a class="headerlink" href="#pyanaconda.ui.gui.spokes.lib.custom_storage_helpers.DisksDialog.builderObjects" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="pyanaconda.ui.gui.spokes.lib.custom_storage_helpers.DisksDialog.mainWidgetName">
+<tt class="descname">mainWidgetName</tt><em class="property"> = 'disks_dialog'</em><a class="headerlink" href="#pyanaconda.ui.gui.spokes.lib.custom_storage_helpers.DisksDialog.mainWidgetName" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyanaconda.ui.gui.spokes.lib.custom_storage_helpers.DisksDialog.on_cancel_clicked">
+<tt class="descname">on_cancel_clicked</tt><big>(</big><em>button</em><big>)</big><a class="headerlink" href="#pyanaconda.ui.gui.spokes.lib.custom_storage_helpers.DisksDialog.on_cancel_clicked" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyanaconda.ui.gui.spokes.lib.custom_storage_helpers.DisksDialog.on_select_clicked">
+<tt class="descname">on_select_clicked</tt><big>(</big><em>button</em><big>)</big><a class="headerlink" href="#pyanaconda.ui.gui.spokes.lib.custom_storage_helpers.DisksDialog.on_select_clicked" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyanaconda.ui.gui.spokes.lib.custom_storage_helpers.DisksDialog.run">
+<tt class="descname">run</tt><big>(</big><big>)</big><a class="headerlink" href="#pyanaconda.ui.gui.spokes.lib.custom_storage_helpers.DisksDialog.run" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="pyanaconda.ui.gui.spokes.lib.custom_storage_helpers.DisksDialog.uiFile">
+<tt class="descname">uiFile</tt><em class="property"> = 'spokes/lib/custom_storage_helpers.glade'</em><a class="headerlink" href="#pyanaconda.ui.gui.spokes.lib.custom_storage_helpers.DisksDialog.uiFile" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="pyanaconda.ui.gui.spokes.lib.custom_storage_helpers.ContainerDialog">
+<em class="property">class </em><tt class="descclassname">pyanaconda.ui.gui.spokes.lib.custom_storage_helpers.</tt><tt class="descname">ContainerDialog</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#pyanaconda.ui.gui.spokes.lib.custom_storage_helpers.ContainerDialog" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">pyanaconda.ui.gui.GUIObject</span></tt>, <a class="reference internal" href="pyanaconda.ui.gui.html#pyanaconda.ui.gui.helpers.GUIDialogInputCheckHandler" title="pyanaconda.ui.gui.helpers.GUIDialogInputCheckHandler"><tt class="xref py py-class docutils literal"><span class="pre">pyanaconda.ui.gui.helpers.GUIDialogInputCheckHandler</span></tt></a></p>
+<dl class="attribute">
+<dt id="pyanaconda.ui.gui.spokes.lib.custom_storage_helpers.ContainerDialog.MIN_SIZE_ENTRY">
+<tt class="descname">MIN_SIZE_ENTRY</tt><em class="property"> = Size('1 MiB')</em><a class="headerlink" href="#pyanaconda.ui.gui.spokes.lib.custom_storage_helpers.ContainerDialog.MIN_SIZE_ENTRY" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="pyanaconda.ui.gui.spokes.lib.custom_storage_helpers.ContainerDialog.builderObjects">
+<tt class="descname">builderObjects</tt><em class="property"> = ['container_dialog', 'disk_store', 'container_disk_view', 'containerRaidStoreFiltered', 'containerRaidLevelLabel', 'containerRaidLevelCombo', 'raidLevelStore', 'containerSizeCombo', 'containerSizeEntry', 'containerSizeLabel', 'containerEncryptedCheckbox']</em><a class="headerlink" href="#pyanaconda.ui.gui.spokes.lib.custom_storage_helpers.ContainerDialog.builderObjects" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="pyanaconda.ui.gui.spokes.lib.custom_storage_helpers.ContainerDialog.mainWidgetName">
+<tt class="descname">mainWidgetName</tt><em class="property"> = 'container_dialog'</em><a class="headerlink" href="#pyanaconda.ui.gui.spokes.lib.custom_storage_helpers.ContainerDialog.mainWidgetName" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyanaconda.ui.gui.spokes.lib.custom_storage_helpers.ContainerDialog.on_save_clicked">
+<tt class="descname">on_save_clicked</tt><big>(</big><em>button</em><big>)</big><a class="headerlink" href="#pyanaconda.ui.gui.spokes.lib.custom_storage_helpers.ContainerDialog.on_save_clicked" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyanaconda.ui.gui.spokes.lib.custom_storage_helpers.ContainerDialog.on_size_changed">
+<tt class="descname">on_size_changed</tt><big>(</big><em>combo</em><big>)</big><a class="headerlink" href="#pyanaconda.ui.gui.spokes.lib.custom_storage_helpers.ContainerDialog.on_size_changed" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyanaconda.ui.gui.spokes.lib.custom_storage_helpers.ContainerDialog.run">
+<tt class="descname">run</tt><big>(</big><big>)</big><a class="headerlink" href="#pyanaconda.ui.gui.spokes.lib.custom_storage_helpers.ContainerDialog.run" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyanaconda.ui.gui.spokes.lib.custom_storage_helpers.ContainerDialog.set_status">
+<tt class="descname">set_status</tt><big>(</big><em>inputcheck</em><big>)</big><a class="headerlink" href="#pyanaconda.ui.gui.spokes.lib.custom_storage_helpers.ContainerDialog.set_status" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="pyanaconda.ui.gui.spokes.lib.custom_storage_helpers.ContainerDialog.uiFile">
+<tt class="descname">uiFile</tt><em class="property"> = 'spokes/lib/custom_storage_helpers.glade'</em><a class="headerlink" href="#pyanaconda.ui.gui.spokes.lib.custom_storage_helpers.ContainerDialog.uiFile" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-pyanaconda.ui.gui.spokes.lib.dasdfmt">
+<span id="pyanaconda-ui-gui-spokes-lib-dasdfmt-module"></span><h2>pyanaconda.ui.gui.spokes.lib.dasdfmt module<a class="headerlink" href="#module-pyanaconda.ui.gui.spokes.lib.dasdfmt" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="pyanaconda.ui.gui.spokes.lib.dasdfmt.DasdFormatDialog">
+<em class="property">class </em><tt class="descclassname">pyanaconda.ui.gui.spokes.lib.dasdfmt.</tt><tt class="descname">DasdFormatDialog</tt><big>(</big><em>data</em>, <em>storage</em>, <em>to_format</em><big>)</big><a class="headerlink" href="#pyanaconda.ui.gui.spokes.lib.dasdfmt.DasdFormatDialog" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">pyanaconda.ui.gui.GUIObject</span></tt></p>
+<dl class="attribute">
+<dt id="pyanaconda.ui.gui.spokes.lib.dasdfmt.DasdFormatDialog.builderObjects">
+<tt class="descname">builderObjects</tt><em class="property"> = ['unformattedDasdDialog']</em><a class="headerlink" href="#pyanaconda.ui.gui.spokes.lib.dasdfmt.DasdFormatDialog.builderObjects" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="pyanaconda.ui.gui.spokes.lib.dasdfmt.DasdFormatDialog.mainWidgetName">
+<tt class="descname">mainWidgetName</tt><em class="property"> = 'unformattedDasdDialog'</em><a class="headerlink" href="#pyanaconda.ui.gui.spokes.lib.dasdfmt.DasdFormatDialog.mainWidgetName" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyanaconda.ui.gui.spokes.lib.dasdfmt.DasdFormatDialog.on_format_clicked">
+<tt class="descname">on_format_clicked</tt><big>(</big><em>*args</em><big>)</big><a class="headerlink" href="#pyanaconda.ui.gui.spokes.lib.dasdfmt.DasdFormatDialog.on_format_clicked" title="Permalink to this definition">¶</a></dt>
+<dd><p>Once the format button is clicked, the option to cancel expires.
+We also need to display the spinner showing activity.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyanaconda.ui.gui.spokes.lib.dasdfmt.DasdFormatDialog.return_to_hub_link_clicked">
+<tt class="descname">return_to_hub_link_clicked</tt><big>(</big><em>label</em>, <em>uri</em><big>)</big><a class="headerlink" href="#pyanaconda.ui.gui.spokes.lib.dasdfmt.DasdFormatDialog.return_to_hub_link_clicked" title="Permalink to this definition">¶</a></dt>
+<dd><p>The user clicked on the link that takes them back to the hub.  We need
+to kill the _check_format watcher and then emit a special response ID
+indicating the user did not press OK.</p>
+<p>NOTE: There is no button with response_id=2.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyanaconda.ui.gui.spokes.lib.dasdfmt.DasdFormatDialog.run">
+<tt class="descname">run</tt><big>(</big><big>)</big><a class="headerlink" href="#pyanaconda.ui.gui.spokes.lib.dasdfmt.DasdFormatDialog.run" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyanaconda.ui.gui.spokes.lib.dasdfmt.DasdFormatDialog.run_dasdfmt">
+<tt class="descname">run_dasdfmt</tt><big>(</big><em>epoch_started</em>, <em>*args</em><big>)</big><a class="headerlink" href="#pyanaconda.ui.gui.spokes.lib.dasdfmt.DasdFormatDialog.run_dasdfmt" title="Permalink to this definition">¶</a></dt>
+<dd><p>Loop through our disks and run dasdfmt against them.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyanaconda.ui.gui.spokes.lib.dasdfmt.DasdFormatDialog.uiFile">
+<tt class="descname">uiFile</tt><em class="property"> = 'spokes/lib/dasdfmt.glade'</em><a class="headerlink" href="#pyanaconda.ui.gui.spokes.lib.dasdfmt.DasdFormatDialog.uiFile" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyanaconda.ui.gui.spokes.lib.dasdfmt.DasdFormatDialog.update_dialog">
+<tt class="descname">update_dialog</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#pyanaconda.ui.gui.spokes.lib.dasdfmt.DasdFormatDialog.update_dialog" title="Permalink to this definition">¶</a></dt>
+<dd><p>The new body for the decorated method. If needed, it uses closure
+bound queue variable which is valid until the reference to this
+method is destroyed.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-pyanaconda.ui.gui.spokes.lib.detailederror">
+<span id="pyanaconda-ui-gui-spokes-lib-detailederror-module"></span><h2>pyanaconda.ui.gui.spokes.lib.detailederror module<a class="headerlink" href="#module-pyanaconda.ui.gui.spokes.lib.detailederror" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="pyanaconda.ui.gui.spokes.lib.detailederror.DetailedErrorDialog">
+<em class="property">class </em><tt class="descclassname">pyanaconda.ui.gui.spokes.lib.detailederror.</tt><tt class="descname">DetailedErrorDialog</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#pyanaconda.ui.gui.spokes.lib.detailederror.DetailedErrorDialog" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">pyanaconda.ui.gui.GUIObject</span></tt></p>
+<p>This class provides a lightboxable dialog to display a very detailed
+set of error messages, like might be required to display the results
+of package dependency solving or storage sanity checking.</p>
+<p>If no buttons are provided, this dialog will have only a single button:
+cancel, with a response ID of 0.  Otherwise, the kwarg named &#8220;buttons&#8221;
+should be a list of translated labels.  Each will have an incrementing
+response ID starting with 0, and any Quit button will be placed on the
+far left hand side of the dialog.  It&#8217;s up to the caller of the &#8220;run&#8221;
+method to do something with the returned response ID.</p>
+<dl class="attribute">
+<dt id="pyanaconda.ui.gui.spokes.lib.detailederror.DetailedErrorDialog.builderObjects">
+<tt class="descname">builderObjects</tt><em class="property"> = ['detailedErrorDialog', 'detailedTextBuffer']</em><a class="headerlink" href="#pyanaconda.ui.gui.spokes.lib.detailederror.DetailedErrorDialog.builderObjects" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="pyanaconda.ui.gui.spokes.lib.detailederror.DetailedErrorDialog.mainWidgetName">
+<tt class="descname">mainWidgetName</tt><em class="property"> = 'detailedErrorDialog'</em><a class="headerlink" href="#pyanaconda.ui.gui.spokes.lib.detailederror.DetailedErrorDialog.mainWidgetName" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyanaconda.ui.gui.spokes.lib.detailederror.DetailedErrorDialog.refresh">
+<tt class="descname">refresh</tt><big>(</big><em>msg</em><big>)</big><a class="headerlink" href="#pyanaconda.ui.gui.spokes.lib.detailederror.DetailedErrorDialog.refresh" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyanaconda.ui.gui.spokes.lib.detailederror.DetailedErrorDialog.run">
+<tt class="descname">run</tt><big>(</big><big>)</big><a class="headerlink" href="#pyanaconda.ui.gui.spokes.lib.detailederror.DetailedErrorDialog.run" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="pyanaconda.ui.gui.spokes.lib.detailederror.DetailedErrorDialog.uiFile">
+<tt class="descname">uiFile</tt><em class="property"> = 'spokes/lib/detailederror.glade'</em><a class="headerlink" href="#pyanaconda.ui.gui.spokes.lib.detailederror.DetailedErrorDialog.uiFile" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-pyanaconda.ui.gui.spokes.lib.entropy_dialog">
+<span id="pyanaconda-ui-gui-spokes-lib-entropy-dialog-module"></span><h2>pyanaconda.ui.gui.spokes.lib.entropy_dialog module<a class="headerlink" href="#module-pyanaconda.ui.gui.spokes.lib.entropy_dialog" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="pyanaconda.ui.gui.spokes.lib.entropy_dialog.run_entropy_dialog">
+<tt class="descclassname">pyanaconda.ui.gui.spokes.lib.entropy_dialog.</tt><tt class="descname">run_entropy_dialog</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#pyanaconda.ui.gui.spokes.lib.entropy_dialog.run_entropy_dialog" title="Permalink to this definition">¶</a></dt>
+<dd><p>The new body for the decorated method. If needed, it uses closure
+bound queue variable which is valid until the reference to this
+method is destroyed.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-pyanaconda.ui.gui.spokes.lib.lang_locale_handler">
+<span id="pyanaconda-ui-gui-spokes-lib-lang-locale-handler-module"></span><h2>pyanaconda.ui.gui.spokes.lib.lang_locale_handler module<a class="headerlink" href="#module-pyanaconda.ui.gui.spokes.lib.lang_locale_handler" title="Permalink to this headline">¶</a></h2>
+<p>Module providing the LangLocaleHandler class that could be used as a mixin for
+screens handling languages or locales configuration.</p>
+<dl class="class">
+<dt id="pyanaconda.ui.gui.spokes.lib.lang_locale_handler.LangLocaleHandler">
+<em class="property">class </em><tt class="descclassname">pyanaconda.ui.gui.spokes.lib.lang_locale_handler.</tt><tt class="descname">LangLocaleHandler</tt><a class="headerlink" href="#pyanaconda.ui.gui.spokes.lib.lang_locale_handler.LangLocaleHandler" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/2/library/functions.html#object" title="(in Python v2.7)"><tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></a></p>
+<p>Class that could be used as a mixin for screens handling languages or
+locales configuration.</p>
+<dl class="method">
+<dt id="pyanaconda.ui.gui.spokes.lib.lang_locale_handler.LangLocaleHandler.initialize">
+<tt class="descname">initialize</tt><big>(</big><big>)</big><a class="headerlink" href="#pyanaconda.ui.gui.spokes.lib.lang_locale_handler.LangLocaleHandler.initialize" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyanaconda.ui.gui.spokes.lib.lang_locale_handler.LangLocaleHandler.on_clear_icon_clicked">
+<tt class="descname">on_clear_icon_clicked</tt><big>(</big><em>entry</em>, <em>icon_pos</em>, <em>event</em><big>)</big><a class="headerlink" href="#pyanaconda.ui.gui.spokes.lib.lang_locale_handler.LangLocaleHandler.on_clear_icon_clicked" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyanaconda.ui.gui.spokes.lib.lang_locale_handler.LangLocaleHandler.on_entry_changed">
+<tt class="descname">on_entry_changed</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#pyanaconda.ui.gui.spokes.lib.lang_locale_handler.LangLocaleHandler.on_entry_changed" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyanaconda.ui.gui.spokes.lib.lang_locale_handler.LangLocaleHandler.on_lang_selection_changed">
+<tt class="descname">on_lang_selection_changed</tt><big>(</big><em>selection</em><big>)</big><a class="headerlink" href="#pyanaconda.ui.gui.spokes.lib.lang_locale_handler.LangLocaleHandler.on_lang_selection_changed" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-pyanaconda.ui.gui.spokes.lib.passphrase">
+<span id="pyanaconda-ui-gui-spokes-lib-passphrase-module"></span><h2>pyanaconda.ui.gui.spokes.lib.passphrase module<a class="headerlink" href="#module-pyanaconda.ui.gui.spokes.lib.passphrase" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="pyanaconda.ui.gui.spokes.lib.passphrase.PassphraseDialog">
+<em class="property">class </em><tt class="descclassname">pyanaconda.ui.gui.spokes.lib.passphrase.</tt><tt class="descname">PassphraseDialog</tt><big>(</big><em>data</em><big>)</big><a class="headerlink" href="#pyanaconda.ui.gui.spokes.lib.passphrase.PassphraseDialog" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">pyanaconda.ui.gui.GUIObject</span></tt>, <a class="reference internal" href="pyanaconda.ui.gui.html#pyanaconda.ui.gui.helpers.GUIInputCheckHandler" title="pyanaconda.ui.gui.helpers.GUIInputCheckHandler"><tt class="xref py py-class docutils literal"><span class="pre">pyanaconda.ui.gui.helpers.GUIInputCheckHandler</span></tt></a></p>
+<dl class="attribute">
+<dt id="pyanaconda.ui.gui.spokes.lib.passphrase.PassphraseDialog.builderObjects">
+<tt class="descname">builderObjects</tt><em class="property"> = ['passphrase_dialog']</em><a class="headerlink" href="#pyanaconda.ui.gui.spokes.lib.passphrase.PassphraseDialog.builderObjects" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="pyanaconda.ui.gui.spokes.lib.passphrase.PassphraseDialog.mainWidgetName">
+<tt class="descname">mainWidgetName</tt><em class="property"> = 'passphrase_dialog'</em><a class="headerlink" href="#pyanaconda.ui.gui.spokes.lib.passphrase.PassphraseDialog.mainWidgetName" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyanaconda.ui.gui.spokes.lib.passphrase.PassphraseDialog.on_entry_activated">
+<tt class="descname">on_entry_activated</tt><big>(</big><em>entry</em><big>)</big><a class="headerlink" href="#pyanaconda.ui.gui.spokes.lib.passphrase.PassphraseDialog.on_entry_activated" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyanaconda.ui.gui.spokes.lib.passphrase.PassphraseDialog.on_passphrase_changed">
+<tt class="descname">on_passphrase_changed</tt><big>(</big><em>entry</em><big>)</big><a class="headerlink" href="#pyanaconda.ui.gui.spokes.lib.passphrase.PassphraseDialog.on_passphrase_changed" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyanaconda.ui.gui.spokes.lib.passphrase.PassphraseDialog.on_save_clicked">
+<tt class="descname">on_save_clicked</tt><big>(</big><em>button</em><big>)</big><a class="headerlink" href="#pyanaconda.ui.gui.spokes.lib.passphrase.PassphraseDialog.on_save_clicked" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyanaconda.ui.gui.spokes.lib.passphrase.PassphraseDialog.refresh">
+<tt class="descname">refresh</tt><big>(</big><big>)</big><a class="headerlink" href="#pyanaconda.ui.gui.spokes.lib.passphrase.PassphraseDialog.refresh" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyanaconda.ui.gui.spokes.lib.passphrase.PassphraseDialog.run">
+<tt class="descname">run</tt><big>(</big><big>)</big><a class="headerlink" href="#pyanaconda.ui.gui.spokes.lib.passphrase.PassphraseDialog.run" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyanaconda.ui.gui.spokes.lib.passphrase.PassphraseDialog.set_status">
+<tt class="descname">set_status</tt><big>(</big><em>inputcheck</em><big>)</big><a class="headerlink" href="#pyanaconda.ui.gui.spokes.lib.passphrase.PassphraseDialog.set_status" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="pyanaconda.ui.gui.spokes.lib.passphrase.PassphraseDialog.uiFile">
+<tt class="descname">uiFile</tt><em class="property"> = 'spokes/lib/passphrase.glade'</em><a class="headerlink" href="#pyanaconda.ui.gui.spokes.lib.passphrase.PassphraseDialog.uiFile" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-pyanaconda.ui.gui.spokes.lib.refresh">
+<span id="pyanaconda-ui-gui-spokes-lib-refresh-module"></span><h2>pyanaconda.ui.gui.spokes.lib.refresh module<a class="headerlink" href="#module-pyanaconda.ui.gui.spokes.lib.refresh" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="pyanaconda.ui.gui.spokes.lib.refresh.RefreshDialog">
+<em class="property">class </em><tt class="descclassname">pyanaconda.ui.gui.spokes.lib.refresh.</tt><tt class="descname">RefreshDialog</tt><big>(</big><em>data</em>, <em>storage</em><big>)</big><a class="headerlink" href="#pyanaconda.ui.gui.spokes.lib.refresh.RefreshDialog" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">pyanaconda.ui.gui.GUIObject</span></tt></p>
+<dl class="attribute">
+<dt id="pyanaconda.ui.gui.spokes.lib.refresh.RefreshDialog.builderObjects">
+<tt class="descname">builderObjects</tt><em class="property"> = ['refreshDialog']</em><a class="headerlink" href="#pyanaconda.ui.gui.spokes.lib.refresh.RefreshDialog.builderObjects" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="pyanaconda.ui.gui.spokes.lib.refresh.RefreshDialog.mainWidgetName">
+<tt class="descname">mainWidgetName</tt><em class="property"> = 'refreshDialog'</em><a class="headerlink" href="#pyanaconda.ui.gui.spokes.lib.refresh.RefreshDialog.mainWidgetName" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyanaconda.ui.gui.spokes.lib.refresh.RefreshDialog.on_rescan_clicked">
+<tt class="descname">on_rescan_clicked</tt><big>(</big><em>button</em><big>)</big><a class="headerlink" href="#pyanaconda.ui.gui.spokes.lib.refresh.RefreshDialog.on_rescan_clicked" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyanaconda.ui.gui.spokes.lib.refresh.RefreshDialog.return_to_hub_link_clicked">
+<tt class="descname">return_to_hub_link_clicked</tt><big>(</big><em>label</em>, <em>uri</em><big>)</big><a class="headerlink" href="#pyanaconda.ui.gui.spokes.lib.refresh.RefreshDialog.return_to_hub_link_clicked" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyanaconda.ui.gui.spokes.lib.refresh.RefreshDialog.run">
+<tt class="descname">run</tt><big>(</big><big>)</big><a class="headerlink" href="#pyanaconda.ui.gui.spokes.lib.refresh.RefreshDialog.run" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="pyanaconda.ui.gui.spokes.lib.refresh.RefreshDialog.uiFile">
+<tt class="descname">uiFile</tt><em class="property"> = 'spokes/lib/refresh.glade'</em><a class="headerlink" href="#pyanaconda.ui.gui.spokes.lib.refresh.RefreshDialog.uiFile" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-pyanaconda.ui.gui.spokes.lib.resize">
+<span id="pyanaconda-ui-gui-spokes-lib-resize-module"></span><h2>pyanaconda.ui.gui.spokes.lib.resize module<a class="headerlink" href="#module-pyanaconda.ui.gui.spokes.lib.resize" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="pyanaconda.ui.gui.spokes.lib.resize.ResizeDialog">
+<em class="property">class </em><tt class="descclassname">pyanaconda.ui.gui.spokes.lib.resize.</tt><tt class="descname">ResizeDialog</tt><big>(</big><em>data</em>, <em>storage</em>, <em>payload</em><big>)</big><a class="headerlink" href="#pyanaconda.ui.gui.spokes.lib.resize.ResizeDialog" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">pyanaconda.ui.gui.GUIObject</span></tt></p>
+<dl class="attribute">
+<dt id="pyanaconda.ui.gui.spokes.lib.resize.ResizeDialog.builderObjects">
+<tt class="descname">builderObjects</tt><em class="property"> = ['actionStore', 'diskStore', 'resizeDialog', 'resizeAdjustment']</em><a class="headerlink" href="#pyanaconda.ui.gui.spokes.lib.resize.ResizeDialog.builderObjects" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="pyanaconda.ui.gui.spokes.lib.resize.ResizeDialog.mainWidgetName">
+<tt class="descname">mainWidgetName</tt><em class="property"> = 'resizeDialog'</em><a class="headerlink" href="#pyanaconda.ui.gui.spokes.lib.resize.ResizeDialog.mainWidgetName" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyanaconda.ui.gui.spokes.lib.resize.ResizeDialog.on_delete_all_clicked">
+<tt class="descname">on_delete_all_clicked</tt><big>(</big><em>button</em>, <em>*args</em><big>)</big><a class="headerlink" href="#pyanaconda.ui.gui.spokes.lib.resize.ResizeDialog.on_delete_all_clicked" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyanaconda.ui.gui.spokes.lib.resize.ResizeDialog.on_delete_clicked">
+<tt class="descname">on_delete_clicked</tt><big>(</big><em>button</em><big>)</big><a class="headerlink" href="#pyanaconda.ui.gui.spokes.lib.resize.ResizeDialog.on_delete_clicked" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyanaconda.ui.gui.spokes.lib.resize.ResizeDialog.on_key_pressed">
+<tt class="descname">on_key_pressed</tt><big>(</big><em>window</em>, <em>event</em>, <em>*args</em><big>)</big><a class="headerlink" href="#pyanaconda.ui.gui.spokes.lib.resize.ResizeDialog.on_key_pressed" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyanaconda.ui.gui.spokes.lib.resize.ResizeDialog.on_preserve_clicked">
+<tt class="descname">on_preserve_clicked</tt><big>(</big><em>button</em><big>)</big><a class="headerlink" href="#pyanaconda.ui.gui.spokes.lib.resize.ResizeDialog.on_preserve_clicked" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyanaconda.ui.gui.spokes.lib.resize.ResizeDialog.on_resize_clicked">
+<tt class="descname">on_resize_clicked</tt><big>(</big><em>*args</em><big>)</big><a class="headerlink" href="#pyanaconda.ui.gui.spokes.lib.resize.ResizeDialog.on_resize_clicked" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyanaconda.ui.gui.spokes.lib.resize.ResizeDialog.on_resize_value_changed">
+<tt class="descname">on_resize_value_changed</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#pyanaconda.ui.gui.spokes.lib.resize.ResizeDialog.on_resize_value_changed" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyanaconda.ui.gui.spokes.lib.resize.ResizeDialog.on_row_clicked">
+<tt class="descname">on_row_clicked</tt><big>(</big><em>view</em>, <em>path</em>, <em>column</em><big>)</big><a class="headerlink" href="#pyanaconda.ui.gui.spokes.lib.resize.ResizeDialog.on_row_clicked" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyanaconda.ui.gui.spokes.lib.resize.ResizeDialog.on_selection_changed">
+<tt class="descname">on_selection_changed</tt><big>(</big><em>selection</em><big>)</big><a class="headerlink" href="#pyanaconda.ui.gui.spokes.lib.resize.ResizeDialog.on_selection_changed" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyanaconda.ui.gui.spokes.lib.resize.ResizeDialog.on_shrink_clicked">
+<tt class="descname">on_shrink_clicked</tt><big>(</big><em>button</em><big>)</big><a class="headerlink" href="#pyanaconda.ui.gui.spokes.lib.resize.ResizeDialog.on_shrink_clicked" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyanaconda.ui.gui.spokes.lib.resize.ResizeDialog.populate">
+<tt class="descname">populate</tt><big>(</big><em>disks</em><big>)</big><a class="headerlink" href="#pyanaconda.ui.gui.spokes.lib.resize.ResizeDialog.populate" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyanaconda.ui.gui.spokes.lib.resize.ResizeDialog.refresh">
+<tt class="descname">refresh</tt><big>(</big><em>disks</em><big>)</big><a class="headerlink" href="#pyanaconda.ui.gui.spokes.lib.resize.ResizeDialog.refresh" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyanaconda.ui.gui.spokes.lib.resize.ResizeDialog.resize_slider_format">
+<tt class="descname">resize_slider_format</tt><big>(</big><em>scale</em>, <em>value</em><big>)</big><a class="headerlink" href="#pyanaconda.ui.gui.spokes.lib.resize.ResizeDialog.resize_slider_format" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyanaconda.ui.gui.spokes.lib.resize.ResizeDialog.run">
+<tt class="descname">run</tt><big>(</big><big>)</big><a class="headerlink" href="#pyanaconda.ui.gui.spokes.lib.resize.ResizeDialog.run" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="pyanaconda.ui.gui.spokes.lib.resize.ResizeDialog.uiFile">
+<tt class="descname">uiFile</tt><em class="property"> = 'spokes/lib/resize.glade'</em><a class="headerlink" href="#pyanaconda.ui.gui.spokes.lib.resize.ResizeDialog.uiFile" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-pyanaconda.ui.gui.spokes.lib.summary">
+<span id="pyanaconda-ui-gui-spokes-lib-summary-module"></span><h2>pyanaconda.ui.gui.spokes.lib.summary module<a class="headerlink" href="#module-pyanaconda.ui.gui.spokes.lib.summary" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="pyanaconda.ui.gui.spokes.lib.summary.ActionSummaryDialog">
+<em class="property">class </em><tt class="descclassname">pyanaconda.ui.gui.spokes.lib.summary.</tt><tt class="descname">ActionSummaryDialog</tt><big>(</big><em>data</em><big>)</big><a class="headerlink" href="#pyanaconda.ui.gui.spokes.lib.summary.ActionSummaryDialog" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">pyanaconda.ui.gui.GUIObject</span></tt></p>
+<dl class="attribute">
+<dt id="pyanaconda.ui.gui.spokes.lib.summary.ActionSummaryDialog.builderObjects">
+<tt class="descname">builderObjects</tt><em class="property"> = ['actionStore', 'summaryDialog']</em><a class="headerlink" href="#pyanaconda.ui.gui.spokes.lib.summary.ActionSummaryDialog.builderObjects" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyanaconda.ui.gui.spokes.lib.summary.ActionSummaryDialog.initialize">
+<tt class="descname">initialize</tt><big>(</big><em>actions</em><big>)</big><a class="headerlink" href="#pyanaconda.ui.gui.spokes.lib.summary.ActionSummaryDialog.initialize" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="pyanaconda.ui.gui.spokes.lib.summary.ActionSummaryDialog.mainWidgetName">
+<tt class="descname">mainWidgetName</tt><em class="property"> = 'summaryDialog'</em><a class="headerlink" href="#pyanaconda.ui.gui.spokes.lib.summary.ActionSummaryDialog.mainWidgetName" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyanaconda.ui.gui.spokes.lib.summary.ActionSummaryDialog.refresh">
+<tt class="descname">refresh</tt><big>(</big><em>actions</em><big>)</big><a class="headerlink" href="#pyanaconda.ui.gui.spokes.lib.summary.ActionSummaryDialog.refresh" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyanaconda.ui.gui.spokes.lib.summary.ActionSummaryDialog.run">
+<tt class="descname">run</tt><big>(</big><big>)</big><a class="headerlink" href="#pyanaconda.ui.gui.spokes.lib.summary.ActionSummaryDialog.run" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="pyanaconda.ui.gui.spokes.lib.summary.ActionSummaryDialog.uiFile">
+<tt class="descname">uiFile</tt><em class="property"> = 'spokes/lib/summary.glade'</em><a class="headerlink" href="#pyanaconda.ui.gui.spokes.lib.summary.ActionSummaryDialog.uiFile" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-pyanaconda.ui.gui.spokes.lib">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-pyanaconda.ui.gui.spokes.lib" title="Permalink to this headline">¶</a></h2>
+</div>
+</div>
+
+
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="pyanaconda.ui.lib.html" class="btn btn-neutral float-right" title="pyanaconda.ui.lib package">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="pyanaconda.ui.gui.spokes.advstorage.html" class="btn btn-neutral" title="pyanaconda.ui.gui.spokes.advstorage package"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2015, Red Hat, Inc..
+    </p>
+  </div>
+
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+  
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'23.7',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>
