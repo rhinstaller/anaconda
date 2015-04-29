@@ -2,7 +2,7 @@
 <!-- Generated with glade 3.18.3 -->
 <interface>
   <requires lib="gtk+" version="3.0"/>
-  <requires lib="AnacondaWidgets" version="3.0"/>
+  <requires lib="AnacondaWidgets" version="3.2"/>
   <object class="AnacondaHubWindow" id="progressWindow">
     <property name="can_focus">False</property>
     <property name="window_name" translatable="yes">CONFIGURATION</property>
@@ -17,9 +17,6 @@
             <child internal-child="nav_area">
               <object class="GtkGrid" id="AnacondaHubWindow-nav_area1">
                 <property name="can_focus">False</property>
-                <child>
-                  <placeholder/>
-                </child>
                 <child>
                   <placeholder/>
                 </child>
@@ -72,7 +69,7 @@
                         <property name="can_focus">False</property>
                         <property name="spacing">6</property>
                         <child>
-                          <object class="GtkSpinner" id="progressSpinner">
+                          <object class="AnacondaSpinner" id="progressSpinner">
                             <property name="visible">True</property>
                             <property name="can_focus">False</property>
                             <property name="active">True</property>
