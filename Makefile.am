@@ -25,7 +25,7 @@ SUBDIRS = isys po loader booty storage textw utils scripts bootdisk \
 
 EXTRA_DIST = config.rpath COPYING pychecker-false-positives \
              pycheckrc-for-anaconda runpychecker.sh lang-table \
-             anaconda.spec.in
+             anaconda.spec.in zanata.xml
 
 MAINTAINERCLEANFILES = Makefile.in config.guess config.h.in config.sub \
                        depcomp install-sh ltmain.sh missing ABOUT-NLS \
