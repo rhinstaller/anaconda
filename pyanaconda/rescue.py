@@ -42,6 +42,7 @@ from blivet.devices import LUKSDevice
 from blivet.osinstall import storageInitialize, mountExistingSystem
 
 from pykickstart.constants import KS_REBOOT, KS_SHUTDOWN
+from gi.repository import BlockDev as blockdev
 
 import meh.ui.text
 
@@ -245,8 +246,8 @@ def _unlock_devices(intf, storage):
                         unlocked = True
                         # try to use the same passhprase for other devices
                         try_passphrase = passphrase
-                    except StorageError as serr:
-                        log.error("Failed to unlock %s: %s", device.name, serr)
+                    except (StorageError, blockdev.CryptoError) as err:
+                        log.error("Failed to unlock %s: %s", device.name, err)
                         device.teardown(recursive=True)
                         device.format.passphrase = None
                         try_passphrase = None

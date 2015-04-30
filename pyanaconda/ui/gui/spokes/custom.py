@@ -88,6 +88,7 @@ from pyanaconda.ui.gui.utils import really_hide, really_show, timed_action
 from pyanaconda.ui.categories.system import SystemCategory
 
 from gi.repository import Gdk, Gtk
+from gi.repository import BlockDev as blockdev
 from gi.repository.AnacondaWidgets import MountpointSelector
 
 from functools import wraps
@@ -2653,7 +2654,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         try:
             device.setup()
             device.format.setup()
-        except StorageError as e:
+        except (StorageError, blockdev.CryptoError) as e:
             log.error("failed to unlock %s: %s", device.name, e)
             device.teardown(recursive=True)
             self._error = e
