@@ -53,6 +53,7 @@ from blivet.devicefactory import DEVICE_TYPE_MD
 from blivet.devicefactory import DEVICE_TYPE_DISK
 from blivet.devicefactory import DEVICE_TYPE_LVM_THINP
 from blivet.devicefactory import SIZE_POLICY_AUTO
+from blivet.devicefactory import is_supported_device_type
 from blivet.osinstall import findExistingInstallations, Root
 from blivet.autopart import doAutoPartition
 from blivet.errors import StorageError
@@ -1385,6 +1386,8 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         # only include disk if the current device is a disk
         if use_dev.isDisk:
             should_appear.add("DEVICE_TYPE_DISK")
+
+        should_appear = set(dt for dt in should_appear if is_supported_device_type(dev_type_from_const(dt)))
 
         # go through the store and remove things that shouldn't be included
         # store.remove() updates or invalidates the passed iterator
