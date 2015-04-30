@@ -33,6 +33,9 @@ from pyanaconda import nm
 from pyanaconda.regexes import IPV4_PATTERN_WITHOUT_ANCHORS
 from pyanaconda.constants_text import INPUT_PROCESSED
 
+import logging
+log = logging.getLogger("anaconda")
+
 import re
 
 __all__ = ["NetworkSpoke"]
@@ -51,16 +54,26 @@ class NetworkSpoke(EditTUISpoke):
         self.errors = []
 
     def initialize(self):
-        for name in nm.nm_devices():
+        self._load_new_devices()
+
+        EditTUISpoke.initialize(self)
+        if not self.data.network.seen:
+            self._update_network_data()
+
+    def _load_new_devices(self):
+        devices = nm.nm_devices()
+        intf_dumped = network.dumpMissingDefaultIfcfgs()
+        if intf_dumped:
+            log.debug("Dumped interfaces: %s", intf_dumped)
+
+        for name in devices:
+            if name in self.supported_devices:
+                continue
             if nm.nm_device_type_is_ethernet(name):
                 # ignore slaves
                 if nm.nm_device_setting_value(name, "connection", "slave-type"):
                     continue
                 self.supported_devices.append(name)
-
-        EditTUISpoke.initialize(self)
-        if not self.data.network.seen:
-            self._update_network_data()
 
     @property
     def completed(self):
@@ -126,6 +139,7 @@ class NetworkSpoke(EditTUISpoke):
 
     def refresh(self, args=None):
         """ Refresh screen. """
+        self._load_new_devices()
         EditTUISpoke.refresh(self, args)
 
         # on refresh check if we haven't got hostname from NM on activated
