@@ -1362,7 +1362,8 @@ if __name__ == "__main__":
     # setup ntp servers and start NTP daemon if not requested otherwise
     if can_touch_runtime_system("start chronyd"):
         if anaconda.ksdata.timezone.ntpservers:
-            ntp.save_servers_to_config([], anaconda.ksdata.timezone.ntpservers)
+            pools, servers = ntp.internal_to_pools_and_servers(anaconda.ksdata.timezone.ntpservers)
+            ntp.save_servers_to_config(pools, servers)
 
         if not anaconda.ksdata.timezone.nontp:
             iutil.start_service("chronyd")
