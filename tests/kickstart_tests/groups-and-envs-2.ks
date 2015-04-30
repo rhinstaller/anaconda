@@ -48,7 +48,7 @@ rpm -q RepetierHost
 if [[ $? == 0 ]]; then
     echo '*** 3d-printing group should not have been installed' > /root/RESULT
     exit 1
-f
+fi
 
 # Testing #3 - docker-registry is only part of container-management, where
 # it is optional, so it should be installed.
