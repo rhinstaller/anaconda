@@ -505,7 +505,6 @@ EOF
         rm -f $MMB_DIR/lib/modules/$KDIR/kernel/drivers/scsi/aic7xxx/aic79xx.ko
         rm -f $MMB_DIR/lib/modules/$KDIR/kernel/drivers/gpu/drm/sis/sis.ko
         rm -f $MMB_DIR/lib/modules/$KDIR/kernel/drivers/gpu/drm/via/via.ko
-        rm -f $MMB_DIR/lib/modules/$KDIR/kernel/drivers/pps/pps_core.ko
         rm -f $MMB_DIR/lib/modules/$KDIR/kernel/net/802/garp.ko
         rm -f $MMB_DIR/lib/modules/$KDIR/kernel/net/802/stp.ko
     fi
