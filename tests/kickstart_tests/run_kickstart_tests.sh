@@ -76,6 +76,11 @@ KEEPIT=${KEEPIT:-0}
 # this script to parallel.
 env_args="--env TEST_OSTREE_REPO --env TEST_NFS_SERVER --env TEST_NFS_PATH --env TEST_ADDON_NFS_REPO --env TEST_ADDON_HTTP_REPO"
 
+# We'll make a copy of stdout from all the tests run through parallel
+# in this file, which we'll use to build up a results table at the
+# end.
+tmpresults=$(mktemp --tmpdir=/var/tmp kstest-results.XXXXXXXX)
+
 # Round up all the kickstart tests we want to run, skipping those that are not
 # executable as well as this file itself.
 find kickstart_tests -name '*sh' -a -perm -o+x -a \! -wholename 'kickstart_tests/run_*.sh' | \
@@ -138,10 +143,14 @@ else
     # setting and the exit, like in the other branch of the if-else above.
     rc=$?
     exit ${rc}
-fi
+fi | tee ${tmpresults}
+
+kickstart_tests/run_report.sh < ${tmpresults}
 
 # Catch the exit code of the subshell and return it.  This is structured for
 # future expansion, too.  Any extra global cleanup code can go in between the
 # variable setting and the exit.
 rc=$?
+
+rm ${tmpresults}
 exit ${rc}

@@ -70,7 +70,7 @@ runone() {
 
     ksfile=$(prepare ${ks} ${tmpdir})
     if [[ $? != 0 ]]; then
-        echo Test prep failed: ${ksfile}
+        echo RESULT:${name}:FAILED:Test prep failed: ${ksfile}
         cleanup ${tmpdir}
         return 1
     fi
@@ -94,7 +94,7 @@ runone() {
                       --vnc vnc \
                       --timeout 60
     if [[ "$(grep CRIT ${tmpdir}/virt-install.log)" != "" ]]; then
-        echo $(grep CRIT ${tmpdir}/virt-install.log)
+        echo RESULT:${name}:FAILED:$(grep CRIT ${tmpdir}/virt-install.log)
         cleanup ${tmpdir}
         return 1
     elif [[ -f ${tmpdir}/livemedia.log ]]; then
@@ -102,24 +102,24 @@ runone() {
         trimmed=${img## }
 
         if [[ "$(grep 'due to timeout' ${tmpdir}/livemedia.log)" != "" ]]; then
-            echo FAILED - Test timed out.
+            echo RESULT:${name}:FAILED:Test timed out.
             cleanup ${tmpdir}
             return 2
         elif [[ ! -f ${trimmed} ]]; then
-            echo FAILED - Disk image ${trimmed} does not exist.
+            echo RESULT:${name}:FAILED:Disk image ${trimmed} does not exist.
             cleanup ${tmpdir}
             return 1
         fi
 
         result=$(validate ${trimmed})
         if [[ $? != 0 ]]; then
-            echo FAILED - "${result}"
+            echo RESULT:${name}:FAILED:"${result}"
             cleanup ${tmpdir}
             return 1
         fi
     fi
 
-    echo SUCCESS
+    echo RESULT:${name}:SUCCESS
     cleanup ${tmpdir}
     return 0
 }
