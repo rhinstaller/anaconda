@@ -85,6 +85,7 @@ else
 fi
 
 export PATH=/sbin:/usr/sbin:$PATH
+export PYTHONPATH=/usr/share/anaconda/site-python
 
 if [ -x /usr/sbin/getenforce ]; then
     current=$(/usr/sbin/getenforce)
