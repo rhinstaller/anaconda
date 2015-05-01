@@ -96,9 +96,9 @@ runone() {
         trimmed=${img## }
 
         if [[ $(grep "due to timeout" ${tmpdir}/livemedia.log) != "" ]]; then
-           echo FAILED - Test timed out.
-           cleanup ${tmpdir}
-           return 1
+            echo FAILED - Test timed out.
+            cleanup ${tmpdir}
+            return 1
         elif [[ ! -f ${trimmed} ]]; then
             echo FAILED - Disk image ${trimmed} does not exist.
             cleanup ${tmpdir}
