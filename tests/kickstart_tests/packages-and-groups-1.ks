@@ -31,6 +31,7 @@ emacs*
 
 # (4) Test that you can remove packages with a glob.
 -ibus*
+-*-fonts
 %end
 
 %post
