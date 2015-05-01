@@ -280,6 +280,7 @@ class ResizeDialog(GUIObject):
 
     def _update_action_buttons(self, row):
         obj = PartStoreRow(*row)
+        action = obj.action.decode('utf-8')
         device = self.storage.devicetree.getDeviceByID(obj.id)
 
         # Disks themselves may be editable in certain ways, but they are never
@@ -301,12 +302,12 @@ class ResizeDialog(GUIObject):
 
         # Then, disable the button for whatever action is currently selected.
         # It doesn't make a lot of sense to allow clicking that.
-        if obj.action == _(PRESERVE):
+        if action == _(PRESERVE):
             self._preserveButton.set_sensitive(False)
-        elif obj.action == _(SHRINK):
+        elif action == _(SHRINK):
             self._shrinkButton.set_sensitive(False)
             self._resizeSlider.set_visible(True)
-        elif obj.action == _(DELETE):
+        elif action == _(DELETE):
             self._deleteButton.set_sensitive(False)
 
     def _update_reclaim_button(self, got):
@@ -339,16 +340,17 @@ class ResizeDialog(GUIObject):
 
     def _sumReclaimableSpace(self, model, path, itr, *args):
         obj = PartStoreRow(*model[itr])
+        action = obj.action.decode('utf-8')
 
         device = self.storage.devicetree.getDeviceByID(obj.id)
         if device.isDisk and device.partitioned:
             return False
 
-        if obj.action == _(PRESERVE):
+        if action == _(PRESERVE):
             return False
-        if obj.action == _(SHRINK):
+        if action == _(SHRINK):
             self._selectedReclaimableSpace += device.size - Size(obj.target)
-        elif obj.action == _(DELETE):
+        elif action == _(DELETE):
             self._selectedReclaimableSpace += int(device.size)
 
         return False
@@ -426,20 +428,21 @@ class ResizeDialog(GUIObject):
 
     def _scheduleActions(self, model, path, itr, *args):
         obj = PartStoreRow(*model[itr])
+        action = obj.action.decode('utf-8')
         device = self.storage.devicetree.getDeviceByID(obj.id)
 
         if not obj.editable:
             return False
 
-        if obj.action == _(PRESERVE):
+        if action == _(PRESERVE):
             return False
-        elif obj.action == _(SHRINK) and int(device.size) != int(obj.target):
+        elif action == _(SHRINK) and int(device.size) != int(obj.target):
             if device.resizable:
                 aligned = device.alignTargetSize(Size(obj.target))
                 self.storage.resizeDevice(device, aligned)
             else:
                 self._recursiveRemove(device)
-        elif obj.action == _(DELETE):
+        elif action == _(DELETE):
             self._recursiveRemove(device)
 
         return False
@@ -448,12 +451,15 @@ class ResizeDialog(GUIObject):
         self._diskStore.foreach(self._scheduleActions, None)
 
     def on_delete_all_clicked(self, button, *args):
-        if button.get_label() == C_("GUI|Reclaim Dialog", "Delete _all"):
+        orig_label = button.get_label().decode('utf-8')
+        delete_label = C_("GUI|Reclaim Dialog", "Delete _all")
+        preserve_label = C_("GUI|Reclaim Dialog", "Preserve _all")
+        if orig_label == delete_label:
             action = DELETE
-            button.set_label(C_("GUI|Reclaim Dialog", "Preserve _all"))
+            button.set_label(preserve_label)
         else:
             action = PRESERVE
-            button.set_label(C_("GUI|Reclaim Dialog", "Delete _all"))
+            button.set_label(delete_label)
 
         itr = self._diskStore.get_iter_first()
         while itr:
