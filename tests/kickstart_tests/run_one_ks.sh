@@ -24,6 +24,12 @@
 # not for direct use, though as long as you pass the right arguments there's
 # no reason it couldn't work.
 
+# Possible return values:
+# 0  - Everything worked
+# 1  - Test failed for unspecified reasons
+# 2  - Test failed due to time out
+# 77 - Something needed by the test doesn't exist, so skip
+
 IMAGE=
 KEEPIT=0
 
@@ -87,7 +93,7 @@ runone() {
                       --vcpus 2 \
                       --vnc vnc \
                       --timeout 60
-    if [[ $? != 0 ]]; then
+    if [[ "$(grep CRIT ${tmpdir}/virt-install.log)" != "" ]]; then
         echo $(grep CRIT ${tmpdir}/virt-install.log)
         cleanup ${tmpdir}
         return 1
@@ -95,10 +101,10 @@ runone() {
         img=$(grep disk_img ${tmpdir}/livemedia.log | cut -d= -f2)
         trimmed=${img## }
 
-        if [[ $(grep "due to timeout" ${tmpdir}/livemedia.log) != "" ]]; then
+        if [[ "$(grep 'due to timeout' ${tmpdir}/livemedia.log)" != "" ]]; then
             echo FAILED - Test timed out.
             cleanup ${tmpdir}
-            return 1
+            return 2
         elif [[ ! -f ${trimmed} ]]; then
             echo FAILED - Disk image ${trimmed} does not exist.
             cleanup ${tmpdir}
