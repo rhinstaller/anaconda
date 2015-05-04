@@ -8,6 +8,8 @@ BEGIN {
 /^RESULT:/ { if ($4 == "Test timed out.") {
                  result = "TIMED OUT";
                  explanation = "";
+             } else if (match($0, "Traceback")) {
+                 explanation = "Traceback";
              } else {
                  result = $3;
                  explanation = $4;
