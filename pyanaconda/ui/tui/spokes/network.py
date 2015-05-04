@@ -33,6 +33,9 @@ from pyanaconda import nm
 from pyanaconda.regexes import IPV4_PATTERN_WITHOUT_ANCHORS
 from pyanaconda.constants_text import INPUT_PROCESSED
 
+import logging
+log = logging.getLogger("anaconda")
+
 import re
 
 __all__ = ["NetworkSpoke"]
@@ -51,16 +54,29 @@ class NetworkSpoke(EditTUISpoke):
         self.errors = []
 
     def initialize(self):
-        for name in nm.nm_devices():
+        self._load_new_devices()
+
+        EditTUISpoke.initialize(self)
+
+    def _load_new_devices(self):
+        """ Register new devices to supported devices list. """
+        devices = nm.nm_devices()
+        intf_dumped = network.dumpMissingDefaultIfcfgs()
+        if intf_dumped:
+            log.debug("Dumped interfaces: {0}".format(intf_dumped))
+
+        for name in devices:
+            if name in self.supported_devices:
+                # this device is already registered
+                continue
             if nm.nm_device_type_is_ethernet(name):
                 # ignore slaves
                 if nm.nm_device_setting_value(name, "connection", "slave-type"):
                     continue
                 self.supported_devices.append(name)
 
-        EditTUISpoke.initialize(self)
         if not self.data.network.seen:
-            self._update_network_data()
+            self._update_network_data(devices)
 
     @property
     def completed(self):
@@ -126,6 +142,7 @@ class NetworkSpoke(EditTUISpoke):
 
     def refresh(self, args=None):
         """ Refresh screen. """
+        self._load_new_devices()
         EditTUISpoke.refresh(self, args)
 
         # on refresh check if we haven't got hostname from NM on activated
@@ -213,13 +230,13 @@ class NetworkSpoke(EditTUISpoke):
 
     def apply(self):
         " Apply all of our settings."""
-        self._update_network_data()
+        self._update_network_data(self.supported_devices)
 
-    def _update_network_data(self):
+    def _update_network_data(self, devices):
         hostname = self.data.network.hostname
 
         self.data.network.network = []
-        for name in nm.nm_devices():
+        for name in devices:
             nd = network.ksdata_from_ifcfg(name)
             if not nd:
                 continue
