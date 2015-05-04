@@ -20,12 +20,13 @@
 # Red Hat Author(s): Chris Lumens <clumens@redhat.com>
 #
 
+from blivet.devicefactory import is_supported_device_type
 
 from pyanaconda.i18n import _
 from pyanaconda.product import productName, productVersion
 from pyanaconda.ui.gui.utils import escape_markup, really_hide, really_show
 from pyanaconda.constants import DEFAULT_AUTOPART_TYPE
-from pyanaconda.storage_utils import AUTOPART_CHOICES
+from pyanaconda.storage_utils import AUTOPART_CHOICES, AUTOPART_DEVICE_TYPES
 
 from gi.repository.AnacondaWidgets import MountpointSelector
 from gi.repository import Gtk
@@ -331,15 +332,18 @@ class CreateNewPage(Page):
         self._createBox.attach(label, 0, 4, 2, 1)
         label.set_mnemonic_widget(combo)
 
-        for item in (AUTOPART_CHOICES):
-            itr = store.append([_(item[0]), item[1]])
-            if item[1] == DEFAULT_AUTOPART_TYPE:
+        autopart_choices = (c for c in AUTOPART_CHOICES if is_supported_device_type(AUTOPART_DEVICE_TYPES[c[1]]))
+        default = None
+        for name, code in autopart_choices:
+            itr = store.append([_(name), code])
+            if code == DEFAULT_AUTOPART_TYPE:
                 default = itr
 
         combo.set_margin_left(18)
         combo.set_margin_right(18)
         combo.set_hexpand(False)
-        combo.set_active_iter(default)
+        combo.set_active_iter(default or store.get_iter_first())
+
         self._createBox.attach(combo, 0, 5, 2, 1)
 
         self.add(self._createBox)
