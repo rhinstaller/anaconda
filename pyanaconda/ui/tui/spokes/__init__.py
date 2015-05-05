@@ -109,6 +109,9 @@ class EditTUIDialog(NormalTUISpoke):
         NormalTUISpoke.__init__(self, app, data, storage, payload, instclass)
         self.value = None
 
+        # Added to allow custom incorrect input messages
+        self.wrong_input_message = None
+
     def refresh(self, args = None):
         self._window = []
         self.value = None
@@ -168,8 +171,11 @@ class EditTUIDialog(NormalTUISpoke):
             self.close()
             return True
         else:
-            print(_("You have provided an invalid user name: %s\n"
-                    "Tip: Keep your user name shorter than 32 characters and do not use spaces.\n") % key)
+            if self.wrong_input_message:
+                print(self.wrong_input_message)
+            else:
+                print(_("You have provided an invalid user name: %s\n"
+                        "Tip: Keep your user name shorter than 32 characters and do not use spaces.\n") % key)
             return NormalTUISpoke.input(self, entry, key)
 
 class OneShotEditTUIDialog(EditTUIDialog):

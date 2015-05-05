@@ -267,6 +267,20 @@ class Fake_RE_IPV6(object):
                 return False
         return network.check_ip_address(addr, version=6)
 
+class Fake_RE_Nameservers(object):
+    def __init__(self, separator):
+        self._separator = separator
+
+    def match(self, value):
+        addresses = [str.strip(i) for i in value.split(self._separator)]
+        if not addresses:
+            return False
+
+        for ip in addresses:
+            if not network.check_ip_address(ip):
+                return False
+        return True
+
 class ConfigureNetworkSpoke(EditTUISpoke):
     """ Spoke to set various configuration options for net devices. """
     title = N_("Device configuration")
@@ -274,14 +288,15 @@ class ConfigureNetworkSpoke(EditTUISpoke):
 
     edit_fields = [
         Entry(N_('IPv4 address or %s for DHCP') % '"dhcp"', "ip",
-              re.compile("^" + IPV4_PATTERN_WITHOUT_ANCHORS + "|dhcp$"), True),
+              re.compile("^(?:" + IPV4_PATTERN_WITHOUT_ANCHORS + "|dhcp)$"), True),
         Entry(N_("IPv4 netmask"), "netmask", re.compile("^" + IPV4_PATTERN_WITHOUT_ANCHORS + "$"), True),
         Entry(N_("IPv4 gateway"), "gateway", re.compile("^" + IPV4_PATTERN_WITHOUT_ANCHORS + "$"), True),
         Entry(N_('IPv6 address or %(auto)s for automatic, %(dhcp)s for DHCP, %(ignore)s to turn off')
               % {"auto": '"auto"', "dhcp": '"dhcp"', "ignore": '"ignore"'}, "ipv6",
               Fake_RE_IPV6(allow_prefix=True, whitelist=["auto", "dhcp", "ignore"]), True),
-        Entry(N_("IPv6 default gateway"), "ipv6gateway", re.compile(".*$"), True),
-        Entry(N_("Nameservers (comma separated)"), "nameserver", re.compile(".*$"), True),
+        Entry(N_("IPv6 default gateway"), "ipv6gateway", Fake_RE_IPV6(), True),
+        Entry(N_("Nameservers (comma separated)"), "nameserver",
+              Fake_RE_Nameservers(separator=","), True),
         Entry(N_("Connect automatically after reboot"), "onboot", EditTUISpoke.CHECK, True),
         Entry(N_("Apply configuration in installer"), "_apply", EditTUISpoke.CHECK, True),
     ]
@@ -294,6 +309,7 @@ class ConfigureNetworkSpoke(EditTUISpoke):
         if self.args.noipv6:
             self.args.ipv6 = "ignore"
         self.args._apply = False
+        self.dialog.wrong_input_message = _("Bad format of the IP address")
 
     def refresh(self, args=None):
         """ Refresh window. """

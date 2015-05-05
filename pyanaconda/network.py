@@ -82,6 +82,10 @@ def check_ip_address(address, version=None):
         return False
     if version and version == ver:
         return True
+    elif not version:
+        return True
+    else:
+        return False
 
 def sanityCheckHostname(hostname):
     """
@@ -422,11 +426,13 @@ def _get_ip_setting_values_from_ksdata(networkdata):
     nss4 = []
     nss6 = []
     if networkdata.nameserver:
-        for ns in networkdata.nameserver.split(","):
-            if ":" in ns:
+        for ns in [str.strip(i) for i in networkdata.nameserver.split(",")]:
+            if check_ip_address(ns, version=6):
                 nss6.append(nm.nm_ipv6_to_dbus_ay(ns))
-            else:
+            elif check_ip_address(ns, version=4):
                 nss4.append(nm.nm_ipv4_to_dbus_int(ns))
+            else:
+                log.error("IP address %s is not valid", ns)
     values.append(["ipv4", "dns", nss4, "au"])
     values.append(["ipv6", "dns", nss6, "aay"])
 
