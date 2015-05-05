@@ -29,6 +29,7 @@ from pyanaconda.ui.gui import GUIObject
 from pyanaconda.ui.gui.utils import escape_markup
 from pyanaconda.i18n import _
 from pyanaconda import nm
+from pyanaconda.regexes import ISCSI_IQN_NAME_REGEX, ISCSI_EUI_NAME_REGEX
 
 __all__ = ["ISCSIDialog"]
 
@@ -303,7 +304,8 @@ class ISCSIDialog(GUIObject):
 
         stripped = text.strip()
         #iSCSI Naming Standards: RFC 3720 and RFC 3721
-        return "." in stripped
+        #iSCSI Name validation using regex. Name should either match IQN format or EUI format.
+        return bool(ISCSI_IQN_NAME_REGEX.match(stripped) or ISCSI_EUI_NAME_REGEX.match(stripped))
 
     def on_discover_field_changed(self, *args):
         # Make up a credentials object so we can test if it's valid.
