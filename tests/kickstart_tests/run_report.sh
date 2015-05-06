@@ -9,6 +9,7 @@ BEGIN {
                  result = "TIMED OUT";
                  explanation = "";
              } else if (match($0, "Traceback")) {
+                 result = "FAILED";
                  explanation = "Traceback";
              } else {
                  result = $3;
