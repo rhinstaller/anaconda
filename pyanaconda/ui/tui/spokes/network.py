@@ -295,6 +295,7 @@ class ConfigureNetworkSpoke(EditTUISpoke):
         if self.args.noipv6:
             self.args.ipv6 = "ignore"
         self.args._apply = False
+        self.dialog.wrong_input_message = _("Bad format of the IP address")
 
     def refresh(self, args=None):
         """ Refresh window. """
