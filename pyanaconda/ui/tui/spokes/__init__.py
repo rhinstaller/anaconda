@@ -110,6 +110,7 @@ class EditTUIDialog(NormalTUISpoke):
         NormalTUISpoke.__init__(self, app, data, storage, payload, instclass)
         self.value = None
         self.policy = None
+        self.wrong_input_message = None
 
         # Configure the password policy, if available. Otherwise use defaults.
         self.policy = self.data.anaconda.pwpolicy.get_policy(policy_name)
@@ -183,8 +184,11 @@ class EditTUIDialog(NormalTUISpoke):
             self.close()
             return True
         else:
-            print(_("You have provided an invalid user name: %s\n"
-                    "Tip: Keep your user name shorter than 32 characters and do not use spaces.\n") % key)
+            if self.wrong_input_message:
+                print(self.wrong_input_message)
+            else:
+                print(_("You have provided an invalid user name: %s\n"
+                        "Tip: Keep your user name shorter than 32 characters and do not use spaces.\n") % key)
             return NormalTUISpoke.input(self, entry, key)
 
 class OneShotEditTUIDialog(EditTUIDialog):
