@@ -54,7 +54,7 @@ fi
 # Testing #2 - qemu-kvm should not be installed.
 rpm -q qemu-kvm
 if [[ $? == 0 ]]; then
-    echo '*** 3d-printing group should not have been installed' > /root/RESULT
+    echo '*** qemu-kvm package should not have been installed' > /root/RESULT
     exit 1
 fi
 
