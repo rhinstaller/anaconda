@@ -300,7 +300,8 @@ class Users:
             userEnt = self.admin.initUser(user_name)
             groupEnt = self.admin.initGroup(user_name)
 
-            if kwargs.get("gid", -1) >= 0:
+            gid = kwargs.get("gid") or -1
+            if gid >= 0:
                 groupEnt.set(libuser.GIDNUMBER, kwargs["gid"])
 
             grpLst = [grp for grp in map(self.admin.lookupGroupByName, kwargs.get("groups", [])) if grp]
@@ -319,7 +320,8 @@ class Users:
             if kwargs.get("shell", False):
                 userEnt.set(libuser.LOGINSHELL, kwargs["shell"])
 
-            if kwargs.get("uid", -1) >= 0:
+            uid = kwargs.get("uid") or -1
+            if uid >= 0:
                 userEnt.set(libuser.UIDNUMBER, kwargs["uid"])
 
             if kwargs.get("gecos", False):
