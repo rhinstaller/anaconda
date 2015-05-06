@@ -750,7 +750,7 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler):
 
         for dev in potentialHdisoSources(self.storage.devicetree):
             # path model size format type uuid of format
-            dev_info = {"model" : self._sanitize_model(dev.disk.model),
+            dev_info = {"model" : self._sanitize_model(dev.disk.model or ""),
                         "path"  : dev.path,
                         "size"  : dev.size,
                         "format": dev.format.name or "",
