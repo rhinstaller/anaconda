@@ -1408,7 +1408,9 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
             self._labelEntry.set_text(device.format.label)
         else:
             self._labelEntry.set_text("")
-        fancy_set_sensitive(self._labelEntry, True)
+
+        # Only Allow Labels on Filesystems Supporting It
+        fancy_set_sensitive(self._labelEntry, device.format.labeling())
 
         self._device_size_text = device.size.humanReadable(max_places=2)
         self._sizeEntry.set_text(self._device_size_text)
@@ -2343,6 +2345,13 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         log.debug("fs type changed: %s", new_type)
         fmt = getFormat(new_type)
         fancy_set_sensitive(self._mountPointEntry, fmt.mountable)
+
+        # Only Allow Labels on Filesystems Supporting It
+        if fmt.labeling():
+            fancy_set_sensitive(self._labelEntry, True)
+        else:
+            fancy_set_sensitive(self._labelEntry, False)
+            self._labelEntry.set_text("")
 
     def _populate_container(self, device=None):
         """ Set up the vg widgets for lvm or hide them for other types. """
