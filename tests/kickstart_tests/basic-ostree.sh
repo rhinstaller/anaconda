@@ -26,12 +26,12 @@ prepare() {
     ks=$1
     tmpdir=$2
 
-    if [[ "${TEST_OSTREE_REPO}" == "" ]]; then
-        echo \$TEST_OSTREE_REPO is not set.
+    if [[ "${KSTEST_OSTREE_REPO}" == "" ]]; then
+        echo \$KSTEST_OSTREE_REPO is not set.
         return 1
     fi
 
-    sed -e "/ostreesetup/ s|REPO|${TEST_OSTREE_REPO}|" ${ks} > ${tmpdir}/kickstart.ks
+    sed -e "/ostreesetup/ s|REPO|${KSTEST_OSTREE_REPO}|" ${ks} > ${tmpdir}/kickstart.ks
     echo ${tmpdir}/kickstart.ks
 }
 

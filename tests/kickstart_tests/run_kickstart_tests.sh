@@ -68,13 +68,15 @@ fi
 KEEPIT=${KEEPIT:-0}
 
 # This is for environment variables that parallel needs to pass to
-# remote systems.  Put anything here that test cases care about or
-# they won't work when run on some systems.
+# remote systems.
 #
 # NOTE:  You will also need to add these to the list in /etc/sudoers
 # if you are using env_reset there, or they will not get passed from
 # this script to parallel.
-env_args="--env TEST_OSTREE_REPO --env TEST_NFS_SERVER --env TEST_NFS_PATH --env TEST_ADDON_NFS_REPO --env TEST_ADDON_HTTP_REPO"
+env_args=$(printenv | while read line; do
+    v="$(echo $line | cut -d'=' -f1)"
+    [[ "${v}" =~ ^KSTEST_ ]] && echo "--env ${v}"
+ done)
 
 # Round up all the kickstart tests we want to run, skipping those that are not
 # executable as well as this file itself.

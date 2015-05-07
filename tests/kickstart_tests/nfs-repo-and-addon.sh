@@ -25,30 +25,30 @@ prepare() {
     ks=$1
     tmpdir=$2
 
-    if [[ "${TEST_ADDON_NFS_REPO}" == "" ]]; then
-        echo \$TEST_ADDON_NFS_REPO is not set.
+    if [[ "${KSTEST_ADDON_NFS_REPO}" == "" ]]; then
+        echo \$KSTEST_ADDON_NFS_REPO is not set.
         return 1
     fi
 
-    if [[ "${TEST_ADDON_HTTP_REPO}" == "" ]]; then
-        echo \$TEST_ADDON_HTTP_REPO is not set.
+    if [[ "${KSTEST_ADDON_HTTP_REPO}" == "" ]]; then
+        echo \$KSTEST_ADDON_HTTP_REPO is not set.
         return 1
     fi
 
-    if [[ "${TEST_NFS_SERVER}" == "" ]]; then
-        echo \$TEST_NFS_SERVER is not set
+    if [[ "${KSTEST_NFS_SERVER}" == "" ]]; then
+        echo \$KSTEST_NFS_SERVER is not set
         return 1
     fi
 
-    if [[ "${TEST_NFS_PATH}" == "" ]]; then
-        echo \$TEST_NFS_PATH is not set
+    if [[ "${KSTEST_NFS_PATH}" == "" ]]; then
+        echo \$KSTEST_NFS_PATH is not set
         return 1
     fi
 
-    sed -e "/^nfs/ s|NFS-SERVER|${TEST_NFS_SERVER}|" \
-        -e "/^nfs/ s|NFS-PATH|${TEST_NFS_PATH}|" \
-        -e "/^repo/ s|NFS-ADDON-REPO|${TEST_ADDON_NFS_REPO}|" \
-        -e "/^repo/ s|HTTP-ADDON-REPO|${TEST_ADDON_HTTP_REPO}|" ${ks} > ${tmpdir}/kickstart.ks
+    sed -e "/^nfs/ s|NFS-SERVER|${KSTEST_NFS_SERVER}|" \
+        -e "/^nfs/ s|NFS-PATH|${KSTEST_NFS_PATH}|" \
+        -e "/^repo/ s|NFS-ADDON-REPO|${KSTEST_ADDON_NFS_REPO}|" \
+        -e "/^repo/ s|HTTP-ADDON-REPO|${KSTEST_ADDON_HTTP_REPO}|" ${ks} > ${tmpdir}/kickstart.ks
     echo ${tmpdir}/kickstart.ks
 }
 
