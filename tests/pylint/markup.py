@@ -112,7 +112,7 @@ class MarkupChecker(BaseChecker):
 
     @check_messages("invalid-markup", "invalid-markup-element", "unescaped-markup", "invalid-translated-markup", "invalid-translated-markup-element", "invalid-pango-translation", "unnecessary-markup")
     def visit_const(self, node):
-        if type(node.value) not in (types.StringType, types.UnicodeType):
+        if not isinstance(node.value, types.StringType) and not isinstance(node.value, types.UnicodeType):
             return
 
         if not is_markup(node.value):

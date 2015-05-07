@@ -153,7 +153,7 @@ class PointlessAssignment(PointlessData):
 
     @classmethod
     def check_equal(cls, node, other):
-        if type(node) != type(other):
+        if not isinstance(node, other.__class__):
             return False
         if isinstance(node, astroid.Const):
             return node.value == other.value

@@ -1045,14 +1045,14 @@ _ASCIIlower_table = string.maketrans(string.ascii_uppercase, string.ascii_lowerc
 
 def _toASCII(s):
     """Convert a unicode string to ASCII"""
-    if type(s) == types.UnicodeType:
+    if isinstance(s, types.UnicodeType):
         # Decompose the string using the NFK decomposition, which in addition
         # to the canonical decomposition replaces characters based on
         # compatibility equivalence (e.g., ROMAN NUMERAL ONE has its own code
         # point but it's really just a capital I), so that we can keep as much
         # of the ASCII part of the string as possible.
         s = unicodedata.normalize('NKFD', s).encode('ascii', 'ignore')
-    elif type(s) != types.StringType:
+    elif not isinstance(s, types.StringType):
         s = ''
     return s
 

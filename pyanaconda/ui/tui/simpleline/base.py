@@ -25,6 +25,7 @@ import sys
 import Queue
 import getpass
 import threading
+import types
 import functools
 from pyanaconda.threads import threadMgr, AnacondaThread
 from pyanaconda.ui.communication import hubQ
@@ -580,7 +581,7 @@ class UIScreen(object):
                 w.render(self.app.width)
             if isinstance(w, Widget):
                 self._print_long_widget(w)
-            elif type(w) == str:
+            elif isinstance(w, types.StringType):
                 print(w.decode("utf-8"))
             else:
                 # not a widget, just print its unicode representation
