@@ -432,7 +432,7 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler):
             if url == "":
                 return False
 
-            # Make sure the URL starts with the protocol.  yum will want that
+            # Make sure the URL starts with the protocol.  dnf will want that
             # to know how to fetch, and the refresh method needs that to know
             # which element of the combo to default to should this spoke be
             # revisited.
@@ -1142,13 +1142,15 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler):
         # Remove repos from payload that were removed in the UI
         for repo_name in [r for r in self.payload.addOns if r not in ui_orig_names]:
             repo = self.payload.getAddOnRepo(repo_name)
-            # TODO: Need an API to do this w/o touching yum (not addRepo)
+            # TODO: Need an API to do this w/o touching dnf (not addRepo)
+            # FIXME: Is this still needed for dnf?
             self.payload.data.repo.dataList().remove(repo)
             changed = True
 
         for repo, orig_repo in [(r[REPO_OBJ], self.payload.getAddOnRepo(r[REPO_OBJ].orig_name)) for r in self._repoStore]:
             if not orig_repo:
-                # TODO: Need an API to do this w/o touching yum (not addRepo)
+                # TODO: Need an API to do this w/o touching dnf (not addRepo)
+                # FIXME: Is this still needed for dnf?
                 self.payload.data.repo.dataList().append(repo)
                 changed = True
             elif not cmp_obj_attrs(orig_repo, repo, REPO_ATTRS):

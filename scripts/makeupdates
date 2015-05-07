@@ -339,7 +339,7 @@ def copyUpdatedFiles(tag, updates, cwd, builddir):
         elif gitfile.startswith("data/post-scripts/"):
             install_to_dir(gitfile, "usr/share/anaconda/post-scripts")
         elif any(gitfile.endswith(libexec_script) for libexec_script in \
-                 ("anaconda-yum", "zramswapon", "zramswapoff", "zram-stats")):
+                 ("zramswapon", "zramswapoff", "zram-stats")):
             install_to_dir(gitfile, "usr/libexec/anaconda")
         elif gitfile.endswith("AnacondaWidgets.py"):
             import gi

@@ -55,7 +55,7 @@ tag:
 	@echo "Tagged as $(ARCHIVE_TAG)"
 
 po-pull:
-	rpm -q zanata-python-client &>/dev/null || ( echo "need to run: yum install zanata-python-client"; exit 1 )
+	rpm -q zanata-python-client &>/dev/null || ( echo "need to run: dnf install zanata-python-client"; exit 1 )
 	zanata pull $(ZANATA_PULL_ARGS)
 
 po-empty:
@@ -114,14 +114,14 @@ bumpver: po-pull
 install-buildrequires:
 	srcdir="$(srcdir)" && \
 	: $${srcdir:=.} && \
-	yum install $$(grep ^BuildRequires: $${srcdir}/anaconda.spec.in | cut -d ' ' -f 2)
+	dnf install $$(grep ^BuildRequires: $${srcdir}/anaconda.spec.in | cut -d ' ' -f 2)
 
 # Install all packages specified as Requires in the Anaconda specfile
 # -> installs packages needed to run Anaconda and the Anaconda unit tests
 install-requires:
 	srcdir="$(srcdir)" && \
 	: $${srcdir:=.} && \
-	yum install $$(grep ^Requires: $${srcdir}/anaconda.spec.in | cut -d ' ' -f 2 | grep -v ^anaconda)
+	dnf install $$(grep ^Requires: $${srcdir}/anaconda.spec.in | cut -d ' ' -f 2 | grep -v ^anaconda)
 
 # Generate an updates.img based on the changed files since the release
 # was tagged.  Updates are copied to ./updates-img and then the image is

@@ -256,5 +256,5 @@ class SoftwareSpoke(NormalTUISpoke):
 
     @property
     def txid_valid(self):
-        """ Whether we have a valid yum tx id. """
+        """ Whether we have a valid dnf tx id. """
         return self._tx_id == self.payload.txID

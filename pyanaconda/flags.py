@@ -65,7 +65,6 @@ class Flags(object):
         self.gpt = False
         self.leavebootorder = False
         self.testing = False
-        self.dnf = True
         self.mpathFriendlyNames = True
         # ksprompt is whether or not to prompt for missing ksdata
         self.ksprompt = True
@@ -81,7 +80,7 @@ class Flags(object):
 
     def read_cmdline(self):
         for f in ("selinux", "debug", "leavebootorder", "testing", "extlinux",
-                  "nombr", "gpt", "dnf", "noefi"):
+                  "nombr", "gpt", "noefi"):
             self.set_cmdline_bool(f)
 
         if not selinux.is_selinux_enabled():

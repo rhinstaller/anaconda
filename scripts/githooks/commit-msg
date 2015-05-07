@@ -51,7 +51,7 @@ fi
 
 ${bzcmd} >/dev/null 2>&1
 if [ $? -eq 127 ]; then
-    echo "*** 'yum install python-bugzilla' to validate bug references." >&2
+    echo "*** 'dnf install python-bugzilla' to validate bug references." >&2
 
     msg="$(mktemp $(pwd)/commit.msg.XXXXXXXXXX)"
     cp "${1}" "${msg}"

@@ -1252,23 +1252,6 @@ class PayloadManager(object):
             payload.unsetup()
             return
 
-        try:
-            # Grabbing the list of groups could potentially take a long time the
-            # first time (yum does a lot of magic property stuff, some of which
-            # involves side effects like network access) so go ahead and grab
-            # them now. These are properties with side-effects, just accessing
-            # them will trigger yum.
-            # pylint: disable=pointless-statement
-            payload.environments
-            # pylint: disable=pointless-statement
-            payload.groups
-        except MetadataError as e:
-            log.error("MetadataError: %s", e)
-            self._error = self.ERROR_SOURCE
-            self._setState(self.STATE_ERROR)
-            payload.unsetup()
-            return
-
         self._setState(self.STATE_FINISHED)
 
 # Initialize the PayloadManager instance

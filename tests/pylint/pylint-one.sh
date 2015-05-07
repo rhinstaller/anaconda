@@ -18,7 +18,7 @@ pylint_output="$(pylint \
     --dummy-variables-rgx=_ \
     --ignored-classes=DefaultInstall,Popen,QueueFactory,TransactionSet \
     --defining-attr-methods=__init__,_grabObjects,initialize,reset,start,setUp \
-    --load-plugins=intl,preconf,markup,eintr,pointless-override,environ \
+    --load-plugins=intl,markup,eintr,pointless-override,environ \
     --init-import=y \
     --init-hook=\
 'import gi.overrides, os;

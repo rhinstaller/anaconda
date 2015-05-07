@@ -54,7 +54,7 @@ swapon -p 100 /dev/zram0
 
 if [ $mem_total_kb -le "1048576" ]; then
     # less than 1 GB or RAM -> less than 512 MB /tmp (tmpfs defaults to
-    # 0.5*RAM), bump up the /tmp's size, yum may need it
+    # 0.5*RAM), bump up the /tmp's size, dnf may need it
     mount -o remount,size=512M /tmp
 fi
 

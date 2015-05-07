@@ -68,7 +68,7 @@ class TextUserInterface(ui.UserInterface):
         :param storage: storage backend reference
         :type storage: instance of pyanaconda.Storage
 
-        :param payload: payload (usually yum) reference
+        :param payload: payload (usually dnf) reference
         :type payload: instance of payload handler
 
         :param instclass: install class reference

@@ -68,7 +68,7 @@ any anaconda's supported filesystem (vfat, squashfs, ext2 and ext3).
     /
     |rhdd3   - DD marker, contains the DD's description string
     /rpms
-      |  /i386 - contains RPMs for this arch and acts as Yum repo
+      |  /i386 - contains RPMs for this arch and acts as package repo
       |  /i586
       |  /x86_64
       |  /ppc
@@ -116,7 +116,7 @@ Package installation
 
 It is also possible to include arbitrary packages on the DriverDisc media and
 mark them for installation. You just have to include the package name in the
-Yum repo for correct architecture and mark it as mandatory.
+package repo for correct architecture and mark it as mandatory.
 
 
 Summary

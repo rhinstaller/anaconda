@@ -474,7 +474,7 @@ class DNFPayload(packaging.PackagePayload):
 
     @property
     def baseRepo(self):
-        # is any locking needed here as in the yumpayload?
+        # is any locking needed here?
         repo_names = [constants.BASE_REPO_NAME] + self.DEFAULT_REPOS
         for repo in self._base.repos.iter_enabled():
             if repo.id in repo_names:

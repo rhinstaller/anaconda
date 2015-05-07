@@ -367,8 +367,6 @@ def parseArguments(argv=None, boot_cmdline=None):
                     help=help_parser.help_text("extlinux"))
     ap.add_argument("--nombr", action="store_true", default=False,
                     help=help_parser.help_text("nombr"))
-    ap.add_argument("--nodnf", action="store_false", dest="dnf", default=True,
-                    help=help_parser.help_text("nodnf"))
     ap.add_argument("--mpathfriendlynames", action="store_true", default=True,
                     help=help_parser.help_text("mpathfriendlynames"))
     ap.add_argument("--kexec", action="store_true", default=False,
@@ -1039,7 +1037,6 @@ if __name__ == "__main__":
     flags.armPlatform = opts.armPlatform
     flags.extlinux = opts.extlinux
     flags.nombr = opts.nombr
-    flags.dnf = opts.dnf
     flags.mpathFriendlyNames = opts.mpathfriendlynames
     flags.debug = opts.debug
     flags.askmethod = opts.askmethod
@@ -1176,7 +1173,7 @@ if __name__ == "__main__":
     if flags.noverifyssl:
         ksdata.method.noverifyssl = flags.noverifyssl
     if opts.multiLib:
-        # sets yum's multilib_policy to "all" (as opposed to "best")
+        # sets dnf's multilib_policy to "all" (as opposed to "best")
         ksdata.packages.multiLib = opts.multiLib
 
     # set ksdata.method based on anaconda.method if it isn't already set
@@ -1213,8 +1210,9 @@ if __name__ == "__main__":
             # the kickstart might have specified a mirror list,
             # so we need to clear it here if plain url source is provided
             # by a bootoption, because having both url & mirror list
-            # set at once is not supported and breaks Yum in
+            # set at once is not supported and breaks dnf in
             # unpredictable ways
+            # FIXME: Is this still needed for dnf?
             ksdata.method.mirrorlist = None
         elif anaconda.methodstr.startswith("livecd"):
             ksdata.method.method = "harddrive"

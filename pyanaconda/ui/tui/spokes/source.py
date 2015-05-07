@@ -497,6 +497,6 @@ class SelectISOSpoke(NormalTUISpoke, SourceSwitchHandler):
 
         if self._current_iso_path:
             self.set_source_hdd_iso(self._device, self._current_iso_path)
-        # unmount the device - the (YUM) payload will remount it anyway
+        # unmount the device - the payload will remount it anyway
         # (if it uses it)
         self._unmount_device()

@@ -39,7 +39,7 @@ armplatform
 Can be used to specify the ARM platform for the installation by passing the appropriate PLATFORM_ID.
 
 multilib
-Enable yum's multlib_policy of "all" instead of the default of "best".
+Enable dnf's multlib_policy of "all" instead of the default of "best".
 
 method
 This option is deprecated in favor of the repo option. For now, it does the same thing as repo,
@@ -52,7 +52,7 @@ you can enter the spoke and change it, you can pass this option.
 
 repo
 This option tells Anaconda where to find the packages for installation. This option must point to a
-valid yum repository (or, for some protocols, a Fedora DVD ISO image). It is analogous to the older
+valid package repository (or, for some protocols, a Fedora DVD ISO image). It is analogous to the older
 method option, but repo makes it more clear exactly what is meant. This option may appear only once
 on the command line. It corresponds to the kickstart command install (whereas kickstart command repo
 is used for additional repositories). As of Fedora 16, you can (optionally) add a specific .iso file
@@ -112,7 +112,7 @@ with the lang kickstart command.
 loglevel
 Set the minimum level required for messages to be logged on a terminal (log files always
 contain messages of all levels). Values for LEVEL are "debug", "info", "warning", "error",
-"critical" and "lock" (the "lock" level has been added in F21 and is used for debugging YUM locking).
+"critical" and "lock" (the "lock" level has been added in F21 and is used for debugging dnf locking).
 The default value is "info".
 
 syslog
@@ -222,12 +222,6 @@ MBR will not be updated.  Therefore, when the system reboot, a previously
 installed OS will be booted.  /etc/grub.d/40_custom can be used with
 manually created menuentrys which can use configfile to point to the
 grub.cfg on the newly installed OS.
-
-nodnf
-Don't use the DNF package management backend (default since F22) and
-use the legacy YUM backend instead.
-For more information about the DNF project see:
-http://dnf.baseurl.org
 
 mpathfriendlynames
 Tell multipathd to use user friendly names when naming devices during the installation.

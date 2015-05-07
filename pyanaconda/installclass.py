@@ -82,7 +82,7 @@ class BaseInstallClass(object):
 
     def getBackend(self):
         # The default is to return None here, which means anaconda should
-        # use live or yum (whichever can be detected).  This method is
+        # use live or dnf (whichever can be detected).  This method is
         # provided as a way for other products to specify their own.
         return None
 

@@ -251,8 +251,7 @@ def initExceptionHandling(anaconda):
                                 "_intf.storage.encryptionPassphrase",
                                 "_bootloader.encrypted_password",
                                 "_bootloader.password",
-                                "payload._groups",
-                                "payload._yum"],
+                                "payload._groups"],
                   localSkipList=["passphrase", "password", "_oldweak", "_password"],
                   fileList=fileList)
 
