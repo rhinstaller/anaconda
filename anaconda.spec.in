@@ -317,6 +317,14 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Thu May 07 2015 Samantha N. Bueno <sbueno+anaconda@redhat.com> - 22.20.12-1
+- Force an encoding of utf-8 on liveinst installs (#1217504) (dshea)
+- Catch libblockdev's CryptoError when trying to unlock LUKS (#1217438)
+  (vpodzime)
+- Distinguish between NTP pools and servers in GUI (vpodzime)
+- Add support for chrony pool directive (mlichvar)
+- Configure proxy settings for dnf payload (#1211122) (bcl)
+
 * Mon Apr 27 2015 Samantha N. Bueno <sbueno+anaconda@redhat.com> - 22.20.11-1
 - Create and use snapshot of on-disk storage with no modifications (#1166598)
   (vpodzime)
