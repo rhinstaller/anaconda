@@ -27,11 +27,10 @@ qemu-kvm
 -qemu-kvm
 
 # (3) Test that you can add packages with a glob.
-emacs*
+kacst*
 
 # (4) Test that you can remove packages with a glob.
 -ibus*
--*-fonts
 %end
 
 %post
@@ -58,23 +57,16 @@ if [[ $? == 0 ]]; then
     exit 1
 fi
 
-# Testing #3 - emacs stuff should be installed.
-rpm -qa emacs\*
-if [[ $? != 0 ]]; then
-    echo '*** emacs glob was not installed' > /root/RESULT
-    exit 1
-fi
-
-# Make sure that more than just emacs and its dependencies were installed.
-count=$(rpm -qa emacs\* | wc -l)
-if [[ $count -lt 50 ]]; then
-    echo '*** emacs glob was not fully installed' > /root/RESULT
+# Testing #3 - kacst font stuff should be installed.
+count=$(rpm -qa kacst\* | wc -l)
+if [[ $count -lt 5 ]]; then
+    echo '*** kacst glob was not installed' > /root/RESULT
     exit 1
 fi
 
 # Testing #4 - ibus stuff should not be installed.
-rpm -qa ibus\*
-if [[ $? == 0 ]]; then
+count=$(rpm -qa ibus\* | wc -l)
+if [[ $count -gt 0 ]]; then
     echo '*** ibus glob should not have been installed' > /root/RESULT
     exit 1
 fi
