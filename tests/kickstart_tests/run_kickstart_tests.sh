@@ -47,25 +47,43 @@
 
 # The boot.iso location can come from one of two different places:
 # (1) $TEST_BOOT_ISO, if this script is being called from "make check"
-# (2) The command line, if this script is being called directly.
-IMAGE=""
-if [[ "${TEST_BOOT_ISO}" != "" ]]; then
-    IMAGE=${TEST_BOOT_ISO}
-elif [[ $# != 0 ]]; then
-    IMAGE=$1
-    shift
-fi
-
-if [[ ! -e "${IMAGE}" ]]; then
-    echo "Required boot.iso does not exist; skipping."
-    exit 77
-fi
+# (2) The command line, if this script is being called directly.  That will
+#     be checked below.
+IMAGE="${TEST_BOOT_ISO}"
 
 # Possible values for this parameter:
 # 0 - Keep nothing (the default)
 # 1 - Keep log files
 # 2 - Keep log files and disk images (will take up a lot of space)
 KEEPIT=${KEEPIT:-0}
+
+while getopts ":i:k:" opt; do
+    case $opt in
+       i)
+           # If this wasn't set from the environment, set it from the command line
+           # here.  If it never gets set, we'll catch that later and error out.
+           IMAGE=$OPTARG
+           ;;
+
+       k)
+           # This overrides either the $KEEPIT environment variable, or the default
+           # setting from above.
+           KEEPIT=$OPTARG
+           ;;
+
+       *)
+           echo "Usage: run_kickstart_tests.sh [-i boot.iso] [-k 0|1|2] [tests]"
+           exit 1
+           ;;
+    esac
+done
+
+if [[ ! -e "${IMAGE}" ]]; then
+    echo "Required boot.iso does not exist; skipping."
+    exit 77
+fi
+
+shift $((OPTIND - 1))
 
 # This is for environment variables that parallel needs to pass to
 # remote systems.
@@ -78,9 +96,16 @@ env_args=$(printenv | while read line; do
     [[ "${v}" =~ ^KSTEST_ ]] && echo "--env ${v}"
  done)
 
-# Round up all the kickstart tests we want to run, skipping those that are not
-# executable as well as this file itself.
-find kickstart_tests -name '*sh' -a -perm -o+x -a \! -wholename 'kickstart_tests/run_*.sh' | \
+# We get the list of tests from one of two places:
+# (1) From the command line, all the other arguments.
+# (2) From finding all scripts in kickstart_tests/ that are executable and are
+#     not support files.
+if [[ $# != 0 ]]; then
+    tests="$*"
+else
+    tests=$(find kickstart_tests -name '*sh' -a -perm -o+x -a \! -wholename 'kickstart_tests/run_*.sh')
+fi
+
 if [[ "$TEST_REMOTES" != "" ]]; then
     _IMAGE=kickstart_tests/$(basename ${IMAGE})
 
@@ -107,7 +132,7 @@ if [[ "$TEST_REMOTES" != "" ]]; then
 
     parallel --no-notice ${remote_args} \
              ${env_args} --jobs ${TEST_JOBS:-2} \
-             sudo kickstart_tests/run_one_ks.sh -i ${_IMAGE} -k ${KEEPIT} {}
+             sudo kickstart_tests/run_one_ks.sh -i ${_IMAGE} -k ${KEEPIT} {} ::: ${tests}
     rc=$?
 
     # (3) Get all the results back from the remote systems, which will have already
@@ -134,7 +159,7 @@ if [[ "$TEST_REMOTES" != "" ]]; then
     exit ${rc}
 else
     parallel --no-notice ${env_args} --jobs ${TEST_JOBS:-2} \
-             sudo kickstart_tests/run_one_ks.sh -i ${IMAGE} -k ${KEEPIT} {}
+             sudo kickstart_tests/run_one_ks.sh -i ${IMAGE} -k ${KEEPIT} {} ::: ${tests}
 
     # For future expansion - any cleanup code can go in between the variable
     # setting and the exit, like in the other branch of the if-else above.
