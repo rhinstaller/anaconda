@@ -223,6 +223,15 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Thu May 07 2015 Samantha N. Bueno <sbueno+anaconda@redhat.com> - 13.21.235-1
+- Don't remove pps_core from ppc64.img (sbueno+anaconda)
+  Resolves: rhbz#1213417
+- Check for FBA DASDs so we don't try to format them with dasdfmt.
+  (sbueno+anaconda)
+  Resolves: rhbz#1144979
+- Include hyperv modules in mk-images (sbueno+anaconda)
+  Resolves: rhbz#1132770
+
 * Tue Apr 14 2015 Samantha N. Bueno <sbueno+anaconda@redhat.com> - 13.21.234-1
 - Fix lvm detection broken with introduction of thinp support. (dlehman)
   Resolves: rhbz#1200832
