@@ -553,7 +553,8 @@ def process_dd(dd_path):
         if not any((d.selected for d in drivers)):
             return
     else:
-        map(lambda d: setattr(d, "selected", True), drivers)
+        for driver in drivers:
+            setattr(driver, "selected", True)
 
     # Copy the repository for Anaconda to use during install
     copy_repo(dd_path, "/updates/run/install/DD-")
