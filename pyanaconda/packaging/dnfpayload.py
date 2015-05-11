@@ -604,7 +604,8 @@ class DNFPayload(packaging.PackagePayload):
         return (grp.ui_name, grp.ui_description)
 
     def gatherRepoMetadata(self):
-        map(self._sync_metadata, self._base.repos.iter_enabled())
+        for repo in self._base.repos.iter_enabled():
+            self._sync_metadata(repo)
         self._base.fill_sack(load_system_repo=False)
         self._base.read_comps()
         self._refreshEnvironmentAddons()

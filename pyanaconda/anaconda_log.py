@@ -59,8 +59,8 @@ def autoSetLevel(handler, value):
 
 # all handlers of given logger with autoSetLevel == True are set to level
 def setHandlersLevel(logr, level):
-    map(lambda hdlr: hdlr.setLevel(level),
-        filter(lambda hdlr: hasattr(hdlr, "autoSetLevel") and hdlr.autoSetLevel, logr.handlers))
+    for handler in filter(lambda hdlr: hasattr(hdlr, "autoSetLevel") and hdlr.autoSetLevel, logr.handlers):
+        handler.setLevel(level)
 
 class AnacondaSyslogHandler(SysLogHandler):
     # syslog doesn't understand these level names

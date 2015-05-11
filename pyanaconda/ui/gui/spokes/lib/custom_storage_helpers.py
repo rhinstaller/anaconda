@@ -659,7 +659,8 @@ class ContainerDialog(GUIObject, GUIDialogInputCheckHandler):
             Choose a default RAID level.
         """
         if not containerRaidLevelsSupported(self.device_type):
-            map(really_hide, [self._raidLevelLabel, self._raidLevelCombo])
+            for widget in [self._raidLevelLabel, self._raidLevelCombo]:
+                really_hide(widget)
             return
 
         raid_level = self.raid_level or defaultContainerRaidLevel(self.device_type)
@@ -672,7 +673,8 @@ class ContainerDialog(GUIObject, GUIDialogInputCheckHandler):
                 self._raidLevelCombo.set_active(i)
                 break
 
-        map(really_show, [self._raidLevelLabel, self._raidLevelCombo])
+        for widget in [self._raidLevelLabel, self._raidLevelCombo]:
+            really_show(widget)
         fancy_set_sensitive(self._raidLevelCombo, not self.exists)
 
     def _checkNameEntry(self, inputcheck):

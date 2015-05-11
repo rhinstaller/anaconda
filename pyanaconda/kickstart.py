@@ -2107,7 +2107,8 @@ def runPostScripts(scripts):
         return
 
     log.info("Running kickstart %%post script(s)")
-    map(lambda s: s.run(iutil.getSysroot()), postScripts)
+    for script in postScripts:
+        script.run(iutil.getSysroot())
     log.info("All kickstart %%post script(s) have been run")
 
 def runPreScripts(scripts):
@@ -2119,7 +2120,8 @@ def runPreScripts(scripts):
     log.info("Running kickstart %%pre script(s)")
     stdoutLog.info(_("Running pre-installation scripts"))
 
-    map(lambda s: s.run("/"), preScripts)
+    for script in preScripts:
+        script.run("/")
 
     log.info("All kickstart %%pre script(s) have been run")
 
@@ -2140,8 +2142,8 @@ def runTracebackScripts(scripts):
     log.info("All kickstart %%traceback script(s) have been run")
 
 def resetCustomStorageData(ksdata):
-    cmds = ["partition", "raid", "volgroup", "logvol", "btrfs"]
-    map(ksdata.resetCommand, cmds)
+    for command in ["partition", "raid", "volgroup", "logvol", "btrfs"]:
+        ksdata.resetCommand(command)
 
     ksdata.clearpart.type = CLEARPART_TYPE_NONE
 

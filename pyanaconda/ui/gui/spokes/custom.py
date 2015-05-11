@@ -1251,7 +1251,8 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         log.debug("populate_raid: %s, %s", device_type, raid_level)
 
         if not raidLevelsSupported(device_type):
-            map(really_hide, [self._raidLevelLabel, self._raidLevelCombo])
+            for widget in [self._raidLevelLabel, self._raidLevelCombo]:
+                really_hide(widget)
             return
 
         raid_level = raid_level or defaultRaidLevel(device_type)
@@ -1262,8 +1263,8 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
             if row[1] == raid_level_name:
                 self._raidLevelCombo.set_active(i)
                 break
-
-        map(really_show, [self._raidLevelLabel, self._raidLevelCombo])
+        for widget in [self._raidLevelLabel, self._raidLevelCombo]:
+            really_show(widget)
 
     def _get_current_device_type_name(self):
         """ Return name for type combo selection.
@@ -2416,7 +2417,8 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         container_size_policy = SIZE_POLICY_AUTO
         if device_type not in CONTAINER_DEVICE_TYPES:
             # just hide the buttons with no meaning for non-container devices
-            map(really_hide, [self._containerLabel, self._containerCombo, self._modifyContainerButton])
+            for widget in [self._containerLabel, self._containerCombo, self._modifyContainerButton]:
+                really_hide(widget)
             return
 
         # else really populate the container
@@ -2468,7 +2470,8 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         if default_container_name is None:
             self._containerCombo.set_active(len(self._containerStore) - 1)
 
-        map(really_show, [self._containerLabel, self._containerCombo, self._modifyContainerButton])
+        for widget in [self._containerLabel, self._containerCombo, self._modifyContainerButton]:
+            really_show(widget)
 
         # make the combo and button insensitive for existing LVs
         can_change_container = (device is not None and not device.exists and
