@@ -115,18 +115,25 @@ class TimeZoneSpoke(FirstbootSpokeMixIn, NormalTUISpoke):
             else:
                 return key
 
+        if keyid < 0:
+            return key
         if args:
+            if keyid >= len(self._timezones[args]):
+                return key
             self._selection = "%s/%s" % (args, self._timezones[args][keyid])
             self.apply()
             self.close()
         else:
-            if len(self._timezones[self._regions[keyid]]) == 1:
-                self._selection = "%s/%s" % (self._regions[keyid],
-                                             self._timezones[self._regions[keyid]][0])
+            if keyid >= len(self._regions):
+                return key
+            region = self._regions[keyid]
+            selected_timezones = self._timezones[region]
+            if len(selected_timezones) == 1:
+                self._selection = "%s/%s" % (region, selected_timezones[0])
                 self.apply()
                 self.close()
             else:
-                self.app.switch_screen(self, self._regions[keyid])
+                self.app.switch_screen(self, region)
             return INPUT_PROCESSED
 
     def prompt(self, args=None):
