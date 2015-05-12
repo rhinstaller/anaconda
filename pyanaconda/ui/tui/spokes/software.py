@@ -215,7 +215,8 @@ class SoftwareSpoke(NormalTUISpoke):
 
     def _apply(self):
         """ Private apply. """
-        if 0 <= self._selection < len(self.payload.environments):
+        # self._selection can be None during kickstart installation
+        if self._selection is not None and 0 <= self._selection < len(self.payload.environments):
             self.environment = self.payload.environments[self._selection]
         else:
             self.environment = None
