@@ -30,6 +30,7 @@ from gi.repository import Gdk, Gtk, GLib
 import queue
 import time
 import threading
+import functools
 
 import logging
 log = logging.getLogger("anaconda")
@@ -216,6 +217,17 @@ def timed_action(delay=300, threshold=750, busy_cursor=True):
     to happen in the main loop (entry/slider change callbacks, typically), but
     that may take a long time causing the GUI freeze for a noticeable time.
 
+    The return value of the decorator function returned by this function--i.e.,
+    the value of timed_action()(function_to_be_decorated)--is an instance of
+    the TimedAction class, which besides being callable provides a run_now
+    method to shortcut the timer and run the action immediately. run_now will
+    also be run in the main loop.
+
+    If timed_action is used to decorate a method of a class, the decorated
+    method will actually be a functools.partial instance. In this case, the
+    TimedAction instance is accessible as the "func" property of the decorated
+    method. Note that the func property will not have self applied.
+
     :param delay: number of milliseconds to wait for another invocation of the
                   decorated function before it is actually called
     :type delay: int
@@ -237,6 +249,11 @@ def timed_action(delay=300, threshold=750, busy_cursor=True):
             self._last_start = None
             self._timer_id = None
 
+        @property
+        def timer_active(self):
+            """Whether there is a pending timer for this action."""
+            return self._timer_id is not None
+
         def _run_once_one_arg(self, arguments):
             (args, kwargs) = arguments
             # run the function and clear stored values
@@ -249,7 +266,17 @@ def timed_action(delay=300, threshold=750, busy_cursor=True):
             # function run, no need to schedule it again (return True would do)
             return False
 
-        def run_func(self, *args, **kwargs):
+        @gtk_action_wait
+        def run_now(self, *args, **kwargs):
+            # Remove the old timer
+            if self._timer_id:
+                GLib.source_remove(self._timer_id)
+                self._timer_id = None
+
+            # Run the function immediately
+            self._run_once_one_arg((args, kwargs))
+
+        def __call__(self, *args, **kwargs):
             # get timestamps from the first or/and current run
             self._last_start = self._last_start or time.time()
             tstamp = time.time()
@@ -273,23 +300,19 @@ def timed_action(delay=300, threshold=750, busy_cursor=True):
             self._timer_id = GLib.timeout_add(delay, self._run_once_one_arg,
                                               (args, kwargs))
 
-    def decorator(func):
-        """
-        Decorator replacing the function with its timed version using an
-        instance of the TimedAction class.
+        # This method is used by python to bind a class attribute to an
+        # instance of that class, so in the case of functions this is what
+        # converts a regular function into an instance method. Bind to the
+        # instance of whatever is being decorated by returning a curried version
+        # of ourself with the instance applied as the first argument.
+        def __get__(self, instance, owner):
+            return functools.partial(self, instance)
 
-        :param func: the decorated function
-
-        """
-
-        ta = TimedAction(func)
-
-        def inner_func(*args, **kwargs):
-            ta.run_func(*args, **kwargs)
-
-        return inner_func
-
-    return decorator
+    # Return TimedAction as the decorator function. The constructor will be
+    # called with the function to be decorated as the argument, returning a
+    # TimedAction instance as the decorated function, and TimedAction.__call__
+    # will be used for the calls to the decorated function.
+    return TimedAction
 
 @contextmanager
 def blockedHandler(obj, func):
