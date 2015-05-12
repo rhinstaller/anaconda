@@ -153,11 +153,12 @@ class Network(commands.network.F22_Network):
         '''
         netline = None
 
+        # Setting only hostname in kickstart
+        if not net.device and net.hostname and not self.handler.ksdevice:
+            return None
+
         # first 'network' line
         if len(self.network) == 1:
-            # Setting only hostname in kickstart
-            if not net.device and net.hostname and not self.handler.ksdevice:
-                return None
             net.activate = True
             if net.device == "link" or not net.device:
                 # NOTE: this might still be empty (e.g. 'ks=file:...')
