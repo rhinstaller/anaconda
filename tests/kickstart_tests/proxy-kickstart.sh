@@ -30,7 +30,7 @@ prepare() {
         return 1.
     fi
 
-    sed -e "/^repo/ s|HTTP-ADD-REPO|${KSTEST_ADDON_HTTP_REPO}|" ${ks} > ${tmpdir}/kickstart.ks
+    sed -e "/^repo/ s|HTTP-ADDON-REPO|${KSTEST_ADDON_HTTP_REPO}|" ${ks} > ${tmpdir}/kickstart.ks
     echo ${tmpdir}/kickstart.ks
 }
 
