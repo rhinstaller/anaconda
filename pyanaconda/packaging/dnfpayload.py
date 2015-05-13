@@ -222,6 +222,14 @@ class DNFPayload(packaging.PackagePayload):
         repo = dnf.repo.Repo(ksrepo.name, DNF_CACHE_DIR)
         url = self._replace_vars(ksrepo.baseurl)
         mirrorlist = self._replace_vars(ksrepo.mirrorlist)
+
+        if url and url.startswith("nfs://"):
+            (server, path) = url[6:].split(":", 1)
+            mountpoint = "%s/%s.nfs" % (constants.MOUNT_DIR, repo.name)
+            self._setupNFS(mountpoint, server, path, None)
+
+            url = "file://" + mountpoint
+
         if url:
             repo.baseurl = [url]
         if mirrorlist:
