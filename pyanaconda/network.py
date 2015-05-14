@@ -517,6 +517,14 @@ def add_connection_for_ksdata(networkdata, devname):
             suuid = _add_slave_connection('bridge', slave, devname, networkdata.activate)
             added_connections.append((suuid, slave))
         dev_spec = None
+    # type "infiniband"
+    elif nm.nm_device_type_is_infiniband(devname):
+        values.append(['infiniband', 'transport-mode', 'datagram', 's'])
+        values.append(['connection', 'type', 'infiniband', 's'])
+        values.append(['connection', 'id', devname, 's'])
+        values.append(['connection', 'interface-name', devname, 's'])
+
+        dev_spec = None
     # type "802-3-ethernet"
     else:
         mac = nm.nm_device_perm_hwaddress(devname)
@@ -780,6 +788,8 @@ def find_ifcfg_file_of_device(devname, root_path=""):
         ifcfg_path = find_ifcfg_file([("DEVICE", devname)])
     elif nm.nm_device_type_is_bridge(devname):
         ifcfg_path = find_ifcfg_file([("DEVICE", devname)])
+    elif nm.nm_device_type_is_infiniband(devname):
+        ifcfg_path = find_ifcfg_file([("DEVICE", devname)])
     elif nm.nm_device_type_is_ethernet(devname):
         try:
             hwaddr = nm.nm_device_perm_hwaddress(devname)
@@ -965,7 +975,7 @@ def ks_spec_to_device_name(ksspec=""):
         # "XX:XX:XX:XX:XX:XX" (mac address)
         elif ':' in ksspec:
             try:
-                hwaddr = nm.nm_device_perm_hwaddress(dev)
+                hwaddr = nm.nm_device_valid_hwaddress(dev)
             except ValueError as e:
                 log.debug("ks_spec_to_device_name: %s", e)
                 continue
@@ -975,7 +985,7 @@ def ks_spec_to_device_name(ksspec=""):
         # "bootif" and BOOTIF==XX:XX:XX:XX:XX:XX
         elif ksspec == 'bootif':
             try:
-                hwaddr = nm.nm_device_perm_hwaddress(dev)
+                hwaddr = nm.nm_device_valid_hwaddress(dev)
             except ValueError as e:
                 log.debug("ks_spec_to_device_name: %s", e)
                 continue
