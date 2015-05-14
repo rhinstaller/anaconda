@@ -19,8 +19,6 @@
 
 ACLOCAL_AMFLAGS = -I m4
 
-AM_DISTCHECK_CONFIGURE_FLAGS = --enable-gtk-doc
-
 SUBDIRS = data docs dracut po pyanaconda scripts tests widgets utils
 
 EXTRA_DIST = config.rpath COPYING

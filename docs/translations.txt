@@ -46,8 +46,7 @@ MAKING A RELEASE
 ----------------
 
 git clean -d -x -f
-./autogen.sh && ./configure --disable-static \
---enable-introspection --enable-gtk-doc
+./autogen.sh && ./configure
 make bumpver                      # zanata pull by dependent po-pull target
 git commit -a -m "New version."   # DO NOT run 'git clean -d -x -f' after
 make && make release              # signed tag happens after dist now
