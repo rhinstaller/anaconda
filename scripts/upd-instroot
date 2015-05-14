@@ -163,6 +163,7 @@ PACKAGES="GConf2 NetworkManager NetworkManager-gnome ORBit2 acl anaconda
     cryptsetup-luks curl cyrus-sasl-lib db4 dbus dbus-python dbus-x11 dejavu-sans-fonts
     dejavu-sans-mono-fonts device-mapper device-mapper-libs
     device-mapper-multipath device-mapper-multipath-libs
+    device-mapper-persistent-data
     dhclient dmraid dmraid-libs
     dogtail dosfstools e2fsprogs e2fsprogs-libs echo-icon-theme eject ethtool
     elfutils-libelf expat fcoe-utils fipscheck fipscheck-lib
@@ -664,12 +665,14 @@ usr/sbin/hald
 usr/sbin/lldpad
 usr/sbin/lvm
 usr/sbin/ntpdate
+usr/sbin/pdata_tools
 usr/sbin/prelink
 usr/sbin/semodule
 usr/sbin/showpart
 usr/sbin/smartctl
 usr/sbin/sshd
 usr/sbin/.sshd.hmac
+usr/sbin/thin_*
 usr/sbin/virt-what
 usr/sbin/wpa_passphrase
 usr/sbin/wpa_supplicant
