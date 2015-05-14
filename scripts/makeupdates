@@ -399,7 +399,7 @@ def checkAutotools(srcdir, builddir):
         if not os.path.isfile('configure'):
             os.system('./autogen.sh')
         os.chdir(builddir)
-        os.system(os.path.join(srcdir, 'configure') + ' --prefix=`rpm --eval %_prefix` --enable-gtk-doc --enable-introspection')
+        os.system(os.path.join(srcdir, 'configure') + ' --prefix=`rpm --eval %_prefix`')
         os.chdir(srcdir)
 
 def copyUpdatedIsys(updates, srcdir, builddir):

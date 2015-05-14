@@ -21,6 +21,11 @@ m4_define(python_required_version, 2.5)
 
 AC_PREREQ([2.63])
 AC_INIT([anaconda], [23.8], [anaconda-devel-list@redhat.com])
+
+# Disable building static libraries.
+# This needs to be set before initializing automake
+AC_DISABLE_STATIC
+
 AM_INIT_AUTOMAKE([foreign no-dist-gzip dist-bzip2 tar-ustar])
 
 AC_CONFIG_HEADERS([config.h])

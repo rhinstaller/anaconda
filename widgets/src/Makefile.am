@@ -23,8 +23,6 @@
 
 ACLOCAL_AMFLAGS = -I m4
 
-DISTCHECK_CONFIGURE_FLAGS = --enable-introspection --enable-gtk-doc
-
 GISOURCES = BaseWindow.c \
 	 DiskOverview.c \
 	 HubWindow.c \

@@ -226,9 +226,7 @@ runtime on NFS/HTTP/FTP servers or local disks.
 %setup -q
 
 %build
-%configure --disable-static \
-           --enable-introspection \
-           --enable-gtk-doc
+%configure
 %{__make} %{?_smp_mflags}
 
 %install
