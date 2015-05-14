@@ -26,6 +26,34 @@ from abc import ABCMeta, abstractproperty, abstractmethod
 from gi.repository import Gtk
 
 from pyanaconda.ui.helpers import InputCheck, InputCheckHandler
+from pyanaconda.ui.gui.utils import timed_action
+
+class GUIInputCheck(InputCheck):
+    """ Add timer awareness to an InputCheck.
+
+        Add a delay before running the validation function so that the
+        function is not run for every keystroke. Run any pending actions
+        before returning a status.
+    """
+
+    def __init__(self, parent, input_obj, run_check, data=None):
+        InputCheck.__init__(self, parent, input_obj, run_check, data)
+
+        # Add the timer here instead of decorating a method so that a new
+        # TimedAction is created for every instance
+        self.update_check_status = timed_action(busy_cursor=False)(self.update_check_status)
+
+    @property
+    def check_status(self):
+        if self.update_check_status.timer_active:
+            # The timer is hooked up to update_check_status, which takes no arguments.
+            # Since the timed_action wrapper was made around the bound method of a
+            # GUIInputCheck instance and not the function of a GUIInputCheck class,
+            # self is already applied and update_check_status is just a regular TimedAction
+            # object, not a curried function around the object.
+            self.update_check_status.run_now()
+
+        return super(GUIInputCheck, self).check_status
 
 # Inherit abstract methods from InputCheckHandler
 # pylint: disable=abstract-method
@@ -43,8 +71,15 @@ class GUIInputCheckHandler(InputCheckHandler, metaclass=ABCMeta):
         return input_obj.get_text()
 
     def add_check(self, input_obj, run_check, data=None):
-        checkRef = InputCheckHandler.add_check(self, input_obj, run_check, data)
+        # Use a GUIInputCheck to run the validation in a GLib timer
+        checkRef = GUIInputCheck(self, input_obj, run_check, data)
+
+        # Start a new timer on each keystroke
         input_obj.connect_after("changed", self._update_check_status, checkRef)
+
+        # Add the InputCheck to the parent class's list of checks
+        self._check_list.append(checkRef)
+
         return checkRef
 
 class GUIDialogInputCheckHandler(GUIInputCheckHandler, metaclass=ABCMeta):
