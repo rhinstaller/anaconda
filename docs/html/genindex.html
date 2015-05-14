@@ -64,8 +64,18 @@
           
               <ul>
 <li class="toctree-l1"><a class="reference internal" href="intro.html">Introduction to Anaconda</a></li>
-<li class="toctree-l1"><a class="reference internal" href="modules.html">pyanaconda</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="pyanaconda.html">pyanaconda package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="boot-options.html">Anaconda Boot Options</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="boot-options.html#installation-source">Installation Source</a></li>
+<li class="toctree-l2"><a class="reference internal" href="boot-options.html#kickstart">Kickstart</a></li>
+<li class="toctree-l2"><a class="reference internal" href="boot-options.html#network-options">Network Options</a></li>
+<li class="toctree-l2"><a class="reference internal" href="boot-options.html#console-display-options">Console / Display Options</a></li>
+<li class="toctree-l2"><a class="reference internal" href="boot-options.html#debugging-and-troubleshooting">Debugging and Troubleshooting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="boot-options.html#deprecated-options">Deprecated Options</a></li>
+<li class="toctree-l2"><a class="reference internal" href="boot-options.html#removed-options">Removed Options</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="kickstart.html">Anaconda Kickstart Documentation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="kickstart.html#pwpolicy">pwpolicy</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="commit-log.html">Rules for commit messages</a></li>
@@ -98,8 +108,8 @@
 <li class="toctree-l2"><a class="reference internal" href="multipath.html#future-of-multipath-in-anaconda">Future of multipath in Anaconda</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="kickstart.html">Anaconda Kickstart Documentation</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="kickstart.html#pwpolicy">pwpolicy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="modules.html">pyanaconda</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="pyanaconda.html">pyanaconda package</a></li>
 </ul>
 </li>
 </ul>
@@ -317,10 +327,6 @@
       <dd><dl>
         
   <dt><a href="pyanaconda.packaging.html#pyanaconda.packaging.Payload.addRepo">(pyanaconda.packaging.Payload method)</a>
-  </dt>
-
-        
-  <dt><a href="pyanaconda.packaging.html#pyanaconda.packaging.yumpayload.YumPayload.addRepo">(pyanaconda.packaging.yumpayload.YumPayload method)</a>
   </dt>
 
       </dl></dd>
@@ -659,10 +665,6 @@
   <dt><a href="pyanaconda.packaging.html#pyanaconda.packaging.Payload.baseRepo">(pyanaconda.packaging.Payload attribute)</a>
   </dt>
 
-        
-  <dt><a href="pyanaconda.packaging.html#pyanaconda.packaging.yumpayload.YumPayload.baseRepo">(pyanaconda.packaging.yumpayload.YumPayload attribute)</a>
-  </dt>
-
       </dl></dd>
       
   <dt><a href="pyanaconda.ui.gui.html#pyanaconda.ui.gui.utils.blockedHandler">blockedHandler() (in module pyanaconda.ui.gui.utils)</a>
@@ -895,10 +897,6 @@
   </dt>
 
       
-  <dt><a href="pyanaconda.packaging.html#pyanaconda.packaging.yumpayload.YumPayload.calculateSpaceNeeds">calculateSpaceNeeds() (pyanaconda.packaging.yumpayload.YumPayload method)</a>
-  </dt>
-
-      
   <dt><a href="pyanaconda.html#pyanaconda.safe_dbus.call_sync">call_sync() (in module pyanaconda.safe_dbus)</a>
   </dt>
 
@@ -1105,10 +1103,6 @@
   </dt>
 
       <dd><dl>
-        
-  <dt><a href="pyanaconda.packaging.html#pyanaconda.packaging.yumpayload.YumPayload.checkSoftwareSelection">(pyanaconda.packaging.yumpayload.YumPayload method)</a>
-  </dt>
-
         
   <dt><a href="pyanaconda.ui.gui.spokes.html#pyanaconda.ui.gui.spokes.software.SoftwareSelectionSpoke.checkSoftwareSelection">(pyanaconda.ui.gui.spokes.software.SoftwareSelectionSpoke method)</a>
   </dt>
@@ -1571,10 +1565,6 @@
   </dt>
 
       
-  <dt><a href="pyanaconda.packaging.html#pyanaconda.packaging.yumpayload.YumPayload.deleteYumTS">deleteYumTS() (pyanaconda.packaging.yumpayload.YumPayload method)</a>
-  </dt>
-
-      
   <dt><a href="pyanaconda.packaging.html#pyanaconda.packaging.DependencyError">DependencyError</a>
   </dt>
 
@@ -1620,12 +1610,12 @@
   <dt><a href="pyanaconda.html#pyanaconda.bootloader.GRUB.device_map_file">device_map_file (pyanaconda.bootloader.GRUB attribute)</a>
   </dt>
 
-  </dl></td>
-  <td style="width: 33%" valign="top"><dl>
       
   <dt><a href="pyanaconda.html#pyanaconda.storage_utils.device_type_from_autopart">device_type_from_autopart() (in module pyanaconda.storage_utils)</a>
   </dt>
 
+  </dl></td>
+  <td style="width: 33%" valign="top"><dl>
       
   <dt><a href="pyanaconda.html#pyanaconda.kickstart.deviceMatches">deviceMatches() (in module pyanaconda.kickstart)</a>
   </dt>
@@ -1671,10 +1661,6 @@
       <dd><dl>
         
   <dt><a href="pyanaconda.packaging.html#pyanaconda.packaging.Payload.disableRepo">(pyanaconda.packaging.Payload method)</a>
-  </dt>
-
-        
-  <dt><a href="pyanaconda.packaging.html#pyanaconda.packaging.yumpayload.YumPayload.disableRepo">(pyanaconda.packaging.yumpayload.YumPayload method)</a>
   </dt>
 
       </dl></dd>
@@ -1893,10 +1879,6 @@
   <dt><a href="pyanaconda.packaging.html#pyanaconda.packaging.Payload.enableRepo">(pyanaconda.packaging.Payload method)</a>
   </dt>
 
-        
-  <dt><a href="pyanaconda.packaging.html#pyanaconda.packaging.yumpayload.YumPayload.enableRepo">(pyanaconda.packaging.yumpayload.YumPayload method)</a>
-  </dt>
-
       </dl></dd>
       
   <dt><a href="pyanaconda.html#pyanaconda.bootloader.BootLoader.encryption_support">encryption_support (pyanaconda.bootloader.BootLoader attribute)</a>
@@ -1939,10 +1921,6 @@
   <dt><a href="pyanaconda.packaging.html#pyanaconda.packaging.PackagePayload.environmentDescription">(pyanaconda.packaging.PackagePayload method)</a>
   </dt>
 
-        
-  <dt><a href="pyanaconda.packaging.html#pyanaconda.packaging.yumpayload.YumPayload.environmentDescription">(pyanaconda.packaging.yumpayload.YumPayload method)</a>
-  </dt>
-
       </dl></dd>
       
   <dt><a href="pyanaconda.packaging.html#pyanaconda.packaging.dnfpayload.DNFPayload.environmentGroups">environmentGroups() (pyanaconda.packaging.dnfpayload.DNFPayload method)</a>
@@ -1951,10 +1929,6 @@
       <dd><dl>
         
   <dt><a href="pyanaconda.packaging.html#pyanaconda.packaging.PackagePayload.environmentGroups">(pyanaconda.packaging.PackagePayload method)</a>
-  </dt>
-
-        
-  <dt><a href="pyanaconda.packaging.html#pyanaconda.packaging.yumpayload.YumPayload.environmentGroups">(pyanaconda.packaging.yumpayload.YumPayload method)</a>
   </dt>
 
       </dl></dd>
@@ -1967,10 +1941,6 @@
   <dt><a href="pyanaconda.packaging.html#pyanaconda.packaging.PackagePayload.environmentHasOption">(pyanaconda.packaging.PackagePayload method)</a>
   </dt>
 
-        
-  <dt><a href="pyanaconda.packaging.html#pyanaconda.packaging.yumpayload.YumPayload.environmentHasOption">(pyanaconda.packaging.yumpayload.YumPayload method)</a>
-  </dt>
-
       </dl></dd>
       
   <dt><a href="pyanaconda.packaging.html#pyanaconda.packaging.dnfpayload.DNFPayload.environmentOptionIsDefault">environmentOptionIsDefault() (pyanaconda.packaging.dnfpayload.DNFPayload method)</a>
@@ -1979,10 +1949,6 @@
       <dd><dl>
         
   <dt><a href="pyanaconda.packaging.html#pyanaconda.packaging.PackagePayload.environmentOptionIsDefault">(pyanaconda.packaging.PackagePayload method)</a>
-  </dt>
-
-        
-  <dt><a href="pyanaconda.packaging.html#pyanaconda.packaging.yumpayload.YumPayload.environmentOptionIsDefault">(pyanaconda.packaging.yumpayload.YumPayload method)</a>
   </dt>
 
       </dl></dd>
@@ -1995,15 +1961,7 @@
   <dt><a href="pyanaconda.packaging.html#pyanaconda.packaging.PackagePayload.environments">(pyanaconda.packaging.PackagePayload attribute)</a>
   </dt>
 
-        
-  <dt><a href="pyanaconda.packaging.html#pyanaconda.packaging.yumpayload.YumPayload.environments">(pyanaconda.packaging.yumpayload.YumPayload attribute)</a>
-  </dt>
-
       </dl></dd>
-      
-  <dt><a href="pyanaconda.packaging.html#pyanaconda.packaging.yumpayload.YumPayload.environmentSelected">environmentSelected() (pyanaconda.packaging.yumpayload.YumPayload method)</a>
-  </dt>
-
   </dl></td>
   <td style="width: 33%" valign="top"><dl>
       
@@ -2425,10 +2383,6 @@
   <dt><a href="pyanaconda.packaging.html#pyanaconda.packaging.Payload.gatherRepoMetadata">(pyanaconda.packaging.Payload method)</a>
   </dt>
 
-        
-  <dt><a href="pyanaconda.packaging.html#pyanaconda.packaging.yumpayload.YumPayload.gatherRepoMetadata">(pyanaconda.packaging.yumpayload.YumPayload method)</a>
-  </dt>
-
       </dl></dd>
       
   <dt><a href="pyanaconda.html#pyanaconda.geoloc.Geocoder">Geocoder (class in pyanaconda.geoloc)</a>
@@ -2760,12 +2714,6 @@
   <dt><a href="pyanaconda.packaging.html#pyanaconda.packaging.dnfpayload.DNFPayload.getRepo">getRepo() (pyanaconda.packaging.dnfpayload.DNFPayload method)</a>
   </dt>
 
-      <dd><dl>
-        
-  <dt><a href="pyanaconda.packaging.html#pyanaconda.packaging.yumpayload.YumPayload.getRepo">(pyanaconda.packaging.yumpayload.YumPayload method)</a>
-  </dt>
-
-      </dl></dd>
       
   <dt><a href="pyanaconda.html#pyanaconda.iutil.getSysroot">getSysroot() (in module pyanaconda.iutil)</a>
   </dt>
@@ -2799,10 +2747,6 @@
   <dt><a href="pyanaconda.packaging.html#pyanaconda.packaging.PackagePayload.groupDescription">(pyanaconda.packaging.PackagePayload method)</a>
   </dt>
 
-        
-  <dt><a href="pyanaconda.packaging.html#pyanaconda.packaging.yumpayload.YumPayload.groupDescription">(pyanaconda.packaging.yumpayload.YumPayload method)</a>
-  </dt>
-
       </dl></dd>
       
   <dt><a href="pyanaconda.packaging.html#pyanaconda.packaging.dnfpayload.DNFPayload.groups">groups (pyanaconda.packaging.dnfpayload.DNFPayload attribute)</a>
@@ -2811,10 +2755,6 @@
       <dd><dl>
         
   <dt><a href="pyanaconda.packaging.html#pyanaconda.packaging.PackagePayload.groups">(pyanaconda.packaging.PackagePayload attribute)</a>
-  </dt>
-
-        
-  <dt><a href="pyanaconda.packaging.html#pyanaconda.packaging.yumpayload.YumPayload.groups">(pyanaconda.packaging.yumpayload.YumPayload attribute)</a>
   </dt>
 
       </dl></dd>
@@ -3533,10 +3473,6 @@
   <dt><a href="pyanaconda.packaging.html#pyanaconda.packaging.tarpayload.TarPayload.install">(pyanaconda.packaging.tarpayload.TarPayload method)</a>
   </dt>
 
-        
-  <dt><a href="pyanaconda.packaging.html#pyanaconda.packaging.yumpayload.YumPayload.install">(pyanaconda.packaging.yumpayload.YumPayload method)</a>
-  </dt>
-
       </dl></dd>
       
   <dt><a href="pyanaconda.html#pyanaconda.bootloader.GRUB.install_targets">install_targets (pyanaconda.bootloader.GRUB attribute)</a>
@@ -3560,6 +3496,10 @@
       </dl></dd>
       
   <dt><a href="pyanaconda.html#pyanaconda.anaconda.Anaconda.instClass">instClass (pyanaconda.anaconda.Anaconda attribute)</a>
+  </dt>
+
+      
+  <dt><a href="pyanaconda.html#pyanaconda.ntp.internal_to_pools_and_servers">internal_to_pools_and_servers() (in module pyanaconda.ntp)</a>
   </dt>
 
       
@@ -3685,10 +3625,6 @@
       <dd><dl>
         
   <dt><a href="pyanaconda.packaging.html#pyanaconda.packaging.Payload.isRepoEnabled">(pyanaconda.packaging.Payload method)</a>
-  </dt>
-
-        
-  <dt><a href="pyanaconda.packaging.html#pyanaconda.packaging.yumpayload.YumPayload.isRepoEnabled">(pyanaconda.packaging.yumpayload.YumPayload method)</a>
   </dt>
 
       </dl></dd>
@@ -3819,10 +3755,6 @@
       <dd><dl>
         
   <dt><a href="pyanaconda.packaging.html#pyanaconda.packaging.Payload.languageGroups">(pyanaconda.packaging.Payload method)</a>
-  </dt>
-
-        
-  <dt><a href="pyanaconda.packaging.html#pyanaconda.packaging.yumpayload.YumPayload.languageGroups">(pyanaconda.packaging.yumpayload.YumPayload method)</a>
   </dt>
 
       </dl></dd>
@@ -4233,10 +4165,6 @@
       <dd><dl>
         
   <dt><a href="pyanaconda.packaging.html#pyanaconda.packaging.Payload.mirrorEnabled">(pyanaconda.packaging.Payload attribute)</a>
-  </dt>
-
-        
-  <dt><a href="pyanaconda.packaging.html#pyanaconda.packaging.yumpayload.YumPayload.mirrorEnabled">(pyanaconda.packaging.yumpayload.YumPayload attribute)</a>
   </dt>
 
       </dl></dd>
@@ -4783,7 +4711,7 @@
   </dt>
 
       
-  <dt><a href="pyanaconda.ui.gui.spokes.html#pyanaconda.ui.gui.spokes.filter.FilterSpoke.on_find_clicked">on_find_clicked() (pyanaconda.ui.gui.spokes.filter.FilterSpoke method)</a>
+  <dt><a href="pyanaconda.ui.gui.spokes.html#pyanaconda.ui.gui.spokes.filter.FilterSpoke.on_filter_changed">on_filter_changed() (pyanaconda.ui.gui.spokes.filter.FilterSpoke method)</a>
   </dt>
 
       
@@ -5241,10 +5169,6 @@
   <dt><a href="pyanaconda.html#pyanaconda.bootloader.ZIPL.packages">(pyanaconda.bootloader.ZIPL attribute)</a>
   </dt>
 
-        
-  <dt><a href="pyanaconda.packaging.html#pyanaconda.packaging.yumpayload.YumPayload.packages">(pyanaconda.packaging.yumpayload.YumPayload attribute)</a>
-  </dt>
-
       </dl></dd>
       
   <dt><a href="pyanaconda.ui.gui.spokes.lib.html#pyanaconda.ui.gui.spokes.lib.accordion.Page">Page (class in pyanaconda.ui.gui.spokes.lib.accordion)</a>
@@ -5451,6 +5375,10 @@
   </dt>
 
       
+  <dt><a href="pyanaconda.html#pyanaconda.ntp.pools_servers_to_internal">pools_servers_to_internal() (in module pyanaconda.ntp)</a>
+  </dt>
+
+      
   <dt><a href="pyanaconda.html#pyanaconda.orderedset.OrderedSet.pop">pop() (pyanaconda.orderedset.OrderedSet method)</a>
   </dt>
 
@@ -5515,10 +5443,6 @@
   <dt><a href="pyanaconda.packaging.html#pyanaconda.packaging.rpmostreepayload.RPMOSTreePayload.postInstall">(pyanaconda.packaging.rpmostreepayload.RPMOSTreePayload method)</a>
   </dt>
 
-        
-  <dt><a href="pyanaconda.packaging.html#pyanaconda.packaging.yumpayload.YumPayload.postInstall">(pyanaconda.packaging.yumpayload.YumPayload method)</a>
-  </dt>
-
       </dl></dd>
       
   <dt><a href="pyanaconda.html#pyanaconda.exception.AnacondaExceptionHandler.postWriteHook">postWriteHook() (pyanaconda.exception.AnacondaExceptionHandler method)</a>
@@ -5575,10 +5499,6 @@
   <dt><a href="pyanaconda.packaging.html#pyanaconda.packaging.livepayload.LiveImagePayload.preInstall">(pyanaconda.packaging.livepayload.LiveImagePayload method)</a>
   </dt>
 
-        
-  <dt><a href="pyanaconda.packaging.html#pyanaconda.packaging.yumpayload.YumPayload.preInstall">(pyanaconda.packaging.yumpayload.YumPayload method)</a>
-  </dt>
-
       </dl></dd>
       
   <dt><a href="pyanaconda.packaging.html#pyanaconda.packaging.Payload.prepareMountTargets">prepareMountTargets() (pyanaconda.packaging.Payload method)</a>
@@ -5608,12 +5528,6 @@
   <dt><a href="pyanaconda.packaging.html#pyanaconda.packaging.Payload.preStorage">preStorage() (pyanaconda.packaging.Payload method)</a>
   </dt>
 
-      <dd><dl>
-        
-  <dt><a href="pyanaconda.packaging.html#pyanaconda.packaging.yumpayload.YumPayload.preStorage">(pyanaconda.packaging.yumpayload.YumPayload method)</a>
-  </dt>
-
-      </dl></dd>
       
   <dt><a href="pyanaconda.ui.gui.spokes.html#pyanaconda.ui.gui.spokes.network.NetworkStandaloneSpoke.priority">priority (pyanaconda.ui.gui.spokes.network.NetworkStandaloneSpoke attribute)</a>
   </dt>
@@ -5874,12 +5788,12 @@
   <dt><a href="pyanaconda.html#module-pyanaconda.kickstart">pyanaconda.kickstart (module)</a>
   </dt>
 
+  </dl></td>
+  <td style="width: 33%" valign="top"><dl>
       
   <dt><a href="pyanaconda.html#module-pyanaconda.localization">pyanaconda.localization (module)</a>
   </dt>
 
-  </dl></td>
-  <td style="width: 33%" valign="top"><dl>
       
   <dt><a href="pyanaconda.html#module-pyanaconda.network">pyanaconda.network (module)</a>
   </dt>
@@ -5914,10 +5828,6 @@
 
       
   <dt><a href="pyanaconda.packaging.html#module-pyanaconda.packaging.tarpayload">pyanaconda.packaging.tarpayload (module)</a>
-  </dt>
-
-      
-  <dt><a href="pyanaconda.packaging.html#module-pyanaconda.packaging.yumpayload">pyanaconda.packaging.yumpayload (module)</a>
   </dt>
 
       
@@ -6631,10 +6541,6 @@
 
       </dl></dd>
       
-  <dt><a href="pyanaconda.packaging.html#pyanaconda.packaging.yumpayload.refresh_base_repo">refresh_base_repo() (in module pyanaconda.packaging.yumpayload)</a>
-  </dt>
-
-      
   <dt><a href="pyanaconda.ui.gui.spokes.html#pyanaconda.ui.gui.spokes.software.SoftwareSelectionSpoke.refreshAddons">refreshAddons() (pyanaconda.ui.gui.spokes.software.SoftwareSelectionSpoke method)</a>
   </dt>
 
@@ -6658,12 +6564,6 @@
   <dt><a href="pyanaconda.packaging.html#pyanaconda.packaging.Payload.release">release() (pyanaconda.packaging.Payload method)</a>
   </dt>
 
-      <dd><dl>
-        
-  <dt><a href="pyanaconda.packaging.html#pyanaconda.packaging.yumpayload.YumPayload.release">(pyanaconda.packaging.yumpayload.YumPayload method)</a>
-  </dt>
-
-      </dl></dd>
       
   <dt><a href="pyanaconda.html#pyanaconda.threads.ThreadManager.remove">remove() (pyanaconda.threads.ThreadManager method)</a>
   </dt>
@@ -6716,12 +6616,6 @@
   <dt><a href="pyanaconda.packaging.html#pyanaconda.packaging.Payload.removeRepo">removeRepo() (pyanaconda.packaging.Payload method)</a>
   </dt>
 
-      <dd><dl>
-        
-  <dt><a href="pyanaconda.packaging.html#pyanaconda.packaging.yumpayload.YumPayload.removeRepo">(pyanaconda.packaging.yumpayload.YumPayload method)</a>
-  </dt>
-
-      </dl></dd>
       
   <dt><a href="pyanaconda.ui.gui.spokes.lib.html#pyanaconda.ui.gui.spokes.lib.accordion.Page.removeSelector">removeSelector() (pyanaconda.ui.gui.spokes.lib.accordion.Page method)</a>
   </dt>
@@ -6775,15 +6669,15 @@
   <dt><a href="pyanaconda.packaging.html#pyanaconda.packaging.PackagePayload.repos">(pyanaconda.packaging.PackagePayload attribute)</a>
   </dt>
 
-        
-  <dt><a href="pyanaconda.packaging.html#pyanaconda.packaging.yumpayload.YumPayload.repos">(pyanaconda.packaging.yumpayload.YumPayload attribute)</a>
+      </dl></dd>
+      
+  <dt><a href="pyanaconda.html#pyanaconda.kickstart.ReqPart">ReqPart (class in pyanaconda.kickstart)</a>
   </dt>
 
-      </dl></dd>
   </dl></td>
   <td style="width: 33%" valign="top"><dl>
       
-  <dt><a href="pyanaconda.html#pyanaconda.kickstart.ReqPart">ReqPart (class in pyanaconda.kickstart)</a>
+  <dt><a href="pyanaconda.html#pyanaconda.iutil.requests_session">requests_session() (in module pyanaconda.iutil)</a>
   </dt>
 
       
@@ -6813,10 +6707,6 @@
 
         
   <dt><a href="pyanaconda.packaging.html#pyanaconda.packaging.dnfpayload.DNFPayload.reset">(pyanaconda.packaging.dnfpayload.DNFPayload method)</a>
-  </dt>
-
-        
-  <dt><a href="pyanaconda.packaging.html#pyanaconda.packaging.yumpayload.YumPayload.reset">(pyanaconda.packaging.yumpayload.YumPayload method)</a>
   </dt>
 
         
@@ -7155,10 +7045,6 @@
   </dt>
 
       
-  <dt><a href="pyanaconda.packaging.html#pyanaconda.packaging.yumpayload.YumPayload.selectRequiredPackages">selectRequiredPackages() (pyanaconda.packaging.yumpayload.YumPayload method)</a>
-  </dt>
-
-      
   <dt><a href="pyanaconda.html#pyanaconda.kickstart.SELinux">SELinux (class in pyanaconda.kickstart)</a>
   </dt>
 
@@ -7421,10 +7307,6 @@
 
         
   <dt><a href="pyanaconda.packaging.html#pyanaconda.packaging.tarpayload.TarPayload.setup">(pyanaconda.packaging.tarpayload.TarPayload method)</a>
-  </dt>
-
-        
-  <dt><a href="pyanaconda.packaging.html#pyanaconda.packaging.yumpayload.YumPayload.setup">(pyanaconda.packaging.yumpayload.YumPayload method)</a>
   </dt>
 
         
@@ -7759,10 +7641,6 @@
   <dt><a href="pyanaconda.packaging.html#pyanaconda.packaging.rpmostreepayload.RPMOSTreePayload.spaceRequired">(pyanaconda.packaging.rpmostreepayload.RPMOSTreePayload attribute)</a>
   </dt>
 
-        
-  <dt><a href="pyanaconda.packaging.html#pyanaconda.packaging.yumpayload.YumPayload.spaceRequired">(pyanaconda.packaging.yumpayload.YumPayload attribute)</a>
-  </dt>
-
       </dl></dd>
       
   <dt><a href="pyanaconda.html#pyanaconda.bootloader.GRUB.splash_dir">splash_dir (pyanaconda.bootloader.GRUB attribute)</a>
@@ -7888,6 +7766,12 @@
   <dt><a href="pyanaconda.html#pyanaconda.bootloader.BootLoader.stage2_max_end">stage2_max_end (pyanaconda.bootloader.BootLoader attribute)</a>
   </dt>
 
+      <dd><dl>
+        
+  <dt><a href="pyanaconda.html#pyanaconda.bootloader.GRUB2.stage2_max_end">(pyanaconda.bootloader.GRUB2 attribute)</a>
+  </dt>
+
+      </dl></dd>
       
   <dt><a href="pyanaconda.html#pyanaconda.bootloader.BootLoader.stage2_mountpoints">stage2_mountpoints (pyanaconda.bootloader.BootLoader attribute)</a>
   </dt>
@@ -8749,10 +8633,6 @@
   <dt><a href="pyanaconda.packaging.html#pyanaconda.packaging.tarpayload.TarPayload.unsetup">(pyanaconda.packaging.tarpayload.TarPayload method)</a>
   </dt>
 
-        
-  <dt><a href="pyanaconda.packaging.html#pyanaconda.packaging.yumpayload.YumPayload.unsetup">(pyanaconda.packaging.yumpayload.YumPayload method)</a>
-  </dt>
-
       </dl></dd>
       
   <dt><a href="pyanaconda.ui.gui.spokes.html#pyanaconda.ui.gui.spokes.custom.CustomPartitioningSpoke.unusedDevices">unusedDevices (pyanaconda.ui.gui.spokes.custom.CustomPartitioningSpoke attribute)</a>
@@ -8829,10 +8709,6 @@
       <dd><dl>
         
   <dt><a href="pyanaconda.packaging.html#pyanaconda.packaging.Payload.updateBaseRepo">(pyanaconda.packaging.Payload method)</a>
-  </dt>
-
-        
-  <dt><a href="pyanaconda.packaging.html#pyanaconda.packaging.yumpayload.YumPayload.updateBaseRepo">(pyanaconda.packaging.yumpayload.YumPayload method)</a>
   </dt>
 
       </dl></dd>
@@ -9106,6 +8982,8 @@
   </dt>
 
       </dl></dd>
+  </dl></td>
+  <td style="width: 33%" valign="top"><dl>
       
   <dt><a href="pyanaconda.html#pyanaconda.bootloader.BootLoader.write_config">write_config() (pyanaconda.bootloader.BootLoader method)</a>
   </dt>
@@ -9128,8 +9006,6 @@
   </dt>
 
       </dl></dd>
-  </dl></td>
-  <td style="width: 33%" valign="top"><dl>
       
   <dt><a href="pyanaconda.html#pyanaconda.bootloader.BootLoader.write_config_console">write_config_console() (pyanaconda.bootloader.BootLoader method)</a>
   </dt>
@@ -9299,10 +9175,6 @@
   </dt>
 
       
-  <dt><a href="pyanaconda.packaging.html#pyanaconda.packaging.yumpayload.YumPayload.writeMultiLibConfig">writeMultiLibConfig() (pyanaconda.packaging.yumpayload.YumPayload method)</a>
-  </dt>
-
-      
   <dt><a href="pyanaconda.html#pyanaconda.bootloader.writeSysconfigKernel">writeSysconfigKernel() (in module pyanaconda.bootloader)</a>
   </dt>
 
@@ -9352,18 +9224,10 @@
   <dt><a href="pyanaconda.html#pyanaconda.bootloader.YabootBase">YabootBase (class in pyanaconda.bootloader)</a>
   </dt>
 
-      
-  <dt><a href="pyanaconda.ui.tui.html#pyanaconda.ui.tui.tuiobject.YesNoDialog">YesNoDialog (class in pyanaconda.ui.tui.tuiobject)</a>
-  </dt>
-
   </dl></td>
   <td style="width: 33%" valign="top"><dl>
       
-  <dt><a href="pyanaconda.packaging.html#pyanaconda.packaging.yumpayload.YumLock">YumLock (class in pyanaconda.packaging.yumpayload)</a>
-  </dt>
-
-      
-  <dt><a href="pyanaconda.packaging.html#pyanaconda.packaging.yumpayload.YumPayload">YumPayload (class in pyanaconda.packaging.yumpayload)</a>
+  <dt><a href="pyanaconda.ui.tui.html#pyanaconda.ui.tui.tuiobject.YesNoDialog">YesNoDialog (class in pyanaconda.ui.tui.tuiobject)</a>
   </dt>
 
   </dl></td>

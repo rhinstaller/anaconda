@@ -32,7 +32,6 @@
   
     <link rel="top" title="Anaconda 23.7 documentation" href="index.html"/>
         <link rel="up" title="pyanaconda.ui.tui package" href="pyanaconda.ui.tui.html"/>
-        <link rel="next" title="Rules for commit messages" href="commit-log.html"/>
         <link rel="prev" title="pyanaconda.ui.tui.simpleline package" href="pyanaconda.ui.tui.simpleline.html"/> 
 
   
@@ -66,8 +65,18 @@
           
               <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="intro.html">Introduction to Anaconda</a></li>
-<li class="toctree-l1 current"><a class="reference internal" href="modules.html">pyanaconda</a><ul class="current">
-<li class="toctree-l2 current"><a class="reference internal" href="pyanaconda.html">pyanaconda package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="boot-options.html">Anaconda Boot Options</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="boot-options.html#installation-source">Installation Source</a></li>
+<li class="toctree-l2"><a class="reference internal" href="boot-options.html#kickstart">Kickstart</a></li>
+<li class="toctree-l2"><a class="reference internal" href="boot-options.html#network-options">Network Options</a></li>
+<li class="toctree-l2"><a class="reference internal" href="boot-options.html#console-display-options">Console / Display Options</a></li>
+<li class="toctree-l2"><a class="reference internal" href="boot-options.html#debugging-and-troubleshooting">Debugging and Troubleshooting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="boot-options.html#deprecated-options">Deprecated Options</a></li>
+<li class="toctree-l2"><a class="reference internal" href="boot-options.html#removed-options">Removed Options</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="kickstart.html">Anaconda Kickstart Documentation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="kickstart.html#pwpolicy">pwpolicy</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="commit-log.html">Rules for commit messages</a></li>
@@ -100,8 +109,8 @@
 <li class="toctree-l2"><a class="reference internal" href="multipath.html#future-of-multipath-in-anaconda">Future of multipath in Anaconda</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="kickstart.html">Anaconda Kickstart Documentation</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="kickstart.html#pwpolicy">pwpolicy</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">pyanaconda</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="pyanaconda.html">pyanaconda package</a></li>
 </ul>
 </li>
 </ul>
@@ -593,7 +602,7 @@ things until they are completely setup.</p>
 <dl class="attribute">
 <dt id="pyanaconda.ui.tui.spokes.software.SoftwareSpoke.txid_valid">
 <tt class="descname">txid_valid</tt><a class="headerlink" href="#pyanaconda.ui.tui.spokes.software.SoftwareSpoke.txid_valid" title="Permalink to this definition">¶</a></dt>
-<dd><p>Whether we have a valid yum tx id.</p>
+<dd><p>Whether we have a valid dnf tx id.</p>
 </dd></dl>
 
 </dd></dl>
@@ -869,7 +878,7 @@ against them.</p>
 
 <dl class="attribute">
 <dt id="pyanaconda.ui.tui.spokes.user.UserSpoke.edit_fields">
-<tt class="descname">edit_fields</tt><em class="property"> = [EditTUISpokeEntry(title='Create user', attribute='_create', aux='check', visible=True), EditTUISpokeEntry(title='Fullname', attribute='gecos', aux=&lt;_sre.SRE_Pattern object at 0x7f6212b38a48&gt;, visible=&lt;function &lt;lambda&gt; at 0x7f61f452b0c8&gt;), EditTUISpokeEntry(title='Username', attribute='name', aux=&lt;_sre.SRE_Pattern object at 0x14ee890&gt;, visible=&lt;function &lt;lambda&gt; at 0x7f61f452b410&gt;), EditTUISpokeEntry(title='Use password', attribute='_use_password', aux='check', visible=&lt;function &lt;lambda&gt; at 0x7f61f452be60&gt;), EditTUISpokeEntry(title='Password', attribute='_password', aux=&lt;_sre.SRE_Pattern object at 0x7f61feabc648&gt;, visible=&lt;function &lt;lambda&gt; at 0x7f61f452bed8&gt;), EditTUISpokeEntry(title='Administrator', attribute='_admin', aux='check', visible=&lt;function &lt;lambda&gt; at 0x7f61f452bf50&gt;), EditTUISpokeEntry(title='Groups', attribute='_groups', aux=&lt;_sre.SRE_Pattern object at 0x14ef1f0&gt;, visible=&lt;function &lt;lambda&gt; at 0x7f61f4508050&gt;)]</em><a class="headerlink" href="#pyanaconda.ui.tui.spokes.user.UserSpoke.edit_fields" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">edit_fields</tt><em class="property"> = [EditTUISpokeEntry(title='Create user', attribute='_create', aux='check', visible=True), EditTUISpokeEntry(title='Fullname', attribute='gecos', aux=&lt;_sre.SRE_Pattern object at 0x7f33226fee88&gt;, visible=&lt;function &lt;lambda&gt; at 0x7f330b2e0488&gt;), EditTUISpokeEntry(title='Username', attribute='name', aux=&lt;_sre.SRE_Pattern object at 0x23c6630&gt;, visible=&lt;function &lt;lambda&gt; at 0x7f330b2e02a8&gt;), EditTUISpokeEntry(title='Use password', attribute='_use_password', aux='check', visible=&lt;function &lt;lambda&gt; at 0x7f330b2e05f0&gt;), EditTUISpokeEntry(title='Password', attribute='_password', aux=&lt;_sre.SRE_Pattern object at 0x7f3312353af8&gt;, visible=&lt;function &lt;lambda&gt; at 0x7f330b2e0668&gt;), EditTUISpokeEntry(title='Administrator', attribute='_admin', aux='check', visible=&lt;function &lt;lambda&gt; at 0x7f330b2e06e0&gt;), EditTUISpokeEntry(title='Groups', attribute='_groups', aux=&lt;_sre.SRE_Pattern object at 0x23e2b70&gt;, visible=&lt;function &lt;lambda&gt; at 0x7f330b2e0758&gt;)]</em><a class="headerlink" href="#pyanaconda.ui.tui.spokes.user.UserSpoke.edit_fields" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
@@ -1017,7 +1026,7 @@ allowed to edit.</p>
 
 <dl class="attribute">
 <dt id="pyanaconda.ui.tui.spokes.EditTUISpoke.PASSWORD">
-<tt class="descname">PASSWORD</tt><em class="property"> = &lt;_sre.SRE_Pattern object at 0x7f61feabc648&gt;</em><a class="headerlink" href="#pyanaconda.ui.tui.spokes.EditTUISpoke.PASSWORD" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">PASSWORD</tt><em class="property"> = &lt;_sre.SRE_Pattern object at 0x7f3312353af8&gt;</em><a class="headerlink" href="#pyanaconda.ui.tui.spokes.EditTUISpoke.PASSWORD" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
@@ -1055,7 +1064,7 @@ allowed to edit.</p>
 <p>Spoke/dialog used to read new value of textual or password data</p>
 <dl class="attribute">
 <dt id="pyanaconda.ui.tui.spokes.EditTUIDialog.PASSWORD">
-<tt class="descname">PASSWORD</tt><em class="property"> = &lt;_sre.SRE_Pattern object at 0x7f61feabc648&gt;</em><a class="headerlink" href="#pyanaconda.ui.tui.spokes.EditTUIDialog.PASSWORD" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">PASSWORD</tt><em class="property"> = &lt;_sre.SRE_Pattern object at 0x7f3312353af8&gt;</em><a class="headerlink" href="#pyanaconda.ui.tui.spokes.EditTUIDialog.PASSWORD" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
@@ -1167,8 +1176,6 @@ it will run as the first thing.</dd>
           <footer>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-      
-        <a href="commit-log.html" class="btn btn-neutral float-right" title="Rules for commit messages">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
         <a href="pyanaconda.ui.tui.simpleline.html" class="btn btn-neutral" title="pyanaconda.ui.tui.simpleline package"><span class="fa fa-arrow-circle-left"></span> Previous</a>
