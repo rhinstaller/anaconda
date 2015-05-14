@@ -66,8 +66,18 @@
           
               <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="intro.html">Introduction to Anaconda</a></li>
-<li class="toctree-l1 current"><a class="reference internal" href="modules.html">pyanaconda</a><ul class="current">
-<li class="toctree-l2 current"><a class="current reference internal" href="">pyanaconda package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="boot-options.html">Anaconda Boot Options</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="boot-options.html#installation-source">Installation Source</a></li>
+<li class="toctree-l2"><a class="reference internal" href="boot-options.html#kickstart">Kickstart</a></li>
+<li class="toctree-l2"><a class="reference internal" href="boot-options.html#network-options">Network Options</a></li>
+<li class="toctree-l2"><a class="reference internal" href="boot-options.html#console-display-options">Console / Display Options</a></li>
+<li class="toctree-l2"><a class="reference internal" href="boot-options.html#debugging-and-troubleshooting">Debugging and Troubleshooting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="boot-options.html#deprecated-options">Deprecated Options</a></li>
+<li class="toctree-l2"><a class="reference internal" href="boot-options.html#removed-options">Removed Options</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="kickstart.html">Anaconda Kickstart Documentation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="kickstart.html#pwpolicy">pwpolicy</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="commit-log.html">Rules for commit messages</a></li>
@@ -100,8 +110,8 @@
 <li class="toctree-l2"><a class="reference internal" href="multipath.html#future-of-multipath-in-anaconda">Future of multipath in Anaconda</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="kickstart.html">Anaconda Kickstart Documentation</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="kickstart.html#pwpolicy">pwpolicy</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">pyanaconda</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="">pyanaconda package</a></li>
 </ul>
 </li>
 </ul>
@@ -164,7 +174,6 @@
 <li class="toctree-l2"><a class="reference internal" href="pyanaconda.packaging.html#module-pyanaconda.packaging.livepayload">pyanaconda.packaging.livepayload module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pyanaconda.packaging.html#module-pyanaconda.packaging.rpmostreepayload">pyanaconda.packaging.rpmostreepayload module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pyanaconda.packaging.html#module-pyanaconda.packaging.tarpayload">pyanaconda.packaging.tarpayload module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="pyanaconda.packaging.html#module-pyanaconda.packaging.yumpayload">pyanaconda.packaging.yumpayload module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="pyanaconda.packaging.html#module-pyanaconda.packaging">Module contents</a></li>
 </ul>
 </li>
@@ -705,7 +714,7 @@ name.</p>
 
 <dl class="method">
 <dt id="pyanaconda.anaconda_log.AnacondaLog.showwarning">
-<tt class="descname">showwarning</tt><big>(</big><em>message</em>, <em>category</em>, <em>filename</em>, <em>lineno</em>, <em>file=&lt;open file '&lt;stderr&gt;'</em>, <em>mode 'w' at 0x7f622404f1e0&gt;</em>, <em>line=None</em><big>)</big><a class="headerlink" href="#pyanaconda.anaconda_log.AnacondaLog.showwarning" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">showwarning</tt><big>(</big><em>message</em>, <em>category</em>, <em>filename</em>, <em>lineno</em>, <em>file=&lt;open file '&lt;stderr&gt;'</em>, <em>mode 'w' at 0x7f33395be1e0&gt;</em>, <em>line=None</em><big>)</big><a class="headerlink" href="#pyanaconda.anaconda_log.AnacondaLog.showwarning" title="Permalink to this definition">¶</a></dt>
 <dd><p>Make sure messages sent through python&#8217;s warnings module get logged.</p>
 <p>The warnings mechanism is used by some libraries we use,
 notably pykickstart.</p>
@@ -1387,7 +1396,7 @@ method.</p>
 
 <dl class="attribute">
 <dt id="pyanaconda.bootloader.GRUB.stage2_raid_levels">
-<tt class="descname">stage2_raid_levels</tt><em class="property"> = [&lt;blivet.devicelibs.raid.RAID1 object at 0x7f6212b13c90&gt;]</em><a class="headerlink" href="#pyanaconda.bootloader.GRUB.stage2_raid_levels" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">stage2_raid_levels</tt><em class="property"> = [&lt;blivet.devicelibs.raid.RAID1 object at 0x7f3322690ad0&gt;]</em><a class="headerlink" href="#pyanaconda.bootloader.GRUB.stage2_raid_levels" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
@@ -1544,8 +1553,13 @@ md devices just use their names.</p>
 <dd></dd></dl>
 
 <dl class="attribute">
+<dt id="pyanaconda.bootloader.GRUB2.stage2_max_end">
+<tt class="descname">stage2_max_end</tt><em class="property"> = None</em><a class="headerlink" href="#pyanaconda.bootloader.GRUB2.stage2_max_end" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
 <dt id="pyanaconda.bootloader.GRUB2.stage2_raid_levels">
-<tt class="descname">stage2_raid_levels</tt><em class="property"> = [&lt;blivet.devicelibs.raid.RAID0 object at 0x7f6212b13a90&gt;, &lt;blivet.devicelibs.raid.RAID1 object at 0x7f6212b13c90&gt;, &lt;blivet.devicelibs.raid.RAID4 object at 0x7f6212b13e90&gt;, &lt;blivet.devicelibs.raid.RAID5 object at 0x7f6212b120d0&gt;, &lt;blivet.devicelibs.raid.RAID6 object at 0x7f6212b122d0&gt;, &lt;blivet.devicelibs.raid.RAID10 object at 0x7f6212b124d0&gt;]</em><a class="headerlink" href="#pyanaconda.bootloader.GRUB2.stage2_raid_levels" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">stage2_raid_levels</tt><em class="property"> = [&lt;blivet.devicelibs.raid.RAID0 object at 0x7f33226908d0&gt;, &lt;blivet.devicelibs.raid.RAID1 object at 0x7f3322690ad0&gt;, &lt;blivet.devicelibs.raid.RAID4 object at 0x7f3322690cd0&gt;, &lt;blivet.devicelibs.raid.RAID5 object at 0x7f3322690ed0&gt;, &lt;blivet.devicelibs.raid.RAID6 object at 0x7f332269a110&gt;, &lt;blivet.devicelibs.raid.RAID10 object at 0x7f332269a310&gt;]</em><a class="headerlink" href="#pyanaconda.bootloader.GRUB2.stage2_raid_levels" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
@@ -1769,7 +1783,7 @@ md devices just use their names.</p>
 
 <dl class="attribute">
 <dt id="pyanaconda.bootloader.Yaboot.stage2_device_raid_levels">
-<tt class="descname">stage2_device_raid_levels</tt><em class="property"> = [&lt;blivet.devicelibs.raid.RAID1 object at 0x7f6212b13c90&gt;]</em><a class="headerlink" href="#pyanaconda.bootloader.Yaboot.stage2_device_raid_levels" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">stage2_device_raid_levels</tt><em class="property"> = [&lt;blivet.devicelibs.raid.RAID1 object at 0x7f3322690ad0&gt;]</em><a class="headerlink" href="#pyanaconda.bootloader.Yaboot.stage2_device_raid_levels" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
@@ -3469,6 +3483,12 @@ locale-independent.</p>
 <dt id="pyanaconda.iutil.reIPL">
 <tt class="descclassname">pyanaconda.iutil.</tt><tt class="descname">reIPL</tt><big>(</big><em>ipldev</em><big>)</big><a class="headerlink" href="#pyanaconda.iutil.reIPL" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
+
+<dl class="function">
+<dt id="pyanaconda.iutil.requests_session">
+<tt class="descclassname">pyanaconda.iutil.</tt><tt class="descname">requests_session</tt><big>(</big><big>)</big><a class="headerlink" href="#pyanaconda.iutil.requests_session" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a requests.Session object with file and ftp support.</p>
+</dd></dl>
 
 <dl class="function">
 <dt id="pyanaconda.iutil.resetRpmDb">
@@ -6289,7 +6309,7 @@ by NM</p>
 
 <dl class="function">
 <dt id="pyanaconda.nm.nm_get_settings">
-<tt class="descclassname">pyanaconda.nm.</tt><tt class="descname">nm_get_settings</tt><big>(</big><em>value</em>, <em>key1</em>, <em>key2</em>, <em>format_value=&lt;function &lt;lambda&gt; at 0x7f620cb426e0&gt;</em><big>)</big><a class="headerlink" href="#pyanaconda.nm.nm_get_settings" title="Permalink to this definition">¶</a></dt>
+<tt class="descclassname">pyanaconda.nm.</tt><tt class="descname">nm_get_settings</tt><big>(</big><em>value</em>, <em>key1</em>, <em>key2</em>, <em>format_value=&lt;function &lt;lambda&gt; at 0x7f331f6cade8&gt;</em><big>)</big><a class="headerlink" href="#pyanaconda.nm.nm_get_settings" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return settings having given value of key1, key2 setting</p>
 <p>Returns list of settings(dicts) , None if settings were not found.</p>
 </dd></dl>
@@ -6464,7 +6484,7 @@ value (string and bool only)</div></blockquote>
 
 <dl class="function">
 <dt id="pyanaconda.ntp.get_servers_from_config">
-<tt class="descclassname">pyanaconda.ntp.</tt><tt class="descname">get_servers_from_config</tt><big>(</big><em>conf_file_path='/etc/chrony.conf'</em>, <em>srv_regexp=&lt;_sre.SRE_Pattern object at 0x7f62029613f0&gt;</em><big>)</big><a class="headerlink" href="#pyanaconda.ntp.get_servers_from_config" title="Permalink to this definition">¶</a></dt>
+<tt class="descclassname">pyanaconda.ntp.</tt><tt class="descname">get_servers_from_config</tt><big>(</big><em>conf_file_path='/etc/chrony.conf'</em>, <em>srv_regexp=&lt;_sre.SRE_Pattern object at 0x27dc3c0&gt;</em><big>)</big><a class="headerlink" href="#pyanaconda.ntp.get_servers_from_config" title="Permalink to this definition">¶</a></dt>
 <dd><p>Goes through the chronyd&#8217;s configuration file looking for lines starting
 with &#8216;server&#8217;.</p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -6478,6 +6498,11 @@ with &#8216;server&#8217;.</p>
 </tbody>
 </table>
 </dd></dl>
+
+<dl class="function">
+<dt id="pyanaconda.ntp.internal_to_pools_and_servers">
+<tt class="descclassname">pyanaconda.ntp.</tt><tt class="descname">internal_to_pools_and_servers</tt><big>(</big><em>pools_servers</em><big>)</big><a class="headerlink" href="#pyanaconda.ntp.internal_to_pools_and_servers" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
 
 <dl class="function">
 <dt id="pyanaconda.ntp.ntp_server_working">
@@ -6542,10 +6567,15 @@ new thread finishes if needed.</p>
 </dd></dl>
 
 <dl class="function">
+<dt id="pyanaconda.ntp.pools_servers_to_internal">
+<tt class="descclassname">pyanaconda.ntp.</tt><tt class="descname">pools_servers_to_internal</tt><big>(</big><em>pools</em>, <em>servers</em><big>)</big><a class="headerlink" href="#pyanaconda.ntp.pools_servers_to_internal" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
 <dt id="pyanaconda.ntp.save_servers_to_config">
-<tt class="descclassname">pyanaconda.ntp.</tt><tt class="descname">save_servers_to_config</tt><big>(</big><em>servers</em>, <em>conf_file_path='/etc/chrony.conf'</em>, <em>srv_regexp=&lt;_sre.SRE_Pattern object at 0x7f62029613f0&gt;</em>, <em>out_file_path=None</em><big>)</big><a class="headerlink" href="#pyanaconda.ntp.save_servers_to_config" title="Permalink to this definition">¶</a></dt>
-<dd><p>Replaces the servers defined in the chronyd&#8217;s configuration file with
-the given ones. If the out_file is not None, then it is used for the
+<tt class="descclassname">pyanaconda.ntp.</tt><tt class="descname">save_servers_to_config</tt><big>(</big><em>pools</em>, <em>servers</em>, <em>conf_file_path='/etc/chrony.conf'</em>, <em>srv_regexp=&lt;_sre.SRE_Pattern object at 0x27dc3c0&gt;</em>, <em>out_file_path=None</em><big>)</big><a class="headerlink" href="#pyanaconda.ntp.save_servers_to_config" title="Permalink to this definition">¶</a></dt>
+<dd><p>Replaces the pools and servers defined in the chronyd&#8217;s configuration file
+with the given ones. If the out_file is not None, then it is used for the
 resulting config.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
