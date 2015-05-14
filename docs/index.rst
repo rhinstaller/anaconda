@@ -12,12 +12,13 @@ Contents:
    :maxdepth: 1
 
    intro
-   modules
+   boot-options
+   kickstart
    commit-log
    driverdisc
    iscsi
    multipath
-   kickstart
+   modules
 
 Indices and tables
 ==================
