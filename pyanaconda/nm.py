@@ -297,6 +297,15 @@ def nm_device_type_is_ethernet(name):
     """
     return nm_device_type(name) == NetworkManager.DeviceType.ETHERNET
 
+def nm_device_type_is_infiniband(name):
+    """Is the type of device infiniband?
+
+       Exceptions:
+       UnknownDeviceError if device is not found
+       PropertyNotFoundError if type is not found
+    """
+    return nm_device_type(name) == NetworkManager.DeviceType.INFINIBAND
+
 def nm_device_type_is_bond(name):
     """Is the type of device bond?
 
@@ -371,16 +380,33 @@ def nm_device_hwaddress(name):
     return nm_device_property(name, "HwAddress")
 
 def nm_device_perm_hwaddress(name):
-    """Return active hardware address of device ('HwAddress' property)
+    """Return active hardware address of device ('PermHwAddress' property)
 
        :param name: name of device
        :type name: str
-       :return: active hardware address of device ('HwAddress' property)
+       :return: active hardware address of device ('PermHwAddress' property)
        :rtype: str
        :raise UnknownDeviceError: if device is not found
-       :raise PropertyNotFoundError: if 'HwAddress' property is not found
+       :raise PropertyNotFoundError: if 'PermHwAddress' property is not found
     """
     return nm_device_property(name, "PermHwAddress")
+
+def nm_device_valid_hwaddress(name):
+    """Return valid hardware address of device depending on type of the device
+       ('PermHwAddress' property or 'HwAddress' property for infiniband)
+
+       :param name: name of device
+       :type name: str
+       :return: active hardware address of device
+                ('HwAddress' or 'PermHwAddress' property)
+       :rtype: str
+       :raise UnknownDeviceError: if device is not found
+       :raise PropertyNotFoundError: if property is not found
+    """
+    if nm_device_type_is_infiniband(name):
+        return nm_device_hwaddress(name)
+    else:
+        return nm_device_perm_hwaddress(name)
 
 def nm_device_active_con_uuid(name):
     """Return uuid of device's active connection
@@ -561,7 +587,7 @@ def nm_hwaddr_to_device_name(hwaddr):
         :rtype: str
     """
     for device in nm_devices():
-        if nm_device_perm_hwaddress(device).upper() == hwaddr.upper():
+        if nm_device_valid_hwaddress(device).upper() == hwaddr.upper():
             return device
     return None
 
@@ -613,7 +639,7 @@ def _device_settings(name):
         settings = _find_settings(name, 'connection', 'interface-name')
         if not settings:
             try:
-                hwaddr_str = nm_device_perm_hwaddress(name)
+                hwaddr_str = nm_device_valid_hwaddress(name)
             except PropertyNotFoundError:
                 settings = []
             else:
