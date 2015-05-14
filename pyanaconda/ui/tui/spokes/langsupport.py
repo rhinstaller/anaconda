@@ -98,6 +98,8 @@ class LangSpoke(FirstbootSpokeMixIn, NormalTUISpoke):
         """ Handle user input. """
         try:
             keyid = int(key) - 1
+            if keyid < 0:
+                return key
             if args:
                 self._selected = args[keyid]
                 self.apply()

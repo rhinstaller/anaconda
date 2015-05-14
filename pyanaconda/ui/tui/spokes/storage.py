@@ -263,6 +263,8 @@ class StorageSpoke(NormalTUISpoke):
         self.errors = []
         try:
             keyid = int(key) - 1
+            if keyid < 0:
+                return key
             self.selection = keyid
             if len(self.disks) > 1 and keyid == len(self.disks):
                 self._select_all_disks()
