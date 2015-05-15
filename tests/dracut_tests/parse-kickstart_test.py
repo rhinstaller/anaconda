@@ -31,8 +31,17 @@ class BaseTestCase(unittest.TestCase):
     def tearDown(self):
         # remove the testing directory
         if self.tmpdir and os.path.isdir(self.tmpdir):
-            shutil.rmtree(self.tmpdir)
+            try:
+                with open(self.tmpdir + "/ks.info") as f:
+                    for line in f:
+                        if line.startswith("parsed_kickstart="):
+                            filename = line.partition("=")[2].strip().replace('"', "")
+                            os.remove(filename)
+                            break
+            except OSError:
+                pass
 
+            shutil.rmtree(self.tmpdir)
 
 class ParseKickstartTestCase(BaseTestCase):
     @classmethod
@@ -66,6 +75,7 @@ class ParseKickstartTestCase(BaseTestCase):
 
         self.assertEqual(lines[0], "inst.repo=nfs:nolock,timeo=50:host.at.foo.com:/path/to/tree", lines)
 
+    def nfs_test_2(self):
         with tempfile.NamedTemporaryFile() as ks_file:
             ks_file.write("""nfs --server=host.at.foo.com --dir=/path/to/tree""")
             ks_file.flush()
@@ -78,7 +88,6 @@ class ParseKickstartTestCase(BaseTestCase):
             ks_file.write("""url --url=https://host.at.foo.com/path/to/tree --noverifyssl --proxy=http://localhost:8123""")
             ks_file.flush()
             lines = self.execParseKickstart(ks_file.name)
-
 
         self.assertEqual(len(lines), 3, lines)
         self.assertEqual(lines[0], "inst.repo=https://host.at.foo.com/path/to/tree", lines)
@@ -110,6 +119,7 @@ class ParseKickstartTestCase(BaseTestCase):
         dd_args_ks = open(self.tmpdir+"/dd_args_ks").readlines()
         self.assertEqual(dd_args_ks[0], "sda5", dd_args_ks)
 
+    def driverdisk_test_2(self):
         with tempfile.NamedTemporaryFile() as ks_file:
             ks_file.write("""driverdisk --source=http://host.att.foo.com/path/to/dd""")
             ks_file.flush()
@@ -125,6 +135,7 @@ class ParseKickstartTestCase(BaseTestCase):
 
             self.assertEqual(lines[0], "ip=dhcp", lines)
 
+    def network_test_2(self):
         with tempfile.NamedTemporaryFile() as ks_file:
             ks_file.write("""network --device=AA:BB:CC:DD:EE:FF --bootproto=dhcp --activate""")
             ks_file.flush()
@@ -251,6 +262,7 @@ network --device=lo --vlanid=171
 
             self.assertEqual(lines[0], "inst.cmdline", lines)
 
+    def displaymode_test_2(self):
         with tempfile.NamedTemporaryFile() as ks_file:
             ks_file.write("""graphical""")
             ks_file.flush()
@@ -258,6 +270,7 @@ network --device=lo --vlanid=171
 
             self.assertEqual(lines[0], "inst.graphical", lines)
 
+    def displaymode_test_3(self):
         with tempfile.NamedTemporaryFile() as ks_file:
             ks_file.write("""text""")
             ks_file.flush()
