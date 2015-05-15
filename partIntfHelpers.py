@@ -513,7 +513,7 @@ def drive_iscsi_addition(anaconda, wizard):
 
         except (network.IPMissing, network.IPError) as msg:
             log.info("addIscsiDrive() cancelled due to an invalid IP address.")
-            anaconda.intf.messageWindow(_("iSCSI Error"), msg)
+            anaconda.intf.messageWindow(_("iSCSI Error"), str(msg))
             if step != STEP_DISCOVERY:
                 break
         except (ValueError, IOError) as e:
