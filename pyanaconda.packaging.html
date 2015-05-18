@@ -66,8 +66,18 @@
           
               <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="intro.html">Introduction to Anaconda</a></li>
-<li class="toctree-l1 current"><a class="reference internal" href="modules.html">pyanaconda</a><ul class="current">
-<li class="toctree-l2 current"><a class="reference internal" href="pyanaconda.html">pyanaconda package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="boot-options.html">Anaconda Boot Options</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="boot-options.html#installation-source">Installation Source</a></li>
+<li class="toctree-l2"><a class="reference internal" href="boot-options.html#kickstart">Kickstart</a></li>
+<li class="toctree-l2"><a class="reference internal" href="boot-options.html#network-options">Network Options</a></li>
+<li class="toctree-l2"><a class="reference internal" href="boot-options.html#console-display-options">Console / Display Options</a></li>
+<li class="toctree-l2"><a class="reference internal" href="boot-options.html#debugging-and-troubleshooting">Debugging and Troubleshooting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="boot-options.html#deprecated-options">Deprecated Options</a></li>
+<li class="toctree-l2"><a class="reference internal" href="boot-options.html#removed-options">Removed Options</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="kickstart.html">Anaconda Kickstart Documentation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="kickstart.html#pwpolicy">pwpolicy</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="commit-log.html">Rules for commit messages</a></li>
@@ -100,8 +110,8 @@
 <li class="toctree-l2"><a class="reference internal" href="multipath.html#future-of-multipath-in-anaconda">Future of multipath in Anaconda</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="kickstart.html">Anaconda Kickstart Documentation</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="kickstart.html#pwpolicy">pwpolicy</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">pyanaconda</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="pyanaconda.html">pyanaconda package</a></li>
 </ul>
 </li>
 </ul>
@@ -607,289 +617,6 @@ update the hub&#8217;s progress bar.</p>
 <tt class="descname">unsetup</tt><big>(</big><big>)</big><a class="headerlink" href="#pyanaconda.packaging.tarpayload.TarPayload.unsetup" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-</dd></dl>
-
-</div>
-<div class="section" id="module-pyanaconda.packaging.yumpayload">
-<span id="pyanaconda-packaging-yumpayload-module"></span><h2>pyanaconda.packaging.yumpayload module<a class="headerlink" href="#module-pyanaconda.packaging.yumpayload" title="Permalink to this headline">¶</a></h2>
-<dl class="docutils">
-<dt>TODO</dt>
-<dd><ul class="first last">
-<li><p class="first">document all methods</p>
-</li>
-<li><dl class="first docutils">
-<dt>YumPayload</dt>
-<dd><ul class="first last">
-<li><p class="first">write test cases</p>
-</li>
-<li><p class="first">more logging in key methods</p>
-</li>
-<li><dl class="first docutils">
-<dt>handling of proxy needs cleanup</dt>
-<dd><ul class="first last">
-<li><p class="first">passed to anaconda as &#8211;proxy, &#8211;proxyUsername, and
-&#8211;proxyPassword</p>
-<blockquote>
-<div><ul class="simple">
-<li>drop the use of a file for proxy and ftp auth info</li>
-</ul>
-</div></blockquote>
-</li>
-<li><p class="first">specified via KS as a URL</p>
-</li>
-</ul>
-</dd>
-</dl>
-</li>
-</ul>
-</dd>
-</dl>
-</li>
-</ul>
-</dd>
-</dl>
-<dl class="class">
-<dt id="pyanaconda.packaging.yumpayload.YumLock">
-<em class="property">class </em><tt class="descclassname">pyanaconda.packaging.yumpayload.</tt><tt class="descname">YumLock</tt><a class="headerlink" href="#pyanaconda.packaging.yumpayload.YumLock" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/2/library/functions.html#object" title="(in Python v2.7)"><tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></a></p>
-</dd></dl>
-
-<dl class="class">
-<dt id="pyanaconda.packaging.yumpayload.YumPayload">
-<em class="property">class </em><tt class="descclassname">pyanaconda.packaging.yumpayload.</tt><tt class="descname">YumPayload</tt><big>(</big><em>data</em><big>)</big><a class="headerlink" href="#pyanaconda.packaging.yumpayload.YumPayload" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#pyanaconda.packaging.PackagePayload" title="pyanaconda.packaging.PackagePayload"><tt class="xref py py-class docutils literal"><span class="pre">pyanaconda.packaging.PackagePayload</span></tt></a></p>
-<p>A YumPayload installs packages onto the target system using yum.</p>
-<p>User-defined (aka: addon) repos exist both in ksdata and in yum. They
-are the only repos in ksdata.repo. The repos we find in the yum config
-only exist in yum. Lastly, the base repo exists in yum and in
-ksdata.method.</p>
-<dl class="method">
-<dt id="pyanaconda.packaging.yumpayload.YumPayload.addRepo">
-<tt class="descname">addRepo</tt><big>(</big><em>yum_payload</em>, <em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#pyanaconda.packaging.yumpayload.YumPayload.addRepo" title="Permalink to this definition">¶</a></dt>
-<dd><p>Add a ksdata repo.</p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="pyanaconda.packaging.yumpayload.YumPayload.baseRepo">
-<tt class="descname">baseRepo</tt><a class="headerlink" href="#pyanaconda.packaging.yumpayload.YumPayload.baseRepo" title="Permalink to this definition">¶</a></dt>
-<dd><p>Return the current base repo id
-:returns: repo id or None</p>
-<p>Methods that change (or could change) the base_repo
-need to be decorated with &#64;refresh_base_repo</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="pyanaconda.packaging.yumpayload.YumPayload.calculateSpaceNeeds">
-<tt class="descname">calculateSpaceNeeds</tt><big>(</big><big>)</big><a class="headerlink" href="#pyanaconda.packaging.yumpayload.YumPayload.calculateSpaceNeeds" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="pyanaconda.packaging.yumpayload.YumPayload.checkSoftwareSelection">
-<tt class="descname">checkSoftwareSelection</tt><big>(</big><big>)</big><a class="headerlink" href="#pyanaconda.packaging.yumpayload.YumPayload.checkSoftwareSelection" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="pyanaconda.packaging.yumpayload.YumPayload.deleteYumTS">
-<tt class="descname">deleteYumTS</tt><big>(</big><big>)</big><a class="headerlink" href="#pyanaconda.packaging.yumpayload.YumPayload.deleteYumTS" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="pyanaconda.packaging.yumpayload.YumPayload.disableRepo">
-<tt class="descname">disableRepo</tt><big>(</big><em>yum_payload</em>, <em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#pyanaconda.packaging.yumpayload.YumPayload.disableRepo" title="Permalink to this definition">¶</a></dt>
-<dd><p>Disable a repo as specified by id.</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="pyanaconda.packaging.yumpayload.YumPayload.enableRepo">
-<tt class="descname">enableRepo</tt><big>(</big><em>yum_payload</em>, <em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#pyanaconda.packaging.yumpayload.YumPayload.enableRepo" title="Permalink to this definition">¶</a></dt>
-<dd><p>Enable a repo as specified by id.</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="pyanaconda.packaging.yumpayload.YumPayload.environmentDescription">
-<tt class="descname">environmentDescription</tt><big>(</big><em>environmentid</em><big>)</big><a class="headerlink" href="#pyanaconda.packaging.yumpayload.YumPayload.environmentDescription" title="Permalink to this definition">¶</a></dt>
-<dd><p>Return name/description tuple for the environment specified by id.</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="pyanaconda.packaging.yumpayload.YumPayload.environmentGroups">
-<tt class="descname">environmentGroups</tt><big>(</big><em>environmentid</em>, <em>optional=True</em><big>)</big><a class="headerlink" href="#pyanaconda.packaging.yumpayload.YumPayload.environmentGroups" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="pyanaconda.packaging.yumpayload.YumPayload.environmentHasOption">
-<tt class="descname">environmentHasOption</tt><big>(</big><em>environmentid</em>, <em>grpid</em><big>)</big><a class="headerlink" href="#pyanaconda.packaging.yumpayload.YumPayload.environmentHasOption" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="pyanaconda.packaging.yumpayload.YumPayload.environmentOptionIsDefault">
-<tt class="descname">environmentOptionIsDefault</tt><big>(</big><em>environmentid</em>, <em>grpid</em><big>)</big><a class="headerlink" href="#pyanaconda.packaging.yumpayload.YumPayload.environmentOptionIsDefault" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="pyanaconda.packaging.yumpayload.YumPayload.environmentSelected">
-<tt class="descname">environmentSelected</tt><big>(</big><em>environmentid</em><big>)</big><a class="headerlink" href="#pyanaconda.packaging.yumpayload.YumPayload.environmentSelected" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="pyanaconda.packaging.yumpayload.YumPayload.environments">
-<tt class="descname">environments</tt><a class="headerlink" href="#pyanaconda.packaging.yumpayload.YumPayload.environments" title="Permalink to this definition">¶</a></dt>
-<dd><p>List of environment ids.</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="pyanaconda.packaging.yumpayload.YumPayload.gatherRepoMetadata">
-<tt class="descname">gatherRepoMetadata</tt><big>(</big><em>yum_payload</em>, <em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#pyanaconda.packaging.yumpayload.YumPayload.gatherRepoMetadata" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="pyanaconda.packaging.yumpayload.YumPayload.getRepo">
-<tt class="descname">getRepo</tt><big>(</big><em>repo_id</em><big>)</big><a class="headerlink" href="#pyanaconda.packaging.yumpayload.YumPayload.getRepo" title="Permalink to this definition">¶</a></dt>
-<dd><p>Return the yum repo object.</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="pyanaconda.packaging.yumpayload.YumPayload.groupDescription">
-<tt class="descname">groupDescription</tt><big>(</big><em>groupid</em><big>)</big><a class="headerlink" href="#pyanaconda.packaging.yumpayload.YumPayload.groupDescription" title="Permalink to this definition">¶</a></dt>
-<dd><p>Return name/description tuple for the group specified by id.</p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="pyanaconda.packaging.yumpayload.YumPayload.groups">
-<tt class="descname">groups</tt><a class="headerlink" href="#pyanaconda.packaging.yumpayload.YumPayload.groups" title="Permalink to this definition">¶</a></dt>
-<dd><p>List of group ids.</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="pyanaconda.packaging.yumpayload.YumPayload.install">
-<tt class="descname">install</tt><big>(</big><big>)</big><a class="headerlink" href="#pyanaconda.packaging.yumpayload.YumPayload.install" title="Permalink to this definition">¶</a></dt>
-<dd><p>Install the payload.</p>
-<p>This writes out the yum transaction and then uses a Process thread
-to execute it in a totally separate process.</p>
-<p>It monitors the status of the install and logs debug info, updates
-the progress meter and cleans up when it is done.</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="pyanaconda.packaging.yumpayload.YumPayload.isRepoEnabled">
-<tt class="descname">isRepoEnabled</tt><big>(</big><em>repo_id</em><big>)</big><a class="headerlink" href="#pyanaconda.packaging.yumpayload.YumPayload.isRepoEnabled" title="Permalink to this definition">¶</a></dt>
-<dd><p>Return True if repo is enabled.</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="pyanaconda.packaging.yumpayload.YumPayload.languageGroups">
-<tt class="descname">languageGroups</tt><big>(</big><big>)</big><a class="headerlink" href="#pyanaconda.packaging.yumpayload.YumPayload.languageGroups" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="pyanaconda.packaging.yumpayload.YumPayload.mirrorEnabled">
-<tt class="descname">mirrorEnabled</tt><a class="headerlink" href="#pyanaconda.packaging.yumpayload.YumPayload.mirrorEnabled" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="pyanaconda.packaging.yumpayload.YumPayload.packages">
-<tt class="descname">packages</tt><a class="headerlink" href="#pyanaconda.packaging.yumpayload.YumPayload.packages" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="pyanaconda.packaging.yumpayload.YumPayload.postInstall">
-<tt class="descname">postInstall</tt><big>(</big><big>)</big><a class="headerlink" href="#pyanaconda.packaging.yumpayload.YumPayload.postInstall" title="Permalink to this definition">¶</a></dt>
-<dd><p>Perform post-installation tasks.</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="pyanaconda.packaging.yumpayload.YumPayload.preInstall">
-<tt class="descname">preInstall</tt><big>(</big><em>packages=None</em>, <em>groups=None</em><big>)</big><a class="headerlink" href="#pyanaconda.packaging.yumpayload.YumPayload.preInstall" title="Permalink to this definition">¶</a></dt>
-<dd><p>Perform pre-installation tasks.</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="pyanaconda.packaging.yumpayload.YumPayload.preStorage">
-<tt class="descname">preStorage</tt><big>(</big><big>)</big><a class="headerlink" href="#pyanaconda.packaging.yumpayload.YumPayload.preStorage" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="pyanaconda.packaging.yumpayload.YumPayload.release">
-<tt class="descname">release</tt><big>(</big><big>)</big><a class="headerlink" href="#pyanaconda.packaging.yumpayload.YumPayload.release" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="pyanaconda.packaging.yumpayload.YumPayload.removeRepo">
-<tt class="descname">removeRepo</tt><big>(</big><em>yum_payload</em>, <em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#pyanaconda.packaging.yumpayload.YumPayload.removeRepo" title="Permalink to this definition">¶</a></dt>
-<dd><p>Remove a repo as specified by id.</p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="pyanaconda.packaging.yumpayload.YumPayload.repos">
-<tt class="descname">repos</tt><a class="headerlink" href="#pyanaconda.packaging.yumpayload.YumPayload.repos" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="pyanaconda.packaging.yumpayload.YumPayload.reset">
-<tt class="descname">reset</tt><big>(</big><big>)</big><a class="headerlink" href="#pyanaconda.packaging.yumpayload.YumPayload.reset" title="Permalink to this definition">¶</a></dt>
-<dd><p>Reset this instance to its initial (unconfigured) state.</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="pyanaconda.packaging.yumpayload.YumPayload.selectRequiredPackages">
-<tt class="descname">selectRequiredPackages</tt><big>(</big><big>)</big><a class="headerlink" href="#pyanaconda.packaging.yumpayload.YumPayload.selectRequiredPackages" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="pyanaconda.packaging.yumpayload.YumPayload.setup">
-<tt class="descname">setup</tt><big>(</big><em>storage</em>, <em>instClass</em><big>)</big><a class="headerlink" href="#pyanaconda.packaging.yumpayload.YumPayload.setup" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="pyanaconda.packaging.yumpayload.YumPayload.spaceRequired">
-<tt class="descname">spaceRequired</tt><a class="headerlink" href="#pyanaconda.packaging.yumpayload.YumPayload.spaceRequired" title="Permalink to this definition">¶</a></dt>
-<dd><p>The total disk space (Size) required for the current selection.</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="pyanaconda.packaging.yumpayload.YumPayload.unsetup">
-<tt class="descname">unsetup</tt><big>(</big><big>)</big><a class="headerlink" href="#pyanaconda.packaging.yumpayload.YumPayload.unsetup" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="pyanaconda.packaging.yumpayload.YumPayload.updateBaseRepo">
-<tt class="descname">updateBaseRepo</tt><big>(</big><em>yum_payload</em>, <em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#pyanaconda.packaging.yumpayload.YumPayload.updateBaseRepo" title="Permalink to this definition">¶</a></dt>
-<dd><p>Update the base repo based on self.data.method.</p>
-<ul class="simple">
-<li>Tear down any previous base repo devices, symlinks, &amp;c.</li>
-<li>Reset the YumBase instance.</li>
-<li>Try to convert the new method to a base repo.</li>
-<li>If that fails, we&#8217;ll use whatever repos yum finds in the config.</li>
-<li>Set up addon repos.</li>
-<li>Filter out repos that don&#8217;t make sense to have around.</li>
-<li>Get metadata for all enabled repos, disabling those for which the
-retrieval fails.</li>
-</ul>
-</dd></dl>
-
-<dl class="method">
-<dt id="pyanaconda.packaging.yumpayload.YumPayload.writeMultiLibConfig">
-<tt class="descname">writeMultiLibConfig</tt><big>(</big><big>)</big><a class="headerlink" href="#pyanaconda.packaging.yumpayload.YumPayload.writeMultiLibConfig" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
-<dl class="function">
-<dt id="pyanaconda.packaging.yumpayload.refresh_base_repo">
-<tt class="descclassname">pyanaconda.packaging.yumpayload.</tt><tt class="descname">refresh_base_repo</tt><big>(</big><em>cond_fn=None</em><big>)</big><a class="headerlink" href="#pyanaconda.packaging.yumpayload.refresh_base_repo" title="Permalink to this definition">¶</a></dt>
-<dd><p>Function returning decorator for methods that invalidate base repo.
-After the method has been run the base repo will be refreshed</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>cond_fn</strong> &#8211; condition function telling if base repo should be
-invalidated or not (HAS TO TAKE THE SAME ARGUMENTS AS THE
-DECORATED FUNCTION)</td>
-</tr>
-</tbody>
-</table>
-<p>While the method runs the base_repo is set to None.</p>
 </dd></dl>
 
 </div>
