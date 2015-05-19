@@ -223,6 +223,12 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Tue May 19 2015 Samantha N. Bueno <sbueno+anaconda@redhat.com> - 13.21.236-1
+- Include lvm thinp utilities. (dlehman)
+  Resolves: rhbz#1212735
+- TypeError: argument must be string (jkonecny)
+  Resolves: rhbz#1209414
+
 * Thu May 07 2015 Samantha N. Bueno <sbueno+anaconda@redhat.com> - 13.21.235-1
 - Don't remove pps_core from ppc64.img (sbueno+anaconda)
   Resolves: rhbz#1213417
