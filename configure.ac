@@ -65,8 +65,7 @@ INTLTOOL_DESKTOP_RULE='%.desktop:  %.desktop.in  $(INTLTOOL_MERGE) $(wildcard $(
 AC_SUBST(INTLTOOL_DESKTOP_RULE)
 
 AM_GNU_GETTEXT([external])
-# Also update in gettextver in anaconda.spec.in
-AM_GNU_GETTEXT_VERSION([0.18.3])
+AM_GNU_GETTEXT_VERSION([0.18.1])
 
 # Checks for header files.
 AC_PATH_X
