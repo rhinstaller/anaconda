@@ -1224,8 +1224,12 @@ if __name__ == "__main__":
     # ability to set the language and locale after startup. If any of, in
     # order, $LANGUAGE, $LC_ALL, or $LC_MESSAGES is in the environment, copy
     # the information to $LANG, and then clear the rest.
+
+    # The variables only count if not empty, and some programs (KDE) insist
+    # on setting empty language variables, which would break if we actually
+    # tried to use them.
     for varname in ("LANGUAGE", "LC_ALL", "LC_MESSAGES"):
-        if varname in os.environ:
+        if varname in os.environ and os.environ[varname]:
             os.environ["LANG"] = os.environ[varname] # pylint: disable=environment-modify
             break
 
