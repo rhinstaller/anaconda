@@ -826,7 +826,7 @@ def addPartition(disklabel, free, part_type, size):
         end = start + length - 1
 
     if not disklabel.endAlignment.isAligned(free, end):
-        end = disklabel.endAlignment.alignNearest(free, end)
+        end = disklabel.endAlignment.alignUp(free, end)
         log.debug("adjusted length from %d to %d" % (length, end - start + 1))
         if start > end:
             raise PartitioningError("unable to allocate aligned partition")
@@ -1143,10 +1143,16 @@ def allocatePartitions(storage, disks, partitions, freespace):
                         # add the current request to the temp disk to set up
                         # its partedPartition attribute with a base geometry
                         if disk_path == _disk.path:
-                            temp_part = addPartition(disklabel,
-                                                     best,
-                                                     new_part_type,
-                                                     _part.req_size)
+                            try:
+                                temp_part = addPartition(disklabel,
+                                                         best,
+                                                         new_part_type,
+                                                         _part.req_size)
+                            except ArithmeticError as e:
+                                log.debug("failed to allocate alligned partition "
+                                         "for growth test")
+                                continue
+
                             _part.partedPartition = temp_part
                             _part.disk = _disk
                             temp_parts.append(_part)
@@ -1332,6 +1338,8 @@ class Chunk(object):
             Note: We will limit partition growth based on disklabel
             limitations for partition end sector, so a 10TB disk with an
             msdos disklabel will be treated like a 2TB disk.
+            If you plan to allocate aligned partitions you should pass in an
+            aligned geometry instance.
 
         """
         self.geometry = geometry            # parted.Geometry
@@ -1542,7 +1550,13 @@ def getDiskChunks(disk, partitions, free):
     disk_free = [f for f in free if f.device.path == disk.path]
 
 
-    chunks = [Chunk(f) for f in disk_free]
+    chunks = []
+    for f in disk_free:
+        # align the geometry so we have a realistic view of the free space
+        geom = parted.Geometry(device=f.device,
+                               start=disk.format.alignment.alignUp(f, f.start),
+                               end=disk.format.endAlignment.alignDown(f, f.end))
+        chunks.append(Chunk(geom))
 
     for p in disk_parts:
         if p.isExtended:
