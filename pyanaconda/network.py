@@ -28,6 +28,7 @@ import shutil
 from pyanaconda import iutil
 import socket
 import os
+import errno
 import time
 import threading
 import re
@@ -913,10 +914,19 @@ def copyFileToPath(fileName, destPath='', overwrite=False):
     if not os.path.isfile(fileName):
         return False
     destfile = os.path.join(destPath, fileName.lstrip('/'))
-    if (os.path.isfile(destfile) and not overwrite):
+    exists = os.path.exists(destfile)
+    # As a special case, we always overwrite any symlinks that
+    # are broken.  This mainly occurs in the case of systemd resolved
+    # and resolv.conf: https://bugzilla.redhat.com/show_bug.cgi?id=1116651
+    if overwrite or (not exists and os.path.islink(destfile)):
+        try:
+            os.unlink(destfile)
+        except OSError, e:
+            if e.errno != errno.ENOENT:
+                raise
+    elif exists:
         return False
-    if not os.path.isdir(os.path.dirname(destfile)):
-        iutil.mkdirChain(os.path.dirname(destfile))
+    iutil.mkdirChain(os.path.dirname(destfile))
     shutil.copy(fileName, destfile)
     return True
 
