@@ -93,7 +93,27 @@ different ways:
     'NN' is the hexidecimal representation of the character (e.g. ``\x20`` for
     the space character (' ').
 
-.. _inst.stage2:
+.. inst.noverifyssl:
+
+inst.noverifyssl
+^^^^^^^^^^^^^^^^
+
+Prevents Anaconda from verifying the ssl certificate for all HTTPS connections
+with an exception of the additional kickstart repos (where --noverifyssl can be
+set per repo).
+
+.. inst.proxy:
+
+inst.proxy
+^^^^^^^^^^
+
+``inst.proxy=PROXY_URL``
+
+Use the given proxy settings when performing an installation from a
+HTTP/HTTPS/FTP source.  The ``PROXY_URL`` can be specified like this:
+``[PROTOCOL://][USERNAME[:PASSWORD]@]HOST[:PORT]``.
+
+.. inst.stage2:
 
 inst.stage2
 ^^^^^^^^^^^
@@ -111,7 +131,7 @@ Locations may be specified using any of the formats allowed for
 inst.multilib
 ^^^^^^^^^^^^^
 
-This sets yum's multilib_policy to "all" (as opposed to "best").
+This sets dnf's multilib_policy to "all" (as opposed to "best").
 
 .. kickstart:
 
@@ -181,7 +201,7 @@ installer-specific options.
 .. ip:
 
 ip
-^^
+^^^
 
 Configure one (or more) network interfaces. You can use multiple ``ip``
 arguments to configure multiple interfaces, but if you do you must specify an
@@ -269,7 +289,7 @@ This is a kernel option that specifies what device to use as the primary
 console. For example, if your console should be on the first serial port, use
 ``console=ttyS0``.
 
-You can use multiple ``console=`` options; boot message will be displayed on
+You can use multiple ``console=`` options; boot messages will be displayed on
 all consoles, but anaconda will put its display on the last console listed.
 
 Implies `inst.text`_.
@@ -428,6 +448,14 @@ Locations may be specified using any of the formats allowed for ``inst.repo``.
 For any format the ``<path>`` component defaults to ``/updates.img`` if it is
 omitted.
 
+.. nokill:
+
+nokill
+^^^^^^
+
+A debugging option that prevents anaconda from rebooting when a fatal error
+occurs or at the end of the installation process.
+
 .. inst.loglevel:
 
 inst.loglevel
@@ -436,6 +464,13 @@ inst.loglevel
 ``inst.loglevel=<debug|info|warning|error|critical>``
     Set the minimum level required for messages to be logged on a terminal (log
     files always contain messages of all levels). The default value is ``info``.
+
+.. inst.noshell:
+
+inst.noshell
+^^^^^^^^^^^^
+
+Do not put a shell on tty2 during install.
 
 .. inst.syslog:
 
@@ -467,6 +502,101 @@ inst.zram
 ^^^^^^^^^
 
 Forces/disables (on/off) usage of zRAM swap for the installation process.
+
+
+Boot loader options
+-------------------
+
+.. extlinux:
+
+extlinux
+^^^^^^^^
+
+Use extlinux as the bootloader. Note that there's no attempt to validate that
+this will work for your platform or anything; it assumes that if you ask for it,
+you want to try.
+
+.. leavebootorder:
+
+leavebootorder
+^^^^^^^^^^^^^^
+
+Boot the drives in their existing order, to override the default of booting into
+the newly installed drive on Power Systems servers and EFI systems. This is
+useful for systems that, for example, should network boot first before falling
+back to a local boot.
+
+
+Storage options
+-------------
+
+.. inst.nodmraid:
+
+inst.nodmraid
+^^^^^^^^^^^^^
+
+Disable support for dmraid.
+
+.. warning:: This option is never a good idea! If you have a disk that is
+             erroneously identified as part of a firmware RAID array, that means
+             it has some stale RAID metadata on it which must be removed using
+             an appropriate tool (dmraid and/or wipefs).
+
+.. inst.nompath:
+
+inst.nompath
+^^^^^^^^^^^^
+
+Disable support for multipath devices. This is for systems on which a
+false-positive is encountered which erroneously identifies a normal block device
+as a multipath device. There is no other reason to use this option.
+
+.. warning:: Not for use with actual multipath hardware!  Using this to attempt
+             to install to a single path of a multipath is ill-advised, and not
+             supported.
+
+.. inst.gpt:
+
+inst.gpt
+^^^^^^^^^^
+
+Prefer creation of GPT disklabels.
+
+
+Other options
+-------------
+
+.. inst.selinux:
+
+inst.selinux
+^^^^^^^^^^^^
+
+Enable SELinux usage in the installed system (default). Note that when used as a
+boot option, "selinux" and "inst.selinux" are not the same. The "selinux" option
+is picked up by both the kernel and Anaconda, but "inst.selinux" is processed
+only by Anaconda. So when "selinux=0" is used, SELinux will be disabled both in
+the installation environment and in the installed system, but when
+"inst.selinux=0" is used SELinux will only be disabled in the installed system.
+Also note that while SELinux is running in the installation environment by
+default, it is running in permissive mode so disabling it there does not make
+much sense.
+
+Third-party options
+^^^^^^^^^^^^^^^^^^^
+
+Since Fedora 19 the Anaconda installer supports third-party extensions called
+*addons*. The *addons* can support their own set of boot options which should be
+documented in their documentation or submitted here.
+
+.. inst.kdump:
+
+inst.kdump
+++++++++++
+
+``inst.kdump_addon=on/off``
+
+Enable kdump anaconda addon to setup the kdump service.
+
 
 Deprecated Options
 ------------------
@@ -532,17 +662,6 @@ ksdevice
 ``ksdevice=<DEV>``
     Replaced with `bootdev`_
 
-.. blacklist:
-.. nofirewire:
-
-blacklist, nofirewire
-^^^^^^^^^^^^^^^^^^^^^
-
-``modprobe`` handles blacklisting kernel modules on its own; try
-``modprobe.blacklist=<mod1>,<mod2>...``
-
-You can blacklist the firewire module with ``modprobe.blacklist=firewire_ohci``.
-
 Removed Options
 ---------------
 
@@ -559,6 +678,17 @@ removed.
 Instead, use `inst.repo`_ or specify appropriate `Network Options`_.
 
 .. serial:
+
+.. blacklist:
+.. nofirewire:
+
+blacklist, nofirewire
+^^^^^^^^^^^^^^^^^^^^^
+
+``modprobe`` handles blacklisting kernel modules on its own; try
+``modprobe.blacklist=<mod1>,<mod2>...``
+
+You can blacklist the firewire module with ``modprobe.blacklist=firewire_ohci``.
 
 serial
 ^^^^^^
