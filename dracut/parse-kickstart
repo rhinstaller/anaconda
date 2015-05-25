@@ -66,6 +66,21 @@ def read_cmdline(f):
             args[k] = v
     return args
 
+def first_device_with_link():
+    for dev_dir in sorted(glob.glob("/sys/class/net/*")):
+        ##define ARPHRD_ETHER    1               /* Ethernet 10Mbps              */
+        ##define ARPHRD_INFINIBAND 32            /* InfiniBand                   */
+        with open(dev_dir+"/type") as f:
+            if f.read().strip() not in ("1", "32"):
+                continue
+        with open(dev_dir+"/carrier") as f:
+            if f.read().strip() == "1":
+                return os.path.basename(dev_dir)
+    return ""
+
+def setting_only_hostname(net, args):
+    return net.hostname and (len(args) == 2 or (len(args) == 3 and "--hostname" in args))
+
 proc_cmdline = read_cmdline("/proc/cmdline")
 
 # Here are the kickstart commands we care about:
@@ -138,17 +153,26 @@ class Network(commands.network.F21_Network):
         netline = None
 
         # Setting only hostname in kickstart
-        if not net.device and net.hostname and not self.handler.ksdevice:
+        if not net.device and not self.handler.ksdevice \
+            and setting_only_hostname(net, args):
             return None
 
         # first 'network' line
         if len(self.network) == 1:
             net.activate = True
-            if net.device == "link" or not net.device:
-                # NOTE: this might still be empty (e.g. 'ks=file:...')
-                # XXX FIXME: handle "link" properly?
-                log.debug("Using ksdevice %s for missing --device in first kickstart network command", self.handler.ksdevice)
-                net.device = self.handler.ksdevice
+            if not net.device:
+                if self.handler.ksdevice:
+                    net.device = self.handler.ksdevice
+                    log.info("Using ksdevice %s for missing --device in first kickstart network command", self.handler.ksdevice)
+                else:
+                    net.device = "link"
+            if net.device == "link":
+                net.device = first_device_with_link()
+                if not net.device:
+                    log.warn("No device with link found for --device=link")
+                    return
+                else:
+                    log.info("Using %s as first device with link found", net.device)
             # tell dracut to bring this device up
             netline = ksnet_to_dracut(args, lineno, net, bootdev=True)
         else:
