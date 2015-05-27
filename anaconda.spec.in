@@ -25,7 +25,7 @@ Source0: %{name}-%{version}.tar.bz2
 %define partedver 1.8.1
 %define pypartedver 2.5-2
 %define pythonpyblockver 0.45
-%define nmver 0.9.9.0-10.git20130906
+%define nmver 1.0.0-6.git20150107
 %define dbusver 1.2.3
 %define yumutilsver 1.1.11-3
 %define mehver 0.23-1
@@ -122,6 +122,7 @@ Requires: isomd5sum >= %{isomd5sum}
 Requires: yum-utils >= %{yumutilsver}
 Requires: createrepo_c
 Requires: NetworkManager >= %{nmver}
+Requires: NetworkManager-team
 Requires: dhclient
 Requires: libselinux-python
 Requires: kbd
