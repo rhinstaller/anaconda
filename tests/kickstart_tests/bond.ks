@@ -8,9 +8,7 @@ network --device=bond0 --bootproto=static --bondslaves=link --ip=192.168.1.1 --n
 bootloader --timeout=1
 zerombr
 clearpart --all
-part --fstype=ext4 --size=4400 /
-part --fstype=ext4 --size=500 /boot
-part --fstype=swap --size=500 swap
+autopart
 
 keyboard us
 lang en

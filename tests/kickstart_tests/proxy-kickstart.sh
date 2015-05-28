@@ -40,7 +40,7 @@ validate() {
     # There should be a /root/RESULT file with results in it. Check
     # its contents and decide whether the test finally succeeded or
     # not.
-    result=$(virt-cat -a ${img} -m /dev/sda2 /root/RESULT)
+    result=$(virt-cat -a ${img} -m /dev/fedora/root /root/RESULT)
     if [[ $? != 0 ]]; then
         status=1
         echo '*** /root/RESULT does not exist in VM image.'
