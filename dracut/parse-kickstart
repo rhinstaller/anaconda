@@ -521,7 +521,10 @@ def write_ifcfg(filename, ifcfg):
 
 def process_kickstart(ksfile):
     handler = DracutHandler()
-    handler.ksdevice = os.environ.get('ksdevice')
+    try:
+        handler.ksdevice = proc_cmdline['ksdevice']
+    except KeyError:
+        log.info("ksdevice argument is not available")
     parser = KickstartParser(handler, missingIncludeIsFatal=False, errorsAreFatal=False)
     parser.registerSection(NullSection(handler, sectionOpen="%addon"))
     log.info("processing kickstart file %s", ksfile)
