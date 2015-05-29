@@ -18,9 +18,7 @@
 #
 # Red Hat Author(s): Chris Lumens <clumens@redhat.com>
 
-kernel_args() {
-    echo vnc
-}
+. ${KSTESTDIR}/functions.sh
 
 prepare() {
     ks=$1
@@ -36,7 +34,8 @@ prepare() {
 }
 
 validate() {
-    img=$1
+    disksdir=$1
+    args=$(for d in ${disksdir}/*img; do echo -a ${d}; done)
 
     # Now attempt to boot the resulting VM and see if the install
     # actually worked.  The VM will shut itself down so there's no
@@ -49,7 +48,7 @@ validate() {
     # There should be a /root/RESULT file with results in it.  Check
     # its contents and decide whether the test finally succeeded or
     # not.
-    result=$(virt-cat -a ${img} -m /dev/fedora/root /ostree/deploy/fedora-atomic/var/roothome/RESULT)
+    result=$(virt-cat ${args} -m /dev/mapper/fedora-root /ostree/deploy/fedora-atomic/var/roothome/RESULT)
     if [[ $? != 0 ]]; then
         status=1
         echo '*** /root/RESULT does not exist in VM image.'

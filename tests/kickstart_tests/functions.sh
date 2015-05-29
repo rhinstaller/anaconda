@@ -1,3 +1,4 @@
+#!/bin/bash
 #
 # Copyright (C) 2015  Red Hat, Inc.
 #
@@ -15,10 +16,41 @@
 # License and may only be used or replicated with the express permission of
 # Red Hat, Inc.
 #
-# Red Hat Author(s): David Shea <dshea@redhat.com>
-
-. ${KSTESTDIR}/functions.sh
+# Red Hat Author(s): Chris Lumens <clumens@redhat.com>
 
 kernel_args() {
-    echo vnc inst.proxy=http://127.0.0.1:8080
+    echo vnc
+}
+
+prepare() {
+    ks=$1
+    tmpdir=$2
+
+    echo ${ks}
+}
+
+prepare_disks() {
+    tmpdir=$1
+
+    qemu-img create -q -f qcow2 ${tmpdir}/disks/a.img 10G
+    echo ${tmpdir}/disks/a.img
+}
+
+validate() {
+    disksdir=$1
+    args=$(for d in ${disksdir}/*img; do echo -a ${d}; done)
+
+    # There should be a /root/RESULT file with results in it.  Check
+    # its contents and decide whether the test finally succeeded or
+    # not.
+    result=$(virt-cat ${args} -m /dev/mapper/fedora-root /root/RESULT)
+    if [[ $? != 0 ]]; then
+        status=1
+        echo '*** /root/RESULT does not exist in VM image.'
+    elif [[ "${result}" != "SUCCESS" ]]; then
+        status=1
+        echo "${result}"
+    fi
+
+    return ${status}
 }

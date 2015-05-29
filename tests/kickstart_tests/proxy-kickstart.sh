@@ -17,9 +17,7 @@
 #
 # Red Hat Author(s): David Shea <dshea@redhat.com>
 
-kernel_args() {
-    echo vnc
-}
+. ${KSTESTDIR}/functions.sh
 
 prepare() {
     ks=$1
@@ -32,22 +30,4 @@ prepare() {
 
     sed -e "/^repo/ s|HTTP-ADDON-REPO|${KSTEST_ADDON_HTTP_REPO}|" ${ks} > ${tmpdir}/kickstart.ks
     echo ${tmpdir}/kickstart.ks
-}
-
-validate() {
-    img=$1
-
-    # There should be a /root/RESULT file with results in it. Check
-    # its contents and decide whether the test finally succeeded or
-    # not.
-    result=$(virt-cat -a ${img} -m /dev/fedora/root /root/RESULT)
-    if [[ $? != 0 ]]; then
-        status=1
-        echo '*** /root/RESULT does not exist in VM image.'
-    elif [[ "${result}" != "SUCCESS" ]]; then
-        status=1
-        echo "${result}"
-    fi
-
-    return ${status}
 }
