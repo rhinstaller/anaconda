@@ -42,7 +42,7 @@ cleanup() {
     if [[ ${KEEPIT} == 2 ]]; then
         return
     elif [[ ${KEEPIT} == 1 ]]; then
-        rm -f ${d}/*img ${d}/*ks
+        rm -rf ${d}/disks ${d}/*ks
     elif [[ ${KEEPIT} == 0 ]]; then
         rm -rf ${d}
     fi
@@ -82,38 +82,35 @@ runone() {
         kargs="--kernel-args \"$kargs\""
     fi
 
-    eval livemedia-creator ${kargs} \
-                      --make-disk \
-                      --iso "${tmpdir}/$(basename ${IMAGE})" \
-                      --ks ${ksfile} \
-                      --tmp ${tmpdir} \
-                      --logfile ${tmpdir}/livemedia.log \
-                      --title Fedora \
-                      --project Fedora \
-                      --releasever 22 \
-                      --ram 2048 \
-                      --vcpus 2 \
-                      --vnc vnc \
-                      --timeout 60
-    if [[ "$(grep CRIT ${tmpdir}/virt-install.log)" != "" ]]; then
+    mkdir -p ${tmpdir}/disks/
+    disks=$(prepare_disks ${tmpdir})
+    disk_args=$(for d in $disks; do echo --disk $d; done)
+
+    eval ${KSTESTDIR}/kstest-runner ${kargs} \
+                       --iso "${tmpdir}/$(basename ${IMAGE})" \
+                       --ks ${ksfile} \
+                       --tmp ${tmpdir} \
+                       --logfile ${tmpdir}/livemedia.log \
+                       --ram 2048 \
+                       --vnc vnc \
+                       --timeout 60 \
+                       ${disk_args}
+    if [[ -f ${tmpdir}/virt-install.log && "$(grep CRIT ${tmpdir}/virt-install.log)" != "" ]]; then
         echo RESULT:${name}:FAILED:$(grep CRIT ${tmpdir}/virt-install.log)
         cleanup ${tmpdir}
         return 1
     elif [[ -f ${tmpdir}/livemedia.log ]]; then
-        img=$(grep disk_img ${tmpdir}/livemedia.log | cut -d= -f2)
-        trimmed=${img## }
-
         if [[ "$(grep 'due to timeout' ${tmpdir}/livemedia.log)" != "" ]]; then
             echo RESULT:${name}:FAILED:Test timed out.
             cleanup ${tmpdir}
             return 2
-        elif [[ ! -f ${trimmed} ]]; then
-            echo RESULT:${name}:FAILED:Disk image ${trimmed} does not exist.
+        elif [[ ! -d ${tmpdir}/disks ]]; then
+            echo RESULT:${name}:FAILED:Disk images do not exist.
             cleanup ${tmpdir}
             return 1
         fi
 
-        result=$(validate ${trimmed})
+        result=$(validate ${tmpdir}/disks)
         if [[ $? != 0 ]]; then
             echo RESULT:${name}:FAILED:"${result}"
             cleanup ${tmpdir}

@@ -53,6 +53,7 @@ dist_check_SCRIPTS = $(srcdir)/glade/*/*.py \
 		     install/run_install_test.sh \
 		     $(srcdir)/kickstart_tests/*.ks \
 		     $(srcdir)/kickstart_tests/*.sh \
+		     $(srcdir)/kickstart_tests/kstest-runner \
 		     $(srcdir)/gui/*.ks \
 		     $(srcdir)/gui/*.sh \
 		     $(srcdir)/gui/inside/*.py \
