@@ -405,6 +405,8 @@ int explodeDDRPM(const char *source,
                 needskip = 0;
             } else {
                 needskip = 0;
+                /* set permissions on the new file */
+                chmod(filename+offset, fstat->st_mode);
             }
 
             fclose(fdout);
