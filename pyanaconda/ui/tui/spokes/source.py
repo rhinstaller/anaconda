@@ -54,7 +54,7 @@ class SourceSpoke(EditTUISpoke, SourceSwitchHandler):
     title = N_("Installation source")
     category = SoftwareCategory
 
-    _protocols = (N_("Closest mirror"), "http://", "https://", "ftp://", "nfs")
+    _protocols = ("http://", "https://", "ftp://", "nfs", N_("Closest mirror"))
 
     # default to 'closest mirror', as done in the GUI
     _selection = 1
@@ -84,6 +84,10 @@ class SourceSpoke(EditTUISpoke, SourceSwitchHandler):
             self._cdrom = self.payload.install_device
         elif not flags.automatedInstall:
             self._cdrom = opticalInstallMedia(self.storage.devicetree)
+
+        # Only show Closest mirror if mirrors are available
+        if not self.payload.mirrorEnabled:
+            self._protocols.pop()
 
         self._ready = True
 
@@ -162,13 +166,7 @@ class SourceSpoke(EditTUISpoke, SourceSwitchHandler):
         if args == 3:
             # network install
             self._selection = num
-            if self._selection == 1:
-                # closest mirror
-                self.set_source_closest_mirror()
-                self.apply()
-                self.close()
-                return INPUT_PROCESSED
-            elif self._selection in range(2, 5):
+            if 0 < self._selection < 4:
                 # preliminary URL source switch
                 self.set_source_url()
                 newspoke = SpecifyRepoSpoke(self.app, self.data, self.storage,
@@ -177,13 +175,19 @@ class SourceSpoke(EditTUISpoke, SourceSwitchHandler):
                 self.apply()
                 self.close()
                 return INPUT_PROCESSED
-            elif self._selection == 5:
+            elif self._selection == 4:
                 # nfs
                 # preliminary NFS source switch
                 self.set_source_nfs()
                 newspoke = SpecifyNFSRepoSpoke(self.app, self.data, self.storage,
                                         self.payload, self.instclass, self._selection, self._error)
                 self.app.switch_screen_modal(newspoke)
+                self.apply()
+                self.close()
+                return INPUT_PROCESSED
+            elif self._selection == 5:
+                # closest mirror
+                self.set_source_closest_mirror()
                 self.apply()
                 self.close()
                 return INPUT_PROCESSED
