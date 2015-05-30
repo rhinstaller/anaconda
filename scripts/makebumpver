@@ -1,9 +1,9 @@
-#!/usr/bin/python
+#!/usr/bin/python2
 #
 # makebumpver - Increment version number and add in RPM spec file changelog
 #               block.  Ensures rhel*-branch commits reference RHEL bugs.
 #
-# Copyright (C) 2009  Red Hat, Inc.
+# Copyright (C) 2009-2015  Red Hat, Inc.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU Lesser General Public License as published
@@ -26,9 +26,11 @@ log = logging.getLogger("bugzilla")
 log.setLevel(logging.INFO)
 
 import bugzilla
+from contextlib import closing
 import datetime
 import getopt
 import getpass
+import json
 import os
 import re
 import subprocess
@@ -41,6 +43,8 @@ class MakeBumpVer:
         log.debug("%s", kwargs)
         self.bzserver = 'bugzilla.redhat.com'
         self.bzurl = "https://%s/xmlrpc.cgi" % self.bzserver
+        self.jenkins = None
+        self.jenkins_proxy = None
         self.username = None
         self.password = None
         self.bz = None
@@ -57,6 +61,10 @@ class MakeBumpVer:
                     self.username = line[10:].strip('"\'')
                 elif line.startswith('RHBZ_PASSWORD='):
                     self.password = line[14:].strip('"\'')
+                elif line.startswith('JENKINS='):
+                    self.jenkins = line[8:].strip('"\'')
+                elif line.startswith('JENKINS_PROXY='):
+                    self.jenkins_proxy = line[14:].strip('"\'')
 
         self.gituser = self._gitConfig('user.name')
         self.gitemail = self._gitConfig('user.email')
@@ -119,6 +127,9 @@ class MakeBumpVer:
 
         fields = lines[0].split(' ')
 
+        if len(fields) == 2:
+            self.git_branch = fields[1]
+
         if len(fields) == 2 and fields[1].startswith('rhel'):
             branch_pattern=r"^rhel(\d+)-(.*)"
             m = re.match(branch_pattern, fields[1])
@@ -135,15 +146,15 @@ class MakeBumpVer:
         ret = proc[0].strip('\n').split('\n')
 
         if len(ret) == 1 and ret[0].find('@') != -1:
-            ret = ret[0].split('@')[0]
+            ret = [ret[0].split('@')[0]]
         elif len(ret) == 1:
-            ret = ret[0]
+            ret = [ret[0]]
         else:
             ret = filter(lambda x: x != '', ret)
 
         return ret
 
-    def _queryBug(self, bug):
+    def _queryBug(self, bugid):
         if not self.bz:
             sys.stdout.write("Connecting to %s...\n" % self.bzserver)
 
@@ -163,17 +174,17 @@ class MakeBumpVer:
             rc = self.bz.login(self.username, self.password)
             log.debug("login rc = %s", rc)
 
-        if bug in self._bz_cache:
-            return self._bz_cache[bug]
+        if bugid in self._bz_cache:
+            return self._bz_cache[bugid]
 
-        bugs = self.bz.query({'bug_id': bug})
-        log.debug("bugs = %s", bugs)
+        bug = self.bz.getbug(bugid, extra_fields="flags")
+        log.debug("bug = %s", bug)
 
-        if len(bugs) != 1:
+        if not bug:
             return None
         else:
-            self._bz_cache[bug] = bugs[0]
-            return bugs[0]
+            self._bz_cache[bugid] = bug
+            return bug
 
     def _isRHELBug(self, bug, commit, summary):
         bzentry = self._queryBug(bug)
@@ -251,7 +262,7 @@ class MakeBumpVer:
 
         if self.ignore and self.ignore != '':
             for commit in self.ignore.split(','):
-                lines = filter(lambda x: not x.startswith(commit), lines)
+                lines = filter(lambda x, c=commit: not x.startswith(c), lines)
 
         rpm_log = []
         bad_bump = False
@@ -263,11 +274,9 @@ class MakeBumpVer:
             fields = line.split(' ')
             commit = fields[0]
 
-            summary = self._getCommitDetail(commit, "%s")
+            summary = self._getCommitDetail(commit, "%s")[0]
             body = self._getCommitDetail(commit, "%b")
-            if type(body) is not list:
-                body = [body]
-            author = self._getCommitDetail(commit, "%aE")
+            author = self._getCommitDetail(commit, "%aE")[0]
 
             if self.rhel:
                 rhbz = set()
@@ -299,6 +308,7 @@ class MakeBumpVer:
                             author = tmp
 
                     ckbug = self.bugmap.get(bug, bug)
+
                     valid = self.skip_all or self._isRHELBug(ckbug, commit, summary)
 
                     if valid:
@@ -337,6 +347,7 @@ class MakeBumpVer:
                         action = actionre.group()
                         bug = bugre.group()
                         ckbug = self.bugmap.get(bug, bug)
+
                         valid = self.skip_all or self._isRHELBug(ckbug, commit, summary)
 
                         if valid:
@@ -362,11 +373,15 @@ class MakeBumpVer:
                                                               fixedIn) or \
                             not self._isRHELBugAcked(ckbug, commit, summary)):
                             bad = True
-                        elif valid and action == 'Related' and \
-                            self._isRHELBugAcked(ckbug, commit, summary):
-                            print("*** Bug %s Related commit %s is allowed\n" % (bug, commit))
-                            # Related bugs only need to be valid and have an ack
-                            bad = False
+                        elif valid and action == 'Related':
+                            # A related bug needs to have acks, and if it is the same as the summary
+                            # It overrides the summary having different fixed-in or state
+                            if self._isRHELBugAcked(ckbug, commit, summary):
+                                print("*** Bug %s Related commit %s is allowed\n" % (bug, commit))
+                                if ckbug == summary_bug:
+                                    bad = False
+                            else:
+                                bad = True
 
                 if len(rhbz) == 0 and not self.skip_all:
                     print("*** No bugs referenced in commit %s\n" % commit)
@@ -533,6 +548,7 @@ def usage(cmd):
     sys.stdout.write("    -i, --ignore     Comma separated list of git commits to ignore.\n")
     sys.stdout.write("    -m, --map        Comma separated list of FEDORA_BZ=RHEL_BZ mappings.\n")
     sys.stdout.write("    -s, --skip-acks  Skip checking for rhel-X.X.X ack flag\n")
+    sys.stdout.write("    -S, --skip-all   Skip all checks\n")
     sys.stdout.write("    -d, --debug      Turn on debug logging to stdout\n")
     sys.stdout.write("    --skip-zanata    Skip checking Zanata config for branch name\n")
     sys.stdout.write("    --skip-jenkins   Skip checking Jenkins for test results\n")
