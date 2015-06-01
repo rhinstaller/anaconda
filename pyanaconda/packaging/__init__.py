@@ -980,6 +980,9 @@ class PackagePayload(Payload):
                     if not method.method:
                         method.method = "cdrom"
                     self._setupMedia(self.install_device)
+
+                    # Make sure Blivet doesn't unmount it
+                    self.install_device.protected = True
                     url = "file://" + INSTALL_TREE
                 elif method.method == "cdrom":
                     raise PayloadSetupError("no usable optical media found")
