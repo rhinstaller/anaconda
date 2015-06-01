@@ -390,7 +390,10 @@ def _get_ip_setting_values_from_ksdata(networkdata):
 
     if method4 == "manual":
         addr4 = nm.nm_ipv4_to_dbus_int(networkdata.ip)
-        gateway4 = nm.nm_ipv4_to_dbus_int(networkdata.gateway)
+        if networkdata.gateway:
+            gateway4 = nm.nm_ipv4_to_dbus_int(networkdata.gateway)
+        else:
+            gateway4 = 0 # will be ignored by NetworkManager
         prefix4 = netmask2prefix(networkdata.netmask)
         values.append(["ipv4", "addresses", [[addr4, prefix4, gateway4]], "aau"])
 
