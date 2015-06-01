@@ -21,8 +21,7 @@
 
 from pyanaconda.ui.gui import GUIObject
 from pyanaconda.ui.gui.utils import gtk_action_nowait
-
-from blivet.devicelibs.dasd import sanitize_dasd_dev_input, online_dasd
+from gi.repository import BlockDev as blockdev
 
 __all__ = ["DASDDialog"]
 
@@ -83,7 +82,7 @@ class DASDDialog(GUIObject):
         self._conditionNotebook.set_current_page(1)
 
         try:
-            device = sanitize_dasd_dev_input(self._deviceEntry.get_text())
+            device = blockdev.s390.sanitize_dev_input(self._deviceEntry.get_text())
         except ValueError as e:
             _config_error = str(e)
             self.builder.get_object("deviceErrorLabel").set_text(_config_error)
@@ -126,8 +125,8 @@ class DASDDialog(GUIObject):
         """
         # attempt to add the device
         try:
-            online_dasd(device)
+            blockdev.s390.dasd_online(device)
             self._update_devicetree = True
-        except ValueError as e:
-            self._discoveryError = str(e)
+        except blockdev.S390Error as err:
+            self._discoveryError = str(err)
             return

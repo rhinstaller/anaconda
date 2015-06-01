@@ -21,6 +21,7 @@
 
 from pyanaconda.ui.gui import GUIObject
 from pyanaconda.ui.gui.utils import gtk_action_nowait
+from gi.repository import BlockDev as blockdev
 
 from blivet.zfcp import ZFCPDevice
 
@@ -96,11 +97,11 @@ class ZFCPDialog(GUIObject):
         # below really, really is ugly and needs to be re-factored, but this
         # should give a good base idea as far as expected behavior should go
         try:
-            device = dev.sanitizeDeviceInput(self._deviceEntry.get_text())
-            wwpn = dev.sanitizeWWPNInput(self._wwpnEntry.get_text())
-            lun = dev.sanitizeFCPLInput(self._lunEntry.get_text())
-        except ValueError as e:
-            _config_error = str(e)
+            device = blockdev.s390.sanitize_dev_input(self._deviceEntry.get_text())
+            wwpn = blockdev.s390.zfcp_sanitize_wwpn_input(self._wwpnEntry.get_text())
+            lun = blockdev.s390.zfcp_sanitize_lun_input(self._lunEntry.get_text())
+        except blockdev.S390Error as err:
+            _config_error = str(err)
             self.builder.get_object("deviceErrorLabel").set_text(_config_error)
             self._conditionNotebook.set_current_page(2)
 

@@ -161,10 +161,20 @@ class Anaconda(object):
     def storage(self):
         if not self._storage:
             import blivet
+            import blivet.arch
+            from gi.repository import BlockDev as blockdev
             self._storage = blivet.Blivet(ksdata=self.ksdata)
 
             if self.instClass.defaultFS:
                 self._storage.setDefaultFSType(self.instClass.defaultFS)
+
+            if blivet.arch.isS390():
+                # want to make sure s390 plugin is loaded
+                if "s390" not in blockdev.get_available_plugin_names():
+                    plugin = blockdev.PluginSpec()
+                    plugin.name = blockdev.Plugin.S390
+                    plugin.so_name = None
+                    blockdev.reinit([plugin], reload=False)
 
         return self._storage
 

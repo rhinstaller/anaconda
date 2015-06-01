@@ -40,6 +40,7 @@
 """
 
 from gi.repository import Gdk, GLib, AnacondaWidgets
+from gi.repository import BlockDev as blockdev
 
 from pyanaconda.ui.communication import hubQ
 from pyanaconda.ui.lib.disks import getDisks, isLocalDisk, applyDiskSelection, checkDiskSelection
@@ -59,9 +60,8 @@ from blivet import arch
 from blivet import autopart
 from blivet.size import Size
 from blivet.devices import MultipathDevice, ZFCPDiskDevice
-from blivet.errors import StorageError, DasdFormatError
+from blivet.errors import StorageError
 from blivet.platform import platform
-from blivet.devicelibs.dasd import make_unformatted_dasd_list, format_dasd
 from pyanaconda.threads import threadMgr, AnacondaThread
 from pyanaconda.product import productName
 from pyanaconda.flags import flags
@@ -664,7 +664,7 @@ class StorageSpoke(NormalSpoke, StorageChecker):
         # actions on storage devices
         threadMgr.wait(constants.THREAD_STORAGE)
 
-        to_format = make_unformatted_dasd_list(d.name for d in getDisks(self.storage.devicetree))
+        to_format = self.storage.devicetree.make_unformatted_dasd_list(d for d in getDisks(self.storage.devicetree))
         if not to_format:
             # nothing to do here; bail
             return
@@ -672,8 +672,8 @@ class StorageSpoke(NormalSpoke, StorageChecker):
         hubQ.send_message(self.__class__.__name__, _("Formatting DASDs"))
         for disk in to_format:
             try:
-                format_dasd(disk)
-            except DasdFormatError as err:
+                blockdev.s390.dasd_format(disk)
+            except blockdev.S390Error as err:
                 # Log errors if formatting fails, but don't halt the installer
                 log.error(str(err))
                 continue
@@ -784,7 +784,7 @@ class StorageSpoke(NormalSpoke, StorageChecker):
 
         if arch.isS390():
             # check for unformatted DASDs and launch dasdfmt if any discovered
-            dasds = make_unformatted_dasd_list(self.selected_disks)
+            dasds = self.storage.devicetree.make_unformatted_dasd_list(disks)
             if len(dasds) > 0:
                 # We want to apply current selection before running dasdfmt to
                 # prevent this information from being lost afterward

@@ -27,8 +27,7 @@ from pyanaconda import constants
 from pyanaconda.i18n import _
 import threading
 
-from blivet.devicelibs.dasd import format_dasd
-from blivet.errors import DasdFormatError
+from gi.repository import BlockDev as blockdev
 
 import logging
 log = logging.getLogger("anaconda")
@@ -55,7 +54,7 @@ class DasdFormatDialog(GUIObject):
         self._hub_label = self.builder.get_object("returnToHubLabel1")
 
         if len(self.to_format) > 0:
-            self._unformatted_label.set_text("\n".join("/dev/" + d for d in to_format))
+            self._unformatted_label.set_text("\n".join("/dev/" + d.name for d in to_format))
         else:
             self._unformatted_label.set_text("")
 
@@ -89,9 +88,9 @@ class DasdFormatDialog(GUIObject):
         """ Loop through our disks and run dasdfmt against them. """
         for disk in self.to_format:
             try:
-                gtk_call_once(self._formatting_label.set_text, _("Formatting /dev/%s. This may take a moment.") % disk)
-                format_dasd(disk)
-            except DasdFormatError as err:
+                gtk_call_once(self._formatting_label.set_text, _("Formatting /dev/%s. This may take a moment.") % disk.name)
+                blockdev.s390.format_dasd(disk.name)
+            except blockdev.S390Error as err:
                 # Log errors if formatting fails, but don't halt the installer
                 log.error(str(err))
                 continue

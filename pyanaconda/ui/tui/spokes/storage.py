@@ -31,9 +31,9 @@ from pyanaconda.storage_utils import AUTOPART_CHOICES, sanity_check, SanityError
 
 from blivet import arch
 from blivet.size import Size
-from blivet.errors import StorageError, DasdFormatError
+from blivet.errors import StorageError
 from blivet.devices import DASDDevice, FcoeDiskDevice, iScsiDiskDevice, MultipathDevice, ZFCPDiskDevice
-from blivet.devicelibs.dasd import format_dasd, make_unformatted_dasd_list
+from gi.repository import BlockDev as blockdev
 from pyanaconda.flags import flags
 from pyanaconda.kickstart import doKickstartStorage, resetCustomStorageData
 from pyanaconda.threads import threadMgr, AnacondaThread
@@ -89,7 +89,7 @@ class StorageSpoke(NormalTUISpoke):
             # dasds, automatically format them. pass in storage.devicetree here
             # instead of storage.disks since mediaPresent is checked on disks;
             # a dasd needing dasdfmt will fail this media check though
-            to_format = make_unformatted_dasd_list(d.name for d in getDisks(self.storage.devicetree))
+            to_format = storage.devicetree.make_unformatted_dasd_list(getDisks(self.storage.devicetree))
             if to_format:
                 self.run_dasdfmt(to_format)
 
@@ -278,7 +278,8 @@ class StorageSpoke(NormalTUISpoke):
                     # if we're on s390x, since they need to be formatted before we
                     # can use them.
                     if arch.isS390():
-                        to_format = make_unformatted_dasd_list(self.selected_disks)
+                        _disks = [d for d in self.disks if d.name in self.selected_disks]
+                        to_format = self.storage.devicetree.make_unformatted_dasd_list(_disks)
                         if to_format:
                             self.run_dasdfmt(to_format)
                             return None
@@ -319,7 +320,7 @@ class StorageSpoke(NormalTUISpoke):
 
             warntext = _("Warning: All storage changes made using the installer will be lost when you choose to format.\n\nProceed to run dasdfmt?\n")
 
-            displaytext = summary + "\n".join("/dev/" + d for d in to_format) + "\n" + warntext
+            displaytext = summary + "\n".join("/dev/" + d.name for d in to_format) + "\n" + warntext
 
             # now show actual prompt; note -- in cmdline mode, auto-answer for
             # this is 'no', so unformatted DASDs will remain so unless zerombr
