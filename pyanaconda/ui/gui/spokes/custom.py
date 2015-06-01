@@ -2124,10 +2124,14 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
 
         log.debug("renaming container %s to %s", container_name, self._device_container_name)
         if container:
-            # btrfs volume name/label does not go in the name list
-            if container.name in self._storage_playground.devicetree.names:
-                self._storage_playground.devicetree.names.remove(container.name)
-                self._storage_playground.devicetree.names.append(self._device_container_name)
+            # remove the names of the container and its child devices from the
+            # list of already-used names
+            for device in chain([container], self._storage_playground.devicetree.getChildren(container)):
+                if device.name in self._storage_playground.devicetree.names:
+                    self._storage_playground.devicetree.names.remove(device.name)
+                luks_name = "luks-%s" % device.name
+                if luks_name in self._storage_playground.devicetree.names:
+                    self._storage_playground.devicetree.names.remove(luks_name)
 
             try:
                 container.name = self._device_container_name
@@ -2140,6 +2144,14 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
             else:
                 if container.format.type == "btrfs":
                     container.format.label = self._device_container_name
+            finally:
+                # add the new names to the list of the already-used names and
+                # prevent potential issues with making the devices encrypted
+                # later
+                for device in chain([container], self._storage_playground.devicetree.getChildren(container)):
+                    self._storage_playground.devicetree.names.append(device.name)
+                    luks_name = "luks-%s" % device.name
+                    self._storage_playground.devicetree.names.append(luks_name)
 
         container_exists = getattr(container, "exists", False)
 
