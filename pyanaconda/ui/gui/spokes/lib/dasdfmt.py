@@ -89,7 +89,7 @@ class DasdFormatDialog(GUIObject):
         for disk in self.to_format:
             try:
                 gtk_call_once(self._formatting_label.set_text, _("Formatting /dev/%s. This may take a moment.") % disk.name)
-                blockdev.s390.format_dasd(disk.name)
+                blockdev.s390.dasd_format(disk.name)
             except blockdev.S390Error as err:
                 # Log errors if formatting fails, but don't halt the installer
                 log.error(str(err))

@@ -333,9 +333,9 @@ class StorageSpoke(NormalTUISpoke):
 
         for disk in to_format:
             try:
-                print(_("Formatting /dev/%s. This may take a moment.") % disk)
-                format_dasd(disk)
-            except DasdFormatError as err:
+                print(_("Formatting /dev/%s. This may take a moment.") % disk.name)
+                blockdev.s390.dasd_format(disk.name)
+            except blockdev.S390Error as err:
                 # Log errors if formatting fails, but don't halt the installer
                 log.error(str(err))
                 continue
