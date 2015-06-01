@@ -58,6 +58,7 @@ try:
     # handler setup.  We already set one up so we don't need it to run.
     # yum may give us an API to fiddle this at a later time.
     yum.logginglevels._added_handlers = True
+    from yum.Errors import RepoError, RepoMDError, GroupsError
 except ImportError:
     log.error("import of yum failed")
     yum = None
@@ -86,6 +87,7 @@ from pyanaconda.localization import langcode_matches_locale
 from pykickstart.constants import GROUP_ALL, GROUP_DEFAULT, KS_MISSING_IGNORE
 
 YUM_PLUGINS = ["fastestmirror", "langpacks"]
+YUM_REPOS_DIR = "/etc/yum.repos.d/"
 BASE_REPO_NAMES = [BASE_REPO_NAME] + PackagePayload.DEFAULT_REPOS
 
 import inspect
@@ -306,6 +308,64 @@ reposdir=%s
             root = self._yum.conf.installroot
             self._yum.conf.cachedir = self._yum.conf.cachedir[len(root):]
 
+    def _writeYumRepo(self, repo, repo_path):
+        """ Write a repo object to a yum repo.conf file
+
+            :param repo: Yum repository object
+            :param string repo_path: Path to write the repo to
+            :raises: PayloadSetupError if the repo doesn't have a url
+        """
+        with open(repo_path, "w") as f:
+            f.write("[%s]\n" % repo.id)
+            f.write("name=%s\n" % repo.id)
+            if self.isRepoEnabled(repo.id):
+                f.write("enabled=1\n")
+            else:
+                f.write("enabled=0\n")
+
+            if repo.mirrorlist:
+                f.write("mirrorlist=%s\n" % repo.mirrorlist)
+            elif repo.baseurl:
+                f.write("baseurl=%s\n" % repo.baseurl[0])
+            else:
+                f.close()
+                os.unlink(repo_path)
+                raise PayloadSetupError("repo %s has no baseurl, mirrorlist or metalink", repo.id)
+
+            # kickstart repo modifiers
+            ks_repo = self.getAddOnRepo(repo.id)
+            if not ks_repo:
+                return
+
+            if ks_repo.noverifyssl:
+                f.write("sslverify=0\n")
+
+            if ks_repo.proxy:
+                try:
+                    proxy = ProxyString(ks_repo.proxy)
+                    f.write("proxy=%s\n" % (proxy.noauth_url,))
+                    if proxy.username:
+                        f.write("proxy_username=%s\n" % (proxy.username,))
+                    if proxy.password:
+                        f.write("proxy_password=%s\n" % (proxy.password,))
+                except ProxyStringError as e:
+                    log.error("Failed to parse proxy for _writeYumRepo %s: %s",
+                              ks_repo.proxy, e)
+
+            if ks_repo.cost:
+                f.write("cost=%d\n" % ks_repo.cost)
+
+            if ks_repo.includepkgs:
+                f.write("includepkgs=%s\n"
+                        % ",".join(ks_repo.includepkgs))
+
+            if ks_repo.excludepkgs:
+                f.write("exclude=%s\n"
+                        % ",".join(ks_repo.excludepkgs))
+
+            if ks_repo.ignoregroups:
+                f.write("enablegroups=0\n")
+
     def _writeInstallConfig(self):
         """ Write out the yum config that will be used to install packages.
 
@@ -322,53 +382,10 @@ reposdir=%s
         for repo in self._yum.repos.listEnabled():
             cfg_path = "%s/%s.repo" % (self._repos_dir, repo.id)
             log.debug("writing repository file %s for repository %s", cfg_path, repo.id)
-            ks_repo = self.getAddOnRepo(repo.id)
-            with open(cfg_path, "w") as f:
-                f.write("[%s]\n" % repo.id)
-                f.write("name=Install - %s\n" % repo.id)
-                f.write("enabled=1\n")
-                if repo.mirrorlist:
-                    f.write("mirrorlist=%s" % repo.mirrorlist)
-                elif repo.metalink:
-                    f.write("metalink=%s" % repo.metalink)
-                elif repo.baseurl:
-                    f.write("baseurl=%s\n" % repo.baseurl[0])
-                else:
-                    log.error("repo %s has no baseurl, mirrorlist or metalink", repo.id)
-                    f.close()
-                    os.unlink(cfg_path)
-                    continue
-
-                # kickstart repo modifiers
-                if ks_repo:
-                    if ks_repo.noverifyssl:
-                        f.write("sslverify=0\n")
-
-                    if ks_repo.proxy:
-                        try:
-                            proxy = ProxyString(ks_repo.proxy)
-                            f.write("proxy=%s\n" % (proxy.noauth_url,))
-                            if proxy.username:
-                                f.write("proxy_username=%s\n" % (proxy.username,))
-                            if proxy.password:
-                                f.write("proxy_password=%s\n" % (proxy.password,))
-                        except ProxyStringError as e:
-                            log.error("Failed to parse proxy for _writeInstallConfig %s: %s",
-                                      ks_repo.proxy, e)
-
-                    if ks_repo.cost:
-                        f.write("cost=%d\n" % ks_repo.cost)
-
-                    if ks_repo.includepkgs:
-                        f.write("includepkgs=%s\n"
-                                % ",".join(ks_repo.includepkgs))
-
-                    if ks_repo.excludepkgs:
-                        f.write("exclude=%s\n"
-                                % ",".join(ks_repo.excludepkgs))
-
-                    if ks_repo.ignoregroups:
-                        f.write("enablegroups=0\n")
+            try:
+                self._writeYumRepo(repo, cfg_path)
+            except PayloadSetupError as e:
+                log.error(e)
 
         releasever = self._yum.conf.yumvar['releasever']
         self._writeYumConfig()
@@ -468,8 +485,6 @@ reposdir=%s
 
     def isRepoEnabled(self, repo_id):
         """ Return True if repo is enabled. """
-        from yum.Errors import RepoError
-
         try:
             return self.getRepo(repo_id).enabled
         except RepoError:
@@ -735,8 +750,6 @@ reposdir=%s
 
     def _getRepoMetadata(self, yumrepo):
         """ Retrieve repo metadata if we don't already have it. """
-        from yum.Errors import RepoError, RepoMDError
-
         # And try to grab its metadata.  We do this here so it can be done
         # on a per-repo basis, so we can then get some finer grained error
         # handling and recovery.
@@ -778,8 +791,6 @@ reposdir=%s
 
     def _addYumRepo(self, name, baseurl, mirrorlist=None, proxyurl=None, **kwargs):
         """ Add a yum repo to the YumBase instance. """
-        from yum.Errors import RepoError
-
         needsAdding = True
 
         # First, delete any pre-existing repo with the same name.
@@ -1015,7 +1026,6 @@ reposdir=%s
         if not self._setup:
             return []
 
-        from yum.Errors import RepoError, GroupsError
         with _yum_lock:
             if not self._groups:
                 if not self.needsNetwork or nm_is_connected():
@@ -1125,8 +1135,6 @@ reposdir=%s
     ###
     @property
     def packages(self):
-        from yum.Errors import RepoError
-
         with _yum_lock:
             if not self._packages:
                 if self.needsNetwork and not nm_is_connected():
@@ -1507,6 +1515,21 @@ reposdir=%s
 
         self.writeMultiLibConfig()
         self._copyLangpacksConfigToTarget()
+
+        # Write selected kickstart repos to target system
+        for ks_repo in (ks for ks in (self.getAddOnRepo(r) for r in self.addOns) if ks.install):
+            try:
+                repo = self.getRepo(ks_repo.name)
+                if not repo:
+                    continue
+            except RepoError:
+                continue
+            repo_path = iutil.getSysroot() + YUM_REPOS_DIR + "%s.repo" % repo.id
+            try:
+                log.info("Writing %s.repo to target system.", repo.id)
+                self._writeYumRepo(repo, repo_path)
+            except PayloadSetupError as e:
+                log.error(e)
 
         super(YumPayload, self).postInstall()
 
