@@ -978,6 +978,11 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         new_device_info["encrypted"] = encrypted
 
         # FS LABEL
+        # The Linux HFS+ ESP partition needs to have the correct FS label.
+        # Override anything the user sets for it.
+        if fs_type == "macefi":
+            self._labelEntry.set_text(new_fs.label)
+
         label = self._labelEntry.get_text()
         old_label = getattr(device.format, "label", "")
         changed_label = (label != old_label)
