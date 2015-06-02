@@ -120,7 +120,7 @@ Requires: openssh
 %endif
 Requires: isomd5sum >= %{isomd5sum}
 Requires: yum-utils >= %{yumutilsver}
-Requires: createrepo_c
+Requires: createrepo
 Requires: NetworkManager >= %{nmver}
 Requires: NetworkManager-team
 Requires: dhclient
