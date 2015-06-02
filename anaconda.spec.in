@@ -21,7 +21,6 @@ Source0: %{name}-%{version}.tar.bz2
 %define intltoolver 0.31.2-3
 %define pykickstartver 1.99.66.2
 %define yumver 3.4.3-91
-%define dnfver 0.4.18
 %define partedver 1.8.1
 %define pypartedver 2.5-2
 %define pythonpyblockver 0.45
@@ -88,7 +87,6 @@ The anaconda package is a metapackage for the Anaconda installer.
 
 %package core
 Summary: Core of the Anaconda installer
-Requires: dnf >= %{dnfver}
 Requires: python-blivet >= 1:0.61.15.2
 Requires: python-meh >= %{mehver}
 Requires: libreport-anaconda >= 2.0.21-1
