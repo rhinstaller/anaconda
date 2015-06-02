@@ -130,12 +130,6 @@ class Anaconda(object):
                 elif self.ksdata.method.method == "liveimg":
                     from pyanaconda.packaging.livepayload import LiveImageKSPayload
                     klass = LiveImageKSPayload
-                elif flags.dnf:
-                    try:
-                        from pyanaconda.packaging.dnfpayload import DNFPayload
-                        klass = DNFPayload
-                    except ImportError:
-                        log.critical('Importing DNF  failed.', exc_info=True)
                 else:
                     from pyanaconda.packaging.yumpayload import YumPayload
                     klass = YumPayload
