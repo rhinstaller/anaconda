@@ -21,10 +21,13 @@
 
 from pyanaconda import iutil
 import unittest
-import types
 import os
+import tempfile
+import signal
 import shutil
 from test_constants import ANACONDA_TEST_DIR
+
+from timer import timer
 
 class UpcaseFirstLetterTests(unittest.TestCase):
 
@@ -99,13 +102,99 @@ class RunProgramTests(unittest.TestCase):
         # test some lines are returned
         self.assertGreater(len(list(iutil.execReadlines("ls", ["--help"]))), 0)
 
-        # check that it always returns a generator for both
+        # check that it always returns an iterator for both
         # if there is some output and if there isn't any
-        self.assertIsInstance(iutil.execReadlines("ls", ["--help"]),
-                              types.GeneratorType)
-        self.assertIsInstance(iutil.execReadlines("true", []),
-                              types.GeneratorType)
+        self.assertTrue(hasattr(iutil.execReadlines("ls", ["--help"]), "__iter__"))
+        self.assertTrue(hasattr(iutil.execReadlines("true", []), "__iter__"))
 
+    def exec_readlines_test_normal_output(self):
+        """Test the output of execReadlines."""
+
+        # Test regular-looking output
+        with tempfile.NamedTemporaryFile() as testscript:
+            testscript.write("""#!/bin/sh
+echo "one"
+echo "two"
+echo "three"
+exit 0
+""")
+            testscript.flush()
+
+            with timer(5):
+                rl_iterator = iutil.execReadlines("/bin/sh", [testscript.name])
+                self.assertEqual(rl_iterator.next(), "one")
+                self.assertEqual(rl_iterator.next(), "two")
+                self.assertEqual(rl_iterator.next(), "three")
+                self.assertRaises(StopIteration, rl_iterator.next)
+
+        # Test output with no end of line
+        with tempfile.NamedTemporaryFile() as testscript:
+            testscript.write("""#!/bin/sh
+echo "one"
+echo "two"
+echo -n "three"
+exit 0
+""")
+            testscript.flush()
+
+            with timer(5):
+                rl_iterator = iutil.execReadlines("/bin/sh", [testscript.name])
+                self.assertEqual(rl_iterator.next(), "one")
+                self.assertEqual(rl_iterator.next(), "two")
+                self.assertEqual(rl_iterator.next(), "three")
+                self.assertRaises(StopIteration, rl_iterator.next)
+
+    def exec_readlines_test_signals(self):
+        """Test execReadlines and signal receipt."""
+
+        # ignored signal
+        old_HUP_handler = signal.signal(signal.SIGHUP, signal.SIG_IGN)
+        try:
+            with tempfile.NamedTemporaryFile() as testscript:
+                testscript.write("""#!/bin/sh
+echo "one"
+kill -HUP $PPID
+echo "two"
+echo -n "three"
+exit 0
+""")
+                testscript.flush()
+
+                with timer(5):
+                    rl_iterator = iutil.execReadlines("/bin/sh", [testscript.name])
+                    self.assertEqual(rl_iterator.next(), "one")
+                    self.assertEqual(rl_iterator.next(), "two")
+                    self.assertEqual(rl_iterator.next(), "three")
+                    self.assertRaises(StopIteration, rl_iterator.next)
+        finally:
+            signal.signal(signal.SIGHUP, old_HUP_handler)
+
+        # caught signal
+        def _hup_handler(signum, frame):
+            pass
+        old_HUP_handler = signal.signal(signal.SIGHUP, _hup_handler)
+        try:
+            with tempfile.NamedTemporaryFile() as testscript:
+                testscript.write("""#!/bin/sh
+echo "one"
+kill -HUP $PPID
+echo "two"
+echo -n "three"
+exit 0
+""")
+                testscript.flush()
+
+                with timer(5):
+                    rl_iterator = iutil.execReadlines("/bin/sh", [testscript.name])
+                    self.assertEqual(rl_iterator.next(), "one")
+                    self.assertEqual(rl_iterator.next(), "two")
+                    self.assertEqual(rl_iterator.next(), "three")
+                    self.assertRaises(StopIteration, rl_iterator.next)
+        finally:
+            signal.signal(signal.SIGHUP, old_HUP_handler)
+
+
+class MiscTests(unittest.TestCase):
     def get_dir_size_test(self):
         """Test the getDirSize."""
 
@@ -219,11 +308,16 @@ class RunProgramTests(unittest.TestCase):
         def raise_os_error(*args, **kwargs):
             raise OSError
 
-        # chvt does not exist on all platforms
-        # and the function needs to correctly survie that
-        iutil.vtActivate.func_globals['execWithRedirect'] = raise_os_error
+        _execWithRedirect = iutil.vtActivate.func_globals['execWithRedirect']
 
-        self.assertEqual(iutil.vtActivate(2), False)
+        try:
+            # chvt does not exist on all platforms
+            # and the function needs to correctly survie that
+            iutil.vtActivate.func_globals['execWithRedirect'] = raise_os_error
+
+            self.assertEqual(iutil.vtActivate(2), False)
+        finally:
+            iutil.vtActivate.func_globals['execWithRedirect'] = _execWithRedirect
 
     def get_deep_attr_test(self):
         """Test getdeepattr."""
