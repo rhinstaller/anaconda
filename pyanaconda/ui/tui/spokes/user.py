@@ -81,9 +81,16 @@ class UserSpoke(FirstbootSpokeMixIn, EditTUISpoke):
         # so that all of the properties are set at once
         self.args._password = ""
 
+        self.errors = []
+
     def refresh(self, args=None):
         self.args._admin = "wheel" in self.args.groups
         self.args._groups = ", ".join(self.args.groups)
+
+        # if we have any errors, display them
+        while self.errors:
+            print(self.errors.pop())
+
         return EditTUISpoke.refresh(self, args)
 
     @property
@@ -123,7 +130,9 @@ class UserSpoke(FirstbootSpokeMixIn, EditTUISpoke):
     def apply(self):
         if self.args.gecos and not self.args.name:
             username = guess_username(self.args.gecos)
-            if USERNAME_VALID.match(username):
+            if not USERNAME_VALID.match(username):
+                self.errors.append(_("Invalid user name: %s.\n" % username))
+            else:
                 self.args.name = guess_username(self.args.gecos)
 
         self.args.groups = [g.strip() for g in self.args._groups.split(",") if g]
