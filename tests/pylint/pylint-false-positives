@@ -3,6 +3,7 @@
 ^E0611:[ 0-9]*,[0-9]*: No name '_isys' in module 'pyanaconda'$
 ^E0611:[ 0-9]*,[0-9]*:.*: No name '_isys' in module 'pyanaconda'$
 ^E0712:[ 0-9]*,[0-9]*:.*: Catching an exception which doesn't inherit from BaseException: GError$
+^E0712:[ 0-9]*,[0-9]*:.*: Catching an exception which doesn't inherit from BaseException: S390Error$
 PyGIDeprecationWarning: GLib\..* is deprecated
 PyGIDeprecationWarning: GObject\..* is deprecated
 obj = getattr\(parent, name\)$

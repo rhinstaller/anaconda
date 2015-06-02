@@ -23,8 +23,6 @@ from pyanaconda.ui.gui import GUIObject
 from pyanaconda.ui.gui.utils import gtk_action_nowait
 from gi.repository import BlockDev as blockdev
 
-from blivet.zfcp import ZFCPDevice
-
 __all__ = ["ZFCPDialog"]
 
 class ZFCPDialog(GUIObject):
@@ -90,10 +88,7 @@ class ZFCPDialog(GUIObject):
         self._set_configure_sensitive(False)
         self._deviceEntry.set_sensitive(False)
 
-        # Make a zFCP object with some dummy credentials so we can validate our
-        # actual input
         self._conditionNotebook.set_current_page(1)
-        dev = ZFCPDevice("0.0.0000", "0x0000000000000000", "0x0000000000000000")
         # below really, really is ugly and needs to be re-factored, but this
         # should give a good base idea as far as expected behavior should go
         try:
