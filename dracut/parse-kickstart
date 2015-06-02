@@ -156,7 +156,7 @@ class DriverDisk(commands.driverdisk.F14_DriverDisk):
         # are processed later.
         return "\n".join(dd_net)
 
-class Network(commands.network.F21_Network):
+class Network(commands.network.RHEL7_Network):
     def dracut_args(self, args, lineno, net):
         '''
         NOTE: The first 'network' line get special treatment:
