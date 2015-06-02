@@ -298,11 +298,14 @@ class Users:
             userEnt.set(libuser.GIDNUMBER, [groupEnt.get(libuser.GIDNUMBER)[0]] +
                         map(lambda grp: grp.get(libuser.GIDNUMBER)[0], grpLst))
 
-            if kwargs.get("homedir", False):
-                userEnt.set(libuser.HOMEDIRECTORY, kwargs["homedir"])
-            else:
-                iutil.mkdirChain('/home')
-                userEnt.set(libuser.HOMEDIRECTORY, "/home/" + user_name)
+            homedir = kwargs.get("homedir", None)
+            if not homedir:
+                homedir = "/home/" + user_name
+            # libuser expects the parent directory tree to exist.
+            parent_dir = iutil.parent_dir(homedir)
+            if parent_dir:
+                iutil.mkdirChain(parent_dir)
+            userEnt.set(libuser.HOMEDIRECTORY, homedir)
 
             if kwargs.get("shell", False):
                 userEnt.set(libuser.LOGINSHELL, kwargs["shell"])

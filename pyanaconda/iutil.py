@@ -956,3 +956,7 @@ def get_platform_groupid():
         return ""
 
     return "platform-" + platform.lower()
+
+def parent_dir(directory):
+    """Return the parent's path"""
+    return "/".join(os.path.normpath(directory).split("/")[:-1])
