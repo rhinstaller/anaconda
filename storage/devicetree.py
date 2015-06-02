@@ -1634,7 +1634,7 @@ class DeviceTree(object):
                 lv_name = re.sub(r'_[tr]meta.*', '', lv_name[1:-1])
                 name = "%s-%s" % (vg_name, lv_name)
                 addRequiredLV(name, "failed to look up raid lv")
-                raid[name]["meta"] += lv_size
+                raid[lv_name]["meta"] += lv_size
                 return
             elif lv_attr[0] == 'l':
                 # log volume
