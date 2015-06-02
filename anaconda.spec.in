@@ -310,6 +310,26 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Mon Jun 01 2015 Brian C. Lane <bcl@redhat.com> - 21.48.22.2-1
+- Remove an extlinux-related block from rpmostreepayload.py. (clumens)
+  Related: rhbz#1196721
+  Related: rhbz#1153409
+- bootloader: Bridge efi_dir configuration earlier for rpmostreepayload
+  (walters)
+  Related: rhbz#1196721
+  Related: rhbz#1153409
+- rpmostreepayload: Handle grub2+EFI layout (walters)
+  Related: rhbz#1196721
+  Related: rhbz#1153409
+- rpmostreepayload: Copy all subdirectories of /usr/lib/ostree-boot (walters)
+  Related: rhbz#1196721
+  Related: rhbz#1153409
+- Handle the case of rpmostreepayload + GRUB2 (walters)
+  Related: rhbz#1196721
+  Related: rhbz#1153409
+- Implement the new reqpart command. (clumens)
+  Resolves: rhbz#1164660
+
 * Fri May 29 2015 Brian C. Lane <bcl@redhat.com> - 21.48.22.1-1
 - Update scripts/makebumpver to current version from master (bcl)
   Related: rhbz#1196721
