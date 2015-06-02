@@ -22,6 +22,7 @@
 
 import re
 
+import os
 from pyanaconda.flags import flags
 from pyanaconda.i18n import _, CN_
 from pyanaconda.users import cryptPassword, validatePassword, guess_username
@@ -174,6 +175,8 @@ class AdvancedUserDialog(GUIObject, GUIDialogInputCheckHandler):
             if self._homeSet or self._origHome != homedir:
                 self._homeSet = True
                 self._user.homedir = homedir
+            if not os.path.isabs(self._user.homedir):
+                self._user.homedir = "/" + self._user.homedir
 
             if self._cUid.get_active():
                 self._user.uid = int(self._uid.get_value())
