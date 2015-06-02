@@ -110,14 +110,14 @@ def validate_label(label, fmt):
 
     """
     if fmt.exists:
-        return _("Can not relabel already existing filesystem.")
+        return _("Cannot relabel already existing file system.")
     if not fmt.labeling():
         if label == "":
             return ""
         else:
-            return _("Can not set label on filesystem.")
+            return _("Cannot set label on file system.")
     if not fmt.labelFormatOK(label):
-        return _("Unacceptable label format for filesystem.")
+        return _("Unacceptable label format for file system.")
     return ""
 
 def validate_mountpoint(mountpoint, used_mountpoints, strict=True):
@@ -129,7 +129,7 @@ def validate_mountpoint(mountpoint, used_mountpoints, strict=True):
     if mountpoint in used_mountpoints:
         return _("That mount point is already in use. Try something else?")
     elif not mountpoint:
-        return _("Please enter a valid mountpoint.")
+        return _("Please enter a valid mount point.")
     elif mountpoint in system_mountpoints:
         return _("That mount point is invalid. Try something else?")
     elif (lowerASCII(mountpoint) not in fake_mountpoints and
@@ -356,7 +356,7 @@ class ConfirmDeleteDialog(GUIObject):
             rootName = rootName.replace("_", "__")
         self._removeAll.set_label(
                 C_("GUI|Custom Partitioning|Confirm Delete Dialog",
-                    "Delete _all other filesystems in the %s root as well.")
+                    "Delete _all other file systems in the %s root as well.")
                 % rootName)
         self._removeAll.set_sensitive(rootName is not None)
 

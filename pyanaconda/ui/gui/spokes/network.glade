@@ -13,19 +13,19 @@
     <data>
       <row>
         <col id="0" translatable="yes">Bond</col>
-        <col id="1" translatable="yes">bond</col>
+        <col id="1">bond</col>
       </row>
       <row>
         <col id="0" translatable="yes">Bridge</col>
-        <col id="1" translatable="yes">bridge</col>
+        <col id="1">bridge</col>
       </row>
       <row>
         <col id="0" translatable="yes">Team</col>
-        <col id="1" translatable="yes">team</col>
+        <col id="1">team</col>
       </row>
       <row>
         <col id="0" translatable="yes">VLAN</col>
-        <col id="1" translatable="yes">vlan</col>
+        <col id="1">vlan</col>
       </row>
     </data>
   </object>
@@ -2274,7 +2274,7 @@
     </child>
     <child internal-child="accessible">
       <object class="AtkObject" id="networkWindow-atkobject">
-        <property name="AtkObject::accessible-name" translatable="yes">NETWORK &amp; HOSTNAME</property>
+        <property name="AtkObject::accessible-name" translatable="yes">NETWORK &amp; HOST NAME</property>
       </object>
     </child>
   </object>

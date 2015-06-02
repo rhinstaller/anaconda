@@ -51,7 +51,7 @@ DEVICE_TEXT_LVM = N_("LVM")
 DEVICE_TEXT_LVM_THINP = N_("LVM Thin Provisioning")
 DEVICE_TEXT_MD = N_("RAID")
 DEVICE_TEXT_PARTITION = N_("Standard Partition")
-DEVICE_TEXT_BTRFS = N_("BTRFS")
+DEVICE_TEXT_BTRFS = N_("Btrfs")
 DEVICE_TEXT_DISK = N_("Disk")
 
 DEVICE_TEXT_MAP = {DEVICE_TYPE_LVM: DEVICE_TEXT_LVM,
@@ -74,11 +74,11 @@ MOUNTPOINT_DESCRIPTIONS = {"Swap": N_("The 'swap' area on your computer is used 
                            "BIOS Boot": N_("The BIOS boot partition is required to enable booting\n"
                                            "from GPT-partitioned disks on BIOS hardware."),
                            "PReP Boot": N_("The PReP boot partition is required as part of the\n"
-                                           "bootloader configuration on some PPC platforms.")
+                                           "boot loader configuration on some PPC platforms.")
                             }
 
 AUTOPART_CHOICES = ((N_("Standard Partition"), AUTOPART_TYPE_PLAIN),
-                    (N_("BTRFS"), AUTOPART_TYPE_BTRFS),
+                    (N_("Btrfs"), AUTOPART_TYPE_BTRFS),
                     (N_("LVM"), AUTOPART_TYPE_LVM),
                     (N_("LVM Thin Provisioning"), AUTOPART_TYPE_LVM_THINP))
 
@@ -231,7 +231,7 @@ def sanity_check(storage, min_ram=isys.MIN_RAM):
         stage1 = storage.bootloader.stage1_device
         if not stage1:
             exns.append(
-               SanityError(_("No valid bootloader target device found. "
+               SanityError(_("No valid boot loader target device found. "
                             "See below for details.")))
             pe = _platform.stage1MissingError
             if pe:

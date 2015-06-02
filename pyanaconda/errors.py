@@ -245,7 +245,7 @@ class ErrorHandler(object):
         return ERROR_RAISE
 
     def _bootLoaderErrorHandler(self, exn):
-        message = _("The following error occurred while installing the bootloader. "
+        message = _("The following error occurred while installing the boot loader. "
                     "The system will not be bootable. "
                     "Would you like to ignore this and continue with "
                     "installation?")

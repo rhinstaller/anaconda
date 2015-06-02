@@ -314,7 +314,7 @@ class UserSpoke(FirstbootSpokeMixIn, NormalSpoke, GUISpokeInputCheckHandler):
 
         # Allow empty usernames so the spoke can be exited without creating a user
         self.add_re_check(self.username, re.compile(USERNAME_VALID.pattern + r'|^$'),
-                _("Invalid username"))
+                _("Invalid user name"))
 
         self.add_re_check(self.fullname, GECOS_VALID, _("Full name cannot contain colon characters"))
 
