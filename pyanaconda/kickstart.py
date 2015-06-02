@@ -291,9 +291,9 @@ class Authconfig(commands.authconfig.FC3_Authconfig):
         except RuntimeError as msg:
             log.error("Error running %s %s: %s", cmd, args, msg)
 
-class AutoPart(commands.autopart.F21_AutoPart):
+class AutoPart(commands.autopart.RHEL7_AutoPart):
     def parse(self, args):
-        retval = commands.autopart.F21_AutoPart.parse(self, args)
+        retval = commands.autopart.RHEL7_AutoPart.parse(self, args)
 
         if self.fstype:
             fmt = blivet.formats.getFormat(self.fstype)
@@ -338,13 +338,13 @@ class AutoPart(commands.autopart.F21_AutoPart):
         if errors:
             raise PartitioningError("autopart failed:\n" + "\n".join(error.message for error in errors))
 
-class Bootloader(commands.bootloader.F21_Bootloader):
+class Bootloader(commands.bootloader.RHEL7_Bootloader):
     def __init__(self, *args, **kwargs):
-        commands.bootloader.F21_Bootloader.__init__(self, *args, **kwargs)
+        commands.bootloader.RHEL7_Bootloader.__init__(self, *args, **kwargs)
         self.location = "mbr"
 
     def parse(self, args):
-        commands.bootloader.F21_Bootloader.parse(self, args)
+        commands.bootloader.RHEL7_Bootloader.parse(self, args)
         if self.location == "partition" and isinstance(get_bootloader(), GRUB2):
             raise KickstartValueError(formatErrorMsg(self.lineno,
                     msg=_("GRUB2 does not support installation to a partition.")))
@@ -792,7 +792,7 @@ class Lang(commands.lang.F19_Lang):
 # no overrides needed here
 Eula = commands.eula.F20_Eula
 
-class LogVol(commands.logvol.F21_LogVol):
+class LogVol(commands.logvol.RHEL7_LogVol):
     def execute(self, storage, ksdata, instClass):
         for l in self.lvList:
             l.execute(storage, ksdata, instClass)
@@ -800,7 +800,7 @@ class LogVol(commands.logvol.F21_LogVol):
         if self.lvList:
             growLVM(storage)
 
-class LogVolData(commands.logvol.F21_LogVolData):
+class LogVolData(commands.logvol.RHEL7_LogVolData):
     def execute(self, storage, ksdata, instClass):
         devicetree = storage.devicetree
 
@@ -1055,7 +1055,7 @@ class Logging(commands.logging.FC6_Logging):
                 remote_server = "%s:%s" %(self.host, self.port)
             logger.updateRemote(remote_server)
 
-class Network(commands.network.F21_Network):
+class Network(commands.network.RHEL7_Network):
     def execute(self, storage, ksdata, instClass):
         network.write_network_config(storage, ksdata, instClass, iutil.getSysroot())
 
@@ -1667,12 +1667,12 @@ class User(commands.user.F19_User):
             if not users.createUser(usr.name, **kwargs):
                 log.error("User %s already exists, not creating.", usr.name)
 
-class VolGroup(commands.volgroup.F21_VolGroup):
+class VolGroup(commands.volgroup.RHEL7_VolGroup):
     def execute(self, storage, ksdata, instClass):
         for v in self.vgList:
             v.execute(storage, ksdata, instClass)
 
-class VolGroupData(commands.volgroup.F21_VolGroupData):
+class VolGroupData(commands.volgroup.RHEL7_VolGroupData):
     def execute(self, storage, ksdata, instClass):
         pvs = []
 
