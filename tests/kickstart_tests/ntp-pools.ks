@@ -9,9 +9,7 @@ timezone --utc --ntpservers=ntp.cesnet.cz,0.pool.ntp.org,0.pool.ntp.org,0.pool.n
 bootloader --timeout=1
 zerombr
 clearpart --all --initlabel
-part --fstype=ext4 --size=4400 /
-part --fstype=ext4 --size=500 /boot
-part --fstype=swap --size=500 swap
+autopart
 
 keyboard us
 lang en_US.UTF-8
