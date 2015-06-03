@@ -171,3 +171,6 @@ IPMI_STARTED  = 0x7         # installation started
 IPMI_FINISHED = 0x8         # installation finished successfully
 IPMI_ABORTED  = 0x9         # installation finished unsuccessfully, due to some non-exn error
 IPMI_FAILED   = 0xA         # installation hit an exception
+
+# Recognizing a tarfile
+TAR_SUFFIX = (".tar", ".tbz", ".tgz", ".txz", ".tar.bz2", "tar.gz", "tar.xz")
