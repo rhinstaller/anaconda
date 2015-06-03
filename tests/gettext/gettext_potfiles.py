@@ -35,7 +35,7 @@ def check_potfile(checkfile, potlist):
     elif checkfile.endswith(".glade"):
         # Look for a "translatable=yes" attribute
         if ET.parse(checkfile).findall(".//*[@translatable='yes']"):
-            potcheckfile = checkfile
+            potcheckfile = checkfile + ".h"
     elif checkfile.endswith(".desktop.in"):
         # These are handled by intltool, make sure the .h version is present
         potcheckfile = checkfile + ".h"
