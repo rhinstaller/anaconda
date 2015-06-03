@@ -140,7 +140,7 @@ while getopts ":i:k:" opt; do
             ;;
 
         *)
-            echo "Usage: run_one_ks.sh -i ISO [-k KEEPIT] ks.cfg"
+            echo "Usage: run_one_ks.sh -i ISO [-k KEEPIT] ks-test.sh"
             exit 1
             ;;
     esac
