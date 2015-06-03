@@ -131,7 +131,7 @@ class UserSpoke(FirstbootSpokeMixIn, EditTUISpoke):
         if self.args.gecos and not self.args.name:
             username = guess_username(self.args.gecos)
             if not USERNAME_VALID.match(username):
-                self.errors.append(_("Invalid user name: %s.\n" % username))
+                self.errors.append(_("Invalid user name: %s.\n") % username)
             else:
                 self.args.name = guess_username(self.args.gecos)
 
