@@ -27,7 +27,7 @@ from pyanaconda.threads import threadMgr, AnacondaThread
 
 from pyanaconda.constants import NOTICEABLE_FREEZE
 from gi.repository import Gdk, Gtk, GLib
-import Queue
+import queue
 import time
 import threading
 
@@ -54,25 +54,25 @@ def gtk_action_wait(func):
        thread and returns the ret value after the decorated method finishes.
     """
 
-    queue = Queue.Queue()
+    queue_instance = queue.Queue()
 
-    def _idle_method(queue, args, kwargs):
+    def _idle_method(queue_instance, args, kwargs):
         """This method contains the code for the main loop to execute.
         """
-        ret = func(*args, **kwargs)
-        queue.put(ret)
+        ret = func(*args)
+        queue_instance.put(ret)
         return False
 
     def _call_method(*args, **kwargs):
         """The new body for the decorated method. If needed, it uses closure
-           bound queue variable which is valid until the reference to this
+           bound queue_instance variable which is valid until the reference to this
            method is destroyed."""
         if threadMgr.in_main_thread():
             # nothing special has to be done in the main thread
             return func(*args, **kwargs)
 
-        GLib.idle_add(_idle_method, queue, args, kwargs)
-        return queue.get()
+        GLib.idle_add(_idle_method, queue_instance, args, kwargs)
+        return queue_instance.get()
 
     return _call_method
 
@@ -159,17 +159,18 @@ def gtk_batch_map(action, items, args=(), pre_func=None, batch_size=1):
 
     assert(not threadMgr.in_main_thread())
 
-    def preprocess(queue):
+    def preprocess(queue_instance):
         if pre_func:
             for item in items:
-                queue.put(pre_func(item))
+                queue_instance.put(pre_func(item))
         else:
             for item in items:
-                queue.put(item)
+                queue_instance.put(item)
 
-        queue.put(TERMINATOR)
+        queue_instance.put(TERMINATOR)
 
-    def process_one_batch((queue, action, done_event)):
+    def process_one_batch(arguments):
+        (queue_instance, action, done_event) = arguments
         tstamp_start = time.time()
         tstamp = time.time()
 
@@ -177,7 +178,7 @@ def gtk_batch_map(action, items, args=(), pre_func=None, batch_size=1):
         while tstamp - tstamp_start < NOTICEABLE_FREEZE:
             for _i in range(batch_size):
                 try:
-                    action_item = queue.get_nowait()
+                    action_item = queue_instance.get_nowait()
                     if action_item is TERMINATOR:
                         # all items processed, tell we are finished and return
                         done_event.set()
@@ -185,8 +186,8 @@ def gtk_batch_map(action, items, args=(), pre_func=None, batch_size=1):
                     else:
                         # run action on the item
                         action(action_item, *args)
-                except Queue.Empty:
-                    # empty queue, reschedule to run later
+                except queue.Empty:
+                    # empty queue_instance, reschedule to run later
                     return True
 
             tstamp = time.time()
@@ -194,18 +195,18 @@ def gtk_batch_map(action, items, args=(), pre_func=None, batch_size=1):
         # out of time but something left, reschedule to run again later
         return True
 
-    item_queue = Queue.Queue()
+    item_queue_instance = queue.Queue()
     done_event = threading.Event()
 
     # we don't want to log the whole list, type and address is enough
     log.debug("Starting applying %s on %s", action, object.__repr__(items))
 
-    # start a thread putting preprocessed items into the queue
+    # start a thread putting preprocessed items into the queue_instance
     threadMgr.add(AnacondaThread(prefix="AnaGtkBatchPre",
                                  target=preprocess,
-                                 args=(item_queue,)))
+                                 args=(item_queue_instance,)))
 
-    GLib.idle_add(process_one_batch, (item_queue, action, done_event))
+    GLib.idle_add(process_one_batch, (item_queue_instance, action, done_event))
     done_event.wait()
     log.debug("Finished applying %s on %s", action, object.__repr__(items))
 
@@ -236,7 +237,8 @@ def timed_action(delay=300, threshold=750, busy_cursor=True):
             self._last_start = None
             self._timer_id = None
 
-        def _run_once_one_arg(self, (args, kwargs)):
+        def _run_once_one_arg(self, arguments):
+            (args, kwargs) = arguments
             # run the function and clear stored values
             self._func(*args, **kwargs)
             self._last_start = None
@@ -319,10 +321,11 @@ def ignoreEscape(dlg):
        escape key to do nothing for the given GtkDialog.
     """
     provider = Gtk.CssProvider()
-    provider.load_from_data("@binding-set IgnoreEscape {"
-                            "   unbind 'Escape';"
-                            "}"
-                            "GtkDialog { gtk-key-bindings: IgnoreEscape }")
+    provider.load_from_data(bytes("@binding-set IgnoreEscape {"
+                                  "   unbind 'Escape';"
+                                  "}"
+                                  "GtkDialog { gtk-key-bindings: IgnoreEscape }",
+                                  "utf-8"))
 
     context = dlg.get_style_context()
     context.add_provider(provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION)
@@ -334,7 +337,7 @@ def setViewportBackground(vp, color="@theme_bg_color"):
     """
 
     provider = Gtk.CssProvider()
-    provider.load_from_data("GtkViewport { background-color: %s }" % color)
+    provider.load_from_data(bytes("GtkViewport { background-color: %s }" % color, "utf-8"))
     context = vp.get_style_context()
     context.add_provider(provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION)
 
@@ -419,9 +422,6 @@ def escape_markup(value):
 
     This function converts the value to a string before passing markup_escape_text().
     """
-
-    if isinstance(value, unicode):
-        value = value.encode("utf-8")
 
     return GLib.markup_escape_text(str(value))
 

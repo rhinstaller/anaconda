@@ -43,8 +43,8 @@ from pyanaconda.ui.gui.utils import gtk_action_wait
 import logging
 log = logging.getLogger("anaconda")
 
-Xkb_ = lambda x: gettext.ldgettext("xkeyboard-config", x)
-iso_ = lambda x: gettext.ldgettext("iso_639", x)
+Xkb_ = lambda x: gettext.translation("xkeyboard-config", fallback=True).gettext(x)
+iso_ = lambda x: gettext.translation("iso_639", fallback=True).gettext(x)
 
 # namedtuple for information about a keyboard layout (its language and description)
 LayoutInfo = namedtuple("LayoutInfo", ["lang", "desc"])
@@ -225,8 +225,8 @@ class XklWrapper(object):
         # translate language and upcase its first letter, translate the
         # layout-variant description
         if xlated:
-            lang = iutil.upcase_first_letter(iso_(layout_info.lang).decode("utf-8"))
-            description = Xkb_(layout_info.desc).decode("utf-8")
+            lang = iutil.upcase_first_letter(iso_(layout_info.lang))
+            description = Xkb_(layout_info.desc)
         else:
             lang = iutil.upcase_first_letter(layout_info.lang)
             description = layout_info.desc
@@ -287,7 +287,7 @@ class XklWrapper(object):
             raise XklWrapperError("Failed to add layout: %s" % ilverr)
 
         #do not add the same layout-variant combinanion multiple times
-        if (layout, variant) in zip(self._rec.layouts, self._rec.variants):
+        if (layout, variant) in list(zip(self._rec.layouts, self._rec.variants)):
             return
 
         self._rec.set_layouts(self._rec.layouts + [layout])
@@ -313,7 +313,7 @@ class XklWrapper(object):
         #we can get 'layout' or 'layout (variant)'
         (layout, variant) = parse_layout_variant(layout)
 
-        layouts_variants = zip(self._rec.layouts, self._rec.variants)
+        layouts_variants = list(zip(self._rec.layouts, self._rec.variants))
 
         if not (layout, variant) in layouts_variants:
             msg = "'%s (%s)' not in the list of added layouts" % (layout,

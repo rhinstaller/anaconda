@@ -144,7 +144,7 @@ class SoftwareSelectionSpoke(NormalSpoke):
         try:
             self.payload.checkSoftwareSelection()
         except DependencyError as e:
-            self._errorMsgs = "\n".join(sorted(e.message))
+            self._errorMsgs = str(e)
             hubQ.send_message(self.__class__.__name__, _("Error checking software dependencies"))
             self._tx_id = None
         else:

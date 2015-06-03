@@ -19,7 +19,7 @@
 # Red Hat Author(s): Chris Lumens <clumens@redhat.com>
 #
 
-from __future__ import division
+
 
 from gi.repository import GLib, Gtk
 
@@ -84,7 +84,7 @@ class ProgressHub(Hub):
 
     def _update_progress(self, callback=None):
         from pyanaconda.progress import progressQ
-        import Queue
+        import queue
 
         q = progressQ.q
 
@@ -94,7 +94,7 @@ class ProgressHub(Hub):
             # the progress bar.  If there's no message, don't error out.
             try:
                 (code, args) = q.get(False)
-            except Queue.Empty:
+            except queue.Empty:
                 break
 
             if code == progressQ.PROGRESS_CODE_INIT:

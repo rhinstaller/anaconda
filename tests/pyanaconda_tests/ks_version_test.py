@@ -1,4 +1,4 @@
-#!/usr/bin/python2
+#!/usr/bin/python3
 #
 # Copyright (C) 2013  Red Hat, Inc.
 #
@@ -70,10 +70,10 @@ class DracutCommandVersionTestCase(CommandVersionTestCase):
             import py_compile
             parse_temp = tempfile.NamedTemporaryFile()
             py_compile.compile(parse_kickstart_path, parse_temp.name)
-
-            # Use imp to pretend that hyphens are ok for module names
-            import imp
-            parse_module = imp.load_module('parse_kickstart', parse_temp.file,
-                    parse_temp.name, ('', 'r', imp.PY_COMPILED))
+            with open(parse_temp.name, "rb") as parse_temp_content:
+                # Use imp to pretend that hyphens are ok for module names
+                import imp
+                parse_module = imp.load_module('parse_kickstart', parse_temp_content,
+                                               parse_temp.name, ('', 'rb', imp.PY_COMPILED))
 
         self._commandMap = parse_module.dracutCmds

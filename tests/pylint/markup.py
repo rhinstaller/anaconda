@@ -25,7 +25,6 @@ from pylint.checkers import BaseChecker
 from pylint.checkers.utils import check_messages
 from pylint.interfaces import IAstroidChecker
 
-import types
 import sys
 import os
 
@@ -112,7 +111,7 @@ class MarkupChecker(BaseChecker):
 
     @check_messages("invalid-markup", "invalid-markup-element", "unescaped-markup", "invalid-translated-markup", "invalid-translated-markup-element", "invalid-pango-translation", "unnecessary-markup")
     def visit_const(self, node):
-        if not isinstance(node.value, types.StringType) and not isinstance(node.value, types.UnicodeType):
+        if not isinstance(node.value, (bytes, str)):
             return
 
         if not is_markup(node.value):

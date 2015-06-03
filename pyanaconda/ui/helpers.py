@@ -66,9 +66,7 @@ from pyanaconda import isys
 import logging
 import copy
 
-class StorageChecker(object):
-    __metaclass__ = ABCMeta
-
+class StorageChecker(object, metaclass=ABCMeta):
     log = logging.getLogger("anaconda")
     errors = []
     warnings = []
@@ -93,8 +91,8 @@ class StorageChecker(object):
         hubQ.send_not_ready(self._mainSpokeClass)
         hubQ.send_message(self._mainSpokeClass, _("Checking storage configuration..."))
         exns = sanity_check(self.storage, min_ram=self._min_ram)
-        errors = [exn.message for exn in exns if isinstance(exn, SanityError)]
-        warnings = [exn.message for exn in exns if isinstance(exn, SanityWarning)]
+        errors = [str(exn) for exn in exns if isinstance(exn, SanityError)]
+        warnings = [str(exn) for exn in exns if isinstance(exn, SanityWarning)]
         (StorageChecker.errors, StorageChecker.warnings) = (errors, warnings)
         hubQ.send_ready(self._mainSpokeClass, True)
         for e in StorageChecker.errors:
@@ -102,14 +100,12 @@ class StorageChecker(object):
         for w in StorageChecker.warnings:
             self.log.warning(w)
 
-class SourceSwitchHandler(object):
+class SourceSwitchHandler(object, metaclass=ABCMeta):
     """ A class that can be used as a mixin handling
     installation source switching.
     It will correctly switch to the new method
     and cleanup any previous method set.
     """
-
-    __metaclass__ = ABCMeta
 
     @abstractproperty
     def data(self):
@@ -269,7 +265,7 @@ class InputCheck(object):
     def enabled(self, value):
         self._enabled = value
 
-class InputCheckHandler(object):
+class InputCheckHandler(object, metaclass=ABCMeta):
     """Provide a framework for adding input validation checks to a screen.
 
        This helper class provides a mean of defining and associating input
@@ -283,8 +279,6 @@ class InputCheckHandler(object):
        See GUIInputCheckHandler and GUISpokeInputCheckHandler for additional
        functionality.
     """
-
-    __metaclass__ = ABCMeta
 
     def __init__(self):
         self._check_list = []

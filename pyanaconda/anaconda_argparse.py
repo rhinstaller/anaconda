@@ -28,7 +28,6 @@ import os
 import sys
 import fcntl
 import termios
-import types
 import struct
 
 from argparse import ArgumentParser, ArgumentError, HelpFormatter, Namespace
@@ -179,7 +178,7 @@ class AnacondaArgumentParser(ArgumentParser):
         :rtype: Namespace
         """
         namespace = Namespace()
-        if boot_cmdline is None or isinstance(boot_cmdline, types.StringType):
+        if boot_cmdline is None or isinstance(boot_cmdline, str):
             bootargs = BootArgs(boot_cmdline)
         else:
             bootargs = boot_cmdline

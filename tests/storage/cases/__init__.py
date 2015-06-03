@@ -1,4 +1,4 @@
-#!/usr/bin/python2
+#!/usr/bin/python3
 #
 # Copyright (C) 2013-2014  Red Hat, Inc.
 #
@@ -17,7 +17,7 @@
 #
 # Author: Chris Lumens <clumens@redhat.com>
 
-from __future__ import print_function
+
 
 import logging
 import os, sys

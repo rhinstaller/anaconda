@@ -103,7 +103,7 @@ class AnacondaKSScript(KSScript):
 
         (fd, path) = tempfile.mkstemp("", "ks-script-", scriptRoot + "/tmp")
 
-        iutil.eintr_retry_call(os.write, fd, self.script)
+        iutil.eintr_retry_call(os.write, fd, self.script.encode("utf-8"))
         iutil.eintr_retry_call(os.close, fd)
         iutil.eintr_retry_call(os.chmod, path, 0o700)
 
@@ -343,7 +343,7 @@ class AutoPart(commands.autopart.F21_AutoPart):
         doAutoPartition(storage, ksdata, min_luks_entropy=MIN_CREATE_ENTROPY)
         errors = sanity_check(storage)
         if errors:
-            raise PartitioningError("autopart failed:\n" + "\n".join(error.message for error in errors))
+            raise PartitioningError("autopart failed:\n" + "\n".join(str(error) for error in errors))
 
 class Bootloader(commands.bootloader.F21_Bootloader):
     def __init__(self, *args, **kwargs):
@@ -513,7 +513,7 @@ class BTRFSData(commands.btrfs.F17_BTRFSData):
                                        dataLevel=self.dataLevel,
                                        parents=members)
             except BTRFSValueError as e:
-                raise KickstartValueError(formatErrorMsg(self.lineno, msg=e.message))
+                raise KickstartValueError(formatErrorMsg(self.lineno, msg=str(e)))
 
             storage.createDevice(request)
 
@@ -1012,7 +1012,7 @@ class LogVolData(commands.logvol.F21_LogVolData):
                                     percent=self.percent,
                                     **pool_args)
             except (StorageError, ValueError) as e:
-                raise KickstartValueError(formatErrorMsg(self.lineno, msg=e.message))
+                raise KickstartValueError(formatErrorMsg(self.lineno, msg=str(e)))
 
             storage.createDevice(request)
             if ty == "swap":
@@ -1318,7 +1318,7 @@ class PartitionData(commands.partition.F18_PartData):
             try:
                 request = storage.newTmpFS(**kwargs)
             except (StorageError, ValueError) as e:
-                raise KickstartValueError(formatErrorMsg(self.lineno, msg=e.message))
+                raise KickstartValueError(formatErrorMsg(self.lineno, msg=str(e)))
             storage.createDevice(request)
         else:
             # If a previous device has claimed this mount point, delete the
@@ -1333,7 +1333,7 @@ class PartitionData(commands.partition.F18_PartData):
             try:
                 request = storage.newPartition(**kwargs)
             except (StorageError, ValueError) as e:
-                raise KickstartValueError(formatErrorMsg(self.lineno, msg=e.message))
+                raise KickstartValueError(formatErrorMsg(self.lineno, msg=str(e)))
 
             storage.createDevice(request)
             if ty == "swap":
@@ -1525,7 +1525,7 @@ class RaidData(commands.raid.F18_RaidData):
             try:
                 request = storage.newMDArray(**kwargs)
             except (StorageError, ValueError) as e:
-                raise KickstartValueError(formatErrorMsg(self.lineno, msg=e.message))
+                raise KickstartValueError(formatErrorMsg(self.lineno, msg=str(e)))
 
             storage.createDevice(request)
 
@@ -1791,7 +1791,7 @@ class VolGroupData(commands.volgroup.F21_VolGroupData):
                                     name=self.vgname,
                                     peSize=pesize)
             except (StorageError, ValueError) as e:
-                raise KickstartValueError(formatErrorMsg(self.lineno, msg=e.message))
+                raise KickstartValueError(formatErrorMsg(self.lineno, msg=str(e)))
 
             storage.createDevice(request)
             if self.reserved_space:
@@ -2107,7 +2107,8 @@ def runPostScripts(scripts):
         return
 
     log.info("Running kickstart %%post script(s)")
-    map(lambda s: s.run(iutil.getSysroot()), postScripts)
+    for script in postScripts:
+        script.run(iutil.getSysroot())
     log.info("All kickstart %%post script(s) have been run")
 
 def runPreScripts(scripts):
@@ -2119,7 +2120,8 @@ def runPreScripts(scripts):
     log.info("Running kickstart %%pre script(s)")
     stdoutLog.info(_("Running pre-installation scripts"))
 
-    map(lambda s: s.run("/"), preScripts)
+    for script in preScripts:
+        script.run("/")
 
     log.info("All kickstart %%pre script(s) have been run")
 
@@ -2140,8 +2142,8 @@ def runTracebackScripts(scripts):
     log.info("All kickstart %%traceback script(s) have been run")
 
 def resetCustomStorageData(ksdata):
-    cmds = ["partition", "raid", "volgroup", "logvol", "btrfs"]
-    map(ksdata.resetCommand, cmds)
+    for command in ["partition", "raid", "volgroup", "logvol", "btrfs"]:
+        ksdata.resetCommand(command)
 
     ksdata.clearpart.type = CLEARPART_TYPE_NONE
 

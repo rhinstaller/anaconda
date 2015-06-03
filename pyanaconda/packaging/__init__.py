@@ -29,12 +29,13 @@
 """
 import os
 import requests
-import ConfigParser
+import configparser
 import shutil
 from glob import glob
 from fnmatch import fnmatch
 import threading
 import re
+import functools
 
 from pyanaconda.iutil import requests_session
 
@@ -77,8 +78,9 @@ REPO_NOT_SET = False
 
 def versionCmp(v1, v2):
     """ Compare two version number strings. """
-
-    return LooseVersion(v1).__cmp__(LooseVersion(v2))
+    firstVersion = LooseVersion(v1)
+    secondVersion = LooseVersion(v2)
+    return (firstVersion > secondVersion) - (firstVersion < secondVersion)
 
 ###
 ### ERROR HANDLING
@@ -387,14 +389,14 @@ class Payload(object):
             proxy = None
         treeinfo = self._getTreeInfo(url, proxy, not flags.noverifyssl)
         if treeinfo:
-            c = ConfigParser.ConfigParser()
+            c = configparser.ConfigParser()
             c.read(treeinfo)
             try:
                 # Trim off any -Alpha or -Beta
                 version = re.match(VERSION_DIGITS, c.get("general", "version")).group(1)
             except AttributeError:
                 version = "rawhide"
-            except ConfigParser.Error:
+            except configparser.Error:
                 pass
 
         log.debug("got a release version of %s", version)
@@ -714,12 +716,13 @@ class PackagePayload(Payload):
         ts = rpm.TransactionSet(iutil.getSysroot())
         mi = ts.dbMatch('providename', 'kernel')
         for hdr in mi:
+            unicode_fnames = (f.decode("utf-8") for f in hdr.filenames)
             # Find all /boot/vmlinuz- files and strip off vmlinuz-
-            files.extend((f.split("/")[-1][8:] for f in hdr.filenames
+            files.extend((f.split("/")[-1][8:] for f in unicode_fnames
                 if fnmatch(f, "/boot/vmlinuz-*") or
                    fnmatch(f, "/boot/efi/EFI/%s/vmlinuz-*" % self.instclass.efi_dir)))
 
-        return sorted(files, cmp=versionCmp)
+        return sorted(files, key=functools.cmp_to_key(versionCmp))
 
     @property
     def rpmMacros(self):

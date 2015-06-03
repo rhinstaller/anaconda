@@ -1,4 +1,4 @@
-#!/usr/bin/python2
+#!/usr/bin/python3
 #
 # Copyright (C) 2013 by Red Hat, Inc.  All rights reserved.
 #
@@ -66,7 +66,7 @@ def run_cmd(cmd):
     try:
         with open("/dev/null", "w") as fd_null:
             log.debug(" ".join(cmd))
-            proc = subprocess.Popen(cmd,
+            proc = subprocess.Popen(cmd, universal_newlines=True,
                                     stdout=subprocess.PIPE,
                                     stderr=fd_null)
             out = proc.communicate()[0]
@@ -114,7 +114,7 @@ def get_dd_args():
             return []
 
         # skip dd args that need networking
-        args.extend(filter(lambda x: x.split(":")[0].lower() not in net_protocols, dd_args))
+        args.extend(x for x in dd_args if x.split(":")[0].lower() not in net_protocols)
     return args
 
 
@@ -497,7 +497,7 @@ def selection_menu(items, title, info_func, multi_choice=True, refresh=False):
             opts[0] = "# to toggle selection"
         if refresh:
             opts.insert(1,"'r'-refresh")
-        idx = raw_input(''.join(['\n',
+        idx = input(''.join(['\n',
                                 ", ".join(opts[:-1]),
                                 " or ", opts[-1], ": "]))
         if idx.isdigit() and not (int(idx) < 1 or int(idx) > num_items):
@@ -553,14 +553,15 @@ def process_dd(dd_path):
         if not any((d.selected for d in drivers)):
             return
     else:
-        map(lambda d: setattr(d, "selected", True), drivers)
+        for driver in drivers:
+            setattr(driver, "selected", True)
 
     # Copy the repository for Anaconda to use during install
     copy_repo(dd_path, "/updates/run/install/DD-")
 
     extracted = []
 
-    for driver in filter(lambda d: d.selected, drivers):
+    for driver in (d for d in drivers if d.selected):
         extracted += dd_extract(driver, "/updates/")
 
         # Write the package names for all modules and firmware for Anaconda
@@ -714,7 +715,7 @@ def select_iso():
         return select_iso()
     else:
         # mount writes out some mounting information, add blank line
-        print
+        print()
 
     # let user choose the ISO file
     dd_iso = selection_menu(isos, "Choose driver disk ISO file",

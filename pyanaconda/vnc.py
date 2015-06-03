@@ -79,9 +79,10 @@ class VncServer:
         """Set the vnc server password. Output to file. """
 
         r, w = os.pipe()
-        iutil.eintr_retry_call(os.write, w, "%s\n" % self.password)
+        password_string = "%s\n" % self.password
+        iutil.eintr_retry_call(os.write, w, password_string.encode("utf-8"))
 
-        with open(self.pw_file, "w") as pw_file:
+        with open(self.pw_file, "wb") as pw_file:
             # the -f option makes sure vncpasswd does not ask for the password again
             rc = iutil.execWithRedirect("vncpasswd", ["-f"],
                     stdin=r, stdout=pw_file, binary_output=True, log_output=False)
@@ -162,7 +163,7 @@ class VncServer:
 
         for _i in range(maxTries):
             vncconfp = iutil.startProgram(vncconfigcommand, stdout=subprocess.PIPE, stderr=subprocess.PIPE) # vncconfig process
-            err = vncconfp.communicate()[1]
+            err = vncconfp.communicate()[1].decode("utf-8")
 
             if err == '':
                 self.log.info(_("Connected!"))

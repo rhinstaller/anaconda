@@ -1,4 +1,4 @@
-#!/usr/bin/python2
+#!/usr/bin/python3
 #
 # anaconda: The Red Hat Linux Installation program
 #
@@ -120,7 +120,7 @@ def startSpiceVDAgent():
 
 def startX11():
     # Open /dev/tty5 for stdout and stderr redirects
-    xfd = open("/dev/tty5", "a")
+    xfd = open("/dev/tty5", "wb")
 
     # Start Xorg and wait for it become ready
     iutil.startX(["Xorg", "-br", "-logfile", "/tmp/X.log",
@@ -967,7 +967,8 @@ if __name__ == "__main__":
         pidfile = iutil.eintr_retry_call(os.open, pidfile_path, os.O_WRONLY|os.O_CREAT|os.O_EXCL,
                 stat.S_IRUSR|stat.S_IWUSR|stat.S_IRGRP|stat.S_IWGRP|stat.S_IROTH|stat.S_IWOTH)
         pidfile_created = True
-        iutil.eintr_retry_call(os.write, pidfile, "%s\n" % os.getpid())
+        pid_string = "%s\n" % os.getpid()
+        iutil.eintr_retry_call(os.write, pidfile, pid_string.encode("utf-8"))
         iutil.eintr_retry_call(os.close, pidfile)
     except OSError as e:
         # If the failure was anything other than EEXIST during the open call,

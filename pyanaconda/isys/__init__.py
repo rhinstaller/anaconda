@@ -141,7 +141,7 @@ def set_system_date_time(year=None, month=None, day=None, hour=None, minute=None
     epoch = datetime.datetime.fromtimestamp(0, pytz.UTC)
     timestamp = (set_date - epoch).total_seconds()
 
-    set_system_time(timestamp)
+    set_system_time(int(timestamp))
 
 def total_memory():
     """Returns total system memory in kB (given to us by /proc/meminfo)"""

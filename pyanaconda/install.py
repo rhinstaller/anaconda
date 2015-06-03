@@ -172,7 +172,8 @@ def doInstall(storage, payload, ksdata, instClass):
         progress_init(steps+1)
 
         with progress_report(_("Waiting for %s threads to finish") % (threadMgr.running-1)):
-            map(log.debug, ("Thread %s is running" % n for n in threadMgr.names))
+            for message in ("Thread %s is running" % n for n in threadMgr.names):
+                log.debug(message)
             threadMgr.wait_all()
     else:
         progress_init(steps)

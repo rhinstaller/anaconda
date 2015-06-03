@@ -91,6 +91,7 @@ from gi.repository import Gdk, Gtk
 from gi.repository.AnacondaWidgets import MountpointSelector
 
 from functools import wraps
+from itertools import chain
 
 import logging
 log = logging.getLogger("anaconda")
@@ -511,7 +512,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         for root in ui_roots:
             # Don't make a page if none of the root's devices are left.
             # Also, only include devices in an old page if the format is intact.
-            if not any(d for d in root.swaps + root.mounts.values()
+            if not any(d for d in chain(root.swaps, root.mounts.values())
                         if d in self._devices and d.disks and
                            (root.name == translated_new_install_name() or d.format.exists)):
                 continue
@@ -1251,7 +1252,8 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         log.debug("populate_raid: %s, %s", device_type, raid_level)
 
         if not raidLevelsSupported(device_type):
-            map(really_hide, [self._raidLevelLabel, self._raidLevelCombo])
+            for widget in [self._raidLevelLabel, self._raidLevelCombo]:
+                really_hide(widget)
             return
 
         raid_level = raid_level or defaultRaidLevel(device_type)
@@ -1262,8 +1264,8 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
             if row[1] == raid_level_name:
                 self._raidLevelCombo.set_active(i)
                 break
-
-        map(really_show, [self._raidLevelLabel, self._raidLevelCombo])
+        for widget in [self._raidLevelLabel, self._raidLevelCombo]:
+            really_show(widget)
 
     def _get_current_device_type_name(self):
         """ Return name for type combo selection.
@@ -2343,12 +2345,12 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         errors = [exn for exn in exns if isinstance(exn, SanityError) and not isinstance(exn, LUKSDeviceWithoutKeyError)]
         warnings = [exn for exn in exns if isinstance(exn, SanityWarning)]
         for error in errors:
-            log.error(error.message)
+            log.error("%s", error)
         for warning in warnings:
-            log.warning(warning.message)
+            log.warning("%s", warning)
 
         if errors:
-            messages = "\n".join(error.message for error in errors)
+            messages = "\n".join(str(error) for error in errors)
             log.error("doAutoPartition failed: %s", messages)
             self._reset_storage()
             self._error = messages
@@ -2416,7 +2418,8 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         container_size_policy = SIZE_POLICY_AUTO
         if device_type not in CONTAINER_DEVICE_TYPES:
             # just hide the buttons with no meaning for non-container devices
-            map(really_hide, [self._containerLabel, self._containerCombo, self._modifyContainerButton])
+            for widget in [self._containerLabel, self._containerCombo, self._modifyContainerButton]:
+                really_hide(widget)
             return
 
         # else really populate the container
@@ -2468,7 +2471,8 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         if default_container_name is None:
             self._containerCombo.set_active(len(self._containerStore) - 1)
 
-        map(really_show, [self._containerLabel, self._containerCombo, self._modifyContainerButton])
+        for widget in [self._containerLabel, self._containerCombo, self._modifyContainerButton]:
+            really_show(widget)
 
         # make the combo and button insensitive for existing LVs
         can_change_container = (device is not None and not device.exists and

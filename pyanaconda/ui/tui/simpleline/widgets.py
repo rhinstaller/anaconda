@@ -32,7 +32,7 @@ class TextWidget(base.Widget):
     def __init__(self, text):
         """
         :param text: text to format
-        :type text: unicode
+        :type text: str
         """
 
         base.Widget.__init__(self)
@@ -72,7 +72,8 @@ class CenterWidget(base.Widget):
 
         base.Widget.render(self, width)
         self._w.render(width)
-        self.draw(self._w, col=(width - self._w.width) / 2)
+        # make sure col is an integer
+        self.draw(self._w, col=(width - self._w.width) // 2)
 
 class ColumnWidget(base.Widget):
     def __init__(self, columns, spacing=0):
@@ -135,10 +136,10 @@ class CheckboxWidget(base.Widget):
         :type key: character
 
         :param title: the title next to the [ ] box
-        :type title: unicode
+        :type title: str
 
         :param text: the description text to be shown on the second row in ()
-        :type text: unicode
+        :type text: str
 
         :param completed: is the checkbox ticked or not?
         :type completed: True|False

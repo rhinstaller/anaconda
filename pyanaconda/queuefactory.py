@@ -18,7 +18,7 @@
 #
 # Author(s): Chris Lumens <clumens@redhat.com>
 
-import Queue
+import queue
 from pyanaconda.iutil import lowerASCII, upperASCII
 
 class QueueFactory(object):
@@ -48,7 +48,7 @@ class QueueFactory(object):
         self.__counter = 0
         self.__names = []
 
-        self.q = Queue.Queue()
+        self.q = queue.Queue()
 
     def _makeMethod(self, constant, methodName, argc):
         def __method(*args):

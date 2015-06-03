@@ -52,7 +52,7 @@ class ProgressSpoke(StandaloneTUISpoke):
         """Handle progress updates from install thread."""
 
         from pyanaconda.progress import progressQ
-        import Queue
+        import queue
 
         q = progressQ.q
 
@@ -67,7 +67,7 @@ class ProgressSpoke(StandaloneTUISpoke):
                 try:
                     (code, args) = q.get(timeout=1)
                     break
-                except Queue.Empty:
+                except queue.Empty:
                     pass
                 finally:
                     self.app.process_events()

@@ -31,7 +31,7 @@ from pyanaconda.ui.tui.tuiobject import YesNoDialog, ErrorDialog
 import os
 import sys
 import site
-import Queue
+import queue as queue
 import meh.ui.text
 import logging
 log = logging.getLogger("anaconda")
@@ -75,7 +75,7 @@ class TextUserInterface(ui.UserInterface):
         :type instclass: instance of install class
 
         :param productTitle: the name of the product
-        :type productTitle: unicode string
+        :type productTitle: str
 
         :param isFinal: Boolean that marks the release
                         as final (True) or development
@@ -86,7 +86,7 @@ class TextUserInterface(ui.UserInterface):
                             dialog question. It should not
                             be translated to allow for change
                             of language.
-        :type quitMessage: unicode string
+        :type quitMessage: str
 
 
         """
@@ -106,17 +106,22 @@ class TextUserInterface(ui.UserInterface):
                     for dir in site.getsitepackages()]
     pathlist = set([updatepath, basepath] + sitepackages)
 
+    _categories = []
+    _spokes = []
+    _hubs = []
+
+    # as list comprehension can't reference class level variables in Python 3 we
+    # need to use a for cycle (http://bugs.python.org/issue21161)
+    for path in pathlist:
+        _categories.append((basemask + ".categories.%s", os.path.join(path, "categories")))
+        _spokes.append((basemask + ".tui.spokes.%s", os.path.join(path, "tui/spokes")))
+        _hubs.append((basemask + ".tui.hubs.%s", os.path.join(path, "tui/hubs")))
+
     paths = ui.UserInterface.paths + {
-            "categories": [(basemask + ".categories.%s",
-                        os.path.join(path, "categories"))
-                        for path in pathlist],
-            "spokes": [(basemask + ".tui.spokes.%s",
-                        os.path.join(path, "tui/spokes"))
-                        for path in pathlist],
-            "hubs": [(basemask + ".tui.hubs.%s",
-                      os.path.join(path, "tui/hubs"))
-                      for path in pathlist]
-            }
+        "categories": _categories,
+        "spokes": _spokes,
+        "hubs": _hubs,
+    }
 
     @property
     def tty_num(self):
@@ -139,7 +144,7 @@ class TextUserInterface(ui.UserInterface):
            This method must be provided by all subclasses.
         """
         self._app = tui.App(self.productTitle, yes_or_no_question=YesNoDialog,
-                            quit_message=self.quitMessage, queue=hubQ.q)
+                            quit_message=self.quitMessage, queue_instance=hubQ.q)
 
         # tell python-meh it should use our raw_input
         self._meh_interface.set_io_handler(meh.ui.text.IOHandler(in_func=self._app.raw_input))
@@ -195,7 +200,7 @@ class TextUserInterface(ui.UserInterface):
         :type args: any
         :param ret_queue: the queue which the return value of the message dialog
                           function should be put
-        :type ret_queue: a Queue.Queue instance
+        :type ret_queue: a queue.Queue instance
 
         """
 
@@ -238,7 +243,7 @@ class TextUserInterface(ui.UserInterface):
             return msg_fn(*args)
         else:
             # create a queue for the result returned by the function
-            ret_queue = Queue.Queue()
+            ret_queue = queue.Queue()
 
             # request the function to be called in the main thread
             self._send_show_message(msg_fn, args, ret_queue)

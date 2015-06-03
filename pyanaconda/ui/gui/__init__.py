@@ -509,17 +509,22 @@ class GraphicalUserInterface(UserInterface):
                     for dir in site.getsitepackages()]
     pathlist = set([updatepath, basepath] + sitepackages)
 
+    _categories = []
+    _spokes = []
+    _hubs = []
+
+    # as list comprehension can't reference class level variables in Python 3 we
+    # need to use a for cycle (http://bugs.python.org/issue21161)
+    for path in pathlist:
+        _categories.append((basemask + ".categories.%s", os.path.join(path, "categories")))
+        _spokes.append((basemask + ".gui.spokes.%s", os.path.join(path, "gui/spokes")))
+        _hubs.append((basemask + ".gui.hubs.%s", os.path.join(path, "gui/hubs")))
+
     paths = UserInterface.paths + {
-            "categories": [(basemask + ".categories.%s",
-                        os.path.join(path, "categories"))
-                        for path in pathlist],
-            "spokes": [(basemask + ".gui.spokes.%s",
-                        os.path.join(path, "gui/spokes"))
-                        for path in pathlist],
-            "hubs": [(basemask + ".gui.hubs.%s",
-                      os.path.join(path, "gui/hubs"))
-                      for path in pathlist]
-            }
+        "categories": _categories,
+        "spokes": _spokes,
+        "hubs": _hubs,
+    }
 
     def _widgetScale(self):
         # First, check if the GDK_SCALE environment variable is already set. If so,

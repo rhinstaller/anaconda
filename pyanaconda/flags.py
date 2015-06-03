@@ -19,7 +19,6 @@
 
 import selinux
 import shlex
-import types
 import glob
 from pyanaconda.constants import SELINUX_DEFAULT, CMDLINE_APPEND
 from collections import OrderedDict
@@ -114,7 +113,7 @@ class BootArgs(OrderedDict):
         filenames can contain *, ?, and character ranges expressed with []
         """
         readfiles = []
-        if isinstance(filenames, types.StringType):
+        if isinstance(filenames, str):
             filenames = [filenames]
 
         # Expand any filename globs

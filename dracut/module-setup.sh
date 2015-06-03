@@ -55,7 +55,7 @@ install() {
     # rpm configuration file (needed by dd_extract)
     inst "/usr/lib/rpm/rpmrc"
     # python deps for parse-kickstart. DOUBLE WOOOO
-    $moddir/python-deps $moddir/parse-kickstart $moddir/driver-updates | while read dep; do
+    PYTHONHASHSEED=42 $moddir/python-deps $moddir/parse-kickstart $moddir/driver-updates | while read dep; do
         case "$dep" in
             *.so) inst_library $dep ;;
             *.py) inst_simple $dep ;;

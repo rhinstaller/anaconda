@@ -35,7 +35,7 @@ class ErrorDialog(tui.UIScreen):
         :type app: instance of App class
 
         :param message: the message to show to the user
-        :type message: unicode
+        :type message: str
         """
 
         tui.UIScreen.__init__(self, app)

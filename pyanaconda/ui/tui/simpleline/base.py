@@ -22,11 +22,11 @@
 __all__ = ["App", "UIScreen", "Widget"]
 
 import sys
-import Queue
+import queue
 import getpass
 import threading
-import types
 import functools
+import queue
 from pyanaconda.threads import threadMgr, AnacondaThread
 from pyanaconda.ui.communication import hubQ
 from pyanaconda import constants, iutil
@@ -35,8 +35,8 @@ from pyanaconda.i18n import _, N_, C_
 RAW_INPUT_LOCK = threading.Lock()
 
 
-def send_exception(queue, ex):
-    queue.put((hubQ.HUB_CODE_EXCEPTION, [ex]))
+def send_exception(queue_instance, ex):
+    queue_instance.put((hubQ.HUB_CODE_EXCEPTION, [ex]))
 
 
 class ExitMainLoop(Exception):
@@ -67,11 +67,11 @@ class App(object):
     STOP_MAINLOOP = False
     NOP = None
 
-    def __init__(self, title, yes_or_no_question=None, width=80, queue=None,
+    def __init__(self, title, yes_or_no_question=None, width=80, queue_instance=None,
                  quit_message=None):
         """
         :param title: application title for whenever we need to display app name
-        :type title: unicode
+        :type title: str
 
         :param yes_or_no_question: UIScreen object class used for Quit dialog
         :type yes_or_no_question: class UIScreen accepting additional message arg
@@ -88,10 +88,10 @@ class App(object):
         self.quit_message = quit_message or N_(u"Do you really want to quit?")
 
         # async control queue
-        if queue:
-            self.queue = queue
+        if queue_instance:
+            self.queue_instance = queue_instance
         else:
-            self.queue = Queue.Queue()
+            self.queue_instance = queue.Queue()
 
         # event handlers
         # key: event id
@@ -128,13 +128,13 @@ class App(object):
             self._handlers[event] = []
         self._handlers[event].append((callback, data))
 
-    def _thread_input(self, queue, prompt, hidden):
+    def _thread_input(self, queue_instance, prompt, hidden):
         """This method is responsible for interruptible user input. It is expected
         to be used in a thread started on demand by the App class and returns the
         input via the communication Queue.
 
-        :param queue: communication queue to be used
-        :type queue: Queue.Queue instance
+        :param queue_instance: communication queue_instance to be used
+        :type queue_instance: queue.Queue instance
 
         :param prompt: prompt to be displayed
         :type prompt: str
@@ -158,13 +158,13 @@ class App(object):
             else:
                 # lock acquired, we can run raw_input
                 try:
-                    data = raw_input()
+                    data = input()
                 except EOFError:
                     data = ""
                 finally:
                     RAW_INPUT_LOCK.release()
 
-        queue.put((hubQ.HUB_CODE_INPUT, [data]))
+        queue_instance.put((hubQ.HUB_CODE_INPUT, [data]))
 
     def switch_screen(self, ui, args=None):
         """Schedules a screen to replace the current one.
@@ -289,7 +289,7 @@ class App(object):
             except ExitMainLoop:
                 raise
             except Exception:    # pylint: disable=broad-except
-                send_exception(self.queue, sys.exc_info())
+                send_exception(self.queue_instance, sys.exc_info())
                 return False
 
         else:
@@ -348,7 +348,7 @@ class App(object):
                 except ExitMainLoop:
                     raise
                 except Exception:    # pylint: disable=broad-except
-                    send_exception(self.queue, sys.exc_info())
+                    send_exception(self.queue_instance, sys.exc_info())
                     continue
 
                 # None means prompt handled the input by itself
@@ -385,7 +385,7 @@ class App(object):
 
     def process_events(self, return_at=None):
         """This method processes incoming async messages and returns
-           when a specific message is encountered or when the queue
+           when a specific message is encountered or when the queue_instance
            is empty.
 
            If return_at message was specified, the received
@@ -394,8 +394,8 @@ class App(object):
            If the message does not fit return_at, but handlers are
            defined then it processes all handlers for this message
         """
-        while return_at or not self.queue.empty():
-            event = self.queue.get()
+        while return_at or not self.queue_instance.empty():
+            event = self.queue_instance.get()
             if event[0] == return_at:
                 return event
             elif event[0] in self._handlers:
@@ -405,7 +405,7 @@ class App(object):
                     except ExitMainLoop:
                         raise
                     except Exception:    # pylint: disable=broad-except
-                        send_exception(self.queue, sys.exc_info())
+                        send_exception(self.queue_instance, sys.exc_info())
 
     def raw_input(self, prompt, hidden=False):
         """This method reads one input from user. Its basic form has only one
@@ -413,7 +413,7 @@ class App(object):
 
         input_thread = AnacondaThread(prefix=constants.THREAD_INPUT_BASENAME,
                                       target=self._thread_input,
-                                      args=(self.queue, prompt, hidden))
+                                      args=(self.queue_instance, prompt, hidden))
         input_thread.daemon = True
         threadMgr.add(input_thread)
         event = self.process_events(return_at=hubQ.HUB_CODE_INPUT)
@@ -427,7 +427,7 @@ class App(object):
         :type args: anything
 
         :param key: the string entered by user
-        :type key: unicode
+        :type key: str
 
         :return: True if key was processed, False if it was not recognized
         :rtype: True|False
@@ -443,7 +443,7 @@ class App(object):
             except ExitMainLoop:
                 raise
             except Exception:    # pylint: disable=broad-except
-                send_exception(self.queue, sys.exc_info())
+                send_exception(self.queue_instance, sys.exc_info())
                 return False
 
         # global refresh command
@@ -581,11 +581,11 @@ class UIScreen(object):
                 w.render(self.app.width)
             if isinstance(w, Widget):
                 self._print_long_widget(w)
-            elif isinstance(w, types.StringType):
-                print(w.decode("utf-8"))
+            elif isinstance(w, bytes):
+                print(w)
             else:
-                # not a widget, just print its unicode representation
-                print(unicode(w))
+                # not a widget or string, just print its string representation
+                print(str(w))
     show = show_all
 
     def hide(self):
@@ -596,7 +596,7 @@ class UIScreen(object):
         """Method called to process input. If the input is not handled here, return it.
 
         :param key: input string to process
-        :type key: unicode
+        :type key: str
 
         :param args: optional argument passed from switch_screen calls
         :type args: anything
@@ -604,7 +604,7 @@ class UIScreen(object):
         :return: return True or INPUT_PROCESSED (None) if key was handled,
                  INPUT_DISCARDED (False) if the screen should not process input
                  on the App and key if you want it to.
-        :rtype: True|False|None|unicode
+        :rtype: True|False|None|str
         """
 
         return key
@@ -617,7 +617,7 @@ class UIScreen(object):
 
         :return: returns text to be shown next to the prompt for input or None
                  to skip further input processing
-        :rtype: unicode|None
+        :rtype: str|None
         """
         return _(u"  Please make your choice from above ['q' to quit | 'c' to continue |\n  'r' to refresh]: ")
 
@@ -683,10 +683,10 @@ class Widget(object):
         """Get lines to write out in order to show this widget.
 
            :return: lines representing this widget
-           :rtype: list(unicode)
+           :rtype: list(str)
            """
 
-        return [unicode(u"".join(line)) for line in self._buffer]
+        return [str(u"".join(line)) for line in self._buffer]
 
     def setxy(self, row, col):
         """Sets cursor position.
@@ -754,7 +754,7 @@ class Widget(object):
         """This method emulates typing machine writing to this widget's buffer.
 
            :param text: text to type
-           :type text: unicode
+           :type text: str
 
            :param row: row number to start at (default is at the cursor position)
            :type row: int
@@ -771,13 +771,7 @@ class Widget(object):
         if not text:
             return
 
-        if isinstance(text, str):
-            try:
-                text = text.decode("utf-8")
-            except UnicodeDecodeError as e:
-                raise ValueError("Unable to decode string %s" %
-                                 str(e.object).decode("utf-8", "replace"))
-
+        text = iutil.ensure_str(text)
         if row is None:
             row = self._cursor[0]
 

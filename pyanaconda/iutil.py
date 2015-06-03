@@ -30,11 +30,11 @@ import unicodedata
 # Used for ascii_lowercase, ascii_uppercase constants
 import string # pylint: disable=deprecated-module
 import tempfile
-import types
 import re
-from urllib import quote, unquote
+from urllib.parse import quote, unquote
 import gettext
 import signal
+import sys
 
 import requests
 from requests_file import FileAdapter
@@ -245,6 +245,10 @@ def startX(argv, output_redirect=None):
 def _run_program(argv, root='/', stdin=None, stdout=None, env_prune=None, log_output=True,
         binary_output=False, filter_stderr=False):
     """ Run an external program, log the output and return it to the caller
+
+        NOTE/WARNING: UnicodeDecodeError will be raised if the output of the of the
+                      external command can't be decoded as UTF-8.
+
         :param argv: The command to run and argument
         :param root: The directory to chroot to before running command.
         :param stdin: The file object to read stdin from.
@@ -269,13 +273,22 @@ def _run_program(argv, root='/', stdin=None, stdout=None, env_prune=None, log_ou
             if binary_output:
                 output_lines = [output_string]
             else:
+                output_string = output_string.decode("utf-8")
                 if output_string[-1] != "\n":
                     output_string = output_string + "\n"
                 output_lines = output_string.splitlines(True)
 
             if log_output:
                 with program_log_lock:
-                    for line in output_lines:
+                    if binary_output:
+                        # try to decode as utf-8 and replace all undecodable data by
+                        # "safe" printable representations when logging binary output
+                        decoded_output_lines = output_lines.decode("utf-8", "replace")
+                    else:
+                        # output_lines should already be a Unicode string
+                        decoded_output_lines = output_lines
+
+                    for line in decoded_output_lines:
                         program_log.info(line.strip())
 
             if stdout:
@@ -283,7 +296,10 @@ def _run_program(argv, root='/', stdin=None, stdout=None, env_prune=None, log_ou
 
         # If stderr was filtered, log it separately
         if filter_stderr and err_string and log_output:
-            err_lines = err_string.splitlines(True)
+            # try to decode as utf-8 and replace all undecodable data by
+            # "safe" printable representations when logging binary output
+            decoded_err_string = err_string.decode("utf-8", "replace")
+            err_lines = decoded_err_string.splitlines(True)
 
             with program_log_lock:
                 for line in err_lines:
@@ -350,6 +366,26 @@ def execWithCapture(command, argv, stdin=None, root='/', log_output=True, filter
     return _run_program(argv, stdin=stdin, root=root, log_output=log_output,
             filter_stderr=filter_stderr)[1]
 
+def execWithCaptureBinary(command, argv, stdin=None, root='/', log_output=False, filter_stderr=False):
+    """ Run an external program and capture standard out and err as binary data.
+        The binary data output is not logged by default but logging can be enabled.
+        :param command: The command to run
+        :param argv: The argument list
+        :param stdin: The file object to read stdin from.
+        :param root: The directory to chroot to before running command.
+        :param log_output: Whether to log the binary output of the command
+        :param filter_stderr: Whether stderr should be excluded from the returned output
+        :return: The output of the command
+    """
+    if flags.testing:
+        log.info("not running command because we're testing: %s %s",
+                 command, " ".join(argv))
+        return ""
+
+    argv = [command] + argv
+    return _run_program(argv, stdin=stdin, root=root, log_output=log_output,
+                        filter_stderr=filter_stderr, binary_output=True)[1]
+
 def execReadlines(command, argv, stdin=None, root='/', env_prune=None):
     """ Execute an external command and return the line output of the command
         in real-time.
@@ -357,6 +393,9 @@ def execReadlines(command, argv, stdin=None, root='/', env_prune=None):
         This method assumes that there is a reasonably low delay between the
         end of output and the process exiting. If the child process closes
         stdout and then keeps on truckin' there will be problems.
+
+        NOTE/WARNING: UnicodeDecodeError will be raised if the output of the
+                      external command can't be decoded as UTF-8.
 
         :param command: The command to run
         :param argv: The argument list
@@ -391,9 +430,9 @@ def execReadlines(command, argv, stdin=None, root='/', env_prune=None):
                 except OSError:
                     pass
 
-        def next(self):
+        def __next__(self):
             # Read the next line, blocking if a line is not yet available
-            line = self._proc.stdout.readline()
+            line = self._proc.stdout.readline().decode("utf-8")
             if line == '':
                 # Output finished, wait for the process to end
                 self._proc.communicate()
@@ -608,7 +647,7 @@ def getDirSize(directory):
                 dsize += sinfo[stat.ST_SIZE]
 
         return dsize
-    return getSubdirSize(directory)/1024
+    return int(getSubdirSize(directory)/1024)
 
 ## Create a directory path.  Don't fail if the directory already exists.
 def mkdirChain(directory):
@@ -800,12 +839,12 @@ class ProxyString(object):
         ProxyString.url is the full url including username:password@
         ProxyString.noauth_url is the url without username:password@
         """
-        self.url = url
-        self.protocol = protocol
-        self.host = host
+        self.url = ensure_str(url, keep_none=True)
+        self.protocol = ensure_str(protocol, keep_none=True)
+        self.host = ensure_str(host, keep_none=True)
         self.port = str(port)
-        self.username = username
-        self.password = password
+        self.username = ensure_str(username, keep_none=True)
+        self.password = ensure_str(password, keep_none=True)
         self.proxy_auth = ""
         self.noauth_url = None
 
@@ -839,10 +878,10 @@ class ProxyString(object):
         self.protocol = m.group("protocol") or "http://"
 
         if m.group("username"):
-            self.username = unquote(m.group("username"))
+            self.username = ensure_str(unquote(m.group("username")))
 
         if m.group("password"):
-            self.password = unquote(m.group("password"))
+            self.password = ensure_str(unquote(m.group("password")))
 
         if m.group("host"):
             self.host = m.group("host")
@@ -857,8 +896,8 @@ class ProxyString(object):
         """ Parse the components of a proxy url into url and noauth_url
         """
         if self.username or self.password:
-            self.proxy_auth = "%s:%s@" % (quote(self.username) or "",
-                                          quote(self.password) or "")
+            self.proxy_auth = "%s:%s@" % (quote(self.username or ""),
+                                          quote(self.password or ""))
 
         self.url = self.protocol + self.proxy_auth + self.host + ":" + self.port
         self.noauth_url = self.protocol + self.host + ":" + self.port
@@ -916,10 +955,10 @@ def strip_accents(s):
     and returns it with all the diacritics removed.
 
     :param s: arbitrary string
-    :type s: unicode
+    :type s: str
 
     :return: s with diacritics removed
-    :rtype: unicode
+    :rtype: str
 
     """
     return ''.join((c for c in unicodedata.normalize('NFD', s)
@@ -1039,24 +1078,45 @@ def is_unsupported_hw():
         log.debug("Installing on Unsupported Hardware")
     return status
 
+def ensure_str(str_or_bytes, keep_none=True):
+    """
+    Returns a str instance for given string or None if requested to keep it.
+
+    :param str_or_bytes: string to be kept or converted to str type
+    :type str_or_bytes: str or bytes
+    :param bool keep_none: whether to keep None as it is or raise ValueError if
+                           None is passed
+    :raises ValueError: if applied on an object not being of type bytes nor str
+                        (nor NoneType if :param:`keep_none` is False)
+    """
+
+    if keep_none and str_or_bytes is None:
+        return None
+    elif isinstance(str_or_bytes, str):
+        return str_or_bytes
+    elif isinstance(str_or_bytes, bytes):
+        return str_or_bytes.decode(sys.getdefaultencoding())
+    else:
+        raise ValueError("str_or_bytes must be of type 'str' or 'bytes', not '%s'" % type(str_or_bytes))
+
 # Define translations between ASCII uppercase and lowercase for
 # locale-independent string conversions. The tables are 256-byte string used
-# with string.translate. If string.translate is used with a unicode string,
-# even if the string contains only 7-bit characters, string.translate will
+# with str.translate. If str.translate is used with a unicode string,
+# even if the string contains only 7-bit characters, str.translate will
 # raise a UnicodeDecodeError.
-_ASCIIupper_table = string.maketrans(string.ascii_lowercase, string.ascii_uppercase)
-_ASCIIlower_table = string.maketrans(string.ascii_uppercase, string.ascii_lowercase)
+_ASCIIlower_table = str.maketrans(string.ascii_uppercase, string.ascii_lowercase)
+_ASCIIupper_table = str.maketrans(string.ascii_lowercase, string.ascii_uppercase)
 
 def _toASCII(s):
     """Convert a unicode string to ASCII"""
-    if isinstance(s, types.UnicodeType):
+    if isinstance(s, str):
         # Decompose the string using the NFK decomposition, which in addition
         # to the canonical decomposition replaces characters based on
         # compatibility equivalence (e.g., ROMAN NUMERAL ONE has its own code
         # point but it's really just a capital I), so that we can keep as much
         # of the ASCII part of the string as possible.
-        s = unicodedata.normalize('NKFD', s).encode('ascii', 'ignore')
-    elif not isinstance(s, types.StringType):
+        s = unicodedata.normalize('NFKD', s).encode('ascii', 'ignore').decode("ascii")
+    elif not isinstance(s, bytes):
         s = ''
     return s
 
@@ -1066,7 +1126,12 @@ def upperASCII(s):
     The returned string will contain only ASCII characters. This function is
     locale-independent.
     """
-    return string.translate(_toASCII(s), _ASCIIupper_table)
+
+    # XXX: Python 3 has str.maketrans() and bytes.maketrans() so we should
+    # ideally use one or the other depending on the type of 's'. But it turns
+    # out we expect this function to always return string even if given bytes.
+    s = ensure_str(s)
+    return str.translate(_toASCII(s), _ASCIIupper_table)
 
 def lowerASCII(s):
     """Convert a string to lowercase using only ASCII character definitions.
@@ -1074,7 +1139,12 @@ def lowerASCII(s):
     The returned string will contain only ASCII characters. This function is
     locale-independent.
     """
-    return string.translate(_toASCII(s), _ASCIIlower_table)
+
+    # XXX: Python 3 has str.maketrans() and bytes.maketrans() so we should
+    # ideally use one or the other depending on the type of 's'. But it turns
+    # out we expect this function to always return string even if given bytes.
+    s = ensure_str(s)
+    return str.translate(_toASCII(s), _ASCIIlower_table)
 
 def upcase_first_letter(text):
     """
@@ -1083,9 +1153,9 @@ def upcase_first_letter(text):
     lowercases all the others. string.title() capitalizes all words in the
     string.
 
-    :type text: either a str or unicode object
+    :type text: str
     :return: the given text with the first letter upcased
-    :rtype: str or unicode (depends on the input)
+    :rtype: str
 
     """
 
@@ -1118,11 +1188,9 @@ def have_word_match(str1, str2):
         # non-empty string cannot be found in an empty string
         return False
 
-    # Convert both arguments to unicode if not already
-    if isinstance(str1, str):
-        str1 = str1.decode('utf-8')
-    if isinstance(str2, str):
-        str2 = str2.decode('utf-8')
+    # Convert both arguments to string if not already
+    str1 = ensure_str(str1)
+    str2 = ensure_str(str2)
 
     str1 = str1.lower()
     str1_words = str1.split()
@@ -1212,7 +1280,8 @@ def ipmi_report(event):
     # Event dir & type - always 0x6f for us
     # Event data 1 - the event code passed in
     # Event data 2 & 3 - always 0x0 for us
-    eintr_retry_call(os.write, fd, "0x4 0x1F 0x0 0x6f %#x 0x0 0x0\n" % event)
+    event_string = "0x4 0x1F 0x0 0x6f %#x 0x0 0x0\n" % event
+    eintr_retry_call(os.write, fd, event_string.encode("utf-8"))
     eintr_retry_call(os.close, fd)
 
     execWithCapture("ipmitool", ["sel", "add", path])

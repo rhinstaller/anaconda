@@ -27,7 +27,7 @@ from pyanaconda.flags import flags
 from pyanaconda.i18n import _
 from pyanaconda.progress import progressQ
 
-import ConfigParser
+import configparser
 import collections
 import itertools
 import logging
@@ -114,9 +114,9 @@ def _pick_mpoint(df, requested):
                   reverse=True)[0][0]
 
 class PayloadRPMDisplay(dnf.callback.LoggingTransactionDisplay):
-    def __init__(self, queue):
+    def __init__(self, queue_instance):
         super(PayloadRPMDisplay, self).__init__()
-        self._queue = queue
+        self._queue = queue_instance
         self._last_ts = None
         self.cnt = 0
 
@@ -171,14 +171,14 @@ class DownloadProgress(dnf.callback.DownloadProgress):
         self.total_files = total_files
         self.total_size = Size(total_size)
 
-def do_transaction(base, queue):
+def do_transaction(base, queue_instance):
     try:
-        display = PayloadRPMDisplay(queue)
+        display = PayloadRPMDisplay(queue_instance)
         base.do_transaction(display=display)
     except BaseException as e:
         log.error('The transaction process has ended abruptly')
         log.info(e)
-        queue.put(('quit', str(e)))
+        queue_instance.put(('quit', str(e)))
 
 class DNFPayload(packaging.PackagePayload):
     def __init__(self, data):
@@ -543,7 +543,7 @@ class DNFPayload(packaging.PackagePayload):
         except dnf.exceptions.DepsolveError as e:
             msg = str(e)
             log.warning(msg)
-            raise packaging.DependencyError([msg])
+            raise packaging.DependencyError(msg)
 
         log.info("%d packages selected totalling %s",
                  len(self._base.transaction), self.spaceRequired)
@@ -604,7 +604,8 @@ class DNFPayload(packaging.PackagePayload):
         return (grp.ui_name, grp.ui_description)
 
     def gatherRepoMetadata(self):
-        map(self._sync_metadata, self._base.repos.iter_enabled())
+        for repo in self._base.repos.iter_enabled():
+            self._sync_metadata(repo)
         self._base.fill_sack(load_system_repo=False)
         self._base.read_comps()
         self._refreshEnvironmentAddons()
@@ -642,16 +643,16 @@ class DNFPayload(packaging.PackagePayload):
         pre_msg = _("Preparing transaction from installation source")
         progressQ.send_message(pre_msg)
 
-        queue = multiprocessing.Queue()
+        queue_instance = multiprocessing.Queue()
         process = multiprocessing.Process(target=do_transaction,
-                                          args=(self._base, queue))
+                                          args=(self._base, queue_instance))
         process.start()
-        (token, msg) = queue.get()
+        (token, msg) = queue_instance.get()
         while token not in ('post', 'quit'):
             if token == 'install':
                 msg = _("Installing %s") % msg
                 progressQ.send_message(msg)
-            (token, msg) = queue.get()
+            (token, msg) = queue_instance.get()
 
         if token == 'quit':
             _failure_limbo()
@@ -732,7 +733,7 @@ class DNFPayload(packaging.PackagePayload):
             try:
                 self._base.conf.releasever = self._getReleaseVersion(url)
                 log.debug("releasever from %s is %s", url, self._base.conf.releasever)
-            except ConfigParser.MissingSectionHeaderError as e:
+            except configparser.MissingSectionHeaderError as e:
                 log.error("couldn't set releasever from base repo (%s): %s",
                           method.method, e)
 

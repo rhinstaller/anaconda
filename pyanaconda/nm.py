@@ -987,7 +987,7 @@ def _gvariant_settings(settings, updated_key1, updated_key2, value, default_type
         # infer the new value type for string and boolean
         if isinstance(value, types.BooleanType):
             type_str = 'b'
-        elif isinstance(value, types.StringType):
+        elif isinstance(value, str):
             type_str = 's'
 
     if type_str is not None:
@@ -1025,7 +1025,7 @@ def nm_dbus_ay_to_ipv6(bytelist):
     :return: IPv6 address
     :rtype: str
     """
-    return socket.inet_ntop(socket.AF_INET6, "".join(chr(byte) for byte in bytelist))
+    return socket.inet_ntop(socket.AF_INET6, bytes(bytelist))
 
 def nm_dbus_int_to_ipv4(address):
     """Convert ipv4 address from dus int 'u' (switched endianess) to string.
