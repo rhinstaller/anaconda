@@ -37,7 +37,7 @@ def testfilelist(filterfunc=None):
     """
 
     if os.path.isdir(os.path.join(os.environ["top_srcdir"], ".git")):
-        output = subprocess.check_output(["git", "ls-files", "-c", os.environ["top_srcdir"]])
+        output = subprocess.check_output(["git", "ls-files", "-c", os.environ["top_srcdir"]]).decode("utf-8")
         filelist = output.split("\n")
     else:
         filelist = (os.path.join(path, testfile) \
