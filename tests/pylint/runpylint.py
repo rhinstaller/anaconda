@@ -10,6 +10,7 @@ class AnacondaLintConfig(PocketLintConfig):
 
         self.falsePositives = [ FalsePositive(r"^E0611.*: No name '_isys' in module 'pyanaconda'$"),
                                 FalsePositive(r"^E0712.*: Catching an exception which doesn't inherit from BaseException: GError$"),
+                                FalsePositive(r"^E0712.*: Catching an exception which doesn't inherit from BaseException: S390Error$"),
 
                                 # XXX: These are temporary until dogtail and koji have python3 versions.
                                 FalsePositive(r"^F0401.*: Unable to import 'dogtail.*'$"),
