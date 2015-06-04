@@ -73,7 +73,7 @@ def talk_to_github(request):
     if response.status_code in (401, 404) and \
             response.headers.get('X-GitHub-OTP', '').startswith('required'):
         try:
-            twofactor = raw_input("Input 2-factor authentication code: ")
+            twofactor = input("Input 2-factor authentication code: ")
         except EOFError:
             twofactor = ""
 

@@ -6,13 +6,14 @@ from pocketlint import FalsePositive, PocketLintConfig, PocketLinter
 
 class AnacondaLintConfig(PocketLintConfig):
     def __init__(self):
-        self.falsePositives = [ FalsePositive(r"^E1101:[ 0-9]*,[0-9]*:.*: Instance of '.*' has no 'get_property' member$"),
-                                FalsePositive(r"^E1101:[ 0-9]*,[0-9]*:.*: Instance of '.*' has no 'set_property' member$"),
-                                FalsePositive(r"^E0611:[ 0-9]*,[0-9]*: No name '_isys' in module 'pyanaconda'$"),
-                                FalsePositive(r"^E0611:[ 0-9]*,[0-9]*:.*: No name '_isys' in module 'pyanaconda'$"),
-                                FalsePositive(r"^E0712:[ 0-9]*,[0-9]*:.*: Catching an exception which doesn't inherit from BaseException: GError$"),
-                                FalsePositive(r"gi/module.py:[0-9]*: Warning: g_hash_table_insert_internal: assertion 'hash_table != NULL' failed$"),
-                                FalsePositive(r"^  g_type = info\.get_g_type\(\)$")
+        PocketLintConfig.__init__(self)
+
+        self.falsePositives = [ FalsePositive(r"^E0611.*: No name '_isys' in module 'pyanaconda'$"),
+                                FalsePositive(r"^E0712.*: Catching an exception which doesn't inherit from BaseException: GError$"),
+
+                                # XXX: These are temporary until dogtail and koji have python3 versions.
+                                FalsePositive(r"^F0401.*: Unable to import 'dogtail.*'$"),
+                                FalsePositive(r"^F0401.*: Unable to import 'koji'$")
                               ]
 
     @property

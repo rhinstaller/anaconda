@@ -25,7 +25,7 @@
 import os
 import shutil
 import shlex
-import string
+import string # pylint: disable=deprecated-module
 import tempfile
 from pyanaconda.iutil import upperASCII, eintr_retry_call
 

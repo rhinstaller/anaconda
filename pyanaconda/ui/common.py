@@ -671,7 +671,7 @@ def collect(module_pattern, path, pred):
                        for name in module.__all__
                        if p(getattr(module, name))]
 
-        for (name, val) in members:
+        for (_name, val) in members:
             retval.append(val)
 
     return retval

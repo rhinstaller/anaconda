@@ -175,7 +175,7 @@ def runShell(screen=None, msg=""):
     if screen:
         screen.suspend()
 
-    print
+    print()
     if msg:
         print(msg)
 
@@ -185,7 +185,7 @@ def runShell(screen=None, msg=""):
     else:
         print(_("When finished please exit from the shell and your "
                 "system will reboot."))
-    print
+    print()
 
     proc = None
 

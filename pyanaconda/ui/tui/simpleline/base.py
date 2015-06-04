@@ -26,7 +26,6 @@ import queue
 import getpass
 import threading
 import functools
-import queue
 from pyanaconda.threads import threadMgr, AnacondaThread
 from pyanaconda.ui.communication import hubQ
 from pyanaconda import constants, iutil

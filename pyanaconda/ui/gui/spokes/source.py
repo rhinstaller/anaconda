@@ -369,6 +369,8 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler):
         self._proxyChange = False
         self._cdrom = None
 
+        self._repoChecks = {}
+
     def apply(self):
         # If askmethod was provided on the command line, entering the source
         # spoke wipes that out.
