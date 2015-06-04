@@ -35,14 +35,14 @@ prepare() {
 
 validate() {
     disksdir=$1
-    args=$(for d in ${disksdir}/*img; do echo -a ${d}; done)
+    args=$(for d in ${disksdir}/*img; do echo -drive file=${d}; done)
 
     # Now attempt to boot the resulting VM and see if the install
     # actually worked.  The VM will shut itself down so there's no
     # need to worry with that here.
     timeout 5m /usr/bin/qemu-kvm -m 2048 \
                                  -smp 2 \
-                                 -hda ${img} \
+                                 ${args} \
                                  -vnc localhost:3
 
     # There should be a /root/RESULT file with results in it.  Check
