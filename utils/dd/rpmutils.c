@@ -343,7 +343,6 @@ int explodeDDRPM(const char *source,
         const struct stat *fstat;
         int64_t fsize;
         const char* filename;
-        int needskip = 1; /* do we need to read the data to get to the next header? */
         int offset = 0;
         int towrite = 0;
 
@@ -398,11 +397,7 @@ int explodeDDRPM(const char *source,
             }
 
             rc = archive_read_data_into_fd(cpio, fileno(fdout));
-            if (rc!=ARCHIVE_OK) {
-                /* XXX We didn't get the file.. well.. */
-                needskip = 0;
-            } else {
-                needskip = 0;
+            if (rc==ARCHIVE_OK) {
                 /* set permissions on the new file */
                 chmod(filename+offset, fstat->st_mode);
             }
@@ -415,7 +410,6 @@ int explodeDDRPM(const char *source,
         while (towrite && S_ISLNK(fstat->st_mode)) {
             char symlinkbuffer[BUFFERSIZE-1];
 
-            needskip = 0;
             if ((rc = archive_read_data(cpio, symlinkbuffer, fsize))!=ARCHIVE_OK) {
                 /* XXX We didn't get the file.. well.. */
                 break;
@@ -428,8 +422,6 @@ int explodeDDRPM(const char *source,
             break;
         }
 
-        if(needskip)
-            archive_read_data_skip(cpio);
     }
 
     rc = archive_read_free(cpio); /* Also closes the RPM stream using callback */
