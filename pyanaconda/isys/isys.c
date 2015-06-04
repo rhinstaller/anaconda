@@ -48,6 +48,7 @@ static struct PyModuleDef moduledef = {
 };
 
 PyMODINIT_FUNC
+// cppcheck-suppress unusedFunction
 PyInit__isys(void) {
     return PyModule_Create(&moduledef);
 }
