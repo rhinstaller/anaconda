@@ -73,8 +73,8 @@ class RHELBaseInstallClass(BaseInstallClass):
 class RHELAtomicInstallClass(RHELBaseInstallClass):
     name = "Red Hat Enterprise Linux Atomic Host"
     sortPriority=21000
-    if productName.startswith(("RHEL Atomic Host", "Red Hat Enterprise Linux Atomic")):
-        hidden = False
+    if not productName.startswith(("RHEL Atomic Host", "Red Hat Enterprise Linux Atomic")):
+        hidden = True
 
     def setDefaultPartitioning(self, storage):
         autorequests = [PartSpec(mountpoint="/", fstype=storage.defaultFSType,
