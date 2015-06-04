@@ -5,7 +5,9 @@ network --bootproto=dhcp
 bootloader --timeout=1
 zerombr
 clearpart --all
-autopart
+part --fstype=ext4 --size=4400 /
+part --fstype=ext4 --size=500 /boot
+part --fstype=swap --size=500 swap
 
 # Create a partition that's easy to umount and poke at in %post
 # The escrow certificate is created in %pre, below
