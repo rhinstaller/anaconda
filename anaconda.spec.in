@@ -309,6 +309,136 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Wed Jun 03 2015 Brian C. Lane <bcl@redhat.com> - 21.48.22.3-1
+- Revert "Select http source if there is no mirror enabled." (bcl)
+  Related: rhbz#1196721
+- Make sure /boot is not LVM LV if we're on s390x (sbueno+anaconda)
+  Resolves: rhbz#873135
+  Related: rhbz#1196721
+- Preserve kickstart url behavior for mirrorlist (bcl)
+  Related: rhbz#1196721
+  Related: rhbz#1109933
+- Use a backslash to escape nfs spaces instead of x20 (bcl)
+  Related: rhbz#1196721
+  Related: rhbz#1109933
+- Create missing parent directories for user's home directory (bcl)
+  Resolves: rhbz#1163775
+  Related: rhbz#1196721
+- custom: Clearing errors should also clear Done clicked state (bcl)
+  Related: rhbz#1196721
+  Resolves: rhbz#1158609
+- Clear errors when downloading new MD in text (bcl)
+  Related: rhbz#1196721
+  Related: rhbz#1125927
+- Return result of default key handling in text summary hub (bcl)
+  Related: rhbz#1196721
+  Related: rhbz#997405
+- Protect protected devices in custom spoke (bcl)
+  Related: rhbz#1196721
+  Resolves: rhbz#1052883
+- Don't call storage.write for dirinstall (bcl)
+  Related: rhbz#1196721
+  Related: rhbz#1120206
+- Don't call BusyCursor before Gdk is setup (bcl)
+  Resolves: rhbz#1078868
+  Related: rhbz#1196721
+- Handle spaces in inst.repo, kickstart nfs, and url commands (bcl)
+  Resolves: rhbz#1109933
+  Related: rhbz#1196721
+- Exclude hfsplus-tools from rhel (bcl)
+  Related: rhbz#1196721
+  Resolves: rhbz#1119305
+- Skip nvram update on ppc64 image/dir installations (bcl)
+  Resolves: rhbz#1136486
+  Related: rhbz#1196721
+- CmdlineError should exit with a 1 (bcl)
+  Related: rhbz#1196721
+  Related: rhbz#1102318
+- Remove logging to tty3 and tty5 (bcl)
+  Resolves: rhbz#1073336
+  Related: rhbz#1196721
+- Only install liveinst symlink on supported arches (bcl)
+  Related: rhbz#1121678
+  Related: rhbz#1196721
+- Mountpoint encrypted checkbox reflects container state (bcl)
+  Resolves: rhbz#1076171
+  Related: rhbz#1196721
+- Write sslverify=0 for url kickstart method (bcl)
+  Related: rhbz#1196721
+  Resolves: rhbz#1116858
+- Add noverifyssl and proxy support to dracut ks handling (bcl)
+  Related: rhbz#1196721
+  Resolves: rhbz#1116858
+- Install selected ks repos to target (bcl)
+  Related: rhbz#1196721
+  Resolves: rhbz#1119867
+- Add check for the format of grub2 encrypted password (bcl)
+  Related: rhbz#1196721
+  Related: rhbz#1070327
+- Use low level file i/o for rpm callback logging (bcl)
+  Related: rhbz#1196721
+  Resolves: rhbz#1035745
+- Add platform specific group selection (bcl)
+  Resolves: rhbz#884385
+  Related: rhbz#1196721
+- reiserfs is not supported (bcl)
+  Related: rhbz#1196721
+  Resolves: rhbz#1066635
+- remove epdb SIGHUP debug handler (bcl)
+  Related: rhbz#1196721
+  Related: rhbz#1065557
+- Clean up some rpmdiff errors (bcl)
+  Related: rhbz#1196721
+  Resolves: rhbz#1012624
+- Remove Closest mirrors if no mirrors (bcl)
+  Related: rhbz#876135
+  Related: rhbz#1196721
+- Select http source if there is no mirror enabled. (bcl)
+  Related: rhbz#876135
+  Related: rhbz#1196721
+- Use RHEL7 kickstart commands (bcl)
+  Related: rhbz#1196721
+- Show error on invalid username attempts in TUI. (sbueno+anaconda)
+  Resolves: rhbz#1171778
+- Fix enlightbox call in ZFCPDialog. (sbueno+anaconda)
+  Related: rhbz#1196721
+- Get rid of unnecessary python disable-msg in zfcp spoke. (sbueno+anaconda)
+  Related: rhbz#1196721
+- Fix some pylint errors in the zfcp panel. (sbueno+anaconda)
+  Related: rhbz#1196721
+- Fix an accelerator collision found on the filter page. (sbueno+anaconda)
+  Related: rhbz#1196721
+- Fix some issues pylint found. (sbueno+anaconda)
+  Related: rhbz#1196721
+- Show disk paths on Other page in advstorage. (sbueno+anaconda)
+  Related: rhbz#1196721
+- Add missing translation context for Add ECKD DASD button in advstorage.
+  (sbueno+anaconda)
+  Related: rhbz#1196721
+- Add translation contexts for z and zfcp panel in advstorage.
+  (sbueno+anaconda)
+  Related: rhbz#1196721
+- Convert devices size to str for GUI for zFCP devices (amulhern)
+  Related: rhbz#1196721
+- Fix string formatting of zFCP devices. (sbueno+anaconda)
+  Related: rhbz#1196721
+- Fix the way zFCP devices are displayed in storage spoke. (sbueno+anaconda)
+  Related: rhbz#1196721
+- Show labels on Add zFCP dialog. (sbueno+anaconda)
+  Related: rhbz#1196721
+- Fix failure to search by LUN in advanced storage spoke. (sbueno+anaconda)
+  Related: rhbz#1196721
+- Get rid of the clear button in advanced storage spoke. (sbueno+anaconda)
+  Related: rhbz#1196721
+- Fix up the z Panel in advanced storage. (sbueno+anaconda)
+  Related: rhbz#1196721
+- Add support for adding zFCP devices in the GUI (sbueno+anaconda)
+  Related: rhbz#1196721
+- Fix dracut reads ksdevice from missing os enviromnent (jkonecny)
+  Related: rhbz#1085310
+- Fix --device=link and --device not specified (rvykydal)
+  Resolves: rhbz#1085310
+
 * Mon Jun 01 2015 Brian C. Lane <bcl@redhat.com> - 21.48.22.2-1
 - Remove an extlinux-related block from rpmostreepayload.py. (clumens)
   Related: rhbz#1196721
