@@ -29,11 +29,18 @@ if [ ! -d /usr/share/doc ]; then
     echo SUCCESS > /root/RESULT
 else
     cd /usr/share/doc
-    count=$(find . | grep -v -E "^\.$" | wc -l)
+    count=$(find . -type f | grep -v -E "^\.$" | wc -l)
+
     if [ $count -eq 0 ]; then
-        echo "SUCCESS - but the /usr/share/doc directory still exists" > /root/RESULT
+        dirs=$(find . -type d | grep -v -E "^\.$" | wc -l)
+
+        if [ $dirs -eq 0 ]; then
+            echo SUCCESS > /root/result
+        else
+            echo "SUCCESS - but directories still exist under /usr/share/doc" > /root/RESULT
+        fi
     else
-        echo "there are files and possibly directories in /usr/share/doc" > /root/RESULT
+        echo "there are files in /usr/share/doc" > /root/RESULT
         echo >> /root/RESULT
         find /usr/share/doc >> /root/RESULT
     fi
