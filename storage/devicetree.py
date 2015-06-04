@@ -1634,7 +1634,7 @@ class DeviceTree(object):
                 lv_name = re.sub(r'_[tr]meta.*', '', lv_name[1:-1])
                 name = "%s-%s" % (vg_name, lv_name)
                 addRequiredLV(name, "failed to look up raid lv")
-                raid[lv_name]["meta"] += lv_size
+                raid[name]["meta"] += lv_size
                 return
             elif lv_attr[0] == 'l':
                 # log volume
@@ -1668,6 +1668,7 @@ class DeviceTree(object):
                 #   O origin with merging snapshot
                 return
 
+            added = False
             lv_dev = self.getDeviceByUuid(lv_uuid)
             if lv_dev is None:
                 lv_device = lv_class(lv_name, lv_parents,
@@ -1676,7 +1677,7 @@ class DeviceTree(object):
                 self._addDevice(lv_device)
                 try:
                     lv_device.setup()
-                    ret = True
+                    added = True
                 except DeviceError as (msg, name):
                     log.info("setup of %s failed: %s"
                                         % (lv_device.name, msg))
@@ -1691,11 +1692,13 @@ class DeviceTree(object):
                     # do format handling now
                     self.addUdevDevice(lv_info)
 
-        raid = dict((n.replace("[", "").replace("]", ""),
+            return added
+
+        raid = dict(("%s-%s" % (vg_name, n.replace("[", "").replace("]", "")),
                      {"copies": 0, "log": 0, "meta": 0})
                      for n in lv_names)
         for lv in zip(lv_names, lv_uuids, lv_sizes, lv_attr, lv_types):
-            addLV(*lv)
+            ret = addLV(*lv) or ret
 
         for name, data in raid.items():
             lv_dev = self.getDeviceByName(name)
