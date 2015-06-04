@@ -24,6 +24,9 @@ import logging
 logging.basicConfig(level=logging.DEBUG)
 log = logging.getLogger("bugzilla")
 log.setLevel(logging.INFO)
+urllib_log = logging.getLogger("requests.packages.urllib3")
+urllib_log.setLevel(logging.ERROR)
+
 
 import bugzilla
 from contextlib import closing
@@ -598,6 +601,7 @@ def main(argv):
             skip_all = True
         elif o in ('-d', '--debug'):
             log.setLevel(logging.DEBUG)
+            urllib_log.setLevel(logging.DEBUG)
         elif o in ('--skip-zanata'):
             skip_zanata = True
         elif o in ('--skip-jenkins'):
