@@ -623,9 +623,9 @@ class ClearPart(commands.clearpart.F21_ClearPart):
 
         storage.clearPartitions()
 
-class Fcoe(commands.fcoe.F13_Fcoe):
+class Fcoe(commands.fcoe.RHEL7_Fcoe):
     def parse(self, args):
-        fc = commands.fcoe.F13_Fcoe.parse(self, args)
+        fc = commands.fcoe.RHEL7_Fcoe.parse(self, args)
 
         if fc.nic not in nm.nm_devices():
             raise KickstartValueError(formatErrorMsg(self.lineno,
