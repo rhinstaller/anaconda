@@ -261,38 +261,25 @@ class IfcfgFile(SimpleConfigFile):
 def dumpMissingDefaultIfcfgs():
     """
     Dump missing default ifcfg file for wired devices.
-    For default auto connections created by NM upon start - which happens
-    in case of missing ifcfg file - rename the connection using device name
-    and dump its ifcfg file. (For server, default auto connections will
-    be turned off in NetworkManager.conf.)
-    The connection id (and consequently ifcfg file) is set to device name.
     Returns list of devices for which ifcfg file was dumped.
-
     """
     rv = []
 
     for devname in nm.nm_devices():
-        # for each ethernet device
-        # FIXME add more types (infiniband, bond...?)
         if not nm.nm_device_type_is_ethernet(devname):
             continue
 
-        # check that device has connection without ifcfg file
         try:
             nm.nm_device_setting_value(devname, "connection", "uuid")
         except nm.SettingsNotFoundError:
-            continue
-        if find_ifcfg_file_of_device(devname):
-            continue
-
-        try:
-            nm.nm_update_settings_of_device(devname, [['connection', 'id', devname, None]])
-            log.debug("network: dumping ifcfg file for default autoconnection on %s", devname)
-            nm.nm_update_settings_of_device(devname, [['connection', 'autoconnect', False, None]])
-            log.debug("network: setting autoconnect of %s to False" , devname)
-        except nm.SettingsNotFoundError:
-            log.debug("network: no ifcfg file for %s", devname)
-        rv.append(devname)
+            if find_ifcfg_file_of_device(devname):
+                continue
+            from pyanaconda.kickstart import AnacondaKSHandler
+            handler = AnacondaKSHandler()
+            # pylint: disable=E1101
+            network_data = handler.NetworkData(onboot=False, ipv6="auto")
+            add_connection_for_ksdata(network_data, devname)
+            rv.append(devname)
 
     return rv
 
