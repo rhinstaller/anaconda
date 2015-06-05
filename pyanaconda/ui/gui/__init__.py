@@ -30,7 +30,7 @@ from pyanaconda.constants import IPMI_ABORTED
 from pyanaconda import product, iutil
 
 from pyanaconda.ui import UserInterface, common
-from pyanaconda.ui.gui.utils import gtk_action_wait, busyCursor, unbusyCursor
+from pyanaconda.ui.gui.utils import gtk_action_wait, unbusyCursor
 from pyanaconda import ihelp
 import os.path
 
@@ -817,7 +817,7 @@ class GraphicalUserInterface(UserInterface):
         # content for the current screen
         ihelp.start_yelp(ihelp.get_help_path(obj.helpFile, self.instclass))
 
-    def _on_mnemonics_visible_changed(self, window, property, obj):
+    def _on_mnemonics_visible_changed(self, window, property_type, obj):
         # mnemonics display has been activated or deactivated,
         # add or remove the F1 mnemonics display from the help button
         help_button = obj.window.get_help_button()

@@ -21,7 +21,6 @@
 
 from pyanaconda.ui import common
 from pyanaconda.ui.gui import GUIObject
-import os.path
 from pyanaconda import ihelp
 
 __all__ = ["StandaloneSpoke", "NormalSpoke"]

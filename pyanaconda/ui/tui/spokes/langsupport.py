@@ -26,8 +26,6 @@ from pyanaconda.ui.common import FirstbootSpokeMixIn
 from pyanaconda import localization
 from pyanaconda.i18n import N_, _
 
-from pyanaconda import flags
-
 class LangSpoke(FirstbootSpokeMixIn, NormalTUISpoke):
     """
     This spoke allows a user to select their installed language. Note that this

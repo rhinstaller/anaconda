@@ -54,7 +54,7 @@ class SourceSpoke(EditTUISpoke, SourceSwitchHandler):
     title = N_("Installation source")
     category = SoftwareCategory
 
-    _protocols = ("http://", "https://", "ftp://", "nfs", N_("Closest mirror"))
+    _protocols = ["http://", "https://", "ftp://", "nfs", N_("Closest mirror")]
 
     # default to 'closest mirror', as done in the GUI
     _selection = 1
@@ -65,6 +65,8 @@ class SourceSpoke(EditTUISpoke, SourceSwitchHandler):
         self._ready = False
         self._error = False
         self._cdrom = None
+
+        self.errors = []
 
     def initialize(self):
         EditTUISpoke.initialize(self)

@@ -21,7 +21,6 @@
 #
 
 import os
-import shutil
 import sys
 
 from pyanaconda import constants
@@ -43,6 +42,9 @@ class RPMOSTreePayload(ArchivePayload):
     """ A RPMOSTreePayload deploys a tree (possibly with layered packages) onto the target system. """
     def __init__(self, data):
         super(RPMOSTreePayload, self).__init__(data)
+
+        self._base_remote_args = None
+        self._sysroot_path = None
 
     @property
     def handlesBootloaderConfiguration(self):

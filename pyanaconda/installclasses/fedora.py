@@ -30,8 +30,6 @@ class FedoraBaseInstallClass(BaseInstallClass):
 
     _l10n_domain = "anaconda"
 
-    installUpdates = True
-
     efi_dir = "fedora"
 
     help_placeholder = "FedoraPlaceholder.html"

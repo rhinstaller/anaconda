@@ -111,7 +111,7 @@ class PassphraseDialog(GUIObject, GUIInputCheckHandler):
         try:
             strength = self._pwq.check(passphrase, None, None)
         except pwquality.PWQError as e:
-            self._pwq_error = e[1]
+            self._pwq_error = e.args[1]
 
         if strength < 50:
             val = 1

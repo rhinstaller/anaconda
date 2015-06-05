@@ -280,7 +280,7 @@ def findExistingOstreePartitions(devicetree):
             continue
 
         name = _("Ostree on %s") % device.name
-        roots.append(blivet.Root(mounts=None, swaps=None, name=device.name))
+        roots.append(blivet.Root(mounts=None, swaps=None, name=name))
 
     return roots
 
@@ -462,7 +462,7 @@ def doRescue(intf, rescue_mount, ksdata):
                     pass
         except (ValueError, LookupError, SyntaxError, NameError):
             raise
-        except Exception as e:
+        except Exception as e:    # pylint: disable=broad-except
             log.error("doRescue caught exception: %s", e)
             if flags.automatedInstall:
                 log.error("An error occurred trying to mount some or all of your system")

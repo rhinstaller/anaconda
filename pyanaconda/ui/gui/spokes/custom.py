@@ -2019,7 +2019,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
 
         log.debug("%s -> %s", container_name, self._device_container_name)
         if container_name == self._device_container_name:
-            self.on_apply_clicked(None)
+            self.on_update_settings_clicked(None)
             return
 
         log.debug("renaming container %s to %s", container_name, self._device_container_name)
@@ -2057,7 +2057,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         self._containerStore.remove(self._containerStore.get_iter_from_string("%s" % (idx + 1)))
 
         self._update_selectors()
-        self.on_apply_clicked(None)
+        self.on_update_settings_clicked(None)
 
     def on_container_changed(self, combo):
         ndx = combo.get_active()

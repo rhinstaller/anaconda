@@ -1392,10 +1392,7 @@ class GRUB2(GRUB):
     packages = ["grub2"]
     _config_file = "grub.cfg"
     _config_dir = "grub2"
-    config_file_mode = 0o600
     defaults_file = "/etc/default/grub"
-    can_dual_boot = True
-    can_update = True
     terminal_type = "console"
 
     # requirements for boot devices
