@@ -11,8 +11,8 @@ restorecon -i /etc/rpm/macros /etc/dasd.conf /etc/zfcp.conf /lib64 /usr/lib64 \
               /etc/blkid.tab* /etc/mtab /etc/fstab /etc/resolv.conf \
               /etc/modprobe.conf* /var/log/*tmp /etc/crypttab \
               /etc/mdadm.conf /etc/sysconfig/network /root/install.log* \
-              /etc/*shadow* /etc/dhcp/dhclient-*.conf /etc/localtime \
-              /etc/hostname /root/install.log*
+              /etc/*shadow* /etc/group* /etc/passwd* /etc/dhcp/dhclient-*.conf \
+              /etc/localtime /etc/hostname /root/install.log*
 
 if [ -e /etc/zipl.conf ]; then
     restorecon -i /etc/zipl.conf
