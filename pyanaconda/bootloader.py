@@ -586,8 +586,8 @@ class BootLoader(object):
             log.debug("stage1 device cannot be of type %s", device.type)
             return False
 
-        if blivet.arch.isS390() and _is_on_iscsi(device):
-            log.debug("stage1 device cannot be on an iSCSI disk on s390(x)")
+        if _is_on_iscsi(device) and not getattr(device, "ibft", False):
+            log.debug("stage1 device cannot be on an iSCSI disk")
             return False
 
         description = self.device_description(device)
@@ -698,8 +698,8 @@ class BootLoader(object):
         if device.protected:
             valid = False
 
-        if blivet.arch.isS390() and _is_on_iscsi(device):
-            self.errors.append(_("%s cannot be on an iSCSI disk on s390(x)") % self.stage2_description)
+        if _is_on_iscsi(device) and not getattr(device, "ibft", False):
+            self.errors.append(_("%s cannot be on an iSCSI disk") % self.stage2_description)
             valid = False
 
         if not self._device_type_match(device, self.stage2_device_types):
