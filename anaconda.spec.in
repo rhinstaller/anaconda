@@ -307,6 +307,120 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Fri Jun 05 2015 Brian C. Lane <bcl@redhat.com> - 21.48.22.4-1
+- network: on rhel don't assume autoconnections created by NM (rvykydal)
+  Related: rhbz#1196721
+- Start vncconfig for cut/paste (hamzy)
+  Resolves: rhbz#1169991
+- Don't unconditionally set ksdata.lang.seen to True (mkolman)
+  Related: rhbz#1198642
+- Make sure LANG is always set to something (dshea)
+  Resolves: rhbz#1198642
+- Add links to clickable warning and error messages. (dshea)
+  Resolves: rhbz#1125145
+- Add a test to look for clickable messages that aren't clickable enough.
+  (dshea)
+  Related: rhbz#1125145
+- Allow markup and links in the info bar. (dshea)
+  Related: rhbz#1125145
+- Update the FCOE command to use the RHEL7 base class. (clumens)
+  Related: rhbz#1196721
+- Fix RHEL Atomic installclass test (bcl)
+  Related: rhbz#1196721
+- Use a rhel7.2 mock chroot for rc-release (bcl)
+  Related: rhbz#1196721
+- Build documentation during build instead of dist (dshea)
+  Related: rhbz#1196721
+- Clean out the mock chroot before attempting to run the rest of the test.
+  (clumens)
+  Related: rhbz#1196721
+- Put all mock results into the top-level source dir. (clumens)
+  Related: rhbz#1196721
+- Change dracut requires to the RHEL7 version. (bcl)
+  Related: rhbz#1196721
+- dnf is not supported in RHEL7 (bcl)
+  Related: rhbz#1196721
+- Use createrepo, createrepo_c isn't available in RHEL7 (bcl)
+  Related: rhbz#1196721
+- Change F21 pykickstart commands to RHEL7 (jkonecny)
+  Related: rhbz#1196721
+- Add an option to startProgram to not reset the locale (dshea)
+  Related: rhbz#1188287
+- Set $LIBUSER_CONF early (dshea)
+  Related: rhbz#1188287
+- Assume UTC if setting the system time without a timezone (dshea)
+  Related: rhbz#1188287
+- Do not set $TZ (dshea)
+  Related: rhbz#1188287
+- Beware of 0 being the same bool value as None when setting time (vpodzime)
+  Related: rhbz#1188287
+- Fix the last member of the struct_time struct (vpodzime)
+  Related: rhbz#1188287
+- Remove timestamp-based version support. (dshea)
+  Related: rhbz#1188287
+- Avoid setting $LANG and $LANGUAGE, except where we can't (dshea)
+  Resolves: rhbz#1188287
+- Add a parameter to iutil.startProgram to extend the environment (dshea)
+  Related: rhbz#1188287
+- Add a method to set environment variables for child processes (dshea)
+  Related: rhbz#1188287
+- Set $DISPLAY before threads are started. (dshea)
+  Related: rhbz#1188287
+- Handle the simple cases of environment modification. (dshea)
+  Related: rhbz#1188287
+- Always use iutil to start processes. (dshea)
+  Related: rhbz#1188287
+- Move the X startup logic to iutil (dshea)
+  Related: rhbz#1188287
+- Move process watching to iutil. (dshea)
+  Related: rhbz#1188287
+- Close file descriptors while daemonizing auditd (dshea)
+  Related: rhbz#1188287
+- Add an option to only capture stdout with execWithCapture (dshea)
+  Related: rhbz#1188287
+- Simplify iutil.execReadlines. (dshea)
+  Related: rhbz#1188287
+- Add close_fds to the Popen call. (dshea)
+  Related: rhbz#1188287
+- Add an option to startProgram to reset signal handlers. (dshea)
+  Related: rhbz#1188287
+- Add a method startProgram to handle process starting (dshea)
+  Related: rhbz#1188287
+- Lock program_log_lock closer to where the log is written. (dshea)
+  Related: rhbz#1188287
+- Add missing files to po/POTFILES.in, after fixing the test for them.
+  (clumens)
+  Related: rhbz#1196721
+- Backport iutil_test.py updates from master (atodorov). (clumens)
+  Related: rhbz#1196721
+- Backport pylint updates from master (atodorov). (clumens)
+  Related: rhbz#1196721
+- Fix strings with style problems. (clumens)
+  Related: rhbz#1196721
+- Backport gettext updates from master (atodorov). (clumens)
+  Related: rhbz#1196721
+- Remove the automated GUI tests. (clumens)
+  Related: rhbz#1196721
+- Fix Kickstart installation without default gateway errors out (jkonecny)
+  Resolves: rhbz#1147181
+- rescue: find root partition of ostree (atomic) installations (rvykydal)
+  Resolves: rhbz#1152041
+- Identify Atomic install class by correct product name (rvykydal)
+  Resolves: rhbz#1193268
+- rpmostreepayload: Avoid shutil.copytree in favor of cp -r to fix symlinks
+  (walters)
+  Resolves: rhbz#1199127
+- atomic: set up atomic specific partitioning defaults (rvykydal)
+  Resolves: rhbz#1155452
+- A couple updates to installclasses. (clumens)
+  Related: rhbz#1155452
+- rpmostreepayload: Rework remote add handling (walters)
+  Resolves: rhbz#1199127
+- Use RHEL7 Bootloader command in parse-kickstart (rvykydal)
+  Related: rhbz#1196721
+- Use RHEL7 Network command in parse-kickstart (rvykydal)
+  Related: rhbz#1196721
+
 * Wed Jun 03 2015 Brian C. Lane <bcl@redhat.com> - 21.48.22.3-1
 - Revert "Select http source if there is no mirror enabled." (bcl)
   Related: rhbz#1196721
