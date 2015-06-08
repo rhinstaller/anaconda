@@ -19,6 +19,8 @@ SUBDIRS = hubs spokes tools
 
 MAINTAINERCLEANFILES = Makefile.in
 
+EXTRA_DIST   = $(srcdir)/*.h
+
 pkgpyexecdir = $(pyexecdir)/py$(PACKAGE_NAME)
 guidir       = $(pkgpyexecdir)/ui/gui
 gui_PYTHON   = $(srcdir)/*.py

@@ -19,6 +19,8 @@ SUBDIRS = advstorage lib
 
 MAINTAINERCLEANFILES = Makefile.in
 
+EXTRA_DIST       = $(srcdir)/*.h
+
 pkgpyexecdir     = $(pyexecdir)/py$(PACKAGE_NAME)
 spokesdir        = $(pkgpyexecdir)/ui/gui/spokes
 spokes_PYTHON    = $(srcdir)/*.py

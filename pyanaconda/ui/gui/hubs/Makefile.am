@@ -17,6 +17,8 @@
 
 MAINTAINERCLEANFILES = Makefile.in
 
+EXTRA_DIST     = $(srcdir)/*.h
+
 pkgpyexecdir   = $(pyexecdir)/py$(PACKAGE_NAME)
 hubsdir        = $(pkgpyexecdir)/ui/gui/hubs
 hubs_PYTHON    = $(srcdir)/*.py
