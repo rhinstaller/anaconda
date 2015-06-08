@@ -267,7 +267,7 @@ class ISCSIDialog(GUIObject):
         # Now get the node discovery credentials.
         credentials = discoverMap[self._authNotebook.get_current_page()](self.builder)
 
-        discoveredLabelText = _("The following nodes were discovered using the iSCSI initiator "\
+        discoveredLabelText = _("The following nodes have been discovered using the iSCSI initiator "\
                                 "<b>%(initiatorName)s</b> using the target IP address "\
                                 "<b>%(targetAddress)s</b>.  Please select which nodes you "\
                                 "wish to log into:") % \
