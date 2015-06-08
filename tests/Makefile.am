@@ -46,6 +46,7 @@ dist_check_SCRIPTS = $(srcdir)/glade/*/*.py \
 		     pylint/pylint-one.sh \
 		     cppcheck/runcppcheck.sh \
 		     testenv.sh \
+		     gettext/click.py \
 		     gettext/gettext_warnings.sh \
 		     gettext/gettext_potfiles.py \
 		     gettext/style_guide.py \
