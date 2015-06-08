@@ -152,6 +152,11 @@ def startProgram(argv, root='/', stdin=None, stdout=subprocess.PIPE, stderr=subp
     # Check for and save a preexec_fn argument
     preexec_fn = kwargs.pop("preexec_fn", None)
 
+    # Map reset_handlers to the restore_signals Popen argument.
+    # restore_signals handles SIGPIPE, and preexec below handles any additional
+    # signals ignored by anaconda.
+    restore_signals = reset_handlers
+
     def preexec():
         # If a target root was specificed, chroot into it
         if target_root and target_root != '/':
@@ -188,6 +193,7 @@ def startProgram(argv, root='/', stdin=None, stdout=subprocess.PIPE, stderr=subp
                             stdout=stdout,
                             stderr=stderr,
                             close_fds=True,
+                            restore_signals=restore_signals,
                             preexec_fn=preexec, cwd=root, env=env, **kwargs)
 
 def startX(argv, output_redirect=None):
