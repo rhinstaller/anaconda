@@ -307,6 +307,28 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Mon Jun 08 2015 Brian C. Lane <bcl@redhat.com> - 21.48.22.5-1
+- Actually distribute the clickable message test (dshea)
+  Related: rhbz#1125145
+- Get rid of the find button in the filter spoke. (dshea)
+  Related: rhbz#1168950
+- Rearrange filter.glade (dshea)
+  Related: rhbz#1168950
+- Fix errors in the vendor column renderers. (dshea)
+  Related: rhbz#1168950
+- Fix some minor inconsistencies in filter.glade (dshea)
+  Related: rhbz#1168950
+- Fix issues with advanced storage searching. (dshea)
+  Resolves: rhbz#1168950
+- Remove duplicate entries from search combo boxes (dshea)
+  Resolves: rhbz#1168950
+- Use named IDs for the filter type combo boxes. (dshea)
+  Related: rhbz#1168950
+- Rearrange filter.glade the way glade wants it now (dshea)
+  Related: rhbz#1168950
+- Pass the pylint test. (clumens)
+  Related: rhbz#1196721
+
 * Fri Jun 05 2015 Brian C. Lane <bcl@redhat.com> - 21.48.22.4-1
 - network: on rhel don't assume autoconnections created by NM (rvykydal)
   Related: rhbz#1196721
