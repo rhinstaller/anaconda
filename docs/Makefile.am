@@ -17,8 +17,8 @@
 #
 # Author: David Cantrell <dcantrell@redhat.com>
 
-EXTRA_DIST = *.rst *.txt
+EXTRA_DIST = $(srcdir)/*.rst $(srcdir)/*.txt
 
-CLEANFILES = api *.xml
+CLEANFILES = api $(builddir)/*.xml
 
 MAINTAINERCLEANFILES = Makefile.in
