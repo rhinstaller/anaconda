@@ -41,6 +41,7 @@ import shutil
 import sys
 import time
 from pyanaconda.iutil import execReadlines
+from pyanaconda.simpleconfig import simple_replace
 from functools import wraps
 
 import logging
@@ -250,9 +251,14 @@ class YumPayload(PackagePayload):
         iutil.mkdirChain(os.path.dirname(_yum_installer_langpack_conf))
         shutil.copy2(_yum_target_langpack_conf,
                      _yum_installer_langpack_conf)
-        with open(_yum_installer_langpack_conf, "a") as f:
-            f.write("# Added by Anaconda\n")
-            f.write("langpack_locales = %s\n" % ", ".join(langs))
+
+        try:
+            # langpacks.conf is an INI style config file, read it and
+            # Add or change the langpack_locales entry without changing anything else.
+            keys=[("langpack_locales", "langpack_locales="+", ".join(langs))]
+            simple_replace(_yum_installer_langpack_conf, keys)
+        except IOError as msg:
+            log.error ("Error setting langpack_locales: %s", msg)
 
     def _copyLangpacksConfigToTarget(self):
         shutil.copy2(_yum_installer_langpack_conf,
