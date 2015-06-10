@@ -32,13 +32,26 @@ case $repo in
         # after this point.
         repo=${repo//\\x20/ }
 
-        # HACK: work around some Mysterious NFS4 Badness (#811242 and friends)
-        # by defaulting to nfsvers=3 when no version is requested
-        nfs_to_var "$repo" $netif
-        if [ "$nfs" != "nfs4" ] && ! strstr "$options" "vers="; then
-            repo="nfs:${options:+$options,}nfsvers=3:$server:$path"
+        # Convert nfs4 to nfs:nfsvers=4
+        #
+        # The reason for this is because anaconda's nfs and dracut's nfs are different.
+        # dracut expects options at the end, anaconda puts them after nfs:
+        # dracut has a special case to handle anaconda's nfs: form but not nfs4:
+        if str_starts "$repo" "nfs4:"; then
+            repo=nfs:${repo#nfs4:}
+            nfs_to_var "$repo" $netif
+            if ! strstr "$options" "vers="; then
+                repo="nfs:${options:+$options,}nfsvers=4:$server:$path"
+            fi
+        else
+            # HACK: work around some Mysterious NFS4 Badness (#811242 and friends)
+            # by defaulting to nfsvers=3 when no version is requested
+            nfs_to_var "$repo" $netif
+            if ! strstr "$options" "vers="; then
+                repo="nfs:${options:+$options,}nfsvers=3:$server:$path"
+            fi
+            # END HACK. FIXME: Figure out what is up with nfs4, jeez
         fi
-        # END HACK. FIXME: Figure out what is up with nfs4, jeez
         if [ "${repo%.iso}" == "$repo" ]; then
             mount_nfs "$repo" "$repodir" "$netif" || warn "Couldn't mount $repo"
             anaconda_live_root_dir $repodir
