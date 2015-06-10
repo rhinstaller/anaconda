@@ -23,7 +23,6 @@ from gi.repository import Gio, GLib
 from gi.repository import NetworkManager
 import struct
 import socket
-import types
 import logging
 log = logging.getLogger("anaconda")
 
@@ -985,7 +984,7 @@ def _gvariant_settings(settings, updated_key1, updated_key2, value, default_type
 
     if type_str is None:
         # infer the new value type for string and boolean
-        if isinstance(value, types.BooleanType):
+        if isinstance(value, bool):
             type_str = 'b'
         elif isinstance(value, str):
             type_str = 's'
