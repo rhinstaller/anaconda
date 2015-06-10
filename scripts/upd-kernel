@@ -4,7 +4,7 @@
 # with a new kernel + initrd
 # Usage: ./upd-kernel <olddir> <newdir> <newkernelrpm>
 #
-# Copyright (C) 2007  Red Hat, Inc.  All rights reserved.
+# Copyright (C) 2007-2015  Red Hat, Inc.  All rights reserved.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -56,20 +56,28 @@ popd > /dev/null
 # explode the initrd
 mkdir initrd
 pushd initrd > /dev/null
-zcat $OLDDIR/initrd.img | cpio -id --quiet
+xzcat $OLDDIR/initrd.img | cpio -id --quiet
 
-for mod in $(find modules/ -type f -name '*.ko.gz' -exec basename {} \; | sort | uniq) ; do
-    for path in $(find $WORKDIR/rpm/lib/modules/$NEWVER/ -name ${mod%.gz}); do
-        dest=${path##$WORKDIR/rpm/lib/}
+# delete the old module dir
+for oldmoddir in $(find lib/modules/ -type f -name 'modules.dep' -exec dirname {} \; ) ; do
+    rm -rf $oldmoddir
+done
+
+for mod in $(find lib/modules/ -type f -name '*.ko' -exec basename {} \; | sort | uniq) ; do
+    for path in $(find $WORKDIR/rpm/lib/modules/$NEWVER/ -name ${mod}); do
+        dest=${path##$WORKDIR/rpm/}
         mkdir -p $(dirname $dest)
-        gzip < $path > $dest.gz
+        cp -p $path $dest
     done
 done
 
-/sbin/depmod -a -b . $NEWVER
-rm -f modules/$NEWVER/modules.*map
+cp -p $WORKDIR/rpm/lib/modules/$NEWVER/modules.order lib/modules/$NEWVER
+cp -p $WORKDIR/rpm/lib/modules/$NEWVER/modules.builtin lib/modules/$NEWVER
 
-find . | cpio --quiet -c -o | gzip -9 > $NEWDIR/initrd.img
+/sbin/depmod -a -b . $NEWVER
+rm -f lib/modules/$NEWVER/modules.*map
+
+find . | cpio --quiet -c -o | xz --format=lzma -9 > $NEWDIR/initrd.img
 popd > /dev/null
 
 cp $WORKDIR/rpm/boot/vmlinuz-* $NEWDIR/vmlinuz
