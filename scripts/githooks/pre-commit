@@ -39,7 +39,7 @@ except CalledProcessError:
 if not git_files:
     sys.exit(0)
 
-git_files = git_files.strip('\0').split('\0')
+git_files = git_files.decode('utf-8').strip('\0').split('\0')
 
 pylint_names = []
 pylint_files = []
@@ -82,9 +82,9 @@ env["PYTHONPATH"] = OTHER_MODULES_PATH
 
 print("Running pylint on %s" % " ".join(pylint_names))
 try:
-    check_output(["./tests/pylint/runpylint.sh"] + pylint_files, env=env)
+    check_output(["./tests/pylint/runpylint.py"] + pylint_files, env=env)
 except CalledProcessError as e:
-    print(e.output)
+    print(e.output.decode('utf-8'))
     sys.exit(1)
 
 sys.exit(0)
