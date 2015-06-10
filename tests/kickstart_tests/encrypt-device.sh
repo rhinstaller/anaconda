@@ -18,3 +18,22 @@
 # Red Hat Author(s): Anne Mulhern <amulhern@redhat.com>
 
 . ${KSTESTDIR}/functions.sh
+
+validate() {
+    disksdir=$1
+    args=$(for d in ${disksdir}/*img; do echo -a ${d}; done)
+
+    # There should be a /home/RESULT (because / is encrypted) file with results
+    # in it.  Check its contents and decide whether the test finally succeeded
+    # or not.
+    result=$(virt-cat ${args} -m /dev/mapper/vg01-home_lv /RESULT)
+    if [[ $? != 0 ]]; then
+        status=1
+        echo '*** /home/RESULT does not exist in VM image.'
+    elif [[ "${result}" != SUCCESS* ]]; then
+        status=1
+        echo "${result}"
+    fi
+
+    return ${status}
+}

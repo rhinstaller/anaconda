@@ -25,8 +25,8 @@ shutdown
 %post
 root_lv_type=$(blkid -ovalue -sTYPE /dev/mapper/vg01-root_lv)
 if [ "$root_lv_type" != "crypto_LUKS" ]; then
-    echo "root LV is not encrypted" > /root/RESULT
+    echo "root LV is not encrypted" > /home/RESULT
 else
-    echo SUCCESS > /root/RESULT
+    echo SUCCESS > /home/RESULT
 fi
 %end
