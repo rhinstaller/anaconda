@@ -223,6 +223,14 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Thu Jun 11 2015 Samantha N. Bueno <sbueno+anaconda@redhat.com> - 13.21.237-1
+- Fix scanning of non-leaf lvs. (dlehman)
+  Resolves: rhbz#1213748
+- Fix KeyError in devicetree. (sbueno+anaconda)
+  Resolves: rhbz#1225469
+- Fix partition alignment problems. (sbueno+anaconda)
+  Resolves: rhbz#1209424
+
 * Tue May 19 2015 Samantha N. Bueno <sbueno+anaconda@redhat.com> - 13.21.236-1
 - Include lvm thinp utilities. (dlehman)
   Resolves: rhbz#1212735
