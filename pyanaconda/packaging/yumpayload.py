@@ -69,7 +69,7 @@ from pyanaconda.constants import BASE_REPO_NAME, DRACUT_ISODIR, INSTALL_TREE, IS
 from pyanaconda.flags import flags
 
 from pyanaconda import iutil
-from pyanaconda.iutil import ProxyString, ProxyStringError
+from pyanaconda.iutil import ProxyString, ProxyStringError, xprogressive_delay
 from pyanaconda.i18n import _
 from pyanaconda.nm import nm_is_connected
 from pyanaconda.product import isFinal
@@ -90,6 +90,8 @@ from pykickstart.constants import GROUP_ALL, GROUP_DEFAULT, KS_MISSING_IGNORE
 YUM_PLUGINS = ["fastestmirror", "langpacks"]
 YUM_REPOS_DIR = "/etc/yum.repos.d/"
 BASE_REPO_NAMES = [BASE_REPO_NAME] + PackagePayload.DEFAULT_REPOS
+
+MAX_METADATA_DOWNLOAD_RETRIES = 10
 
 import inspect
 import threading
@@ -635,13 +637,30 @@ reposdir=%s
             with _yum_lock:
                 repo = self._yum.repos.getRepo(repo_id)
                 if repo.enabled:
-                    try:
-                        log.info("gathering repo metadata for %s", repo_id)
-                        self._getRepoMetadata(repo)
-                    except PayloadError as e:
-                        log.error("failed to grab repo metadata for %s: %s",
-                                  repo_id, e)
-                        self.disableRepo(repo_id)
+                    # retry metadata downloads with a progressively longer pause,
+                    # so that unattended installations on unreliable networks have
+                    # a higher chance of finishing successfully
+                    xdelay = xprogressive_delay()
+                    for retry_count in xrange(0, MAX_METADATA_DOWNLOAD_RETRIES + 1):
+                        if retry_count > 0:
+                            # introduce a retry delay
+                            time.sleep(next(xdelay))
+                        try:
+                            log.info("gathering repo metadata for %s", repo_id)
+                            self._getRepoMetadata(repo)
+                            log.info("gathered repo metadata for %s", repo_id)
+                            break
+                        except PayloadError as e:
+                            log.error("failed to grab repo metadata for %s: %s", repo_id, e)
+                            if retry_count < MAX_METADATA_DOWNLOAD_RETRIES:
+                                # retry
+                                log.info("retrying metadata download for repo %s, retrying (%d/%d)",
+                                         repo_id, retry_count + 1, MAX_METADATA_DOWNLOAD_RETRIES)
+                            else:
+                                # run out of retries
+                                log.error("metadata download for repo %s failed after %d retries",
+                                          repo_id, retry_count)
+                                self.disableRepo(repo_id)
                 else:
                     log.info("skipping disabled repo %s", repo_id)
 
