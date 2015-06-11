@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: anaconda 21.48.22.4\n"
+"Project-Id-Version: anaconda 21.48.22.5\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
-"POT-Creation-Date: 2015-06-08 17:33-0700\n"
+"POT-Creation-Date: 2015-06-10 17:15-0700\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -90,7 +90,7 @@ msgstr ""
 
 #: pyanaconda/bootloader.py:700
 #, python-format
-msgid "%s cannot be on an iSCSI disk on s390(x)"
+msgid "%s cannot be on an iSCSI disk"
 msgstr ""
 
 #: pyanaconda/bootloader.py:704
@@ -1734,7 +1734,7 @@ msgstr ""
 
 #: pyanaconda/ui/tui/spokes/storage.py:191
 #: pyanaconda/ui/tui/spokes/source.py:370
-#: pyanaconda/ui/gui/spokes/source.py:652
+#: pyanaconda/ui/gui/spokes/source.py:653
 #: pyanaconda/ui/gui/spokes/storage.py:564
 msgid "Probing storage..."
 msgstr ""
@@ -1841,25 +1841,25 @@ msgstr ""
 
 #: pyanaconda/ui/tui/spokes/source.py:57
 #: pyanaconda/ui/tui/spokes/source.py:117
-#: pyanaconda/ui/gui/spokes/source.py:547
+#: pyanaconda/ui/gui/spokes/source.py:548
 #: pyanaconda/ui/gui/spokes/source.glade.h:24
 msgid "Closest mirror"
 msgstr ""
 
 #: pyanaconda/ui/tui/spokes/source.py:109
-#: pyanaconda/ui/gui/spokes/source.py:539
+#: pyanaconda/ui/gui/spokes/source.py:540
 #, python-format
 msgid "NFS server %s"
 msgstr ""
 
 #: pyanaconda/ui/tui/spokes/source.py:111
-#: pyanaconda/ui/gui/spokes/source.py:541
+#: pyanaconda/ui/gui/spokes/source.py:542
 msgid "Local media"
 msgstr ""
 
 #: pyanaconda/ui/tui/spokes/source.py:114
 #: pyanaconda/ui/tui/spokes/source.py:128
-#: pyanaconda/ui/gui/spokes/source.py:535
+#: pyanaconda/ui/gui/spokes/source.py:536
 msgid "Error setting up software source"
 msgstr ""
 
@@ -1867,7 +1867,7 @@ msgstr ""
 #: pyanaconda/ui/tui/spokes/software.py:87
 #: pyanaconda/ui/gui/spokes/datetime_spoke.py:529
 #: pyanaconda/ui/gui/spokes/software.py:216
-#: pyanaconda/ui/gui/spokes/source.py:549
+#: pyanaconda/ui/gui/spokes/source.py:550
 msgid "Nothing selected"
 msgstr ""
 
@@ -2578,7 +2578,7 @@ msgid "_SOFTWARE SELECTION"
 msgstr ""
 
 #: pyanaconda/ui/gui/spokes/software.py:92
-#: pyanaconda/ui/gui/spokes/source.py:54
+#: pyanaconda/ui/gui/spokes/source.py:55
 msgid "Downloading package metadata..."
 msgstr ""
 
@@ -2587,7 +2587,7 @@ msgid "Downloading group metadata..."
 msgstr ""
 
 #: pyanaconda/ui/gui/spokes/software.py:135
-#: pyanaconda/ui/gui/spokes/source.py:529
+#: pyanaconda/ui/gui/spokes/source.py:530
 msgid "Checking software dependencies..."
 msgstr ""
 
@@ -2622,105 +2622,109 @@ msgctxt "GUI|Software Selection|Error Dialog"
 msgid "Modify _Selections"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.py:53
+#: pyanaconda/ui/gui/spokes/source.py:54
 msgid "Setting up installation source..."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.py:83
+#: pyanaconda/ui/gui/spokes/source.py:84
 msgid "Invalid proxy URL"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.py:88
+#: pyanaconda/ui/gui/spokes/source.py:89
 #, python-format
 msgid "Invalid proxy protocol: %s"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.py:94
+#: pyanaconda/ui/gui/spokes/source.py:95
 msgid "Extra characters in proxy URL"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.py:98
+#: pyanaconda/ui/gui/spokes/source.py:99
 msgid "Proxy authentication data duplicated"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.py:231
+#: pyanaconda/ui/gui/spokes/source.py:232
 msgid "This media is good to install from."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.py:233
+#: pyanaconda/ui/gui/spokes/source.py:234
 msgid "This media is not good to install from."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.py:354
+#: pyanaconda/ui/gui/spokes/source.py:355
 msgctxt "GUI|Spoke"
 msgid "_INSTALLATION SOURCE"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.py:469
-#: pyanaconda/ui/gui/spokes/source.py:668
+#: pyanaconda/ui/gui/spokes/source.py:470
+#: pyanaconda/ui/gui/spokes/source.py:669
 msgid "Failed to set up installation source; check the repo url"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.py:533
+#: pyanaconda/ui/gui/spokes/source.py:534
 msgid "Error setting up base repository"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.py:544
+#: pyanaconda/ui/gui/spokes/source.py:545
 msgid "Error setting up ISO file"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.py:670
+#: pyanaconda/ui/gui/spokes/source.py:671
 msgid ""
 "Failed to set up installation source; check the repo url and proxy settings"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.py:699
+#: pyanaconda/ui/gui/spokes/source.py:700
 #, python-format
 msgid "Device: %s"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.py:700
+#: pyanaconda/ui/gui/spokes/source.py:701
 #, python-format
 msgid "Label: %s"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.py:888
+#: pyanaconda/ui/gui/spokes/source.py:858
+msgid "You need to configure the network to use a network installation source."
+msgstr ""
+
+#: pyanaconda/ui/gui/spokes/source.py:899
 msgid "URL is empty"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.py:892
+#: pyanaconda/ui/gui/spokes/source.py:903
 msgid "Invalid URL"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.py:909
+#: pyanaconda/ui/gui/spokes/source.py:920
 msgid "Protocol in URL does not match selected protocol"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.py:912
+#: pyanaconda/ui/gui/spokes/source.py:923
 msgid "NFS server is empty"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.py:919
+#: pyanaconda/ui/gui/spokes/source.py:930
 msgid "Invalid host name"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.py:922
+#: pyanaconda/ui/gui/spokes/source.py:933
 msgid "Remote directory is required"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.py:943
+#: pyanaconda/ui/gui/spokes/source.py:954
 msgid "Duplicate repository names."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.py:950
+#: pyanaconda/ui/gui/spokes/source.py:961
 msgid "Empty repository name"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.py:953
+#: pyanaconda/ui/gui/spokes/source.py:964
 msgid "Invalid repository name"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.py:959
+#: pyanaconda/ui/gui/spokes/source.py:970
 msgid "Repository name conflicts with internal repository name."
 msgstr ""
 
@@ -2881,7 +2885,7 @@ msgstr ""
 #: pyanaconda/ui/gui/spokes/advstorage/iscsi.py:270
 #, python-format
 msgid ""
-"The following nodes were discovered using the iSCSI initiator <b>"
+"The following nodes have been discovered using the iSCSI initiator <b>"
 "%(initiatorName)s</b> using the target IP address <b>%(targetAddress)s</b>.  "
 "Please select which nodes you wish to log into:"
 msgstr ""
@@ -4140,7 +4144,7 @@ msgstr ""
 
 #: pyanaconda/ui/gui/spokes/source.glade.h:9
 msgctxt "GUI|Software Source|Proxy Dialog"
-msgid "_Proxy URL"
+msgid "_Proxy Host"
 msgstr ""
 
 #: pyanaconda/ui/gui/spokes/source.glade.h:10
@@ -4801,77 +4805,69 @@ msgctxt "GUI|Advanced Storage|iSCSI|Configure"
 msgid "_Bind targets to network interfaces. This may take a moment..."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/advstorage/iscsi.glade.h:25
-#, python-format
-msgid ""
-"The following nodes have been discovered using the iSCSI initiator <b>"
-"%(initiatorName)s</b> using the target IP address <b>%(targetAddress)s</b>.  "
-"Please select which nodes you wish to log into:"
-msgstr ""
-
-#: pyanaconda/ui/gui/spokes/advstorage/iscsi.glade.h:26
+#: pyanaconda/ui/gui/spokes/advstorage/iscsi.glade.h:24
 msgid "Node Name"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/advstorage/iscsi.glade.h:27
+#: pyanaconda/ui/gui/spokes/advstorage/iscsi.glade.h:25
 msgid "Interface"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/advstorage/iscsi.glade.h:28
+#: pyanaconda/ui/gui/spokes/advstorage/iscsi.glade.h:26
 msgctxt "GUI|Advanced Storage|iSCSI|Login"
 msgid "_Node Login Authentication Type:"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/advstorage/iscsi.glade.h:29
+#: pyanaconda/ui/gui/spokes/advstorage/iscsi.glade.h:27
 msgid "Use the credentials from discovery"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/advstorage/iscsi.glade.h:30
+#: pyanaconda/ui/gui/spokes/advstorage/iscsi.glade.h:28
 msgctxt "GUI|Advanced Storage|iSCSI|Login|CHAP"
 msgid "CHAP _User name:"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/advstorage/iscsi.glade.h:31
+#: pyanaconda/ui/gui/spokes/advstorage/iscsi.glade.h:29
 msgctxt "GUI|Advanced Storage|iSCSI|Login|CHAP"
+msgid "CHAP _Password:"
+msgstr ""
+
+#: pyanaconda/ui/gui/spokes/advstorage/iscsi.glade.h:30
+msgctxt "GUI|Advanced Storage|iSCSI|Login|Reverse CHAP"
+msgid "CHAP _User name:"
+msgstr ""
+
+#: pyanaconda/ui/gui/spokes/advstorage/iscsi.glade.h:31
+msgctxt "GUI|Advanced Storage|iSCSI|Login|Reverse CHAP"
 msgid "CHAP _Password:"
 msgstr ""
 
 #: pyanaconda/ui/gui/spokes/advstorage/iscsi.glade.h:32
 msgctxt "GUI|Advanced Storage|iSCSI|Login|Reverse CHAP"
-msgid "CHAP _User name:"
+msgid "_Reverse CHAP User name:"
 msgstr ""
 
 #: pyanaconda/ui/gui/spokes/advstorage/iscsi.glade.h:33
 msgctxt "GUI|Advanced Storage|iSCSI|Login|Reverse CHAP"
-msgid "CHAP _Password:"
-msgstr ""
-
-#: pyanaconda/ui/gui/spokes/advstorage/iscsi.glade.h:34
-msgctxt "GUI|Advanced Storage|iSCSI|Login|Reverse CHAP"
-msgid "_Reverse CHAP User name:"
-msgstr ""
-
-#: pyanaconda/ui/gui/spokes/advstorage/iscsi.glade.h:35
-msgctxt "GUI|Advanced Storage|iSCSI|Login|Reverse CHAP"
 msgid "Reverse CHAP Pass_word:"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/advstorage/iscsi.glade.h:36
+#: pyanaconda/ui/gui/spokes/advstorage/iscsi.glade.h:34
 msgctxt "GUI|Advanced Storage|iSCSI|Login|Login"
 msgid "_Log In"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/advstorage/iscsi.glade.h:37
+#: pyanaconda/ui/gui/spokes/advstorage/iscsi.glade.h:35
 msgid "Node login failed."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/advstorage/iscsi.glade.h:38
+#: pyanaconda/ui/gui/spokes/advstorage/iscsi.glade.h:36
 msgid ""
 "The following error occurred logging into the selected iSCSI node.  Please "
 "double check your authorization information and try again"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/advstorage/iscsi.glade.h:39
+#: pyanaconda/ui/gui/spokes/advstorage/iscsi.glade.h:37
 msgctxt "GUI|Advanced Storage|iSCSI|Login|Retry"
 msgid "Retry _Log In"
 msgstr ""

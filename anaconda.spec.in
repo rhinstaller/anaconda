@@ -307,6 +307,25 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Wed Jun 10 2015 Brian C. Lane <bcl@redhat.com> - 21.48.22.6-1
+- Modify Proxy Label in Installation Source Spoke (rmarshall)
+  Resolves: rhbz#1168554
+- Add error checks to liveimg mount code (bcl)
+  Related: rhbz#1178703
+- If the network is disabled, also disable the network part of the source
+  spoke. (clumens)
+  Related: rhbz#1196721
+- Grubby no longer needs to be explicitly included (dmarlin)
+  Resolves: rhbz#1176705
+- Don't allow /boot on iSCSI. (sbueno+anaconda)
+  Resolves: rhbz#1164195
+- Fix building docs when running under "make distcheck". (clumens)
+  Related: rhbz#1196721
+- Fix problems discovered by the glade tests. (clumens)
+  Related: rhbz#1196721
+- Include .glade.h files in the distribution. (clumens)
+  Related: rhbz#1196721
+
 * Mon Jun 08 2015 Brian C. Lane <bcl@redhat.com> - 21.48.22.5-1
 - Actually distribute the clickable message test (dshea)
   Related: rhbz#1125145
