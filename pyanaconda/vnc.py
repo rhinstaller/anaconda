@@ -87,8 +87,8 @@ class VncServer:
             rc = iutil.execWithRedirect("vncpasswd", ["-f"],
                     stdin=r, stdout=pw_file, binary_output=True, log_output=False)
 
-            iutil.eintr_retry_call(os.close, r)
-            iutil.eintr_retry_call(os.close, w)
+            os.close(r)
+            os.close(w)
 
         return rc
 

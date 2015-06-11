@@ -29,17 +29,6 @@ import subprocess
 import tempfile
 import errno
 
-# Copied from python's subprocess.py
-def eintr_retry_call(func, *args):
-    """Retry an interruptible system call if interrupted."""
-    while True:
-        try:
-            return func(*args)
-        except (OSError, IOError) as e:
-            if e.errno == errno.EINTR:
-                continue
-            raise
-
 class Creator(object):
     """A Creator subclass defines all the parameters for making a VM to run a
        test against as well as handles creating and running that VM, inspecting
@@ -111,7 +100,7 @@ class Creator(object):
         """
         for (drive, size) in self.drives:
             (fd, diskimage) = tempfile.mkstemp(dir=self.tempdir)
-            eintr_retry_call(os.close, fd)
+            os.close(fd)
 
             # For now we are using qemu-img to create these files but specifying
             # sizes in blivet Size objects.  Unfortunately, qemu-img wants sizes
