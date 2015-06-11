@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: anaconda 23.8\n"
+"Project-Id-Version: anaconda 23.9\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
-"POT-Creation-Date: 2015-06-03 18:32-0700\n"
+"POT-Creation-Date: 2015-06-10 17:00-0700\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,87 +18,87 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 
-#: pyanaconda/bootloader.py:248
+#: pyanaconda/bootloader.py:249
 msgid "/boot file system"
 msgstr ""
 
-#: pyanaconda/bootloader.py:405
+#: pyanaconda/bootloader.py:406
 #, python-format
 msgid ""
 "RAID sets that contain '%(desc)s' must have one of the following raid "
 "levels: %(raid_level)s."
 msgstr ""
 
-#: pyanaconda/bootloader.py:413
+#: pyanaconda/bootloader.py:414
 #, python-format
 msgid ""
 "RAID sets that contain '%(desc)s' must have one of the following metadata "
 "versions: %(metadata_versions)s."
 msgstr ""
 
-#: pyanaconda/bootloader.py:421
+#: pyanaconda/bootloader.py:422
 #, python-format
 msgid ""
 "RAID sets that contain '%(desc)s' must have one of the following device "
 "types: %(types)s."
 msgstr ""
 
-#: pyanaconda/bootloader.py:437
+#: pyanaconda/bootloader.py:438
 #, python-format
 msgid "%(name)s must have one of the following disklabel types: %(types)s."
 msgstr ""
 
-#: pyanaconda/bootloader.py:449
+#: pyanaconda/bootloader.py:450
 #, python-format
 msgid "%(desc)s cannot be of type %(type)s."
 msgstr ""
 
-#: pyanaconda/bootloader.py:455
+#: pyanaconda/bootloader.py:456
 #, python-format
 msgid "%(desc)s must be mounted on one of %(mountpoints)s."
 msgstr ""
 
-#: pyanaconda/bootloader.py:467
+#: pyanaconda/bootloader.py:468
 #, python-format
 msgid "%(desc)s must be between %(min)d and %(max)d MB in size"
 msgstr ""
 
-#: pyanaconda/bootloader.py:473
+#: pyanaconda/bootloader.py:474
 #, python-format
 msgid "%(desc)s must not be smaller than %(min)dMB."
 msgstr ""
 
-#: pyanaconda/bootloader.py:482
+#: pyanaconda/bootloader.py:483
 #, python-format
 msgid "%(desc)s must not be larger than %(max)dMB."
 msgstr ""
 
-#: pyanaconda/bootloader.py:500
+#: pyanaconda/bootloader.py:501
 #, python-format
 msgid "%(desc)s must be within the first %(max_end)s of the disk."
 msgstr ""
 
-#: pyanaconda/bootloader.py:510
+#: pyanaconda/bootloader.py:511
 #, python-format
 msgid "%s must be on a primary partition."
 msgstr ""
 
-#: pyanaconda/bootloader.py:646 pyanaconda/bootloader.py:746
+#: pyanaconda/bootloader.py:647 pyanaconda/bootloader.py:747
 #, python-format
 msgid "%s cannot be on an encrypted block device."
 msgstr ""
 
-#: pyanaconda/bootloader.py:701
+#: pyanaconda/bootloader.py:702
 #, python-format
-msgid "%s cannot be on an iSCSI disk on s390(x)"
+msgid "%s cannot be on an iSCSI disk"
 msgstr ""
 
-#: pyanaconda/bootloader.py:705
+#: pyanaconda/bootloader.py:706
 #, python-format
 msgid "%(desc)s cannot be of type %(type)s"
 msgstr ""
 
-#: pyanaconda/bootloader.py:1375
+#: pyanaconda/bootloader.py:1387
 #, python-format
 msgid ""
 "boot loader stage2 device %(stage2dev)s is on a multi-disk array, but boot "
@@ -106,7 +106,7 @@ msgid ""
 "could render the system unbootable."
 msgstr ""
 
-#: pyanaconda/bootloader.py:1381
+#: pyanaconda/bootloader.py:1393
 #, python-format
 msgid ""
 "boot loader stage2 device %(stage2dev)s is on a multi-disk array, but boot "
@@ -114,7 +114,7 @@ msgid ""
 "boot loader will only be installed to a single drive."
 msgstr ""
 
-#: pyanaconda/bootloader.py:1670
+#: pyanaconda/bootloader.py:1683
 #, python-format
 msgid ""
 "%(deviceName)s may not have enough space for grub2 to embed core.img when "
@@ -449,36 +449,36 @@ msgstr ""
 msgid "Waiting for %s threads to finish"
 msgstr ""
 
-#: pyanaconda/install.py:180
+#: pyanaconda/install.py:181
 msgid "Setting up the installation environment"
 msgstr ""
 
-#: pyanaconda/install.py:207 pyanaconda/kickstart.py:2120
+#: pyanaconda/install.py:208 pyanaconda/kickstart.py:2121
 msgid "Running pre-installation scripts"
 msgstr ""
 
-#: pyanaconda/install.py:215
+#: pyanaconda/install.py:216
 msgid "Discovering realm to join"
 msgstr ""
 
-#: pyanaconda/install.py:271
+#: pyanaconda/install.py:272
 msgid "Installing boot loader"
 msgstr ""
 
-#: pyanaconda/install.py:274 pyanaconda/packaging/livepayload.py:178
-#: pyanaconda/packaging/dnfpayload.py:659
+#: pyanaconda/install.py:275 pyanaconda/packaging/livepayload.py:179
+#: pyanaconda/packaging/dnfpayload.py:660
 msgid "Performing post-installation setup tasks"
 msgstr ""
 
-#: pyanaconda/iutil.py:815
+#: pyanaconda/iutil.py:860
 msgid "No host url"
 msgstr ""
 
-#: pyanaconda/iutil.py:836
+#: pyanaconda/iutil.py:881
 msgid "malformed URL, cannot parse it."
 msgstr ""
 
-#: pyanaconda/iutil.py:852
+#: pyanaconda/iutil.py:897
 msgid "URL has no host component"
 msgstr ""
 
@@ -819,60 +819,60 @@ msgid ""
 "'-'."
 msgstr ""
 
-#: pyanaconda/network.py:1331 pyanaconda/ui/gui/spokes/custom.py:544
+#: pyanaconda/network.py:1334 pyanaconda/ui/gui/spokes/custom.py:545
 #: pyanaconda/ui/gui/spokes/network.py:302
 #: pyanaconda/ui/gui/spokes/lib/accordion.py:61
 msgid "Unknown"
 msgstr ""
 
-#: pyanaconda/network.py:1335
+#: pyanaconda/network.py:1338
 msgid "Connecting..."
 msgstr ""
 
-#: pyanaconda/network.py:1337
+#: pyanaconda/network.py:1340
 msgid "Disconnecting..."
-msgstr ""
-
-#: pyanaconda/network.py:1357
-#, python-format
-msgid "Wired (%(interface_name)s) connected"
 msgstr ""
 
 #: pyanaconda/network.py:1360
 #, python-format
-msgid "Wireless connected to %(access_point)s"
+msgid "Wired (%(interface_name)s) connected"
 msgstr ""
 
 #: pyanaconda/network.py:1363
 #, python-format
+msgid "Wireless connected to %(access_point)s"
+msgstr ""
+
+#: pyanaconda/network.py:1366
+#, python-format
 msgid "Bond %(interface_name)s (%(list_of_slaves)s) connected"
 msgstr ""
 
-#: pyanaconda/network.py:1367
+#: pyanaconda/network.py:1370
 #, python-format
 msgid "Team%(interface_name)s (%(list_of_slaves)s) connected"
 msgstr ""
 
-#: pyanaconda/network.py:1371
+#: pyanaconda/network.py:1374
 #, python-format
 msgid "Bridge%(interface_name)s (%(list_of_slaves)s) connected"
 msgstr ""
 
-#: pyanaconda/network.py:1377
+#: pyanaconda/network.py:1380
 #, python-format
 msgid "VLAN %(interface_name)s (%(parent_device)s, ID %(vlanid)s) connected"
 msgstr ""
 
-#: pyanaconda/network.py:1394
+#: pyanaconda/network.py:1397
 #, python-format
 msgid "Connected: %(list_of_interface_names)s"
 msgstr ""
 
-#: pyanaconda/network.py:1397
+#: pyanaconda/network.py:1400
 msgid "Not connected"
 msgstr ""
 
-#: pyanaconda/network.py:1400 pyanaconda/ui/gui/spokes/network.glade:2097
+#: pyanaconda/network.py:1403 pyanaconda/ui/gui/spokes/network.glade:2097
 msgid "No network devices available"
 msgstr ""
 
@@ -1178,41 +1178,41 @@ msgstr ""
 msgid "%(productName)s %(productVersion)s installation"
 msgstr ""
 
-#: pyanaconda/vnc.py:135
+#: pyanaconda/vnc.py:136
 #, python-format
 msgid "%(productName)s %(productVersion)s installation on host %(name)s"
 msgstr ""
 
-#: pyanaconda/vnc.py:154
+#: pyanaconda/vnc.py:155
 #, python-format
 msgid "Attempting to connect to vnc client on host %s..."
 msgstr ""
 
-#: pyanaconda/vnc.py:168
+#: pyanaconda/vnc.py:169
 msgid "Connected!"
 msgstr ""
 
-#: pyanaconda/vnc.py:171
+#: pyanaconda/vnc.py:172
 msgid "Will try to connect again in 15 seconds..."
 msgstr ""
 
-#: pyanaconda/vnc.py:178
+#: pyanaconda/vnc.py:179
 #, python-format
 msgid "Giving up attempting to connect after %d try!\n"
 msgid_plural "Giving up attempting to connect after %d tries!\n"
 msgstr[0] ""
 msgstr[1] ""
 
-#: pyanaconda/vnc.py:186
+#: pyanaconda/vnc.py:187
 msgid "Attempting to start vncconfig"
 msgstr ""
 
-#: pyanaconda/vnc.py:199
+#: pyanaconda/vnc.py:200
 #, python-format
 msgid "Please manually connect your vnc client to %s to begin the install."
 msgstr ""
 
-#: pyanaconda/vnc.py:201
+#: pyanaconda/vnc.py:202
 #, python-format
 msgid ""
 "Please manually connect your vnc client to <IP ADDRESS>:%s to begin the "
@@ -1220,15 +1220,15 @@ msgid ""
 "ADDRESS>."
 msgstr ""
 
-#: pyanaconda/vnc.py:206
+#: pyanaconda/vnc.py:207
 msgid "Starting VNC..."
 msgstr ""
 
-#: pyanaconda/vnc.py:243
+#: pyanaconda/vnc.py:244
 msgid "The VNC server is now running."
 msgstr ""
 
-#: pyanaconda/vnc.py:247
+#: pyanaconda/vnc.py:248
 msgid ""
 "\n"
 "\n"
@@ -1239,7 +1239,7 @@ msgid ""
 "\n"
 msgstr ""
 
-#: pyanaconda/vnc.py:252
+#: pyanaconda/vnc.py:253
 msgid ""
 "\n"
 "\n"
@@ -1249,7 +1249,7 @@ msgid ""
 "\n"
 msgstr ""
 
-#: pyanaconda/vnc.py:256
+#: pyanaconda/vnc.py:257
 msgid ""
 "\n"
 "\n"
@@ -1257,7 +1257,7 @@ msgid ""
 "\n"
 msgstr ""
 
-#: pyanaconda/vnc.py:258
+#: pyanaconda/vnc.py:259
 msgid ""
 "\n"
 "\n"
@@ -1265,36 +1265,36 @@ msgid ""
 "\n"
 msgstr ""
 
-#: pyanaconda/vnc.py:280
+#: pyanaconda/vnc.py:281
 msgid ""
 "VNC password must be six to eight characters long.\n"
 "Please enter a new one, or leave blank for no password."
 msgstr ""
 
-#: pyanaconda/packaging/__init__.py:1122
+#: pyanaconda/packaging/__init__.py:1125
 msgid "Failed to set up installation source"
 msgstr ""
 
-#: pyanaconda/packaging/__init__.py:1123
+#: pyanaconda/packaging/__init__.py:1126
 msgid "Error downloading package metadata"
 msgstr ""
 
-#: pyanaconda/packaging/__init__.py:1124
+#: pyanaconda/packaging/__init__.py:1127
 msgid "No installation source available"
 msgstr ""
 
-#: pyanaconda/packaging/livepayload.py:102
-#: pyanaconda/packaging/livepayload.py:123
+#: pyanaconda/packaging/livepayload.py:103
+#: pyanaconda/packaging/livepayload.py:124
 msgid "Installing software"
 msgstr ""
 
-#: pyanaconda/packaging/livepayload.py:230
-#: pyanaconda/packaging/livepayload.py:239
+#: pyanaconda/packaging/livepayload.py:231
+#: pyanaconda/packaging/livepayload.py:240
 #, python-format
 msgid "Downloading %(url)s (%(pct)d%%)"
 msgstr ""
 
-#: pyanaconda/packaging/livepayload.py:385
+#: pyanaconda/packaging/livepayload.py:386
 msgid "Checking image checksum"
 msgstr ""
 
@@ -1305,19 +1305,19 @@ msgid ""
 "(%(percent)d%%) done."
 msgstr ""
 
-#: pyanaconda/packaging/dnfpayload.py:613
+#: pyanaconda/packaging/dnfpayload.py:614
 msgid "Starting package installation process"
 msgstr ""
 
-#: pyanaconda/packaging/dnfpayload.py:630
+#: pyanaconda/packaging/dnfpayload.py:631
 msgid "Downloading packages"
 msgstr ""
 
-#: pyanaconda/packaging/dnfpayload.py:642
+#: pyanaconda/packaging/dnfpayload.py:643
 msgid "Preparing transaction from installation source"
 msgstr ""
 
-#: pyanaconda/packaging/dnfpayload.py:652
+#: pyanaconda/packaging/dnfpayload.py:653
 #, python-format
 msgid "Installing %s"
 msgstr ""
@@ -1342,7 +1342,7 @@ msgstr ""
 msgid "Deployment complete: %s"
 msgstr ""
 
-#: pyanaconda/ui/helpers.py:94 pyanaconda/ui/tui/spokes/storage.py:401
+#: pyanaconda/ui/helpers.py:92 pyanaconda/ui/tui/spokes/storage.py:401
 msgid "Checking storage configuration..."
 msgstr ""
 
@@ -1468,7 +1468,7 @@ msgstr ""
 #. TRANSLATORS: 'c' to continue
 #: pyanaconda/ui/tui/hubs/summary.py:121
 #: pyanaconda/ui/tui/hubs/__init__.py:111
-#: pyanaconda/ui/tui/simpleline/base.py:457
+#: pyanaconda/ui/tui/simpleline/base.py:456
 #: pyanaconda/ui/tui/spokes/software.py:189
 msgctxt "TUI|Spoke Navigation"
 msgid "c"
@@ -1502,27 +1502,27 @@ msgstr ""
 msgid "no"
 msgstr ""
 
-#: pyanaconda/ui/tui/simpleline/base.py:88
+#: pyanaconda/ui/tui/simpleline/base.py:87
 msgid "Do you really want to quit?"
 msgstr ""
 
 #. TRANSLATORS: 'r' to refresh
-#: pyanaconda/ui/tui/simpleline/base.py:451
+#: pyanaconda/ui/tui/simpleline/base.py:450
 msgctxt "TUI|Spoke Navigation"
 msgid "r"
 msgstr ""
 
 #. TRANSLATORS: 'q' to quit
-#: pyanaconda/ui/tui/simpleline/base.py:463
+#: pyanaconda/ui/tui/simpleline/base.py:462
 msgctxt "TUI|Spoke Navigation"
 msgid "q"
 msgstr ""
 
-#: pyanaconda/ui/tui/simpleline/base.py:572
+#: pyanaconda/ui/tui/simpleline/base.py:571
 msgid "Press ENTER to continue"
 msgstr ""
 
-#: pyanaconda/ui/tui/simpleline/base.py:622
+#: pyanaconda/ui/tui/simpleline/base.py:621
 msgid ""
 "  Please make your choice from above ['q' to quit | 'c' to continue |\n"
 "  'r' to refresh]: "
@@ -1802,7 +1802,7 @@ msgstr ""
 
 #: pyanaconda/ui/tui/spokes/storage.py:193
 #: pyanaconda/ui/tui/spokes/source.py:366
-#: pyanaconda/ui/gui/spokes/source.py:660
+#: pyanaconda/ui/gui/spokes/source.py:663
 #: pyanaconda/ui/gui/spokes/storage.py:590
 msgid "Probing storage..."
 msgstr ""
@@ -1866,8 +1866,8 @@ msgid "Timezone settings"
 msgstr ""
 
 #: pyanaconda/ui/tui/spokes/time_spoke.py:61
-#: pyanaconda/ui/gui/spokes/datetime_spoke.py:533
-#: pyanaconda/ui/gui/spokes/datetime_spoke.py:539
+#: pyanaconda/ui/gui/spokes/datetime_spoke.py:543
+#: pyanaconda/ui/gui/spokes/datetime_spoke.py:549
 #, python-format
 msgid "%s timezone"
 msgstr ""
@@ -1909,33 +1909,33 @@ msgstr ""
 
 #: pyanaconda/ui/tui/spokes/source.py:57
 #: pyanaconda/ui/tui/spokes/source.py:106
-#: pyanaconda/ui/gui/spokes/source.py:550
+#: pyanaconda/ui/gui/spokes/source.py:555
 #: pyanaconda/ui/gui/spokes/source.glade:757
 msgid "Closest mirror"
 msgstr ""
 
 #: pyanaconda/ui/tui/spokes/source.py:98
-#: pyanaconda/ui/gui/spokes/source.py:542
+#: pyanaconda/ui/gui/spokes/source.py:547
 #, python-format
 msgid "NFS server %s"
 msgstr ""
 
 #: pyanaconda/ui/tui/spokes/source.py:100
-#: pyanaconda/ui/gui/spokes/source.py:544
+#: pyanaconda/ui/gui/spokes/source.py:549
 msgid "Local media"
 msgstr ""
 
 #: pyanaconda/ui/tui/spokes/source.py:103
 #: pyanaconda/ui/tui/spokes/source.py:117
-#: pyanaconda/ui/gui/spokes/source.py:538
+#: pyanaconda/ui/gui/spokes/source.py:543
 msgid "Error setting up software source"
 msgstr ""
 
 #: pyanaconda/ui/tui/spokes/source.py:108
 #: pyanaconda/ui/tui/spokes/software.py:121
-#: pyanaconda/ui/gui/spokes/datetime_spoke.py:541
+#: pyanaconda/ui/gui/spokes/datetime_spoke.py:551
 #: pyanaconda/ui/gui/spokes/software.py:224
-#: pyanaconda/ui/gui/spokes/source.py:552
+#: pyanaconda/ui/gui/spokes/source.py:557
 msgid "Nothing selected"
 msgstr ""
 
@@ -1957,7 +1957,7 @@ msgid "Network"
 msgstr ""
 
 #: pyanaconda/ui/tui/spokes/source.py:139
-#: pyanaconda/ui/gui/spokes/source.py:856
+#: pyanaconda/ui/gui/spokes/source.py:859
 msgid ""
 "The installation source is in use by the installer and cannot be changed."
 msgstr ""
@@ -2053,12 +2053,17 @@ msgstr ""
 msgid "User %s will be created"
 msgstr ""
 
+#: pyanaconda/ui/tui/spokes/user.py:134
+#, python-format
+msgid "Invalid user name: %s.\n"
+msgstr ""
+
 #: pyanaconda/ui/tui/spokes/warnings_spoke.py:36
 msgid "Warnings"
 msgstr ""
 
 #: pyanaconda/ui/tui/spokes/warnings_spoke.py:44
-#: pyanaconda/ui/gui/spokes/welcome.glade:518
+#: pyanaconda/ui/gui/spokes/welcome.glade:517
 msgid ""
 "This hardware (or a combination thereof) is not supported by Red Hat.  For "
 "more information on supported hardware, please refer to http://www.redhat."
@@ -2133,15 +2138,15 @@ msgstr ""
 msgid "Help!"
 msgstr ""
 
-#: pyanaconda/ui/gui/__init__.py:752 widgets/src/StandaloneWindow.c:51
+#: pyanaconda/ui/gui/__init__.py:757 widgets/src/StandaloneWindow.c:51
 msgid "_Quit"
 msgstr ""
 
-#: pyanaconda/ui/gui/__init__.py:768
+#: pyanaconda/ui/gui/__init__.py:773
 msgid "_No"
 msgstr ""
 
-#: pyanaconda/ui/gui/__init__.py:768
+#: pyanaconda/ui/gui/__init__.py:773
 msgid "_Yes"
 msgstr ""
 
@@ -2182,32 +2187,32 @@ msgid ""
 "Go ahead and reboot to start using it!"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:106
+#: pyanaconda/ui/gui/spokes/custom.py:107
 #, python-format
 msgid "Create a new %(container_type)s ..."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:107
+#: pyanaconda/ui/gui/spokes/custom.py:108
 #, python-format
 msgid "Create or select %(container_type)s"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:109
+#: pyanaconda/ui/gui/spokes/custom.py:110
 msgid "Device reconfiguration failed. <a href=\"\">Click for details.</a>"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:111
+#: pyanaconda/ui/gui/spokes/custom.py:112
 msgid ""
 "Storage configuration reset due to unrecoverable error. <a href=\"\">Click "
 "for details.</a>"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:142
+#: pyanaconda/ui/gui/spokes/custom.py:143
 #: pyanaconda/ui/gui/spokes/custom.glade:93
 msgid "MANUAL PARTITIONING"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:368
+#: pyanaconda/ui/gui/spokes/custom.py:369
 #, python-format
 msgctxt "GUI|Custom Partitioning"
 msgid "%d _storage device selected"
@@ -2215,63 +2220,63 @@ msgid_plural "%d _storage devices selected"
 msgstr[0] ""
 msgstr[1] ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:494
+#: pyanaconda/ui/gui/spokes/custom.py:495
 #, python-format
 msgid ""
 "When you create mount points for your %(name)s %(version)s installation, "
 "you'll be able to view their details here."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:654
+#: pyanaconda/ui/gui/spokes/custom.py:655
 #, python-format
 msgid ""
 "/boot/efi must be on a device of type %(oneFsType)s or %(anotherFsType)s"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:658
+#: pyanaconda/ui/gui/spokes/custom.py:659
 #, python-format
 msgid "%(fs)s must be on a device of type %(type)s"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:661
-#: pyanaconda/ui/gui/spokes/custom.py:663
+#: pyanaconda/ui/gui/spokes/custom.py:662
+#: pyanaconda/ui/gui/spokes/custom.py:664
 #, python-format
 msgid "%s cannot be encrypted"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:665
+#: pyanaconda/ui/gui/spokes/custom.py:666
 msgid "You must create a new file system on the root device."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:670
+#: pyanaconda/ui/gui/spokes/custom.py:671
 #, python-format
 msgid "Device does not support RAID level selection %s."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:783
+#: pyanaconda/ui/gui/spokes/custom.py:784
 msgid "Device resize request failed. <a href=\"\">Click for details.</a>"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:856
+#: pyanaconda/ui/gui/spokes/custom.py:857
 msgid "Device reformat request failed. <a href=\"\">Click for details.</a>"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:1227
-#: pyanaconda/ui/gui/spokes/custom.py:2113
+#: pyanaconda/ui/gui/spokes/custom.py:1228
+#: pyanaconda/ui/gui/spokes/custom.py:2115
 #, python-format
 msgid "Invalid device name: %s"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:1233
+#: pyanaconda/ui/gui/spokes/custom.py:1234
 #, python-format
 msgid "Specified name %s already in use."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:1437
+#: pyanaconda/ui/gui/spokes/custom.py:1439
 msgid "No disks assigned"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:1443
+#: pyanaconda/ui/gui/spokes/custom.py:1445
 #, python-format
 msgctxt "GUI|Custom Partitioning|Devices"
 msgid " and %d other"
@@ -2279,137 +2284,137 @@ msgid_plural " and %d others"
 msgstr[0] ""
 msgstr[1] ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:1501
+#: pyanaconda/ui/gui/spokes/custom.py:1503
 msgid "The container is encrypted."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:1537
+#: pyanaconda/ui/gui/spokes/custom.py:1539
 msgid ""
 "The space available to this mount point can be changed by modifying the "
 "volume below."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:1539
+#: pyanaconda/ui/gui/spokes/custom.py:1541
 msgid "This file system may not be resized."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:1593
+#: pyanaconda/ui/gui/spokes/custom.py:1595
 msgid ""
 "Error checking storage configuration.  <a href=\"\">Click for details</a> or "
 "press Done again to continue."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:1595
+#: pyanaconda/ui/gui/spokes/custom.py:1597
 msgid ""
 "Warning checking storage configuration.  <a href=\"\">Click for details</a> "
 "or press Done again to continue."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:1701
+#: pyanaconda/ui/gui/spokes/custom.py:1703
 #, python-format
 msgid "Added new %(type)s to existing container %(name)s."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:1712
+#: pyanaconda/ui/gui/spokes/custom.py:1714
 msgid "Failed to add new device. <a href=\"\">Click for details.</a>"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:1717
+#: pyanaconda/ui/gui/spokes/custom.py:1719
 msgid "Invalid partition size set. Use a valid integer."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:1824
+#: pyanaconda/ui/gui/spokes/custom.py:1826
 msgid "Device removal request failed. <a href=\"\">Click for details.</a>"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:2054
+#: pyanaconda/ui/gui/spokes/custom.py:2056
 #, python-format
 msgid "Volume Group name %s is already in use. Not saving changes."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:2084
+#: pyanaconda/ui/gui/spokes/custom.py:2086
 #, python-format
 msgid "(%s free)"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:2231
+#: pyanaconda/ui/gui/spokes/custom.py:2233
 #, python-format
 msgid ""
 "This Software RAID array is missing %(missingMembers)d of %(totalMembers)d "
 "member partitions. You can remove it or select a different device."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:2237
+#: pyanaconda/ui/gui/spokes/custom.py:2239
 #, python-format
 msgid ""
 "This LVM Volume Group is missing %(missingPVs)d of %(totalPVs)d physical "
 "volumes. You can remove it or select a different device."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:2320
+#: pyanaconda/ui/gui/spokes/custom.py:2322
 msgid "No disks selected."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:2325
+#: pyanaconda/ui/gui/spokes/custom.py:2327
 msgid "Not enough free space on selected disks."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:2330
-#: pyanaconda/ui/gui/spokes/custom.py:2355
+#: pyanaconda/ui/gui/spokes/custom.py:2332
+#: pyanaconda/ui/gui/spokes/custom.py:2357
 msgid "Automatic partitioning failed. <a href=\"\">Click for details.</a>"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:2579
+#: pyanaconda/ui/gui/spokes/custom.py:2583
 msgid ""
 "Continuing with this action will reset all your partitioning selections to "
 "their current on-disk state."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:2587
+#: pyanaconda/ui/gui/spokes/custom.py:2591
 msgid "_Reset selections"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:2587
+#: pyanaconda/ui/gui/spokes/custom.py:2591
 msgid "_Preserve current selections"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/custom.py:2662
+#: pyanaconda/ui/gui/spokes/custom.py:2666
 msgid ""
 "Failed to unlock encrypted block device. <a href=\"\">Click for details.</a>"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/datetime_spoke.py:401
+#: pyanaconda/ui/gui/spokes/datetime_spoke.py:411
 msgctxt "GUI|Spoke"
 msgid "_TIME & DATE"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/datetime_spoke.py:524
+#: pyanaconda/ui/gui/spokes/datetime_spoke.py:534
 msgid "Restoring hardware time..."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/datetime_spoke.py:535
+#: pyanaconda/ui/gui/spokes/datetime_spoke.py:545
 msgid "Invalid timezone"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/datetime_spoke.py:711
-#: pyanaconda/ui/gui/spokes/datetime_spoke.py:725
-#: pyanaconda/ui/gui/spokes/datetime_spoke.py:911
+#: pyanaconda/ui/gui/spokes/datetime_spoke.py:721
+#: pyanaconda/ui/gui/spokes/datetime_spoke.py:735
+#: pyanaconda/ui/gui/spokes/datetime_spoke.py:921
 #: pyanaconda/ui/gui/spokes/datetime_spoke.glade:751
 msgid "PM"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/datetime_spoke.py:713
-#: pyanaconda/ui/gui/spokes/datetime_spoke.py:722
-#: pyanaconda/ui/gui/spokes/datetime_spoke.py:910
-#: pyanaconda/ui/gui/spokes/datetime_spoke.py:913
+#: pyanaconda/ui/gui/spokes/datetime_spoke.py:723
+#: pyanaconda/ui/gui/spokes/datetime_spoke.py:732
+#: pyanaconda/ui/gui/spokes/datetime_spoke.py:920
+#: pyanaconda/ui/gui/spokes/datetime_spoke.py:923
 msgid "AM"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/datetime_spoke.py:1061
+#: pyanaconda/ui/gui/spokes/datetime_spoke.py:1071
 msgid "You need to set up networking first if you want to use NTP"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/datetime_spoke.py:1065
+#: pyanaconda/ui/gui/spokes/datetime_spoke.py:1075
 msgid "You have no working NTP server configured"
 msgstr ""
 
@@ -2651,7 +2656,7 @@ msgid "_SOFTWARE SELECTION"
 msgstr ""
 
 #: pyanaconda/ui/gui/spokes/software.py:98
-#: pyanaconda/ui/gui/spokes/source.py:55
+#: pyanaconda/ui/gui/spokes/source.py:56
 msgid "Downloading package metadata..."
 msgstr ""
 
@@ -2660,7 +2665,7 @@ msgid "Downloading group metadata..."
 msgstr ""
 
 #: pyanaconda/ui/gui/spokes/software.py:143
-#: pyanaconda/ui/gui/spokes/source.py:532
+#: pyanaconda/ui/gui/spokes/source.py:537
 msgid "Checking software dependencies..."
 msgstr ""
 
@@ -2695,109 +2700,109 @@ msgctxt "GUI|Software Selection|Error Dialog"
 msgid "Modify _Selections"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.py:54
+#: pyanaconda/ui/gui/spokes/source.py:55
 msgid "Setting up installation source..."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.py:84
+#: pyanaconda/ui/gui/spokes/source.py:85
 msgid "Invalid proxy URL"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.py:89
+#: pyanaconda/ui/gui/spokes/source.py:90
 #, python-format
 msgid "Invalid proxy protocol: %s"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.py:95
+#: pyanaconda/ui/gui/spokes/source.py:96
 msgid "Extra characters in proxy URL"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.py:99
+#: pyanaconda/ui/gui/spokes/source.py:100
 msgid "Proxy authentication data duplicated"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.py:232
+#: pyanaconda/ui/gui/spokes/source.py:235
 msgid "This media is good to install from."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.py:234
+#: pyanaconda/ui/gui/spokes/source.py:237
 msgid "This media is not good to install from."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.py:357
+#: pyanaconda/ui/gui/spokes/source.py:360
 msgctxt "GUI|Spoke"
 msgid "_INSTALLATION SOURCE"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.py:472
-#: pyanaconda/ui/gui/spokes/source.py:676
+#: pyanaconda/ui/gui/spokes/source.py:477
+#: pyanaconda/ui/gui/spokes/source.py:679
 msgid "Failed to set up installation source; check the repo url"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.py:536
+#: pyanaconda/ui/gui/spokes/source.py:541
 msgid "Error setting up base repository"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.py:547
+#: pyanaconda/ui/gui/spokes/source.py:552
 msgid "Error setting up ISO file"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.py:678
+#: pyanaconda/ui/gui/spokes/source.py:681
 msgid ""
 "Failed to set up installation source; check the repo url and proxy settings"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.py:707
+#: pyanaconda/ui/gui/spokes/source.py:710
 #, python-format
 msgid "Device: %s"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.py:708
+#: pyanaconda/ui/gui/spokes/source.py:711
 #, python-format
 msgid "Label: %s"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.py:868
+#: pyanaconda/ui/gui/spokes/source.py:871
 msgid "You need to configure the network to use a network installation source."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.py:920
+#: pyanaconda/ui/gui/spokes/source.py:923
 msgid "URL is empty"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.py:924
+#: pyanaconda/ui/gui/spokes/source.py:927
 msgid "Invalid URL"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.py:941
+#: pyanaconda/ui/gui/spokes/source.py:944
 msgid "Protocol in URL does not match selected protocol"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.py:944
+#: pyanaconda/ui/gui/spokes/source.py:947
 msgid "NFS server is empty"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.py:951
+#: pyanaconda/ui/gui/spokes/source.py:954
 msgid "Invalid host name"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.py:954
+#: pyanaconda/ui/gui/spokes/source.py:957
 msgid "Remote directory is required"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.py:975
+#: pyanaconda/ui/gui/spokes/source.py:978
 msgid "Duplicate repository names."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.py:982
+#: pyanaconda/ui/gui/spokes/source.py:985
 msgid "Empty repository name"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.py:985
+#: pyanaconda/ui/gui/spokes/source.py:988
 msgid "Invalid repository name"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/source.py:991
+#: pyanaconda/ui/gui/spokes/source.py:994
 msgid "Repository name conflicts with internal repository name."
 msgstr ""
 
@@ -3110,7 +3115,7 @@ msgid ""
 "and/or subvolumes?"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/lib/custom_storage_helpers.py:684
+#: pyanaconda/ui/gui/spokes/lib/custom_storage_helpers.py:686
 msgid "Invalid container name"
 msgstr ""
 
@@ -5632,11 +5637,11 @@ msgstr ""
 msgid "Please ssh install@<host> to continue installation."
 msgstr ""
 
-#: anaconda:989
+#: anaconda:990
 msgid "Unable to create PID file"
 msgstr ""
 
-#: anaconda:990
+#: anaconda:991
 #, python-format
 msgid ""
 "Anaconda is unable to create %s because the file already exists. Anaconda is "
