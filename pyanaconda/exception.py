@@ -196,11 +196,11 @@ class AnacondaExceptionHandler(ExceptionHandler):
             iutil.vtActivate(1)
 
         iutil.eintr_retry_call(os.open, "/dev/console", os.O_RDWR)   # reclaim stdin
-        iutil.eintr_retry_call(os.dup2, 0, 1)                        # reclaim stdout
-        iutil.eintr_retry_call(os.dup2, 0, 2)                        # reclaim stderr
-        #                          ^
-        #                          |
-        #                          +------ dup2 is magic, I tells ya!
+        os.dup2(0, 1)                        # reclaim stdout
+        os.dup2(0, 2)                        # reclaim stderr
+        #   ^
+        #   |
+        #   +------ dup2 is magic, I tells ya!
 
         # bring back the echo
         import termios

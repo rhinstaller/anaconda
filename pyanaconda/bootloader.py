@@ -60,7 +60,7 @@ def get_boot_block(device, seek_blocks=0):
     if seek_blocks:
         os.lseek(fd, seek_blocks * block_size, 0)
     block = iutil.eintr_retry_call(os.read, fd, 512)
-    iutil.eintr_retry_call(os.close, fd)
+    os.close(fd)
     if not status:
         try:
             device.teardown(recursive=True)
@@ -1346,11 +1346,11 @@ class GRUB(BootLoader):
                       "stage2dev": self.grub_device_name(stage2dev)})
             (pread, pwrite) = os.pipe()
             iutil.eintr_retry_call(os.write, pwrite, cmd.encode("utf-8"))
-            iutil.eintr_retry_call(os.close, pwrite)
+            os.close(pwrite)
             args = ["--batch", "--no-floppy",
                     "--device-map=%s" % self.device_map_file]
             rc = iutil.execInSysroot("grub", args, stdin=pread)
-            iutil.eintr_retry_call(os.close, pread)
+            os.close(pread)
             if rc:
                 raise BootLoaderError("boot loader install failed")
 
@@ -1539,11 +1539,11 @@ class GRUB2(GRUB):
         (pread, pwrite) = os.pipe()
         passwords = "%s\n%s\n" % (self.password, self.password)
         iutil.eintr_retry_call(os.write, pwrite, passwords.encode("utf-8"))
-        iutil.eintr_retry_call(os.close, pwrite)
+        os.close(pwrite)
         buf = iutil.execWithCapture("grub2-mkpasswd-pbkdf2", [],
                                     stdin=pread,
                                     root=iutil.getSysroot())
-        iutil.eintr_retry_call(os.close, pread)
+        os.close(pread)
         self.encrypted_password = buf.split()[-1].strip()
         if not self.encrypted_password.startswith("grub.pbkdf2."):
             raise BootLoaderError("failed to encrypt boot loader password")

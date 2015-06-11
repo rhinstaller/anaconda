@@ -969,7 +969,7 @@ if __name__ == "__main__":
         pidfile_created = True
         pid_string = "%s\n" % os.getpid()
         iutil.eintr_retry_call(os.write, pidfile, pid_string.encode("utf-8"))
-        iutil.eintr_retry_call(os.close, pidfile)
+        os.close(pidfile)
     except OSError as e:
         # If the failure was anything other than EEXIST during the open call,
         # just re-raise the exception
