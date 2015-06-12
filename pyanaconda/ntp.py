@@ -35,7 +35,8 @@ from pyanaconda import iutil
 from pyanaconda.threads import threadMgr, AnacondaThread
 from pyanaconda.constants import THREAD_SYNC_TIME_BASENAME
 
-NTP_CONFIG_FILE = "/etc/chrony.conf"
+CHRONY_CONFIG_FILE = "/etc/chrony.conf"
+NTP_CONFIG_FILE="/etc/ntp.conf"
 
 #example line:
 #server 0.fedora.pool.ntp.org iburst
@@ -72,7 +73,7 @@ def ntp_server_working(server):
 
     return True
 
-def get_servers_from_config(conf_file_path=NTP_CONFIG_FILE,
+def get_servers_from_config(conf_file_path=CHRONY_CONFIG_FILE,
                             srv_regexp=SRV_LINE_REGEXP):
     """
     Goes through the chronyd's configuration file looking for lines starting
@@ -99,7 +100,7 @@ def get_servers_from_config(conf_file_path=NTP_CONFIG_FILE,
 
     return ret
 
-def save_servers_to_config(servers, conf_file_path=NTP_CONFIG_FILE,
+def save_servers_to_config(servers, conf_file_path=CHRONY_CONFIG_FILE,
                            srv_regexp=SRV_LINE_REGEXP, out_file_path=None):
     """
     Replaces the servers defined in the chronyd's configuration file with

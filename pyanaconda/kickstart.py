@@ -1644,12 +1644,22 @@ class Timezone(commands.timezone.F18_Timezone):
 
         # write out NTP configuration (if set)
         if not self.nontp and self.ntpservers:
-            chronyd_conf_path = os.path.normpath(iutil.getSysroot() + ntp.NTP_CONFIG_FILE)
+            chronyd_out_path = os.path.normpath(iutil.getSysroot() + ntp.CHRONY_CONFIG_FILE)
+            ntpd_out_path = os.path.normpath(iutil.getSysroot() + ntp.NTP_CONFIG_FILE)
             try:
                 ntp.save_servers_to_config(self.ntpservers,
-                                           conf_file_path=chronyd_conf_path)
+                                           conf_file_path=ntp.CHRONY_CONFIG_FILE,
+                                           out_file_path=chronyd_out_path)
             except ntp.NTPconfigError as ntperr:
-                log.warning("Failed to save NTP configuration: %s", ntperr)
+                log.warning("Failed to save NTP configuration for chrony: %s", ntperr)
+
+            try:
+                ntp.save_servers_to_config(self.ntpservers,
+                                           conf_file_path=ntp.NTP_CONFIG_FILE,
+                                           out_file_path=ntpd_out_path)
+            except ntp.NTPconfigError as ntperr:
+                log.warning("Failed to save NTP configuration for ntpd: %s", ntperr)
+
 
 class User(commands.user.F19_User):
     def execute(self, storage, ksdata, instClass, users):
