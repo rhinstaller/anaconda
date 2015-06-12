@@ -112,6 +112,10 @@ class BootArgs(OrderedDict):
         Returns a list of successfully read files.
         filenames can contain *, ?, and character ranges expressed with []
         """
+
+        # Import here instead of at the module level to avoid an import loop
+        from pyanaconda.iutil import open   # pylint: disable=redefined-builtin
+
         readfiles = []
         if isinstance(filenames, str):
             filenames = [filenames]

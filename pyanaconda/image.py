@@ -20,6 +20,7 @@
 from pyanaconda import isys
 import os, os.path, stat, tempfile
 from pyanaconda.constants import ISO_DIR
+from pyanaconda.iutil import open   # pylint: disable=redefined-builtin
 
 from pyanaconda.errors import errorHandler, ERROR_RAISE, InvalidImageSizeError, MediaMountError, MissingImageError
 

@@ -1312,3 +1312,14 @@ def requests_session():
     session.mount("file://", FileAdapter())
     session.mount("ftp://", FTPAdapter())
     return session
+
+_open = open
+def open(*args, **kwargs):  # pylint: disable=redefined-builtin
+    """Open a file, and retry on EINTR.
+
+       The arguments are the same as those to python's builtin open.
+
+       This is equivalent to eintr_retry_call(open, ...).  Some other
+       high-level languages handle this for you, like C's fopen.
+    """
+    return eintr_retry_call(_open, *args, **kwargs)

@@ -35,6 +35,7 @@ from time import sleep
 from threading import Lock
 import requests
 from pyanaconda.iutil import ProxyString, ProxyStringError, lowerASCII
+from pyanaconda.iutil import open   # pylint: disable=redefined-builtin
 import hashlib
 import glob
 import functools

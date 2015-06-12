@@ -26,6 +26,7 @@
 
 import shutil
 from pyanaconda import iutil
+from pyanaconda.iutil import open   # pylint: disable=redefined-builtin
 import socket
 import os
 import time

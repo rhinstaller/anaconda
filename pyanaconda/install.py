@@ -28,6 +28,7 @@ from pyanaconda.progress import progress_report, progress_message, progress_step
 from pyanaconda.users import createLuserConf, getPassAlgo, Users
 from pyanaconda import flags
 from pyanaconda import iutil
+from pyanaconda.iutil import open   # pylint: disable=redefined-builtin
 from pyanaconda import timezone
 from pyanaconda import network
 from pyanaconda.i18n import _

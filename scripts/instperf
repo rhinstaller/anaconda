@@ -3,6 +3,7 @@
 import logging
 from subprocess import Popen, PIPE
 import time
+from pyanaconda.iutil import open   # pylint: disable=redefined-builtin
 
 # grab the top five memory consuming processes, returning them in a string of
 # of the format:

@@ -31,6 +31,7 @@ from glob import glob
 from itertools import chain
 
 from pyanaconda import iutil
+from pyanaconda.iutil import open   # pylint: disable=redefined-builtin
 from blivet.devicelibs import raid
 from pyanaconda.product import productName
 from pyanaconda.flags import flags, can_touch_runtime_system

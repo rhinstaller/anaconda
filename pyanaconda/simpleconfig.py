@@ -28,6 +28,7 @@ import shlex
 import string # pylint: disable=deprecated-module
 import tempfile
 from pyanaconda.iutil import upperASCII, eintr_retry_call
+from pyanaconda.iutil import open   # pylint: disable=redefined-builtin
 
 _SAFECHARS = frozenset(string.ascii_letters + string.digits + '@%_-+=:,./')
 

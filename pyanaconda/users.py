@@ -30,6 +30,7 @@ import os.path
 from pyanaconda import iutil
 import pwquality
 from pyanaconda.iutil import strip_accents
+from pyanaconda.iutil import open   # pylint: disable=redefined-builtin
 from pyanaconda.constants import PASSWORD_MIN_LEN
 from pyanaconda.errors import errorHandler, PasswordCryptError, ERROR_RAISE
 

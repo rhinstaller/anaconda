@@ -43,6 +43,7 @@ import shutil
 import sys
 import time
 from pyanaconda.iutil import ProxyString, ProxyStringError
+from pyanaconda.iutil import open   # pylint: disable=redefined-builtin
 
 log = logging.getLogger("packaging")
 

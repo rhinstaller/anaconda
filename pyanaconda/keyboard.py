@@ -34,6 +34,7 @@ from pyanaconda import iutil
 from pyanaconda import safe_dbus
 from pyanaconda.constants import DEFAULT_VC_FONT, DEFAULT_KEYBOARD
 from pyanaconda.flags import can_touch_runtime_system
+from pyanaconda.iutil import open   # pylint: disable=redefined-builtin
 
 from gi.repository import GLib
 
