@@ -22,6 +22,7 @@
 import os, sys
 import time
 from pyanaconda import constants, network, product, iutil
+from pyanaconda.iutil import open   # pylint: disable=redefined-builtin
 import socket
 import subprocess
 import dbus

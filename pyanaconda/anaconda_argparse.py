@@ -33,6 +33,7 @@ import struct
 from argparse import ArgumentParser, ArgumentError, HelpFormatter, Namespace
 
 from pyanaconda.flags import BootArgs
+from pyanaconda.iutil import open   # pylint: disable=redefined-builtin
 
 import logging
 log = logging.getLogger("anaconda")

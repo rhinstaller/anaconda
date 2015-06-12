@@ -38,6 +38,7 @@ import re
 import functools
 
 from pyanaconda.iutil import requests_session
+from pyanaconda.iutil import open   # pylint: disable=redefined-builtin
 
 if __name__ == "__main__":
     from pyanaconda import anaconda_log

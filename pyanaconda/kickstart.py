@@ -39,6 +39,7 @@ import blivet.arch
 
 import glob
 from pyanaconda import iutil
+from pyanaconda.iutil import open   # pylint: disable=redefined-builtin
 import os
 import os.path
 import tempfile

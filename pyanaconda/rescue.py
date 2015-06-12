@@ -22,6 +22,7 @@
 import sys
 import os
 from pyanaconda import iutil
+from pyanaconda.iutil import open   # pylint: disable=redefined-builtin
 import shutil
 import time
 import re

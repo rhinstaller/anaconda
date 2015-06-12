@@ -31,6 +31,7 @@ from glob import glob
 from itertools import chain
 
 from pyanaconda import iutil
+from pyanaconda.iutil import open   # pylint: disable=redefined-builtin
 from blivet.devicelibs import raid
 from pyanaconda.isys import sync
 from pyanaconda.product import productName

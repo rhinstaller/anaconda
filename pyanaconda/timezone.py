@@ -30,6 +30,7 @@ import langtable
 from collections import OrderedDict
 
 from pyanaconda import iutil
+from pyanaconda.iutil import open   # pylint: disable=redefined-builtin
 from pyanaconda.constants import THREAD_STORAGE
 from pyanaconda.flags import flags
 from pyanaconda.threads import threadMgr

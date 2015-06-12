@@ -222,6 +222,9 @@ class AnacondaLog:
 
         Requires updating rsyslogd config and restarting rsyslog
         """
+        # Import here instead of at the module level to avoid an import loop
+        from pyanaconda.iutil import open   # pylint: disable=redefined-builtin
+
         TEMPLATE = "*.* @@%s\n"
 
         self.remote_syslog = remote_syslog
@@ -233,6 +236,9 @@ class AnacondaLog:
     def setupVirtio(self):
         """Setup virtio rsyslog logging.
         """
+        # Import here instead of at the module level to avoid an import loop
+        from pyanaconda.iutil import open   # pylint: disable=redefined-builtin
+
         TEMPLATE = "*.* %s;anaconda_syslog\n"
 
         vport = flags.cmdline.get('virtiolog') or self.VIRTIO_PORT

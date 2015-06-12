@@ -36,6 +36,7 @@ import threading
 from pyanaconda.bootloader import get_bootloader
 from pyanaconda import constants
 from pyanaconda import iutil
+from pyanaconda.iutil import open   # pylint: disable=redefined-builtin
 from pyanaconda import addons
 
 import logging
