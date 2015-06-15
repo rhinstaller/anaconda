@@ -209,7 +209,7 @@ def doInstall(storage, payload, ksdata, instClass):
     if willInstallBootloader:
         packages += storage.bootloader.packages
 
-    if network.is_using_team_device:
+    if network.is_using_team_device():
         packages.append("teamd")
 
     # don't try to install packages from the install class' ignored list and the
