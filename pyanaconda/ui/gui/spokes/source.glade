@@ -296,10 +296,10 @@
                       <object class="GtkLabel" id="label5">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
-                        <property name="xalign">0</property>
                         <property name="label" translatable="yes" context="GUI|Software Source|Proxy Dialog">_Proxy URL:</property>
                         <property name="use_underline">True</property>
                         <property name="mnemonic_widget">proxyURLEntry</property>
+                        <property name="xalign">0</property>
                         <attributes>
                           <attribute name="weight" value="bold"/>
                         </attributes>
@@ -313,9 +313,9 @@
                       <object class="GtkLabel" id="label7">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
-                        <property name="xalign">0</property>
                         <property name="label" translatable="yes">&lt;span size="small"&gt;&lt;b&gt;Example:&lt;/b&gt; squid.mysite.org:3128&lt;/span&gt;</property>
                         <property name="use_markup">True</property>
+                        <property name="xalign">0</property>
                       </object>
                       <packing>
                         <property name="left_attach">1</property>
@@ -371,10 +371,10 @@
                       <object class="GtkLabel" id="label8">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
-                        <property name="xalign">0</property>
                         <property name="label" translatable="yes" context="GUI|Software Source|Proxy Dialog">User _name:</property>
                         <property name="use_underline">True</property>
                         <property name="mnemonic_widget">proxyUsernameEntry</property>
+                        <property name="xalign">0</property>
                         <attributes>
                           <attribute name="weight" value="bold"/>
                         </attributes>
@@ -388,10 +388,10 @@
                       <object class="GtkLabel" id="label9">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
-                        <property name="xalign">0</property>
                         <property name="label" translatable="yes" context="GUI|Software Source|Proxy Dialog">Pass_word:</property>
                         <property name="use_underline">True</property>
                         <property name="mnemonic_widget">proxyPasswordEntry</property>
+                        <property name="xalign">0</property>
                         <attributes>
                           <attribute name="weight" value="bold"/>
                         </attributes>
@@ -480,9 +480,6 @@
             <child internal-child="nav_area">
               <object class="GtkGrid" id="AnacondaSpokeWindow-nav_area1">
                 <property name="can_focus">False</property>
-                <child>
-                  <placeholder/>
-                </child>
               </object>
             </child>
           </object>
@@ -567,8 +564,8 @@
                                   <object class="GtkLabel" id="autodetectDeviceLabel">
                                     <property name="visible">True</property>
                                     <property name="can_focus">False</property>
-                                    <property name="xalign">0</property>
                                     <property name="label" translatable="yes">Device:</property>
+                                    <property name="xalign">0</property>
                                   </object>
                                   <packing>
                                     <property name="left_attach">0</property>
@@ -579,8 +576,8 @@
                                   <object class="GtkLabel" id="autodetectLabel">
                                     <property name="visible">True</property>
                                     <property name="can_focus">False</property>
-                                    <property name="xalign">0</property>
                                     <property name="label" translatable="yes">Label:</property>
+                                    <property name="xalign">0</property>
                                   </object>
                                   <packing>
                                     <property name="left_attach">0</property>
@@ -929,7 +926,6 @@
                                 <property name="visible">True</property>
                                 <property name="can_focus">False</property>
                                 <property name="halign">start</property>
-                                <property name="xalign">0.50999999046325684</property>
                                 <property name="label" translatable="yes">Additional repositories</property>
                                 <attributes>
                                   <attribute name="font-desc" value="Cantarell 10"/>
@@ -1156,10 +1152,10 @@
                                       <object class="GtkLabel" id="label14">
                                         <property name="visible">True</property>
                                         <property name="can_focus">False</property>
-                                        <property name="xalign">0</property>
                                         <property name="label" translatable="yes" context="GUI|Software Source">_Name:</property>
                                         <property name="use_underline">True</property>
                                         <property name="mnemonic_widget">repoNameEntry</property>
+                                        <property name="xalign">0</property>
                                         <attributes>
                                           <attribute name="weight" value="bold"/>
                                         </attributes>
@@ -1194,10 +1190,10 @@
                                       <object class="GtkLabel" id="label15">
                                         <property name="visible">True</property>
                                         <property name="can_focus">False</property>
-                                        <property name="xalign">0</property>
                                         <property name="label" translatable="yes" context="GUI|Software Source">Pro_xy URL:</property>
                                         <property name="use_underline">True</property>
                                         <property name="mnemonic_widget">repoProxyUrlEntry</property>
+                                        <property name="xalign">0</property>
                                         <attributes>
                                           <attribute name="weight" value="bold"/>
                                         </attributes>
@@ -1211,10 +1207,10 @@
                                       <object class="GtkLabel" id="label16">
                                         <property name="visible">True</property>
                                         <property name="can_focus">False</property>
-                                        <property name="xalign">0</property>
                                         <property name="label" translatable="yes" context="GUI|Software Source">U_ser name:</property>
                                         <property name="use_underline">True</property>
                                         <property name="mnemonic_widget">repoProxyUsernameEntry</property>
+                                        <property name="xalign">0</property>
                                         <attributes>
                                           <attribute name="weight" value="bold"/>
                                         </attributes>
@@ -1228,10 +1224,10 @@
                                       <object class="GtkLabel" id="label17">
                                         <property name="visible">True</property>
                                         <property name="can_focus">False</property>
-                                        <property name="xalign">0</property>
                                         <property name="label" translatable="yes" context="GUI|Software Source">Pass_word:</property>
                                         <property name="use_underline">True</property>
                                         <property name="mnemonic_widget">repoProxyPasswordEntry</property>
+                                        <property name="xalign">0</property>
                                         <attributes>
                                           <attribute name="weight" value="bold"/>
                                         </attributes>
