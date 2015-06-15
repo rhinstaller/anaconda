@@ -59,9 +59,9 @@
           <object class="GtkLabel" id="confirmLabel">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
+            <property name="wrap">True</property>
             <property name="xalign">0</property>
             <property name="yalign">0</property>
-            <property name="wrap">True</property>
             <attributes>
               <attribute name="font-desc" value="Cantarell 11"/>
             </attributes>
@@ -172,8 +172,8 @@
               <object class="GtkLabel" id="disk_selection_title_label">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
-                <property name="xalign">0</property>
                 <property name="label" translatable="yes">CONFIGURE MOUNT POINT</property>
+                <property name="xalign">0</property>
                 <attributes>
                   <attribute name="weight" value="bold"/>
                 </attributes>
@@ -365,10 +365,10 @@
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
                 <property name="margin_top">6</property>
-                <property name="xalign">1</property>
                 <property name="label" translatable="yes" context="GUI|Custom Partitioning|Add Dialog">_Desired Capacity:</property>
                 <property name="use_underline">True</property>
                 <property name="mnemonic_widget">addSizeEntry</property>
+                <property name="xalign">1</property>
                 <attributes>
                   <attribute name="weight" value="bold"/>
                 </attributes>
@@ -382,10 +382,10 @@
               <object class="GtkLabel" id="label6">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
-                <property name="xalign">0</property>
                 <property name="label" translatable="yes" context="GUI|Custom Partitioning|Add Dialog">Mount _Point:</property>
                 <property name="use_underline">True</property>
                 <property name="mnemonic_widget">addMountPointEntry</property>
+                <property name="xalign">0</property>
                 <attributes>
                   <attribute name="weight" value="bold"/>
                 </attributes>
@@ -400,8 +400,8 @@
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
                 <property name="margin_bottom">12</property>
-                <property name="xalign">0</property>
                 <property name="label" translatable="yes">ADD A NEW MOUNT POINT</property>
+                <property name="xalign">0</property>
                 <attributes>
                   <attribute name="weight" value="bold"/>
                   <attribute name="scale" value="1.2"/>
@@ -625,8 +625,8 @@ use.  Try something else?</property>
               <object class="GtkLabel" id="container_dialog_title_label">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
-                <property name="xalign">0</property>
                 <property name="label" translatable="yes">CONFIGURE CONTAINER</property>
+                <property name="xalign">0</property>
                 <attributes>
                   <attribute name="weight" value="bold"/>
                 </attributes>
@@ -777,8 +777,8 @@ use.  Try something else?</property>
                   <object class="GtkLabel" id="containerRaidLevelLabel">
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
-                    <property name="xalign">0</property>
                     <property name="label" translatable="yes">RAID Level:</property>
+                    <property name="xalign">0</property>
                   </object>
                   <packing>
                     <property name="expand">False</property>
