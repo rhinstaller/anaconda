@@ -58,7 +58,8 @@ class RHELBaseInstallClass(BaseInstallClass):
             return
         # choose the device used during installation
         # (ie for majority of cases the one having the default route)
-        dev = network.default_route_device()
+        dev = network.default_route_device() \
+              or network.default_route_device(family="inet6")
         if not dev:
             return
         # ignore wireless (its ifcfgs would need to be handled differently)

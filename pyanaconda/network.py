@@ -893,10 +893,10 @@ def ifaceForHostIP(host):
 
     return routeInfo[routeInfo.index("dev") + 1]
 
-def default_route_device():
-    routes = iutil.execWithCapture("ip", ["route", "show"])
+def default_route_device(family="inet"):
+    routes = iutil.execWithCapture("ip", [ "-f", family, "route", "show"])
     if not routes:
-        log.error("Could not get default route device")
+        log.debug("Could not get default %s route device", family)
         return None
 
     for line in routes.split("\n"):
@@ -905,7 +905,7 @@ def default_route_device():
             if len(parts) >= 5 and parts[3] == "dev":
                 return parts[4]
             else:
-                log.error("Could not parse default route device: %s", line)
+                log.debug("Could not parse default %s route device", family)
                 return None
 
     return None
