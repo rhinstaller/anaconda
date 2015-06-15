@@ -926,22 +926,11 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler):
             if not m:
                 return _("Invalid URL")
 
-            # If there is a protocol in the URL, and the protocol matches the
-            # combo box, just remove it. This makes it more convenient to paste
-            # in URLs. It'll probably freak out people who are typing out http://
-            # in the box themselves, but why would you do that?  Don't do that.
-            # If the protocols don't match, complain.
+            # Matching protocols in the URL should already have been removed
+            # by _removeUrlPrefix. If there's still one there, it's wrong.
             url_protocol = m.group('protocol')
             if url_protocol:
-                if (url_protocol == 'http://' and combo_protocol == PROTOCOL_HTTP) or \
-                        (url_protocol == 'https://' and combo_protocol == PROTOCOL_HTTPS) or \
-                        (url_protocol == 'ftp://' and combo_protocol == PROTOCOL_FTP):
-                    # Disable the check to block a recursive check call
-                    inputcheck.enabled = False
-                    inputcheck.input_obj.set_text(url_string[len(url_protocol):])
-                    inputcheck.enabled = True
-                else:
-                    return _("Protocol in URL does not match selected protocol")
+                return _("Protocol in URL does not match selected protocol")
         elif combo_protocol == PROTOCOL_NFS:
             if not url_string:
                 return _("NFS server is empty")
@@ -1305,6 +1294,29 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler):
                 log.error("Failed to parse proxy for repo %s: %s", repo.name, e)
                 return
 
+    def _removeUrlPrefix(self, editable, combo, handler):
+        # If there is a protocol in the URL, and the protocol matches the
+        # combo box, just remove it. This makes it more convenient to paste
+        # in URLs. It'll probably freak out people who are typing out http://
+        # in the box themselves, but why would you do that?  Don't do that.
+
+        combo_protocol = combo.get_active_id()
+        if combo_protocol in (PROTOCOL_HTTP, PROTOCOL_HTTPS, PROTOCOL_FTP):
+            url_string = editable.get_text()
+            m = URL_PARSE.match(url_string)
+            if m:
+                url_protocol = m.group('protocol')
+                if (url_protocol == 'http://' and combo_protocol == PROTOCOL_HTTP) or \
+                        (url_protocol == 'https://' and combo_protocol == PROTOCOL_HTTPS) or \
+                        (url_protocol == 'ftp://' and combo_protocol == PROTOCOL_FTP):
+                    # URL protocol matches. Block the changed signal and remove it
+                    with blockedHandler(editable, handler):
+                        editable.set_text(url_string[len(url_protocol):])
+
+    def on_urlEntry_changed(self, editable, data=None):
+        # Check for and remove a URL prefix that matches the protocol dropdown
+        self._removeUrlPrefix(editable, self._protocolComboBox, self.on_urlEntry_changed)
+
     def on_noUpdatesCheckbox_toggled(self, *args):
         """ Toggle the enable state of the updates repo
 
@@ -1376,7 +1388,7 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler):
         del self._repoChecks[old_name]
         self._repoChecks[name].name_check.update_check_status()
 
-    def on_repoUrl_changed(self, *args):
+    def on_repoUrl_changed(self, editable, data=None):
         """ proxy url or protocol changed
         """
         itr = self._repoSelection.get_selected()[1]
@@ -1392,6 +1404,9 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler):
             repo.baseurl = proto + url
 
         self._repoChecks[repo.name].url_check.update_check_status()
+
+        # Check for and remove a URL prefix that matches the protocol dropdown
+        self._removeUrlPrefix(editable, self._repoProtocolComboBox, self.on_repoUrl_changed)
 
     def on_repoMirrorlistCheckbox_toggled(self, *args):
         """ mirror state changed
