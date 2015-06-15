@@ -106,37 +106,39 @@ class VncServer:
         if not self.ip:
             return
 
-        ipstr = self.ip
-        try:
-            hinfo = socket.gethostbyaddr(ipstr)
-        except socket.herror as e:
-            log.debug("Exception caught trying to get host name of %s: %s", ipstr, e)
-            self.name = network.getHostname()
-        else:
-            if len(hinfo) == 3:
-                self.name = hinfo[0]
-
         if self.ip.find(':') != -1:
             ipstr = "[%s]" % (self.ip,)
+        else:
+            ipstr = self.ip
 
-        name_ips = [i[4][0] for i in socket.getaddrinfo(self.name, 0)]
-        if self.name is not None and not self.name.startswith('localhost') \
-           and ipstr is not None and self.ip in name_ips:
+        try:
+            hinfo = socket.gethostbyaddr(ipstr)
+            if len(hinfo) == 3:
+                # Consider as coming from a valid DNS record only if single IP is returned
+                if len(hinfo[2]) == 1:
+                    self.name = hinfo[0]
+        except socket.herror as e:
+            log.debug("Exception caught trying to get host name of %s: %s", ipstr, e)
+
+        if self.name is not None and not self.name.startswith('localhost'):
             self.connxinfo = "%s:%s (%s:%s)" % \
                     (socket.getfqdn(name=self.name), constants.X_DISPLAY_NUMBER,
                      ipstr, constants.X_DISPLAY_NUMBER)
+            host = self.name
         elif ipstr is not None:
             self.connxinfo = "%s:%s" % (ipstr, constants.X_DISPLAY_NUMBER)
+            host = ipstr
         else:
             self.connxinfo = None
+            host = ""
 
         # figure out product info
-        if self.name is not None:
+        if host:
             self.desktop = _("%(productName)s %(productVersion)s installation "
                              "on host %(name)s") \
                            % {'productName': product.productName,
                               'productVersion': product.productVersion,
-                              'name': self.name}
+                              'name': host}
 
     def openlogfile(self):
         try:
