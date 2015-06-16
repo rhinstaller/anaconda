@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 #
-# Copyright (C) 2014  Red Hat, Inc.
+# Copyright (C) 2014-2015 Red Hat, Inc.
 #
 # This copyrighted material is made available to anyone wishing to use,
 # modify, copy, or redistribute it subject to the terms and conditions of
@@ -22,6 +22,7 @@
 # pylint: disable=interruptible-system-call
 
 from pyanaconda.simpleconfig import SimpleConfigFile
+from pyanaconda.simpleconfig import simple_replace
 from pyanaconda import simpleconfig
 import unittest
 import tempfile
@@ -189,3 +190,45 @@ KEY2="A single ' inside" # And comment "with quotes"
 
             # Check that the original file handle points to the replaced contents
             self.assertEqual(testconfig.read(), 'KEY1=value2\n')
+
+class SimpleReplaceTests(unittest.TestCase):
+    TEST_CONFIG = """#SKIP=Skip this commented line
+BOOT=always
+"""
+
+    def replace_test(self):
+        with tempfile.NamedTemporaryFile(mode="wt") as testconfig:
+            testconfig.write(self.TEST_CONFIG)
+            testconfig.flush()
+
+            keys = [("BOOT", "BOOT=never")]
+            simple_replace(testconfig.name, keys)
+
+            config = SimpleConfigFile(testconfig.name)
+            config.read()
+            self.assertEqual(config.get("BOOT"), "never")
+
+    def append_test(self):
+        with tempfile.NamedTemporaryFile(mode="wt") as testconfig:
+            testconfig.write(self.TEST_CONFIG)
+            testconfig.flush()
+
+            keys = [("NEWKEY", "NEWKEY=froboz")]
+            simple_replace(testconfig.name, keys)
+
+            config = SimpleConfigFile(testconfig.name)
+            config.read()
+            self.assertEqual(config.get("NEWKEY"), "froboz")
+
+    def no_append_test(self):
+        with tempfile.NamedTemporaryFile(mode="wt") as testconfig:
+            testconfig.write(self.TEST_CONFIG)
+            testconfig.flush()
+
+            keys = [("BOOT", "BOOT=sometimes"), ("NEWKEY", "NEWKEY=froboz")]
+            simple_replace(testconfig.name, keys, add=False)
+
+            config = SimpleConfigFile(testconfig.name)
+            config.read()
+            self.assertEqual(config.get("BOOT"), "sometimes")
+            self.assertEqual(config.get("NEWKEY"), "")
