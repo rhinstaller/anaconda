@@ -307,6 +307,20 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Mon Jun 15 2015 Brian C. Lane <bcl@redhat.com> - 21.48.22.7-1
+- Update upd-kernel so that it actually works (bcl)
+  Resolves: rhbz#1166535
+- Fix passing ,nfsvers=3 to dracut (bcl)
+  Resolves: rhbz#1161820
+- Extract xattrs from tar payload (bcl)
+  Resolves: rhbz#1196021
+- rpmostreepayload: write storage config after shared var is mounted (rvykydal)
+  Resolves: rhbz#1203608
+- Do not log Xorg output to tty5 (dshea)
+  Related: rhbz#1188287
+- Fix for "Kickstart installation fails..." (jkonecny)
+  Resolves: rhbz#1197960
+
 * Wed Jun 10 2015 Brian C. Lane <bcl@redhat.com> - 21.48.22.6-1
 - Modify Proxy Label in Installation Source Spoke (rmarshall)
   Resolves: rhbz#1168554
