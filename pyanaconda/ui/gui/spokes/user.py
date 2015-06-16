@@ -48,16 +48,6 @@ class AdvancedUserDialog(GUIObject, GUIDialogInputCheckHandler):
     mainWidgetName = "advancedUserDialog"
     uiFile = "spokes/advanced_user.glade"
 
-    def set_status(self, inputcheck):
-        # Use the superclass set_status to set the error message
-        GUIDialogInputCheckHandler.set_status(self, inputcheck)
-
-        # Make the save button insensitive if the check fails
-        if inputcheck.check_status == InputCheck.CHECK_OK:
-            self._saveButton.set_sensitive(True)
-        else:
-            self._saveButton.set_sensitive(False)
-
     def _validateGroups(self, inputcheck):
         groups_string = self.get_input(inputcheck.input_obj)
 
@@ -75,7 +65,10 @@ class AdvancedUserDialog(GUIObject, GUIDialogInputCheckHandler):
 
     def __init__(self, user, groupDict, data):
         GUIObject.__init__(self, data)
-        GUIDialogInputCheckHandler.__init__(self)
+
+        self._saveButton = self.builder.get_object("save_button")
+        GUIDialogInputCheckHandler.__init__(self, self._saveButton)
+
         self._user = user
         self._groupDict = groupDict
 
@@ -94,7 +87,6 @@ class AdvancedUserDialog(GUIObject, GUIDialogInputCheckHandler):
         self._spinGid = self.builder.get_object("spin_gid")
         self._uid = self.builder.get_object("uid")
         self._gid = self.builder.get_object("gid")
-        self._saveButton = self.builder.get_object("save_button")
 
     def initialize(self):
         GUIObject.initialize(self)
@@ -163,42 +155,49 @@ class AdvancedUserDialog(GUIObject, GUIDialogInputCheckHandler):
 
     def run(self):
         self.window.show()
-        rc = self.window.run()
+        while True:
+            rc = self.window.run()
+
+            #OK clicked
+            if rc == 1:
+                # Input checks pass
+                if self.on_ok_clicked():
+                    # If the user changed the home directory input, either this time or
+                    # during any earlier run of the dialog, set homedir to the value
+                    # in the input box.
+                    homedir = self._tHome.get_text()
+                    if not os.path.isabs(homedir):
+                        homedir = "/" + homedir
+                    if self._homeSet or self._origHome != homedir:
+                        self._homeSet = True
+                        self._user.homedir = homedir
+
+                    if self._cUid.get_active():
+                        self._user.uid = int(self._uid.get_value())
+                    else:
+                        self._user.uid = None
+
+                    if self._cGid.get_active():
+                        self._user.gid = int(self._gid.get_value())
+                    else:
+                        self._user.gid = None
+
+                    groups = self._parse_groups()
+                    self._user.groups = []
+                    self._groupDict.clear()
+                    for group in groups:
+                        self._groupDict[group.name] = group
+                        self._user.groups.append(group.name)
+                    break
+                # Input checks fail, try again
+                else:
+                    continue
+
+            #Cancel clicked, window destroyed...
+            else:
+                break
+
         self.window.hide()
-
-        #OK clicked
-        if rc == 1:
-            # If the user changed the home directory input, either this time or
-            # during any earlier run of the dialog, set homedir to the value
-            # in the input box.
-            homedir = self._tHome.get_text()
-            if not os.path.isabs(homedir):
-                homedir = "/" + homedir
-            if self._homeSet or self._origHome != homedir:
-                self._homeSet = True
-                self._user.homedir = homedir
-
-            if self._cUid.get_active():
-                self._user.uid = int(self._uid.get_value())
-            else:
-                self._user.uid = None
-
-            if self._cGid.get_active():
-                self._user.gid = int(self._gid.get_value())
-            else:
-                self._user.gid = None
-
-            groups = self._parse_groups()
-            self._user.groups = []
-            self._groupDict.clear()
-            for group in groups:
-                self._groupDict[group.name] = group
-                self._user.groups.append(group.name)
-
-        #Cancel clicked, window destroyed...
-        else:
-            pass
-
         return rc
 
 class UserSpoke(FirstbootSpokeMixIn, NormalSpoke, GUISpokeInputCheckHandler):

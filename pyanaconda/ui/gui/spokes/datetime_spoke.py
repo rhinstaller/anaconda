@@ -155,7 +155,11 @@ class NTPconfigDialog(GUIObject, GUIDialogInputCheckHandler):
 
     def __init__(self, *args):
         GUIObject.__init__(self, *args)
-        GUIDialogInputCheckHandler.__init__(self)
+
+        # Use GUIDIalogInputCheckHandler to manipulate the sensitivity of the
+        # add button, and check for valid input in on_entry_activated
+        add_button = self.builder.get_object("addButton")
+        GUIDialogInputCheckHandler.__init__(self, add_button)
 
         #epoch is increased when serversStore is repopulated
         self._epoch = 0
@@ -245,13 +249,6 @@ class NTPconfigDialog(GUIObject, GUIDialogInputCheckHandler):
             return "'%s' is not a valid hostname: %s" % (server, error)
         else:
             return InputCheck.CHECK_OK
-
-    def set_status(self, inputcheck):
-        # Use GUIDialogInputCheckHandler to set the error message
-        GUIDialogInputCheckHandler.set_status(self, inputcheck)
-
-        # Set the sensitivity of the add button based on the result
-        self._addButton.set_sensitive(inputcheck.check_status == InputCheck.CHECK_OK)
 
     def refresh(self):
         self._serverEntry.grab_focus()

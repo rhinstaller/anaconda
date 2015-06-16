@@ -110,9 +110,11 @@ class ProxyDialog(GUIObject, GUIDialogInputCheckHandler):
 
     def __init__(self, data, proxy_url):
         GUIObject.__init__(self, data)
-        GUIDialogInputCheckHandler.__init__(self)
-        self.proxyUrl = proxy_url
 
+        self._proxyOkButton = self.builder.get_object("proxyOkButton")
+        GUIDialogInputCheckHandler.__init__(self, self._proxyOkButton)
+
+        self.proxyUrl = proxy_url
         self._proxyCheck = self.builder.get_object("enableProxyCheck")
         self._proxyInfoBox = self.builder.get_object("proxyInfoBox")
         self._authCheck = self.builder.get_object("enableAuthCheck")
@@ -121,7 +123,6 @@ class ProxyDialog(GUIObject, GUIDialogInputCheckHandler):
         self._proxyURLEntry = self.builder.get_object("proxyURLEntry")
         self._proxyUsernameEntry = self.builder.get_object("proxyUsernameEntry")
         self._proxyPasswordEntry = self.builder.get_object("proxyPasswordEntry")
-        self._proxyOkButton = self.builder.get_object("proxyOkButton")
 
         self._proxyValidate = self.add_check(self._proxyURLEntry, self._checkProxyURL)
         self._proxyValidate.update_check_status()
@@ -129,7 +130,7 @@ class ProxyDialog(GUIObject, GUIDialogInputCheckHandler):
     def _checkProxyURL(self, inputcheck):
         proxy_string = self.get_input(inputcheck.input_obj)
 
-        # Don't set an error icon on empty input, but keep the add button insensitive.
+        # Don't set an error icon on empty input, but still consider it an error
         if not proxy_string:
             return InputCheck.CHECK_SILENT
 
@@ -138,13 +139,6 @@ class ProxyDialog(GUIObject, GUIDialogInputCheckHandler):
 
         return _validateProxy(proxy_string, username_set, password_set)
 
-    def set_status(self, inputcheck):
-        # Use the superclass set_status to set the error message
-        GUIDialogInputCheckHandler.set_status(self, inputcheck)
-
-        # Change the sensitivity of the Add button
-        self._proxyOkButton.set_sensitive(inputcheck.check_status == InputCheck.CHECK_OK)
-
     # Update the proxy validation check on username and password changes to catch
     # changes in duplicated authentication data
     def on_proxyUsernameEntry_changed(self, entry, user_data=None):
@@ -152,9 +146,6 @@ class ProxyDialog(GUIObject, GUIDialogInputCheckHandler):
 
     def on_proxyPasswordEntry_changed(self, entry, user_data=None):
         self._proxyValidate.update_check_status()
-
-    def on_proxy_cancel_clicked(self, *args):
-        self.window.destroy()
 
     def on_proxy_ok_clicked(self, *args):
         if self._proxyCheck.get_active():
@@ -213,7 +204,35 @@ class ProxyDialog(GUIObject, GUIDialogInputCheckHandler):
         self.on_proxy_auth_toggled(self._authCheck)
 
     def run(self):
-        self.window.run()
+        while True:
+            response = self.window.run()
+
+            if response == 1:
+                if self.on_ok_clicked():
+                    # Ok clicked with valid input, save the proxy data
+                    if self._proxyCheck.get_active():
+                        url = self._proxyURLEntry.get_text()
+
+                        if self._authCheck.get_active():
+                            username = self._proxyUsernameEntry.get_text()
+                            password = self._proxyPasswordEntry.get_text()
+                        else:
+                            username = None
+                            password = None
+
+                        proxy = ProxyString(url=url, username=username, password=password)
+                        self.proxyUrl = proxy.url
+                    else:
+                        self.proxyUrl = ""
+                    break
+                else:
+                    # Ok clicked with invalid input, keep running the dialog
+                    continue
+            else:
+                # Cancel or Esc, just exit
+                break
+
+        self.window.destroy()
 
 class MediaCheckDialog(GUIObject):
     builderObjects = ["mediaCheckDialog"]
