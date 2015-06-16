@@ -85,13 +85,32 @@ class GUIInputCheckHandler(InputCheckHandler, metaclass=ABCMeta):
 class GUIDialogInputCheckHandler(GUIInputCheckHandler, metaclass=ABCMeta):
     """Provide InputCheckHandler functionality for Gtk dialogs.
 
-       This class provides a helper method for setting an error message
-       on an entry field. Implementors of this class must still provide
-       a set_status method in order to control the sensitivty of widgets or
-       ignore activated signals.
+       If an OK button is provided in the constructor, this class will
+       handle setting the sensitivity of the button to match the input
+       check result. A method on_ok_clicked is provided to determine whether
+       the dialog can be exited, similar to on_back_clicked for spokes.
+
+       It's not possible (or at least not easy) to prent a GtkDialog from
+       returning a response, so the caller of gtk_dialog_run needs to check
+       whether the input is valid and decide based on that whether to destroy
+       the dialog or call gtk_dialog_run again.
     """
 
-    @abstractmethod
+    def __init__(self, ok_button=None):
+        GUIInputCheckHandler.__init__(self)
+        self._ok_button = ok_button
+
+    def _update_check_status(self, editable, inputcheck):
+        # If an OK button was provided, set it to sensitive on any change in
+        # input. This way if a user changes invalid input to valid, they can
+        # immediately leave the dialog. This also means that there will be a
+        # period in which the user is not prented from leaving with empty input,
+        # and this condition needs to be checked.
+        if self._ok_button:
+            self._ok_button.set_sensitive(True)
+
+        return super(GUIDialogInputCheckHandler, self)._update_check_status(editable, inputcheck)
+
     def set_status(self, inputcheck):
         if inputcheck.check_status in (InputCheck.CHECK_OK, InputCheck.CHECK_SILENT):
             inputcheck.input_obj.set_icon_from_icon_name(Gtk.EntryIconPosition.SECONDARY, None)
@@ -101,6 +120,28 @@ class GUIDialogInputCheckHandler(GUIInputCheckHandler, metaclass=ABCMeta):
                     "dialog-error")
             inputcheck.input_obj.set_icon_tooltip_text(Gtk.EntryIconPosition.SECONDARY,
                 inputcheck.check_status)
+
+        # Update the ok button sensitivity based on the check status.
+        # If the result is CHECK_OK, set_sensitive(True) still needs to be
+        # called, even though the changed handler above also makes the button
+        # sensitive. A direct call to update_check_status may have bypassed the
+        # changed signal.
+        if self._ok_button:
+            self._ok_button.set_sensitive(inputcheck.check_status == InputCheck.CHECK_OK)
+
+    def on_ok_clicked(self):
+        """Return whether the input validation checks allow the dialog to be exited.
+
+           Unlike GUISpokeInputCheckHandler.on_back_clicked, it is not expected that
+           subclasses will implement this method.
+        """
+        failed_check = next(self.failed_checks, None)
+
+        if failed_check:
+            failed_check.input_obj.grab_focus()
+            return False
+        else:
+            return True
 
 class GUISpokeInputCheckHandler(GUIInputCheckHandler, metaclass=ABCMeta):
     """Provide InputCheckHandler functionality for graphical spokes.

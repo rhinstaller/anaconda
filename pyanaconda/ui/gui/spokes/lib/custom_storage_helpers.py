@@ -470,8 +470,6 @@ class ContainerDialog(GUIObject, GUIDialogInputCheckHandler):
     MIN_SIZE_ENTRY = Size("1 MiB")
 
     def __init__(self, *args, **kwargs):
-        GUIDialogInputCheckHandler.__init__(self)
-
         # these are all absolutely required. not getting them is fatal.
         self._disks = kwargs.pop("disks")
         free = kwargs.pop("free")
@@ -492,6 +490,7 @@ class ContainerDialog(GUIObject, GUIDialogInputCheckHandler):
         GUIObject.__init__(self, *args, **kwargs)
 
         self._grabObjects()
+        GUIDialogInputCheckHandler.__init__(self, self._save_button)
 
         # set up the dialog labels with device-type-specific text
         container_type = get_container_type(self.device_type)
@@ -579,9 +578,8 @@ class ContainerDialog(GUIObject, GUIDialogInputCheckHandler):
             if disk.id == disk_id:
                 return disk
 
-    def on_save_clicked(self, button):
+    def _save_clicked(self):
         if self.exists:
-            self.window.destroy()
             return
 
         model, paths = self._treeview.get_selection().get_selected_rows()
@@ -628,14 +626,30 @@ class ContainerDialog(GUIObject, GUIDialogInputCheckHandler):
         self.size_policy = size
 
         self._error_label.set_text("")
-        self.window.destroy()
 
     def run(self):
         while True:
             self._error = None
             rc = self.window.run()
-            if not self._error:
-                return rc
+            if rc == 1:
+                # Save clicked and input validation passed, try saving it
+                if self.on_ok_clicked():
+                    self._save_clicked()
+
+                    # If that failed, try again
+                    if self._error:
+                        continue
+                    else:
+                        break
+                # Save clicked with invalid input, try again
+                else:
+                    continue
+            else:
+                # Cancel or something similar, just exit
+                break
+
+        self.window.destroy()
+        return rc
 
     def on_size_changed(self, combo):
         active_index = combo.get_active()
@@ -686,10 +700,3 @@ class ContainerDialog(GUIObject, GUIDialogInputCheckHandler):
             return _("Invalid container name")
 
         return InputCheck.CHECK_OK
-
-    def set_status(self, inputcheck):
-        # Use the superclass set_status to set the error message
-        GUIDialogInputCheckHandler.set_status(self, inputcheck)
-
-        # Change the sensitivity of the Save button
-        self._save_button.set_sensitive(next(self.failed_checks, None) == None)

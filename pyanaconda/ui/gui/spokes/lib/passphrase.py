@@ -108,7 +108,26 @@ class PassphraseDialog(GUIObject, GUIInputCheckHandler):
     def run(self):
         self.refresh()
         self.window.show_all()
-        rc = self.window.run()
+
+        while True:
+            rc = self.window.run()
+            if rc == 1:
+                # Force an update of all the checks and then see what set_status
+                # did to the sensitivity of the save button
+                for check in self.checks:
+                    check.update_check_status.run_now()
+
+                if self._save_button.get_sensitive():
+                    # Input ok, save the passphrase
+                    self.passphrase = self._passphrase_entry.get_text()
+                    break
+                else:
+                    # Input not ok, try again
+                    continue
+            else:
+                # Cancel, destroy the window
+                break
+
         self.window.destroy()
         return rc
 
@@ -188,8 +207,13 @@ class PassphraseDialog(GUIObject, GUIInputCheckHandler):
         # Update the match check for changes in the main passphrase field
         self._passphrase_match_check.update_check_status()
 
-    def on_save_clicked(self, button):
-        self.passphrase = self._passphrase_entry.get_text()
+        # Set the OK button to sensitive any time the passphrase or confirm
+        # entries change, so that the user can attempt to exit the dialog
+        # without waiting for the input validation timer
+        self._save_button.set_sensitive(True)
+
+    def on_confirm_changed(self, entry):
+        self._save_button.set_sensitive(True)
 
     def on_entry_activated(self, entry):
         if self._save_button.get_sensitive() and \

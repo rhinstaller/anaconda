@@ -226,7 +226,6 @@
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
                 <property name="use_underline">True</property>
-                <signal name="clicked" handler="on_proxy_cancel_clicked" swapped="no"/>
               </object>
               <packing>
                 <property name="expand">False</property>
@@ -241,7 +240,6 @@
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
                 <property name="use_underline">True</property>
-                <signal name="clicked" handler="on_proxy_ok_clicked" swapped="no"/>
               </object>
               <packing>
                 <property name="expand">False</property>
@@ -450,7 +448,7 @@
     </child>
     <action-widgets>
       <action-widget response="0">proxyCancelButton</action-widget>
-      <action-widget response="0">proxyOkButton</action-widget>
+      <action-widget response="1">proxyOkButton</action-widget>
     </action-widgets>
   </object>
   <object class="GtkListStore" id="repoStore">
