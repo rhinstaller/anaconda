@@ -1,7 +1,7 @@
 #
 # simpleconifg.py - representation of a simple configuration file (sh-like)
 #
-# Copyright (C) 1999-2014 Red Hat, Inc.
+# Copyright (C) 1999-2015 Red Hat, Inc.
 #
 # This copyrighted material is made available to anyone wishing to use,
 # modify, copy, or redistribute it subject to the terms and conditions of
@@ -67,6 +67,22 @@ def find_comment(s):
     return None
 
 
+def write_tmpfile(filename, data):
+    tmpf = tempfile.NamedTemporaryFile(mode="w", delete=False)
+    tmpf.write(data)
+    tmpf.close()
+
+    # Move the temporary file (with 0600 permissions) over the top of the
+    # original and preserve the original's permissions
+    filename = os.path.realpath(filename)
+    if os.path.exists(filename):
+        m = os.stat(filename).st_mode
+    else:
+        m = int('0100644', 8)
+    shutil.move(tmpf.name, filename)
+    eintr_retry_call(os.chmod, filename, m)
+
+
 class SimpleConfigFile(object):
     """ Edit values in a configuration file without changing comments.
         Supports KEY=VALUE lines and ignores everything else.
@@ -109,19 +125,7 @@ class SimpleConfigFile(object):
             return None
 
         if use_tmp:
-            tmpf = tempfile.NamedTemporaryFile(mode="w", delete=False)
-            tmpf.write(str(self))
-            tmpf.close()
-
-            # Move the temporary file (with 0600 permissions) over the top of the
-            # original and preserve the original's permissions
-            filename = os.path.realpath(filename)
-            if os.path.exists(filename):
-                m = os.stat(filename).st_mode
-            else:
-                m = int('0100644', 8)
-            shutil.move(tmpf.name, filename)
-            eintr_retry_call(os.chmod, filename, m)
+            write_tmpfile(filename, str(self))
         else:
             # write directly to the file
             with open(filename, "w") as fobj:
@@ -198,3 +202,39 @@ class SimpleConfigFile(object):
                 s += self._kvpair(key)
 
         return s
+
+
+def simple_replace(fname, keys, add=True, add_comment="# Added by Anaconda"):
+    """ Replace lines in a file, optionally adding if missing.
+
+    :param str fname: Filename to operate on
+    :param list keys: List of (key, string) tuples to search and replace
+    :param bool add: When True add strings that were not replaced
+
+    This will read all the lines in a file, looking for ones that start
+    with keys and replacing the line with the associated string. The string
+    should be a COMPLETE replacement for the line, not just a value.
+
+    When add is True any keys that haven't been found will be appended
+    to the end of the file along with the add_comment.
+    """
+    # Helper to return the line or the first matching key's string
+    def _replace(l):
+        r = [s for k,s in keys if l.startswith(k)]
+        if r:
+            return r[0]
+        else:
+            return l
+
+    # Replace lines that match any of the keys
+    with open(fname, "r") as f:
+        lines = [_replace(l.strip()) for l in f]
+
+    # Add any strings that weren't already in the file
+    if add:
+        append = [s for k,s in keys if not any(l.startswith(k) for l in lines)]
+        if append:
+            lines += [add_comment]
+            lines += append
+
+    write_tmpfile(fname, "\n".join(lines)+"\n")
