@@ -110,14 +110,25 @@ class GUISpokeInputCheckHandler(GUIInputCheckHandler, metaclass=ABCMeta):
        prevent the user from exiting a spoke with bad input.
     """
 
+    def __init__(self):
+        GUIInputCheckHandler.__init__(self)
+
+        # Store the previous status to avoid setting the info bar to the same
+        # message multiple times
+        self._prev_status = None
+
     def set_status(self, inputcheck):
         """Update the warning with the input validation error from the first
            error message.
         """
         failed_check = next(self.failed_checks_with_message, None)
 
-        self.clear_info()
-        if failed_check:
+        if not failed_check:
+            self.clear_info()
+            self._prev_status = None
+        elif failed_check.check_status != self._prev_status:
+            self._prev_status = failed_check.check_status
+            self.clear_info()
             self.set_warning(failed_check.check_status)
 
     # Implemented by GUIObject

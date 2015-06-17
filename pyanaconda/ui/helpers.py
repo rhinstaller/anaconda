@@ -243,12 +243,8 @@ class InputCheck(object):
         if not self.enabled:
             return
 
-        new_check_status = self._run_check(self)
-        check_status_changed = (self.check_status != new_check_status)
-        self._check_status = new_check_status
-
-        if check_status_changed:
-            self._parent.set_status(self)
+        self._check_status = self._run_check(self)
+        self._parent.set_status(self)
 
     @property
     def enabled(self):
