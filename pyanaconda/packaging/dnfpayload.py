@@ -491,8 +491,7 @@ class DNFPayload(packaging.PackagePayload):
 
     @property
     def environments(self):
-        environments = self._base.comps.environments_iter()
-        return [env.id for env in environments]
+        return [env.id for env in self._base.comps.environments]
 
     @property
     def groups(self):
