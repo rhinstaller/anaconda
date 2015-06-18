@@ -46,14 +46,14 @@ class BasicReclaimLiveCDCreator(Creator):
         # force anaconda to display the reclaim dialog.
         for (drive, size) in self.drives:
             subprocess.call(["/sbin/parted", "-s", self._drivePaths[drive], "mklabel", "msdos"],
-                            stdout=open("/dev/null", "w"),
-                            stderr=open("/dev/null", "w"))
+                            stdout=subprocess.DEVNULL,
+                            stderr=subprocess.DEVNULL)
             subprocess.call(["/sbin/parted", "-s", self._drivePaths[drive], "mkpart", "p", "ext2", "0", str(size)],
-                            stdout=open("/dev/null", "w"),
-                            stderr=open("/dev/null", "w"))
+                            stdout=subprocess.DEVNULL,
+                            stderr=subprocess.DEVNULL)
             subprocess.call(["/sbin/mkfs.ext4", "-F", self._drivePaths[drive]],
-                            stdout=open("/dev/null", "w"),
-                            stderr=open("/dev/null", "w"))
+                            stdout=subprocess.DEVNULL,
+                            stderr=subprocess.DEVNULL)
 
 class BasicReclaimLiveCD_OutsideTest(OutsideMixin, unittest.TestCase):
     creatorClass = BasicReclaimLiveCDCreator

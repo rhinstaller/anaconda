@@ -27,7 +27,6 @@ import os
 import shutil
 import subprocess
 import tempfile
-import errno
 
 class Creator(object):
     """A Creator subclass defines all the parameters for making a VM to run a
@@ -65,7 +64,7 @@ class Creator(object):
         self._reqMemory = 1536
 
     def _call(self, args):
-        subprocess.call(args, stdout=open("/dev/null", "w"), stderr=open("/dev/null", "w"))
+        subprocess.call(args, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
 
     def archive(self):
         """Copy all log files and other test results to a subdirectory of the
