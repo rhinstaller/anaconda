@@ -44,7 +44,7 @@ if ("debug=1" in proc_cmdline) or ("debug" in proc_cmdline):
     cov.start()
 
 
-import atexit, sys, os, time, signal, stat, errno
+import atexit, sys, os, time, signal, stat
 
 def exitHandler(rebootData, storage):
     # Clear the list of watched PIDs.
@@ -928,13 +928,12 @@ if __name__ == "__main__":
     try:
         with open(pidfile_path, 'r') as pidfile:
             pid = int(pidfile.read())
-    except IOError as e:
+    except FileNotFoundError:
         # Ignore errors due to the file not existing. Other errors mean (most
         # likely) that we're not running as root, there's a filesystem error,
         # or someone filled our PID file with garbage, so just let those be
         # raised.
-        if e.errno != errno.ENOENT:
-            raise
+        pass
     else:
         # Is the PID still running?
         if not os.path.isdir("/proc/%s" % pid):
@@ -951,14 +950,14 @@ if __name__ == "__main__":
                         os.unlink(pidfile_path)
                     # If it is anaconda, let the pidfile creation below fail
                     # and print an error
-            except IOError as e:
+            except (FileNotFoundError, ProcessLookupError):
                 # Ignore failures due to the file not existing in case the
                 # process ended while we were trying to read about it. Assume
                 # in this case that the process was another anaconda instance,
                 # and the PID file was cleaned up.
                 # If the process ended between open and read, we'll get ESRCH
-                if e.errno not in (errno.ENOENT, errno.ESRCH):
-                    raise
+                # (ProcessLookupError)
+                pass
 
     # Attempt to create the pidfile
     try:
@@ -969,12 +968,7 @@ if __name__ == "__main__":
         pid_string = "%s\n" % os.getpid()
         iutil.eintr_retry_call(os.write, pidfile, pid_string.encode("utf-8"))
         os.close(pidfile)
-    except OSError as e:
-        # If the failure was anything other than EEXIST during the open call,
-        # just re-raise the exception
-        if e.errno != errno.EEXIST:
-            raise
-
+    except FileExistsError:
         log.error("%s already exists, exiting", pidfile_path)
 
         # If we had a $DISPLAY at start and zenity is available, we may be
