@@ -60,6 +60,7 @@ def _writeKS(ksdata):
 def doConfiguration(storage, payload, ksdata, instClass):
     willWriteNetwork = not flags.flags.imageInstall and not flags.flags.dirInstall
     willRunRealmd = ksdata.realm.discovered
+    willSnapShotRoot = ksdata.autopart.autopart and ksdata.autopart.snapshot
 
     # configure base, create users, configure addons, initramfs, post-install
     step_count = 5
@@ -106,8 +107,9 @@ def doConfiguration(storage, payload, ksdata, instClass):
     with progress_report(_("Configuring addons")):
         ksdata.addons.execute(storage, ksdata, instClass, u)
 
-    with progress_report(_("Generating initramfs")):
-        payload.recreateInitrds()
+    if not willSnapShotRoot:
+        with progress_report(_("Generating initramfs")):
+            payload.recreateInitrds()
 
     # Work around rhbz#1200539, grubby doesn't handle grub2 missing initrd with /boot on btrfs
     # So rerun writing the bootloader if this is live and /boot is on btrfs
@@ -130,6 +132,17 @@ def doConfiguration(storage, payload, ksdata, instClass):
     # Write the kickstart file to the installed system (or, copy the input
     # kickstart file over if one exists).
     _writeKS(ksdata)
+
+    if willSnapShotRoot:
+        with progress_report(_("Configuring root snapshot")):
+            blivet.autopart.setUpRootSnapShot(storage)
+
+        with progress_report(_("Generating initramfs")):
+            payload.recreateInitrds()
+
+        if not ksdata.bootloader.disabled and ksdata.bootloader != "none":
+            with progress_report(_("Installing bootloader")):
+                writeBootLoader(storage, payload, instClass, ksdata)
 
     progress_complete()
 
