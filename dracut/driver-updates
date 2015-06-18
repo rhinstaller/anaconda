@@ -64,15 +64,14 @@ def run_cmd(cmd):
         :raises:    OSError if the cmd doesn't exist, RunCmdError if the rc != 0
     """
     try:
-        with open("/dev/null", "w") as fd_null:
-            log.debug(" ".join(cmd))
-            proc = subprocess.Popen(cmd, universal_newlines=True,
-                                    stdout=subprocess.PIPE,
-                                    stderr=fd_null)
-            out = proc.communicate()[0]
-            if out:
-                for line in out.splitlines():
-                    log.debug(line)
+        log.debug(" ".join(cmd))
+        proc = subprocess.Popen(cmd, universal_newlines=True,
+                                stdout=subprocess.PIPE,
+                                stderr=subprocess.DEVNULL)
+        out = proc.communicate()[0]
+        if out:
+            for line in out.splitlines():
+                log.debug(line)
     except OSError as e:
         log.error("Error running %s: %s", cmd[0], e.strerror)
         raise

@@ -119,14 +119,13 @@ def startSpiceVDAgent():
         log.info("Started spice-vdagent.")
 
 def startX11():
-    # Ignore stdout/stderr, since everything is logged to /tmp/X.log anyway
-    xfd = open("/dev/null", "wb")
+    import subprocess
 
     # Start Xorg and wait for it become ready
     iutil.startX(["Xorg", "-br", "-logfile", "/tmp/X.log",
                   ":%s" % constants.X_DISPLAY_NUMBER, "vt6", "-s", "1440", "-ac",
                   "-nolisten", "tcp", "-dpi", "96",
-                  "-noreset"], output_redirect=xfd)
+                  "-noreset"], output_redirect=subprocess.DEVNULL)
 
 # function to handle X startup special issues for anaconda
 def doStartupX11Actions():

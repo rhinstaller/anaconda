@@ -59,8 +59,6 @@ from tempfile import NamedTemporaryFile
 import requests
 import six
 
-DEVNULL = open(os.devnull, 'w')
-
 def talk_to_github(request):
     # Send a requests.Request to github, handle 2-factor auth
     request.headers.update({'User-Agent': 'merge-pr'})
@@ -183,7 +181,7 @@ def main():
     # Try checking out the base of the PR. If it isn't available, do a fetch of
     # the base repo and try again.
     try:
-        subprocess.check_call(['git', 'checkout', '-q', pr['base']['sha']], stderr=DEVNULL)
+        subprocess.check_call(['git', 'checkout', '-q', pr['base']['sha']], stderr=subprocess.DEVNULL)
     except subprocess.CalledProcessError:
         try:
             subprocess.check_call(['git', 'fetch', '-q', pr['base']['repo']['clone_url'], pr['base']['sha']])
