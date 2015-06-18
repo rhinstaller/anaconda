@@ -800,7 +800,8 @@ class BootLoader(object):
         #
         # FIPS
         #
-        if flags.cmdline.get("fips") == "1":
+        boot_device = storage.mountpoints.get("/boot")
+        if flags.cmdline.get("fips") == "1" and boot_device:
             self.boot_args.add("boot=%s" % self.stage2_device.fstabSpec)
 
         #
