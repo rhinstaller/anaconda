@@ -22,6 +22,9 @@
 # in the po directory, so no gettext compilation or LC_MESSAGES directories are
 # necessary.
 
+# Ignore any interruptible calls
+# pylint: disable=interruptible-system-call
+
 import os
 import locale
 import re

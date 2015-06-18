@@ -24,6 +24,9 @@ have the visibility set to False.
 
 """
 
+# Ignore any interruptible calls
+# pylint: disable=interruptible-system-call
+
 import argparse
 import sys
 

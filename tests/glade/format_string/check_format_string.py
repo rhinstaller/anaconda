@@ -29,6 +29,9 @@ substitution should all happen outside of glade. Untranslated placeholder
 strings are allowable within glade.
 """
 
+# Ignore any interruptible calls
+# pylint: disable=interruptible-system-call
+
 import sys
 import argparse
 import re

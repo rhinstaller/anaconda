@@ -17,6 +17,9 @@
 #
 # Author: Chris Lumens <clumens@redhat.com>
 
+# Ignore any interruptible calls
+# pylint: disable=interruptible-system-call
+
 __all__ = ["Creator", "OutsideMixin"]
 
 from blivet.size import MiB

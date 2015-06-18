@@ -1,5 +1,8 @@
 #!/usr/bin/python3
 
+# Ignore any interruptible calls
+# pylint: disable=interruptible-system-call
+
 import os, sys, subprocess
 
 # The xpath in this file is simple enough that Python's built-in

@@ -24,6 +24,9 @@ Check that the invisible_char in glade files is actually a char.
 The invisible char is often non-ASCII and sometimes that gets clobbered.
 """
 
+# Ignore any interruptible calls
+# pylint: disable=interruptible-system-call
+
 import argparse
 import sys
 

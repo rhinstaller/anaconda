@@ -17,6 +17,9 @@
 #
 # Author: David Shea <dshea@redhat.com>
 
+# Ignore any interruptible calls
+# pylint: disable=interruptible-system-call
+
 import sys
 import argparse
 import re
