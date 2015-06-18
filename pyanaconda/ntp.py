@@ -23,8 +23,6 @@ Module facilitating the work with NTP servers and NTP daemon's configuration
 
 """
 
-from __future__ import division
-
 import re
 import os
 import tempfile
