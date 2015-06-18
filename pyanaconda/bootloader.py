@@ -32,7 +32,6 @@ from itertools import chain
 
 from pyanaconda import iutil
 from blivet.devicelibs import raid
-from pyanaconda.isys import sync
 from pyanaconda.product import productName
 from pyanaconda.flags import flags, can_touch_runtime_system
 from blivet.errors import StorageError
@@ -989,7 +988,7 @@ class BootLoader(object):
             return
 
         self.write_config()
-        sync()
+        os.sync()
         self.stage2_device.format.sync(root=iutil.getTargetPhysicalRoot())
         self.install()
 
@@ -1635,13 +1634,13 @@ class GRUB2(GRUB):
         try:
             self.write_device_map()
             self.stage2_device.format.sync(root=iutil.getTargetPhysicalRoot())
-            sync()
+            os.sync()
             self.install()
-            sync()
+            os.sync()
             self.stage2_device.format.sync(root=iutil.getTargetPhysicalRoot())
         finally:
             self.write_config()
-            sync()
+            os.sync()
             self.stage2_device.format.sync(root=iutil.getTargetPhysicalRoot())
 
     def check(self):
@@ -1794,7 +1793,7 @@ class EFIGRUB(GRUB2):
             return
 
         try:
-            sync()
+            os.sync()
             self.stage2_device.format.sync(root=iutil.getTargetPhysicalRoot())
             self.install()
         finally:

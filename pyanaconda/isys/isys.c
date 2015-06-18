@@ -21,19 +21,16 @@
 #include <Python.h>
 #include <stdio.h>
 #include <sys/time.h>
-#include <unistd.h>
 #include <sys/types.h>
 #include <signal.h>
 #include <execinfo.h>
 #include <stdlib.h>
 #include <string.h>
 
-static PyObject * doSync(PyObject * s, PyObject * args);
 static PyObject * doSignalHandlers(PyObject *s, PyObject *args);
 static PyObject * doSetSystemTime(PyObject *s, PyObject *args);
 
 static PyMethodDef isysModuleMethods[] = {
-    { "sync", doSync, METH_NOARGS, "Synchronize storage"},
     { "installSyncSignalHandlers", doSignalHandlers, METH_NOARGS, "Install synchronous signal handlers"},
     { "set_system_time", doSetSystemTime, METH_VARARGS, "set system time"},
     { NULL, NULL, 0, NULL }
@@ -51,13 +48,6 @@ PyMODINIT_FUNC
 // cppcheck-suppress unusedFunction
 PyInit__isys(void) {
     return PyModule_Create(&moduledef);
-}
-
-static PyObject * doSync(PyObject * s, PyObject * args) {
-    sync();
-
-    Py_INCREF(Py_None);
-    return Py_None;
 }
 
 static void sync_signal_handler(int signum) {

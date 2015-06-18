@@ -48,11 +48,6 @@ MIN_GUI_RAM = MIN_RAM + GUI_INSTALL_EXTRA_RAM
 SQUASHFS_EXTRA_RAM = 750
 NO_SWAP_EXTRA_RAM = 200
 
-## Flush filesystem buffers.
-def sync():
-    # TODO: This can be replaced with os.sync in Python 3.3
-    return _isys.sync()
-
 ISO_BLOCK_SIZE = 2048
 
 ## Determine if a file is an ISO image or not.
