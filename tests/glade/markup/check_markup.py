@@ -23,6 +23,9 @@ Python script to check that properties in glade using Pango markup contain
 valid markup.
 """
 
+# Ignore any interruptible calls
+# pylint: disable=interruptible-system-call
+
 import sys
 import argparse
 

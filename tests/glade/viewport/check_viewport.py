@@ -24,6 +24,9 @@ GtkViewport. If a widget knows how to scroll itself we probably don't want
 to add an extra layer.
 """
 
+# Ignore any interruptible calls
+# pylint: disable=interruptible-system-call
+
 import argparse
 import sys
 

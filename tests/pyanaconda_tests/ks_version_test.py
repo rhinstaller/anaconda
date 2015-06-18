@@ -16,6 +16,10 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 # Author: Chris Lumens <clumens@redhat.com>
+
+# Ignore any interruptible calls
+# pylint: disable=interruptible-system-call
+
 from mock import Mock
 import unittest
 import os

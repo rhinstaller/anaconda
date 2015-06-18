@@ -21,6 +21,9 @@
 Check that all icons referenced from glade files are valid in the gnome icon theme.
 """
 
+# Ignore any interruptible calls
+# pylint: disable=interruptible-system-call
+
 import argparse
 import sys
 
