@@ -509,9 +509,8 @@ def _sigchld_handler(num=None, frame=None):
     for child_pid in _forever_pids:
         try:
             pid_result, status = eintr_retry_call(os.waitpid, child_pid, os.WNOHANG)
-        except OSError as e:
-            if e.errno == errno.ECHILD:
-                continue
+        except ChildProcessError:
+            continue
 
         if pid_result:
             proc_name = _forever_pids[child_pid][0]
@@ -1300,10 +1299,8 @@ def eintr_retry_call(func, *args, **kwargs):
     while True:
         try:
             return func(*args, **kwargs)
-        except (OSError, IOError) as e:
-            if e.errno == errno.EINTR:
-                continue
-            raise
+        except InterruptedError:
+            continue
 
 def parent_dir(directory):
     """Return the parent's path"""
