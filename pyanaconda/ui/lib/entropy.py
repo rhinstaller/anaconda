@@ -33,6 +33,7 @@ import math
 
 from pyanaconda.progress import progress_message
 from pyanaconda.constants import MAX_ENTROPY_WAIT
+from pyanaconda.iutil import eintr_retry_call
 from pykickstart.constants import DISPLAY_MODE_GRAPHICAL
 from blivet.util import get_current_entropy
 
@@ -117,7 +118,7 @@ def _tui_wait(msg, desired_entropy):
     # and then just read everything from the input buffer and revert the
     # termios state
     data = "have something"
-    while sys.stdin in select.select([sys.stdin], [], [], 0)[0] and data:
+    while sys.stdin in eintr_retry_call(select.select, [sys.stdin], [], [], 0)[0] and data:
         # just read from stdin and scratch the read data
         data = sys.stdin.read(1)
 
