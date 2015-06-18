@@ -353,6 +353,8 @@ class NetworkControlBox(GObject.GObject):
         self._updating_device = False
 
         self.client = NMClient.Client.new()
+        self.remote_settings = NMClient.RemoteSettings()
+        self.remote_settings.connect("new-connection", self.on_new_connection)
 
         # devices list
         # limited to wired and wireless
@@ -423,29 +425,37 @@ class NetworkControlBox(GObject.GObject):
         col.set_expand(True)
         treeview.append_column(col)
 
+    def add_connection_to_list(self, uuid):
+        if self.dev_cfg(uuid=uuid):
+            log.debug("network: GUI, not adding connection %s, already in list", uuid)
+            return False
+        dev_cfg = DeviceConfiguration(con_uuid=uuid)
+        if dev_cfg.setting_value("connection", "read-only"):
+            log.debug("network: GUI, not adding read-only connection %s", uuid)
+            return False
+        if dev_cfg.device_type not in self.supported_device_types:
+            log.debug("network: GUI, not adding connection %s of unsupported type", uuid)
+            return False
+        # Configs for ethernet has been already added,
+        # this must be some slave
+        if dev_cfg.device_type == NetworkManager.DeviceType.ETHERNET:
+            log.debug("network: GUI, not adding slave connection %s", uuid)
+            return False
+        # Wireless settings are handled in scope of its device's dev_cfg
+        if dev_cfg.device_type == NetworkManager.DeviceType.WIFI:
+            log.debug("network: GUI, not adding wireless connection %s", uuid)
+            return False
+        self.add_dev_cfg(dev_cfg)
+        log.debug("network: GUI, adding connection %s", uuid)
+        return True
+
     def initialize(self):
         for device in self.client.get_devices():
             self.add_device_to_list(device)
 
         for setting in nm.nm_get_all_settings():
             uuid = setting["connection"]["uuid"]
-            log.debug("network: GUI, connection %s found", uuid)
-            if self.dev_cfg(uuid=uuid):
-                continue
-            if setting["connection"].get("read-only", False):
-                log.debug("network: GUI, not adding read-only connection %s", uuid)
-                continue
-            dev_cfg = DeviceConfiguration(con_uuid=uuid)
-            if dev_cfg.device_type in self.supported_device_types:
-                # Configs for ethernet has been already added,
-                # this must be some slave.
-                if dev_cfg.device_type == NetworkManager.DeviceType.ETHERNET:
-                    continue
-                # Wireless settings are handled in scope of its device's dev_cfg
-                if dev_cfg.device_type == NetworkManager.DeviceType.WIFI:
-                    continue
-                # Virtual device settings (bond, team, vlan, ...)
-                self.add_dev_cfg(dev_cfg)
+            self.add_connection_to_list(uuid)
 
         # select the first device
         treeview = self.builder.get_object("treeview_devices")
@@ -518,6 +528,9 @@ class NetworkControlBox(GObject.GObject):
             else:
                 self.client.add_and_activate_connection(None, dev_cfg.device, ap_obj_path,
                                                     None, None)
+
+    def on_new_connection(self, remote_settings, connection):
+        self.add_connection_to_list(connection.get_uuid())
 
     def on_device_added(self, client, device, *args):
         self.add_device_to_list(device)
