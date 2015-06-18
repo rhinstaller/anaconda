@@ -44,6 +44,16 @@ log = logging.getLogger('parse-kickstart').addHandler(logging.NullHandler())
 
 TMPDIR = "/tmp"
 
+import functools
+def eintr_retry_call(func, *args, **kwargs):
+    """Retry an interruptible system call if interrupted."""
+    while True:
+        try:
+            return func(*args, **kwargs)
+        except InterruptedError:
+            continue
+open = functools.partial(eintr_retry_call, open) # pylint: disable=redefined-builtin
+
 # Helper function for reading simple files in /sys
 def readsysfile(f):
     '''Return the contents of f, or "" if missing.'''

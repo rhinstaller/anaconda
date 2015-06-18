@@ -47,6 +47,15 @@ import readline # pylint:disable=unused-import
 
 log = logging.getLogger("DD")
 
+import functools
+def eintr_retry_call(func, *args, **kwargs):
+    """Retry an interruptible system call if interrupted."""
+    while True:
+        try:
+            return func(*args, **kwargs)
+        except InterruptedError:
+            continue
+open = functools.partial(eintr_retry_call, open) # pylint: disable=redefined-builtin
 
 class RunCmdError(Exception):
     """ Raised when run_cmd gets a non-zero returncode
