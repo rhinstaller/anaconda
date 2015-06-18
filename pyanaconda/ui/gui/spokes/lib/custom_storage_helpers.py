@@ -74,7 +74,7 @@ CONTAINER_TYPE_NAMES = {DEVICE_TYPE_LVM: N_("Volume Group"),
 system_mountpoints = ["/dev", "/proc", "/run", "/sys"]
 
 def size_from_entry(entry):
-    size_text = entry.get_text().decode("utf-8").strip()
+    size_text = entry.get_text().strip()
     return size_from_input(size_text)
 
 def populate_mountpoint_store(store, used_mountpoints):
