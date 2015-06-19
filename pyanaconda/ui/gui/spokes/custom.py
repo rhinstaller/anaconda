@@ -2096,13 +2096,15 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         container_type = get_container_type_name(device_type).lower()
         new_text = _(NEW_CONTAINER_TEXT) % {"container_type": container_type}
         create_new_container = container_name == new_text
+        user_changed_container = True
         if create_new_container:
             # run the vg editor dialog with a default name and disk set
             hostname = self.data.network.hostname
             name = self._storage_playground.suggestContainerName(hostname=hostname)
-            new = self.run_container_editor(name=name)
+            # user_changed_container flips to False if "cancel" picked
+            user_changed_container = self.run_container_editor(name=name)
             for idx, data in enumerate(self._containerStore):
-                if new and data[0] == new_text:
+                if user_changed_container and data[0] == new_text:
                     c = self._storage_playground.devicetree.getDeviceByName(self._device_container_name)
                     freeSpace = getattr(c, "freeSpace", None)
                     row = self._container_store_row(self._device_container_name, freeSpace)
@@ -2110,11 +2112,15 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
                     self._containerStore.insert(idx, row)
                     combo.set_active(idx)   # triggers a call to this method
                     return
-                elif not new and data[0] == self._device_container_name:
+                elif not user_changed_container and data[0] == self._device_container_name:
                     combo.set_active(idx)
                     return
+        # else clause runs if an already existing container is picked
         else:
             self._device_container_name = container_name
+
+        if user_changed_container:
+            self._applyButton.set_sensitive(True)
 
         container = self._storage_playground.devicetree.getDeviceByName(self._device_container_name)
         container_exists = getattr(container, "exists", False)    # might not be in the tree
