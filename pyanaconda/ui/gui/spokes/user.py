@@ -200,6 +200,27 @@ class AdvancedUserDialog(GUIObject, GUIDialogInputCheckHandler):
         self.window.hide()
         return rc
 
+    def on_uid_mnemonic_activate(self, widget, group_cycling, user_data=None):
+        # If this is the only widget with the mnemonic (group_cycling is False),
+        # and the checkbox is not currently toggled, toggle the checkbox and
+        # then set the focus to the UID spinner
+        if not group_cycling and not widget.get_active():
+            widget.set_active(True)
+            self._spinUid.grab_focus()
+            return True
+
+        # Otherwise just use the default signal handler
+        return False
+
+    def on_gid_mnemonic_activate(self, widget, group_cycling, user_data=None):
+        # Same as above, but for GID
+        if not group_cycling and not widget.get_active():
+            widget.set_active(True)
+            self._spinGid.grab_focus()
+            return True
+
+        return False
+
 class UserSpoke(FirstbootSpokeMixIn, NormalSpoke, GUISpokeInputCheckHandler):
     builderObjects = ["userCreationWindow"]
 
@@ -642,4 +663,3 @@ class UserSpoke(FirstbootSpokeMixIn, NormalSpoke, GUISpokeInputCheckHandler):
 
         if GUISpokeInputCheckHandler.on_back_clicked(self, button):
             NormalSpoke.on_back_clicked(self, button)
-
