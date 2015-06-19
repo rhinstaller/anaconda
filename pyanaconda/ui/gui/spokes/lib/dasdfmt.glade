@@ -20,7 +20,7 @@
             <property name="layout_style">end</property>
             <child>
               <object class="GtkButton" id="udCancelButton">
-                <property name="label" translatable="yes" context="GUI|DAD Format Dialog">_Cancel</property>
+                <property name="label" translatable="yes" context="GUI|DASD Format Dialog">_Cancel</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
@@ -34,7 +34,7 @@
             </child>
             <child>
               <object class="GtkButton" id="udOKButton">
-                <property name="label" translatable="yes" context="GUI|DAD Format Dialog">_OK</property>
+                <property name="label" translatable="yes" context="GUI|DASD Format Dialog">_OK</property>
                 <property name="visible">True</property>
                 <property name="sensitive">False</property>
                 <property name="can_focus">True</property>
@@ -157,7 +157,7 @@
             <property name="show_tabs">False</property>
             <child>
               <object class="GtkButton" id="formatButton">
-                <property name="label" translatable="yes" context="GUI|DAD Format Dialog">_Format with dasdfmt</property>
+                <property name="label" translatable="yes" context="GUI|DASD Format Dialog">_Format with dasdfmt</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
