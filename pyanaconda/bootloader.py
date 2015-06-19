@@ -1552,9 +1552,14 @@ class GRUB2(GRUB):
 
         # make sure the default entry is the OS we are installing
         if self.default is not None:
-            entry_title = "%s Linux, with Linux %s" % (productName,
-                                                       self.default.version)
-            rc = iutil.execInSysroot("grub2-set-default", [entry_title])
+            # find the index of the default image
+            try:
+                default_index = self.images.index(self.default)
+            except ValueError:
+                log.warn("Failed to find default image (%s), defaulting to 0", self.default.label)
+                default_index = 0
+
+            rc = iutil.execInSysroot("grub2-set-default", [str(default_index)])
             if rc:
                 log.error("failed to set default menu entry to %s", productName)
 
