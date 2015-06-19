@@ -83,9 +83,17 @@ class SoftwareSelectionSpoke(NormalSpoke):
         # state constants. See refreshAddons for how the values are used.
         self._addonStates = {}
 
+        # Create a RadioButton that will never be displayed to use as the group for the
+        # environment radio buttons. This way the environment radio buttons can all appear
+        # unselected in the case of modifying data from kickstart.
+        self._firstRadio = Gtk.RadioButton(group=None)
+
         # Used for detecting whether anything's changed in the spoke.
         self._origAddons = []
         self._origEnvironment = None
+
+        # Whether we are using package selections from a kickstart
+        self._kickstarted = flags.automatedInstall and self.data.packages.seen
 
         # Register event listeners to update our status on payload events
         payloadMgr.addListener(payloadMgr.STATE_PACKAGE_MD, self._downloading_package_md)
@@ -108,17 +116,25 @@ class SoftwareSelectionSpoke(NormalSpoke):
 
     def _apply(self):
         env = self._get_selected_environment()
-        if not env:
-            return
+
+        # Check if a kickstart install still looks like a kickstart install
+        # If an environment is selected and either the environment or the
+        # addon list does not match the ksdata, the packages were
+        # selected interactively.
+        if env and self._kickstarted:
+            if env != self.data.packages.environment or \
+                    set(self.selectedGroups) != set(self.data.packages.groupList):
+                self._kickstarted = False
 
         # Not a kickstart with packages, setup the environment and groups
-        if not (flags.automatedInstall and self.data.packages.seen):
+        if env and not self._kickstarted:
             addons = self._get_selected_addons()
             for group in addons:
                 if group not in self.selectedGroups:
                     self.selectedGroups.append(group)
 
             self._selectFlag = False
+            self.payload.data.packages.packageList = []
             self.payload.data.packages.groupList = []
             self.payload.selectEnvironment(env)
             self.environment = env
@@ -162,7 +178,7 @@ class SoftwareSelectionSpoke(NormalSpoke):
 
         # we should always check processingDone before checking the other variables,
         # as they might be inconsistent until processing is finished
-        if flags.automatedInstall:
+        if self._kickstarted:
             return processingDone and self.data.packages.seen
         else:
             return processingDone and self._get_selected_environment() is not None
@@ -218,7 +234,7 @@ class SoftwareSelectionSpoke(NormalSpoke):
             # Kickstart installs with %packages will have a row selected, unless
             # they did an install without a desktop environment.  This should
             # catch that one case.
-            if flags.automatedInstall and self.data.packages.seen:
+            if self._kickstarted:
                 return _("Custom software selected")
 
             return _("Nothing selected")
@@ -233,7 +249,7 @@ class SoftwareSelectionSpoke(NormalSpoke):
     def _initialize(self):
         threadMgr.wait(constants.THREAD_PAYLOAD)
 
-        if not flags.automatedInstall or not self.data.packages.seen:
+        if not self._kickstarted:
             # having done all the slow downloading, we need to do the first refresh
             # of the UI here so there's an environment selected by default.  This
             # happens inside the main thread by necessity.  We can't do anything
@@ -291,25 +307,23 @@ class SoftwareSelectionSpoke(NormalSpoke):
             self.environment = self.payload.instclass.defaultPackageEnvironment
 
         firstEnvironment = True
-        firstRadio = None
 
         self._clear_listbox(self._environmentListBox)
 
         for environment in self.payload.environments:
             (name, desc) = self.payload.environmentDescription(environment)
 
-            radio = Gtk.RadioButton(group=firstRadio)
+            radio = Gtk.RadioButton(group=self._firstRadio)
 
             # automatically select an environment if this is an interactive install
             active = environment == self.environment or \
-                     not flags.automatedInstall and not self.environment and firstEnvironment
+                     not self._kickstarted and not self.environment and firstEnvironment
             radio.set_active(active)
             if active:
                 self.environment = environment
 
             self._add_row(self._environmentListBox, name, desc, radio,
                     self.on_radio_button_toggled)
-            firstRadio = firstRadio or radio
 
             firstEnvironment = False
 
@@ -376,10 +390,14 @@ class SoftwareSelectionSpoke(NormalSpoke):
             self.clear_info()
 
     def _allAddons(self):
-        addons = copy.copy(self.payload.environmentAddons[self.environment][0])
-        if self._addSep:
-            addons.append('')
-        addons += self.payload.environmentAddons[self.environment][1]
+        if self.environment in self.payload.environmentAddons:
+            addons = copy.copy(self.payload.environmentAddons[self.environment][0])
+            if self._addSep:
+                addons.append('')
+            addons += self.payload.environmentAddons[self.environment][1]
+        else:
+            addons = []
+
         return addons
 
     def _get_selected_addons(self):
