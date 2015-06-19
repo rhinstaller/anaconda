@@ -223,6 +223,10 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Fri Jun 19 2015 Samantha N. Bueno <sbueno+anaconda@redhat.com> - 13.21.238-1
+- Include drbg module in the initrd. (sbueno+anaconda)
+  Resolves: rhbz#1233088
+
 * Thu Jun 11 2015 Samantha N. Bueno <sbueno+anaconda@redhat.com> - 13.21.237-1
 - Fix scanning of non-leaf lvs. (dlehman)
   Resolves: rhbz#1213748
