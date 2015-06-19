@@ -77,8 +77,8 @@
               <object class="GtkLabel" id="label1">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
-                <property name="xalign">0</property>
                 <property name="label" translatable="yes">ADVANCED USER CONFIGURATION</property>
+                <property name="xalign">0</property>
                 <attributes>
                   <attribute name="weight" value="bold"/>
                   <attribute name="scale" value="100"/>
@@ -134,8 +134,8 @@
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
                 <property name="margin_top">8</property>
-                <property name="xalign">0</property>
                 <property name="label" translatable="yes">User and Group IDs</property>
+                <property name="xalign">0</property>
                 <attributes>
                   <attribute name="weight" value="bold"/>
                 </attributes>
@@ -227,8 +227,8 @@
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
                 <property name="margin_top">8</property>
-                <property name="xalign">0</property>
                 <property name="label" translatable="yes">Group Membership</property>
+                <property name="xalign">0</property>
                 <attributes>
                   <attribute name="weight" value="bold"/>
                 </attributes>
@@ -255,9 +255,9 @@
                       <object class="GtkLabel" id="label6">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
-                        <property name="xalign">0</property>
                         <property name="label" translatable="yes" context="GUI|Advanced User">_Add user to the following groups:</property>
                         <property name="use_underline">True</property>
+                        <property name="xalign">0</property>
                       </object>
                       <packing>
                         <property name="expand">False</property>
@@ -286,8 +286,8 @@
                           <object class="GtkLabel" id="label9">
                             <property name="visible">True</property>
                             <property name="can_focus">False</property>
-                            <property name="xalign">1</property>
                             <property name="label" translatable="yes">Example:</property>
+                            <property name="xalign">1</property>
                             <attributes>
                               <attribute name="weight" value="bold"/>
                             </attributes>
@@ -303,8 +303,8 @@
                             <property name="visible">True</property>
                             <property name="can_focus">False</property>
                             <property name="margin_left">5</property>
-                            <property name="xalign">0</property>
                             <property name="label" translatable="yes">wheel, my-team (1245), project-x (29935)</property>
+                            <property name="xalign">0</property>
                           </object>
                           <packing>
                             <property name="expand">False</property>
@@ -336,9 +336,9 @@
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
                         <property name="margin_top">3</property>
+                        <property name="label" translatable="yes">Tip:</property>
                         <property name="xalign">0</property>
                         <property name="yalign">0</property>
-                        <property name="label" translatable="yes">Tip:</property>
                         <attributes>
                           <attribute name="style" value="italic"/>
                           <attribute name="weight" value="bold"/>
@@ -355,12 +355,12 @@
                       <object class="GtkLabel" id="label8">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
-                        <property name="xalign">0</property>
-                        <property name="yalign">0</property>
                         <property name="label" translatable="yes">You may input a comma-separated list of group names and group IDs here. Groups that do not already exist will be created; specify their GID in parentheses. </property>
                         <property name="wrap">True</property>
                         <property name="width_chars">35</property>
                         <property name="max_width_chars">35</property>
+                        <property name="xalign">0</property>
+                        <property name="yalign">0</property>
                         <attributes>
                           <attribute name="scale" value="0.90000000000000002"/>
                         </attributes>
