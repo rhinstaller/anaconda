@@ -309,6 +309,32 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Thu Jun 18 2015 Brian C. Lane <bcl@redhat.com> - 21.48.22.8-1
+- Fix nfs4 stage2 and repo handling (bcl)
+  Resolves: rhbz#1230329
+- Add support for reboot --kexec kickstart command (bcl)
+  Related: rhbz#1207747
+- Add inst.kexec and --kexec support to reboot with kexec (bcl)
+  Resolves: rhbz#1207747
+- Add setup_kexec method to prepare the system for a reboot with kexec (bcl)
+  Related: rhbz#1207747
+- Include NetworkManager-glib in anaconda-core (bcl)
+  Related: rhbz#1196721
+- Use simple_replace to edit langpacks.conf (bcl)
+  Resolves: rhbz#1165980
+- Add simple_replace config file function (bcl)
+  Related: rhbz#1165980
+- Keyboard Scroll Fails in Viewports (dshea)
+  Resolves: rhbz#1189899
+- Fix Issue with Spaces in Network IPs and Bad Input(jkonecny)
+  Resolves: rhbz#1174451
+- network: fix a typo in condition for installing teamd (rvykydal)
+  Resolves: rhbz#1199185
+- Fix IP / hostname mismatches when showing VNC server address (rvykydal)
+  Resolves: rhbz#1186726
+- Check also ipv6 default routes when looking for onboot=yes device (rvykydal)
+  Resolves: rhbz#1185280
+
 * Mon Jun 15 2015 Brian C. Lane <bcl@redhat.com> - 21.48.22.7-1
 - Update upd-kernel so that it actually works (bcl)
   Resolves: rhbz#1166535
