@@ -130,7 +130,9 @@ Requires: python3-iscsi-initiator-utils >= %{iscsiver}
 Requires: hfsplus-tools
 %endif
 %endif
+%ifnarch aarch64
 Requires: kexec-tools
+%endif
 
 Requires: python3-coverage
 
