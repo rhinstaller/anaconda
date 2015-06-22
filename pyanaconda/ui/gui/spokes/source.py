@@ -1362,6 +1362,8 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler):
         self._repoSelection.select_iter(itr)
         self._repoEntryBox.set_sensitive(True)
 
+        self._repoURLChecks[repo].update_check_status()
+
     def on_removeRepo_clicked(self, button):
         """ Remove the selected repository
         """
