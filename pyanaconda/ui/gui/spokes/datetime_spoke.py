@@ -254,7 +254,8 @@ class NTPconfigDialog(GUIObject, GUIDialogInputCheckHandler):
                     new_servers.append(row[0])
 
             if flags.can_touch_runtime_system("save NTP servers configuration"):
-                ntp.save_servers_to_config(new_servers)
+                ntp.save_servers_to_config(new_servers, conf_file_path=ntp.CHRONY_CONFIG_FILE)
+                ntp.save_servers_to_config(new_servers, conf_file_path=ntp.NTP_CONFIG_FILE)
                 iutil.restart_service(NTP_SERVICE)
 
         #Cancel clicked, window destroyed...
