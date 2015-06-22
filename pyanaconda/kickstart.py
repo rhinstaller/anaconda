@@ -21,6 +21,7 @@
 from pyanaconda.errors import ScriptError, errorHandler
 from blivet.deviceaction import ActionCreateFormat, ActionDestroyFormat, ActionResizeDevice, ActionResizeFormat
 from blivet.devices import LUKSDevice
+from blivet.devices.lvm import LVMCacheRequest
 from blivet.devicelibs.lvm import getPossiblePhysicalExtents, LVM_PE_SIZE, KNOWN_THPOOL_PROFILES
 from blivet.devicelibs.crypto import MIN_CREATE_ENTROPY
 from blivet.devicelibs import swap as swap_lib
@@ -997,6 +998,15 @@ class LogVolData(commands.logvol.RHEL7_LogVolData):
             else:
                 maxsize = None
 
+            if self.cache_size and self.cache_pvs:
+                pv_devices = (lookupAlias(devicetree, pv) for pv in self.cache_pvs)
+                pv_devices_names = [pv.name for pv in pv_devices]
+                cache_size = Size("%d MiB" % self.cache_size)
+                cache_mode = self.cache_mode or None
+                cache_request = LVMCacheRequest(cache_size, pv_devices_names, cache_mode)
+            else:
+                cache_request = None
+
             request = storage.newLV(fmt=fmt,
                                     name=self.name,
                                     parents=parents,
@@ -1006,6 +1016,7 @@ class LogVolData(commands.logvol.RHEL7_LogVolData):
                                     grow=self.grow,
                                     maxsize=maxsize,
                                     percent=self.percent,
+                                    cacheRequest=cache_request,
                                     **pool_args)
 
             storage.createDevice(request)
