@@ -260,6 +260,7 @@ class MakeBumpVer:
                                 stderr=subprocess.PIPE).communicate()
         lines = filter(lambda x: x.find('l10n: ') != 41 and \
                                  x.find('Merge commit') != 41 and \
+                                 x.find('Merge pull') != 41 and \
                                  x.find('Merge branch') != 41,
                        proc[0].strip('\n').split('\n'))
 
