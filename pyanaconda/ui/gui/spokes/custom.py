@@ -1407,13 +1407,13 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
                             use_dev.exists and not use_dev.formatImmutable)
 
         self._encryptCheckbox.set_active(isinstance(device, LUKSDevice))
-        self._encryptCheckbox.set_sensitive(self._reformatCheckbox.get_active())
+        fancy_set_sensitive(self._encryptCheckbox, self._reformatCheckbox.get_active())
         ancestors = use_dev.ancestors
         ancestors.remove(use_dev)
         if any(a.format.type == "luks" for a in ancestors):
             # The encryption checkbutton should not be sensitive if there is
             # existing encryption below the leaf layer.
-            self._encryptCheckbox.set_sensitive(False)
+            fancy_set_sensitive(self._encryptCheckbox, False)
             self._encryptCheckbox.set_active(True)
             self._encryptCheckbox.set_tooltip_text(_("The container is encrypted."))
         else:
@@ -2297,7 +2297,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
     def on_reformat_toggled(self, widget):
         active = widget.get_active()
 
-        self._encryptCheckbox.set_sensitive(active)
+        fancy_set_sensitive(self._encryptCheckbox, active)
         if self._current_selector:
             device = self._current_selector.device.raw_device
 
@@ -2306,14 +2306,14 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
             if any(a.format.type == "luks" and a.format.exists for a in ancestors):
                 # The encryption checkbutton should not be sensitive if there is
                 # existing encryption below the leaf layer.
-                self._encryptCheckbox.set_sensitive(False)
+                fancy_set_sensitive(self._encryptCheckbox, False)
 
         # you can't encrypt a btrfs subvolume -- only the volume/container
         device_type = self._get_current_device_type()
         if device_type == DEVICE_TYPE_BTRFS:
             self._encryptCheckbox.set_active(False)
 
-        self._encryptCheckbox.set_sensitive(device_type != DEVICE_TYPE_BTRFS)
+        fancy_set_sensitive(self._encryptCheckbox, device_type != DEVICE_TYPE_BTRFS)
         fancy_set_sensitive(self._fsCombo, active)
 
     def on_fs_type_changed(self, combo):
