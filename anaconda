@@ -969,7 +969,7 @@ if __name__ == "__main__":
         pidfile_created = True
         pid_string = "%s\n" % os.getpid()
         iutil.eintr_retry_call(os.write, pidfile, pid_string.encode("utf-8"))
-        os.close(pidfile)
+        iutil.eintr_ignore(os.close, pidfile)
     except FileExistsError:
         log.error("%s already exists, exiting", pidfile_path)
 
