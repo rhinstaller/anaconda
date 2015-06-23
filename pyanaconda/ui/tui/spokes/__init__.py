@@ -307,9 +307,9 @@ class EditTUISpoke(NormalTUISpoke):
         try:
             idx = int(key) - 1
             if idx >= 0 and idx < len(self.visible_fields):
-                if self.edit_fields[idx].aux == self.CHECK:
+                if self.visible_fields[idx].aux == self.CHECK:
                     setdeepattr(self.args, self.visible_fields[idx].attribute,
-                                not getdeepattr(self.args, self.edit_fields[idx][1]))
+                                not getdeepattr(self.args, self.visible_fields[idx][1]))
                     self.app.redraw()
                     self.apply()
                 else:
