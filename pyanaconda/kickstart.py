@@ -105,7 +105,7 @@ class AnacondaKSScript(KSScript):
         (fd, path) = tempfile.mkstemp("", "ks-script-", scriptRoot + "/tmp")
 
         iutil.eintr_retry_call(os.write, fd, self.script.encode("utf-8"))
-        os.close(fd)
+        iutil.eintr_ignore(os.close, fd)
         iutil.eintr_retry_call(os.chmod, path, 0o700)
 
         # Always log stdout/stderr from scripts.  Using --log just lets you
