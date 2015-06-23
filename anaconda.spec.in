@@ -309,6 +309,23 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Mon Jun 22 2015 Brian C. Lane <bcl@redhat.com> - 21.48.22.9-1
+- Enable Anaconda to configure NTP (jkonecny)
+  Resolves: rhbz#1085013
+- Retry package repository metadata downloads (mkolman)
+  Resolves: rhbz#1177366
+- Use UEFI VFAT ESP when kickstarting Intel Macs (jan.kundrat)
+  Resolves: rhbz#1219196
+- If using pre-existing, no size needs to be specified in ksdata (amulhern)
+  Resolves: rhbz#1169783
+  Related: rhbz#1196721
+- Use the RHEL7 versions of certain partitioning commands. (clumens)
+  Related: rhbz#1217110
+- Fix set size to partition in custom spoke (jkonecny)
+  Related: rhbz#1196721
+- Expect addons to have categories for both GUI and TUI (vpodzime)
+  Related: rhbz#1128616
+
 * Thu Jun 18 2015 Brian C. Lane <bcl@redhat.com> - 21.48.22.8-1
 - Fix nfs4 stage2 and repo handling (bcl)
   Resolves: rhbz#1230329
