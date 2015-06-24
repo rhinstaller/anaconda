@@ -147,9 +147,7 @@ class RPMOSTreePayload(ArchivePayload):
 
         self._remoteOptions = {}
 
-        # Handle variations in pykickstart
-        if ((hasattr(ostreesetup, 'noGpg') and ostreesetup.noGpg) or
-            (hasattr(ostreesetup, 'nogpg') and ostreesetup.nogpg)):
+        if hasattr(ostreesetup, 'nogpg') and ostreesetup.nogpg:
             self._remoteOptions['gpg-verify'] = GLib.Variant('b', False)
 
         if flags.noverifyssl:
