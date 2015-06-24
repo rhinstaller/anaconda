@@ -1287,7 +1287,7 @@ def ipmi_report(event):
     # Event data 2 & 3 - always 0x0 for us
     event_string = "0x4 0x1F 0x0 0x6f %#x 0x0 0x0\n" % event
     eintr_retry_call(os.write, fd, event_string.encode("utf-8"))
-    os.close(fd)
+    eintr_ignore(os.close, fd)
 
     execWithCapture("ipmitool", ["sel", "add", path])
 
@@ -1301,6 +1301,18 @@ def eintr_retry_call(func, *args, **kwargs):
             return func(*args, **kwargs)
         except InterruptedError:
             continue
+
+def eintr_ignore(func, *args, **kwargs):
+    """Call a function and ignore EINTR.
+
+       This is useful for calls to close() and dup2(), which can return EINTR
+       but which should *not* be retried, since by the time the return the
+       file descriptor is already closed.
+    """
+    try:
+        return func(*args, **kwargs)
+    except InterruptedError:
+        pass
 
 def parent_dir(directory):
     """Return the parent's path"""

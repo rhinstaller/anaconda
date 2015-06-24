@@ -19,6 +19,7 @@
 
 # Ignore any interruptible calls
 # pylint: disable=interruptible-system-call
+# pylint: disable=ignorable-system-call
 
 __all__ = ["Creator", "OutsideMixin"]
 
