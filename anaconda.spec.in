@@ -309,6 +309,31 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Thu Jun 25 2015 Brian C. Lane <bcl@redhat.com> - 21.48.22.10-1
+- Eliminate some false test results when running glade tests. (atodorov)
+  Related: rhbz#1196721
+- Fix adding 'boot=' option in FIPS mode (vtrefny)
+  Resolves: rhbz#1190146
+- Use the index in grubenv (bcl)
+  Resolves: rhbz#1209678
+- Make colon optional while adding iSCSI Initiator Name (sujithpshankar)
+  Resolves: rhbz#1177573
+- Add basic support for LVM cache creation in kickstart (vpodzime)
+  Resolves: rhbz#1120421
+- Change the betanag wording (back) to be better for RHEL (vpodzime)
+  Related: rhbz#1196721
+- Set sensitivity of the "Encrypt" checkbox together with its label (vpodzime)
+  Resolves: rhbz#1181468
+- Use Size, not int, for size (amulhern)
+  Related: rhbz#1076055
+  Related: rhbz#1196721
+- Changes for scheduling size change on an existing device (amulhern)
+  Related: rhbz#1076055
+  Related: rhbz#1196721
+- Remove too strict condition for changing size (amulhern)
+  Related: rhbz#1076055
+  Related: rhbz#1196721
+
 * Mon Jun 22 2015 Brian C. Lane <bcl@redhat.com> - 21.48.22.9-1
 - Enable Anaconda to configure NTP (jkonecny)
   Resolves: rhbz#1085013
