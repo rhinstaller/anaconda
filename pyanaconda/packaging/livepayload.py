@@ -539,3 +539,6 @@ class LiveImageKSPayload(LiveImagePayload):
             # Strip out vmlinuz- from the names
             return sorted((n.split("/")[-1][8:] for n in names if "boot/vmlinuz-" in n),
                     key=functools.cmp_to_key(versionCmp))
+
+    def writeStorageEarly(self):
+        pass

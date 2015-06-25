@@ -37,7 +37,6 @@ from pyanaconda.ui.lib.entropy import wait_for_entropy
 from pyanaconda.kickstart import runPostScripts, runPreInstallScripts
 from pyanaconda.kexec import setup_kexec
 import logging
-import blivet
 log = logging.getLogger("anaconda")
 
 def _writeKS(ksdata):
@@ -200,10 +199,7 @@ def doInstall(storage, payload, ksdata, instClass):
                                                             wait_for_entropy=entropy_wait_clbk)
 
     turnOnFilesystems(storage, mountOnly=flags.flags.dirInstall, callbacks=callbacks_reg)
-    write_storage_late = (flags.flags.livecdInstall or ksdata.ostreesetup.seen
-                          or ksdata.method.method == "liveimg")
-    if not write_storage_late and not flags.flags.dirInstall:
-        storage.write()
+    payload.writeStorageEarly()
 
     # Run %pre-install scripts with the filesystem mounted and no packages
     with progress_report(_("Running pre-installation scripts")):
@@ -244,29 +240,7 @@ def doInstall(storage, payload, ksdata, instClass):
     payload.preInstall(packages=packages, groups=payload.languageGroups())
     payload.install()
 
-    if write_storage_late and not flags.flags.dirInstall:
-        if iutil.getSysroot() != iutil.getTargetPhysicalRoot():
-            blivet.setSysroot(iutil.getTargetPhysicalRoot(),
-                              iutil.getSysroot())
-
-            # Now that we have the FS layout in the target, umount
-            # things that were in the legacy sysroot, and put them in
-            # the target root, except for the physical /.  First,
-            # unmount all target filesystems.
-            storage.umountFilesystems()
-
-            # Explicitly mount the root on the physical sysroot
-            rootmnt = storage.mountpoints.get('/')
-            rootmnt.setup()
-            rootmnt.format.setup(options=rootmnt.format.options, chroot=iutil.getTargetPhysicalRoot())
-
-            payload.prepareMountTargets(storage)
-
-            # Everything else goes in the target root, including /boot
-            # since the bootloader code will expect to find /boot
-            # inside the chroot.
-            storage.mountFilesystems(skipRoot=True)
-        storage.write()
+    payload.writeStorageLate()
 
     # Do bootloader.
     if willInstallBootloader:

@@ -69,6 +69,7 @@ from blivet.errors import StorageError
 import blivet.util
 import blivet.arch
 from blivet.platform import platform
+from blivet import setSysroot
 
 from pyanaconda.product import productName, productVersion
 USER_AGENT = "%s (anaconda)/%s" %(productName, productVersion)
@@ -597,6 +598,45 @@ class Payload(object):
         #   kickstart should handle this before we get here
 
         self._copyDriverDiskFiles()
+
+    def writeStorageEarly(self):
+        """Some packaging payloads require that the storage configuration be
+           written out before doing installation.  Right now, this is basically
+           just the dnfpayload.  Payloads should only implement one of these
+           methods by overriding the unneeded one with a pass.
+        """
+        if self.data.method.method != "liveimg" and not flags.dirInstall:
+            self.storage.write()
+
+    def writeStorageLate(self):
+        """Some packaging payloads require that the storage configuration be
+           written out after doing installation.  Right now, this is basically
+           every payload except for dnf.  Payloads should only implement one of
+           these methods by overriding the unneeded one with a pass.
+        """
+        if self.data.method.method == "liveimg" and not flags.dirInstall:
+            if iutil.getSysroot() != iutil.getTargetPhysicalRoot():
+                setSysroot(iutil.getTargetPhysicalRoot(), iutil.getSysroot())
+
+                # Now that we have the FS layout in the target, umount
+                # things that were in the legacy sysroot, and put them in
+                # the target root, except for the physical /.  First,
+                # unmount all target filesystems.
+                self.storage.umountFilesystems()
+
+                # Explicitly mount the root on the physical sysroot
+                rootmnt = storage.mountpoints.get('/')
+                rootmnt.setup()
+                rootmnt.format.setup(options=rootmnt.format.options, chroot=iutil.getTargetPhysicalRoot())
+
+                self.prepareMountTargets(self.storage)
+
+                # Everything else goes in the target root, including /boot
+                # since the bootloader code will expect to find /boot
+                # inside the chroot.
+                self.storage.mountFilesystems(skipRoot=True)
+
+            self.storage.write()
 
 # Inherit abstract methods from Payload
 # pylint: disable=abstract-method
