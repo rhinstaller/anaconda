@@ -801,7 +801,7 @@ class NetworkControlBox(GObject.GObject):
             try:
                 ipv4cfg = nm.nm_device_ip_config(dev_cfg.device.get_iface(), version=4)
                 ipv6cfg = nm.nm_device_ip_config(dev_cfg.device.get_iface(), version=6)
-            except nm.UnknownDeviceError:
+            except (nm.UnknownDeviceError, nm.UnknownMethodGetError):
                 ipv4cfg = ipv6cfg = None
         else:
             ipv4cfg = ipv6cfg = None
