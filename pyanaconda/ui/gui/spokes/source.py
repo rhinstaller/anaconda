@@ -53,7 +53,6 @@ from blivet.util import get_mount_device, get_mount_paths
 __all__ = ["SourceSpoke"]
 
 BASEREPO_SETUP_MESSAGE = N_("Setting up installation source...")
-METADATA_DOWNLOAD_MESSAGE = N_("Downloading package metadata...")
 
 # These need to match the IDs in protocolComboBox and repoProtocolComboBox in source.glade.
 PROTOCOL_HTTP = 'http'
@@ -662,7 +661,8 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler):
         # Register listeners for payload events
         payloadMgr.addListener(payloadMgr.STATE_START, self._payload_refresh)
         payloadMgr.addListener(payloadMgr.STATE_STORAGE, self._probing_storage)
-        payloadMgr.addListener(payloadMgr.STATE_GROUP_MD, self._downloading_package_md)
+        payloadMgr.addListener(payloadMgr.STATE_PACKAGE_MD, self._downloading_package_md)
+        payloadMgr.addListener(payloadMgr.STATE_GROUP_MD, self._downloading_group_md)
         payloadMgr.addListener(payloadMgr.STATE_FINISHED, self._payload_finished)
         payloadMgr.addListener(payloadMgr.STATE_ERROR, self._payload_error)
 
@@ -679,13 +679,16 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler):
         time.sleep(1)
 
     def _probing_storage(self):
-        hubQ.send_message(self.__class__.__name__, _("Probing storage..."))
+        hubQ.send_message(self.__class__.__name__, _(constants.PAYLOAD_STATUS_PROBING_STORAGE))
 
     def _downloading_package_md(self):
         # Reset the error state from previous payloads
         self._error = False
 
-        hubQ.send_message(self.__class__.__name__, _(METADATA_DOWNLOAD_MESSAGE))
+        hubQ.send_message(self.__class__.__name__, _(constants.PAYLOAD_STATUS_PACKAGE_MD))
+
+    def _downloading_group_md(self):
+        hubQ.send_message(self.__class__.__name__, _(constants.PAYLOAD_STATUS_GROUP_MD))
 
     def _payload_finished(self):
         hubQ.send_ready("SoftwareSelectionSpoke", False)

@@ -103,10 +103,10 @@ class SoftwareSelectionSpoke(NormalSpoke):
 
     # Payload event handlers
     def _downloading_package_md(self):
-        hubQ.send_message(self.__class__.__name__, _("Downloading package metadata..."))
+        hubQ.send_message(self.__class__.__name__, _(constants.PAYLOAD_STATUS_PACKAGE_MD))
 
     def _downloading_group_md(self):
-        hubQ.send_message(self.__class__.__name__, _("Downloading group metadata..."))
+        hubQ.send_message(self.__class__.__name__, _(constants.PAYLOAD_STATUS_GROUP_MD))
 
     def _payload_finished(self):
         self.environment = self.data.packages.environment

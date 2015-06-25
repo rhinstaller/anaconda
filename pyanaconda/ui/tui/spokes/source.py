@@ -33,6 +33,7 @@ from pyanaconda.iutil import DataHolder
 from pyanaconda.constants import THREAD_SOURCE_WATCHER, THREAD_PAYLOAD
 from pyanaconda.constants import THREAD_STORAGE_WATCHER
 from pyanaconda.constants import THREAD_CHECK_SOFTWARE, ISO_DIR, DRACUT_ISODIR, DRACUT_REPODIR
+from pyanaconda.constants import PAYLOAD_STATUS_PROBING_STORAGE
 from pyanaconda.constants_text import INPUT_PROCESSED
 
 from pyanaconda.ui.helpers import SourceSwitchHandler
@@ -363,7 +364,7 @@ class SelectDeviceSpoke(NormalTUISpoke):
             # storage refresh is running - just report it
             # so that the user can refresh until it is done
             # TODO: refresh once the thread is done ?
-            message = _("Probing storage...")
+            message = _(PAYLOAD_STATUS_PROBING_STORAGE)
             self._window += [TextWidget(message), ""]
             return True
 
