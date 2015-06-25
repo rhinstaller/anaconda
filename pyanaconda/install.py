@@ -89,9 +89,8 @@ def doConfiguration(storage, payload, ksdata, instClass):
         ksdata.xconfig.execute(storage, ksdata, instClass)
         ksdata.skipx.execute(storage, ksdata, instClass)
 
-    if willWriteNetwork:
-        with progress_report(_("Writing network configuration")):
-            ksdata.network.execute(storage, ksdata, instClass)
+    with progress_report(_("Writing network configuration"), cond=lambda: willWriteNetwork):
+        ksdata.network.execute(storage, ksdata, instClass)
 
     # Creating users and groups requires some pre-configuration.
     with progress_report(_("Creating users")):
@@ -115,9 +114,8 @@ def doConfiguration(storage, payload, ksdata, instClass):
                                  and (not ksdata.bootloader.disabled and ksdata.bootloader != "none"):
         writeBootLoader(storage, payload, instClass, ksdata)
 
-    if willRunRealmd:
-        with progress_report(_("Joining realm: %s") % ksdata.realm.discovered):
-            ksdata.realm.execute(storage, ksdata, instClass)
+    with progress_report(_("Joining realm: %s") % ksdata.realm.discovered, cond=lambda: willRunRealmd):
+        ksdata.realm.execute(storage, ksdata, instClass)
 
     with progress_report(_("Running post-installation scripts")):
         runPostScripts(ksdata.scripts)
@@ -209,9 +207,8 @@ def doInstall(storage, payload, ksdata, instClass):
 
     # Discover information about realms to join,
     # to determine additional packages
-    if willRunRealmd:
-        with progress_report(_("Discovering realm to join")):
-            ksdata.realm.setup()
+    with progress_report(_("Discovering realm to join"), cond=lambda: willRunRealmd):
+        ksdata.realm.setup()
 
     # Check for additional packages
     ksdata.authconfig.setup()
@@ -243,9 +240,8 @@ def doInstall(storage, payload, ksdata, instClass):
     payload.writeStorageLate()
 
     # Do bootloader.
-    if willInstallBootloader:
-        with progress_report(_("Installing boot loader")):
-            writeBootLoader(storage, payload, instClass, ksdata)
+    with progress_report(_("Installing boot loader"), cond=lambda: willInstallBootloader):
+        writeBootLoader(storage, payload, instClass, ksdata)
 
     with progress_report(_("Performing post-installation setup tasks")):
         payload.postInstall()
