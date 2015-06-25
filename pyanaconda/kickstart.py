@@ -1079,6 +1079,14 @@ class Logging(commands.logging.FC6_Logging):
             logger.updateRemote(remote_server)
 
 class Network(commands.network.F22_Network):
+    def __init__(self, *args, **kwargs):
+        commands.network.F22_Network.__init__(self, *args, **kwargs)
+        self.packages = []
+
+    def setup(self):
+        if network.is_using_team_device():
+            self.packages = ["teamd"]
+
     def execute(self, storage, ksdata, instClass):
         network.write_network_config(storage, ksdata, instClass, iutil.getSysroot())
 

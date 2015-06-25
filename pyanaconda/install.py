@@ -213,6 +213,7 @@ def doInstall(storage, payload, ksdata, instClass):
     # Check for additional packages
     ksdata.authconfig.setup()
     ksdata.firewall.setup()
+    ksdata.network.setup()
 
     # make name resolution work for rpm scripts in chroot
     if flags.can_touch_runtime_system("copy /etc/resolv.conf to sysroot"):
@@ -222,13 +223,10 @@ def doInstall(storage, payload, ksdata, instClass):
     # system is bootable and configurable, and some other packages in order
     # to finish setting up the system.
     packages = storage.packages + ksdata.realm.packages
-    packages += ksdata.authconfig.packages + ksdata.firewall.packages
+    packages += ksdata.authconfig.packages + ksdata.firewall.packages + ksdata.network.packages
 
     if willInstallBootloader:
         packages += storage.bootloader.packages
-
-    if network.is_using_team_device():
-        packages.append("teamd")
 
     # don't try to install packages from the install class' ignored list and the
     # explicitly excluded ones (user takes the responsibility)
