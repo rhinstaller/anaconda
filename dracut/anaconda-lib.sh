@@ -97,7 +97,12 @@ anaconda_live_root_dir() {
         umount $repodir
         [ -n "$iso" ] && umount $isodir
     fi
-    [ -e "$img" ] && /sbin/dmsquash-live-root $img
+    if [ -e "$img" ]; then
+        /sbin/dmsquash-live-root $img
+        # dracut & systemd only mount things with root=live: so we have to do this ourselves
+        # See https://bugzilla.redhat.com/show_bug.cgi?id=1232411
+        printf 'mount /dev/mapper/live-rw %s\n' "$NEWROOT" > $hookdir/mount/01-$$-anaconda.sh
+    fi
 }
 
 # find updates.img/product.img/RHUpdates and unpack/copy them so they'll
