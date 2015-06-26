@@ -1006,6 +1006,20 @@ reposdir=%s
 
             return (environment.ui_name, environment.ui_description)
 
+    def environmentId(self, environment):
+        """ Return environment id for the environment specified by id or name."""
+        groups = self._yumGroups
+        if not groups:
+            return environment
+
+        with _yum_lock:
+            if not groups.has_environment(environment):
+                raise NoSuchGroup(environment)
+
+            environment_instance = groups.return_environment(environment)
+
+            return environment_instance.environmentid
+
     def selectEnvironment(self, environmentid):
         groups = self._yumGroups
         if not groups:
