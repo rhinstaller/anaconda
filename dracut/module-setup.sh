@@ -37,6 +37,7 @@ install() {
     inst "$moddir/anaconda-diskroot" "/sbin/anaconda-diskroot"
     inst_hook pre-pivot 50 "$moddir/anaconda-copy-ks.sh"
     inst_hook pre-pivot 50 "$moddir/anaconda-copy-cmdline.sh"
+    inst_hook pre-pivot 50 "$moddir/anaconda-copy-s390ccwconf.sh"
     inst_hook pre-pivot 99 "$moddir/save-initramfs.sh"
     inst_hook pre-shutdown 50 "$moddir/anaconda-pre-shutdown.sh"
     # kickstart parsing, WOOOO
