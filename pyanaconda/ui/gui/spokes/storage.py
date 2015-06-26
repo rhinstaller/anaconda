@@ -53,6 +53,7 @@ from pyanaconda.ui.gui.spokes.lib.dasdfmt import DasdFormatDialog
 from pyanaconda.ui.categories.system import SystemCategory
 from pyanaconda.ui.gui.utils import escape_markup, gtk_action_nowait, ignoreEscape
 from pyanaconda.ui.helpers import StorageChecker
+from pyanaconda.storage_utils import on_disk_storage
 
 from pyanaconda.kickstart import doKickstartStorage, refreshAutoSwapSize, resetCustomStorageData
 from blivet import arch
@@ -259,6 +260,7 @@ class StorageSpoke(NormalSpoke, StorageChecker):
 
         self._last_clicked_overview = None
         self._cur_clicked_overview = None
+        self._last_selected_disks = None
 
         self._grabObjects()
 
@@ -453,6 +455,11 @@ class StorageSpoke(NormalSpoke, StorageChecker):
         # don't put disks with hidden formats in selected_disks
         self.selected_disks = [d for d in self.data.ignoredisk.onlyuse
                                     if d in disk_names]
+
+        # unhide previously hidden disks so that they don't look like being
+        # empty (because of all child devices hidden)
+        self._unhide_disks()
+
         self.autopart = self.data.autopart.autopart
         self.autoPartType = self.data.autopart.type
         if self.autoPartType is None:
@@ -722,28 +729,65 @@ class StorageSpoke(NormalSpoke, StorageChecker):
 
         return True
 
+    def _hide_disks(self):
+        for disk in self.disks:
+            if disk.name not in self.selected_disks and \
+               disk in self.storage.devices:
+                self.storage.devicetree.hide(disk)
+
+
+    def _unhide_disks(self):
+        if self._last_selected_disks:
+            for disk in self.disks:
+                if disk.name not in self.selected_disks and \
+                   disk.name not in self._last_selected_disks:
+                    self.storage.devicetree.unhide(disk)
+
+    def _remove_nonexistant_partitions(self):
+        for partition in self.storage.partitions[:]:
+            # check if it's been removed in a previous iteration
+            if not partition.exists and \
+               partition in self.storage.partitions:
+                self.storage.recursiveRemove(partition)
+
     def on_back_clicked(self, button):
         # We can't exit early if it looks like nothing has changed because the
         # user might want to change settings presented in the dialogs shown from
         # within this method.
 
-        disks = [d for d in self.disks if d.name in self.selected_disks]
-        disks_size = sum((d.size for d in disks), Size(0))
+        # make sure the snapshot of unmodified on-disk-storage model is created
+        if not on_disk_storage.created:
+            on_disk_storage.create_snapshot(self.storage)
 
         # No disks selected?  The user wants to back out of the storage spoke.
-        if not disks:
+        if not self.selected_disks:
             NormalSpoke.on_back_clicked(self, button)
             return
 
-        # Remove all non-existing devices if autopart was active when we last
-        # refreshed.
-        if self._previous_autopart:
-            self._previous_autopart = False
-            for partition in self.storage.partitions[:]:
-                # check if it's been removed in a previous iteration
-                if not partition.exists and \
-                   partition in self.storage.partitions:
-                    self.storage.recursiveRemove(partition)
+        disk_selection_changed = False
+        if self._last_selected_disks:
+            disk_selection_changed = (self._last_selected_disks != set(self.selected_disks))
+
+        # remember the disk selection for future decisions
+        self._last_selected_disks = set(self.selected_disks)
+
+        autopart = not self._customPart.get_active()
+        if disk_selection_changed or (not self._previous_autopart and autopart):
+            # Changing disk selection is really, really complicated and has
+            # always been causing numerous hard bugs. Let's not play the hero
+            # game and just revert everything and start over again.
+            # The same applies to change from custom part to autopart.
+            on_disk_storage.reset_to_snapshot(self.storage)
+            self.disks = getDisks(self.storage.devicetree)
+        else:
+            # Remove all non-existing devices if autopart was active when we last
+            # refreshed.
+            if self._previous_autopart:
+                self._previous_autopart = False
+                self._remove_nonexistant_partitions()
+
+        # hide disks as requested
+        self._hide_disks()
 
         # hide/unhide disks as requested
         for disk in self.disks:
@@ -777,6 +821,9 @@ class StorageSpoke(NormalSpoke, StorageChecker):
                     # NOTE: rc == 2 means the user clicked on the link that takes t
                     # back to the hub.
                     return
+
+        disks = [d for d in self.disks if d.name in self.selected_disks]
+        disks_size = sum((d.size for d in disks), Size(0))
 
         # Figure out if the existing disk labels will work on this platform
         # you need to have at least one of the platform's labels in order for
