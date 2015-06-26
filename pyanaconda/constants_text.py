@@ -56,3 +56,6 @@ TEXT_NO_BUTTON = Translator(TEXT_NO_STR, TEXT_NO_CHECK)
 # Make the return calls from the UIScreen input() function more clear
 INPUT_PROCESSED = None
 INPUT_DISCARDED = False
+
+# default screen height in number of lines (24 lines is the default for serial consoles)
+DEFAULT_SCREEN_HEIGHT = 24

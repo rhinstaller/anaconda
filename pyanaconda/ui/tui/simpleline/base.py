@@ -22,6 +22,7 @@
 __all__ = ["App", "UIScreen", "Widget"]
 
 import sys
+import os
 import Queue
 import getpass
 import threading
@@ -30,6 +31,7 @@ from pyanaconda.threads import threadMgr, AnacondaThread
 from pyanaconda.ui.communication import hubQ
 from pyanaconda import constants, iutil
 from pyanaconda.i18n import _, N_, C_
+from pyanaconda.constants_text import DEFAULT_SCREEN_HEIGHT
 
 RAW_INPUT_LOCK = threading.Lock()
 
@@ -491,17 +493,24 @@ class UIScreen(object):
     # title line of the screen
     title = u"Screen.."
 
-    def __init__(self, app, screen_height = 25):
+    def __init__(self, app, screen_height=0):
         """
         :param app: reference to application main class
         :type app: instance of class App
 
         :param screen_height: height of the screen (useful for printing long widgets)
+                              or 0 to use the default
         :type screen_height: int
         """
 
         self._app = app
-        self._screen_height = screen_height
+
+        if screen_height > 0:
+            self._screen_height = screen_height
+        elif "LINES" in os.environ:
+            self._screen_height = os.environ["LINES"]
+        else:
+            self._screen_height = DEFAULT_SCREEN_HEIGHT
 
         # list that holds the content to be printed out
         self._window = []
