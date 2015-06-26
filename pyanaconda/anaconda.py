@@ -201,8 +201,8 @@ class Anaconda(object):
         (fd, filename) = mkstemp(prefix="anaconda-tb-", dir="/tmp")
         dump_text = exn.traceback_and_object_dump(self)
         dump_text += threads
-        dump_text = dump_text.encode("utf-8")
-        iutil.eintr_retry_call(os.write, fd, dump_text)
+        dump_text_bytes = dump_text.encode("utf-8")
+        iutil.eintr_retry_call(os.write, fd, dump_text_bytes)
         iutil.eintr_ignore(os.close, fd)
 
         # append to a given file
