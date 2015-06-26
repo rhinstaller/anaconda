@@ -281,6 +281,7 @@ def find_devname(mac):
         if thismac.lower() == mac.lower():
             return netif
 
+# We duplicate this in pyanaconda/network.py
 def s390_settings(device):
     cfg = {
         'SUBCHANNELS': '',

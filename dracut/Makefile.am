@@ -33,6 +33,7 @@ dist_dracut_SCRIPTS = module-setup.sh \
 		      anaconda-diskroot \
 		      anaconda-copy-ks.sh \
 		      anaconda-copy-cmdline.sh \
+		      anaconda-copy-s390ccwconf.sh \
 		      anaconda-ifcfg.sh \
 		      fetch-kickstart-net.sh \
 		      fetch-kickstart-disk \
