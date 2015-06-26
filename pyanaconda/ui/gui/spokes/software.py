@@ -95,6 +95,9 @@ class SoftwareSelectionSpoke(NormalSpoke):
         # Whether we are using package selections from a kickstart
         self._kickstarted = flags.automatedInstall and self.data.packages.seen
 
+        # Whether the payload is in an error state
+        self._error = False
+
         # Register event listeners to update our status on payload events
         payloadMgr.addListener(payloadMgr.STATE_PACKAGE_MD, self._downloading_package_md)
         payloadMgr.addListener(payloadMgr.STATE_GROUP_MD, self._downloading_group_md)
@@ -103,6 +106,9 @@ class SoftwareSelectionSpoke(NormalSpoke):
 
     # Payload event handlers
     def _downloading_package_md(self):
+        # Reset the error state from previous payloads
+        self._error = False
+
         hubQ.send_message(self.__class__.__name__, _(constants.PAYLOAD_STATUS_PACKAGE_MD))
 
     def _downloading_group_md(self):
@@ -112,6 +118,7 @@ class SoftwareSelectionSpoke(NormalSpoke):
         self.environment = self.data.packages.environment
 
     def _payload_error(self):
+        self._error = True
         hubQ.send_message(self.__class__.__name__, payloadMgr.error)
 
     def _apply(self):
@@ -262,7 +269,8 @@ class SoftwareSelectionSpoke(NormalSpoke):
 
         # If packages were provided by an input kickstart file (or some other means),
         # we should do dependency solving here.
-        self._apply()
+        if not self._error:
+            self._apply()
 
     def _parseEnvironments(self):
         # Set all of the add-on selection states to the default
