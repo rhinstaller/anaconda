@@ -572,10 +572,10 @@ class UIScreen(object):
                 # prompt (2 lines)
                 for line in lines[pos:]:
                     print(line)
-                pos += self._screen_height - 1
+                pos += self._screen_height - 2
             else:
                 # print part with a prompt to continue
-                for line in lines[pos:(pos + self._screen_height - 2)]:
+                for line in lines[pos:(pos + self._screen_height - 1)]:
                     print(line)
                 self._app.raw_input(_("Press ENTER to continue"))
                 pos += self._screen_height - 1
