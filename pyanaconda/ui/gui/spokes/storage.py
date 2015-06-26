@@ -727,6 +727,14 @@ class StorageSpoke(NormalSpoke, StorageChecker):
         # user might want to change settings presented in the dialogs shown from
         # within this method.
 
+        disks = [d for d in self.disks if d.name in self.selected_disks]
+        disks_size = sum((d.size for d in disks), Size(0))
+
+        # No disks selected?  The user wants to back out of the storage spoke.
+        if not disks:
+            NormalSpoke.on_back_clicked(self, button)
+            return
+
         # Remove all non-existing devices if autopart was active when we last
         # refreshed.
         if self._previous_autopart:
@@ -745,15 +753,6 @@ class StorageSpoke(NormalSpoke, StorageChecker):
             elif disk.name in self.selected_disks and \
                  disk not in self.storage.devices:
                 self.storage.devicetree.unhide(disk)
-
-        # show the installation options dialog
-        disks = [d for d in self.disks if d.name in self.selected_disks]
-        disks_size = sum((d.size for d in disks), Size(0))
-
-        # No disks selected?  The user wants to back out of the storage spoke.
-        if not disks:
-            NormalSpoke.on_back_clicked(self, button)
-            return
 
         if arch.isS390():
             # check for unformatted DASDs and launch dasdfmt if any discovered
