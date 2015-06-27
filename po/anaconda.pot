@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: anaconda 21.48.22.9\n"
+"Project-Id-Version: anaconda 21.48.22.10\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
-"POT-Creation-Date: 2015-06-25 16:40-0700\n"
+"POT-Creation-Date: 2015-06-26 18:10-0700\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1501,7 +1501,7 @@ msgid ""
 msgstr ""
 
 #: pyanaconda/ui/tui/spokes/askvnc.py:143
-#: pyanaconda/ui/gui/spokes/network.py:1317
+#: pyanaconda/ui/gui/spokes/network.py:1330
 msgid "Password: "
 msgstr ""
 
@@ -1602,8 +1602,8 @@ msgid "Can't apply configuration, device activation failed."
 msgstr ""
 
 #: pyanaconda/ui/tui/spokes/network.py:248
-#: pyanaconda/ui/gui/spokes/network.py:1464
-#: pyanaconda/ui/gui/spokes/network.py:1534
+#: pyanaconda/ui/gui/spokes/network.py:1477
+#: pyanaconda/ui/gui/spokes/network.py:1547
 #, python-format
 msgid "Host name is not valid: %s"
 msgstr ""
@@ -2468,88 +2468,88 @@ msgid "Bridge"
 msgstr ""
 
 #. TRANSLATORS: ethernet cable is unplugged
-#: pyanaconda/ui/gui/spokes/network.py:727
+#: pyanaconda/ui/gui/spokes/network.py:740
 msgid "unplugged"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.py:817
+#: pyanaconda/ui/gui/spokes/network.py:830
 #: pyanaconda/ui/gui/spokes/network.glade.h:16
 msgid "IPv4 Address"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.py:818
+#: pyanaconda/ui/gui/spokes/network.py:831
 #: pyanaconda/ui/gui/spokes/network.glade.h:15
 msgid "IPv6 Address"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.py:820
-#: pyanaconda/ui/gui/spokes/network.py:822
+#: pyanaconda/ui/gui/spokes/network.py:833
+#: pyanaconda/ui/gui/spokes/network.py:835
 #: pyanaconda/ui/gui/spokes/network.glade.h:32
 msgid "IP Address"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.py:912
+#: pyanaconda/ui/gui/spokes/network.py:925
 #, python-format
 msgid "%d Mb/s"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.py:1132
+#: pyanaconda/ui/gui/spokes/network.py:1145
 msgid "WEP"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.py:1135
+#: pyanaconda/ui/gui/spokes/network.py:1148
 msgid "WPA"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.py:1138
+#: pyanaconda/ui/gui/spokes/network.py:1151
 msgid "WPA2"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.py:1142
+#: pyanaconda/ui/gui/spokes/network.py:1155
 msgid "Enterprise"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.py:1147 widgets/src/SpokeSelector.c:57
+#: pyanaconda/ui/gui/spokes/network.py:1160 widgets/src/SpokeSelector.c:57
 #: pyanaconda/ui/gui/spokes/filter.glade.h:3
 #: pyanaconda/ui/gui/spokes/lib/custom_storage_helpers.glade.h:21
 msgid "None"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.py:1279
+#: pyanaconda/ui/gui/spokes/network.py:1292
 #: pyanaconda/ui/gui/spokes/network.glade.h:59
 msgid "Authentication required by wireless network"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.py:1280
+#: pyanaconda/ui/gui/spokes/network.py:1293
 #, python-format
 msgid ""
 "Passwords or encryption keys are required to access\n"
 "the wireless network '%(network_id)s'."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.py:1294
+#: pyanaconda/ui/gui/spokes/network.py:1307
 msgctxt "GUI|Network|Secrets Dialog"
 msgid "_Password:"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.py:1302
+#: pyanaconda/ui/gui/spokes/network.py:1315
 msgctxt "GUI|Network|Secrets Dialog"
 msgid "_Key:"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.py:1312
+#: pyanaconda/ui/gui/spokes/network.py:1325
 msgid "User name: "
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.py:1323
+#: pyanaconda/ui/gui/spokes/network.py:1336
 msgid "Identity: "
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.py:1328
+#: pyanaconda/ui/gui/spokes/network.py:1341
 msgid "Private key password: "
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/network.py:1384
+#: pyanaconda/ui/gui/spokes/network.py:1397
 msgctxt "GUI|Spoke"
 msgid "_NETWORK & HOST NAME"
 msgstr ""
@@ -4346,7 +4346,7 @@ msgstr ""
 
 #: pyanaconda/ui/gui/spokes/welcome.glade.h:4
 msgid ""
-">Notice:  This is pre-release software that is intended for development and "
+"Notice:  This is pre-release software that is intended for development and "
 "testing purposes only.  Do not use this software for any critical work or "
 "for production environments.\n"
 "\n"

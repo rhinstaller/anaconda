@@ -309,6 +309,18 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Fri Jun 26 2015 Brian C. Lane <bcl@redhat.com> - 21.48.22.11-1
+- network: catch another race when calling dbus methods on invalid devices
+  (rvykydal)
+  Related: rhbz#1179276
+- network: GUI, add connection even when virtual device activation failed
+  (rvykydal)
+  Resolves: rhbz#1179276
+- Remove an extra '>' in the betanag warning (vpodzime)
+  Related: rhbz#1196721
+- Do not mix two lists of fields when applying changes in text mode (vpodzime)
+  Resolves: rhbz#1231149
+
 * Thu Jun 25 2015 Brian C. Lane <bcl@redhat.com> - 21.48.22.10-1
 - Eliminate some false test results when running glade tests. (atodorov)
   Related: rhbz#1196721
