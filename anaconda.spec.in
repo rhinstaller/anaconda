@@ -308,6 +308,26 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Fri Jun 26 2015 Brian C. Lane <bcl@redhat.com> - 23.12-1
+- Revert "Add an optional conditional to progress_report." (bcl)
+- Fix inconsistencies in the payload messages. (dshea)
+- Fix install-requires and install-buildrequires (dshea)
+- anaconda-dracut: Mount /dev/mapper/live-rw (#1232411) (bcl)
+- Eliminate some false test results when running glade tests. (atodorov)
+- Move the knowledge about network packages into ksdata.network. (clumens)
+- Add an optional conditional to progress_report. (clumens)
+- Move the big block of late storage writing out of install.py. (clumens)
+- The attribute is named ostreesetup.nogpg. (clumens)
+- Use the index in grubenv (#1209678) (bcl)
+- Do not raise an exception on EINTR from os.close or os.dup2 (dshea)
+- Merge pull request #154 from mulkieran/master-959701 (mulkieran)
+- Improve focus behavior in the advanced user dialog (dshea)
+- Re-save advanced_user.glade (dshea)
+- Depsolve kickstarted packages on the summary hub (#961280) (dshea)
+- Add a kickstart test for %%packages --ignoremissing (dshea)
+- Remove descriptions for RAID levels (#959701) (amulhern)
+- No kexec-tools on aarch64 (bcl)
+
 * Fri Jun 19 2015 Brian C. Lane <bcl@redhat.com> - 23.11-1
 - Do not import iutil from flags (dshea)
 - Ignore EINTR errors in files unlikely to encounter them (dshea)
