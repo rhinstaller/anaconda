@@ -43,14 +43,11 @@ progressQ.addMessage("quit", 1)             # exit_code
 # Surround a block of code with progress updating.  Before the code runs, the
 # message is updated so the user can tell what's about to take so long.
 # Afterwards, the progress bar is updated to reflect that the task is done.
-# An optional conditional can be given, in which case it must pass for the
-# block to be executed.
 @contextmanager
-def progress_report(message, cond=None):
-    if not cond or cond():
-        progress_message(message)
-        yield
-        progress_step(message)
+def progress_report(message):
+    progress_message(message)
+    yield
+    progress_step(message)
 
 def progress_message(message):
     progressQ.send_message(message)
