@@ -856,12 +856,14 @@ def getFreeRegions(disks):
             disks -- list of parted.Disk instances
 
         Return value is a list of unaligned parted.Geometry instances.
+        Only free regions guaranteed to contain at least one aligned sector for
+        both the start and end alignments in the disklabel are returned.
 
     """
     free = []
     for disk in disks:
         for f in disk.format.partedDisk.getFreeSpaceRegions():
-            if f.length > 0:
+            if f.length >= disk.format.alignment.grainSize:
                 free.append(f)
 
     return free
@@ -1543,7 +1545,7 @@ def getDiskChunks(disk, partitions, free):
             free -- list of parted.Geometry instances representing free space
 
         Partitions and free regions not on the specified disk are ignored.
-
+        Chunks contain an aligned version of the free region's geometry.
     """
     # list of all new partitions on this disk
     disk_parts = [p for p in partitions if p.disk == disk and not p.exists]
@@ -1552,10 +1554,23 @@ def getDiskChunks(disk, partitions, free):
 
     chunks = []
     for f in disk_free:
-        # align the geometry so we have a realistic view of the free space
+        # Align the geometry so we have a realistic view of the free space.
+        # alignUp and alignDown can align in the reverse direction if the only
+        # aligned sector within the geometry is in that direction, so we have to
+        # also check that the resulting aligned geometry has a non-zero length.
+        # (It is possible that both will align to the same sector in a small
+        #  enough region.)
+        al_start = disk.format.alignment.alignUp(f, f.start)
+        al_end = disk.format.endAlignment.alignDown(f, f.end)
+        if al_start >= al_end:
+            continue
+
         geom = parted.Geometry(device=f.device,
-                               start=disk.format.alignment.alignUp(f, f.start),
-                               end=disk.format.endAlignment.alignDown(f, f.end))
+                               start=al_start,
+                               end=al_end)
+        if geom.length < disk.format.alignment.grainSize:
+            continue
+
         chunks.append(Chunk(geom))
 
     for p in disk_parts:
