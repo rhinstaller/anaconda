@@ -238,7 +238,9 @@
                 <property name="label" translatable="yes" context="GUI|Software Source|Proxy Dialog">_OK</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
-                <property name="receives_default">True</property>
+                <property name="can_default">True</property>
+                <property name="has_default">True</property>
+                <property name="receives_default">False</property>
                 <property name="use_underline">True</property>
               </object>
               <packing>
@@ -324,6 +326,7 @@
                       <object class="GtkEntry" id="proxyURLEntry">
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
+                        <property name="activates_default">True</property>
                         <property name="width_chars">40</property>
                       </object>
                       <packing>
@@ -403,6 +406,7 @@
                       <object class="GtkEntry" id="proxyUsernameEntry">
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
+                        <property name="activates_default">True</property>
                         <signal name="changed" handler="on_proxyUsernameEntry_changed" swapped="no"/>
                       </object>
                       <packing>
@@ -416,6 +420,7 @@
                         <property name="can_focus">True</property>
                         <property name="visibility">False</property>
                         <property name="invisible_char">●</property>
+                        <property name="activates_default">True</property>
                         <signal name="changed" handler="on_proxyPasswordEntry_changed" swapped="no"/>
                       </object>
                       <packing>

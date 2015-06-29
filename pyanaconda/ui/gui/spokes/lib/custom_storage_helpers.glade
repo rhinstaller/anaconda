@@ -321,7 +321,7 @@
                 <property name="label" translatable="yes" context="GUI|Custom Partitioning|Add Dialog">_Cancel</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
-                <property name="receives_default">True</property>
+                <property name="receives_default">False</property>
                 <property name="halign">end</property>
                 <property name="use_underline">True</property>
               </object>
@@ -336,7 +336,9 @@
                 <property name="label" translatable="yes" context="GUI|Custom Partitioning|Add Dialog">_Add mount point</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
-                <property name="receives_default">True</property>
+                <property name="can_default">True</property>
+                <property name="has_default">True</property>
+                <property name="receives_default">False</property>
                 <property name="halign">end</property>
                 <property name="use_underline">True</property>
                 <signal name="clicked" handler="on_add_confirm_clicked" swapped="no"/>
@@ -478,6 +480,7 @@ use.  Try something else?</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="tooltip_text" translatable="yes">eg: "20 GB", "500mb" (minus the quotation marks)</property>
+                <property name="activates_default">True</property>
               </object>
               <packing>
                 <property name="left_attach">1</property>
@@ -493,6 +496,7 @@ use.  Try something else?</property>
                   <object class="GtkEntry" id="comboboxtext-entry">
                     <property name="can_focus">True</property>
                     <property name="buffer">mountPointEntryBuffer</property>
+                    <property name="activates_default">True</property>
                     <property name="completion">mountPointCompletion</property>
                   </object>
                 </child>
@@ -583,7 +587,7 @@ use.  Try something else?</property>
                 <property name="label" translatable="yes" context="GUI|Custom Partitioning|Container Dialog">_Cancel</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
-                <property name="receives_default">True</property>
+                <property name="receives_default">False</property>
                 <property name="use_underline">True</property>
               </object>
               <packing>
@@ -597,7 +601,9 @@ use.  Try something else?</property>
                 <property name="label" translatable="yes" context="GUI|Custom Partitioning|Container Dialog">_Save</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
-                <property name="receives_default">True</property>
+                <property name="can_default">True</property>
+                <property name="has_default">True</property>
+                <property name="receives_default">False</property>
                 <property name="use_underline">True</property>
               </object>
               <packing>
@@ -672,6 +678,7 @@ use.  Try something else?</property>
                   <object class="GtkEntry" id="container_name_entry">
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
+                    <property name="activates_default">True</property>
                   </object>
                   <packing>
                     <property name="expand">False</property>
@@ -907,6 +914,7 @@ use.  Try something else?</property>
                   <object class="GtkEntry" id="containerSizeEntry">
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
+                    <property name="activates_default">True</property>
                   </object>
                   <packing>
                     <property name="expand">False</property>
