@@ -1405,8 +1405,6 @@ reposdir=%s
         self.requiredPackages = packages
         self.requiredGroups = groups
 
-        self.addDriverRepos()
-
         if self.install_device:
             self._setupMedia(self.install_device)
 
