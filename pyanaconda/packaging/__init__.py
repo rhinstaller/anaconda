@@ -1280,6 +1280,7 @@ class PayloadManager(object):
         # Download package metadata
         try:
             payload.updateBaseRepo(fallback=fallback, checkmount=checkmount)
+            payload.addDriverRepos()
         except (OSError, PayloadError) as e:
             log.error("PayloadError: %s", e)
             self._error = self.ERROR_SETUP
