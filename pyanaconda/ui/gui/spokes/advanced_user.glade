@@ -36,7 +36,7 @@
                 <property name="label" translatable="yes" context="GUI|Advanced User">_Cancel</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
-                <property name="receives_default">True</property>
+                <property name="receives_default">False</property>
                 <property name="use_underline">True</property>
               </object>
               <packing>
@@ -50,7 +50,9 @@
                 <property name="label" translatable="yes" context="GUI|Advanced User">_Save Changes</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
-                <property name="receives_default">True</property>
+                <property name="can_default">True</property>
+                <property name="has_default">True</property>
+                <property name="receives_default">False</property>
                 <property name="use_underline">True</property>
               </object>
               <packing>
@@ -115,6 +117,7 @@
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
                     <property name="margin_left">8</property>
+                    <property name="activates_default">True</property>
                   </object>
                   <packing>
                     <property name="expand">True</property>
@@ -193,6 +196,7 @@
                     <property name="can_focus">True</property>
                     <property name="margin_left">8</property>
                     <property name="invisible_char">●</property>
+                    <property name="activates_default">True</property>
                     <property name="width_chars">5</property>
                     <property name="progress_pulse_step">0.0099999997764825821</property>
                     <property name="adjustment">uid</property>
@@ -209,6 +213,7 @@
                     <property name="can_focus">True</property>
                     <property name="margin_left">8</property>
                     <property name="invisible_char">●</property>
+                    <property name="activates_default">True</property>
                     <property name="width_chars">5</property>
                     <property name="adjustment">gid</property>
                   </object>
@@ -273,6 +278,7 @@
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
                         <property name="margin_top">3</property>
+                        <property name="activates_default">True</property>
                       </object>
                       <packing>
                         <property name="expand">False</property>
