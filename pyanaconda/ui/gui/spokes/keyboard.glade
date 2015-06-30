@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Generated with glade 3.18.3 -->
+<!-- Generated with glade 3.19.0 -->
 <interface>
   <requires lib="gtk+" version="3.2"/>
   <requires lib="AnacondaWidgets" version="3.0"/>
@@ -53,9 +53,9 @@
                   <object class="GtkLabel" id="pickLayoutLabel">
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
-                    <property name="xalign">0</property>
                     <property name="label" translatable="yes">Which keyboard layouts would you like to use on this system?  You may move any layout to the top of the list to select it as the default.</property>
                     <property name="wrap">True</property>
+                    <property name="xalign">0</property>
                     <attributes>
                       <attribute name="font-desc" value="Cantarell 12"/>
                       <attribute name="weight" value="normal"/>
@@ -480,8 +480,8 @@
               <object class="GtkLabel" id="label3">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
-                <property name="xalign">0</property>
                 <property name="label" translatable="yes">You may add a keyboard layout by selecting it below:</property>
+                <property name="xalign">0</property>
                 <attributes>
                   <attribute name="font-desc" value="Cantarell 12"/>
                 </attributes>
@@ -503,12 +503,11 @@
                   <object class="GtkTreeView" id="newLayoutView">
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
-                    <property name="events">GDK_BUTTON_PRESS_MASK | GDK_STRUCTURE_MASK</property>
                     <property name="model">newLayoutStoreSort</property>
                     <property name="headers_visible">False</property>
                     <property name="headers_clickable">False</property>
                     <property name="enable_search">False</property>
-                    <signal name="button-press-event" handler="on_layout_view_button_press" swapped="no"/>
+                    <signal name="row-activated" handler="on_layout_row_activated" swapped="no"/>
                     <child internal-child="selection">
                       <object class="GtkTreeSelection" id="newLayoutSelection">
                         <property name="mode">multiple</property>
