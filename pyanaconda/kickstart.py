@@ -1414,6 +1414,8 @@ class RaidData(commands.raid.RHEL7_RaidData):
 
             dev.format.mountpoint = self.mountpoint
             dev.format.mountopts = self.fsopts
+            if ty == "swap":
+                storage.addFstabSwap(dev)
             return
 
         # Get a list of all the RAID members.
@@ -1468,6 +1470,8 @@ class RaidData(commands.raid.RHEL7_RaidData):
 
             removeExistingFormat(device, storage)
             devicetree.registerAction(ActionCreateFormat(device, kwargs["fmt"]))
+            if ty == "swap":
+                storage.addFstabSwap(device)
         else:
             if devicename and devicename in (a.name for a in storage.mdarrays):
                 raise KickstartValueError(formatErrorMsg(self.lineno,
@@ -1488,6 +1492,8 @@ class RaidData(commands.raid.RHEL7_RaidData):
                 raise KickstartValueError(formatErrorMsg(self.lineno, msg=str(e)))
 
             storage.createDevice(request)
+            if ty == "swap":
+                storage.addFstabSwap(request)
 
         if self.encrypted:
             if self.passphrase and not storage.encryptionPassphrase:
