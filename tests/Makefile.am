@@ -34,7 +34,7 @@ AM_TESTS_ENVIRONMENT = top_srcdir="$(top_srcdir)" top_builddir="$(top_builddir)"
 TEST_EXTENSIONS = .sh
 
 # Test scripts need to be listed both here and in TESTS
-dist_check_SCRIPTS = $(srcdir)/glade/*/*.py \
+dist_check_SCRIPTS = $(srcdir)/glade/*.py \
 		     glade/run_glade_tests.sh \
 		     $(srcdir)/lib/*.py \
 		     $(srcdir)/lib/*.sh \

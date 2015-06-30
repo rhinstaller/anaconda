@@ -6,13 +6,13 @@ if ! type parallel 2>&1 > /dev/null; then
 fi
 
 if ! rpm -q gnome-icon-theme &> /dev/null; then
-    # used in icons/check_icons.py;tests/lib/iconcheck.py
+    # used in check_icons.py;tests/lib/iconcheck.py
     echo "gnome-icon-theme must be installed"
     exit 99
 fi
 
 if ! rpm -q gnome-icon-theme-symbolic &> /dev/null; then
-    # used in icons/check_icons.py;tests/lib/iconcheck.py
+    # used in check_icons.py;tests/lib/iconcheck.py
     echo "gnome-icon-theme-symbolic must be installed"
     exit 99
 fi
@@ -38,7 +38,7 @@ if [ "$translate_set" -eq 1 -a "$podir_set" -eq 0 ]; then
 fi
 
 status=0
-for check in ${srcdir}/*/check_*.py ; do
+for check in ${srcdir}/check_*.py ; do
     findtestfiles -name '*.glade' | parallel --no-notice --gnu -j0 "${check}" "$@" {}
     if [ "$?" -ne 0 ]; then
         status=1
