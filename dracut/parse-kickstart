@@ -34,7 +34,7 @@ from pykickstart.parser import KickstartParser, preprocessKickstart
 from pykickstart.sections import NullSection
 from pykickstart.version import returnClassForVersion, RHEL7
 from pykickstart.errors import KickstartError
-# pylint: disable=wildcard-import
+# pylint: disable=wildcard-import,unused-wildcard-import
 from pykickstart.constants import *
 from pykickstart import commands
 from collections import OrderedDict
@@ -62,7 +62,7 @@ def read_cmdline(f):
     # pylint: disable=redefined-outer-name
     for line in lines:
         for arg in line.split():
-            k,_e,v = arg.partition("=")
+            k,_,v = arg.partition("=")
             args[k] = v
     return args
 
@@ -83,20 +83,25 @@ def setting_only_hostname(net, args):
 
 proc_cmdline = read_cmdline("/proc/cmdline")
 
+class DracutArgsMixin(object):
+    """A mixin class to make a Command generate dracut args."""
+    def dracut_args(self, args, lineno, obj):
+        raise NotImplementedError
+
 # Here are the kickstart commands we care about:
 
-class Cdrom(commands.cdrom.FC3_Cdrom):
+class Cdrom(commands.cdrom.FC3_Cdrom, DracutArgsMixin):
     def dracut_args(self, args, lineno, obj):
         return "inst.repo=cdrom"
 
-class HardDrive(commands.harddrive.FC3_HardDrive):
+class HardDrive(commands.harddrive.FC3_HardDrive, DracutArgsMixin):
     def dracut_args(self, args, lineno, obj):
         if self.biospart:
             return "inst.repo=bd:%s:%s" % (self.partition, self.dir)
         else:
             return "inst.repo=hd:%s:%s" % (self.partition, self.dir)
 
-class NFS(commands.nfs.FC6_NFS):
+class NFS(commands.nfs.FC6_NFS, DracutArgsMixin):
     def dracut_args(self, args, lineno, obj):
         if self.opts:
             method = "nfs:%s:%s:%s" % (self.opts, self.server, self.dir)
@@ -107,7 +112,7 @@ class NFS(commands.nfs.FC6_NFS):
         method = method.replace(" ", "\\ ")
         return "inst.repo=%s" % method
 
-class URL(commands.url.F18_Url):
+class URL(commands.url.F18_Url, DracutArgsMixin):
     def dracut_args(self, args, lineno, obj):
         # Spaces in the url need to be %20
         if self.url:
@@ -124,19 +129,19 @@ class URL(commands.url.F18_Url):
 
         return "\n".join(args)
 
-class Updates(commands.updates.F7_Updates):
+class Updates(commands.updates.F7_Updates, DracutArgsMixin):
     def dracut_args(self, args, lineno, obj):
         if self.url == "floppy":
             return "live.updates=/dev/fd0"
         elif self.url:
             return "live.updates=%s" % self.url
 
-class MediaCheck(commands.mediacheck.FC4_MediaCheck):
+class MediaCheck(commands.mediacheck.FC4_MediaCheck, DracutArgsMixin):
     def dracut_args(self, args, lineno, obj):
         if self.mediacheck:
             return "rd.live.check"
 
-class DriverDisk(commands.driverdisk.F14_DriverDisk):
+class DriverDisk(commands.driverdisk.F14_DriverDisk, DracutArgsMixin):
     def dracut_args(self, args, lineno, obj):
         dd_net = []
         dd_disk = []
@@ -156,7 +161,7 @@ class DriverDisk(commands.driverdisk.F14_DriverDisk):
         # are processed later.
         return "\n".join(dd_net)
 
-class Network(commands.network.RHEL7_Network):
+class Network(commands.network.RHEL7_Network, DracutArgsMixin):
     def dracut_args(self, args, lineno, net):
         '''
         NOTE: The first 'network' line get special treatment:
@@ -200,7 +205,7 @@ class Network(commands.network.RHEL7_Network):
 
         return netline
 
-class DisplayMode(commands.displaymode.FC3_DisplayMode):
+class DisplayMode(commands.displaymode.FC3_DisplayMode, DracutArgsMixin):
     def dracut_args(self, args, lineno, obj):
         if self.displayMode == DISPLAY_MODE_CMDLINE:
             return "inst.cmdline"
@@ -209,12 +214,12 @@ class DisplayMode(commands.displaymode.FC3_DisplayMode):
         elif self.displayMode == DISPLAY_MODE_GRAPHICAL:
             return "inst.graphical"
 
-class Bootloader(commands.bootloader.RHEL7_Bootloader):
+class Bootloader(commands.bootloader.RHEL7_Bootloader, DracutArgsMixin):
     def dracut_args(self, args, lineno, obj):
         if self.extlinux:
             return "extlinux"
 
-# TODO: keymap, lang... device? selinux?
+# FUTURE: keymap, lang... device? selinux?
 
 dracutCmds = {
     'cdrom': Cdrom,
@@ -354,7 +359,7 @@ def ksnet_to_dracut(args, lineno, net, bootdev=False):
         open("/tmp/net.ifaces", "a")
 
     if net.essid or net.wepkey or net.wpakey:
-        # TODO: make dracut support wireless? (do we care?)
+        # NOTE: does dracut actually support wireless? (do we care?)
         log.error("'%s': dracut doesn't support wireless networks",
                       " ".join(args))
 
@@ -434,7 +439,7 @@ def ksnet_to_ifcfg(net, filename=None):
     if net.nodefroute:
         ifcfg['DEFROUTE'] = "no"
 
-    # TODO: dhcpclass, ethtool, essid/wepkey/wpakay, etc.
+    # FUTURE: dhcpclass, ethtool, essid/wepkey/wpakay, etc.
 
     if net.bootProto == 'dhcp':
         srcpath = "/tmp/dhclient.%s.lease" % dev
@@ -502,7 +507,7 @@ def ksnet_to_ifcfg(net, filename=None):
 
         options = {}
         for opt in net.bridgeopts.split(","):
-            key, _sep, value = opt.partition("=")
+            key, _, value = opt.partition("=")
             if not value:
                 log.error("Invalid bridge option %s", opt)
                 continue
