@@ -1084,6 +1084,7 @@
                                             <property name="can_focus">False</property>
                                             <property name="label" translatable="yes" context="GUI|Custom Partitioning|Encrypted">_Passphrase:</property>
                                             <property name="use_underline">True</property>
+                                            <property name="mnemonic_widget">passphraseEntry</property>
                                             <attributes>
                                               <attribute name="font-desc" value="Cantarell 11"/>
                                             </attributes>
