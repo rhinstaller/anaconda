@@ -102,7 +102,9 @@ int dlabelFilter(const char* name, const struct stat *fstat, int packageflags, v
 
     /* unpack lib and lib64 if the package was marked as installer-enhancement */
     if ((packageflags & dup_libraries)) {
-        if(!strncmp("lib/", name, 4))
+        if(!strncmp("lib/", name, 4) &&
+           strncmp("lib/firmware/", name, 13) &&
+           strncmp("lib/modules/", name, 12))
             return 1;
         else if (!strncmp("lib64/", name, 6))
             return 1;
