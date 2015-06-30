@@ -123,6 +123,11 @@ def _is_on_iscsi(device):
     return all(isinstance(disk, blivet.devices.iScsiDiskDevice)
                for disk in device.disks)
 
+def _is_on_ibft(device):
+    """Tells whether a given device is ibft disk or not."""
+
+    return all(getattr(disk, "ibft", False) for disk in device.disks)
+
 class BootLoaderError(Exception):
     pass
 
@@ -586,7 +591,7 @@ class BootLoader(object):
             log.debug("stage1 device cannot be of type %s", device.type)
             return False
 
-        if _is_on_iscsi(device) and not getattr(device, "ibft", False):
+        if _is_on_iscsi(device) and not _is_on_ibft(device):
             log.debug("stage1 device cannot be on an iSCSI disk")
             return False
 
@@ -698,7 +703,7 @@ class BootLoader(object):
         if device.protected:
             valid = False
 
-        if _is_on_iscsi(device) and not getattr(device, "ibft", False):
+        if _is_on_iscsi(device) and not _is_on_ibft(device):
             self.errors.append(_("%s cannot be on an iSCSI disk") % self.stage2_description)
             valid = False
 
