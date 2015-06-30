@@ -512,7 +512,8 @@ class BTRFSData(commands.btrfs.F17_BTRFSData):
                                        mountpoint=self.mountpoint,
                                        metaDataLevel=self.metaDataLevel,
                                        dataLevel=self.dataLevel,
-                                       parents=members)
+                                       parents=members,
+                                       createOptions=self.mkfsopts)
             except BTRFSValueError as e:
                 raise KickstartValueError(formatErrorMsg(self.lineno, msg=str(e)))
 
@@ -933,6 +934,7 @@ class LogVolData(commands.logvol.F21_LogVolData):
                         mountpoint=self.mountpoint,
                         label=self.label,
                         fsprofile=self.fsprofile,
+                        createOptions=self.mkfsopts,
                         mountopts=self.fsopts)
         if not fmt.type and not self.thin_pool:
             raise KickstartValueError(formatErrorMsg(self.lineno,
@@ -1248,6 +1250,7 @@ class PartitionData(commands.partition.F18_PartData):
            label=self.label,
            fsprofile=self.fsprofile,
            mountopts=self.fsopts,
+           createOptions=self.mkfsopts,
            size=size)
         if not kwargs["fmt"].type:
             raise KickstartValueError(formatErrorMsg(self.lineno,
@@ -1496,7 +1499,8 @@ class RaidData(commands.raid.F18_RaidData):
            label=self.label,
            fsprofile=self.fsprofile,
            mountpoint=self.mountpoint,
-           mountopts=self.fsopts)
+           mountopts=self.fsopts,
+           createOptions=self.mkfsopts)
         if not kwargs["fmt"].type:
             raise KickstartValueError(formatErrorMsg(self.lineno,
                     msg=_("The \"%s\" file system type is not supported.") % ty))
