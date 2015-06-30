@@ -223,6 +223,12 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %changelog
+* Tue Jun 30 2015 Brian C. Lane <bcl@redhat.com> - 13.21.239-1
+- Align end sector in the appropriate direction for resize. (bcl)
+  Resolves: rhbz#1236506
+- Filter out free regions too small for alignment of partitions (bcl)
+  Resolves: rhbz#1236506
+
 * Fri Jun 19 2015 Samantha N. Bueno <sbueno+anaconda@redhat.com> - 13.21.238-1
 - Include drbg module in the initrd. (sbueno+anaconda)
   Resolves: rhbz#1233088
