@@ -32,12 +32,12 @@ import argparse
 # Import translation methods if needed
 if ('-t' in sys.argv) or ('--translate' in sys.argv):
     try:
-        from translatepo import translate_all
+        from pocketlint.translatepo import translate_all
     except ImportError:
         print("Unable to load po translation module")
         sys.exit(99)
 
-from pangocheck import markup_nodes, markup_match, markup_necessary
+from pocketlint.pangocheck import markup_nodes, markup_match, markup_necessary
 
 try:
     from lxml import etree
