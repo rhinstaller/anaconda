@@ -97,6 +97,11 @@ anaconda_live_root_dir() {
         umount $repodir
         [ -n "$iso" ] && umount $isodir
     fi
+    anaconda_mount_sysroot $img
+}
+
+anaconda_mount_sysroot() {
+    local img="$1"
     if [ -e "$img" ]; then
         /sbin/dmsquash-live-root $img
         # dracut & systemd only mount things with root=live: so we have to do this ourselves

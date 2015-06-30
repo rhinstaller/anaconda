@@ -77,7 +77,7 @@ case $repo in
             [ -n "$updates" ] && unpack_updates_img $updates /updates
             product=$(fetch_url $repo/images/product.img)
             [ -n "$product" ] && unpack_updates_img $product /updates
-            /sbin/dmsquash-live-root $runtime
+            anaconda_mount_sysroot $runtime
         else
             warn "Could not retrieve stage2 image from $repo using $netif"
         fi
