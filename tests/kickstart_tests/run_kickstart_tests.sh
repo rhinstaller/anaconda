@@ -132,7 +132,7 @@ if [[ "$TEST_REMOTES" != "" ]]; then
 
     parallel --no-notice ${remote_args} \
              ${env_args} --jobs ${TEST_JOBS:-2} \
-             sudo kickstart_tests/run_one_ks.sh -i ${_IMAGE} -k ${KEEPIT} {} ::: ${tests}
+             sudo PYTHONPATH=$PYTHONPATH kickstart_tests/run_one_ks.sh -i ${_IMAGE} -k ${KEEPIT} {} ::: ${tests}
     rc=$?
 
     # (3) Get all the results back from the remote systems, which will have already
@@ -159,7 +159,7 @@ if [[ "$TEST_REMOTES" != "" ]]; then
     exit ${rc}
 else
     parallel --no-notice ${env_args} --jobs ${TEST_JOBS:-2} \
-             sudo kickstart_tests/run_one_ks.sh -i ${IMAGE} -k ${KEEPIT} {} ::: ${tests}
+        sudo PYTHONPATH=$PYTHONPATH kickstart_tests/run_one_ks.sh -i ${IMAGE} -k ${KEEPIT} {} ::: ${tests}
 
     # For future expansion - any cleanup code can go in between the variable
     # setting and the exit, like in the other branch of the if-else above.
