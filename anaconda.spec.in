@@ -309,6 +309,25 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Jun 30 2015 Brian C. Lane <bcl@redhat.com> - 21.48.22.12-1
+- dd: drop unnecessary archive_read_data_skip (Will Woods)
+  Related: rhbz#1222056
+- dd_extract: -l should not extract modules+firmware (Will Woods)
+  Related: rhbz#1222056
+- dd: fix permissions on extracted files (wwoods)
+  Resolves: rhbz#1222056
+- Create and use snapshot of on-disk storage with no modifications (vpodzime)
+  Resolves: rhbz#1160862
+  Resolves: rhbz#1187644
+- Implement the class for storage snapshots (vpodzime)
+  Related: rhbz#1187644
+  Related: rhbz#1160862
+- Prevent any changes in the StorageSpoke if just going back (vpodzime)
+  Related: rhbz#1187644
+  Related: rhbz#1160862
+- fix inst.ks.sendmac for static ip=XXX (wwoods)
+  Resolves: rhbz#1190115
+
 * Fri Jun 26 2015 Brian C. Lane <bcl@redhat.com> - 21.48.22.11-1
 - network: catch another race when calling dbus methods on invalid devices
   (rvykydal)
