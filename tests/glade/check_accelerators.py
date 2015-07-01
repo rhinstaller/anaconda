@@ -30,7 +30,7 @@ import locale
 # Import translation methods if needed
 if ('-t' in sys.argv) or ('--translate' in sys.argv):
     try:
-        from translatepo import translate_all
+        from pocketlint.translatepo import translate_all
     except ImportError:
         print("Unable to load po translation module")
         sys.exit(99)
