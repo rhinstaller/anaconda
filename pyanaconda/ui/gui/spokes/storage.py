@@ -238,6 +238,8 @@ class StorageSpoke(NormalSpoke, StorageChecker):
         self.passphrase = ""
         self.selected_disks = self.data.ignoredisk.onlyuse[:]
 
+        self.autopart_missing_passphrase = False
+
         # This list contains all possible disks that can be included in the install.
         # All types of advanced disks should be set up for us ahead of time, so
         # there should be no need to modify this list.
@@ -276,15 +278,17 @@ class StorageSpoke(NormalSpoke, StorageChecker):
         self.data.autopart.encrypted = self.encrypted
         self.data.autopart.passphrase = self.passphrase
 
-        self.clearPartType = CLEARPART_TYPE_NONE
-
         if self.data.bootloader.bootDrive and \
            self.data.bootloader.bootDrive not in self.selected_disks:
             self.data.bootloader.bootDrive = ""
             self.storage.bootloader.reset()
 
         self.data.clearpart.initAll = True
-        self.data.clearpart.type = self.clearPartType
+
+        if not self.autopart_missing_passphrase:
+            self.clearPartType = CLEARPART_TYPE_NONE
+            self.data.clearpart.type = self.clearPartType
+
         self.storage.config.update(self.data)
         self.storage.autoPartType = self.data.autopart.type
         self.storage.encryptedAutoPart = self.data.autopart.encrypted
@@ -310,6 +314,12 @@ class StorageSpoke(NormalSpoke, StorageChecker):
         # on the off-chance dasdfmt is running, we can't proceed further
         threadMgr.wait(constants.THREAD_DASDFMT)
         hubQ.send_message(self.__class__.__name__, _("Saving storage configuration..."))
+        if flags.automatedInstall and self.data.autopart.encrypted and not self.data.autopart.passphrase:
+            self.autopart_missing_passphrase = True
+            StorageChecker.errors = [_("Passphrase for autopart encryption not specified.")]
+            self._ready = True
+            hubQ.send_ready(self.__class__.__name__, True)
+            return
         try:
             doKickstartStorage(self.storage, self.data, self.instclass)
         except (StorageError, KickstartValueError) as e:
@@ -330,7 +340,8 @@ class StorageSpoke(NormalSpoke, StorageChecker):
             hubQ.send_message(self.__class__.__name__, _("Failed to save storage configuration..."))
             self.data.bootloader.bootDrive = ""
         else:
-            if self.autopart:
+            if self.autopart or (flags.automatedInstall and (self.data.autopart.autopart or self.data.partition.seen)):
+                # run() executes StorageChecker.checkStorage in a seperate thread
                 self.run()
         finally:
             resetCustomStorageData(self.data)
@@ -754,6 +765,11 @@ class StorageSpoke(NormalSpoke, StorageChecker):
         # We can't exit early if it looks like nothing has changed because the
         # user might want to change settings presented in the dialogs shown from
         # within this method.
+
+        if self.autopart_missing_passphrase:
+            self._check_encrypted()
+            NormalSpoke.on_back_clicked(self, button)
+            return
 
         # make sure the snapshot of unmodified on-disk-storage model is created
         if not on_disk_storage.created:
