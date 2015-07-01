@@ -1398,6 +1398,7 @@ class GRUB2(GRUB):
     packages = ["grub2"]
     _config_file = "grub.cfg"
     _config_dir = "grub2"
+    _passwd_file = "user.cfg"
     defaults_file = "/etc/default/grub"
     terminal_type = "console"
 
@@ -1527,17 +1528,12 @@ class GRUB2(GRUB):
         if not self.password and not self.encrypted_password:
             return
 
-        users_file = iutil.getSysroot() + "/etc/grub.d/01_users"
+        users_file = "%s%s/%s" % (iutil.getSysroot(), self.config_dir, _passwd_file)
         header = open(users_file, "w")
-        header.write("#!/bin/sh -e\n\n")
-        header.write("cat << \"EOF\"\n")
         # XXX FIXME: document somewhere that the username is "root"
-        header.write("set superusers=\"root\"\n")
-        header.write("export superusers\n")
         self._encrypt_password()
-        password_line = "password_pbkdf2 root " + self.encrypted_password
+        password_line = "GRUB2_PASSWORD=" + self.encrypted_password
         header.write("%s\n" % password_line)
-        header.write("EOF\n")
         header.close()
         iutil.eintr_retry_call(os.chmod, users_file, 0o700)
 
