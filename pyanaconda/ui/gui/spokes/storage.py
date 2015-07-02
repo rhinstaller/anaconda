@@ -699,7 +699,7 @@ class StorageSpoke(NormalSpoke, StorageChecker):
         self.selected_disks = [d.name for d in dialog.disks]
 
         # update the UI to reflect changes to self.selected_disks
-        for overview in self.localOverviews:
+        for overview in self.localOverviews + self.advancedOverviews:
             name = overview.get_property("name")
 
             overview.set_chosen(name in self.selected_disks)
