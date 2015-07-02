@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Generated with glade 3.18.3 -->
+<!-- Generated with glade 3.19.0 -->
 <interface>
   <requires lib="gtk+" version="3.2"/>
   <requires lib="AnacondaWidgets" version="3.0"/>
@@ -275,8 +275,8 @@
                                               <object class="GtkLabel" id="selectedDeviceLabel">
                                                 <property name="visible">True</property>
                                                 <property name="can_focus">False</property>
-                                                <property name="yalign">0</property>
                                                 <property name="label" translatable="yes">Selected Device</property>
+                                                <property name="yalign">0</property>
                                                 <attributes>
                                                   <attribute name="weight" value="bold"/>
                                                   <attribute name="scale" value="1.2"/>
@@ -293,8 +293,8 @@
                                                 <property name="visible">True</property>
                                                 <property name="can_focus">False</property>
                                                 <property name="halign">end</property>
-                                                <property name="yalign">0</property>
                                                 <property name="label" translatable="yes">Device description</property>
+                                                <property name="yalign">0</property>
                                                 <attributes>
                                                   <attribute name="style" value="italic"/>
                                                 </attributes>
@@ -354,10 +354,10 @@
                                                     <property name="visible">True</property>
                                                     <property name="can_focus">False</property>
                                                     <property name="halign">start</property>
-                                                    <property name="xalign">0</property>
                                                     <property name="label" translatable="yes">Mount _Point:</property>
                                                     <property name="use_underline">True</property>
                                                     <property name="mnemonic_widget">mountPointEntry</property>
+                                                    <property name="xalign">0</property>
                                                     <attributes>
                                                       <attribute name="weight" value="bold"/>
                                                     </attributes>
@@ -402,10 +402,10 @@
                                                     <property name="visible">True</property>
                                                     <property name="can_focus">False</property>
                                                     <property name="halign">start</property>
-                                                    <property name="xalign">0</property>
                                                     <property name="label" translatable="yes">_Desired Capacity:</property>
                                                     <property name="use_underline">True</property>
                                                     <property name="mnemonic_widget">sizeEntry</property>
+                                                    <property name="xalign">0</property>
                                                     <attributes>
                                                       <attribute name="weight" value="bold"/>
                                                     </attributes>
@@ -454,10 +454,10 @@
                                               <object class="GtkLabel" id="labelLabel">
                                                 <property name="visible">True</property>
                                                 <property name="can_focus">False</property>
-                                                <property name="xalign">0</property>
                                                 <property name="label" translatable="yes">_Label:</property>
                                                 <property name="use_underline">True</property>
                                                 <property name="mnemonic_widget">labelEntry</property>
+                                                <property name="xalign">0</property>
                                                 <attributes>
                                                   <attribute name="weight" value="bold"/>
                                                 </attributes>
@@ -502,8 +502,8 @@
                                                 <property name="can_focus">False</property>
                                                 <property name="halign">start</property>
                                                 <property name="valign">start</property>
-                                                <property name="xalign">0</property>
                                                 <property name="label" translatable="yes">Device(s):</property>
+                                                <property name="xalign">0</property>
                                                 <attributes>
                                                   <attribute name="weight" value="bold"/>
                                                 </attributes>
@@ -519,11 +519,11 @@
                                                 <property name="visible">True</property>
                                                 <property name="can_focus">False</property>
                                                 <property name="valign">start</property>
-                                                <property name="xalign">0</property>
                                                 <property name="wrap">True</property>
                                                 <property name="angle">0.01</property>
                                                 <property name="wrap_mode">word-char</property>
                                                 <property name="max_width_chars">35</property>
+                                                <property name="xalign">0</property>
                                               </object>
                                               <packing>
                                                 <property name="expand">False</property>
@@ -564,10 +564,10 @@
                                               <object class="GtkLabel" id="nameLabel">
                                                 <property name="visible">True</property>
                                                 <property name="can_focus">False</property>
-                                                <property name="xalign">0</property>
                                                 <property name="label" translatable="yes">_Name:</property>
                                                 <property name="use_underline">True</property>
                                                 <property name="mnemonic_widget">nameEntry</property>
+                                                <property name="xalign">0</property>
                                                 <attributes>
                                                   <attribute name="weight" value="bold"/>
                                                 </attributes>
@@ -620,10 +620,10 @@
                                                       <object class="GtkLabel" id="deviceTypeLabel">
                                                         <property name="visible">True</property>
                                                         <property name="can_focus">False</property>
-                                                        <property name="xalign">0</property>
                                                         <property name="label" translatable="yes" context="GUI|Custom Partitioning|Configure">Device _Type:</property>
                                                         <property name="use_underline">True</property>
                                                         <property name="mnemonic_widget">deviceTypeCombo</property>
+                                                        <property name="xalign">0</property>
                                                         <attributes>
                                                           <attribute name="weight" value="bold"/>
                                                         </attributes>
@@ -705,10 +705,10 @@
                                                       <object class="GtkLabel" id="fileSystemTypeLabel">
                                                         <property name="visible">True</property>
                                                         <property name="can_focus">False</property>
-                                                        <property name="xalign">0</property>
                                                         <property name="label" translatable="yes" context="GUI|Custom Partitioning|Configure">File S_ystem:</property>
                                                         <property name="use_underline">True</property>
                                                         <property name="mnemonic_widget">fileSystemTypeCombo</property>
+                                                        <property name="xalign">0</property>
                                                         <attributes>
                                                           <attribute name="weight" value="bold"/>
                                                         </attributes>
@@ -794,10 +794,10 @@
                                                       <object class="GtkLabel" id="containerLabel">
                                                         <property name="visible">True</property>
                                                         <property name="can_focus">False</property>
-                                                        <property name="xalign">0</property>
                                                         <property name="label" translatable="yes" context="GUI|Custom Partitioning|Configure">_Volume Group:</property>
                                                         <property name="use_underline">True</property>
                                                         <property name="mnemonic_widget">containerCombo</property>
+                                                        <property name="xalign">0</property>
                                                         <attributes>
                                                           <attribute name="weight" value="bold"/>
                                                         </attributes>
@@ -879,10 +879,10 @@
                                                   <object class="GtkLabel" id="raidLevelLabel">
                                                     <property name="visible">True</property>
                                                     <property name="can_focus">False</property>
-                                                    <property name="xalign">0</property>
                                                     <property name="label" translatable="yes" context="GUI|Custom Partitioning|Configure">RA_ID Level:</property>
                                                     <property name="use_underline">True</property>
                                                     <property name="mnemonic_widget">raidLevelCombo</property>
+                                                    <property name="xalign">0</property>
                                                     <attributes>
                                                       <attribute name="weight" value="bold"/>
                                                     </attributes>
@@ -967,12 +967,12 @@
                                             <property name="visible">True</property>
                                             <property name="can_focus">False</property>
                                             <property name="halign">end</property>
-                                            <property name="xalign">1</property>
                                             <property name="label" translatable="yes">Note:  The settings you make on this screen will not be applied until you click on the main menu's 'Begin Installation' button.</property>
                                             <property name="justify">right</property>
                                             <property name="wrap">True</property>
                                             <property name="width_chars">39</property>
                                             <property name="max_width_chars">39</property>
+                                            <property name="xalign">1</property>
                                             <attributes>
                                               <attribute name="font-desc" value="Cantarell Italic 10"/>
                                             </attributes>
@@ -1296,8 +1296,8 @@
                                       <object class="GtkLabel" id="incompleteDeviceOptionsLabel">
                                         <property name="visible">True</property>
                                         <property name="can_focus">False</property>
-                                        <property name="yalign">0.43000000715255737</property>
                                         <property name="wrap">True</property>
+                                        <property name="yalign">0.43000000715255737</property>
                                         <attributes>
                                           <attribute name="font-desc" value="Cantarell 11"/>
                                         </attributes>
@@ -1356,8 +1356,8 @@
                               <object class="GtkLabel" id="label1">
                                 <property name="visible">True</property>
                                 <property name="can_focus">False</property>
-                                <property name="xalign">0</property>
                                 <property name="label" translatable="yes">AVAILABLE SPACE</property>
+                                <property name="xalign">0</property>
                                 <attributes>
                                   <attribute name="scale" value="0.83333333333329995"/>
                                   <attribute name="foreground" value="#ffffffffffff"/>
@@ -1409,8 +1409,8 @@
                               <object class="GtkLabel" id="label2">
                                 <property name="visible">True</property>
                                 <property name="can_focus">False</property>
-                                <property name="xalign">0</property>
                                 <property name="label" translatable="yes">TOTAL SPACE</property>
+                                <property name="xalign">0</property>
                                 <attributes>
                                   <attribute name="scale" value="0.83333333333329995"/>
                                   <attribute name="foreground" value="#ffffffffffff"/>
