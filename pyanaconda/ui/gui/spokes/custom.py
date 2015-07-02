@@ -144,7 +144,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
     builderObjects = ["customStorageWindow", "containerStore", "deviceTypeStore",
                       "partitionStore", "raidStoreFiltered", "raidLevelStore",
                       "addImage", "removeImage", "settingsImage",
-                      "mountPointCompletion", "mountPointStore"]
+                      "mountPointCompletion", "mountPointStore", "fileSystemStore"]
     mainWidgetName = "customStorageWindow"
     uiFile = "spokes/custom.glade"
     helpFile = "CustomSpoke.xml"
@@ -244,6 +244,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         # Detailed configuration stuff
         self._encryptCheckbox = self.builder.get_object("encryptCheckbox")
         self._fsCombo = self.builder.get_object("fileSystemTypeCombo")
+        self._fsStore = self.builder.get_object("fileSystemStore")
         self._labelEntry = self.builder.get_object("labelEntry")
         self._mountPointEntry = self.builder.get_object("mountPointEntry")
         self._nameEntry = self.builder.get_object("nameEntry")
@@ -440,6 +441,14 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         if self._current_selector:
             self._current_selector.set_chosen(False)
             self._current_selector = None
+
+    def _get_fstype(self, fstypeCombo):
+        itr = fstypeCombo.get_active_iter()
+        if not itr:
+            return None
+
+        model = fstypeCombo.get_model()
+        return model[itr][0]
 
     def _get_autopart_type(self, autopartTypeCombo):
         itr = autopartTypeCombo.get_active_iter()
@@ -1340,9 +1349,9 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         names.sort()
 
         # Add all desired fileystem type names to the box, sorted alphabetically
-        self._fsCombo.remove_all()
+        self._fsStore.clear()
         for ty in names:
-            self._fsCombo.append_text(ty)
+            self._fsStore.append([ty])
 
         # set the active filesystem type
         idx = next(i for i, data in enumerate(self._fsCombo.get_model()) if data[0] == type_name)
@@ -2409,10 +2418,12 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         if not self._initialized:
             return
 
-        new_type = combo.get_active_text()
-        if new_type is None:
+        itr = combo.get_active_iter()
+        if not itr:
             return
-        log.debug("fs type changed: %s", new_type)
+
+        new_type = self._get_fstype(combo)
+
         fmt = getFormat(new_type)
         fancy_set_sensitive(self._mountPointEntry, fmt.mountable)
 
@@ -2514,12 +2525,14 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
             This method is idempotent, and must remain so.
         """
         # Find unique instance of btrfs in fsCombo, if any.
-        btrfs_idx = next((idx for idx, data in enumerate(self._fsCombo.get_model()) if data[0] == "btrfs"), None)
+        model = self._fsCombo.get_model()
+        btrfs_iter = ((idx, row) for idx, row in enumerate(model) if row[0] == "btrfs")
+        btrfs_idx, btrfs_row = next(btrfs_iter, (None, None))
 
         if device_type == DEVICE_TYPE_BTRFS:
             # If no btrfs entry, add one, and select the new entry
             if btrfs_idx is None:
-                self._fsCombo.append_text("btrfs")
+                self._fsStore.append(["btrfs"])
                 active_index = len(self._fsCombo.get_model()) - 1
             # Otherwise, select the already located btrfs entry
             else:
@@ -2530,7 +2543,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
 
             # If there is a btrfs entry, remove and adjust active_index
             if btrfs_idx is not None:
-                self._fsCombo.remove(btrfs_idx)
+                self._fsStore.remove(btrfs_row.iter)
 
                 # If btrfs previously selected, select default filesystem
                 if active_index == btrfs_idx:
