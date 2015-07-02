@@ -126,7 +126,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
     builderObjects = ["customStorageWindow", "containerStore", "deviceTypeStore",
                       "partitionStore", "raidStoreFiltered", "raidLevelStore",
                       "addImage", "removeImage", "settingsImage",
-                      "mountPointCompletion", "mountPointStore"]
+                      "mountPointCompletion", "mountPointStore", "fileSystemStore"]
     mainWidgetName = "customStorageWindow"
     uiFile = "spokes/custom.glade"
     helpFile = "CustomSpoke.xml"
@@ -221,6 +221,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         # Detailed configuration stuff
         self._encryptCheckbox = self.builder.get_object("encryptCheckbox")
         self._fsCombo = self.builder.get_object("fileSystemTypeCombo")
+        self._fsStore = self.builder.get_object("fileSystemStore")
         self._labelEntry = self.builder.get_object("labelEntry")
         self._mountPointEntry = self.builder.get_object("mountPointEntry")
         self._nameEntry = self.builder.get_object("nameEntry")
@@ -267,7 +268,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         # Populate the list of valid filesystem types from the format classes.
         # Unfortunately, we have to narrow them down a little bit more because
         # this list will include things like PVs and RAID members.
-        self._fsCombo.remove_all()
+        self._fsStore.clear()
 
         # Connect viewport scrolling with accordion focus events
         self._accordion.set_focus_hadjustment(self._partitionsViewport.get_hadjustment())
@@ -288,7 +289,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
                             (isinstance(obj, FS) or
                              obj.type in ["biosboot", "prepboot", "swap"]))
             if supported_fs:
-                actions.add_action(self._fsCombo.append_text, obj.name)
+                actions.add_action(self._fsStore.append, [obj.name])
                 self._fs_types.append(obj.name)
 
         actions.fire()
@@ -411,6 +412,14 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         if self._current_selector:
             self._current_selector.set_chosen(False)
             self._current_selector = None
+
+    def _get_fstype(self, fstypeCombo):
+        itr = fstypeCombo.get_active_iter()
+        if not itr:
+            return None
+
+        model = fstypeCombo.get_model()
+        return model[itr][0]
 
     def _get_autopart_type(self, autopartTypeCombo):
         itr = autopartTypeCombo.get_active_iter()
@@ -1269,11 +1278,11 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
 
     def _setup_fstype_combo(self, device):
         # remove any fs types that aren't supported
-        remove_indices = []
+        remove_iters = []
         for idx, row in enumerate(self._fsCombo.get_model()):
             fs_type = row[0]
             if fs_type not in self._fs_types:
-                remove_indices.append(idx)
+                remove_iters.append(row.iter)
                 continue
 
             if fs_type == device.format.name:
@@ -1281,11 +1290,11 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
 
         # remove items from the combobox in reversed order so that item 3
         # doesn't become item 2 by removing item 1 etc.
-        map(self._fsCombo.remove, reversed(remove_indices))
+        map(self._fsStore.remove, reversed(remove_iters))
 
         # if the current device has unsupported formatting, add an entry for it
         if device.format.name not in self._fs_types:
-            self._fsCombo.append_text(device.format.name)
+            self._fsStore.append([device.format.name])
             self._fsCombo.set_active(len(self._fsCombo.get_model()) - 1)
 
         # Give them a way to reset to original formatting. Whenever we add a
@@ -1293,7 +1302,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         if device.exists and \
            device.format.type != device.originalFormat.type and \
            device.originalFormat.type not in self._fs_types:
-            self._fsCombo.append_text(device.originalFormat.name)
+            self._fsStore.append([device.originalFormat.name])
 
     def _setup_device_type_combo(self, device, use_dev, device_name):
         # these device types should always be listed
@@ -2339,10 +2348,12 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         if not self._initialized:
             return
 
-        new_type = combo.get_active_text()
-        if new_type is None:
+        itr = combo.get_active_iter()
+        if not itr:
             return
-        log.debug("fs type changed: %s", new_type)
+
+        new_type = self._get_fstype(combo)
+
         fmt = getFormat(new_type)
         fancy_set_sensitive(self._mountPointEntry, fmt.mountable)
 
@@ -2430,12 +2441,12 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
     def _resolve_btrfs_restrictions(self, should_be_btrfs):
         model = self._fsCombo.get_model()
         btrfs_pos = None
-        for idx, data in enumerate(model):
+        for _idx, data in enumerate(model):
             if data[0] == "btrfs":
-                btrfs_pos = idx
+                btrfs_pos = data.iter
 
         active_index = self._fsCombo.get_active()
-        current_fstype = self._fsCombo.get_active_text()
+        current_fstype = self._get_fstype(self._fsCombo)
         if btrfs_pos and not should_be_btrfs:
             self._fsCombo.remove(btrfs_pos)
             if current_fstype == "btrfs":
@@ -2444,7 +2455,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
                         active_index = i
                         break
         elif should_be_btrfs and not btrfs_pos:
-            self._fsCombo.append_text("btrfs")
+            self._fsStore.append(["btrfs"])
             active_index = len(self._fsCombo.get_model()) - 1
 
         self._fsCombo.set_active(active_index)
