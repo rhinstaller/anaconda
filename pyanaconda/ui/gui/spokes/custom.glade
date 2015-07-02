@@ -41,6 +41,12 @@
       </row>
     </data>
   </object>
+  <object class="GtkListStore" id="fileSystemStore">
+    <columns>
+      <!-- column-name fs_type -->
+      <column type="gchararray"/>
+    </columns>
+  </object>
   <object class="GtkListStore" id="mountPointStore">
     <columns>
       <!-- column-name path -->
@@ -714,11 +720,20 @@
                                                       </packing>
                                                     </child>
                                                     <child>
-                                                      <object class="GtkComboBoxText" id="fileSystemTypeCombo">
+                                                      <object class="GtkComboBox" id="fileSystemTypeCombo">
                                                         <property name="visible">True</property>
                                                         <property name="can_focus">False</property>
+                                                        <property name="model">fileSystemStore</property>
                                                         <signal name="changed" handler="on_fs_type_changed" swapped="no"/>
                                                         <signal name="changed" handler="on_value_changed" swapped="no"/>
+                                                        <child>
+                                                          <object class="GtkCellRendererText" id="fileSystemRenderer">
+                                                            <property name="ellipsize">end</property>
+                                                          </object>
+                                                          <attributes>
+                                                            <attribute name="text">0</attribute>
+                                                          </attributes>
+                                                        </child>
                                                       </object>
                                                       <packing>
                                                         <property name="expand">False</property>
