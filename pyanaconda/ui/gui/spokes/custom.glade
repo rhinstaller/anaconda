@@ -373,7 +373,8 @@
                                                     <property name="visible">True</property>
                                                     <property name="can_focus">True</property>
                                                     <property name="halign">start</property>
-                                                    <property name="width_chars">20</property>
+                                                    <property name="invisible_char">●</property>
+                                                    <property name="width_chars">10</property>
                                                     <property name="completion">mountPointCompletion</property>
                                                     <signal name="changed" handler="on_value_changed" swapped="no"/>
                                                   </object>
