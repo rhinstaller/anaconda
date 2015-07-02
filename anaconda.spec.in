@@ -309,6 +309,18 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Wed Jul 01 2015 Brian C. Lane <bcl@redhat.com> - 21.48.22.13-1
+- Cancel Container Edit Sensitizes Update (rmarshall)
+  Resolves: rhbz#1168656
+- Add support for specifying arbitrary mkfs options. (clumens)
+  Resolves: rhbz#1217110
+- Do not display curl 404 errors that can be safely ignored (vtrefny)
+  Resolves: rhbz#1182776
+- Fix the line counting when printing long widgets (vpodzime)
+  Related: rhbz#1184378
+- Improve how we set the default screen height in text mode (vpodzime)
+  Resolves: rhbz#1184378
+
 * Tue Jun 30 2015 Brian C. Lane <bcl@redhat.com> - 21.48.22.12-1
 - dd: drop unnecessary archive_read_data_skip (Will Woods)
   Related: rhbz#1222056
