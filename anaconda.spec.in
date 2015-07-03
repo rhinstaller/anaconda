@@ -309,6 +309,20 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Thu Jul 02 2015 Brian C. Lane <bcl@redhat.com> - 21.48.22.14-1
+- Add RAID swaps to /etc/fstab (bcl)
+  Resolves: rhbz#1234469
+- Fix kickstart install with infiniband (jkonecny)
+  Resolves: rhbz#1177032
+- Disable Label Entry for PPC PReP Boot (rmarshall)
+  Resolves: rhbz#1172773
+- Correctly propagate --ipv6gateway to ifcfg files(mkolman)
+  Resolves: rhbz#1170845
+- Ask for encryption passphrase when not specified in ks (vtrefny)
+  Resolves: rhbz#1185466
+- Connect scroll adjustments in the right class (dshea)
+  Related: rhbz#1189899
+
 * Wed Jul 01 2015 Brian C. Lane <bcl@redhat.com> - 21.48.22.13-1
 - Cancel Container Edit Sensitizes Update (rmarshall)
   Resolves: rhbz#1168656
