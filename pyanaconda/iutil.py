@@ -28,6 +28,7 @@ import subprocess
 import unicodedata
 # Used for ascii_lowercase, ascii_uppercase constants
 import string # pylint: disable=deprecated-module
+import shutil
 import tempfile
 import re
 from urllib.parse import quote, unquote
@@ -46,6 +47,7 @@ from gi.repository import GLib
 
 from pyanaconda.flags import flags
 from pyanaconda.constants import DRACUT_SHUTDOWN_EJECT, TRANSLATIONS_UPDATE_DIR, UNSUPPORTED_HW
+from pyanaconda.constants import SCREENSHOTS_DIRECTORY, SCREENSHOTS_TARGET_DIRECTORY
 from pyanaconda.regexes import URL_PARSE
 
 from pyanaconda.i18n import _
@@ -1345,3 +1347,28 @@ def id_generator():
     while(True):
         yield actual_id
         actual_id += 1
+
+def sysroot_path(path):
+    """Make the given relative or absolute path "sysrooted"
+       :param str path: path to be sysrooted
+       :returns: sysrooted path
+       :rtype: str
+    """
+    return os.path.join(getSysroot(), path.lstrip(os.path.sep))
+
+def save_screenshots():
+    """Save screenshots to the installed system"""
+    if not os.path.exists(SCREENSHOTS_DIRECTORY):
+        # there are no screenshots to copy
+        return
+    target_path = sysroot_path(SCREENSHOTS_TARGET_DIRECTORY)
+    log.info("saving screenshots taken during the installation to: %s", target_path)
+    try:
+        # create the screenshots directory
+        mkdirChain(target_path)
+        # copy all screenshots
+        for filename in os.listdir(SCREENSHOTS_DIRECTORY):
+            shutil.copy(os.path.join(SCREENSHOTS_DIRECTORY, filename), target_path)
+
+    except OSError:
+        log.exception("saving screenshots to installed system failed")
