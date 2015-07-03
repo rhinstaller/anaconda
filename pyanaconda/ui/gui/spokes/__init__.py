@@ -21,6 +21,7 @@
 
 from pyanaconda.ui import common
 from pyanaconda.ui.gui import GUIObject
+from pyanaconda.ui.gui.utils import gtk_call_once
 from pyanaconda import ihelp
 
 __all__ = ["StandaloneSpoke", "NormalSpoke"]
@@ -28,6 +29,9 @@ __all__ = ["StandaloneSpoke", "NormalSpoke"]
 # Inherit abstract methods from common.StandaloneSpoke
 # pylint: disable=abstract-method
 class StandaloneSpoke(GUIObject, common.StandaloneSpoke):
+
+    handles_autostep = True
+
     def __init__(self, data, storage, payload, instclass):
         GUIObject.__init__(self, data)
         common.StandaloneSpoke.__init__(self, storage, payload, instclass)
@@ -37,6 +41,11 @@ class StandaloneSpoke(GUIObject, common.StandaloneSpoke):
 
     def _on_continue_clicked(self, win, user_data=None):
         self.apply()
+
+    def _doPostAutostep(self):
+        # we are done, re-emit the continue clicked signal we "consumed" previously
+        # so that the Anaconda GUI can switch to the next screen
+        gtk_call_once(self.window.emit, "continue-clicked")
 
 # Inherit abstract methods from common.NormalSpoke
 # pylint: disable=abstract-method
