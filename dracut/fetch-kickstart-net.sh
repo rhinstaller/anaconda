@@ -55,6 +55,7 @@ info "anaconda fetching kickstart from $kickstart"
 if fetch_url "$kickstart" /tmp/ks.cfg; then
     parse_kickstart /tmp/ks.cfg
     run_kickstart
+    $hookdir/initqueue/online/*anaconda-netroot.sh
 else
     warn "failed to fetch kickstart from $kickstart"
 fi
