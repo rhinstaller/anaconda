@@ -116,3 +116,22 @@ class TUIHub(TUIObject, common.Hub):
                         print(_("Please complete all spokes before continuing"))
                         return False
             return key
+
+    def prompt(self, args=None):
+        """Show an alternative prompt if the hub contains only one spoke.
+        Otherwise it is not readily apparent that the user needs to press
+        1 to enter the single visible spoke.
+
+        :param args: optional argument passed from switch_screen calls
+        :type args: anything
+
+        :return: returns text to be shown next to the prompt for input or None
+                 to skip further input processing
+        :rtype: str|None
+        """
+        if self._spoke_count == 1:
+            single_spoke_title = self._spokes.values()[0].title
+            return _(u"  Please make your choice from [ '1' to enter the %s spoke | 'q' to quit |\n"
+                     "  'c' to continue | 'r' to refresh]: ") % single_spoke_title
+        else:
+            return super(TUIHub, self).prompt(args)
