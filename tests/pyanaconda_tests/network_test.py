@@ -126,7 +126,7 @@ class NetworkTests(unittest.TestCase):
 
     @patch("pyanaconda.network.flags.cmdline",
            {"BOOTIF":"01-11-11-11-11-11-11"})
-    @patch("pyanaconda.nm.nm_device_perm_hwaddress")
+    @patch("pyanaconda.nm.nm_device_valid_hwaddress")
     @patch("pyanaconda.nm.nm_device_carrier",
             lambda dev: dev == "eth1")
     @patch("pyanaconda.nm.nm_devices",
