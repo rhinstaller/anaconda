@@ -309,6 +309,34 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Thu Jul 02 2015 Brian C. Lane <bcl@redhat.com> - 23.13-1
+- Add a switch for the Airplane Mode label (dshea)
+- Connect labels with keyboard accelerators to a widget (dshea)
+- Add a test for dangling keyboard accelerators. (dshea)
+- Use pocketlint for translation and markup checking (dshea)
+- Flatten the glade test directory. (dshea)
+- Add support for specifying arbitrary mkfs options. (clumens)
+- Fix kickstart install with infiniband (#1177032) (jkonecny)
+- anaconda-dracut: Fix sysroot mount for netroot (#1232411) (bcl)
+- Add RAID swaps to /etc/fstab (#1234469) (bcl)
+- network: catch another race when calling dbus methods on invalid devices
+  (rvykydal)
+- network: GUI, add connection even when virtual device activation failed
+  (#1179276) (rvykydal)
+- Fix IP / hostname mismatches when showing VNC server address (#1186726)
+  (rvykydal)
+- Check also ipv6 default routes when looking for onboot=yes device (#1185280)
+  (rvykydal)
+- Merge pull request #157 from wgwoods/master_dd_fixes (wwoods)
+- Do not check dependencies on invalid payloads (dshea)
+- network: don't set onboot=False for default autoconnections (#1212009)
+  (rvykydal)
+- Fix the types used to write anaconda-tb-all.log (dshea)
+- dd: drop unnecessary archive_read_data_skip (wwoods)
+- dd_extract: -l should not extract modules+firmware (wwoods)
+- dd: fix permissions on extracted files (#1222056) (wwoods)
+- tests: add dd_tests (wwoods)
+
 * Fri Jun 26 2015 Brian C. Lane <bcl@redhat.com> - 23.12-1
 - Revert "Add an optional conditional to progress_report." (bcl)
 - Fix inconsistencies in the payload messages. (dshea)
