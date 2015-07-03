@@ -343,7 +343,10 @@ run_kickstart() {
 
     # net: re-run online hook
     if [ "$do_net" ]; then
-        udevadm trigger --action=change --subsystem-match=net
+        # make dracut create the net udev rules (based on the new cmdline)
+        . $hookdir/pre-udev/*-net-genrules.sh
+        udevadm control --reload
+        udevadm trigger --action=add --subsystem-match=net
         for netif in $(online_netdevs); do
             source_hook initqueue/online $netif
         done
