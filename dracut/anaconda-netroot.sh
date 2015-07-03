@@ -10,6 +10,12 @@ netif="$1"
 # get repo info
 splitsep ":" "$root" prefix repo
 
+# repo not set? make sure we are using fresh repo information
+if [ -z "$repo" ]; then
+     . $hookdir/cmdline/*parse-anaconda-repo.sh
+     splitsep ":" "$root" prefix repo
+fi
+
 # no repo? non-net root? we're not needed here.
 [ "$prefix" = "anaconda-net" ] && [ -n "$repo" ] || return 0
 # already done? don't run again.
