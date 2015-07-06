@@ -844,6 +844,14 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler):
         # that condition here too.
         self.on_protocol_changed(self._protocolComboBox)
 
+        if not nm.nm_is_connected():
+            self._networkButton.set_sensitive(False)
+            self._networkBox.set_sensitive(False)
+
+            self.clear_info()
+            self.set_warning(_("You need to configure the network to use a network installation source."))
+
+
     def _setup_no_updates(self):
         """ Setup the state of the No Updates checkbox.
 
@@ -854,13 +862,6 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler):
         self._updatesBox.set_sensitive(self._mirror_active())
         active = not self._mirror_active() or not self.payload.isRepoEnabled("updates")
         self._noUpdatesCheckbox.set_active(active)
-
-        if not nm.nm_is_connected():
-            self._networkButton.set_sensitive(False)
-            self._networkBox.set_sensitive(False)
-
-            self.clear_info()
-            self.set_warning(_("You need to configure the network to use a network installation source."))
 
     @property
     def showable(self):
