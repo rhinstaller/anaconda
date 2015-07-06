@@ -102,6 +102,7 @@
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
                     <property name="hexpand">True</property>
+                    <signal name="activate" handler="on_device_entry_activate" swapped="no"/>
                   </object>
                   <packing>
                     <property name="left_attach">1</property>
