@@ -431,12 +431,12 @@ class Bootloader(commands.bootloader.F21_Bootloader):
         if self.nombr:
             flags.nombr = True
 
-class BTRFS(commands.btrfs.F17_BTRFS):
+class BTRFS(commands.btrfs.F23_BTRFS):
     def execute(self, storage, ksdata, instClass):
         for b in self.btrfsList:
             b.execute(storage, ksdata, instClass)
 
-class BTRFSData(commands.btrfs.F17_BTRFSData):
+class BTRFSData(commands.btrfs.F23_BTRFSData):
     def execute(self, storage, ksdata, instClass):
         devicetree = storage.devicetree
 
@@ -804,7 +804,7 @@ class Lang(commands.lang.F19_Lang):
 # no overrides needed here
 Eula = commands.eula.F20_Eula
 
-class LogVol(commands.logvol.F21_LogVol):
+class LogVol(commands.logvol.F23_LogVol):
     def execute(self, storage, ksdata, instClass):
         for l in self.lvList:
             l.execute(storage, ksdata, instClass)
@@ -812,7 +812,7 @@ class LogVol(commands.logvol.F21_LogVol):
         if self.lvList:
             growLVM(storage)
 
-class LogVolData(commands.logvol.F21_LogVolData):
+class LogVolData(commands.logvol.F23_LogVolData):
     def execute(self, storage, ksdata, instClass):
         devicetree = storage.devicetree
 
@@ -1100,7 +1100,7 @@ class DmRaid(commands.dmraid.FC6_DmRaid):
     def parse(self, args):
         raise NotImplementedError(_("The %s kickstart command is not currently supported.") % "dmraid")
 
-class Partition(commands.partition.F20_Partition):
+class Partition(commands.partition.F23_Partition):
     def execute(self, storage, ksdata, instClass):
         for p in self.partitions:
             p.execute(storage, ksdata, instClass)
@@ -1108,7 +1108,7 @@ class Partition(commands.partition.F20_Partition):
         if self.partitions:
             doPartitioning(storage)
 
-class PartitionData(commands.partition.F18_PartData):
+class PartitionData(commands.partition.F23_PartData):
     def execute(self, storage, ksdata, instClass):
         devicetree = storage.devicetree
         kwargs = {}
@@ -1396,12 +1396,12 @@ class PartitionData(commands.partition.F18_PartData):
         if add_fstab_swap:
             storage.addFstabSwap(add_fstab_swap)
 
-class Raid(commands.raid.F20_Raid):
+class Raid(commands.raid.F23_Raid):
     def execute(self, storage, ksdata, instClass):
         for r in self.raidList:
             r.execute(storage, ksdata, instClass)
 
-class RaidData(commands.raid.F18_RaidData):
+class RaidData(commands.raid.F23_RaidData):
     def execute(self, storage, ksdata, instClass):
         raidmems = []
         devicetree = storage.devicetree
