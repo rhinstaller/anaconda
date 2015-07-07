@@ -1,6 +1,9 @@
 #!/usr/bin/python
 # unit tests for driver disk utilities (utils/dd)
 
+# Ignore any interruptible calls
+# pylint: disable=interruptible-system-call
+
 import os
 import shutil
 import unittest
