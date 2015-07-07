@@ -52,7 +52,7 @@ class ParseKickstartTestCase(BaseTestCase):
         cls.command = os.path.abspath(os.path.join(os.environ["top_srcdir"], "dracut/parse-kickstart"))
 
     def execParseKickstart(self, ks_file):
-        return list(iutil.execReadlines(self.command, ["--tmpdir", self.tmpdir, ks_file]))
+        return list(iutil.execReadlines(self.command, ["--tmpdir", self.tmpdir, ks_file], filter_stderr=True))
 
     def cdrom_test(self):
         with tempfile.NamedTemporaryFile(mode="w+t") as ks_file:
