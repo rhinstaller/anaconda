@@ -1715,8 +1715,8 @@ class Timezone(commands.timezone.F23_Timezone):
         timezone.write_timezone_config(self, iutil.getSysroot())
 
         # write out NTP configuration (if set)
-        if not self.nontp and self.ntpservers:
-            chronyd_conf_path = os.path.normpath(iutil.getSysroot() + ntp.NTP_CONFIG_FILE)
+        chronyd_conf_path = os.path.normpath(iutil.getSysroot() + ntp.NTP_CONFIG_FILE)
+        if self.ntpservers and os.path.exists(chronyd_conf_path):
             pools, servers = ntp.internal_to_pools_and_servers(self.ntpservers)
             try:
                 ntp.save_servers_to_config(pools, servers, conf_file_path=chronyd_conf_path)
@@ -2186,4 +2186,3 @@ def doKickstartStorage(storage, ksdata, instClass):
     ksdata.btrfs.execute(storage, ksdata, instClass)
     # also calls ksdata.bootloader.execute
     storage.setUpBootLoader()
-
