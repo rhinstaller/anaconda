@@ -288,6 +288,42 @@ exit 0
         finally:
             signal.signal(signal.SIGHUP, old_HUP_handler)
 
+    def exec_readlines_test_filter_stderr(self):
+        """Test execReadlines and filter_stderr."""
+
+        # Test that stderr is normally included
+        with tempfile.NamedTemporaryFile(mode="w+t") as testscript:
+            testscript.write("""#!/bin/sh
+echo "one"
+echo "two" >&2
+echo "three"
+exit 0
+""")
+            testscript.flush()
+
+            with timer(5):
+                rl_iterator = iutil.execReadlines("/bin/sh", [testscript.name])
+                self.assertEqual(next(rl_iterator), "one")
+                self.assertEqual(next(rl_iterator), "two")
+                self.assertEqual(next(rl_iterator), "three")
+                self.assertRaises(StopIteration, rl_iterator.__next__)
+
+        # Test that filter stderr removes the middle line
+        with tempfile.NamedTemporaryFile(mode="w+t") as testscript:
+            testscript.write("""#!/bin/sh
+echo "one"
+echo "two" >&2
+echo "three"
+exit 0
+""")
+            testscript.flush()
+
+            with timer(5):
+                rl_iterator = iutil.execReadlines("/bin/sh", [testscript.name], filter_stderr=True)
+                self.assertEqual(next(rl_iterator), "one")
+                self.assertEqual(next(rl_iterator), "three")
+                self.assertRaises(StopIteration, rl_iterator.__next__)
+
     def start_program_preexec_fn_test(self):
         """Test passing preexec_fn to startProgram."""
 
