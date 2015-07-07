@@ -625,7 +625,7 @@ class Payload(object):
                 self.storage.umountFilesystems()
 
                 # Explicitly mount the root on the physical sysroot
-                rootmnt = storage.mountpoints.get('/')
+                rootmnt = self.storage.mountpoints.get('/')
                 rootmnt.setup()
                 rootmnt.format.setup(options=rootmnt.format.options, chroot=iutil.getTargetPhysicalRoot())
 
