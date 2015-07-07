@@ -46,16 +46,15 @@ install() {
     inst "$moddir/parse-kickstart" "/sbin/parse-kickstart"
     # Driver Update Disks
     inst_hook cmdline 29 "$moddir/parse-anaconda-dd.sh"
+    inst_hook pre-trigger 55 "$moddir/driver-updates-genrules.sh"
     inst_hook initqueue/online 20 "$moddir/fetch-driver-net.sh"
-    inst_hook pre-trigger 40 "$moddir/driver-updates.sh"
-    inst_hook pre-pivot 10 "$moddir/driver-updates-net.sh"
     inst_hook pre-pivot 50 "$moddir/anaconda-depmod.sh"
-    inst "$moddir/driver-updates" "/bin/driver-updates"
+    inst "$moddir/driver_updates.py" "/bin/driver-updates"
     inst_simple "$moddir/driver-updates@.service" "/etc/systemd/system/driver-updates@.service"
     # rpm configuration file (needed by dd_extract)
     inst "/usr/lib/rpm/rpmrc"
     # python deps for parse-kickstart. DOUBLE WOOOO
-    PYTHONHASHSEED=42 $moddir/python-deps $moddir/parse-kickstart $moddir/driver-updates | while read dep; do
+    PYTHONHASHSEED=42 $moddir/python-deps $moddir/parse-kickstart $moddir/driver_updates.py | while read dep; do
         case "$dep" in
             *.so) inst_library $dep ;;
             *.py) inst_simple $dep ;;
