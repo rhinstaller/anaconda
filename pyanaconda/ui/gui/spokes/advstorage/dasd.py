@@ -43,8 +43,6 @@ class DASDDialog(GUIObject):
         self._update_devicetree = False
 
         # grab all of the ui objects
-        self._dasdNotebook = self.builder.get_object("dasdNotebook")
-
         self._configureGrid = self.builder.get_object("configureGrid")
         self._conditionNotebook = self.builder.get_object("conditionNotebook")
 

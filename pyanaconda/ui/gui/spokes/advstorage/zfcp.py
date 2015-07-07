@@ -43,8 +43,6 @@ class ZFCPDialog(GUIObject):
         self._update_devicetree = False
 
         # grab all of the ui objects
-        self._zfcpNotebook = self.builder.get_object("zfcpNotebook")
-
         self._configureGrid = self.builder.get_object("configureGrid")
         self._conditionNotebook = self.builder.get_object("conditionNotebook")
 
