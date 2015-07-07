@@ -1,15 +1,19 @@
 [Unit]
 Description=Driver Update Disk UI on %I
 DefaultDependencies=no
+After=systemd-vconsole-setup.service
+Wants=systemd-vconsole-setup.service
 Before=shutdown.target
 
 [Service]
 Type=oneshot
 RemainAfterExit=no
-WorkingDirectory=/tmp
-Environment=LANG=en_US.UTF-8
-ExecStartPre=-/bin/plymouth quit
-ExecStart=/bin/driver-updates
+WorkingDirectory=/
+ExecStartPre=-/bin/plymouth --hide-splash
+ExecStartPre=-/bin/cp -n /proc/sys/kernel/printk /tmp/printk
+ExecStartPre=-/bin/dmesg -n 1
+ExecStart=/bin/driver-updates --interactive
+ExecStopPost=-/bin/cp /tmp/printk /proc/sys/kernel/printk
 StandardInput=tty-force
 StandardOutput=inherit
 StandardError=inherit

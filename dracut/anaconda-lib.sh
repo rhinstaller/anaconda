@@ -216,39 +216,21 @@ run_kickstart() {
     . $hookdir/cmdline/*parse-anaconda-repo.sh
     . $hookdir/cmdline/*parse-livenet.sh
     . $hookdir/cmdline/*parse-anaconda-dd.sh
-    case "$repotype" in
-        http*|ftp|nfs*) do_net=1 ;;
-        cdrom|hd|bd)    do_disk=1 ;;
+
+    # Figure out whether we need to retry disk/net stuff
+    case "$root" in
+        anaconda-net:*)   do_net=1 ;;
+        anaconda-disk:*)  do_disk=1 ;;
+        anaconda-auto-cd) do_disk=1 ;;
     esac
-    [ "$root" = "anaconda-auto-cd" ] && do_disk=1
-
-    # kickstart Driver Disk Handling
-    # parse-kickstart may have added network inst.dd entries to the cmdline
-    # Or it may have written devices to /tmp/dd_ks
-
-    # Does network need to be rerun?
-    dd_args="$(getargs dd= inst.dd=)"
-    for dd in $dd_args; do
-        case "${dd%%:*}" in
-            http|https|ftp|nfs|nfs4)
-                do_net=1
-                rm /tmp/dd_net.done
-                break
-            ;;
-        esac
-    done
-
-    # Run the driver update UI for disks
-    if [ -e "/tmp/dd_args_ks" ]; then
-        # TODO: Seems like this should be a function, a mostly same version is used in 3 places
-        start_driver_update "Kickstart Driver Update Disk"
-        rm /tmp/dd_args_ks
-    fi
+    [ -f /tmp/dd_net ] && do_net=1
+    [ -f /tmp/dd_disk ] && do_disk=1
 
     # disk: replay udev events to trigger actions
     if [ "$do_disk" ]; then
         # set up new rules
         . $hookdir/pre-trigger/*repo-genrules.sh
+        . $hookdir/pre-trigger/*driver-updates-genrules.sh
         udevadm control --reload
         # trigger the rules for all the block devices we see
         udevadm trigger --action=change --subsystem-match=block
@@ -277,16 +259,6 @@ wait_for_updates() {
     echo "[ -e /tmp/liveupdates.done ]" > $hookdir/initqueue/finished/updates.sh
 }
 
-start_driver_update() {
-    local title="$1"
-
-    tty=$(find_tty)
-
-    # save module state
-    cat /proc/modules > /tmp/dd_modules
-
-    info "Starting $title Service on $tty"
-    systemctl start driver-updates@$tty.service
-    status=$(systemctl -p ExecMainStatus show driver-updates@$tty.service)
-    info "DD status=$status"
+wait_for_dd() {
+    echo "[ -e /tmp/dd.done ]" > $hookdir/initqueue/finished/dd.sh
 }
