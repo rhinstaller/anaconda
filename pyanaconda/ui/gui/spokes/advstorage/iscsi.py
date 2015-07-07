@@ -127,6 +127,7 @@ class ISCSIDialog(GUIObject):
         self._iscsiNotebook = self.builder.get_object("iscsiNotebook")
 
         self._loginButton = self.builder.get_object("loginButton")
+        self._retryLoginButton = self.builder.get_object("retryLoginButton")
         self._loginAuthTypeCombo = self.builder.get_object("loginAuthTypeCombo")
         self._loginAuthNotebook = self.builder.get_object("loginAuthNotebook")
         self._loginGrid = self.builder.get_object("loginGrid")
@@ -140,6 +141,7 @@ class ISCSIDialog(GUIObject):
         self._startButton = self.builder.get_object("startButton")
         self._okButton = self.builder.get_object("okButton")
         self._cancelButton = self.builder.get_object("cancelButton")
+        self._retryButton = self.builder.get_object("retryButton")
 
         self._initiatorEntry = self.builder.get_object("initiatorEntry")
 
@@ -451,3 +453,21 @@ class ISCSIDialog(GUIObject):
             credentials = loginMap[page](self.builder)
 
         self._loginButton.set_sensitive(credentials_valid(credentials))
+
+    def on_discover_entry_activated(self, *args):
+        # When an entry is activated in the discovery view, push either the
+        # start or retry discovery button.
+        current_page = self._conditionNotebook.get_current_page()
+        if current_page == 0:
+            self._startButton.clicked()
+        elif current_page == 2:
+            self._retryButton.clicked()
+
+    def on_login_entry_activated(self, *args):
+        # When an entry or a row in the tree view is activated on the login view,
+        # push the login or retry button
+        current_page = self._loginConditionNotebook.get_current_page()
+        if current_page == 0:
+            self._loginButton.clicked()
+        elif current_page == 1:
+            self._retryLoginButton.clicked()
