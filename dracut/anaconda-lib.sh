@@ -183,6 +183,15 @@ parse_kickstart() {
     [ -e "$parsed_kickstart" ] && cp $parsed_kickstart /run/install/ks.cfg
 }
 
+# print a list of net devices that dracut says are set up.
+online_netdevs() {
+    local netif=""
+    for netif in /tmp/net.*.did-setup; do
+        netif=${netif#*.}; netif=${netif%.*}
+        [ -d "/sys/class/net/$netif" ] && echo $netif
+    done
+}
+
 # This is where we actually run the kickstart. Whee!
 # We can't just add udev rules (we'll miss devices that are already active),
 # and we can't just run the scripts manually (we'll miss devices that aren't
@@ -206,7 +215,7 @@ run_kickstart() {
     # re-parse new cmdline stuff from the kickstart
     . $hookdir/cmdline/*parse-anaconda-repo.sh
     . $hookdir/cmdline/*parse-livenet.sh
-    # TODO: parse for other stuff ks might set (dd? other stuff?)
+    . $hookdir/cmdline/*parse-anaconda-dd.sh
     case "$repotype" in
         http*|ftp|nfs*) do_net=1 ;;
         cdrom|hd|bd)    do_disk=1 ;;
@@ -236,17 +245,24 @@ run_kickstart() {
         rm /tmp/dd_args_ks
     fi
 
-    # replay udev events to trigger actions
+    # disk: replay udev events to trigger actions
     if [ "$do_disk" ]; then
+        # set up new rules
         . $hookdir/pre-trigger/*repo-genrules.sh
         udevadm control --reload
+        # trigger the rules for all the block devices we see
         udevadm trigger --action=change --subsystem-match=block
     fi
+
+    # net: re-run online hook
     if [ "$do_net" ]; then
         # make dracut create the net udev rules (based on the new cmdline)
         . $hookdir/pre-udev/*-net-genrules.sh
         udevadm control --reload
         udevadm trigger --action=add --subsystem-match=net
+        for netif in $(online_netdevs); do
+            source_hook initqueue/online $netif
+        done
     fi
 
     # and that's it - we're back to the mainloop.
