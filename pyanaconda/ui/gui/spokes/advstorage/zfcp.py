@@ -43,14 +43,13 @@ class ZFCPDialog(GUIObject):
         self._update_devicetree = False
 
         # grab all of the ui objects
-        self._zfcpNotebook = self.builder.get_object("zfcpNotebook")
-
         self._configureGrid = self.builder.get_object("configureGrid")
         self._conditionNotebook = self.builder.get_object("conditionNotebook")
 
         self._startButton = self.builder.get_object("startButton")
         self._okButton = self.builder.get_object("okButton")
         self._cancelButton = self.builder.get_object("cancelButton")
+        self._retryButton = self.builder.get_object("retryButton")
 
         self._deviceEntry = self.builder.get_object("deviceEntry")
         self._wwpnEntry = self.builder.get_object("wwpnEntry")
@@ -142,3 +141,11 @@ class ZFCPDialog(GUIObject):
         except ValueError as e:
             self._discoveryError = str(e)
             return
+
+    def on_entry_activated(self, entry, user_data=None):
+        # When an entry is activated, press the discover or retry button
+        current_page = self._conditionNotebook.get_current_page()
+        if current_page == 0:
+            self._startButton.clicked()
+        elif current_page == 2:
+            self._retryButton.clicked()

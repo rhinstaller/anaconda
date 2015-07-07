@@ -82,8 +82,8 @@
               <object class="GtkLabel" id="label1">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
-                <property name="xalign">0</property>
                 <property name="label" translatable="yes">ADD iSCSI STORAGE TARGET</property>
+                <property name="xalign">0</property>
                 <attributes>
                   <attribute name="weight" value="bold"/>
                 </attributes>
@@ -111,9 +111,9 @@
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
                         <property name="margin_bottom">6</property>
-                        <property name="xalign">0</property>
                         <property name="label" translatable="yes">To use iSCSI disks, you must provide the address of your iSCSI target and the iSCSI initiator name you've configured for your host.</property>
                         <property name="wrap">True</property>
+                        <property name="xalign">0</property>
                       </object>
                       <packing>
                         <property name="left_attach">0</property>
@@ -126,6 +126,7 @@
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
                         <property name="hexpand">True</property>
+                        <signal name="activate" handler="on_discover_entry_activated" swapped="no"/>
                         <signal name="changed" handler="on_discover_field_changed" swapped="no"/>
                       </object>
                       <packing>
@@ -138,10 +139,10 @@
                       <object class="GtkLabel" id="label6">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
-                        <property name="xalign">0</property>
                         <property name="label" translatable="yes" context="GUI|Advanced Storage|iSCSI|Configure">_Target IP Address:</property>
                         <property name="use_underline">True</property>
                         <property name="mnemonic_widget">targetEntry</property>
+                        <property name="xalign">0</property>
                       </object>
                       <packing>
                         <property name="left_attach">0</property>
@@ -153,6 +154,7 @@
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
                         <property name="hexpand">True</property>
+                        <signal name="activate" handler="on_discover_entry_activated" swapped="no"/>
                         <signal name="changed" handler="on_discover_field_changed" swapped="no"/>
                       </object>
                       <packing>
@@ -165,10 +167,10 @@
                       <object class="GtkLabel" id="label7">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
-                        <property name="xalign">0</property>
                         <property name="label" translatable="yes" context="GUI|Advanced Storage|iSCSI|Configure">iSCSI _Initiator Name:</property>
                         <property name="use_underline">True</property>
                         <property name="mnemonic_widget">initiatorEntry</property>
+                        <property name="xalign">0</property>
                       </object>
                       <packing>
                         <property name="left_attach">0</property>
@@ -198,10 +200,10 @@
                       <object class="GtkLabel" id="label8">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
-                        <property name="xalign">0</property>
                         <property name="label" translatable="yes" context="GUI|Advanced Storage|iSCSI|Configure">_Discovery Authentication Type:</property>
                         <property name="use_underline">True</property>
                         <property name="mnemonic_widget">authTypeCombo</property>
+                        <property name="xalign">0</property>
                       </object>
                       <packing>
                         <property name="left_attach">0</property>
@@ -213,9 +215,9 @@
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
                         <property name="hexpand">True</property>
-                        <property name="xalign">0</property>
                         <property name="label" translatable="yes">&lt;span size="small"&gt;&lt;b&gt;Example:&lt;/b&gt; iqn.2012-09.com.example:diskarrays-sn-a8675309&lt;/span&gt;</property>
                         <property name="use_markup">True</property>
+                        <property name="xalign">0</property>
                       </object>
                       <packing>
                         <property name="left_attach">2</property>
@@ -258,10 +260,10 @@
                               <object class="GtkLabel" id="label2">
                                 <property name="visible">True</property>
                                 <property name="can_focus">False</property>
-                                <property name="xalign">0</property>
                                 <property name="label" translatable="yes" context="GUI|Advanced Storage|iSCSI|Configure|CHAP">CHAP _User name:</property>
                                 <property name="use_underline">True</property>
                                 <property name="mnemonic_widget">chapUsernameEntry</property>
+                                <property name="xalign">0</property>
                               </object>
                               <packing>
                                 <property name="left_attach">0</property>
@@ -272,10 +274,10 @@
                               <object class="GtkLabel" id="label3">
                                 <property name="visible">True</property>
                                 <property name="can_focus">False</property>
-                                <property name="xalign">0</property>
                                 <property name="label" translatable="yes" context="GUI|Advanced Storage|iSCSI|Configure|CHAP">CHAP _Password:</property>
                                 <property name="use_underline">True</property>
                                 <property name="mnemonic_widget">chapPasswordEntry</property>
+                                <property name="xalign">0</property>
                               </object>
                               <packing>
                                 <property name="left_attach">0</property>
@@ -287,6 +289,7 @@
                                 <property name="visible">True</property>
                                 <property name="can_focus">True</property>
                                 <property name="hexpand">True</property>
+                                <signal name="activate" handler="on_discover_entry_activated" swapped="no"/>
                                 <signal name="changed" handler="on_discover_field_changed" swapped="no"/>
                               </object>
                               <packing>
@@ -301,6 +304,7 @@
                                 <property name="hexpand">True</property>
                                 <property name="visibility">False</property>
                                 <property name="invisible_char">●</property>
+                                <signal name="activate" handler="on_discover_entry_activated" swapped="no"/>
                                 <signal name="changed" handler="on_discover_field_changed" swapped="no"/>
                               </object>
                               <packing>
@@ -327,6 +331,7 @@
                                 <property name="visible">True</property>
                                 <property name="can_focus">True</property>
                                 <property name="hexpand">True</property>
+                                <signal name="activate" handler="on_discover_entry_activated" swapped="no"/>
                                 <signal name="changed" handler="on_discover_field_changed" swapped="no"/>
                               </object>
                               <packing>
@@ -341,6 +346,7 @@
                                 <property name="hexpand">True</property>
                                 <property name="visibility">False</property>
                                 <property name="invisible_char">●</property>
+                                <signal name="activate" handler="on_discover_entry_activated" swapped="no"/>
                                 <signal name="changed" handler="on_discover_field_changed" swapped="no"/>
                               </object>
                               <packing>
@@ -353,6 +359,7 @@
                                 <property name="visible">True</property>
                                 <property name="can_focus">True</property>
                                 <property name="hexpand">True</property>
+                                <signal name="activate" handler="on_discover_entry_activated" swapped="no"/>
                                 <signal name="changed" handler="on_discover_field_changed" swapped="no"/>
                               </object>
                               <packing>
@@ -367,6 +374,7 @@
                                 <property name="hexpand">True</property>
                                 <property name="visibility">False</property>
                                 <property name="invisible_char">●</property>
+                                <signal name="activate" handler="on_discover_entry_activated" swapped="no"/>
                                 <signal name="changed" handler="on_discover_field_changed" swapped="no"/>
                               </object>
                               <packing>
@@ -378,10 +386,10 @@
                               <object class="GtkLabel" id="label4">
                                 <property name="visible">True</property>
                                 <property name="can_focus">False</property>
-                                <property name="xalign">0</property>
                                 <property name="label" translatable="yes" context="GUI|Advanced Storage|iSCSI|Configure|Reverse CHAP">CHAP _User name:</property>
                                 <property name="use_underline">True</property>
                                 <property name="mnemonic_widget">rchapUsernameEntry</property>
+                                <property name="xalign">0</property>
                               </object>
                               <packing>
                                 <property name="left_attach">0</property>
@@ -392,10 +400,10 @@
                               <object class="GtkLabel" id="label10">
                                 <property name="visible">True</property>
                                 <property name="can_focus">False</property>
-                                <property name="xalign">0</property>
                                 <property name="label" translatable="yes" context="GUI|Advanced Storage|iSCSI|Configure|Reverse CHAP">CHAP _Password:</property>
                                 <property name="use_underline">True</property>
                                 <property name="mnemonic_widget">rchapPasswordEntry</property>
+                                <property name="xalign">0</property>
                               </object>
                               <packing>
                                 <property name="left_attach">0</property>
@@ -406,10 +414,10 @@
                               <object class="GtkLabel" id="label11">
                                 <property name="visible">True</property>
                                 <property name="can_focus">False</property>
-                                <property name="xalign">0</property>
                                 <property name="label" translatable="yes" context="GUI|Advanced Storage|iSCSI|Configure|Reverse CHAP">Reverse CHAP User _name:</property>
                                 <property name="use_underline">True</property>
                                 <property name="mnemonic_widget">rchapReverseUsername</property>
+                                <property name="xalign">0</property>
                               </object>
                               <packing>
                                 <property name="left_attach">0</property>
@@ -420,10 +428,10 @@
                               <object class="GtkLabel" id="label12">
                                 <property name="visible">True</property>
                                 <property name="can_focus">False</property>
-                                <property name="xalign">0</property>
                                 <property name="label" translatable="yes" context="GUI|Advanced Storage|iSCSI|Configure|Reverse CHAP">Reverse CHAP Pass_word:</property>
                                 <property name="use_underline">True</property>
                                 <property name="mnemonic_widget">rchapReversePassword</property>
+                                <property name="xalign">0</property>
                               </object>
                               <packing>
                                 <property name="left_attach">0</property>
@@ -530,8 +538,8 @@
                               <object class="GtkLabel" id="label14">
                                 <property name="visible">True</property>
                                 <property name="can_focus">False</property>
-                                <property name="xalign">0</property>
                                 <property name="label" translatable="yes">Discovery login rejected.</property>
+                                <property name="xalign">0</property>
                                 <attributes>
                                   <attribute name="weight" value="bold"/>
                                 </attributes>
@@ -545,9 +553,9 @@
                               <object class="GtkLabel" id="label22">
                                 <property name="visible">True</property>
                                 <property name="can_focus">False</property>
-                                <property name="xalign">0</property>
                                 <property name="label" translatable="yes">The following error occurred discovering iSCSI targets.  Please double check your authorization information and try again.</property>
                                 <property name="wrap">True</property>
+                                <property name="xalign">0</property>
                               </object>
                               <packing>
                                 <property name="left_attach">1</property>
@@ -558,8 +566,8 @@
                               <object class="GtkLabel" id="discoveryErrorLabel">
                                 <property name="visible">True</property>
                                 <property name="can_focus">False</property>
-                                <property name="xalign">0</property>
                                 <property name="label">Error message goes here.</property>
+                                <property name="xalign">0</property>
                               </object>
                               <packing>
                                 <property name="left_attach">1</property>
@@ -642,10 +650,10 @@
                       <object class="GtkLabel" id="discoveredLabel">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
-                        <property name="xalign">0</property>
                         <property name="label">The following nodes have been discovered using the iSCSI initiator &lt;b&gt;%(initiatorName)s&lt;/b&gt; using the target IP address &lt;b&gt;%(targetAddress)s&lt;/b&gt;.  Please select which nodes you wish to log into:</property>
                         <property name="use_markup">True</property>
                         <property name="wrap">True</property>
+                        <property name="xalign">0</property>
                       </object>
                       <packing>
                         <property name="left_attach">0</property>
@@ -666,6 +674,7 @@
                             <property name="model">nodeStoreFiltered</property>
                             <property name="headers_clickable">False</property>
                             <property name="search_column">0</property>
+                            <signal name="row-activated" handler="on_login_entry_activated" swapped="no"/>
                             <child internal-child="selection">
                               <object class="GtkTreeSelection" id="treeview-selection"/>
                             </child>
@@ -733,10 +742,10 @@
                           <object class="GtkLabel" id="loginAuthTypeLabel">
                             <property name="visible">True</property>
                             <property name="can_focus">False</property>
-                            <property name="xalign">0</property>
                             <property name="label" translatable="yes" context="GUI|Advanced Storage|iSCSI|Login">_Node Login Authentication Type:</property>
                             <property name="use_underline">True</property>
                             <property name="mnemonic_widget">loginAuthTypeCombo</property>
+                            <property name="xalign">0</property>
                           </object>
                           <packing>
                             <property name="left_attach">0</property>
@@ -785,10 +794,10 @@
                                   <object class="GtkLabel" id="label15">
                                     <property name="visible">True</property>
                                     <property name="can_focus">False</property>
-                                    <property name="xalign">0</property>
                                     <property name="label" translatable="yes" context="GUI|Advanced Storage|iSCSI|Login|CHAP">CHAP _User name:</property>
                                     <property name="use_underline">True</property>
                                     <property name="mnemonic_widget">loginChapUsernameEntry</property>
+                                    <property name="xalign">0</property>
                                   </object>
                                   <packing>
                                     <property name="left_attach">0</property>
@@ -799,10 +808,10 @@
                                   <object class="GtkLabel" id="label16">
                                     <property name="visible">True</property>
                                     <property name="can_focus">False</property>
-                                    <property name="xalign">0</property>
                                     <property name="label" translatable="yes" context="GUI|Advanced Storage|iSCSI|Login|CHAP">CHAP _Password:</property>
                                     <property name="use_underline">True</property>
                                     <property name="mnemonic_widget">loginChapPasswordEntry</property>
+                                    <property name="xalign">0</property>
                                   </object>
                                   <packing>
                                     <property name="left_attach">0</property>
@@ -814,6 +823,7 @@
                                     <property name="visible">True</property>
                                     <property name="can_focus">True</property>
                                     <property name="hexpand">True</property>
+                                    <signal name="activate" handler="on_login_entry_activated" swapped="no"/>
                                     <signal name="changed" handler="on_login_field_changed" swapped="no"/>
                                   </object>
                                   <packing>
@@ -828,6 +838,7 @@
                                     <property name="hexpand">True</property>
                                     <property name="visibility">False</property>
                                     <property name="invisible_char">●</property>
+                                    <signal name="activate" handler="on_login_entry_activated" swapped="no"/>
                                     <signal name="changed" handler="on_login_field_changed" swapped="no"/>
                                   </object>
                                   <packing>
@@ -854,6 +865,7 @@
                                     <property name="visible">True</property>
                                     <property name="can_focus">True</property>
                                     <property name="hexpand">True</property>
+                                    <signal name="activate" handler="on_login_entry_activated" swapped="no"/>
                                     <signal name="changed" handler="on_login_field_changed" swapped="no"/>
                                   </object>
                                   <packing>
@@ -868,6 +880,7 @@
                                     <property name="hexpand">True</property>
                                     <property name="visibility">False</property>
                                     <property name="invisible_char">●</property>
+                                    <signal name="activate" handler="on_login_entry_activated" swapped="no"/>
                                     <signal name="changed" handler="on_login_field_changed" swapped="no"/>
                                   </object>
                                   <packing>
@@ -880,6 +893,7 @@
                                     <property name="visible">True</property>
                                     <property name="can_focus">True</property>
                                     <property name="hexpand">True</property>
+                                    <signal name="activate" handler="on_login_entry_activated" swapped="no"/>
                                     <signal name="changed" handler="on_login_field_changed" swapped="no"/>
                                   </object>
                                   <packing>
@@ -894,6 +908,7 @@
                                     <property name="hexpand">True</property>
                                     <property name="visibility">False</property>
                                     <property name="invisible_char">●</property>
+                                    <signal name="activate" handler="on_login_entry_activated" swapped="no"/>
                                     <signal name="changed" handler="on_login_field_changed" swapped="no"/>
                                   </object>
                                   <packing>
@@ -905,10 +920,10 @@
                                   <object class="GtkLabel" id="label17">
                                     <property name="visible">True</property>
                                     <property name="can_focus">False</property>
-                                    <property name="xalign">0</property>
                                     <property name="label" translatable="yes" context="GUI|Advanced Storage|iSCSI|Login|Reverse CHAP">CHAP _User name:</property>
                                     <property name="use_underline">True</property>
                                     <property name="mnemonic_widget">loginRchapUsernameEntry</property>
+                                    <property name="xalign">0</property>
                                   </object>
                                   <packing>
                                     <property name="left_attach">0</property>
@@ -919,10 +934,10 @@
                                   <object class="GtkLabel" id="label18">
                                     <property name="visible">True</property>
                                     <property name="can_focus">False</property>
-                                    <property name="xalign">0</property>
                                     <property name="label" translatable="yes" context="GUI|Advanced Storage|iSCSI|Login|Reverse CHAP">CHAP _Password:</property>
                                     <property name="use_underline">True</property>
                                     <property name="mnemonic_widget">loginRchapPasswordEntry</property>
+                                    <property name="xalign">0</property>
                                   </object>
                                   <packing>
                                     <property name="left_attach">0</property>
@@ -933,10 +948,10 @@
                                   <object class="GtkLabel" id="label19">
                                     <property name="visible">True</property>
                                     <property name="can_focus">False</property>
-                                    <property name="xalign">0</property>
                                     <property name="label" translatable="yes" context="GUI|Advanced Storage|iSCSI|Login|Reverse CHAP">_Reverse CHAP User name:</property>
                                     <property name="use_underline">True</property>
                                     <property name="mnemonic_widget">loginRchapReverseUsername</property>
+                                    <property name="xalign">0</property>
                                   </object>
                                   <packing>
                                     <property name="left_attach">0</property>
@@ -947,10 +962,10 @@
                                   <object class="GtkLabel" id="label20">
                                     <property name="visible">True</property>
                                     <property name="can_focus">False</property>
-                                    <property name="xalign">0</property>
                                     <property name="label" translatable="yes" context="GUI|Advanced Storage|iSCSI|Login|Reverse CHAP">Reverse CHAP Pass_word:</property>
                                     <property name="use_underline">True</property>
                                     <property name="mnemonic_widget">loginRchapReversePassword</property>
+                                    <property name="xalign">0</property>
                                   </object>
                                   <packing>
                                     <property name="left_attach">0</property>
@@ -1051,8 +1066,8 @@
                                   <object class="GtkLabel" id="label21">
                                     <property name="visible">True</property>
                                     <property name="can_focus">False</property>
-                                    <property name="xalign">0</property>
                                     <property name="label" translatable="yes">Node login failed.</property>
+                                    <property name="xalign">0</property>
                                     <attributes>
                                       <attribute name="weight" value="bold"/>
                                     </attributes>
@@ -1066,9 +1081,9 @@
                                   <object class="GtkLabel" id="label23">
                                     <property name="visible">True</property>
                                     <property name="can_focus">False</property>
-                                    <property name="xalign">0</property>
                                     <property name="label" translatable="yes">The following error occurred logging into the selected iSCSI node.  Please double check your authorization information and try again</property>
                                     <property name="wrap">True</property>
+                                    <property name="xalign">0</property>
                                   </object>
                                   <packing>
                                     <property name="left_attach">1</property>
@@ -1079,8 +1094,8 @@
                                   <object class="GtkLabel" id="loginErrorLabel">
                                     <property name="visible">True</property>
                                     <property name="can_focus">False</property>
-                                    <property name="xalign">0</property>
                                     <property name="label">Error message goes here.</property>
+                                    <property name="xalign">0</property>
                                   </object>
                                   <packing>
                                     <property name="left_attach">1</property>

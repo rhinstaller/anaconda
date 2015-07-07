@@ -20,7 +20,7 @@
 #                    Vratislav Podzimek <vpodzime@redhat.com>
 #
 
-from gi.repository import Gkbd, Gdk, Gtk
+from gi.repository import Gkbd, Gtk
 
 from pyanaconda.ui.gui import GUIObject
 from pyanaconda.ui.gui.spokes import NormalSpoke
@@ -160,16 +160,12 @@ class AddLayoutDialog(GUIObject):
     def on_entry_icon_clicked(self, *args):
         self._entry.set_text("")
 
-    def on_layout_view_button_press(self, widget, event, *args):
-        if event.type == Gdk.EventType._2BUTTON_PRESS and \
-                self._confirmAddButton.get_sensitive():
-            # double-click should close the dialog if something is selected
-            # (i.e. the Add button is sensitive)
-            # @see on_add_layout_selection_changed
-            self._confirmAddButton.emit("clicked")
-
-        # let the other actions happen as well
-        return False
+    def on_layout_row_activated(self, treeview, path, column, user_data=None):
+        # Activating a row (double-click, Enter, space, shift+space) should
+        # close the dialog if something is selected (i.e. the Add button is
+        # sensitive)
+        # @see on_add_layout_selection_changed
+        self._confirmAddButton.emit("clicked")
 
     def _addLayout(self, name, store):
         store.append([name])
