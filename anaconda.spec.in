@@ -309,6 +309,24 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Jul 07 2015 Brian C. Lane <bcl@redhat.com> - 21.48.22.15-1
+- Explicitly try fetching netroot after network kickstart fetch (vpodzime)
+  Resolves: rhbz#1238987
+- Refresh advanced disks after disk summary dialog (bcl)
+  Resolves: rhbz#1226354
+- Show an alternative prompt if a hub contains only a single spoke (mkolman)
+  Resolves: rhbz#1199234
+- Don't crash if incorrect environment is set in kickstart (mkolman)
+  Resolves: rhbz#1234890
+- Allow /boot partition on iscsi with ibft (jkonecny)
+  Related: rhbz#1164195
+- Make sure we work with fresh data when trying to do netroot (vpodzime)
+  Related: rhbz#1082500
+- Make our manual triggering on network in dracut work (vpodzime)
+  Resolves: rhbz#1082500
+- Fix broken test by infiniband patch (jkonecny)
+  Related: rhbz#1177032
+
 * Thu Jul 02 2015 Brian C. Lane <bcl@redhat.com> - 21.48.22.14-1
 - Add RAID swaps to /etc/fstab (bcl)
   Resolves: rhbz#1234469

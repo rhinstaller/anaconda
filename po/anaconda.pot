@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: anaconda 21.48.22.13\n"
+"Project-Id-Version: anaconda 21.48.22.14\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
-"POT-Creation-Date: 2015-07-02 17:10-0700\n"
+"POT-Creation-Date: 2015-07-07 08:09-0700\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,87 +18,87 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 
-#: pyanaconda/bootloader.py:247
+#: pyanaconda/bootloader.py:252
 msgid "/boot file system"
 msgstr ""
 
-#: pyanaconda/bootloader.py:404
+#: pyanaconda/bootloader.py:409
 #, python-format
 msgid ""
 "RAID sets that contain '%(desc)s' must have one of the following raid "
 "levels: %(raid_level)s."
 msgstr ""
 
-#: pyanaconda/bootloader.py:412
+#: pyanaconda/bootloader.py:417
 #, python-format
 msgid ""
 "RAID sets that contain '%(desc)s' must have one of the following metadata "
 "versions: %(metadata_versions)s."
 msgstr ""
 
-#: pyanaconda/bootloader.py:420
+#: pyanaconda/bootloader.py:425
 #, python-format
 msgid ""
 "RAID sets that contain '%(desc)s' must have one of the following device "
 "types: %(types)s."
 msgstr ""
 
-#: pyanaconda/bootloader.py:436
+#: pyanaconda/bootloader.py:441
 #, python-format
 msgid "%(name)s must have one of the following disklabel types: %(types)s."
 msgstr ""
 
-#: pyanaconda/bootloader.py:448
+#: pyanaconda/bootloader.py:453
 #, python-format
 msgid "%(desc)s cannot be of type %(type)s."
 msgstr ""
 
-#: pyanaconda/bootloader.py:454
+#: pyanaconda/bootloader.py:459
 #, python-format
 msgid "%(desc)s must be mounted on one of %(mountpoints)s."
 msgstr ""
 
-#: pyanaconda/bootloader.py:466
+#: pyanaconda/bootloader.py:471
 #, python-format
 msgid "%(desc)s must be between %(min)d and %(max)d MB in size"
 msgstr ""
 
-#: pyanaconda/bootloader.py:472
+#: pyanaconda/bootloader.py:477
 #, python-format
 msgid "%(desc)s must not be smaller than %(min)dMB."
 msgstr ""
 
-#: pyanaconda/bootloader.py:481
+#: pyanaconda/bootloader.py:486
 #, python-format
 msgid "%(desc)s must not be larger than %(max)dMB."
 msgstr ""
 
-#: pyanaconda/bootloader.py:499
+#: pyanaconda/bootloader.py:504
 #, python-format
 msgid "%(desc)s must be within the first %(max_end)s of the disk."
 msgstr ""
 
-#: pyanaconda/bootloader.py:509
+#: pyanaconda/bootloader.py:514
 #, python-format
 msgid "%s must be on a primary partition."
 msgstr ""
 
-#: pyanaconda/bootloader.py:645 pyanaconda/bootloader.py:745
+#: pyanaconda/bootloader.py:650 pyanaconda/bootloader.py:750
 #, python-format
 msgid "%s cannot be on an encrypted block device."
 msgstr ""
 
-#: pyanaconda/bootloader.py:700
+#: pyanaconda/bootloader.py:705
 #, python-format
 msgid "%s cannot be on an iSCSI disk"
 msgstr ""
 
-#: pyanaconda/bootloader.py:704
+#: pyanaconda/bootloader.py:709
 #, python-format
 msgid "%(desc)s cannot be of type %(type)s"
 msgstr ""
 
-#: pyanaconda/bootloader.py:1357
+#: pyanaconda/bootloader.py:1362
 #, python-format
 msgid ""
 "boot loader stage2 device %(stage2dev)s is on a multi-disk array, but boot "
@@ -106,7 +106,7 @@ msgid ""
 "could render the system unbootable."
 msgstr ""
 
-#: pyanaconda/bootloader.py:1363
+#: pyanaconda/bootloader.py:1368
 #, python-format
 msgid ""
 "boot loader stage2 device %(stage2dev)s is on a multi-disk array, but boot "
@@ -114,7 +114,7 @@ msgid ""
 "boot loader will only be installed to a single drive."
 msgstr ""
 
-#: pyanaconda/bootloader.py:1658
+#: pyanaconda/bootloader.py:1663
 #, python-format
 msgid ""
 "%(deviceName)s may not have enough space for grub2 to embed core.img when "
@@ -430,7 +430,7 @@ msgid "Installing boot loader"
 msgstr ""
 
 #: pyanaconda/install.py:256 pyanaconda/packaging/livepayload.py:170
-#: pyanaconda/packaging/yumpayload.py:1427
+#: pyanaconda/packaging/yumpayload.py:1441
 msgid "Performing post-installation setup tasks"
 msgstr ""
 
@@ -1261,20 +1261,20 @@ msgstr ""
 msgid "Checking image checksum"
 msgstr ""
 
-#: pyanaconda/packaging/yumpayload.py:1244
+#: pyanaconda/packaging/yumpayload.py:1258
 #, python-format
 msgid "CmdlineError: Missing package: %s"
 msgstr ""
 
-#: pyanaconda/packaging/yumpayload.py:1389
+#: pyanaconda/packaging/yumpayload.py:1403
 msgid "Starting package installation process"
 msgstr ""
 
-#: pyanaconda/packaging/yumpayload.py:1425
+#: pyanaconda/packaging/yumpayload.py:1439
 msgid "Preparing transaction from installation source"
 msgstr ""
 
-#: pyanaconda/packaging/yumpayload.py:1426
+#: pyanaconda/packaging/yumpayload.py:1440
 msgid "Installing"
 msgstr ""
 
@@ -1423,6 +1423,13 @@ msgstr ""
 #: pyanaconda/ui/tui/simpleline/base.py:458
 msgctxt "TUI|Spoke Navigation"
 msgid "c"
+msgstr ""
+
+#: pyanaconda/ui/tui/hubs/__init__.py:132
+#, python-format
+msgid ""
+"  Please make your choice from [ '1' to enter the %s spoke | 'q' to quit |\n"
+"  'c' to continue | 'r' to refresh]: "
 msgstr ""
 
 #: pyanaconda/ui/tui/tuiobject.py:30 pyanaconda/ui/gui/main.glade.h:2
@@ -1870,7 +1877,7 @@ msgstr ""
 #: pyanaconda/ui/tui/spokes/source.py:119
 #: pyanaconda/ui/tui/spokes/software.py:87
 #: pyanaconda/ui/gui/spokes/datetime_spoke.py:529
-#: pyanaconda/ui/gui/spokes/software.py:222
+#: pyanaconda/ui/gui/spokes/software.py:283
 #: pyanaconda/ui/gui/spokes/source.py:550
 msgid "Nothing selected"
 msgstr ""
@@ -1934,22 +1941,22 @@ msgid "Software selection"
 msgstr ""
 
 #: pyanaconda/ui/tui/spokes/software.py:65
-#: pyanaconda/ui/gui/spokes/software.py:206
+#: pyanaconda/ui/gui/spokes/software.py:264
 msgid "Error checking software selection"
 msgstr ""
 
 #: pyanaconda/ui/tui/spokes/software.py:69
-#: pyanaconda/ui/gui/spokes/software.py:209
+#: pyanaconda/ui/gui/spokes/software.py:267
 msgid "Installation source not set up"
 msgstr ""
 
 #: pyanaconda/ui/tui/spokes/software.py:71
-#: pyanaconda/ui/gui/spokes/software.py:212
+#: pyanaconda/ui/gui/spokes/software.py:270
 msgid "Source changed - please verify"
 msgstr ""
 
 #: pyanaconda/ui/tui/spokes/software.py:86
-#: pyanaconda/ui/gui/spokes/software.py:220
+#: pyanaconda/ui/gui/spokes/software.py:277
 msgid "Custom software selected"
 msgstr ""
 
@@ -2581,47 +2588,55 @@ msgctxt "GUI|Spoke"
 msgid "_SOFTWARE SELECTION"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/software.py:98
+#: pyanaconda/ui/gui/spokes/software.py:102
 #: pyanaconda/ui/gui/spokes/source.py:55
 msgid "Downloading package metadata..."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/software.py:101
+#: pyanaconda/ui/gui/spokes/software.py:105
 msgid "Downloading group metadata..."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/software.py:141
+#: pyanaconda/ui/gui/spokes/software.py:190
 #: pyanaconda/ui/gui/spokes/source.py:530
 msgid "Checking software dependencies..."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/software.py:146
+#: pyanaconda/ui/gui/spokes/software.py:195
 msgid "Error checking software dependencies"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/software.py:362
+#: pyanaconda/ui/gui/spokes/software.py:280
+msgid "Invalid environment specified in kickstart"
+msgstr ""
+
+#: pyanaconda/ui/gui/spokes/software.py:289
+msgid "Selected environment is not valid"
+msgstr ""
+
+#: pyanaconda/ui/gui/spokes/software.py:429
 msgid ""
 "Error checking software dependencies.  <a href=\"\">Click for details.</a>"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/software.py:466
+#: pyanaconda/ui/gui/spokes/software.py:527
 msgid ""
 "The software marked for installation has the following errors.  This is "
 "likely caused by an error with your installation source.  You can quit the "
 "installer, change your software source, or change your software selections."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/software.py:471
+#: pyanaconda/ui/gui/spokes/software.py:532
 msgctxt "GUI|Software Selection|Error Dialog"
 msgid "_Quit"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/software.py:472
+#: pyanaconda/ui/gui/spokes/software.py:533
 msgctxt "GUI|Software Selection|Error Dialog"
 msgid "_Modify Software Source"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/software.py:473
+#: pyanaconda/ui/gui/spokes/software.py:534
 msgctxt "GUI|Software Selection|Error Dialog"
 msgid "Modify _Selections"
 msgstr ""
