@@ -86,6 +86,7 @@ runone() {
     disks=$(prepare_disks ${tmpdir})
     disk_args=$(for d in $disks; do echo --disk $d; done)
 
+    echo "PYTHONPATH=$PYTHONPATH"
     eval ${KSTESTDIR}/kstest-runner ${kargs} \
                        --iso "${tmpdir}/$(basename ${IMAGE})" \
                        --ks ${ksfile} \
