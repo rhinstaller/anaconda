@@ -392,7 +392,7 @@ def execWithCaptureBinary(command, argv, stdin=None, root='/', log_output=False,
     return _run_program(argv, stdin=stdin, root=root, log_output=log_output,
                         filter_stderr=filter_stderr, binary_output=True)[1]
 
-def execReadlines(command, argv, stdin=None, root='/', env_prune=None):
+def execReadlines(command, argv, stdin=None, root='/', env_prune=None, filter_stderr=False):
     """ Execute an external command and return the line output of the command
         in real-time.
 
@@ -407,9 +407,9 @@ def execReadlines(command, argv, stdin=None, root='/', env_prune=None):
         :param argv: The argument list
         :param stdin: The file object to read stdin from.
         :param stdout: Optional file object to redirect stdout and stderr to.
-        :param stderr: not used
         :param root: The directory to chroot to before running command.
         :param env_prune: environment variable to remove before execution
+        :param filter_stderr: Whether stderr should be excluded from the returned output
 
         Output from the file is not logged to program.log
         This returns an iterator with the lines from the command until it has finished
@@ -456,8 +456,13 @@ def execReadlines(command, argv, stdin=None, root='/', env_prune=None):
 
     argv = [command] + argv
 
+    if filter_stderr:
+        stderr = subprocess.DEVNULL
+    else:
+        stderr = subprocess.STDOUT
+
     try:
-        proc = startProgram(argv, root=root, stdin=stdin, env_prune=env_prune, bufsize=1)
+        proc = startProgram(argv, root=root, stdin=stdin, stderr=stderr, env_prune=env_prune, bufsize=1)
     except OSError as e:
         with program_log_lock:
             program_log.error("Error running %s: %s", argv[0], e.strerror)
