@@ -1528,7 +1528,7 @@ class GRUB2(GRUB):
         if not self.password and not self.encrypted_password:
             return
 
-        users_file = "%s%s/%s" % (iutil.getSysroot(), self.config_dir, _passwd_file)
+        users_file = "%s%s/%s" % (iutil.getSysroot(), self.config_dir, self._passwd_file)
         header = open(users_file, "w")
         # XXX FIXME: document somewhere that the username is "root"
         self._encrypt_password()
