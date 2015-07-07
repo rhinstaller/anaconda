@@ -62,7 +62,7 @@ from blivet.devices import MultipathDevice, ZFCPDiskDevice
 from blivet.errors import StorageError, DasdFormatError
 from blivet.platform import platform
 from blivet.devicelibs import swap as swap_lib
-from blivet.devicelibs.dasd import make_unformatted_dasd_list, format_dasd
+from blivet.devicelibs.dasd import make_unformatted_dasd_list, format_dasd, is_ldl_dasd
 from pyanaconda.threads import threadMgr, AnacondaThread
 from pyanaconda.product import productName
 from pyanaconda.flags import flags
@@ -253,10 +253,10 @@ class StorageSpoke(NormalSpoke, StorageChecker):
         self.autoPartType = None
         self.clearPartType = CLEARPART_TYPE_NONE
 
-        if self.data.zerombr.zerombr and arch.isS390():
-            # run dasdfmt on any unformatted DASDs automatically
+        if arch.isS390() and (self.data.zerombr.zerombr or self.data.clearpart.cdl):
+            # run dasdfmt on any unformatted or LDL DASDs automatically
             threadMgr.add(AnacondaThread(name=constants.THREAD_DASDFMT,
-                            target=self.run_dasdfmt))
+                            target=self.run_dasdfmt, args=(self.data.zerombr.zerombr, self.data.clearpart.cdl)))
 
         self._previous_autopart = False
 
@@ -657,29 +657,45 @@ class StorageSpoke(NormalSpoke, StorageChecker):
             if not selected and name in self.selected_disks:
                 self.selected_disks.remove(name)
 
-    def run_dasdfmt(self):
+    def run_dasdfmt(self, doformat, cdl):
         """
         Though the same function exists in pyanaconda.ui.gui.spokes.lib.dasdfmt,
         this instance doesn't include any of the UI pieces and should only
-        really be getting called on ks installations with "zerombr".
+        really be getting called on ks installations that specify zerombr.
         """
         # wait for the initial storage thread to complete before taking any new
         # actions on storage devices
         threadMgr.wait(constants.THREAD_STORAGE)
 
-        to_format = make_unformatted_dasd_list(d.name for d in getDisks(self.storage.devicetree))
-        if not to_format:
-            # nothing to do here; bail
-            return
+        if doformat:
+            unformatted = make_unformatted_dasd_list(d.name for d in getDisks(self.storage.devicetree))
+            if not unformatted:
+                # nothing to do here; bail
+                return
 
-        hubQ.send_message(self.__class__.__name__, _("Formatting DASDs"))
-        for disk in to_format:
-            try:
-                format_dasd(disk)
-            except DasdFormatError as err:
-                # Log errors if formatting fails, but don't halt the installer
-                log.error(str(err))
-                continue
+            hubQ.send_message(self.__class__.__name__, _("Formatting DASDs"))
+            for disk in unformatted:
+                try:
+                    format_dasd(disk)
+                except DasdFormatError as err:
+                    # Log errors if formatting fails, but don't halt the installer
+                    log.error(str(err))
+                    continue
+
+        if cdl:
+            ldldasds = [d.name for d in getDisks(self.storage.devicetree) if is_ldl_dasd(d.name)]
+            if not ldldasds:
+                # nothing to do here; bail
+                return
+
+            hubQ.send_message(self.__class__.__name__, _("Formatting DASDs"))
+            for disk in ldldasds:
+                try:
+                    format_dasd(disk)
+                except DasdFormatError as err:
+                    # Log errors if formatting fails, but don't halt the installer
+                    log.error(str(err))
+                    continue
 
         # I really hate doing this, but the way is the way; probably the most
         # correct way to kajigger the storage spoke into becoming ready
@@ -822,6 +838,26 @@ class StorageSpoke(NormalSpoke, StorageChecker):
                 # prevent this information from being lost afterward
                 applyDiskSelection(self.storage, self.data, self.selected_disks)
                 dialog = DasdFormatDialog(self.data, self.storage, dasds)
+                ignoreEscape(dialog.window)
+                rc = self.run_lightbox_dialog(dialog)
+                if rc == 1:
+                    # User hit OK on the dialog
+                    self.refresh()
+                elif rc == 2:
+                    # User clicked uri to return to hub.
+                    NormalSpoke.on_back_clicked(self, button)
+                    return
+                elif rc != 2:
+                    # User either hit cancel on the dialog or closed it via escape,
+                    # there was no formatting done.
+                    # NOTE: rc == 2 means the user clicked on the link that takes t
+                    # back to the hub.
+                    return
+
+            # check for ldl dasds
+            ldldasds = [d for d in self.selected_disks if is_ldl_dasd(d)]
+            if len(ldldasds) > 0:
+                dialog = DasdFormatDialog(self.data, self.storage, ldldasds)
                 ignoreEscape(dialog.window)
                 rc = self.run_lightbox_dialog(dialog)
                 if rc == 1:

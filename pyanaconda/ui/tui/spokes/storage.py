@@ -33,7 +33,7 @@ from blivet import arch
 from blivet.size import Size
 from blivet.errors import StorageError, DasdFormatError
 from blivet.devices import DASDDevice, FcoeDiskDevice, iScsiDiskDevice, MultipathDevice, ZFCPDiskDevice
-from blivet.devicelibs.dasd import format_dasd, make_unformatted_dasd_list
+from blivet.devicelibs.dasd import format_dasd, make_unformatted_dasd_list, is_ldl_dasd
 from pyanaconda.flags import flags
 from pyanaconda.kickstart import doKickstartStorage, resetCustomStorageData
 from pyanaconda.threads import threadMgr, AnacondaThread
@@ -84,12 +84,10 @@ class StorageSpoke(NormalTUISpoke):
         self.errors = []
         self.warnings = []
 
-        if self.data.zerombr.zerombr and arch.isS390():
-            # if zerombr is specified in a ks file and there are unformatted
-            # dasds, automatically format them
-            to_format = make_unformatted_dasd_list(self.selected_disks)
-            if to_format:
-                self.run_dasdfmt(to_format)
+        # automatically dasdfmt any unformatted/ldl dasds if a user has
+        # specified zerombr/cdl in their ks file
+        if arch.isS390() and (self.data.zerombr.zerombr or self.data.clearpart.cdl):
+            self.run_dasdfmt(self.selected_disks)
 
         if not flags.automatedInstall:
             # default to using autopart for interactive installs
@@ -270,13 +268,17 @@ class StorageSpoke(NormalTUISpoke):
         except (ValueError, IndexError):
             if key.lower() == "c":
                 if self.selected_disks:
-                    # check selected disks to see if we have any unformatted DASDs
-                    # if we're on s390x, since they need to be formatted before we
-                    # can use them.
+                    # check selected disks to see if we have any unformatted or
+                    # LDL DASDs if we're on s390x, since they need to be
+                    # formatted before we can use them.
                     if arch.isS390():
-                        to_format = make_unformatted_dasd_list(self.selected_disks)
-                        if to_format:
-                            self.run_dasdfmt(to_format)
+                        dasds = make_unformatted_dasd_list(self.selected_disks)
+                        if dasds:
+                            self.run_dasdfmt(dasds)
+                            return None
+                        ldldasds = [d for d in self.selected_disks if is_ldl_dasd(d)]
+                        if ldldasds:
+                            self.run_dasdfmt(ldldasds)
                             return None
 
                     newspoke = AutoPartSpoke(self.app, self.data, self.storage,
@@ -299,8 +301,8 @@ class StorageSpoke(NormalTUISpoke):
         # zerombr in their ks file
         threadMgr.wait(THREAD_STORAGE)
 
-        # ask user to verify they want to format if zerombr not in ks file
-        if not self.data.zerombr.zerombr:
+        # ask user to verify they want to format if zerombr or cdl not in ks file
+        if not (self.data.zerombr.zerombr or self.data.clearpart.cdl):
             # prepare our msg strings; copied directly from dasdfmt.glade
             summary = _("The following unformatted DASDs have been detected on your system. You can choose to format them now with dasdfmt or cancel to leave them unformatted. Unformatted DASDs cannot be used during installation.\n\n")
 
@@ -309,8 +311,8 @@ class StorageSpoke(NormalTUISpoke):
             displaytext = summary + "\n".join("/dev/" + d for d in to_format) + "\n" + warntext
 
             # now show actual prompt; note -- in cmdline mode, auto-answer for
-            # this is 'no', so unformatted DASDs will remain so unless zerombr
-            # is added to the ks file
+            # this is 'no', so unformatted and ldl DASDs will remain so unless
+            # zerombr or cdl are added to the ks file
             question_window = YesNoDialog(self._app, displaytext)
             self._app.switch_screen_modal(question_window)
             if not question_window.answer:
