@@ -120,7 +120,10 @@ class ThreadManager(object):
     def wait_all(self):
         """Wait for all threads to exit and if there was an error re-raise it.
         """
-        for name in self._objs.keys():
+        with self._objs_lock:
+            names = self._objs.keys()
+
+        for name in names:
             if self.get(name) == threading.current_thread():
                 continue
             log.debug("Waiting for thread %s to exit", name)
