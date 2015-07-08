@@ -8,7 +8,7 @@ fi
 
 # If no tests were selected, select all of them
 if [ $# -eq 0 ]; then
-    set -- "${top_srcdir}"/tests/*_tests "${top_srcdir}"/dracut/test_*.py
+    set -- "${top_srcdir}"/tests/*_tests
 fi
 
 exec nosetests-3.4 -v --exclude=logpicker -a \!acceptance,\!slow "$@"

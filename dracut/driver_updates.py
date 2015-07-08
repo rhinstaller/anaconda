@@ -49,13 +49,18 @@ Usage is one of:
 /tmp/dd.done should be created when all the user-requested stuff above has been
 handled; the installer won't start up until this file is created.
 
-Repositories for installed drivers are copied into /run/install/DD-X where X
-starts at 1 and increments for each repository.
+Packages will be extracted to /updates, which gets overlaid on top
+of the installer's filesystem when we leave the initramfs.
 
-Selected driver package names are saved in /run/install/dd_packages.
+Modules and firmware get moved to /lib/modules/`uname -r`/updates and
+/lib/firmware/updates (under /updates, as above). They also get copied into the
+corresponding paths in the initramfs, so we can load them immediately.
 
-Anaconda uses the repository and package list to install the same set of drivers
-to the target system.
+The repositories get copied into /run/install/DD-1, /run/install/DD-2, etc.
+Driver package names are saved in /run/install/dd_packages.
+
+During system installation, anaconda will install the packages listed in
+/run/install/dd_packages to the target system.
 """
 
 import logging
@@ -80,8 +85,19 @@ except NameError:
 
 log = logging.getLogger("DD")
 
-arch = os.uname()[4]
-kernelver = os.uname()[2]
+# NOTE: Yes, the version is wrong, but previous versions of this utility also
+# hardcoded this value, because changing it will break any driver disk that has
+# binary/library packages with "installer-enhancement = 19.0"..
+# If we *need* to break compatibility, this should definitely get changed, but
+# otherwise we probably shouldn't change this unless/until we're sure that
+# everyone is using something like "installer-enhancement >= 19.0" instead..
+ANACONDAVER = "19.0"
+
+ARCH = os.uname()[4]
+KERNELVER = os.uname()[2]
+
+MODULE_UPDATES_DIR = "/lib/modules/%s/updates" % ARCH
+FIRMWARE_UPDATES_DIR = "/lib/firmware/updates"
 
 def mkdir_seq(stem):
     """
@@ -108,7 +124,7 @@ def find_repos(mnt):
     """find any valid driverdisk repos that exist under mnt."""
     dd_repos = []
     for root, dirs, files in os.walk(mnt, followlinks=True):
-        repo = root+"/rpms/"+arch
+        repo = root+"/rpms/"+ARCH
         if "rhdd3" in files and "rpms" in dirs and os.path.isdir(repo):
             log.debug("found repo: %s", repo)
             dd_repos.append(repo)
@@ -133,9 +149,9 @@ class Driver(object):
 def dd_list(dd_path, anaconda_ver=None, kernel_ver=None):
     log.debug("dd_list: listing %s", dd_path)
     if not anaconda_ver:
-        anaconda_ver = '19.0'
+        anaconda_ver = ANACONDAVER
     if not kernel_ver:
-        kernel_ver = kernelver
+        kernel_ver = KERNELVER
     cmd = ["dd_list", '-d', dd_path, '-k', kernel_ver, '-a', anaconda_ver]
     out = subprocess.check_output(cmd, stderr=DEVNULL)
     out = out.decode('utf-8')
@@ -147,9 +163,12 @@ def dd_list(dd_path, anaconda_ver=None, kernel_ver=None):
 def dd_extract(rpm_path, outdir, kernel_ver=None, flags='-blmf'):
     log.debug("dd_extract: extracting %s", rpm_path)
     if not kernel_ver:
-        kernel_ver = kernelver
+        kernel_ver = KERNELVER
     cmd = ["dd_extract", flags, '-r', rpm_path, '-d', outdir, '-k', kernel_ver]
     subprocess.check_output(cmd, stderr=DEVNULL) # discard stdout
+
+def list_drivers(repos, anaconda_ver=None, kernel_ver=None):
+    return [d for r in repos for d in dd_list(r, anaconda_ver, kernel_ver)]
 
 def mount(dev, mnt=None):
     """Mount the given dev at the mountpoint given by mnt."""
@@ -172,9 +191,6 @@ def mounted(dev, mnt=None):
         yield mnt
     finally:
         umount(mnt)
-
-module_updates_dir = '/lib/modules/%s/updates' % os.uname()[2]
-firmware_updates_dir = '/lib/firmware/updates'
 
 def iter_files(topdir, pattern=None):
     """iterator; yields full paths to files under topdir that match pattern."""
@@ -210,9 +226,12 @@ def append_line(filename, line):
     with open(filename, 'a') as outf:
         outf.write(line)
 
+# NOTE: items returned by read_lines should match items passed to append_line,
+#       which is why we remove the newlines
 def read_lines(filename):
+    """return a list containing each line in filename, with newlines removed."""
     try:
-        return open(filename).read().splitlines()
+        return [line.rstrip('\n') for line in open(filename)]
     except IOError:
         return []
 
@@ -230,7 +249,7 @@ def extract_drivers(drivers=None, repos=None, outdir="/updates",
 
     drivers should be a list of Drivers to extract, or None.
     repos should be a list of repo paths to extract, or None.
-    (If both are empty, nothing happens..)
+    Raises ValueError if you pass both.
 
     If any packages containing modules or firmware are extracted, also:
     * call save_repo for that package's repo
@@ -240,8 +259,10 @@ def extract_drivers(drivers=None, repos=None, outdir="/updates",
     """
     if not drivers:
         drivers = []
+    if drivers and repos:
+        raise ValueError("extract_drivers: drivers or repos, not both")
     if repos:
-        drivers += [d for repo in repos for d in dd_list(repo)]
+        drivers = list_drivers(repos)
 
     save_repos = set()
     new_drivers = False
@@ -270,10 +291,10 @@ def grab_driver_files(outdir="/updates"):
     """
     modules = list(iter_files(outdir+'/lib/modules',"*.ko*"))
     firmware = list(iter_files(outdir+'/lib/firmware'))
-    copy_files(modules, module_updates_dir)
-    copy_files(firmware, firmware_updates_dir)
-    move_files(modules, outdir+module_updates_dir)
-    move_files(firmware, outdir+firmware_updates_dir)
+    copy_files(modules, MODULE_UPDATES_DIR)
+    copy_files(firmware, FIRMWARE_UPDATES_DIR)
+    move_files(modules, outdir+MODULE_UPDATES_DIR)
+    move_files(firmware, outdir+FIRMWARE_UPDATES_DIR)
     return [os.path.basename(m).split('.ko')[0] for m in modules]
 
 def load_drivers(modnames):
@@ -282,6 +303,8 @@ def load_drivers(modnames):
     subprocess.call(["depmod", "-a"])
     subprocess.call(["modprobe", "-a"] + modnames)
 
+# We *could* pass in "outdir" if we wanted to extract things somewhere else,
+# but right now the only use case is running inside the initramfs, so..
 def process_driver_disk(dev, interactive=False):
     try:
         _process_driver_disk(dev, interactive=interactive)
@@ -350,12 +373,13 @@ class DeviceInfo(object):
 
     @property
     def shortdev(self):
-        if os.path.islink(self.device):
-            return os.path.basename(os.readlink(self.device))
-        elif self.device.startswith('/dev/'):
-            return self.device[5:]
-        else:
-            return self.device
+        # resolve any symlinks (/dev/disk/by-label/OEMDRV -> /dev/sr0)
+        dev = os.path.realpath(self.device)
+        # NOTE: not os.path.basename 'cuz some devices legitimately have
+        # a '/' in their name: /dev/cciss/c0d0, /dev/i2o/hda, etc.
+        if dev.startswith('/dev/'):
+            dev = dev[5:]
+        return dev
 
 def blkid():
     out = subprocess.check_output("blkid -o export -s UUID -s TYPE".split())
@@ -363,6 +387,8 @@ def blkid():
     return [dict(kv.split('=',1) for kv in block.splitlines())
                                  for block in out.split('\n\n')]
 
+# We use this to get disk labels because blkid's encoding of non-printable and
+# non-ascii characters is weird and doesn't match what you'd expect to see.
 def get_disk_labels():
     return {os.path.realpath(s):os.path.basename(s)
             for s in iter_files("/dev/disk/by-label")}
@@ -451,9 +477,9 @@ class TextMenu(object):
 
     def format_header(self):
         if self.multi:
-            return '        '+self.format_item(self.headeritem)
+            return (8*' ')+self.format_item(self.headeritem)
         else:
-            return '    '+self.format_item(self.headeritem)
+            return (4*' ')+self.format_item(self.headeritem)
 
     def action_dict(self):
         actions = {
@@ -498,7 +524,7 @@ class TextMenu(object):
         return self.selected_items
 
 def repo_menu(repos):
-    drivers = [d for r in repos for d in dd_list(r)]
+    drivers = list_drivers(repos)
     if not drivers:
         log.info("No suitable drivers found.")
         return []
