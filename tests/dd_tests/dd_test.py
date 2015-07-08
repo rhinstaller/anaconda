@@ -12,7 +12,8 @@ import subprocess
 
 from contextlib import contextmanager
 from collections import namedtuple
-from rpmfluff import SourceFile, SimpleRpmBuild, expectedArch
+# TODO: this pragma is temporary until there's a python3-rpmfluff
+from rpmfluff import SourceFile, SimpleRpmBuild, expectedArch   # pylint: disable=import-error
 
 TOP_SRCDIR = os.environ.get("top_srcdir", "../..")
 UTILDIR = os.path.join(TOP_SRCDIR, "utils/dd")
