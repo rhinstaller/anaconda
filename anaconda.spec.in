@@ -309,6 +309,30 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Jul 07 2015 Brian C. Lane <bcl@redhat.com> - 21.48.22.16-1
+- Ellipsize the file system type combo box (dshea)
+  Resolves: rhbz#1212615
+- Shorten the mount point entry to match the capacity entry (dshea)
+  Resolves: rhbz#1212615
+- Re-save custom.glade (dshea)
+  Resolves: rhbz#1212615
+- Ellipsize comboboxes (dshea)
+  Resolves: rhbz#1212615
+- Wrap device labels earlier (dshea)
+  Resolves: rhbz#1212615
+- Change text shown to users about the need to dasdfmt. (sbueno+anaconda)
+  Related: rhbz#1170653
+- Fix a typo in the dasdfmt dialog box. (sbueno+anaconda)
+  Related: rhbz#1170653
+- Enable anaconda to use the new cdl ks option, and detect ldl dasds.
+  (sbueno+anaconda)
+  Resolves: rhbz#1170656
+  Resolves: rhbz#1170653
+- Fix GRUB2 Password Update Scope (rmarshall)
+  Related: rhbz#985962
+- Enable Custom GRUB2 Password Utility (rmarshall)
+  Related: rhbz#985962
+
 * Tue Jul 07 2015 Brian C. Lane <bcl@redhat.com> - 21.48.22.15-1
 - Explicitly try fetching netroot after network kickstart fetch (vpodzime)
   Resolves: rhbz#1238987
