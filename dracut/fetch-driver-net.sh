@@ -5,26 +5,20 @@
 # initqueue/online hook passes interface name as $1
 netif="$1"
 
-# We already processed the dd_args - exit
-[ -e /tmp/dd_net.done ] && return 0
-
-command -v getarg >/dev/null || . /lib/dracut-lib.sh
-dd_args="$(getargs dd= inst.dd=)"
-[ -n "$dd_args" ] || return 0
+# No dd_net was requested - exit
+[ -f /tmp/dd_net ] || return 0
 
 . /lib/url-lib.sh
-dd_repo=/tmp/DD-net/
-for dd in $dd_args; do
-    case "${dd%%:*}" in
-        http|https|ftp|nfs|nfs4)
-            [ -e "$dd_repo" ] || mkdir -p $dd_repo
-            info "Fetching driver from $dd"
-            if driver=$(fetch_url "$dd"); then
-                mv "$driver" $dd_repo
-            else
-                warn "Failed to fetch driver from $dd"
-            fi
-            ;;
-    esac
-done
-echo > /tmp/dd_net.done
+
+while read dd; do
+    # If we already fetched this URL, skip it
+    grep -Fqx "$dd" /tmp/dd_net.done && continue
+    # Otherwise try to fetch it
+    info "Fetching driverdisk from $dd"
+    if driver=$(fetch_url "$dd"); then
+        echo "$dd" >> /tmp/dd_net.done # mark it done so we don't fetch it again
+        driver-updates --net "$dd" "$driver"
+    else
+        warn "Failed to fetch driver from $dd"
+    fi
+done < /tmp/dd_net

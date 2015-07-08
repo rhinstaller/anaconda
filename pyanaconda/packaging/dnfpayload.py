@@ -699,7 +699,6 @@ class DNFPayload(packaging.PackagePayload):
         if packages:
             self.requiredPackages += packages
         self.requiredGroups = groups
-        self.addDriverRepos()
 
     def reset(self):
         super(DNFPayload, self).reset()
