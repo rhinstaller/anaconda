@@ -22,13 +22,13 @@ Driver = namedtuple("Driver", "source name flags description")
 def dd_list(dd_path, kernel_ver, anaconda_ver):
     out = subprocess.check_output([os.path.join(UTILDIR, "dd_list"),
             '-d', dd_path, '-k', kernel_ver, '-a', anaconda_ver],
-            stderr=open('/dev/null'))
+            stderr=open('/dev/null')).decode('utf-8')
     return [Driver(*d.split('\n',3)) for d in out.split('\n---\n')[:-1]]
 
 def dd_extract(rpm_path, outdir, kernel_ver, flags='-blmf'):
     out = subprocess.check_output([os.path.join(UTILDIR, "dd_extract"),
             flags, '-r', rpm_path, '-d', outdir, '-k', kernel_ver],
-            stderr=subprocess.STDOUT)
+            stderr=subprocess.STDOUT).decode('utf-8')
     return out
 
 # helpers for creating RPMs to test with
