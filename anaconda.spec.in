@@ -266,11 +266,13 @@ update-desktop-database &> /dev/null || :
 %{_datadir}/anaconda
 %{_prefix}/libexec/anaconda
 %exclude %{_prefix}/libexec/anaconda/dd_*
-%{_libdir}/python*/site-packages/pyanaconda/*
-%exclude %{_libdir}/python*/site-packages/pyanaconda/rescue.py*
-%exclude %{_libdir}/python*/site-packages/pyanaconda/text.py*
-%exclude %{_libdir}/python*/site-packages/pyanaconda/ui/gui/*
-%exclude %{_libdir}/python*/site-packages/pyanaconda/ui/tui/*
+%{python3_sitearch}/pyanaconda/*
+%exclude %{python3_sitearch}/pyanaconda/rescue.py*
+%exclude %{python3_sitearch}/pyanaconda/text.py*
+%exclude %{python3_sitearch}/pyanaconda/__pycache__/rescue.*
+%exclude %{python3_sitearch}/pyanaconda/__pycache__/text.*
+%exclude %{python3_sitearch}/pyanaconda/ui/gui/*
+%exclude %{python3_sitearch}/pyanaconda/ui/tui/*
 %{_bindir}/analog
 %{_bindir}/anaconda-cleanup
 %ifarch %livearches
@@ -283,19 +285,21 @@ update-desktop-database &> /dev/null || :
 %endif
 
 %files gui
-%{_libdir}/python*/site-packages/pyanaconda/ui/gui/*
+%{python3_sitearch}/pyanaconda/ui/gui/*
 %{_datadir}/anaconda/window-manager/glib-2.0/schemas/*
 %{_datadir}/themes/Anaconda/*
 
 %files tui
-%{_libdir}/python*/site-packages/pyanaconda/rescue.py
-%{_libdir}/python*/site-packages/pyanaconda/text.py
-%{_libdir}/python*/site-packages/pyanaconda/ui/tui/*
+%{python3_sitearch}/pyanaconda/rescue.py
+%{python3_sitearch}/pyanaconda/text.py
+%{python3_sitearch}/pyanaconda/__pycache__/rescue.*
+%{python3_sitearch}/pyanaconda/__pycache__/text.*
+%{python3_sitearch}/pyanaconda/ui/tui/*
 
 %files widgets
 %{_libdir}/libAnacondaWidgets.so.*
 %{_libdir}/girepository*/AnacondaWidgets*typelib
-%{_libdir}/python*/site-packages/gi/overrides/*
+%{python3_sitearch}/gi/overrides/*
 
 %files widgets-devel
 %{_libdir}/libAnacondaWidgets.so
