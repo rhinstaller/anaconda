@@ -28,6 +28,10 @@ from pyanaconda.ui.gui.utils import escape_markup, really_hide, really_show
 from pyanaconda.constants import DEFAULT_AUTOPART_TYPE
 from pyanaconda.storage_utils import AUTOPART_CHOICES, AUTOPART_DEVICE_TYPES
 
+import gi
+gi.require_version("AnacondaWidgets", "3.0")
+gi.require_version("Gtk", "3.0")
+
 from gi.repository.AnacondaWidgets import MountpointSelector
 from gi.repository import Gtk
 
@@ -214,6 +218,7 @@ class Page(Gtk.Box):
             return DATA_DEVICE
 
     def _onSelectorClicked(self, selector, event, cb):
+        gi.require_version("Gdk", "3.0")
         from gi.repository import Gdk
 
         if event and not event.type in [Gdk.EventType.BUTTON_PRESS, Gdk.EventType.KEY_RELEASE, Gdk.EventType.FOCUS_CHANGE]:

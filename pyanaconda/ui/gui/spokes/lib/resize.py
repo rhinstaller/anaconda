@@ -22,6 +22,10 @@
 
 from collections import namedtuple
 
+import gi
+gi.require_version("Gdk", "3.0")
+gi.require_version("Gtk", "3.0")
+
 from gi.repository import Gdk, Gtk
 
 from pyanaconda.i18n import _, C_, N_, P_

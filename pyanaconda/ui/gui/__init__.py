@@ -23,6 +23,15 @@ import meh.ui.gui
 
 from contextlib import contextmanager
 
+import gi
+gi.require_version("Gdk", "3.0")
+gi.require_version("Gtk", "3.0")
+gi.require_version("AnacondaWidgets", "3.0")
+gi.require_version("Keybinder", "3.0")
+gi.require_version("GdkPixbuf", "2.0")
+gi.require_version("GLib", "2.0")
+gi.require_version("GObject", "2.0")
+
 from gi.repository import Gdk, Gtk, AnacondaWidgets, Keybinder, GdkPixbuf, GLib, GObject
 
 from pyanaconda.i18n import _

@@ -29,7 +29,17 @@
 # - NMClient.CLIENT_WIRELESS_ENABLED callback (hw switch?) - test
 # - nm-c-e run: blocking? logging?
 
+import gi
+gi.require_version("Gtk", "3.0")
+gi.require_version("GLib", "2.0")
+gi.require_version("GObject", "2.0")
+gi.require_version("Pango", "1.0")
+gi.require_version("Gio", "2.0")
+gi.require_version("NetworkManager", "1.0")
+gi.require_version("NMClient", "1.0")
+
 from gi.repository import Gtk
+from gi.repository import GLib, GObject, Pango, Gio, NetworkManager, NMClient
 
 from pyanaconda.flags import can_touch_runtime_system
 from pyanaconda.i18n import _, N_, C_, CN_
@@ -46,7 +56,6 @@ from pyanaconda.iutil import startProgram
 from pyanaconda import network
 from pyanaconda import nm
 
-from gi.repository import GLib, GObject, Pango, Gio, NetworkManager, NMClient
 import dbus
 import dbus.service
 # Used for ascii_letters and hexdigits constants

@@ -24,6 +24,11 @@
 #            David Cantrell <dcantrell@redhat.com>
 #            Radek Vykydal <rvykydal@redhat.com>
 
+import gi
+gi.require_version("NetworkManager", "1.0")
+
+from gi.repository import NetworkManager
+
 import shutil
 from pyanaconda import iutil
 from pyanaconda.iutil import open   # pylint: disable=redefined-builtin
@@ -46,8 +51,6 @@ from pyanaconda import constants
 from pyanaconda.flags import flags, can_touch_runtime_system
 from pyanaconda.i18n import _
 from pyanaconda.regexes import HOSTNAME_PATTERN_WITHOUT_ANCHORS
-
-from gi.repository import NetworkManager
 
 import logging
 log = logging.getLogger("anaconda")

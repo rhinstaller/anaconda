@@ -29,6 +29,14 @@
 # - Implement striping and mirroring for LVM.
 # - Activating reformat should always enable resize for existing devices.
 
+import gi
+gi.require_version("Gtk", "3.0")
+gi.require_version("Gdk", "3.0")
+gi.require_version("AnacondaWidgets", "3.0")
+
+from gi.repository import Gdk, Gtk
+from gi.repository.AnacondaWidgets import MountpointSelector
+
 from pykickstart.constants import CLEARPART_TYPE_NONE
 
 from pyanaconda.i18n import _, N_, CP_
@@ -87,9 +95,6 @@ from pyanaconda.ui.gui.spokes.lib.custom_storage_helpers import AddDialog, Confi
 from pyanaconda.ui.gui.utils import setViewportBackground, fancy_set_sensitive, ignoreEscape
 from pyanaconda.ui.gui.utils import really_hide, really_show, timed_action
 from pyanaconda.ui.categories.system import SystemCategory
-
-from gi.repository import Gdk, Gtk
-from gi.repository.AnacondaWidgets import MountpointSelector
 
 from functools import wraps
 from itertools import chain

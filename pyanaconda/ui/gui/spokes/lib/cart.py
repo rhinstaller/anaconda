@@ -20,6 +20,9 @@
 #                    Chris Lumens <clumens@redhat.com>
 #
 
+import gi
+gi.require_version("Gtk", "3.0")
+
 from gi.repository import Gtk
 
 from pyanaconda.i18n import C_, P_

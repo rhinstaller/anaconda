@@ -40,6 +40,9 @@ import requests
 from requests_file import FileAdapter
 from requests_ftp import FTPAdapter
 
+import gi
+gi.require_version("GLib", "2.0")
+
 from gi.repository import GLib
 
 from pyanaconda.flags import flags

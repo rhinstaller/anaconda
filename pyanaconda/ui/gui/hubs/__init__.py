@@ -19,6 +19,9 @@
 # Red Hat Author(s): Chris Lumens <clumens@redhat.com>
 #
 
+import gi
+gi.require_version("GLib", "2.0")
+
 from gi.repository import GLib
 
 from pyanaconda.flags import flags
@@ -95,6 +98,9 @@ class Hub(GUIObject, common.Hub):
         self._checker = None
 
     def _createBox(self):
+        gi.require_version("Gtk", "3.0")
+        gi.require_version("AnacondaWidgets", "3.0")
+
         from gi.repository import Gtk, AnacondaWidgets
 
         cats_and_spokes = self._collectCategoriesAndSpokes()
@@ -334,6 +340,7 @@ class Hub(GUIObject, common.Hub):
     ### SIGNAL HANDLERS
 
     def _on_spoke_clicked(self, selector, event, spoke):
+        gi.require_version("Gdk", "3.0")
         from gi.repository import Gdk
 
         # This handler only runs for these two kinds of events, and only for

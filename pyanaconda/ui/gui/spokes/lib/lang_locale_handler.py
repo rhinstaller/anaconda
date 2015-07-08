@@ -24,8 +24,13 @@ screens handling languages or locales configuration.
 
 """
 
-import os
+import gi
+gi.require_version("Gtk", "3.0")
+gi.require_version("Pango", "1.0")
+
 from gi.repository import Gtk, Pango
+
+import os
 from pyanaconda import localization
 from pyanaconda.iutil import strip_accents
 from pyanaconda.ui.gui.utils import set_treeview_selection, timed_action, override_cell_property

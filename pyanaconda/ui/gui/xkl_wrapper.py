@@ -29,9 +29,14 @@ and various modifications of keyboard layouts settings.
 
 """
 
+import gi
+gi.require_version("GdkX11", "3.0")
+gi.require_version("Xkl", "1.0")
+
+from gi.repository import GdkX11, Xkl
+
 import threading
 import gettext
-from gi.repository import GdkX11, Xkl
 from collections import namedtuple
 
 from pyanaconda import flags

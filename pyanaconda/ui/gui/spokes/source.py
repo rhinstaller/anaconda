@@ -28,6 +28,10 @@ log = logging.getLogger("anaconda")
 import os, signal, re
 from collections import namedtuple
 
+import gi
+gi.require_version("GLib", "2.0")
+gi.require_version("Gtk", "3.0")
+
 from gi.repository import GLib, Gtk
 
 from pyanaconda.flags import flags
