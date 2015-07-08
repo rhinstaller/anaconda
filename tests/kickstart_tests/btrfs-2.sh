@@ -17,21 +17,12 @@
 #
 # Red Hat Author(s): Chris Lumens <clumens@redhat.com>
 
-kernel_args() {
-    echo vnc
-}
-
-prepare() {
-    ks=$1
-    tmpdir=$2
-
-    echo ${ks}
-}
+. ${KSTESTDIR}/functions.sh
 
 validate() {
     img=$1
 
-    # There should be a /root/RESULT file with results in it.  Check
+    # There should be a /root/root/RESULT file with results in it.  Check
     # its contents and decide whether the test finally succeeded or
     # not.
     result=$(virt-cat -a ${img} -m /dev/sda2 /root/root/RESULT)
