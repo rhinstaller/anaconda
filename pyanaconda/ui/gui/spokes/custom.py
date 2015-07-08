@@ -851,7 +851,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
                                device=device.path)
         try:
             self._storage_playground.formatDevice(device, new_format)
-        except StorageError as e:
+        except (StorageError, ValueError) as e:
             log.error("failed to register device format action: %s", e)
             device.format = old_format
             self._error = e
