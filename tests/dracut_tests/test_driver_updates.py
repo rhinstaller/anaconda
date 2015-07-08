@@ -10,6 +10,9 @@ import os
 import tempfile
 import shutil
 
+import sys
+sys.path.append(os.path.normpath(os.path.dirname(__file__)+'/../../dracut'))
+
 from driver_updates import copy_files, move_files, iter_files, ensure_dir
 from driver_updates import append_line, mkdir_seq
 
@@ -175,6 +178,14 @@ class TestReadLine(FileTestCaseBase):
         lines = read_lines(outfile)
         self.assertEqual(lines, ['line one', 'line two','','line four'])
 
+    def test_readline_and_append_line(self):
+        """read_lines: returns items as passed to append_line"""
+        filename = self.tmpdir+'/outfile'
+        items = ["one", "two", "five"]
+        for i in items:
+            append_line(filename, i)
+        self.assertEqual(items, read_lines(filename))
+
 class TestMkdirSeq(FileTestCaseBase):
     def test_basic(self):
         """mkdir_seq: first dir ends with 1"""
@@ -190,7 +201,7 @@ class TestMkdirSeq(FileTestCaseBase):
         self.assertTrue(os.path.isdir(newdir))
         self.assertTrue(os.path.isdir(firstdir))
 
-from driver_updates import find_repos, save_repo, arch
+from driver_updates import find_repos, save_repo, ARCH
 # As far as we know, this is what makes a valid repo: rhdd3 + rpms/`uname -m`/
 def makerepo(topdir, desc=None):
     descfile = makefile(topdir+'/rhdd3')
@@ -198,14 +209,14 @@ def makerepo(topdir, desc=None):
         desc = os.path.basename(topdir)
     with open(descfile, "w") as outf:
         outf.write(desc+"\n")
-    makedir(topdir+'/rpms/'+arch)
+    makedir(topdir+'/rpms/'+ARCH)
 
 class TestFindRepos(FileTestCaseBase):
     def test_basic(self):
         """find_repos: return RPM dir if a valid repo is found"""
         makerepo(self.tmpdir)
         repos = find_repos(self.tmpdir)
-        self.assertEqual(repos, [self.tmpdir+'/rpms/'+arch])
+        self.assertEqual(repos, [self.tmpdir+'/rpms/'+ARCH])
         self.assertTrue(os.path.isdir(repos[0]))
 
     def test_multiple_subdirs(self):
@@ -321,11 +332,12 @@ class DDUtilsTestCase(unittest.TestCase):
 
 from driver_updates import extract_drivers, grab_driver_files, load_drivers
 
+@mock.patch("driver_updates.ensure_dir")
+@mock.patch("driver_updates.save_repo")
+@mock.patch("driver_updates.append_line")
+@mock.patch("driver_updates.dd_extract")
 class ExtractDriversTestCase(unittest.TestCase):
-    @mock.patch("driver_updates.save_repo")
-    @mock.patch("driver_updates.append_line")
-    @mock.patch("driver_updates.dd_extract")
-    def test_drivers(self, mock_extract, mock_append, mock_save):
+    def test_drivers(self, mock_extract, mock_append, mock_save, *args):
         """extract_drivers: save repo, write pkglist"""
         extract_drivers(drivers=[fake_enhancement, fake_module])
         # extracts all listed modules
@@ -337,10 +349,7 @@ class ExtractDriversTestCase(unittest.TestCase):
         mock_append.assert_called_once_with(pkglist, fake_module.name)
         mock_save.assert_called_once_with(fake_module.repo)
 
-    @mock.patch("driver_updates.save_repo")
-    @mock.patch("driver_updates.append_line")
-    @mock.patch("driver_updates.dd_extract")
-    def test_enhancements(self, mock_extract, mock_append, mock_save):
+    def test_enhancements(self, mock_extract, mock_append, mock_save, *args):
         """extract_drivers: extract selected drivers, don't save enhancements"""
         extract_drivers(drivers=[fake_enhancement])
         mock_extract.assert_called_once_with(
@@ -349,10 +358,7 @@ class ExtractDriversTestCase(unittest.TestCase):
         self.assertFalse(mock_append.called)
         self.assertFalse(mock_save.called)
 
-    @mock.patch("driver_updates.save_repo")
-    @mock.patch("driver_updates.append_line")
-    @mock.patch("driver_updates.dd_extract")
-    def test_repo(self, mock_extract, mock_append, mock_save):
+    def test_repo(self, mock_extract, mock_append, mock_save, *args):
         """extract_drivers(repos=[...]) extracts all drivers from named repos"""
         with mock.patch("driver_updates.dd_list", side_effect=[
             [fake_enhancement],
@@ -381,8 +387,8 @@ class GrabDriverFilesTestCase(FileTestCaseBase):
         fw_upd_dir = self.tmpdir+'/fw-updates'
         # use our updates dirs instead of the default updates dirs
         with mock.patch.multiple("driver_updates",
-                                 module_updates_dir=mod_upd_dir,
-                                 firmware_updates_dir=fw_upd_dir):
+                                 MODULE_UPDATES_DIR=mod_upd_dir,
+                                 FIRMWARE_UPDATES_DIR=fw_upd_dir):
             modnames = grab_driver_files(outdir)
         self.assertEqual(set(modnames), set(["funk", "lolfs"]))
         modfiles = set(['funk.ko', 'lolfs.ko.xz'])
@@ -522,7 +528,7 @@ class FinishedTestCase(FileTestCaseBase):
         self.assertTrue(os.path.exists(done))
 
 from driver_updates import get_deviceinfo, DeviceInfo
-blkid_output = b'''\
+blkid_out = b'''\
 DEVNAME=/dev/sda2
 UUID=0f21a3d1-dcd3-4ab4-a292-c5556850d561
 TYPE=ext4
@@ -557,14 +563,10 @@ devicelist = [
 ]
 # also covers blkid, get_disk_labels, DeviceInfo
 class DeviceInfoTestCase(unittest.TestCase):
-    @mock.patch('driver_updates.subprocess.check_output')
-    @mock.patch('driver_updates.get_disk_labels')
+    @mock.patch('driver_updates.subprocess.check_output',return_value=blkid_out)
+    @mock.patch('driver_updates.get_disk_labels',return_value=disk_labels)
     def test_basic(self, get_disk_labels, check_output):
         """get_deviceinfo: parses DeviceInfo from blkid etc."""
-        # configure mock objects
-        check_output.return_value = blkid_output
-        get_disk_labels.return_value = disk_labels
-        # now we're getting mock deviceinfo, whee
         disks = get_deviceinfo()
         self.assertEqual(len(disks), 4)
         disks.sort(key=lambda d: d.device)
@@ -573,6 +575,11 @@ class DeviceInfoTestCase(unittest.TestCase):
         self.assertEqual(vars(efi), vars(devicelist[1]))
         self.assertEqual(vars(root), vars(devicelist[2]))
         self.assertEqual(vars(loop), vars(devicelist[3]))
+
+    def test_shortdev(self):
+        d = DeviceInfo(DEVNAME="/dev/disk/by-label/OEMDRV")
+        with mock.patch("os.path.realpath", return_value="/dev/i2o/hdb"):
+            self.assertEqual(d.shortdev, "i2o/hdb")
 
 # TODO: test TextMenu itself
 
