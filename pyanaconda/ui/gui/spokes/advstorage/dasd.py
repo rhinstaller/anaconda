@@ -19,9 +19,13 @@
 # Red Hat Author(s): Samantha N. Bueno <sbueno@redhat.com>
 #
 
+import gi
+gi.require_version("BlockDev", "1.0")
+
+from gi.repository import BlockDev as blockdev
+
 from pyanaconda.ui.gui import GUIObject
 from pyanaconda.ui.gui.utils import gtk_action_nowait
-from gi.repository import BlockDev as blockdev
 
 __all__ = ["DASDDialog"]
 

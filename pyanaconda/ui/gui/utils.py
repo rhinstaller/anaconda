@@ -21,12 +21,18 @@
 #                    Vratislav Podzimek <vpodzime@redhat.com>
 #
 
+import gi
+gi.require_version("Gdk", "3.0")
+gi.require_version("Gtk", "3.0")
+gi.require_version("GLib", "2.0")
+
+from gi.repository import Gdk, Gtk, GLib
+
 from contextlib import contextmanager
 
 from pyanaconda.threads import threadMgr, AnacondaThread
 
 from pyanaconda.constants import NOTICEABLE_FREEZE
-from gi.repository import Gdk, Gtk, GLib
 import queue
 import time
 import threading

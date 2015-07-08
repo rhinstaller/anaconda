@@ -451,6 +451,9 @@ def setupLoggingFromOpts(options):
             log.error("Could not setup remotelog with %s", options.remotelog)
 
 def gtk_warning(title, reason):
+    import gi
+    gi.require_version("Gtk", "3.0")
+
     from gi.repository import Gtk
     dialog = Gtk.MessageDialog(type=Gtk.MessageType.ERROR,
                                buttons=Gtk.ButtonsType.CLOSE,

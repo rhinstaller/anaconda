@@ -20,6 +20,10 @@
 #                    Vratislav Podzimek <vpodzime@redhat.com>
 #
 
+import gi
+gi.require_version("Gkbd", "3.0")
+gi.require_version("Gtk", "3.0")
+
 from gi.repository import Gkbd, Gtk
 
 from pyanaconda.ui.gui import GUIObject

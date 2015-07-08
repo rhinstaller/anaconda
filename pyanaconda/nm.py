@@ -19,6 +19,11 @@
 # Red Hat Author(s): Radek Vykydal <rvykydal@redhat.com>
 #
 
+import gi
+gi.require_version("GLib", "2.0")
+gi.require_version("Gio", "2.0")
+gi.require_version("NetworkManager", "1.0")
+
 from gi.repository import Gio, GLib
 from gi.repository import NetworkManager
 import struct

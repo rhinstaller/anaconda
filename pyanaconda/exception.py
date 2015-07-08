@@ -42,6 +42,9 @@ from pyanaconda.i18n import _
 from pyanaconda import flags
 from pyanaconda import startup_utils
 
+import gi
+gi.require_version("GLib", "2.0")
+
 from gi.repository import GLib
 
 import logging
@@ -106,6 +109,8 @@ class AnacondaExceptionHandler(ExceptionHandler):
         value = dump_info.exc_info.value
 
         try:
+            gi.require_version("Gtk", "3.0")
+
             from gi.repository import Gtk
 
             # XXX: Gtk stopped raising RuntimeError if it fails to

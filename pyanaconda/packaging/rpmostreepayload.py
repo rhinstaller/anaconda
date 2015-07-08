@@ -28,6 +28,12 @@ from pyanaconda import iutil
 from pyanaconda.flags import flags
 from pyanaconda.i18n import _
 from pyanaconda.progress import progressQ
+
+import gi
+gi.require_version("GLib", "2.0")
+gi.require_version("Gio", "2.0")
+gi.require_version("OSTree", "1.0")
+
 from gi.repository import GLib
 from gi.repository import Gio
 

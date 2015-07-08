@@ -163,6 +163,10 @@ class Anaconda(object):
         if not self._storage:
             import blivet
             import blivet.arch
+
+            import gi
+            gi.require_version("BlockDev", "1.0")
+
             from gi.repository import BlockDev as blockdev
             self._storage = blivet.Blivet(ksdata=self.ksdata)
 

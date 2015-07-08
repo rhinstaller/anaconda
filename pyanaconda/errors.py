@@ -27,6 +27,9 @@ __all__ = ["ERROR_RAISE", "ERROR_CONTINUE", "ERROR_RETRY",
 
 # Only run the pango markup escape if the GUI is available
 try:
+    import gi
+    gi.require_version("Gtk", "3.0")
+
     from gi.repository import Gtk
 
     # XXX: Gtk stopped raising RuntimeError if it fails to

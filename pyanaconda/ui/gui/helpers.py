@@ -23,6 +23,10 @@
 # functionality. See also pyanaconda.ui.helpers.
 
 from abc import ABCMeta, abstractproperty, abstractmethod
+
+import gi
+gi.require_version("Gtk", "3.0")
+
 from gi.repository import Gtk
 
 from pyanaconda.ui.helpers import InputCheck, InputCheckHandler
