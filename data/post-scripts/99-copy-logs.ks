@@ -9,4 +9,7 @@ cp /tmp/ks-script*.log $ANA_INSTALL_PATH/var/log/anaconda/
 journalctl -b > $ANA_INSTALL_PATH/var/log/anaconda/journal.log
 chmod 0600 $ANA_INSTALL_PATH/var/log/anaconda/*
 
+# Copy over any rhsm logs
+[ -e /var/log/rhsm/ ] && cp -r /var/log/rhsm $ANA_INSTALL_PATH/var/log/
+
 %end
