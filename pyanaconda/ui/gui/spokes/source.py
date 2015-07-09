@@ -1545,7 +1545,10 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler):
             self._repoChecks[repo.repo_id].proxy_check.update_check_status()
 
         try:
-            proxy = ProxyString(url=url, username=username, password=password)
+            if username and password:
+                proxy = ProxyString(url=url, username=username, password=password)
+            else:
+                proxy = ProxyString(url=url)
             repo.proxy = proxy.url
         except ProxyStringError as e:
             log.error("Failed to parse proxy - %s:%s@%s: %s", username, password, url, e)
