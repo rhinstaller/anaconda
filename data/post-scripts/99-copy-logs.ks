@@ -11,4 +11,7 @@ chmod 0600 $ANA_INSTALL_PATH/var/log/anaconda/*
 
 [ -e /run/install/ks.cfg ] && cp /run/install/ks.cfg $ANA_INSTALL_PATH/root/original-ks.cfg
 
+# Copy over any rhsm logs
+[ -e /var/log/rhsm/ ] && cp -r /var/log/rhsm $ANA_INSTALL_PATH/var/log/
+
 %end
