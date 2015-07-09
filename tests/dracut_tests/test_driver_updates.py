@@ -1,5 +1,8 @@
 # test_driver_updates.py - unittests for driver_updates.py
 
+# Ignore any interruptible calls
+# pylint: disable=interruptible-system-call
+
 import unittest
 try:
     import unittest.mock as mock
@@ -231,7 +234,7 @@ class TestSaveRepo(FileTestCaseBase):
     def test_basic(self):
         """save_repo: copies a directory to /run/install/DD-X"""
         makerepo(self.srcdir)
-        [repo] = find_repos(self.srcdir)
+        repo = find_repos(self.srcdir)[0]
         makefile(repo+'/fake-something.rpm')
         saved = save_repo(repo, target=self.destdir)
         self.assertEqual(set(os.listdir(saved)), set(["fake-something.rpm"]))
@@ -584,7 +587,6 @@ class DeviceInfoTestCase(unittest.TestCase):
 # TODO: test TextMenu itself
 
 # py2/3 compat
-import sys
 if sys.version_info.major == 3:
     from io import StringIO
 else:

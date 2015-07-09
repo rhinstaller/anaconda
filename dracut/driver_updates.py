@@ -63,6 +63,9 @@ During system installation, anaconda will install the packages listed in
 /run/install/dd_packages to the target system.
 """
 
+# Ignore any interruptible calls
+# pylint: disable=interruptible-system-call
+
 import logging
 import sys
 import os

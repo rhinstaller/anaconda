@@ -9,9 +9,9 @@ fi
 : "${top_builddir:=$top_srcdir}"
 
 if [ -z "$PYTHONPATH" ]; then
-    PYTHONPATH="${top_builddir}/pyanaconda/isys/.libs:${top_srcdir}/pyanaconda:${top_srcdir}:${top_srcdir}/tests/lib"
+    PYTHONPATH="${top_builddir}/pyanaconda/isys/.libs:${top_srcdir}/pyanaconda:${top_srcdir}:${top_srcdir}/tests/lib:${top_srcdir}/dracut"
 else
-    PYTHONPATH="${PYTHONPATH}:${top_builddir}/pyanaconda/isys/.libs:${top_srcdir}/pyanaconda:${top_srcdir}:${top_srcdir}/tests/lib"
+    PYTHONPATH="${PYTHONPATH}:${top_builddir}/pyanaconda/isys/.libs:${top_srcdir}/pyanaconda:${top_srcdir}:${top_srcdir}/tests/lib:${top_srcdir}/dracut"
 fi
 
 if [ -z "$LD_LIBRARY_PATH" ]; then

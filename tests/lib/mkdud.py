@@ -18,8 +18,12 @@
 #
 # Author: Will Woods <wwoods@redhat.com>
 
+# Ignore any interruptible calls
+# pylint: disable=interruptible-system-call
+
 import os
-import rpmfluff
+# TODO: this pragma is temporary until there's a python3-rpmfluff
+import rpmfluff         # pylint: disable=import-error
 import subprocess
 import argparse
 import tempfile
