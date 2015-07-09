@@ -25,4 +25,6 @@ for dd in $(getargs dd= inst.dd=); do
 done
 
 # for convenience's sake, mash 'em all into one list
-cat /tmp/dd_net /tmp/dd_disk /tmp/dd_interactive > /tmp/dd_todo
+for dd_f in /tmp/dd_interactive /tmp/dd_net /tmp/dd_disk; do
+    [ -f $dd_f ] && cat $dd_f >> /tmp/dd_todo
+done
