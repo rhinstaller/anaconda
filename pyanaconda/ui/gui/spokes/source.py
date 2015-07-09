@@ -627,7 +627,8 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler):
         # Call InputCheckHandler directly since this check operates on rows of a TreeModel
         # instead of GtkEntry inputs. Updating the check is handled by the signal handlers
         # connected to repoStore.
-        self._duplicateRepoCheck = InputCheckHandler.add_check(self, self._repoStore, self._checkDuplicateRepos)
+        self._duplicateRepoCheck = InputCheckHandler.add_check(self, self._repoStore,
+                                                               self._checkDuplicateRepos)
 
         # Create a dictionary for the checks on fields in individual repos
         # These checks will be added and removed as repos are added and removed from repoStore
@@ -1079,6 +1080,10 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler):
     def on_back_clicked(self, button):
         """If any input validation checks failed, keep the user on the screen.
            Otherwise, do the usual thing."""
+
+        # Check repositories on bad url
+        for repo in self._repoStore:
+            self._repoChecks[repo[REPO_OBJ].repo_id].url_check.update_check_status()
 
         failed_check = next(self.failed_checks, None)
 
