@@ -30,7 +30,7 @@ Source0: %{name}-%{version}.tar.bz2
 %define mehver 0.23-1
 %define firewalldver 0.3.5-1
 %define utillinuxver 2.15.1
-%define dracutver 034-7
+%define dracutver 044-1
 %define isomd5sum 1.0.10
 %define fcoeutilsver 1.0.12-3.20100323git
 %define iscsiver 6.2.0.873-26
@@ -212,6 +212,7 @@ documentation for working with this library.
 Summary: The anaconda dracut module
 Requires: dracut >= %{dracutver}
 Requires: dracut-network
+Requires: dracut-live
 Requires: xz
 Requires: python3-kickstart
 
