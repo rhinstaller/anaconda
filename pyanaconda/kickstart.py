@@ -1661,7 +1661,7 @@ class Timezone(commands.timezone.F18_Timezone):
         timezone.write_timezone_config(self, iutil.getSysroot())
 
         # write out NTP configuration (if set)
-        if not self.nontp and self.ntpservers:
+        if self.ntpservers:
             chronyd_out_path = os.path.normpath(iutil.getSysroot() + ntp.CHRONY_CONFIG_FILE)
             ntpd_out_path = os.path.normpath(iutil.getSysroot() + ntp.NTP_CONFIG_FILE)
             try:
