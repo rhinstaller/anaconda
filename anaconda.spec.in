@@ -309,6 +309,18 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Thu Jul 09 2015 Brian C. Lane <bcl@redhat.com> - 21.48.22.17-1
+- Check for Gtk before importing escape_markup (bcl)
+  Related: rhbz#1236995
+- Add handling for unusable storage configurations. (dlehman)
+  Resolves: rhbz#1236995
+- Allow markup in the label/message of DetailedErrorDialog. (dlehman)
+  Related: rhbz#1236995
+- Allow passing an optional button list to showDetailedError. (dlehman)
+  Related: rhbz#1236995
+- Allow kwargs with gtk_action_wait, gtk_action_nowait decorators. (dlehman)
+  Related: rhbz#1236995
+
 * Tue Jul 07 2015 Brian C. Lane <bcl@redhat.com> - 21.48.22.16-1
 - Ellipsize the file system type combo box (dshea)
   Resolves: rhbz#1212615
