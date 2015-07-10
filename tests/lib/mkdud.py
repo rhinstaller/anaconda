@@ -22,8 +22,7 @@
 # pylint: disable=interruptible-system-call
 
 import os
-# TODO: this pragma is temporary until there's a python3-rpmfluff
-import rpmfluff         # pylint: disable=import-error
+import rpmfluff
 import subprocess
 import argparse
 import tempfile
