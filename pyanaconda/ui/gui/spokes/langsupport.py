@@ -21,7 +21,7 @@
 #
 
 import gi
-gi.require_verseion("Pango", "1.0")
+gi.require_version("Pango", "1.0")
 gi.require_version("Gdk", "3.0")
 
 from gi.repository import Pango, Gdk
