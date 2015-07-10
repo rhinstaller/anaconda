@@ -309,6 +309,36 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Fri Jul 10 2015 Brian C. Lane <bcl@redhat.com> - 21.48.22.18-1
+- Start the network before the display (dshea)
+  Resolves: rhbz#1240732
+- Bump pykickstart version required. (sbueno+anaconda)
+  Resolves: rhbz#1241413
+- Set the no network error in refresh() (dshea)
+  Resolves: rhbz#1238797
+- Show the event box immediately when setting infobar messages. (dshea)
+  Related: rhbz#1238797
+- dracut: fix boot failure waiting for finished/dd.sh (wwoods)
+  Related: rhbz#1084197
+- driver_updates: fixes from patch review (wwoods)
+  Related: rhbz#1084197
+- dd-refactor: dracut + build bits (wwoods)
+  Resolves: rhbz#1084197
+  Resolves: rhbz#1164131
+  Related: rhbz#1213546
+- parse-kickstart: just emit 'inst.dd=XXX' for driverdisk (wwoods)
+  Related: rhbz#1084197
+- parse-kickstart: pylint fixes (wwoods)
+  Related: rhbz#1084197
+- dd-refactor: new driver_updates.py + tests (wwoods)
+  Related: rhbz#1084197
+- payload: fix driverdisk repos (wwoods)
+  Related: rhbz#1084197
+- Always write NTP servers to config files (wwoods)
+  Resolves: rhbz#1197575
+- dracut: fix boot with inst.ks and no inst.{repo,stage2} (wwoods)
+  Resolves: rhbz#1238987
+
 * Thu Jul 09 2015 Brian C. Lane <bcl@redhat.com> - 21.48.22.17-1
 - Check for Gtk before importing escape_markup (bcl)
   Related: rhbz#1236995
