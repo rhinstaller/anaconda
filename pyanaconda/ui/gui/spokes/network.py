@@ -508,15 +508,15 @@ class NetworkControlBox(GObject.GObject):
         if not dev_cfg:
             return
 
-        ap_obj_path, ssid_target = combobox.get_model().get(itr, 0, 1)
-        self.selected_ssid = ssid_target
+        ap_obj_path, ssid_target, ssid_bytes = combobox.get_model().get(itr, 0, 1, 6)
+        self.selected_ssid = ssid_bytes
         if ap_obj_path == "ap-other...":
             return
 
         log.info("network: selected access point: %s", ssid_target)
 
         try:
-            uuid = nm.nm_ap_setting_value(ssid_target, "connection", "uuid")
+            uuid = nm.nm_ap_setting_value(ssid_bytes, "connection", "uuid")
             nm.nm_activate_device_connection(dev_cfg.device.get_iface(), uuid)
         except nm.UnmanagedDeviceError as e:
             log.debug("network: on_wireless_ap_changed: %s", e)
@@ -528,8 +528,7 @@ class NetworkControlBox(GObject.GObject):
                 values.append(['connection', 'uuid', str(uuid4()), 's'])
                 values.append(['connection', 'id', ssid_target, 's'])
                 values.append(['connection', 'type', '802-11-wireless', 's'])
-                ssid = [ord(c) for c in ssid_target]
-                values.append(['802-11-wireless', 'ssid', ssid, 'ay'])
+                values.append(['802-11-wireless', 'ssid', ssid_bytes, 'ay'])
                 values.append(['802-11-wireless', 'mode', 'infrastructure', 's'])
                 log.debug("network: adding connection for WPA-Enterprise AP %s", ssid_target)
                 nm.nm_add_connection(values)
@@ -1051,13 +1050,19 @@ class NetworkControlBox(GObject.GObject):
         security = self._ap_security_dbus(ap)
 
         store = self.builder.get_object("liststore_wireless_network")
+
+        # Decode the SSID (a byte sequence) into something resembling a string
+        ssid_str = NetworkManager.utils_ssid_to_utf8(ssid)
+
         # the third column is for sorting
+        # the seventh column is the original, actual SSID as a bytes object
         itr = store.append([ap.get_path(),
-                            ssid,
-                            ssid,
+                            ssid_str,
+                            ssid_str,
                             ap.get_strength(),
                             mode,
-                            security])
+                            security,
+                            ssid])
         if active:
             self.builder.get_object("combobox_wireless_network_name").set_active_iter(itr)
 

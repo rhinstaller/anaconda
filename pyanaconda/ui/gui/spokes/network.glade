@@ -158,6 +158,8 @@
       <column type="guint"/>
       <!-- column-name security -->
       <column type="guint"/>
+      <!-- column-name ssid -->
+      <column type="PyObject"/>
     </columns>
   </object>
   <object class="AnacondaSpokeWindow" id="networkWindow">

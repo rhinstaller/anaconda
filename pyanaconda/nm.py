@@ -659,8 +659,7 @@ def _settings_for_ap(ssid):
        :return: list of paths of settings of access point
        :rtype: list
 `   """
-    return _find_settings(ssid, '802-11-wireless', 'ssid',
-            format_value=lambda ba: "".join(chr(b) for b in ba))
+    return _find_settings(ssid, '802-11-wireless', 'ssid')
 
 def _settings_for_hwaddr(hwaddr):
     """Return list of object paths of settings of device specified by hw address.
