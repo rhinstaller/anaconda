@@ -42,7 +42,7 @@ try:
 
     # If we don't do the check above this import will fail within _isys
     from pyanaconda.ui.gui.utils import escape_markup
-except (RuntimeError, ImportError):
+except (RuntimeError, ImportError, ValueError):
     escape_markup = lambda x: x
 
 class InvalidImageSizeError(Exception):
