@@ -2,7 +2,7 @@
 
 import unittest
 try:
-    import unittest.mock as mock
+    import unittest.mock as mock    # pylint: disable=import-error,no-name-in-module
 except ImportError:
     import mock
 
@@ -231,7 +231,7 @@ class TestSaveRepo(FileTestCaseBase):
     def test_basic(self):
         """save_repo: copies a directory to /run/install/DD-X"""
         makerepo(self.srcdir)
-        [repo] = find_repos(self.srcdir)
+        repo = find_repos(self.srcdir)[0]
         makefile(repo+'/fake-something.rpm')
         saved = save_repo(repo, target=self.destdir)
         self.assertEqual(set(os.listdir(saved)), set(["fake-something.rpm"]))
@@ -547,7 +547,7 @@ TYPE=ext4
 '''
 disk_labels = {
     '/dev/sdb1': 'metroid_srv',
-    '/dev/loop0': 'I\\x20\u262d\\x20COMMUNISM',
+    '/dev/loop0': u'I\\x20\u262d\\x20COMMUNISM',
     '/dev/sda3': 'metroid_root'
 }
 devicelist = [
@@ -558,7 +558,7 @@ devicelist = [
     DeviceInfo(DEVNAME='/dev/sda3', TYPE='btrfs', LABEL='metroid_root',
                UUID='4126dbb6-c7d3-47b4-b1fc-9bb461df0067'),
     DeviceInfo(DEVNAME='/dev/loop0', TYPE='ext4',
-               LABEL='I\\x20\u262d\\x20COMMUNISM',
+               LABEL=u'I\\x20\u262d\\x20COMMUNISM',
                UUID='6f16967e-0388-4276-bd8d-b88e5b217a55'),
 ]
 # also covers blkid, get_disk_labels, DeviceInfo
@@ -584,7 +584,6 @@ class DeviceInfoTestCase(unittest.TestCase):
 # TODO: test TextMenu itself
 
 # py2/3 compat
-import sys
 if sys.version_info.major == 3:
     from io import StringIO
 else:

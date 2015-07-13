@@ -75,7 +75,7 @@ from logging.handlers import SysLogHandler
 
 # py2 compat
 try:
-    from subprocess import DEVNULL
+    from subprocess import DEVNULL  # pylint: disable=no-name-in-module
 except ImportError:
     DEVNULL = open("/dev/null", 'a+')
 try:
