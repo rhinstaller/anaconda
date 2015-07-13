@@ -1358,3 +1358,14 @@ def open_with_perm(path, mode='r', perm=0o777, **kwargs):
         return eintr_retry_call(os.open, path, open_flags, perm)
 
     return open(path, mode, opener=_opener, **kwargs)
+
+def id_generator():
+    """ Id numbers generator.
+        Generating numbers from 0 to X and increments after every call.
+
+        :returns: Generator which gives you unique numbers.
+    """
+    actual_id = 0
+    while(True):
+        yield actual_id
+        actual_id += 1
