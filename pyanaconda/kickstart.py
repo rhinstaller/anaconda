@@ -1581,6 +1581,7 @@ class RepoData(commands.repo.F21_RepoData):
             :type enabled: bool
         """
         self.enabled = kwargs.pop("enabled", True)
+        self.repo_id = kwargs.pop("repo_id", None)
 
         commands.repo.F21_RepoData.__init__(self, *args, **kwargs)
 
