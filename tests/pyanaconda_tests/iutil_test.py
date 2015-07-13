@@ -771,3 +771,23 @@ class MiscTests(unittest.TestCase):
 
         for d, r in dirs:
             self.assertEquals(iutil.parent_dir(d), r)
+
+    def open_with_perm_test(self):
+        """Test the open_with_perm function"""
+        # Create a directory for test files
+        test_dir = tempfile.mkdtemp()
+        try:
+            # Reset the umask
+            old_umask = os.umask(0)
+            try:
+                # Create a file with mode 0777
+                iutil.open_with_perm('test1', 'w', 0o777)
+                self.assertEqual(os.stat('test1').st_mode & 0o777, 0o777)
+
+                # Create a file with mode 0600
+                iutil.open_with_perm('test2', 'w', 0o600)
+                self.assertEqual(os.stat('test2').st_mode & 0o777, 0o600)
+            finally:
+                os.umask(old_umask)
+        finally:
+            shutil.rmtree(test_dir)

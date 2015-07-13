@@ -1343,3 +1343,19 @@ def open(*args, **kwargs):  # pylint: disable=redefined-builtin
        high-level languages handle this for you, like C's fopen.
     """
     return eintr_retry_call(_open, *args, **kwargs)
+
+def open_with_perm(path, mode='r', perm=0o777, **kwargs):
+    """Open a file with the given permission bits.
+
+       This is more or less the same as using os.open(path, flags, perm), but
+       with the builtin open() semantics and return type instead of a file
+       descriptor.
+
+       :param str path: The path of the file to be opened
+       :param str mode: The same thing as the mode argument to open()
+       :param int perm: What permission bits to use if creating a new file
+    """
+    def _opener(path, open_flags):
+        return eintr_retry_call(os.open, path, open_flags, perm)
+
+    return open(path, mode, opener=_opener, **kwargs)
