@@ -117,13 +117,9 @@ class ParseKickstartTestCase(BaseTestCase):
         with tempfile.NamedTemporaryFile(mode="w+t") as ks_file:
             ks_file.write("""driverdisk sda5""")
             ks_file.flush()
-            # This call to execParseKickstart doesn't need to be checked,
-            # because we are using it for its side effect of writing out
-            # dd_args_ks.
-            self.execParseKickstart(ks_file.name)
+            lines = self.execParseKickstart(ks_file.name)
 
-        dd_args_ks = open(self.tmpdir+"/dd_args_ks").readlines()
-        self.assertEqual(dd_args_ks[0], "sda5", dd_args_ks)
+        self.assertEqual(lines[0], "inst.dd=hd:sda5")
 
     def driverdisk_test_2(self):
         with tempfile.NamedTemporaryFile(mode="w+t") as ks_file:
