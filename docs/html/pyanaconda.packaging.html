@@ -5,16 +5,16 @@
 <!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
 <head>
   <meta charset="utf-8">
+  
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>pyanaconda.packaging package &mdash; Anaconda 23.7 documentation</title>
+  <title>pyanaconda.packaging package &mdash; Anaconda 23.15 documentation</title>
   
 
   
   
 
   
-  <link href='https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic|Roboto+Slab:400,700|Inconsolata:400,700&subset=latin,cyrillic' rel='stylesheet' type='text/css'>
 
   
   
@@ -30,13 +30,13 @@
   
 
   
-    <link rel="top" title="Anaconda 23.7 documentation" href="index.html"/>
+    <link rel="top" title="Anaconda 23.15 documentation" href="index.html"/>
         <link rel="up" title="pyanaconda package" href="pyanaconda.html"/>
         <link rel="next" title="pyanaconda.ui package" href="pyanaconda.ui.html"/>
         <link rel="prev" title="pyanaconda.isys package" href="pyanaconda.isys.html"/> 
 
   
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script>
+  <script src="_static/js/modernizr.min.js"></script>
 
 </head>
 
@@ -48,8 +48,14 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-nav-search">
         
-          <a href="index.html" class="fa fa-home"> Anaconda</a>
+
         
+          <a href="index.html" class="icon icon-home"> Anaconda
+        
+
+        
+        </a>
+
         
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
@@ -58,6 +64,8 @@
     <input type="hidden" name="area" value="default" />
   </form>
 </div>
+
+        
       </div>
 
       <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
@@ -67,13 +75,79 @@
               <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="intro.html">Introduction to Anaconda</a></li>
 <li class="toctree-l1"><a class="reference internal" href="boot-options.html">Anaconda Boot Options</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="boot-options.html#installation-source">Installation Source</a></li>
-<li class="toctree-l2"><a class="reference internal" href="boot-options.html#kickstart">Kickstart</a></li>
-<li class="toctree-l2"><a class="reference internal" href="boot-options.html#network-options">Network Options</a></li>
-<li class="toctree-l2"><a class="reference internal" href="boot-options.html#console-display-options">Console / Display Options</a></li>
-<li class="toctree-l2"><a class="reference internal" href="boot-options.html#debugging-and-troubleshooting">Debugging and Troubleshooting</a></li>
-<li class="toctree-l2"><a class="reference internal" href="boot-options.html#deprecated-options">Deprecated Options</a></li>
-<li class="toctree-l2"><a class="reference internal" href="boot-options.html#removed-options">Removed Options</a></li>
+<li class="toctree-l2"><a class="reference internal" href="boot-options.html#installation-source">Installation Source</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="boot-options.html#inst-repo">inst.repo</a></li>
+<li class="toctree-l3"><a class="reference internal" href="boot-options.html#inst-stage2">inst.stage2</a></li>
+<li class="toctree-l3"><a class="reference internal" href="boot-options.html#inst-dd">inst.dd</a></li>
+<li class="toctree-l3"><a class="reference internal" href="boot-options.html#inst-multilib">inst.multilib</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="boot-options.html#kickstart">Kickstart</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="boot-options.html#inst-ks">inst.ks</a></li>
+<li class="toctree-l3"><a class="reference internal" href="boot-options.html#inst-ks-sendmac">inst.ks.sendmac</a></li>
+<li class="toctree-l3"><a class="reference internal" href="boot-options.html#inst-ks-sendsn">inst.ks.sendsn</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="boot-options.html#network-options">Network Options</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="boot-options.html#ip">ip</a></li>
+<li class="toctree-l3"><a class="reference internal" href="boot-options.html#nameserver">nameserver</a></li>
+<li class="toctree-l3"><a class="reference internal" href="boot-options.html#bootdev">bootdev</a></li>
+<li class="toctree-l3"><a class="reference internal" href="boot-options.html#ifname">ifname</a></li>
+<li class="toctree-l3"><a class="reference internal" href="boot-options.html#inst-dhcpclass">inst.dhcpclass</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="boot-options.html#console-display-options">Console / Display Options</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="boot-options.html#console">console</a></li>
+<li class="toctree-l3"><a class="reference internal" href="boot-options.html#inst-lang">inst.lang</a></li>
+<li class="toctree-l3"><a class="reference internal" href="boot-options.html#inst-geoloc">inst.geoloc</a></li>
+<li class="toctree-l3"><a class="reference internal" href="boot-options.html#inst-keymap">inst.keymap</a></li>
+<li class="toctree-l3"><a class="reference internal" href="boot-options.html#inst-cmdline">inst.cmdline</a></li>
+<li class="toctree-l3"><a class="reference internal" href="boot-options.html#inst-graphical">inst.graphical</a></li>
+<li class="toctree-l3"><a class="reference internal" href="boot-options.html#inst-text">inst.text</a></li>
+<li class="toctree-l3"><a class="reference internal" href="boot-options.html#inst-resolution">inst.resolution</a></li>
+<li class="toctree-l3"><a class="reference internal" href="boot-options.html#inst-vnc">inst.vnc</a></li>
+<li class="toctree-l3"><a class="reference internal" href="boot-options.html#inst-vncpassword">inst.vncpassword</a></li>
+<li class="toctree-l3"><a class="reference internal" href="boot-options.html#inst-vncconnect">inst.vncconnect</a></li>
+<li class="toctree-l3"><a class="reference internal" href="boot-options.html#inst-headless">inst.headless</a></li>
+<li class="toctree-l3"><a class="reference internal" href="boot-options.html#inst-xdriver">inst.xdriver</a></li>
+<li class="toctree-l3"><a class="reference internal" href="boot-options.html#inst-usefbx">inst.usefbx</a></li>
+<li class="toctree-l3"><a class="reference internal" href="boot-options.html#inst-sshd">inst.sshd</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="boot-options.html#debugging-and-troubleshooting">Debugging and Troubleshooting</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="boot-options.html#inst-rescue">inst.rescue</a></li>
+<li class="toctree-l3"><a class="reference internal" href="boot-options.html#inst-updates">inst.updates</a></li>
+<li class="toctree-l3"><a class="reference internal" href="boot-options.html#inst-loglevel">inst.loglevel</a></li>
+<li class="toctree-l3"><a class="reference internal" href="boot-options.html#inst-syslog">inst.syslog</a></li>
+<li class="toctree-l3"><a class="reference internal" href="boot-options.html#inst-virtiolog">inst.virtiolog</a></li>
+<li class="toctree-l3"><a class="reference internal" href="boot-options.html#inst-zram">inst.zram</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="boot-options.html#deprecated-options">Deprecated Options</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="boot-options.html#method">method</a></li>
+<li class="toctree-l3"><a class="reference internal" href="boot-options.html#repo-nfsiso">repo=nfsiso:...</a></li>
+<li class="toctree-l3"><a class="reference internal" href="boot-options.html#dns">dns</a></li>
+<li class="toctree-l3"><a class="reference internal" href="boot-options.html#netmask-gateway-hostname">netmask, gateway, hostname</a></li>
+<li class="toctree-l3"><a class="reference internal" href="boot-options.html#ip-bootif">ip=bootif</a></li>
+<li class="toctree-l3"><a class="reference internal" href="boot-options.html#ksdevice">ksdevice</a></li>
+<li class="toctree-l3"><a class="reference internal" href="boot-options.html#blacklist-nofirewire">blacklist, nofirewire</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="boot-options.html#removed-options">Removed Options</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="boot-options.html#askmethod-asknetwork">askmethod, asknetwork</a></li>
+<li class="toctree-l3"><a class="reference internal" href="boot-options.html#id5">serial</a></li>
+<li class="toctree-l3"><a class="reference internal" href="boot-options.html#updates">updates</a></li>
+<li class="toctree-l3"><a class="reference internal" href="boot-options.html#essid-wepkey-wpakey">essid, wepkey, wpakey</a></li>
+<li class="toctree-l3"><a class="reference internal" href="boot-options.html#ethtool">ethtool</a></li>
+<li class="toctree-l3"><a class="reference internal" href="boot-options.html#gdb">gdb</a></li>
+<li class="toctree-l3"><a class="reference internal" href="boot-options.html#inst-mediacheck">inst.mediacheck</a></li>
+<li class="toctree-l3"><a class="reference internal" href="boot-options.html#ks-floppy">ks=floppy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="boot-options.html#display">display</a></li>
+<li class="toctree-l3"><a class="reference internal" href="boot-options.html#utf8">utf8</a></li>
+<li class="toctree-l3"><a class="reference internal" href="boot-options.html#noipv6">noipv6</a></li>
+<li class="toctree-l3"><a class="reference internal" href="boot-options.html#upgradeany">upgradeany</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="kickstart.html">Anaconda Kickstart Documentation</a><ul>
@@ -111,7 +185,62 @@
 </ul>
 </li>
 <li class="toctree-l1 current"><a class="reference internal" href="modules.html">pyanaconda</a><ul class="current">
-<li class="toctree-l2 current"><a class="reference internal" href="pyanaconda.html">pyanaconda package</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="pyanaconda.html">pyanaconda package</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="pyanaconda.html#subpackages">Subpackages</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="pyanaconda.installclasses.html">pyanaconda.installclasses package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="pyanaconda.isys.html">pyanaconda.isys package</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="">pyanaconda.packaging package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="pyanaconda.ui.html">pyanaconda.ui package</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="pyanaconda.html#submodules">Submodules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyanaconda.html#module-pyanaconda.addons">pyanaconda.addons module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyanaconda.html#module-pyanaconda.anaconda">pyanaconda.anaconda module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyanaconda.html#module-pyanaconda.anaconda_argparse">pyanaconda.anaconda_argparse module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyanaconda.html#module-pyanaconda.anaconda_log">pyanaconda.anaconda_log module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyanaconda.html#module-pyanaconda.bootloader">pyanaconda.bootloader module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyanaconda.html#module-pyanaconda.constants">pyanaconda.constants module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyanaconda.html#module-pyanaconda.constants_text">pyanaconda.constants_text module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyanaconda.html#module-pyanaconda.desktop">pyanaconda.desktop module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyanaconda.html#module-pyanaconda.errors">pyanaconda.errors module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyanaconda.html#module-pyanaconda.exception">pyanaconda.exception module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyanaconda.html#module-pyanaconda.flags">pyanaconda.flags module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyanaconda.html#module-pyanaconda.geoloc">pyanaconda.geoloc module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyanaconda.html#module-pyanaconda.i18n">pyanaconda.i18n module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyanaconda.html#module-pyanaconda.ihelp">pyanaconda.ihelp module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyanaconda.html#module-pyanaconda.image">pyanaconda.image module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyanaconda.html#module-pyanaconda.install">pyanaconda.install module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyanaconda.html#module-pyanaconda.installclass">pyanaconda.installclass module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyanaconda.html#module-pyanaconda.installinterfacebase">pyanaconda.installinterfacebase module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyanaconda.html#module-pyanaconda.iutil">pyanaconda.iutil module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyanaconda.html#module-pyanaconda.kexec">pyanaconda.kexec module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyanaconda.html#module-pyanaconda.keyboard">pyanaconda.keyboard module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyanaconda.html#module-pyanaconda.kickstart">pyanaconda.kickstart module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyanaconda.html#module-pyanaconda.localization">pyanaconda.localization module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyanaconda.html#module-pyanaconda.network">pyanaconda.network module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyanaconda.html#module-pyanaconda.nm">pyanaconda.nm module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyanaconda.html#module-pyanaconda.ntp">pyanaconda.ntp module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyanaconda.html#module-pyanaconda.orderedset">pyanaconda.orderedset module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyanaconda.html#module-pyanaconda.product">pyanaconda.product module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyanaconda.html#module-pyanaconda.progress">pyanaconda.progress module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyanaconda.html#module-pyanaconda.pwpolicy">pyanaconda.pwpolicy module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyanaconda.html#module-pyanaconda.queuefactory">pyanaconda.queuefactory module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyanaconda.html#module-pyanaconda.regexes">pyanaconda.regexes module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyanaconda.html#module-pyanaconda.rescue">pyanaconda.rescue module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyanaconda.html#module-pyanaconda.safe_dbus">pyanaconda.safe_dbus module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyanaconda.html#module-pyanaconda.screensaver">pyanaconda.screensaver module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyanaconda.html#module-pyanaconda.simpleconfig">pyanaconda.simpleconfig module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyanaconda.html#module-pyanaconda.startup_utils">pyanaconda.startup_utils module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyanaconda.html#module-pyanaconda.storage_utils">pyanaconda.storage_utils module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyanaconda.html#module-pyanaconda.text">pyanaconda.text module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyanaconda.html#module-pyanaconda.threads">pyanaconda.threads module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyanaconda.html#module-pyanaconda.timezone">pyanaconda.timezone module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyanaconda.html#module-pyanaconda.users">pyanaconda.users module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyanaconda.html#module-pyanaconda.version">pyanaconda.version module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyanaconda.html#module-pyanaconda.vnc">pyanaconda.vnc module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyanaconda.html#module-pyanaconda">Module contents</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -145,7 +274,9 @@
     <li>pyanaconda.packaging package</li>
       <li class="wy-breadcrumbs-aside">
         
-          <a href="_sources/pyanaconda.packaging.txt" rel="nofollow"> View page source</a>
+          
+            <a href="_sources/pyanaconda.packaging.txt" rel="nofollow"> View page source</a>
+          
         
       </li>
   </ul>
@@ -328,7 +459,7 @@
 
 <dl class="class">
 <dt id="pyanaconda.packaging.dnfpayload.PayloadRPMDisplay">
-<em class="property">class </em><tt class="descclassname">pyanaconda.packaging.dnfpayload.</tt><tt class="descname">PayloadRPMDisplay</tt><big>(</big><em>queue</em><big>)</big><a class="headerlink" href="#pyanaconda.packaging.dnfpayload.PayloadRPMDisplay" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><tt class="descclassname">pyanaconda.packaging.dnfpayload.</tt><tt class="descname">PayloadRPMDisplay</tt><big>(</big><em>queue_instance</em><big>)</big><a class="headerlink" href="#pyanaconda.packaging.dnfpayload.PayloadRPMDisplay" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">dnf.yum.rpmtrans.LoggingTransactionDisplay</span></tt></p>
 <dl class="method">
 <dt id="pyanaconda.packaging.dnfpayload.PayloadRPMDisplay.event">
@@ -339,7 +470,7 @@
 
 <dl class="function">
 <dt id="pyanaconda.packaging.dnfpayload.do_transaction">
-<tt class="descclassname">pyanaconda.packaging.dnfpayload.</tt><tt class="descname">do_transaction</tt><big>(</big><em>base</em>, <em>queue</em><big>)</big><a class="headerlink" href="#pyanaconda.packaging.dnfpayload.do_transaction" title="Permalink to this definition">¶</a></dt>
+<tt class="descclassname">pyanaconda.packaging.dnfpayload.</tt><tt class="descname">do_transaction</tt><big>(</big><em>base</em>, <em>queue_instance</em><big>)</big><a class="headerlink" href="#pyanaconda.packaging.dnfpayload.do_transaction" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </div>
@@ -367,7 +498,7 @@ using storage</li>
 <dl class="class">
 <dt id="pyanaconda.packaging.livepayload.DownloadProgress">
 <em class="property">class </em><tt class="descclassname">pyanaconda.packaging.livepayload.</tt><tt class="descname">DownloadProgress</tt><a class="headerlink" href="#pyanaconda.packaging.livepayload.DownloadProgress" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/2/library/functions.html#object" title="(in Python v2.7)"><tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></a></p>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">builtins.object</span></tt></p>
 <p>Provide methods for download progress reporting.</p>
 <dl class="method">
 <dt id="pyanaconda.packaging.livepayload.DownloadProgress.end">
@@ -377,7 +508,7 @@ using storage</li>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>bytes_read</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#int" title="(in Python v2.7)"><em>int</em></a>) &#8211; Bytes read so far</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>bytes_read</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.4)"><em>int</em></a>) &#8211; Bytes read so far</td>
 </tr>
 </tbody>
 </table>
@@ -392,8 +523,8 @@ using storage</li>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>url</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) &#8211; url of the download</li>
-<li><strong>size</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#int" title="(in Python v2.7)"><em>int</em></a>) &#8211; length of the file</li>
+<li><strong>url</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.4)"><em>str</em></a>) &#8211; url of the download</li>
+<li><strong>size</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.4)"><em>int</em></a>) &#8211; length of the file</li>
 </ul>
 </td>
 </tr>
@@ -409,7 +540,7 @@ using storage</li>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>bytes_read</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#int" title="(in Python v2.7)"><em>int</em></a>) &#8211; Bytes read so far</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>bytes_read</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.4)"><em>int</em></a>) &#8211; Bytes read so far</td>
 </tr>
 </tbody>
 </table>
@@ -475,6 +606,11 @@ and install.</p>
 <dl class="method">
 <dt id="pyanaconda.packaging.livepayload.LiveImageKSPayload.unsetup">
 <tt class="descname">unsetup</tt><big>(</big><big>)</big><a class="headerlink" href="#pyanaconda.packaging.livepayload.LiveImageKSPayload.unsetup" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyanaconda.packaging.livepayload.LiveImageKSPayload.writeStorageEarly">
+<tt class="descname">writeStorageEarly</tt><big>(</big><big>)</big><a class="headerlink" href="#pyanaconda.packaging.livepayload.LiveImageKSPayload.writeStorageEarly" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -572,6 +708,11 @@ update the hub&#8217;s progress bar.</p>
 <dl class="attribute">
 <dt id="pyanaconda.packaging.rpmostreepayload.RPMOSTreePayload.spaceRequired">
 <tt class="descname">spaceRequired</tt><a class="headerlink" href="#pyanaconda.packaging.rpmostreepayload.RPMOSTreePayload.spaceRequired" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyanaconda.packaging.rpmostreepayload.RPMOSTreePayload.writeStorageEarly">
+<tt class="descname">writeStorageEarly</tt><big>(</big><big>)</big><a class="headerlink" href="#pyanaconda.packaging.rpmostreepayload.RPMOSTreePayload.writeStorageEarly" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -796,7 +937,7 @@ update the hub&#8217;s progress bar.</p>
 <dl class="class">
 <dt id="pyanaconda.packaging.Payload">
 <em class="property">class </em><tt class="descclassname">pyanaconda.packaging.</tt><tt class="descname">Payload</tt><big>(</big><em>data</em><big>)</big><a class="headerlink" href="#pyanaconda.packaging.Payload" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/2/library/functions.html#object" title="(in Python v2.7)"><tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></a></p>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">builtins.object</span></tt></p>
 <p>Payload is an abstract class for OS install delivery methods.</p>
 <p>data is a kickstart.AnacondaKSHandler class</p>
 <dl class="attribute">
@@ -982,12 +1123,30 @@ not get along well with multithreaded programs.</p>
 <dd><p>Update the base repository from ksdata.method.</p>
 </dd></dl>
 
+<dl class="method">
+<dt id="pyanaconda.packaging.Payload.writeStorageEarly">
+<tt class="descname">writeStorageEarly</tt><big>(</big><big>)</big><a class="headerlink" href="#pyanaconda.packaging.Payload.writeStorageEarly" title="Permalink to this definition">¶</a></dt>
+<dd><p>Some packaging payloads require that the storage configuration be
+written out before doing installation.  Right now, this is basically
+just the dnfpayload.  Payloads should only implement one of these
+methods by overriding the unneeded one with a pass.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyanaconda.packaging.Payload.writeStorageLate">
+<tt class="descname">writeStorageLate</tt><big>(</big><big>)</big><a class="headerlink" href="#pyanaconda.packaging.Payload.writeStorageLate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Some packaging payloads require that the storage configuration be
+written out after doing installation.  Right now, this is basically
+every payload except for dnf.  Payloads should only implement one of
+these methods by overriding the unneeded one with a pass.</p>
+</dd></dl>
+
 </dd></dl>
 
 <dl class="exception">
 <dt id="pyanaconda.packaging.PayloadError">
 <em class="property">exception </em><tt class="descclassname">pyanaconda.packaging.</tt><tt class="descname">PayloadError</tt><a class="headerlink" href="#pyanaconda.packaging.PayloadError" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/2/library/exceptions.html#exceptions.Exception" title="(in Python v2.7)"><tt class="xref py py-class docutils literal"><span class="pre">exceptions.Exception</span></tt></a></p>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">builtins.Exception</span></tt></p>
 </dd></dl>
 
 <dl class="exception">
@@ -999,7 +1158,7 @@ not get along well with multithreaded programs.</p>
 <dl class="class">
 <dt id="pyanaconda.packaging.PayloadManager">
 <em class="property">class </em><tt class="descclassname">pyanaconda.packaging.</tt><tt class="descname">PayloadManager</tt><a class="headerlink" href="#pyanaconda.packaging.PayloadManager" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/2/library/functions.html#object" title="(in Python v2.7)"><tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></a></p>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">builtins.object</span></tt></p>
 <p>Framework for starting and watching the payload thread.</p>
 <p>This class defines several states, and events can be triggered upon
 reaching a state. Depending on whether a state has already been reached
@@ -1075,7 +1234,7 @@ thread should be started using payloadMgr.restartThread.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>event_id</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#int" title="(in Python v2.7)"><em>int</em></a>) &#8211; The event to listen for, one of the EVENT_* constants</li>
+<li><strong>event_id</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.4)"><em>int</em></a>) &#8211; The event to listen for, one of the EVENT_* constants</li>
 <li><strong>func</strong> (<em>function</em>) &#8211; An object to call when the event is reached</li>
 </ul>
 </td>
@@ -1106,8 +1265,8 @@ has no effect.</p>
 <li><strong>ksdata</strong> (<em>kickstart.AnacondaKSHandler</em>) &#8211; The kickstart data instance</li>
 <li><strong>payload</strong> (<em>packaging.Payload</em>) &#8211; The payload instance</li>
 <li><strong>instClass</strong> (<em>installclass.BaseInstallClass</em>) &#8211; The install class instance</li>
-<li><strong>fallback</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#bool" title="(in Python v2.7)"><em>bool</em></a>) &#8211; Whether to fall back to the default repo in case of error</li>
-<li><strong>checkmount</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#bool" title="(in Python v2.7)"><em>bool</em></a>) &#8211; Whether to check for valid mounted media</li>
+<li><strong>fallback</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.4)"><em>bool</em></a>) &#8211; Whether to fall back to the default repo in case of error</li>
+<li><strong>checkmount</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.4)"><em>bool</em></a>) &#8211; Whether to check for valid mounted media</li>
 </ul>
 </td>
 </tr>
@@ -1138,10 +1297,10 @@ has no effect.</p>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="pyanaconda.ui.html" class="btn btn-neutral float-right" title="pyanaconda.ui package">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="pyanaconda.ui.html" class="btn btn-neutral float-right" title="pyanaconda.ui package" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="pyanaconda.isys.html" class="btn btn-neutral" title="pyanaconda.isys package"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="pyanaconda.isys.html" class="btn btn-neutral" title="pyanaconda.isys package" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -1153,10 +1312,10 @@ has no effect.</p>
         &copy; Copyright 2015, Red Hat, Inc..
     </p>
   </div>
-
   Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
-  
+
 </footer>
+
         </div>
       </div>
 
@@ -1171,7 +1330,7 @@ has no effect.</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'23.7',
+            VERSION:'23.15',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true
