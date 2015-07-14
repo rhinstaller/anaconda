@@ -5,16 +5,16 @@
 <!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
 <head>
   <meta charset="utf-8">
+  
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>pyanaconda.ui.tui.spokes package &mdash; Anaconda 23.7 documentation</title>
+  <title>pyanaconda.ui.tui.spokes package &mdash; Anaconda 23.15 documentation</title>
   
 
   
   
 
   
-  <link href='https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic|Roboto+Slab:400,700|Inconsolata:400,700&subset=latin,cyrillic' rel='stylesheet' type='text/css'>
 
   
   
@@ -30,12 +30,12 @@
   
 
   
-    <link rel="top" title="Anaconda 23.7 documentation" href="index.html"/>
+    <link rel="top" title="Anaconda 23.15 documentation" href="index.html"/>
         <link rel="up" title="pyanaconda.ui.tui package" href="pyanaconda.ui.tui.html"/>
         <link rel="prev" title="pyanaconda.ui.tui.simpleline package" href="pyanaconda.ui.tui.simpleline.html"/> 
 
   
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script>
+  <script src="_static/js/modernizr.min.js"></script>
 
 </head>
 
@@ -47,8 +47,14 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-nav-search">
         
-          <a href="index.html" class="fa fa-home"> Anaconda</a>
+
         
+          <a href="index.html" class="icon icon-home"> Anaconda
+        
+
+        
+        </a>
+
         
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
@@ -57,6 +63,8 @@
     <input type="hidden" name="area" value="default" />
   </form>
 </div>
+
+        
       </div>
 
       <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
@@ -66,13 +74,79 @@
               <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="intro.html">Introduction to Anaconda</a></li>
 <li class="toctree-l1"><a class="reference internal" href="boot-options.html">Anaconda Boot Options</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="boot-options.html#installation-source">Installation Source</a></li>
-<li class="toctree-l2"><a class="reference internal" href="boot-options.html#kickstart">Kickstart</a></li>
-<li class="toctree-l2"><a class="reference internal" href="boot-options.html#network-options">Network Options</a></li>
-<li class="toctree-l2"><a class="reference internal" href="boot-options.html#console-display-options">Console / Display Options</a></li>
-<li class="toctree-l2"><a class="reference internal" href="boot-options.html#debugging-and-troubleshooting">Debugging and Troubleshooting</a></li>
-<li class="toctree-l2"><a class="reference internal" href="boot-options.html#deprecated-options">Deprecated Options</a></li>
-<li class="toctree-l2"><a class="reference internal" href="boot-options.html#removed-options">Removed Options</a></li>
+<li class="toctree-l2"><a class="reference internal" href="boot-options.html#installation-source">Installation Source</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="boot-options.html#inst-repo">inst.repo</a></li>
+<li class="toctree-l3"><a class="reference internal" href="boot-options.html#inst-stage2">inst.stage2</a></li>
+<li class="toctree-l3"><a class="reference internal" href="boot-options.html#inst-dd">inst.dd</a></li>
+<li class="toctree-l3"><a class="reference internal" href="boot-options.html#inst-multilib">inst.multilib</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="boot-options.html#kickstart">Kickstart</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="boot-options.html#inst-ks">inst.ks</a></li>
+<li class="toctree-l3"><a class="reference internal" href="boot-options.html#inst-ks-sendmac">inst.ks.sendmac</a></li>
+<li class="toctree-l3"><a class="reference internal" href="boot-options.html#inst-ks-sendsn">inst.ks.sendsn</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="boot-options.html#network-options">Network Options</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="boot-options.html#ip">ip</a></li>
+<li class="toctree-l3"><a class="reference internal" href="boot-options.html#nameserver">nameserver</a></li>
+<li class="toctree-l3"><a class="reference internal" href="boot-options.html#bootdev">bootdev</a></li>
+<li class="toctree-l3"><a class="reference internal" href="boot-options.html#ifname">ifname</a></li>
+<li class="toctree-l3"><a class="reference internal" href="boot-options.html#inst-dhcpclass">inst.dhcpclass</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="boot-options.html#console-display-options">Console / Display Options</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="boot-options.html#console">console</a></li>
+<li class="toctree-l3"><a class="reference internal" href="boot-options.html#inst-lang">inst.lang</a></li>
+<li class="toctree-l3"><a class="reference internal" href="boot-options.html#inst-geoloc">inst.geoloc</a></li>
+<li class="toctree-l3"><a class="reference internal" href="boot-options.html#inst-keymap">inst.keymap</a></li>
+<li class="toctree-l3"><a class="reference internal" href="boot-options.html#inst-cmdline">inst.cmdline</a></li>
+<li class="toctree-l3"><a class="reference internal" href="boot-options.html#inst-graphical">inst.graphical</a></li>
+<li class="toctree-l3"><a class="reference internal" href="boot-options.html#inst-text">inst.text</a></li>
+<li class="toctree-l3"><a class="reference internal" href="boot-options.html#inst-resolution">inst.resolution</a></li>
+<li class="toctree-l3"><a class="reference internal" href="boot-options.html#inst-vnc">inst.vnc</a></li>
+<li class="toctree-l3"><a class="reference internal" href="boot-options.html#inst-vncpassword">inst.vncpassword</a></li>
+<li class="toctree-l3"><a class="reference internal" href="boot-options.html#inst-vncconnect">inst.vncconnect</a></li>
+<li class="toctree-l3"><a class="reference internal" href="boot-options.html#inst-headless">inst.headless</a></li>
+<li class="toctree-l3"><a class="reference internal" href="boot-options.html#inst-xdriver">inst.xdriver</a></li>
+<li class="toctree-l3"><a class="reference internal" href="boot-options.html#inst-usefbx">inst.usefbx</a></li>
+<li class="toctree-l3"><a class="reference internal" href="boot-options.html#inst-sshd">inst.sshd</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="boot-options.html#debugging-and-troubleshooting">Debugging and Troubleshooting</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="boot-options.html#inst-rescue">inst.rescue</a></li>
+<li class="toctree-l3"><a class="reference internal" href="boot-options.html#inst-updates">inst.updates</a></li>
+<li class="toctree-l3"><a class="reference internal" href="boot-options.html#inst-loglevel">inst.loglevel</a></li>
+<li class="toctree-l3"><a class="reference internal" href="boot-options.html#inst-syslog">inst.syslog</a></li>
+<li class="toctree-l3"><a class="reference internal" href="boot-options.html#inst-virtiolog">inst.virtiolog</a></li>
+<li class="toctree-l3"><a class="reference internal" href="boot-options.html#inst-zram">inst.zram</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="boot-options.html#deprecated-options">Deprecated Options</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="boot-options.html#method">method</a></li>
+<li class="toctree-l3"><a class="reference internal" href="boot-options.html#repo-nfsiso">repo=nfsiso:...</a></li>
+<li class="toctree-l3"><a class="reference internal" href="boot-options.html#dns">dns</a></li>
+<li class="toctree-l3"><a class="reference internal" href="boot-options.html#netmask-gateway-hostname">netmask, gateway, hostname</a></li>
+<li class="toctree-l3"><a class="reference internal" href="boot-options.html#ip-bootif">ip=bootif</a></li>
+<li class="toctree-l3"><a class="reference internal" href="boot-options.html#ksdevice">ksdevice</a></li>
+<li class="toctree-l3"><a class="reference internal" href="boot-options.html#blacklist-nofirewire">blacklist, nofirewire</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="boot-options.html#removed-options">Removed Options</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="boot-options.html#askmethod-asknetwork">askmethod, asknetwork</a></li>
+<li class="toctree-l3"><a class="reference internal" href="boot-options.html#id5">serial</a></li>
+<li class="toctree-l3"><a class="reference internal" href="boot-options.html#updates">updates</a></li>
+<li class="toctree-l3"><a class="reference internal" href="boot-options.html#essid-wepkey-wpakey">essid, wepkey, wpakey</a></li>
+<li class="toctree-l3"><a class="reference internal" href="boot-options.html#ethtool">ethtool</a></li>
+<li class="toctree-l3"><a class="reference internal" href="boot-options.html#gdb">gdb</a></li>
+<li class="toctree-l3"><a class="reference internal" href="boot-options.html#inst-mediacheck">inst.mediacheck</a></li>
+<li class="toctree-l3"><a class="reference internal" href="boot-options.html#ks-floppy">ks=floppy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="boot-options.html#display">display</a></li>
+<li class="toctree-l3"><a class="reference internal" href="boot-options.html#utf8">utf8</a></li>
+<li class="toctree-l3"><a class="reference internal" href="boot-options.html#noipv6">noipv6</a></li>
+<li class="toctree-l3"><a class="reference internal" href="boot-options.html#upgradeany">upgradeany</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="kickstart.html">Anaconda Kickstart Documentation</a><ul>
@@ -110,7 +184,62 @@
 </ul>
 </li>
 <li class="toctree-l1 current"><a class="reference internal" href="modules.html">pyanaconda</a><ul class="current">
-<li class="toctree-l2 current"><a class="reference internal" href="pyanaconda.html">pyanaconda package</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="pyanaconda.html">pyanaconda package</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="pyanaconda.html#subpackages">Subpackages</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="pyanaconda.installclasses.html">pyanaconda.installclasses package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="pyanaconda.isys.html">pyanaconda.isys package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="pyanaconda.packaging.html">pyanaconda.packaging package</a></li>
+<li class="toctree-l4 current"><a class="reference internal" href="pyanaconda.ui.html">pyanaconda.ui package</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="pyanaconda.html#submodules">Submodules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyanaconda.html#module-pyanaconda.addons">pyanaconda.addons module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyanaconda.html#module-pyanaconda.anaconda">pyanaconda.anaconda module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyanaconda.html#module-pyanaconda.anaconda_argparse">pyanaconda.anaconda_argparse module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyanaconda.html#module-pyanaconda.anaconda_log">pyanaconda.anaconda_log module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyanaconda.html#module-pyanaconda.bootloader">pyanaconda.bootloader module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyanaconda.html#module-pyanaconda.constants">pyanaconda.constants module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyanaconda.html#module-pyanaconda.constants_text">pyanaconda.constants_text module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyanaconda.html#module-pyanaconda.desktop">pyanaconda.desktop module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyanaconda.html#module-pyanaconda.errors">pyanaconda.errors module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyanaconda.html#module-pyanaconda.exception">pyanaconda.exception module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyanaconda.html#module-pyanaconda.flags">pyanaconda.flags module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyanaconda.html#module-pyanaconda.geoloc">pyanaconda.geoloc module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyanaconda.html#module-pyanaconda.i18n">pyanaconda.i18n module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyanaconda.html#module-pyanaconda.ihelp">pyanaconda.ihelp module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyanaconda.html#module-pyanaconda.image">pyanaconda.image module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyanaconda.html#module-pyanaconda.install">pyanaconda.install module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyanaconda.html#module-pyanaconda.installclass">pyanaconda.installclass module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyanaconda.html#module-pyanaconda.installinterfacebase">pyanaconda.installinterfacebase module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyanaconda.html#module-pyanaconda.iutil">pyanaconda.iutil module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyanaconda.html#module-pyanaconda.kexec">pyanaconda.kexec module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyanaconda.html#module-pyanaconda.keyboard">pyanaconda.keyboard module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyanaconda.html#module-pyanaconda.kickstart">pyanaconda.kickstart module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyanaconda.html#module-pyanaconda.localization">pyanaconda.localization module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyanaconda.html#module-pyanaconda.network">pyanaconda.network module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyanaconda.html#module-pyanaconda.nm">pyanaconda.nm module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyanaconda.html#module-pyanaconda.ntp">pyanaconda.ntp module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyanaconda.html#module-pyanaconda.orderedset">pyanaconda.orderedset module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyanaconda.html#module-pyanaconda.product">pyanaconda.product module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyanaconda.html#module-pyanaconda.progress">pyanaconda.progress module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyanaconda.html#module-pyanaconda.pwpolicy">pyanaconda.pwpolicy module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyanaconda.html#module-pyanaconda.queuefactory">pyanaconda.queuefactory module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyanaconda.html#module-pyanaconda.regexes">pyanaconda.regexes module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyanaconda.html#module-pyanaconda.rescue">pyanaconda.rescue module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyanaconda.html#module-pyanaconda.safe_dbus">pyanaconda.safe_dbus module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyanaconda.html#module-pyanaconda.screensaver">pyanaconda.screensaver module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyanaconda.html#module-pyanaconda.simpleconfig">pyanaconda.simpleconfig module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyanaconda.html#module-pyanaconda.startup_utils">pyanaconda.startup_utils module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyanaconda.html#module-pyanaconda.storage_utils">pyanaconda.storage_utils module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyanaconda.html#module-pyanaconda.text">pyanaconda.text module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyanaconda.html#module-pyanaconda.threads">pyanaconda.threads module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyanaconda.html#module-pyanaconda.timezone">pyanaconda.timezone module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyanaconda.html#module-pyanaconda.users">pyanaconda.users module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyanaconda.html#module-pyanaconda.version">pyanaconda.version module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyanaconda.html#module-pyanaconda.vnc">pyanaconda.vnc module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyanaconda.html#module-pyanaconda">Module contents</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -148,7 +277,9 @@
     <li>pyanaconda.ui.tui.spokes package</li>
       <li class="wy-breadcrumbs-aside">
         
-          <a href="_sources/pyanaconda.ui.tui.spokes.txt" rel="nofollow"> View page source</a>
+          
+            <a href="_sources/pyanaconda.ui.tui.spokes.txt" rel="nofollow"> View page source</a>
+          
         
       </li>
   </ul>
@@ -878,7 +1009,7 @@ against them.</p>
 
 <dl class="attribute">
 <dt id="pyanaconda.ui.tui.spokes.user.UserSpoke.edit_fields">
-<tt class="descname">edit_fields</tt><em class="property"> = [EditTUISpokeEntry(title='Create user', attribute='_create', aux='check', visible=True), EditTUISpokeEntry(title='Fullname', attribute='gecos', aux=&lt;_sre.SRE_Pattern object at 0x7f33226fee88&gt;, visible=&lt;function &lt;lambda&gt; at 0x7f330b2e0488&gt;), EditTUISpokeEntry(title='Username', attribute='name', aux=&lt;_sre.SRE_Pattern object at 0x23c6630&gt;, visible=&lt;function &lt;lambda&gt; at 0x7f330b2e02a8&gt;), EditTUISpokeEntry(title='Use password', attribute='_use_password', aux='check', visible=&lt;function &lt;lambda&gt; at 0x7f330b2e05f0&gt;), EditTUISpokeEntry(title='Password', attribute='_password', aux=&lt;_sre.SRE_Pattern object at 0x7f3312353af8&gt;, visible=&lt;function &lt;lambda&gt; at 0x7f330b2e0668&gt;), EditTUISpokeEntry(title='Administrator', attribute='_admin', aux='check', visible=&lt;function &lt;lambda&gt; at 0x7f330b2e06e0&gt;), EditTUISpokeEntry(title='Groups', attribute='_groups', aux=&lt;_sre.SRE_Pattern object at 0x23e2b70&gt;, visible=&lt;function &lt;lambda&gt; at 0x7f330b2e0758&gt;)]</em><a class="headerlink" href="#pyanaconda.ui.tui.spokes.user.UserSpoke.edit_fields" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">edit_fields</tt><em class="property"> = [EditTUISpokeEntry(title='Create user', attribute='_create', aux='check', visible=True), EditTUISpokeEntry(title='Fullname', attribute='gecos', aux=re.compile('^[^:]*$'), visible=&lt;function UserSpoke.&lt;lambda&gt; at 0x7fea9fa497b8&gt;), EditTUISpokeEntry(title='Username', attribute='name', aux=re.compile('^[a-zA-Z0-9._](([a-zA-Z0-9._-]{0,2})|([a-zA-Z0-9._-]{3}(?&lt;!root))|([a-zA-Z0-9._-]{4,31})|([a-zA-Z0-9._-]{,30}\\$))$'), visible=&lt;function UserSpoke.&lt;lambda&gt; at 0x7fea9fa49b70&gt;), EditTUISpokeEntry(title='Use password', attribute='_use_password', aux='check', visible=&lt;function UserSpoke.&lt;lambda&gt; at 0x7fea9fa49840&gt;), EditTUISpokeEntry(title='Password', attribute='_password', aux=re.compile('.*'), visible=&lt;function UserSpoke.&lt;lambda&gt; at 0x7fea9fa49d08&gt;), EditTUISpokeEntry(title='Administrator', attribute='_admin', aux='check', visible=&lt;function UserSpoke.&lt;lambda&gt; at 0x7fea9fa49e18&gt;), EditTUISpokeEntry(title='Groups', attribute='_groups', aux=re.compile('^\\s*([a-zA-Z0-9._](([a-zA-Z0-9._-]{0,2})|([a-zA-Z0-9._-]{3}(?&lt;!root))|([a-zA-Z0-9._-]{4,31})|([a-zA-Z0-9._-]{,30}\\$))(\\s*,\\s*[a-zA-Z0-9._](([a-zA-Z0-9._-]{0,2})|([a-zA-Z0-9._-]{3}(?&lt;!root))|([a-z), visible=&lt;function UserSpoke.&lt;lambda&gt; at 0x7fea9f4b0488&gt;)]</em><a class="headerlink" href="#pyanaconda.ui.tui.spokes.user.UserSpoke.edit_fields" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
@@ -916,41 +1047,41 @@ eg. not mandatory if the root account was locked in a kickstart</p>
 </dd></dl>
 
 </div>
-<div class="section" id="module-pyanaconda.ui.tui.spokes.warnings">
-<span id="pyanaconda-ui-tui-spokes-warnings-module"></span><h2>pyanaconda.ui.tui.spokes.warnings module<a class="headerlink" href="#module-pyanaconda.ui.tui.spokes.warnings" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="module-pyanaconda.ui.tui.spokes.warnings_spoke">
+<span id="pyanaconda-ui-tui-spokes-warnings-spoke-module"></span><h2>pyanaconda.ui.tui.spokes.warnings_spoke module<a class="headerlink" href="#module-pyanaconda.ui.tui.spokes.warnings_spoke" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
-<dt id="pyanaconda.ui.tui.spokes.warnings.WarningsSpoke">
-<em class="property">class </em><tt class="descclassname">pyanaconda.ui.tui.spokes.warnings.</tt><tt class="descname">WarningsSpoke</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#pyanaconda.ui.tui.spokes.warnings.WarningsSpoke" title="Permalink to this definition">¶</a></dt>
+<dt id="pyanaconda.ui.tui.spokes.warnings_spoke.WarningsSpoke">
+<em class="property">class </em><tt class="descclassname">pyanaconda.ui.tui.spokes.warnings_spoke.</tt><tt class="descname">WarningsSpoke</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#pyanaconda.ui.tui.spokes.warnings_spoke.WarningsSpoke" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">pyanaconda.ui.tui.spokes.StandaloneTUISpoke</span></tt></p>
 <dl class="method">
-<dt id="pyanaconda.ui.tui.spokes.warnings.WarningsSpoke.apply">
-<tt class="descname">apply</tt><big>(</big><big>)</big><a class="headerlink" href="#pyanaconda.ui.tui.spokes.warnings.WarningsSpoke.apply" title="Permalink to this definition">¶</a></dt>
+<dt id="pyanaconda.ui.tui.spokes.warnings_spoke.WarningsSpoke.apply">
+<tt class="descname">apply</tt><big>(</big><big>)</big><a class="headerlink" href="#pyanaconda.ui.tui.spokes.warnings_spoke.WarningsSpoke.apply" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
-<dt id="pyanaconda.ui.tui.spokes.warnings.WarningsSpoke.completed">
-<tt class="descname">completed</tt><a class="headerlink" href="#pyanaconda.ui.tui.spokes.warnings.WarningsSpoke.completed" title="Permalink to this definition">¶</a></dt>
+<dt id="pyanaconda.ui.tui.spokes.warnings_spoke.WarningsSpoke.completed">
+<tt class="descname">completed</tt><a class="headerlink" href="#pyanaconda.ui.tui.spokes.warnings_spoke.WarningsSpoke.completed" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
-<dt id="pyanaconda.ui.tui.spokes.warnings.WarningsSpoke.preForHub">
-<tt class="descname">preForHub</tt><a class="headerlink" href="#pyanaconda.ui.tui.spokes.warnings.WarningsSpoke.preForHub" title="Permalink to this definition">¶</a></dt>
+<dt id="pyanaconda.ui.tui.spokes.warnings_spoke.WarningsSpoke.preForHub">
+<tt class="descname">preForHub</tt><a class="headerlink" href="#pyanaconda.ui.tui.spokes.warnings_spoke.WarningsSpoke.preForHub" title="Permalink to this definition">¶</a></dt>
 <dd><p>alias of <tt class="xref py py-class docutils literal"><span class="pre">SummaryHub</span></tt></p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="pyanaconda.ui.tui.spokes.warnings.WarningsSpoke.priority">
-<tt class="descname">priority</tt><em class="property"> = 0</em><a class="headerlink" href="#pyanaconda.ui.tui.spokes.warnings.WarningsSpoke.priority" title="Permalink to this definition">¶</a></dt>
+<dt id="pyanaconda.ui.tui.spokes.warnings_spoke.WarningsSpoke.priority">
+<tt class="descname">priority</tt><em class="property"> = 0</em><a class="headerlink" href="#pyanaconda.ui.tui.spokes.warnings_spoke.WarningsSpoke.priority" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
-<dt id="pyanaconda.ui.tui.spokes.warnings.WarningsSpoke.refresh">
-<tt class="descname">refresh</tt><big>(</big><em>args=None</em><big>)</big><a class="headerlink" href="#pyanaconda.ui.tui.spokes.warnings.WarningsSpoke.refresh" title="Permalink to this definition">¶</a></dt>
+<dt id="pyanaconda.ui.tui.spokes.warnings_spoke.WarningsSpoke.refresh">
+<tt class="descname">refresh</tt><big>(</big><em>args=None</em><big>)</big><a class="headerlink" href="#pyanaconda.ui.tui.spokes.warnings_spoke.WarningsSpoke.refresh" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
-<dt id="pyanaconda.ui.tui.spokes.warnings.WarningsSpoke.title">
-<tt class="descname">title</tt><em class="property"> = 'Warnings'</em><a class="headerlink" href="#pyanaconda.ui.tui.spokes.warnings.WarningsSpoke.title" title="Permalink to this definition">¶</a></dt>
+<dt id="pyanaconda.ui.tui.spokes.warnings_spoke.WarningsSpoke.title">
+<tt class="descname">title</tt><em class="property"> = 'Warnings'</em><a class="headerlink" href="#pyanaconda.ui.tui.spokes.warnings_spoke.WarningsSpoke.title" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -970,8 +1101,8 @@ as a summary box with title, description and completed checkbox.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>title</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#unicode" title="(in Python v2.7)"><em>unicode</em></a>) &#8211; title of this spoke</li>
-<li><strong>category</strong> (<a class="reference external" href="https://docs.python.org/2/library/string.html#module-string" title="(in Python v2.7)"><em>string</em></a>) &#8211; category this spoke belongs to</li>
+<li><strong>title</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.4)"><em>str</em></a>) &#8211; title of this spoke</li>
+<li><strong>category</strong> (<a class="reference external" href="https://docs.python.org/3/library/string.html#module-string" title="(in Python v3.4)"><em>string</em></a>) &#8211; category this spoke belongs to</li>
 </ul>
 </td>
 </tr>
@@ -1026,7 +1157,7 @@ allowed to edit.</p>
 
 <dl class="attribute">
 <dt id="pyanaconda.ui.tui.spokes.EditTUISpoke.PASSWORD">
-<tt class="descname">PASSWORD</tt><em class="property"> = &lt;_sre.SRE_Pattern object at 0x7f3312353af8&gt;</em><a class="headerlink" href="#pyanaconda.ui.tui.spokes.EditTUISpoke.PASSWORD" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">PASSWORD</tt><em class="property"> = re.compile('.*')</em><a class="headerlink" href="#pyanaconda.ui.tui.spokes.EditTUISpoke.PASSWORD" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
@@ -1064,7 +1195,7 @@ allowed to edit.</p>
 <p>Spoke/dialog used to read new value of textual or password data</p>
 <dl class="attribute">
 <dt id="pyanaconda.ui.tui.spokes.EditTUIDialog.PASSWORD">
-<tt class="descname">PASSWORD</tt><em class="property"> = &lt;_sre.SRE_Pattern object at 0x7f3312353af8&gt;</em><a class="headerlink" href="#pyanaconda.ui.tui.spokes.EditTUIDialog.PASSWORD" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">PASSWORD</tt><em class="property"> = re.compile('.*')</em><a class="headerlink" href="#pyanaconda.ui.tui.spokes.EditTUIDialog.PASSWORD" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
@@ -1092,7 +1223,7 @@ allowed to edit.</p>
 <dl class="class">
 <dt id="pyanaconda.ui.tui.spokes.EditTUISpokeEntry">
 <em class="property">class </em><tt class="descclassname">pyanaconda.ui.tui.spokes.</tt><tt class="descname">EditTUISpokeEntry</tt><a class="headerlink" href="#pyanaconda.ui.tui.spokes.EditTUISpokeEntry" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">tuple</span></tt></p>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">builtins.tuple</span></tt></p>
 <p>EditTUISpokeEntry(title, attribute, aux, visible)</p>
 <dl class="attribute">
 <dt id="pyanaconda.ui.tui.spokes.EditTUISpokeEntry.attribute">
@@ -1178,7 +1309,7 @@ it will run as the first thing.</dd>
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
       
-        <a href="pyanaconda.ui.tui.simpleline.html" class="btn btn-neutral" title="pyanaconda.ui.tui.simpleline package"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="pyanaconda.ui.tui.simpleline.html" class="btn btn-neutral" title="pyanaconda.ui.tui.simpleline package" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -1190,10 +1321,10 @@ it will run as the first thing.</dd>
         &copy; Copyright 2015, Red Hat, Inc..
     </p>
   </div>
-
   Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
-  
+
 </footer>
+
         </div>
       </div>
 
@@ -1208,7 +1339,7 @@ it will run as the first thing.</dd>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'23.7',
+            VERSION:'23.15',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true
