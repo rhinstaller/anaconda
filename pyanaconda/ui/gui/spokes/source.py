@@ -959,8 +959,11 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler):
         if is_additional_repo:
             # Input object contains repository name
             repo = self._get_repo_by_id(inputcheck.input_obj)
-            protocol = urlsplit(repo.baseurl)[0]
-            url_string = repo.baseurl.strip()[len(protocol) + 3:]
+            protocol = urlsplit(repo.baseurl)[0] # extract protocol part (http, https, nfs...)
+            if repo.mirrorlist:
+                url_string = repo.mirrorlist.strip()[len(protocol) + 3:] # +3 for "://" part
+            else:
+                url_string = repo.baseurl.strip()[len(protocol) + 3:] # +3 for "://" part
         else:
             url_string = self.get_input(inputcheck.input_obj).strip()
             protocol = combo.get_active_id()
