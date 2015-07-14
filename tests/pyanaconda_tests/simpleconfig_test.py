@@ -131,3 +131,61 @@ KEY2="A single ' inside" # And comment "with quotes"
             scf.reset()
             scf.read(testconfig.name)
             self.assertEqual(scf.get("BOOT"), "")
+
+    def use_tmp_test(self):
+        with tempfile.NamedTemporaryFile(mode="w+t") as testconfig:
+            # Write a starting file and keep the handle open
+            testconfig.write("KEY1=value1\n")
+            testconfig.flush()
+            testconfig.seek(0)
+
+            # Overwrite the value and write a new file
+            scf = SimpleConfigFile()
+            scf.read(testconfig.name)
+            scf.set(('key1', 'value2'))
+            scf.write(testconfig.name, use_tmp=True)
+
+            # Check the new contents
+            self.assertEqual(open(testconfig.name).read(), 'KEY1=value2\n')
+
+            # Check that the original file handle still points to the old contents
+            self.assertEqual(testconfig.read(), 'KEY1=value1\n')
+
+    def use_tmp_multifs_test(self):
+        # Open a file on a non-default filesystem
+        with tempfile.NamedTemporaryFile(dir='/dev/shm', mode='w+t') as testconfig:
+            # Write a starting file and keep the handle open
+            testconfig.write("KEY1=value1\n")
+            testconfig.flush()
+            testconfig.seek(0)
+
+            # Overwrite the value and write a new file
+            scf = SimpleConfigFile()
+            scf.read(testconfig.name)
+            scf.set(('key1', 'value2'))
+            scf.write(testconfig.name, use_tmp=True)
+
+            # Check the new contents
+            self.assertEqual(open(testconfig.name).read(), 'KEY1=value2\n')
+
+            # Check that the original file handle still points to the old contents
+            self.assertEqual(testconfig.read(), 'KEY1=value1\n')
+
+    def no_use_tmp_test(self):
+        with tempfile.NamedTemporaryFile(mode="w+t") as testconfig:
+            # Write a starting file and keep the handle open
+            testconfig.write("KEY1=value1\n")
+            testconfig.flush()
+            testconfig.seek(0)
+
+            # Overwrite the value and write a new file
+            scf = SimpleConfigFile()
+            scf.read(testconfig.name)
+            scf.set(('key1', 'value2'))
+            scf.write(testconfig.name, use_tmp=False)
+
+            # Check the new contents
+            self.assertEqual(open(testconfig.name).read(), 'KEY1=value2\n')
+
+            # Check that the original file handle points to the replaced contents
+            self.assertEqual(testconfig.read(), 'KEY1=value2\n')
