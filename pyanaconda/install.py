@@ -28,7 +28,6 @@ from pyanaconda.progress import progress_report, progress_message, progress_step
 from pyanaconda.users import createLuserConf, getPassAlgo, Users
 from pyanaconda import flags
 from pyanaconda import iutil
-from pyanaconda.iutil import open   # pylint: disable=redefined-builtin
 from pyanaconda import timezone
 from pyanaconda import network
 from pyanaconda.i18n import _
@@ -40,8 +39,6 @@ import logging
 log = logging.getLogger("anaconda")
 
 def _writeKS(ksdata):
-    import os
-
     path = iutil.getSysroot() + "/root/anaconda-ks.cfg"
 
     # Clear out certain sensitive information that kickstart doesn't have a
@@ -50,11 +47,9 @@ def _writeKS(ksdata):
                ksdata.partition.dataList() + ksdata.raid.dataList():
         obj.passphrase = ""
 
-    with open(path, "w") as f:
-        f.write(str(ksdata))
-
     # Make it so only root can read - could have passwords
-    iutil.eintr_retry_call(os.chmod, path, 0o600)
+    with iutil.open_with_perm(path, "w", 0o600) as f:
+        f.write(str(ksdata))
 
 def doConfiguration(storage, payload, ksdata, instClass):
     willWriteNetwork = not flags.flags.imageInstall and not flags.flags.dirInstall
