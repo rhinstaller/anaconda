@@ -28,6 +28,11 @@
 #include <stdio.h>
 #include <string.h>
 
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <fcntl.h>
+#include <unistd.h>
+
 #include <rpm/rpmlib.h>		/* rpmReadPackageFile .. */
 #include <rpm/rpmtag.h>
 #include <rpm/rpmio.h>
@@ -391,20 +396,22 @@ int explodeDDRPM(const char *source,
 
         /* Regular file */
         if (towrite>=2) {
-            FILE *fdout = fopen(filename+offset, "w");
+            int fd = open(filename+offset, O_WRONLY, fstat->st_mode);
 
-            if (fdout==NULL){
+            if (fd==-1){
                 rc = 33;
                 break;
             }
 
-            rc = archive_read_data_into_fd(cpio, fileno(fdout));
-            if (rc==ARCHIVE_OK) {
-                /* set permissions on the new file */
-                chmod(filename+offset, fstat->st_mode);
+            /* call chmod to set any bits that were removed by umask during open */
+            if (fchmod(fd, fstat->st_mode) != 0) {
+                rc = 33;
+                break;
             }
 
-            fclose(fdout);
+            rc = archive_read_data_into_fd(cpio, fd);
+
+            close(fd);
         }
 
         /* symlink, we assume that the path contained in symlink

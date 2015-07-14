@@ -452,12 +452,11 @@ class Users:
 
             authfile = os.path.join(sshdir, "authorized_keys")
             authfile_existed = os.path.exists(authfile)
-            with open(authfile, "a") as f:
+            with iutil.open_with_perm(authfile, "a", 0o600) as f:
                 f.write(key + "\n")
 
-            # Only change mode and ownership if we created it
+            # Only change ownership if we created it
             if not authfile_existed:
-                iutil.eintr_retry_call(os.chmod, authfile, 0o600)
                 iutil.eintr_retry_call(os.chown, authfile, user.get(libuser.UIDNUMBER)[0], user.get(libuser.GIDNUMBER)[0])
                 iutil.execWithRedirect("restorecon", ["-r", sshdir])
             os._exit(0)

@@ -953,10 +953,7 @@ class BootLoader(object):
         raise NotImplementedError()
 
     def write_config_post(self):
-        try:
-            iutil.eintr_retry_call(os.chmod, iutil.getSysroot() + self.config_file, self.config_file_mode)
-        except OSError as e:
-            log.error("failed to set config file permissions: %s", e)
+        pass
 
     def write_config(self):
         """ Write the bootloader configuration. """
@@ -967,7 +964,7 @@ class BootLoader(object):
         if os.access(config_path, os.R_OK):
             os.rename(config_path, config_path + ".anacbak")
 
-        config = open(config_path, "w")
+        config = iutil.open_with_perm(config_path, "w", self.config_file_mode)
         self.write_config_header(config)
         self.write_config_images(config)
         config.close()
@@ -1559,7 +1556,7 @@ class GRUB2(GRUB):
             return
 
         users_file = iutil.getSysroot() + "/etc/grub.d/01_users"
-        header = open(users_file, "w")
+        header = iutil.open_with_perm(users_file, "w", 0o700)
         header.write("#!/bin/sh -e\n\n")
         header.write("cat << \"EOF\"\n")
         # XXX FIXME: document somewhere that the username is "root"
@@ -1570,7 +1567,6 @@ class GRUB2(GRUB):
         header.write("%s\n" % password_line)
         header.write("EOF\n")
         header.close()
-        iutil.eintr_retry_call(os.chmod, users_file, 0o700)
 
     def write_config(self):
         self.write_config_console(None)

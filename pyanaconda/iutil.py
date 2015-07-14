@@ -795,7 +795,7 @@ def dracut_eject(device):
     try:
         if not os.path.exists(DRACUT_SHUTDOWN_EJECT):
             mkdirChain(os.path.dirname(DRACUT_SHUTDOWN_EJECT))
-            f = open(DRACUT_SHUTDOWN_EJECT, "w")
+            f = open_with_perm(DRACUT_SHUTDOWN_EJECT, "w", 0o755)
             f.write("#!/bin/sh\n")
             f.write("# Created by Anaconda\n")
         else:
@@ -803,7 +803,6 @@ def dracut_eject(device):
 
         f.write("eject %s\n" % (device,))
         f.close()
-        eintr_retry_call(os.chmod, DRACUT_SHUTDOWN_EJECT, 0o755)
         log.info("Wrote dracut shutdown eject hook for %s", device)
     except (IOError, OSError) as e:
         log.error("Error writing dracut shutdown eject hook for %s: %s", device, e)
