@@ -23,7 +23,6 @@
 #            Brian C. Lane <bcl@redhat.com>
 #
 import os
-import shutil
 import shlex
 import string # pylint: disable=deprecated-module
 import tempfile
@@ -112,19 +111,24 @@ class SimpleConfigFile(object):
             return None
 
         if use_tmp:
-            tmpf = tempfile.NamedTemporaryFile(mode="w", delete=False)
+            filename = os.path.realpath(filename)
+
+            # Create a temporary in the same directory as the target file to ensure
+            # the new file is on the same filesystem
+            tmpf = tempfile.NamedTemporaryFile(mode="w", delete=False,
+                    dir=os.path.dirname(filename), prefix="." + os.path.basename(filename))
             tmpf.write(str(self))
             tmpf.close()
 
-            # Move the temporary file (with 0600 permissions) over the top of the
-            # original and preserve the original's permissions
-            filename = os.path.realpath(filename)
+            # Change the permissions (currently 0600) to match the original file
             if os.path.exists(filename):
                 m = os.stat(filename).st_mode
             else:
-                m = int('0100644', 8)
-            shutil.move(tmpf.name, filename)
+                m = 0o0644
             eintr_retry_call(os.chmod, filename, m)
+
+            # Move the temporary file  over the top of the original
+            os.rename(tmpf.name, filename)
         else:
             # write directly to the file
             with open(filename, "w") as fobj:
