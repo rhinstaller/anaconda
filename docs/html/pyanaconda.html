@@ -5,16 +5,16 @@
 <!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
 <head>
   <meta charset="utf-8">
+  
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>pyanaconda package &mdash; Anaconda 23.7 documentation</title>
+  <title>pyanaconda package &mdash; Anaconda 23.13 documentation</title>
   
 
   
   
 
   
-  <link href='https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic|Roboto+Slab:400,700|Inconsolata:400,700&subset=latin,cyrillic' rel='stylesheet' type='text/css'>
 
   
   
@@ -30,13 +30,13 @@
   
 
   
-    <link rel="top" title="Anaconda 23.7 documentation" href="index.html"/>
+    <link rel="top" title="Anaconda 23.13 documentation" href="index.html"/>
         <link rel="up" title="pyanaconda" href="modules.html"/>
         <link rel="next" title="pyanaconda.installclasses package" href="pyanaconda.installclasses.html"/>
         <link rel="prev" title="pyanaconda" href="modules.html"/> 
 
   
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script>
+  <script src="_static/js/modernizr.min.js"></script>
 
 </head>
 
@@ -48,8 +48,14 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-nav-search">
         
-          <a href="index.html" class="fa fa-home"> Anaconda</a>
+
         
+          <a href="index.html" class="icon icon-home"> Anaconda
+        
+
+        
+        </a>
+
         
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
@@ -58,6 +64,8 @@
     <input type="hidden" name="area" value="default" />
   </form>
 </div>
+
+        
       </div>
 
       <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
@@ -67,13 +75,79 @@
               <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="intro.html">Introduction to Anaconda</a></li>
 <li class="toctree-l1"><a class="reference internal" href="boot-options.html">Anaconda Boot Options</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="boot-options.html#installation-source">Installation Source</a></li>
-<li class="toctree-l2"><a class="reference internal" href="boot-options.html#kickstart">Kickstart</a></li>
-<li class="toctree-l2"><a class="reference internal" href="boot-options.html#network-options">Network Options</a></li>
-<li class="toctree-l2"><a class="reference internal" href="boot-options.html#console-display-options">Console / Display Options</a></li>
-<li class="toctree-l2"><a class="reference internal" href="boot-options.html#debugging-and-troubleshooting">Debugging and Troubleshooting</a></li>
-<li class="toctree-l2"><a class="reference internal" href="boot-options.html#deprecated-options">Deprecated Options</a></li>
-<li class="toctree-l2"><a class="reference internal" href="boot-options.html#removed-options">Removed Options</a></li>
+<li class="toctree-l2"><a class="reference internal" href="boot-options.html#installation-source">Installation Source</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="boot-options.html#inst-repo">inst.repo</a></li>
+<li class="toctree-l3"><a class="reference internal" href="boot-options.html#inst-stage2">inst.stage2</a></li>
+<li class="toctree-l3"><a class="reference internal" href="boot-options.html#inst-dd">inst.dd</a></li>
+<li class="toctree-l3"><a class="reference internal" href="boot-options.html#inst-multilib">inst.multilib</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="boot-options.html#kickstart">Kickstart</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="boot-options.html#inst-ks">inst.ks</a></li>
+<li class="toctree-l3"><a class="reference internal" href="boot-options.html#inst-ks-sendmac">inst.ks.sendmac</a></li>
+<li class="toctree-l3"><a class="reference internal" href="boot-options.html#inst-ks-sendsn">inst.ks.sendsn</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="boot-options.html#network-options">Network Options</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="boot-options.html#ip">ip</a></li>
+<li class="toctree-l3"><a class="reference internal" href="boot-options.html#nameserver">nameserver</a></li>
+<li class="toctree-l3"><a class="reference internal" href="boot-options.html#bootdev">bootdev</a></li>
+<li class="toctree-l3"><a class="reference internal" href="boot-options.html#ifname">ifname</a></li>
+<li class="toctree-l3"><a class="reference internal" href="boot-options.html#inst-dhcpclass">inst.dhcpclass</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="boot-options.html#console-display-options">Console / Display Options</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="boot-options.html#console">console</a></li>
+<li class="toctree-l3"><a class="reference internal" href="boot-options.html#inst-lang">inst.lang</a></li>
+<li class="toctree-l3"><a class="reference internal" href="boot-options.html#inst-geoloc">inst.geoloc</a></li>
+<li class="toctree-l3"><a class="reference internal" href="boot-options.html#inst-keymap">inst.keymap</a></li>
+<li class="toctree-l3"><a class="reference internal" href="boot-options.html#inst-cmdline">inst.cmdline</a></li>
+<li class="toctree-l3"><a class="reference internal" href="boot-options.html#inst-graphical">inst.graphical</a></li>
+<li class="toctree-l3"><a class="reference internal" href="boot-options.html#inst-text">inst.text</a></li>
+<li class="toctree-l3"><a class="reference internal" href="boot-options.html#inst-resolution">inst.resolution</a></li>
+<li class="toctree-l3"><a class="reference internal" href="boot-options.html#inst-vnc">inst.vnc</a></li>
+<li class="toctree-l3"><a class="reference internal" href="boot-options.html#inst-vncpassword">inst.vncpassword</a></li>
+<li class="toctree-l3"><a class="reference internal" href="boot-options.html#inst-vncconnect">inst.vncconnect</a></li>
+<li class="toctree-l3"><a class="reference internal" href="boot-options.html#inst-headless">inst.headless</a></li>
+<li class="toctree-l3"><a class="reference internal" href="boot-options.html#inst-xdriver">inst.xdriver</a></li>
+<li class="toctree-l3"><a class="reference internal" href="boot-options.html#inst-usefbx">inst.usefbx</a></li>
+<li class="toctree-l3"><a class="reference internal" href="boot-options.html#inst-sshd">inst.sshd</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="boot-options.html#debugging-and-troubleshooting">Debugging and Troubleshooting</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="boot-options.html#inst-rescue">inst.rescue</a></li>
+<li class="toctree-l3"><a class="reference internal" href="boot-options.html#inst-updates">inst.updates</a></li>
+<li class="toctree-l3"><a class="reference internal" href="boot-options.html#inst-loglevel">inst.loglevel</a></li>
+<li class="toctree-l3"><a class="reference internal" href="boot-options.html#inst-syslog">inst.syslog</a></li>
+<li class="toctree-l3"><a class="reference internal" href="boot-options.html#inst-virtiolog">inst.virtiolog</a></li>
+<li class="toctree-l3"><a class="reference internal" href="boot-options.html#inst-zram">inst.zram</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="boot-options.html#deprecated-options">Deprecated Options</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="boot-options.html#method">method</a></li>
+<li class="toctree-l3"><a class="reference internal" href="boot-options.html#repo-nfsiso">repo=nfsiso:...</a></li>
+<li class="toctree-l3"><a class="reference internal" href="boot-options.html#dns">dns</a></li>
+<li class="toctree-l3"><a class="reference internal" href="boot-options.html#netmask-gateway-hostname">netmask, gateway, hostname</a></li>
+<li class="toctree-l3"><a class="reference internal" href="boot-options.html#ip-bootif">ip=bootif</a></li>
+<li class="toctree-l3"><a class="reference internal" href="boot-options.html#ksdevice">ksdevice</a></li>
+<li class="toctree-l3"><a class="reference internal" href="boot-options.html#blacklist-nofirewire">blacklist, nofirewire</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="boot-options.html#removed-options">Removed Options</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="boot-options.html#askmethod-asknetwork">askmethod, asknetwork</a></li>
+<li class="toctree-l3"><a class="reference internal" href="boot-options.html#id5">serial</a></li>
+<li class="toctree-l3"><a class="reference internal" href="boot-options.html#updates">updates</a></li>
+<li class="toctree-l3"><a class="reference internal" href="boot-options.html#essid-wepkey-wpakey">essid, wepkey, wpakey</a></li>
+<li class="toctree-l3"><a class="reference internal" href="boot-options.html#ethtool">ethtool</a></li>
+<li class="toctree-l3"><a class="reference internal" href="boot-options.html#gdb">gdb</a></li>
+<li class="toctree-l3"><a class="reference internal" href="boot-options.html#inst-mediacheck">inst.mediacheck</a></li>
+<li class="toctree-l3"><a class="reference internal" href="boot-options.html#ks-floppy">ks=floppy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="boot-options.html#display">display</a></li>
+<li class="toctree-l3"><a class="reference internal" href="boot-options.html#utf8">utf8</a></li>
+<li class="toctree-l3"><a class="reference internal" href="boot-options.html#noipv6">noipv6</a></li>
+<li class="toctree-l3"><a class="reference internal" href="boot-options.html#upgradeany">upgradeany</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="kickstart.html">Anaconda Kickstart Documentation</a><ul>
@@ -111,7 +185,61 @@
 </ul>
 </li>
 <li class="toctree-l1 current"><a class="reference internal" href="modules.html">pyanaconda</a><ul class="current">
-<li class="toctree-l2 current"><a class="current reference internal" href="">pyanaconda package</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="">pyanaconda package</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#subpackages">Subpackages</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="pyanaconda.installclasses.html">pyanaconda.installclasses package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="pyanaconda.isys.html">pyanaconda.isys package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="pyanaconda.packaging.html">pyanaconda.packaging package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="pyanaconda.ui.html">pyanaconda.ui package</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#submodules">Submodules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-pyanaconda.addons">pyanaconda.addons module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-pyanaconda.anaconda">pyanaconda.anaconda module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-pyanaconda.anaconda_argparse">pyanaconda.anaconda_argparse module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-pyanaconda.anaconda_log">pyanaconda.anaconda_log module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-pyanaconda.bootloader">pyanaconda.bootloader module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-pyanaconda.constants">pyanaconda.constants module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-pyanaconda.constants_text">pyanaconda.constants_text module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-pyanaconda.desktop">pyanaconda.desktop module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-pyanaconda.errors">pyanaconda.errors module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-pyanaconda.exception">pyanaconda.exception module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-pyanaconda.flags">pyanaconda.flags module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-pyanaconda.geoloc">pyanaconda.geoloc module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-pyanaconda.i18n">pyanaconda.i18n module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-pyanaconda.ihelp">pyanaconda.ihelp module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-pyanaconda.image">pyanaconda.image module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-pyanaconda.install">pyanaconda.install module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-pyanaconda.installclass">pyanaconda.installclass module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-pyanaconda.installinterfacebase">pyanaconda.installinterfacebase module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-pyanaconda.iutil">pyanaconda.iutil module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-pyanaconda.kexec">pyanaconda.kexec module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-pyanaconda.keyboard">pyanaconda.keyboard module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-pyanaconda.kickstart">pyanaconda.kickstart module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-pyanaconda.localization">pyanaconda.localization module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-pyanaconda.network">pyanaconda.network module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-pyanaconda.nm">pyanaconda.nm module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-pyanaconda.ntp">pyanaconda.ntp module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-pyanaconda.orderedset">pyanaconda.orderedset module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-pyanaconda.product">pyanaconda.product module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-pyanaconda.progress">pyanaconda.progress module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-pyanaconda.pwpolicy">pyanaconda.pwpolicy module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-pyanaconda.queuefactory">pyanaconda.queuefactory module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-pyanaconda.regexes">pyanaconda.regexes module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-pyanaconda.rescue">pyanaconda.rescue module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-pyanaconda.safe_dbus">pyanaconda.safe_dbus module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-pyanaconda.screensaver">pyanaconda.screensaver module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-pyanaconda.simpleconfig">pyanaconda.simpleconfig module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-pyanaconda.startup_utils">pyanaconda.startup_utils module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-pyanaconda.storage_utils">pyanaconda.storage_utils module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-pyanaconda.text">pyanaconda.text module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-pyanaconda.threads">pyanaconda.threads module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-pyanaconda.timezone">pyanaconda.timezone module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-pyanaconda.users">pyanaconda.users module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-pyanaconda.vnc">pyanaconda.vnc module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-pyanaconda">Module contents</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -143,7 +271,9 @@
     <li>pyanaconda package</li>
       <li class="wy-breadcrumbs-aside">
         
-          <a href="_sources/pyanaconda.txt" rel="nofollow"> View page source</a>
+          
+            <a href="_sources/pyanaconda.txt" rel="nofollow"> View page source</a>
+          
         
       </li>
   </ul>
@@ -288,7 +418,7 @@
 <li class="toctree-l6"><a class="reference internal" href="pyanaconda.ui.tui.spokes.html#module-pyanaconda.ui.tui.spokes.storage">pyanaconda.ui.tui.spokes.storage module</a></li>
 <li class="toctree-l6"><a class="reference internal" href="pyanaconda.ui.tui.spokes.html#module-pyanaconda.ui.tui.spokes.time_spoke">pyanaconda.ui.tui.spokes.time_spoke module</a></li>
 <li class="toctree-l6"><a class="reference internal" href="pyanaconda.ui.tui.spokes.html#module-pyanaconda.ui.tui.spokes.user">pyanaconda.ui.tui.spokes.user module</a></li>
-<li class="toctree-l6"><a class="reference internal" href="pyanaconda.ui.tui.spokes.html#module-pyanaconda.ui.tui.spokes.warnings">pyanaconda.ui.tui.spokes.warnings module</a></li>
+<li class="toctree-l6"><a class="reference internal" href="pyanaconda.ui.tui.spokes.html#module-pyanaconda.ui.tui.spokes.warnings_spoke">pyanaconda.ui.tui.spokes.warnings_spoke module</a></li>
 <li class="toctree-l6"><a class="reference internal" href="pyanaconda.ui.tui.spokes.html#module-pyanaconda.ui.tui.spokes">Module contents</a></li>
 </ul>
 </li>
@@ -347,7 +477,7 @@
 <dl class="class">
 <dt id="pyanaconda.addons.AddonRegistry">
 <em class="property">class </em><tt class="descclassname">pyanaconda.addons.</tt><tt class="descname">AddonRegistry</tt><big>(</big><em>dictionary</em><big>)</big><a class="headerlink" href="#pyanaconda.addons.AddonRegistry" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/2/library/functions.html#object" title="(in Python v2.7)"><tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></a></p>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">builtins.object</span></tt></p>
 <p>This class represents the ksdata.addons object and
 maintains the ids and data structures for loaded
 addons.</p>
@@ -369,7 +499,7 @@ addons.</p>
 <dl class="class">
 <dt id="pyanaconda.addons.AddonData">
 <em class="property">class </em><tt class="descclassname">pyanaconda.addons.</tt><tt class="descname">AddonData</tt><big>(</big><em>name</em><big>)</big><a class="headerlink" href="#pyanaconda.addons.AddonData" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/2/library/functions.html#object" title="(in Python v2.7)"><tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></a></p>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">builtins.object</span></tt></p>
 <p>This is a common parent class for loading and storing
 3rd party data to kickstart. It is instantiated by
 kickstart parser and stored as ksdata.addons.&lt;name&gt;
@@ -444,7 +574,7 @@ but that can be changed using the ui_subdir argument.</p>
 <dl class="class">
 <dt id="pyanaconda.anaconda.Anaconda">
 <em class="property">class </em><tt class="descclassname">pyanaconda.anaconda.</tt><tt class="descname">Anaconda</tt><a class="headerlink" href="#pyanaconda.anaconda.Anaconda" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/2/library/functions.html#object" title="(in Python v2.7)"><tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></a></p>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">builtins.object</span></tt></p>
 <dl class="attribute">
 <dt id="pyanaconda.anaconda.Anaconda.bootloader">
 <tt class="descname">bootloader</tt><a class="headerlink" href="#pyanaconda.anaconda.Anaconda.bootloader" title="Permalink to this definition">¶</a></dt>
@@ -498,7 +628,7 @@ but that can be changed using the ui_subdir argument.</p>
 <dl class="class">
 <dt id="pyanaconda.anaconda_argparse.AnacondaArgumentParser">
 <em class="property">class </em><tt class="descclassname">pyanaconda.anaconda_argparse.</tt><tt class="descname">AnacondaArgumentParser</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#pyanaconda.anaconda_argparse.AnacondaArgumentParser" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/2/library/argparse.html#argparse.ArgumentParser" title="(in Python v2.7)"><tt class="xref py py-class docutils literal"><span class="pre">argparse.ArgumentParser</span></tt></a></p>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/argparse.html#argparse.ArgumentParser" title="(in Python v3.4)"><tt class="xref py py-class docutils literal"><span class="pre">argparse.ArgumentParser</span></tt></a></p>
 <p>Subclass of ArgumentParser that also examines boot arguments.</p>
 <p>If the &#8220;bootarg_prefix&#8221; keyword argument is set, it&#8217;s assumed that all
 bootargs will start with that prefix.</p>
@@ -577,7 +707,7 @@ that were not specified by add_argument as we don&#8217;t care about them
 <dl class="class">
 <dt id="pyanaconda.anaconda_argparse.HelpTextParser">
 <em class="property">class </em><tt class="descclassname">pyanaconda.anaconda_argparse.</tt><tt class="descname">HelpTextParser</tt><big>(</big><em>path</em><big>)</big><a class="headerlink" href="#pyanaconda.anaconda_argparse.HelpTextParser" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/2/library/functions.html#object" title="(in Python v2.7)"><tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></a></p>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">builtins.object</span></tt></p>
 <p>Class to parse help text from file and make it available to option
 parser.</p>
 <p>Initializer
@@ -591,7 +721,7 @@ If no help text is available, returns the empty string.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>option</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) &#8211; The name of the option</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>option</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.4)"><em>str</em></a>) &#8211; The name of the option</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
 </tr>
@@ -675,7 +805,8 @@ name.</p>
 <dl class="class">
 <dt id="pyanaconda.anaconda_log.AnacondaLog">
 <em class="property">class </em><tt class="descclassname">pyanaconda.anaconda_log.</tt><tt class="descname">AnacondaLog</tt><a class="headerlink" href="#pyanaconda.anaconda_log.AnacondaLog" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="attribute">
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">builtins.object</span></tt></p>
+<dl class="attribute">
 <dt id="pyanaconda.anaconda_log.AnacondaLog.SYSLOG_CFGFILE">
 <tt class="descname">SYSLOG_CFGFILE</tt><em class="property"> = '/etc/rsyslog.conf'</em><a class="headerlink" href="#pyanaconda.anaconda_log.AnacondaLog.SYSLOG_CFGFILE" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
@@ -714,7 +845,7 @@ name.</p>
 
 <dl class="method">
 <dt id="pyanaconda.anaconda_log.AnacondaLog.showwarning">
-<tt class="descname">showwarning</tt><big>(</big><em>message</em>, <em>category</em>, <em>filename</em>, <em>lineno</em>, <em>file=&lt;open file '&lt;stderr&gt;'</em>, <em>mode 'w' at 0x7f33395be1e0&gt;</em>, <em>line=None</em><big>)</big><a class="headerlink" href="#pyanaconda.anaconda_log.AnacondaLog.showwarning" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">showwarning</tt><big>(</big><em>message</em>, <em>category</em>, <em>filename</em>, <em>lineno</em>, <em>file=&lt;_io.TextIOWrapper name='&lt;stderr&gt;' mode='w' encoding='UTF-8'&gt;</em>, <em>line=None</em><big>)</big><a class="headerlink" href="#pyanaconda.anaconda_log.AnacondaLog.showwarning" title="Permalink to this definition">¶</a></dt>
 <dd><p>Make sure messages sent through python&#8217;s warnings module get logged.</p>
 <p>The warnings mechanism is used by some libraries we use,
 notably pykickstart.</p>
@@ -732,11 +863,11 @@ notably pykickstart.</p>
 <dl class="class">
 <dt id="pyanaconda.anaconda_log.AnacondaSocketHandler">
 <em class="property">class </em><tt class="descclassname">pyanaconda.anaconda_log.</tt><tt class="descname">AnacondaSocketHandler</tt><big>(</big><em>host</em>, <em>port</em><big>)</big><a class="headerlink" href="#pyanaconda.anaconda_log.AnacondaSocketHandler" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/2/library/logging.handlers.html#logging.handlers.SocketHandler" title="(in Python v2.7)"><tt class="xref py py-class docutils literal"><span class="pre">logging.handlers.SocketHandler</span></tt></a></p>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/logging.handlers.html#logging.handlers.SocketHandler" title="(in Python v3.4)"><tt class="xref py py-class docutils literal"><span class="pre">logging.handlers.SocketHandler</span></tt></a></p>
 <p>Initializes the handler with a specific host address and port.</p>
-<p>The attribute &#8216;closeOnError&#8217; is set to 1 - which means that if
-a socket error occurs, the socket is silently closed and then
-reopened on the next logging call.</p>
+<p>When the attribute <em>closeOnError</em> is set to True - if a socket error
+occurs, the socket is silently closed and then reopened on the next
+logging call.</p>
 <dl class="method">
 <dt id="pyanaconda.anaconda_log.AnacondaSocketHandler.makePickle">
 <tt class="descname">makePickle</tt><big>(</big><em>record</em><big>)</big><a class="headerlink" href="#pyanaconda.anaconda_log.AnacondaSocketHandler.makePickle" title="Permalink to this definition">¶</a></dt>
@@ -747,7 +878,7 @@ reopened on the next logging call.</p>
 <dl class="class">
 <dt id="pyanaconda.anaconda_log.AnacondaSyslogHandler">
 <em class="property">class </em><tt class="descclassname">pyanaconda.anaconda_log.</tt><tt class="descname">AnacondaSyslogHandler</tt><big>(</big><em>address=('localhost'</em>, <em>514)</em>, <em>facility=1</em>, <em>tag=''</em><big>)</big><a class="headerlink" href="#pyanaconda.anaconda_log.AnacondaSyslogHandler" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/2/library/logging.handlers.html#logging.handlers.SysLogHandler" title="(in Python v2.7)"><tt class="xref py py-class docutils literal"><span class="pre">logging.handlers.SysLogHandler</span></tt></a></p>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/logging.handlers.html#logging.handlers.SysLogHandler" title="(in Python v3.4)"><tt class="xref py py-class docutils literal"><span class="pre">logging.handlers.SysLogHandler</span></tt></a></p>
 <dl class="method">
 <dt id="pyanaconda.anaconda_log.AnacondaSyslogHandler.emit">
 <tt class="descname">emit</tt><big>(</big><em>record</em><big>)</big><a class="headerlink" href="#pyanaconda.anaconda_log.AnacondaSyslogHandler.emit" title="Permalink to this definition">¶</a></dt>
@@ -809,7 +940,7 @@ reopened on the next logging call.</p>
 <dl class="class">
 <dt id="pyanaconda.bootloader.BootLoader">
 <em class="property">class </em><tt class="descclassname">pyanaconda.bootloader.</tt><tt class="descname">BootLoader</tt><a class="headerlink" href="#pyanaconda.bootloader.BootLoader" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/2/library/functions.html#object" title="(in Python v2.7)"><tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></a></p>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">builtins.object</span></tt></p>
 <dl class="method">
 <dt id="pyanaconda.bootloader.BootLoader.add_image">
 <tt class="descname">add_image</tt><big>(</big><em>image</em><big>)</big><a class="headerlink" href="#pyanaconda.bootloader.BootLoader.add_image" title="Permalink to this definition">¶</a></dt>
@@ -1117,13 +1248,13 @@ method.</p>
 <dl class="exception">
 <dt id="pyanaconda.bootloader.BootLoaderError">
 <em class="property">exception </em><tt class="descclassname">pyanaconda.bootloader.</tt><tt class="descname">BootLoaderError</tt><a class="headerlink" href="#pyanaconda.bootloader.BootLoaderError" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/2/library/exceptions.html#exceptions.Exception" title="(in Python v2.7)"><tt class="xref py py-class docutils literal"><span class="pre">exceptions.Exception</span></tt></a></p>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">builtins.Exception</span></tt></p>
 </dd></dl>
 
 <dl class="class">
 <dt id="pyanaconda.bootloader.BootLoaderImage">
 <em class="property">class </em><tt class="descclassname">pyanaconda.bootloader.</tt><tt class="descname">BootLoaderImage</tt><big>(</big><em>device=None</em>, <em>label=None</em>, <em>short=None</em><big>)</big><a class="headerlink" href="#pyanaconda.bootloader.BootLoaderImage" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/2/library/functions.html#object" title="(in Python v2.7)"><tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></a></p>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">builtins.object</span></tt></p>
 <p>Base class for bootloader images. Suitable for non-linux OS images.</p>
 </dd></dl>
 
@@ -1396,7 +1527,7 @@ method.</p>
 
 <dl class="attribute">
 <dt id="pyanaconda.bootloader.GRUB.stage2_raid_levels">
-<tt class="descname">stage2_raid_levels</tt><em class="property"> = [&lt;blivet.devicelibs.raid.RAID1 object at 0x7f3322690ad0&gt;]</em><a class="headerlink" href="#pyanaconda.bootloader.GRUB.stage2_raid_levels" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">stage2_raid_levels</tt><em class="property"> = [&lt;blivet.devicelibs.raid.RAID1 object at 0x7f4a99ca9ef0&gt;]</em><a class="headerlink" href="#pyanaconda.bootloader.GRUB.stage2_raid_levels" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
@@ -1559,7 +1690,7 @@ md devices just use their names.</p>
 
 <dl class="attribute">
 <dt id="pyanaconda.bootloader.GRUB2.stage2_raid_levels">
-<tt class="descname">stage2_raid_levels</tt><em class="property"> = [&lt;blivet.devicelibs.raid.RAID0 object at 0x7f33226908d0&gt;, &lt;blivet.devicelibs.raid.RAID1 object at 0x7f3322690ad0&gt;, &lt;blivet.devicelibs.raid.RAID4 object at 0x7f3322690cd0&gt;, &lt;blivet.devicelibs.raid.RAID5 object at 0x7f3322690ed0&gt;, &lt;blivet.devicelibs.raid.RAID6 object at 0x7f332269a110&gt;, &lt;blivet.devicelibs.raid.RAID10 object at 0x7f332269a310&gt;]</em><a class="headerlink" href="#pyanaconda.bootloader.GRUB2.stage2_raid_levels" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">stage2_raid_levels</tt><em class="property"> = [&lt;blivet.devicelibs.raid.RAID0 object at 0x7f4a99ca9d30&gt;, &lt;blivet.devicelibs.raid.RAID1 object at 0x7f4a99ca9ef0&gt;, &lt;blivet.devicelibs.raid.RAID4 object at 0x7f4a99cc40f0&gt;, &lt;blivet.devicelibs.raid.RAID5 object at 0x7f4a99cc42b0&gt;, &lt;blivet.devicelibs.raid.RAID6 object at 0x7f4a99cc4470&gt;, &lt;blivet.devicelibs.raid.RAID10 object at 0x7f4a99cc4630&gt;]</em><a class="headerlink" href="#pyanaconda.bootloader.GRUB2.stage2_raid_levels" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
@@ -1783,7 +1914,7 @@ md devices just use their names.</p>
 
 <dl class="attribute">
 <dt id="pyanaconda.bootloader.Yaboot.stage2_device_raid_levels">
-<tt class="descname">stage2_device_raid_levels</tt><em class="property"> = [&lt;blivet.devicelibs.raid.RAID1 object at 0x7f3322690ad0&gt;]</em><a class="headerlink" href="#pyanaconda.bootloader.Yaboot.stage2_device_raid_levels" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">stage2_device_raid_levels</tt><em class="property"> = [&lt;blivet.devicelibs.raid.RAID1 object at 0x7f4a99ca9ef0&gt;]</em><a class="headerlink" href="#pyanaconda.bootloader.Yaboot.stage2_device_raid_levels" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
@@ -1934,7 +2065,7 @@ Also note that the kernel assumes 1 stop bit; this can&#8217;t be changed.</p>
 <dl class="class">
 <dt id="pyanaconda.bootloader.serial_opts">
 <em class="property">class </em><tt class="descclassname">pyanaconda.bootloader.</tt><tt class="descname">serial_opts</tt><a class="headerlink" href="#pyanaconda.bootloader.serial_opts" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/2/library/functions.html#object" title="(in Python v2.7)"><tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></a></p>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">builtins.object</span></tt></p>
 </dd></dl>
 
 <dl class="function">
@@ -1966,7 +2097,8 @@ adjust the default to reflect whatever the default variant is.</p>
 <dl class="class">
 <dt id="pyanaconda.constants_text.Translator">
 <em class="property">class </em><tt class="descclassname">pyanaconda.constants_text.</tt><tt class="descname">Translator</tt><big>(</big><em>button</em>, <em>check</em><big>)</big><a class="headerlink" href="#pyanaconda.constants_text.Translator" title="Permalink to this definition">¶</a></dt>
-<dd><p>A simple class to facilitate on-the-fly translation for newt buttons</p>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">builtins.object</span></tt></p>
+<p>A simple class to facilitate on-the-fly translation for newt buttons</p>
 </dd></dl>
 
 </div>
@@ -1975,7 +2107,7 @@ adjust the default to reflect whatever the default variant is.</p>
 <dl class="class">
 <dt id="pyanaconda.desktop.Desktop">
 <em class="property">class </em><tt class="descclassname">pyanaconda.desktop.</tt><tt class="descname">Desktop</tt><a class="headerlink" href="#pyanaconda.desktop.Desktop" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/2/library/functions.html#object" title="(in Python v2.7)"><tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></a></p>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">builtins.object</span></tt></p>
 <dl class="attribute">
 <dt id="pyanaconda.desktop.Desktop.runlevel">
 <tt class="descname">runlevel</tt><a class="headerlink" href="#pyanaconda.desktop.Desktop.runlevel" title="Permalink to this definition">¶</a></dt>
@@ -1994,37 +2126,37 @@ adjust the default to reflect whatever the default variant is.</p>
 <dl class="exception">
 <dt id="pyanaconda.errors.InvalidImageSizeError">
 <em class="property">exception </em><tt class="descclassname">pyanaconda.errors.</tt><tt class="descname">InvalidImageSizeError</tt><big>(</big><em>message</em>, <em>filename</em><big>)</big><a class="headerlink" href="#pyanaconda.errors.InvalidImageSizeError" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/2/library/exceptions.html#exceptions.Exception" title="(in Python v2.7)"><tt class="xref py py-class docutils literal"><span class="pre">exceptions.Exception</span></tt></a></p>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">builtins.Exception</span></tt></p>
 </dd></dl>
 
 <dl class="exception">
 <dt id="pyanaconda.errors.MissingImageError">
 <em class="property">exception </em><tt class="descclassname">pyanaconda.errors.</tt><tt class="descname">MissingImageError</tt><a class="headerlink" href="#pyanaconda.errors.MissingImageError" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/2/library/exceptions.html#exceptions.Exception" title="(in Python v2.7)"><tt class="xref py py-class docutils literal"><span class="pre">exceptions.Exception</span></tt></a></p>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">builtins.Exception</span></tt></p>
 </dd></dl>
 
 <dl class="exception">
 <dt id="pyanaconda.errors.MediaUnmountError">
 <em class="property">exception </em><tt class="descclassname">pyanaconda.errors.</tt><tt class="descname">MediaUnmountError</tt><big>(</big><em>device</em><big>)</big><a class="headerlink" href="#pyanaconda.errors.MediaUnmountError" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/2/library/exceptions.html#exceptions.Exception" title="(in Python v2.7)"><tt class="xref py py-class docutils literal"><span class="pre">exceptions.Exception</span></tt></a></p>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">builtins.Exception</span></tt></p>
 </dd></dl>
 
 <dl class="exception">
 <dt id="pyanaconda.errors.MediaMountError">
 <em class="property">exception </em><tt class="descclassname">pyanaconda.errors.</tt><tt class="descname">MediaMountError</tt><big>(</big><em>device</em><big>)</big><a class="headerlink" href="#pyanaconda.errors.MediaMountError" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/2/library/exceptions.html#exceptions.Exception" title="(in Python v2.7)"><tt class="xref py py-class docutils literal"><span class="pre">exceptions.Exception</span></tt></a></p>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">builtins.Exception</span></tt></p>
 </dd></dl>
 
 <dl class="exception">
 <dt id="pyanaconda.errors.ScriptError">
 <em class="property">exception </em><tt class="descclassname">pyanaconda.errors.</tt><tt class="descname">ScriptError</tt><big>(</big><em>lineno</em>, <em>details</em><big>)</big><a class="headerlink" href="#pyanaconda.errors.ScriptError" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/2/library/exceptions.html#exceptions.Exception" title="(in Python v2.7)"><tt class="xref py py-class docutils literal"><span class="pre">exceptions.Exception</span></tt></a></p>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">builtins.Exception</span></tt></p>
 </dd></dl>
 
 <dl class="exception">
 <dt id="pyanaconda.errors.CmdlineError">
 <em class="property">exception </em><tt class="descclassname">pyanaconda.errors.</tt><tt class="descname">CmdlineError</tt><a class="headerlink" href="#pyanaconda.errors.CmdlineError" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/2/library/exceptions.html#exceptions.Exception" title="(in Python v2.7)"><tt class="xref py py-class docutils literal"><span class="pre">exceptions.Exception</span></tt></a></p>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">builtins.Exception</span></tt></p>
 </dd></dl>
 
 </div>
@@ -2114,7 +2246,7 @@ tries to prepare a worst case scenario designed from bugs seen so far.</p>
 <dl class="class">
 <dt id="pyanaconda.flags.BootArgs">
 <em class="property">class </em><tt class="descclassname">pyanaconda.flags.</tt><tt class="descname">BootArgs</tt><big>(</big><em>cmdline=None</em>, <em>files=None</em><big>)</big><a class="headerlink" href="#pyanaconda.flags.BootArgs" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/2/library/collections.html#collections.OrderedDict" title="(in Python v2.7)"><tt class="xref py py-class docutils literal"><span class="pre">collections.OrderedDict</span></tt></a></p>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/collections.html#collections.OrderedDict" title="(in Python v3.4)"><tt class="xref py py-class docutils literal"><span class="pre">collections.OrderedDict</span></tt></a></p>
 <p>Hold boot arguments as an OrderedDict.</p>
 <p>Create a BootArgs object.
 Reads each of the &#8220;files&#8221;, then parses &#8220;cmdline&#8221; if it was provided.</p>
@@ -2145,7 +2277,7 @@ filenames can contain <a href="#id1"><span class="problematic" id="id2">*</span>
 <dl class="class">
 <dt id="pyanaconda.flags.Flags">
 <em class="property">class </em><tt class="descclassname">pyanaconda.flags.</tt><tt class="descname">Flags</tt><big>(</big><em>read_cmdline=True</em><big>)</big><a class="headerlink" href="#pyanaconda.flags.Flags" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/2/library/functions.html#object" title="(in Python v2.7)"><tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></a></p>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">builtins.object</span></tt></p>
 <dl class="method">
 <dt id="pyanaconda.flags.Flags.get">
 <tt class="descname">get</tt><big>(</big><em>attr</em>, <em>val=None</em><big>)</big><a class="headerlink" href="#pyanaconda.flags.Flags.get" title="Permalink to this definition">¶</a></dt>
@@ -2172,8 +2304,8 @@ filenames can contain <a href="#id1"><span class="problematic" id="id2">*</span>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>msg</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) &#8211; message to be logged in case that runtime system cannot be touched</li>
-<li><strong>touch_live</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#bool" title="(in Python v2.7)"><em>bool</em></a>) &#8211; whether to allow touching liveCD installation system</li>
+<li><strong>msg</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.4)"><em>str</em></a>) &#8211; message to be logged in case that runtime system cannot be touched</li>
+<li><strong>touch_live</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.4)"><em>bool</em></a>) &#8211; whether to allow touching liveCD installation system</li>
 </ul>
 </td>
 </tr>
@@ -2182,6 +2314,12 @@ filenames can contain <a href="#id1"><span class="problematic" id="id2">*</span>
 </tr>
 </tbody>
 </table>
+</dd></dl>
+
+<dl class="function">
+<dt id="pyanaconda.flags.eintr_retry_call">
+<tt class="descclassname">pyanaconda.flags.</tt><tt class="descname">eintr_retry_call</tt><big>(</big><em>func</em>, <em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#pyanaconda.flags.eintr_retry_call" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retry an interruptible system call if interrupted.</p>
 </dd></dl>
 
 </div>
@@ -2256,15 +2394,15 @@ in a couple seconds
 <dl class="class">
 <dt id="pyanaconda.geoloc.Coordinates">
 <em class="property">class </em><tt class="descclassname">pyanaconda.geoloc.</tt><tt class="descname">Coordinates</tt><big>(</big><em>lat=None</em>, <em>lon=None</em><big>)</big><a class="headerlink" href="#pyanaconda.geoloc.Coordinates" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/2/library/functions.html#object" title="(in Python v2.7)"><tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></a></p>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">builtins.object</span></tt></p>
 <p>A set of geographic coordinates.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>lat</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><em>float</em></a>) &#8211; WGS84 latitude</li>
-<li><strong>lon</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#float" title="(in Python v2.7)"><em>float</em></a>) &#8211; WGS84 longitude</li>
+<li><strong>lat</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.4)"><em>float</em></a>) &#8211; WGS84 latitude</li>
+<li><strong>lon</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.4)"><em>float</em></a>) &#8211; WGS84 longitude</li>
 </ul>
 </td>
 </tr>
@@ -2302,7 +2440,7 @@ in a couple seconds
 <dl class="class">
 <dt id="pyanaconda.geoloc.Geocoder">
 <em class="property">class </em><tt class="descclassname">pyanaconda.geoloc.</tt><tt class="descname">Geocoder</tt><big>(</big><em>geocoder='geocoder_nominatim'</em><big>)</big><a class="headerlink" href="#pyanaconda.geoloc.Geocoder" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/2/library/functions.html#object" title="(in Python v2.7)"><tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></a></p>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">builtins.object</span></tt></p>
 <p>Provides online geocoding services
 (only reverse geocoding at the moment).</p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -2339,7 +2477,7 @@ in a couple seconds
 <dl class="class">
 <dt id="pyanaconda.geoloc.GeocodingResult">
 <em class="property">class </em><tt class="descclassname">pyanaconda.geoloc.</tt><tt class="descname">GeocodingResult</tt><big>(</big><em>coordinates=None</em>, <em>territory_code=None</em>, <em>address=None</em><big>)</big><a class="headerlink" href="#pyanaconda.geoloc.GeocodingResult" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/2/library/functions.html#object" title="(in Python v2.7)"><tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></a></p>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">builtins.object</span></tt></p>
 <p>A result from geocoding lookup</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -2347,8 +2485,8 @@ in a couple seconds
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
 <li><strong>coordinates</strong> (<em>Coordinates</em>) &#8211; geographic coordinates</li>
-<li><strong>territory_code</strong> (<a class="reference external" href="https://docs.python.org/2/library/string.html#module-string" title="(in Python v2.7)"><em>string</em></a>) &#8211; territory code of the result</li>
-<li><strong>address</strong> (<a class="reference external" href="https://docs.python.org/2/library/string.html#module-string" title="(in Python v2.7)"><em>string</em></a>) &#8211; a (street) address string</li>
+<li><strong>territory_code</strong> (<a class="reference external" href="https://docs.python.org/3/library/string.html#module-string" title="(in Python v3.4)"><em>string</em></a>) &#8211; territory code of the result</li>
+<li><strong>address</strong> (<a class="reference external" href="https://docs.python.org/3/library/string.html#module-string" title="(in Python v3.4)"><em>string</em></a>) &#8211; a (street) address string</li>
 </ul>
 </td>
 </tr>
@@ -2374,7 +2512,7 @@ in a couple seconds
 <dl class="class">
 <dt id="pyanaconda.geoloc.GeolocationBackend">
 <em class="property">class </em><tt class="descclassname">pyanaconda.geoloc.</tt><tt class="descname">GeolocationBackend</tt><a class="headerlink" href="#pyanaconda.geoloc.GeolocationBackend" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/2/library/functions.html#object" title="(in Python v2.7)"><tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></a></p>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">builtins.object</span></tt></p>
 <p>Base class for GeoIP backends.</p>
 <dl class="method">
 <dt id="pyanaconda.geoloc.GeolocationBackend.get_name">
@@ -2416,7 +2554,7 @@ in a couple seconds
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>force</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#bool" title="(in Python v2.7)"><em>bool</em></a>) &#8211; do a refresh even if there is a result already available</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>force</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.4)"><em>bool</em></a>) &#8211; do a refresh even if there is a result already available</td>
 </tr>
 </tbody>
 </table>
@@ -2427,7 +2565,7 @@ in a couple seconds
 <dl class="exception">
 <dt id="pyanaconda.geoloc.GeolocationError">
 <em class="property">exception </em><tt class="descclassname">pyanaconda.geoloc.</tt><tt class="descname">GeolocationError</tt><a class="headerlink" href="#pyanaconda.geoloc.GeolocationError" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/2/library/exceptions.html#exceptions.Exception" title="(in Python v2.7)"><tt class="xref py py-class docutils literal"><span class="pre">exceptions.Exception</span></tt></a></p>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">builtins.Exception</span></tt></p>
 <p>Exception class for geolocation related errors</p>
 </dd></dl>
 
@@ -2468,7 +2606,7 @@ in a couple seconds
 <dl class="class">
 <dt id="pyanaconda.geoloc.LocationInfo">
 <em class="property">class </em><tt class="descclassname">pyanaconda.geoloc.</tt><tt class="descname">LocationInfo</tt><big>(</big><em>provider_id='provider_fedora_geoip'</em>, <em>refresh_now=False</em><big>)</big><a class="headerlink" href="#pyanaconda.geoloc.LocationInfo" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/2/library/functions.html#object" title="(in Python v2.7)"><tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></a></p>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">builtins.object</span></tt></p>
 <p>Determines current location based on IP address or
 nearby WiFi access points (depending on what backend is used)</p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -2560,18 +2698,18 @@ nearby WiFi access points (depending on what backend is used)</p>
 <dl class="class">
 <dt id="pyanaconda.geoloc.LocationResult">
 <em class="property">class </em><tt class="descclassname">pyanaconda.geoloc.</tt><tt class="descname">LocationResult</tt><big>(</big><em>territory_code=None</em>, <em>timezone=None</em>, <em>timezone_source='unknown'</em>, <em>public_ip_address=None</em>, <em>city=None</em><big>)</big><a class="headerlink" href="#pyanaconda.geoloc.LocationResult" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/2/library/functions.html#object" title="(in Python v2.7)"><tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></a></p>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">builtins.object</span></tt></p>
 <p>Encapsulates the result from GeoIP lookup.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>territory_code</strong> (<a class="reference external" href="https://docs.python.org/2/library/string.html#module-string" title="(in Python v2.7)"><em>string</em></a>) &#8211; the territory code from GeoIP lookup</li>
-<li><strong>timezone</strong> (<a class="reference external" href="https://docs.python.org/2/library/string.html#module-string" title="(in Python v2.7)"><em>string</em></a>) &#8211; the time zone from GeoIP lookup</li>
-<li><strong>timezone_source</strong> (<a class="reference external" href="https://docs.python.org/2/library/string.html#module-string" title="(in Python v2.7)"><em>string</em></a>) &#8211; specifies source of the time zone string</li>
-<li><strong>public_ip_address</strong> (<a class="reference external" href="https://docs.python.org/2/library/string.html#module-string" title="(in Python v2.7)"><em>string</em></a>) &#8211; current public IP address</li>
-<li><strong>city</strong> (<a class="reference external" href="https://docs.python.org/2/library/string.html#module-string" title="(in Python v2.7)"><em>string</em></a>) &#8211; current city</li>
+<li><strong>territory_code</strong> (<a class="reference external" href="https://docs.python.org/3/library/string.html#module-string" title="(in Python v3.4)"><em>string</em></a>) &#8211; the territory code from GeoIP lookup</li>
+<li><strong>timezone</strong> (<a class="reference external" href="https://docs.python.org/3/library/string.html#module-string" title="(in Python v3.4)"><em>string</em></a>) &#8211; the time zone from GeoIP lookup</li>
+<li><strong>timezone_source</strong> (<a class="reference external" href="https://docs.python.org/3/library/string.html#module-string" title="(in Python v3.4)"><em>string</em></a>) &#8211; specifies source of the time zone string</li>
+<li><strong>public_ip_address</strong> (<a class="reference external" href="https://docs.python.org/3/library/string.html#module-string" title="(in Python v3.4)"><em>string</em></a>) &#8211; current public IP address</li>
+<li><strong>city</strong> (<a class="reference external" href="https://docs.python.org/3/library/string.html#module-string" title="(in Python v3.4)"><em>string</em></a>) &#8211; current city</li>
 </ul>
 </td>
 </tr>
@@ -2602,7 +2740,7 @@ nearby WiFi access points (depending on what backend is used)</p>
 <dl class="class">
 <dt id="pyanaconda.geoloc.WiFiAccessPoint">
 <em class="property">class </em><tt class="descclassname">pyanaconda.geoloc.</tt><tt class="descname">WiFiAccessPoint</tt><big>(</big><em>bssid</em>, <em>ssid=None</em>, <em>rssi=None</em><big>)</big><a class="headerlink" href="#pyanaconda.geoloc.WiFiAccessPoint" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/2/library/functions.html#object" title="(in Python v2.7)"><tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></a></p>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">builtins.object</span></tt></p>
 <p>Encapsulates information about WiFi access point</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -2637,14 +2775,14 @@ nearby WiFi access points (depending on what backend is used)</p>
 <dl class="class">
 <dt id="pyanaconda.geoloc.WifiScanner">
 <em class="property">class </em><tt class="descclassname">pyanaconda.geoloc.</tt><tt class="descname">WifiScanner</tt><big>(</big><em>scan_now=True</em><big>)</big><a class="headerlink" href="#pyanaconda.geoloc.WifiScanner" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/2/library/functions.html#object" title="(in Python v2.7)"><tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></a></p>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">builtins.object</span></tt></p>
 <p>Uses the Network Manager DBUS API to provide information
 about nearby WiFi access points</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>scan_now</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#bool" title="(in Python v2.7)"><em>bool</em></a>) &#8211; if an initial scan should be done</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>scan_now</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.4)"><em>bool</em></a>) &#8211; if an initial scan should be done</td>
 </tr>
 </tbody>
 </table>
@@ -2685,7 +2823,7 @@ arguments/boot options for the geolocation module.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>option_string</strong> (<a class="reference external" href="https://docs.python.org/2/library/string.html#module-string" title="(in Python v2.7)"><em>string</em></a>) &#8211; option specifying the provider</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>option_string</strong> (<a class="reference external" href="https://docs.python.org/3/library/string.html#module-string" title="(in Python v3.4)"><em>string</em></a>) &#8211; option specifying the provider</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">provider id</td>
 </tr>
@@ -2960,7 +3098,7 @@ installing packages onto those filesystems.</p>
 <dl class="class">
 <dt id="pyanaconda.installclass.BaseInstallClass">
 <em class="property">class </em><tt class="descclassname">pyanaconda.installclass.</tt><tt class="descname">BaseInstallClass</tt><a class="headerlink" href="#pyanaconda.installclass.BaseInstallClass" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/2/library/functions.html#object" title="(in Python v2.7)"><tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></a></p>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">builtins.object</span></tt></p>
 <dl class="attribute">
 <dt id="pyanaconda.installclass.BaseInstallClass.bootloaderExtraArgs">
 <tt class="descname">bootloaderExtraArgs</tt><em class="property"> = []</em><a class="headerlink" href="#pyanaconda.installclass.BaseInstallClass.bootloaderExtraArgs" title="Permalink to this definition">¶</a></dt>
@@ -3080,7 +3218,7 @@ installing packages onto those filesystems.</p>
 <dl class="class">
 <dt id="pyanaconda.installinterfacebase.InstallInterfaceBase">
 <em class="property">class </em><tt class="descclassname">pyanaconda.installinterfacebase.</tt><tt class="descname">InstallInterfaceBase</tt><a class="headerlink" href="#pyanaconda.installinterfacebase.InstallInterfaceBase" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/2/library/functions.html#object" title="(in Python v2.7)"><tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></a></p>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">builtins.object</span></tt></p>
 <dl class="method">
 <dt id="pyanaconda.installinterfacebase.InstallInterfaceBase.detailedMessageWindow">
 <tt class="descname">detailedMessageWindow</tt><big>(</big><em>title</em>, <em>text</em>, <em>longText=None</em>, <em>ty='ok'</em>, <em>default=None</em>, <em>custom_icon=None</em>, <em>custom_buttons=None</em>, <em>expanded=False</em><big>)</big><a class="headerlink" href="#pyanaconda.installinterfacebase.InstallInterfaceBase.detailedMessageWindow" title="Permalink to this definition">¶</a></dt>
@@ -3099,7 +3237,7 @@ installing packages onto those filesystems.</p>
 <dl class="class">
 <dt id="pyanaconda.iutil.DataHolder">
 <em class="property">class </em><tt class="descclassname">pyanaconda.iutil.</tt><tt class="descname">DataHolder</tt><big>(</big><em>**kwargs</em><big>)</big><a class="headerlink" href="#pyanaconda.iutil.DataHolder" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/2/library/stdtypes.html#dict" title="(in Python v2.7)"><tt class="xref py py-class docutils literal"><span class="pre">dict</span></tt></a></p>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">builtins.dict</span></tt></p>
 <p>A dict that lets you also access keys using dot notation.</p>
 <p>kwargs are set as keys for the dict.</p>
 <dl class="method">
@@ -3112,13 +3250,13 @@ installing packages onto those filesystems.</p>
 <dl class="exception">
 <dt id="pyanaconda.iutil.ExitError">
 <em class="property">exception </em><tt class="descclassname">pyanaconda.iutil.</tt><tt class="descname">ExitError</tt><a class="headerlink" href="#pyanaconda.iutil.ExitError" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/2/library/exceptions.html#exceptions.RuntimeError" title="(in Python v2.7)"><tt class="xref py py-class docutils literal"><span class="pre">exceptions.RuntimeError</span></tt></a></p>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">builtins.RuntimeError</span></tt></p>
 </dd></dl>
 
 <dl class="class">
 <dt id="pyanaconda.iutil.ProxyString">
 <em class="property">class </em><tt class="descclassname">pyanaconda.iutil.</tt><tt class="descname">ProxyString</tt><big>(</big><em>url=None</em>, <em>protocol='http://'</em>, <em>host=None</em>, <em>port='3128'</em>, <em>username=None</em>, <em>password=None</em><big>)</big><a class="headerlink" href="#pyanaconda.iutil.ProxyString" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/2/library/functions.html#object" title="(in Python v2.7)"><tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></a></p>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">builtins.object</span></tt></p>
 <p>Handle a proxy url</p>
 <p>Initialize with either url
 ([protocol://][username[:password]&#64;]host[:port]) or pass host and
@@ -3155,7 +3293,7 @@ url, noauth_url, protocol, host, port, username, password</p>
 <dl class="exception">
 <dt id="pyanaconda.iutil.ProxyStringError">
 <em class="property">exception </em><tt class="descclassname">pyanaconda.iutil.</tt><tt class="descname">ProxyStringError</tt><a class="headerlink" href="#pyanaconda.iutil.ProxyStringError" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/2/library/exceptions.html#exceptions.Exception" title="(in Python v2.7)"><tt class="xref py py-class docutils literal"><span class="pre">exceptions.Exception</span></tt></a></p>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">builtins.Exception</span></tt></p>
 </dd></dl>
 
 <dl class="function">
@@ -3180,9 +3318,9 @@ directory tree (recursively).</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>root</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) &#8211; root of the directory tree that should be chown&#8217;ed</li>
-<li><strong>uid</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#int" title="(in Python v2.7)"><em>int</em></a>) &#8211; UID that should be set as the owner</li>
-<li><strong>gid</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#int" title="(in Python v2.7)"><em>int</em></a>) &#8211; GID that should be set as the owner</li>
+<li><strong>root</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.4)"><em>str</em></a>) &#8211; root of the directory tree that should be chown&#8217;ed</li>
+<li><strong>uid</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.4)"><em>int</em></a>) &#8211; UID that should be set as the owner</li>
+<li><strong>gid</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.4)"><em>int</em></a>) &#8211; GID that should be set as the owner</li>
 <li><strong>from_uid_only</strong> (<em>int or None</em>) &#8211; if given, the owner is changed only for the files and
 directories owned by that UID</li>
 <li><strong>from_gid_only</strong> (<em>int or None</em>) &#8211; if given, the owner is changed only for the files and
@@ -3230,10 +3368,10 @@ under the given root directory.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>root</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) &#8211; root of the directory tree the function should be mapped to</li>
+<li><strong>root</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.4)"><em>str</em></a>) &#8211; root of the directory tree the function should be mapped to</li>
 <li><strong>func</strong> (<em>path -&gt; None</em>) &#8211; a function taking the directory/file path</li>
-<li><strong>files</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#bool" title="(in Python v2.7)"><em>bool</em></a>) &#8211; whether to apply the function to the files in the dir. tree</li>
-<li><strong>dirs</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#bool" title="(in Python v2.7)"><em>bool</em></a>) &#8211; whether to apply the function to the directories in the dir. tree</li>
+<li><strong>files</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.4)"><em>bool</em></a>) &#8211; whether to apply the function to the files in the dir. tree</li>
+<li><strong>dirs</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.4)"><em>bool</em></a>) &#8211; whether to apply the function to the directories in the dir. tree</li>
 </ul>
 </td>
 </tr>
@@ -3251,9 +3389,42 @@ so ejecting too early will crash the installer.</p>
 </dd></dl>
 
 <dl class="function">
+<dt id="pyanaconda.iutil.eintr_ignore">
+<tt class="descclassname">pyanaconda.iutil.</tt><tt class="descname">eintr_ignore</tt><big>(</big><em>func</em>, <em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#pyanaconda.iutil.eintr_ignore" title="Permalink to this definition">¶</a></dt>
+<dd><p>Call a function and ignore EINTR.</p>
+<p>This is useful for calls to close() and dup2(), which can return EINTR
+but which should <em>not</em> be retried, since by the time they return the
+file descriptor is already closed.</p>
+</dd></dl>
+
+<dl class="function">
 <dt id="pyanaconda.iutil.eintr_retry_call">
-<tt class="descclassname">pyanaconda.iutil.</tt><tt class="descname">eintr_retry_call</tt><big>(</big><em>func</em>, <em>*args</em><big>)</big><a class="headerlink" href="#pyanaconda.iutil.eintr_retry_call" title="Permalink to this definition">¶</a></dt>
+<tt class="descclassname">pyanaconda.iutil.</tt><tt class="descname">eintr_retry_call</tt><big>(</big><em>func</em>, <em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#pyanaconda.iutil.eintr_retry_call" title="Permalink to this definition">¶</a></dt>
 <dd><p>Retry an interruptible system call if interrupted.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="pyanaconda.iutil.ensure_str">
+<tt class="descclassname">pyanaconda.iutil.</tt><tt class="descname">ensure_str</tt><big>(</big><em>str_or_bytes</em>, <em>keep_none=True</em><big>)</big><a class="headerlink" href="#pyanaconda.iutil.ensure_str" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a str instance for given string or None if requested to keep it.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>str_or_bytes</strong> (<em>str or bytes</em>) &#8211; string to be kept or converted to str type</li>
+<li><strong>keep_none</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.4)"><em>bool</em></a>) &#8211; whether to keep None as it is or raise ValueError if
+None is passed</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">Raises <a class="reference external" href="https://docs.python.org/3/library/exceptions.html#ValueError" title="(in Python v3.4)">ValueError</a>:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body"><p class="first last">if applied on an object not being of type bytes nor str
+(nor NoneType if <a href="#id3"><span class="problematic" id="id4">:param:`keep_none`</span></a> is False)</p>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="function">
@@ -3273,12 +3444,16 @@ so ejecting too early will crash the installer.</p>
 
 <dl class="function">
 <dt id="pyanaconda.iutil.execReadlines">
-<tt class="descclassname">pyanaconda.iutil.</tt><tt class="descname">execReadlines</tt><big>(</big><em>command</em>, <em>argv</em>, <em>stdin=None</em>, <em>root='/'</em>, <em>env_prune=None</em><big>)</big><a class="headerlink" href="#pyanaconda.iutil.execReadlines" title="Permalink to this definition">¶</a></dt>
+<tt class="descclassname">pyanaconda.iutil.</tt><tt class="descname">execReadlines</tt><big>(</big><em>command</em>, <em>argv</em>, <em>stdin=None</em>, <em>root='/'</em>, <em>env_prune=None</em>, <em>filter_stderr=False</em><big>)</big><a class="headerlink" href="#pyanaconda.iutil.execReadlines" title="Permalink to this definition">¶</a></dt>
 <dd><p>Execute an external command and return the line output of the command
 in real-time.</p>
 <p>This method assumes that there is a reasonably low delay between the
 end of output and the process exiting. If the child process closes
 stdout and then keeps on truckin&#8217; there will be problems.</p>
+<dl class="docutils">
+<dt>NOTE/WARNING: UnicodeDecodeError will be raised if the output of the</dt>
+<dd>external command can&#8217;t be decoded as UTF-8.</dd>
+</dl>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -3288,9 +3463,9 @@ stdout and then keeps on truckin&#8217; there will be problems.</p>
 <li><strong>argv</strong> &#8211; The argument list</li>
 <li><strong>stdin</strong> &#8211; The file object to read stdin from.</li>
 <li><strong>stdout</strong> &#8211; Optional file object to redirect stdout and stderr to.</li>
-<li><strong>stderr</strong> &#8211; not used</li>
 <li><strong>root</strong> &#8211; The directory to chroot to before running command.</li>
 <li><strong>env_prune</strong> &#8211; environment variable to remove before execution</li>
+<li><strong>filter_stderr</strong> &#8211; Whether stderr should be excluded from the returned output</li>
 </ul>
 </td>
 </tr>
@@ -3309,6 +3484,20 @@ This returns an iterator with the lines from the command until it has finished</
 :param stdin: The file object to read stdin from.
 :param root: The directory to chroot to before running command.
 :param log_output: Whether to log the output of command
+:param filter_stderr: Whether stderr should be excluded from the returned output
+:return: The output of the command</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="pyanaconda.iutil.execWithCaptureBinary">
+<tt class="descclassname">pyanaconda.iutil.</tt><tt class="descname">execWithCaptureBinary</tt><big>(</big><em>command</em>, <em>argv</em>, <em>stdin=None</em>, <em>root='/'</em>, <em>log_output=False</em>, <em>filter_stderr=False</em><big>)</big><a class="headerlink" href="#pyanaconda.iutil.execWithCaptureBinary" title="Permalink to this definition">¶</a></dt>
+<dd><p>Run an external program and capture standard out and err as binary data.
+The binary data output is not logged by default but logging can be enabled.
+:param command: The command to run
+:param argv: The argument list
+:param stdin: The file object to read stdin from.
+:param root: The directory to chroot to before running command.
+:param log_output: Whether to log the binary output of the command
 :param filter_stderr: Whether stderr should be excluded from the returned output
 :return: The output of the command</p>
 </dd></dl>
@@ -3456,6 +3645,15 @@ locale-independent.</p>
 </dd></dl>
 
 <dl class="function">
+<dt id="pyanaconda.iutil.open">
+<tt class="descclassname">pyanaconda.iutil.</tt><tt class="descname">open</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#pyanaconda.iutil.open" title="Permalink to this definition">¶</a></dt>
+<dd><p>Open a file, and retry on EINTR.</p>
+<p>The arguments are the same as those to python&#8217;s builtin open.</p>
+<p>This is equivalent to eintr_retry_call(open, ...).  Some other
+high-level languages handle this for you, like C&#8217;s fopen.</p>
+</dd></dl>
+
+<dl class="function">
 <dt id="pyanaconda.iutil.parent_dir">
 <tt class="descclassname">pyanaconda.iutil.</tt><tt class="descname">parent_dir</tt><big>(</big><em>directory</em><big>)</big><a class="headerlink" href="#pyanaconda.iutil.parent_dir" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return the parent&#8217;s path</p>
@@ -3532,7 +3730,7 @@ systems to non-default roots.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>path</strong> (<a class="reference external" href="https://docs.python.org/2/library/string.html#module-string" title="(in Python v2.7)"><em>string</em></a>) &#8211; Path to use instead of /mnt/sysimage/</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>path</strong> (<a class="reference external" href="https://docs.python.org/3/library/string.html#module-string" title="(in Python v3.4)"><em>string</em></a>) &#8211; Path to use instead of /mnt/sysimage/</td>
 </tr>
 </tbody>
 </table>
@@ -3568,8 +3766,8 @@ variable name, the old value is overwritten.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>name</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) &#8211; The name of the environment variable</li>
-<li><strong>value</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) &#8211; The value of the environment variable</li>
+<li><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.4)"><em>str</em></a>) &#8211; The name of the environment variable</li>
+<li><strong>value</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.4)"><em>str</em></a>) &#8211; The value of the environment variable</li>
 </ul>
 </td>
 </tr>
@@ -3657,11 +3855,11 @@ and returns it with all the diacritics removed.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>s</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#unicode" title="(in Python v2.7)"><em>unicode</em></a>) &#8211; arbitrary string</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>s</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.4)"><em>str</em></a>) &#8211; arbitrary string</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">s with diacritics removed</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">unicode</td>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">str</td>
 </tr>
 </tbody>
 </table>
@@ -3700,7 +3898,7 @@ string.</p>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the given text with the first letter upcased</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str or unicode (depends on the input)</td>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">str</td>
 </tr>
 </tbody>
 </table>
@@ -3774,7 +3972,7 @@ For example for 10 retries, the delay will increases from
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>retry_number</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#int" title="(in Python v2.7)"><em>int</em></a>) &#8211; retry counter</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>retry_number</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.4)"><em>int</em></a>) &#8211; retry counter</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns float:</th><td class="field-body">time to wait in seconds</td>
 </tr>
@@ -3788,7 +3986,7 @@ For example for 10 retries, the delay will increases from
 <dl class="exception">
 <dt id="pyanaconda.kexec.GrubbyInfoError">
 <em class="property">exception </em><tt class="descclassname">pyanaconda.kexec.</tt><tt class="descname">GrubbyInfoError</tt><a class="headerlink" href="#pyanaconda.kexec.GrubbyInfoError" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/2/library/exceptions.html#exceptions.Exception" title="(in Python v2.7)"><tt class="xref py py-class docutils literal"><span class="pre">exceptions.Exception</span></tt></a></p>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">builtins.Exception</span></tt></p>
 </dd></dl>
 
 <dl class="function">
@@ -3799,7 +3997,7 @@ For example for 10 retries, the delay will increases from
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>args</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#list" title="(in Python v2.7)"><em>list</em></a>) &#8211; Arguments to pass to grubby.</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>args</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.4)"><em>list</em></a>) &#8211; Arguments to pass to grubby.</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">kernel path, initrd path, root device, kernel cmdline args.</td>
 </tr>
@@ -3823,7 +4021,7 @@ For example for 10 retries, the delay will increases from
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>extra_args</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#list" title="(in Python v2.7)"><em>list</em></a>) &#8211; Extra arguments to pass to kexec</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>extra_args</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.4)"><em>list</em></a>) &#8211; Extra arguments to pass to kexec</td>
 </tr>
 </tbody>
 </table>
@@ -3846,21 +4044,21 @@ mutually converting X layouts and VConsole keymaps.</p>
 <dl class="exception">
 <dt id="pyanaconda.keyboard.InvalidLayoutVariantSpec">
 <em class="property">exception </em><tt class="descclassname">pyanaconda.keyboard.</tt><tt class="descname">InvalidLayoutVariantSpec</tt><a class="headerlink" href="#pyanaconda.keyboard.InvalidLayoutVariantSpec" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/2/library/exceptions.html#exceptions.Exception" title="(in Python v2.7)"><tt class="xref py py-class docutils literal"><span class="pre">exceptions.Exception</span></tt></a></p>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">builtins.Exception</span></tt></p>
 <p>Exception class for errors related to parsing layout and variant specification strings.</p>
 </dd></dl>
 
 <dl class="exception">
 <dt id="pyanaconda.keyboard.KeyboardConfigError">
 <em class="property">exception </em><tt class="descclassname">pyanaconda.keyboard.</tt><tt class="descname">KeyboardConfigError</tt><a class="headerlink" href="#pyanaconda.keyboard.KeyboardConfigError" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/2/library/exceptions.html#exceptions.Exception" title="(in Python v2.7)"><tt class="xref py py-class docutils literal"><span class="pre">exceptions.Exception</span></tt></a></p>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">builtins.Exception</span></tt></p>
 <p>Exception class for keyboard configuration related problems</p>
 </dd></dl>
 
 <dl class="class">
 <dt id="pyanaconda.keyboard.LocaledWrapper">
 <em class="property">class </em><tt class="descclassname">pyanaconda.keyboard.</tt><tt class="descname">LocaledWrapper</tt><a class="headerlink" href="#pyanaconda.keyboard.LocaledWrapper" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/2/library/functions.html#object" title="(in Python v2.7)"><tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></a></p>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">builtins.object</span></tt></p>
 <p>Class wrapping systemd-localed daemon functionality. By using safe_dbus
 module it tries to prevent failures related to threads and main loops.</p>
 <dl class="method">
@@ -3872,7 +4070,7 @@ thinks) match given keymap best.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>keymap</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) &#8211; VConsole keymap</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>keymap</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.4)"><em>str</em></a>) &#8211; VConsole keymap</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">X11 layouts and variants that (systemd-localed thinks) match
 given keymap best</td>
@@ -3892,7 +4090,7 @@ matches given layout and variant best.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>layout_variant</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) &#8211; &#8216;layout (variant)&#8217; or &#8216;layout&#8217; specification</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>layout_variant</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.4)"><em>str</em></a>) &#8211; &#8216;layout (variant)&#8217; or &#8216;layout&#8217; specification</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">a keymap matching layout and variant best</td>
 </tr>
@@ -3962,8 +4160,8 @@ given layout and variant best.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>keymap</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) &#8211; VConsole keymap that should be set</li>
-<li><strong>convert</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#bool" title="(in Python v2.7)"><em>bool</em></a>) &#8211; whether the keymap should be converted to a X11 layout
+<li><strong>keymap</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.4)"><em>str</em></a>) &#8211; VConsole keymap that should be set</li>
+<li><strong>convert</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.4)"><em>bool</em></a>) &#8211; whether the keymap should be converted to a X11 layout
 (see set_and_convert_keymap)</li>
 </ul>
 </td>
@@ -3985,7 +4183,7 @@ systemd-localed&#8217;s DBus API.</p>
 <li><strong>layout_variant</strong> (<em>list of strings</em>) &#8211; list of &#8216;layout (variant)&#8217; or &#8216;layout&#8217;
 specifications of layouts and variants</li>
 <li><strong>options</strong> (<em>list of strings</em>) &#8211; list of X11 options that should be set</li>
-<li><strong>convert</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#bool" title="(in Python v2.7)"><em>bool</em></a>) &#8211; whether the keymap should be converted to a X11 layout
+<li><strong>convert</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.4)"><em>bool</em></a>) &#8211; whether the keymap should be converted to a X11 layout
 (see set_and_convert_keymap)</li>
 </ul>
 </td>
@@ -4045,7 +4243,7 @@ variant specification we use.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>layout_str</strong> (<a class="reference external" href="https://docs.python.org/2/library/string.html#module-string" title="(in Python v2.7)"><em>string</em></a>) &#8211; a string specifying keyboard layout and its variant</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>layout_str</strong> (<a class="reference external" href="https://docs.python.org/3/library/string.html#module-string" title="(in Python v3.4)"><em>string</em></a>) &#8211; a string specifying keyboard layout and its variant</td>
 </tr>
 </tbody>
 </table>
@@ -4060,7 +4258,7 @@ variant specification we use.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>layout_variant_str</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) &#8211; keyboard layout and variant string specification</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>layout_variant_str</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.4)"><em>str</em></a>) &#8211; keyboard layout and variant string specification</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">the (layout, variant) pair, where variant can be &#8220;&#8221;</td>
 </tr>
@@ -4156,7 +4354,7 @@ ones</li>
 <p>This will write the script to a file named /tmp/ks-script- before
 execution.
 Output is logged by the program logger, the path specified by &#8211;log
-or to /tmp/ks-script-<a href="#id3"><span class="problematic" id="id4">*</span></a>.log</p>
+or to /tmp/ks-script-<a href="#id5"><span class="problematic" id="id6">*</span></a>.log</p>
 <p>Create a new Script instance.  Instance attributes:</p>
 <dl class="docutils">
 <dt>errorOnFail &#8211; If execution of the script fails, should anaconda</dt>
@@ -4279,7 +4477,7 @@ type        &#8211; The type of the script, which can be KS_SCRIPT_* from</p>
 <dl class="class">
 <dt id="pyanaconda.kickstart.BTRFS">
 <em class="property">class </em><tt class="descclassname">pyanaconda.kickstart.</tt><tt class="descname">BTRFS</tt><big>(</big><em>writePriority=132</em>, <em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#pyanaconda.kickstart.BTRFS" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">pykickstart.commands.btrfs.F17_BTRFS</span></tt></p>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">pykickstart.commands.btrfs.F23_BTRFS</span></tt></p>
 <dl class="method">
 <dt id="pyanaconda.kickstart.BTRFS.execute">
 <tt class="descname">execute</tt><big>(</big><em>storage</em>, <em>ksdata</em>, <em>instClass</em><big>)</big><a class="headerlink" href="#pyanaconda.kickstart.BTRFS.execute" title="Permalink to this definition">¶</a></dt>
@@ -4290,7 +4488,7 @@ type        &#8211; The type of the script, which can be KS_SCRIPT_* from</p>
 <dl class="class">
 <dt id="pyanaconda.kickstart.BTRFSData">
 <em class="property">class </em><tt class="descclassname">pyanaconda.kickstart.</tt><tt class="descname">BTRFSData</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#pyanaconda.kickstart.BTRFSData" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">pykickstart.commands.btrfs.F17_BTRFSData</span></tt></p>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">pykickstart.commands.btrfs.F23_BTRFSData</span></tt></p>
 <dl class="method">
 <dt id="pyanaconda.kickstart.BTRFSData.execute">
 <tt class="descname">execute</tt><big>(</big><em>storage</em>, <em>ksdata</em>, <em>instClass</em><big>)</big><a class="headerlink" href="#pyanaconda.kickstart.BTRFSData.execute" title="Permalink to this definition">¶</a></dt>
@@ -4453,7 +4651,7 @@ type        &#8211; The type of the script, which can be KS_SCRIPT_* from</p>
 <dl class="class">
 <dt id="pyanaconda.kickstart.LogVol">
 <em class="property">class </em><tt class="descclassname">pyanaconda.kickstart.</tt><tt class="descname">LogVol</tt><big>(</big><em>writePriority=133</em>, <em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#pyanaconda.kickstart.LogVol" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">pykickstart.commands.logvol.F21_LogVol</span></tt></p>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">pykickstart.commands.logvol.F23_LogVol</span></tt></p>
 <dl class="method">
 <dt id="pyanaconda.kickstart.LogVol.execute">
 <tt class="descname">execute</tt><big>(</big><em>storage</em>, <em>ksdata</em>, <em>instClass</em><big>)</big><a class="headerlink" href="#pyanaconda.kickstart.LogVol.execute" title="Permalink to this definition">¶</a></dt>
@@ -4464,7 +4662,7 @@ type        &#8211; The type of the script, which can be KS_SCRIPT_* from</p>
 <dl class="class">
 <dt id="pyanaconda.kickstart.LogVolData">
 <em class="property">class </em><tt class="descclassname">pyanaconda.kickstart.</tt><tt class="descname">LogVolData</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#pyanaconda.kickstart.LogVolData" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">pykickstart.commands.logvol.F21_LogVolData</span></tt></p>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">pykickstart.commands.logvol.F23_LogVolData</span></tt></p>
 <dl class="method">
 <dt id="pyanaconda.kickstart.LogVolData.execute">
 <tt class="descname">execute</tt><big>(</big><em>storage</em>, <em>ksdata</em>, <em>instClass</em><big>)</big><a class="headerlink" href="#pyanaconda.kickstart.LogVolData.execute" title="Permalink to this definition">¶</a></dt>
@@ -4496,11 +4694,16 @@ type        &#8211; The type of the script, which can be KS_SCRIPT_* from</p>
 
 <dl class="class">
 <dt id="pyanaconda.kickstart.Network">
-<em class="property">class </em><tt class="descclassname">pyanaconda.kickstart.</tt><tt class="descname">Network</tt><big>(</big><em>writePriority=0</em>, <em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#pyanaconda.kickstart.Network" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><tt class="descclassname">pyanaconda.kickstart.</tt><tt class="descname">Network</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#pyanaconda.kickstart.Network" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">pykickstart.commands.network.F22_Network</span></tt></p>
 <dl class="method">
 <dt id="pyanaconda.kickstart.Network.execute">
 <tt class="descname">execute</tt><big>(</big><em>storage</em>, <em>ksdata</em>, <em>instClass</em><big>)</big><a class="headerlink" href="#pyanaconda.kickstart.Network.execute" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyanaconda.kickstart.Network.setup">
+<tt class="descname">setup</tt><big>(</big><big>)</big><a class="headerlink" href="#pyanaconda.kickstart.Network.setup" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
@@ -4508,7 +4711,7 @@ type        &#8211; The type of the script, which can be KS_SCRIPT_* from</p>
 <dl class="class">
 <dt id="pyanaconda.kickstart.Partition">
 <em class="property">class </em><tt class="descclassname">pyanaconda.kickstart.</tt><tt class="descname">Partition</tt><big>(</big><em>writePriority=130</em>, <em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#pyanaconda.kickstart.Partition" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">pykickstart.commands.partition.F20_Partition</span></tt></p>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">pykickstart.commands.partition.F23_Partition</span></tt></p>
 <dl class="method">
 <dt id="pyanaconda.kickstart.Partition.execute">
 <tt class="descname">execute</tt><big>(</big><em>storage</em>, <em>ksdata</em>, <em>instClass</em><big>)</big><a class="headerlink" href="#pyanaconda.kickstart.Partition.execute" title="Permalink to this definition">¶</a></dt>
@@ -4519,7 +4722,7 @@ type        &#8211; The type of the script, which can be KS_SCRIPT_* from</p>
 <dl class="class">
 <dt id="pyanaconda.kickstart.PartitionData">
 <em class="property">class </em><tt class="descclassname">pyanaconda.kickstart.</tt><tt class="descname">PartitionData</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#pyanaconda.kickstart.PartitionData" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">pykickstart.commands.partition.F18_PartData</span></tt></p>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">pykickstart.commands.partition.F23_PartData</span></tt></p>
 <dl class="method">
 <dt id="pyanaconda.kickstart.PartitionData.execute">
 <tt class="descname">execute</tt><big>(</big><em>storage</em>, <em>ksdata</em>, <em>instClass</em><big>)</big><a class="headerlink" href="#pyanaconda.kickstart.PartitionData.execute" title="Permalink to this definition">¶</a></dt>
@@ -4530,7 +4733,7 @@ type        &#8211; The type of the script, which can be KS_SCRIPT_* from</p>
 <dl class="class">
 <dt id="pyanaconda.kickstart.Raid">
 <em class="property">class </em><tt class="descclassname">pyanaconda.kickstart.</tt><tt class="descname">Raid</tt><big>(</big><em>writePriority=131</em>, <em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#pyanaconda.kickstart.Raid" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">pykickstart.commands.raid.F20_Raid</span></tt></p>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">pykickstart.commands.raid.F23_Raid</span></tt></p>
 <dl class="method">
 <dt id="pyanaconda.kickstart.Raid.execute">
 <tt class="descname">execute</tt><big>(</big><em>storage</em>, <em>ksdata</em>, <em>instClass</em><big>)</big><a class="headerlink" href="#pyanaconda.kickstart.Raid.execute" title="Permalink to this definition">¶</a></dt>
@@ -4541,7 +4744,7 @@ type        &#8211; The type of the script, which can be KS_SCRIPT_* from</p>
 <dl class="class">
 <dt id="pyanaconda.kickstart.RaidData">
 <em class="property">class </em><tt class="descclassname">pyanaconda.kickstart.</tt><tt class="descname">RaidData</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#pyanaconda.kickstart.RaidData" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">pykickstart.commands.raid.F18_RaidData</span></tt></p>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">pykickstart.commands.raid.F23_RaidData</span></tt></p>
 <dl class="method">
 <dt id="pyanaconda.kickstart.RaidData.execute">
 <tt class="descname">execute</tt><big>(</big><em>storage</em>, <em>ksdata</em>, <em>instClass</em><big>)</big><a class="headerlink" href="#pyanaconda.kickstart.RaidData.execute" title="Permalink to this definition">¶</a></dt>
@@ -4574,7 +4777,7 @@ type        &#8211; The type of the script, which can be KS_SCRIPT_* from</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>enabled</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#bool" title="(in Python v2.7)"><em>bool</em></a>) &#8211; The repo has been enabled</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>enabled</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.4)"><em>bool</em></a>) &#8211; The repo has been enabled</td>
 </tr>
 </tbody>
 </table>
@@ -4649,7 +4852,7 @@ type        &#8211; The type of the script, which can be KS_SCRIPT_* from</p>
 <dl class="class">
 <dt id="pyanaconda.kickstart.Timezone">
 <em class="property">class </em><tt class="descclassname">pyanaconda.kickstart.</tt><tt class="descname">Timezone</tt><big>(</big><em>*args</em><big>)</big><a class="headerlink" href="#pyanaconda.kickstart.Timezone" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">pykickstart.commands.timezone.F18_Timezone</span></tt></p>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">pykickstart.commands.timezone.F23_Timezone</span></tt></p>
 <dl class="method">
 <dt id="pyanaconda.kickstart.Timezone.execute">
 <tt class="descname">execute</tt><big>(</big><em>*args</em><big>)</big><a class="headerlink" href="#pyanaconda.kickstart.Timezone.execute" title="Permalink to this definition">¶</a></dt>
@@ -4742,7 +4945,7 @@ type        &#8211; The type of the script, which can be KS_SCRIPT_* from</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>spec</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) &#8211; a device identifier (name, UUID=&lt;uuid&gt;, &amp;c)</li>
+<li><strong>spec</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.4)"><em>str</em></a>) &#8211; a device identifier (name, UUID=&lt;uuid&gt;, &amp;c)</li>
 <li><strong>devicetree</strong> (<tt class="xref py py-class docutils literal"><span class="pre">blivet.DeviceTree</span></tt>) &#8211; device tree to look up devices in (optional)</li>
 </ul>
 </td>
@@ -4863,7 +5066,7 @@ the current state of the storage configuration.</p>
 <dl class="exception">
 <dt id="pyanaconda.localization.LocalizationConfigError">
 <em class="property">exception </em><tt class="descclassname">pyanaconda.localization.</tt><tt class="descname">LocalizationConfigError</tt><a class="headerlink" href="#pyanaconda.localization.LocalizationConfigError" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/2/library/exceptions.html#exceptions.Exception" title="(in Python v2.7)"><tt class="xref py py-class docutils literal"><span class="pre">exceptions.Exception</span></tt></a></p>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">builtins.Exception</span></tt></p>
 <p>Exception class for localization configuration related problems</p>
 </dd></dl>
 
@@ -4878,7 +5081,7 @@ when e.g. pt_BR is a locale and there are possibilities to choose an item
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>locale</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) &#8211; a valid locale (e.g. en_US.UTF-8 or <a class="reference external" href="mailto:sr_RS&#46;UTF-8&#37;&#52;&#48;latin">sr_RS<span>&#46;</span>UTF-8<span>&#64;</span>latin</a>, etc.)</li>
+<li><strong>locale</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.4)"><em>str</em></a>) &#8211; a valid locale (e.g. en_US.UTF-8 or <a class="reference external" href="mailto:sr_RS&#46;UTF-8&#37;&#52;&#48;latin">sr_RS<span>&#46;</span>UTF-8<span>&#64;</span>latin</a>, etc.)</li>
 <li><strong>langcodes</strong> (<em>list(str) or generator(str)</em>) &#8211; a list or generator of langcodes (e.g. en, en_US, <a class="reference external" href="mailto:en_US&#37;&#52;&#48;latin">en_US<span>&#64;</span>latin</a>, etc.)</li>
 </ul>
 </td>
@@ -4918,7 +5121,7 @@ the installer in the given localedir.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>locale</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) &#8211; locale to return english name for</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>locale</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.4)"><em>str</em></a>) &#8211; locale to return english name for</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">english name for the locale or empty string if unknown</td>
 </tr>
@@ -4939,7 +5142,7 @@ the installer in the given localedir.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>lang</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) &#8211; language to get available locales for</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>lang</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.4)"><em>str</em></a>) &#8211; language to get available locales for</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">a list of available locales</td>
 </tr>
@@ -4960,7 +5163,7 @@ the installer in the given localedir.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>locale</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) &#8211; locale string (see LANGCODE_RE)</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>locale</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.4)"><em>str</em></a>) &#8211; locale string (see LANGCODE_RE)</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">list of preferred keyboard layouts</td>
 </tr>
@@ -4981,7 +5184,7 @@ the installer in the given localedir.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>locale</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) &#8211; locale string (see LANGCODE_RE)</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>locale</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.4)"><em>str</em></a>) &#8211; locale string (see LANGCODE_RE)</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">territory or None</td>
 </tr>
@@ -5002,7 +5205,7 @@ the installer in the given localedir.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>locale</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) &#8211; locale string (see LANGCODE_RE)</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>locale</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.4)"><em>str</em></a>) &#8211; locale string (see LANGCODE_RE)</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">list of preferred timezones</td>
 </tr>
@@ -5023,7 +5226,7 @@ the installer in the given localedir.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>locale</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) &#8211; locale to return native name for</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>locale</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.4)"><em>str</em></a>) &#8211; locale to return native name for</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">english name for the locale or empty string if unknown</td>
 </tr>
@@ -5046,7 +5249,7 @@ langtable&#8217;s ranking.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>territory</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) &#8211; territory to return locales for</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>territory</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.4)"><em>str</em></a>) &#8211; territory to return locales for</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">list of locales</td>
 </tr>
@@ -5065,7 +5268,7 @@ name according to the current value of the $LANG variable.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>tz_spec_part</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) &#8211; a region, city or complete timezone name</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>tz_spec_part</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.4)"><em>str</em></a>) &#8211; a region, city or complete timezone name</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">translated name of the given region, city or timezone</td>
 </tr>
@@ -5085,7 +5288,7 @@ Anaconda.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>locale</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) &#8211; locale to test</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>locale</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.4)"><em>str</em></a>) &#8211; locale to test</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">whether the given locale is supported or not</td>
 </tr>
@@ -5109,8 +5312,8 @@ encoding) are the same as the matching parts of the locale.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>langcode</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) &#8211; a langcode (e.g. en, en_US, <a class="reference external" href="mailto:en_US&#37;&#52;&#48;latin">en_US<span>&#64;</span>latin</a>, etc.)</li>
-<li><strong>locale</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) &#8211; a valid locale (e.g. en_US.UTF-8 or <a class="reference external" href="mailto:sr_RS&#46;UTF-8&#37;&#52;&#48;latin">sr_RS<span>&#46;</span>UTF-8<span>&#64;</span>latin</a>, etc.)</li>
+<li><strong>langcode</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.4)"><em>str</em></a>) &#8211; a langcode (e.g. en, en_US, <a class="reference external" href="mailto:en_US&#37;&#52;&#48;latin">en_US<span>&#64;</span>latin</a>, etc.)</li>
+<li><strong>locale</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.4)"><em>str</em></a>) &#8211; a valid locale (e.g. en_US.UTF-8 or <a class="reference external" href="mailto:sr_RS&#46;UTF-8&#37;&#52;&#48;latin">sr_RS<span>&#46;</span>UTF-8<span>&#64;</span>latin</a>, etc.)</li>
 </ul>
 </td>
 </tr>
@@ -5168,10 +5371,10 @@ fields.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>year</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#any" title="(in Python v2.7)"><em>any</em></a>) &#8211; any object or value representing year</li>
-<li><strong>month</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#any" title="(in Python v2.7)"><em>any</em></a>) &#8211; any object or value representing month</li>
-<li><strong>day</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#any" title="(in Python v2.7)"><em>any</em></a>) &#8211; any object or value representing day</li>
-<li><strong>fail_safe</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#bool" title="(in Python v2.7)"><em>bool</em></a>) &#8211; whether to fall back to default in case of invalid
+<li><strong>year</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#any" title="(in Python v3.4)"><em>any</em></a>) &#8211; any object or value representing year</li>
+<li><strong>month</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#any" title="(in Python v3.4)"><em>any</em></a>) &#8211; any object or value representing month</li>
+<li><strong>day</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#any" title="(in Python v3.4)"><em>any</em></a>) &#8211; any object or value representing day</li>
+<li><strong>fail_safe</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.4)"><em>bool</em></a>) &#8211; whether to fall back to default in case of invalid
 format or raise exception instead</li>
 </ul>
 </td>
@@ -5186,7 +5389,7 @@ field, e.g. ((year, month, day), (y_fmt, m_fmt, d_fmt))</p>
 <tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first">tuple</p>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name" colspan="2">Raises ValueError:</th></tr>
+<tr class="field-even field"><th class="field-name" colspan="2">Raises <a class="reference external" href="https://docs.python.org/3/library/exceptions.html#ValueError" title="(in Python v3.4)">ValueError</a>:</th></tr>
 <tr class="field-even field"><td>&nbsp;</td><td class="field-body"><p class="first last">in case currently set locale has unsupported date
 format and fail_safe is set to False</p>
 </td>
@@ -5208,7 +5411,7 @@ Doing this in a thread-safe way is up to the caller.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>locale</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) &#8211; locale to setup</li>
+<li><strong>locale</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.4)"><em>str</em></a>) &#8211; locale to setup</li>
 <li><strong>lang</strong> &#8211; ksdata.lang object or None</li>
 </ul>
 </td>
@@ -5317,7 +5520,7 @@ Doing this in a thread-safe way is up to the caller.</p>
 
 <dl class="function">
 <dt id="pyanaconda.network.default_route_device">
-<tt class="descclassname">pyanaconda.network.</tt><tt class="descname">default_route_device</tt><big>(</big><big>)</big><a class="headerlink" href="#pyanaconda.network.default_route_device" title="Permalink to this definition">¶</a></dt>
+<tt class="descclassname">pyanaconda.network.</tt><tt class="descname">default_route_device</tt><big>(</big><em>family='inet'</em><big>)</big><a class="headerlink" href="#pyanaconda.network.default_route_device" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="function">
@@ -5601,7 +5804,7 @@ to wait for Network Manager to connect.</p>
 <dl class="exception">
 <dt id="pyanaconda.nm.AddConnectionError">
 <em class="property">exception </em><tt class="descclassname">pyanaconda.nm.</tt><tt class="descname">AddConnectionError</tt><a class="headerlink" href="#pyanaconda.nm.AddConnectionError" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/2/library/exceptions.html#exceptions.Exception" title="(in Python v2.7)"><tt class="xref py py-class docutils literal"><span class="pre">exceptions.Exception</span></tt></a></p>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">builtins.Exception</span></tt></p>
 <p>Connection is not available for the device</p>
 </dd></dl>
 
@@ -5614,49 +5817,49 @@ to wait for Network Manager to connect.</p>
 <dl class="exception">
 <dt id="pyanaconda.nm.DeviceNotActiveError">
 <em class="property">exception </em><tt class="descclassname">pyanaconda.nm.</tt><tt class="descname">DeviceNotActiveError</tt><a class="headerlink" href="#pyanaconda.nm.DeviceNotActiveError" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/2/library/exceptions.html#exceptions.Exception" title="(in Python v2.7)"><tt class="xref py py-class docutils literal"><span class="pre">exceptions.Exception</span></tt></a></p>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">builtins.Exception</span></tt></p>
 <p>Device of specified name is not active</p>
 </dd></dl>
 
 <dl class="exception">
 <dt id="pyanaconda.nm.PropertyNotFoundError">
 <em class="property">exception </em><tt class="descclassname">pyanaconda.nm.</tt><tt class="descname">PropertyNotFoundError</tt><a class="headerlink" href="#pyanaconda.nm.PropertyNotFoundError" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/2/library/exceptions.html#exceptions.ValueError" title="(in Python v2.7)"><tt class="xref py py-class docutils literal"><span class="pre">exceptions.ValueError</span></tt></a></p>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">builtins.ValueError</span></tt></p>
 <p>Property of NM object was not found</p>
 </dd></dl>
 
 <dl class="exception">
 <dt id="pyanaconda.nm.SettingsNotFoundError">
 <em class="property">exception </em><tt class="descclassname">pyanaconda.nm.</tt><tt class="descname">SettingsNotFoundError</tt><a class="headerlink" href="#pyanaconda.nm.SettingsNotFoundError" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/2/library/exceptions.html#exceptions.ValueError" title="(in Python v2.7)"><tt class="xref py py-class docutils literal"><span class="pre">exceptions.ValueError</span></tt></a></p>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">builtins.ValueError</span></tt></p>
 <p>Settings NMRemoteConnection object was not found</p>
 </dd></dl>
 
 <dl class="exception">
 <dt id="pyanaconda.nm.UnknownConnectionError">
 <em class="property">exception </em><tt class="descclassname">pyanaconda.nm.</tt><tt class="descname">UnknownConnectionError</tt><a class="headerlink" href="#pyanaconda.nm.UnknownConnectionError" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/2/library/exceptions.html#exceptions.Exception" title="(in Python v2.7)"><tt class="xref py py-class docutils literal"><span class="pre">exceptions.Exception</span></tt></a></p>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">builtins.Exception</span></tt></p>
 <p>Connection is not available for the device</p>
 </dd></dl>
 
 <dl class="exception">
 <dt id="pyanaconda.nm.UnknownDeviceError">
 <em class="property">exception </em><tt class="descclassname">pyanaconda.nm.</tt><tt class="descname">UnknownDeviceError</tt><a class="headerlink" href="#pyanaconda.nm.UnknownDeviceError" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/2/library/exceptions.html#exceptions.ValueError" title="(in Python v2.7)"><tt class="xref py py-class docutils literal"><span class="pre">exceptions.ValueError</span></tt></a></p>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">builtins.ValueError</span></tt></p>
 <p>Device of specified name was not found by NM</p>
 </dd></dl>
 
 <dl class="exception">
 <dt id="pyanaconda.nm.UnknownMethodGetError">
 <em class="property">exception </em><tt class="descclassname">pyanaconda.nm.</tt><tt class="descname">UnknownMethodGetError</tt><a class="headerlink" href="#pyanaconda.nm.UnknownMethodGetError" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/2/library/exceptions.html#exceptions.Exception" title="(in Python v2.7)"><tt class="xref py py-class docutils literal"><span class="pre">exceptions.Exception</span></tt></a></p>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">builtins.Exception</span></tt></p>
 <p>Object does not have Get, most probably being invalid</p>
 </dd></dl>
 
 <dl class="exception">
 <dt id="pyanaconda.nm.UnmanagedDeviceError">
 <em class="property">exception </em><tt class="descclassname">pyanaconda.nm.</tt><tt class="descname">UnmanagedDeviceError</tt><a class="headerlink" href="#pyanaconda.nm.UnmanagedDeviceError" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/2/library/exceptions.html#exceptions.Exception" title="(in Python v2.7)"><tt class="xref py py-class docutils literal"><span class="pre">exceptions.Exception</span></tt></a></p>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">builtins.Exception</span></tt></p>
 <p>Device of specified name is not managed by NM or unavailable</p>
 </dd></dl>
 
@@ -5670,7 +5873,7 @@ to wait for Network Manager to connect.</p>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
 <li><strong>dev_name</strong> (<em>str or None</em>) &#8211; name of device or None for virtual devices</li>
-<li><strong>con_uuid</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) &#8211; uuid of connection to be activated on device</li>
+<li><strong>con_uuid</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.4)"><em>str</em></a>) &#8211; uuid of connection to be activated on device</li>
 </ul>
 </td>
 </tr>
@@ -5735,9 +5938,9 @@ type_str: dbus type of new value (eg &#8220;ay&#8221;)</td>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>ssid</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) &#8211; name of ap (ssid)</li>
-<li><strong>key1</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) &#8211; first-level key of setting (eg &#8220;connection&#8221;)</li>
-<li><strong>key2</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) &#8211; second-level key of setting (eg &#8220;uuid&#8221;)</li>
+<li><strong>ssid</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.4)"><em>str</em></a>) &#8211; name of ap (ssid)</li>
+<li><strong>key1</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.4)"><em>str</em></a>) &#8211; first-level key of setting (eg &#8220;connection&#8221;)</li>
+<li><strong>key2</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.4)"><em>str</em></a>) &#8211; second-level key of setting (eg &#8220;uuid&#8221;)</li>
 </ul>
 </td>
 </tr>
@@ -5802,7 +6005,7 @@ by NM</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>uuid</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) &#8211; uuid of connection to be deleted</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>uuid</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.4)"><em>str</em></a>) &#8211; uuid of connection to be deleted</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">True if connection was deleted, False if it was not found</td>
 </tr>
@@ -5828,7 +6031,7 @@ UnknownDeviceError if device is not found</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>name</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) &#8211; name of device</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.4)"><em>str</em></a>) &#8211; name of device</td>
 </tr>
 </tbody>
 </table>
@@ -5846,7 +6049,7 @@ UnknownDeviceError if device is not found</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>name</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) &#8211; name of device</p>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.4)"><em>str</em></a>) &#8211; name of device</p>
 </td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">True if physical carrier is found, False otherwise</p>
@@ -5873,7 +6076,7 @@ UnknownDeviceError if device is not found</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>name</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) &#8211; name of device</p>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.4)"><em>str</em></a>) &#8211; name of device</p>
 </td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">active hardware address of device (&#8216;HwAddress&#8217; property)</p>
@@ -5901,8 +6104,8 @@ UnknownDeviceError if device is not found</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>name</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) &#8211; name of device</li>
-<li><strong>version</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#int" title="(in Python v2.7)"><em>int</em></a>) &#8211; version of IP protocol (value 4 or 6)</li>
+<li><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.4)"><em>str</em></a>) &#8211; name of device</li>
+<li><strong>version</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.4)"><em>int</em></a>) &#8211; version of IP protocol (value 4 or 6)</li>
 </ul>
 </td>
 </tr>
@@ -5932,8 +6135,8 @@ in ACTIVATED state</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>name</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) &#8211; name of device</li>
-<li><strong>version</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#int" title="(in Python v2.7)"><em>int</em></a>) &#8211; version of IP protocol (value 4 or 6)</li>
+<li><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.4)"><em>str</em></a>) &#8211; name of device</li>
+<li><strong>version</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.4)"><em>int</em></a>) &#8211; version of IP protocol (value 4 or 6)</li>
 </ul>
 </td>
 </tr>
@@ -5972,15 +6175,15 @@ UnknownDeviceError if device is not found</p>
 <dl class="function">
 <dt id="pyanaconda.nm.nm_device_perm_hwaddress">
 <tt class="descclassname">pyanaconda.nm.</tt><tt class="descname">nm_device_perm_hwaddress</tt><big>(</big><em>name</em><big>)</big><a class="headerlink" href="#pyanaconda.nm.nm_device_perm_hwaddress" title="Permalink to this definition">¶</a></dt>
-<dd><p>Return active hardware address of device (&#8216;HwAddress&#8217; property)</p>
+<dd><p>Return active hardware address of device (&#8216;PermHwAddress&#8217; property)</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>name</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) &#8211; name of device</p>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.4)"><em>str</em></a>) &#8211; name of device</p>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">active hardware address of device (&#8216;HwAddress&#8217; property)</p>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">active hardware address of device (&#8216;PermHwAddress&#8217; property)</p>
 </td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first">str</p>
@@ -5988,7 +6191,7 @@ UnknownDeviceError if device is not found</p>
 </tr>
 <tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><ul class="first last simple">
 <li><strong>UnknownDeviceError</strong> &#8211; if device is not found</li>
-<li><strong>PropertyNotFoundError</strong> &#8211; if &#8216;HwAddress&#8217; property is not found</li>
+<li><strong>PropertyNotFoundError</strong> &#8211; if &#8216;PermHwAddress&#8217; property is not found</li>
 </ul>
 </td>
 </tr>
@@ -6005,7 +6208,7 @@ UnknownDeviceError if device is not found</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>name</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) &#8211; name of device</li>
+<li><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.4)"><em>str</em></a>) &#8211; name of device</li>
 <li><strong>prop</strong> &#8211; property</li>
 </ul>
 </td>
@@ -6035,9 +6238,9 @@ UnknownDeviceError if device is not found</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>name</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) &#8211; name of device</li>
-<li><strong>key1</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) &#8211; first-level key of setting (eg &#8220;connection&#8221;)</li>
-<li><strong>key2</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) &#8211; second-level key of setting (eg &#8220;uuid&#8221;)</li>
+<li><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.4)"><em>str</em></a>) &#8211; name of device</li>
+<li><strong>key1</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.4)"><em>str</em></a>) &#8211; first-level key of setting (eg &#8220;connection&#8221;)</li>
+<li><strong>key2</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.4)"><em>str</em></a>) &#8211; second-level key of setting (eg &#8220;uuid&#8221;)</li>
 </ul>
 </td>
 </tr>
@@ -6068,7 +6271,7 @@ by NM</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>name</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) &#8211; name of device</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.4)"><em>str</em></a>) &#8211; name of device</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">names of slaves of device or None if device has no &#8216;Slaves&#8217; property</td>
 </tr>
@@ -6089,7 +6292,7 @@ by NM</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>name</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) &#8211; name of device</p>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.4)"><em>str</em></a>) &#8211; name of device</p>
 </td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">device type</p>
@@ -6116,7 +6319,7 @@ by NM</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>name</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) &#8211; name of device</p>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.4)"><em>str</em></a>) &#8211; name of device</p>
 </td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">True if type of device is BOND, False otherwise</p>
@@ -6143,7 +6346,7 @@ by NM</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>name</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) &#8211; name of device</p>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.4)"><em>str</em></a>) &#8211; name of device</p>
 </td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">True if type of device is BRIDGE, False otherwise</p>
@@ -6170,7 +6373,7 @@ by NM</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>name</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) &#8211; name of device</p>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.4)"><em>str</em></a>) &#8211; name of device</p>
 </td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">True if type of device is ETHERNET, False otherwise</p>
@@ -6190,6 +6393,15 @@ by NM</p>
 </dd></dl>
 
 <dl class="function">
+<dt id="pyanaconda.nm.nm_device_type_is_infiniband">
+<tt class="descclassname">pyanaconda.nm.</tt><tt class="descname">nm_device_type_is_infiniband</tt><big>(</big><em>name</em><big>)</big><a class="headerlink" href="#pyanaconda.nm.nm_device_type_is_infiniband" title="Permalink to this definition">¶</a></dt>
+<dd><p>Is the type of device infiniband?</p>
+<p>Exceptions:
+UnknownDeviceError if device is not found
+PropertyNotFoundError if type is not found</p>
+</dd></dl>
+
+<dl class="function">
 <dt id="pyanaconda.nm.nm_device_type_is_team">
 <tt class="descclassname">pyanaconda.nm.</tt><tt class="descname">nm_device_type_is_team</tt><big>(</big><em>name</em><big>)</big><a class="headerlink" href="#pyanaconda.nm.nm_device_type_is_team" title="Permalink to this definition">¶</a></dt>
 <dd><p>Is the type of device team?</p>
@@ -6197,7 +6409,7 @@ by NM</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>name</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) &#8211; name of device</p>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.4)"><em>str</em></a>) &#8211; name of device</p>
 </td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">True if type of device is TEAM, False otherwise</p>
@@ -6224,7 +6436,7 @@ by NM</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>name</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) &#8211; name of device</p>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.4)"><em>str</em></a>) &#8211; name of device</p>
 </td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">True if type of device is VLAN, False otherwise</p>
@@ -6251,13 +6463,42 @@ by NM</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>name</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) &#8211; name of device</p>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.4)"><em>str</em></a>) &#8211; name of device</p>
 </td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">True if type of device is WIFI, False otherwise</p>
 </td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first">bool</p>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><ul class="first last simple">
+<li><strong>UnknownDeviceError</strong> &#8211; if device is not found</li>
+<li><strong>PropertyNotFoundError</strong> &#8211; if property is not found</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="pyanaconda.nm.nm_device_valid_hwaddress">
+<tt class="descclassname">pyanaconda.nm.</tt><tt class="descname">nm_device_valid_hwaddress</tt><big>(</big><em>name</em><big>)</big><a class="headerlink" href="#pyanaconda.nm.nm_device_valid_hwaddress" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return valid hardware address of device depending on type of the device
+(&#8216;PermHwAddress&#8217; property or &#8216;HwAddress&#8217; property for infiniband)</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.4)"><em>str</em></a>) &#8211; name of device</p>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">active hardware address of device
+(&#8216;HwAddress&#8217; or &#8216;PermHwAddress&#8217; property)</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first">str</p>
 </td>
 </tr>
 <tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><ul class="first last simple">
@@ -6309,7 +6550,7 @@ by NM</p>
 
 <dl class="function">
 <dt id="pyanaconda.nm.nm_get_settings">
-<tt class="descclassname">pyanaconda.nm.</tt><tt class="descname">nm_get_settings</tt><big>(</big><em>value</em>, <em>key1</em>, <em>key2</em>, <em>format_value=&lt;function &lt;lambda&gt; at 0x7f331f6cade8&gt;</em><big>)</big><a class="headerlink" href="#pyanaconda.nm.nm_get_settings" title="Permalink to this definition">¶</a></dt>
+<tt class="descclassname">pyanaconda.nm.</tt><tt class="descname">nm_get_settings</tt><big>(</big><em>value</em>, <em>key1</em>, <em>key2</em>, <em>format_value=&lt;function &lt;lambda&gt; at 0x7f4a98869950&gt;</em><big>)</big><a class="headerlink" href="#pyanaconda.nm.nm_get_settings" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return settings having given value of key1, key2 setting</p>
 <p>Returns list of settings(dicts) , None if settings were not found.</p>
 </dd></dl>
@@ -6322,7 +6563,7 @@ by NM</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>hwaddr</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) &#8211; hardware address</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>hwaddr</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.4)"><em>str</em></a>) &#8211; hardware address</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">device name of interface having hwaddr</td>
 </tr>
@@ -6340,7 +6581,7 @@ by NM</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>address</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) &#8211; IPv4 address</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>address</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.4)"><em>str</em></a>) &#8211; IPv4 address</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">IPv4 address as an integer &#8216;u&#8217; for NM dbus setting</td>
 </tr>
@@ -6358,7 +6599,7 @@ by NM</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>address</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) &#8211; IPv6 address</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>address</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.4)"><em>str</em></a>) &#8211; IPv6 address</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">address in format &#8216;ay&#8217; for NM dbus setting</td>
 </tr>
@@ -6436,7 +6677,7 @@ if None, the type is inferred from the value supplied (string and bool only).</p
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>name</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) &#8211; name of device</li>
+<li><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.4)"><em>str</em></a>) &#8211; name of device</li>
 <li><strong>new_values</strong> (<em>[[key1, key2, value, default_type_str], ...]
 key1: str
 key2: str
@@ -6478,13 +6719,13 @@ value (string and bool only)</div></blockquote>
 <dl class="exception">
 <dt id="pyanaconda.ntp.NTPconfigError">
 <em class="property">exception </em><tt class="descclassname">pyanaconda.ntp.</tt><tt class="descname">NTPconfigError</tt><a class="headerlink" href="#pyanaconda.ntp.NTPconfigError" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/2/library/exceptions.html#exceptions.Exception" title="(in Python v2.7)"><tt class="xref py py-class docutils literal"><span class="pre">exceptions.Exception</span></tt></a></p>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">builtins.Exception</span></tt></p>
 <p>Exception class for NTP related problems</p>
 </dd></dl>
 
 <dl class="function">
 <dt id="pyanaconda.ntp.get_servers_from_config">
-<tt class="descclassname">pyanaconda.ntp.</tt><tt class="descname">get_servers_from_config</tt><big>(</big><em>conf_file_path='/etc/chrony.conf'</em>, <em>srv_regexp=&lt;_sre.SRE_Pattern object at 0x27dc3c0&gt;</em><big>)</big><a class="headerlink" href="#pyanaconda.ntp.get_servers_from_config" title="Permalink to this definition">¶</a></dt>
+<tt class="descclassname">pyanaconda.ntp.</tt><tt class="descname">get_servers_from_config</tt><big>(</big><em>conf_file_path='/etc/chrony.conf'</em>, <em>srv_regexp=re.compile('^\\s*(server|pool)\\s*([-a-zA-Z.0-9]+)\\s*[a-zA-Z]+\\s*$')</em><big>)</big><a class="headerlink" href="#pyanaconda.ntp.get_servers_from_config" title="Permalink to this definition">¶</a></dt>
 <dd><p>Goes through the chronyd&#8217;s configuration file looking for lines starting
 with &#8216;server&#8217;.</p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -6512,7 +6753,7 @@ with &#8216;server&#8217;.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>server</strong> (<a class="reference external" href="https://docs.python.org/2/library/string.html#module-string" title="(in Python v2.7)"><em>string</em></a>) &#8211; hostname or IP address of an NTP server</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>server</strong> (<a class="reference external" href="https://docs.python.org/3/library/string.html#module-string" title="(in Python v3.4)"><em>string</em></a>) &#8211; hostname or IP address of an NTP server</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">True if the given server is reachable and working, False otherwise</td>
 </tr>
@@ -6573,7 +6814,7 @@ new thread finishes if needed.</p>
 
 <dl class="function">
 <dt id="pyanaconda.ntp.save_servers_to_config">
-<tt class="descclassname">pyanaconda.ntp.</tt><tt class="descname">save_servers_to_config</tt><big>(</big><em>pools</em>, <em>servers</em>, <em>conf_file_path='/etc/chrony.conf'</em>, <em>srv_regexp=&lt;_sre.SRE_Pattern object at 0x27dc3c0&gt;</em>, <em>out_file_path=None</em><big>)</big><a class="headerlink" href="#pyanaconda.ntp.save_servers_to_config" title="Permalink to this definition">¶</a></dt>
+<tt class="descclassname">pyanaconda.ntp.</tt><tt class="descname">save_servers_to_config</tt><big>(</big><em>pools</em>, <em>servers</em>, <em>conf_file_path='/etc/chrony.conf'</em>, <em>srv_regexp=re.compile('^\\s*(server|pool)\\s*([-a-zA-Z.0-9]+)\\s*[a-zA-Z]+\\s*$')</em>, <em>out_file_path=None</em><big>)</big><a class="headerlink" href="#pyanaconda.ntp.save_servers_to_config" title="Permalink to this definition">¶</a></dt>
 <dd><p>Replaces the pools and servers defined in the chronyd&#8217;s configuration file
 with the given ones. If the out_file is not None, then it is used for the
 resulting config.</p>
@@ -6593,7 +6834,7 @@ resulting config.</p>
 <dl class="class">
 <dt id="pyanaconda.orderedset.OrderedSet">
 <em class="property">class </em><tt class="descclassname">pyanaconda.orderedset.</tt><tt class="descname">OrderedSet</tt><big>(</big><em>iterable=None</em><big>)</big><a class="headerlink" href="#pyanaconda.orderedset.OrderedSet" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">_abcoll.MutableSet</span></tt></p>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/collections.abc.html#collections.abc.MutableSet" title="(in Python v3.4)"><tt class="xref py py-class docutils literal"><span class="pre">collections.abc.MutableSet</span></tt></a></p>
 <dl class="method">
 <dt id="pyanaconda.orderedset.OrderedSet.add">
 <tt class="descname">add</tt><big>(</big><em>key</em><big>)</big><a class="headerlink" href="#pyanaconda.orderedset.OrderedSet.add" title="Permalink to this definition">¶</a></dt>
@@ -6644,7 +6885,7 @@ resulting config.</p>
 
 <dl class="function">
 <dt id="pyanaconda.progress.progress_report">
-<tt class="descclassname">pyanaconda.progress.</tt><tt class="descname">progress_report</tt><big>(</big><em>*args</em>, <em>**kwds</em><big>)</big><a class="headerlink" href="#pyanaconda.progress.progress_report" title="Permalink to this definition">¶</a></dt>
+<tt class="descclassname">pyanaconda.progress.</tt><tt class="descname">progress_report</tt><big>(</big><em>message</em><big>)</big><a class="headerlink" href="#pyanaconda.progress.progress_report" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="function">
@@ -6673,7 +6914,7 @@ resulting config.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>name</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) &#8211; Name of the policy to return.</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.4)"><em>str</em></a>) &#8211; Name of the policy to return.</td>
 </tr>
 </tbody>
 </table>
@@ -6719,7 +6960,7 @@ resulting config.</p>
 <dl class="class">
 <dt id="pyanaconda.queuefactory.QueueFactory">
 <em class="property">class </em><tt class="descclassname">pyanaconda.queuefactory.</tt><tt class="descname">QueueFactory</tt><big>(</big><em>name</em><big>)</big><a class="headerlink" href="#pyanaconda.queuefactory.QueueFactory" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/2/library/functions.html#object" title="(in Python v2.7)"><tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></a></p>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">builtins.object</span></tt></p>
 <p>Constructs a new object wrapping a Queue.Queue, complete with constants
 and sending functions for each type of message that can be put into the
 queue.</p>
@@ -6845,7 +7086,7 @@ that takes one argument.</p>
 <dl class="exception">
 <dt id="pyanaconda.safe_dbus.SafeDBusError">
 <em class="property">exception </em><tt class="descclassname">pyanaconda.safe_dbus.</tt><tt class="descname">SafeDBusError</tt><a class="headerlink" href="#pyanaconda.safe_dbus.SafeDBusError" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/2/library/exceptions.html#exceptions.Exception" title="(in Python v2.7)"><tt class="xref py py-class docutils literal"><span class="pre">exceptions.Exception</span></tt></a></p>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">builtins.Exception</span></tt></p>
 <p>Class for exceptions defined in this module.</p>
 </dd></dl>
 
@@ -6861,10 +7102,10 @@ thread-safe call not using any main loop.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>service</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) &#8211; DBus service to use</li>
-<li><strong>obj_path</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) &#8211; object path of the object to call method on</li>
-<li><strong>iface</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) &#8211; interface to use</li>
-<li><strong>method</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) &#8211; name of the method to call</li>
+<li><strong>service</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.4)"><em>str</em></a>) &#8211; DBus service to use</li>
+<li><strong>obj_path</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.4)"><em>str</em></a>) &#8211; object path of the object to call method on</li>
+<li><strong>iface</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.4)"><em>str</em></a>) &#8211; interface to use</li>
+<li><strong>method</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.4)"><em>str</em></a>) &#8211; name of the method to call</li>
 <li><strong>args</strong> (<em>GVariant</em>) &#8211; arguments to pass to the method</li>
 <li><strong>connection</strong> (<em>Gio.DBusConnection</em>) &#8211; connection to use (if None, a new connection is
 established)</li>
@@ -6908,7 +7149,7 @@ UID in $USERHELPER_UID.</p>
 </tr>
 <tr class="field-odd field"><th class="field-name">Raises:</th><td class="field-body"><ul class="first last simple">
 <li><strong>DBusCallError</strong> &#8211; if some DBus related error appears</li>
-<li><strong>OSError</strong> &#8211; if unable to set the effective UID</li>
+<li><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#OSError" title="(in Python v3.4)"><strong>OSError</strong></a> &#8211; if unable to set the effective UID</li>
 </ul>
 </td>
 </tr>
@@ -6931,10 +7172,10 @@ UID in $USERHELPER_UID.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>service</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) &#8211; DBus service to use</li>
-<li><strong>obj_path</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) &#8211; object path</li>
-<li><strong>iface</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) &#8211; interface to use</li>
-<li><strong>prop_name</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) &#8211; name of the property</li>
+<li><strong>service</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.4)"><em>str</em></a>) &#8211; DBus service to use</li>
+<li><strong>obj_path</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.4)"><em>str</em></a>) &#8211; object path</li>
+<li><strong>iface</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.4)"><em>str</em></a>) &#8211; interface to use</li>
+<li><strong>prop_name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.4)"><em>str</em></a>) &#8211; name of the property</li>
 <li><strong>connection</strong> (<em>Gio.DBusConnection</em>) &#8211; connection to use (if None, a new connection is
 established)</li>
 </ul>
@@ -6989,7 +7230,7 @@ property</li>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
 <li><strong>connection</strong> (<em>Gio.DBusConnection</em>) &#8211; A handle for the session message bus</li>
-<li><strong>inhibit_id</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#int" title="(in Python v2.7)"><em>int</em></a>) &#8211; The ID returned by the inhibit method</li>
+<li><strong>inhibit_id</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.4)"><em>int</em></a>) &#8211; The ID returned by the inhibit method</li>
 </ul>
 </td>
 </tr>
@@ -7003,7 +7244,7 @@ property</li>
 <dl class="class">
 <dt id="pyanaconda.simpleconfig.SimpleConfigFile">
 <em class="property">class </em><tt class="descclassname">pyanaconda.simpleconfig.</tt><tt class="descname">SimpleConfigFile</tt><big>(</big><em>filename=None</em>, <em>read_unquote=True</em>, <em>write_quote=True</em>, <em>always_quote=False</em><big>)</big><a class="headerlink" href="#pyanaconda.simpleconfig.SimpleConfigFile" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/2/library/functions.html#object" title="(in Python v2.7)"><tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></a></p>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">builtins.object</span></tt></p>
 <p>Edit values in a configuration file without changing comments.
 Supports KEY=VALUE lines and ignores everything else.
 Supports adding new keys.
@@ -7055,7 +7296,7 @@ If there are no quotes, find the last # in the string.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>s</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) &#8211; string to check for comment and quotes</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>s</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.4)"><em>str</em></a>) &#8211; string to check for comment and quotes</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">index of comment or None</td>
 </tr>
@@ -7077,9 +7318,6 @@ If there are no quotes, find the last # in the string.</p>
 <tt class="descclassname">pyanaconda.simpleconfig.</tt><tt class="descname">unquote</tt><big>(</big><em>s</em><big>)</big><a class="headerlink" href="#pyanaconda.simpleconfig.unquote" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-</div>
-<div class="section" id="pyanaconda-sitecustomize-module">
-<h2>pyanaconda.sitecustomize module<a class="headerlink" href="#pyanaconda-sitecustomize-module" title="Permalink to this headline">¶</a></h2>
 </div>
 <div class="section" id="module-pyanaconda.startup_utils">
 <span id="pyanaconda-startup-utils-module"></span><h2>pyanaconda.startup_utils module<a class="headerlink" href="#module-pyanaconda.startup_utils" title="Permalink to this headline">¶</a></h2>
@@ -7110,7 +7348,7 @@ Supports checking bot modules (&#8220;foo&#8221;) os submodules (&#8220;foo.bar.
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>module_path</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) &#8211; (sub)module identifier</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>module_path</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.4)"><em>str</em></a>) &#8211; (sub)module identifier</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">True if (sub)module exists in path, False if not</td>
 </tr>
@@ -7139,7 +7377,7 @@ Supports checking bot modules (&#8220;foo&#8221;) os submodules (&#8220;foo.bar.
 <dl class="exception">
 <dt id="pyanaconda.storage_utils.SanityException">
 <em class="property">exception </em><tt class="descclassname">pyanaconda.storage_utils.</tt><tt class="descname">SanityException</tt><a class="headerlink" href="#pyanaconda.storage_utils.SanityException" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/2/library/exceptions.html#exceptions.Exception" title="(in Python v2.7)"><tt class="xref py py-class docutils literal"><span class="pre">exceptions.Exception</span></tt></a></p>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">builtins.Exception</span></tt></p>
 </dd></dl>
 
 <dl class="exception">
@@ -7151,7 +7389,7 @@ Supports checking bot modules (&#8220;foo&#8221;) os submodules (&#8220;foo.bar.
 <dl class="class">
 <dt id="pyanaconda.storage_utils.UIStorageFilter">
 <em class="property">class </em><tt class="descclassname">pyanaconda.storage_utils.</tt><tt class="descname">UIStorageFilter</tt><big>(</big><em>name=''</em><big>)</big><a class="headerlink" href="#pyanaconda.storage_utils.UIStorageFilter" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/2/library/logging.html#logging.Filter" title="(in Python v2.7)"><tt class="xref py py-class docutils literal"><span class="pre">logging.Filter</span></tt></a></p>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/logging.html#logging.Filter" title="(in Python v3.4)"><tt class="xref py py-class docutils literal"><span class="pre">logging.Filter</span></tt></a></p>
 <p>Logging filter for UI storage events</p>
 <p>Initialize a filter.</p>
 <p>Initialize with the name of the logger which, together with its
@@ -7236,7 +7474,7 @@ space available</li>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>input_str</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) &#8211; a string forming some representation of a size</li>
+<li><strong>input_str</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.4)"><em>str</em></a>) &#8211; a string forming some representation of a size</li>
 <li><strong>units</strong> (<em>str or NoneType</em>) &#8211; use these units if none specified in input_str</li>
 </ul>
 </td>
@@ -7254,7 +7492,7 @@ space available</li>
 
 <dl class="function">
 <dt id="pyanaconda.storage_utils.ui_storage_logger">
-<tt class="descclassname">pyanaconda.storage_utils.</tt><tt class="descname">ui_storage_logger</tt><big>(</big><em>*args</em>, <em>**kwds</em><big>)</big><a class="headerlink" href="#pyanaconda.storage_utils.ui_storage_logger" title="Permalink to this definition">¶</a></dt>
+<tt class="descclassname">pyanaconda.storage_utils.</tt><tt class="descname">ui_storage_logger</tt><big>(</big><big>)</big><a class="headerlink" href="#pyanaconda.storage_utils.ui_storage_logger" title="Permalink to this definition">¶</a></dt>
 <dd><p>Context manager that applies the UIStorageFilter for its block</p>
 </dd></dl>
 
@@ -7282,7 +7520,8 @@ a key.</p>
 <dl class="class">
 <dt id="pyanaconda.text.OkCancelWindow">
 <em class="property">class </em><tt class="descclassname">pyanaconda.text.</tt><tt class="descname">OkCancelWindow</tt><big>(</big><em>screen</em>, <em>title</em>, <em>text</em><big>)</big><a class="headerlink" href="#pyanaconda.text.OkCancelWindow" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="method">
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">builtins.object</span></tt></p>
+<dl class="method">
 <dt id="pyanaconda.text.OkCancelWindow.getrc">
 <tt class="descname">getrc</tt><big>(</big><big>)</big><a class="headerlink" href="#pyanaconda.text.OkCancelWindow.getrc" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
@@ -7292,7 +7531,8 @@ a key.</p>
 <dl class="class">
 <dt id="pyanaconda.text.PassphraseEntryWindow">
 <em class="property">class </em><tt class="descclassname">pyanaconda.text.</tt><tt class="descname">PassphraseEntryWindow</tt><big>(</big><em>screen</em>, <em>device</em><big>)</big><a class="headerlink" href="#pyanaconda.text.PassphraseEntryWindow" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="method">
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">builtins.object</span></tt></p>
+<dl class="method">
 <dt id="pyanaconda.text.PassphraseEntryWindow.pop">
 <tt class="descname">pop</tt><big>(</big><big>)</big><a class="headerlink" href="#pyanaconda.text.PassphraseEntryWindow.pop" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
@@ -7307,7 +7547,8 @@ a key.</p>
 <dl class="class">
 <dt id="pyanaconda.text.ProgressWindow">
 <em class="property">class </em><tt class="descclassname">pyanaconda.text.</tt><tt class="descname">ProgressWindow</tt><big>(</big><em>screen</em>, <em>title</em>, <em>text</em>, <em>total</em>, <em>updpct=0.05</em>, <em>pulse=False</em><big>)</big><a class="headerlink" href="#pyanaconda.text.ProgressWindow" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="method">
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">builtins.object</span></tt></p>
+<dl class="method">
 <dt id="pyanaconda.text.ProgressWindow.pop">
 <tt class="descname">pop</tt><big>(</big><big>)</big><a class="headerlink" href="#pyanaconda.text.ProgressWindow.pop" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
@@ -7332,7 +7573,8 @@ a key.</p>
 <dl class="class">
 <dt id="pyanaconda.text.WaitWindow">
 <em class="property">class </em><tt class="descclassname">pyanaconda.text.</tt><tt class="descname">WaitWindow</tt><big>(</big><em>screen</em>, <em>title</em>, <em>text</em><big>)</big><a class="headerlink" href="#pyanaconda.text.WaitWindow" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="method">
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">builtins.object</span></tt></p>
+<dl class="method">
 <dt id="pyanaconda.text.WaitWindow.pop">
 <tt class="descname">pop</tt><big>(</big><big>)</big><a class="headerlink" href="#pyanaconda.text.WaitWindow.pop" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
@@ -7350,7 +7592,7 @@ a key.</p>
 <dl class="class">
 <dt id="pyanaconda.threads.AnacondaThread">
 <em class="property">class </em><tt class="descclassname">pyanaconda.threads.</tt><tt class="descname">AnacondaThread</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#pyanaconda.threads.AnacondaThread" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/2/library/threading.html#threading.Thread" title="(in Python v2.7)"><tt class="xref py py-class docutils literal"><span class="pre">threading.Thread</span></tt></a></p>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/threading.html#threading.Thread" title="(in Python v3.4)"><tt class="xref py py-class docutils literal"><span class="pre">threading.Thread</span></tt></a></p>
 <p>A threading.Thread subclass that exists only for a couple purposes:</p>
 <ol class="arabic simple">
 <li>Make exceptions that happen in a thread invoke our exception handling
@@ -7370,7 +7612,7 @@ when the main process is killed.</li>
 <dl class="class">
 <dt id="pyanaconda.threads.ThreadManager">
 <em class="property">class </em><tt class="descclassname">pyanaconda.threads.</tt><tt class="descname">ThreadManager</tt><a class="headerlink" href="#pyanaconda.threads.ThreadManager" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/2/library/functions.html#object" title="(in Python v2.7)"><tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></a></p>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">builtins.object</span></tt></p>
 <p>A singleton class for managing threads and processes.</p>
 <p>Notes:
 THE INSTANCE HAS TO BE CREATED IN THE MAIN THREAD!</p>
@@ -7511,7 +7753,7 @@ configuration, valid timezones recognition etc.</p>
 <dl class="exception">
 <dt id="pyanaconda.timezone.TimezoneConfigError">
 <em class="property">exception </em><tt class="descclassname">pyanaconda.timezone.</tt><tt class="descname">TimezoneConfigError</tt><a class="headerlink" href="#pyanaconda.timezone.TimezoneConfigError" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/2/library/exceptions.html#exceptions.Exception" title="(in Python v2.7)"><tt class="xref py py-class docutils literal"><span class="pre">exceptions.Exception</span></tt></a></p>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">builtins.Exception</span></tt></p>
 <p>Exception class for timezone configuration related problems</p>
 </dd></dl>
 
@@ -7539,7 +7781,7 @@ territory.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>territory</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) &#8211; territory to get preferred timezone for</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>territory</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.4)"><em>str</em></a>) &#8211; territory to get preferred timezone for</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">preferred timezone for the given territory or None if no found</td>
 </tr>
@@ -7557,7 +7799,7 @@ territory.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>timezone</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#str" title="(in Python v2.7)"><em>str</em></a>) &#8211; the timezone name</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>timezone</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.4)"><em>str</em></a>) &#8211; the timezone name</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">datetime.tzinfo</td>
 </tr>
@@ -7641,7 +7883,8 @@ Guess is done by searching for bootable ntfs devices.</p>
 <dl class="class">
 <dt id="pyanaconda.users.Users">
 <em class="property">class </em><tt class="descclassname">pyanaconda.users.</tt><tt class="descname">Users</tt><a class="headerlink" href="#pyanaconda.users.Users" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="method">
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">builtins.object</span></tt></p>
+<dl class="method">
 <dt id="pyanaconda.users.Users.checkUserExists">
 <tt class="descname">checkUserExists</tt><big>(</big><em>username</em>, <em>root=None</em><big>)</big><a class="headerlink" href="#pyanaconda.users.Users.checkUserExists" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
@@ -7753,12 +7996,12 @@ return tuple will be False and the second member of the tuple will be 0.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>pw</strong> (<a class="reference external" href="https://docs.python.org/2/library/string.html#module-string" title="(in Python v2.7)"><em>string</em></a>) &#8211; the password to check</li>
-<li><strong>user</strong> (<a class="reference external" href="https://docs.python.org/2/library/string.html#module-string" title="(in Python v2.7)"><em>string</em></a>) &#8211; the username for which the password is being set. If no
+<li><strong>pw</strong> (<a class="reference external" href="https://docs.python.org/3/library/string.html#module-string" title="(in Python v3.4)"><em>string</em></a>) &#8211; the password to check</li>
+<li><strong>user</strong> (<a class="reference external" href="https://docs.python.org/3/library/string.html#module-string" title="(in Python v3.4)"><em>string</em></a>) &#8211; the username for which the password is being set. If no
 username is provided, &#8220;root&#8221; will be used. Use user=None
 to disable the username check.</li>
 <li><strong>settings</strong> (<em>pwquality.PWQSettings</em>) &#8211; an optional PWQSettings object</li>
-<li><strong>minlen</strong> (<a class="reference external" href="https://docs.python.org/2/library/functions.html#int" title="(in Python v2.7)"><em>int</em></a>) &#8211; Minimum acceptable password length. If not passed,
+<li><strong>minlen</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.4)"><em>int</em></a>) &#8211; Minimum acceptable password length. If not passed,
 use the default length from PASSWORD_MIN_LEN</li>
 </ul>
 </td>
@@ -7779,7 +8022,8 @@ use the default length from PASSWORD_MIN_LEN</li>
 <dl class="class">
 <dt id="pyanaconda.vnc.VncServer">
 <em class="property">class </em><tt class="descclassname">pyanaconda.vnc.</tt><tt class="descname">VncServer</tt><big>(</big><em>root='/'</em>, <em>ip=None</em>, <em>name=None</em>, <em>password=''</em>, <em>vncconnecthost=''</em>, <em>vncconnectport=''</em>, <em>log_file='/tmp/vncserver.log'</em>, <em>pw_file='/tmp/vncpassword'</em><big>)</big><a class="headerlink" href="#pyanaconda.vnc.VncServer" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="method">
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">builtins.object</span></tt></p>
+<dl class="method">
 <dt id="pyanaconda.vnc.VncServer.VNCListen">
 <tt class="descname">VNCListen</tt><big>(</big><big>)</big><a class="headerlink" href="#pyanaconda.vnc.VncServer.VNCListen" title="Permalink to this definition">¶</a></dt>
 <dd><p>Put the server in listening mode.</p>
@@ -7852,10 +8096,10 @@ it by calling a function of the vnc module.</p>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="pyanaconda.installclasses.html" class="btn btn-neutral float-right" title="pyanaconda.installclasses package">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="pyanaconda.installclasses.html" class="btn btn-neutral float-right" title="pyanaconda.installclasses package" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="modules.html" class="btn btn-neutral" title="pyanaconda"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="modules.html" class="btn btn-neutral" title="pyanaconda" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -7867,10 +8111,10 @@ it by calling a function of the vnc module.</p>
         &copy; Copyright 2015, Red Hat, Inc..
     </p>
   </div>
-
   Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
-  
+
 </footer>
+
         </div>
       </div>
 
@@ -7885,7 +8129,7 @@ it by calling a function of the vnc module.</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'23.7',
+            VERSION:'23.13',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true
