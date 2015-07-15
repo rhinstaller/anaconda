@@ -49,10 +49,21 @@ enabled=1
 [anaconda-rawhide]
 name=Fedora - Rawhide - Developmental packages for the next Fedora release
 failovermethod=priority
-baseurl=http://dl.fedoraproject.org/pub/fedora/linux/development/rawhide/\$basearch/os/
 enabled=1
 gpgcheck=0
 EOF
+
+# Primary and secondary arches do not use the same baseurl, so we have to figure it
+# out here.
+if [[ "$(uname -m)" == "x86_64" ]]; then
+    cat <<EOF >> ${tmpdir}/yum.conf
+baseurl=http://dl.fedoraproject.org/pub/fedora/linux/development/rawhide/\$basearch/os/
+EOF
+else
+    cat <<EOF >> ${tmpdir}/yum.conf
+baseurl=http://mirrors.kernel.org/fedora-secondary/development/rawhide/\$basearch/os/
+EOF
+fi
 
 dnf install -y -c ${tmpdir}/yum.conf --installroot=${tmpdir} --releasever=rawhide \
             --disablerepo=\* --enablerepo=anaconda --enablerepo=anaconda-rawhide \
