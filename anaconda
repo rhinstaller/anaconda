@@ -709,6 +709,9 @@ def setupDisplay(anaconda, options, addons=None):
 
     anaconda.instClass.configure(anaconda)
 
+    # report if starting the GUI failed
+    anaconda.gui_startup_failed = bool(graphical_failed)
+
 def prompt_for_ssh():
     # Do some work here to get the ip addr / hostname to pass
     # to the user.
@@ -1244,7 +1247,7 @@ if __name__ == "__main__":
     # first, try to load firmware language if nothing is already set in
     # the environment
     if "LANG" not in os.environ:
-        localization.load_firmware_language(ksdata.lang)
+        localization.load_firmware_language(ksdata.lang, anaconda.displayMode != "g")
 
     # If command line options or kickstart set LANG, override the environment
     if opts.lang:
@@ -1267,7 +1270,7 @@ if __name__ == "__main__":
         log.error("Invalid locale '%s' given on command line or in kickstart", os.environ["LANG"])
         os.environ["LANG"] = constants.DEFAULT_LANG # pylint: disable=environment-modify
 
-    localization.setup_locale(os.environ["LANG"], ksdata.lang)
+    localization.setup_locale(os.environ["LANG"], ksdata.lang, anaconda.displayMode != "g")
 
     import blivet
     blivet.enable_installer_mode()
@@ -1280,6 +1283,12 @@ if __name__ == "__main__":
 
     # now start the interface
     setupDisplay(anaconda, opts, addon_paths)
+    if anaconda.gui_startup_failed:
+        # we need to reinitialize the locale if GUI startup failed,
+        # as we might now be in text mode, which might not be able to display
+        # the characters from our current locale
+        log.warning("reinitializing locale due to failed attempt to start the GUI")
+        localization.setup_locale(os.environ["LANG"], ksdata.lang, anaconda.displayMode != "g")
 
     # we now know in which mode we are going to run so store the information
     from pykickstart.constants import DISPLAY_MODE_GRAPHICAL, DISPLAY_MODE_CMDLINE, DISPLAY_MODE_TEXT

@@ -71,7 +71,7 @@ class WelcomeLanguageSpoke(LangLocaleHandler, StandaloneSpoke):
 
         locale = store[itr][1]
         self._set_lang(locale)
-        localization.setup_locale(locale, self.data.lang)
+        localization.setup_locale(locale, self.data.lang, text_mode=False)
 
         # Skip timezone and keyboard default setting for kickstart installs.
         # The user may have provided these values via kickstart and if not, we
@@ -201,7 +201,7 @@ class WelcomeLanguageSpoke(LangLocaleHandler, StandaloneSpoke):
         # use default
         if not langs_with_translations:
             self._set_lang(DEFAULT_LANG)
-            localization.setup_locale(DEFAULT_LANG, self.data.lang)
+            localization.setup_locale(DEFAULT_LANG, self.data.lang, text_mode=False)
             lang_itr, _locale_itr = self._select_locale(self.data.lang.lang)
             langs_with_translations[DEFAULT_LANG] = lang_itr
             locales = [DEFAULT_LANG]
