@@ -605,7 +605,7 @@ class Payload(object):
            just the dnfpayload.  Payloads should only implement one of these
            methods by overriding the unneeded one with a pass.
         """
-        if self.data.method.method != "liveimg" and not flags.dirInstall:
+        if not flags.dirInstall:
             self.storage.write()
 
     def writeStorageLate(self):
@@ -614,7 +614,7 @@ class Payload(object):
            every payload except for dnf.  Payloads should only implement one of
            these methods by overriding the unneeded one with a pass.
         """
-        if self.data.method.method == "liveimg" and not flags.dirInstall:
+        if not flags.dirInstall:
             if iutil.getSysroot() != iutil.getTargetPhysicalRoot():
                 setSysroot(iutil.getTargetPhysicalRoot(), iutil.getSysroot())
 

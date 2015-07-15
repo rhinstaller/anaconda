@@ -848,3 +848,6 @@ class DNFPayload(packaging.PackagePayload):
                 log.error(e)
 
         super(DNFPayload, self).postInstall()
+
+    def writeStorageLate(self):
+        pass
