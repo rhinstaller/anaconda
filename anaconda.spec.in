@@ -309,6 +309,15 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Wed Jul 15 2015 Brian C. Lane <bcl@redhat.com> - 21.48.22.19-1
+- Don't ask to start vnc if user specifies text mode. (sbueno+anaconda)
+  Resolves: rhbz#1241425
+  Related: rhbz#1196721
+- Fix pylint errors in the new driver disk code. (clumens)
+  Related: rhbz#1084197
+- Restore RHEL-specific stylesheet data. (dshea)
+  Related: rhbz#1196721
+
 * Fri Jul 10 2015 Brian C. Lane <bcl@redhat.com> - 21.48.22.18-1
 - Start the network before the display (dshea)
   Resolves: rhbz#1240732
