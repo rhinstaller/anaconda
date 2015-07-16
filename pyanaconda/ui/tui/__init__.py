@@ -31,7 +31,7 @@ from pyanaconda.ui.tui.tuiobject import YesNoDialog, ErrorDialog
 import os
 import sys
 import site
-import queue as queue
+import queue
 import meh.ui.text
 import logging
 log = logging.getLogger("anaconda")
@@ -204,8 +204,8 @@ class TextUserInterface(ui.UserInterface):
 
         """
 
-        self._app.queue.put((hubQ.HUB_CODE_SHOW_MESSAGE,
-                             [msg_fn, args, ret_queue]))
+        self._app.queue_instance.put((hubQ.HUB_CODE_SHOW_MESSAGE,
+                                     [msg_fn, args, ret_queue]))
 
     def _handle_show_message(self, event, data):
         """
