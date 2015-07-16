@@ -1,4 +1,3 @@
-#!/usr/bin/python
 # unit tests for driver disk utilities (utils/dd)
 
 # Ignore any interruptible calls

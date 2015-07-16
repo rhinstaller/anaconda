@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/python3
 # mkdud.py - test helper that makes driverdisk images
 #
 # Copyright (c) 2015 Red Hat, Inc.
