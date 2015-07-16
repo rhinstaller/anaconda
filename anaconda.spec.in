@@ -59,7 +59,6 @@ BuildRequires: python3-bugzilla
 %endif
 BuildRequires: python3-devel
 BuildRequires: python3-nose
-BuildRequires: python-rpmfluff
 BuildRequires: systemd
 # rpm and libarchive are needed for driver disk handling
 BuildRequires: rpm-devel >= %{rpmver}
