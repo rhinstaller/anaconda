@@ -396,7 +396,7 @@ int explodeDDRPM(const char *source,
 
         /* Regular file */
         if (towrite>=2) {
-            int fd = open(filename+offset, O_WRONLY, fstat->st_mode);
+            int fd = open(filename+offset, O_WRONLY|O_CREAT, fstat->st_mode);
 
             if (fd==-1){
                 rc = 33;
