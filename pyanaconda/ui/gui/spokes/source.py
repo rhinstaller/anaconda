@@ -387,6 +387,7 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler):
         self._currentIsoFile = None
         self._ready = False
         self._error = False
+        self._error_msg = ""
         self._proxyUrl = ""
         self._proxyChange = False
         self._cdrom = None
@@ -496,8 +497,8 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler):
                 (self.data.method.server, self.data.method.dir) = url.split(":", 2)
             except ValueError as e:
                 log.error("ValueError: %s", e)
-                gtk_call_once(self.set_warning, _("Failed to set up installation source; check the repo url"))
                 self._error = True
+                self._error_msg = _("Failed to set up installation source; check the repo url")
                 return
 
             self.data.method.opts = self.builder.get_object("nfsOptsEntry").get_text() or ""
@@ -688,6 +689,7 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler):
     def _downloading_package_md(self):
         # Reset the error state from previous payloads
         self._error = False
+        self._error_msg = ""
 
         hubQ.send_message(self.__class__.__name__, _(constants.PAYLOAD_STATUS_PACKAGE_MD))
 
@@ -702,9 +704,9 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler):
         self._error = True
         hubQ.send_message(self.__class__.__name__, payloadMgr.error)
         if not (hasattr(self.data.method, "proxy") and self.data.method.proxy):
-            gtk_call_once(self.set_warning, _("Failed to set up installation source; check the repo url"))
+            self._error_msg = _("Failed to set up installation source; check the repo url")
         else:
-            gtk_call_once(self.set_warning, _("Failed to set up installation source; check the repo url and proxy settings"))
+            self._error_msg = _("Failed to set up installation source; check the repo url and proxy settings")
         hubQ.send_ready(self.__class__.__name__, False)
 
     def _initialize(self):
@@ -895,6 +897,9 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler):
 
             self.clear_info()
             self.set_warning(_("You need to configure the network to use a network installation source."))
+        elif self._error:
+            self.clear_info()
+            self.set_error(self._error_msg)
 
     def _setup_no_updates(self):
         """ Setup the state of the No Updates checkbox.
