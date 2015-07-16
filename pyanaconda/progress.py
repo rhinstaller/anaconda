@@ -18,6 +18,7 @@
 #
 # Author(s): Chris Lumens <clumens@redhat.com>
 
+from pyanaconda.i18n import _
 import logging
 log = logging.getLogger("anaconda")
 
@@ -49,8 +50,11 @@ def progress_report(message):
     yield
     progress_step(message)
 
-def progress_message(message):
-    progressQ.send_message(message)
+def progress_message(message, xlate=True):
+    if xlate:
+        progressQ.send_message(_(message))
+    else:
+        progressQ.send_message(message)
     log.info(message)
 
 def progress_step(message):
