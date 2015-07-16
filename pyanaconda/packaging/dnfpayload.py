@@ -480,6 +480,7 @@ class DNFPayload(packaging.PackagePayload):
             id_ = dnf_repo.id
             log.info('_sync_metadata: addon repo error: %s', e)
             self.disableRepo(id_)
+            self.verbose_errors.append(str(e))
 
     @property
     def baseRepo(self):
