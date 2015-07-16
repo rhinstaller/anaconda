@@ -12,6 +12,7 @@ import subprocess
 from contextlib import contextmanager
 from collections import namedtuple
 from rpmfluff import SourceFile, SimpleRpmBuild, expectedArch
+from shutup import shutup
 
 TOP_SRCDIR = os.environ.get("top_builddir", "../..")
 UTILDIR = os.path.join(TOP_SRCDIR, "utils/dd")
@@ -55,7 +56,8 @@ def make_rpm(outdir, name='test', version='1.0', release='1', arch=None,
                              SourceFile(item.srcpath, item.contents),
                              **item.kwargs)
     with in_tempdir("anaconda-test-dd."):
-        p.make()
+        with shutup():
+            p.make()
         rpmfile = p.get_built_rpm(arch or expectedArch)
         outfile = os.path.join(outdir, os.path.basename(rpmfile))
         shutil.move(rpmfile, outfile)
