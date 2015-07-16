@@ -45,6 +45,7 @@ import time
 from pyanaconda.iutil import ProxyString, ProxyStringError
 
 log = logging.getLogger("packaging")
+log_ana = logging.getLogger("anaconda")
 
 import dnf
 import dnf.exceptions
@@ -619,6 +620,7 @@ class DNFPayload(packaging.PackagePayload):
 
     def install(self):
         progressQ.send_message(_('Starting package installation process'))
+        log_ana.info('Starting package installation process')
 
         # Add the rpm macros to the global transaction environment
         for macro in self.rpmMacros:
@@ -635,6 +637,7 @@ class DNFPayload(packaging.PackagePayload):
 
         pkgs_to_download = self._base.transaction.install_set
         log.info('Downloading packages.')
+        log_ana.info('Downloading packages.')
         progressQ.send_message(_('Downloading packages'))
         progress = DownloadProgress()
         try:
@@ -648,6 +651,7 @@ class DNFPayload(packaging.PackagePayload):
         log.info('Downloading packages finished.')
 
         pre_msg = _("Preparing transaction from installation source")
+        log_ana.info("Preparing transaction from installation source")
         progressQ.send_message(pre_msg)
 
         queue = multiprocessing.Queue()
@@ -665,6 +669,7 @@ class DNFPayload(packaging.PackagePayload):
             _failure_limbo()
 
         post_msg = _("Performing post-installation setup tasks")
+        log_ana.info("Performing post-installation setup tasks")
         progressQ.send_message(post_msg)
         process.join()
         self._base.close()
