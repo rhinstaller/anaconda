@@ -35,6 +35,7 @@ import dbus
 import IPy
 from uuid import uuid4
 import itertools
+import glob
 
 from pyanaconda.simpleconfig import SimpleConfigFile
 from blivet.devices import FcoeDiskDevice, iScsiDiskDevice
@@ -537,6 +538,18 @@ def add_connection_for_ksdata(networkdata, devname):
         values.append(['connection', 'id', devname, 's'])
         values.append(['connection', 'interface-name', devname, 's'])
 
+        # Add s390 settings
+        s390cfg = _get_s390_settings(devname)
+        if s390cfg['SUBCHANNELS']:
+            subchannels = s390cfg['SUBCHANNELS'].split(",")
+            values.append(['802-3-ethernet', 's390-subchannels', subchannels, 'as'])
+        if s390cfg['NETTYPE']:
+            values.append(['802-3-ethernet', 's390-nettype', s390cfg['NETTYPE'], 's'])
+        if s390cfg['OPTIONS']:
+            opts = s390cfg['OPTIONS'].split(" ")
+            opts_dict = {k:v for k,v in (o.split("=") for o in opts)}
+            values.append(['802-3-ethernet', 's390-options', opts_dict, 'a{ss}'])
+
         dev_spec = devname
 
     try:
@@ -546,6 +559,38 @@ def add_connection_for_ksdata(networkdata, devname):
         return []
     added_connections.insert(0, (con_uuid, dev_spec))
     return added_connections
+
+# We duplicate this in dracut/parse-kickstart
+def _get_s390_settings(devname):
+    cfg = {
+        'SUBCHANNELS': '',
+        'NETTYPE': '',
+        'OPTIONS': ''
+        }
+
+    subchannels = []
+    for symlink in sorted(glob.glob("/sys/class/net/%s/device/cdev[0-9]*" % devname)):
+        subchannels.append(os.path.basename(os.readlink(symlink)))
+    if not subchannels:
+        return cfg
+    cfg['SUBCHANNELS'] = ','.join(subchannels)
+
+    ## cat /etc/ccw.conf
+    #qeth,0.0.0900,0.0.0901,0.0.0902,layer2=0,portname=FOOBAR,portno=0
+    #
+    #SUBCHANNELS="0.0.0900,0.0.0901,0.0.0902"
+    #NETTYPE="qeth"
+    #OPTIONS="layer2=1 portname=FOOBAR portno=0"
+    with open('/run/install/ccw.conf') as f:
+        # pylint: disable=redefined-outer-name
+        for line in f:
+            if cfg['SUBCHANNELS'] in line:
+                items = line.strip().split(',')
+                cfg['NETTYPE'] = items[0]
+                cfg['OPTIONS'] = " ".join(i for i in items[1:] if '=' in i)
+                break
+
+    return cfg
 
 def _add_slave_connection(slave_type, slave, master, activate, values=None):
     values = values or []
