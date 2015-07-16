@@ -140,12 +140,16 @@ class Payload(object):
         self.instclass = None
         self.txID = None
 
+        # A list of verbose error strings from the subclass
+        self.verbose_errors = []
+
         self._session = requests_session()
 
     def setup(self, storage, instClass):
         """ Do any payload-specific setup. """
         self.storage = storage
         self.instclass = instClass
+        self.verbose_errors = []
 
     def unsetup(self):
         """ Invalidate a previously setup paylaod. """
@@ -364,6 +368,7 @@ class Payload(object):
                 response = self._session.get("%s/treeinfo" % url, headers=headers, proxies=proxies, verify=sslverify)
             except requests.exceptions.RequestException as e:
                 log.info("Error downloading treeinfo: %s", e)
+                self.verbose_errors.append(str(e))
                 response = None
 
         if response:

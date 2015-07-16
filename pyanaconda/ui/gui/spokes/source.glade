@@ -473,6 +473,7 @@
     <property name="can_focus">False</property>
     <property name="window_name" translatable="yes">INSTALLATION SOURCE</property>
     <signal name="button-clicked" handler="on_back_clicked" swapped="no"/>
+    <signal name="info-bar-clicked" handler="on_info_bar_clicked" swapped="no"/>
     <child internal-child="main_box">
       <object class="GtkBox" id="AnacondaSpokeWindow-main_box1">
         <property name="can_focus">False</property>

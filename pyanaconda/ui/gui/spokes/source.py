@@ -76,6 +76,8 @@ REPO_PROTO = {PROTOCOL_HTTP:  "http://",
               PROTOCOL_NFS:   "nfs://"
               }
 
+CLICK_FOR_DETAILS = N_(' <a href="">Click for details.</a>')
+
 def _validateProxy(proxy_string, username_set, password_set):
     """Validate a proxy string and return an input code usable by InputCheck
 
@@ -704,9 +706,12 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler):
         self._error = True
         hubQ.send_message(self.__class__.__name__, payloadMgr.error)
         if not (hasattr(self.data.method, "proxy") and self.data.method.proxy):
-            self._error_msg = _("Failed to set up installation source; check the repo url")
+            self._error_msg = _("Failed to set up installation source; check the repo url.")
         else:
-            self._error_msg = _("Failed to set up installation source; check the repo url and proxy settings")
+            self._error_msg = _("Failed to set up installation source; check the repo url and proxy settings.")
+        if self.payload.verbose_errors:
+            self._error_msg += _(CLICK_FOR_DETAILS)
+
         hubQ.send_ready(self.__class__.__name__, False)
 
     def _initialize(self):
@@ -1069,6 +1074,21 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler):
 
         self.clear_info()
         NormalSpoke.on_back_clicked(self, button)
+
+    def on_info_bar_clicked(self, *args):
+        log.debug("info bar clicked: %s (%s)", self._error, args)
+        if not self.payload.verbose_errors:
+            return
+
+        dlg = Gtk.MessageDialog(flags=Gtk.DialogFlags.MODAL,
+                                message_type=Gtk.MessageType.ERROR,
+                                buttons=Gtk.ButtonsType.CLOSE,
+                                message_format="\n".join(self.payload.verbose_errors))
+        dlg.set_decorated(False)
+
+        with self.main_window.enlightbox(dlg):
+            dlg.run()
+            dlg.destroy()
 
     def on_chooser_clicked(self, button):
         dialog = IsoChooser(self.data)
