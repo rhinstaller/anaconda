@@ -313,6 +313,28 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Thu Jul 16 2015 Brian C. Lane <bcl@redhat.com> - 23.16-1
+- fix storage writing for live and ostree installs (#1236937) (awilliam)
+- Add O_CREAT to the open flags when extracting rpm files. (dshea)
+- Move ostree gobject version check next to the import (#1243543) (bcl)
+- Remove rpmfluff from the buildrequires. (dshea)
+- Only import readline if readline is necessary. (dshea)
+- use the right baseurl in run_install_test.sh. (clumens)
+- Don't copy the environment when starting metacity. (dshea)
+- Fix the use of a temporary file in SimpleConfig.write (dshea)
+- Add a test for SimpleConfig.write(use_tmp=True). (dshea)
+- Remove an unnecessary chmod when creating chrony.conf (dshea)
+- Fix some bad uses of chmod. (dshea)
+- Add a function to open a file with specific permission bits (dshea)
+- Don't ask to start vnc if user specifies text mode. (#1202277)
+  (sbueno+anaconda)
+- New Anaconda documentation - 23.15 (bcl)
+- Add a helper for building Sphinx docs using mock. (bcl)
+- Update Sphinx configuration for python3 (bcl)
+- Running without a GUI can also raise ValueError in errors.py (bcl)
+- parse-kickstart_test.py: fix driverdisk_test() (wwoods)
+- Fix the spelling of "version" (dshea)
+
 * Mon Jul 13 2015 Brian C. Lane <bcl@redhat.com> - 23.15-1
 - Some dracut modules anaconda needs have been split into their own package.
   (clumens)

@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: anaconda 23.14\n"
+"Project-Id-Version: anaconda 23.15\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
-"POT-Creation-Date: 2015-07-13 16:57-0700\n"
+"POT-Creation-Date: 2015-07-16 16:27-0700\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -98,7 +98,7 @@ msgstr ""
 msgid "%(desc)s cannot be of type %(type)s"
 msgstr ""
 
-#: pyanaconda/bootloader.py:1392
+#: pyanaconda/bootloader.py:1389
 #, python-format
 msgid ""
 "boot loader stage2 device %(stage2dev)s is on a multi-disk array, but boot "
@@ -106,7 +106,7 @@ msgid ""
 "could render the system unbootable."
 msgstr ""
 
-#: pyanaconda/bootloader.py:1398
+#: pyanaconda/bootloader.py:1395
 #, python-format
 msgid ""
 "boot loader stage2 device %(stage2dev)s is on a multi-disk array, but boot "
@@ -114,7 +114,7 @@ msgid ""
 "boot loader will only be installed to a single drive."
 msgstr ""
 
-#: pyanaconda/bootloader.py:1694
+#: pyanaconda/bootloader.py:1690
 #, python-format
 msgid ""
 "%(deviceName)s may not have enough space for grub2 to embed core.img when "
@@ -205,7 +205,7 @@ msgstr ""
 
 #: pyanaconda/constants_text.py:40 pyanaconda/rescue.py:333
 #: pyanaconda/rescue.py:365 pyanaconda/rescue.py:433 pyanaconda/rescue.py:449
-#: pyanaconda/rescue.py:460 anaconda:520
+#: pyanaconda/rescue.py:460 anaconda:516
 msgid "OK"
 msgstr ""
 
@@ -427,70 +427,70 @@ msgid ""
 "The installer will now terminate."
 msgstr ""
 
-#: pyanaconda/install.py:80
+#: pyanaconda/install.py:75
 msgid "Configuring installed system"
 msgstr ""
 
-#: pyanaconda/install.py:93
+#: pyanaconda/install.py:88
 msgid "Writing network configuration"
 msgstr ""
 
-#: pyanaconda/install.py:97
+#: pyanaconda/install.py:92
 msgid "Creating users"
 msgstr ""
 
-#: pyanaconda/install.py:105
+#: pyanaconda/install.py:100
 msgid "Configuring addons"
 msgstr ""
 
-#: pyanaconda/install.py:108
+#: pyanaconda/install.py:103
 msgid "Generating initramfs"
 msgstr ""
 
-#: pyanaconda/install.py:119
+#: pyanaconda/install.py:114
 #, python-format
 msgid "Joining realm: %s"
 msgstr ""
 
-#: pyanaconda/install.py:122
+#: pyanaconda/install.py:117
 msgid "Running post-installation scripts"
 msgstr ""
 
-#: pyanaconda/install.py:174
+#: pyanaconda/install.py:169
 #, python-format
 msgid "Waiting for %s threads to finish"
 msgstr ""
 
-#: pyanaconda/install.py:181
+#: pyanaconda/install.py:176
 msgid "Setting up the installation environment"
 msgstr ""
 
-#: pyanaconda/install.py:205 pyanaconda/kickstart.py:2140
+#: pyanaconda/install.py:200 pyanaconda/kickstart.py:2140
 msgid "Running pre-installation scripts"
 msgstr ""
 
-#: pyanaconda/install.py:213
+#: pyanaconda/install.py:208
 msgid "Discovering realm to join"
 msgstr ""
 
-#: pyanaconda/install.py:245
+#: pyanaconda/install.py:240
 msgid "Installing boot loader"
 msgstr ""
 
-#: pyanaconda/install.py:248 pyanaconda/packaging/livepayload.py:180
+#: pyanaconda/install.py:243 pyanaconda/packaging/livepayload.py:180
 #: pyanaconda/packaging/dnfpayload.py:660
 msgid "Performing post-installation setup tasks"
 msgstr ""
 
-#: pyanaconda/iutil.py:867
+#: pyanaconda/iutil.py:866
 msgid "No host url"
 msgstr ""
 
-#: pyanaconda/iutil.py:888
+#: pyanaconda/iutil.py:887
 msgid "malformed URL, cannot parse it."
 msgstr ""
 
-#: pyanaconda/iutil.py:904
+#: pyanaconda/iutil.py:903
 msgid "URL has no host component"
 msgstr ""
 
@@ -1300,13 +1300,13 @@ msgstr ""
 msgid "Installing software"
 msgstr ""
 
-#: pyanaconda/packaging/livepayload.py:232
-#: pyanaconda/packaging/livepayload.py:241
+#: pyanaconda/packaging/livepayload.py:235
+#: pyanaconda/packaging/livepayload.py:244
 #, python-format
 msgid "Downloading %(url)s (%(pct)d%%)"
 msgstr ""
 
-#: pyanaconda/packaging/livepayload.py:387
+#: pyanaconda/packaging/livepayload.py:390
 msgid "Checking image checksum"
 msgstr ""
 
@@ -5567,14 +5567,14 @@ msgstr ""
 msgid "Welcome to Fedora"
 msgstr ""
 
-#: anaconda:470
+#: anaconda:466
 #, python-format
 msgid ""
 "%(product_name)s requires %(needed_ram)s MB of memory to install, but you "
 "only have %(total_ram)s MB on this machine.\n"
 msgstr ""
 
-#: anaconda:472
+#: anaconda:468
 #, python-format
 msgid ""
 "The %(product_name)s graphical installer requires %(needed_ram)s MB of "
@@ -5582,17 +5582,17 @@ msgid ""
 "."
 msgstr ""
 
-#: anaconda:475
+#: anaconda:471
 msgid ""
 "\n"
 "Press <return> to reboot your system.\n"
 msgstr ""
 
-#: anaconda:477
+#: anaconda:473
 msgid "Not enough RAM"
 msgstr ""
 
-#: anaconda:478
+#: anaconda:474
 msgid ""
 " Try the text mode installer by running:\n"
 "\n"
@@ -5601,43 +5601,43 @@ msgid ""
 " from a root terminal."
 msgstr ""
 
-#: anaconda:481
+#: anaconda:477
 msgid " Starting text mode."
 msgstr ""
 
-#: anaconda:518
+#: anaconda:514
 msgid "Fatal Error"
 msgstr ""
 
-#: anaconda:643
+#: anaconda:639
 msgid "DISPLAY variable not set. Starting text mode."
 msgstr ""
 
-#: anaconda:651
+#: anaconda:647
 msgid "Graphical installation is not available. Starting text mode."
 msgstr ""
 
-#: anaconda:659
+#: anaconda:655
 msgid ""
 "Text mode provides a limited set of installation options. It does not offer "
 "custom partitioning for full control over the disk layout. Would you like to "
 "use VNC mode instead?"
 msgstr ""
 
-#: anaconda:749
+#: anaconda:748
 #, python-format
 msgid "Please ssh install@%s to begin the install."
 msgstr ""
 
-#: anaconda:751
+#: anaconda:750
 msgid "Please ssh install@<host> to continue installation."
 msgstr ""
 
-#: anaconda:988
+#: anaconda:987
 msgid "Unable to create PID file"
 msgstr ""
 
-#: anaconda:989
+#: anaconda:988
 #, python-format
 msgid ""
 "Anaconda is unable to create %s because the file already exists. Anaconda is "
