@@ -781,12 +781,12 @@ class MiscTests(unittest.TestCase):
             old_umask = os.umask(0)
             try:
                 # Create a file with mode 0777
-                iutil.open_with_perm('test1', 'w', 0o777)
-                self.assertEqual(os.stat('test1').st_mode & 0o777, 0o777)
+                iutil.open_with_perm(test_dir + '/test1', 'w', 0o777)
+                self.assertEqual(os.stat(test_dir + '/test1').st_mode & 0o777, 0o777)
 
                 # Create a file with mode 0600
-                iutil.open_with_perm('test2', 'w', 0o600)
-                self.assertEqual(os.stat('test2').st_mode & 0o777, 0o600)
+                iutil.open_with_perm(test_dir + '/test2', 'w', 0o600)
+                self.assertEqual(os.stat(test_dir + '/test2').st_mode & 0o777, 0o600)
             finally:
                 os.umask(old_umask)
         finally:
