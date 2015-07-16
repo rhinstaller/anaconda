@@ -71,7 +71,12 @@ import sys
 import os
 import subprocess
 import fnmatch
-import readline # pylint:disable=unused-import
+
+# Import readline so raw_input gets readline features, like history, and
+# backspace working right. Do not import readline if not connected to a tty
+# because it breaks sometimes.
+if os.isatty(0):
+    import readline # pylint:disable=unused-import
 
 from contextlib import contextmanager
 from logging.handlers import SysLogHandler
