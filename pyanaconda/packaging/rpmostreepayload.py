@@ -32,7 +32,6 @@ from pyanaconda.progress import progressQ
 import gi
 gi.require_version("GLib", "2.0")
 gi.require_version("Gio", "2.0")
-gi.require_version("OSTree", "1.0")
 
 from gi.repository import GLib
 from gi.repository import Gio
@@ -134,6 +133,7 @@ class RPMOSTreePayload(ArchivePayload):
         mainctx.push_thread_default()
 
         cancellable = None
+        gi.require_version("OSTree", "1.0")
         from gi.repository import OSTree
         ostreesetup = self.data.ostreesetup
         log.info("executing ostreesetup=%r", ostreesetup)
@@ -267,6 +267,7 @@ class RPMOSTreePayload(ArchivePayload):
     def postInstall(self):
         super(RPMOSTreePayload, self).postInstall()
 
+        gi.require_version("OSTree", "1.0")
         from gi.repository import OSTree
         cancellable = None
 
