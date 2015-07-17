@@ -464,7 +464,6 @@ class MiscTests(unittest.TestCase):
         """Test mkdirChain."""
 
         # don't fail if directory path already exists
-        iutil.mkdirChain('/dev/null')
         iutil.mkdirChain('/')
         iutil.mkdirChain('/tmp')
 

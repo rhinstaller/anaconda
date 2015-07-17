@@ -24,7 +24,6 @@ import glob
 import os
 import stat
 import os.path
-import errno
 import subprocess
 import unicodedata
 # Used for ascii_lowercase, ascii_uppercase constants
@@ -669,16 +668,7 @@ def mkdirChain(directory):
 
     """
 
-    try:
-        os.makedirs(directory, 0o755)
-    except OSError as e:
-        try:
-            if e.errno == errno.EEXIST and stat.S_ISDIR(os.stat(directory).st_mode):
-                return
-        except OSError:
-            pass
-
-        log.error("could not create directory %s: %s", dir, e.strerror)
+    os.makedirs(directory, 0o755, exist_ok=True)
 
 def get_active_console(dev="console"):
     '''Find the active console device.
