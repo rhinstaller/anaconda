@@ -24,7 +24,6 @@
 import collections
 import os
 import re
-import struct
 import blivet
 from parted import PARTITION_BIOS_GRUB
 from glob import glob
@@ -35,7 +34,6 @@ from pyanaconda.iutil import open   # pylint: disable=redefined-builtin
 from blivet.devicelibs import raid
 from pyanaconda.product import productName
 from pyanaconda.flags import flags, can_touch_runtime_system
-from blivet.errors import StorageError
 from blivet.fcoe import fcoe
 import pyanaconda.network
 from pyanaconda.errors import errorHandler, ERROR_RAISE, ZIPLError
@@ -48,38 +46,6 @@ from pyanaconda.orderedset import OrderedSet
 
 import logging
 log = logging.getLogger("anaconda")
-
-def get_boot_block(device, seek_blocks=0):
-    status = device.status
-    if not status:
-        try:
-            device.setup()
-        except StorageError:
-            return ""
-    block_size = device.partedDevice.sectorSize
-    fd = iutil.eintr_retry_call(os.open, device.path, os.O_RDONLY)
-    if seek_blocks:
-        os.lseek(fd, seek_blocks * block_size, 0)
-    block = iutil.eintr_retry_call(os.read, fd, 512)
-    iutil.eintr_ignore(os.close, fd)
-    if not status:
-        try:
-            device.teardown(recursive=True)
-        except StorageError:
-            pass
-
-    return block
-
-def is_windows_boot_block(block):
-    try:
-        windows = (len(block) >= 512 and
-                   struct.unpack("H", block[0x1fe: 0x200]) == (0xaa55,))
-    except struct.error:
-        windows = False
-    return windows
-
-def has_windows_boot_block(device):
-    return is_windows_boot_block(get_boot_block(device))
 
 class serial_opts(object):
     def __init__(self):
