@@ -24,7 +24,6 @@ import glob
 import os
 import stat
 import os.path
-import errno
 import subprocess
 import unicodedata
 # Used for ascii_lowercase, ascii_uppercase constants
@@ -662,24 +661,6 @@ def getDirSize(directory):
         return dsize
     return getSubdirSize(directory) // 1024
 
-## Create a directory path.  Don't fail if the directory already exists.
-def mkdirChain(directory):
-    """
-    :param dir: The directory path to create
-
-    """
-
-    try:
-        os.makedirs(directory, 0o755)
-    except OSError as e:
-        try:
-            if e.errno == errno.EEXIST and stat.S_ISDIR(os.stat(directory).st_mode):
-                return
-        except OSError:
-            pass
-
-        log.error("could not create directory %s: %s", dir, e.strerror)
-
 def get_active_console(dev="console"):
     '''Find the active console device.
 
@@ -794,7 +775,7 @@ def dracut_eject(device):
 
     try:
         if not os.path.exists(DRACUT_SHUTDOWN_EJECT):
-            mkdirChain(os.path.dirname(DRACUT_SHUTDOWN_EJECT))
+            os.makedirs(os.path.dirname(DRACUT_SHUTDOWN_EJECT), exist_ok=True)
             f = open_with_perm(DRACUT_SHUTDOWN_EJECT, "w", 0o755)
             f.write("#!/bin/sh\n")
             f.write("# Created by Anaconda\n")

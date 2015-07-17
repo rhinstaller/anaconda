@@ -460,46 +460,6 @@ class MiscTests(unittest.TestCase):
         # TODO: mock some dirs and check if their size is
         # computed correctly
 
-    def mkdir_chain_test(self):
-        """Test mkdirChain."""
-
-        # don't fail if directory path already exists
-        iutil.mkdirChain('/dev/null')
-        iutil.mkdirChain('/')
-        iutil.mkdirChain('/tmp')
-
-        # create a path and test it exists
-        test_folder = "test_mkdir_chain"
-        test_paths = [
-            "foo",
-            "foo/bar/baz",
-            u"foo/bar/baz",
-            "",
-            "čřščščřščř",
-            u"čřščščřščř",
-            "asdasd asdasd",
-            "! spam"
-        ]
-
-        # join with the toplevel test folder and the folder for this
-        # test
-        test_paths = [os.path.join(ANACONDA_TEST_DIR, test_folder, p)
-                      for p in test_paths]
-
-        def create_return(path):
-            iutil.mkdirChain(path)
-            return path
-
-        # create the folders and check that they exist
-        for p in test_paths:
-            self.assertTrue(os.path.exists(create_return(p)))
-
-        # try to create them again - all the paths should already exist
-        # and the mkdirChain function needs to handle that
-        # without a traceback
-        for p in test_paths:
-            iutil.mkdirChain(p)
-
     def get_active_console_test(self):
         """Test get_active_console."""
 

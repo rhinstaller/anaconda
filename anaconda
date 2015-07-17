@@ -922,7 +922,7 @@ if __name__ == "__main__":
     setupEnvironment()
 
     # make sure we have /var/log soon, some programs fail to start without it
-    iutil.mkdirChain("/var/log")
+    os.makedirs("/var/log", exist_ok=True)
 
     # Share these with the exit handler, installed later
     pidfile_path = '/var/run/anaconda.pid'
