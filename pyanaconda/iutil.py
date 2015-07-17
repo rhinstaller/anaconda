@@ -1209,20 +1209,6 @@ class DataHolder(dict):
     def copy(self):
         return DataHolder(**dict.copy(self))
 
-def xprogressive_delay():
-    """ A delay generator, the delay starts short and gets longer
-        as the internal counter increases.
-        For example for 10 retries, the delay will increases from
-        0.5 to 256 seconds.
-
-        :param int retry_number: retry counter
-        :returns float: time to wait in seconds
-    """
-    counter = 1
-    while True:
-        yield 0.25*(2**counter)
-        counter += 1
-
 def get_platform_groupid():
     """ Return a platform group id string
 
