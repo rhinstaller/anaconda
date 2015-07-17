@@ -19,7 +19,7 @@ keyboard us
 lang en
 timezone America/New_York
 rootpw qweqwe
-#shutdown
+shutdown
 
 %packages
 @core
