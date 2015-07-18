@@ -309,6 +309,13 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Fri Jul 17 2015 Brian C. Lane <bcl@redhat.com> - 21.48.22.20-1
+- Add support for architecture suffixes in help files (mkolman)
+  Related: rhbz#1196721
+  Related: rhbz#1072033
+- network: add s390 options to default ifcfg files (rvykydal)
+  Resolves: rhbz#1074570
+
 * Wed Jul 15 2015 Brian C. Lane <bcl@redhat.com> - 21.48.22.19-1
 - Don't ask to start vnc if user specifies text mode. (sbueno+anaconda)
   Resolves: rhbz#1241425
