@@ -341,10 +341,10 @@ class RescueMountSpoke(NormalTUISpoke):
                 if flags.automatedInstall:
                     log.info("System has been mounted under: %s", iutil.getSysroot())
                 else:
-                    text = TextWidget(_("Your system has been mounted under %s.\n\nIf "
+                    text = TextWidget(_("Your system has been mounted under %(mountpoint)s.\n\nIf "
                                         "you would like to make your system the root "
-                                        "environment, run the command:\n\n\tchroot %s\n")
-                                        % (iutil.getSysroot(), iutil.getSysroot()))
+                                        "environment, run the command:\n\n\tchroot %(mountpoint)s\n")
+                                        % {"mountpoint": iutil.getSysroot()} )
                     self._window.append(text)
                 rootmounted = True
 
