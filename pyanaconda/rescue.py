@@ -1,7 +1,7 @@
 #
 # rescue.py - anaconda rescue mode setup
 #
-# Copyright (C) 2001, 2002, 2003, 2004  Red Hat, Inc.  All rights reserved.
+# Copyright (C) 2015 Red Hat, Inc.  All rights reserved.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -16,112 +16,35 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
-# Author(s): Mike Fulbright <msf@redhat.com>
-#            Jeremy Katz <katzj@redhat.com>
+# Author(s): Samantha N. Bueno <sbueno@redhat.com>
 #
-import sys
-import os
-from pyanaconda import iutil
-import shutil
-import time
-import re
-
-from snack import ButtonChoiceWindow, ListboxChoiceWindow,SnackScreen
-
-from pyanaconda.constants import ANACONDA_CLEANUP
-from pyanaconda.constants_text import TEXT_OK_BUTTON, TEXT_NO_BUTTON, TEXT_YES_BUTTON
-from pyanaconda.text import WaitWindow, OkCancelWindow, ProgressWindow, PassphraseEntryWindow
-from pyanaconda.flags import flags
-from pyanaconda.installinterfacebase import InstallInterfaceBase
-from pyanaconda.i18n import _
-from pyanaconda.kickstart import runPostScripts
-
-from blivet import mountExistingSystem
+from blivet import mountExistingSystem, findExistingInstallations
 from blivet.errors import StorageError, DirtyFSError
 from blivet.devices import LUKSDevice
 
+from pyanaconda import iutil
+from pyanaconda.constants import ANACONDA_CLEANUP
+from pyanaconda.constants_text import INPUT_PROCESSED
+from pyanaconda.flags import flags
+from pyanaconda.i18n import _, N_
+from pyanaconda.kickstart import runPostScripts
+from pyanaconda.ui.tui.simpleline import TextWidget, ColumnWidget, CheckboxWidget
+from pyanaconda.ui.tui.spokes import NormalTUISpoke
+from pyanaconda.ui.tui.tuiobject import YesNoDialog, PasswordDialog
+
 from pykickstart.constants import KS_REBOOT, KS_SHUTDOWN
 
-import meh.ui.text
+import os
+import shutil
+import time
 
 import logging
 log = logging.getLogger("anaconda")
 
-class RescueInterface(InstallInterfaceBase):
-    def waitWindow(self, title, text):
-        return WaitWindow(self.screen, title, text)
+__all__ = ["RescueMode", "RootSpoke", "RescueMountSpoke"]
 
-    def progressWindow(self, title, text, total, updpct = 0.05, pulse = False):
-        return ProgressWindow(self.screen, title, text, total, updpct, pulse)
-
-    def detailedMessageWindow(self, title, text, longText=None, ty="ok",
-                              default=None, custom_icon=None,
-                              custom_buttons=None, expanded=False):
-        return self.messageWindow(title, text, ty, default, custom_icon,
-                                  custom_buttons)
-
-    def messageWindow(self, title, text, ty = "ok", default = None,
-                      custom_icon=None, custom_buttons=None):
-        if custom_buttons is None:
-            custom_buttons = []
-
-        if ty == "ok":
-            ButtonChoiceWindow(self.screen, title, text, buttons=[TEXT_OK_BUTTON])
-        elif ty == "yesno":
-            if default and default == "no":
-                btnlist = [TEXT_NO_BUTTON, TEXT_YES_BUTTON]
-            else:
-                btnlist = [TEXT_YES_BUTTON, TEXT_NO_BUTTON]
-            rc = ButtonChoiceWindow(self.screen, title, text, buttons=btnlist)
-            if rc == "yes":
-                return 1
-            else:
-                return 0
-        elif ty == "custom":
-            tmpbut = []
-            for but in custom_buttons:
-                tmpbut.append(but.replace("_",""))
-
-            rc = ButtonChoiceWindow(self.screen, title, text, width=60, buttons=tmpbut)
-
-            idx = 0
-            for b in tmpbut:
-                if b.lower() == rc:
-                    return idx
-                idx += 1
-            return 0
-        else:
-            return OkCancelWindow(self.screen, title, text)
-
-    def passphraseEntryWindow(self, device):
-        w = PassphraseEntryWindow(self.screen, device)
-        passphrase = w.run()
-        w.pop()
-        return passphrase
-
-    @property
-    def meh_interface(self):
-        return self._meh_interface
-
-    @property
-    def tty_num(self):
-        return 1
-
-    def shutdown (self):
-        self.screen.finish()
-
-    def suspend(self):
-        pass
-
-    def resume(self):
-        pass
-
-    def __init__(self):
-        InstallInterfaceBase.__init__(self)
-        self.screen = SnackScreen()
-        self._meh_interface = meh.ui.text.TextIntf()
-
-def makeFStab(instPath = ""):
+def makeFStab(instPath=""):
+    """Make the fs tab."""
     if os.access("/proc/mounts", os.R_OK):
         f = open("/proc/mounts", "r")
         buf = f.read()
@@ -137,8 +60,30 @@ def makeFStab(instPath = ""):
     except IOError as e:
         log.info("failed to write /etc/fstab: %s", e)
 
-# make sure they have a resolv.conf in the chroot
+def run_shell():
+    """Launch a shell."""
+    if flags.imageInstall:
+        print(_("Run %s to unmount the system when you are finished.")
+                % ANACONDA_CLEANUP)
+    else:
+        print(_("When finished, please exit from the shell and your "
+                "system will reboot."))
+
+    proc = None
+    if proc is None or proc.returncode != 0:
+        if os.path.exists("/bin/bash"):
+            iutil.execConsole()
+        else:
+            print(_("Unable to find /bin/bash to execute!  Not starting shell."))
+            time.sleep(5)
+
+    if not flags.imageInstall:
+        iutil.execWithRedirect("systemctl", ["--no-wall", "reboot"])
+    else:
+        return None
+
 def makeResolvConf(instPath):
+    """Make the resolv.conf file in the chroot."""
     if flags.imageInstall:
         return
 
@@ -170,61 +115,124 @@ def makeResolvConf(instPath):
     f.write(buf)
     f.close()
 
-def runShell(screen = None, msg=""):
-    if screen:
-        screen.suspend()
+class RescueMode(NormalTUISpoke):
+    title = N_("Rescue")
 
-    print
-    if msg:
-        print(msg)
-
-    if flags.imageInstall:
-        print(_("Run %s to unmount the system when you are finished.")
-              % ANACONDA_CLEANUP)
-    else:
-        print(_("When finished please exit from the shell and your "
-                "system will reboot."))
-    print
-
-    proc = None
-
-    if os.path.exists("/usr/bin/firstaidkit-qs"):
-        iutil.execWithRedirect("/usr/bin/firstaidkit-qs", [])
-
-    if proc is None or proc.returncode!=0:
-        if os.path.exists("/bin/bash"):
-            iutil.execConsole()
+    # If it acts like a spoke and looks like a spoke, is it a spoke? Not
+    # always. This is independent of any hub(s), so pass in some fake data
+    def __init__(self, app, data, storage=None, payload=None, instclass=None):
+        NormalTUISpoke.__init__(self, app, data, storage, payload, instclass)
+        if flags.automatedInstall:
+            self._ro = data.rescue.romount
         else:
-            print(_("Unable to find /bin/sh to execute!  Not starting shell"))
-            time.sleep(5)
+            self._ro = False
 
-    if screen:
-        screen.finish()
+        self._root = None
+        self._choices = (_("Continue"), _("Read-only mount"), _("Skip to shell"), ("Quit (Reboot)"))
 
-def _exception_handler_wrapper(orig_except_handler, screen, *args):
-    """
-    Helper function that wraps the exception handler with snack shutdown.
+    def initialize(self):
+        NormalTUISpoke.initialize(self)
 
-    :param orig_except_handler: original exception handler that should be run
-                                after the wrapping changes are done
-    :type orig_except_handler: exception handler as can be set as sys.excepthook
-    :param screen: snack screen that should be shut down before further actions
-    :type screen: snack screen
+        for f in ["services", "protocols", "group", "man.config",
+                  "nsswitch.conf", "selinux", "mke2fs.conf"]:
+            try:
+                os.symlink('/mnt/runtime/etc/' + f, '/etc/' + f)
+            except OSError:
+                pass
 
-    """
+    def prompt(self, args=None):
+        """ Override the default TUI prompt."""
+        return _("Please make a selection from the above:  ")
 
-    screen.finish()
-    return orig_except_handler(*args)
+    def refresh(self, args=None):
+        NormalTUISpoke.refresh(self, args)
 
-def _unlock_devices(intf, storage):
-    try_passphrase = None
-    for device in storage.devices:
-        if device.format.type == "luks":
+        self._window += [TextWidget(_("The rescue environment will now attempt "
+                         "to find your Linux installation and mount it under "
+                         "the directory : %s.  You can then make any changes "
+                         "required to your system.  Choose '1' to proceed with "
+                         "this step.\nYou can choose to mount your file"
+                         "systems read-only instead of read-write by choosing "
+                         "'2'.\nIf for some reason this process does not work "
+                         "choose '3' to skip directly to a shell.\n\n") % (iutil.getSysroot())), ""]
+
+        for idx, choice in enumerate(self._choices):
+            number = TextWidget("%2d)" % (idx + 1))
+            c = ColumnWidget([(3, [number]), (None, [TextWidget(choice)])], 1)
+            self._window += [c, ""]
+
+        return True
+
+    def input(self, args, key):
+        """Override any input so we can launch rescue mode."""
+        try:
+            keyid = int(key) - 1
+        except ValueError:
+            pass
+
+        if keyid == 3:
+            # quit/reboot
+            d = YesNoDialog(self.app, _(self.app.quit_message))
+            self.app.switch_screen_modal(d)
+            if d.answer:
+                iutil.execWithRedirect("systemctl", ["--no-wall", "reboot"])
+        elif keyid == 2:
+            # skip to/run shell
+            run_shell()
+        elif (keyid == 1 or keyid == 0):
+            # user chose 0 (continue/rw-mount) or 1 (ro-mount)
+            # decrypt any luks devices
+            self._unlock_devices()
+
+            # this sleep may look pointless, but it seems necessary, in
+            # order for some task to complete; otherwise no existing
+            # installations are discovered. IOW, this is a hack.
+            time.sleep(2)
+            # attempt to find previous installations
+            roots = findExistingInstallations(self.storage.devicetree)
+            if len(roots) == 1:
+                self._root = roots[0]
+            elif len(roots) > 1:
+                # have to prompt user for which root to mount
+                rootspoke = RootSpoke(self.app, self.data, self.storage,
+                            self.payload, self.instclass, roots)
+                self.app.switch_screen_modal(rootspoke)
+                self._root = rootspoke.root
+
+            # if only one root detected, or user has chosen which root
+            # to mount, go ahead and do that
+            newspoke = RescueMountSpoke(self.app, self.data,
+                        self.storage, self.payload, self.instclass, keyid, self._root)
+            self.app.switch_screen_modal(newspoke)
+            self.close()
+        else:
+            # user entered some invalid number choice
+            return key
+
+        return INPUT_PROCESSED
+
+    def apply(self):
+        """Move along home."""
+        pass
+
+    def _unlock_devices(self):
+        """
+            Loop through devices and attempt to unlock any which are detected as
+            LUKS devices.
+        """
+        try_passphrase = None
+        for device in self.storage.devices:
+            if device.format.type != "luks":
+                continue
+
             skip = False
             unlocked = False
             while not (skip or unlocked):
                 if try_passphrase is None:
-                    passphrase = intf.passphraseEntryWindow(device.name)
+                    p = PasswordDialog(self.app, device.name)
+                    self.app.switch_screen_modal(p)
+                    if p.answer:
+                        passphrase = p.answer.strip()
                 else:
                     passphrase = try_passphrase
 
@@ -239,8 +247,8 @@ def _unlock_devices(intf, storage):
                         luks_dev = LUKSDevice(device.format.mapName,
                                               parents=[device],
                                               exists=True)
-                        storage.devicetree._addDevice(luks_dev)
-                        storage.devicetree.populate()
+                        self.storage.devicetree._addDevice(luks_dev)
+                        self.storage.devicetree.populate()
                         unlocked = True
                         # try to use the same passhprase for other devices
                         try_passphrase = passphrase
@@ -249,276 +257,201 @@ def _unlock_devices(intf, storage):
                         device.teardown(recursive=True)
                         device.format.passphrase = None
                         try_passphrase = None
+        return True
 
-def findExistingOstreePartitions(devicetree):
-    import blivet
-    if not os.path.exists(blivet.getTargetPhysicalRoot()):
-        blivet.util.makedirs(blivet.getTargetPhysicalRoot())
+class RootSpoke(NormalTUISpoke):
+    title = N_("Root Selection")
 
-    roots = []
-    for device in devicetree.leaves:
-        if not device.format.linuxNative or not device.format.mountable or \
-           not device.controllable:
-            continue
+    def __init__(self, app, data, storage, payload, instclass, roots):
+        NormalTUISpoke.__init__(self, app, data, storage, payload, instclass)
 
+        self._root = None
+        self._roots = roots
+        # default to selecting the first root in the list
+        self._selection = 0
+
+    @property
+    def indirect(self):
+        return True
+
+    def refresh(self, args=None):
+        NormalTUISpoke.refresh(self, args)
+
+        message = _("The following installations were discovered on your system.\n")
+        self._window += [TextWidget(message), ""]
+
+        for i, root in enumerate(self._roots):
+            box = CheckboxWidget(title="%i) %s on %s" % (i + 1, _(root.name), root.device.path),
+                                 completed=(self._selection == i))
+            self._window += [box, ""]
+
+        return True
+
+    def prompt(self, args=None):
+        """ Override the default TUI prompt."""
+        return _("Please make your selection from the above list.\nPress 'c' "
+                 "to continue after you have made your selection.  ")
+
+    def input(self, args, key):
+        """Move along home."""
         try:
-            device.setup()
-        except Exception: # pylint: disable=broad-except
-            log.warning("setup of %s failed", device.name)
-            continue
-
-        options = device.format.options + ",ro"
-        try:
-            device.format.mount(options=options, mountpoint=iutil.getSysroot())
-        except Exception: # pylint: disable=broad-except
-            log.warning("mount of %s as %s failed", device.name, device.format.type)
-            device.teardown()
-            continue
-
-        if not os.access(iutil.getSysroot() + "/ostree", os.R_OK):
-            device.teardown(recursive=True)
-            continue
-
-        name = _("Ostree on %s") % device.name
-        roots.append(blivet.Root(mounts=None, swaps=None, name=name))
-
-    return roots
-
-
-
-def doRescue(intf, rescue_mount, ksdata):
-    import blivet
-
-    # XXX: hook the exception handler wrapper that turns off snack first
-    orig_hook = sys.excepthook
-    sys.excepthook = lambda ty, val, tb: _exception_handler_wrapper(orig_hook,
-                                                                    intf.screen,
-                                                                    ty, val, tb)
-
-    for f in [ "services", "protocols", "group", "joe", "man.config",
-               "nsswitch.conf", "selinux", "mke2fs.conf" ]:
-        try:
-            os.symlink('/mnt/runtime/etc/' + f, '/etc/' + f)
-        except OSError:
-            pass
-
-    # Early shell access with no disk access attempts
-    if not rescue_mount:
-        # the %post should be responsible for mounting all needed file systems
-        # NOTE: 1st script must be bash or simple python as nothing else might be available in the rescue image
-        if flags.automatedInstall and ksdata.scripts:
-            runPostScripts(ksdata.scripts)
-        else:
-            runShell()
-
-        sys.exit(0)
-
-    if flags.automatedInstall:
-        readOnly = ksdata.rescue.romount
-    else:
-        # prompt to see if we should try and find root filesystem and mount
-        # everything in /etc/fstab on that root
-        while True:
-            rc = ButtonChoiceWindow(intf.screen, _("Rescue"),
-                _("The rescue environment will now attempt to find your "
-                  "Linux installation and mount it under the directory "
-                  "%s.  You can then make any changes required to your "
-                  "system.  If you want to proceed with this step choose "
-                  "'Continue'.  You can also choose to mount your file systems "
-                  "read-only instead of read-write by choosing 'Read-Only'.  "
-                  "\n\n"
-                  "If for some reason this process fails you can choose 'Skip' "
-                  "and this step will be skipped and you will go directly to a "
-                  "command shell.\n\n") % (iutil.getSysroot(),),
-                  [_("Continue"), _("Read-Only"), _("Skip")] )
-
-            if rc == _("Skip").lower():
-                runShell(intf.screen)
-                sys.exit(0)
+            keyid = int(key) - 1
+        except ValueError:
+            if key.lower() == "c":
+                self.apply()
+                self.close()
+                return INPUT_PROCESSED
             else:
-                readOnly = rc == _("Read-Only").lower()
+                return key
 
-            break
+        if 0 <= keyid < len(self._roots):
+            self._selection = keyid
+        return INPUT_PROCESSED
 
-    sto = blivet.Blivet(ksdata=ksdata)
-    blivet.storageInitialize(sto, ksdata, [])
-    _unlock_devices(intf, sto)
-    roots = blivet.findExistingInstallations(sto.devicetree)
-    roots.extend(findExistingOstreePartitions(sto.devicetree))
+    def apply(self):
+        """Apply our selection."""
+        self._root = self._roots[self._selection]
 
-    if not roots:
-        root = None
-    elif len(roots) == 1:
-        root = roots[0]
-    else:
-        height = min (len (roots), 12)
-        if height == 12:
-            scroll = 1
-        else:
-            scroll = 0
+    @property
+    def root(self):
+        """The selected root fs to mount."""
+        return self._root
 
-        lst = []
-        for root in roots:
-            lst.append("%s" % root.name)
+class RescueMountSpoke(NormalTUISpoke):
+    # 1 = continue/rw-mount, 2 = ro-mount
+    title = N_("Rescue Mount")
 
-        (button, choice) = \
-            ListboxChoiceWindow(intf.screen, _("System to Rescue"),
-                                _("Which device holds the root partition "
-                                  "of your installation?"), lst,
-                                [ _("OK"), _("Exit") ], width = 30,
-                                scroll = scroll, height = height,
-                                help = "multipleroot")
+    def __init__(self, app, data, storage, payload, instclass, selection, root):
+        NormalTUISpoke.__init__(self, app, data, storage, payload, instclass)
 
-        if button == _("Exit").lower():
-            root = None
-        else:
-            root = roots[choice]
+        self.readOnly = selection
+        # root to mount
+        self._root = root
 
-    rootmounted = False
+    def refresh(self, args=None):
+        NormalTUISpoke.refresh(self, args)
 
-    if root:
-        try:
-            if not flags.imageInstall:
-                msg = _("The system will reboot automatically when you exit "
-                        "from the shell.")
-            else:
-                msg = _("Run %s to unmount the system "
-                        "when you are finished.") % ANACONDA_CLEANUP
-
+        if self._root:
             try:
-                mountExistingSystem(sto.fsset, root.device,
-                                    allowDirty = True,
-                                    readOnly = readOnly)
-            except DirtyFSError:
-                if flags.automatedInstall:
-                    log.error("System had dirty file systems which you chose not to mount")
-                else:
-                    ButtonChoiceWindow(intf.screen, _("Rescue"),
-                        _("Your system had dirty file systems which you chose not "
-                          "to mount.  Press return to get a shell from which "
-                          "you can fsck and mount your partitions. %s") % msg,
-                        [_("OK")], width = 50)
-                rootmounted = False
-            else:
-                if flags.automatedInstall:
-                    log.info("System has been mounted under: %s", iutil.getSysroot())
-                else:
-                    ButtonChoiceWindow(intf.screen, _("Rescue"),
-                       _("Your system has been mounted under %(rootPath)s.\n\n"
-                         "Press <return> to get a shell. If you would like to "
-                         "make your system the root environment, run the command:\n\n"
-                         "\tchroot %(rootPath)s\n\n%(msg)s") %
-                                       {'rootPath': iutil.getSysroot(),
-                                        'msg': msg},
-                                       [_("OK")] )
-                rootmounted = True
-
-                # now turn on swap
-                if not readOnly:
-                    try:
-                        sto.turnOnSwap()
-                    except StorageError:
-                        log.error("Error enabling swap")
-
-                # and selinux too
-                if flags.selinux:
-                    # we have to catch the possible exception
-                    # because we support read-only mounting
-                    try:
-                        fd = open("%s/.autorelabel" % iutil.getSysroot(), "w+")
-                        fd.close()
-                    except IOError:
-                        log.warning("cannot touch /.autorelabel")
-
-                # set a library path to use mounted fs
-                libdirs = os.environ.get("LD_LIBRARY_PATH", "").split(":")
-                mounted = map(lambda dir: "/mnt/sysimage%s" % dir, libdirs)
-                iutil.setenv("LD_LIBRARY_PATH", ":".join(libdirs + mounted))
-
-                # find groff data dir
-                gversion = None
                 try:
-                    glst = os.listdir("/mnt/sysimage/usr/share/groff")
-                except OSError:
-                    pass
+                    mountExistingSystem(self.storage.fsset, self._root.device,
+                                        allowDirty=True, readOnly=self.readOnly)
+                except DirtyFSError:
+                    rootmounted = False
+                    if flags.automatedInstall:
+                        log.error("System had dirty file systems which you chose not to mount")
+                    else:
+                        text = TextWidget(_("Your system had dirty file systems which you chose "
+                                           "not to mount.  From a shell, you can fsck and mount "
+                                           "your partitions manually.\n"))
+                        self._window.append(text)
+                    return True
                 else:
-                    # find a directory which is a numeral, its where
-                    # data files are
-                    for gdir in glst:
-                        if re.match(r'\d[.\d]+\d$', gdir):
-                            gversion = gdir
-                            break
+                    if flags.automatedInstall:
+                        log.info("System has been mounted under: %s", iutil.getSysroot())
+                    else:
+                        text = TextWidget(_("Your system has been mounted under %s.\n\nIf "
+                                            "you would like to make your system the root "
+                                            "environment, run the command:\n\n\tchroot %s\n"
+                                            % (iutil.getSysroot(), iutil.getSysroot())))
+                        self._window.append(text)
+                    rootmounted = True
 
-                if gversion is not None:
-                    gpath = "/mnt/sysimage/usr/share/groff/"+gversion
-                    iutil.setenv("GROFF_FONT_PATH", gpath + '/font')
-                    iutil.setenv("GROFF_TMAC_PATH", "%s:/mnt/sysimage/usr/share/groff/site-tmac" % (gpath + '/tmac',))
+                    # now turn on swap
+                    if not flags.imageInstall or not self.readOnly:
+                        try:
+                            self.storage.turnOnSwap()
+                        except StorageError:
+                            log.error("Error enabling swap.")
 
-                # do we have bash?
-                try:
-                    if os.access("/usr/bin/bash", os.R_OK):
-                        os.symlink ("/usr/bin/bash", "/bin/bash")
-                except OSError:
-                    pass
-        except (ValueError, LookupError, SyntaxError, NameError):
-            raise
-        except Exception as e:    # pylint: disable=broad-except
-            log.error("doRescue caught exception: %s", e)
-            if flags.automatedInstall:
-                log.error("An error occurred trying to mount some or all of your system")
+                    # turn on selinux also
+                    if flags.selinux:
+                        # we have to catch the possible exception, because we
+                        # support read-only mounting
+                        try:
+                            fd = open("%s/.autorelabel" % iutil.getSysroot(), "w+")
+                            fd.close()
+                        except IOError:
+                            log.warning("Cannot touch %s/.autorelabel", iutil.getSysroot())
+
+                    # set a libpath to use mounted fs
+                    libdirs = os.environ.get("LD_LIBRARY_PATH", "").split(":")
+                    mounted = map(lambda dir: "/mnt/sysimage%s" % dir, libdirs)
+                    os.environ["LD_LIBRARY_PATH"] = ":".join(libdirs + mounted)
+
+                    # do we have bash?
+                    try:
+                        if os.access("/usr/bin/bash", os.R_OK):
+                            os.symlink("/usr/bin/bash", "/bin/bash")
+                    except OSError:
+                        pass
+            except (ValueError, LookupError, SyntaxError, NameError):
+                pass
+            except Exception as e:
+                if flags.automatedInstall:
+                    msg = _("Run %s to unmount the system when you are finished.\n") % ANACONDA_CLEANUP
+
+                text = TextWidget(_("An error occurred trying to mount some or all of "
+                                    "your system.  Some of it may be mounted under %s\n\n") + iutil.getSysroot() + msg)
+                self._window.append(text)
+                return True
+        else:
+            if flags.automatedInstall and self.data.reboot.action in [KS_REBOOT, KS_SHUTDOWN]:
+                log.info("No Linux partitions found.")
+                text = TextWidget(_("You don't have any Linux partitions.  Rebooting.\n"))
+                self._window.append(text)
+                # should probably wait a few seconds to show the message
+                time.sleep(5)
+                iutil.execWithRedirect("systemctl", ["--no-wall", "reboot"])
             else:
                 if not flags.imageInstall:
-                    msg = _("The system will reboot automatically when you "
-                            "exit from the shell.")
+                    msg = _("The system will reboot automatically when you exit"
+                            " from the shell.\n")
                 else:
-                    msg = _("Run %s to unmount the system "
-                            "when you are finished.") % ANACONDA_CLEANUP
+                    msg = ""
+            text = TextWidget(_("You don't have any Linux partitions. %s\n") % msg)
+            self._window.append(text)
+            return True
 
-                ButtonChoiceWindow(intf.screen, _("Rescue"),
-                    _("An error occurred trying to mount some or all of your "
-                      "system. Some of it may be mounted under %s.\n\n"
-                      "Press <return> to get a shell.") % iutil.getSysroot() + msg,
-                      [_("OK")] )
-    else:
-        if flags.automatedInstall and ksdata.reboot.action in [KS_REBOOT, KS_SHUTDOWN]:
-            log.info("No Linux partitions found")
-            intf.screen.finish()
-            print(_("You don't have any Linux partitions.  Rebooting.\n"))
-            sys.exit(0)
-        else:
-            if not flags.imageInstall:
-                msg = _(" The system will reboot automatically when you exit "
-                        "from the shell.")
-            else:
-                msg = ""
-            ButtonChoiceWindow(intf.screen, _("Rescue Mode"),
-                               _("You don't have any Linux partitions. Press "
-                                 "return to get a shell.%s") % msg,
-                               [ _("OK") ], width = 50)
+        if rootmounted and not self.readOnly:
+            self.storage.makeMtab()
+            try:
+                makeResolvConf(iutil.getSysroot())
+            except(OSError, IOError) as e:
+                log.error("Error making resolv.conf: %s", e)
+            text = TextWidget(_("Your system is mounted under the %s directory.") % iutil.getSysroot())
+            self._window.append(text)
 
-    msgStr = ""
+        # create /etc/fstab in ramdisk so it's easier to work with RO mounted fs
+        makeFStab()
 
-    if rootmounted and not readOnly:
-        sto.makeMtab()
-        try:
-            makeResolvConf(iutil.getSysroot())
-        except (OSError, IOError) as e:
-            log.error("error making a resolv.conf: %s", e)
-        msgStr = _("Your system is mounted under the %s directory.") % (iutil.getSysroot(),)
-        ButtonChoiceWindow(intf.screen, _("Rescue"), msgStr, [_("OK")] )
+        # run %post if we've mounted everything
+        if rootmounted and not self.readOnly and flags.automatedInstall:
+            runPostScripts(self.data.scripts)
 
-    # we do not need ncurses anymore, shut them down
-    intf.shutdown()
+        return True
 
-    #create /etc/fstab in ramdisk, so it is easier to work with RO mounted filesystems
-    makeFStab()
+    def apply(self):
+        if flags.automatedInstall and self.data.reboot.action in [KS_REBOOT, KS_SHUTDOWN]:
+            iutil.execWithRedirect("systemctl", ["--no-wall", "reboot"])
 
-    # run %post if we've mounted everything
-    if rootmounted and not readOnly and flags.automatedInstall:
-        runPostScripts(ksdata.scripts)
+        if not flags.automatedInstall or not self.data.reboot.action in [KS_REBOOT, KS_SHUTDOWN]:
+            run_shell()
 
-    # start shell if reboot wasn't requested
-    if not flags.automatedInstall or not ksdata.reboot.action in [KS_REBOOT, KS_SHUTDOWN]:
-        runShell(msg=msgStr)
+    def prompt(self, args=None):
+        """ Override the default TUI prompt."""
+        return _("Please press <return> to get a shell. ")
 
-    sys.exit(0)
+    def input(self, args, key):
+        """Move along home."""
+        run_shell()
+
+        if not flags.imageInstall:
+            iutil.execWithRedirect("systemctl", ["--no-wall", "reboot"])
+
+        return INPUT_PROCESSED
+
+    @property
+    def indirect(self):
+        return True
+
