@@ -936,8 +936,7 @@ def copyFileToPath(fileName, destPath='', overwrite=False):
     destfile = os.path.join(destPath, fileName.lstrip('/'))
     if (os.path.isfile(destfile) and not overwrite):
         return False
-    if not os.path.isdir(os.path.dirname(destfile)):
-        iutil.mkdirChain(os.path.dirname(destfile))
+    os.makedirs(os.path.dirname(destfile), exist_ok=True)
     shutil.copy(fileName, destfile)
     return True
 

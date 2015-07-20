@@ -315,7 +315,7 @@ class Users:
             # libuser expects the parent directory tree to exist.
             parent_dir = iutil.parent_dir(homedir)
             if parent_dir:
-                iutil.mkdirChain(parent_dir)
+                os.makedirs(parent_dir, exist_ok=True)
             userEnt.set(libuser.HOMEDIRECTORY, homedir)
 
             if kwargs.get("shell", False):

@@ -474,7 +474,7 @@ class Payload(object):
     ###
     def preInstall(self, packages=None, groups=None):
         """ Perform pre-installation tasks. """
-        iutil.mkdirChain(iutil.getSysroot() + "/root")
+        os.makedirs(iutil.getSysroot() + "/root", exist_ok=True)
 
         self._writeModuleBlacklist()
 
@@ -490,7 +490,7 @@ class Payload(object):
         if "modprobe.blacklist" not in flags.cmdline:
             return
 
-        iutil.mkdirChain(iutil.getSysroot() + "/etc/modprobe.d")
+        os.makedirs(iutil.getSysroot() + "/etc/modprobe.d", exist_ok=True)
         with open(iutil.getSysroot() + "/etc/modprobe.d/anaconda-blacklist.conf", "w") as f:
             f.write("# Module blacklists written by anaconda\n")
             for module in flags.cmdline["modprobe.blacklist"].split():
