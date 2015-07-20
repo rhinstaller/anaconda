@@ -1418,11 +1418,20 @@ class NetworkSpoke(FirstbootSpokeMixIn, NormalSpoke):
                                          self.on_nm_state_changed)
         self.network_control_box.connect("device-state-changed",
                                          self.on_device_state_changed)
+        # true if network settings change (hostname excluded)
+        self._network_change = False
 
     def apply(self):
         _update_network_data(self.data, self.network_control_box)
         log.debug("network: apply ksdata %s", self.data.network)
         self.network_control_box.kill_nmce(msg="leaving network spoke")
+
+        # if installation media or hdd is not used try if source is reachable
+        if (self.data.method.method != "cdrom" and self.data.method.method != "harddrive"
+                and self._network_change):
+            from pyanaconda.packaging import payloadMgr
+            payloadMgr.restartThread(self.storage, self.data, self.payload, self.instclass,
+                    checkmount=False)
 
     def execute(self):
         # update system's hostname
@@ -1460,16 +1469,19 @@ class NetworkSpoke(FirstbootSpokeMixIn, NormalSpoke):
     def refresh(self):
         NormalSpoke.refresh(self)
         self.network_control_box.refresh()
+        self._network_change = False
 
     def on_nm_state_changed(self, *args):
         gtk_call_once(self._update_status)
         gtk_call_once(self._update_hostname)
+        self._network_change = True
 
     def on_device_state_changed(self, source, device, new_state, *args):
         if new_state in (NetworkManager.DeviceState.ACTIVATED,
                          NetworkManager.DeviceState.DISCONNECTED,
                          NetworkManager.DeviceState.UNAVAILABLE):
             gtk_call_once(self._update_status)
+        self._network_change = True
 
     def _update_status(self):
         hubQ.send_message(self.__class__.__name__, self.status)
