@@ -55,6 +55,53 @@ class ErrorDialog(tui.UIScreen):
         self.close()
         return INPUT_PROCESSED
 
+class PasswordDialog(tui.UIScreen):
+    """Dialog screen for password input."""
+
+    title = N_("Password")
+
+    def __init__(self, app, device):
+        """
+        :param app: the running application reference
+        :type app: instance of App class
+        """
+
+        tui.UIScreen.__init__(self, app)
+        self._device = device
+        self._message = "You must enter your LUKS passphrase to decrypt device %s" % device
+        self._password = None
+
+    def refresh(self, args=None):
+        tui.UIScreen.refresh(self, args)
+        text = tui.TextWidget(self._message)
+        self._window.append(tui.CenterWidget(text))
+        self._window.append(u"")
+        return True
+
+    def prompt(self, args=None):
+        self._password = self.app.raw_input(_("Passphrase: "), hidden=True)
+        if not self._password:
+            return None
+        else:
+            # this may seem innocuous, but it's really a giant hack; we should
+            # not be calling close() from prompt(), but the input handling code
+            # in the TUI is such that without this very simple workaround, we
+            # would be forever pelting users with a prompt to enter their pw
+            self.close()
+
+    @property
+    def answer(self):
+        """The response can be None (no response) or the password entered."""
+        return self._password
+
+    def input(self, args, key):
+        if key:
+            self._password = key
+            self.close()
+            return True
+        else:
+            return False
+
 class YesNoDialog(tui.UIScreen):
     """Dialog screen for Yes - No questions."""
 

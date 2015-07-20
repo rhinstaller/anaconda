@@ -1276,10 +1276,6 @@ if __name__ == "__main__":
     if anaconda.displayMode != 'g' and not anaconda.ksdata.xconfig.startX:
         anaconda.ksdata.skipx.skipx = True
 
-    if flags.rescue_mode:
-        from pyanaconda import rescue
-        anaconda.intf = rescue.RescueInterface()
-
     # Set flag to prompt for missing ks data
     if anaconda.displayMode == 'c':
         flags.ksprompt = False
@@ -1301,6 +1297,37 @@ if __name__ == "__main__":
     if image_count:
         anaconda.storage.setupDiskImages()
 
+    from blivet.osinstall import storageInitialize
+    from pyanaconda.packaging import payloadMgr
+    from pyanaconda.timezone import time_initialize
+
+    if not flags.dirInstall:
+        threadMgr.add(AnacondaThread(name=constants.THREAD_STORAGE, target=storageInitialize,
+                                     args=(anaconda.storage, ksdata, anaconda.protected)))
+        threadMgr.add(AnacondaThread(name=constants.THREAD_TIME_INIT, target=time_initialize,
+                                     args=(ksdata.timezone, anaconda.storage, anaconda.bootloader)))
+
+    if flags.rescue_mode:
+        from pyanaconda.ui.tui.simpleline import App
+        from pyanaconda.rescue import RescueMode
+        app = App("Rescue Mode")
+        spoke = RescueMode(app, anaconda.ksdata, anaconda.storage)
+        app.schedule_screen(spoke)
+        app.run()
+    else:
+        cleanPStore()
+
+    # only install interactive exception handler in interactive modes
+    if ksdata.displaymode.displayMode != DISPLAY_MODE_CMDLINE or flags.debug:
+        from pyanaconda import exception
+        anaconda.mehConfig = exception.initExceptionHandling(anaconda)
+
+    # add our own additional signal handlers
+    signal.signal(signal.SIGUSR1, lambda signum, frame:
+                  exception.test_exception_handling())
+    signal.signal(signal.SIGUSR2, lambda signum, frame: anaconda.dumpState())
+    atexit.register(exitHandler, ksdata.reboot, anaconda.storage)
+
     from pyanaconda import exception
     anaconda.mehConfig = exception.initExceptionHandling(anaconda)
 
@@ -1309,22 +1336,6 @@ if __name__ == "__main__":
                   exception.test_exception_handling())
     signal.signal(signal.SIGUSR2, lambda signum, frame: anaconda.dumpState())
     atexit.register(exitHandler, ksdata.reboot, anaconda.storage)
-
-    from blivet.osinstall import storageInitialize
-    from pyanaconda.packaging import payloadMgr
-    from pyanaconda.timezone import time_initialize
-
-    if flags.rescue_mode:
-        rescue.doRescue(anaconda.intf, anaconda.rescue_mount, ksdata)
-    else:
-        cleanPStore()
-
-    if not flags.dirInstall:
-        threadMgr.add(AnacondaThread(name=constants.THREAD_STORAGE, target=storageInitialize,
-                                     args=(anaconda.storage, ksdata, anaconda.protected)))
-        threadMgr.add(AnacondaThread(name=constants.THREAD_TIME_INIT, target=time_initialize,
-                                     args=(ksdata.timezone, anaconda.storage, anaconda.bootloader)))
-
 
     # Fallback to default for interactive or for a kickstart with no installation method.
     fallback = not (flags.automatedInstall and ksdata.method.method)
