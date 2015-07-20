@@ -26,6 +26,7 @@ import blivet.arch
 from pyanaconda.flags import flags
 from pyanaconda.i18n import _
 from pyanaconda.progress import progressQ
+from pyanaconda.simpleconfig import simple_replace
 
 import configparser
 import collections
@@ -54,6 +55,7 @@ import dnf.callback
 import rpm
 
 DNF_CACHE_DIR = '/tmp/dnf.cache'
+DNF_PLUGINCONF_DIR = '/tmp/dnf.pluginconf'
 DNF_PACKAGE_CACHE_DIR_SUFFIX = 'dnf.package.cache'
 DOWNLOAD_MPOINTS = {'/tmp',
                     '/',
@@ -67,6 +69,9 @@ REPO_DIRS = ['/etc/yum.repos.d',
              '/tmp/updates/anaconda.repos.d',
              '/tmp/product/anaconda.repos.d']
 YUM_REPOS_DIR = "/etc/yum.repos.d/"
+
+_dnf_installer_langpack_conf = DNF_PLUGINCONF_DIR + "/langpacks.conf"
+_dnf_target_langpack_conf = "/etc/dnf/plugins/langpacks.conf"
 
 def _failure_limbo():
     progressQ.send_quit(1)
@@ -354,6 +359,7 @@ class DNFPayload(packaging.PackagePayload):
         self._base = dnf.Base()
         conf = self._base.conf
         conf.cachedir = DNF_CACHE_DIR
+        conf.pluginconfpath = DNF_PLUGINCONF_DIR
         conf.logdir = '/tmp/'
         # disable console output completely:
         conf.debuglevel = 0
@@ -700,9 +706,28 @@ class DNFPayload(packaging.PackagePayload):
             self.requiredPackages += packages
         self.requiredGroups = groups
 
+        # Write the langpacks config
+        os.makedirs(DNF_PLUGINCONF_DIR, exist_ok=True)
+        langs = [self.data.lang.lang] + self.data.lang.addsupport
+
+        # Start with the file in /etc, if one exists. Otherwise make an empty config
+        if os.path.exists(_dnf_target_langpack_conf):
+            shutil.copy2(_dnf_target_langpack_conf, _dnf_installer_langpack_conf)
+        else:
+            with open(_dnf_target_langpack_conf, "w") as f:
+                f.write("[main]\n")
+
+        # langpacks.conf is an INI style config file, read it and
+        # add or change the enabled and langpack_locales entries without
+        # changing anything else.
+        keys=[("langpack_locales", "langpack_locales=" + ", ".join(langs)),
+              ("enabled", "enabled=1")]
+        simple_replace(_dnf_installer_langpack_conf, keys)
+
     def reset(self):
         super(DNFPayload, self).reset()
         shutil.rmtree(DNF_CACHE_DIR, ignore_errors=True)
+        shutil.rmtree(DNF_PLUGINCONF_DIR, ignore_errors=True)
         self.txID = None
         self._base.reset(sack=True, repos=True)
 
@@ -846,6 +871,11 @@ class DNFPayload(packaging.PackagePayload):
                 self._writeDNFRepo(repo, repo_path)
             except packaging.PayloadSetupError as e:
                 log.error(e)
+
+        # Write the langpacks config to the target system
+        target_langpath = pyanaconda.iutil.getSysroot() + _dnf_target_langpack_conf
+        os.makedirs(os.path.dirname(target_langpath), exist_ok=True)
+        shutil.copy2(_dnf_installer_langpack_conf, target_langpath)
 
         super(DNFPayload, self).postInstall()
 
