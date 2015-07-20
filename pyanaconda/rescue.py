@@ -153,7 +153,7 @@ class RescueMode(NormalTUISpoke):
                          "to find your Linux installation and mount it under "
                          "the directory : %s.  You can then make any changes "
                          "required to your system.  Choose '1' to proceed with "
-                         "this step.\nYou can choose to mount your file"
+                         "this step.\nYou can choose to mount your file "
                          "systems read-only instead of read-write by choosing "
                          "'2'.\nIf for some reason this process does not work "
                          "choose '3' to skip directly to a shell.\n\n") % (iutil.getSysroot())), ""]
