@@ -1440,7 +1440,9 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler):
         self._repoChecks[name].name_check.update_check_status()
 
     def on_repoUrl_changed(self, editable, data=None):
-        """ proxy url or protocol changed
+        """ Additional repository url or protocol changed.
+
+            Note: variable editable could be Gtk.Entry or Gtk.ComboBoxText here.
         """
         itr = self._repoSelection.get_selected()[1]
         if not itr:
@@ -1457,7 +1459,7 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler):
         self._repoChecks[repo.name].url_check.update_check_status()
 
         # Check for and remove a URL prefix that matches the protocol dropdown
-        self._removeUrlPrefix(editable, self._repoProtocolComboBox, self.on_repoUrl_changed)
+        self._removeUrlPrefix(self._repoUrlEntry, self._repoProtocolComboBox, self.on_repoUrl_changed)
 
     def on_repoMirrorlistCheckbox_toggled(self, *args):
         """ mirror state changed
