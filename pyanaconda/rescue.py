@@ -34,6 +34,8 @@ from pyanaconda.ui.tui.tuiobject import YesNoDialog, PasswordDialog
 
 from pykickstart.constants import KS_REBOOT, KS_SHUTDOWN
 
+from pyanaconda.iutil import open   # pylint: disable=redefined-builtin
+
 import os
 import shutil
 import time
@@ -341,8 +343,8 @@ class RescueMountSpoke(NormalTUISpoke):
                 else:
                     text = TextWidget(_("Your system has been mounted under %s.\n\nIf "
                                         "you would like to make your system the root "
-                                        "environment, run the command:\n\n\tchroot %s\n"
-                                        % (iutil.getSysroot(), iutil.getSysroot())))
+                                        "environment, run the command:\n\n\tchroot %s\n")
+                                        % (iutil.getSysroot(), iutil.getSysroot()))
                     self._window.append(text)
                 rootmounted = True
 
@@ -366,7 +368,7 @@ class RescueMountSpoke(NormalTUISpoke):
                 # set a libpath to use mounted fs
                 libdirs = os.environ.get("LD_LIBRARY_PATH", "").split(":")
                 mounted = list(map(lambda dir: "/mnt/sysimage%s" % dir, libdirs))
-                os.environ["LD_LIBRARY_PATH"] = ":".join(libdirs + mounted)
+                iutil.setenv("LD_LIBRARY_PATH", ":".join(libdirs + mounted))
 
                 # do we have bash?
                 try:
@@ -376,7 +378,7 @@ class RescueMountSpoke(NormalTUISpoke):
                     pass
             except (ValueError, LookupError, SyntaxError, NameError):
                 pass
-            except Exception as e:
+            except Exception as e: # pylint: disable=broad-except
                 if flags.automatedInstall:
                     msg = _("Run %s to unmount the system when you are finished.\n") % ANACONDA_CLEANUP
 
