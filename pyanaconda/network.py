@@ -322,7 +322,10 @@ def dumpMissingDefaultIfcfgs():
 def dracutSetupArgs(networkStorageDevice):
 
     if networkStorageDevice.nic == "default" or ":" in networkStorageDevice.nic:
-        nic = ifaceForHostIP(networkStorageDevice.host_address)
+        if getattr(networkStorageDevice, 'ibft', False):
+            nic = ibftIface()
+        else:
+            nic = ifaceForHostIP(networkStorageDevice.host_address)
         if not nic:
             return ""
     else:
@@ -971,6 +974,13 @@ def get_team_slaves(master_specs):
                 log.debug("network: can't get team slave device name of %s", uuid)
 
     return slaves
+
+def ibftIface():
+    iface = ""
+    ipopt = flags.cmdline.get('ip')
+    if ipopt and ipopt.startswith('ibft'):
+        iface = ipopt.split(":")[0]
+    return iface
 
 def ifaceForHostIP(host):
     route = iutil.execWithCapture("ip", ["route", "get", "to", host])
