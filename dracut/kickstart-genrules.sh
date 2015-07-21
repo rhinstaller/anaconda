@@ -24,4 +24,10 @@ case "${kickstart%%:*}" in
     bd) # bd:<dev>:<path> - biospart (TODO... if anyone uses this anymore)
         warn "inst.ks: can't get kickstart - biospart (bd:) isn't supported yet"
     ;;
+    "")
+        if [ -z "$kickstart" -a $(getarg ks= inst.ks=) != "none" ]; then
+            when_diskdev_appears $(disk_to_dev_path LABEL=OEMDRV) \
+                fetch-kickstart-disk \$env{DEVNAME} "/ks.cfg"
+        fi
+    ;;
 esac
