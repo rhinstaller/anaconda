@@ -27,6 +27,7 @@ log = logging.getLogger("anaconda")
 
 import os, signal, re
 from collections import namedtuple
+from urllib.parse import urlsplit
 
 import gi
 gi.require_version("GLib", "2.0")
@@ -51,6 +52,7 @@ from pyanaconda.packaging import PackagePayload, payloadMgr
 from pyanaconda.regexes import REPO_NAME_VALID, URL_PARSE, HOSTNAME_PATTERN_WITHOUT_ANCHORS
 from pyanaconda import constants
 from pyanaconda import nm
+from pyanaconda.iutil import id_generator
 
 from blivet.util import get_mount_device, get_mount_paths
 
@@ -393,6 +395,7 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler):
         self._proxyUrl = ""
         self._proxyChange = False
         self._cdrom = None
+        self._repo_counter = id_generator()
 
         self._repoChecks = {}
 
@@ -624,7 +627,8 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler):
         # Call InputCheckHandler directly since this check operates on rows of a TreeModel
         # instead of GtkEntry inputs. Updating the check is handled by the signal handlers
         # connected to repoStore.
-        self._duplicateRepoCheck = InputCheckHandler.add_check(self, self._repoStore, self._checkDuplicateRepos)
+        self._duplicateRepoCheck = InputCheckHandler.add_check(self, self._repoStore,
+                                                                self._checkDuplicateRepos)
 
         # Create a dictionary for the checks on fields in individual repos
         # These checks will be added and removed as repos are added and removed from repoStore
@@ -950,36 +954,65 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler):
 
     # This method is shared by the checks on urlEntry and repoUrlEntry
     def _checkURL(self, inputcheck, combo):
-        url_string = self.get_input(inputcheck.input_obj).strip()
+        # If combo is not set inputcheck holds repo
+        is_additional_repo = combo is None
+        if is_additional_repo:
+            # Input object contains repository name
+            repo = self._get_repo_by_id(inputcheck.input_obj)
+            protocol = urlsplit(repo.baseurl)[0] # extract protocol part (http, https, nfs...)
+            if repo.mirrorlist:
+                url_string = repo.mirrorlist.strip()[len(protocol) + 3:] # +3 for "://" part
+            else:
+                url_string = repo.baseurl.strip()[len(protocol) + 3:] # +3 for "://" part
+        else:
+            url_string = self.get_input(inputcheck.input_obj).strip()
+            protocol = combo.get_active_id()
 
         # If this is HTTP/HTTPS/FTP, use the URL_PARSE regex
-        combo_protocol = combo.get_active_id()
-        if combo_protocol in (PROTOCOL_HTTP, PROTOCOL_HTTPS, PROTOCOL_FTP):
+        if protocol in (PROTOCOL_HTTP, PROTOCOL_HTTPS, PROTOCOL_FTP):
             if not url_string:
-                return _("URL is empty")
+                if is_additional_repo and repo.name:
+                    return _("Repository %s has empty url") % repo.name
+                else:
+                    return _("URL is empty")
 
             m = URL_PARSE.match(url_string)
             if not m:
-                return _("Invalid URL")
+                if is_additional_repo and repo.name:
+                    return _("Repository %s has invalid url") % repo.name
+                else:
+                    return _("Invalid URL")
 
             # Matching protocols in the URL should already have been removed
             # by _removeUrlPrefix. If there's still one there, it's wrong.
             url_protocol = m.group('protocol')
             if url_protocol:
-                return _("Protocol in URL does not match selected protocol")
-        elif combo_protocol == PROTOCOL_NFS:
+                if is_additional_repo and repo.name:
+                    return _("Repository %s does not match selected protocol") % repo.name
+                else:
+                    return _("Protocol in URL does not match selected protocol")
+        elif protocol == PROTOCOL_NFS:
             if not url_string:
-                return _("NFS server is empty")
+                if is_additional_repo and repo.name:
+                    return _("Repository %s has empty NFS server") % repo.name
+                else:
+                    return _("NFS server is empty")
 
             # Make sure the part before the colon looks like a hostname,
             # and that the path is not empty
             host, _colon, path = url_string.partition(':')
 
             if not re.match('^' + HOSTNAME_PATTERN_WITHOUT_ANCHORS + '$', host):
-                return _("Invalid host name")
+                if is_additional_repo and repo.name:
+                    return _("Repository %s has invalid host name") % repo.name
+                else:
+                    return _("Invalid host name")
 
             if not path:
-                return _("Remote directory is required")
+                if is_additional_repo and repo.name:
+                    return _("Repository %s required remote directory") % repo.name
+                else:
+                    return _("Remote directory is required")
 
         return InputCheck.CHECK_OK
 
@@ -987,7 +1020,7 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler):
         return self._checkURL(inputcheck, self._protocolComboBox)
 
     def _checkRepoURL(self, inputcheck):
-        return self._checkURL(inputcheck, self._repoProtocolComboBox)
+        return self._checkURL(inputcheck, None)
 
     # Update the check on urlEntry when the sensitity or selected protocol changes
     def _updateURLEntryCheck(self, *args):
@@ -1004,7 +1037,8 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler):
         return InputCheck.CHECK_OK
 
     def _checkRepoName(self, inputcheck):
-        repo_name = self.get_input(inputcheck.input_obj).strip()
+        # Input object is name of the repository
+        repo_name = self._get_repo_by_id(inputcheck.input_obj).name
 
         if not repo_name:
             return _("Empty repository name")
@@ -1021,19 +1055,21 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler):
         return InputCheck.CHECK_OK
 
     def _checkRepoProxy(self, inputcheck):
+        # Input object contains repo name
+        repo = self._get_repo_by_id(inputcheck.input_obj)
         # If nfs is selected as the protocol, skip the proxy check
-        if self._repoProtocolComboBox.get_active_id() == PROTOCOL_NFS:
+        if repo.baseurl.startswith(PROTOCOL_NFS):
+            return InputCheck.CHECK_OK
+
+        if not repo.proxy:
             return InputCheck.CHECK_OK
 
         # Empty proxies are OK, as long as the username and password are empty too
-        proxy_string = self.get_input(inputcheck.input_obj).strip()
-        username_set = self._repoProxyUsernameEntry.is_sensitive() and self._repoProxyUsernameEntry.get_text().strip()
-        password_set = self._repoProxyPasswordEntry.is_sensitive() and self._repoProxyPasswordEntry.get_text().strip()
-
-        if not (proxy_string or username_set or password_set):
+        proxy_obj = ProxyString(repo.proxy)
+        if not (repo.proxy or proxy_obj.username or proxy_obj.password):
             return InputCheck.CHECK_OK
 
-        return _validateProxy(proxy_string, username_set, password_set)
+        return _validateProxy(proxy_obj.noauth_url, proxy_obj.username, proxy_obj.password)
 
     # Signal handlers.
     def on_source_toggled(self, button, relatedBox):
@@ -1047,6 +1083,10 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler):
     def on_back_clicked(self, button):
         """If any input validation checks failed, keep the user on the screen.
            Otherwise, do the usual thing."""
+
+        # Check repositories on bad url
+        for repo in self._repoStore:
+            self._repoChecks[repo[REPO_OBJ].repo_id].url_check.update_check_status()
 
         failed_check = next(self.failed_checks, None)
 
@@ -1211,6 +1251,8 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler):
             If the list has no element, clear the repo entry fields.
         """
 
+        log.debug("Clearing checks in source spoke")
+
         # Remove the repo checks
         for checks in self._repoChecks.values():
             self.remove_check(checks.name_check)
@@ -1230,6 +1272,8 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler):
                                          enabled=repo.enabled)
             # Track the original name, user may change .name
             ks_repo.orig_name = name
+            # Add addon repository id for identification
+            ks_repo.repo_id = next(self._repo_counter)
             self._repoStore.append([self.payload.isRepoEnabled(name),
                                     ks_repo.name,
                                     ks_repo])
@@ -1267,6 +1311,14 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler):
         # Get the highest number, add 1, append to name
         highest_index = max(matches) if matches else 0
         return name + ("_%d" % (highest_index + 1))
+
+    def _get_repo_by_id(self, repo_id):
+        """ Return a repository by given name
+        """
+        for repo in self._repoStore:
+            if repo[REPO_OBJ].repo_id == repo_id:
+                return repo[REPO_OBJ]
+        return None
 
     def on_repoSelection_changed(self, *args):
         """ Called when the selection changed.
@@ -1389,6 +1441,8 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler):
         repo = self.data.RepoData(name=name)
         repo.ks_repo = True
         repo.orig_name = ""
+        # Set addon repo id and increment counter
+        repo.repo_id = next(self._repo_counter)
 
         itr = self._repoStore.append([True, repo.name, repo])
         self._repoSelection.select_iter(itr)
@@ -1403,10 +1457,10 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler):
 
         # Remove the input validation checks for this repo
         repo = self._repoStore[itr][REPO_OBJ]
-        self.remove_check(self._repoChecks[repo.name].name_check)
-        self.remove_check(self._repoChecks[repo.name].url_check)
-        self.remove_check(self._repoChecks[repo.name].proxy_check)
-        del self._repoChecks[repo.name]
+        self.remove_check(self._repoChecks[repo.repo_id].name_check)
+        self.remove_check(self._repoChecks[repo.repo_id].url_check)
+        self.remove_check(self._repoChecks[repo.repo_id].proxy_check)
+        del self._repoChecks[repo.repo_id]
 
         self._repoStore.remove(itr)
         if len(self._repoStore) == 0:
@@ -1427,17 +1481,12 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler):
         repo = self._repoStore[itr][REPO_OBJ]
         name = self._repoNameEntry.get_text().strip()
 
-        old_name = repo.name
-        if name == old_name:
-            # nothing changed
-            return
-
         repo.name = name
         self._repoStore.set_value(itr, REPO_NAME_COL, name)
-
-        self._repoChecks[name] = self._repoChecks[old_name]
-        del self._repoChecks[old_name]
-        self._repoChecks[name].name_check.update_check_status()
+        # do not update check status if check are not yet set up
+        # (populationg/refreshing the spoke)
+        if repo.repo_id in self._repoChecks:
+            self._repoChecks[repo.repo_id].name_check.update_check_status()
 
     def on_repoUrl_changed(self, editable, data=None):
         """ proxy url or protocol changed
@@ -1454,7 +1503,10 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler):
         else:
             repo.baseurl = proto + url
 
-        self._repoChecks[repo.name].url_check.update_check_status()
+        # do not update check status if check are not yet set up
+        # (populationg/refreshing the spoke)
+        if repo.repo_id in self._repoChecks:
+            self._repoChecks[repo.repo_id].url_check.update_check_status()
 
         # Check for and remove a URL prefix that matches the protocol dropdown
         self._removeUrlPrefix(editable, self._repoProtocolComboBox, self.on_repoUrl_changed)
@@ -1491,10 +1543,13 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler):
         # do not update check status if checks are not yet set up
         # (populating/refreshing the spoke)
         if repo.name in self._repoChecks:
-            self._repoChecks[repo.name].proxy_check.update_check_status()
+            self._repoChecks[repo.repo_id].proxy_check.update_check_status()
 
         try:
-            proxy = ProxyString(url=url, username=username, password=password)
+            if username and password:
+                proxy = ProxyString(url=url, username=username, password=password)
+            else:
+                proxy = ProxyString(url=url)
             repo.proxy = proxy.url
         except ProxyStringError as e:
             log.error("Failed to parse proxy - %s:%s@%s: %s", username, password, url, e)
@@ -1521,13 +1576,16 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler):
         # to this method is different from the iter used everywhere else, and is useless
         # once this method returns. Instead, create a TreeRowReference and work backwards
         # from that using paths any time we need to reference the store.
-        self._repoChecks[repo.name] = RepoChecks(InputCheckHandler.add_check(self, self._repoNameEntry,
+        self._repoChecks[repo.repo_id] = RepoChecks(InputCheckHandler.add_check(self,
+                                                                             repo.repo_id,
                                                                              self._checkRepoName,
                                                                              Gtk.TreeRowReference.new(model, path)),
-                                                 InputCheckHandler.add_check(self, self._repoUrlEntry,
+                                                 InputCheckHandler.add_check(self,
+                                                                             repo.repo_id,
                                                                              self._checkRepoURL,
                                                                              Gtk.TreeRowReference.new(model, path)),
-                                                 InputCheckHandler.add_check(self, self._repoProxyUrlEntry,
+                                                 InputCheckHandler.add_check(self,
+                                                                             repo.repo_id,
                                                                              self._checkRepoProxy,
                                                                              Gtk.TreeRowReference.new(model, path)))
 
@@ -1543,4 +1601,4 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler):
         itr = self._repoSelection.get_selected()[1]
         if itr:
             repo = self._repoStore[itr][REPO_OBJ]
-            self._repoChecks[repo.name].proxy_check.update_check_status()
+            self._repoChecks[repo.repo_id].proxy_check.update_check_status()
