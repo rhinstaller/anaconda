@@ -1162,9 +1162,11 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler):
         self._mirrorlistCheckbox.set_visible(self._http_active())
         self._setup_no_updates()
 
-        # Any changes to the protocol combo box also need to update the check to see
-        # if the protocol now matches (e.g., user puts in a ftp:// URL with http selected
-        # in the combo box, then switches the combo box to ftp).
+        # Any changes to the protocol combo box also need to update the checks.
+        # Emitting the urlEntry 'changed' signal will see if the entered URL
+        # contains the protocol that's just been selected and strip it if so;
+        # _updateURLEntryCheck() does the other validity checks.
+        self._urlEntry.emit("changed")
         self._updateURLEntryCheck()
 
     def _update_payload_repos(self):
@@ -1544,3 +1546,6 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler):
         if itr:
             repo = self._repoStore[itr][REPO_OBJ]
             self._repoChecks[repo.name].proxy_check.update_check_status()
+
+        # Run the URL entry handler too as it might be needed
+        self._repoUrlEntry.emit("changed")
