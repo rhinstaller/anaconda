@@ -1030,10 +1030,6 @@ class LogVolData(commands.logvol.F23_LogVolData):
             # before this one to setup the storage.encryptionPassphrase
             self.passphrase = self.passphrase or storage.encryptionPassphrase
 
-            if not self.passphrase:
-                raise KickstartValueError(formatErrorMsg(self.lineno,
-                                                         msg=_("No passphrase given for encrypted LV")))
-
             cert = getEscrowCertificate(storage.escrowCertificates, self.escrowcert)
             if self.preexist:
                 luksformat = fmt
@@ -1359,10 +1355,6 @@ class PartitionData(commands.partition.F23_PartData):
             # XXX: we require the LV/part with --passphrase to be processed
             # before this one to setup the storage.encryptionPassphrase
             self.passphrase = self.passphrase or storage.encryptionPassphrase
-
-            if not self.passphrase:
-                raise KickstartValueError(formatErrorMsg(self.lineno,
-                                                         msg=_("No passphrase given for encrypted part")))
 
             cert = getEscrowCertificate(storage.escrowCertificates, self.escrowcert)
             if self.onPart:
