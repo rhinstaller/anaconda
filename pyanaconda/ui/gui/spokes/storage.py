@@ -529,6 +529,10 @@ class StorageSpoke(NormalSpoke, StorageChecker):
             name = overview.get_property("name")
             overview.set_chosen(name in self.selected_disks)
 
+        # if encrypted is specified in kickstart, select the encryptionCheckbox in the GUI
+        if self.encrypted:
+            self._encrypted.set_active(True)
+
         self._customPart.set_active(not self.autopart)
 
         self._update_summary()
