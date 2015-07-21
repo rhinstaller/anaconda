@@ -11,3 +11,4 @@ Wants=plymouth-quit.service plymouth-quit-wait.service
 Wants=anaconda-direct.service anaconda.service
 Wants=anaconda-sshd.service
 Wants=zram.service
+Wants=systemd-logind.service
