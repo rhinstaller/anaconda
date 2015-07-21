@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: anaconda 21.48.22.19\n"
+"Project-Id-Version: anaconda 21.48.22.20\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
-"POT-Creation-Date: 2015-07-17 17:21-0700\n"
+"POT-Creation-Date: 2015-07-20 17:30-0700\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -188,24 +188,6 @@ msgstr ""
 
 #: pyanaconda/constants.py:146 pyanaconda/ui/gui/spokes/lib/passphrase.py:127
 msgid "Strong"
-msgstr ""
-
-#: pyanaconda/constants_text.py:40 pyanaconda/rescue.py:368
-#: pyanaconda/rescue.py:400 pyanaconda/rescue.py:413 pyanaconda/rescue.py:481
-#: pyanaconda/rescue.py:497 pyanaconda/rescue.py:508 anaconda:491
-msgid "OK"
-msgstr ""
-
-#: pyanaconda/constants_text.py:44 pyanaconda/text.py:52 pyanaconda/text.py:53
-msgid "Cancel"
-msgstr ""
-
-#: pyanaconda/constants_text.py:48
-msgid "Yes"
-msgstr ""
-
-#: pyanaconda/constants_text.py:52
-msgid "No"
 msgstr ""
 
 #: pyanaconda/errors.py:121
@@ -871,120 +853,120 @@ msgstr ""
 msgid "New %(name)s %(version)s Installation"
 msgstr ""
 
-#: pyanaconda/rescue.py:182 pyanaconda/rescue.py:385 pyanaconda/rescue.py:474
+#: pyanaconda/rescue.py:66
 #, python-format
 msgid "Run %s to unmount the system when you are finished."
 msgstr ""
 
-#: pyanaconda/rescue.py:185
-msgid "When finished please exit from the shell and your system will reboot."
+#: pyanaconda/rescue.py:69
+msgid "When finished, please exit from the shell and your system will reboot."
 msgstr ""
 
-#: pyanaconda/rescue.py:198
-msgid "Unable to find /bin/sh to execute!  Not starting shell"
+#: pyanaconda/rescue.py:77
+msgid "Unable to find /bin/bash to execute!  Not starting shell."
 msgstr ""
 
-#: pyanaconda/rescue.py:282
-#, python-format
-msgid "Ostree on %s"
-msgstr ""
-
-#: pyanaconda/rescue.py:322 pyanaconda/rescue.py:396 pyanaconda/rescue.py:406
-#: pyanaconda/rescue.py:477 pyanaconda/rescue.py:508
+#: pyanaconda/rescue.py:119
 msgid "Rescue"
 msgstr ""
 
-#: pyanaconda/rescue.py:323
-#, python-format
-msgid ""
-"The rescue environment will now attempt to find your Linux installation and "
-"mount it under the directory %s.  You can then make any changes required to "
-"your system.  If you want to proceed with this step choose 'Continue'.  You "
-"can also choose to mount your file systems read-only instead of read-write "
-"by choosing 'Read-Only'.  \n"
-"\n"
-"If for some reason this process fails you can choose 'Skip' and this step "
-"will be skipped and you will go directly to a command shell.\n"
-"\n"
-msgstr ""
-
-#: pyanaconda/rescue.py:333
+#: pyanaconda/rescue.py:131
 msgid "Continue"
 msgstr ""
 
-#: pyanaconda/rescue.py:333 pyanaconda/rescue.py:339
-msgid "Read-Only"
+#: pyanaconda/rescue.py:131
+msgid "Read-only mount"
 msgstr ""
 
-#: pyanaconda/rescue.py:333 pyanaconda/rescue.py:335
-msgid "Skip"
+#: pyanaconda/rescue.py:131
+msgid "Skip to shell"
 msgstr ""
 
-#: pyanaconda/rescue.py:365
-msgid "System to Rescue"
+#: pyanaconda/rescue.py:145
+msgid "Please make a selection from the above:  "
 msgstr ""
 
-#: pyanaconda/rescue.py:366
-msgid "Which device holds the root partition of your installation?"
-msgstr ""
-
-#: pyanaconda/rescue.py:368 pyanaconda/rescue.py:372
-msgid "Exit"
-msgstr ""
-
-#: pyanaconda/rescue.py:382 pyanaconda/rescue.py:471
-msgid "The system will reboot automatically when you exit from the shell."
-msgstr ""
-
-#: pyanaconda/rescue.py:397
+#: pyanaconda/rescue.py:150
 #, python-format
 msgid ""
-"Your system had dirty file systems which you chose not to mount.  Press "
-"return to get a shell from which you can fsck and mount your partitions. %s"
+"The rescue environment will now attempt to find your Linux installation and "
+"mount it under the directory : %s.  You can then make any changes required "
+"to your system.  Choose '1' to proceed with this step.\n"
+"You can choose to mount your filesystems read-only instead of read-write by "
+"choosing '2'.\n"
+"If for some reason this process does not work choose '3' to skip directly to "
+"a shell.\n"
+"\n"
 msgstr ""
 
-#: pyanaconda/rescue.py:407
+#: pyanaconda/rescue.py:263
+msgid "Root Selection"
+msgstr ""
+
+#: pyanaconda/rescue.py:280
+msgid "The following installations were discovered on your system.\n"
+msgstr ""
+
+#: pyanaconda/rescue.py:292
+msgid ""
+"Please make your selection from the above list.\n"
+"Press 'c' to continue after you have made your selection.  "
+msgstr ""
+
+#: pyanaconda/rescue.py:322
+msgid "Rescue Mount"
+msgstr ""
+
+#: pyanaconda/rescue.py:344
+msgid ""
+"Your system had dirty file systems which you chose not to mount.  From a "
+"shell, you can fsck and mount your partitions manually.\n"
+msgstr ""
+
+#: pyanaconda/rescue.py:353
 #, python-format
 msgid ""
-"Your system has been mounted under %(rootPath)s.\n"
+"Your system has been mounted under %s.\n"
 "\n"
-"Press <return> to get a shell. If you would like to make your system the "
-"root environment, run the command:\n"
+"If you would like to make your system the root environment, run the "
+"command:\n"
 "\n"
-"\tchroot %(rootPath)s\n"
-"\n"
-"%(msg)s"
+"\tchroot %s\n"
 msgstr ""
 
-#: pyanaconda/rescue.py:478
+#: pyanaconda/rescue.py:392
+#, python-format
+msgid "Run %s to unmount the system when you are finished.\n"
+msgstr ""
+
+#: pyanaconda/rescue.py:394
 #, python-format
 msgid ""
-"An error occurred trying to mount some or all of your system. Some of it may "
-"be mounted under %s.\n"
+"An error occurred trying to mount some or all of your system.  Some of it "
+"may be mounted under %s\n"
 "\n"
-"Press <return> to get a shell."
 msgstr ""
 
-#: pyanaconda/rescue.py:486
+#: pyanaconda/rescue.py:401
 msgid "You don't have any Linux partitions.  Rebooting.\n"
 msgstr ""
 
-#: pyanaconda/rescue.py:490
-msgid " The system will reboot automatically when you exit from the shell."
+#: pyanaconda/rescue.py:408
+msgid "The system will reboot automatically when you exit from the shell.\n"
 msgstr ""
 
-#: pyanaconda/rescue.py:494
-msgid "Rescue Mode"
-msgstr ""
-
-#: pyanaconda/rescue.py:495
+#: pyanaconda/rescue.py:412
 #, python-format
-msgid "You don't have any Linux partitions. Press return to get a shell.%s"
+msgid "You don't have any Linux partitions. %s\n"
 msgstr ""
 
-#: pyanaconda/rescue.py:507
+#: pyanaconda/rescue.py:422
 #, python-format
 msgid "Your system is mounted under the %s directory."
+msgstr ""
+
+#: pyanaconda/rescue.py:443
+msgid "Please press <return> to get a shell. "
 msgstr ""
 
 #: pyanaconda/storage_utils.py:50 pyanaconda/storage_utils.py:82
@@ -1145,17 +1127,6 @@ msgstr ""
 #: pyanaconda/storage_utils.py:337
 #, python-format
 msgid "LUKS device %s has no encryption key"
-msgstr ""
-
-#: pyanaconda/text.py:99
-#, python-format
-msgid ""
-"Device %s is encrypted. In order to access the device's contents during "
-"installation you must enter the device's passphrase below."
-msgstr ""
-
-#: pyanaconda/text.py:106
-msgid "Passphrase"
 msgstr ""
 
 #: pyanaconda/vnc.py:74
@@ -1462,19 +1433,29 @@ msgstr ""
 msgid "Press enter to exit."
 msgstr ""
 
-#: pyanaconda/ui/tui/tuiobject.py:61
+#: pyanaconda/ui/tui/tuiobject.py:61 pyanaconda/ui/tui/spokes/password.py:70
+#: pyanaconda/ui/gui/spokes/password.glade.h:4
+#: pyanaconda/ui/gui/spokes/user.glade.h:8
+msgid "Password"
+msgstr ""
+
+#: pyanaconda/ui/tui/tuiobject.py:82
+msgid "Passphrase: "
+msgstr ""
+
+#: pyanaconda/ui/tui/tuiobject.py:108
 msgid "Question"
 msgstr ""
 
-#: pyanaconda/ui/tui/tuiobject.py:84
+#: pyanaconda/ui/tui/tuiobject.py:131
 msgid "Please respond 'yes' or 'no': "
 msgstr ""
 
-#: pyanaconda/ui/tui/tuiobject.py:87
+#: pyanaconda/ui/tui/tuiobject.py:134
 msgid "yes"
 msgstr ""
 
-#: pyanaconda/ui/tui/tuiobject.py:92
+#: pyanaconda/ui/tui/tuiobject.py:139
 msgid "no"
 msgstr ""
 
@@ -1494,7 +1475,7 @@ msgctxt "TUI|Spoke Navigation"
 msgid "q"
 msgstr ""
 
-#: pyanaconda/ui/tui/simpleline/base.py:580
+#: pyanaconda/ui/tui/simpleline/base.py:580 anaconda:489
 msgid "Press ENTER to continue"
 msgstr ""
 
@@ -1704,12 +1685,6 @@ msgstr ""
 
 #: pyanaconda/ui/tui/spokes/password.py:64
 msgid "Please select new root password. You will have to type it twice."
-msgstr ""
-
-#: pyanaconda/ui/tui/spokes/password.py:70
-#: pyanaconda/ui/gui/spokes/password.glade.h:4
-#: pyanaconda/ui/gui/spokes/user.glade.h:8
-msgid "Password"
 msgstr ""
 
 #: pyanaconda/ui/tui/spokes/storage.py:55
@@ -5468,31 +5443,31 @@ msgstr ""
 msgid " Starting text mode."
 msgstr ""
 
-#: anaconda:489
-msgid "Fatal Error"
+#: anaconda:488
+msgid "The installation cannot continue and the system will be rebooted"
 msgstr ""
 
-#: anaconda:609
+#: anaconda:607
 msgid "DISPLAY variable not set. Starting text mode."
 msgstr ""
 
-#: anaconda:617
+#: anaconda:615
 msgid "Graphical installation is not available. Starting text mode."
 msgstr ""
 
-#: anaconda:625
+#: anaconda:623
 msgid ""
 "Text mode provides a limited set of installation options. It does not offer "
 "custom partitioning for full control over the disk layout. Would you like to "
 "use VNC mode instead?"
 msgstr ""
 
-#: anaconda:718
+#: anaconda:716
 #, python-format
 msgid "Please ssh install@%s to begin the install."
 msgstr ""
 
-#: anaconda:720
+#: anaconda:718
 msgid "Please ssh install@<host> to continue installation."
 msgstr ""
 

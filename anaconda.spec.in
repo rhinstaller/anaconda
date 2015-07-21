@@ -309,6 +309,17 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Mon Jul 20 2015 Brian C. Lane <bcl@redhat.com> - 21.48.22.21-1
+- Remove the last usage of newt and get rid of it as a dependency
+  (sbueno+anaconda)
+  Related: rhbz#965985
+- Enable anaconda to use the new rescue mode. (sbueno+anaconda)
+  Resolves: rhbz#965985
+- Get rid of unnecessary constants in constants_text. (sbueno+anaconda)
+  Related: rhbz#965985
+- Get rid of some unnecessary files. (sbueno+anaconda)
+  Related: rhbz#965985
+
 * Fri Jul 17 2015 Brian C. Lane <bcl@redhat.com> - 21.48.22.20-1
 - Add support for architecture suffixes in help files (mkolman)
   Related: rhbz#1196721
