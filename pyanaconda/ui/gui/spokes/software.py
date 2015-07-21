@@ -281,14 +281,19 @@ class SoftwareSelectionSpoke(NormalSpoke):
             # we have no packages section in the kickstart
             else:
                 return _("Nothing selected")
+        else:
+            if not self.environment_valid:
+                # selected environment is not valid, this can happen when a valid environment
+                # is selected (by default, manually or from kickstart) and then the installation
+                # source is switched to one where the selected environment is no longer valid
+                return _("Selected environment is not valid")
+            elif not self.environment:
+                return _("Nothing selected")
 
-        if not flags.automatedInstall and not self.environment_valid:
-            # selected environment is not valid, this can happen when a valid environment
-            # is selected (by default, manually or from kickstart) and then the installation
-            # source is switched to one where the selected environment is no longer valid
+        try:
+            return self.payload.environmentDescription(self.environment)[0]
+        except NoSuchGroup:
             return _("Selected environment is not valid")
-
-        return self.payload.environmentDescription(self.environment)[0]
 
     def initialize(self):
         NormalSpoke.initialize(self)
