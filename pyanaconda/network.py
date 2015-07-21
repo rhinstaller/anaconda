@@ -292,7 +292,10 @@ def dumpMissingDefaultIfcfgs():
 def dracutSetupArgs(networkStorageDevice):
 
     if networkStorageDevice.nic == "default" or ":" in networkStorageDevice.nic:
-        nic = ifaceForHostIP(networkStorageDevice.host_address)
+        if getattr(networkStorageDevice, 'ibft', False):
+            nic = ibftIface()
+        else:
+            nic = ifaceForHostIP(networkStorageDevice.host_address)
         if not nic:
             return ""
     else:
@@ -943,6 +946,13 @@ def get_team_slaves(master_specs):
 
     return slaves
 
+def ibftIface():
+    iface = ""
+    ipopt = flags.cmdline.get('ip')
+    if ipopt and ipopt.startswith('ibft'):
+        iface = ipopt.split(":")[0]
+    return iface
+
 def ifaceForHostIP(host):
     route = iutil.execWithCapture("ip", [ "route", "get", "to", host ])
     if not route:
@@ -1118,7 +1128,11 @@ def usedByRootOnISCSI(iface, storage):
         if (isinstance(d, iScsiDiskDevice) and
             rootdev.dependsOn(d)):
             if d.nic == "default" or ":" in d.nic:
-                if iface == ifaceForHostIP(d.host_address):
+                if getattr(d, 'ibft', False):
+                    deviface = ibftIface()
+                else:
+                    deviface = ifaceForHostIP(d.host_address)
+                if iface == deviface:
                     return True
             elif d.nic == iface:
                 return True
