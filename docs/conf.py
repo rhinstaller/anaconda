@@ -28,7 +28,7 @@ sys.path.insert(0, os.path.abspath('..'))
 
 # Add any Sphinx extension module names here, as strings. They can be extensions
 # coming with Sphinx (named 'sphinx.ext.*') or your custom ones.
-extensions = ['sphinx.ext.autodoc', 'sphinx.ext.intersphinx', 'sphinx.ext.todo', 'sphinx.ext.coverage']
+extensions = ['sphinx.ext.autodoc', 'sphinx.ext.intersphinx', 'sphinx.ext.todo', 'sphinx.ext.coverage', 'sphinx.ext.inheritance_diagram']
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']
@@ -102,6 +102,9 @@ pygments_style = 'sphinx'
 
 autoclass_content = 'both'
 
+# Inheritence diagram graphviz settings
+inheritance_graph_attrs = dict(rankdir="UD", fontsize=14, ratio='auto')
+inheritance_node_attrs = dict(style='rounded', margin='"0.07, 0.07"')
 
 # -- Options for HTML output ---------------------------------------------------
 
