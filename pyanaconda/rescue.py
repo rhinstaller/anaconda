@@ -151,7 +151,7 @@ class RescueMode(NormalTUISpoke):
                          "to find your Linux installation and mount it under "
                          "the directory : %s.  You can then make any changes "
                          "required to your system.  Choose '1' to proceed with "
-                         "this step.\nYou can choose to mount your file"
+                         "this step.\nYou can choose to mount your file "
                          "systems read-only instead of read-write by choosing "
                          "'2'.\nIf for some reason this process does not work "
                          "choose '3' to skip directly to a shell.\n\n") % (iutil.getSysroot())), ""]
@@ -350,10 +350,10 @@ class RescueMountSpoke(NormalTUISpoke):
                     if flags.automatedInstall:
                         log.info("System has been mounted under: %s", iutil.getSysroot())
                     else:
-                        text = TextWidget(_("Your system has been mounted under %s.\n\nIf "
+                        text = TextWidget(_("Your system has been mounted under %(mountpoint)s.\n\nIf "
                                             "you would like to make your system the root "
-                                            "environment, run the command:\n\n\tchroot %s\n"
-                                            % (iutil.getSysroot(), iutil.getSysroot())))
+                                            "environment, run the command:\n\n\tchroot %(mountpoint)s\n")
+                                            % {"mountpoint": iutil.getSysroot()} )
                         self._window.append(text)
                     rootmounted = True
 
@@ -377,7 +377,7 @@ class RescueMountSpoke(NormalTUISpoke):
                     # set a libpath to use mounted fs
                     libdirs = os.environ.get("LD_LIBRARY_PATH", "").split(":")
                     mounted = map(lambda dir: "/mnt/sysimage%s" % dir, libdirs)
-                    os.environ["LD_LIBRARY_PATH"] = ":".join(libdirs + mounted)
+                    iutil.setenv("LD_LIBRARY_PATH", ":".join(libdirs + mounted))
 
                     # do we have bash?
                     try:
@@ -387,7 +387,7 @@ class RescueMountSpoke(NormalTUISpoke):
                         pass
             except (ValueError, LookupError, SyntaxError, NameError):
                 pass
-            except Exception as e:
+            except Exception as e: # pylint: disable=broad-except
                 if flags.automatedInstall:
                     msg = _("Run %s to unmount the system when you are finished.\n") % ANACONDA_CLEANUP
 

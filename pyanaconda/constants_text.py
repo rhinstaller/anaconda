@@ -19,7 +19,6 @@
 
 # pylint: disable=wildcard-import
 from pyanaconda.constants import *
-from pyanaconda.i18n import _, N_
 
 # Make the return calls from the UIScreen input() function more clear
 INPUT_PROCESSED = None
