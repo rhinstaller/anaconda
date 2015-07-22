@@ -798,6 +798,9 @@ class BootLoader(object):
         rootdev = storage.rootDevice
         if any(rootdev.dependsOn(netdev) for netdev in netdevs):
             dracut_devices = set(dracut_devices)
+            # By this time this thread should be the only one running, and also
+            # mountpoints is a property function that returns a new dict every
+            # time, so iterating over the values is safe.
             for dev in storage.mountpoints.values():
                 if any(dev.dependsOn(netdev) for netdev in netdevs):
                     dracut_devices.add(dev)

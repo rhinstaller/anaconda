@@ -248,6 +248,8 @@ def getAvailableDiskSpace(storage):
     """
 
     free_space = storage.freeSpaceSnapshot
+    # blivet creates a new free space dict to instead of modifying the old one,
+    # so there is no worry about the dictionary changing during iteration.
     return sum(disk_free for disk_free, fs_free in free_space.values())
 
 def refreshAutoSwapSize(storage):
@@ -1112,6 +1114,8 @@ class PartitionData(commands.partition.F23_PartData):
         storage.doAutoPart = False
 
         if self.onbiosdisk != "":
+            # eddDict is only modified during storage.reset(), so don't do that
+            # while executing storage.
             for (disk, biosdisk) in storage.eddDict.items():
                 if "%x" % biosdisk == self.onbiosdisk:
                     self.disk = disk
@@ -1876,6 +1880,8 @@ class AnacondaSectionHandler(BaseHandler):
     def __str__(self):
         """Return the %anaconda section"""
         retval = ""
+        # This dictionary should only be modified during __init__, so if it
+        # changes during iteration something has gone horribly wrong.
         lst = sorted(self._writeOrder.keys())
         for prio in lst:
             for obj in self._writeOrder[prio]:

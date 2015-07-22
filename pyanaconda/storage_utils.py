@@ -216,6 +216,8 @@ def sanity_check(storage, min_ram=isys.MIN_RAM):
                             % {'mount': mount, 'size': size,
                                'productName': productName}))
 
+    # storage.mountpoints is a property that returns a new dict each time, so
+    # iterating over it is thread-safe.
     for (mount, device) in filesystems.items():
         problem = filesystems[mount].checkSize()
         if problem < 0:
