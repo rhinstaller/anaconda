@@ -160,4 +160,4 @@ ci: rc-release
 	@mkdir -p repo
 	@mv *rpm repo
 	@createrepo -p repo
-	@sudo $(MAKE) TMPDIR=/var/tmp TESTS=install/run_install_test.sh TEST_ANACONDA_REPO=file://$(builddir)/repo/ check
+	@sudo $(MAKE) TMPDIR=/var/tmp TESTS=install/run_install_test.sh TEST_ANACONDA_REPO=file://$(abs_builddir)/repo/ check
