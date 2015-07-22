@@ -140,7 +140,7 @@ def find_best_locale_match(locale, langcodes):
 
     """
 
-    score_map = {"language" : 1000,
+    SCORE_MAP = {"language" : 1000,
                  "territory":  100,
                  "script"   :   10,
                  "encoding" :    1}
@@ -153,7 +153,7 @@ def find_best_locale_match(locale, langcodes):
         if not locale_parts or not langcode_parts:
             return score
 
-        for part, part_score in score_map.items():
+        for part, part_score in SCORE_MAP.items():
             if locale_parts[part] and langcode_parts[part]:
                 if locale_parts[part] == langcode_parts[part]:
                     # match
@@ -177,7 +177,7 @@ def find_best_locale_match(locale, langcodes):
     sorted_langcodes = sorted(scores, key=lambda item_score: item_score[1], reverse=True)
 
     # matches matching only script or encoding or both are not useful
-    if sorted_langcodes and sorted_langcodes[0][1] > score_map["territory"]:
+    if sorted_langcodes and sorted_langcodes[0][1] > SCORE_MAP["territory"]:
         return sorted_langcodes[0][0]
     else:
         return None

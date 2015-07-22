@@ -203,6 +203,8 @@ class ISCSIDialog(GUIObject):
         elif (self.iscsi.mode == "bind"
               or self.iscsi.mode == "none" and bind):
             activated = set(nm.nm_activated_devices())
+            # The only place iscsi.ifaces is modified is create_interfaces(),
+            # right below, so iteration is safe.
             created = set(self.iscsi.ifaces.values())
             self.iscsi.create_interfaces(activated - created)
 

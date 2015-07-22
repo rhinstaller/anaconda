@@ -43,6 +43,7 @@ import pyanaconda.packaging as packaging
 import shutil
 import sys
 import time
+import threading
 from pyanaconda.iutil import ProxyString, ProxyStringError
 from pyanaconda.iutil import open   # pylint: disable=redefined-builtin
 
@@ -194,6 +195,12 @@ class DNFPayload(packaging.PackagePayload):
         self._download_location = None
         self._configure()
 
+        # Protect access to _base.repos to ensure that the dictionary is not
+        # modified while another thread is attempting to iterate over it. The
+        # lock only needs to be held during operations that change the number
+        # of repos or that iterate over the repos.
+        self._repos_lock = threading.RLock()
+
     def unsetup(self):
         super(DNFPayload, self).unsetup()
         self._base = None
@@ -259,12 +266,14 @@ class DNFPayload(packaging.PackagePayload):
             if not url and not mirrorlist:
                 self._base.repos[repo.id].enable()
             else:
-                self._base.repos.pop(repo.id)
-                self._base.repos.add(repo)
+                with self._repos_lock:
+                    self._base.repos.pop(repo.id)
+                    self._base.repos.add(repo)
                 repo.enable()
         # If the repo's not already known, we've got to add it.
         else:
-            self._base.repos.add(repo)
+            with self._repos_lock:
+                self._base.repos.add(repo)
             repo.enable()
 
         # Load the metadata to verify that the repo is valid
@@ -438,8 +447,9 @@ class DNFPayload(packaging.PackagePayload):
             raise packaging.PayloadError(msg)
 
         pkgdir = '%s/%s' % (mpoint, DNF_PACKAGE_CACHE_DIR_SUFFIX)
-        for repo in self._base.repos.iter_enabled():
-            repo.pkgdir = pkgdir
+        with self._repos_lock:
+            for repo in self._base.repos.iter_enabled():
+                repo.pkgdir = pkgdir
 
         return pkgdir
 
@@ -492,9 +502,10 @@ class DNFPayload(packaging.PackagePayload):
     def baseRepo(self):
         # is any locking needed here?
         repo_names = [constants.BASE_REPO_NAME] + self.DEFAULT_REPOS
-        for repo in self._base.repos.iter_enabled():
-            if repo.id in repo_names:
-                return repo.id
+        with self._repos_lock:
+            for repo in self._base.repos.iter_enabled():
+                if repo.id in repo_names:
+                    return repo.id
         return None
 
     @property
@@ -513,7 +524,8 @@ class DNFPayload(packaging.PackagePayload):
     @property
     def repos(self):
         # known repo ids
-        return [r.id for r in self._base.repos.values()]
+        with self._repos_lock:
+            return [r.id for r in self._base.repos.values()]
 
     @property
     def spaceRequired(self):
@@ -611,8 +623,9 @@ class DNFPayload(packaging.PackagePayload):
         return (grp.ui_name, grp.ui_description)
 
     def gatherRepoMetadata(self):
-        for repo in self._base.repos.iter_enabled():
-            self._sync_metadata(repo)
+        with self._repos_lock:
+            for repo in self._base.repos.iter_enabled():
+                self._sync_metadata(repo)
         self._base.fill_sack(load_system_repo=False)
         self._base.read_comps()
         self._refreshEnvironmentAddons()
@@ -745,9 +758,10 @@ class DNFPayload(packaging.PackagePayload):
         self._base.read_all_repos()
 
         enabled = []
-        for repo in self._base.repos.iter_enabled():
-            enabled.append(repo.id)
-            repo.disable()
+        with self._repos_lock:
+            for repo in self._base.repos.iter_enabled():
+                enabled.append(repo.id)
+                repo.disable()
 
         # If askmethod was specified on the command-line, leave all the repos
         # disabled and return
@@ -771,10 +785,12 @@ class DNFPayload(packaging.PackagePayload):
             except (packaging.MetadataError, packaging.PayloadError) as e:
                 log.error("base repo (%s/%s) not valid -- removing it",
                           method.method, url)
-                self._base.repos.pop(constants.BASE_REPO_NAME, None)
+                with self._repos_lock:
+                    self._base.repos.pop(constants.BASE_REPO_NAME, None)
                 if not fallback:
-                    for repo in self._base.repos.iter_enabled():
-                        self.disableRepo(repo.id)
+                    with self._repos_lock:
+                        for repo in self._base.repos.iter_enabled():
+                            self.disableRepo(repo.id)
                     return
 
                 # this preserves the method details while disabling it
@@ -788,9 +804,10 @@ class DNFPayload(packaging.PackagePayload):
                 return
 
             # Otherwise, fall back to the default repos that we disabled above
-            for (id_, repo) in self._base.repos.items():
-                if id_ in enabled:
-                    repo.enable()
+            with self._repos_lock:
+                for (id_, repo) in self._base.repos.items():
+                    if id_ in enabled:
+                        repo.enable()
 
         for ksrepo in self.data.repo.dataList():
             log.debug("repo %s: mirrorlist %s, baseurl %s",
@@ -804,12 +821,13 @@ class DNFPayload(packaging.PackagePayload):
 
         ksnames = [r.name for r in self.data.repo.dataList()]
         ksnames.append(constants.BASE_REPO_NAME)
-        for repo in self._base.repos.iter_enabled():
-            id_ = repo.id
-            if 'source' in id_ or 'debuginfo' in id_:
-                self.disableRepo(id_)
-            elif constants.isFinal and 'rawhide' in id_:
-                self.disableRepo(id_)
+        with self._repos_lock:
+            for repo in self._base.repos.iter_enabled():
+                id_ = repo.id
+                if 'source' in id_ or 'debuginfo' in id_:
+                    self.disableRepo(id_)
+                elif constants.isFinal and 'rawhide' in id_:
+                    self.disableRepo(id_)
 
     def _writeDNFRepo(self, repo, repo_path):
         """ Write a repo object to a DNF repo.conf file

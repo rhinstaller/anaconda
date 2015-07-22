@@ -197,6 +197,10 @@ class Anaconda(object):
 
         # gather up info on the running threads
         threads = "\nThreads\n-------\n"
+
+        # Every call to sys._current_frames() returns a new dict, so it is not
+        # modified when threads are created or destroyed. Iterating over it is
+        # thread safe.
         for thread_id, frame in sys._current_frames().items():
             threads += "\nThread %s\n" % (thread_id,)
             threads += "".join(format_stack(frame))

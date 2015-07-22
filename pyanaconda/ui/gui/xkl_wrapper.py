@@ -117,7 +117,9 @@ class XklWrapper(object):
         self.configreg.load(False)
 
         self._layout_infos = dict()
+        self._layout_infos_lock = threading.RLock()
         self._switch_opt_infos = dict()
+        self._switch_opt_infos_lock = threading.RLock()
 
         #this might take quite a long time
         self.configreg.foreach_language(self._get_language_variants, None)
@@ -137,7 +139,8 @@ class XklWrapper(object):
         #if this layout has already been added for some other language,
         #do not add it again (would result in duplicates in our lists)
         if name not in self._layout_infos:
-            self._layout_infos[name] = LayoutInfo(lang, description)
+            with self._layout_infos_lock:
+                self._layout_infos[name] = LayoutInfo(lang, description)
 
     def _get_country_variant(self, c_reg, item, subitem, country):
         if subitem:
@@ -149,7 +152,8 @@ class XklWrapper(object):
 
         # if the layout was not added with any language, add it with a country
         if name not in self._layout_infos:
-            self._layout_infos[name] = LayoutInfo(country, description)
+            with self._layout_infos_lock:
+                self._layout_infos[name] = LayoutInfo(country, description)
 
     def _get_language_variants(self, c_reg, item, user_data=None):
         lang_name, lang_desc = item.get_name(), item.get_description()
@@ -167,7 +171,8 @@ class XklWrapper(object):
         desc = item.get_description()
         name = item.get_name()
 
-        self._switch_opt_infos[name] = desc
+        with self._switch_opt_infos_lock:
+            self._switch_opt_infos[name] = desc
 
     def get_current_layout(self):
         """
@@ -200,14 +205,16 @@ class XklWrapper(object):
         return join_layout_variant(layout, variant)
 
     def get_available_layouts(self):
-        """A generator yielding layouts (no need to store them as a bunch)"""
+        """A list of layouts"""
 
-        return self._layout_infos.keys()
+        with self._layout_infos_lock:
+            return list(self._layout_infos.keys())
 
     def get_switching_options(self):
         """Method returning list of available layout switching options"""
 
-        return self._switch_opt_infos.keys()
+        with self._switch_opt_infos_lock:
+            return list(self._switch_opt_infos.keys())
 
     def get_layout_variant_description(self, layout_variant, with_lang=True, xlated=True):
         """
