@@ -32,6 +32,7 @@ run_checkisomd5() {
 
 dev="$1"
 path="$2" # optional, could be empty
+kickstart="$(getarg ks= inst.ks=)"
 
 [ -e "/dev/root" ] && exit 1 # we already have a root device!
 
