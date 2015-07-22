@@ -14,9 +14,8 @@ case "$root" in
   ;;
   anaconda-auto-cd)
     # special catch-all rule for CDROMs
-    echo 'ENV{ID_CDROM}=="1",' \
-           'RUN+="/sbin/initqueue --settled --onetime' \
-             '/sbin/anaconda-diskroot $env{DEVNAME}"' >> $rulesfile
+    when_any_cdrom_appears \
+        anaconda-diskroot \$env{DEVNAME}
     # HACK: anaconda demands that CDROMs be mounted at /mnt/install/source
     ln -s repo /run/install/source
   ;;
