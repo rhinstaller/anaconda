@@ -46,7 +46,7 @@ ZANATA_PULL_ARGS = --transdir $(srcdir)/po/
 ZANATA_PUSH_ARGS = --srcdir $(srcdir)/po/ --push-type source --force
 
 RC_RELEASE ?= $(shell date -u +0.1.%Y%m%d%H%M%S)
-MOCKCHROOT ?= fedora-rawhide-x86_64
+MOCKCHROOT ?= fedora-rawhide-$(shell uname -m)
 
 tag:
 	@git tag -s -a -m "Tag as $(ARCHIVE_TAG)" $(ARCHIVE_TAG)
@@ -153,3 +153,11 @@ runglade:
 	GLADE_CATALOG_SEARCH_PATH=$(srcdir)/widgets/glade \
 	GLADE_MODULE_SEARCH_PATH=$(builddir)/widgets/src/.libs \
 	glade ${GLADE_FILE}
+
+ci: rc-release
+	$(MAKE) -C utils/dd
+	$(MAKE) TMPDIR=/var/tmp check
+	@mkdir -p repo
+	@mv *rpm repo
+	@createrepo -p repo
+	@sudo $(MAKE) TMPDIR=/var/tmp TESTS=install/run_install_test.sh TEST_ANACONDA_REPO=file://$(builddir)/repo/ check
