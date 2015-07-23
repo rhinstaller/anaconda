@@ -709,10 +709,10 @@ def collect_categories(mask_paths, displaymode):
     return categories
 
 def collectCategoriesAndSpokes(paths, klass, displaymode):
-    """collects categories and spokes to be displayed on this Hub
+    """Collects categories and spokes to be displayed on this Hub
 
        :param paths: dictionary mapping categories, spokes, and hubs to their
-       their respective search path(s)
+                     their respective search path(s)
        :return: dictionary mapping category class to list of spoke classes
        :rtype: dictionary[category class] -> [ list of spoke classes ]
     """

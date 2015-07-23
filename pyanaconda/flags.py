@@ -122,7 +122,7 @@ class BootArgs(OrderedDict):
         Read and parse a filename (or a list of filenames).
         Files that can't be read are silently ignored.
         Returns a list of successfully read files.
-        filenames can contain *, ?, and character ranges expressed with []
+        filenames can contain \*, ?, and character ranges expressed with []
         """
 
         readfiles = []

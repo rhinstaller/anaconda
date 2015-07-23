@@ -56,7 +56,7 @@ def exception_msg_handler(event, data):
 class TextUserInterface(ui.UserInterface):
     """This is the main class for Text user interface.
 
-       .. inheritance-diagram:: SourceSpoke
+       .. inheritance-diagram:: TextUserInterface
           :parts: 3
     """
 

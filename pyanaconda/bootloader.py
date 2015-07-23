@@ -56,18 +56,24 @@ class serial_opts(object):
         self.flow = None
 
 def parse_serial_opt(arg):
-    """Parse and split serial console options.
+    """
+    Parse and split serial console options.
 
-    Documentation/kernel-parameters.txt says:
-      ttyS<n>[,options]
-                Use the specified serial port.  The options are of
-                the form "bbbbpnf", where "bbbb" is the baud rate,
-                "p" is parity ("n", "o", or "e"), "n" is number of
-                bits, and "f" is flow control ("r" for RTS or
-                omit it).  Default is "9600n8".
-    but note that everything after the baud rate is optional, so these are
-    all valid: 9600, 19200n, 38400n8, 9600e7r.
-    Also note that the kernel assumes 1 stop bit; this can't be changed.
+    .. NOTE::
+
+       Documentation/kernel-parameters.txt says:
+
+          ttyS<n>[,options]
+
+             Use the specified serial port.  The options are of
+             the form "bbbbpnf", where "bbbb" is the baud rate,
+             "p" is parity ("n", "o", or "e"), "n" is number of
+             bits, and "f" is flow control ("r" for RTS or
+             omit it).  Default is "9600n8".
+
+       but note that everything after the baud rate is optional, so these are
+       all valid: 9600, 19200n, 38400n8, 9600e7r.
+       Also note that the kernel assumes 1 stop bit; this can't be changed.
     """
     opts = serial_opts()
     m = re.match(r'\d+', arg)

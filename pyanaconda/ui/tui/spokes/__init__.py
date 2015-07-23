@@ -36,14 +36,14 @@ __all__ = ["TUISpoke", "EditTUISpoke", "EditTUIDialog", "EditTUISpokeEntry",
 # pylint: disable=abstract-method
 class TUISpoke(TUIObject, tui.Widget, Spoke):
     """Base TUI Spoke class implementing the pyanaconda.ui.common.Spoke API.
-    It also acts as a Widget so we can easily add it to Hub, where is shows
-    as a summary box with title, description and completed checkbox.
+       It also acts as a Widget so we can easily add it to Hub, where is shows
+       as a summary box with title, description and completed checkbox.
 
-    :param title: title of this spoke
-    :type title: str
+       :param title: title of this spoke
+       :type title: str
 
-    :param category: category this spoke belongs to
-    :type category: string
+       :param category: category this spoke belongs to
+       :type category: string
 
        .. inheritance-diagram:: TUISpoke
           :parts: 3

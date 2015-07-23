@@ -22,81 +22,86 @@
 A GeoIP and WiFi location module - location detection based on IP address
 
 How to use the geolocation module
+   First call :func:`init_geolocation` - this creates the LocationInfo singleton and
+   you can also use it to set what geolocation provider should be used.
+   To actually look up current position, call :func:`refresh` - this will trigger
+   the actual online geolocation query, which runs in a thread.
+   After the look-up thread finishes, the results are stored in the singleton
+   and can be retrieved using the :func:`get_territory_code` and :func:`get_result` methods.
+   If you call these methods without calling :func:`refresh` first or if the look-up
+   is currently in progress, both return ``None``.
 
-First call init_geolocation() - this creates the LocationInfo singleton and
-you can also use it to set what geolocation provider should be used.
-To actually look up current position, call refresh() - this will trigger
-the actual online geolocation query, which runs in a thread.
-After the look-up thread finishes, the results are stored in the singleton
-and can be retrieved using the get_territory_code() and get_result() methods.
-If you call these methods without calling refresh() first or if the look-up
-is currently in progress, both return None.
-
+====================
 Geolocation backends
+====================
 
 This module currently supports three geolocation backends:
-* Fedora GeoIP API
-* Hostip GeoIP
-* Google WiFi
+   * Fedora GeoIP API
+   * Hostip GeoIP
+   * Google WiFi
 
 Fedora GeoIP backend
-This is the default backend. It queries the Fedora GeoIP API for location
-data based on current public IP address. The reply is JSON formated and
-contains the following fields:
-postal_code, latitude, longitude, region, city, country_code, country_name,
-time_zone, country_code3, area_code, metro_code, region_name and dma_code
-Anaconda currently uses just time_zone and country_code.
+   This is the default backend. It queries the Fedora GeoIP API for location
+   data based on current public IP address. The reply is JSON formated and
+   contains the following fields:
+   postal_code, latitude, longitude, region, city, country_code, country_name,
+   time_zone, country_code3, area_code, metro_code, region_name and dma_code
+   Anaconda currently uses just time_zone and country_code.
 
 Hostip backend
-A GeoIP look-up backend that can be used to determine current country code
-from current public IP address. The public IP address is determined
-automatically when calling the API.
-GeoIP results from Hostip contain the current public IP and an approximate
-address. To get this detail location info, use the get_result() method
-to get an instance of the LocationResult class, used to wrap the result.
+   A GeoIP look-up backend that can be used to determine current country code
+   from current public IP address. The public IP address is determined
+   automatically when calling the API.
+   GeoIP results from Hostip contain the current public IP and an approximate
+   address. To get this detail location info, use the get_result() method
+   to get an instance of the LocationResult class, used to wrap the result.
 
 Google WiFi backend
-This backend is probably the most accurate one, at least as long as the
-computer has a working WiFi hardware and there are some WiFi APs nearby.
-It sends data about nearby APs (ssid, MAC address & signal strength)
-acquired from Network Manager to a Google API to get approximate
-geographic coordinates. If there are enough AP nearby (such as in a
-normal city) it can be very accurate, even up to currently determining
-which building is the computer currently in.
-But this only returns current geographic coordinates, to get country code
-the Nominatim reverse-geocoding API is called to convert the coordinates
-to an address, which includes a country code.
+   This backend is probably the most accurate one, at least as long as the
+   computer has a working WiFi hardware and there are some WiFi APs nearby.
+   It sends data about nearby APs (ssid, MAC address & signal strength)
+   acquired from Network Manager to a Google API to get approximate
+   geographic coordinates. If there are enough AP nearby (such as in a
+   normal city) it can be very accurate, even up to currently determining
+   which building is the computer currently in.
+   But this only returns current geographic coordinates, to get country code
+   the Nominatim reverse-geocoding API is called to convert the coordinates
+   to an address, which includes a country code.
+
 While having many advantages, this backend also has some severe disadvantages:
-* needs working WiFi hardware
-* tells your public IP address & possibly quite precise geographic coordinates
-  to two external entities (Google and Nominatim)
+   * needs working WiFi hardware
+   * tells your public IP address & possibly quite precise geographic coordinates
+     to two external entities (Google and Nominatim)
+
 This could have severe privacy issues and should be carefully considered before
-enabling it to be used by default.
-* the Google WiFi geolocation API seems to lack official documentation
+enabling it to be used by default. Also the Google WiFi geolocation API seems to
+lack official documentation.
+
 As a result its long-term stability might not be guarantied.
 
 
 
 Possible issues with GeoIP
-
-"I'm in Switzerland connected to corporate VPN and anaconda tells me
-I'm in Netherlands."
-The public IP address is not directly mapped to the physical location
-of a computer. So while your world visible IP address is registered to
-an IP block assigned to an ISP in Netherlands, it is just the external
-address of the Internet gateway of  your corporate network.
-As VPNs and proxies can connect two computers anywhere on Earth,
-this issue is unfortunately probably unsolvable.
+   "I'm in Switzerland connected to corporate VPN and anaconda tells me
+   I'm in Netherlands."
+   The public IP address is not directly mapped to the physical location
+   of a computer. So while your world visible IP address is registered to
+   an IP block assigned to an ISP in Netherlands, it is just the external
+   address of the Internet gateway of  your corporate network.
+   As VPNs and proxies can connect two computers anywhere on Earth,
+   this issue is unfortunately probably unsolvable.
 
 
 Backends that could possibly be used in the future
-* GPS geolocation
-+ doesn't leak your coordinates to a third party
-(not entirely true for assisted GPS)
-- unassisted cold GPS startup can take tens of minutes to acquire a GPS fix
-+ assisted GPS startup (as used in most smartphones) can acquire a fix
-in a couple seconds
-* cell tower geolocation
+   * GPS geolocation
+
+      * (+) doesn't leak your coordinates to a third party
+        (not entirely true for assisted GPS)
+      * (-) unassisted cold GPS startup can take tens of minutes to acquire a GPS fix
+      * (+) assisted GPS startup (as used in most smartphones) can acquire a fix
+        in a couple seconds
+
+   * cell tower geolocation
 
 """
 from pyanaconda.iutil import requests_session
@@ -146,20 +151,25 @@ def refresh():
 
 
 def get_territory_code(wait=False):
-    """This function returns the current country code
-    or None, if:
-    - no results were found
-    - the lookup is still in progress
-    - the geolocation module was not activated (init & refresh were not called)
-     - this is for example the case during image and directory installs
+    """
+    This function returns the current country code or ``None``, if:
+
+    * no results were found
+    * the lookup is still in progress
+    * the geolocation module was not activated
+      (:func:`init_geolocation` & :func:`refresh` were not called)
+
+       * this is for example the case during image and directory installs
 
     :param wait: wait for lookup in progress to finish
-    False - don't wait
-    True - wait for default period
-    number - wait for up to number seconds
+
+       | ``False`` - don't wait
+       | ``True`` - wait for default period
+       | number - wait for up to number seconds
+
     :type wait:  bool or number
-    :return: current country code or None if not known
-    :rtype: string or None
+    :return: current country code or ``None`` if not known
+    :rtype: string or ``None``
     """
     if _get_location_info_instance(wait):
         return location_info_instance.get_territory_code()
@@ -168,20 +178,25 @@ def get_territory_code(wait=False):
 
 
 def get_timezone(wait=False):
-    """This function returns the current time zone
-    or None, if:
-    - no timezone was found
-    - the lookup is still in progress
-    - the geolocation module was not activated (init & refresh were not called)
-     - this is for example the case during image and directory installs
+    """
+    This function returns the current time zone or ``None``, if:
+
+    * no timezone was found
+    * the lookup is still in progress
+    * the geolocation module was not activated
+      (:func:`init_geolocation` & :func:`refresh` were not called)
+
+     * this is for example the case during image and directory installs
 
     :param wait: wait for lookup in progress to finish
-    False - don't wait
-    True - wait for default period
-    number - wait for up to number seconds
+
+       | ``False`` - don't wait
+       | ``True`` - wait for default period
+       | number - wait for up to number seconds
+
     :type wait:  bool or number
-    :return: current timezone or None if not known
-    :rtype: string or None
+    :return: current timezone or ``None`` if not known
+    :rtype: string or ``None``
     """
     if _get_location_info_instance(wait):
         return location_info_instance.get_timezone()
@@ -190,20 +205,25 @@ def get_timezone(wait=False):
 
 
 def get_result(wait=False):
-    """Returns the current geolocation result wrapper
-    or None, if:
-    - no results were found
-    - the refresh is still in progress
-    - the geolocation module was not activated (init & refresh were not called)
-     - this is for example the case during image and directory installs
+    """
+    Returns the current geolocation result wrapper or ``None``, if:
+
+    * no results were found
+    * the refresh is still in progress
+    * the geolocation module was not activated
+      (:func:`init_geolocation` & :func:`refresh` were not called)
+
+       * this is for example the case during image and directory installs
 
     :param wait: wait for lookup in progress to finish
-    False - don't wait
-    True - wait for default period
-    number - wait for up to number seconds
+
+       | ``False`` - don't wait
+       | ``True`` - wait for default period
+       | number - wait for up to number seconds
+
     :type wait:  bool or number
-    :return: LocationResult instance or None if location is unknown
-    :rtype: LocationResult or None
+    :return: :class:`LocationResult` instance or ``None`` if location is unknown
+    :rtype: :class:`LocationResult` or ``None``
     """
     if _get_location_info_instance(wait):
         return location_info_instance.get_result()
@@ -212,7 +232,8 @@ def get_result(wait=False):
 
 
 def get_provider_id_from_option(option_string):
-    """Get a valid provider id from a string
+    """
+    Get a valid provider id from a string
     This function is used to parse command line
     arguments/boot options for the geolocation module.
 
@@ -253,7 +274,8 @@ def _get_provider(provider_id):
 
 
 def _get_location_info_instance(wait=False):
-    """Return instance of the location info object
+    """
+    Return instance of the location info object
     and optionally wait for the Geolocation thread to finish
 
     If there is no lookup in progress (no Geolocation refresh thread
@@ -304,7 +326,8 @@ class GeolocationError(Exception):
 
 
 class LocationInfo(object):
-    """Determines current location based on IP address or
+    """
+    Determines current location based on IP address or
     nearby WiFi access points (depending on what backend is used)
     """
 
@@ -314,7 +337,7 @@ class LocationInfo(object):
         """
         :param provider_id: GeoIP provider id specified by module constant
         :param refresh_now: if a GeoIP information refresh should be done
-        once the class is initialized
+                            once the class is initialized
         :type refresh_now: bool
         """
         self._provider = _get_provider(provider_id)
@@ -341,18 +364,22 @@ class LocationInfo(object):
                           " - no connectivity")
 
     def get_result(self):
-        """Get result from the provider
+        """
+        Get result from the provider
 
-        :return: the result object or return None if no results are available
-        :rtype: LocationResult or None
+        :return: the result object or return ``None`` if no results are available
+        :rtype: :class:`LocationResult` or ``None``
+
         """
         return self._provider.get_result()
 
     def get_territory_code(self):
-        """A convenience function for getting the current territory code
+        """
+        A convenience function for getting the current territory code
 
-        :return: territory code or None if no results are available
-        :rtype: string or None
+        :return: territory code or ``None`` if no results are available
+        :rtype: string or ``None``
+
         """
         result = self._provider.get_result()
         if result:
@@ -832,7 +859,7 @@ class WifiScanner(object):
     def get_results(self):
         """
         :return: a list of WiFiAccessPoint objects or
-        an empty list if no APs were found or the scan failed
+                 an empty list if no APs were found or the scan failed
         """
         return self._scan_results
 
