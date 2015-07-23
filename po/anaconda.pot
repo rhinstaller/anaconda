@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: anaconda 21.48.22.20\n"
+"Project-Id-Version: anaconda 21.48.22.21\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
-"POT-Creation-Date: 2015-07-20 17:30-0700\n"
+"POT-Creation-Date: 2015-07-22 17:25-0700\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -786,60 +786,60 @@ msgid ""
 "'-'."
 msgstr ""
 
-#: pyanaconda/network.py:1374 pyanaconda/ui/gui/spokes/custom.py:535
+#: pyanaconda/network.py:1388 pyanaconda/ui/gui/spokes/custom.py:535
 #: pyanaconda/ui/gui/spokes/network.py:300
 #: pyanaconda/ui/gui/spokes/lib/accordion.py:61
 msgid "Unknown"
 msgstr ""
 
-#: pyanaconda/network.py:1378
+#: pyanaconda/network.py:1392
 msgid "Connecting..."
 msgstr ""
 
-#: pyanaconda/network.py:1380
+#: pyanaconda/network.py:1394
 msgid "Disconnecting..."
-msgstr ""
-
-#: pyanaconda/network.py:1400
-#, python-format
-msgid "Wired (%(interface_name)s) connected"
-msgstr ""
-
-#: pyanaconda/network.py:1403
-#, python-format
-msgid "Wireless connected to %(access_point)s"
-msgstr ""
-
-#: pyanaconda/network.py:1406
-#, python-format
-msgid "Bond %(interface_name)s (%(list_of_slaves)s) connected"
-msgstr ""
-
-#: pyanaconda/network.py:1410
-#, python-format
-msgid "Team%(interface_name)s (%(list_of_slaves)s) connected"
 msgstr ""
 
 #: pyanaconda/network.py:1414
 #, python-format
-msgid "Bridge%(interface_name)s (%(list_of_slaves)s) connected"
+msgid "Wired (%(interface_name)s) connected"
+msgstr ""
+
+#: pyanaconda/network.py:1417
+#, python-format
+msgid "Wireless connected to %(access_point)s"
 msgstr ""
 
 #: pyanaconda/network.py:1420
 #, python-format
+msgid "Bond %(interface_name)s (%(list_of_slaves)s) connected"
+msgstr ""
+
+#: pyanaconda/network.py:1424
+#, python-format
+msgid "Team%(interface_name)s (%(list_of_slaves)s) connected"
+msgstr ""
+
+#: pyanaconda/network.py:1428
+#, python-format
+msgid "Bridge%(interface_name)s (%(list_of_slaves)s) connected"
+msgstr ""
+
+#: pyanaconda/network.py:1434
+#, python-format
 msgid "VLAN %(interface_name)s (%(parent_device)s, ID %(vlanid)s) connected"
 msgstr ""
 
-#: pyanaconda/network.py:1437
+#: pyanaconda/network.py:1451
 #, python-format
 msgid "Connected: %(list_of_interface_names)s"
 msgstr ""
 
-#: pyanaconda/network.py:1440
+#: pyanaconda/network.py:1454
 msgid "Not connected"
 msgstr ""
 
-#: pyanaconda/network.py:1443 pyanaconda/ui/gui/spokes/network.glade.h:46
+#: pyanaconda/network.py:1457 pyanaconda/ui/gui/spokes/network.glade.h:46
 msgid "No network devices available"
 msgstr ""
 
@@ -892,7 +892,7 @@ msgid ""
 "The rescue environment will now attempt to find your Linux installation and "
 "mount it under the directory : %s.  You can then make any changes required "
 "to your system.  Choose '1' to proceed with this step.\n"
-"You can choose to mount your filesystems read-only instead of read-write by "
+"You can choose to mount your file systems read-only instead of read-write by "
 "choosing '2'.\n"
 "If for some reason this process does not work choose '3' to skip directly to "
 "a shell.\n"
@@ -926,12 +926,12 @@ msgstr ""
 #: pyanaconda/rescue.py:353
 #, python-format
 msgid ""
-"Your system has been mounted under %s.\n"
+"Your system has been mounted under %(mountpoint)s.\n"
 "\n"
 "If you would like to make your system the root environment, run the "
 "command:\n"
 "\n"
-"\tchroot %s\n"
+"\tchroot %(mountpoint)s\n"
 msgstr ""
 
 #: pyanaconda/rescue.py:392
