@@ -474,7 +474,7 @@ def nm_device_active_ssid(name):
 
        :param name: name of device
        :type name: str
-       :return ssid of active access point, None if device has no active AP
+       :return: ssid of active access point, ``None`` if device has no active AP
        :rtype: str
        :raise UnknownDeviceError: if device is not found
     """
@@ -501,10 +501,12 @@ def nm_device_ip_config(name, version=4):
        :type version: int
        :return: IP configuration of device, empty list if device is not
                 in ACTIVATED state
-       :rtype: [[[address1, prefix1, gateway1], [address2, prefix2, gateway2], ...],
-                [nameserver1, nameserver2]]
-               addressX, gatewayX: string
-               prefixX: int
+       :rtype:
+               | [[[address1, prefix1, gateway1], [address2, prefix2, gateway2], ...],
+               | [nameserver1, nameserver2]]
+               | addressX, gatewayX: string
+               | prefixX: int
+
        :raise UnknownDeviceError: if device is not found
        :raise PropertyNotFoundError: if ip configuration is not found
     """
@@ -857,17 +859,19 @@ def nm_activate_device_connection(dev_name, con_uuid):
 def nm_add_connection(values):
     """Add new connection specified by values.
 
-       :param values: list of settings with new values and its types
-                      [[key1, key2, value, type_str], ...]
-                      key1: first-level key of setting (eg "connection")
-                      key2: second-level key of setting (eg "uuid")
-                      value: new value
-                      type_str: dbus type of new value (eg "ay")
-       :type values: [[key1, key2, value, type_str], ...]
-                     key1: str
-                     key2: str
-                     value: object
-                     type_str: str
+       :param values:
+                     | list of settings with new values and its types
+                     | [[key1, key2, value, type_str], ...]
+                     | key1: first-level key of setting (eg "connection")
+                     | key2: second-level key of setting (eg "uuid")
+                     | value: new value
+                     | type_str: dbus type of new value (eg "ay")
+       :type values:
+                     | [[key1, key2, value, type_str], ...]
+                     | key1: str
+                     | key2: str
+                     | value: object
+                     | type_str: str
     """
 
     settings = {}
@@ -907,27 +911,31 @@ def nm_update_settings_of_device(name, new_values):
 
        The type of value is determined from existing settings of device.
        If setting for key1, key2 does not exist, default_type_str is used or
-       if None, the type is inferred from the value supplied (string and bool only).
+       if ``None``, the type is inferred from the value supplied (string and bool only).
 
        :param name: name of device
        :type name: str
-       :param new_values: list of settings with new values and its types
-                          [[key1, key2, value, default_type_str]]
-                          key1: first-level key of setting (eg "connection")
-                          key2: second-level key of setting (eg "uuid")
-                          value: new value
-                          default_type_str: dbus type of new value to be used
-                                            if the setting does not already exist;
-                                            if None, the type is inferred from
-                                            value (string and bool only)
-       :type new_values: [[key1, key2, value, default_type_str], ...]
-                         key1: str
-                         key2: str
-                         value:
-                         default_type_str: str
+       :param new_values:
+                          | list of settings with new values and its types
+                          | [[key1, key2, value, default_type_str]]
+                          | key1: first-level key of setting (eg "connection")
+                          | key2: second-level key of setting (eg "uuid")
+                          | value: new value
+                          | default_type_str:
+
+                              dbus type of new value to be used
+                              if the setting does not already exist;
+                              if ``None``, the type is inferred from
+                              value (string and bool only)
+       :type new_values:
+                         | [[key1, key2, value, default_type_str], ...]
+                         | key1: str
+                         | key2: str
+                         | value:
+                         | default_type_str: str
        :raise UnknownDeviceError: if device is not found
        :raise SettingsNotFoundError: if settings were not found
-                                           (eg for "wlan0")
+                                     (eg for "wlan0")
     """
     settings_paths = _device_settings(name)
     if not settings_paths:

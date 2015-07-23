@@ -1067,7 +1067,7 @@ def chown_dir_tree(root, uid, gid, from_uid_only=None, from_gid_only=None):
 def is_unsupported_hw():
     """ Check to see if the hardware is supported or not.
 
-        :returns:   True if this is unsupported hardware, False otherwise
+        :returns:   ``True`` if this is unsupported hardware, ``False`` otherwise
         :rtype:     bool
     """
     try:
@@ -1082,14 +1082,14 @@ def is_unsupported_hw():
 
 def ensure_str(str_or_bytes, keep_none=True):
     """
-    Returns a str instance for given string or None if requested to keep it.
+    Returns a str instance for given string or ``None`` if requested to keep it.
 
     :param str_or_bytes: string to be kept or converted to str type
     :type str_or_bytes: str or bytes
     :param bool keep_none: whether to keep None as it is or raise ValueError if
-                           None is passed
+                           ``None`` is passed
     :raises ValueError: if applied on an object not being of type bytes nor str
-                        (nor NoneType if :param:`keep_none` is False)
+                        (nor NoneType if ``keep_none`` is ``False``)
     """
 
     if keep_none and str_or_bytes is None:

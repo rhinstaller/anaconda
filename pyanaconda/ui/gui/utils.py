@@ -146,11 +146,12 @@ def gtk_batch_map(action, items, args=(), pre_func=None, batch_size=1):
     time. If a pre-processing function is given it is mapped on the items first
     before the action happens in the main thread.
 
-    MUST NOT BE CALLED NOR WAITED FOR FROM THE MAIN THREAD.
+    .. DANGER::
+       MUST NOT BE CALLED NOR WAITED FOR FROM THE MAIN THREAD.
 
     :param action: any action that has to be done on the items in the main
                    thread
-    :type action: (action_item, *args) -> None
+    :type action: (action_item, \*args) -> None
     :param items: an iterable of items that the action should be mapped on
     :type items: iterable
     :param args: additional arguments passed to the action function

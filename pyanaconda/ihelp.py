@@ -33,12 +33,13 @@ log = logging.getLogger("anaconda")
 yelp_process = None
 
 def _get_best_help_file(help_folder, help_file):
-    """Return the path to the best help file for the current language and available
+    """
+    Return the path to the best help file for the current language and available
     help content
 
     :param str help_folder: a path to folder where we should look for the help files
     :param str help_file: name of the requested help file
-    :return: path to the best help file or None is no match is found
+    :return: path to the best help file or ``None`` is no match is found
     :rtype: str or NoneType
 
     """
@@ -73,9 +74,11 @@ def _get_best_help_file(help_folder, help_file):
         return None
 
 def get_help_path(help_file, instclass):
-    """Return the full path for the given help file name,
+    """
+    Return the full path for the given help file name,
     if the help file path does not exist a fallback path is returned.
     There are actually two possible fallback paths that might be returned:
+
     * first we try to return path to the main page of the installation guide
       (if it exists)
     * if we can't find the main page of the installation page, path to a
@@ -112,7 +115,8 @@ def get_help_path(help_file, instclass):
         return _get_best_help_file(instclass.help_folder, instclass.help_placeholder)
 
 def start_yelp(help_path):
-    """Start a new yelp process and make sure to kill any existing ones
+    """
+    Start a new yelp process and make sure to kill any existing ones
 
     :param help_path: path to the help file yelp should load
     :type help_path: str or NoneType

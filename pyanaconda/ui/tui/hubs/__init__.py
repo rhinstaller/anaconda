@@ -26,14 +26,14 @@ from pyanaconda.i18n import _, C_, N_
 
 class TUIHub(TUIObject, common.Hub):
     """Base Hub class implementing the pyanaconda.ui.common.Hub interface.
-    It uses text based categories to look for relevant Spokes and manages
-    all the spokes it finds to have the proper category.
+       It uses text based categories to look for relevant Spokes and manages
+       all the spokes it finds to have the proper category.
 
-    :param categories: list all the spoke categories to be displayed in this Hub
-    :type categories: list of strings
+       :param categories: list all the spoke categories to be displayed in this Hub
+       :type categories: list of strings
 
-    :param title: title for this Hub
-    :type title: str
+       :param title: title for this Hub
+       :type title: str
 
        .. inheritance-diagram:: TUIHub
           :parts: 3
