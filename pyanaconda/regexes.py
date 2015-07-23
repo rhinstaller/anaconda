@@ -77,7 +77,8 @@ IPV4_PATTERN_WITHOUT_ANCHORS = r'(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){
 # Adapted from the IPv6address ABNF definition in RFC 3986, so it has all those
 # IPv4 compatibility bits too. All groups are non-capturing to make it easy to
 # use in an expression with groups and completely impossible to read
-IPV6_PATTERN_WITHOUT_ANCHORS = r'(?:(?:(?:[0-9a-fA-F]{1,4}:){6})(?:(?:(?:[0-9a-fA-F]{1,4}):(?:[0-9a-fA-F]{1,4}))|(?:' + IPV4_PATTERN_WITHOUT_ANCHORS + r')))|' + \
+IPV6_PATTERN_WITHOUT_ANCHORS = r'(?:' + \
+                               r'(?:(?:(?:[0-9a-fA-F]{1,4}:){6})(?:(?:(?:[0-9a-fA-F]{1,4}):(?:[0-9a-fA-F]{1,4}))|(?:' + IPV4_PATTERN_WITHOUT_ANCHORS + r')))|' + \
                                r'(?:::(?:(?:[0-9a-fA-F]{1,4}:){5})(?:(?:(?:[0-9a-fA-F]{1,4}):(?:[0-9a-fA-F]{1,4}))|(?:' + IPV4_PATTERN_WITHOUT_ANCHORS + r')))|' + \
                                r'(?:(?:[0-9a-fA-F]{1,4})?::(?:(?:[0-9a-fA-F]{1,4}:){4})(?:(?:(?:[0-9a-fA-F]{1,4}):(?:[0-9a-fA-F]{1,4}))|(?:' + IPV4_PATTERN_WITHOUT_ANCHORS + r')))|' + \
                                r'(?:(?:(?:[0-9a-fA-F]{1,4}:){,1}(?:[0-9a-fA-F]{1,4}))?::(?:(?:[0-9a-fA-F]{1,4}:){3})(?:(?:(?:[0-9a-fA-F]{1,4}):(?:[0-9a-fA-F]{1,4}))|(?:' + IPV4_PATTERN_WITHOUT_ANCHORS + r')))|' + \
@@ -85,7 +86,8 @@ IPV6_PATTERN_WITHOUT_ANCHORS = r'(?:(?:(?:[0-9a-fA-F]{1,4}:){6})(?:(?:(?:[0-9a-f
                                r'(?:(?:(?:[0-9a-fA-F]{1,4}:){,3}(?:[0-9a-fA-F]{1,4}))?::(?:(?:[0-9a-fA-F]{1,4}:){1})(?:(?:(?:[0-9a-fA-F]{1,4}):(?:[0-9a-fA-F]{1,4}))|(?:' + IPV4_PATTERN_WITHOUT_ANCHORS + r')))|' + \
                                r'(?:(?:(?:[0-9a-fA-F]{1,4}:){,4}(?:[0-9a-fA-F]{1,4}))?::(?:(?:(?:[0-9a-fA-F]{1,4}):(?:[0-9a-fA-F]{1,4}))|(?:' + IPV4_PATTERN_WITHOUT_ANCHORS + r')))|' + \
                                r'(?:(?:(?:[0-9a-fA-F]{1,4}:){,5}(?:[0-9a-fA-F]{1,4}))?::(?:[0-9a-fA-F]{1,4}))|' + \
-                               r'(?:(?:(?:[0-9a-fA-F]{1,4}:){,6}(?:[0-9a-fA-F]{1,4}))?::)'
+                               r'(?:(?:(?:[0-9a-fA-F]{1,4}:){,6}(?:[0-9a-fA-F]{1,4}))?::)' + \
+                               r')'
 
 # Hostname validation
 # A hostname consists of sections separated by periods. Each of these sections
