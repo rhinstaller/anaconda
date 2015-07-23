@@ -32,6 +32,9 @@ __all__ = ["ZFCPDialog"]
 class ZFCPDialog(GUIObject):
     """ Gtk dialog which allows users to manually add zFCP devices without
         having previously specified them in a parm file.
+
+       .. inheritance-diagram:: ZFCPDialog
+          :parts: 3
     """
     builderObjects = ["zfcpDialog"]
     mainWidgetName = "zfcpDialog"

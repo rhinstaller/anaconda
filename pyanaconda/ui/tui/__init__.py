@@ -54,7 +54,11 @@ def exception_msg_handler(event, data):
     sys.excepthook(*msg_data[0])
 
 class TextUserInterface(ui.UserInterface):
-    """This is the main class for Text user interface."""
+    """This is the main class for Text user interface.
+
+       .. inheritance-diagram:: SourceSpoke
+          :parts: 3
+    """
 
     ENVIRONMENT = "anaconda"
 

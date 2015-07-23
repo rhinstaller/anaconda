@@ -474,6 +474,10 @@ class ZPage(FilterPage):
         return self.ismember(device) and self._filter_func(device)
 
 class FilterSpoke(NormalSpoke):
+    """
+       .. inheritance-diagram:: FilterSpoke
+          :parts: 3
+    """
     builderObjects = ["diskStore", "filterWindow",
                       "searchModel", "multipathModel", "otherModel", "zModel"]
     mainWidgetName = "filterWindow"

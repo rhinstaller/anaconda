@@ -235,6 +235,10 @@ class NoSpaceDialog(InstallOptionsDialogBase):
         self._add_modify_watcher(label)
 
 class StorageSpoke(NormalSpoke, StorageChecker):
+    """
+       .. inheritance-diagram:: StorageSpoke
+          :parts: 3
+    """
     builderObjects = ["storageWindow", "addSpecializedImage"]
     mainWidgetName = "storageWindow"
     uiFile = "spokes/storage.glade"

@@ -39,6 +39,10 @@ __all__ = ["PasswordSpoke"]
 
 
 class PasswordSpoke(FirstbootSpokeMixIn, NormalSpoke, GUISpokeInputCheckHandler):
+    """
+       .. inheritance-diagram:: PasswordSpoke
+          :parts: 3
+    """
     builderObjects = ["passwordWindow"]
 
     mainWidgetName = "passwordWindow"

@@ -35,6 +35,8 @@ class TUIHub(TUIObject, common.Hub):
     :param title: title for this Hub
     :type title: str
 
+       .. inheritance-diagram:: TUIHub
+          :parts: 3
     """
 
     categories = []

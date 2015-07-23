@@ -33,6 +33,10 @@ log = logging.getLogger("anaconda")
 __all__ = ["WarningsSpoke"]
 
 class WarningsSpoke(StandaloneTUISpoke):
+    """
+       .. inheritance-diagram:: WarningsSpoke
+          :parts: 3
+    """
     title = N_("Warnings")
 
     preForHub = SummaryHub

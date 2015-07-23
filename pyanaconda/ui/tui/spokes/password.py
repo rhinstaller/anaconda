@@ -29,6 +29,10 @@ from pyanaconda.flags import flags
 from pyanaconda.i18n import N_, _
 
 class PasswordSpoke(FirstbootSpokeMixIn, EditTUIDialog):
+    """
+       .. inheritance-diagram:: PasswordSpoke
+          :parts: 3
+    """
     title = N_("Root password")
     category = UserSettingsCategory
 

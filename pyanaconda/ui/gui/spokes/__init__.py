@@ -28,6 +28,10 @@ __all__ = ["StandaloneSpoke", "NormalSpoke"]
 # Inherit abstract methods from common.StandaloneSpoke
 # pylint: disable=abstract-method
 class StandaloneSpoke(GUIObject, common.StandaloneSpoke):
+    """
+       .. inheritance-diagram:: StandaloneSpoke
+          :parts: 3
+    """
     def __init__(self, data, storage, payload, instclass):
         GUIObject.__init__(self, data)
         common.StandaloneSpoke.__init__(self, storage, payload, instclass)
@@ -41,6 +45,10 @@ class StandaloneSpoke(GUIObject, common.StandaloneSpoke):
 # Inherit abstract methods from common.NormalSpoke
 # pylint: disable=abstract-method
 class NormalSpoke(GUIObject, common.NormalSpoke):
+    """
+       .. inheritance-diagram:: NormalSpoke
+          :parts: 3
+    """
     def __init__(self, data, storage, payload, instclass):
         GUIObject.__init__(self, data)
         common.NormalSpoke.__init__(self, storage, payload, instclass)

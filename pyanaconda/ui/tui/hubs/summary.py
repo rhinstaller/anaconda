@@ -32,6 +32,10 @@ import logging
 log = logging.getLogger("anaconda")
 
 class SummaryHub(TUIHub):
+    """
+       .. inheritance-diagram:: SummaryHub
+          :parts: 3
+    """
     title = N_("Installation")
 
     def __init__(self, app, data, storage, payload, instclass):

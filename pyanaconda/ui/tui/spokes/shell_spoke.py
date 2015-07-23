@@ -30,6 +30,10 @@ from pyanaconda.iutil import execConsole
 from blivet import arch
 
 class ShellSpoke(NormalTUISpoke):
+    """
+       .. inheritance-diagram:: ShellSpoke
+          :parts: 3
+    """
     title = N_("Shell")
     category = SystemCategory
 

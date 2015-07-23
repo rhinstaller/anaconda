@@ -51,7 +51,11 @@ LOG = logging.getLogger("anaconda")
 __all__ = ["SourceSpoke"]
 
 class SourceSpoke(EditTUISpoke, SourceSwitchHandler):
-    """ Spoke used to customize the install source repo. """
+    """ Spoke used to customize the install source repo.
+
+       .. inheritance-diagram:: SourceSpoke
+          :parts: 3
+    """
     title = N_("Installation source")
     category = SoftwareCategory
 

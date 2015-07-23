@@ -260,6 +260,10 @@ class ConfigureSwitchingDialog(GUIObject):
 
 
 class KeyboardSpoke(NormalSpoke):
+    """
+       .. inheritance-diagram:: KeyboardSpoke
+          :parts: 3
+    """
     builderObjects = ["addedLayoutStore", "keyboardWindow",
                       "layoutTestBuffer"]
     mainWidgetName = "keyboardWindow"

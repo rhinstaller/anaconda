@@ -44,6 +44,9 @@ class TUISpoke(TUIObject, tui.Widget, Spoke):
 
     :param category: category this spoke belongs to
     :type category: string
+
+       .. inheritance-diagram:: TUISpoke
+          :parts: 3
     """
 
     title = N_("Default spoke title")
@@ -91,6 +94,10 @@ class TUISpoke(TUIObject, tui.Widget, Spoke):
         self.draw(c)
 
 class NormalTUISpoke(TUISpoke, NormalSpoke):
+    """
+       .. inheritance-diagram:: NormalTUISpoke
+          :parts: 3
+    """
     pass
 
 EditTUISpokeEntry = namedtuple("EditTUISpokeEntry", ["title", "attribute", "aux", "visible"])
@@ -98,7 +105,11 @@ EditTUISpokeEntry = namedtuple("EditTUISpokeEntry", ["title", "attribute", "aux"
 # Inherit abstract methods from NormalTUISpoke
 # pylint: disable=abstract-method
 class EditTUIDialog(NormalTUISpoke):
-    """Spoke/dialog used to read new value of textual or password data"""
+    """Spoke/dialog used to read new value of textual or password data
+
+       .. inheritance-diagram:: EditTUIDialog
+          :parts: 3
+    """
 
     title = N_("New value")
     PASSWORD = re.compile(".*")
@@ -213,6 +224,9 @@ class EditTUISpoke(NormalTUISpoke):
        a list of titles, attribute names and regexps
        that specify the fields of an object the user
        allowed to edit.
+
+       .. inheritance-diagram:: EditTUISpoke
+          :parts: 3
     """
 
     # self.data's subattribute name
@@ -338,4 +352,8 @@ class EditTUISpoke(NormalTUISpoke):
         return NormalTUISpoke.input(self, args, key)
 
 class StandaloneTUISpoke(TUISpoke, StandaloneSpoke):
+    """
+       .. inheritance-diagram:: StandaloneTUISpoke
+          :parts: 3
+    """
     pass

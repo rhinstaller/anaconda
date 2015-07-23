@@ -28,6 +28,10 @@ from pyanaconda.i18n import N_, _
 from pyanaconda.constants_text import INPUT_PROCESSED
 
 class TimeZoneSpoke(FirstbootSpokeMixIn, NormalTUISpoke):
+    """
+       .. inheritance-diagram:: TimeZoneSpoke
+          :parts: 3
+    """
     title = N_("Timezone settings")
     category = LocalizationCategory
 

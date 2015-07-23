@@ -42,7 +42,11 @@ __all__ = ["NetworkSpoke"]
 
 
 class NetworkSpoke(EditTUISpoke):
-    """ Spoke used to configure network settings. """
+    """ Spoke used to configure network settings.
+
+       .. inheritance-diagram:: NetworkSpoke
+          :parts: 3
+    """
     title = N_("Network configuration")
     category = SystemCategory
 

@@ -36,7 +36,11 @@ __all__ = ["SoftwareSpoke"]
 
 
 class SoftwareSpoke(NormalTUISpoke):
-    """ Spoke used to read new value of text to represent source repo. """
+    """ Spoke used to read new value of text to represent source repo.
+
+       .. inheritance-diagram:: SoftwareSpoke
+          :parts: 3
+    """
     title = N_("Software selection")
     category = SoftwareCategory
 

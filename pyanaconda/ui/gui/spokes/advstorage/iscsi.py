@@ -111,6 +111,10 @@ def credentials_valid(credentials):
                credentials.rUsername.strip() != "" and credentials.rPassword != ""
 
 class ISCSIDialog(GUIObject):
+    """
+       .. inheritance-diagram:: ISCSIDialog
+          :parts: 3
+    """
     builderObjects = ["iscsiDialog", "nodeStore", "nodeStoreFiltered"]
     mainWidgetName = "iscsiDialog"
     uiFile = "spokes/advstorage/iscsi.glade"
