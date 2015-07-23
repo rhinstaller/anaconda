@@ -1405,6 +1405,10 @@ def register_secret_agent(spoke):
 
 
 class NetworkSpoke(FirstbootSpokeMixIn, NormalSpoke):
+    """
+       .. inheritance-diagram:: NetworkSpoke
+          :parts: 3
+    """
     builderObjects = ["networkWindow", "liststore_wireless_network", "liststore_devices", "add_device_dialog", "liststore_add_device"]
     mainWidgetName = "networkWindow"
     uiFile = "spokes/network.glade"
@@ -1509,6 +1513,10 @@ class NetworkSpoke(FirstbootSpokeMixIn, NormalSpoke):
 
 
 class NetworkStandaloneSpoke(StandaloneSpoke):
+    """
+       .. inheritance-diagram:: NetworkStandaloneSpoke
+          :parts: 3
+    """
     builderObjects = ["networkStandaloneWindow", "networkControlBox_vbox", "liststore_wireless_network", "liststore_devices", "add_device_dialog", "liststore_add_device"]
     mainWidgetName = "networkStandaloneWindow"
     uiFile = "spokes/network.glade"

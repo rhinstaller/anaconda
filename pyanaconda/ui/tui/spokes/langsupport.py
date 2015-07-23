@@ -34,6 +34,9 @@ class LangSpoke(FirstbootSpokeMixIn, NormalTUISpoke):
     in text-mode.
 
     Also this doesn't allow for selection of multiple languages like in the GUI.
+
+       .. inheritance-diagram:: LangSpoke
+          :parts: 3
     """
     title = N_("Language settings")
     category = LocalizationCategory

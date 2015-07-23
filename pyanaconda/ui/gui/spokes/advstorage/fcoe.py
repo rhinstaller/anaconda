@@ -28,6 +28,10 @@ from pyanaconda import nm
 __all__ = ["FCoEDialog"]
 
 class FCoEDialog(GUIObject):
+    """
+       .. inheritance-diagram:: FCoEDialog
+          :parts: 3
+    """
     builderObjects = ["fcoeDialog"]
     mainWidgetName = "fcoeDialog"
     uiFile = "spokes/advstorage/fcoe.glade"

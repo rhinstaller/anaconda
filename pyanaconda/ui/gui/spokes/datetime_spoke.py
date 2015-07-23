@@ -396,6 +396,10 @@ class NTPconfigDialog(GUIObject, GUIDialogInputCheckHandler):
         self._refresh_server_working(itr)
 
 class DatetimeSpoke(FirstbootSpokeMixIn, NormalSpoke):
+    """
+       .. inheritance-diagram:: DatetimeSpoke
+          :parts: 3
+    """
     builderObjects = ["datetimeWindow",
                       "days", "months", "years", "regions", "cities",
                       "upImage", "upImage1", "upImage2", "downImage",

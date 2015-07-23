@@ -46,6 +46,10 @@ log = logging.getLogger("anaconda")
 __all__ = ["WelcomeLanguageSpoke"]
 
 class WelcomeLanguageSpoke(LangLocaleHandler, StandaloneSpoke):
+    """
+       .. inheritance-diagram:: WelcomeLanguageSpoke
+          :parts: 3
+    """
     mainWidgetName = "welcomeWindow"
     focusWidgetName = "languageEntry"
     uiFile = "spokes/welcome.glade"

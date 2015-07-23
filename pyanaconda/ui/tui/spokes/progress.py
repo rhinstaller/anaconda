@@ -34,6 +34,10 @@ from pyanaconda.ui.tui.simpleline.base import ExitAllMainLoops
 __all__ = ["ProgressSpoke"]
 
 class ProgressSpoke(StandaloneTUISpoke):
+    """
+       .. inheritance-diagram:: ProgressSpoke
+          :parts: 3
+    """
     title = N_("Progress")
 
     postForHub = SummaryHub

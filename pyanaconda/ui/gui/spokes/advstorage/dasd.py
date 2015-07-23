@@ -32,6 +32,9 @@ __all__ = ["DASDDialog"]
 class DASDDialog(GUIObject):
     """ Gtk dialog which allows users to manually add DASD devices without
         having previously specified them in a parm file.
+
+       .. inheritance-diagram:: DASDDialog
+          :parts: 3
     """
     builderObjects = ["dasdDialog"]
     mainWidgetName = "dasdDialog"

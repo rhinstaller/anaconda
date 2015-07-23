@@ -45,6 +45,10 @@ import sys, copy
 __all__ = ["SoftwareSelectionSpoke"]
 
 class SoftwareSelectionSpoke(NormalSpoke):
+    """
+       .. inheritance-diagram:: SoftwareSelectionSpoke
+          :parts: 3
+    """
     builderObjects = ["addonStore", "environmentStore", "softwareWindow"]
     mainWidgetName = "softwareWindow"
     uiFile = "spokes/software.glade"

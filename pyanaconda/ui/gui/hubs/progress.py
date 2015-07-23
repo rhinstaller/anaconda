@@ -46,6 +46,10 @@ from pyanaconda.ui.gui.utils import gtk_action_nowait, gtk_call_once
 __all__ = ["ProgressHub"]
 
 class ProgressHub(Hub):
+    """
+       .. inheritance-diagram:: ProgressHub
+          :parts: 3
+    """
     builderObjects = ["progressWindow"]
     mainWidgetName = "progressWindow"
     uiFile = "hubs/progress.glade"

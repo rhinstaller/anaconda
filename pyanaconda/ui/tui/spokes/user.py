@@ -34,6 +34,10 @@ from pyanaconda.regexes import GECOS_VALID, USERNAME_VALID, GROUPLIST_SIMPLE_VAL
 __all__ = ["UserSpoke"]
 
 class UserSpoke(FirstbootSpokeMixIn, EditTUISpoke):
+    """
+       .. inheritance-diagram:: UserSpoke
+          :parts: 3
+    """
     title = N_("User creation")
     category = UserSettingsCategory
 

@@ -375,6 +375,10 @@ class IsoChooser(GUIObject):
             chooser.set_current_folder(constants.ISO_DIR)
 
 class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler):
+    """
+       .. inheritance-diagram:: SourceSpoke
+          :parts: 3
+    """
     builderObjects = ["isoChooser", "isoFilter", "partitionStore", "sourceWindow", "dirImage", "repoStore"]
     mainWidgetName = "sourceWindow"
     uiFile = "spokes/source.glade"

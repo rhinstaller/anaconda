@@ -55,6 +55,9 @@ class Hub(GUIObject, common.Hub):
 
        Installation may consist of multiple chained Hubs, or Hubs with
        additional standalone screens either before or after them.
+
+       .. inheritance-diagram:: Hub
+          :parts: 3
     """
 
     def __init__(self, data, storage, payload, instclass):

@@ -47,6 +47,10 @@ __all__ = ["LangsupportSpoke"]
 _HIGHLIGHT_COLOR = Gdk.RGBA(red=0.992157, green=0.984314, blue=0.752941, alpha=1.0)
 
 class LangsupportSpoke(LangLocaleHandler, NormalSpoke):
+    """
+       .. inheritance-diagram:: LangsupportSpoke
+          :parts: 3
+    """
     builderObjects = ["languageStore", "languageStoreFilter", "localeStore", "langsupportWindow"]
     mainWidgetName = "langsupportWindow"
     focusWidgetName = "languageEntry"

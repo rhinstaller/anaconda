@@ -26,6 +26,10 @@ from pyanaconda.flags import flags
 __all__ = ["SummaryHub"]
 
 class SummaryHub(Hub):
+    """
+       .. inheritance-diagram:: SummaryHub
+          :parts: 3
+    """
     builderObjects = ["summaryWindow"]
     mainWidgetName = "summaryWindow"
     uiFile = "hubs/summary.glade"

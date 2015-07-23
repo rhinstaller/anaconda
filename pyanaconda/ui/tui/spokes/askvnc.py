@@ -39,6 +39,10 @@ def exception_msg_handler_and_exit(event, data):
     sys.exit(1)
 
 class AskVNCSpoke(NormalTUISpoke):
+    """
+       .. inheritance-diagram:: AskVNCSpoke
+          :parts: 3
+    """
     title = N_("VNC")
 
     # This spoke is kinda standalone, not meant to be used with a hub
@@ -119,6 +123,10 @@ class AskVNCSpoke(NormalTUISpoke):
         self.data.vnc.enabled = self._usevnc
 
 class VNCPassSpoke(NormalTUISpoke):
+    """
+       .. inheritance-diagram:: VNCPassSpoke
+          :parts: 3
+    """
     title = N_("VNC Password")
 
     def __init__(self, app, data, storage, payload, instclass, message=None):

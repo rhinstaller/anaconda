@@ -44,6 +44,10 @@ from pyanaconda.regexes import GECOS_VALID, USERNAME_VALID, GROUPNAME_VALID, GRO
 __all__ = ["UserSpoke", "AdvancedUserDialog"]
 
 class AdvancedUserDialog(GUIObject, GUIDialogInputCheckHandler):
+    """
+       .. inheritance-diagram:: AdvancedUserDialog
+          :parts: 3
+    """
     builderObjects = ["advancedUserDialog", "uid", "gid"]
     mainWidgetName = "advancedUserDialog"
     uiFile = "spokes/advanced_user.glade"
@@ -222,6 +226,10 @@ class AdvancedUserDialog(GUIObject, GUIDialogInputCheckHandler):
         return False
 
 class UserSpoke(FirstbootSpokeMixIn, NormalSpoke, GUISpokeInputCheckHandler):
+    """
+       .. inheritance-diagram:: UserSpoke
+          :parts: 3
+    """
     builderObjects = ["userCreationWindow"]
 
     mainWidgetName = "userCreationWindow"

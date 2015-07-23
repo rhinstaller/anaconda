@@ -65,9 +65,11 @@ PARTTYPES = {CLEARALL: CLEARPART_TYPE_ALL, CLEARLINUX: CLEARPART_TYPE_LINUX,
              CLEARNONE: CLEARPART_TYPE_NONE}
 
 class StorageSpoke(NormalTUISpoke):
-    """
-    Storage spoke where users proceed to customize storage features such
-    as disk selection, partitioning, and fs type.
+    """Storage spoke where users proceed to customize storage features such
+       as disk selection, partitioning, and fs type.
+
+       .. inheritance-diagram:: StorageSpoke
+          :parts: 3
     """
     title = N_("Installation Destination")
     category = SystemCategory
@@ -445,7 +447,11 @@ class StorageSpoke(NormalTUISpoke):
         self._ready = True
 
 class AutoPartSpoke(NormalTUISpoke):
-    """ Autopartitioning options are presented here. """
+    """ Autopartitioning options are presented here.
+
+       .. inheritance-diagram:: AutoPartSpoke
+          :parts: 3
+    """
     title = N_("Autopartitioning Options")
     category = SystemCategory
 

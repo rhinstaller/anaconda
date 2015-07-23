@@ -137,6 +137,10 @@ def ui_storage_logged(func):
     return decorated
 
 class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
+    """
+       .. inheritance-diagram:: CustomPartitioningSpoke
+          :parts: 3
+    """
     builderObjects = ["customStorageWindow", "containerStore", "deviceTypeStore",
                       "partitionStore", "raidStoreFiltered", "raidLevelStore",
                       "addImage", "removeImage", "settingsImage",
