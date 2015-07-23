@@ -261,7 +261,7 @@ def setup_locale(locale, lang=None, text_mode=False):
                 log.warning("none of the suggested fonts can be set for locale %s", locale)
             log.warning("falling back to the English locale")
             locale = constants.DEFAULT_LANG
-            os.environ["LANG"] = locale
+            os.environ["LANG"] = locale  # pylint: disable=environment-modify
 
     # set the locale to the value we have selected
     log.debug("setting locale to: %s", locale)
