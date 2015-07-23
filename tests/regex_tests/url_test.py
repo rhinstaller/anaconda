@@ -142,6 +142,228 @@ class URLRegexTestCase(unittest.TestCase):
                   ( "http://user@proxy.host:3128/blah/blah?query=whatever#fragment",
                       ("http://", 'user', None, 'proxy.host', '3128', '/blah/blah', "query=whatever", "fragment") ),
 
+                  # Same, but with IPv4 literals
+                  ( "1.2.3.4",
+                      (None, None, None, '1.2.3.4', None, None, None, None) ),
+
+                  ( "1.2.3.4:3128",
+                      (None, None, None, '1.2.3.4', '3128', None, None, None) ),
+
+                  ( "user:password@1.2.3.4",
+                      (None, 'user', 'password', '1.2.3.4', None, None, None, None) ),
+
+                  ( "user@1.2.3.4",
+                      (None, 'user', None, '1.2.3.4', None, None, None, None) ),
+
+                  ( "user:password@1.2.3.4:3128",
+                      (None, 'user', 'password', '1.2.3.4', '3128', None, None, None) ),
+
+                  ( "user@1.2.3.4:3128",
+                      (None, 'user', None, '1.2.3.4', '3128', None, None, None) ),
+
+                  ( "1.2.3.4/blah/blah",
+                      (None, None, None, '1.2.3.4', None, '/blah/blah', None, None) ),
+
+                  ( "1.2.3.4:3128/blah/blah",
+                      (None, None, None, '1.2.3.4', '3128', '/blah/blah', None, None) ),
+
+                  ( "user:password@1.2.3.4/blah/blah",
+                      (None, 'user', 'password', '1.2.3.4', None, '/blah/blah', None, None) ),
+
+                  ( "user@1.2.3.4/blah/blah",
+                      (None, 'user', None, '1.2.3.4', None, '/blah/blah', None, None) ),
+
+                  ( "user:password@1.2.3.4:3128/blah/blah",
+                      (None, 'user', 'password', '1.2.3.4', '3128', "/blah/blah", None, None) ),
+
+                  ( "user@1.2.3.4:3128/blah/blah",
+                      (None, 'user', None, '1.2.3.4', '3128', "/blah/blah", None, None) ),
+
+
+
+                  ( "http://1.2.3.4",
+                      ('http://', None, None, '1.2.3.4', None, None, None, None) ),
+
+                  ( "http://1.2.3.4:3128",
+                      ('http://', None, None, '1.2.3.4', '3128', None, None, None) ),
+
+                  ( "http://user:password@1.2.3.4",
+                      ('http://', 'user', 'password', '1.2.3.4', None, None, None, None) ),
+
+                  ( "http://user@1.2.3.4",
+                      ('http://', 'user', None, '1.2.3.4', None, None, None, None) ),
+
+                  ( "http://user:password@1.2.3.4:3128",
+                      ('http://', 'user', 'password', '1.2.3.4', '3128', None, None, None) ),
+
+                  ( "http://user@1.2.3.4:3128",
+                      ('http://', 'user', None, '1.2.3.4', '3128', None, None, None) ),
+
+                  ( "http://1.2.3.4/blah/blah",
+                      ('http://', None, None, '1.2.3.4', None, '/blah/blah', None, None) ),
+
+                  ( "http://1.2.3.4:3128/blah/blah",
+                      ('http://', None, None, '1.2.3.4', '3128', '/blah/blah', None, None) ),
+
+                  ( "http://user:password@1.2.3.4/blah/blah",
+                      ("http://", 'user', 'password', '1.2.3.4', None, '/blah/blah', None, None) ),
+
+                  ( "http://%75ser:password@1.2.3.4/blah/blah",
+                      ("http://", '%75ser', 'password', '1.2.3.4', None, '/blah/blah', None, None) ),
+
+                  ( "http://user:%70assword@1.2.3.4/blah/blah",
+                      ("http://", 'user', '%70assword', '1.2.3.4', None, '/blah/blah', None, None) ),
+
+                  ( "http://user@1.2.3.4/blah/blah",
+                      ("http://", 'user', None, '1.2.3.4', None, '/blah/blah', None, None) ),
+
+                  ( "http://user@1.2.3.4/blah/bla%68",
+                      ("http://", 'user', None, '1.2.3.4', None, '/blah/bla%68', None, None) ),
+
+                  ( "http://user:password@1.2.3.4:3128/blah/blah",
+                      ("http://", 'user', 'password', '1.2.3.4', '3128', '/blah/blah', None, None) ),
+
+                  ( "http://user@1.2.3.4:3128/blah/blah",
+                      ("http://", 'user', None, '1.2.3.4', '3128', '/blah/blah', None, None) ),
+
+                  ( "http://user@1.2.3.4:3128/blah/blah?query",
+                      ("http://", 'user', None, '1.2.3.4', '3128', '/blah/blah', "query", None) ),
+
+                  ( "http://user@1.2.3.4:3128/blah/blah?query?",
+                      ("http://", 'user', None, '1.2.3.4', '3128', '/blah/blah', "query?", None) ),
+
+                  ( "http://user@1.2.3.4:3128/blah/blah?query=whatever",
+                      ("http://", 'user', None, '1.2.3.4', '3128', '/blah/blah', "query=whatever", None) ),
+
+                  ( "http://user@1.2.3.4:3128/blah/blah?query=whate%76er",
+                      ("http://", 'user', None, '1.2.3.4', '3128', '/blah/blah', "query=whate%76er", None) ),
+
+                  ( "http://user@1.2.3.4:3128/blah/blah?",
+                      ("http://", 'user', None, '1.2.3.4', '3128', '/blah/blah', "", None) ),
+
+                  ( "http://user@1.2.3.4:3128/blah/blah#fragment",
+                      ("http://", 'user', None, '1.2.3.4', '3128', '/blah/blah', None, "fragment") ),
+
+                  ( "http://user@1.2.3.4:3128/blah/blah#",
+                      ("http://", 'user', None, '1.2.3.4', '3128', '/blah/blah', None, "") ),
+
+                  ( "http://user@1.2.3.4:3128/blah/blah#fragm%65nt",
+                      ("http://", 'user', None, '1.2.3.4', '3128', '/blah/blah', None, "fragm%65nt") ),
+
+                  ( "http://user@1.2.3.4:3128/blah/blah?query=whatever#fragment",
+                      ("http://", 'user', None, '1.2.3.4', '3128', '/blah/blah', "query=whatever", "fragment") ),
+
+                  # An again, but with IPv6 literals
+                  ( "[dead::beef]",
+                      (None, None, None, '[dead::beef]', None, None, None, None) ),
+
+                  ( "[dead::beef]:3128",
+                      (None, None, None, '[dead::beef]', '3128', None, None, None) ),
+
+                  ( "user:password@[dead::beef]",
+                      (None, 'user', 'password', '[dead::beef]', None, None, None, None) ),
+
+                  ( "user@[dead::beef]",
+                      (None, 'user', None, '[dead::beef]', None, None, None, None) ),
+
+                  ( "user:password@[dead::beef]:3128",
+                      (None, 'user', 'password', '[dead::beef]', '3128', None, None, None) ),
+
+                  ( "user@[dead::beef]:3128",
+                      (None, 'user', None, '[dead::beef]', '3128', None, None, None) ),
+
+                  ( "[dead::beef]/blah/blah",
+                      (None, None, None, '[dead::beef]', None, '/blah/blah', None, None) ),
+
+                  ( "[dead::beef]:3128/blah/blah",
+                      (None, None, None, '[dead::beef]', '3128', '/blah/blah', None, None) ),
+
+                  ( "user:password@[dead::beef]/blah/blah",
+                      (None, 'user', 'password', '[dead::beef]', None, '/blah/blah', None, None) ),
+
+                  ( "user@[dead::beef]/blah/blah",
+                      (None, 'user', None, '[dead::beef]', None, '/blah/blah', None, None) ),
+
+                  ( "user:password@[dead::beef]:3128/blah/blah",
+                      (None, 'user', 'password', '[dead::beef]', '3128', "/blah/blah", None, None) ),
+
+                  ( "user@[dead::beef]:3128/blah/blah",
+                      (None, 'user', None, '[dead::beef]', '3128', "/blah/blah", None, None) ),
+
+
+
+                  ( "http://[dead::beef]",
+                      ('http://', None, None, '[dead::beef]', None, None, None, None) ),
+
+                  ( "http://[dead::beef]:3128",
+                      ('http://', None, None, '[dead::beef]', '3128', None, None, None) ),
+
+                  ( "http://user:password@[dead::beef]",
+                      ('http://', 'user', 'password', '[dead::beef]', None, None, None, None) ),
+
+                  ( "http://user@[dead::beef]",
+                      ('http://', 'user', None, '[dead::beef]', None, None, None, None) ),
+
+                  ( "http://user:password@[dead::beef]:3128",
+                      ('http://', 'user', 'password', '[dead::beef]', '3128', None, None, None) ),
+
+                  ( "http://user@[dead::beef]:3128",
+                      ('http://', 'user', None, '[dead::beef]', '3128', None, None, None) ),
+
+                  ( "http://[dead::beef]/blah/blah",
+                      ('http://', None, None, '[dead::beef]', None, '/blah/blah', None, None) ),
+
+                  ( "http://[dead::beef]:3128/blah/blah",
+                      ('http://', None, None, '[dead::beef]', '3128', '/blah/blah', None, None) ),
+
+                  ( "http://user:password@[dead::beef]/blah/blah",
+                      ("http://", 'user', 'password', '[dead::beef]', None, '/blah/blah', None, None) ),
+
+                  ( "http://%75ser:password@[dead::beef]/blah/blah",
+                      ("http://", '%75ser', 'password', '[dead::beef]', None, '/blah/blah', None, None) ),
+
+                  ( "http://user:%70assword@[dead::beef]/blah/blah",
+                      ("http://", 'user', '%70assword', '[dead::beef]', None, '/blah/blah', None, None) ),
+
+                  ( "http://user@[dead::beef]/blah/blah",
+                      ("http://", 'user', None, '[dead::beef]', None, '/blah/blah', None, None) ),
+
+                  ( "http://user@[dead::beef]/blah/bla%68",
+                      ("http://", 'user', None, '[dead::beef]', None, '/blah/bla%68', None, None) ),
+
+                  ( "http://user:password@[dead::beef]:3128/blah/blah",
+                      ("http://", 'user', 'password', '[dead::beef]', '3128', '/blah/blah', None, None) ),
+
+                  ( "http://user@[dead::beef]:3128/blah/blah",
+                      ("http://", 'user', None, '[dead::beef]', '3128', '/blah/blah', None, None) ),
+
+                  ( "http://user@[dead::beef]:3128/blah/blah?query",
+                      ("http://", 'user', None, '[dead::beef]', '3128', '/blah/blah', "query", None) ),
+
+                  ( "http://user@[dead::beef]:3128/blah/blah?query?",
+                      ("http://", 'user', None, '[dead::beef]', '3128', '/blah/blah', "query?", None) ),
+
+                  ( "http://user@[dead::beef]:3128/blah/blah?query=whatever",
+                      ("http://", 'user', None, '[dead::beef]', '3128', '/blah/blah', "query=whatever", None) ),
+
+                  ( "http://user@[dead::beef]:3128/blah/blah?query=whate%76er",
+                      ("http://", 'user', None, '[dead::beef]', '3128', '/blah/blah', "query=whate%76er", None) ),
+
+                  ( "http://user@[dead::beef]:3128/blah/blah?",
+                      ("http://", 'user', None, '[dead::beef]', '3128', '/blah/blah', "", None) ),
+
+                  ( "http://user@[dead::beef]:3128/blah/blah#fragment",
+                      ("http://", 'user', None, '[dead::beef]', '3128', '/blah/blah', None, "fragment") ),
+
+                  ( "http://user@[dead::beef]:3128/blah/blah#",
+                      ("http://", 'user', None, '[dead::beef]', '3128', '/blah/blah', None, "") ),
+
+                  ( "http://user@[dead::beef]:3128/blah/blah#fragm%65nt",
+                      ("http://", 'user', None, '[dead::beef]', '3128', '/blah/blah', None, "fragm%65nt") ),
+
+                  ( "http://user@[dead::beef]:3128/blah/blah?query=whatever#fragment",
+                      ("http://", 'user', None, '[dead::beef]', '3128', '/blah/blah', "query=whatever", "fragment") ),
+
                   # Invalid schemes
                   ( "0http://proxy.host/", None),
                   ( "h~ttp://proxy.host/", None),
@@ -163,6 +385,11 @@ class URLRegexTestCase(unittest.TestCase):
                   # Invalid fragments
                   ( "http://proxy.host/blah/blah#fragment#", None),
                   ( "http://proxy.host/blah/blah#%xxragment", None),
+
+                  # Unbracketed IPv6
+                  ( "fe80::1234:56:78", None),
+                  ( "fe80::1234:56:78/blah/blah", None),
+                  ( "http://fe80::1234:56:78/blah/blah", None)
                 ]
 
 
