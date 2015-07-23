@@ -172,11 +172,11 @@ class AdvancedUserDialog(GUIObject, GUIDialogInputCheckHandler):
             # during any earlier run of the dialog, set homedir to the value
             # in the input box.
             homedir = self._tHome.get_text()
+            if not os.path.isabs(homedir):
+                homedir = "/" + homedir
             if self._homeSet or self._origHome != homedir:
                 self._homeSet = True
                 self._user.homedir = homedir
-            if not os.path.isabs(self._user.homedir):
-                self._user.homedir = "/" + self._user.homedir
 
             if self._cUid.get_active():
                 self._user.uid = int(self._uid.get_value())
