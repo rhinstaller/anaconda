@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: anaconda 21.48.22.21\n"
+"Project-Id-Version: anaconda 21.48.22.22\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
-"POT-Creation-Date: 2015-07-22 17:25-0700\n"
+"POT-Creation-Date: 2015-07-23 17:21-0700\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1875,6 +1875,7 @@ msgstr ""
 #: pyanaconda/ui/tui/spokes/software.py:87
 #: pyanaconda/ui/gui/spokes/datetime_spoke.py:529
 #: pyanaconda/ui/gui/spokes/software.py:283
+#: pyanaconda/ui/gui/spokes/software.py:291
 #: pyanaconda/ui/gui/spokes/source.py:550
 msgid "Nothing selected"
 msgstr ""
@@ -2608,32 +2609,33 @@ msgid "Invalid environment specified in kickstart"
 msgstr ""
 
 #: pyanaconda/ui/gui/spokes/software.py:289
+#: pyanaconda/ui/gui/spokes/software.py:296
 msgid "Selected environment is not valid"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/software.py:429
+#: pyanaconda/ui/gui/spokes/software.py:434
 msgid ""
 "Error checking software dependencies.  <a href=\"\">Click for details.</a>"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/software.py:527
+#: pyanaconda/ui/gui/spokes/software.py:532
 msgid ""
 "The software marked for installation has the following errors.  This is "
 "likely caused by an error with your installation source.  You can quit the "
 "installer, change your software source, or change your software selections."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/software.py:532
+#: pyanaconda/ui/gui/spokes/software.py:537
 msgctxt "GUI|Software Selection|Error Dialog"
 msgid "_Quit"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/software.py:533
+#: pyanaconda/ui/gui/spokes/software.py:538
 msgctxt "GUI|Software Selection|Error Dialog"
 msgid "_Modify Software Source"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/software.py:534
+#: pyanaconda/ui/gui/spokes/software.py:539
 msgctxt "GUI|Software Selection|Error Dialog"
 msgid "Modify _Selections"
 msgstr ""
@@ -5462,12 +5464,12 @@ msgid ""
 "use VNC mode instead?"
 msgstr ""
 
-#: anaconda:716
+#: anaconda:719
 #, python-format
 msgid "Please ssh install@%s to begin the install."
 msgstr ""
 
-#: anaconda:718
+#: anaconda:721
 msgid "Please ssh install@<host> to continue installation."
 msgstr ""
 
