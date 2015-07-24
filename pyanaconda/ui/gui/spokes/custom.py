@@ -493,7 +493,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
 
             for device in new_devices:
                 if device in self.bootLoaderDevices:
-                    mounts[device.format.name] = device
+                    mounts[device.format.type] = device
 
             new_root = Root(mounts=mounts, swaps=swaps, name=translated_new_install_name())
             ui_roots.insert(0, new_root)

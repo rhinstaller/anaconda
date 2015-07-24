@@ -203,7 +203,7 @@ class Page(Gtk.Box):
 
     def _mountpointType(self, mountpoint):
         if not mountpoint or mountpoint in ["/", "/boot", "/boot/efi", "/tmp", "/usr", "/var",
-                                            "swap", "PPC PReP Boot", "BIOS Boot"]:
+                                            "biosboot", "prepboot", "swap"]:
             return SYSTEM_DEVICE
         else:
             return DATA_DEVICE
