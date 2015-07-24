@@ -24,7 +24,7 @@ from pyanaconda.ui.lib.space import FileSystemSpaceChecker, DirInstallSpaceCheck
 from pyanaconda.ui.tui.hubs import TUIHub
 from pyanaconda.flags import flags
 from pyanaconda.errors import CmdlineError
-from pyanaconda.i18n import N_, _
+from pyanaconda.i18n import N_, _, C_
 import sys
 import time
 
@@ -87,7 +87,14 @@ class SummaryHub(TUIHub):
 
         # override the default prompt since we want to offer the 'b' to begin
         # installation option here
-        return _("  Please make your choice from above ['q' to quit | 'b' to begin installation |\n  'r' to refresh]: ")
+        return _("  Please make your choice from above ['%(quit)s' to quit | '%(begin)s' to begin installation |\n  '%(refresh)s' to refresh]: ") % {
+            # TRANSLATORS: 'q' to quit
+            'quit': C_('TUI|Spoke Navigation', 'q'),
+            # TRANSLATORS: 'b' to begin installation
+            'begin': C_('TUI|Spoke Navigation', 'b'),
+            # TRANSLATORS: 'r' to refresh
+            'refresh': C_('TUI|Spoke Navigation', 'r')
+        }
 
     def input(self, args, key):
         """Handle user input. Numbers are used to show a spoke, the rest is passed
@@ -101,7 +108,7 @@ class SummaryHub(TUIHub):
             # If we get a continue, check for unfinished spokes.  If unfinished
             # don't continue
             # TRANSLATORS: 'b' to begin installation
-            if key == _('b'):
+            if key == C_('TUI|Spoke Navigation', 'b'):
                 for spoke in self._spokes.values():
                     if not spoke.completed and spoke.mandatory:
                         print(_("Please complete all spokes before continuing"))
@@ -115,7 +122,7 @@ class SummaryHub(TUIHub):
                     self.app.close_screen()
                     return True
             # TRANSLATORS: 'c' to continue
-            elif key == _('c'):
+            elif key == C_('TUI|Spoke Navigation', 'c'):
                 # Kind of a hack, but we want to ignore if anyone presses 'c'
                 # which is the global TUI key to close the current screen
                 return False

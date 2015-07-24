@@ -627,7 +627,15 @@ class UIScreen(object):
                  to skip further input processing
         :rtype: unicode|None
         """
-        return _(u"  Please make your choice from above ['q' to quit | 'c' to continue |\n  'r' to refresh]: ")
+
+        return _(u"  Please make your choice from above ['%(quit)s' to quit | '%(continue)s' to continue |\n  '%(refresh)s' to refresh]: ") % {
+            # TRANSLATORS: 'q' to quit
+            'quit': C_('TUI|Spoke Navigation', 'q'),
+            # TRANSLATORS:'c' to continue
+            'continue': C_('TUI|Spoke Navigation', 'c'),
+            # TRANSLATORS:'r' to refresh
+            'refresh': C_('TUI|Spoke Navigation', 'r')
+        }
 
     @property
     def app(self):
