@@ -24,7 +24,7 @@ from pyanaconda.ui.tui.spokes import NormalTUISpoke
 from pyanaconda.ui.tui.simpleline import TextWidget, ColumnWidget
 from pyanaconda.ui.common import FirstbootSpokeMixIn
 from pyanaconda import timezone
-from pyanaconda.i18n import N_, _
+from pyanaconda.i18n import N_, _, C_
 from pyanaconda.constants_text import INPUT_PROCESSED
 
 class TimeZoneSpoke(FirstbootSpokeMixIn, NormalTUISpoke):
@@ -113,7 +113,8 @@ class TimeZoneSpoke(FirstbootSpokeMixIn, NormalTUISpoke):
                 else:
                     self.app.switch_screen(self, self._regions[index])
                 return INPUT_PROCESSED
-            elif key.lower() == "b":
+            # TRANSLATORS: 'b' to go back
+            elif key.lower() == C_('TUI|Spoke Navigation|Time Settings', 'b'):
                 self.app.switch_screen(self, None)
                 return INPUT_PROCESSED
             else:
@@ -140,8 +141,13 @@ class TimeZoneSpoke(FirstbootSpokeMixIn, NormalTUISpoke):
                 self.app.switch_screen(self, region)
             return INPUT_PROCESSED
 
-    def prompt(self, args=None):
-        return _("Please select the timezone.\nUse numbers or type names directly [b to region list, q to quit]: ")
+    def prompt(self, args = None):
+        return _("Please select the timezone.\nUse numbers or type names directly ['%(back)s' to region list, '%(quit)s' to quit]: ") % {
+            # TRANSLATORS: 'b' to go back
+            'back': C_('TUI|Spoke Navigation|Time Settings', 'b'),
+            # TRANSLATORS:'q' to quit
+            'quit': C_('TUI|Spoke Navigation|Time Settings', 'q')
+        }
 
     def apply(self):
         self.data.timezone.timezone = self._selection

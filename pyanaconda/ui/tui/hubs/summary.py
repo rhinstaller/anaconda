@@ -94,7 +94,14 @@ class SummaryHub(TUIHub):
 
         # override the default prompt since we want to offer the 'b' to begin
         # installation option here
-        return _("  Please make your choice from above ['q' to quit | 'b' to begin installation |\n  'r' to refresh]: ")
+        return _("  Please make your choice from above ['%(quit)s' to quit | '%(begin)s' to begin installation |\n  '%(refresh)s' to refresh]: ") % {
+            # TRANSLATORS: 'q' to quit
+            'quit': C_('TUI|Spoke Navigation', 'q'),
+            # TRANSLATORS: 'b' to begin installation
+            'begin': C_('TUI|Spoke Navigation', 'b'),
+            # TRANSLATORS: 'r' to refresh
+            'refresh': C_('TUI|Spoke Navigation', 'r')
+        }
 
     def input(self, args, key):
         """Handle user input. Numbers are used to show a spoke, the rest is passed

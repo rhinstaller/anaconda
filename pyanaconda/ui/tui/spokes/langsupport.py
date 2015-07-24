@@ -122,7 +122,14 @@ class LangSpoke(FirstbootSpokeMixIn, NormalTUISpoke):
 
     def prompt(self, args=None):
         """ Override default prompt with a custom prompt. """
-        return _("Please select language support to install.\n[b to language list, c to continue, q to quit]: ")
+        return _("Please select language support to install.\n['%(back)s' to return to language list, '%(continue)s' to continue, '%(quit)s' to quit]: ") % {
+            # TRANSLATORS: 'b' to go back
+            'back': C_('TUI|Spoke Navigation|Language Support', 'b'),
+            # TRANSLATORS:'c' to continue
+            'continue': C_('TUI|Spoke Navigation|Language Support', 'c'),
+            # TRANSLATORS:'q' to quit
+            'quit': C_('TUI|Spoke Navigation|Language Support', 'q')
+        }
 
     def apply(self):
         """ Store the selected langsupport locales """
