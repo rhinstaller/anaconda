@@ -255,6 +255,8 @@ def timed_action(delay=300, threshold=750, busy_cursor=True):
             self._last_start = None
             self._timer_id = None
 
+            self._instance_map = {}
+
         @property
         def timer_active(self):
             """Whether there is a pending timer for this action."""
@@ -312,7 +314,10 @@ def timed_action(delay=300, threshold=750, busy_cursor=True):
         # instance of whatever is being decorated by returning a curried version
         # of ourself with the instance applied as the first argument.
         def __get__(self, instance, owner):
-            return functools.partial(self, instance)
+            if instance not in self._instance_map:
+                self._instance_map[instance] = functools.partial(self, instance)
+
+            return self._instance_map[instance]
 
     # Return TimedAction as the decorator function. The constructor will be
     # called with the function to be decorated as the argument, returning a
