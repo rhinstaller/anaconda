@@ -19,7 +19,7 @@
 # Red Hat Author(s): Martin Sivak <msivak@redhat.com>
 #
 
-from pyanaconda.i18n import N_, _
+from pyanaconda.i18n import N_, _, C_
 from pyanaconda.ui import common
 from pyanaconda.ui.tui import simpleline as tui
 from pyanaconda.constants_text import INPUT_PROCESSED
@@ -128,15 +128,22 @@ class YesNoDialog(tui.UIScreen):
         return True
 
     def prompt(self, args = None):
-        return _("Please respond 'yes' or 'no': ")
+        return _("Please respond '%(yes)s' or '%(no)s': ") % {
+            # TRANSLATORS: 'yes' as positive reply
+            "yes": C_('TUI|Spoke Navigation', 'yes'),
+            # TRANSLATORS: 'no' as negative reply
+            "no": C_('TUI|Spoke Navigation', 'no')
+        }
 
     def input(self, args, key):
-        if key == _("yes"):
+        # TRANSLATORS: 'yes' as positive reply
+        if key == C_('TUI|Spoke Navigation', 'yes'):
             self._response = True
             self.close()
             return None
 
-        elif key == _("no"):
+        # TRANSLATORS: 'no' as negative reply
+        elif key == C_('TUI|Spoke Navigation', 'no'):
             self._response = False
             self.close()
             return None
