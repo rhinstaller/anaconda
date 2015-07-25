@@ -307,6 +307,16 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Fri Jul 24 2015 Brian C. Lane <bcl@redhat.com> - 21.48.22.24-1
+- Add parentheses around the IPV6 regex fragment. (dshea)
+  Resolves: rhbz#1246133
+- Add tests for IPv6 literals in URLs (dshea)
+  Related: rhbz#1246133
+- Do not set user home to / in advanced user dialog (bcl)
+  Resolves: rhbz#1245837
+- Fix Initial PPC PReP Boot Selector Name (rmarshall)
+  Resolves: rhbz#1172755
+
 * Thu Jul 23 2015 Brian C. Lane <bcl@redhat.com> - 21.48.22.23-1
 - Handle missing environment without traceback (bcl)
   Resolves: rhbz#1245296
