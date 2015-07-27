@@ -48,8 +48,11 @@
  *   space.  This is where widgets will be added and the user will do things.
  */
 
-#define QUIT_TEXT       N_("_Quit")
-#define CONTINUE_TEXT   N_("_Continue")
+#define BUTTON_CONTEXT  "GUI|Standalone Navigation"
+
+/* The context needs to be written out (no macros) for the CN_ lines so that gettext can see it */
+#define QUIT_TEXT       CN_("GUI|Standalone Navigation", "_Quit")
+#define CONTINUE_TEXT   CN_("GUI|Standalone Navigation", "_Continue")
 
 struct _AnacondaStandaloneWindowPrivate {
     GtkWidget  *button_box;
@@ -142,13 +145,13 @@ static void anaconda_standalone_window_init(AnacondaStandaloneWindow *win) {
                                             AnacondaStandaloneWindowPrivate);
 
     /* Create the buttons. */
-    win->priv->quit_button = gtk_button_new_with_mnemonic(_(QUIT_TEXT));
+    win->priv->quit_button = gtk_button_new_with_mnemonic(C_(BUTTON_CONTEXT, QUIT_TEXT));
     atk = gtk_widget_get_accessible(win->priv->quit_button);
-    atk_object_set_name(atk, _(QUIT_TEXT));
+    atk_object_set_name(atk, C_(BUTTON_CONTEXT, QUIT_TEXT));
 
-    win->priv->continue_button = gtk_button_new_with_mnemonic(_(CONTINUE_TEXT));
+    win->priv->continue_button = gtk_button_new_with_mnemonic(C_(BUTTON_CONTEXT, CONTINUE_TEXT));
     atk = gtk_widget_get_accessible(win->priv->continue_button);
-    atk_object_set_name(atk, _(CONTINUE_TEXT));
+    atk_object_set_name(atk, C_(BUTTON_CONTEXT, CONTINUE_TEXT));
 
     /* Set the Continue button to the blue 'suggested-action' style class */
     context = gtk_widget_get_style_context(win->priv->continue_button);
@@ -186,6 +189,6 @@ static void anaconda_standalone_window_init(AnacondaStandaloneWindow *win) {
 void anaconda_standalone_window_retranslate(AnacondaStandaloneWindow *win) {
     anaconda_base_window_retranslate(ANACONDA_BASE_WINDOW(win));
 
-    gtk_button_set_label(GTK_BUTTON(win->priv->quit_button), _(QUIT_TEXT));
-    gtk_button_set_label(GTK_BUTTON(win->priv->continue_button), _(CONTINUE_TEXT));
+    gtk_button_set_label(GTK_BUTTON(win->priv->quit_button), C_(BUTTON_CONTEXT, QUIT_TEXT));
+    gtk_button_set_label(GTK_BUTTON(win->priv->continue_button), C_(BUTTON_CONTEXT, CONTINUE_TEXT));
 }

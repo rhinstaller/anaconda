@@ -45,7 +45,7 @@
  *   space.  This is where widgets will be added and the user will do things.
  */
 
-#define DEFAULT_BUTTON_LABEL _("_Done")
+#define DEFAULT_BUTTON_LABEL C_("GUI|Spoke Navigation", "_Done")
 
 enum {
     SIGNAL_BUTTON_CLICKED,

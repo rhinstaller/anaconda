@@ -34,7 +34,7 @@ gi.require_version("GObject", "2.0")
 
 from gi.repository import Gdk, Gtk, AnacondaWidgets, Keybinder, GdkPixbuf, GLib, GObject
 
-from pyanaconda.i18n import _
+from pyanaconda.i18n import _, C_
 from pyanaconda.constants import IPMI_ABORTED
 from pyanaconda import product, iutil
 from pyanaconda import threads
@@ -763,7 +763,7 @@ class GraphicalUserInterface(UserInterface):
     @gtk_action_wait
     def showDetailedError(self, message, details, buttons=None):
         from pyanaconda.ui.gui.spokes.lib.detailederror import DetailedErrorDialog
-        buttons = buttons or [_("_Quit")]
+        buttons = buttons or [C_("GUI|Detailed Error Dialog", "_Quit")]
         dlg = DetailedErrorDialog(None, buttons=buttons, label=message)
 
         with self.mainWindow.enlightbox(dlg.window):
@@ -779,7 +779,8 @@ class GraphicalUserInterface(UserInterface):
                                 buttons=Gtk.ButtonsType.NONE,
                                 message_format=message)
         dlg.set_decorated(False)
-        dlg.add_buttons(_("_No"), 0, _("_Yes"), 1)
+        dlg.add_buttons(C_("GUI|Yes No Dialog", "_No"), 0,
+                        C_("GUI|Yes No Dialog", "_Yes"), 1)
         dlg.set_default_response(1)
 
         with self.mainWindow.enlightbox(dlg):
