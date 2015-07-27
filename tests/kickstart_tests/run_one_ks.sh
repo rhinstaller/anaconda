@@ -42,7 +42,7 @@ cleanup() {
     if [[ ${KEEPIT} == 2 ]]; then
         return
     elif [[ ${KEEPIT} == 1 ]]; then
-        rm -rf ${d}/disks ${d}/*ks
+        rm -f ${d}/disk-*.img ${d}/*ks
     elif [[ ${KEEPIT} == 0 ]]; then
         rm -rf ${d}
     fi
@@ -82,7 +82,6 @@ runone() {
         kargs="--kernel-args \"$kargs\""
     fi
 
-    mkdir -p ${tmpdir}/disks/
     disks=$(prepare_disks ${tmpdir})
     disk_args=$(for d in $disks; do echo --disk $d; done)
 
@@ -105,13 +104,9 @@ runone() {
             echo RESULT:${name}:FAILED:Test timed out.
             cleanup ${tmpdir}
             return 2
-        elif [[ ! -d ${tmpdir}/disks ]]; then
-            echo RESULT:${name}:FAILED:Disk images do not exist.
-            cleanup ${tmpdir}
-            return 1
         fi
 
-        result=$(validate ${tmpdir}/disks)
+        result=$(validate ${tmpdir})
         if [[ $? != 0 ]]; then
             echo RESULT:${name}:FAILED:"${result}"
             cleanup ${tmpdir}

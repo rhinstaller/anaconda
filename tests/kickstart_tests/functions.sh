@@ -32,13 +32,13 @@ prepare() {
 prepare_disks() {
     tmpdir=$1
 
-    qemu-img create -q -f qcow2 ${tmpdir}/disks/a.img 10G
-    echo ${tmpdir}/disks/a.img
+    qemu-img create -q -f qcow2 ${tmpdir}/disk-a.img 10G
+    echo ${tmpdir}/disk-a.img
 }
 
 validate() {
     disksdir=$1
-    args=$(for d in ${disksdir}/*img; do echo -a ${d}; done)
+    args=$(for d in ${disksdir}/disk-*img; do echo -a ${d}; done)
 
     # There should be a /root/RESULT file with results in it.  Check
     # its contents and decide whether the test finally succeeded or

@@ -21,7 +21,7 @@
 
 validate() {
     disksdir=$1
-    args=$(for d in ${disksdir}/*img; do echo -a ${d}; done)
+    args=$(for d in ${disksdir}/disk-*img; do echo -a ${d}; done)
 
     # There should be a /root/RESULT file with results in it.  Check
     # its contents and decide whether the test finally succeeded or

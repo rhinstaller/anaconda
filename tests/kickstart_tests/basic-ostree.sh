@@ -35,8 +35,8 @@ prepare() {
 
 validate() {
     disksdir=$1
-    qemuArgs=$(for d in ${disksdir}/*img; do echo -drive file=${d}; done)
-    virtCatArgs=$(for d in ${disksdir}/*img; do echo -a ${d}; done)
+    qemuArgs=$(for d in ${disksdir}/disk-*img; do echo -drive file=${d}; done)
+    virtCatArgs=$(for d in ${disksdir}/disk-*img; do echo -a ${d}; done)
 
     # Now attempt to boot the resulting VM and see if the install
     # actually worked.  The VM will shut itself down so there's no

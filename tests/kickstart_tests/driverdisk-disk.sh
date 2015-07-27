@@ -18,10 +18,10 @@
 . ${KSTESTDIR}/functions.sh
 
 prepare_disks() {
-    local diskdir="$1/disks"
+    local diskdir="$1"
     # main disk
-    qemu-img create -q -f qcow2 ${diskdir}/a.img 10G
-    echo "${diskdir}/a.img"
+    qemu-img create -q -f qcow2 ${diskdir}/disk-a.img 10G
+    echo "${diskdir}/disk-a.img"
 
     # driverdisk image
     ${KSTESTDIR}/../lib/mkdud.py -k -b -L "TEST_DD" ${diskdir}/dd.iso >/dev/null

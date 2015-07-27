@@ -22,14 +22,14 @@
 prepare_disks() {
     tmpdir=$1
 
-    qemu-img create -q -f qcow2 ${tmpdir}/disks/a.img 10G
-    qemu-img create -q -f qcow2 ${tmpdir}/disks/b.img 10G
-    echo ${tmpdir}/disks/a.img ${tmpdir}/disks/b.img
+    qemu-img create -q -f qcow2 ${tmpdir}/disk-a.img 10G
+    qemu-img create -q -f qcow2 ${tmpdir}/disk-b.img 10G
+    echo ${tmpdir}/disk-a.img ${tmpdir}/disk-b.img
 }
 
 validate() {
     disksdir=$1
-    args=$(for d in ${disksdir}/*img; do echo -a ${d}; done)
+    args=$(for d in ${disksdir}/disk-*img; do echo -a ${d}; done)
 
     # virt-cat doesn't setup /dev/md/* links so cross our fingers that
     # / always ends up on /dev/md126

@@ -136,7 +136,7 @@ class VirtualInstall(object):
         else:
             log.info("Install finished. Or at least virt shut down.")
 
-    def destroy(self):
+    def destroy(self, poolName):
         """
         Make sure the virt has been shut down and destroyed
 
@@ -145,6 +145,8 @@ class VirtualInstall(object):
         log.info("Shutting down %s", self.virt_name)
         subprocess.call(["virsh", "destroy", self.virt_name])
         subprocess.call(["virsh", "undefine", self.virt_name])
+        subprocess.call(["virsh", "pool-destroy", poolName])
+        subprocess.call(["virsh", "pool-undefine", poolName])
 
 def virt_install(opts, install_log):
     """
@@ -173,7 +175,7 @@ def virt_install(opts, install_log):
                               virtio_host = log_monitor.host,
                               virtio_port = log_monitor.port)
 
-        virt.destroy()
+        virt.destroy(os.path.basename(opts.tmp))
         log_monitor.shutdown()
     except InstallError as e:
         log.error("VirtualInstall failed: %s", e)
