@@ -2169,7 +2169,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
             return
 
         device_type = self._get_current_device_type()
-        container_type_name = get_container_type(device_type).name.lower()
+        container_type_name = _(get_container_type(device_type).name).lower()
         new_text = _(NEW_CONTAINER_TEXT) % {"container_type": container_type_name}
         create_new_container = container_name == new_text
         if create_new_container:
@@ -2447,7 +2447,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
                 container_size_policy = container.size_policy
 
         container_type = get_container_type(device_type)
-        self._containerLabel.set_text(container_type.label.title())
+        self._containerLabel.set_text(_(container_type.label).title())
         self._containerLabel.set_use_underline(True)
         self._containerStore.clear()
         if device_type == DEVICE_TYPE_BTRFS:
@@ -2474,8 +2474,8 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
             self._containerStore.append(self._container_store_row(default_container_name))
             self._containerCombo.set_active(len(self._containerStore) - 1)
 
-        self._containerStore.append(self._container_store_row(_(NEW_CONTAINER_TEXT) % {"container_type": container_type.name.lower()}))
-        self._containerCombo.set_tooltip_text(_(CONTAINER_TOOLTIP) % {"container_type": container_type.name.lower()})
+        self._containerStore.append(self._container_store_row(_(NEW_CONTAINER_TEXT) % {"container_type": _(container_type.name).lower()}))
+        self._containerCombo.set_tooltip_text(_(CONTAINER_TOOLTIP) % {"container_type": _(container_type.name).lower()})
         if default_container_name is None:
             self._containerCombo.set_active(len(self._containerStore) - 1)
 
