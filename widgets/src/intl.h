@@ -25,6 +25,8 @@
 
 #define _(x) dgettext("anaconda", x)
 #define N_(String) String
+#define C_(Context, String) dpgettext("anaconda", Context, String)
+#define CN_(Context, String) String
 
 #ifdef ENABLE_NLS
 #define P_(String) g_dgettext("anaconda-properties",String)

@@ -39,7 +39,7 @@ from gi.repository.AnacondaWidgets import MountpointSelector
 
 from pykickstart.constants import CLEARPART_TYPE_NONE
 
-from pyanaconda.i18n import _, N_, CP_
+from pyanaconda.i18n import _, N_, CP_, C_
 from pyanaconda.product import productName, productVersion, translated_new_install_name
 from pyanaconda.threads import AnacondaThread, threadMgr
 from pyanaconda.constants import THREAD_EXECUTE_STORAGE, THREAD_STORAGE, THREAD_CUSTOM_STORAGE_INIT
@@ -2447,7 +2447,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
                 container_size_policy = container.size_policy
 
         container_type = get_container_type(device_type)
-        self._containerLabel.set_text(_(container_type.label).title())
+        self._containerLabel.set_text(C_("GUI|Custom Partitioning|Configure|Devices", container_type.label).title())
         self._containerLabel.set_use_underline(True)
         self._containerStore.clear()
         if device_type == DEVICE_TYPE_BTRFS:
@@ -2596,7 +2596,8 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
                                 buttons=Gtk.ButtonsType.NONE,
                                 message_format=msg)
         dlg.set_decorated(False)
-        dlg.add_buttons(_("_Reset selections"), 0, _("_Preserve current selections"), 1)
+        dlg.add_buttons(C_("GUI|Custom Partitioning|Reset Dialog", "_Reset selections"), 0,
+                        C_("GUI|Custom Partitioning|Reset Dialog", "_Preserve current selections"), 1)
         dlg.set_default_response(1)
 
         with self.main_window.enlightbox(dlg):

@@ -41,7 +41,7 @@ from pyanaconda.ui.helpers import InputCheck
 from pyanaconda.ui.gui import GUIObject
 from pyanaconda.ui.gui.helpers import GUIDialogInputCheckHandler
 from pyanaconda.ui.gui.utils import fancy_set_sensitive, really_hide, really_show
-from pyanaconda.i18n import _, N_, C_
+from pyanaconda.i18n import _, N_, C_, CN_
 
 from blivet.size import Size
 from blivet.platform import platform
@@ -70,9 +70,9 @@ CONTAINER_DIALOG_TEXT = N_("Please create a name for this %(container_type)s "
 
 ContainerType = namedtuple("ContainerType", ["name", "label"])
 
-CONTAINER_TYPES = {DEVICE_TYPE_LVM:       ContainerType(N_("Volume Group"), N_("_Volume Group:")),
-                   DEVICE_TYPE_LVM_THINP: ContainerType(N_("Volume Group"), N_("_Volume Group:")),
-                   DEVICE_TYPE_BTRFS:     ContainerType(N_("Volume"), N_("_Volume:"))}
+CONTAINER_TYPES = {DEVICE_TYPE_LVM:       ContainerType(N_("Volume Group"), CN_("GUI|Custom Partitioning|Configure|Devices", "_Volume Group:")),
+                   DEVICE_TYPE_LVM_THINP: ContainerType(N_("Volume Group"), CN_("GUI|Custom Partitioning|Configure|Devices", "_Volume Group:")),
+                   DEVICE_TYPE_BTRFS:     ContainerType(N_("Volume"), CN_("GUI|Custom Partitioning|Configure|Devices", "_Volume:"))}
 
 # These cannot be specified as mountpoints
 system_mountpoints = ["/dev", "/proc", "/run", "/sys"]
@@ -306,7 +306,7 @@ def containerRaidLevelsSupported(device_type):
     return set()
 
 def get_container_type(device_type):
-    return CONTAINER_TYPES.get(device_type, ContainerType(N_("container"), N_("container")))
+    return CONTAINER_TYPES.get(device_type, ContainerType(N_("container"), CN_("GUI|Custom Partitioning|Configure|Devices", "container")))
 
 class AddDialog(GUIObject):
     builderObjects = ["addDialog", "mountPointStore", "mountPointCompletion", "mountPointEntryBuffer"]

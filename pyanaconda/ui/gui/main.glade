@@ -21,7 +21,7 @@
             <property name="layout_style">end</property>
             <child>
               <object class="GtkButton" id="exitButton">
-                <property name="label" translatable="yes">_Exit Installer</property>
+                <property name="label" translatable="yes" context="GUI|Error Dialog">_Exit Installer</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>

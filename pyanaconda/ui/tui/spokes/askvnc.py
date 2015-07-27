@@ -24,7 +24,7 @@ from pyanaconda.ui.tui.simpleline import TextWidget, ColumnWidget
 from pyanaconda.ui.tui.tuiobject import YesNoDialog
 from pyanaconda.constants import USEVNC, USETEXT, IPMI_ABORTED
 from pyanaconda.constants_text import INPUT_PROCESSED
-from pyanaconda.i18n import N_, _
+from pyanaconda.i18n import N_, _, C_
 from pyanaconda.ui.communication import hubQ
 from pyanaconda.ui.tui import exception_msg_handler
 from pyanaconda.iutil import execWithRedirect
@@ -103,7 +103,8 @@ class AskVNCSpoke(NormalTUISpoke):
         except ValueError:
             pass
 
-        if key.lower() == _('q'):
+        # TRANSLATORS: 'q' to quit
+        if key.lower() == C_('TUI|Spoke Navigation', 'q'):
             d = YesNoDialog(self.app, _(self.app.quit_message))
             self.app.switch_screen_modal(d)
             if d.answer:

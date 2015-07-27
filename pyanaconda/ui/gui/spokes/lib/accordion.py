@@ -22,7 +22,7 @@
 
 from blivet.devicefactory import is_supported_device_type
 
-from pyanaconda.i18n import _
+from pyanaconda.i18n import _, C_
 from pyanaconda.product import productName, productVersion
 from pyanaconda.ui.gui.utils import escape_markup, really_hide, really_show
 from pyanaconda.constants import DEFAULT_AUTOPART_TYPE
@@ -294,7 +294,8 @@ class CreateNewPage(Page):
         dot = Gtk.Label(label="•", xalign=0.5, yalign=0.4, hexpand=False)
         self._createBox.attach(dot, 0, 1, 1, 1)
 
-        self._createNewButton = Gtk.LinkButton(uri="", label=_("_Click here to create them automatically."))
+        self._createNewButton = Gtk.LinkButton(uri="",
+                label=C_("GUI|Custom Partitioning|Autopart Page", "_Click here to create them automatically."))
         label = self._createNewButton.get_children()[0]
         label.set_alignment(0, 0.5)
         label.set_hexpand(True)
@@ -332,7 +333,7 @@ class CreateNewPage(Page):
                               xalign=0, yalign=0.5, hexpand=True, wrap=True)
             self._createBox.attach(label, 1, 3, 1, 1)
 
-        label = Gtk.Label(label=_("_New mount points will use the following partitioning scheme:"),
+        label = Gtk.Label(label=C_("GUI|Custom Partitioning|Autopart Page", "_New mount points will use the following partitioning scheme:"),
                           xalign=0, yalign=0.5, wrap=True, use_underline=True)
         self._createBox.attach(label, 0, 4, 2, 1)
         label.set_mnemonic_widget(combo)
