@@ -170,7 +170,7 @@ Requires: NetworkManager-wifi
 %endif
 Requires: anaconda-user-help >= %{helpver}
 Requires: yelp
-Requires: python3-gobject
+Requires: python3-gobject-base
 
 # Needed to compile the gsettings files
 BuildRequires: gsettings-desktop-schemas
