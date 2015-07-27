@@ -306,7 +306,7 @@ def containerRaidLevelsSupported(device_type):
     return set()
 
 def get_container_type(device_type):
-    return CONTAINER_TYPES.get(device_type, ContainerType(_("container"), _("container")))
+    return CONTAINER_TYPES.get(device_type, ContainerType(N_("container"), N_("container")))
 
 class AddDialog(GUIObject):
     builderObjects = ["addDialog", "mountPointStore", "mountPointCompletion", "mountPointEntryBuffer"]
@@ -494,10 +494,10 @@ class ContainerDialog(GUIObject, GUIDialogInputCheckHandler):
 
         # set up the dialog labels with device-type-specific text
         container_type = get_container_type(self.device_type)
-        title_text = _(CONTAINER_DIALOG_TITLE) % {"container_type": container_type.name.upper()}
+        title_text = _(CONTAINER_DIALOG_TITLE) % {"container_type": _(container_type.name).upper()}
         self._title_label.set_text(title_text)
 
-        dialog_text = _(CONTAINER_DIALOG_TEXT) % {"container_type": container_type.name.lower()}
+        dialog_text = _(CONTAINER_DIALOG_TEXT) % {"container_type": _(container_type.name).lower()}
         self._dialog_label.set_text(dialog_text)
 
         # populate the dialog widgets
