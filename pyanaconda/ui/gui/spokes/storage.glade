@@ -820,7 +820,7 @@
                                 </child>
                                 <child>
                                   <object class="GtkRadioButton" id="autopartRadioButton">
-                                    <property name="label" translatable="yes">A_utomatically configure partitioning.</property>
+                                    <property name="label" translatable="yes" context="GUI|Storage">A_utomatically configure partitioning.</property>
                                     <property name="visible">True</property>
                                     <property name="can_focus">True</property>
                                     <property name="receives_default">False</property>
@@ -836,7 +836,7 @@
                                 </child>
                                 <child>
                                   <object class="GtkRadioButton" id="customRadioButton">
-                                    <property name="label" translatable="yes">_I will configure partitioning.</property>
+                                    <property name="label" translatable="yes" context="GUI|Storage">_I will configure partitioning.</property>
                                     <property name="visible">True</property>
                                     <property name="can_focus">True</property>
                                     <property name="receives_default">False</property>
@@ -868,7 +868,7 @@
                                           <object class="GtkLabel" id="label13">
                                             <property name="visible">True</property>
                                             <property name="can_focus">False</property>
-                                            <property name="label" translatable="yes">_Encrypt my data.</property>
+                                            <property name="label" translatable="yes" context="GUI|Storage">_Encrypt my data.</property>
                                             <property name="use_underline">True</property>
                                           </object>
                                         </child>
@@ -904,7 +904,7 @@
                                 </child>
                                 <child>
                                   <object class="GtkCheckButton" id="reclaimCheckbox">
-                                    <property name="label" translatable="yes">I would like to _make additional space available.</property>
+                                    <property name="label" translatable="yes" context="GUI|Storage">I would like to _make additional space available.</property>
                                     <property name="visible">True</property>
                                     <property name="can_focus">True</property>
                                     <property name="receives_default">False</property>

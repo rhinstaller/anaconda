@@ -18,7 +18,7 @@
 #
 # Author(s): Chris Lumens <clumens@redhat.com>
 
-from pyanaconda.i18n import _
+from pyanaconda.i18n import _, C_
 
 __all__ = ["ERROR_RAISE", "ERROR_CONTINUE", "ERROR_RETRY",
            "InvalidImageSizeError", "MissingImageError", "MediaUnmountError",
@@ -150,7 +150,8 @@ class ErrorHandler(object):
                      "storage scan. If you do not fix it you will have to exit "
                      "the installer.") % {"errortxt": escape_markup(exn.message)})
         details = _(exn.suggestion)
-        buttons = (_("_Exit Installer"), _("_Retry"))
+        buttons = (C_("GUI|Storage Detailed Error Dialog", "_Exit Installer"),
+                   C_("GUI|Storage Detailed Error Dialog", "_Retry"))
         if self.ui.showDetailedError(message, details, buttons=buttons):
             return ERROR_RETRY
         else:

@@ -355,7 +355,7 @@
                                                     <property name="can_focus">False</property>
                                                     <property name="halign">start</property>
                                                     <property name="xalign">0</property>
-                                                    <property name="label" translatable="yes">Mount _Point:</property>
+                                                    <property name="label" translatable="yes" context="GUI|Custom Partitioning|Configure|Devices">Mount _Point:</property>
                                                     <property name="use_underline">True</property>
                                                     <property name="mnemonic_widget">mountPointEntry</property>
                                                     <attributes>
@@ -402,7 +402,7 @@
                                                     <property name="can_focus">False</property>
                                                     <property name="halign">start</property>
                                                     <property name="xalign">0</property>
-                                                    <property name="label" translatable="yes">_Desired Capacity:</property>
+                                                    <property name="label" translatable="yes" context="GUI|Custom Partitioning|Configure|Devices">_Desired Capacity:</property>
                                                     <property name="use_underline">True</property>
                                                     <property name="mnemonic_widget">sizeEntry</property>
                                                     <attributes>
@@ -452,8 +452,7 @@
                                               <object class="GtkLabel" id="labelLabel">
                                                 <property name="visible">True</property>
                                                 <property name="can_focus">False</property>
-                                                <property name="xalign">0</property>
-                                                <property name="label" translatable="yes">_Label:</property>
+                                                <property name="label" translatable="yes" context="GUI|Custom Partitioning|Configure|Devices">_Label:</property>
                                                 <property name="use_underline">True</property>
                                                 <property name="mnemonic_widget">labelEntry</property>
                                                 <attributes>
@@ -561,7 +560,7 @@
                                                 <property name="visible">True</property>
                                                 <property name="can_focus">False</property>
                                                 <property name="xalign">0</property>
-                                                <property name="label" translatable="yes">_Name:</property>
+                                                <property name="label" translatable="yes" context="GUI|Custom Partitioning|Configure|Devices">_Name:</property>
                                                 <property name="use_underline">True</property>
                                                 <property name="mnemonic_widget">nameEntry</property>
                                                 <attributes>
@@ -941,7 +940,7 @@
                                         <property name="spacing">6</property>
                                         <child>
                                           <object class="GtkButton" id="applyButton">
-                                            <property name="label" translatable="yes">_Update Settings</property>
+                                            <property name="label" translatable="yes" context="GUI|Custom Partitioning|Configure|Devices">_Update Settings</property>
                                             <property name="visible">True</property>
                                             <property name="sensitive">False</property>
                                             <property name="can_focus">True</property>

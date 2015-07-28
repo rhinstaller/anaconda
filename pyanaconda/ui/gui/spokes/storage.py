@@ -1003,7 +1003,8 @@ class StorageSpoke(NormalSpoke, StorageChecker):
                       "configuration.  These are not fatal, but you may wish to make "
                       "changes to your storage layout.")
 
-            dialog = DetailedErrorDialog(self.data, buttons=[_("_OK")], label=label)
+            dialog = DetailedErrorDialog(self.data,
+                    buttons=[C_("GUI|Storage|Warning Dialog", "_OK")], label=label)
             with self.main_window.enlightbox(dialog.window):
                 warnings = "\n".join(self.warnings)
                 dialog.refresh(warnings)
