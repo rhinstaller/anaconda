@@ -1346,12 +1346,6 @@ if __name__ == "__main__":
     from pyanaconda import exception
     anaconda.mehConfig = exception.initExceptionHandling(anaconda)
 
-    # add our own additional signal handlers
-    signal.signal(signal.SIGUSR1, lambda signum, frame:
-                  exception.test_exception_handling())
-    signal.signal(signal.SIGUSR2, lambda signum, frame: anaconda.dumpState())
-    atexit.register(exitHandler, ksdata.reboot, anaconda.storage)
-
     # Fallback to default for interactive or for a kickstart with no installation method.
     fallback = not (flags.automatedInstall and ksdata.method.method)
     payloadMgr.restartThread(anaconda.storage, ksdata, anaconda.payload, anaconda.instClass,
