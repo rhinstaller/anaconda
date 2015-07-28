@@ -148,7 +148,7 @@ class ErrorHandler(object):
                      "can access by pressing ctrl-alt-f1 and then ctrl-b 2."
                      "\n\nOnce you have resolved the issue you can retry the "
                      "storage scan. If you do not fix it you will have to exit "
-                     "the installer.") % {"errortxt": escape_markup(exn.message)})
+                     "the installer.") % {"errortxt": escape_markup(str(exn))})
         details = _(exn.suggestion)
         buttons = (_("_Exit Installer"), _("_Retry"))
         if self.ui.showDetailedError(message, details, buttons=buttons):
