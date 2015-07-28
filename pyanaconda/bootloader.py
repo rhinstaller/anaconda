@@ -2068,6 +2068,12 @@ class IPSeriesGRUB2(GRUB2):
         defaults = open(defaults_file, "a+")
         # The terminfo's X and Y size, and output location could change in the future
         defaults.write("GRUB_TERMINFO=\"terminfo -g 80x24 console\"\n")
+        # Disable OS Prober on pSeries systems
+        # TODO: This will disable across all POWER platforms. Need to get
+        #       into blivet and rework how it segments the POWER systems
+        #       to allow for differentiation between PowerNV and
+        #       PowerVM / POWER on qemu/kvm
+        defaults.write("GRUB_DISABLE_OS_PROBER=true\n")
         defaults.close()
 
 
