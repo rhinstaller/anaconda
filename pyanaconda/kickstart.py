@@ -88,7 +88,7 @@ class AnacondaKSScript(KSScript):
         This will write the script to a file named /tmp/ks-script- before
         execution.
         Output is logged by the program logger, the path specified by --log
-        or to /tmp/ks-script-\*.log
+        or to /tmp/ks-script-\\*.log
     """
     def run(self, chroot):
         """ Run the kickstart script
