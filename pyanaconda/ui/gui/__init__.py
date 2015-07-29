@@ -275,6 +275,7 @@ class GUIObject(common.UIObject):
         self._doPostAutostep()
 
         # run the autostep-done callback (if any)
+        # pylint: disable=not-callable
         if self.autostepDoneCallback:
             self.autostepDoneCallback(self)
 
