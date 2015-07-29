@@ -133,7 +133,7 @@ class AnacondaExceptionHandler(ExceptionHandler):
                          "exception handler in it")
                 self._main_loop_handleException(dump_info)
 
-        except (RuntimeError, ImportError):
+        except (RuntimeError, ImportError, ValueError):
             log.debug("Gtk cannot be initialized")
             # X not running (Gtk cannot be initialized)
             if threadMgr.in_main_thread():
