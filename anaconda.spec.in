@@ -307,6 +307,14 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Jul 28 2015 Brian C. Lane <bcl@redhat.com> - 21.48.22.25-1
+- Add support for autostep and --autoscreenshot (mkolman)
+  Resolves: rhbz#1234896
+- Really fix unexpected exits in execReadlines (dshea)
+  Related: rhbz#1188287
+- iscsi: display portal (address:port) of node in node list (rvykydal)
+  Related: rhbz#1195570
+
 * Fri Jul 24 2015 Brian C. Lane <bcl@redhat.com> - 21.48.22.24-1
 - Add parentheses around the IPV6 regex fragment. (dshea)
   Resolves: rhbz#1246133

@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: anaconda 21.48.22.23\n"
+"Project-Id-Version: anaconda 21.48.22.24\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
-"POT-Creation-Date: 2015-07-24 17:59-0700\n"
+"POT-Creation-Date: 2015-07-28 17:05-0700\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -438,15 +438,15 @@ msgstr ""
 msgid "Performing post-installation setup tasks"
 msgstr ""
 
-#: pyanaconda/iutil.py:764
+#: pyanaconda/iutil.py:775
 msgid "No host url"
 msgstr ""
 
-#: pyanaconda/iutil.py:785
+#: pyanaconda/iutil.py:796
 msgid "malformed URL, cannot parse it."
 msgstr ""
 
-#: pyanaconda/iutil.py:801
+#: pyanaconda/iutil.py:812
 msgid "URL has no host component"
 msgstr ""
 
@@ -2077,23 +2077,23 @@ msgstr ""
 msgid "Password set."
 msgstr ""
 
-#: pyanaconda/ui/gui/__init__.py:476 widgets/src/BaseWindow.c:113
+#: pyanaconda/ui/gui/__init__.py:596 widgets/src/BaseWindow.c:113
 msgid "Help!"
 msgstr ""
 
-#: pyanaconda/ui/gui/__init__.py:727 widgets/src/StandaloneWindow.c:49
+#: pyanaconda/ui/gui/__init__.py:847 widgets/src/StandaloneWindow.c:49
 msgid "_Quit"
 msgstr ""
 
-#: pyanaconda/ui/gui/__init__.py:743
+#: pyanaconda/ui/gui/__init__.py:863
 msgid "_No"
 msgstr ""
 
-#: pyanaconda/ui/gui/__init__.py:743
+#: pyanaconda/ui/gui/__init__.py:863
 msgid "_Yes"
 msgstr ""
 
-#: pyanaconda/ui/gui/hubs/__init__.py:226
+#: pyanaconda/ui/gui/hubs/__init__.py:231
 msgid ""
 "Please complete items marked with this icon before continuing to the next "
 "step."
@@ -4844,60 +4844,64 @@ msgid "Interface"
 msgstr ""
 
 #: pyanaconda/ui/gui/spokes/advstorage/iscsi.glade.h:26
+msgid "Portal"
+msgstr ""
+
+#: pyanaconda/ui/gui/spokes/advstorage/iscsi.glade.h:27
 msgctxt "GUI|Advanced Storage|iSCSI|Login"
 msgid "_Node Login Authentication Type:"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/advstorage/iscsi.glade.h:27
-msgid "Use the credentials from discovery"
-msgstr ""
-
 #: pyanaconda/ui/gui/spokes/advstorage/iscsi.glade.h:28
-msgctxt "GUI|Advanced Storage|iSCSI|Login|CHAP"
-msgid "CHAP _User name:"
+msgid "Use the credentials from discovery"
 msgstr ""
 
 #: pyanaconda/ui/gui/spokes/advstorage/iscsi.glade.h:29
 msgctxt "GUI|Advanced Storage|iSCSI|Login|CHAP"
-msgid "CHAP _Password:"
+msgid "CHAP _User name:"
 msgstr ""
 
 #: pyanaconda/ui/gui/spokes/advstorage/iscsi.glade.h:30
-msgctxt "GUI|Advanced Storage|iSCSI|Login|Reverse CHAP"
-msgid "CHAP _User name:"
+msgctxt "GUI|Advanced Storage|iSCSI|Login|CHAP"
+msgid "CHAP _Password:"
 msgstr ""
 
 #: pyanaconda/ui/gui/spokes/advstorage/iscsi.glade.h:31
 msgctxt "GUI|Advanced Storage|iSCSI|Login|Reverse CHAP"
-msgid "CHAP _Password:"
+msgid "CHAP _User name:"
 msgstr ""
 
 #: pyanaconda/ui/gui/spokes/advstorage/iscsi.glade.h:32
 msgctxt "GUI|Advanced Storage|iSCSI|Login|Reverse CHAP"
-msgid "_Reverse CHAP User name:"
+msgid "CHAP _Password:"
 msgstr ""
 
 #: pyanaconda/ui/gui/spokes/advstorage/iscsi.glade.h:33
 msgctxt "GUI|Advanced Storage|iSCSI|Login|Reverse CHAP"
-msgid "Reverse CHAP Pass_word:"
+msgid "_Reverse CHAP User name:"
 msgstr ""
 
 #: pyanaconda/ui/gui/spokes/advstorage/iscsi.glade.h:34
+msgctxt "GUI|Advanced Storage|iSCSI|Login|Reverse CHAP"
+msgid "Reverse CHAP Pass_word:"
+msgstr ""
+
+#: pyanaconda/ui/gui/spokes/advstorage/iscsi.glade.h:35
 msgctxt "GUI|Advanced Storage|iSCSI|Login|Login"
 msgid "_Log In"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/advstorage/iscsi.glade.h:35
+#: pyanaconda/ui/gui/spokes/advstorage/iscsi.glade.h:36
 msgid "Node login failed."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/advstorage/iscsi.glade.h:36
+#: pyanaconda/ui/gui/spokes/advstorage/iscsi.glade.h:37
 msgid ""
 "The following error occurred logging into the selected iSCSI node.  Please "
 "double check your authorization information and try again"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/advstorage/iscsi.glade.h:37
+#: pyanaconda/ui/gui/spokes/advstorage/iscsi.glade.h:38
 msgctxt "GUI|Advanced Storage|iSCSI|Login|Retry"
 msgid "Retry _Log In"
 msgstr ""
