@@ -307,6 +307,12 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Wed Jul 29 2015 Brian C. Lane <bcl@redhat.com> - 21.48.22.26-1
+- Prevent incomplete translations from making the TUI unusable (mkolman)
+  Resolves: rhbz#1235617
+- Disable a Pylint false-positive (mkolman)
+  Related: rhbz#1234896
+
 * Tue Jul 28 2015 Brian C. Lane <bcl@redhat.com> - 21.48.22.25-1
 - Add support for autostep and --autoscreenshot (mkolman)
   Resolves: rhbz#1234896
