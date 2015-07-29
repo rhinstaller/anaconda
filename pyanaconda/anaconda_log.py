@@ -87,7 +87,7 @@ class AnacondaSyslogHandler(SysLogHandler):
 
 class AnacondaSocketHandler(SocketHandler):
     def makePickle(self, record):
-        return self.formatter.format(record) + "\n"
+        return bytes(self.formatter.format(record) + "\n", "utf-8")
 
 class AnacondaLog:
     SYSLOG_CFGFILE = "/etc/rsyslog.conf"
