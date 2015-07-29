@@ -132,15 +132,6 @@ class SoftwareSelectionSpoke(NormalSpoke):
     def _apply(self):
         env = self._get_selected_environment()
 
-        # Check if a kickstart install still looks like a kickstart install
-        # If an environment is selected and either the environment or the
-        # addon list does not match the ksdata, the packages were
-        # selected interactively.
-        if env and self._kickstarted:
-            if env != self.data.packages.environment or \
-                    set(self.selectedGroups) != set(self.data.packages.groupList):
-                self._kickstarted = False
-
         # Not a kickstart with packages, setup the environment and groups
         if env and not self._kickstarted:
             addons = self._get_selected_addons()
@@ -462,6 +453,9 @@ class SoftwareSelectionSpoke(NormalSpoke):
         if not self._selectFlag:
             return
 
+        # GUI selections means that packages are no longer coming from kickstart
+        self._kickstarted = False
+
         box = row.get_children()[0]
         button = box.get_children()[0]
 
@@ -484,6 +478,9 @@ class SoftwareSelectionSpoke(NormalSpoke):
         box = row.get_children()[0]
         if isinstance(box, Gtk.Separator):
             return
+
+        # GUI selections means that packages are no longer coming from kickstart
+        self._kickstarted = False
 
         button = box.get_children()[0]
         addons = self._allAddons()
