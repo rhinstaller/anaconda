@@ -715,7 +715,7 @@ class DNFPayload(packaging.PackagePayload):
 
     def preInstall(self, packages=None, groups=None):
         super(DNFPayload, self).preInstall(packages, groups)
-        self.requiredPackages = ["dnf"]
+        self.requiredPackages += ["dnf"]
         if packages:
             self.requiredPackages += packages
         self.requiredGroups = groups

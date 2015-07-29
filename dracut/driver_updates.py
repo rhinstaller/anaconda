@@ -104,7 +104,7 @@ ANACONDAVER = "19.0"
 ARCH = os.uname()[4]
 KERNELVER = os.uname()[2]
 
-MODULE_UPDATES_DIR = "/lib/modules/%s/updates" % ARCH
+MODULE_UPDATES_DIR = "/lib/modules/%s/updates" % KERNELVER
 FIRMWARE_UPDATES_DIR = "/lib/firmware/updates"
 
 def mkdir_seq(stem):
