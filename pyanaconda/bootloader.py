@@ -2199,8 +2199,11 @@ class EXTLINUX(BootLoader):
     stage1_device_types = ["disk"]
 
     # stage2 device requirements
+    stage2_device_types = ["partition", "mdarray"]
+    stage2_raid_levels = [raid.RAID1]
+    stage2_raid_member_types = ["partition"]
+    stage2_raid_metadata = ["0", "0.90", "1.0"]
     stage2_format_types = ["ext4", "ext3", "ext2"]
-    stage2_device_types = ["partition"]
     stage2_bootable = True
 
     packages = ["syslinux-extlinux"]
@@ -2277,11 +2280,48 @@ class EXTLINUX(BootLoader):
                 log.warning("failed to create /etc/extlinux.conf symlink: %s", e)
 
     def write_config(self):
+        """ Write bootloader configuration to disk. """
+        # this writes the actual configuration file
         super(EXTLINUX, self).write_config()
 
     #
     # installation
     #
+
+    @property
+    def install_targets(self):
+        """ List of (stage1, stage2) tuples representing install targets. """
+        targets = []
+
+        # make sure we have stage1 and stage2 installed with redundancy
+        # so that boot can succeed even in the event of failure or removal
+        # of some of the disks containing the member partitions of the
+        # /boot array. If the stage1 is not a disk, it probably needs to
+        # be a partition on a particular disk (biosboot, prepboot), so only
+        # add the redundant targets if installing stage1 to a disk that is
+        # a member of the stage2 array.
+
+        # Look for both mdraid and btrfs raid
+        if self.stage2_device.type == "mdarray" and \
+           self.stage2_device.level == raid.RAID1:
+            stage2_raid = True
+            # Set parents to the list of partitions in the RAID
+            stage2_parents = self.stage2_device.parents
+        else:
+            stage2_raid = False
+
+        if stage2_raid and \
+           self.stage1_device.isDisk and \
+           self.stage2_device.dependsOn(self.stage1_device):
+            for stage2dev in stage2_parents:
+                # if target disk contains any of /boot array's member
+                # partitions, set up stage1 on each member's disk
+                stage1dev = stage2dev.disk
+                targets.append((stage1dev, self.stage2_device))
+        else:
+            targets.append((self.stage1_device, self.stage2_device))
+
+        return targets
 
     def install(self, args=None):
         args = ["--install", self._config_dir]
