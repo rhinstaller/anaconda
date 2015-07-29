@@ -24,7 +24,7 @@ from pyanaconda.ui.tui.spokes import NormalTUISpoke
 from pyanaconda.ui.tui.simpleline import TextWidget, ColumnWidget
 from pyanaconda.ui.common import FirstbootSpokeMixIn
 from pyanaconda import localization
-from pyanaconda.i18n import N_, _, C_
+from pyanaconda.i18n import N_, _
 
 class LangSpoke(FirstbootSpokeMixIn, NormalTUISpoke):
     """
@@ -109,7 +109,7 @@ class LangSpoke(FirstbootSpokeMixIn, NormalTUISpoke):
             pass
 
         # TRANSLATORS: 'b' to go back
-        if key.lower() == C_('TUI|Spoke Navigation|Language Support', 'b'):
+        if key.lower() == _("b"):
             self.app.switch_screen(self, None)
             return True
         else:
@@ -117,14 +117,7 @@ class LangSpoke(FirstbootSpokeMixIn, NormalTUISpoke):
 
     def prompt(self, args=None):
         """ Override default prompt with a custom prompt. """
-        return _("Please select language support to install.\n[%(back)s to return to language list, %(continue)s to continue, %(quit)s to quit]: ") % {
-            # TRANSLATORS: 'b' to go back
-            'back': C_('TUI|Spoke Navigation|Language Support', 'b'),
-            # TRANSLATORS:'c' to continue
-            'continue': C_('TUI|Spoke Navigation|Language Support', 'c'),
-            # TRANSLATORS:'q' to quit
-            'quit': C_('TUI|Spoke Navigation|Language Support', 'q')
-        }
+        return _("Please select language support to install.\n[b to language list, c to continue, q to quit]: ")
 
     def apply(self):
         """ Store the selected langsupport locales """
