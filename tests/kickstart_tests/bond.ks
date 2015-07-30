@@ -3,7 +3,7 @@ install
 network --device=link --bootproto=dhcp
 
 # Create testing bond interface
-network --device=bond0 --bootproto=static --bondslaves=link --ip=192.168.1.1 --netmask=255.255.252.0 --gateway=192.168.1.2 --nameserver=192.168.1.3 --activate
+network --device=bond0 --bootproto=dhcp --bondslaves=link --activate
 
 bootloader --timeout=1
 zerombr
@@ -44,24 +44,9 @@ if [[ $? -ne 0 ]]; then
    echo '*** ONBOOT is not present' >> /root/RESULT
 fi
 
-grep -q '^IPADDR=192.168.1.1$' $IF_FILE
+grep -q '^BOOTPROTO=dhcp$' $IF_FILE
 if [[ $? -ne 0 ]]; then
-   echo '*** IPADDR is not present' >> /root/RESULT
-fi
-
-grep -q '^PREFIX=22$' $IF_FILE
-if [[ $? -ne 0 ]]; then
-   echo '*** PREFIX is not present' >> /root/RESULT
-fi
-
-grep -q '^GATEWAY=192.168.1.2$' $IF_FILE
-if [[ $? -ne 0 ]]; then
-   echo '*** GATEWAY is not present' >> /root/RESULT
-fi
-
-grep -q '^DNS1=192.168.1.3$' $IF_FILE
-if [[ $? -ne 0 ]]; then
-   echo '*** DNS1 is not present' >> /root/RESULT
+   echo '*** BOOTPROTO is not present' >> /root/RESULT
 fi
 
 # No error was written to /root/RESULT file, everything is OK
