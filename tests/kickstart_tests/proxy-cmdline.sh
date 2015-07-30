@@ -22,3 +22,12 @@
 kernel_args() {
     echo vnc inst.proxy=http://127.0.0.1:8080
 }
+
+prepare() {
+    ks=$1
+    tmpdir=$2
+
+    # Flatten the kickstart to include the proxy %pre script
+    ( cd "$(dirname ${ks})" && ksflatten -o ${tmpdir}/kickstart.ks -c "$(basename $ks)" )
+    echo ${tmpdir}/kickstart.ks
+}

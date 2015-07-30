@@ -28,6 +28,9 @@ prepare() {
         return 1.
     fi
 
-    sed -e "/^repo/ s|HTTP-ADDON-REPO|${KSTEST_ADDON_HTTP_REPO}|" ${ks} > ${tmpdir}/kickstart.ks
-    echo ${tmpdir}/kickstart.ks
+    # Flatten the kickstart to include the proxy %pre script
+    ( cd "$(dirname ${ks})" && ksflatten -o ${tmpdir}/kickstart.ks -c "$(basename $ks)" )
+
+    sed -e "/^repo/ s|HTTP-ADDON-REPO|${KSTEST_ADDON_HTTP_REPO}|" ${tmpdir}/kickstart.ks > ${tmpdir}/kickstart-repo.ks
+    echo ${tmpdir}/kickstart-repo.ks
 }
