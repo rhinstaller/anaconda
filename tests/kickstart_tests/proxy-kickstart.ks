@@ -3,8 +3,9 @@
 %pre --erroronfail
 # Write the proxy script to a file in /tmp
 cat - << "EOF" > /tmp/proxy-test.py
-from six.moves import SimpleHTTPServer, socketserver
-from six.moves.urllib.request import urlopen
+from http.server import SimpleHTTPRequestHandler
+import socketserver
+from urllib.request import urlopen
 import os, sys
 
 import logging
@@ -13,7 +14,7 @@ log_handler = logging.FileHandler('/tmp/proxy.log')
 log.setLevel(logging.INFO)
 log.addHandler(log_handler)
 
-class ProxyHandler(SimpleHTTPServer.SimpleHTTPRequestHandler):
+class ProxyHandler(SimpleHTTPRequestHandler):
     def do_GET(self):
         # Log the path then proxy the request via urllib
         log.info(self.path)
@@ -33,7 +34,7 @@ ProxyServer().serve_forever()
 EOF
 
 # Run the server in the background and exit
-python /tmp/proxy-test.py > /dev/null 2>&1 &
+python3 /tmp/proxy-test.py > /dev/null 2>&1 &
 %end
 
 url --url=http://dl.fedoraproject.org/pub/fedora/linux/development/$releasever/$basearch/os/ --proxy=127.0.0.1:8080
