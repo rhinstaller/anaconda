@@ -80,6 +80,16 @@ def setup_ifcfg_log():
     ifcfglog = logging.getLogger("ifcfg")
 
 def check_ip_address(address, version=None):
+    """
+    Check if the given IP address is valid in given version if set.
+
+    :param str address: IP address for testing
+    :param int version: ``4`` for IPv4, ``6`` for IPv6 or
+                        ``None`` to allow either format
+    :returns: ``True`` if IP address is valid or ``False`` if not
+    :rtype: bool
+
+    """
     try:
         _ip, ver = IPy.parseAddress(address)
     except ValueError:
@@ -88,8 +98,8 @@ def check_ip_address(address, version=None):
         return True
     elif not version:
         return True
-    else:
-        return False
+
+    return False
 
 def sanityCheckHostname(hostname):
     """
@@ -116,8 +126,8 @@ def sanityCheckHostname(hostname):
 
     return (True, "")
 
-# Return a list of IP addresses for all active devices.
 def getIPs():
+    """ Return a list of IP addresses for all active devices. """
     ipv4_addresses = []
     ipv6_addresses = []
     for devname in nm.nm_activated_devices():
@@ -130,14 +140,19 @@ def getIPs():
     # prefer IPv4 addresses to IPv6 addresses
     return ipv4_addresses + ipv6_addresses
 
-# Return the first real non-local IP we find
 def getFirstRealIP():
+    """ Return the first real non-local IP we find from the list of
+        all active devices.
+
+        :rtype: str or ``None``
+    """
     for ip in getIPs():
         if ip not in ("127.0.0.1", "::1"):
             return ip
     return None
 
 def netmask2prefix(netmask):
+    """ Convert netmask to prefix (CIDR bits) """
     prefix = 0
 
     while prefix < 33:
@@ -161,9 +176,8 @@ def prefix2netmask(prefix):
     netmask = ".".join(str(byte) for byte in _bytes)
     return netmask
 
-# Try to determine what the hostname should be for this system
 def getHostname():
-
+    """ Try to determine what the hostname should be for this system """
     hn = None
 
     # First address (we prefer ipv4) of last device (as it used to be) wins
@@ -189,6 +203,11 @@ def getHostname():
     return hn
 
 def logIfcfgFile(path, message=""):
+    """ Log content of network ifcfg file.
+
+        :param str path: path to the ifcfg file
+        :param str message: optional message appended to the log
+    """
     content = ""
     if os.access(path, os.R_OK):
         f = open(path, 'r')
@@ -208,6 +227,10 @@ def _ifcfg_files(directory):
     return rv
 
 def logIfcfgFiles(message=""):
+    """ Log contents of all network ifcfg files.
+
+        :param str message: append message to the log
+    """
     ifcfglog.debug("content of files (%s):", message)
     for path in _ifcfg_files(netscriptsDir):
         ifcfglog.debug("%s:", path)
@@ -263,8 +286,8 @@ def dumpMissingDefaultIfcfgs():
     and dump its ifcfg file. (For server, default auto connections will
     be turned off in NetworkManager.conf.)
     The connection id (and consequently ifcfg file) is set to device name.
-    Returns list of devices for which ifcfg file was dumped.
 
+    :return: list of devices for which ifcfg file was dumped.
     """
     rv = []
 
@@ -1274,7 +1297,10 @@ def _get_ntp_servers_from_dhcp(ksdata):
 
 def _wait_for_connecting_NM():
     """If NM is in connecting state, wait for connection.
-    Return value: NM has got connection."""
+
+       :return: ``True`` NM has got connection otherwise ``False``
+       :rtype: bool
+    """
 
     if nm.nm_is_connected():
         return True
@@ -1326,7 +1352,7 @@ def wait_for_connectivity(timeout=constants.NETWORK_CONNECTION_TIMEOUT):
     """Wait for network connectivty to become available
 
     :param timeout: how long to wait in seconds
-    :type param: integer of float"""
+    :type timeout: integer of float"""
     connected = False
     network_connected_condition.acquire()
     # if network_connected is None, network connectivity check
