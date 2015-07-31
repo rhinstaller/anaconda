@@ -307,6 +307,10 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Thu Jul 30 2015 Brian C. Lane <bcl@redhat.com> - 21.48.22.27-1
+- Fix error with OEMDRV ks auto-load check. (sbueno+anaconda)
+  Related: rhbz#1057271
+
 * Wed Jul 29 2015 Brian C. Lane <bcl@redhat.com> - 21.48.22.26-1
 - Prevent incomplete translations from making the TUI unusable (mkolman)
   Resolves: rhbz#1235617
