@@ -1,5 +1,5 @@
 url --url=http://dl.fedoraproject.org/pub/fedora/linux/development/$releasever/$basearch/os/ --proxy=127.0.0.1:8080
-repo --name=kstest-http --baseurl=HTTP-ADDON-REPO --proxy=127.0.0.1:8080
+repo --name=kstest-http --baseurl=HTTP-ADDON-REPO --proxy=127.0.0.1:8080 --install
 install
 network --bootproto=dhcp
 
@@ -24,22 +24,59 @@ shutdown
 %post --nochroot
 # Look for the following as evidence that a proxy was used:
 # a .treeinfo request
-# primary.xml from the repodata
-# the kernel package from the Fedora repo
-# testpkg-http-core from the addon repo
-
-if ! grep -q '\.treeinfo$' /tmp/proxy.log; then
-    result='.treeinfo request was not proxied'
-elif ! grep -q 'repodata/.*primary.xml' /tmp/proxy.log; then
-    result='repodata requests were not proxied'
-elif ! grep -q 'kernel-.*\.rpm' /tmp/proxy.log; then
-    result='base repo package requests were not proxied'
-elif ! grep -q 'testpkg-http-core.*\.rpm' /tmp/proxy.log; then
-    result='addon repo package requests were not proxied'
-else
-    result='SUCCESS'
+grep -q '\.treeinfo$' /tmp/proxy.log
+if [[ $? -ne 0 ]]; then
+    echo '.treeinfo request was not proxied' >> $ANA_INSTALL_PATH/root/RESULT
 fi
 
-# Write the result to the installed /root
-echo "$result" > $ANA_INSTALL_PATH/root/RESULT
+# primary.xml from the repodata
+grep -q 'repodata/.*primary.xml' /tmp/proxy.log
+if [[ $? -ne 0 ]]; then
+    echo 'repodata requests were not provxied' >> $ANA_INSTALL_PATH/root/RESULT
+fi
+
+# the kernel package from the Fedora repo
+grep -q 'kernel-.*\.rpm' /tmp/proxy.log
+if [[ $? -ne 0 ]]; then
+    echo 'base repo package requests were not proxied' >> $ANA_INSTALL_PATH/root/RESULT
+fi
+
+# testpkg-http-core from the addon repo
+grep -q 'testpkg-http-core.*\.rpm' /tmp/proxy.log
+if [[ $? -ne 0 ]]; then
+    echo 'addon repo package requests were not proxied' >> $ANA_INSTALL_PATH/root/RESULT
+fi
+
+# Check that the addon repo file was installed
+if [[ ! -f $ANA_INSTALL_PATH/etc/yum.repos.d/kstest-http.repo ]]; then
+    echo 'kstest-http.repo does not exist' >> $ANA_INSTALL_PATH/root/RESULT
+fi
+
+# Check that the proxy configuration was written to the repo file
+grep -q 'proxy=http://127.0.0.1:8080' $ANA_INSTALL_PATH/etc/yum.repos.d/kstest-http.repo
+if [[ $? -ne 0 ]]; then
+    echo 'kstest-http.repo does not contain proxy information' >> $ANA_INSTALL_PATH/root/RESULT
+fi
+
+# Check that the installed repo file is usable
+# dnf exits with 0 even if something goes wrong, so do a repoquery and look for
+# the package in the output
+chroot $ANA_INSTALL_PATH \
+    dnf --disablerepo=\* --enablerepo=kstest-http --quiet repoquery testpkg-http-core 2>/dev/null | \
+    grep -q 'testpkg-http-core'
+if [[ $? -ne 0 ]]; then
+    echo 'unable to query kstest-http repo' >> $ANA_INSTALL_PATH/root/RESULT
+fi
+
+# Finally, check that the repoquery used the proxy
+tail -1 /tmp/proxy.log | grep -q repodata
+if [[ $? -ne 0 ]]; then
+    echo 'repoquery on installed system was not proxied' >> $ANA_INSTALL_PATH/root/RESULT
+fi
+
+# If nothing was written to RESULT, it worked
+if [[ ! -f $ANA_INSTALL_PATH/root/RESULT ]]; then
+    echo 'SUCCESS' > $ANA_INSTALL_PATH/root/RESULT
+fi
+
 %end
