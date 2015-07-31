@@ -109,6 +109,9 @@ class EditTUIDialog(NormalTUISpoke):
 
        .. inheritance-diagram:: EditTUIDialog
           :parts: 3
+
+       To override the wrong input message set the wrong_input_message attribute
+       to a translated string.
     """
 
     title = N_("New value")
@@ -198,8 +201,7 @@ class EditTUIDialog(NormalTUISpoke):
             if self.wrong_input_message:
                 print(self.wrong_input_message)
             else:
-                print(_("You have provided an invalid user name: %s\n"
-                        "Tip: Keep your user name shorter than 32 characters and do not use spaces.\n") % key)
+                print(_("You have provided an invalid value\n"))
             return NormalTUISpoke.input(self, entry, key)
 
 class OneShotEditTUIDialog(EditTUIDialog):
