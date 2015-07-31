@@ -319,8 +319,10 @@ class x86BootloaderInfo(efiBootloaderInfo):
                 
             f.write("serial --unit=%s --speed=%s\n" %(unit, speed))
             f.write("terminal --timeout=%s serial console\n" % (self.timeout or 5))
-        else:
+
+        if self.serial != 1 or iutil.isEfi():
             # we only want splashimage if they're not using a serial console
+            # or if this is a UEFI system
             if os.access("%s/boot/grub/splash.xpm.gz" %(instRoot,), os.R_OK):
                 f.write('splashimage=%s%sgrub/splash.xpm.gz\n'
                         % (self.grubbyPartitionName(bootDevs[0]), cfPath))
