@@ -46,11 +46,11 @@ from pyanaconda.ui.gui.helpers import GUIDialogInputCheckHandler, GUISpokeInputC
 from pyanaconda.ui.gui.spokes import NormalSpoke
 from pyanaconda.ui.categories.software import SoftwareCategory
 from pyanaconda.ui.gui.utils import blockedHandler, fire_gtk_action, find_first_child
-from pyanaconda.iutil import ProxyString, ProxyStringError, cmp_obj_attrs
+from pyanaconda.iutil import ProxyString, ProxyStringError, parseUrl, cmp_obj_attrs, ParseError
 from pyanaconda.ui.gui.utils import gtk_call_once, really_hide, really_show, fancy_set_sensitive
 from pyanaconda.threads import threadMgr, AnacondaThread
 from pyanaconda.packaging import PackagePayload, payloadMgr
-from pyanaconda.regexes import REPO_NAME_VALID, URL_PARSE, HOSTNAME_PATTERN_WITHOUT_ANCHORS
+from pyanaconda.regexes import REPO_NAME_VALID, HOSTNAME_PATTERN_WITHOUT_ANCHORS
 from pyanaconda import constants
 from pyanaconda import nm
 from pyanaconda.iutil import id_generator
@@ -88,23 +88,24 @@ def _validateProxy(proxy_string, username_set, password_set):
        :param bool username_set: Whether a username has been specified external to the URL
        :param bool password_set: Whether a password has been speicifed external to the URL
     """
-    proxy_match = URL_PARSE.match(proxy_string)
-    if not proxy_match:
+    try:
+        proxy_match = ProxyString(proxy_string)
+    except ProxyStringError:
         return _("Invalid proxy URL")
 
     # Ensure the protocol is something that makes sense
-    protocol = proxy_match.group("protocol")
+    protocol = proxy_match.protocol
     if protocol and protocol not in ('http://', 'https://', 'ftp://'):
         return _("Invalid proxy protocol: %s") % protocol
 
     # Path and anything after makes no sense for a proxy URL
     # Allow '/' as a path so you can use http://proxy.example.com:8080/
-    if (proxy_match.group("path") and proxy_match.group("path") != "/") \
-            or proxy_match.group("query") or proxy_match.group("fragment"):
+    if (proxy_match.path and proxy_match.path != "/") \
+            or proxy_match.query or proxy_match.fragment:
         return _("Extra characters in proxy URL")
 
     # Check if if authentication data is both in the URL and specified externally
-    if (proxy_match.group("username") or proxy_match.group("password")) and (username_set or password_set):
+    if (proxy_match.username or proxy_match.password) and (username_set or password_set):
         return _("Proxy authentication data duplicated")
 
     return InputCheck.CHECK_OK
@@ -229,7 +230,8 @@ class ProxyDialog(GUIObject, GUIDialogInputCheckHandler):
                             password = None
 
                         proxy = ProxyString(url=url, username=username, password=password)
-                        self.proxyUrl = proxy.url
+                        if not proxy.protocol:
+                            self.proxyUrl = "http://" + proxy.url
                     else:
                         self.proxyUrl = ""
                     break
@@ -989,7 +991,7 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler):
             url_string = self.get_input(inputcheck.input_obj).strip()
             protocol = combo.get_active_id()
 
-        # If this is HTTP/HTTPS/FTP, use the URL_PARSE regex
+        # If this is HTTP/HTTPS/FTP, use the ProxyString
         if protocol in (PROTOCOL_HTTP, PROTOCOL_HTTPS, PROTOCOL_FTP):
             if not url_string:
                 if is_additional_repo and repo.name:
@@ -997,8 +999,9 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler):
                 else:
                     return _("URL is empty")
 
-            m = URL_PARSE.match(url_string)
-            if not m:
+            try:
+                parsed_url = parseUrl(url_string)
+            except ParseError:
                 if is_additional_repo and repo.name:
                     return _("Repository %s has invalid url") % repo.name
                 else:
@@ -1006,8 +1009,9 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler):
 
             # Matching protocols in the URL should already have been removed
             # by _removeUrlPrefix. If there's still one there, it's wrong.
-            url_protocol = m.group('protocol')
+            url_protocol = parsed_url["scheme"]
             if url_protocol:
+                log.debug("source: protocol %s shoudn't be here", url_protocol)
                 if is_additional_repo and repo.name:
                     return _("Repository %s does not match selected protocol") % repo.name
                 else:
@@ -1431,15 +1435,17 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler):
         combo_protocol = combo.get_active_id()
         if combo_protocol in (PROTOCOL_HTTP, PROTOCOL_HTTPS, PROTOCOL_FTP):
             url_string = editable.get_text()
-            m = URL_PARSE.match(url_string)
-            if m:
-                url_protocol = m.group('protocol')
+            try:
+                proxy_string = ProxyString(url_string)
+                url_protocol = proxy_string.protocol
                 if (url_protocol == 'http://' and combo_protocol == PROTOCOL_HTTP) or \
                         (url_protocol == 'https://' and combo_protocol == PROTOCOL_HTTPS) or \
                         (url_protocol == 'ftp://' and combo_protocol == PROTOCOL_FTP):
                     # URL protocol matches. Block the changed signal and remove it
                     with blockedHandler(editable, handler):
                         editable.set_text(url_string[len(url_protocol):])
+            except ProxyStringError as e:
+                log.debug("source: %s", e)
 
     def on_urlEntry_changed(self, editable, data=None):
         # Check for and remove a URL prefix that matches the protocol dropdown
