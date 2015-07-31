@@ -97,7 +97,11 @@ EditTUISpokeEntry = namedtuple("EditTUISpokeEntry", ["title", "attribute", "aux"
 # Inherit abstract methods from NormalTUISpoke
 # pylint: disable=abstract-method
 class EditTUIDialog(NormalTUISpoke):
-    """Spoke/dialog used to read new value of textual or password data"""
+    """Spoke/dialog used to read new value of textual or password data
+
+    To override the wrong input message set the wrong_input_message attribute
+    to a translated string.
+    """
 
     title = N_("New value")
     PASSWORD = re.compile(".*")
@@ -174,8 +178,7 @@ class EditTUIDialog(NormalTUISpoke):
             if self.wrong_input_message:
                 print(self.wrong_input_message)
             else:
-                print(_("You have provided an invalid user name: %s\n"
-                        "Tip: Keep your user name shorter than 32 characters and do not use spaces.\n") % key)
+                print(_("You have provided an invalid value\n"))
             return NormalTUISpoke.input(self, entry, key)
 
 class OneShotEditTUIDialog(EditTUIDialog):
