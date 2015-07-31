@@ -67,6 +67,9 @@ class UserSpoke(FirstbootSpokeMixIn, EditTUISpoke):
     def __init__(self, app, data, storage, payload, instclass):
         FirstbootSpokeMixIn.__init__(self)
         EditTUISpoke.__init__(self, app, data, storage, payload, instclass)
+        self.dialog.wrong_input_message = _("You have provided an invalid user name.\n"
+                                            "Tip: Keep your user name shorter than 32 "
+                                            "characters and do not use spaces.\n")
 
         if self.data.user.userList:
             self.args = self.data.user.userList[0]
