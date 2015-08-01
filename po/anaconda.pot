@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: anaconda 21.48.22.26\n"
+"Project-Id-Version: anaconda 21.48.22.27\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
-"POT-Creation-Date: 2015-07-30 17:09-0700\n"
+"POT-Creation-Date: 2015-07-31 17:24-0700\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -121,72 +121,72 @@ msgid ""
 "using the %(fsType)s file system on %(deviceType)s"
 msgstr ""
 
-#: pyanaconda/constants.py:72
+#: pyanaconda/constants.py:73
 msgid "Start VNC"
 msgstr ""
 
-#: pyanaconda/constants.py:73
+#: pyanaconda/constants.py:74
 msgid "Use text mode"
 msgstr ""
 
-#: pyanaconda/constants.py:137
+#: pyanaconda/constants.py:138
 msgid "The password is empty."
 msgstr ""
 
-#: pyanaconda/constants.py:138
+#: pyanaconda/constants.py:139
 msgid "The passwords do not match."
 msgstr ""
 
-#: pyanaconda/constants.py:139
+#: pyanaconda/constants.py:140
 msgid "The passwords you entered were different.  Please try again."
 msgstr ""
 
-#: pyanaconda/constants.py:140
+#: pyanaconda/constants.py:141
 msgid ""
 "The password you have provided is weak. You will have to press Done twice to "
 "confirm it."
 msgstr ""
 
-#: pyanaconda/constants.py:141
+#: pyanaconda/constants.py:142
 #, python-format
 msgid ""
 "The password you have provided is weak: %s. You will have to press Done "
 "twice to confirm it."
 msgstr ""
 
-#: pyanaconda/constants.py:142
+#: pyanaconda/constants.py:143
 msgid "You have provided a weak password. Press Done again to use anyway."
 msgstr ""
 
-#: pyanaconda/constants.py:143
+#: pyanaconda/constants.py:144
 #, python-format
 msgid "You have provided a weak password: %s. Press Done again to use anyway."
 msgstr ""
 
-#: pyanaconda/constants.py:144
+#: pyanaconda/constants.py:145
 msgid ""
 "The password you have provided contains non-ASCII characters. You may not be "
 "able to switch between keyboard layouts to login. Press Done to continue."
 msgstr ""
 
-#: pyanaconda/constants.py:146
+#: pyanaconda/constants.py:147
 msgid "Empty"
 msgstr ""
 
-#: pyanaconda/constants.py:146 pyanaconda/ui/gui/spokes/lib/passphrase.py:118
+#: pyanaconda/constants.py:147 pyanaconda/ui/gui/spokes/lib/passphrase.py:118
 #: pyanaconda/ui/gui/spokes/lib/passphrase.glade.h:7
 msgid "Weak"
 msgstr ""
 
-#: pyanaconda/constants.py:146 pyanaconda/ui/gui/spokes/lib/passphrase.py:121
+#: pyanaconda/constants.py:147 pyanaconda/ui/gui/spokes/lib/passphrase.py:121
 msgid "Fair"
 msgstr ""
 
-#: pyanaconda/constants.py:146 pyanaconda/ui/gui/spokes/lib/passphrase.py:124
+#: pyanaconda/constants.py:147 pyanaconda/ui/gui/spokes/lib/passphrase.py:124
 msgid "Good"
 msgstr ""
 
-#: pyanaconda/constants.py:146 pyanaconda/ui/gui/spokes/lib/passphrase.py:127
+#: pyanaconda/constants.py:147 pyanaconda/ui/gui/spokes/lib/passphrase.py:127
 msgid "Strong"
 msgstr ""
 
@@ -2063,7 +2063,11 @@ msgid "Progress"
 msgstr ""
 
 #: pyanaconda/ui/tui/spokes/progress.py:139
-msgid "\tInstallation complete.  Press return to quit"
+#, python-format
+msgid ""
+"\tUse of this product is subject to the license agreement found at %s\n"
+"\n"
+"\tInstallation complete.  Press return to quit"
 msgstr ""
 
 #: pyanaconda/ui/tui/spokes/__init__.py:48
@@ -2151,23 +2155,28 @@ msgid ""
 "step."
 msgstr ""
 
-#: pyanaconda/ui/gui/hubs/progress.py:111
+#: pyanaconda/ui/gui/hubs/progress.py:112
 msgid "Complete!"
 msgstr ""
 
-#: pyanaconda/ui/gui/hubs/progress.py:211
+#: pyanaconda/ui/gui/hubs/progress.py:139
+#, python-format
+msgid "Use of this product is subject to the license agreement found at %s"
+msgstr ""
+
+#: pyanaconda/ui/gui/hubs/progress.py:215
 #, python-format
 msgid ""
 "%s is now successfully installed on your system and ready for you to use!  "
 "When you are ready, reboot your system to start using it!"
 msgstr ""
 
-#: pyanaconda/ui/gui/hubs/progress.py:214
+#: pyanaconda/ui/gui/hubs/progress.py:218
 msgctxt "GUI|Progress"
 msgid "_Quit"
 msgstr ""
 
-#: pyanaconda/ui/gui/hubs/progress.py:222
+#: pyanaconda/ui/gui/hubs/progress.py:226
 #, python-format
 msgid ""
 "%s is now successfully installed, but some configuration still needs to be "
@@ -2175,7 +2184,7 @@ msgid ""
 "Finish it and then click the Finish configuration button please."
 msgstr ""
 
-#: pyanaconda/ui/gui/hubs/progress.py:227
+#: pyanaconda/ui/gui/hubs/progress.py:231
 #, python-format
 msgid ""
 "%s is now successfully installed and ready for you to use!\n"

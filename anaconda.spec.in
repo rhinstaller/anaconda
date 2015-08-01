@@ -307,6 +307,12 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Fri Jul 31 2015 Brian C. Lane <bcl@redhat.com> - 21.48.22.28-1
+- Display a EULA-related warning on progress hub at end of installation.
+  (sbueno+anaconda)
+  Resolves: rhbz#1249185
+  Resolves: rhbz#1248432
+
 * Thu Jul 30 2015 Brian C. Lane <bcl@redhat.com> - 21.48.22.27-1
 - Fix error with OEMDRV ks auto-load check. (sbueno+anaconda)
   Related: rhbz#1057271
