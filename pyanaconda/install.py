@@ -30,7 +30,7 @@ from pyanaconda import flags
 from pyanaconda import iutil
 from pyanaconda import timezone
 from pyanaconda import network
-from pyanaconda.i18n import _
+from pyanaconda.i18n import N_
 from pyanaconda.threads import threadMgr
 from pyanaconda.ui.lib.entropy import wait_for_entropy
 from pyanaconda.kickstart import runPostScripts, runPreInstallScripts
@@ -72,7 +72,7 @@ def doConfiguration(storage, payload, ksdata, instClass):
 
     # Now run the execute methods of ksdata that require an installed system
     # to be present first.
-    with progress_report(_("Configuring installed system")):
+    with progress_report(N_("Configuring installed system")):
         ksdata.authconfig.execute(storage, ksdata, instClass)
         ksdata.selinux.execute(storage, ksdata, instClass)
         ksdata.firstboot.execute(storage, ksdata, instClass)
@@ -85,11 +85,11 @@ def doConfiguration(storage, payload, ksdata, instClass):
         ksdata.skipx.execute(storage, ksdata, instClass)
 
     if willWriteNetwork:
-        with progress_report(_("Writing network configuration")):
+        with progress_report(N_("Writing network configuration")):
             ksdata.network.execute(storage, ksdata, instClass)
 
     # Creating users and groups requires some pre-configuration.
-    with progress_report(_("Creating users")):
+    with progress_report(N_("Creating users")):
         createLuserConf(iutil.getSysroot(), algoname=getPassAlgo(ksdata.authconfig.authconfig))
         u = Users()
         ksdata.rootpw.execute(storage, ksdata, instClass, u)
@@ -97,10 +97,10 @@ def doConfiguration(storage, payload, ksdata, instClass):
         ksdata.user.execute(storage, ksdata, instClass, u)
         ksdata.sshkey.execute(storage, ksdata, instClass, u)
 
-    with progress_report(_("Configuring addons")):
+    with progress_report(N_("Configuring addons")):
         ksdata.addons.execute(storage, ksdata, instClass, u)
 
-    with progress_report(_("Generating initramfs")):
+    with progress_report(N_("Generating initramfs")):
         payload.recreateInitrds()
 
     # Work around rhbz#1200539, grubby doesn't handle grub2 missing initrd with /boot on btrfs
@@ -111,10 +111,10 @@ def doConfiguration(storage, payload, ksdata, instClass):
         writeBootLoader(storage, payload, instClass, ksdata)
 
     if willRunRealmd:
-        with progress_report(_("Joining realm: %s") % ksdata.realm.discovered):
+        with progress_report(N_("Joining realm: %s") % ksdata.realm.discovered):
             ksdata.realm.execute(storage, ksdata, instClass)
 
-    with progress_report(_("Running post-installation scripts")):
+    with progress_report(N_("Running post-installation scripts")):
         runPostScripts(ksdata.scripts)
 
     # setup kexec reboot if requested
@@ -166,14 +166,14 @@ def doInstall(storage, payload, ksdata, instClass):
     if threadMgr.running > 1:
         progress_init(steps+1)
 
-        with progress_report(_("Waiting for %s threads to finish") % (threadMgr.running-1)):
+        with progress_report(N_("Waiting for %s threads to finish") % (threadMgr.running-1)):
             for message in ("Thread %s is running" % n for n in threadMgr.names):
                 log.debug(message)
             threadMgr.wait_all()
     else:
         progress_init(steps)
 
-    with progress_report(_("Setting up the installation environment")):
+    with progress_report(N_("Setting up the installation environment")):
         ksdata.firstboot.setup(storage, ksdata, instClass)
         ksdata.addons.setup(storage, ksdata, instClass)
 
@@ -197,7 +197,7 @@ def doInstall(storage, payload, ksdata, instClass):
     payload.writeStorageEarly()
 
     # Run %pre-install scripts with the filesystem mounted and no packages
-    with progress_report(_("Running pre-installation scripts")):
+    with progress_report(N_("Running pre-installation scripts")):
         runPreInstallScripts(ksdata.scripts)
 
     # Do packaging.
@@ -205,7 +205,7 @@ def doInstall(storage, payload, ksdata, instClass):
     # Discover information about realms to join,
     # to determine additional packages
     if willRunRealmd:
-        with progress_report(_("Discovering realm to join")):
+        with progress_report(N_("Discovering realm to join")):
             ksdata.realm.setup()
 
     # Check for additional packages
@@ -237,10 +237,10 @@ def doInstall(storage, payload, ksdata, instClass):
 
     # Do bootloader.
     if willInstallBootloader:
-        with progress_report(_("Installing boot loader")):
+        with progress_report(N_("Installing boot loader")):
             writeBootLoader(storage, payload, instClass, ksdata)
 
-    with progress_report(_("Performing post-installation setup tasks")):
+    with progress_report(N_("Performing post-installation setup tasks")):
         payload.postInstall()
 
     progress_complete()
