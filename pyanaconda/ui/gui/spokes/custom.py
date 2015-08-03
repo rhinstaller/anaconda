@@ -2429,7 +2429,7 @@ class CustomPartitioningSpoke(NormalSpoke, StorageChecker):
         active_index = self._fsCombo.get_active()
         current_fstype = self._get_fstype(self._fsCombo)
         if btrfs_pos and not should_be_btrfs:
-            self._fsCombo.remove(btrfs_pos)
+            model.remove(btrfs_pos)
             if current_fstype == "btrfs":
                 for i, row in enumerate(model):
                     if row[0] == self.storage.defaultFSType:
