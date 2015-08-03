@@ -24,8 +24,8 @@ import os
 from blivet.size import Size
 import blivet.arch
 from pyanaconda.flags import flags
-from pyanaconda.i18n import _
-from pyanaconda.progress import progressQ
+from pyanaconda.i18n import _, N_
+from pyanaconda.progress import progressQ, progress_message
 from pyanaconda.simpleconfig import simple_replace
 
 import configparser
@@ -647,7 +647,7 @@ class DNFPayload(packaging.PackagePayload):
         self._refreshEnvironmentAddons()
 
     def install(self):
-        progressQ.send_message(_('Starting package installation process'))
+        progress_message(N_('Starting package installation process'))
 
         # Add the rpm macros to the global transaction environment
         for macro in self.rpmMacros:
@@ -676,8 +676,8 @@ class DNFPayload(packaging.PackagePayload):
 
         log.info('Downloading packages finished.')
 
-        pre_msg = _("Preparing transaction from installation source")
-        progressQ.send_message(pre_msg)
+        pre_msg = (N_("Preparing transaction from installation source"))
+        progress_message(pre_msg)
 
         queue_instance = multiprocessing.Queue()
         process = multiprocessing.Process(target=do_transaction,
@@ -693,8 +693,8 @@ class DNFPayload(packaging.PackagePayload):
         if token == 'quit':
             _failure_limbo()
 
-        post_msg = _("Performing post-installation setup tasks")
-        progressQ.send_message(post_msg)
+        post_msg = (N_("Performing post-installation setup tasks"))
+        progress_message(post_msg)
         process.join()
         self._base.close()
         if os.path.exists(self._download_location):
