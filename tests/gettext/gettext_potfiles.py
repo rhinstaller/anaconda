@@ -3,11 +3,7 @@
 # Ignore any interruptible calls
 # pylint: disable=interruptible-system-call
 
-import os, sys, subprocess
-
-# The xpath in this file is simple enough that Python's built-in
-# ElementTree can handle it, so we don't need lxml here
-import xml.etree.ElementTree as ET
+import os, sys, subprocess, tempfile
 
 if "top_srcdir" not in os.environ:
     sys.stderr.write("$top_srcdir must be defined in the test environment\n")
@@ -23,22 +19,25 @@ from filelist import testfilelist
 
 success = True
 
+# from po/Makevars
+XGETTEXT_OPTIONS = ["--keyword=_", "--keyword=N_", "--keyword=P_:1,2",
+                    "--keyword=C_:1c,2", "--keyword=CN_:1c,2", "--keyword=CP_:1c,2,3",
+                    "--from-code=UTF-8"]
+
 def check_potfile(checkfile, potlist):
     global success
 
     potcheckfile = None
-    if checkfile.endswith(".py"):
-        # Check whether the file imports the i18n module
-        if subprocess.call(["grep", "-q", "^from pyanaconda.i18n import", checkfile]) == 0:
-            potcheckfile = checkfile
-    elif checkfile.endswith(".c"):
-        # Check whether the file includes intl.h
-        if subprocess.call(["grep", "-q", "#include .intl\\.h.", checkfile]) == 0:
-            potcheckfile = checkfile
-    elif checkfile.endswith(".glade"):
-        # Look for a "translatable=yes" attribute
-        if ET.parse(checkfile).findall(".//*[@translatable='yes']"):
-            potcheckfile = checkfile
+
+    _root, ext = os.path.splitext(checkfile)
+    if ext in (".py", ".c", ".glade"):
+        # These files are handled directly by gettext. Use xgettext to look for
+        # translatable strings. If anything is written to the output file, xgettext
+        # found something
+        with tempfile.NamedTemporaryFile() as pofile:
+            subprocess.check_call(["xgettext", "-o", pofile.name] + XGETTEXT_OPTIONS + [checkfile])
+            if os.path.getsize(pofile.name) > 0:
+                potcheckfile = checkfile
     elif checkfile.endswith(".desktop.in"):
         # These are handled by intltool, make sure the .h version is present
         potcheckfile = checkfile + ".h"
