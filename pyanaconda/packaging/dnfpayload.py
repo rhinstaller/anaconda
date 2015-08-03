@@ -255,6 +255,15 @@ class DNFPayload(packaging.PackagePayload):
                 log.error("Failed to parse proxy for _add_repo %s: %s",
                           ksrepo.proxy, e)
 
+        if ksrepo.cost:
+            repo.cost = ksrepo.cost
+
+        if ksrepo.includepkgs:
+            repo.include = ksrepo.includepkgs
+
+        if ksrepo.excludepkgs:
+            repo.exclude = ksrepo.excludepkgs
+
         # If this repo is already known, it's one of two things:
         # (1) The user is trying to do "repo --name=updates" in a kickstart file
         #     and we should just know to enable the already existing on-disk
@@ -873,6 +882,12 @@ class DNFPayload(packaging.PackagePayload):
 
             if ks_repo.cost:
                 f.write("cost=%d\n" % ks_repo.cost)
+
+            if ks_repo.includepkgs:
+                f.write("include=%s\n" % ",".join(ks_repo.includepkgs))
+
+            if ks_repo.excludepkgs:
+                f.write("exclude=%s\n" % ",".join(ks_repo.excludepkgs))
 
     def postInstall(self):
         """ Perform post-installation tasks. """
