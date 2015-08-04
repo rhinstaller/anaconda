@@ -116,7 +116,7 @@ class AskVNCSpoke(NormalTUISpoke):
                 if can_touch_runtime_system("Quit and Reboot"):
                     execWithRedirect("systemctl", ["--no-wall", "reboot"])
                 else:
-                    exit(1)
+                    sys.exit(1)
         else:
             return key
 
