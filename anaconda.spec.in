@@ -41,6 +41,7 @@ Source0: %{name}-%{version}.tar.bz2
 %define langtablever 0.0.31-3
 %define libxklavierver 5.4
 %define libtimezonemapver 0.4.1-2
+%define helpver 7.1.8-1
 
 BuildRequires: audit-libs-devel
 BuildRequires: gettext >= %{gettextver}
@@ -175,6 +176,7 @@ Requires: keybinder3
 Requires: NetworkManager-wifi
 %endif
 Requires: yelp
+Requires: anaconda-user-help >= %{helpver}
 
 %description gui
 This package contains graphical user interface for the Anaconda installer.
