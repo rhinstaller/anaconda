@@ -307,6 +307,12 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Aug 04 2015 Brian C. Lane <bcl@redhat.com> - 21.48.22.29-1
+- Fix a line that still treated the fstype as a GtkComboBoxText (dshea)
+  Resolves: rhbz#1248885
+- Fix fastestmirror plugin check (bcl)
+  Resolves: rhbz#1249569
+
 * Fri Jul 31 2015 Brian C. Lane <bcl@redhat.com> - 21.48.22.28-1
 - Display a EULA-related warning on progress hub at end of installation.
   (sbueno+anaconda)
