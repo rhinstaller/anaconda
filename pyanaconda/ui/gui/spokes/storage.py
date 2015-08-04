@@ -1000,8 +1000,8 @@ class StorageSpoke(NormalSpoke, StorageChecker):
 
             if rc == 0:
                 # Quit.
-                sys.exit(0)
                 iutil.ipmi_report(constants.IPMI_ABORTED)
+                sys.exit(0)
         elif self.warnings:
             label = _("The following warnings were encountered when checking your storage "
                       "configuration.  These are not fatal, but you may wish to make "
