@@ -276,7 +276,7 @@ class StorageSpoke(NormalTUISpoke):
                         if dasds:
                             self.run_dasdfmt(dasds)
                             return None
-                        ldldasds = [d for d in self.selected_disks if is_ldl_dasd(d)]
+                        ldldasds = [d.name for d in self.storage.devicetree.dasd if is_ldl_dasd(d.name)]
                         if ldldasds:
                             self.run_dasdfmt(ldldasds)
                             return None

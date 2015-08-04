@@ -682,7 +682,7 @@ class StorageSpoke(NormalSpoke, StorageChecker):
                     continue
 
         if cdl:
-            ldldasds = [d.name for d in getDisks(self.storage.devicetree) if is_ldl_dasd(d.name)]
+            ldldasds = [d.name for d in getDisks(self.storage.devicetree.dasd) if is_ldl_dasd(d.name)]
             if not ldldasds:
                 # nothing to do here; bail
                 return
@@ -853,7 +853,7 @@ class StorageSpoke(NormalSpoke, StorageChecker):
                     return
 
             # check for ldl dasds
-            ldldasds = [d for d in self.selected_disks if is_ldl_dasd(d)]
+            ldldasds = [d.name for d in self.storage.devicetree.dasd if is_ldl_dasd(d.name)]
             if len(ldldasds) > 0:
                 dialog = DasdFormatDialog(self.data, self.storage, ldldasds)
                 ignoreEscape(dialog.window)
