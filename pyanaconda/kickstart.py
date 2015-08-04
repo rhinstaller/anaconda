@@ -2042,7 +2042,10 @@ def runPreInstallScripts(scripts):
         return
 
     log.info("Running kickstart %%pre-install script(s)")
-    map(lambda s: s.run("/"), preInstallScripts)
+
+    for script in preInstallScripts:
+        script.run("/")
+
     log.info("All kickstart %%pre-install script(s) have been run")
 
 def runTracebackScripts(scripts):
