@@ -309,6 +309,10 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Wed Aug 05 2015 Brian C. Lane <bcl@redhat.com> - 21.48.22.30-1
+- Add the anaconda-user-help package as dependency (mkolman)
+  Resolves: rhbz#1247779
+
 * Tue Aug 04 2015 Brian C. Lane <bcl@redhat.com> - 21.48.22.29-1
 - Fix a line that still treated the fstype as a GtkComboBoxText (dshea)
   Resolves: rhbz#1248885
