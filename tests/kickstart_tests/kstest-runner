@@ -101,7 +101,7 @@ class VirtualInstall(object):
         if kernel_args:
             extra_args += " " + kernel_args
         if iso.stage2:
-            extra_args += " stage2=live:CDLABEL={0}".format(udev_escape(iso.label))
+            extra_args += " stage2=hd:CDLABEL={0}".format(udev_escape(iso.label))
         args.append("--extra-args")
         args.append(extra_args)
 
