@@ -43,9 +43,9 @@ prepare() {
         return 1
     fi
 
-    sed -e "/^nfs/ s|NFS-SERVER|${KSTEST_NFS_SERVER}|" \
-        -e "/^nfs/ s|NFS-PATH|${KSTEST_NFS_PATH}|" \
-        -e "/^repo/ s|NFS-ADDON-REPO|${KSTEST_ADDON_NFS_REPO}|" \
-        -e "/^repo/ s|HTTP-ADDON-REPO|${KSTEST_ADDON_HTTP_REPO}|" ${ks} > ${tmpdir}/kickstart.ks
+    sed -e "s|NFS-SERVER|${KSTEST_NFS_SERVER}|" \
+        -e "s|NFS-PATH|${KSTEST_NFS_PATH}|" \
+        -e "s|NFS-ADDON-REPO|${KSTEST_ADDON_NFS_REPO}|" \
+        -e "s|HTTP-ADDON-REPO|${KSTEST_ADDON_HTTP_REPO}|" ${ks} > ${tmpdir}/kickstart.ks
     echo ${tmpdir}/kickstart.ks
 }
