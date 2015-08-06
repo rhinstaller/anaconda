@@ -618,6 +618,19 @@ def nm_ntp_servers_from_dhcp():
         # NetworkManager does not request NTP/SNTP options for DHCP6
     return ntp_servers
 
+def _is_s390_setting(path):
+    """Check if setting of given object path is an s390 setting
+
+       :param path: object path of setting object
+       :type path: str
+       :return: True if the setting is s390 setting, False otherwise
+       :rtype: bool
+    """
+
+    proxy = _get_proxy(object_path=path, interface_name="org.freedesktop.NetworkManager.Settings.Connection")
+    settings = proxy.GetSettings()
+    return "s390-subchannels" in settings["802-3-ethernet"]
+
 def _device_settings(name):
     """Return list of object paths of device settings
 
@@ -654,6 +667,11 @@ def _device_settings(name):
                 settings = []
             else:
                 settings = _settings_for_hwaddr(hwaddr_str)
+                if not settings:
+                    # s390 setting generated in dracut with net.ifnames=0
+                    # has neither DEVICE nor HWADDR (#1249750)
+                    settings = [s for s in _find_settings(name, 'connection', 'id')
+                                if _is_s390_setting(s)]
 
     return settings
 
