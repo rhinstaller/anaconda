@@ -5,7 +5,7 @@ network --bootproto=dhcp
 bootloader --timeout=1
 zerombr
 clearpart --all
-part --fstype=ext4 --size=4400 /
+part --fstype=ext4 --size=4400 --label=rootfs /
 part --fstype=ext4 --size=500 /boot
 part --fstype=swap --size=500 swap
 
