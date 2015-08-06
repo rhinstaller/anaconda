@@ -16,7 +16,7 @@ part raid.22 --size=1024 --ondisk=sdb
 # Yes, using 0,1,2 is wrong, but /proc/mounts uses /dev/mdX not /dev/md/X
 raid /boot --level=1 --device=0 --fstype=ext4 raid.01 raid.02
 raid swap  --level=1 --device=1 --fstype=swap raid.21 raid.22
-raid /     --level=1 --device=2 --fstype=ext4 raid.11 raid.12
+raid /     --level=1 --device=2 --fstype=ext4 --label=rootfs raid.11 raid.12
 
 keyboard us
 lang en_US.UTF-8
