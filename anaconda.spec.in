@@ -133,6 +133,7 @@ Requires: hfsplus-tools
 %ifnarch aarch64
 Requires: kexec-tools
 %endif
+Requires: python3-pid
 
 Requires: python3-coverage
 

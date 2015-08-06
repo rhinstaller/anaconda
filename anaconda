@@ -45,7 +45,7 @@ if ("debug=1" in proc_cmdline) or ("debug" in proc_cmdline):
     cov.start()
 
 
-import atexit, sys, os, time, signal, stat
+import atexit, sys, os, time, signal
 
 def exitHandler(rebootData, storage):
     # Clear the list of watched PIDs.
@@ -87,8 +87,8 @@ def exitHandler(rebootData, storage):
         anaconda.payload.unsetup()
 
     # Clean up the PID file
-    if pidfile_created:
-        os.unlink(pidfile_path)
+    if pidfile:
+        pidfile.close()
 
     if not flags.imageInstall and not flags.livecdInstall \
        and not flags.dirInstall:
@@ -925,56 +925,14 @@ if __name__ == "__main__":
     # make sure we have /var/log soon, some programs fail to start without it
     iutil.mkdirChain("/var/log")
 
-    # Share these with the exit handler, installed later
-    pidfile_path = '/var/run/anaconda.pid'
-    pidfile_created = False
+    # Create a PID file. The exit handler, installed later, will clean it up.
+    import pid
+    pidfile = pid.PidFile(pidname='anaconda', register_term_signal_handler=False)
 
-    # Look for a stale pid file
     try:
-        with open(pidfile_path, 'r') as pidfile:
-            pid = int(pidfile.read())
-    except FileNotFoundError:
-        # Ignore errors due to the file not existing. Other errors mean (most
-        # likely) that we're not running as root, there's a filesystem error,
-        # or someone filled our PID file with garbage, so just let those be
-        # raised.
-        pass
-    else:
-        # Is the PID still running?
-        if not os.path.isdir("/proc/%s" % pid):
-            log.info("Removing stale PID file: %s no longer running", pid)
-            os.unlink(pidfile_path)
-        # Is the PID anaconda?
-        else:
-            try:
-                with open("/proc/%s/stat" % pid, "r") as pidstat:
-                    # The part we care about is in the start, "PID (name) ..."
-                    procname = pidstat.read().split(' ', 2)[1]
-                    if procname != "(anaconda)":
-                        log.info("Removing stale PID file: PID %s is now %s", pid, procname)
-                        os.unlink(pidfile_path)
-                    # If it is anaconda, let the pidfile creation below fail
-                    # and print an error
-            except (FileNotFoundError, ProcessLookupError):
-                # Ignore failures due to the file not existing in case the
-                # process ended while we were trying to read about it. Assume
-                # in this case that the process was another anaconda instance,
-                # and the PID file was cleaned up.
-                # If the process ended between open and read, we'll get ESRCH
-                # (ProcessLookupError)
-                pass
-
-    # Attempt to create the pidfile
-    try:
-        # Set all of the read/write bits and let umask make it make sense
-        pidfile = iutil.eintr_retry_call(os.open, pidfile_path, os.O_WRONLY|os.O_CREAT|os.O_EXCL,
-                stat.S_IRUSR|stat.S_IWUSR|stat.S_IRGRP|stat.S_IWGRP|stat.S_IROTH|stat.S_IWOTH)
-        pidfile_created = True
-        pid_string = "%s\n" % os.getpid()
-        iutil.eintr_retry_call(os.write, pidfile, pid_string.encode("utf-8"))
-        iutil.eintr_ignore(os.close, pidfile)
-    except FileExistsError:
-        log.error("%s already exists, exiting", pidfile_path)
+        pidfile.create()
+    except pid.PidFileError as e:
+        log.error("Unable to create %s, exiting", pidfile.filename)
 
         # If we had a $DISPLAY at start and zenity is available, we may be
         # running in a live environment and we can display an error dialog.
@@ -988,9 +946,9 @@ if __name__ == "__main__":
                 ["--error", "--title", _("Unable to create PID file"), "--text",
                     _("Anaconda is unable to create %s because the file" +
                       " already exists. Anaconda is already running, or a previous instance" +
-                      " of anaconda has crashed.") % pidfile_path])
+                      " of anaconda has crashed.") % pidfile.filename])
         else:
-            print("%s already exists, exiting" % pidfile_path)
+            print("%s already exists, exiting" % pidfile.filename)
 
         iutil.ipmi_report(constants.IPMI_FAILED)
         sys.exit(1)
