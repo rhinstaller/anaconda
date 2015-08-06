@@ -864,6 +864,13 @@ def find_ifcfg_file_of_device(devname, root_path=""):
                 ifcfg_path = find_ifcfg_file([("HWADDR", hwaddr_check)], root_path)
         if not ifcfg_path:
             ifcfg_path = find_ifcfg_file([("DEVICE", devname)], root_path)
+        if not ifcfg_path:
+            if blivet.arch.isS390():
+                # s390 setting generated in dracut with net.ifnames=0
+                # has neither DEVICE nor HWADDR (#1249750)
+                ifcfg_path = find_ifcfg_file([("NAME", devname)], root_path)
+            else:
+                log.warning("network: neither HWADDR nor DEVICE in %s", ifcfg_path)
 
     return ifcfg_path
 
