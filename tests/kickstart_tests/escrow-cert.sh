@@ -19,3 +19,22 @@
 # Red Hat Author(s): David Shea <dshea@redhat.com>
 
 . ${KSTESTDIR}/functions.sh
+
+validate() {
+    disksdir=$1
+    args=$(for d in ${disksdir}/disk-*img; do echo -a ${d}; done)
+
+    # There should be a /root/RESULT file with results in it.  Check
+    # its contents and decide whether the test finally succeeded or
+    # not.
+    result=$(virt-cat ${args} -m /dev/disk/by-label/rootfs /root/RESULT)
+    if [[ $? != 0 ]]; then
+        status=1
+        echo '*** /root/RESULT does not exist in VM image.'
+    elif [[ "${result}" != SUCCESS* ]]; then
+        status=1
+        echo "${result}"
+    fi
+
+    return ${status}
+}
