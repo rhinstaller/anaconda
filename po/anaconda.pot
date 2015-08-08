@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: anaconda 23.17\n"
+"Project-Id-Version: anaconda 23.18\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
-"POT-Creation-Date: 2015-07-31 17:55-0700\n"
+"POT-Creation-Date: 2015-08-07 17:19-0700\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -449,7 +449,7 @@ msgstr ""
 msgid "Setting up the installation environment"
 msgstr ""
 
-#: pyanaconda/install.py:200 pyanaconda/kickstart.py:2139
+#: pyanaconda/install.py:200 pyanaconda/kickstart.py:2148
 msgid "Running pre-installation scripts"
 msgstr ""
 
@@ -462,7 +462,7 @@ msgid "Installing boot loader"
 msgstr ""
 
 #: pyanaconda/install.py:243 pyanaconda/packaging/livepayload.py:180
-#: pyanaconda/packaging/dnfpayload.py:680
+#: pyanaconda/packaging/dnfpayload.py:689
 msgid "Performing post-installation setup tasks"
 msgstr ""
 
@@ -548,7 +548,7 @@ msgid ""
 msgstr ""
 
 #: pyanaconda/kickstart.py:492 pyanaconda/kickstart.py:866
-#: pyanaconda/kickstart.py:1449
+#: pyanaconda/kickstart.py:1458
 #, python-format
 msgid "The mount point \"%s\" is not valid.  It must start with a /."
 msgstr ""
@@ -627,8 +627,8 @@ msgid "Logical volume \"%s\" given in logvol command does not exist."
 msgstr ""
 
 #: pyanaconda/kickstart.py:903 pyanaconda/kickstart.py:912
-#: pyanaconda/kickstart.py:964 pyanaconda/kickstart.py:1229
-#: pyanaconda/kickstart.py:1238 pyanaconda/kickstart.py:1321
+#: pyanaconda/kickstart.py:964 pyanaconda/kickstart.py:1238
+#: pyanaconda/kickstart.py:1247 pyanaconda/kickstart.py:1330
 #, python-format
 msgid "Target size \"%(size)s\" for device \"%(device)s\" is invalid."
 msgstr ""
@@ -647,122 +647,122 @@ msgid ""
 "extent size of \"%(extentSize)s\"."
 msgstr ""
 
-#: pyanaconda/kickstart.py:943 pyanaconda/kickstart.py:1257
-#: pyanaconda/kickstart.py:1502
+#: pyanaconda/kickstart.py:943 pyanaconda/kickstart.py:1266
+#: pyanaconda/kickstart.py:1511
 #, python-format
 msgid "The \"%s\" file system type is not supported."
 msgstr ""
 
-#: pyanaconda/kickstart.py:1095 pyanaconda/kickstart.py:1099
+#: pyanaconda/kickstart.py:1104 pyanaconda/kickstart.py:1108
 #, python-format
 msgid "The %s kickstart command is not currently supported."
 msgstr ""
 
-#: pyanaconda/kickstart.py:1126
+#: pyanaconda/kickstart.py:1135
 #, python-format
 msgid "No disk found for specified BIOS disk \"%s\"."
 msgstr ""
 
-#: pyanaconda/kickstart.py:1161
+#: pyanaconda/kickstart.py:1170
 #, python-format
 msgid "RAID partition \"%s\" is defined multiple times."
 msgstr ""
 
-#: pyanaconda/kickstart.py:1172 pyanaconda/kickstart.py:1424
+#: pyanaconda/kickstart.py:1181 pyanaconda/kickstart.py:1433
 #, python-format
 msgid "PV partition \"%s\" is defined multiple times."
 msgstr ""
 
-#: pyanaconda/kickstart.py:1183 pyanaconda/kickstart.py:1434
+#: pyanaconda/kickstart.py:1192 pyanaconda/kickstart.py:1443
 #, python-format
 msgid "Btrfs partition \"%s\" is defined multiple times."
 msgstr ""
 
-#: pyanaconda/kickstart.py:1206
+#: pyanaconda/kickstart.py:1215
 #, python-format
 msgid "The size \"%s\" is invalid."
 msgstr ""
 
-#: pyanaconda/kickstart.py:1213
+#: pyanaconda/kickstart.py:1222
 msgid "part --noformat must also use the --onpart option."
 msgstr ""
 
-#: pyanaconda/kickstart.py:1218 pyanaconda/kickstart.py:1312
+#: pyanaconda/kickstart.py:1227 pyanaconda/kickstart.py:1321
 #, python-format
 msgid "Partition \"%s\" given in part command does not exist."
 msgstr ""
 
-#: pyanaconda/kickstart.py:1272 pyanaconda/kickstart.py:1286
+#: pyanaconda/kickstart.py:1281 pyanaconda/kickstart.py:1295
 #, python-format
 msgid "Disk \"%s\" given in part command does not exist."
 msgstr ""
 
-#: pyanaconda/kickstart.py:1275
+#: pyanaconda/kickstart.py:1284
 #, python-format
 msgid "Cannot install to unpartitionable device \"%s\"."
 msgstr ""
 
-#: pyanaconda/kickstart.py:1282
+#: pyanaconda/kickstart.py:1291
 #, python-format
 msgid "Disk \"%s\" in part command is not partitioned."
 msgstr ""
 
-#: pyanaconda/kickstart.py:1295
+#: pyanaconda/kickstart.py:1304
 #, python-format
 msgid "The maximum size \"%s\" is invalid."
 msgstr ""
 
-#: pyanaconda/kickstart.py:1456
+#: pyanaconda/kickstart.py:1465
 msgid "raid --noformat must also use the --device option."
 msgstr ""
 
-#: pyanaconda/kickstart.py:1461
+#: pyanaconda/kickstart.py:1470
 #, python-format
 msgid "RAID device  \"%s\" given in raid command does not exist."
 msgstr ""
 
-#: pyanaconda/kickstart.py:1484
+#: pyanaconda/kickstart.py:1493
 #, python-format
 msgid ""
 "RAID device \"%(device)s\" has a format of \"%(format)s\", but should have a "
 "format of \"mdmember\"."
 msgstr ""
 
-#: pyanaconda/kickstart.py:1489
+#: pyanaconda/kickstart.py:1498
 #, python-format
 msgid "Tried to use undefined partition \"%s\" in RAID specification."
 msgstr ""
 
-#: pyanaconda/kickstart.py:1518
+#: pyanaconda/kickstart.py:1527
 #, python-format
 msgid "RAID volume \"%s\" specified with --useexisting does not exist."
 msgstr ""
 
-#: pyanaconda/kickstart.py:1527
+#: pyanaconda/kickstart.py:1536
 #, python-format
 msgid "The RAID volume name \"%s\" is already in use."
 msgstr ""
 
-#: pyanaconda/kickstart.py:1767
+#: pyanaconda/kickstart.py:1776
 #, python-format
 msgid ""
 "Physical volume \"%(device)s\" has a format of \"%(format)s\", but should "
 "have a format of \"lvmpv\"."
 msgstr ""
 
-#: pyanaconda/kickstart.py:1772
+#: pyanaconda/kickstart.py:1781
 #, python-format
 msgid "Tried to use undefined partition \"%s\" in Volume Group specification"
 msgstr ""
 
-#: pyanaconda/kickstart.py:1778
+#: pyanaconda/kickstart.py:1787
 #, python-format
 msgid ""
 "Volume group \"%s\" defined without any physical volumes.  Either specify "
 "physical volumes or use --useexisting."
 msgstr ""
 
-#: pyanaconda/kickstart.py:1788
+#: pyanaconda/kickstart.py:1797
 #, python-format
 msgid ""
 "Volume group given physical extent size of \"%(extentSize)s\", but must be "
@@ -770,97 +770,97 @@ msgid ""
 "%(validExtentSizes)s."
 msgstr ""
 
-#: pyanaconda/kickstart.py:1795
+#: pyanaconda/kickstart.py:1804
 msgid ""
 "volgroup --noformat and volgroup --useexisting must also use the --name= "
 "option."
 msgstr ""
 
-#: pyanaconda/kickstart.py:1800
+#: pyanaconda/kickstart.py:1809
 #, python-format
 msgid "Volume group \"%s\" given in volgroup command does not exist."
 msgstr ""
 
-#: pyanaconda/kickstart.py:1803
+#: pyanaconda/kickstart.py:1812
 #, python-format
 msgid "The volume group name \"%s\" is already in use."
 msgstr ""
 
-#: pyanaconda/kickstart.py:1859
+#: pyanaconda/kickstart.py:1868
 msgid ""
 "The upgrade kickstart command is no longer supported. Upgrade functionality "
 "is provided through fedup."
 msgstr ""
 
-#: pyanaconda/network.py:106
+#: pyanaconda/network.py:116
 msgid "Host name cannot be None or an empty string."
 msgstr ""
 
-#: pyanaconda/network.py:109
+#: pyanaconda/network.py:119
 msgid "Host name must be 255 or fewer characters in length."
 msgstr ""
 
-#: pyanaconda/network.py:112
+#: pyanaconda/network.py:122
 msgid ""
 "Host names can only contain the characters 'a-z', 'A-Z', '0-9', '-', or '.', "
 "parts between periods must contain something and cannot start or end with "
 "'-'."
 msgstr ""
 
-#: pyanaconda/network.py:1346 pyanaconda/ui/gui/spokes/custom.py:564
+#: pyanaconda/network.py:1372 pyanaconda/ui/gui/spokes/custom.py:564
 #: pyanaconda/ui/gui/spokes/network.py:311
 #: pyanaconda/ui/gui/spokes/lib/accordion.py:66
 msgid "Unknown"
 msgstr ""
 
-#: pyanaconda/network.py:1350
+#: pyanaconda/network.py:1376
 msgid "Connecting..."
 msgstr ""
 
-#: pyanaconda/network.py:1352
+#: pyanaconda/network.py:1378
 msgid "Disconnecting..."
 msgstr ""
 
-#: pyanaconda/network.py:1372
+#: pyanaconda/network.py:1398
 #, python-format
 msgid "Wired (%(interface_name)s) connected"
 msgstr ""
 
-#: pyanaconda/network.py:1375
+#: pyanaconda/network.py:1401
 #, python-format
 msgid "Wireless connected to %(access_point)s"
 msgstr ""
 
-#: pyanaconda/network.py:1378
+#: pyanaconda/network.py:1404
 #, python-format
 msgid "Bond %(interface_name)s (%(list_of_slaves)s) connected"
 msgstr ""
 
-#: pyanaconda/network.py:1382
+#: pyanaconda/network.py:1408
 #, python-format
 msgid "Team%(interface_name)s (%(list_of_slaves)s) connected"
 msgstr ""
 
-#: pyanaconda/network.py:1386
+#: pyanaconda/network.py:1412
 #, python-format
 msgid "Bridge%(interface_name)s (%(list_of_slaves)s) connected"
 msgstr ""
 
-#: pyanaconda/network.py:1392
+#: pyanaconda/network.py:1418
 #, python-format
 msgid "VLAN %(interface_name)s (%(parent_device)s, ID %(vlanid)s) connected"
 msgstr ""
 
-#: pyanaconda/network.py:1409
+#: pyanaconda/network.py:1435
 #, python-format
 msgid "Connected: %(list_of_interface_names)s"
 msgstr ""
 
-#: pyanaconda/network.py:1412
+#: pyanaconda/network.py:1438
 msgid "Not connected"
 msgstr ""
 
-#: pyanaconda/network.py:1415 pyanaconda/ui/gui/spokes/network.glade:2099
+#: pyanaconda/network.py:1441 pyanaconda/ui/gui/spokes/network.glade:2099
 msgid "No network devices available"
 msgstr ""
 
@@ -1288,19 +1288,19 @@ msgid ""
 "(%(percent)d%%) done."
 msgstr ""
 
-#: pyanaconda/packaging/dnfpayload.py:634
+#: pyanaconda/packaging/dnfpayload.py:643
 msgid "Starting package installation process"
 msgstr ""
 
-#: pyanaconda/packaging/dnfpayload.py:651
+#: pyanaconda/packaging/dnfpayload.py:660
 msgid "Downloading packages"
 msgstr ""
 
-#: pyanaconda/packaging/dnfpayload.py:663
+#: pyanaconda/packaging/dnfpayload.py:672
 msgid "Preparing transaction from installation source"
 msgstr ""
 
-#: pyanaconda/packaging/dnfpayload.py:673
+#: pyanaconda/packaging/dnfpayload.py:682
 #, python-format
 msgid "Installing %s"
 msgstr ""
@@ -1431,27 +1431,55 @@ msgid "The following mandatory spokes are not completed:"
 msgstr ""
 
 #: pyanaconda/ui/tui/hubs/summary.py:97
+#, python-format
 msgid ""
-"  Please make your choice from above ['q' to quit | 'b' to begin "
-"installation |\n"
-"  'r' to refresh]: "
+"  Please make your choice from above ['%(quit)s' to quit | '%(begin)s' to "
+"begin installation |\n"
+"  '%(refresh)s' to refresh]: "
+msgstr ""
+
+#. TRANSLATORS: 'q' to quit
+#: pyanaconda/ui/tui/hubs/summary.py:99 pyanaconda/ui/tui/hubs/__init__.py:137
+#: pyanaconda/ui/tui/simpleline/base.py:462
+#: pyanaconda/ui/tui/simpleline/base.py:624
+#: pyanaconda/ui/tui/spokes/askvnc.py:111
+msgctxt "TUI|Spoke Navigation"
+msgid "q"
 msgstr ""
 
 #. TRANSLATORS: 'b' to begin installation
-#: pyanaconda/ui/tui/hubs/summary.py:111
+#: pyanaconda/ui/tui/hubs/summary.py:101 pyanaconda/ui/tui/hubs/summary.py:118
 msgctxt "TUI|Spoke Navigation"
 msgid "b"
 msgstr ""
 
-#: pyanaconda/ui/tui/hubs/summary.py:114
+#. TRANSLATORS: 'r' to refresh
+#. TRANSLATORS:'r' to refresh
+#. TRANSLATORS: 'r' to refresh
+#. TRANSLATORS:'r' to refresh
+#: pyanaconda/ui/tui/hubs/summary.py:103
+#: pyanaconda/ui/tui/hubs/__init__.py:141
+#: pyanaconda/ui/tui/simpleline/base.py:450
+#: pyanaconda/ui/tui/simpleline/base.py:628
+msgctxt "TUI|Spoke Navigation"
+msgid "r"
+msgstr ""
+
+#: pyanaconda/ui/tui/hubs/summary.py:121
 #: pyanaconda/ui/tui/hubs/__init__.py:116
 msgid "Please complete all spokes before continuing"
 msgstr ""
 
 #. TRANSLATORS: 'c' to continue
-#: pyanaconda/ui/tui/hubs/summary.py:125
+#. TRANSLATORS:'c' to continue
+#. TRANSLATORS: 'c' to continue
+#. TRANSLATORS:'c' to continue
+#. TRANSLATORS: 'c' to continue
+#: pyanaconda/ui/tui/hubs/summary.py:132
 #: pyanaconda/ui/tui/hubs/__init__.py:113
+#: pyanaconda/ui/tui/hubs/__init__.py:139
 #: pyanaconda/ui/tui/simpleline/base.py:456
+#: pyanaconda/ui/tui/simpleline/base.py:626
 #: pyanaconda/ui/tui/spokes/software.py:193
 msgctxt "TUI|Spoke Navigation"
 msgid "c"
@@ -1459,6 +1487,14 @@ msgstr ""
 
 #: pyanaconda/ui/tui/hubs/__init__.py:43
 msgid "Default HUB title"
+msgstr ""
+
+#: pyanaconda/ui/tui/hubs/__init__.py:133
+#, python-format
+msgid ""
+"  Please make your choice from [ '1' to enter the %(spoke_title)s spoke | "
+"'%(quit)s' to quit |\n"
+"  '%(continue)s' to continue | '%(refresh)s' to refresh]: "
 msgstr ""
 
 #: pyanaconda/ui/tui/tuiobject.py:30 pyanaconda/ui/gui/main.glade:72
@@ -1484,14 +1520,19 @@ msgid "Question"
 msgstr ""
 
 #: pyanaconda/ui/tui/tuiobject.py:131
-msgid "Please respond 'yes' or 'no': "
+#, python-format
+msgid "Please respond '%(yes)s' or '%(no)s': "
 msgstr ""
 
-#: pyanaconda/ui/tui/tuiobject.py:134
+#. TRANSLATORS: 'yes' as positive reply
+#: pyanaconda/ui/tui/tuiobject.py:133 pyanaconda/ui/tui/tuiobject.py:140
+msgctxt "TUI|Spoke Navigation"
 msgid "yes"
 msgstr ""
 
-#: pyanaconda/ui/tui/tuiobject.py:139
+#. TRANSLATORS: 'no' as negative reply
+#: pyanaconda/ui/tui/tuiobject.py:135 pyanaconda/ui/tui/tuiobject.py:146
+msgctxt "TUI|Spoke Navigation"
 msgid "no"
 msgstr ""
 
@@ -1499,27 +1540,16 @@ msgstr ""
 msgid "Do you really want to quit?"
 msgstr ""
 
-#. TRANSLATORS: 'r' to refresh
-#: pyanaconda/ui/tui/simpleline/base.py:450
-msgctxt "TUI|Spoke Navigation"
-msgid "r"
-msgstr ""
-
-#. TRANSLATORS: 'q' to quit
-#: pyanaconda/ui/tui/simpleline/base.py:462
-#: pyanaconda/ui/tui/spokes/askvnc.py:111
-msgctxt "TUI|Spoke Navigation"
-msgid "q"
-msgstr ""
-
-#: pyanaconda/ui/tui/simpleline/base.py:571 anaconda:514
+#: pyanaconda/ui/tui/simpleline/base.py:571 anaconda:515
 msgid "Press ENTER to continue"
 msgstr ""
 
-#: pyanaconda/ui/tui/simpleline/base.py:621
+#: pyanaconda/ui/tui/simpleline/base.py:622
+#, python-format
 msgid ""
-"  Please make your choice from above ['q' to quit | 'c' to continue |\n"
-"  'r' to refresh]: "
+"  Please make your choice from above ['%(quit)s' to quit | '%(continue)s' to "
+"continue |\n"
+"  '%(refresh)s' to refresh]: "
 msgstr ""
 
 #: pyanaconda/ui/tui/spokes/askvnc.py:46
@@ -1582,14 +1612,29 @@ msgstr ""
 
 #. TRANSLATORS: 'b' to go back
 #: pyanaconda/ui/tui/spokes/langsupport.py:117
+#: pyanaconda/ui/tui/spokes/langsupport.py:127
 msgctxt "TUI|Spoke Navigation|Language Support"
 msgid "b"
 msgstr ""
 
 #: pyanaconda/ui/tui/spokes/langsupport.py:125
+#, python-format
 msgid ""
 "Please select language support to install.\n"
-"[b to language list, c to continue, q to quit]: "
+"['%(back)s' to return to language list, '%(continue)s' to continue, "
+"'%(quit)s' to quit]: "
+msgstr ""
+
+#. TRANSLATORS:'c' to continue
+#: pyanaconda/ui/tui/spokes/langsupport.py:129
+msgctxt "TUI|Spoke Navigation|Language Support"
+msgid "c"
+msgstr ""
+
+#. TRANSLATORS:'q' to quit
+#: pyanaconda/ui/tui/spokes/langsupport.py:131
+msgctxt "TUI|Spoke Navigation|Language Support"
+msgid "q"
 msgstr ""
 
 #: pyanaconda/ui/tui/spokes/network.py:50
@@ -1862,10 +1907,25 @@ msgstr ""
 msgid "Available regions"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/time_spoke.py:144
+#. TRANSLATORS: 'b' to go back
+#: pyanaconda/ui/tui/spokes/time_spoke.py:117
+#: pyanaconda/ui/tui/spokes/time_spoke.py:147
+msgctxt "TUI|Spoke Navigation|Time Settings"
+msgid "b"
+msgstr ""
+
+#: pyanaconda/ui/tui/spokes/time_spoke.py:145
+#, python-format
 msgid ""
 "Please select the timezone.\n"
-"Use numbers or type names directly [b to region list, q to quit]: "
+"Use numbers or type names directly ['%(back)s' to region list, '%(quit)s' to "
+"quit]: "
+msgstr ""
+
+#. TRANSLATORS:'q' to quit
+#: pyanaconda/ui/tui/spokes/time_spoke.py:149
+msgctxt "TUI|Spoke Navigation|Time Settings"
+msgid "q"
 msgstr ""
 
 #: pyanaconda/ui/tui/spokes/shell_spoke.py:37
@@ -2012,25 +2072,31 @@ msgstr ""
 msgid "User creation"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/user.py:126 pyanaconda/ui/gui/spokes/user.py:386
+#: pyanaconda/ui/tui/spokes/user.py:74
+msgid ""
+"You have provided an invalid user name.\n"
+"Tip: Keep your user name shorter than 32 characters and do not use spaces.\n"
+msgstr ""
+
+#: pyanaconda/ui/tui/spokes/user.py:129 pyanaconda/ui/gui/spokes/user.py:386
 msgid "No user will be created"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/user.py:128
+#: pyanaconda/ui/tui/spokes/user.py:131
 msgid "You must set a password"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/user.py:130 pyanaconda/ui/gui/spokes/user.py:388
+#: pyanaconda/ui/tui/spokes/user.py:133 pyanaconda/ui/gui/spokes/user.py:388
 #, python-format
 msgid "Administrator %s will be created"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/user.py:132 pyanaconda/ui/gui/spokes/user.py:390
+#: pyanaconda/ui/tui/spokes/user.py:135 pyanaconda/ui/gui/spokes/user.py:390
 #, python-format
 msgid "User %s will be created"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/user.py:138
+#: pyanaconda/ui/tui/spokes/user.py:141
 #, python-format
 msgid "Invalid user name: %s.\n"
 msgstr ""
@@ -2063,51 +2129,48 @@ msgstr ""
 msgid "testing status..."
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/__init__.py:114
+#: pyanaconda/ui/tui/spokes/__init__.py:117
 msgid "New value"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/__init__.py:141
+#: pyanaconda/ui/tui/spokes/__init__.py:144
 #, python-format
 msgid "%s: "
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/__init__.py:142
+#: pyanaconda/ui/tui/spokes/__init__.py:145
 #, python-format
 msgid "%s (confirm): "
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/__init__.py:145
+#: pyanaconda/ui/tui/spokes/__init__.py:148
 msgid ""
 "You must enter your root password and confirm it by typing it a second time "
 "to continue."
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/__init__.py:167
+#: pyanaconda/ui/tui/spokes/__init__.py:170
 msgid ""
 "\n"
 "Would you like to use it anyway?"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/__init__.py:184
+#: pyanaconda/ui/tui/spokes/__init__.py:187
 msgid ""
 "You have provided a password containing non-ASCII characters.\n"
 "You may not be able to switch between keyboard layouts to login.\n"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/__init__.py:190
+#: pyanaconda/ui/tui/spokes/__init__.py:193
 #, python-format
 msgid "Enter new value for '%s' and press enter\n"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/__init__.py:201
-#, python-format
-msgid ""
-"You have provided an invalid user name: %s\n"
-"Tip: Keep your user name shorter than 32 characters and do not use spaces.\n"
+#: pyanaconda/ui/tui/spokes/__init__.py:204
+msgid "You have provided an invalid value\n"
 msgstr ""
 
-#: pyanaconda/ui/tui/spokes/__init__.py:315
+#: pyanaconda/ui/tui/spokes/__init__.py:317
 msgid "Password set."
 msgstr ""
 
@@ -5613,14 +5676,14 @@ msgstr ""
 msgid "Welcome to Fedora"
 msgstr ""
 
-#: anaconda:466
+#: anaconda:467
 #, python-format
 msgid ""
 "%(product_name)s requires %(needed_ram)s MB of memory to install, but you "
 "only have %(total_ram)s MB on this machine.\n"
 msgstr ""
 
-#: anaconda:468
+#: anaconda:469
 #, python-format
 msgid ""
 "The %(product_name)s graphical installer requires %(needed_ram)s MB of "
@@ -5628,17 +5691,17 @@ msgid ""
 "."
 msgstr ""
 
-#: anaconda:471
+#: anaconda:472
 msgid ""
 "\n"
 "Press <return> to reboot your system.\n"
 msgstr ""
 
-#: anaconda:473
+#: anaconda:474
 msgid "Not enough RAM"
 msgstr ""
 
-#: anaconda:474
+#: anaconda:475
 msgid ""
 " Try the text mode installer by running:\n"
 "\n"
@@ -5647,43 +5710,43 @@ msgid ""
 " from a root terminal."
 msgstr ""
 
-#: anaconda:477
+#: anaconda:478
 msgid " Starting text mode."
 msgstr ""
 
-#: anaconda:513
+#: anaconda:514
 msgid "The installation cannot continue and the system will be rebooted"
 msgstr ""
 
-#: anaconda:637
+#: anaconda:638
 msgid "DISPLAY variable not set. Starting text mode."
 msgstr ""
 
-#: anaconda:645
+#: anaconda:646
 msgid "Graphical installation is not available. Starting text mode."
 msgstr ""
 
-#: anaconda:653
+#: anaconda:654
 msgid ""
 "Text mode provides a limited set of installation options. It does not offer "
 "custom partitioning for full control over the disk layout. Would you like to "
 "use VNC mode instead?"
 msgstr ""
 
-#: anaconda:749
+#: anaconda:750
 #, python-format
 msgid "Please ssh install@%s to begin the install."
 msgstr ""
 
-#: anaconda:751
+#: anaconda:752
 msgid "Please ssh install@<host> to continue installation."
 msgstr ""
 
-#: anaconda:988
+#: anaconda:946
 msgid "Unable to create PID file"
 msgstr ""
 
-#: anaconda:989
+#: anaconda:947
 #, python-format
 msgid ""
 "Anaconda is unable to create %s because the file already exists. Anaconda is "
