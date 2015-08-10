@@ -14,6 +14,7 @@ lang en
 timezone America/New_York
 
 rootpw qweqwe
+shutdown
 
 %post
 if [[ ! -e /etc/passwd ]]; then
