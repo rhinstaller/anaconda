@@ -32,31 +32,3 @@ prepare() {
     sed -e "/ostreesetup/ s|REPO|${KSTEST_OSTREE_REPO}|" ${ks} > ${tmpdir}/kickstart.ks
     echo ${tmpdir}/kickstart.ks
 }
-
-validate() {
-    disksdir=$1
-    qemuArgs=$(for d in ${disksdir}/disk-*img; do echo -drive file=${d}; done)
-    virtCatArgs=$(for d in ${disksdir}/disk-*img; do echo -a ${d}; done)
-
-    # Now attempt to boot the resulting VM and see if the install
-    # actually worked.  The VM will shut itself down so there's no
-    # need to worry with that here.
-    timeout 5m /usr/bin/qemu-kvm -m 2048 \
-                                 -smp 2 \
-                                 ${qemuArgs} \
-                                 -vnc localhost:3
-
-    # There should be a /root/RESULT file with results in it.  Check
-    # its contents and decide whether the test finally succeeded or
-    # not.
-    result=$(virt-cat ${virtCatArgs} -m /dev/mapper/fedora-root /ostree/deploy/fedora-atomic/var/roothome/RESULT)
-    if [[ $? != 0 ]]; then
-        status=1
-        echo '*** /root/RESULT does not exist in VM image.'
-    elif [[ "${result}" != "SUCCESS" ]]; then
-        status=1
-        echo "${result}"
-    fi
-
-    return ${status}
-}

@@ -14,24 +14,7 @@ timezone America/New_York
 rootpw qweqwe
 shutdown
 
-%post
-cat <<EOF > /lib/systemd/system/default.target.wants/run-test.service
-[Unit]
-Description=Run a test to see if anaconda+ostree worked
-After=basic.target
-
-[Service]
-Type=oneshot
-ExecStart=/usr/bin/run-test.sh
-EOF
-
-cat <<EOF > /usr/bin/run-test.sh
-#!/bin/bash
-
-# For now, just the fact that we rebooted is good enough.
-echo SUCCESS > /root/RESULT
-shutdown -h now
-EOF
-
-chmod +x /usr/bin/run-test.sh
+%post --nochroot
+mkdir -p /mnt/sysimage/root/
+echo SUCCESS > /mnt/sysimage/root/RESULT
 %end
