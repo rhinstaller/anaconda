@@ -21,6 +21,7 @@
 
 from pyanaconda.ui.gui import GUIObject
 from pyanaconda.ui.gui.utils import escape_markup
+from pyanaconda.ui.lib.disks import getDiskDescription
 from pyanaconda.i18n import _
 
 from blivet.deviceaction import ACTION_TYPE_DESTROY, ACTION_TYPE_RESIZE, ACTION_OBJECT_FORMAT
@@ -56,7 +57,7 @@ class ActionSummaryDialog(GUIObject):
                 serial = action.device.serial
             elif hasattr(action.device, "disk"):
                 desc = _("%(deviceName)s on %(container)s") % {"deviceName": action.device.name,
-                                                               "container": action.device.disk.description}
+                                                               "container": getDiskDescription(action.device.disk)}
                 serial = action.device.disk.serial
             else:
                 desc = action.device.name

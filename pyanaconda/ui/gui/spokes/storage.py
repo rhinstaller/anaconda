@@ -50,6 +50,7 @@ from gi.repository import BlockDev as blockdev
 
 from pyanaconda.ui.communication import hubQ
 from pyanaconda.ui.lib.disks import getDisks, isLocalDisk, applyDiskSelection, checkDiskSelection
+from pyanaconda.ui.lib.disks import getDiskDescription
 from pyanaconda.ui.gui import GUIObject
 from pyanaconda.ui.gui.spokes import NormalSpoke
 from pyanaconda.ui.gui.spokes.lib.cart import SelectedDisksDialog
@@ -598,7 +599,7 @@ class StorageSpoke(NormalSpoke, StorageChecker):
             description = _("FCP device %(hba_id)s\nWWPN %(wwpn)s\nLUN %(lun)s") % \
                             {"hba_id": disk.hba_id, "wwpn": disk.wwpn, "lun": disk.fcp_lun}
         else:
-            description = disk.description
+            description = getDiskDescription(disk)
 
         free = self.storage.getFreeSpace(disks=[disk])[disk.name][0]
 
