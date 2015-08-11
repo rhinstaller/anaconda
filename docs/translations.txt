@@ -92,14 +92,28 @@ I do:
 CREATING A NEW ANACONDA BRANCH
 ------------------------------
 
-When we make a new branch, we need to branch the translation files.
+When we make a new branch, we need to branch the translation files. You can do
+this via the zanata web ui or using the command line client.
 
 On https://fedora.zanata.com go to the project and version to use as a base.
 Select 'New Version+' from the hidden drop down menu on the right.  Give it a
 name that matches the git branch. eg. f23-branch and select the version to copy
 from (usually master). Wait for it to finish processing documents.
 
-Create a new git branch:
+If using the command line client, first pull the current translations:
+    zanata po pull
+
+Now create a new branch:
+    zanata version create f23-branch --project-id=anaconda
+
+Push the source file:
+    zanata publican push --project-id=anaconda --project-version=f23-branch --srcdir=po anaconda.pot
+
+Check zanata.xml and change "master" to "f23-branch" in the project-id section.
+Remember to commit this change once you are done actually branching anaconda
+itself.
+
+Now create a new git branch in anaconda itself:
 
     git checkout master
     git clean -xdf
