@@ -449,6 +449,12 @@ class NetworkControlBox(GObject.GObject):
         return True
 
     def initialize(self):
+        # There is a signal for newly added devices from NetworkManager but it
+        # is registered after the initialize method.
+        # So if someone adds a new device in the Welcome screen the ifcfg file won't
+        # be created which causes anaconda to crash.
+        log.debug("Dump missing interfaces in NetworkControlBox initialize method")
+        network.dumpMissingDefaultIfcfgs()
         for device in self.client.get_devices():
             self.add_device_to_list(device)
 
