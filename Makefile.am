@@ -49,7 +49,7 @@ ZANATA_PUSH_ARGS = --srcdir $(srcdir)/po/ --push-type source --force
 
 INSTALLATION_GUIDE_REPO_URL = git://git.fedorahosted.org/git/docs/install-guide.git
 RC_RELEASE ?= $(shell date -u +0.1.%Y%m%d%H%M%S)
-MOCKCHROOT ?= rhel-7.2-candidate-x86_64
+MOCKCHROOT ?= rhel-7.2-candidate-$(shell uname -m)
 
 tag:
 	@git tag -s -a -m "Tag as $(ARCHIVE_TAG)" $(ARCHIVE_TAG)
@@ -218,3 +218,5 @@ get-help:
 	fi ; \
 	( cd install-guide && git pull --rebase && python prepare_anaconda_help_content.py )
 	cp -r install-guide/anaconda_help_content/* $(srcdir)/data/help
+
+ci: rc-release check
