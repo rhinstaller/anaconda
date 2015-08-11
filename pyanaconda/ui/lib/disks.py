@@ -122,3 +122,21 @@ def checkDiskSelection(storage, selected_disks):
                            "unselected": ",".join(missing)})
 
     return errors
+
+def getDiskDescription(disk):
+    """ Return a string describing the disk.
+
+        :param :class:`blivet.devices.DiskDevice` disk: disk object
+        :returns: A string describing the disk
+        :rtype: str
+
+        This function tries to create a user friendly string describing
+        the disk. Usually this is made of up the vendor and model strings
+        from sysfs, with a few exceptions:
+
+        Virtio Block Device is used when the vendor is set to 0x1af4
+    """
+    if disk.vendor == "0x1af4":
+        return "Virtio Block Device"
+
+    return disk.description()
