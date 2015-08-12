@@ -38,7 +38,7 @@ import time
 import threading
 import re
 import dbus
-import IPy
+import ipaddress
 from uuid import uuid4
 import itertools
 
@@ -91,15 +91,18 @@ def check_ip_address(address, version=None):
 
     """
     try:
-        _ip, ver = IPy.parseAddress(address)
+        if version == 4:
+            ipaddress.IPv4Address(address)
+        elif version == 6:
+            ipaddress.IPv6Address(address)
+        elif not version: # any of those
+            ipaddress.ip_address(address)
+        else:
+            log.error("IP version %s is not supported", version)
+            return False
+        return True
     except ValueError:
         return False
-    if version and version == ver:
-        return True
-    elif not version:
-        return True
-
-    return False
 
 def sanityCheckHostname(hostname):
     """

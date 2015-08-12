@@ -19,7 +19,6 @@
 # Red Hat Author(s): Chris Lumens <clumens@redhat.com>
 #
 
-from IPy import IP
 from collections import namedtuple
 
 import gi
@@ -34,6 +33,7 @@ from pyanaconda.ui.gui.utils import escape_markup
 from pyanaconda.i18n import _
 from pyanaconda import nm
 from pyanaconda.regexes import ISCSI_IQN_NAME_REGEX, ISCSI_EUI_NAME_REGEX
+from pyanaconda.network import check_ip_address
 
 __all__ = ["ISCSIDialog"]
 
@@ -304,11 +304,7 @@ class ISCSIDialog(GUIObject):
         widget = self.builder.get_object("targetEntry")
         text = widget.get_text()
 
-        try:
-            IP(text)
-            return True
-        except ValueError:
-            return False
+        return check_ip_address(text)
 
     def _initiator_name_valid(self):
         widget = self.builder.get_object("initiatorEntry")

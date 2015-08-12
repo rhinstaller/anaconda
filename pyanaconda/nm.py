@@ -535,7 +535,7 @@ def nm_device_ip_config(name, version=4):
 
     addr_list = []
     for addr, prefix, gateway in addresses:
-        # NOTE: There is IPy for python2, ipaddress for python3 but
+        # NOTE: There is an ipaddress for IP validation but
         # byte order of dbus value would need to be switched
         if version == 4:
             addr_str = nm_dbus_int_to_ipv4(addr)
