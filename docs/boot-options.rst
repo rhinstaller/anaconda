@@ -74,6 +74,11 @@ different ways:
 
     You can specify what version of the NFS protocol to use by adding ``nfsvers=X``
     to the `options`.
+    
+    This accepts not just an installable tree directory in the ``<path>`` element,
+    but you can also specify an ``.iso`` file. That ISO file is then mounted and 
+    used as the installation tree. This is often used for simulating a standard
+    DVD installation using a remote ``DVD.iso`` image.
 
 .. _diskdev:
 
