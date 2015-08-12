@@ -90,7 +90,6 @@ class SummaryHub(TUIHub):
         # user must confirm they want to begin installation
         flags.automatedInstall = False
 
-        # override the default prompt since we want to offer the 'b' to begin
         # installation option here
         return _("  Please make your choice from above ['%(quit)s' to quit | '%(begin)s' to begin installation |\n  '%(refresh)s' to refresh]: ") % {
             # TRANSLATORS: 'q' to quit
