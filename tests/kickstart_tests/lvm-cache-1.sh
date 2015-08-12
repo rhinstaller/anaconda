@@ -18,3 +18,12 @@
 # Red Hat Author(s): Chris Lumens <clumens@redhat.com>
 
 . ${KSTESTDIR}/functions.sh
+
+prepare_disks() {
+    tmpdir=$1
+
+    qemu-img create -q -f qcow2 ${tmpdir}/disk-a.img 10G
+    qemu-img create -q -f qcow2 ${tmpdir}/disk-b.img 10G
+    echo ${tmpdir}/disk-a.img
+    echo ${tmpdir}/disk-b.img
+}
