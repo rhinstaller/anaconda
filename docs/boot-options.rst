@@ -66,6 +66,11 @@ different ways:
 ``inst.repo=hd:<device>:<path>``
     Mount the given disk partition and install from the given path.
 
+    This accepts not just an installable tree directory in the ``<path>`` element,
+    but you can also specify an ``.iso`` file. That ISO file is then mounted and
+    used as the installation tree. This is often used for simulating a standard
+    DVD installation using a local ``DVD.iso`` image.
+
 ``inst.repo=[http,https,ftp]://<host>/<path>``
     Look for an installable tree at the given URL.
 
@@ -74,9 +79,9 @@ different ways:
 
     You can specify what version of the NFS protocol to use by adding ``nfsvers=X``
     to the `options`.
-    
+
     This accepts not just an installable tree directory in the ``<path>`` element,
-    but you can also specify an ``.iso`` file. That ISO file is then mounted and 
+    but you can also specify an ``.iso`` file. That ISO file is then mounted and
     used as the installation tree. This is often used for simulating a standard
     DVD installation using a remote ``DVD.iso`` image.
 
