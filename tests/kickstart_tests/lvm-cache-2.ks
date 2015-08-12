@@ -26,39 +26,39 @@ shutdown
 
 %post
 root_lv="/dev/mapper/fedora-root"
-root_uuid="UUID=$(blkid -o value -s UUID $root_lv)"
+root_uuid="UUID=$(blkid -o value -s UUID "$root_lv")"
 home_lv="/dev/mapper/fedora-home"
-home_uuid="UUID=$(blkid -o value -s UUID $home_lv)"
+home_uuid="UUID=$(blkid -o value -s UUID "$home_lv")"
 
 # verify root LV is mounted at /mnt/sysimage
-root_mount="$(grep ^$root_lv\\s/\\s /proc/mounts)"
+root_mount=$(grep ^$root_lv\\s/\\s /proc/mounts)
 if [ -z  "$root_mount" ]; then
     echo "*** lvm lv 'fedora-root' is not mounted at /" >> /root/RESULT
 fi
 
-root_fstype="$(echo $root_mount | cut -d' ' -f3)"
-if [ $root_fstype != "ext4" ]; then
+root_fstype=$(echo "$root_mount" | cut -d' ' -f3)
+if [ "$root_fstype" != "ext4" ]; then
     echo "*** lvm lv 'fedora-root' does not contain an ext4 fs" >> /root/RESULT
 fi
 
 # verify root entry in /etc/fstab is correct
-root_lv_entry="$(grep ^$root_lv\\s/\\s /etc/fstab)"
-root_uuid_entry="$(grep ^$root_uuid\\s/\\s /etc/fstab)"
+root_lv_entry=$(grep ^$root_lv\\s/\\s /etc/fstab)
+root_uuid_entry=$(grep ^$root_uuid\\s/\\s /etc/fstab)
 if [ -z "$root_lv_entry" -a -z "$root_uuid_entry" ] ; then
     echo "*** root LV is not the root entry in /etc/fstab" >> /root/RESULT
 fi
 
 # verify swap on lvm is active
 swap_lv="/dev/mapper/fedora-swap"
-swap_uuid="UUID=$(blkid -o value -s UUID $swap_lv)"
-swap_dm="$(basename $(readlink $swap_lv))"
-if ! grep -q $swap_dm /proc/swaps ; then
+swap_uuid="UUID=$(blkid -o value -s UUID "$swap_lv")"
+swap_dm=$(basename $(readlink "$swap_lv"))
+if ! grep -q "$swap_dm" /proc/swaps ; then
     echo "*** lvm lv 'fedora-swap' is not active as swap space" >> /root/RESULT
 fi
 
 # verify swap entry in /etc/fstab is correct
-swap_lv_entry="$(grep ^$swap_lv\\sswap\\s /etc/fstab)"
-swap_uuid_entry="$(grep ^$swap_uuid\\sswap\\s /etc/fstab)"
+swap_lv_entry=$(grep ^$swap_lv\\sswap\\s /etc/fstab)
+swap_uuid_entry=$(grep ^$swap_uuid\\sswap\\s /etc/fstab)
 if [ -z "$swap_lv_entry" -a -z "$swap_uuid_entry" ] ; then
     echo "*** swap lv is not in /etc/fstab" >> /root/RESULT
 fi
@@ -66,7 +66,7 @@ fi
 # verify size of swap lv
 # FIXME: this is not true now!
 # swap_lv_size=$(lvs --noheadings -o size --unit=m --nosuffix fedora/swap)
-# if [ $swap_lv_size != "500.00" ]; then
+# if [ "$swap_lv_size" != "500.00" ]; then
 #     echo "*** swap lv has incorrect size" >> /root/RESULT
 # fi
 
@@ -85,69 +85,69 @@ if [ $? != 0 ]; then
 fi
 
 # verify size of root LV's cache
-root_cache_size=$(lvs --noheadings -o size --unit=m --nosuffix fedora/root_cache | sed -r 's/([0-9]+)\..*/\1/')
-root_cache_md_size=$(lvs --noheadings -o size --unit=m --nosuffix fedora/root_cache_cmeta | sed -r 's/([0-9]+)\..*/\1/')
+root_cache_size=$(lvs --noheadings -o size --unit=m --nosuffix fedora/root_cache | sed -r 's/\s*([0-9]+)\..*/\1/')
+root_cache_md_size=$(lvs --noheadings -o size --unit=m --nosuffix fedora/root_cache_cmeta | sed -r 's/\s*([0-9]+)\..*/\1/')
 root_cache_all=$(($root_cache_size + $root_cache_md_size))
-if [ $root_cache_all != "1000" ]; then
+if [ "$root_cache_all" != "1000" ]; then
     echo "*** root LV's cache has incorrect size" >> /root/RESULT
 fi
 
 # verify size of home LV's cache
-home_cache_size=$(lvs --noheadings -o size --unit=m --nosuffix fedora/home_cache | sed -r 's/([0-9]+)\..*/\1/')
-home_cache_md_size=$(lvs --noheadings -o size --unit=m --nosuffix fedora/home_cache_cmeta | sed -r 's/([0-9]+)\..*/\1/')
+home_cache_size=$(lvs --noheadings -o size --unit=m --nosuffix fedora/home_cache | sed -r 's/\s*([0-9]+)\..*/\1/')
+home_cache_md_size=$(lvs --noheadings -o size --unit=m --nosuffix fedora/home_cache_cmeta | sed -r 's/\s*([0-9]+)\..*/\1/')
 home_cache_all=$(($home_cache_size + $home_cache_md_size))
-if [ $home_cache_all != "1000" ]; then
+if [ "$home_cache_all" != "1000" ]; then
     echo "*** home LV's cache has incorrect size" >> /root/RESULT
 fi
 
 # verify mode of root LV's cache
-root_cache_mode=$(lvs --noheadings -o cachemode fedora/root)
-if [ $root_cache_mode != "writethrough" ]; then
+root_cache_mode=$(lvs --noheadings -o cachemode fedora/root|sed -r 's/\s*//')
+if [ "$root_cache_mode" != "writethrough" ]; then
     echo "*** root LV's cache has wrong mode" >> /root/RESULT
 fi
 
 # verify mode of home LV's cache
-home_cache_mode=$(lvs --noheadings -o cachemode fedora/home)
-if [ $home_cache_mode != "writeback" ]; then
+home_cache_mode=$(lvs --noheadings -o cachemode fedora/home|sed -r 's/\s*//')
+if [ "$home_cache_mode" != "writeback" ]; then
     echo "*** home LV's cache has wrong mode" >> /root/RESULT
 fi
 
 # verify caches are using (only) the right (aka "faster") PV for both data and metadata
-fast_pv=$(pvs --noheadings -o name,size --unit m --nosuffix|grep 3100|sed -r 's/\s+(\S+)\s+.*/\1/')
+fast_pv=$(pvs --noheadings -o name,size --unit m --nosuffix|egrep '3[0-9]{3}'|sed -r 's/\s+(\S+)\s+.*/\1/')
 
 root_cache_num_pvs=$(lvs -a --noheadings -o devices fedora/root_cache_cdata|wc -l)
-if [ $root_cache_num_pvs != "1" ]; then
+if [ "$root_cache_num_pvs" != "1" ]; then
     echo "*** root LV's cache is using multiple PVs" >> /root/RESULT
 fi
 home_cache_num_pvs=$(lvs -a --noheadings -o devices fedora/home_cache_cdata|wc -l)
-if [ $home_cache_num_pvs != "1" ]; then
+if [ "$home_cache_num_pvs" != "1" ]; then
     echo "*** home LV's cache is using multiple PVs" >> /root/RESULT
 fi
 
 root_cache_num_pvs=$(lvs -a --noheadings -o devices fedora/root_cache_cmeta|wc -l)
-if [ $root_cache_num_pvs != "1" ]; then
+if [ "$root_cache_num_pvs" != "1" ]; then
     echo "*** root LV's cache (meta) is using multiple PVs" >> /root/RESULT
 fi
 home_cache_num_pvs=$(lvs -a --noheadings -o devices fedora/home_cache_cmeta|wc -l)
-if [ $home_cache_num_pvs != "1" ]; then
+if [ "$home_cache_num_pvs" != "1" ]; then
     echo "*** home LV's cache (meta) is using multiple PVs" >> /root/RESULT
 fi
 
-root_cache_pv=$(lvs -a --noheadings -o devices fedora/root_cache_cdata|sed -r 's/([^(]+)\(.*/\1/')
-if [ $root_cache_pv != $fast_pv ]; then
+root_cache_pv=$(lvs -a --noheadings -o devices fedora/root_cache_cdata|sed -r 's/\s*([^(]+)\(.*/\1/')
+if [ "$root_cache_pv" != "$fast_pv" ]; then
     echo "*** root LV's cache is using wrong PV" >> /root/RESULT
 fi
-home_cache_pv=$(lvs -a --noheadings -o devices fedora/home_cache_cdata|sed -r 's/([^(]+)\(.*/\1/')
-if [ $home_cache_pv != $fast_pv ]; then
+home_cache_pv=$(lvs -a --noheadings -o devices fedora/home_cache_cdata|sed -r 's/\s*([^(]+)\(.*/\1/')
+if [ "$home_cache_pv" != "$fast_pv" ]; then
     echo "*** home LV's cache is using wrong PV" >> /root/RESULT
 fi
 
-root_cache_pv=$(lvs -a --noheadings -o devices fedora/root_cache_cmeta|sed -r 's/([^(]+)\(.*/\1/')
-if [ $root_cache_pv != $fast_pv ]; then
+root_cache_pv=$(lvs -a --noheadings -o devices fedora/root_cache_cmeta|sed -r 's/\s*([^(]+)\(.*/\1/')
+if [ "$root_cache_pv" != "$fast_pv" ]; then
     echo "*** root LV's cache (meta) is using wrong PV" >> /root/RESULT
 fi
-home_cache_pv=$(lvs -a --noheadings -o devices fedora/home_cache_cmeta|sed -r 's/([^(]+)\(.*/\1/')
-if [ $home_cache_pv != $fast_pv ]; then
+home_cache_pv=$(lvs -a --noheadings -o devices fedora/home_cache_cmeta|sed -r 's/\s*([^(]+)\(.*/\1/')
+if [ "$home_cache_pv" != "$fast_pv" ]; then
     echo "*** home LV's cache (meta) is using wrong PV" >> /root/RESULT
 fi
 
