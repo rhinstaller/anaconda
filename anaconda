@@ -36,7 +36,7 @@ coverage = None
 # If we get a signal immediately after starting that would be pretty messed up
 proc_cmdline = open("/proc/cmdline", "r").read()    # pylint: disable=interruptible-system-call
 proc_cmdline = proc_cmdline.split()
-if ("debug=1" in proc_cmdline) or ("debug" in proc_cmdline):
+if ("inst.debug=1" in proc_cmdline) or ("inst.debug" in proc_cmdline):
     import coverage
     cov = coverage.coverage(data_file="/mnt/sysimage/root/anaconda.coverage",
                             branch=True,
