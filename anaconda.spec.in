@@ -310,6 +310,10 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Thu Aug 13 2015 Brian C. Lane <bcl@redhat.com> - 21.48.22.33-1
+- Re-enable addons as additional repositories. (clumens)
+  Resolves: rhbz#1248323
+
 * Wed Aug 12 2015 Brian C. Lane <bcl@redhat.com> - 21.48.22.32-1
 - product.img buildstamp should override distribution buildstamp (bcl)
   Resolves: rhbz#1240238
