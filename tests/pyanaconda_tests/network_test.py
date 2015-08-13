@@ -17,6 +17,7 @@
 # Red Hat, Inc.
 #
 # Red Hat Author(s): Radek Vykydal <rvykydal@redhat.com>
+#                    Jiri Konecny <jkonecny@redhat.com>
 
 from pyanaconda import network
 import unittest
@@ -151,6 +152,130 @@ class NetworkTests(unittest.TestCase):
         self.assertNotEqual(network.ks_spec_to_device_name("00:00:00:00:00:00"), "eth1")
         self.assertEqual(network.ks_spec_to_device_name("bootif"), "eth1")
         self.assertNotEqual(network.ks_spec_to_device_name("bootif"), "eth0")
+
+    def nm_check_ip_address_test(self,):
+        good_IPv4_tests = [
+                '1.2.3.4',
+                '0.0.0.0',
+                '10.20.30.40',
+                '255.255.255.255',
+                '249.249.249.249'
+                ]
+        good_IPv6_tests = [
+                '0000:0000:0000:0000:0000:0000:0000:0000',
+                '0000:0000:0000:0000:0000:0000:1.2.3.4',
+                '::a:b:c:d:e:f:1',
+                '::a:b:c:d:e:255.255.255.255',
+                '1::a:b:c:d:e:f',
+                '1::a:b:c:d:255.255.255.255',
+                '1:12::a:b:c:d:e',
+                '1:12::a:b:c:10.20.30.40',
+                '12::a:b:c:d:e',
+                '12::a:b:c:10.20.30.40',
+                '1:12:123::a:b:c:d',
+                '1:12:123::a:b:100.200.250.249',
+                '12:123::a:b:c:d',
+                '12:123::a:b:100.200.250.249',
+                '123::a:b:c:d',
+                '123::a:b:100.200.250.249',
+                '::a:b:c:d',
+                '::a:b:100.200.250.249',
+                '1:12:123:1234::a:b:c',
+                '1:12:123:1234::a:1.20.30.99',
+                '12:123:1234::a:b:c',
+                '12:123:1234::a:1.20.30.99',
+                '123:1234::a:b:c',
+                '123:1234::a:1.20.30.99',
+                '1234::a:b:c',
+                '1234::a:1.20.30.99',
+                '::a:b:c',
+                '::a:1.20.30.99',
+                '1:12:123:1234:abcd::a:b',
+                '1:12:123:1234:abcd::0.0.0.0',
+                '12:123:1234:abcd::a:b',
+                '12:123:1234:abcd::0.0.0.0',
+                '123:1234:abcd::a:b',
+                '123:1234:abcd::0.0.0.0',
+                '1234:abcd::a:b',
+                '1234:abcd::0.0.0.0',
+                'abcd::a:b',
+                'abcd::0.0.0.0',
+                '::a:b',
+                '::0.0.0.0',
+                '1:12:123:1234:dead:beef::aaaa',
+                '12:123:1234:dead:beef::aaaa',
+                '123:1234:dead:beef::aaaa',
+                '1234:dead:beef::aaaa',
+                'dead:beef::aaaa',
+                'beef::aaaa',
+                '::aaaa',
+                '::'
+                ]
+
+        bad_IPv4_tests = [
+                '1.2.3.',
+                '1.2.3',
+                '256.2.3.4',
+                'a.b.c.d',
+                '1.2.3.400'
+                '....',
+                '1..2.3'
+                ]
+        bad_IPv6_tests = [
+                # Too many bits
+                '0000:0000:0000:0000:0000:0000:0000:0000:0000'
+                '0000:0000:0000:0000:0000:0000:0000:1.2.3.4',
+                '0000:0000:0000:0000:0000:0000:1.2.3.4.5',
+                # Not enough bits
+                '0000:0000:0000:0000:0000:0000:0000',
+                '0000:0000:0000:0000:0000:1.2.3.4',
+                # zero-length contractions
+                '0000::0000:0000:0000:0000:0000:1.2.3.4',
+                '0000:0000::0000:0000:0000:0000:1.2.3.4',
+                '0000:0000:0000::0000:0000:0000:1.2.3.4',
+                '0000:0000:0000:0000::0000:0000:1.2.3.4',
+                '0000:0000:0000:0000:0000::0000:1.2.3.4',
+                '0000:0000:0000:0000:0000:0000::1.2.3.4',
+                '123::4567:89:a:bcde:f0f0:aaaa:8',
+                '123:4567::89:a:bcde:f0f0:aaaa:8',
+                '123:4567:89::a:bcde:f0f0:aaaa:8',
+                '123:4567:89:a:bcde::f0f0:aaaa:8',
+                '123:4567:89:a:bcde:f0f0::aaaa:8',
+                '123:4567:89:a:bcde:f0f0:aaaa::8',
+                # too many contractions
+                'a::b::c',
+                '::a::b',
+                'a::b::',
+                # invalid numbers
+                '00000::0000',
+                'defg::',
+                '12345::abcd',
+                'ffff::0x1e'
+                ]
+
+        # test good IPv4
+        for i in good_IPv4_tests:
+            self.assertTrue(network.check_ip_address(i, version=4))
+            self.assertTrue(network.check_ip_address(i))
+            self.assertFalse(network.check_ip_address(i, version=6))
+
+        # test bad Ipv4
+        for i in bad_IPv4_tests:
+            self.assertFalse(network.check_ip_address(i))
+            self.assertFalse(network.check_ip_address(i, version=4))
+            self.assertFalse(network.check_ip_address(i, version=6))
+
+        # test good IPv6
+        for i in good_IPv6_tests:
+            self.assertTrue(network.check_ip_address(i, version=6))
+            self.assertTrue(network.check_ip_address(i))
+            self.assertFalse(network.check_ip_address(i, version=4))
+
+        # test bad IPv6
+        for i in bad_IPv6_tests:
+            self.assertFalse(network.check_ip_address(i))
+            self.assertFalse(network.check_ip_address(i, version=6))
+            self.assertFalse(network.check_ip_address(i, version=4))
 
 class NetworkKSDataTests(unittest.TestCase):
 
