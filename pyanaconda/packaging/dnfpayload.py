@@ -737,7 +737,7 @@ class DNFPayload(packaging.PackagePayload):
         if os.path.exists(_DNF_TARGET_LANGPACK_CONF):
             shutil.copy2(_DNF_TARGET_LANGPACK_CONF, _DNF_INSTALLER_LANGPACK_CONF)
         else:
-            with open(_DNF_TARGET_LANGPACK_CONF, "w") as f:
+            with open(_DNF_INSTALLER_LANGPACK_CONF, "w") as f:
                 f.write("[main]\n")
 
         # langpacks.conf is an INI style config file, read it and
