@@ -887,7 +887,7 @@ class NetworkControlBox(GObject.GObject):
             if active_ap:
                 combobox = self.builder.get_object("combobox_wireless_network_name")
                 for i in combobox.get_model():
-                    if i[1] == active_ap.get_ssid():
+                    if i[6] == active_ap.get_ssid():
                         combobox.set_active_iter(i.iter)
                         self.selected_ssid = active_ap.get_ssid()
                         break
