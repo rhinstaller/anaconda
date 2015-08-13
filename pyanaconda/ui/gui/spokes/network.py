@@ -35,11 +35,11 @@ gi.require_version("GLib", "2.0")
 gi.require_version("GObject", "2.0")
 gi.require_version("Pango", "1.0")
 gi.require_version("Gio", "2.0")
-gi.require_version("NetworkManager", "1.0")
+gi.require_version("NM", "1.0")
 gi.require_version("NMClient", "1.0")
 
 from gi.repository import Gtk
-from gi.repository import GLib, GObject, Pango, Gio, NetworkManager, NMClient
+from gi.repository import GLib, GObject, Pango, Gio, NM, NMClient
 
 from pyanaconda.flags import can_touch_runtime_system
 from pyanaconda.i18n import _, N_, C_, CN_
@@ -95,35 +95,35 @@ DEVICES_COLUMN_OBJECT = 3
 def localized_string_of_device_state(device, state):
     s = _("Status unknown (missing)")
 
-    if state == NetworkManager.DeviceState.UNKNOWN:
+    if state == NM.DeviceState.UNKNOWN:
         s = _("Status unknown")
-    elif state == NetworkManager.DeviceState.UNMANAGED:
+    elif state == NM.DeviceState.UNMANAGED:
         s = _("Unmanaged")
-    elif state == NetworkManager.DeviceState.UNAVAILABLE:
+    elif state == NM.DeviceState.UNAVAILABLE:
         if not device:
             s = _("Unavailable")
         elif device.get_firmware_missing():
             s = _("Firmware missing")
         else:
             s = _("Unavailable")
-    elif state == NetworkManager.DeviceState.DISCONNECTED:
-        if (device and device.get_device_type() == NetworkManager.DeviceType.ETHERNET
+    elif state == NM.DeviceState.DISCONNECTED:
+        if (device and device.get_device_type() == NM.DeviceType.ETHERNET
               and not device.get_carrier()):
             s = _("Cable unplugged")
         else:
             s = _("Disconnected")
-    elif state in (NetworkManager.DeviceState.PREPARE,
-                   NetworkManager.DeviceState.CONFIG,
-                   NetworkManager.DeviceState.IP_CONFIG,
-                   NetworkManager.DeviceState.IP_CHECK):
+    elif state in (NM.DeviceState.PREPARE,
+                   NM.DeviceState.CONFIG,
+                   NM.DeviceState.IP_CONFIG,
+                   NM.DeviceState.IP_CHECK):
         s = _("Connecting")
-    elif state == NetworkManager.DeviceState.NEED_AUTH:
+    elif state == NM.DeviceState.NEED_AUTH:
         s = _("Authentication required")
-    elif state == NetworkManager.DeviceState.ACTIVATED:
+    elif state == NM.DeviceState.ACTIVATED:
         s = _("Connected")
-    elif state == NetworkManager.DeviceState.DEACTIVATING:
+    elif state == NM.DeviceState.DEACTIVATING:
         s = _("Disconnecting")
-    elif state == NetworkManager.DeviceState.FAILED:
+    elif state == NM.DeviceState.FAILED:
         s = _("Connection failed")
 
     return s
@@ -222,12 +222,12 @@ class CellRendererSecurity(Gtk.CellRendererPixbuf):
 class DeviceConfiguration(object):
 
     setting_types = {
-        '802-11-wireless': NetworkManager.DeviceType.WIFI,
-        '802-3-ethernet': NetworkManager.DeviceType.ETHERNET,
-        'vlan': NetworkManager.DeviceType.VLAN,
-        'bond': NetworkManager.DeviceType.BOND,
-        'team': NetworkManager.DeviceType.TEAM,
-        'bridge': NetworkManager.DeviceType.BRIDGE,
+        '802-11-wireless': NM.DeviceType.WIFI,
+        '802-3-ethernet': NM.DeviceType.ETHERNET,
+        'vlan': NM.DeviceType.VLAN,
+        'bond': NM.DeviceType.BOND,
+        'team': NM.DeviceType.TEAM,
+        'bridge': NM.DeviceType.BRIDGE,
         }
 
     def __init__(self, device=None, con_uuid=None):
@@ -240,7 +240,7 @@ class DeviceConfiguration(object):
             self.device_type = self._setting_device_type(self.con_uuid)
 
         if not self.con_uuid:
-            if self.device_type != NetworkManager.DeviceType.WIFI:
+            if self.device_type != NM.DeviceType.WIFI:
                 uuid = nm.nm_device_setting_value(device.get_iface(), "connection", "uuid")
                 settings = nm.nm_get_settings(uuid, "connection", "uuid")
                 if settings and 'slave-type' not in settings[0]['connection']:
@@ -286,35 +286,35 @@ class NetworkControlBox(GObject.GObject):
     }
 
     supported_device_types = [
-        NetworkManager.DeviceType.ETHERNET,
-        NetworkManager.DeviceType.WIFI,
-        NetworkManager.DeviceType.TEAM,
-        NetworkManager.DeviceType.BOND,
-        NetworkManager.DeviceType.VLAN,
-        NetworkManager.DeviceType.BRIDGE,
+        NM.DeviceType.ETHERNET,
+        NM.DeviceType.WIFI,
+        NM.DeviceType.TEAM,
+        NM.DeviceType.BOND,
+        NM.DeviceType.VLAN,
+        NM.DeviceType.BRIDGE,
     ]
 
     wired_ui_device_types = [
-        NetworkManager.DeviceType.ETHERNET,
-        NetworkManager.DeviceType.TEAM,
-        NetworkManager.DeviceType.BOND,
-        NetworkManager.DeviceType.VLAN,
-        NetworkManager.DeviceType.BRIDGE,
+        NM.DeviceType.ETHERNET,
+        NM.DeviceType.TEAM,
+        NM.DeviceType.BOND,
+        NM.DeviceType.VLAN,
+        NM.DeviceType.BRIDGE,
     ]
 
     device_type_sort_value = {
-        NetworkManager.DeviceType.ETHERNET : "1",
-        NetworkManager.DeviceType.WIFI : "2",
+        NM.DeviceType.ETHERNET : "1",
+        NM.DeviceType.WIFI : "2",
     }
 
     device_type_name = {
-        NetworkManager.DeviceType.UNKNOWN: N_("Unknown"),
-        NetworkManager.DeviceType.ETHERNET: N_("Ethernet"),
-        NetworkManager.DeviceType.WIFI: N_("Wireless"),
-        NetworkManager.DeviceType.BOND: N_("Bond"),
-        NetworkManager.DeviceType.VLAN: N_("VLAN"),
-        NetworkManager.DeviceType.TEAM: N_("Team"),
-        NetworkManager.DeviceType.BRIDGE: N_("Bridge"),
+        NM.DeviceType.UNKNOWN: N_("Unknown"),
+        NM.DeviceType.ETHERNET: N_("Ethernet"),
+        NM.DeviceType.WIFI: N_("Wireless"),
+        NM.DeviceType.BOND: N_("Bond"),
+        NM.DeviceType.VLAN: N_("VLAN"),
+        NM.DeviceType.TEAM: N_("Team"),
+        NM.DeviceType.BRIDGE: N_("Bridge"),
     }
 
     def __init__(self, builder, spoke=None):
@@ -447,11 +447,11 @@ class NetworkControlBox(GObject.GObject):
             return False
         # Configs for ethernet has been already added,
         # this must be some slave
-        if dev_cfg.device_type == NetworkManager.DeviceType.ETHERNET:
+        if dev_cfg.device_type == NM.DeviceType.ETHERNET:
             log.debug("network: GUI, not adding slave connection %s", uuid)
             return False
         # Wireless settings are handled in scope of its device's dev_cfg
-        if dev_cfg.device_type == NetworkManager.DeviceType.WIFI:
+        if dev_cfg.device_type == NM.DeviceType.WIFI:
             log.debug("network: GUI, not adding wireless connection %s", uuid)
             return False
         self.add_dev_cfg(dev_cfg)
@@ -485,7 +485,7 @@ class NetworkControlBox(GObject.GObject):
 
     def on_device_state_changed(self, device, new_state, *args):
         self.emit("device-state-changed", device.get_iface(), new_state, *args)
-        if new_state == NetworkManager.DeviceState.SECONDARIES:
+        if new_state == NM.DeviceState.SECONDARIES:
             return
         self._refresh_carrier_info()
         dev_cfg = self.selected_dev_cfg()
@@ -555,7 +555,7 @@ class NetworkControlBox(GObject.GObject):
         devname = dev_cfg.get_iface()
         activate = None
 
-        if dev_cfg.device_type == NetworkManager.DeviceType.WIFI:
+        if dev_cfg.device_type == NM.DeviceType.WIFI:
             if self.selected_ssid:
                 try:
                     uuid = nm.nm_ap_setting_value(self.selected_ssid, "connection", "uuid")
@@ -571,7 +571,7 @@ class NetworkControlBox(GObject.GObject):
             log.debug("network: on_edit_connection: can't find connection for device %s", devname)
             return
 
-        if dev_cfg.device_type != NetworkManager.DeviceType.WIFI \
+        if dev_cfg.device_type != NM.DeviceType.WIFI \
            and dev_cfg.get_iface() in nm.nm_activated_devices():
             # Reactivate the connection after configuring it (if it changed)
             settings = nm.nm_get_settings(uuid, "connection", "uuid")
@@ -629,7 +629,7 @@ class NetworkControlBox(GObject.GObject):
 
         log.info("network: device %s switched %s", dev_cfg.get_iface(), "on" if active else "off")
 
-        if dev_cfg.device_type == NetworkManager.DeviceType.WIFI:
+        if dev_cfg.device_type == NM.DeviceType.WIFI:
             self.client.wireless_set_enabled(active)
         else:
             if active:
@@ -728,13 +728,13 @@ class NetworkControlBox(GObject.GObject):
         icon_name = ""
         if dev_cfg.device_type in self.wired_ui_device_types:
             if dev_cfg.device:
-                if dev_cfg.device.get_state() == NetworkManager.DeviceState.UNAVAILABLE:
+                if dev_cfg.device.get_state() == NM.DeviceState.UNAVAILABLE:
                     icon_name = "network-wired-disconnected"
                 else:
                     icon_name = "network-wired"
             else:
                 icon_name = "network-wired-disconnected"
-        elif dev_cfg.device_type == NetworkManager.DeviceType.WIFI:
+        elif dev_cfg.device_type == NM.DeviceType.WIFI:
             icon_name = "network-wireless"
 
         return icon_name
@@ -743,8 +743,8 @@ class NetworkControlBox(GObject.GObject):
         unplugged = ''
 
         if dev_cfg.device:
-            if (dev_cfg.device.get_state() == NetworkManager.DeviceState.UNAVAILABLE
-                and dev_cfg.device.get_device_type() == NetworkManager.DeviceType.ETHERNET
+            if (dev_cfg.device.get_state() == NM.DeviceState.UNAVAILABLE
+                and dev_cfg.device.get_device_type() == NM.DeviceType.ETHERNET
                 and not dev_cfg.device.get_carrier()):
                 # TRANSLATORS: ethernet cable is unplugged
                 unplugged = ', <i>%s</i>' % escape_markup(_("unplugged"))
@@ -802,7 +802,7 @@ class NetworkControlBox(GObject.GObject):
 
         if dev_cfg.device_type in self.wired_ui_device_types:
             dt = "wired"
-        elif dev_cfg.device_type == NetworkManager.DeviceType.WIFI:
+        elif dev_cfg.device_type == NM.DeviceType.WIFI:
             dt = "wireless"
 
         if dev_cfg.device:
@@ -847,12 +847,12 @@ class NetworkControlBox(GObject.GObject):
         return False
 
     def _refresh_ap(self, dev_cfg, state=None):
-        if dev_cfg.device_type != NetworkManager.DeviceType.WIFI:
+        if dev_cfg.device_type != NM.DeviceType.WIFI:
             return
 
         if state is None:
             state = dev_cfg.device.get_state()
-        if state == NetworkManager.DeviceState.UNAVAILABLE:
+        if state == NM.DeviceState.UNAVAILABLE:
             ap_str = None
         else:
             active_ap = dev_cfg.device.get_active_access_point()
@@ -869,7 +869,7 @@ class NetworkControlBox(GObject.GObject):
 
         self._set_device_info_value("wireless", "security", ap_str)
 
-        if state == NetworkManager.DeviceState.UNAVAILABLE:
+        if state == NM.DeviceState.UNAVAILABLE:
             self.builder.get_object("heading_wireless_network_name").hide()
             self.builder.get_object("combobox_wireless_network_name").hide()
         else:
@@ -894,16 +894,16 @@ class NetworkControlBox(GObject.GObject):
             self._updating_device = False
 
     def _refresh_slaves(self, dev_cfg):
-        if dev_cfg.device_type in [NetworkManager.DeviceType.BOND,
-                                   NetworkManager.DeviceType.TEAM,
-                                   NetworkManager.DeviceType.BRIDGE]:
+        if dev_cfg.device_type in [NM.DeviceType.BOND,
+                                   NM.DeviceType.TEAM,
+                                   NM.DeviceType.BRIDGE]:
             slaves = ""
             if dev_cfg.device:
                 slaves = ",".join(s.get_iface() for s in dev_cfg.device.get_slaves())
             self._set_device_info_value("wired", "slaves", slaves)
 
     def _refresh_parent_vlanid(self, dev_cfg):
-        if dev_cfg.device_type == NetworkManager.DeviceType.VLAN:
+        if dev_cfg.device_type == NM.DeviceType.VLAN:
             if dev_cfg.device:
                 vlanid = dev_cfg.device.get_vlan_id()
             else:
@@ -916,20 +916,20 @@ class NetworkControlBox(GObject.GObject):
         dev_type = dev_cfg.device_type
         if dev_type in self.wired_ui_device_types:
             dt = "wired"
-        elif dev_type == NetworkManager.DeviceType.WIFI:
+        elif dev_type == NM.DeviceType.WIFI:
             dt = "wireless"
 
         # Speed
         speed = None
         if dev_cfg.device:
-            if dev_type == NetworkManager.DeviceType.ETHERNET:
+            if dev_type == NM.DeviceType.ETHERNET:
                 speed = dev_cfg.device.get_speed()
-            elif dev_type == NetworkManager.DeviceType.WIFI:
+            elif dev_type == NM.DeviceType.WIFI:
                 speed = dev_cfg.device.get_bitrate() / 1000
             if state is None:
                 state = dev_cfg.device.get_state()
 
-        if not dev_cfg.device or state == NetworkManager.DeviceState.UNAVAILABLE:
+        if not dev_cfg.device or state == NM.DeviceState.UNAVAILABLE:
             speed_str = None
         elif speed:
             speed_str = _("%d Mb/s") % speed
@@ -942,7 +942,7 @@ class NetworkControlBox(GObject.GObject):
 
     def _refresh_device_type_page(self, dev_type):
         notebook = self.builder.get_object("notebook_types")
-        if dev_type == NetworkManager.DeviceType.ETHERNET:
+        if dev_type == NM.DeviceType.ETHERNET:
             notebook.set_current_page(0)
             self.builder.get_object("heading_wired_slaves").hide()
             self.builder.get_object("label_wired_slaves").hide()
@@ -951,9 +951,9 @@ class NetworkControlBox(GObject.GObject):
             self.builder.get_object("heading_wired_parent").hide()
             self.builder.get_object("label_wired_parent").hide()
             self.builder.get_object("remove_toolbutton").set_sensitive(False)
-        elif dev_type in [NetworkManager.DeviceType.BOND,
-                          NetworkManager.DeviceType.TEAM,
-                          NetworkManager.DeviceType.BRIDGE]:
+        elif dev_type in [NM.DeviceType.BOND,
+                          NM.DeviceType.TEAM,
+                          NM.DeviceType.BRIDGE]:
             notebook.set_current_page(0)
             self.builder.get_object("heading_wired_slaves").show()
             self.builder.get_object("label_wired_slaves").show()
@@ -962,7 +962,7 @@ class NetworkControlBox(GObject.GObject):
             self.builder.get_object("heading_wired_parent").hide()
             self.builder.get_object("label_wired_parent").hide()
             self.builder.get_object("remove_toolbutton").set_sensitive(True)
-        elif dev_type == NetworkManager.DeviceType.VLAN:
+        elif dev_type == NM.DeviceType.VLAN:
             notebook.set_current_page(0)
             self.builder.get_object("heading_wired_slaves").hide()
             self.builder.get_object("label_wired_slaves").hide()
@@ -971,7 +971,7 @@ class NetworkControlBox(GObject.GObject):
             self.builder.get_object("heading_wired_parent").show()
             self.builder.get_object("label_wired_parent").show()
             self.builder.get_object("remove_toolbutton").set_sensitive(True)
-        elif dev_type == NetworkManager.DeviceType.WIFI:
+        elif dev_type == NM.DeviceType.WIFI:
             notebook.set_current_page(1)
             self.builder.get_object("button_wireless_options").set_sensitive(self.selected_ssid is not None)
 
@@ -982,7 +982,7 @@ class NetworkControlBox(GObject.GObject):
     def _refresh_header_ui(self, dev_cfg, state=None):
         if dev_cfg.device_type in self.wired_ui_device_types:
             dev_type_str = "wired"
-        elif dev_cfg.device_type == NetworkManager.DeviceType.WIFI:
+        elif dev_cfg.device_type == NM.DeviceType.WIFI:
             dev_type_str = "wireless"
 
         if dev_type_str == "wired":
@@ -997,7 +997,7 @@ class NetworkControlBox(GObject.GObject):
 
         if state is None:
             if not dev_cfg.device:
-                state = NetworkManager.DeviceState.DISCONNECTED
+                state = NM.DeviceState.DISCONNECTED
             else:
                 state = dev_cfg.device.get_state()
 
@@ -1006,14 +1006,14 @@ class NetworkControlBox(GObject.GObject):
 
         switch = self.builder.get_object("device_%s_off_switch" % dev_type_str)
         if dev_type_str == "wired":
-            switch.set_visible(state not in (NetworkManager.DeviceState.UNAVAILABLE,
-                                             NetworkManager.DeviceState.UNMANAGED))
+            switch.set_visible(state not in (NM.DeviceState.UNAVAILABLE,
+                                             NM.DeviceState.UNMANAGED))
             self._updating_device = True
-            switch.set_active(state not in (NetworkManager.DeviceState.UNMANAGED,
-                                            NetworkManager.DeviceState.UNAVAILABLE,
-                                            NetworkManager.DeviceState.DISCONNECTED,
-                                            NetworkManager.DeviceState.DEACTIVATING,
-                                            NetworkManager.DeviceState.FAILED))
+            switch.set_active(state not in (NM.DeviceState.UNMANAGED,
+                                            NM.DeviceState.UNAVAILABLE,
+                                            NM.DeviceState.DISCONNECTED,
+                                            NM.DeviceState.DEACTIVATING,
+                                            NM.DeviceState.FAILED))
             self._updating_device = False
         elif dev_type_str == "wireless":
             self.on_wireless_enabled()
@@ -1052,7 +1052,7 @@ class NetworkControlBox(GObject.GObject):
         store = self.builder.get_object("liststore_wireless_network")
 
         # Decode the SSID (a byte sequence) into something resembling a string
-        ssid_str = NetworkManager.utils_ssid_to_utf8(ssid)
+        ssid_str = NM.utils_ssid_to_utf8(ssid)
 
         # the third column is for sorting
         # the seventh column is the original, actual SSID as a bytes object
@@ -1116,19 +1116,19 @@ class NetworkControlBox(GObject.GObject):
 #
 #        sec_str = ""
 #
-#        if ((flags & NetworkManager.80211ApFlags.PRIVACY) and
-#            wpa_flags == NetworkManager.80211ApSecurityFlags.NONE and
-#            rsn_flags == NetworkManager.80211ApSecurityFlags.NONE):
+#        if ((flags & NM.80211ApFlags.PRIVACY) and
+#            wpa_flags == NM.80211ApSecurityFlags.NONE and
+#            rsn_flags == NM.80211ApSecurityFlags.NONE):
 #            sec_str += "%s, " % _("WEP")
 #
-#        if wpa_flags != NetworkManager.80211ApSecurityFlags.NONE:
+#        if wpa_flags != NM.80211ApSecurityFlags.NONE:
 #            sec_str += "%s, " % _("WPA")
 #
-#        if rsn_flags != NetworkManager.80211ApSecurityFlags.NONE:
+#        if rsn_flags != NM.80211ApSecurityFlags.NONE:
 #            sec_str += "%s, " % _("WPA2")
 #
-#        if ((wpa_flags & NetworkManager.80211ApSecurityFlags.KEY_MGMT_802_1X) or
-#            (rsn_flags & NetworkManager.80211ApSecurityFlags.KEY_MGMT_802_1X)):
+#        if ((wpa_flags & NM.80211ApSecurityFlags.KEY_MGMT_802_1X) or
+#            (rsn_flags & NM.80211ApSecurityFlags.KEY_MGMT_802_1X)):
 #            sec_str += "%s, " % _("Enterprise")
 #
 #        if sec_str:
@@ -1374,14 +1374,14 @@ class SecretAgent(dbus.service.Object):
 
     def _validate_staticwep(self, secret):
         value = secret['value']
-        if secret['wep_key_type'] == NetworkManager.WepKeyType.KEY:
+        if secret['wep_key_type'] == NM.WepKeyType.KEY:
             if len(value) in (10, 26):
                 return all(c in string.hexdigits for c in value)
             elif len(value) in (5, 13):
                 return all(c in string.ascii_letters for c in value)
             else:
                 return False
-        elif secret['wep_key_type'] == NetworkManager.WepKeyType.PASSPHRASE:
+        elif secret['wep_key_type'] == NM.WepKeyType.PASSPHRASE:
             return 0 <= len(value) <= 64
         else:
             return True
@@ -1484,9 +1484,9 @@ class NetworkSpoke(FirstbootSpokeMixIn, NormalSpoke):
         self._network_change = True
 
     def on_device_state_changed(self, source, device, new_state, *args):
-        if new_state in (NetworkManager.DeviceState.ACTIVATED,
-                         NetworkManager.DeviceState.DISCONNECTED,
-                         NetworkManager.DeviceState.UNAVAILABLE):
+        if new_state in (NM.DeviceState.ACTIVATED,
+                         NM.DeviceState.DISCONNECTED,
+                         NM.DeviceState.UNAVAILABLE):
             gtk_call_once(self._update_status)
         self._network_change = True
 
