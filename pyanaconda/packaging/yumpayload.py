@@ -906,8 +906,8 @@ reposdir=%s
         with _yum_lock:
             yum_repo = self._yum.repos.getRepo(repo_id)
             ks_repo = self.getAddOnRepo(repo_id)
-            if yum_repo and ks_repo and ks_repo.baseurl.startswith("nfs:"):
-                mountpoint = yum_repo.baseurl[0][7:]    # strip leading "file://"
+            if yum_repo and ks_repo and ks_repo.baseurl.startswith("nfs://"):
+                mountpoint = yum_repo.baseurl[0][6:]    # strip leading "nfs://"
 
         self._removeYumRepo(repo_id)
         super(YumPayload, self).removeRepo(repo_id)
