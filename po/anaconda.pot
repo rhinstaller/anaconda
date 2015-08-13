@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: anaconda 21.48.22.30\n"
+"Project-Id-Version: anaconda 21.48.22.31\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
-"POT-Creation-Date: 2015-08-07 17:57-0700\n"
+"POT-Creation-Date: 2015-08-12 17:08-0700\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -358,7 +358,7 @@ msgid ""
 "The installer will now terminate."
 msgstr ""
 
-#: pyanaconda/exception.py:99
+#: pyanaconda/exception.py:100
 #, python-format
 msgid ""
 "The installation was stopped due to what seems to be a problem with your "
@@ -369,11 +369,11 @@ msgid ""
 " The installer will now terminate."
 msgstr ""
 
-#: pyanaconda/exception.py:103
+#: pyanaconda/exception.py:104
 msgid "Hardware error occured"
 msgstr ""
 
-#: pyanaconda/exception.py:137
+#: pyanaconda/exception.py:138
 #, python-format
 msgid ""
 "\n"
@@ -1383,7 +1383,7 @@ msgstr ""
 msgid "The following mandatory spokes are not completed:"
 msgstr ""
 
-#: pyanaconda/ui/tui/hubs/summary.py:90
+#: pyanaconda/ui/tui/hubs/summary.py:95
 #, python-format
 msgid ""
 "  Please make your choice from above ['%(quit)s' to quit | '%(begin)s' to "
@@ -1392,7 +1392,7 @@ msgid ""
 msgstr ""
 
 #. TRANSLATORS: 'q' to quit
-#: pyanaconda/ui/tui/hubs/summary.py:92 pyanaconda/ui/tui/hubs/__init__.py:135
+#: pyanaconda/ui/tui/hubs/summary.py:97 pyanaconda/ui/tui/hubs/__init__.py:135
 #: pyanaconda/ui/tui/simpleline/base.py:464
 #: pyanaconda/ui/tui/simpleline/base.py:633
 msgctxt "TUI|Spoke Navigation"
@@ -1400,7 +1400,7 @@ msgid "q"
 msgstr ""
 
 #. TRANSLATORS: 'b' to begin installation
-#: pyanaconda/ui/tui/hubs/summary.py:94 pyanaconda/ui/tui/hubs/summary.py:111
+#: pyanaconda/ui/tui/hubs/summary.py:99 pyanaconda/ui/tui/hubs/summary.py:116
 msgctxt "TUI|Spoke Navigation"
 msgid "b"
 msgstr ""
@@ -1409,14 +1409,15 @@ msgstr ""
 #. TRANSLATORS:'r' to refresh
 #. TRANSLATORS: 'r' to refresh
 #. TRANSLATORS:'r' to refresh
-#: pyanaconda/ui/tui/hubs/summary.py:96 pyanaconda/ui/tui/hubs/__init__.py:139
+#: pyanaconda/ui/tui/hubs/summary.py:101
+#: pyanaconda/ui/tui/hubs/__init__.py:139
 #: pyanaconda/ui/tui/simpleline/base.py:452
 #: pyanaconda/ui/tui/simpleline/base.py:637
 msgctxt "TUI|Spoke Navigation"
 msgid "r"
 msgstr ""
 
-#: pyanaconda/ui/tui/hubs/summary.py:114
+#: pyanaconda/ui/tui/hubs/summary.py:119
 #: pyanaconda/ui/tui/hubs/__init__.py:114
 msgid "Please complete all spokes before continuing"
 msgstr ""
@@ -1425,7 +1426,7 @@ msgstr ""
 #. TRANSLATORS:'c' to continue
 #. TRANSLATORS: 'c' to continue
 #. TRANSLATORS:'c' to continue
-#: pyanaconda/ui/tui/hubs/summary.py:125
+#: pyanaconda/ui/tui/hubs/summary.py:130
 #: pyanaconda/ui/tui/hubs/__init__.py:111
 #: pyanaconda/ui/tui/hubs/__init__.py:137
 #: pyanaconda/ui/tui/simpleline/base.py:458

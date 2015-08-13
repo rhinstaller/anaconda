@@ -310,6 +310,18 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Wed Aug 12 2015 Brian C. Lane <bcl@redhat.com> - 21.48.22.32-1
+- product.img buildstamp should override distribution buildstamp (bcl)
+  Resolves: rhbz#1240238
+- Tell libreport if it is a final release or not (vpodzime)
+  Resolves: rhbz#1252036
+- On incomplete ks, don't automatically proceed with install. (sbueno+anaconda)
+  Resolves: rhbz#1251978
+- Add the "make ci" target. (clumens)
+  Related: rhbz#1196721
+- Tweak tmux configuration file (jkonecny)
+  Resolves: rhbz#1238799
+
 * Fri Aug 07 2015 Brian C. Lane <bcl@redhat.com> - 21.48.22.31-1
 - Only pass DASDs to is_ldl_dasd function. (sbueno+anaconda)
   Resolves: rhbz#1248666
