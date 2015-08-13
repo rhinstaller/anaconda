@@ -754,9 +754,9 @@ def remove_local_packages(packages, arch, release_id, added_rpms):
                                 '%{NAME} %{VERSION} %{RELEASE}', rpm_path],
                                 stdout=subprocess.PIPE,
                                 stderr=None)
-        output, rc = proc.communicate()
+        output = proc.communicate()[0]
         output = output.decode("utf-8")
-        if rc != 0:
+        if proc.returncode != 0:
             continue
         name, version, release = output.split()
         # get the build number and release id
