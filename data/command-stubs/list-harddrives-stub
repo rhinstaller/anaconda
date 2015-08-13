@@ -19,12 +19,32 @@
 #
 
 import sys
+import os
+import stat
 import parted
+
+def check_device(device):
+    if stat.S_ISBLK(os.stat(device.path).st_mode):
+        # exclude device mapper devices
+        if device.type == parted.DEVICE_DM:
+            return False
+        # exclude block devices for CD/DVD disks
+        elif device.path.startswith("/dev/sr"):
+            return False
+        # exclude zram bloc devices
+        elif device.path.startswith("/dev/zram"):
+            return False
+        # the remaining block devices should be fine
+        else:
+            return True
+    else:
+        # ignore everything that is not a block device
+        return False
 
 def main(argv):
     lst = set()
 
-    for dev in filter(lambda d: d.type != parted.DEVICE_DM and not d.path.startswith("/dev/sr"), parted.getAllDevices()):
+    for dev in filter(check_device, parted.getAllDevices()):
         if dev.path.startswith("/dev/"):
             path = dev.path[5:]
         else:
@@ -35,7 +55,7 @@ def main(argv):
     lst = list(lst)
     lst.sort()
     for dev, size in lst:
-        print(dev, size)
+        print "%s %s" % (dev, size)
 
 if __name__ == "__main__":
     main(sys.argv)
