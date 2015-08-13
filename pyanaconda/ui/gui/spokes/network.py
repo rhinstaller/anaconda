@@ -36,10 +36,9 @@ gi.require_version("GObject", "2.0")
 gi.require_version("Pango", "1.0")
 gi.require_version("Gio", "2.0")
 gi.require_version("NM", "1.0")
-gi.require_version("NMClient", "1.0")
 
 from gi.repository import Gtk
-from gi.repository import GLib, GObject, Pango, Gio, NM, NMClient
+from gi.repository import GLib, GObject, Pango, Gio, NM
 
 from pyanaconda.flags import can_touch_runtime_system
 from pyanaconda.i18n import _, N_, C_, CN_
@@ -361,9 +360,7 @@ class NetworkControlBox(GObject.GObject):
         # to prevent UI update signals races
         self._updating_device = False
 
-        self.client = NMClient.Client.new()
-        self.remote_settings = NMClient.RemoteSettings()
-        self.remote_settings.connect("new-connection", self.on_new_connection)
+        self.client = NM.Client.new()
 
         # devices list
         # limited to wired and wireless
@@ -386,12 +383,13 @@ class NetworkControlBox(GObject.GObject):
         # NM Client
         self.client.connect("device-added", self.on_device_added)
         self.client.connect("device-removed", self.on_device_removed)
+        self.client.connect("connection-added", self.on_connection_added)
 
         self.builder.get_object("device_wired_off_switch").connect("notify::active",
                                                              self.on_device_off_toggled)
         self.builder.get_object("device_wireless_off_switch").connect("notify::active",
                                                              self.on_device_off_toggled)
-        self.client.connect("notify::%s" % NMClient.CLIENT_WIRELESS_ENABLED,
+        self.client.connect("notify::%s" % NM.CLIENT_WIRELESS_ENABLED,
                             self.on_wireless_enabled)
 
         self.builder.get_object("button_wired_options").connect("clicked",
@@ -400,7 +398,7 @@ class NetworkControlBox(GObject.GObject):
                                                               self.on_edit_connection)
         self.entry_hostname = self.builder.get_object("entry_hostname")
 
-        self.client.connect("notify::%s" % NMClient.CLIENT_STATE,
+        self.client.connect("notify::%s" % NM.CLIENT_STATE,
                             self.on_nm_state_changed)
 
     @property
@@ -534,10 +532,10 @@ class NetworkControlBox(GObject.GObject):
                 nm.nm_add_connection(values)
                 self.builder.get_object("button_wireless_options").set_sensitive(True)
             else:
-                self.client.add_and_activate_connection(None, dev_cfg.device, ap_obj_path,
+                self.client.add_and_activate_connection_async(None, dev_cfg.device, ap_obj_path,
                                                     None, None)
 
-    def on_new_connection(self, remote_settings, connection):
+    def on_connection_added(self, client, connection):
         self.add_connection_to_list(connection.get_uuid())
 
     def on_device_added(self, client, device, *args):
