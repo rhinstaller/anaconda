@@ -75,7 +75,7 @@ class FileSystemSpaceChecker(object):
         free = Size(self.storage.fileSystemFreeSpace)
         needed = self.payload.spaceRequired
         log.info("fs space: %s  needed: %s", free, needed)
-        self.success = (free >= needed)
+        self.success = (free > needed)
         if not self.success:
             self.deficit = needed - free
             self.error_message = _(self.error_template) % self.deficit
@@ -106,7 +106,7 @@ class DirInstallSpaceChecker(FileSystemSpaceChecker):
         free = Size(stat.f_bsize * stat.f_bfree)
         needed = self.payload.spaceRequired
         log.info("fs space: %s  needed: %s", free, needed)
-        self.success = (free >= needed)
+        self.success = (free > needed)
         if not self.success:
             self.deficit = needed - free
             self.error_message = _(self.error_template) % self.deficit
