@@ -176,12 +176,13 @@ class Network(commands.network.RHEL7_Network, DracutArgsMixin):
         # first 'network' line
         if len(self.network) == 1:
             net.activate = True
+            # Note that there may be no net.device and no ksdevice if inst.ks=file:/ks.cfg
+            # If that is the case, fall into ksnet_to_dracut with net.device=None and let
+            # it handle things.
             if not net.device:
                 if self.handler.ksdevice:
                     net.device = self.handler.ksdevice
                     log.info("Using ksdevice %s for missing --device in first kickstart network command", self.handler.ksdevice)
-                else:
-                    net.device = "link"
             if net.device == "link":
                 net.device = first_device_with_link()
                 if not net.device:
