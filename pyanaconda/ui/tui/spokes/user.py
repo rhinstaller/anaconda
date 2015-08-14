@@ -143,7 +143,7 @@ class UserSpoke(FirstbootSpokeMixIn, EditTUISpoke):
             self.args.groups.remove("wheel")
 
         # Add or remove the user from userlist as needed
-        if self.args._create and (self.args not in self.data.user.userList):
+        if self.args._create and (self.args not in self.data.user.userList and self.args.name):
             self.data.user.userList.append(self.args)
         elif (not self.args._create) and (self.args in self.data.user.userList):
             self.data.user.userList.remove(self.args)
