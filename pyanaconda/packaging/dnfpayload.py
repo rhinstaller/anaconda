@@ -104,14 +104,19 @@ def _paced(fn):
         return fn(self, *args)
     return paced_fn
 
-def _pick_mpoint(df, requested):
+def _pick_mpoint(df, download_size, install_size):
     def reasonable_mpoint(mpoint):
         return mpoint in DOWNLOAD_MPOINTS
 
-    # reserve extra
-    requested = requested + Size("150 MB")
-    sufficients = {key : val for (key, val) in df.items() if val > requested
-                   and reasonable_mpoint(key)}
+    requested = download_size
+    requested_root = requested + install_size
+    root_mpoint = pyanaconda.iutil.getSysroot()
+    sufficients = {key : val for (key, val) in df.items()
+                   # for root we need to take in count both download and install size
+                   if ((key != root_mpoint and val > requested)
+                   or val > requested_root) and reasonable_mpoint(key)}
+    log.debug('Estimated size: download %s & install %s - df: %s', requested,
+              (requested_root - requested), df)
     log.info('Sufficient mountpoints found: %s', sufficients)
 
     if not len(sufficients):
@@ -423,7 +428,8 @@ class DNFPayload(packaging.PackagePayload):
             return Size(0)
 
         size = sum(tsi.installed.downloadsize for tsi in transaction)
-        return Size(size)
+        # reserve extra
+        return Size(size) + Size("150 MB")
 
     def _install_package(self, pkg_name, required=False):
         try:
@@ -446,11 +452,10 @@ class DNFPayload(packaging.PackagePayload):
             sys.exit(1)
 
     def _pick_download_location(self):
-        required = self._download_space
+        download_size = self._download_space
+        install_size = self._spaceRequired()
         df_map = _df_map()
-        mpoint = _pick_mpoint(df_map, required)
-        log.info("Download space required: %s, use filesystem at: %s", required,
-                 mpoint)
+        mpoint = _pick_mpoint(df_map, download_size, install_size)
         if mpoint is None:
             msg = "Not enough disk space to download the packages."
             raise packaging.PayloadError(msg)
@@ -538,6 +543,26 @@ class DNFPayload(packaging.PackagePayload):
 
     @property
     def spaceRequired(self):
+        size = self._spaceRequired()
+        download_size = self._download_space
+        valid_points = _df_map()
+        root_mpoint = pyanaconda.iutil.getSysroot()
+        for (key, val) in self.storage.mountpoints.items():
+            new_key = key
+            if key.endswith('/'):
+                new_key = key[:-1]
+            # we can ignore swap
+            if key.startswith('/') and ((root_mpoint + new_key) not in valid_points):
+                valid_points[root_mpoint + new_key] = val.format.freeSpaceEstimate(val.size)
+
+        m_points = _pick_mpoint(valid_points, download_size, size)
+        if not m_points or m_points == root_mpoint:
+            # download and install to the same mount point
+            size = size + download_size
+        log.debug("Instalation space required %s for mpoints %s", size, m_points)
+        return size
+
+    def _spaceRequired(self):
         transaction = self._base.transaction
         if transaction is None:
             return Size("3000 MB")
