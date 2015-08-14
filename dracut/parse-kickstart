@@ -70,12 +70,16 @@ def first_device_with_link():
     for dev_dir in sorted(glob.glob("/sys/class/net/*")):
         ##define ARPHRD_ETHER    1               /* Ethernet 10Mbps              */
         ##define ARPHRD_INFINIBAND 32            /* InfiniBand                   */
-        with open(dev_dir+"/type") as f:
-            if f.read().strip() not in ("1", "32"):
-                continue
-        with open(dev_dir+"/carrier") as f:
-            if f.read().strip() == "1":
-                return os.path.basename(dev_dir)
+        try:
+            with open(dev_dir+"/type") as f:
+                if f.read().strip() not in ("1", "32"):
+                    continue
+            with open(dev_dir+"/carrier") as f:
+                if f.read().strip() == "1":
+                    return os.path.basename(dev_dir)
+        except IOError:
+            pass
+
     return ""
 
 def setting_only_hostname(net, args):
