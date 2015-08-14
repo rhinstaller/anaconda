@@ -958,6 +958,10 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler):
 
     # This method is shared by the checks on urlEntry and repoUrlEntry
     def _checkURL(self, inputcheck, combo):
+        # Network is not up, don't check urls.
+        if not nm.nm_is_connected():
+            return InputCheck.CHECK_OK
+
         # If combo is not set inputcheck holds repo
         is_additional_repo = combo is None
         if is_additional_repo:
