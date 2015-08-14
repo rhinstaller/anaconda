@@ -902,6 +902,10 @@ class SourceSpoke(NormalSpoke, GUISpokeInputCheckHandler):
 
     # This method is shared by the checks on urlEntry and repoUrlEntry
     def _checkURL(self, inputcheck, combo):
+        # Network is not up, don't check urls.
+        if not nm.nm_is_connected():
+            return InputCheck.CHECK_OK
+
         url_string = self.get_input(inputcheck.input_obj).strip()
 
         # If this is HTTP/HTTPS/FTP, use the URL_PARSE regex
