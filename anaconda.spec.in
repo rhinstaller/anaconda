@@ -310,6 +310,14 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Sun Aug 16 2015 Brian C. Lane <bcl@redhat.com> - 21.48.22.34-1
+- Network protocols don't list Closest mirror first (vpodzime)
+  Resolves: rhbz#1253196
+- Make sure proper installclass selected for RHEL installs. (sbueno+anaconda)
+  Related: rhbz#1196721
+- Fix traceback on tz spoke in text mode (sbueno+anaconda)
+  Resolves: rhbz#1252025
+
 * Thu Aug 13 2015 Brian C. Lane <bcl@redhat.com> - 21.48.22.33-1
 - Re-enable addons as additional repositories. (clumens)
   Resolves: rhbz#1248323
