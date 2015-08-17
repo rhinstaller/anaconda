@@ -550,6 +550,7 @@ class KeyboardSpoke(NormalSpoke):
         with self.main_window.enlightbox(dialog):
             dialog.show_all()
             dialog.run()
+            dialog.destroy()
 
     def on_selection_changed(self, selection, *args):
         # We don't have to worry about multiple rows being selected in this
