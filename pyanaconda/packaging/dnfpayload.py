@@ -893,6 +893,10 @@ class DNFPayload(packaging.PackagePayload):
         """ Perform post-installation tasks. """
         # Write selected kickstart repos to target system
         for ks_repo in (ks for ks in (self.getAddOnRepo(r) for r in self.addOns) if ks.install):
+            if ks_repo.baseurl.startswith("nfs://"):
+                log.info("Skip writing nfs repo %s to target system.", ks_repo.name)
+                continue
+
             try:
                 repo = self.getRepo(ks_repo.name)
                 if not repo:
