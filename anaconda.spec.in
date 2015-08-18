@@ -310,6 +310,16 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Mon Aug 17 2015 Brian C. Lane <bcl@redhat.com> - 21.48.22.35-1
+- Skip source url checks when network is off (bcl)
+  Resolves: rhbz#1251130
+- Don't set net.device to link if there is no ksdevice (bcl)
+  Resolves: rhbz#1085310
+- Reading carrier while link is down raises IOError (bcl)
+  Related: rhbz#1085310
+- Make sure username entered in TUI if create a user chosen. (sbueno+anaconda)
+  Resolves: rhbz#1249660
+
 * Sun Aug 16 2015 Brian C. Lane <bcl@redhat.com> - 21.48.22.34-1
 - Network protocols don't list Closest mirror first (vpodzime)
   Resolves: rhbz#1253196
