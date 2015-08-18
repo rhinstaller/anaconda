@@ -306,6 +306,40 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Mon Aug 17 2015 Brian C. Lane <bcl@redhat.com> - 23.20-1
+- Skip source url checks when network is off (#1251130) (bcl)
+- Don't set net.device to link if there is no ksdevice (#1085310) (bcl)
+- Reading carrier while link is down raises IOError (#1085310) (bcl)
+- Don't write nfs repos to the target system (#1246212) (bcl)
+- Make sure username entered in TUI if create a user chosen. (#1249660)
+  (sbueno+anaconda)
+- Write the empty dnf langpacks.conf to the right directory (#1253469) (dshea)
+- Add pyanaconda test for network.check_ip_address (jkonecny)
+- Replace IPy package by ipaddress (jkonecny)
+- Correctly check return code when running rpm from makeupdates (mkolman)
+- Fix crash when new device appear in Welcome screen (#1245960) (jkonecny)
+- Fix crash when connections are changing (#1245960) (jkonecny)
+- Make LVM cache kickstart tests more robust (vpodzime)
+- product.img buildstamp should override distribution buildstamp (#1240238)
+  (bcl)
+- On incomplete ks, don't automatically proceed with install. (#1034282)
+  (sbueno+anaconda)
+- Update the translation doc with zanata branching incantations.
+  (sbueno+anaconda)
+- Merge pull request #287 from kparal/patch-1 (clumens)
+- boot-options.rst: add a note about nfsiso (kamil.paral)
+- Few fixes and amendments for the boot_options.rst file (vpodzime)
+- Prevent issues with encrypted LVs on renamed VGs (#1224045) (vpodzime)
+- Create and use snapshot of on-disk storage with no modifications (#1166598)
+  (vpodzime)
+- Implement the class for storage snapshots (vpodzime)
+- Prevent any changes in the StorageSpoke if just going back (vpodzime)
+- Make StorageSpoke's on_back_clicked less complicated (vpodzime)
+- Add kickstart tests for the LVM cache kickstart support (vpodzime)
+- Disable packages-multilib, for now. (clumens)
+- Make sure the liveimg test shuts down when it finishes. (clumens)
+- Change how success is checked for the basic-ostree test. (clumens)
+
 * Fri Aug 07 2015 Brian C. Lane <bcl@redhat.com> - 23.19-1
 - Add basic support for LVM cache creation in kickstart (vpodzime)
 - Use labels for the rest of the non-autopart test results. (dshea)
