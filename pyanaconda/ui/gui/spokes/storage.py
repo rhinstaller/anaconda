@@ -824,9 +824,10 @@ class StorageSpoke(NormalSpoke, StorageChecker):
         log.debug("disk free: %s  fs free: %s  sw needs: %s  auto swap: %s",
                   disk_free, fs_free, required_space, auto_swap)
 
-        if disk_free >= required_space + auto_swap:
+        # compare only to 90% of disk space because fs takes some space for a metadata
+        if (disk_free * 0.9) >= required_space + auto_swap:
             dialog = None
-        elif disks_size >= required_space:
+        elif (disks_size * 0.9) >= required_space:
             dialog = NeedSpaceDialog(self.data, payload=self.payload)
             dialog.refresh(required_space, auto_swap, disk_free, fs_free)
         else:
