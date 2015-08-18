@@ -1185,49 +1185,19 @@ if __name__ == "__main__":
     from pyanaconda import localization
     # Set the language before loading an interface, when it may be too late.
 
-    # GNU defines four (four!) ways to set the locale via the environment.
-    # At least three of those are just going to get in the way of anaconda's
-    # ability to set the language and locale after startup. If any of, in
-    # order, $LANGUAGE, $LC_ALL, or $LC_MESSAGES is in the environment and not
-    # empty, copy the information to $LANG, and then clear the rest.
-    #
-    # If the variable is set but empty, it doesn't count, and some programs
-    # (KDE) insist on setting empty variables. Be sure not to use those.
-    for varname in ("LANGUAGE", "LC_ALL", "LC_MESSAGES"):
-        if varname in os.environ and os.environ[varname]:
-            os.environ["LANG"] = os.environ[varname] # pylint: disable=environment-modify
-            break
-
-    for varname in ("LANGUAGE", "LC_ALL", "LC_MESSAGES"):
-        if varname in os.environ:
-            del os.environ[varname] # pylint: disable=environment-modify
-
-    # first, try to load firmware language if nothing is already set in
-    # the environment
-    if "LANG" not in os.environ:
-        localization.load_firmware_language(ksdata.lang, anaconda.displayMode != "g")
-
-    # If command line options or kickstart set LANG, override the environment
+    # If the language was set on the command line, copy that to kickstart
     if opts.lang:
-        os.environ["LANG"] = opts.lang # pylint: disable=environment-modify
+        ksdata.lang.lang = opts.lang
         ksdata.lang.seen = True
-    elif ksdata.lang.lang:
-        os.environ["LANG"] = ksdata.lang.lang # pylint: disable=environment-modify
 
-    # Make sure LANG is set to something
-    if "LANG" not in os.environ:
-        os.environ["LANG"] = constants.DEFAULT_LANG # pylint: disable=environment-modify
-
-    # parse it using langtable and update the environment
-    # If langtable returns no locales, fall back to the default
-    env_langs = localization.get_language_locales(os.environ["LANG"])
-    if env_langs:
-        # the first language is the best match
-        os.environ["LANG"] = env_langs[0]  # pylint: disable=environment-modify
+    # Setup the locale environment
+    if ksdata.lang.seen:
+        locale_option = ksdata.lang.lang
     else:
-        log.error("Invalid locale '%s' given on command line or in kickstart", os.environ["LANG"])
-        os.environ["LANG"] = constants.DEFAULT_LANG # pylint: disable=environment-modify
+        locale_option = None
+    localization.setup_locale_environment(locale_option, anaconda.displayMode != "g")
 
+    # Now that LANG is set, do something with it
     localization.setup_locale(os.environ["LANG"], ksdata.lang, anaconda.displayMode != "g")
 
     import blivet
