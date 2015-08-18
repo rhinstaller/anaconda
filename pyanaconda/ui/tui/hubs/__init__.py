@@ -132,7 +132,7 @@ class TUIHub(TUIObject, common.Hub):
         if self._spoke_count == 1:
             return _(u"  Please make your choice from [ '1' to enter the %(spoke_title)s spoke | '%(quit)s' to quit |\n"
                      "  '%(continue)s' to continue | '%(refresh)s' to refresh]: ") % {
-                         'spoke_title': self._spokes.values()[0].title,
+                         'spoke_title': list(self._spokes.values())[0].title,
                          # TRANSLATORS: 'q' to quit
                          'quit': C_('TUI|Spoke Navigation', 'q'),
                          # TRANSLATORS:'c' to continue
