@@ -117,7 +117,7 @@ install-buildrequires:
 	if ! [[ $$(uname -m) =~ s390x? ]]; then \
 		pkglist=$$(echo "$$pkglist" | grep -v s390utils) ; \
 	fi ; \
-	dnf install $$pkglist
+	dnf install $$pkglist gettext-devel libtool
 
 # Install all packages specified as Requires in the Anaconda specfile
 # -> installs packages needed to run Anaconda and the Anaconda unit tests
@@ -126,6 +126,13 @@ install-requires:
 	srcdir="$(srcdir)" && \
 	: $${srcdir:=.} && \
 	dnf install $$(grep ^Requires: $${srcdir}/anaconda.spec.in | grep -v %{name} | cut -d ' ' -f 2 | grep -v ^anaconda)
+
+# Install all packages required for running the tests
+install-test-requires: install-buildrequires install-requires
+		dnf install bzip2 cppcheck gnome-icon-theme gnome-icon-theme-symbolic \
+		    lorax mock parallel rpm-ostree                                    \
+		    python3-rpmfluff python3-mock python3-pocketlint python3-nose-testconfig \
+		    python3-sphinx_rtd_theme libvirt-python3 python3-lxml
 
 # Generate an updates.img based on the changed files since the release
 # was tagged.  Updates are copied to ./updates-img and then the image is
