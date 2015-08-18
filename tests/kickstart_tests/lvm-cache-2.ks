@@ -64,11 +64,10 @@ if [ -z "$swap_lv_entry" -a -z "$swap_uuid_entry" ] ; then
 fi
 
 # verify size of swap lv
-# FIXME: this is not true now!
-# swap_lv_size=$(lvs --noheadings -o size --unit=m --nosuffix fedora/swap)
-# if [ "$swap_lv_size" != "500.00" ]; then
-#     echo "*** swap lv has incorrect size" >> /root/RESULT
-# fi
+swap_lv_size=$(lvs --noheadings -o size --unit=m --nosuffix fedora/swap | sed -r 's/\s*([0-9]+)\..*/\1/')
+if [ "$swap_lv_size" != "500" ]; then
+    echo "*** swap lv has incorrect size" >> /root/RESULT
+fi
 
 # we don't need to check sizes of grown LVs, the fact that the installation
 # reached this point means everything fit into the VG somehow
