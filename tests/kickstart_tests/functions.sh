@@ -19,7 +19,7 @@
 # Red Hat Author(s): Chris Lumens <clumens@redhat.com>
 
 kernel_args() {
-    echo vnc
+    echo vnc debug=1 inst.debug
 }
 
 prepare() {
@@ -39,6 +39,10 @@ prepare_disks() {
 validate() {
     disksdir=$1
     args=$(for d in ${disksdir}/disk-*img; do echo -a ${d}; done)
+
+    # Grab the coverage results out of the installed system while it still
+    # exists.
+    virt-copy-out ${args} /root/anaconda.coverage ${disksdir}
 
     # There should be a /root/RESULT file with results in it.  Check
     # its contents and decide whether the test finally succeeded or
