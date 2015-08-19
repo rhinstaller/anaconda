@@ -25,7 +25,7 @@ from blivet.osinstall import turnOnFilesystems
 from blivet.devices import BTRFSDevice
 from pyanaconda.bootloader import writeBootLoader
 from pyanaconda.progress import progress_report, progress_message, progress_step, progress_complete, progress_init
-from pyanaconda.users import createLuserConf, getPassAlgo, Users
+from pyanaconda.users import Users
 from pyanaconda import flags
 from pyanaconda import iutil
 from pyanaconda import timezone
@@ -90,7 +90,6 @@ def doConfiguration(storage, payload, ksdata, instClass):
 
     # Creating users and groups requires some pre-configuration.
     with progress_report(_("Creating users")):
-        createLuserConf(iutil.getSysroot(), algoname=getPassAlgo(ksdata.authconfig.authconfig))
         u = Users()
         ksdata.rootpw.execute(storage, ksdata, instClass, u)
         ksdata.group.execute(storage, ksdata, instClass, u)
