@@ -19,14 +19,14 @@
 # Author(s): Chris Lumens <clumens@redhat.com>
 #
 
-import libuser
 # Used for ascii_letters and digits constants
 import string # pylint: disable=deprecated-module
 import crypt
 import random
-import tempfile
 import os
 import os.path
+import subprocess
+from contextlib import contextmanager
 from pyanaconda import iutil
 import pwquality
 from pyanaconda.iutil import strip_accents
@@ -36,51 +36,6 @@ from pyanaconda.errors import errorHandler, PasswordCryptError, ERROR_RAISE
 
 import logging
 log = logging.getLogger("anaconda")
-
-def createLuserConf(instPath, algoname='sha512'):
-    """ Writes a libuser.conf for instPath.
-
-        This must be called before User() is instantiated the first time
-        so that libuser.admin will use the temporary config file.
-    """
-
-    # If LIBUSER_CONF is not set, create a new temporary file
-    if "LIBUSER_CONF" not in os.environ:
-        (fp, fn) = tempfile.mkstemp(prefix="libuser.")
-        log.info("created new libuser.conf at %s with instPath=\"%s\"", fn, instPath)
-        fd = os.fdopen(fp, "w")
-        # This is only ok if createLuserConf is first called before threads are started
-        os.environ["LIBUSER_CONF"] = fn # pylint: disable=environment-modify
-    else:
-        fn = os.environ["LIBUSER_CONF"]
-        log.info("Clearing libuser.conf at %s", fn)
-        fd = open(fn, "w")
-
-    buf = """
-[defaults]
-skeleton = %(instPath)s/etc/skel
-mailspooldir = %(instPath)s/var/mail
-crypt_style = %(algo)s
-modules = files shadow
-create_modules = files shadow
-[files]
-directory = %(instPath)s/etc
-[shadow]
-directory = %(instPath)s/etc
-""" % {"instPath": instPath, "algo": algoname}
-
-    # Import login.defs if installed
-    if os.path.exists(os.path.normpath(instPath + "/etc/login.defs")):
-        buf += """
-[import]
-login_defs = %(instPath)s/etc/login.defs
-""" % {"instPath": instPath}
-
-
-    fd.write(buf)
-    fd.close()
-
-    return fn
 
 def getPassAlgo(authconfigStr):
     """ Reads the auth string and returns a string indicating our desired
@@ -198,267 +153,256 @@ def guess_username(fullname):
     username = strip_accents(username)
     return username
 
-class Users:
-    def __init__(self):
-        self.admin = libuser.admin()
+class Users(object):
+    def _getpwnam(self, user_name, root):
+        """Like pwd.getpwnam, but is able to use a different root.
 
-    def _prepareChroot(self, root):
-        # Unfortunately libuser doesn't have an API to operate on a
-        # chroot, so we hack it here by forking a child and calling
-        # chroot() in that child's context.
+           Also just returns the pwd structure as a list, because of laziness.
+        """
+        with open(root + "/etc/passwd", "r") as f:
+            for line in f:
+                fields = line.split(":")
+                if fields[0] == user_name:
+                    return fields
 
-        childpid = os.fork()
-        if not childpid:
-            if not root in ["", "/"]:
-                os.chroot(root)
-                os.chdir("/")
-                # This is ok because it's after a fork
-                del(os.environ["LIBUSER_CONF"]) # pylint: disable=environment-modify
+        return None
 
-            self.admin = libuser.admin()
+    def _groupExists(self, group_name, root):
+        """Returns whether a group with the given name already exists."""
+        with open(root + "/etc/group", "r") as f:
+            for line in f:
+                if line.split(":")[0] == group_name:
+                    return True
 
-        return childpid
+        return False
 
-    def _finishChroot(self, childpid):
-        assert childpid > 0
-        try:
-            status = iutil.eintr_retry_call(os.waitpid, childpid, 0)[1]
-        except OSError as e:
-            log.critical("exception from waitpid: %s %s", e.errno, e.strerror)
-            return False
+    @contextmanager
+    def _ensureLoginDefs(self, root):
+        """Runs a command after creating /etc/login.defs, if necessary.
 
-        if os.WIFEXITED(status) and (os.WEXITSTATUS(status) == 0):
-            return True
+           groupadd and useradd need login.defs to exist in the chroot, and if
+           someone is doing a cloud image install or some kind of --nocore thing
+           it may not. An empty one is ok, though. If it's missing, create it,
+           run the command, then clean it up.
+        """
+        login_defs_path = root + '/etc/login.defs'
+        if not os.path.exists(login_defs_path):
+            open(login_defs_path, "w").close()
+            login_defs_created = True
         else:
-            return False
+            login_defs_created = False
+
+        yield
+
+        if login_defs_created:
+            os.unlink(login_defs_path)
 
     def createGroup(self, group_name, **kwargs):
         """Create a new user on the system with the given name.  Optional kwargs:
 
-           gid       -- The GID for the new user.  If none is given, the next
-                        available one is used.
-           root      -- The directory of the system to create the new user
-                        in.  homedir will be interpreted relative to this.
-                        Defaults to /mnt/sysimage.
+           :keyword int gid: The GID for the new user. If none is given, the next available one is used.
+           :keyword str root: The directory of the system to create the new user in.
+                          homedir will be interpreted relative to this. Defaults
+                          to iutil.getSysroot().
         """
+        root = kwargs.get("root", iutil.getSysroot())
 
-        childpid = self._prepareChroot(kwargs.get("root", iutil.getSysroot()))
-        if childpid == 0:
-            if self.admin.lookupGroupByName(group_name):
-                log.error("Group %s already exists, not creating.", group_name)
-                os._exit(1)
+        if self._groupExists(group_name, root):
+            raise ValueError("Group %s already exists" % group_name)
 
-            groupEnt = self.admin.initGroup(group_name)
+        args = ["-R", root]
+        if kwargs.get("gid") is not None:
+            args.extend(["-g", str(kwargs["gid"])])
 
-            if kwargs.get("gid", -1) >= 0:
-                groupEnt.set(libuser.GIDNUMBER, kwargs["gid"])
+        args.append(group_name)
+        with self._ensureLoginDefs(root):
+            status = iutil.execWithRedirect("groupadd", args)
 
-            try:
-                self.admin.addGroup(groupEnt)
-            except RuntimeError as e:
-                log.critical("Error when creating new group: %s", e)
-                os._exit(1)
-
-            os._exit(0)
-        else:
-            return self._finishChroot(childpid)
+        if status == 4:
+            raise ValueError("GID %s already exists" % kwargs.get("gid"))
+        elif status == 9:
+            raise ValueError("Group %s already exists" % group_name)
+        elif status != 0:
+            raise OSError("Unable to create group %s: status=%s" % (group_name, status))
 
     def createUser(self, user_name, *args, **kwargs):
         """Create a new user on the system with the given name.  Optional kwargs:
 
-           algo      -- The password algorithm to use in case isCrypted=True.
-                        If none is given, the cryptPassword default is used.
-           gecos     -- The GECOS information (full name, office, phone, etc.).
-                        Defaults to "".
-           groups    -- A list of existing group names the user should be
-                        added to.  Defaults to [].
-           homedir   -- The home directory for the new user.  Defaults to
-                        /home/<name>.
-           isCrypted -- Is the password kwargs already encrypted?  Defaults
-                        to False.
-           lock      -- Is the new account locked by default?  Defaults to
-                        False.
-           password  -- The password.  See isCrypted for how this is interpreted.
-                        If the password is "" then the account is created
-                        with a blank password. If None or False the account will
-                        be left in its initial state (locked)
-           root      -- The directory of the system to create the new user
-                        in.  homedir will be interpreted relative to this.
-                        Defaults to /mnt/sysimage.
-           shell     -- The shell for the new user.  If none is given, the
-                        libuser default is used.
-           uid       -- The UID for the new user.  If none is given, the next
-                        available one is used.
-           gid       -- The GID for the new user.  If none is given, the next
-                        available one is used.
+           :keyword str algo: The password algorithm to use in case isCrypted=True.
+                              If none is given, the cryptPassword default is used.
+           :keyword str gecos: The GECOS information (full name, office, phone, etc.).
+                               Defaults to "".
+           :keyword groups: A list of existing group names the user should be
+                            added to.  Defaults to [].
+           :type groups: list of str
+           :keyword str homedir: The home directory for the new user.  Defaults to
+                                 /home/<name>.
+           :keyword bool isCrypted: Is the password kwargs already encrypted?  Defaults
+                                    to False.
+           :keyword bool lock: Is the new account locked by default?  Defaults to
+                               False.
+           :keyword str password: The password.  See isCrypted for how this is interpreted.
+                                  If the password is "" then the account is created
+                                  with a blank password. If None or False the account will
+                                  be left in its initial state (locked)
+           :keyword str root: The directory of the system to create the new user
+                              in.  homedir will be interpreted relative to this.
+                              Defaults to iutil.getSysroot().
+           :keyword str shell: The shell for the new user.  If none is given, the
+                               login.defs default is used.
+           :keyword int uid: The UID for the new user.  If none is given, the next
+                             available one is used.
+           :keyword int gid: The GID for the new user.  If none is given, the next
+                             available one is used.
         """
-        childpid = self._prepareChroot(kwargs.get("root", iutil.getSysroot()))
-        if childpid == 0:
-            if self.admin.lookupUserByName(user_name):
-                log.error("User %s already exists, not creating.", user_name)
-                os._exit(1)
 
-            userEnt = self.admin.initUser(user_name)
-            groupEnt = self.admin.initGroup(user_name)
+        root = kwargs.get("root", iutil.getSysroot())
 
-            gid = kwargs.get("gid") or -1
-            if gid >= 0:
-                groupEnt.set(libuser.GIDNUMBER, kwargs["gid"])
+        if self.checkUserExists(user_name, root):
+            raise ValueError("User %s already exists" % user_name)
 
-            grpLst = [grp for grp in map(self.admin.lookupGroupByName, kwargs.get("groups", [])) if grp]
-            userEnt.set(libuser.GIDNUMBER, [groupEnt.get(libuser.GIDNUMBER)[0]] +
-                        [grp.get(libuser.GIDNUMBER)[0] for grp in grpLst])
+        args = ["-R", root]
 
-            homedir = kwargs.get("homedir", None)
-            if not homedir:
-                homedir = "/home/" + user_name
-            # libuser expects the parent directory tree to exist.
-            parent_dir = iutil.parent_dir(homedir)
-            if parent_dir:
-                iutil.mkdirChain(parent_dir)
-            userEnt.set(libuser.HOMEDIRECTORY, homedir)
-
-            if kwargs.get("shell", False):
-                userEnt.set(libuser.LOGINSHELL, kwargs["shell"])
-
-            uid = kwargs.get("uid") or -1
-            if uid >= 0:
-                userEnt.set(libuser.UIDNUMBER, kwargs["uid"])
-
-            if kwargs.get("gecos", False):
-                userEnt.set(libuser.GECOS, kwargs["gecos"])
-
-            # need to create home directory for the user or does it already exist?
-            # userEnt.get returns lists (usually with a single item)
-            mk_homedir = not os.path.exists(userEnt.get(libuser.HOMEDIRECTORY)[0])
-
-            try:
-                self.admin.addUser(userEnt, mkmailspool=kwargs.get("mkmailspool", True),
-                                   mkhomedir=mk_homedir)
-            except RuntimeError as e:
-                log.critical("Error when creating new user: %s", e)
-                os._exit(1)
-
-            try:
-                self.admin.addGroup(groupEnt)
-            except RuntimeError as e:
-                log.critical("Error when creating new group: %s", e)
-                os._exit(1)
-
-            if not mk_homedir:
-                try:
-                    stats = os.stat(userEnt.get(libuser.HOMEDIRECTORY)[0])
-                    orig_uid = stats.st_uid
-                    orig_gid = stats.st_gid
-
-                    log.info("Home directory for the user %s already existed, "
-                             "fixing the owner and SELinux context.", user_name)
-                    # home directory already existed, change owner of it properly
-                    iutil.chown_dir_tree(userEnt.get(libuser.HOMEDIRECTORY)[0],
-                                         userEnt.get(libuser.UIDNUMBER)[0],
-                                         groupEnt.get(libuser.GIDNUMBER)[0],
-                                         orig_uid, orig_gid)
-                    iutil.execWithRedirect("restorecon",
-                                           ["-r", userEnt.get(libuser.HOMEDIRECTORY)[0]])
-                except OSError as e:
-                    log.critical("Unable to change owner of existing home directory: %s",
-                            os.strerror)
-                    os._exit(1)
-
-            pw = kwargs.get("password", False)
-            try:
-                if pw:
-                    if kwargs.get("isCrypted", False):
-                        password = kwargs["password"]
-                    else:
-                        password = cryptPassword(kwargs["password"], algo=kwargs.get("algo", None))
-                    self.admin.setpassUser(userEnt, password, True)
-                    userEnt.set(libuser.SHADOWLASTCHANGE, "")
-                    self.admin.modifyUser(userEnt)
-                elif pw == "":
-                    # Setup the account with *NO* password
-                    self.admin.unlockUser(userEnt)
-                    log.info("user account %s setup with no password", user_name)
-
-                if kwargs.get("lock", False):
-                    self.admin.lockUser(userEnt)
-                    log.info("user account %s locked", user_name)
-            # setpassUser raises SystemError on failure, while unlockUser and lockUser
-            # raise RuntimeError
-            except (RuntimeError, SystemError) as e:
-                log.critical("Unable to set password for new user: %s", e)
-                os._exit(1)
-
-            # Add the user to all the groups they should be part of.
-            grpLst.append(self.admin.lookupGroupByName(user_name))
-            try:
-                for grp in grpLst:
-                    grp.add(libuser.MEMBERNAME, user_name)
-                    self.admin.modifyGroup(grp)
-            except RuntimeError as e:
-                log.critical("Unable to add user to groups: %s", e)
-                os._exit(1)
-
-            os._exit(0)
+        # If a specific gid is requested, create the user group with that GID.
+        # Otherwise let useradd do it automatically.
+        if kwargs.get("gid", None):
+            self.createGroup(user_name, gid=kwargs['gid'], root=root)
+            args.extend(['-g', str(kwargs['gid'])])
         else:
-            return self._finishChroot(childpid)
+            args.append('-U')
+
+        if kwargs.get("groups"):
+            args.extend(['-G', ",".join(kwargs["groups"])])
+
+        if kwargs.get("homedir"):
+            homedir = kwargs["homedir"]
+        else:
+            homedir = "/home/" + user_name
+
+        # useradd expects the parent directory tree to exist.
+        parent_dir = iutil.parent_dir(root + homedir)
+
+        # If root + homedir came out to "/", such as if we're creating the sshpw user,
+        # parent_dir will be empty. Don't create that.
+        if parent_dir:
+            iutil.mkdirChain(parent_dir)
+
+        args.extend(["-d", homedir])
+
+        # Check whether the directory exists or if useradd should create it
+        mk_homedir = not os.path.exists(root + homedir)
+        if mk_homedir:
+            args.append("-m")
+        else:
+            args.append("-M")
+
+        if kwargs.get("shell"):
+            args.extend(["-s", kwargs["shell"]])
+
+        if kwargs.get("uid"):
+            args.extend(["-u", str(kwargs["uid"])])
+
+        if kwargs.get("gecos"):
+            args.extend(["-c", kwargs["gecos"]])
+
+        args.append(user_name)
+        with self._ensureLoginDefs(root):
+            status = iutil.execWithRedirect("useradd", args)
+
+        if status == 4:
+            raise ValueError("UID %s already exists" % kwargs.get("uid"))
+        elif status == 6:
+            raise ValueError("Invalid groups %s" % kwargs.get("groups", []))
+        elif status == 9:
+            raise ValueError("User %s already exists" % user_name)
+        elif status != 0:
+            raise OSError("Unable to create user %s: status=%s" % (user_name, status))
+
+        if not mk_homedir:
+            try:
+                stats = os.stat(root + homedir)
+                orig_uid = stats.st_uid
+                orig_gid = stats.st_gid
+
+                # Gett the UID and GID of the created user
+                pwent = self._getpwnam(user_name, root)
+
+                log.info("Home directory for the user %s already existed, "
+                         "fixing the owner and SELinux context.", user_name)
+                # home directory already existed, change owner of it properly
+                iutil.chown_dir_tree(root + homedir,
+                                     pwent[2], pwent[3],
+                                     orig_uid, orig_gid)
+                iutil.execWithRedirect("restorecon", ["-r", root + homedir])
+            except OSError as e:
+                log.critical("Unable to change owner of existing home directory: %s", e.strerror)
+                raise
+
+        pw = kwargs.get("password", False)
+        crypted = kwargs.get("isCrypted", False)
+        algo = kwargs.get("algo", None)
+        lock = kwargs.get("lock", False)
+
+        self.setUserPassword(user_name, pw, crypted, lock, algo, root)
 
     def checkUserExists(self, username, root=None):
-        childpid = self._prepareChroot(root)
+        if self._getpwnam(username, root):
+            return True
 
-        if childpid == 0:
-            if self.admin.lookupUserByName(username):
-                os._exit(0)
-            else:
-                os._exit(1)
-        else:
-            return self._finishChroot(childpid)
+        return False
 
-    def setUserPassword(self, username, password, isCrypted, lock, algo=None):
-        user = self.admin.lookupUserByName(username)
+    def setUserPassword(self, username, password, isCrypted, lock, algo=None, root="/"):
+        # Only set the password if it is a string, including the empty string.
+        # Otherwise leave it alone (defaults to locked for new users) and reset sp_lstchg
+        if password or password == "":
+            if password == "":
+                log.info("user account %s setup with no password", username)
+            elif not isCrypted:
+                password = cryptPassword(password, algo)
 
-        if isCrypted:
-            self.admin.setpassUser(user, password, True)
-        else:
-            self.admin.setpassUser(user, cryptPassword(password, algo=algo), True)
+            if lock:
+                password = "!" + password
+                log.info("user account %s locked", username)
 
-        if lock:
-            self.admin.lockUser(user)
+            proc = iutil.startProgram(["chpasswd", "-R", root, "-e"], stdin=subprocess.PIPE)
+            proc.communicate(("%s:%s\n" % (username, password)).encode("utf-8"))
+            if proc.returncode != 0:
+                raise OSError("Unable to set password for new user: status=%s" % proc.returncode)
 
-        user.set(libuser.SHADOWLASTCHANGE, "")
-        return self.admin.modifyUser(user)
+        # Reset sp_lstchg to an empty string. On systems with no rtc, this
+        # field can be set to 0, which has a special meaning that the password
+        # must be reset on the next login.
+        iutil.execWithRedirect("chage", ["-R", root, "-d", "", username])
 
-    def setRootPassword(self, password, isCrypted=False, isLocked=False, algo=None):
-        return self.setUserPassword("root", password, isCrypted, isLocked, algo)
+    def setRootPassword(self, password, isCrypted=False, isLocked=False, algo=None, root="/"):
+        return self.setUserPassword("root", password, isCrypted, isLocked, algo, root)
 
     def setUserSshKey(self, username, key, **kwargs):
-        childpid = self._prepareChroot(kwargs.get("root", iutil.getSysroot()))
+        root = kwargs.get("root", iutil.getSysroot())
 
-        if childpid == 0:
-            user = self.admin.lookupUserByName(username)
-            if not user:
-                log.error("setUserSshKey: user %s does not exist", username)
-                os._exit(1)
+        pwent = self._getpwnam(username, root)
+        if not pwent:
+            raise ValueError("setUserSshKey: user %s does not exist" % username)
 
-            homedir = user.get(libuser.HOMEDIRECTORY)[0]
-            if not os.path.exists(homedir):
-                log.error("setUserSshKey: home directory for %s does not exist", username)
-                os._exit(1)
+        homedir = root + pwent[5]
+        if not os.path.exists(homedir):
+            log.error("setUserSshKey: home directory for %s does not exist", username)
+            raise ValueError("setUserSshKey: home directory for %s does not exist" % username)
 
-            sshdir = os.path.join(homedir, ".ssh")
-            if not os.path.isdir(sshdir):
-                os.mkdir(sshdir, 0o700)
-                iutil.eintr_retry_call(os.chown, sshdir, user.get(libuser.UIDNUMBER)[0], user.get(libuser.GIDNUMBER)[0])
+        uid = pwent[2]
+        gid = pwent[3]
 
-            authfile = os.path.join(sshdir, "authorized_keys")
-            authfile_existed = os.path.exists(authfile)
-            with iutil.open_with_perm(authfile, "a", 0o600) as f:
-                f.write(key + "\n")
+        sshdir = os.path.join(homedir, ".ssh")
+        if not os.path.isdir(sshdir):
+            os.mkdir(sshdir, 0o700)
+            iutil.eintr_retry_call(os.chown, sshdir, int(uid), int(gid))
 
-            # Only change ownership if we created it
-            if not authfile_existed:
-                iutil.eintr_retry_call(os.chown, authfile, user.get(libuser.UIDNUMBER)[0], user.get(libuser.GIDNUMBER)[0])
-                iutil.execWithRedirect("restorecon", ["-r", sshdir])
-            os._exit(0)
-        else:
-            return self._finishChroot(childpid)
+        authfile = os.path.join(sshdir, "authorized_keys")
+        authfile_existed = os.path.exists(authfile)
+        with iutil.open_with_perm(authfile, "a", 0o600) as f:
+            f.write(key + "\n")
+
+        # Only change ownership if we created it
+        if not authfile_existed:
+            iutil.eintr_retry_call(os.chown, authfile, int(uid), int(gid))
+            iutil.execWithRedirect("restorecon", ["-r", sshdir])

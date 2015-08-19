@@ -386,8 +386,6 @@ def setupPythonPath():
     sys.path.extend(ADDON_PATHS)
 
 def setupEnvironment():
-    from pyanaconda.users import createLuserConf
-
     # This method is run before any threads are started, so this is the one
     # point where it's ok to modify the environment.
     # pylint: disable=environment-modify
@@ -415,10 +413,6 @@ def setupEnvironment():
         flags.preexisting_x11 = True
     else:
         os.environ["DISPLAY"] = ":%s" % constants.X_DISPLAY_NUMBER
-
-    # Call createLuserConf now to setup $LIBUSER_CONF
-    # the config file can change later but the environment variable cannot
-    createLuserConf(iutil.getSysroot())
 
 def setupLoggingFromOpts(options):
     if (options.debug or options.updateSrc) and not options.loglevel:
