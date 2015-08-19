@@ -41,10 +41,6 @@ ksparser.registerSection(NullSection(handler, sectionOpen="%addon"))
 ksparser.registerSection(NullSection(handler, sectionOpen="%anaconda"))
 ksparser.readKickstart(ksfile)
 
-# we need to have a libuser.conf that points to the installer root for
-# sshpw, but after that we start sshd, we need one that points to the
-# install target.
-luserConf = users.createLuserConf(instPath="")
 u = users.Users()
 
 userdata = ksparser.handler.sshpw.dataList()
@@ -54,5 +50,5 @@ for ud in userdata:
                           isCrypted=ud.isCrypted, lock=ud.lock)
     else:
         kwargs = ud.__dict__
-        kwargs.update({"root": "/", "mkmailspool": False})
+        kwargs.update({"root": "/"})
         u.createUser(ud.username, **kwargs)
