@@ -78,6 +78,7 @@ tests/*/*.log
 tests/*/*.trs
 tests/*.log
 tests/*.trs
+tests/.coverage.*
 tests/pylint/.pylint.d
 tests/test-suite.log
 updates.img
@@ -98,3 +99,4 @@ _sources
 .buildinfo
 modules.rst
 pyanaconda.*rst
+.coverage
