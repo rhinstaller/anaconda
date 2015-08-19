@@ -1,4 +1,4 @@
-url --url="http://dl.fedoraproject.org/pub/fedora/linux/development/$releasever/$basearch/os/"
+url --mirror=http://mirrors.fedoraproject.org/mirrorlist?repo=fedora-$releasever&arch=$basearch
 install
 network --device=link --bootproto=dhcp
 
