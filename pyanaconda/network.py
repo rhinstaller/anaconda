@@ -511,8 +511,8 @@ def add_connection_for_ksdata(networkdata, devname):
         values.append(['team', 'interface-name', devname, 's'])
         values.append(['team', 'config', networkdata.teamconfig, 's'])
         for (slave, cfg) in networkdata.teamslaves:
-            values = [['team-port', 'config', cfg, 's']]
-            suuid = _add_slave_connection('team', slave, devname, networkdata.activate, values)
+            svalues = [['team-port', 'config', cfg, 's']]
+            suuid = _add_slave_connection('team', slave, devname, networkdata.activate, svalues)
             added_connections.append((suuid, slave))
         dev_spec = None
     # type "vlan"
@@ -582,7 +582,6 @@ def _add_slave_connection(slave_type, slave, master, activate, values=None):
     #slave_name = "%s slave %d" % (devname, slave_idx)
     slave_name = slave
 
-    values = []
     suuid = str(uuid4())
     # assume ethernet, TODO: infiniband, wifi, vlan
     values.append(['connection', 'uuid', suuid, 's'])
