@@ -826,7 +826,12 @@ class PackagePayload(Payload):
             #     use
             image = findFirstIsoImage(path)
             if not image:
-                device.teardown(recursive=True)
+                # could be mounted as /run/install/repo
+                # when user used inst.repo=hd:LABEL= method
+                if len(blivet.util.get_mount_paths(device.path)) != 1:
+                    blivet.util.umount(path)
+                else:
+                    device.teardown(recursive=True)
                 raise PayloadSetupError("failed to find valid iso image")
 
             if path.endswith(".iso"):
