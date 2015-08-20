@@ -19,6 +19,8 @@ Contents:
    iscsi
    multipath
    modules
+   testing
+   tests/modules
 
 Indices and tables
 ==================

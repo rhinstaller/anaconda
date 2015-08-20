@@ -73,6 +73,8 @@ apidoc:
 	if [ -f /usr/bin/$(SPHINXAPIDOC) ]; then \
 	    rm $(addprefix ./, $(MODULE_NAMES)) ; \
 	    $(SPHINXAPIDOC) -o . $(SOURCEDIR) ; \
+	    rm $(addprefix ./, tests/*.rst) ; \
+	    $(SPHINXAPIDOC) -o ./tests ../tests ../tests/storage/run_storage_tests.py ; \
 	fi
 
 html: apidoc
