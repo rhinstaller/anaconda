@@ -306,6 +306,32 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Thu Aug 20 2015 Samantha N. Bueno <sbueno+anaconda@redhat.com> - 23.19.1-1
+- Destroy the keyboard layout dialog when finished (#1254150) (dshea)
+- Do not encode the geoloc timezone to bytes (#1240812) (dshea)
+- Skip source url checks when network is off (#1251130) (bcl)
+- Don't set net.device to link if there is no ksdevice (#1085310) (bcl)
+- Reading carrier while link is down raises IOError (#1085310) (bcl)
+- Make sure username entered in TUI if create a user chosen. (#1249660)
+  (sbueno+anaconda)
+- Write the empty dnf langpacks.conf to the right directory (#1253469) (dshea)
+- Add pyanaconda test for network.check_ip_address (jkonecny)
+- Replace IPy package by ipaddress (jkonecny)
+- Fix crash when new device appear in Welcome screen (#1245960) (jkonecny)
+- Fix crash when connections are changing (#1245960) (jkonecny)
+- product.img buildstamp should override distribution buildstamp (#1240238)
+  (bcl)
+- On incomplete ks, don't automatically proceed with install. (#1034282)
+  (sbueno+anaconda)
+- Few fixes and amendments for the boot_options.rst file (vpodzime)
+- Prevent issues with encrypted LVs on renamed VGs (#1224045) (vpodzime)
+- Create and use snapshot of on-disk storage with no modifications (#1166598)
+  (vpodzime)
+- Implement the class for storage snapshots (vpodzime)
+- Prevent any changes in the StorageSpoke if just going back (vpodzime)
+- Make StorageSpoke's on_back_clicked less complicated (vpodzime)
+- Change zanata.xml to match new f23-branch name. (sbueno+anaconda)
+
 * Fri Aug 07 2015 Brian C. Lane <bcl@redhat.com> - 23.19-1
 - Add basic support for LVM cache creation in kickstart (vpodzime)
 - Use labels for the rest of the non-autopart test results. (dshea)
