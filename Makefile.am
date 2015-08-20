@@ -157,6 +157,7 @@ runglade:
 ci: rc-release
 	$(MAKE) -C utils/dd
 	$(MAKE) TMPDIR=/var/tmp check
+	@sudo $(MAKE) TMPDIR=/var/tmp TESTS=nosetests_root.sh check
 	@mkdir -p repo
 	@mv *rpm repo
 	@createrepo -p repo
