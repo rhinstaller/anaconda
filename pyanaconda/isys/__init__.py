@@ -59,7 +59,7 @@ def isIsoImage(path):
         with open(path, "rb") as isoFile:
             for blockNum in range(16, 100):
                 isoFile.seek(blockNum * ISO_BLOCK_SIZE + 1)
-                if isoFile.read(5) == "CD001":
+                if isoFile.read(5) == b"CD001":
                     return True
     except IOError:
         pass
