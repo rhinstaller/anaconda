@@ -48,6 +48,9 @@ ZANATA_PUSH_ARGS = --srcdir $(srcdir)/po/ --push-type source --force
 RC_RELEASE ?= $(shell date -u +0.1.%Y%m%d%H%M%S)
 MOCKCHROOT ?= fedora-rawhide-$(shell uname -m)
 
+COVERAGE ?= coverage3
+USER_SITE_PACKAGES ?= $(shell $(PYTHON) $(srcdir)/utils/user-site-packages)
+
 tag:
 	@git tag -s -a -m "Tag as $(ARCHIVE_TAG)" $(ARCHIVE_TAG)
 	@echo "Tagged as $(ARCHIVE_TAG)"
@@ -162,9 +165,18 @@ runglade:
 	glade ${GLADE_FILE}
 
 ci: rc-release
+	@mkdir -p $(USER_SITE_PACKAGES)
+	@cp $(abs_builddir)/tests/usercustomize.py $(USER_SITE_PACKAGES)
 	$(MAKE) -C utils/dd
-	$(MAKE) TMPDIR=/var/tmp check
+	$(MAKE) TMPDIR=/var/tmp COVERAGE_PROCESS_START=$(abs_builddir)/.coveragerc check
 	@mkdir -p repo
 	@mv *rpm repo
 	@createrepo -p repo
-	@sudo $(MAKE) TMPDIR=/var/tmp TESTS=install/run_install_test.sh TEST_ANACONDA_REPO=file://$(abs_builddir)/repo/ check
+	@sudo $(MAKE) TMPDIR=/var/tmp TESTS=install/run_install_test.sh TEST_ANACONDA_REPO=file://$(abs_builddir)/repo/ COVERAGE_PROCESS_START=$(abs_builddir)/.coveragerc check
+	@rm -f $(USER_SITE_PACKAGES)/usercustomize.py
+	$(MAKE) coverage-report
+
+coverage-report:
+	$(COVERAGE) combine tests/.coverage.*
+	$(COVERAGE) report --include="pyanaconda/*" > tests/coverage-report.log
+	@cat tests/coverage-report.log
