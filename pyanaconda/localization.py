@@ -27,6 +27,8 @@ import langtable
 import locale as locale_mod
 import glob
 from collections import namedtuple
+import sys
+import io
 
 from pyanaconda import constants
 from pyanaconda.iutil import upcase_first_letter, setenv, execWithRedirect
@@ -268,6 +270,21 @@ def setup_locale(locale, lang=None, text_mode=False):
     log.debug("setting locale to: %s", locale)
     setenv("LANG", locale)
     locale_mod.setlocale(locale_mod.LC_ALL, locale)
+
+    # This part is pretty gross:
+    # In python3, sys.stdout and friends are TextIOWrapper objects that translate
+    # betwen str types (in python) and byte types (used to actually read from or
+    # write to the console). These wrappers are configured at startup using the
+    # locale at startup, which means that if anaconda starts with LANG=C or LANG
+    # unset, sys.stdout.encoding will be "ascii". And if the language is then changed,
+    # because anaconda read the kickstart or parsed the command line or whatever,
+    # say, to Czech, text mode will crash because it's going to try to print non-ASCII
+    # characters and sys.stdout doesn't know what to do with them. So, when changing
+    # the locale, create new objects for the standard streams so they are created with
+    # the new locale's encoding.
+    sys.stdin = io.TextIOWrapper(sys.stdin.detach())
+    sys.stdout = io.TextIOWrapper(sys.stdout.detach())
+    sys.stderr = io.TextIOWrapper(sys.stderr.detach())
 
 def get_english_name(locale):
     """
