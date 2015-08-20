@@ -169,6 +169,8 @@ ci: rc-release
 	@cp $(abs_builddir)/tests/usercustomize.py $(USER_SITE_PACKAGES)
 	$(MAKE) -C utils/dd
 	$(MAKE) TMPDIR=/var/tmp COVERAGE_PROCESS_START=$(abs_builddir)/.coveragerc check
+	@sudo $(MAKE) TMPDIR=/var/tmp COVERAGE_PROCESS_START=$(abs_builddir)/.coveragerc \
+		TESTS=nosetests_root.sh check
 	@mkdir -p repo
 	@mv *rpm repo
 	@createrepo -p repo

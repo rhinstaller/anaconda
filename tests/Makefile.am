@@ -39,6 +39,7 @@ dist_check_SCRIPTS = $(srcdir)/glade/*.py \
 		     $(srcdir)/lib/*.py \
 		     $(srcdir)/lib/*.sh \
 		     nosetests.sh \
+		     nosetests_root.sh \
 		     pylint/runpylint.py \
 		     cppcheck/runcppcheck.sh \
 		     testenv.sh \
