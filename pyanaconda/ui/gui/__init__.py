@@ -907,6 +907,10 @@ class GraphicalUserInterface(UserInterface):
         if not win.get_may_continue() or win != self._currentAction.window:
             return
 
+        # The continue button may still be clickable between this handler finishing
+        # and the next window being displayed, so turn the button off.
+        win.set_may_continue(False)
+
         # If we're on the last screen, clicking Continue quits.
         if len(self._actions) == 1:
             # save the screenshots to the installed system before killing Anaconda
