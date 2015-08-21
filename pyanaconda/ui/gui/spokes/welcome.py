@@ -324,7 +324,7 @@ class WelcomeLanguageSpoke(LangLocaleHandler, StandaloneSpoke):
             dlg = self.builder.get_object("betaWarnDialog")
             with self.main_window.enlightbox(dlg):
                 rc = dlg.run()
-                dlg.destroy()
+                dlg.hide()
             if rc != 1:
                 ipmi_report(IPMI_ABORTED)
                 sys.exit(0)
