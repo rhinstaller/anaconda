@@ -282,9 +282,13 @@ def setup_locale(locale, lang=None, text_mode=False):
     # characters and sys.stdout doesn't know what to do with them. So, when changing
     # the locale, create new objects for the standard streams so they are created with
     # the new locale's encoding.
-    sys.stdin = io.TextIOWrapper(sys.stdin.detach())
-    sys.stdout = io.TextIOWrapper(sys.stdout.detach())
-    sys.stderr = io.TextIOWrapper(sys.stderr.detach())
+
+    # Replacing stdout is about as stable as it looks, and it seems to break when done
+    # after the GUI is started. Only make the switch if the encoding actually changed.
+    if locale_mod.getpreferredencoding() != sys.stdout.encoding:
+        sys.stdin = io.TextIOWrapper(sys.stdin.detach())
+        sys.stdout = io.TextIOWrapper(sys.stdout.detach())
+        sys.stderr = io.TextIOWrapper(sys.stderr.detach())
 
 def get_english_name(locale):
     """
