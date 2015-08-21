@@ -64,7 +64,8 @@ different ways:
     Look for installer media in the specified disk device.
 
 ``inst.repo=hd:<device>:<path>``
-    Mount the given disk partition and install from the given path.
+    Mount the given disk partition and install from ISO file on the given path.
+    This installation method requires ISO file, which contains an installable tree.
 
 ``inst.repo=[http,https,ftp]://<host>/<path>``
     Look for an installable tree at the given URL.
@@ -778,3 +779,10 @@ upgradeany
 ^^^^^^^^^^
 
 Anaconda doesn't handle upgrades anymore.
+
+.. inst.repo for installable tree:
+
+inst.repo=hd:<device>:<path> for installable tree
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Anaconda can't use this option with installable tree but only with an ISO file.
