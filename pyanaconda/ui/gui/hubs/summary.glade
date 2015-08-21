@@ -24,9 +24,6 @@
                 <child>
                   <placeholder/>
                 </child>
-                <child>
-                  <placeholder/>
-                </child>
               </object>
             </child>
           </object>
@@ -100,6 +97,7 @@
                 <property name="label" translatable="yes" context="GUI|Summary">_Begin Installation</property>
                 <property name="use_action_appearance">False</property>
                 <property name="visible">True</property>
+                <property name="sensitive">False</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
                 <property name="use_underline">True</property>
@@ -127,8 +125,8 @@
             <property name="can_focus">False</property>
             <property name="margin_right">6</property>
             <property name="margin_bottom">6</property>
-            <property name="xalign">1</property>
             <property name="label" translatable="yes">We won't touch your disks until you click 'Begin Installation'.</property>
+            <property name="xalign">1</property>
             <attributes>
               <attribute name="font-desc" value="Cantarell Italic"/>
               <attribute name="foreground" value="#808080808080"/>
