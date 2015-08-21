@@ -180,5 +180,5 @@ ci: rc-release
 
 coverage-report:
 	$(COVERAGE) combine tests/.coverage.*
-	$(COVERAGE) report --include="pyanaconda/*" > tests/coverage-report.log
+	$(COVERAGE) report --omit "tests/*" > tests/coverage-report.log
 	@cat tests/coverage-report.log
