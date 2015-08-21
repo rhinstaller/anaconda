@@ -133,6 +133,7 @@ class ProgressHub(Hub):
 
         GLib.source_remove(self._rnotes_id)
         self._progressNotebook.set_current_page(1)
+        self.window.set_may_continue(True)
 
         iutil.ipmi_report(IPMI_FINISHED)
 
