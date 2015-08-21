@@ -23,9 +23,6 @@
                 <child>
                   <placeholder/>
                 </child>
-                <child>
-                  <placeholder/>
-                </child>
               </object>
             </child>
           </object>
@@ -149,6 +146,7 @@ Finish it and then click the Finish configuration button please.</property>
                                 <property name="label" translatable="yes" context="GUI|Progress">_Finish configuration</property>
                                 <property name="use_action_appearance">False</property>
                                 <property name="visible">True</property>
+                                <property name="sensitive">False</property>
                                 <property name="can_focus">True</property>
                                 <property name="receives_default">True</property>
                                 <property name="halign">end</property>
@@ -202,6 +200,7 @@ Go ahead and reboot to start using it!</property>
                                 <property name="label" translatable="yes" context="GUI|Progress">_Reboot</property>
                                 <property name="use_action_appearance">False</property>
                                 <property name="visible">True</property>
+                                <property name="sensitive">False</property>
                                 <property name="can_focus">True</property>
                                 <property name="receives_default">True</property>
                                 <property name="halign">end</property>
