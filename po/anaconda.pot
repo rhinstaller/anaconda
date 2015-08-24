@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: anaconda 23.19\n"
+"Project-Id-Version: anaconda 24.0\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
-"POT-Creation-Date: 2015-08-17 18:00-0700\n"
+"POT-Creation-Date: 2015-08-24 16:30-0700\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -462,7 +462,7 @@ msgid "Installing boot loader"
 msgstr ""
 
 #: pyanaconda/install.py:243 pyanaconda/packaging/livepayload.py:180
-#: pyanaconda/packaging/dnfpayload.py:689
+#: pyanaconda/packaging/dnfpayload.py:696
 msgid "Performing post-installation setup tasks"
 msgstr ""
 
@@ -807,60 +807,60 @@ msgid ""
 "'-'."
 msgstr ""
 
-#: pyanaconda/network.py:1375 pyanaconda/ui/gui/spokes/custom.py:564
+#: pyanaconda/network.py:1374 pyanaconda/ui/gui/spokes/custom.py:564
 #: pyanaconda/ui/gui/spokes/network.py:327
 #: pyanaconda/ui/gui/spokes/lib/accordion.py:66
 msgid "Unknown"
 msgstr ""
 
-#: pyanaconda/network.py:1379
+#: pyanaconda/network.py:1378
 msgid "Connecting..."
 msgstr ""
 
-#: pyanaconda/network.py:1381
+#: pyanaconda/network.py:1380
 msgid "Disconnecting..."
 msgstr ""
 
-#: pyanaconda/network.py:1401
+#: pyanaconda/network.py:1400
 #, python-format
 msgid "Wired (%(interface_name)s) connected"
 msgstr ""
 
-#: pyanaconda/network.py:1404
+#: pyanaconda/network.py:1403
 #, python-format
 msgid "Wireless connected to %(access_point)s"
 msgstr ""
 
-#: pyanaconda/network.py:1407
+#: pyanaconda/network.py:1406
 #, python-format
 msgid "Bond %(interface_name)s (%(list_of_slaves)s) connected"
 msgstr ""
 
-#: pyanaconda/network.py:1411
+#: pyanaconda/network.py:1410
 #, python-format
 msgid "Team%(interface_name)s (%(list_of_slaves)s) connected"
 msgstr ""
 
-#: pyanaconda/network.py:1415
+#: pyanaconda/network.py:1414
 #, python-format
 msgid "Bridge%(interface_name)s (%(list_of_slaves)s) connected"
 msgstr ""
 
-#: pyanaconda/network.py:1421
+#: pyanaconda/network.py:1420
 #, python-format
 msgid "VLAN %(interface_name)s (%(parent_device)s, ID %(vlanid)s) connected"
 msgstr ""
 
-#: pyanaconda/network.py:1438
+#: pyanaconda/network.py:1437
 #, python-format
 msgid "Connected: %(list_of_interface_names)s"
 msgstr ""
 
-#: pyanaconda/network.py:1441
+#: pyanaconda/network.py:1440
 msgid "Not connected"
 msgstr ""
 
-#: pyanaconda/network.py:1444 pyanaconda/ui/gui/spokes/network.glade:2099
+#: pyanaconda/network.py:1443 pyanaconda/ui/gui/spokes/network.glade:2099
 msgid "No network devices available"
 msgstr ""
 
@@ -1288,19 +1288,19 @@ msgid ""
 "(%(percent)d%%) done."
 msgstr ""
 
-#: pyanaconda/packaging/dnfpayload.py:643
+#: pyanaconda/packaging/dnfpayload.py:650
 msgid "Starting package installation process"
 msgstr ""
 
-#: pyanaconda/packaging/dnfpayload.py:660
+#: pyanaconda/packaging/dnfpayload.py:667
 msgid "Downloading packages"
 msgstr ""
 
-#: pyanaconda/packaging/dnfpayload.py:672
+#: pyanaconda/packaging/dnfpayload.py:679
 msgid "Preparing transaction from installation source"
 msgstr ""
 
-#: pyanaconda/packaging/dnfpayload.py:682
+#: pyanaconda/packaging/dnfpayload.py:689
 #, python-format
 msgid "Installing %s"
 msgstr ""
@@ -1972,7 +1972,7 @@ msgstr ""
 #: pyanaconda/ui/tui/spokes/source.py:113
 #: pyanaconda/ui/tui/spokes/software.py:125
 #: pyanaconda/ui/gui/spokes/datetime_spoke.py:558
-#: pyanaconda/ui/gui/spokes/software.py:246
+#: pyanaconda/ui/gui/spokes/software.py:307
 #: pyanaconda/ui/gui/spokes/source.py:589
 msgid "Nothing selected"
 msgstr ""
@@ -2042,22 +2042,22 @@ msgid "Software selection"
 msgstr ""
 
 #: pyanaconda/ui/tui/spokes/software.py:111
-#: pyanaconda/ui/gui/spokes/software.py:230
+#: pyanaconda/ui/gui/spokes/software.py:288
 msgid "Error checking software selection"
 msgstr ""
 
 #: pyanaconda/ui/tui/spokes/software.py:115
-#: pyanaconda/ui/gui/spokes/software.py:233
+#: pyanaconda/ui/gui/spokes/software.py:291
 msgid "Installation source not set up"
 msgstr ""
 
 #: pyanaconda/ui/tui/spokes/software.py:117
-#: pyanaconda/ui/gui/spokes/software.py:236
+#: pyanaconda/ui/gui/spokes/software.py:294
 msgid "Source changed - please verify"
 msgstr ""
 
 #: pyanaconda/ui/tui/spokes/software.py:124
-#: pyanaconda/ui/gui/spokes/software.py:244
+#: pyanaconda/ui/gui/spokes/software.py:301
 msgid "Custom software selected"
 msgstr ""
 
@@ -2205,19 +2205,19 @@ msgstr ""
 msgid "Complete!"
 msgstr ""
 
-#: pyanaconda/ui/gui/hubs/progress.py:218
+#: pyanaconda/ui/gui/hubs/progress.py:219
 #, python-format
 msgid ""
 "%s is now successfully installed on your system and ready for you to use!  "
 "When you are ready, reboot your system to start using it!"
 msgstr ""
 
-#: pyanaconda/ui/gui/hubs/progress.py:221
+#: pyanaconda/ui/gui/hubs/progress.py:222
 msgctxt "GUI|Progress"
 msgid "_Quit"
 msgstr ""
 
-#: pyanaconda/ui/gui/hubs/progress.py:229
+#: pyanaconda/ui/gui/hubs/progress.py:230
 #, python-format
 msgid ""
 "%s is now successfully installed, but some configuration still needs to be "
@@ -2225,7 +2225,7 @@ msgid ""
 "Finish it and then click the Finish configuration button please."
 msgstr ""
 
-#: pyanaconda/ui/gui/hubs/progress.py:234
+#: pyanaconda/ui/gui/hubs/progress.py:235
 #, python-format
 msgid ""
 "%s is now successfully installed and ready for you to use!\n"
@@ -2702,38 +2702,46 @@ msgctxt "GUI|Spoke"
 msgid "_SOFTWARE SELECTION"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/software.py:165
+#: pyanaconda/ui/gui/spokes/software.py:214
 #: pyanaconda/ui/gui/spokes/source.py:569
 msgid "Checking software dependencies..."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/software.py:170
+#: pyanaconda/ui/gui/spokes/software.py:219
 msgid "Error checking software dependencies"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/software.py:395
+#: pyanaconda/ui/gui/spokes/software.py:304
+msgid "Invalid environment specified in kickstart"
+msgstr ""
+
+#: pyanaconda/ui/gui/spokes/software.py:313
+msgid "Selected environment is not valid"
+msgstr ""
+
+#: pyanaconda/ui/gui/spokes/software.py:464
 msgid ""
 "Error checking software dependencies.  <a href=\"\">Click for details.</a>"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/software.py:509
+#: pyanaconda/ui/gui/spokes/software.py:571
 msgid ""
 "The software marked for installation has the following errors.  This is "
 "likely caused by an error with your installation source.  You can quit the "
 "installer, change your software source, or change your software selections."
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/software.py:514
+#: pyanaconda/ui/gui/spokes/software.py:576
 msgctxt "GUI|Software Selection|Error Dialog"
 msgid "_Quit"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/software.py:515
+#: pyanaconda/ui/gui/spokes/software.py:577
 msgctxt "GUI|Software Selection|Error Dialog"
 msgid "_Modify Software Source"
 msgstr ""
 
-#: pyanaconda/ui/gui/spokes/software.py:516
+#: pyanaconda/ui/gui/spokes/software.py:578
 msgctxt "GUI|Software Selection|Error Dialog"
 msgid "Modify _Selections"
 msgstr ""
@@ -5619,39 +5627,39 @@ msgid "Quit"
 msgstr ""
 
 #: pyanaconda/ui/gui/hubs/summary.glade:8
-#: pyanaconda/ui/gui/hubs/summary.glade:147
+#: pyanaconda/ui/gui/hubs/summary.glade:145
 msgid "INSTALLATION SUMMARY"
 msgstr ""
 
-#: pyanaconda/ui/gui/hubs/summary.glade:84
+#: pyanaconda/ui/gui/hubs/summary.glade:81
 msgctxt "GUI|Summary"
 msgid "_Quit"
 msgstr ""
 
-#: pyanaconda/ui/gui/hubs/summary.glade:100
+#: pyanaconda/ui/gui/hubs/summary.glade:97
 msgctxt "GUI|Summary"
 msgid "_Begin Installation"
 msgstr ""
 
-#: pyanaconda/ui/gui/hubs/summary.glade:131
+#: pyanaconda/ui/gui/hubs/summary.glade:128
 msgid "We won't touch your disks until you click 'Begin Installation'."
 msgstr ""
 
 #: pyanaconda/ui/gui/hubs/progress.glade:8
-#: pyanaconda/ui/gui/hubs/progress.glade:261
+#: pyanaconda/ui/gui/hubs/progress.glade:260
 msgid "CONFIGURATION"
 msgstr ""
 
-#: pyanaconda/ui/gui/hubs/progress.glade:91
+#: pyanaconda/ui/gui/hubs/progress.glade:88
 msgid "Preparing to install"
 msgstr ""
 
-#: pyanaconda/ui/gui/hubs/progress.glade:149
+#: pyanaconda/ui/gui/hubs/progress.glade:146
 msgctxt "GUI|Progress"
 msgid "_Finish configuration"
 msgstr ""
 
-#: pyanaconda/ui/gui/hubs/progress.glade:202
+#: pyanaconda/ui/gui/hubs/progress.glade:200
 msgctxt "GUI|Progress"
 msgid "_Reboot"
 msgstr ""
