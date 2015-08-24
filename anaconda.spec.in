@@ -310,6 +310,18 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Mon Aug 24 2015 Brian C. Lane <bcl@redhat.com> - 21.48.22.36-1
+- Don't write nfs repos to the target system (bcl)
+  Resolves: rhbz#1246212
+- Fix nfs mountpoint removal (bcl)
+  Related: rhbz#1246212
+- Fix the handling of nfs:// URLs. (dshea)
+  Related: rhbz#1246212
+- Start hubs with the buttons insensitive. (dshea)
+  Resolves: rhbz#1255752
+- Move locale environment logic into localization.py (dshea)
+  Related: rhbz#1198642
+
 * Mon Aug 17 2015 Brian C. Lane <bcl@redhat.com> - 21.48.22.35-1
 - Skip source url checks when network is off (bcl)
   Resolves: rhbz#1251130
