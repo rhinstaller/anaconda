@@ -368,7 +368,7 @@ class NetworkControlBox(GObject.GObject):
         model = combobox.get_model()
         model.set_sort_column_id(2, Gtk.SortType.ASCENDING)
         combobox.connect("changed", self.on_wireless_ap_changed_cb)
-        self.selected_ssid = None
+        self.selected_ap = None
 
         # NM Client
         self.client.connect("device-added", self.on_device_added)
@@ -496,18 +496,18 @@ class NetworkControlBox(GObject.GObject):
         if not dev_cfg:
             return
 
-        ap, ssid_target, ssid_bytes = combobox.get_model().get(itr, 0, 1, 6)
-        self.selected_ssid = ssid_bytes
+        device = dev_cfg.device
+
+        ap, ssid_target = combobox.get_model().get(itr, 0, 1)
+        self.selected_ap = ap
 
         log.info("network: selected access point: %s", ssid_target)
 
-        try:
-            uuid = nm.nm_ap_setting_value(ssid_bytes, "connection", "uuid")
-            nm.nm_activate_device_connection(dev_cfg.device.get_iface(), uuid)
-        except nm.UnmanagedDeviceError as e:
-            log.debug("network: on_wireless_ap_changed: %s", e)
-        except nm.SettingsNotFoundError as e:
-            log.debug("network: on_wireless_ap_changed: %s", e)
+        cons = ap.filter_connections(device.filter_connections(self.client.get_connections()))
+        if cons:
+            uuid = cons[0].get_uuid()
+            nm.nm_activate_device_connection(device.get_iface(), uuid)
+        else:
             if self._ap_is_enterprise(ap):
                 # Create a connection for the ap and [Configure] it later with nm-c-e
                 values = []
@@ -520,8 +520,7 @@ class NetworkControlBox(GObject.GObject):
                 nm.nm_add_connection(values)
                 self.builder.get_object("button_wireless_options").set_sensitive(True)
             else:
-                self.client.add_and_activate_connection_async(None, dev_cfg.device, ap.get_path(),
-                                                    None, None)
+                self.client.add_and_activate_connection_async(None, device, ap.get_path(), None, None)
 
     def on_connection_added(self, client, connection):
         self.add_connection_to_list(connection.get_uuid())
@@ -532,6 +531,12 @@ class NetworkControlBox(GObject.GObject):
     def on_device_removed(self, client, device, *args):
         self.remove_device(device)
 
+    def _find_first_ap_setting_uuid(self, device, ap):
+        uuid = None
+        for con in device.filter_connections(self.client.get_connections()):
+            if con.get_setting_wireless().get_ssid().get_data() == ap.get_ssid().get_data():
+                return con.get_uuid()
+
     def on_edit_connection(self, *args):
         dev_cfg = self.selected_dev_cfg()
         if not dev_cfg:
@@ -540,32 +545,36 @@ class NetworkControlBox(GObject.GObject):
         uuid = dev_cfg.con_uuid
         devname = dev_cfg.get_iface()
         activate = None
+        ssid = ""
 
         if dev_cfg.device_type == NM.DeviceType.WIFI:
-            if self.selected_ssid:
-                try:
-                    uuid = nm.nm_ap_setting_value(self.selected_ssid, "connection", "uuid")
-                except nm.SettingsNotFoundError as e:
-                    log.debug("network: on_edit_connection: %s", e)
-                else:
-                    # 871132 auto activate wireless connection after editing if it is not
-                    # already activated (assume entering secrets)
-                    condition = lambda: self.selected_ssid != nm.nm_device_active_ssid(devname)
-                    activate = (uuid, devname, condition)
+            if not self.selected_ap:
+                return
+            ssid = self.selected_ap.get_ssid().get_data()
+            uuid = self._find_first_ap_setting_uuid(dev_cfg.device, self.selected_ap)
+            if uuid:
+                # 871132 auto activate wireless connection after editing if it is not
+                # already activated (assume entering secrets)
+                # TODONM check ssid instead of ap?, is it needed at all?
+                condition = lambda: self.selected_ap != dev_cfg.device.get_active_access_point()
+                activate = (uuid, devname, condition)
+            else:
+                log.debug("network: on_edit_connection: connection for ap %s not found", self.selected_ap)
+                return
+        else:
+            uuid = dev_cfg.con_uuid
+            if not uuid:
+                log.debug("network: on_edit_connection: connection for device %s not found", devname)
+                return
 
-        if not uuid:
-            log.debug("network: on_edit_connection: can't find connection for device %s", devname)
-            return
-
-        if dev_cfg.device_type != NM.DeviceType.WIFI \
-           and dev_cfg.get_iface() in nm.nm_activated_devices():
-            # Reactivate the connection after configuring it (if it changed)
-            settings = nm.nm_get_settings(uuid, "connection", "uuid")
-            settings_changed = lambda: settings != nm.nm_get_settings(uuid, "connection", "uuid")
-            activate = (uuid, devname, settings_changed)
+            if devname in nm.nm_activated_devices():
+                # Reactivate the connection after configuring it (if it changed)
+                settings = nm.nm_get_settings(uuid, "connection", "uuid")
+                settings_changed = lambda: settings != nm.nm_get_settings(uuid, "connection", "uuid")
+                activate = (uuid, devname, settings_changed)
 
         log.info("network: configuring connection %s device %s ssid %s",
-                 uuid, devname, self.selected_ssid)
+                 uuid, devname, ssid)
         self.kill_nmce(msg="Configure button clicked")
         proc = startProgram(["nm-connection-editor", "--edit", "%s" % uuid], reset_lang=False)
         self._running_nmce = proc
@@ -857,17 +866,15 @@ class NetworkControlBox(GObject.GObject):
             self._updating_device = True
             store.clear()
             aps = self._get_strongest_unique_aps(dev_cfg.device.get_access_points())
-            # TODONM - just compare the objects
             for ap in aps:
-                active = active_ap and active_ap.get_path() == ap.get_path()
-                self._add_ap(ap, active)
+                self._add_ap(ap, active_ap == ap)
             # TODO: add access point other...
             if active_ap:
                 combobox = self.builder.get_object("combobox_wireless_network_name")
                 for i in combobox.get_model():
-                    if i[6] == active_ap.get_ssid().get_data():
+                    if i[0] == active_ap:
                         combobox.set_active_iter(i.iter)
-                        self.selected_ssid = active_ap.get_ssid().get_data()
+                        self.selected_ap = active_ap
                         break
             self._updating_device = False
 
@@ -951,7 +958,7 @@ class NetworkControlBox(GObject.GObject):
             self.builder.get_object("remove_toolbutton").set_sensitive(True)
         elif dev_type == NM.DeviceType.WIFI:
             notebook.set_current_page(1)
-            self.builder.get_object("button_wireless_options").set_sensitive(self.selected_ssid is not None)
+            self.builder.get_object("button_wireless_options").set_sensitive(self.selected_ap is not None)
 
     def _refresh_carrier_info(self):
         for i in self.dev_cfg_store:
@@ -1030,8 +1037,7 @@ class NetworkControlBox(GObject.GObject):
                             ssid_str,
                             ap.get_strength(),
                             mode,
-                            security,
-                            ssid])
+                            security])
         if active:
             self.builder.get_object("combobox_wireless_network_name").set_active_iter(itr)
 
