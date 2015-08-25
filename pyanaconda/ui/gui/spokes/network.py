@@ -306,13 +306,14 @@ class NetworkControlBox(GObject.GObject):
         NM.DeviceType.BRIDGE: N_("Bridge"),
     }
 
-    def __init__(self, builder, spoke=None):
+    def __init__(self, builder, client, spoke=None):
 
         GObject.GObject.__init__(self)
 
         self.builder = builder
         self._running_nmce = None
         self.spoke = spoke
+        self.client = client
 
         # button for creating of virtual bond and vlan devices
         self.builder.get_object("add_toolbutton").set_sensitive(True)
@@ -350,8 +351,6 @@ class NetworkControlBox(GObject.GObject):
         # to prevent UI update signals races
         self._updating_device = False
 
-        self.client = NM.Client.new()
-
         # devices list
         # limited to wired and wireless
         treeview = self.builder.get_object("treeview_devices")
@@ -370,26 +369,15 @@ class NetworkControlBox(GObject.GObject):
         combobox.connect("changed", self.on_wireless_ap_changed_cb)
         self.selected_ap = None
 
-        # NM Client
-        self.client.connect("device-added", self.on_device_added)
-        self.client.connect("device-removed", self.on_device_removed)
-        self.client.connect("connection-added", self.on_connection_added)
-
         self.builder.get_object("device_wired_off_switch").connect("notify::active",
                                                              self.on_device_off_toggled)
         self.builder.get_object("device_wireless_off_switch").connect("notify::active",
                                                              self.on_device_off_toggled)
-        self.client.connect("notify::%s" % NM.CLIENT_WIRELESS_ENABLED,
-                            self.on_wireless_enabled)
-
         self.builder.get_object("button_wired_options").connect("clicked",
                                                            self.on_edit_connection)
         self.builder.get_object("button_wireless_options").connect("clicked",
                                                               self.on_edit_connection)
         self.entry_hostname = self.builder.get_object("entry_hostname")
-
-        self.client.connect("notify::%s" % NM.CLIENT_STATE,
-                            self.on_nm_state_changed)
 
     @property
     def vbox(self):
@@ -447,6 +435,14 @@ class NetworkControlBox(GObject.GObject):
         return True
 
     def initialize(self):
+        self.client.connect("device-added", self.on_device_added)
+        self.client.connect("device-removed", self.on_device_removed)
+        self.client.connect("connection-added", self.on_connection_added)
+        self.client.connect("notify::%s" % NM.CLIENT_WIRELESS_ENABLED,
+                            self.on_wireless_enabled)
+        self.client.connect("notify::%s" % NM.CLIENT_STATE,
+                            self.on_nm_state_changed)
+
         for device in self.client.get_devices():
             self.add_device_to_list(device)
 
@@ -1136,6 +1132,19 @@ class NetworkControlBox(GObject.GObject):
             return
         self.entry_hostname.set_text(value)
 
+    def disconnect_client_callbacks(self):
+        self.client.disconnect_by_func(self.on_device_added)
+        self.client.disconnect_by_func(self.on_device_removed)
+        self.client.disconnect_by_func(self.on_connection_added)
+        self.client.disconnect_by_func(self.on_wireless_enabled)
+        self.client.disconnect_by_func(self.on_nm_state_changed)
+        try:
+            for device in self.client.get_devices():
+                device.disconnect_by_func(self.on_device_config_changed)
+                device.disconnect_by_func(self.on_device_state_changed)
+        except TypeError as e:
+            if not "nothing connected" in str(e):
+                log.debug("network: %s", e)
 
 class SecretAgentDialog(GUIObject):
     builderObjects = ["secret_agent_dialog"]
@@ -1365,7 +1374,7 @@ class NetworkSpoke(FirstbootSpokeMixIn, NormalSpoke):
 
     def __init__(self, *args, **kwargs):
         NormalSpoke.__init__(self, *args, **kwargs)
-        self.network_control_box = NetworkControlBox(self.builder, spoke=self)
+        self.network_control_box = NetworkControlBox(self.builder, nmclient, spoke=self)
         self.network_control_box.hostname = self.data.network.hostname
         self.network_control_box.connect("nm-state-changed",
                                          self.on_nm_state_changed)
@@ -1470,7 +1479,7 @@ class NetworkStandaloneSpoke(StandaloneSpoke):
 
     def __init__(self, *args, **kwargs):
         StandaloneSpoke.__init__(self, *args, **kwargs)
-        self.network_control_box = NetworkControlBox(self.builder, spoke=self)
+        self.network_control_box = NetworkControlBox(self.builder, nmclient, spoke=self)
         self.network_control_box.hostname = self.data.network.hostname
         parent = self.builder.get_object("AnacondaStandaloneWindow-action_area5")
         parent.add(self.network_control_box.vbox)
@@ -1496,6 +1505,7 @@ class NetworkStandaloneSpoke(StandaloneSpoke):
                     fallback=not anaconda_flags.automatedInstall)
 
         self.network_control_box.kill_nmce(msg="leaving standalone network spoke")
+        self.network_control_box.disconnect_client_callbacks()
 
     def execute(self):
         # update system's hostname
@@ -1551,6 +1561,7 @@ def _update_network_data(data, ncb):
     hostname = ncb.hostname
     network.update_hostname_data(data, hostname)
 
+nmclient = NM.Client.new()
 
 def test():
     win = Gtk.Window()
@@ -1561,7 +1572,7 @@ def test():
     ui_file_path = os.environ.get('UIPATH')+'spokes/network.glade'
     builder.add_from_file(ui_file_path)
 
-    n = NetworkControlBox(builder)
+    n = NetworkControlBox(builder, nmclient)
     n.initialize()
     n.refresh()
 
