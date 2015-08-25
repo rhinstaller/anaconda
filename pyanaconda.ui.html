@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>pyanaconda.ui package &mdash; Anaconda 23.15 documentation</title>
+  <title>pyanaconda.ui package &mdash; Anaconda 24.0 documentation</title>
   
 
   
@@ -30,7 +30,7 @@
   
 
   
-    <link rel="top" title="Anaconda 23.15 documentation" href="index.html"/>
+    <link rel="top" title="Anaconda 24.0 documentation" href="index.html"/>
         <link rel="up" title="pyanaconda package" href="pyanaconda.html"/>
         <link rel="next" title="pyanaconda.ui.categories package" href="pyanaconda.ui.categories.html"/>
         <link rel="prev" title="pyanaconda.packaging package" href="pyanaconda.packaging.html"/> 
@@ -77,6 +77,8 @@
 <li class="toctree-l1"><a class="reference internal" href="boot-options.html">Anaconda Boot Options</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="boot-options.html#installation-source">Installation Source</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="boot-options.html#inst-repo">inst.repo</a></li>
+<li class="toctree-l3"><a class="reference internal" href="boot-options.html#inst-noverifyssl">inst.noverifyssl</a></li>
+<li class="toctree-l3"><a class="reference internal" href="boot-options.html#inst-proxy">inst.proxy</a></li>
 <li class="toctree-l3"><a class="reference internal" href="boot-options.html#inst-stage2">inst.stage2</a></li>
 <li class="toctree-l3"><a class="reference internal" href="boot-options.html#inst-dd">inst.dd</a></li>
 <li class="toctree-l3"><a class="reference internal" href="boot-options.html#inst-multilib">inst.multilib</a></li>
@@ -117,10 +119,31 @@
 <li class="toctree-l2"><a class="reference internal" href="boot-options.html#debugging-and-troubleshooting">Debugging and Troubleshooting</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="boot-options.html#inst-rescue">inst.rescue</a></li>
 <li class="toctree-l3"><a class="reference internal" href="boot-options.html#inst-updates">inst.updates</a></li>
+<li class="toctree-l3"><a class="reference internal" href="boot-options.html#nokill">nokill</a></li>
 <li class="toctree-l3"><a class="reference internal" href="boot-options.html#inst-loglevel">inst.loglevel</a></li>
+<li class="toctree-l3"><a class="reference internal" href="boot-options.html#inst-noshell">inst.noshell</a></li>
 <li class="toctree-l3"><a class="reference internal" href="boot-options.html#inst-syslog">inst.syslog</a></li>
 <li class="toctree-l3"><a class="reference internal" href="boot-options.html#inst-virtiolog">inst.virtiolog</a></li>
 <li class="toctree-l3"><a class="reference internal" href="boot-options.html#inst-zram">inst.zram</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="boot-options.html#boot-loader-options">Boot loader options</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="boot-options.html#extlinux">extlinux</a></li>
+<li class="toctree-l3"><a class="reference internal" href="boot-options.html#leavebootorder">leavebootorder</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="boot-options.html#storage-options">Storage options</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="boot-options.html#inst-nodmraid">inst.nodmraid</a></li>
+<li class="toctree-l3"><a class="reference internal" href="boot-options.html#inst-nompath">inst.nompath</a></li>
+<li class="toctree-l3"><a class="reference internal" href="boot-options.html#inst-gpt">inst.gpt</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="boot-options.html#other-options">Other options</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="boot-options.html#inst-selinux">inst.selinux</a></li>
+<li class="toctree-l3"><a class="reference internal" href="boot-options.html#third-party-options">Third-party options</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="boot-options.html#inst-kdump">inst.kdump</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="boot-options.html#deprecated-options">Deprecated Options</a><ul>
@@ -130,12 +153,12 @@
 <li class="toctree-l3"><a class="reference internal" href="boot-options.html#netmask-gateway-hostname">netmask, gateway, hostname</a></li>
 <li class="toctree-l3"><a class="reference internal" href="boot-options.html#ip-bootif">ip=bootif</a></li>
 <li class="toctree-l3"><a class="reference internal" href="boot-options.html#ksdevice">ksdevice</a></li>
-<li class="toctree-l3"><a class="reference internal" href="boot-options.html#blacklist-nofirewire">blacklist, nofirewire</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="boot-options.html#removed-options">Removed Options</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="boot-options.html#askmethod-asknetwork">askmethod, asknetwork</a></li>
-<li class="toctree-l3"><a class="reference internal" href="boot-options.html#id5">serial</a></li>
+<li class="toctree-l3"><a class="reference internal" href="boot-options.html#blacklist-nofirewire">blacklist, nofirewire</a></li>
+<li class="toctree-l3"><a class="reference internal" href="boot-options.html#id4">serial</a></li>
 <li class="toctree-l3"><a class="reference internal" href="boot-options.html#updates">updates</a></li>
 <li class="toctree-l3"><a class="reference internal" href="boot-options.html#essid-wepkey-wpakey">essid, wepkey, wpakey</a></li>
 <li class="toctree-l3"><a class="reference internal" href="boot-options.html#ethtool">ethtool</a></li>
@@ -146,6 +169,7 @@
 <li class="toctree-l3"><a class="reference internal" href="boot-options.html#utf8">utf8</a></li>
 <li class="toctree-l3"><a class="reference internal" href="boot-options.html#noipv6">noipv6</a></li>
 <li class="toctree-l3"><a class="reference internal" href="boot-options.html#upgradeany">upgradeany</a></li>
+<li class="toctree-l3"><a class="reference internal" href="boot-options.html#inst-repo-hd-device-path-for-installable-tree">inst.repo=hd:&lt;device&gt;:&lt;path&gt; for installable tree</a></li>
 </ul>
 </li>
 </ul>
@@ -205,13 +229,15 @@
 <li class="toctree-l3"><a class="reference internal" href="pyanaconda.html#module-pyanaconda.errors">pyanaconda.errors module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pyanaconda.html#module-pyanaconda.exception">pyanaconda.exception module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pyanaconda.html#module-pyanaconda.flags">pyanaconda.flags module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="pyanaconda.html#module-pyanaconda.geoloc">pyanaconda.geoloc module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyanaconda.html#module-pyanaconda.geoloc">pyanaconda.geoloc module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="pyanaconda.html#geolocation-backends">Geolocation backends</a></li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="pyanaconda.html#module-pyanaconda.i18n">pyanaconda.i18n module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pyanaconda.html#module-pyanaconda.ihelp">pyanaconda.ihelp module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pyanaconda.html#module-pyanaconda.image">pyanaconda.image module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pyanaconda.html#module-pyanaconda.install">pyanaconda.install module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pyanaconda.html#module-pyanaconda.installclass">pyanaconda.installclass module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="pyanaconda.html#module-pyanaconda.installinterfacebase">pyanaconda.installinterfacebase module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pyanaconda.html#module-pyanaconda.iutil">pyanaconda.iutil module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pyanaconda.html#module-pyanaconda.kexec">pyanaconda.kexec module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pyanaconda.html#module-pyanaconda.keyboard">pyanaconda.keyboard module</a></li>
@@ -232,7 +258,6 @@
 <li class="toctree-l3"><a class="reference internal" href="pyanaconda.html#module-pyanaconda.simpleconfig">pyanaconda.simpleconfig module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pyanaconda.html#module-pyanaconda.startup_utils">pyanaconda.startup_utils module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pyanaconda.html#module-pyanaconda.storage_utils">pyanaconda.storage_utils module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="pyanaconda.html#module-pyanaconda.text">pyanaconda.text module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pyanaconda.html#module-pyanaconda.threads">pyanaconda.threads module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pyanaconda.html#module-pyanaconda.timezone">pyanaconda.timezone module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pyanaconda.html#module-pyanaconda.users">pyanaconda.users module</a></li>
@@ -909,18 +934,20 @@ we want to assign to imported modules</li>
 <dl class="function">
 <dt id="pyanaconda.ui.common.collectCategoriesAndSpokes">
 <tt class="descclassname">pyanaconda.ui.common.</tt><tt class="descname">collectCategoriesAndSpokes</tt><big>(</big><em>paths</em>, <em>klass</em>, <em>displaymode</em><big>)</big><a class="headerlink" href="#pyanaconda.ui.common.collectCategoriesAndSpokes" title="Permalink to this definition">¶</a></dt>
-<dd><p>collects categories and spokes to be displayed on this Hub</p>
+<dd><p>Collects categories and spokes to be displayed on this Hub</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>paths</strong> &#8211; dictionary mapping categories, spokes, and hubs to their</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>paths</strong> &#8211; dictionary mapping categories, spokes, and hubs to their
+their respective search path(s)</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">dictionary mapping category class to list of spoke classes</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">dictionary[category class] -&gt; [ list of spoke classes ]</td>
 </tr>
 </tbody>
 </table>
-<p>their respective search path(s)
-:return: dictionary mapping category class to list of spoke classes
-:rtype: dictionary[category class] -&gt; [ list of spoke classes ]</p>
 </dd></dl>
 
 <dl class="function">
@@ -1243,7 +1270,7 @@ and cleanup any previous method set.</p>
 
 <dl class="attribute">
 <dt id="pyanaconda.ui.helpers.StorageChecker.log">
-<tt class="descname">log</tt><em class="property"> = &lt;logging.Logger object at 0x7feabba23710&gt;</em><a class="headerlink" href="#pyanaconda.ui.helpers.StorageChecker.log" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">log</tt><em class="property"> = &lt;logging.Logger object at 0x7fb4c532e8d0&gt;</em><a class="headerlink" href="#pyanaconda.ui.helpers.StorageChecker.log" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
@@ -1402,7 +1429,7 @@ class defined search path dictionary.</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'23.15',
+            VERSION:'24.0',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

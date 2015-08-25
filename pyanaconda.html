@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>pyanaconda package &mdash; Anaconda 23.15 documentation</title>
+  <title>pyanaconda package &mdash; Anaconda 24.0 documentation</title>
   
 
   
@@ -30,7 +30,7 @@
   
 
   
-    <link rel="top" title="Anaconda 23.15 documentation" href="index.html"/>
+    <link rel="top" title="Anaconda 24.0 documentation" href="index.html"/>
         <link rel="up" title="pyanaconda" href="modules.html"/>
         <link rel="next" title="pyanaconda.installclasses package" href="pyanaconda.installclasses.html"/>
         <link rel="prev" title="pyanaconda" href="modules.html"/> 
@@ -77,6 +77,8 @@
 <li class="toctree-l1"><a class="reference internal" href="boot-options.html">Anaconda Boot Options</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="boot-options.html#installation-source">Installation Source</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="boot-options.html#inst-repo">inst.repo</a></li>
+<li class="toctree-l3"><a class="reference internal" href="boot-options.html#inst-noverifyssl">inst.noverifyssl</a></li>
+<li class="toctree-l3"><a class="reference internal" href="boot-options.html#inst-proxy">inst.proxy</a></li>
 <li class="toctree-l3"><a class="reference internal" href="boot-options.html#inst-stage2">inst.stage2</a></li>
 <li class="toctree-l3"><a class="reference internal" href="boot-options.html#inst-dd">inst.dd</a></li>
 <li class="toctree-l3"><a class="reference internal" href="boot-options.html#inst-multilib">inst.multilib</a></li>
@@ -117,10 +119,31 @@
 <li class="toctree-l2"><a class="reference internal" href="boot-options.html#debugging-and-troubleshooting">Debugging and Troubleshooting</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="boot-options.html#inst-rescue">inst.rescue</a></li>
 <li class="toctree-l3"><a class="reference internal" href="boot-options.html#inst-updates">inst.updates</a></li>
+<li class="toctree-l3"><a class="reference internal" href="boot-options.html#nokill">nokill</a></li>
 <li class="toctree-l3"><a class="reference internal" href="boot-options.html#inst-loglevel">inst.loglevel</a></li>
+<li class="toctree-l3"><a class="reference internal" href="boot-options.html#inst-noshell">inst.noshell</a></li>
 <li class="toctree-l3"><a class="reference internal" href="boot-options.html#inst-syslog">inst.syslog</a></li>
 <li class="toctree-l3"><a class="reference internal" href="boot-options.html#inst-virtiolog">inst.virtiolog</a></li>
 <li class="toctree-l3"><a class="reference internal" href="boot-options.html#inst-zram">inst.zram</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="boot-options.html#boot-loader-options">Boot loader options</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="boot-options.html#extlinux">extlinux</a></li>
+<li class="toctree-l3"><a class="reference internal" href="boot-options.html#leavebootorder">leavebootorder</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="boot-options.html#storage-options">Storage options</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="boot-options.html#inst-nodmraid">inst.nodmraid</a></li>
+<li class="toctree-l3"><a class="reference internal" href="boot-options.html#inst-nompath">inst.nompath</a></li>
+<li class="toctree-l3"><a class="reference internal" href="boot-options.html#inst-gpt">inst.gpt</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="boot-options.html#other-options">Other options</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="boot-options.html#inst-selinux">inst.selinux</a></li>
+<li class="toctree-l3"><a class="reference internal" href="boot-options.html#third-party-options">Third-party options</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="boot-options.html#inst-kdump">inst.kdump</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="boot-options.html#deprecated-options">Deprecated Options</a><ul>
@@ -130,12 +153,12 @@
 <li class="toctree-l3"><a class="reference internal" href="boot-options.html#netmask-gateway-hostname">netmask, gateway, hostname</a></li>
 <li class="toctree-l3"><a class="reference internal" href="boot-options.html#ip-bootif">ip=bootif</a></li>
 <li class="toctree-l3"><a class="reference internal" href="boot-options.html#ksdevice">ksdevice</a></li>
-<li class="toctree-l3"><a class="reference internal" href="boot-options.html#blacklist-nofirewire">blacklist, nofirewire</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="boot-options.html#removed-options">Removed Options</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="boot-options.html#askmethod-asknetwork">askmethod, asknetwork</a></li>
-<li class="toctree-l3"><a class="reference internal" href="boot-options.html#id5">serial</a></li>
+<li class="toctree-l3"><a class="reference internal" href="boot-options.html#blacklist-nofirewire">blacklist, nofirewire</a></li>
+<li class="toctree-l3"><a class="reference internal" href="boot-options.html#id4">serial</a></li>
 <li class="toctree-l3"><a class="reference internal" href="boot-options.html#updates">updates</a></li>
 <li class="toctree-l3"><a class="reference internal" href="boot-options.html#essid-wepkey-wpakey">essid, wepkey, wpakey</a></li>
 <li class="toctree-l3"><a class="reference internal" href="boot-options.html#ethtool">ethtool</a></li>
@@ -146,6 +169,7 @@
 <li class="toctree-l3"><a class="reference internal" href="boot-options.html#utf8">utf8</a></li>
 <li class="toctree-l3"><a class="reference internal" href="boot-options.html#noipv6">noipv6</a></li>
 <li class="toctree-l3"><a class="reference internal" href="boot-options.html#upgradeany">upgradeany</a></li>
+<li class="toctree-l3"><a class="reference internal" href="boot-options.html#inst-repo-hd-device-path-for-installable-tree">inst.repo=hd:&lt;device&gt;:&lt;path&gt; for installable tree</a></li>
 </ul>
 </li>
 </ul>
@@ -205,13 +229,15 @@
 <li class="toctree-l3"><a class="reference internal" href="#module-pyanaconda.errors">pyanaconda.errors module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#module-pyanaconda.exception">pyanaconda.exception module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#module-pyanaconda.flags">pyanaconda.flags module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#module-pyanaconda.geoloc">pyanaconda.geoloc module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-pyanaconda.geoloc">pyanaconda.geoloc module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#geolocation-backends">Geolocation backends</a></li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="#module-pyanaconda.i18n">pyanaconda.i18n module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#module-pyanaconda.ihelp">pyanaconda.ihelp module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#module-pyanaconda.image">pyanaconda.image module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#module-pyanaconda.install">pyanaconda.install module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#module-pyanaconda.installclass">pyanaconda.installclass module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#module-pyanaconda.installinterfacebase">pyanaconda.installinterfacebase module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#module-pyanaconda.iutil">pyanaconda.iutil module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#module-pyanaconda.kexec">pyanaconda.kexec module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#module-pyanaconda.keyboard">pyanaconda.keyboard module</a></li>
@@ -232,7 +258,6 @@
 <li class="toctree-l3"><a class="reference internal" href="#module-pyanaconda.simpleconfig">pyanaconda.simpleconfig module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#module-pyanaconda.startup_utils">pyanaconda.startup_utils module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#module-pyanaconda.storage_utils">pyanaconda.storage_utils module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#module-pyanaconda.text">pyanaconda.text module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#module-pyanaconda.threads">pyanaconda.threads module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#module-pyanaconda.timezone">pyanaconda.timezone module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#module-pyanaconda.users">pyanaconda.users module</a></li>
@@ -1528,7 +1553,7 @@ method.</p>
 
 <dl class="attribute">
 <dt id="pyanaconda.bootloader.GRUB.stage2_raid_levels">
-<tt class="descname">stage2_raid_levels</tt><em class="property"> = [&lt;blivet.devicelibs.raid.RAID1 object at 0x7feabb86bfd0&gt;]</em><a class="headerlink" href="#pyanaconda.bootloader.GRUB.stage2_raid_levels" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">stage2_raid_levels</tt><em class="property"> = [&lt;blivet.devicelibs.raid.RAID1 object at 0x7fb4c52d76a0&gt;]</em><a class="headerlink" href="#pyanaconda.bootloader.GRUB.stage2_raid_levels" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
@@ -1691,7 +1716,7 @@ md devices just use their names.</p>
 
 <dl class="attribute">
 <dt id="pyanaconda.bootloader.GRUB2.stage2_raid_levels">
-<tt class="descname">stage2_raid_levels</tt><em class="property"> = [&lt;blivet.devicelibs.raid.RAID0 object at 0x7feabb86be10&gt;, &lt;blivet.devicelibs.raid.RAID1 object at 0x7feabb86bfd0&gt;, &lt;blivet.devicelibs.raid.RAID4 object at 0x7feabb8871d0&gt;, &lt;blivet.devicelibs.raid.RAID5 object at 0x7feabb887390&gt;, &lt;blivet.devicelibs.raid.RAID6 object at 0x7feabb887550&gt;, &lt;blivet.devicelibs.raid.RAID10 object at 0x7feabb887710&gt;]</em><a class="headerlink" href="#pyanaconda.bootloader.GRUB2.stage2_raid_levels" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">stage2_raid_levels</tt><em class="property"> = [&lt;blivet.devicelibs.raid.RAID0 object at 0x7fb4c52d74e0&gt;, &lt;blivet.devicelibs.raid.RAID1 object at 0x7fb4c52d76a0&gt;, &lt;blivet.devicelibs.raid.RAID4 object at 0x7fb4c52d7860&gt;, &lt;blivet.devicelibs.raid.RAID5 object at 0x7fb4c52d7a20&gt;, &lt;blivet.devicelibs.raid.RAID6 object at 0x7fb4c52d7be0&gt;, &lt;blivet.devicelibs.raid.RAID10 object at 0x7fb4c52d7da0&gt;]</em><a class="headerlink" href="#pyanaconda.bootloader.GRUB2.stage2_raid_levels" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
@@ -1915,7 +1940,7 @@ md devices just use their names.</p>
 
 <dl class="attribute">
 <dt id="pyanaconda.bootloader.Yaboot.stage2_device_raid_levels">
-<tt class="descname">stage2_device_raid_levels</tt><em class="property"> = [&lt;blivet.devicelibs.raid.RAID1 object at 0x7feabb86bfd0&gt;]</em><a class="headerlink" href="#pyanaconda.bootloader.Yaboot.stage2_device_raid_levels" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">stage2_device_raid_levels</tt><em class="property"> = [&lt;blivet.devicelibs.raid.RAID1 object at 0x7fb4c52d76a0&gt;]</em><a class="headerlink" href="#pyanaconda.bootloader.Yaboot.stage2_device_raid_levels" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
@@ -2023,44 +2048,30 @@ md devices just use their names.</p>
 </dd></dl>
 
 <dl class="function">
-<dt id="pyanaconda.bootloader.get_boot_block">
-<tt class="descclassname">pyanaconda.bootloader.</tt><tt class="descname">get_boot_block</tt><big>(</big><em>device</em>, <em>seek_blocks=0</em><big>)</big><a class="headerlink" href="#pyanaconda.bootloader.get_boot_block" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="function">
 <dt id="pyanaconda.bootloader.get_bootloader">
 <tt class="descclassname">pyanaconda.bootloader.</tt><tt class="descname">get_bootloader</tt><big>(</big><big>)</big><a class="headerlink" href="#pyanaconda.bootloader.get_bootloader" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="function">
-<dt id="pyanaconda.bootloader.has_windows_boot_block">
-<tt class="descclassname">pyanaconda.bootloader.</tt><tt class="descname">has_windows_boot_block</tt><big>(</big><em>device</em><big>)</big><a class="headerlink" href="#pyanaconda.bootloader.has_windows_boot_block" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="function">
-<dt id="pyanaconda.bootloader.is_windows_boot_block">
-<tt class="descclassname">pyanaconda.bootloader.</tt><tt class="descname">is_windows_boot_block</tt><big>(</big><em>block</em><big>)</big><a class="headerlink" href="#pyanaconda.bootloader.is_windows_boot_block" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="function">
 <dt id="pyanaconda.bootloader.parse_serial_opt">
 <tt class="descclassname">pyanaconda.bootloader.</tt><tt class="descname">parse_serial_opt</tt><big>(</big><em>arg</em><big>)</big><a class="headerlink" href="#pyanaconda.bootloader.parse_serial_opt" title="Permalink to this definition">¶</a></dt>
 <dd><p>Parse and split serial console options.</p>
-<dl class="docutils">
-<dt>Documentation/kernel-parameters.txt says:</dt>
-<dd><dl class="first last docutils">
-<dt>ttyS&lt;n&gt;[,options]</dt>
-<dd>Use the specified serial port.  The options are of
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p>Documentation/kernel-parameters.txt says:</p>
+<blockquote>
+<div><p>ttyS&lt;n&gt;[,options]</p>
+<blockquote>
+<div>Use the specified serial port.  The options are of
 the form &#8220;bbbbpnf&#8221;, where &#8220;bbbb&#8221; is the baud rate,
 &#8220;p&#8221; is parity (&#8220;n&#8221;, &#8220;o&#8221;, or &#8220;e&#8221;), &#8220;n&#8221; is number of
 bits, and &#8220;f&#8221; is flow control (&#8220;r&#8221; for RTS or
-omit it).  Default is &#8220;9600n8&#8221;.</dd>
-</dl>
-</dd>
-</dl>
-<p>but note that everything after the baud rate is optional, so these are
+omit it).  Default is &#8220;9600n8&#8221;.</div></blockquote>
+</div></blockquote>
+<p class="last">but note that everything after the baud rate is optional, so these are
 all valid: 9600, 19200n, 38400n8, 9600e7r.
 Also note that the kernel assumes 1 stop bit; this can&#8217;t be changed.</p>
+</div>
 </dd></dl>
 
 <dl class="class">
@@ -2095,13 +2106,6 @@ adjust the default to reflect whatever the default variant is.</p>
 </div>
 <div class="section" id="module-pyanaconda.constants_text">
 <span id="pyanaconda-constants-text-module"></span><h2>pyanaconda.constants_text module<a class="headerlink" href="#module-pyanaconda.constants_text" title="Permalink to this headline">¶</a></h2>
-<dl class="class">
-<dt id="pyanaconda.constants_text.Translator">
-<em class="property">class </em><tt class="descclassname">pyanaconda.constants_text.</tt><tt class="descname">Translator</tt><big>(</big><em>button</em>, <em>check</em><big>)</big><a class="headerlink" href="#pyanaconda.constants_text.Translator" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">builtins.object</span></tt></p>
-<p>A simple class to facilitate on-the-fly translation for newt buttons</p>
-</dd></dl>
-
 </div>
 <div class="section" id="module-pyanaconda.desktop">
 <span id="pyanaconda-desktop-module"></span><h2>pyanaconda.desktop module<a class="headerlink" href="#module-pyanaconda.desktop" title="Permalink to this headline">¶</a></h2>
@@ -2265,7 +2269,7 @@ Reads each of the &#8220;files&#8221;, then parses &#8220;cmdline&#8221; if it w
 <dd><p>Read and parse a filename (or a list of filenames).
 Files that can&#8217;t be read are silently ignored.
 Returns a list of successfully read files.
-filenames can contain <a href="#id1"><span class="problematic" id="id2">*</span></a>, ?, and character ranges expressed with []</p>
+filenames can contain *, ?, and character ranges expressed with []</p>
 </dd></dl>
 
 <dl class="method">
@@ -2327,36 +2331,43 @@ filenames can contain <a href="#id1"><span class="problematic" id="id2">*</span>
 <div class="section" id="module-pyanaconda.geoloc">
 <span id="pyanaconda-geoloc-module"></span><h2>pyanaconda.geoloc module<a class="headerlink" href="#module-pyanaconda.geoloc" title="Permalink to this headline">¶</a></h2>
 <p>A GeoIP and WiFi location module - location detection based on IP address</p>
-<p>How to use the geolocation module</p>
-<p>First call init_geolocation() - this creates the LocationInfo singleton and
+<dl class="docutils">
+<dt>How to use the geolocation module</dt>
+<dd>First call <a class="reference internal" href="#pyanaconda.geoloc.init_geolocation" title="pyanaconda.geoloc.init_geolocation"><tt class="xref py py-func docutils literal"><span class="pre">init_geolocation()</span></tt></a> - this creates the LocationInfo singleton and
 you can also use it to set what geolocation provider should be used.
-To actually look up current position, call refresh() - this will trigger
+To actually look up current position, call <a class="reference internal" href="#pyanaconda.geoloc.refresh" title="pyanaconda.geoloc.refresh"><tt class="xref py py-func docutils literal"><span class="pre">refresh()</span></tt></a> - this will trigger
 the actual online geolocation query, which runs in a thread.
 After the look-up thread finishes, the results are stored in the singleton
-and can be retrieved using the get_territory_code() and get_result() methods.
-If you call these methods without calling refresh() first or if the look-up
-is currently in progress, both return None.</p>
-<p>Geolocation backends</p>
-<p>This module currently supports three geolocation backends:
-* Fedora GeoIP API
-* Hostip GeoIP
-* Google WiFi</p>
-<p>Fedora GeoIP backend
-This is the default backend. It queries the Fedora GeoIP API for location
+and can be retrieved using the <a class="reference internal" href="#pyanaconda.geoloc.get_territory_code" title="pyanaconda.geoloc.get_territory_code"><tt class="xref py py-func docutils literal"><span class="pre">get_territory_code()</span></tt></a> and <a class="reference internal" href="#pyanaconda.geoloc.get_result" title="pyanaconda.geoloc.get_result"><tt class="xref py py-func docutils literal"><span class="pre">get_result()</span></tt></a> methods.
+If you call these methods without calling <a class="reference internal" href="#pyanaconda.geoloc.refresh" title="pyanaconda.geoloc.refresh"><tt class="xref py py-func docutils literal"><span class="pre">refresh()</span></tt></a> first or if the look-up
+is currently in progress, both return <tt class="docutils literal"><span class="pre">None</span></tt>.</dd>
+</dl>
+<div class="section" id="geolocation-backends">
+<h3>Geolocation backends<a class="headerlink" href="#geolocation-backends" title="Permalink to this headline">¶</a></h3>
+<dl class="docutils">
+<dt>This module currently supports three geolocation backends:</dt>
+<dd><ul class="first last simple">
+<li>Fedora GeoIP API</li>
+<li>Hostip GeoIP</li>
+<li>Google WiFi</li>
+</ul>
+</dd>
+<dt>Fedora GeoIP backend</dt>
+<dd>This is the default backend. It queries the Fedora GeoIP API for location
 data based on current public IP address. The reply is JSON formated and
 contains the following fields:
 postal_code, latitude, longitude, region, city, country_code, country_name,
 time_zone, country_code3, area_code, metro_code, region_name and dma_code
-Anaconda currently uses just time_zone and country_code.</p>
-<p>Hostip backend
-A GeoIP look-up backend that can be used to determine current country code
+Anaconda currently uses just time_zone and country_code.</dd>
+<dt>Hostip backend</dt>
+<dd>A GeoIP look-up backend that can be used to determine current country code
 from current public IP address. The public IP address is determined
 automatically when calling the API.
 GeoIP results from Hostip contain the current public IP and an approximate
 address. To get this detail location info, use the get_result() method
-to get an instance of the LocationResult class, used to wrap the result.</p>
-<p>Google WiFi backend
-This backend is probably the most accurate one, at least as long as the
+to get an instance of the LocationResult class, used to wrap the result.</dd>
+<dt>Google WiFi backend</dt>
+<dd>This backend is probably the most accurate one, at least as long as the
 computer has a working WiFi hardware and there are some WiFi APs nearby.
 It sends data about nearby APs (ssid, MAC address &amp; signal strength)
 acquired from Network Manager to a Google API to get approximate
@@ -2365,33 +2376,47 @@ normal city) it can be very accurate, even up to currently determining
 which building is the computer currently in.
 But this only returns current geographic coordinates, to get country code
 the Nominatim reverse-geocoding API is called to convert the coordinates
-to an address, which includes a country code.
-While having many advantages, this backend also has some severe disadvantages:
-* needs working WiFi hardware
-* tells your public IP address &amp; possibly quite precise geographic coordinates</p>
-<blockquote>
-<div>to two external entities (Google and Nominatim)</div></blockquote>
+to an address, which includes a country code.</dd>
+<dt>While having many advantages, this backend also has some severe disadvantages:</dt>
+<dd><ul class="first last simple">
+<li>needs working WiFi hardware</li>
+<li>tells your public IP address &amp; possibly quite precise geographic coordinates
+to two external entities (Google and Nominatim)</li>
+</ul>
+</dd>
+</dl>
 <p>This could have severe privacy issues and should be carefully considered before
-enabling it to be used by default.
-* the Google WiFi geolocation API seems to lack official documentation
-As a result its long-term stability might not be guarantied.</p>
-<p>Possible issues with GeoIP</p>
-<p>&#8220;I&#8217;m in Switzerland connected to corporate VPN and anaconda tells me
+enabling it to be used by default. Also the Google WiFi geolocation API seems to
+lack official documentation.</p>
+<p>As a result its long-term stability might not be guarantied.</p>
+<dl class="docutils">
+<dt>Possible issues with GeoIP</dt>
+<dd>&#8220;I&#8217;m in Switzerland connected to corporate VPN and anaconda tells me
 I&#8217;m in Netherlands.&#8221;
 The public IP address is not directly mapped to the physical location
 of a computer. So while your world visible IP address is registered to
 an IP block assigned to an ISP in Netherlands, it is just the external
 address of the Internet gateway of  your corporate network.
 As VPNs and proxies can connect two computers anywhere on Earth,
-this issue is unfortunately probably unsolvable.</p>
-<p>Backends that could possibly be used in the future
-* GPS geolocation
-+ doesn&#8217;t leak your coordinates to a third party
-(not entirely true for assisted GPS)
-- unassisted cold GPS startup can take tens of minutes to acquire a GPS fix
-+ assisted GPS startup (as used in most smartphones) can acquire a fix
-in a couple seconds
-* cell tower geolocation</p>
+this issue is unfortunately probably unsolvable.</dd>
+<dt>Backends that could possibly be used in the future</dt>
+<dd><ul class="first last">
+<li><p class="first">GPS geolocation</p>
+<blockquote>
+<div><ul class="simple">
+<li>(+) doesn&#8217;t leak your coordinates to a third party
+(not entirely true for assisted GPS)</li>
+<li>(-) unassisted cold GPS startup can take tens of minutes to acquire a GPS fix</li>
+<li>(+) assisted GPS startup (as used in most smartphones) can acquire a fix
+in a couple seconds</li>
+</ul>
+</div></blockquote>
+</li>
+<li><p class="first">cell tower geolocation</p>
+</li>
+</ul>
+</dd>
+</dl>
 <dl class="class">
 <dt id="pyanaconda.geoloc.Coordinates">
 <em class="property">class </em><tt class="descclassname">pyanaconda.geoloc.</tt><tt class="descname">Coordinates</tt><big>(</big><em>lat=None</em>, <em>lon=None</em><big>)</big><a class="headerlink" href="#pyanaconda.geoloc.Coordinates" title="Permalink to this definition">¶</a></dt>
@@ -2616,14 +2641,13 @@ nearby WiFi access points (depending on what backend is used)</p>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
 <li><strong>provider_id</strong> &#8211; GeoIP provider id specified by module constant</li>
-<li><strong>refresh_now</strong> &#8211; if a GeoIP information refresh should be done</li>
+<li><strong>refresh_now</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.4)"><em>bool</em></a>) &#8211; if a GeoIP information refresh should be done
+once the class is initialized</li>
 </ul>
 </td>
 </tr>
 </tbody>
 </table>
-<p>once the class is initialized
-:type refresh_now: bool</p>
 <dl class="method">
 <dt id="pyanaconda.geoloc.LocationInfo.get_public_ip_address">
 <tt class="descname">get_public_ip_address</tt><big>(</big><big>)</big><a class="headerlink" href="#pyanaconda.geoloc.LocationInfo.get_public_ip_address" title="Permalink to this definition">¶</a></dt>
@@ -2648,9 +2672,9 @@ nearby WiFi access points (depending on what backend is used)</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the result object or return None if no results are available</td>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the result object or return <tt class="docutils literal"><span class="pre">None</span></tt> if no results are available</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">LocationResult or None</td>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="#pyanaconda.geoloc.LocationResult" title="pyanaconda.geoloc.LocationResult"><tt class="xref py py-class docutils literal"><span class="pre">LocationResult</span></tt></a> or <tt class="docutils literal"><span class="pre">None</span></tt></td>
 </tr>
 </tbody>
 </table>
@@ -2664,9 +2688,9 @@ nearby WiFi access points (depending on what backend is used)</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">territory code or None if no results are available</td>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">territory code or <tt class="docutils literal"><span class="pre">None</span></tt> if no results are available</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">string or None</td>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">string or <tt class="docutils literal"><span class="pre">None</span></tt></td>
 </tr>
 </tbody>
 </table>
@@ -2799,11 +2823,11 @@ about nearby WiFi access points</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">a list of WiFiAccessPoint objects or</td>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">a list of WiFiAccessPoint objects or
+an empty list if no APs were found or the scan failed</td>
 </tr>
 </tbody>
 </table>
-<p>an empty list if no APs were found or the scan failed</p>
 </dd></dl>
 
 <dl class="method">
@@ -2835,69 +2859,89 @@ arguments/boot options for the geolocation module.</p>
 <dl class="function">
 <dt id="pyanaconda.geoloc.get_result">
 <tt class="descclassname">pyanaconda.geoloc.</tt><tt class="descname">get_result</tt><big>(</big><em>wait=False</em><big>)</big><a class="headerlink" href="#pyanaconda.geoloc.get_result" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns the current geolocation result wrapper
-or None, if:
-- no results were found
-- the refresh is still in progress
-- the geolocation module was not activated (init &amp; refresh were not called)</p>
+<dd><p>Returns the current geolocation result wrapper or <tt class="docutils literal"><span class="pre">None</span></tt>, if:</p>
+<ul>
+<li><p class="first">no results were found</p>
+</li>
+<li><p class="first">the refresh is still in progress</p>
+</li>
+<li><p class="first">the geolocation module was not activated
+(<a class="reference internal" href="#pyanaconda.geoloc.init_geolocation" title="pyanaconda.geoloc.init_geolocation"><tt class="xref py py-func docutils literal"><span class="pre">init_geolocation()</span></tt></a> &amp; <a class="reference internal" href="#pyanaconda.geoloc.refresh" title="pyanaconda.geoloc.refresh"><tt class="xref py py-func docutils literal"><span class="pre">refresh()</span></tt></a> were not called)</p>
 <blockquote>
 <div><ul class="simple">
 <li>this is for example the case during image and directory installs</li>
 </ul>
 </div></blockquote>
+</li>
+</ul>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>wait</strong> &#8211; wait for lookup in progress to finish</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>wait</strong> (<em>bool or number</em>) &#8211; <p>wait for lookup in progress to finish</p>
+<div class="line-block">
+<div class="line"><tt class="docutils literal"><span class="pre">False</span></tt> - don&#8217;t wait</div>
+<div class="line"><tt class="docutils literal"><span class="pre">True</span></tt> - wait for default period</div>
+<div class="line">number - wait for up to number seconds</div>
+</div>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><a class="reference internal" href="#pyanaconda.geoloc.LocationResult" title="pyanaconda.geoloc.LocationResult"><tt class="xref py py-class docutils literal"><span class="pre">LocationResult</span></tt></a> instance or <tt class="docutils literal"><span class="pre">None</span></tt> if location is unknown</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="#pyanaconda.geoloc.LocationResult" title="pyanaconda.geoloc.LocationResult"><tt class="xref py py-class docutils literal"><span class="pre">LocationResult</span></tt></a> or <tt class="docutils literal"><span class="pre">None</span></tt></td>
 </tr>
 </tbody>
 </table>
-<p>False - don&#8217;t wait
-True - wait for default period
-number - wait for up to number seconds
-:type wait:  bool or number
-:return: LocationResult instance or None if location is unknown
-:rtype: LocationResult or None</p>
 </dd></dl>
 
 <dl class="function">
 <dt id="pyanaconda.geoloc.get_territory_code">
 <tt class="descclassname">pyanaconda.geoloc.</tt><tt class="descname">get_territory_code</tt><big>(</big><em>wait=False</em><big>)</big><a class="headerlink" href="#pyanaconda.geoloc.get_territory_code" title="Permalink to this definition">¶</a></dt>
-<dd><p>This function returns the current country code
-or None, if:
-- no results were found
-- the lookup is still in progress
-- the geolocation module was not activated (init &amp; refresh were not called)</p>
+<dd><p>This function returns the current country code or <tt class="docutils literal"><span class="pre">None</span></tt>, if:</p>
+<ul>
+<li><p class="first">no results were found</p>
+</li>
+<li><p class="first">the lookup is still in progress</p>
+</li>
+<li><p class="first">the geolocation module was not activated
+(<a class="reference internal" href="#pyanaconda.geoloc.init_geolocation" title="pyanaconda.geoloc.init_geolocation"><tt class="xref py py-func docutils literal"><span class="pre">init_geolocation()</span></tt></a> &amp; <a class="reference internal" href="#pyanaconda.geoloc.refresh" title="pyanaconda.geoloc.refresh"><tt class="xref py py-func docutils literal"><span class="pre">refresh()</span></tt></a> were not called)</p>
 <blockquote>
 <div><ul class="simple">
 <li>this is for example the case during image and directory installs</li>
 </ul>
 </div></blockquote>
+</li>
+</ul>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>wait</strong> &#8211; wait for lookup in progress to finish</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>wait</strong> (<em>bool or number</em>) &#8211; <p>wait for lookup in progress to finish</p>
+<div class="line-block">
+<div class="line"><tt class="docutils literal"><span class="pre">False</span></tt> - don&#8217;t wait</div>
+<div class="line"><tt class="docutils literal"><span class="pre">True</span></tt> - wait for default period</div>
+<div class="line">number - wait for up to number seconds</div>
+</div>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">current country code or <tt class="docutils literal"><span class="pre">None</span></tt> if not known</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">string or <tt class="docutils literal"><span class="pre">None</span></tt></td>
 </tr>
 </tbody>
 </table>
-<p>False - don&#8217;t wait
-True - wait for default period
-number - wait for up to number seconds
-:type wait:  bool or number
-:return: current country code or None if not known
-:rtype: string or None</p>
 </dd></dl>
 
 <dl class="function">
 <dt id="pyanaconda.geoloc.get_timezone">
 <tt class="descclassname">pyanaconda.geoloc.</tt><tt class="descname">get_timezone</tt><big>(</big><em>wait=False</em><big>)</big><a class="headerlink" href="#pyanaconda.geoloc.get_timezone" title="Permalink to this definition">¶</a></dt>
-<dd><p>This function returns the current time zone
-or None, if:
-- no timezone was found
-- the lookup is still in progress
-- the geolocation module was not activated (init &amp; refresh were not called)</p>
+<dd><p>This function returns the current time zone or <tt class="docutils literal"><span class="pre">None</span></tt>, if:</p>
+<ul class="simple">
+<li>no timezone was found</li>
+<li>the lookup is still in progress</li>
+<li>the geolocation module was not activated
+(<a class="reference internal" href="#pyanaconda.geoloc.init_geolocation" title="pyanaconda.geoloc.init_geolocation"><tt class="xref py py-func docutils literal"><span class="pre">init_geolocation()</span></tt></a> &amp; <a class="reference internal" href="#pyanaconda.geoloc.refresh" title="pyanaconda.geoloc.refresh"><tt class="xref py py-func docutils literal"><span class="pre">refresh()</span></tt></a> were not called)</li>
+</ul>
 <blockquote>
 <div><ul class="simple">
 <li>this is for example the case during image and directory installs</li>
@@ -2907,16 +2951,20 @@ or None, if:
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>wait</strong> &#8211; wait for lookup in progress to finish</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>wait</strong> (<em>bool or number</em>) &#8211; <p>wait for lookup in progress to finish</p>
+<div class="line-block">
+<div class="line"><tt class="docutils literal"><span class="pre">False</span></tt> - don&#8217;t wait</div>
+<div class="line"><tt class="docutils literal"><span class="pre">True</span></tt> - wait for default period</div>
+<div class="line">number - wait for up to number seconds</div>
+</div>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">current timezone or <tt class="docutils literal"><span class="pre">None</span></tt> if not known</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">string or <tt class="docutils literal"><span class="pre">None</span></tt></td>
 </tr>
 </tbody>
 </table>
-<p>False - don&#8217;t wait
-True - wait for default period
-number - wait for up to number seconds
-:type wait:  bool or number
-:return: current timezone or None if not known
-:rtype: string or None</p>
 </dd></dl>
 
 <dl class="function">
@@ -2945,6 +2993,7 @@ to do that.</p>
 geolocation provider.</p>
 </dd></dl>
 
+</div>
 </div>
 <div class="section" id="module-pyanaconda.i18n">
 <span id="pyanaconda-i18n-module"></span><h2>pyanaconda.i18n module<a class="headerlink" href="#module-pyanaconda.i18n" title="Permalink to this headline">¶</a></h2>
@@ -2982,11 +3031,10 @@ geolocation provider.</p>
 <tt class="descclassname">pyanaconda.ihelp.</tt><tt class="descname">get_help_path</tt><big>(</big><em>help_file</em>, <em>instclass</em><big>)</big><a class="headerlink" href="#pyanaconda.ihelp.get_help_path" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return the full path for the given help file name,
 if the help file path does not exist a fallback path is returned.
-There are actually two possible fallback paths that might be returned:
-* first we try to return path to the main page of the installation guide</p>
-<blockquote>
-<div>(if it exists)</div></blockquote>
+There are actually two possible fallback paths that might be returned:</p>
 <ul class="simple">
+<li>first we try to return path to the main page of the installation guide
+(if it exists)</li>
 <li>if we can&#8217;t find the main page of the installation page, path to a
 &#8220;no help found&#8221; placeholder bundled with Anaconda is returned</li>
 </ul>
@@ -3042,18 +3090,8 @@ This also supports specifying a specific .iso image</p>
 </dd></dl>
 
 <dl class="function">
-<dt id="pyanaconda.image.getMediaId">
-<tt class="descclassname">pyanaconda.image.</tt><tt class="descname">getMediaId</tt><big>(</big><em>path</em><big>)</big><a class="headerlink" href="#pyanaconda.image.getMediaId" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="function">
 <dt id="pyanaconda.image.mountImage">
 <tt class="descclassname">pyanaconda.image.</tt><tt class="descname">mountImage</tt><big>(</big><em>isodir</em>, <em>tree</em><big>)</big><a class="headerlink" href="#pyanaconda.image.mountImage" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="function">
-<dt id="pyanaconda.image.mountImageDirectory">
-<tt class="descclassname">pyanaconda.image.</tt><tt class="descname">mountImageDirectory</tt><big>(</big><em>method</em>, <em>storage</em><big>)</big><a class="headerlink" href="#pyanaconda.image.mountImageDirectory" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="function">
@@ -3064,11 +3102,6 @@ This also supports specifying a specific .iso image</p>
 <dl class="function">
 <dt id="pyanaconda.image.potentialHdisoSources">
 <tt class="descclassname">pyanaconda.image.</tt><tt class="descname">potentialHdisoSources</tt><big>(</big><em>devicetree</em><big>)</big><a class="headerlink" href="#pyanaconda.image.potentialHdisoSources" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="function">
-<dt id="pyanaconda.image.umountImage">
-<tt class="descclassname">pyanaconda.image.</tt><tt class="descname">umountImage</tt><big>(</big><em>tree</em><big>)</big><a class="headerlink" href="#pyanaconda.image.umountImage" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="function">
@@ -3212,25 +3245,6 @@ installing packages onto those filesystems.</p>
 <dt id="pyanaconda.installclass.getBaseInstallClass">
 <tt class="descclassname">pyanaconda.installclass.</tt><tt class="descname">getBaseInstallClass</tt><big>(</big><big>)</big><a class="headerlink" href="#pyanaconda.installclass.getBaseInstallClass" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
-
-</div>
-<div class="section" id="module-pyanaconda.installinterfacebase">
-<span id="pyanaconda-installinterfacebase-module"></span><h2>pyanaconda.installinterfacebase module<a class="headerlink" href="#module-pyanaconda.installinterfacebase" title="Permalink to this headline">¶</a></h2>
-<dl class="class">
-<dt id="pyanaconda.installinterfacebase.InstallInterfaceBase">
-<em class="property">class </em><tt class="descclassname">pyanaconda.installinterfacebase.</tt><tt class="descname">InstallInterfaceBase</tt><a class="headerlink" href="#pyanaconda.installinterfacebase.InstallInterfaceBase" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">builtins.object</span></tt></p>
-<dl class="method">
-<dt id="pyanaconda.installinterfacebase.InstallInterfaceBase.detailedMessageWindow">
-<tt class="descname">detailedMessageWindow</tt><big>(</big><em>title</em>, <em>text</em>, <em>longText=None</em>, <em>ty='ok'</em>, <em>default=None</em>, <em>custom_icon=None</em>, <em>custom_buttons=None</em>, <em>expanded=False</em><big>)</big><a class="headerlink" href="#pyanaconda.installinterfacebase.InstallInterfaceBase.detailedMessageWindow" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="pyanaconda.installinterfacebase.InstallInterfaceBase.messageWindow">
-<tt class="descname">messageWindow</tt><big>(</big><em>title</em>, <em>text</em>, <em>ty='ok'</em>, <em>default=None</em>, <em>custom_buttons=None</em>, <em>custom_icon=None</em><big>)</big><a class="headerlink" href="#pyanaconda.installinterfacebase.InstallInterfaceBase.messageWindow" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</dd></dl>
 
 </div>
 <div class="section" id="module-pyanaconda.iutil">
@@ -3407,7 +3421,7 @@ file descriptor is already closed.</p>
 <dl class="function">
 <dt id="pyanaconda.iutil.ensure_str">
 <tt class="descclassname">pyanaconda.iutil.</tt><tt class="descname">ensure_str</tt><big>(</big><em>str_or_bytes</em>, <em>keep_none=True</em><big>)</big><a class="headerlink" href="#pyanaconda.iutil.ensure_str" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns a str instance for given string or None if requested to keep it.</p>
+<dd><p>Returns a str instance for given string or <tt class="docutils literal"><span class="pre">None</span></tt> if requested to keep it.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -3415,13 +3429,13 @@ file descriptor is already closed.</p>
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
 <li><strong>str_or_bytes</strong> (<em>str or bytes</em>) &#8211; string to be kept or converted to str type</li>
 <li><strong>keep_none</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.4)"><em>bool</em></a>) &#8211; whether to keep None as it is or raise ValueError if
-None is passed</li>
+<tt class="docutils literal"><span class="pre">None</span></tt> is passed</li>
 </ul>
 </td>
 </tr>
 <tr class="field-even field"><th class="field-name" colspan="2">Raises <a class="reference external" href="https://docs.python.org/3/library/exceptions.html#ValueError" title="(in Python v3.4)">ValueError</a>:</th></tr>
 <tr class="field-even field"><td>&nbsp;</td><td class="field-body"><p class="first last">if applied on an object not being of type bytes nor str
-(nor NoneType if <a href="#id3"><span class="problematic" id="id4">:param:`keep_none`</span></a> is False)</p>
+(nor NoneType if <tt class="docutils literal"><span class="pre">keep_none</span></tt> is <tt class="docutils literal"><span class="pre">False</span></tt>)</p>
 </td>
 </tr>
 </tbody>
@@ -3599,6 +3613,21 @@ composite (containing dots) attribute names.</p>
 </dd></dl>
 
 <dl class="function">
+<dt id="pyanaconda.iutil.id_generator">
+<tt class="descclassname">pyanaconda.iutil.</tt><tt class="descname">id_generator</tt><big>(</big><big>)</big><a class="headerlink" href="#pyanaconda.iutil.id_generator" title="Permalink to this definition">¶</a></dt>
+<dd><p>Id numbers generator.
+Generating numbers from 0 to X and increments after every call.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">Generator which gives you unique numbers.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
 <dt id="pyanaconda.iutil.ipmi_report">
 <tt class="descclassname">pyanaconda.iutil.</tt><tt class="descname">ipmi_report</tt><big>(</big><em>event</em><big>)</big><a class="headerlink" href="#pyanaconda.iutil.ipmi_report" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
@@ -3616,7 +3645,7 @@ composite (containing dots) attribute names.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">True if this is unsupported hardware, False otherwise</td>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><tt class="docutils literal"><span class="pre">True</span></tt> if this is unsupported hardware, <tt class="docutils literal"><span class="pre">False</span></tt> otherwise</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">bool</td>
 </tr>
@@ -3652,6 +3681,28 @@ locale-independent.</p>
 <p>The arguments are the same as those to python&#8217;s builtin open.</p>
 <p>This is equivalent to eintr_retry_call(open, ...).  Some other
 high-level languages handle this for you, like C&#8217;s fopen.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="pyanaconda.iutil.open_with_perm">
+<tt class="descclassname">pyanaconda.iutil.</tt><tt class="descname">open_with_perm</tt><big>(</big><em>path</em>, <em>mode='r'</em>, <em>perm=511</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#pyanaconda.iutil.open_with_perm" title="Permalink to this definition">¶</a></dt>
+<dd><p>Open a file with the given permission bits.</p>
+<p>This is more or less the same as using os.open(path, flags, perm), but
+with the builtin open() semantics and return type instead of a file
+descriptor.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>path</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.4)"><em>str</em></a>) &#8211; The path of the file to be opened</li>
+<li><strong>mode</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.4)"><em>str</em></a>) &#8211; The same thing as the mode argument to open()</li>
+<li><strong>perm</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.4)"><em>int</em></a>) &#8211; What permission bits to use if creating a new file</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="function">
@@ -3698,6 +3749,12 @@ high-level languages handle this for you, like C&#8217;s fopen.</p>
 <dt id="pyanaconda.iutil.restart_service">
 <tt class="descclassname">pyanaconda.iutil.</tt><tt class="descname">restart_service</tt><big>(</big><em>service</em><big>)</big><a class="headerlink" href="#pyanaconda.iutil.restart_service" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
+
+<dl class="function">
+<dt id="pyanaconda.iutil.save_screenshots">
+<tt class="descclassname">pyanaconda.iutil.</tt><tt class="descname">save_screenshots</tt><big>(</big><big>)</big><a class="headerlink" href="#pyanaconda.iutil.save_screenshots" title="Permalink to this definition">¶</a></dt>
+<dd><p>Save screenshots to the installed system</p>
+</dd></dl>
 
 <dl class="function">
 <dt id="pyanaconda.iutil.service_running">
@@ -3867,6 +3924,15 @@ and returns it with all the diacritics removed.</p>
 </dd></dl>
 
 <dl class="function">
+<dt id="pyanaconda.iutil.sysroot_path">
+<tt class="descclassname">pyanaconda.iutil.</tt><tt class="descname">sysroot_path</tt><big>(</big><em>path</em><big>)</big><a class="headerlink" href="#pyanaconda.iutil.sysroot_path" title="Permalink to this definition">¶</a></dt>
+<dd><p>Make the given relative or absolute path &#8220;sysrooted&#8221;
+:param str path: path to be sysrooted
+:returns: sysrooted path
+:rtype: str</p>
+</dd></dl>
+
+<dl class="function">
 <dt id="pyanaconda.iutil.unwatchAllProcesses">
 <tt class="descclassname">pyanaconda.iutil.</tt><tt class="descname">unwatchAllProcesses</tt><big>(</big><big>)</big><a class="headerlink" href="#pyanaconda.iutil.unwatchAllProcesses" title="Permalink to this definition">¶</a></dt>
 <dd><p>Clear the watched process list.</p>
@@ -3960,25 +4026,6 @@ doing so wouldn&#8217;t make a whole lot of sense.</p>
 <p>This allows anaconda modes that use GLib main loops to use
 GLib.child_watch_add and continue to watch processes started before the
 main loop.</p>
-</dd></dl>
-
-<dl class="function">
-<dt id="pyanaconda.iutil.xprogressive_delay">
-<tt class="descclassname">pyanaconda.iutil.</tt><tt class="descname">xprogressive_delay</tt><big>(</big><big>)</big><a class="headerlink" href="#pyanaconda.iutil.xprogressive_delay" title="Permalink to this definition">¶</a></dt>
-<dd><p>A delay generator, the delay starts short and gets longer
-as the internal counter increases.
-For example for 10 retries, the delay will increases from
-0.5 to 256 seconds.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>retry_number</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.4)"><em>int</em></a>) &#8211; retry counter</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns float:</th><td class="field-body">time to wait in seconds</td>
-</tr>
-</tbody>
-</table>
 </dd></dl>
 
 </div>
@@ -4355,23 +4402,30 @@ ones</li>
 <p>This will write the script to a file named /tmp/ks-script- before
 execution.
 Output is logged by the program logger, the path specified by &#8211;log
-or to /tmp/ks-script-<a href="#id5"><span class="problematic" id="id6">*</span></a>.log</p>
+or to /tmp/ks-script-*.log</p>
 <p>Create a new Script instance.  Instance attributes:</p>
-<dl class="docutils">
-<dt>errorOnFail &#8211; If execution of the script fails, should anaconda</dt>
-<dd>stop, display an error, and then reboot without
-running any other scripts?</dd>
-<dt>inChroot    &#8211; Does the script execute in anaconda&#8217;s chroot</dt>
-<dd>environment or not?</dd>
-<dt>interp      &#8211; The program that should be used to interpret this</dt>
-<dd>script.</dd>
-</dl>
-<p>lineno      &#8211; The line number this script starts on.
-logfile     &#8211; Where all messages from the script should be logged.
-script      &#8211; A string containing all the lines of the script.
-type        &#8211; The type of the script, which can be KS_SCRIPT_* from</p>
-<blockquote>
-<div>pykickstart.constants.</div></blockquote>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>errorOnFail</strong> &#8211; If execution of the script fails, should anaconda
+stop, display an error, and then reboot without
+running any other scripts?</li>
+<li><strong>inChroot</strong> &#8211; Does the script execute in anaconda&#8217;s chroot
+environment or not?</li>
+<li><strong>interp</strong> &#8211; The program that should be used to interpret this
+script.</li>
+<li><strong>lineno</strong> &#8211; The line number this script starts on.</li>
+<li><strong>logfile</strong> &#8211; Where all messages from the script should be logged.</li>
+<li><strong>script</strong> &#8211; A string containing all the lines of the script.</li>
+<li><strong>type</strong> &#8211; The type of the script, which can be KS_SCRIPT_* from
+<tt class="xref py py-mod docutils literal"><span class="pre">pykickstart.constants</span></tt>.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
 <dl class="method">
 <dt id="pyanaconda.kickstart.AnacondaKSScript.run">
 <tt class="descname">run</tt><big>(</big><em>chroot</em><big>)</big><a class="headerlink" href="#pyanaconda.kickstart.AnacondaKSScript.run" title="Permalink to this definition">¶</a></dt>
@@ -5136,6 +5190,24 @@ the installer in the given localedir.</p>
 </dd></dl>
 
 <dl class="function">
+<dt id="pyanaconda.localization.get_firmware_language">
+<tt class="descclassname">pyanaconda.localization.</tt><tt class="descname">get_firmware_language</tt><big>(</big><em>text_mode=False</em><big>)</big><a class="headerlink" href="#pyanaconda.localization.get_firmware_language" title="Permalink to this definition">¶</a></dt>
+<dd><p>Procedure that returns the firmware language information (if any).</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>text_mode</strong> (<em>boot</em>) &#8211; if the locale is being setup for text mode</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">the firmware language translated into a locale string, or None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
 <dt id="pyanaconda.localization.get_language_locales">
 <tt class="descclassname">pyanaconda.localization.</tt><tt class="descname">get_language_locales</tt><big>(</big><em>lang</em><big>)</big><a class="headerlink" href="#pyanaconda.localization.get_language_locales" title="Permalink to this definition">¶</a></dt>
 <dd><p>Function returning all locales available for the given language.</p>
@@ -5157,6 +5229,27 @@ the installer in the given localedir.</p>
 </dd></dl>
 
 <dl class="function">
+<dt id="pyanaconda.localization.get_locale_console_fonts">
+<tt class="descclassname">pyanaconda.localization.</tt><tt class="descname">get_locale_console_fonts</tt><big>(</big><em>locale</em><big>)</big><a class="headerlink" href="#pyanaconda.localization.get_locale_console_fonts" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function returning preferred console fonts for the given locale.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>locale</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.4)"><em>str</em></a>) &#8211; locale string (see LANGCODE_RE)</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">list of preferred console fonts</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">list of strings</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">Raises InvalidLocaleSpec:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">if an invalid locale is given (see LANGCODE_RE)</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
 <dt id="pyanaconda.localization.get_locale_keyboards">
 <tt class="descclassname">pyanaconda.localization.</tt><tt class="descname">get_locale_keyboards</tt><big>(</big><em>locale</em><big>)</big><a class="headerlink" href="#pyanaconda.localization.get_locale_keyboards" title="Permalink to this definition">¶</a></dt>
 <dd><p>Function returning preferred keyboard layouts for the given locale.</p>
@@ -5167,6 +5260,27 @@ the installer in the given localedir.</p>
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>locale</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.4)"><em>str</em></a>) &#8211; locale string (see LANGCODE_RE)</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">list of preferred keyboard layouts</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">list of strings</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">Raises InvalidLocaleSpec:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">if an invalid locale is given (see LANGCODE_RE)</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="pyanaconda.localization.get_locale_scripts">
+<tt class="descclassname">pyanaconda.localization.</tt><tt class="descname">get_locale_scripts</tt><big>(</big><em>locale</em><big>)</big><a class="headerlink" href="#pyanaconda.localization.get_locale_scripts" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function returning preferred scripts (writing systems) for the given locale.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>locale</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.4)"><em>str</em></a>) &#8211; locale string (see LANGCODE_RE)</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">list of preferred scripts</td>
 </tr>
 <tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">list of strings</td>
 </tr>
@@ -5329,21 +5443,23 @@ encoding) are the same as the matching parts of the locale.</p>
 </dd></dl>
 
 <dl class="function">
-<dt id="pyanaconda.localization.load_firmware_language">
-<tt class="descclassname">pyanaconda.localization.</tt><tt class="descname">load_firmware_language</tt><big>(</big><em>lang</em><big>)</big><a class="headerlink" href="#pyanaconda.localization.load_firmware_language" title="Permalink to this definition">¶</a></dt>
-<dd><p>Procedure that loads firmware language information (if any). It stores the
-information in the given ksdata.lang object and sets the $LANG environment
-variable.</p>
-<p>This method must be run before any other threads are started.</p>
+<dt id="pyanaconda.localization.locale_supported_in_console">
+<tt class="descclassname">pyanaconda.localization.</tt><tt class="descname">locale_supported_in_console</tt><big>(</big><em>locale</em><big>)</big><a class="headerlink" href="#pyanaconda.localization.locale_supported_in_console" title="Permalink to this definition">¶</a></dt>
+<dd><p>Function that tells if the given locale can be displayed by the Linux console.</p>
+<p>The Linux console can display Latin, Cyrillic and Greek characters reliably,
+but others such as Japanese, can&#8217;t be correctly installed.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>lang</strong> &#8211; ksdata.lang object</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>locale</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.4)"><em>str</em></a>) &#8211; locale to test</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">None</td>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">whether the given locale is supported by the console or not</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">None</td>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">bool</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">Raises InvalidLocaleSpec:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">if an invalid locale is given (see LANGCODE_RE)</td>
 </tr>
 </tbody>
 </table>
@@ -5400,13 +5516,34 @@ format and fail_safe is set to False</p>
 </dd></dl>
 
 <dl class="function">
+<dt id="pyanaconda.localization.set_console_font">
+<tt class="descclassname">pyanaconda.localization.</tt><tt class="descname">set_console_font</tt><big>(</big><em>font</em><big>)</big><a class="headerlink" href="#pyanaconda.localization.set_console_font" title="Permalink to this definition">¶</a></dt>
+<dd><p>Try to set console font to the given value.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>font</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.4)"><em>str</em></a>) &#8211; console font name</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">True on success, False on failure</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">Bool</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
 <dt id="pyanaconda.localization.setup_locale">
-<tt class="descclassname">pyanaconda.localization.</tt><tt class="descname">setup_locale</tt><big>(</big><em>locale</em>, <em>lang=None</em><big>)</big><a class="headerlink" href="#pyanaconda.localization.setup_locale" title="Permalink to this definition">¶</a></dt>
+<tt class="descclassname">pyanaconda.localization.</tt><tt class="descname">setup_locale</tt><big>(</big><em>locale</em>, <em>lang=None</em>, <em>text_mode=False</em><big>)</big><a class="headerlink" href="#pyanaconda.localization.setup_locale" title="Permalink to this definition">¶</a></dt>
 <dd><p>Procedure setting the system to use the given locale and store it in to the
 ksdata.lang object (if given). DOES NOT PERFORM ANY CHECKS OF THE GIVEN
 LOCALE.</p>
 <p>$LANG must be set by the caller in order to set the language used by gettext.
 Doing this in a thread-safe way is up to the caller.</p>
+<p>We also try to set a proper console font for the locale in text mode.
+If the font for the locale can&#8217;t be displayed in the Linux console,
+we fall back to the English locale.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -5414,6 +5551,43 @@ Doing this in a thread-safe way is up to the caller.</p>
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
 <li><strong>locale</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.4)"><em>str</em></a>) &#8211; locale to setup</li>
 <li><strong>lang</strong> &#8211; ksdata.lang object or None</li>
+<li><strong>text_mode</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.4)"><em>bool</em></a>) &#8211; if the locale is being setup for text mode</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">None</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">None</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="pyanaconda.localization.setup_locale_environment">
+<tt class="descclassname">pyanaconda.localization.</tt><tt class="descname">setup_locale_environment</tt><big>(</big><em>locale=None</em>, <em>text_mode=False</em>, <em>prefer_environment=False</em><big>)</big><a class="headerlink" href="#pyanaconda.localization.setup_locale_environment" title="Permalink to this definition">¶</a></dt>
+<dd><p>Clean and configure the local environment variables.</p>
+<p>This function will attempt to determine the desired locale and configure
+the process environment (os.environ) in the least surprising way. If a
+locale argument is provided, it will be attempted first. After that, this
+function will attempt to use the language environment variables in a manner
+similar to gettext(3) (in order, $LANGUAGE, $LC_ALL, $LC_MESSAGES, $LANG),
+followed by the UEFI PlatformLang, followed by a default.</p>
+<p>When this function returns, $LANG will be set, and $LANGUAGE, $LC_ALL,
+and $LC_MESSAGES will not be set, because they get in the way when changing
+the language after startup.</p>
+<p>This function must be run before any threads are started. This function
+modifies the process environment, which is not thread-safe.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>locale</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.4)"><em>str</em></a>) &#8211; locale to setup if provided</li>
+<li><strong>text_mode</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.4)"><em>bool</em></a>) &#8211; if the locale is being setup for text mode</li>
+<li><strong>prefer_environment</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.4)"><em>bool</em></a>) &#8211; whether the process environment, if available, overrides the locale parameter</li>
 </ul>
 </td>
 </tr>
@@ -5497,7 +5671,27 @@ Doing this in a thread-safe way is up to the caller.</p>
 <dl class="function">
 <dt id="pyanaconda.network.check_ip_address">
 <tt class="descclassname">pyanaconda.network.</tt><tt class="descname">check_ip_address</tt><big>(</big><em>address</em>, <em>version=None</em><big>)</big><a class="headerlink" href="#pyanaconda.network.check_ip_address" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Check if the given IP address is valid in given version if set.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>address</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.4)"><em>str</em></a>) &#8211; IP address for testing</li>
+<li><strong>version</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.4)"><em>int</em></a>) &#8211; <tt class="docutils literal"><span class="pre">4</span></tt> for IPv4, <tt class="docutils literal"><span class="pre">6</span></tt> for IPv6 or
+<tt class="docutils literal"><span class="pre">None</span></tt> to allow either format</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><tt class="docutils literal"><span class="pre">True</span></tt> if IP address is valid or <tt class="docutils literal"><span class="pre">False</span></tt> if not</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">bool</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
 
 <dl class="function">
 <dt id="pyanaconda.network.copyDhclientConfFiles">
@@ -5552,8 +5746,15 @@ For default auto connections created by NM upon start - which happens
 in case of missing ifcfg file - rename the connection using device name
 and dump its ifcfg file. (For server, default auto connections will
 be turned off in NetworkManager.conf.)
-The connection id (and consequently ifcfg file) is set to device name.
-Returns list of devices for which ifcfg file was dumped.</p>
+The connection id (and consequently ifcfg file) is set to device name.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">list of devices for which ifcfg file was dumped.</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="function">
@@ -5569,17 +5770,29 @@ Returns list of devices for which ifcfg file was dumped.</p>
 <dl class="function">
 <dt id="pyanaconda.network.getFirstRealIP">
 <tt class="descclassname">pyanaconda.network.</tt><tt class="descname">getFirstRealIP</tt><big>(</big><big>)</big><a class="headerlink" href="#pyanaconda.network.getFirstRealIP" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Return the first real non-local IP we find from the list of
+all active devices.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">str or <tt class="docutils literal"><span class="pre">None</span></tt></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
 
 <dl class="function">
 <dt id="pyanaconda.network.getHostname">
 <tt class="descclassname">pyanaconda.network.</tt><tt class="descname">getHostname</tt><big>(</big><big>)</big><a class="headerlink" href="#pyanaconda.network.getHostname" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Try to determine what the hostname should be for this system</p>
+</dd></dl>
 
 <dl class="function">
 <dt id="pyanaconda.network.getIPs">
 <tt class="descclassname">pyanaconda.network.</tt><tt class="descname">getIPs</tt><big>(</big><big>)</big><a class="headerlink" href="#pyanaconda.network.getIPs" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Return a list of IP addresses for all active devices.</p>
+</dd></dl>
 
 <dl class="function">
 <dt id="pyanaconda.network.get_device_name">
@@ -5669,17 +5882,40 @@ Will not match derived types such as bonds and vlans.</p>
 <dl class="function">
 <dt id="pyanaconda.network.logIfcfgFile">
 <tt class="descclassname">pyanaconda.network.</tt><tt class="descname">logIfcfgFile</tt><big>(</big><em>path</em>, <em>message=''</em><big>)</big><a class="headerlink" href="#pyanaconda.network.logIfcfgFile" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Log content of network ifcfg file.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>path</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.4)"><em>str</em></a>) &#8211; path to the ifcfg file</li>
+<li><strong>message</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.4)"><em>str</em></a>) &#8211; optional message appended to the log</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
 
 <dl class="function">
 <dt id="pyanaconda.network.logIfcfgFiles">
 <tt class="descclassname">pyanaconda.network.</tt><tt class="descname">logIfcfgFiles</tt><big>(</big><em>message=''</em><big>)</big><a class="headerlink" href="#pyanaconda.network.logIfcfgFiles" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Log contents of all network ifcfg files.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>message</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.4)"><em>str</em></a>) &#8211; append message to the log</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
 
 <dl class="function">
 <dt id="pyanaconda.network.netmask2prefix">
 <tt class="descclassname">pyanaconda.network.</tt><tt class="descname">netmask2prefix</tt><big>(</big><em>netmask</em><big>)</big><a class="headerlink" href="#pyanaconda.network.netmask2prefix" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Convert netmask to prefix (CIDR bits)</p>
+</dd></dl>
 
 <dl class="function">
 <dt id="pyanaconda.network.networkInitialize">
@@ -5773,7 +6009,7 @@ to wait for Network Manager to connect.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>timeout</strong> &#8211; how long to wait in seconds</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>timeout</strong> (<em>integer of float</em>) &#8211; how long to wait in seconds</td>
 </tr>
 </tbody>
 </table>
@@ -5915,16 +6151,15 @@ or unavailable</li>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>values</strong> (<em>[[key1, key2, value, type_str], ...]
-key1: str
-key2: str
-value: object
-type_str: str</em>) &#8211; list of settings with new values and its types
-[[key1, key2, value, type_str], ...]
-key1: first-level key of setting (eg &#8220;connection&#8221;)
-key2: second-level key of setting (eg &#8220;uuid&#8221;)
-value: new value
-type_str: dbus type of new value (eg &#8220;ay&#8221;)</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>values</strong> &#8211; <div class="line-block">
+<div class="line">list of settings with new values and its types</div>
+<div class="line">[[key1, key2, value, type_str], ...]</div>
+<div class="line">key1: first-level key of setting (eg &#8220;connection&#8221;)</div>
+<div class="line">key2: second-level key of setting (eg &#8220;uuid&#8221;)</div>
+<div class="line">value: new value</div>
+<div class="line">type_str: dbus type of new value (eg &#8220;ay&#8221;)</div>
+</div>
+</td>
 </tr>
 </tbody>
 </table>
@@ -6034,11 +6269,15 @@ UnknownDeviceError if device is not found</p>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.4)"><em>str</em></a>) &#8211; name of device</td>
 </tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">ssid of active access point, <tt class="docutils literal"><span class="pre">None</span></tt> if device has no active AP</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">str</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">Raises UnknownDeviceError:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">if device is not found</td>
+</tr>
 </tbody>
 </table>
-<p>:return ssid of active access point, None if device has no active AP
-:rtype: str
-:raise UnknownDeviceError: if device is not found</p>
 </dd></dl>
 
 <dl class="function">
@@ -6145,13 +6384,12 @@ in ACTIVATED state</p>
 in ACTIVATED state</p>
 </td>
 </tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first"><dl class="docutils">
-<dt>[[[address1, prefix1, gateway1], [address2, prefix2, gateway2], ...],</dt>
-<dd><p class="first last">[nameserver1, nameserver2]]</p>
-</dd>
-</dl>
-<p>addressX, gatewayX: string
-prefixX: int</p>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first"><div class="line-block">
+<div class="line">[[[address1, prefix1, gateway1], [address2, prefix2, gateway2], ...],</div>
+<div class="line">[nameserver1, nameserver2]]</div>
+<div class="line">addressX, gatewayX: string</div>
+<div class="line">prefixX: int</div>
+</div>
 </p>
 </td>
 </tr>
@@ -6551,7 +6789,7 @@ PropertyNotFoundError if type is not found</p>
 
 <dl class="function">
 <dt id="pyanaconda.nm.nm_get_settings">
-<tt class="descclassname">pyanaconda.nm.</tt><tt class="descname">nm_get_settings</tt><big>(</big><em>value</em>, <em>key1</em>, <em>key2</em>, <em>format_value=&lt;function &lt;lambda&gt; at 0x7feab3f96a60&gt;</em><big>)</big><a class="headerlink" href="#pyanaconda.nm.nm_get_settings" title="Permalink to this definition">¶</a></dt>
+<tt class="descclassname">pyanaconda.nm.</tt><tt class="descname">nm_get_settings</tt><big>(</big><em>value</em>, <em>key1</em>, <em>key2</em>, <em>format_value=&lt;function &lt;lambda&gt; at 0x7fb4c3ce6048&gt;</em><big>)</big><a class="headerlink" href="#pyanaconda.nm.nm_get_settings" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return settings having given value of key1, key2 setting</p>
 <p>Returns list of settings(dicts) , None if settings were not found.</p>
 </dd></dl>
@@ -6672,26 +6910,25 @@ rtype: list of str</p>
 <dd><p>Update setting of device.</p>
 <p>The type of value is determined from existing settings of device.
 If setting for key1, key2 does not exist, default_type_str is used or
-if None, the type is inferred from the value supplied (string and bool only).</p>
+if <tt class="docutils literal"><span class="pre">None</span></tt>, the type is inferred from the value supplied (string and bool only).</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
 <li><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.4)"><em>str</em></a>) &#8211; name of device</li>
-<li><strong>new_values</strong> (<em>[[key1, key2, value, default_type_str], ...]
-key1: str
-key2: str
-value:
-default_type_str: str</em>) &#8211; <p>list of settings with new values and its types
-[[key1, key2, value, default_type_str]]
-key1: first-level key of setting (eg &#8220;connection&#8221;)
-key2: second-level key of setting (eg &#8220;uuid&#8221;)
-value: new value
-default_type_str: dbus type of new value to be used</p>
+<li><strong>new_values</strong> &#8211; <div class="line-block">
+<div class="line">list of settings with new values and its types</div>
+<div class="line">[[key1, key2, value, default_type_str]]</div>
+<div class="line">key1: first-level key of setting (eg &#8220;connection&#8221;)</div>
+<div class="line">key2: second-level key of setting (eg &#8220;uuid&#8221;)</div>
+<div class="line">value: new value</div>
+<div class="line">default_type_str:</div>
+</div>
 <blockquote>
-<div>if the setting does not already exist;
-if None, the type is inferred from
+<div>dbus type of new value to be used
+if the setting does not already exist;
+if <tt class="docutils literal"><span class="pre">None</span></tt>, the type is inferred from
 value (string and bool only)</div></blockquote>
 </li>
 </ul>
@@ -6991,80 +7228,126 @@ that takes one argument.</p>
 <div class="section" id="module-pyanaconda.rescue">
 <span id="pyanaconda-rescue-module"></span><h2>pyanaconda.rescue module<a class="headerlink" href="#module-pyanaconda.rescue" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
-<dt id="pyanaconda.rescue.RescueInterface">
-<em class="property">class </em><tt class="descclassname">pyanaconda.rescue.</tt><tt class="descname">RescueInterface</tt><a class="headerlink" href="#pyanaconda.rescue.RescueInterface" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#pyanaconda.installinterfacebase.InstallInterfaceBase" title="pyanaconda.installinterfacebase.InstallInterfaceBase"><tt class="xref py py-class docutils literal"><span class="pre">pyanaconda.installinterfacebase.InstallInterfaceBase</span></tt></a></p>
+<dt id="pyanaconda.rescue.RescueMode">
+<em class="property">class </em><tt class="descclassname">pyanaconda.rescue.</tt><tt class="descname">RescueMode</tt><big>(</big><em>app</em>, <em>data</em>, <em>storage=None</em>, <em>payload=None</em>, <em>instclass=None</em><big>)</big><a class="headerlink" href="#pyanaconda.rescue.RescueMode" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="pyanaconda.ui.tui.spokes.html#pyanaconda.ui.tui.spokes.NormalTUISpoke" title="pyanaconda.ui.tui.spokes.NormalTUISpoke"><tt class="xref py py-class docutils literal"><span class="pre">pyanaconda.ui.tui.spokes.NormalTUISpoke</span></tt></a></p>
 <dl class="method">
-<dt id="pyanaconda.rescue.RescueInterface.detailedMessageWindow">
-<tt class="descname">detailedMessageWindow</tt><big>(</big><em>title</em>, <em>text</em>, <em>longText=None</em>, <em>ty='ok'</em>, <em>default=None</em>, <em>custom_icon=None</em>, <em>custom_buttons=None</em>, <em>expanded=False</em><big>)</big><a class="headerlink" href="#pyanaconda.rescue.RescueInterface.detailedMessageWindow" title="Permalink to this definition">¶</a></dt>
+<dt id="pyanaconda.rescue.RescueMode.apply">
+<tt class="descname">apply</tt><big>(</big><big>)</big><a class="headerlink" href="#pyanaconda.rescue.RescueMode.apply" title="Permalink to this definition">¶</a></dt>
+<dd><p>Move along home.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyanaconda.rescue.RescueMode.initialize">
+<tt class="descname">initialize</tt><big>(</big><big>)</big><a class="headerlink" href="#pyanaconda.rescue.RescueMode.initialize" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyanaconda.rescue.RescueMode.input">
+<tt class="descname">input</tt><big>(</big><em>args</em>, <em>key</em><big>)</big><a class="headerlink" href="#pyanaconda.rescue.RescueMode.input" title="Permalink to this definition">¶</a></dt>
+<dd><p>Override any input so we can launch rescue mode.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyanaconda.rescue.RescueMode.prompt">
+<tt class="descname">prompt</tt><big>(</big><em>args=None</em><big>)</big><a class="headerlink" href="#pyanaconda.rescue.RescueMode.prompt" title="Permalink to this definition">¶</a></dt>
+<dd><p>Override the default TUI prompt.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyanaconda.rescue.RescueMode.refresh">
+<tt class="descname">refresh</tt><big>(</big><em>args=None</em><big>)</big><a class="headerlink" href="#pyanaconda.rescue.RescueMode.refresh" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
-<dt id="pyanaconda.rescue.RescueInterface.meh_interface">
-<tt class="descname">meh_interface</tt><a class="headerlink" href="#pyanaconda.rescue.RescueInterface.meh_interface" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="pyanaconda.rescue.RescueInterface.messageWindow">
-<tt class="descname">messageWindow</tt><big>(</big><em>title</em>, <em>text</em>, <em>ty='ok'</em>, <em>default=None</em>, <em>custom_icon=None</em>, <em>custom_buttons=None</em><big>)</big><a class="headerlink" href="#pyanaconda.rescue.RescueInterface.messageWindow" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="pyanaconda.rescue.RescueInterface.passphraseEntryWindow">
-<tt class="descname">passphraseEntryWindow</tt><big>(</big><em>device</em><big>)</big><a class="headerlink" href="#pyanaconda.rescue.RescueInterface.passphraseEntryWindow" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="pyanaconda.rescue.RescueInterface.progressWindow">
-<tt class="descname">progressWindow</tt><big>(</big><em>title</em>, <em>text</em>, <em>total</em>, <em>updpct=0.05</em>, <em>pulse=False</em><big>)</big><a class="headerlink" href="#pyanaconda.rescue.RescueInterface.progressWindow" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="pyanaconda.rescue.RescueInterface.resume">
-<tt class="descname">resume</tt><big>(</big><big>)</big><a class="headerlink" href="#pyanaconda.rescue.RescueInterface.resume" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="pyanaconda.rescue.RescueInterface.shutdown">
-<tt class="descname">shutdown</tt><big>(</big><big>)</big><a class="headerlink" href="#pyanaconda.rescue.RescueInterface.shutdown" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="pyanaconda.rescue.RescueInterface.suspend">
-<tt class="descname">suspend</tt><big>(</big><big>)</big><a class="headerlink" href="#pyanaconda.rescue.RescueInterface.suspend" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="pyanaconda.rescue.RescueInterface.tty_num">
-<tt class="descname">tty_num</tt><a class="headerlink" href="#pyanaconda.rescue.RescueInterface.tty_num" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="pyanaconda.rescue.RescueInterface.waitWindow">
-<tt class="descname">waitWindow</tt><big>(</big><em>title</em>, <em>text</em><big>)</big><a class="headerlink" href="#pyanaconda.rescue.RescueInterface.waitWindow" title="Permalink to this definition">¶</a></dt>
+<dt id="pyanaconda.rescue.RescueMode.title">
+<tt class="descname">title</tt><em class="property"> = 'Rescue'</em><a class="headerlink" href="#pyanaconda.rescue.RescueMode.title" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
 
-<dl class="function">
-<dt id="pyanaconda.rescue.doRescue">
-<tt class="descclassname">pyanaconda.rescue.</tt><tt class="descname">doRescue</tt><big>(</big><em>intf</em>, <em>rescue_mount</em>, <em>ksdata</em><big>)</big><a class="headerlink" href="#pyanaconda.rescue.doRescue" title="Permalink to this definition">¶</a></dt>
+<dl class="class">
+<dt id="pyanaconda.rescue.RootSpoke">
+<em class="property">class </em><tt class="descclassname">pyanaconda.rescue.</tt><tt class="descname">RootSpoke</tt><big>(</big><em>app</em>, <em>data</em>, <em>storage</em>, <em>payload</em>, <em>instclass</em>, <em>roots</em><big>)</big><a class="headerlink" href="#pyanaconda.rescue.RootSpoke" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="pyanaconda.ui.tui.spokes.html#pyanaconda.ui.tui.spokes.NormalTUISpoke" title="pyanaconda.ui.tui.spokes.NormalTUISpoke"><tt class="xref py py-class docutils literal"><span class="pre">pyanaconda.ui.tui.spokes.NormalTUISpoke</span></tt></a></p>
+<dl class="method">
+<dt id="pyanaconda.rescue.RootSpoke.apply">
+<tt class="descname">apply</tt><big>(</big><big>)</big><a class="headerlink" href="#pyanaconda.rescue.RootSpoke.apply" title="Permalink to this definition">¶</a></dt>
+<dd><p>Apply our selection.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyanaconda.rescue.RootSpoke.indirect">
+<tt class="descname">indirect</tt><a class="headerlink" href="#pyanaconda.rescue.RootSpoke.indirect" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="function">
-<dt id="pyanaconda.rescue.makeFStab">
-<tt class="descclassname">pyanaconda.rescue.</tt><tt class="descname">makeFStab</tt><big>(</big><em>instPath=''</em><big>)</big><a class="headerlink" href="#pyanaconda.rescue.makeFStab" title="Permalink to this definition">¶</a></dt>
+<dl class="method">
+<dt id="pyanaconda.rescue.RootSpoke.input">
+<tt class="descname">input</tt><big>(</big><em>args</em>, <em>key</em><big>)</big><a class="headerlink" href="#pyanaconda.rescue.RootSpoke.input" title="Permalink to this definition">¶</a></dt>
+<dd><p>Move along home.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyanaconda.rescue.RootSpoke.prompt">
+<tt class="descname">prompt</tt><big>(</big><em>args=None</em><big>)</big><a class="headerlink" href="#pyanaconda.rescue.RootSpoke.prompt" title="Permalink to this definition">¶</a></dt>
+<dd><p>Override the default TUI prompt.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyanaconda.rescue.RootSpoke.refresh">
+<tt class="descname">refresh</tt><big>(</big><em>args=None</em><big>)</big><a class="headerlink" href="#pyanaconda.rescue.RootSpoke.refresh" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="function">
-<dt id="pyanaconda.rescue.makeResolvConf">
-<tt class="descclassname">pyanaconda.rescue.</tt><tt class="descname">makeResolvConf</tt><big>(</big><em>instPath</em><big>)</big><a class="headerlink" href="#pyanaconda.rescue.makeResolvConf" title="Permalink to this definition">¶</a></dt>
+<dl class="attribute">
+<dt id="pyanaconda.rescue.RootSpoke.root">
+<tt class="descname">root</tt><a class="headerlink" href="#pyanaconda.rescue.RootSpoke.root" title="Permalink to this definition">¶</a></dt>
+<dd><p>The selected root fs to mount.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyanaconda.rescue.RootSpoke.title">
+<tt class="descname">title</tt><em class="property"> = 'Root Selection'</em><a class="headerlink" href="#pyanaconda.rescue.RootSpoke.title" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="function">
-<dt id="pyanaconda.rescue.runShell">
-<tt class="descclassname">pyanaconda.rescue.</tt><tt class="descname">runShell</tt><big>(</big><em>screen=None</em>, <em>msg=''</em><big>)</big><a class="headerlink" href="#pyanaconda.rescue.runShell" title="Permalink to this definition">¶</a></dt>
+</dd></dl>
+
+<dl class="class">
+<dt id="pyanaconda.rescue.RescueMountSpoke">
+<em class="property">class </em><tt class="descclassname">pyanaconda.rescue.</tt><tt class="descname">RescueMountSpoke</tt><big>(</big><em>app</em>, <em>data</em>, <em>storage</em>, <em>payload</em>, <em>instclass</em>, <em>selection</em>, <em>root</em><big>)</big><a class="headerlink" href="#pyanaconda.rescue.RescueMountSpoke" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="pyanaconda.ui.tui.spokes.html#pyanaconda.ui.tui.spokes.NormalTUISpoke" title="pyanaconda.ui.tui.spokes.NormalTUISpoke"><tt class="xref py py-class docutils literal"><span class="pre">pyanaconda.ui.tui.spokes.NormalTUISpoke</span></tt></a></p>
+<dl class="method">
+<dt id="pyanaconda.rescue.RescueMountSpoke.apply">
+<tt class="descname">apply</tt><big>(</big><big>)</big><a class="headerlink" href="#pyanaconda.rescue.RescueMountSpoke.apply" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
+
+<dl class="attribute">
+<dt id="pyanaconda.rescue.RescueMountSpoke.indirect">
+<tt class="descname">indirect</tt><a class="headerlink" href="#pyanaconda.rescue.RescueMountSpoke.indirect" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyanaconda.rescue.RescueMountSpoke.input">
+<tt class="descname">input</tt><big>(</big><em>args</em>, <em>key</em><big>)</big><a class="headerlink" href="#pyanaconda.rescue.RescueMountSpoke.input" title="Permalink to this definition">¶</a></dt>
+<dd><p>Move along home.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyanaconda.rescue.RescueMountSpoke.prompt">
+<tt class="descname">prompt</tt><big>(</big><em>args=None</em><big>)</big><a class="headerlink" href="#pyanaconda.rescue.RescueMountSpoke.prompt" title="Permalink to this definition">¶</a></dt>
+<dd><p>Override the default TUI prompt.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyanaconda.rescue.RescueMountSpoke.refresh">
+<tt class="descname">refresh</tt><big>(</big><em>args=None</em><big>)</big><a class="headerlink" href="#pyanaconda.rescue.RescueMountSpoke.refresh" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="pyanaconda.rescue.RescueMountSpoke.title">
+<tt class="descname">title</tt><em class="property"> = 'Rescue Mount'</em><a class="headerlink" href="#pyanaconda.rescue.RescueMountSpoke.title" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
 
 </div>
 <div class="section" id="module-pyanaconda.safe_dbus">
@@ -7315,8 +7598,37 @@ If there are no quotes, find the last # in the string.</p>
 </dd></dl>
 
 <dl class="function">
+<dt id="pyanaconda.simpleconfig.simple_replace">
+<tt class="descclassname">pyanaconda.simpleconfig.</tt><tt class="descname">simple_replace</tt><big>(</big><em>fname</em>, <em>keys</em>, <em>add=True</em>, <em>add_comment='# Added by Anaconda'</em><big>)</big><a class="headerlink" href="#pyanaconda.simpleconfig.simple_replace" title="Permalink to this definition">¶</a></dt>
+<dd><p>Replace lines in a file, optionally adding if missing.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>fname</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.4)"><em>str</em></a>) &#8211; Filename to operate on</li>
+<li><strong>keys</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.4)"><em>list</em></a>) &#8211; List of (key, string) tuples to search and replace</li>
+<li><strong>add</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.4)"><em>bool</em></a>) &#8211; When True add strings that were not replaced</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p>This will read all the lines in a file, looking for ones that start
+with keys and replacing the line with the associated string. The string
+should be a COMPLETE replacement for the line, not just a value.</p>
+<p>When add is True any keys that haven&#8217;t been found will be appended
+to the end of the file along with the add_comment.</p>
+</dd></dl>
+
+<dl class="function">
 <dt id="pyanaconda.simpleconfig.unquote">
 <tt class="descclassname">pyanaconda.simpleconfig.</tt><tt class="descname">unquote</tt><big>(</big><em>s</em><big>)</big><a class="headerlink" href="#pyanaconda.simpleconfig.unquote" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="pyanaconda.simpleconfig.write_tmpfile">
+<tt class="descclassname">pyanaconda.simpleconfig.</tt><tt class="descname">write_tmpfile</tt><big>(</big><em>filename</em>, <em>data</em><big>)</big><a class="headerlink" href="#pyanaconda.simpleconfig.write_tmpfile" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </div>
@@ -7385,6 +7697,71 @@ Supports checking bot modules (&#8220;foo&#8221;) os submodules (&#8220;foo.bar.
 <dt id="pyanaconda.storage_utils.SanityWarning">
 <em class="property">exception </em><tt class="descclassname">pyanaconda.storage_utils.</tt><tt class="descname">SanityWarning</tt><a class="headerlink" href="#pyanaconda.storage_utils.SanityWarning" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#pyanaconda.storage_utils.SanityException" title="pyanaconda.storage_utils.SanityException"><tt class="xref py py-class docutils literal"><span class="pre">pyanaconda.storage_utils.SanityException</span></tt></a></p>
+</dd></dl>
+
+<dl class="class">
+<dt id="pyanaconda.storage_utils.StorageSnapshot">
+<em class="property">class </em><tt class="descclassname">pyanaconda.storage_utils.</tt><tt class="descname">StorageSnapshot</tt><big>(</big><em>storage=None</em><big>)</big><a class="headerlink" href="#pyanaconda.storage_utils.StorageSnapshot" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">builtins.object</span></tt></p>
+<p>R/W snapshot of storage (i.e. a <tt class="xref py py-class docutils literal"><span class="pre">blivet.Blivet</span></tt> instance)</p>
+<p>Create new instance of the class</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>storage</strong> (<tt class="xref py py-class docutils literal"><span class="pre">blivet.Blivet</span></tt>) &#8211; if given, its snapshot is created</td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="pyanaconda.storage_utils.StorageSnapshot.create_snapshot">
+<tt class="descname">create_snapshot</tt><big>(</big><em>storage</em><big>)</big><a class="headerlink" href="#pyanaconda.storage_utils.StorageSnapshot.create_snapshot" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create (and save) snapshot of storage</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyanaconda.storage_utils.StorageSnapshot.created">
+<tt class="descname">created</tt><a class="headerlink" href="#pyanaconda.storage_utils.StorageSnapshot.created" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyanaconda.storage_utils.StorageSnapshot.dispose_snapshot">
+<tt class="descname">dispose_snapshot</tt><big>(</big><big>)</big><a class="headerlink" href="#pyanaconda.storage_utils.StorageSnapshot.dispose_snapshot" title="Permalink to this definition">¶</a></dt>
+<dd><p>Dispose (unref) the snapshot</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">In order to free the memory taken by the snapshot, all references
+returned by <a href="#id1"><span class="problematic" id="id2">:property:`self.storage`</span></a> have to be unrefed too.</p>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyanaconda.storage_utils.StorageSnapshot.reset_to_snapshot">
+<tt class="descname">reset_to_snapshot</tt><big>(</big><em>storage</em>, <em>dispose=False</em><big>)</big><a class="headerlink" href="#pyanaconda.storage_utils.StorageSnapshot.reset_to_snapshot" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reset storage to snapshot (<strong>modifies :param:`storage` in place</strong>)</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>storage</strong> &#8211; <tt class="xref py py-class docutils literal"><span class="pre">blivet.Blivet</span></tt> instance to reset to the created snapshot</li>
+<li><strong>dispose</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.4)"><em>bool</em></a>) &#8211; whether to dispose the snapshot after reset or not</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">Raises <a class="reference external" href="https://docs.python.org/3/library/exceptions.html#ValueError" title="(in Python v3.4)">ValueError</a>:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body"><p class="first last">if no snapshot is available (was not created before)</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pyanaconda.storage_utils.StorageSnapshot.storage">
+<tt class="descname">storage</tt><a class="headerlink" href="#pyanaconda.storage_utils.StorageSnapshot.storage" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
 </dd></dl>
 
 <dl class="class">
@@ -7513,78 +7890,6 @@ a key.</p>
 </tr>
 </tbody>
 </table>
-</dd></dl>
-
-</div>
-<div class="section" id="module-pyanaconda.text">
-<span id="pyanaconda-text-module"></span><h2>pyanaconda.text module<a class="headerlink" href="#module-pyanaconda.text" title="Permalink to this headline">¶</a></h2>
-<dl class="class">
-<dt id="pyanaconda.text.OkCancelWindow">
-<em class="property">class </em><tt class="descclassname">pyanaconda.text.</tt><tt class="descname">OkCancelWindow</tt><big>(</big><em>screen</em>, <em>title</em>, <em>text</em><big>)</big><a class="headerlink" href="#pyanaconda.text.OkCancelWindow" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">builtins.object</span></tt></p>
-<dl class="method">
-<dt id="pyanaconda.text.OkCancelWindow.getrc">
-<tt class="descname">getrc</tt><big>(</big><big>)</big><a class="headerlink" href="#pyanaconda.text.OkCancelWindow.getrc" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
-<dl class="class">
-<dt id="pyanaconda.text.PassphraseEntryWindow">
-<em class="property">class </em><tt class="descclassname">pyanaconda.text.</tt><tt class="descname">PassphraseEntryWindow</tt><big>(</big><em>screen</em>, <em>device</em><big>)</big><a class="headerlink" href="#pyanaconda.text.PassphraseEntryWindow" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">builtins.object</span></tt></p>
-<dl class="method">
-<dt id="pyanaconda.text.PassphraseEntryWindow.pop">
-<tt class="descname">pop</tt><big>(</big><big>)</big><a class="headerlink" href="#pyanaconda.text.PassphraseEntryWindow.pop" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="pyanaconda.text.PassphraseEntryWindow.run">
-<tt class="descname">run</tt><big>(</big><big>)</big><a class="headerlink" href="#pyanaconda.text.PassphraseEntryWindow.run" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
-<dl class="class">
-<dt id="pyanaconda.text.ProgressWindow">
-<em class="property">class </em><tt class="descclassname">pyanaconda.text.</tt><tt class="descname">ProgressWindow</tt><big>(</big><em>screen</em>, <em>title</em>, <em>text</em>, <em>total</em>, <em>updpct=0.05</em>, <em>pulse=False</em><big>)</big><a class="headerlink" href="#pyanaconda.text.ProgressWindow" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">builtins.object</span></tt></p>
-<dl class="method">
-<dt id="pyanaconda.text.ProgressWindow.pop">
-<tt class="descname">pop</tt><big>(</big><big>)</big><a class="headerlink" href="#pyanaconda.text.ProgressWindow.pop" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="pyanaconda.text.ProgressWindow.pulse">
-<tt class="descname">pulse</tt><big>(</big><big>)</big><a class="headerlink" href="#pyanaconda.text.ProgressWindow.pulse" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="pyanaconda.text.ProgressWindow.refresh">
-<tt class="descname">refresh</tt><big>(</big><big>)</big><a class="headerlink" href="#pyanaconda.text.ProgressWindow.refresh" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="pyanaconda.text.ProgressWindow.set">
-<tt class="descname">set</tt><big>(</big><em>amount</em><big>)</big><a class="headerlink" href="#pyanaconda.text.ProgressWindow.set" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
-<dl class="class">
-<dt id="pyanaconda.text.WaitWindow">
-<em class="property">class </em><tt class="descclassname">pyanaconda.text.</tt><tt class="descname">WaitWindow</tt><big>(</big><em>screen</em>, <em>title</em>, <em>text</em><big>)</big><a class="headerlink" href="#pyanaconda.text.WaitWindow" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">builtins.object</span></tt></p>
-<dl class="method">
-<dt id="pyanaconda.text.WaitWindow.pop">
-<tt class="descname">pop</tt><big>(</big><big>)</big><a class="headerlink" href="#pyanaconda.text.WaitWindow.pop" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="pyanaconda.text.WaitWindow.refresh">
-<tt class="descname">refresh</tt><big>(</big><big>)</big><a class="headerlink" href="#pyanaconda.text.WaitWindow.refresh" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
 </dd></dl>
 
 </div>
@@ -8133,7 +8438,7 @@ it by calling a function of the vnc module.</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'23.15',
+            VERSION:'24.0',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

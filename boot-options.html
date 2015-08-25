@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Anaconda Boot Options &mdash; Anaconda 23.15 documentation</title>
+  <title>Anaconda Boot Options &mdash; Anaconda 24.0 documentation</title>
   
 
   
@@ -30,7 +30,7 @@
   
 
   
-    <link rel="top" title="Anaconda 23.15 documentation" href="index.html"/>
+    <link rel="top" title="Anaconda 24.0 documentation" href="index.html"/>
         <link rel="next" title="Anaconda Kickstart Documentation" href="kickstart.html"/>
         <link rel="prev" title="Introduction to Anaconda" href="intro.html"/> 
 
@@ -76,6 +76,8 @@
 <li class="toctree-l1 current"><a class="current reference internal" href="">Anaconda Boot Options</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#installation-source">Installation Source</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#inst-repo">inst.repo</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#inst-noverifyssl">inst.noverifyssl</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#inst-proxy">inst.proxy</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#inst-stage2">inst.stage2</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#inst-dd">inst.dd</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#inst-multilib">inst.multilib</a></li>
@@ -116,10 +118,31 @@
 <li class="toctree-l2"><a class="reference internal" href="#debugging-and-troubleshooting">Debugging and Troubleshooting</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#inst-rescue">inst.rescue</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#inst-updates">inst.updates</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#nokill">nokill</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#inst-loglevel">inst.loglevel</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#inst-noshell">inst.noshell</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#inst-syslog">inst.syslog</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#inst-virtiolog">inst.virtiolog</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#inst-zram">inst.zram</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#boot-loader-options">Boot loader options</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#extlinux">extlinux</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#leavebootorder">leavebootorder</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#storage-options">Storage options</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#inst-nodmraid">inst.nodmraid</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#inst-nompath">inst.nompath</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#inst-gpt">inst.gpt</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#other-options">Other options</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#inst-selinux">inst.selinux</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#third-party-options">Third-party options</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#inst-kdump">inst.kdump</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#deprecated-options">Deprecated Options</a><ul>
@@ -129,12 +152,12 @@
 <li class="toctree-l3"><a class="reference internal" href="#netmask-gateway-hostname">netmask, gateway, hostname</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#ip-bootif">ip=bootif</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#ksdevice">ksdevice</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#blacklist-nofirewire">blacklist, nofirewire</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#removed-options">Removed Options</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#askmethod-asknetwork">askmethod, asknetwork</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id5">serial</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#blacklist-nofirewire">blacklist, nofirewire</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id4">serial</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#updates">updates</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#essid-wepkey-wpakey">essid, wepkey, wpakey</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#ethtool">ethtool</a></li>
@@ -145,6 +168,7 @@
 <li class="toctree-l3"><a class="reference internal" href="#utf8">utf8</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#noipv6">noipv6</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#upgradeany">upgradeany</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#inst-repo-hd-device-path-for-installable-tree">inst.repo=hd:&lt;device&gt;:&lt;path&gt; for installable tree</a></li>
 </ul>
 </li>
 </ul>
@@ -204,13 +228,15 @@
 <li class="toctree-l3"><a class="reference internal" href="pyanaconda.html#module-pyanaconda.errors">pyanaconda.errors module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pyanaconda.html#module-pyanaconda.exception">pyanaconda.exception module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pyanaconda.html#module-pyanaconda.flags">pyanaconda.flags module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="pyanaconda.html#module-pyanaconda.geoloc">pyanaconda.geoloc module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyanaconda.html#module-pyanaconda.geoloc">pyanaconda.geoloc module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="pyanaconda.html#geolocation-backends">Geolocation backends</a></li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="pyanaconda.html#module-pyanaconda.i18n">pyanaconda.i18n module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pyanaconda.html#module-pyanaconda.ihelp">pyanaconda.ihelp module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pyanaconda.html#module-pyanaconda.image">pyanaconda.image module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pyanaconda.html#module-pyanaconda.install">pyanaconda.install module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pyanaconda.html#module-pyanaconda.installclass">pyanaconda.installclass module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="pyanaconda.html#module-pyanaconda.installinterfacebase">pyanaconda.installinterfacebase module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pyanaconda.html#module-pyanaconda.iutil">pyanaconda.iutil module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pyanaconda.html#module-pyanaconda.kexec">pyanaconda.kexec module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pyanaconda.html#module-pyanaconda.keyboard">pyanaconda.keyboard module</a></li>
@@ -231,7 +257,6 @@
 <li class="toctree-l3"><a class="reference internal" href="pyanaconda.html#module-pyanaconda.simpleconfig">pyanaconda.simpleconfig module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pyanaconda.html#module-pyanaconda.startup_utils">pyanaconda.startup_utils module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pyanaconda.html#module-pyanaconda.storage_utils">pyanaconda.storage_utils module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="pyanaconda.html#module-pyanaconda.text">pyanaconda.text module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pyanaconda.html#module-pyanaconda.threads">pyanaconda.threads module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pyanaconda.html#module-pyanaconda.timezone">pyanaconda.timezone module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pyanaconda.html#module-pyanaconda.users">pyanaconda.users module</a></li>
@@ -326,13 +351,18 @@ different ways:</p>
 <dt><tt class="docutils literal"><span class="pre">inst.repo=cdrom:&lt;device&gt;</span></tt></dt>
 <dd>Look for installer media in the specified disk device.</dd>
 <dt><tt class="docutils literal"><span class="pre">inst.repo=hd:&lt;device&gt;:&lt;path&gt;</span></tt></dt>
-<dd>Mount the given disk partition and install from the given path.</dd>
+<dd>Mount the given disk partition and install from ISO file on the given path.
+This installation method requires ISO file, which contains an installable tree.</dd>
 <dt><tt class="docutils literal"><span class="pre">inst.repo=[http,https,ftp]://&lt;host&gt;/&lt;path&gt;</span></tt></dt>
 <dd>Look for an installable tree at the given URL.</dd>
 <dt><tt class="docutils literal"><span class="pre">inst.repo=nfs:[&lt;options&gt;:]&lt;server&gt;:/&lt;path&gt;</span></tt></dt>
 <dd><p class="first">Mount the given NFS server and path. Uses NFS version <strong>3</strong> by default.</p>
-<p class="last">You can specify what version of the NFS protocol to use by adding <tt class="docutils literal"><span class="pre">nfsvers=X</span></tt>
+<p>You can specify what version of the NFS protocol to use by adding <tt class="docutils literal"><span class="pre">nfsvers=X</span></tt>
 to the <cite>options</cite>.</p>
+<p class="last">This accepts not just an installable tree directory in the <tt class="docutils literal"><span class="pre">&lt;path&gt;</span></tt> element,
+but you can also specify an <tt class="docutils literal"><span class="pre">.iso</span></tt> file. That ISO file is then mounted and
+used as the installation tree. This is often used for simulating a standard
+DVD installation using a remote <tt class="docutils literal"><span class="pre">DVD.iso</span></tt> image.</p>
 </dd>
 </dl>
 <div class="admonition note" id="diskdev">
@@ -351,8 +381,21 @@ to the <cite>options</cite>.</p>
 the space character (&#8216; &#8216;).</p>
 </div>
 </div>
+<div class="section" id="inst-noverifyssl">
+<h3>inst.noverifyssl<a class="headerlink" href="#inst-noverifyssl" title="Permalink to this headline">¶</a></h3>
+<p>Prevents Anaconda from verifying the ssl certificate for all HTTPS connections
+with an exception of the additional kickstart repos (where &#8211;noverifyssl can be
+set per repo).</p>
+</div>
+<div class="section" id="inst-proxy">
+<h3>inst.proxy<a class="headerlink" href="#inst-proxy" title="Permalink to this headline">¶</a></h3>
+<p><tt class="docutils literal"><span class="pre">inst.proxy=PROXY_URL</span></tt></p>
+<p>Use the given proxy settings when performing an installation from a
+HTTP/HTTPS/FTP source.  The <tt class="docutils literal"><span class="pre">PROXY_URL</span></tt> can be specified like this:
+<tt class="docutils literal"><span class="pre">[PROTOCOL://][USERNAME[:PASSWORD]&#64;]HOST[:PORT]</span></tt>.</p>
+</div>
 <div class="section" id="inst-stage2">
-<span id="id3"></span><h3>inst.stage2<a class="headerlink" href="#inst-stage2" title="Permalink to this headline">¶</a></h3>
+<h3>inst.stage2<a class="headerlink" href="#inst-stage2" title="Permalink to this headline">¶</a></h3>
 <p>This specifies the location to fetch only the installer runtime image;
 packages will be ignored. Otherwise the same as <a class="reference internal" href="#inst-repo">inst.repo</a>.</p>
 </div>
@@ -364,7 +407,7 @@ Locations may be specified using any of the formats allowed for
 </div>
 <div class="section" id="inst-multilib">
 <h3>inst.multilib<a class="headerlink" href="#inst-multilib" title="Permalink to this headline">¶</a></h3>
-<p>This sets yum&#8217;s multilib_policy to &#8220;all&#8221; (as opposed to &#8220;best&#8221;).</p>
+<p>This sets dnf&#8217;s multilib_policy to &#8220;all&#8221; (as opposed to &#8220;best&#8221;).</p>
 </div>
 </div>
 <div class="section" id="kickstart">
@@ -401,7 +444,7 @@ network interfaces. The header is of the form:</p>
 <div class="section" id="inst-ks-sendsn">
 <h3>inst.ks.sendsn<a class="headerlink" href="#inst-ks-sendsn" title="Permalink to this headline">¶</a></h3>
 <p>Add a header to outgoing HTTP requests which includes the system&#8217;s serial
-number. <a class="footnote-reference" href="#serial" id="id4">[2]</a></p>
+number. <a class="footnote-reference" href="#serial" id="id3">[2]</a></p>
 <p>The header is of the form:</p>
 <ul class="simple">
 <li><tt class="docutils literal"><span class="pre">X-System-Serial-Number:</span> <span class="pre">&lt;serial&gt;</span></tt></li>
@@ -409,7 +452,7 @@ number. <a class="footnote-reference" href="#serial" id="id4">[2]</a></p>
 <table class="docutils footnote" frame="void" id="serial" rules="none">
 <colgroup><col class="label" /><col /></colgroup>
 <tbody valign="top">
-<tr><td class="label"><a class="fn-backref" href="#id4">[2]</a></td><td>as read from <tt class="docutils literal"><span class="pre">/sys/class/dmi/id/product_serial</span></tt></td></tr>
+<tr><td class="label"><a class="fn-backref" href="#id3">[2]</a></td><td>as read from <tt class="docutils literal"><span class="pre">/sys/class/dmi/id/product_serial</span></tt></td></tr>
 </tbody>
 </table>
 </div>
@@ -494,7 +537,7 @@ be used multiple times.</dd>
 <p>This is a kernel option that specifies what device to use as the primary
 console. For example, if your console should be on the first serial port, use
 <tt class="docutils literal"><span class="pre">console=ttyS0</span></tt>.</p>
-<p>You can use multiple <tt class="docutils literal"><span class="pre">console=</span></tt> options; boot message will be displayed on
+<p>You can use multiple <tt class="docutils literal"><span class="pre">console=</span></tt> options; boot messages will be displayed on
 all consoles, but anaconda will put its display on the last console listed.</p>
 <p>Implies <a class="reference internal" href="#inst-text">inst.text</a>.</p>
 </div>
@@ -603,6 +646,11 @@ Locations may be specified using any of the formats allowed for <tt class="docut
 <p>For any format the <tt class="docutils literal"><span class="pre">&lt;path&gt;</span></tt> component defaults to <tt class="docutils literal"><span class="pre">/updates.img</span></tt> if it is
 omitted.</p>
 </div>
+<div class="section" id="nokill">
+<h3>nokill<a class="headerlink" href="#nokill" title="Permalink to this headline">¶</a></h3>
+<p>A debugging option that prevents anaconda from and rebooting when a fatal error
+occurs or at the end of the installation process.</p>
+</div>
 <div class="section" id="inst-loglevel">
 <h3>inst.loglevel<a class="headerlink" href="#inst-loglevel" title="Permalink to this headline">¶</a></h3>
 <dl class="docutils">
@@ -610,6 +658,10 @@ omitted.</p>
 <dd>Set the minimum level required for messages to be logged on a terminal (log
 files always contain messages of all levels). The default value is <tt class="docutils literal"><span class="pre">info</span></tt>.</dd>
 </dl>
+</div>
+<div class="section" id="inst-noshell">
+<h3>inst.noshell<a class="headerlink" href="#inst-noshell" title="Permalink to this headline">¶</a></h3>
+<p>Do not put a shell on tty2 during install.</p>
 </div>
 <div class="section" id="inst-syslog">
 <h3>inst.syslog<a class="headerlink" href="#inst-syslog" title="Permalink to this headline">¶</a></h3>
@@ -632,6 +684,78 @@ will be used by default, if found.</p>
 <div class="section" id="inst-zram">
 <h3>inst.zram<a class="headerlink" href="#inst-zram" title="Permalink to this headline">¶</a></h3>
 <p>Forces/disables (on/off) usage of zRAM swap for the installation process.</p>
+</div>
+</div>
+<div class="section" id="boot-loader-options">
+<h2>Boot loader options<a class="headerlink" href="#boot-loader-options" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="extlinux">
+<h3>extlinux<a class="headerlink" href="#extlinux" title="Permalink to this headline">¶</a></h3>
+<p>Use extlinux as the bootloader. Note that there&#8217;s no attempt to validate that
+this will work for your platform or anything; it assumes that if you ask for it,
+you want to try.</p>
+</div>
+<div class="section" id="leavebootorder">
+<h3>leavebootorder<a class="headerlink" href="#leavebootorder" title="Permalink to this headline">¶</a></h3>
+<p>Boot the drives in their existing order, to override the default of booting into
+the newly installed drive on Power Systems servers and EFI systems. This is
+useful for systems that, for example, should network boot first before falling
+back to a local boot.</p>
+</div>
+</div>
+<div class="section" id="storage-options">
+<h2>Storage options<a class="headerlink" href="#storage-options" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="inst-nodmraid">
+<h3>inst.nodmraid<a class="headerlink" href="#inst-nodmraid" title="Permalink to this headline">¶</a></h3>
+<p>Disable support for dmraid.</p>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">This option is never a good idea! If you have a disk that is
+erroneously identified as part of a firmware RAID array, that means
+it has some stale RAID metadata on it which must be removed using
+an appropriate tool (dmraid and/or wipefs).</p>
+</div>
+</div>
+<div class="section" id="inst-nompath">
+<h3>inst.nompath<a class="headerlink" href="#inst-nompath" title="Permalink to this headline">¶</a></h3>
+<p>Disable support for multipath devices. This is for systems on which a
+false-positive is encountered which erroneously identifies a normal block device
+as a multipath device. There is no other reason to use this option.</p>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">Not for use with actual multipath hardware!  Using this to attempt
+to install to a single path of a multipath is ill-advised, and not
+supported.</p>
+</div>
+</div>
+<div class="section" id="inst-gpt">
+<h3>inst.gpt<a class="headerlink" href="#inst-gpt" title="Permalink to this headline">¶</a></h3>
+<p>Prefer creation of GPT disklabels.</p>
+</div>
+</div>
+<div class="section" id="other-options">
+<h2>Other options<a class="headerlink" href="#other-options" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="inst-selinux">
+<h3>inst.selinux<a class="headerlink" href="#inst-selinux" title="Permalink to this headline">¶</a></h3>
+<p>Enable SELinux usage in the installed system (default). Note that when used as a
+boot option, &#8220;selinux&#8221; and &#8220;inst.selinux&#8221; are not the same. The &#8220;selinux&#8221; option
+is picked up by both the kernel and Anaconda, but &#8220;inst.selinux&#8221; is processed
+only by Anaconda. So when &#8220;selinux=0&#8221; is used, SELinux will be disabled both in
+the installation environment and in the installed system, but when
+&#8220;inst.selinux=0&#8221; is used SELinux will only be disabled in the installed system.
+Also note that while SELinux is running in the installation environment by
+default, it is running in permissive mode so disabling it there does not make
+much sense.</p>
+</div>
+<div class="section" id="third-party-options">
+<h3>Third-party options<a class="headerlink" href="#third-party-options" title="Permalink to this headline">¶</a></h3>
+<p>Since Fedora 19 the Anaconda installer supports third-party extensions called
+<em>addons</em>. The <em>addons</em> can support their own set of boot options which should be
+documented in their documentation or submitted here.</p>
+<div class="section" id="inst-kdump">
+<h4>inst.kdump<a class="headerlink" href="#inst-kdump" title="Permalink to this headline">¶</a></h4>
+<p><tt class="docutils literal"><span class="pre">inst.kdump_addon=on/off</span></tt></p>
+<p>Enable kdump anaconda addon to setup the kdump service.</p>
+</div>
 </div>
 </div>
 <div class="section" id="deprecated-options">
@@ -677,12 +801,6 @@ accept comma-separated lists; use multiple <tt class="docutils literal"><span cl
 <dd>Replaced with <a class="reference internal" href="#bootdev">bootdev</a></dd>
 </dl>
 </div>
-<div class="section" id="blacklist-nofirewire">
-<h3>blacklist, nofirewire<a class="headerlink" href="#blacklist-nofirewire" title="Permalink to this headline">¶</a></h3>
-<p><tt class="docutils literal"><span class="pre">modprobe</span></tt> handles blacklisting kernel modules on its own; try
-<tt class="docutils literal"><span class="pre">modprobe.blacklist=&lt;mod1&gt;,&lt;mod2&gt;...</span></tt></p>
-<p>You can blacklist the firewire module with <tt class="docutils literal"><span class="pre">modprobe.blacklist=firewire_ohci</span></tt>.</p>
-</div>
 </div>
 <div class="section" id="removed-options">
 <h2>Removed Options<a class="headerlink" href="#removed-options" title="Permalink to this headline">¶</a></h2>
@@ -693,8 +811,14 @@ accept comma-separated lists; use multiple <tt class="docutils literal"><span cl
 removed.</p>
 <p>Instead, use <a class="reference internal" href="#inst-repo">inst.repo</a> or specify appropriate <a class="reference internal" href="#network-options">Network Options</a>.</p>
 </div>
-<div class="section" id="id5">
-<h3>serial<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="blacklist-nofirewire">
+<h3>blacklist, nofirewire<a class="headerlink" href="#blacklist-nofirewire" title="Permalink to this headline">¶</a></h3>
+<p><tt class="docutils literal"><span class="pre">modprobe</span></tt> handles blacklisting kernel modules on its own; try
+<tt class="docutils literal"><span class="pre">modprobe.blacklist=&lt;mod1&gt;,&lt;mod2&gt;...</span></tt></p>
+<p>You can blacklist the firewire module with <tt class="docutils literal"><span class="pre">modprobe.blacklist=firewire_ohci</span></tt>.</p>
+</div>
+<div class="section" id="id4">
+<h3>serial<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
 <p>This option was never intended for public use; it was supposed to be used to
 force anaconda to use <tt class="docutils literal"><span class="pre">/dev/ttyS0</span></tt> as its console when testing it on a live
 machine.</p>
@@ -744,6 +868,10 @@ the installed system.</p>
 <h3>upgradeany<a class="headerlink" href="#upgradeany" title="Permalink to this headline">¶</a></h3>
 <p>Anaconda doesn&#8217;t handle upgrades anymore.</p>
 </div>
+<div class="section" id="inst-repo-hd-device-path-for-installable-tree">
+<h3>inst.repo=hd:&lt;device&gt;:&lt;path&gt; for installable tree<a class="headerlink" href="#inst-repo-hd-device-path-for-installable-tree" title="Permalink to this headline">¶</a></h3>
+<p>Anaconda can&#8217;t use this option with installable tree but only with an ISO file.</p>
+</div>
 </div>
 </div>
 
@@ -786,7 +914,7 @@ the installed system.</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'23.15',
+            VERSION:'24.0',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

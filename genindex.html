@@ -9,7 +9,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Index &mdash; Anaconda 23.15 documentation</title>
+  <title>Index &mdash; Anaconda 24.0 documentation</title>
   
 
   
@@ -31,7 +31,7 @@
   
 
   
-    <link rel="top" title="Anaconda 23.15 documentation" href="index.html"/> 
+    <link rel="top" title="Anaconda 24.0 documentation" href="index.html"/> 
 
   
   <script src="_static/js/modernizr.min.js"></script>
@@ -75,6 +75,8 @@
 <li class="toctree-l1"><a class="reference internal" href="boot-options.html">Anaconda Boot Options</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="boot-options.html#installation-source">Installation Source</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="boot-options.html#inst-repo">inst.repo</a></li>
+<li class="toctree-l3"><a class="reference internal" href="boot-options.html#inst-noverifyssl">inst.noverifyssl</a></li>
+<li class="toctree-l3"><a class="reference internal" href="boot-options.html#inst-proxy">inst.proxy</a></li>
 <li class="toctree-l3"><a class="reference internal" href="boot-options.html#inst-stage2">inst.stage2</a></li>
 <li class="toctree-l3"><a class="reference internal" href="boot-options.html#inst-dd">inst.dd</a></li>
 <li class="toctree-l3"><a class="reference internal" href="boot-options.html#inst-multilib">inst.multilib</a></li>
@@ -115,10 +117,31 @@
 <li class="toctree-l2"><a class="reference internal" href="boot-options.html#debugging-and-troubleshooting">Debugging and Troubleshooting</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="boot-options.html#inst-rescue">inst.rescue</a></li>
 <li class="toctree-l3"><a class="reference internal" href="boot-options.html#inst-updates">inst.updates</a></li>
+<li class="toctree-l3"><a class="reference internal" href="boot-options.html#nokill">nokill</a></li>
 <li class="toctree-l3"><a class="reference internal" href="boot-options.html#inst-loglevel">inst.loglevel</a></li>
+<li class="toctree-l3"><a class="reference internal" href="boot-options.html#inst-noshell">inst.noshell</a></li>
 <li class="toctree-l3"><a class="reference internal" href="boot-options.html#inst-syslog">inst.syslog</a></li>
 <li class="toctree-l3"><a class="reference internal" href="boot-options.html#inst-virtiolog">inst.virtiolog</a></li>
 <li class="toctree-l3"><a class="reference internal" href="boot-options.html#inst-zram">inst.zram</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="boot-options.html#boot-loader-options">Boot loader options</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="boot-options.html#extlinux">extlinux</a></li>
+<li class="toctree-l3"><a class="reference internal" href="boot-options.html#leavebootorder">leavebootorder</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="boot-options.html#storage-options">Storage options</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="boot-options.html#inst-nodmraid">inst.nodmraid</a></li>
+<li class="toctree-l3"><a class="reference internal" href="boot-options.html#inst-nompath">inst.nompath</a></li>
+<li class="toctree-l3"><a class="reference internal" href="boot-options.html#inst-gpt">inst.gpt</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="boot-options.html#other-options">Other options</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="boot-options.html#inst-selinux">inst.selinux</a></li>
+<li class="toctree-l3"><a class="reference internal" href="boot-options.html#third-party-options">Third-party options</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="boot-options.html#inst-kdump">inst.kdump</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="boot-options.html#deprecated-options">Deprecated Options</a><ul>
@@ -128,12 +151,12 @@
 <li class="toctree-l3"><a class="reference internal" href="boot-options.html#netmask-gateway-hostname">netmask, gateway, hostname</a></li>
 <li class="toctree-l3"><a class="reference internal" href="boot-options.html#ip-bootif">ip=bootif</a></li>
 <li class="toctree-l3"><a class="reference internal" href="boot-options.html#ksdevice">ksdevice</a></li>
-<li class="toctree-l3"><a class="reference internal" href="boot-options.html#blacklist-nofirewire">blacklist, nofirewire</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="boot-options.html#removed-options">Removed Options</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="boot-options.html#askmethod-asknetwork">askmethod, asknetwork</a></li>
-<li class="toctree-l3"><a class="reference internal" href="boot-options.html#id5">serial</a></li>
+<li class="toctree-l3"><a class="reference internal" href="boot-options.html#blacklist-nofirewire">blacklist, nofirewire</a></li>
+<li class="toctree-l3"><a class="reference internal" href="boot-options.html#id4">serial</a></li>
 <li class="toctree-l3"><a class="reference internal" href="boot-options.html#updates">updates</a></li>
 <li class="toctree-l3"><a class="reference internal" href="boot-options.html#essid-wepkey-wpakey">essid, wepkey, wpakey</a></li>
 <li class="toctree-l3"><a class="reference internal" href="boot-options.html#ethtool">ethtool</a></li>
@@ -144,6 +167,7 @@
 <li class="toctree-l3"><a class="reference internal" href="boot-options.html#utf8">utf8</a></li>
 <li class="toctree-l3"><a class="reference internal" href="boot-options.html#noipv6">noipv6</a></li>
 <li class="toctree-l3"><a class="reference internal" href="boot-options.html#upgradeany">upgradeany</a></li>
+<li class="toctree-l3"><a class="reference internal" href="boot-options.html#inst-repo-hd-device-path-for-installable-tree">inst.repo=hd:&lt;device&gt;:&lt;path&gt; for installable tree</a></li>
 </ul>
 </li>
 </ul>
@@ -203,13 +227,15 @@
 <li class="toctree-l3"><a class="reference internal" href="pyanaconda.html#module-pyanaconda.errors">pyanaconda.errors module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pyanaconda.html#module-pyanaconda.exception">pyanaconda.exception module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pyanaconda.html#module-pyanaconda.flags">pyanaconda.flags module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="pyanaconda.html#module-pyanaconda.geoloc">pyanaconda.geoloc module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyanaconda.html#module-pyanaconda.geoloc">pyanaconda.geoloc module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="pyanaconda.html#geolocation-backends">Geolocation backends</a></li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="pyanaconda.html#module-pyanaconda.i18n">pyanaconda.i18n module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pyanaconda.html#module-pyanaconda.ihelp">pyanaconda.ihelp module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pyanaconda.html#module-pyanaconda.image">pyanaconda.image module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pyanaconda.html#module-pyanaconda.install">pyanaconda.install module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pyanaconda.html#module-pyanaconda.installclass">pyanaconda.installclass module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="pyanaconda.html#module-pyanaconda.installinterfacebase">pyanaconda.installinterfacebase module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pyanaconda.html#module-pyanaconda.iutil">pyanaconda.iutil module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pyanaconda.html#module-pyanaconda.kexec">pyanaconda.kexec module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pyanaconda.html#module-pyanaconda.keyboard">pyanaconda.keyboard module</a></li>
@@ -230,7 +256,6 @@
 <li class="toctree-l3"><a class="reference internal" href="pyanaconda.html#module-pyanaconda.simpleconfig">pyanaconda.simpleconfig module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pyanaconda.html#module-pyanaconda.startup_utils">pyanaconda.startup_utils module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pyanaconda.html#module-pyanaconda.storage_utils">pyanaconda.storage_utils module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="pyanaconda.html#module-pyanaconda.text">pyanaconda.text module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pyanaconda.html#module-pyanaconda.threads">pyanaconda.threads module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pyanaconda.html#module-pyanaconda.timezone">pyanaconda.timezone module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pyanaconda.html#module-pyanaconda.users">pyanaconda.users module</a></li>
@@ -554,9 +579,15 @@
   </dt>
 
       
-  <dt><a href="pyanaconda.ui.tui.html#pyanaconda.ui.tui.tuiobject.YesNoDialog.answer">answer (pyanaconda.ui.tui.tuiobject.YesNoDialog attribute)</a>
+  <dt><a href="pyanaconda.ui.tui.html#pyanaconda.ui.tui.tuiobject.PasswordDialog.answer">answer (pyanaconda.ui.tui.tuiobject.PasswordDialog attribute)</a>
   </dt>
 
+      <dd><dl>
+        
+  <dt><a href="pyanaconda.ui.tui.html#pyanaconda.ui.tui.tuiobject.YesNoDialog.answer">(pyanaconda.ui.tui.tuiobject.YesNoDialog attribute)</a>
+  </dt>
+
+      </dl></dd>
       
   <dt><a href="pyanaconda.html#pyanaconda.threads.ThreadManager.any_errors">any_errors (pyanaconda.threads.ThreadManager attribute)</a>
   </dt>
@@ -588,10 +619,22 @@
   </dt>
 
       
-  <dt><a href="pyanaconda.ui.html#pyanaconda.ui.common.Spoke.apply">apply() (pyanaconda.ui.common.Spoke method)</a>
+  <dt><a href="pyanaconda.html#pyanaconda.rescue.RescueMode.apply">apply() (pyanaconda.rescue.RescueMode method)</a>
   </dt>
 
       <dd><dl>
+        
+  <dt><a href="pyanaconda.html#pyanaconda.rescue.RescueMountSpoke.apply">(pyanaconda.rescue.RescueMountSpoke method)</a>
+  </dt>
+
+        
+  <dt><a href="pyanaconda.html#pyanaconda.rescue.RootSpoke.apply">(pyanaconda.rescue.RootSpoke method)</a>
+  </dt>
+
+        
+  <dt><a href="pyanaconda.ui.html#pyanaconda.ui.common.Spoke.apply">(pyanaconda.ui.common.Spoke method)</a>
+  </dt>
+
         
   <dt><a href="pyanaconda.ui.gui.spokes.html#pyanaconda.ui.gui.spokes.custom.CustomPartitioningSpoke.apply">(pyanaconda.ui.gui.spokes.custom.CustomPartitioningSpoke method)</a>
   </dt>
@@ -1313,12 +1356,12 @@
   <dt><a href="pyanaconda.ui.html#pyanaconda.ui.common.collect">collect() (in module pyanaconda.ui.common)</a>
   </dt>
 
-  </dl></td>
-  <td style="width: 33%" valign="top"><dl>
       
   <dt><a href="pyanaconda.html#pyanaconda.addons.collect_addon_paths">collect_addon_paths() (in module pyanaconda.addons)</a>
   </dt>
 
+  </dl></td>
+  <td style="width: 33%" valign="top"><dl>
       
   <dt><a href="pyanaconda.ui.html#pyanaconda.ui.common.collect_categories">collect_categories() (in module pyanaconda.ui.common)</a>
   </dt>
@@ -1560,6 +1603,14 @@
   </dt>
 
       
+  <dt><a href="pyanaconda.html#pyanaconda.storage_utils.StorageSnapshot.create_snapshot">create_snapshot() (pyanaconda.storage_utils.StorageSnapshot method)</a>
+  </dt>
+
+      
+  <dt><a href="pyanaconda.html#pyanaconda.storage_utils.StorageSnapshot.created">created (pyanaconda.storage_utils.StorageSnapshot attribute)</a>
+  </dt>
+
+      
   <dt><a href="pyanaconda.html#pyanaconda.users.Users.createGroup">createGroup() (pyanaconda.users.Users method)</a>
   </dt>
 
@@ -1726,16 +1777,6 @@
   </dt>
 
       
-  <dt><a href="pyanaconda.html#pyanaconda.installinterfacebase.InstallInterfaceBase.detailedMessageWindow">detailedMessageWindow() (pyanaconda.installinterfacebase.InstallInterfaceBase method)</a>
-  </dt>
-
-      <dd><dl>
-        
-  <dt><a href="pyanaconda.html#pyanaconda.rescue.RescueInterface.detailedMessageWindow">(pyanaconda.rescue.RescueInterface method)</a>
-  </dt>
-
-      </dl></dd>
-      
   <dt><a href="pyanaconda.html#pyanaconda.bootloader.BootLoader.device_description">device_description() (pyanaconda.bootloader.BootLoader method)</a>
   </dt>
 
@@ -1747,12 +1788,12 @@
   <dt><a href="pyanaconda.html#pyanaconda.bootloader.GRUB.device_map_file">device_map_file (pyanaconda.bootloader.GRUB attribute)</a>
   </dt>
 
-  </dl></td>
-  <td style="width: 33%" valign="top"><dl>
       
   <dt><a href="pyanaconda.html#pyanaconda.storage_utils.device_type_from_autopart">device_type_from_autopart() (in module pyanaconda.storage_utils)</a>
   </dt>
 
+  </dl></td>
+  <td style="width: 33%" valign="top"><dl>
       
   <dt><a href="pyanaconda.html#pyanaconda.kickstart.deviceMatches">deviceMatches() (in module pyanaconda.kickstart)</a>
   </dt>
@@ -1860,6 +1901,10 @@
 
       </dl></dd>
       
+  <dt><a href="pyanaconda.html#pyanaconda.storage_utils.StorageSnapshot.dispose_snapshot">dispose_snapshot() (pyanaconda.storage_utils.StorageSnapshot method)</a>
+  </dt>
+
+      
   <dt><a href="pyanaconda.html#pyanaconda.product.distributionText">distributionText() (in module pyanaconda.product)</a>
   </dt>
 
@@ -1885,10 +1930,6 @@
 
       
   <dt><a href="pyanaconda.html#pyanaconda.kickstart.doKickstartStorage">doKickstartStorage() (in module pyanaconda.kickstart)</a>
-  </dt>
-
-      
-  <dt><a href="pyanaconda.html#pyanaconda.rescue.doRescue">doRescue() (in module pyanaconda.rescue)</a>
   </dt>
 
       
@@ -2046,7 +2087,15 @@
 
       </dl></dd>
       
+  <dt><a href="pyanaconda.ui.gui.spokes.html#pyanaconda.ui.gui.spokes.software.SoftwareSelectionSpoke.environment">environment (pyanaconda.ui.gui.spokes.software.SoftwareSelectionSpoke attribute)</a>
+  </dt>
+
+      
   <dt><a href="pyanaconda.ui.tui.html#pyanaconda.ui.tui.TextUserInterface.ENVIRONMENT">ENVIRONMENT (pyanaconda.ui.tui.TextUserInterface attribute)</a>
+  </dt>
+
+      
+  <dt><a href="pyanaconda.ui.gui.spokes.html#pyanaconda.ui.gui.spokes.software.SoftwareSelectionSpoke.environment_valid">environment_valid (pyanaconda.ui.gui.spokes.software.SoftwareSelectionSpoke attribute)</a>
   </dt>
 
       
@@ -2084,6 +2133,16 @@
 
       </dl></dd>
       
+  <dt><a href="pyanaconda.ui.gui.spokes.html#pyanaconda.ui.gui.spokes.software.SoftwareSelectionSpoke.environmentid">environmentid (pyanaconda.ui.gui.spokes.software.SoftwareSelectionSpoke attribute)</a>
+  </dt>
+
+      
+  <dt><a href="pyanaconda.packaging.html#pyanaconda.packaging.dnfpayload.DNFPayload.environmentId">environmentId() (pyanaconda.packaging.dnfpayload.DNFPayload method)</a>
+  </dt>
+
+  </dl></td>
+  <td style="width: 33%" valign="top"><dl>
+      
   <dt><a href="pyanaconda.packaging.html#pyanaconda.packaging.dnfpayload.DNFPayload.environmentOptionIsDefault">environmentOptionIsDefault() (pyanaconda.packaging.dnfpayload.DNFPayload method)</a>
   </dt>
 
@@ -2103,8 +2162,6 @@
   </dt>
 
       </dl></dd>
-  </dl></td>
-  <td style="width: 33%" valign="top"><dl>
       
   <dt><a href="pyanaconda.packaging.html#pyanaconda.packaging.PayloadManager.error">error (pyanaconda.packaging.PayloadManager attribute)</a>
   </dt>
@@ -2580,10 +2637,6 @@
   </dt>
 
       
-  <dt><a href="pyanaconda.html#pyanaconda.bootloader.get_boot_block">get_boot_block() (in module pyanaconda.bootloader)</a>
-  </dt>
-
-      
   <dt><a href="pyanaconda.html#pyanaconda.bootloader.get_bootloader">get_bootloader() (in module pyanaconda.bootloader)</a>
   </dt>
 
@@ -2605,6 +2658,10 @@
 
       
   <dt><a href="pyanaconda.html#pyanaconda.threads.ThreadManager.get_error">get_error() (pyanaconda.threads.ThreadManager method)</a>
+  </dt>
+
+      
+  <dt><a href="pyanaconda.html#pyanaconda.localization.get_firmware_language">get_firmware_language() (in module pyanaconda.localization)</a>
   </dt>
 
       
@@ -2642,7 +2699,15 @@
   </dt>
 
       
+  <dt><a href="pyanaconda.html#pyanaconda.localization.get_locale_console_fonts">get_locale_console_fonts() (in module pyanaconda.localization)</a>
+  </dt>
+
+      
   <dt><a href="pyanaconda.html#pyanaconda.localization.get_locale_keyboards">get_locale_keyboards() (in module pyanaconda.localization)</a>
+  </dt>
+
+      
+  <dt><a href="pyanaconda.html#pyanaconda.localization.get_locale_scripts">get_locale_scripts() (in module pyanaconda.localization)</a>
   </dt>
 
       
@@ -2745,6 +2810,8 @@
   <dt><a href="pyanaconda.html#pyanaconda.network.get_slaves_from_ifcfgs">get_slaves_from_ifcfgs() (in module pyanaconda.network)</a>
   </dt>
 
+  </dl></td>
+  <td style="width: 33%" valign="top"><dl>
       
   <dt><a href="pyanaconda.ui.gui.html#pyanaconda.ui.gui.xkl_wrapper.XklWrapper.get_switch_opt_description">get_switch_opt_description() (pyanaconda.ui.gui.xkl_wrapper.XklWrapper method)</a>
   </dt>
@@ -2753,8 +2820,6 @@
   <dt><a href="pyanaconda.ui.gui.html#pyanaconda.ui.gui.xkl_wrapper.XklWrapper.get_switching_options">get_switching_options() (pyanaconda.ui.gui.xkl_wrapper.XklWrapper method)</a>
   </dt>
 
-  </dl></td>
-  <td style="width: 33%" valign="top"><dl>
       
   <dt><a href="pyanaconda.html#pyanaconda.network.get_team_slaves">get_team_slaves() (in module pyanaconda.network)</a>
   </dt>
@@ -2844,15 +2909,7 @@
   </dt>
 
       
-  <dt><a href="pyanaconda.html#pyanaconda.image.getMediaId">getMediaId() (in module pyanaconda.image)</a>
-  </dt>
-
-      
   <dt><a href="pyanaconda.html#pyanaconda.users.getPassAlgo">getPassAlgo() (in module pyanaconda.users)</a>
-  </dt>
-
-      
-  <dt><a href="pyanaconda.html#pyanaconda.text.OkCancelWindow.getrc">getrc() (pyanaconda.text.OkCancelWindow method)</a>
   </dt>
 
       
@@ -3026,6 +3083,16 @@
 
       </dl></dd>
       
+  <dt><a href="pyanaconda.ui.gui.hubs.html#pyanaconda.ui.gui.hubs.Hub.handles_autostep">handles_autostep (pyanaconda.ui.gui.hubs.Hub attribute)</a>
+  </dt>
+
+      <dd><dl>
+        
+  <dt><a href="pyanaconda.ui.gui.spokes.html#pyanaconda.ui.gui.spokes.StandaloneSpoke.handles_autostep">(pyanaconda.ui.gui.spokes.StandaloneSpoke attribute)</a>
+  </dt>
+
+      </dl></dd>
+      
   <dt><a href="pyanaconda.packaging.html#pyanaconda.packaging.rpmostreepayload.RPMOSTreePayload.handlesBootloaderConfiguration">handlesBootloaderConfiguration (pyanaconda.packaging.rpmostreepayload.RPMOSTreePayload attribute)</a>
   </dt>
 
@@ -3047,10 +3114,6 @@
   </dt>
 
       </dl></dd>
-      
-  <dt><a href="pyanaconda.html#pyanaconda.bootloader.has_windows_boot_block">has_windows_boot_block() (in module pyanaconda.bootloader)</a>
-  </dt>
-
       
   <dt><a href="pyanaconda.html#pyanaconda.iutil.have_word_match">have_word_match() (in module pyanaconda.iutil)</a>
   </dt>
@@ -3248,6 +3311,10 @@
 
       </dl></dd>
       
+  <dt><a href="pyanaconda.html#pyanaconda.iutil.id_generator">id_generator() (in module pyanaconda.iutil)</a>
+  </dt>
+
+      
   <dt><a href="pyanaconda.html#pyanaconda.network.ifaceForHostIP">ifaceForHostIP() (in module pyanaconda.network)</a>
   </dt>
 
@@ -3316,10 +3383,18 @@
   </dt>
 
       
-  <dt><a href="pyanaconda.ui.html#pyanaconda.ui.common.NormalSpoke.indirect">indirect (pyanaconda.ui.common.NormalSpoke attribute)</a>
+  <dt><a href="pyanaconda.html#pyanaconda.rescue.RescueMountSpoke.indirect">indirect (pyanaconda.rescue.RescueMountSpoke attribute)</a>
   </dt>
 
       <dd><dl>
+        
+  <dt><a href="pyanaconda.html#pyanaconda.rescue.RootSpoke.indirect">(pyanaconda.rescue.RootSpoke attribute)</a>
+  </dt>
+
+        
+  <dt><a href="pyanaconda.ui.html#pyanaconda.ui.common.NormalSpoke.indirect">(pyanaconda.ui.common.NormalSpoke attribute)</a>
+  </dt>
+
         
   <dt><a href="pyanaconda.ui.gui.spokes.html#pyanaconda.ui.gui.spokes.custom.CustomPartitioningSpoke.indirect">(pyanaconda.ui.gui.spokes.custom.CustomPartitioningSpoke attribute)</a>
   </dt>
@@ -3358,10 +3433,14 @@
   </dt>
 
       
-  <dt><a href="pyanaconda.ui.html#pyanaconda.ui.common.UIObject.initialize">initialize() (pyanaconda.ui.common.UIObject method)</a>
+  <dt><a href="pyanaconda.html#pyanaconda.rescue.RescueMode.initialize">initialize() (pyanaconda.rescue.RescueMode method)</a>
   </dt>
 
       <dd><dl>
+        
+  <dt><a href="pyanaconda.ui.html#pyanaconda.ui.common.UIObject.initialize">(pyanaconda.ui.common.UIObject method)</a>
+  </dt>
+
         
   <dt><a href="pyanaconda.ui.gui.hubs.html#pyanaconda.ui.gui.hubs.progress.ProgressHub.initialize">(pyanaconda.ui.gui.hubs.progress.ProgressHub method)</a>
   </dt>
@@ -3472,12 +3551,24 @@
   </dt>
 
       
-  <dt><a href="pyanaconda.ui.tui.hubs.html#pyanaconda.ui.tui.hubs.summary.SummaryHub.input">input() (pyanaconda.ui.tui.hubs.summary.SummaryHub method)</a>
+  <dt><a href="pyanaconda.html#pyanaconda.rescue.RescueMode.input">input() (pyanaconda.rescue.RescueMode method)</a>
   </dt>
 
       <dd><dl>
         
+  <dt><a href="pyanaconda.html#pyanaconda.rescue.RescueMountSpoke.input">(pyanaconda.rescue.RescueMountSpoke method)</a>
+  </dt>
+
+        
+  <dt><a href="pyanaconda.html#pyanaconda.rescue.RootSpoke.input">(pyanaconda.rescue.RootSpoke method)</a>
+  </dt>
+
+        
   <dt><a href="pyanaconda.ui.tui.hubs.html#pyanaconda.ui.tui.hubs.TUIHub.input">(pyanaconda.ui.tui.hubs.TUIHub method)</a>
+  </dt>
+
+        
+  <dt><a href="pyanaconda.ui.tui.hubs.html#pyanaconda.ui.tui.hubs.summary.SummaryHub.input">(pyanaconda.ui.tui.hubs.summary.SummaryHub method)</a>
   </dt>
 
         
@@ -3538,6 +3629,10 @@
 
         
   <dt><a href="pyanaconda.ui.tui.html#pyanaconda.ui.tui.tuiobject.ErrorDialog.input">(pyanaconda.ui.tui.tuiobject.ErrorDialog method)</a>
+  </dt>
+
+        
+  <dt><a href="pyanaconda.ui.tui.html#pyanaconda.ui.tui.tuiobject.PasswordDialog.input">(pyanaconda.ui.tui.tuiobject.PasswordDialog method)</a>
   </dt>
 
         
@@ -3625,10 +3720,6 @@
       </dl></dd>
       
   <dt><a href="pyanaconda.html#pyanaconda.bootloader.GRUB.install_targets">install_targets (pyanaconda.bootloader.GRUB attribute)</a>
-  </dt>
-
-      
-  <dt><a href="pyanaconda.html#pyanaconda.installinterfacebase.InstallInterfaceBase">InstallInterfaceBase (class in pyanaconda.installinterfacebase)</a>
   </dt>
 
   </dl></td>
@@ -3721,10 +3812,6 @@
       </dl></dd>
       
   <dt><a href="pyanaconda.html#pyanaconda.timezone.is_valid_timezone">is_valid_timezone() (in module pyanaconda.timezone)</a>
-  </dt>
-
-      
-  <dt><a href="pyanaconda.html#pyanaconda.bootloader.is_windows_boot_block">is_windows_boot_block() (in module pyanaconda.bootloader)</a>
   </dt>
 
       
@@ -3940,7 +4027,7 @@
   </dt>
 
       
-  <dt><a href="pyanaconda.html#pyanaconda.localization.load_firmware_language">load_firmware_language() (in module pyanaconda.localization)</a>
+  <dt><a href="pyanaconda.html#pyanaconda.localization.locale_supported_in_console">locale_supported_in_console() (in module pyanaconda.localization)</a>
   </dt>
 
       
@@ -4166,15 +4253,7 @@
 
       </dl></dd>
       
-  <dt><a href="pyanaconda.html#pyanaconda.rescue.makeFStab">makeFStab() (in module pyanaconda.rescue)</a>
-  </dt>
-
-      
   <dt><a href="pyanaconda.html#pyanaconda.anaconda_log.AnacondaSocketHandler.makePickle">makePickle() (pyanaconda.anaconda_log.AnacondaSocketHandler method)</a>
-  </dt>
-
-      
-  <dt><a href="pyanaconda.html#pyanaconda.rescue.makeResolvConf">makeResolvConf() (in module pyanaconda.rescue)</a>
   </dt>
 
       
@@ -4258,16 +4337,12 @@
   </dl></td>
   <td style="width: 33%" valign="top"><dl>
       
-  <dt><a href="pyanaconda.html#pyanaconda.rescue.RescueInterface.meh_interface">meh_interface (pyanaconda.rescue.RescueInterface attribute)</a>
+  <dt><a href="pyanaconda.ui.gui.html#pyanaconda.ui.gui.GraphicalUserInterface.meh_interface">meh_interface (pyanaconda.ui.gui.GraphicalUserInterface attribute)</a>
   </dt>
 
       <dd><dl>
         
   <dt><a href="pyanaconda.ui.html#pyanaconda.ui.UserInterface.meh_interface">(pyanaconda.ui.UserInterface attribute)</a>
-  </dt>
-
-        
-  <dt><a href="pyanaconda.ui.gui.html#pyanaconda.ui.gui.GraphicalUserInterface.meh_interface">(pyanaconda.ui.gui.GraphicalUserInterface attribute)</a>
   </dt>
 
         
@@ -4279,16 +4354,6 @@
   <dt><a href="pyanaconda.ui.gui.html#pyanaconda.ui.gui.QuitDialog.MESSAGE">MESSAGE (pyanaconda.ui.gui.QuitDialog attribute)</a>
   </dt>
 
-      
-  <dt><a href="pyanaconda.html#pyanaconda.installinterfacebase.InstallInterfaceBase.messageWindow">messageWindow() (pyanaconda.installinterfacebase.InstallInterfaceBase method)</a>
-  </dt>
-
-      <dd><dl>
-        
-  <dt><a href="pyanaconda.html#pyanaconda.rescue.RescueInterface.messageWindow">(pyanaconda.rescue.RescueInterface method)</a>
-  </dt>
-
-      </dl></dd>
       
   <dt><a href="pyanaconda.packaging.html#pyanaconda.packaging.MetadataError">MetadataError</a>
   </dt>
@@ -4331,10 +4396,6 @@
 
       
   <dt><a href="pyanaconda.html#pyanaconda.image.mountImage">mountImage() (in module pyanaconda.image)</a>
-  </dt>
-
-      
-  <dt><a href="pyanaconda.html#pyanaconda.image.mountImageDirectory">mountImageDirectory() (in module pyanaconda.image)</a>
   </dt>
 
       
@@ -4658,10 +4719,6 @@
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%" valign="top"><dl>
       
-  <dt><a href="pyanaconda.html#pyanaconda.text.OkCancelWindow">OkCancelWindow (class in pyanaconda.text)</a>
-  </dt>
-
-      
   <dt><a href="pyanaconda.ui.gui.spokes.advstorage.html#pyanaconda.ui.gui.spokes.advstorage.fcoe.FCoEDialog.on_add_clicked">on_add_clicked() (pyanaconda.ui.gui.spokes.advstorage.fcoe.FCoEDialog method)</a>
   </dt>
 
@@ -4911,6 +4968,10 @@
   </dt>
 
         
+  <dt><a href="pyanaconda.ui.gui.spokes.html#pyanaconda.ui.gui.spokes.source.SourceSpoke.on_info_bar_clicked">(pyanaconda.ui.gui.spokes.source.SourceSpoke method)</a>
+  </dt>
+
+        
   <dt><a href="pyanaconda.ui.gui.spokes.html#pyanaconda.ui.gui.spokes.storage.StorageSpoke.on_info_bar_clicked">(pyanaconda.ui.gui.spokes.storage.StorageSpoke method)</a>
   </dt>
 
@@ -5005,12 +5066,12 @@
   <dt><a href="pyanaconda.ui.gui.spokes.html#pyanaconda.ui.gui.spokes.keyboard.KeyboardSpoke.on_options_clicked">on_options_clicked() (pyanaconda.ui.gui.spokes.keyboard.KeyboardSpoke method)</a>
   </dt>
 
-  </dl></td>
-  <td style="width: 33%" valign="top"><dl>
       
   <dt><a href="pyanaconda.ui.gui.spokes.html#pyanaconda.ui.gui.spokes.filter.FilterSpoke.on_other_type_combo_changed">on_other_type_combo_changed() (pyanaconda.ui.gui.spokes.filter.FilterSpoke method)</a>
   </dt>
 
+  </dl></td>
+  <td style="width: 33%" valign="top"><dl>
       
   <dt><a href="pyanaconda.ui.gui.spokes.html#pyanaconda.ui.gui.spokes.custom.CustomPartitioningSpoke.on_page_clicked">on_page_clicked() (pyanaconda.ui.gui.spokes.custom.CustomPartitioningSpoke method)</a>
   </dt>
@@ -5298,6 +5359,10 @@
   </dt>
 
       
+  <dt><a href="pyanaconda.html#pyanaconda.iutil.open_with_perm">open_with_perm() (in module pyanaconda.iutil)</a>
+  </dt>
+
+      
   <dt><a href="pyanaconda.html#pyanaconda.vnc.VncServer.openlogfile">openlogfile() (pyanaconda.vnc.VncServer method)</a>
   </dt>
 
@@ -5468,14 +5533,6 @@
   </dt>
 
       
-  <dt><a href="pyanaconda.html#pyanaconda.text.PassphraseEntryWindow">PassphraseEntryWindow (class in pyanaconda.text)</a>
-  </dt>
-
-      
-  <dt><a href="pyanaconda.html#pyanaconda.rescue.RescueInterface.passphraseEntryWindow">passphraseEntryWindow() (pyanaconda.rescue.RescueInterface method)</a>
-  </dt>
-
-      
   <dt><a href="pyanaconda.ui.tui.spokes.html#pyanaconda.ui.tui.spokes.EditTUIDialog.PASSWORD">PASSWORD (pyanaconda.ui.tui.spokes.EditTUIDialog attribute)</a>
   </dt>
 
@@ -5487,6 +5544,10 @@
       </dl></dd>
       
   <dt><a href="pyanaconda.ui.gui.spokes.html#pyanaconda.ui.gui.spokes.user.UserSpoke.password_changed">password_changed() (pyanaconda.ui.gui.spokes.user.UserSpoke method)</a>
+  </dt>
+
+      
+  <dt><a href="pyanaconda.ui.tui.html#pyanaconda.ui.tui.tuiobject.PasswordDialog">PasswordDialog (class in pyanaconda.ui.tui.tuiobject)</a>
   </dt>
 
       
@@ -5573,20 +5634,6 @@
   <dt><a href="pyanaconda.html#pyanaconda.orderedset.OrderedSet.pop">pop() (pyanaconda.orderedset.OrderedSet method)</a>
   </dt>
 
-      <dd><dl>
-        
-  <dt><a href="pyanaconda.html#pyanaconda.text.PassphraseEntryWindow.pop">(pyanaconda.text.PassphraseEntryWindow method)</a>
-  </dt>
-
-        
-  <dt><a href="pyanaconda.html#pyanaconda.text.ProgressWindow.pop">(pyanaconda.text.ProgressWindow method)</a>
-  </dt>
-
-        
-  <dt><a href="pyanaconda.html#pyanaconda.text.WaitWindow.pop">(pyanaconda.text.WaitWindow method)</a>
-  </dt>
-
-      </dl></dd>
       
   <dt><a href="pyanaconda.ui.gui.spokes.lib.html#pyanaconda.ui.gui.spokes.lib.resize.ResizeDialog.populate">populate() (pyanaconda.ui.gui.spokes.lib.resize.ResizeDialog method)</a>
   </dt>
@@ -5794,18 +5841,26 @@
   </dt>
 
       
-  <dt><a href="pyanaconda.html#pyanaconda.text.ProgressWindow">ProgressWindow (class in pyanaconda.text)</a>
-  </dt>
-
-      
-  <dt><a href="pyanaconda.html#pyanaconda.rescue.RescueInterface.progressWindow">progressWindow() (pyanaconda.rescue.RescueInterface method)</a>
-  </dt>
-
-      
-  <dt><a href="pyanaconda.ui.tui.hubs.html#pyanaconda.ui.tui.hubs.summary.SummaryHub.prompt">prompt() (pyanaconda.ui.tui.hubs.summary.SummaryHub method)</a>
+  <dt><a href="pyanaconda.html#pyanaconda.rescue.RescueMode.prompt">prompt() (pyanaconda.rescue.RescueMode method)</a>
   </dt>
 
       <dd><dl>
+        
+  <dt><a href="pyanaconda.html#pyanaconda.rescue.RescueMountSpoke.prompt">(pyanaconda.rescue.RescueMountSpoke method)</a>
+  </dt>
+
+        
+  <dt><a href="pyanaconda.html#pyanaconda.rescue.RootSpoke.prompt">(pyanaconda.rescue.RootSpoke method)</a>
+  </dt>
+
+        
+  <dt><a href="pyanaconda.ui.tui.hubs.html#pyanaconda.ui.tui.hubs.TUIHub.prompt">(pyanaconda.ui.tui.hubs.TUIHub method)</a>
+  </dt>
+
+        
+  <dt><a href="pyanaconda.ui.tui.hubs.html#pyanaconda.ui.tui.hubs.summary.SummaryHub.prompt">(pyanaconda.ui.tui.hubs.summary.SummaryHub method)</a>
+  </dt>
+
         
   <dt><a href="pyanaconda.ui.tui.simpleline.html#pyanaconda.ui.tui.simpleline.base.UIScreen.prompt">(pyanaconda.ui.tui.simpleline.base.UIScreen method)</a>
   </dt>
@@ -5843,6 +5898,10 @@
   </dt>
 
         
+  <dt><a href="pyanaconda.ui.tui.html#pyanaconda.ui.tui.tuiobject.PasswordDialog.prompt">(pyanaconda.ui.tui.tuiobject.PasswordDialog method)</a>
+  </dt>
+
+        
   <dt><a href="pyanaconda.ui.tui.html#pyanaconda.ui.tui.tuiobject.YesNoDialog.prompt">(pyanaconda.ui.tui.tuiobject.YesNoDialog method)</a>
   </dt>
 
@@ -5865,10 +5924,6 @@
 
       
   <dt><a href="pyanaconda.html#pyanaconda.geoloc.LocationResult.public_ip_address">public_ip_address (pyanaconda.geoloc.LocationResult attribute)</a>
-  </dt>
-
-      
-  <dt><a href="pyanaconda.html#pyanaconda.text.ProgressWindow.pulse">pulse() (pyanaconda.text.ProgressWindow method)</a>
   </dt>
 
       
@@ -5956,10 +6011,6 @@
   </dt>
 
       
-  <dt><a href="pyanaconda.html#module-pyanaconda.installinterfacebase">pyanaconda.installinterfacebase (module)</a>
-  </dt>
-
-      
   <dt><a href="pyanaconda.isys.html#module-pyanaconda.isys">pyanaconda.isys (module)</a>
   </dt>
 
@@ -5983,8 +6034,6 @@
   <dt><a href="pyanaconda.html#module-pyanaconda.localization">pyanaconda.localization (module)</a>
   </dt>
 
-  </dl></td>
-  <td style="width: 33%" valign="top"><dl>
       
   <dt><a href="pyanaconda.html#module-pyanaconda.network">pyanaconda.network (module)</a>
   </dt>
@@ -5993,6 +6042,8 @@
   <dt><a href="pyanaconda.html#module-pyanaconda.nm">pyanaconda.nm (module)</a>
   </dt>
 
+  </dl></td>
+  <td style="width: 33%" valign="top"><dl>
       
   <dt><a href="pyanaconda.html#module-pyanaconda.ntp">pyanaconda.ntp (module)</a>
   </dt>
@@ -6063,10 +6114,6 @@
 
       
   <dt><a href="pyanaconda.html#module-pyanaconda.storage_utils">pyanaconda.storage_utils (module)</a>
-  </dt>
-
-      
-  <dt><a href="pyanaconda.html#module-pyanaconda.text">pyanaconda.text (module)</a>
   </dt>
 
       
@@ -6527,11 +6574,15 @@
   </dt>
 
         
-  <dt><a href="pyanaconda.html#pyanaconda.text.ProgressWindow.refresh">(pyanaconda.text.ProgressWindow method)</a>
+  <dt><a href="pyanaconda.html#pyanaconda.rescue.RescueMode.refresh">(pyanaconda.rescue.RescueMode method)</a>
   </dt>
 
         
-  <dt><a href="pyanaconda.html#pyanaconda.text.WaitWindow.refresh">(pyanaconda.text.WaitWindow method)</a>
+  <dt><a href="pyanaconda.html#pyanaconda.rescue.RescueMountSpoke.refresh">(pyanaconda.rescue.RescueMountSpoke method)</a>
+  </dt>
+
+        
+  <dt><a href="pyanaconda.html#pyanaconda.rescue.RootSpoke.refresh">(pyanaconda.rescue.RootSpoke method)</a>
   </dt>
 
         
@@ -6727,6 +6778,10 @@
   </dt>
 
         
+  <dt><a href="pyanaconda.ui.tui.html#pyanaconda.ui.tui.tuiobject.PasswordDialog.refresh">(pyanaconda.ui.tui.tuiobject.PasswordDialog method)</a>
+  </dt>
+
+        
   <dt><a href="pyanaconda.ui.tui.html#pyanaconda.ui.tui.tuiobject.TUIObject.refresh">(pyanaconda.ui.tui.tuiobject.TUIObject method)</a>
   </dt>
 
@@ -6869,12 +6924,12 @@
   <dt><a href="pyanaconda.html#pyanaconda.kickstart.ReqPart">ReqPart (class in pyanaconda.kickstart)</a>
   </dt>
 
-  </dl></td>
-  <td style="width: 33%" valign="top"><dl>
       
   <dt><a href="pyanaconda.html#pyanaconda.iutil.requests_session">requests_session() (in module pyanaconda.iutil)</a>
   </dt>
 
+  </dl></td>
+  <td style="width: 33%" valign="top"><dl>
       
   <dt><a href="pyanaconda.packaging.html#pyanaconda.packaging.tarpayload.TarPayload.requiredSpace">requiredSpace (pyanaconda.packaging.tarpayload.TarPayload attribute)</a>
   </dt>
@@ -6884,7 +6939,11 @@
   </dt>
 
       
-  <dt><a href="pyanaconda.html#pyanaconda.rescue.RescueInterface">RescueInterface (class in pyanaconda.rescue)</a>
+  <dt><a href="pyanaconda.html#pyanaconda.rescue.RescueMode">RescueMode (class in pyanaconda.rescue)</a>
+  </dt>
+
+      
+  <dt><a href="pyanaconda.html#pyanaconda.rescue.RescueMountSpoke">RescueMountSpoke (class in pyanaconda.rescue)</a>
   </dt>
 
       
@@ -6915,6 +6974,10 @@
       </dl></dd>
       
   <dt><a href="pyanaconda.packaging.html#pyanaconda.packaging.PackagePayload.reset_install_device">reset_install_device() (pyanaconda.packaging.PackagePayload method)</a>
+  </dt>
+
+      
+  <dt><a href="pyanaconda.html#pyanaconda.storage_utils.StorageSnapshot.reset_to_snapshot">reset_to_snapshot() (pyanaconda.storage_utils.StorageSnapshot method)</a>
   </dt>
 
       
@@ -6950,10 +7013,6 @@
   </dt>
 
       
-  <dt><a href="pyanaconda.html#pyanaconda.rescue.RescueInterface.resume">resume() (pyanaconda.rescue.RescueInterface method)</a>
-  </dt>
-
-      
   <dt><a href="pyanaconda.ui.gui.spokes.html#pyanaconda.ui.gui.spokes.welcome.WelcomeLanguageSpoke.retranslate">retranslate() (pyanaconda.ui.gui.spokes.welcome.WelcomeLanguageSpoke method)</a>
   </dt>
 
@@ -6976,7 +7035,15 @@
   </dt>
 
       
+  <dt><a href="pyanaconda.html#pyanaconda.rescue.RootSpoke.root">root (pyanaconda.rescue.RootSpoke attribute)</a>
+  </dt>
+
+      
   <dt><a href="pyanaconda.html#pyanaconda.kickstart.RootPw">RootPw (class in pyanaconda.kickstart)</a>
+  </dt>
+
+      
+  <dt><a href="pyanaconda.html#pyanaconda.rescue.RootSpoke">RootSpoke (class in pyanaconda.rescue)</a>
   </dt>
 
       
@@ -6996,10 +7063,6 @@
   </dt>
 
       <dd><dl>
-        
-  <dt><a href="pyanaconda.html#pyanaconda.text.PassphraseEntryWindow.run">(pyanaconda.text.PassphraseEntryWindow method)</a>
-  </dt>
-
         
   <dt><a href="pyanaconda.html#pyanaconda.threads.AnacondaThread.run">(pyanaconda.threads.AnacondaThread method)</a>
   </dt>
@@ -7152,10 +7215,6 @@
   </dt>
 
       
-  <dt><a href="pyanaconda.html#pyanaconda.rescue.runShell">runShell() (in module pyanaconda.rescue)</a>
-  </dt>
-
-      
   <dt><a href="pyanaconda.html#pyanaconda.kickstart.runTracebackScripts">runTracebackScripts() (in module pyanaconda.kickstart)</a>
   </dt>
 
@@ -7191,6 +7250,10 @@
 
       
   <dt><a href="pyanaconda.html#pyanaconda.timezone.save_hw_clock">save_hw_clock() (in module pyanaconda.timezone)</a>
+  </dt>
+
+      
+  <dt><a href="pyanaconda.html#pyanaconda.iutil.save_screenshots">save_screenshots() (in module pyanaconda.iutil)</a>
   </dt>
 
       
@@ -7282,10 +7345,6 @@
   <dt><a href="pyanaconda.html#pyanaconda.simpleconfig.SimpleConfigFile.set">(pyanaconda.simpleconfig.SimpleConfigFile method)</a>
   </dt>
 
-        
-  <dt><a href="pyanaconda.html#pyanaconda.text.ProgressWindow.set">(pyanaconda.text.ProgressWindow method)</a>
-  </dt>
-
       </dl></dd>
       
   <dt><a href="pyanaconda.html#pyanaconda.keyboard.LocaledWrapper.set_and_convert_keymap">set_and_convert_keymap() (pyanaconda.keyboard.LocaledWrapper method)</a>
@@ -7301,6 +7360,10 @@
 
       
   <dt><a href="pyanaconda.html#pyanaconda.flags.Flags.set_cmdline_bool">set_cmdline_bool() (pyanaconda.flags.Flags method)</a>
+  </dt>
+
+      
+  <dt><a href="pyanaconda.html#pyanaconda.localization.set_console_font">set_console_font() (in module pyanaconda.localization)</a>
   </dt>
 
       
@@ -7542,6 +7605,10 @@
   </dt>
 
       
+  <dt><a href="pyanaconda.html#pyanaconda.localization.setup_locale_environment">setup_locale_environment() (in module pyanaconda.localization)</a>
+  </dt>
+
+      
   <dt><a href="pyanaconda.html#pyanaconda.anaconda_log.AnacondaLog.setup_remotelog">setup_remotelog() (pyanaconda.anaconda_log.AnacondaLog method)</a>
   </dt>
 
@@ -7587,6 +7654,8 @@
   <dt><a href="pyanaconda.ui.tui.spokes.html#pyanaconda.ui.tui.spokes.shell_spoke.ShellSpoke">ShellSpoke (class in pyanaconda.ui.tui.spokes.shell_spoke)</a>
   </dt>
 
+  </dl></td>
+  <td style="width: 33%" valign="top"><dl>
       
   <dt><a href="pyanaconda.ui.html#pyanaconda.ui.common.FirstbootOnlySpokeMixIn.should_run">should_run() (pyanaconda.ui.common.FirstbootOnlySpokeMixIn class method)</a>
   </dt>
@@ -7613,8 +7682,6 @@
   </dt>
 
       </dl></dd>
-  </dl></td>
-  <td style="width: 33%" valign="top"><dl>
       
   <dt><a href="pyanaconda.ui.tui.simpleline.html#pyanaconda.ui.tui.simpleline.base.UIScreen.show">show() (pyanaconda.ui.tui.simpleline.base.UIScreen method)</a>
   </dt>
@@ -7716,11 +7783,11 @@
 
       </dl></dd>
       
-  <dt><a href="pyanaconda.html#pyanaconda.rescue.RescueInterface.shutdown">shutdown() (pyanaconda.rescue.RescueInterface method)</a>
+  <dt><a href="pyanaconda.html#pyanaconda.vnc.shutdownServer">shutdownServer() (in module pyanaconda.vnc)</a>
   </dt>
 
       
-  <dt><a href="pyanaconda.html#pyanaconda.vnc.shutdownServer">shutdownServer() (in module pyanaconda.vnc)</a>
+  <dt><a href="pyanaconda.html#pyanaconda.simpleconfig.simple_replace">simple_replace() (in module pyanaconda.simpleconfig)</a>
   </dt>
 
       
@@ -8211,6 +8278,10 @@
 
       <dd><dl>
         
+  <dt><a href="pyanaconda.html#pyanaconda.storage_utils.StorageSnapshot.storage">(pyanaconda.storage_utils.StorageSnapshot attribute)</a>
+  </dt>
+
+        
   <dt><a href="pyanaconda.ui.html#pyanaconda.ui.common.Hub.storage">(pyanaconda.ui.common.Hub attribute)</a>
   </dt>
 
@@ -8229,6 +8300,10 @@
       </dl></dd>
       
   <dt><a href="pyanaconda.ui.html#pyanaconda.ui.helpers.StorageChecker">StorageChecker (class in pyanaconda.ui.helpers)</a>
+  </dt>
+
+      
+  <dt><a href="pyanaconda.html#pyanaconda.storage_utils.StorageSnapshot">StorageSnapshot (class in pyanaconda.storage_utils)</a>
   </dt>
 
       
@@ -8260,10 +8335,6 @@
 
       </dl></dd>
       
-  <dt><a href="pyanaconda.html#pyanaconda.rescue.RescueInterface.suspend">suspend() (pyanaconda.rescue.RescueInterface method)</a>
-  </dt>
-
-      
   <dt><a href="pyanaconda.ui.tui.simpleline.html#pyanaconda.ui.tui.simpleline.base.App.switch_screen">switch_screen() (pyanaconda.ui.tui.simpleline.base.App method)</a>
   </dt>
 
@@ -8277,6 +8348,10 @@
 
       
   <dt><a href="pyanaconda.html#pyanaconda.anaconda_log.AnacondaLog.SYSLOG_CFGFILE">SYSLOG_CFGFILE (pyanaconda.anaconda_log.AnacondaLog attribute)</a>
+  </dt>
+
+      
+  <dt><a href="pyanaconda.html#pyanaconda.iutil.sysroot_path">sysroot_path() (in module pyanaconda.iutil)</a>
   </dt>
 
       
@@ -8376,12 +8451,24 @@
   </dt>
 
       
-  <dt><a href="pyanaconda.ui.categories.html#pyanaconda.ui.categories.customization.CustomizationCategory.title">title (pyanaconda.ui.categories.customization.CustomizationCategory attribute)</a>
+  <dt><a href="pyanaconda.html#pyanaconda.rescue.RescueMode.title">title (pyanaconda.rescue.RescueMode attribute)</a>
   </dt>
 
       <dd><dl>
         
+  <dt><a href="pyanaconda.html#pyanaconda.rescue.RescueMountSpoke.title">(pyanaconda.rescue.RescueMountSpoke attribute)</a>
+  </dt>
+
+        
+  <dt><a href="pyanaconda.html#pyanaconda.rescue.RootSpoke.title">(pyanaconda.rescue.RootSpoke attribute)</a>
+  </dt>
+
+        
   <dt><a href="pyanaconda.ui.categories.html#pyanaconda.ui.categories.SpokeCategory.title">(pyanaconda.ui.categories.SpokeCategory attribute)</a>
+  </dt>
+
+        
+  <dt><a href="pyanaconda.ui.categories.html#pyanaconda.ui.categories.customization.CustomizationCategory.title">(pyanaconda.ui.categories.customization.CustomizationCategory attribute)</a>
   </dt>
 
         
@@ -8537,6 +8624,10 @@
   </dt>
 
         
+  <dt><a href="pyanaconda.ui.tui.html#pyanaconda.ui.tui.tuiobject.PasswordDialog.title">(pyanaconda.ui.tui.tuiobject.PasswordDialog attribute)</a>
+  </dt>
+
+        
   <dt><a href="pyanaconda.ui.tui.html#pyanaconda.ui.tui.tuiobject.TUIObject.title">(pyanaconda.ui.tui.tuiobject.TUIObject attribute)</a>
   </dt>
 
@@ -8554,24 +8645,16 @@
   </dt>
 
       
-  <dt><a href="pyanaconda.html#pyanaconda.constants_text.Translator">Translator (class in pyanaconda.constants_text)</a>
-  </dt>
-
-      
   <dt><a href="pyanaconda.html#pyanaconda.bootloader.BootLoader.trusted_boot">trusted_boot (pyanaconda.bootloader.BootLoader attribute)</a>
   </dt>
 
       
-  <dt><a href="pyanaconda.html#pyanaconda.rescue.RescueInterface.tty_num">tty_num (pyanaconda.rescue.RescueInterface attribute)</a>
+  <dt><a href="pyanaconda.ui.gui.html#pyanaconda.ui.gui.GraphicalUserInterface.tty_num">tty_num (pyanaconda.ui.gui.GraphicalUserInterface attribute)</a>
   </dt>
 
       <dd><dl>
         
   <dt><a href="pyanaconda.ui.html#pyanaconda.ui.UserInterface.tty_num">(pyanaconda.ui.UserInterface attribute)</a>
-  </dt>
-
-        
-  <dt><a href="pyanaconda.ui.gui.html#pyanaconda.ui.gui.GraphicalUserInterface.tty_num">(pyanaconda.ui.gui.GraphicalUserInterface attribute)</a>
   </dt>
 
         
@@ -8751,10 +8834,6 @@
 
       
   <dt><a href="pyanaconda.html#pyanaconda.storage_utils.UIStorageFilter">UIStorageFilter (class in pyanaconda.storage_utils)</a>
-  </dt>
-
-      
-  <dt><a href="pyanaconda.html#pyanaconda.image.umountImage">umountImage() (in module pyanaconda.image)</a>
   </dt>
 
       
@@ -9086,14 +9165,6 @@
   </dt>
 
       
-  <dt><a href="pyanaconda.html#pyanaconda.text.WaitWindow">WaitWindow (class in pyanaconda.text)</a>
-  </dt>
-
-      
-  <dt><a href="pyanaconda.html#pyanaconda.rescue.RescueInterface.waitWindow">waitWindow() (pyanaconda.rescue.RescueInterface method)</a>
-  </dt>
-
-      
   <dt><a href="pyanaconda.ui.html#pyanaconda.ui.helpers.StorageChecker.warnings">warnings (pyanaconda.ui.helpers.StorageChecker attribute)</a>
   </dt>
 
@@ -9191,8 +9262,6 @@
   </dt>
 
       </dl></dd>
-  </dl></td>
-  <td style="width: 33%" valign="top"><dl>
       
   <dt><a href="pyanaconda.html#pyanaconda.bootloader.BootLoader.write_config_console">write_config_console() (pyanaconda.bootloader.BootLoader method)</a>
   </dt>
@@ -9233,6 +9302,8 @@
   </dt>
 
       </dl></dd>
+  </dl></td>
+  <td style="width: 33%" valign="top"><dl>
       
   <dt><a href="pyanaconda.html#pyanaconda.bootloader.BootLoader.write_config_images">write_config_images() (pyanaconda.bootloader.BootLoader method)</a>
   </dt>
@@ -9354,6 +9425,10 @@
   </dt>
 
       
+  <dt><a href="pyanaconda.html#pyanaconda.simpleconfig.write_tmpfile">write_tmpfile() (in module pyanaconda.simpleconfig)</a>
+  </dt>
+
+      
   <dt><a href="pyanaconda.html#pyanaconda.bootloader.writeBootLoader">writeBootLoader() (in module pyanaconda.bootloader)</a>
   </dt>
 
@@ -9362,7 +9437,7 @@
   </dt>
 
       
-  <dt><a href="pyanaconda.packaging.html#pyanaconda.packaging.livepayload.LiveImageKSPayload.writeStorageEarly">writeStorageEarly() (pyanaconda.packaging.livepayload.LiveImageKSPayload method)</a>
+  <dt><a href="pyanaconda.packaging.html#pyanaconda.packaging.livepayload.LiveImagePayload.writeStorageEarly">writeStorageEarly() (pyanaconda.packaging.livepayload.LiveImagePayload method)</a>
   </dt>
 
       <dd><dl>
@@ -9376,9 +9451,15 @@
 
       </dl></dd>
       
-  <dt><a href="pyanaconda.packaging.html#pyanaconda.packaging.Payload.writeStorageLate">writeStorageLate() (pyanaconda.packaging.Payload method)</a>
+  <dt><a href="pyanaconda.packaging.html#pyanaconda.packaging.dnfpayload.DNFPayload.writeStorageLate">writeStorageLate() (pyanaconda.packaging.dnfpayload.DNFPayload method)</a>
   </dt>
 
+      <dd><dl>
+        
+  <dt><a href="pyanaconda.packaging.html#pyanaconda.packaging.Payload.writeStorageLate">(pyanaconda.packaging.Payload method)</a>
+  </dt>
+
+      </dl></dd>
       
   <dt><a href="pyanaconda.html#pyanaconda.bootloader.writeSysconfigKernel">writeSysconfigKernel() (in module pyanaconda.bootloader)</a>
   </dt>
@@ -9401,18 +9482,14 @@
   <dt><a href="pyanaconda.ui.gui.html#pyanaconda.ui.gui.xkl_wrapper.Xkb_">Xkb_() (in module pyanaconda.ui.gui.xkl_wrapper)</a>
   </dt>
 
+  </dl></td>
+  <td style="width: 33%" valign="top"><dl>
       
   <dt><a href="pyanaconda.ui.gui.html#pyanaconda.ui.gui.xkl_wrapper.XklWrapper">XklWrapper (class in pyanaconda.ui.gui.xkl_wrapper)</a>
   </dt>
 
-  </dl></td>
-  <td style="width: 33%" valign="top"><dl>
       
   <dt><a href="pyanaconda.ui.gui.html#pyanaconda.ui.gui.xkl_wrapper.XklWrapperError">XklWrapperError</a>
-  </dt>
-
-      
-  <dt><a href="pyanaconda.html#pyanaconda.iutil.xprogressive_delay">xprogressive_delay() (in module pyanaconda.iutil)</a>
   </dt>
 
   </dl></td>
@@ -9489,7 +9566,7 @@
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'23.15',
+            VERSION:'24.0',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true
