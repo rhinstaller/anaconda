@@ -396,7 +396,11 @@ class SoftwareSelectionSpoke(NormalSpoke):
             elif firstEnvironment:  # manual installation
                 # for manual installs that don't have a default provided by the install class
                 # just tick the first radio button and select the first environment
-                if not self.environment_valid:
+                #
+                # None indicates that an environment has not been set, which is a valid
+                # value of the environment variable.
+                # Only non existing environments are evaluate as invalid
+                if not self.environment_valid or self.environment is None:
                     radio.set_active(True)
                     self.environment = environmentid
                 firstEnvironment = False
