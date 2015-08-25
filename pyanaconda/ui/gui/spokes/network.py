@@ -510,17 +510,22 @@ class NetworkControlBox(GObject.GObject):
         else:
             if self._ap_is_enterprise(ap):
                 # Create a connection for the ap and [Configure] it later with nm-c-e
-                values = []
-                values.append(['connection', 'uuid', str(uuid4()), 's'])
-                values.append(['connection', 'id', ssid_target, 's'])
-                values.append(['connection', 'type', '802-11-wireless', 's'])
-                values.append(['802-11-wireless', 'ssid', ssid_bytes, 'ay'])
-                values.append(['802-11-wireless', 'mode', 'infrastructure', 's'])
+                con = NM.SimpleConnection.new()
+                s_con = NM.SettingConnection.new()
+                s_con.set_property('uuid', str(uuid4()))
+                s_con.set_property('id', ssid_target)
+                s_con.set_property('type', '802-11-wireless')
+                s_wireless = NM.SettingWireless.new()
+                s_wireless.set_property('ssid', ap.get_ssid())
+                s_wireless.set_property('mode', 'infrastructure')
                 log.debug("network: adding connection for WPA-Enterprise AP %s", ssid_target)
-                nm.nm_add_connection(values)
+                con.add_setting(s_con)
+                con.add_setting(s_wireless)
+                persistent = True
+                self.client.add_connection_async(con, persistent, None)
                 self.builder.get_object("button_wireless_options").set_sensitive(True)
             else:
-                self.client.add_and_activate_connection_async(None, device, ap.get_path(), None, None)
+                self.client.add_and_activate_connection_async(None, device, ap.get_path(), None)
 
     def on_connection_added(self, client, connection):
         self.add_connection_to_list(connection.get_uuid())
