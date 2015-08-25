@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>pyanaconda.ui.gui package &mdash; Anaconda 23.15 documentation</title>
+  <title>pyanaconda.ui.gui package &mdash; Anaconda 24.0 documentation</title>
   
 
   
@@ -30,7 +30,7 @@
   
 
   
-    <link rel="top" title="Anaconda 23.15 documentation" href="index.html"/>
+    <link rel="top" title="Anaconda 24.0 documentation" href="index.html"/>
         <link rel="up" title="pyanaconda.ui package" href="pyanaconda.ui.html"/>
         <link rel="next" title="pyanaconda.ui.gui.hubs package" href="pyanaconda.ui.gui.hubs.html"/>
         <link rel="prev" title="pyanaconda.ui.categories package" href="pyanaconda.ui.categories.html"/> 
@@ -77,6 +77,8 @@
 <li class="toctree-l1"><a class="reference internal" href="boot-options.html">Anaconda Boot Options</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="boot-options.html#installation-source">Installation Source</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="boot-options.html#inst-repo">inst.repo</a></li>
+<li class="toctree-l3"><a class="reference internal" href="boot-options.html#inst-noverifyssl">inst.noverifyssl</a></li>
+<li class="toctree-l3"><a class="reference internal" href="boot-options.html#inst-proxy">inst.proxy</a></li>
 <li class="toctree-l3"><a class="reference internal" href="boot-options.html#inst-stage2">inst.stage2</a></li>
 <li class="toctree-l3"><a class="reference internal" href="boot-options.html#inst-dd">inst.dd</a></li>
 <li class="toctree-l3"><a class="reference internal" href="boot-options.html#inst-multilib">inst.multilib</a></li>
@@ -117,10 +119,31 @@
 <li class="toctree-l2"><a class="reference internal" href="boot-options.html#debugging-and-troubleshooting">Debugging and Troubleshooting</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="boot-options.html#inst-rescue">inst.rescue</a></li>
 <li class="toctree-l3"><a class="reference internal" href="boot-options.html#inst-updates">inst.updates</a></li>
+<li class="toctree-l3"><a class="reference internal" href="boot-options.html#nokill">nokill</a></li>
 <li class="toctree-l3"><a class="reference internal" href="boot-options.html#inst-loglevel">inst.loglevel</a></li>
+<li class="toctree-l3"><a class="reference internal" href="boot-options.html#inst-noshell">inst.noshell</a></li>
 <li class="toctree-l3"><a class="reference internal" href="boot-options.html#inst-syslog">inst.syslog</a></li>
 <li class="toctree-l3"><a class="reference internal" href="boot-options.html#inst-virtiolog">inst.virtiolog</a></li>
 <li class="toctree-l3"><a class="reference internal" href="boot-options.html#inst-zram">inst.zram</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="boot-options.html#boot-loader-options">Boot loader options</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="boot-options.html#extlinux">extlinux</a></li>
+<li class="toctree-l3"><a class="reference internal" href="boot-options.html#leavebootorder">leavebootorder</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="boot-options.html#storage-options">Storage options</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="boot-options.html#inst-nodmraid">inst.nodmraid</a></li>
+<li class="toctree-l3"><a class="reference internal" href="boot-options.html#inst-nompath">inst.nompath</a></li>
+<li class="toctree-l3"><a class="reference internal" href="boot-options.html#inst-gpt">inst.gpt</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="boot-options.html#other-options">Other options</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="boot-options.html#inst-selinux">inst.selinux</a></li>
+<li class="toctree-l3"><a class="reference internal" href="boot-options.html#third-party-options">Third-party options</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="boot-options.html#inst-kdump">inst.kdump</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="boot-options.html#deprecated-options">Deprecated Options</a><ul>
@@ -130,12 +153,12 @@
 <li class="toctree-l3"><a class="reference internal" href="boot-options.html#netmask-gateway-hostname">netmask, gateway, hostname</a></li>
 <li class="toctree-l3"><a class="reference internal" href="boot-options.html#ip-bootif">ip=bootif</a></li>
 <li class="toctree-l3"><a class="reference internal" href="boot-options.html#ksdevice">ksdevice</a></li>
-<li class="toctree-l3"><a class="reference internal" href="boot-options.html#blacklist-nofirewire">blacklist, nofirewire</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="boot-options.html#removed-options">Removed Options</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="boot-options.html#askmethod-asknetwork">askmethod, asknetwork</a></li>
-<li class="toctree-l3"><a class="reference internal" href="boot-options.html#id5">serial</a></li>
+<li class="toctree-l3"><a class="reference internal" href="boot-options.html#blacklist-nofirewire">blacklist, nofirewire</a></li>
+<li class="toctree-l3"><a class="reference internal" href="boot-options.html#id4">serial</a></li>
 <li class="toctree-l3"><a class="reference internal" href="boot-options.html#updates">updates</a></li>
 <li class="toctree-l3"><a class="reference internal" href="boot-options.html#essid-wepkey-wpakey">essid, wepkey, wpakey</a></li>
 <li class="toctree-l3"><a class="reference internal" href="boot-options.html#ethtool">ethtool</a></li>
@@ -146,6 +169,7 @@
 <li class="toctree-l3"><a class="reference internal" href="boot-options.html#utf8">utf8</a></li>
 <li class="toctree-l3"><a class="reference internal" href="boot-options.html#noipv6">noipv6</a></li>
 <li class="toctree-l3"><a class="reference internal" href="boot-options.html#upgradeany">upgradeany</a></li>
+<li class="toctree-l3"><a class="reference internal" href="boot-options.html#inst-repo-hd-device-path-for-installable-tree">inst.repo=hd:&lt;device&gt;:&lt;path&gt; for installable tree</a></li>
 </ul>
 </li>
 </ul>
@@ -205,13 +229,15 @@
 <li class="toctree-l3"><a class="reference internal" href="pyanaconda.html#module-pyanaconda.errors">pyanaconda.errors module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pyanaconda.html#module-pyanaconda.exception">pyanaconda.exception module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pyanaconda.html#module-pyanaconda.flags">pyanaconda.flags module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="pyanaconda.html#module-pyanaconda.geoloc">pyanaconda.geoloc module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyanaconda.html#module-pyanaconda.geoloc">pyanaconda.geoloc module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="pyanaconda.html#geolocation-backends">Geolocation backends</a></li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="pyanaconda.html#module-pyanaconda.i18n">pyanaconda.i18n module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pyanaconda.html#module-pyanaconda.ihelp">pyanaconda.ihelp module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pyanaconda.html#module-pyanaconda.image">pyanaconda.image module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pyanaconda.html#module-pyanaconda.install">pyanaconda.install module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pyanaconda.html#module-pyanaconda.installclass">pyanaconda.installclass module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="pyanaconda.html#module-pyanaconda.installinterfacebase">pyanaconda.installinterfacebase module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pyanaconda.html#module-pyanaconda.iutil">pyanaconda.iutil module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pyanaconda.html#module-pyanaconda.kexec">pyanaconda.kexec module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pyanaconda.html#module-pyanaconda.keyboard">pyanaconda.keyboard module</a></li>
@@ -232,7 +258,6 @@
 <li class="toctree-l3"><a class="reference internal" href="pyanaconda.html#module-pyanaconda.simpleconfig">pyanaconda.simpleconfig module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pyanaconda.html#module-pyanaconda.startup_utils">pyanaconda.startup_utils module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pyanaconda.html#module-pyanaconda.storage_utils">pyanaconda.storage_utils module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="pyanaconda.html#module-pyanaconda.text">pyanaconda.text module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pyanaconda.html#module-pyanaconda.threads">pyanaconda.threads module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pyanaconda.html#module-pyanaconda.timezone">pyanaconda.timezone module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pyanaconda.html#module-pyanaconda.users">pyanaconda.users module</a></li>
@@ -534,13 +559,16 @@ thread and returns the ret value after the decorated method finishes.</p>
 the main thread, but without blocking the main thread for a noticeable
 time. If a pre-processing function is given it is mapped on the items first
 before the action happens in the main thread.</p>
-<p>MUST NOT BE CALLED NOR WAITED FOR FROM THE MAIN THREAD.</p>
+<div class="admonition danger">
+<p class="first admonition-title">Danger</p>
+<p class="last">MUST NOT BE CALLED NOR WAITED FOR FROM THE MAIN THREAD.</p>
+</div>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>action</strong> ((action_item, <a href="#id1"><span class="problematic" id="id2">*</span></a>args) -&gt; None) &#8211; any action that has to be done on the items in the main
+<li><strong>action</strong> (<em>(action_item, *args) -&gt; None</em>) &#8211; any action that has to be done on the items in the main
 thread</li>
 <li><strong>items</strong> (<em>iterable</em>) &#8211; an iterable of items that the action should be mapped on</li>
 <li><strong>args</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.4)"><em>tuple</em></a>) &#8211; additional arguments passed to the action function</li>
@@ -758,7 +786,7 @@ method is destroyed.</p>
 <dl class="method">
 <dt id="pyanaconda.ui.gui.xkl_wrapper.XklWrapper.get_available_layouts">
 <tt class="descname">get_available_layouts</tt><big>(</big><big>)</big><a class="headerlink" href="#pyanaconda.ui.gui.xkl_wrapper.XklWrapper.get_available_layouts" title="Permalink to this definition">¶</a></dt>
-<dd><p>A generator yielding layouts (no need to store them as a bunch)</p>
+<dd><p>A list of layouts</p>
 </dd></dl>
 
 <dl class="method">
@@ -879,7 +907,7 @@ method is destroyed.</p>
 <span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-pyanaconda.ui.gui" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="pyanaconda.ui.gui.GraphicalUserInterface">
-<em class="property">class </em><tt class="descclassname">pyanaconda.ui.gui.</tt><tt class="descname">GraphicalUserInterface</tt><big>(</big><em>storage</em>, <em>payload</em>, <em>instclass</em>, <em>distributionText=&lt;function distributionText at 0x7feabb997488&gt;</em>, <em>isFinal=False</em>, <em>quitDialog=&lt;class 'pyanaconda.ui.gui.QuitDialog'&gt;</em>, <em>gui_lock=None</em>, <em>fullscreen=False</em><big>)</big><a class="headerlink" href="#pyanaconda.ui.gui.GraphicalUserInterface" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><tt class="descclassname">pyanaconda.ui.gui.</tt><tt class="descname">GraphicalUserInterface</tt><big>(</big><em>storage</em>, <em>payload</em>, <em>instclass</em>, <em>distributionText=&lt;function distributionText at 0x7fb4c51a78c8&gt;</em>, <em>isFinal=False</em>, <em>quitDialog=&lt;class 'pyanaconda.ui.gui.QuitDialog'&gt;</em>, <em>gui_lock=None</em>, <em>fullscreen=False</em><big>)</big><a class="headerlink" href="#pyanaconda.ui.gui.GraphicalUserInterface" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="pyanaconda.ui.html#pyanaconda.ui.UserInterface" title="pyanaconda.ui.UserInterface"><tt class="xref py py-class docutils literal"><span class="pre">pyanaconda.ui.UserInterface</span></tt></a></p>
 <p>This is the standard GTK+ interface we try to steer everything to using.
 It is suitable for use both directly and via VNC.</p>
@@ -908,17 +936,17 @@ relationships between hubs and standalones.</p>
 
 <dl class="attribute">
 <dt id="pyanaconda.ui.gui.GraphicalUserInterface.path">
-<tt class="descname">path</tt><em class="property"> = '/usr/lib/python3.4/site-packages/pyanaconda/ui'</em><a class="headerlink" href="#pyanaconda.ui.gui.GraphicalUserInterface.path" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">path</tt><em class="property"> = '/builddir/anaconda/pyanaconda/ui/gui'</em><a class="headerlink" href="#pyanaconda.ui.gui.GraphicalUserInterface.path" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="pyanaconda.ui.gui.GraphicalUserInterface.pathlist">
-<tt class="descname">pathlist</tt><em class="property"> = {'/usr/lib64/python3.4/site-packages/pyanaconda/ui', '/usr/lib/site-python/pyanaconda/ui', '/tmp/updates/pyanaconda/ui', '/builddir/anaconda/pyanaconda/ui/gui', '/usr/lib/python3.4/site-packages/pyanaconda/ui'}</em><a class="headerlink" href="#pyanaconda.ui.gui.GraphicalUserInterface.pathlist" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">pathlist</tt><em class="property"> = {'/usr/lib64/python3.4/site-packages/pyanaconda/ui', '/usr/lib/python3.4/site-packages/pyanaconda/ui', '/usr/lib/site-python/pyanaconda/ui', '/tmp/updates/pyanaconda/ui', '/builddir/anaconda/pyanaconda/ui/gui'}</em><a class="headerlink" href="#pyanaconda.ui.gui.GraphicalUserInterface.pathlist" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="pyanaconda.ui.gui.GraphicalUserInterface.paths">
-<tt class="descname">paths</tt><em class="property"> = {'spokes': [('pyanaconda.ui.gui.spokes.%s', '/usr/lib64/python3.4/site-packages/pyanaconda/ui/gui/spokes'), ('pyanaconda.ui.gui.spokes.%s', '/usr/lib/site-python/pyanaconda/ui/gui/spokes'), ('pyanaconda.ui.gui.spokes.%s', '/tmp/updates/pyanaconda/ui/gui/spokes'), ('pyanaconda.ui.gui.spokes.%s', '/builddir/anaconda/pyanaconda/ui/gui/gui/spokes'), ('pyanaconda.ui.gui.spokes.%s', '/usr/lib/python3.4/site-packages/pyanaconda/ui/gui/spokes')], 'hubs': [('pyanaconda.ui.gui.hubs.%s', '/usr/lib64/python3.4/site-packages/pyanaconda/ui/gui/hubs'), ('pyanaconda.ui.gui.hubs.%s', '/usr/lib/site-python/pyanaconda/ui/gui/hubs'), ('pyanaconda.ui.gui.hubs.%s', '/tmp/updates/pyanaconda/ui/gui/hubs'), ('pyanaconda.ui.gui.hubs.%s', '/builddir/anaconda/pyanaconda/ui/gui/gui/hubs'), ('pyanaconda.ui.gui.hubs.%s', '/usr/lib/python3.4/site-packages/pyanaconda/ui/gui/hubs')], 'categories': [('pyanaconda.ui.categories.%s', '/usr/lib64/python3.4/site-packages/pyanaconda/ui/categories'), ('pyanaconda.ui.categories.%s', '/usr/lib/site-python/pyanaconda/ui/categories'), ('pyanaconda.ui.categories.%s', '/tmp/updates/pyanaconda/ui/categories'), ('pyanaconda.ui.categories.%s', '/builddir/anaconda/pyanaconda/ui/gui/categories'), ('pyanaconda.ui.categories.%s', '/usr/lib/python3.4/site-packages/pyanaconda/ui/categories')]}</em><a class="headerlink" href="#pyanaconda.ui.gui.GraphicalUserInterface.paths" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">paths</tt><em class="property"> = {'hubs': [('pyanaconda.ui.gui.hubs.%s', '/usr/lib64/python3.4/site-packages/pyanaconda/ui/gui/hubs'), ('pyanaconda.ui.gui.hubs.%s', '/usr/lib/python3.4/site-packages/pyanaconda/ui/gui/hubs'), ('pyanaconda.ui.gui.hubs.%s', '/usr/lib/site-python/pyanaconda/ui/gui/hubs'), ('pyanaconda.ui.gui.hubs.%s', '/tmp/updates/pyanaconda/ui/gui/hubs'), ('pyanaconda.ui.gui.hubs.%s', '/builddir/anaconda/pyanaconda/ui/gui/gui/hubs')], 'spokes': [('pyanaconda.ui.gui.spokes.%s', '/usr/lib64/python3.4/site-packages/pyanaconda/ui/gui/spokes'), ('pyanaconda.ui.gui.spokes.%s', '/usr/lib/python3.4/site-packages/pyanaconda/ui/gui/spokes'), ('pyanaconda.ui.gui.spokes.%s', '/usr/lib/site-python/pyanaconda/ui/gui/spokes'), ('pyanaconda.ui.gui.spokes.%s', '/tmp/updates/pyanaconda/ui/gui/spokes'), ('pyanaconda.ui.gui.spokes.%s', '/builddir/anaconda/pyanaconda/ui/gui/gui/spokes')], 'categories': [('pyanaconda.ui.categories.%s', '/usr/lib64/python3.4/site-packages/pyanaconda/ui/categories'), ('pyanaconda.ui.categories.%s', '/usr/lib/python3.4/site-packages/pyanaconda/ui/categories'), ('pyanaconda.ui.categories.%s', '/usr/lib/site-python/pyanaconda/ui/categories'), ('pyanaconda.ui.categories.%s', '/tmp/updates/pyanaconda/ui/categories'), ('pyanaconda.ui.categories.%s', '/builddir/anaconda/pyanaconda/ui/gui/categories')]}</em><a class="headerlink" href="#pyanaconda.ui.gui.GraphicalUserInterface.paths" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
@@ -1065,7 +1093,7 @@ itself.</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'23.15',
+            VERSION:'24.0',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true

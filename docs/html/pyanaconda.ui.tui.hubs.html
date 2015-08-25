@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>pyanaconda.ui.tui.hubs package &mdash; Anaconda 23.15 documentation</title>
+  <title>pyanaconda.ui.tui.hubs package &mdash; Anaconda 24.0 documentation</title>
   
 
   
@@ -30,7 +30,7 @@
   
 
   
-    <link rel="top" title="Anaconda 23.15 documentation" href="index.html"/>
+    <link rel="top" title="Anaconda 24.0 documentation" href="index.html"/>
         <link rel="up" title="pyanaconda.ui.tui package" href="pyanaconda.ui.tui.html"/>
         <link rel="next" title="pyanaconda.ui.tui.simpleline package" href="pyanaconda.ui.tui.simpleline.html"/>
         <link rel="prev" title="pyanaconda.ui.tui package" href="pyanaconda.ui.tui.html"/> 
@@ -77,6 +77,8 @@
 <li class="toctree-l1"><a class="reference internal" href="boot-options.html">Anaconda Boot Options</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="boot-options.html#installation-source">Installation Source</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="boot-options.html#inst-repo">inst.repo</a></li>
+<li class="toctree-l3"><a class="reference internal" href="boot-options.html#inst-noverifyssl">inst.noverifyssl</a></li>
+<li class="toctree-l3"><a class="reference internal" href="boot-options.html#inst-proxy">inst.proxy</a></li>
 <li class="toctree-l3"><a class="reference internal" href="boot-options.html#inst-stage2">inst.stage2</a></li>
 <li class="toctree-l3"><a class="reference internal" href="boot-options.html#inst-dd">inst.dd</a></li>
 <li class="toctree-l3"><a class="reference internal" href="boot-options.html#inst-multilib">inst.multilib</a></li>
@@ -117,10 +119,31 @@
 <li class="toctree-l2"><a class="reference internal" href="boot-options.html#debugging-and-troubleshooting">Debugging and Troubleshooting</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="boot-options.html#inst-rescue">inst.rescue</a></li>
 <li class="toctree-l3"><a class="reference internal" href="boot-options.html#inst-updates">inst.updates</a></li>
+<li class="toctree-l3"><a class="reference internal" href="boot-options.html#nokill">nokill</a></li>
 <li class="toctree-l3"><a class="reference internal" href="boot-options.html#inst-loglevel">inst.loglevel</a></li>
+<li class="toctree-l3"><a class="reference internal" href="boot-options.html#inst-noshell">inst.noshell</a></li>
 <li class="toctree-l3"><a class="reference internal" href="boot-options.html#inst-syslog">inst.syslog</a></li>
 <li class="toctree-l3"><a class="reference internal" href="boot-options.html#inst-virtiolog">inst.virtiolog</a></li>
 <li class="toctree-l3"><a class="reference internal" href="boot-options.html#inst-zram">inst.zram</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="boot-options.html#boot-loader-options">Boot loader options</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="boot-options.html#extlinux">extlinux</a></li>
+<li class="toctree-l3"><a class="reference internal" href="boot-options.html#leavebootorder">leavebootorder</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="boot-options.html#storage-options">Storage options</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="boot-options.html#inst-nodmraid">inst.nodmraid</a></li>
+<li class="toctree-l3"><a class="reference internal" href="boot-options.html#inst-nompath">inst.nompath</a></li>
+<li class="toctree-l3"><a class="reference internal" href="boot-options.html#inst-gpt">inst.gpt</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="boot-options.html#other-options">Other options</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="boot-options.html#inst-selinux">inst.selinux</a></li>
+<li class="toctree-l3"><a class="reference internal" href="boot-options.html#third-party-options">Third-party options</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="boot-options.html#inst-kdump">inst.kdump</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="boot-options.html#deprecated-options">Deprecated Options</a><ul>
@@ -130,12 +153,12 @@
 <li class="toctree-l3"><a class="reference internal" href="boot-options.html#netmask-gateway-hostname">netmask, gateway, hostname</a></li>
 <li class="toctree-l3"><a class="reference internal" href="boot-options.html#ip-bootif">ip=bootif</a></li>
 <li class="toctree-l3"><a class="reference internal" href="boot-options.html#ksdevice">ksdevice</a></li>
-<li class="toctree-l3"><a class="reference internal" href="boot-options.html#blacklist-nofirewire">blacklist, nofirewire</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="boot-options.html#removed-options">Removed Options</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="boot-options.html#askmethod-asknetwork">askmethod, asknetwork</a></li>
-<li class="toctree-l3"><a class="reference internal" href="boot-options.html#id5">serial</a></li>
+<li class="toctree-l3"><a class="reference internal" href="boot-options.html#blacklist-nofirewire">blacklist, nofirewire</a></li>
+<li class="toctree-l3"><a class="reference internal" href="boot-options.html#id4">serial</a></li>
 <li class="toctree-l3"><a class="reference internal" href="boot-options.html#updates">updates</a></li>
 <li class="toctree-l3"><a class="reference internal" href="boot-options.html#essid-wepkey-wpakey">essid, wepkey, wpakey</a></li>
 <li class="toctree-l3"><a class="reference internal" href="boot-options.html#ethtool">ethtool</a></li>
@@ -146,6 +169,7 @@
 <li class="toctree-l3"><a class="reference internal" href="boot-options.html#utf8">utf8</a></li>
 <li class="toctree-l3"><a class="reference internal" href="boot-options.html#noipv6">noipv6</a></li>
 <li class="toctree-l3"><a class="reference internal" href="boot-options.html#upgradeany">upgradeany</a></li>
+<li class="toctree-l3"><a class="reference internal" href="boot-options.html#inst-repo-hd-device-path-for-installable-tree">inst.repo=hd:&lt;device&gt;:&lt;path&gt; for installable tree</a></li>
 </ul>
 </li>
 </ul>
@@ -205,13 +229,15 @@
 <li class="toctree-l3"><a class="reference internal" href="pyanaconda.html#module-pyanaconda.errors">pyanaconda.errors module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pyanaconda.html#module-pyanaconda.exception">pyanaconda.exception module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pyanaconda.html#module-pyanaconda.flags">pyanaconda.flags module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="pyanaconda.html#module-pyanaconda.geoloc">pyanaconda.geoloc module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pyanaconda.html#module-pyanaconda.geoloc">pyanaconda.geoloc module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="pyanaconda.html#geolocation-backends">Geolocation backends</a></li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="pyanaconda.html#module-pyanaconda.i18n">pyanaconda.i18n module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pyanaconda.html#module-pyanaconda.ihelp">pyanaconda.ihelp module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pyanaconda.html#module-pyanaconda.image">pyanaconda.image module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pyanaconda.html#module-pyanaconda.install">pyanaconda.install module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pyanaconda.html#module-pyanaconda.installclass">pyanaconda.installclass module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="pyanaconda.html#module-pyanaconda.installinterfacebase">pyanaconda.installinterfacebase module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pyanaconda.html#module-pyanaconda.iutil">pyanaconda.iutil module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pyanaconda.html#module-pyanaconda.kexec">pyanaconda.kexec module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pyanaconda.html#module-pyanaconda.keyboard">pyanaconda.keyboard module</a></li>
@@ -232,7 +258,6 @@
 <li class="toctree-l3"><a class="reference internal" href="pyanaconda.html#module-pyanaconda.simpleconfig">pyanaconda.simpleconfig module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pyanaconda.html#module-pyanaconda.startup_utils">pyanaconda.startup_utils module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pyanaconda.html#module-pyanaconda.storage_utils">pyanaconda.storage_utils module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="pyanaconda.html#module-pyanaconda.text">pyanaconda.text module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pyanaconda.html#module-pyanaconda.threads">pyanaconda.threads module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pyanaconda.html#module-pyanaconda.timezone">pyanaconda.timezone module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="pyanaconda.html#module-pyanaconda.users">pyanaconda.users module</a></li>
@@ -299,6 +324,17 @@
 <dt id="pyanaconda.ui.tui.hubs.summary.SummaryHub">
 <em class="property">class </em><tt class="descclassname">pyanaconda.ui.tui.hubs.summary.</tt><tt class="descname">SummaryHub</tt><big>(</big><em>app</em>, <em>data</em>, <em>storage</em>, <em>payload</em>, <em>instclass</em><big>)</big><a class="headerlink" href="#pyanaconda.ui.tui.hubs.summary.SummaryHub" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#pyanaconda.ui.tui.hubs.TUIHub" title="pyanaconda.ui.tui.hubs.TUIHub"><tt class="xref py py-class docutils literal"><span class="pre">pyanaconda.ui.tui.hubs.TUIHub</span></tt></a></p>
+<p class="graphviz">
+<img src="_images/inheritance-c6e8349cc503998df5e31ec6c8e83028f013f632.png" alt="Inheritance diagram of SummaryHub" usemap="#inheritance945d734cf8" class="inheritance"/>
+<map id="inheritance945d734cf8" name="inheritance945d734cf8">
+<area shape="rect" id="node1" href="#pyanaconda.ui.tui.hubs.summary.SummaryHub" title=".. inheritance&#45;diagram:: SummaryHub" alt="" coords="156,233,340,261"/>
+<area shape="rect" id="node2" href="#pyanaconda.ui.tui.hubs.TUIHub" title="Base Hub class implementing the pyanaconda.ui.common.Hub interface." alt="" coords="193,157,303,185"/>
+<area shape="rect" id="node3" href="pyanaconda.ui.tui.simpleline.html#pyanaconda.ui.tui.simpleline.base.UIScreen" title="Base class representing one TUI Screen. Shares some API with anaconda&#39;s GUI" alt="" coords="5,5,168,33"/>
+<area shape="rect" id="node4" href="pyanaconda.ui.tui.html#pyanaconda.ui.tui.tuiobject.TUIObject" title="Base class for Anaconda specific TUI screens. Implements the" alt="" coords="101,81,246,109"/>
+<area shape="rect" id="node5" href="pyanaconda.ui.html#pyanaconda.ui.common.Hub" title="A Hub is an overview UI screen. &#160;A Hub consists of one or more grids of" alt="" coords="271,81,377,109"/>
+<area shape="rect" id="node6" href="pyanaconda.ui.html#pyanaconda.ui.common.UIObject" title="This is the base class from which all other UI classes are derived. &#160;It" alt="" coords="193,5,327,33"/>
+</map>
+</p>
 <dl class="method">
 <dt id="pyanaconda.ui.tui.hubs.summary.SummaryHub.input">
 <tt class="descname">input</tt><big>(</big><em>args</em>, <em>key</em><big>)</big><a class="headerlink" href="#pyanaconda.ui.tui.hubs.summary.SummaryHub.input" title="Permalink to this definition">¶</a></dt>
@@ -345,6 +381,16 @@ all the spokes it finds to have the proper category.</p>
 </tr>
 </tbody>
 </table>
+<p class="graphviz">
+<img src="_images/inheritance-92fb261740114a0a14d95c580c116f114d581fee.png" alt="Inheritance diagram of TUIHub" usemap="#inheritance6406bbe875" class="inheritance"/>
+<map id="inheritance6406bbe875" name="inheritance6406bbe875">
+<area shape="rect" id="node1" href="pyanaconda.ui.tui.simpleline.html#pyanaconda.ui.tui.simpleline.base.UIScreen" title="Base class representing one TUI Screen. Shares some API with anaconda&#39;s GUI" alt="" coords="5,5,168,33"/>
+<area shape="rect" id="node3" href="pyanaconda.ui.tui.html#pyanaconda.ui.tui.tuiobject.TUIObject" title="Base class for Anaconda specific TUI screens. Implements the" alt="" coords="101,81,246,109"/>
+<area shape="rect" id="node2" href="#pyanaconda.ui.tui.hubs.TUIHub" title="Base Hub class implementing the pyanaconda.ui.common.Hub interface." alt="" coords="193,157,303,185"/>
+<area shape="rect" id="node4" href="pyanaconda.ui.html#pyanaconda.ui.common.Hub" title="A Hub is an overview UI screen. &#160;A Hub consists of one or more grids of" alt="" coords="271,81,377,109"/>
+<area shape="rect" id="node5" href="pyanaconda.ui.html#pyanaconda.ui.common.UIObject" title="This is the base class from which all other UI classes are derived. &#160;It" alt="" coords="193,5,327,33"/>
+</map>
+</p>
 <dl class="attribute">
 <dt id="pyanaconda.ui.tui.hubs.TUIHub.categories">
 <tt class="descname">categories</tt><em class="property"> = []</em><a class="headerlink" href="#pyanaconda.ui.tui.hubs.TUIHub.categories" title="Permalink to this definition">¶</a></dt>
@@ -355,6 +401,27 @@ all the spokes it finds to have the proper category.</p>
 <tt class="descname">input</tt><big>(</big><em>args</em>, <em>key</em><big>)</big><a class="headerlink" href="#pyanaconda.ui.tui.hubs.TUIHub.input" title="Permalink to this definition">¶</a></dt>
 <dd><p>Handle user input. Numbers are used to show a spoke, the rest is passed
 to the higher level for processing.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pyanaconda.ui.tui.hubs.TUIHub.prompt">
+<tt class="descname">prompt</tt><big>(</big><em>args=None</em><big>)</big><a class="headerlink" href="#pyanaconda.ui.tui.hubs.TUIHub.prompt" title="Permalink to this definition">¶</a></dt>
+<dd><p>Show an alternative prompt if the hub contains only one spoke.
+Otherwise it is not readily apparent that the user needs to press
+1 to enter the single visible spoke.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>args</strong> (<em>anything</em>) &#8211; optional argument passed from switch_screen calls</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">returns text to be shown next to the prompt for input or None
+to skip further input processing</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">str|None</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 <dl class="method">
@@ -418,7 +485,7 @@ we want shown on this screen. Title and Spokes mostly.</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'23.15',
+            VERSION:'24.0',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true
