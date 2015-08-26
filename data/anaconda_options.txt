@@ -30,10 +30,11 @@ syntax see the Anaconda options wiki page: http://fedoraproject.org/wiki/Anacond
 
 kickstart
 Gives the local file path to use for kickstart. Normally only used when running anaconda
-from the cmdline.
+from the cmdline.  This option is not supported for live installations.
 
 rescue
-Start the rescue environment instead of installation.
+Start the rescue environment instead of installation.  This option is not supported for
+live installations.
 
 armplatform
 Can be used to specify the ARM platform for the installation by passing the appropriate PLATFORM_ID.
