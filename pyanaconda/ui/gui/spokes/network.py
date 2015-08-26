@@ -511,11 +511,10 @@ class NetworkControlBox(GObject.GObject):
     def on_device_removed(self, client, device, *args):
         self.remove_device(device)
 
-    def _find_first_ap_setting_uuid(self, device, ap):
-        uuid = None
+    def _find_first_ap_setting(self, device, ap):
         for con in device.filter_connections(self.client.get_connections()):
             if con.get_setting_wireless().get_ssid().get_data() == ap.get_ssid().get_data():
-                return con.get_uuid()
+                return con
 
     def on_edit_connection(self, *args):
         dev_cfg = self.selected_dev_cfg()
@@ -523,6 +522,8 @@ class NetworkControlBox(GObject.GObject):
             return
 
         devname = dev_cfg.get_iface()
+        device = dev_cfg.device
+        con = dev_cfg.con
         activate = None
         ssid = ""
 
@@ -530,32 +531,29 @@ class NetworkControlBox(GObject.GObject):
             if not self.selected_ap:
                 return
             ssid = self.selected_ap.get_ssid().get_data()
-            uuid = self._find_first_ap_setting_uuid(dev_cfg.device, self.selected_ap)
-            if uuid:
-                # 871132 auto activate wireless connection after editing if it is not
-                # already activated (assume entering secrets)
-                # TODONM check ssid instead of ap?, is it needed at all?
-                condition = lambda: self.selected_ap != dev_cfg.device.get_active_access_point()
-                activate = (uuid, devname, condition)
-            else:
+            con = self._find_first_ap_setting(device, self.selected_ap)
+            if not con:
                 log.debug("network: on_edit_connection: connection for ap %s not found", self.selected_ap)
                 return
+            # 871132 auto activate wireless connection after editing if it is not
+            # already activated (assume entering secrets)
+            condition = lambda: self.selected_ap != device.get_active_access_point()
+            activate = (con, device, condition)
         else:
-            uuid = dev_cfg.get_uuid()
-            if not uuid:
-                log.debug("network: on_edit_connection: connection for device %s not found", devname)
+            if not con:
+                log.debug("network: on_edit_connection: connection for device %s not found", dev_cfg.get_iface())
                 return
 
             if devname in nm.nm_activated_devices():
                 # Reactivate the connection after configuring it (if it changed)
-                settings = nm.nm_get_settings(uuid, "connection", "uuid")
-                settings_changed = lambda: settings != nm.nm_get_settings(uuid, "connection", "uuid")
-                activate = (uuid, devname, settings_changed)
+                settings = con.to_dbus(NM.ConnectionSerializationFlags.ALL)
+                settings_changed = lambda: settings != con.to_dbus(NM.ConnectionSerializationFlags.ALL)
+                activate = (con, device, settings_changed)
 
         log.info("network: configuring connection %s device %s ssid %s",
-                 uuid, devname, ssid)
+                 con.get_uuid(), dev_cfg.get_iface(), ssid)
         self.kill_nmce(msg="Configure button clicked")
-        proc = startProgram(["nm-connection-editor", "--keep-above", "--edit", "%s" % uuid], reset_lang=False)
+        proc = startProgram(["nm-connection-editor", "--keep-above", "--edit", "%s" % con.get_uuid()], reset_lang=False)
         self._running_nmce = proc
 
         GLib.child_watch_add(proc.pid, self.on_nmce_exited, activate)
@@ -578,13 +576,13 @@ class NetworkControlBox(GObject.GObject):
         if condition == 0:
             if activate:
                 # The default of None confuses pylint
-                uuid, devname, activate_condition = activate # pylint: disable=unpacking-non-sequence
+                con, device, activate_condition = activate # pylint: disable=unpacking-non-sequence
                 if activate_condition():
-                    gtk_call_once(self._activate_connection_cb, uuid, devname)
+                    gtk_call_once(self._activate_connection_cb, con, device)
             network.logIfcfgFiles("nm-c-e run")
 
-    def _activate_connection_cb(self, uuid, devname):
-        nm.nm_activate_device_connection(devname, uuid)
+    def _activate_connection_cb(self, con, device):
+        self.client.activate_connection_async(con, device, None, None)
 
     def on_wireless_enabled(self, *args):
         switch = self.builder.get_object("device_wireless_off_switch")
