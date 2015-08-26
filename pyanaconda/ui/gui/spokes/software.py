@@ -306,11 +306,15 @@ class SoftwareSelectionSpoke(NormalSpoke):
             elif not self.environment:
                 return _("Nothing selected")
 
-        if not flags.automatedInstall and not self.environment_valid:
-            # selected environment is not valid, this can happen when a valid environment
-            # is selected (by default, manually or from kickstart) and then the installation
-            # source is switched to one where the selected environment is no longer valid
-            return _("Selected environment is not valid")
+        if not flags.automatedInstall:
+            if not self.environment:
+                # No environment yet set
+                return _("Nothing selected")
+            elif not self.environment_valid:
+                # selected environment is not valid, this can happen when a valid environment
+                # is selected (by default, manually or from kickstart) and then the installation
+                # source is switched to one where the selected environment is no longer valid
+                return _("Selected environment is not valid")
 
         return self.payload.environmentDescription(self.environment)[0]
 
