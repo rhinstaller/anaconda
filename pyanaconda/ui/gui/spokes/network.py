@@ -597,6 +597,8 @@ class NetworkControlBox(GObject.GObject):
         dev_cfg = self.selected_dev_cfg()
         if not dev_cfg:
             return
+        device = dev_cfg.device
+        con = dev_cfg.con
 
         log.info("network: device %s switched %s", dev_cfg.get_iface(), "on" if active else "off")
 
@@ -604,20 +606,17 @@ class NetworkControlBox(GObject.GObject):
             self.client.wireless_set_enabled(active)
         else:
             if active:
-                dev_name = dev_cfg.device and dev_cfg.device.get_iface()
-                if not dev_cfg.con:
+                if not con:
                     log.debug("network: on_device_off_toggled: no connection for %s",
-                               dev_name)
+                               dev_cfg.get_iface())
                     return
-                try:
-                    nm.nm_activate_device_connection(dev_name, dev_cfg.get_uuid())
-                except (nm.UnmanagedDeviceError, nm.UnknownDeviceError, nm.UnknownConnectionError) as e:
-                    log.debug("network: on_device_off_toggled: %s", e)
+
+                self.client.activate_connection_async(con, device, None, None)
             else:
-                try:
-                    nm.nm_disconnect_device(dev_cfg.get_iface())
-                except (nm.UnmanagedDeviceError, nm.DeviceNotActiveError) as e:
-                    log.debug("network: on_device_off_toggled: %s", e)
+                if not device:
+                    log.debug("network: on_device_off_toggled: no device for %s", dev_cfg.get_iface())
+                    return
+                device.disconnect(None)
 
     def on_add_device_clicked(self, *args):
         dialog = self.builder.get_object("add_device_dialog")
