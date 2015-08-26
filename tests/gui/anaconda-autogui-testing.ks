@@ -10,7 +10,7 @@ rootpw qweqwe
 bootloader --location=mbr
 zerombr
 clearpart --all
-part / --fstype="ext4" --size=6000
+part / --fstype="ext4" --size=10240
 
 %post
 cat >> /etc/rc.d/init.d/livesys << EOF
