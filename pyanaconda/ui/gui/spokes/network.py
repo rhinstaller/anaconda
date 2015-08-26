@@ -521,7 +521,6 @@ class NetworkControlBox(GObject.GObject):
         if not dev_cfg:
             return
 
-        devname = dev_cfg.get_iface()
         device = dev_cfg.device
         con = dev_cfg.con
         activate = None
@@ -544,7 +543,7 @@ class NetworkControlBox(GObject.GObject):
                 log.debug("network: on_edit_connection: connection for device %s not found", dev_cfg.get_iface())
                 return
 
-            if devname in nm.nm_activated_devices():
+            if device and device.get_state() == NM.DeviceState.ACTIVATED:
                 # Reactivate the connection after configuring it (if it changed)
                 settings = con.to_dbus(NM.ConnectionSerializationFlags.ALL)
                 settings_changed = lambda: settings != con.to_dbus(NM.ConnectionSerializationFlags.ALL)
