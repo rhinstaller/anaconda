@@ -310,6 +310,12 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Wed Aug 26 2015 Brian C. Lane <bcl@redhat.com> - 21.48.22.37-1
+- Process excludedGroupList after packages and groups. (clumens)
+  Resolves: rhbz#1249036
+- Fix the help button mnemonic display on spokes (dshea)
+  Resolves: rhbz#1250918
+
 * Mon Aug 24 2015 Brian C. Lane <bcl@redhat.com> - 21.48.22.36-1
 - Don't write nfs repos to the target system (bcl)
   Resolves: rhbz#1246212
