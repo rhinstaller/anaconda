@@ -565,8 +565,10 @@ class NetworkControlBox(GObject.GObject):
             activate = (con, device, condition)
         else:
             if not con:
-                log.debug("network: on_edit_connection: connection for device %s not found", dev_cfg.get_iface())
-                return
+                log.debug("network: on_edit_connection: connection for device %s not found", device.get_iface())
+                if dev_cfg.get_device_type() == NM.DeviceType.ETHERNET:
+                    self._add_default_eth_con(device.get_iface(), autoconnect=False)
+                    return
 
             if device and device.get_state() == NM.DeviceState.ACTIVATED:
                 # Reactivate the connection after configuring it (if it changed)
@@ -581,6 +583,21 @@ class NetworkControlBox(GObject.GObject):
         self._running_nmce = proc
 
         GLib.child_watch_add(proc.pid, self.on_nmce_exited, activate)
+
+    def _add_default_eth_con(self, iface, autoconnect):
+        con = NM.SimpleConnection.new()
+        s_con = NM.SettingConnection.new()
+        s_con.set_property('uuid', str(uuid4()))
+        s_con.set_property('id', iface)
+        s_con.set_property('interface-name', iface)
+        s_con.set_property('autoconnect', autoconnect)
+        s_con.set_property('type', '802-3-ethernet')
+        s_wired = NM.SettingWired.new()
+        con.add_setting(s_con)
+        con.add_setting(s_wired)
+        persistent = False
+        self.client.add_connection_async(con, persistent, None, self.added_con_cb)
+
 
     def kill_nmce(self, msg=""):
         if not self._running_nmce:
