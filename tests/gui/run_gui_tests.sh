@@ -28,15 +28,13 @@ function doit() {
           --tc=liveImage:$1"
 
     if [ -z "$2" ]; then
-        nosetests ${ARGS} ${GUI_TESTS:-outside}
+        nosetests-3.4 ${ARGS} ${GUI_TESTS:-outside}
     else
-        nosetests ${ARGS} "${2}" ${GUI_TESTS:-outside}
+        nosetests-3.4 ${ARGS} "${2}" ${GUI_TESTS:-outside}
     fi
 }
 
-# We require the test_config plugin for nose, which is not currently packaged
-# but is installable via pip.
-if [ -z "$(nosetests -p | grep test_config)" ]; then
+if ! rpm -q python3-nose-testconfig &> /dev/null; then
     echo "test_config plugin is not available; exiting."
     exit 99
 fi
