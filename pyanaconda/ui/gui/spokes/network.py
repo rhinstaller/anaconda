@@ -403,8 +403,21 @@ class NetworkControlBox(GObject.GObject):
         # Configs for ethernet has been already added,
         # this must be some slave
         if dev_cfg.get_device_type() == NM.DeviceType.ETHERNET:
-            log.debug("network: GUI, not adding slave connection %s", uuid)
-            return False
+            if con.get_setting_connection().get_master():
+                log.debug("network: GUI, not adding slave connection %s", uuid)
+                return False
+            else:
+                existing_dev_cfg = self.dev_cfg(iface=dev_cfg.get_iface())
+                if existing_dev_cfg:
+                    if existing_dev_cfg.con:
+                        log.debug("network: GUI, not adding connection %s, already have %s for device %s",
+                                  uuid, existing_dev_cfg.get_uuid(), existing_dev_cfg.device.get_iface())
+                        return False
+                    else:
+                        existing_dev_cfg.con = con
+                        log.debug("network: GUI, attaching connection %s to device %s",
+                                  uuid, existing_dev_cfg.device.get_iface())
+                        return True
         # Wireless settings are handled in scope of its device's dev_cfg
         if dev_cfg.get_device_type() == NM.DeviceType.WIFI:
             log.debug("network: GUI, not adding wireless connection %s", uuid)
@@ -706,8 +719,6 @@ class NetworkControlBox(GObject.GObject):
             if len(cons) != 1:
                 log.warning("network: %s has unexpected number of connections: %s",
                              device.get_iface(), [c.get_uuid() for c in cons])
-            if not con:
-                return
 
         if con and self.dev_cfg(uuid=con.get_uuid()):
             # If we already have a connection for the device
@@ -758,7 +769,7 @@ class NetworkControlBox(GObject.GObject):
                      escape_markup(dev_cfg.device.get_product() or ""))
         return title
 
-    def dev_cfg(self, uuid=None, device=None):
+    def dev_cfg(self, uuid=None, device=None, iface=None):
         for row in self.dev_cfg_store:
             dev_cfg = row[DEVICES_COLUMN_OBJECT]
             if uuid:
@@ -767,6 +778,10 @@ class NetworkControlBox(GObject.GObject):
             if device:
                 if not dev_cfg.device \
                    or dev_cfg.device.get_udi() != device.get_udi():
+                    continue
+            if iface:
+                if not dev_cfg.device \
+                   or dev_cfg.device.get_iface() != iface:
                     continue
             return dev_cfg
         return None
