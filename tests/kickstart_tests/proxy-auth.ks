@@ -1,4 +1,4 @@
-url --url=http://dl.fedoraproject.org/pub/fedora/linux/development/$releasever/$basearch/os/ --proxy=http://anaconda:qweqwe@127.0.0.1:8080
+url --url=http://dl.fedoraproject.org/pub/fedora/linux/development/rawhide/$basearch/os/ --proxy=http://anaconda:qweqwe@127.0.0.1:8080
 repo --name=kstest-http --baseurl=HTTP-ADDON-REPO --proxy=http://anaconda:qweqwe@127.0.0.1:8080 --install
 install
 network --bootproto=dhcp

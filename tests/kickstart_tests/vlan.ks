@@ -1,4 +1,4 @@
-url --mirror=http://mirrors.fedoraproject.org/mirrorlist?repo=fedora-$releasever&arch=$basearch
+url --mirror=http://mirrors.fedoraproject.org/mirrorlist?repo=fedora-rawhide&arch=$basearch
 install
 network --device=link --bootproto=dhcp
 # Create testing vlan interface
