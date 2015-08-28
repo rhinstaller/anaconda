@@ -1175,7 +1175,7 @@ def update_hostname_data(ksdata, hostname):
 
 def get_device_name(network_data):
 
-    ksspec = network_data.device or flags.cmdline.get('ksdevice') or ""
+    ksspec = network_data.device or flags.cmdline.get('ksdevice') or "link"
     dev_name = ks_spec_to_device_name(ksspec)
     if not dev_name:
         return ""
