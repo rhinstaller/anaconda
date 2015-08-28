@@ -310,6 +310,12 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Fri Aug 28 2015 Brian C. Lane <bcl@redhat.com> - 21.48.22.38-1
+- Run AnacondaExceptionHandler in cmdline mode (bcl)
+  Resolves: rhbz#1256385
+- anaconda.target: Wants systemd-logind.service (awilliam)
+  Resolves: rhbz#1257311
+
 * Wed Aug 26 2015 Brian C. Lane <bcl@redhat.com> - 21.48.22.37-1
 - Process excludedGroupList after packages and groups. (clumens)
   Resolves: rhbz#1249036

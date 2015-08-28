@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: anaconda 21.48.22.36\n"
+"Project-Id-Version: anaconda 21.48.22.37\n"
 "Report-Msgid-Bugs-To: anaconda-devel-list@redhat.com\n"
-"POT-Creation-Date: 2015-08-26 18:04-0700\n"
+"POT-Creation-Date: 2015-08-28 16:57-0700\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -358,7 +358,7 @@ msgid ""
 "The installer will now terminate."
 msgstr ""
 
-#: pyanaconda/exception.py:100
+#: pyanaconda/exception.py:101
 #, python-format
 msgid ""
 "The installation was stopped due to what seems to be a problem with your "
@@ -369,17 +369,29 @@ msgid ""
 " The installer will now terminate."
 msgstr ""
 
-#: pyanaconda/exception.py:104
+#: pyanaconda/exception.py:105
 msgid "Hardware error occured"
 msgstr ""
 
-#: pyanaconda/exception.py:138
+#: pyanaconda/exception.py:139
 #, python-format
 msgid ""
 "\n"
 "The installation was stopped due to incomplete spokes detected while running "
 "in non-interactive cmdline mode. Since there cannot be any questions in "
 "cmdline mode, edit your kickstart file and retry installation.\n"
+"The exact error message is: \n"
+"\n"
+"%s.\n"
+"\n"
+"The installer will now terminate."
+msgstr ""
+
+#: pyanaconda/exception.py:147
+#, python-format
+msgid ""
+"\n"
+"Running in cmdline mode, no interactive debugging allowed.\n"
 "The exact error message is: \n"
 "\n"
 "%s.\n"
