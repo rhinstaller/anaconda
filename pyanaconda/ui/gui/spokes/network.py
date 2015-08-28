@@ -19,16 +19,6 @@
 # Red Hat Author(s): Radek Vykydal <rvykydal@redhat.com>
 #
 
-# TODO:
-
-# - move callback connection to initialize?
-# - Automatically reconnecting wifi after failure
-#   https://bugzilla.redhat.com/show_bug.cgi?id=712778#c1
-# - callback on NM_CLIENT_ACTIVE_CONNECTIONS
-# - support connection to hidden network (ap-other)
-# - NMClient.CLIENT_WIRELESS_ENABLED callback (hw switch?) - test
-# - nm-c-e run: blocking? logging?
-
 import gi
 gi.require_version("Gtk", "3.0")
 gi.require_version("GLib", "2.0")
