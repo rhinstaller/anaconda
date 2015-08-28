@@ -239,17 +239,6 @@ class DeviceConfiguration(object):
         elif con_uuid:
             self.device_type = self._setting_device_type(self.con_uuid)
 
-        # Found device for existing connection
-        if not self.device:
-            if self.device_type == NetworkManager.DeviceType.ETHERNET:
-                client = NMClient.Client.new()
-                dev_name = self.get_iface()
-                for device in client.get_devices():
-                    if dev_name == device.get_iface():
-                        self.device = device
-                        break
-
-        # Found connection for existing device
         if not self.con_uuid:
             if self.device_type != NetworkManager.DeviceType.WIFI:
                 uuid = nm.nm_device_setting_value(device.get_iface(), "connection", "uuid")
@@ -265,11 +254,6 @@ class DeviceConfiguration(object):
         return dev_type
 
     def get_iface(self):
-        """Get interface name
-
-           :return: Interface name or ``None`` if can't find device name for given uuid
-           :rtype: string or NoneType
-        """
         if self.device:
             iface = self.device.get_iface()
         else:
@@ -454,25 +438,22 @@ class NetworkControlBox(GObject.GObject):
         if self.dev_cfg(uuid=uuid):
             log.debug("network: GUI, not adding connection %s, already in list", uuid)
             return False
-
         dev_cfg = DeviceConfiguration(con_uuid=uuid)
-
         if dev_cfg.setting_value("connection", "read-only"):
             log.debug("network: GUI, not adding read-only connection %s", uuid)
             return False
         if dev_cfg.device_type not in self.supported_device_types:
             log.debug("network: GUI, not adding connection %s of unsupported type", uuid)
             return False
-        # skip slaves - only slaves have master
+        # Configs for ethernet has been already added,
+        # this must be some slave
         if dev_cfg.device_type == NetworkManager.DeviceType.ETHERNET:
-            if dev_cfg.setting_value("connection", "master"):
-                log.debug("network: GUI, not adding slave connection %s", uuid)
-                return False
+            log.debug("network: GUI, not adding slave connection %s", uuid)
+            return False
         # Wireless settings are handled in scope of its device's dev_cfg
         if dev_cfg.device_type == NetworkManager.DeviceType.WIFI:
             log.debug("network: GUI, not adding wireless connection %s", uuid)
             return False
-
         self.add_dev_cfg(dev_cfg)
         log.debug("network: GUI, adding connection %s", uuid)
         return True
@@ -737,19 +718,13 @@ class NetworkControlBox(GObject.GObject):
             log.error(e)
             return
         except nm.SettingsNotFoundError:
-            # wireless devices or device without a connection
-            log.debug("network: connection for new device %s was not found", device.get_iface())
+            # wireless devices
             dev_cfg = None
-
         if dev_cfg:
             dev_cfg.device = device
         else:
-            # wireless device
-            if device.get_device_type() == NetworkManager.DeviceType.WIFI:
-                dev_cfg = DeviceConfiguration(device=device)
-                self.add_dev_cfg(dev_cfg)
-            else:
-                log.debug("network: device %s missing connection", device.get_iface())
+            dev_cfg = DeviceConfiguration(device=device)
+            self.add_dev_cfg(dev_cfg)
 
         device.connect("notify::ip4-config", self.on_device_config_changed)
         device.connect("notify::ip6-config", self.on_device_config_changed)
