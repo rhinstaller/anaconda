@@ -191,7 +191,7 @@ class Creator(object):
                 "-drive", "file=%s,media=cdrom,readonly,format=raw" % config["liveImage"]]
 
         for drive in self._drivePaths.values():
-            args += ["-drive", "file=%s,media=disk,format=raw" % drive]
+            args += ["-drive", "file=%s,media=disk,format=raw,if=virtio,cache=none" % drive]
 
         # Save a reference to the running qemu process so we can later kill
         # it if necessary.  For now, the only reason we'd want to kill it is
