@@ -27,31 +27,25 @@ class BasicRootPasswordTestCase(UITestCase):
         entry = self.find("Password", "password text", node=spoke)
         self.assertIsNotNone(entry, msg="Password entry should be displayed")
         entry.grabFocus()
-        entry.text = "asdfasdf"
+        entry.text = "JustaTestPassword"
 
-        # That wasn't a very good password and we haven't confirmed it, so the
+        # That is a strong password but we haven't confirmed it, so the
         # bar is still displayed at the bottom.
         doDelay(1)
-        self.check_warning_bar("The password you have provided is weak.", node=spoke)
+        self.check_warning_bar("The passwords do not match", node=spoke)
 
-        # Let's confirm that terrible password.
+        # Let's confirm the password.
         entry = self.find("Confirm Password", "password text", node=spoke)
         self.assertIsNotNone(entry, msg="Confirm password should be displayed")
         entry.grabFocus()
-        entry.text = "asdfasdf"
+        entry.text = "JustaTestPassword"
 
-        # But of course it's still a terrible password, so the bar is still
-        # displayed at the bottom.
+        # the warning bar should not be displayed at the bottom.
         doDelay(1)
-        self.check_warning_bar("The password you have provided is weak.", node=spoke)
+        self.check_no_warning_bar(node=spoke)
 
     def check_click_done(self, spoke):
-        # Press the Done button once, which won't take us anywhere but will change the
-        # warning label at the bottom.
-        self.click_button("_Done", node=spoke)
-        self.check_warning_bar("Press Done again", node=spoke)
-
-        # Pressing Done again should take us back to the progress hub.
+        # Pressing Done should take us back to the progress hub.
         self.exit_spoke(hubName="CONFIGURATION", node=spoke)
 
     def _run(self):
