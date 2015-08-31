@@ -57,7 +57,9 @@ IMAGE="${TEST_BOOT_ISO}"
 # 2 - Keep log files and disk images (will take up a lot of space)
 KEEPIT=${KEEPIT:-0}
 
-while getopts ":i:k:" opt; do
+TESTTYPE=""
+
+while getopts ":i:k:t:" opt; do
     case $opt in
        i)
            # If this wasn't set from the environment, set it from the command line
@@ -69,6 +71,12 @@ while getopts ":i:k:" opt; do
            # This overrides either the $KEEPIT environment variable, or the default
            # setting from above.
            KEEPIT=$OPTARG
+           ;;
+
+       t)
+           # Only run tests that have TESTTYPE=<this value> in them.  Tests can have
+           # more than one type.  We'll do a pretty stupid test for it.
+           TESTTYPE=$OPTARG
            ;;
 
        *)
@@ -98,12 +106,29 @@ env_args=$(printenv | while read line; do
 
 # We get the list of tests from one of two places:
 # (1) From the command line, all the other arguments.
-# (2) From finding all scripts in kickstart_tests/ that are executable and are
+# (2) By applying any TESTTYPE given on the command line.
+# (3) From finding all scripts in kickstart_tests/ that are executable and are
 #     not support files.
 if [[ $# != 0 ]]; then
     tests="$*"
 else
     tests=$(find kickstart_tests -name '*sh' -a -perm -o+x -a \! -wholename 'kickstart_tests/run_*.sh')
+
+    newtests=""
+    if [[ "$TESTTYPE" != "" ]]; then
+        for f in ${tests}; do
+            if [[ "$(grep "TESTTYPE=" ${f})" =~ "${TESTTYPE}" ]]; then
+                newtests+="${f} "
+            fi
+        done
+
+        tests="${newtests}"
+    fi
+fi
+
+if [[ "${tests}" == "" ]]; then
+    echo "No tests provided; skipping."
+    exit 77
 fi
 
 if [[ "$TEST_REMOTES" != "" ]]; then
