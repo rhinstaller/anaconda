@@ -881,7 +881,7 @@ reposdir=%s
         self._groups = None
         self._packages = []
 
-    @refresh_base_repo(lambda s, r_id: r_id in BASE_REPO_NAMES)
+    @refresh_base_repo(lambda s, r_id: r_id.name in BASE_REPO_NAMES)
     def addRepo(self, newrepo):
         """ Add a ksdata repo. """
         log.debug("adding new repo %s", newrepo.name)
