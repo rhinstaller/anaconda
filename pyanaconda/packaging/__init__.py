@@ -1018,13 +1018,6 @@ class PackagePayload(Payload):
             if not os.path.isdir(repo):
                 break
 
-            # Drivers may be under /<arch>/ or /DD-net/, but they can also be
-            # in the top level of the DD repo.
-            if os.path.isdir(repo+"DD-net"):
-                repo += "DD-net"
-            elif os.path.isdir(repo+blivet.arch.getArch()):
-                repo += blivet.arch.getArch()
-
             # Run createrepo if there are rpms and no repodata
             if not os.path.isdir(repo+"/repodata"):
                 rpms = glob(repo+"/*rpm")
