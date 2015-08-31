@@ -5,13 +5,17 @@ command -v wait_for_dd >/dev/null || . /lib/anaconda-lib.sh
 # Don't leave initqueue until we've finished with the requested dd stuff
 [ -f /tmp/dd_todo ] && wait_for_dd
 
+DD_OEMDRV=""
 if [ -f /tmp/dd_interactive ]; then
     initqueue --onetime --settled --name zz_dd_interactive \
         systemctl start driver-updates@$(find_tty).service
+else
+    # Only process OEMDRV in non-interactive mode
+    DD_OEMDRV="LABEL=OEMDRV"
 fi
 
 # Run driver-updates for LABEL=OEMDRV and any other requested disk
-for dd in LABEL=OEMDRV $(cat /tmp/dd_disk); do
+for dd in $DD_OEMDRV $(cat /tmp/dd_disk); do
     when_diskdev_appears "$(disk_to_dev_path $dd)" \
         driver-updates --disk $dd \$devnode
 done
