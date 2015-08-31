@@ -17,6 +17,8 @@
 #
 # Red Hat Author(s): David Shea <dshea@redhat.com>
 
+TESTTYPE="method packaging"
+
 . ${KSTESTDIR}/functions.sh
 
 prepare() {

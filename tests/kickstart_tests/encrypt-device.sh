@@ -17,6 +17,8 @@
 #
 # Red Hat Author(s): Anne Mulhern <amulhern@redhat.com>
 
+TESTTYPE="storage"
+
 . ${KSTESTDIR}/functions.sh
 
 validate() {

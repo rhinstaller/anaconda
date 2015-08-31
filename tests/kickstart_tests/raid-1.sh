@@ -17,6 +17,8 @@
 #
 # Red Hat Author(s): Chris Lumens <clumens@redhat.com>
 
+TESTTYPE="raid storage"
+
 . ${KSTESTDIR}/functions.sh
 
 prepare_disks() {

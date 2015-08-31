@@ -17,6 +17,8 @@
 #
 # Red Hat Author(s): Vratislav Podzimek <vpodzime@redhat.com>
 
+TESTTYPE="lvm storage"
+
 . ${KSTESTDIR}/functions.sh
 
 prepare_disks() {

@@ -18,6 +18,8 @@
 #
 # Red Hat Author(s): David Shea <dshea@redhat.com>
 
+TESTTYPE="storage"
+
 . ${KSTESTDIR}/functions.sh
 
 validate() {

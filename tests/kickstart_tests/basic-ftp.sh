@@ -18,4 +18,6 @@
 #
 # Red Hat Author(s): David Shea <dshea@redhat.com>
 
+TESTTYPE="method"
+
 . ${KSTESTDIR}/functions.sh

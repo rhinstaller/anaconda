@@ -15,6 +15,8 @@
 #
 # Author: Will Woods <wwoods@redhat.com>
 
+TESTTYPE="driverdisk"
+
 . ${KSTESTDIR}/functions.sh
 
 prepare_disks() {

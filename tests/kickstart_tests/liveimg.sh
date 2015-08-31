@@ -17,6 +17,8 @@
 #
 # Red Hat Author(s): Chris Lumens <clumens@redhat.com>
 
+TESTTYPE="method"
+
 . ${KSTESTDIR}/functions.sh
 
 prepare() {
