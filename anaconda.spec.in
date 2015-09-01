@@ -314,6 +314,15 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Mon Aug 31 2015 Brian C. Lane <bcl@redhat.com> - 21.48.22.39-1
+- Disallow /boot on lvm until grub2 fully supports it. (dlehman)
+  Resolves: rhbz#1252466
+- Force an encoding of utf-8 on liveinst installs (dshea)
+  Resolves: rhbz#1257060
+- Ignore zram block devices in the list-harddrives script output (mkolman)
+  Resolves: rhbz#1247886
+  Resolves: rhbz#1253184
+
 * Fri Aug 28 2015 Brian C. Lane <bcl@redhat.com> - 21.48.22.38-1
 - Run AnacondaExceptionHandler in cmdline mode (bcl)
   Resolves: rhbz#1256385
