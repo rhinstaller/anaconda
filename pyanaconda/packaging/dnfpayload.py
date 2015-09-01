@@ -167,7 +167,7 @@ class DownloadProgress(dnf.callback.DownloadProgress):
             self.downloads[nevra] = payload.download_size
             self._update()
             return
-        log.critical("Failed to download '%s': %d - %s", nevra, status, err_msg)
+        log.warning("Failed to download '%s': %d - %s", nevra, status, err_msg)
 
     def progress(self, payload, done):
         nevra = str(payload)
