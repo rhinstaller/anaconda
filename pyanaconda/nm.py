@@ -653,16 +653,6 @@ def _device_settings(name):
 
     return settings
 
-def _settings_for_ap(ssid):
-    """Return list of object paths of wireless access point settings.
-
-       :param ssid: ssid of access point
-       :type ssid: str
-       :return: list of paths of settings of access point
-       :rtype: list
-`   """
-    return _find_settings(ssid, '802-11-wireless', 'ssid')
-
 def _settings_for_hwaddr(hwaddr):
     """Return list of object paths of settings of device specified by hw address.
 
@@ -754,35 +744,6 @@ def nm_device_setting_value(name, key1, key2):
     settings_paths = _device_settings(name)
     if not settings_paths:
         raise SettingsNotFoundError(name)
-    else:
-        settings_path = settings_paths[0]
-    proxy = _get_proxy(object_path=settings_path, interface_name="org.freedesktop.NetworkManager.Settings.Connection")
-    settings = proxy.GetSettings()
-    try:
-        value = settings[key1][key2]
-    except KeyError:
-        value = None
-    return value
-
-def nm_ap_setting_value(ssid, key1, key2):
-    """Return value of ap's setting specified by key1 and key2.
-
-       :param ssid: name of ap (ssid)
-       :type ssid: str
-       :param key1: first-level key of setting (eg "connection")
-       :type key1: str
-       :param key2: second-level key of setting (eg "uuid")
-       :type key2: str
-       :return: value of setting or None if the setting was not found
-                which means it does not exist or default value is used
-                by NM
-       :rtype: unpacked GDBus variant or None
-       :raise SettingsNotFoundError: if settings were not found
-                                           (eg for "wlan0")
-    """
-    settings_paths = _settings_for_ap(ssid)
-    if not settings_paths:
-        raise SettingsNotFoundError(ssid)
     else:
         settings_path = settings_paths[0]
     proxy = _get_proxy(object_path=settings_path, interface_name="org.freedesktop.NetworkManager.Settings.Connection")
@@ -890,21 +851,6 @@ def nm_add_connection(values):
             raise BondOptionsError(e)
         raise
     return connection
-
-def nm_delete_connection(uuid):
-    """Delete connection specified by uuid.
-
-       :param uuid: uuid of connection to be deleted
-       :type uuid: str
-       :return: True if connection was deleted, False if it was not found
-       :rtype: bool
-    """
-
-    settings_paths = _find_settings(uuid, "connection", "uuid")
-    if not settings_paths:
-        return False
-    proxy = _get_proxy(object_path=settings_paths[0], interface_name="org.freedesktop.NetworkManager.Settings.Connection")
-    proxy.Delete()
 
 def nm_update_settings_of_device(name, new_values):
     """Update setting of device.
@@ -1152,11 +1098,6 @@ def test():
             print("     Setting value %s %s: %s" % ("ipv7", "method", nm_device_setting_value(devname, "ipv7", "method")))
         except ValueError as e:
             print("     %s" % e)
-
-    ssid = "Red Hat Guest"
-    print("Settings for AP %s: %s" % (ssid, _settings_for_ap(ssid)))
-    ssid = "nonexisting"
-    print("Settings for AP %s: %s" % (ssid, _settings_for_ap(ssid)))
 
     devname = devs[0]
     key1 = "connection"
