@@ -46,11 +46,16 @@ if [ -z "$root_lv_entry" -a -z "$root_uuid_entry" ] ; then
     echo "*** root lv is not the root entry in /etc/fstab" >> /root/RESULT
 fi
 
-# verify size of root lv (do not check any particular size, let's just be happy to see the
-# installation succeed and the LV grown somehow, for now)
+# verify size of root lv
 root_lv_size=$(lvs --noheadings -o size --unit=m --nosuffix fedora/root | sed -r 's/\s*([0-9]+)\..*/\1/')
 if [ $root_lv_size -le 4000 ]; then
     echo "*** root lv has incorrect size" >> /root/RESULT
+fi
+
+# verify that not too much space was left free in the VG
+vg_free="$(vgs -o vg_free_count --noheadings fedora)"
+if [ $vg_free -gt 2 ]; then
+    echo "*** too much free space left in the fedora vg" >> /root/RESULT
 fi
 
 # verify swap on lvm is active
