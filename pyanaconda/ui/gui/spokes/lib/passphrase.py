@@ -25,13 +25,16 @@ gi.require_version("Gtk", "3.0")
 from gi.repository import Gtk
 
 import pwquality
+import langtable
 
 from pyanaconda.ui.helpers import InputCheck
 from pyanaconda.ui.gui import GUIObject
 from pyanaconda.ui.gui.helpers import GUIInputCheckHandler
+from pyanaconda.ui.helpers import InputCheckHandler
 from pyanaconda.constants import PW_ASCII_CHARS
 from pyanaconda.i18n import _, N_
 from pyanaconda.ui.gui.utils import really_hide, really_show
+from pyanaconda.ui.gui.xkl_wrapper import XklWrapper
 
 __all__ = ["PassphraseDialog"]
 
@@ -73,12 +76,27 @@ class PassphraseDialog(GUIObject, GUIInputCheckHandler):
         self._pwq_error = None
         self.passphrase = ""
 
+        # due to the contraints of the keymap at boot time, do not allow input
+        # from non-ASCII keymaps. This check depends on the current active keymap
+        # and not any particular input, but add it as an input check so that the error
+        # message is displayed through the same mechanism. Use add_check from InputCheckHandler
+        # so that no real input object is needed and so there is no delay wrapper around the check
+        self._keymap_check = InputCheckHandler.add_check(self, None, self._checkKeymap)
+
+        # Run the keymap check on keymap changes
+        self._xkl_instance = XklWrapper.get_instance()
+        self._xkl_instance.engine.connect("X-state-changed", self.on_keymap_change)
+        self._xkl_instance.engine.connect("X-config-changed", self.on_keymap_change)
+
         # the passphrase confirmation needs to be checked whenever either of the password
         # fields change. attach to the confirm field and check changes to the
         # password field in on_passphrase_changed
         self._passphrase_match_check = self.add_check(self._confirm_entry, self._checkMatch)
         self._strength_check = self.add_check(self._passphrase_entry, self._checkStrength)
         self._ascii_check = self.add_check(self._passphrase_entry, self._checkASCII)
+
+        # Initialize the keymap state
+        self._keymap_check.update_check_status()
 
     def refresh(self):
         super(PassphraseDialog, self).refresh()
@@ -163,6 +181,14 @@ class PassphraseDialog(GUIObject, GUIInputCheckHandler):
         # Set the warning message with the result from the first failed check
         failed_check = next(self.failed_checks_with_message, None)
 
+        # If the keymap check failed, shutdown the input
+        if failed_check == self._keymap_check:
+            self._passphrase_entry.set_sensitive(False)
+            self._confirm_entry.set_sensitive(False)
+        else:
+            self._passphrase_entry.set_sensitive(True)
+            self._confirm_entry.set_sensitive(True)
+
         if failed_check:
             result_icon, result_message = failed_check.check_status
             self._passphrase_warning_image.set_from_icon_name(result_icon, Gtk.IconSize.BUTTON)
@@ -179,6 +205,18 @@ class PassphraseDialog(GUIObject, GUIInputCheckHandler):
             self._save_button.set_sensitive(True)
         else:
             self._save_button.set_sensitive(False)
+
+    def _checkKeymap(self, inputcheck):
+        # Check whether the current keymap is ASCII-compatible. If not, it will
+        # not match the boot keymap, and it is not suitable for typing in a
+        # passphrase
+        keymap = self._xkl_instance.get_current_layout()
+        if not langtable.supports_ascii(keymap):
+            return ("dialog-error", _("The current keyboard layout does not match the keyboard layout "
+                    "that will be used to unlock the encrypted partition. Using this keyboard layout to "
+                    "input a passphrase could result in an unbootable system."))
+        else:
+            return InputCheck.CHECK_OK
 
     def _checkASCII(self, inputcheck):
         passphrase = self.get_input(inputcheck.input_obj)
@@ -222,3 +260,7 @@ class PassphraseDialog(GUIObject, GUIInputCheckHandler):
         if self._save_button.get_sensitive() and \
            entry.get_text() == self._passphrase_entry.get_text():
             self._save_button.emit("clicked")
+
+    def on_keymap_change(self, *args):
+        # Update the keymap check
+        self._keymap_check.update_check_status()

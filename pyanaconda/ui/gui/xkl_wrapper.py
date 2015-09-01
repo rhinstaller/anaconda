@@ -393,3 +393,7 @@ class XklWrapper(object):
             msg = "Failed to set switching options to: %s" % ",".join(options)
             raise XklWrapperError(msg)
 
+    @property
+    def engine(self):
+        """The underlying XklEngine object"""
+        return self._engine
