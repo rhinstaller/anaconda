@@ -314,6 +314,20 @@ update-desktop-database &> /dev/null || :
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Sep 01 2015 Brian C. Lane <bcl@redhat.com> - 21.48.22.40-1
+- Skip OEMDRV if interactive DD is requested (bcl)
+  Related: rhbz#1254270
+- Copy updated driver ko to correct directory (bcl)
+  Related: rhbz#1254270
+- addRepo takes a repo object not a string (bcl)
+  Related: rhbz#1254270
+- Drivers are simply under /run/install/DD-x/ (bcl)
+  Related: rhbz#1254270
+- Fix a bash error in kickstart-genrules.sh (sbueno+anaconda)
+  Resolves: rhbz#1057271
+- Run nm-connection-editor with the --keep-above flag (mkolman)
+  Resolves: rhbz#1231856
+
 * Mon Aug 31 2015 Brian C. Lane <bcl@redhat.com> - 21.48.22.39-1
 - Disallow /boot on lvm until grub2 fully supports it. (dlehman)
   Resolves: rhbz#1252466
