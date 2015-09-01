@@ -284,10 +284,8 @@ class LiveImageKSPayload(LiveImagePayload):
             log.error("Error opening liveimg: %s", e)
             error = e
         else:
-            # If it is a http request we need to check the code
-            method = self.data.method.url.split(":", 1)[0]
-            if method.startswith("http") and response.status_code != 200:
-                error = "http request returned %s" % response.getcode()
+            if response.status_code != 200:
+                error = "http request returned %s" % response.status_code
 
         return error
 
